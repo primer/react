@@ -1,0 +1,17 @@
+.SideNav {
+  background-color: var(--bgColor-muted);
+}
+
+.SideNavBordered {
+  border-color: var(--borderColor-default);
+  border-style: solid;
+  border-width: var(--borderWidth-thin);
+  border-radius: var(--borderRadius-medium);
+
+  /*  Remove duplicate borders from nested SideNavs */
+  & > & {
+    border-right: 0;
+    border-bottom: 0;
+    border-left: 0;
+  }
+}

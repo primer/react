@@ -8,50 +8,77 @@ import React from 'react'
 import {clsx} from 'clsx'
 import type {SxProp} from './sx'
 import sx from './sx'
+import {toggleStyledComponent} from './internal/utils/toggleStyledComponent'
+import classes from './SideNav.module.css'
+import {useFeatureFlag} from './FeatureFlags'
+
+const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_team'
 
 type SideNavBaseProps = {
+  as?: React.ElementType
   variant?: 'lightweight' | 'normal'
   bordered?: boolean
   className?: string
   children?: React.ReactNode
   'aria-label'?: string
-}
+} & SxProp
 
-function SideNavBase({variant = 'normal', className, bordered, children, 'aria-label': ariaLabel}: SideNavBaseProps) {
+const StyledNav = toggleStyledComponent(
+  CSS_MODULES_FEATURE_FLAG,
+  'nav',
+  styled(Box)<SideNavBaseProps>`
+    background-color: var(--bgColor-muted);
+
+    ${props =>
+      props.bordered &&
+      css`
+        border-color: var(--borderColor-default);
+        border-style: solid;
+        border-width: var(--borderWidth-thin);
+        border-radius: var(--borderRadius-medium);
+
+        // Remove duplicate borders from nested SideNavs
+        & > & {
+          border-left: 0;
+          border-right: 0;
+          border-bottom: 0;
+        }
+      `}
+
+    ${sx};
+  `,
+)
+
+function SideNav({
+  as = 'nav',
+  variant = 'normal',
+  className,
+  bordered,
+  children,
+  'aria-label': ariaLabel,
+  sx: sxProp,
+}: SideNavBaseProps) {
+  const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
   const variantClassName = variant === 'lightweight' ? 'lightweight' : 'normal'
-  const newClassName = clsx(className, `variant-${variantClassName}`)
-
+  const newClassName = clsx(
+    {[classes.SideNav]: enabled, [classes.SideNavBordered]: enabled && bordered},
+    'sidenav',
+    className,
+    `variant-${variantClassName}`,
+  )
   return (
-    <Box
-      borderWidth={bordered ? '1px' : 0}
-      borderStyle="solid"
-      borderColor="border.default"
-      borderRadius={2}
-      as="nav"
+    <StyledNav
+      as={as}
+      bordered={enabled ? undefined : bordered}
       className={newClassName}
       aria-label={ariaLabel}
+      sx={sxProp}
     >
       {children}
-    </Box>
+    </StyledNav>
   )
 }
 
-const SideNav = styled(SideNavBase)<SxProp>`
-  background-color: var(--bgColor-muted);
-
-  ${props =>
-    props.bordered &&
-    css`
-      // Remove duplicate borders from nested SideNavs
-      & > & {
-        border-left: 0;
-        border-right: 0;
-        border-bottom: 0;
-      }
-    `}
-
-  ${sx};
-`
 type StyledSideNavLinkProps = {
   to?: To
   selected?: boolean
@@ -93,11 +120,11 @@ const SideNavLink = styled(Link).attrs<StyledSideNavLinkProps>(props => {
   text-align: left;
   font-size: var(--base-size-14);
 
-  & > ${SideNav} {
+  & > .sidenav {
     border-bottom: none;
   }
 
-  ${SideNav}.variant-normal > & {
+  .sidenav.variant-normal > & {
     color: var(--fgColor-default);
     padding: var(--base-size-16);
     border: 0;
@@ -147,7 +174,7 @@ const SideNavLink = styled(Link).attrs<StyledSideNavLinkProps>(props => {
     }
   }
 
-  ${SideNav}.variant-lightweight > & {
+  .sidenav.variant-lightweight > & {
     padding: var(--base-size-4) 0;
     color: var(--fgColor-accent);
 
