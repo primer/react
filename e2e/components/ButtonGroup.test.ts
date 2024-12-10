@@ -23,6 +23,10 @@ const stories = [
     title: 'SX Prop',
     id: 'components-buttongroup-dev--sx-prop',
   },
+  {
+    title: 'Overrides',
+    id: 'components-buttongroup-dev--link-button-with-icon-buttons',
+  },
 ] as const
 
 test.describe('ButtonGroup', () => {
