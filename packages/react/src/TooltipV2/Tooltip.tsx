@@ -15,6 +15,7 @@ import classes from './Tooltip.module.css'
 import {useFeatureFlag} from '../FeatureFlags'
 import {KeybindingHint, type KeybindingHintProps} from '../KeybindingHint'
 import VisuallyHidden from '../_VisuallyHidden'
+import useSafeTimeout from '../hooks/useSafeTimeout'
 
 const CSS_MODULE_FEATURE_FLAG = 'primer_react_css_modules_team'
 
@@ -213,7 +214,9 @@ export const Tooltip = React.forwardRef(
 
     const [isPopoverOpen, setIsPopoverOpen] = useState(false)
 
-    const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null)
+    const timeoutRef = React.useRef(0)
+
+    const {safeSetTimeout, safeClearTimeout} = useSafeTimeout()
 
     const openTooltip = () => {
       try {
@@ -368,17 +371,13 @@ export const Tooltip = React.forwardRef(
               onMouseEnter: (event: React.MouseEvent) => {
                 // show tooltip after mosue has been hovering for at least 50ms
                 // (prevent showing tooltip when mouse is just passing through)
-                const timeoutId = setTimeout(() => {
+                timeoutRef.current = safeSetTimeout(() => {
                   openTooltip()
                   child.props.onMouseEnter?.(event)
                 }, 50)
-
-                setTimeoutId(timeoutId)
               },
               onMouseLeave: (event: React.MouseEvent) => {
-                if (timeoutId) {
-                  clearTimeout(timeoutId)
-                }
+                safeClearTimeout(timeoutRef.current)
                 closeTooltip()
                 child.props.onMouseLeave?.(event)
               },
