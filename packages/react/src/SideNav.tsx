@@ -1,6 +1,4 @@
 import type {To} from 'history'
-
-import {get} from './constants'
 import styled, {css} from 'styled-components'
 
 import Box from './Box'
@@ -39,7 +37,7 @@ function SideNavBase({variant = 'normal', className, bordered, children, 'aria-l
 }
 
 const SideNav = styled(SideNavBase)<SxProp>`
-  background-color: ${get('colors.canvas.subtle')};
+  background-color: var(--bgColor-muted);
 
   ${props =>
     props.bordered &&
@@ -62,13 +60,13 @@ type StyledSideNavLinkProps = {
 
 // used for variant normal hover, focus pseudo selectors
 const CommonAccessibilityVariantNormalStyles = css`
-  background-color: ${get('colors.neutral.subtle')};
+  background-color: var(--bgColor-neutral-muted);
   text-decoration: none;
 `
 
 // used for light weight hover, focus pseudo selectors
 const CommonAccessibilityVariantLightWeightStyles = css`
-  color: ${get('colors.fg.default')};
+  color: var(--fgColor-default);
   text-decoration: none;
 `
 
@@ -93,27 +91,27 @@ const SideNavLink = styled(Link).attrs<StyledSideNavLinkProps>(props => {
     `}
   width: 100%;
   text-align: left;
-  font-size: ${get('fontSizes.1')};
+  font-size: var(--base-size-14);
 
   & > ${SideNav} {
     border-bottom: none;
   }
 
   ${SideNav}.variant-normal > & {
-    color: ${get('colors.fg.default')};
-    padding: ${get('space.3')};
+    color: var(--fgColor-default);
+    padding: var(--base-size-16);
     border: 0;
-    border-top: ${get('borderWidths.1')} solid ${get('colors.border.muted')};
+    border-top: var(--borderWidth-thin) solid var(--borderColor-muted);
 
     &:first-child {
       border-top: 0;
-      border-top-right-radius: ${get('radii.2')};
-      border-top-left-radius: ${get('radii.2')};
+      border-top-right-radius: var(--borderRadius-medium);
+      border-top-left-radius: var(--borderRadius-medium);
     }
 
     &:last-child {
-      border-bottom-right-radius: ${get('radii.2')};
-      border-bottom-left-radius: ${get('radii.2')};
+      border-bottom-right-radius: var(--borderRadius-medium);
+      border-bottom-left-radius: var(--borderRadius-medium);
     }
 
     // Bar on the left
@@ -134,24 +132,24 @@ const SideNavLink = styled(Link).attrs<StyledSideNavLinkProps>(props => {
 
     &:focus {
       ${CommonAccessibilityVariantNormalStyles}
-      outline: solid 2px ${get('colors.accent.fg')};
+      outline: solid 2px var(--fgColor-accent);
       z-index: 1;
     }
 
     &[aria-current='page'],
     &[aria-selected='true'] {
-      background-color: ${get('colors.sidenav.selectedBg')};
+      background-color: var(--bgColor-default);
 
       // Bar on the left
       &::before {
-        background-color: ${get('colors.primer.border.active')};
+        background-color: #fd8c73;
       }
     }
   }
 
   ${SideNav}.variant-lightweight > & {
-    padding: ${get('space.1')} 0;
-    color: ${get('colors.accent.fg')};
+    padding: var(--base-size-4) 0;
+    color: var(--fgColor-accent);
 
     &:hover {
       ${CommonAccessibilityVariantLightWeightStyles}
@@ -159,14 +157,14 @@ const SideNavLink = styled(Link).attrs<StyledSideNavLinkProps>(props => {
 
     &:focus {
       ${CommonAccessibilityVariantLightWeightStyles}
-      outline: solid 1px ${get('colors.accent.fg')};
+      outline: solid 1px var(--fgColor-accent);
       z-index: 1;
     }
 
     &[aria-current='page'],
     &[aria-selected='true'] {
-      color: ${get('colors.fg.default')};
-      font-weight: ${get('fontWeights.semibold')};
+      color: var(--fgColor-default);
+      font-weight: var(--base-text-weight-medium);
     }
   }
 
