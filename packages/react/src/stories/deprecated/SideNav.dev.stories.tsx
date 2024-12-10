@@ -100,7 +100,7 @@ export const LightweightVariant = () => (
 )
 
 export const LightweightNestedVariant = () => (
-  <SideNav bordered>
+  <SideNav bordered aria-label="Main">
     <SideNav.Link href="#url">
       <Octicon size={16} icon={PersonIcon} />
       <Text>Account</Text>
