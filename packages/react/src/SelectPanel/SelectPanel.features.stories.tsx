@@ -94,7 +94,7 @@ export const WithItemDividers = () => {
   )
 }
 
-export const WithPlaceholderForSeachInput = () => {
+export const WithPlaceholderForSearchInput = () => {
   const [selected, setSelected] = useState<ItemInput[]>(items.slice(1, 3))
   const [filter, setFilter] = useState('')
   const filteredItems = items.filter(
