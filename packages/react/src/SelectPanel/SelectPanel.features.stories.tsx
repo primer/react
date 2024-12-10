@@ -347,7 +347,6 @@ export const WithGroups = () => {
 
   return (
     <SelectPanel
-      variant="full"
       title="Attach files and symbols"
       subtitle="Choose which files and symbols you want to chat about. Use fewer references for more accurate responses."
       renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
