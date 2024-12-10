@@ -36,7 +36,6 @@ export const LeadingVisualContainer: React.FC<React.PropsWithChildren<VisualProp
       sx={merge(
         {
           height: '20px', // match height of text row
-          minWidth: get('space.3'),
           maxWidth: '20px', // square (same as height)
           display: 'flex',
           justifyContent: 'center',
