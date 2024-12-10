@@ -206,6 +206,21 @@
         color: var(--fgColor-muted);
       }
     }
+
+    /* hide dividers  */
+    @media (hover: hover) {
+      &:hover {
+        & .ActionListSubContent::before,
+        & + .ActionListItem .ActionListSubContent::before {
+          visibility: hidden;
+        }
+
+        & [data-description-variant='inline']::before,
+        & + .ActionListItem [data-description-variant='inline']::before {
+          visibility: hidden;
+        }
+      }
+    }
   }
 
   /* if item has subitem, move hover styles to ActionListContent */
@@ -251,21 +266,6 @@
     @media (hover: hover) {
       &:hover {
         background-color: transparent;
-      }
-    }
-  }
-
-  /* hide dividers  */
-  @media (hover: hover) {
-    &:hover {
-      & .ActionListSubContent::before,
-      & + .ActionListItem .ActionListSubContent::before {
-        visibility: hidden;
-      }
-
-      & [data-description-variant='inline']::before,
-      & + .ActionListItem [data-description-variant='inline']::before {
-        visibility: hidden;
       }
     }
   }
@@ -385,6 +385,7 @@
 
   &:hover {
     text-decoration: none;
+    cursor: pointer;
   }
 
   /* collapsible item [aria-expanded] */
@@ -535,8 +536,10 @@
 
     & .Description {
       /* adjust line-height for baseline alignment */
+
+      /* line-height: calc(var(--control-medium-lineBoxHeight) - var(--base-size-2)); */
       /* stylelint-disable-next-line primer/typography */
-      line-height: calc(var(--control-medium-lineBoxHeight) - var(--base-size-2));
+      line-height: 16px;
     }
   }
 }
