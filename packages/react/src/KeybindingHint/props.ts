@@ -1,6 +1,6 @@
 export type KeybindingHintFormat = 'condensed' | 'full'
 
-export type KeybindingHintVariant = 'normal' | 'onEmphasis'
+export type KeybindingHintVariant = 'normal' | 'onEmphasis' | 'onPrimary'
 
 export interface KeybindingHintProps {
   /**
@@ -24,7 +24,7 @@ export interface KeybindingHintProps {
    */
   format?: KeybindingHintFormat
   /**
-   * Set to `onEmphasis` for display on emphasis colors.
+   * Set to `onEmphasis` for display on emphasis colors, and `onPrimary` for display on primary buttons.
    */
   variant?: KeybindingHintVariant
   /**
