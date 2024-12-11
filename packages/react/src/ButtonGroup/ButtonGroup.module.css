@@ -3,18 +3,18 @@
   vertical-align: middle;
   isolation: isolate;
 
-  & > *:not([data-loading-wrapper]):is(button, a) {
+  & > *:not([data-loading-wrapper]) {
     /* stylelint-disable-next-line primer/spacing */
     margin-inline-end: -1px;
     position: relative;
     border-radius: 0;
 
-    &:first-of-type {
+    &:first-child {
       border-top-left-radius: var(--borderRadius-medium);
       border-bottom-left-radius: var(--borderRadius-medium);
     }
 
-    &:last-of-type {
+    &:last-child {
       border-top-right-radius: var(--borderRadius-medium);
       border-bottom-right-radius: var(--borderRadius-medium);
     }

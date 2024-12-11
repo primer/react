@@ -1122,12 +1122,8 @@ const components = new Map([
           name: 'With Item Dividers',
         },
         {
-          id: 'components-selectpanel-features--with-placeholder-for-seach-input',
+          id: 'components-selectpanel-features--with-placeholder-for-search-input',
           name: 'With Placeholder for Search Input',
-        },
-        {
-          id: 'components-selectpanel-features--with-placeholder-select',
-          name: 'With Placeholder Select',
         },
         {
           id: 'components-selectpanel-examples--above-tall-body',
