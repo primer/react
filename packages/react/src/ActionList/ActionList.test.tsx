@@ -1,10 +1,9 @@
-import {render as HTMLRender, waitFor, fireEvent} from '@testing-library/react'
+import {render as HTMLRender} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import axe from 'axe-core'
 import React from 'react'
 import theme from '../theme'
 import {ActionList} from '.'
-import {BookIcon} from '@primer/octicons-react'
 import {behavesAsComponent, checkExports} from '../utils/testing'
 import {BaseStyles, ThemeProvider} from '..'
 import {FeatureFlags} from '../FeatureFlags'
@@ -28,41 +27,6 @@ function SimpleActionList(): JSX.Element {
   )
 }
 
-const projects = [
-  {name: 'Primer Backlog', scope: 'GitHub'},
-  {name: 'Primer React', scope: 'github/primer'},
-  {name: 'Disabled Project', scope: 'github/primer', disabled: true},
-  {name: 'Inactive Project', scope: 'github/primer', inactiveText: 'Unavailable due to an outage'},
-  {name: 'Loading Project', scope: 'github/primer', loading: true},
-  {
-    name: 'Inactive and Loading Project',
-    scope: 'github/primer',
-    loading: true,
-    inactiveText: 'Unavailable due to an outage, but loading still passed',
-  },
-]
-function SingleSelectListStory(): JSX.Element {
-  const [selectedIndex, setSelectedIndex] = React.useState(0)
-
-  return (
-    <ActionList selectionVariant="single" showDividers role="listbox" aria-label="Select a project">
-      {projects.map((project, index) => (
-        <ActionList.Item
-          key={index}
-          role="option"
-          selected={index === selectedIndex}
-          onSelect={() => setSelectedIndex(index)}
-          disabled={project.disabled}
-          inactiveText={project.inactiveText}
-          loading={project.loading}
-        >
-          {project.name}
-        </ActionList.Item>
-      ))}
-    </ActionList>
-  )
-}
-
 describe('ActionList', () => {
   behavesAsComponent({
     Component: ActionList,
@@ -75,111 +39,111 @@ describe('ActionList', () => {
     ActionList,
   })
 
-  // it('should have no axe violations', async () => {
-  //   const {container} = HTMLRender(<SimpleActionList />)
-  //   const results = await axe.run(container)
-  //   expect(results).toHaveNoViolations()
-  // })
+  it('should have no axe violations', async () => {
+    const {container} = HTMLRender(<SimpleActionList />)
+    const results = await axe.run(container)
+    expect(results).toHaveNoViolations()
+  })
 
-  // it('should throw when selected is provided without a selectionVariant on parent', async () => {
-  //   // we expect console.error to be called, so we suppress that in the test
-  //   const mockError = jest.spyOn(console, 'error').mockImplementation(() => jest.fn())
+  it('should throw when selected is provided without a selectionVariant on parent', async () => {
+    // we expect console.error to be called, so we suppress that in the test
+    const mockError = jest.spyOn(console, 'error').mockImplementation(() => jest.fn())
 
-  //   expect(() => {
-  //     HTMLRender(
-  //       <ActionList showDividers role="listbox" aria-label="Select a project">
-  //         <ActionList.Item role="option" selected={true}>
-  //           Primer React
-  //         </ActionList.Item>
-  //       </ActionList>,
-  //     )
-  //   }).toThrow('For Item to be selected, ActionList or ActionList.Group needs to have a selectionVariant defined')
+    expect(() => {
+      HTMLRender(
+        <ActionList showDividers role="listbox" aria-label="Select a project">
+          <ActionList.Item role="option" selected={true}>
+            Primer React
+          </ActionList.Item>
+        </ActionList>,
+      )
+    }).toThrow('For Item to be selected, ActionList or ActionList.Group needs to have a selectionVariant defined')
 
-  //   mockError.mockRestore()
-  // })
+    mockError.mockRestore()
+  })
 
-  // it('should be navigatable with arrow keys for certain roles', async () => {
-  //   HTMLRender(
-  //     <ActionList role="listbox" aria-label="Select a project">
-  //       <ActionList.Item role="option">Option 1</ActionList.Item>
-  //       <ActionList.Item role="option">Option 2</ActionList.Item>
-  //       <ActionList.Item role="option" disabled>
-  //         Option 3
-  //       </ActionList.Item>
-  //       <ActionList.Item role="option">Option 4</ActionList.Item>
-  //       <ActionList.Item role="option" inactiveText="Unavailable due to an outage">
-  //         Option 5
-  //       </ActionList.Item>
-  //     </ActionList>,
-  //   )
+  it('should be navigatable with arrow keys for certain roles', async () => {
+    HTMLRender(
+      <ActionList role="listbox" aria-label="Select a project">
+        <ActionList.Item role="option">Option 1</ActionList.Item>
+        <ActionList.Item role="option">Option 2</ActionList.Item>
+        <ActionList.Item role="option" disabled>
+          Option 3
+        </ActionList.Item>
+        <ActionList.Item role="option">Option 4</ActionList.Item>
+        <ActionList.Item role="option" inactiveText="Unavailable due to an outage">
+          Option 5
+        </ActionList.Item>
+      </ActionList>,
+    )
 
-  //   await userEvent.tab() // tab into the story, this should focus on the first button
-  //   expect(document.activeElement).toHaveTextContent('Option 1')
+    await userEvent.tab() // tab into the story, this should focus on the first button
+    expect(document.activeElement).toHaveTextContent('Option 1')
 
-  //   await userEvent.keyboard('{ArrowDown}')
-  //   expect(document.activeElement).toHaveTextContent('Option 2')
+    await userEvent.keyboard('{ArrowDown}')
+    expect(document.activeElement).toHaveTextContent('Option 2')
 
-  //   await userEvent.keyboard('{ArrowDown}')
-  //   expect(document.activeElement).not.toHaveTextContent('Option 3') // option 3 is disabled
-  //   expect(document.activeElement).toHaveTextContent('Option 4')
+    await userEvent.keyboard('{ArrowDown}')
+    expect(document.activeElement).not.toHaveTextContent('Option 3') // option 3 is disabled
+    expect(document.activeElement).toHaveTextContent('Option 4')
 
-  //   await userEvent.keyboard('{ArrowDown}')
-  //   expect(document.activeElement).toHaveAccessibleName('Unavailable due to an outage')
+    await userEvent.keyboard('{ArrowDown}')
+    expect(document.activeElement).toHaveAccessibleName('Unavailable due to an outage')
 
-  //   await userEvent.keyboard('{ArrowUp}')
-  //   expect(document.activeElement).toHaveTextContent('Option 4')
-  // })
+    await userEvent.keyboard('{ArrowUp}')
+    expect(document.activeElement).toHaveTextContent('Option 4')
+  })
 
-  // it('should support a custom `className` on the outermost element', () => {
-  //   const Element = () => {
-  //     return (
-  //       <ActionList className="test-class-name">
-  //         <ActionList.Item>Item</ActionList.Item>
-  //       </ActionList>
-  //     )
-  //   }
-  //   const FeatureFlagElement = () => {
-  //     return (
-  //       <FeatureFlags
-  //         flags={{
-  //           primer_react_css_modules_team: true,
-  //           primer_react_css_modules_staff: true,
-  //           primer_react_css_modules_ga: true,
-  //         }}
-  //       >
-  //         <Element />
-  //       </FeatureFlags>
-  //     )
-  //   }
-  //   expect(HTMLRender(<FeatureFlagElement />).container.querySelector('ul')).toHaveClass('test-class-name')
-  //   expect(HTMLRender(<Element />).container.querySelector('ul')).toHaveClass('test-class-name')
-  // })
+  it('should support a custom `className` on the outermost element', () => {
+    const Element = () => {
+      return (
+        <ActionList className="test-class-name">
+          <ActionList.Item>Item</ActionList.Item>
+        </ActionList>
+      )
+    }
+    const FeatureFlagElement = () => {
+      return (
+        <FeatureFlags
+          flags={{
+            primer_react_css_modules_team: true,
+            primer_react_css_modules_staff: true,
+            primer_react_css_modules_ga: true,
+          }}
+        >
+          <Element />
+        </FeatureFlags>
+      )
+    }
+    expect(HTMLRender(<FeatureFlagElement />).container.querySelector('ul')).toHaveClass('test-class-name')
+    expect(HTMLRender(<Element />).container.querySelector('ul')).toHaveClass('test-class-name')
+  })
 
-  // it('divider should support a custom `className`', () => {
-  //   const Element = () => {
-  //     return (
-  //       <ActionList>
-  //         <ActionList.Item>Item</ActionList.Item>
-  //         <ActionList.Divider className="test-class-name" />
-  //       </ActionList>
-  //     )
-  //   }
-  //   const FeatureFlagElement = () => {
-  //     return (
-  //       <FeatureFlags
-  //         flags={{
-  //           primer_react_css_modules_team: true,
-  //           primer_react_css_modules_staff: true,
-  //           primer_react_css_modules_ga: true,
-  //         }}
-  //       >
-  //         <Element />
-  //       </FeatureFlags>
-  //     )
-  //   }
-  //   expect(HTMLRender(<FeatureFlagElement />).container.querySelector('li[aria-hidden="true"]')).toHaveClass(
-  //     'test-class-name',
-  //   )
-  //   expect(HTMLRender(<Element />).container.querySelector('li[aria-hidden="true"]')).toHaveClass('test-class-name')
-  // })
+  it('divider should support a custom `className`', () => {
+    const Element = () => {
+      return (
+        <ActionList>
+          <ActionList.Item>Item</ActionList.Item>
+          <ActionList.Divider className="test-class-name" />
+        </ActionList>
+      )
+    }
+    const FeatureFlagElement = () => {
+      return (
+        <FeatureFlags
+          flags={{
+            primer_react_css_modules_team: true,
+            primer_react_css_modules_staff: true,
+            primer_react_css_modules_ga: true,
+          }}
+        >
+          <Element />
+        </FeatureFlags>
+      )
+    }
+    expect(HTMLRender(<FeatureFlagElement />).container.querySelector('li[aria-hidden="true"]')).toHaveClass(
+      'test-class-name',
+    )
+    expect(HTMLRender(<Element />).container.querySelector('li[aria-hidden="true"]')).toHaveClass('test-class-name')
+  })
 })

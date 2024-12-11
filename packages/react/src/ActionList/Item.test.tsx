@@ -1,12 +1,8 @@
 import {render as HTMLRender, waitFor, fireEvent} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import axe from 'axe-core'
 import React from 'react'
-import theme from '../theme'
 import {ActionList} from '.'
 import {BookIcon} from '@primer/octicons-react'
-import {behavesAsComponent, checkExports} from '../utils/testing'
-import {BaseStyles, ThemeProvider} from '..'
 import {FeatureFlags} from '../FeatureFlags'
 
 function SimpleActionList(): JSX.Element {
@@ -207,59 +203,51 @@ describe('ActionList.Item', () => {
     const listItems = container.querySelectorAll('li')
     expect(listItems.length).toBe(2)
   })
-  // it('should apply ref to ActionList.Item when feature flag is disabled', async () => {
-  //   const MockComponent = () => {
-  //     const ref = React.useRef<HTMLLIElement>(null)
-  //     const focusRef = () => {
-  //       if (ref.current) ref.current.focus()
-  //     }
-  //     return (
-  //       <FeatureFlags
-  //         flags={{
-  //           primer_react_css_modules_team: false,
-  //           primer_react_css_modules_staff: false,
-  //           primer_react_css_modules_ga: false,
-  //         }}
-  //       >
-  //         <button type="button" onClick={focusRef}>
-  //           Prompt
-  //         </button>
-  //         <ActionList>
-  //           <ActionList.Item ref={ref}>Item 1</ActionList.Item>
-  //           <ActionList.Item>Item 2</ActionList.Item>
-  //         </ActionList>
-  //       </FeatureFlags>
-  //     )
-  //   }
-  //   const {getByRole} = HTMLRender(<MockComponent />)
-  //   const triggerBtn = getByRole('button', {name: 'Prompt'})
-  //   const focusTarget = getByRole('listitem', {name: 'Item 1'})
-  //   fireEvent.click(triggerBtn)
-  //   expect(document.activeElement).toBe(focusTarget)
-  // })
-  // it('should render ActionList.Item as li when feature flag is enabled and has proper aria role', async () => {
-  //   const {container} = HTMLRender(
-  //     <FeatureFlags
-  //       flags={{
-  //         primer_react_css_modules_team: true,
-  //         primer_react_css_modules_staff: true,
-  //         primer_react_css_modules_ga: true,
-  //       }}
-  //     >
-  //       <ActionList role="listbox">
-  //         <ActionList.Item role="option">Item 1</ActionList.Item>
-  //         <ActionList.Item role="option">Item 2</ActionList.Item>
-  //       </ActionList>
-  //     </FeatureFlags>,
-  //   )
-  //   const listitem = container.querySelector('li')
-  //   const button = container.querySelector('button')
-  //   expect(listitem).toHaveTextContent('Item 1')
-  //   expect(listitem).toHaveAttribute('tabindex', '0')
-  //   expect(button).toBeNull()
-  //   const listItems = container.querySelectorAll('li')
-  //   expect(listItems.length).toBe(2)
-  // })
+  it('should apply ref to ActionList.Item when feature flag is disabled', async () => {
+    const MockComponent = () => {
+      const ref = React.useRef<HTMLLIElement>(null)
+      const focusRef = () => {
+        if (ref.current) ref.current.focus()
+      }
+      return (
+        <FeatureFlags
+          flags={{
+            primer_react_css_modules_team: false,
+            primer_react_css_modules_staff: false,
+            primer_react_css_modules_ga: false,
+          }}
+        >
+          <button type="button" onClick={focusRef}>
+            Prompt
+          </button>
+          <ActionList>
+            <ActionList.Item ref={ref}>Item 1</ActionList.Item>
+            <ActionList.Item>Item 2</ActionList.Item>
+          </ActionList>
+        </FeatureFlags>
+      )
+    }
+    const {getByRole} = HTMLRender(<MockComponent />)
+    const triggerBtn = getByRole('button', {name: 'Prompt'})
+    const focusTarget = getByRole('listitem', {name: 'Item 1'})
+    fireEvent.click(triggerBtn)
+    expect(document.activeElement).toBe(focusTarget)
+  })
+  it('should render ActionList.Item as li when item has proper aria role', async () => {
+    const {container} = HTMLRender(
+      <ActionList role="listbox">
+        <ActionList.Item role="option">Item 1</ActionList.Item>
+        <ActionList.Item role="option">Item 2</ActionList.Item>
+      </ActionList>,
+    )
+    const listitem = container.querySelector('li')
+    const button = container.querySelector('button')
+    expect(listitem).toHaveTextContent('Item 1')
+    expect(listitem).toHaveAttribute('tabindex', '0')
+    expect(button).toBeNull()
+    const listItems = container.querySelectorAll('li')
+    expect(listItems.length).toBe(2)
+  })
   it('should render the trailing action as a button (default)', async () => {
     const {container} = HTMLRender(
       <ActionList>
