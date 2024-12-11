@@ -303,14 +303,10 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     }
 
     const ItemWrapper = _PrivateItemWrapper || DefaultItemWrapper
-    // const ItemWrapper =
-    //   _PrivateItemWrapper || (props.wrapper === 'button' ? ButtonItemContainerNoBox : DefaultItemWrapper)
 
     // only apply aria-selected and aria-checked to selectable items
     const selectableRoles = ['menuitemradio', 'menuitemcheckbox', 'option']
     const includeSelectionAttribute = itemSelectionAttribute && itemRole && selectableRoles.includes(itemRole)
-
-    // const blockDescriptionSlot = [Description, (props: any) => props.variant === 'block' || props.variant === undefined]
 
     const menuItemProps = {
       onClick: clickHandler,
@@ -347,30 +343,9 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
           ref: forwardedRef,
         }
 
-    // if (buttonSemanticsFeatureFlag) {
-    //   containerProps = _PrivateItemWrapper
-    //     ? {role: itemRole ? 'none' : undefined, ...props}
-    //     : // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-    //       (listSemantics && {...menuItemProps, ...props, ref: forwardedRef}) || {}
-
-    //   wrapperProps = _PrivateItemWrapper
-    //     ? menuItemProps
-    //     : !listSemantics && {
-    //         ...menuItemProps,
-    //         ...props,
-    //         styles: merge<BetterSystemStyleObject>(styles, sxProp),
-    //         ref: forwardedRef,
-    //       }
-    // } else {
-    //   containerProps = _PrivateItemWrapper ? {role: itemRole ? 'none' : undefined} : {...menuItemProps, ...props}
-    //   wrapperProps = _PrivateItemWrapper ? menuItemProps : {}
-    // }
-
     // Extract the variant prop value from the description slot component
 
     const descriptionVariant = slots.description?.props.variant ?? 'inline'
-
-    // console.log(listSemantics)
 
     if (enabled) {
       if (sxProp !== defaultSxProp) {
