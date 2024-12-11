@@ -910,7 +910,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
 }
 
 .c6 {
-  border-color: var(--control-borderColor-rest);
+  border-color: var(--control-borderColor-emphasis);
   border-style: solid;
   border-width: 1px;
   border-radius: 3px;
@@ -1860,7 +1860,7 @@ exports[`snapshots renders a multiselect input 1`] = `
 }
 
 .c5 {
-  border-color: var(--control-borderColor-rest);
+  border-color: var(--control-borderColor-emphasis);
   border-style: solid;
   border-width: 1px;
   border-radius: 3px;
@@ -2776,7 +2776,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
 }
 
 .c9 {
-  border-color: var(--control-borderColor-rest);
+  border-color: var(--control-borderColor-emphasis);
   border-style: solid;
   border-width: 1px;
   border-radius: 3px;
