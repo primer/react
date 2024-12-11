@@ -115,7 +115,11 @@ module.exports = {
         project: ['./tsconfig.json', './packages/**/tsconfig.json', './examples/**/tsconfig.json'],
       },
       files: ['**/*.{ts,tsx}'],
-      extends: ['plugin:@typescript-eslint/recommended'],
+      extends: [
+        'plugin:@typescript-eslint/recommended',
+        'plugin:@eslint-react/recommended-legacy',
+        // 'plugin:@eslint-react/recommended-type-checked-legacy',
+      ],
       rules: {
         '@typescript-eslint/consistent-type-imports': 'error',
         '@typescript-eslint/no-explicit-any': 'error',
@@ -165,6 +169,22 @@ module.exports = {
             ],
           },
         ],
+
+        '@eslint-react/dom/no-dangerously-set-innerhtml': 'error',
+        '@eslint-react/ensure-forward-ref-using-ref': 'error',
+        '@eslint-react/hooks-extra/no-direct-set-state-in-use-effect': 'off',
+        '@eslint-react/hooks-extra/no-redundant-custom-hook': 'error',
+        '@eslint-react/hooks-extra/prefer-use-state-lazy-initialization': 'error',
+        '@eslint-react/no-array-index-key': 'off',
+        '@eslint-react/no-children-count': 'off',
+        '@eslint-react/no-children-for-each': 'off',
+        '@eslint-react/no-children-map': 'off',
+        '@eslint-react/no-children-only': 'off',
+        '@eslint-react/no-children-to-array': 'off',
+        '@eslint-react/no-clone-element': 'off',
+        '@eslint-react/no-create-ref': 'off',
+        '@eslint-react/no-unstable-context-value': 'off',
+        '@eslint-react/no-unstable-default-props': 'off',
       },
     },
 
@@ -173,6 +193,7 @@ module.exports = {
       files: ['**/*.test.{ts,tsx}'],
       extends: ['plugin:jest/recommended', 'plugin:testing-library/react'],
       rules: {
+        '@eslint-react/ensure-forward-ref-using-ref': 'off',
         '@typescript-eslint/no-non-null-assertion': 'off',
         'jest/expect-expect': 'off',
         'jest/no-conditional-expect': 'off',

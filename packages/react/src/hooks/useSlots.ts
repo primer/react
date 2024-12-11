@@ -32,6 +32,7 @@ type SlotValue<Config, Property extends keyof Config> = Config[Property] extends
  * allowing us to implement components with SSR-compatible slot APIs.
  * Note: We can only extract direct children, not nested ones.
  */
+// eslint-disable-next-line @eslint-react/hooks-extra/no-redundant-custom-hook
 export function useSlots<Config extends SlotConfig>(
   children: React.ReactNode,
   config: Config,
