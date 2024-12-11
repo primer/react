@@ -537,6 +537,7 @@ const Title: React.FC<React.PropsWithChildren<TitleProps>> = ({
       data-component="PH_Title"
       data-hidden={hidden}
       as={as}
+      style={style}
       sx={
         enabled
           ? sx
