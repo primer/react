@@ -120,6 +120,11 @@
 
     &:focus-visible {
       @mixin focusOutline 0;
+
+      & .ActionListSubContent::before,
+      & + .ActionListItem .ActionListSubContent::before {
+        visibility: hidden;
+      }
     }
 
     /* danger */
@@ -388,6 +393,11 @@
       visibility: hidden;
     }
   }
+}
+
+/* hide by default to support inactive state where role cannot be menuitemradio or menuitemcheckbox */
+.SingleSelectCheckmark {
+  visibility: hidden;
 }
 
 /* button or a tag */
