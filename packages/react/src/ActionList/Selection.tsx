@@ -42,7 +42,9 @@ export const Selection: React.FC<React.PropsWithChildren<SelectionProps>> = ({se
       )
     }
     return (
-      <LeadingVisualContainer data-component="ActionList.Selection">{selected && <CheckIcon />}</LeadingVisualContainer>
+      <LeadingVisualContainer data-component="ActionList.Selection" sx={{minWidth: '16px'}}>
+        {selected && <CheckIcon />}
+      </LeadingVisualContainer>
     )
   }
 
@@ -79,7 +81,7 @@ export const Selection: React.FC<React.PropsWithChildren<SelectionProps>> = ({se
     )
   }
   return (
-    <LeadingVisualContainer data-component="ActionList.Selection">
+    <LeadingVisualContainer data-component="ActionList.Selection" sx={{minWidth: '16px'}}>
       <Box
         sx={{
           borderColor: selected ? 'var(--control-checked-borderColor-rest)' : 'neutral.emphasis',
