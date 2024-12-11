@@ -1,5 +1,11 @@
 # @primer/react
 
+## 37.7.1
+
+### Patch Changes
+
+- [#5412](https://github.com/primer/react/pull/5412) [`7d195fc`](https://github.com/primer/react/commit/7d195fc7c60e5d480e28e71928ce72e152703a48) Thanks [@jonrohan](https://github.com/jonrohan)! - Revert changes to ButtonGroup component
+
 ## 37.7.0
 
 ### Minor Changes
