@@ -535,8 +535,8 @@ const Title: React.FC<React.PropsWithChildren<TitleProps>> = ({
     <Heading
       className={clsx(enabled && classes.Title, className)}
       data-component="PH_Title"
+      data-hidden={hidden}
       as={as}
-      style={style}
       sx={
         enabled
           ? sx
