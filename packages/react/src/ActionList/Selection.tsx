@@ -31,7 +31,9 @@ export const Selection: React.FC<React.PropsWithChildren<SelectionProps>> = ({se
 
   if (selectionVariant === 'single' || listRole === 'menu') {
     return (
-      <LeadingVisualContainer data-component="ActionList.Selection">{selected && <CheckIcon />}</LeadingVisualContainer>
+      <LeadingVisualContainer data-component="ActionList.Selection" sx={{minWidth: '16px'}}>
+        {selected && <CheckIcon />}
+      </LeadingVisualContainer>
     )
   }
 
@@ -61,10 +63,10 @@ export const Selection: React.FC<React.PropsWithChildren<SelectionProps>> = ({se
   }
 
   return (
-    <LeadingVisualContainer data-component="ActionList.Selection">
+    <LeadingVisualContainer data-component="ActionList.Selection" sx={{minWidth: '16px'}}>
       <Box
         sx={{
-          borderColor: selected ? 'accent.fg' : 'neutral.emphasis',
+          borderColor: selected ? 'var(--control-checked-borderColor-rest)' : 'var(--control-borderColor-emphasis)',
           borderStyle: 'solid',
           borderWidth: '1',
           borderRadius: '1',
@@ -74,7 +76,7 @@ export const Selection: React.FC<React.PropsWithChildren<SelectionProps>> = ({se
           margin: '0',
           placeContent: 'center',
           width: 'var(--base-size-16, 16px)',
-          backgroundColor: selected ? 'accent.fg' : 'canvas.default',
+          backgroundColor: selected ? 'var(--control-checked-bgColor-rest)' : 'canvas.default',
           transition: selected
             ? 'background-color, border-color 80ms cubic-bezier(0.33, 1, 0.68, 1)'
             : 'background-color, border-color 80ms cubic-bezier(0.32, 0, 0.67, 0) 0ms',
