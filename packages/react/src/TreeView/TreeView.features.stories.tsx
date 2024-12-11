@@ -661,7 +661,7 @@ export const NestedTrees: StoryFn = () => {
             <TreeView.DirectoryIcon />
           </TreeView.LeadingVisual>
           Directory with async items
-          <TreeView.SubTree state={state} aria-label="With async items">
+          <TreeView.SubTree state={state}>
             {asyncItems.map(item => (
               <TreeView.Item id={`item-${item}`} key={item}>
                 <TreeView.LeadingVisual>
@@ -672,7 +672,7 @@ export const NestedTrees: StoryFn = () => {
             ))}
             <TreeView.Item id="nested-directory">
               Nested Sub-tree
-              <TreeView.SubTree state="done" aria-label="Nested">
+              <TreeView.SubTree state="done">
                 <TreeView.Item id="nested-directory/file-1">
                   <TreeView.LeadingVisual>
                     <FileIcon />

@@ -598,6 +598,7 @@ const SubTree: React.FC<TreeViewSubTreeProps> = ({count, state, children, 'aria-
   const loadingItemRef = React.useRef<HTMLElement>(null)
   const ref = React.useRef<HTMLElement>(null)
   const [loadingFocused, setLoadingFocused] = React.useState(false)
+  const [subTreeLabel, setSubTreeLabel] = React.useState('')
   const previousState = usePreviousValue(state)
   const {safeSetTimeout} = useSafeTimeout()
 
@@ -619,6 +620,8 @@ const SubTree: React.FC<TreeViewSubTreeProps> = ({count, state, children, 'aria-
   React.useEffect(() => {
     const parentElement = document.getElementById(itemId)
     if (!parentElement) return
+
+    setSubTreeLabel(getAccessibleName(parentElement))
     if (previousState === 'loading' && state === 'done') {
       // Announce update to screen readers
       const parentName = getAccessibleName(parentElement)
@@ -696,7 +699,7 @@ const SubTree: React.FC<TreeViewSubTreeProps> = ({count, state, children, 'aria-
       }}
       // @ts-ignore Box doesn't have type support for `ref` used in combination with `as`
       ref={ref}
-      aria-label={ariaLabel}
+      aria-label={ariaLabel || subTreeLabel}
     >
       {state === 'loading' ? <LoadingItem ref={loadingItemRef} count={count} /> : children}
     </ul>
