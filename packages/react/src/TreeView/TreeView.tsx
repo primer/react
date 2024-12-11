@@ -641,14 +641,16 @@ export type TreeViewSubTreeProps = {
    * Display a skeleton loading state with the specified count of items
    */
   count?: number
+  'aria-label'?: string
 }
 
-const SubTree: React.FC<TreeViewSubTreeProps> = ({count, state, children}) => {
+const SubTree: React.FC<TreeViewSubTreeProps> = ({count, state, children, 'aria-label': ariaLabel}) => {
   const {announceUpdate} = React.useContext(RootContext)
   const {itemId, isExpanded, isSubTreeEmpty, setIsSubTreeEmpty} = React.useContext(ItemContext)
   const loadingItemRef = React.useRef<HTMLElement>(null)
   const ref = React.useRef<HTMLElement>(null)
   const [loadingFocused, setLoadingFocused] = React.useState(false)
+  const [subTreeLabel, setSubTreeLabel] = React.useState('')
   const previousState = usePreviousValue(state)
   const {safeSetTimeout} = useSafeTimeout()
 
@@ -670,6 +672,8 @@ const SubTree: React.FC<TreeViewSubTreeProps> = ({count, state, children}) => {
   React.useEffect(() => {
     const parentElement = document.getElementById(itemId)
     if (!parentElement) return
+
+    setSubTreeLabel(getAccessibleName(parentElement))
     if (previousState === 'loading' && state === 'done') {
       // Announce update to screen readers
       const parentName = getAccessibleName(parentElement)
@@ -747,6 +751,7 @@ const SubTree: React.FC<TreeViewSubTreeProps> = ({count, state, children}) => {
       }}
       // @ts-ignore Box doesn't have type support for `ref` used in combination with `as`
       ref={ref}
+      aria-label={ariaLabel || subTreeLabel}
     >
       {state === 'loading' ? <LoadingItem ref={loadingItemRef} count={count} /> : children}
       {isSubTreeEmpty && state !== 'loading' ? <EmptyItem /> : null}
