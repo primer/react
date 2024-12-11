@@ -809,6 +809,8 @@ exports[`NavList renders with groups 1`] = `
         >
           <h3
             class="GroupHeading"
+            data-component="ActionList.GroupHeading"
+            id=":r7:"
           >
             Overview
           </h3>
@@ -857,6 +859,8 @@ exports[`NavList renders with groups 1`] = `
         >
           <h3
             class="GroupHeading"
+            data-component="ActionList.GroupHeading"
+            id=":r9:"
           >
             Components
           </h3>
@@ -999,8 +1003,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
 .c0 {
   margin: 0;
   padding-inline-start: 0;
-  padding-top: 8px;
-  padding-bottom: 8px;
+  padding: 8px;
 }
 
 [data-component="ActionList.Divider"] + .c3 {
@@ -1023,10 +1026,8 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   font-size: 14px;
   padding-top: 0;
   padding-bottom: 0;
-  line-height: 20px;
+  line-height: 16px;
   min-height: 5px;
-  margin-left: 8px;
-  margin-right: 8px;
   border-radius: 6px;
   -webkit-transition: background 33.333ms linear;
   transition: background 33.333ms linear;
@@ -1037,7 +1038,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   appearance: none;
   background: unset;
   border: unset;
-  width: calc(100% - 16px);
+  width: 100%;
   font-family: unset;
   text-align: unset;
   margin-top: unset;
@@ -1137,10 +1138,8 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   padding-right: 8px;
   padding-top: 6px;
   padding-bottom: 6px;
-  line-height: 20px;
+  line-height: 16px;
   min-height: 5px;
-  margin-left: 8px;
-  margin-right: 8px;
   border-radius: 6px;
   -webkit-transition: background 33.333ms linear;
   transition: background 33.333ms linear;
@@ -1151,7 +1150,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   appearance: none;
   background: unset;
   border: unset;
-  width: calc(100% - 16px);
+  width: 100%;
   font-family: unset;
   text-align: unset;
   margin-top: unset;
@@ -1264,7 +1263,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   .c11:focus.focus-visible {
     outline: none;
     border: 2 solid;
-    box-shadow: 0 0 0 2px var(--bgColor-accent-emphasis,var(--color-accent-emphasis,#0969da));
+    box-shadow: 0 0 0 2px var(--focus-outlineColor);
   }
 
   .c11:active:not([aria-disabled]):not([data-inactive]) {
@@ -1294,7 +1293,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   .c4:focus.focus-visible {
     outline: none;
     border: 2 solid;
-    box-shadow: 0 0 0 2px var(--bgColor-accent-emphasis,var(--color-accent-emphasis,#0969da));
+    box-shadow: 0 0 0 2px var(--focus-outlineColor);
   }
 
   .c4:active:not([aria-disabled]):not([data-inactive]) {
@@ -1489,8 +1488,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
 .c0 {
   margin: 0;
   padding-inline-start: 0;
-  padding-top: 8px;
-  padding-bottom: 8px;
+  padding: 8px;
 }
 
 [data-component="ActionList.Divider"] + .c3 {
@@ -1513,10 +1511,8 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   font-size: 14px;
   padding-top: 0;
   padding-bottom: 0;
-  line-height: 20px;
+  line-height: 16px;
   min-height: 5px;
-  margin-left: 8px;
-  margin-right: 8px;
   border-radius: 6px;
   -webkit-transition: background 33.333ms linear;
   transition: background 33.333ms linear;
@@ -1527,7 +1523,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   appearance: none;
   background: unset;
   border: unset;
-  width: calc(100% - 16px);
+  width: 100%;
   font-family: unset;
   text-align: unset;
   margin-top: unset;
@@ -1636,10 +1632,8 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   padding-right: 8px;
   padding-top: 6px;
   padding-bottom: 6px;
-  line-height: 20px;
+  line-height: 16px;
   min-height: 5px;
-  margin-left: 8px;
-  margin-right: 8px;
   border-radius: 6px;
   -webkit-transition: background 33.333ms linear;
   transition: background 33.333ms linear;
@@ -1650,7 +1644,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   appearance: none;
   background: unset;
   border: unset;
-  width: calc(100% - 16px);
+  width: 100%;
   font-family: unset;
   text-align: unset;
   margin-top: unset;
@@ -1775,7 +1769,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   .c11:focus.focus-visible {
     outline: none;
     border: 2 solid;
-    box-shadow: 0 0 0 2px var(--bgColor-accent-emphasis,var(--color-accent-emphasis,#0969da));
+    box-shadow: 0 0 0 2px var(--focus-outlineColor);
   }
 
   .c11:active:not([aria-disabled]):not([data-inactive]) {
@@ -1813,7 +1807,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   .c4:focus.focus-visible {
     outline: none;
     border: 2 solid;
-    box-shadow: 0 0 0 2px var(--bgColor-accent-emphasis,var(--color-accent-emphasis,#0969da));
+    box-shadow: 0 0 0 2px var(--focus-outlineColor);
   }
 
   .c4:active:not([aria-disabled]):not([data-inactive]) {

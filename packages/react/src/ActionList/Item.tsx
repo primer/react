@@ -151,11 +151,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       role === 'option' || role === 'menuitem' || role === 'menuitemradio' || role === 'menuitemcheckbox'
 
     const listRoleTypes = ['listbox', 'menu', 'list']
-    const listSemantics =
-      (listRole && listRoleTypes.includes(listRole)) ||
-      inactive ||
-      (container === 'NavList' && !enabled) ||
-      listItemSemantics
+    const listSemantics = (listRole && listRoleTypes.includes(listRole)) || inactive || listItemSemantics || !enabled
     const buttonSemantics = !listSemantics && !_PrivateItemWrapper
 
     const {theme} = useTheme()
@@ -350,6 +346,25 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
           // styles: merge<BetterSystemStyleObject>(styles, sxProp),
           ref: forwardedRef,
         }
+
+    // if (buttonSemanticsFeatureFlag) {
+    //   containerProps = _PrivateItemWrapper
+    //     ? {role: itemRole ? 'none' : undefined, ...props}
+    //     : // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    //       (listSemantics && {...menuItemProps, ...props, ref: forwardedRef}) || {}
+
+    //   wrapperProps = _PrivateItemWrapper
+    //     ? menuItemProps
+    //     : !listSemantics && {
+    //         ...menuItemProps,
+    //         ...props,
+    //         styles: merge<BetterSystemStyleObject>(styles, sxProp),
+    //         ref: forwardedRef,
+    //       }
+    // } else {
+    //   containerProps = _PrivateItemWrapper ? {role: itemRole ? 'none' : undefined} : {...menuItemProps, ...props}
+    //   wrapperProps = _PrivateItemWrapper ? menuItemProps : {}
+    // }
 
     // Extract the variant prop value from the description slot component
 

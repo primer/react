@@ -17,12 +17,20 @@ type HeadingProps = {
   as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
   className?: string
   children: React.ReactNode
+  id?: string
 } & SxProp
 
-const Heading: React.FC<HeadingProps> = ({as: Component = 'h3', className, children, sx = defaultSxProp}) => {
+const Heading: React.FC<HeadingProps & React.HTMLAttributes<HTMLHeadingElement>> = ({
+  as: Component = 'h3',
+  className,
+  children,
+  sx = defaultSxProp,
+  id,
+  ...rest
+}) => {
   return (
     // Box is temporary to support lingering sx usage
-    <Box as={Component} className={className} sx={sx}>
+    <Box as={Component} className={className} sx={sx} id={id} {...rest}>
       {children}
     </Box>
   )
@@ -227,8 +235,8 @@ export const GroupHeading: React.FC<React.PropsWithChildren<ActionListGroupHeadi
           role="presentation"
           className={groupClasses.GroupHeadingWrap}
           aria-hidden="true"
-          {...props}
           data-variant={variant}
+          {...props}
         >
           <span className={clsx(className, groupClasses.GroupHeading)} id={groupHeadingId}>
             {_internalBackwardCompatibleTitle ?? children}
