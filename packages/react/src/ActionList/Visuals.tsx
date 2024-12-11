@@ -2,7 +2,6 @@ import React from 'react'
 import {AlertIcon} from '@primer/octicons-react'
 import Box from '../Box'
 import Spinner from '../Spinner'
-import {get} from '../constants'
 import type {SxProp} from '../sx'
 import {merge} from '../sx'
 import {ItemContext, TEXT_ROW_HEIGHT, getVariantStyles} from './shared'
@@ -17,13 +16,13 @@ export const LeadingVisualContainer: React.FC<React.PropsWithChildren<VisualProp
       sx={merge(
         {
           height: TEXT_ROW_HEIGHT, // match height of text row
-          minWidth: get('space.3'),
           maxWidth: TEXT_ROW_HEIGHT, // square (same as height)
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
           flexShrink: 0,
           marginRight: 2,
+          color: 'fg.muted',
         },
         sx as SxProp,
       )}
@@ -69,6 +68,8 @@ export const TrailingVisual: React.FC<React.PropsWithChildren<VisualProps>> = ({
           color: getVariantStyles(variant, disabled, inactive).annotationColor,
           marginLeft: 2,
           fontWeight: 'initial',
+          display: 'grid',
+          alignContent: 'center',
           '[data-variant="danger"]:hover &, [data-variant="danger"]:active &': {
             color: getVariantStyles(variant, disabled, inactive).hoverColor,
           },

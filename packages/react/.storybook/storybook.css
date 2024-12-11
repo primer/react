@@ -69,3 +69,11 @@
 .testCustomClassnameBorderColor {
   border-color: var(--borderColor-sponsors-emphasis) !important;
 }
+
+.testCustomClassnameBorder {
+  border: var(--borderWidth-thin) solid var(--borderColor-sponsors-emphasis);
+}
+
+.testCustomClassnameMono {
+  font-family: var(--fontStack-monospace);
+}

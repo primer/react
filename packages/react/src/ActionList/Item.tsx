@@ -147,7 +147,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
 
     const hoverStyles = {
       '@media (hover: hover) and (pointer: fine)': {
-        ':hover:not([aria-disabled]):not([data-inactive])': {
+        '&:hover:not([aria-disabled]):not([data-inactive])': {
           backgroundColor: `actionListItem.${variant}.hoverBg`,
           color: getVariantStyles(variant, disabled, inactive).hoverColor,
           boxShadow: `inset 0 0 0 max(1px, 0.0625rem) ${theme?.colors.actionListItem.default.activeBorder}`,
@@ -157,7 +157,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
           border: `2 solid`,
           boxShadow: `0 0 0 2px ${theme?.colors.accent.emphasis}`,
         },
-        ':active:not([aria-disabled]):not([data-inactive])': {
+        '&:active:not([aria-disabled]):not([data-inactive])': {
           backgroundColor: `actionListItem.${variant}.activeBg`,
           color: getVariantStyles(variant, disabled, inactive).hoverColor,
         },
@@ -196,6 +196,9 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
           cursor: 'not-allowed',
           bg: selected ? 'fg.muted' : 'var(--control-bgColor-disabled, rgba(175, 184, 193, 0.2))',
           borderColor: selected ? 'fg.muted' : 'var(--color-input-disabled-bg, rgba(175, 184, 193, 0.2))',
+        },
+        '[data-component="ActionList.Selection"]': {
+          color: 'primer.fg.disabled',
         },
       },
 
@@ -392,7 +395,8 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
                       flexGrow: slots.inlineDescription ? 0 : 1,
                       fontWeight: slots.inlineDescription || slots.blockDescription || active ? 'bold' : 'normal',
                       marginBlockEnd: slots.blockDescription ? '4px' : undefined,
-                      wordBreak: 'break-word',
+                      wordBreak: slots.inlineDescription ? 'normal' : 'break-word',
+                      lineHeight: '20px',
                     }}
                   >
                     {childrenWithoutSlots}

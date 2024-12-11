@@ -1,0 +1,12 @@
+.ActionListHeader {
+  margin-block-end: var(--base-size-8);
+
+  &:where([data-list-variant='full']) {
+    margin-inline-start: var(--base-size-8);
+  }
+
+  &:where([data-list-variant='inset']) {
+    /* stylelint-disable-next-line primer/spacing */
+    margin-inline-start: calc(var(--control-medium-paddingInline-condensed) + var(--base-size-8));
+  }
+}

@@ -237,52 +237,6 @@ describe('ActionList', () => {
     expect(onClick).toHaveBeenCalled()
   })
 
-  it('should render the ActionList.Heading component as a heading with the given heading level', async () => {
-    const container = HTMLRender(
-      <ActionList>
-        <ActionList.Heading as="h1">Heading</ActionList.Heading>
-      </ActionList>,
-    )
-    const heading = container.getByRole('heading', {level: 1})
-    expect(heading).toBeInTheDocument()
-    expect(heading).toHaveTextContent('Heading')
-  })
-  it('should label the action list with the heading id', async () => {
-    const {container, getByRole} = HTMLRender(
-      <ActionList>
-        <ActionList.Heading as="h1">Heading</ActionList.Heading>
-        <ActionList.Item>Item</ActionList.Item>
-      </ActionList>,
-    )
-    const list = container.querySelector('ul')
-    const heading = getByRole('heading', {level: 1})
-    expect(list).toHaveAttribute('aria-labelledby', heading.id)
-  })
-  it('should throw an error when ActionList.Heading is used within ActionMenu context', async () => {
-    const spy = jest.spyOn(console, 'error').mockImplementation(() => jest.fn())
-    expect(() =>
-      HTMLRender(
-        <ThemeProvider theme={theme}>
-          <BaseStyles>
-            <ActionMenu open={true}>
-              <ActionMenu.Button>Trigger</ActionMenu.Button>
-              <ActionMenu.Overlay>
-                <ActionList>
-                  <ActionList.Heading as="h1">Heading</ActionList.Heading>
-                  <ActionList.Item>Item</ActionList.Item>
-                </ActionList>
-              </ActionMenu.Overlay>
-            </ActionMenu>
-          </BaseStyles>
-        </ThemeProvider>,
-      ),
-    ).toThrow(
-      "ActionList.Heading shouldn't be used within an ActionMenu container. Menus are labelled by the menu button's name.",
-    )
-    expect(spy).toHaveBeenCalled()
-    spy.mockRestore()
-  })
-
   it('should throw an error when ActionList.GroupHeading has an `as` prop when it is used within ActionMenu context', async () => {
     const spy = jest.spyOn(console, 'error').mockImplementation(() => jest.fn())
     expect(() =>
@@ -647,5 +601,106 @@ describe('ActionList', () => {
 
     await userEvent.keyboard('{ArrowUp}')
     expect(document.activeElement).toHaveTextContent('Option 4')
+  })
+
+  describe('ActionList.Description', () => {
+    it('should render the description as inline without truncation by default', () => {
+      const {getByText} = HTMLRender(
+        <ActionList>
+          <ActionList.Item>
+            Item 1<ActionList.Description>Item 1 description</ActionList.Description>
+          </ActionList.Item>
+        </ActionList>,
+      )
+
+      const description = getByText('Item 1 description')
+      expect(description.tagName).toBe('SPAN')
+      expect(description).toHaveStyleRule('flex-basis', 'auto')
+      expect(description).not.toHaveStyleRule('overflow', 'ellipsis')
+      expect(description).not.toHaveStyleRule('white-space', 'nowrap')
+    })
+    it('should render the description as `Truncate` when truncate is true', () => {
+      const {getByText} = HTMLRender(
+        <ActionList>
+          <ActionList.Item>
+            Item 1<ActionList.Description truncate>Item 1 description</ActionList.Description>
+          </ActionList.Item>
+        </ActionList>,
+      )
+
+      const description = getByText('Item 1 description')
+      expect(description.tagName).toBe('DIV')
+      expect(description).toHaveAttribute('title', 'Item 1 description')
+      expect(description).toHaveStyleRule('flex-basis', '0')
+      expect(description).toHaveStyleRule('text-overflow', 'ellipsis')
+      expect(description).toHaveStyleRule('overflow', 'hidden')
+      expect(description).toHaveStyleRule('white-space', 'nowrap')
+    })
+    it('should render the description in a new line when variant is block', () => {
+      const {getByText} = HTMLRender(
+        <ActionList>
+          <ActionList.Item>
+            Item 1<ActionList.Description variant="block">Item 1 description</ActionList.Description>
+          </ActionList.Item>
+        </ActionList>,
+      )
+
+      const description = getByText('Item 1 description')
+      expect(description.tagName).toBe('SPAN')
+      expect(description.parentElement).toHaveAttribute('data-component', 'ActionList.Item--DividerContainer')
+    })
+  })
+
+  it('should support a custom `className` on the outermost element', () => {
+    const Element = () => {
+      return (
+        <ActionList className="test-class-name">
+          <ActionList.Item>Item</ActionList.Item>
+        </ActionList>
+      )
+    }
+    const FeatureFlagElement = () => {
+      return (
+        <FeatureFlags
+          flags={{
+            primer_react_css_modules_team: true,
+            primer_react_css_modules_staff: true,
+            primer_react_css_modules_ga: true,
+          }}
+        >
+          <Element />
+        </FeatureFlags>
+      )
+    }
+    expect(HTMLRender(<FeatureFlagElement />).container.querySelector('ul')).toHaveClass('test-class-name')
+    expect(HTMLRender(<Element />).container.querySelector('ul')).toHaveClass('test-class-name')
+  })
+
+  it('divider should support a custom `className`', () => {
+    const Element = () => {
+      return (
+        <ActionList>
+          <ActionList.Item>Item</ActionList.Item>
+          <ActionList.Divider className="test-class-name" />
+        </ActionList>
+      )
+    }
+    const FeatureFlagElement = () => {
+      return (
+        <FeatureFlags
+          flags={{
+            primer_react_css_modules_team: true,
+            primer_react_css_modules_staff: true,
+            primer_react_css_modules_ga: true,
+          }}
+        >
+          <Element />
+        </FeatureFlags>
+      )
+    }
+    expect(HTMLRender(<FeatureFlagElement />).container.querySelector('li[aria-hidden="true"]')).toHaveClass(
+      'test-class-name',
+    )
+    expect(HTMLRender(<Element />).container.querySelector('li[aria-hidden="true"]')).toHaveClass('test-class-name')
   })
 })

@@ -164,7 +164,7 @@ export const GroupHeading: React.FC<React.PropsWithChildren<ActionListGroupHeadi
       marginBottom: 2,
       borderTop: '1px solid',
       borderBottom: '1px solid',
-      borderColor: 'neutral.muted',
+      borderColor: 'var(--borderColor-muted)',
     }),
 
     [`.ActionListGroupHeading`]: {

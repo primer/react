@@ -8,7 +8,7 @@ import {clsx} from 'clsx'
 import classes from './Details.module.css'
 import {useMergedRefs} from '../internal/hooks/useMergedRefs'
 
-const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_team'
+const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_ga'
 
 const StyledDetails = toggleStyledComponent(
   CSS_MODULES_FEATURE_FLAG,

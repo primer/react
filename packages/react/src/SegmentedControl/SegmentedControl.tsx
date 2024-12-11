@@ -15,10 +15,21 @@ import styled from 'styled-components'
 import {defaultSxProp} from '../utils/defaultSxProp'
 import {isElement} from 'react-is'
 
+import classes from './SegmentedControl.module.css'
+
+import {toggleStyledComponent} from '../internal/utils/toggleStyledComponent'
+import {useFeatureFlag} from '../FeatureFlags'
+import {clsx} from 'clsx'
+import {SEGMENTED_CONTROL_CSS_MODULES_FEATURE_FLAG} from './getSegmentedControlStyles'
+
 // Needed because passing a ref to `Box` causes a type error
-const SegmentedControlList = styled.ul`
-  ${sx};
-`
+const SegmentedControlList = toggleStyledComponent(
+  SEGMENTED_CONTROL_CSS_MODULES_FEATURE_FLAG,
+  'ul',
+  styled.ul`
+    ${sx};
+  `,
+)
 
 type SegmentedControlProps = {
   'aria-label'?: string
@@ -32,6 +43,7 @@ type SegmentedControlProps = {
   size?: 'small' | 'medium'
   /** Configure alternative ways to render the control when it gets rendered in tight spaces */
   variant?: 'default' | Partial<Record<WidthOnlyViewportRangeKeys, 'hideLabels' | 'dropdown' | 'default'>>
+  className?: string
 } & SxProp
 
 const getSegmentedControlStyles = (props: {isFullWidth?: boolean; size?: SegmentedControlProps['size']}) => ({
@@ -56,6 +68,7 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
   size,
   sx: sxProp = defaultSxProp,
   variant = 'default',
+  className,
   ...rest
 }) => {
   const segmentedControlContainerRef = useRef<HTMLUListElement>(null)
@@ -116,7 +129,9 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
 
     return React.isValidElement<SegmentedControlIconButtonProps>(childArg) ? childArg.props['aria-label'] : null
   }
-  const listSx = merge(getSegmentedControlStyles({isFullWidth, size}), sxProp as SxProp)
+
+  const enabled = useFeatureFlag(SEGMENTED_CONTROL_CSS_MODULES_FEATURE_FLAG)
+  const listSx = enabled ? sxProp : merge(getSegmentedControlStyles({isFullWidth, size}), sxProp as SxProp)
 
   if (!ariaLabel && !ariaLabelledby) {
     // eslint-disable-next-line no-console
@@ -173,6 +188,9 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
       aria-label={ariaLabel}
       aria-labelledby={ariaLabelledby}
       ref={segmentedControlContainerRef}
+      className={clsx(enabled && classes.SegmentedControl, className)}
+      data-full-width={isFullWidth || undefined}
+      data-size={size}
       {...rest}
     >
       {React.Children.map(children, (child, index) => {
