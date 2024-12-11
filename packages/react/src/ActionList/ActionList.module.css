@@ -1,4 +1,4 @@
-/* stylelint-disable max-nesting-depth, selector-max-specificity, selector-max-compound-selectors */
+/* stylelint-disable max-nesting-depth, selector-max-specificity, selector-max-compound-selectors, no-duplicate-selectors */
 
 .ActionList {
   padding: 0;
