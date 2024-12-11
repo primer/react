@@ -2,7 +2,6 @@ import React from 'react'
 import {AlertIcon} from '@primer/octicons-react'
 import Box from '../Box'
 import Spinner from '../Spinner'
-import {get} from '../constants'
 import type {SxProp} from '../sx'
 import {merge} from '../sx'
 import {ItemContext, TEXT_ROW_HEIGHT, getVariantStyles} from './shared'
@@ -17,7 +16,6 @@ export const LeadingVisualContainer: React.FC<React.PropsWithChildren<VisualProp
       sx={merge(
         {
           height: TEXT_ROW_HEIGHT, // match height of text row
-          minWidth: get('space.3'),
           maxWidth: TEXT_ROW_HEIGHT, // square (same as height)
           display: 'flex',
           justifyContent: 'center',

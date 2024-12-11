@@ -888,7 +888,6 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   </span>,
   .c5 {
   height: 20px;
-  min-width: 16px;
   max-width: 20px;
   display: -webkit-box;
   display: -webkit-flex;
@@ -907,6 +906,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   flex-shrink: 0;
   margin-right: 8px;
   color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
+  min-width: 16px;
 }
 
 .c6 {
@@ -974,7 +974,6 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
 
 .c9 {
   height: 20px;
-  min-width: 16px;
   max-width: 20px;
   display: -webkit-box;
   display: -webkit-flex;
@@ -1839,7 +1838,6 @@ exports[`snapshots renders a multiselect input 1`] = `
   </span>,
   .c4 {
   height: 20px;
-  min-width: 16px;
   max-width: 20px;
   display: -webkit-box;
   display: -webkit-flex;
@@ -1858,6 +1856,7 @@ exports[`snapshots renders a multiselect input 1`] = `
   flex-shrink: 0;
   margin-right: 8px;
   color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
+  min-width: 16px;
 }
 
 .c5 {
@@ -2692,7 +2691,6 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   </span>,
   .c4 {
   height: 20px;
-  min-width: 16px;
   max-width: 20px;
   display: -webkit-box;
   display: -webkit-flex;
@@ -2711,6 +2709,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   flex-shrink: 0;
   margin-right: 8px;
   color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
+  min-width: 16px;
 }
 
 .c5 {
@@ -3705,7 +3704,6 @@ exports[`snapshots renders a single select input 1`] = `
   </span>,
   .c4 {
   height: 20px;
-  min-width: 16px;
   max-width: 20px;
   display: -webkit-box;
   display: -webkit-flex;
@@ -3724,6 +3722,7 @@ exports[`snapshots renders a single select input 1`] = `
   flex-shrink: 0;
   margin-right: 8px;
   color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
+  min-width: 16px;
 }
 
 .c5 {
@@ -4199,7 +4198,6 @@ exports[`snapshots renders with a custom text input component 1`] = `
   />,
   .c4 {
   height: 20px;
-  min-width: 16px;
   max-width: 20px;
   display: -webkit-box;
   display: -webkit-flex;
@@ -4218,6 +4216,7 @@ exports[`snapshots renders with a custom text input component 1`] = `
   flex-shrink: 0;
   margin-right: 8px;
   color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
+  min-width: 16px;
 }
 
 .c5 {
