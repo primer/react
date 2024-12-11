@@ -214,7 +214,7 @@ export const Tooltip = React.forwardRef(
 
     const [isPopoverOpen, setIsPopoverOpen] = useState(false)
 
-    const timeoutRef = React.useRef(0)
+    const timeoutRef = React.useRef<number | null>(null)
 
     const {safeSetTimeout, safeClearTimeout} = useSafeTimeout()
 
@@ -377,7 +377,10 @@ export const Tooltip = React.forwardRef(
                 }, 50)
               },
               onMouseLeave: (event: React.MouseEvent) => {
-                safeClearTimeout(timeoutRef.current)
+                if (timeoutRef.current) {
+                  safeClearTimeout(timeoutRef.current)
+                  timeoutRef.current = null
+                }
                 closeTooltip()
                 child.props.onMouseLeave?.(event)
               },
