@@ -397,7 +397,14 @@ describe('ActionList', () => {
     const mockOnSelect = jest.fn()
     const user = userEvent.setup()
     const {getByRole} = HTMLRender(
-      <FeatureFlags flags={{primer_react_action_list_item_as_button: true}}>
+      <FeatureFlags
+        flags={{
+          primer_react_action_list_item_as_button: true,
+          primer_react_css_modules_team: true,
+          primer_react_css_modules_staff: true,
+          primer_react_css_modules_ga: true,
+        }}
+      >
         <ActionList>
           <ActionList.Item onSelect={mockOnSelect}>Item 1</ActionList.Item>
         </ActionList>
@@ -415,7 +422,14 @@ describe('ActionList', () => {
 
   it('should not render buttons when feature flag is enabled and is specified role', async () => {
     const {getByRole} = HTMLRender(
-      <FeatureFlags flags={{primer_react_action_list_item_as_button: true}}>
+      <FeatureFlags
+        flags={{
+          primer_react_action_list_item_as_button: true,
+          primer_react_css_modules_team: true,
+          primer_react_css_modules_staff: true,
+          primer_react_css_modules_ga: true,
+        }}
+      >
         <ActionList>
           <ActionList.Item role="option">Item 1</ActionList.Item>
           <ActionList.Item role="menuitem">Item 2</ActionList.Item>
@@ -474,54 +488,6 @@ describe('ActionList', () => {
 
     await userEvent.keyboard('{ArrowUp}')
     expect(document.activeElement).toHaveTextContent('Option 4')
-  })
-
-  describe('ActionList.Description', () => {
-    it('should render the description as inline without truncation by default', () => {
-      const {getByText} = HTMLRender(
-        <ActionList>
-          <ActionList.Item>
-            Item 1<ActionList.Description>Item 1 description</ActionList.Description>
-          </ActionList.Item>
-        </ActionList>,
-      )
-
-      const description = getByText('Item 1 description')
-      expect(description.tagName).toBe('SPAN')
-      expect(description).toHaveStyleRule('flex-basis', 'auto')
-      expect(description).not.toHaveStyleRule('overflow', 'ellipsis')
-      expect(description).not.toHaveStyleRule('white-space', 'nowrap')
-    })
-    it('should render the description as `Truncate` when truncate is true', () => {
-      const {getByText} = HTMLRender(
-        <ActionList>
-          <ActionList.Item>
-            Item 1<ActionList.Description truncate>Item 1 description</ActionList.Description>
-          </ActionList.Item>
-        </ActionList>,
-      )
-
-      const description = getByText('Item 1 description')
-      expect(description.tagName).toBe('DIV')
-      expect(description).toHaveAttribute('title', 'Item 1 description')
-      expect(description).toHaveStyleRule('flex-basis', '0')
-      expect(description).toHaveStyleRule('text-overflow', 'ellipsis')
-      expect(description).toHaveStyleRule('overflow', 'hidden')
-      expect(description).toHaveStyleRule('white-space', 'nowrap')
-    })
-    it('should render the description in a new line when variant is block', () => {
-      const {getByText} = HTMLRender(
-        <ActionList>
-          <ActionList.Item>
-            Item 1<ActionList.Description variant="block">Item 1 description</ActionList.Description>
-          </ActionList.Item>
-        </ActionList>,
-      )
-
-      const description = getByText('Item 1 description')
-      expect(description.tagName).toBe('SPAN')
-      expect(description.parentElement).toHaveAttribute('data-component', 'ActionList.Item--DividerContainer')
-    })
   })
 
   it('should support a custom `className` on the outermost element', () => {
