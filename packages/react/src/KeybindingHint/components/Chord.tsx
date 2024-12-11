@@ -29,14 +29,20 @@ const splitChord = (chord: string) =>
     .map(k => k.toLowerCase())
     .sort(compareLowercaseKeys)
 
+const backgroundColors = {
+  normal: 'var(--bgColor-transparent)',
+  onEmphasis: 'var(--counter-bgColor-emphasis)',
+  onPrimary: 'var(--button-primary-bgColor-active)',
+}
+
 export const Chord = ({keys, format = 'condensed', variant = 'normal', size = 'normal'}: KeybindingHintProps) => (
   <Text
     sx={{
       display: 'inline-flex',
-      bg: variant === 'onEmphasis' ? 'var(--counter-bgColor-emphasis)' : 'var(--bgColor-transparent)',
-      color: variant === 'onEmphasis' ? 'var(--fgColor-onEmphasis)' : 'var(--fgColor-muted)',
+      bg: backgroundColors[variant],
+      color: variant === 'normal' ? 'var(--fgColor-muted)' : 'var(--fgColor-onEmphasis)',
       border: '1px solid',
-      borderColor: variant === 'onEmphasis' ? 'transparent' : 'var(--borderColor-default)',
+      borderColor: variant === 'normal' ? 'var(--borderColor-default)' : 'transparent',
       borderRadius: size === 'small' ? 1 : 2,
       fontWeight: 'normal',
       fontFamily: 'normal',

@@ -84,7 +84,7 @@ export const Selection: React.FC<React.PropsWithChildren<SelectionProps>> = ({se
     <LeadingVisualContainer data-component="ActionList.Selection" sx={{minWidth: '16px'}}>
       <Box
         sx={{
-          borderColor: selected ? 'var(--control-checked-borderColor-rest)' : 'var(--control-borderColor-rest)',
+          borderColor: selected ? 'var(--control-checked-borderColor-rest)' : 'var(--control-borderColor-emphasis)',
           borderStyle: 'solid',
           borderWidth: '1',
           borderRadius: '1',
