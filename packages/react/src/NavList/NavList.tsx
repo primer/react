@@ -11,6 +11,7 @@ import type {
   ActionListSubItemProps,
 } from '../ActionList'
 import {ActionList} from '../ActionList'
+import {SubItem} from '../ActionList/Item'
 import {ActionListContainerContext} from '../ActionList/ActionListContainerContext'
 import Box from '../Box'
 import Octicon from '../Octicon'
@@ -125,6 +126,7 @@ type ItemWithSubNavProps = {
   subNav: React.ReactNode
   depth: number
   defaultOpen?: boolean
+  style: React.CSSProperties
 } & SxProp
 
 const ItemWithSubNavContext = React.createContext<{buttonId: string; subNavId: string; isOpen: boolean}>({
@@ -182,7 +184,7 @@ function ItemWithSubNav({
           <ActionList.TrailingVisual>
             <ChevronDownIcon className={classes.ExpandIcon} />
           </ActionList.TrailingVisual>
-          <ActionList.SubItem>{React.cloneElement(subNav as React.ReactElement, {ref: subNavRef})}</ActionList.SubItem>
+          <SubItem>{React.cloneElement(subNav as React.ReactElement, {ref: subNavRef})}</SubItem>
         </ActionList.Item>
       </ItemWithSubNavContext.Provider>
     )
