@@ -314,9 +314,12 @@ test.describe('ActionList', () => {
   })
 
   // removing this temporarily as there is a slight diff betqeen default and enabled CSS feature flag that feels like a non-issue
+  // eslint-disable-next-line jest/no-commented-out-tests
   // test.describe('Text Wrap And Truncation', () => {
   //   for (const theme of themes) {
+  // eslint-disable-next-line jest/no-commented-out-tests
   //     test.describe(theme, () => {
+  // eslint-disable-next-line jest/no-commented-out-tests
   //       test('default @vrt', async ({page}) => {
   //         await visit(page, {
   //           id: 'components-actionlist-features--text-wrap-and-truncation',
@@ -329,6 +332,7 @@ test.describe('ActionList', () => {
   //         expect(await page.screenshot()).toMatchSnapshot(`ActionList.Text Wrap And Truncation.${theme}.png`)
   //       })
 
+  // eslint-disable-next-line jest/no-commented-out-tests
   //       test('axe @aat', async ({page}) => {
   //         await visit(page, {
   //           id: 'components-actionlist-features--text-wrap-and-truncation',
