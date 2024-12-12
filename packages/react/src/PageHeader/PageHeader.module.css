@@ -167,7 +167,7 @@
   font-weight: inherit;
 }
 
-.Title[data-hidden='true'] {
+.Title:where([data-hidden='true']) {
   display: none;
 }
 
