@@ -657,7 +657,6 @@ span wrapping svg or text */
   /* stylelint-disable-next-line primer/spacing */
   margin-block-start: calc(var(--base-size-8) - var(--borderWidth-thin));
   margin-block-end: var(--base-size-8);
-  margin-inline: calc(-1 * var(--base-size-8));
   list-style: none;
   /* stylelint-disable-next-line primer/colors */
   background: var(--borderColor-muted);

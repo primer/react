@@ -345,7 +345,6 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       : !listSemantics && {
           ...menuItemProps,
           ...props,
-          // styles: merge<BetterSystemStyleObject>(styles, sxProp),
           ref: forwardedRef,
         }
 
