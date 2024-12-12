@@ -18,6 +18,10 @@ export const Invisible = () => <IconButton icon={HeartIcon} variant="invisible" 
 
 export const Disabled = () => <IconButton disabled icon={HeartIcon} aria-label="Favorite" />
 
+export const InvisibleDisabled = () => (
+  <IconButton disabled variant="invisible" icon={HeartIcon} aria-label="Favorite" />
+)
+
 export const Small = () => <IconButton size="small" icon={HeartIcon} aria-label="Favorite" />
 
 export const Medium = () => <IconButton size="medium" icon={HeartIcon} aria-label="Favorite" />

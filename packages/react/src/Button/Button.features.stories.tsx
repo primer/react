@@ -14,6 +14,12 @@ export const Danger = () => <Button variant="danger">Danger</Button>
 
 export const Invisible = () => <Button variant="invisible">Invisible</Button>
 
+export const InvisibleDisabled = () => (
+  <Button variant="invisible" disabled>
+    Invisible (disabled)
+  </Button>
+)
+
 export const Link = () => <Button variant="link">Button that looks like a link</Button>
 
 export const LeadingVisual = () => <Button leadingVisual={HeartIcon}>Leading visual</Button>
