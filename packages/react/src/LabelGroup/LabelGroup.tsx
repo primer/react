@@ -7,8 +7,6 @@ import VisuallyHidden from '../_VisuallyHidden'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import {Button, IconButton} from '../Button'
 import {useTheme} from '../ThemeProvider'
-import type {DeprecatedSxProp} from '../sx'
-import sx from '../sx'
 import classes from './LabelGroup.module.css'
 
 export type LabelGroupProps = {
@@ -18,9 +16,9 @@ export type LabelGroupProps = {
   overflowStyle?: 'inline' | 'overlay'
   /** How many tokens to show. `'auto'` truncates the tokens to fit in the parent container. Passing a number will truncate after that number tokens. If this is undefined, tokens will never be truncated. */
   visibleChildCount?: 'auto' | number
-} & DeprecatedSxProp
+}
 
-const StyledLabelGroupContainer = styled.div<DeprecatedSxProp>`
+const StyledLabelGroupContainer = styled.div`
   display: flex;
   flex-wrap: nowrap;
   gap: var(--base-size-4);
@@ -38,8 +36,6 @@ const StyledLabelGroupContainer = styled.div<DeprecatedSxProp>`
     margin-block-end: 0;
     list-style-type: none;
   }
-
-  ${sx};
 `
 
 const ItemWrapper = styled.div`
@@ -154,7 +150,6 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
   children,
   visibleChildCount,
   overflowStyle = 'overlay',
-  sx: sxProp,
   as = 'ul',
 }) => {
   const containerRef = React.useRef<HTMLElement>(null)
@@ -334,7 +329,6 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
       ref={containerRef}
       data-overflow={overflowStyle === 'inline' && isOverflowShown ? 'inline' : undefined}
       data-list={isList || undefined}
-      sx={sxProp}
       as={as}
     >
       {React.Children.map(children, (child, index) => (
@@ -376,7 +370,7 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
       </ToggleWrapper>
     </StyledLabelGroupContainer>
   ) : (
-    <StyledLabelGroupContainer data-overflow="inline" data-list={isList || undefined} sx={sxProp} as={as}>
+    <StyledLabelGroupContainer data-overflow="inline" data-list={isList || undefined} as={as}>
       {isList
         ? React.Children.map(children, (child, index) => {
             return <li key={index}>{child}</li>
