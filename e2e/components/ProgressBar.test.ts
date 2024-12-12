@@ -51,6 +51,13 @@ test.describe('ProgressBar', () => {
               id: story.id,
               globals: {
                 colorScheme: theme,
+                featureFlags: {
+                  defaultValue: {
+                    primer_react_css_modules_team: false,
+                    primer_react_css_modules_staff: false,
+                    primer_react_css_modules_ga: false,
+                  },
+                },
               },
             })
 

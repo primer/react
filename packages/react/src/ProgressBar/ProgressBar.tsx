@@ -169,6 +169,7 @@ export const ProgressBar = forwardRef<HTMLSpanElement, ProgressBarProps>(
         {...cssModulesProps}
         {...rest}
       >
+        {!enabled && 'Hello world!!!!'}
         {validChildren ? (
           children
         ) : (
