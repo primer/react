@@ -12,8 +12,12 @@
   }
 
   &:where([data-variant='inset']) {
-    /* change to padding (all) when Item is converted */
-    padding: var(--base-size-8);
+    padding-block: var(--base-size-8);
+
+    /* this is only to match default experience */
+    & .ActionListItem {
+      margin-inline: var(--base-size-8);
+    }
   }
 
   &:where([data-dividers='true']) {

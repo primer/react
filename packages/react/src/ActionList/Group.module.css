@@ -12,14 +12,13 @@
   line-height: 18px;
   color: var(--fgColor-muted);
   flex-direction: column;
-  padding-inline: var(--base-size-8);
+  padding-inline: var(--base-size-16);
   padding-block: var(--base-size-6);
 
   &:where([data-variant='filled']) {
     /* stylelint-disable-next-line primer/spacing */
     margin-block-start: calc(var(--base-size-8) - var(--borderWidth-thin));
     margin-block-end: var(--base-size-8);
-    margin-inline: calc(-1 * var(--base-size-8));
     background: var(--bgColor-muted);
     border-top: solid var(--borderWidth-thin) var(--borderColor-muted);
     border-bottom: solid var(--borderWidth-thin) var(--borderColor-muted);
