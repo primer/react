@@ -27,6 +27,8 @@ import {SkeletonText} from '../experimental/Skeleton/SkeletonText'
 import {toggleStyledComponent} from '../internal/utils/toggleStyledComponent'
 import {useFeatureFlag} from '../FeatureFlags'
 
+const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_staff'
+
 // ----------------------------------------------------------------------------
 // Context
 
@@ -78,7 +80,7 @@ export type TreeViewProps = {
 const TOGGLE_ICON_SIZE = 12
 
 const UlBox = toggleStyledComponent(
-  'primer_react_css_modules_team',
+  CSS_MODULES_FEATURE_FLAG,
   'ul',
   styled.ul<SxProp>`
     list-style: none;
@@ -338,7 +340,7 @@ const Root: React.FC<TreeViewProps> = ({
     expandedStateCache.current = new Map()
   }
 
-  const cssModulesEnabled = useFeatureFlag('primer_react_css_modules_team')
+  const cssModulesEnabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
 
   return (
     <RootContext.Provider
@@ -484,7 +486,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
       slots.trailingVisual ? trailingVisualId : null,
     ].filter(Boolean)
 
-    const cssModulesEnabled = useFeatureFlag('primer_react_css_modules_team')
+    const cssModulesEnabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
 
     return (
       <ItemContext.Provider
@@ -612,7 +614,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
 
 /** Lines to indicate the depth of an item in a TreeView */
 const LevelIndicatorLines: React.FC<{level: number}> = ({level}) => {
-  const cssModulesEnabled = useFeatureFlag('primer_react_css_modules_team')
+  const cssModulesEnabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
   return (
     <div style={{width: '100%', display: 'flex'}}>
       {Array.from({length: level - 1}).map((_, index) => (
@@ -767,7 +769,7 @@ function usePreviousValue<T>(value: T): T {
 }
 
 const StyledSkeletonItemContainer = toggleStyledComponent(
-  'primer_react_css_modules_team',
+  CSS_MODULES_FEATURE_FLAG,
   'span',
   styled.span.attrs({
     className: 'PRIVATE_TreeView-item-skeleton',
@@ -804,7 +806,7 @@ const StyledSkeletonItemContainer = toggleStyledComponent(
 )
 
 const StyledSkeletonText = toggleStyledComponent(
-  'primer_react_css_modules_team',
+  CSS_MODULES_FEATURE_FLAG,
   SkeletonText,
   styled(SkeletonText)`
     width: var(--tree-item-loading-width, 67%);
@@ -812,7 +814,7 @@ const StyledSkeletonText = toggleStyledComponent(
 )
 
 const SkeletonItem = () => {
-  const cssModulesEnabled = useFeatureFlag('primer_react_css_modules_team')
+  const cssModulesEnabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
   return (
     <StyledSkeletonItemContainer
       className={clsx(
@@ -835,7 +837,7 @@ type LoadingItemProps = {
 
 const LoadingItem = React.forwardRef<HTMLElement, LoadingItemProps>(({count}, ref) => {
   const itemId = useId()
-  const cssModulesEnabled = useFeatureFlag('primer_react_css_modules_team')
+  const cssModulesEnabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
 
   if (count) {
     return (
@@ -897,7 +899,7 @@ export type TreeViewVisualProps = {
 }
 
 const LeadingVisual: React.FC<TreeViewVisualProps> = props => {
-  const cssModulesEnabled = useFeatureFlag('primer_react_css_modules_team')
+  const cssModulesEnabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
   const {isExpanded, leadingVisualId} = React.useContext(ItemContext)
   const children = typeof props.children === 'function' ? props.children({isExpanded}) : props.children
   return (
@@ -922,7 +924,7 @@ const LeadingVisual: React.FC<TreeViewVisualProps> = props => {
 LeadingVisual.displayName = 'TreeView.LeadingVisual'
 
 const TrailingVisual: React.FC<TreeViewVisualProps> = props => {
-  const cssModulesEnabled = useFeatureFlag('primer_react_css_modules_team')
+  const cssModulesEnabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
   const {isExpanded, trailingVisualId} = React.useContext(ItemContext)
   const children = typeof props.children === 'function' ? props.children({isExpanded}) : props.children
   return (
@@ -950,7 +952,7 @@ TrailingVisual.displayName = 'TreeView.TrailingVisual'
 // TreeView.LeadingAction
 
 const LeadingAction: React.FC<TreeViewVisualProps> = props => {
-  const cssModulesEnabled = useFeatureFlag('primer_react_css_modules_team')
+  const cssModulesEnabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
   const {isExpanded} = React.useContext(ItemContext)
   const children = typeof props.children === 'function' ? props.children({isExpanded}) : props.children
   return (
@@ -978,7 +980,7 @@ LeadingAction.displayName = 'TreeView.LeadingAction'
 // TreeView.DirectoryIcon
 
 const DirectoryIcon = () => {
-  const cssModulesEnabled = useFeatureFlag('primer_react_css_modules_team')
+  const cssModulesEnabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
   const {isExpanded} = React.useContext(ItemContext)
   const Icon = isExpanded ? FileDirectoryOpenFillIcon : FileDirectoryFillIcon
   return (
