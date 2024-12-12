@@ -5,11 +5,11 @@ import {getFocusableChild} from '@primer/behaviors/utils'
 import {get} from '../constants'
 import VisuallyHidden from '../_VisuallyHidden'
 import {AnchoredOverlay} from '../AnchoredOverlay'
-import Box from '../Box'
 import {Button, IconButton} from '../Button'
 import {useTheme} from '../ThemeProvider'
-import type {SxProp} from '../sx'
+import type {DeprecatedSxProp} from '../sx'
 import sx from '../sx'
+import classes from './LabelGroup.module.css'
 
 export type LabelGroupProps = {
   /** Customize the element type of the rendered container */
@@ -18,12 +18,12 @@ export type LabelGroupProps = {
   overflowStyle?: 'inline' | 'overlay'
   /** How many tokens to show. `'auto'` truncates the tokens to fit in the parent container. Passing a number will truncate after that number tokens. If this is undefined, tokens will never be truncated. */
   visibleChildCount?: 'auto' | number
-} & SxProp
+} & DeprecatedSxProp
 
-const StyledLabelGroupContainer = styled.div<SxProp>`
+const StyledLabelGroupContainer = styled.div<DeprecatedSxProp>`
   display: flex;
   flex-wrap: nowrap;
-  gap: ${get('space.1')};
+  gap: var(--base-size-4);
   line-height: 1;
   max-width: 100%;
   overflow: hidden;
@@ -136,18 +136,16 @@ const OverlayToggle: React.FC<
       )}
       focusZoneSettings={{disabled: true}}
     >
-      <Box alignItems="flex-start" display="flex" width={overlayWidth} padding={`${overlayPaddingPx}px`}>
-        <Box display="flex" flexWrap="wrap" sx={{gap: 1}}>
-          {children}
-        </Box>
+      <div className={classes.Div_0} style={{width: overlayWidth, padding: `${overlayPaddingPx}px`}}>
+        <div className={classes.Div_1}>{children}</div>
         <IconButton
           onClick={closeOverflowOverlay}
           icon={XIcon}
           aria-label="Close"
           variant="invisible"
-          sx={{flexShrink: 0}}
+          className={classes.IconButton_0}
         />
-      </Box>
+      </div>
     </AnchoredOverlay>
   ) : null
 
