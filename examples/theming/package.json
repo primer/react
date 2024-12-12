@@ -10,7 +10,7 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@primer/octicons-react": "^19.9.0",
+    "@primer/octicons-react": "^19.14.0",
     "@primer/react": "37.7.1",
     "clsx": "^1.2.1",
     "next": "^14.2.10",
