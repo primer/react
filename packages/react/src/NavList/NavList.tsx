@@ -8,7 +8,6 @@ import type {
   ActionListLeadingVisualProps,
   ActionListTrailingVisualProps,
   ActionListGroupHeadingProps,
-  ActionListSubItemProps,
 } from '../ActionList'
 import {ActionList} from '../ActionList'
 import {SubItem} from '../ActionList/Item'
@@ -27,7 +26,7 @@ import {toggleStyledComponent} from '../internal/utils/toggleStyledComponent'
 const getSubnavStyles = (depth: number) => {
   return {
     paddingLeft: depth > 0 ? depth + 2 : null, // Indent sub-items
-    fontSize: depth > 0 ? 0 : null, // Reduce font size of sub-items
+    fontSize: depth > 0 ? 0 : 1, // Reduce font size of sub-items
     fontWeight: depth > 0 ? 'normal' : null, // Sub-items don't get bolded
   }
 }

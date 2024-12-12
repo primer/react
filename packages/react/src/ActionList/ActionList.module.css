@@ -629,8 +629,14 @@ span wrapping svg or text */
   word-break: break-word;
 }
 
-.SubGroup .ItemLabel {
-  font-size: var(--text-body-size-small);
+.SubGroup {
+  & .ItemLabel {
+    font-size: var(--text-body-size-small);
+  }
+
+  & .ActionListItem {
+    margin-inline: 0;
+  }
 }
 
 /* trailing action icon button */

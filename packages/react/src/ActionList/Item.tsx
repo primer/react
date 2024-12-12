@@ -26,7 +26,7 @@ import {clsx} from 'clsx'
 
 const LiBox = styled.li<SxProp>(sx)
 
-export type ActionListSubItemProps = {
+type ActionListSubItemProps = {
   children?: React.ReactNode
 }
 
