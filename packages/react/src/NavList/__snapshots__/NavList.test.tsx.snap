@@ -432,8 +432,6 @@ exports[`NavList renders with groups 1`] = `
   margin-top: calc(8px - 1px);
   margin-bottom: 8px;
   list-style: none;
-  margin-right: calc(-1 * var(--base-size-8));
-  margin-left: calc(-1 * var(--base-size-8));
 }
 
 .c1:first-child {
