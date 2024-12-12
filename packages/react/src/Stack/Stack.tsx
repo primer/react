@@ -126,7 +126,7 @@ const StyledStack = toggleStyledComponent(
       flex-wrap: nowrap;
     }
 
-    // @custom-media --veiwportRange-regular
+    // @custom-media --viewportRange-regular
     @media (min-width: 48rem) {
       &[data-padding-regular='none'] {
         padding: 0;
@@ -406,7 +406,7 @@ const StyledStackItem = toggleStyledComponent(
       flex-grow: 1;
     }
 
-    // @custom-media --veiwportRange-regular
+    // @custom-media --viewportRange-regular
     @media (min-width: 48rem) {
       &[data-grow-regular='true'] {
         flex-grow: 1;
