@@ -1019,7 +1019,8 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
 .c1 {
   margin: 0;
   padding-inline-start: 0;
-  padding: 8px;
+  padding-top: 8px;
+  padding-bottom: 8px;
 }
 
 .c3 {
@@ -1035,6 +1036,8 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   padding-bottom: 6px;
   line-height: 16px;
   min-height: 5px;
+  margin-left: 8px;
+  margin-right: 8px;
   border-radius: 6px;
   -webkit-transition: background 33.333ms linear;
   transition: background 33.333ms linear;
@@ -1045,7 +1048,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   appearance: none;
   background: unset;
   border: unset;
-  width: 100%;
+  width: calc(100% - 16px);
   font-family: unset;
   text-align: unset;
   margin-top: unset;
@@ -1935,7 +1938,8 @@ exports[`snapshots renders a multiselect input 1`] = `
 .c1 {
   margin: 0;
   padding-inline-start: 0;
-  padding: 8px;
+  padding-top: 8px;
+  padding-bottom: 8px;
 }
 
 .c3 {
@@ -1951,6 +1955,8 @@ exports[`snapshots renders a multiselect input 1`] = `
   padding-bottom: 6px;
   line-height: 16px;
   min-height: 5px;
+  margin-left: 8px;
+  margin-right: 8px;
   border-radius: 6px;
   -webkit-transition: background 33.333ms linear;
   transition: background 33.333ms linear;
@@ -1961,7 +1967,7 @@ exports[`snapshots renders a multiselect input 1`] = `
   appearance: none;
   background: unset;
   border: unset;
-  width: 100%;
+  width: calc(100% - 16px);
   font-family: unset;
   text-align: unset;
   margin-top: unset;
@@ -2823,7 +2829,8 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
 .c1 {
   margin: 0;
   padding-inline-start: 0;
-  padding: 8px;
+  padding-top: 8px;
+  padding-bottom: 8px;
 }
 
 .c3 {
@@ -2839,6 +2846,8 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   padding-bottom: 6px;
   line-height: 16px;
   min-height: 5px;
+  margin-left: 8px;
+  margin-right: 8px;
   border-radius: 6px;
   -webkit-transition: background 33.333ms linear;
   transition: background 33.333ms linear;
@@ -2849,7 +2858,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   appearance: none;
   background: unset;
   border: unset;
-  width: 100%;
+  width: calc(100% - 16px);
   font-family: unset;
   text-align: unset;
   margin-top: unset;
@@ -2939,6 +2948,8 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   padding-bottom: 6px;
   line-height: 16px;
   min-height: 5px;
+  margin-left: 8px;
+  margin-right: 8px;
   border-radius: 6px;
   -webkit-transition: background 33.333ms linear;
   transition: background 33.333ms linear;
@@ -2949,7 +2960,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   appearance: none;
   background: unset;
   border: unset;
-  width: 100%;
+  width: calc(100% - 16px);
   font-family: unset;
   text-align: unset;
   margin-top: unset;
@@ -3755,7 +3766,8 @@ exports[`snapshots renders a single select input 1`] = `
 .c1 {
   margin: 0;
   padding-inline-start: 0;
-  padding: 8px;
+  padding-top: 8px;
+  padding-bottom: 8px;
 }
 
 .c3 {
@@ -3771,6 +3783,8 @@ exports[`snapshots renders a single select input 1`] = `
   padding-bottom: 6px;
   line-height: 16px;
   min-height: 5px;
+  margin-left: 8px;
+  margin-right: 8px;
   border-radius: 6px;
   -webkit-transition: background 33.333ms linear;
   transition: background 33.333ms linear;
@@ -3781,7 +3795,7 @@ exports[`snapshots renders a single select input 1`] = `
   appearance: none;
   background: unset;
   border: unset;
-  width: 100%;
+  width: calc(100% - 16px);
   font-family: unset;
   text-align: unset;
   margin-top: unset;
@@ -4246,7 +4260,8 @@ exports[`snapshots renders with a custom text input component 1`] = `
 .c1 {
   margin: 0;
   padding-inline-start: 0;
-  padding: 8px;
+  padding-top: 8px;
+  padding-bottom: 8px;
 }
 
 .c3 {
@@ -4262,6 +4277,8 @@ exports[`snapshots renders with a custom text input component 1`] = `
   padding-bottom: 6px;
   line-height: 16px;
   min-height: 5px;
+  margin-left: 8px;
+  margin-right: 8px;
   border-radius: 6px;
   -webkit-transition: background 33.333ms linear;
   transition: background 33.333ms linear;
@@ -4272,7 +4289,7 @@ exports[`snapshots renders with a custom text input component 1`] = `
   appearance: none;
   background: unset;
   border: unset;
-  width: 100%;
+  width: calc(100% - 16px);
   font-family: unset;
   text-align: unset;
   margin-top: unset;

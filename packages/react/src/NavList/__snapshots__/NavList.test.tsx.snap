@@ -62,7 +62,8 @@ exports[`NavList renders a simple list 1`] = `
 .c0 {
   margin: 0;
   padding-inline-start: 0;
-  padding: 8px;
+  padding-top: 8px;
+  padding-bottom: 8px;
 }
 
 .c2 {
@@ -78,6 +79,8 @@ exports[`NavList renders a simple list 1`] = `
   padding-bottom: 0;
   line-height: 16px;
   min-height: 5px;
+  margin-left: 8px;
+  margin-right: 8px;
   border-radius: 6px;
   -webkit-transition: background 33.333ms linear;
   transition: background 33.333ms linear;
@@ -88,7 +91,7 @@ exports[`NavList renders a simple list 1`] = `
   appearance: none;
   background: unset;
   border: unset;
-  width: 100%;
+  width: calc(100% - 16px);
   font-family: unset;
   text-align: unset;
   margin-top: unset;
@@ -191,6 +194,8 @@ exports[`NavList renders a simple list 1`] = `
   padding-bottom: 0;
   line-height: 16px;
   min-height: 5px;
+  margin-left: 8px;
+  margin-right: 8px;
   border-radius: 6px;
   -webkit-transition: background 33.333ms linear;
   transition: background 33.333ms linear;
@@ -201,7 +206,7 @@ exports[`NavList renders a simple list 1`] = `
   appearance: none;
   background: unset;
   border: unset;
-  width: 100%;
+  width: calc(100% - 16px);
   font-family: unset;
   text-align: unset;
   margin-top: unset;
@@ -512,7 +517,8 @@ exports[`NavList renders with groups 1`] = `
 .c0 {
   margin: 0;
   padding-inline-start: 0;
-  padding: 8px;
+  padding-top: 8px;
+  padding-bottom: 8px;
 }
 
 .c5 {
@@ -528,6 +534,8 @@ exports[`NavList renders with groups 1`] = `
   padding-bottom: 0;
   line-height: 16px;
   min-height: 5px;
+  margin-left: 8px;
+  margin-right: 8px;
   border-radius: 6px;
   -webkit-transition: background 33.333ms linear;
   transition: background 33.333ms linear;
@@ -538,7 +546,7 @@ exports[`NavList renders with groups 1`] = `
   appearance: none;
   background: unset;
   border: unset;
-  width: 100%;
+  width: calc(100% - 16px);
   font-family: unset;
   text-align: unset;
   margin-top: unset;
@@ -641,6 +649,8 @@ exports[`NavList renders with groups 1`] = `
   padding-bottom: 0;
   line-height: 16px;
   min-height: 5px;
+  margin-left: 8px;
+  margin-right: 8px;
   border-radius: 6px;
   -webkit-transition: background 33.333ms linear;
   transition: background 33.333ms linear;
@@ -651,7 +661,7 @@ exports[`NavList renders with groups 1`] = `
   appearance: none;
   background: unset;
   border: unset;
-  width: 100%;
+  width: calc(100% - 16px);
   font-family: unset;
   text-align: unset;
   margin-top: unset;
@@ -1003,7 +1013,8 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
 .c0 {
   margin: 0;
   padding-inline-start: 0;
-  padding: 8px;
+  padding-top: 8px;
+  padding-bottom: 8px;
 }
 
 [data-component="ActionList.Divider"] + .c3 {
@@ -1028,6 +1039,8 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   padding-bottom: 0;
   line-height: 16px;
   min-height: 5px;
+  margin-left: 8px;
+  margin-right: 8px;
   border-radius: 6px;
   -webkit-transition: background 33.333ms linear;
   transition: background 33.333ms linear;
@@ -1038,7 +1051,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   appearance: none;
   background: unset;
   border: unset;
-  width: 100%;
+  width: calc(100% - 16px);
   font-family: unset;
   text-align: unset;
   margin-top: unset;
@@ -1140,6 +1153,8 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   padding-bottom: 6px;
   line-height: 16px;
   min-height: 5px;
+  margin-left: 8px;
+  margin-right: 8px;
   border-radius: 6px;
   -webkit-transition: background 33.333ms linear;
   transition: background 33.333ms linear;
@@ -1150,7 +1165,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   appearance: none;
   background: unset;
   border: unset;
-  width: 100%;
+  width: calc(100% - 16px);
   font-family: unset;
   text-align: unset;
   margin-top: unset;
@@ -1488,7 +1503,8 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
 .c0 {
   margin: 0;
   padding-inline-start: 0;
-  padding: 8px;
+  padding-top: 8px;
+  padding-bottom: 8px;
 }
 
 [data-component="ActionList.Divider"] + .c3 {
@@ -1513,6 +1529,8 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   padding-bottom: 0;
   line-height: 16px;
   min-height: 5px;
+  margin-left: 8px;
+  margin-right: 8px;
   border-radius: 6px;
   -webkit-transition: background 33.333ms linear;
   transition: background 33.333ms linear;
@@ -1523,7 +1541,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   appearance: none;
   background: unset;
   border: unset;
-  width: 100%;
+  width: calc(100% - 16px);
   font-family: unset;
   text-align: unset;
   margin-top: unset;
@@ -1634,6 +1652,8 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   padding-bottom: 6px;
   line-height: 16px;
   min-height: 5px;
+  margin-left: 8px;
+  margin-right: 8px;
   border-radius: 6px;
   -webkit-transition: background 33.333ms linear;
   transition: background 33.333ms linear;
@@ -1644,7 +1664,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   appearance: none;
   background: unset;
   border: unset;
-  width: 100%;
+  width: calc(100% - 16px);
   font-family: unset;
   text-align: unset;
   margin-top: unset;
