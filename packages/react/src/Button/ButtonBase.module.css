@@ -430,8 +430,6 @@
     &:disabled,
     &[aria-disabled='true']:not([data-loading='true']) {
       color: var(--button-invisible-fgColor-disabled);
-      background-color: var(--button-invisible-bgColor-disabled);
-      border-color: var(--button-invisible-borderColor-disabled);
       box-shadow: none;
     }
 
