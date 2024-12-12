@@ -128,7 +128,7 @@
   text-align: center;
 }
 
-@media ((max-width: calc(768px - 0.02px))) {
+@media (max-width: calc(768px - 0.02px)) {
   .TablePaginationSteps[data-hidden-viewport-ranges*='narrow'] > *:not(:first-child):not(:last-child) {
     display: none;
   }
@@ -142,7 +142,7 @@
   }
 }
 
-@media ((min-width: 768px)) {
+@media (min-width: 768px) {
   .TablePaginationSteps[data-hidden-viewport-ranges*='regular'] > *:not(:first-child):not(:last-child) {
     display: none;
   }
@@ -156,7 +156,7 @@
   }
 }
 
-@media ((min-width: 1400px)) {
+@media (min-width: 1400px) {
   .TablePaginationSteps[data-hidden-viewport-ranges*='wide'] > *:not(:first-child):not(:last-child) {
     display: none;
   }
