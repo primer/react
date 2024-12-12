@@ -1,5 +1,14 @@
 .Group:not(:first-child) {
   margin-block-start: var(--base-size-8);
+
+  /* If somebody tries to pass the `title` prop AND a `NavList.GroupHeading` as a child, hide the `ActionList.GroupHeading */
+  /* stylelint-disable-next-line selector-max-specificity */
+  &:has(.GroupHeadingWrap + ul > .GroupHeadingWrap) {
+    /* stylelint-disable-next-line selector-max-specificity */
+    & > .GroupHeadingWrap {
+      display: none;
+    }
+  }
 }
 
 .GroupHeadingWrap {
@@ -28,6 +37,10 @@
       margin-block-start: 0;
     }
   }
+
+  /* & + ul:has(.GroupHeadingWrap) {
+    outline: solid 1px red;
+  } */
 }
 
 .GroupHeading {

@@ -236,6 +236,7 @@ export const GroupHeading: React.FC<React.PropsWithChildren<ActionListGroupHeadi
           className={groupClasses.GroupHeadingWrap}
           aria-hidden="true"
           data-variant={variant}
+          data-component="GroupHeadingWrap"
           {...props}
         >
           <span className={clsx(className, groupClasses.GroupHeading)} id={groupHeadingId}>
@@ -245,7 +246,7 @@ export const GroupHeading: React.FC<React.PropsWithChildren<ActionListGroupHeadi
         </div>
       ) : (
         // for explicit (role="list" is passed as prop) and implicit list roles (ActionList ins rendered as list by default), group titles are proper heading tags.
-        <div className={groupClasses.GroupHeadingWrap} data-variant={variant}>
+        <div className={groupClasses.GroupHeadingWrap} data-variant={variant} data-component="GroupHeadingWrap">
           {sx !== defaultSxProp ? (
             <Heading
               className={clsx(className, groupClasses.GroupHeading)}

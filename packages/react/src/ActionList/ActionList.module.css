@@ -74,6 +74,11 @@
       visibility: hidden;
     }
   }
+
+  /* Make sure that the first visible item isn't a divider */
+  & .Divider:first-child {
+    display: none;
+  }
 }
 
 /* ActionListItem is a li that handles visual state, while ActionListItemContent controls actual state via button or link */
