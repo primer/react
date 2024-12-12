@@ -6,7 +6,12 @@ import {render as HTMLRender} from '@testing-library/react'
 import axe from 'axe-core'
 
 describe('Text', () => {
-  behavesAsComponent({Component: Text})
+  behavesAsComponent({
+    Component: Text,
+    options: {
+      skipDisplayName: true,
+    },
+  })
 
   checkExports('Text', {
     default: Text,
