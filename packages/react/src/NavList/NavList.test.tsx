@@ -82,8 +82,11 @@ describe('NavList', () => {
     const groupHeading = getByText('Group heading')
     const groupTitle = getByText('Overview')
 
+    // Find the div wrapping the "Overview" text
+    const groupTitleWrapper = groupTitle.closest('div')
+
     expect(groupHeading).toBeVisible()
-    expect(groupTitle).not.toBeVisible()
+    expect(groupTitleWrapper).not.toBeVisible()
   })
 
   it('supports TrailingAction', async () => {
