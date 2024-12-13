@@ -451,31 +451,6 @@ exports[`NavList renders with groups 1`] = `
 }
 
 .c3 {
-  padding-top: 6px;
-  padding-bottom: 6px;
-  padding-left: 16px;
-  padding-right: 16px;
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-  list-style: none;
-}
-
-.c3 .ActionListGroupHeading {
-  font-size: var(--text-body-size-small),12px;
-  font-weight: var(--base-text-weight-semibold,600);
-  line-height: var(--text-body-lineHeight-small,1.6666);
-  color: var(--fgColor-muted);
-}
-
-.c3 .ActionListGroupHeadingDescription {
-  font-size: var(--text-body-size-small,12px);
-  font-weight: var(--base-text-weight-normal,400);
-  line-height: var(--text-body-lineHeight-small,1.6666);
-  color: var(--fgColor-muted);
-}
-
-.c4 {
   padding-inline-start: 0;
 }
 

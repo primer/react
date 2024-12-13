@@ -36,6 +36,16 @@ const Heading: React.FC<HeadingProps & React.HTMLAttributes<HTMLHeadingElement>>
   )
 }
 
+type HeadingWrapProps = {
+  as?: 'div' | 'li'
+  className?: string
+  children: React.ReactNode
+}
+
+const HeadingWrap: React.FC<HeadingWrapProps> = ({as = 'div', children, className, ...rest}) => {
+  return React.createElement(as, {...rest, className}, children)
+}
+
 export type ActionListGroupProps = {
   /**
    * Style variations. Usage is discretionary.
@@ -233,21 +243,22 @@ export const GroupHeading: React.FC<React.PropsWithChildren<ActionListGroupHeadi
     <>
       {/* for listbox (SelectPanel) and menu (ActionMenu) roles, group titles are presentational. */}
       {listRole && listRole !== 'list' ? (
-        <div
+        <HeadingWrap
           role="presentation"
           className={groupClasses.GroupHeadingWrap}
           aria-hidden="true"
           data-variant={variant}
+          as={headingWrapElement}
           {...props}
         >
           <span className={clsx(className, groupClasses.GroupHeading)} id={groupHeadingId}>
             {_internalBackwardCompatibleTitle ?? children}
           </span>
           {auxiliaryText && <div className={classes.Description}>{auxiliaryText}</div>}
-        </div>
+        </HeadingWrap>
       ) : (
         // for explicit (role="list" is passed as prop) and implicit list roles (ActionList ins rendered as list by default), group titles are proper heading tags.
-        <div className={groupClasses.GroupHeadingWrap} data-variant={variant}>
+        <HeadingWrap className={groupClasses.GroupHeadingWrap} data-variant={variant} as={headingWrapElement}>
           {sx !== defaultSxProp ? (
             <Heading
               className={clsx(className, groupClasses.GroupHeading)}
@@ -269,7 +280,7 @@ export const GroupHeading: React.FC<React.PropsWithChildren<ActionListGroupHeadi
             </Heading>
           )}
           {auxiliaryText && <div className={classes.Description}>{auxiliaryText}</div>}
-        </div>
+        </HeadingWrap>
       )}
     </>
   )
