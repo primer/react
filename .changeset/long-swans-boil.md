@@ -1,5 +1,5 @@
 ---
-"@primer/react": minor
+"@primer/react": major
 ---
 
 Remove sxProp from SelectPanel
