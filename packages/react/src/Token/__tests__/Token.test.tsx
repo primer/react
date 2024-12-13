@@ -77,6 +77,13 @@ const testTokenComponent = (Component: React.ComponentType<React.PropsWithChildr
     expect(onRemoveMock).toHaveBeenCalled()
   })
 
+  it('adds className to rendered component', () => {
+    const {getByText} = HTMLRender(<Component text="token" className="testing-class" />)
+    const domNode = getByText('token')
+
+    expect(domNode.parentElement).toHaveClass('testing-class')
+  })
+
   it('should have no axe violations', async () => {
     const {container} = HTMLRender(<Component text="token" />)
     const results = await axe.run(container)

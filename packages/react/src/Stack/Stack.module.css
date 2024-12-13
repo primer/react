@@ -113,7 +113,7 @@
     flex-wrap: nowrap;
   }
 
-  @media (--veiwportRange-regular) {
+  @media (--viewportRange-regular) {
     &[data-padding-regular='none'] {
       padding: 0;
     }
@@ -301,7 +301,7 @@
     flex-grow: 1;
   }
 
-  @media (--veiwportRange-regular) {
+  @media (--viewportRange-regular) {
     &[data-grow-regular='true'] {
       flex-grow: 1;
     }

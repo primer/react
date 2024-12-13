@@ -128,7 +128,7 @@ describe('Overlay', () => {
     expect(container.getByText('Add to list')).toBeInTheDocument()
 
     // open second menu
-    await user.click(container.getByText('Create list'))
+    fireEvent.click(container.getByText('Create list'))
     expect(container.getByPlaceholderText('Name this list')).toBeInTheDocument()
 
     // hitting escape on input should close the second menu but not the first
