@@ -65,7 +65,11 @@ test.describe('DataTable', () => {
             // Default state
             expect(
               await page.screenshot({
-                mask: [page.locator('relative-time')],
+                mask: await page
+                  .locator('td', {
+                    has: page.locator('relative-time'),
+                  })
+                  .all(),
               }),
             ).toMatchSnapshot(`DataTable.${story.title}.${theme}.png`)
           })
