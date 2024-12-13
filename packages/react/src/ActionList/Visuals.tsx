@@ -61,15 +61,8 @@ export const LeadingVisual: React.FC<React.PropsWithChildren<VisualProps>> = ({
   const enabled = useFeatureFlag('primer_react_css_modules_team')
 
   if (enabled) {
-    if (sx !== defaultSxProp) {
-      return (
-        <VisualContainer className={clsx(className, classes.LeadingVisual)} sx={sx} {...props}>
-          {props.children}
-        </VisualContainer>
-      )
-    }
     return (
-      <VisualContainer className={clsx(className, classes.LeadingVisual)} {...props}>
+      <VisualContainer className={clsx(className, classes.LeadingVisual)} sx={sx} {...props}>
         {props.children}
       </VisualContainer>
     )
