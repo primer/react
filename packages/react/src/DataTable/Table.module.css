@@ -29,6 +29,7 @@
   margin: 0;
   font-size: var(--text-body-size-small);
   font-weight: var(--base-text-weight-normal);
+  /* stylelint-disable-next-line primer/typography */
   line-height: calc(20 / 12);
   color: var(--fgColor-default);
   grid-area: subtitle;
