@@ -1,6 +1,5 @@
 import {BaseStyles} from '.'
 import type {Meta} from '@storybook/react'
-import React from 'react'
 import type {ComponentProps} from './utils/types'
 
 export default {
@@ -8,4 +7,4 @@ export default {
   component: BaseStyles,
 } as Meta<ComponentProps<typeof BaseStyles>>
 
-export const Default = () => <BaseStyles>Hello</BaseStyles>
+export const Default = () => 'Hello'
