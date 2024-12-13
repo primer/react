@@ -186,6 +186,7 @@ export type ActionListGroupHeadingProps = Pick<ActionListGroupProps, 'variant' |
   SxProp &
   React.HTMLAttributes<HTMLElement> & {
     as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
+    headingWrapElement?: 'div' | 'li'
     _internalBackwardCompatibleTitle?: string
     variant?: 'filled' | 'subtle'
   }
@@ -207,6 +208,7 @@ export const GroupHeading: React.FC<React.PropsWithChildren<ActionListGroupHeadi
   children,
   className,
   sx = defaultSxProp,
+  headingWrapElement = 'div',
   ...props
 }) => {
   const {role: listRole} = React.useContext(ListContext)
