@@ -1,13 +1,13 @@
-.IconButton_0 {
+.CloseButton {
   flex-shrink: 0;
 }
 
-.Div_0 {
+.OverlayToggle_Container {
   display: flex;
   align-items: flex-start;
 }
 
-.Div_1 {
+.OverlayToggle_LabelWrapper {
   gap: var(--base-size-4);
   display: flex;
   flex-wrap: wrap;

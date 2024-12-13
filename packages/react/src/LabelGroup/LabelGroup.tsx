@@ -132,14 +132,14 @@ const OverlayToggle: React.FC<
       )}
       focusZoneSettings={{disabled: true}}
     >
-      <div className={classes.Div_0} style={{width: overlayWidth, padding: `${overlayPaddingPx}px`}}>
-        <div className={classes.Div_1}>{children}</div>
+      <div className={classes.OverlayToggle_Container} style={{width: overlayWidth, padding: `${overlayPaddingPx}px`}}>
+        <div className={classes.OverlayToggle_LabelWrapper}>{children}</div>
         <IconButton
           onClick={closeOverflowOverlay}
           icon={XIcon}
           aria-label="Close"
           variant="invisible"
-          className={classes.IconButton_0}
+          className={classes.CloseButton}
         />
       </div>
     </AnchoredOverlay>
