@@ -126,7 +126,7 @@ figma.connect(
   },
 )
 
-/** DANER ITEM */
+/** DANGER ITEM */
 figma.connect(
   ActionList.Item,
   'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?node-id=15614-56205&m=dev',
@@ -157,6 +157,59 @@ figma.connect(
     example: ({text, leadingVisual}) => (
       <ActionList.Item variant="danger">
         <ActionList.LeadingVisual>{leadingVisual}</ActionList.LeadingVisual>
+        {text.label}
+      </ActionList.Item>
+    ),
+  },
+)
+/** Single Select ITEM */
+figma.connect(
+  ActionList.Item,
+  'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?node-id=15614-56202&m=dev',
+  {
+    props: {
+      size: figma.enum('size', {
+        small: 'small',
+        medium: 'medium',
+        large: 'large',
+      }),
+      selected: figma.boolean('selected?'),
+      currentSelection: figma.boolean('currentSelection'),
+      text: figma.nestedProps('label and description', {
+        label: figma.textContent('label'),
+        description: figma.textContent('description'),
+      }),
+      leadingVisual: figma.instance('leadingVisual'),
+    },
+    variant: {'leadingVisual?': true},
+    example: ({text, selected, currentSelection, leadingVisual}) => (
+      <ActionList.Item selected={selected} active={currentSelection} variant="default">
+        <ActionList.LeadingVisual>{leadingVisual}</ActionList.LeadingVisual>
+        {text.label}
+      </ActionList.Item>
+    ),
+  },
+)
+figma.connect(
+  ActionList.Item,
+  'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?node-id=15614-56202&m=dev',
+  {
+    props: {
+      size: figma.enum('size', {
+        small: 'small',
+        medium: 'medium',
+        large: 'large',
+      }),
+      selected: figma.boolean('selected?'),
+      currentSelection: figma.boolean('currentSelection'),
+      text: figma.nestedProps('label and description', {
+        label: figma.textContent('label'),
+        description: figma.textContent('description'),
+      }),
+    },
+    variant: {'leadingVisual?': false},
+    example: ({text, selected, currentSelection}) => (
+      <ActionList.Item selected={selected} active={currentSelection} variant="default">
         {text.label}
       </ActionList.Item>
     ),
