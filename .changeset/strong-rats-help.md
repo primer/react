@@ -1,5 +1,4 @@
 ---
-"postcss-preset-primer": patch
 "@primer/react": patch
 ---
 
