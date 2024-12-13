@@ -69,6 +69,7 @@ export const LeadingVisual: React.FC<React.PropsWithChildren<VisualProps>> = ({
   }
   return (
     <LeadingVisualContainer
+      className={className}
       sx={merge(
         {
           color: getVariantStyles(variant, disabled, inactive).iconColor,
@@ -113,6 +114,7 @@ export const TrailingVisual: React.FC<React.PropsWithChildren<VisualProps>> = ({
     <Box
       id={trailingVisualId}
       as="span"
+      className={className}
       sx={merge(
         {
           height: '20px', // match height of text row

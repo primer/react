@@ -57,7 +57,7 @@
 }
 
 .testCustomClassnameColor {
-  color: var(--fgColor-sponsors);
+  color: var(--fgColor-sponsors) !important;
 }
 
 .testCustomClassnameBgColor {
