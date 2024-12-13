@@ -29,6 +29,11 @@ export interface SxProp {
   sx?: BetterSystemStyleObject
 }
 
+export interface DeprecatedSxProp {
+  /** @deprecated Use CSS modules for styling instead */
+  sx?: BetterSystemStyleObject
+}
+
 const sx = (props: SxProp) => css(props.sx)
 
 export default sx

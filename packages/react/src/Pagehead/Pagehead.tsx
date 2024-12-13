@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import React, {type ComponentProps} from 'react'
 import {clsx} from 'clsx'
 import {get} from '../constants'
-import sx, {type SxProp} from '../sx'
+import sx, {type DeprecatedSxProp} from '../sx'
 import {toggleStyledComponent} from '../internal/utils/toggleStyledComponent'
 import classes from './Pagehead.module.css'
 import {useFeatureFlag} from '../FeatureFlags'
@@ -15,7 +15,7 @@ const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_ga'
 const StyledComponentPagehead = toggleStyledComponent(
   CSS_MODULES_FEATURE_FLAG,
   'div',
-  styled.div<SxProp>`
+  styled.div<DeprecatedSxProp>`
     position: relative;
     padding-top: ${get('space.4')};
     padding-bottom: ${get('space.4')};
@@ -38,5 +38,5 @@ const Pagehead = ({className, ...rest}: PageheadProps) => {
 /**
  * @deprecated
  */
-export type PageheadProps = ComponentProps<typeof StyledComponentPagehead> & SxProp
+export type PageheadProps = ComponentProps<typeof StyledComponentPagehead> & DeprecatedSxProp
 export default Pagehead

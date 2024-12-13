@@ -11,7 +11,7 @@ import {
 import Box, {type BoxProps} from '../../Box'
 import {useId} from '../../hooks'
 import {invariant} from '../../utils/invariant'
-import {merge, type BetterSystemStyleObject, type SxProp} from '../../sx'
+import {merge, type BetterSystemStyleObject, type DeprecatedSxProp} from '../../sx'
 import {defaultSxProp} from '../../utils/defaultSxProp'
 import {useResizeObserver, type ResizeObserverEntry} from '../../hooks/useResizeObserver'
 import useIsomorphicLayoutEffect from '../../utils/useIsomorphicLayoutEffect'
@@ -42,7 +42,7 @@ export type UnderlinePanelsProps = {
    * Loading state for all counters. It displays loading animation for individual counters until all are resolved. It is needed to prevent multiple layout shift.
    */
   loadingCounters?: boolean
-} & SxProp
+} & DeprecatedSxProp
 
 export type TabProps = PropsWithChildren<{
   /**
@@ -58,7 +58,7 @@ export type TabProps = PropsWithChildren<{
    */
   icon?: FC<IconProps>
 }> &
-  SxProp
+  DeprecatedSxProp
 
 export type PanelProps = Omit<BoxProps, 'as'>
 
@@ -194,7 +194,7 @@ const UnderlinePanels: FC<UnderlinePanelsProps> = ({
               display: 'none',
             },
           },
-          sxProp as SxProp,
+          sxProp as DeprecatedSxProp,
         )}
         {...props}
       >

@@ -5,7 +5,7 @@ import {isElement} from 'react-is'
 import type {IconProps} from '@primer/octicons-react'
 import styled, {keyframes} from 'styled-components'
 import CounterLabel from '../../CounterLabel'
-import sx, {type SxProp} from '../../sx'
+import sx, {type DeprecatedSxProp} from '../../sx'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../../utils/polymorphic'
 import {defaultSxProp} from '../../utils/defaultSxProp'
 import {get} from '../../constants'
@@ -41,7 +41,7 @@ type StyledUnderlineWrapperProps = {
   slot?: string
   as?: React.ElementType
   className?: string
-} & SxProp
+} & DeprecatedSxProp
 
 export const StyledUnderlineWrapper = forwardRef(
   ({children, className, ...rest}: PropsWithChildren<StyledUnderlineWrapperProps>, forwardedRef) => {
@@ -276,7 +276,7 @@ export type UnderlineItemProps = {
   counter?: number | string
   icon?: FC<IconProps> | React.ReactElement
   id?: string
-} & SxProp
+} & DeprecatedSxProp
 
 export const UnderlineItem = forwardRef(
   (

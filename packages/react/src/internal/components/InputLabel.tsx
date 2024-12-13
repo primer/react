@@ -1,9 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
 import {get} from '../../constants'
-import sx, {type SxProp} from '../../sx'
+import sx, {type DeprecatedSxProp} from '../../sx'
 
-type BaseProps = SxProp & {
+type BaseProps = DeprecatedSxProp & {
   disabled?: boolean
   required?: boolean
   requiredText?: string

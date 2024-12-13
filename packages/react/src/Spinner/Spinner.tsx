@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import sx, {type SxProp} from '../sx'
+import sx, {type DeprecatedSxProp} from '../sx'
 import {VisuallyHidden} from '../VisuallyHidden'
 import type {HTMLDataAttributes} from '../internal/internal-types'
 import {useId} from '../hooks'
@@ -24,7 +24,7 @@ export type SpinnerProps = {
   className?: string
   style?: React.CSSProperties
 } & HTMLDataAttributes &
-  SxProp
+  DeprecatedSxProp
 
 function Spinner({
   size: sizeKey = 'medium',

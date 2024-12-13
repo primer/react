@@ -4,7 +4,7 @@ import styled, {css} from 'styled-components'
 import {variant} from 'styled-system'
 import {clsx} from 'clsx'
 import {get} from '../constants'
-import sx, {type SxProp} from '../sx'
+import sx, {type DeprecatedSxProp} from '../sx'
 import type {TokenSizeKeys} from './TokenBase'
 import {tokenSizes, defaultTokenSize} from './TokenBase'
 import {toggleStyledComponent} from '../internal/utils/toggleStyledComponent'
@@ -12,7 +12,7 @@ import {useFeatureFlag} from '../FeatureFlags'
 
 import classes from './_RemoveTokenButton.module.css'
 
-interface TokenButtonProps extends SxProp {
+interface TokenButtonProps extends DeprecatedSxProp {
   borderOffset?: number
   size?: TokenSizeKeys
   isParentInteractive?: boolean
