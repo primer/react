@@ -15,7 +15,7 @@
 /* TableTitle */
 .TableTitle {
   margin: 0;
-  font-size: var(--text-body-size-small);
+  font-size: var(--text-body-size-medium);
   font-weight: var(--base-text-weight-semibold);
   /* stylelint-disable-next-line primer/typography */
   line-height: calc(20 / 14);
@@ -29,7 +29,7 @@
   margin: 0;
   font-size: var(--text-body-size-small);
   font-weight: var(--base-text-weight-normal);
-  line-height: var(--text-body-lineHeight-small);
+  line-height: calc(20 / 12);
   color: var(--fgColor-default);
   grid-area: subtitle;
 }

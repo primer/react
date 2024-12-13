@@ -588,7 +588,7 @@ const StyledTableTitle = toggleStyledComponent(
   'h2',
   styled.h2`
     color: var(--fgColor-default);
-    font-size: var(--text-body-size-small);
+    font-size: var(--text-body-size-medium);
     font-weight: var(--base-text-weight-semibold);
     line-height: calc(20 / 14);
     margin: 0;
@@ -632,7 +632,7 @@ const StyledTableSubtitle = toggleStyledComponent(
     color: var(--fgColor-default);
     font-weight: var(--base-text-weight-normal);
     font-size: var(--text-body-size-small);
-    line-height: var(--text-body-lineHeight-small);
+    line-height: calc(20 / 12);
     margin: 0;
   `,
 )
