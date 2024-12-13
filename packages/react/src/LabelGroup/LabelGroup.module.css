@@ -1,14 +1,7 @@
-.CloseButton {
-  flex-shrink: 0;
-}
-
-.OverlayToggle_Container {
-  display: flex;
-  align-items: flex-start;
-}
-
 .OverlayToggle_LabelWrapper {
-  gap: var(--base-size-4);
-  display: flex;
-  flex-wrap: wrap;
+  gap: var(--base-size-4) !important;
+}
+
+.OverlayToggle_CloseButtonWrapper {
+  min-inline-size: unset !important;
 }

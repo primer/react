@@ -7,6 +7,7 @@ import VisuallyHidden from '../_VisuallyHidden'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import {Button, IconButton} from '../Button'
 import {useTheme} from '../ThemeProvider'
+import {Stack, StackItem} from '../Stack/Stack'
 import classes from './LabelGroup.module.css'
 
 export type LabelGroupProps = {
@@ -132,16 +133,22 @@ const OverlayToggle: React.FC<
       )}
       focusZoneSettings={{disabled: true}}
     >
-      <div className={classes.OverlayToggle_Container} style={{width: overlayWidth, padding: `${overlayPaddingPx}px`}}>
-        <div className={classes.OverlayToggle_LabelWrapper}>{children}</div>
-        <IconButton
-          onClick={closeOverflowOverlay}
-          icon={XIcon}
-          aria-label="Close"
-          variant="invisible"
-          className={classes.CloseButton}
-        />
-      </div>
+      <Stack gap="none" direction="horizontal" style={{width: overlayWidth, padding: `${overlayPaddingPx}px`}}>
+        <StackItem>
+          <Stack
+            wrap="wrap"
+            gap="none"
+            align="start"
+            direction="horizontal"
+            className={classes.OverlayToggle_LabelWrapper}
+          >
+            {children}
+          </Stack>
+        </StackItem>
+        <StackItem className={classes.OverlayToggle_CloseButtonWrapper}>
+          <IconButton onClick={closeOverflowOverlay} icon={XIcon} aria-label="Close" variant="invisible" />
+        </StackItem>
+      </Stack>
     </AnchoredOverlay>
   ) : null
 
