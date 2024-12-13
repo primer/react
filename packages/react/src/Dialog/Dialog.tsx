@@ -677,10 +677,7 @@ const Buttons: React.FC<React.PropsWithChildren<{buttons: DialogButtonProps[]}>>
 }
 
 const CloseButton: React.FC<React.PropsWithChildren<{onClose: () => void}>> = ({onClose}) => {
-  return (
-    // eslint-disable-next-line primer-react/a11y-remove-disable-tooltip
-    <IconButton unsafeDisableTooltip={true} icon={XIcon} aria-label="Close" onClick={onClose} variant="invisible" />
-  )
+  return <IconButton tooltipDirection="n" icon={XIcon} aria-label="Close" onClick={onClose} variant="invisible" />
 }
 
 /**
