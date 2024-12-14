@@ -33,7 +33,7 @@ describe('BaseStyles', () => {
 
   it('respects system props', () => {
     const {container} = render(
-      <BaseStyles display="contents" whiteSpace="pre-wrap">
+      <BaseStyles display="contents" whiteSpace="pre-wrap" mr="2">
         Hello
       </BaseStyles>,
     )
@@ -41,6 +41,7 @@ describe('BaseStyles', () => {
     expect(container.children[0]).toHaveStyle({
       display: 'contents',
       'white-space': 'pre-wrap',
+      'margin-right': '8px',
     })
   })
 

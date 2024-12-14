@@ -7,7 +7,7 @@ import {useTheme} from './ThemeProvider'
 import {useFeatureFlag} from './FeatureFlags'
 import Box from './Box'
 import type {SxProp} from './sx'
-import {includesSystemProps} from './utils/includeSystemProps'
+import {includesSystemProps, getTypographyAndCommonProps} from './utils/includeSystemProps'
 
 import classes from './BaseStyles.module.css'
 
@@ -47,7 +47,6 @@ export type BaseStylesProps = PropsWithChildren & {
   as?: React.ComponentType<any> | keyof JSX.IntrinsicElements
   className?: string
   style?: CSSProperties
-  color?: string // Fixes `color` ts error
 } & SystemTypographyProps &
   SystemCommonProps &
   SxProp
@@ -71,6 +70,7 @@ function BaseStyles(props: BaseStylesProps) {
 
     // If props includes TYPOGRAPHY or COMMON props, pass them to the Box component
     if (includesSystemProps(props)) {
+      const systemProps = getTypographyAndCommonProps(props)
       return (
         // @ts-ignore shh
         <Box
@@ -88,6 +88,7 @@ function BaseStyles(props: BaseStylesProps) {
           data-color-mode={colorScheme?.includes('dark') ? 'dark' : 'light'}
           data-light-theme={dayScheme}
           data-dark-theme={nightScheme}
+          style={systemProps}
           {...rest}
         >
           {children}
