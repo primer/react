@@ -47,6 +47,7 @@ export type BaseStylesProps = PropsWithChildren & {
   as?: React.ComponentType<any> | keyof JSX.IntrinsicElements
   className?: string
   style?: CSSProperties
+  color?: string // Fixes `color` ts-error
 } & SystemTypographyProps &
   SystemCommonProps &
   SxProp
