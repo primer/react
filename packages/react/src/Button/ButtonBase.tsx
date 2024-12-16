@@ -123,7 +123,21 @@ const ButtonBase = forwardRef(
               ) : isElement(Icon) ? (
                 Icon
               ) : (
-                <Icon />
+                <span data-component="buttonContent" data-align={alignContent} className={classes.ButtonContent}>
+                  <Icon />
+                  {count !== undefined
+                    ? renderModuleVisual(
+                        () => (
+                          <CounterLabel className={classes.CounterLabel} data-component="ButtonCounter">
+                            {count}
+                          </CounterLabel>
+                        ),
+                        Boolean(loading) && !LeadingVisual,
+                        'trailingVisual',
+                        true,
+                      )
+                    : null}
+                </span>
               )
             ) : (
               <>
@@ -244,7 +258,21 @@ const ButtonBase = forwardRef(
             ) : isElement(Icon) ? (
               Icon
             ) : (
-              <Icon />
+              <span data-component="buttonContent" data-align={alignContent} className={classes.ButtonContent}>
+                <Icon />
+                {count !== undefined
+                  ? renderModuleVisual(
+                      () => (
+                        <CounterLabel className={classes.CounterLabel} data-component="ButtonCounter">
+                          {count}
+                        </CounterLabel>
+                      ),
+                      Boolean(loading) && !LeadingVisual,
+                      'trailingVisual',
+                      true,
+                    )
+                  : null}
+              </span>
             )
           ) : (
             <>

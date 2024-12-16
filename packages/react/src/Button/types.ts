@@ -94,6 +94,7 @@ export type IconButtonProps = ButtonA11yProps & {
   unsafeDisableTooltip?: boolean
   description?: string
   tooltipDirection?: TooltipDirection
+  count?: ButtonProps['count']
   /** @deprecated Use `keybindingHint` instead. */
   keyshortcuts?: string
   keybindingHint?: string

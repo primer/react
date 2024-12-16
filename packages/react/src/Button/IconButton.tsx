@@ -18,6 +18,7 @@ const IconButton = forwardRef(
       description,
       disabled,
       tooltipDirection,
+      count,
       // This is planned to be a temporary prop until the default tooltip on icon buttons are fully rolled out.
       unsafeDisableTooltip = false,
       keyshortcuts,
@@ -47,12 +48,15 @@ const IconButton = forwardRef(
       return (
         <ButtonBase
           icon={Icon}
-          className={clsx(className, classes.IconButton)}
+          className={clsx(className, classes.IconButton, {
+            [classes['IconButton--withCount']]: count === 0 || Boolean(count),
+          })}
           data-component="IconButton"
           sx={sxStyles}
           type="button"
           aria-label={ariaLabel}
           disabled={disabled}
+          count={count}
           {...props}
           // @ts-expect-error StyledButton wants both Anchor and Button refs
           ref={forwardedRef}
@@ -70,10 +74,13 @@ const IconButton = forwardRef(
         >
           <ButtonBase
             icon={Icon}
-            className={clsx(className, classes.IconButton)}
+            className={clsx(className, classes.IconButton, {
+              [classes['IconButton--withCount']]: count === 0 || Boolean(count),
+            })}
             data-component="IconButton"
             sx={sxStyles}
             type="button"
+            count={count}
             aria-keyshortcuts={keyshortcuts ?? undefined}
             // If description is provided, we will use the tooltip to describe the button, so we need to keep the aria-label to label the button.
             aria-label={description ? ariaLabel : undefined}

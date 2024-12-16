@@ -85,6 +85,20 @@
     }
   }
 
+  &.IconButton--withCount {
+    width: unset;
+    min-width: var(--control-medium-size);
+    padding-inline: var(--control-small-paddingInline-condensed);
+
+    &:where([data-size='small']) {
+      min-width: var(--control-small-size);
+    }
+
+    &:where([data-size='large']) {
+      min-width: var(--control-large-size);
+    }
+  }
+
   /* LinkButton */
 
   &[href] {
