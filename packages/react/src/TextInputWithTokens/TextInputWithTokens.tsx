@@ -79,7 +79,7 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
     trailingVisual: TrailingVisual,
     loading,
     loaderPosition = 'auto',
-    contrast,
+    contrast, // deprecated
     className,
     block,
     disabled,
