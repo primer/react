@@ -16,6 +16,7 @@ exports[`NavList renders a simple list 1`] = `
   flex-grow: 1;
   border-radius: 6px;
   color: inherit;
+  font-size: 14px;
 }
 
 .c3:hover {
@@ -359,6 +360,7 @@ exports[`NavList renders a simple list 1`] = `
           class="c3 Link"
           href="/"
           id=":r2:"
+          style="--subitem-depth: 0;"
           tabindex="0"
         >
           <div
@@ -382,6 +384,7 @@ exports[`NavList renders a simple list 1`] = `
           class="c3 Link"
           href="/about"
           id=":r3:"
+          style="--subitem-depth: 0;"
           tabindex="0"
         >
           <div
@@ -405,6 +408,7 @@ exports[`NavList renders a simple list 1`] = `
           class="c3 Link"
           href="/contact"
           id=":r4:"
+          style="--subitem-depth: 0;"
           tabindex="0"
         >
           <div
@@ -446,7 +450,7 @@ exports[`NavList renders with groups 1`] = `
   margin-top: 8px;
 }
 
-.c2:has([data-component="NavList.GroupHeading"]):has([data-component="ActionList.GroupHeading"]) [data-component="ActionList.GroupHeading"] {
+.c2:has([data-component="GroupHeadingWrap"] + ul > [data-component="GroupHeadingWrap"]) > [data-component="GroupHeadingWrap"] {
   display: none;
 }
 
@@ -469,6 +473,7 @@ exports[`NavList renders with groups 1`] = `
   flex-grow: 1;
   border-radius: 6px;
   color: inherit;
+  font-size: 14px;
 }
 
 .c6:hover {
@@ -813,6 +818,7 @@ exports[`NavList renders with groups 1`] = `
       >
         <div
           class="GroupHeadingWrap"
+          data-component="GroupHeadingWrap"
           data-variant="subtle"
         >
           <h3
@@ -836,6 +842,7 @@ exports[`NavList renders with groups 1`] = `
               class="c6 Link"
               href="/getting-started"
               id=":r8:"
+              style="--subitem-depth: 0;"
               tabindex="0"
             >
               <div
@@ -863,6 +870,7 @@ exports[`NavList renders with groups 1`] = `
       >
         <div
           class="GroupHeadingWrap"
+          data-component="GroupHeadingWrap"
           data-variant="subtle"
         >
           <h3
@@ -885,6 +893,7 @@ exports[`NavList renders with groups 1`] = `
               class="c6 Link"
               href="/Avatar"
               id=":ra:"
+              style="--subitem-depth: 0;"
               tabindex="0"
             >
               <div
@@ -1147,6 +1156,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   display: flex;
   padding-left: 8px;
   padding-right: 8px;
+  font-size: 14px;
   padding-top: 6px;
   padding-bottom: 6px;
   line-height: 16px;
@@ -1384,6 +1394,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
                 class="c1 c12 Link"
                 href="#"
                 id=":r2f:"
+                style="--subitem-depth: 1;"
                 tabindex="0"
               >
                 <div
@@ -1646,6 +1657,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   display: flex;
   padding-left: 8px;
   padding-right: 8px;
+  font-size: 14px;
   padding-top: 6px;
   padding-bottom: 6px;
   line-height: 16px;
@@ -1903,6 +1915,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
                 class="c1 c12 Link"
                 href="#"
                 id=":r29:"
+                style="--subitem-depth: 1;"
                 tabindex="0"
               >
                 <div

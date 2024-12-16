@@ -23,14 +23,16 @@ import {useFeatureFlag} from '../FeatureFlags'
 import VisuallyHidden from '../_VisuallyHidden'
 import classes from './ActionList.module.css'
 import {clsx} from 'clsx'
+
 import {actionListCssModulesFlag} from './featureflag'
+
 const LiBox = styled.li<SxProp>(sx)
 
-interface SubItemProps {
+type ActionListSubItemProps = {
   children?: React.ReactNode
 }
 
-const SubItem: React.FC<SubItemProps> = ({children}) => {
+export const SubItem: React.FC<ActionListSubItemProps> = ({children}) => {
   return <>{children}</>
 }
 
