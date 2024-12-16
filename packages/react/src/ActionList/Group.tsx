@@ -12,6 +12,7 @@ import {clsx} from 'clsx'
 import {useFeatureFlag} from '../FeatureFlags'
 import classes from './ActionList.module.css'
 import groupClasses from './Group.module.css'
+import {actionListCssModulesFlag} from './featureflag'
 
 type HeadingProps = {
   as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
@@ -88,7 +89,7 @@ export const Group: React.FC<React.PropsWithChildren<ActionListGroupProps>> = ({
   sx = defaultSxProp,
   ...props
 }) => {
-  const enabled = useFeatureFlag('primer_react_css_modules_team')
+  const enabled = useFeatureFlag(actionListCssModulesFlag)
   const id = useId()
   const {role: listRole} = React.useContext(ListContext)
 

@@ -7,7 +7,7 @@ import {Group} from './Group'
 import {Divider} from './Divider'
 import {Description} from './Description'
 import Avatar from '../Avatar'
-import {ChevronDownIcon, FileDirectoryIcon, HeartFillIcon} from '@primer/octicons-react'
+import {FileDirectoryIcon, HeartFillIcon} from '@primer/octicons-react'
 
 export default {
   title: 'Components/ActionList/Dev',

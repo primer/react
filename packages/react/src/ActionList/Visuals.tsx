@@ -10,6 +10,7 @@ import {clsx} from 'clsx'
 import {useFeatureFlag} from '../FeatureFlags'
 import classes from './ActionList.module.css'
 import {defaultSxProp} from '../utils/defaultSxProp'
+import {actionListCssModulesFlag} from './featureflag'
 
 export type VisualProps = SxProp & React.HTMLAttributes<HTMLSpanElement>
 
@@ -58,7 +59,7 @@ export const LeadingVisual: React.FC<React.PropsWithChildren<VisualProps>> = ({
 }) => {
   const {variant, disabled, inactive} = React.useContext(ItemContext)
 
-  const enabled = useFeatureFlag('primer_react_css_modules_team')
+  const enabled = useFeatureFlag(actionListCssModulesFlag)
 
   if (enabled) {
     return (
@@ -95,7 +96,7 @@ export const TrailingVisual: React.FC<React.PropsWithChildren<VisualProps>> = ({
   ...props
 }) => {
   const {variant, disabled, inactive, trailingVisualId} = React.useContext(ItemContext)
-  const enabled = useFeatureFlag('primer_react_css_modules_team')
+  const enabled = useFeatureFlag(actionListCssModulesFlag)
   if (enabled) {
     if (sx !== defaultSxProp) {
       return (

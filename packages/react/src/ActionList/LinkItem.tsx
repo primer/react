@@ -8,6 +8,7 @@ import type {ActionListItemProps} from './shared'
 import Box from '../Box'
 import {defaultSxProp} from '../utils/defaultSxProp'
 import {useFeatureFlag} from '../FeatureFlags'
+import {actionListCssModulesFlag} from './featureflag'
 
 // adopted from React.AnchorHTMLAttributes
 type LinkProps = {
@@ -45,7 +46,7 @@ export const LinkItem = React.forwardRef(
       '&:hover': {color: 'inherit', textDecoration: 'none'},
     }
 
-    const enabled = useFeatureFlag('primer_react_css_modules_team')
+    const enabled = useFeatureFlag(actionListCssModulesFlag)
 
     if (enabled) {
       if (sx !== defaultSxProp) {

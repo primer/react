@@ -23,6 +23,7 @@ import {useFeatureFlag} from '../FeatureFlags'
 import VisuallyHidden from '../_VisuallyHidden'
 import classes from './ActionList.module.css'
 import {clsx} from 'clsx'
+import {actionListCssModulesFlag} from './featureflag'
 const LiBox = styled.li<SxProp>(sx)
 
 interface SubItemProps {
@@ -70,7 +71,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     },
     forwardedRef,
   ): JSX.Element => {
-    const enabled = useFeatureFlag('primer_react_css_modules_team')
+    const enabled = useFeatureFlag(actionListCssModulesFlag)
 
     const baseSlots = {
       leadingVisual: LeadingVisual,
