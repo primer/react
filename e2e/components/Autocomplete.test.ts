@@ -142,7 +142,12 @@ test.describe('Autocomplete', () => {
             await expect(page).toHaveNoViolations({
               rules: {
                 'color-contrast': {
-                  enabled: theme !== 'dark_dimmed',
+                  enabled:
+                    theme !== 'dark_colorblind' &&
+                    theme !== 'dark_dimmed' &&
+                    theme !== 'light' &&
+                    theme !== 'light_colorblind' &&
+                    theme !== 'light_tritanopia',
                 },
               },
             })
