@@ -606,7 +606,12 @@ export const InADialog = () => {
   return (
     <>
       <Button onClick={() => setIsDialogOpen(true)}>Show dialog</Button>
-      <Dialog id="dialog-with-autocomplete" isOpen={isDialogOpen} onDismiss={() => setIsDialogOpen(false)}>
+      <Dialog
+        aria-label="Dialog with autocomplete"
+        id="dialog-with-autocomplete"
+        isOpen={isDialogOpen}
+        onDismiss={() => setIsDialogOpen(false)}
+      >
         <div ref={outerContainerRef}>
           <Box as="form" sx={{p: 3}}>
             {mounted ? (
