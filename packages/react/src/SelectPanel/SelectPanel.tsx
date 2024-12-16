@@ -49,7 +49,7 @@ interface SelectPanelBaseProps {
 }
 
 export type SelectPanelProps = SelectPanelBaseProps &
-  Omit<FilteredActionListProps, 'selectionVariant'> &
+  Omit<FilteredActionListProps, 'selectionVariant' | 'sx'> &
   Pick<AnchoredOverlayProps, 'open'> &
   AnchoredOverlayWrapperAnchorProps &
   (SelectPanelSingleSelection | SelectPanelMultiSelection)
@@ -100,7 +100,6 @@ export function SelectPanel({
   footer,
   textInputProps,
   overlayProps,
-  sx,
   className,
   ...listProps
 }: SelectPanelProps): JSX.Element {
@@ -265,7 +264,7 @@ export function SelectPanel({
             inputRef={inputRef}
             // inheriting height and maxHeight ensures that the FilteredActionList is never taller
             // than the Overlay (which would break scrolling the items)
-            sx={enabled ? sx : {...sx, height: 'inherit', maxHeight: 'inherit'}}
+            sx={enabled ? undefined : {height: 'inherit', maxHeight: 'inherit'}}
             className={enabled ? clsx(className, classes.FilteredActionList) : className}
           />
           {footer && (
