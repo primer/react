@@ -117,16 +117,16 @@ test.describe('Autocomplete', () => {
               },
             })
 
-            expect(
-              await page.screenshot({
-                mask: await page
-                  .locator('div', {
-                    has: page.locator('key-press-label'),
-                  })
-                  .all(),
-              }),
-            ).toMatchSnapshot(`Autocomplete.${story.title}.${theme}.png`),
-              {animations: 'disabled'}
+            await story.setup(page)
+
+            await expect(page).toHaveScreenshot(`Autocomplete.${story.title}.${theme}.png`, {
+              animations: 'disabled',
+              mask: await page
+                .locator('td', {
+                  has: page.locator('relative-time'),
+                })
+                .all(),
+            })
           })
 
           test('@aat', async ({page}) => {
