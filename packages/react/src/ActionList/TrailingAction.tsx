@@ -5,6 +5,7 @@ import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../uti
 import {clsx} from 'clsx'
 import {useFeatureFlag} from '../FeatureFlags'
 import classes from './ActionList.module.css'
+import {actionListCssModulesFlag} from './featureflag'
 
 type ElementProps =
   | {
@@ -24,7 +25,7 @@ export type ActionListTrailingActionProps = ElementProps & {
 
 export const TrailingAction = forwardRef(
   ({as = 'button', icon, label, href = null, className, ...props}, forwardedRef) => {
-    const enabled = useFeatureFlag('primer_react_css_modules_team')
+    const enabled = useFeatureFlag(actionListCssModulesFlag)
 
     if (enabled) {
       return (

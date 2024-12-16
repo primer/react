@@ -7,13 +7,14 @@ import {LeadingVisualContainer, VisualContainer} from './Visuals'
 import Box from '../Box'
 import {useFeatureFlag} from '../FeatureFlags'
 import classes from './ActionList.module.css'
+import {actionListCssModulesFlag} from './featureflag'
 
 type SelectionProps = Pick<ActionListItemProps, 'selected' | 'className'>
 export const Selection: React.FC<React.PropsWithChildren<SelectionProps>> = ({selected, className}) => {
   const {selectionVariant: listSelectionVariant, role: listRole} = React.useContext(ListContext)
   const {selectionVariant: groupSelectionVariant} = React.useContext(GroupContext)
 
-  const enabled = useFeatureFlag('primer_react_css_modules_team')
+  const enabled = useFeatureFlag(actionListCssModulesFlag)
 
   /** selectionVariant in Group can override the selectionVariant in List root */
   /** fallback to selectionVariant from container menu if any (ActionMenu, SelectPanel ) */

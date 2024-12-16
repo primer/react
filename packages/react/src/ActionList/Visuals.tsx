@@ -10,6 +10,7 @@ import {clsx} from 'clsx'
 import {useFeatureFlag} from '../FeatureFlags'
 import classes from './ActionList.module.css'
 import {defaultSxProp} from '../utils/defaultSxProp'
+import {actionListCssModulesFlag} from './featureflag'
 
 export type VisualProps = SxProp & React.HTMLAttributes<HTMLSpanElement>
 
@@ -58,24 +59,18 @@ export const LeadingVisual: React.FC<React.PropsWithChildren<VisualProps>> = ({
 }) => {
   const {variant, disabled, inactive} = React.useContext(ItemContext)
 
-  const enabled = useFeatureFlag('primer_react_css_modules_team')
+  const enabled = useFeatureFlag(actionListCssModulesFlag)
 
   if (enabled) {
-    if (sx !== defaultSxProp) {
-      return (
-        <VisualContainer className={clsx(className, classes.LeadingVisual)} sx={sx} {...props}>
-          {props.children}
-        </VisualContainer>
-      )
-    }
     return (
-      <VisualContainer className={clsx(className, classes.LeadingVisual)} {...props}>
+      <VisualContainer className={clsx(className, classes.LeadingVisual)} sx={sx} {...props}>
         {props.children}
       </VisualContainer>
     )
   }
   return (
     <LeadingVisualContainer
+      className={className}
       sx={merge(
         {
           color: getVariantStyles(variant, disabled, inactive).iconColor,
@@ -101,7 +96,7 @@ export const TrailingVisual: React.FC<React.PropsWithChildren<VisualProps>> = ({
   ...props
 }) => {
   const {variant, disabled, inactive, trailingVisualId} = React.useContext(ItemContext)
-  const enabled = useFeatureFlag('primer_react_css_modules_team')
+  const enabled = useFeatureFlag(actionListCssModulesFlag)
   if (enabled) {
     if (sx !== defaultSxProp) {
       return (
@@ -120,6 +115,7 @@ export const TrailingVisual: React.FC<React.PropsWithChildren<VisualProps>> = ({
     <Box
       id={trailingVisualId}
       as="span"
+      className={className}
       sx={merge(
         {
           height: '20px', // match height of text row

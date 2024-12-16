@@ -7,7 +7,7 @@ import {Group} from './Group'
 import {Divider} from './Divider'
 import {Description} from './Description'
 import Avatar from '../Avatar'
-import {FileDirectoryIcon} from '@primer/octicons-react'
+import {FileDirectoryIcon, HeartFillIcon} from '@primer/octicons-react'
 
 export default {
   title: 'Components/ActionList/Dev',
@@ -162,6 +162,9 @@ export const VisualCustomClassname = () => (
       <ActionList.LeadingVisual className="testCustomClassnameColor">
         <FileDirectoryIcon />
       </ActionList.LeadingVisual>
+      <ActionList.TrailingVisual className="testCustomClassnameColor">
+        <HeartFillIcon />
+      </ActionList.TrailingVisual>
     </ActionList.Item>
   </ActionList>
 )

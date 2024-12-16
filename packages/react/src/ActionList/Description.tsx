@@ -8,6 +8,7 @@ import {useFeatureFlag} from '../FeatureFlags'
 import classes from './ActionList.module.css'
 import {clsx} from 'clsx'
 import {defaultSxProp} from '../utils/defaultSxProp'
+import {actionListCssModulesFlag} from './featureflag'
 
 export type ActionListDescriptionProps = {
   /**
@@ -46,7 +47,7 @@ export const Description: React.FC<React.PropsWithChildren<ActionListDescription
 
   const {blockDescriptionId, inlineDescriptionId} = React.useContext(ItemContext)
 
-  const enabled = useFeatureFlag('primer_react_css_modules_team')
+  const enabled = useFeatureFlag(actionListCssModulesFlag)
 
   if (enabled) {
     if (sx !== defaultSxProp) {

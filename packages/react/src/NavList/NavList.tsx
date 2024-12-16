@@ -436,6 +436,7 @@ const GroupHeading: React.FC<NavListGroupHeadingProps> = ({as = 'h3', sx: sxProp
         sxProp,
       )}
       data-component="NavList.GroupHeading"
+      headingWrapElement="li"
       {...rest}
     />
   )
