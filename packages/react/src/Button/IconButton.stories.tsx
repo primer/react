@@ -35,6 +35,11 @@ Playground.argTypes = {
     },
     options: ['default', 'primary', 'danger', 'invisible'],
   },
+  count: {
+    control: {
+      type: 'number',
+    },
+  },
   icon: OcticonArgType([EyeClosedIcon, EyeIcon, SearchIcon, XIcon, HeartIcon]),
 }
 Playground.args = {
