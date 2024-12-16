@@ -3,7 +3,6 @@ import type {Meta} from '@storybook/react'
 
 import Autocomplete from './Autocomplete'
 import FormControl from '../FormControl'
-import Box from '../Box'
 
 const autocompleteStoryMeta: Meta = {
   title: 'Components/Autocomplete/Dev',
