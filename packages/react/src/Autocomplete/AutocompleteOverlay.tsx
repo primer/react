@@ -6,6 +6,8 @@ import type {ComponentProps} from '../utils/types'
 import {AutocompleteContext} from './AutocompleteContext'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import VisuallyHidden from '../_VisuallyHidden'
+import {useFeatureFlag} from '../FeatureFlags'
+import classes from './AutocompleteOverlay.module.css'
 
 type AutocompleteOverlayInternalProps = {
   /**
@@ -19,6 +21,8 @@ type AutocompleteOverlayInternalProps = {
   children?: React.ReactNode
 } & Partial<OverlayProps> &
   Pick<React.AriaAttributes, 'aria-labelledby'> // TODO: consider making 'aria-labelledby' required
+
+const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_team'
 
 function AutocompleteOverlay({
   menuAnchorRef,
@@ -51,22 +55,40 @@ function AutocompleteOverlay({
     return null
   }
 
+  const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
+
   return showMenu ? (
-    <Overlay
-      returnFocusRef={inputRef}
-      preventFocusOnOpen={true}
-      onClickOutside={closeOptionList}
-      onEscape={closeOptionList}
-      ref={floatingElementRef as React.RefObject<HTMLDivElement>}
-      top={position?.top}
-      left={position?.left}
-      sx={{
-        overflow: 'auto',
-      }}
-      {...overlayProps}
-    >
-      {children}
-    </Overlay>
+    enabled ? (
+      <Overlay
+        returnFocusRef={inputRef}
+        preventFocusOnOpen={true}
+        onClickOutside={closeOptionList}
+        onEscape={closeOptionList}
+        ref={floatingElementRef as React.RefObject<HTMLDivElement>}
+        top={position?.top}
+        left={position?.left}
+        sx={{
+          overflow: 'auto',
+        }}
+        {...overlayProps}
+      >
+        {children}
+      </Overlay>
+    ) : (
+      <Overlay
+        returnFocusRef={inputRef}
+        preventFocusOnOpen={true}
+        onClickOutside={closeOptionList}
+        onEscape={closeOptionList}
+        ref={floatingElementRef as React.RefObject<HTMLDivElement>}
+        top={position?.top}
+        left={position?.left}
+        className={classes.Overlay}
+        {...overlayProps}
+      >
+        {children}
+      </Overlay>
+    )
   ) : (
     // HACK: This ensures AutocompleteMenu is still mounted when closing the menu and all of the hooks inside of it are still called.
     // A better way to do this would be to move the hooks to AutocompleteOverlay or somewhere that won't get unmounted.
