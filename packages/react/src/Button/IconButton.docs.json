@@ -51,6 +51,9 @@
     },
     {
       "id": "components-iconbutton-features--keybinding-hint"
+    },
+    {
+      "id": "components-iconbutton-features--trailing-counter"
     }
   ],
   "importPath": "@primer/react",
@@ -116,6 +119,11 @@
       "required": false,
       "description": "If `description` is provided, we will use a Tooltip to describe the button. Then `aria-label` is used to label the button.",
       "defaultValue": ""
+    },
+    {
+      "name": "count",
+      "type": "number",
+      "description": "For counter buttons, the number to display."
     },
     {
       "name": "sx",
