@@ -20,7 +20,7 @@ export const SxProp = () => {
               marginRight: '10px',
             }}
             size="medium"
-            style={{backgroundColor: 'pink'}}
+            style={{border: '1px solid var(--borderColor-closed-emphasis)'}}
           />
           <Autocomplete.Overlay
             className="test-class-name"
@@ -33,7 +33,7 @@ export const SxProp = () => {
                 whiteSpace: 'pre-wrap',
               },
             }}
-            style={{backgroundColor: 'lightblue'}}
+            style={{backgroundColor: 'var(--bgColor-attention-emphasis)'}}
           >
             <Autocomplete.Menu items={[]} selectedItemIds={[]} aria-labelledby="autocompleteLabel" />
           </Autocomplete.Overlay>
