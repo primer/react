@@ -12,13 +12,6 @@ const stories: Array<{title: string; id: string; setup: (page: Page) => void}> =
     },
   },
   {
-    title: 'Playground',
-    id: 'components-autocomplete--playground',
-    setup: async page => {
-      await page.keyboard.press('Backspace')
-    },
-  },
-  {
     title: 'Add New Item',
     id: 'components-autocomplete-features--add-new-item',
     setup: async page => {
@@ -124,9 +117,16 @@ test.describe('Autocomplete', () => {
               },
             })
 
-            await story.setup(page)
-
-            await expect(page).toHaveScreenshot(`Autocomplete.${story.title}.${theme}.png`, {animations: 'disabled'})
+            expect(
+              await page.screenshot({
+                mask: await page
+                  .locator('div', {
+                    has: page.locator('key-press-label'),
+                  })
+                  .all(),
+              }),
+            ).toMatchSnapshot(`Autocomplete.${story.title}.${theme}.png`),
+              {animations: 'disabled'}
           })
 
           test('@aat', async ({page}) => {

@@ -18,12 +18,12 @@ export const SxProp = () => {
             sx={{
               width: '100%',
               marginRight: '10px',
+              borderColor: 'deeppink',
             }}
             size="medium"
-            style={{border: '1px solid var(--borderColor-closed-emphasis)'}}
           />
           <Autocomplete.Overlay
-            className="test-class-name"
+            className="testCustomClassnameBorder"
             visibility="visible"
             sx={{
               maxHeight: 'min(50vh, 280px)',
@@ -32,8 +32,8 @@ export const SxProp = () => {
                 flexDirection: 'column',
                 whiteSpace: 'pre-wrap',
               },
+              outline: '1px solid deeppink',
             }}
-            style={{backgroundColor: 'var(--bgColor-attention-emphasis)'}}
           >
             <Autocomplete.Menu items={[]} selectedItemIds={[]} aria-labelledby="autocompleteLabel" />
           </Autocomplete.Overlay>
