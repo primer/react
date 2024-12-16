@@ -85,6 +85,8 @@ describe('NavList', () => {
     // Find the div wrapping the "Overview" text
     const groupTitleWrapper = groupTitle.closest('div')
 
+    console.log(window.getComputedStyle(groupTitleWrapper as Element).cssText)
+
     expect(groupHeading).toBeVisible()
     expect(groupTitleWrapper).not.toBeVisible()
   })
