@@ -2,4 +2,4 @@
 "@primer/react": minor
 ---
 
-Convert ActionList + sub components to CSS Modules
+Convert ActionList, ActionList sub components and NavList to CSS Modules
