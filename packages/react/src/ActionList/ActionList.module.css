@@ -449,9 +449,11 @@
 
   /* collapsible item [aria-expanded] */
 
-  /* holding off on adding transition animations for now */
-
   &[aria-expanded='true'] {
+    & .ExpandIcon {
+      transform: scaleY(-1);
+    }
+
     &.ActionListContent--hasActiveSubItem {
       & > .ItemLabel {
         font-weight: var(--base-text-weight-semibold);
@@ -460,6 +462,10 @@
   }
 
   &[aria-expanded='false'] {
+    & .ExpandIcon {
+      transform: scaleY(1);
+    }
+
     /* show active indicator on parent collapse if child is active */
     &:has(+ .SubGroup [data-active='true']) {
       background: var(--control-transparent-bgColor-selected);
