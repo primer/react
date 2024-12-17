@@ -1,6 +1,6 @@
-import {test, expect, type Page} from '@playwright/test';
-import {visit} from '../test-helpers/storybook';
-import {themes} from '../test-helpers/themes';
+import {test, expect, type Page} from '@playwright/test'
+import {visit} from '../test-helpers/storybook'
+import {themes} from '../test-helpers/themes'
 
 const stories: Array<{title: string; id: string; setup: (page: Page) => void}> = [
   {
