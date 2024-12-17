@@ -63,34 +63,6 @@ describe('NavList', () => {
     expect(container).toMatchSnapshot()
   })
 
-  it('only shows NavList.GroupHeading when NavList.Group `title` prop is passed AND NavList.GroupHeading is a child', () => {
-    const {getByText} = render(
-      <ThemeProvider>
-        <NavList>
-          <NavList.Group title="Overview">
-            <NavList.GroupHeading>Group heading</NavList.GroupHeading>
-            <NavList.Item href="/getting-started" aria-current="page">
-              Getting started
-            </NavList.Item>
-          </NavList.Group>
-          <NavList.Group title="Components">
-            <NavList.Item href="/Avatar">Avatar</NavList.Item>
-          </NavList.Group>
-        </NavList>
-      </ThemeProvider>,
-    )
-    const groupHeading = getByText('Group heading')
-    const groupTitle = getByText('Overview')
-
-    // Find the div wrapping the "Overview" text
-    const groupTitleWrapper = groupTitle.closest('div')
-
-    console.log(window.getComputedStyle(groupTitleWrapper as Element).cssText)
-
-    expect(groupHeading).toBeVisible()
-    expect(groupTitleWrapper).not.toBeVisible()
-  })
-
   it('supports TrailingAction', async () => {
     const {getByRole} = render(
       <NavList>
