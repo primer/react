@@ -34,17 +34,21 @@ exports[`StateLabel renders children 1`] = `
 >
   <svg
     aria-label="Issue"
-    className="c1"
+    className="octicon octicon-issue-opened c1"
+    display="inline-block"
     fill="currentColor"
     focusable="false"
     height={16}
+    overflow="visible"
     role="img"
     style={
       {
-        "display": "inline-block",
-        "overflow": "visible",
-        "userSelect": "none",
         "verticalAlign": "text-bottom",
+      }
+    }
+    sx={
+      {
+        "mr": 1,
       }
     }
     viewBox="0 0 16 16"
@@ -95,17 +99,21 @@ exports[`StateLabel respects the status prop 1`] = `
 >
   <svg
     aria-label="Issue"
-    className="c1"
+    className="octicon octicon-issue-opened c1"
+    display="inline-block"
     fill="currentColor"
     focusable="false"
     height={16}
+    overflow="visible"
     role="img"
     style={
       {
-        "display": "inline-block",
-        "overflow": "visible",
-        "userSelect": "none",
         "verticalAlign": "text-bottom",
+      }
+    }
+    sx={
+      {
+        "mr": 1,
       }
     }
     viewBox="0 0 16 16"
@@ -155,17 +163,21 @@ exports[`StateLabel respects the status prop 2`] = `
 >
   <svg
     aria-label="Issue"
-    className="c1"
+    className="octicon octicon-issue-closed c1"
+    display="inline-block"
     fill="currentColor"
     focusable="false"
     height={16}
+    overflow="visible"
     role="img"
     style={
       {
-        "display": "inline-block",
-        "overflow": "visible",
-        "userSelect": "none",
         "verticalAlign": "text-bottom",
+      }
+    }
+    sx={
+      {
+        "mr": 1,
       }
     }
     viewBox="0 0 16 16"
@@ -215,17 +227,21 @@ exports[`StateLabel respects the status prop 3`] = `
 >
   <svg
     aria-label="Issue, not planned"
-    className="c1"
+    className="octicon octicon-skip c1"
+    display="inline-block"
     fill="currentColor"
     focusable="false"
     height={16}
+    overflow="visible"
     role="img"
     style={
       {
-        "display": "inline-block",
-        "overflow": "visible",
-        "userSelect": "none",
         "verticalAlign": "text-bottom",
+      }
+    }
+    sx={
+      {
+        "mr": 1,
       }
     }
     viewBox="0 0 16 16"
@@ -272,17 +288,21 @@ exports[`StateLabel respects the status prop 4`] = `
 >
   <svg
     aria-label="Pull request"
-    className="c1"
+    className="octicon octicon-git-merge c1"
+    display="inline-block"
     fill="currentColor"
     focusable="false"
     height={16}
+    overflow="visible"
     role="img"
     style={
       {
-        "display": "inline-block",
-        "overflow": "visible",
-        "userSelect": "none",
         "verticalAlign": "text-bottom",
+      }
+    }
+    sx={
+      {
+        "mr": 1,
       }
     }
     viewBox="0 0 16 16"
@@ -329,17 +349,21 @@ exports[`StateLabel respects the status prop 5`] = `
 >
   <svg
     aria-label="Pull request"
-    className="c1"
+    className="octicon octicon-git-merge-queue c1"
+    display="inline-block"
     fill="currentColor"
     focusable="false"
     height={16}
+    overflow="visible"
     role="img"
     style={
       {
-        "display": "inline-block",
-        "overflow": "visible",
-        "userSelect": "none",
         "verticalAlign": "text-bottom",
+      }
+    }
+    sx={
+      {
+        "mr": 1,
       }
     }
     viewBox="0 0 16 16"
@@ -386,17 +410,21 @@ exports[`StateLabel respects the variant prop 1`] = `
 >
   <svg
     aria-label="Issue"
-    className="c1"
+    className="octicon octicon-issue-opened c1"
+    display="inline-block"
     fill="currentColor"
     focusable="false"
     height={16}
+    overflow="visible"
     role="img"
     style={
       {
-        "display": "inline-block",
-        "overflow": "visible",
-        "userSelect": "none",
         "verticalAlign": "text-bottom",
+      }
+    }
+    sx={
+      {
+        "mr": 1,
       }
     }
     viewBox="0 0 16 16"
@@ -446,17 +474,21 @@ exports[`StateLabel respects the variant prop 2`] = `
 >
   <svg
     aria-label="Issue"
-    className="c1"
+    className="octicon octicon-issue-opened c1"
+    display="inline-block"
     fill="currentColor"
     focusable="false"
     height={16}
+    overflow="visible"
     role="img"
     style={
       {
-        "display": "inline-block",
-        "overflow": "visible",
-        "userSelect": "none",
         "verticalAlign": "text-bottom",
+      }
+    }
+    sx={
+      {
+        "mr": 1,
       }
     }
     viewBox="0 0 16 16"
