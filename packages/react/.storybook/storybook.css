@@ -56,7 +56,7 @@
   background-color: var(--bgColor-muted);
 }
 
-/* using !important to simulate dotcom CSS layers */
+/* !important simulates CSS layers in dotcom that prioritize custom classes over Primer React styles */
 
 .testCustomClassnameColor {
   color: var(--fgColor-sponsors) !important;
@@ -71,9 +71,9 @@
 }
 
 .testCustomClassnameBorder {
-  border: var(--borderWidth-thin) solid var(--borderColor-sponsors-emphasis);
+  border: var(--borderWidth-thin) solid var(--borderColor-sponsors-emphasis) !important;
 }
 
 .testCustomClassnameMono {
-  font-family: var(--fontStack-monospace);
+  font-family: var(--fontStack-monospace) !important;
 }

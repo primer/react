@@ -112,6 +112,7 @@ export type ActionListGroupHeadingProps = Pick<ActionListGroupProps, 'variant' |
   SxProp &
   React.HTMLAttributes<HTMLElement> & {
     as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
+    headingWrapElement?: 'div' | 'li'
     _internalBackwardCompatibleTitle?: string
   }
 
@@ -132,6 +133,7 @@ export const GroupHeading: React.FC<React.PropsWithChildren<ActionListGroupHeadi
   children,
   className,
   sx = defaultSxProp,
+  headingWrapElement = 'div',
   ...props
 }) => {
   const {variant: listVariant, role: listRole} = React.useContext(ListContext)
@@ -158,6 +160,7 @@ export const GroupHeading: React.FC<React.PropsWithChildren<ActionListGroupHeadi
     fontSize: 0,
     fontWeight: 'bold',
     color: 'fg.muted',
+    listStyle: 'none',
     ...(variant === 'filled' && {
       backgroundColor: 'canvas.subtle',
       marginX: 0,
@@ -186,13 +189,13 @@ export const GroupHeading: React.FC<React.PropsWithChildren<ActionListGroupHeadi
     <>
       {/* for listbox (SelectPanel) and menu (ActionMenu) roles, group titles are presentational. */}
       {listRole && listRole !== 'list' ? (
-        <Box sx={styles} role="presentation" aria-hidden="true" {...props}>
+        <Box sx={styles} role="presentation" aria-hidden="true" {...props} as={headingWrapElement}>
           <span id={groupHeadingId}>{_internalBackwardCompatibleTitle ?? children}</span>
           {auxiliaryText && <div className="ActionListGroupHeadingDescription">{auxiliaryText}</div>}
         </Box>
       ) : (
         // for explicit (role="list" is passed as prop) and implicit list roles (ActionList ins rendered as list by default), group titles are proper heading tags.
-        <Box sx={styles}>
+        <Box sx={styles} as={headingWrapElement}>
           <Heading
             className={clsx(className, 'ActionListGroupHeading')}
             as={as || 'h3'}

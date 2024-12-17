@@ -304,7 +304,7 @@ exports[`NavList renders a simple list 1`] = `
   .c2:focus.focus-visible {
     outline: none;
     border: 2 solid;
-    box-shadow: 0 0 0 2px var(--bgColor-accent-emphasis,var(--color-accent-emphasis,#0969da));
+    box-shadow: 0 0 0 2px var(--focus-outlineColor);
   }
 
   .c2:active:not([aria-disabled]):not([data-inactive]) {
@@ -334,7 +334,7 @@ exports[`NavList renders a simple list 1`] = `
   .c6:focus.focus-visible {
     outline: none;
     border: 2 solid;
-    box-shadow: 0 0 0 2px var(--bgColor-accent-emphasis,var(--color-accent-emphasis,#0969da));
+    box-shadow: 0 0 0 2px var(--focus-outlineColor);
   }
 
   .c6:active:not([aria-disabled]):not([data-inactive]) {
@@ -460,6 +460,7 @@ exports[`NavList renders with groups 1`] = `
   font-size: 12px;
   font-weight: 600;
   color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
+  list-style: none;
 }
 
 .c3 .ActionListGroupHeading {
@@ -783,7 +784,7 @@ exports[`NavList renders with groups 1`] = `
   .c6:focus.focus-visible {
     outline: none;
     border: 2 solid;
-    box-shadow: 0 0 0 2px var(--bgColor-accent-emphasis,var(--color-accent-emphasis,#0969da));
+    box-shadow: 0 0 0 2px var(--focus-outlineColor);
   }
 
   .c6:active:not([aria-disabled]):not([data-inactive]) {
@@ -813,7 +814,7 @@ exports[`NavList renders with groups 1`] = `
   .c10:focus.focus-visible {
     outline: none;
     border: 2 solid;
-    box-shadow: 0 0 0 2px var(--bgColor-accent-emphasis,var(--color-accent-emphasis,#0969da));
+    box-shadow: 0 0 0 2px var(--focus-outlineColor);
   }
 
   .c10:active:not([aria-disabled]):not([data-inactive]) {
@@ -1300,7 +1301,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   .c11:focus.focus-visible {
     outline: none;
     border: 2 solid;
-    box-shadow: 0 0 0 2px var(--bgColor-accent-emphasis,var(--color-accent-emphasis,#0969da));
+    box-shadow: 0 0 0 2px var(--focus-outlineColor);
   }
 
   .c11:active:not([aria-disabled]):not([data-inactive]) {
@@ -1330,7 +1331,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   .c4:focus.focus-visible {
     outline: none;
     border: 2 solid;
-    box-shadow: 0 0 0 2px var(--bgColor-accent-emphasis,var(--color-accent-emphasis,#0969da));
+    box-shadow: 0 0 0 2px var(--focus-outlineColor);
   }
 
   .c4:active:not([aria-disabled]):not([data-inactive]) {
@@ -1811,7 +1812,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   .c11:focus.focus-visible {
     outline: none;
     border: 2 solid;
-    box-shadow: 0 0 0 2px var(--bgColor-accent-emphasis,var(--color-accent-emphasis,#0969da));
+    box-shadow: 0 0 0 2px var(--focus-outlineColor);
   }
 
   .c11:active:not([aria-disabled]):not([data-inactive]) {
@@ -1849,7 +1850,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   .c4:focus.focus-visible {
     outline: none;
     border: 2 solid;
-    box-shadow: 0 0 0 2px var(--bgColor-accent-emphasis,var(--color-accent-emphasis,#0969da));
+    box-shadow: 0 0 0 2px var(--focus-outlineColor);
   }
 
   .c4:active:not([aria-disabled]):not([data-inactive]) {
