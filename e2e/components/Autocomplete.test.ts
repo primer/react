@@ -117,7 +117,7 @@ test.describe('Autocomplete', () => {
               },
             })
 
-            await story.setup(page)
+            story.setup(page)
 
             await expect(page).toHaveScreenshot(`Autocomplete.${story.title}.${theme}.png`, {animations: 'disabled'})
           })
@@ -130,7 +130,7 @@ test.describe('Autocomplete', () => {
               },
             })
 
-            await story.setup(page)
+            story.setup(page)
 
             await expect(page).toHaveNoViolations({
               rules: {
@@ -142,7 +142,6 @@ test.describe('Autocomplete', () => {
                     theme !== 'light_colorblind' &&
                     theme !== 'light_tritanopia',
                 },
-                'aria-roles': {enabled: false},
               },
             })
           })
