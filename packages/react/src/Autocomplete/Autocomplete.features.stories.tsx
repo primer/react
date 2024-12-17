@@ -567,6 +567,7 @@ export const InOverlayWithCustomScrollContainerRef = () => {
                   },
                 }}
                 block
+                aria-label="Search"
               />
             </Box>
             <Box
