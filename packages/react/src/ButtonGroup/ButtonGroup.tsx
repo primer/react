@@ -1,6 +1,5 @@
 import styled from 'styled-components'
 import React from 'react'
-import {get} from '../constants'
 import sx from '../sx'
 import type {ComponentProps} from '../utils/types'
 import classes from './ButtonGroup.module.css'
@@ -19,56 +18,78 @@ const StyledButtonGroup = toggleStyledComponent(
     vertical-align: middle;
     isolation: isolate;
 
-    && > *:not([data-loading-wrapper]) {
+    & > *:not([data-loading-wrapper]) {
+      /* stylelint-disable-next-line primer/spacing */
       margin-inline-end: -1px;
       position: relative;
-      border-radius: 0;
 
-      :first-child {
-        border-top-left-radius: ${get('radii.2')};
-        border-bottom-left-radius: ${get('radii.2')};
+      /* reset border-radius */
+      button,
+      a {
+        border-radius: 0;
       }
 
-      :last-child {
-        border-top-right-radius: ${get('radii.2')};
-        border-bottom-right-radius: ${get('radii.2')};
+      &:first-child {
+        button,
+        a {
+          border-top-left-radius: var(--borderRadius-medium);
+          border-bottom-left-radius: var(--borderRadius-medium);
+        }
       }
 
-      :focus,
-      :active,
-      :hover {
+      &:last-child {
+        button,
+        a {
+          border-top-right-radius: var(--borderRadius-medium);
+          border-bottom-right-radius: var(--borderRadius-medium);
+        }
+      }
+
+      &:focus,
+      &:active,
+      &:hover {
         z-index: 1;
       }
     }
 
-    // if child is loading button
-    [data-loading-wrapper] {
-      :first-child {
-        button,
-        a {
-          border-top-left-radius: ${get('radii.2')};
-          border-bottom-left-radius: ${get('radii.2')};
-        }
-      }
-
-      :last-child {
-        button,
-        a {
-          border-top-right-radius: ${get('radii.2')};
-          border-bottom-right-radius: ${get('radii.2')};
-        }
+    /* this is a workaround until portal based tooltips are fully removed from dotcom */
+    &:has(div:last-child:empty) {
+      button,
+      a {
+        border-radius: var(--borderRadius-medium);
       }
     }
 
-    [data-loading-wrapper] > * {
+    /* if child is loading button */
+    & > *[data-loading-wrapper] {
+      /* stylelint-disable-next-line primer/spacing */
       margin-inline-end: -1px;
       position: relative;
-      border-radius: 0;
+      /* reset border-radius */
+      button,
+      a {
+        border-radius: 0;
+      }
 
-      :focus,
-      :active,
-      :hover {
+      &:focus,
+      &:active,
+      &:hover {
         z-index: 1;
+      }
+      &:first-child {
+        button,
+        a {
+          border-top-left-radius: var(--borderRadius-medium);
+          border-bottom-left-radius: var(--borderRadius-medium);
+        }
+      }
+
+      &:last-child {
+        button,
+        a {
+          border-top-right-radius: var(--borderRadius-medium);
+          border-bottom-right-radius: var(--borderRadius-medium);
+        }
       }
     }
 
@@ -83,6 +104,7 @@ const ButtonGroup = React.forwardRef<HTMLElement, ButtonGroupProps>(function But
   forwardRef,
 ) {
   const enabled = useFeatureFlag('primer_react_css_modules_ga')
+  const buttons = React.Children.map(children, (child, index) => <div key={index}>{child}</div>)
   const buttonRef = useProvidedRefOrCreate(forwardRef as React.RefObject<HTMLDivElement>)
 
   useFocusZone({
@@ -101,7 +123,7 @@ const ButtonGroup = React.forwardRef<HTMLElement, ButtonGroupProps>(function But
       role={role}
       {...rest}
     >
-      {children}
+      {buttons}
     </StyledButtonGroup>
   )
 }) as PolymorphicForwardRefComponent<'div', ButtonGroupProps>
