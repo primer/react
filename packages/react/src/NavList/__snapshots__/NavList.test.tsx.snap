@@ -98,7 +98,7 @@ exports[`NavList renders a simple list 1`] = `
   margin-top: unset;
   margin-bottom: unset;
   font-weight: 600;
-  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
+  background-color: var(--borderColor-accent-emphasis);
 }
 
 .c2[data-loading] {
@@ -168,7 +168,7 @@ exports[`NavList renders a simple list 1`] = `
 
 .c2[data-is-active-descendant] {
   font-weight: 400;
-  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
+  background-color: var(--borderColor-accent-emphasis);
 }
 
 .c2[data-is-active-descendant]::after {
@@ -270,7 +270,7 @@ exports[`NavList renders a simple list 1`] = `
 
 .c6[data-is-active-descendant] {
   font-weight: 400;
-  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
+  background-color: var(--borderColor-accent-emphasis);
 }
 
 .c6[data-is-active-descendant]::after {
@@ -555,7 +555,7 @@ exports[`NavList renders with groups 1`] = `
   margin-top: unset;
   margin-bottom: unset;
   font-weight: 600;
-  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
+  background-color: var(--borderColor-accent-emphasis);
 }
 
 .c5[data-loading] {
@@ -625,7 +625,7 @@ exports[`NavList renders with groups 1`] = `
 
 .c5[data-is-active-descendant] {
   font-weight: 400;
-  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
+  background-color: var(--borderColor-accent-emphasis);
 }
 
 .c5[data-is-active-descendant]::after {
@@ -727,7 +727,7 @@ exports[`NavList renders with groups 1`] = `
 
 .c9[data-is-active-descendant] {
   font-weight: 400;
-  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
+  background-color: var(--borderColor-accent-emphasis);
 }
 
 .c9[data-is-active-descendant]::after {
@@ -1064,7 +1064,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   margin-top: unset;
   margin-bottom: unset;
   font-weight: 600;
-  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
+  background-color: var(--borderColor-accent-emphasis);
 }
 
 .c11[data-loading] {
@@ -1134,7 +1134,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
 
 .c11[data-is-active-descendant] {
   font-weight: 400;
-  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
+  background-color: var(--borderColor-accent-emphasis);
 }
 
 .c11[data-is-active-descendant]::after {
@@ -1237,7 +1237,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
 
 .c4[data-is-active-descendant] {
   font-weight: 400;
-  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
+  background-color: var(--borderColor-accent-emphasis);
 }
 
 .c4[data-is-active-descendant]::after {
@@ -1333,15 +1333,15 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
       class="c0"
     >
       <li
-        aria-labelledby=":r2c:"
+        aria-labelledby=":r26:"
         class="c1 c2"
       >
         <button
-          aria-controls=":r2d:"
+          aria-controls=":r27:"
           aria-expanded="true"
-          aria-labelledby=":r2c:--label :r2c:--trailing-visual "
+          aria-labelledby=":r26:--label :r26:--trailing-visual "
           class="c3 c4"
-          id=":r2c:"
+          id=":r26:"
           tabindex="0"
         >
           <div
@@ -1353,13 +1353,13 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
             >
               <span
                 class="c1 c7"
-                id=":r2c:--label"
+                id=":r26:--label"
               >
                 Item
               </span>
               <span
                 class="c1 c8"
-                id=":r2c:--trailing-visual"
+                id=":r26:--trailing-visual"
               >
                 <svg
                   aria-hidden="true"
@@ -1381,19 +1381,19 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
         </button>
         <div>
           <ul
-            aria-labelledby=":r2c:"
+            aria-labelledby=":r26:"
             class="c1 c10"
-            id=":r2d:"
+            id=":r27:"
           >
             <li
               class="c3 c11"
             >
               <a
                 aria-current="page"
-                aria-labelledby=":r2f:--label  "
+                aria-labelledby=":r29:--label  "
                 class="c1 c12 Link"
                 href="#"
-                id=":r2f:"
+                id=":r29:"
                 style="--subitem-depth: 1;"
                 tabindex="0"
               >
@@ -1403,7 +1403,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
                 >
                   <span
                     class="c1 c13"
-                    id=":r2f:--label"
+                    id=":r29:--label"
                   >
                     Sub Item
                   </span>
@@ -1556,7 +1556,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   margin-top: unset;
   margin-bottom: unset;
   font-weight: 600;
-  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
+  background-color: var(--borderColor-accent-emphasis);
 }
 
 .c11[data-loading] {
@@ -1626,7 +1626,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
 
 .c11[data-is-active-descendant] {
   font-weight: 400;
-  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
+  background-color: var(--borderColor-accent-emphasis);
 }
 
 .c11[data-is-active-descendant]::after {
@@ -1680,7 +1680,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   margin-top: unset;
   margin-bottom: unset;
   font-weight: 600;
-  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
+  background-color: var(--borderColor-accent-emphasis);
 }
 
 .c4[data-loading] {
@@ -1750,7 +1750,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
 
 .c4[data-is-active-descendant] {
   font-weight: 400;
-  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
+  background-color: var(--borderColor-accent-emphasis);
 }
 
 .c4[data-is-active-descendant]::after {
@@ -1854,15 +1854,15 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
       class="c0"
     >
       <li
-        aria-labelledby=":r26:"
+        aria-labelledby=":r20:"
         class="c1 c2"
       >
         <button
-          aria-controls=":r27:"
+          aria-controls=":r21:"
           aria-expanded="false"
-          aria-labelledby=":r26:--label :r26:--trailing-visual "
+          aria-labelledby=":r20:--label :r20:--trailing-visual "
           class="c3 c4"
-          id=":r26:"
+          id=":r20:"
           tabindex="0"
         >
           <div
@@ -1874,13 +1874,13 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
             >
               <span
                 class="c1 c7"
-                id=":r26:--label"
+                id=":r20:--label"
               >
                 Item
               </span>
               <span
                 class="c1 c8"
-                id=":r26:--trailing-visual"
+                id=":r20:--trailing-visual"
               >
                 <svg
                   aria-hidden="true"
@@ -1902,19 +1902,19 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
         </button>
         <div>
           <ul
-            aria-labelledby=":r26:"
+            aria-labelledby=":r20:"
             class="c1 c10"
-            id=":r27:"
+            id=":r21:"
           >
             <li
               class="c3 c11"
             >
               <a
                 aria-current="page"
-                aria-labelledby=":r29:--label  "
+                aria-labelledby=":r23:--label  "
                 class="c1 c12 Link"
                 href="#"
-                id=":r29:"
+                id=":r23:"
                 style="--subitem-depth: 1;"
                 tabindex="0"
               >
@@ -1924,7 +1924,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
                 >
                   <span
                     class="c1 c7"
-                    id=":r29:--label"
+                    id=":r23:--label"
                   >
                     Sub Item
                   </span>

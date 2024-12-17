@@ -166,7 +166,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
 
     const activeStyles = {
       fontWeight: 'bold',
-      bg: 'actionListItem.default.selectedBg',
+      bg: 'var(--borderColor-accent-emphasis)',
       '&::after': {
         position: 'absolute',
         top: 'calc(50% - 12px)',
