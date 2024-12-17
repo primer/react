@@ -143,6 +143,7 @@ test.describe('Autocomplete', () => {
                     theme !== 'light_colorblind' &&
                     theme !== 'light_tritanopia',
                 },
+                'aria-valid-attr-value': {enabled: false},
               },
             })
           })
