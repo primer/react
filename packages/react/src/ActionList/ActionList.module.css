@@ -449,31 +449,9 @@
 
   /* collapsible item [aria-expanded] */
 
-  /* target items inside expanded subgroups */
-  &[aria-expanded] {
-    & + .SubGroup {
-      @media screen and (prefers-reduced-motion: no-preference) {
-        transition:
-          opacity 160ms cubic-bezier(0.25, 1, 0.5, 1),
-          transform 160ms cubic-bezier(0.25, 1, 0.5, 1);
-      }
-    }
-  }
+  /* holding off on adding transition animations for now */
 
   &[aria-expanded='true'] {
-    & .ExpandIcon {
-      transition: transform 120ms linear;
-      transform: scaleY(-1);
-    }
-
-    & .SubGroup {
-      height: auto;
-      overflow: visible;
-      visibility: visible;
-      opacity: 1;
-      transform: translateY(0);
-    }
-
     &.ActionListContent--hasActiveSubItem {
       & > .ItemLabel {
         font-weight: var(--base-text-weight-semibold);
@@ -482,19 +460,6 @@
   }
 
   &[aria-expanded='false'] {
-    & .ExpandIcon {
-      transition: transform 120ms linear;
-      transform: scaleY(1);
-    }
-
-    & + .SubGroup {
-      height: 0;
-      overflow: hidden;
-      visibility: hidden;
-      opacity: 0;
-      transform: translateY(calc(-1 * var(--base-size-16)));
-    }
-
     /* show active indicator on parent collapse if child is active */
     &:has(+ .SubGroup [data-active='true']) {
       background: var(--control-transparent-bgColor-selected);
