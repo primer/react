@@ -98,7 +98,7 @@ exports[`NavList renders a simple list 1`] = `
   margin-top: unset;
   margin-bottom: unset;
   font-weight: 600;
-  background-color: var(--borderColor-accent-emphasis);
+  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
 }
 
 .c2[data-loading] {
@@ -162,13 +162,13 @@ exports[`NavList renders a simple list 1`] = `
   width: 4px;
   height: 24px;
   content: "";
-  background-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  background-color: var(--borderColor-accent-emphasis);
   border-radius: 6px;
 }
 
 .c2[data-is-active-descendant] {
   font-weight: 400;
-  background-color: var(--borderColor-accent-emphasis);
+  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
 }
 
 .c2[data-is-active-descendant]::after {
@@ -178,7 +178,7 @@ exports[`NavList renders a simple list 1`] = `
   width: 4px;
   height: 24px;
   content: "";
-  background-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  background-color: var(--borderColor-accent-emphasis);
   border-radius: 6px;
 }
 
@@ -270,7 +270,7 @@ exports[`NavList renders a simple list 1`] = `
 
 .c6[data-is-active-descendant] {
   font-weight: 400;
-  background-color: var(--borderColor-accent-emphasis);
+  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
 }
 
 .c6[data-is-active-descendant]::after {
@@ -280,7 +280,7 @@ exports[`NavList renders a simple list 1`] = `
   width: 4px;
   height: 24px;
   content: "";
-  background-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  background-color: var(--borderColor-accent-emphasis);
   border-radius: 6px;
 }
 
@@ -555,7 +555,7 @@ exports[`NavList renders with groups 1`] = `
   margin-top: unset;
   margin-bottom: unset;
   font-weight: 600;
-  background-color: var(--borderColor-accent-emphasis);
+  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
 }
 
 .c5[data-loading] {
@@ -619,13 +619,13 @@ exports[`NavList renders with groups 1`] = `
   width: 4px;
   height: 24px;
   content: "";
-  background-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  background-color: var(--borderColor-accent-emphasis);
   border-radius: 6px;
 }
 
 .c5[data-is-active-descendant] {
   font-weight: 400;
-  background-color: var(--borderColor-accent-emphasis);
+  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
 }
 
 .c5[data-is-active-descendant]::after {
@@ -635,7 +635,7 @@ exports[`NavList renders with groups 1`] = `
   width: 4px;
   height: 24px;
   content: "";
-  background-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  background-color: var(--borderColor-accent-emphasis);
   border-radius: 6px;
 }
 
@@ -727,7 +727,7 @@ exports[`NavList renders with groups 1`] = `
 
 .c9[data-is-active-descendant] {
   font-weight: 400;
-  background-color: var(--borderColor-accent-emphasis);
+  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
 }
 
 .c9[data-is-active-descendant]::after {
@@ -737,7 +737,7 @@ exports[`NavList renders with groups 1`] = `
   width: 4px;
   height: 24px;
   content: "";
-  background-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  background-color: var(--borderColor-accent-emphasis);
   border-radius: 6px;
 }
 
@@ -1064,7 +1064,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   margin-top: unset;
   margin-bottom: unset;
   font-weight: 600;
-  background-color: var(--borderColor-accent-emphasis);
+  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
 }
 
 .c11[data-loading] {
@@ -1128,13 +1128,13 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   width: 4px;
   height: 24px;
   content: "";
-  background-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  background-color: var(--borderColor-accent-emphasis);
   border-radius: 6px;
 }
 
 .c11[data-is-active-descendant] {
   font-weight: 400;
-  background-color: var(--borderColor-accent-emphasis);
+  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
 }
 
 .c11[data-is-active-descendant]::after {
@@ -1144,7 +1144,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   width: 4px;
   height: 24px;
   content: "";
-  background-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  background-color: var(--borderColor-accent-emphasis);
   border-radius: 6px;
 }
 
@@ -1237,7 +1237,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
 
 .c4[data-is-active-descendant] {
   font-weight: 400;
-  background-color: var(--borderColor-accent-emphasis);
+  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
 }
 
 .c4[data-is-active-descendant]::after {
@@ -1247,7 +1247,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   width: 4px;
   height: 24px;
   content: "";
-  background-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  background-color: var(--borderColor-accent-emphasis);
   border-radius: 6px;
 }
 
@@ -1556,7 +1556,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   margin-top: unset;
   margin-bottom: unset;
   font-weight: 600;
-  background-color: var(--borderColor-accent-emphasis);
+  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
 }
 
 .c11[data-loading] {
@@ -1620,13 +1620,13 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   width: 4px;
   height: 24px;
   content: "";
-  background-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  background-color: var(--borderColor-accent-emphasis);
   border-radius: 6px;
 }
 
 .c11[data-is-active-descendant] {
   font-weight: 400;
-  background-color: var(--borderColor-accent-emphasis);
+  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
 }
 
 .c11[data-is-active-descendant]::after {
@@ -1636,7 +1636,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   width: 4px;
   height: 24px;
   content: "";
-  background-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  background-color: var(--borderColor-accent-emphasis);
   border-radius: 6px;
 }
 
@@ -1680,7 +1680,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   margin-top: unset;
   margin-bottom: unset;
   font-weight: 600;
-  background-color: var(--borderColor-accent-emphasis);
+  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
 }
 
 .c4[data-loading] {
@@ -1744,13 +1744,13 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   width: 4px;
   height: 24px;
   content: "";
-  background-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  background-color: var(--borderColor-accent-emphasis);
   border-radius: 6px;
 }
 
 .c4[data-is-active-descendant] {
   font-weight: 400;
-  background-color: var(--borderColor-accent-emphasis);
+  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
 }
 
 .c4[data-is-active-descendant]::after {
@@ -1760,7 +1760,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   width: 4px;
   height: 24px;
   content: "";
-  background-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  background-color: var(--borderColor-accent-emphasis);
   border-radius: 6px;
 }
 
