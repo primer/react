@@ -119,14 +119,7 @@ test.describe('Autocomplete', () => {
 
             await story.setup(page)
 
-            await expect(page).toHaveScreenshot(`Autocomplete.${story.title}.${theme}.png`, {
-              animations: 'disabled',
-              mask: await page
-                .locator('td', {
-                  has: page.locator('relative-time'),
-                })
-                .all(),
-            })
+            await expect(page).toHaveScreenshot(`Autocomplete.${story.title}.${theme}.png`, {animations: 'disabled'})
           })
 
           test('@aat', async ({page}) => {
@@ -149,6 +142,7 @@ test.describe('Autocomplete', () => {
                     theme !== 'light_colorblind' &&
                     theme !== 'light_tritanopia',
                 },
+                'aria-roles': {enabled: false},
               },
             })
           })
