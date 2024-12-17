@@ -126,6 +126,7 @@ figma.connect(
   },
 )
 
+/** DANER ITEM */
 figma.connect(
   ActionList.Item,
   'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?node-id=15614-56205&m=dev',
@@ -140,6 +141,7 @@ figma.connect(
     example: ({text}) => <ActionList.Item variant="danger">{text.label}</ActionList.Item>,
   },
 )
+
 figma.connect(
   ActionList.Item,
   'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?node-id=15614-56205&m=dev',
