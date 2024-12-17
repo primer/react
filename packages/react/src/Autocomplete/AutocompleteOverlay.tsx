@@ -6,6 +6,9 @@ import type {ComponentProps} from '../utils/types'
 import {AutocompleteContext} from './AutocompleteContext'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import VisuallyHidden from '../_VisuallyHidden'
+import {useFeatureFlag} from '../FeatureFlags'
+
+import classes from './AutocompleteOverlay.module.css'
 
 type AutocompleteOverlayInternalProps = {
   /**
@@ -47,6 +50,8 @@ function AutocompleteOverlay({
     setShowMenu(false)
   }, [setShowMenu])
 
+  const enabled = useFeatureFlag('primer_react_css_modules_team')
+
   if (typeof window === 'undefined') {
     return null
   }
@@ -60,9 +65,14 @@ function AutocompleteOverlay({
       ref={floatingElementRef as React.RefObject<HTMLDivElement>}
       top={position?.top}
       left={position?.left}
-      sx={{
-        overflow: 'auto',
-      }}
+      sx={
+        enabled
+          ? undefined
+          : {
+              overflow: 'auto',
+            }
+      }
+      className={enabled ? classes.Overlay : undefined}
       {...overlayProps}
     >
       {children}
