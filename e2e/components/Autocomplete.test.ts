@@ -57,7 +57,7 @@ const stories: Array<{title: string; id: string; setup: (page: Page) => void}> =
     setup: async page => {
       await page.keyboard.press('Tab')
       await page.keyboard.press('Enter')
-      await expect(page.locator('dialog')).toBeVisible()
+      await expect(page.getByRole('dialog')).toBeVisible()
       await page.keyboard.press('Tab')
       await page.keyboard.press('D')
     },
