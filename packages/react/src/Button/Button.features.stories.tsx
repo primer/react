@@ -61,15 +61,7 @@ export const TrailingCounter = () => {
   )
 }
 
-export const TrailingCounterWithNoText = () => {
-  return (
-    <>
-      <Button leadingVisual={CommentIcon} count={3} size="small" />
-      <Button leadingVisual={CommentIcon} count={3} />
-      <Button leadingVisual={CommentIcon} count={3} size="large" />
-    </>
-  )
-}
+export const TrailingCounterWithNoText = () => <Button leadingVisual={CommentIcon} count={3} />
 
 export const TrailingCounterAllVariants = () => {
   const [count, setCount] = useState(0)
