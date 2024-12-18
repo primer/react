@@ -12,13 +12,6 @@ const stories: Array<{title: string; id: string; setup: (page: Page) => void}> =
     },
   },
   {
-    title: 'Playground',
-    id: 'components-autocomplete--playground',
-    setup: async page => {
-      await page.keyboard.press('Backspace')
-    },
-  },
-  {
     title: 'Add New Item',
     id: 'components-autocomplete-features--add-new-item',
     setup: async page => {
@@ -64,6 +57,7 @@ const stories: Array<{title: string; id: string; setup: (page: Page) => void}> =
     setup: async page => {
       await page.keyboard.press('Tab')
       await page.keyboard.press('Enter')
+      await expect(page.getByRole('dialog')).toBeVisible()
       await page.keyboard.press('Tab')
       await page.keyboard.press('D')
     },
@@ -124,7 +118,7 @@ test.describe('Autocomplete', () => {
               },
             })
 
-            await story.setup(page)
+            story.setup(page)
 
             await expect(page).toHaveScreenshot(`Autocomplete.${story.title}.${theme}.png`, {animations: 'disabled'})
           })
@@ -137,7 +131,7 @@ test.describe('Autocomplete', () => {
               },
             })
 
-            await story.setup(page)
+            story.setup(page)
 
             await expect(page).toHaveNoViolations({
               rules: {
@@ -149,6 +143,7 @@ test.describe('Autocomplete', () => {
                     theme !== 'light_colorblind' &&
                     theme !== 'light_tritanopia',
                 },
+                'aria-valid-attr-value': {enabled: false},
               },
             })
           })

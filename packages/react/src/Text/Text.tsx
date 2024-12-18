@@ -8,8 +8,9 @@ import sx from '../sx'
 import {useFeatureFlag} from '../FeatureFlags'
 import Box from '../Box'
 import {useRefObjectAsForwardedRef} from '../hooks'
-import classes from './Text.module.css'
 import type {ComponentProps} from '../utils/types'
+import {includesSystemProps} from '../utils/includeSystemProps'
+import classes from './Text.module.css'
 
 type StyledTextProps = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -57,19 +58,6 @@ const StyledText = styled.span<StyledTextProps>`
 
   ${sx};
 `
-
-const COMMON_PROP_NAMES = new Set(Object.keys(COMMON))
-const TYPOGRAPHY_PROP_NAMES = new Set(Object.keys(TYPOGRAPHY))
-
-const includesSystemProps = (props: StyledTextProps) => {
-  if (props.sx) {
-    return true
-  }
-
-  return Object.keys(props).some(prop => {
-    return TYPOGRAPHY_PROP_NAMES.has(prop) || COMMON_PROP_NAMES.has(prop)
-  })
-}
 
 const Text = forwardRef(({as: Component = 'span', className, size, weight, ...props}, forwardedRef) => {
   const enabled = useFeatureFlag('primer_react_css_modules_ga')
