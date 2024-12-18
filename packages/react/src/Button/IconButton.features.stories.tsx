@@ -94,5 +94,3 @@ export const KeybindingHintOnDescription = () => (
 )
 
 export const KeybindingHint = () => <IconButton icon={BoldIcon} aria-label="Bold" keybindingHint="Mod+B" />
-
-export const TrailingCounter = () => <IconButton icon={HeartIcon} aria-label="Favorite" count={42} />
