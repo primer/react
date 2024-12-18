@@ -51,44 +51,33 @@ function AutocompleteOverlay({
     setShowMenu(false)
   }, [setShowMenu])
 
+  const enabled = useFeatureFlag('primer_react_css_modules_team')
+
   if (typeof window === 'undefined') {
     return null
   }
 
-  const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
-
   return showMenu ? (
-    enabled ? (
-      <Overlay
-        returnFocusRef={inputRef}
-        preventFocusOnOpen={true}
-        onClickOutside={closeOptionList}
-        onEscape={closeOptionList}
-        ref={floatingElementRef as React.RefObject<HTMLDivElement>}
-        top={position?.top}
-        left={position?.left}
-        sx={{
-          overflow: 'auto',
-        }}
-        {...overlayProps}
-      >
-        {children}
-      </Overlay>
-    ) : (
-      <Overlay
-        returnFocusRef={inputRef}
-        preventFocusOnOpen={true}
-        onClickOutside={closeOptionList}
-        onEscape={closeOptionList}
-        ref={floatingElementRef as React.RefObject<HTMLDivElement>}
-        top={position?.top}
-        left={position?.left}
-        className={classes.Overlay}
-        {...overlayProps}
-      >
-        {children}
-      </Overlay>
-    )
+    <Overlay
+      returnFocusRef={inputRef}
+      preventFocusOnOpen={true}
+      onClickOutside={closeOptionList}
+      onEscape={closeOptionList}
+      ref={floatingElementRef as React.RefObject<HTMLDivElement>}
+      top={position?.top}
+      left={position?.left}
+      sx={
+        enabled
+          ? undefined
+          : {
+              overflow: 'auto',
+            }
+      }
+      className={enabled ? classes.Overlay : undefined}
+      {...overlayProps}
+    >
+      {children}
+    </Overlay>
   ) : (
     // HACK: This ensures AutocompleteMenu is still mounted when closing the menu and all of the hooks inside of it are still called.
     // A better way to do this would be to move the hooks to AutocompleteOverlay or somewhere that won't get unmounted.
