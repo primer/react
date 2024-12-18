@@ -173,6 +173,7 @@ const TokenBase = React.forwardRef<HTMLButtonElement | HTMLAnchorElement | HTMLS
             onRemove()
           }
         }}
+        className={className}
         id={id?.toString()}
         size={size}
         {...rest}

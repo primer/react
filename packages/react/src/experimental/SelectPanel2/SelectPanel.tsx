@@ -19,7 +19,7 @@ import {ActionListContainerContext} from '../../ActionList/ActionListContainerCo
 import {useSlots} from '../../hooks/useSlots'
 import {useProvidedRefOrCreate, useId, useAnchoredPosition} from '../../hooks'
 import type {OverlayProps} from '../../Overlay/Overlay'
-import {StyledOverlay, heightMap} from '../../Overlay/Overlay'
+import {BaseOverlay, heightMap} from '../../Overlay/Overlay'
 import {InputLabel} from '../../internal/components/InputLabel'
 import {invariant} from '../../utils/invariant'
 import {AriaStatus} from '../../live-region'
@@ -249,7 +249,7 @@ const Panel: React.FC<SelectPanelProps> = ({
     <>
       {Anchor}
 
-      <StyledOverlay
+      <BaseOverlay
         as="dialog"
         ref={dialogRef}
         aria-labelledby={`${panelId}--title`}
@@ -314,7 +314,7 @@ const Panel: React.FC<SelectPanelProps> = ({
         }
         className={enabled ? classes.Overlay : undefined}
         {...props}
-        onClick={event => {
+        onClick={(event: React.MouseEvent<HTMLElement>) => {
           if (event.target === event.currentTarget) onClickOutside()
         }}
       >
@@ -378,7 +378,7 @@ const Panel: React.FC<SelectPanelProps> = ({
             </SelectPanelContext.Provider>
           </>
         )}
-      </StyledOverlay>
+      </BaseOverlay>
     </>
   )
 }
