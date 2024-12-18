@@ -584,6 +584,7 @@ default block */
 span wrapping svg or text */
 .VisualWrap {
   display: flex;
+  min-width: max-content;
   min-height: var(--control-medium-lineBoxHeight);
   /* stylelint-disable-next-line primer/typography */
   line-height: 20px; /* temporary until we fix line-height rounding in primitives */
