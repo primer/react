@@ -114,4 +114,32 @@ test.describe('ButtonGroup', () => {
       })
     }
   })
+
+  test.describe('Overrides', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-buttongroup-devonly--link-button-with-icon-buttons',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          // Default state
+          expect(await page.screenshot()).toMatchSnapshot(`ButtonGroup.Overrides.${theme}.png`)
+        })
+
+        test('axe @aat', async ({page}) => {
+          await visit(page, {
+            id: 'components-buttongroup-devonly--link-button-with-icon-buttons',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+          await expect(page).toHaveNoViolations()
+        })
+      })
+    }
+  })
 })
