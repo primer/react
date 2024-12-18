@@ -185,6 +185,7 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
           <StyledVerticalLayout
             ref={ref}
             data-has-label={!isLabelHidden ? '' : undefined}
+            sx={sx}
             className={clsx(className, {
               [classes.ControlVerticalLayout]: enabled,
             })}
