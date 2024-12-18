@@ -8,7 +8,7 @@ import {AnchoredOverlay} from '../AnchoredOverlay'
 import Box from '../Box'
 import {Button, IconButton} from '../Button'
 import {useTheme} from '../ThemeProvider'
-import type {DeprecatedSxProp} from '../sx'
+import type {SxProp} from '../sx'
 import sx from '../sx'
 
 export type LabelGroupProps = {
@@ -18,9 +18,9 @@ export type LabelGroupProps = {
   overflowStyle?: 'inline' | 'overlay'
   /** How many tokens to show. `'auto'` truncates the tokens to fit in the parent container. Passing a number will truncate after that number tokens. If this is undefined, tokens will never be truncated. */
   visibleChildCount?: 'auto' | number
-} & DeprecatedSxProp
+} & SxProp
 
-const StyledLabelGroupContainer = styled.div<DeprecatedSxProp>`
+const StyledLabelGroupContainer = styled.div<SxProp>`
   display: flex;
   flex-wrap: nowrap;
   gap: ${get('space.1')};

@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import sx, {type DeprecatedSxProp} from '../../sx'
+import sx, {type SxProp} from '../../sx'
 import {toggleStyledComponent} from '../utils/toggleStyledComponent'
 import React from 'react'
 import {useFeatureFlag} from '../../FeatureFlags'
@@ -9,7 +9,7 @@ import {clsx} from 'clsx'
 
 export const TEXT_INPUT_CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_staff'
 
-type ToggledUnstyledTextInputProps = React.ComponentPropsWithoutRef<'input'> & DeprecatedSxProp
+type ToggledUnstyledTextInputProps = React.ComponentPropsWithoutRef<'input'> & SxProp
 
 const ToggledUnstyledTextInput = toggleStyledComponent(
   TEXT_INPUT_CSS_MODULES_FEATURE_FLAG,

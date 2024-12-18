@@ -1,7 +1,7 @@
 import type {MouseEventHandler} from 'react'
 import React, {forwardRef} from 'react'
 import Box from '../Box'
-import {merge, type BetterSystemStyleObject, type DeprecatedSxProp} from '../sx'
+import {merge, type BetterSystemStyleObject, type SxProp} from '../sx'
 import {defaultSxProp} from '../utils/defaultSxProp'
 import type {TokenBaseProps} from './TokenBase'
 import TokenBase, {defaultTokenSize, isTokenInteractive} from './TokenBase'
@@ -16,7 +16,7 @@ import {clsx} from 'clsx'
 
 // Omitting onResize and onResizeCapture because seems like React 18 types includes these menthod in the expansion but React 17 doesn't.
 // TODO: This is a temporary solution until we figure out why these methods are causing type errors.
-export interface TokenProps extends TokenBaseProps, DeprecatedSxProp {
+export interface TokenProps extends TokenBaseProps, SxProp {
   /**
    * A component that renders before the token text
    */

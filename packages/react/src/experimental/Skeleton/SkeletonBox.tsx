@@ -1,6 +1,6 @@
 import React from 'react'
 import styled, {keyframes} from 'styled-components'
-import sx, {merge, type DeprecatedSxProp} from '../../sx'
+import sx, {merge, type SxProp} from '../../sx'
 import {get} from '../../constants'
 import {type CSSProperties, type HTMLProps} from 'react'
 import {toggleStyledComponent} from '../../internal/utils/toggleStyledComponent'
@@ -16,7 +16,7 @@ type SkeletonBoxProps = {
   width?: CSSProperties['width']
   /** The className of the skeleton box */
   className?: string
-} & DeprecatedSxProp &
+} & SxProp &
   HTMLProps<HTMLDivElement>
 
 const shimmer = keyframes`

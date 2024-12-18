@@ -26,10 +26,6 @@ type CSSSelectorObject = {
 export type BetterSystemStyleObject = BetterCssProperties | SystemStyleObject | CSSCustomProperties | CSSSelectorObject
 
 export interface SxProp {
-  sx?: BetterSystemStyleObject
-}
-
-export interface DeprecatedSxProp {
   /** @deprecated Use CSS modules for styling instead */
   sx?: BetterSystemStyleObject
 }

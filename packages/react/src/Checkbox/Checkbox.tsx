@@ -1,7 +1,7 @@
 import {clsx} from 'clsx'
 import {useProvidedRefOrCreate} from '../hooks'
 import React, {useContext, useEffect, type ChangeEventHandler, type InputHTMLAttributes, type ReactElement} from 'react'
-import {type DeprecatedSxProp} from '../sx'
+import {type SxProp} from '../sx'
 import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 import type {FormValidationStatus} from '../utils/types/FormValidationStatus'
 import {CheckboxGroupContext} from '../CheckboxGroup/CheckboxGroupContext'
@@ -36,7 +36,7 @@ export type CheckboxProps = {
    */
   value?: string
 } & Exclude<InputHTMLAttributes<HTMLInputElement>, 'value'> &
-  DeprecatedSxProp
+  SxProp
 
 /**
  * An accessible, native checkbox component
