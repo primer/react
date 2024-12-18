@@ -105,6 +105,7 @@ const ButtonBase = forwardRef(
             data-size={size}
             data-variant={variant}
             data-label-wrap={labelWrap}
+            data-has-count={count !== undefined ? true : undefined}
             aria-describedby={[loadingAnnouncementID, ariaDescribedBy]
               .filter(descriptionID => Boolean(descriptionID))
               .join(' ')}
@@ -123,21 +124,7 @@ const ButtonBase = forwardRef(
               ) : isElement(Icon) ? (
                 Icon
               ) : (
-                <span data-component="buttonContent" data-align={alignContent} className={classes.ButtonContent}>
-                  <Icon />
-                  {count !== undefined
-                    ? renderModuleVisual(
-                        () => (
-                          <CounterLabel className={classes.CounterLabel} data-component="ButtonCounter">
-                            {count}
-                          </CounterLabel>
-                        ),
-                        Boolean(loading) && !LeadingVisual,
-                        'trailingVisual',
-                        true,
-                      )
-                    : null}
-                </span>
+                <Icon />
               )
             ) : (
               <>
@@ -239,6 +226,7 @@ const ButtonBase = forwardRef(
           data-size={size}
           data-variant={variant}
           data-label-wrap={labelWrap}
+          data-has-count={count !== undefined ? true : undefined}
           aria-describedby={[loadingAnnouncementID, ariaDescribedBy]
             .filter(descriptionID => Boolean(descriptionID))
             .join(' ')}
@@ -258,21 +246,7 @@ const ButtonBase = forwardRef(
             ) : isElement(Icon) ? (
               Icon
             ) : (
-              <span data-component="buttonContent" data-align={alignContent} className={classes.ButtonContent}>
-                <Icon />
-                {count !== undefined
-                  ? renderModuleVisual(
-                      () => (
-                        <CounterLabel className={classes.CounterLabel} data-component="ButtonCounter">
-                          {count}
-                        </CounterLabel>
-                      ),
-                      Boolean(loading) && !LeadingVisual,
-                      'trailingVisual',
-                      true,
-                    )
-                  : null}
-              </span>
+              <Icon />
             )
           ) : (
             <>
