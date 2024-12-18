@@ -12,11 +12,13 @@ import type {
   TypographyProps,
 } from 'styled-system'
 import {background, border, color, flexbox, grid, layout, position, shadow, space, typography} from 'styled-system'
-import type {SxProp} from '../sx'
+import type {BetterSystemStyleObject} from '../sx'
 import sx from '../sx'
 import type {ComponentProps} from '../utils/types'
 
-type StyledBoxProps = SpaceProps &
+type StyledBoxProps = {
+  sx?: BetterSystemStyleObject
+} & SpaceProps &
   ColorProps &
   TypographyProps &
   LayoutProps &
@@ -25,8 +27,7 @@ type StyledBoxProps = SpaceProps &
   BackgroundProps &
   BorderProps &
   PositionProps &
-  ShadowProps &
-  SxProp
+  ShadowProps
 
 const Box = styled.div<StyledBoxProps>(
   space,
