@@ -7,6 +7,7 @@ import {AutocompleteContext} from './AutocompleteContext'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import VisuallyHidden from '../_VisuallyHidden'
 import {useFeatureFlag} from '../FeatureFlags'
+
 import classes from './AutocompleteOverlay.module.css'
 
 type AutocompleteOverlayInternalProps = {
