@@ -15,6 +15,7 @@ import classes from './Tooltip.module.css'
 import {useFeatureFlag} from '../FeatureFlags'
 import {KeybindingHint, type KeybindingHintProps} from '../KeybindingHint'
 import VisuallyHidden from '../_VisuallyHidden'
+import useSafeTimeout from '../hooks/useSafeTimeout'
 
 const CSS_MODULE_FEATURE_FLAG = 'primer_react_css_modules_team'
 
@@ -213,6 +214,10 @@ export const Tooltip = React.forwardRef(
 
     const [isPopoverOpen, setIsPopoverOpen] = useState(false)
 
+    const timeoutRef = React.useRef<number | null>(null)
+
+    const {safeSetTimeout, safeClearTimeout} = useSafeTimeout()
+
     const openTooltip = () => {
       try {
         if (
@@ -265,6 +270,8 @@ export const Tooltip = React.forwardRef(
         ) {
           tooltipElRef.current.hidePopover()
           setIsPopoverOpen(false)
+        } else {
+          setIsPopoverOpen(false)
         }
       } catch (error) {
         // older browsers don't support the :popover-open selector and will throw, even though we use a polyfill
@@ -294,11 +301,17 @@ export const Tooltip = React.forwardRef(
       // Has trigger element or any of its children interactive elements?
       const isTriggerInteractive = isInteractive(triggerRef.current)
       const triggerChildren = triggerRef.current.childNodes
-      const hasInteractiveChild = Array.from(triggerChildren).some(child => {
-        return child instanceof HTMLElement && isInteractive(child)
+      // two levels deep
+      const hasInteractiveDescendant = Array.from(triggerChildren).some(child => {
+        return (
+          (child instanceof HTMLElement && isInteractive(child)) ||
+          Array.from(child.childNodes).some(
+            grandChild => grandChild instanceof HTMLElement && isInteractive(grandChild),
+          )
+        )
       })
       invariant(
-        isTriggerInteractive || hasInteractiveChild,
+        isTriggerInteractive || hasInteractiveDescendant,
         'The `Tooltip` component expects a single React element that contains interactive content. Consider using a `<button>` or equivalent interactive element instead.',
       )
       // If the tooltip is used for labelling the interactive element, the trigger element or any of its children should not have aria-label
@@ -362,10 +375,18 @@ export const Tooltip = React.forwardRef(
                 child.props.onFocus?.(event)
               },
               onMouseEnter: (event: React.MouseEvent) => {
-                openTooltip()
-                child.props.onMouseEnter?.(event)
+                // show tooltip after mosue has been hovering for at least 50ms
+                // (prevent showing tooltip when mouse is just passing through)
+                timeoutRef.current = safeSetTimeout(() => {
+                  openTooltip()
+                  child.props.onMouseEnter?.(event)
+                }, 50)
               },
               onMouseLeave: (event: React.MouseEvent) => {
+                if (timeoutRef.current) {
+                  safeClearTimeout(timeoutRef.current)
+                  timeoutRef.current = null
+                }
                 closeTooltip()
                 child.props.onMouseLeave?.(event)
               },

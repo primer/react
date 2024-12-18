@@ -460,6 +460,7 @@ exports[`NavList renders with groups 1`] = `
   font-size: 12px;
   font-weight: 600;
   color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
+  list-style: none;
 }
 
 .c3 .ActionListGroupHeading {
