@@ -22,8 +22,6 @@ type AutocompleteOverlayInternalProps = {
 } & Partial<OverlayProps> &
   Pick<React.AriaAttributes, 'aria-labelledby'> // TODO: consider making 'aria-labelledby' required
 
-const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_team'
-
 function AutocompleteOverlay({
   menuAnchorRef,
   overlayProps: oldOverlayProps,
