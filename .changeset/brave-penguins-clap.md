@@ -2,4 +2,4 @@
 "@primer/react": minor
 ---
 
-Adds 'count' prop to IconButton component
+Corrects horizontal padding of `<Button>` when the button only contains an icon and a counter label (no button text label).
