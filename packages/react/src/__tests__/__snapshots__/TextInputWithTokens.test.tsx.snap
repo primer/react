@@ -423,13 +423,14 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
     <svg
       aria-hidden="true"
       className="octicon octicon-mark-github"
-      display="inline-block"
       fill="currentColor"
       focusable="false"
       height={16}
-      overflow="visible"
       style={
         {
+          "display": "inline-block",
+          "overflow": "visible",
+          "userSelect": "none",
           "verticalAlign": "text-bottom",
         }
       }
@@ -489,13 +490,14 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
         <svg
           aria-hidden="true"
           className="octicon octicon-x"
-          display="inline-block"
           fill="currentColor"
           focusable="false"
           height={24}
-          overflow="visible"
           style={
             {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
               "verticalAlign": "text-bottom",
             }
           }
@@ -540,13 +542,14 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
         <svg
           aria-hidden="true"
           className="octicon octicon-x"
-          display="inline-block"
           fill="currentColor"
           focusable="false"
           height={24}
-          overflow="visible"
           style={
             {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
               "verticalAlign": "text-bottom",
             }
           }
@@ -591,13 +594,14 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
         <svg
           aria-hidden="true"
           className="octicon octicon-x"
-          display="inline-block"
           fill="currentColor"
           focusable="false"
           height={24}
-          overflow="visible"
           style={
             {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
               "verticalAlign": "text-bottom",
             }
           }
@@ -642,13 +646,14 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
         <svg
           aria-hidden="true"
           className="octicon octicon-x"
-          display="inline-block"
           fill="currentColor"
           focusable="false"
           height={24}
-          overflow="visible"
           style={
             {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
               "verticalAlign": "text-bottom",
             }
           }
@@ -693,13 +698,14 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
         <svg
           aria-hidden="true"
           className="octicon octicon-x"
-          display="inline-block"
           fill="currentColor"
           focusable="false"
           height={24}
-          overflow="visible"
           style={
             {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
               "verticalAlign": "text-bottom",
             }
           }
@@ -744,13 +750,14 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
         <svg
           aria-hidden="true"
           className="octicon octicon-x"
-          display="inline-block"
           fill="currentColor"
           focusable="false"
           height={24}
-          overflow="visible"
           style={
             {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
               "verticalAlign": "text-bottom",
             }
           }
@@ -795,13 +802,14 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
         <svg
           aria-hidden="true"
           className="octicon octicon-x"
-          display="inline-block"
           fill="currentColor"
           focusable="false"
           height={24}
-          overflow="visible"
           style={
             {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
               "verticalAlign": "text-bottom",
             }
           }
@@ -846,13 +854,14 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
         <svg
           aria-hidden="true"
           className="octicon octicon-x"
-          display="inline-block"
           fill="currentColor"
           focusable="false"
           height={24}
-          overflow="visible"
           style={
             {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
               "verticalAlign": "text-bottom",
             }
           }
@@ -873,13 +882,14 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
     <svg
       aria-hidden="true"
       className="octicon octicon-mark-github"
-      display="inline-block"
       fill="currentColor"
       focusable="false"
       height={16}
-      overflow="visible"
       style={
         {
+          "display": "inline-block",
+          "overflow": "visible",
+          "userSelect": "none",
           "verticalAlign": "text-bottom",
         }
       }
@@ -1392,13 +1402,14 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
         <svg
           aria-hidden="true"
           className="octicon octicon-x"
-          display="inline-block"
           fill="currentColor"
           focusable="false"
           height={24}
-          overflow="visible"
           style={
             {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
               "verticalAlign": "text-bottom",
             }
           }
@@ -1443,13 +1454,14 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
         <svg
           aria-hidden="true"
           className="octicon octicon-x"
-          display="inline-block"
           fill="currentColor"
           focusable="false"
           height={24}
-          overflow="visible"
           style={
             {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
               "verticalAlign": "text-bottom",
             }
           }
@@ -2247,13 +2259,14 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
         <svg
           aria-hidden="true"
           className="octicon octicon-x"
-          display="inline-block"
           fill="currentColor"
           focusable="false"
           height={24}
-          overflow="visible"
           style={
             {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
               "verticalAlign": "text-bottom",
             }
           }
@@ -2298,13 +2311,14 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
         <svg
           aria-hidden="true"
           className="octicon octicon-x"
-          display="inline-block"
           fill="currentColor"
           focusable="false"
           height={24}
-          overflow="visible"
           style={
             {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
               "verticalAlign": "text-bottom",
             }
           }
@@ -2349,13 +2363,14 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
         <svg
           aria-hidden="true"
           className="octicon octicon-x"
-          display="inline-block"
           fill="currentColor"
           focusable="false"
           height={24}
-          overflow="visible"
           style={
             {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
               "verticalAlign": "text-bottom",
             }
           }
@@ -2400,13 +2415,14 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
         <svg
           aria-hidden="true"
           className="octicon octicon-x"
-          display="inline-block"
           fill="currentColor"
           focusable="false"
           height={24}
-          overflow="visible"
           style={
             {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
               "verticalAlign": "text-bottom",
             }
           }
@@ -2451,13 +2467,14 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
         <svg
           aria-hidden="true"
           className="octicon octicon-x"
-          display="inline-block"
           fill="currentColor"
           focusable="false"
           height={24}
-          overflow="visible"
           style={
             {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
               "verticalAlign": "text-bottom",
             }
           }
@@ -2502,13 +2519,14 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
         <svg
           aria-hidden="true"
           className="octicon octicon-x"
-          display="inline-block"
           fill="currentColor"
           focusable="false"
           height={24}
-          overflow="visible"
           style={
             {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
               "verticalAlign": "text-bottom",
             }
           }
@@ -2553,13 +2571,14 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
         <svg
           aria-hidden="true"
           className="octicon octicon-x"
-          display="inline-block"
           fill="currentColor"
           focusable="false"
           height={24}
-          overflow="visible"
           style={
             {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
               "verticalAlign": "text-bottom",
             }
           }
@@ -2604,13 +2623,14 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
         <svg
           aria-hidden="true"
           className="octicon octicon-x"
-          display="inline-block"
           fill="currentColor"
           focusable="false"
           height={24}
-          overflow="visible"
           style={
             {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
               "verticalAlign": "text-bottom",
             }
           }
@@ -3087,13 +3107,14 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
         <svg
           aria-hidden="true"
           className="octicon octicon-x"
-          display="inline-block"
           fill="currentColor"
           focusable="false"
           height={12}
-          overflow="visible"
           style={
             {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
               "verticalAlign": "text-bottom",
             }
           }
@@ -3138,13 +3159,14 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
         <svg
           aria-hidden="true"
           className="octicon octicon-x"
-          display="inline-block"
           fill="currentColor"
           focusable="false"
           height={12}
-          overflow="visible"
           style={
             {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
               "verticalAlign": "text-bottom",
             }
           }
@@ -3189,13 +3211,14 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
         <svg
           aria-hidden="true"
           className="octicon octicon-x"
-          display="inline-block"
           fill="currentColor"
           focusable="false"
           height={12}
-          overflow="visible"
           style={
             {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
               "verticalAlign": "text-bottom",
             }
           }
@@ -3240,13 +3263,14 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
         <svg
           aria-hidden="true"
           className="octicon octicon-x"
-          display="inline-block"
           fill="currentColor"
           focusable="false"
           height={12}
-          overflow="visible"
           style={
             {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
               "verticalAlign": "text-bottom",
             }
           }
@@ -3291,13 +3315,14 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
         <svg
           aria-hidden="true"
           className="octicon octicon-x"
-          display="inline-block"
           fill="currentColor"
           focusable="false"
           height={12}
-          overflow="visible"
           style={
             {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
               "verticalAlign": "text-bottom",
             }
           }
@@ -3342,13 +3367,14 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
         <svg
           aria-hidden="true"
           className="octicon octicon-x"
-          display="inline-block"
           fill="currentColor"
           focusable="false"
           height={12}
-          overflow="visible"
           style={
             {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
               "verticalAlign": "text-bottom",
             }
           }
@@ -3393,13 +3419,14 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
         <svg
           aria-hidden="true"
           className="octicon octicon-x"
-          display="inline-block"
           fill="currentColor"
           focusable="false"
           height={12}
-          overflow="visible"
           style={
             {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
               "verticalAlign": "text-bottom",
             }
           }
@@ -3444,13 +3471,14 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
         <svg
           aria-hidden="true"
           className="octicon octicon-x"
-          display="inline-block"
           fill="currentColor"
           focusable="false"
           height={12}
-          overflow="visible"
           style={
             {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
               "verticalAlign": "text-bottom",
             }
           }
@@ -3927,13 +3955,14 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
         <svg
           aria-hidden="true"
           className="octicon octicon-x"
-          display="inline-block"
           fill="currentColor"
           focusable="false"
           height={15}
-          overflow="visible"
           style={
             {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
               "verticalAlign": "text-bottom",
             }
           }
@@ -3978,13 +4007,14 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
         <svg
           aria-hidden="true"
           className="octicon octicon-x"
-          display="inline-block"
           fill="currentColor"
           focusable="false"
           height={15}
-          overflow="visible"
           style={
             {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
               "verticalAlign": "text-bottom",
             }
           }
@@ -4029,13 +4059,14 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
         <svg
           aria-hidden="true"
           className="octicon octicon-x"
-          display="inline-block"
           fill="currentColor"
           focusable="false"
           height={15}
-          overflow="visible"
           style={
             {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
               "verticalAlign": "text-bottom",
             }
           }
@@ -4080,13 +4111,14 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
         <svg
           aria-hidden="true"
           className="octicon octicon-x"
-          display="inline-block"
           fill="currentColor"
           focusable="false"
           height={15}
-          overflow="visible"
           style={
             {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
               "verticalAlign": "text-bottom",
             }
           }
@@ -4131,13 +4163,14 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
         <svg
           aria-hidden="true"
           className="octicon octicon-x"
-          display="inline-block"
           fill="currentColor"
           focusable="false"
           height={15}
-          overflow="visible"
           style={
             {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
               "verticalAlign": "text-bottom",
             }
           }
@@ -4182,13 +4215,14 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
         <svg
           aria-hidden="true"
           className="octicon octicon-x"
-          display="inline-block"
           fill="currentColor"
           focusable="false"
           height={15}
-          overflow="visible"
           style={
             {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
               "verticalAlign": "text-bottom",
             }
           }
@@ -4233,13 +4267,14 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
         <svg
           aria-hidden="true"
           className="octicon octicon-x"
-          display="inline-block"
           fill="currentColor"
           focusable="false"
           height={15}
-          overflow="visible"
           style={
             {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
               "verticalAlign": "text-bottom",
             }
           }
@@ -4284,13 +4319,14 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
         <svg
           aria-hidden="true"
           className="octicon octicon-x"
-          display="inline-block"
           fill="currentColor"
           focusable="false"
           height={15}
-          overflow="visible"
           style={
             {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
               "verticalAlign": "text-bottom",
             }
           }
@@ -4767,13 +4803,14 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
         <svg
           aria-hidden="true"
           className="octicon octicon-x"
-          display="inline-block"
           fill="currentColor"
           focusable="false"
           height={18}
-          overflow="visible"
           style={
             {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
               "verticalAlign": "text-bottom",
             }
           }
@@ -4818,13 +4855,14 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
         <svg
           aria-hidden="true"
           className="octicon octicon-x"
-          display="inline-block"
           fill="currentColor"
           focusable="false"
           height={18}
-          overflow="visible"
           style={
             {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
               "verticalAlign": "text-bottom",
             }
           }
@@ -4869,13 +4907,14 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
         <svg
           aria-hidden="true"
           className="octicon octicon-x"
-          display="inline-block"
           fill="currentColor"
           focusable="false"
           height={18}
-          overflow="visible"
           style={
             {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
               "verticalAlign": "text-bottom",
             }
           }
@@ -4920,13 +4959,14 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
         <svg
           aria-hidden="true"
           className="octicon octicon-x"
-          display="inline-block"
           fill="currentColor"
           focusable="false"
           height={18}
-          overflow="visible"
           style={
             {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
               "verticalAlign": "text-bottom",
             }
           }
@@ -4971,13 +5011,14 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
         <svg
           aria-hidden="true"
           className="octicon octicon-x"
-          display="inline-block"
           fill="currentColor"
           focusable="false"
           height={18}
-          overflow="visible"
           style={
             {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
               "verticalAlign": "text-bottom",
             }
           }
@@ -5022,13 +5063,14 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
         <svg
           aria-hidden="true"
           className="octicon octicon-x"
-          display="inline-block"
           fill="currentColor"
           focusable="false"
           height={18}
-          overflow="visible"
           style={
             {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
               "verticalAlign": "text-bottom",
             }
           }
@@ -5073,13 +5115,14 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
         <svg
           aria-hidden="true"
           className="octicon octicon-x"
-          display="inline-block"
           fill="currentColor"
           focusable="false"
           height={18}
-          overflow="visible"
           style={
             {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
               "verticalAlign": "text-bottom",
             }
           }
@@ -5124,13 +5167,14 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
         <svg
           aria-hidden="true"
           className="octicon octicon-x"
-          display="inline-block"
           fill="currentColor"
           focusable="false"
           height={18}
-          overflow="visible"
           style={
             {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
               "verticalAlign": "text-bottom",
             }
           }
@@ -5609,13 +5653,14 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
         <svg
           aria-hidden="true"
           className="octicon octicon-x"
-          display="inline-block"
           fill="currentColor"
           focusable="false"
           height={24}
-          overflow="visible"
           style={
             {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
               "verticalAlign": "text-bottom",
             }
           }
@@ -5660,13 +5705,14 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
         <svg
           aria-hidden="true"
           className="octicon octicon-x"
-          display="inline-block"
           fill="currentColor"
           focusable="false"
           height={24}
-          overflow="visible"
           style={
             {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
               "verticalAlign": "text-bottom",
             }
           }
@@ -5711,13 +5757,14 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
         <svg
           aria-hidden="true"
           className="octicon octicon-x"
-          display="inline-block"
           fill="currentColor"
           focusable="false"
           height={24}
-          overflow="visible"
           style={
             {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
               "verticalAlign": "text-bottom",
             }
           }
@@ -5762,13 +5809,14 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
         <svg
           aria-hidden="true"
           className="octicon octicon-x"
-          display="inline-block"
           fill="currentColor"
           focusable="false"
           height={24}
-          overflow="visible"
           style={
             {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
               "verticalAlign": "text-bottom",
             }
           }
@@ -5813,13 +5861,14 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
         <svg
           aria-hidden="true"
           className="octicon octicon-x"
-          display="inline-block"
           fill="currentColor"
           focusable="false"
           height={24}
-          overflow="visible"
           style={
             {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
               "verticalAlign": "text-bottom",
             }
           }
@@ -5864,13 +5913,14 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
         <svg
           aria-hidden="true"
           className="octicon octicon-x"
-          display="inline-block"
           fill="currentColor"
           focusable="false"
           height={24}
-          overflow="visible"
           style={
             {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
               "verticalAlign": "text-bottom",
             }
           }
@@ -5915,13 +5965,14 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
         <svg
           aria-hidden="true"
           className="octicon octicon-x"
-          display="inline-block"
           fill="currentColor"
           focusable="false"
           height={24}
-          overflow="visible"
           style={
             {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
               "verticalAlign": "text-bottom",
             }
           }
@@ -5966,13 +6017,14 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
         <svg
           aria-hidden="true"
           className="octicon octicon-x"
-          display="inline-block"
           fill="currentColor"
           focusable="false"
           height={24}
-          overflow="visible"
           style={
             {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
               "verticalAlign": "text-bottom",
             }
           }
@@ -6454,13 +6506,14 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
         <svg
           aria-hidden="true"
           className="octicon octicon-x"
-          display="inline-block"
           fill="currentColor"
           focusable="false"
           height={24}
-          overflow="visible"
           style={
             {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
               "verticalAlign": "text-bottom",
             }
           }
@@ -6505,13 +6558,14 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
         <svg
           aria-hidden="true"
           className="octicon octicon-x"
-          display="inline-block"
           fill="currentColor"
           focusable="false"
           height={24}
-          overflow="visible"
           style={
             {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
               "verticalAlign": "text-bottom",
             }
           }
@@ -6556,13 +6610,14 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
         <svg
           aria-hidden="true"
           className="octicon octicon-x"
-          display="inline-block"
           fill="currentColor"
           focusable="false"
           height={24}
-          overflow="visible"
           style={
             {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
               "verticalAlign": "text-bottom",
             }
           }
@@ -6607,13 +6662,14 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
         <svg
           aria-hidden="true"
           className="octicon octicon-x"
-          display="inline-block"
           fill="currentColor"
           focusable="false"
           height={24}
-          overflow="visible"
           style={
             {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
               "verticalAlign": "text-bottom",
             }
           }
@@ -6658,13 +6714,14 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
         <svg
           aria-hidden="true"
           className="octicon octicon-x"
-          display="inline-block"
           fill="currentColor"
           focusable="false"
           height={24}
-          overflow="visible"
           style={
             {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
               "verticalAlign": "text-bottom",
             }
           }
@@ -6709,13 +6766,14 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
         <svg
           aria-hidden="true"
           className="octicon octicon-x"
-          display="inline-block"
           fill="currentColor"
           focusable="false"
           height={24}
-          overflow="visible"
           style={
             {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
               "verticalAlign": "text-bottom",
             }
           }
@@ -6760,13 +6818,14 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
         <svg
           aria-hidden="true"
           className="octicon octicon-x"
-          display="inline-block"
           fill="currentColor"
           focusable="false"
           height={24}
-          overflow="visible"
           style={
             {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
               "verticalAlign": "text-bottom",
             }
           }
@@ -6811,13 +6870,14 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
         <svg
           aria-hidden="true"
           className="octicon octicon-x"
-          display="inline-block"
           fill="currentColor"
           focusable="false"
           height={24}
-          overflow="visible"
           style={
             {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
               "verticalAlign": "text-bottom",
             }
           }
@@ -7864,13 +7924,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={24}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -7915,13 +7976,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={24}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -7966,13 +8028,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={24}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -8017,13 +8080,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={24}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -8068,13 +8132,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={24}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -8119,13 +8184,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={24}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -8170,13 +8236,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={24}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -8221,13 +8288,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={24}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -8810,13 +8878,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={24}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -8861,13 +8930,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={24}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -8912,13 +8982,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={24}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -8963,13 +9034,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={24}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -9014,13 +9086,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={24}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -9065,13 +9138,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={24}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -9116,13 +9190,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={24}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -9167,13 +9242,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={24}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -9707,13 +9783,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={24}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -9758,13 +9835,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={24}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -9809,13 +9887,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={24}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -9860,13 +9939,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={24}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -9911,13 +9991,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={24}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -9962,13 +10043,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={24}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -10013,13 +10095,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={24}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -10064,13 +10147,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={24}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -10584,13 +10668,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-mark-github"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={16}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -10691,13 +10776,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={24}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -10742,13 +10828,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={24}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -10793,13 +10880,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={24}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -10844,13 +10932,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={24}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -10895,13 +10984,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={24}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -10946,13 +11036,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={24}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -10997,13 +11088,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={24}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -11048,13 +11140,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={24}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -11568,13 +11661,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-mark-github"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={16}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -11675,13 +11769,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={24}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -11726,13 +11821,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={24}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -11777,13 +11873,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={24}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -11828,13 +11925,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={24}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -11879,13 +11977,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={24}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -11930,13 +12029,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={24}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -11981,13 +12081,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={24}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -12032,13 +12133,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={24}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -12553,13 +12655,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-mark-github"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={16}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -12660,13 +12763,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={24}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -12711,13 +12815,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={24}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -12762,13 +12867,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={24}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -12813,13 +12919,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={24}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -12864,13 +12971,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={24}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -12915,13 +13023,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={24}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -12966,13 +13075,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={24}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -13017,13 +13127,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={24}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -13566,13 +13677,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={24}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -13617,13 +13729,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={24}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -13668,13 +13781,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={24}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -13719,13 +13833,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={24}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -13770,13 +13885,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={24}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -13821,13 +13937,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={24}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -13872,13 +13989,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={24}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -13923,13 +14041,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={24}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -13956,13 +14075,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-mark-github"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={16}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -14551,13 +14671,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={24}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -14602,13 +14723,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={24}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -14653,13 +14775,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={24}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -14704,13 +14827,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={24}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -14755,13 +14879,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={24}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -14806,13 +14931,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={24}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -14857,13 +14983,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={24}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -14908,13 +15035,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={24}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -14941,13 +15069,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-mark-github"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={16}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -15486,13 +15615,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={24}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -15537,13 +15667,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={24}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -15588,13 +15719,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={24}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -15639,13 +15771,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={24}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -15690,13 +15823,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={24}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -15741,13 +15875,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={24}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -15792,13 +15927,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={24}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -15843,13 +15979,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={24}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -15876,13 +16013,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-mark-github"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={16}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -16400,13 +16538,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-mark-github"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={16}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -16507,13 +16646,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={12}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -16558,13 +16698,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={12}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -16609,13 +16750,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={12}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -16660,13 +16802,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={12}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -16711,13 +16854,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={12}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -16762,13 +16906,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={12}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -16813,13 +16958,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={12}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -16864,13 +17010,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={12}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -16897,13 +17044,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-mark-github"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={16}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -17423,13 +17571,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-mark-github"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={16}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -17530,13 +17679,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={24}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -17581,13 +17731,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={24}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -17632,13 +17783,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={24}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -17683,13 +17835,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={24}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -17734,13 +17887,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={24}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -17785,13 +17939,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={24}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -17836,13 +17991,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={24}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -17887,13 +18043,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={24}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -17920,13 +18077,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-mark-github"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={16}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -18444,13 +18602,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-mark-github"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={16}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -18551,13 +18710,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={18}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -18602,13 +18762,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={18}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -18653,13 +18814,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={18}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -18704,13 +18866,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={18}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -18755,13 +18918,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={18}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -18806,13 +18970,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={18}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -18857,13 +19022,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={18}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -18908,13 +19074,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-x"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={18}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -18941,13 +19108,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-mark-github"
-            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={16}
-            overflow="visible"
             style={
               {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -19466,13 +19634,14 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
         <svg
           aria-hidden="true"
           className="octicon octicon-x"
-          display="inline-block"
           fill="currentColor"
           focusable="false"
           height={24}
-          overflow="visible"
           style={
             {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
               "verticalAlign": "text-bottom",
             }
           }
@@ -19517,13 +19686,14 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
         <svg
           aria-hidden="true"
           className="octicon octicon-x"
-          display="inline-block"
           fill="currentColor"
           focusable="false"
           height={24}
-          overflow="visible"
           style={
             {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
               "verticalAlign": "text-bottom",
             }
           }
@@ -19568,13 +19738,14 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
         <svg
           aria-hidden="true"
           className="octicon octicon-x"
-          display="inline-block"
           fill="currentColor"
           focusable="false"
           height={24}
-          overflow="visible"
           style={
             {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
               "verticalAlign": "text-bottom",
             }
           }
@@ -19619,13 +19790,14 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
         <svg
           aria-hidden="true"
           className="octicon octicon-x"
-          display="inline-block"
           fill="currentColor"
           focusable="false"
           height={24}
-          overflow="visible"
           style={
             {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
               "verticalAlign": "text-bottom",
             }
           }
@@ -19670,13 +19842,14 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
         <svg
           aria-hidden="true"
           className="octicon octicon-x"
-          display="inline-block"
           fill="currentColor"
           focusable="false"
           height={24}
-          overflow="visible"
           style={
             {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
               "verticalAlign": "text-bottom",
             }
           }
@@ -19721,13 +19894,14 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
         <svg
           aria-hidden="true"
           className="octicon octicon-x"
-          display="inline-block"
           fill="currentColor"
           focusable="false"
           height={24}
-          overflow="visible"
           style={
             {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
               "verticalAlign": "text-bottom",
             }
           }
@@ -19772,13 +19946,14 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
         <svg
           aria-hidden="true"
           className="octicon octicon-x"
-          display="inline-block"
           fill="currentColor"
           focusable="false"
           height={24}
-          overflow="visible"
           style={
             {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
               "verticalAlign": "text-bottom",
             }
           }
@@ -19823,13 +19998,14 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
         <svg
           aria-hidden="true"
           className="octicon octicon-x"
-          display="inline-block"
           fill="currentColor"
           focusable="false"
           height={24}
-          overflow="visible"
           style={
             {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
               "verticalAlign": "text-bottom",
             }
           }
@@ -20302,13 +20478,14 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
         <svg
           aria-hidden="true"
           className="octicon octicon-x"
-          display="inline-block"
           fill="currentColor"
           focusable="false"
           height={24}
-          overflow="visible"
           style={
             {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
               "verticalAlign": "text-bottom",
             }
           }
@@ -20348,13 +20525,14 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
         <svg
           aria-hidden="true"
           className="octicon octicon-x"
-          display="inline-block"
           fill="currentColor"
           focusable="false"
           height={24}
-          overflow="visible"
           style={
             {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
               "verticalAlign": "text-bottom",
             }
           }
@@ -20394,13 +20572,14 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
         <svg
           aria-hidden="true"
           className="octicon octicon-x"
-          display="inline-block"
           fill="currentColor"
           focusable="false"
           height={24}
-          overflow="visible"
           style={
             {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
               "verticalAlign": "text-bottom",
             }
           }
@@ -20440,13 +20619,14 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
         <svg
           aria-hidden="true"
           className="octicon octicon-x"
-          display="inline-block"
           fill="currentColor"
           focusable="false"
           height={24}
-          overflow="visible"
           style={
             {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
               "verticalAlign": "text-bottom",
             }
           }
@@ -20486,13 +20666,14 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
         <svg
           aria-hidden="true"
           className="octicon octicon-x"
-          display="inline-block"
           fill="currentColor"
           focusable="false"
           height={24}
-          overflow="visible"
           style={
             {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
               "verticalAlign": "text-bottom",
             }
           }
@@ -20532,13 +20713,14 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
         <svg
           aria-hidden="true"
           className="octicon octicon-x"
-          display="inline-block"
           fill="currentColor"
           focusable="false"
           height={24}
-          overflow="visible"
           style={
             {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
               "verticalAlign": "text-bottom",
             }
           }
@@ -20578,13 +20760,14 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
         <svg
           aria-hidden="true"
           className="octicon octicon-x"
-          display="inline-block"
           fill="currentColor"
           focusable="false"
           height={24}
-          overflow="visible"
           style={
             {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
               "verticalAlign": "text-bottom",
             }
           }
@@ -20624,13 +20807,14 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
         <svg
           aria-hidden="true"
           className="octicon octicon-x"
-          display="inline-block"
           fill="currentColor"
           focusable="false"
           height={24}
-          overflow="visible"
           style={
             {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
               "verticalAlign": "text-bottom",
             }
           }

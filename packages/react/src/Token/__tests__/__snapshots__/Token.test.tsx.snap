@@ -203,13 +203,14 @@ exports[`Token components AvatarToken renders all sizes 1`] = `
     <svg
       aria-hidden="true"
       className="octicon octicon-x"
-      display="inline-block"
       fill="currentColor"
       focusable="false"
       height={12}
-      overflow="visible"
       style={
         {
+          "display": "inline-block",
+          "overflow": "visible",
+          "userSelect": "none",
           "verticalAlign": "text-bottom",
         }
       }
@@ -427,13 +428,14 @@ exports[`Token components AvatarToken renders all sizes 2`] = `
     <svg
       aria-hidden="true"
       className="octicon octicon-x"
-      display="inline-block"
       fill="currentColor"
       focusable="false"
       height={15}
-      overflow="visible"
       style={
         {
+          "display": "inline-block",
+          "overflow": "visible",
+          "userSelect": "none",
           "verticalAlign": "text-bottom",
         }
       }
@@ -651,13 +653,14 @@ exports[`Token components AvatarToken renders all sizes 3`] = `
     <svg
       aria-hidden="true"
       className="octicon octicon-x"
-      display="inline-block"
       fill="currentColor"
       focusable="false"
       height={18}
-      overflow="visible"
       style={
         {
+          "display": "inline-block",
+          "overflow": "visible",
+          "userSelect": "none",
           "verticalAlign": "text-bottom",
         }
       }
@@ -877,13 +880,14 @@ exports[`Token components AvatarToken renders all sizes 4`] = `
     <svg
       aria-hidden="true"
       className="octicon octicon-x"
-      display="inline-block"
       fill="currentColor"
       focusable="false"
       height={24}
-      overflow="visible"
       style={
         {
+          "display": "inline-block",
+          "overflow": "visible",
+          "userSelect": "none",
           "verticalAlign": "text-bottom",
         }
       }
@@ -1227,13 +1231,14 @@ exports[`Token components AvatarToken renders with a remove button 1`] = `
     <svg
       aria-hidden="true"
       className="octicon octicon-x"
-      display="inline-block"
       fill="currentColor"
       focusable="false"
       height={15}
-      overflow="visible"
       style={
         {
+          "display": "inline-block",
+          "overflow": "visible",
+          "userSelect": "none",
           "verticalAlign": "text-bottom",
         }
       }
@@ -1400,13 +1405,14 @@ exports[`Token components IssueLabelToken renders all sizes 1`] = `
     <svg
       aria-hidden="true"
       className="octicon octicon-x"
-      display="inline-block"
       fill="currentColor"
       focusable="false"
       height={12}
-      overflow="visible"
       style={
         {
+          "display": "inline-block",
+          "overflow": "visible",
+          "userSelect": "none",
           "verticalAlign": "text-bottom",
         }
       }
@@ -1573,13 +1579,14 @@ exports[`Token components IssueLabelToken renders all sizes 2`] = `
     <svg
       aria-hidden="true"
       className="octicon octicon-x"
-      display="inline-block"
       fill="currentColor"
       focusable="false"
       height={15}
-      overflow="visible"
       style={
         {
+          "display": "inline-block",
+          "overflow": "visible",
+          "userSelect": "none",
           "verticalAlign": "text-bottom",
         }
       }
@@ -1746,13 +1753,14 @@ exports[`Token components IssueLabelToken renders all sizes 3`] = `
     <svg
       aria-hidden="true"
       className="octicon octicon-x"
-      display="inline-block"
       fill="currentColor"
       focusable="false"
       height={18}
-      overflow="visible"
       style={
         {
+          "display": "inline-block",
+          "overflow": "visible",
+          "userSelect": "none",
           "verticalAlign": "text-bottom",
         }
       }
@@ -1921,13 +1929,14 @@ exports[`Token components IssueLabelToken renders all sizes 4`] = `
     <svg
       aria-hidden="true"
       className="octicon octicon-x"
-      display="inline-block"
       fill="currentColor"
       focusable="false"
       height={24}
-      overflow="visible"
       style={
         {
+          "display": "inline-block",
+          "overflow": "visible",
+          "userSelect": "none",
           "verticalAlign": "text-bottom",
         }
       }
@@ -2094,13 +2103,14 @@ exports[`Token components IssueLabelToken renders custom fill color 1`] = `
     <svg
       aria-hidden="true"
       className="octicon octicon-x"
-      display="inline-block"
       fill="currentColor"
       focusable="false"
       height={15}
-      overflow="visible"
       style={
         {
+          "display": "inline-block",
+          "overflow": "visible",
+          "userSelect": "none",
           "verticalAlign": "text-bottom",
         }
       }
@@ -2267,13 +2277,14 @@ exports[`Token components IssueLabelToken renders default fill color 1`] = `
     <svg
       aria-hidden="true"
       className="octicon octicon-x"
-      display="inline-block"
       fill="currentColor"
       focusable="false"
       height={15}
-      overflow="visible"
       style={
         {
+          "display": "inline-block",
+          "overflow": "visible",
+          "userSelect": "none",
           "verticalAlign": "text-bottom",
         }
       }
@@ -2551,13 +2562,14 @@ exports[`Token components IssueLabelToken renders with a remove button 1`] = `
     <svg
       aria-hidden="true"
       className="octicon octicon-x"
-      display="inline-block"
       fill="currentColor"
       focusable="false"
       height={15}
-      overflow="visible"
       style={
         {
+          "display": "inline-block",
+          "overflow": "visible",
+          "userSelect": "none",
           "verticalAlign": "text-bottom",
         }
       }
@@ -2731,13 +2743,14 @@ exports[`Token components Token renders all sizes 1`] = `
     <svg
       aria-hidden="true"
       className="octicon octicon-x"
-      display="inline-block"
       fill="currentColor"
       focusable="false"
       height={12}
-      overflow="visible"
       style={
         {
+          "display": "inline-block",
+          "overflow": "visible",
+          "userSelect": "none",
           "verticalAlign": "text-bottom",
         }
       }
@@ -2911,13 +2924,14 @@ exports[`Token components Token renders all sizes 2`] = `
     <svg
       aria-hidden="true"
       className="octicon octicon-x"
-      display="inline-block"
       fill="currentColor"
       focusable="false"
       height={15}
-      overflow="visible"
       style={
         {
+          "display": "inline-block",
+          "overflow": "visible",
+          "userSelect": "none",
           "verticalAlign": "text-bottom",
         }
       }
@@ -3091,13 +3105,14 @@ exports[`Token components Token renders all sizes 3`] = `
     <svg
       aria-hidden="true"
       className="octicon octicon-x"
-      display="inline-block"
       fill="currentColor"
       focusable="false"
       height={18}
-      overflow="visible"
       style={
         {
+          "display": "inline-block",
+          "overflow": "visible",
+          "userSelect": "none",
           "verticalAlign": "text-bottom",
         }
       }
@@ -3273,13 +3288,14 @@ exports[`Token components Token renders all sizes 4`] = `
     <svg
       aria-hidden="true"
       className="octicon octicon-x"
-      display="inline-block"
       fill="currentColor"
       focusable="false"
       height={24}
-      overflow="visible"
       style={
         {
+          "display": "inline-block",
+          "overflow": "visible",
+          "userSelect": "none",
           "verticalAlign": "text-bottom",
         }
       }
@@ -3636,13 +3652,14 @@ exports[`Token components Token renders with a remove button 1`] = `
     <svg
       aria-hidden="true"
       className="octicon octicon-x"
-      display="inline-block"
       fill="currentColor"
       focusable="false"
       height={15}
-      overflow="visible"
       style={
         {
+          "display": "inline-block",
+          "overflow": "visible",
+          "userSelect": "none",
           "verticalAlign": "text-bottom",
         }
       }
