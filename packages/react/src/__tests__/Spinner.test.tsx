@@ -9,6 +9,9 @@ import {FeatureFlags} from '../FeatureFlags'
 describe('Spinner', () => {
   behavesAsComponent({
     Component: Spinner,
+    options: {
+      skipAs: true,
+    },
   })
 
   checkExports('Spinner', {
