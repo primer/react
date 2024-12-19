@@ -1,6 +1,5 @@
 import type {Location, Pathname} from 'history'
 import type {SxProp} from '../sx'
-import type {ComponentProps} from '../utils/types'
 import React from 'react'
 import {clsx} from 'clsx'
 import classes from './Header.module.css'
@@ -8,17 +7,17 @@ import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../uti
 import {defaultSxProp} from '../utils/defaultSxProp'
 import Box from '../Box'
 
-type StyledHeaderProps = React.ComponentProps<'header'> & SxProp
-type StyledHeaderItemProps = React.ComponentProps<'div'> & SxProp & {full?: boolean}
-type StyledHeaderLinkProps = React.ComponentProps<'a'> & SxProp & {to?: Location | Pathname}
+export type HeaderProps = React.ComponentProps<'header'> & SxProp & {as?: React.ElementType}
+export type HeaderItemProps = React.ComponentProps<'div'> & SxProp & {full?: boolean}
+export type HeaderLinkProps = React.ComponentProps<'a'> & SxProp & {to?: Location | Pathname; as?: React.ElementType}
 
-const Header = React.forwardRef<HTMLElement, StyledHeaderProps>(function Header(
-  {children, className, sx: sxProp = defaultSxProp, ...rest},
+const Header = React.forwardRef<HTMLElement, HeaderProps>(function Header(
+  {children, className, sx: sxProp = defaultSxProp, as = 'header', ...rest},
   forwardRef,
 ) {
-  if (sxProp !== defaultSxProp) {
+  if (sxProp !== defaultSxProp || as !== 'header') {
     return (
-      <Box as={'header'} sx={sxProp} ref={forwardRef} className={clsx(className, classes.Header)} {...rest}>
+      <Box as={as} sx={sxProp} ref={forwardRef} className={clsx(className, classes.Header)} {...rest}>
         {children}
       </Box>
     )
@@ -28,12 +27,12 @@ const Header = React.forwardRef<HTMLElement, StyledHeaderProps>(function Header(
       {children}
     </header>
   )
-}) as PolymorphicForwardRefComponent<'header', StyledHeaderProps>
+}) as PolymorphicForwardRefComponent<'header', HeaderProps>
 
 Header.displayName = 'Header'
 
-const HeaderItem = React.forwardRef<HTMLDivElement, StyledHeaderItemProps>(function HeaderItem(
-  {children, className, sx: sxProp = defaultSxProp, ...rest},
+const HeaderItem = React.forwardRef<HTMLDivElement, HeaderItemProps>(function HeaderItem(
+  {children, className, sx: sxProp = defaultSxProp, full, ...rest},
   forwardRef,
 ) {
   if (sxProp !== defaultSxProp) {
@@ -43,7 +42,7 @@ const HeaderItem = React.forwardRef<HTMLDivElement, StyledHeaderItemProps>(funct
         sx={sxProp}
         ref={forwardRef}
         className={clsx(className, classes.HeaderItem)}
-        data-full={rest.full}
+        data-full={full}
         {...rest}
       >
         {children}
@@ -51,7 +50,7 @@ const HeaderItem = React.forwardRef<HTMLDivElement, StyledHeaderItemProps>(funct
     )
   }
   return (
-    <div ref={forwardRef} className={clsx(className, classes.HeaderItem)} data-full={rest.full} {...rest}>
+    <div ref={forwardRef} className={clsx(className, classes.HeaderItem)} data-full={full} {...rest}>
       {children}
     </div>
   )
@@ -59,13 +58,13 @@ const HeaderItem = React.forwardRef<HTMLDivElement, StyledHeaderItemProps>(funct
 
 HeaderItem.displayName = 'Header.Item'
 
-const HeaderLink = React.forwardRef<HTMLAnchorElement, StyledHeaderLinkProps>(function HeaderLink(
-  {children, className, sx: sxProp = defaultSxProp, ...rest},
+const HeaderLink = React.forwardRef<HTMLAnchorElement, HeaderLinkProps>(function HeaderLink(
+  {children, className, sx: sxProp = defaultSxProp, as = 'a', ...rest},
   forwardRef,
 ) {
-  if (sxProp !== defaultSxProp) {
+  if (sxProp !== defaultSxProp || as !== 'a') {
     return (
-      <Box as={'a'} sx={sxProp} ref={forwardRef} className={clsx(className, classes.HeaderLink)} {...rest}>
+      <Box as={as} sx={sxProp} ref={forwardRef} className={clsx(className, classes.HeaderLink)} {...rest}>
         {children}
       </Box>
     )
@@ -79,7 +78,4 @@ const HeaderLink = React.forwardRef<HTMLAnchorElement, StyledHeaderLinkProps>(fu
 
 HeaderLink.displayName = 'Header.Link'
 
-export type HeaderProps = ComponentProps<typeof Header>
-export type HeaderLinkProps = ComponentProps<typeof HeaderLink>
-export type HeaderItemProps = ComponentProps<typeof HeaderItem>
 export default Object.assign(Header, {Link: HeaderLink, Item: HeaderItem})
