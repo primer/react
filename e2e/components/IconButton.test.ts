@@ -371,14 +371,20 @@ test.describe('IconButton', () => {
       })
     }
   })
-  test.describe('In Flex Container', () => {
+  test.describe('Flex container', () => {
     test('default @vrt', async ({page}) => {
       await visit(page, {
         id: 'components-iconbutton-devonly--icon-button-within-flex-container',
       })
 
       // Default state
-      expect(await page.screenshot()).toMatchSnapshot(`IconButton.In Flex Container.png`)
+      expect(await page.screenshot()).toMatchSnapshot(`IconButton.Flex container.png`)
+    })
+    test('axe @aat', async ({page}) => {
+      await visit(page, {
+        id: 'components-iconbutton-devonly--icon-button-within-flex-container',
+      })
+      await expect(page).toHaveNoViolations()
     })
   })
 })
