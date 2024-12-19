@@ -371,4 +371,16 @@ test.describe('IconButton', () => {
       })
     }
   })
+  test.describe('In Flex Container', () => {
+    for (const theme of themes) {
+      test('default @vrt', async ({page}) => {
+        await visit(page, {
+          id: 'components-iconbutton-devonly--icon-button-within-flex-container',
+        })
+
+        // Default state
+        expect(await page.screenshot()).toMatchSnapshot(`IconButton.In Flex Container.${theme}.png`)
+      })
+    }
+  })
 })
