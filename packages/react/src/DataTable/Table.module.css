@@ -265,6 +265,10 @@
   border-block-end: var(--borderWidth-thin) solid var(--borderColor-default);
 }
 
+.TableSortButton {
+  column-gap: 0.5rem;
+}
+
 /* Grid layout */
 .TableHead,
 .TableBody,
