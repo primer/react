@@ -1,15 +1,13 @@
 import React from 'react'
 import {render as HTMLRender, waitFor} from '@testing-library/react'
 import axe from 'axe-core'
-import {LabelGroup, Label, ThemeProvider, BaseStyles} from '..'
+import {LabelGroup, Label, BaseStyles} from '..'
 import {behavesAsComponent, checkExports} from '../utils/testing'
 import theme from '../theme'
 import userEvent from '@testing-library/user-event'
 
 const ThemeAndStyleContainer: React.FC<React.PropsWithChildren> = ({children}) => (
-  <ThemeProvider theme={theme}>
-    <BaseStyles>{children}</BaseStyles>
-  </ThemeProvider>
+  <BaseStyles>{children}</BaseStyles>
 )
 
 const AutoTruncateContainer: React.FC<React.PropsWithChildren & {width?: number}> = ({children, width}) => (
