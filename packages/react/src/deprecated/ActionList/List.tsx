@@ -127,7 +127,7 @@ const StyledList = styled.div`
  * Returns `sx` prop values for `List` children matching the given `List` style variation.
  * @param variant `List` style variation.
  */
-function useListVariant(variant: ListProps['variant'] = 'inset'): {
+function getListVariant(variant: ListProps['variant'] = 'inset'): {
   firstGroupStyle?: SystemCssProperties
   lastGroupStyle?: SystemCssProperties
   headerStyle?: SystemCssProperties
@@ -153,7 +153,7 @@ function useListVariant(variant: ListProps['variant'] = 'inset'): {
  */
 export const List = React.forwardRef<HTMLDivElement, ListProps>((props, forwardedRef): JSX.Element => {
   // Get `sx` prop values for `List` children matching the given `List` style variation.
-  const {firstGroupStyle, lastGroupStyle, headerStyle, itemStyle} = useListVariant(props.variant)
+  const {firstGroupStyle, lastGroupStyle, headerStyle, itemStyle} = getListVariant(props.variant)
 
   /**
    * Render a `Group` using the first of the following renderers that is defined:
