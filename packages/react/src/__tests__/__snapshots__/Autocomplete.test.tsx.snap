@@ -537,7 +537,7 @@ exports[`snapshots renders a loading state 1`] = `
   justify-content: center;
 }
 
-.c3:not(:focus):not(:active):not(:focus-within) {
+.c2:not(:focus):not(:active):not(:focus-within) {
   -webkit-clip-path: inset(50%);
   clip-path: inset(50%);
   height: 1px;
@@ -545,11 +545,6 @@ exports[`snapshots renders a loading state 1`] = `
   position: absolute;
   white-space: nowrap;
   width: 1px;
-}
-
-.c2 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
 }
 
 .c0 {
@@ -582,7 +577,7 @@ exports[`snapshots renders a loading state 1`] = `
         <svg
           aria-hidden={true}
           aria-labelledby=":r2h:"
-          className="c2"
+          className="SpinnerAnimation"
           fill="none"
           height="32px"
           viewBox="0 0 16 16"
@@ -606,7 +601,7 @@ exports[`snapshots renders a loading state 1`] = `
           />
         </svg>
         <span
-          className="c3"
+          className="c2"
           id=":r2h:"
         >
           Loading
