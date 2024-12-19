@@ -61,7 +61,7 @@ export const TrailingCounter = () => {
   )
 }
 
-export const TrailingCounterWithNoText = () => <Button leadingVisual={CommentIcon} count={3} />
+export const TrailingCounterWithNoText = () => <Button aria-label="Comments" leadingVisual={CommentIcon} count={3} />
 
 export const TrailingCounterAllVariants = () => {
   const [count, setCount] = useState(0)
