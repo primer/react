@@ -5,11 +5,10 @@ import {getFocusableChild} from '@primer/behaviors/utils'
 import {get} from '../constants'
 import VisuallyHidden from '../_VisuallyHidden'
 import {AnchoredOverlay} from '../AnchoredOverlay'
-import Box from '../Box'
 import {Button, IconButton} from '../Button'
 import {useTheme} from '../ThemeProvider'
-import type {SxProp} from '../sx'
-import sx from '../sx'
+import {Stack, StackItem} from '../Stack/Stack'
+import classes from './LabelGroup.module.css'
 
 export type LabelGroupProps = {
   /** Customize the element type of the rendered container */
@@ -18,12 +17,12 @@ export type LabelGroupProps = {
   overflowStyle?: 'inline' | 'overlay'
   /** How many tokens to show. `'auto'` truncates the tokens to fit in the parent container. Passing a number will truncate after that number tokens. If this is undefined, tokens will never be truncated. */
   visibleChildCount?: 'auto' | number
-} & SxProp
+}
 
-const StyledLabelGroupContainer = styled.div<SxProp>`
+const StyledLabelGroupContainer = styled.div`
   display: flex;
   flex-wrap: nowrap;
-  gap: ${get('space.1')};
+  gap: var(--base-size-4);
   line-height: 1;
   max-width: 100%;
   overflow: hidden;
@@ -38,8 +37,6 @@ const StyledLabelGroupContainer = styled.div<SxProp>`
     margin-block-end: 0;
     list-style-type: none;
   }
-
-  ${sx};
 `
 
 const ItemWrapper = styled.div`
@@ -136,18 +133,22 @@ const OverlayToggle: React.FC<
       )}
       focusZoneSettings={{disabled: true}}
     >
-      <Box alignItems="flex-start" display="flex" width={overlayWidth} padding={`${overlayPaddingPx}px`}>
-        <Box display="flex" flexWrap="wrap" sx={{gap: 1}}>
-          {children}
-        </Box>
-        <IconButton
-          onClick={closeOverflowOverlay}
-          icon={XIcon}
-          aria-label="Close"
-          variant="invisible"
-          sx={{flexShrink: 0}}
-        />
-      </Box>
+      <Stack gap="none" direction="horizontal" style={{width: overlayWidth, padding: `${overlayPaddingPx}px`}}>
+        <StackItem>
+          <Stack
+            wrap="wrap"
+            gap="none"
+            align="start"
+            direction="horizontal"
+            className={classes.OverlayToggle_LabelWrapper}
+          >
+            {children}
+          </Stack>
+        </StackItem>
+        <StackItem className={classes.OverlayToggle_CloseButtonWrapper}>
+          <IconButton onClick={closeOverflowOverlay} icon={XIcon} aria-label="Close" variant="invisible" />
+        </StackItem>
+      </Stack>
     </AnchoredOverlay>
   ) : null
 
@@ -156,7 +157,6 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
   children,
   visibleChildCount,
   overflowStyle = 'overlay',
-  sx: sxProp,
   as = 'ul',
 }) => {
   const containerRef = React.useRef<HTMLElement>(null)
@@ -336,7 +336,6 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
       ref={containerRef}
       data-overflow={overflowStyle === 'inline' && isOverflowShown ? 'inline' : undefined}
       data-list={isList || undefined}
-      sx={sxProp}
       as={as}
     >
       {React.Children.map(children, (child, index) => (
@@ -378,7 +377,7 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
       </ToggleWrapper>
     </StyledLabelGroupContainer>
   ) : (
-    <StyledLabelGroupContainer data-overflow="inline" data-list={isList || undefined} sx={sxProp} as={as}>
+    <StyledLabelGroupContainer data-overflow="inline" data-list={isList || undefined} as={as}>
       {isList
         ? React.Children.map(children, (child, index) => {
             return <li key={index}>{child}</li>
