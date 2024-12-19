@@ -3,7 +3,7 @@ import React from 'react'
 import {Stack} from '../Stack'
 
 export default {
-  title: 'Octicons',
+  title: 'Octicons/Customization',
 }
 
 export const CustomClassname = () => {
