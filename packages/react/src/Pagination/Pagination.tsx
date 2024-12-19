@@ -1,9 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import Box from '../Box'
 import {get} from '../constants'
-import type {SxProp} from '../sx'
-import sx from '../sx'
 import {buildComponentData, buildPaginationModel} from './model'
 import type {ResponsiveValue} from '../hooks/useResponsiveValue'
 import {viewportRanges} from '../hooks/useResponsiveValue'
@@ -201,7 +198,7 @@ function usePaginationPages({
 const PaginationContainer = toggleStyledComponent(
   CSS_MODULES_FEATURE_FLAG,
   'nav',
-  styled.nav<SxProp>`
+  styled.nav`
     margin-top: 20px;
     margin-bottom: 15px;
     text-align: center;
@@ -228,8 +225,6 @@ const PaginationContainer = toggleStyledComponent(
         })
         .join('')
     }
-
-    ${sx};
   `,
 )
 
@@ -275,14 +270,12 @@ function Pagination({
       {...rest}
       theme={theme}
     >
-      <Box
-        display="inline-block"
-        theme={theme}
+      <div
         className={classes.TablePaginationSteps}
         data-hidden-viewport-ranges={getViewportRangesToHidePages(showPages).join(' ')}
       >
         {pageElements}
-      </Box>
+      </div>
     </PaginationContainer>
   )
 }
