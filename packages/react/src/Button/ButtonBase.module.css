@@ -505,6 +505,20 @@
       color: inherit !important;
     }
   }
+
+  /* Icon-only + Counter */
+
+  &:where([data-has-count]):has([data-component='leadingVisual']):not(:has([data-component='text'])) {
+    padding-inline: var(--control-medium-paddingInline-condensed);
+
+    &:where([data-size='small']) {
+      padding-inline: var(--control-xsmall-paddingInline-condensed);
+    }
+
+    &:where([data-size='large']) {
+      padding-inline: var(--control-large-paddingInline-normal);
+    }
+  }
 }
 
 .ConditionalWrapper {
