@@ -1,5 +1,49 @@
 # @primer/react
 
+## 37.9.0
+
+### Minor Changes
+
+- [#5448](https://github.com/primer/react/pull/5448) [`00600f7`](https://github.com/primer/react/commit/00600f783e4ce807cd1e33f2bb183ced9cf66291) Thanks [@mperrotti](https://github.com/mperrotti)! - Corrects horizontal padding of `<Button>` when the button only contains an icon and a counter label (no button text label).
+
+- [#5398](https://github.com/primer/react/pull/5398) [`215d8e6`](https://github.com/primer/react/commit/215d8e643629b918b581daddf9d1ce9beabac74e) Thanks [@langermank](https://github.com/langermank)! - Convert ActionList, ActionList sub components and NavList to CSS Modules
+
+- [#5453](https://github.com/primer/react/pull/5453) [`b07f806`](https://github.com/primer/react/commit/b07f8063371073551741356f0523d7b8ae733322) Thanks [@hussam-i-am](https://github.com/hussam-i-am)! - Convert Autocomplete to CSS modules behind feature flag
+
+- [#5443](https://github.com/primer/react/pull/5443) [`f03ae58`](https://github.com/primer/react/commit/f03ae58b1546289096a725c357c735cb4c41bc91) Thanks [@jonrohan](https://github.com/jonrohan)! - Deprecate use of sx prop by deprecating the `SxProp` type definition
+
+- [#5438](https://github.com/primer/react/pull/5438) [`4776d13`](https://github.com/primer/react/commit/4776d13951bf72c2dfad427dcd07fadcce2c40b3) Thanks [@joshblack](https://github.com/joshblack)! - Update FormControl to use CSS Modules behind feature flag
+
+- [#5456](https://github.com/primer/react/pull/5456) [`e990fdb`](https://github.com/primer/react/commit/e990fdbcb64c97c5808d6e1649d020a923956270) Thanks [@langermank](https://github.com/langermank)! - chore(deps): update @primer/octicons-react to 19.13.0
+
+- [#5451](https://github.com/primer/react/pull/5451) [`59a1346`](https://github.com/primer/react/commit/59a1346b54581170b70ae60ad673eeec085c379f) Thanks [@randall-krauskopf](https://github.com/randall-krauskopf)! - Convert Box usage in Autocomplete to CSS modules behind feature flag
+
+- [#5435](https://github.com/primer/react/pull/5435) [`5cba52a`](https://github.com/primer/react/commit/5cba52a445c45b56b54163922fb59ba1059351ec) Thanks [@joshblack](https://github.com/joshblack)! - Update Table to use CSS Modules behind feature flag
+
+- [#5460](https://github.com/primer/react/pull/5460) [`6d70d1b`](https://github.com/primer/react/commit/6d70d1bed593c73cb92c1185dd9709ae5da5d602) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove CSS modules feature flag from Header
+
+- [#5461](https://github.com/primer/react/pull/5461) [`9bd2f79`](https://github.com/primer/react/commit/9bd2f79070a2cd30fa99c0641e7acc0ed34c166b) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove the CSS module feature flag from Skeleton
+
+- [#5464](https://github.com/primer/react/pull/5464) [`d43f27f`](https://github.com/primer/react/commit/d43f27f7f7b63ec6dfe8b6efe62c3d9fd6e7386b) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove CSS modules feature flag from Select
+
+### Patch Changes
+
+- [#5123](https://github.com/primer/react/pull/5123) [`becad7d`](https://github.com/primer/react/commit/becad7dfa2522c1b211ebeeacba0d0cedc16dd85) Thanks [@langermank](https://github.com/langermank)! - Bug fix: ButtonGroup with Tooltip border-radius is incorrect
+
+- [#5382](https://github.com/primer/react/pull/5382) [`83607df`](https://github.com/primer/react/commit/83607dfeff055b651eeeeb79bc9bb651def081a8) Thanks [@jonrohan](https://github.com/jonrohan)! - Move Skeleton component css module feature flag to ga
+
+- [#5386](https://github.com/primer/react/pull/5386) [`177eadc`](https://github.com/primer/react/commit/177eadcfa217ed196bf97ad894fe483dd2d63edb) Thanks [@jonrohan](https://github.com/jonrohan)! - Move Select component css module feature flag to ga
+
+- [#5388](https://github.com/primer/react/pull/5388) [`e3856ba`](https://github.com/primer/react/commit/e3856ba959c8ec43b9bd19da1239a828524bcb82) Thanks [@jonrohan](https://github.com/jonrohan)! - Move TreeView component css module feature flag to staff
+
+- [#5384](https://github.com/primer/react/pull/5384) [`eedbdbd`](https://github.com/primer/react/commit/eedbdbd6569e5faf18486dd8935f9af46ac17e31) Thanks [@jonrohan](https://github.com/jonrohan)! - Move Stack component css module feature flag to ga
+
+- [#5444](https://github.com/primer/react/pull/5444) [`8e481ca`](https://github.com/primer/react/commit/8e481cadd1fc45119f28428f97b75817179473d5) Thanks [@JelloBagel](https://github.com/JelloBagel)! - Fix Typography and Common props for BaseStyles when CSS modules feature flag is enabled
+
+- [#5387](https://github.com/primer/react/pull/5387) [`e29c40c`](https://github.com/primer/react/commit/e29c40c31d0630873de5a03f501f5b1f86b511ef) Thanks [@jonrohan](https://github.com/jonrohan)! - Move Breadcrumbs component css module feature flag to ga
+
+- [#5380](https://github.com/primer/react/pull/5380) [`fcc041d`](https://github.com/primer/react/commit/fcc041dbcc8915eff7cd419269faaff8a408b180) Thanks [@jonrohan](https://github.com/jonrohan)! - Move Header component css module feature flag to ga
+
 ## 37.8.0
 
 ### Minor Changes
