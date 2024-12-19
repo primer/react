@@ -1,16 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`CounterLabel renders with secondary scheme when no "scheme" prop is provided 1`] = `
-.c0:not(:focus):not(:active):not(:focus-within) {
-  -webkit-clip-path: inset(50%);
-  clip-path: inset(50%);
-  height: 1px;
-  overflow: hidden;
-  position: absolute;
-  white-space: nowrap;
-  width: 1px;
-}
-
 <div>
   <span
     aria-hidden="true"
@@ -20,7 +10,7 @@ exports[`CounterLabel renders with secondary scheme when no "scheme" prop is pro
     1234
   </span>
   <span
-    class="c0"
+    class="VisuallyHidden"
   >
      (
     1234
@@ -30,16 +20,6 @@ exports[`CounterLabel renders with secondary scheme when no "scheme" prop is pro
 `;
 
 exports[`CounterLabel respects the primary "scheme" prop 1`] = `
-.c0:not(:focus):not(:active):not(:focus-within) {
-  -webkit-clip-path: inset(50%);
-  clip-path: inset(50%);
-  height: 1px;
-  overflow: hidden;
-  position: absolute;
-  white-space: nowrap;
-  width: 1px;
-}
-
 <div>
   <span
     aria-hidden="true"
@@ -49,7 +29,7 @@ exports[`CounterLabel respects the primary "scheme" prop 1`] = `
     1234
   </span>
   <span
-    class="c0"
+    class="VisuallyHidden"
   >
      (
     1234
