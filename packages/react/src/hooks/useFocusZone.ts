@@ -5,12 +5,13 @@ import {useProvidedRefOrCreate} from './useProvidedRefOrCreate'
 export {FocusKeys} from '@primer/behaviors'
 export type {Direction} from '@primer/behaviors'
 
-export interface FocusZoneHookSettings extends Omit<FocusZoneSettings, 'activeDescendantControl'> {
+export interface FocusZoneHookSettings<T extends HTMLElement>
+  extends Omit<FocusZoneSettings, 'activeDescendantControl'> {
   /**
    * Optional ref for the container that holds all elements participating in arrow key focus.
    * If one is not passed, we will create one for you and return it from the hook.
    */
-  containerRef?: React.RefObject<HTMLElement>
+  containerRef?: React.RefObject<T>
 
   /**
    * If using the "active descendant" focus pattern, pass `true` or a ref to the controlling
@@ -25,11 +26,11 @@ export interface FocusZoneHookSettings extends Omit<FocusZoneSettings, 'activeDe
   disabled?: boolean
 }
 
-export function useFocusZone(
-  settings: FocusZoneHookSettings = {},
+export function useFocusZone<T extends HTMLElement>(
+  settings: FocusZoneHookSettings<T> = {},
   dependencies: React.DependencyList = [],
-): {containerRef: React.RefObject<HTMLElement>; activeDescendantControlRef: React.RefObject<HTMLElement>} {
-  const containerRef = useProvidedRefOrCreate(settings.containerRef)
+): {containerRef: React.RefObject<T>; activeDescendantControlRef: React.RefObject<HTMLElement>} {
+  const containerRef = useProvidedRefOrCreate<T>(settings.containerRef)
   const useActiveDescendant = !!settings.activeDescendantFocus
   const passedActiveDescendantRef =
     typeof settings.activeDescendantFocus === 'boolean' || !settings.activeDescendantFocus
