@@ -5149,8 +5149,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c5 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
   visibility: visible;
 }
 
@@ -5418,7 +5416,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
         >
           <svg
             aria-hidden={true}
-            className="c5"
+            className="c5 SpinnerAnimation"
             fill="none"
             height="16px"
             sx={
@@ -5459,14 +5457,10 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c3 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
   visibility: visible;
 }
 
 .c6 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
   visibility: hidden;
 }
 
@@ -5720,7 +5714,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
         >
           <svg
             aria-hidden={true}
-            className="c3"
+            className="c3 SpinnerAnimation"
             fill="none"
             height="16px"
             sx={
@@ -5778,7 +5772,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
         >
           <svg
             aria-hidden={true}
-            className="c6"
+            className="c6 SpinnerAnimation"
             fill="none"
             height="16px"
             sx={
@@ -5819,8 +5813,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c5 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
   visibility: visible;
 }
 
@@ -6088,7 +6080,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
         >
           <svg
             aria-hidden={true}
-            className="c5"
+            className="c5 SpinnerAnimation"
             fill="none"
             height="16px"
             sx={
@@ -6133,14 +6125,10 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c7 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
   visibility: hidden;
 }
 
 .c4 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
   position: absolute;
   top: 0;
   height: 100%;
@@ -6424,7 +6412,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
         >
           <svg
             aria-hidden={true}
-            className="c4"
+            className="c4 SpinnerAnimation"
             fill="none"
             height="32px"
             sx={
@@ -6487,7 +6475,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
         >
           <svg
             aria-hidden={true}
-            className="c7"
+            className="c7 SpinnerAnimation"
             fill="none"
             height="16px"
             sx={
@@ -6532,14 +6520,10 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c7 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
   visibility: hidden;
 }
 
 .c4 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
   position: absolute;
   top: 0;
   height: 100%;
@@ -6823,7 +6807,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
         >
           <svg
             aria-hidden={true}
-            className="c4"
+            className="c4 SpinnerAnimation"
             fill="none"
             height="32px"
             sx={
@@ -6886,7 +6870,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
         >
           <svg
             aria-hidden={true}
-            className="c7"
+            className="c7 SpinnerAnimation"
             fill="none"
             height="16px"
             sx={
@@ -6931,14 +6915,10 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c7 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
   visibility: visible;
 }
 
 .c4 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
   position: absolute;
   top: 0;
   height: 100%;
@@ -7223,7 +7203,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
         >
           <svg
             aria-hidden={true}
-            className="c4"
+            className="c4 SpinnerAnimation"
             fill="none"
             height="32px"
             sx={
@@ -7286,7 +7266,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
         >
           <svg
             aria-hidden={true}
-            className="c7"
+            className="c7 SpinnerAnimation"
             fill="none"
             height="16px"
             sx={
@@ -7331,8 +7311,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c6 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
   position: absolute;
   top: 0;
   height: 100%;
@@ -7630,7 +7608,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
         >
           <svg
             aria-hidden={true}
-            className="c6"
+            className="c6 SpinnerAnimation"
             fill="none"
             height="32px"
             sx={
@@ -7680,14 +7658,10 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c3 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
   visibility: visible;
 }
 
 .c7 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
   position: absolute;
   top: 0;
   height: 100%;
@@ -7947,7 +7921,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
         >
           <svg
             aria-hidden={true}
-            className="c3"
+            className="c3 SpinnerAnimation"
             fill="none"
             height="16px"
             sx={
@@ -8030,7 +8004,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
         >
           <svg
             aria-hidden={true}
-            className="c7"
+            className="c7 SpinnerAnimation"
             fill="none"
             height="32px"
             sx={
@@ -8080,8 +8054,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c6 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
   position: absolute;
   top: 0;
   height: 100%;
@@ -8379,7 +8351,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
         >
           <svg
             aria-hidden={true}
-            className="c6"
+            className="c6 SpinnerAnimation"
             fill="none"
             height="32px"
             sx={
@@ -8433,8 +8405,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c4 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
   position: absolute;
   top: 0;
   height: 100%;
@@ -8444,8 +8414,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c8 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
   position: absolute;
   top: 0;
   height: 100%;
@@ -8731,7 +8699,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
         >
           <svg
             aria-hidden={true}
-            className="c4"
+            className="c4 SpinnerAnimation"
             fill="none"
             height="32px"
             sx={
@@ -8819,7 +8787,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
         >
           <svg
             aria-hidden={true}
-            className="c8"
+            className="c8 SpinnerAnimation"
             fill="none"
             height="32px"
             sx={
@@ -8873,8 +8841,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c4 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
   position: absolute;
   top: 0;
   height: 100%;
@@ -8884,8 +8850,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c8 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
   position: absolute;
   top: 0;
   height: 100%;
@@ -9170,7 +9134,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
         >
           <svg
             aria-hidden={true}
-            className="c4"
+            className="c4 SpinnerAnimation"
             fill="none"
             height="32px"
             sx={
@@ -9258,7 +9222,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
         >
           <svg
             aria-hidden={true}
-            className="c8"
+            className="c8 SpinnerAnimation"
             fill="none"
             height="32px"
             sx={
@@ -9312,8 +9276,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c4 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
   position: absolute;
   top: 0;
   height: 100%;
@@ -9323,8 +9285,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c8 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
   position: absolute;
   top: 0;
   height: 100%;
@@ -9610,7 +9570,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
         >
           <svg
             aria-hidden={true}
-            className="c4"
+            className="c4 SpinnerAnimation"
             fill="none"
             height="32px"
             sx={
@@ -9698,7 +9658,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
         >
           <svg
             aria-hidden={true}
-            className="c8"
+            className="c8 SpinnerAnimation"
             fill="none"
             height="32px"
             sx={
