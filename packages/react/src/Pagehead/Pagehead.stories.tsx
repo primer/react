@@ -35,22 +35,4 @@ Playground.argTypes = {
       options: ['div', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
     },
   },
-  forwardedAs: {
-    controls: false,
-    table: {
-      disable: true,
-    },
-  },
-  ref: {
-    controls: false,
-    table: {
-      disable: true,
-    },
-  },
-  theme: {
-    controls: false,
-    table: {
-      disable: true,
-    },
-  },
 }
