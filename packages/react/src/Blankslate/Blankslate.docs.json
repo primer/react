@@ -3,13 +3,35 @@
   "name": "Blankslate",
   "status": "draft",
   "a11yReviewed": false,
-  "stories": [],
+  "stories": [
+    {
+      "id": "experimental-components-blankslate--default"
+    },
+    {
+      "id": "experimental-components-blankslate-features--with-visual"
+    },
+    {
+      "id": "experimental-components-blankslate-features--with-primary-action"
+    },
+    {
+      "id": "experimental-components-blankslate-features--with-secondary-action"
+    },
+    {
+      "id": "experimental-components-blankslate-features--with-border"
+    },
+    {
+      "id": "experimental-components-blankslate-features--narrow"
+    },
+    {
+      "id": "experimental-components-blankslate-features--spacious"
+    }
+  ],
   "importPath": "@primer/react/experimental",
   "props": [
     {
       "name": "border",
       "type": "boolean",
-      "description": ""
+      "description": "Add a border around this component"
     },
     {
       "name": "narrow",
@@ -20,6 +42,12 @@
       "name": "spacious",
       "type": "boolean",
       "description": ""
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "description": "Class name(s) for custom styling.",
+      "defaultValue": ""
     }
   ],
   "subcomponents": [
@@ -45,7 +73,8 @@
       "props": [
         {
           "name": "href",
-          "type": "string"
+          "type": "string",
+          "description": "Link to complete primary action"
         }
       ]
     },
@@ -54,7 +83,8 @@
       "props": [
         {
           "name": "href",
-          "type": "string"
+          "type": "string",
+          "description": "Link to complete secondary action"
         }
       ]
     }

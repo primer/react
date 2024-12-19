@@ -2,176 +2,79 @@ import {test, expect} from '@playwright/test'
 import {visit} from '../test-helpers/storybook'
 import {themes} from '../test-helpers/themes'
 
+const stories = [
+  {
+    title: 'Default',
+    id: 'components-dialog--default',
+  },
+  {
+    title: 'Stress Test',
+    id: 'components-dialog-features--stress-test',
+  },
+  {
+    title: 'With Custom Renderers',
+    id: 'components-dialog-features--with-custom-renderers',
+  },
+  {
+    title: 'Position bottom',
+    id: 'components-dialog-features--bottom-sheet-narrow',
+  },
+  {
+    title: 'Position fullscreen',
+    id: 'components-dialog-features--full-screen-narrow',
+  },
+  {
+    title: 'Position sidesheet',
+    id: 'components-dialog-features--side-sheet',
+  },
+  {
+    title: 'Dev: With Css',
+    id: 'components-dialog-dev--with-css',
+  },
+  {
+    title: 'Dev: With Sx',
+    id: 'components-dialog-dev--with-sx',
+  },
+  {
+    title: 'Dev: With Sx And Css',
+    id: 'components-dialog-dev--with-sx-and-css',
+  },
+] as const
+
 test.describe('Dialog', () => {
-  test.describe('Default', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-dialog--default',
-            globals: {
-              colorScheme: theme,
-            },
+  for (const story of stories) {
+    test.describe(story.title, () => {
+      for (const theme of themes) {
+        test.describe(theme, () => {
+          test('default @vrt', async ({page}) => {
+            await visit(page, {
+              id: story.id,
+              globals: {
+                colorScheme: theme,
+              },
+            })
+
+            // Default state
+            const isDialogOpen = await page.locator('role=dialog').isVisible()
+            if (!isDialogOpen) {
+              await page.getByRole('button', {name: 'Show dialog'}).click()
+            }
+            expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
+              `Dialog.${story.title}.${theme}.png`,
+            )
           })
 
-          // Default state
-          await page.getByRole('button', {name: 'Show dialog'}).click()
-          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`Dialog.Default.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-dialog--default',
-            globals: {
-              colorScheme: theme,
-            },
+          test('axe @aat', async ({page}) => {
+            await visit(page, {
+              id: story.id,
+              globals: {
+                colorScheme: theme,
+              },
+            })
+            await expect(page).toHaveNoViolations()
           })
-          await expect(page).toHaveNoViolations()
         })
-      })
-    }
-  })
-
-  test.describe('Stress Test', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-dialog-features--stress-test',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          await page.getByRole('button', {name: 'Show dialog'}).click()
-          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`Dialog.Stress Test.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-dialog-features--stress-test',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations()
-        })
-      })
-    }
-  })
-
-  test.describe('With Custom Renderers', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-dialog-features--with-custom-renderers',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          await page.getByRole('button', {name: 'Show dialog'}).click()
-          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
-            `Dialog.With Custom Renderers.${theme}.png`,
-          )
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-dialog-features--with-custom-renderers',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations()
-        })
-      })
-    }
-  })
-
-  test.describe('Position bottom', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-dialog-features--bottom-sheet-narrow',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`Dialog.Position bottom.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-dialog-features--bottom-sheet-narrow',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations()
-        })
-      })
-    }
-  })
-
-  test.describe('Position fullscreen', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-dialog-features--full-screen-narrow',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
-            `Dialog.Position fullscreen.${theme}.png`,
-          )
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-dialog-features--full-screen-narrow',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations()
-        })
-      })
-    }
-  })
-
-  test.describe('Position sidesheet', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-dialog-features--side-sheet',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
-            `Dialog.Position sidesheet.${theme}.png`,
-          )
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-dialog-features--side-sheet',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations()
-        })
-      })
-    }
-  })
+      }
+    })
+  }
 })

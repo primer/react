@@ -7,6 +7,7 @@ import {toggleStyledComponent} from '../../internal/utils/toggleStyledComponent'
 import {clsx} from 'clsx'
 import classes from './SkeletonBox.module.css'
 import {useFeatureFlag} from '../../FeatureFlags'
+import {CSS_MODULE_FLAG} from './FeatureFlag'
 
 type SkeletonBoxProps = {
   /** Height of the skeleton "box". Accepts any valid CSS `height` value. */
@@ -22,10 +23,9 @@ const shimmer = keyframes`
   from { mask-position: 200%; }
   to { mask-position: 0%; }
 `
-const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_team'
 
 const StyledSkeletonBox = toggleStyledComponent(
-  CSS_MODULES_FEATURE_FLAG,
+  CSS_MODULE_FLAG,
   'div',
   styled.div<SkeletonBoxProps>`
     animation: ${shimmer};
@@ -56,7 +56,7 @@ export const SkeletonBox = React.forwardRef<HTMLDivElement, SkeletonBoxProps>(fu
   {height, width, className, style, ...props},
   ref,
 ) {
-  const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
+  const enabled = useFeatureFlag(CSS_MODULE_FLAG)
   return (
     <StyledSkeletonBox
       height={enabled ? undefined : height}
