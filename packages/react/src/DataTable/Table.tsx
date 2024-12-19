@@ -632,7 +632,7 @@ const StyledTableSubtitle = toggleStyledComponent(
     color: var(--fgColor-default);
     font-weight: var(--base-text-weight-normal);
     font-size: var(--text-body-size-small);
-    line-height: calc(20 / 12);
+    line-height: var(--text-title-lineHeight-small);
     margin: 0;
   `,
 )
