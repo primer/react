@@ -1,33 +1,13 @@
 import React, {useEffect, useState, type ComponentPropsWithoutRef, type ReactElement} from 'react'
-import styled from 'styled-components'
 import type {SxProp} from '../sx'
-import sx from '../sx'
-import {toggleStyledComponent} from '../internal/utils/toggleStyledComponent'
-import {useFeatureFlag} from '../FeatureFlags'
 import {clsx} from 'clsx'
 import classes from './Details.module.css'
 import {useMergedRefs} from '../internal/hooks/useMergedRefs'
-
-const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_ga'
-
-const StyledDetails = toggleStyledComponent(
-  CSS_MODULES_FEATURE_FLAG,
-  'details',
-  styled.details<SxProp>`
-    & > summary {
-      list-style: none;
-    }
-    & > summary::-webkit-details-marker {
-      display: none;
-    }
-
-    ${sx};
-  `,
-)
+import {defaultSxProp} from '../utils/defaultSxProp'
+import Box from '../Box'
 
 const Root = React.forwardRef<HTMLDetailsElement, DetailsProps>(
-  ({className, children, ...rest}, forwardRef): ReactElement => {
-    const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
+  ({className, children, sx: sxProp = defaultSxProp, ...rest}, forwardRef): ReactElement => {
     const detailsRef = React.useRef<HTMLDetailsElement>(null)
     const ref = useMergedRefs(forwardRef, detailsRef)
     const [hasSummary, setHasSummary] = useState(false)
@@ -60,12 +40,22 @@ const Root = React.forwardRef<HTMLDetailsElement, DetailsProps>(
       }
     }, [])
 
+    if (sxProp !== defaultSxProp) {
+      return (
+        <Box as={'details'} className={clsx(className, classes.Details)} {...rest} sx={sxProp} ref={ref}>
+          {/* Include default summary if summary is not provided */}
+          {!hasSummary && <Details.Summary data-default-summary>{'See Details'}</Details.Summary>}
+          {children}
+        </Box>
+      )
+    }
+
     return (
-      <StyledDetails className={clsx(className, {[classes.Details]: enabled})} {...rest} ref={ref}>
+      <details className={clsx(className, classes.Details)} {...rest} ref={ref}>
         {/* Include default summary if summary is not provided */}
         {!hasSummary && <Details.Summary data-default-summary>{'See Details'}</Details.Summary>}
         {children}
-      </StyledDetails>
+      </details>
     )
   },
 )
