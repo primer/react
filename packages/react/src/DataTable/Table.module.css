@@ -18,7 +18,7 @@
   font-size: var(--text-body-size-medium);
   font-weight: var(--base-text-weight-semibold);
   /* stylelint-disable-next-line primer/typography */
-  line-height: calc(20 / 14);
+  line-height: 20px;
   color: var(--fgColor-default);
   grid-area: title;
   align-self: center;
