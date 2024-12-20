@@ -5,7 +5,7 @@ import {useProvidedRefOrCreate} from './useProvidedRefOrCreate'
 export {FocusKeys} from '@primer/behaviors'
 export type {Direction} from '@primer/behaviors'
 
-export interface FocusZoneHookSettings<T extends HTMLElement>
+export interface FocusZoneHookSettings<T extends HTMLElement = HTMLElement>
   extends Omit<FocusZoneSettings, 'activeDescendantControl'> {
   /**
    * Optional ref for the container that holds all elements participating in arrow key focus.
