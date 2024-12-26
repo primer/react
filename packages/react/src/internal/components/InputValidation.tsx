@@ -1,12 +1,15 @@
 import type {IconProps} from '@primer/octicons-react'
 import {AlertFillIcon, CheckCircleFillIcon} from '@primer/octicons-react'
+import {clsx} from 'clsx'
 import React from 'react'
-import Text from '../../Text'
-import type {SxProp} from '../../sx'
-import type {FormValidationStatus} from '../../utils/types/FormValidationStatus'
 import styled from 'styled-components'
-import {get} from '../../constants'
+import Text from '../../Text'
 import sx from '../../sx'
+import type {SxProp} from '../../sx'
+import {cssModulesFlag} from '../../FormControl/feature-flags'
+import type {FormValidationStatus} from '../../utils/types/FormValidationStatus'
+import {useFeatureFlag} from '../../FeatureFlags'
+import classes from './InputValidation.module.css'
 
 type Props = {
   id: string
@@ -22,6 +25,7 @@ const validationIconMap: Record<
 }
 
 const InputValidation: React.FC<React.PropsWithChildren<Props>> = ({children, id, validationStatus, sx}) => {
+  const enabled = useFeatureFlag(cssModulesFlag)
   const IconComponent = validationStatus ? validationIconMap[validationStatus] : undefined
 
   // TODO: use `text-caption-lineHeight` token as a custom property when it's available
@@ -31,10 +35,19 @@ const InputValidation: React.FC<React.PropsWithChildren<Props>> = ({children, id
   const iconBoxMinHeight = iconSize * captionLineHeight
 
   return (
-    <StyledInputValidation data-validation-status={validationStatus} sx={sx}>
+    <StyledInputValidation
+      className={clsx({
+        [classes.InputValidation]: enabled,
+      })}
+      data-validation-status={validationStatus}
+      sx={sx}
+    >
       {IconComponent ? (
         <StyledValidationIcon
           aria-hidden="true"
+          className={clsx({
+            [classes.ValidationIcon]: enabled,
+          })}
           style={
             {
               '--inputValidation-iconSize': iconBoxMinHeight,
@@ -44,7 +57,13 @@ const InputValidation: React.FC<React.PropsWithChildren<Props>> = ({children, id
           <IconComponent size={iconSize} fill="currentColor" />
         </StyledValidationIcon>
       ) : null}
-      <StyledValidationText id={id} style={{'--inputValidation-lineHeight': captionLineHeight} as React.CSSProperties}>
+      <StyledValidationText
+        id={id}
+        className={clsx({
+          [classes.ValidationText]: enabled,
+        })}
+        style={{'--inputValidation-lineHeight': captionLineHeight} as React.CSSProperties}
+      >
         {children}
       </StyledValidationText>
     </StyledInputValidation>
@@ -54,7 +73,7 @@ const InputValidation: React.FC<React.PropsWithChildren<Props>> = ({children, id
 const StyledInputValidation = styled(Text)`
   color: var(--inputValidation-fgColor);
   display: flex;
-  font-size: ${get('fontSizes.0')};
+  font-size: var(--text-body-size-small);
   font-weight: 600;
 
   & :where(a) {
@@ -63,11 +82,11 @@ const StyledInputValidation = styled(Text)`
   }
 
   &:where([data-validation-status='success']) {
-    --inputValidation-fgColor: ${get('colors.success.fg')};
+    --inputValidation-fgColor: var(--fgColor-success);
   }
 
   &:where([data-validation-status='error']) {
-    --inputValidation-fgColor: ${get('colors.danger.fg')};
+    --inputValidation-fgColor: var(--fgColor-danger);
   }
 
   ${sx}
@@ -76,7 +95,7 @@ const StyledInputValidation = styled(Text)`
 const StyledValidationIcon = styled.span`
   align-items: center;
   display: flex;
-  margin-inline-end: ${get('space.1')};
+  margin-inline-end: var(--base-size-4);
   min-height: var(--inputValidation-iconSize);
 `
 
