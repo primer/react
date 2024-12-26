@@ -1,5 +1,6 @@
 import React from 'react'
 import type {Meta} from '@storybook/react'
+import {INITIAL_VIEWPORTS} from '@storybook/addon-viewport'
 import ActionBar from '.'
 import Text from '../Text'
 import {
@@ -42,6 +43,38 @@ export const Default = () => (
     <ActionBar.IconButton icon={TasklistIcon} aria-label="Task List"></ActionBar.IconButton>
   </ActionBar>
 )
+
+export const WithOverflowMenu = () => (
+  <ActionBar aria-label="Toolbar">
+    <ActionBar.IconButton icon={BoldIcon} aria-label="Bold"></ActionBar.IconButton>
+    <ActionBar.IconButton icon={ItalicIcon} aria-label="Italic"></ActionBar.IconButton>
+    <ActionBar.IconButton icon={CodeIcon} aria-label="Code"></ActionBar.IconButton>
+    <ActionBar.IconButton icon={LinkIcon} aria-label="Link"></ActionBar.IconButton>
+    <ActionBar.Divider />
+    <ActionBar.IconButton icon={FileAddedIcon} aria-label="File Added"></ActionBar.IconButton>
+    <ActionBar.IconButton icon={SearchIcon} aria-label="Search"></ActionBar.IconButton>
+    <ActionBar.IconButton icon={QuoteIcon} aria-label="Insert Quote"></ActionBar.IconButton>
+    <ActionBar.IconButton icon={ListUnorderedIcon} aria-label="Unordered List"></ActionBar.IconButton>
+    <ActionBar.IconButton icon={ListOrderedIcon} aria-label="Ordered List"></ActionBar.IconButton>
+    <ActionBar.IconButton icon={TasklistIcon} aria-label="Task List"></ActionBar.IconButton>
+  </ActionBar>
+)
+
+WithOverflowMenu.parameters = {
+  viewport: {
+    viewports: {
+      ...INITIAL_VIEWPORTS,
+      narrowScreen: {
+        name: 'Small Screen',
+        styles: {
+          width: '310px',
+          height: '100%',
+        },
+      },
+    },
+    defaultViewport: 'narrowScreen',
+  },
+}
 
 export const TextLabels = () => (
   <ActionBar aria-label="Toolbar">

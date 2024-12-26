@@ -136,7 +136,7 @@ const overflowEffect = (
   const menuItems: Array<React.ReactElement> = []
 
   // First, we check if we can fit all the items with their icons
-  if (childArray.length > numberOfItemsPossible) {
+  if (childArray.length >= numberOfItemsPossible) {
     /* Below is an accessibility requirement. Never show only one item in the overflow menu.
      * If there is only one item left to display in the overflow menu according to the calculation,
      * we need to pull another item from the list into the overflow menu.
