@@ -34,6 +34,7 @@ export const ExternalTooltip = () => (
   </Tooltip>
 )
 
+/* eslint-disable-next-line camelcase */
 export const ExternalTooltipVersion_1 = () => (
   <TooltipV1 text="this is a supportive description for icon button" direction="se">
     <IconButton icon={HeartIcon} aria-label="HeartIcon" />
