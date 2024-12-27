@@ -34,7 +34,7 @@ export const ExternalTooltip = () => (
   </Tooltip>
 )
 
-export const ExternalTooltipVersion1 = () => (
+export const ExternalTooltipVersion_1 = () => (
   <TooltipV1 text="this is a supportive description for icon button" direction="se">
     <IconButton icon={HeartIcon} aria-label="HeartIcon" />
   </TooltipV1>
