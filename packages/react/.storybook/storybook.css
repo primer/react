@@ -56,22 +56,24 @@
   background-color: var(--bgColor-muted);
 }
 
+/* !important simulates CSS layers in dotcom that prioritize custom classes over Primer React styles */
+
 .testCustomClassnameColor {
-  color: var(--fgColor-sponsors);
+  color: var(--fgColor-sponsors) !important;
 }
 
 .testCustomClassnameBgColor {
-  background-color: var(--bgColor-sponsors-emphasis);
+  background-color: var(--bgColor-sponsors-emphasis) !important;
 }
 
 .testCustomClassnameBorderColor {
-  border-color: var(--borderColor-sponsors-emphasis);
+  border-color: var(--borderColor-sponsors-emphasis) !important;
 }
 
 .testCustomClassnameBorder {
-  border: var(--borderWidth-thin) solid var(--borderColor-sponsors-emphasis);
+  border: var(--borderWidth-thin) solid var(--borderColor-sponsors-emphasis) !important;
 }
 
 .testCustomClassnameMono {
-  font-family: var(--fontStack-monospace);
+  font-family: var(--fontStack-monospace) !important;
 }

@@ -301,11 +301,17 @@ export const Tooltip = React.forwardRef(
       // Has trigger element or any of its children interactive elements?
       const isTriggerInteractive = isInteractive(triggerRef.current)
       const triggerChildren = triggerRef.current.childNodes
-      const hasInteractiveChild = Array.from(triggerChildren).some(child => {
-        return child instanceof HTMLElement && isInteractive(child)
+      // two levels deep
+      const hasInteractiveDescendant = Array.from(triggerChildren).some(child => {
+        return (
+          (child instanceof HTMLElement && isInteractive(child)) ||
+          Array.from(child.childNodes).some(
+            grandChild => grandChild instanceof HTMLElement && isInteractive(grandChild),
+          )
+        )
       })
       invariant(
-        isTriggerInteractive || hasInteractiveChild,
+        isTriggerInteractive || hasInteractiveDescendant,
         'The `Tooltip` component expects a single React element that contains interactive content. Consider using a `<button>` or equivalent interactive element instead.',
       )
       // If the tooltip is used for labelling the interactive element, the trigger element or any of its children should not have aria-label
