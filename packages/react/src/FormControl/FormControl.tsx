@@ -1,6 +1,6 @@
+import {clsx} from 'clsx'
 import React, {useContext} from 'react'
 import Autocomplete from '../Autocomplete'
-import Box from '../Box'
 import Checkbox from '../Checkbox'
 import Radio from '../Radio'
 import Select from '../Select/Select'
@@ -10,7 +10,6 @@ import TextInputWithTokens from '../TextInputWithTokens'
 import Textarea from '../Textarea'
 import {CheckboxOrRadioGroupContext} from '../internal/components/CheckboxOrRadioGroup'
 import ValidationAnimationContainer from '../internal/components/ValidationAnimationContainer'
-import {get} from '../constants'
 import {useSlots} from '../hooks/useSlots'
 import type {SxProp} from '../sx'
 import {useId} from '../hooks/useId'
@@ -20,6 +19,12 @@ import FormControlLeadingVisual from './FormControlLeadingVisual'
 import FormControlValidation from './_FormControlValidation'
 import {FormControlContextProvider} from './_FormControlContext'
 import {warning} from '../utils/warning'
+import styled from 'styled-components'
+import sx from '../sx'
+import {toggleStyledComponent} from '../internal/utils/toggleStyledComponent'
+import {cssModulesFlag} from './feature-flags'
+import {useFeatureFlag} from '../FeatureFlags'
+import classes from './FormControl.module.css'
 
 export type FormControlProps = {
   children?: React.ReactNode
@@ -45,6 +50,7 @@ export type FormControlProps = {
 
 const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
   ({children, disabled: disabledProp, layout = 'vertical', id: idProp, required, sx, className}, ref) => {
+    const enabled = useFeatureFlag(cssModulesFlag)
     const [slots, childrenWithoutSlots] = useSlots(children, {
       caption: FormControlCaption,
       label: FormControlLabel,
@@ -127,69 +133,62 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
         }}
       >
         {isChoiceInput || layout === 'horizontal' ? (
-          <Box
+          <StyledHorizontalLayout
             ref={ref}
-            display="flex"
-            alignItems={slots.leadingVisual ? 'center' : undefined}
+            data-has-leading-visual={slots.leadingVisual ? '' : undefined}
             sx={sx}
-            className={className}
+            className={clsx(className, {
+              [classes.ControlHorizontalLayout]: enabled,
+            })}
           >
-            <Box sx={{'> input': {marginLeft: 0, marginRight: 0}}}>
-              {React.isValidElement(InputComponent) &&
-                React.cloneElement(
-                  InputComponent as React.ReactElement<{
-                    id: string
-                    disabled: boolean
-                    required: boolean
-                    ['aria-describedby']: string
-                  }>,
-                  {
-                    id,
-                    disabled,
-                    // allow checkboxes to be required
-                    required: required && !isRadioInput,
-                    ['aria-describedby']: captionId as string,
-                  },
-                )}
+            <StyledChoiceInputs className={classes.ControlChoiceInputs}>
+              {React.isValidElement(InputComponent)
+                ? React.cloneElement(
+                    InputComponent as React.ReactElement<{
+                      id: string
+                      disabled: boolean
+                      required: boolean
+                      ['aria-describedby']: string
+                    }>,
+                    {
+                      id,
+                      disabled,
+                      // allow checkboxes to be required
+                      required: required && !isRadioInput,
+                      ['aria-describedby']: captionId as string,
+                    },
+                  )
+                : null}
               {childrenWithoutSlots.filter(
                 child =>
                   React.isValidElement(child) &&
                   ![Checkbox, Radio].some(inputComponent => child.type === inputComponent),
               )}
-            </Box>
-            {slots.leadingVisual && (
-              <Box
-                color={disabled ? 'fg.muted' : 'fg.default'}
-                sx={{
-                  '> *': {
-                    minWidth: slots.caption ? get('fontSizes.4') : get('fontSizes.2'),
-                    minHeight: slots.caption ? get('fontSizes.4') : get('fontSizes.2'),
-                    fill: 'currentColor',
-                  },
-                }}
-                ml={2}
+            </StyledChoiceInputs>
+            {slots.leadingVisual ? (
+              <StyledLeadingVisual
+                className={clsx({
+                  [classes.LeadingVisual]: enabled,
+                })}
+                data-disabled={disabled ? '' : undefined}
+                data-has-caption={slots.caption ? '' : undefined}
               >
                 {slots.leadingVisual}
-              </Box>
-            )}
-            <Box
-              sx={{
-                '> *': {paddingLeft: 'var(--stack-gap-condensed)'},
-                '> label': {fontWeight: 'var(--base-text-weight-normal)'},
-              }}
-            >
+              </StyledLeadingVisual>
+            ) : null}
+            <StyledLabelContainer className={classes.LabelContainer}>
               {slots.label}
               {slots.caption}
-            </Box>
-          </Box>
+            </StyledLabelContainer>
+          </StyledHorizontalLayout>
         ) : (
-          <Box
+          <StyledVerticalLayout
             ref={ref}
-            display="flex"
-            flexDirection="column"
-            alignItems="flex-start"
-            sx={{...(isLabelHidden ? {'> *:not(label) + *': {marginTop: 1}} : {'> * + *': {marginTop: 1}}), ...sx}}
-            className={className}
+            data-has-label={!isLabelHidden ? '' : undefined}
+            sx={sx}
+            className={clsx(className, {
+              [classes.ControlVerticalLayout]: enabled,
+            })}
           >
             {slots.label}
             {React.isValidElement(InputComponent) &&
@@ -215,11 +214,94 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
               <ValidationAnimationContainer show>{slots.validation}</ValidationAnimationContainer>
             ) : null}
             {slots.caption}
-          </Box>
+          </StyledVerticalLayout>
         )}
       </FormControlContextProvider>
     )
   },
+)
+
+const StyledHorizontalLayout = toggleStyledComponent(
+  cssModulesFlag,
+  'div',
+  styled.div`
+    display: flex;
+
+    &:where([data-has-leading-visual]) {
+      align-items: center;
+    }
+
+    ${sx}
+  `,
+)
+
+const StyledChoiceInputs = toggleStyledComponent(
+  cssModulesFlag,
+  'div',
+  styled.div`
+    > input {
+      margin-left: 0;
+      margin-right: 0;
+    }
+  `,
+)
+
+const StyledLabelContainer = toggleStyledComponent(
+  cssModulesFlag,
+  'div',
+  styled.div`
+    > * {
+      padding-left: var(--stack-gap-condensed);
+    }
+
+    > label {
+      font-weight: var(--base-text-weight-normal);
+    }
+  `,
+)
+
+const StyledVerticalLayout = toggleStyledComponent(
+  cssModulesFlag,
+  'div',
+  styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    & > *:not(label) + * {
+      margin-top: var(--base-size-4);
+    }
+
+    &:where([data-has-label]) > * + * {
+      margin-top: var(--base-size-4);
+    }
+
+    ${sx}
+  `,
+)
+
+const StyledLeadingVisual = toggleStyledComponent(
+  cssModulesFlag,
+  'div',
+  styled.div`
+    color: var(--fgColor-default);
+    margin-left: var(--base-size-8);
+
+    &:where([data-disabled]) {
+      color: var(--fgColor-muted);
+    }
+
+    > * {
+      fill: currentColor;
+      min-width: var(--text-body-size-large);
+      min-height: var(--text-body-size-large);
+    }
+
+    > *:where([data-has-caption]) {
+      min-width: var(--base-size-24);
+      min-height: var(--base-size-24);
+    }
+  `,
 )
 
 export default Object.assign(FormControl, {

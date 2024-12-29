@@ -38,7 +38,7 @@ figma.connect(
   'https://www.figma.com/file/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?type=design&node-id=30258%3A5582&mode=design&t=TVF2yeiff0ZtzQll-1',
   {
     props: componentProps,
-    example: ({size, disabled, inactive, alignContent, leadingVisual, variant, label}) => (
+    example: ({size, disabled, inactive, alignContent, leadingVisual, trailingVisual, variant, label}) => (
       <Button
         size={size}
         disabled={disabled}
