@@ -27,11 +27,6 @@ body[data-page-layout-dragging='true'] * {
     --spacing-normal: var(--base-size-24);
   }
 
-/* 
-  small: ['100%', null, '240px', '256px'],
-  medium: ['100%', null, '256px', '296px'],
-  large: ['100%', null, '256px', '320px', '336px'], */
-
   /* Pane Width Values */
   --pane-width-small: 100%;
   --pane-width-medium: 100%;
