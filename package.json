@@ -81,6 +81,9 @@
   "optionalDependencies": {
     "@rollup/rollup-linux-x64-gnu": "^4.9.6"
   },
+  "overrides": {
+    "nwsapi": "2.2.2"
+  },
   "prettier": "@github/prettier-config",
   "size-limit": [
     {
