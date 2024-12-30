@@ -1,0 +1,7 @@
+.OverlayToggle_LabelWrapper {
+  gap: var(--base-size-4) !important;
+}
+
+.OverlayToggle_CloseButtonWrapper {
+  min-inline-size: unset !important;
+}
