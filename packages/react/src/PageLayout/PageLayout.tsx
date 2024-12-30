@@ -759,7 +759,7 @@ const panePositions = {
 const paneWidths = {
   small: ['100%', null, '240px', '256px'],
   medium: ['100%', null, '256px', '296px'],
-  large: ['100%', null, '256px', '320px', '336px'],
+  large: ['100%', null, '256px', '320px'],
 }
 
 const defaultPaneWidth = {small: 256, medium: 296, large: 320}
