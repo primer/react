@@ -161,7 +161,7 @@ const overflowEffect = (
     }
 
     updateListAndMenu({items, menuItems})
-  } else if (numberOfItemsPossible >= childArray.length && hasActiveMenu) {
+  } else if (numberOfItemsPossible > childArray.length && hasActiveMenu) {
     /* If the items fit in the list and there are items in the overflow menu, we need to move them back to the list */
     updateListAndMenu({items: childArray, menuItems: []})
   }
