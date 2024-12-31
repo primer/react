@@ -58,7 +58,7 @@ export const PullRequestPage = () => (
         this overflows, it should not break to overall page layout!
       </Box>
     </PageLayout.Content>
-    <PageLayout.Pane>
+    <PageLayout.Pane aria-label="Side pane">
       <Box sx={{display: 'flex', flexDirection: 'column', gap: 3}}>
         <Box>
           <Text sx={{fontSize: 0, fontWeight: 'bold', display: 'block', color: 'fg.muted'}}>Assignees</Text>
@@ -310,7 +310,7 @@ export const ResizablePane: StoryFn = () => (
     <PageLayout.Header>
       <Placeholder height={64} label="Header" />
     </PageLayout.Header>
-    <PageLayout.Pane resizable position="start">
+    <PageLayout.Pane resizable position="start" aria-label="Side pane">
       <Placeholder height={320} label="Pane" />
     </PageLayout.Pane>
     <PageLayout.Content>
@@ -329,7 +329,7 @@ export const ScrollContainerWithinPageLayoutPane: StoryFn = () => (
       <PageLayout rowGap="none" columnGap="none" padding="none" containerWidth="full">
         <PageLayout.Pane position="start" padding="normal" divider="line" sticky aria-label="Sticky pane">
           <Box sx={{overflow: 'auto'}}>
-            <PageLayout.Pane padding="normal">
+            <PageLayout.Pane padding="normal" aria-label="Side pane">
               <Placeholder label="Inner scroll container" height={800} />
             </PageLayout.Pane>
           </Box>
@@ -350,7 +350,7 @@ export const CustomPaneWidths: StoryFn = () => (
     <PageLayout.Header>
       <Placeholder height={64} label="Header" />
     </PageLayout.Header>
-    <PageLayout.Pane resizable width={{min: '200px', default: '300px', max: '400px'}}>
+    <PageLayout.Pane resizable width={{min: '200px', default: '300px', max: '400px'}} aria-label="Side pane">
       <Placeholder height={320} label="Pane" />
     </PageLayout.Pane>
     <PageLayout.Content>
@@ -367,7 +367,7 @@ export const WithCustomPaneHeading: StoryFn = () => (
     <PageLayout.Header>
       <Placeholder height={64} label="Header" />
     </PageLayout.Header>
-    <PageLayout.Pane resizable position="start">
+    <PageLayout.Pane resizable position="start" aria-label="Side pane">
       <Heading as="h2" sx={{fontSize: 3}} id="pane-heading">
         Pane Heading
       </Heading>
