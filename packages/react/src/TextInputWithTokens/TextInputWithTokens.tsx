@@ -1,4 +1,4 @@
-import {FocusKeys} from '@primer/behaviors'
+import {FocusKeys, type Direction} from '@primer/behaviors'
 import {isFocusable} from '@primer/behaviors/utils'
 import {omit} from '@styled-system/props'
 import type {FocusEventHandler, KeyboardEventHandler, MouseEventHandler, RefObject} from 'react'
@@ -107,14 +107,14 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
   useRefObjectAsForwardedRef(forwardedRef, ref)
   const [selectedTokenIndex, setSelectedTokenIndex] = useState<number | undefined>()
   const [tokensAreTruncated, setTokensAreTruncated] = useState<boolean>(Boolean(visibleTokenCount))
-  const {containerRef} = useFocusZone(
+  const {containerRef} = useFocusZone<HTMLDivElement>(
     {
       focusOutBehavior: 'wrap',
       bindKeys: FocusKeys.ArrowHorizontal | FocusKeys.HomeAndEnd,
       focusableElementFilter: element => {
         return !element.getAttributeNames().includes('aria-hidden')
       },
-      getNextFocusable: direction => {
+      getNextFocusable: (direction: Direction, from?: Element, event?: KeyboardEvent): HTMLElement | undefined => {
         if (!selectedTokenIndex && selectedTokenIndex !== 0) {
           return undefined
         }
