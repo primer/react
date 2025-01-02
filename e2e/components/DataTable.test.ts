@@ -63,15 +63,7 @@ test.describe('DataTable', () => {
             })
 
             // Default state
-            expect(
-              await page.screenshot({
-                mask: await page
-                  .locator('td', {
-                    has: page.locator('relative-time'),
-                  })
-                  .all(),
-              }),
-            ).toMatchSnapshot(`DataTable.${story.title}.${theme}.png`)
+            expect(await page.screenshot()).toMatchSnapshot(`DataTable.${story.title}.${theme}.png`)
           })
 
           test('axe @aat', async ({page}) => {
