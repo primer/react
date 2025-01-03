@@ -148,7 +148,7 @@ export function buildComponentData(
       key = 'page-prev'
       content = 'Previous'
       if (page.disabled) {
-        Object.assign(props, {'aria-disabled': 'true', role: 'link'})
+        Object.assign(props, {'aria-hidden': 'true'})
       } else {
         Object.assign(props, {
           rel: 'prev',
@@ -163,7 +163,7 @@ export function buildComponentData(
       key = 'page-next'
       content = 'Next'
       if (page.disabled) {
-        Object.assign(props, {'aria-disabled': 'true', role: 'link'})
+        Object.assign(props, {'aria-hidden': 'true'})
       } else {
         Object.assign(props, {
           rel: 'next',
