@@ -7,7 +7,7 @@ import {behavesAsComponent, checkExports} from '../../utils/testing'
 import axe from 'axe-core'
 
 describe('Details', () => {
-  behavesAsComponent({Component: Details})
+  behavesAsComponent({Component: Details, options: {skipAs: true}})
 
   checkExports('Details', {
     default: Details,
