@@ -120,6 +120,7 @@ const overflowEffect = (
   childArray: Array<React.ReactElement>,
   childWidthArray: ChildWidthArray,
   updateListAndMenu: (props: ResponsiveProps) => void,
+  hasActiveMenu: boolean,
 ) => {
   if (childWidthArray.length === 0) {
     updateListAndMenu({items: childArray, menuItems: []})
@@ -135,7 +136,7 @@ const overflowEffect = (
   const menuItems: Array<React.ReactElement> = []
 
   // First, we check if we can fit all the items with their icons
-  if (childArray.length > numberOfItemsPossible) {
+  if (childArray.length >= numberOfItemsPossible) {
     /* Below is an accessibility requirement. Never show only one item in the overflow menu.
      * If there is only one item left to display in the overflow menu according to the calculation,
      * we need to pull another item from the list into the overflow menu.
@@ -160,6 +161,9 @@ const overflowEffect = (
     }
 
     updateListAndMenu({items, menuItems})
+  } else if (numberOfItemsPossible > childArray.length && hasActiveMenu) {
+    /* If the items fit in the list and there are items in the overflow menu, we need to move them back to the list */
+    updateListAndMenu({items: childArray, menuItems: []})
   }
 }
 
@@ -203,7 +207,9 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
   useResizeObserver((resizeObserverEntries: ResizeObserverEntry[]) => {
     const navWidth = resizeObserverEntries[0].contentRect.width
     const moreMenuWidth = moreMenuRef.current?.getBoundingClientRect().width ?? 0
-    navWidth !== 0 && overflowEffect(navWidth, moreMenuWidth, validChildren, childWidthArray, updateListAndMenu)
+    const hasActiveMenu = menuItems.length > 0
+    navWidth !== 0 &&
+      overflowEffect(navWidth, moreMenuWidth, validChildren, childWidthArray, updateListAndMenu, hasActiveMenu)
   }, navRef as RefObject<HTMLElement>)
 
   const [isWidgetOpen, setIsWidgetOpen] = useState(false)
