@@ -39,7 +39,7 @@
     "clean": "rimraf dist lib lib-esm css",
     "start": "concurrently npm:start:*",
     "start:storybook": "STORYBOOK=true storybook dev -p 6006",
-    "build:storybook": "script/build-storybook",
+    "build:storybook": "storybook build",
     "build:docs": "NODE_OPTIONS=--openssl-legacy-provider script/build-docs",
     "build:docs:preview": "NODE_OPTIONS=--openssl-legacy-provider script/build-docs preview",
     "build:components.json": "tsx script/components-json/build.ts",
