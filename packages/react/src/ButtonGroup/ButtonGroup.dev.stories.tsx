@@ -63,3 +63,11 @@ export const LinkButtonWithIconButtons = () => (
     <IconButton icon={CopilotIcon} aria-label="Open GitHub Copilot chat" />
   </ButtonGroup>
 )
+
+export const SxProp = () => (
+  <ButtonGroup sx={{border: '1px solid red'}}>
+    <Button>Button 1</Button>
+    <Button>Button 2</Button>
+    <Button>Button 3</Button>
+  </ButtonGroup>
+)
