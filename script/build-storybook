@@ -6,6 +6,8 @@ cd packages/react
 # Add base url to be able to serve static files
 if [ -n "$1" ]; then
   echo '<base href="/storybook/" />' >> .storybook/manager-head.html
+
+  cp .storybook/index.html ../../docs/public/storybook/index.html
 else
   echo '<base href="/react/storybook/" />' >> .storybook/manager-head.html
 fi
