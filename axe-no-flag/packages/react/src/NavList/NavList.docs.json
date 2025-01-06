@@ -1,0 +1,224 @@
+{
+  "id": "nav_list",
+  "name": "NavList",
+  "status": "alpha",
+  "a11yReviewed": false,
+  "stories": [],
+  "importPath": "@primer/react",
+  "props": [
+    {
+      "name": "aria-label",
+      "type": "string",
+      "defaultValue": "",
+      "description": ""
+    },
+    {
+      "name": "aria-labelledby",
+      "type": "string",
+      "defaultValue": "",
+      "description": ""
+    },
+    {
+      "name": "ref",
+      "type": "React.RefObject<HTMLElement>"
+    },
+    {
+      "name": "as",
+      "type": "React.ElementType",
+      "defaultValue": "\"nav\""
+    },
+    {
+      "name": "sx",
+      "type": "SystemStyleObject"
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "NavList.Item",
+      "props": [
+        {
+          "name": "href",
+          "type": "string",
+          "defaultValue": "",
+          "description": "The URL that the item navigates to. `href` is passed to the underlying `<a>` element. If `as` is specified, the component may need different props. If the item contains a sub-nav, the item is rendered as a `<button>` and `href` is ignored."
+        },
+        {
+          "name": "aria-current",
+          "type": "| 'page' | 'step' | 'location' | 'date' | 'time' | true | false",
+          "defaultValue": "false",
+          "description": "Set `aria-current` to `\"page\"` to indicate that the item represents the current page. Set `aria-current` to `\"location\"` to indicate that the item represents the current location on a page. For more information about `aria-current`, see [MDN](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)."
+        },
+        {
+          "name": "defaultOpen",
+          "type": "boolean",
+          "description": "The open state of the item when it is initially rendered if the item has a SubNav."
+        },
+        {
+          "name": "inactiveText",
+          "type": "string",
+          "description": "Text to explain why this item is currently inactive and cannot be activated.",
+          "defaultValue": ""
+        },
+        {
+          "name": "ref",
+          "type": "React.RefObject<HTMLAnchorElement>"
+        },
+        {
+          "name": "as",
+          "type": "React.ElementType",
+          "defaultValue": "\"a\""
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
+      "passthrough": {
+        "element": "a",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#Attributes"
+      }
+    },
+    {
+      "name": "NavList.LeadingVisual",
+      "props": [
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        },
+        {
+          "name": "ref",
+          "type": "React.RefObject<HTMLElement>"
+        }
+      ]
+    },
+    {
+      "name": "NavList.TrailingVisual",
+      "props": [
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        },
+        {
+          "name": "ref",
+          "type": "React.RefObject<HTMLElement>"
+        }
+      ]
+    },
+    {
+      "name": "NavList.SubNav",
+      "props": [
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        },
+        {
+          "name": "ref",
+          "type": "React.RefObject<HTMLElement>"
+        }
+      ]
+    },
+    {
+      "name": "NavList.Group",
+      "props": [
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": true,
+          "description": "A related set of NavList.Items",
+          "defaultValue": ""
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "description": "The text that gets rendered as the group's heading. Alternatively, you can pass the `NavList.GroupHeading` component as a child of `NavList.Group`.\n If both `title` and `NavList.GroupHeading` are passed, `NavList.GroupHeading` will be rendered as the heading."
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        },
+        {
+          "name": "ref",
+          "type": "React.RefObject<HTMLElement>"
+        }
+      ]
+    },
+    {
+      "name": "NavList.GroupHeading",
+      "props": [
+        {
+          "name": "auxiliaryText",
+          "type": "string",
+          "required": false,
+          "description": "Secondary text which provides additional information about a `Group`.",
+          "defaultValue": ""
+        },
+        {
+          "name": "variant",
+          "type": "'subtle' | 'filled'",
+          "required": false,
+          "description": "Style variations. Usage is discretionary.\n\n- `\"filled\"` - Superimposed on a background, offset from nearby content\n- `\"subtle\"` - Relatively less offset from nearby content",
+          "defaultValue": ""
+        },
+        {
+          "name": "visuallyHidden",
+          "type": "boolean",
+          "required": false,
+          "description": "",
+          "defaultValue": ""
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        },
+        {
+          "name": "ref",
+          "type": "React.RefObject<HTMLElement>"
+        }
+      ]
+    },
+    {
+      "name": "NavList.Divider",
+      "props": [
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        },
+        {
+          "name": "ref",
+          "type": "React.RefObject<HTMLElement>"
+        }
+      ]
+    },
+    {
+      "name": "NavList.TrailingAction",
+      "props": [
+        {
+          "name": "as",
+          "type": "a | button",
+          "defaultValue": "button",
+          "required": false,
+          "description": "HTML element to render as."
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "defaultValue": "",
+          "required": true,
+          "description": "Acccessible name for the control."
+        },
+        {
+          "name": "icon",
+          "type": "string",
+          "defaultValue": "",
+          "required": true,
+          "description": "Octicon to pass into IconButton. When this is not set, TrailingAction renders as a `Button` instead of an `IconButton`."
+        },
+        {
+          "name": "href",
+          "type": "string",
+          "description": "href when the TrailingAction is rendered as a link."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,79 @@
+.story-wrap {
+  font-family: var(--fontStack-system);
+  color: var(--fgColor-default);
+  background: var(--bgColor-default);
+}
+
+[data-color-mode] {
+  background-color: var(--bgColor-default);
+}
+
+/* stylelint-disable-next-line selector-max-specificity, selector-max-id */
+#storybook-preview-wrapper {
+  width: 100% !important;
+  height: 100% !important;
+  background-color: var(--bgColor-default) !important;
+}
+
+.theme-wrap-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(var(--breakpoint-xsmall, 20rem), auto));
+  grid-gap: 1px;
+  height: 100vh;
+}
+
+.story-wrap-grid {
+  position: relative;
+  padding-bottom: var(--base-size-40);
+  outline: 1px solid #d4d4d8;
+}
+
+@media (max-width: calc(20rem * 4)) {
+  .theme-wrap-grid {
+    grid-template-columns: repeat(3, minmax(var(--breakpoint-xsmall, 20rem), auto));
+  }
+}
+
+@media (max-width: calc(20rem * 3)) {
+  .theme-wrap-grid {
+    grid-template-columns: repeat(2, minmax(var(--breakpoint-xsmall, 20rem), auto));
+  }
+}
+
+@media (max-width: calc(20rem * 2)) {
+  .theme-wrap-grid {
+    display: block;
+  }
+}
+
+.theme-name {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  padding: var(--base-size-4) var(--base-size-8);
+  margin: 0;
+  font: var(--text-caption-shorthand);
+  background-color: var(--bgColor-muted);
+}
+
+/* !important simulates CSS layers in dotcom that prioritize custom classes over Primer React styles */
+
+.testCustomClassnameColor {
+  color: var(--fgColor-sponsors) !important;
+}
+
+.testCustomClassnameBgColor {
+  background-color: var(--bgColor-sponsors-emphasis) !important;
+}
+
+.testCustomClassnameBorderColor {
+  border-color: var(--borderColor-sponsors-emphasis) !important;
+}
+
+.testCustomClassnameBorder {
+  border: var(--borderWidth-thin) solid var(--borderColor-sponsors-emphasis) !important;
+}
+
+.testCustomClassnameMono {
+  font-family: var(--fontStack-monospace) !important;
+}

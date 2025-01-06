@@ -1,0 +1,60 @@
+{
+  "id": "stack",
+  "name": "Stack",
+  "status": "alpha",
+  "a11yReviewed": false,
+  "stories": [],
+  "importPath": "@primer/react",
+  "props": [
+    {
+      "name": "gap",
+      "type": "'none' | 'condensed' | 'normal' | 'spacious' | ResponsiveValue<'none' | 'condensed' | 'normal' | 'spacious'>",
+      "description": "Specify the gap between children elements in the stack."
+    },
+    {
+      "name": "direction",
+      "type": "'horizontal' | 'vertical' | ResponsiveValue<'horizontal' | 'vertical'>",
+      "description": "Specify the orientation for the stack container."
+    },
+    {
+      "name": "align",
+      "type": "'stretch' | 'start' | 'center' | 'end' | 'baseline' | ResponsiveValue<'stretch' | 'start' | 'center' | 'end' | 'baseline'>",
+      "description": "Specify the alignment between items in the cross-axis of the orientation."
+    },
+    {
+      "name": "wrap",
+      "type": "'wrap' | 'nowrap' | ResponsiveValue<'wrap' | 'nowrap'>",
+      "description": "Specify whether items are forced onto one line or can wrap onto multiple lines."
+    },
+    {
+      "name": "justify",
+      "type": "'start' | 'center' | 'end' | 'space-between' | 'space-evenly' | ResponsiveValue<'start' | 'center' | 'end' | 'space-between' | 'space-evenly'>",
+      "description": "Specify how items will be distributed in the stacking direction."
+    },
+    {
+      "name": "padding",
+      "type": "'none' | 'condensed' | 'normal' | 'spacious' | ResponsiveValue<'none' | 'condensed' | 'normal' | 'spacious'>",
+      "description": "Specify the padding of the stack container."
+    },
+    {
+      "name": "className",
+      "type": "string"
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "Stack.Item",
+      "props": [
+        {
+          "name": "grow",
+          "type": "boolean | ResponsiveValue<boolean>",
+          "description": "Allow item to keep size or expand to fill the available space."
+        },
+        {
+          "name": "className",
+          "type": "string"
+        }
+      ]
+    }
+  ]
+}

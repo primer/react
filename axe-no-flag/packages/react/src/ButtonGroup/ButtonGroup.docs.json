@@ -1,0 +1,35 @@
+{
+  "id": "button_group",
+  "name": "ButtonGroup",
+  "status": "alpha",
+  "a11yReviewed": false,
+  "stories": [
+    {
+      "id": "components-buttongroup--default"
+    },
+    {
+      "id": "components-buttongroup-features--icon-buttons"
+    },
+    {
+      "id": "components-buttongroup-features--loading-buttons"
+    },
+    {
+      "id": "components-buttongroup-features--dropdown-split"
+    },
+    {
+      "id": "components-buttongroup-features--as-toolbar"
+    }
+  ],
+  "importPath": "@primer/react",
+  "props": [
+    {
+      "name": "sx",
+      "type": "SystemStyleObject"
+    },
+    {
+      "name": "ref",
+      "type": "React.RefObject<HTMLDivElement>"
+    }
+  ],
+  "subcomponents": []
+}

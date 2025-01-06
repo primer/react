@@ -1,0 +1,26 @@
+#!/bin/bash
+
+set -e
+set -x
+
+PLAYWRIGHT_VERSION=$(npm --json list @playwright/test | jq --raw-output '.dependencies["@playwright/test"].version')
+
+if [ -z "$PLAYWRIGHT_VERSION" ]; then
+  echo "Unable to find Playwright version. Make sure @playwright/test is installed."
+  exit 1
+fi
+
+echo "Using Playwright version $PLAYWRIGHT_VERSION"
+
+if [ -z "$STORYBOOK_URL" ]; then
+  STORYBOOK_URL="http://host.docker.internal:6006"
+fi
+
+echo "Using Storybook at: $STORYBOOK_URL"
+
+docker run --rm \
+  --network host \
+  -v $(pwd):/workspace \
+  -w /workspace \
+  -it "mcr.microsoft.com/playwright:v$PLAYWRIGHT_VERSION-jammy" \
+  /bin/bash -c "npm install && STORYBOOK_URL=$STORYBOOK_URL npx playwright test $@"

@@ -1,0 +1,181 @@
+{
+  "id": "dialog_v2",
+  "docsId": "dialog",
+  "name": "Dialog",
+  "status": "draft",
+  "a11yReviewed": false,
+  "stories": [
+    {
+      "id": "components-dialog--default"
+    },
+    {
+      "id": "components-dialog-features--with-custom-renderers"
+    },
+    {
+      "id": "components-dialog-features--stress-test"
+    },
+    {
+      "id": "components-dialog-features--repro-multistep-dialog-with-conditional-footer"
+    },
+    {
+      "id": "components-dialog-features--bottom-sheet-narrow"
+    },
+    {
+      "id": "components-dialog-features--full-screen-narrow"
+    },
+    {
+      "id": "components-dialog-features--side-sheet"
+    },
+    {
+      "id": "components-dialog-features--return-focus-ref"
+    },
+    {
+      "id": "components-dialog-features--new-issues"
+    },
+    {
+      "id": "components-dialog-features--retains-focus-trap-with-dynamic-content"
+    }
+  ],
+  "importPath": "@primer/react/experimental",
+  "props": [
+    {
+      "name": "title",
+      "type": "React.ReactNode",
+      "description": "Title of the Dialog. Also serves as the aria-label for this Dialog."
+    },
+    {
+      "name": "subtitle",
+      "type": "React.ReactNode",
+      "description": "The Dialog's subtitle. Optional. Rendered below the title in smaller type with less contrast. Also serves as the aria-describedby for this Dialog."
+    },
+    {
+      "name": "renderHeader",
+      "type": "React.FunctionComponent<React.PropsWithChildren<DialogHeaderProps>>",
+      "description": "Provide a custom renderer for the dialog header. This content is rendered directly into the dialog body area, full bleed from edge to edge, top to the start of the body element. Warning: using a custom renderer may violate Primer UX principles."
+    },
+    {
+      "name": "renderBody",
+      "type": "React.FunctionComponent<React.PropsWithChildren<DialogProps>>",
+      "description": "Provide a custom render function for the dialog body. This content is rendered directly into the dialog body area, full bleed from edge to edge, header to footer. Warning: using a custom renderer may violate Primer UX principles."
+    },
+    {
+      "name": "renderFooter",
+      "type": "React.FunctionComponent<React.PropsWithChildren<DialogProps>>",
+      "description": "Provide a custom render function for the dialog footer. This content is rendered directly into the dialog footer area, full bleed from edge to edge, end of the body element to bottom. Warning: using a custom renderer may violate Primer UX principles."
+    },
+    {
+      "name": "footerButtons",
+      "type": "DialogButtonProps[]",
+      "description": "Specifies the buttons to be rendered in the Dialog footer."
+    },
+    {
+      "name": "onClose",
+      "type": "(gesture: 'close-button' | 'escape') => void",
+      "description": "This method is invoked when a gesture to close the dialog is used (either an Escape key press or clicking the 'X' in the top-right corner). The gesture argument indicates the gesture that was used to close the dialog (either 'close-button' or 'escape')."
+    },
+    {
+      "name": "role",
+      "type": "'dialog' | 'alertdialog'",
+      "description": "The ARIA role to assign to this dialog. @see https://www.w3.org/TR/wai-aria-practices-1.1/#dialog_modal\n@see https://www.w3.org/TR/wai-aria-practices-1.1/#alertdialog"
+    },
+    {
+      "name": "width",
+      "type": "'small' | 'medium' | 'large' | 'xlarge'",
+      "description": "The width of the dialog.\nsmall: 296px\nmedium: 320px\nlarge: 480px\nxlarge: 640px"
+    },
+    {
+      "name": "height",
+      "type": "'small' | 'large' | 'auto'",
+      "description": "The height of the dialog.\nsmall: 296x480\nlarge: 480x640\nauto: variable based on contents"
+    },
+    {
+      "name": "returnFocusRef",
+      "type": "React.RefObject<HTMLElement>",
+      "describedby": "Return focus to this element when the Dialog closes, instead of the element that had focus immediately before the Dialog opened"
+    },
+    {
+      "name": "initialFocusRef",
+      "type": "React.RefObject<HTMLElement>",
+      "description": "Focus this element when the Dialog opens"
+    },
+    {
+      "name": "position",
+      "type": "'center' | 'left' | 'right' | { narrow: 'center' | 'left' | 'right' | 'bottom' | 'fullscreen', regular: 'center' | 'left' | 'right' | 'bottom' | 'fullscreen', wide: 'center' | 'left' | 'right' | 'bottom' | 'fullscreen' }",
+      "required": false,
+      "description": "The position of the dialog",
+      "defaultValue": ""
+    },
+    {
+      "name": "className",
+      "type": "string | undefined",
+      "defaultValue": "",
+      "description": "CSS string"
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "Dialog.Body",
+      "props": []
+    },
+    {
+      "name": "Dialog.Buttons",
+      "props": [
+        {
+          "name": "buttons",
+          "type": "DialogButtonProps[] (see table below)",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "Dialog.CloseButton",
+      "props": [
+        {
+          "name": "onClose",
+          "type": "() => void",
+          "required": true,
+          "description": "Callback for closing the Dialog",
+          "defaultValue": ""
+        }
+      ]
+    },
+    {
+      "name": "Dialog.Footer",
+      "props": []
+    },
+    {
+      "name": "Dialog.Header",
+      "props": []
+    },
+    {
+      "name": "Dialog.Title",
+      "props": []
+    },
+    {
+      "name": "DialogButtonProps",
+      "props": [
+        {
+          "name": "buttonType",
+          "type": "'default' | 'danger' | 'primary' | 'normal'",
+          "description": "The variant of Button to use"
+        },
+        {
+          "name": "content",
+          "type": "React.ReactNode",
+          "required": true,
+          "description": "The Button's inner text"
+        },
+        {
+          "name": "autoFocus",
+          "type": "boolean",
+          "description": "If true, and if this is the only button with autoFocus set to true, focus this button automatically when the dialog appears."
+        },
+        {
+          "name": "ref",
+          "type": "React.RefObject<HTMLButtonElement>",
+          "description": " A reference to the rendered Button’s DOM node, used together with `autoFocus` for `focusTrap`’s `initialFocus`."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "id": "pagehead",
+  "name": "Pagehead",
+  "status": "deprecated",
+  "a11yReviewed": false,
+  "stories": [],
+  "importPath": "@primer/react/deprecated",
+  "props": [
+    {
+      "name": "as",
+      "type": "string",
+      "defaultValue": "div",
+      "description": "Sets the underlying HTML tag for the component"
+    },
+    {
+      "name": "sx",
+      "type": "SystemStyleObject"
+    }
+  ],
+  "subcomponents": []
+}

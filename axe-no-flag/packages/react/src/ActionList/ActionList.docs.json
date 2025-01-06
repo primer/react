@@ -1,0 +1,386 @@
+{
+  "id": "action_list",
+  "name": "ActionList",
+  "status": "beta",
+  "a11yReviewed": false,
+  "stories": [],
+  "importPath": "@primer/react",
+  "props": [
+    {
+      "name": "children",
+      "type": "ActionList.Item[] | ActionList.LinkItem[] | ActionList.Group[]",
+      "defaultValue": "",
+      "required": true,
+      "description": ""
+    },
+    {
+      "name": "variant",
+      "type": "'inset' | 'full'",
+      "defaultValue": "'inset'",
+      "description": "`inset` children are offset (vertically and horizontally) from list edges. `full` children are flush (vertically and horizontally) with list edges"
+    },
+    {
+      "name": "selectionVariant",
+      "type": "'single' | 'multiple'",
+      "defaultValue": "",
+      "description": "Whether multiple items or a single item can be selected."
+    },
+    {
+      "name": "showDividers",
+      "type": "boolean",
+      "description": "Display a divider above each `Item` in this `List` when it does not follow a `Header` or `Divider`.",
+      "defaultValue": ""
+    },
+    {
+      "name": "role",
+      "type": "AriaRole",
+      "defaultValue": "",
+      "description": "ARIA role describing the function of the list. `listbox` and `menu` are a common values."
+    },
+    {
+      "name": "sx",
+      "type": "SystemStyleObject"
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "ActionList.Item",
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode | ActionList.LeadingVisual | ActionList.Description | ActionList.TrailingVisual",
+          "defaultValue": "",
+          "required": true,
+          "description": "Primary content for an Item"
+        },
+        {
+          "name": "variant",
+          "type": "'default' | 'danger'",
+          "defaultValue": "'default'",
+          "description": "`danger` indicates that the item is destructive."
+        },
+        {
+          "name": "onSelect",
+          "type": "(event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => void",
+          "defaultValue": "",
+          "description": "Callback that is called when the item is selected using either the mouse or keyboard. `event.preventDefault()` will prevent a menu from closing when within an `<ActionMenu />`. This is not called for disabled or inactive items."
+        },
+        {
+          "name": "selected",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Indicate whether the item is selected. Only applies to items that can be selected."
+        },
+        {
+          "name": "active",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Indicate whether the item is active. There should never be more than one active item."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Items that are disabled can not be clicked, selected, or navigated to."
+        },
+        {
+          "name": "inactiveText",
+          "type": "string",
+          "defaultValue": "",
+          "description": "Text describing why the item is inactive. This may be used when an item's usual functionality is unavailable due to a system error such as a database outage. \nIf there is a leading visual, the alert icon will replace the leading visual. \n If there is a trailing visual, it will replace the trailing visual.\n If there is no visual passed, it will be shown in the trailing visual slot to preserve left alignment of item content. \nText will appear in a tooltip triggered by the alert icon in ActionList items, but text will appear below the description or title on ActionMenu items."
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "description": "Whether the item is loading."
+        },
+        {
+          "name": "role",
+          "type": "AriaRole",
+          "defaultValue": "",
+          "description": "ARIA role describing the function of the item. `option` is a common value."
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": false,
+          "description": "id to attach to the root element of the Item",
+          "defaultValue": ""
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ]
+    },
+    {
+      "name": "ActionList.Heading",
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "defaultValue": "",
+          "required": true,
+          "description": "Use to give a heading to list"
+        },
+        {
+          "name": "as",
+          "type": "h1 | h2 | h3 | h4 | h5 | h6",
+          "defaultValue": "h3",
+          "required": false,
+          "description": "The level of the heading"
+        },
+        {
+          "name": "visuallyHidden",
+          "type": "boolean",
+          "required": false,
+          "description": "",
+          "defaultValue": ""
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ]
+    },
+    {
+      "name": "ActionList.LinkItem",
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode | ActionList.LeadingVisual | ActionList.Description | ActionList.TrailingVisual",
+          "defaultValue": "",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "active",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Indicate whether the item is active. There should never be more than one active item."
+        },
+        {
+          "name": "ref",
+          "type": "React.RefObject<HTMLAnchorElement>"
+        },
+        {
+          "name": "as",
+          "type": "React.ElementType",
+          "defaultValue": "\"a\""
+        },
+        {
+          "name": "inactiveText",
+          "type": "string",
+          "required": false,
+          "description": "Text describing why the item is inactive. This may be used when an item's usual functionality\nis unavailable due to a system error such as a database outage.",
+          "defaultValue": ""
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
+      "passthrough": {
+        "element": "a",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#Attributes"
+      }
+    },
+    {
+      "name": "ActionList.LeadingVisual",
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "defaultValue": "",
+          "required": true,
+          "description": "Icon (or similar) positioned before item text."
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ]
+    },
+    {
+      "name": "ActionList.TrailingVisual",
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "defaultValue": "",
+          "required": true,
+          "description": "Visual positioned after item text."
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ]
+    },
+    {
+      "name": "ActionList.TrailingAction",
+      "props": [
+        {
+          "name": "as",
+          "type": "a | button",
+          "defaultValue": "button",
+          "required": false,
+          "description": "HTML element to render as."
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "defaultValue": "",
+          "required": true,
+          "description": "Acccessible name for the control."
+        },
+        {
+          "name": "icon",
+          "type": "string",
+          "defaultValue": "",
+          "required": true,
+          "description": "Octicon to pass into IconButton. When this is not set, TrailingAction renders as a `Button` instead of an `IconButton`."
+        },
+        {
+          "name": "href",
+          "type": "string",
+          "description": "href when the TrailingAction is rendered as a link."
+        }
+      ]
+    },
+    {
+      "name": "ActionList.Description",
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "defaultValue": "",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "variant",
+          "type": "'inline' | 'block'",
+          "defaultValue": "'inline'",
+          "description": "`inline` descriptions are positioned beside primary text. `block` descriptions are positioned below primary text."
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "defaultValue": "",
+          "description": "CSS string"
+        },
+        {
+         "name": "truncate",
+         "type": "boolean",
+         "defaultValue": "false",
+          "description": "Whether the inline description should truncate the text on overflow." 
+        }
+      ]
+    },
+    {
+      "name": "ActionList.GroupHeading",
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "defaultValue": "",
+          "required": true,
+          "description": "Use to give a heading to the groups"
+        },
+        {
+          "name": "variant",
+          "type": "'filled' | 'subtle'",
+          "defaultValue": "'subtle'",
+          "description": "`filled` style has a background color and top and bottom borders. Subtle style has no background or borders."
+        },
+        {
+          "name": "auxiliaryText",
+          "type": "string",
+          "required": false,
+          "description": "Secondary text which provides additional information about a `Group`.",
+          "defaultValue": ""
+        },
+        {
+          "name": "visuallyHidden",
+          "type": "boolean",
+          "required": false,
+          "description": "",
+          "defaultValue": ""
+        },
+        {
+          "name": "as",
+          "type": "h1 | h2 | h3 | h4 | h5 | h6",
+          "defaultValue": "h3",
+          "required": false,
+          "description": "The level of the heading and it is only required (enforce by runtime warning) for lists. (i.e. not required for ActionMenu or listbox roles)"
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ]
+    },
+    {
+      "name": "ActionList.Group",
+      "props": [
+        {
+          "name": "children",
+          "type": "ActionList.Item[] | ActionList.LinkItem[]",
+          "defaultValue": "",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "defaultValue": "",
+          "description": "Please use `ActionList.GroupHeading` instead.",
+          "deprecated": true
+        },
+        {
+          "name": "auxiliaryText",
+          "type": "string",
+          "defaultValue": "",
+          "description": "Secondary text that provides additional information about the group."
+        },
+        {
+          "name": "variant",
+          "type": "'filled' | 'subtle'",
+          "defaultValue": "'subtle'",
+          "description": "`inline` descriptions are positioned beside primary text. `block` descriptions are positioned below primary text."
+        },
+        {
+          "name": "selectionVariant",
+          "type": "'single' | 'multiple' | false",
+          "defaultValue": "",
+          "description": "Set `selectionVariant` at the group level."
+        },
+        {
+          "name": "role",
+          "type": "AriaRole",
+          "defaultValue": "",
+          "description": "ARIA role describing the function of the list inside the group. `listbox` and `menu` are a common values."
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ]
+    },
+    {
+      "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/ActionList/Divider.tsx",
+      "name": "ActionList.Divider",
+      "props": [
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ]
+    }
+  ]
+}

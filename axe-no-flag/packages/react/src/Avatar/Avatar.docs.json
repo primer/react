@@ -1,0 +1,56 @@
+{
+  "id": "avatar",
+  "name": "Avatar",
+  "status": "alpha",
+  "a11yReviewed": false,
+  "stories": [
+    {
+      "id": "components-avatar--default"
+    },
+    {
+      "id": "components-avatar-features--square"
+    },
+    {
+      "id": "components-avatar-features--square-sx-prop"
+    },
+    {
+      "id": "components-avatar-features--size"
+    },
+    {
+      "id": "components-avatar-features--size-responsive"
+    }
+  ],
+  "importPath": "@primer/react",
+  "props": [
+    {
+      "name": "alt",
+      "type": "string",
+      "defaultValue": "''",
+      "description": "Provide alt text when the avatar is used without a name next to it."
+    },
+    {
+      "name": "size",
+      "type": "number | { narrow?: number; regular?: number; wide?: number; }",
+      "defaultValue": "20",
+      "description": "The size of the avatar in pixels."
+    },
+    {
+      "name": "square",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "If true, the avatar will be square instead of circular."
+    },
+    {
+      "name": "src",
+      "type": "string",
+      "required": false,
+      "description": "URL of the avatar image.",
+      "defaultValue": ""
+    },
+    {
+      "name": "sx",
+      "type": "SystemStyleObject"
+    }
+  ],
+  "subcomponents": []
+}

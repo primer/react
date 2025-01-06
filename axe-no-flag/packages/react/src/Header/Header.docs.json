@@ -1,0 +1,55 @@
+{
+  "id": "header",
+  "name": "Header",
+  "status": "alpha",
+  "a11yReviewed": false,
+  "stories": [],
+  "importPath": "@primer/react",
+  "props": [
+    {
+      "name": "sx",
+      "type": "SystemStyleObject"
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "Header.Item",
+      "props": [
+        {
+          "name": "full",
+          "type": "string",
+          "defaultValue": "",
+          "description": "Stretches item to fill the available space"
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ]
+    },
+    {
+      "name": "Header.Link",
+      "props": [
+        {
+          "name": "href",
+          "type": "string",
+          "defaultValue": "",
+          "description": "URL to be used for the Link"
+        },
+        {
+          "name": "as",
+          "type": "React.ElementType",
+          "defaultValue": "\"a\""
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
+      "passthrough": {
+        "element": "a",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes"
+      }
+    }
+  ]
+}

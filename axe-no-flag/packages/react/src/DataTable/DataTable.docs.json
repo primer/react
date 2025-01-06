@@ -1,0 +1,420 @@
+{
+  "id": "data_table",
+  "name": "DataTable",
+  "status": "alpha",
+  "a11yReviewed": true,
+  "stories": [
+    {
+      "id": "experimental-components-datatable--default"
+    },
+    {
+      "id": "experimental-components-datatable-features--with-title"
+    },
+    {
+      "id": "experimental-components-datatable-features--with-title-and-subtitle"
+    },
+    {
+      "id": "experimental-components-datatable-features--with-sorting"
+    },
+    {
+      "id": "experimental-components-datatable-features--with-actions"
+    },
+    {
+      "id": "experimental-components-datatable-features--with-action"
+    },
+    {
+      "id": "experimental-components-datatable-features--with-row-action"
+    },
+    {
+      "id": "experimental-components-datatable-features--with-row-actions"
+    },
+    {
+      "id": "experimental-components-datatable-features--with-row-action-menu"
+    },
+    {
+      "id": "experimental-components-datatable-features--with-custom-heading"
+    },
+    {
+      "id": "experimental-components-datatable-features--with-no-content"
+    },
+    {
+      "id": "experimental-components-datatable-features--with-loading"
+    },
+    {
+      "id": "experimental-components-datatable-features--with-pagination"
+    }
+  ],
+  "importPath": "@primer/react/experimental",
+  "props": [
+    {
+      "name": "aria-describedby",
+      "type": "string",
+      "description": "Provide an id to an element which uniquely describes this table"
+    },
+    {
+      "name": "aria-labelledby",
+      "type": "string",
+      "description": "Provide an id to an element which uniquely labels this table"
+    },
+    {
+      "name": "data",
+      "type": "Array<Data>",
+      "description": "Provide a collection of the rows which will be rendered inside of the table"
+    },
+    {
+      "name": "columns",
+      "type": "Array<Column<Data>>",
+      "description": "Provide the columns for the table and the fields in `data` to which they correspond"
+    },
+    {
+      "name": "cellPadding",
+      "type": "'condensed' | 'normal' | 'spacious'",
+      "description": "Specify the amount of space that should be available around the contents of a cell"
+    },
+    {
+      "name": "aria-describedby",
+      "type": "string",
+      "required": false,
+      "description": "Provide an id to an element which uniquely describes this table",
+      "defaultValue": ""
+    },
+    {
+      "name": "aria-labelledby",
+      "type": "string",
+      "required": false,
+      "description": "Provide an id to an element which uniquely labels this table",
+      "defaultValue": ""
+    },
+    {
+      "name": "initialSortColumn",
+      "type": "string | number",
+      "required": false,
+      "description": "Provide the id or field of the column by which the table is sorted. When\nusing this `prop`, the input data must be sorted by this column in\nascending order",
+      "defaultValue": ""
+    },
+    {
+      "name": "initialSortDirection",
+      "type": "'ASC' | 'DESC'",
+      "required": false,
+      "description": "Provide the sort direction that the table should be sorted by on the\ncurrently sorted column",
+      "defaultValue": ""
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "Table",
+      "props": [
+        {
+          "name": "aria-describedby",
+          "type": "string",
+          "description": "Provide an id to an element which uniquely describes this table"
+        },
+        {
+          "name": "aria-labelledby",
+          "type": "string",
+          "description": "Provide an id to an element which uniquely labels this table"
+        },
+        {
+          "name": "children",
+          "type": "React.ReactNode"
+        },
+        {
+          "name": "cellPadding",
+          "type": "'condensed' | 'normal' | 'spacious'",
+          "description": "Specify the amount of space that should be available around the contents of a cell"
+        }
+      ]
+    },
+    {
+      "name": "Table.Head",
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode"
+        }
+      ]
+    },
+    {
+      "name": "Table.Actions",
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode"
+        }
+      ]
+    },
+    {
+      "name": "Table.Body",
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode"
+        }
+      ]
+    },
+    {
+      "name": "Table.Row",
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode"
+        }
+      ]
+    },
+    {
+      "name": "Table.Header",
+      "props": [
+        {
+          "name": "align",
+          "type": "'end' | 'start'",
+          "required": false,
+          "description": "The horizontal alignment of the cell's content",
+          "defaultValue": ""
+        },
+        {
+          "name": "children",
+          "type": "React.ReactNode"
+        }
+      ]
+    },
+    {
+      "name": "Table.Cell",
+      "props": [
+        {
+          "name": "align",
+          "type": "'end' | 'start'",
+          "required": false,
+          "description": "The horizontal alignment of the cell's content",
+          "defaultValue": ""
+        },
+        {
+          "name": "children",
+          "type": "React.ReactNode"
+        },
+        {
+          "name": "scope",
+          "type": "'row'",
+          "description": "Provide the scope for a table cell, useful for defining a row header using `scope=\"row\"`"
+        }
+      ]
+    },
+    {
+      "name": "Table.CellPlaceholder",
+      "props": []
+    },
+    {
+      "name": "Table.Container",
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode"
+        }
+      ]
+    },
+    {
+      "name": "Table.Divider",
+      "props": []
+    },
+    {
+      "name": "Table.Title",
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode"
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "description": "Provide a unique id for the table subtitle. This should be used along with\n`aria-labelledby` on `DataTable`"
+        }
+      ]
+    },
+    {
+      "name": "Table.Subtitle",
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode"
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "description": "Provide a unique id for the table subtitle. This should be used along with\n`aria-describedby` on `DataTable`"
+        }
+      ]
+    },
+    {
+      "name": "Table.Skeleton",
+      "props": [
+        {
+          "name": "cellPadding",
+          "type": "'condensed' | 'normal' | 'spacious'",
+          "description": "Specify the amount of space that should be available around the contents of a cell",
+          "defaultValue": "normal"
+        },
+        {
+          "name": "columns",
+          "required": true,
+          "type": "Array<Column<Data>>"
+        },
+        {
+          "name": "rows",
+          "type": "number",
+          "description": "Optionally specify the number of rows which should be included in the skeleton state of the component",
+          "defaultValue": "10"
+        }
+      ]
+    },
+    {
+      "name": "Table.Pagination",
+      "props": [
+        {
+          "name": "aria-label",
+          "type": "string",
+          "required": true,
+          "description": "Defines a string value that labels the current element.\nProvide a label for the navigation landmark rendered by this component\n@see aria-labelledby."
+        },
+        {
+          "name": "defaultPageIndex",
+          "type": "string",
+          "description": "Provide an optional index to specify the default selected page"
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "description": "Optionally provide an `id` that is placed on the navigation landmark\nrendered by this component"
+        },
+        {
+          "name": "onChange",
+          "type": "({ pageIndex }: { pageIndex: number }) => void",
+          "description": "Optionally provide a handler that is called whenever the pagination state\nis updated"
+        },
+        {
+          "name": "pageSize",
+          "type": "number",
+          "description": "Optionally specify the number of items within a page",
+          "defaultValue": "25"
+        },
+        {
+          "name": "totalCount",
+          "type": "number",
+          "required": true,
+          "description": "Specify the total number of items within the collection"
+        },
+        {
+          "name": "showPages",
+          "type": "boolean | { narrow?: boolean; regular?: boolean; wide?: boolean; }",
+          "required": false,
+          "description": "Whether to show the page numbers",
+          "defaultValue": "{narrow: false}"
+        }
+      ]
+    },
+    {
+      "name": "Table.ErrorDialog",
+      "props": [
+        {
+          "name": "children",
+          "required": true,
+          "type": "React.ReactNode",
+          "description": "The content of the dialog. This is usually a message explaining the error."
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "defaultValue": "'Error'",
+          "description": "The title of the dialog. This is usually a short description of the error."
+        },
+        {
+          "name": "onRetry",
+          "type": "() => void",
+          "description": "Event handler called when the user clicks the retry button."
+        },
+        {
+          "name": "onDismiss",
+          "type": "() => void",
+          "description": "Event handler called when the dialog is dismissed."
+        }
+      ]
+    },
+    {
+      "name": "Table.SortHeader",
+      "props": [
+        {
+          "name": "direction",
+          "type": "'ASC' | 'DESC' | 'NONE'",
+          "required": true,
+          "description": "Specify the sort direction for the TableHeader",
+          "defaultValue": ""
+        },
+        {
+          "name": "onToggleSort",
+          "type": "() => void",
+          "required": true,
+          "description": "Provide a handler that is called when the sortable TableHeader is\ninteracted with via a click or keyboard interaction",
+          "defaultValue": ""
+        },
+        {
+          "name": "align",
+          "type": "'end' | 'start'",
+          "description": "The horizontal alignment of the cell's content",
+          "defaultValue": ""
+        }
+      ]
+    },
+    {
+      "name": "Column options",
+      "props": [
+        {
+          "name": "align",
+          "type": "'start' | 'end'",
+          "description": "The horizontal alignment of the column's content"
+        },
+        {
+          "name": "field",
+          "type": "ObjectPaths<Data>",
+          "description": "Optionally provide a field to render for this column. This may be the key of the object or a string that accesses nested objects through `.`. For example: `field: a.b.c` \n Alternatively, you may provide a `renderCell` for this column to render the field in a row"
+        },
+        {
+          "name": "header",
+          "type": "string | (() => React.ReactNode)",
+          "required": true,
+          "description": "Provide the name of the column. This will be rendered as a table header within the table itself"
+        },
+        {
+          "name": "maxWidth",
+          "type": "React.CSSProperties['maxWidth']",
+          "description": "The maximum width the column can grow to"
+        },
+        {
+          "name": "minWidth",
+          "type": "React.CSSProperties['minWidth']",
+          "description": "The minimum width the column can grow to"
+        },
+        {
+          "name": "renderCell",
+          "type": "(data: Data) => React.ReactNode",
+          "description": "Provide a custom component or render prop to render the data for this column in a row"
+        },
+        {
+          "name": "rowHeader",
+          "type": "boolean",
+          "description": "Specify if the value of this column for a row should be treated as a row header"
+        },
+        {
+          "name": "sortBy",
+          "type": "boolean | 'alphanumeric' | 'basic' | 'datetime' | (a: Data, b: Data) => number",
+          "description": "Specify if the table should sort by this column and, if applicable, a specific sort strategy or custom sort strategy"
+        },
+        {
+          "name": "width",
+          "defaultValue": "'grow'",
+          "type": "'grow' | 'growCollapse' | 'auto' | React.CSSProperties['width']",
+          "description": " Controls the width of the column.\n - 'grow': Stretch to fill available space, and min width is the width of the widest cell in the column\n - 'growCollapse': Stretch to fill available space or shrink to fit in the available space. Allows the column to shrink smaller than the cell content's width.\n - 'auto': The column is the width of it’s widest cell. Not intended for use with columns who’s content length varies a lot because a layout shift will occur when the content changes \n - explicit width: Will be exactly that width and will not grow or shrink to fill the parent"
+        }
+      ]
+    }
+  ]
+}

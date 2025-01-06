@@ -1,0 +1,27 @@
+{
+  "id": "hidden",
+  "name": "Hidden",
+  "status": "draft",
+  "a11yReviewed": false,
+  "stories": [
+    {
+      "id": "experimental-components-hidden--default"
+    },
+    {
+      "id": "experimental-components-hidden-features--hide-content"
+    },
+    {
+      "id": "experimental-components-hidden-features--render-content-responsively"
+    }
+  ],
+  "importPath": "@primer/react/experimental",
+  "props": [
+    {
+      "name": "when",
+      "type": "'narrow' | 'wide' | 'regular' | Array<'narrow' | 'regular' | 'wide'>",
+      "defaultValue": "",
+      "description": "In which viewport(s) the children are going to be hidden"
+    }
+  ],
+  "subcomponents": []
+}

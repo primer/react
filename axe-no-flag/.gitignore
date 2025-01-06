@@ -1,0 +1,42 @@
+# Build folders
+dist/
+lib/
+!packages/react/codemods/lib/
+lib-esm/
+css/
+
+# Editor
+.DS_Store
+*.swp
+.idea
+.vscode
+.tool-versions
+
+# Environment
+.env
+
+# Dependencies
+node_modules
+
+# Gatsby
+public/
+
+# Storybook
+storybook-static
+
+# Next.js
+.next
+
+# Jest
+.test
+coverage/
+
+# Playwright
+stats.html
+blob-report
+
+# TypeScript
+*.tsbuildinfo
+
+# ESLint
+.eslintcache
