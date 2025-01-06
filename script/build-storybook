@@ -14,8 +14,8 @@ fi
 npx storybook build -o ../../docs/public/storybook
 
 if [ -n "$1" ]; then
-  # Move storybook to the right location
-  cp .storybook/index.html ../../docs/public/storybook/index.html
+  # Move index page to the right location
+  cp .storybook/index.html ../../docs/public/index.html
 fi
 
 # Remove manager-head after build to not interfere with dev builds
