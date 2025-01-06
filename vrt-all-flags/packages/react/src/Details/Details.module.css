@@ -1,7 +1,0 @@
-.Details > summary {
-  list-style: none;
-}
-
-.Details > summary::-webkit-details-marker {
-  display: none;
-}

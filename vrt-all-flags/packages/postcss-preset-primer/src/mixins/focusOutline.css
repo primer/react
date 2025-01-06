@@ -1,5 +1,0 @@
-@define-mixin focusOutline $outlineOffset: -2px, $outlineColor: var(--focus-outlineColor) {
-  outline: 2px solid $outlineColor;
-  outline-offset: $outlineOffset;
-  box-shadow: none;
-}

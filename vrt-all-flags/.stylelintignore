@@ -1,5 +1,0 @@
-docs/public/**/*.css
-**/lib-esm/**/*.css
-**/lib/**/*.css
-**/dist/**/*.css
-**/.next/**/*.css
