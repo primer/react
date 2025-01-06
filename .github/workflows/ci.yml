@@ -172,7 +172,7 @@ jobs:
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./playwright-report
+          publish_dir: .
           destination_dir: vrt-no-flag
       - name: check vrt-runner job status
         if: ${{ needs.vrt-runner.result == 'failure' }}
@@ -254,7 +254,7 @@ jobs:
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./playwright-report
+          publish_dir: .
           destination_dir: vrt-all-flags
       - name: check vrt-runner-all-flags job status
         if: ${{ needs.vrt-runner-all-flags.result == 'failure' }}
@@ -332,7 +332,7 @@ jobs:
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./playwright-report
+          publish_dir: .
           destination_dir: axe-no-flag
       - name: Check aat-runner job status
         if: ${{ needs.aat-runner.result == 'failure' }}
@@ -414,7 +414,7 @@ jobs:
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./playwright-report
+          publish_dir: .
           destination_dir: axe-all-flags
       - name: Check aat-runner-all-flags job status
         if: ${{ needs.aat-runner-all-flags.result == 'failure' }}
