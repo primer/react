@@ -269,7 +269,7 @@ jobs:
         run: exit 1
       - uses: actions/upload-pages-artifact@v3
         with:
-          name: vrt-all-flags
+          name: vrt-all-flags-pages
           path: playwright-report
 
   aat-runner:
