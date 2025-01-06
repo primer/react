@@ -270,7 +270,7 @@ jobs:
       - uses: actions/upload-pages-artifact@v3
         with:
           name: vrt-all-flags-pages
-          path: docs/public
+          path: playwright-report
 
   aat-runner:
     runs-on: ubuntu-latest-16-cores
@@ -459,7 +459,7 @@ jobs:
       pages: write
       id-token: write
     environment:
-      name: github-pages
+      name: vrt-all-flags-pages
       url: ${{ steps.deployment.outputs.page_url }}
     outputs:
       deployment_url: ${{ steps.deployment.outputs.page_url }}
