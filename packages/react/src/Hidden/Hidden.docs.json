@@ -5,13 +5,13 @@
   "a11yReviewed": false,
   "stories": [
     {
-      "id": "drafts-components-hidden--default"
+      "id": "experimental-components-hidden--default"
     },
     {
-      "id": "drafts-components-hidden-features--hide-content"
+      "id": "experimental-components-hidden-features--hide-content"
     },
     {
-      "id": "drafts-components-hidden-features--render-content-responsively"
+      "id": "experimental-components-hidden-features--render-content-responsively"
     }
   ],
   "importPath": "@primer/react/experimental",

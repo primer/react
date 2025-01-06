@@ -19,12 +19,18 @@ import {ActionListContainerContext} from '../../ActionList/ActionListContainerCo
 import {useSlots} from '../../hooks/useSlots'
 import {useProvidedRefOrCreate, useId, useAnchoredPosition} from '../../hooks'
 import type {OverlayProps} from '../../Overlay/Overlay'
-import {StyledOverlay, heightMap} from '../../Overlay/Overlay'
-import InputLabel from '../../internal/components/InputLabel'
+import {BaseOverlay, heightMap} from '../../Overlay/Overlay'
+import {InputLabel} from '../../internal/components/InputLabel'
 import {invariant} from '../../utils/invariant'
 import {AriaStatus} from '../../live-region'
 import {useResponsiveValue} from '../../hooks/useResponsiveValue'
 import type {ResponsiveValue} from '../../hooks/useResponsiveValue'
+import {clsx} from 'clsx'
+import {useFeatureFlag} from '../../FeatureFlags'
+
+import classes from './SelectPanel.module.css'
+
+const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_staff'
 
 const SelectPanelContext = React.createContext<{
   title: string
@@ -93,6 +99,7 @@ const Panel: React.FC<SelectPanelProps> = ({
   ...props
 }) => {
   const [internalOpen, setInternalOpen] = React.useState(defaultOpen)
+  const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
 
   const responsiveVariants = Object.assign(
     {regular: 'anchored', narrow: 'full-screen'}, // defaults
@@ -225,17 +232,24 @@ const Panel: React.FC<SelectPanelProps> = ({
     [internalOpen, anchorRef.current, dialogRef.current],
   )
 
-  /* 
+  /*
     We want to cancel and close the panel when user clicks outside.
     See decision log: https://github.com/github/primer/discussions/2614#discussioncomment-8544561
   */
   const onClickOutside = onInternalCancel
 
+  let maxHeightValue = heightMap[maxHeight]
+  if (currentVariant === 'bottom-sheet') {
+    maxHeightValue = 'calc(100vh - 64px)'
+  } else if (currentVariant === 'full-screen') {
+    maxHeightValue = '100vh'
+  }
+
   return (
     <>
       {Anchor}
 
-      <StyledOverlay
+      <BaseOverlay
         as="dialog"
         ref={dialogRef}
         aria-labelledby={`${panelId}--title`}
@@ -244,49 +258,63 @@ const Panel: React.FC<SelectPanelProps> = ({
         height="fit-content"
         maxHeight={maxHeight}
         data-variant={currentVariant}
-        sx={{
-          '--max-height': heightMap[maxHeight],
-          // reset dialog default styles
-          border: 'none',
-          padding: 0,
-          color: 'fg.default',
-          '&[open]': {display: 'flex'}, // to fit children
+        sx={
+          enabled
+            ? undefined
+            : {
+                '--max-height': heightMap[maxHeight],
+                // reset dialog default styles
+                border: 'none',
+                padding: 0,
+                color: 'fg.default',
+                '&[open]': {display: 'flex'}, // to fit children
 
-          '&[data-variant="anchored"], &[data-variant="full-screen"]': {
-            margin: 0,
-            top: position?.top,
-            left: position?.left,
-            '::backdrop': {backgroundColor: 'transparent'},
-          },
-          '&[data-variant="modal"]': {
-            '::backdrop': {backgroundColor: 'primer.canvas.backdrop'},
-          },
-          '&[data-variant="full-screen"]': {
-            margin: 0,
-            top: 0,
-            left: 0,
-            width: '100%',
-            maxWidth: '100vw',
-            height: '100%',
-            maxHeight: '100vh',
-            '--max-height': '100vh',
-            borderRadius: 'unset',
-          },
-          '&[data-variant="bottom-sheet"]': {
-            margin: 0,
-            top: 'auto',
-            bottom: 0,
-            left: 0,
-            width: '100%',
-            maxWidth: '100vw',
-            maxHeight: 'calc(100vh - 64px)',
-            '--max-height': 'calc(100vh - 64px)',
-            borderBottomRightRadius: 0,
-            borderBottomLeftRadius: 0,
-          },
-        }}
+                '&[data-variant="anchored"], &[data-variant="full-screen"]': {
+                  margin: 0,
+                  top: position?.top,
+                  left: position?.left,
+                  '::backdrop': {backgroundColor: 'transparent'},
+                },
+                '&[data-variant="modal"]': {
+                  '::backdrop': {backgroundColor: 'primer.canvas.backdrop'},
+                },
+                '&[data-variant="full-screen"]': {
+                  margin: 0,
+                  top: 0,
+                  left: 0,
+                  width: '100%',
+                  maxWidth: '100vw',
+                  height: '100%',
+                  maxHeight: '100vh',
+                  '--max-height': '100vh',
+                  borderRadius: 'unset',
+                },
+                '&[data-variant="bottom-sheet"]': {
+                  margin: 0,
+                  top: 'auto',
+                  bottom: 0,
+                  left: 0,
+                  width: '100%',
+                  maxWidth: '100vw',
+                  maxHeight: 'calc(100vh - 64px)',
+                  '--max-height': 'calc(100vh - 64px)',
+                  borderBottomRightRadius: 0,
+                  borderBottomLeftRadius: 0,
+                },
+              }
+        }
+        style={
+          enabled
+            ? ({
+                '--max-height': maxHeightValue,
+                '--position-top': `${position?.top ?? 0}px`,
+                '--position-left': `${position?.left ?? 0}px`,
+              } as React.CSSProperties)
+            : undefined
+        }
+        className={enabled ? classes.Overlay : undefined}
         {...props}
-        onClick={event => {
+        onClick={(event: React.MouseEvent<HTMLElement>) => {
           if (event.target === event.currentTarget) onClickOutside()
         }}
       >
@@ -309,21 +337,27 @@ const Panel: React.FC<SelectPanelProps> = ({
                 as="form"
                 method="dialog"
                 onSubmit={onInternalSubmit}
-                sx={{display: 'flex', flexDirection: 'column', width: '100%'}}
+                sx={enabled ? undefined : {display: 'flex', flexDirection: 'column', width: '100%'}}
+                className={enabled ? classes.Form : undefined}
               >
                 {slots.header ?? /* render default header as fallback */ <SelectPanelHeader />}
 
                 <Box
                   as="div"
-                  sx={{
-                    flexShrink: 1,
-                    flexGrow: 1,
-                    overflow: 'hidden',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-between',
-                    ul: {overflowY: 'auto', flexGrow: 1},
-                  }}
+                  sx={
+                    enabled
+                      ? undefined
+                      : {
+                          flexShrink: 1,
+                          flexGrow: 1,
+                          overflow: 'hidden',
+                          display: 'flex',
+                          flexDirection: 'column',
+                          justifyContent: 'space-between',
+                          ul: {overflowY: 'auto', flexGrow: 1},
+                        }
+                  }
+                  className={enabled ? classes.Container : undefined}
                 >
                   <ActionListContainerContext.Provider
                     value={{
@@ -344,7 +378,7 @@ const Panel: React.FC<SelectPanelProps> = ({
             </SelectPanelContext.Provider>
           </>
         )}
-      </StyledOverlay>
+      </BaseOverlay>
     </>
   )
 }
@@ -372,34 +406,52 @@ const SelectPanelButton = React.forwardRef<HTMLButtonElement, ButtonProps>((prop
   }
 })
 
-const SelectPanelHeader: React.FC<React.PropsWithChildren & {onBack?: () => void}> = ({children, onBack, ...props}) => {
+const SelectPanelHeader: React.FC<React.ComponentPropsWithoutRef<'div'> & {onBack?: () => void}> = ({
+  children,
+  onBack,
+  className,
+  ...props
+}) => {
   const [slots, childrenWithoutSlots] = useSlots(children, {
     searchInput: SelectPanelSearchInput,
   })
 
   const {title, description, panelId, onCancel, onClearSelection} = React.useContext(SelectPanelContext)
+  const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
 
   return (
     <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        // gap: 2,
-        padding: 2,
-        borderBottom: '1px solid',
-        borderColor: 'border.default',
-      }}
+      sx={
+        enabled
+          ? undefined
+          : {
+              display: 'flex',
+              flexDirection: 'column',
+              // gap: 2,
+              padding: 2,
+              borderBottom: '1px solid',
+              borderColor: 'border.default',
+            }
+      }
+      className={clsx(enabled ? classes.Header : undefined, className)}
       {...props}
     >
       <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: description ? 'start' : 'center',
-          marginBottom: slots.searchInput ? 2 : 0,
-        }}
+        sx={
+          enabled
+            ? undefined
+            : {
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: description ? 'start' : 'center',
+                marginBottom: slots.searchInput ? 2 : 0,
+              }
+        }
+        className={enabled ? classes.HeaderContent : undefined}
+        data-description={description ? true : undefined}
+        data-search-input={slots.searchInput ? true : undefined}
       >
-        <Box sx={{display: 'flex'}}>
+        <Box sx={enabled ? undefined : {display: 'flex'}} className={enabled ? classes.FlexBox : undefined}>
           {onBack ? (
             <IconButton
               type="button"
@@ -410,22 +462,36 @@ const SelectPanelHeader: React.FC<React.PropsWithChildren & {onBack?: () => void
             />
           ) : null}
 
-          <Box sx={{marginLeft: onBack ? 1 : 2, marginTop: description ? '2px' : 0}}>
-            {/* heading element is intentionally hardcoded to h1, it is not customisable 
+          <Box
+            sx={enabled ? undefined : {marginLeft: onBack ? 1 : 2, marginTop: description ? '2px' : 0}}
+            className={enabled ? classes.TitleWrapper : undefined}
+            data-description={description ? true : undefined}
+            data-on-back={onBack ? true : undefined}
+          >
+            {/* heading element is intentionally hardcoded to h1, it is not customisable
             see https://github.com/github/primer/issues/2578 for context
           */}
-            <Heading as="h1" id={`${panelId}--title`} sx={{fontSize: 14, fontWeight: 600}}>
+            <Heading
+              as="h1"
+              id={`${panelId}--title`}
+              sx={enabled ? undefined : {fontSize: 14, fontWeight: 600}}
+              className={enabled ? classes.Title : undefined}
+            >
               {title}
             </Heading>
             {description ? (
-              <Text id={`${panelId}--description`} sx={{fontSize: 0, color: 'fg.muted', display: 'block'}}>
+              <Text
+                id={`${panelId}--description`}
+                sx={enabled ? undefined : {fontSize: 0, color: 'fg.muted', display: 'block'}}
+                className={enabled ? classes.Description : undefined}
+              >
                 {description}
               </Text>
             ) : null}
           </Box>
         </Box>
 
-        <Box>
+        <div>
           {onClearSelection ? (
             <IconButton
               type="button"
@@ -436,7 +502,7 @@ const SelectPanelHeader: React.FC<React.PropsWithChildren & {onBack?: () => void
             />
           ) : null}
           <IconButton type="button" variant="invisible" icon={XIcon} aria-label="Close" onClick={() => onCancel()} />
-        </Box>
+        </div>
       </Box>
 
       {slots.searchInput}
@@ -448,10 +514,12 @@ const SelectPanelHeader: React.FC<React.PropsWithChildren & {onBack?: () => void
 const SelectPanelSearchInput: React.FC<TextInputProps> = ({
   onChange: propsOnChange,
   onKeyDown: propsOnKeyDown,
+  className,
   ...props
 }) => {
   // TODO: use forwardedRef
   const inputRef = React.createRef<HTMLInputElement>()
+  const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
 
   const {setSearchQuery, moveFocusToList} = React.useContext(SelectPanelContext)
 
@@ -482,7 +550,8 @@ const SelectPanelSearchInput: React.FC<TextInputProps> = ({
           icon={XCircleFillIcon}
           aria-label="Clear"
           tooltipDirection="w"
-          sx={{color: 'fg.subtle', bg: 'none'}}
+          sx={enabled ? undefined : {color: 'fg.subtle', bg: 'none'}}
+          className={enabled ? classes.ClearAction : undefined}
           onClick={() => {
             if (inputRef.current) inputRef.current.value = ''
             if (typeof propsOnChange === 'function') {
@@ -492,10 +561,15 @@ const SelectPanelSearchInput: React.FC<TextInputProps> = ({
           }}
         />
       }
-      sx={{
-        paddingLeft: 2, // align with list checkboxes
-        '&:has(input:placeholder-shown) .TextInput-action': {display: 'none'},
-      }}
+      sx={
+        enabled
+          ? undefined
+          : {
+              paddingLeft: 2, // align with list checkboxes
+              '&:has(input:placeholder-shown) .TextInput-action': {display: 'none'},
+            }
+      }
+      className={clsx(enabled ? classes.TextInput : undefined, className)}
       onChange={internalOnChange}
       onKeyDown={internalKeyDown}
       {...props}
@@ -509,6 +583,7 @@ const SelectPanelFooter = ({...props}) => {
 
   const hidePrimaryActions = selectionVariant === 'instant'
   const buttonSize = useResponsiveValue(responsiveButtonSizes, 'small')
+  const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
 
   if (hidePrimaryActions && !props.children) {
     // nothing to render
@@ -519,21 +594,36 @@ const SelectPanelFooter = ({...props}) => {
   return (
     <FooterContext.Provider value={true}>
       <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          flexShrink: 0,
-          padding: hidePrimaryActions ? 2 : 3,
-          minHeight: '44px',
-          borderTop: '1px solid',
-          borderColor: 'border.default',
-        }}
+        sx={
+          enabled
+            ? undefined
+            : {
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                flexShrink: 0,
+                padding: hidePrimaryActions ? 2 : 3,
+                minHeight: '44px',
+                borderTop: '1px solid',
+                borderColor: 'border.default',
+              }
+        }
+        className={enabled ? classes.Footer : undefined}
+        data-hide-primary-actions={hidePrimaryActions || undefined}
       >
-        <Box sx={{flexGrow: hidePrimaryActions ? 1 : 0}}>{props.children}</Box>
+        <Box
+          sx={enabled ? undefined : {flexGrow: hidePrimaryActions ? 1 : 0}}
+          className={enabled ? classes.FooterContent : undefined}
+          data-hide-primary-actions={hidePrimaryActions || undefined}
+        >
+          {props.children}
+        </Box>
 
         {hidePrimaryActions ? null : (
-          <Box sx={{display: 'flex', gap: 2}}>
+          <Box
+            sx={enabled ? undefined : {display: 'flex', gap: 2}}
+            className={enabled ? classes.FooterActions : undefined}
+          >
             <Button type="button" size={buttonSize} onClick={() => onCancel()}>
               Cancel
             </Button>
@@ -552,19 +642,30 @@ const SecondaryButton: React.FC<ButtonProps> = props => {
   return <Button type="button" size={size} block {...props} />
 }
 
-const SecondaryLink: React.FC<LinkProps> = props => {
+const SecondaryLink: React.FC<LinkProps> = ({className, ...props}) => {
   const size = useResponsiveValue(responsiveButtonSizes, 'small')
+  const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
+
   return (
     // @ts-ignore TODO: is as prop is not recognised by button?
-    <Button as={Link} size={size} variant="invisible" block {...props} sx={{fontSize: 0}}>
+    <Button
+      as={Link}
+      size={size}
+      variant="invisible"
+      block
+      {...props}
+      sx={enabled ? undefined : {fontSize: 0}}
+      className={clsx(enabled ? classes.SmallText : undefined, className)}
+    >
       {props.children}
     </Button>
   )
 }
 
-const SecondaryCheckbox: React.FC<CheckboxProps> = ({id, children, ...props}) => {
+const SecondaryCheckbox: React.FC<CheckboxProps> = ({id, children, className, ...props}) => {
   const checkboxId = useId(id)
   const {selectionVariant} = React.useContext(SelectPanelContext)
+  const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
 
   // Checkbox should not be used with instant selection
   invariant(
@@ -573,9 +674,21 @@ const SecondaryCheckbox: React.FC<CheckboxProps> = ({id, children, ...props}) =>
   )
 
   return (
-    <Box sx={{display: 'flex', alignItems: 'center', gap: 2}}>
-      <Checkbox id={checkboxId} sx={{marginTop: 0}} {...props} />
-      <InputLabel htmlFor={checkboxId} sx={{fontSize: 0}}>
+    <Box
+      sx={enabled ? undefined : {display: 'flex', alignItems: 'center', gap: 2}}
+      className={enabled ? classes.SecondaryCheckbox : undefined}
+    >
+      <Checkbox
+        id={checkboxId}
+        sx={enabled ? undefined : {marginTop: 0}}
+        className={clsx(enabled ? classes.Checkbox : undefined, className)}
+        {...props}
+      />
+      <InputLabel
+        htmlFor={checkboxId}
+        sx={enabled ? undefined : {fontSize: 0}}
+        className={enabled ? classes.SmallText : undefined}
+      >
         {children}
       </InputLabel>
     </Box>
@@ -602,22 +715,34 @@ const SelectPanelSecondaryAction: React.FC<SelectPanelSecondaryActionProps> = ({
 }
 
 const SelectPanelLoading = ({children = 'Fetching items...'}: React.PropsWithChildren) => {
+  const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
+
   return (
     <AriaStatus
       announceOnShow
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '100%',
-        gap: 3,
-        minHeight: 'min(calc(var(--max-height) - 150px), 324px)',
-        //                 maxHeight of dialog - (header & footer)
-      }}
+      sx={
+        enabled
+          ? undefined
+          : {
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center',
+              height: '100%',
+              gap: 3,
+              minHeight: 'min(calc(var(--max-height) - 150px), 324px)',
+              //                 maxHeight of dialog - (header & footer)
+            }
+      }
+      className={enabled ? classes.SelectPanelLoading : undefined}
     >
       <Spinner size="medium" srText={null} />
-      <Text sx={{fontSize: 1, color: 'fg.muted'}}>{children}</Text>
+      <Text
+        sx={enabled ? undefined : {fontSize: 1, color: 'fg.muted'}}
+        className={enabled ? classes.LoadingText : undefined}
+      >
+        {children}
+      </Text>
     </AriaStatus>
   )
 }
@@ -641,31 +766,56 @@ const SelectPanelMessage: React.FC<SelectPanelMessageProps> = ({
   title,
   children,
 }) => {
+  const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
+
   if (size === 'full') {
     return (
       <Box
         aria-live={variant === 'empty' ? undefined : 'polite'}
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
-          flexGrow: 1,
-          height: '100%',
-          gap: 1,
-          paddingX: 4,
-          textAlign: 'center',
-          a: {color: 'inherit', textDecoration: 'underline'},
-          minHeight: 'min(calc(var(--max-height) - 150px), 324px)',
-          //                 maxHeight of dialog - (header & footer)
-        }}
+        sx={
+          enabled
+            ? undefined
+            : {
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+                flexGrow: 1,
+                height: '100%',
+                gap: 1,
+                paddingX: 4,
+                textAlign: 'center',
+                a: {color: 'inherit', textDecoration: 'underline'},
+                minHeight: 'min(calc(var(--max-height) - 150px), 324px)',
+                //                 maxHeight of dialog - (header & footer)
+              }
+        }
+        className={enabled ? classes.MessageFull : undefined}
       >
         {variant !== 'empty' ? (
-          <Octicon icon={AlertIcon} sx={{color: variant === 'error' ? 'danger.fg' : 'attention.fg', marginBottom: 2}} />
+          <Octicon
+            icon={AlertIcon}
+            sx={enabled ? undefined : {color: variant === 'error' ? 'danger.fg' : 'attention.fg', marginBottom: 2}}
+            className={clsx(
+              enabled ? classes.Octicon : undefined,
+              variant === 'error' && enabled ? classes.Error : undefined,
+              variant === 'warning' && enabled ? classes.Warning : undefined,
+            )}
+          />
         ) : null}
-        <Text sx={{fontSize: 1, fontWeight: 'semibold'}}>{title}</Text>
         <Text
-          sx={{fontSize: 1, color: 'fg.muted', display: 'flex', flexDirection: 'column', gap: 2, alignItems: 'center'}}
+          sx={enabled ? undefined : {fontSize: 1, fontWeight: 'semibold'}}
+          className={enabled ? classes.MessageTitle : undefined}
+        >
+          {title}
+        </Text>
+        <Text
+          sx={
+            enabled
+              ? undefined
+              : {fontSize: 1, color: 'fg.muted', display: 'flex', flexDirection: 'column', gap: 2, alignItems: 'center'}
+          }
+          className={enabled ? classes.MessageContent : undefined}
         >
           {children}
         </Text>
@@ -689,16 +839,22 @@ const SelectPanelMessage: React.FC<SelectPanelMessageProps> = ({
     return (
       <Box
         aria-live={variant === 'empty' ? undefined : 'polite'}
-        sx={{
-          display: 'flex',
-          gap: 2,
-          paddingX: 3,
-          paddingY: '12px',
-          fontSize: 0,
-          borderBottom: '1px solid',
-          a: {color: 'inherit', textDecoration: 'underline'},
-          ...inlineVariantStyles[variant],
-        }}
+        sx={
+          enabled
+            ? undefined
+            : {
+                display: 'flex',
+                gap: 2,
+                paddingX: 3,
+                paddingY: '12px',
+                fontSize: 0,
+                borderBottom: '1px solid',
+                a: {color: 'inherit', textDecoration: 'underline'},
+                ...inlineVariantStyles[variant],
+              }
+        }
+        className={enabled ? classes.MessageInline : undefined}
+        data-variant={variant}
       >
         <AlertIcon size={16} />
         <Box>{children}</Box>

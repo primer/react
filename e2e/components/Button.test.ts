@@ -626,4 +626,40 @@ test.describe('Button', () => {
       })
     }
   })
+
+  test.describe('Dev: Disabled variants', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-button-devonly--disabled-button-variants',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          // Default state
+          expect(await page.screenshot()).toMatchSnapshot(`Button.Disabled variants.${theme}.png`)
+        })
+      })
+    }
+  })
+
+  test.describe('Trailing Counter No Text', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-button-features--trailing-counter-with-no-text',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          // Default state
+          expect(await page.screenshot()).toMatchSnapshot(`Trailing Counter No Text.${theme}.png`)
+        })
+      })
+    }
+  })
 })

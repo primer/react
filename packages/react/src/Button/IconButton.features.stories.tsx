@@ -34,7 +34,8 @@ export const ExternalTooltip = () => (
   </Tooltip>
 )
 
-export const ExternalTooltipVersion1 = () => (
+/* eslint-disable-next-line camelcase */
+export const ExternalTooltipVersion_1 = () => (
   <TooltipV1 text="this is a supportive description for icon button" direction="se">
     <IconButton icon={HeartIcon} aria-label="HeartIcon" />
   </TooltipV1>
@@ -84,13 +85,13 @@ export const LoadingTrigger = () => {
 
   return <IconButton loading={isLoading} onClick={handleClick} icon={DownloadIcon} aria-label="Download" />
 }
-export const KeyshortcutsOnDescription = () => (
+export const KeybindingHintOnDescription = () => (
   <IconButton
     icon={InboxIcon}
     aria-label="Notifications"
     description="You have unread notifications"
-    keyshortcuts="G+N"
+    keybindingHint="G+N"
   />
 )
 
-export const Keyshortcuts = () => <IconButton icon={BoldIcon} aria-label="Bold" keyshortcuts="Command+B" />
+export const KeybindingHint = () => <IconButton icon={BoldIcon} aria-label="Bold" keybindingHint="Mod+B" />

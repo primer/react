@@ -27,7 +27,6 @@ jobs:
         with:
           node-version: 22
           cache: 'npm'
-      - run: npm i -g npm@^10.5.1
       - name: Install dependencies
         run: npm ci
       - name: Check for unformatted files
@@ -43,7 +42,6 @@ jobs:
         with:
           node-version: 22
           cache: 'npm'
-      - run: npm i -g npm@^10.5.1
       - name: Install dependencies
         run: npm ci
       - name: Lint JavaScript
@@ -63,7 +61,6 @@ jobs:
         with:
           node-version: 22
           cache: 'npm'
-      - run: npm i -g npm@^10.5.1
       - name: Install dependencies
         run: npm ci
       - name: Build
@@ -81,7 +78,6 @@ jobs:
         with:
           node-version: 22
           cache: 'npm'
-      - run: npm i -g npm@^10.5.1
       - name: Install dependencies
         run: npm ci
       - name: Build project
@@ -99,7 +95,6 @@ jobs:
         with:
           node-version: 22
           cache: 'npm'
-      - run: npm i -g npm@^10.5.1
       - name: Install dependencies
         run: npm ci
       - name: Build
@@ -118,7 +113,6 @@ jobs:
         with:
           node-version: 22
           cache: 'npm'
-      - run: npm i -g npm@^10.5.1
       - name: Install dependencies
         run: npm ci
       - name: Build storybook
@@ -159,7 +153,6 @@ jobs:
         with:
           node-version: 22
           cache: 'npm'
-      - run: npm i -g npm@^10.5.1
       - name: install dependencies
         run: npm ci
       - name: download all reports
@@ -202,7 +195,6 @@ jobs:
         with:
           node-version: 22
           cache: 'npm'
-      - run: npm i -g npm@^10.5.1
       - name: Install dependencies
         run: npm ci
       - name: Build storybook
@@ -243,7 +235,6 @@ jobs:
         with:
           node-version: 22
           cache: 'npm'
-      - run: npm i -g npm@^10.5.1
       - name: install dependencies
         run: npm ci
       - name: download all reports
@@ -282,7 +273,6 @@ jobs:
         with:
           node-version: 22
           cache: 'npm'
-      - run: npm i -g npm@^10.5.1
       - name: Install dependencies
         run: npm ci
       - name: Build storybook
@@ -323,7 +313,6 @@ jobs:
         with:
           node-version: 22
           cache: 'npm'
-      - run: npm i -g npm@^10.5.1
       - name: install dependencies
         run: npm ci
       - name: download all reports
@@ -366,7 +355,6 @@ jobs:
         with:
           node-version: 22
           cache: 'npm'
-      - run: npm i -g npm@^10.5.1
       - name: Install dependencies
         run: npm ci
       - name: Build storybook
@@ -407,7 +395,6 @@ jobs:
         with:
           node-version: 22
           cache: 'npm'
-      - run: npm i -g npm@^10.5.1
       - name: install dependencies
         run: npm ci
       - name: download all reports
@@ -443,11 +430,14 @@ jobs:
         with:
           node-version: 22
           cache: 'npm'
-      - run: npm i -g npm@^10.5.1
       - name: Install dependencies
         run: npm ci
+      - name: Build storybook to generate story IDs
+        run: npm run build:storybook
+        working-directory: packages/react
       - name: Build components.json
-        run: npm run build:components.json
+        run: npx tsx script/components-json/build.ts --storybook-data 'storybook-static/index.json'
+        working-directory: packages/react
 
   sizes:
     runs-on: ubuntu-latest
@@ -459,7 +449,6 @@ jobs:
         with:
           node-version: 22
           cache: 'npm'
-      - run: npm i -g npm@^10.5.1
       - name: Install dependencies
         run: npm ci
       - name: Build
