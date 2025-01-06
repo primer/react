@@ -270,7 +270,7 @@ jobs:
       - uses: actions/upload-pages-artifact@v3
         with:
           name: vrt-all-flags
-          path: .
+          path: playwright-report
 
   aat-runner:
     runs-on: ubuntu-latest-16-cores
