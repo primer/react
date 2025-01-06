@@ -1,0 +1,17 @@
+#!/bin/bash
+set -e
+
+cd packages/react
+
+# Add base url to be able to serve static files
+if [ -n "$1" ]; then
+  echo '<base href="/storybook/" />' >> .storybook/manager-head.html
+else
+  echo '<base href="/react/storybook/" />' >> .storybook/manager-head.html
+fi
+
+# Build storybook inside docs
+npx storybook build -o ../../docs/public/storybook
+
+# Remove manager-head after build to not interfere with dev builds
+rm .storybook/manager-head.html

@@ -1,0 +1,73 @@
+{
+  "id": "avatar_stack",
+  "name": "AvatarStack",
+  "status": "alpha",
+  "a11yReviewed": false,
+  "stories": [
+    {
+      "id": "components-avatarstack--default"
+    },
+    {
+      "id": "components-avatarstack-features--align-left"
+    },
+    {
+      "id": "components-avatarstack-features--align-right"
+    },
+    {
+      "id": "components-avatarstack-features--disable-expand-on-hover"
+    },
+    {
+      "id": "components-avatarstack-features--custom-size-on-parent"
+    },
+    {
+      "id": "components-avatarstack-features--custom-size-on-parent-responsive"
+    },
+    {
+      "id": "components-avatarstack-features--custom-size-on-children"
+    },
+    {
+      "id": "components-avatarstack-features--custom-size-on-children-responsive"
+    },
+    {
+      "id": "components-avatarstack-features--with-single-avatar"
+    }
+  ],
+  "importPath": "@primer/react",
+  "props": [
+    {
+      "name": "children",
+      "type": "ReactNode",
+      "description": "A set of Avatar components to stack",
+      "defaultValue": ""
+    },
+    {
+      "name": "alignRight",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Align the avatars to the right"
+    },
+    {
+      "name": "disableExpand",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Do not spread the avatars on hover"
+    },
+    {
+      "name": "size",
+      "type": "number | { narrow?: number; regular?: number; wide?: number; }",
+      "defaultValue": "20",
+      "description": "The size of the avatar children in pixels."
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "description": "Class name for custom styling.",
+      "defaultValue": ""
+    },
+    {
+      "name": "sx",
+      "type": "SystemStyleObject"
+    }
+  ],
+  "subcomponents": []
+}

@@ -1,0 +1,23 @@
+{
+  "id": "heading",
+  "name": "Heading",
+  "status": "alpha",
+  "a11yReviewed": false,
+  "stories": [],
+  "importPath": "@primer/react",
+  "props": [
+    {
+      "name": "sx",
+      "type": "SystemStyleObject"
+    },
+    {
+      "name": "as",
+      "type": "React.ElementType",
+      "defaultValue": "\"h2\""
+    },
+    {
+      "name": "variant",
+      "type": "'large' | 'medium' | 'small'"
+    }
+  ]
+}

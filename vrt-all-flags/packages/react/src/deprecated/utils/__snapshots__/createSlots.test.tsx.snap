@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ComponentWithSlots renders all slots 1`] = `
+<div>
+  <div>
+    first
+    <span>
+      free form
+       
+      second
+       
+    </span>
+  </div>
+</div>
+`;
+
+exports[`ComponentWithSlots renders with context passed to children 1`] = `
+<div>
+  <div>
+    <span>
+      free form
+       
+       
+      hi
+       
+      third
+    </span>
+  </div>
+</div>
+`;
+
+exports[`ComponentWithSlots renders with just one slot 1`] = `
+<div>
+  <div>
+    first
+    <span>
+      free form
+       
+       
+    </span>
+  </div>
+</div>
+`;
+
+exports[`ComponentWithSlots renders without any slots 1`] = `
+<div>
+  <div>
+    <span>
+      free form
+       
+       
+    </span>
+  </div>
+</div>
+`;

@@ -1,0 +1,150 @@
+{
+  "id": "select_panel",
+  "docsId": "select_panel",
+  "name": "SelectPanel",
+  "status": "alpha",
+  "a11yReviewed": false,
+  "stories": [
+    {
+      "id": "components-selectpanel--default"
+    },
+    {
+      "id": "components-selectpanel-features--with-item-dividers"
+    },
+    {
+      "id": "components-selectpanel-features--with-placeholder-for-search-input"
+    },
+    {
+      "id": "components-selectpanel-features--single-select"
+    },
+    {
+      "id": "components-selectpanel-features--multi-select"
+    },
+    {
+      "id": "components-selectpanel-features--with-external-anchor"
+    },
+    {
+      "id": "components-selectpanel-features--with-footer"
+    },
+    {
+      "id": "components-selectpanel-features--with-groups"
+    }
+  ],
+  "importPath": "@primer/react",
+  "props": [
+    {
+      "name": "items",
+      "type": "ItemInput[]",
+      "required": true,
+      "description": "A collection of `Item` props and `Item`-level custom `Item` renderers.",
+      "defaultValue": ""
+    },
+    {
+      "name": "title",
+      "type": "string | React.ReactElement",
+      "defaultValue": "\"Select an item\" or \"Select items\"",
+      "description": "A descriptive title for the panel"
+    },
+    {
+      "name": "subtitle",
+      "type": "string | React.ReactElement",
+      "defaultValue": "",
+      "description": "When provided, a subtitle is displayed below the title"
+    },
+    {
+      "name": "onOpenChange",
+      "type": "( open: boolean, gesture: | 'anchor-click' | 'anchor-key-press' | 'click-outside' | 'escape' | 'selection' ) => void",
+      "defaultValue": "",
+      "required": true,
+      "description": ""
+    },
+    {
+      "name": "placeholder",
+      "type": "string",
+      "defaultValue": "",
+      "description": "Text used in anchor when there are no selected items"
+    },
+    {
+      "name": "placeholderText",
+      "type": "string",
+      "defaultValue": "Filter items",
+      "description": "Text used as placeholder for search input"
+    },
+    {
+      "name": "inputLabel",
+      "type": "string",
+      "defaultValue": "Same as placeholderText",
+      "description": "The aria-label for the filter input"
+    },
+    {
+      "name": "aria-label",
+      "type": "string",
+      "description": "aria-label to attach to the base DOM node of the list",
+      "defaultValue": ""
+    },
+    {
+      "name": "filterValue",
+      "type": "string",
+      "description": "The current value of the search input",
+      "defaultValue": ""
+    },
+    {
+      "name": "selected",
+      "type": "ItemInput | ItemInput[] | undefined",
+      "defaultValue": "",
+      "required": true,
+      "description": "Specify the selected item(s)"
+    },
+    {
+      "name": "open",
+      "type": "boolean",
+      "required": true,
+      "description": "Determines whether the overlay portion of the component should be shown or not",
+      "defaultValue": ""
+    },
+    {
+      "name": "anchorId",
+      "type": "string",
+      "description": "An override to the internal id that will be spread on to the renderAnchor",
+      "defaultValue": ""
+    },
+    {
+      "name": "anchorRef",
+      "type": "RefObject<HTMLElement>",
+      "description": "An override to the internal renderAnchor ref that will be used to position the overlay.\nWhen renderAnchor is null this can be used to make an anchor that is detached from ActionMenu.\nAn override to the internal ref that will be spread on to the renderAnchor",
+      "defaultValue": ""
+    },
+    {
+      "name": "onSelectedChange",
+      "type": "(selected: ItemInput | ItemInput[]) => void",
+      "defaultValue": "",
+      "required": true,
+      "description": "Provide a callback called when the selected item(s) change"
+    },
+    {
+      "name": "onFilterChange",
+      "type": "(value: string, e: ChangeEvent<HTMLInputElement>) => void",
+      "description": "Callback when the search input changes",
+      "defaultValue": ""
+    },
+    {
+      "name": "overlayProps",
+      "type": "Partial<OverlayProps>",
+      "defaultValue": "",
+      "description": "See [Overlay props](/react/Overlay#props)."
+    },
+    {
+      "name": "textInputProps",
+      "type": "Partial<Omit<TextInputProps, 'onChange'>>",
+      "defaultValue": "",
+      "description": "See [TextInput props](/react/TextInput#props)."
+    },
+    {
+      "name": "footer",
+      "type": "string | React.ReactElement",
+      "defaultValue": "null",
+      "description": "Footer rendered at the end of the panel"
+    }
+  ],
+  "subcomponents": []
+}

@@ -1,0 +1,60 @@
+{
+  "id": "label",
+  "name": "Label",
+  "status": "alpha",
+  "a11yReviewed": false,
+  "stories": [
+    {
+      "id": "components-label--default"
+    },
+    {
+      "id": "components-label-features--primary"
+    },
+    {
+      "id": "components-label-features--secondary"
+    },
+    {
+      "id": "components-label-features--accent"
+    },
+    {
+      "id": "components-label-features--success"
+    },
+    {
+      "id": "components-label-features--attention"
+    },
+    {
+      "id": "components-label-features--severe"
+    },
+    {
+      "id": "components-label-features--danger"
+    },
+    {
+      "id": "components-label-features--done"
+    },
+    {
+      "id": "components-label-features--sponsors"
+    },
+    {
+      "id": "components-label-features--size-large"
+    },
+    {
+      "id": "components-label-features--size-small"
+    }
+  ],
+  "importPath": "@primer/react",
+  "props": [
+    {
+      "name": "variant",
+      "type": "| 'default' | 'primary' | 'secondary' | 'accent' | 'success' | 'attention' | 'severe' | 'danger' | 'done' | 'sponsors'",
+      "defaultValue": "'default'",
+      "description": "The color of the label"
+    },
+    {
+      "name": "size",
+      "type": "'small' | 'large'",
+      "defaultValue": "'small'",
+      "description": "How large the label is rendered"
+    }
+  ],
+  "subcomponents": []
+}

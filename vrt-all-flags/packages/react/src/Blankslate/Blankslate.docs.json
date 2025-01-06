@@ -1,0 +1,92 @@
+{
+  "id": "blankslate",
+  "name": "Blankslate",
+  "status": "draft",
+  "a11yReviewed": false,
+  "stories": [
+    {
+      "id": "experimental-components-blankslate--default"
+    },
+    {
+      "id": "experimental-components-blankslate-features--with-visual"
+    },
+    {
+      "id": "experimental-components-blankslate-features--with-primary-action"
+    },
+    {
+      "id": "experimental-components-blankslate-features--with-secondary-action"
+    },
+    {
+      "id": "experimental-components-blankslate-features--with-border"
+    },
+    {
+      "id": "experimental-components-blankslate-features--narrow"
+    },
+    {
+      "id": "experimental-components-blankslate-features--spacious"
+    }
+  ],
+  "importPath": "@primer/react/experimental",
+  "props": [
+    {
+      "name": "border",
+      "type": "boolean",
+      "description": "Add a border around this component"
+    },
+    {
+      "name": "narrow",
+      "type": "boolean",
+      "description": ""
+    },
+    {
+      "name": "spacious",
+      "type": "boolean",
+      "description": ""
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "description": "Class name(s) for custom styling.",
+      "defaultValue": ""
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "Blankslate.Visual",
+      "props": []
+    },
+    {
+      "name": "Blankslate.Heading",
+      "props": [
+        {
+          "name": "as",
+          "type": "'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'"
+        }
+      ]
+    },
+    {
+      "name": "Blankslate.Description",
+      "props": []
+    },
+    {
+      "name": "Blankslate.PrimaryAction",
+      "props": [
+        {
+          "name": "href",
+          "type": "string",
+          "description": "Link to complete primary action"
+        }
+      ]
+    },
+    {
+      "name": "Blankslate.SecondaryAction",
+      "props": [
+        {
+          "name": "href",
+          "type": "string",
+          "description": "Link to complete secondary action"
+        }
+      ]
+    }
+  ]
+}

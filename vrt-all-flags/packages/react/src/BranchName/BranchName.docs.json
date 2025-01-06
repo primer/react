@@ -1,0 +1,34 @@
+{
+  "id": "branch_name",
+  "name": "BranchName",
+  "status": "alpha",
+  "a11yReviewed": false,
+  "stories": [
+    {
+      "id": "components-branchname--default"
+    },
+    {
+      "id": "components-branchname-features--with-branch-icon"
+    },
+    {
+      "id": "components-branchname-features--not-a-link"
+    }
+  ],
+  "importPath": "@primer/react",
+  "props": [
+    {
+      "name": "ref",
+      "type": "React.RefObject<HTMLAnchorElement>"
+    },
+    {
+      "name": "as",
+      "type": "React.ElementType",
+      "defaultValue": "\"a\""
+    },
+    {
+      "name": "sx",
+      "type": "SystemStyleObject"
+    }
+  ],
+  "subcomponents": []
+}

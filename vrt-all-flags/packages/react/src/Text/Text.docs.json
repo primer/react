@@ -1,0 +1,63 @@
+{
+  "id": "text",
+  "name": "Text",
+  "status": "alpha",
+  "a11yReviewed": true,
+  "stories": [
+    {
+      "id": "components-text--default"
+    },
+    {
+      "id": "components-text-features--polymorphism"
+    },
+    {
+      "id": "components-text-features--styled-text"
+    },
+    {
+      "id": "components-text-features--size-small"
+    },
+    {
+      "id": "components-text-features--size-medium"
+    },
+    {
+      "id": "components-text-features--size-large"
+    },
+    {
+      "id": "components-text-features--light-weight"
+    },
+    {
+      "id": "components-text-features--normal-weight"
+    },
+    {
+      "id": "components-text-features--medium-weight"
+    },
+    {
+      "id": "components-text-features--semibold-weight"
+    }
+  ],
+  "importPath": "@primer/react",
+  "props": [
+    {
+      "name": "as",
+      "defaultValue": "'span'",
+      "type": "React.ElementType"
+    },
+    {
+      "name": "sx",
+      "type": "SystemStyleObject"
+    },
+    {
+      "name": "size",
+      "type": "'large' | 'medium' | 'small'"
+    },
+    {
+      "name": "weight",
+      "type": "'light' | 'normal' | 'medium' | 'semibold'"
+    },
+    {
+      "name": "whiteSpace",
+      "type": "'pre' | 'normal' | 'nowrap' | 'pre-wrap' | 'pre-line'"
+    }
+  ],
+  "subcomponents": []
+}

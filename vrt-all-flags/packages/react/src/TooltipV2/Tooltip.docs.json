@@ -1,0 +1,67 @@
+{
+  "id": "tooltip_v2",
+  "name": "Tooltip",
+  "docsId": "tooltip",
+  "status": "beta",
+  "a11yReviewed": true,
+  "importPath": "@primer/react/next",
+  "stories": [
+    {
+      "id": "components-tooltipv2--default"
+    },
+    {
+      "id": "components-tooltipv2-features--anchor-has-margin"
+    },
+    {
+      "id": "components-tooltipv2-features--label-type"
+    },
+    {
+      "id": "components-tooltipv2-features--description-type"
+    },
+    {
+      "id": "components-tooltipv2-features--icon-button-with-description"
+    },
+    {
+      "id": "components-tooltipv2-features--all-directions"
+    },
+    {
+      "id": "components-tooltipv2-features--multiline-text"
+    },
+    {
+      "id": "components-tooltipv2-features--calculated-direction"
+    },
+    {
+      "id": "components-tooltipv2-features--on-action-menu-anchor"
+    }
+  ],
+  "props": [
+    {
+      "name": "direction",
+      "type": "'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w' | 'nw'",
+      "defaultValue": "s",
+      "description": "Sets where the tooltip renders in relation to the target."
+    },
+    {
+      "name": "text",
+      "required": true,
+      "type": "string",
+      "description": "The text to be displayed in the tooltip"
+    },
+    {
+      "name": "type",
+      "type": "'label' | 'description'",
+      "defaultValue": "description",
+      "description": "The type of tooltip. `label` is used for labelling the element that triggers tooltip. `description` is used for describing or adding a suplementary information to the element that triggers the tooltip."
+    },
+    {
+      "name": "keybindingHint",
+      "type": "string",
+      "description": "Optional keybinding hint to indicate the availability of a keyboard shortcut. Supported syntax is described in the docs for the `KeybindingHint` component."
+    },
+    {
+      "name": "sx",
+      "type": "SystemStyleObject"
+    }
+  ],
+  "subcomponents": []
+}

@@ -1,0 +1,103 @@
+{
+  "id": "progress_bar",
+  "name": "ProgressBar",
+  "status": "alpha",
+  "a11yReviewed": false,
+  "stories": [
+    {
+      "id": "components-progressbar--default"
+    },
+    {
+      "id": "components-progressbar-features--progress-zero"
+    },
+    {
+      "id": "components-progressbar-features--progress-half"
+    },
+    {
+      "id": "components-progressbar-features--progress-done"
+    },
+    {
+      "id": "components-progressbar-features--size-small"
+    },
+    {
+      "id": "components-progressbar-features--size-large"
+    },
+    {
+      "id": "components-progressbar-features--inline"
+    },
+    {
+      "id": "components-progressbar-features--color"
+    },
+    {
+      "id": "components-progressbar-features--multiple-items"
+    },
+    {
+      "id": "components-progressbar-features--animated"
+    }
+  ],
+  "importPath": "@primer/react",
+  "props": [
+    {
+      "name": "animated",
+      "type": "boolean",
+      "description": "Whether the filled in area(s) of the progress bar will be animated or not"
+    },
+    {
+      "name": "progress",
+      "type": "number",
+      "defaultValue": "0",
+      "description": "Used to set the size of the green bar"
+    },
+    {
+      "name": "barSize",
+      "type": "| 'small' | 'large' | 'default'",
+      "defaultValue": "'default'",
+      "description": "Controls the height of the progress bar. If omitted, height is set to the default height."
+    },
+    {
+      "name": "inline",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Styles the progress bar inline"
+    },
+    {
+      "name": "bg",
+      "type": "string",
+      "defaultValue": "'bg.successInverse'",
+      "description": "Set the progress bar color"
+    },
+    {
+      "name": "sx",
+      "type": "SystemStyleObject"
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "ProgressBar.Item",
+      "props": [
+        {
+          "name": "aria-label",
+          "type": "string",
+          "description": "Defines a string value that labels the current element.\n@see aria-labelledby.",
+          "defaultValue": ""
+        },
+        {
+          "name": "bg",
+          "type": "string",
+          "description": "Set the progress segment color",
+          "defaultValue": "success.emphasis"
+        },
+        {
+          "name": "progress",
+          "type": "string | number",
+          "description": "Used to set the size of the green bar",
+          "defaultValue": "0"
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ]
+    }
+  ]
+}
