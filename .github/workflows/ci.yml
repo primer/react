@@ -173,7 +173,7 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./playwright-report
-          destination_dir: vert-no-flag
+          destination_dir: vrt-no-flag
       - name: check vrt-runner job status
         if: ${{ needs.vrt-runner.result == 'failure' }}
         run: exit 1
@@ -255,7 +255,7 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./playwright-report
-          destination_dir: vert-all-flags
+          destination_dir: vrt-all-flags
       - name: check vrt-runner-all-flags job status
         if: ${{ needs.vrt-runner-all-flags.result == 'failure' }}
         run: exit 1
