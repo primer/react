@@ -15,6 +15,7 @@ npx storybook build -o ../../docs/public/storybook
 
 # Move index page to the right location
 cp .storybook/index.html ../../docs/public/index.html
+cp .storybook/index.html ../../docs/public/404.html
 
 # Remove manager-head after build to not interfere with dev builds
 rm .storybook/manager-head.html
