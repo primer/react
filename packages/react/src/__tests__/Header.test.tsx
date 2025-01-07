@@ -13,7 +13,7 @@ describe('Header', () => {
   })
 
   describe('Header.Item', () => {
-    behavesAsComponent({Component: Header.Item, options: {skipAs: true}})
+    behavesAsComponent({Component: Header.Item})
 
     it('accepts and applies className', () => {
       expect(render(<Header.Item className="primer" />).props.className).toContain('primer')
