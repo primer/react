@@ -17,24 +17,24 @@
 }
 
 .TokenButton[data-size='small'] {
-  width: var(--base-size-16);
-  height: var(--base-size-16);
+  width: var(--control-size-small);
+  height: var(--control-size-small);
 }
 
 .TokenButton[data-size='medium'] {
-  width: 20px;
-  height: 20px;
+  width: var(--control-size-medium);
+  height: var(--control-size-medium);
 }
 
 .TokenButton[data-size='large'] {
-  width: var(--base-size-24);
-  height: var(--base-size-24);
+  width: var(--control-size-large);
+  height: var(--control-size-large);
   margin-left: var(--base-size-8);
 }
 
 .TokenButton[data-size='xlarge'] {
-  width: var(--base-size-32);
-  height: var(--base-size-32);
+  width: var(--control-size-xlarge);
+  height: var(--control-size-xlarge);
   margin-left: var(--base-size-8);
 }
 
