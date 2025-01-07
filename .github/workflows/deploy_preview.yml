@@ -7,8 +7,15 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  vrt-reports:
+    uses: ./.github/workflows/vrt-reports.yml
+
+  aat-reports:
+    uses: ./.github/workflows/aat-reports.yml
+
   build:
     if: ${{ github.event.pull_request.head.repo.full_name == 'primer/react' }}
+    needs: [vrt-reports, aat-reports]
     runs-on: ubuntu-latest
 
     steps:
@@ -23,23 +30,6 @@ jobs:
         run: npm ci
       - name: Build docs preview
         run: npm run build:docs:preview
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          name: github-pages
-          path: docs/public
-
-  vrt-reports:
-    uses: ./.github/workflows/vrt-reports.yml
-
-  aat-reports:
-    uses: ./.github/workflows/aat-reports.yml
-
-  download-artifacts:
-    if: ${{ github.event.pull_request.head.repo.full_name == 'primer/react' }}
-    needs: [build, vrt-reports, aat-reports]
-    runs-on: ubuntu-latest
-
-    steps:
       - name: Download VRT reports (All flags enabled)
         uses: actions/download-artifact@v3
         with:
@@ -60,10 +50,14 @@ jobs:
         with:
           name: aat-no-flag
           path: docs/public/aat-no-flag
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          name: github-pages
+          path: docs/public
 
   deploy-preview:
     if: ${{ github.event.pull_request.head.repo.full_name == 'primer/react' }}
-    needs: download-artifacts
+    needs: build
     permissions:
       pages: write
       id-token: write
