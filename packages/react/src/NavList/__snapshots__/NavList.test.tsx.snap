@@ -1385,7 +1385,6 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
                   height="16"
                   overflow="visible"
                   style="vertical-align: text-bottom;"
-                  sx="[object Object]"
                   viewBox="0 0 16 16"
                   width="16"
                 >
@@ -1907,7 +1906,6 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
                   height="16"
                   overflow="visible"
                   style="vertical-align: text-bottom;"
-                  sx="[object Object]"
                   viewBox="0 0 16 16"
                   width="16"
                 >

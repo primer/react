@@ -46,11 +46,6 @@ exports[`StateLabel renders children 1`] = `
         "verticalAlign": "text-bottom",
       }
     }
-    sx={
-      {
-        "mr": 1,
-      }
-    }
     viewBox="0 0 16 16"
     width={16}
   >
@@ -109,11 +104,6 @@ exports[`StateLabel respects the status prop 1`] = `
     style={
       {
         "verticalAlign": "text-bottom",
-      }
-    }
-    sx={
-      {
-        "mr": 1,
       }
     }
     viewBox="0 0 16 16"
@@ -175,11 +165,6 @@ exports[`StateLabel respects the status prop 2`] = `
         "verticalAlign": "text-bottom",
       }
     }
-    sx={
-      {
-        "mr": 1,
-      }
-    }
     viewBox="0 0 16 16"
     width={16}
   >
@@ -239,11 +224,6 @@ exports[`StateLabel respects the status prop 3`] = `
         "verticalAlign": "text-bottom",
       }
     }
-    sx={
-      {
-        "mr": 1,
-      }
-    }
     viewBox="0 0 16 16"
     width={16}
   >
@@ -298,11 +278,6 @@ exports[`StateLabel respects the status prop 4`] = `
     style={
       {
         "verticalAlign": "text-bottom",
-      }
-    }
-    sx={
-      {
-        "mr": 1,
       }
     }
     viewBox="0 0 16 16"
@@ -361,11 +336,6 @@ exports[`StateLabel respects the status prop 5`] = `
         "verticalAlign": "text-bottom",
       }
     }
-    sx={
-      {
-        "mr": 1,
-      }
-    }
     viewBox="0 0 16 16"
     width={16}
   >
@@ -420,11 +390,6 @@ exports[`StateLabel respects the variant prop 1`] = `
     style={
       {
         "verticalAlign": "text-bottom",
-      }
-    }
-    sx={
-      {
-        "mr": 1,
       }
     }
     viewBox="0 0 16 16"
@@ -484,11 +449,6 @@ exports[`StateLabel respects the variant prop 2`] = `
     style={
       {
         "verticalAlign": "text-bottom",
-      }
-    }
-    sx={
-      {
-        "mr": 1,
       }
     }
     viewBox="0 0 16 16"
