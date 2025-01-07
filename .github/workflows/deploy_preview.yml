@@ -3,7 +3,6 @@ on:
   workflow_run:
     workflows: ['VRT Reports', 'AAT Reports']
     types: completed
-  pull_request:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
