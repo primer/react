@@ -45,12 +45,12 @@ jobs:
       - name: Download AAT reports (All flags enabled)
         uses: actions/download-artifact@v4
         with:
-          name: aat-all-flags
+          name: axe-all-flags
           path: docs/public/aat-all-flags
       - name: Download AAT reports (No flags enabled)
         uses: actions/download-artifact@v4
         with:
-          name: aat-no-flag
+          name: axe
           path: docs/public/aat-no-flag
       - uses: actions/upload-pages-artifact@v3
         with:
