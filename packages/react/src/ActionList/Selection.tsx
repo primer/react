@@ -3,13 +3,18 @@ import {CheckIcon} from '@primer/octicons-react'
 import type {ActionListGroupProps} from './Group'
 import {GroupContext} from './Group'
 import {type ActionListProps, type ActionListItemProps, ListContext} from './shared'
-import {LeadingVisualContainer} from './Visuals'
+import {LeadingVisualContainer, VisualContainer} from './Visuals'
 import Box from '../Box'
+import {useFeatureFlag} from '../FeatureFlags'
+import classes from './ActionList.module.css'
+import {actionListCssModulesFlag} from './featureflag'
 
-type SelectionProps = Pick<ActionListItemProps, 'selected'>
-export const Selection: React.FC<React.PropsWithChildren<SelectionProps>> = ({selected}) => {
+type SelectionProps = Pick<ActionListItemProps, 'selected' | 'className'>
+export const Selection: React.FC<React.PropsWithChildren<SelectionProps>> = ({selected, className}) => {
   const {selectionVariant: listSelectionVariant, role: listRole} = React.useContext(ListContext)
   const {selectionVariant: groupSelectionVariant} = React.useContext(GroupContext)
+
+  const enabled = useFeatureFlag(actionListCssModulesFlag)
 
   /** selectionVariant in Group can override the selectionVariant in List root */
   /** fallback to selectionVariant from container menu if any (ActionMenu, SelectPanel ) */
@@ -30,6 +35,13 @@ export const Selection: React.FC<React.PropsWithChildren<SelectionProps>> = ({se
   }
 
   if (selectionVariant === 'single' || listRole === 'menu') {
+    if (enabled) {
+      return (
+        <VisualContainer className={className}>
+          <CheckIcon className={classes.SingleSelectCheckmark} />
+        </VisualContainer>
+      )
+    }
     return (
       <LeadingVisualContainer data-component="ActionList.Selection" sx={{minWidth: '16px'}}>
         {selected && <CheckIcon />}
@@ -62,6 +74,13 @@ export const Selection: React.FC<React.PropsWithChildren<SelectionProps>> = ({se
     },
   }
 
+  if (enabled) {
+    return (
+      <VisualContainer className={className}>
+        <div className={classes.MultiSelectCheckbox} />
+      </VisualContainer>
+    )
+  }
   return (
     <LeadingVisualContainer data-component="ActionList.Selection" sx={{minWidth: '16px'}}>
       <Box

@@ -94,9 +94,21 @@ export const ListLinkItem = () => (
       <ActionList.LeadingVisual>
         <LinkIcon />
       </ActionList.LeadingVisual>
-      ActionList.LinkItem with everything
+      With inline description
       <ActionList.Description variant="inline">inline description</ActionList.Description>
+    </ActionList.LinkItem>
+    <ActionList.LinkItem href="?path=/story/components-actionlist--default">
+      <ActionList.LeadingVisual>
+        <LinkIcon />
+      </ActionList.LeadingVisual>
+      With block description
       <ActionList.Description variant="block">Block description</ActionList.Description>
+    </ActionList.LinkItem>
+    <ActionList.LinkItem href="?path=/story/components-actionlist--default">
+      <ActionList.LeadingVisual>
+        <LinkIcon />
+      </ActionList.LeadingVisual>
+      Trailing visual
       <ActionList.TrailingVisual>⌘ + L</ActionList.TrailingVisual>
     </ActionList.LinkItem>
   </ActionList>
