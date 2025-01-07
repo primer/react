@@ -28,6 +28,12 @@ jobs:
           name: github-pages
           path: docs/public
 
+  vrt-reports:
+    uses: ./.github/workflows/vrt-reports.yml
+
+  aat-reports:
+    uses: ./.github/workflows/aat-reports.yml
+
   deploy-preview:
     if: ${{ github.repository != github.event.pull_request.head.repo.full_name }}
     needs: build

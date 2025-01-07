@@ -4,7 +4,7 @@ on:
     branches:
       - main
       - next-major
-  pull_request:
+  workflow_call:
   merge_group:
     branches:
       - main
