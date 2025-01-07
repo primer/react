@@ -44,19 +44,22 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: vrt-all-flags
-          path: docs/public/vrt-vrt-all-flags
+          path: docs/public/vrt-all-flags
       - name: Download VRT reports (No flags enabled)
         uses: actions/download-artifact@v3
         with:
           name: vrt-no-flag
+          path: docs/public/vrt-no-flag
       - name: Download AAT reports (All flags enabled)
         uses: actions/download-artifact@v3
         with:
           name: aat-all-flags
+          path: docs/public/aat-all-flags
       - name: Download AAT reports (No flags enabled)
         uses: actions/download-artifact@v3
         with:
           name: aat-no-flag
+          path: docs/public/aat-no-flag
 
   deploy-preview:
     if: ${{ github.event.pull_request.head.repo.full_name == 'primer/react' }}
