@@ -18,9 +18,9 @@ export default {
 } as Meta
 
 const hoverCard = (
-  <Stack gap="condensed" style={{minWidth: '320px', padding: '16px'}}>
+  <Stack gap="condensed" style={{padding: '16px'}}>
     <Stack direction="horizontal" gap="condensed" justify="space-between">
-      <Avatar src="https://avatars.githubusercontent.com/u/92997159?v=4" size={48} />
+      <Avatar src="https://avatars.githubusercontent.com/u/7143434?v=4" size={48} />
       <Button size="small">Follow</Button>
     </Stack>
     <Stack direction="horizontal" gap="none">
@@ -103,8 +103,9 @@ export const CustomAnchorId = () => {
       onClose={() => setOpen(false)}
       renderAnchor={props => <Button {...props}>Button</Button>}
       anchorId="my-custom-anchor-id"
-      overlayProps={{role: 'dialog', 'aria-modal': true, 'aria-label': 'User Card Overlay'}}
+      overlayProps={{role: 'dialog', 'aria-modal': true, 'aria-label': 'User Card Overlay', sx: {minWidth: '320px'}}}
       focusZoneSettings={{disabled: true}}
+      preventOverflow={false}
     >
       <Box sx={{width: '100%', height: '100%', display: 'flex', flexDirection: 'column'}}>{hoverCard}</Box>
     </AnchoredOverlay>
@@ -121,8 +122,9 @@ export const Height = () => {
       onClose={() => setOpen(false)}
       renderAnchor={props => <Button {...props}>Button</Button>}
       height="large"
-      overlayProps={{role: 'dialog', 'aria-modal': true, 'aria-label': 'User Card Overlay'}}
+      overlayProps={{role: 'dialog', 'aria-modal': true, 'aria-label': 'User Card Overlay', sx: {minWidth: '320px'}}}
       focusZoneSettings={{disabled: true}}
+      preventOverflow={false}
     >
       <Box sx={{width: '100%', height: '100%', display: 'flex', flexDirection: 'column'}}>{hoverCard}</Box>
     </AnchoredOverlay>
@@ -139,8 +141,9 @@ export const Width = () => {
       onClose={() => setOpen(false)}
       renderAnchor={props => <Button {...props}>Button</Button>}
       width="large"
-      overlayProps={{role: 'dialog', 'aria-modal': true, 'aria-label': 'User Card Overlay'}}
+      overlayProps={{role: 'dialog', 'aria-modal': true, 'aria-label': 'User Card Overlay', sx: {minWidth: '320px'}}}
       focusZoneSettings={{disabled: true}}
+      preventOverflow={false}
     >
       <Box
         sx={{
@@ -170,8 +173,9 @@ export const AnchorAlignment = () => {
         </Button>
       )}
       align="center"
-      overlayProps={{role: 'dialog', 'aria-modal': true, 'aria-label': 'User Card Overlay'}}
+      overlayProps={{role: 'dialog', 'aria-modal': true, 'aria-label': 'User Card Overlay', sx: {minWidth: '320px'}}}
       focusZoneSettings={{disabled: true}}
+      preventOverflow={false}
     >
       <Box sx={{width: '100%', height: '100%', display: 'flex', flexDirection: 'column'}}>{hoverCard}</Box>
     </AnchoredOverlay>
@@ -188,8 +192,9 @@ export const AnchorSide = () => {
       onClose={() => setOpen(false)}
       renderAnchor={props => <Button {...props}>Button</Button>}
       side="outside-right"
-      overlayProps={{role: 'dialog', 'aria-modal': true, 'aria-label': 'User Card Overlay'}}
+      overlayProps={{role: 'dialog', 'aria-modal': true, 'aria-label': 'User Card Overlay', sx: {minWidth: '320px'}}}
       focusZoneSettings={{disabled: true}}
+      preventOverflow={false}
     >
       <Box sx={{width: '100%', height: '100%', display: 'flex', flexDirection: 'column'}}>{hoverCard}</Box>
     </AnchoredOverlay>
@@ -206,8 +211,9 @@ export const OffsetPositionFromAnchor = () => {
       onClose={() => setOpen(false)}
       renderAnchor={props => <Button {...props}>Button</Button>}
       anchorOffset={100}
-      overlayProps={{role: 'dialog', 'aria-modal': true, 'aria-label': 'User Card Overlay'}}
+      overlayProps={{role: 'dialog', 'aria-modal': true, 'aria-label': 'User Card Overlay', sx: {minWidth: '320px'}}}
       focusZoneSettings={{disabled: true}}
+      preventOverflow={false}
     >
       <Box sx={{width: '100%', height: '100%', display: 'flex', flexDirection: 'column'}}>{hoverCard}</Box>
     </AnchoredOverlay>
@@ -224,8 +230,9 @@ export const OffsetAlignmentFromAnchor = () => {
       onClose={() => setOpen(false)}
       renderAnchor={props => <Button {...props}>Button</Button>}
       alignmentOffset={100}
-      overlayProps={{role: 'dialog', 'aria-modal': true, 'aria-label': 'User Card Overlay'}}
+      overlayProps={{role: 'dialog', 'aria-modal': true, 'aria-label': 'User Card Overlay', sx: {minWidth: '320px'}}}
       focusZoneSettings={{disabled: true}}
+      preventOverflow={false}
     >
       <Box sx={{width: '100%', height: '100%', display: 'flex', flexDirection: 'column'}}>{hoverCard}</Box>
     </AnchoredOverlay>
@@ -245,6 +252,7 @@ export const FocusTrapOverrides = () => {
       focusTrapSettings={{initialFocusRef}}
       overlayProps={{role: 'dialog', 'aria-modal': true, 'aria-label': 'Focus Trap Demo Overlay'}}
       focusZoneSettings={{disabled: true}}
+      preventOverflow={false}
     >
       <Button>First button</Button>
       <Button ref={initialFocusRef}>Initial focus</Button>
@@ -263,6 +271,7 @@ export const FocusZoneOverrides = () => {
       renderAnchor={props => <Button {...props}>Button</Button>}
       focusZoneSettings={{bindKeys: FocusKeys.JK}}
       overlayProps={{role: 'dialog', 'aria-modal': true, 'aria-label': 'Focus Zone Demo Overlay'}}
+      preventOverflow={false}
     >
       <p>
         Use <kbd>J</kbd> and <kbd>K</kbd> keys to move focus.
@@ -289,8 +298,10 @@ export const OverlayPropsOverrides = () => {
         role: 'dialog',
         'aria-modal': true,
         'aria-label': 'User Card Overlay',
+        sx: {minWidth: '320px'},
       }}
       focusZoneSettings={{disabled: true}}
+      preventOverflow={false}
     >
       <div>Overlay props have been overridden to set: </div>
       <pre>

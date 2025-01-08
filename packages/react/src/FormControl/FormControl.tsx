@@ -14,9 +14,9 @@ import {get} from '../constants'
 import {useSlots} from '../hooks/useSlots'
 import type {SxProp} from '../sx'
 import {useId} from '../hooks/useId'
-import FormControlCaption from './_FormControlCaption'
-import FormControlLabel from './_FormControlLabel'
-import FormControlLeadingVisual from './_FormControlLeadingVisual'
+import {FormControlCaption} from './FormControlCaption'
+import FormControlLabel from './FormControlLabel'
+import FormControlLeadingVisual from './FormControlLeadingVisual'
 import FormControlValidation from './_FormControlValidation'
 import {FormControlContextProvider} from './_FormControlContext'
 import {warning} from '../utils/warning'
@@ -172,17 +172,15 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
                 {slots.leadingVisual}
               </Box>
             )}
-            {!slots.label?.props.visuallyHidden || slots.caption ? (
-              <Box display="flex" flexDirection="column" ml={2}>
-                {slots.label}
-                {slots.caption}
-              </Box>
-            ) : (
-              <>
-                {slots.label}
-                {slots.caption}
-              </>
-            )}
+            <Box
+              sx={{
+                '> *': {paddingLeft: 'var(--stack-gap-condensed)'},
+                '> label': {fontWeight: 'var(--base-text-weight-normal)'},
+              }}
+            >
+              {slots.label}
+              {slots.caption}
+            </Box>
           </Box>
         ) : (
           <Box

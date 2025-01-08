@@ -63,29 +63,6 @@ describe('NavList', () => {
     expect(container).toMatchSnapshot()
   })
 
-  it('only shows NavList.GroupHeading when NavList.Group `title` prop is passed AND NavList.GroupHeading is a child', () => {
-    const {getByText} = render(
-      <ThemeProvider>
-        <NavList>
-          <NavList.Group title="Overview">
-            <NavList.GroupHeading>Group heading</NavList.GroupHeading>
-            <NavList.Item href="/getting-started" aria-current="page">
-              Getting started
-            </NavList.Item>
-          </NavList.Group>
-          <NavList.Group title="Components">
-            <NavList.Item href="/Avatar">Avatar</NavList.Item>
-          </NavList.Group>
-        </NavList>
-      </ThemeProvider>,
-    )
-    const groupHeading = getByText('Group heading')
-    const groupTitle = getByText('Overview')
-
-    expect(groupHeading).toBeVisible()
-    expect(groupTitle).not.toBeVisible()
-  })
-
   it('supports TrailingAction', async () => {
     const {getByRole} = render(
       <NavList>

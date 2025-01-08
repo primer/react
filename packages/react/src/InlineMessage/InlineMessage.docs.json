@@ -6,6 +6,9 @@
   "importPath": "@primer/react/experimental",
   "stories": [
     {
+      "id": "experimental-components-inlinemessage--default"
+    },
+    {
       "id": "experimental-components-inlinemessage-features--critical"
     },
     {
@@ -16,6 +19,9 @@
     },
     {
       "id": "experimental-components-inlinemessage-features--warning"
+    },
+    {
+      "id": "experimental-components-inlinemessage-features--multiline"
     }
   ],
   "props": [

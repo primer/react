@@ -5,7 +5,7 @@ import {
   PencilIcon,
   SidebarExpandIcon,
   CommentDiscussionIcon,
-  CommitIcon,
+  GitCommitIcon,
   FileDiffIcon,
   ChecklistIcon,
   WorkflowIcon,
@@ -134,7 +134,7 @@ export const WithNavigationSlot = () => (
           <UnderlineNav.Item icon={CommentDiscussionIcon} counter="12" aria-current="page">
             Conversation
           </UnderlineNav.Item>
-          <UnderlineNav.Item counter={3} icon={CommitIcon}>
+          <UnderlineNav.Item counter={3} icon={GitCommitIcon}>
             Commits
           </UnderlineNav.Item>
           <UnderlineNav.Item counter={7} icon={ChecklistIcon}>
