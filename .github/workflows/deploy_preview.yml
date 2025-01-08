@@ -62,7 +62,7 @@ jobs:
           path: docs/public
 
   deploy-preview:
-    if: ${{ github.event.pull_request.head.repo.full_name == 'primer/react' }}
+    if: ${{ always() && github.event.pull_request.head.repo.full_name == 'primer/react' }}
     needs: build
     permissions:
       pages: write
@@ -82,7 +82,7 @@ jobs:
 
   deploy-storybook:
     name: Preview Storybook
-    if: ${{ github.event.pull_request.head.repo.full_name == 'primer/react' }}
+    if: ${{ always() && github.event.pull_request.head.repo.full_name == 'primer/react' }}
     needs: deploy-preview
     permissions:
       deployments: write
