@@ -114,7 +114,7 @@ jobs:
   deploy-vrt-no-flag:
     name: VRT (No flags enabled)
     if: ${{ always() && github.event.pull_request.head.repo.full_name == 'primer/react' }}
-    needs: deploy-preview
+    needs: [vrt-reports, deploy-preview]
     permissions:
       deployments: write
     runs-on: ubuntu-latest
@@ -124,7 +124,7 @@ jobs:
         id: vrt-no-flag
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          environment: storybook-preview-${{ github.event.number }}
+          environment: vrt-no-flag--${{ github.event.number }}
           environment-url: '${{ needs.deploy-preview.outputs.deployment_url }}vrt-no-flag'
       - name: Update vrt-no-flag deployment status (success)
         if: success()
@@ -132,7 +132,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           environment-url: '${{ needs.deploy-preview.outputs.deployment_url }}vrt-no-flag'
-          state: 'success'
+          state: ${{ needs.vrt-reports.outputs.vrt-no-flag }}
           deployment-id: ${{ steps.vrt-no-flag.outputs.deployment_id }}
       - name: Update vrt-no-flag deployment status (failure)
         if: failure()
@@ -145,7 +145,7 @@ jobs:
   deploy-vrt-all-flags:
     name: VRT (All flags enabled)
     if: ${{ always() && github.event.pull_request.head.repo.full_name == 'primer/react' }}
-    needs: deploy-preview
+    needs: [vrt-reports, deploy-preview]
     permissions:
       deployments: write
     runs-on: ubuntu-latest
@@ -155,7 +155,7 @@ jobs:
         id: vrt-all-flags
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          environment: storybook-preview-${{ github.event.number }}
+          environment: vrt-all-flags-${{ github.event.number }}
           environment-url: '${{ needs.deploy-preview.outputs.deployment_url }}vrt-all-flags'
       - name: Update vrt-all-flags deployment status (success)
         if: success()
@@ -163,7 +163,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           environment-url: '${{ needs.deploy-preview.outputs.deployment_url }}vrt-all-flags'
-          state: 'success'
+          state: ${{ needs.vrt-reports.outputs.vrt-all-flags }}
           deployment-id: ${{ steps.vrt-all-flags.outputs.deployment_id }}
       - name: Update vrt-all-flags deployment status (failure)
         if: failure()
@@ -176,7 +176,7 @@ jobs:
   deploy-aat-no-flag:
     name: AAT (No flags enabled)
     if: ${{ always() && github.event.pull_request.head.repo.full_name == 'primer/react' }}
-    needs: deploy-preview
+    needs: [aat-reports, deploy-preview]
     permissions:
       deployments: write
     runs-on: ubuntu-latest
@@ -186,7 +186,7 @@ jobs:
         id: aat-no-flag
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          environment: storybook-preview-${{ github.event.number }}
+          environment: aat-no-flag-${{ github.event.number }}
           environment-url: '${{ needs.deploy-preview.outputs.deployment_url }}aat-no-flag'
       - name: Update aat-no-flag deployment status (success)
         if: success()
@@ -194,7 +194,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           environment-url: '${{ needs.deploy-preview.outputs.deployment_url }}aat-no-flag'
-          state: 'success'
+          state: ${{ needs.aat-reports.outputs.aat-no-flag }}
           deployment-id: ${{ steps.aat-no-flag.outputs.deployment_id }}
       - name: Update aat-no-flag deployment status (failure)
         if: failure()
@@ -207,7 +207,7 @@ jobs:
   deploy-aat-all-flags:
     name: AAT (All flags enabled)
     if: ${{ always() && github.event.pull_request.head.repo.full_name == 'primer/react' }}
-    needs: deploy-preview
+    needs: [aat-reports, deploy-preview]
     permissions:
       deployments: write
     runs-on: ubuntu-latest
@@ -217,7 +217,7 @@ jobs:
         id: aat-all-flags
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          environment: storybook-preview-${{ github.event.number }}
+          environment: aat-all-flags-${{ github.event.number }}
           environment-url: '${{ needs.deploy-preview.outputs.deployment_url }}aat-all-flags'
       - name: Update aat-all-flags deployment status (success)
         if: success()
@@ -225,7 +225,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           environment-url: '${{ needs.deploy-preview.outputs.deployment_url }}aat-all-flags'
-          state: 'success'
+          state: ${{ needs.aat-reports.outputs.aat-all-flags }}
           deployment-id: ${{ steps.aat-all-flags.outputs.deployment_id }}
       - name: Update aat-all-flags deployment status (failure)
         if: failure()
