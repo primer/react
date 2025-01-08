@@ -16,7 +16,7 @@ jobs:
     uses: ./.github/workflows/aat-reports.yml
 
   build:
-    if: ${{ github.event.pull_request.head.repo.full_name == 'primer/react' }}
+    if: ${{ always() && github.event.pull_request.head.repo.full_name == 'primer/react' }}
     needs: [vrt-reports, aat-reports]
     runs-on: ubuntu-latest
 
