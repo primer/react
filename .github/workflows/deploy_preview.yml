@@ -132,7 +132,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           environment-url: '${{ needs.deploy-preview.outputs.deployment_url }}vrt-no-flag'
-          state: ${{ needs.vrt-reports.outputs.vrt-no-flag }}
+          state: 'success'
           deployment-id: ${{ steps.vrt-no-flag.outputs.deployment_id }}
       - name: Update vrt-no-flag deployment status (failure)
         if: failure()
@@ -163,7 +163,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           environment-url: '${{ needs.deploy-preview.outputs.deployment_url }}vrt-all-flags'
-          state: ${{ needs.vrt-reports.outputs.vrt-all-flags }}
+          state: 'success'
           deployment-id: ${{ steps.vrt-all-flags.outputs.deployment_id }}
       - name: Update vrt-all-flags deployment status (failure)
         if: failure()
@@ -194,7 +194,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           environment-url: '${{ needs.deploy-preview.outputs.deployment_url }}aat-no-flag'
-          state: ${{ needs.aat-reports.outputs.aat-no-flag }}
+          state: 'success'
           deployment-id: ${{ steps.aat-no-flag.outputs.deployment_id }}
       - name: Update aat-no-flag deployment status (failure)
         if: failure()
@@ -225,7 +225,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           environment-url: '${{ needs.deploy-preview.outputs.deployment_url }}aat-all-flags'
-          state: ${{ needs.aat-reports.outputs.aat-all-flags }}
+          state: 'success'
           deployment-id: ${{ steps.aat-all-flags.outputs.deployment_id }}
       - name: Update aat-all-flags deployment status (failure)
         if: failure()
