@@ -13,19 +13,12 @@ updates:
     labels:
       - 'dependencies'
       - 'skip changeset'
-  - package-ecosystem: 'npm'
-    directory: '/'
-    schedule:
-      interval: 'weekly'
-    versioning-strategy: increase
-    labels:
-      - 'dependencies'
-      - 'skip changeset'
     groups:
       storybook:
         patterns:
           - '@storybook/*'
           - 'storybook'
+
   - package-ecosystem: 'github-actions'
     directory: '/'
     schedule:
