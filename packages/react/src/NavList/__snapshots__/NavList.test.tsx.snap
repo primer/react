@@ -16,7 +16,6 @@ exports[`NavList renders a simple list 1`] = `
   flex-grow: 1;
   border-radius: 6px;
   color: inherit;
-  font-size: 14px;
 }
 
 .c3:hover {
@@ -78,7 +77,7 @@ exports[`NavList renders a simple list 1`] = `
   font-size: 14px;
   padding-top: 0;
   padding-bottom: 0;
-  line-height: 16px;
+  line-height: 20px;
   min-height: 5px;
   margin-left: 8px;
   margin-right: 8px;
@@ -162,7 +161,7 @@ exports[`NavList renders a simple list 1`] = `
   width: 4px;
   height: 24px;
   content: "";
-  background-color: var(--borderColor-accent-emphasis);
+  background-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   border-radius: 6px;
 }
 
@@ -178,7 +177,7 @@ exports[`NavList renders a simple list 1`] = `
   width: 4px;
   height: 24px;
   content: "";
-  background-color: var(--borderColor-accent-emphasis);
+  background-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   border-radius: 6px;
 }
 
@@ -193,7 +192,7 @@ exports[`NavList renders a simple list 1`] = `
   font-size: 14px;
   padding-top: 0;
   padding-bottom: 0;
-  line-height: 16px;
+  line-height: 20px;
   min-height: 5px;
   margin-left: 8px;
   margin-right: 8px;
@@ -280,7 +279,7 @@ exports[`NavList renders a simple list 1`] = `
   width: 4px;
   height: 24px;
   content: "";
-  background-color: var(--borderColor-accent-emphasis);
+  background-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   border-radius: 6px;
 }
 
@@ -360,7 +359,6 @@ exports[`NavList renders a simple list 1`] = `
           class="c3 Link"
           href="/"
           id=":r2:"
-          style="--subitem-depth: 0;"
           tabindex="0"
         >
           <div
@@ -384,7 +382,6 @@ exports[`NavList renders a simple list 1`] = `
           class="c3 Link"
           href="/about"
           id=":r3:"
-          style="--subitem-depth: 0;"
           tabindex="0"
         >
           <div
@@ -408,7 +405,6 @@ exports[`NavList renders a simple list 1`] = `
           class="c3 Link"
           href="/contact"
           id=":r4:"
-          style="--subitem-depth: 0;"
           tabindex="0"
         >
           <div
@@ -436,6 +432,8 @@ exports[`NavList renders with groups 1`] = `
   margin-top: calc(8px - 1px);
   margin-bottom: 8px;
   list-style: none;
+  margin-right: calc(-1 * var(--base-size-8));
+  margin-left: calc(-1 * var(--base-size-8));
 }
 
 .c1:first-child {
@@ -450,15 +448,40 @@ exports[`NavList renders with groups 1`] = `
   margin-top: 8px;
 }
 
-.c2:has([data-component="GroupHeadingWrap"] + ul > [data-component="GroupHeadingWrap"]) > [data-component="GroupHeadingWrap"] {
+.c2:has([data-component="NavList.GroupHeading"]):has([data-component="ActionList.GroupHeading"]) [data-component="ActionList.GroupHeading"] {
   display: none;
 }
 
 .c3 {
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-left: 16px;
+  padding-right: 16px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
+  list-style: none;
+}
+
+.c3 .ActionListGroupHeading {
+  font-size: var(--text-body-size-small),12px;
+  font-weight: var(--base-text-weight-semibold,600);
+  line-height: var(--text-body-lineHeight-small,1.6666);
+  color: var(--fgColor-muted);
+}
+
+.c3 .ActionListGroupHeadingDescription {
+  font-size: var(--text-body-size-small,12px);
+  font-weight: var(--base-text-weight-normal,400);
+  line-height: var(--text-body-lineHeight-small,1.6666);
+  color: var(--fgColor-muted);
+}
+
+.c4 {
   padding-inline-start: 0;
 }
 
-.c6 {
+.c7 {
   padding-left: 8px;
   padding-right: 8px;
   padding-top: 6px;
@@ -473,16 +496,15 @@ exports[`NavList renders with groups 1`] = `
   flex-grow: 1;
   border-radius: 6px;
   color: inherit;
-  font-size: 14px;
 }
 
-.c6:hover {
+.c7:hover {
   color: inherit;
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
-.c7 {
+.c8 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -497,7 +519,7 @@ exports[`NavList renders with groups 1`] = `
   min-width: 0;
 }
 
-.c8 {
+.c9 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -507,7 +529,7 @@ exports[`NavList renders with groups 1`] = `
   line-height: 20px;
 }
 
-.c10 {
+.c11 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -524,7 +546,7 @@ exports[`NavList renders with groups 1`] = `
   padding-bottom: 8px;
 }
 
-.c5 {
+.c6 {
   position: relative;
   display: -webkit-box;
   display: -webkit-flex;
@@ -535,7 +557,7 @@ exports[`NavList renders with groups 1`] = `
   font-size: 14px;
   padding-top: 0;
   padding-bottom: 0;
-  line-height: 16px;
+  line-height: 20px;
   min-height: 5px;
   margin-left: 8px;
   margin-right: 8px;
@@ -558,32 +580,32 @@ exports[`NavList renders with groups 1`] = `
   background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
 }
 
-.c5[data-loading] {
+.c6[data-loading] {
   cursor: default;
 }
 
-.c5[aria-disabled],
-.c5[data-inactive] {
+.c6[aria-disabled],
+.c6[data-inactive] {
   cursor: not-allowed;
 }
 
-.c5[aria-disabled] [data-component="ActionList.Checkbox"],
-.c5[data-inactive] [data-component="ActionList.Checkbox"] {
+.c6[aria-disabled] [data-component="ActionList.Checkbox"],
+.c6[data-inactive] [data-component="ActionList.Checkbox"] {
   cursor: not-allowed;
   background-color: var(--control-bgColor-disabled,rgba(175,184,193,0.2));
   border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
 }
 
-.c5[aria-disabled] [data-component="ActionList.Selection"],
-.c5[data-inactive] [data-component="ActionList.Selection"] {
+.c6[aria-disabled] [data-component="ActionList.Selection"],
+.c6[data-inactive] [data-component="ActionList.Selection"] {
   color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
 }
 
-.c5 [data-component="ActionList.Item--DividerContainer"] {
+.c6 [data-component="ActionList.Item--DividerContainer"] {
   position: relative;
 }
 
-.c5 [data-component="ActionList.Item--DividerContainer"]::before {
+.c6 [data-component="ActionList.Item--DividerContainer"]::before {
   content: " ";
   display: block;
   position: absolute;
@@ -594,52 +616,52 @@ exports[`NavList renders with groups 1`] = `
   border-color: var(--divider-color,transparent);
 }
 
-.c5:not(:first-of-type) {
+.c6:not(:first-of-type) {
   --divider-color: var(--borderColor-muted,var(--color-action-list-item-inline-divider,rgba(208,215,222,0.48)));
 }
 
-[data-component="ActionList.Divider"] + .c4 {
+[data-component="ActionList.Divider"] + .c5 {
   --divider-color: transparent !important;
 }
 
-.c5:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]),
-.c5[data-focus-visible-added]:not([aria-disabled]):not([data-inactive]) {
+.c6:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]),
+.c6[data-focus-visible-added]:not([aria-disabled]):not([data-inactive]) {
   --divider-color: transparent;
 }
 
-.c5:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c4,
-.c5[data-focus-visible-added] + li {
+.c6:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c5,
+.c6[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
 
-.c5::after {
+.c6::after {
   position: absolute;
   top: calc(50% - 12px);
   left: -8px;
   width: 4px;
   height: 24px;
   content: "";
-  background-color: var(--borderColor-accent-emphasis);
+  background-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   border-radius: 6px;
 }
 
-.c5[data-is-active-descendant] {
+.c6[data-is-active-descendant] {
   font-weight: 400;
   background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
 }
 
-.c5[data-is-active-descendant]::after {
+.c6[data-is-active-descendant]::after {
   position: absolute;
   top: calc(50% - 12px);
   left: -8px;
   width: 4px;
   height: 24px;
   content: "";
-  background-color: var(--borderColor-accent-emphasis);
+  background-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   border-radius: 6px;
 }
 
-.c9 {
+.c10 {
   position: relative;
   display: -webkit-box;
   display: -webkit-flex;
@@ -650,7 +672,7 @@ exports[`NavList renders with groups 1`] = `
   font-size: 14px;
   padding-top: 0;
   padding-bottom: 0;
-  line-height: 16px;
+  line-height: 20px;
   min-height: 5px;
   margin-left: 8px;
   margin-right: 8px;
@@ -671,32 +693,32 @@ exports[`NavList renders with groups 1`] = `
   margin-bottom: unset;
 }
 
-.c9[data-loading] {
+.c10[data-loading] {
   cursor: default;
 }
 
-.c9[aria-disabled],
-.c9[data-inactive] {
+.c10[aria-disabled],
+.c10[data-inactive] {
   cursor: not-allowed;
 }
 
-.c9[aria-disabled] [data-component="ActionList.Checkbox"],
-.c9[data-inactive] [data-component="ActionList.Checkbox"] {
+.c10[aria-disabled] [data-component="ActionList.Checkbox"],
+.c10[data-inactive] [data-component="ActionList.Checkbox"] {
   cursor: not-allowed;
   background-color: var(--control-bgColor-disabled,rgba(175,184,193,0.2));
   border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
 }
 
-.c9[aria-disabled] [data-component="ActionList.Selection"],
-.c9[data-inactive] [data-component="ActionList.Selection"] {
+.c10[aria-disabled] [data-component="ActionList.Selection"],
+.c10[data-inactive] [data-component="ActionList.Selection"] {
   color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
 }
 
-.c9 [data-component="ActionList.Item--DividerContainer"] {
+.c10 [data-component="ActionList.Item--DividerContainer"] {
   position: relative;
 }
 
-.c9 [data-component="ActionList.Item--DividerContainer"]::before {
+.c10 [data-component="ActionList.Item--DividerContainer"]::before {
   content: " ";
   display: block;
   position: absolute;
@@ -707,95 +729,95 @@ exports[`NavList renders with groups 1`] = `
   border-color: var(--divider-color,transparent);
 }
 
-.c9:not(:first-of-type) {
+.c10:not(:first-of-type) {
   --divider-color: var(--borderColor-muted,var(--color-action-list-item-inline-divider,rgba(208,215,222,0.48)));
 }
 
-[data-component="ActionList.Divider"] + .c4 {
+[data-component="ActionList.Divider"] + .c5 {
   --divider-color: transparent !important;
 }
 
-.c9:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]),
-.c9[data-focus-visible-added]:not([aria-disabled]):not([data-inactive]) {
+.c10:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]),
+.c10[data-focus-visible-added]:not([aria-disabled]):not([data-inactive]) {
   --divider-color: transparent;
 }
 
-.c9:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c4,
-.c9[data-focus-visible-added] + li {
+.c10:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c5,
+.c10[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
 
-.c9[data-is-active-descendant] {
+.c10[data-is-active-descendant] {
   font-weight: 400;
   background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
 }
 
-.c9[data-is-active-descendant]::after {
+.c10[data-is-active-descendant]::after {
   position: absolute;
   top: calc(50% - 12px);
   left: -8px;
   width: 4px;
   height: 24px;
   content: "";
-  background-color: var(--borderColor-accent-emphasis);
+  background-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   border-radius: 6px;
 }
 
 @media (forced-colors:active) {
-  .c5:focus,
-  .c5:focus-visible,
-  .c5 > a.focus-visible,
-  .c5[data-is-active-descendant] {
+  .c6:focus,
+  .c6:focus-visible,
+  .c6 > a.focus-visible,
+  .c6[data-is-active-descendant] {
     outline: solid 1px transparent !important;
   }
 }
 
 @media (hover:hover) and (pointer:fine) {
-  .c5:hover:not([aria-disabled]):not([data-inactive]) {
+  .c6:hover:not([aria-disabled]):not([data-inactive]) {
     background-color: var(--control-transparent-bgColor-hover,var(--color-action-list-item-default-hover-bg,rgba(208,215,222,0.32)));
     color: var(--fgColor-default,var(--color-fg-default,#1F2328));
     box-shadow: inset 0 0 0 max(1px,0.0625rem) var(--control-transparent-borderColor-active,var(--color-action-list-item-default-active-border,transparent));
   }
 
-  .c5:focus-visible,
-  .c5 > a.focus-visible,
-  .c5:focus.focus-visible {
+  .c6:focus-visible,
+  .c6 > a.focus-visible,
+  .c6:focus.focus-visible {
     outline: none;
     border: 2 solid;
     box-shadow: 0 0 0 2px var(--focus-outlineColor);
   }
 
-  .c5:active:not([aria-disabled]):not([data-inactive]) {
+  .c6:active:not([aria-disabled]):not([data-inactive]) {
     background-color: var(--control-transparent-bgColor-active,var(--color-action-list-item-default-active-bg,rgba(208,215,222,0.48)));
     color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   }
 }
 
 @media (forced-colors:active) {
-  .c9:focus,
-  .c9:focus-visible,
-  .c9 > a.focus-visible,
-  .c9[data-is-active-descendant] {
+  .c10:focus,
+  .c10:focus-visible,
+  .c10 > a.focus-visible,
+  .c10[data-is-active-descendant] {
     outline: solid 1px transparent !important;
   }
 }
 
 @media (hover:hover) and (pointer:fine) {
-  .c9:hover:not([aria-disabled]):not([data-inactive]) {
+  .c10:hover:not([aria-disabled]):not([data-inactive]) {
     background-color: var(--control-transparent-bgColor-hover,var(--color-action-list-item-default-hover-bg,rgba(208,215,222,0.32)));
     color: var(--fgColor-default,var(--color-fg-default,#1F2328));
     box-shadow: inset 0 0 0 max(1px,0.0625rem) var(--control-transparent-borderColor-active,var(--color-action-list-item-default-active-border,transparent));
   }
 
-  .c9:focus-visible,
-  .c9 > a.focus-visible,
-  .c9:focus.focus-visible {
+  .c10:focus-visible,
+  .c10 > a.focus-visible,
+  .c10:focus.focus-visible {
     outline: none;
     border: 2 solid;
     box-shadow: 0 0 0 2px var(--focus-outlineColor);
   }
 
-  .c9:active:not([aria-disabled]):not([data-inactive]) {
+  .c10:active:not([aria-disabled]):not([data-inactive]) {
     background-color: var(--control-transparent-bgColor-active,var(--color-action-list-item-default-active-bg,rgba(208,215,222,0.48)));
     color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   }
@@ -817,12 +839,10 @@ exports[`NavList renders with groups 1`] = `
         class="c2"
       >
         <div
-          class="GroupHeadingWrap"
-          data-component="GroupHeadingWrap"
-          data-variant="subtle"
+          class="c3"
         >
           <h3
-            class="GroupHeading"
+            class="ActionListGroupHeading Heading"
             data-component="ActionList.GroupHeading"
             id=":r7:"
           >
@@ -831,26 +851,25 @@ exports[`NavList renders with groups 1`] = `
         </div>
         <ul
           aria-labelledby=":r7:"
-          class="c3"
+          class="c4"
         >
           <li
-            class="c4 c5"
+            class="c5 c6"
           >
             <a
               aria-current="page"
               aria-labelledby=":r8:--label  "
-              class="c6 Link"
+              class="c7 Link"
               href="/getting-started"
               id=":r8:"
-              style="--subitem-depth: 0;"
               tabindex="0"
             >
               <div
-                class="c7"
+                class="c8"
                 data-component="ActionList.Item--DividerContainer"
               >
                 <span
-                  class="c8"
+                  class="c9"
                   id=":r8:--label"
                 >
                   Getting started
@@ -869,12 +888,10 @@ exports[`NavList renders with groups 1`] = `
         class="c2"
       >
         <div
-          class="GroupHeadingWrap"
-          data-component="GroupHeadingWrap"
-          data-variant="subtle"
+          class="c3"
         >
           <h3
-            class="GroupHeading"
+            class="ActionListGroupHeading Heading"
             data-component="ActionList.GroupHeading"
             id=":r9:"
           >
@@ -883,25 +900,24 @@ exports[`NavList renders with groups 1`] = `
         </div>
         <ul
           aria-labelledby=":r9:"
-          class="c3"
+          class="c4"
         >
           <li
-            class="c4 c9"
+            class="c5 c10"
           >
             <a
               aria-labelledby=":ra:--label  "
-              class="c6 Link"
+              class="c7 Link"
               href="/Avatar"
               id=":ra:"
-              style="--subitem-depth: 0;"
               tabindex="0"
             >
               <div
-                class="c7"
+                class="c8"
                 data-component="ActionList.Item--DividerContainer"
               >
                 <span
-                  class="c10"
+                  class="c11"
                   id=":ra:--label"
                 >
                   Avatar
@@ -1044,7 +1060,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   font-size: 14px;
   padding-top: 0;
   padding-bottom: 0;
-  line-height: 16px;
+  line-height: 20px;
   min-height: 5px;
   margin-left: 8px;
   margin-right: 8px;
@@ -1128,7 +1144,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   width: 4px;
   height: 24px;
   content: "";
-  background-color: var(--borderColor-accent-emphasis);
+  background-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   border-radius: 6px;
 }
 
@@ -1144,7 +1160,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   width: 4px;
   height: 24px;
   content: "";
-  background-color: var(--borderColor-accent-emphasis);
+  background-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   border-radius: 6px;
 }
 
@@ -1156,10 +1172,9 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   display: flex;
   padding-left: 8px;
   padding-right: 8px;
-  font-size: 14px;
   padding-top: 6px;
   padding-bottom: 6px;
-  line-height: 16px;
+  line-height: 20px;
   min-height: 5px;
   margin-left: 8px;
   margin-right: 8px;
@@ -1247,7 +1262,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   width: 4px;
   height: 24px;
   content: "";
-  background-color: var(--borderColor-accent-emphasis);
+  background-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   border-radius: 6px;
 }
 
@@ -1333,15 +1348,15 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
       class="c0"
     >
       <li
-        aria-labelledby=":r26:"
+        aria-labelledby=":r2c:"
         class="c1 c2"
       >
         <button
-          aria-controls=":r27:"
+          aria-controls=":r2d:"
           aria-expanded="true"
-          aria-labelledby=":r26:--label :r26:--trailing-visual "
+          aria-labelledby=":r2c:--label :r2c:--trailing-visual "
           class="c3 c4"
-          id=":r26:"
+          id=":r2c:"
           tabindex="0"
         >
           <div
@@ -1353,13 +1368,13 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
             >
               <span
                 class="c1 c7"
-                id=":r26:--label"
+                id=":r2c:--label"
               >
                 Item
               </span>
               <span
                 class="c1 c8"
-                id=":r26:--trailing-visual"
+                id=":r2c:--trailing-visual"
               >
                 <svg
                   aria-hidden="true"
@@ -1381,20 +1396,19 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
         </button>
         <div>
           <ul
-            aria-labelledby=":r26:"
+            aria-labelledby=":r2c:"
             class="c1 c10"
-            id=":r27:"
+            id=":r2d:"
           >
             <li
               class="c3 c11"
             >
               <a
                 aria-current="page"
-                aria-labelledby=":r29:--label  "
+                aria-labelledby=":r2f:--label  "
                 class="c1 c12 Link"
                 href="#"
-                id=":r29:"
-                style="--subitem-depth: 1;"
+                id=":r2f:"
                 tabindex="0"
               >
                 <div
@@ -1403,7 +1417,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
                 >
                   <span
                     class="c1 c13"
-                    id=":r29:--label"
+                    id=":r2f:--label"
                   >
                     Sub Item
                   </span>
@@ -1536,7 +1550,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   font-size: 14px;
   padding-top: 0;
   padding-bottom: 0;
-  line-height: 16px;
+  line-height: 20px;
   min-height: 5px;
   margin-left: 8px;
   margin-right: 8px;
@@ -1620,7 +1634,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   width: 4px;
   height: 24px;
   content: "";
-  background-color: var(--borderColor-accent-emphasis);
+  background-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   border-radius: 6px;
 }
 
@@ -1636,7 +1650,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   width: 4px;
   height: 24px;
   content: "";
-  background-color: var(--borderColor-accent-emphasis);
+  background-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   border-radius: 6px;
 }
 
@@ -1657,10 +1671,9 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   display: flex;
   padding-left: 8px;
   padding-right: 8px;
-  font-size: 14px;
   padding-top: 6px;
   padding-bottom: 6px;
-  line-height: 16px;
+  line-height: 20px;
   min-height: 5px;
   margin-left: 8px;
   margin-right: 8px;
@@ -1744,7 +1757,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   width: 4px;
   height: 24px;
   content: "";
-  background-color: var(--borderColor-accent-emphasis);
+  background-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   border-radius: 6px;
 }
 
@@ -1760,7 +1773,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   width: 4px;
   height: 24px;
   content: "";
-  background-color: var(--borderColor-accent-emphasis);
+  background-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   border-radius: 6px;
 }
 
@@ -1854,15 +1867,15 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
       class="c0"
     >
       <li
-        aria-labelledby=":r20:"
+        aria-labelledby=":r26:"
         class="c1 c2"
       >
         <button
-          aria-controls=":r21:"
+          aria-controls=":r27:"
           aria-expanded="false"
-          aria-labelledby=":r20:--label :r20:--trailing-visual "
+          aria-labelledby=":r26:--label :r26:--trailing-visual "
           class="c3 c4"
-          id=":r20:"
+          id=":r26:"
           tabindex="0"
         >
           <div
@@ -1874,13 +1887,13 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
             >
               <span
                 class="c1 c7"
-                id=":r20:--label"
+                id=":r26:--label"
               >
                 Item
               </span>
               <span
                 class="c1 c8"
-                id=":r20:--trailing-visual"
+                id=":r26:--trailing-visual"
               >
                 <svg
                   aria-hidden="true"
@@ -1902,20 +1915,19 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
         </button>
         <div>
           <ul
-            aria-labelledby=":r20:"
+            aria-labelledby=":r26:"
             class="c1 c10"
-            id=":r21:"
+            id=":r27:"
           >
             <li
               class="c3 c11"
             >
               <a
                 aria-current="page"
-                aria-labelledby=":r23:--label  "
+                aria-labelledby=":r29:--label  "
                 class="c1 c12 Link"
                 href="#"
-                id=":r23:"
-                style="--subitem-depth: 1;"
+                id=":r29:"
                 tabindex="0"
               >
                 <div
@@ -1924,7 +1936,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
                 >
                   <span
                     class="c1 c7"
-                    id=":r23:--label"
+                    id=":r29:--label"
                   >
                     Sub Item
                   </span>
