@@ -28,12 +28,6 @@ jobs:
           name: github-pages
           path: docs/public
 
-  vrt-reports:
-    uses: ./.github/workflows/vrt-reports.yml
-
-  aat-reports:
-    uses: ./.github/workflows/aat-reports.yml
-
   deploy-preview:
     if: ${{ github.repository != github.event.pull_request.head.repo.full_name }}
     needs: build
@@ -52,3 +46,11 @@ jobs:
         uses: actions/deploy-pages@v4
         with:
           preview: true
+
+  vrt-reports:
+    if: ${{ github.repository != github.event.pull_request.head.repo.full_name }}
+    uses: ./.github/workflows/vrt-reports.yml
+
+  aat-reports:
+    if: ${{ github.repository != github.event.pull_request.head.repo.full_name }}
+    uses: ./.github/workflows/aat-reports.yml
