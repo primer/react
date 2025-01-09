@@ -15,8 +15,8 @@
   user-select: none;
   background-color: transparent;
   border: var(--borderWidth-thin) solid;
-  border-color: var(--button-default-borderColor-rest);
-  border-radius: var(--borderRadius-medium);
+  border-color: var(--button-danger-borderColor-active);
+  border-radius: var(--borderRadius-large);
   transition: 80ms cubic-bezier(0.65, 0, 0.35, 1);
   transition-property: color, fill, background-color, border-color;
   appearance: none;
