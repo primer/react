@@ -313,38 +313,33 @@ test.describe('ActionList', () => {
     }
   })
 
-  // removing this temporarily as there is a slight diff betqeen default and enabled CSS feature flag that feels like a non-issue
-  // eslint-disable-next-line jest/no-commented-out-tests
-  // test.describe('Text Wrap And Truncation', () => {
-  //   for (const theme of themes) {
-  // eslint-disable-next-line jest/no-commented-out-tests
-  //     test.describe(theme, () => {
-  // eslint-disable-next-line jest/no-commented-out-tests
-  //       test('default @vrt', async ({page}) => {
-  //         await visit(page, {
-  //           id: 'components-actionlist-features--text-wrap-and-truncation',
-  //           globals: {
-  //             colorScheme: theme,
-  //           },
-  //         })
+  test.describe('Text Wrap And Truncation', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-actionlist-features--text-wrap-and-truncation',
+            globals: {
+              colorScheme: theme,
+            },
+          })
 
-  //         // Default state
-  //         expect(await page.screenshot()).toMatchSnapshot(`ActionList.Text Wrap And Truncation.${theme}.png`)
-  //       })
+          // Default state
+          expect(await page.screenshot()).toMatchSnapshot(`ActionList.Text Wrap And Truncation.${theme}.png`)
+        })
 
-  // eslint-disable-next-line jest/no-commented-out-tests
-  //       test('axe @aat', async ({page}) => {
-  //         await visit(page, {
-  //           id: 'components-actionlist-features--text-wrap-and-truncation',
-  //           globals: {
-  //             colorScheme: theme,
-  //           },
-  //         })
-  //         await expect(page).toHaveNoViolations()
-  //       })
-  //     })
-  //   }
-  // })
+        test('axe @aat', async ({page}) => {
+          await visit(page, {
+            id: 'components-actionlist-features--text-wrap-and-truncation',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+          await expect(page).toHaveNoViolations()
+        })
+      })
+    }
+  })
 
   test.describe('With Avatars', () => {
     for (const theme of themes) {
@@ -736,62 +731,6 @@ test.describe('ActionList', () => {
         test('axe @aat', async ({page}) => {
           await visit(page, {
             id: 'components-actionlist-dev--heading-custom-classname',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations()
-        })
-      })
-    }
-  })
-
-  test.describe('Visuals with Classnames', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-actionlist-dev--visual-custom-classname',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`Visuals with Classnames.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-actionlist-dev--visual-custom-classname',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations()
-        })
-      })
-    }
-  })
-
-  test.describe('Link Item Options', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-actionlist-examples--list-link-item',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`Link Item Options.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-actionlist-examples--list-link-item',
             globals: {
               colorScheme: theme,
             },

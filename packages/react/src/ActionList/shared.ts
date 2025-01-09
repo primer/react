@@ -52,7 +52,6 @@ export type ActionListItemProps = {
    * Private API for use internally only. Used by LinkItem to wrap contents in an anchor
    */
   _PrivateItemWrapper?: React.FC<React.PropsWithChildren<MenuItemProps>>
-  className?: string
 } & SxProp
 
 type MenuItemProps = {
@@ -63,7 +62,6 @@ type MenuItemProps = {
   'aria-labelledby'?: string
   'aria-describedby'?: string
   role?: string
-  className?: string
 }
 
 export type ItemContext = Pick<ActionListItemProps, 'variant' | 'disabled'> & {

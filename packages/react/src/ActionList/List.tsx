@@ -14,7 +14,6 @@ import {FocusKeys, useFocusZone} from '../hooks/useFocusZone'
 import {clsx} from 'clsx'
 import {useFeatureFlag} from '../FeatureFlags'
 import classes from './ActionList.module.css'
-import {actionListCssModulesFlag} from './featureflag'
 
 const ListBox = styled.ul<SxProp>(sx)
 
@@ -58,7 +57,7 @@ export const List = React.forwardRef<HTMLUListElement, ActionListProps>(
       focusOutBehavior: listRole === 'menu' ? 'wrap' : undefined,
     })
 
-    const enabled = useFeatureFlag(actionListCssModulesFlag)
+    const enabled = useFeatureFlag('primer_react_css_modules_team')
 
     return (
       <ListContext.Provider
