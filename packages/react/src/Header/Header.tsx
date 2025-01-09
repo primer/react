@@ -1,81 +1,139 @@
 import type {Location, Pathname} from 'history'
+import styled, {css} from 'styled-components'
+import {get} from '../constants'
 import type {SxProp} from '../sx'
+import sx from '../sx'
+import type {ComponentProps} from '../utils/types'
+import {toggleStyledComponent} from '../internal/utils/toggleStyledComponent'
+import {useFeatureFlag} from '../FeatureFlags'
 import React from 'react'
 import {clsx} from 'clsx'
 import classes from './Header.module.css'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
-import {defaultSxProp} from '../utils/defaultSxProp'
-import Box from '../Box'
 
-export type HeaderProps = React.ComponentProps<'header'> & SxProp & {as?: React.ElementType}
-export type HeaderItemProps = React.ComponentProps<'div'> & SxProp & {full?: boolean}
-export type HeaderLinkProps = React.ComponentProps<'a'> & SxProp & {to?: Location | Pathname; as?: React.ElementType}
+type StyledHeaderProps = React.ComponentProps<'header'> & SxProp
+type StyledHeaderItemProps = React.ComponentProps<'div'> & SxProp & {full?: boolean}
+type StyledHeaderLinkProps = React.ComponentProps<'a'> & SxProp & {to?: Location | Pathname}
 
-const Header = React.forwardRef<HTMLElement, HeaderProps>(function Header(
-  {children, className, sx: sxProp = defaultSxProp, as = 'header', ...rest},
+const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_ga'
+
+const StyledHeader = toggleStyledComponent(
+  CSS_MODULES_FEATURE_FLAG,
+  'header',
+  styled.header<StyledHeaderProps>`
+    z-index: 32;
+    display: flex;
+    padding: ${get('space.3')};
+    font-size: ${get('fontSizes.1')};
+    line-height: ${get('lineHeights.default')};
+    color: ${get('colors.header.text')};
+    background-color: ${get('colors.header.bg')};
+    align-items: center;
+    flex-wrap: nowrap;
+    overflow: auto;
+
+    ${sx};
+  `,
+)
+
+const Header = React.forwardRef<HTMLElement, StyledHeaderProps>(function Header(
+  {children, className, ...rest},
   forwardRef,
 ) {
-  if (sxProp !== defaultSxProp || as !== 'header') {
-    return (
-      <Box as={as} sx={sxProp} ref={forwardRef} className={clsx(className, classes.Header)} {...rest}>
-        {children}
-      </Box>
-    )
-  }
+  const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
   return (
-    <header ref={forwardRef} className={clsx(className, classes.Header)} {...rest}>
+    <StyledHeader ref={forwardRef} className={clsx(className, {[classes.Header]: enabled})} {...rest}>
       {children}
-    </header>
+    </StyledHeader>
   )
-}) as PolymorphicForwardRefComponent<'header', HeaderProps>
+}) as PolymorphicForwardRefComponent<'header', StyledHeaderProps>
 
 Header.displayName = 'Header'
 
-const HeaderItem = React.forwardRef<HTMLDivElement, HeaderItemProps>(function HeaderItem(
-  {children, className, sx: sxProp = defaultSxProp, full, ...rest},
+const StyledHeaderItem = toggleStyledComponent(
+  CSS_MODULES_FEATURE_FLAG,
+  'div',
+  styled.div<StyledHeaderItemProps>`
+    display: flex;
+    margin-right: ${get('space.3')};
+    align-self: stretch;
+    align-items: center;
+    flex-wrap: nowrap;
+
+    ${({full}) =>
+      full &&
+      css`
+        flex: auto;
+      `};
+
+    ${sx};
+  `,
+)
+
+const HeaderItem = React.forwardRef<HTMLElement, StyledHeaderItemProps>(function HeaderItem(
+  {children, className, ...rest},
   forwardRef,
 ) {
-  if (sxProp !== defaultSxProp) {
-    return (
-      <Box
-        as={'div'}
-        sx={sxProp}
-        ref={forwardRef}
-        className={clsx(className, classes.HeaderItem)}
-        data-full={full}
-        {...rest}
-      >
-        {children}
-      </Box>
-    )
-  }
+  const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
   return (
-    <div ref={forwardRef} className={clsx(className, classes.HeaderItem)} data-full={full} {...rest}>
+    <StyledHeaderItem
+      ref={forwardRef}
+      className={clsx(className, enabled && classes.HeaderItem)}
+      data-full={rest.full}
+      {...rest}
+    >
       {children}
-    </div>
+    </StyledHeaderItem>
   )
 })
 
 HeaderItem.displayName = 'Header.Item'
 
-const HeaderLink = React.forwardRef<HTMLAnchorElement, HeaderLinkProps>(function HeaderLink(
-  {children, className, sx: sxProp = defaultSxProp, as = 'a', ...rest},
+const StyledHeaderLink = toggleStyledComponent(
+  CSS_MODULES_FEATURE_FLAG,
+  'a',
+  styled.a.attrs<StyledHeaderLinkProps>(({to}) => {
+    const isReactRouter = typeof to === 'string'
+    if (isReactRouter) {
+      // according to their docs, NavLink supports aria-current:
+      // https://reacttraining.com/react-router/web/api/NavLink/aria-current-string
+      return {'aria-current': 'page'}
+    } else {
+      return {}
+    }
+  })<StyledHeaderLinkProps>`
+    font-weight: ${get('fontWeights.bold')};
+    color: ${get('colors.header.logo')};
+    white-space: nowrap;
+    cursor: pointer;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+
+    &:hover,
+    &:focus {
+      color: ${get('colors.header.text')};
+    }
+
+    ${sx};
+  `,
+)
+
+const HeaderLink = React.forwardRef<HTMLElement, StyledHeaderLinkProps>(function HeaderLink(
+  {children, className, ...rest},
   forwardRef,
 ) {
-  if (sxProp !== defaultSxProp || as !== 'a') {
-    return (
-      <Box as={as} sx={sxProp} ref={forwardRef} className={clsx(className, classes.HeaderLink)} {...rest}>
-        {children}
-      </Box>
-    )
-  }
+  const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
   return (
-    <a ref={forwardRef} className={clsx(className, classes.HeaderLink)} {...rest}>
+    <StyledHeaderLink ref={forwardRef} className={clsx(className, enabled && classes.HeaderLink)} {...rest}>
       {children}
-    </a>
+    </StyledHeaderLink>
   )
 })
 
 HeaderLink.displayName = 'Header.Link'
 
+export type HeaderProps = ComponentProps<typeof Header>
+export type HeaderLinkProps = ComponentProps<typeof HeaderLink>
+export type HeaderItemProps = ComponentProps<typeof HeaderItem>
 export default Object.assign(Header, {Link: HeaderLink, Item: HeaderItem})
