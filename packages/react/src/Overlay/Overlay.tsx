@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import type {ComponentPropsWithRef, ReactElement} from 'react'
+import type {ComponentPropsWithRef, ReactElement, ElementRef} from 'react'
 import React, {useEffect, useRef} from 'react'
 import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 import {get} from '../constants'
@@ -17,6 +17,7 @@ import {useFeatureFlag} from '../FeatureFlags'
 import {toggleStyledComponent} from '../internal/utils/toggleStyledComponent'
 import classes from './Overlay.module.css'
 import {clsx} from 'clsx'
+import {useMergedRefs} from '../internal/hooks/useMergedRefs'
 
 const CSS_MODULES_FLAG = 'primer_react_css_modules_team'
 
@@ -69,6 +70,7 @@ const StyledOverlay = toggleStyledComponent(
   CSS_MODULES_FLAG,
   'div',
   styled.div<StyledOverlayProps>`
+    all: unset;
     background-color: ${get('colors.canvas.overlay')};
     box-shadow: ${get('shadows.overlay.shadow')};
     position: absolute;
@@ -155,12 +157,45 @@ export const BaseOverlay = React.forwardRef<HTMLDivElement, OwnOverlayProps>(
     forwardedRef,
   ): ReactElement => {
     const cssModulesEnabled = useFeatureFlag(CSS_MODULES_FLAG)
+    const popoverRef = useRef<ElementRef<'div'>>(null)
+    const ref = useMergedRefs(popoverRef, forwardedRef)
+
+    useLayoutEffect(() => {
+      const {current: popover} = popoverRef
+      if (!popover) {
+        return
+      }
+
+      popover.setAttribute('popover', 'auto')
+    }, [])
+
+    useLayoutEffect(() => {
+      const {current: popover} = popoverRef
+      if (!popover) {
+        return
+      }
+
+      // Wait a tick for the `popover` to be connected, otherwise
+      // `showPopover()` will not work as expected
+      let timeoutId: number | null = window.setTimeout(() => {
+        popover.showPopover()
+        timeoutId = null
+      }, 0)
+
+      return () => {
+        if (timeoutId !== null) {
+          clearTimeout(timeoutId)
+          timeoutId = null
+        }
+        popover.hidePopover()
+      }
+    }, [])
 
     if (cssModulesEnabled) {
       return (
         <StyledOverlay
           {...rest}
-          ref={forwardedRef}
+          ref={ref}
           style={
             {
               left,
@@ -189,7 +224,7 @@ export const BaseOverlay = React.forwardRef<HTMLDivElement, OwnOverlayProps>(
           maxHeight={maxHeight}
           maxWidth={maxWidth}
           {...rest}
-          ref={forwardedRef}
+          ref={ref}
           style={
             {
               left,
