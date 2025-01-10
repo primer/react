@@ -1,8 +1,6 @@
 name: Deploy Preview
 on:
   workflow_run:
-    branches:
-      - main
     workflows: [CI]
     types:
       - completed
