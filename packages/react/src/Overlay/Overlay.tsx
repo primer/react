@@ -18,7 +18,6 @@ import {toggleStyledComponent} from '../internal/utils/toggleStyledComponent'
 import classes from './Overlay.module.css'
 import {clsx} from 'clsx'
 import {useMergedRefs} from '../internal/hooks/useMergedRefs'
-import useIsomorphicLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 
 const CSS_MODULES_FLAG = 'primer_react_css_modules_team'
 
@@ -161,7 +160,7 @@ export const BaseOverlay = React.forwardRef<HTMLDivElement, OwnOverlayProps>(
     const popoverRef = useRef<ElementRef<'div'>>(null)
     const ref = useMergedRefs(popoverRef, forwardedRef)
 
-    useIsomorphicLayoutEffect(() => {
+    useLayoutEffect(() => {
       const {current: popover} = popoverRef
       if (!popover) {
         return
