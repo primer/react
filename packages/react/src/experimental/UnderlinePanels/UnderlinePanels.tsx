@@ -122,16 +122,6 @@ const UnderlinePanels: FC<UnderlinePanelsProps> = ({
       return child
     })
 
-    // `tabs` and `tabPanels` need to be refs because `child.type === {type}` will become false
-    // after the elements are cloned by `childrenWithProps` on the first render
-    // const tabs = useRef(
-    //   Children.toArray(childrenWithProps).filter(child => {
-    //     return isValidElement(child) && child.type === Tab
-    //   }),
-    // )
-    // const tabPanels = useRef(
-    //   Children.toArray(childrenWithProps).filter(child => isValidElement(child) && child.type === Panel),
-    // )
     const newTabs = Children.toArray(childrenWithProps).filter(child => {
       return isValidElement(child) && child.type === Tab
     })

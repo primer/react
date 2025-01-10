@@ -58,7 +58,7 @@ describe('UnderlinePanels', () => {
     const tabList = screen.getByRole('tablist')
     expect(tabList).toHaveAccessibleName('Select a tab')
   })
-  it('renders correct panel when matching tab is selected', () => {
+  it('updates the selected tab when aria-selected state changes', () => {
     const {rerender} = render(
       <UnderlinePanels aria-label="Select a tab">
         <UnderlinePanels.Tab aria-selected={true}>Tab 1</UnderlinePanels.Tab>
@@ -68,12 +68,11 @@ describe('UnderlinePanels', () => {
       </UnderlinePanels>,
     )
 
-    // Verify that the first tab is selected
+    // Verify that the first tab is selected and second tab is not
     let firstTab = screen.getByRole('tab', {name: 'Tab 1'})
-    expect(firstTab).toHaveAttribute('aria-selected', 'true')
-
-    // Verify that the second tab is not selected
     let secondTab = screen.getByRole('tab', {name: 'Tab 2'})
+
+    expect(firstTab).toHaveAttribute('aria-selected', 'true')
     expect(secondTab).toHaveAttribute('aria-selected', 'false')
 
     // Programmatically select the second tab by updating the aria-selected prop
@@ -86,6 +85,7 @@ describe('UnderlinePanels', () => {
       </UnderlinePanels>,
     )
 
+    // Verify the updated aria-selected prop changes which tab is selected
     firstTab = screen.getByRole('tab', {name: 'Tab 1'})
     secondTab = screen.getByRole('tab', {name: 'Tab 2'})
 
