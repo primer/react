@@ -13,16 +13,6 @@ export function buildPaginationModel(
     return [prev, next]
   }
 
-  // The number of pages shown in the middle window; the current page is always in the middle
-  // and we show surroundingPageCount pages on either side
-  const middleWindowCount = surroundingPageCount + 1 + surroundingPageCount
-
-  // The total number of pages shown including the margin pages
-  const totalPagesShown = marginPageCount + middleWindowCount + marginPageCount
-
-  // Only needs ellipsis if there are more pages than we can display
-  const needEllipsis = pageCount > totalPagesShown
-
   // Display the ellipsis at the start of the list of pages if the current page is further away
   // than surroundingPageCount + marginPageCount from the first page.
   // NOTE: we expand ellipses that collapse only one page later on.
@@ -31,7 +21,7 @@ export function buildPaginationModel(
   // surroundingPageCount: 2
   // marginPageCount: 1
   // [1, ..., 3, 4, _5_, 6, 7]
-  const hasStartEllipsis = currentPage > surroundingPageCount + marginPageCount + 1
+  const hasStartEllipsis = currentPage - surroundingPageCount > surroundingPageCount + marginPageCount
 
   // Display the ellipsis at the end of the list of pages if the current page is further away
   // than surroundingPageCount - marginPageCount from the last page.
@@ -41,109 +31,115 @@ export function buildPaginationModel(
   // surroundingPageCount: 2
   // marginPageCount: 1
   // [1, ..., 9, 10, _11_, 12, 13, ..., 15]
-  const hasEndEllipsis = currentPage < pageCount - surroundingPageCount - marginPageCount
-
-  let state: PaginationState = 'noEllipsis'
-  if (needEllipsis) {
-    if (hasStartEllipsis && hasEndEllipsis) {
-      state = 'bothEllipsis'
-    } else if (hasStartEllipsis) {
-      state = 'startEllipsis'
-    } else if (hasEndEllipsis) {
-      state = 'endEllipsis'
-    }
-  }
+  const hasEndEllipsis = currentPage + 1 < pageCount - surroundingPageCount - marginPageCount
 
   const pages: PageType[] = []
 
-  switch (state) {
-    case 'noEllipsis': {
-      // [1, 2, 3, 4]
-      addPages(1, pageCount)
-      break
-    }
-    case 'startEllipsis': {
-      addPages(1, marginPageCount, true)
-      // To keep the number of pages shown consistent, add the middleWindowCount
-      // and marginPageCount instead of overlapping them.
+  // [1, ..., 9, 10, 11, 12, _13_, 14, 15]
+  // standardGap: 3
+  // startOffset: 10
+  // endOffset: -1
 
-      // middleWindowCount: 5
-      // marginPageCount: 1
-      // [1, ..., 9, 10, _11_, 12, 13, 14, 15]
-      // [1, ..., 9, 10, 11, _12_, 13, 14, 15]
-      // [1, ..., 9, 10, 11, 12, _13_, 14, 15]
-      // [1, ..., 9, 10, 11, 12, 13, _14_, 15]
-      // [1, ..., 9, 10, 11, 12, 13, 14, _15_]
+  const standardGap = surroundingPageCount + marginPageCount
+  let startOffset = currentPage - standardGap
+  let endOffset = pageCount - currentPage - standardGap
+  let endGap = Math.max(endOffset, 0) + 1
+  let startGap = Math.max(startOffset, 0) - 1
 
-      addEllipsis(marginPageCount, pageCount - middleWindowCount - marginPageCount)
-
-      addPages(pageCount - middleWindowCount - marginPageCount, pageCount)
-      break
-    }
-    case 'endEllipsis': {
-      // To keep the number of pages shown consistent, add the middleWindowCount
-      // and marginPageCount instead of overlapping them.
-
-      // middleWindowCount: 5
-      // marginPageCount: 1
-      // [1, 2, 3, 4, _5_, 6, 7, ..., 15]
-      // [1, 2, 3, _4_, 5, 6, 7, ..., 15]
-      // [1, 2, _3_, 4, 5, 6, 7, ..., 15]
-      // [1, _2_, 3, 4, 5, 6, 7, ..., 15]
-      // [_1_, 2, 3, 4, 5, 6, 7, ..., 15]
-
-      addPages(1, middleWindowCount + marginPageCount + 1, true)
-
-      addEllipsis(middleWindowCount + marginPageCount + 1, pageCount - marginPageCount + 1)
-
-      addPages(pageCount - marginPageCount + 1, pageCount)
-      break
-    }
-    case 'bothEllipsis': {
-      // There is no window overlap in this case, it will always have this shape:
-      // middleWindowCount: 5
-      // marginPageCount: 1
-      // [1, ..., 4, 5, 6, _7_, 8, 9, ..., 15]
-
-      addPages(1, marginPageCount, true)
-
-      addEllipsis(marginPageCount, currentPage - surroundingPageCount)
-
-      addPages(currentPage - surroundingPageCount, currentPage + surroundingPageCount, true)
-
-      addEllipsis(currentPage + surroundingPageCount, pageCount - marginPageCount + 1)
-
-      addPages(pageCount - marginPageCount + 1, pageCount)
-      break
-    }
+  // edge cases
+  if (endOffset < 0) {
+    startGap -= 1
   }
+
+  if (startOffset <= surroundingPageCount) {
+    startGap = 0
+  }
+
+  if (startOffset <= 0) {
+    endGap -= 1
+  }
+
+  if (startOffset >= surroundingPageCount) {
+    endGap += 1
+  }
+
+  if (endOffset == 1) {
+    endGap -= 1
+  }
+  if (endOffset == 0) {
+    endOffset = -1
+  }
+  if (endOffset == -1) {
+    endOffset = -1
+  }
+  if (endOffset == -2) {
+    endOffset = -2
+  }
+
+  if (endOffset < surroundingPageCount) {
+    endGap = 0
+  }
+  //
+
+  // console.log('start gap', startGap)
+  // console.log('end gap', endGap)
+  // console.log('start offset', startOffset)
+  // console.log('end offset', endOffset)
+
+  console.log({endGap, pageCount, startOffset: Math.min(startOffset, 0), standardGap, endOffset, startGap})
+
+  addPages(1, marginPageCount, true)
+
+  if (hasStartEllipsis) {
+    // To keep the number of pages shown consistent, add the middleWindowCount
+    // and marginPageCount instead of overlapping them.
+
+    // middleWindowCount: 5
+    // marginPageCount: 1
+    // [1, ..., 9, 10, _11_, 12, 13, 14, 15]
+    // [1, ..., 9, 10, 11, _12_, 13, 14, 15]
+    // [1, ..., 9, 10, 11, 12, _13_, 14, 15]
+    // [1, ..., 9, 10, 11, 12, 13, _14_, 15]
+    // [1, ..., 9, 10, 11, 12, 13, 14, _15_]
+
+    addEllipsis(currentPage - 1)
+  }
+
+  // console.log('bla', pageCount - Math.min(startOffset, 0) - endGap + 1)
+  addPages(
+    marginPageCount + startGap + Math.min(endOffset, 0) + 1, // <-
+    Math.min(pageCount - marginPageCount, pageCount - Math.min(startOffset, 0) - endGap + 1),
+    hasEndEllipsis,
+  )
+
+  if (hasEndEllipsis) {
+    // To keep the number of pages shown consistent, add the middleWindowCount
+    // and marginPageCount instead of overlapping them.
+
+    // middleWindowCount: 5
+    // marginPageCount: 1
+    // [1, 2, 3, 4, _5_, 6, 7, ..., 15]
+    // [1, 2, 3, _4_, 5, 6, 7, ..., 15]
+    // [1, 2, _3_, 4, 5, 6, 7, ..., 15]
+    // [1, _2_, 3, 4, 5, 6, 7, ..., 15]
+    // [_1_, 2, 3, 4, 5, 6, 7, ..., 15]
+
+    addEllipsis(currentPage + surroundingPageCount)
+  }
+
+  addPages(pageCount - marginPageCount + 1, pageCount)
 
   return [prev, ...pages, next]
 
-  function addEllipsis(previousPage: number, nextPage: number): void {
-    // If there's only one page between the previous and next page, we don't need an ellipsis
-    // as it will take the same visual space as the page.
-
-    // Example:
-    // surroundingPageCount: 2
-    // marginPageCount: 1
-    // [1, 2, 3, 4, _5_, 6, 7]  <- no ellipsis, we render page 2 instead.
-    if (previousPage + 2 === nextPage) {
-      pages.push({
-        type: 'NUM',
-        num: previousPage + 1,
-        selected: previousPage + 1 === currentPage,
-        precedesBreak: false,
-      })
-    } else {
-      pages.push({
-        type: 'BREAK',
-        num: previousPage + 1,
-      })
-    }
+  function addEllipsis(previousPage: number): void {
+    pages.push({
+      type: 'BREAK',
+      num: previousPage + 1,
+    })
   }
 
   function addPages(start: number, end: number, precedesBreak: boolean = false): void {
+    console.log('add pages', start, end)
     for (let i = start; i <= end; i++) {
       pages.push({
         type: 'NUM',
