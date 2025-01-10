@@ -1,5 +1,21 @@
 # @primer/react
 
+## 37.10.0
+
+### Minor Changes
+
+- [#5457](https://github.com/primer/react/pull/5457) [`b1e5699`](https://github.com/primer/react/commit/b1e56994d460ee088508445d28150abc902781a8) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove CSS modules feature flag from ButtonGroup
+
+- [#5458](https://github.com/primer/react/pull/5458) [`b763ecd`](https://github.com/primer/react/commit/b763ecd69c8f024feaaabdc31d8805dd50007736) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove CSS modules feature flag from Details
+
+- [#5463](https://github.com/primer/react/pull/5463) [`b55025c`](https://github.com/primer/react/commit/b55025cf2bf7f349cecb856449508bf822507c6d) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove CSS modules feature flag from Radio
+
+- [#5462](https://github.com/primer/react/pull/5462) [`8b8ec3c`](https://github.com/primer/react/commit/8b8ec3c64fce6f113b81f4169fe9460d1cef1967) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove the CSS module feature flag from Pagehead
+
+### Patch Changes
+
+- [#5488](https://github.com/primer/react/pull/5488) [`e352e19`](https://github.com/primer/react/commit/e352e192dae7ae7b24420f4afae08871536c0484) Thanks [@hectahertz](https://github.com/hectahertz)! - Pagination: Hides the `Pagination` Previous and Next buttons from the accessibility tree when they are disabled.
+
 ## 37.9.1
 
 ### Patch Changes
