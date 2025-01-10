@@ -58,6 +58,54 @@ describe('UnderlinePanels', () => {
     const tabList = screen.getByRole('tablist')
     expect(tabList).toHaveAccessibleName('Select a tab')
   })
+  it('updates the selected tab when aria-selected changes', () => {
+    const {rerender} = render(
+      <UnderlinePanels aria-label="Select a tab">
+        <UnderlinePanels.Tab aria-selected={true}>Tab 1</UnderlinePanels.Tab>
+        <UnderlinePanels.Tab aria-selected={false}>Tab 2</UnderlinePanels.Tab>
+        <UnderlinePanels.Panel>Panel 1</UnderlinePanels.Panel>
+        <UnderlinePanels.Panel>Panel 2</UnderlinePanels.Panel>
+      </UnderlinePanels>,
+    )
+
+    // Verify that the first tab is selected and second tab is not
+    let firstTab = screen.getByRole('tab', {name: 'Tab 1'})
+    let secondTab = screen.getByRole('tab', {name: 'Tab 2'})
+
+    expect(firstTab).toHaveAttribute('aria-selected', 'true')
+    expect(secondTab).toHaveAttribute('aria-selected', 'false')
+
+    // Programmatically select the second tab by updating the aria-selected prop
+    rerender(
+      <UnderlinePanels aria-label="Select a tab">
+        <UnderlinePanels.Tab aria-selected={false}>Tab 1</UnderlinePanels.Tab>
+        <UnderlinePanels.Tab aria-selected={true}>Tab 2</UnderlinePanels.Tab>
+        <UnderlinePanels.Panel>Panel 1</UnderlinePanels.Panel>
+        <UnderlinePanels.Panel>Panel 2</UnderlinePanels.Panel>
+      </UnderlinePanels>,
+    )
+
+    // Verify the updated aria-selected prop changes which tab is selected
+    firstTab = screen.getByRole('tab', {name: 'Tab 1'})
+    secondTab = screen.getByRole('tab', {name: 'Tab 2'})
+
+    expect(firstTab).toHaveAttribute('aria-selected', 'false')
+    expect(secondTab).toHaveAttribute('aria-selected', 'true')
+  })
+  it('calls onSelect when a tab is clicked', () => {
+    const onSelect = jest.fn()
+    render(
+      <UnderlinePanels aria-label="Select a tab">
+        <UnderlinePanels.Tab onSelect={onSelect}>Tab 1</UnderlinePanels.Tab>
+        <UnderlinePanels.Panel>Panel 1</UnderlinePanels.Panel>
+      </UnderlinePanels>,
+    )
+
+    const tab = screen.getByRole('tab', {name: 'Tab 1'})
+    tab.click()
+
+    expect(onSelect).toHaveBeenCalled()
+  })
   it('throws an error when the neither aria-label nor aria-labelledby are passed', () => {
     render(<UnderlinePanelsMockComponent />)
   })
