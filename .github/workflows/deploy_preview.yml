@@ -11,6 +11,7 @@ concurrency:
 
 jobs:
   build:
+    if: ${{ always() && github.event.workflow_run.head_repository.full_name == 'primer/react' }}
     runs-on: ubuntu-latest
 
     steps:
