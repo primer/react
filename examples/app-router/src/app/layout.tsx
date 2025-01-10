@@ -1,3 +1,4 @@
+import './global.css'
 import {BaseStyles, ThemeProvider} from '@primer/react'
 import {StyledComponentsRegistry} from './registry'
 
