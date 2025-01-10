@@ -105,6 +105,7 @@ const UnderlinePanels: FC<UnderlinePanelsProps> = ({
   const [tabs, setTabs] = useState<React.ReactNode[]>([])
   const [tabPanels, setTabPanels] = useState<React.ReactNode[]>([])
 
+  // Make sure we have fresh prop data whenever the tabs or panels are updated (keep aria-selected current)
   useEffect(() => {
     // Loop through the chidren, if it's a tab, then add id="{id}-tab-{index}"
     // If it's a panel, then add aria-labelledby="{id}-tab-{index}"
