@@ -34,6 +34,7 @@
   }
 }
 
+
 @media (max-width: calc(20rem * 3)) {
   .theme-wrap-grid {
     grid-template-columns: repeat(2, minmax(var(--breakpoint-xsmall, 20rem), auto));
