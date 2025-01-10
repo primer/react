@@ -3,7 +3,7 @@ on:
   workflow_run:
     branches:
       - main
-    workflows: ['CI']
+    workflows: [CI]
     types:
       - completed
 
