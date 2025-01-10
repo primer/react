@@ -58,7 +58,7 @@ describe('UnderlinePanels', () => {
     const tabList = screen.getByRole('tablist')
     expect(tabList).toHaveAccessibleName('Select a tab')
   })
-  it('updates the selected tab when aria-selected state changes', () => {
+  it('updates the selected tab when aria-selected changes', () => {
     const {rerender} = render(
       <UnderlinePanels aria-label="Select a tab">
         <UnderlinePanels.Tab aria-selected={true}>Tab 1</UnderlinePanels.Tab>
@@ -91,6 +91,20 @@ describe('UnderlinePanels', () => {
 
     expect(firstTab).toHaveAttribute('aria-selected', 'false')
     expect(secondTab).toHaveAttribute('aria-selected', 'true')
+  })
+  it('calls onSelect when a tab is clicked', () => {
+    const onSelect = jest.fn()
+    render(
+      <UnderlinePanels aria-label="Select a tab">
+        <UnderlinePanels.Tab onSelect={onSelect}>Tab 1</UnderlinePanels.Tab>
+        <UnderlinePanels.Panel>Panel 1</UnderlinePanels.Panel>
+      </UnderlinePanels>,
+    )
+
+    const tab = screen.getByRole('tab', {name: 'Tab 1'})
+    tab.click()
+
+    expect(onSelect).toHaveBeenCalled()
   })
   it('throws an error when the neither aria-label nor aria-labelledby are passed', () => {
     render(<UnderlinePanelsMockComponent />)
