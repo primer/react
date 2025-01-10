@@ -94,26 +94,60 @@ describe('Pagination model', () => {
       {type: 'NUM', num: 2, selected: true},
       {type: 'NUM', num: 3},
       // normally with a surround of 1, only 1 and 3 would be shown
-      // however, since 1 was already shown, we extend to 4
-      {type: 'NUM', num: 4, precedesBreak: true},
+      // however, since we don't overlap, the window is extended to 5
+      {type: 'NUM', num: 4},
+      {type: 'NUM', num: 5, precedesBreak: true},
       {type: 'BREAK'},
     ]
-    expect(first(model, 6)).toMatchObject(expected)
+    expect(first(model, 7)).toMatchObject(expected)
   })
 
   it('adds items to the left if it hits bounds to the right', () => {
     const model = buildPaginationModel(15, 14, true, 1, 1)
     const expected = [
       // normally with a surround of 1, only 13 and 15 would be shown
-      // however, since 15 was already shown, we extend to 12
+      // however, since we don't overlap, the window is extended to 11
       {type: 'BREAK'},
+      {type: 'NUM', num: 11},
       {type: 'NUM', num: 12},
       {type: 'NUM', num: 13},
       {type: 'NUM', num: 14, selected: true},
       {type: 'NUM', num: 15},
       {type: 'NEXT', num: 15},
     ]
-    expect(last(model, 6)).toMatchObject(expected)
+    expect(last(model, 7)).toMatchObject(expected)
+  })
+
+  it('adds a page when there would be only one page hidden by the left ellipsis', () => {
+    const model = buildPaginationModel(15, 5, true, 1, 2)
+    const expected = [
+      {type: 'PREV', num: 4},
+      {type: 'NUM', num: 1},
+      {type: 'NUM', num: 2},
+      {type: 'NUM', num: 3},
+      {type: 'NUM', num: 4},
+      {type: 'NUM', num: 5, selected: true},
+      {type: 'NUM', num: 6},
+      {type: 'NUM', num: 7, precedesBreak: true},
+      {type: 'BREAK'},
+    ]
+    expect(first(model, 9)).toMatchObject(expected)
+  })
+
+  it('adds a page when there would be only one page hidden by the right ellipsis', () => {
+    const model = buildPaginationModel(15, 11, true, 1, 2)
+    const expected = [
+      {type: 'BREAK'},
+      {type: 'NUM', num: 9},
+      {type: 'NUM', num: 10},
+      {type: 'NUM', num: 11, selected: true},
+      {type: 'NUM', num: 12},
+      {type: 'NUM', num: 13},
+      {type: 'NUM', num: 14},
+      {type: 'NUM', num: 15},
+      {type: 'NEXT', num: 12},
+    ]
+    expect(last(model, 9)).toMatchObject(expected)
   })
 
   it('correctly creates breaks next to the next/prev links when margin is 0', () => {
@@ -124,7 +158,7 @@ describe('Pagination model', () => {
       {type: 'NUM', num: 4},
       {type: 'NUM', num: 5, selected: true},
       {type: 'NUM', num: 6, precedesBreak: true},
-      {type: 'BREAK', num: 10},
+      {type: 'BREAK', num: 7},
       {type: 'NEXT'},
     ]
     expect(model).toMatchObject(expected)
