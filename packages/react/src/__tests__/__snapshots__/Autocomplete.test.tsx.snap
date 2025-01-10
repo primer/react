@@ -1542,14 +1542,13 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
             <svg
               aria-hidden="true"
               className="octicon octicon-plus"
+              display="inline-block"
               fill="currentColor"
               focusable="false"
               height={16}
+              overflow="visible"
               style={
                 {
-                  "display": "inline-block",
-                  "overflow": "visible",
-                  "userSelect": "none",
                   "verticalAlign": "text-bottom",
                 }
               }
