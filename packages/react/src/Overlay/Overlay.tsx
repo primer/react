@@ -167,13 +167,6 @@ export const BaseOverlay = React.forwardRef<HTMLDivElement, OwnOverlayProps>(
       }
 
       popover.setAttribute('popover', 'auto')
-    }, [])
-
-    useLayoutEffect(() => {
-      const {current: popover} = popoverRef
-      if (!popover) {
-        return
-      }
 
       // Wait a tick for the `popover` to be connected, otherwise
       // `showPopover()` will not work as expected
