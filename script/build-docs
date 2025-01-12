@@ -4,7 +4,7 @@ set -e
 if [ "$1" == "preview" ]; then
   export DEPLOY_ENV="preview"
   npm run build:storybook preview
-elseif [ "$1" == "preview_with_reports" ]; then
+elif [ "$1" == "preview_with_reports" ]; then
   export DEPLOY_ENV="preview"
   npm run build:storybook preview_with_reports
 else
