@@ -31,21 +31,33 @@ jobs:
         with:
           name: vrt-all-flags
           path: docs/public/vrt-all-flags
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          repository: ${{ github.event.workflow_run.head_repository.full_name }}
+          run-id: ${{ github.event.workflow_run.id }}
       - name: Download VRT reports (No flags enabled)
         uses: actions/download-artifact@v4
         with:
           name: vrt-no-flag
           path: docs/public/vrt-no-flag
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          repository: ${{ github.event.workflow_run.head_repository.full_name }}
+          run-id: ${{ github.event.workflow_run.id }}
       - name: Download AAT reports (All flags enabled)
         uses: actions/download-artifact@v4
         with:
           name: axe-all-flags
           path: docs/public/aat-all-flags
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          repository: ${{ github.event.workflow_run.head_repository.full_name }}
+          run-id: ${{ github.event.workflow_run.id }}
       - name: Download AAT reports (No flags enabled)
         uses: actions/download-artifact@v4
         with:
           name: axe
           path: docs/public/aat-no-flag
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          repository: ${{ github.event.workflow_run.head_repository.full_name }}
+          run-id: ${{ github.event.workflow_run.id }}
       - uses: actions/upload-pages-artifact@v3
         with:
           name: github-pages
