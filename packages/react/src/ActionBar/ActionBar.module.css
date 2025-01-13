@@ -1,0 +1,31 @@
+.List {
+  position: relative;
+  display: flex;
+  min-width: 0;
+
+  /* wonder why this is here */
+  /* stylelint-disable-next-line primer/spacing */
+  margin-bottom: -1px;
+  white-space: nowrap;
+  list-style: none;
+  align-items: center;
+  gap: var(--base-size-8);
+}
+
+.Nav {
+  display: flex;
+  padding-inline: var(--base-size-16);
+  justify-content: flex-end;
+  align-items: center;
+
+  &:where([data-flush='true']) {
+    padding-inline: 0;
+  }
+}
+
+.Divider {
+  &::before {
+    content: '';
+    border: var(--borderWidth-thin) solid var(--borderColor-muted);
+  }
+}
