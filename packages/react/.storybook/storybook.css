@@ -77,3 +77,7 @@
 .testCustomClassnameMono {
   font-family: var(--fontStack-monospace) !important;
 }
+
+.testCustomClassnameSansSerif {
+  font-family: var(--fontStack-sansSerif) !important;
+}
