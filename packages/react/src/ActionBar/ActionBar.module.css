@@ -25,7 +25,11 @@
 
 .Divider {
   &::before {
+    display: block;
+    width: var(--borderWidth-thin);
+    height: var(--base-size-20);
     content: '';
-    border: var(--borderWidth-thin) solid var(--borderColor-muted);
+    /* stylelint-disable-next-line primer/colors */
+    background: var(--borderColor-muted);
   }
 }
