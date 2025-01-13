@@ -1363,11 +1363,13 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
               >
                 <svg
                   aria-hidden="true"
-                  class="c9"
+                  class="octicon octicon-chevron-down c9"
+                  display="inline-block"
                   fill="currentColor"
                   focusable="false"
                   height="16"
-                  style="display: inline-block; user-select: none; vertical-align: text-bottom; overflow: visible;"
+                  overflow="visible"
+                  style="vertical-align: text-bottom;"
                   viewBox="0 0 16 16"
                   width="16"
                 >
@@ -1884,11 +1886,13 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
               >
                 <svg
                   aria-hidden="true"
-                  class="c9"
+                  class="octicon octicon-chevron-down c9"
+                  display="inline-block"
                   fill="currentColor"
                   focusable="false"
                   height="16"
-                  style="display: inline-block; user-select: none; vertical-align: text-bottom; overflow: visible;"
+                  overflow="visible"
+                  style="vertical-align: text-bottom;"
                   viewBox="0 0 16 16"
                   width="16"
                 >
