@@ -24,16 +24,14 @@ export function buildPaginationModel(
   let endOffset = (endGap = pageCount - currentPage - standardGap)
 
   // account for when gap is less than the minimum number of pages to show
-  // "marginPageCount" might just be a constant "1", not sure
   if (startOffset <= marginPageCount) {
-    startOffset -= marginPageCount
+    startOffset -= 1
     startGap = 0
   }
 
   // account for when gap is less than the minimum number of pages to show
-  // "marginPageCount" might just be a constant "1", not sure
   if (endOffset <= marginPageCount) {
-    endOffset -= marginPageCount
+    endOffset -= 1
     endGap = 0
   }
 
@@ -74,13 +72,13 @@ export function buildPaginationModel(
     // [1, ..., 9, 10, 11, 12, 13, _14_, 15]
     // [1, ..., 9, 10, 11, 12, 13, 14, _15_]
 
-    addEllipsis(currentPage - 1)
+    addEllipsis(marginPageCount)
   }
 
   // add middle pages
   addPages(
     marginPageCount + startGap + Math.min(endOffset, 0) + 1,
-    pageCount - Math.min(startOffset, 0) - endGap - 1,
+    pageCount - Math.min(startOffset, 0) - endGap - marginPageCount,
     hasEndEllipsis,
   )
 
@@ -96,11 +94,13 @@ export function buildPaginationModel(
     // [1, _2_, 3, 4, 5, 6, 7, ..., 15]
     // [_1_, 2, 3, 4, 5, 6, 7, ..., 15]
 
-    addEllipsis(currentPage + surroundingPageCount)
+    addEllipsis(pageCount - Math.min(startOffset, 0) - endGap - marginPageCount)
   }
 
   // add pages "after" the start ellipsis (if any)
   addPages(pageCount - marginPageCount + 1, pageCount)
+
+  // TODO: remove console.log([prev, ...pages, next])
 
   return [prev, ...pages, next]
 
