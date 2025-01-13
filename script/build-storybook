@@ -23,5 +23,3 @@ fi
 
 # Remove manager-head after build to not interfere with dev builds
 rm .storybook/manager-head.html
-rm .storybook/index.html
-rm .storybook/index_with_reports.html

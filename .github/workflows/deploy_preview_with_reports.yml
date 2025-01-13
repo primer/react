@@ -11,7 +11,7 @@ concurrency:
 
 jobs:
   build:
-    if: ${{ always() && github.event.workflow_run.head_repository.full_name == 'primer/react' }}
+    if: ${{ always() && github.event.workflow_run.event == 'pull_request' && github.event.workflow_run.head_repository.full_name == 'primer/react' }}
     runs-on: ubuntu-latest
 
     steps:
@@ -64,7 +64,7 @@ jobs:
           path: docs/public
 
   deploy-preview:
-    if: ${{ github.event.workflow_run.head_repository.full_name == 'primer/react' }}
+    if: ${{ github.event.workflow_run.event == 'pull_request' && github.event.workflow_run.head_repository.full_name == 'primer/react' }}
     needs: build
     permissions:
       pages: write
@@ -84,7 +84,7 @@ jobs:
 
   deploy-storybook:
     name: Preview Storybook
-    if: ${{ github.event.workflow_run.head_repository.full_name == 'primer/react' }}
+    if: ${{ github.event.workflow_run.event == 'pull_request' && github.event.workflow_run.head_repository.full_name == 'primer/react' }}
     needs: deploy-preview
     permissions:
       deployments: write
@@ -115,7 +115,7 @@ jobs:
 
   deploy-vrt-no-flag:
     name: VRT (No flags enabled)
-    if: ${{ github.event.workflow_run.head_repository.full_name == 'primer/react' }}
+    if: ${{ github.event.workflow_run.event == 'pull_request' && github.event.workflow_run.head_repository.full_name == 'primer/react' }}
     needs: [deploy-preview]
     permissions:
       deployments: write
@@ -126,7 +126,7 @@ jobs:
         id: vrt-no-flag
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          environment: vrt-no-flag-${{ github.event.workflow_run.event.number }}
+          environment: vrt-no-flag-${{ github.event.workflow_run.head_branch }}
           environment-url: '${{ needs.deploy-preview.outputs.deployment_url }}vrt-no-flag'
       - name: Update vrt-no-flag deployment status (success)
         if: success()
@@ -146,7 +146,7 @@ jobs:
 
   deploy-vrt-all-flags:
     name: VRT (All flags enabled)
-    if: ${{ github.event.workflow_run.head_repository.full_name == 'primer/react' }}
+    if: ${{ github.event.workflow_run.event == 'pull_request' && github.event.workflow_run.head_repository.full_name == 'primer/react' }}
     needs: deploy-preview
     permissions:
       deployments: write
@@ -177,7 +177,7 @@ jobs:
 
   deploy-aat-no-flag:
     name: AAT (No flags enabled)
-    if: ${{ github.event.workflow_run.head_repository.full_name == 'primer/react' }}
+    if: ${{ github.event.workflow_run.event == 'pull_request' && github.event.workflow_run.head_repository.full_name == 'primer/react' }}
     needs: deploy-preview
     permissions:
       deployments: write
@@ -208,7 +208,7 @@ jobs:
 
   deploy-aat-all-flags:
     name: AAT (All flags enabled)
-    if: ${{ github.event.workflow_run.head_repository.full_name == 'primer/react' }}
+    if: ${{ github.event.workflow_run.event == 'pull_request' && github.event.workflow_run.head_repository.full_name == 'primer/react' }}
     needs: deploy-preview
     permissions:
       deployments: write
