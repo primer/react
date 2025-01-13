@@ -16,7 +16,7 @@ npx storybook build -o ../../docs/public/storybook
 if [ "$1" == "preview_with_reports" ]; then
   # Move index_with_reports.html to the right location
   cp .storybook/index_with_reports.html ../../docs/public/index.html
-elif [ "$1" == "preview" ]; then
+else
   # Move index.html to the right location
   cp .storybook/index.html ../../docs/public/index.html
 fi
