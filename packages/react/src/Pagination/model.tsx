@@ -73,10 +73,7 @@ export function buildPaginationModel(
   addPages(1, marginPageCount, true)
 
   if (hasStartEllipsis) {
-    // To keep the number of pages shown consistent, add the middleWindowCount
-    // and marginPageCount instead of overlapping them.
-
-    // middleWindowCount: 5
+    // surroundingPageCount: 5
     // marginPageCount: 1
     // [1, ..., 9, 10, _11_, 12, 13, 14, 15]
     // [1, ..., 9, 10, 11, _12_, 13, 14, 15]
@@ -95,10 +92,7 @@ export function buildPaginationModel(
   )
 
   if (hasEndEllipsis) {
-    // To keep the number of pages shown consistent, add the middleWindowCount
-    // and marginPageCount instead of overlapping them.
-
-    // middleWindowCount: 5
+    // surroundingPageCount: 2
     // marginPageCount: 1
     // [1, 2, 3, 4, _5_, 6, 7, ..., 15]
     // [1, 2, 3, _4_, 5, 6, 7, ..., 15]
