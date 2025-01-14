@@ -44,10 +44,6 @@ export type UnderlinePanelsProps = {
    */
   'aria-labelledby'?: React.AriaAttributes['aria-labelledby']
   /**
-   * Callback that will trigger both on click selection and keyboard selection.
-   */
-  onSelect?: (event: React.KeyboardEvent<HTMLButtonElement> | React.MouseEvent<HTMLButtonElement>) => void
-  /**
    * Custom string to use when generating the IDs of tabs and `aria-labelledby` for the panels
    */
   id?: string
@@ -231,8 +227,16 @@ const UnderlinePanels: FC<UnderlinePanelsProps> = ({
 
 const Tab: FC<TabProps> = ({'aria-selected': ariaSelected, sx: sxProp = defaultSxProp, onSelect, ...props}) => {
   const clickHandler = React.useCallback(
-    (event: React.KeyboardEvent<HTMLButtonElement> | React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
       if (!event.defaultPrevented && typeof onSelect === 'function') {
+        onSelect(event)
+      }
+    },
+    [onSelect],
+  )
+  const keyDownHandler = React.useCallback(
+    (event: React.KeyboardEvent<HTMLButtonElement>) => {
+      if ((event.key === ' ' || event.key === 'Enter') && !event.defaultPrevented && typeof onSelect === 'function') {
         onSelect(event)
       }
     },
@@ -248,6 +252,7 @@ const Tab: FC<TabProps> = ({'aria-selected': ariaSelected, sx: sxProp = defaultS
       sx={sxProp}
       type="button"
       onClick={clickHandler}
+      onKeyDown={keyDownHandler}
       {...props}
     />
   )
