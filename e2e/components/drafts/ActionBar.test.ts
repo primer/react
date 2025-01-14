@@ -41,7 +41,7 @@ test.describe('ActionBar', () => {
             },
           })
           const toolbarButtonSelector = `button[data-component="IconButton"]`
-          await expect(page.locator(toolbarButtonSelector)).toHaveCount(10)
+          await expect(page.locator(toolbarButtonSelector)).toHaveCount(9)
           await page.setViewportSize({width: viewports['primer.breakpoint.xs'], height: 768})
           await expect(page.locator(toolbarButtonSelector)).toHaveCount(6)
           const moreButtonSelector = page.getByLabel('More Comment box toolbar items')
