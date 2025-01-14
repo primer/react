@@ -7,31 +7,31 @@
   "importPath": "@primer/react/next",
   "stories": [
     {
-      "id": "components-tooltip--default"
+      "id": "components-tooltipv2--default"
     },
     {
-      "id": "components-tooltip-features--anchor-has-margin"
+      "id": "components-tooltipv2-features--anchor-has-margin"
     },
     {
-      "id": "components-tooltip-features--label-type"
+      "id": "components-tooltipv2-features--label-type"
     },
     {
-      "id": "components-tooltip-features--description-type"
+      "id": "components-tooltipv2-features--description-type"
     },
     {
-      "id": "components-tooltip-features--icon-button-with-description"
+      "id": "components-tooltipv2-features--icon-button-with-description"
     },
     {
-      "id": "components-tooltip-features--all-directions"
+      "id": "components-tooltipv2-features--all-directions"
     },
     {
-      "id": "components-tooltip-features--multiline-text"
+      "id": "components-tooltipv2-features--multiline-text"
     },
     {
-      "id": "components-tooltip-features--calculated-direction"
+      "id": "components-tooltipv2-features--calculated-direction"
     },
     {
-      "id": "components-tooltip-features--on-action-menu-anchor"
+      "id": "components-tooltipv2-features--on-action-menu-anchor"
     }
   ],
   "props": [

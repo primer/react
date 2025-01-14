@@ -9,7 +9,7 @@ test.describe('ActionBar', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'experimental-components-actionbar--comment-box',
+            id: 'experimental-components-actionbar-examples--comment-box',
             globals: {
               colorScheme: theme,
             },
@@ -19,7 +19,7 @@ test.describe('ActionBar', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'experimental-components-actionbar--comment-box',
+            id: 'experimental-components-actionbar-examples--comment-box',
             globals: {
               colorScheme: theme,
             },
@@ -35,7 +35,7 @@ test.describe('ActionBar', () => {
       test.describe(theme, () => {
         test('Overflow interaction @vrt', async ({page}) => {
           await visit(page, {
-            id: 'experimental-components-actionbar--comment-box',
+            id: 'experimental-components-actionbar-examples--comment-box',
             globals: {
               colorScheme: theme,
             },
