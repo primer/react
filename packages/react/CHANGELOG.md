@@ -1,5 +1,11 @@
 # @primer/react
 
+## 37.9.1
+
+### Patch Changes
+
+- [`8c1cff4`](https://github.com/primer/react/commit/8c1cff46f206b0c51feeb32ed1ab85c7db18acd1) Thanks [@francinelucca](https://github.com/francinelucca)! - fix(ActionList): remove className from menuItemProps to prevent duplicate className bug
+
 ## 37.9.0
 
 ### Minor Changes
