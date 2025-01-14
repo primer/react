@@ -14,6 +14,170 @@ function last(array: Array<any>, count = 1) {
 }
 
 describe('Pagination model', () => {
+  it('correctly handles negative pages', () => {
+    const model = buildPaginationModel(-10, 1, true, 1, 2)
+    expect(first(model).type).toEqual('PREV')
+    expect(first(model).disabled).toBe(true)
+    expect(last(model).type).toEqual('NEXT')
+    expect(last(model).disabled).toBe(true)
+    expect(model.length).toBe(2)
+  })
+
+  it('correctly handles zero pages', () => {
+    const model = buildPaginationModel(0, 1, true, 1, 2)
+    expect(first(model).type).toEqual('PREV')
+    expect(first(model).disabled).toBe(true)
+    expect(last(model).type).toEqual('NEXT')
+    expect(last(model).disabled).toBe(true)
+    expect(model.length).toBe(2)
+  })
+
+  it('correctly handles 1 page', () => {
+    const model = buildPaginationModel(1, 1, true, 1, 2)
+    expect(first(model).type).toEqual('PREV')
+    expect(first(model).disabled).toBe(true)
+    expect(last(model).type).toEqual('NEXT')
+    expect(last(model).disabled).toBe(true)
+    expect(model.length).toBe(3)
+  })
+
+  it('correctly handles zero margin pages', () => {
+    const model = buildPaginationModel(6, 2, true, 0, 2)
+
+    const expected = [
+      {
+        type: 'PREV',
+        num: 1,
+        disabled: false,
+      },
+      {
+        type: 'NUM',
+        num: 1,
+        selected: false,
+        precedesBreak: false,
+      },
+      {
+        type: 'NUM',
+        num: 2,
+        selected: true,
+        precedesBreak: false,
+      },
+      {
+        type: 'NUM',
+        num: 3,
+        selected: false,
+        precedesBreak: false,
+      },
+      {
+        type: 'NUM',
+        num: 4,
+        selected: false,
+        precedesBreak: false,
+      },
+      {
+        type: 'NUM',
+        num: 5,
+        selected: false,
+        precedesBreak: false,
+      },
+      {
+        type: 'NUM',
+        num: 6,
+        selected: false,
+        precedesBreak: true,
+      },
+      {
+        type: 'BREAK',
+        num: 7,
+      },
+      {
+        type: 'NEXT',
+        num: 3,
+        disabled: false,
+      },
+    ]
+
+    expect(model).toMatchObject(expected)
+  })
+
+  it('correctly handles zero surrounding pages', () => {
+    const model = buildPaginationModel(7, 4, true, 1, 0)
+
+    const expected = [
+      {
+        type: 'PREV',
+        num: 3,
+        disabled: false,
+      },
+      {
+        type: 'NUM',
+        num: 1,
+        selected: false,
+        precedesBreak: true,
+      },
+      {
+        type: 'BREAK',
+        num: 2,
+      },
+      {
+        type: 'NUM',
+        num: 4,
+        selected: true,
+        precedesBreak: true,
+      },
+      {
+        type: 'BREAK',
+        num: 5,
+      },
+      {
+        type: 'NUM',
+        num: 7,
+        selected: false,
+        precedesBreak: false,
+      },
+      {
+        type: 'NEXT',
+        num: 5,
+        disabled: false,
+      },
+    ]
+
+    expect(model).toMatchObject(expected)
+  })
+
+  it('correctly handles zero margin and surrounding pages', () => {
+    const model = buildPaginationModel(50, 3, true, 0, 0)
+
+    const expected = [
+      {
+        type: 'PREV',
+        num: 2,
+        disabled: false,
+      },
+      {
+        type: 'BREAK',
+        num: 1,
+      },
+      {
+        type: 'NUM',
+        num: 3,
+        selected: true,
+        precedesBreak: true,
+      },
+      {
+        type: 'BREAK',
+        num: 4,
+      },
+      {
+        type: 'NEXT',
+        num: 4,
+        disabled: false,
+      },
+    ]
+
+    expect(model).toMatchObject(expected)
+  })
+
   it('sets disabled on prev links', () => {
     const model1 = buildPaginationModel(10, 1, true, 1, 2)
     expect(first(model1).type).toEqual('PREV')

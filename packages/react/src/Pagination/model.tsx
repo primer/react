@@ -13,9 +13,20 @@ export function buildPaginationModel(
     return [prev, next]
   }
 
+  if (pageCount <= 0) {
+    return [prev, {...next, disabled: true}]
+  }
+
   const pages: PageType[] = []
 
   const standardGap = surroundingPageCount + marginPageCount
+
+  const maxVisiblePages = standardGap + standardGap + 1
+
+  if (pageCount <= maxVisiblePages) {
+    addPages(1, pageCount, false)
+    return [prev, ...pages, next]
+  }
 
   // initialize Offset and Gap to the same values
   let startGap
@@ -24,13 +35,13 @@ export function buildPaginationModel(
   let endOffset = (endGap = pageCount - currentPage - standardGap)
 
   // account for when gap is less than the minimum number of pages to show
-  if (startOffset <= marginPageCount) {
+  if (startOffset <= 1) {
     startOffset -= 1
     startGap = 0
   }
 
   // account for when gap is less than the minimum number of pages to show
-  if (endOffset <= marginPageCount) {
+  if (endOffset <= 1) {
     endOffset -= 1
     endGap = 0
   }
@@ -55,7 +66,8 @@ export function buildPaginationModel(
   // [1, ..., 9, 10, _11_, 12, 13, ..., 15]
   const hasEndEllipsis = endGap > 0
 
-  // TODO: remove console.log({endGap, pageCount, startOffset, standardGap, endOffset, startGap})
+  // TODO: remove
+  // console.log({endGap, pageCount, startOffset, standardGap, endOffset, startGap})
 
   // add pages "before" the start ellipsis (if any)
   addPages(1, marginPageCount, true)
@@ -100,7 +112,8 @@ export function buildPaginationModel(
   // add pages "after" the start ellipsis (if any)
   addPages(pageCount - marginPageCount + 1, pageCount)
 
-  // TODO: remove console.log([prev, ...pages, next])
+  // TODO: remove
+  // console.log([prev, ...pages, next])
 
   return [prev, ...pages, next]
 
@@ -112,7 +125,8 @@ export function buildPaginationModel(
   }
 
   function addPages(start: number, end: number, precedesBreak: boolean = false): void {
-    // TODO: remove console.log('add pages', start, end)
+    // TODO: remove
+    // console.log('add pages', start, end)
     for (let i = start; i <= end; i++) {
       pages.push({
         type: 'NUM',
