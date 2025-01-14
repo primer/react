@@ -34,6 +34,10 @@ details-dialog:focus:not(:focus-visible):not(.focus-visible) {
 /* -------------------------------------------------------------------------- */
 
 .BaseStyles {
+  color: var(--BaseStyles-fgColor, var(--fgColor-default));
+  font-family: var(--BaseStyles-fontFamily, var(--fontStack-system));
+  line-height: var(--BaseStyles-lineHeight, 1.5);
+
   /* Global styles for light mode */
   &:has([data-color-mode='light']) {
     input & {
