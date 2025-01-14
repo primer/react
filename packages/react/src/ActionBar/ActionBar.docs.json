@@ -43,7 +43,7 @@
       "type": "boolean",
       "required": false,
       "description": "Allows ActionBar to be flush with the container",
-      "defaultValue": false
+      "defaultValue": "false"
     },
     {
       "name": "className",
