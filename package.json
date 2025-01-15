@@ -56,6 +56,7 @@
     "@typescript-eslint/parser": "^7.3.1",
     "eslint": "8.56.0",
     "eslint-import-resolver-typescript": "3.6.1",
+    "eslint-plugin-clsx": "0.0.9",
     "eslint-plugin-github": "5.0.2",
     "eslint-plugin-jest": "28.8.3",
     "eslint-plugin-jsx-a11y": "6.7.1",
