@@ -1,5 +1,3 @@
-export type PaginationState = 'noEllipsis' | 'startEllipsis' | 'endEllipsis' | 'bothEllipsis'
-
 export function buildPaginationModel(
   pageCount: number,
   currentPage: number,
