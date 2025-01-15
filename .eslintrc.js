@@ -90,7 +90,6 @@ module.exports = {
     'github/role-supports-aria-props': 'off',
     'no-restricted-syntax': 'off',
     'primer-react/a11y-use-next-tooltip': 'off',
-    'clsx/no-redundant-clsx': 'error',
   },
   overrides: [
     // rules which apply only to JS
