@@ -4,6 +4,7 @@
   "status": "alpha",
   "a11yReviewed": true,
   "importPath": "@primer/react/experimental",
+  "stories": [],
   "props": [
     {
       "name": "aria-label",
