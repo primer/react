@@ -17,6 +17,7 @@ module.exports = {
     'plugin:primer-react/recommended',
     'plugin:import/typescript',
     'plugin:ssr-friendly/recommended',
+    'plugin:clsx/recommended',
   ],
   settings: {
     react: {
