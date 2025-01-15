@@ -43,7 +43,9 @@ const meta: Meta<typeof UnderlinePanels> = {
 export default meta
 
 export const Default: StoryFn<typeof UnderlinePanels> = () => {
-  const tabs = ['Terminal', 'Output', 'Problems', 'Ports', 'Comments']
+  const tabs = ['Tab 1', 'Tab 2', 'Tab 3']
+  const panels = ['Panel 1', 'Panel 2', 'Panel 3']
+
   return (
     <UnderlinePanels aria-label="Select a tab">
       {tabs.map((tab: string, index: number) => (
@@ -51,15 +53,17 @@ export const Default: StoryFn<typeof UnderlinePanels> = () => {
           {tab}
         </UnderlinePanels.Tab>
       ))}
-      {tabs.map((tab: string, index: number) => (
-        <UnderlinePanels.Panel key={index}>{tab}</UnderlinePanels.Panel>
+      {panels.map((panel: string, index: number) => (
+        <UnderlinePanels.Panel key={index}>{panel}</UnderlinePanels.Panel>
       ))}
     </UnderlinePanels>
   )
 }
 
 export const Playgound: StoryFn<typeof UnderlinePanels> = args => {
-  const tabs = ['Terminal', 'Output', 'Problems', 'Ports', 'Comments']
+  const tabs = ['Tab 1', 'Tab 2', 'Tab 3']
+  const panels = ['Panel 1', 'Panel 2', 'Panel 3']
+
   return (
     <UnderlinePanels {...args}>
       {tabs.map((tab: string, index: number) => (
@@ -67,8 +71,8 @@ export const Playgound: StoryFn<typeof UnderlinePanels> = args => {
           {tab}
         </UnderlinePanels.Tab>
       ))}
-      {tabs.map((tab: string, index: number) => (
-        <UnderlinePanels.Panel key={index}>{tab}</UnderlinePanels.Panel>
+      {panels.map((panel: string, index: number) => (
+        <UnderlinePanels.Panel key={index}>{panel}</UnderlinePanels.Panel>
       ))}
     </UnderlinePanels>
   )
