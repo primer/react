@@ -4,50 +4,6 @@
   "status": "alpha",
   "a11yReviewed": true,
   "importPath": "@primer/react/experimental",
-  "stories": [
-    {
-      "id": "experimental-components-banner--default"
-    },
-    {
-      "id": "experimental-components-banner-features--critical"
-    },
-    {
-      "id": "experimental-components-banner-features--info"
-    },
-    {
-      "id": "experimental-components-banner-features--success"
-    },
-    {
-      "id": "experimental-components-banner-features--upsell"
-    },
-    {
-      "id": "experimental-components-banner-features--warning"
-    },
-    {
-      "id": "experimental-components-banner-features--dismiss"
-    },
-    {
-      "id": "experimental-components-banner-features--dismiss-with-actions"
-    },
-    {
-      "id": "experimental-components-banner-features--with-hidden-title"
-    },
-    {
-      "id": "experimental-components-banner-features--with-hidden-title-and-actions"
-    },
-    {
-      "id": "experimental-components-banner-features--dismissible-with-hidden-title-and-actions"
-    },
-    {
-      "id": "experimental-components-banner-features--dismissible-with-hidden-title-and-secondary-action"
-    },
-    {
-      "id": "experimental-components-banner-features--with-actions"
-    },
-    {
-      "id": "experimental-components-banner-features--custom-icon"
-    }
-  ],
   "props": [
     {
       "name": "aria-label",
