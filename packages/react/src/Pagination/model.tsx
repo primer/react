@@ -19,95 +19,94 @@ export function buildPaginationModel(
 
   const pages: PageType[] = []
 
+  // number of pages shown on each side of the current page
+  // [1, ..., 7, 8, _9_, 10, 11, ..., 15]
+  // standardGap: 3
   const standardGap = surroundingPageCount + marginPageCount
 
+  // the maximum number of pages that can be shown at a given time
+  // [1, ..., 7, 8, _9_, 10, 11, ..., 15]
+  // maxVisiblePages: 7
   const maxVisiblePages = standardGap + standardGap + 1
 
+  // if the number of pages is less than the maximum number of pages that can be shown just return all of them
   if (pageCount <= maxVisiblePages) {
     addPages(1, pageCount, false)
     return [prev, ...pages, next]
   }
 
-  // initialize Offset and Gap to the same values
-  let startGap
-  let startOffset = (startGap = currentPage - standardGap - 1)
-  let endGap
-  let endOffset = (endGap = pageCount - currentPage - standardGap)
+  // startGap is the number of pages hidden by the start ellipsis
+  // startOffset is the number of pages to offset at the start to compensate
+  // [1, ..., 7, 8, _9_, 10, 11, ..., 15]
+  // startGap: 5
+  // startOffset: 0
+  // when the margin and the surrounding windows overlap.
+  // [1, _2_, 3, 4, 5, 6, ..., 15]
+  // startGap = 0
+  // startOffset: -3 <--
+  let startGap = 0
+  let startOffset = 0
 
-  // account for when gap is less than the minimum number of pages to show
-  if (startOffset <= 1) {
-    startOffset -= 1
-    startGap = 0
+  // When there is overlap
+  if (currentPage - standardGap - 1 <= 1) {
+    startOffset = currentPage - standardGap - 2
+  } else {
+    startGap = currentPage - standardGap - 1
   }
 
-  // account for when gap is less than the minimum number of pages to show
-  if (endOffset <= 1) {
-    endOffset -= 1
-    endGap = 0
+  // These are equivalent to startGap and startOffset but at the end of the list
+  let endGap = 0
+  let endOffset = 0
+
+  // When there is overlap
+  if (pageCount - currentPage - standardGap <= 1) {
+    endOffset = pageCount - currentPage - standardGap - 1
+  } else {
+    endGap = pageCount - currentPage - standardGap
   }
 
-  // Display the ellipsis at the start of the list of pages if the current page is further away
-  // than surroundingPageCount + marginPageCount from the first page.
-  // NOTE: we expand ellipses that collapse only one page later on.
-
-  // Example:
-  // surroundingPageCount: 2
-  // marginPageCount: 1
-  // [1, ..., 3, 4, _5_, 6, 7]
   const hasStartEllipsis = startGap > 0
-
-  // Display the ellipsis at the end of the list of pages if the current page is further away
-  // than surroundingPageCount - marginPageCount from the last page.
-  // NOTE: we expand ellipses that collapse only one page later on
-
-  // Example:
-  // surroundingPageCount: 2
-  // marginPageCount: 1
-  // [1, ..., 9, 10, _11_, 12, 13, ..., 15]
   const hasEndEllipsis = endGap > 0
 
-  // TODO: remove
-  // console.log({endGap, pageCount, startOffset, standardGap, endOffset, startGap})
-
   // add pages "before" the start ellipsis (if any)
-  addPages(1, marginPageCount, true)
+  // [1, ..., 7, 8, _9_, 10, 11, ..., 15]
+  // marginPageCount: 1
+  // addPages(1, 1, true)
+  addPages(1, marginPageCount, hasStartEllipsis)
 
   if (hasStartEllipsis) {
-    // surroundingPageCount: 5
-    // marginPageCount: 1
-    // [1, ..., 9, 10, _11_, 12, 13, 14, 15]
-    // [1, ..., 9, 10, 11, _12_, 13, 14, 15]
-    // [1, ..., 9, 10, 11, 12, _13_, 14, 15]
-    // [1, ..., 9, 10, 11, 12, 13, _14_, 15]
-    // [1, ..., 9, 10, 11, 12, 13, 14, _15_]
-
     addEllipsis(marginPageCount)
   }
 
   // add middle pages
+  // [1, ..., 7, 8, _9_, 10, 11, ..., 15]
+  // marginPageCount: 1
+  // surroundingPageCount: 2
+  // startGap: 5
+  // startOffset: 0
+  // endGap: 3
+  // endOffset: 0
+  // addPages(7, 11, true)
   addPages(
-    marginPageCount + startGap + Math.min(endOffset, 0) + 1,
-    pageCount - Math.min(startOffset, 0) - endGap - marginPageCount,
+    marginPageCount + startGap + endOffset + 1,
+    pageCount - startOffset - endGap - marginPageCount,
     hasEndEllipsis,
   )
 
   if (hasEndEllipsis) {
-    // surroundingPageCount: 2
-    // marginPageCount: 1
-    // [1, 2, 3, 4, _5_, 6, 7, ..., 15]
-    // [1, 2, 3, _4_, 5, 6, 7, ..., 15]
-    // [1, 2, _3_, 4, 5, 6, 7, ..., 15]
-    // [1, _2_, 3, 4, 5, 6, 7, ..., 15]
-    // [_1_, 2, 3, 4, 5, 6, 7, ..., 15]
-
-    addEllipsis(pageCount - Math.min(startOffset, 0) - endGap - marginPageCount)
+    addEllipsis(pageCount - startOffset - endGap - marginPageCount)
   }
 
   // add pages "after" the start ellipsis (if any)
+  // [1, ..., 7, 8, _9_, 10, 11, ..., 15]
+  // marginPageCount: 1
+  // surroundingPageCount: 2
+  // startGap: 5
+  // startOffset: 0
+  // endGap: 3
+  // endOffset: 0
+  // addPages(15, 15)
   addPages(pageCount - marginPageCount + 1, pageCount)
-
-  // TODO: remove
-  // console.log([prev, ...pages, next])
 
   return [prev, ...pages, next]
 
@@ -119,8 +118,6 @@ export function buildPaginationModel(
   }
 
   function addPages(start: number, end: number, precedesBreak: boolean = false): void {
-    // TODO: remove
-    // console.log('add pages', start, end)
     for (let i = start; i <= end; i++) {
       pages.push({
         type: 'NUM',
