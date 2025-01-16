@@ -1,0 +1,130 @@
+{
+  "$id": "hook.schema.json",
+  "type": "object",
+  "required": ["name", "stories", "importPath"],
+  "additionalProperties": false,
+  "definitions": {
+    "parameter": {
+      "type": "object",
+      "required": ["name", "type"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the parameter."
+        },
+        "type": {
+          "type": "string",
+          "description": "The type of the parameter in valid TypeScript syntax."
+        },
+        "defaultValue": {
+          "type": "string",
+          "description": "The default value of the parameter if defined."
+        },
+        "required": {
+          "type": "boolean",
+          "description": "Indicate whether the parameter is required."
+        },
+        "deprecated": {
+          "type": "boolean",
+          "description": "Indicate whether the parameter is deprecated."
+        },
+        "description": {
+          "type": "string",
+          "description": "A concise description of the parameter."
+        }
+      }
+    },
+    "relatedTypeProperty": {
+      "type": "object",
+      "required": ["name", "type"],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the property."
+        },
+        "type": {
+          "type": "string",
+          "description": "The type of the property in valid TypeScript syntax."
+        },
+        "required": {
+          "type": "boolean",
+          "description": "Indicate whether the property is required."
+        },
+        "defaultValue": {
+          "type": "string",
+          "description": "The default value of the property if defined."
+        },
+        "description": {
+          "type": "string",
+          "description": "A concise description of the property."
+        }
+      }
+    },
+    "story": {
+      "type": "object",
+      "required": ["id"],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The Storybook story ID (e.g. \"hooks-usecolorschemevar--default\")."
+        }
+      }
+    }
+  },
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "The name of the hook."
+    },
+    "importPath": {
+      "type": "string",
+      "description": "The path to import the hook from. i.e. '@primer/react/experimental'"
+    },
+    "stories": {
+      "type": "array",
+      "description": "An array of Storybook story IDs to embed in the docs.",
+      "items": {
+        "$ref": "#/definitions/story"
+      }
+    },
+    "parameters": {
+      "type": "array",
+      "description": "An array of parameters the hook accepts.",
+      "items": {
+        "$ref": "#/definitions/parameter"
+      }
+    },
+    "returns": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "The type of the returned value in valid TypeScript syntax."
+        }
+      }
+    },
+    "relatedTypes": {
+      "type": "array",
+      "description": "An array of the types or interfaces related to the hook.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of the type or interface."
+          },
+          "properties": {
+            "type": "array",
+            "description": "An array of the properties in the type or interface.",
+            "items": {
+              "$ref": "#/definitions/relatedTypeProperty"
+            }
+          }
+        }
+      }
+    }
+  }
+}

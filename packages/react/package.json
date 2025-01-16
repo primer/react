@@ -1,6 +1,6 @@
 {
   "name": "@primer/react",
-  "version": "37.9.1",
+  "version": "37.10.0",
   "description": "An implementation of GitHub's Primer Design System using React",
   "main": "lib/index.js",
   "module": "lib-esm/index.js",
@@ -43,6 +43,7 @@
     "build:docs": "NODE_OPTIONS=--openssl-legacy-provider script/build-docs",
     "build:docs:preview": "NODE_OPTIONS=--openssl-legacy-provider script/build-docs preview",
     "build:components.json": "tsx script/components-json/build.ts",
+    "build:hooks.json": "tsx script/hooks-json/build.ts",
     "build:precompile-color-schemes": "tsx script/precompile-color-schemes.ts",
     "storybook": "storybook",
     "type-check": "tsc --noEmit"

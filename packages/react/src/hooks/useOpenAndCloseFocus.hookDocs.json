@@ -1,0 +1,46 @@
+{
+  "name": "useOpenAndCloseFocus",
+  "importPath": "@primer/react",
+  "stories": [],
+  "parameters": [
+    {
+      "name": "openAndCloseFocusSettings",
+      "type": "UseOpenAndCloseFocusSettings",
+      "required": true,
+      "description": "Configuration options for open and close focus behavior."
+    }
+  ],
+  "returns": {
+    "type": "void"
+  },
+  "relatedTypes": [
+    {
+      "name": "UseOpenAndCloseFocusSettings",
+      "properties": [
+        {
+          "name": "initialFocusRef",
+          "type": "React.RefObject<HTMLElement>",
+          "description": "A ref to the element that should receive focus when the container is opened. If no ref is passed to `initialFocusRef`, the hook focuses the first focusable element inside of the container."
+        },
+        {
+          "name": "containerRef",
+          "type": "React.RefObject<HTMLElement>",
+          "required": true,
+          "description": "A ref to the container element that contains focusable elements."
+        },
+        {
+          "name": "returnFocusRef",
+          "type": "React.RefObject<HTMLElement>",
+          "required": true,
+          "description": "A ref to the element that should receive focus when the container is closed."
+        },
+        {
+          "name": "preventFocusOnOpen",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "If true, focus will not be set when the container is opened."
+        }
+      ]
+    }
+  ]
+}
