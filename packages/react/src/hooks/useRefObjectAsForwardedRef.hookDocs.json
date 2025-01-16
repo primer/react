@@ -1,0 +1,22 @@
+{
+  "name": "useRefObjectAsForwardedRef",
+  "importPath": "@primer/react",
+  "stories": [],
+  "parameters": [
+    {
+      "name": "forwardedRef",
+      "type": "ForwardedRef<T>",
+      "required": true,
+      "description": "The forwarded ref to synchronize with the ref object."
+    },
+    {
+      "name": "refObject",
+      "type": "RefObject<T>",
+      "required": true,
+      "description": "The ref object to use as the imperative handle."
+    }
+  ],
+  "returns": {
+    "type": "void"
+  }
+}

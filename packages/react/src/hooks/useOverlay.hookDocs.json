@@ -1,0 +1,56 @@
+{
+  "name": "useOverlay",
+  "importPath": "@primer/react",
+  "stories": [],
+  "parameters": [
+    {
+      "name": "overlaySettings",
+      "type": "UseOverlaySettings",
+      "description": "Configuration options for the overlay behavior."
+    }
+  ],
+  "returns": {
+    "type": "React.RefObject<HTMLDivElement>",
+    "description": "A ref object attached to the overlay element."
+  },
+  "relatedTypes": [
+    {
+      "name": "UseOverlaySettings",
+      "properties": [
+        {
+          "name": "ignoreClickRefs",
+          "type": "React.RefObject<HTMLElement>[]",
+          "description": "Refs to click clicks on in the `onOutsideClick` function, useful for ignoring clicks on elements that trigger the overlay visibility."
+        },
+        {
+          "name": "initialFocusRef",
+          "type": "React.RefObject<HTMLElement>",
+          "description": "Ref to focus when overlay is mounted."
+        },
+        {
+          "name": "returnFocusRef",
+          "type": "React.RefObject<HTMLElement>",
+          "required": true,
+          "description": "Ref to focus when overlay is unmounted. Important for accessibility."
+        },
+        {
+          "name": "onEscape",
+          "type": "(e: KeyboardEvent) => void",
+          "required": true,
+          "description": "Function to call when user presses the Escape key."
+        },
+        {
+          "name": "onClickOutside",
+          "type": "(e: TouchOrMouseEvent) => void",
+          "required": true,
+          "description": "Function to call when user clicks outside of the overlay."
+        },
+        {
+          "name": "preventFocusOnOpen",
+          "type": "boolean",
+          "description": "Flag to prevent focus on the overlay when it is opened."
+        }
+      ]
+    }
+  ]
+}
