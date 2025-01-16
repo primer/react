@@ -364,13 +364,15 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
       window.addEventListener('keydown', handleKeyDrag)
       window.addEventListener('mouseup', handleDragEnd)
       window.addEventListener('keyup', handleKeyDragEnd)
-      document.body?.setAttribute('data-page-layout-dragging', 'true')
+      const body = document.body as HTMLElement | undefined
+      body?.setAttribute('data-page-layout-dragging', 'true')
     } else {
       window.removeEventListener('mousemove', handleDrag)
       window.removeEventListener('mouseup', handleDragEnd)
       window.removeEventListener('keydown', handleKeyDrag)
       window.removeEventListener('keyup', handleKeyDragEnd)
-      document.body?.removeAttribute('data-page-layout-dragging')
+      const body = document.body as HTMLElement | undefined
+      body?.removeAttribute('data-page-layout-dragging')
     }
 
     return () => {
@@ -378,7 +380,8 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
       window.removeEventListener('mouseup', handleDragEnd)
       window.removeEventListener('keydown', handleKeyDrag)
       window.removeEventListener('keyup', handleKeyDragEnd)
-      document.body?.removeAttribute('data-page-layout-dragging')
+      const body = document.body as HTMLElement | undefined
+      body?.removeAttribute('data-page-layout-dragging')
     }
   }, [isDragging, isKeyboardDrag, currentWidth, minWidth, maxWidth])
 
