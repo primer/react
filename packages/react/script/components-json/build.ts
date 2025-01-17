@@ -2,6 +2,8 @@ import generate from '@babel/generator'
 import {parse} from '@babel/parser'
 import traverse from '@babel/traverse'
 import type {ArrowFunctionExpression, Identifier, FunctionDeclaration} from '@babel/types'
+import path from 'node:path'
+import {parseArgs} from 'node:util'
 import Ajv from 'ajv'
 import {pascalCase, kebabCase} from 'change-case'
 import glob from 'fast-glob'
@@ -10,6 +12,14 @@ import keyBy from 'lodash.keyby'
 import prettier from '@prettier/sync'
 import componentSchema from './component.schema.json'
 import outputSchema from './output.schema.json'
+
+const args = parseArgs({
+  options: {
+    'storybook-data': {
+      type: 'string',
+    },
+  },
+})
 
 // Only includes fields we use in this script
 type Component = {
@@ -22,6 +32,7 @@ type Component = {
     | '@primer/react/experimental'
     | '@primer/react/drafts'
   stories: Array<{id: string; code?: string}>
+  source?: string
 }
 
 const ajv = new Ajv()
@@ -37,6 +48,23 @@ const storyPrefix = {
   alpha: '',
   beta: '',
   stable: '',
+}
+
+let _storybookData: StorybookData | null = null
+
+function getStorybookData(): StorybookData {
+  const input = args.values['storybook-data']
+  if (!input) {
+    throw new Error('Unable to get value for --storybook-data')
+  }
+
+  if (_storybookData === null) {
+    const filepath = path.resolve(process.cwd(), args.values['storybook-data']!)
+    const contents = fs.readFileSync(filepath, 'utf-8')
+    _storybookData = JSON.parse(contents)
+  }
+
+  return _storybookData as StorybookData
 }
 
 const components = docsFiles.map(docsFilepath => {
@@ -113,8 +141,23 @@ const components = docsFiles.map(docsFilepath => {
     }
   }
 
+  if (args.values['storybook-data']) {
+    const storybookData = getStorybookData()
+    for (const story of docs.stories) {
+      const match = Object.values(storybookData.entries).find(entry => {
+        return entry.id === story.id
+      })
+      if (!match) {
+        throw new Error(`Story "${story.id}" not found in storybook-data`)
+      }
+    }
+  }
+
   // TODO: Provide default type and description for sx and ref props
-  return docs
+  return {
+    source: `https://github.com/primer/react/tree/main/packages/react/${docsFilepath.substring(0, docsFilepath.lastIndexOf('/'))}`,
+    ...docs,
+  }
 })
 
 const data = {schemaVersion: 2, components: keyBy(components, 'id')}
@@ -231,4 +274,13 @@ function getStoryIds(docs: Component, storyNames: string[]) {
   )
 
   return ids.map(id => ({id}))
+}
+
+interface StorybookData {
+  v: number
+  entries: {
+    [key: string]: {
+      id: string
+    }
+  }
 }

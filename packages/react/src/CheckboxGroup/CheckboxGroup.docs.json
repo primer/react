@@ -3,7 +3,26 @@
   "name": "CheckboxGroup",
   "status": "alpha",
   "a11yReviewed": false,
-  "stories": [],
+  "stories": [
+    {
+      "id": "components-checkboxgroup--default"
+    },
+    {
+      "id": "components-checkboxgroup-features--visually-hidden-label"
+    },
+    {
+      "id": "components-checkboxgroup-features--with-external-label"
+    },
+    {
+      "id": "components-checkboxgroup-features--error"
+    },
+    {
+      "id": "components-checkboxgroup-features--success"
+    },
+    {
+      "id": "components-checkboxgroup-features--caption"
+    }
+  ],
   "importPath": "@primer/react",
   "props": [
     {

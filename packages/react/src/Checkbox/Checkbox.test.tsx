@@ -9,7 +9,7 @@ describe('Checkbox', () => {
   beforeEach(() => {
     jest.resetAllMocks()
   })
-  behavesAsComponent({Component: Checkbox})
+  behavesAsComponent({Component: Checkbox, options: {skipAs: true}})
 
   checkExports('Checkbox', {
     default: Checkbox,

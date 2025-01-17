@@ -54,7 +54,7 @@ export async function visit(page: Page, options: Options) {
 
   await page.goto(url.toString())
   await page.waitForSelector('body.sb-show-main:not(.sb-show-preparing-story)')
-  await page.waitForSelector('#storybook-root > *')
+  await page.waitForSelector('#storybook-root > *', {state: 'attached'})
 
   await waitForImages(page)
 }

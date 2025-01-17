@@ -5,6 +5,10 @@ import {TextInputBaseWrapper} from '../internal/components/TextInputWrapper'
 import type {FormValidationStatus} from '../utils/types/FormValidationStatus'
 import type {SxProp} from '../sx'
 import sx from '../sx'
+import {toggleStyledComponent} from '../internal/utils/toggleStyledComponent'
+import {clsx} from 'clsx'
+import {useFeatureFlag} from '../FeatureFlags'
+import classes from './TextArea.module.css'
 
 export const DEFAULT_TEXTAREA_ROWS = 7
 export const DEFAULT_TEXTAREA_COLS = 30
@@ -38,33 +42,39 @@ export type TextareaProps = {
 } & TextareaHTMLAttributes<HTMLTextAreaElement> &
   SxProp
 
-const StyledTextarea = styled.textarea<TextareaProps>`
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-  resize: both;
+const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_staff'
 
-  &:focus {
-    outline: 0;
-  }
+const StyledTextarea = toggleStyledComponent(
+  CSS_MODULES_FEATURE_FLAG,
+  'textarea',
+  styled.textarea<TextareaProps>`
+    border: 0;
+    font-size: inherit;
+    font-family: inherit;
+    background-color: transparent;
+    -webkit-appearance: none;
+    color: inherit;
+    width: 100%;
+    resize: both;
 
-  ${props =>
-    props.resize &&
-    css`
-      resize: ${props.resize};
-    `}
+    &:focus {
+      outline: 0;
+    }
 
-  ${props =>
-    props.disabled &&
-    css`
-      resize: none;
-    `}
+    ${props =>
+      props.resize &&
+      css`
+        resize: ${props.resize};
+      `}
+
+    ${props =>
+      props.disabled &&
+      css`
+        resize: none;
+      `}
   ${sx};
-`
+  `,
+)
 
 /**
  * An accessible, native textarea component that supports validation states.
@@ -88,6 +98,8 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
     }: TextareaProps,
     ref,
   ): ReactElement => {
+    const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
+
     return (
       <TextInputBaseWrapper
         sx={sxProp}
@@ -106,6 +118,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
           disabled={disabled}
           rows={rows}
           cols={cols}
+          className={clsx(enabled && classes.TextArea, className)}
           {...rest}
         />
       </TextInputBaseWrapper>

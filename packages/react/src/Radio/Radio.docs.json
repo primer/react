@@ -3,7 +3,20 @@
   "name": "Radio",
   "status": "alpha",
   "a11yReviewed": false,
-  "stories": [],
+  "stories": [
+    {
+      "id": "components-radio--default"
+    },
+    {
+      "id": "components-radio-features--with-leading-visual"
+    },
+    {
+      "id": "components-radio-features--disabled"
+    },
+    {
+      "id": "components-radio-features--with-caption"
+    }
+  ],
   "importPath": "@primer/react",
   "props": [
     {

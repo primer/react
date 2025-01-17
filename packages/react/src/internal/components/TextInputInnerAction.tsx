@@ -6,6 +6,11 @@ import {Tooltip} from '../../TooltipV2'
 import type {ButtonProps} from '../../Button'
 import type {BetterSystemStyleObject, SxProp} from '../../sx'
 import {merge} from '../../sx'
+import {clsx} from 'clsx'
+
+import styles from './TextInputInnerAction.module.css'
+import {useFeatureFlag} from '../../FeatureFlags'
+import {TEXT_INPUT_CSS_MODULES_FEATURE_FLAG} from './UnstyledTextInput'
 
 type TextInputActionProps = Omit<
   React.ButtonHTMLAttributes<HTMLButtonElement>,
@@ -89,15 +94,23 @@ const TextInputAction = forwardRef<HTMLButtonElement, TextInputActionProps>(
       children,
       icon,
       sx: sxProp,
+      className,
       variant = 'invisible',
       ...rest
     },
     forwardedRef,
   ) => {
-    const sx =
-      variant === 'invisible'
-        ? merge<BetterSystemStyleObject>(invisibleButtonStyleOverrides, sxProp || {})
-        : sxProp || {}
+    const enabled = useFeatureFlag(TEXT_INPUT_CSS_MODULES_FEATURE_FLAG)
+
+    const styleProps = enabled
+      ? {className: clsx(variant === 'invisible' && styles.Invisible, className), sx: sxProp || {}}
+      : {
+          className,
+          sx:
+            variant === 'invisible'
+              ? merge<BetterSystemStyleObject>(invisibleButtonStyleOverrides, sxProp || {})
+              : sxProp || {},
+        }
 
     if ((icon && !ariaLabel) || (!children && !ariaLabel)) {
       // eslint-disable-next-line no-console
@@ -122,13 +135,13 @@ const TextInputAction = forwardRef<HTMLButtonElement, TextInputActionProps>(
             type="button"
             icon={icon}
             size="small"
-            sx={sx}
+            {...styleProps}
             {...rest}
             ref={forwardedRef}
           />
         ) : (
           <ConditionalTooltip aria-label={ariaLabel}>
-            <Button variant={variant} type="button" sx={sx} {...rest} ref={forwardedRef}>
+            <Button variant={variant} type="button" {...styleProps} {...rest} ref={forwardedRef}>
               {children}
             </Button>
           </ConditionalTooltip>

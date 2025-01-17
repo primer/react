@@ -214,7 +214,7 @@ export default {
   },
 } as Meta<ComponentProps<typeof Overlay>>
 
-export const Default = () => {
+export const Default = (args: Args) => {
   const [isOpen, setIsOpen] = useState(false)
   const buttonRef = useRef<HTMLButtonElement>(null)
   const confirmButtonRef = useRef<HTMLButtonElement>(null)
@@ -235,7 +235,7 @@ export const Default = () => {
       >
         Open overlay
       </Button>
-      {isOpen ? (
+      {isOpen || args.open ? (
         <Overlay
           initialFocusRef={confirmButtonRef}
           returnFocusRef={buttonRef}
@@ -246,6 +246,7 @@ export const Default = () => {
           anchorSide="inside-right"
           role="dialog"
           aria-modal="true"
+          aria-label="Sample overlay"
           ref={containerRef}
         >
           <Box
@@ -275,6 +276,15 @@ export const Default = () => {
     </Box>
   )
 }
+Default.args = {
+  open: false,
+}
+Default.argTypes = {
+  open: {
+    control: false,
+    visible: false,
+  },
+}
 export const Playground = (args: Args) => {
   const [isOpen, setIsOpen] = useState(false)
   const buttonRef = useRef<HTMLButtonElement>(null)
@@ -296,7 +306,7 @@ export const Playground = (args: Args) => {
       >
         Open overlay
       </Button>
-      {isOpen ? (
+      {isOpen || args.open ? (
         <Overlay
           initialFocusRef={confirmButtonRef}
           returnFocusRef={buttonRef}
@@ -306,6 +316,7 @@ export const Playground = (args: Args) => {
           width={args.width}
           height={args.height}
           aria-modal={args.role === 'dialog'}
+          aria-label={args.role === 'dialog' ? 'Sample overlay' : undefined}
           ref={containerRef}
           {...args}
         >
@@ -349,6 +360,7 @@ Playground.args = {
   preventOverflow: 'false',
   role: 'dialog',
   visibility: 'visible',
+  open: false,
 }
 Playground.argTypes = {
   width: {
@@ -381,6 +393,7 @@ Playground.argTypes = {
   },
   open: {
     control: false,
+    visible: false,
   },
   portalContainerName: {
     control: false,

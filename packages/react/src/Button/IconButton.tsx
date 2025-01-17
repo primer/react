@@ -21,6 +21,7 @@ const IconButton = forwardRef(
       // This is planned to be a temporary prop until the default tooltip on icon buttons are fully rolled out.
       unsafeDisableTooltip = false,
       keyshortcuts,
+      keybindingHint,
       className,
       ...props
     },
@@ -58,15 +59,14 @@ const IconButton = forwardRef(
         />
       )
     } else {
-      // Does it have keyshortcuts?
-      const tooltipSuffix = keyshortcuts ? `, ${keyshortcuts}` : ''
       const tooltipText = description ?? ariaLabel
       return (
         <Tooltip
           ref={forwardedRef}
-          text={`${tooltipText}${tooltipSuffix}`}
+          text={tooltipText}
           type={description ? undefined : 'label'}
           direction={tooltipDirection}
+          keybindingHint={keybindingHint ?? keyshortcuts}
         >
           <ButtonBase
             icon={Icon}

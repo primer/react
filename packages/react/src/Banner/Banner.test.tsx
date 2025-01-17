@@ -115,9 +115,9 @@ describe('Banner', () => {
       />,
     )
 
-    expect(screen.getByRole('button', {name: 'test primary action'})).toBeInTheDocument()
+    expect(screen.queryAllByRole('button', {name: 'test primary action', hidden: true}).length).toBe(2)
 
-    await user.click(screen.getByRole('button', {name: 'test primary action'}))
+    await user.click(screen.queryAllByText('test primary action')[0])
     expect(onClick).toHaveBeenCalledTimes(1)
   })
 
@@ -132,9 +132,9 @@ describe('Banner', () => {
       />,
     )
 
-    expect(screen.getByRole('button', {name: 'test secondary action'})).toBeInTheDocument()
+    expect(screen.queryAllByRole('button', {name: 'test secondary action', hidden: true}).length).toBe(2)
 
-    await user.click(screen.getByRole('button', {name: 'test secondary action'}))
+    await user.click(screen.queryAllByText('test secondary action')[0])
     expect(onClick).toHaveBeenCalledTimes(1)
   })
 
@@ -148,8 +148,8 @@ describe('Banner', () => {
       />,
     )
 
-    expect(screen.getByRole('button', {name: 'test primary action'})).toBeInTheDocument()
-    expect(screen.getByRole('button', {name: 'test secondary action'})).toBeInTheDocument()
+    expect(screen.queryAllByRole('button', {name: 'test primary action', hidden: true}).length).toBe(2)
+    expect(screen.queryAllByRole('button', {name: 'test secondary action', hidden: true}).length).toBe(2)
   })
 
   it('should call `onDismiss` when the dismiss button is activated', async () => {

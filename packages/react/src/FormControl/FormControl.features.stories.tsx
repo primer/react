@@ -21,6 +21,7 @@ import {
 } from '..'
 import {MarkGithubIcon, TriangleDownIcon} from '@primer/octicons-react'
 import type {ItemInput} from '../deprecated/ActionList/List'
+import {Stack} from '../Stack'
 
 export default {
   title: 'Components/FormControl/Features',
@@ -339,7 +340,7 @@ export const WithSelectPanel = () => {
 }
 
 export const WithLeadingVisual = () => (
-  <Box>
+  <Stack gap="none">
     <FormControl>
       <FormControl.Label>Option one</FormControl.Label>
       <FormControl.LeadingVisual>
@@ -356,7 +357,24 @@ export const WithLeadingVisual = () => (
       <Checkbox />
       <FormControl.Caption>This one has a caption</FormControl.Caption>
     </FormControl>
-  </Box>
+
+    <FormControl disabled>
+      <FormControl.Label>Option three</FormControl.Label>
+      <FormControl.LeadingVisual>
+        <MarkGithubIcon />
+      </FormControl.LeadingVisual>
+      <Checkbox />
+    </FormControl>
+
+    <FormControl disabled>
+      <FormControl.Label>Option four</FormControl.Label>
+      <FormControl.LeadingVisual>
+        <MarkGithubIcon />
+      </FormControl.LeadingVisual>
+      <Checkbox />
+      <FormControl.Caption>This one has a caption</FormControl.Caption>
+    </FormControl>
+  </Stack>
 )
 
 export const DisabledInputs = () => (

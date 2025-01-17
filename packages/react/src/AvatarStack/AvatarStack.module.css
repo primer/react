@@ -1,0 +1,190 @@
+/* stylelint-disable max-nesting-depth */
+/* stylelint-disable selector-max-specificity */
+.AvatarStack {
+  --avatar-border-width: 1px;
+  --avatar-two-margin: calc(var(--avatar-stack-size) * -0.55);
+  --avatar-three-margin: calc(var(--avatar-stack-size) * -0.85);
+
+  position: relative;
+  display: flex;
+  min-width: var(--avatar-stack-size);
+  height: var(--avatar-stack-size);
+
+  &:where([data-responsive]) {
+    @media screen and (--viewportRange-narrow) {
+      --avatar-stack-size: var(--stackSize-narrow);
+    }
+
+    @media screen and (--viewportRange-regular) {
+      --avatar-stack-size: var(--stackSize-regular);
+    }
+
+    @media screen and (--viewportRange-wide) {
+      --avatar-stack-size: var(--stackSize-wide);
+    }
+  }
+
+  &:where([data-avatar-count='1']) {
+    .AvatarItem {
+      /* stylelint-disable-next-line primer/box-shadow */
+      box-shadow: 0 0 0 var(--avatar-border-width) var(--avatar-borderColor);
+    }
+  }
+
+  &:where([data-avatar-count='2']) {
+    /* this calc explained: */
+
+    /* 1. avatar size + the non-overlapping part of the second avatar */
+
+    /* 2. + the border widths of the first two avatars */
+    min-width: calc(
+      var(--avatar-stack-size) + calc(var(--avatar-stack-size) + var(--avatar-two-margin)) + var(--avatar-border-width)
+    );
+  }
+
+  &:where([data-avatar-count='3']) {
+    /* this calc explained: */
+
+    /* 1. avatar size + the non-overlapping part of the second avatar */
+
+    /* 2. + the non-overlapping part of the third avatar */
+    min-width: calc(
+      var(--avatar-stack-size) +
+        calc(
+          calc(var(--avatar-stack-size) + var(--avatar-two-margin)) +
+            calc(var(--avatar-stack-size) + var(--avatar-three-margin))
+        )
+    );
+  }
+
+  &:where([data-avatar-count='3+']) {
+    /* this calc explained: */
+
+    /* 1. avatar size + the non-overlapping part of the second avatar */
+
+    /* 2. + the non-overlapping part of the third and fourth avatar */
+    min-width: calc(
+      var(--avatar-stack-size) +
+        calc(
+          calc(var(--avatar-stack-size) + var(--avatar-two-margin)) +
+            calc(var(--avatar-stack-size) + var(--avatar-three-margin)) * 2
+        )
+    );
+  }
+
+  &:where([data-align-right]) {
+    justify-content: flex-end;
+
+    .AvatarItem {
+      margin-left: 0 !important;
+
+      &:first-child {
+        margin-right: 0;
+      }
+
+      &:nth-child(n + 2) {
+        /* stylelint-disable-next-line primer/spacing */
+        margin-right: var(--avatar-two-margin);
+      }
+
+      &:nth-child(n + 3) {
+        /* stylelint-disable-next-line primer/spacing */
+        margin-right: var(--avatar-three-margin);
+      }
+    }
+
+    .AvatarStackBody {
+      flex-direction: row-reverse;
+
+      &:not([data-disable-expand]):hover,
+      &:not([data-disable-expand]):focus-within {
+        .AvatarItem {
+          margin-right: var(--base-size-4) !important;
+          margin-left: 0 !important;
+
+          &:first-child {
+            margin-right: 0 !important;
+          }
+        }
+      }
+    }
+  }
+}
+
+.AvatarStackBody {
+  position: absolute;
+  display: flex;
+
+  &:where([data-disable-expand]) {
+    position: relative;
+  }
+}
+
+.AvatarItem {
+  --avatarSize-regular: var(--avatar-stack-size);
+
+  position: relative;
+  display: flex;
+  width: var(--avatar-stack-size);
+  height: var(--avatar-stack-size);
+  overflow: hidden;
+  flex-shrink: 0;
+
+  &:is(img) {
+    /* stylelint-disable-next-line primer/box-shadow */
+    box-shadow: 0 0 0 var(--avatar-border-width) var(--bgColor-default);
+  }
+
+  &:first-child {
+    z-index: 10;
+    margin-left: 0;
+  }
+
+  &:nth-child(n + 2) {
+    z-index: 9;
+    /* stylelint-disable-next-line primer/spacing */
+    margin-left: var(--avatar-two-margin);
+  }
+
+  &:nth-child(n + 3) {
+    z-index: 8;
+    /* stylelint-disable-next-line primer/spacing */
+    margin-left: var(--avatar-three-margin);
+    opacity: 0.55;
+  }
+
+  &:nth-child(n + 4) {
+    z-index: 7;
+    opacity: 0.4;
+  }
+
+  &:nth-child(n + 5) {
+    z-index: 6;
+    opacity: 0.25;
+  }
+
+  &:nth-child(n + 6) {
+    visibility: hidden;
+    opacity: 0;
+  }
+}
+
+.AvatarStackBody:not([data-disable-expand]):hover,
+.AvatarStackBody:not([data-disable-expand]):focus-within {
+  width: auto;
+
+  .AvatarItem {
+    margin-left: var(--base-size-4);
+    visibility: visible;
+    opacity: 1;
+    transition:
+      margin 0.2s ease-in-out,
+      opacity 0.2s ease-in-out,
+      visibility 0.2s ease-in-out,
+      box-shadow 0.1s ease-in-out;
+
+    &:first-child {
+      margin-left: 0;
+    }
+  }
+}

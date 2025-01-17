@@ -3,7 +3,26 @@
   "name": "LabelGroup",
   "status": "alpha",
   "a11yReviewed": false,
-  "stories": [],
+  "stories": [
+    {
+      "id": "components-labelgroup--default"
+    },
+    {
+      "id": "components-labelgroup-features--truncate-auto"
+    },
+    {
+      "id": "components-labelgroup-features--truncate-auto-with-interactive-tokens"
+    },
+    {
+      "id": "components-labelgroup-features--truncate-after-five"
+    },
+    {
+      "id": "components-labelgroup-features--truncate-auto-expand-inline"
+    },
+    {
+      "id": "components-labelgroup-features--truncate-auto-expand-inline-with-interactive-tokens"
+    }
+  ],
   "importPath": "@primer/react",
   "props": [
     {

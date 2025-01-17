@@ -3,7 +3,20 @@
   "name": "Spinner",
   "status": "alpha",
   "a11yReviewed": false,
-  "stories": [],
+  "stories": [
+    {
+      "id": "components-spinner--default"
+    },
+    {
+      "id": "components-spinner-features--small"
+    },
+    {
+      "id": "components-spinner-features--large"
+    },
+    {
+      "id": "components-spinner-features--suppress-screen-reader-text"
+    }
+  ],
   "importPath": "@primer/react",
   "props": [
     {
@@ -22,6 +35,12 @@
       "type": "string",
       "description": "Sets the text conveyed by assistive technologies such as screen readers.",
       "deprecated": true
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "description": "",
+      "defaultValue": ""
     },
     {
       "name": "data-*",

@@ -3,7 +3,17 @@
   "name": "SkeletonBox",
   "status": "draft",
   "a11yReviewed": false,
-  "stories": [],
+  "stories": [
+    {
+      "id": "experimental-components-skeleton-skeletonbox--default"
+    },
+    {
+      "id": "experimental-components-skeleton-skeletonbox-features--custom-height"
+    },
+    {
+      "id": "experimental-components-skeleton-skeletonbox-features--custom-width"
+    }
+  ],
   "importPath": "@primer/react/experimental",
   "props": [
     {
@@ -16,6 +26,12 @@
       "defaultValue": "1rem",
       "type": "string",
       "description": "Height of the skeleton box. Accepts any valid CSS `height` value."
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "description": "The className of the skeleton box",
+      "defaultValue": ""
     },
     {
       "name": "sx",

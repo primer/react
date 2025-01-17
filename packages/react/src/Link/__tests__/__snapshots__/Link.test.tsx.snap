@@ -16,7 +16,7 @@ exports[`Link passes href down to link element 1`] = `
 exports[`Link respects hoverColor prop 1`] = `
 <a
   className="Link"
-  hoverColor="accent.fg"
+  data-hover-color="accent.fg"
 />
 `;
 

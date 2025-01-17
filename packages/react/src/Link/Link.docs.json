@@ -3,7 +3,20 @@
   "name": "Link",
   "status": "alpha",
   "a11yReviewed": false,
-  "stories": [],
+  "stories": [
+    {
+      "id": "components-link--default"
+    },
+    {
+      "id": "components-link-features--muted"
+    },
+    {
+      "id": "components-link-features--underline"
+    },
+    {
+      "id": "components-link-features--inline"
+    }
+  ],
   "importPath": "@primer/react",
   "props": [
     {

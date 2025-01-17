@@ -220,6 +220,7 @@ LinkItemPlayground.args = {
   active: false,
   disabled: false,
   id: 'item-1',
+  variant: 'default',
   inactiveText: '',
   leadingVisual: null,
   loading: false,
@@ -230,6 +231,10 @@ LinkItemPlayground.argTypes = {
     control: {
       type: 'boolean',
     },
+  },
+  variant: {
+    control: 'radio',
+    options: ['default', 'danger'],
   },
   role: {
     type: 'string',

@@ -1,0 +1,53 @@
+{
+  "name": "useConfirm",
+  "importPath": "@primer/react",
+  "stories": [
+    {
+      "id": "components-confirmationdialog-features--shorthand-hook"
+    },
+    {
+      "id": "components-confirmationdialog-features--shorthand-hook-from-action-menu"
+    }
+  ],
+  "returns": {
+    "type": "(options: ConfirmOptions) => Promise<boolean>",
+    "description": "An async function that shows a confirmation dialog and resolves with a boolean indicating whether the confirm button was used."
+  },
+  "relatedTypes": [
+    {
+      "name": "ConfirmOptions",
+      "properties": [
+        {
+          "name": "title",
+          "type": "React.ReactNode",
+          "required": true,
+          "description": "The title of the ConfirmationDialog. This is usually a brief question."
+        },
+        {
+          "name": "content",
+          "type": "React.ReactNode",
+          "required": true,
+          "description": "ConfirmationDialog body content."
+        },
+        {
+          "name": "cancelButtonContent",
+          "type": "React.ReactNode",
+          "defaultValue": "Cancel",
+          "description": "The text to use for the cancel button."
+        },
+        {
+          "name": "confirmButtonContent",
+          "type": "React.ReactNode",
+          "defaultValue": "OK",
+          "description": "The text to use for the confirm button."
+        },
+        {
+          "name": "confirmButtonType",
+          "type": "\"normal\" | \"primary\" | \"danger\"",
+          "defaultValue": "normal",
+          "description": "The type of button to use for the confirm button."
+        }
+      ]
+    }
+  ]
+}

@@ -35,7 +35,8 @@
 
 .RadioGroupLabel {
   display: block;
-  font-size: var(--text-body-size-large);
+  font-size: var(--text-body-size-medium);
+  font-weight: var(--base-text-weight-semibold);
 
   &:where([data-label-disabled]) {
     color: var(--fgColor-muted);

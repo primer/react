@@ -30,6 +30,7 @@ export interface FilteredActionListProps
   onFilterChange: (value: string, e: React.ChangeEvent<HTMLInputElement>) => void
   textInputProps?: Partial<Omit<TextInputProps, 'onChange'>>
   inputRef?: React.RefObject<HTMLInputElement>
+  className?: string
 }
 
 const StyledHeader = styled.div`
@@ -46,6 +47,7 @@ export function FilteredActionList({
   textInputProps,
   inputRef: providedInputRef,
   sx,
+  className,
   ...listProps
 }: FilteredActionListProps): JSX.Element {
   const [filterValue, setInternalFilterValue] = useProvidedStateOrCreate(externalFilterValue, undefined, '')
@@ -110,7 +112,14 @@ export function FilteredActionList({
   useScrollFlash(scrollContainerRef)
 
   return (
-    <Box display="flex" flexDirection="column" overflow="hidden" sx={sx}>
+    <Box
+      display="flex"
+      flexDirection="column"
+      overflow="hidden"
+      sx={sx}
+      className={className}
+      data-testid="filtered-action-list"
+    >
       <StyledHeader>
         <TextInput
           ref={inputRef}

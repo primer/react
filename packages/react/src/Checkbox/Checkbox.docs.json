@@ -3,7 +3,23 @@
   "name": "Checkbox",
   "status": "alpha",
   "a11yReviewed": false,
-  "stories": [],
+  "stories": [
+    {
+      "id": "components-checkbox--default"
+    },
+    {
+      "id": "components-checkbox-features--with-leading-visual"
+    },
+    {
+      "id": "components-checkbox-features--disabled"
+    },
+    {
+      "id": "components-checkbox-features--with-caption"
+    },
+    {
+      "id": "components-checkbox-features--indeterminate"
+    }
+  ],
   "importPath": "@primer/react",
   "props": [
     {

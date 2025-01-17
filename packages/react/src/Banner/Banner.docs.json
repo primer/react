@@ -1,10 +1,53 @@
 {
   "id": "banner",
   "name": "Banner",
-  "status": "draft",
+  "status": "alpha",
   "a11yReviewed": true,
   "importPath": "@primer/react/experimental",
-  "stories": [],
+  "stories": [
+    {
+      "id": "experimental-components-banner--default"
+    },
+    {
+      "id": "experimental-components-banner-features--critical"
+    },
+    {
+      "id": "experimental-components-banner-features--info"
+    },
+    {
+      "id": "experimental-components-banner-features--success"
+    },
+    {
+      "id": "experimental-components-banner-features--upsell"
+    },
+    {
+      "id": "experimental-components-banner-features--warning"
+    },
+    {
+      "id": "experimental-components-banner-features--dismiss"
+    },
+    {
+      "id": "experimental-components-banner-features--dismiss-with-actions"
+    },
+    {
+      "id": "experimental-components-banner-features--with-hidden-title"
+    },
+    {
+      "id": "experimental-components-banner-features--with-hidden-title-and-actions"
+    },
+    {
+      "id": "experimental-components-banner-features--dismissible-with-hidden-title-and-actions"
+    },
+    {
+      "id": "experimental-components-banner-features--dismissible-with-hidden-title-and-secondary-action"
+    },
+    {
+      "id": "experimental-components-banner-features--with-actions"
+    },
+    {
+      "id": "experimental-components-banner-features--custom-icon"
+    }
+  ],
   "props": [
     {
       "name": "aria-label",
@@ -69,15 +112,30 @@
     },
     {
       "name": "Banner.Description",
-      "props": []
+      "props": [
+        {
+          "name": "className",
+          "type": "string",
+          "description": "Class name(s) for custom styling.",
+          "defaultValue": ""
+        }
+      ]
     },
     {
       "name": "Banner.PrimaryAction",
-      "props": []
+      "props": [],
+      "passthrough": {
+        "element": "Button",
+        "url": "/react/Button"
+      }
     },
     {
       "name": "Banner.SecondaryAction",
-      "props": []
+      "props": [],
+      "passthrough": {
+        "element": "Button",
+        "url": "/react/Button"
+      }
     }
   ]
 }

@@ -77,6 +77,10 @@
       "type": "string",
       "description": "The path to import the component from. i.e. '@primer/react/experimental'"
     },
+    "source": {
+      "type": "string",
+      "description": "Link to the component source on GitHub"
+    },
 
     "stories": {
       "type": "array",

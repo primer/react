@@ -3,9 +3,20 @@
   "name": "Breadcrumbs",
   "status": "alpha",
   "a11yReviewed": false,
-  "stories": [],
+  "stories": [
+    {
+      "id": "components-breadcrumbs--default"
+    }
+  ],
   "importPath": "@primer/react",
   "props": [
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": "",
+      "defaultValue": ""
+    },
     {
       "name": "children",
       "type": "Breadcrumbs.Item[]",
@@ -25,7 +36,14 @@
           "name": "selected",
           "type": "boolean",
           "defaultValue": "false",
-          "description": ""
+          "description": "Whether this item represents the current page"
+        },
+        {
+          "name": "to",
+          "type": "string | Partial<Path>",
+          "required": false,
+          "description": "Used when the item is rendered using a component like React Router's `Link`. The path to navigate to.",
+          "defaultValue": ""
         },
         {
           "name": "ref",

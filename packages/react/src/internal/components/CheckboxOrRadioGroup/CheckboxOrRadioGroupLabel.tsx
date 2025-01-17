@@ -76,7 +76,8 @@ const CheckboxOrRadioGroupLabel: React.FC<React.PropsWithChildren<CheckboxOrRadi
       sx={{
         display: 'block',
         color: disabled ? 'fg.muted' : undefined,
-        fontSize: 2,
+        fontSize: 1,
+        fontWeight: 'bold',
         ...sx,
       }}
     >

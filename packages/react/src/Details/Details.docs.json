@@ -3,7 +3,11 @@
   "name": "Details",
   "status": "alpha",
   "a11yReviewed": false,
-  "stories": [],
+  "stories": [
+    {
+      "id": "components-details--default"
+    }
+  ],
   "importPath": "@primer/react",
   "props": [
     {

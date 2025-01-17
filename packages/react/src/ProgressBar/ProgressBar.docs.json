@@ -3,7 +3,38 @@
   "name": "ProgressBar",
   "status": "alpha",
   "a11yReviewed": false,
-  "stories": [],
+  "stories": [
+    {
+      "id": "components-progressbar--default"
+    },
+    {
+      "id": "components-progressbar-features--progress-zero"
+    },
+    {
+      "id": "components-progressbar-features--progress-half"
+    },
+    {
+      "id": "components-progressbar-features--progress-done"
+    },
+    {
+      "id": "components-progressbar-features--size-small"
+    },
+    {
+      "id": "components-progressbar-features--size-large"
+    },
+    {
+      "id": "components-progressbar-features--inline"
+    },
+    {
+      "id": "components-progressbar-features--color"
+    },
+    {
+      "id": "components-progressbar-features--multiple-items"
+    },
+    {
+      "id": "components-progressbar-features--animated"
+    }
+  ],
   "importPath": "@primer/react",
   "props": [
     {
@@ -40,5 +71,33 @@
       "type": "SystemStyleObject"
     }
   ],
-  "subcomponents": []
+  "subcomponents": [
+    {
+      "name": "ProgressBar.Item",
+      "props": [
+        {
+          "name": "aria-label",
+          "type": "string",
+          "description": "Defines a string value that labels the current element.\n@see aria-labelledby.",
+          "defaultValue": ""
+        },
+        {
+          "name": "bg",
+          "type": "string",
+          "description": "Set the progress segment color",
+          "defaultValue": "success.emphasis"
+        },
+        {
+          "name": "progress",
+          "type": "string | number",
+          "description": "Used to set the size of the green bar",
+          "defaultValue": "0"
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ]
+    }
+  ]
 }

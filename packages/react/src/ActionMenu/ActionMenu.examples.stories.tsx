@@ -235,22 +235,22 @@ export const ShortcutMenu = () => {
 
 export const ContextMenu = () => {
   const ListItemWithContextMenu = ({children}: {children: string}) => {
-    const handleContextMenu: React.MouseEventHandler<HTMLLIElement> = event => {
+    const handleContextMenu: React.MouseEventHandler<HTMLElement> = event => {
       event.preventDefault()
       setOpen(true)
     }
 
     const [open, setOpen] = React.useState(false)
-    const triggerRef = React.useRef<HTMLLIElement>(null)
+    const triggerRef = React.useRef<HTMLButtonElement>(null)
 
     return (
-      // We need to add an aria-label for improving support for more assistive technologies. For example: VoiceOver might not detect the `name` without `aria-label`
-      // Since this has a custom context menu, it's ok to add a tabIndex
-      // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
-      <li ref={triggerRef} onContextMenu={handleContextMenu} tabIndex={0} aria-label={children}>
-        {children}
+      <li onContextMenu={handleContextMenu}>
         <ActionMenu open={open} onOpenChange={setOpen} anchorRef={triggerRef}>
-          <ActionMenu.Button sx={{visibility: 'hidden', height: 0}}>Anchor</ActionMenu.Button>
+          <ActionMenu.Anchor>
+            <Button ref={triggerRef} variant="invisible" onClick={handleContextMenu}>
+              {children}
+            </Button>
+          </ActionMenu.Anchor>
           <ActionMenu.Overlay>
             <ActionList>
               <ActionList.Item>

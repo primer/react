@@ -458,7 +458,7 @@ describe('FormControl', () => {
 describe('useFormControlForwardedProps', () => {
   describe('when used outside FormControl', () => {
     test('returns empty object when no props object passed', () => {
-      const result = renderHook(() => useFormControlForwardedProps())
+      const result = renderHook(() => useFormControlForwardedProps({}))
       expect(result.result.current).toEqual({})
     })
 
@@ -472,7 +472,7 @@ describe('useFormControlForwardedProps', () => {
   test('provides context value when no props object is passed', () => {
     const id = 'test-id'
 
-    const {result} = renderHook(() => useFormControlForwardedProps(), {
+    const {result} = renderHook(() => useFormControlForwardedProps({}), {
       wrapper: ({children}: {children: React.ReactNode}) => (
         <FormControl id={id} disabled required>
           <FormControl.Label>Label</FormControl.Label>

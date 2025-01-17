@@ -131,7 +131,7 @@ export const WithWarning = () => {
           Assignees
         </SelectPanel.Button>
         <SelectPanel.Header>
-          <SelectPanel.SearchInput onChange={onSearchInputChange} />
+          <SelectPanel.SearchInput onChange={onSearchInputChange} aria-label="Search" />
         </SelectPanel.Header>
 
         {selectedAssigneeIds.length >= MAX_LIMIT ? (
@@ -172,7 +172,7 @@ export const WithWarning = () => {
 
 export const WithErrors = () => {
   const [searchBroken, setSearchBroken] = React.useState(true)
-  const [issuesBroken, setIssuesBroken] = React.useState(false)
+  const [issuesBroken, setIssuesBroken] = React.useState(true)
 
   /* Selection */
   const initialAssigneeIds = data.collaborators.slice(0, 3).map(c => c.id) // mock initial state
@@ -264,7 +264,7 @@ export const WithErrors = () => {
           </Text>
         </Box>
         <ToggleSwitch
-          defaultChecked={false}
+          defaultChecked={true}
           onChange={enabled => setIssuesBroken(enabled)}
           aria-labelledby="break-issues-label"
           aria-describedby="break-issues-caption"
@@ -280,7 +280,7 @@ export const WithErrors = () => {
           Assignees
         </SelectPanel.Button>
         <SelectPanel.Header>
-          <SelectPanel.SearchInput onChange={onSearchInputChange} />
+          <SelectPanel.SearchInput onChange={onSearchInputChange} aria-label="Search" />
         </SelectPanel.Header>
 
         {issuesBroken ? (
@@ -534,7 +534,7 @@ export const ResponsiveVariants = () => {
           Assignees
         </SelectPanel.Button>
         <SelectPanel.Header>
-          <SelectPanel.SearchInput onChange={onSearchInputChange} />
+          <SelectPanel.SearchInput onChange={onSearchInputChange} aria-label="Search" />
         </SelectPanel.Header>
 
         {itemsToShow.length === 0 ? (

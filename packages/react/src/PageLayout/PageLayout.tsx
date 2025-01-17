@@ -1,5 +1,6 @@
 import React, {useRef} from 'react'
 import {createGlobalStyle} from 'styled-components'
+import {clsx} from 'clsx'
 import Box from '../Box'
 import {useId} from '../hooks/useId'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
@@ -13,6 +14,9 @@ import {canUseDOM} from '../utils/environment'
 import {useOverflow} from '../hooks/useOverflow'
 import {warning} from '../utils/warning'
 import {useStickyPaneHeight} from './useStickyPaneHeight'
+import {useFeatureFlag} from '../FeatureFlags'
+
+import classes from './PageLayout.module.css'
 
 const REGION_ORDER = {
   header: 0,
@@ -57,7 +61,11 @@ export type PageLayoutProps = {
 
   /** Private prop to allow SplitPageLayout to customize slot components */
   _slotsConfig?: Record<'header' | 'footer', React.ElementType>
+  className?: string
+  style?: React.CSSProperties
 } & SxProp
+
+const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_team'
 
 const containerWidths = {
   full: '100%',
@@ -74,14 +82,46 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
   columnGap = 'normal',
   children,
   sx = {},
+  className,
+  style,
   _slotsConfig: slotsConfig,
 }) => {
   const {rootRef, enableStickyPane, disableStickyPane, contentTopRef, contentBottomRef, stickyPaneHeight} =
     useStickyPaneHeight()
 
   const paneRef = useRef<HTMLDivElement>(null)
+  const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
 
   const [slots, rest] = useSlots(children, slotsConfig ?? {header: Header, footer: Footer})
+
+  const stylingProps = enabled
+    ? {
+        sx,
+        className: clsx(classes.PageLayoutRoot, className),
+      }
+    : {
+        sx: merge<BetterSystemStyleObject>({padding: SPACING_MAP[padding]}, sx),
+        className,
+      }
+
+  const wrapperStylingProps = enabled
+    ? {className: classes.PageLayoutWrapper, 'data-width': containerWidth}
+    : {
+        sx: {
+          maxWidth: containerWidths[containerWidth],
+          marginX: 'auto',
+          display: 'flex',
+          flexWrap: 'wrap',
+        },
+      }
+
+  const contentStylingProps = enabled
+    ? {
+        className: clsx(classes.PageLayoutContent, className),
+      }
+    : {
+        sx: {display: 'flex', flex: '1 1 100%', flexWrap: 'wrap', maxWidth: '100%'},
+      }
 
   return (
     <PageLayoutContext.Provider
@@ -98,22 +138,18 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
     >
       <Box
         ref={rootRef}
-        style={{
-          // @ts-ignore TypeScript doesn't know about CSS custom properties
-          '--sticky-pane-height': stickyPaneHeight,
-        }}
-        sx={merge<BetterSystemStyleObject>({padding: SPACING_MAP[padding]}, sx)}
+        style={
+          {
+            '--sticky-pane-height': stickyPaneHeight,
+            '--spacing': `var(--spacing-${padding})`,
+            ...style,
+          } as React.CSSProperties
+        }
+        {...stylingProps}
       >
-        <Box
-          sx={{
-            maxWidth: containerWidths[containerWidth],
-            marginX: 'auto',
-            display: 'flex',
-            flexWrap: 'wrap',
-          }}
-        >
+        <Box {...wrapperStylingProps}>
           {slots.header}
-          <Box sx={{display: 'flex', flex: '1 1 100%', flexWrap: 'wrap', maxWidth: '100%'}}>{rest}</Box>
+          <Box {...contentStylingProps}>{rest}</Box>
           {slots.footer}
         </Box>
       </Box>
@@ -128,6 +164,9 @@ Root.displayName = 'PageLayout'
 
 type DividerProps = {
   variant?: 'none' | 'line' | 'filled' | ResponsiveValue<'none' | 'line' | 'filled'>
+  className?: string
+  style?: React.CSSProperties
+  position?: keyof typeof panePositions
 } & SxProp
 
 const horizontalDividerVariants = {
@@ -143,8 +182,7 @@ const horizontalDividerVariants = {
     display: 'block',
     height: 8,
     backgroundColor: 'canvas.inset',
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    boxShadow: (theme: any) =>
+    boxShadow: (theme: Theme) =>
       `inset 0 -1px 0 0 ${theme.colors.border.default}, inset 0 1px 0 0 ${theme.colors.border.default}`,
   },
 }
@@ -158,27 +196,46 @@ function negateSpacingValue(value: number | null | Array<number | null>) {
   return value === null ? null : -value
 }
 
-const HorizontalDivider: React.FC<React.PropsWithChildren<DividerProps>> = ({variant = 'none', sx = {}}) => {
+const HorizontalDivider: React.FC<React.PropsWithChildren<DividerProps>> = ({
+  variant = 'none',
+  sx = {},
+  className,
+  position,
+  style,
+}) => {
   const {padding} = React.useContext(PageLayoutContext)
   const responsiveVariant = useResponsiveValue(variant, 'none')
-  return (
-    <Box
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      sx={(theme: any) =>
-        merge<BetterSystemStyleObject>(
-          {
-            // Stretch divider to viewport edges on narrow screens
-            marginX: negateSpacingValue(SPACING_MAP[padding]),
-            ...horizontalDividerVariants[responsiveVariant],
-            [`@media screen and (min-width: ${theme.breakpoints[1]})`]: {
-              marginX: '0 !important',
-            },
-          },
-          sx,
-        )
+  const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
+
+  const stylingProps = enabled
+    ? {
+        sx,
+        className: clsx(classes.HorizontalDivider, className),
+        'data-variant': responsiveVariant,
+        'data-position': position,
+        style: {
+          '--spacing-divider': `var(--spacing-${padding})`,
+          ...style,
+        } as React.CSSProperties,
       }
-    />
-  )
+    : {
+        sx: (theme: Theme) =>
+          merge<BetterSystemStyleObject>(
+            {
+              // Stretch divider to viewport edges on narrow screens
+              marginX: negateSpacingValue(SPACING_MAP[padding]),
+              ...horizontalDividerVariants[responsiveVariant],
+              [`@media screen and (min-width: ${theme.breakpoints[1]})`]: {
+                marginX: '0 !important',
+              },
+            },
+            sx,
+          ),
+        className,
+        style,
+      }
+
+  return <Box {...stylingProps} />
 }
 
 const verticalDividerVariants = {
@@ -194,8 +251,7 @@ const verticalDividerVariants = {
     display: 'block',
     width: 8,
     backgroundColor: 'canvas.inset',
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    boxShadow: (theme: any) =>
+    boxShadow: (theme: Theme) =>
       `inset -1px 0 0 0 ${theme.colors.border.default}, inset 1px 0 0 0 ${theme.colors.border.default}`,
   },
 }
@@ -227,11 +283,15 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
   onDrag,
   onDragEnd,
   onDoubleClick,
+  position,
+  className,
+  style,
   sx = {},
 }) => {
   const [isDragging, setIsDragging] = React.useState(false)
   const [isKeyboardDrag, setIsKeyboardDrag] = React.useState(false)
   const responsiveVariant = useResponsiveValue(variant, 'none')
+  const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
 
   const stableOnDrag = React.useRef(onDrag)
   const stableOnDragEnd = React.useRef(onDragEnd)
@@ -304,13 +364,15 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
       window.addEventListener('keydown', handleKeyDrag)
       window.addEventListener('mouseup', handleDragEnd)
       window.addEventListener('keyup', handleKeyDragEnd)
-      document.body.setAttribute('data-page-layout-dragging', 'true')
+      const body = document.body as HTMLElement | undefined
+      body?.setAttribute('data-page-layout-dragging', 'true')
     } else {
       window.removeEventListener('mousemove', handleDrag)
       window.removeEventListener('mouseup', handleDragEnd)
       window.removeEventListener('keydown', handleKeyDrag)
       window.removeEventListener('keyup', handleKeyDragEnd)
-      document.body.removeAttribute('data-page-layout-dragging')
+      const body = document.body as HTMLElement | undefined
+      body?.removeAttribute('data-page-layout-dragging')
     }
 
     return () => {
@@ -318,21 +380,34 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
       window.removeEventListener('mouseup', handleDragEnd)
       window.removeEventListener('keydown', handleKeyDrag)
       window.removeEventListener('keyup', handleKeyDragEnd)
-      document.body.removeAttribute('data-page-layout-dragging')
+      const body = document.body as HTMLElement | undefined
+      body?.removeAttribute('data-page-layout-dragging')
     }
   }, [isDragging, isKeyboardDrag, currentWidth, minWidth, maxWidth])
 
-  return (
-    <Box
-      sx={merge<BetterSystemStyleObject>(
-        {
-          height: '100%',
-          position: 'relative',
-          ...verticalDividerVariants[responsiveVariant],
-        },
+  const stylingProps = enabled
+    ? {
         sx,
-      )}
-    >
+        className: clsx(classes.VerticalDivider, className),
+        'data-variant': responsiveVariant,
+        'data-position': position,
+        style,
+      }
+    : {
+        sx: merge<BetterSystemStyleObject>(
+          {
+            height: '100%',
+            position: 'relative',
+            ...verticalDividerVariants[responsiveVariant],
+          },
+          sx,
+        ),
+        className,
+        style,
+      }
+
+  return (
+    <Box {...stylingProps}>
       {draggable ? (
         // Drag handle
         <>
@@ -373,7 +448,7 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
             }}
             onDoubleClick={onDoubleClick}
           />
-          <DraggingGlobalStyles />
+          {!enabled && <DraggingGlobalStyles />}
         </>
       ) : null}
     </Box>
@@ -412,6 +487,8 @@ export type PageLayoutHeaderProps = {
    */
   dividerWhenNarrow?: 'inherit' | 'none' | 'line' | 'filled'
   hidden?: boolean | ResponsiveValue<boolean>
+  className?: string
+  style?: React.CSSProperties
 } & SxProp
 
 const Header: React.FC<React.PropsWithChildren<PageLayoutHeaderProps>> = ({
@@ -422,7 +499,9 @@ const Header: React.FC<React.PropsWithChildren<PageLayoutHeaderProps>> = ({
   dividerWhenNarrow = 'inherit',
   hidden = false,
   children,
+  style,
   sx = {},
+  className,
 }) => {
   // Combine divider and dividerWhenNarrow for backwards compatibility
   const dividerProp =
@@ -433,22 +512,64 @@ const Header: React.FC<React.PropsWithChildren<PageLayoutHeaderProps>> = ({
   const dividerVariant = useResponsiveValue(dividerProp, 'none')
   const isHidden = useResponsiveValue(hidden, false)
   const {rowGap} = React.useContext(PageLayoutContext)
+  const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
+
+  const headerStylingProps = enabled
+    ? {
+        sx,
+        className: clsx(classes.Header, className),
+        style: {
+          '--spacing': `var(--spacing-${rowGap})`,
+        } as React.CSSProperties,
+      }
+    : {
+        sx: merge<BetterSystemStyleObject>(
+          {
+            width: '100%',
+            marginBottom: SPACING_MAP[rowGap],
+          },
+          sx,
+        ),
+        className,
+      }
+
+  const contentStylingProps = enabled
+    ? {
+        className: classes.HeaderContent,
+        style: {
+          '--spacing': `var(--spacing-${padding})`,
+        } as React.CSSProperties,
+      }
+    : {
+        sx: {
+          padding: SPACING_MAP[padding],
+        },
+      }
+
+  const dividerStylingProps = enabled
+    ? {
+        className: classes.HeaderHorizontalDivider,
+        style: {
+          '--spacing': `var(--spacing-${rowGap})`,
+        } as React.CSSProperties,
+      }
+    : {
+        sx: {
+          marginTop: SPACING_MAP[rowGap],
+        },
+      }
+
   return (
     <Box
       as="header"
       aria-label={label}
       aria-labelledby={labelledBy}
       hidden={isHidden}
-      sx={merge<BetterSystemStyleObject>(
-        {
-          width: '100%',
-          marginBottom: SPACING_MAP[rowGap],
-        },
-        sx,
-      )}
+      style={style}
+      {...headerStylingProps}
     >
-      <Box sx={{padding: SPACING_MAP[padding]}}>{children}</Box>
-      <HorizontalDivider variant={dividerVariant} sx={{marginTop: SPACING_MAP[rowGap]}} />
+      <Box {...contentStylingProps}>{children}</Box>
+      <HorizontalDivider variant={dividerVariant} {...dividerStylingProps} />
     </Box>
   )
 }
@@ -477,6 +598,8 @@ export type PageLayoutContentProps = {
   width?: keyof typeof contentWidths
   padding?: keyof typeof SPACING_MAP
   hidden?: boolean | ResponsiveValue<boolean>
+  className?: string
+  style?: React.CSSProperties
 } & SxProp
 
 // TODO: Account for pane width when centering content
@@ -496,45 +619,62 @@ const Content: React.FC<React.PropsWithChildren<PageLayoutContentProps>> = ({
   hidden = false,
   children,
   sx = {},
+  className,
+  style,
 }) => {
   const isHidden = useResponsiveValue(hidden, false)
   const {contentTopRef, contentBottomRef} = React.useContext(PageLayoutContext)
+  const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
 
-  return (
-    <Box
-      as={as}
-      aria-label={label}
-      aria-labelledby={labelledBy}
-      sx={merge<BetterSystemStyleObject>(
-        {
-          display: isHidden ? 'none' : 'flex',
-          flexDirection: 'column',
-          order: REGION_ORDER.content,
-          // Set flex-basis to 0% to allow flex-grow to control the width of the content region.
-          // Without this, the content region could wrap onto a different line
-          // than the pane region on wide viewports if its contents are too wide.
-          flexBasis: 0,
-          flexGrow: 1,
-          flexShrink: 1,
-          minWidth: 1, // Hack to prevent overflowing content from pushing the pane region to the next line
-        },
+  const wrapperStylingProps = enabled
+    ? {
         sx,
-      )}
-    >
-      {/* Track the top of the content region so we can calculate the height of the pane region */}
-      <Box ref={contentTopRef} />
+        className: clsx(classes.ContentWrapper, className),
+        'data-is-hidden': isHidden,
+      }
+    : {
+        sx: merge<BetterSystemStyleObject>(
+          {
+            display: isHidden ? 'none' : 'flex',
+            flexDirection: 'column',
+            order: REGION_ORDER.content,
+            // Set flex-basis to 0% to allow flex-grow to control the width of the content region.
+            // Without this, the content region could wrap onto a different line
+            // than the pane region on wide viewports if its contents are too wide.
+            flexBasis: 0,
+            flexGrow: 1,
+            flexShrink: 1,
+            minWidth: 1, // Hack to prevent overflowing content from pushing the pane region to the next line
+          },
+          sx,
+        ),
+        className,
+      }
 
-      <Box
-        sx={{
+  const stylingProps = enabled
+    ? {
+        className: classes.Content,
+        'data-width': width,
+        style: {
+          '--spacing': `var(--spacing-${padding})`,
+        } as React.CSSProperties,
+      }
+    : {
+        sx: {
           width: '100%',
           maxWidth: contentWidths[width],
           marginX: 'auto',
           flexGrow: 1,
           padding: SPACING_MAP[padding],
-        }}
-      >
-        {children}
-      </Box>
+        },
+      }
+
+  return (
+    <Box as={as} aria-label={label} aria-labelledby={labelledBy} style={style} {...wrapperStylingProps}>
+      {/* Track the top of the content region so we can calculate the height of the pane region */}
+      <Box ref={contentTopRef} />
+
+      <Box {...stylingProps}>{children}</Box>
 
       {/* Track the bottom of the content region so we can calculate the height of the pane region */}
       <Box ref={contentBottomRef} />
@@ -610,6 +750,8 @@ export type PageLayoutPaneProps = {
   offsetHeader?: string | number
   hidden?: boolean | ResponsiveValue<boolean>
   id?: string
+  className?: string
+  style?: React.CSSProperties
 } & SxProp
 
 const panePositions = {
@@ -620,10 +762,12 @@ const panePositions = {
 const paneWidths = {
   small: ['100%', null, '240px', '256px'],
   medium: ['100%', null, '256px', '296px'],
-  large: ['100%', null, '256px', '320px', '336px'],
+  large: ['100%', null, '256px', '320px'],
 }
 
 const defaultPaneWidth = {small: 256, medium: 296, large: 320}
+
+const overflowProps = {tabIndex: 0, role: 'region'}
 
 const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayoutPaneProps>>(
   (
@@ -645,9 +789,13 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
       children,
       id,
       sx = {},
+      className,
+      style,
     },
     forwardRef,
   ) => {
+    const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
+
     // Combine position and positionWhenNarrow for backwards compatibility
     const positionProp =
       !isResponsiveValue(responsivePosition) && positionWhenNarrow !== 'inherit'
@@ -733,60 +881,103 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
       }
     }
 
-    return (
-      <Box
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        sx={(theme: any) =>
-          merge<BetterSystemStyleObject>(
-            {
-              // Narrow viewports
-              display: isHidden ? 'none' : 'flex',
-              order: panePositions[position],
-              width: '100%',
-              marginX: 0,
-              ...(position === 'end'
-                ? {flexDirection: 'column', marginTop: SPACING_MAP[rowGap]}
-                : {flexDirection: 'column-reverse', marginBottom: SPACING_MAP[rowGap]}),
-
-              // Regular and wide viewports
-              [`@media screen and (min-width: ${theme.breakpoints[1]})`]: {
-                width: 'auto',
-                marginY: '0 !important',
-                ...(sticky
-                  ? {
-                      position: 'sticky',
-                      // If offsetHeader has value, it will stick the pane to the position where the sticky top ends
-                      // else top will be 0 as the default value of offsetHeader
-                      top: typeof offsetHeader === 'number' ? `${offsetHeader}px` : offsetHeader,
-                      maxHeight: 'var(--sticky-pane-height)',
-                    }
-                  : {}),
-                ...(position === 'end'
-                  ? {flexDirection: 'row-reverse', marginLeft: SPACING_MAP[columnGap]}
-                  : {flexDirection: 'row', marginRight: SPACING_MAP[columnGap]}),
-              },
-            },
-            sx,
-          )
+    const paneWrapperStylingProps = enabled
+      ? {
+          sx,
+          className: clsx(classes.PaneWrapper, className),
+          style: {
+            '--offset-header': typeof offsetHeader === 'number' ? `${offsetHeader}px` : offsetHeader,
+            '--spacing-row': `var(--spacing-${rowGap})`,
+            '--spacing-column': `var(--spacing-${columnGap})`,
+            ...style,
+          },
+          'data-is-hidden': isHidden,
+          'data-position': position,
+          'data-sticky': sticky || undefined,
         }
-      >
-        {/* Show a horizontal divider when viewport is narrow. Otherwise, show a vertical divider. */}
-        <HorizontalDivider
-          variant={{narrow: dividerVariant, regular: 'none'}}
-          sx={{[position === 'end' ? 'marginBottom' : 'marginTop']: SPACING_MAP[rowGap]}}
-        />
-        <Box
-          ref={paneRef}
-          style={{
-            // @ts-ignore CSS custom properties are not supported by TypeScript
+      : {
+          className,
+          sx: (theme: Theme) =>
+            merge<BetterSystemStyleObject>(
+              {
+                // Narrow viewports
+                display: isHidden ? 'none' : 'flex',
+                order: panePositions[position],
+                width: '100%',
+                marginX: 0,
+                ...(position === 'end'
+                  ? {flexDirection: 'column', marginTop: SPACING_MAP[rowGap]}
+                  : {flexDirection: 'column-reverse', marginBottom: SPACING_MAP[rowGap]}),
+
+                // Regular and wide viewports
+                [`@media screen and (min-width: ${theme.breakpoints[1]})`]: {
+                  width: 'auto',
+                  marginY: '0 !important',
+                  ...(sticky
+                    ? {
+                        position: 'sticky',
+                        // If offsetHeader has value, it will stick the pane to the position where the sticky top ends
+                        // else top will be 0 as the default value of offsetHeader
+                        top: typeof offsetHeader === 'number' ? `${offsetHeader}px` : offsetHeader,
+                        maxHeight: 'var(--sticky-pane-height)',
+                      }
+                    : {}),
+                  ...(position === 'end'
+                    ? {flexDirection: 'row-reverse', marginLeft: SPACING_MAP[columnGap]}
+                    : {flexDirection: 'row', marginRight: SPACING_MAP[columnGap]}),
+                },
+              },
+              sx,
+            ),
+          style,
+        }
+
+    const horizontalDividerStylingProps = enabled
+      ? {
+          className: classes.PaneHorizontalDivider,
+          style: {
+            '--spacing': `var(--spacing-${rowGap})`,
+          } as React.CSSProperties,
+        }
+      : {
+          sx: {
+            [position === 'end' ? 'marginBottom' : 'marginTop']: SPACING_MAP[rowGap],
+          },
+        }
+
+    const verticalDividerStylingProps = enabled
+      ? {
+          className: classes.PaneVerticalDivider,
+          style: {
+            '--spacing': `var(--spacing-${columnGap})`,
+          } as React.CSSProperties,
+        }
+      : {
+          sx: {
+            [position === 'end' ? 'marginRight' : 'marginLeft']: SPACING_MAP[columnGap],
+          },
+        }
+
+    const paneStylingProps = enabled
+      ? {
+          className: classes.Pane,
+          'data-resizable': resizable || undefined,
+          style: {
+            '--spacing': `var(--spacing-${padding})`,
+            '--pane-min-width': isCustomWidthOptions(width) ? width.min : `${minWidth}px`,
+            '--pane-max-width': isCustomWidthOptions(width) ? width.max : `calc(100vw - var(--pane-max-width-diff))`,
+            '--pane-width-custom': isCustomWidthOptions(width) ? width.default : undefined,
+            '--pane-width-size': `var(--pane-width-${isPaneWidth(width) ? width : 'custom'})`,
             '--pane-width': `${paneWidth}px`,
-          }}
-          sx={(theme: Theme) => ({
+          } as React.CSSProperties,
+        }
+      : {
+          sx: (theme: Theme) => ({
             '--pane-min-width': isCustomWidthOptions(width) ? width.min : `${minWidth}px`,
             '--pane-max-width-diff': '511px',
             '--pane-max-width': isCustomWidthOptions(width) ? width.max : `calc(100vw - var(--pane-max-width-diff))`,
             width: resizable
-              ? ['100%', null, 'clamp(var(--pane-min-width), var(--pane-width), var(--pane-max-width))']
+              ? ['100%', null, `clamp(var(--pane-min-width), var(--pane-width), var(--pane-max-width))`]
               : isPaneWidth(width)
                 ? paneWidths[width]
                 : width.default,
@@ -796,14 +987,29 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
             [`@media screen and (min-width: ${theme.breakpoints[3]})`]: {
               '--pane-max-width-diff': '959px',
             },
-          })}
-          {...(hasOverflow && {tabIndex: 0, role: 'region'})}
+          }),
+          style: {
+            '--pane-width': `${paneWidth}px`,
+          } as React.CSSProperties,
+        }
+
+    return (
+      <Box {...paneWrapperStylingProps}>
+        {/* Show a horizontal divider when viewport is narrow. Otherwise, show a vertical divider. */}
+        <HorizontalDivider
+          variant={{narrow: dividerVariant, regular: 'none'}}
+          {...horizontalDividerStylingProps}
+          position={position}
+        />
+        <Box
+          ref={paneRef}
+          {...(hasOverflow ? overflowProps : {})}
           {...labelProp}
           {...(id && {id: paneId})}
+          {...paneStylingProps}
         >
           {children}
         </Box>
-
         <VerticalDivider
           variant={{
             narrow: 'none',
@@ -812,7 +1018,6 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
           }}
           // If pane is resizable, the divider should be draggable
           draggable={resizable}
-          sx={{[position === 'end' ? 'marginRight' : 'marginLeft']: SPACING_MAP[columnGap]}}
           onDrag={(delta, isKeyboard = false) => {
             // Get the number of pixels the divider was dragged
             let deltaWithDirection
@@ -829,8 +1034,10 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
             if (!paneRect) return
             updatePaneWidth(paneRect.width)
           }}
+          position={position}
           // Reset pane width on double click
           onDoubleClick={() => updatePaneWidth(getDefaultPaneWidth(width))}
+          {...verticalDividerStylingProps}
         />
       </Box>
     )
@@ -870,6 +1077,8 @@ export type PageLayoutFooterProps = {
    */
   dividerWhenNarrow?: 'inherit' | 'none' | 'line' | 'filled'
   hidden?: boolean | ResponsiveValue<boolean>
+  className?: string
+  style?: React.CSSProperties
 } & SxProp
 
 const Footer: React.FC<React.PropsWithChildren<PageLayoutFooterProps>> = ({
@@ -881,6 +1090,8 @@ const Footer: React.FC<React.PropsWithChildren<PageLayoutFooterProps>> = ({
   hidden = false,
   children,
   sx = {},
+  className,
+  style,
 }) => {
   // Combine divider and dividerWhenNarrow for backwards compatibility
   const dividerProp =
@@ -891,23 +1102,59 @@ const Footer: React.FC<React.PropsWithChildren<PageLayoutFooterProps>> = ({
   const dividerVariant = useResponsiveValue(dividerProp, 'none')
   const isHidden = useResponsiveValue(hidden, false)
   const {rowGap} = React.useContext(PageLayoutContext)
-  return (
-    <Box
-      as="footer"
-      aria-label={label}
-      aria-labelledby={labelledBy}
-      hidden={isHidden}
-      sx={merge<BetterSystemStyleObject>(
-        {
-          order: REGION_ORDER.footer,
-          width: '100%',
-          marginTop: SPACING_MAP[rowGap],
-        },
+
+  const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
+
+  const footerStylingProps = enabled
+    ? {
+        className: clsx(classes.FooterWrapper, className),
         sx,
-      )}
-    >
-      <HorizontalDivider variant={dividerVariant} sx={{marginBottom: SPACING_MAP[rowGap]}} />
-      <Box sx={{padding: SPACING_MAP[padding]}}>{children}</Box>
+        style: {
+          '--spacing': `var(--spacing-${rowGap})`,
+          ...style,
+        } as React.CSSProperties,
+      }
+    : {
+        className,
+        sx: merge<BetterSystemStyleObject>(
+          {
+            order: REGION_ORDER.footer,
+            width: '100%',
+            marginTop: SPACING_MAP[rowGap],
+          },
+          sx,
+        ),
+        style,
+      }
+  const dividerStylingProps = enabled
+    ? {
+        className: classes.FooterHorizontalDivider,
+        style: {
+          '--spacing': `var(--spacing-${rowGap})`,
+        } as React.CSSProperties,
+      }
+    : {
+        sx: {
+          marginBottom: SPACING_MAP[rowGap],
+        },
+      }
+  const contentStylingProps = enabled
+    ? {
+        className: classes.FooterContent,
+        style: {
+          '--spacing': `var(--spacing-${padding})`,
+        } as React.CSSProperties,
+      }
+    : {
+        sx: {
+          padding: SPACING_MAP[padding],
+        },
+      }
+
+  return (
+    <Box as="footer" aria-label={label} aria-labelledby={labelledBy} hidden={isHidden} {...footerStylingProps}>
+      <HorizontalDivider {...dividerStylingProps} variant={dividerVariant} />
+      <Box {...contentStylingProps}>{children}</Box>
     </Box>
   )
 }

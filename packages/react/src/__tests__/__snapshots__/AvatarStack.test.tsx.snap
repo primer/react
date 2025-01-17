@@ -46,9 +46,16 @@ exports[`Avatar respects alignRight props 1`] = `
   flex-shrink: 0;
   height: var(--avatar-stack-size);
   width: var(--avatar-stack-size);
-  box-shadow: 0 0 0 var(--avatar-border-width) var(--bgColor-default,var(--color-canvas-default,#ffffff));
   position: relative;
   overflow: hidden;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.c0 .pc-AvatarItem:is(img) {
+  box-shadow: 0 0 0 var(--avatar-border-width) var(--bgColor-default,var(--color-canvas-default,#ffffff));
 }
 
 .c0 .pc-AvatarItem:first-child {

@@ -1,0 +1,13 @@
+.Hidden {
+  @media screen and (--viewportRange-narrow) {
+    display: var(--hiddenDisplay-narrow, block);
+  }
+
+  @media screen and (--viewportRange-regular) {
+    display: var(--hiddenDisplay-regular, block);
+  }
+
+  @media screen and (--viewportRange-wide) {
+    display: var(--hiddenDisplay-wide, block);
+  }
+}
