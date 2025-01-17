@@ -371,4 +371,38 @@ test.describe('IconButton', () => {
       })
     }
   })
+
+  test.describe('Flex', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-iconbutton-devonly--icon-button-within-flex-container',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          // Default state
+          expect(await page.screenshot()).toMatchSnapshot(`IconButton.Flex.${theme}.png`)
+        })
+
+        test('axe @aat', async ({page}) => {
+          await visit(page, {
+            id: 'components-iconbutton-devonly--icon-button-within-flex-container',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+          await expect(page).toHaveNoViolations({
+            rules: {
+              'color-contrast': {
+                enabled: theme !== 'dark_dimmed',
+              },
+            },
+          })
+        })
+      })
+    }
+  })
 })
