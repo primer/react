@@ -36,7 +36,7 @@ export const LoadingStatusAnnouncementSuccessful = () => {
 
   return (
     <>
-      <AriaStatus announceOnShow>{!loading && success ? 'Export completed' : null}</AriaStatus>
+      <AriaStatus>{!loading && success ? 'Export completed' : null}</AriaStatus>
       <Button loading={loading} leadingVisual={DownloadIcon} onClick={onClick('success')}>
         Export (success)
       </Button>
