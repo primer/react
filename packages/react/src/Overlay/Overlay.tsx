@@ -101,6 +101,7 @@ const StyledOverlay = toggleStyledComponent(
 
     &[data-reflow-container='true'] {
       max-width: calc(100vw - 2rem);
+      max-height: 100vh;
     }
 
     ${sx};

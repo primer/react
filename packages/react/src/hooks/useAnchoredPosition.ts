@@ -30,14 +30,45 @@ export function useAnchoredPosition(
   const floatingElementRef = useProvidedRefOrCreate(settings?.floatingElementRef)
   const anchorElementRef = useProvidedRefOrCreate(settings?.anchorElementRef)
   const [position, setPosition] = React.useState<AnchorPosition | undefined>(undefined)
+  const [_, setPrevHeight] = React.useState<number | undefined>(undefined)
 
   const updatePosition = React.useCallback(
     () => {
+      // TODO: remove
+      console.log('updatePosition')
       if (floatingElementRef.current instanceof Element && anchorElementRef.current instanceof Element) {
-        setPosition(getAnchoredPosition(floatingElementRef.current, anchorElementRef.current, settings))
+        const newPosition = getAnchoredPosition(floatingElementRef.current, anchorElementRef.current, settings)
+        const anchorTop = anchorElementRef.current?.getBoundingClientRect().top
+        setPosition(prev => {
+          // TODO: remove
+          console.log({
+            prev,
+            newPosition,
+            floatingHeight: floatingElementRef.current?.clientHeight,
+            floatingBottom: floatingElementRef.current?.getBoundingClientRect().bottom,
+            anchorTop,
+          })
+          if (
+            prev &&
+            prev.anchorSide !== newPosition.anchorSide &&
+            ['outside-top', 'inside-top'].includes(prev.anchorSide)
+          ) {
+            if (anchorTop > (floatingElementRef.current?.clientHeight ?? 0)) {
+              setPrevHeight(prevHeight => {
+                if (floatingElementRef?.current && prevHeight) {
+                  ;(floatingElementRef.current as HTMLElement).style.height = `${prevHeight}px`
+                }
+                return prevHeight
+              })
+              return prev
+            }
+          }
+          return newPosition
+        })
       } else {
         setPosition(undefined)
       }
+      setPrevHeight(floatingElementRef?.current?.clientHeight)
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [floatingElementRef, anchorElementRef, ...dependencies],
@@ -45,7 +76,8 @@ export function useAnchoredPosition(
 
   useLayoutEffect(updatePosition, [updatePosition])
 
-  useResizeObserver(updatePosition)
+  useResizeObserver(updatePosition) // watches for changes in window size
+  useResizeObserver(updatePosition, floatingElementRef as React.RefObject<HTMLElement>) // watches for changes in floating element size
 
   return {
     floatingElementRef,

@@ -50,7 +50,7 @@ interface SelectPanelBaseProps {
 
 export type SelectPanelProps = SelectPanelBaseProps &
   Omit<FilteredActionListProps, 'selectionVariant'> &
-  Pick<AnchoredOverlayProps, 'open'> &
+  Pick<AnchoredOverlayProps, 'open' | 'width' | 'height'> &
   AnchoredOverlayWrapperAnchorProps &
   (SelectPanelSingleSelection | SelectPanelMultiSelection)
 
@@ -102,6 +102,8 @@ export function SelectPanel({
   overlayProps,
   sx,
   className,
+  height,
+  width,
   ...listProps
 }: SelectPanelProps): JSX.Element {
   const titleId = useId()
@@ -205,6 +207,8 @@ export function SelectPanel({
         open={open}
         onOpen={onOpen}
         onClose={onClose}
+        height={height}
+        width={width}
         overlayProps={{
           role: 'dialog',
           'aria-labelledby': titleId,
@@ -213,6 +217,8 @@ export function SelectPanel({
         }}
         focusTrapSettings={focusTrapSettings}
         focusZoneSettings={focusZoneSettings}
+        // TODO: fix
+        preventOverflow={false}
       >
         <LiveRegionOutlet />
         {usingModernActionList ? null : (

@@ -20,8 +20,9 @@ export function useResizeObserver<T extends HTMLElement>(
     savedCallback.current = callback
   })
 
+  const targetEl = target && 'current' in target ? target.current : document.documentElement
+
   useLayoutEffect(() => {
-    const targetEl = target && 'current' in target ? target.current : document.documentElement
     if (!targetEl) {
       return
     }
@@ -36,5 +37,5 @@ export function useResizeObserver<T extends HTMLElement>(
       observer.disconnect()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [target, ...depsArray])
+  }, [targetEl, ...depsArray])
 }
