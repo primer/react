@@ -242,6 +242,10 @@ const UlBox = toggleStyledComponent(
       display: flex;
       color: ${get('colors.fg.muted')};
       grid-area: leadingAction;
+
+      & > button {
+        flex-shrink: 1;
+      }
     }
 
     .PRIVATE_TreeView-item-level-line {
