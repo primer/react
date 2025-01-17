@@ -91,8 +91,17 @@ const Page = toggleStyledComponent(
       box-shadow: inset 0 0 0 3px ${get('colors.fg.onEmphasis')};
     }
 
-    &[aria-hidden],
-    &[aria-hidden]:hover,
+    &[aria-disabled],
+    &[aria-disabled]:hover {
+      margin: 0 2px;
+
+      &:first-child {
+        margin-right: 6px;
+      }
+    }
+
+    &[aria-disabled],
+    &[aria-disabled]:hover,
     &[role='presentation'],
     &[role='presentation']:hover {
       color: ${get('colors.primer.fg.disabled')}; // check

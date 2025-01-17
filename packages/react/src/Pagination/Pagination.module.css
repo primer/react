@@ -103,8 +103,16 @@
   box-shadow: inset 0 0 0 3px var(--fgColor-onEmphasis);
 }
 
-.Page[aria-hidden],
-.Page[aria-hidden]:hover,
+.Page[aria-disabled]:first-child,
+.Page[aria-disabled]:hover:first-child {
+  /* stylelint-disable-next-line primer/spacing */
+  margin: 0 2px;
+  /* stylelint-disable-next-line primer/spacing */
+  margin-right: 6px;
+}
+
+.Page[aria-disabled],
+.Page[aria-disabled]:hover,
 .Page[role='presentation'],
 .Page[role='presentation']:hover {
   color: var(--fgColor-disabled);
