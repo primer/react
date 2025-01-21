@@ -289,20 +289,12 @@ export const MultipleActionBars = () => {
 
 export const WithActionMenu = () => (
   <ActionBar aria-label="Toolbar">
-    <ActionBar.IconButton icon={BoldIcon} aria-label="Bold"></ActionBar.IconButton>
-    <ActionBar.IconButton icon={ItalicIcon} aria-label="Italic"></ActionBar.IconButton>
-    <ActionBar.IconButton icon={CodeIcon} aria-label="Code"></ActionBar.IconButton>
-    <ActionBar.IconButton icon={LinkIcon} aria-label="Link"></ActionBar.IconButton>
-    <ActionBar.Divider />
-    <ActionBar.IconButton icon={FileAddedIcon} aria-label="File Added"></ActionBar.IconButton>
-    <ActionBar.IconButton icon={SearchIcon} aria-label="Search"></ActionBar.IconButton>
-    <ActionBar.IconButton icon={QuoteIcon} aria-label="Insert Quote"></ActionBar.IconButton>
-    <ActionBar.IconButton icon={ListUnorderedIcon} aria-label="Unordered List"></ActionBar.IconButton>
-    <ActionBar.IconButton icon={ListOrderedIcon} aria-label="Ordered List"></ActionBar.IconButton>
-    <ActionBar.IconButton icon={TasklistIcon} aria-label="Task List"></ActionBar.IconButton>
+    <Button>Edit</Button>
+    <Button>Duplicate</Button>
+    <Button>Export to CSV</Button>
 
     <ActionMenu>
-      <ActionMenu.Button> Open menu</ActionMenu.Button>
+      <ActionMenu.Button>More tools</ActionMenu.Button>
       <ActionMenu.Overlay width="medium">
         <ActionList>
           <ActionList.Item onSelect={() => alert('Copy link clicked')}>
@@ -343,7 +335,7 @@ export const WithActionMenuAsIcon = () => (
     <ActionBar.IconButton icon={TasklistIcon} aria-label="Task List"></ActionBar.IconButton>
 
     <ActionMenu>
-      <ActionMenu.Button icon={KebabHorizontalIcon} aria-label="Open Menu" variant="invisible">
+      <ActionMenu.Button icon={KebabHorizontalIcon} aria-label="More tools" variant="invisible">
         {' '}
       </ActionMenu.Button>
       <ActionMenu.Overlay width="medium">
