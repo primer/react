@@ -1,4 +1,5 @@
 import glob from 'fast-glob'
+import {checkStoriesForAxeViolations} from '../utils/testing'
 import groupBy from 'lodash.groupby'
 import fs from 'node:fs'
 import path from 'node:path'
@@ -122,6 +123,10 @@ describe.each(components)('%s', (_component, stories) => {
         })
       }
     })
+
+    const name = path.basename(relativeFilepath).split('.')[0]
+    const directory = `../../${path.dirname(relativeFilepath)}/`
+    checkStoriesForAxeViolations(name, directory)
   }
 })
 
