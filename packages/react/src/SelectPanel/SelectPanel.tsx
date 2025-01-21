@@ -42,10 +42,10 @@ const getItemWithActiveDescendant = (
   const optionElements = listElement.querySelectorAll('[role="option"]')
 
   const index = Array.from(optionElements).indexOf(activeItemElement)
-  const activeItem = items[index]
+  const activeItem = items[index] as ItemInput | undefined
 
-  const text = activeItem.text
-  const selected = activeItem.selected
+  const text = activeItem?.text
+  const selected = activeItem?.selected
 
   return {index, text, selected}
 }
