@@ -46,7 +46,7 @@ export const WithUserAction = () => {
   )
 }
 
-export const WithDynamicContent = () => {
+export const WithAnnouncement = () => {
   type Choice = 'one' | 'two' | 'three'
   const messages: Map<Choice, string> = new Map([
     ['one', 'This is a message for choice one'],

@@ -2,23 +2,41 @@ import React from 'react'
 import {AlertIcon} from '@primer/octicons-react'
 import Box from '../Box'
 import Spinner from '../Spinner'
-import {get} from '../constants'
 import type {SxProp} from '../sx'
 import {merge} from '../sx'
-import {ItemContext, TEXT_ROW_HEIGHT, getVariantStyles} from './shared'
+import {ItemContext, getVariantStyles} from './shared'
 import {Tooltip, type TooltipProps} from '../TooltipV2'
+import {clsx} from 'clsx'
+import {useFeatureFlag} from '../FeatureFlags'
+import classes from './ActionList.module.css'
+import {defaultSxProp} from '../utils/defaultSxProp'
+import {actionListCssModulesFlag} from './featureflag'
 
 export type VisualProps = SxProp & React.HTMLAttributes<HTMLSpanElement>
 
-export const LeadingVisualContainer: React.FC<React.PropsWithChildren<VisualProps>> = ({sx = {}, ...props}) => {
+export const VisualContainer: React.FC<React.PropsWithChildren<VisualProps>> = ({
+  sx = defaultSxProp,
+  className,
+  ...props
+}) => {
+  if (sx !== defaultSxProp) {
+    return <Box as="span" className={clsx(className, classes.VisualWrap)} sx={sx} {...props} />
+  }
+  return <span className={clsx(className, classes.VisualWrap)} {...props} />
+}
+
+// remove when primer_react_css_modules_X is shipped
+export const LeadingVisualContainer: React.FC<React.PropsWithChildren<VisualProps>> = ({
+  sx = defaultSxProp,
+  ...props
+}) => {
   return (
     <Box
       as="span"
       sx={merge(
         {
-          height: TEXT_ROW_HEIGHT, // match height of text row
-          minWidth: get('space.3'),
-          maxWidth: TEXT_ROW_HEIGHT, // square (same as height)
+          height: '20px', // match height of text row
+          maxWidth: '20px', // square (same as height)
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
@@ -34,10 +52,25 @@ export const LeadingVisualContainer: React.FC<React.PropsWithChildren<VisualProp
 }
 
 export type ActionListLeadingVisualProps = VisualProps
-export const LeadingVisual: React.FC<React.PropsWithChildren<VisualProps>> = ({sx = {}, ...props}) => {
+export const LeadingVisual: React.FC<React.PropsWithChildren<VisualProps>> = ({
+  sx = defaultSxProp,
+  className,
+  ...props
+}) => {
   const {variant, disabled, inactive} = React.useContext(ItemContext)
+
+  const enabled = useFeatureFlag(actionListCssModulesFlag)
+
+  if (enabled) {
+    return (
+      <VisualContainer className={clsx(className, classes.LeadingVisual)} sx={sx} {...props}>
+        {props.children}
+      </VisualContainer>
+    )
+  }
   return (
     <LeadingVisualContainer
+      className={className}
       sx={merge(
         {
           color: getVariantStyles(variant, disabled, inactive).iconColor,
@@ -57,12 +90,32 @@ export const LeadingVisual: React.FC<React.PropsWithChildren<VisualProps>> = ({s
 }
 
 export type ActionListTrailingVisualProps = VisualProps
-export const TrailingVisual: React.FC<React.PropsWithChildren<VisualProps>> = ({sx = {}, ...props}) => {
+export const TrailingVisual: React.FC<React.PropsWithChildren<VisualProps>> = ({
+  sx = defaultSxProp,
+  className,
+  ...props
+}) => {
   const {variant, disabled, inactive, trailingVisualId} = React.useContext(ItemContext)
+  const enabled = useFeatureFlag(actionListCssModulesFlag)
+  if (enabled) {
+    if (sx !== defaultSxProp) {
+      return (
+        <VisualContainer className={clsx(className, classes.TrailingVisual)} sx={sx} id={trailingVisualId} {...props}>
+          {props.children}
+        </VisualContainer>
+      )
+    }
+    return (
+      <VisualContainer className={clsx(className, classes.TrailingVisual)} id={trailingVisualId} {...props}>
+        {props.children}
+      </VisualContainer>
+    )
+  }
   return (
     <Box
       id={trailingVisualId}
       as="span"
+      className={className}
       sx={merge(
         {
           height: '20px', // match height of text row
@@ -98,8 +151,9 @@ export const VisualOrIndicator: React.FC<
     labelId?: string
     loading?: boolean
     position: 'leading' | 'trailing'
+    className?: string
   }>
-> = ({children, labelId, loading, inactiveText, itemHasLeadingVisual, position}) => {
+> = ({children, labelId, loading, inactiveText, itemHasLeadingVisual, position, className}) => {
   const VisualComponent = position === 'leading' ? LeadingVisual : TrailingVisual
 
   if (!loading && !inactiveText) return children
@@ -113,26 +167,17 @@ export const VisualOrIndicator: React.FC<
   }
 
   return inactiveText ? (
-    <Tooltip text={inactiveText} type="label">
-      <Box
-        as="button"
-        sx={{
-          background: 'none',
-          color: 'inherit',
-          border: 'none',
-          padding: 0,
-          font: 'inherit',
-          cursor: 'pointer',
-        }}
-        aria-describedby={labelId}
-      >
-        <VisualComponent>
-          <AlertIcon />
-        </VisualComponent>
-      </Box>
-    </Tooltip>
+    <span className={classes.InactiveButtonWrap}>
+      <Tooltip text={inactiveText} type="label">
+        <button type="button" className={classes.InactiveButtonReset} aria-describedby={labelId}>
+          <VisualComponent>
+            <AlertIcon />
+          </VisualComponent>
+        </button>
+      </Tooltip>
+    </span>
   ) : (
-    <VisualComponent>
+    <VisualComponent className={className}>
       <Spinner size="small" />
     </VisualComponent>
   )

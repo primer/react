@@ -70,6 +70,7 @@ const AvatarToken = forwardRef(({avatarSrc, id, size = defaultTokenSize, classNa
       sx={{
         paddingLeft: get('space.1'),
       }}
+      className={className}
       {...rest}
       ref={forwardedRef}
     />

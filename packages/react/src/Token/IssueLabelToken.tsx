@@ -180,6 +180,7 @@ const IssueLabelToken = forwardRef((props, forwardedRef) => {
       text={text}
       size={size}
       sx={labelStyles}
+      className={className}
       {...(!hasMultipleActionTargets ? interactiveTokenProps : {})}
       {...rest}
       ref={forwardedRef}

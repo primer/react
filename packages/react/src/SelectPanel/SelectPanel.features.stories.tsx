@@ -1,4 +1,4 @@
-import React, {useState, useRef, useMemo} from 'react'
+import React, {useState, useRef} from 'react'
 import type {Meta, StoryObj} from '@storybook/react'
 import Box from '../Box'
 import {Button} from '../Button'
@@ -15,6 +15,7 @@ import {
   VersionsIcon,
 } from '@primer/octicons-react'
 import useSafeTimeout from '../hooks/useSafeTimeout'
+import FormControl from '../FormControl'
 
 type SelectPanelPropsAndCustomArgs = React.ComponentProps<typeof SelectPanel> & {componentManagesLoading?: boolean}
 
@@ -53,215 +54,250 @@ const items = [
 ]
 
 export const WithItemDividers = () => {
-  const [selected, setSelected] = React.useState<ItemInput[]>([items[0], items[1]])
-  const [filter, setFilter] = React.useState('')
-  const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
+  const [selected, setSelected] = useState<ItemInput[]>(items.slice(1, 3))
+  const [filter, setFilter] = useState('')
+  const filteredItems = items.filter(
+    item =>
+      // design guidelines say to always show selected items in the list
+      selected.some(selectedItem => selectedItem.text === item.text) ||
+      // then filter the rest
+      item.text.toLowerCase().startsWith(filter.toLowerCase()),
+  )
+  // design guidelines say to sort selected items first
+  const selectedItemsSortedFirst = filteredItems.sort((a, b) => {
+    const aIsSelected = selected.some(selectedItem => selectedItem.text === a.text)
+    const bIsSelected = selected.some(selectedItem => selectedItem.text === b.text)
+    if (aIsSelected && !bIsSelected) return -1
+    if (!aIsSelected && bIsSelected) return 1
+    return 0
+  })
   const [open, setOpen] = useState(false)
 
   return (
-    <SelectPanel
-      title="Select labels"
-      subtitle="Use labels to organize issues and pull requests"
-      renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
-        <Button
-          trailingAction={TriangleDownIcon}
-          aria-labelledby={` ${ariaLabelledBy}`}
-          {...anchorProps}
-          aria-haspopup="dialog"
-        >
-          {children ?? 'Select Labels'}
-        </Button>
-      )}
-      placeholderText="Filter labels"
-      open={open}
-      onOpenChange={setOpen}
-      items={filteredItems}
-      selected={selected}
-      onSelectedChange={setSelected}
-      onFilterChange={setFilter}
-      showItemDividers={true}
-    />
+    <FormControl>
+      <FormControl.Label>Labels</FormControl.Label>
+      <SelectPanel
+        title="Select labels"
+        placeholder="Select labels" // button text when no items are selected
+        subtitle="Use labels to organize issues and pull requests"
+        renderAnchor={({children, ...anchorProps}) => (
+          <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
+            {children}
+          </Button>
+        )}
+        open={open}
+        onOpenChange={setOpen}
+        items={selectedItemsSortedFirst}
+        selected={selected}
+        onSelectedChange={setSelected}
+        onFilterChange={setFilter}
+        showItemDividers={true}
+      />
+    </FormControl>
   )
 }
 
-export const WithPlaceholderForSeachInput = () => {
-  const [selected, setSelected] = React.useState<ItemInput[]>([items[0], items[1]])
-  const [filter, setFilter] = React.useState('')
-  const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
-  const [open, setOpen] = useState(false)
-
-  return (
-    <SelectPanel
-      title="Select labels"
-      subtitle="Use labels to organize issues and pull requests"
-      renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
-        <Button
-          trailingAction={TriangleDownIcon}
-          aria-labelledby={` ${ariaLabelledBy}`}
-          {...anchorProps}
-          aria-haspopup="dialog"
-        >
-          {children ?? 'Select Labels'}
-        </Button>
-      )}
-      placeholderText="Filter labels"
-      open={open}
-      onOpenChange={setOpen}
-      items={filteredItems}
-      selected={selected}
-      onSelectedChange={setSelected}
-      onFilterChange={setFilter}
-    />
+export const WithPlaceholderForSearchInput = () => {
+  const [selected, setSelected] = useState<ItemInput[]>(items.slice(1, 3))
+  const [filter, setFilter] = useState('')
+  const filteredItems = items.filter(
+    item =>
+      // design guidelines say to always show selected items in the list
+      selected.some(selectedItem => selectedItem.text === item.text) ||
+      // then filter the rest
+      item.text.toLowerCase().startsWith(filter.toLowerCase()),
   )
-}
-
-export const WithPlaceholderSelect = () => {
-  const [selected, setSelected] = React.useState<ItemInput[]>([])
-  const [filter, setFilter] = React.useState('')
-  const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
+  // design guidelines say to sort selected items first
+  const selectedItemsSortedFirst = filteredItems.sort((a, b) => {
+    const aIsSelected = selected.some(selectedItem => selectedItem.text === a.text)
+    const bIsSelected = selected.some(selectedItem => selectedItem.text === b.text)
+    if (aIsSelected && !bIsSelected) return -1
+    if (!aIsSelected && bIsSelected) return 1
+    return 0
+  })
   const [open, setOpen] = useState(false)
 
   return (
-    <SelectPanel
-      title="Select labels"
-      subtitle="Use labels to organize issues and pull requests"
-      renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
-        <Button
-          trailingAction={TriangleDownIcon}
-          aria-labelledby={` ${ariaLabelledBy}`}
-          {...anchorProps}
-          aria-haspopup="dialog"
-        >
-          {children ?? 'Select Labels'}
-        </Button>
-      )}
-      placeholder="Select issue labels"
-      open={open}
-      onOpenChange={setOpen}
-      items={filteredItems}
-      selected={selected}
-      onSelectedChange={setSelected}
-      onFilterChange={setFilter}
-    />
+    <FormControl>
+      <FormControl.Label>Labels</FormControl.Label>
+      <SelectPanel
+        title="Select labels"
+        placeholder="Select labels" // button text when no items are selected
+        subtitle="Use labels to organize issues and pull requests"
+        renderAnchor={({children, ...anchorProps}) => (
+          <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
+            {children}
+          </Button>
+        )}
+        placeholderText="Filter labels"
+        open={open}
+        onOpenChange={setOpen}
+        items={selectedItemsSortedFirst}
+        selected={selected}
+        onSelectedChange={setSelected}
+        onFilterChange={setFilter}
+      />
+    </FormControl>
   )
 }
 
 export const SingleSelect = () => {
-  const [selected, setSelected] = React.useState<ItemInput | undefined>(items[0])
-  const [filter, setFilter] = React.useState('')
-  const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
+  const [selected, setSelected] = useState<ItemInput | undefined>(items[0])
+  const [filter, setFilter] = useState('')
+  const filteredItems = items.filter(
+    item => item.text === selected?.text || item.text.toLowerCase().startsWith(filter.toLowerCase()),
+  )
+  // design guidelines say to sort selected items first
+  const selectedItemsSortedFirst = filteredItems.sort((a, b) => {
+    if (a.text === selected?.text) return -1
+    if (b.text === selected?.text) return 1
+    return 0
+  })
   const [open, setOpen] = useState(false)
 
   return (
-    <>
-      <h1>Single Select Panel</h1>
-      <div>Please select a label that describe your issue:</div>
+    <FormControl>
+      <FormControl.Label>Label</FormControl.Label>
       <SelectPanel
-        renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
-          <Button trailingAction={TriangleDownIcon} aria-labelledby={` ${ariaLabelledBy}`} {...anchorProps}>
+        renderAnchor={({children, ...anchorProps}) => (
+          <Button trailingAction={TriangleDownIcon} {...anchorProps}>
             {children ?? 'Select Labels'}
           </Button>
         )}
-        placeholderText="Filter Labels"
+        placeholder="Select labels" // button text when no items are selected
         open={open}
         onOpenChange={setOpen}
-        items={filteredItems}
+        items={selectedItemsSortedFirst}
         selected={selected}
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
-        showItemDividers={true}
         overlayProps={{width: 'small', height: 'xsmall'}}
       />
-    </>
+    </FormControl>
   )
 }
 
 export const MultiSelect = () => {
-  const [selected, setSelected] = React.useState<ItemInput[]>([items[0], items[1]])
-  const [filter, setFilter] = React.useState('')
-  const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
+  const [selected, setSelected] = useState<ItemInput[]>(items.slice(1, 3))
+  const [filter, setFilter] = useState('')
+  const filteredItems = items.filter(
+    item =>
+      // design guidelines say to always show selected items in the list
+      selected.some(selectedItem => selectedItem.text === item.text) ||
+      // then filter the rest
+      item.text.toLowerCase().startsWith(filter.toLowerCase()),
+  )
+  // design guidelines say to sort selected items first
+  const selectedItemsSortedFirst = filteredItems.sort((a, b) => {
+    const aIsSelected = selected.some(selectedItem => selectedItem.text === a.text)
+    const bIsSelected = selected.some(selectedItem => selectedItem.text === b.text)
+    if (aIsSelected && !bIsSelected) return -1
+    if (!aIsSelected && bIsSelected) return 1
+    return 0
+  })
   const [open, setOpen] = useState(false)
-  const buttonRef = useRef<HTMLButtonElement>(null)
 
   return (
-    <>
-      <h1>Multi Select Panel With Footer</h1>
+    <FormControl>
+      <FormControl.Label>Labels</FormControl.Label>
       <SelectPanel
-        renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
-          <Button trailingAction={TriangleDownIcon} aria-labelledby={` ${ariaLabelledBy}`} {...anchorProps}>
-            {children ?? 'Select Labels'}
+        title="Select labels"
+        placeholder="Select labels"
+        subtitle="Use labels to organize issues and pull requests"
+        renderAnchor={({children, ...anchorProps}) => (
+          <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
+            {children}
           </Button>
         )}
-        anchorRef={buttonRef}
-        placeholderText="Filter Labels"
         open={open}
         onOpenChange={setOpen}
-        items={filteredItems}
+        items={selectedItemsSortedFirst}
         selected={selected}
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
-        showItemDividers={true}
-        overlayProps={{width: 'small', height: 'medium'}}
       />
-    </>
+    </FormControl>
   )
 }
 
 export const WithExternalAnchor = () => {
-  const [selected, setSelected] = React.useState<ItemInput | undefined>(items[0])
-  const [filter, setFilter] = React.useState('')
-  const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
+  const [selected, setSelected] = useState<ItemInput[]>(items.slice(1, 3))
+  const [filter, setFilter] = useState('')
+  const filteredItems = items.filter(
+    item =>
+      // design guidelines say to always show selected items in the list
+      selected.some(selectedItem => selectedItem.text === item.text) ||
+      // then filter the rest
+      item.text.toLowerCase().startsWith(filter.toLowerCase()),
+  )
+  // design guidelines say to sort selected items first
+  const selectedItemsSortedFirst = filteredItems.sort((a, b) => {
+    const aIsSelected = selected.some(selectedItem => selectedItem.text === a.text)
+    const bIsSelected = selected.some(selectedItem => selectedItem.text === b.text)
+    if (aIsSelected && !bIsSelected) return -1
+    if (!aIsSelected && bIsSelected) return 1
+    return 0
+  })
   const [open, setOpen] = useState(false)
   const buttonRef = useRef<HTMLButtonElement>(null)
 
   return (
-    <>
-      <h1>Select Panel With External Anchor</h1>
+    <FormControl>
+      <FormControl.Label>Labels</FormControl.Label>
       <Button trailingAction={TriangleDownIcon} ref={buttonRef} onClick={() => setOpen(!open)}>
-        Custom: {selected?.text || 'Click Me'}
+        {selected.map(selectedItem => selectedItem.text).join(', ') || 'Select labels'}
       </Button>
       <SelectPanel
         renderAnchor={null}
         anchorRef={buttonRef}
-        placeholderText="Filter Labels"
         open={open}
         onOpenChange={setOpen}
         items={filteredItems}
-        selected={selected}
+        selected={selectedItemsSortedFirst}
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
-        showItemDividers={true}
         overlayProps={{width: 'small', height: 'xsmall'}}
       />
-    </>
+    </FormControl>
   )
 }
 
 export const WithFooter = () => {
-  const [selected, setSelected] = React.useState<ItemInput | undefined>(items[0])
-  const [filter, setFilter] = React.useState('')
-  const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
+  const [selected, setSelected] = useState<ItemInput[]>(items.slice(1, 3))
+  const [filter, setFilter] = useState('')
+  const filteredItems = items.filter(
+    item =>
+      // design guidelines say to always show selected items in the list
+      selected.some(selectedItem => selectedItem.text === item.text) ||
+      // then filter the rest
+      item.text.toLowerCase().startsWith(filter.toLowerCase()),
+  )
+  // design guidelines say to sort selected items first
+  const selectedItemsSortedFirst = filteredItems.sort((a, b) => {
+    const aIsSelected = selected.some(selectedItem => selectedItem.text === a.text)
+    const bIsSelected = selected.some(selectedItem => selectedItem.text === b.text)
+    if (aIsSelected && !bIsSelected) return -1
+    if (!aIsSelected && bIsSelected) return 1
+    return 0
+  })
   const [open, setOpen] = useState(false)
-  const buttonRef = useRef<HTMLButtonElement>(null)
 
   return (
-    <>
-      <h1>Select Panel With Footer</h1>
+    <FormControl>
+      <FormControl.Label>Labels</FormControl.Label>
       <SelectPanel
-        renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
-          <Button trailingAction={TriangleDownIcon} aria-labelledby={` ${ariaLabelledBy}`} {...anchorProps}>
-            {children ?? 'Select Labels'}
+        renderAnchor={({children, ...anchorProps}) => (
+          <Button trailingAction={TriangleDownIcon} {...anchorProps}>
+            {children}
           </Button>
         )}
-        anchorRef={buttonRef}
-        placeholderText="Filter Labels"
+        placeholder="Select labels" // button text when no items are selected
         open={open}
         onOpenChange={setOpen}
-        items={filteredItems}
+        items={selectedItemsSortedFirst}
         selected={selected}
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
-        showItemDividers={true}
         overlayProps={{width: 'small', height: 'medium'}}
         footer={
           <Button size="small" block>
@@ -269,7 +305,7 @@ export const WithFooter = () => {
           </Button>
         }
       />
-    </>
+    </FormControl>
   )
 }
 
@@ -319,56 +355,136 @@ const groupMetadata: GroupedListProps['groupMetadata'] = [
 ]
 
 export const WithGroups = () => {
-  const [selectedIDs, setSelectedIDs] = useState<string[]>([])
-  const [filter, setFilter] = React.useState('')
-  const filteredItems = listOfItems.filter(item => item.text?.toLowerCase().startsWith(filter.toLowerCase()))
-  const [open, setOpen] = useState(false)
-  const buttonRef = useRef<HTMLButtonElement>(null)
-
-  const onSelectedChange = async (selections: ItemInput[]) => {
-    const _selectedIDs = selections.flatMap(item => {
-      if (item.id === undefined || typeof item.id !== 'string') {
-        return []
-      }
-      return item.id
-    })
-
-    setSelectedIDs(_selectedIDs)
-  }
-
-  const selectedObjects: ItemInput[] = useMemo(() => {
-    const selected: ItemInput[] = []
-
-    for (const selectedID of selectedIDs) {
-      const item = listOfItems.find(value => value.id === selectedID)
-      if (item) {
-        selected.push(item)
-      }
+  const [selected, setSelected] = useState<ItemInput[]>([])
+  const [filter, setFilter] = useState('')
+  const filteredItems = listOfItems.filter(
+    item =>
+      // design guidelines say to always show selected item in the list
+      selected.some(selectedItem => selectedItem.text === item.text) ||
+      // then filter the rest
+      item.text?.toLowerCase().startsWith(filter.toLowerCase()),
+  )
+  // design guidelines say to sort selected items first
+  const selectedItemsSortedFirst = filteredItems.sort((a, b) => {
+    if (a.groupId === b.groupId) {
+      const aIsSelected = selected.some(selectedItem => selectedItem.text === a.text)
+      const bIsSelected = selected.some(selectedItem => selectedItem.text === b.text)
+      if (aIsSelected && !bIsSelected) return -1
+      if (!aIsSelected && bIsSelected) return 1
     }
-    return selected
-  }, [selectedIDs])
+    return 0
+  })
+  const [open, setOpen] = useState(false)
+
+  return (
+    <FormControl>
+      <FormControl.Label>Options</FormControl.Label>
+      <SelectPanel
+        title="Attach files and symbols"
+        subtitle="Choose which files and symbols you want to chat about. Use fewer references for more accurate responses."
+        renderAnchor={({children, ...anchorProps}) => (
+          <Button trailingAction={TriangleDownIcon} {...anchorProps}>
+            {children}
+          </Button>
+        )}
+        placeholder="Select options" // button text when no items are selected
+        groupMetadata={groupMetadata}
+        open={open}
+        onOpenChange={setOpen}
+        items={selectedItemsSortedFirst}
+        selected={selected}
+        onSelectedChange={setSelected}
+        onFilterChange={setFilter}
+        overlayProps={{width: 'large', height: 'xlarge'}}
+      />
+    </FormControl>
+  )
+}
+
+export const WithLabelVisuallyHidden = () => {
+  const [selected, setSelected] = useState<ItemInput[]>(items.slice(1, 3))
+  const [filter, setFilter] = useState('')
+  const filteredItems = items.filter(
+    item =>
+      // design guidelines say to always show selected items in the list
+      selected.some(selectedItem => selectedItem.text === item.text) ||
+      // then filter the rest
+      item.text.toLowerCase().startsWith(filter.toLowerCase()),
+  )
+  // design guidelines say to sort selected items first
+  const selectedItemsSortedFirst = filteredItems.sort((a, b) => {
+    const aIsSelected = selected.some(selectedItem => selectedItem.text === a.text)
+    const bIsSelected = selected.some(selectedItem => selectedItem.text === b.text)
+    if (aIsSelected && !bIsSelected) return -1
+    if (!aIsSelected && bIsSelected) return 1
+    return 0
+  })
+  const [open, setOpen] = useState(false)
+
+  return (
+    <FormControl>
+      <FormControl.Label visuallyHidden>Labels</FormControl.Label>
+      <SelectPanel
+        title="Select labels"
+        placeholder="Select labels" // button text when no items are selected
+        subtitle="Use labels to organize issues and pull requests"
+        renderAnchor={({children, ...anchorProps}) => (
+          <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
+            {children}
+          </Button>
+        )}
+        open={open}
+        onOpenChange={setOpen}
+        items={selectedItemsSortedFirst}
+        selected={selected}
+        onSelectedChange={setSelected}
+        onFilterChange={setFilter}
+      />
+    </FormControl>
+  )
+}
+
+export const WithLabelInternally = () => {
+  const [selected, setSelected] = useState<ItemInput[]>(items.slice(1, 3))
+  const [filter, setFilter] = useState('')
+  const filteredItems = items.filter(
+    item =>
+      // design guidelines say to always show selected items in the list
+      selected.some(selectedItem => selectedItem.text === item.text) ||
+      // then filter the rest
+      item.text.toLowerCase().startsWith(filter.toLowerCase()),
+  )
+  // design guidelines say to sort selected items first
+  const selectedItemsSortedFirst = filteredItems.sort((a, b) => {
+    const aIsSelected = selected.some(selectedItem => selectedItem.text === a.text)
+    const bIsSelected = selected.some(selectedItem => selectedItem.text === b.text)
+    if (aIsSelected && !bIsSelected) return -1
+    if (!aIsSelected && bIsSelected) return 1
+    return 0
+  })
+  const [open, setOpen] = useState(false)
 
   return (
     <SelectPanel
-      variant="full"
-      title="Attach files and symbols"
-      subtitle="Choose which files and symbols you want to chat about. Use fewer references for more accurate responses."
-      renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
-        <Button trailingAction={TriangleDownIcon} aria-labelledby={` ${ariaLabelledBy}`} {...anchorProps}>
-          {children ?? 'Select Labels'}
+      renderAnchor={({children, ...anchorProps}) => (
+        <Button {...anchorProps} trailingAction={TriangleDownIcon} aria-haspopup="dialog">
+          <Box
+            sx={{
+              color: 'var(--fgColor-muted)',
+              display: 'inline-block',
+            }}
+          >
+            Choices:
+          </Box>{' '}
+          {children || 'None selected'}
         </Button>
       )}
-      anchorRef={buttonRef}
-      groupMetadata={groupMetadata}
-      placeholderText="Filter things"
       open={open}
       onOpenChange={setOpen}
-      items={filteredItems}
-      selected={selectedObjects}
-      onSelectedChange={onSelectedChange}
+      items={selectedItemsSortedFirst}
+      selected={selected}
+      onSelectedChange={setSelected}
       onFilterChange={setFilter}
-      showItemDividers={true}
-      overlayProps={{width: 'large', height: 'xlarge'}}
     />
   )
 }

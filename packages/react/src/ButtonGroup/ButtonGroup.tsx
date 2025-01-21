@@ -1,24 +1,26 @@
-import React from 'react'
+import React, {type PropsWithChildren} from 'react'
+import {type SxProp} from '../sx'
 import classes from './ButtonGroup.module.css'
 import {clsx} from 'clsx'
 import {FocusKeys, useFocusZone} from '../hooks/useFocusZone'
 import {useProvidedRefOrCreate} from '../hooks'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
-import {defaultSxProp} from '../utils/defaultSxProp'
 import Box from '../Box'
-import type {SxProp} from '../sx'
+import {defaultSxProp} from '../utils/defaultSxProp'
 
 export type ButtonGroupProps = {
   /** The role of the group */
   role?: string
   /** className passed in for styling */
   className?: string
-} & SxProp
+} & PropsWithChildren &
+  SxProp
 
 const ButtonGroup = React.forwardRef<HTMLElement, ButtonGroupProps>(function ButtonGroup(
-  {className, role, sx, ...rest},
+  {children, className, role, sx, ...rest},
   forwardRef,
 ) {
+  const buttons = React.Children.map(children, (child, index) => <div key={index}>{child}</div>)
   const buttonRef = useProvidedRefOrCreate(forwardRef as React.RefObject<HTMLDivElement>)
 
   useFocusZone({
@@ -30,11 +32,17 @@ const ButtonGroup = React.forwardRef<HTMLElement, ButtonGroupProps>(function But
 
   if (sx !== defaultSxProp) {
     return (
-      <Box as="div" className={clsx(className, classes.ButtonGroup)} role={role} {...rest} sx={sx} ref={buttonRef} />
+      <Box as="div" className={clsx(className, classes.ButtonGroup)} role={role} {...rest} sx={sx} ref={buttonRef}>
+        {buttons}
+      </Box>
     )
   }
 
-  return <div ref={buttonRef} className={clsx(className, classes.ButtonGroup)} role={role} {...rest} />
+  return (
+    <div ref={buttonRef} className={clsx(className, classes.ButtonGroup)} role={role} {...rest}>
+      {buttons}
+    </div>
+  )
 }) as PolymorphicForwardRefComponent<'div', ButtonGroupProps>
 
 ButtonGroup.displayName = 'ButtonGroup'

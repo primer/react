@@ -2,57 +2,172 @@ import {test, expect} from '@playwright/test'
 import {visit} from '../test-helpers/storybook'
 import {themes} from '../test-helpers/themes'
 
-const stories = [
-  {
-    title: 'Default',
-    id: 'components-buttongroup--default',
-  },
-  {
-    title: 'Playground',
-    id: 'components-buttongroup--playground',
-  },
-  {
-    title: 'Icon Buttons',
-    id: 'components-buttongroup-features--icon-buttons',
-  },
-  {
-    title: 'As Toolbar',
-    id: 'components-buttongroup-features--as-toolbar',
-  },
-  {
-    title: 'SX Prop',
-    id: 'components-buttongroup-dev--sx-prop',
-  },
-] as const
-
 test.describe('ButtonGroup', () => {
-  for (const story of stories) {
-    test.describe(story.title, () => {
-      for (const theme of themes) {
-        test.describe(theme, () => {
-          test('@vrt', async ({page}) => {
-            await visit(page, {
-              id: story.id,
-              globals: {
-                colorScheme: theme,
-              },
-            })
-
-            // Default state
-            expect(await page.screenshot()).toMatchSnapshot(`ButtonGroup.${story.title}.${theme}.png`)
+  test.describe('Default', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-buttongroup--default',
+            globals: {
+              colorScheme: theme,
+            },
           })
 
-          test('axe @aat', async ({page}) => {
-            await visit(page, {
-              id: story.id,
-              globals: {
-                colorScheme: theme,
-              },
-            })
-            await expect(page).toHaveNoViolations()
-          })
+          // Default state
+          expect(await page.screenshot()).toMatchSnapshot(`ButtonGroup.Default.${theme}.png`)
         })
-      }
-    })
-  }
+
+        test('axe @aat', async ({page}) => {
+          await visit(page, {
+            id: 'components-buttongroup--default',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+          await expect(page).toHaveNoViolations()
+        })
+      })
+    }
+  })
+
+  test.describe('Playground', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-buttongroup--playground',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          // Default state
+          expect(await page.screenshot()).toMatchSnapshot(`ButtonGroup.Playground.${theme}.png`)
+        })
+
+        test('axe @aat', async ({page}) => {
+          await visit(page, {
+            id: 'components-buttongroup--playground',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+          await expect(page).toHaveNoViolations()
+        })
+      })
+    }
+  })
+
+  test.describe('Icon Buttons', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-buttongroup-features--icon-buttons',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          // Default state
+          expect(await page.screenshot()).toMatchSnapshot(`ButtonGroup.Icon Buttons.${theme}.png`)
+        })
+
+        test('axe @aat', async ({page}) => {
+          await visit(page, {
+            id: 'components-buttongroup-features--icon-buttons',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+          await expect(page).toHaveNoViolations()
+        })
+      })
+    }
+  })
+
+  test.describe('As Toolbar', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-buttongroup-features--as-toolbar',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          // Default state
+          expect(await page.screenshot()).toMatchSnapshot(`ButtonGroup.As Toolbar.${theme}.png`)
+        })
+
+        test('axe @aat', async ({page}) => {
+          await visit(page, {
+            id: 'components-buttongroup-features--as-toolbar',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+          await expect(page).toHaveNoViolations()
+        })
+      })
+    }
+  })
+
+  test.describe('Overrides', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-buttongroup-devonly--link-button-with-icon-buttons',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          // Default state
+          expect(await page.screenshot()).toMatchSnapshot(`ButtonGroup.Overrides.${theme}.png`)
+        })
+
+        test('axe @aat', async ({page}) => {
+          await visit(page, {
+            id: 'components-buttongroup-devonly--link-button-with-icon-buttons',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+          await expect(page).toHaveNoViolations()
+        })
+      })
+    }
+  })
+
+  test.describe('SX Prop', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-buttongroup-devonly--sx-prop',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          // Default state
+          expect(await page.screenshot()).toMatchSnapshot(`ButtonGroup.SX Prop.${theme}.png`)
+        })
+
+        test('axe @aat', async ({page}) => {
+          await visit(page, {
+            id: 'components-buttongroup-devonly--sx-prop',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+          await expect(page).toHaveNoViolations()
+        })
+      })
+    }
+  })
 })

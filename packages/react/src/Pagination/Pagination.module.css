@@ -7,7 +7,7 @@
   font-style: normal;
   /* stylelint-disable-next-line primer/typography */
   line-height: 1;
-  color: var(----fgColor-default);
+  color: var(--fgColor-default);
   text-align: center;
   text-decoration: none;
   white-space: nowrap;
@@ -128,7 +128,7 @@
   text-align: center;
 }
 
-@media ((max-width: calc(768px - 0.02px))) {
+@media screen and (--viewportRange-narrow) {
   .TablePaginationSteps[data-hidden-viewport-ranges*='narrow'] > *:not(:first-child):not(:last-child) {
     display: none;
   }
@@ -142,7 +142,7 @@
   }
 }
 
-@media ((min-width: 768px)) {
+@media screen and (--viewportRange-regular) {
   .TablePaginationSteps[data-hidden-viewport-ranges*='regular'] > *:not(:first-child):not(:last-child) {
     display: none;
   }
@@ -156,7 +156,7 @@
   }
 }
 
-@media ((min-width: 1400px)) {
+@media screen and (--viewportRange-wide) {
   .TablePaginationSteps[data-hidden-viewport-ranges*='wide'] > *:not(:first-child):not(:last-child) {
     display: none;
   }
