@@ -31,8 +31,6 @@ describe.each(components)('%s', (_component, stories) => {
         expect(story.default.title).toMatch(type === 'default' ? defaultTitlePattern : featureTitlePattern)
       })
 
-      console.log(Object.keys(story), type)
-
       if (type === 'default') {
         test('exports a Default story', () => {
           expect(story.Default).toBeDefined()
