@@ -5,15 +5,13 @@ import {visit} from '../test-helpers/storybook'
 import {themes} from '../test-helpers/themes'
 
 test.describe('axe @aat', () => {
-  for (const {story, relativeFilepath, type} of stories) {
+  for (const {story} of stories) {
     for (const storyName of Object.keys(story)) {
-      const name = path.basename(relativeFilepath).split('.')[0]
-
       for (const theme of themes) {
         test.describe(theme, () => {
           test('axe @aat', async ({page}) => {
             await visit(page, {
-              id: `${name}-${type}--${storyName
+              id: `${story.default.title.replace('/', '-').toLowerCase()}--${storyName
                 .split(/(?=[A-Z])/)
                 .join('-')
                 .toLowerCase()}`,
