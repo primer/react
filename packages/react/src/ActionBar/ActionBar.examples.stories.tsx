@@ -17,7 +17,7 @@ import {
   TasklistIcon,
   ReplyIcon,
   ThreeBarsIcon,
-  ChevronDownIcon,
+  KebabHorizontalIcon,
 } from '@primer/octicons-react'
 import {Box, Button, Avatar, ActionMenu, IconButton, ActionList, Textarea} from '..'
 import {Dialog} from '../DialogV1'
@@ -343,9 +343,8 @@ export const WithActionMenuAsIcon = () => (
     <ActionBar.IconButton icon={TasklistIcon} aria-label="Task List"></ActionBar.IconButton>
 
     <ActionMenu>
-      <ActionMenu.Button icon={ChevronDownIcon} aria-label="Open Menu">
+      <ActionMenu.Button icon={KebabHorizontalIcon} aria-label="Open Menu" variant="invisible">
         {' '}
-        Open menu
       </ActionMenu.Button>
       <ActionMenu.Overlay width="medium">
         <ActionList>
