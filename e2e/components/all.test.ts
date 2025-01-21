@@ -1,5 +1,4 @@
 import {test, expect} from '@playwright/test'
-import path from 'path'
 import {stories} from '../../packages/react/src/utils/testing'
 import {visit} from '../test-helpers/storybook'
 import {themes} from '../test-helpers/themes'
