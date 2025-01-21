@@ -7,7 +7,7 @@
   align-self: flex-start;
 
   &:where([data-control-disabled]) {
-    color: var(--control-fgColor-disabled);
+    color: var(--fgColor-muted);
     cursor: not-allowed;
   }
 
