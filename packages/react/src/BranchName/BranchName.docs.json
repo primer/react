@@ -17,6 +17,12 @@
   "importPath": "@primer/react",
   "props": [
     {
+      "name": "inline",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Set to true for when `BranchName` is a link and adjacent to text, underlining them for clear visibility and improved accessibility."
+    },
+    {
       "name": "ref",
       "type": "React.RefObject<HTMLAnchorElement>"
     },

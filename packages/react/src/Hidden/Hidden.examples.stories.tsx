@@ -60,15 +60,23 @@ export const PullRequestPage = () => (
       </PageHeader.TitleArea>
       <PageHeader.Description>
         <StateLabel status="pullOpened">Open</StateLabel>
-        <Hidden when={['narrow']}>
-          <Text sx={{fontSize: 1, color: 'fg.muted'}}>
-            <Link href="#" muted sx={{fontWeight: 'bold'}}>
-              broccolinisoup
-            </Link>{' '}
-            wants to merge 3 commits into <BranchName href="#">main</BranchName> from{' '}
-            <BranchName href="#">broccolinisoup/add-hidden-component</BranchName>
-          </Text>
-        </Hidden>
+        <div data-a11y-link-underlines="true">
+          <Hidden when={['narrow']}>
+            <Text sx={{fontSize: 1, color: 'fg.muted'}}>
+              <Link inline href="#" muted sx={{fontWeight: 'bold'}}>
+                broccolinisoup
+              </Link>{' '}
+              wants to merge 3 commits into{' '}
+              <BranchName inline href="#">
+                main
+              </BranchName>{' '}
+              from{' '}
+              <BranchName inline href="#">
+                broccolinisoup/add-hidden-component
+              </BranchName>
+            </Text>
+          </Hidden>
+        </div>
         <Hidden when={['regular', 'wide']}>
           <Text sx={{fontSize: 1, color: 'fg.muted'}}>
             <BranchName href="#">main</BranchName>

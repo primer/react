@@ -11,4 +11,8 @@
   &:is(:not(a)) {
     color: var(--fgColor-muted);
   }
+
+  [data-a11y-link-underlines='true'] &:where([data-inline='true']) {
+    text-decoration: underline;
+  }
 }
