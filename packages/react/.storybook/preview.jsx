@@ -46,6 +46,7 @@ const preview = {
               ],
             ],
           ],
+          'Octicons',
           [
             'Experimental',
             [

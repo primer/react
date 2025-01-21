@@ -1,5 +1,5 @@
 import React from 'react'
-import {SkeletonBox} from '..'
+import {SkeletonBox} from '../../../src/experimental/'
 import figma from '@figma/code-connect'
 
 figma.connect(
