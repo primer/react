@@ -73,7 +73,7 @@ const ProgressContainer = toggleStyledComponent(
 )
 
 export type ProgressBarItems = React.HTMLAttributes<HTMLSpanElement> & {
-  'aria-label'?: string
+  'aria-label': string
   className?: string
 } & ProgressProp &
   SxProp
@@ -127,63 +127,75 @@ export const Item = forwardRef<HTMLSpanElement, ProgressBarItems>(
 
 Item.displayName = 'ProgressBar.Item'
 
-export type ProgressBarProps = React.HTMLAttributes<HTMLSpanElement> & {
-  bg?: string
-  className?: string
-} & StyledProgressContainerProps &
-  ProgressProp
+export type ProgressBarBaseProps = Omit<
+  React.HTMLAttributes<HTMLSpanElement> & {
+    bg?: string
+    className?: string
+  } & StyledProgressContainerProps &
+    ProgressProp,
+  'children' | 'aria-label'
+>
 
-export const ProgressBar = forwardRef<HTMLSpanElement, ProgressBarProps>(
-  (
-    {
-      animated,
-      progress,
-      bg = 'success.emphasis',
-      barSize = 'default',
-      children,
-      'aria-label': ariaLabel,
-      'aria-valuenow': ariaValueNow,
-      'aria-valuetext': ariaValueText,
-      className,
-      ...rest
-    }: ProgressBarProps,
-    forwardRef,
-  ) => {
-    if (children && progress) {
-      throw new Error('You should pass `progress` or children, not both.')
-    }
+export type WithChildren = {
+  children: React.ReactNode
+  'aria-label'?: never
+}
 
-    // Get the number of non-empty nodes passed as children, this will exclude
-    // booleans, null, and undefined
-    const validChildren = React.Children.toArray(children).length
-    const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
+export type WithoutChildren = {
+  children?: never
+  'aria-label': string
+}
 
-    const cssModulesProps = !enabled
-      ? {barSize}
-      : {'data-progress-display': rest.inline ? 'inline' : 'block', 'data-progress-bar-size': barSize}
+export type ProgressBarProps = ProgressBarBaseProps & (WithChildren | WithoutChildren)
 
-    return (
-      <ProgressContainer
-        ref={forwardRef}
-        className={clsx(className, {[classes.ProgressBarContainer]: enabled})}
-        {...cssModulesProps}
-        {...rest}
-      >
-        {validChildren ? (
-          children
-        ) : (
-          <Item
-            data-animated={animated}
-            progress={progress}
-            aria-label={ariaLabel}
-            aria-valuenow={ariaValueNow}
-            aria-valuetext={ariaValueText}
-            bg={bg}
-          />
-        )}
-      </ProgressContainer>
-    )
-  },
-)
+export const ProgressBar = forwardRef<HTMLSpanElement, ProgressBarProps>((props, forwardRef) => {
+  const {
+    animated,
+    progress,
+    bg = 'success.emphasis',
+    barSize = 'default',
+    children,
+    'aria-label': ariaLabel,
+    'aria-valuenow': ariaValueNow,
+    'aria-valuetext': ariaValueText,
+    className,
+    ...rest
+  } = props
+
+  if (children && progress) {
+    throw new Error('You should pass `progress` or children, not both.')
+  }
+
+  // Get the number of non-empty nodes passed as children, this will exclude
+  // booleans, null, and undefined
+  const validChildren = React.Children.toArray(children).length
+  const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
+
+  const cssModulesProps = !enabled
+    ? {barSize}
+    : {'data-progress-display': rest.inline ? 'inline' : 'block', 'data-progress-bar-size': barSize}
+
+  return (
+    <ProgressContainer
+      ref={forwardRef}
+      className={clsx(className, {[classes.ProgressBarContainer]: enabled})}
+      {...cssModulesProps}
+      {...rest}
+    >
+      {validChildren ? (
+        children
+      ) : (
+        <Item
+          data-animated={animated}
+          progress={progress}
+          aria-label={ariaLabel as string}
+          aria-valuenow={ariaValueNow}
+          aria-valuetext={ariaValueText}
+          bg={bg}
+        />
+      )}
+    </ProgressContainer>
+  )
+})
 
 ProgressBar.displayName = 'ProgressBar'

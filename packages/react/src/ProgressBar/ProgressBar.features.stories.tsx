@@ -1,6 +1,6 @@
 import React from 'react'
 import type {Meta} from '@storybook/react'
-import {ProgressBar, Text} from '..'
+import {ProgressBar} from '..'
 
 export default {
   title: 'Components/ProgressBar/Features',
