@@ -1,0 +1,45 @@
+{
+  "name": "useResponsiveValue",
+  "importPath": "@primer/react",
+  "stories": [],
+  "parameters": [
+    {
+      "name": "value",
+      "type": "T",
+      "description": "The responsive value to resolve. It can be a single value or an object with viewport range keys.",
+      "required": true
+    },
+    {
+      "name": "fallback",
+      "type": "F",
+      "description": "The fallback value to use if the responsive value does not match the current viewport.",
+      "required": true
+    }
+  ],
+  "returns": {
+    "type": "(T extends ResponsiveValue<infer TRegular, infer TNarrow, infer TWide> ? TRegular | TNarrow | TWide : never) | F",
+    "description": "The resolved value based on the current viewport width."
+  },
+  "relatedTypes": [
+    {
+      "name": "ResponsiveValue",
+      "properties": [
+        {
+          "name": "narrow",
+          "type": "TNarrow",
+          "description": "Applies when viewport is narrow"
+        },
+        {
+          "name": "regular",
+          "type": "TRegular",
+          "description": "Applies when viewport is regular"
+        },
+        {
+          "name": "wide",
+          "type": "TWide",
+          "description": "Applies when viewport is wide"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "$id": "output.schema.json",
+  "type": "object",
+  "required": ["schemaVersion", "hooks"],
+  "properties": {
+    "schemaVersion": {
+      "type": "number",
+      "enum": [2],
+      "description": "The version of the schema. We increment this when we make breaking changes to the schema."
+    },
+    "hooks": {
+      "type": "object",
+      "description": "Metadata about exported by @primer/react.",
+      "patternProperties": {
+        ".*": {
+          "$ref": "./hook.schema.json#"
+        }
+      }
+    }
+  }
+}
