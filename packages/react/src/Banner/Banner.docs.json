@@ -46,6 +46,9 @@
     },
     {
       "id": "experimental-components-banner-features--custom-icon"
+    },
+    {
+      "id": "experimental-components-banner-examples--with-announcement"
     }
   ],
   "props": [

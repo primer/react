@@ -1,0 +1,42 @@
+{
+  "name": "useSafeTimeout",
+  "importPath": "@primer/react",
+  "stories": [],
+  "returns": {
+    "type": "{safeSetTimeout: SetTimeout; safeClearTimeout: ClearTimeout}"
+  },
+  "relatedTypes": [
+    {
+      "name": "SetTimeout",
+      "properties": [
+        {
+          "name": "handler",
+          "type": "TimerHandler",
+          "required": true,
+          "description": "The function to be executed after the timeout."
+        },
+        {
+          "name": "timeout",
+          "type": "number",
+          "description": "The time, in milliseconds, the timer should wait before the specified function or code is executed."
+        },
+        {
+          "name": "args",
+          "type": "unknown[]",
+          "description": "Additional arguments which are passed through to the function specified by handler."
+        }
+      ]
+    },
+    {
+      "name": "ClearTimeout",
+      "properties": [
+        {
+          "name": "id",
+          "type": "number",
+          "required": true,
+          "description": "The identifier of the timeout you want to cancel."
+        }
+      ]
+    }
+  ]
+}

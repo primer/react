@@ -37,6 +37,20 @@
       "required": false,
       "description": "Size of the action bar",
       "defaultValue": ""
+    },
+    {
+      "name": "flush",
+      "type": "boolean",
+      "required": false,
+      "description": "Allows ActionBar to be flush with the container",
+      "defaultValue": "false"
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": "Custom className",
+      "defaultValue": ""
     }
   ],
   "subcomponents": [

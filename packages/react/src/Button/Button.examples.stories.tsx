@@ -3,7 +3,7 @@ import type {Meta} from '@storybook/react'
 import {Button} from '.'
 import {DownloadIcon} from '@primer/octicons-react'
 import {Banner} from '../experimental'
-import {AriaStatus} from '../live-region'
+import {AriaStatus, AriaAlert} from '../live-region'
 
 const meta: Meta<typeof Button> = {
   title: 'Components/Button/Examples',
@@ -69,7 +69,11 @@ export const LoadingStatusAnnouncementError = () => {
 
   return (
     <>
-      {!loading && error ? <Banner title="Export failed" variant="critical" /> : null}
+      {!loading && error ? (
+        <AriaAlert>
+          <Banner title="Export failed" variant="critical" />
+        </AriaAlert>
+      ) : null}
 
       <Button loading={loading} leadingVisual={DownloadIcon} onClick={onClick('error')}>
         Export (error)

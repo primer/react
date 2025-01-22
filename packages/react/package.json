@@ -43,6 +43,7 @@
     "build:docs": "NODE_OPTIONS=--openssl-legacy-provider script/build-docs",
     "build:docs:preview": "NODE_OPTIONS=--openssl-legacy-provider script/build-docs preview",
     "build:components.json": "tsx script/components-json/build.ts",
+    "build:hooks.json": "tsx script/hooks-json/build.ts",
     "build:precompile-color-schemes": "tsx script/precompile-color-schemes.ts",
     "storybook": "storybook",
     "type-check": "tsc --noEmit"
@@ -82,7 +83,7 @@
     "@github/tab-container-element": "^4.8.0",
     "@lit-labs/react": "1.2.1",
     "@oddbird/popover-polyfill": "^0.4.4",
-    "@primer/behaviors": "^1.7.2",
+    "@primer/behaviors": "^1.8.0",
     "@primer/live-region-element": "^0.7.1",
     "@primer/octicons-react": "^19.13.0",
     "@primer/primitives": "9.x || 10.x",

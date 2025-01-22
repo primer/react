@@ -1,0 +1,96 @@
+{
+  "name": "useTheme",
+  "importPath": "@primer/react",
+  "stories": [],
+  "parameters": [],
+  "returns": {
+    "type": "ThemeData"
+  },
+  "relatedTypes": [
+    {
+      "name": "ThemeProviderProps",
+      "properties": [
+        {
+          "name": "theme",
+          "type": "{[key: string]: any}",
+          "description": "The theme object to be applied."
+        },
+        {
+          "name": "colorMode",
+          "type": "'auto' | 'day' | 'night' | 'light' | 'dark'",
+          "description": "The color mode to be applied."
+        },
+        {
+          "name": "dayScheme",
+          "type": "string",
+          "description": "The color scheme for the day color mode."
+        },
+        {
+          "name": "nightScheme",
+          "type": "string",
+          "description": "The color scheme for the night color mode."
+        },
+        {
+          "name": "preventSSRMismatch",
+          "type": "boolean",
+          "description": "Prevent SSR mismatch by injecting server-side color mode."
+        }
+      ]
+    },
+    {
+      "name": "ThemeData",
+      "properties": [
+        {
+          "name": "theme",
+          "type": "Theme",
+          "description": "The theme object that is applied."
+        },
+        {
+          "name": "colorScheme",
+          "type": "string",
+          "description": "The color scheme (for example: \"light\", \"dark\") that is applied."
+        },
+        {
+          "name": "colorMode",
+          "type": "'auto' | 'day' | 'night' | 'light' | 'dark'",
+          "description": "The color mode (for example: \"day\", \"night\") that is applied. If the color mode is \"auto\", the color mode is determined by the user's system preference."
+        },
+        {
+          "name": "resolvedColorScheme",
+          "type": "string",
+          "description": "The name of the current color scheme."
+        },
+        {
+          "name": "resolvedColorMode",
+          "type": "'day' | 'night' | 'light' | 'dark'",
+          "description": "If the color mode is set to \"auto\", the resolved color mode will be determined by the user's system preference."
+        },
+        {
+          "name": "dayScheme",
+          "type": "string",
+          "description": "The color scheme for the day color mode."
+        },
+        {
+          "name": "nightScheme",
+          "type": "string",
+          "description": "The color scheme for the night color mode."
+        },
+        {
+          "name": "setColorMode",
+          "type": "React.Dispatch<React.SetStateAction<'auto' | 'day' | 'night' | 'light' | 'dark'>>",
+          "description": "A function to set the color mode."
+        },
+        {
+          "name": "setDayScheme",
+          "type": "React.Dispatch<React.SetStateAction<string>>",
+          "description": "A function to set the color scheme for the day color mode."
+        },
+        {
+          "name": "setNightScheme",
+          "type": "React.Dispatch<React.SetStateAction<string>>",
+          "description": "A function to set the color scheme for the night color mode."
+        }
+      ]
+    }
+  ]
+}
