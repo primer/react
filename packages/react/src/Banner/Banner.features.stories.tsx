@@ -25,7 +25,6 @@ export const Critical = () => {
           to enable two-factor authentication as an additional security measure.
         </>
       }
-      onDismiss={action('onDismiss')}
       variant="critical"
     />
   )
