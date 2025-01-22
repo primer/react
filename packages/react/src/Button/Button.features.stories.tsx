@@ -71,7 +71,7 @@ export const TrailingCounterAllVariants = () => {
   }
   return (
     <>
-      <div style={{display: 'flex', flexDirection: 'row', gap: '1rem'}}>
+      <Stack gap="normal" wrap="wrap" direction="horizontal">
         <Button onClick={onClick} count={count}>
           Watch
         </Button>
@@ -96,7 +96,7 @@ export const TrailingCounterAllVariants = () => {
         <Button onClick={onClick} variant="invisible" disabled count={count}>
           Watch
         </Button>
-      </div>
+      </Stack>
       <AccessibilityNote />
       <p>In these examples, a live region has been implemented to communicate the change.</p>
     </>
