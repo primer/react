@@ -83,4 +83,32 @@ describe('AriaStatus', () => {
     )
     expect(screen.getByTestId('container').tagName).toBe('SPAN')
   })
+
+  it('should update live-region element when AriaStatus goes from empty to populated', async () => {
+    function TestComponent() {
+      const [show, setShow] = React.useState(false)
+      return (
+        <>
+          <AriaStatus>{show ? 'Export completed' : null}</AriaStatus>
+          <button
+            type="button"
+            onClick={() => {
+              setShow(true)
+            }}
+          >
+            Export data
+          </button>
+        </>
+      )
+    }
+    const user = userEvent.setup()
+
+    render(<TestComponent />)
+
+    const liveRegion = getLiveRegion()
+    expect(liveRegion.getMessage('polite')).toBe('')
+
+    await user.click(screen.getByText('Export data'))
+    expect(liveRegion.getMessage('polite')).toBe('Export completed')
+  })
 })

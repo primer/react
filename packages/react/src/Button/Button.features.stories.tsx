@@ -196,9 +196,6 @@ export const LabelWrap = () => {
       <Button labelWrap leadingVisual={HeartIcon} trailingVisual={EyeIcon}>
         This button label will wrap if the label is too long
       </Button>
-      <Button labelWrap trailingAction={TriangleDownIcon}>
-        This button label will wrap if the label is too long
-      </Button>
     </Stack>
   )
 }
