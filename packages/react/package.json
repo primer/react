@@ -207,7 +207,7 @@
     "unist-util-find": "3.0.0",
     "unist-util-find-before": "4.0.0",
     "unist-util-flat-filter": "2.0.0",
-    "yaml": "2.3.4"
+    "yaml": "2.7.0"
   },
   "peerDependencies": {
     "@types/react": "^18.0.0",
