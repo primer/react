@@ -318,7 +318,7 @@ export const WithSelectPanel = () => {
       <SelectPanel
         title="Select labels"
         subtitle="Use labels to organize issues and pull requests"
-        renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, id, ...anchorProps}) => (
+        renderAnchor={({children, id, ...anchorProps}) => (
           <Button
             trailingAction={TriangleDownIcon}
             aria-labelledby={`select_panel_label selectpanel_wrapper`}
