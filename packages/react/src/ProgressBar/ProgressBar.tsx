@@ -73,7 +73,6 @@ const ProgressContainer = toggleStyledComponent(
 )
 
 export type ProgressBarItems = React.HTMLAttributes<HTMLSpanElement> & {
-  'aria-label': string
   className?: string
 } & ProgressProp &
   SxProp
@@ -83,6 +82,7 @@ export const Item = forwardRef<HTMLSpanElement, ProgressBarItems>(
     {
       progress,
       'aria-label': ariaLabel,
+      'aria-hidden': ariaHidden,
       'aria-valuenow': ariaValueNow,
       'aria-valuetext': ariaValueText,
       className,
@@ -110,6 +110,24 @@ export const Item = forwardRef<HTMLSpanElement, ProgressBarItems>(
     styles[progressBarWidth] = progress ? `${progress}%` : '0%'
     styles[progressBarBg] = (bgType && `var(--bgColor-${bgType[0]}-${bgType[1]})`) || 'var(--bgColor-success-emphasis)'
 
+    if (__DEV__) {
+      /**
+       * The Linter yells because it thinks this conditionally calls an effect,
+       * but since this is a compile-time flag and not a runtime conditional
+       * this is safe, and ensures the entire effect is kept out of prod builds
+       * shaving precious bytes from the output, and avoiding mounting a noop effect
+       */
+      // eslint-disable-next-line react-hooks/rules-of-hooks
+      React.useEffect(() => {
+        if (!ariaHidden && !ariaLabel) {
+          // eslint-disable-next-line no-console
+          console.warn(
+            'This component should include an aria-label or should be aria-hidden if surrounding text can be used to perceive the progress.',
+          )
+        }
+      }, [ariaHidden, ariaLabel])
+    }
+
     return (
       <ProgressItem
         className={clsx(className, {[classes.ProgressBarItem]: enabled})}
@@ -127,26 +145,11 @@ export const Item = forwardRef<HTMLSpanElement, ProgressBarItems>(
 
 Item.displayName = 'ProgressBar.Item'
 
-export type ProgressBarBaseProps = Omit<
-  React.HTMLAttributes<HTMLSpanElement> & {
-    bg?: string
-    className?: string
-  } & StyledProgressContainerProps &
-    ProgressProp,
-  'children' | 'aria-label'
->
-
-export type WithChildren = {
-  children: React.ReactNode
-  'aria-label'?: never
-}
-
-export type WithoutChildren = {
-  children?: never
-  'aria-label': string
-}
-
-export type ProgressBarProps = ProgressBarBaseProps & (WithChildren | WithoutChildren)
+export type ProgressBarProps = React.HTMLAttributes<HTMLSpanElement> & {
+  bg?: string
+  className?: string
+} & StyledProgressContainerProps &
+  ProgressProp
 
 export const ProgressBar = forwardRef<HTMLSpanElement, ProgressBarProps>((props, forwardRef) => {
   const {
@@ -158,6 +161,7 @@ export const ProgressBar = forwardRef<HTMLSpanElement, ProgressBarProps>((props,
     'aria-label': ariaLabel,
     'aria-valuenow': ariaValueNow,
     'aria-valuetext': ariaValueText,
+    'aria-hidden': ariaHidden,
     className,
     ...rest
   } = props
@@ -188,9 +192,10 @@ export const ProgressBar = forwardRef<HTMLSpanElement, ProgressBarProps>((props,
         <Item
           data-animated={animated}
           progress={progress}
-          aria-label={ariaLabel as string}
+          aria-label={ariaHidden ? undefined : ariaLabel}
           aria-valuenow={ariaValueNow}
           aria-valuetext={ariaValueText}
+          aria-hidden={ariaHidden}
           bg={bg}
         />
       )}
