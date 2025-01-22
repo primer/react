@@ -6,8 +6,8 @@ import type {OverlayProps} from '../Overlay'
 import {useProvidedRefOrCreate, useProvidedStateOrCreate, useMenuKeyboardNavigation} from '../hooks'
 import {Divider} from '../ActionList/Divider'
 import {ActionListContainerContext} from '../ActionList/ActionListContainerContext'
-import type {ButtonProps} from '../Button'
-import {Button} from '../Button'
+import type {ButtonProps, IconButtonProps} from '../Button'
+import {Button, IconButton} from '../Button'
 import {useId} from '../hooks/useId'
 import type {MandateProps} from '../utils/types'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
@@ -93,7 +93,9 @@ const Menu: React.FC<React.PropsWithChildren<ActionMenuProps>> = ({
   )
 
   const menuButtonChild = React.Children.toArray(children).find(
-    child => React.isValidElement<ActionMenuButtonProps>(child) && (child.type === MenuButton || child.type === Anchor),
+    child =>
+      React.isValidElement<ActionMenuButtonProps>(child) &&
+      (child.type === MenuButton || child.type === Anchor || child.type === MenuIconButton),
   )
   const menuButtonChildId = React.isValidElement(menuButtonChild) ? menuButtonChild.props.id : undefined
 
@@ -109,7 +111,7 @@ const Menu: React.FC<React.PropsWithChildren<ActionMenuProps>> = ({
     if (child.type === Tooltip) {
       // tooltip trigger
       const anchorChildren = child.props.children
-      if (anchorChildren.type === MenuButton) {
+      if (anchorChildren.type === MenuButton || anchorChildren.type === MenuIconButton) {
         renderAnchor = anchorProps => {
           // We need to attach the anchor props to the tooltip trigger (ActionMenu.Button's grandchild) not the tooltip itself.
           const triggerButton = React.cloneElement(
@@ -141,7 +143,7 @@ const Menu: React.FC<React.PropsWithChildren<ActionMenuProps>> = ({
         renderAnchor = anchorProps => React.cloneElement(child, anchorProps)
       }
       return null
-    } else if (child.type === MenuButton) {
+    } else if (child.type === MenuButton || child.type === MenuIconButton) {
       renderAnchor = anchorProps => React.cloneElement(child, mergeAnchorHandlers(anchorProps, child.props))
       return null
     } else {
@@ -228,6 +230,14 @@ const MenuButton = React.forwardRef(({...props}, anchorRef) => {
   )
 }) as PolymorphicForwardRefComponent<'button', ActionMenuButtonProps>
 
+const MenuIconButton = React.forwardRef(({...props}, anchorRef) => {
+  return (
+    <Anchor ref={anchorRef}>
+      <IconButton type="button" {...props} />
+    </Anchor>
+  )
+}) as PolymorphicForwardRefComponent<'button', IconButtonProps>
+
 type MenuOverlayProps = Partial<OverlayProps> &
   Pick<AnchoredOverlayProps, 'align' | 'side'> & {
     /**
@@ -303,4 +313,10 @@ const Overlay: React.FC<React.PropsWithChildren<MenuOverlayProps>> = ({
 }
 
 Menu.displayName = 'ActionMenu'
-export const ActionMenu = Object.assign(Menu, {Button: MenuButton, Anchor, Overlay, Divider})
+export const ActionMenu = Object.assign(Menu, {
+  Button: MenuButton,
+  IconButton: MenuIconButton,
+  Anchor,
+  Overlay,
+  Divider,
+})

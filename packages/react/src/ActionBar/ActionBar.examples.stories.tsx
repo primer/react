@@ -335,9 +335,7 @@ export const WithActionMenuAsIcon = () => (
     <ActionBar.IconButton icon={TasklistIcon} aria-label="Task List"></ActionBar.IconButton>
 
     <ActionMenu>
-      <ActionMenu.Button icon={KebabHorizontalIcon} aria-label="More tools" variant="invisible">
-        {' '}
-      </ActionMenu.Button>
+      <ActionMenu.IconButton icon={KebabHorizontalIcon} aria-label="More tools" variant="invisible" />
       <ActionMenu.Overlay width="medium">
         <ActionList>
           <ActionList.Item onSelect={() => alert('Copy link clicked')}>
