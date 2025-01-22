@@ -466,6 +466,10 @@
       transform: scaleY(1);
     }
 
+    & + .SubGroup {
+      display: none;
+    }
+
     /* show active indicator on parent collapse if child is active */
     &:has(+ .SubGroup [data-active='true']) {
       background: var(--control-transparent-bgColor-selected);
