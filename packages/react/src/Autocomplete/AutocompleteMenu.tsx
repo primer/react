@@ -12,12 +12,16 @@ import {AutocompleteContext} from './AutocompleteContext'
 import type {IconProps} from '@primer/octicons-react'
 import {PlusIcon} from '@primer/octicons-react'
 import VisuallyHidden from '../_VisuallyHidden'
+import {isElement} from 'react-is'
+import {useFeatureFlag} from '../FeatureFlags'
+
+import classes from './AutocompleteMenu.module.css'
 
 type OnSelectedChange<T> = (item: T | T[]) => void
 export type AutocompleteMenuItem = MandateProps<ActionListItemProps, 'id'> & {
-  leadingVisual?: React.FunctionComponent<React.PropsWithChildren<IconProps>>
+  leadingVisual?: React.FunctionComponent<React.PropsWithChildren<IconProps>> | React.ReactElement
   text?: string
-  trailingVisual?: React.FunctionComponent<React.PropsWithChildren<IconProps>>
+  trailingVisual?: React.FunctionComponent<React.PropsWithChildren<IconProps>> | React.ReactElement
 }
 
 const getDefaultSortFn = (isItemSelectedFn: (itemId: string) => boolean) => (itemIdA: string, itemIdB: string) =>
@@ -115,6 +119,8 @@ export type AutocompleteMenuInternalProps<T extends AutocompleteItemProps> = {
   // TODO: instead of making this required, maybe we can infer aria-labelledby from the ID of the text input somehow?
   ['aria-labelledby']: string
 }
+
+const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_team'
 
 function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMenuInternalProps<T>) {
   const autocompleteContext = useContext(AutocompleteContext)
@@ -323,12 +329,20 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
     throw new Error('Autocomplete: selectionVariant "single" cannot be used with multiple selected items')
   }
 
+  const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
+
   return (
     <VisuallyHidden isVisible={showMenu}>
       {loading ? (
-        <Box p={3} display="flex" justifyContent="center">
-          <Spinner />
-        </Box>
+        enabled ? (
+          <Box className={classes.SpinnerWrapper}>
+            <Spinner />
+          </Box>
+        ) : (
+          <Box p={3} display="flex" justifyContent="center">
+            <Spinner />
+          </Box>
+        )
       ) : (
         <div ref={listContainerRef}>
           {allItemsToRender.length ? (
@@ -352,13 +366,13 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
                   <ActionList.Item key={id} onSelect={() => onAction(item)} {...itemProps} id={id} data-id={id}>
                     {LeadingVisual && (
                       <ActionList.LeadingVisual>
-                        <LeadingVisual />
+                        {isElement(LeadingVisual) ? LeadingVisual : <LeadingVisual />}
                       </ActionList.LeadingVisual>
                     )}
                     {children ?? text}
                     {TrailingVisual && (
                       <ActionList.TrailingVisual>
-                        <TrailingVisual />
+                        {isElement(TrailingVisual) ? TrailingVisual : <TrailingVisual />}
                       </ActionList.TrailingVisual>
                     )}
                   </ActionList.Item>
@@ -366,7 +380,11 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
               })}
             </ActionList>
           ) : emptyStateText !== false && emptyStateText !== null ? (
-            <Box p={3}>{emptyStateText}</Box>
+            enabled ? (
+              <Box className={classes.EmptyStateWrapper}>{emptyStateText}</Box>
+            ) : (
+              <Box p={3}>{emptyStateText}</Box>
+            )
           ) : null}
         </div>
       )}

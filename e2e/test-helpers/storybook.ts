@@ -1,10 +1,18 @@
 import type {Page} from '@playwright/test'
 import {waitForImages} from './waitForImages'
 
+type Value =
+  | string
+  | boolean
+  | number
+  | {
+      [Key: string]: Value
+    }
+
 interface Options {
   id: string
   args?: Record<string, string | boolean>
-  globals?: Record<string, string>
+  globals?: Record<string, Value>
 }
 
 const {STORYBOOK_URL = 'http://localhost:6006'} = process.env
@@ -28,9 +36,13 @@ export async function visit(page: Page, options: Options) {
     let params = ''
     for (const [key, value] of Object.entries(globals)) {
       if (params !== '') {
-        params += '&'
+        params += ';'
       }
-      params += `${key}:${value}`
+      if (typeof value === 'object') {
+        params += serializeObject(value, key)
+      } else {
+        params += `${key}:${value}`
+      }
     }
     url.searchParams.set('globals', params)
   }
@@ -42,7 +54,26 @@ export async function visit(page: Page, options: Options) {
 
   await page.goto(url.toString())
   await page.waitForSelector('body.sb-show-main:not(.sb-show-preparing-story)')
-  await page.waitForSelector('#storybook-root > *')
+  await page.waitForSelector('#storybook-root > *', {state: 'attached'})
 
   await waitForImages(page)
+}
+
+function serializeObject<T extends {[Key: string]: Value}>(object: T, parentPath: string): string {
+  return Object.entries(object)
+    .map(([key, value]) => {
+      if (typeof value === 'object') {
+        return serializeObject(value, `${parentPath}.${key}`)
+      }
+      return `${parentPath}.${key}:${serialize(value)}`
+    })
+    .join(';')
+}
+
+function serialize(value: Value): string {
+  if (typeof value === 'boolean') {
+    return `!${value}`
+  }
+
+  return `${value}`
 }

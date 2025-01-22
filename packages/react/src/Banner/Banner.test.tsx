@@ -2,6 +2,7 @@ import {render, screen} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React from 'react'
 import {Banner} from '../Banner'
+import {FeatureFlags} from '../FeatureFlags'
 
 describe('Banner', () => {
   let spy: jest.SpyInstance
@@ -27,6 +28,25 @@ describe('Banner', () => {
     render(<Banner title="test" />)
     expect(screen.getByRole('region', {name: 'Information'})).toBeInTheDocument()
     expect(screen.getByRole('heading', {name: 'test'})).toBeInTheDocument()
+  })
+
+  it('should support a custom `className` on the outermost element', () => {
+    const Element = () => <Banner title="test" className="test-class-name" />
+    const FeatureFlagElement = () => {
+      return (
+        <FeatureFlags
+          flags={{
+            primer_react_css_modules_team: true,
+            primer_react_css_modules_staff: true,
+            primer_react_css_modules_ga: true,
+          }}
+        >
+          <Element />
+        </FeatureFlags>
+      )
+    }
+    expect(render(<Element />).container.firstChild).toHaveClass('test-class-name')
+    expect(render(<FeatureFlagElement />).container.firstChild).toHaveClass('test-class-name')
   })
 
   it('should label the landmark element with the corresponding variant label text', () => {
@@ -95,9 +115,9 @@ describe('Banner', () => {
       />,
     )
 
-    expect(screen.getByRole('button', {name: 'test primary action'})).toBeInTheDocument()
+    expect(screen.queryAllByRole('button', {name: 'test primary action', hidden: true}).length).toBe(2)
 
-    await user.click(screen.getByRole('button', {name: 'test primary action'}))
+    await user.click(screen.queryAllByText('test primary action')[0])
     expect(onClick).toHaveBeenCalledTimes(1)
   })
 
@@ -112,9 +132,9 @@ describe('Banner', () => {
       />,
     )
 
-    expect(screen.getByRole('button', {name: 'test secondary action'})).toBeInTheDocument()
+    expect(screen.queryAllByRole('button', {name: 'test secondary action', hidden: true}).length).toBe(2)
 
-    await user.click(screen.getByRole('button', {name: 'test secondary action'}))
+    await user.click(screen.queryAllByText('test secondary action')[0])
     expect(onClick).toHaveBeenCalledTimes(1)
   })
 
@@ -128,8 +148,8 @@ describe('Banner', () => {
       />,
     )
 
-    expect(screen.getByRole('button', {name: 'test primary action'})).toBeInTheDocument()
-    expect(screen.getByRole('button', {name: 'test secondary action'})).toBeInTheDocument()
+    expect(screen.queryAllByRole('button', {name: 'test primary action', hidden: true}).length).toBe(2)
+    expect(screen.queryAllByRole('button', {name: 'test secondary action', hidden: true}).length).toBe(2)
   })
 
   it('should call `onDismiss` when the dismiss button is activated', async () => {
@@ -160,20 +180,20 @@ describe('Banner', () => {
     expect(container.firstChild).toHaveAttribute('data-testid', 'test')
   })
 
-  it('should support a custom icon only for info variants', () => {
+  it('should support a custom icon for info and upsell variants', () => {
     const CustomIcon = jest.fn(() => <svg data-testid="icon" aria-hidden="true" />)
     const {rerender} = render(
       <Banner title="test" description="test-description" variant="info" icon={<CustomIcon />} />,
     )
     expect(screen.getByTestId('icon')).toBeInTheDocument()
 
+    rerender(<Banner title="test" description="test-description" variant="upsell" icon={<CustomIcon />} />)
+    expect(screen.getByTestId('icon')).toBeInTheDocument()
+
     rerender(<Banner title="test" description="test-description" variant="critical" icon={<CustomIcon />} />)
     expect(screen.queryByTestId('icon')).toBe(null)
 
     rerender(<Banner title="test" description="test-description" variant="success" icon={<CustomIcon />} />)
-    expect(screen.queryByTestId('icon')).toBe(null)
-
-    rerender(<Banner title="test" description="test-description" variant="upsell" icon={<CustomIcon />} />)
     expect(screen.queryByTestId('icon')).toBe(null)
 
     rerender(<Banner title="test" description="test-description" variant="warning" icon={<CustomIcon />} />)

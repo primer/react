@@ -135,8 +135,8 @@ export function useTable<Data extends UniqueRow>({
       header.column.sortBy === true
         ? strategies.basic
         : typeof header.column.sortBy === 'string'
-        ? strategies[header.column.sortBy]
-        : header.column.sortBy
+          ? strategies[header.column.sortBy]
+          : header.column.sortBy
 
     setRowOrder(rowOrder => {
       return rowOrder.slice().sort((a, b) => {

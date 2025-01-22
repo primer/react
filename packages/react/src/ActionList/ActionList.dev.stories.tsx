@@ -7,6 +7,7 @@ import {Group} from './Group'
 import {Divider} from './Divider'
 import {Description} from './Description'
 import Avatar from '../Avatar'
+import {FileDirectoryIcon, HeartFillIcon} from '@primer/octicons-react'
 
 export default {
   title: 'Components/ActionList/Dev',
@@ -41,6 +42,7 @@ export const GroupWithSubtleTitleOldAPI = () => {
         under features.
       </p>
       <ActionList selectionVariant="multiple" role="menu" showDividers aria-label="Reviewers">
+        {/* eslint-disable-next-line primer-react/no-deprecated-props */}
         <ActionList.Group title="Everyone">
           {users.slice(2).map(user => (
             <ActionList.Item
@@ -80,6 +82,7 @@ export const GroupWithFilledTitleOldAPI = () => {
         under features.
       </p>
       <ActionList selectionVariant="multiple" role="menu" showDividers aria-label="Reviewers">
+        {/* eslint-disable-next-line primer-react/no-deprecated-props */}
         <ActionList.Group title="Everyone" variant="filled">
           {users.slice(2).map(user => (
             <ActionList.Item
@@ -101,3 +104,67 @@ export const GroupWithFilledTitleOldAPI = () => {
     </>
   )
 }
+
+export const GroupHeadingCustomClassname = () => (
+  <ActionList>
+    <ActionList.Heading as="h2">Filter by</ActionList.Heading>
+    <ActionList.Group>
+      <ActionList.GroupHeading className="testCustomClassnameColor" as="h3">
+        Repositories
+      </ActionList.GroupHeading>
+      <ActionList.Item onClick={() => {}}>app/assets/modules</ActionList.Item>
+      <ActionList.Item onClick={() => {}}>src/react/components</ActionList.Item>
+    </ActionList.Group>
+  </ActionList>
+)
+
+export const ListCustomClassname = () => (
+  <ActionList className="testCustomClassnameBorder">
+    <ActionList.Item>Copy link</ActionList.Item>
+    <ActionList.Item>Quote reply</ActionList.Item>
+  </ActionList>
+)
+
+export const DividerCustomClassname = () => (
+  <ActionList>
+    <ActionList.Item>Edit comment</ActionList.Item>
+    <ActionList.Divider className="testCustomClassnameBgColor" />
+    <ActionList.Item>Quote reply</ActionList.Item>
+  </ActionList>
+)
+
+export const HeadingCustomClassname = () => (
+  <ActionList>
+    <ActionList.Heading className="testCustomClassnameColor" as="h2">
+      Filter by
+    </ActionList.Heading>
+    <ActionList.Group>
+      <ActionList.GroupHeading as="h3">Repositories</ActionList.GroupHeading>
+      <ActionList.Item onClick={() => {}}>app/assets/modules</ActionList.Item>
+      <ActionList.Item onClick={() => {}}>src/react/components</ActionList.Item>
+    </ActionList.Group>
+  </ActionList>
+)
+
+export const DescriptionCustomClassname = () => (
+  <ActionList>
+    <ActionList.Item>
+      Label
+      <ActionList.Description className="testCustomClassnameColor">This is a description</ActionList.Description>
+    </ActionList.Item>
+  </ActionList>
+)
+
+export const VisualCustomClassname = () => (
+  <ActionList>
+    <ActionList.Item>
+      Label
+      <ActionList.LeadingVisual className="testCustomClassnameColor">
+        <FileDirectoryIcon />
+      </ActionList.LeadingVisual>
+      <ActionList.TrailingVisual className="testCustomClassnameColor">
+        <HeartFillIcon />
+      </ActionList.TrailingVisual>
+    </ActionList.Item>
+  </ActionList>
+)

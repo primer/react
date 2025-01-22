@@ -2,142 +2,74 @@ import {test, expect} from '@playwright/test'
 import {visit} from '../test-helpers/storybook'
 import {themes} from '../test-helpers/themes'
 
+const stories = [
+  {
+    title: 'Default',
+    id: 'components-checkbox--default',
+  },
+  {
+    title: 'Disabled',
+    id: 'components-checkbox-features--disabled',
+  },
+  {
+    title: 'With Caption',
+    id: 'components-checkbox-features--with-caption',
+  },
+  {
+    title: 'With Leading Visual',
+    id: 'components-checkbox-features--with-leading-visual',
+  },
+  {
+    title: 'Indeterminate',
+    id: 'components-checkbox-features--indeterminate',
+  },
+  {
+    title: 'Visually Hidden',
+    id: 'components-checkbox--playground',
+    args: {
+      visuallyHidden: true,
+    },
+  },
+] as const
+
 test.describe('Checkbox', () => {
-  test.describe('Default', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-checkbox--default',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          // Default state
-          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`Checkbox.Default.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-checkbox--default',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: false,
+  for (const story of stories) {
+    test.describe(story.title, () => {
+      for (const theme of themes) {
+        test.describe(theme, () => {
+          test('default @vrt', async ({page}) => {
+            await visit(page, {
+              id: story.id,
+              globals: {
+                colorScheme: theme,
               },
-            },
-          })
-        })
-      })
-    }
-  })
+              args: 'args' in story ? story.args : {},
+            })
 
-  test.describe('Disabled', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-checkbox-features--disabled',
-            globals: {
-              colorScheme: theme,
-            },
+            // Default state
+            expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
+              `Checkbox.${story.title}.${theme}.png`,
+            )
+
+            // Focus state
+            await page.keyboard.press('Tab')
+            expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
+              `Checkbox.${story.title}.focus.${theme}.png`,
+            )
           })
 
-          // Default state
-          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`Checkbox.Disabled.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-checkbox-features--disabled',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: false,
+          test('axe @aat', async ({page}) => {
+            await visit(page, {
+              id: story.id,
+              globals: {
+                colorScheme: theme,
               },
-            },
+              args: 'args' in story ? story.args : {},
+            })
+            await expect(page).toHaveNoViolations()
           })
         })
-      })
-    }
-  })
-
-  test.describe('With Caption', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-checkbox-features--with-caption',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          // Default state
-          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`Checkbox.With Caption.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-checkbox-features--with-caption',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: false,
-              },
-            },
-          })
-        })
-      })
-    }
-  })
-
-  test.describe('With Leading Visual', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-checkbox-features--with-leading-visual',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          // Default state
-          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
-            `Checkbox.With Leading Visual.${theme}.png`,
-          )
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-checkbox-features--with-leading-visual',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: false,
-              },
-            },
-          })
-        })
-      })
-    }
-  })
+      }
+    })
+  }
 })

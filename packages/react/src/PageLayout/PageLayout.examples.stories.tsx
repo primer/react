@@ -4,7 +4,7 @@ import {PageLayout} from './PageLayout'
 import {Placeholder} from '../Placeholder'
 import {ActionList, Box, Breadcrumbs, Button, Flash, LinkButton, NavList} from '..'
 import {ArrowLeftIcon, FilterIcon} from '@primer/octicons-react'
-import {Dialog} from '../drafts'
+import {Dialog} from '../experimental'
 
 export default {
   title: 'Components/PageLayout/Examples',
@@ -61,6 +61,7 @@ export const ParentDetail: StoryFn = () => {
             regular: false,
             wide: false,
           }}
+          aria-label="Side pane"
         >
           <NavList>
             <NavList.Item
@@ -175,6 +176,7 @@ export const ParentDetailBreadcrumb: StoryFn = () => {
             regular: false,
             wide: false,
           }}
+          aria-label="Side pane"
         >
           <NavList>
             <NavList.Item
@@ -275,6 +277,7 @@ export const FilterBottomSheet: StoryFn = () => {
             regular: false,
             wide: false,
           }}
+          aria-label="Side pane"
         >
           <NavList>
             <NavList.Item
@@ -364,6 +367,7 @@ export const FilterActionMenu: StoryFn = () => {
             regular: false,
             wide: false,
           }}
+          aria-label="Side pane"
         >
           <NavList>
             <NavList.Item
@@ -627,6 +631,7 @@ export const FiltersBottomSheetTwoLevels: StoryFn = () => {
             regular: false,
             wide: false,
           }}
+          aria-label="Side pane"
         >
           <NavList>
             <NavList.Item
@@ -1118,6 +1123,7 @@ export const ParentDetailPlusFilters: StoryFn = () => {
             regular: false,
             wide: false,
           }}
+          aria-label="Side pane"
         >
           <NavList>
             <NavList.Item

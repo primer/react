@@ -3,18 +3,56 @@
   "name": "AnchoredOverlay",
   "status": "alpha",
   "a11yReviewed": false,
-  "stories": [],
+  "stories": [
+    {
+      "id": "components-anchoredoverlay--default"
+    },
+    {
+      "id": "components-anchoredoverlay-features--portal-inside-scrolling-element"
+    },
+    {
+      "id": "components-anchoredoverlay-features--custom-anchor-id"
+    },
+    {
+      "id": "components-anchoredoverlay-features--height"
+    },
+    {
+      "id": "components-anchoredoverlay-features--width"
+    },
+    {
+      "id": "components-anchoredoverlay-features--anchor-alignment"
+    },
+    {
+      "id": "components-anchoredoverlay-features--anchor-side"
+    },
+    {
+      "id": "components-anchoredoverlay-features--offset-position-from-anchor"
+    },
+    {
+      "id": "components-anchoredoverlay-features--offset-alignment-from-anchor"
+    },
+    {
+      "id": "components-anchoredoverlay-features--focus-trap-overrides"
+    },
+    {
+      "id": "components-anchoredoverlay-features--focus-zone-overrides"
+    },
+    {
+      "id": "components-anchoredoverlay-features--overlay-props-overrides"
+    }
+  ],
   "importPath": "@primer/react",
   "props": [
     {
       "name": "open",
       "type": "boolean",
+      "required": true,
       "defaultValue": "false",
       "description": "Determines whether the overlay portion of the component should be shown or not."
     },
     {
       "name": "onOpen",
-      "type": "(gesture: 'anchor-click' | 'anchor-key-press') => unknown",
+      "type": "(gesture: 'anchor-click' | 'anchor-key-press', event?: KeyboardEvent<HTMLElement> | undefined) => unknown",
       "defaultValue": "",
       "description": "A callback that is called whenever the overlay is currently closed and an \"open gesture\" is detected."
     },
@@ -83,6 +121,32 @@
       "type": "Partial<FocusZoneHookSettings>",
       "defaultValue": "",
       "description": "Settings to apply to the focus zone on the internal `Overlay` component."
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "defaultValue": "",
+      "description": "Class name for custom styling."
+    },
+    {
+      "name": "preventOverflow",
+      "type": "boolean",
+      "defaultValue": "true",
+      "description": "Determines if the Overlay width should be adjusted responsively if there is not enough space to display the Overlay. If `preventOverflow` is set to `false`, the Overlay will be displayed at the maximum width that fits within the viewport."
+    },
+    {
+      "name": "height",
+      "type": "'small' | 'initial' | 'large' | 'medium' | 'auto' | 'fit-content' | 'xsmall' | 'xlarge'",
+      "required": false,
+      "description": "",
+      "defaultValue": ""
+    },
+    {
+      "name": "width",
+      "type": "'small' | 'large' | 'medium' | 'auto' | 'xlarge' | 'xxlarge'",
+      "required": false,
+      "description": "",
+      "defaultValue": ""
     }
   ]
 }

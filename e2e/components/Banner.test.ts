@@ -6,58 +6,68 @@ import {viewports} from '../test-helpers/viewports'
 const stories: Array<{title: string; id: string; viewports?: Array<keyof typeof viewports>}> = [
   {
     title: 'Default',
-    id: 'drafts-components-banner--default',
+    id: 'experimental-components-banner--default',
     viewports: ['primer.breakpoint.xs', 'primer.breakpoint.sm'],
   },
   {
     title: 'Critical',
-    id: 'drafts-components-banner-features--critical',
+    id: 'experimental-components-banner-features--critical',
   },
   {
     title: 'Dismiss',
-    id: 'drafts-components-banner-features--dismiss',
+    id: 'experimental-components-banner-features--dismiss',
   },
   {
     title: 'Dismiss With Actions',
-    id: 'drafts-components-banner-features--dismiss-with-actions',
+    id: 'experimental-components-banner-features--dismiss-with-actions',
   },
   {
     title: 'Info',
-    id: 'drafts-components-banner-features--info',
+    id: 'experimental-components-banner-features--info',
   },
   {
     title: 'Success',
-    id: 'drafts-components-banner-features--success',
+    id: 'experimental-components-banner-features--success',
   },
   {
     title: 'Upsell',
-    id: 'drafts-components-banner-features--upsell',
+    id: 'experimental-components-banner-features--upsell',
   },
   {
     title: 'Warning',
-    id: 'drafts-components-banner-features--warning',
+    id: 'experimental-components-banner-features--warning',
   },
   {
     title: 'WithActions',
-    id: 'drafts-components-banner-features--with-actions',
+    id: 'experimental-components-banner-features--with-actions',
     viewports: ['primer.breakpoint.xs', 'primer.breakpoint.sm'],
   },
   {
     title: 'WithHiddenTitle',
-    id: 'drafts-components-banner-features--with-hidden-title',
+    id: 'experimental-components-banner-features--with-hidden-title',
   },
   {
     title: 'WithHiddenTitleAndActions',
-    id: 'drafts-components-banner-features--with-hidden-title-and-actions',
+    id: 'experimental-components-banner-features--with-hidden-title-and-actions',
+    viewports: ['primer.breakpoint.xs', 'primer.breakpoint.sm'],
+  },
+  {
+    title: 'DismissibleWithHiddenTitleAndActions',
+    id: 'experimental-components-banner-features--dismissible-with-hidden-title-and-actions',
+    viewports: ['primer.breakpoint.xs', 'primer.breakpoint.sm'],
+  },
+  {
+    title: 'DismissibleWithHiddenTitleAndSecondaryAction',
+    id: 'experimental-components-banner-features--dismissible-with-hidden-title-and-secondary-action',
     viewports: ['primer.breakpoint.xs', 'primer.breakpoint.sm'],
   },
   {
     title: 'InSidebar',
-    id: 'drafts-components-banner-examples--in-sidebar',
+    id: 'experimental-components-banner-examples--in-sidebar',
   },
   {
     title: 'Multiline',
-    id: 'drafts-components-banner-examples--multiline',
+    id: 'experimental-components-banner-examples--multiline',
     viewports: ['primer.breakpoint.xs', 'primer.breakpoint.sm'],
   },
 ]

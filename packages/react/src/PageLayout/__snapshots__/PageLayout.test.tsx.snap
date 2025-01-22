@@ -183,7 +183,7 @@ exports[`PageLayout renders condensed layout 1`] = `
 <div>
   <div
     class="c0"
-    style="--sticky-pane-height: 100vh;"
+    style="--sticky-pane-height: 100vh; --spacing: var(--spacing-condensed);"
   >
     <div
       class="c1"
@@ -525,7 +525,7 @@ exports[`PageLayout renders default layout 1`] = `
 <div>
   <div
     class="c0"
-    style="--sticky-pane-height: 100vh;"
+    style="--sticky-pane-height: 100vh; --spacing: var(--spacing-normal);"
   >
     <div
       class="c1"
@@ -867,7 +867,7 @@ exports[`PageLayout renders pane in different position when narrow 1`] = `
 <div>
   <div
     class="c0"
-    style="--sticky-pane-height: 100vh;"
+    style="--sticky-pane-height: 100vh; --spacing: var(--spacing-normal);"
   >
     <div
       class="c1"
@@ -1209,7 +1209,7 @@ exports[`PageLayout renders with dividers 1`] = `
 <div>
   <div
     class="c0"
-    style="--sticky-pane-height: 100vh;"
+    style="--sticky-pane-height: 100vh; --spacing: var(--spacing-normal);"
   >
     <div
       class="c1"

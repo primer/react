@@ -2,6 +2,7 @@ import React from 'react'
 import {Radio} from '..'
 import {behavesAsComponent, checkExports} from '../utils/testing'
 import {render, fireEvent} from '@testing-library/react'
+import {FeatureFlags} from '../FeatureFlags'
 
 describe('Radio', () => {
   const defaultProps = {
@@ -13,10 +14,29 @@ describe('Radio', () => {
     jest.resetAllMocks()
   })
 
-  behavesAsComponent({Component: Radio, toRender: () => <Radio {...defaultProps} />})
+  behavesAsComponent({options: {skipAs: true}, Component: Radio, toRender: () => <Radio {...defaultProps} />})
 
   checkExports('Radio', {
     default: Radio,
+  })
+
+  it('should support `className` on the outermost element', () => {
+    const Element = () => <Radio {...defaultProps} className={'test-class-name'} />
+    const FeatureFlagElement = () => {
+      return (
+        <FeatureFlags
+          flags={{
+            primer_react_css_modules_team: true,
+            primer_react_css_modules_staff: true,
+            primer_react_css_modules_ga: true,
+          }}
+        >
+          <Element />
+        </FeatureFlags>
+      )
+    }
+    expect(render(<Element />).container.firstChild).toHaveClass('test-class-name')
+    expect(render(<FeatureFlagElement />).container.firstChild).toHaveClass('test-class-name')
   })
 
   it('renders a valid radio input', () => {

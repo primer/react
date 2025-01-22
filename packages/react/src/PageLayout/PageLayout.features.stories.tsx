@@ -2,7 +2,8 @@ import React from 'react'
 import type {Meta, StoryFn} from '@storybook/react'
 import {PageLayout} from './PageLayout'
 import {Placeholder} from '../Placeholder'
-import {Box, BranchName, Heading, Link, StateLabel, TabNav, Text} from '..'
+import {Box, BranchName, Heading, Link, StateLabel, Text} from '..'
+import TabNav from '../TabNav'
 
 export default {
   title: 'Components/PageLayout/Features',
@@ -57,7 +58,7 @@ export const PullRequestPage = () => (
         this overflows, it should not break to overall page layout!
       </Box>
     </PageLayout.Content>
-    <PageLayout.Pane>
+    <PageLayout.Pane aria-label="Side pane">
       <Box sx={{display: 'flex', flexDirection: 'column', gap: 3}}>
         <Box>
           <Text sx={{fontSize: 0, fontWeight: 'bold', display: 'block', color: 'fg.muted'}}>Assignees</Text>
@@ -162,7 +163,7 @@ export const NestedScrollContainer: StoryFn = args => (
           <Placeholder label="Header" height={64} />
         </PageLayout.Header>
         <PageLayout.Content padding="normal" width="large">
-          <Box sx={{display: 'grid', gap: 3}} tabIndex={0} aria-label="Page content">
+          <Box sx={{display: 'grid', gap: 3}} tabIndex={0} role="region" aria-label="Page content">
             {Array.from({length: args.numParagraphsInContent}).map((_, i) => (
               <Box key={i} as="p" sx={{margin: 0}}>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam at enim id lorem tempus egestas a non
@@ -309,7 +310,7 @@ export const ResizablePane: StoryFn = () => (
     <PageLayout.Header>
       <Placeholder height={64} label="Header" />
     </PageLayout.Header>
-    <PageLayout.Pane resizable position="start">
+    <PageLayout.Pane resizable position="start" aria-label="Side pane">
       <Placeholder height={320} label="Pane" />
     </PageLayout.Pane>
     <PageLayout.Content>
@@ -328,13 +329,13 @@ export const ScrollContainerWithinPageLayoutPane: StoryFn = () => (
       <PageLayout rowGap="none" columnGap="none" padding="none" containerWidth="full">
         <PageLayout.Pane position="start" padding="normal" divider="line" sticky aria-label="Sticky pane">
           <Box sx={{overflow: 'auto'}}>
-            <PageLayout.Pane padding="normal">
+            <PageLayout.Pane padding="normal" aria-label="Side pane">
               <Placeholder label="Inner scroll container" height={800} />
             </PageLayout.Pane>
           </Box>
         </PageLayout.Pane>
         <PageLayout.Content padding="normal" width="large">
-          <Box sx={{display: 'grid'}} tabIndex={0} aria-label="Page content">
+          <Box sx={{display: 'grid'}} tabIndex={0} role="region" aria-label="Page content">
             <Placeholder label="Page content" height={1600} />
           </Box>
         </PageLayout.Content>
@@ -349,7 +350,7 @@ export const CustomPaneWidths: StoryFn = () => (
     <PageLayout.Header>
       <Placeholder height={64} label="Header" />
     </PageLayout.Header>
-    <PageLayout.Pane resizable width={{min: '200px', default: '300px', max: '400px'}}>
+    <PageLayout.Pane resizable width={{min: '200px', default: '300px', max: '400px'}} aria-label="Side pane">
       <Placeholder height={320} label="Pane" />
     </PageLayout.Pane>
     <PageLayout.Content>
@@ -366,7 +367,7 @@ export const WithCustomPaneHeading: StoryFn = () => (
     <PageLayout.Header>
       <Placeholder height={64} label="Header" />
     </PageLayout.Header>
-    <PageLayout.Pane resizable position="start">
+    <PageLayout.Pane resizable position="start" aria-label="Side pane">
       <Heading as="h2" sx={{fontSize: 3}} id="pane-heading">
         Pane Heading
       </Heading>

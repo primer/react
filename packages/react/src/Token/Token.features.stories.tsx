@@ -35,7 +35,6 @@ export const InteractiveToken = () => {
     >
       <Token as="a" href="/?path=/story/components-token-features--issue-label-token-custom-colors" text="Link" />
       <Token as="button" onClick={action('clicked')} text="Button" />
-      <Token as="span" tabIndex={0} onFocus={action('focused')} text="Focusable Span" />
     </Box>
   )
 }
@@ -61,7 +60,6 @@ export const TokenWithOnRemoveFn = () => {
         text="Link"
       />
       <Token as="button" onClick={action('clicked')} onRemove={action('remove me')} text="Button" />
-      <Token as="span" tabIndex={0} onFocus={action('focused')} onRemove={action('remove me')} text="Focusable Span" />
     </Box>
   )
 }
@@ -88,7 +86,6 @@ export const InteractiveIssueLabelToken = () => {
         text="Link"
       />
       <IssueLabelToken as="button" onClick={action('clicked')} text="Button" />
-      <IssueLabelToken as="span" tabIndex={0} onFocus={action('focused')} text="Focusable Span" />
     </Box>
   )
 }
@@ -112,13 +109,6 @@ export const IssueLabelTokenWithOnRemoveFn = () => {
         text="Link"
       />
       <IssueLabelToken as="button" onClick={action('clicked')} onRemove={action('remove me')} text="Button" />
-      <IssueLabelToken
-        as="span"
-        tabIndex={0}
-        onFocus={action('focused')}
-        onRemove={action('remove me')}
-        text="Focusable Span"
-      />
     </Box>
   )
 }
@@ -153,7 +143,6 @@ export const IssueLabelTokenCustomColors = () => {
           fillColor="#0366d6"
         />
         <IssueLabelToken as="button" onClick={action('clicked')} text="Button" fillColor="lightpink" />
-        <IssueLabelToken as="span" tabIndex={0} onFocus={action('focused')} text="Focusable Span" fillColor="coral" />
       </Box>
       <h3>Color examples</h3>
       <Box

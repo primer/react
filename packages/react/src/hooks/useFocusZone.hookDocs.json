@@ -1,0 +1,182 @@
+{
+  "name": "useFocusZone",
+  "importPath": "@primer/react",
+  "stories": [
+    {"id": "hooks-usefocuszone--active-descendant"},
+    {"id": "hooks-usefocuszone--basic-focus-zone"},
+    {"id": "hooks-usefocuszone--changing-subtree"},
+    {"id": "hooks-usefocuszone--custom-focus-movement"},
+    {"id": "hooks-usefocuszone--focus-in-strategy"},
+    {"id": "hooks-usefocuszone--focus-out-behavior"},
+    {"id": "hooks-usefocuszone--nested-zones"},
+    {"id": "hooks-usefocuszone--special-situations"}
+  ],
+  "parameters": [
+    {
+      "name": "settings",
+      "type": "FocusZoneHookSettings",
+      "description": "Configuration options for the focus zone."
+    },
+    {
+      "name": "dependencies",
+      "type": "React.DependencyList",
+      "required": true,
+      "defaultValue": "[]"
+    }
+  ],
+  "relatedTypes": [
+    {
+      "name": "FocusZoneHookSettings",
+      "properties": [
+        {
+          "name": "containerRef",
+          "type": "React.RefObject<HTMLElement>",
+          "description": "Optional ref for the container that holds all elements participating in arrow key focus. If one is not passed, we will create one for you and return it from the hook."
+        },
+        {
+          "name": "activeDescendantFocus",
+          "type": "boolean | React.RefObject<HTMLElement>",
+          "description": "If using the 'active descendant' focus pattern, pass `true` or a ref to the controlling element. If a ref object is not passed, we will create one for you."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "description": "Set to true to disable the focus zone and clean up listeners. Can be re-enabled at any time."
+        },
+        {
+          "name": "focusOutBehavior",
+          "type": "'stop' | 'wrap'",
+          "description": "Defines the behavior when focus moves out of the focus zone. Can be 'stop' or 'wrap'."
+        },
+        {
+          "name": "getNextFocusable",
+          "type": "(direction: 'previous' | 'next' | 'start' | 'end', from: Element | undefined, event: KeyboardEvent) => HTMLElement | undefined",
+          "description": "Function to determine the next focusable element in the given direction."
+        },
+        {
+          "name": "focusableElementFilter",
+          "type": "(element: HTMLElement) => boolean",
+          "description": "Function to filter which elements are focusable."
+        },
+        {
+          "name": "bindKeys",
+          "type": "enum FocusKeys {\nArrowHorizontal = 1,\nArrowVertical = 2,\nJK = 4,\nHL = 8,\nHomeAndEnd = 16,\nPageUpDown = 256,\nWS = 32,\nAD = 64,\nTab = 128,\nBackspace = 512,\nArrowAll = 3,\nHJKL = 12,\nWASD = 96,\nAll = 511\n}",
+          "defaultValue": "FocusKeys.ArrowVertical",
+          "description": "Keys that should be used to move focus within the focus zone."
+        },
+        {
+          "name": "abortSignal",
+          "type": "AbortSignal",
+          "description": "Signal to abort the focus zone."
+        },
+        {
+          "name": "activeDescendantControl",
+          "type": "HTMLElement",
+          "description": "Element that controls the active descendant."
+        },
+        {
+          "name": "focusInStrategy",
+          "type": "'first' | 'closest' | 'previous' | ((previousFocusedElement: Element) => HTMLElement | undefined)",
+          "description": "Strategy to determine which element receives focus when entering the focus zone."
+        },
+        {
+          "name": "preventScroll",
+          "type": "boolean",
+          "description": "Prevents scrolling when focusing elements."
+        }
+      ]
+    },
+    {
+      "name": "FocusZoneRefs",
+      "properties": [
+        {
+          "name": "containerRef",
+          "type": "React.RefObject<HTMLElement>",
+          "description": "Ref that will be used for the element with the children focus will be moved between."
+        },
+        {
+          "name": "initialFocusRef",
+          "type": "React.RefObject<HTMLElement>",
+          "description": "Ref for the child element that will receive focus first."
+        }
+      ]
+    },
+    {
+      "name": "FocusKeys (enum)",
+      "properties": [
+        {
+          "name": "ArrowHorizontal",
+          "type": "1",
+          "description": "Left and right arrow keys. Prevents default behavior of scrolling where applicable."
+        },
+        {
+          "name": "ArrowVertical",
+          "type": "2",
+          "description": "Up and down arrow keys. Prevents default behavior of scrolling where applicable."
+        },
+        {
+          "name": "ArrowAll",
+          "type": "3",
+          "description": "Left, right, up, and down arrow keys. Prevents default behavior of scrolling where applicable."
+        },
+        {
+          "name": "HomeAndEnd",
+          "type": "16",
+          "description": "Home and end keys. Causes focus to jump to the first or last focusable item in the container. Does not move focus if the currently-focused element is a text box."
+        },
+        {
+          "name": "PageUpDown",
+          "type": "256",
+          "description": "Works the same as the Home and End keys. Advisable only when supplying a custom callback that supports paging."
+        },
+        {
+          "name": "JK",
+          "type": "4",
+          "description": "J moves focus to the next item, K moves to the previous. Does not move focus if the currently-focused element is a text box. [Originally from](https://catonmat.net/why-vim-uses-hjkl-as-arrow-keys) the vi keybindings"
+        },
+        {
+          "name": "HL",
+          "type": "8",
+          "description": "H moves focus to the previous item, L moves to the next. Does not move focus if the currently-focused element is a text box. [Originally from](https://catonmat.net/why-vim-uses-hjkl-as-arrow-keys) the vi keybindings"
+        },
+        {
+          "name": "WS",
+          "type": "32",
+          "description": "W moves focus to the previous item, S moves to the next. Does not move focus if the currently-focused element is a text box."
+        },
+        {
+          "name": "AD",
+          "type": "64",
+          "description": "A moves focus to the previous item, D moves to the next. Does not move focus if the currently-focused element is a text box."
+        },
+        {
+          "name": "HJKL",
+          "type": "12"
+        },
+        {
+          "name": "WASD",
+          "type": "96"
+        },
+        {
+          "name": "Tab",
+          "type": "128",
+          "description": "Unlike other keys, the Tab key will always allow movement outside of the focus zone (use the Focus Trap behavior to prevent this). Tab moves to the next item, Shift+Tab moves to the previous."
+        },
+        {
+          "name": "Backspace",
+          "type": "512",
+          "description": "Moves focus to the previous item. Does not move focus if the currently-focused element is a text box."
+        },
+        {
+          "name": "All",
+          "type": "511",
+          "description": "All keys listed above are bound."
+        }
+      ]
+    }
+  ],
+  "returns": {
+    "type": "FocusZoneRefs",
+    "description": "The refs for the trapping container and the initial focus element."
+  }
+}

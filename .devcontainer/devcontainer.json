@@ -1,7 +1,7 @@
 {
   "name": "Primer React",
-  "image": "mcr.microsoft.com/vscode/devcontainers/typescript-node:18",
-  "extensions": ["esbenp.prettier-vscode", "dbaeumer.vscode-eslint", "DavidAnson.vscode-markdownlint"],
+  "image": "mcr.microsoft.com/vscode/devcontainers/typescript-node:22",
+  "extensions": ["esbenp.prettier-vscode", "dbaeumer.vscode-eslint", "DavidAnson.vscode-markdownlint", "hex-ci.stylelint-plus"],
   "forwardPorts": [8000],
   "onCreateCommand": ["/bin/bash", "-c", "npm run setup"],
   "remoteUser": "node",

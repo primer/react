@@ -1,4 +1,4 @@
-# ADR 6: Parallel experimental track & plan for deprecated components
+# Parallel experimental track & plan for deprecated components
 
 ## Status
 

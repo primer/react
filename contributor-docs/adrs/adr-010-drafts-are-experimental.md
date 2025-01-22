@@ -1,11 +1,11 @@
-# ADR 010: Merge drafts status into experimental
+# Merge drafts status into experimental
 
 ## Status
 
 | Stage    | Status |
 | -------- | ------ |
 | Approved | ✅     |
-| Adopted  | 🚧     |
+| Adopted  | ✅     |
 
 ## Context
 

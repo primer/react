@@ -1,5 +1,5 @@
 import React from 'react'
-import {VisuallyHidden} from './VisuallyHidden'
+import {VisuallyHidden} from '../../VisuallyHidden'
 
 type LiveRegionContext = {
   announce: (message: string) => void

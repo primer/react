@@ -3,21 +3,21 @@ import {PageHeader} from '../PageHeader'
 
 // PageHeader
 export function acceptsAsProp() {
-  return <PageHeader as="header"></PageHeader>
+  return <PageHeader role="banner" as="header"></PageHeader>
 }
 
 export function shouldOnlyAllowValidValuesForAsProp() {
   //    @ts-expect-error as prop should have one of the valid values
-  return <PageHeader as="something"></PageHeader>
+  return <PageHeader role="banner" as="something"></PageHeader>
 }
 
 export function acceptsAriaLabelProp() {
-  return <PageHeader aria-label="Page Header"></PageHeader>
+  return <PageHeader role="banner" aria-label="Page Header"></PageHeader>
 }
 
 export function childrenShouldAcceptHiddenProp() {
   return (
-    <PageHeader>
+    <PageHeader role="banner" aria-label="Context Area">
       <PageHeader.ContextArea
         hidden={{
           narrow: true,
@@ -31,7 +31,7 @@ export function childrenShouldAcceptHiddenProp() {
 
 export function hiddenPropAcceptsBooleanValues() {
   return (
-    <PageHeader>
+    <PageHeader role="banner" aria-label="Banner">
       <PageHeader.ContextArea hidden={true}>Context Area</PageHeader.ContextArea>
     </PageHeader>
   )

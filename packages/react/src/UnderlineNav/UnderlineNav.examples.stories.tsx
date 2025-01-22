@@ -10,7 +10,7 @@ import {
   GraphIcon,
   ShieldLockIcon,
   GearIcon,
-  CommitIcon,
+  GitCommitIcon,
   ChecklistIcon,
   FileDiffIcon,
   BookIcon,
@@ -22,7 +22,8 @@ import {
 } from '@primer/octicons-react'
 import type {Meta} from '@storybook/react'
 import {UnderlineNav} from './index'
-import {Avatar, Octicon, Button, Box, Heading, Link, Text, StateLabel, BranchName} from '..'
+import {Avatar, Button, Box, Heading, Link, Text, StateLabel, BranchName} from '..'
+import Octicon from '../Octicon'
 
 export default {
   title: 'Components/UnderlineNav/Examples',
@@ -50,7 +51,7 @@ export const PullRequestPage = () => {
         <UnderlineNav.Item icon={CommentDiscussionIcon} counter="0" aria-current="page">
           Conversation
         </UnderlineNav.Item>
-        <UnderlineNav.Item counter={3} icon={CommitIcon}>
+        <UnderlineNav.Item counter={3} icon={GitCommitIcon}>
           Commits
         </UnderlineNav.Item>
         <UnderlineNav.Item counter={7} icon={ChecklistIcon}>
@@ -114,7 +115,7 @@ export const ProfilePage = () => {
   return (
     <Box sx={{display: 'flex', flexDirection: 'row', gap: 3, alignItems: 'flex-start'}}>
       <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start', height: '100%'}}>
-        <Avatar size={256} src="https://avatars.githubusercontent.com/u/92997159?v=4" alt="mona user avatar" />
+        <Avatar size={256} src="https://avatars.githubusercontent.com/u/7143434?v=4" alt="mona user avatar" />
         <Box>
           {/* Initial bio info */}
           <Box sx={{paddingY: 3}}>

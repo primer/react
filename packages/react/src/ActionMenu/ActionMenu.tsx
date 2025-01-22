@@ -43,6 +43,31 @@ export type ActionMenuProps = {
   onOpenChange?: (s: boolean) => void
 } & Pick<AnchoredOverlayProps, 'anchorRef'>
 
+// anchorProps adds onClick and onKeyDown, so we need to merge them with buttonProps
+const mergeAnchorHandlers = (anchorProps: React.HTMLAttributes<HTMLElement>, buttonProps: ButtonProps) => {
+  const mergedAnchorProps = {...anchorProps}
+
+  if (typeof buttonProps.onClick === 'function') {
+    const anchorOnClick = anchorProps.onClick
+    const mergedOnClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+      buttonProps.onClick?.(event)
+      anchorOnClick?.(event)
+    }
+    mergedAnchorProps.onClick = mergedOnClick
+  }
+
+  if (typeof buttonProps.onKeyDown === 'function') {
+    const anchorOnKeyDown = anchorProps.onKeyDown
+    const mergedOnAnchorKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>) => {
+      buttonProps.onKeyDown?.(event)
+      anchorOnKeyDown?.(event)
+    }
+    mergedAnchorProps.onKeyDown = mergedOnAnchorKeyDown
+  }
+
+  return mergedAnchorProps
+}
+
 const Menu: React.FC<React.PropsWithChildren<ActionMenuProps>> = ({
   anchorRef: externalAnchorRef,
   open,
@@ -87,7 +112,10 @@ const Menu: React.FC<React.PropsWithChildren<ActionMenuProps>> = ({
       if (anchorChildren.type === MenuButton) {
         renderAnchor = anchorProps => {
           // We need to attach the anchor props to the tooltip trigger (ActionMenu.Button's grandchild) not the tooltip itself.
-          const triggerButton = React.cloneElement(anchorChildren, {...anchorProps})
+          const triggerButton = React.cloneElement(
+            anchorChildren,
+            mergeAnchorHandlers({...anchorProps}, anchorChildren.props),
+          )
           return React.cloneElement(child, {children: triggerButton, ref: anchorRef})
         }
       }
@@ -101,7 +129,10 @@ const Menu: React.FC<React.PropsWithChildren<ActionMenuProps>> = ({
             // ActionMenu.Anchor's children can be wrapped with Tooltip. If this is the case, our anchor is the tooltip's trigger
             const tooltipTrigger = anchorChildren.props.children
             // We need to attach the anchor props to the tooltip trigger not the tooltip itself.
-            const tooltipTriggerEl = React.cloneElement(tooltipTrigger, {...anchorProps})
+            const tooltipTriggerEl = React.cloneElement(
+              tooltipTrigger,
+              mergeAnchorHandlers({...anchorProps}, tooltipTrigger.props),
+            )
             const tooltip = React.cloneElement(anchorChildren, {children: tooltipTriggerEl})
             return React.cloneElement(child, {children: tooltip, ref: anchorRef})
           }
@@ -111,7 +142,7 @@ const Menu: React.FC<React.PropsWithChildren<ActionMenuProps>> = ({
       }
       return null
     } else if (child.type === MenuButton) {
-      renderAnchor = anchorProps => React.cloneElement(child, anchorProps)
+      renderAnchor = anchorProps => React.cloneElement(child, mergeAnchorHandlers(anchorProps, child.props))
       return null
     } else {
       return child
@@ -136,17 +167,27 @@ const Menu: React.FC<React.PropsWithChildren<ActionMenuProps>> = ({
   )
 }
 
-export type ActionMenuAnchorProps = {children: React.ReactElement; id?: string}
-const Anchor = React.forwardRef<HTMLElement, ActionMenuAnchorProps>(({children, ...anchorProps}, anchorRef) => {
+export type ActionMenuAnchorProps = {children: React.ReactElement; id?: string} & React.HTMLAttributes<HTMLElement>
+const Anchor = React.forwardRef<HTMLElement, ActionMenuAnchorProps>(({children: child, ...anchorProps}, anchorRef) => {
   const {onOpen, isSubmenu} = React.useContext(MenuContext)
 
   const openSubmenuOnRightArrow: React.KeyboardEventHandler<HTMLElement> = useCallback(
     event => {
-      children.props.onKeyDown?.(event)
       if (isSubmenu && event.key === 'ArrowRight' && !event.defaultPrevented) onOpen?.('anchor-key-press')
     },
-    [children, isSubmenu, onOpen],
+    [isSubmenu, onOpen],
   )
+
+  const onButtonClick = (event: React.MouseEvent<HTMLElement>) => {
+    child.props.onClick?.(event)
+    anchorProps.onClick?.(event) // onClick is passed from AnchoredOverlay
+  }
+
+  const onButtonKeyDown = (event: React.KeyboardEvent<HTMLElement>) => {
+    child.props.onKeyDown?.(event)
+    openSubmenuOnRightArrow(event)
+    anchorProps.onKeyDown?.(event) // onKeyDown is passed from AnchoredOverlay
+  }
 
   // Add right chevron icon to submenu anchors rendered using `ActionList.Item`
   const parentActionListContext = useContext(ActionListContainerContext)
@@ -165,10 +206,11 @@ const Anchor = React.forwardRef<HTMLElement, ActionMenuAnchorProps>(({children, 
 
   return (
     <ActionListContainerContext.Provider value={thisActionListContext}>
-      {React.cloneElement(children, {
+      {React.cloneElement(child, {
         ...anchorProps,
         ref: anchorRef,
-        onKeyDown: openSubmenuOnRightArrow,
+        onClick: onButtonClick,
+        onKeyDown: onButtonKeyDown,
       })}
     </ActionListContainerContext.Provider>
   )
@@ -218,7 +260,9 @@ const Overlay: React.FC<React.PropsWithChildren<MenuOverlayProps>> = ({
   // If the menu anchor is an icon button, we need to label the menu by tooltip that also labelled the anchor.
   const [anchorAriaLabelledby, setAnchorAriaLabelledby] = useState<null | string>(null)
   useEffect(() => {
-    if (anchorRef.current) {
+    // Necessary for HMR reloads
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    if (anchorRef?.current) {
       const ariaLabelledby = anchorRef.current.getAttribute('aria-labelledby')
       if (ariaLabelledby) {
         setAnchorAriaLabelledby(ariaLabelledby)
@@ -248,6 +292,7 @@ const Overlay: React.FC<React.PropsWithChildren<MenuOverlayProps>> = ({
             listLabelledBy: ariaLabelledby || anchorAriaLabelledby || anchorId,
             selectionAttribute: 'aria-checked', // Should this be here?
             afterSelect: () => onClose?.('item-select'),
+            enableFocusZone: false, // AnchoredOverlay takes care of focus zone
           }}
         >
           {children}

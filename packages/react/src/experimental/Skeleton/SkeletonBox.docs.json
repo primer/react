@@ -1,0 +1,42 @@
+{
+  "id": "skeleton_box",
+  "name": "SkeletonBox",
+  "status": "draft",
+  "a11yReviewed": false,
+  "stories": [
+    {
+      "id": "experimental-components-skeleton-skeletonbox--default"
+    },
+    {
+      "id": "experimental-components-skeleton-skeletonbox-features--custom-height"
+    },
+    {
+      "id": "experimental-components-skeleton-skeletonbox-features--custom-width"
+    }
+  ],
+  "importPath": "@primer/react/experimental",
+  "props": [
+    {
+      "name": "width",
+      "type": "string",
+      "description": "Width of the skeleton box. Accepts any valid CSS `width` value."
+    },
+    {
+      "name": "height",
+      "defaultValue": "1rem",
+      "type": "string",
+      "description": "Height of the skeleton box. Accepts any valid CSS `height` value."
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "description": "The className of the skeleton box",
+      "defaultValue": ""
+    },
+    {
+      "name": "sx",
+      "type": "SystemStyleObject"
+    }
+  ],
+  "subcomponents": []
+}

@@ -1,8 +1,7 @@
 import {SortAscIcon, SortDescIcon} from '@primer/octicons-react'
-import clsx from 'clsx'
+import {clsx} from 'clsx'
 import React from 'react'
 import styled from 'styled-components'
-import Box from '../Box'
 import Text from '../Text'
 import {get} from '../constants'
 import type {SxProp} from '../sx'
@@ -12,215 +11,229 @@ import type {Column, CellAlignment} from './column'
 import type {UniqueRow} from './row'
 import {SortDirection} from './sorting'
 import {useTableLayout} from './useTable'
-import {SkeletonText} from '../drafts/Skeleton/SkeletonText'
-import {ScrollableRegion} from '../internal/components/ScrollableRegion'
+import {SkeletonText} from '../experimental/Skeleton/SkeletonText'
+import {ScrollableRegion} from '../ScrollableRegion'
+import {useFeatureFlag} from '../FeatureFlags'
+import {toggleStyledComponent} from '../internal/utils/toggleStyledComponent'
+import {Button} from '../internal/components/ButtonReset'
+import classes from './Table.module.css'
+
+const cssModulesFlag = 'primer_react_css_modules_team'
 
 // ----------------------------------------------------------------------------
 // Table
 // ----------------------------------------------------------------------------
 
-const StyledTable = styled.table<React.ComponentPropsWithoutRef<'table'>>`
-  /* Default table styles */
-  --table-border-radius: 0.375rem;
-  --table-cell-padding: var(--cell-padding-block, 0.5rem) var(--cell-padding-inline, 0.75rem);
-  --table-font-size: 0.75rem;
+const StyledTable = toggleStyledComponent(
+  cssModulesFlag,
+  'table',
+  styled.table<React.ComponentPropsWithoutRef<'table'>>`
+    /* Default table styles */
+    --table-border-radius: 0.375rem;
+    --table-cell-padding: var(--cell-padding-block, 0.5rem) var(--cell-padding-inline, 0.75rem);
+    --table-font-size: 0.75rem;
 
-  background-color: ${get('colors.canvas.default')};
-  border-spacing: 0;
-  border-collapse: separate;
-  display: grid;
-  font-size: var(--table-font-size);
-  grid-template-columns: var(--grid-template-columns);
-  line-height: calc(20 / var(--table-font-size));
-  width: 100%;
+    background-color: ${get('colors.canvas.default')};
+    border-spacing: 0;
+    border-collapse: separate;
+    display: grid;
+    font-size: var(--table-font-size);
+    grid-template-columns: var(--grid-template-columns);
+    line-height: calc(20 / 12);
+    width: 100%;
 
-  /* Density modes: condensed, normal, spacious */
-  &[data-cell-padding='condensed'] {
-    --cell-padding-block: 0.25rem;
-    --cell-padding-inline: 0.5rem;
-  }
+    /* Density modes: condensed, normal, spacious */
+    &[data-cell-padding='condensed'] {
+      --cell-padding-block: 0.25rem;
+      --cell-padding-inline: 0.5rem;
+    }
 
-  &[data-cell-padding='normal'] {
-    --cell-padding-block: 0.5rem;
-    --cell-padding-inline: 0.75rem;
-  }
+    &[data-cell-padding='normal'] {
+      --cell-padding-block: 0.5rem;
+      --cell-padding-inline: 0.75rem;
+    }
 
-  &[data-cell-padding='spacious'] {
-    --cell-padding-block: 0.75rem;
-    --cell-padding-inline: 1rem;
-  }
+    &[data-cell-padding='spacious'] {
+      --cell-padding-block: 0.75rem;
+      --cell-padding-inline: 1rem;
+    }
 
-  /* Borders */
-  .TableCell:first-child,
-  .TableHeader:first-child {
-    border-left: 1px solid ${get('colors.border.default')};
-  }
+    /* Borders */
+    .TableCell:first-child,
+    .TableHeader:first-child {
+      border-left: 1px solid ${get('colors.border.default')};
+    }
 
-  .TableCell:last-child,
-  .TableHeader:last-child {
-    border-right: 1px solid ${get('colors.border.default')};
-  }
+    .TableCell:last-child,
+    .TableHeader:last-child {
+      border-right: 1px solid ${get('colors.border.default')};
+    }
 
-  .TableHeader,
-  .TableCell {
-    text-align: start;
-    display: flex;
-    align-items: center;
-    border-bottom: 1px solid ${get('colors.border.default')};
-    padding: var(--table-cell-padding);
-  }
+    .TableHeader,
+    .TableCell {
+      text-align: start;
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid ${get('colors.border.default')};
+      padding: var(--table-cell-padding);
+    }
 
-  .TableHeader[data-cell-align='end'],
-  .TableCell[data-cell-align='end'] {
-    text-align: end;
-    display: flex;
-    justify-content: flex-end;
-  }
+    .TableHeader[data-cell-align='end'],
+    .TableCell[data-cell-align='end'] {
+      text-align: end;
+      display: flex;
+      justify-content: flex-end;
+    }
 
-  .TableHeader[data-cell-align='end'] .TableSortButton {
-    display: flex;
-    flex-direction: row-reverse;
-  }
+    .TableHeader[data-cell-align='end'] .TableSortButton {
+      display: flex;
+      flex-direction: row-reverse;
+    }
 
-  .TableHead .TableRow:first-of-type .TableHeader {
-    border-top: 1px solid ${get('colors.border.default')};
-  }
+    .TableHead .TableRow:first-of-type .TableHeader {
+      border-top: 1px solid ${get('colors.border.default')};
+    }
 
-  /* Border radius */
-  .TableHead .TableRow:first-of-type .TableHeader:first-child {
-    border-top-left-radius: var(--table-border-radius);
-  }
+    /* Border radius */
+    .TableHead .TableRow:first-of-type .TableHeader:first-child {
+      border-top-left-radius: var(--table-border-radius);
+    }
 
-  .TableHead .TableRow:first-of-type .TableHeader:last-child {
-    border-top-right-radius: var(--table-border-radius);
-  }
+    .TableHead .TableRow:first-of-type .TableHeader:last-child {
+      border-top-right-radius: var(--table-border-radius);
+    }
 
-  .TableOverflowWrapper:last-child & .TableBody .TableRow:last-of-type .TableCell:first-child {
-    border-bottom-left-radius: var(--table-border-radius);
-  }
+    .TableOverflowWrapper:last-child & .TableBody .TableRow:last-of-type .TableCell:first-child {
+      border-bottom-left-radius: var(--table-border-radius);
+    }
 
-  .TableOverflowWrapper:last-child & .TableBody .TableRow:last-of-type .TableCell:last-child {
-    border-bottom-right-radius: var(--table-border-radius);
-  }
+    .TableOverflowWrapper:last-child & .TableBody .TableRow:last-of-type .TableCell:last-child {
+      border-bottom-right-radius: var(--table-border-radius);
+    }
 
-  /**
+    /**
    * Offset padding to make sure type aligns regardless of cell padding
    * selection
    */
-  .TableRow > *:first-child:not(.TableCellSkeleton),
-  .TableRow > *:first-child .TableCellSkeletonItem {
-    padding-inline-start: 1rem;
-  }
-
-  .TableRow > *:last-child:not(.TableCellSkeleton),
-  .TableRow > *:last-child .TableCellSkeletonItem {
-    padding-inline-end: 1rem;
-  }
-
-  /* TableHeader */
-  .TableHeader {
-    background-color: ${get('colors.canvas.subtle')};
-    color: ${get('colors.fg.muted')};
-    font-weight: 600;
-    border-top: 1px solid ${get('colors.border.default')};
-  }
-
-  .TableHeader[aria-sort='descending'],
-  .TableHeader[aria-sort='ascending'] {
-    color: ${get('colors.fg.default')};
-  }
-
-  /* Control visibility of sort icons */
-  .TableSortIcon {
-    visibility: hidden;
-  }
-
-  /* The ASC icon is visible if the header is sortable and is hovered or focused */
-  .TableHeader:hover .TableSortIcon--ascending,
-  .TableHeader .TableSortButton:focus .TableSortIcon--ascending {
-    visibility: visible;
-  }
-
-  /* Each sort icon is visible if the TableHeader is currently in the corresponding sort state */
-  .TableHeader[aria-sort='ascending'] .TableSortIcon--ascending,
-  .TableHeader[aria-sort='descending'] .TableSortIcon--descending {
-    visibility: visible;
-  }
-
-  /* TableRow */
-  .TableRow:hover .TableCell:not(.TableCellSkeleton) {
-    /* TODO: update this token when the new primitive tokens are released */
-    background-color: ${get('colors.actionListItem.default.hoverBg')};
-  }
-
-  /* TableCell */
-  .TableCell[scope='row'] {
-    align-items: center;
-    display: flex;
-    color: ${get('colors.fg.default')};
-    font-weight: 600;
-  }
-
-  /* TableCellSkeleton */
-  .TableCellSkeleton {
-    padding: 0;
-  }
-
-  .TableCellSkeletonItems {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-  }
-
-  .TableCellSkeletonItem {
-    padding: var(--table-cell-padding);
-
-    &:nth-of-type(5n + 1) {
-      --skeleton-item-width: 85%;
+    .TableRow > *:first-child:not(.TableCellSkeleton),
+    .TableRow > *:first-child .TableCellSkeletonItem {
+      padding-inline-start: 1rem;
     }
 
-    &:nth-of-type(5n + 2) {
-      --skeleton-item-width: 67.5%;
+    .TableRow > *:last-child:not(.TableCellSkeleton),
+    .TableRow > *:last-child .TableCellSkeletonItem {
+      padding-inline-end: 1rem;
     }
 
-    &:nth-of-type(5n + 3) {
-      --skeleton-item-width: 80%;
+    /* TableHeader */
+    .TableHeader {
+      background-color: ${get('colors.canvas.subtle')};
+      color: ${get('colors.fg.muted')};
+      font-weight: 600;
+      border-top: 1px solid ${get('colors.border.default')};
     }
 
-    &:nth-of-type(5n + 4) {
-      --skeleton-item-width: 60%;
+    .TableHeader[aria-sort='descending'],
+    .TableHeader[aria-sort='ascending'] {
+      color: ${get('colors.fg.default')};
     }
 
-    &:nth-of-type(5n + 5) {
-      --skeleton-item-width: 75%;
+    /* Control visibility of sort icons */
+    .TableSortIcon {
+      visibility: hidden;
     }
-  }
 
-  .TableCellSkeletonItem [data-component='SkeletonText'] {
-    width: var(--skeleton-item-width);
-  }
+    /* The ASC icon is visible if the header is sortable and is hovered or focused */
+    .TableHeader:hover .TableSortIcon--ascending,
+    .TableHeader .TableSortButton:focus .TableSortIcon--ascending {
+      visibility: visible;
+    }
 
-  .TableCellSkeletonItem:not(:last-of-type) {
-    border-bottom: 1px solid ${get('colors.border.default')};
-  }
+    /* Each sort icon is visible if the TableHeader is currently in the corresponding sort state */
+    .TableHeader[aria-sort='ascending'] .TableSortIcon--ascending,
+    .TableHeader[aria-sort='descending'] .TableSortIcon--descending {
+      visibility: visible;
+    }
 
-  /* Grid layout */
-  .TableHead,
-  .TableBody,
-  .TableRow {
-    display: contents;
-  }
+    /* TableRow */
+    .TableRow:hover .TableCell:not(.TableCellSkeleton) {
+      /* TODO: update this token when the new primitive tokens are released */
+      background-color: ${get('colors.actionListItem.default.hoverBg')};
+    }
 
-  @supports (grid-template-columns: subgrid) {
+    /* TableCell */
+    .TableCell[scope='row'] {
+      align-items: center;
+      display: flex;
+      color: ${get('colors.fg.default')};
+      font-weight: 600;
+    }
+
+    /* TableCellSkeleton */
+    .TableCellSkeleton {
+      padding: 0;
+    }
+
+    .TableCellSkeletonItems {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+    }
+
+    .TableCellSkeletonItem {
+      padding: var(--table-cell-padding);
+
+      &:nth-of-type(5n + 1) {
+        --skeleton-item-width: 85%;
+      }
+
+      &:nth-of-type(5n + 2) {
+        --skeleton-item-width: 67.5%;
+      }
+
+      &:nth-of-type(5n + 3) {
+        --skeleton-item-width: 80%;
+      }
+
+      &:nth-of-type(5n + 4) {
+        --skeleton-item-width: 60%;
+      }
+
+      &:nth-of-type(5n + 5) {
+        --skeleton-item-width: 75%;
+      }
+    }
+
+    .TableCellSkeletonItem [data-component='SkeletonText'] {
+      width: var(--skeleton-item-width);
+    }
+
+    .TableCellSkeletonItem:not(:last-of-type) {
+      border-bottom: 1px solid ${get('colors.border.default')};
+    }
+
+    /* Grid layout */
     .TableHead,
     .TableBody,
     .TableRow {
-      display: grid;
-      grid-template-columns: subgrid;
-      grid-column: -1 /1;
+      display: contents;
     }
-  }
-`
+
+    @supports (grid-template-columns: subgrid) {
+      .TableHead,
+      .TableBody,
+      .TableRow {
+        display: grid;
+        grid-template-columns: subgrid;
+        grid-column: -1 /1;
+      }
+    }
+
+    .TableSortButton {
+      column-gap: 0.5rem;
+    }
+  `,
+)
 
 export type TableProps = React.ComponentPropsWithoutRef<'table'> & {
   /**
@@ -249,13 +262,25 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>(function Table(
   {'aria-labelledby': labelledby, cellPadding = 'normal', className, gridTemplateColumns, ...rest},
   ref,
 ) {
+  const enabled = useFeatureFlag(cssModulesFlag)
+
   return (
-    <ScrollableRegion aria-labelledby={labelledby} className="TableOverflowWrapper">
+    // TODO update type to be non-optional in next major release
+    // @ts-expect-error this type should be required in the next major version
+    <ScrollableRegion
+      aria-labelledby={labelledby}
+      className={clsx('TableOverflowWrapper', {
+        [classes.TableOverflowWrapper]: enabled,
+      })}
+    >
       <StyledTable
         {...rest}
         aria-labelledby={labelledby}
         data-cell-padding={cellPadding}
-        className={clsx('Table', className)}
+        className={clsx(className, {
+          Table: true,
+          [classes.Table]: enabled,
+        })}
         role="table"
         ref={ref}
         style={{'--grid-template-columns': gridTemplateColumns} as React.CSSProperties}
@@ -271,10 +296,16 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>(function Table(
 export type TableHeadProps = React.ComponentPropsWithoutRef<'thead'>
 
 function TableHead({children}: TableHeadProps) {
+  const enabled = useFeatureFlag(cssModulesFlag)
   return (
     // We need to explicitly pass this role because some ATs and browsers drop table semantics
     // when we use `display: contents` or `display: grid` in the table
-    <thead className="TableHead" role="rowgroup">
+    <thead
+      className={clsx('TableHead', {
+        [classes.TableHead]: enabled,
+      })}
+      role="rowgroup"
+    >
       {children}
     </thead>
   )
@@ -287,10 +318,16 @@ function TableHead({children}: TableHeadProps) {
 export type TableBodyProps = React.ComponentPropsWithoutRef<'tbody'>
 
 function TableBody({children}: TableBodyProps) {
+  const enabled = useFeatureFlag(cssModulesFlag)
   return (
     // We need to explicitly pass this role because some ATs and browsers drop table semantics
     // when we use `display: contents` or `display: grid` in the table
-    <tbody className="TableBody" role="rowgroup">
+    <tbody
+      className={clsx('TableBody', {
+        [classes.TableBody]: enabled,
+      })}
+      role="rowgroup"
+    >
       {children}
     </tbody>
   )
@@ -308,8 +345,17 @@ export type TableHeaderProps = Omit<React.ComponentPropsWithoutRef<'th'>, 'align
 }
 
 function TableHeader({align, children, ...rest}: TableHeaderProps) {
+  const enabled = useFeatureFlag(cssModulesFlag)
   return (
-    <th {...rest} className="TableHeader" role="columnheader" scope="col" data-cell-align={align}>
+    <th
+      {...rest}
+      className={clsx('TableHeader', {
+        [classes.TableHeader]: enabled,
+      })}
+      role="columnheader"
+      scope="col"
+      data-cell-align={align}
+    >
       {children}
     </th>
   )
@@ -329,22 +375,37 @@ type TableSortHeaderProps = TableHeaderProps & {
 }
 
 function TableSortHeader({align, children, direction, onToggleSort, ...rest}: TableSortHeaderProps) {
+  const enabled = useFeatureFlag(cssModulesFlag)
   const ariaSort = direction === 'DESC' ? 'descending' : direction === 'ASC' ? 'ascending' : undefined
 
   return (
     <TableHeader {...rest} aria-sort={ariaSort} align={align}>
       <Button
         type="button"
-        className="TableSortButton"
+        className={clsx('TableSortButton', {
+          [classes.TableSortButton]: enabled,
+        })}
         onClick={() => {
           onToggleSort()
         }}
       >
         {children}
         {direction === SortDirection.NONE || direction === SortDirection.ASC ? (
-          <SortAscIcon className="TableSortIcon TableSortIcon--ascending" />
+          <SortAscIcon
+            className={clsx('TableSortIcon', 'TableSortIcon--ascending', {
+              [classes.TableSortIcon]: enabled,
+              [classes['TableSortIcon--ascending']]: enabled,
+            })}
+          />
         ) : null}
-        {direction === SortDirection.DESC ? <SortDescIcon className="TableSortIcon TableSortIcon--descending" /> : null}
+        {direction === SortDirection.DESC ? (
+          <SortDescIcon
+            className={clsx('TableSortIcon', 'TableSortIcon--descending', {
+              [classes.TableSortIcon]: enabled,
+              [classes['TableSortIcon--descending']]: enabled,
+            })}
+          />
+        ) : null}
       </Button>
     </TableHeader>
   )
@@ -357,8 +418,15 @@ function TableSortHeader({align, children, direction, onToggleSort, ...rest}: Ta
 export type TableRowProps = React.ComponentPropsWithoutRef<'tr'>
 
 function TableRow({children, ...rest}: TableRowProps) {
+  const enabled = useFeatureFlag(cssModulesFlag)
   return (
-    <tr {...rest} className="TableRow" role="row">
+    <tr
+      {...rest}
+      className={clsx('TableRow', {
+        [classes.TableRow]: enabled,
+      })}
+      role="row"
+    >
       {children}
     </tr>
   )
@@ -382,11 +450,20 @@ export type TableCellProps = Omit<React.ComponentPropsWithoutRef<'td'>, 'align'>
 }
 
 function TableCell({align, className, children, scope, ...rest}: TableCellProps) {
+  const enabled = useFeatureFlag(cssModulesFlag)
   const BaseComponent = scope ? 'th' : 'td'
   const role = scope ? 'rowheader' : 'cell'
 
   return (
-    <BaseComponent {...rest} className={clsx('TableCell', className)} scope={scope} role={role} data-cell-align={align}>
+    <BaseComponent
+      {...rest}
+      className={clsx('TableCell', className, {
+        [classes.TableCell]: enabled,
+      })}
+      scope={scope}
+      role={role}
+      data-cell-align={align}
+    >
       {children}
     </BaseComponent>
   )
@@ -401,68 +478,82 @@ function TableCellPlaceholder({children}: TableCellPlaceholderProps) {
 // ----------------------------------------------------------------------------
 // TableContainer
 // ----------------------------------------------------------------------------
-const StyledTableContainer = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-areas:
-    'title actions'
-    'divider divider'
-    'subtitle subtitle'
-    'filter filter'
-    'table table'
-    'footer footer';
-  column-gap: ${get('space.2')};
-
-  ${sx}
-
-  /* TableTitle */
-  .TableTitle {
-    grid-area: title;
-    align-self: center;
-  }
-
-  /* TableSubtitle */
-  .TableSubtitle {
-    grid-area: subtitle;
-  }
-
-  /* TableActions */
-  .TableActions {
-    display: flex;
+const StyledTableContainer = toggleStyledComponent(
+  cssModulesFlag,
+  'div',
+  styled.div`
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      'title actions'
+      'divider divider'
+      'subtitle subtitle'
+      'filter filter'
+      'table table'
+      'footer footer';
     column-gap: ${get('space.2')};
-    align-items: center;
-    grid-area: actions;
-    justify-self: end;
-  }
 
-  /* TableDivider */
-  .TableDivider {
-    grid-area: divider;
-    margin-top: ${get('space.3')};
-    margin-bottom: ${get('space.2')};
-  }
+    ${sx}
 
-  /* Table */
-  .Table {
-    grid-area: table;
-  }
+    /* TableTitle */
+    .TableTitle {
+      grid-area: title;
+      align-self: center;
+    }
 
-  /* Spacing before the table */
-  .TableTitle + .TableOverflowWrapper,
-  .TableSubtitle + .TableOverflowWrapper,
-  .TableActions + .TableOverflowWrapper {
-    margin-top: ${get('space.2')};
-  }
+    /* TableSubtitle */
+    .TableSubtitle {
+      grid-area: subtitle;
+    }
 
-  .TableOverflowWrapper {
-    grid-area: table;
-  }
-`
+    /* TableActions */
+    .TableActions {
+      display: flex;
+      column-gap: ${get('space.2')};
+      align-items: center;
+      grid-area: actions;
+      justify-self: end;
+    }
+
+    /* TableDivider */
+    .TableDivider {
+      grid-area: divider;
+      margin-top: ${get('space.3')};
+      margin-bottom: ${get('space.2')};
+    }
+
+    /* Table */
+    .Table {
+      grid-area: table;
+    }
+
+    /* Spacing before the table */
+    .TableTitle + .TableOverflowWrapper,
+    .TableSubtitle + .TableOverflowWrapper,
+    .TableActions + .TableOverflowWrapper {
+      margin-top: ${get('space.2')};
+    }
+
+    .TableOverflowWrapper {
+      grid-area: table;
+    }
+  `,
+)
 
 export type TableContainerProps = React.PropsWithChildren<SxProp>
 
 function TableContainer({children, sx}: TableContainerProps) {
-  return <StyledTableContainer sx={sx}>{children}</StyledTableContainer>
+  const enabled = useFeatureFlag(cssModulesFlag)
+  return (
+    <StyledTableContainer
+      className={clsx({
+        [classes.TableContainer]: enabled,
+      })}
+      sx={sx}
+    >
+      {children}
+    </StyledTableContainer>
+  )
 }
 
 export type TableTitleProps = React.PropsWithChildren<{
@@ -481,24 +572,32 @@ export type TableTitleProps = React.PropsWithChildren<{
 }>
 
 const TableTitle = React.forwardRef<HTMLElement, TableTitleProps>(function TableTitle({as = 'h2', children, id}, ref) {
+  const enabled = useFeatureFlag(cssModulesFlag)
   return (
-    <Box
+    <StyledTableTitle
       as={as}
-      className="TableTitle"
+      className={clsx('TableTitle', {
+        [classes.TableTitle]: enabled,
+      })}
       id={id}
       ref={ref}
-      sx={{
-        color: 'fg.default',
-        fontWeight: 'bold',
-        fontSize: 1,
-        lineHeight: 'calc(20 / 14)',
-        margin: 0,
-      }}
     >
       {children}
-    </Box>
+    </StyledTableTitle>
   )
 })
+
+const StyledTableTitle = toggleStyledComponent(
+  cssModulesFlag,
+  'h2',
+  styled.h2`
+    color: var(--fgColor-default);
+    font-size: var(--text-body-size-medium);
+    font-weight: var(--base-text-weight-semibold);
+    line-height: calc(20 / 14);
+    margin: 0;
+  `,
+)
 
 export type TableSubtitleProps = React.PropsWithChildren<{
   /**
@@ -516,42 +615,67 @@ export type TableSubtitleProps = React.PropsWithChildren<{
 }>
 
 function TableSubtitle({as, children, id}: TableSubtitleProps) {
+  const enabled = useFeatureFlag(cssModulesFlag)
   return (
-    <Box
+    <StyledTableSubtitle
       as={as}
-      className="TableSubtitle"
+      className={clsx('TableSubtitle', {
+        [classes.TableSubtitle]: enabled,
+      })}
       id={id}
-      sx={{
-        color: 'fg.default',
-        fontWeight: 'normal',
-        fontSize: 0,
-        lineHeight: 'default',
-        margin: 0,
-      }}
     >
       {children}
-    </Box>
+    </StyledTableSubtitle>
   )
 }
 
+const StyledTableSubtitle = toggleStyledComponent(
+  cssModulesFlag,
+  'div',
+  styled.div`
+    color: var(--fgColor-default);
+    font-weight: var(--base-text-weight-normal);
+    font-size: var(--text-body-size-small);
+    line-height: var(--text-title-lineHeight-small);
+    margin: 0;
+  `,
+)
+
 function TableDivider() {
+  const enabled = useFeatureFlag(cssModulesFlag)
   return (
-    <Box
-      className="TableDivider"
+    <StyledTableDivider
+      className={clsx('TableDivider', {
+        [classes.TableDivider]: enabled,
+      })}
       role="presentation"
-      sx={{
-        backgroundColor: 'border.default',
-        width: '100%',
-        height: 1,
-      }}
     />
   )
 }
 
+const StyledTableDivider = toggleStyledComponent(
+  cssModulesFlag,
+  'div',
+  styled.div`
+    background-color: var(--borderColor-default);
+    width: 100%;
+    height: 1px;
+  `,
+)
+
 export type TableActionsProps = React.PropsWithChildren
 
 function TableActions({children}: TableActionsProps) {
-  return <div className="TableActions">{children}</div>
+  const enabled = useFeatureFlag(cssModulesFlag)
+  return (
+    <div
+      className={clsx('TableActions', {
+        [classes.TableActions]: enabled,
+      })}
+    >
+      {children}
+    </div>
+  )
 }
 
 // ----------------------------------------------------------------------------
@@ -578,6 +702,7 @@ export type TableSkeletonProps<Data extends UniqueRow> = React.ComponentPropsWit
 }
 
 function TableSkeleton<Data extends UniqueRow>({cellPadding, columns, rows = 10, ...rest}: TableSkeletonProps<Data>) {
+  const enabled = useFeatureFlag(cssModulesFlag)
   const {gridTemplateColumns} = useTableLayout(columns)
   return (
     <Table {...rest} cellPadding={cellPadding} gridTemplateColumns={gridTemplateColumns}>
@@ -598,12 +723,26 @@ function TableSkeleton<Data extends UniqueRow>({cellPadding, columns, rows = 10,
         <TableRow>
           {Array.from({length: columns.length}).map((_, i) => {
             return (
-              <TableCell key={i} className="TableCellSkeleton">
+              <TableCell
+                key={i}
+                className={clsx('TableCellSkeleton', {
+                  [classes.TableCellSkeleton]: enabled,
+                })}
+              >
                 <VisuallyHidden>Loading</VisuallyHidden>
-                <div className="TableCellSkeletonItems">
+                <div
+                  className={clsx('TableCellSkeletonItems', {
+                    [classes.TableCellSkeletonItems]: enabled,
+                  })}
+                >
                   {Array.from({length: rows}).map((_, i) => {
                     return (
-                      <div key={i} className="TableCellSkeletonItem">
+                      <div
+                        key={i}
+                        className={clsx('TableCellSkeletonItem', {
+                          [classes.TableCellSkeletonItem]: enabled,
+                        })}
+                      >
                         <SkeletonText />
                       </div>
                     )
@@ -617,32 +756,6 @@ function TableSkeleton<Data extends UniqueRow>({cellPadding, columns, rows = 10,
     </Table>
   )
 }
-
-// ----------------------------------------------------------------------------
-// Utilities
-// ----------------------------------------------------------------------------
-
-// Button "reset" component that provides an unstyled <button> element for use
-// in the table
-const Button = styled.button`
-  padding: 0;
-  border: 0;
-  margin: 0;
-  display: inline-flex;
-  padding: 0;
-  border: 0;
-  appearance: none;
-  background: none;
-  cursor: pointer;
-  text-align: start;
-  font: inherit;
-  color: inherit;
-  column-gap: 0.5rem;
-  align-items: center;
-  &::-moz-focus-inner {
-    border: 0;
-  }
-`
 
 export {
   TableContainer,

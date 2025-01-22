@@ -1,6 +1,5 @@
 import React, {useRef, useState} from 'react'
-import {Overlay, Box, Text} from '..'
-import {ButtonDanger, Button} from '../deprecated'
+import {Overlay, Box, Text, Button} from '..'
 import {render, waitFor, fireEvent} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import axe from 'axe-core'
@@ -8,12 +7,14 @@ import theme from '../theme'
 import BaseStyles from '../BaseStyles'
 import {ThemeProvider} from '../ThemeProvider'
 import {NestedOverlays, MemexNestedOverlays, MemexIssueOverlay, PositionedOverlays} from './Overlay.features.stories'
+import {FeatureFlags} from '../FeatureFlags'
 
 type TestComponentSettings = {
   initialFocus?: 'button'
+  width?: 'small' | 'medium' | 'large' | 'auto' | 'xlarge' | 'xxlarge'
   callback?: () => void
 }
-const TestComponent = ({initialFocus, callback}: TestComponentSettings) => {
+const TestComponent = ({initialFocus, width = 'small', callback}: TestComponentSettings) => {
   const [isOpen, setIsOpen] = useState(false)
   const buttonRef = useRef<HTMLButtonElement>(null)
   const confirmButtonRef = useRef<HTMLButtonElement>(null)
@@ -39,11 +40,13 @@ const TestComponent = ({initialFocus, callback}: TestComponentSettings) => {
               ignoreClickRefs={[buttonRef]}
               onEscape={closeOverlay}
               onClickOutside={closeOverlay}
-              width="small"
+              width={width}
             >
               <Box display="flex" flexDirection="column" p={2}>
                 <Text>Are you sure?</Text>
-                <ButtonDanger onClick={closeOverlay}>Cancel</ButtonDanger>
+                <Button variant="danger" onClick={closeOverlay}>
+                  Cancel
+                </Button>
                 <Button onClick={closeOverlay} ref={confirmButtonRef}>
                   Confirm
                 </Button>
@@ -65,19 +68,19 @@ describe('Overlay', () => {
 
   it('should focus element passed into function', async () => {
     const user = userEvent.setup()
-    const {getByText} = render(<TestComponent initialFocus="button" />)
-    await user.click(getByText('open overlay'))
-    await waitFor(() => getByText('Confirm'))
-    const confirmButton = getByText('Confirm')
+    const {getByRole} = render(<TestComponent initialFocus="button" />)
+    await user.click(getByRole('button', {name: 'open overlay'}))
+    await waitFor(() => getByRole('button', {name: 'Confirm'}))
+    const confirmButton = getByRole('button', {name: 'Confirm'})
     expect(document.activeElement).toEqual(confirmButton)
   })
 
   it('should focus first element when nothing is passed', async () => {
     const user = userEvent.setup()
-    const {getByText} = render(<TestComponent />)
-    await user.click(getByText('open overlay'))
-    await waitFor(() => getByText('Cancel'))
-    const cancelButton = getByText('Cancel')
+    const {getByRole} = render(<TestComponent />)
+    await user.click(getByRole('button', {name: 'open overlay'}))
+    await waitFor(() => getByRole('button', {name: 'Cancel'}))
+    const cancelButton = getByRole('button', {name: 'Cancel'})
     expect(document.activeElement).toEqual(cancelButton)
   })
 
@@ -125,7 +128,7 @@ describe('Overlay', () => {
     expect(container.getByText('Add to list')).toBeInTheDocument()
 
     // open second menu
-    await user.click(container.getByText('Create list'))
+    fireEvent.click(container.getByText('Create list'))
     expect(container.getByPlaceholderText('Name this list')).toBeInTheDocument()
 
     // hitting escape on input should close the second menu but not the first
@@ -153,7 +156,7 @@ describe('Overlay', () => {
     const user = userEvent.setup()
     const container = render(
       <ThemeProvider>
-        <PositionedOverlays right />
+        <PositionedOverlays role="dialog" right />
       </ThemeProvider>,
     )
 
@@ -161,8 +164,10 @@ describe('Overlay', () => {
     await user.click(container.getByText('Open right overlay'))
     expect(container.getByText('Look! right aligned')).toBeInTheDocument()
 
-    const overlay = container.getByText('Look! right aligned').parentElement?.parentElement
+    const innerOverlay = container.getByText('Look! right aligned')
+    const overlay = container.getByRole('dialog')
 
+    expect(innerOverlay).toBeInTheDocument()
     expect(overlay).toHaveStyle({position: 'fixed', right: 0})
     expect(overlay).not.toHaveStyle({left: 0})
 
@@ -181,7 +186,7 @@ describe('Overlay', () => {
     const user = userEvent.setup()
     const container = render(
       <ThemeProvider>
-        <PositionedOverlays />
+        <PositionedOverlays role="dialog" />
       </ThemeProvider>,
     )
 
@@ -189,7 +194,10 @@ describe('Overlay', () => {
     await user.click(container.getByText('Open left overlay'))
     expect(container.getByText('Look! left aligned')).toBeInTheDocument()
 
-    const overlay = container.getByText('Look! left aligned').parentElement?.parentElement
+    const innerOverlay = container.getByText('Look! left aligned')
+    const overlay = container.getByRole('dialog')
+
+    expect(innerOverlay).toBeInTheDocument()
     expect(overlay).toHaveStyle({left: 0, position: 'absolute'})
 
     spy.mockRestore()
@@ -280,5 +288,29 @@ describe('Overlay', () => {
 
     // if stopPropagation worked, mockHandler would not have been called
     expect(mockHandler).toHaveBeenCalledTimes(0)
+  })
+
+  it('should not have `data-reflow-container` if FF is not enabled', async () => {
+    const user = userEvent.setup()
+    const {getByRole} = render(<TestComponent />)
+
+    await user.click(getByRole('button', {name: 'open overlay'}))
+
+    const container = getByRole('none')
+    expect(container).not.toHaveAttribute('data-reflow-container')
+  })
+
+  it('should `data-reflow-container` if FF is enabled', async () => {
+    const user = userEvent.setup()
+    const {getByRole} = render(
+      <FeatureFlags flags={{primer_react_overlay_overflow: true}}>
+        <TestComponent />
+      </FeatureFlags>,
+    )
+
+    await user.click(getByRole('button', {name: 'open overlay'}))
+
+    const container = getByRole('none')
+    expect(container).toHaveAttribute('data-reflow-container')
   })
 })

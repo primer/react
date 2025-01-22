@@ -1,11 +1,12 @@
 import React from 'react'
+import {CopilotIcon, GitPullRequestIcon} from '@primer/octicons-react'
 import {action} from '@storybook/addon-actions'
 import type {Meta} from '@storybook/react'
 import {Banner} from '../Banner'
 import Link from '../Link'
 
 const meta = {
-  title: 'Drafts/Components/Banner/Features',
+  title: 'Experimental/Components/Banner/Features',
   component: Banner,
 } satisfies Meta<typeof Banner>
 
@@ -183,6 +184,49 @@ export const WithHiddenTitleAndActions = () => {
   )
 }
 
+export const DismissibleWithHiddenTitleAndActions = () => {
+  return (
+    <Banner
+      title="Warning"
+      hideTitle
+      description={
+        <>
+          GitHub users are{' '}
+          <Link inline underline href="#">
+            now required
+          </Link>{' '}
+          to enable two-factor authentication as an additional security measure.
+        </>
+      }
+      onDismiss={action('onDismiss')}
+      variant="warning"
+      primaryAction={<Banner.PrimaryAction>Button</Banner.PrimaryAction>}
+      secondaryAction={<Banner.SecondaryAction>Button</Banner.SecondaryAction>}
+    />
+  )
+}
+
+export const DismissibleWithHiddenTitleAndSecondaryAction = () => {
+  return (
+    <Banner
+      title="Warning"
+      hideTitle
+      description={
+        <>
+          GitHub users are{' '}
+          <Link inline underline href="#">
+            now required
+          </Link>{' '}
+          to enable two-factor authentication as an additional security measure.
+        </>
+      }
+      onDismiss={action('onDismiss')}
+      variant="warning"
+      secondaryAction={<Banner.SecondaryAction leadingVisual={GitPullRequestIcon}>Button</Banner.SecondaryAction>}
+    />
+  )
+}
+
 export const WithActions = () => {
   return (
     <Banner
@@ -199,6 +243,18 @@ export const WithActions = () => {
       primaryAction={<Banner.PrimaryAction>Button</Banner.PrimaryAction>}
       secondaryAction={<Banner.SecondaryAction>Button</Banner.SecondaryAction>}
       variant="warning"
+    />
+  )
+}
+
+export const CustomIcon = () => {
+  return (
+    <Banner
+      title="Upsell"
+      description="An example banner with a custom icon"
+      icon={<CopilotIcon />}
+      onDismiss={action('onDismiss')}
+      variant="upsell"
     />
   )
 }

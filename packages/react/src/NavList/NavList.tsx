@@ -7,8 +7,10 @@ import type {
   ActionListDividerProps,
   ActionListLeadingVisualProps,
   ActionListTrailingVisualProps,
+  ActionListGroupHeadingProps,
 } from '../ActionList'
 import {ActionList} from '../ActionList'
+import {SubItem} from '../ActionList/Item'
 import {ActionListContainerContext} from '../ActionList/ActionListContainerContext'
 import Box from '../Box'
 import Octicon from '../Octicon'
@@ -17,11 +19,14 @@ import sx, {merge} from '../sx'
 import {defaultSxProp} from '../utils/defaultSxProp'
 import {useId} from '../hooks/useId'
 import useIsomorphicLayoutEffect from '../utils/useIsomorphicLayoutEffect'
+import {useFeatureFlag} from '../FeatureFlags'
+import classes from '../ActionList/ActionList.module.css'
+import {toggleStyledComponent} from '../internal/utils/toggleStyledComponent'
 
 const getSubnavStyles = (depth: number) => {
   return {
     paddingLeft: depth > 0 ? depth + 2 : null, // Indent sub-items
-    fontSize: depth > 0 ? 0 : null, // Reduce font size of sub-items
+    fontSize: depth > 0 ? 0 : 1, // Reduce font size of sub-items
     fontWeight: depth > 0 ? 'normal' : null, // Sub-items don't get bolded
   }
 }
@@ -34,7 +39,7 @@ export type NavListProps = {
 } & SxProp &
   React.ComponentProps<'nav'>
 
-const NavBox = styled.nav<SxProp>(sx)
+const NavBox = toggleStyledComponent('primer_react_css_modules_team', 'nav', styled.nav<SxProp>(sx))
 
 const Root = React.forwardRef<HTMLElement, NavListProps>(({children, ...props}, ref) => {
   return (
@@ -65,6 +70,7 @@ export type NavListItemProps = {
 
 const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(
   ({'aria-current': ariaCurrent, children, defaultOpen, sx: sxProp = defaultSxProp, ...props}, ref) => {
+    const enabled = useFeatureFlag('primer_react_css_modules_team')
     const {depth} = React.useContext(SubNavContext)
     const expandGroupContext = React.useContext(ItemWithinGroup)
 
@@ -83,7 +89,13 @@ const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(
     // Render ItemWithSubNav if SubNav is present
     if (subNav && isValidElement(subNav)) {
       return (
-        <ItemWithSubNav subNav={subNav} depth={depth} defaultOpen={defaultOpen} sx={sxProp}>
+        <ItemWithSubNav
+          subNav={subNav}
+          depth={depth}
+          defaultOpen={defaultOpen}
+          sx={sxProp}
+          style={{'--subitem-depth': depth} as React.CSSProperties}
+        >
           {childrenWithoutSubNavOrTrailingAction}
         </ItemWithSubNav>
       )
@@ -94,7 +106,8 @@ const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(
         ref={ref}
         aria-current={ariaCurrent}
         active={Boolean(ariaCurrent) && ariaCurrent !== 'false'}
-        sx={merge<SxProp['sx']>(getSubnavStyles(depth), sxProp)}
+        sx={enabled ? undefined : merge<SxProp['sx']>(getSubnavStyles(depth), sxProp)}
+        style={{'--subitem-depth': depth} as React.CSSProperties}
         data-show-more-group-id={expandGroupContext?.id}
         {...props}
       >
@@ -114,6 +127,7 @@ type ItemWithSubNavProps = {
   subNav: React.ReactNode
   depth: number
   defaultOpen?: boolean
+  style: React.CSSProperties
 } & SxProp
 
 const ItemWithSubNavContext = React.createContext<{buttonId: string; subNavId: string; isOpen: boolean}>({
@@ -122,9 +136,14 @@ const ItemWithSubNavContext = React.createContext<{buttonId: string; subNavId: s
   isOpen: false,
 })
 
-// TODO: ref prop
-// TODO: Animate open/close transition
-function ItemWithSubNav({children, subNav, depth, defaultOpen, sx: sxProp = defaultSxProp}: ItemWithSubNavProps) {
+function ItemWithSubNav({
+  children,
+  subNav,
+  depth,
+  defaultOpen,
+  style = {},
+  sx: sxProp = defaultSxProp,
+}: ItemWithSubNavProps) {
   const buttonId = useId()
   const subNavId = useId()
   const [isOpen, setIsOpen] = React.useState((defaultOpen || null) ?? false)
@@ -144,6 +163,50 @@ function ItemWithSubNav({children, subNav, depth, defaultOpen, sx: sxProp = defa
     }
   }, [subNav, buttonId])
 
+  const enabled = useFeatureFlag('primer_react_css_modules_team')
+  if (enabled) {
+    if (sxProp !== defaultSxProp) {
+      return (
+        <ItemWithSubNavContext.Provider value={{buttonId, subNavId, isOpen}}>
+          <ActionList.Item
+            id={buttonId}
+            aria-expanded={isOpen}
+            aria-controls={subNavId}
+            active={!isOpen && containsCurrentItem}
+            onClick={() => setIsOpen(open => !open)}
+            style={style}
+            sx={sxProp}
+          >
+            {children}
+            {/* What happens if the user provides a TrailingVisual? */}
+            <ActionList.TrailingVisual>
+              <ChevronDownIcon className={classes.ExpandIcon} />
+            </ActionList.TrailingVisual>
+            <SubItem>{React.cloneElement(subNav as React.ReactElement, {ref: subNavRef})}</SubItem>
+          </ActionList.Item>
+        </ItemWithSubNavContext.Provider>
+      )
+    }
+    return (
+      <ItemWithSubNavContext.Provider value={{buttonId, subNavId, isOpen}}>
+        <ActionList.Item
+          id={buttonId}
+          aria-expanded={isOpen}
+          aria-controls={subNavId}
+          active={!isOpen && containsCurrentItem}
+          onClick={() => setIsOpen(open => !open)}
+          style={style}
+        >
+          {children}
+          {/* What happens if the user provides a TrailingVisual? */}
+          <ActionList.TrailingVisual>
+            <ChevronDownIcon className={classes.ExpandIcon} />
+          </ActionList.TrailingVisual>
+          <SubItem>{React.cloneElement(subNav as React.ReactElement, {ref: subNavRef})}</SubItem>
+        </ActionList.Item>
+      </ItemWithSubNavContext.Provider>
+    )
+  }
   return (
     <ItemWithSubNavContext.Provider value={{buttonId, subNavId, isOpen}}>
       <Box as="li" aria-labelledby={buttonId} sx={{listStyle: 'none'}}>
@@ -190,12 +253,11 @@ export type NavListSubNavProps = {
 
 const SubNavContext = React.createContext<{depth: number}>({depth: 0})
 
-// TODO: ref prop
 // NOTE: SubNav must be a direct child of an Item
-const SubNav = ({children, sx: sxProp = defaultSxProp}: NavListSubNavProps) => {
+const SubNav = React.forwardRef(({children, sx: sxProp = defaultSxProp}: NavListSubNavProps, forwardedRef) => {
   const {buttonId, subNavId, isOpen} = React.useContext(ItemWithSubNavContext)
   const {depth} = React.useContext(SubNavContext)
-
+  const enabled = useFeatureFlag('primer_react_css_modules_team')
   if (!buttonId || !subNavId) {
     // eslint-disable-next-line no-console
     console.error('NavList.SubNav must be a child of a NavList.Item')
@@ -206,6 +268,32 @@ const SubNav = ({children, sx: sxProp = defaultSxProp}: NavListSubNavProps) => {
     // eslint-disable-next-line no-console
     console.error('NavList.SubNav only supports four levels of nesting')
     return null
+  }
+
+  if (enabled) {
+    if (sxProp !== defaultSxProp) {
+      return (
+        <SubNavContext.Provider value={{depth: depth + 1}}>
+          <Box
+            as="ul"
+            id={subNavId}
+            aria-labelledby={buttonId}
+            className={classes.SubGroup}
+            ref={forwardedRef}
+            sx={sxProp}
+          >
+            {children}
+          </Box>
+        </SubNavContext.Provider>
+      )
+    }
+    return (
+      <SubNavContext.Provider value={{depth: depth + 1}}>
+        <ul className={classes.SubGroup} id={subNavId} aria-labelledby={buttonId} ref={forwardedRef}>
+          {children}
+        </ul>
+      </SubNavContext.Provider>
+    )
   }
 
   return (
@@ -227,7 +315,7 @@ const SubNav = ({children, sx: sxProp = defaultSxProp}: NavListSubNavProps) => {
       </Box>
     </SubNavContext.Provider>
   )
-}
+}) as PolymorphicForwardRefComponent<'ul', NavListSubNavProps>
 
 SubNav.displayName = 'NavList.SubNav'
 
@@ -275,15 +363,52 @@ export type NavListGroupProps = {
 } & SxProp
 
 const defaultSx = {}
-// TODO: ref prop
 const Group: React.FC<NavListGroupProps> = ({title, children, sx: sxProp = defaultSx, ...props}) => {
+  const enabled = useFeatureFlag('primer_react_css_modules_team')
+
+  if (enabled) {
+    if (sxProp !== defaultSx) {
+      return (
+        <Box sx={sxProp} as="li" data-component="ActionList.Group">
+          {title ? <ActionList.GroupHeading>{title}</ActionList.GroupHeading> : null}
+          {children}
+        </Box>
+      )
+    }
+    return (
+      <>
+        <ActionList.Divider />
+        <ActionList.Group {...props}>
+          {/* Setting up the default value for the heading level. TODO: API update to give flexibility to NavList.Group title's heading level */}
+          {title ? (
+            <ActionList.GroupHeading as="h3" data-component="ActionList.GroupHeading">
+              {title}
+            </ActionList.GroupHeading>
+          ) : null}
+          {children}
+        </ActionList.Group>
+      </>
+    )
+  }
   return (
     <>
       {/* Hide divider if the group is the first item in the list */}
       <ActionList.Divider sx={{'&:first-child': {display: 'none'}}} />
-      <ActionList.Group {...props} sx={sxProp}>
+      <ActionList.Group
+        {...props}
+        // If somebody tries to pass the `title` prop AND a `NavList.GroupHeading` as a child, hide the `ActionList.GroupHeading`
+        sx={merge<SxProp['sx']>(sxProp, {
+          ':has([data-component="GroupHeadingWrap"] + ul > [data-component="GroupHeadingWrap"])': {
+            '& > [data-component="GroupHeadingWrap"]': {display: 'none'},
+          },
+        })}
+      >
         {/* Setting up the default value for the heading level. TODO: API update to give flexibility to NavList.Group title's heading level */}
-        {title ? <ActionList.GroupHeading as="h3">{title}</ActionList.GroupHeading> : null}
+        {title ? (
+          <ActionList.GroupHeading as="h3" data-component="ActionList.GroupHeading">
+            {title}
+          </ActionList.GroupHeading>
+        ) : null}
         {children}
       </ActionList.Group>
     </>
@@ -343,6 +468,33 @@ const ShowMoreItem = React.forwardRef<HTMLButtonElement, NavListShowMoreItemProp
 
 Group.displayName = 'NavList.Group'
 
+export type NavListGroupHeadingProps = ActionListGroupHeadingProps
+
+/**
+ * This is an alternative to the `title` prop on `NavList.Group`.
+ * It was primarily added to allow links in group headings.
+ */
+const GroupHeading: React.FC<NavListGroupHeadingProps> = ({as = 'h3', sx: sxProp = defaultSxProp, ...rest}) => {
+  return (
+    <ActionList.GroupHeading
+      as={as}
+      sx={merge<SxProp['sx']>(
+        {
+          '> a {': {
+            color: 'var(--fgColor-default)',
+            textDecoration: 'inherit',
+            ':hover': {textDecoration: 'underline'},
+          },
+        },
+        sxProp,
+      )}
+      data-component="NavList.GroupHeading"
+      headingWrapElement="li"
+      {...rest}
+    />
+  )
+}
+
 // ----------------------------------------------------------------------------
 // Export
 
@@ -355,4 +507,5 @@ export const NavList = Object.assign(Root, {
   Divider,
   Group,
   ShowMoreItem,
+  GroupHeading,
 })

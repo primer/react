@@ -2,7 +2,7 @@ import React from 'react'
 import type {Meta} from '@storybook/react'
 import Flash from './Flash'
 import Octicon from '../Octicon'
-import {InfoIcon, XIcon} from '@primer/octicons-react'
+import {AlertIcon, CheckCircleIcon, InfoIcon, XIcon} from '@primer/octicons-react'
 import {Button, IconButton} from '../Button'
 import Link from '../Link'
 import Box from '../Box'
@@ -12,13 +12,109 @@ export default {
   component: Flash,
 } as Meta<typeof Flash>
 
-export const Success = () => <Flash variant="success">Success</Flash>
+export const Success = () => (
+  <Flash
+    variant="success"
+    sx={{
+      display: 'grid',
+      gridTemplateColumns: 'min-content 1fr minmax(0, auto)',
+      gridTemplateAreas: `'visual message actions'`,
+    }}
+  >
+    <Box sx={{display: 'grid', paddingBlock: 'var(--base-size-8)', alignSelf: 'start', gridArea: 'visual'}}>
+      <Octicon icon={CheckCircleIcon} aria-label="Success" />
+    </Box>
+    <Box
+      sx={{
+        fontSize: 1,
+        lineHeight: '1.5',
+        padding: '0.375rem var(--base-size-8)',
+        alignSelf: 'center',
+        gridArea: 'message',
+      }}
+    >
+      Success
+    </Box>
+  </Flash>
+)
 
-export const Danger = () => <Flash variant="danger">Danger</Flash>
+export const Danger = () => (
+  <Flash
+    variant="danger"
+    sx={{
+      display: 'grid',
+      gridTemplateColumns: 'min-content 1fr minmax(0, auto)',
+      gridTemplateAreas: `'visual message actions'`,
+    }}
+  >
+    <Box sx={{display: 'grid', paddingBlock: 'var(--base-size-8)', alignSelf: 'start', gridArea: 'visual'}}>
+      <Octicon icon={InfoIcon} aria-label="Danger" />
+    </Box>
+    <Box
+      sx={{
+        fontSize: 1,
+        lineHeight: '1.5',
+        padding: '0.375rem var(--base-size-8)',
+        alignSelf: 'center',
+        gridArea: 'message',
+      }}
+    >
+      Danger
+    </Box>
+  </Flash>
+)
 
-export const Warning = () => <Flash variant="warning">Warning</Flash>
+export const Warning = () => (
+  <Flash
+    variant="warning"
+    sx={{
+      display: 'grid',
+      gridTemplateColumns: 'min-content 1fr minmax(0, auto)',
+      gridTemplateAreas: `'visual message actions'`,
+    }}
+  >
+    <Box sx={{display: 'grid', paddingBlock: 'var(--base-size-8)', alignSelf: 'start', gridArea: 'visual'}}>
+      <Octicon icon={AlertIcon} aria-label="Warning" />
+    </Box>
+    <Box
+      sx={{
+        fontSize: 1,
+        lineHeight: '1.5',
+        padding: '0.375rem var(--base-size-8)',
+        alignSelf: 'center',
+        gridArea: 'message',
+      }}
+    >
+      Warning
+    </Box>
+  </Flash>
+)
 
-export const Full = () => <Flash full>Full</Flash>
+export const Full = () => (
+  <Flash
+    full
+    sx={{
+      display: 'grid',
+      gridTemplateColumns: 'min-content 1fr minmax(0, auto)',
+      gridTemplateAreas: `'visual message actions'`,
+    }}
+  >
+    <Box sx={{display: 'grid', paddingBlock: 'var(--base-size-8)', alignSelf: 'start', gridArea: 'visual'}}>
+      <Octicon icon={InfoIcon} aria-label="Info" />
+    </Box>
+    <Box
+      sx={{
+        fontSize: 1,
+        lineHeight: '1.5',
+        padding: '0.375rem var(--base-size-8)',
+        alignSelf: 'center',
+        gridArea: 'message',
+      }}
+    >
+      Full
+    </Box>
+  </Flash>
+)
 
 export const WithIconAndAction = () => (
   <Flash
@@ -38,7 +134,7 @@ export const WithIconAndAction = () => (
     }}
   >
     <Box sx={{display: 'grid', paddingBlock: 'var(--base-size-8)', alignSelf: 'start', gridArea: 'visual'}}>
-      <Octicon icon={InfoIcon} />
+      <Octicon icon={InfoIcon} aria-label="Info" />
     </Box>
     <Box
       sx={{
@@ -84,7 +180,7 @@ export const WithIconActionDismiss = () => (
     }}
   >
     <Box sx={{display: 'grid', paddingBlock: 'var(--base-size-8)', alignSelf: 'start', gridArea: 'visual'}}>
-      <Octicon icon={InfoIcon} />
+      <Octicon icon={InfoIcon} aria-label="Info" />
     </Box>
     <Box
       sx={{

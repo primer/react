@@ -12,7 +12,7 @@ import {useFocus} from '../internal/hooks/useFocus'
 import {PageLayout} from '../PageLayout'
 
 const meta = {
-  title: 'Drafts/Components/Banner/Examples',
+  title: 'Experimental/Components/Banner/Examples',
   component: Banner,
 } satisfies Meta<typeof Banner>
 
@@ -46,7 +46,7 @@ export const WithUserAction = () => {
   )
 }
 
-export const WithDynamicContent = () => {
+export const WithAnnouncement = () => {
   type Choice = 'one' | 'two' | 'three'
   const messages: Map<Choice, string> = new Map([
     ['one', 'This is a message for choice one'],

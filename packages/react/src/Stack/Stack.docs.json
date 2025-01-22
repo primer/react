@@ -4,7 +4,7 @@
   "status": "alpha",
   "a11yReviewed": false,
   "stories": [],
-  "importPath": "@primer/react/experimental",
+  "importPath": "@primer/react",
   "props": [
     {
       "name": "gap",
@@ -35,6 +35,10 @@
       "name": "padding",
       "type": "'none' | 'condensed' | 'normal' | 'spacious' | ResponsiveValue<'none' | 'condensed' | 'normal' | 'spacious'>",
       "description": "Specify the padding of the stack container."
+    },
+    {
+      "name": "className",
+      "type": "string"
     }
   ],
   "subcomponents": [
@@ -45,6 +49,10 @@
           "name": "grow",
           "type": "boolean | ResponsiveValue<boolean>",
           "description": "Allow item to keep size or expand to fill the available space."
+        },
+        {
+          "name": "className",
+          "type": "string"
         }
       ]
     }

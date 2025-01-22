@@ -233,6 +233,64 @@ export const ShortcutMenu = () => {
   )
 }
 
+export const ContextMenu = () => {
+  const ListItemWithContextMenu = ({children}: {children: string}) => {
+    const handleContextMenu: React.MouseEventHandler<HTMLElement> = event => {
+      event.preventDefault()
+      setOpen(true)
+    }
+
+    const [open, setOpen] = React.useState(false)
+    const triggerRef = React.useRef<HTMLButtonElement>(null)
+
+    return (
+      <li onContextMenu={handleContextMenu}>
+        <ActionMenu open={open} onOpenChange={setOpen} anchorRef={triggerRef}>
+          <ActionMenu.Anchor>
+            <Button ref={triggerRef} variant="invisible" onClick={handleContextMenu}>
+              {children}
+            </Button>
+          </ActionMenu.Anchor>
+          <ActionMenu.Overlay>
+            <ActionList>
+              <ActionList.Item>
+                Copy link
+                <ActionList.TrailingVisual>⌘C</ActionList.TrailingVisual>
+              </ActionList.Item>
+              <ActionList.Item>
+                Quote reply
+                <ActionList.TrailingVisual>⌘Q</ActionList.TrailingVisual>
+              </ActionList.Item>
+              <ActionList.Item>
+                Edit comment
+                <ActionList.TrailingVisual>⌘E</ActionList.TrailingVisual>
+              </ActionList.Item>
+              <ActionList.LinkItem href="#">View file</ActionList.LinkItem>
+              <ActionList.Divider />
+              <ActionList.Item variant="danger">
+                Delete file
+                <ActionList.TrailingVisual>⌘D</ActionList.TrailingVisual>
+              </ActionList.Item>
+            </ActionList>
+          </ActionMenu.Overlay>
+        </ActionMenu>
+      </li>
+    )
+  }
+
+  return (
+    <>
+      <div>Right click the list items below to see the context menu</div>
+
+      <ul>
+        <ListItemWithContextMenu>List item one</ListItemWithContextMenu>
+        <ListItemWithContextMenu>List item two</ListItemWithContextMenu>
+        <ListItemWithContextMenu>List item three</ListItemWithContextMenu>
+      </ul>
+    </>
+  )
+}
+
 export const CustomAnchor = () => (
   <ActionMenu>
     <ActionMenu.Anchor>

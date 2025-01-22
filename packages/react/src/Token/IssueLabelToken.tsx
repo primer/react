@@ -8,6 +8,9 @@ import {parseToHsla, parseToRgba} from 'color2k'
 import {useTheme} from '../ThemeProvider'
 import TokenTextContainer from './_TokenTextContainer'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
+import classes from './IssueLabelToken.module.css'
+import {useFeatureFlag} from '../FeatureFlags'
+import {clsx} from 'clsx'
 
 export interface IssueLabelTokenProps extends TokenBaseProps {
   /**
@@ -16,6 +19,7 @@ export interface IssueLabelTokenProps extends TokenBaseProps {
   fillColor?: string
 }
 
+const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_team'
 const tokenBorderWidthPx = 1
 
 const lightModeStyles = {
@@ -43,6 +47,8 @@ const darkModeStyles = {
 }
 
 const IssueLabelToken = forwardRef((props, forwardedRef) => {
+  const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
+
   const {
     as,
     fillColor = '#999',
@@ -54,6 +60,7 @@ const IssueLabelToken = forwardRef((props, forwardedRef) => {
     hideRemoveButton,
     href,
     onClick,
+    className,
     ...rest
   } = props
   const interactiveTokenProps = {
@@ -61,6 +68,7 @@ const IssueLabelToken = forwardRef((props, forwardedRef) => {
     href,
     onClick,
   }
+
   const {resolvedColorScheme} = useTheme()
   const hasMultipleActionTargets = isTokenInteractive(props) && Boolean(onRemove) && !hideRemoveButton
   const onRemoveClick: MouseEventHandler = e => {
@@ -133,6 +141,37 @@ const IssueLabelToken = forwardRef((props, forwardedRef) => {
     }
   }, [fillColor, resolvedColorScheme, hideRemoveButton, onRemove, isSelected, props])
 
+  if (enabled) {
+    return (
+      <TokenBase
+        onRemove={onRemove}
+        id={id?.toString()}
+        isSelected={isSelected}
+        className={clsx(classes.IssueLabel, className)}
+        text={text}
+        size={size}
+        style={labelStyles}
+        data-has-remove-button={!hideRemoveButton && !!onRemove}
+        {...(!hasMultipleActionTargets ? interactiveTokenProps : {})}
+        {...rest}
+        ref={forwardedRef}
+      >
+        <TokenTextContainer {...(hasMultipleActionTargets ? interactiveTokenProps : {})}>{text}</TokenTextContainer>
+        {!hideRemoveButton && onRemove ? (
+          <RemoveTokenButton
+            borderOffset={tokenBorderWidthPx}
+            onClick={onRemoveClick}
+            size={size}
+            aria-hidden={hasMultipleActionTargets ? 'true' : 'false'}
+            isParentInteractive={isTokenInteractive(props)}
+            data-has-multiple-action-targets={hasMultipleActionTargets}
+            className={classes.RemoveButton}
+          />
+        ) : null}
+      </TokenBase>
+    )
+  }
+
   return (
     <TokenBase
       onRemove={onRemove}
@@ -141,6 +180,7 @@ const IssueLabelToken = forwardRef((props, forwardedRef) => {
       text={text}
       size={size}
       sx={labelStyles}
+      className={className}
       {...(!hasMultipleActionTargets ? interactiveTokenProps : {})}
       {...rest}
       ref={forwardedRef}

@@ -62,7 +62,7 @@ Note: Component v1 is referred to the component that is going to be moved to the
   - [ ] Make sure to update the import code block. I.e. `import { ActionList } from "@primer/react/deprecated"`.
 
 - [ ] Move the new components docs from draft folder to the main docs folder `docs/content/` and update the title by removing `v2`, status as well as the storybook and the source code link.
-  - [ ] Make sure to update `jsx live drafts` -> `jsx live`
+  - [ ] Make sure to update `jsx live experimental` -> `jsx live`
   - [ ] Make sure to update the import code block. I.e. `import { ActionList } from "@primer/react"`.
   - [ ] Update the navigation on `docs/src/@primer/gatsby-theme-doctocat/nav.yml` accordingly.
 

@@ -6,7 +6,7 @@ import type {ResponsiveValue} from '../hooks/useResponsiveValue'
 type Story = StoryObj<typeof Stack>
 
 const meta: Meta<typeof Stack> = {
-  title: 'Drafts/Components/Stack',
+  title: 'Components/Stack',
   component: Stack,
 }
 

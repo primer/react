@@ -2,7 +2,7 @@ import {List} from './List'
 import {Group} from './Group'
 import {Item} from './Item'
 import {Divider} from './Divider'
-export type {ListProps as ActionListProps} from './List'
+export type {ListProps as ActionListProps, GroupedListProps, ItemInput} from './List'
 export type {GroupProps} from './Group'
 export type {ItemProps} from './Item'
 

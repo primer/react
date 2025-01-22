@@ -1,6 +1,6 @@
 import {render, fireEvent, act} from '@testing-library/react'
 import React from 'react'
-import {ThemeProvider, SSRProvider} from '..'
+import {ThemeProvider} from '..'
 import {NavList} from './NavList'
 import {FeatureFlags} from '../FeatureFlags'
 
@@ -33,15 +33,13 @@ describe('NavList', () => {
   it('renders a simple list', () => {
     const {container} = render(
       <ThemeProvider>
-        <SSRProvider>
-          <NavList>
-            <NavList.Item href="/" aria-current="page">
-              Home
-            </NavList.Item>
-            <NavList.Item href="/about">About</NavList.Item>
-            <NavList.Item href="/contact">Contact</NavList.Item>
-          </NavList>
-        </SSRProvider>
+        <NavList>
+          <NavList.Item href="/" aria-current="page">
+            Home
+          </NavList.Item>
+          <NavList.Item href="/about">About</NavList.Item>
+          <NavList.Item href="/contact">Contact</NavList.Item>
+        </NavList>
       </ThemeProvider>,
     )
     expect(container).toMatchSnapshot()
@@ -50,18 +48,16 @@ describe('NavList', () => {
   it('renders with groups', () => {
     const {container} = render(
       <ThemeProvider>
-        <SSRProvider>
-          <NavList>
-            <NavList.Group title="Overview">
-              <NavList.Item href="/getting-started" aria-current="page">
-                Getting started
-              </NavList.Item>
-            </NavList.Group>
-            <NavList.Group title="Components">
-              <NavList.Item href="/Avatar">Avatar</NavList.Item>
-            </NavList.Group>
-          </NavList>
-        </SSRProvider>
+        <NavList>
+          <NavList.Group title="Overview">
+            <NavList.Item href="/getting-started" aria-current="page">
+              Getting started
+            </NavList.Item>
+          </NavList.Group>
+          <NavList.Group title="Components">
+            <NavList.Item href="/Avatar">Avatar</NavList.Item>
+          </NavList.Group>
+        </NavList>
       </ThemeProvider>,
     )
     expect(container).toMatchSnapshot()
@@ -216,18 +212,16 @@ describe('NavList.Item with NavList.SubNav', () => {
   it('has active styles if SubNav contains the current item and is closed', () => {
     const {container, getByRole, queryByRole} = render(
       <ThemeProvider>
-        <SSRProvider>
-          <NavList>
-            <NavList.Item>
-              Item
-              <NavList.SubNav>
-                <NavList.Item href="#" aria-current="page">
-                  Sub Item
-                </NavList.Item>
-              </NavList.SubNav>
-            </NavList.Item>
-          </NavList>
-        </SSRProvider>
+        <NavList>
+          <NavList.Item>
+            Item
+            <NavList.SubNav>
+              <NavList.Item href="#" aria-current="page">
+                Sub Item
+              </NavList.Item>
+            </NavList.SubNav>
+          </NavList.Item>
+        </NavList>
       </ThemeProvider>,
     )
 
@@ -247,18 +241,16 @@ describe('NavList.Item with NavList.SubNav', () => {
   it('does not have active styles if SubNav contains the current item and is open', () => {
     const {container, queryByRole} = render(
       <ThemeProvider>
-        <SSRProvider>
-          <NavList>
-            <NavList.Item>
-              Item
-              <NavList.SubNav>
-                <NavList.Item href="#" aria-current="page">
-                  Sub Item
-                </NavList.Item>
-              </NavList.SubNav>
-            </NavList.Item>
-          </NavList>
-        </SSRProvider>
+        <NavList>
+          <NavList.Item>
+            Item
+            <NavList.SubNav>
+              <NavList.Item href="#" aria-current="page">
+                Sub Item
+              </NavList.Item>
+            </NavList.SubNav>
+          </NavList.Item>
+        </NavList>
       </ThemeProvider>,
     )
 

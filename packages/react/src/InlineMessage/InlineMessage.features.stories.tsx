@@ -3,7 +3,7 @@ import React from 'react'
 import {InlineMessage} from '../InlineMessage'
 
 const meta = {
-  title: 'Drafts/Components/InlineMessage/Features',
+  title: 'Experimental/Components/InlineMessage/Features',
   component: InlineMessage,
 } satisfies Meta<typeof InlineMessage>
 

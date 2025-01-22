@@ -50,4 +50,6 @@ export type {
   TableSkeletonProps,
 } from './Table'
 export {createColumnHelper} from './column'
-export type {Column} from './column'
+export type {Column, CellAlignment, ColumnWidth} from './column'
+export type {UniqueRow} from './row'
+export type {ObjectPaths} from './utils'

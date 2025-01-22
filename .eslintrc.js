@@ -17,6 +17,7 @@ module.exports = {
     'plugin:primer-react/recommended',
     'plugin:import/typescript',
     'plugin:ssr-friendly/recommended',
+    'plugin:clsx/recommended',
   ],
   settings: {
     react: {
@@ -42,7 +43,6 @@ module.exports = {
     'types/**/*',
     'consumer-test/**/*',
     'contributor-docs/adrs/*',
-    'examples/nextjs/**',
     'examples/codesandbox/**',
     // Note: this file is inlined from an external dependency
     'packages/react/src/utils/polymorphic.ts',
@@ -62,6 +62,7 @@ module.exports = {
   // rules which apply to JS, TS, etc.
   rules: {
     'no-shadow': 'off',
+    'react/button-has-type': 'error',
     'react/prop-types': 'off',
     'react/display-name': 'off',
     'react-hooks/exhaustive-deps': 'error',
@@ -75,7 +76,6 @@ module.exports = {
         ],
       },
     ],
-    'primer-react/no-deprecated-colors': ['warn', {checkAllStrings: true}],
 
     // Overrides from updating plugin:github
     'filenames/match-regex': 'off',
@@ -89,6 +89,7 @@ module.exports = {
     'github/no-inner-html': 'off',
     'github/role-supports-aria-props': 'off',
     'no-restricted-syntax': 'off',
+    'primer-react/a11y-use-next-tooltip': 'off',
   },
   overrides: [
     // rules which apply only to JS
@@ -150,6 +151,11 @@ module.exports = {
                 message:
                   'Please use the `useIsomorphicLayoutEffect` hook from `src/hooks/useIsomorphicLayoutEffect.ts` instead',
               },
+              {
+                name: 'clsx',
+                importNames: ['default'],
+                message: 'Use the named import instead: `import {clsx} from "clsx"`',
+              },
             ],
             patterns: [
               {
@@ -195,8 +201,14 @@ module.exports = {
       parserOptions: {
         project: 'tsconfig.json',
       },
-      extends: ['plugin:playwright/jest-playwright'],
-      rules: {},
+      extends: ['plugin:playwright/recommended'],
+      rules: {
+        'playwright/expect-expect': 'off',
+        'playwright/no-conditional-expect': 'off',
+        'playwright/no-conditional-in-test': 'off',
+        'playwright/no-wait-for-selector': 'off',
+        'playwright/valid-title': 'off',
+      },
     },
 
     // rules which apply only to Markdown
@@ -233,6 +245,7 @@ module.exports = {
         'react/jsx-no-undef': 'off',
         'react/jsx-key': 'off',
         'react/jsx-no-comment-textnodes': 'off',
+        'react-hooks/rules-of-hooks': 'off',
         'import/no-anonymous-default-export': 'off',
         'prettier/prettier': 'off',
         // These a11y rules should eventually be re-enabled
@@ -241,7 +254,6 @@ module.exports = {
         'jsx-a11y/label-has-for': 'off',
         '@typescript-eslint/no-unnecessary-condition': 'off',
         '@typescript-eslint/no-unused-vars': 'off',
-        'primer-react/no-deprecated-colors': ['error', {skipImportCheck: true}],
         'no-redeclare': 'off',
         'ssr-friendly/no-dom-globals-in-module-scope': 'off',
         'ssr-friendly/no-dom-globals-in-react-fc': 'off',

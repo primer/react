@@ -1,16 +1,56 @@
 {
-  "id": "drafts_page_header",
+  "id": "page_header",
   "name": "PageHeader",
-  "status": "draft",
+  "status": "beta",
   "a11yReviewed": true,
-  "stories": [],
-  "importPath": "@primer/react/experimental",
+  "stories": [
+    {
+      "id": "components-pageheader--default"
+    },
+    {
+      "id": "components-pageheader-features--has-title-only"
+    },
+    {
+      "id": "components-pageheader-features--has-large-title"
+    },
+    {
+      "id": "components-pageheader-features--with-leading-and-trailing-visuals"
+    },
+    {
+      "id": "components-pageheader-features--with-leading-visual-hidden-on-regular-viewport"
+    },
+    {
+      "id": "components-pageheader-features--with-actions"
+    },
+    {
+      "id": "components-pageheader-features--with-description-slot"
+    },
+    {
+      "id": "components-pageheader-features--with-navigation-slot"
+    },
+    {
+      "id": "components-pageheader-features--with-custom-navigation"
+    },
+    {
+      "id": "components-pageheader-features--with-leading-and-trailing-actions"
+    },
+    {
+      "id": "components-pageheader-features--with-parent-link-and-actions-of-context-area"
+    },
+    {
+      "id": "components-pageheader-features--with-context-bar-and-actions-of-context-area"
+    },
+    {
+      "id": "components-pageheader-features--with-actions-that-have-responsive-content"
+    }
+  ],
+  "importPath": "@primer/react",
   "props": [
     {
       "name": "aria-label",
       "type": "string | undefined",
       "defaultValue": "",
-      "description": "A unique label for the rendered main landmark"
+      "description": "A unique label for the rendered landmark"
     },
     {
       "name": "className",
@@ -22,7 +62,12 @@
       "name": "hidden",
       "type": "| boolean | { narrow?: boolean regular?: boolean wide?: boolean }",
       "defaultValue": "false",
-      "description": "Whether the content is hidden."
+      "description": "Whether the content is hidden.\n The component can be hidden for all viewport widths, or specified viewport widths.\n Some children have a default value for this prop:\n - `PageHeader.ContextArea`, `PageHeader.ContextAreaActions`, `PageHeader.ContextBar`, and `PageHeader.ParentLink` are hidden on regular and wide viewports by default.\n - - `PageHeader.LeadingAction`, and `PageHeader.TrailingAction` are hidden on narrow viewports by default."
+    },
+    {
+      "name": "role",
+      "type": "AriaRole",
+      "description": "The ARIA role to assign to the top-level node of this component."
     },
     {
       "name": "sx",
@@ -59,6 +104,12 @@
     {
       "name": "PageHeader.ParentLink",
       "props": [
+        {
+          "name": "aria-label",
+          "type": "string | undefined",
+          "defaultValue": "",
+          "description": "A unique label for the rendered landmark"
+        },
         {
           "name": "className",
           "type": "string | undefined",
@@ -264,6 +315,27 @@
     },
     {
       "name": "PageHeader.Actions",
+      "props": [
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "defaultValue": "",
+          "description": "CSS string"
+        },
+        {
+          "name": "hidden",
+          "type": "| boolean | { narrow?: boolean regular?: boolean wide?: boolean }",
+          "defaultValue": "false",
+          "description": "Whether the content is hidden."
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ]
+    },
+    {
+      "name": "PageHeader.Breadcrumbs",
       "props": [
         {
           "name": "className",

@@ -1,4 +1,4 @@
-# ADR 012: Development Warnings
+# Development Warnings
 
 ## Status
 

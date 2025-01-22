@@ -1,0 +1,34 @@
+{
+  "id": "KeybindingHint",
+  "name": "KeybindingHint",
+  "status": "draft",
+  "a11yReviewed": false,
+  "stories": [],
+  "importPath": "@primer/react",
+  "props": [
+    {
+      "name": "keys",
+      "type": "string",
+      "description": "The keys involved in this keybinding."
+    },
+    {
+      "name": "format",
+      "type": "'condensed' | 'full'",
+      "defaultValue": "'condensed'",
+      "description": "Control the display format."
+    },
+    {
+      "name": "variant",
+      "type": "'normal' | 'onEmphasis'",
+      "defaultValue": "'normal'",
+      "description": "Set to `onEmphasis` for display on 'emphasis' colors."
+    },
+    {
+      "name": "size",
+      "type": "'small' | 'normal'",
+      "defaultValue": "'normal'",
+      "description": "Control the size of the hint."
+    }
+  ],
+  "subcomponents": []
+}

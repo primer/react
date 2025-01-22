@@ -6,6 +6,8 @@ import {defaultSxProp} from '../utils/defaultSxProp'
 import {generateCustomSxProp} from './Button'
 import {TooltipContext, Tooltip} from '../TooltipV2/Tooltip'
 import {TooltipContext as TooltipContextV1} from '../Tooltip/Tooltip'
+import classes from './ButtonBase.module.css'
+import {clsx} from 'clsx'
 
 const IconButton = forwardRef(
   (
@@ -17,14 +19,17 @@ const IconButton = forwardRef(
       disabled,
       tooltipDirection,
       // This is planned to be a temporary prop until the default tooltip on icon buttons are fully rolled out.
-      unsafeDisableTooltip = true,
+      unsafeDisableTooltip = false,
+      keyshortcuts,
+      keybindingHint,
+      className,
       ...props
     },
     forwardedRef,
   ): JSX.Element => {
     let sxStyles = sxProp
     // grap the button props that have associated data attributes in the styles
-    const {size} = props
+    const {size = 'medium'} = props
 
     if (sxProp !== null && Object.keys(sxProp).length > 0) {
       sxStyles = generateCustomSxProp({size}, sxProp)
@@ -42,6 +47,7 @@ const IconButton = forwardRef(
       return (
         <ButtonBase
           icon={Icon}
+          className={clsx(className, classes.IconButton)}
           data-component="IconButton"
           sx={sxStyles}
           type="button"
@@ -53,18 +59,22 @@ const IconButton = forwardRef(
         />
       )
     } else {
+      const tooltipText = description ?? ariaLabel
       return (
         <Tooltip
           ref={forwardedRef}
-          text={description ?? ariaLabel}
+          text={tooltipText}
           type={description ? undefined : 'label'}
           direction={tooltipDirection}
+          keybindingHint={keybindingHint ?? keyshortcuts}
         >
           <ButtonBase
             icon={Icon}
+            className={clsx(className, classes.IconButton)}
             data-component="IconButton"
             sx={sxStyles}
             type="button"
+            aria-keyshortcuts={keyshortcuts ?? undefined}
             // If description is provided, we will use the tooltip to describe the button, so we need to keep the aria-label to label the button.
             aria-label={description ? ariaLabel : undefined}
             {...props}

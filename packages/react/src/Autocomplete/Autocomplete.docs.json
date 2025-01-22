@@ -3,12 +3,52 @@
   "name": "Autocomplete",
   "status": "alpha",
   "a11yReviewed": false,
-  "stories": [],
+  "stories": [
+    {
+      "id": "components-autocomplete--default"
+    },
+    {
+      "id": "components-autocomplete-features--with-token-input"
+    },
+    {
+      "id": "components-autocomplete-features--add-new-item"
+    },
+    {
+      "id": "components-autocomplete-features--custom-search-filter-fn"
+    },
+    {
+      "id": "components-autocomplete-features--custom-sort-after-menu-close"
+    },
+    {
+      "id": "components-autocomplete-features--with-callback-when-overlay-open-state-changes"
+    },
+    {
+      "id": "components-autocomplete-features--async-loading-of-items"
+    },
+    {
+      "id": "components-autocomplete-features--rendering-the-menu-outside-an-overlay"
+    },
+    {
+      "id": "components-autocomplete-features--custom-overlay-menu-anchor"
+    },
+    {
+      "id": "components-autocomplete-features--in-overlay-with-custom-scroll-container-ref"
+    },
+    {
+      "id": "components-autocomplete-features--in-a-dialog"
+    }
+  ],
   "importPath": "@primer/react",
   "props": [
     {
       "name": "children",
       "type": "React.ReactNode"
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "description": "May be used to customize how the ID is set on the text input to be used by ARIA attributes on related elements.",
+      "defaultValue": ""
     }
   ],
   "subcomponents": [
@@ -23,8 +63,9 @@
         {
           "name": "openOnFocus",
           "type": "boolean",
-          "defaultValue": "true",
-          "description": "Whether the associated autocomplete menu should open on an input focus event"
+          "defaultValue": "false",
+          "description": "Whether the associated autocomplete menu should open on an input focus event",
+          "deprecated": true
         }
       ],
       "passthrough": {
@@ -67,7 +108,7 @@
         {
           "name": "selectedItemIds",
           "required": true,
-          "type": "(string | number)[]",
+          "type": "string[]",
           "description": "The IDs of the selected items"
         },
         {

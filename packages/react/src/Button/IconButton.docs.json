@@ -3,7 +3,56 @@
   "name": "IconButton",
   "status": "alpha",
   "a11yReviewed": false,
-  "stories": [],
+  "stories": [
+    {
+      "id": "components-iconbutton--default"
+    },
+    {
+      "id": "components-iconbutton-features--primary"
+    },
+    {
+      "id": "components-iconbutton-features--danger"
+    },
+    {
+      "id": "components-iconbutton-features--invisible"
+    },
+    {
+      "id": "components-iconbutton-features--disabled"
+    },
+    {
+      "id": "components-iconbutton-features--small"
+    },
+    {
+      "id": "components-iconbutton-features--medium"
+    },
+    {
+      "id": "components-iconbutton-features--large"
+    },
+    {
+      "id": "components-iconbutton-features--with-description"
+    },
+    {
+      "id": "components-iconbutton-features--external-tooltip"
+    },
+    {
+      "id": "components-iconbutton-features--external-tooltip-version-1"
+    },
+    {
+      "id": "components-iconbutton-features--as-a-menu-anchor"
+    },
+    {
+      "id": "components-iconbutton-features--loading"
+    },
+    {
+      "id": "components-iconbutton-features--loading-trigger"
+    },
+    {
+      "id": "components-iconbutton-features--keybinding-hint-on-description"
+    },
+    {
+      "id": "components-iconbutton-features--keybinding-hint"
+    }
+  ],
   "importPath": "@primer/react",
   "props": [
     {
@@ -15,7 +64,7 @@
     },
     {
       "name": "variant",
-      "type": "'default' | 'primary' | 'danger' | 'outline' | 'invisible'",
+      "type": "'default' | 'primary' | 'danger' | 'outline' | 'invisible' | 'link'",
       "defaultValue": "",
       "description": "Changes the look and feel of the button which is different for each variant"
     },
@@ -41,6 +90,32 @@
       "type": "string",
       "defaultValue": "",
       "description": "Use an aria label to describe the functionality of the button. Please refer to [our guidance on alt text](https://primer.style/guides/accessibility/alternative-text-for-images) for tips on writing good alternative text."
+    },
+    {
+      "name": "keyshortcuts",
+      "type": "string",
+      "defaultValue": "",
+      "deprecated": true,
+      "description": "Use `keybindingHint` instead."
+    },
+    {
+      "name": "keybindingHint",
+      "type": "string",
+      "description": "Optional keybinding hint to show in the tooltip for this button. See the `KeybindingHint` component documentation for the correct format for this string. Has no effect if tooltip is overridden or disabled. Does **not** bind any keybindings for this button - this is only for visual hints."
+    },
+    {
+      "name": "tooltipDirection",
+      "type": "'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w' | 'nw'",
+      "defaultValue": "'s'",
+      "description": "The direction of the tooltip. ",
+      "required": false
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "required": false,
+      "description": "If `description` is provided, we will use a Tooltip to describe the button. Then `aria-label` is used to label the button.",
+      "defaultValue": ""
     },
     {
       "name": "sx",

@@ -43,4 +43,14 @@ describe('StateLabel', () => {
   it('renders children', () => {
     expect(render(<StateLabel status="issueOpened">hi</StateLabel>)).toMatchSnapshot()
   })
+
+  it('adds label to icon', () => {
+    const screen1 = HTMLRender(<StateLabel status="issueOpened">Open</StateLabel>)
+    expect(screen1.getByLabelText('Issue')).toBeInTheDocument() // svg
+    expect(screen1.getByText('Open')).toBeInTheDocument() // text
+
+    const screen2 = HTMLRender(<StateLabel status="pullMerged">Merged</StateLabel>)
+    expect(screen2.getByLabelText('Pull request')).toBeInTheDocument() // svg
+    expect(screen2.getByText('Merged')).toBeInTheDocument() // text
+  })
 })

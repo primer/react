@@ -8,7 +8,7 @@ test.describe('Tooltip', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-tooltip--default',
+            id: 'deprecated-components-tooltip--default',
             globals: {
               colorScheme: theme,
             },
@@ -21,7 +21,7 @@ test.describe('Tooltip', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-tooltip--default',
+            id: 'deprecated-components-tooltip--default',
             globals: {
               colorScheme: theme,
             },

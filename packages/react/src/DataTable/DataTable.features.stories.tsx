@@ -25,7 +25,7 @@ import {createColumnHelper} from './column'
 import {fetchRepos, repos, useFlakeyQuery} from './storybook/data'
 
 export default {
-  title: 'Drafts/Components/DataTable/Features',
+  title: 'Experimental/Components/DataTable/Features',
   component: DataTable,
 } as Meta<typeof DataTable>
 
@@ -123,7 +123,7 @@ const data: Array<Repo> = [
     id: 8,
     name: 'docker-templates',
     type: 'public',
-    updatedAt: now - 3 * Month,
+    updatedAt: 1725494400000, // '2024-09-05T00:00:00.000Z'
     securityFeatures: {
       dependabot: ['alerts'],
       codeScanning: [],

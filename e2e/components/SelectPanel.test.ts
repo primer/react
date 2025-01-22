@@ -1,177 +1,105 @@
 import {test, expect} from '@playwright/test'
 import {visit} from '../test-helpers/storybook'
 import {themes} from '../test-helpers/themes'
+import {matrix} from '../test-helpers/matrix'
+
+const scenarios = matrix({
+  theme: themes,
+  modernActionList: [false, true],
+  story: [
+    {id: 'components-selectpanel--default', name: 'Default'},
+    {id: 'components-selectpanel-features--single-select', name: 'Single Select'},
+    {id: 'components-selectpanel-features--with-external-anchor', name: 'External Anchor'},
+    {id: 'components-selectpanel-features--with-footer', name: 'With Footer'},
+    {id: 'components-selectpanel-features--with-groups', name: 'With Groups'},
+    {id: 'components-selectpanel-features--with-item-dividers', name: 'With Item Dividers'},
+    {id: 'components-selectpanel-features--with-label-internally', name: 'With Label Internally'},
+    {id: 'components-selectpanel-features--with-label-visually-hidden', name: 'With Label Visually Hidden'},
+    {
+      id: 'components-selectpanel-features--with-placeholder-for-search-input',
+      name: 'With Placeholder for Search Input',
+    },
+    {id: 'components-selectpanel-examples--above-tall-body', name: 'Above Tall Body'},
+    {id: 'components-selectpanel-examples--height-variantions-and-scroll', name: 'Height Variantions and Scroll'},
+    {
+      id: 'components-selectpanel-examples--height-initial-with-overflowing-items-story',
+      name: 'Height Initial with Overflowing Items',
+    },
+    {
+      id: 'components-selectpanel-examples--height-initial-with-underflowing-items-story',
+      name: 'Height Initial with Underflowing Items',
+    },
+    {
+      id: 'components-selectpanel-examples--height-initial-with-underflowing-items-after-fetch',
+      name: 'Height Initial with Underflowing Items After Fetch',
+    },
+    {
+      id: 'components-selectpanel-dev--with-css',
+      name: 'With Css',
+    },
+    {
+      id: 'components-selectpanel-dev--with-sx',
+      name: 'With Sx',
+    },
+    {
+      id: 'components-selectpanel-dev--with-sx-and-css',
+      name: 'With Sx and Css',
+    },
+  ],
+})
 
 test.describe('SelectPanel', () => {
-  test.describe('Default', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-selectpanel--default',
-            globals: {
-              colorScheme: theme,
-            },
-          })
+  for (const scenario of scenarios) {
+    const name = scenario.story.name
+    const theme = scenario.theme
+    const flag = scenario.modernActionList ? `.modern-action-list--${scenario.modernActionList}` : ''
 
-          // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`SelectPanel.Default.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-selectpanel--default',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations()
-        })
-      })
+    const globals = {
+      colorScheme: scenario.theme,
+      featureFlags: {primer_react_select_panel_with_modern_action_list: scenario.modernActionList},
     }
-  })
 
-  test.describe('Single Select', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-selectpanel-features--single-select-story',
-            globals: {
-              colorScheme: theme,
-            },
-          })
+    test(`${name} @vrt ${theme} ${flag}`, async ({page}) => {
+      await visit(page, {id: scenario.story.id, globals})
 
-          // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`SelectPanel.Single Select.${theme}.png`)
-        })
+      // Open select panel
+      const isPanelOpen = await page.isVisible('[role="listbox"]')
+      if (!isPanelOpen) {
+        await page.keyboard.press('Tab')
+        await page.keyboard.press('Enter')
+      }
+      expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`SelectPanel.${name}.${theme}${flag}.png`)
+    })
 
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-selectpanel-features--single-select-story',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations()
-        })
-      })
+    test(`${name} axe @aat ${theme} ${flag}`, async ({page}) => {
+      await visit(page, {id: scenario.story.id, globals})
+      await expect(page).toHaveNoViolations()
+    })
+  }
+
+  test(`Default @vrt forced-colors .modern-action-list--true`, async ({page}) => {
+    await visit(page, {
+      id: 'components-selectpanel--default',
+      globals: {featureFlags: {primer_react_select_panel_with_modern_action_list: true}},
+    })
+
+    // Open select panel
+    const isPanelOpen = await page.isVisible('[role="listbox"]')
+    if (!isPanelOpen) {
+      await page.keyboard.press('Tab')
+      await page.keyboard.press('Enter')
     }
-  })
 
-  test.describe('External Anchor', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-selectpanel-features--external-anchor-story',
-            globals: {
-              colorScheme: theme,
-            },
-          })
+    // windows high contrast mode: light
+    await page.emulateMedia({forcedColors: 'active', colorScheme: 'light'})
+    expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
+      `SelectPanel-Default-forced-colors-light-modern-action-list--true.png`,
+    )
 
-          // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`SelectPanel.External Anchor.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-selectpanel-features--external-anchor-story',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations()
-        })
-      })
-    }
-  })
-
-  test.describe('SelectPanel, Initial Height, Overflowing Items', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-selectpanel-features--select-panel-height-initial-with-overflowing-items-story',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          // Default state
-          expect(await page.screenshot()).toMatchSnapshot(
-            `SelectPanel.SelectPanel, Initial Height, Overflowing Items.${theme}.png`,
-          )
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-selectpanel-features--select-panel-height-initial-with-overflowing-items-story',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations()
-        })
-      })
-    }
-  })
-
-  test.describe('SelectPanel, Initial Height, Underflowing Items', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-selectpanel-features--select-panel-height-initial-with-underflowing-items-story',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          // Default state
-          expect(await page.screenshot()).toMatchSnapshot(
-            `SelectPanel.SelectPanel, Initial Height, Underflowing Items.${theme}.png`,
-          )
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-selectpanel-features--select-panel-height-initial-with-underflowing-items-story',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations()
-        })
-      })
-    }
-  })
-
-  test.describe('SelectPanel, Above a Tall Body', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-selectpanel-features--select-panel-above-tall-body',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`SelectPanel.SelectPanel, Above a Tall Body.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-selectpanel-features--select-panel-above-tall-body',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations()
-        })
-      })
-    }
+    // windows high contrast mode: dark
+    await page.emulateMedia({forcedColors: 'active', colorScheme: 'dark'})
+    expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
+      `SelectPanel-Default-forced-colors-dark-modern-action-list--true.png`,
+    )
   })
 })

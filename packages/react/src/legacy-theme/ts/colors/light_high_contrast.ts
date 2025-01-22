@@ -421,7 +421,7 @@ const colors = {
       hoverBg: 'var(--control-transparent-bgColor-hover, var(--color-tree-view-item-chevron-hover-bg, #ced5dc))',
     },
     directory: {
-      fill: 'var(--treeViewItem-leadingVisual-bgColor-rest, var(--color-tree-view-item-chevron-directory-fill, #368cf9))',
+      fill: 'var(--treeViewItem-leadingVisual-iconColor-rest, var(--color-tree-view-item-chevron-directory-fill, #368cf9))',
     },
   },
   fg: {

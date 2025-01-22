@@ -427,7 +427,7 @@ const colors = {
         'var(--control-transparent-bgColor-hover, var(--color-tree-view-item-chevron-hover-bg, rgba(177,186,196,0.12)))',
     },
     directory: {
-      fill: 'var(--treeViewItem-leadingVisual-bgColor-rest, var(--color-tree-view-item-directory-fill, #8b949e))',
+      fill: 'var(--treeViewItem-leadingVisual-iconColor-rest, var(--color-tree-view-item-directory-fill, #8b949e))',
     },
   },
   fg: {

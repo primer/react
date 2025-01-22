@@ -3,14 +3,69 @@
   "name": "TextInput",
   "status": "alpha",
   "a11yReviewed": false,
-  "stories": [],
+  "stories": [
+    {
+      "id": "components-textinput--default"
+    },
+    {
+      "id": "components-textinput-features--disabled"
+    },
+    {
+      "id": "components-textinput-features--with-caption"
+    },
+    {
+      "id": "components-textinput-features--visually-hidden-label"
+    },
+    {
+      "id": "components-textinput-features--error"
+    },
+    {
+      "id": "components-textinput-features--success"
+    },
+    {
+      "id": "components-textinput-features--block"
+    },
+    {
+      "id": "components-textinput-features--small"
+    },
+    {
+      "id": "components-textinput-features--large"
+    },
+    {
+      "id": "components-textinput-features--required"
+    },
+    {
+      "id": "components-textinput-features--with-leading-visual"
+    },
+    {
+      "id": "components-textinput-features--with-trailing-icon"
+    },
+    {
+      "id": "components-textinput-features--with-trailing-action"
+    },
+    {
+      "id": "components-textinput-features--with-tooltip-direction"
+    },
+    {
+      "id": "components-textinput-features--with-loading-indicator"
+    },
+    {
+      "id": "components-textinput-features--with-autocomplete-attribute"
+    }
+  ],
   "importPath": "@primer/react",
   "props": [
     {
       "name": "aria-label",
       "type": "string",
       "defaultValue": "",
-      "description": "Allows input to be accessible."
+      "description": "Gives the input an accessible name."
+    },
+    {
+      "name": "autoComplete",
+      "type": "string",
+      "defaultValue": "",
+      "description": "Allows input to autofill based on value given."
     },
     {
       "name": "block",
@@ -41,6 +96,12 @@
       "type": "'auto' | 'leading' | 'trailing'",
       "defaultValue": "",
       "description": "<div>Which position to render the loading indicator</div> <ul> <li> 'auto' (default): at the end of the input, unless a `leadingVisual` is passed. Then, it will render at the beginning </li> <li>'leading': at the beginning of the input</li> <li>'trailing': at the end of the input</li> </ul>"
+    },
+    {
+      "name": "loaderText",
+      "type": "string",
+      "defaultValue": "Loading",
+      "description": "Text for screen readers to convey the loading state, should be descriptive and explain what is loading. This prop should only be used if there is visible context explaining what is loading, to ensure that context is provided to all users."
     },
     {
       "name": "leadingVisual",

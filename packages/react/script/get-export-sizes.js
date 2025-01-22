@@ -11,6 +11,19 @@ const {rollup} = require('rollup')
 const {minify} = require('terser')
 const gzipSize = require('gzip-size')
 
+const noopCSSModules = {
+  name: 'empty-css-modules',
+
+  transform(_code, id) {
+    if (!id.endsWith('.css')) {
+      return
+    }
+    return {
+      code: `export default {}`,
+    }
+  },
+}
+
 async function main() {
   const rootDirectory = path.resolve(__dirname, '..')
   const packageJsonPath = path.join(rootDirectory, 'package.json')
@@ -41,6 +54,7 @@ async function main() {
         commonjs({
           include: [/node_modules/],
         }),
+        noopCSSModules,
       ],
       onwarn: () => {},
     })
@@ -63,6 +77,7 @@ async function main() {
           commonjs({
             include: /node_modules/,
           }),
+          noopCSSModules,
           virtual({
             __entrypoint__: `export { ${identifier} } from '${filepath}';`,
           }),

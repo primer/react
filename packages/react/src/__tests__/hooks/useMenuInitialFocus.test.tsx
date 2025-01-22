@@ -12,15 +12,15 @@ const Component = () => {
 
   return (
     <>
-      <button ref={anchorRef} onClick={() => onOpen()} onKeyDown={() => onOpen()}>
+      <button ref={anchorRef} type="button" onClick={() => onOpen()} onKeyDown={() => onOpen()}>
         open container
       </button>
       {open && (
         <div ref={containerRef}>
           <span>not focusable</span>
-          <button>first focusable element</button>
-          <button>second focusable element</button>
-          <button>third focusable element</button>
+          <button type="button">first focusable element</button>
+          <button type="button">second focusable element</button>
+          <button type="button">third focusable element</button>
           <span>not focusable</span>
         </div>
       )}

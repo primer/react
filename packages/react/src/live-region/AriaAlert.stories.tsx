@@ -3,7 +3,7 @@ import React, {useEffect, useState} from 'react'
 import {AriaAlert} from './AriaAlert'
 
 export default {
-  title: 'Drafts/Components/AriaAlert',
+  title: 'Experimental/Components/AriaAlert',
   component: AriaAlert,
 }
 

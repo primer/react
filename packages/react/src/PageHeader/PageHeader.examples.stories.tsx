@@ -11,16 +11,16 @@ import {
   Box,
   PageLayout,
   Timeline,
-  Octicon,
   Heading,
   Token,
 } from '..'
+import Octicon from '../Octicon'
 import {
   KebabHorizontalIcon,
   GitBranchIcon,
   CodeIcon,
   CommentDiscussionIcon,
-  CommitIcon,
+  GitCommitIcon,
   ChecklistIcon,
   FileDiffIcon,
   TriangleDownIcon,
@@ -37,7 +37,7 @@ import {ActionMenu} from '../ActionMenu'
 import {ActionList} from '../ActionList'
 
 const meta: Meta = {
-  title: 'Drafts/Components/PageHeader/Examples',
+  title: 'Components/PageHeader/Examples',
   parameters: {
     layout: 'fullscreen',
     controls: {expanded: true},
@@ -52,7 +52,7 @@ const setViewportParamToNarrow = {
 }
 export const Webhooks = () => (
   <Box sx={{padding: 3}}>
-    <PageHeader>
+    <PageHeader role="banner" aria-label="Webhooks">
       <PageHeader.TitleArea>
         <PageHeader.Title as="h2">Webhooks</PageHeader.Title>
       </PageHeader.TitleArea>
@@ -78,7 +78,10 @@ WebhooksOnNarrowViewport.parameters = setViewportParamToNarrow
 
 export const PullRequestPage = () => (
   <Box sx={{padding: 3}}>
-    <PageHeader>
+    <PageHeader
+      role="banner"
+      aria-label="PageHeader component initial layout explorations extra long pull request title"
+    >
       <PageHeader.TitleArea>
         <PageHeader.Title as="h1">
           PageHeader component initial layout explorations extra long pull request title
@@ -123,7 +126,7 @@ export const PullRequestPage = () => (
           <UnderlineNav.Item icon={CommentDiscussionIcon} counter="12" aria-current="page">
             Conversation
           </UnderlineNav.Item>
-          <UnderlineNav.Item counter={3} icon={CommitIcon}>
+          <UnderlineNav.Item counter={3} icon={GitCommitIcon}>
             Commits
           </UnderlineNav.Item>
           <UnderlineNav.Item counter={7} icon={ChecklistIcon}>
@@ -146,7 +149,7 @@ PullRequestPageOnNarrowViewport.parameters = setViewportParamToNarrow
 
 export const FilesPage = () => (
   <Box sx={{padding: 3}}>
-    <PageHeader>
+    <PageHeader role="banner" aria-label="PageHeader.tsx">
       <PageHeader.TitleArea sx={{alignItems: 'center'}}>
         <Text sx={{color: 'rgb(101, 109, 118)', fontSize: '14px', fontWeight: 'normal'}}>/</Text>
         <PageHeader.Title as="h1" sx={{fontSize: '14px', height: '21px'}}>
@@ -349,7 +352,7 @@ export const WithPageLayout = () => {
               <UnderlineNav.Item icon={CommentDiscussionIcon} counter="12" aria-current="page">
                 Conversation
               </UnderlineNav.Item>
-              <UnderlineNav.Item counter={3} icon={CommitIcon}>
+              <UnderlineNav.Item counter={3} icon={GitCommitIcon}>
                 Commits
               </UnderlineNav.Item>
               <UnderlineNav.Item counter={7} icon={ChecklistIcon}>
@@ -430,7 +433,6 @@ export const IssuesPage = () => {
                 aria-label="Copy permalink"
                 icon={CopyIcon}
                 variant="invisible"
-                unsafeDisableTooltip={false}
                 onClick={() => {
                   alert('This button copies the permalink to the clipboard')
                 }}
@@ -459,7 +461,6 @@ export const IssuesPage = () => {
                   aria-label="Copy permalink"
                   icon={CopyIcon}
                   variant="invisible"
-                  unsafeDisableTooltip={false}
                   onClick={() => {
                     alert('This button copies the permalink to the clipboard')
                   }}

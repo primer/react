@@ -43,3 +43,12 @@ export const WithCaption = () => {
     </Box>
   )
 }
+
+export const Indeterminate = () => (
+  <Box as="form">
+    <FormControl>
+      <Checkbox value="default" indeterminate />
+      <FormControl.Label>Default label</FormControl.Label>
+    </FormControl>
+  </Box>
+)

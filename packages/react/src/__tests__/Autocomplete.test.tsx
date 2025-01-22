@@ -1,4 +1,4 @@
-import {render as HTMLRender, fireEvent, waitFor, screen} from '@testing-library/react'
+import {render as HTMLRender, fireEvent, screen, waitFor} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React from 'react'
 import type {AutocompleteInputProps} from '../Autocomplete'
@@ -7,8 +7,8 @@ import type {AutocompleteMenuInternalProps, AutocompleteMenuItem} from '../Autoc
 import BaseStyles from '../BaseStyles'
 import theme from '../theme'
 import {ThemeProvider} from '../ThemeProvider'
-import {SSRProvider} from '../utils/ssr'
 import {render} from '../utils/testing'
+import {FeatureFlags} from '../FeatureFlags'
 
 const mockItems = [
   {text: 'zero', id: '0'},
@@ -35,19 +35,17 @@ const LabelledAutocomplete = <T extends AutocompleteMenuItem>({
   const {id = 'autocompleteInput', ...inputPropsRest} = inputProps
   return (
     <ThemeProvider theme={theme}>
-      <SSRProvider>
-        <BaseStyles>
-          <label htmlFor={id} id={ariaLabelledBy}>
-            Autocomplete field
-          </label>
-          <Autocomplete id="autocompleteId">
-            <Autocomplete.Input id={id} {...inputPropsRest} />
-            <Autocomplete.Overlay>
-              <Autocomplete.Menu aria-labelledby={ariaLabelledBy} {...menuPropsRest} />
-            </Autocomplete.Overlay>
-          </Autocomplete>
-        </BaseStyles>
-      </SSRProvider>
+      <BaseStyles>
+        <label htmlFor={id} id={ariaLabelledBy}>
+          Autocomplete field
+        </label>
+        <Autocomplete id="autocompleteId">
+          <Autocomplete.Input id={id} {...inputPropsRest} />
+          <Autocomplete.Overlay>
+            <Autocomplete.Menu aria-labelledby={ariaLabelledBy} {...menuPropsRest} />
+          </Autocomplete.Overlay>
+        </Autocomplete>
+      </BaseStyles>
     </ThemeProvider>
   )
 }
@@ -130,14 +128,15 @@ describe('Autocomplete', () => {
       expect(onKeyPressMock).toHaveBeenCalled()
     })
 
-    it('opens the menu when the input is focused', () => {
+    it('opens the menu when the input is focused and arrow key is pressed', () => {
       const {getByLabelText} = HTMLRender(
         <LabelledAutocomplete menuProps={{items: [], selectedItemIds: [], ['aria-labelledby']: 'autocompleteLabel'}} />,
       )
       const inputNode = getByLabelText(AUTOCOMPLETE_LABEL)
 
       expect(inputNode.getAttribute('aria-expanded')).not.toBe('true')
-      fireEvent.focus(inputNode)
+      fireEvent.click(inputNode)
+      fireEvent.keyDown(inputNode, {key: 'ArrowDown'})
       expect(inputNode.getAttribute('aria-expanded')).toBe('true')
     })
 
@@ -148,13 +147,14 @@ describe('Autocomplete', () => {
       const inputNode = getByLabelText(AUTOCOMPLETE_LABEL)
 
       expect(inputNode.getAttribute('aria-expanded')).not.toBe('true')
-      fireEvent.focus(inputNode)
-      expect(inputNode.getAttribute('aria-expanded')).toBe('true')
-      // eslint-disable-next-line github/no-blur
-      fireEvent.blur(inputNode)
+      fireEvent.click(inputNode)
+      fireEvent.keyDown(inputNode, {key: 'ArrowDown'})
 
-      // wait a tick for blur to finish
-      await waitFor(() => expect(inputNode.getAttribute('aria-expanded')).not.toBe('true'))
+      expect(inputNode.getAttribute('aria-expanded')).toBe('true')
+
+      await userEvent.tab()
+
+      expect(inputNode.getAttribute('aria-expanded')).not.toBe('true')
     })
 
     it('sets the input value to the suggested item text and highlights the untyped part of the word', async () => {
@@ -218,6 +218,29 @@ describe('Autocomplete', () => {
       )
 
       expect(getByDisplayValue('0')).toBeDefined()
+    })
+
+    it('should support `className` on the outermost element', () => {
+      const Element = () => (
+        <Autocomplete>
+          <Autocomplete.Input className={'test-class-name'} />
+        </Autocomplete>
+      )
+      const FeatureFlagElement = () => {
+        return (
+          <FeatureFlags
+            flags={{
+              primer_react_css_modules_team: true,
+              primer_react_css_modules_staff: true,
+              primer_react_css_modules_ga: true,
+            }}
+          >
+            <Element />
+          </FeatureFlags>
+        )
+      }
+      expect(HTMLRender(<Element />).container.firstChild).toHaveClass('test-class-name')
+      expect(HTMLRender(<FeatureFlagElement />).container.firstChild).toHaveClass('test-class-name')
     })
   })
 
@@ -306,7 +329,7 @@ describe('Autocomplete', () => {
       expect(onSelectedChangeMock).not.toHaveBeenCalled()
       if (inputNode) {
         fireEvent.focus(inputNode)
-        await user.type(inputNode, '{enter}')
+        await user.type(inputNode, '{arrowdown}{enter}')
       }
 
       expect(onSelectedChangeMock).toHaveBeenCalledWith([mockItems[0]])
@@ -329,6 +352,8 @@ describe('Autocomplete', () => {
       if (inputNode) {
         expect(inputNode.getAttribute('aria-expanded')).not.toBe('true')
         await user.click(inputNode)
+
+        fireEvent.keyDown(inputNode, {key: 'ArrowDown'})
         expect(inputNode.getAttribute('aria-expanded')).toBe('true')
         await user.click(getByText(mockItems[1].text))
         expect(inputNode.getAttribute('aria-expanded')).toBe('true')
@@ -352,6 +377,7 @@ describe('Autocomplete', () => {
       if (inputNode) {
         expect(inputNode.getAttribute('aria-expanded')).not.toBe('true')
         await user.click(inputNode)
+        fireEvent.keyDown(inputNode, {key: 'ArrowDown'})
         expect(inputNode.getAttribute('aria-expanded')).toBe('true')
         await user.click(getByText(mockItems[1].text))
         expect(inputNode.getAttribute('aria-expanded')).not.toBe('true')
@@ -437,6 +463,49 @@ describe('Autocomplete', () => {
     })
   })
 
+  describe('Autocomplete.Overlay', () => {
+    it('should support `className` on the outermost element', async () => {
+      const Element = ({className}: {className: string}) => (
+        <ThemeProvider>
+          <Autocomplete id="autocompleteId">
+            <Autocomplete.Input />
+            <Autocomplete.Overlay className={className} visibility="visible">
+              hi
+            </Autocomplete.Overlay>
+          </Autocomplete>
+        </ThemeProvider>
+      )
+      const FeatureFlagElement = () => {
+        return (
+          <FeatureFlags
+            flags={{
+              primer_react_css_modules_team: true,
+              primer_react_css_modules_staff: true,
+              primer_react_css_modules_ga: true,
+            }}
+          >
+            <Element className="test-class-name-2" />
+          </FeatureFlags>
+        )
+      }
+      const {container: elementContainer, getByRole, rerender} = HTMLRender(<Element className="test-class-name" />)
+      let inputNode = getByRole('combobox')
+      await userEvent.click(inputNode)
+      await userEvent.keyboard('{ArrowDown}')
+      // overlay is a sibling of elementContainer
+      expect(elementContainer.parentElement?.querySelectorAll('.test-class-name')).toHaveLength(1)
+
+      rerender(<FeatureFlagElement />)
+      expect(elementContainer.parentElement?.querySelectorAll('.test-class-name')).toHaveLength(0)
+      inputNode = getByRole('combobox')
+      await userEvent.click(inputNode)
+      await userEvent.keyboard('{ArrowDown}')
+
+      // overlay is a sibling of ffContainer
+      expect(elementContainer.parentElement?.querySelectorAll('.test-class-name-2')).toHaveLength(1)
+    })
+  })
+
   describe('null context', () => {
     it('throws errors when Autocomplete context is null', () => {
       const spy = jest.spyOn(console, 'error').mockImplementation(() => {})
@@ -456,12 +525,10 @@ describe('snapshots', () => {
   it('renders a single select input', () => {
     expect(
       render(
-        <SSRProvider>
-          <Autocomplete id="autocompleteId">
-            <Autocomplete.Input />
-            <Autocomplete.Menu aria-labelledby="labelId" items={mockItems} selectedItemIds={[]} />
-          </Autocomplete>
-        </SSRProvider>,
+        <Autocomplete id="autocompleteId">
+          <Autocomplete.Input />
+          <Autocomplete.Menu aria-labelledby="labelId" items={mockItems} selectedItemIds={[]} />
+        </Autocomplete>,
       ),
     ).toMatchSnapshot()
   })
@@ -469,17 +536,15 @@ describe('snapshots', () => {
   it('renders a multiselect input', () => {
     expect(
       render(
-        <SSRProvider>
-          <Autocomplete id="autocompleteId">
-            <Autocomplete.Input />
-            <Autocomplete.Menu
-              aria-labelledby="labelId"
-              items={mockItems}
-              selectedItemIds={[]}
-              selectionVariant="multiple"
-            />
-          </Autocomplete>
-        </SSRProvider>,
+        <Autocomplete id="autocompleteId">
+          <Autocomplete.Input />
+          <Autocomplete.Menu
+            aria-labelledby="labelId"
+            items={mockItems}
+            selectedItemIds={[]}
+            selectionVariant="multiple"
+          />
+        </Autocomplete>,
       ),
     ).toMatchSnapshot()
   })
@@ -487,17 +552,15 @@ describe('snapshots', () => {
   it('renders a multiselect input with selected menu items', () => {
     expect(
       render(
-        <SSRProvider>
-          <Autocomplete id="autocompleteId">
-            <Autocomplete.Input />
-            <Autocomplete.Menu
-              aria-labelledby="labelId"
-              items={mockItems}
-              selectedItemIds={['0', '1', '2']}
-              selectionVariant="multiple"
-            />
-          </Autocomplete>
-        </SSRProvider>,
+        <Autocomplete id="autocompleteId">
+          <Autocomplete.Input />
+          <Autocomplete.Menu
+            aria-labelledby="labelId"
+            items={mockItems}
+            selectedItemIds={['0', '1', '2']}
+            selectionVariant="multiple"
+          />
+        </Autocomplete>,
       ),
     ).toMatchSnapshot()
   })
@@ -506,22 +569,20 @@ describe('snapshots', () => {
     const handleAddItemMock = jest.fn()
     expect(
       render(
-        <SSRProvider>
-          <Autocomplete id="autocompleteId">
-            <Autocomplete.Input />
-            <Autocomplete.Menu
-              aria-labelledby="labelId"
-              items={mockItems}
-              selectionVariant="multiple"
-              selectedItemIds={[]}
-              addNewItem={{
-                id: 'add-new-item',
-                text: 'Add new item',
-                handleAddItem: handleAddItemMock,
-              }}
-            />
-          </Autocomplete>
-        </SSRProvider>,
+        <Autocomplete id="autocompleteId">
+          <Autocomplete.Input />
+          <Autocomplete.Menu
+            aria-labelledby="labelId"
+            items={mockItems}
+            selectionVariant="multiple"
+            selectedItemIds={[]}
+            addNewItem={{
+              id: 'add-new-item',
+              text: 'Add new item',
+              handleAddItem: handleAddItemMock,
+            }}
+          />
+        </Autocomplete>,
       ),
     ).toMatchSnapshot()
   })
@@ -529,12 +590,10 @@ describe('snapshots', () => {
   it('renders a custom empty state message', () => {
     expect(
       render(
-        <SSRProvider>
-          <Autocomplete id="autocompleteId">
-            <Autocomplete.Input />
-            <Autocomplete.Menu aria-labelledby="labelId" items={[]} selectedItemIds={[]} emptyStateText="No results" />
-          </Autocomplete>
-        </SSRProvider>,
+        <Autocomplete id="autocompleteId">
+          <Autocomplete.Input />
+          <Autocomplete.Menu aria-labelledby="labelId" items={[]} selectedItemIds={[]} emptyStateText="No results" />
+        </Autocomplete>,
       ),
     ).toMatchSnapshot()
   })
@@ -542,12 +601,10 @@ describe('snapshots', () => {
   it('renders a loading state', () => {
     expect(
       render(
-        <SSRProvider>
-          <Autocomplete id="autocompleteId">
-            <Autocomplete.Input />
-            <Autocomplete.Menu aria-labelledby="labelId" loading items={[]} selectedItemIds={[]} />
-          </Autocomplete>
-        </SSRProvider>,
+        <Autocomplete id="autocompleteId">
+          <Autocomplete.Input />
+          <Autocomplete.Menu aria-labelledby="labelId" loading items={[]} selectedItemIds={[]} />
+        </Autocomplete>,
       ),
     ).toMatchSnapshot()
   })
@@ -559,12 +616,10 @@ describe('snapshots', () => {
 
     expect(
       render(
-        <SSRProvider>
-          <Autocomplete id="autocompleteId">
-            <Autocomplete.Input as={CustomInput} />
-            <Autocomplete.Menu aria-labelledby="labelId" items={mockItems} selectedItemIds={[]} />
-          </Autocomplete>
-        </SSRProvider>,
+        <Autocomplete id="autocompleteId">
+          <Autocomplete.Input as={CustomInput} />
+          <Autocomplete.Menu aria-labelledby="labelId" items={mockItems} selectedItemIds={[]} />
+        </Autocomplete>,
       ),
     ).toMatchSnapshot()
   })
@@ -572,12 +627,10 @@ describe('snapshots', () => {
   it('renders with an input value', () => {
     expect(
       render(
-        <SSRProvider>
-          <Autocomplete id="autocompleteId">
-            <Autocomplete.Input value="test" />
-            <Autocomplete.Menu aria-labelledby="labelId" items={mockItems} selectedItemIds={[]} />
-          </Autocomplete>
-        </SSRProvider>,
+        <Autocomplete id="autocompleteId">
+          <Autocomplete.Input value="test" />
+          <Autocomplete.Menu aria-labelledby="labelId" items={mockItems} selectedItemIds={[]} />
+        </Autocomplete>,
       ),
     ).toMatchSnapshot()
   })

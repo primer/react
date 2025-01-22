@@ -1,6 +1,8 @@
 import {get} from '../constants'
 import type {SegmentedControlButtonProps} from './SegmentedControlButton'
 
+export const SEGMENTED_CONTROL_CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_team'
+
 export const directChildLayoutAdjustments = {
   ':first-child': {
     marginLeft: '-1px',
@@ -25,7 +27,7 @@ export const borderedSegment = {
 }
 
 export const getSegmentedControlButtonStyles = (
-  props?: Partial<Pick<SegmentedControlButtonProps, 'children' | 'selected'>> & {isIconOnly?: boolean},
+  props?: Partial<Pick<SegmentedControlButtonProps, 'children' | 'selected'>>,
 ) => ({
   '--segmented-control-button-inner-padding': '12px', // TODO: use primitive `primer.control.medium.paddingInline.normal` when it is available
   '--segmented-control-button-bg-inset': '4px',

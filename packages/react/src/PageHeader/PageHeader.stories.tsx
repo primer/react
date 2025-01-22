@@ -11,7 +11,7 @@ import {
   PeopleIcon,
   PencilIcon,
   CommentDiscussionIcon,
-  CommitIcon,
+  GitCommitIcon,
   ChecklistIcon,
   FileDiffIcon,
   ArrowRightIcon,
@@ -23,7 +23,7 @@ import {PageHeader} from './PageHeader'
 import Hidden from '../Hidden'
 
 const meta: Meta<typeof PageHeader> = {
-  title: 'Drafts/Components/PageHeader',
+  title: 'Components/PageHeader',
   parameters: {
     layout: 'fullscreen',
     controls: {expanded: true},
@@ -189,7 +189,7 @@ export default meta
 
 export const Playground: StoryFn = args => (
   <Box sx={{padding: 3}}>
-    <PageHeader>
+    <PageHeader aria-label={args.Title} role="banner">
       <PageHeader.TitleArea
         variant={{
           narrow: args['Title.variant'],
@@ -270,7 +270,7 @@ export const Playground: StoryFn = args => (
           <UnderlineNav.Item icon={CommentDiscussionIcon} counter="12" aria-current="page">
             Conversation
           </UnderlineNav.Item>
-          <UnderlineNav.Item counter={3} icon={CommitIcon}>
+          <UnderlineNav.Item counter={3} icon={GitCommitIcon}>
             Commits
           </UnderlineNav.Item>
           <UnderlineNav.Item counter={7} icon={ChecklistIcon}>
@@ -287,7 +287,7 @@ export const Playground: StoryFn = args => (
 
 export const Default = () => (
   <Box sx={{padding: 3}}>
-    <PageHeader>
+    <PageHeader role="banner" aria-label="Title">
       <PageHeader.TitleArea>
         <PageHeader.Title>Title</PageHeader.Title>
       </PageHeader.TitleArea>

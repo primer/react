@@ -2,10 +2,10 @@
   "id": "tooltip",
   "name": "Tooltip",
   "docsId": "tooltip",
-  "status": "alpha",
+  "status": "deprecated",
   "a11yReviewed": false,
   "stories": [],
-  "importPath": "@primer/react",
+  "importPath": "@primer/react/deprecated",
   "props": [
     {
       "name": "align",

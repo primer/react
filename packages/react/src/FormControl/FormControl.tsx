@@ -1,23 +1,30 @@
+import {clsx} from 'clsx'
 import React, {useContext} from 'react'
 import Autocomplete from '../Autocomplete'
-import Box from '../Box'
 import Checkbox from '../Checkbox'
 import Radio from '../Radio'
-import Select from '../Select'
+import Select from '../Select/Select'
+import {SelectPanel} from '../SelectPanel'
 import TextInput from '../TextInput'
 import TextInputWithTokens from '../TextInputWithTokens'
 import Textarea from '../Textarea'
 import {CheckboxOrRadioGroupContext} from '../internal/components/CheckboxOrRadioGroup'
 import ValidationAnimationContainer from '../internal/components/ValidationAnimationContainer'
-import {get} from '../constants'
 import {useSlots} from '../hooks/useSlots'
 import type {SxProp} from '../sx'
 import {useId} from '../hooks/useId'
-import FormControlCaption from './_FormControlCaption'
-import FormControlLabel from './_FormControlLabel'
-import FormControlLeadingVisual from './_FormControlLeadingVisual'
+import {FormControlCaption} from './FormControlCaption'
+import FormControlLabel from './FormControlLabel'
+import FormControlLeadingVisual from './FormControlLeadingVisual'
 import FormControlValidation from './_FormControlValidation'
 import {FormControlContextProvider} from './_FormControlContext'
+import {warning} from '../utils/warning'
+import styled from 'styled-components'
+import sx from '../sx'
+import {toggleStyledComponent} from '../internal/utils/toggleStyledComponent'
+import {cssModulesFlag} from './feature-flags'
+import {useFeatureFlag} from '../FeatureFlags'
+import classes from './FormControl.module.css'
 
 export type FormControlProps = {
   children?: React.ReactNode
@@ -38,17 +45,28 @@ export type FormControlProps = {
    * Vertical layout is used by default, and horizontal layout is used for checkbox and radio inputs.
    */
   layout?: 'horizontal' | 'vertical'
+  className?: string
 } & SxProp
 
 const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
-  ({children, disabled: disabledProp, layout = 'vertical', id: idProp, required, sx}, ref) => {
+  ({children, disabled: disabledProp, layout = 'vertical', id: idProp, required, sx, className}, ref) => {
+    const enabled = useFeatureFlag(cssModulesFlag)
     const [slots, childrenWithoutSlots] = useSlots(children, {
       caption: FormControlCaption,
       label: FormControlLabel,
       leadingVisual: FormControlLeadingVisual,
       validation: FormControlValidation,
     })
-    const expectedInputComponents = [Autocomplete, Checkbox, Radio, Select, TextInput, TextInputWithTokens, Textarea]
+    const expectedInputComponents = [
+      Autocomplete,
+      Checkbox,
+      Radio,
+      Select,
+      TextInput,
+      TextInputWithTokens,
+      Textarea,
+      SelectPanel,
+    ]
     const choiceGroupContext = useContext(CheckboxOrRadioGroupContext)
     const disabled = choiceGroupContext.disabled || disabledProp
     const id = useId(idProp)
@@ -61,26 +79,21 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
     const inputProps = React.isValidElement(InputComponent) && InputComponent.props
     const isChoiceInput =
       React.isValidElement(InputComponent) && (InputComponent.type === Checkbox || InputComponent.type === Radio)
+    const isRadioInput = React.isValidElement(InputComponent) && InputComponent.type === Radio
 
     if (InputComponent) {
-      if (inputProps?.id) {
-        // eslint-disable-next-line no-console
-        console.warn(
-          `instead of passing the 'id' prop directly to the input component, it should be passed to the parent component, <FormControl>`,
-        )
-      }
-      if (inputProps?.disabled) {
-        // eslint-disable-next-line no-console
-        console.warn(
-          `instead of passing the 'disabled' prop directly to the input component, it should be passed to the parent component, <FormControl>`,
-        )
-      }
-      if (inputProps?.required) {
-        // eslint-disable-next-line no-console
-        console.warn(
-          `instead of passing the 'required' prop directly to the input component, it should be passed to the parent component, <FormControl>`,
-        )
-      }
+      warning(
+        inputProps?.id,
+        `instead of passing the 'id' prop directly to the input component, it should be passed to the parent component, <FormControl>`,
+      )
+      warning(
+        inputProps?.disabled,
+        `instead of passing the 'disabled' prop directly to the input component, it should be passed to the parent component, <FormControl>`,
+      )
+      warning(
+        inputProps?.required,
+        `instead of passing the 'required' prop directly to the input component, it should be passed to the parent component, <FormControl>`,
+      )
     }
 
     if (!slots.label) {
@@ -91,24 +104,20 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
     }
 
     if (isChoiceInput) {
-      if (slots.validation) {
-        // eslint-disable-next-line no-console
-        console.warn(
-          'Validation messages are not rendered for an individual checkbox or radio. The validation message should be shown for all options.',
-        )
-      }
+      warning(
+        !!slots.validation,
+        'Validation messages are not rendered for an individual checkbox or radio. The validation message should be shown for all options.',
+      )
 
-      if (childrenWithoutSlots.find(child => React.isValidElement(child) && child.props?.required)) {
-        // eslint-disable-next-line no-console
-        console.warn('An individual checkbox or radio cannot be a required field.')
-      }
+      warning(
+        isRadioInput && childrenWithoutSlots.find(child => React.isValidElement(child) && child.props?.required),
+        'An individual radio cannot be a required field.',
+      )
     } else {
-      if (slots.leadingVisual) {
-        // eslint-disable-next-line no-console
-        console.warn(
-          'A leading visual is only rendered for a checkbox or radio form control. If you want to render a leading visual inside of your input, check if your input supports a leading visual.',
-        )
-      }
+      warning(
+        !!slots.leadingVisual,
+        'A leading visual is only rendered for a checkbox or radio form control. If you want to render a leading visual inside of your input, check if your input supports a leading visual.',
+      )
     }
 
     const isLabelHidden = slots.label?.props.visuallyHidden
@@ -124,61 +133,62 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
         }}
       >
         {isChoiceInput || layout === 'horizontal' ? (
-          <Box ref={ref} display="flex" alignItems={slots.leadingVisual ? 'center' : undefined} sx={sx}>
-            <Box sx={{'> input': {marginLeft: 0, marginRight: 0}}}>
-              {React.isValidElement(InputComponent) &&
-                React.cloneElement(
-                  InputComponent as React.ReactElement<{
-                    id: string
-                    disabled: boolean
-                    ['aria-describedby']: string
-                  }>,
-                  {
-                    id,
-                    disabled,
-                    ['aria-describedby']: captionId as string,
-                  },
-                )}
+          <StyledHorizontalLayout
+            ref={ref}
+            data-has-leading-visual={slots.leadingVisual ? '' : undefined}
+            sx={sx}
+            className={clsx(className, {
+              [classes.ControlHorizontalLayout]: enabled,
+            })}
+          >
+            <StyledChoiceInputs className={classes.ControlChoiceInputs}>
+              {React.isValidElement(InputComponent)
+                ? React.cloneElement(
+                    InputComponent as React.ReactElement<{
+                      id: string
+                      disabled: boolean
+                      required: boolean
+                      ['aria-describedby']: string
+                    }>,
+                    {
+                      id,
+                      disabled,
+                      // allow checkboxes to be required
+                      required: required && !isRadioInput,
+                      ['aria-describedby']: captionId as string,
+                    },
+                  )
+                : null}
               {childrenWithoutSlots.filter(
                 child =>
                   React.isValidElement(child) &&
                   ![Checkbox, Radio].some(inputComponent => child.type === inputComponent),
               )}
-            </Box>
-            {slots.leadingVisual && (
-              <Box
-                color={disabled ? 'fg.muted' : 'fg.default'}
-                sx={{
-                  '> *': {
-                    minWidth: slots.caption ? get('fontSizes.4') : get('fontSizes.2'),
-                    minHeight: slots.caption ? get('fontSizes.4') : get('fontSizes.2'),
-                    fill: 'currentColor',
-                  },
-                }}
-                ml={2}
+            </StyledChoiceInputs>
+            {slots.leadingVisual ? (
+              <StyledLeadingVisual
+                className={clsx({
+                  [classes.LeadingVisual]: enabled,
+                })}
+                data-disabled={disabled ? '' : undefined}
+                data-has-caption={slots.caption ? '' : undefined}
               >
                 {slots.leadingVisual}
-              </Box>
-            )}
-            {!slots.label?.props.visuallyHidden || slots.caption ? (
-              <Box display="flex" flexDirection="column" ml={2}>
-                {slots.label}
-                {slots.caption}
-              </Box>
-            ) : (
-              <>
-                {slots.label}
-                {slots.caption}
-              </>
-            )}
-          </Box>
+              </StyledLeadingVisual>
+            ) : null}
+            <StyledLabelContainer className={classes.LabelContainer}>
+              {slots.label}
+              {slots.caption}
+            </StyledLabelContainer>
+          </StyledHorizontalLayout>
         ) : (
-          <Box
+          <StyledVerticalLayout
             ref={ref}
-            display="flex"
-            flexDirection="column"
-            alignItems="flex-start"
-            sx={{...(isLabelHidden ? {'> *:not(label) + *': {marginTop: 1}} : {'> * + *': {marginTop: 1}}), ...sx}}
+            data-has-label={!isLabelHidden ? '' : undefined}
+            sx={sx}
+            className={clsx(className, {
+              [classes.ControlVerticalLayout]: enabled,
+            })}
           >
             {slots.label}
             {React.isValidElement(InputComponent) &&
@@ -204,11 +214,94 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
               <ValidationAnimationContainer show>{slots.validation}</ValidationAnimationContainer>
             ) : null}
             {slots.caption}
-          </Box>
+          </StyledVerticalLayout>
         )}
       </FormControlContextProvider>
     )
   },
+)
+
+const StyledHorizontalLayout = toggleStyledComponent(
+  cssModulesFlag,
+  'div',
+  styled.div`
+    display: flex;
+
+    &:where([data-has-leading-visual]) {
+      align-items: center;
+    }
+
+    ${sx}
+  `,
+)
+
+const StyledChoiceInputs = toggleStyledComponent(
+  cssModulesFlag,
+  'div',
+  styled.div`
+    > input {
+      margin-left: 0;
+      margin-right: 0;
+    }
+  `,
+)
+
+const StyledLabelContainer = toggleStyledComponent(
+  cssModulesFlag,
+  'div',
+  styled.div`
+    > * {
+      padding-left: var(--stack-gap-condensed);
+    }
+
+    > label {
+      font-weight: var(--base-text-weight-normal);
+    }
+  `,
+)
+
+const StyledVerticalLayout = toggleStyledComponent(
+  cssModulesFlag,
+  'div',
+  styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    & > *:not(label) + * {
+      margin-top: var(--base-size-4);
+    }
+
+    &:where([data-has-label]) > * + * {
+      margin-top: var(--base-size-4);
+    }
+
+    ${sx}
+  `,
+)
+
+const StyledLeadingVisual = toggleStyledComponent(
+  cssModulesFlag,
+  'div',
+  styled.div`
+    color: var(--fgColor-default);
+    margin-left: var(--base-size-8);
+
+    &:where([data-disabled]) {
+      color: var(--fgColor-muted);
+    }
+
+    > * {
+      fill: currentColor;
+      min-width: var(--text-body-size-large);
+      min-height: var(--text-body-size-large);
+    }
+
+    > *:where([data-has-caption]) {
+      min-width: var(--base-size-24);
+      min-height: var(--base-size-24);
+    }
+  `,
 )
 
 export default Object.assign(FormControl, {

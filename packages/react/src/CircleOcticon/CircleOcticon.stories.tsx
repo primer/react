@@ -1,59 +1,54 @@
 import React from 'react'
 import type {Meta, StoryFn} from '@storybook/react'
 import CircleOcticon from './CircleOcticon'
+import type {CircleOcticonProps} from './CircleOcticon'
 import {CheckIcon} from '@primer/octicons-react'
+// eslint-disable-next-line import/no-namespace
+import * as Icons from '@primer/octicons-react'
 
-export default {
+const meta: Meta<typeof CircleOcticon> = {
   title: 'Components/CircleOcticon',
   component: CircleOcticon,
-} as Meta<typeof CircleOcticon>
+}
+export default meta
 
 export const Default = () => (
-  <CircleOcticon icon={CheckIcon} size={32} sx={{backgroundColor: 'success.fg', color: 'fg.onEmphasis'}} />
+  <CircleOcticon
+    icon={CheckIcon}
+    size={32}
+    sx={{backgroundColor: 'success.emphasis', color: 'fg.onEmphasis'}}
+    aria-label="Changes approved"
+  />
 )
 
-export const Playground: StoryFn<typeof CircleOcticon> = args => <CircleOcticon {...args} />
+type PlaygroundTypes = Omit<CircleOcticonProps, 'icon'> & {icon: keyof typeof Icons}
+export const Playground: StoryFn<PlaygroundTypes> = ({icon: iconName, 'aria-label': ariaLabel, ...args}) => (
+  <CircleOcticon icon={Icons[iconName]} aria-label={ariaLabel ? ariaLabel : undefined} {...args} />
+)
 
 Playground.args = {
-  icon: CheckIcon,
   size: 32,
-  sx: {backgroundColor: 'success.fg', color: 'fg.onEmphasis'},
+  icon: 'CheckIcon',
+  'aria-label': undefined,
+  sx: {backgroundColor: 'success.emphasis', color: 'fg.onEmphasis'},
 }
 
 Playground.argTypes = {
-  icon: {
-    controls: false,
-    table: {
-      disable: true,
-    },
-  },
   size: {
     controls: {
       type: 'number',
     },
   },
+  icon: {
+    control: {
+      type: 'select',
+    },
+    options: Object.keys(Icons),
+  },
+  'aria-label': {
+    type: 'string',
+  },
   sx: {
     controls: false,
-    table: {
-      disable: true,
-    },
-  },
-  as: {
-    controls: false,
-    table: {
-      disable: true,
-    },
-  },
-  ref: {
-    controls: false,
-    table: {
-      disable: true,
-    },
-  },
-  theme: {
-    controls: false,
-    table: {
-      disable: true,
-    },
   },
 }

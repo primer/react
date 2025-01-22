@@ -6,7 +6,7 @@ import userEvent from '@testing-library/user-event'
 import {behavesAsComponent, checkExports} from '../utils/testing'
 import {SegmentedControl} from '.' // TODO: update import when we move this to the global index
 import theme from '../theme'
-import {BaseStyles, SSRProvider, ThemeProvider} from '..'
+import {BaseStyles, ThemeProvider} from '..'
 import {act} from 'react-test-renderer'
 import {viewportRanges} from '../hooks/useResponsiveValue'
 
@@ -234,17 +234,15 @@ describe('SegmentedControl', () => {
     const handleChange = jest.fn()
     const component = render(
       <ThemeProvider theme={theme}>
-        <SSRProvider>
-          <BaseStyles>
-            <SegmentedControl aria-label="File view" onChange={handleChange} variant={{narrow: 'dropdown'}}>
-              {segmentData.map(({label}, index) => (
-                <SegmentedControl.Button selected={index === 0} key={label}>
-                  {label}
-                </SegmentedControl.Button>
-              ))}
-            </SegmentedControl>
-          </BaseStyles>
-        </SSRProvider>
+        <BaseStyles>
+          <SegmentedControl aria-label="File view" onChange={handleChange} variant={{narrow: 'dropdown'}}>
+            {segmentData.map(({label}, index) => (
+              <SegmentedControl.Button selected={index === 0} key={label}>
+                {label}
+              </SegmentedControl.Button>
+            ))}
+          </SegmentedControl>
+        </BaseStyles>
       </ThemeProvider>,
     )
     const button = component.getByText(segmentData[0].label)
@@ -264,17 +262,15 @@ describe('SegmentedControl', () => {
     const handleClick = jest.fn()
     const component = render(
       <ThemeProvider theme={theme}>
-        <SSRProvider>
-          <BaseStyles>
-            <SegmentedControl aria-label="File view" variant={{narrow: 'dropdown'}}>
-              {segmentData.map(({label}, index) => (
-                <SegmentedControl.Button selected={index === 0} key={label} onClick={handleClick}>
-                  {label}
-                </SegmentedControl.Button>
-              ))}
-            </SegmentedControl>
-          </BaseStyles>
-        </SSRProvider>
+        <BaseStyles>
+          <SegmentedControl aria-label="File view" variant={{narrow: 'dropdown'}}>
+            {segmentData.map(({label}, index) => (
+              <SegmentedControl.Button selected={index === 0} key={label} onClick={handleClick}>
+                {label}
+              </SegmentedControl.Button>
+            ))}
+          </SegmentedControl>
+        </BaseStyles>
       </ThemeProvider>,
     )
     const button = component.getByText(segmentData[0].label)
@@ -323,6 +319,21 @@ describe('SegmentedControl', () => {
 
     expect(spy).toHaveBeenCalledTimes(2)
     spy.mockRestore()
+  })
+
+  it('should include the visual text if the user specifies an aria-label', () => {
+    const {getByLabelText} = render(
+      <SegmentedControl aria-label="File view" variant={{narrow: 'dropdown'}}>
+        {segmentData.map(({label}, index) => (
+          <SegmentedControl.Button selected={index === 2} key={label}>
+            {label}
+          </SegmentedControl.Button>
+        ))}
+      </SegmentedControl>,
+    )
+
+    const menuButton = getByLabelText('Blame, File view')
+    expect(menuButton).toBeInTheDocument()
   })
 })
 

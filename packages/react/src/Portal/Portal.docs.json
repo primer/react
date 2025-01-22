@@ -3,7 +3,20 @@
   "name": "Portal",
   "status": "alpha",
   "a11yReviewed": false,
-  "stories": [],
+  "stories": [
+    {
+      "id": "behaviors-portal--default"
+    },
+    {
+      "id": "behaviors-portal-features--custom-portal-root-by-id"
+    },
+    {
+      "id": "behaviors-portal-features--custom-portal-root-by-registration"
+    },
+    {
+      "id": "behaviors-portal-features--multiple-portal-roots"
+    }
+  ],
   "importPath": "@primer/react",
   "props": [
     {

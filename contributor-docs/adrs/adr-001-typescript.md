@@ -1,4 +1,4 @@
-# ADR 1: TypeScript
+# TypeScript
 
 ## Status
 

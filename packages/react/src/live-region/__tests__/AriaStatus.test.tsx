@@ -1,16 +1,8 @@
 import {render, screen} from '@testing-library/react'
 import React from 'react'
-import type {LiveRegionElement} from '@primer/live-region-element'
 import {AriaStatus} from '../AriaStatus'
 import {userEvent} from '@testing-library/user-event'
-
-function getLiveRegion(): LiveRegionElement {
-  const liveRegion = document.querySelector('live-region')
-  if (liveRegion) {
-    return liveRegion as LiveRegionElement
-  }
-  throw new Error('No live-region found')
-}
+import {getLiveRegion} from '../../utils/testing'
 
 describe('AriaStatus', () => {
   beforeEach(() => {

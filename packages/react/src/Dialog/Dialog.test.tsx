@@ -1,11 +1,12 @@
 import React from 'react'
-import {render, waitFor} from '@testing-library/react'
+import {fireEvent, render, waitFor} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {Dialog} from './Dialog'
 import MatchMediaMock from 'jest-matchmedia-mock'
 import {behavesAsComponent, checkExports} from '../utils/testing'
 import axe from 'axe-core'
 import {Button} from '../Button'
+import {FeatureFlags} from '../FeatureFlags'
 
 let matchMedia: MatchMediaMock
 
@@ -83,6 +84,24 @@ describe('Dialog', () => {
     await user.click(backdrop)
 
     expect(onClose).toHaveBeenCalledWith('escape')
+  })
+
+  it('does not call `onClose` when click was not originated from backdrop', async () => {
+    const onClose = jest.fn()
+
+    const {getByRole} = render(<Dialog onClose={onClose}>Pay attention to me</Dialog>)
+
+    expect(onClose).not.toHaveBeenCalled()
+
+    const dialog = getByRole('dialog')
+    const backdrop = dialog.parentElement!
+
+    fireEvent.mouseDown(dialog)
+    fireEvent.mouseUp(backdrop)
+    // trigger the click on the backdrop, mouseUp doesn't do it for us
+    fireEvent.click(backdrop)
+
+    expect(onClose).not.toHaveBeenCalled()
   })
 
   it('calls `onClose` when keying "Escape"', async () => {
@@ -208,4 +227,69 @@ describe('Dialog', () => {
 
     expect(getByRole('button', {name: 'return focus to (button 2)'})).toHaveFocus()
   })
+
+  it('should support `className` on the Dialog element', async () => {
+    const Fixture = () => {
+      const [isOpen, setIsOpen] = React.useState(true)
+      const triggerRef = React.useRef<HTMLButtonElement>(null)
+
+      return (
+        <>
+          <Button variant="primary" onClick={() => setIsOpen(true)}>
+            Show dialog
+          </Button>
+          {isOpen && (
+            <Dialog title="title" onClose={() => setIsOpen(false)} returnFocusRef={triggerRef} className="custom-class">
+              body
+            </Dialog>
+          )}
+        </>
+      )
+    }
+
+    const FeatureFlagElement = () => {
+      return (
+        <FeatureFlags
+          flags={{
+            primer_react_css_modules_team: true,
+            primer_react_css_modules_staff: true,
+            primer_react_css_modules_ga: true,
+          }}
+        >
+          <Fixture />
+        </FeatureFlags>
+      )
+    }
+
+    const user = userEvent.setup()
+
+    let component = render(<Fixture />)
+    let triggerButton = component.getByRole('button', {name: 'Show dialog'})
+    await user.click(triggerButton)
+    expect(component.getByRole('dialog')).toHaveClass('custom-class')
+    component.unmount()
+
+    component = render(<FeatureFlagElement />)
+    triggerButton = component.getByRole('button', {name: 'Show dialog'})
+    await user.click(triggerButton)
+    expect(component.getByRole('dialog')).toHaveClass('custom-class')
+  })
+})
+
+it('automatically focuses the element that is specified as initialFocusRef', () => {
+  const initialFocusRef = React.createRef<HTMLAnchorElement>()
+  const {getByRole} = render(
+    <Dialog
+      initialFocusRef={initialFocusRef}
+      onClose={() => {}}
+      title="New issue"
+      renderBody={() => (
+        <a ref={initialFocusRef} href="https://github.com">
+          Item 1
+        </a>
+      )}
+    ></Dialog>,
+  )
+
+  expect(getByRole('link')).toHaveFocus()
 })

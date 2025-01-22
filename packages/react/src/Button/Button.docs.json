@@ -3,7 +3,86 @@
   "name": "Button",
   "status": "alpha",
   "a11yReviewed": false,
-  "stories": [],
+  "stories": [
+    {
+      "id": "components-button--default"
+    },
+    {
+      "id": "components-button-features--primary"
+    },
+    {
+      "id": "components-button-features--danger"
+    },
+    {
+      "id": "components-button-features--invisible"
+    },
+    {
+      "id": "components-button-features--link"
+    },
+    {
+      "id": "components-button-features--leading-visual"
+    },
+    {
+      "id": "components-button-features--trailing-visual"
+    },
+    {
+      "id": "components-button-features--trailing-counter"
+    },
+    {
+      "id": "components-button-features--trailing-counter-with-no-text"
+    },
+    {
+      "id": "components-button-features--trailing-counter-all-variants"
+    },
+    {
+      "id": "components-button-features--trailing-action"
+    },
+    {
+      "id": "components-button-features--block"
+    },
+    {
+      "id": "components-button-features--disabled"
+    },
+    {
+      "id": "components-button-features--inactive"
+    },
+    {
+      "id": "components-button-features--small"
+    },
+    {
+      "id": "components-button-features--medium"
+    },
+    {
+      "id": "components-button-features--large"
+    },
+    {
+      "id": "components-button-features--loading"
+    },
+    {
+      "id": "components-button-features--loading-custom-announcement"
+    },
+    {
+      "id": "components-button-features--loading-with-leading-visual"
+    },
+    {
+      "id": "components-button-features--loading-with-trailing-visual"
+    },
+    {
+      "id": "components-button-features--loading-with-trailing-action"
+    },
+    {
+      "id": "components-button-features--loading-trigger"
+    },
+    {
+      "id": "components-button-features--label-wrap"
+    },
+    {
+      "id": "components-button-features--inactive-button-with-tooltip"
+    },
+    {
+      "id": "components-button-features--expanded-button"
+    }
+  ],
   "importPath": "@primer/react",
   "props": [
     {
@@ -29,13 +108,8 @@
     },
     {
       "name": "count",
-      "type": "number | string",
+      "type": "number",
       "description": "For counter buttons, the number to display."
-    },
-    {
-      "name": "disabled",
-      "type": "boolean",
-      "description": "Items that are disabled can not be clicked, selected, or navigated through."
     },
     {
       "name": "inactive",
@@ -53,6 +127,17 @@
       "type": "React.ElementType",
       "description": "A visual to display before the button text."
     },
+    {
+      "name": "loading",
+      "type": "boolean",
+      "description": "When true, the button is in a loading state."
+    },
+    {
+      "name": "loadingAnnouncement",
+      "type": "string",
+      "description": "The content to announce to screen readers when loading. This requires `loading` prop to be true"
+    },
+
     {
       "name": "ref",
       "type": "React.RefObject<HTMLButtonElement>"
@@ -78,8 +163,13 @@
       "description": "A visual to display after the button text."
     },
     {
+      "name": "trailingAction",
+      "type": "React.ElementType",
+      "description": "Trailing action appears to the right of the trailing visual and is always locked to the end"
+    },
+    {
       "name": "variant",
-      "type": "'default'\n| 'primary'\n| 'danger'\n| 'invisible'",
+      "type": "'default'\n| 'primary'\n| 'danger'\n| 'invisible'\n| 'link'",
       "defaultValue": "'default'",
       "description": "Change the visual style of the button."
     },
@@ -88,6 +178,12 @@
       "type": "boolean",
       "defaultValue": "false",
       "description": "Whether the button label should wrap to multiple lines of it is longer than the button width."
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "description": "Avoid disabling buttons because it will make them inaccessible to users who rely on keyboard navigation. Buttons that are disabled can not be clicked, selected, or navigated through.",
+      "defaultValue": ""
     }
   ],
   "passthrough": {

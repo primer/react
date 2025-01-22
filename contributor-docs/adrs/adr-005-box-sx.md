@@ -1,4 +1,4 @@
-# ADR 005: Use Box as a building block for all other components
+# Use Box as a building block for all other components
 
 ## Status
 

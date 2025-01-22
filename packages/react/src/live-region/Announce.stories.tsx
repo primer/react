@@ -3,7 +3,7 @@ import {Announce} from './Announce'
 import type {StoryObj} from '@storybook/react'
 
 export default {
-  title: 'Drafts/Components/Announce',
+  title: 'Experimental/Components/Announce',
   component: Announce,
 }
 

@@ -21,12 +21,22 @@ const Fixture = ({
       <div ref={refNotAttached ? undefined : containerRef} data-testid="container">
         {hasInput && <input autoFocus type="text" placeholder="Filter options" />}
         {hasTextarea && <textarea autoFocus placeholder="Filter options" />}
-        <button onKeyDown={onSelect}>button 1</button>
-        <button onKeyDown={onSelect}>Button 2</button>
-        <button onKeyDown={onSelect}>third button</button>
-        <button disabled>fourth button is disabled</button>
-        <button onKeyDown={onSelect}>button 5</button>
-        <button onKeyDown={onSelect} aria-keyshortcuts="6 E">
+        <button type="button" onKeyDown={onSelect}>
+          button 1
+        </button>
+        <button type="button" onKeyDown={onSelect}>
+          Button 2
+        </button>
+        <button type="button" onKeyDown={onSelect}>
+          third button
+        </button>
+        <button type="button" disabled>
+          fourth button is disabled
+        </button>
+        <button type="button" onKeyDown={onSelect}>
+          button 5
+        </button>
+        <button type="button" onKeyDown={onSelect} aria-keyshortcuts="6 E">
           button 6
         </button>
         <span>not focusable</span>

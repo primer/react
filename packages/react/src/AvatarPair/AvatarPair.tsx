@@ -1,31 +1,13 @@
-import React from 'react'
-import styled from 'styled-components'
+import React, {type HTMLProps} from 'react'
 import type {AvatarProps} from '../Avatar'
 import Avatar from '../Avatar'
-import {get} from '../constants'
-import Box, {type BoxProps} from '../Box'
-import {SkeletonAvatar} from '../drafts/Skeleton/SkeletonAvatar'
+import {SkeletonAvatar} from '../experimental/Skeleton/SkeletonAvatar'
+import classes from './AvatarPair.module.css'
+import {clsx} from 'clsx'
 
-const StyledAvatarPair = styled(Box)`
-  position: relative;
-  display: inline-flex;
+export type AvatarPairProps = HTMLProps<HTMLDivElement>
 
-  [data-component='Avatar']:last-child,
-  [data-component='SkeletonAvatar']:last-child {
-    position: absolute;
-    right: -15%;
-    bottom: -9%;
-    box-shadow: ${get('shadows.avatar.childShadow')};
-  }
-
-  [data-component='SkeletonAvatar']:last-child {
-    box-shadow: inset ${get('shadows.avatar.childShadow')};
-  }
-`
-
-export type AvatarPairProps = BoxProps
-
-const AvatarPair = ({children, ...rest}: AvatarPairProps) => {
+const AvatarPair = ({children, className, ...rest}: AvatarPairProps) => {
   const avatars = React.Children.map(children, (child, i) => {
     if (!React.isValidElement(child)) {
       return child
@@ -39,13 +21,16 @@ const AvatarPair = ({children, ...rest}: AvatarPairProps) => {
       return <SkeletonAvatar {...child.props} size={20} />
     }
 
-    return <Avatar bg="canvas.default" {...child.props} size={20} />
+    return <Avatar className={clsx(child.props.className, classes.AvatarChild)} {...child.props} size={20} />
   })
 
-  return <StyledAvatarPair {...rest}>{avatars}</StyledAvatarPair>
+  return (
+    <div className={clsx(className, classes.AvatarPair)} {...rest}>
+      {avatars}
+    </div>
+  )
 }
 
-// styled() changes this
 AvatarPair.displayName = 'AvatarPair'
 
 export default AvatarPair

@@ -12,7 +12,7 @@ export default {
 
 export const SettingsPage: StoryFn<typeof SplitPageLayout> = () => (
   <SplitPageLayout>
-    <SplitPageLayout.Pane position="start">
+    <SplitPageLayout.Pane position="start" aria-label="Navigation Pane">
       <NavList aria-label="Main navigation">
         <NavList.Item href="#">Profile</NavList.Item>
         <NavList.Item href="#" aria-current="page">

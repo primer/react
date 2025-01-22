@@ -84,6 +84,27 @@ describe('Table.Pagination', () => {
       await user.click(getPreviousPage())
       expect(onChange).not.toHaveBeenCalled()
     })
+
+    it('should rerender many pages correctly', async () => {
+      const onChange = jest.fn()
+
+      const {rerender} = render(
+        <Pagination aria-label="Test label" onChange={onChange} defaultPageIndex={0} pageSize={25} totalCount={25} />,
+      )
+      expect(getPages()).toHaveLength(1)
+      expect(getCurrentPage()).toEqual(getPage(0))
+      expect(getPageRange()).toEqual('1 through 25 of 25')
+
+      rerender(
+        <Pagination onChange={onChange} aria-label="Test label" defaultPageIndex={2} pageSize={5} totalCount={300} />,
+      )
+      expect(getPageRange()).toEqual('11 through 15 of 300')
+      expect(getCurrentPage()).toEqual(getPage(2))
+      expect(getInvalidPages()).toHaveLength(0)
+      expect(onChange).toHaveBeenCalledWith({
+        pageIndex: 2,
+      })
+    })
   })
 
   describe('with two pages', () => {
@@ -112,6 +133,32 @@ describe('Table.Pagination', () => {
         pageIndex: 0,
       })
       expect(getPageRange()).toEqual('1 through 25 of 50')
+    })
+
+    it('should rerender pager with correct page highlighted when clicking on pages and defaultPageIndex set', async () => {
+      const user = userEvent.setup()
+      const onChange = jest.fn()
+
+      render(
+        <Pagination aria-label="Test label" onChange={onChange} defaultPageIndex={3} pageSize={25} totalCount={200} />,
+      )
+
+      expect(getPageRange()).toEqual('76 through 100 of 200')
+      expect(getCurrentPage()).toEqual(getPage(3))
+
+      await user.click(getPage(1))
+      expect(onChange).toHaveBeenCalledWith({
+        pageIndex: 1,
+      })
+      expect(getPageRange()).toEqual('26 through 50 of 200')
+      expect(getCurrentPage()).toEqual(getPage(1))
+
+      await user.click(getPage(0))
+      expect(onChange).toHaveBeenCalledWith({
+        pageIndex: 0,
+      })
+      expect(getPageRange()).toEqual('1 through 25 of 200')
+      expect(getCurrentPage()).toEqual(getPage(0))
     })
 
     it('should call `onChange` when using the keyboard to interact with pages', async () => {
@@ -165,6 +212,31 @@ describe('Table.Pagination', () => {
       })
     })
 
+    it('should rerender pager with correct page highlighted when clicking on previous or next and defaultPageIndex set', async () => {
+      const user = userEvent.setup()
+      const onChange = jest.fn()
+
+      render(
+        <Pagination aria-label="Test label" onChange={onChange} defaultPageIndex={3} pageSize={25} totalCount={200} />,
+      )
+
+      expect(getPageRange()).toEqual('76 through 100 of 200')
+
+      await user.click(getNextPage())
+      expect(onChange).toHaveBeenCalledWith({
+        pageIndex: 4,
+      })
+      expect(getPageRange()).toEqual('101 through 125 of 200')
+      expect(getCurrentPage()).toEqual(getPage(4))
+
+      await user.click(getPreviousPage())
+      expect(onChange).toHaveBeenCalledWith({
+        pageIndex: 3,
+      })
+      expect(getPageRange()).toEqual('76 through 100 of 200')
+      expect(getCurrentPage()).toEqual(getPage(3))
+    })
+
     it('should call `onChange` when using the keyboard to interact with previous or next', async () => {
       const user = userEvent.setup()
       const onChange = jest.fn()
@@ -193,6 +265,27 @@ describe('Table.Pagination', () => {
       expect(getPreviousPage()).toHaveFocus()
 
       await user.keyboard('{Enter}')
+      expect(onChange).toHaveBeenCalledWith({
+        pageIndex: 0,
+      })
+    })
+
+    it('should rerender many pages correctly', async () => {
+      const onChange = jest.fn()
+
+      const {rerender} = render(
+        <Pagination aria-label="Test label" onChange={onChange} defaultPageIndex={1} pageSize={25} totalCount={50} />,
+      )
+      expect(getPages()).toHaveLength(2)
+      expect(getCurrentPage()).toEqual(getPage(1))
+      expect(getPageRange()).toEqual('26 through 50 of 50')
+
+      rerender(
+        <Pagination aria-label="Test label" onChange={onChange} defaultPageIndex={0} pageSize={5} totalCount={300} />,
+      )
+      expect(getPageRange()).toEqual('1 through 5 of 300')
+      expect(getCurrentPage()).toEqual(getPage(0))
+      expect(getInvalidPages()).toHaveLength(0)
       expect(onChange).toHaveBeenCalledWith({
         pageIndex: 0,
       })
@@ -242,6 +335,34 @@ describe('Table.Pagination', () => {
       expect(pages).toHaveLength(7)
     })
   })
+
+  it('should rerender many pages correctly', async () => {
+    const onChange = jest.fn()
+    const {rerender} = render(
+      <Pagination aria-label="Test label" onChange={onChange} defaultPageIndex={1} pageSize={10} totalCount={1000} />,
+    )
+    expect(getPages()).toHaveLength(8)
+    expect(getCurrentPage()).toEqual(getPage(1))
+    expect(getPageRange()).toEqual('11 through 20 of 1000')
+
+    rerender(
+      <Pagination aria-label="Test label" onChange={onChange} defaultPageIndex={0} pageSize={5} totalCount={300} />,
+    )
+    expect(getPageRange()).toEqual('1 through 5 of 300')
+    expect(getFirstPage()).toEqual(getCurrentPage())
+    expect(getInvalidPages()).toHaveLength(0)
+    expect(onChange).toHaveBeenCalledWith({
+      pageIndex: 0,
+    })
+  })
+
+  it('when rendering 3 pages and the second page is selected we should render a page number not ...', async () => {
+    const onChange = jest.fn()
+    render(<Pagination aria-label="Test label" onChange={onChange} defaultPageIndex={1} pageSize={2} totalCount={6} />)
+    expect(getPageRange()).toEqual('3 through 4 of 6')
+    expect(getCurrentPage()).toEqual(getPage(1))
+    expect(getInvalidPages()).toHaveLength(0)
+  })
 })
 
 function getPages() {
@@ -286,6 +407,10 @@ function getFirstPage() {
 function getLastPage() {
   const pages = getPages()
   return pages[pages.length - 1]
+}
+
+function getInvalidPages() {
+  return getPages().filter(p => p.textContent?.match(/Page\s-/g) || p.textContent?.match(/Page\s0$/g))
 }
 
 function getPageRange() {

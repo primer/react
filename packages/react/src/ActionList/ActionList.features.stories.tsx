@@ -11,6 +11,7 @@ import Box from '../Box'
 import Label from '../Label'
 import Heading from '../Heading'
 import {AnchoredOverlay} from '../AnchoredOverlay'
+import CounterLabel from '../CounterLabel'
 import {
   EyeIcon,
   BookIcon,
@@ -25,7 +26,9 @@ import {
   PeopleIcon,
   FileDirectoryIcon,
   PlusCircleIcon,
-  LinkExternalIcon,
+  GitPullRequestIcon,
+  IssueOpenedIcon,
+  ProjectIcon,
 } from '@primer/octicons-react'
 import {FeatureFlags} from '../FeatureFlags'
 
@@ -47,7 +50,9 @@ export const SimpleList = () => (
 
 export const WithVisualListHeading = () => (
   <ActionList>
-    <ActionList.Heading as="h2">Filter by</ActionList.Heading>
+    <ActionList.Heading as="h2" size="small">
+      Filter by
+    </ActionList.Heading>
     <ActionList.Group>
       <ActionList.GroupHeading as="h3">Repositories</ActionList.GroupHeading>
       <ActionList.Item onClick={() => {}}>
@@ -277,6 +282,7 @@ export const InactiveSingleSelect = () => {
   const [selectedIndex, setSelectedIndex] = React.useState(1)
   return (
     <ActionList selectionVariant="single" showDividers role="menu" aria-label="Project">
+      {/* menuitem because state is inactive */}
       <ActionList.Item role="menuitem" selected={false} inactiveText="Unavailable due to an outage">
         Inactive item
       </ActionList.Item>
@@ -354,6 +360,24 @@ export const ListBoxMultiSelect = () => {
   )
 }
 
+export const WithDynamicContent = () => {
+  const [isTrue, setIsTrue] = React.useState(false)
+
+  return (
+    <FeatureFlags flags={{primer_react_action_list_item_as_button: true}}>
+      <ActionList>
+        <ActionList.Item
+          onSelect={() => {
+            setIsTrue(!isTrue)
+          }}
+        >
+          Activated? {isTrue ? 'Yes' : 'No'}
+        </ActionList.Item>
+      </ActionList>
+    </FeatureFlags>
+  )
+}
+
 export const DisabledSelectedMultiselect = () => (
   <ActionList selectionVariant="multiple" role="menu" aria-label="Project">
     <ActionList.Item role="menuitemcheckbox" selected aria-checked disabled>
@@ -387,6 +411,7 @@ export const InactiveMultiselect = () => {
   }
   return (
     <ActionList selectionVariant="multiple" role="menu" aria-label="Project">
+      {/* menuitem because state is inactive */}
       <ActionList.Item role="menuitem" selected={false} inactiveText="Unavailable due to an outage">
         Inactive item
       </ActionList.Item>
@@ -442,44 +467,55 @@ export const InactiveItem = () => {
   )
 }
 
+export const LoadingItem = () => {
+  return (
+    <ActionList aria-label="Project">
+      {projects.map((project, index) => (
+        <ActionList.Item key={index} loading={index === 1}>
+          {project.name}
+          <ActionList.Description variant="block">{project.scope}</ActionList.Description>
+        </ActionList.Item>
+      ))}
+    </ActionList>
+  )
+}
+
 export const Links = () => (
-  <>
+  <ActionList>
     <ActionList.Heading as="h1" sx={{fontSize: 1}}>
       Details
     </ActionList.Heading>
-    <ActionList>
-      <ActionList.LinkItem href="https://github.com/primer/react#readme">
-        <ActionList.LeadingVisual>
-          <BookIcon />
-        </ActionList.LeadingVisual>
-        Readme
-      </ActionList.LinkItem>
-      <ActionList.LinkItem href="https://github.com/primer/react/blob/main/LICENSE">
-        <ActionList.LeadingVisual>
-          <LawIcon />
-        </ActionList.LeadingVisual>
-        MIT License
-      </ActionList.LinkItem>
-      <ActionList.LinkItem href="https://github.com/primer/react/stargazers">
-        <ActionList.LeadingVisual>
-          <StarIcon />
-        </ActionList.LeadingVisual>
-        <strong>1.5k</strong> stars
-      </ActionList.LinkItem>
-      <ActionList.LinkItem href="https://github.com/primer/react/watchers">
-        <ActionList.LeadingVisual>
-          <EyeIcon />
-        </ActionList.LeadingVisual>
-        <strong>21</strong> watching
-      </ActionList.LinkItem>
-      <ActionList.LinkItem href="https://github.com/primer/react/network/members">
-        <ActionList.LeadingVisual>
-          <RepoForkedIcon />
-        </ActionList.LeadingVisual>
-        <strong>225</strong> forks
-      </ActionList.LinkItem>
-    </ActionList>
-  </>
+    <ActionList.LinkItem href="https://github.com/primer/react#readme">
+      <ActionList.LeadingVisual>
+        <BookIcon />
+      </ActionList.LeadingVisual>
+      Readme
+    </ActionList.LinkItem>
+    <ActionList.LinkItem href="https://github.com/primer/react/blob/main/LICENSE">
+      <ActionList.LeadingVisual>
+        <LawIcon />
+      </ActionList.LeadingVisual>
+      MIT License
+    </ActionList.LinkItem>
+    <ActionList.LinkItem href="https://github.com/primer/react/stargazers">
+      <ActionList.LeadingVisual>
+        <StarIcon />
+      </ActionList.LeadingVisual>
+      <strong>1.5k</strong> stars
+    </ActionList.LinkItem>
+    <ActionList.LinkItem href="https://github.com/primer/react/watchers">
+      <ActionList.LeadingVisual>
+        <EyeIcon />
+      </ActionList.LeadingVisual>
+      <strong>21</strong> watching
+    </ActionList.LinkItem>
+    <ActionList.LinkItem href="https://github.com/primer/react/network/members">
+      <ActionList.LeadingVisual>
+        <RepoForkedIcon />
+      </ActionList.LeadingVisual>
+      <strong>225</strong> forks
+    </ActionList.LinkItem>
+  </ActionList>
 )
 
 export const CustomItemChildren = () => (
@@ -516,7 +552,19 @@ export const TextWrapAndTruncation = () => (
           <ArrowRightIcon />
         </ActionList.LeadingVisual>
         Inline Description
-        <ActionList.Description>This description gets truncated because it is inline</ActionList.Description>
+        <ActionList.Description truncate>
+          This description gets truncated because it is inline with truncation
+        </ActionList.Description>
+        <ActionList.TrailingVisual>
+          <ArrowLeftIcon />
+        </ActionList.TrailingVisual>
+      </ActionList.Item>
+      <ActionList.Item>
+        <ActionList.LeadingVisual>
+          <ArrowRightIcon />
+        </ActionList.LeadingVisual>
+        Inline Description
+        <ActionList.Description>This description wraps because it is inline without truncation</ActionList.Description>
         <ActionList.TrailingVisual>
           <ArrowLeftIcon />
         </ActionList.TrailingVisual>
@@ -620,23 +668,27 @@ export const InsideOverlay = () => {
       open={open}
       onOpen={toggle}
       onClose={toggle}
-      renderAnchor={props => <button {...props}>toggle overlay</button>}
+      renderAnchor={props => (
+        <button type="button" {...props}>
+          toggle overlay
+        </button>
+      )}
     >
-      <ActionList>
-        <ActionList.Item>
+      <ActionList role="menu">
+        <ActionList.Item role="menuitem">
           Use your arrow keys
           <ActionList.TrailingVisual>↓</ActionList.TrailingVisual>
         </ActionList.Item>
-        <ActionList.Item>
+        <ActionList.Item role="menuitem">
           keep going
           <ActionList.TrailingVisual>↓</ActionList.TrailingVisual>
         </ActionList.Item>
-        <ActionList.Item>
+        <ActionList.Item role="menuitem">
           more more
           <ActionList.TrailingVisual>↓</ActionList.TrailingVisual>
         </ActionList.Item>
         <ActionList.Divider />
-        <ActionList.Item variant="danger">
+        <ActionList.Item variant="danger" role="menuitem">
           now go up!
           <ActionList.TrailingVisual>↑</ActionList.TrailingVisual>
         </ActionList.Item>
@@ -713,82 +765,103 @@ export const GroupWithFilledTitle = () => {
   )
 }
 
-export const ActionListWithButtonSemantics = () => {
-  return (
-    <FeatureFlags flags={{primer_react_action_list_item_as_button: true}}>
-      <ActionList>
-        <ActionList.Item>Copy link</ActionList.Item>
-        <ActionList.Item inactiveText="Nothing to quote">Quote reply</ActionList.Item>
-        <ActionList.Item disabled>Edit comment</ActionList.Item>
-        <ActionList.Divider />
-        <ActionList.Item variant="danger">Delete file</ActionList.Item>
-        <ActionList.LinkItem href="https://github.com/primer/react#readme">
-          Support
-          <ActionList.TrailingVisual>
-            <LinkExternalIcon />
-          </ActionList.TrailingVisual>
-        </ActionList.LinkItem>
-      </ActionList>
-    </FeatureFlags>
-  )
-}
+export const WithCustomTrailingVisuals = () => (
+  <ActionList>
+    <ActionList.Item>
+      <ActionList.LeadingVisual>
+        <IssueOpenedIcon />
+      </ActionList.LeadingVisual>
+      Issues
+      <ActionList.TrailingVisual>
+        <CounterLabel>20</CounterLabel>
+      </ActionList.TrailingVisual>
+    </ActionList.Item>
+    <ActionList.Item>
+      <ActionList.LeadingVisual>
+        <GitPullRequestIcon />
+      </ActionList.LeadingVisual>
+      PRs
+      <ActionList.TrailingVisual>
+        <CounterLabel>12</CounterLabel>
+      </ActionList.TrailingVisual>
+    </ActionList.Item>
+    <ActionList.Item>
+      <ActionList.LeadingVisual>
+        <ProjectIcon />
+      </ActionList.LeadingVisual>
+      Projects
+      <ActionList.TrailingVisual>
+        <CounterLabel>2</CounterLabel>
+      </ActionList.TrailingVisual>
+    </ActionList.Item>
+  </ActionList>
+)
 
-ActionListWithButtonSemantics.storyName = 'With Button Semantics (Behind feature flag)'
+// removing this until CSS Modules FF ships, currently broken in production if button semantic FF is false
+// export const WithTrailingAction = () => {
+//   return (
+//     <FeatureFlags flags={{primer_react_action_list_item_as_button: true}}>
+//       <ActionList>
+//         <ActionList.Item>
+//           <ActionList.LeadingVisual>
+//             <FileDirectoryIcon />
+//           </ActionList.LeadingVisual>
+//           Item 1 (with default TrailingAction)
+//           <ActionList.TrailingAction label="Expand sidebar" icon={ArrowLeftIcon} />
+//         </ActionList.Item>
+//         <ActionList.Item>
+//           Item 2 (with link TrailingAction)
+//           <ActionList.TrailingAction as="a" href="#" label="Some action 1" icon={ArrowRightIcon} />
+//         </ActionList.Item>
+//         <ActionList.Item>
+//           Item 3<ActionList.Description>This is an inline description.</ActionList.Description>
+//           <ActionList.TrailingAction label="Some action 2" icon={BookIcon} />
+//         </ActionList.Item>
+//         <ActionList.Item>
+//           Item 4<ActionList.Description variant="block">This is a block description.</ActionList.Description>
+//           <ActionList.TrailingAction label="Some action 3" icon={BookIcon} />
+//         </ActionList.Item>
+//         <ActionList.Item>
+//           Item 5<ActionList.Description variant="block">This is a block description.</ActionList.Description>
+//           <ActionList.TrailingAction label="Some action 4" />
+//         </ActionList.Item>
+//         <ActionList.Item>
+//           Item 6
+//           <ActionList.TrailingAction href="#" as="a" label="Some action 5" />
+//         </ActionList.Item>
+//         <ActionList.LinkItem href="#">
+//           LinkItem 1
+//           <ActionList.Description>
+//             with TrailingAction this is a long description and should not cause horizontal scroll on smaller screen
+//             sizes
+//           </ActionList.Description>
+//           <ActionList.TrailingAction label="Another action" />
+//         </ActionList.LinkItem>
+//         <ActionList.LinkItem href="#">
+//           LinkItem 2
+//           <ActionList.Description>
+//             with TrailingVisual this is a long description and should not cause horizontal scroll on smaller screen
+//             sizes
+//           </ActionList.Description>
+//           <ActionList.TrailingVisual>
+//             <TableIcon />
+//           </ActionList.TrailingVisual>
+//         </ActionList.LinkItem>
+//         <ActionList.Item inactiveText="Unavailable due to an outage">
+//           Inactive Item<ActionList.Description>With TrailingAction</ActionList.Description>
+//           <ActionList.TrailingAction as="a" href="#" label="Some action 8" icon={ArrowRightIcon} />
+//         </ActionList.Item>
+//       </ActionList>
+//     </FeatureFlags>
+//   )
+// }
 
-export const WithTrailingAction = () => {
-  return (
-    <FeatureFlags flags={{primer_react_action_list_item_as_button: true}}>
-      <ActionList>
-        <ActionList.Item>
-          <ActionList.LeadingVisual>
-            <FileDirectoryIcon />
-          </ActionList.LeadingVisual>
-          Item 1 (with default TrailingAction)
-          <ActionList.TrailingAction label="Expand sidebar" icon={ArrowLeftIcon} />
-        </ActionList.Item>
-        <ActionList.Item>
-          Item 2 (with link TrailingAction)
-          <ActionList.TrailingAction as="a" href="#" label="Some action 1" icon={ArrowRightIcon} />
-        </ActionList.Item>
-        <ActionList.Item>
-          Item 3<ActionList.Description>This is an inline description.</ActionList.Description>
-          <ActionList.TrailingAction label="Some action 2" icon={BookIcon} />
-        </ActionList.Item>
-        <ActionList.Item>
-          Item 4<ActionList.Description variant="block">This is a block description.</ActionList.Description>
-          <ActionList.TrailingAction label="Some action 3" icon={BookIcon} />
-        </ActionList.Item>
-        <ActionList.Item>
-          Item 5<ActionList.Description variant="block">This is a block description.</ActionList.Description>
-          <ActionList.TrailingAction label="Some action 4" />
-        </ActionList.Item>
-        <ActionList.Item>
-          Item 6
-          <ActionList.TrailingAction href="#" as="a" label="Some action 5" />
-        </ActionList.Item>
-        <ActionList.LinkItem href="#">
-          LinkItem 1
-          <ActionList.Description>
-            with TrailingAction this is a long description and should not cause horizontal scroll on smaller screen
-            sizes
-          </ActionList.Description>
-          <ActionList.TrailingAction label="Another action" />
-        </ActionList.LinkItem>
-        <ActionList.LinkItem href="#">
-          LinkItem 2
-          <ActionList.Description>
-            with TrailingVisual this is a long description and should not cause horizontal scroll on smaller screen
-            sizes
-          </ActionList.Description>
-          <ActionList.TrailingVisual>
-            <TableIcon />
-          </ActionList.TrailingVisual>
-        </ActionList.LinkItem>
-        <ActionList.Item inactiveText="Unavailable due to an outage">
-          Inactive Item<ActionList.Description>With TrailingAction</ActionList.Description>
-          <ActionList.TrailingAction as="a" href="#" label="Some action 8" icon={ArrowRightIcon} />
-        </ActionList.Item>
-      </ActionList>
-    </FeatureFlags>
-  )
-}
+export const FullVariant = () => (
+  <ActionList variant="full">
+    <ActionList.Item>Copy link</ActionList.Item>
+    <ActionList.Item>Quote reply</ActionList.Item>
+    <ActionList.Item>Edit comment</ActionList.Item>
+    <ActionList.Divider />
+    <ActionList.Item variant="danger">Delete file</ActionList.Item>
+  </ActionList>
+)

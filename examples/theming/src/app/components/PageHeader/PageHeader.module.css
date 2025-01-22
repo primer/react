@@ -1,0 +1,12 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 4rem;
+  padding: var(--base-size-16);
+}
+
+.logo {
+  color: inherit;
+  text-decoration: none;
+}

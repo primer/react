@@ -13,8 +13,12 @@ const Component = ({callback}: ComponentProps) => {
   useOnOutsideClick({ignoreClickRefs: [secondButton], containerRef, onClickOutside: callback})
   return (
     <div>
-      <button ref={outerButton}>button</button>
-      <button ref={secondButton}>button two</button>
+      <button ref={outerButton} type="button">
+        button
+      </button>
+      <button ref={secondButton} type="button">
+        button two
+      </button>
       <div ref={containerRef}>content</div>
     </div>
   )

@@ -5,7 +5,7 @@ import {
   PencilIcon,
   SidebarExpandIcon,
   CommentDiscussionIcon,
-  CommitIcon,
+  GitCommitIcon,
   FileDiffIcon,
   ChecklistIcon,
   WorkflowIcon,
@@ -21,7 +21,7 @@ import {PageHeader} from './PageHeader'
 import {Hidden} from '../Hidden'
 
 const meta: Meta = {
-  title: 'Drafts/Components/PageHeader/Features',
+  title: 'Components/PageHeader/Features',
   parameters: {
     layout: 'fullscreen',
     controls: {expanded: true},
@@ -31,7 +31,7 @@ const meta: Meta = {
 
 export const HasTitleOnly = () => (
   <Box sx={{padding: 3}}>
-    <PageHeader>
+    <PageHeader role="banner" aria-label="Title">
       <PageHeader.TitleArea>
         <PageHeader.Title>Title</PageHeader.Title>
       </PageHeader.TitleArea>
@@ -41,7 +41,7 @@ export const HasTitleOnly = () => (
 
 export const HasLargeTitle = () => (
   <Box sx={{padding: 3}}>
-    <PageHeader>
+    <PageHeader role="banner" aria-label="Title">
       <PageHeader.TitleArea variant="large">
         <PageHeader.Title>Title</PageHeader.Title>
       </PageHeader.TitleArea>
@@ -51,7 +51,7 @@ export const HasLargeTitle = () => (
 
 export const WithLeadingAndTrailingVisuals = () => (
   <Box sx={{padding: 3}}>
-    <PageHeader>
+    <PageHeader role="banner" aria-label="Title">
       <PageHeader.TitleArea>
         <PageHeader.LeadingVisual>
           <GitPullRequestIcon />
@@ -67,7 +67,7 @@ export const WithLeadingAndTrailingVisuals = () => (
 
 export const WithLeadingVisualHiddenOnRegularViewport = () => (
   <Box sx={{padding: 3}}>
-    <PageHeader>
+    <PageHeader role="banner" aria-label="Title">
       <PageHeader.TitleArea>
         <PageHeader.LeadingVisual hidden={{regular: true}}>
           <GitPullRequestIcon />
@@ -89,7 +89,7 @@ WithLeadingVisualHiddenOnRegularViewport.parameters = {
 
 export const WithActions = () => (
   <Box sx={{padding: 3}}>
-    <PageHeader>
+    <PageHeader role="banner" aria-label="Title">
       <PageHeader.TitleArea>
         <PageHeader.Title>Title</PageHeader.Title>
       </PageHeader.TitleArea>
@@ -107,7 +107,7 @@ export const WithActions = () => (
 
 export const WithDescriptionSlot = () => (
   <Box sx={{padding: 3}}>
-    <PageHeader>
+    <PageHeader role="banner" aria-label="Add-pageheader-docs">
       <PageHeader.TitleArea>
         <PageHeader.Title>add-pageheader-docs</PageHeader.Title>
       </PageHeader.TitleArea>
@@ -125,7 +125,7 @@ export const WithDescriptionSlot = () => (
 
 export const WithNavigationSlot = () => (
   <Box sx={{padding: 3}}>
-    <PageHeader>
+    <PageHeader role="banner" aria-label="Pull request title">
       <PageHeader.TitleArea>
         <PageHeader.Title>Pull request title</PageHeader.Title>
       </PageHeader.TitleArea>
@@ -134,7 +134,7 @@ export const WithNavigationSlot = () => (
           <UnderlineNav.Item icon={CommentDiscussionIcon} counter="12" aria-current="page">
             Conversation
           </UnderlineNav.Item>
-          <UnderlineNav.Item counter={3} icon={CommitIcon}>
+          <UnderlineNav.Item counter={3} icon={GitCommitIcon}>
             Commits
           </UnderlineNav.Item>
           <UnderlineNav.Item counter={7} icon={ChecklistIcon}>
@@ -151,7 +151,7 @@ export const WithNavigationSlot = () => (
 
 export const WithCustomNavigation = () => (
   <Box sx={{padding: 3}}>
-    <PageHeader>
+    <PageHeader role="banner" aria-label="Pull request title">
       <PageHeader.TitleArea>
         <PageHeader.Title>Pull request title</PageHeader.Title>
       </PageHeader.TitleArea>
@@ -173,7 +173,7 @@ export const WithCustomNavigation = () => (
 
 export const WithLeadingAndTrailingActions = () => (
   <Box sx={{padding: 3}}>
-    <PageHeader>
+    <PageHeader role="banner" aria-label="Title">
       <PageHeader.TitleArea>
         <PageHeader.Title>Title</PageHeader.Title>
       </PageHeader.TitleArea>
@@ -189,7 +189,7 @@ export const WithLeadingAndTrailingActions = () => (
 
 export const WithParentLinkAndActionsOfContextArea = () => (
   <Box sx={{padding: 3}}>
-    <PageHeader>
+    <PageHeader role="banner" aria-label="Title">
       <PageHeader.TitleArea>
         <PageHeader.Title>Title</PageHeader.Title>
       </PageHeader.TitleArea>
@@ -215,7 +215,7 @@ WithParentLinkAndActionsOfContextArea.parameters = {
 
 export const WithContextBarAndActionsOfContextArea = () => (
   <Box sx={{padding: 3}}>
-    <PageHeader>
+    <PageHeader role="banner" aria-label="Title">
       <PageHeader.TitleArea>
         <PageHeader.Title>Title</PageHeader.Title>
       </PageHeader.TitleArea>
@@ -250,7 +250,7 @@ WithContextBarAndActionsOfContextArea.parameters = {
 }
 export const WithActionsThatHaveResponsiveContent = () => (
   <Box sx={{padding: 3}}>
-    <PageHeader>
+    <PageHeader role="banner" aria-label="Webhooks">
       <PageHeader.TitleArea>
         <PageHeader.Title as="h2">Webhooks</PageHeader.Title>
       </PageHeader.TitleArea>

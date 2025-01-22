@@ -1,0 +1,11 @@
+.HeaderDev {
+  background-color: var(--label-olive-bgColor-active);
+}
+
+.HeaderDevItem {
+  padding-left: var(--base-size-24);
+}
+
+.HeaderDevLink {
+  color: var(--color-prettylights-syntax-markup-inserted-text);
+}

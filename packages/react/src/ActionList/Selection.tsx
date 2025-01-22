@@ -3,13 +3,18 @@ import {CheckIcon} from '@primer/octicons-react'
 import type {ActionListGroupProps} from './Group'
 import {GroupContext} from './Group'
 import {type ActionListProps, type ActionListItemProps, ListContext} from './shared'
-import {LeadingVisualContainer} from './Visuals'
+import {LeadingVisualContainer, VisualContainer} from './Visuals'
 import Box from '../Box'
+import {useFeatureFlag} from '../FeatureFlags'
+import classes from './ActionList.module.css'
+import {actionListCssModulesFlag} from './featureflag'
 
-type SelectionProps = Pick<ActionListItemProps, 'selected'>
-export const Selection: React.FC<React.PropsWithChildren<SelectionProps>> = ({selected}) => {
+type SelectionProps = Pick<ActionListItemProps, 'selected' | 'className'>
+export const Selection: React.FC<React.PropsWithChildren<SelectionProps>> = ({selected, className}) => {
   const {selectionVariant: listSelectionVariant, role: listRole} = React.useContext(ListContext)
   const {selectionVariant: groupSelectionVariant} = React.useContext(GroupContext)
+
+  const enabled = useFeatureFlag(actionListCssModulesFlag)
 
   /** selectionVariant in Group can override the selectionVariant in List root */
   /** fallback to selectionVariant from container menu if any (ActionMenu, SelectPanel ) */
@@ -30,8 +35,17 @@ export const Selection: React.FC<React.PropsWithChildren<SelectionProps>> = ({se
   }
 
   if (selectionVariant === 'single' || listRole === 'menu') {
+    if (enabled) {
+      return (
+        <VisualContainer className={className}>
+          <CheckIcon className={classes.SingleSelectCheckmark} />
+        </VisualContainer>
+      )
+    }
     return (
-      <LeadingVisualContainer data-component="ActionList.Selection">{selected && <CheckIcon />}</LeadingVisualContainer>
+      <LeadingVisualContainer data-component="ActionList.Selection" sx={{minWidth: '16px'}}>
+        {selected && <CheckIcon />}
+      </LeadingVisualContainer>
     )
   }
 
@@ -60,11 +74,18 @@ export const Selection: React.FC<React.PropsWithChildren<SelectionProps>> = ({se
     },
   }
 
+  if (enabled) {
+    return (
+      <VisualContainer className={className}>
+        <div className={classes.MultiSelectCheckbox} />
+      </VisualContainer>
+    )
+  }
   return (
-    <LeadingVisualContainer data-component="ActionList.Selection">
+    <LeadingVisualContainer data-component="ActionList.Selection" sx={{minWidth: '16px'}}>
       <Box
         sx={{
-          borderColor: selected ? 'accent.fg' : 'neutral.emphasis',
+          borderColor: selected ? 'var(--control-checked-borderColor-rest)' : 'var(--control-borderColor-emphasis)',
           borderStyle: 'solid',
           borderWidth: '1',
           borderRadius: '1',
@@ -74,7 +95,7 @@ export const Selection: React.FC<React.PropsWithChildren<SelectionProps>> = ({se
           margin: '0',
           placeContent: 'center',
           width: 'var(--base-size-16, 16px)',
-          backgroundColor: selected ? 'accent.fg' : 'canvas.default',
+          backgroundColor: selected ? 'var(--control-checked-bgColor-rest)' : 'canvas.default',
           transition: selected
             ? 'background-color, border-color 80ms cubic-bezier(0.33, 1, 0.68, 1)'
             : 'background-color, border-color 80ms cubic-bezier(0.32, 0, 0.67, 0) 0ms',
@@ -96,6 +117,11 @@ export const Selection: React.FC<React.PropsWithChildren<SelectionProps>> = ({se
               : 'checkmarkOut 80ms cubic-bezier(0.65, 0, 0.35, 1) forwards',
             '@keyframes checkmarkIn': checkmarkIn,
             '@keyframes checkmarkOut': checkmarkOut,
+          },
+          '@media (forced-colors: active)': {
+            // Support for Windows high contrast https://sarahmhigley.com/writing/whcm-quick-tips
+            // background-color will be overriden but border-width is a workaround
+            borderWidth: selected ? '8px' : '1px',
           },
         }}
         data-component="ActionList.Checkbox"

@@ -2,10 +2,14 @@ import type {ComponentProps, KeyboardEvent} from 'react'
 import React from 'react'
 import styled from 'styled-components'
 import {variant} from 'styled-system'
+import {clsx} from 'clsx'
 import {get} from '../constants'
 import type {SxProp} from '../sx'
 import sx from '../sx'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
+import {useFeatureFlag} from '../FeatureFlags'
+import classes from './TokenBase.module.css'
+import {toggleStyledComponent} from '../internal/utils/toggleStyledComponent'
 
 export type TokenSizeKeys = 'small' | 'medium' | 'large' | 'xlarge'
 
@@ -112,26 +116,54 @@ const variants = variant<
   },
 })
 
-const StyledTokenBase = styled.span<
-  {
-    size?: TokenSizeKeys
-  } & SxProp
->`
-  align-items: center;
-  border-radius: 999px;
-  cursor: ${props => (isTokenInteractive(props) ? 'pointer' : 'auto')};
-  display: inline-flex;
-  font-weight: ${get('fontWeights.bold')};
-  font-family: inherit;
-  text-decoration: none;
-  position: relative;
-  white-space: nowrap;
-  ${variants}
-  ${sx}
-`
+const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_team'
+
+const StyledTokenBase = toggleStyledComponent(
+  CSS_MODULES_FEATURE_FLAG,
+  'span',
+  styled.span<
+    {
+      size?: TokenSizeKeys
+    } & SxProp
+  >`
+    align-items: center;
+    border-radius: 999px;
+    cursor: ${props => (isTokenInteractive(props) ? 'pointer' : 'auto')};
+    display: inline-flex;
+    font-weight: ${get('fontWeights.bold')};
+    font-family: inherit;
+    text-decoration: none;
+    position: relative;
+    white-space: nowrap;
+    ${variants}
+    ${sx}
+  `,
+)
 
 const TokenBase = React.forwardRef<HTMLButtonElement | HTMLAnchorElement | HTMLSpanElement | undefined, TokenBaseProps>(
-  ({onRemove, onKeyDown, id, size = defaultTokenSize, ...rest}, forwardedRef) => {
+  ({onRemove, onKeyDown, id, className, size = defaultTokenSize, ...rest}, forwardedRef) => {
+    const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
+
+    if (enabled) {
+      return (
+        <StyledTokenBase
+          onKeyDown={(event: KeyboardEvent<HTMLSpanElement & HTMLAnchorElement & HTMLButtonElement>) => {
+            onKeyDown && onKeyDown(event)
+
+            if ((event.key === 'Backspace' || event.key === 'Delete') && onRemove) {
+              onRemove()
+            }
+          }}
+          className={clsx(classes.TokenBase, className)}
+          data-cursor-is-interactive={isTokenInteractive(rest)}
+          data-size={size}
+          id={id?.toString()}
+          {...rest}
+          ref={forwardedRef}
+        />
+      )
+    }
+
     return (
       <StyledTokenBase
         onKeyDown={(event: KeyboardEvent<HTMLSpanElement & HTMLAnchorElement & HTMLButtonElement>) => {
@@ -141,10 +173,10 @@ const TokenBase = React.forwardRef<HTMLButtonElement | HTMLAnchorElement | HTMLS
             onRemove()
           }
         }}
+        className={className}
         id={id?.toString()}
         size={size}
         {...rest}
-        // @ts-expect-error TokenBase wants Anchor, Button, and Span refs
         ref={forwardedRef}
       />
     )

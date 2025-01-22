@@ -45,9 +45,14 @@ export type ActionListItemProps = {
    */
   inactiveText?: string
   /**
+   * Whether the item is loading
+   */
+  loading?: boolean
+  /**
    * Private API for use internally only. Used by LinkItem to wrap contents in an anchor
    */
   _PrivateItemWrapper?: React.FC<React.PropsWithChildren<MenuItemProps>>
+  className?: string
 } & SxProp
 
 type MenuItemProps = {
@@ -58,11 +63,13 @@ type MenuItemProps = {
   'aria-labelledby'?: string
   'aria-describedby'?: string
   role?: string
+  className?: string
 }
 
 export type ItemContext = Pick<ActionListItemProps, 'variant' | 'disabled'> & {
   inlineDescriptionId?: string
   blockDescriptionId?: string
+  trailingVisualId?: string
   inactive?: boolean
 }
 
@@ -126,6 +133,7 @@ export type ActionListProps = React.PropsWithChildren<{
    * The ARIA role describing the function of `List` component. `listbox` or `menu` are a common values.
    */
   role?: AriaRole
+  className?: string
 }> &
   SxProp
 

@@ -390,7 +390,7 @@ export const Default = () => (
     <SplitPageLayout.Header>
       <Placeholder label="Header" height={100} />
     </SplitPageLayout.Header>
-    <SplitPageLayout.Pane position="start">
+    <SplitPageLayout.Pane position="start" aria-label="Pane">
       <Placeholder label="Pane" height={400} />
     </SplitPageLayout.Pane>
     <SplitPageLayout.Content>

@@ -1,10 +1,9 @@
-import {EyeIcon, TriangleDownIcon, HeartIcon} from '@primer/octicons-react'
+import {EyeIcon, TriangleDownIcon, HeartIcon, DownloadIcon, CommentIcon} from '@primer/octicons-react'
 import React, {useState} from 'react'
 import {Button} from '.'
 import {Stack} from '../Stack/Stack'
-import Link from '../Link'
 import {announce} from '@primer/live-region-element'
-
+import {Tooltip} from '../TooltipV2/Tooltip'
 export default {
   title: 'Components/Button/Features',
 }
@@ -14,6 +13,8 @@ export const Primary = () => <Button variant="primary">Primary</Button>
 export const Danger = () => <Button variant="danger">Danger</Button>
 
 export const Invisible = () => <Button variant="invisible">Invisible</Button>
+
+export const Link = () => <Button variant="link">Button that looks like a link</Button>
 
 export const LeadingVisual = () => <Button leadingVisual={HeartIcon}>Leading visual</Button>
 
@@ -31,9 +32,12 @@ const AccessibilityNote = () => {
         </p>
         <p>
           Learn more about at{' '}
-          <Link href="https://github.com/github/accessibility/blob/8b300b36d8bca28fd5e3e70ffa077a6f8ee65c05/docs/wiki/screen-reader-testing/dynamically-updated-buttons-support-april-2024.md">
+          <a
+            style={{color: 'var(--fgColor-link)', textDecoration: 'underline'}}
+            href="https://github.com/github/accessibility/blob/8b300b36d8bca28fd5e3e70ffa077a6f8ee65c05/docs/wiki/screen-reader-testing/dynamically-updated-buttons-support-april-2024.md"
+          >
             Staff-only: Dynamically updated button labels
-          </Link>
+          </a>
           .
         </p>
       </>
@@ -56,6 +60,8 @@ export const TrailingCounter = () => {
     </>
   )
 }
+
+export const TrailingCounterWithNoText = () => <Button aria-label="Comments" leadingVisual={CommentIcon} count={3} />
 
 export const TrailingCounterAllVariants = () => {
   const [count, setCount] = useState(0)
@@ -137,6 +143,46 @@ export const Medium = () => <Button size="medium">Default</Button>
 
 export const Large = () => <Button size="large">Default</Button>
 
+export const Loading = () => <Button loading>Default</Button>
+
+export const LoadingCustomAnnouncement = () => (
+  <Button loading loadingAnnouncement="This is a custom loading announcement">
+    Default
+  </Button>
+)
+
+export const LoadingWithLeadingVisual = () => (
+  <Button loading leadingVisual={DownloadIcon}>
+    Export
+  </Button>
+)
+
+export const LoadingWithTrailingVisual = () => (
+  <Button loading trailingVisual={DownloadIcon}>
+    Export
+  </Button>
+)
+
+export const LoadingWithTrailingAction = () => (
+  <Button loading trailingAction={TriangleDownIcon}>
+    Export dropdown
+  </Button>
+)
+
+export const LoadingTrigger = () => {
+  const [isLoading, setIsLoading] = useState(false)
+
+  const handleClick = () => {
+    setIsLoading(true)
+  }
+
+  return (
+    <Button loading={isLoading} onClick={handleClick} leadingVisual={DownloadIcon}>
+      Export
+    </Button>
+  )
+}
+
 export const LabelWrap = () => {
   return (
     <Stack style={{width: '200px'}}>
@@ -156,3 +202,26 @@ export const LabelWrap = () => {
     </Stack>
   )
 }
+
+export const InactiveButtonWithTooltip = () => (
+  <Tooltip text="Action unavailable: an error occured while loading respository permissions" direction="n">
+    <Button inactive>Review changes</Button>
+  </Tooltip>
+)
+
+export const ExpandedButton = () => (
+  <Stack align="start">
+    <Button aria-expanded trailingAction={TriangleDownIcon}>
+      Review changes
+    </Button>
+    <Button aria-expanded trailingAction={TriangleDownIcon} variant="primary">
+      Review changes
+    </Button>
+    <Button aria-expanded trailingAction={TriangleDownIcon} variant="invisible">
+      Review changes
+    </Button>
+    <Button aria-expanded trailingAction={TriangleDownIcon} variant="danger">
+      Review changes
+    </Button>
+  </Stack>
+)

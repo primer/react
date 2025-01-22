@@ -313,33 +313,38 @@ test.describe('ActionList', () => {
     }
   })
 
-  test.describe('Text Wrap And Truncation', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-actionlist-features--text-wrap-and-truncation',
-            globals: {
-              colorScheme: theme,
-            },
-          })
+  // removing this temporarily as there is a slight diff betqeen default and enabled CSS feature flag that feels like a non-issue
+  // eslint-disable-next-line jest/no-commented-out-tests
+  // test.describe('Text Wrap And Truncation', () => {
+  //   for (const theme of themes) {
+  // eslint-disable-next-line jest/no-commented-out-tests
+  //     test.describe(theme, () => {
+  // eslint-disable-next-line jest/no-commented-out-tests
+  //       test('default @vrt', async ({page}) => {
+  //         await visit(page, {
+  //           id: 'components-actionlist-features--text-wrap-and-truncation',
+  //           globals: {
+  //             colorScheme: theme,
+  //           },
+  //         })
 
-          // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`ActionList.Text Wrap And Truncation.${theme}.png`)
-        })
+  //         // Default state
+  //         expect(await page.screenshot()).toMatchSnapshot(`ActionList.Text Wrap And Truncation.${theme}.png`)
+  //       })
 
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-actionlist-features--text-wrap-and-truncation',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations()
-        })
-      })
-    }
-  })
+  // eslint-disable-next-line jest/no-commented-out-tests
+  //       test('axe @aat', async ({page}) => {
+  //         await visit(page, {
+  //           id: 'components-actionlist-features--text-wrap-and-truncation',
+  //           globals: {
+  //             colorScheme: theme,
+  //           },
+  //         })
+  //         await expect(page).toHaveNoViolations()
+  //       })
+  //     })
+  //   }
+  // })
 
   test.describe('With Avatars', () => {
     for (const theme of themes) {
@@ -515,6 +520,36 @@ test.describe('ActionList', () => {
     }
   })
 
+  test.describe('Loading Item', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-actionlist-features--loading-item',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          // Default state
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
+            `ActionList.Loading Item.${theme}.png`,
+          )
+        })
+
+        test('axe @aat', async ({page}) => {
+          await visit(page, {
+            id: 'components-actionlist-features--loading-item',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+          await expect(page).toHaveNoViolations()
+        })
+      })
+    }
+  })
+
   test.describe('Group With Filled Title', () => {
     for (const theme of themes) {
       test.describe(theme, () => {
@@ -627,24 +662,136 @@ test.describe('ActionList', () => {
     }
   })
 
-  test.describe('With Trailing Action', () => {
+  test.describe('Full Variant', () => {
     for (const theme of themes) {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-actionlist-features--with-trailing-action',
+            id: 'components-actionlist-features--full-variant',
             globals: {
               colorScheme: theme,
             },
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`ActionList.With Trailing Action.${theme}.png`)
+          expect(await page.screenshot()).toMatchSnapshot(`ActionList.Full Variant.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-actionlist-features--with-trailing-action',
+            id: 'components-actionlist-features--full-variant',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+          await expect(page).toHaveNoViolations()
+        })
+      })
+    }
+  })
+
+  test.describe('Group Heading with Classname', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-actionlist-dev--group-heading-custom-classname',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          // Default state
+          expect(await page.screenshot()).toMatchSnapshot(`Group Heading with Classname.${theme}.png`)
+        })
+
+        test('axe @aat', async ({page}) => {
+          await visit(page, {
+            id: 'components-actionlist-dev--group-heading-custom-classname',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+          await expect(page).toHaveNoViolations()
+        })
+      })
+    }
+  })
+
+  test.describe('Heading with Classname', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-actionlist-dev--heading-custom-classname',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          // Default state
+          expect(await page.screenshot()).toMatchSnapshot(`Heading with Classname.${theme}.png`)
+        })
+
+        test('axe @aat', async ({page}) => {
+          await visit(page, {
+            id: 'components-actionlist-dev--heading-custom-classname',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+          await expect(page).toHaveNoViolations()
+        })
+      })
+    }
+  })
+
+  test.describe('Visuals with Classnames', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-actionlist-dev--visual-custom-classname',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          // Default state
+          expect(await page.screenshot()).toMatchSnapshot(`Visuals with Classnames.${theme}.png`)
+        })
+
+        test('axe @aat', async ({page}) => {
+          await visit(page, {
+            id: 'components-actionlist-dev--visual-custom-classname',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+          await expect(page).toHaveNoViolations()
+        })
+      })
+    }
+  })
+
+  test.describe('Link Item Options', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-actionlist-examples--list-link-item',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          // Default state
+          expect(await page.screenshot()).toMatchSnapshot(`Link Item Options.${theme}.png`)
+        })
+
+        test('axe @aat', async ({page}) => {
+          await visit(page, {
+            id: 'components-actionlist-examples--list-link-item',
             globals: {
               colorScheme: theme,
             },

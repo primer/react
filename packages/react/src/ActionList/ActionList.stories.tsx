@@ -141,6 +141,11 @@ ItemPlayground.argTypes = {
     },
     options: icons,
   },
+  loading: {
+    control: {
+      type: 'boolean',
+    },
+  },
   trailingVisual: {
     control: {
       type: 'select',
@@ -164,6 +169,7 @@ ItemPlayground.args = {
   variant: 'default',
   id: 'item-1',
   leadingVisual: null,
+  loading: false,
   trailingVisual: null,
   selectionVariant: 'single',
 }
@@ -214,8 +220,10 @@ LinkItemPlayground.args = {
   active: false,
   disabled: false,
   id: 'item-1',
+  variant: 'default',
   inactiveText: '',
   leadingVisual: null,
+  loading: false,
   trailingVisual: null,
 }
 LinkItemPlayground.argTypes = {
@@ -223,6 +231,10 @@ LinkItemPlayground.argTypes = {
     control: {
       type: 'boolean',
     },
+  },
+  variant: {
+    control: 'radio',
+    options: ['default', 'danger'],
   },
   role: {
     type: 'string',
@@ -240,6 +252,11 @@ LinkItemPlayground.argTypes = {
       type: 'select',
     },
     options: icons,
+  },
+  loading: {
+    control: {
+      type: 'boolean',
+    },
   },
   trailingVisual: {
     control: {

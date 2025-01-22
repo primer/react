@@ -2,310 +2,86 @@ import {test, expect} from '@playwright/test'
 import {visit} from '../test-helpers/storybook'
 import {themes} from '../test-helpers/themes'
 
+const stories: Array<{title: string; id: string}> = [
+  {
+    title: 'Default',
+    id: 'components-avatarstack--default',
+  },
+  {
+    title: 'Playground',
+    id: 'components-avatarstack--playground',
+  },
+  {
+    title: 'Align Left',
+    id: 'components-avatarstack-features--align-left',
+  },
+  {
+    title: 'Align Right',
+    id: 'components-avatarstack-features--align-right',
+  },
+  {
+    title: 'Disable Expand On Hover',
+    id: 'components-avatarstack-features--disable-expand-on-hover',
+  },
+  {
+    title: 'Custom Size On Parent',
+    id: 'components-avatarstack-features--custom-size-on-parent',
+  },
+  {
+    title: 'Custom Size On Parent Responsive',
+    id: 'components-avatarstack-features--custom-size-on-parent-responsive',
+  },
+  {
+    title: 'Custom Size On Children',
+    id: 'components-avatarstack-features--custom-size-on-children',
+  },
+  {
+    title: 'Custom Size On Children Responsive',
+    id: 'components-avatarstack-features--custom-size-on-children-responsive',
+  },
+  {
+    title: 'SX Prop',
+    id: 'components-avatarstack-dev--sx-prop',
+  },
+  {
+    title: 'With Link Wrappers',
+    id: 'components-avatarstack-dev--with-link-wrappers',
+  },
+]
+
 test.describe('AvatarStack', () => {
-  test.describe('Default', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-avatarstack--default',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`AvatarStack.Default.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-avatarstack--default',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
+  for (const story of stories) {
+    test.describe(story.title, () => {
+      for (const theme of themes) {
+        test.describe(theme, () => {
+          test('@vrt', async ({page}) => {
+            await visit(page, {
+              id: story.id,
+              globals: {
+                colorScheme: theme,
               },
-            },
-          })
-        })
-      })
-    }
-  })
+            })
 
-  test.describe('Playground', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-avatarstack--playground',
-            globals: {
-              colorScheme: theme,
-            },
+            expect(await page.screenshot()).toMatchSnapshot(`AvatarStack.${story.title}.${theme}.png`)
           })
 
-          // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`AvatarStack.Playground.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-avatarstack--playground',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
+          test('@aat', async ({page}) => {
+            await visit(page, {
+              id: story.id,
+              globals: {
+                colorScheme: theme,
               },
-            },
-          })
-        })
-      })
-    }
-  })
-
-  test.describe('Align Left', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-avatarstack-features--align-left',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`AvatarStack.Align Left.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-avatarstack-features--align-left',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
+            })
+            await expect(page).toHaveNoViolations({
+              rules: {
+                'color-contrast': {
+                  enabled: theme !== 'dark_dimmed',
+                },
               },
-            },
+            })
           })
         })
-      })
-    }
-  })
-
-  test.describe('Align Right', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-avatarstack-features--align-right',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`AvatarStack.Align Right.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-avatarstack-features--align-right',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
-        })
-      })
-    }
-  })
-
-  test.describe('Disable Expand On Hover', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-avatarstack-features--disable-expand-on-hover',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`AvatarStack.Disable Expand On Hover.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-avatarstack-features--disable-expand-on-hover',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
-        })
-      })
-    }
-  })
-
-  test.describe('Custom Size On Parent', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-avatarstack-features--custom-size-on-parent',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`AvatarStack.Custom Size On Parent.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-avatarstack-features--custom-size-on-parent',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
-        })
-      })
-    }
-  })
-
-  test.describe('Custom Size On Parent Responsive', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-avatarstack-features--custom-size-on-parent-responsive',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`AvatarStack.Custom Size On Parent Responsive.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-avatarstack-features--custom-size-on-parent-responsive',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
-        })
-      })
-    }
-  })
-
-  test.describe('Custom Size On Children', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-avatarstack-features--custom-size-on-children',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`AvatarStack.Custom Size On Children.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-avatarstack-features--custom-size-on-children',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
-        })
-      })
-    }
-  })
-
-  test.describe('Custom Size On Children Responsive', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-avatarstack-features--custom-size-on-children-responsive',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`AvatarStack.Custom Size On Children Responsive.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-avatarstack-features--custom-size-on-children-responsive',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
-        })
-      })
-    }
-  })
+      }
+    })
+  }
 })

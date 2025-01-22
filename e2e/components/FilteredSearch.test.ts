@@ -8,7 +8,7 @@ test.describe('FilteredSearch', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-filteredsearch--default',
+            id: 'deprecated-components-filteredsearch--default',
             globals: {
               colorScheme: theme,
             },
@@ -20,7 +20,7 @@ test.describe('FilteredSearch', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-filteredsearch--default',
+            id: 'deprecated-components-filteredsearch--default',
             globals: {
               colorScheme: theme,
             },
@@ -36,7 +36,7 @@ test.describe('FilteredSearch', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-filteredsearch--playground',
+            id: 'deprecated-components-filteredsearch--playground',
             globals: {
               colorScheme: theme,
             },
@@ -48,7 +48,7 @@ test.describe('FilteredSearch', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-filteredsearch--playground',
+            id: 'deprecated-components-filteredsearch--playground',
             globals: {
               colorScheme: theme,
             },

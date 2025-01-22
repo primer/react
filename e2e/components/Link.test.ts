@@ -2,132 +2,63 @@ import {test, expect} from '@playwright/test'
 import {visit} from '../test-helpers/storybook'
 import {themes} from '../test-helpers/themes'
 
+const stories = [
+  {
+    title: 'Default',
+    id: 'components-link--default',
+  },
+  {
+    title: 'Inline',
+    id: 'components-link-features--inline',
+  },
+  {
+    title: 'Muted',
+    id: 'components-link-features--muted',
+  },
+  {
+    title: 'Underline',
+    id: 'components-link-features--underline',
+  },
+] as const
+
 test.describe('Link', () => {
-  test.describe('Default', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-link--default',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`Link.Default.${theme}.png`)
-
-          // Hover state
-          await page.getByRole('link').hover()
-          expect(await page.screenshot()).toMatchSnapshot(`Link.Default.${theme}.hover.png`)
-
-          // Focus state
-          await page.keyboard.press('Tab')
-          expect(await page.screenshot()).toMatchSnapshot(`Link.Default.${theme}.focus.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-link--default',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
+  for (const story of stories) {
+    test.describe(story.title, () => {
+      for (const theme of themes) {
+        test.describe(theme, () => {
+          test('default @vrt', async ({page}) => {
+            await visit(page, {
+              id: story.id,
+              globals: {
+                colorScheme: theme,
               },
-            },
-          })
-        })
-      })
-    }
-  })
+            })
 
-  test.describe('Muted', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-link-features--muted',
-            globals: {
-              colorScheme: theme,
-            },
+            // Default state
+            expect(await page.screenshot()).toMatchSnapshot(`Link.${story.title}.${theme}.png`)
+
+            // Hover state
+            await page.getByRole('link').hover()
+            expect(await page.screenshot()).toMatchSnapshot(`Link.${story.title}.${theme}.hover.png`)
+
+            // Focus state
+            await page.keyboard.press('Tab')
+            expect(await page.screenshot()).toMatchSnapshot(`Link.${story.title}.${theme}.focus.png`)
           })
 
-          // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`Link.Muted.${theme}.png`)
-
-          // Hover state
-          await page.getByRole('link').hover()
-          expect(await page.screenshot()).toMatchSnapshot(`Link.Muted.${theme}.hover.png`)
-
-          // Focus state
-          await page.keyboard.press('Tab')
-          expect(await page.screenshot()).toMatchSnapshot(`Link.Muted.${theme}.focus.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-link-features--muted',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
+          test('axe @aat', async ({page}) => {
+            await visit(page, {
+              id: story.id,
+              globals: {
+                colorScheme: theme,
               },
-            },
+            })
+            await expect(page).toHaveNoViolations()
           })
         })
-      })
-    }
-  })
-
-  test.describe('Underline', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-link-features--underline',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`Link.Underline.${theme}.png`)
-
-          // Hover state
-          await page.getByRole('link').hover()
-          expect(await page.screenshot()).toMatchSnapshot(`Link.Underline.${theme}.hover.png`)
-
-          // Focus state
-          await page.keyboard.press('Tab')
-          expect(await page.screenshot()).toMatchSnapshot(`Link.Underline.${theme}.focus.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-link-features--underline',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
-        })
-      })
-    }
-  })
+      }
+    })
+  }
 
   test.describe('Dev: Inline', () => {
     for (const theme of themes) {
@@ -141,7 +72,7 @@ test.describe('Link', () => {
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`Link.Inline.${theme}.png`)
+          expect(await page.screenshot()).toMatchSnapshot(`Link.Dev Inline.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
@@ -151,13 +82,7 @@ test.describe('Link', () => {
               colorScheme: theme,
             },
           })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
+          await expect(page).toHaveNoViolations()
         })
       })
     }

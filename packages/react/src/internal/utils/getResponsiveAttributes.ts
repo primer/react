@@ -36,12 +36,5 @@ export function getResponsiveAttributes<T>(
 }
 
 function serialize<T>(property: string, value: T) {
-  if (typeof value === 'boolean') {
-    if (value) {
-      return [property, '']
-    }
-    return []
-  }
-
   return [property, value]
 }

@@ -4,12 +4,14 @@ import {
   Autocomplete,
   BaseStyles,
   Box,
+  Button,
   Checkbox,
   CheckboxGroup,
   FormControl,
   Radio,
   RadioGroup,
   Select,
+  SelectPanel,
   Text,
   TextInput,
   TextInputWithTokens,
@@ -17,7 +19,9 @@ import {
   ThemeProvider,
   theme,
 } from '..'
-import {MarkGithubIcon} from '@primer/octicons-react'
+import {MarkGithubIcon, TriangleDownIcon} from '@primer/octicons-react'
+import type {ItemInput} from '../deprecated/ActionList/List'
+import {Stack} from '../Stack'
 
 export default {
   title: 'Components/FormControl/Features',
@@ -80,12 +84,12 @@ export const WithComplexInputs = () => {
         <TextInputWithTokens onTokenRemove={onTokenRemove} tokens={tokens} />
       </FormControl>
       <FormControl>
-        <FormControl.Label>Autocomplete</FormControl.Label>
+        <FormControl.Label id="autocomplete-label">Autocomplete</FormControl.Label>
         <Autocomplete>
           <Autocomplete.Input block />
           <Autocomplete.Overlay>
             <Autocomplete.Menu
-              aria-labelledby="form-label"
+              aria-labelledby="autocomplete-label"
               items={[
                 {text: 'css', id: '0'},
                 {text: 'css-in-js', id: '1'},
@@ -172,12 +176,20 @@ export const FormControlWithCustomInput = () => {
       <CheckboxGroup>
         <CheckboxGroup.Label>Checkboxes</CheckboxGroup.Label>
         <FormControl layout="horizontal">
-          <CustomCheckboxInput id="custom-checkbox-one" value="checkOne" />
+          <CustomCheckboxInput
+            id="custom-checkbox-one"
+            aria-describedby="custom-checkbox-one-caption"
+            value="checkOne"
+          />
           <FormControl.Label htmlFor="custom-checkbox-one">Checkbox one</FormControl.Label>
           <FormControl.Caption id="custom-checkbox-one-caption">Hint text for checkbox one</FormControl.Caption>
         </FormControl>
         <FormControl layout="horizontal">
-          <CustomCheckboxInput id="custom-checkbox-two" value="checkTwo" />
+          <CustomCheckboxInput
+            id="custom-checkbox-two"
+            aria-describedby="custom-checkbox-two-caption"
+            value="checkTwo"
+          />
           <FormControl.Label htmlFor="custom-checkbox-two">Checkbox two</FormControl.Label>
           <FormControl.Caption id="custom-checkbox-two-caption">Hint text for checkbox two</FormControl.Caption>
         </FormControl>
@@ -265,8 +277,70 @@ export const ValidationExample = () => {
   )
 }
 
+function getColorCircle(color: string) {
+  return function () {
+    return (
+      <Box
+        sx={{
+          backgroundColor: color,
+          borderColor: color,
+          width: 14,
+          height: 14,
+          borderRadius: 10,
+          margin: 'auto',
+          borderWidth: '1px',
+          borderStyle: 'solid',
+        }}
+      />
+    )
+  }
+}
+
+const items: ItemInput[] = [
+  {leadingVisual: getColorCircle('#a2eeef'), text: 'enhancement', description: 'New feature or request', id: 1},
+  {leadingVisual: getColorCircle('#d73a4a'), text: 'bug', description: "Something isn't working", id: 2},
+  {leadingVisual: getColorCircle('#0cf478'), text: 'good first issue', description: 'Good for newcomers', id: 3},
+  {leadingVisual: getColorCircle('#ffd78e'), text: 'design', id: 4},
+  {leadingVisual: getColorCircle('#ff0000'), text: 'blocker', id: 5},
+  {leadingVisual: getColorCircle('#a4f287'), text: 'backend', id: 6},
+  {leadingVisual: getColorCircle('#8dc6fc'), text: 'frontend', id: 7},
+].map(item => ({...item, descriptionVariant: 'block'}))
+
+export const WithSelectPanel = () => {
+  const [selected, setSelected] = React.useState<ItemInput[]>([items[0], items[1]])
+  const [filter, setFilter] = React.useState('')
+  const filteredItems = items.filter(item => item.text?.toLowerCase().startsWith(filter.toLowerCase()))
+  const [open, setOpen] = useState(false)
+
+  return (
+    <FormControl required>
+      <FormControl.Label>Select Labels</FormControl.Label>
+      <SelectPanel
+        title="Select labels"
+        subtitle="Use labels to organize issues and pull requests"
+        renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
+          <Button
+            trailingAction={TriangleDownIcon}
+            aria-labelledby={` ${ariaLabelledBy}`}
+            {...anchorProps}
+            aria-haspopup="dialog"
+          >
+            {children ?? 'Select Labels'}
+          </Button>
+        )}
+        open={open}
+        onOpenChange={setOpen}
+        items={filteredItems}
+        selected={selected}
+        onSelectedChange={setSelected}
+        onFilterChange={setFilter}
+      />
+    </FormControl>
+  )
+}
+
 export const WithLeadingVisual = () => (
-  <Box>
+  <Stack gap="none">
     <FormControl>
       <FormControl.Label>Option one</FormControl.Label>
       <FormControl.LeadingVisual>
@@ -283,7 +357,24 @@ export const WithLeadingVisual = () => (
       <Checkbox />
       <FormControl.Caption>This one has a caption</FormControl.Caption>
     </FormControl>
-  </Box>
+
+    <FormControl disabled>
+      <FormControl.Label>Option three</FormControl.Label>
+      <FormControl.LeadingVisual>
+        <MarkGithubIcon />
+      </FormControl.LeadingVisual>
+      <Checkbox />
+    </FormControl>
+
+    <FormControl disabled>
+      <FormControl.Label>Option four</FormControl.Label>
+      <FormControl.LeadingVisual>
+        <MarkGithubIcon />
+      </FormControl.LeadingVisual>
+      <Checkbox />
+      <FormControl.Caption>This one has a caption</FormControl.Caption>
+    </FormControl>
+  </Stack>
 )
 
 export const DisabledInputs = () => (
@@ -333,4 +424,50 @@ export const CustomRequired = () => (
       <TextInput />
     </FormControl>
   </Box>
+)
+
+export const WithCaption = () => (
+  <FormControl>
+    <FormControl.Label>Example label</FormControl.Label>
+    <TextInput />
+    <FormControl.Caption>Example caption</FormControl.Caption>
+  </FormControl>
+)
+
+export const WithCaptionAndDisabled = () => (
+  <FormControl disabled>
+    <FormControl.Label>Example label</FormControl.Label>
+    <TextInput />
+    <FormControl.Caption>Example caption</FormControl.Caption>
+  </FormControl>
+)
+
+export const WithHiddenLabel = () => (
+  <FormControl>
+    <FormControl.Label visuallyHidden>Example label</FormControl.Label>
+    <TextInput />
+  </FormControl>
+)
+
+export const WithRequiredIndicator = () => (
+  <FormControl required>
+    <FormControl.Label requiredIndicator>Example label</FormControl.Label>
+    <TextInput />
+  </FormControl>
+)
+
+export const WithSuccessValidation = () => (
+  <FormControl required>
+    <FormControl.Label requiredIndicator>Example label</FormControl.Label>
+    <TextInput defaultValue="Input value" />
+    <FormControl.Validation variant="success">Example success validation message</FormControl.Validation>
+  </FormControl>
+)
+
+export const WithErrorValidation = () => (
+  <FormControl required>
+    <FormControl.Label requiredIndicator>Example label</FormControl.Label>
+    <TextInput defaultValue="Input value" />
+    <FormControl.Validation variant="error">Example error validation message</FormControl.Validation>
+  </FormControl>
 )

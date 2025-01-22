@@ -3,7 +3,29 @@
   "name": "ActionMenu",
   "status": "beta",
   "a11yReviewed": false,
-  "stories": [],
+  "stories": [
+    {
+      "id": "components-actionmenu--default"
+    },
+    {
+      "id": "components-actionmenu-features--links-and-actions"
+    },
+    {
+      "id": "components-actionmenu-features--single-select"
+    },
+    {
+      "id": "components-actionmenu-features--multi-select"
+    },
+    {
+      "id": "components-actionmenu-features--inactive-items"
+    },
+    {
+      "id": "components-actionmenu-features--loading-items"
+    },
+    {
+      "id": "components-actionmenu-features--submenus"
+    }
+  ],
   "importPath": "@primer/react",
   "props": [
     {
@@ -58,6 +80,12 @@
           "defaultValue": "",
           "required": true,
           "description": "Accepts a single child element"
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "description": "",
+          "defaultValue": ""
         }
       ]
     },
@@ -82,6 +110,13 @@
           "type": "| 'inside-top' | 'inside-bottom' | 'inside-left' | 'inside-right' | 'inside-center' | 'outside-top' | 'outside-bottom' | 'outside-left' | 'outside-right'",
           "defaultValue": "'outside-bottom'",
           "description": "Controls which side of the anchor the menu will appear"
+        },
+        {
+          "name": "data-test-id",
+          "type": "unknown",
+          "required": false,
+          "description": "ID to use for React testing utilities.",
+          "defaultValue": ""
         }
       ],
       "passthrough": {

@@ -1,10 +1,11 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
 import {figma} from '@figma/code-connect'
-import {ButtonComponent as Button} from './Button'
+import {Button} from '../../src'
 import React from 'react'
 
 const componentProps = {
+  label: figma.textContent('Button'),
   disabled: figma.enum('state', {disabled: true}),
   inactive: figma.enum('state', {inactive: true}),
   size: figma.enum('size', {
@@ -37,7 +38,7 @@ figma.connect(
   'https://www.figma.com/file/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?type=design&node-id=30258%3A5582&mode=design&t=TVF2yeiff0ZtzQll-1',
   {
     props: componentProps,
-    example: ({size, disabled, inactive, alignContent, leadingVisual, variant}) => (
+    example: ({size, disabled, inactive, alignContent, leadingVisual, trailingVisual, variant, label}) => (
       <Button
         size={size}
         disabled={disabled}
@@ -46,7 +47,9 @@ figma.connect(
         variant={variant}
         leadingVisual={leadingVisual}
         trailingVisual={trailingVisual}
-      ></Button>
+      >
+        {label}
+      </Button>
     ),
   },
 )

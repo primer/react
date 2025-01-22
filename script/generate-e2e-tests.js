@@ -578,7 +578,7 @@ const components = new Map([
     {
       stories: [
         {
-          id: 'drafts-components-hidden--default',
+          id: 'experimental-components-hidden--default',
           name: 'Default',
         },
       ],
@@ -624,28 +624,13 @@ const components = new Map([
           id: 'components-iconbutton-features--small',
           name: 'Small',
         },
-      ],
-    },
-  ],
-  [
-    'InlineAutocomplete',
-    {
-      stories: [
         {
-          id: 'components-forms-inlineautocomplete--default',
-          name: 'Default',
+          id: 'components-iconbutton-features--keyshortcuts',
+          name: 'Keyshortcuts',
         },
         {
-          id: 'components-forms-inlineautocomplete--playground',
-          name: 'Playground',
-        },
-        {
-          id: 'components-forms-inlineautocomplete-features--custom-rendering',
-          name: 'Custom Rendering',
-        },
-        {
-          id: 'components-forms-inlineautocomplete-features--single-line',
-          name: 'Single Line',
+          id: 'components-iconbutton-features--keyshortcuts-on-description',
+          name: 'Keyshortcuts on Description',
         },
       ],
     },
@@ -847,83 +832,83 @@ const components = new Map([
     {
       stories: [
         {
-          id: 'drafts-components-pageheader-examples--files-page',
+          id: 'components-pageheader-examples--files-page',
           name: 'Files Page',
         },
         {
-          id: 'drafts-components-pageheader-examples--files-page-on-narrow-viewport',
+          id: 'components-pageheader-examples--files-page-on-narrow-viewport',
           name: 'Files Page on Narrow Viewport',
         },
         {
-          id: 'drafts-components-pageheader-examples--pull-request-page',
+          id: 'components-pageheader-examples--pull-request-page',
           name: 'Pull Request Page',
         },
         {
-          id: 'drafts-components-pageheader-examples--pull-request-page-on-narrow-viewport',
+          id: 'components-pageheader-examples--pull-request-page-on-narrow-viewport',
           name: 'Pull Request Page on Narrow Viewport',
         },
         {
-          id: 'drafts-components-pageheader-examples--webhooks',
+          id: 'components-pageheader-examples--webhooks',
           name: 'Webhooks',
         },
         {
-          id: 'drafts-components-pageheader-examples--webhooks-on-narrow-viewport',
+          id: 'components-pageheader-examples--webhooks-on-narrow-viewport',
           name: 'Webhooks on Narrow Viewport',
         },
         {
-          id: 'drafts-components-pageheader-examples--with-page-layout',
+          id: 'components-pageheader-examples--with-page-layout',
           name: 'With Page Layout',
         },
         {
-          id: 'drafts-components-pageheader-features--has-large-title',
+          id: 'components-pageheader-features--has-large-title',
           name: 'Has Large Title',
         },
         {
-          id: 'drafts-components-pageheader-features--has-title-only',
+          id: 'components-pageheader-features--has-title-only',
           name: 'Has Title Only',
         },
         {
-          id: 'drafts-components-pageheader-features--with-actions',
+          id: 'components-pageheader-features--with-actions',
           name: 'With Actions',
         },
         {
-          id: 'drafts-components-pageheader-features--with-actions-that-have-responsive-content',
+          id: 'components-pageheader-features--with-actions-that-have-responsive-content',
           name: 'With Actions that have Responsive Content',
         },
         {
-          id: 'drafts-components-pageheader-features--with-context-bar-and-actions-of-context-area',
+          id: 'components-pageheader-features--with-context-bar-and-actions-of-context-area',
           name: 'With Context Bar and Actions of Context Area',
         },
         {
-          id: 'drafts-components-pageheader-features--with-custom-navigation',
+          id: 'components-pageheader-features--with-custom-navigation',
           name: 'With Custom Navigation',
         },
         {
-          id: 'drafts-components-pageheader-features--with-description-slot',
+          id: 'components-pageheader-features--with-description-slot',
           name: 'With Description Slot',
         },
         {
-          id: 'drafts-components-pageheader-features--with-leading-and-trailing-actions',
+          id: 'components-pageheader-features--with-leading-and-trailing-actions',
           name: 'With Leading and Trailing Actions',
         },
         {
-          id: 'drafts-components-pageheader-features--with-leading-and-trailing-visuals',
+          id: 'components-pageheader-features--with-leading-and-trailing-visuals',
           name: 'With Leading and Trailing Visuals',
         },
         {
-          id: 'drafts-components-pageheader-features--with-leading-visual-hidden-on-regular-viewport',
+          id: 'components-pageheader-features--with-leading-visual-hidden-on-regular-viewport',
           name: 'With Leading Visual Hidden on Regular Viewport',
         },
         {
-          id: 'drafts-components-pageheader-features--with-navigation-slot',
+          id: 'components-pageheader-features--with-navigation-slot',
           name: 'With Navigation Slot',
         },
         {
-          id: 'drafts-components-pageheader-features--with-parent-link-and-actions-of-context-area',
+          id: 'components-pageheader-features--with-parent-link-and-actions-of-context-area',
           name: 'With Parent Link and Actions of Context Area',
         },
         {
-          id: 'drafts-components-pageheader-devonly--large-variant-with-multiline-title',
+          id: 'components-pageheader-devonly--large-variant-with-multiline-title',
           name: 'Large Variant with Multiline Title',
         },
       ],
@@ -1129,28 +1114,48 @@ const components = new Map([
           name: 'Default',
         },
         {
-          id: 'components-selectpanel-features--single-select-story',
+          id: 'components-selectpanel-features--single-select',
           name: 'Single Select',
         },
         {
-          id: 'components-selectpanel-features--external-anchor-story',
-          name: 'External Anchor',
+          id: 'components-selectpanel-features--with-external-anchor',
+          name: 'With External Anchor',
         },
         {
-          id: 'components-selectpanel-features--select-panel-height-initial-with-overflowing-items-story',
-          name: 'SelectPanel, Height: Initial, Overflowing Items',
+          id: 'components-selectpanel-features--with-footer',
+          name: 'With Footer',
         },
         {
-          id: 'components-selectpanel-features--select-panel-height-initial-with-underflowing-items-story',
-          name: 'SelectPanel, Height: Initial, Underflowing Items',
+          id: 'components-selectpanel-features--with-groups',
+          name: 'With Groups',
         },
         {
-          id: 'components-selectpanel-features--select-panel-above-tall-body',
-          name: 'SelectPanel, Above a Tall Body',
+          id: 'components-selectpanel-features--with-item-dividers',
+          name: 'With Item Dividers',
         },
         {
-          id: 'components-selectpanel-features-select-panel-height-and-scroll',
-          name: 'SelectPanel, Height and Scroll',
+          id: 'components-selectpanel-features--with-placeholder-for-search-input',
+          name: 'With Placeholder for Search Input',
+        },
+        {
+          id: 'components-selectpanel-examples--above-tall-body',
+          name: 'Above Tall Body',
+        },
+        {
+          id: 'components-selectpanel-examples--height-variantions-and-scroll',
+          name: 'Height Variantions and Scroll',
+        },
+        {
+          id: 'components-selectpanel-examples--height-initial-with-overflowing-items-story',
+          name: 'Height Initial with Overflowing Items',
+        },
+        {
+          id: 'components-selectpanel-examples--height-initial-with-underflowing-items-story',
+          name: 'Height Initial with Underflowing Items',
+        },
+        {
+          id: 'components-selectpanel-examples--height-initial-with-underflowing-items-after-fetch',
+          name: 'Height Initial with Underflowing Items After Fetch',
         },
       ],
     },
