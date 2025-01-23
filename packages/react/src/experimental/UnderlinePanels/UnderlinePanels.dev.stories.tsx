@@ -20,17 +20,6 @@ export const Default = () => (
   </UnderlinePanels>
 )
 
-export const NoTabsSelected = () => (
-  <UnderlinePanels aria-label="Select a tab">
-    <UnderlinePanels.Tab aria-selected={false}>Tab 1</UnderlinePanels.Tab>
-    <UnderlinePanels.Tab aria-selected={false}>Tab 2</UnderlinePanels.Tab>
-    <UnderlinePanels.Tab aria-selected={false}>Tab 3</UnderlinePanels.Tab>
-    <UnderlinePanels.Panel>Panel 1</UnderlinePanels.Panel>
-    <UnderlinePanels.Panel>Panel 2</UnderlinePanels.Panel>
-    <UnderlinePanels.Panel>Panel 3</UnderlinePanels.Panel>
-  </UnderlinePanels>
-)
-
 export const SingleTabPlayground: StoryFn<ComponentProps<typeof UnderlinePanels.Tab>> = args => {
   return (
     <UnderlinePanels aria-label="Select a tab">
