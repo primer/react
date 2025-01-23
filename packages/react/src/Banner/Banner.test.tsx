@@ -1,7 +1,7 @@
-import {cleanup, render, screen} from '@testing-library/react'
+import {render, screen} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React from 'react'
-import {Banner, BannerVariant} from '../Banner'
+import {Banner} from '../Banner'
 import {FeatureFlags} from '../FeatureFlags'
 
 describe('Banner', () => {
@@ -169,15 +169,14 @@ describe('Banner', () => {
     expect(onDismiss).toHaveBeenCalledTimes(3)
   })
 
-  it('should support onDismiss for all variants', () => {
-    const onDismiss = jest.fn()
-    const variantTypes: BannerVariant[] = ['critical', 'info', 'success', 'upsell', 'warning']
-    variantTypes.map(variant => {
-      cleanup()
+  it.each(['critical', 'info', 'success', 'upsell', 'warning'] as const)(
+    'should support onDismiss for the %s variant',
+    variant => {
+      const onDismiss = jest.fn()
       render(<Banner title="test" description="test-description" onDismiss={onDismiss} variant={variant} />)
-      expect(screen.queryByRole('button', {name: 'Dismiss banner'})).toBeTruthy()
-    })
-  })
+      expect(screen.queryByRole('button', {name: 'Dismiss banner'})).toBeInTheDocument()
+    },
+  )
 
   it('should pass extra props onto the container element', () => {
     const {container} = render(<Banner title="test" data-testid="test" />)
