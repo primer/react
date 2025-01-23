@@ -240,7 +240,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: components
-          path: packages/react/generated/components
+          path: packages/react/generated
       - name: Run VRT
         uses: docker://mcr.microsoft.com/playwright:v1.47.2-jammy
         env:
@@ -318,7 +318,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: components
-          path: packages/react/generated/components
+          path: packages/react/generated
       - name: Run AAT
         uses: docker://mcr.microsoft.com/playwright:v1.47.2-jammy
         env:
@@ -400,7 +400,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: components
-          path: packages/react/generated/components
+          path: packages/react/generated
       - name: Run AAT
         uses: docker://mcr.microsoft.com/playwright:v1.47.2-jammy
         env:
