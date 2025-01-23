@@ -125,7 +125,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: components
-          path: packages/react/generated/components
+          path: packages/react/generated/components.json
 
   vrt-runner:
     runs-on: ubuntu-latest-16-cores
