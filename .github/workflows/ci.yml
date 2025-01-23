@@ -121,6 +121,11 @@ jobs:
       - name: Build hooks.json
         run: npx tsx script/hooks-json/build.ts
         working-directory: packages/react
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: components.json
+          path: packages/react/generated/components.json
 
   vrt-runner:
     runs-on: ubuntu-latest-16-cores
@@ -149,6 +154,11 @@ jobs:
           pid=$!
           echo "pid=$pid" >> $GITHUB_OUTPUT
           sleep 5
+      - name: Download Artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: components.json
+          path: packages/react/generated/components.json
       - name: Run VRT
         uses: docker://mcr.microsoft.com/playwright:v1.47.2-jammy
         env:
@@ -299,6 +309,11 @@ jobs:
           pid=$!
           echo "pid=$pid" >> $GITHUB_OUTPUT
           sleep 5
+      - name: Download Artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: components.json
+          path: packages/react/generated/components.json
       - name: Run AAT
         uses: docker://mcr.microsoft.com/playwright:v1.47.2-jammy
         env:
