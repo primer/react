@@ -108,6 +108,7 @@ export function Announce({
     observer.observe(container, {
       subtree: true,
       characterData: true,
+      childList: true,
     })
 
     return () => {
