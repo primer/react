@@ -1,4 +1,13 @@
-import React, {Children, isValidElement, cloneElement, useState, useRef, type FC, type PropsWithChildren} from 'react'
+import React, {
+  Children,
+  isValidElement,
+  cloneElement,
+  useState,
+  useRef,
+  type FC,
+  type PropsWithChildren,
+  useEffect,
+} from 'react'
 import {TabContainerElement} from '@github/tab-container-element'
 import type {IconProps} from '@primer/octicons-react'
 import {createComponent} from '../../utils/create-component'
@@ -50,6 +59,10 @@ export type TabProps = PropsWithChildren<{
    */
   'aria-selected'?: boolean
   /**
+   * Callback that will trigger both on click selection and keyboard selection.
+   */
+  onSelect?: (event: React.KeyboardEvent<HTMLButtonElement> | React.MouseEvent<HTMLButtonElement>) => void
+  /**
    * Content of CounterLabel rendered after tab text label
    */
   counter?: number | string
@@ -85,33 +98,40 @@ const UnderlinePanels: FC<UnderlinePanelsProps> = ({
   // called in the exact same order in every component render
   const parentId = useId(props.id)
 
-  // Loop through the chidren, if it's a tab, then add id="{id}-tab-{index}"
-  // If it's a panel, then add aria-labelledby="{id}-tab-{index}"
-  let tabIndex = 0
-  let panelIndex = 0
+  const [tabs, setTabs] = useState<React.ReactNode[]>([])
+  const [tabPanels, setTabPanels] = useState<React.ReactNode[]>([])
 
-  const childrenWithProps = Children.map(children, child => {
-    if (isValidElement<UnderlineItemProps>(child) && child.type === Tab) {
-      return cloneElement(child, {id: `${parentId}-tab-${tabIndex++}`, loadingCounters, iconsVisible})
-    }
+  // Make sure we have fresh prop data whenever the tabs or panels are updated (keep aria-selected current)
+  useEffect(() => {
+    // Loop through the chidren, if it's a tab, then add id="{id}-tab-{index}"
+    // If it's a panel, then add aria-labelledby="{id}-tab-{index}"
+    let tabIndex = 0
+    let panelIndex = 0
 
-    if (isValidElement<PanelProps>(child) && child.type === Panel) {
-      return cloneElement(child, {'aria-labelledby': `${parentId}-tab-${panelIndex++}`})
-    }
-    return child
-  })
+    const childrenWithProps = Children.map(children, child => {
+      if (isValidElement<UnderlineItemProps>(child) && child.type === Tab) {
+        return cloneElement(child, {id: `${parentId}-tab-${tabIndex++}`, loadingCounters, iconsVisible})
+      }
 
-  // `tabs` and `tabPanels` need to be refs because `child.type === {type}` will become false
-  // after the elements are cloned by `childrenWithProps` on the first render
-  const tabs = useRef(
-    Children.toArray(childrenWithProps).filter(child => {
+      if (isValidElement<PanelProps>(child) && child.type === Panel) {
+        return cloneElement(child, {'aria-labelledby': `${parentId}-tab-${panelIndex++}`})
+      }
+      return child
+    })
+
+    const newTabs = Children.toArray(childrenWithProps).filter(child => {
       return isValidElement(child) && child.type === Tab
-    }),
-  )
-  const tabPanels = useRef(
-    Children.toArray(childrenWithProps).filter(child => isValidElement(child) && child.type === Panel),
-  )
-  const tabsHaveIcons = tabs.current.some(tab => React.isValidElement(tab) && tab.props.icon)
+    })
+
+    const newTabPanels = Children.toArray(childrenWithProps).filter(
+      child => isValidElement(child) && child.type === Panel,
+    )
+
+    setTabs(newTabs)
+    setTabPanels(newTabPanels)
+  }, [children, parentId, loadingCounters, iconsVisible])
+
+  const tabsHaveIcons = tabs.some(tab => React.isValidElement(tab) && tab.props.icon)
 
   const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
 
@@ -142,8 +162,7 @@ const UnderlinePanels: FC<UnderlinePanelsProps> = ({
   )
 
   if (__DEV__) {
-    // only one tab can be selected at a time
-    const selectedTabs = tabs.current.filter(tab => {
+    const selectedTabs = tabs.filter(tab => {
       const ariaSelected = React.isValidElement(tab) && tab.props['aria-selected']
 
       return ariaSelected === true || ariaSelected === 'true'
@@ -151,10 +170,9 @@ const UnderlinePanels: FC<UnderlinePanelsProps> = ({
 
     invariant(selectedTabs.length <= 1, 'Only one tab can be selected at a time.')
 
-    // every tab has its panel
     invariant(
-      tabs.current.length === tabPanels.current.length,
-      `The number of tabs and panels must be equal. Counted ${tabs.current.length} tabs and ${tabPanels.current.length} panels.`,
+      tabs.length === tabPanels.length,
+      `The number of tabs and panels must be equal. Counted ${tabs.length} tabs and ${tabPanels.length} panels.`,
     )
   }
 
@@ -170,10 +188,10 @@ const UnderlinePanels: FC<UnderlinePanelsProps> = ({
           {...props}
         >
           <StyledUnderlineItemList ref={listRef} aria-label={ariaLabel} aria-labelledby={ariaLabelledBy} role="tablist">
-            {tabs.current}
+            {tabs}
           </StyledUnderlineItemList>
         </StyledUnderlineWrapper>
-        {tabPanels.current}
+        {tabPanels}
       </StyledTabContainerComponent>
     )
   }
@@ -199,25 +217,46 @@ const UnderlinePanels: FC<UnderlinePanelsProps> = ({
         {...props}
       >
         <StyledUnderlineItemList ref={listRef} aria-label={ariaLabel} aria-labelledby={ariaLabelledBy} role="tablist">
-          {tabs.current}
+          {tabs}
         </StyledUnderlineItemList>
       </StyledUnderlineWrapper>
-      {tabPanels.current}
+      {tabPanels}
     </StyledTabContainerComponent>
   )
 }
 
-const Tab: FC<TabProps> = ({'aria-selected': ariaSelected, sx: sxProp = defaultSxProp, ...props}) => (
-  <UnderlineItem
-    as="button"
-    role="tab"
-    tabIndex={ariaSelected ? 0 : -1}
-    aria-selected={ariaSelected}
-    sx={sxProp}
-    type="button"
-    {...props}
-  />
-)
+const Tab: FC<TabProps> = ({'aria-selected': ariaSelected, sx: sxProp = defaultSxProp, onSelect, ...props}) => {
+  const clickHandler = React.useCallback(
+    (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+      if (!event.defaultPrevented && typeof onSelect === 'function') {
+        onSelect(event)
+      }
+    },
+    [onSelect],
+  )
+  const keyDownHandler = React.useCallback(
+    (event: React.KeyboardEvent<HTMLButtonElement>) => {
+      if ((event.key === ' ' || event.key === 'Enter') && !event.defaultPrevented && typeof onSelect === 'function') {
+        onSelect(event)
+      }
+    },
+    [onSelect],
+  )
+
+  return (
+    <UnderlineItem
+      as="button"
+      role="tab"
+      tabIndex={ariaSelected ? 0 : -1}
+      aria-selected={ariaSelected}
+      sx={sxProp}
+      type="button"
+      onClick={clickHandler}
+      onKeyDown={keyDownHandler}
+      {...props}
+    />
+  )
+}
 
 Tab.displayName = 'UnderlinePanels.Tab'
 
