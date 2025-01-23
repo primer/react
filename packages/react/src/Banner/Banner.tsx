@@ -7,7 +7,7 @@ import {useMergedRefs} from '../internal/hooks/useMergedRefs'
 import classes from './Banner.module.css'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 
-type BannerVariant = 'critical' | 'info' | 'success' | 'upsell' | 'warning'
+export type BannerVariant = 'critical' | 'info' | 'success' | 'upsell' | 'warning'
 
 export type BannerProps = React.ComponentPropsWithoutRef<'section'> & {
   /**
@@ -41,8 +41,6 @@ export type BannerProps = React.ComponentPropsWithoutRef<'section'> & {
   /**
    * Optionally provide a handler to be called when the banner is dismissed.
    * Providing this prop will show a dismiss button.
-   *
-   * Note: This is not available for critical banners.
    */
   onDismiss?: () => void
 
@@ -101,7 +99,7 @@ export const Banner = React.forwardRef<HTMLElement, BannerProps>(function Banner
   },
   forwardRef,
 ) {
-  const dismissible = variant !== 'critical' && onDismiss
+  const dismissible = !!onDismiss
   const hasActions = primaryAction || secondaryAction
   const bannerRef = React.useRef<HTMLElement>(null)
   const ref = useMergedRefs(forwardRef, bannerRef)

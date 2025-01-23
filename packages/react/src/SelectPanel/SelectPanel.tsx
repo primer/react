@@ -194,6 +194,7 @@ export function SelectPanel({
   initialLoadingType = 'spinner',
   height,
   className,
+  id,
   ...listProps
 }: SelectPanelProps): JSX.Element {
   const titleId = useId()
@@ -461,6 +462,7 @@ export function SelectPanel({
         focusTrapSettings={focusTrapSettings}
         focusZoneSettings={focusZoneSettings}
         height={height}
+        anchorId={id}
       >
         <LiveRegionOutlet />
         {usingModernActionList ? null : (

@@ -30,7 +30,7 @@ import {useFeatureFlag} from '../../FeatureFlags'
 
 import classes from './SelectPanel.module.css'
 
-const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_staff'
+const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_ga'
 
 const SelectPanelContext = React.createContext<{
   title: string
