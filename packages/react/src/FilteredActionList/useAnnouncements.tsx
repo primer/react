@@ -4,6 +4,7 @@
 import {announce} from '@primer/live-region-element'
 import {useEffect, useRef} from 'react'
 import type {FilteredActionListProps} from './FilteredActionListEntry'
+import type {ItemInput} from '../deprecated/ActionList/List'
 
 // we add a delay so that it does not interrupt default screen reader announcement and queues after it
 const delayMs = 500
@@ -28,10 +29,10 @@ const getItemWithActiveDescendant = (
   const optionElements = listElement.querySelectorAll('[role="option"]')
 
   const index = Array.from(optionElements).indexOf(activeItemElement)
-  const activeItem = items[index]
+  const activeItem = items[index] as ItemInput | undefined
 
-  const text = activeItem.text
-  const selected = activeItem.selected
+  const text = activeItem?.text
+  const selected = activeItem?.selected
 
   return {index, text, selected}
 }

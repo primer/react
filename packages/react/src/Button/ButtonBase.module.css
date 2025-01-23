@@ -1,5 +1,5 @@
 /* Base styles */
-:where(.ButtonBase) {
+.ButtonBase {
   display: flex;
   min-width: max-content;
   height: var(--control-medium-size);
@@ -54,27 +54,28 @@
   }
 
   /* Visuals */
-  & .Visual {
+  & :where(.Visual) {
     display: flex;
     color: var(--fgColor-muted);
     pointer-events: none;
   }
 
   /* mostly for CounterLabel */
-  & .VisualWrap {
+  & :where(.VisualWrap) {
     display: flex;
     pointer-events: none;
   }
 
   /* IconButton */
 
-  &.IconButton {
+  &:where(.IconButton) {
     display: inline-grid;
     width: var(--control-medium-size);
     min-width: unset;
     /* stylelint-disable-next-line primer/spacing */
     padding: unset;
     place-content: center;
+    flex-shrink: 0;
 
     &:where([data-size='small']) {
       width: var(--control-small-size);
@@ -87,7 +88,7 @@
 
   /* LinkButton */
 
-  &[href] {
+  &:where([href]) {
     display: inline-flex;
 
     &:hover {
@@ -97,7 +98,7 @@
 
   /* Button layout */
 
-  & .ButtonContent {
+  & :where(.ButtonContent) {
     flex: 1 0 auto;
     display: grid;
     grid-template-areas: 'leadingVisual text trailingVisual';
@@ -124,7 +125,7 @@
     grid-area: leadingVisual;
   }
 
-  & .Label {
+  & :where(.Label) {
     /* stylelint-disable-next-line primer/typography */
     line-height: 1.4285714; /* temporary until we use Text component with --text-body-lineHeight-medium */
     white-space: nowrap;
