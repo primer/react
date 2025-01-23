@@ -13,7 +13,7 @@ import {useFeatureFlag} from '../FeatureFlags'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 
 const SELECTED_CLASS = 'selected'
-const CSS_MODULES_FLAG = 'primer_react_css_modules_staff'
+const CSS_MODULES_FLAG = 'primer_react_css_modules_ga'
 
 const Wrapper = toggleStyledComponent(
   CSS_MODULES_FLAG,
