@@ -124,8 +124,8 @@ jobs:
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:
-          name: components-artifact
-          path: packages/react/generated/components.json
+          name: components
+          path: packages/react/generated/components
 
   vrt-runner:
     runs-on: ubuntu-latest-16-cores
@@ -157,8 +157,8 @@ jobs:
       - name: Download Artifact
         uses: actions/download-artifact@v3
         with:
-          name: components-artifact
-          path: packages/react/generated/components.json
+          name: components
+          path: packages/react/generated/components
       - name: Run VRT
         uses: docker://mcr.microsoft.com/playwright:v1.47.2-jammy
         env:
@@ -239,8 +239,8 @@ jobs:
       - name: Download Artifact
         uses: actions/download-artifact@v3
         with:
-          name: components-artifact
-          path: packages/react/generated/components.json
+          name: components
+          path: packages/react/generated/components
       - name: Run VRT
         uses: docker://mcr.microsoft.com/playwright:v1.47.2-jammy
         env:
@@ -317,8 +317,8 @@ jobs:
       - name: Download Artifact
         uses: actions/download-artifact@v3
         with:
-          name: components-artifact
-          path: packages/react/generated/components.json
+          name: components
+          path: packages/react/generated/components
       - name: Run AAT
         uses: docker://mcr.microsoft.com/playwright:v1.47.2-jammy
         env:
@@ -399,8 +399,8 @@ jobs:
       - name: Download Artifact
         uses: actions/download-artifact@v3
         with:
-          name: components-artifact
-          path: packages/react/generated/components.json
+          name: components
+          path: packages/react/generated/components
       - name: Run AAT
         uses: docker://mcr.microsoft.com/playwright:v1.47.2-jammy
         env:
