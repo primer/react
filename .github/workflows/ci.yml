@@ -124,7 +124,7 @@ jobs:
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:
-          name: components.json
+          name: components-artifact
           path: packages/react/generated/components.json
 
   vrt-runner:
@@ -157,7 +157,7 @@ jobs:
       - name: Download Artifact
         uses: actions/download-artifact@v3
         with:
-          name: components.json
+          name: components-artifact
           path: packages/react/generated/components.json
       - name: Run VRT
         uses: docker://mcr.microsoft.com/playwright:v1.47.2-jammy
@@ -239,7 +239,7 @@ jobs:
       - name: Download Artifact
         uses: actions/download-artifact@v3
         with:
-          name: components.json
+          name: components-artifact
           path: packages/react/generated/components.json
       - name: Run VRT
         uses: docker://mcr.microsoft.com/playwright:v1.47.2-jammy
@@ -317,7 +317,7 @@ jobs:
       - name: Download Artifact
         uses: actions/download-artifact@v3
         with:
-          name: components.json
+          name: components-artifact
           path: packages/react/generated/components.json
       - name: Run AAT
         uses: docker://mcr.microsoft.com/playwright:v1.47.2-jammy
@@ -399,7 +399,7 @@ jobs:
       - name: Download Artifact
         uses: actions/download-artifact@v3
         with:
-          name: components.json
+          name: components-artifact
           path: packages/react/generated/components.json
       - name: Run AAT
         uses: docker://mcr.microsoft.com/playwright:v1.47.2-jammy
