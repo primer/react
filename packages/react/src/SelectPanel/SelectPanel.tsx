@@ -102,6 +102,7 @@ export function SelectPanel({
   overlayProps,
   sx,
   className,
+  id,
   ...listProps
 }: SelectPanelProps): JSX.Element {
   const titleId = useId()
@@ -213,6 +214,7 @@ export function SelectPanel({
         }}
         focusTrapSettings={focusTrapSettings}
         focusZoneSettings={focusZoneSettings}
+        anchorId={id}
       >
         <LiveRegionOutlet />
         {usingModernActionList ? null : (

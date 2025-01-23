@@ -314,18 +314,19 @@ export const WithSelectPanel = () => {
 
   return (
     <FormControl required>
-      <FormControl.Label>Select Labels</FormControl.Label>
+      <FormControl.Label id="select_panel_label">Select Labels</FormControl.Label>
       <SelectPanel
         title="Select labels"
         subtitle="Use labels to organize issues and pull requests"
-        renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
+        renderAnchor={({children, id, ...anchorProps}) => (
           <Button
             trailingAction={TriangleDownIcon}
-            aria-labelledby={` ${ariaLabelledBy}`}
+            aria-labelledby={`select_panel_label selectpanel_wrapper`}
+            id={id}
             {...anchorProps}
             aria-haspopup="dialog"
           >
-            {children ?? 'Select Labels'}
+            <span id="selectpanel_wrapper">{children ?? 'Select Labels'}</span>
           </Button>
         )}
         open={open}
