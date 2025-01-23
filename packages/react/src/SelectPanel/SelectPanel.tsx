@@ -324,9 +324,16 @@ export function SelectPanel({
 
       ref.addEventListener('focus', listener)
 
+      // We would normally expect AnchoredOverlay's focus trap to automatically focus the input,
+      // but for some reason the ref isn't populated until _after_ the panel is open, which is
+      // too late. So, we focus manually here.
+      if (open) {
+        ref.focus()
+      }
+
       return () => ref.removeEventListener('focus', listener)
     }
-  }, [inputRef])
+  }, [inputRef, open])
 
   // Populate panel with items on first open
   useEffect(() => {
