@@ -151,56 +151,59 @@ export type ProgressBarProps = React.HTMLAttributes<HTMLSpanElement> & {
 } & StyledProgressContainerProps &
   ProgressProp
 
-export const ProgressBar = forwardRef<HTMLSpanElement, ProgressBarProps>((props, forwardRef) => {
-  const {
-    animated,
-    progress,
-    bg = 'success.emphasis',
-    barSize = 'default',
-    children,
-    'aria-label': ariaLabel,
-    'aria-valuenow': ariaValueNow,
-    'aria-valuetext': ariaValueText,
-    'aria-hidden': ariaHidden,
-    className,
-    ...rest
-  } = props
+export const ProgressBar = forwardRef<HTMLSpanElement, ProgressBarProps>(
+  (
+    {
+      animated,
+      progress,
+      bg = 'success.emphasis',
+      barSize = 'default',
+      children,
+      'aria-label': ariaLabel,
+      'aria-valuenow': ariaValueNow,
+      'aria-valuetext': ariaValueText,
+      'aria-hidden': ariaHidden,
+      className,
+      ...rest
+    }: ProgressBarProps,
+    forwardRef,
+  ) => {
+    if (children && progress) {
+      throw new Error('You should pass `progress` or children, not both.')
+    }
 
-  if (children && progress) {
-    throw new Error('You should pass `progress` or children, not both.')
-  }
+    // Get the number of non-empty nodes passed as children, this will exclude
+    // booleans, null, and undefined
+    const validChildren = React.Children.toArray(children).length
+    const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
 
-  // Get the number of non-empty nodes passed as children, this will exclude
-  // booleans, null, and undefined
-  const validChildren = React.Children.toArray(children).length
-  const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
+    const cssModulesProps = !enabled
+      ? {barSize}
+      : {'data-progress-display': rest.inline ? 'inline' : 'block', 'data-progress-bar-size': barSize}
 
-  const cssModulesProps = !enabled
-    ? {barSize}
-    : {'data-progress-display': rest.inline ? 'inline' : 'block', 'data-progress-bar-size': barSize}
-
-  return (
-    <ProgressContainer
-      ref={forwardRef}
-      className={clsx(className, {[classes.ProgressBarContainer]: enabled})}
-      {...cssModulesProps}
-      {...rest}
-    >
-      {validChildren ? (
-        children
-      ) : (
-        <Item
-          data-animated={animated}
-          progress={progress}
-          aria-label={ariaHidden ? undefined : ariaLabel}
-          aria-valuenow={ariaValueNow}
-          aria-valuetext={ariaValueText}
-          aria-hidden={ariaHidden}
-          bg={bg}
-        />
-      )}
-    </ProgressContainer>
-  )
-})
+    return (
+      <ProgressContainer
+        ref={forwardRef}
+        className={clsx(className, {[classes.ProgressBarContainer]: enabled})}
+        {...cssModulesProps}
+        {...rest}
+      >
+        {validChildren ? (
+          children
+        ) : (
+          <Item
+            data-animated={animated}
+            progress={progress}
+            aria-label={ariaHidden ? undefined : ariaLabel}
+            aria-valuenow={ariaValueNow}
+            aria-valuetext={ariaValueText}
+            aria-hidden={ariaHidden}
+            bg={bg}
+          />
+        )}
+      </ProgressContainer>
+    )
+  },
+)
 
 ProgressBar.displayName = 'ProgressBar'
