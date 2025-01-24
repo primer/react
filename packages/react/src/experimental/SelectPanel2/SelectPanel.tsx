@@ -249,20 +249,6 @@ const Panel: React.FC<SelectPanelProps> = ({
     maxHeightValue = '100vh'
   }
 
-  const [isVisible, setIsVisible] = useState(internalOpen)
-
-  useEffect(() => {
-    if (internalOpen) {
-      // give the browser time to render the panel and for useAnchoredPosition
-      // to calculate its actual size
-      window.requestAnimationFrame(() => {
-        setIsVisible(true)
-      })
-    } else {
-      setIsVisible(false)
-    }
-  }, [internalOpen, setIsVisible])
-
   return (
     <>
       {Anchor}
@@ -276,24 +262,15 @@ const Panel: React.FC<SelectPanelProps> = ({
         height="fit-content"
         maxHeight={maxHeight}
         data-variant={currentVariant}
-        data-visibility={isVisible ? 'visible' : 'hidden'}
         sx={
           enabled
             ? undefined
             : {
-                '&[data-visibility="visible"]': {
-                  visibility: 'visible',
-                },
-                '&[data-visibility="hidden"]': {
-                  visibility: 'hidden',
-                },
-
                 '--max-height': heightMap[maxHeight],
                 // reset dialog default styles
                 border: 'none',
                 padding: 0,
                 color: 'fg.default',
-                '&[open]': {display: 'flex'}, // to fit children
 
                 '&[data-variant="anchored"], &[data-variant="full-screen"]': {
                   margin: 0,
@@ -335,8 +312,13 @@ const Panel: React.FC<SelectPanelProps> = ({
                 '--max-height': maxHeightValue,
                 '--position-top': `${position?.top ?? 0}px`,
                 '--position-left': `${position?.left ?? 0}px`,
+                visibility: internalOpen ? 'visible' : 'hidden',
+                display: 'flex',
               } as React.CSSProperties)
-            : undefined
+            : {
+                visibility: internalOpen ? 'visible' : 'hidden',
+                display: 'flex',
+              }
         }
         className={enabled ? classes.Overlay : undefined}
         {...props}

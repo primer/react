@@ -1,4 +1,4 @@
-import React, {type RefObject} from 'react'
+import React from 'react'
 import {getAnchoredPosition} from '@primer/behaviors'
 import type {AnchorPosition, PositionSettings} from '@primer/behaviors'
 import {useProvidedRefOrCreate} from './useProvidedRefOrCreate'
@@ -45,11 +45,7 @@ export function useAnchoredPosition(
 
   useLayoutEffect(updatePosition, [updatePosition])
 
-  // recalculate position if viewport changes size
   useResizeObserver(updatePosition)
-
-  // recalculate position if the floating element changes size
-  useResizeObserver(updatePosition, floatingElementRef as RefObject<HTMLElement>)
 
   return {
     floatingElementRef,
