@@ -1,0 +1,23 @@
+{
+  "name": "useColorSchemeVar",
+  "importPath": "@primer/react",
+  "stories": [],
+  "parameters": [
+    {
+      "name": "values",
+      "type": "Partial<Record<string, string>>",
+      "required": true,
+      "description": "A mapping of color scheme names and string. For example: `{ light: 'white', dark: 'black' }`."
+    },
+    {
+      "name": "fallback",
+      "type": "string",
+      "required": true,
+      "description": "A fallback string for when a string isn't defined for the current color scheme."
+    }
+  ],
+  "returns": {
+    "type": "string",
+    "description": "The string defined for the current color mode or the fallback string."
+  }
+}

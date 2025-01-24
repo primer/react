@@ -1,20 +1,79 @@
 import React from 'react'
-import type {Meta} from '@storybook/react'
+import type {Meta, StoryFn} from '@storybook/react'
 import UnderlinePanels from './UnderlinePanels'
-import type {ComponentProps} from '../../utils/types'
 
-export default {
+const meta: Meta<typeof UnderlinePanels> = {
   title: 'Experimental/Components/UnderlinePanels',
   component: UnderlinePanels,
-} as Meta<ComponentProps<typeof UnderlinePanels>>
+  parameters: {
+    controls: {
+      expanded: true,
+    },
+  },
+  argTypes: {
+    'aria-label': {
+      type: {
+        name: 'string',
+      },
+    },
+    'aria-labelledby': {
+      type: {
+        name: 'string',
+      },
+    },
+    id: {
+      type: {
+        name: 'string',
+      },
+    },
+    loadingCounters: {
+      control: {
+        type: 'boolean',
+      },
+    },
+  },
+  args: {
+    'aria-label': 'Select a tab',
+    'aria-labelledby': 'tab',
+    id: 'test',
+    loadingCounters: false,
+  },
+}
 
-export const Default = () => (
-  <UnderlinePanels aria-label="Select a tab">
-    <UnderlinePanels.Tab>Tab 1</UnderlinePanels.Tab>
-    <UnderlinePanels.Tab>Tab 2</UnderlinePanels.Tab>
-    <UnderlinePanels.Tab>Tab 3</UnderlinePanels.Tab>
-    <UnderlinePanels.Panel>Panel 1</UnderlinePanels.Panel>
-    <UnderlinePanels.Panel>Panel 2</UnderlinePanels.Panel>
-    <UnderlinePanels.Panel>Panel 3</UnderlinePanels.Panel>
-  </UnderlinePanels>
-)
+export default meta
+
+export const Default: StoryFn<typeof UnderlinePanels> = () => {
+  const tabs = ['Tab 1', 'Tab 2', 'Tab 3']
+  const panels = ['Panel 1', 'Panel 2', 'Panel 3']
+
+  return (
+    <UnderlinePanels aria-label="Select a tab">
+      {tabs.map((tab: string, index: number) => (
+        <UnderlinePanels.Tab key={index} aria-selected={index === 0 ? true : undefined}>
+          {tab}
+        </UnderlinePanels.Tab>
+      ))}
+      {panels.map((panel: string, index: number) => (
+        <UnderlinePanels.Panel key={index}>{panel}</UnderlinePanels.Panel>
+      ))}
+    </UnderlinePanels>
+  )
+}
+
+export const Playgound: StoryFn<typeof UnderlinePanels> = args => {
+  const tabs = ['Tab 1', 'Tab 2', 'Tab 3']
+  const panels = ['Panel 1', 'Panel 2', 'Panel 3']
+
+  return (
+    <UnderlinePanels {...args}>
+      {tabs.map((tab: string, index: number) => (
+        <UnderlinePanels.Tab key={index} aria-selected={index === 0 ? true : undefined}>
+          {tab}
+        </UnderlinePanels.Tab>
+      ))}
+      {panels.map((panel: string, index: number) => (
+        <UnderlinePanels.Panel key={index}>{panel}</UnderlinePanels.Panel>
+      ))}
+    </UnderlinePanels>
+  )
+}
