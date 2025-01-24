@@ -6,16 +6,6 @@ import axe from 'axe-core'
 import {FeatureFlags} from '../FeatureFlags'
 
 describe('ProgressBar', () => {
-  const mockWarningFn = jest.fn()
-
-  beforeEach(() => {
-    jest.spyOn(global.console, 'warn').mockImplementation(mockWarningFn)
-  })
-
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
-
   behavesAsComponent({
     Component: ProgressBar,
     toRender: () => <ProgressBar aria-label="Upload test.png" aria-valuenow={10} progress={0} />,
@@ -123,18 +113,30 @@ describe('ProgressBar', () => {
     expect(getByRole('progressbar')).toHaveAttribute('aria-valuenow', '0')
   })
 
-  it('should warn users if aria-label is not provided', () => {
-    HTMLRender(<ProgressBar.Item progress={50} />)
-    expect(mockWarningFn).toHaveBeenCalled()
-  })
+  describe('console.warn', () => {
+    const mockWarningFn = jest.fn()
 
-  it('should not warn users if aria-label is not provided but aria-hidden is', () => {
-    HTMLRender(<ProgressBar.Item progress={50} aria-hidden={true} />)
-    expect(mockWarningFn).not.toHaveBeenCalled()
-  })
+    beforeEach(() => {
+      jest.spyOn(global.console, 'warn').mockImplementation(mockWarningFn)
+    })
 
-  it('should not warn users if aria-label is  provided', () => {
-    HTMLRender(<ProgressBar.Item progress={50} aria-label="Uploading test.png" />)
-    expect(mockWarningFn).not.toHaveBeenCalled()
+    afterEach(() => {
+      jest.clearAllMocks()
+    })
+
+    it('should warn users if aria-label is not provided', () => {
+      HTMLRender(<ProgressBar.Item progress={50} />)
+      expect(mockWarningFn).toHaveBeenCalled()
+    })
+
+    it('should not warn users if aria-label is not provided but aria-hidden is', () => {
+      HTMLRender(<ProgressBar.Item progress={50} aria-hidden={true} />)
+      expect(mockWarningFn).not.toHaveBeenCalled()
+    })
+
+    it('should not warn users if aria-label is  provided', () => {
+      HTMLRender(<ProgressBar.Item progress={50} aria-label="Uploading test.png" />)
+      expect(mockWarningFn).not.toHaveBeenCalled()
+    })
   })
 })
