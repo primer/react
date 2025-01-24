@@ -29,6 +29,7 @@ import {clsx} from 'clsx'
 import {useFeatureFlag} from '../../FeatureFlags'
 
 import classes from './SelectPanel.module.css'
+import type {PositionSettings} from '@primer/behaviors'
 
 const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_ga'
 
@@ -66,6 +67,7 @@ export type SelectPanelProps = {
   defaultOpen?: boolean
   open?: boolean
   anchorRef?: React.RefObject<HTMLButtonElement>
+  anchoredPositionSettings?: Partial<PositionSettings>
 
   onCancel?: () => void
   onClearSelection?: undefined | (() => void)
@@ -89,6 +91,7 @@ const Panel: React.FC<SelectPanelProps> = ({
   defaultOpen = false,
   open: propsOpen,
   anchorRef: providedAnchorRef,
+  anchoredPositionSettings,
 
   onCancel: propsOnCancel,
   onClearSelection: propsOnClearSelection,
@@ -228,6 +231,7 @@ const Panel: React.FC<SelectPanelProps> = ({
       floatingElementRef: dialogRef,
       side: 'outside-bottom',
       align: 'start',
+      ...anchoredPositionSettings,
     },
     [internalOpen, anchorRef.current, dialogRef.current],
   )
@@ -245,6 +249,20 @@ const Panel: React.FC<SelectPanelProps> = ({
     maxHeightValue = '100vh'
   }
 
+  const [isVisible, setIsVisible] = useState(internalOpen)
+
+  useEffect(() => {
+    if (internalOpen) {
+      // give the browser time to render the panel and for useAnchoredPosition
+      // to calculate its actual size
+      window.requestAnimationFrame(() => {
+        setIsVisible(true)
+      })
+    } else {
+      setIsVisible(false)
+    }
+  }, [internalOpen, setIsVisible])
+
   return (
     <>
       {Anchor}
@@ -258,10 +276,18 @@ const Panel: React.FC<SelectPanelProps> = ({
         height="fit-content"
         maxHeight={maxHeight}
         data-variant={currentVariant}
+        data-visibility={isVisible ? 'visible' : 'hidden'}
         sx={
           enabled
             ? undefined
             : {
+                '&[data-visibility="visible"]': {
+                  visibility: 'visible',
+                },
+                '&[data-visibility="hidden"]': {
+                  visibility: 'hidden',
+                },
+
                 '--max-height': heightMap[maxHeight],
                 // reset dialog default styles
                 border: 'none',

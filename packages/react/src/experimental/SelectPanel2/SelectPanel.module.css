@@ -8,6 +8,14 @@
   --position-top: 0;
   --position-left: 0;
 
+  &[data-visibility='visible'] {
+    visibility: visible;
+  }
+
+  &[data-visibility='hidden'] {
+    visibility: hidden;
+  }
+
   &:where([open]) {
     display: flex; /* to fit children */
   }
