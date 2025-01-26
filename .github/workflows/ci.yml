@@ -170,7 +170,6 @@ jobs:
           path: playwright-report
       - name: check vrt-runner job status
         if: ${{ needs.vrt-runner.result == 'failure' }}
-        continue-on-error: true
         run: exit 1
 
   vrt-runner-all-flags:
@@ -247,7 +246,6 @@ jobs:
           path: playwright-report
       - name: check vrt-runner-all-flags job status
         if: ${{ needs.vrt-runner-all-flags.result == 'failure' }}
-        continue-on-error: true
         run: exit 1
 
   aat-runner:
@@ -320,7 +318,6 @@ jobs:
           path: playwright-report
       - name: Check aat-runner job status
         if: ${{ needs.aat-runner.result == 'failure' }}
-        continue-on-error: true
         run: exit 1
 
   aat-runner-all-flags:
@@ -397,7 +394,6 @@ jobs:
           path: playwright-report
       - name: Check aat-runner-all-flags job status
         if: ${{ needs.aat-runner-all-flags.result == 'failure' }}
-        continue-on-error: true
         run: exit 1
 
   build-components-json:
@@ -417,6 +413,9 @@ jobs:
         working-directory: packages/react
       - name: Build components.json
         run: npx tsx script/components-json/build.ts --storybook-data 'storybook-static/index.json'
+        working-directory: packages/react
+      - name: Build hooks.json
+        run: npx tsx script/hooks-json/build.ts
         working-directory: packages/react
 
   sizes:

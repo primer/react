@@ -1,0 +1,77 @@
+{
+  "name": "useFocusTrap",
+  "importPath": "@primer/react",
+  "stories": [
+    {"id": "hooks-usefocustrap--custom-initial-focus"},
+    {"id": "hooks-usefocustrap--dynamic-focus-trap-contents"},
+    {"id": "hooks-usefocustrap--focus-trap"},
+    {"id": "hooks-usefocustrap--multiple-focus-traps"},
+    {"id": "hooks-usefocustrap--restore-focus"}
+  ],
+  "parameters": [
+    {
+      "name": "settings",
+      "type": "FocusTrapSettings",
+      "required": true,
+      "description": "Configuration options for the focus trap."
+    },
+    {
+      "name": "dependencies",
+      "type": "Array",
+      "required": true,
+      "defaultValue": "[]",
+      "description": "React.DependencyList"
+    }
+  ],
+  "relatedTypes": [
+    {
+      "name": "FocusTrapSettings",
+      "properties": [
+        {
+          "name": "containerRef",
+          "type": "React.RefObject<HTMLElement>",
+          "description": "Ref that will be used for the trapping container. If not provided, one will be created by this hook and returned."
+        },
+        {
+          "name": "initialFocusRef",
+          "type": "React.RefObject<HTMLElement>",
+          "description": "Ref for the element that should receive focus when the focus trap is first enabled. If not provided, one will be created by this hook and returned. Its use is optional."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "description": "Set to true to disable the focus trap and clean up listeners. Can be re-enabled at any time."
+        },
+        {
+          "name": "restoreFocusOnCleanUp",
+          "type": "boolean",
+          "description": "If true, when this focus trap is cleaned up, restore focus to the element that had focus immediately before the focus trap was enabled. (Default: false)"
+        },
+        {
+          "name": "returnFocusRef",
+          "type": "React.RefObject<HTMLElement>",
+          "description": "If passed, when this focus trap is cleaned up, restore focus to this element instead of element with focus immediately before the focus trap was enabled. Overrides `restoreFocusOnCleanUp`."
+        }
+      ]
+    },
+    {
+      "name": "FocusTrapRefs",
+      "properties": [
+        {
+          "name": "containerRef",
+          "type": "React.RefObject<HTMLElement>",
+          "description": "Ref that will be used for the trapping container."
+        },
+        {
+          "name": "initialFocusRef",
+          "type": "React.RefObject<HTMLElement>",
+          "description": "Ref for the child element that will receive focus first."
+        }
+      ]
+    }
+  ],
+  "returns": {
+    "type": "FocusTrapRefs",
+    "description": "The refs for the trapping container and the initial focus element."
+  }
+}

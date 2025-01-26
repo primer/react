@@ -1,12 +1,9 @@
 #!/bin/bash
 set -e
 
-if [ "$1" == "preview" ]; then
+if [ -n "$1" ]; then
   export DEPLOY_ENV="preview"
   npm run build:storybook preview
-elif [ "$1" == "preview_with_reports" ]; then
-  export DEPLOY_ENV="preview"
-  npm run build:storybook preview_with_reports
 else
   export DEPLOY_ENV="production"
   npm run build:storybook
