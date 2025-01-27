@@ -10,7 +10,7 @@ import {useFeatureFlag} from '../FeatureFlags'
 import classes from './Timeline.module.css'
 import {defaultSxProp} from '../utils/defaultSxProp'
 
-const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_staff'
+const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_ga'
 
 type StyledTimelineProps = {clipSidebar?: boolean; className?: string} & SxProp
 

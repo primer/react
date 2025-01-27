@@ -1,0 +1,15 @@
+{
+  "name": "useProvidedRefOrCreate",
+  "importPath": "@primer/react",
+  "stories": [],
+  "parameters": [
+    {
+      "name": "providedRef",
+      "type": "React.RefObject<TRef>",
+      "description": "The ref to use - if undefined, will use the ref from a call to React.useRef"
+    }
+  ],
+  "returns": {
+    "type": "React.RefObject<TRef>"
+  }
+}
