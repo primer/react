@@ -169,11 +169,14 @@ describe('Banner', () => {
     expect(onDismiss).toHaveBeenCalledTimes(3)
   })
 
-  it('should not support onDismiss when `variant="critical"`', () => {
-    const onDismiss = jest.fn()
-    render(<Banner title="test" description="test-description" onDismiss={onDismiss} variant="critical" />)
-    expect(screen.queryByRole('button', {name: 'Dismiss banner'})).toBe(null)
-  })
+  it.each(['critical', 'info', 'success', 'upsell', 'warning'] as const)(
+    'should support onDismiss for the %s variant',
+    variant => {
+      const onDismiss = jest.fn()
+      render(<Banner title="test" description="test-description" onDismiss={onDismiss} variant={variant} />)
+      expect(screen.queryByRole('button', {name: 'Dismiss banner'})).toBeInTheDocument()
+    },
+  )
 
   it('should pass extra props onto the container element', () => {
     const {container} = render(<Banner title="test" data-testid="test" />)
