@@ -13,10 +13,12 @@ const {entries} = componentsConfig
 test.describe('@aat', () => {
   for (const [id, entry] of Object.entries(entries as Record<string, Component>)) {
     const {name} = entry
+    // remove parentheses from the name to avoid playwright file issues
+    const cleanedName = name.replaceAll(/()/g, '')
     test.describe(id, () => {
       for (const theme of themes) {
         test.describe(theme, () => {
-          test(name, async ({page}) => {
+          test(cleanedName, async ({page}) => {
             await visit(page, {
               id,
               globals: {
