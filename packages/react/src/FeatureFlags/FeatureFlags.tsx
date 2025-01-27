@@ -11,6 +11,6 @@ export function FeatureFlags({children, flags}: FeatureFlagsProps) {
   const value = useMemo(() => {
     const scope = FeatureFlagScope.merge(parentFeatureFlags, FeatureFlagScope.create(flags))
     return scope
-  }, [flags])
+  }, [parentFeatureFlags, flags])
   return <FeatureFlagContext.Provider value={value}>{children}</FeatureFlagContext.Provider>
 }
