@@ -118,6 +118,9 @@ jobs:
       - name: Build components.json
         run: npx tsx script/components-json/build.ts --storybook-data 'storybook-static/index.json'
         working-directory: packages/react
+      - name: Build hooks.json
+        run: npx tsx script/hooks-json/build.ts
+        working-directory: packages/react
 
   sizes:
     runs-on: ubuntu-latest
