@@ -1,5 +1,6 @@
 .HeaderDev {
   color: var(--color-prettylights-syntax-carriage-return-text);
+  /* eslint-disable-next-line primer/no-display-colors */
   background-color: var(--display-pine-bgColor-emphasis);
 }
 
