@@ -4,6 +4,7 @@ import {ThemeProvider} from '..'
 import {FilteredActionList} from '../FilteredActionList'
 import BaseStyles from '../BaseStyles'
 import Box from '../Box'
+import {FeatureFlags} from '../FeatureFlags'
 
 const meta: Meta = {
   title: 'Components/FilteredActionList',
@@ -57,7 +58,7 @@ export function Default(): JSX.Element {
   const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
 
   return (
-    <>
+    <FeatureFlags flags={{primer_react_select_panel_with_modern_action_list: true}}>
       <h1>Filtered Action List</h1>
       <div>Please select labels that describe your issue:</div>
       <FilteredActionList
@@ -66,6 +67,6 @@ export function Default(): JSX.Element {
         onFilterChange={setFilter}
         sx={{border: '1px solid', padding: '8px'}}
       />
-    </>
+    </FeatureFlags>
   )
 }
