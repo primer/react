@@ -1,10 +1,10 @@
 import {clsx} from 'clsx'
 import React from 'react'
 import type {SystemCommonProps, SystemTypographyProps} from '../constants'
-import {COMMON, TYPOGRAPHY} from '../constants'
 import type {SxProp} from '../sx'
 import Box from '../Box'
 import {useRefObjectAsForwardedRef} from '../hooks'
+import {includesSystemProps} from '../utils/includeSystemProps'
 import classes from './Text.module.css'
 
 export type TextProps<As extends React.ElementType> = {
@@ -15,19 +15,6 @@ export type TextProps<As extends React.ElementType> = {
   SystemTypographyProps &
   SystemCommonProps &
   SxProp
-
-const COMMON_PROP_NAMES = new Set(Object.keys(COMMON))
-const TYPOGRAPHY_PROP_NAMES = new Set(Object.keys(TYPOGRAPHY))
-
-function includesSystemProps<As extends React.ElementType>(props: TextProps<As>) {
-  if (props.sx) {
-    return true
-  }
-
-  return Object.keys(props).some(prop => {
-    return TYPOGRAPHY_PROP_NAMES.has(prop) || COMMON_PROP_NAMES.has(prop)
-  })
-}
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function Text<As extends React.ElementType>(props: TextProps<As>, forwardedRef: React.ForwardedRef<any>) {

@@ -1,0 +1,40 @@
+{
+  "name": "useOnOutsideClick",
+  "importPath": "@primer/react",
+  "stories": [],
+  "parameters": [
+    {
+      "name": "settings",
+      "type": "UseOnOutsideClickSettings",
+      "required": true,
+      "description": "Settings for the useOnOutsideClick hook."
+    }
+  ],
+  "returns": {
+    "type": "void"
+  },
+  "relatedTypes": [
+    {
+      "name": "UseOnOutsideClickSettings",
+      "properties": [
+        {
+          "name": "containerRef",
+          "type": "React.RefObject<HTMLDivElement> | React.RefObject<HTMLUListElement>",
+          "required": true,
+          "description": "A ref to the container element to detect outside clicks."
+        },
+        {
+          "name": "ignoreClickRefs",
+          "type": "React.RefObject<HTMLElement>[]",
+          "description": "An array of refs to elements that should be ignored when detecting outside clicks."
+        },
+        {
+          "name": "onClickOutside",
+          "type": "(e: MouseEvent | TouchEvent) => void",
+          "required": true,
+          "description": "Callback function to be called when an outside click is detected."
+        }
+      ]
+    }
+  ]
+}

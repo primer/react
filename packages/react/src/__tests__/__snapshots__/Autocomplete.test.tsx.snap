@@ -537,7 +537,7 @@ exports[`snapshots renders a loading state 1`] = `
   justify-content: center;
 }
 
-.c3:not(:focus):not(:active):not(:focus-within) {
+.c2:not(:focus):not(:active):not(:focus-within) {
   -webkit-clip-path: inset(50%);
   clip-path: inset(50%);
   height: 1px;
@@ -545,11 +545,6 @@ exports[`snapshots renders a loading state 1`] = `
   position: absolute;
   white-space: nowrap;
   width: 1px;
-}
-
-.c2 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
 }
 
 .c0 {
@@ -582,7 +577,7 @@ exports[`snapshots renders a loading state 1`] = `
         <svg
           aria-hidden={true}
           aria-labelledby=":r2h:"
-          className="c2"
+          className="SpinnerAnimation"
           fill="none"
           height="32px"
           viewBox="0 0 16 16"
@@ -606,7 +601,7 @@ exports[`snapshots renders a loading state 1`] = `
           />
         </svg>
         <span
-          className="c3"
+          className="c2"
           id=":r2h:"
         >
           Loading
@@ -888,7 +883,6 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   </span>,
   .c5 {
   height: 20px;
-  min-width: 16px;
   max-width: 20px;
   display: -webkit-box;
   display: -webkit-flex;
@@ -907,10 +901,11 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   flex-shrink: 0;
   margin-right: 8px;
   color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
+  min-width: 16px;
 }
 
 .c6 {
-  border-color: var(--bgColor-neutral-emphasis,var(--color-neutral-emphasis,#6e7781));
+  border-color: var(--control-borderColor-emphasis);
   border-style: solid;
   border-width: 1px;
   border-radius: 3px;
@@ -974,7 +969,6 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
 
 .c9 {
   height: 20px;
-  min-width: 16px;
   max-width: 20px;
   display: -webkit-box;
   display: -webkit-flex;
@@ -1035,7 +1029,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   font-size: 14px;
   padding-top: 6px;
   padding-bottom: 6px;
-  line-height: 20px;
+  line-height: 16px;
   min-height: 5px;
   margin-left: 8px;
   margin-right: 8px;
@@ -1122,7 +1116,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   width: 4px;
   height: 24px;
   content: "";
-  background-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  background-color: var(--borderColor-accent-emphasis);
   border-radius: 6px;
 }
 
@@ -1166,7 +1160,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   .c3:focus.focus-visible {
     outline: none;
     border: 2 solid;
-    box-shadow: 0 0 0 2px var(--bgColor-accent-emphasis,var(--color-accent-emphasis,#0969da));
+    box-shadow: 0 0 0 2px var(--focus-outlineColor);
   }
 
   .c3:active:not([aria-disabled]):not([data-inactive]) {
@@ -1543,14 +1537,13 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
             <svg
               aria-hidden="true"
               className="octicon octicon-plus"
+              display="inline-block"
               fill="currentColor"
               focusable="false"
               height={16}
+              overflow="visible"
               style={
                 {
-                  "display": "inline-block",
-                  "overflow": "visible",
-                  "userSelect": "none",
                   "verticalAlign": "text-bottom",
                 }
               }
@@ -1839,7 +1832,6 @@ exports[`snapshots renders a multiselect input 1`] = `
   </span>,
   .c4 {
   height: 20px;
-  min-width: 16px;
   max-width: 20px;
   display: -webkit-box;
   display: -webkit-flex;
@@ -1858,10 +1850,11 @@ exports[`snapshots renders a multiselect input 1`] = `
   flex-shrink: 0;
   margin-right: 8px;
   color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
+  min-width: 16px;
 }
 
 .c5 {
-  border-color: var(--bgColor-neutral-emphasis,var(--color-neutral-emphasis,#6e7781));
+  border-color: var(--control-borderColor-emphasis);
   border-style: solid;
   border-width: 1px;
   border-radius: 3px;
@@ -1954,7 +1947,7 @@ exports[`snapshots renders a multiselect input 1`] = `
   font-size: 14px;
   padding-top: 6px;
   padding-bottom: 6px;
-  line-height: 20px;
+  line-height: 16px;
   min-height: 5px;
   margin-left: 8px;
   margin-right: 8px;
@@ -2041,7 +2034,7 @@ exports[`snapshots renders a multiselect input 1`] = `
   width: 4px;
   height: 24px;
   content: "";
-  background-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  background-color: var(--borderColor-accent-emphasis);
   border-radius: 6px;
 }
 
@@ -2072,7 +2065,7 @@ exports[`snapshots renders a multiselect input 1`] = `
   .c3:focus.focus-visible {
     outline: none;
     border: 2 solid;
-    box-shadow: 0 0 0 2px var(--bgColor-accent-emphasis,var(--color-accent-emphasis,#0969da));
+    box-shadow: 0 0 0 2px var(--focus-outlineColor);
   }
 
   .c3:active:not([aria-disabled]):not([data-inactive]) {
@@ -2692,7 +2685,6 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   </span>,
   .c4 {
   height: 20px;
-  min-width: 16px;
   max-width: 20px;
   display: -webkit-box;
   display: -webkit-flex;
@@ -2711,10 +2703,11 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   flex-shrink: 0;
   margin-right: 8px;
   color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
+  min-width: 16px;
 }
 
 .c5 {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--control-checked-borderColor-rest);
   border-style: solid;
   border-width: 1px;
   border-radius: 3px;
@@ -2724,7 +2717,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   margin: 0;
   place-content: center;
   width: var(--base-size-16,16px);
-  background-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  background-color: var(--control-checked-bgColor-rest);
   -webkit-transition: background-color,border-color 80ms cubic-bezier(0.33,1,0.68,1);
   transition: background-color,border-color 80ms cubic-bezier(0.33,1,0.68,1);
 }
@@ -2777,7 +2770,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
 }
 
 .c9 {
-  border-color: var(--bgColor-neutral-emphasis,var(--color-neutral-emphasis,#6e7781));
+  border-color: var(--control-borderColor-emphasis);
   border-style: solid;
   border-width: 1px;
   border-radius: 3px;
@@ -2845,7 +2838,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   font-size: 14px;
   padding-top: 6px;
   padding-bottom: 6px;
-  line-height: 20px;
+  line-height: 16px;
   min-height: 5px;
   margin-left: 8px;
   margin-right: 8px;
@@ -2932,7 +2925,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   width: 4px;
   height: 24px;
   content: "";
-  background-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  background-color: var(--borderColor-accent-emphasis);
   border-radius: 6px;
 }
 
@@ -2947,7 +2940,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   font-size: 14px;
   padding-top: 6px;
   padding-bottom: 6px;
-  line-height: 20px;
+  line-height: 16px;
   min-height: 5px;
   margin-left: 8px;
   margin-right: 8px;
@@ -3034,7 +3027,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   width: 4px;
   height: 24px;
   content: "";
-  background-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  background-color: var(--borderColor-accent-emphasis);
   border-radius: 6px;
 }
 
@@ -3071,7 +3064,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   .c3:focus.focus-visible {
     outline: none;
     border: 2 solid;
-    box-shadow: 0 0 0 2px var(--bgColor-accent-emphasis,var(--color-accent-emphasis,#0969da));
+    box-shadow: 0 0 0 2px var(--focus-outlineColor);
   }
 
   .c3:active:not([aria-disabled]):not([data-inactive]) {
@@ -3101,7 +3094,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   .c8:focus.focus-visible {
     outline: none;
     border: 2 solid;
-    box-shadow: 0 0 0 2px var(--bgColor-accent-emphasis,var(--color-accent-emphasis,#0969da));
+    box-shadow: 0 0 0 2px var(--focus-outlineColor);
   }
 
   .c8:active:not([aria-disabled]):not([data-inactive]) {
@@ -3705,7 +3698,6 @@ exports[`snapshots renders a single select input 1`] = `
   </span>,
   .c4 {
   height: 20px;
-  min-width: 16px;
   max-width: 20px;
   display: -webkit-box;
   display: -webkit-flex;
@@ -3724,6 +3716,7 @@ exports[`snapshots renders a single select input 1`] = `
   flex-shrink: 0;
   margin-right: 8px;
   color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
+  min-width: 16px;
 }
 
 .c5 {
@@ -3782,7 +3775,7 @@ exports[`snapshots renders a single select input 1`] = `
   font-size: 14px;
   padding-top: 6px;
   padding-bottom: 6px;
-  line-height: 20px;
+  line-height: 16px;
   min-height: 5px;
   margin-left: 8px;
   margin-right: 8px;
@@ -3869,7 +3862,7 @@ exports[`snapshots renders a single select input 1`] = `
   width: 4px;
   height: 24px;
   content: "";
-  background-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  background-color: var(--borderColor-accent-emphasis);
   border-radius: 6px;
 }
 
@@ -3894,7 +3887,7 @@ exports[`snapshots renders a single select input 1`] = `
   .c3:focus.focus-visible {
     outline: none;
     border: 2 solid;
-    box-shadow: 0 0 0 2px var(--bgColor-accent-emphasis,var(--color-accent-emphasis,#0969da));
+    box-shadow: 0 0 0 2px var(--focus-outlineColor);
   }
 
   .c3:active:not([aria-disabled]):not([data-inactive]) {
@@ -4199,7 +4192,6 @@ exports[`snapshots renders with a custom text input component 1`] = `
   />,
   .c4 {
   height: 20px;
-  min-width: 16px;
   max-width: 20px;
   display: -webkit-box;
   display: -webkit-flex;
@@ -4218,6 +4210,7 @@ exports[`snapshots renders with a custom text input component 1`] = `
   flex-shrink: 0;
   margin-right: 8px;
   color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
+  min-width: 16px;
 }
 
 .c5 {
@@ -4276,7 +4269,7 @@ exports[`snapshots renders with a custom text input component 1`] = `
   font-size: 14px;
   padding-top: 6px;
   padding-bottom: 6px;
-  line-height: 20px;
+  line-height: 16px;
   min-height: 5px;
   margin-left: 8px;
   margin-right: 8px;
@@ -4363,7 +4356,7 @@ exports[`snapshots renders with a custom text input component 1`] = `
   width: 4px;
   height: 24px;
   content: "";
-  background-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  background-color: var(--borderColor-accent-emphasis);
   border-radius: 6px;
 }
 
@@ -4388,7 +4381,7 @@ exports[`snapshots renders with a custom text input component 1`] = `
   .c3:focus.focus-visible {
     outline: none;
     border: 2 solid;
-    box-shadow: 0 0 0 2px var(--bgColor-accent-emphasis,var(--color-accent-emphasis,#0969da));
+    box-shadow: 0 0 0 2px var(--focus-outlineColor);
   }
 
   .c3:active:not([aria-disabled]):not([data-inactive]) {

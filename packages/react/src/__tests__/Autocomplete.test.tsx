@@ -8,6 +8,7 @@ import BaseStyles from '../BaseStyles'
 import theme from '../theme'
 import {ThemeProvider} from '../ThemeProvider'
 import {render} from '../utils/testing'
+import {FeatureFlags} from '../FeatureFlags'
 
 const mockItems = [
   {text: 'zero', id: '0'},
@@ -217,6 +218,29 @@ describe('Autocomplete', () => {
       )
 
       expect(getByDisplayValue('0')).toBeDefined()
+    })
+
+    it('should support `className` on the outermost element', () => {
+      const Element = () => (
+        <Autocomplete>
+          <Autocomplete.Input className={'test-class-name'} />
+        </Autocomplete>
+      )
+      const FeatureFlagElement = () => {
+        return (
+          <FeatureFlags
+            flags={{
+              primer_react_css_modules_team: true,
+              primer_react_css_modules_staff: true,
+              primer_react_css_modules_ga: true,
+            }}
+          >
+            <Element />
+          </FeatureFlags>
+        )
+      }
+      expect(HTMLRender(<Element />).container.firstChild).toHaveClass('test-class-name')
+      expect(HTMLRender(<FeatureFlagElement />).container.firstChild).toHaveClass('test-class-name')
     })
   })
 
@@ -436,6 +460,49 @@ describe('Autocomplete', () => {
       expect(screen.getByText('One')).toBeInTheDocument()
       expect(screen.getByText('Two')).toBeInTheDocument()
       expect(screen.getByText('Three')).toBeInTheDocument()
+    })
+  })
+
+  describe('Autocomplete.Overlay', () => {
+    it('should support `className` on the outermost element', async () => {
+      const Element = ({className}: {className: string}) => (
+        <ThemeProvider>
+          <Autocomplete id="autocompleteId">
+            <Autocomplete.Input />
+            <Autocomplete.Overlay className={className} visibility="visible">
+              hi
+            </Autocomplete.Overlay>
+          </Autocomplete>
+        </ThemeProvider>
+      )
+      const FeatureFlagElement = () => {
+        return (
+          <FeatureFlags
+            flags={{
+              primer_react_css_modules_team: true,
+              primer_react_css_modules_staff: true,
+              primer_react_css_modules_ga: true,
+            }}
+          >
+            <Element className="test-class-name-2" />
+          </FeatureFlags>
+        )
+      }
+      const {container: elementContainer, getByRole, rerender} = HTMLRender(<Element className="test-class-name" />)
+      let inputNode = getByRole('combobox')
+      await userEvent.click(inputNode)
+      await userEvent.keyboard('{ArrowDown}')
+      // overlay is a sibling of elementContainer
+      expect(elementContainer.parentElement?.querySelectorAll('.test-class-name')).toHaveLength(1)
+
+      rerender(<FeatureFlagElement />)
+      expect(elementContainer.parentElement?.querySelectorAll('.test-class-name')).toHaveLength(0)
+      inputNode = getByRole('combobox')
+      await userEvent.click(inputNode)
+      await userEvent.keyboard('{ArrowDown}')
+
+      // overlay is a sibling of ffContainer
+      expect(elementContainer.parentElement?.querySelectorAll('.test-class-name-2')).toHaveLength(1)
     })
   })
 

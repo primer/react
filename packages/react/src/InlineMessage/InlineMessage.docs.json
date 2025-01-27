@@ -6,22 +6,22 @@
   "importPath": "@primer/react/experimental",
   "stories": [
     {
-      "id": "components-inlinemessage--default"
+      "id": "experimental-components-inlinemessage--default"
     },
     {
-      "id": "components-inlinemessage-features--critical"
+      "id": "experimental-components-inlinemessage-features--critical"
     },
     {
-      "id": "components-inlinemessage-features--success"
+      "id": "experimental-components-inlinemessage-features--success"
     },
     {
-      "id": "components-inlinemessage-features--unavailable"
+      "id": "experimental-components-inlinemessage-features--unavailable"
     },
     {
-      "id": "components-inlinemessage-features--warning"
+      "id": "experimental-components-inlinemessage-features--warning"
     },
     {
-      "id": "components-inlinemessage-features--multiline"
+      "id": "experimental-components-inlinemessage-features--multiline"
     }
   ],
   "props": [

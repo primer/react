@@ -5,16 +5,16 @@
   "a11yReviewed": false,
   "stories": [
     {
-      "id": "components-portal--default"
+      "id": "behaviors-portal--default"
     },
     {
-      "id": "components-portal-features--custom-portal-root-by-id"
+      "id": "behaviors-portal-features--custom-portal-root-by-id"
     },
     {
-      "id": "components-portal-features--custom-portal-root-by-registration"
+      "id": "behaviors-portal-features--custom-portal-root-by-registration"
     },
     {
-      "id": "components-portal-features--multiple-portal-roots"
+      "id": "behaviors-portal-features--multiple-portal-roots"
     }
   ],
   "importPath": "@primer/react",

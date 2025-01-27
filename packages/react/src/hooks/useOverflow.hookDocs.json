@@ -1,0 +1,17 @@
+{
+  "name": "useOverflow",
+  "importPath": "@primer/react/experimental",
+  "stories": [],
+  "parameters": [
+    {
+      "name": "ref",
+      "type": "React.RefObject<T>",
+      "required": true,
+      "description": "A reference to the HTML element to observe for overflow."
+    }
+  ],
+  "returns": {
+    "type": "boolean",
+    "description": "A boolean indicating whether the element has overflow."
+  }
+}

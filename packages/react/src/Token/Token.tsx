@@ -136,6 +136,7 @@ const Token = forwardRef((props, forwardedRef) => {
       text={text}
       size={size}
       sx={mergedSx}
+      className={className}
       {...(!hasMultipleActionTargets ? interactiveTokenProps : {})}
       {...rest}
       ref={forwardedRef}

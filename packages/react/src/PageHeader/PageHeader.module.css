@@ -161,10 +161,14 @@
 
 .Title {
   /* using flex and order to display the title in the title area. */
-  display: flex;
+  display: block;
   order: var(--title-area-region-order-title);
   font-size: inherit;
   font-weight: inherit;
+}
+
+.Title:where([data-hidden='true']) {
+  display: none;
 }
 
 .TrailingVisual {
