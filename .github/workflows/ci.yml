@@ -100,40 +100,12 @@ jobs:
       - name: Build
         run: npm run build -ws --if-present
 
-  build-components-json:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-      - name: Use Node.js 20.x
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: 'npm'
-      - name: Install dependencies
-        run: npm ci
-      - name: Build storybook to generate story IDs
-        run: npm run build:storybook
-        working-directory: packages/react
-      - name: Build components.json
-        run: npx tsx script/components-json/build.ts --storybook-data 'storybook-static/index.json'
-        working-directory: packages/react
-      - name: Build hooks.json
-        run: npx tsx script/hooks-json/build.ts
-        working-directory: packages/react
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: components
-          path: packages/react/generated/components.json
-
   vrt-runner:
     runs-on: ubuntu-latest-16-cores
     strategy:
       fail-fast: false
       matrix:
         shard: [1, 2, 3, 4]
-    needs: build-components-json
     steps:
       - uses: actions/checkout@v4
       - name: Use Node.js 20.x
@@ -154,11 +126,6 @@ jobs:
           pid=$!
           echo "pid=$pid" >> $GITHUB_OUTPUT
           sleep 5
-      - name: Download Artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: components
-          path: packages/react/generated
       - name: Run VRT
         uses: docker://mcr.microsoft.com/playwright:v1.47.2-jammy
         env:
@@ -211,7 +178,6 @@ jobs:
       fail-fast: false
       matrix:
         shard: [1, 2, 3, 4]
-    needs: build-components-json
     env:
       VITE_PRIMER_REACT_CSS_MODULES_TEAM: 1
       VITE_PRIMER_REACT_CSS_MODULES_STAFF: 1
@@ -236,11 +202,6 @@ jobs:
           pid=$!
           echo "pid=$pid" >> $GITHUB_OUTPUT
           sleep 5
-      - name: Download Artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: components
-          path: packages/react/generated
       - name: Run VRT
         uses: docker://mcr.microsoft.com/playwright:v1.47.2-jammy
         env:
@@ -293,7 +254,6 @@ jobs:
       fail-fast: false
       matrix:
         shard: [1, 2, 3, 4]
-    needs: build-components-json
     steps:
       - uses: actions/checkout@v4
       - name: Use Node.js 20.x
@@ -314,11 +274,6 @@ jobs:
           pid=$!
           echo "pid=$pid" >> $GITHUB_OUTPUT
           sleep 5
-      - name: Download Artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: components
-          path: packages/react/generated
       - name: Run AAT
         uses: docker://mcr.microsoft.com/playwright:v1.47.2-jammy
         env:
@@ -371,7 +326,6 @@ jobs:
       fail-fast: false
       matrix:
         shard: [1, 2, 3, 4]
-    needs: build-components-json
     env:
       VITE_PRIMER_REACT_CSS_MODULES_TEAM: 1
       VITE_PRIMER_REACT_CSS_MODULES_STAFF: 1
@@ -396,11 +350,6 @@ jobs:
           pid=$!
           echo "pid=$pid" >> $GITHUB_OUTPUT
           sleep 5
-      - name: Download Artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: components
-          path: packages/react/generated
       - name: Run AAT
         uses: docker://mcr.microsoft.com/playwright:v1.47.2-jammy
         env:
@@ -446,6 +395,28 @@ jobs:
       - name: Check aat-runner-all-flags job status
         if: ${{ needs.aat-runner-all-flags.result == 'failure' }}
         run: exit 1
+
+  build-components-json:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Use Node.js 20.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+      - name: Install dependencies
+        run: npm ci
+      - name: Build storybook to generate story IDs
+        run: npm run build:storybook
+        working-directory: packages/react
+      - name: Build components.json
+        run: npx tsx script/components-json/build.ts --storybook-data 'storybook-static/index.json'
+        working-directory: packages/react
+      - name: Build hooks.json
+        run: npx tsx script/hooks-json/build.ts
+        working-directory: packages/react
 
   sizes:
     runs-on: ubuntu-latest
