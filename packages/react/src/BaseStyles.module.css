@@ -34,9 +34,11 @@ details-dialog:focus:not(:focus-visible):not(.focus-visible) {
 /* -------------------------------------------------------------------------- */
 
 .BaseStyles {
-  color: var(--BaseStyles-fgColor, var(--fgColor-default));
   font-family: var(--BaseStyles-fontFamily, var(--fontStack-system));
+  /* stylelint-disable-next-line primer/typography */
   line-height: var(--BaseStyles-lineHeight, 1.5);
+  /* stylelint-disable-next-line primer/colors */
+  color: var(--BaseStyles-fgColor, var(--fgColor-default));
 
   /* Global styles for light mode */
   &:has([data-color-mode='light']) {
