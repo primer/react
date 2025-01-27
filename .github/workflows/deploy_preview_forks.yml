@@ -7,9 +7,18 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  vrt-reports:
+    if: ${{ github.repository != github.event.pull_request.head.repo.full_name }}
+    uses: ./.github/workflows/vrt-reports.yml
+
+  aat-reports:
+    if: ${{ github.repository != github.event.pull_request.head.repo.full_name }}
+    uses: ./.github/workflows/aat-reports.yml
+
   build:
     # target repository for pull_request is different from source repository
-    if: ${{ github.repository != github.event.pull_request.head.repo.full_name }}
+    if: ${{ always() && github.repository != github.event.pull_request.head.repo.full_name }}
+    needs: [vrt-reports, aat-reports]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -29,7 +38,7 @@ jobs:
           path: docs/public
 
   deploy-preview:
-    if: ${{ github.repository != github.event.pull_request.head.repo.full_name }}
+    if: ${{ always() && github.repository != github.event.pull_request.head.repo.full_name }}
     needs: build
     permissions:
       pages: write
@@ -46,11 +55,3 @@ jobs:
         uses: actions/deploy-pages@v4
         with:
           preview: true
-
-  vrt-reports:
-    if: ${{ github.repository != github.event.pull_request.head.repo.full_name }}
-    uses: ./.github/workflows/vrt-reports.yml
-
-  aat-reports:
-    if: ${{ github.repository != github.event.pull_request.head.repo.full_name }}
-    uses: ./.github/workflows/aat-reports.yml
