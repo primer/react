@@ -26,7 +26,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: "npm"
+          cache: 'npm'
       - name: Install dependencies
         run: npm ci
       - name: Check for unformatted files
@@ -41,7 +41,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: "npm"
+          cache: 'npm'
       - name: Install dependencies
         run: npm ci
       - name: Lint JavaScript
@@ -60,7 +60,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: "npm"
+          cache: 'npm'
       - name: Install dependencies
         run: npm ci
       - name: Build
@@ -77,7 +77,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: "npm"
+          cache: 'npm'
       - name: Install dependencies
         run: npm ci
       - name: Build project
@@ -94,7 +94,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: "npm"
+          cache: 'npm'
       - name: Install dependencies
         run: npm ci
       - name: Build
@@ -109,7 +109,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: "npm"
+          cache: 'npm'
       - name: Install dependencies
         run: npm ci
       - name: Build storybook to generate story IDs
@@ -140,7 +140,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: "npm"
+          cache: 'npm'
       - name: Install dependencies
         run: npm ci
       - name: Build storybook
@@ -162,7 +162,7 @@ jobs:
       - name: Run VRT
         uses: docker://mcr.microsoft.com/playwright:v1.47.2-jammy
         env:
-          STORYBOOK_URL: "http://172.17.0.1:6006"
+          STORYBOOK_URL: 'http://172.17.0.1:6006'
         with:
           args: npx playwright test --grep @vrt --shard="${{ matrix.shard }}/${{ strategy.job-total }}"
       - name: Stop storybook
@@ -185,7 +185,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: "npm"
+          cache: 'npm'
       - name: install dependencies
         run: npm ci
       - name: download all reports
@@ -222,7 +222,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: "npm"
+          cache: 'npm'
       - name: Install dependencies
         run: npm ci
       - name: Build storybook
@@ -244,7 +244,7 @@ jobs:
       - name: Run VRT
         uses: docker://mcr.microsoft.com/playwright:v1.47.2-jammy
         env:
-          STORYBOOK_URL: "http://172.17.0.1:6006"
+          STORYBOOK_URL: 'http://172.17.0.1:6006'
         with:
           args: npx playwright test --grep @vrt --shard="${{ matrix.shard }}/${{ strategy.job-total }}"
       - name: Stop storybook
@@ -267,7 +267,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: "npm"
+          cache: 'npm'
       - name: install dependencies
         run: npm ci
       - name: download all reports
@@ -300,7 +300,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: "npm"
+          cache: 'npm'
       - name: Install dependencies
         run: npm ci
       - name: Build storybook
@@ -322,7 +322,7 @@ jobs:
       - name: Run AAT
         uses: docker://mcr.microsoft.com/playwright:v1.47.2-jammy
         env:
-          STORYBOOK_URL: "http://172.17.0.1:6006"
+          STORYBOOK_URL: 'http://172.17.0.1:6006'
         with:
           args: npx playwright test --grep @aat --shard="${{ matrix.shard }}/${{ strategy.job-total }}"
       - name: Stop storybook
@@ -345,7 +345,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: "npm"
+          cache: 'npm'
       - name: install dependencies
         run: npm ci
       - name: download all reports
@@ -382,7 +382,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: "npm"
+          cache: 'npm'
       - name: Install dependencies
         run: npm ci
       - name: Build storybook
@@ -404,7 +404,7 @@ jobs:
       - name: Run AAT
         uses: docker://mcr.microsoft.com/playwright:v1.47.2-jammy
         env:
-          STORYBOOK_URL: "http://172.17.0.1:6006"
+          STORYBOOK_URL: 'http://172.17.0.1:6006'
         with:
           args: npx playwright test --grep @aat --shard="${{ matrix.shard }}/${{ strategy.job-total }}"
       - name: Stop storybook
@@ -427,7 +427,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: "npm"
+          cache: 'npm'
       - name: install dependencies
         run: npm ci
       - name: download all reports
@@ -456,7 +456,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: "npm"
+          cache: 'npm'
       - name: Install dependencies
         run: npm ci
       - name: Build
