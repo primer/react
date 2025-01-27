@@ -1,7 +1,5 @@
 import type {Meta} from '@storybook/react'
 import React, {forwardRef} from 'react'
-import {DndProvider, useDrag, useDrop} from 'react-dnd'
-import {HTML5Backend} from 'react-dnd-html5-backend'
 import {
   TypographyIcon,
   StarIcon,
@@ -13,7 +11,6 @@ import {
   LinkIcon,
   XIcon,
 } from '@primer/octicons-react'
-import type {ActionListItemProps} from '.'
 import {ActionList} from '.'
 import TextInput from '../TextInput'
 import Spinner from '../Spinner'
