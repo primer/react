@@ -23,6 +23,7 @@ test.describe('@aat', () => {
   for (const [id, entry] of Object.entries(entries as Record<string, Component>)) {
     const {name} = entry
     // remove parentheses and slashes from the name to avoid playwright file issues
+    // eslint-disable-next-line no-useless-escape
     const cleanedName = name.replaceAll(/[\(\)\/]/g, '')
 
     test.describe(id, () => {
