@@ -141,6 +141,7 @@ const ButtonBase = forwardRef(
                       !LeadingVisual &&
                       !TrailingVisual &&
                       !TrailingAction &&
+                      count === undefined &&
                       renderModuleVisual(Spinner, loading, 'loadingSpinner', false)
                   }
                   {
@@ -258,6 +259,7 @@ const ButtonBase = forwardRef(
                     !LeadingVisual &&
                     !TrailingVisual &&
                     !TrailingAction &&
+                    count === undefined &&
                     renderModuleVisual(Spinner, loading, 'loadingSpinner', false)
                 }
                 {
