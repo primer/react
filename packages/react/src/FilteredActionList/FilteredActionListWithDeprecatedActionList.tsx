@@ -38,6 +38,7 @@ export interface FilteredActionListProps
   textInputProps?: Partial<Omit<TextInputProps, 'onChange'>>
   inputRef?: React.RefObject<HTMLInputElement>
   className?: string
+  announcementsEnabled: boolean
 }
 
 const StyledHeader = styled.div`
@@ -58,6 +59,7 @@ export function FilteredActionList({
   inputRef: providedInputRef,
   sx,
   className,
+  announcementsEnabled: _announcementsEnabled = true,
   ...listProps
 }: FilteredActionListProps): JSX.Element {
   const [filterValue, setInternalFilterValue] = useProvidedStateOrCreate(externalFilterValue, undefined, '')

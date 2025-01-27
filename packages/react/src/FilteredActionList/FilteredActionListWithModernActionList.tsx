@@ -21,6 +21,7 @@ import {FilteredActionListLoadingTypes, FilteredActionListBodyLoader} from './Fi
 
 import {isValidElementType} from 'react-is'
 import type {RenderItemFn} from '../deprecated/ActionList/List'
+import {useAnnouncements} from './useAnnouncements'
 
 const menuScrollMargins: ScrollIntoViewOptions = {startMargin: 0, endMargin: 8}
 
@@ -38,6 +39,7 @@ export interface FilteredActionListProps
   textInputProps?: Partial<Omit<TextInputProps, 'onChange'>>
   inputRef?: React.RefObject<HTMLInputElement>
   className?: string
+  announcementsEnabled: boolean
 }
 
 const StyledHeader = styled.div`
@@ -60,6 +62,7 @@ export function FilteredActionList({
   groupMetadata,
   showItemDividers,
   className,
+  announcementsEnabled = true,
   ...listProps
 }: FilteredActionListProps): JSX.Element {
   const [filterValue, setInternalFilterValue] = useProvidedStateOrCreate(externalFilterValue, undefined, '')
@@ -137,6 +140,7 @@ export function FilteredActionList({
     }
   }, [items])
 
+  useAnnouncements(items, {current: listContainerElement}, inputRef, announcementsEnabled)
   useScrollFlash(scrollContainerRef)
 
   function getItemListForEachGroup(groupId: string) {

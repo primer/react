@@ -50,61 +50,54 @@ const getItemWithActiveDescendant = (
   return {index, text, selected}
 }
 
-function announceFilterFocused() {
+async function announceText(text: string) {
   const liveRegion = document.querySelector('live-region')
 
   liveRegion?.clear() // clear previous announcements
 
-  announce('Focus on filter text box and list of items', {
+  await announce(text, {
     delayMs,
     from: liveRegion ? liveRegion : undefined, // announce will create a liveRegion if it doesn't find one
   })
 }
 
-function announceNoItems() {
-  const liveRegion = document.querySelector('live-region')
-
-  liveRegion?.clear() // clear previous announcements
-
-  announce('No matching items.', {
-    delayMs,
-    from: liveRegion ? liveRegion : undefined, // announce will create a liveRegion if it doesn't find one
-  })
+async function announceFilterFocused() {
+  await announceText('Focus on filter text box and list of items')
 }
 
-function announceLoading() {
-  const liveRegion = document.querySelector('live-region')
-
-  liveRegion?.clear() // clear previous announcements
-
-  announce('Loading.', {
-    delayMs,
-    from: liveRegion ? liveRegion : undefined, // announce will create a liveRegion if it doesn't find one
-  })
+async function announceNoItems() {
+  await announceText('No matching items.')
 }
 
-function announceItemsChanged(items: FilteredActionListProps['items'], listContainerRef: React.RefObject<HTMLElement>) {
+async function announceLoading() {
+  await announceText('Loading.')
+}
+
+async function announceItemsChanged(
+  items: FilteredActionListProps['items'],
+  listContainerRef: React.RefObject<HTMLElement>,
+) {
   const liveRegion = document.querySelector('live-region')
 
   liveRegion?.clear() // clear previous announcements
 
   // give @primer/behaviors a moment to update active-descendant
-  window.requestAnimationFrame(() => {
-    const activeItem = getItemWithActiveDescendant(listContainerRef, items)
-    if (!activeItem) return
-    const {index, text, selected} = activeItem
+  await new Promise(resolve => window.requestAnimationFrame(resolve))
 
-    const announcementText = [
-      'List updated',
-      `Focused item: ${text}`,
-      `${selected ? 'selected' : 'not selected'}`,
-      `${index + 1} of ${items.length}`,
-    ].join(', ')
+  const activeItem = getItemWithActiveDescendant(listContainerRef, items)
+  if (!activeItem) return
+  const {index, text, selected} = activeItem
 
-    announce(announcementText, {
-      delayMs,
-      from: liveRegion ? liveRegion : undefined, // announce will create a liveRegion if it doesn't find one
-    })
+  const announcementText = [
+    'List updated',
+    `Focused item: ${text}`,
+    `${selected ? 'selected' : 'not selected'}`,
+    `${index + 1} of ${items.length}`,
+  ].join(', ')
+
+  await announce(announcementText, {
+    delayMs,
+    from: liveRegion ? liveRegion : undefined, // announce will create a liveRegion if it doesn't find one
   })
 }
 
@@ -516,6 +509,7 @@ export function SelectPanel({
             // than the Overlay (which would break scrolling the items)
             sx={enabled ? sx : {...sx, height: 'inherit', maxHeight: 'inherit'}}
             className={enabled ? clsx(className, classes.FilteredActionList) : className}
+            announcementsEnabled={false}
           />
           {footer && (
             <Box
