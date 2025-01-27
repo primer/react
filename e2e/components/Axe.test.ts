@@ -1,4 +1,5 @@
 import {test, expect} from '@playwright/test'
+// @ts-ignore
 import componentsConfig from '../../packages/react/storybook-static/index.json'
 import {visit} from '../test-helpers/storybook'
 import {themes} from '../test-helpers/themes'

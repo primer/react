@@ -38,6 +38,7 @@ export const Playground: StoryObj<typeof Banner> = {
       <PageLayout>
         <PageLayout.Pane divider="line" position="start">
           <Banner
+            aria-label="Pane level banner"
             onDismiss={onDismiss ? action('onDismiss') : undefined}
             primaryAction={primaryAction ? <Banner.PrimaryAction>{primaryAction}</Banner.PrimaryAction> : null}
             secondaryAction={
@@ -49,6 +50,7 @@ export const Playground: StoryObj<typeof Banner> = {
 
         <PageLayout.Content>
           <Banner
+            aria-label="Content level banner"
             onDismiss={onDismiss ? action('onDismiss') : undefined}
             primaryAction={primaryAction ? <Banner.PrimaryAction>{primaryAction}</Banner.PrimaryAction> : null}
             secondaryAction={
