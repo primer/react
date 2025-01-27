@@ -1,5 +1,5 @@
 import {test, expect} from '@playwright/test'
-import componentsConfig from '../../docs/public/storybook/index.json'
+import componentsConfig from '../../packages/react/storybook-static/index.json'
 import {visit} from '../test-helpers/storybook'
 import {themes} from '../test-helpers/themes'
 
@@ -17,7 +17,7 @@ test.describe('@aat', () => {
         test.describe(theme, () => {
           test(name, async ({page}) => {
             await visit(page, {
-              id: id,
+              id,
               globals: {
                 colorScheme: themes[0],
               },
