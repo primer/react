@@ -18,7 +18,7 @@ import {toggleStyledComponent} from '../internal/utils/toggleStyledComponent'
 import classes from './Overlay.module.css'
 import {clsx} from 'clsx'
 
-const CSS_MODULES_FLAG = 'primer_react_css_modules_team'
+const CSS_MODULES_FLAG = 'primer_react_css_modules_staff'
 
 type StyledOverlayProps = {
   width?: keyof typeof widthMap
