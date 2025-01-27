@@ -32,6 +32,26 @@ jobs:
         run: npm ci
       - name: Build docs preview
         run: npm run build:docs:preview
+      - name: Download VRT reports (All flags enabled)
+        uses: actions/download-artifact@v4
+        with:
+          name: vrt-all-flags
+          path: docs/public/vrt-all-flags
+      - name: Download VRT reports (No flags enabled)
+        uses: actions/download-artifact@v4
+        with:
+          name: vrt-no-flag
+          path: docs/public/vrt-no-flag
+      - name: Download AAT reports (All flags enabled)
+        uses: actions/download-artifact@v4
+        with:
+          name: axe-all-flags
+          path: docs/public/aat-all-flags
+      - name: Download AAT reports (No flags enabled)
+        uses: actions/download-artifact@v4
+        with:
+          name: axe
+          path: docs/public/aat-no-flag
       - uses: actions/upload-pages-artifact@v3
         with:
           name: github-pages
