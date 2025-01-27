@@ -11,6 +11,7 @@ import {ActionList} from '../deprecated/ActionList'
 import type {GroupedListProps, ListPropsBase} from '../SelectPanel/types'
 import {useFocusZone} from '../hooks/useFocusZone'
 import {useId} from '../hooks/useId'
+import {useProvidedRefOrCreate} from '../hooks/useProvidedRefOrCreate'
 import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
 import useScrollFlash from '../hooks/useScrollFlash'
 import {VisuallyHidden} from '../VisuallyHidden'
@@ -35,6 +36,7 @@ export interface FilteredActionListProps
   onListContainerRefChanged?: (ref: HTMLElement | null) => void
   onInputRefChanged?: (ref: React.RefObject<HTMLInputElement>) => void
   textInputProps?: Partial<Omit<TextInputProps, 'onChange'>>
+  inputRef?: React.RefObject<HTMLInputElement>
   className?: string
 }
 
@@ -53,11 +55,11 @@ export function FilteredActionList({
   onInputRefChanged,
   items,
   textInputProps,
+  inputRef: providedInputRef,
   sx,
   className,
   ...listProps
 }: FilteredActionListProps): JSX.Element {
-  const inputRef = useRef<HTMLInputElement>(null)
   const [filterValue, setInternalFilterValue] = useProvidedStateOrCreate(externalFilterValue, undefined, '')
   const onInputChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -70,6 +72,7 @@ export function FilteredActionList({
 
   const scrollContainerRef = useRef<HTMLDivElement>(null)
   const [listContainerElement, setListContainerElement] = useState<HTMLDivElement | null>(null)
+  const inputRef = useProvidedRefOrCreate<HTMLInputElement>(providedInputRef)
   const activeDescendantRef = useRef<HTMLElement>()
   const listId = useId()
   const inputDescriptionTextId = useId()

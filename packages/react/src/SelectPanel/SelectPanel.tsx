@@ -232,14 +232,14 @@ export function SelectPanel({
   const onFilterChange: FilteredActionListProps['onFilterChange'] = useCallback(
     (value, e) => {
       if (loadingManagedInternally) {
+        if (loadingDelayTimeoutId.current) {
+          safeClearTimeout(loadingDelayTimeoutId.current)
+        }
+
         if (dataLoadedOnce) {
           // If data has already been loaded once, delay the spinner a bit. This also helps
           // not show and then immediately hide the spinner if items are loaded quickly, i.e.
           // not async.
-
-          if (loadingDelayTimeoutId.current) {
-            safeClearTimeout(loadingDelayTimeoutId.current)
-          }
 
           loadingDelayTimeoutId.current = safeSetTimeout(() => {
             setIsLoading(true)
@@ -251,10 +251,6 @@ export function SelectPanel({
 
           if (items.length === 0) {
             setIsLoading(true)
-          }
-
-          if (loadingDelayTimeoutId.current) {
-            safeClearTimeout(loadingDelayTimeoutId.current)
           }
 
           // We still want to announce if loading is taking too long
