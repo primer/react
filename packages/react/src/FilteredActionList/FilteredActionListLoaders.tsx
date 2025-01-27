@@ -53,7 +53,7 @@ function LoadingSpinner({...props}): JSX.Element {
 function LoadingSkeleton({rows = 10, ...props}: {rows: number}): JSX.Element {
   return (
     <Box p={2} display="flex" flexGrow={1} flexDirection="column">
-      <Stack id="foobarbaz" direction="vertical" justify="center" gap="condensed" {...props}>
+      <Stack direction="vertical" justify="center" gap="condensed" {...props}>
         {Array.from({length: rows}, (_, i) => (
           <Stack key={i} direction="horizontal" gap="condensed" align="center">
             <SkeletonBox width="16px" height="16px" />
