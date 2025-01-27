@@ -111,7 +111,7 @@ export const DropdownSplit = () => {
         {selectedAction}
       </Button>
       <ActionMenu>
-        <ActionMenu.Button icon={TriangleDownIcon}>More options</ActionMenu.Button>
+        <ActionMenu.Button aria-label="More options" icon={TriangleDownIcon} />
         <ActionMenu.Overlay>
           <ActionList>
             {actions.map((action, index) => {
