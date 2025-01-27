@@ -1,5 +1,6 @@
 .HeaderDev {
-  background-color: var(--label-olive-bgColor-active);
+  background-color: var(--display-pine-bgColor-emphasis);
+  color: var(--color-prettylights-syntax-carriage-return-text)
 }
 
 .HeaderDevItem {
@@ -7,5 +8,5 @@
 }
 
 .HeaderDevLink {
-  color: var(--color-prettylights-syntax-markup-inserted-text);
+  color: var(--color-prettylights-syntax-carriage-return-text);
 }

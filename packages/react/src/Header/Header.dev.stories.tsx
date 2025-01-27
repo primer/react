@@ -22,7 +22,7 @@ export const WithCss = () => (
       primer_react_css_modules_ga: true,
     }}
   >
-    <Header as="summary" className={classes.HeaderDev}>
+    <Header className={classes.HeaderDev}>
       <Header.Item id="github">
         <Header.Link href="#" className={classes.HeaderDevLink}>
           <Octicon icon={MarkGithubIcon} size={32} sx={{mr: 2}} />
@@ -38,7 +38,7 @@ export const WithCss = () => (
 )
 
 export const WithSx = () => (
-  <Header as="summary" sx={{backgroundColor: 'blue'}}>
+  <Header sx={{backgroundColor: 'blue', color: 'white'}}>
     <Header.Item id="github">
       <Header.Link href="#" sx={{fontSize: 3}}>
         <Octicon icon={MarkGithubIcon} size={32} sx={{mr: 2}} />
@@ -60,7 +60,7 @@ export const WithSxAndCSS = () => (
       primer_react_css_modules_ga: true,
     }}
   >
-    <Header as="summary" className={classes.HeaderDev} sx={{backgroundColor: 'orange'}}>
+    <Header className={classes.HeaderDev} sx={{backgroundColor: 'orange', color: 'black'}}>
       <Header.Item id="github">
         <Header.Link href="#" className={classes.HeaderDevLink} sx={{p: 0, color: 'black'}}>
           <Octicon icon={MarkGithubIcon} size={32} sx={{mr: 2}} />
