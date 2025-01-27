@@ -1,5 +1,5 @@
 import {test, expect} from '@playwright/test'
-// @ts-ignore
+// @ts-ignore since this file is generated in the ci to generate this file run npx build storybook in packages/react
 import componentsConfig from '../../packages/react/storybook-static/index.json'
 import {visit} from '../test-helpers/storybook'
 import {themes} from '../test-helpers/themes'
