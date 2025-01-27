@@ -1,0 +1,43 @@
+{
+  "name": "useFormControlForwardedProps",
+  "importPath": "@primer/react",
+  "stories": [{"id": "hooks-useformcontrolforwardedprops--autowired-custom-input"}],
+  "parameters": [
+    {
+      "name": "externalProps",
+      "type": "P",
+      "required": true,
+      "description": "The external props passed to this component. If provided, these props will be merged with the `FormControl` props, with external props taking priority."
+    }
+  ],
+  "returns": {
+    "type": "P & FormControlForwardedProps"
+  },
+  "relatedTypes": [
+    {
+      "name": "FormControlForwardedProps",
+      "properties": [
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "description": "Indicates if the form control is disabled."
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "description": "The id of the form control."
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "description": "Indicates if the form control is required."
+        },
+        {
+          "name": "aria-describedby",
+          "type": "string",
+          "description": "The id of the element that describes the form control."
+        }
+      ]
+    }
+  ]
+}
