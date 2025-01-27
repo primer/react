@@ -39,7 +39,7 @@ export interface FilteredActionListProps
   textInputProps?: Partial<Omit<TextInputProps, 'onChange'>>
   inputRef?: React.RefObject<HTMLInputElement>
   className?: string
-  announcementsEnabled: boolean
+  announcementsEnabled?: boolean
 }
 
 const StyledHeader = styled.div`
