@@ -196,7 +196,7 @@
     "rollup-plugin-import-css": "^0.0.0",
     "rollup-plugin-postcss": "4.0.2",
     "rollup-plugin-visualizer": "5.9.2",
-    "semver": "7.6.2",
+    "semver": "7.6.3",
     "storybook": "^8.5.0",
     "styled-components": "5.3.11",
     "terser": "5.36.0",
