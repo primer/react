@@ -18,4 +18,3 @@ cp .storybook/index.html ../../docs/public/index.html
 
 # Remove manager-head after build to not interfere with dev builds
 rm .storybook/manager-head.html
-rm .storybook/index.html
