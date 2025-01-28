@@ -21,6 +21,10 @@ const {entries} = componentsConfig
 
 test.describe('@aat', () => {
   for (const [id, entry] of Object.entries(entries as Record<string, Component>)) {
+    if (SKIPPED_TESTS.includes(id)) {
+      continue;
+    }
+
     const {name} = entry
     // remove parentheses and slashes from the name to avoid playwright file issues
     // eslint-disable-next-line no-useless-escape
@@ -29,18 +33,14 @@ test.describe('@aat', () => {
     test.describe(id, () => {
       for (const theme of themes) {
         test.describe(theme, () => {
-          test(cleanedName, async ({page}) => {
-            if (SKIPPED_TESTS.includes(id)) {
-              return
-            } else {
-              await visit(page, {
-                id,
-                globals: {
-                  colorScheme: themes[0],
-                },
-              })
-              await expect(page).toHaveNoViolations()
-            }
+          test(`${cleanedName} @aat`, async ({page}) => {
+            await visit(page, {
+              id,
+              globals: {
+                colorScheme: theme,
+              },
+            })
+            await expect(page).toHaveNoViolations()
           })
         })
       }
