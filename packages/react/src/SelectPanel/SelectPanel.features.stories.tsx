@@ -3,7 +3,7 @@ import type {Meta, StoryObj} from '@storybook/react'
 import Box from '../Box'
 import {Button} from '../Button'
 import type {ItemInput, GroupedListProps} from '../deprecated/ActionList/List'
-import {SelectPanel} from './SelectPanel'
+import {SelectPanel, type SelectPanelProps} from './SelectPanel'
 import {
   FilterIcon,
   GearIcon,
@@ -17,12 +17,10 @@ import {
 import useSafeTimeout from '../hooks/useSafeTimeout'
 import FormControl from '../FormControl'
 
-type SelectPanelPropsAndCustomArgs = React.ComponentProps<typeof SelectPanel> & {componentManagesLoading?: boolean}
-
 const meta = {
   title: 'Components/SelectPanel/Features',
   component: SelectPanel,
-} satisfies Meta<SelectPanelPropsAndCustomArgs>
+} satisfies Meta<SelectPanelProps>
 
 export default meta
 
@@ -489,9 +487,8 @@ export const WithLabelInternally = () => {
   )
 }
 
-export const AsyncFetch: StoryObj<SelectPanelPropsAndCustomArgs> = {
-  render: ({initialLoadingType, height, componentManagesLoading}: SelectPanelPropsAndCustomArgs) => {
-    const [loading, setLoading] = React.useState<boolean>(true)
+export const AsyncFetch: StoryObj<SelectPanelProps> = {
+  render: ({initialLoadingType, height}: SelectPanelProps) => {
     const [selected, setSelected] = React.useState<ItemInput[]>([])
     const [filteredItems, setFilteredItems] = React.useState<ItemInput[]>([])
     const [open, setOpen] = useState(false)
@@ -499,27 +496,18 @@ export const AsyncFetch: StoryObj<SelectPanelPropsAndCustomArgs> = {
     const {safeSetTimeout, safeClearTimeout} = useSafeTimeout()
 
     const fetchItems = (query: string) => {
-      setLoading(true)
-
       if (filterTimerId.current) {
         safeClearTimeout(filterTimerId.current)
       }
 
       filterTimerId.current = safeSetTimeout(() => {
         setFilteredItems(items.filter(item => item.text.toLowerCase().startsWith(query.toLowerCase())))
-        setLoading(false)
       }, 2000) as unknown as number
     }
 
     const onOpenChange = (value: boolean) => {
-      setLoading(true)
       setOpen(value)
       fetchItems('')
-    }
-
-    const loadingProps = {
-      initialLoadingType,
-      ...(componentManagesLoading ? {} : {loading}),
     }
 
     return (
@@ -545,14 +533,13 @@ export const AsyncFetch: StoryObj<SelectPanelPropsAndCustomArgs> = {
         onFilterChange={fetchItems}
         showItemDividers={true}
         height={height}
-        {...loadingProps}
+        initialLoadingType={initialLoadingType}
       />
     )
   },
   args: {
     initialLoadingType: 'spinner',
     height: 'medium',
-    componentManagesLoading: true,
   },
   argTypes: {
     initialLoadingType: {
@@ -562,11 +549,6 @@ export const AsyncFetch: StoryObj<SelectPanelPropsAndCustomArgs> = {
     height: {
       control: 'select',
       options: ['auto', 'xsmall', 'small', 'medium', 'large', 'xlarge'],
-    },
-    componentManagesLoading: {
-      control: {
-        type: 'boolean',
-      },
     },
   },
 }
