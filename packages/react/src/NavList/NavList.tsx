@@ -428,6 +428,7 @@ const ShowMoreItem = React.forwardRef<HTMLButtonElement, NavListShowMoreItemProp
     const [expanded, setExpanded] = React.useState(false)
     const [currentPage, setCurrentPage] = React.useState(0)
     const targetFocused = React.useRef(currentPage)
+    const enabled = useFeatureFlag('primer_react_css_modules_team')
 
     const id = useId()
     const groupId = React.useMemo(() => ({id}), [id])
@@ -471,7 +472,7 @@ const ShowMoreItem = React.forwardRef<HTMLButtonElement, NavListShowMoreItemProp
             })}
           </ItemWithinGroup.Provider>
         )}
-        {(currentPage < pages || (!pages && !expanded)) && (
+        {(currentPage < pages || (!pages && !expanded)) && !enabled && (
           <Box as="li" sx={{listStyle: 'none'}}>
             <ActionList.Item
               as="button"
@@ -489,6 +490,23 @@ const ShowMoreItem = React.forwardRef<HTMLButtonElement, NavListShowMoreItemProp
               </ActionList.TrailingVisual>
             </ActionList.Item>
           </Box>
+        )}
+        {(currentPage < pages || (!pages && !expanded)) && enabled && (
+          <ActionList.Item
+            as="button"
+            aria-expanded="false"
+            ref={forwardedRef}
+            onClick={() => {
+              setCurrentPage(currentPage + 1)
+              setExpanded(true)
+            }}
+            {...props}
+          >
+            {label}
+            <ActionList.TrailingVisual>
+              <PlusIcon />
+            </ActionList.TrailingVisual>
+          </ActionList.Item>
         )}
       </>
     )
