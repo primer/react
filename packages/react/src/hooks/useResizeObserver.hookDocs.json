@@ -1,0 +1,40 @@
+{
+  "name": "useResizeObserver",
+  "importPath": "@primer/react",
+  "stories": [],
+  "parameters": [
+    {
+      "name": "callback",
+      "type": "(entries: ResizeObserverEntry[]) => void",
+      "required": true,
+      "description": "A callback function that is invoked when the observed element's size changes."
+    },
+    {
+      "name": "target",
+      "type": "RefObject<T>",
+      "description": "A React ref object pointing to the target element to observe. If not provided, the document's root element is observed."
+    },
+    {
+      "name": "depsArray",
+      "type": "unknown[]",
+      "defaultValue": "[]",
+      "description": "An array of dependencies that will trigger the effect when changed."
+    }
+  ],
+  "returns": {
+    "type": "void"
+  },
+  "relatedTypes": [
+    {
+      "name": "ResizeObserverEntry",
+      "properties": [
+        {
+          "name": "contentRect",
+          "type": "DOMRectReadOnly",
+          "required": true,
+          "description": "A read-only rectangle describing the size of the observed element."
+        }
+      ]
+    }
+  ]
+}

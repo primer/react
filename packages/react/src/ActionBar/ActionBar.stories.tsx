@@ -1,5 +1,4 @@
 import React from 'react'
-import type {Meta} from '@storybook/react'
 import ActionBar from '.'
 import {
   BoldIcon,
@@ -13,10 +12,42 @@ import {
   ListOrderedIcon,
   TasklistIcon,
 } from '@primer/octicons-react'
+import type {Meta, StoryObj} from '@storybook/react'
 
-export default {
+const meta: Meta<typeof ActionBar> = {
   title: 'Experimental/Components/ActionBar',
 } as Meta<typeof ActionBar>
+
+export default meta
+type Story = StoryObj<typeof ActionBar>
+
+export const Playground: Story = {
+  render: args => (
+    <ActionBar {...args}>
+      <ActionBar.IconButton icon={BoldIcon} aria-label="Bold"></ActionBar.IconButton>
+      <ActionBar.IconButton icon={ItalicIcon} aria-label="Italic"></ActionBar.IconButton>
+      <ActionBar.Divider />
+      <ActionBar.IconButton icon={CodeIcon} aria-label="Code"></ActionBar.IconButton>
+    </ActionBar>
+  ),
+}
+Playground.argTypes = {
+  size: {
+    control: {
+      type: 'radio',
+    },
+    options: ['small', 'medium', 'large'],
+  },
+  flush: {
+    control: {
+      type: 'boolean',
+    },
+  },
+}
+Playground.args = {
+  size: 'medium',
+  flush: false,
+}
 
 export const Default = () => (
   <ActionBar aria-label="Toolbar">

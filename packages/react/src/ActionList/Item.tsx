@@ -342,7 +342,6 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       ...(includeSelectionAttribute && {[itemSelectionAttribute]: selected}),
       role: itemRole,
       id: itemId,
-      className,
     }
 
     const containerProps = _PrivateItemWrapper

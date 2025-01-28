@@ -120,7 +120,7 @@ export type AutocompleteMenuInternalProps<T extends AutocompleteItemProps> = {
   ['aria-labelledby']: string
 }
 
-const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_team'
+const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_staff'
 
 function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMenuInternalProps<T>) {
   const autocompleteContext = useContext(AutocompleteContext)
