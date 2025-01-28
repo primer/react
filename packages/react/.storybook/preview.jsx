@@ -267,7 +267,6 @@ export const decorators = [
   },
   (Story, context) => {
     const {colorScheme} = context.globals
-
     useEffect(() => {
       const colorMode = colorScheme.startsWith('light') ? 'light' : 'dark'
       document.body.setAttribute('data-color-mode', colorMode)
@@ -279,6 +278,14 @@ export const decorators = [
       document.body.setAttribute('data-dark-theme', darkTheme)
     }, [colorScheme])
 
+    // Set data-a11y-link-underlines=true to enable underlines in all stories except the Link DevOnly Inline Story.
+    let wrapperProps =
+      context.id !== 'components-link-devonly--inline'
+        ? {
+            'data-a11y-link-underlines': context.id !== 'components-link-devonly--inline',
+            className: clsx('story-wrap'),
+          }
+        : {className: clsx('story-wrap')}
     const showSurroundingElements =
       context.globals.showSurroundingElements ?? window.localStorage.getItem('showSurroundingElements') === 'true'
     return context.globals.colorScheme === 'all' ? (
@@ -304,9 +311,8 @@ export const decorators = [
           dayScheme={context.globals.colorScheme}
           nightScheme={context.globals.colorScheme}
           colorMode="day"
-          data-a11y-link-underlines="true"
         >
-          <div data-a11y-link-underlines="true" className={clsx('story-wrap')}>
+          <div {...wrapperProps}>
             <BaseStyles>
               {showSurroundingElements ? <a href="https://github.com/primer/react">Primer documentation</a> : ''}
               <FeatureFlags flags={{primer_react_action_list_item_as_button: true}}>
