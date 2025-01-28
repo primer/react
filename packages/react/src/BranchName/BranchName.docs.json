@@ -3,7 +3,17 @@
   "name": "BranchName",
   "status": "alpha",
   "a11yReviewed": false,
-  "stories": [],
+  "stories": [
+    {
+      "id": "components-branchname--default"
+    },
+    {
+      "id": "components-branchname-features--with-branch-icon"
+    },
+    {
+      "id": "components-branchname-features--not-a-link"
+    }
+  ],
   "importPath": "@primer/react",
   "props": [
     {

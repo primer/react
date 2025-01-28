@@ -8,10 +8,10 @@ export type BetterCssProperties = {
   [K in keyof SystemCssProperties]: K extends keyof ColorProps
     ? ThemeColorPaths | SystemCssProperties[K]
     : K extends keyof BorderColorProps
-    ? ThemeColorPaths | SystemCssProperties[K]
-    : K extends keyof ShadowProps
-    ? ThemeShadowPaths | SystemCssProperties[K]
-    : SystemCssProperties[K]
+      ? ThemeColorPaths | SystemCssProperties[K]
+      : K extends keyof ShadowProps
+        ? ThemeShadowPaths | SystemCssProperties[K]
+        : SystemCssProperties[K]
 }
 
 // Support CSS custom properties in the `sx` prop
@@ -26,6 +26,7 @@ type CSSSelectorObject = {
 export type BetterSystemStyleObject = BetterCssProperties | SystemStyleObject | CSSCustomProperties | CSSSelectorObject
 
 export interface SxProp {
+  /** @deprecated Use CSS modules for styling instead */
   sx?: BetterSystemStyleObject
 }
 

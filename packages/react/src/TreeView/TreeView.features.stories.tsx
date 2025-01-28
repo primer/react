@@ -34,7 +34,7 @@ const meta: Meta = {
 
 export const Files: StoryFn = () => (
   <nav aria-label="Files">
-    <TreeView aria-label="Files">
+    <TreeView aria-label="Files" truncate={false}>
       <TreeView.Item id="src" defaultExpanded>
         <TreeView.LeadingVisual>
           <TreeView.DirectoryIcon />
@@ -112,7 +112,7 @@ export const Files: StoryFn = () => (
 export const FilesChanged: StoryFn = () => {
   return (
     <nav aria-label="Files">
-      <TreeView aria-label="Files">
+      <TreeView aria-label="Files" truncate={false}>
         <TreeView.Item id="src" defaultExpanded>
           <TreeView.LeadingVisual>
             <TreeView.DirectoryIcon />
@@ -580,7 +580,7 @@ AsyncError.args = {
 }
 
 export const EmptyDirectories: StoryFn = () => {
-  const [state, setState] = React.useState<SubTreeState>('loading')
+  const [state, setState] = React.useState<SubTreeState>('initial')
   const timeoutId = React.useRef<ReturnType<typeof setTimeout> | null>(null)
 
   React.useEffect(() => {
@@ -597,6 +597,7 @@ export const EmptyDirectories: StoryFn = () => {
       <TreeView.Item
         id="src"
         onExpandedChange={expanded => {
+          setState('loading')
           if (expanded) {
             timeoutId.current = setTimeout(() => {
               setState('done')
@@ -785,7 +786,7 @@ export const ContainIntrinsicSize: StoryFn = () => {
 export const InitialFocus: StoryFn = () => (
   <div>
     <Button>Focusable element before TreeView</Button>
-    <TreeView aria-label="Test tree">
+    <TreeView aria-label="Test tree" truncate={false}>
       <TreeView.Item id="src" defaultExpanded>
         <TreeView.LeadingVisual>
           <TreeView.DirectoryIcon />
@@ -890,11 +891,11 @@ export const InitialFocus: StoryFn = () => (
               </TreeView.Item>
             </TreeView.SubTree>
           </TreeView.Item>
-          <TreeView.Item id="src/ReallyLongFileNameThatShouldBeTruncated.tsx">
+          <TreeView.Item id="src/ReallyLongFileNameThatShouldNotBeTruncated.tsx">
             <TreeView.LeadingVisual>
               <FileIcon />
             </TreeView.LeadingVisual>
-            ReallyLongFileNameThatShouldBeTruncated.tsx
+            ReallyLongFileNameThatShouldNotBeTruncated.tsx
           </TreeView.Item>
         </TreeView.SubTree>
       </TreeView.Item>
@@ -1046,15 +1047,13 @@ export const LeadingAction: StoryFn = () => {
 
 export const MultilineItems: StoryFn = () => (
   <nav aria-label="Files changed">
-    <TreeView aria-label="Files changed">
+    <TreeView aria-label="Files changed" truncate={false}>
       <TreeView.Item id="src" defaultExpanded>
         <TreeView.LeadingVisual>
           <TreeView.DirectoryIcon />
         </TreeView.LeadingVisual>
-        <div style={{whiteSpace: 'wrap'}}>
-          this is a very long directory name that we have intentionally allowed to wrap over multiple lines to
-          demonstrate alignment
-        </div>
+        this is a very long directory name that we have intentionally allowed to wrap over multiple lines to demonstrate
+        alignment
         <TreeView.SubTree>
           <TreeView.Item id="src/Avatar.tsx">
             <TreeView.LeadingVisual>
@@ -1071,9 +1070,7 @@ export const MultilineItems: StoryFn = () => (
         <TreeView.LeadingVisual>
           <TreeView.DirectoryIcon />
         </TreeView.LeadingVisual>
-        <div style={{whiteSpace: 'wrap'}}>
-          this is a medium directory name that we wrap over 2 lines to demonstrate alignment
-        </div>
+        this is a medium directory name that we wrap over 2 lines to demonstrate alignment
         <TreeView.TrailingVisual label="Added">
           <Octicon icon={DiffAddedIcon} color="success.fg" />
         </TreeView.TrailingVisual>

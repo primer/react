@@ -1,41 +1,90 @@
-import React, {type ComponentPropsWithoutRef, type ReactElement} from 'react'
-import styled from 'styled-components'
+import React, {useEffect, useState, type ComponentPropsWithoutRef, type ReactElement} from 'react'
 import type {SxProp} from '../sx'
-import sx from '../sx'
-import {toggleStyledComponent} from '../internal/utils/toggleStyledComponent'
-import {useFeatureFlag} from '../FeatureFlags'
 import {clsx} from 'clsx'
 import classes from './Details.module.css'
+import {useMergedRefs} from '../internal/hooks/useMergedRefs'
+import {defaultSxProp} from '../utils/defaultSxProp'
+import Box from '../Box'
 
-const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_team'
+const Root = React.forwardRef<HTMLDetailsElement, DetailsProps>(
+  ({className, children, sx: sxProp = defaultSxProp, ...rest}, forwardRef): ReactElement => {
+    const detailsRef = React.useRef<HTMLDetailsElement>(null)
+    const ref = useMergedRefs(forwardRef, detailsRef)
+    const [hasSummary, setHasSummary] = useState(false)
 
-const StyledDetails = toggleStyledComponent(
-  CSS_MODULES_FEATURE_FLAG,
-  'details',
-  styled.details<SxProp>`
-    & > summary {
-      list-style: none;
+    useEffect(() => {
+      const {current: details} = detailsRef
+      if (!details) {
+        return
+      }
+
+      const updateSummary = () => {
+        const summary = details.querySelector('summary:not([data-default-summary])')
+        setHasSummary(!!summary)
+      }
+
+      // Update summary on mount
+      updateSummary()
+
+      const observer = new MutationObserver(() => {
+        updateSummary()
+      })
+
+      observer.observe(details, {
+        childList: true,
+        subtree: true,
+      })
+
+      return () => {
+        observer.disconnect()
+      }
+    }, [])
+
+    if (sxProp !== defaultSxProp) {
+      return (
+        <Box as={'details'} className={clsx(className, classes.Details)} {...rest} sx={sxProp} ref={ref}>
+          {/* Include default summary if summary is not provided */}
+          {!hasSummary && <Details.Summary data-default-summary>{'See Details'}</Details.Summary>}
+          {children}
+        </Box>
+      )
     }
-    & > summary::-webkit-details-marker {
-      display: none;
-    }
 
-    ${sx};
-  `,
-)
-
-const Details = React.forwardRef<HTMLDetailsElement, DetailsProps>(
-  ({className, children, ...rest}, ref): ReactElement => {
-    const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
     return (
-      <StyledDetails className={clsx(className, {[classes.Details]: enabled})} {...rest} ref={ref}>
+      <details className={clsx(className, classes.Details)} {...rest} ref={ref}>
+        {/* Include default summary if summary is not provided */}
+        {!hasSummary && <Details.Summary data-default-summary>{'See Details'}</Details.Summary>}
         {children}
-      </StyledDetails>
+      </details>
     )
   },
 )
 
-Details.displayName = 'Details'
+Root.displayName = 'Details'
+
+export type SummaryProps<As extends React.ElementType> = {
+  /**
+   * HTML element to render summary as.
+   */
+  as?: As
+  children?: React.ReactNode
+} & React.ComponentPropsWithoutRef<React.ElementType extends As ? As : 'summary'>
+
+function Summary<As extends React.ElementType>({as, children, ...props}: SummaryProps<As>) {
+  const Component = as ?? 'summary'
+  return (
+    <Component as={Component === 'summary' ? null : 'summary'} {...props}>
+      {children}
+    </Component>
+  )
+}
+Summary.displayName = 'Summary'
+
+export {Summary}
+
+const Details = Object.assign(Root, {
+  Summary,
+})
 
 export type DetailsProps = ComponentPropsWithoutRef<'details'> & SxProp
 export default Details

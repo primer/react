@@ -31,6 +31,10 @@ export type {
   TableSubtitleProps,
   TableActionsProps,
   Column,
+  CellAlignment,
+  ColumnWidth,
+  UniqueRow,
+  ObjectPaths,
 } from '../DataTable'
 
 export * from '../Dialog/Dialog'

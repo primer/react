@@ -4,6 +4,7 @@ import {Dialog} from '../DialogV1'
 import {render as HTMLRender, fireEvent} from '@testing-library/react'
 import axe from 'axe-core'
 import {behavesAsComponent} from '../utils/testing'
+import {FeatureFlags} from '../FeatureFlags'
 
 /* Dialog Version 1*/
 
@@ -111,6 +112,25 @@ describe('Dialog', () => {
 
   describe('Dialog.Header', () => {
     behavesAsComponent({Component: Dialog.Header})
+  })
+
+  it('should support `className` on the Dialog element', () => {
+    const Element = () => <Dialog isOpen className={'test-class-name'} />
+    const FeatureFlagElement = () => {
+      return (
+        <FeatureFlags
+          flags={{
+            primer_react_css_modules_team: true,
+            primer_react_css_modules_staff: true,
+            primer_react_css_modules_ga: true,
+          }}
+        >
+          <Element />
+        </FeatureFlags>
+      )
+    }
+    expect(HTMLRender(<Element />).container.children[1]).toHaveClass('test-class-name')
+    expect(HTMLRender(<FeatureFlagElement />).container.children[1]).toHaveClass('test-class-name')
   })
 
   it('should have no axe violations', async () => {

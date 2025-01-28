@@ -3,7 +3,56 @@
   "name": "FormControl",
   "status": "alpha",
   "a11yReviewed": false,
-  "stories": [],
+  "stories": [
+    {
+      "id": "components-formcontrol--default"
+    },
+    {
+      "id": "components-formcontrol-features--with-complex-inputs"
+    },
+    {
+      "id": "components-formcontrol-features--form-control-with-custom-input"
+    },
+    {
+      "id": "components-formcontrol-features--with-checkbox-and-radio-inputs"
+    },
+    {
+      "id": "components-formcontrol-features--single-input"
+    },
+    {
+      "id": "components-formcontrol-features--validation-example"
+    },
+    {
+      "id": "components-formcontrol-features--with-select-panel"
+    },
+    {
+      "id": "components-formcontrol-features--with-leading-visual"
+    },
+    {
+      "id": "components-formcontrol-features--disabled-inputs"
+    },
+    {
+      "id": "components-formcontrol-features--custom-required"
+    },
+    {
+      "id": "components-formcontrol-features--with-caption"
+    },
+    {
+      "id": "components-formcontrol-features--with-caption-and-disabled"
+    },
+    {
+      "id": "components-formcontrol-features--with-hidden-label"
+    },
+    {
+      "id": "components-formcontrol-features--with-required-indicator"
+    },
+    {
+      "id": "components-formcontrol-features--with-success-validation"
+    },
+    {
+      "id": "components-formcontrol-features--with-error-validation"
+    }
+  ],
   "importPath": "@primer/react",
   "props": [
     {
@@ -30,6 +79,24 @@
       "type": "boolean",
       "defaultValue": "false",
       "description": "If true, the user must specify a value for the input before the owning form can be submitted"
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "description": "The unique identifier for this control. Used to associate the label, validation text, and caption text",
+      "defaultValue": ""
+    },
+    {
+      "name": "layout",
+      "type": "'vertical' | 'horizontal'",
+      "description": "The direction the content flows.\nVertical layout is used by default, and horizontal layout is used for checkbox and radio inputs.",
+      "defaultValue": "vertical"
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "description": "Class name(s) for custom styling.",
+      "defaultValue": ""
     },
     {
       "name": "sx",
@@ -69,6 +136,23 @@
           "description": "Whether to show or hide the required text in the accessibility tree, the required text is still shown visually."
         },
         {
+          "name": "htmlFor",
+          "type": "string",
+          "description": "This prop may be used to override the `htmlFor` set from FormControl's React Context.\nThe unique identifier for the associated input",
+          "defaultValue": ""
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "description": "When `as` prop is 'label', it may be used to override the `htmlFor` given to the <label> element by FormControl's React Context. \n When 'as' prop is 'legend' or 'span', it is used as the `id` for the element."
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "description": "Class name(s) for custom styling.",
+          "defaultValue": ""
+        },
+        {
           "name": "sx",
           "type": "SystemStyleObject"
         }
@@ -77,6 +161,12 @@
     {
       "name": "FormControl.Caption",
       "props": [
+        {
+          "name": "id",
+          "type": "string",
+          "description": "Custom ID to override the ID set by FormControl's React Context",
+          "defaultValue": ""
+        },
         {
           "name": "children",
           "type": "React.ReactNode",
@@ -104,6 +194,12 @@
           "defaultValue": "",
           "required": true,
           "description": "Changes the visual style to match the validation status"
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "description": "May be used to override the ID assigned by FormControl's React Context",
+          "defaultValue": ""
         },
         {
           "name": "sx",

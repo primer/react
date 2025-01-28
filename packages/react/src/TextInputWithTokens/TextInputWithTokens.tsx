@@ -13,9 +13,13 @@ import Token from '../Token/Token'
 import type {TokenSizeKeys} from '../Token/TokenBase'
 
 import type {TextInputSizes} from '../internal/components/TextInputWrapper'
-import TextInputWrapper, {textInputHorizPadding} from '../internal/components/TextInputWrapper'
-import UnstyledTextInput from '../internal/components/UnstyledTextInput'
+import TextInputWrapper from '../internal/components/TextInputWrapper'
+import UnstyledTextInput, {TEXT_INPUT_CSS_MODULES_FEATURE_FLAG} from '../internal/components/UnstyledTextInput'
 import TextInputInnerVisualSlot from '../internal/components/TextInputInnerVisualSlot'
+import {useFeatureFlag} from '../FeatureFlags'
+import styles from './TextInputWithTokens.module.css'
+import {clsx} from 'clsx'
+import type {BetterSystemStyleObject} from '../sx'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type AnyReactComponent = React.ComponentType<React.PropsWithChildren<any>>
@@ -93,6 +97,7 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
     validationStatus,
     variant: variantProp, // deprecated. use `size` instead
     visibleTokenCount,
+    style,
     ...rest
   }: TextInputWithTokensProps<TokenComponentType | typeof Token>,
   forwardedRef: React.ForwardedRef<HTMLInputElement>,
@@ -250,10 +255,51 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
   const showTrailingLoadingIndicator =
     loading && (loaderPosition === 'trailing' || (loaderPosition === 'auto' && !LeadingVisual))
 
+  const enabled = useFeatureFlag(TEXT_INPUT_CSS_MODULES_FEATURE_FLAG)
+
+  const stylingProps = React.useMemo(
+    () =>
+      enabled
+        ? {
+            className: clsx(className, styles.TextInputWrapper),
+            style: maxHeight ? {maxHeight, ...style} : style,
+            sx: sxProp,
+          }
+        : {
+            className,
+            style,
+            sx: {
+              paddingLeft: '12px',
+              py: '6px',
+              ...(block
+                ? {
+                    display: 'flex',
+                    width: '100%',
+                  }
+                : {}),
+
+              ...(maxHeight
+                ? {
+                    maxHeight,
+                    overflow: 'auto',
+                  }
+                : {}),
+
+              ...(preventTokenWrapping
+                ? {
+                    overflow: 'auto',
+                  }
+                : {}),
+
+              ...sxProp,
+            } as BetterSystemStyleObject,
+          },
+    [block, className, enabled, maxHeight, preventTokenWrapping, style, sxProp],
+  )
+
   return (
     <TextInputWrapper
       block={block}
-      className={className}
       contrast={contrast}
       disabled={disabled}
       hasLeadingVisual={Boolean(LeadingVisual || showLeadingLoadingIndicator)}
@@ -265,31 +311,8 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
       validationStatus={validationStatus}
       variant={variantProp} // deprecated. use `size` prop instead
       onClick={focusInput}
-      sx={{
-        paddingLeft: textInputHorizPadding,
-        py: `calc(${textInputHorizPadding} / 2)`,
-        ...(block
-          ? {
-              display: 'flex',
-              width: '100%',
-            }
-          : {}),
-
-        ...(maxHeight
-          ? {
-              maxHeight,
-              overflow: 'auto',
-            }
-          : {}),
-
-        ...(preventTokenWrapping
-          ? {
-              overflow: 'auto',
-            }
-          : {}),
-
-        ...sxProp,
-      }}
+      data-token-wrapping={Boolean(preventTokenWrapping || maxHeight) || undefined}
+      {...stylingProps}
     >
       {IconComponent && !LeadingVisual && <IconComponent className="TextInput-icon" />}
       <TextInputInnerVisualSlot
@@ -329,7 +352,8 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
             onBlur={handleInputBlur}
             onKeyDown={handleInputKeyDown}
             type="text"
-            sx={{height: '100%'}}
+            sx={enabled ? undefined : {height: '100%'}}
+            className={enabled ? styles.UnstyledTextInput : undefined}
             aria-invalid={validationStatus === 'error' ? 'true' : 'false'}
             {...inputPropsRest}
           />

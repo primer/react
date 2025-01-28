@@ -87,14 +87,20 @@ export function percent(value: number | string): string {
 
 export function renderStyles(node: React.ReactElement) {
   const {
-    props: {className},
+    props: {className, ...restProps},
   } = render(node)
-  return getComputedStyles(className)
+  return getComputedStyles(className, restProps)
 }
 
-export function getComputedStyles(className: string) {
+export function getComputedStyles(className: string, restProps?: Record<string, string | undefined>) {
   const div = document.createElement('div')
   div.className = className
+
+  if (restProps) {
+    for (const [key, value] of Object.entries(restProps)) {
+      if (key.startsWith('data-') && value !== undefined) div.setAttribute(key, value)
+    }
+  }
 
   const computed: ComputedStyles = {}
   for (const sheet of document.styleSheets) {
@@ -193,6 +199,7 @@ export function unloadCSS(path: string) {
 interface Options {
   skipAs?: boolean
   skipSx?: boolean
+  skipDisplayName?: boolean
 }
 
 interface BehavesAsComponent {
@@ -221,9 +228,11 @@ export function behavesAsComponent({Component, toRender, options}: BehavesAsComp
     })
   }
 
-  it('sets a valid displayName', () => {
-    expect(Component.displayName).toMatch(COMPONENT_DISPLAY_NAME_REGEX)
-  })
+  if (!options.skipDisplayName) {
+    it('sets a valid displayName', () => {
+      expect(Component.displayName).toMatch(COMPONENT_DISPLAY_NAME_REGEX)
+    })
+  }
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

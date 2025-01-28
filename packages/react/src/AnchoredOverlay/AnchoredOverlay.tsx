@@ -84,6 +84,11 @@ interface AnchoredOverlayBaseProps extends Pick<OverlayProps, 'height' | 'width'
    * Optional className to be added to the overlay component.
    */
   className?: string
+  /**
+   * preventOverflow Optional. The Overlay width will be adjusted responsively if there is not enough space to display the Overlay.
+   * If `preventOverflow` is `true`, the width of the `Overlay` will not be adjusted.
+   */
+  preventOverflow?: boolean
 }
 
 export type AnchoredOverlayProps = AnchoredOverlayBaseProps &
@@ -112,6 +117,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   alignmentOffset,
   anchorOffset,
   className,
+  preventOverflow = true,
 }) => {
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
   const [overlayRef, updateOverlayRef] = useRenderForcingRef<HTMLDivElement>()
@@ -198,6 +204,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
           left={position?.left || 0}
           anchorSide={position?.anchorSide}
           className={className}
+          preventOverflow={preventOverflow}
           {...overlayProps}
         >
           {children}

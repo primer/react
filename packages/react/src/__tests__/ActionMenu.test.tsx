@@ -641,6 +641,64 @@ describe('ActionMenu', () => {
 
       expect(baseAnchor).not.toHaveAttribute('aria-expanded', 'true')
     })
+
+    it('supports className prop on ActionMenu.Anchor', async () => {
+      const component = HTMLRender(
+        <ThemeProvider theme={theme}>
+          <BaseStyles>
+            <ActionMenu>
+              <ActionMenu.Anchor className="test-class">
+                <Button>Toggle Menu</Button>
+              </ActionMenu.Anchor>
+              <ActionMenu.Overlay>
+                <ActionList>
+                  <ActionList.Item>New file</ActionList.Item>
+                  <ActionList.Divider />
+                  <ActionList.Item>Copy link</ActionList.Item>
+                  <ActionList.Item>Edit file</ActionList.Item>
+                  <ActionList.Item variant="danger" onSelect={event => event.preventDefault()}>
+                    Delete file
+                  </ActionList.Item>
+                  <ActionList.LinkItem href="//github.com" title="anchor" aria-keyshortcuts="s">
+                    Github
+                  </ActionList.LinkItem>
+                </ActionList>
+              </ActionMenu.Overlay>
+            </ActionMenu>
+          </BaseStyles>
+        </ThemeProvider>,
+      )
+      const anchor = component.getByRole('button', {name: 'Toggle Menu'})
+      expect(anchor).toHaveClass('test-class')
+    })
+
+    it('supports className prop on ActionMenu.Button', async () => {
+      const component = HTMLRender(
+        <ThemeProvider theme={theme}>
+          <BaseStyles>
+            <ActionMenu>
+              <ActionMenu.Button className="test-class">Toggle Menu</ActionMenu.Button>
+              <ActionMenu.Overlay>
+                <ActionList>
+                  <ActionList.Item>New file</ActionList.Item>
+                  <ActionList.Divider />
+                  <ActionList.Item>Copy link</ActionList.Item>
+                  <ActionList.Item>Edit file</ActionList.Item>
+                  <ActionList.Item variant="danger" onSelect={event => event.preventDefault()}>
+                    Delete file
+                  </ActionList.Item>
+                  <ActionList.LinkItem href="//github.com" title="anchor" aria-keyshortcuts="s">
+                    Github
+                  </ActionList.LinkItem>
+                </ActionList>
+              </ActionMenu.Overlay>
+            </ActionMenu>
+          </BaseStyles>
+        </ThemeProvider>,
+      )
+      const button = component.getByRole('button', {name: 'Toggle Menu'})
+      expect(button).toHaveClass('test-class')
+    })
   })
 
   describe('calls event handlers on trigger', () => {

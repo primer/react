@@ -3,7 +3,26 @@
   "name": "LabelGroup",
   "status": "alpha",
   "a11yReviewed": false,
-  "stories": [],
+  "stories": [
+    {
+      "id": "components-labelgroup--default"
+    },
+    {
+      "id": "components-labelgroup-features--truncate-auto"
+    },
+    {
+      "id": "components-labelgroup-features--truncate-auto-with-interactive-tokens"
+    },
+    {
+      "id": "components-labelgroup-features--truncate-after-five"
+    },
+    {
+      "id": "components-labelgroup-features--truncate-auto-expand-inline"
+    },
+    {
+      "id": "components-labelgroup-features--truncate-auto-expand-inline-with-interactive-tokens"
+    }
+  ],
   "importPath": "@primer/react",
   "props": [
     {
@@ -17,6 +36,12 @@
       "description": "How many tokens to show. `'auto'` truncates the tokens to fit in the parent container. Passing a number will truncate after that number tokens. If this is undefined, tokens will never be truncated.",
       "defaultValue": "",
       "type": "'auto' | number"
+    },
+    {
+      "name": "as",
+      "description": "Customize the element type of the rendered container.",
+      "defaultValue": "ul",
+      "type": "React.ElementType"
     }
   ],
   "subcomponents": []

@@ -45,23 +45,15 @@ exports[`SubNav.Link respects the "selected" prop 1`] = `
   transition: background-color 0.2s ease;
 }
 
-.c0:hover .SubNav-octicon,
-.c0:focus .SubNav-octicon {
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-}
-
 .c0.selected {
   color: var(--fgColor-onEmphasis,var(--color-fg-on-emphasis,#ffffff));
   background-color: var(--bgColor-accent-emphasis,var(--color-accent-emphasis,#0969da));
   border-color: var(--bgColor-accent-emphasis,var(--color-accent-emphasis,#0969da));
 }
 
-.c0.selected .SubNav-octicon {
-  color: var(--fgColor-onEmphasis,var(--color-fg-on-emphasis,#ffffff));
-}
-
 <a
   className="c0 SubNav-item selected"
+  data-selected={true}
   selected={true}
 />
 `;

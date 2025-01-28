@@ -17,7 +17,7 @@ type CSSModulesProps = {
  *
  * @param flag - the feature flag that will control whether or not the provided
  * styled component is used
- * @param defautlAs - the default component to use when `as` is not provided
+ * @param defaultAs - the default component to use when `as` is not provided
  * @param Component - the styled component that will be used if the feature flag
  * is disabled
  */

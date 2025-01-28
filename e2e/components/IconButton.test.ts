@@ -308,12 +308,12 @@ test.describe('IconButton', () => {
       })
     }
   })
-  test.describe('Keyshortcuts', () => {
+  test.describe('Keybinding hint', () => {
     for (const theme of themes) {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-iconbutton-features--keyshortcuts',
+            id: 'components-iconbutton-features--keybinding-hint',
             globals: {
               colorScheme: theme,
             },
@@ -322,13 +322,13 @@ test.describe('IconButton', () => {
           // Default state
           await page.keyboard.press('Tab') // focus on icon button
           expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
-            `IconButton.Keyshortcuts.${theme}.png`,
+            `IconButton.Keybinding Hint.${theme}.png`,
           )
         })
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-iconbutton-features--keyshortcuts',
+            id: 'components-iconbutton-features--keybinding-hint',
             globals: {
               colorScheme: theme,
             },
@@ -340,12 +340,12 @@ test.describe('IconButton', () => {
     }
   })
 
-  test.describe('Keyshortcuts on Description', () => {
+  test.describe('Keybinding hint on Description', () => {
     for (const theme of themes) {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-iconbutton-features--keyshortcuts-on-description',
+            id: 'components-iconbutton-features--keybinding-hint-on-description',
             globals: {
               colorScheme: theme,
             },
@@ -354,19 +354,53 @@ test.describe('IconButton', () => {
           // Default state
           await page.keyboard.press('Tab') // focus on icon button
           expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
-            `IconButton.Keyshortcuts on Description.${theme}.png`,
+            `IconButton.Keybinding Hint on Description.${theme}.png`,
           )
         })
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-iconbutton-features--keyshortcuts-on-description',
+            id: 'components-iconbutton-features--keybinding-hint-on-description',
             globals: {
               colorScheme: theme,
             },
           })
           await page.keyboard.press('Tab') // focus on icon button
           await expect(page).toHaveNoViolations()
+        })
+      })
+    }
+  })
+
+  test.describe('Flex', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-iconbutton-devonly--icon-button-within-flex-container',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          // Default state
+          expect(await page.screenshot()).toMatchSnapshot(`IconButton.Flex.${theme}.png`)
+        })
+
+        test('axe @aat', async ({page}) => {
+          await visit(page, {
+            id: 'components-iconbutton-devonly--icon-button-within-flex-container',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+          await expect(page).toHaveNoViolations({
+            rules: {
+              'color-contrast': {
+                enabled: theme !== 'dark_dimmed',
+              },
+            },
+          })
         })
       })
     }

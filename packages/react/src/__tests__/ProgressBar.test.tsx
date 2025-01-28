@@ -6,7 +6,10 @@ import axe from 'axe-core'
 import {FeatureFlags} from '../FeatureFlags'
 
 describe('ProgressBar', () => {
-  behavesAsComponent({Component: ProgressBar})
+  behavesAsComponent({
+    Component: ProgressBar,
+    toRender: () => <ProgressBar aria-label="Upload test.png" aria-valuenow={10} progress={0} />,
+  })
 
   checkExports('ProgressBar', {
     default: undefined,
@@ -71,5 +74,69 @@ describe('ProgressBar', () => {
 
   it('respects the "progress" prop', () => {
     expect(render(<ProgressBar progress={80} aria-label="Upload test.png" />)).toMatchSnapshot()
+  })
+
+  it('passed the `aria-label` down to the progress bar', () => {
+    const {getByRole, getByLabelText} = HTMLRender(<ProgressBar progress={80} aria-label="Upload test.png" />)
+    expect(getByRole('progressbar')).toHaveAttribute('aria-label', 'Upload test.png')
+    expect(getByLabelText('Upload test.png')).toBeInTheDocument()
+  })
+
+  it('passed the `aria-valuenow` down to the progress bar', () => {
+    const {getByRole} = HTMLRender(<ProgressBar aria-label="Upload test.png" progress={80} aria-valuenow={80} />)
+    expect(getByRole('progressbar')).toHaveAttribute('aria-valuenow', '80')
+  })
+
+  it('passed the `aria-valuetext` down to the progress bar', () => {
+    const {getByRole} = HTMLRender(<ProgressBar aria-label="Upload test.png" aria-valuetext="80 percent" />)
+    expect(getByRole('progressbar')).toHaveAttribute('aria-valuetext', '80 percent')
+  })
+
+  it('passes aria attributes to the progress bar item', () => {
+    const {getByRole} = HTMLRender(
+      <ProgressBar>
+        <ProgressBar.Item progress={50} aria-label="Progress" ria-valuenow="50"></ProgressBar.Item>
+      </ProgressBar>,
+    )
+    expect(getByRole('progressbar')).toHaveAttribute('aria-valuenow', '50')
+    expect(getByRole('progressbar')).toHaveAttribute('aria-label', 'Progress')
+  })
+
+  it('provides `aria-valuenow` to the progress bar item if it is not already provided', () => {
+    const {getByRole} = HTMLRender(<ProgressBar aria-label="Upload test.png" progress={50} />)
+    expect(getByRole('progressbar')).toHaveAttribute('aria-valuenow', '50')
+  })
+
+  it('applies `0` as a value for `aria-valuenow`', () => {
+    const {getByRole} = HTMLRender(<ProgressBar progress={0} aria-valuenow={0} aria-label="Upload text.png" />)
+
+    expect(getByRole('progressbar')).toHaveAttribute('aria-valuenow', '0')
+  })
+
+  describe('console.warn', () => {
+    const mockWarningFn = jest.fn()
+
+    beforeEach(() => {
+      jest.spyOn(global.console, 'warn').mockImplementation(mockWarningFn)
+    })
+
+    afterEach(() => {
+      jest.clearAllMocks()
+    })
+
+    it('should warn users if aria-label is not provided', () => {
+      HTMLRender(<ProgressBar.Item progress={50} />)
+      expect(mockWarningFn).toHaveBeenCalled()
+    })
+
+    it('should not warn users if aria-label is not provided but aria-hidden is', () => {
+      HTMLRender(<ProgressBar.Item progress={50} aria-hidden={true} />)
+      expect(mockWarningFn).not.toHaveBeenCalled()
+    })
+
+    it('should not warn users if aria-label is  provided', () => {
+      HTMLRender(<ProgressBar.Item progress={50} aria-label="Uploading test.png" />)
+      expect(mockWarningFn).not.toHaveBeenCalled()
+    })
   })
 })

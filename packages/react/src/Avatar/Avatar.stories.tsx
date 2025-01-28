@@ -16,14 +16,14 @@ type Args = {
   sizeAtWide?: number
 } & Omit<AvatarProps, 'size'>
 
-export const Default = () => <Avatar src="https://avatars.githubusercontent.com/u/92997159?v=4" />
+export const Default = () => <Avatar src="https://avatars.githubusercontent.com/u/7143434?v=4" />
 
 export const Playground: StoryFn<Args> = args => {
   return (
     <Avatar
       size={parseSizeFromArgs(args)}
       square={args.square}
-      src="https://avatars.githubusercontent.com/u/92997159?v=4"
+      src="https://avatars.githubusercontent.com/u/7143434?v=4"
       alt="mona"
     />
   )
@@ -58,12 +58,6 @@ Playground.argTypes = {
     },
   },
   alt: {
-    controls: false,
-    table: {
-      disable: true,
-    },
-  },
-  ref: {
     controls: false,
     table: {
       disable: true,

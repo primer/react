@@ -10,6 +10,9 @@ import type {DialogProps, DialogHeaderProps, DialogButtonProps} from '../Dialog/
 import {Dialog} from '../Dialog/Dialog'
 import {useFocusZone} from '../hooks/useFocusZone'
 import BaseStyles from '../BaseStyles'
+import {toggleStyledComponent} from '../internal/utils/toggleStyledComponent'
+import {useFeatureFlag} from '../FeatureFlags'
+import classes from './ConfirmationDialog.module.css'
 
 /**
  * Props to customize the ConfirmationDialog.
@@ -43,54 +46,85 @@ export interface ConfirmationDialogProps {
   confirmButtonType?: 'normal' | 'primary' | 'danger'
 }
 
-const StyledConfirmationHeader = styled.div`
-  padding: ${get('space.2')};
-  display: flex;
-  flex-direction: row;
-`
-const StyledTitle = styled(Box).attrs({as: 'h1'})`
-  font-size: ${get('fontSizes.3')};
-  font-weight: ${get('fontWeights.bold')};
-  padding: 6px ${get('space.2')};
-  flex-grow: 1;
-  margin: 0; /* override default margin */
-`
+const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_staff'
+
+const StyledConfirmationHeader = toggleStyledComponent(
+  CSS_MODULES_FEATURE_FLAG,
+  'div',
+  styled.div`
+    padding: ${get('space.2')};
+    display: flex;
+    flex-direction: row;
+  `,
+)
+
+const StyledTitle = toggleStyledComponent(
+  CSS_MODULES_FEATURE_FLAG,
+  'h1',
+  styled(Box).attrs({as: 'h1'})`
+    font-size: ${get('fontSizes.3')};
+    font-weight: ${get('fontWeights.bold')};
+    padding: 6px ${get('space.2')};
+    flex-grow: 1;
+    margin: 0; /* override default margin */
+  `,
+)
+
 const ConfirmationHeader: React.FC<React.PropsWithChildren<DialogHeaderProps>> = ({title, onClose, dialogLabelId}) => {
   const onCloseClick = useCallback(() => {
     onClose('close-button')
   }, [onClose])
+
+  const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
   return (
-    <StyledConfirmationHeader>
+    <StyledConfirmationHeader className={enabled && classes.ConfirmationHeader}>
       <StyledTitle id={dialogLabelId}>{title}</StyledTitle>
       <Dialog.CloseButton onClose={onCloseClick} />
     </StyledConfirmationHeader>
   )
 }
-const StyledConfirmationBody = styled(Box)`
-  font-size: ${get('fontSizes.1')};
-  padding: 0 ${get('space.3')} ${get('space.3')} ${get('space.3')};
-  flex-grow: 1;
-`
+const StyledConfirmationBody = toggleStyledComponent(
+  CSS_MODULES_FEATURE_FLAG,
+  'div',
+  styled(Box)`
+    font-size: ${get('fontSizes.1')};
+    padding: 0 ${get('space.3')} ${get('space.3')} ${get('space.3')};
+    flex-grow: 1;
+  `,
+)
+
 const ConfirmationBody: React.FC<React.PropsWithChildren<DialogProps>> = ({children}) => {
-  return <StyledConfirmationBody>{children}</StyledConfirmationBody>
+  const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
+  return <StyledConfirmationBody className={enabled && classes.ConfirmationBody}>{children}</StyledConfirmationBody>
 }
-const StyledConfirmationFooter = styled(Box)`
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: max-content;
-  grid-gap: ${get('space.2')};
-  align-items: end;
-  justify-content: end;
-  padding: ${get('space.1')} ${get('space.3')} ${get('space.3')};
-`
+const StyledConfirmationFooter = toggleStyledComponent(
+  CSS_MODULES_FEATURE_FLAG,
+  'div',
+  styled(Box)`
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: max-content;
+    grid-gap: ${get('space.2')};
+    align-items: end;
+    justify-content: end;
+    padding: ${get('space.1')} ${get('space.3')} ${get('space.3')};
+  `,
+)
+
 const ConfirmationFooter: React.FC<React.PropsWithChildren<DialogProps>> = ({footerButtons}) => {
   const {containerRef: footerRef} = useFocusZone({
     bindKeys: FocusKeys.ArrowHorizontal | FocusKeys.Tab,
     focusInStrategy: 'closest',
   })
+
+  const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
+
   // Must have exactly 2 buttons!
   return (
-    <StyledConfirmationFooter ref={footerRef as React.RefObject<HTMLDivElement>}>
+    <StyledConfirmationFooter
+      ref={footerRef as React.RefObject<HTMLDivElement>}
+      className={enabled && classes.ConfirmationFooter}
+    >
       <Dialog.Buttons buttons={footerButtons ?? []} />
     </StyledConfirmationFooter>
   )

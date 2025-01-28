@@ -46,18 +46,70 @@ const preview = {
               ],
             ],
           ],
-          'Experimental',
+          'Octicons',
+          [
+            'Experimental',
+            [
+              [
+                // Match on any story that leads with "Components"
+                'Components',
+                // This is the ordering of stories under "Components", by default
+                // we'll sort alphabetically
+                [
+                  [
+                    '*',
+                    // Within a set of stories, set the order to the following
+                    ['*', 'Playground', /Playground$/, 'Features', 'Examples'],
+                  ],
+                ],
+              ]
+            ]
+          ],
           'Behaviors',
           'Hooks',
-          'Deprecated',
-          'Private',
+          [
+            'Deprecated',
+            [
+              [
+                // Match on any story that leads with "Components"
+                'Components',
+                // This is the ordering of stories under "Components", by default
+                // we'll sort alphabetically
+                [
+                  [
+                    '*',
+                    // Within a set of stories, set the order to the following
+                    ['*', 'Playground', /Playground$/, 'Features', 'Examples'],
+                  ],
+                ],
+              ]
+            ]
+          ],
+          [
+            'Private',
+            [
+              [
+                // Match on any story that leads with "Components"
+                'Components',
+                // This is the ordering of stories under "Components", by default
+                // we'll sort alphabetically
+                [
+                  [
+                    '*',
+                    // Within a set of stories, set the order to the following
+                    ['*', 'Playground', /Playground$/, 'Features', 'Examples'],
+                  ],
+                ],
+              ]
+            ]
+          ],
           '*',
         ]
 
         /**
          * Get the position of an item within a given order. This will return the
          * index if the item is defined in the given array, or the wildcard index
-         * if it is not explicitlyd efined
+         * if it is not explicitly defined
          */
         function getPosition(order, item) {
           const position = order.findIndex(value => {

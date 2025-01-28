@@ -31,6 +31,7 @@
 .Description {
   margin: 0;
   margin-bottom: var(--base-size-8);
+  text-align: center;
 }
 
 .Heading {

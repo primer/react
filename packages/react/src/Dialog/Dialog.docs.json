@@ -4,8 +4,39 @@
   "name": "Dialog",
   "status": "draft",
   "a11yReviewed": false,
-  "stories": [],
-  "importPath": "@primer/react/experimental",
+  "stories": [
+    {
+      "id": "components-dialog--default"
+    },
+    {
+      "id": "components-dialog-features--with-custom-renderers"
+    },
+    {
+      "id": "components-dialog-features--stress-test"
+    },
+    {
+      "id": "components-dialog-features--repro-multistep-dialog-with-conditional-footer"
+    },
+    {
+      "id": "components-dialog-features--bottom-sheet-narrow"
+    },
+    {
+      "id": "components-dialog-features--full-screen-narrow"
+    },
+    {
+      "id": "components-dialog-features--side-sheet"
+    },
+    {
+      "id": "components-dialog-features--return-focus-ref"
+    },
+    {
+      "id": "components-dialog-features--new-issues"
+    },
+    {
+      "id": "components-dialog-features--retains-focus-trap-with-dynamic-content"
+    }
+  ],
+  "importPath": "@primer/react",
   "props": [
     {
       "name": "title",
@@ -45,15 +76,17 @@
     {
       "name": "role",
       "type": "'dialog' | 'alertdialog'",
-      "description": "The ARIA role to assign to this dialog."
+      "description": "The ARIA role to assign to this dialog. @see https://www.w3.org/TR/wai-aria-practices-1.1/#dialog_modal\n@see https://www.w3.org/TR/wai-aria-practices-1.1/#alertdialog"
     },
     {
       "name": "width",
-      "type": "'small' | 'medium' | 'large' | 'xlarge'"
+      "type": "'small' | 'medium' | 'large' | 'xlarge'",
+      "description": "The width of the dialog.\nsmall: 296px\nmedium: 320px\nlarge: 480px\nxlarge: 640px"
     },
     {
       "name": "height",
-      "type": "'small' | 'large' | 'auto'"
+      "type": "'small' | 'large' | 'auto'",
+      "description": "The height of the dialog.\nsmall: 296x480\nlarge: 480x640\nauto: variable based on contents"
     },
     {
       "name": "returnFocusRef",
@@ -66,11 +99,83 @@
       "description": "Focus this element when the Dialog opens"
     },
     {
+      "name": "position",
+      "type": "'center' | 'left' | 'right' | { narrow: 'center' | 'left' | 'right' | 'bottom' | 'fullscreen', regular: 'center' | 'left' | 'right' | 'bottom' | 'fullscreen', wide: 'center' | 'left' | 'right' | 'bottom' | 'fullscreen' }",
+      "required": false,
+      "description": "The position of the dialog",
+      "defaultValue": ""
+    },
+    {
       "name": "className",
       "type": "string | undefined",
       "defaultValue": "",
       "description": "CSS string"
     }
   ],
-  "subcomponents": []
+  "subcomponents": [
+    {
+      "name": "Dialog.Body",
+      "props": []
+    },
+    {
+      "name": "Dialog.Buttons",
+      "props": [
+        {
+          "name": "buttons",
+          "type": "DialogButtonProps[] (see table below)",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "Dialog.CloseButton",
+      "props": [
+        {
+          "name": "onClose",
+          "type": "() => void",
+          "required": true,
+          "description": "Callback for closing the Dialog",
+          "defaultValue": ""
+        }
+      ]
+    },
+    {
+      "name": "Dialog.Footer",
+      "props": []
+    },
+    {
+      "name": "Dialog.Header",
+      "props": []
+    },
+    {
+      "name": "Dialog.Title",
+      "props": []
+    },
+    {
+      "name": "DialogButtonProps",
+      "props": [
+        {
+          "name": "buttonType",
+          "type": "'default' | 'danger' | 'primary' | 'normal'",
+          "description": "The variant of Button to use"
+        },
+        {
+          "name": "content",
+          "type": "React.ReactNode",
+          "required": true,
+          "description": "The Button's inner text"
+        },
+        {
+          "name": "autoFocus",
+          "type": "boolean",
+          "description": "If true, and if this is the only button with autoFocus set to true, focus this button automatically when the dialog appears."
+        },
+        {
+          "name": "ref",
+          "type": "React.RefObject<HTMLButtonElement>",
+          "description": " A reference to the rendered Button’s DOM node, used together with `autoFocus` for `focusTrap`’s `initialFocus`."
+        }
+      ]
+    }
+  ]
 }

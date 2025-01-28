@@ -12,7 +12,7 @@ export const Default: StoryFn<typeof Details> = () => {
   const {getDetailsProps} = useDetails({closeOnOutsideClick: true})
   return (
     <Details {...getDetailsProps()}>
-      <Button as="summary">See Details</Button>
+      <Details.Summary as={Button}>See Details</Details.Summary>
       This is some content
     </Details>
   )

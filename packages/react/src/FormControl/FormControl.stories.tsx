@@ -1,21 +1,10 @@
 import React, {useState} from 'react'
 import type {Meta} from '@storybook/react'
-import {BaseStyles, Box, Checkbox, FormControl, TextInput, TextInputWithTokens, ThemeProvider, theme} from '..'
+import {Box, Checkbox, FormControl, TextInput, TextInputWithTokens} from '..'
 import type {FormValidationStatus} from '../utils/types/FormValidationStatus'
 
 export default {
   title: 'Components/FormControl',
-  decorators: [
-    Story => {
-      return (
-        <ThemeProvider theme={theme}>
-          <BaseStyles>
-            <Story />
-          </BaseStyles>
-        </ThemeProvider>
-      )
-    },
-  ],
   argTypes: {
     disabled: {
       type: 'boolean',

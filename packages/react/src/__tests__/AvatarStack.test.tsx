@@ -69,4 +69,39 @@ describe('Avatar', () => {
   it('respects alignRight props', () => {
     expect(render(rightAvatarComp)).toMatchSnapshot()
   })
+
+  it('should have a tabindex of 0 if there are no interactive children', () => {
+    const {container} = HTMLRender(avatarComp)
+    expect(container.querySelector('[tabindex="0"]')).toBeInTheDocument()
+  })
+
+  it('should not have a tabindex if there are interactive children', () => {
+    const {container} = HTMLRender(
+      <AvatarStack>
+        <button type="button">Click me</button>
+      </AvatarStack>,
+    )
+    expect(container.querySelector('[tabindex="0"]')).not.toBeInTheDocument()
+  })
+
+  it('should not have a tabindex if disableExpand is true', () => {
+    const {container} = HTMLRender(
+      <AvatarStack disableExpand>
+        <img src="https://avatars.githubusercontent.com/primer" alt="" />
+        <img src="https://avatars.githubusercontent.com/github" alt="" />
+      </AvatarStack>,
+    )
+    expect(container.querySelector('[tabindex="0"]')).not.toBeInTheDocument()
+  })
+
+  it('should support `style` prop on the outermost element', () => {
+    const style = {backgroundColor: 'red'}
+    const {container} = HTMLRender(
+      <AvatarStack style={style}>
+        <img src="https://avatars.githubusercontent.com/primer" alt="" />
+        <img src="https://avatars.githubusercontent.com/github" alt="" />
+      </AvatarStack>,
+    )
+    expect(container.firstChild).toHaveStyle('background-color: red')
+  })
 })

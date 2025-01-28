@@ -1,6 +1,11 @@
-import React from 'react'
+import React, {type CSSProperties, type HTMLProps} from 'react'
 import Box from '../../Box'
 import {SkeletonBox} from './SkeletonBox'
+import classes from './SkeletonText.module.css'
+import {useFeatureFlag} from '../../FeatureFlags'
+import {clsx} from 'clsx'
+import {merge} from '../../sx'
+import {CSS_MODULE_FLAG} from './FeatureFlag'
 
 type SkeletonTextProps = {
   /** Size of the text that the skeleton is replacing. */
@@ -11,7 +16,7 @@ type SkeletonTextProps = {
   maxWidth?: React.CSSProperties['maxWidth']
   /** Class name for custom styling */
   className?: string
-}
+} & Omit<HTMLProps<HTMLDivElement>, 'size'>
 
 const skeletonTextStyles = {
   '&[data-component="SkeletonText"]': {
@@ -68,39 +73,60 @@ const skeletonTextStyles = {
   },
 }
 
-export const SkeletonText: React.FC<SkeletonTextProps> = ({lines = 1, maxWidth, size = 'bodyMedium', ...rest}) => {
-  return lines < 2 ? (
-    <SkeletonBox
-      data-component="SkeletonText"
-      data-text-skeleton-size={size}
-      width="100%"
-      sx={{
-        maxWidth,
-        ...skeletonTextStyles,
-      }}
-      {...rest}
-    />
-  ) : (
-    <Box
-      data-component="multilineContainer"
-      sx={{
-        maxWidth,
-        /* The tiny `paddingBlock` prevents margin collapse between the first skeleton line
-         * and a bottom margin above it.
-         */
-        paddingBlock: '0.1px',
-      }}
-    >
-      {Array.from({length: lines}, (_, index) => (
-        <SkeletonBox
-          key={index}
-          data-component="SkeletonText"
-          data-in-multiline="true"
-          data-text-skeleton-size={size}
-          sx={skeletonTextStyles}
-          {...rest}
-        />
-      ))}
-    </Box>
-  )
+export const SkeletonText: React.FC<SkeletonTextProps> = ({
+  lines = 1,
+  maxWidth,
+  size = 'bodyMedium',
+  className,
+  style,
+  ...rest
+}) => {
+  const enabled = useFeatureFlag(CSS_MODULE_FLAG)
+
+  if (lines < 2) {
+    return (
+      <SkeletonBox
+        data-component="SkeletonText"
+        data-text-skeleton-size={size}
+        width="100%"
+        className={clsx(className, {[classes.SkeletonText]: enabled})}
+        sx={
+          enabled
+            ? {}
+            : {
+                maxWidth,
+                ...skeletonTextStyles,
+              }
+        }
+        style={enabled ? merge(style as CSSProperties, {maxWidth} as CSSProperties) : style}
+        {...rest}
+      />
+    )
+  } else {
+    return (
+      <Box
+        data-component="multilineContainer"
+        sx={{
+          maxWidth,
+          /* The tiny `paddingBlock` prevents margin collapse between the first skeleton line
+           * and a bottom margin above it.
+           */
+          paddingBlock: '0.1px',
+        }}
+        style={enabled ? merge(style as CSSProperties, {maxWidth, paddingBlock: '0.1px'} as CSSProperties) : style}
+      >
+        {Array.from({length: lines}, (_, index) => (
+          <SkeletonBox
+            key={index}
+            data-component="SkeletonText"
+            data-in-multiline="true"
+            data-text-skeleton-size={size}
+            sx={enabled ? {} : skeletonTextStyles}
+            className={clsx(className, {[classes.SkeletonText]: enabled})}
+            {...rest}
+          />
+        ))}
+      </Box>
+    )
+  }
 }

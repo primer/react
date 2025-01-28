@@ -373,7 +373,7 @@ function Range({pageStart, pageEnd, totalCount}: RangeProps) {
       <Message value={`Showing ${start} through ${end} of ${totalCount}`} />
       <p className="TablePaginationRange">
         {start}
-        <VisuallyHidden as="span">&nbsp;through&nbsp;</VisuallyHidden>
+        <VisuallyHidden>&nbsp;through&nbsp;</VisuallyHidden>
         <span aria-hidden="true">‒</span>
         {end} of {totalCount}
       </p>

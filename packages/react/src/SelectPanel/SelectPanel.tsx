@@ -19,6 +19,9 @@ import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
 import {LiveRegion, LiveRegionOutlet, Message} from '../internal/components/LiveRegion'
 import {useFeatureFlag} from '../FeatureFlags'
 
+import classes from './SelectPanel.module.css'
+import {clsx} from 'clsx'
+
 interface SelectPanelSingleSelection {
   selected: ItemInput | undefined
   onSelectedChange: (selected: ItemInput | undefined) => void
@@ -42,6 +45,7 @@ interface SelectPanelBaseProps {
   inputLabel?: string
   overlayProps?: Partial<OverlayProps>
   footer?: string | React.ReactElement
+  className?: string
 }
 
 export type SelectPanelProps = SelectPanelBaseProps &
@@ -97,6 +101,8 @@ export function SelectPanel({
   textInputProps,
   overlayProps,
   sx,
+  className,
+  id,
   ...listProps
 }: SelectPanelProps): JSX.Element {
   const titleId = useId()
@@ -109,6 +115,9 @@ export function SelectPanel({
     },
     [externalOnFilterChange, setInternalFilterValue],
   )
+
+  const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_staff'
+  const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
 
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
   const onOpen: AnchoredOverlayProps['onOpen'] = useCallback(
@@ -205,6 +214,7 @@ export function SelectPanel({
         }}
         focusTrapSettings={focusTrapSettings}
         focusZoneSettings={focusZoneSettings}
+        anchorId={id}
       >
         <LiveRegionOutlet />
         {usingModernActionList ? null : (
@@ -213,18 +223,30 @@ export function SelectPanel({
               filterValue === ''
                 ? 'Showing all items'
                 : items.length <= 0
-                ? 'No matching items'
-                : `${items.length} matching ${items.length === 1 ? 'item' : 'items'}`
+                  ? 'No matching items'
+                  : `${items.length} matching ${items.length === 1 ? 'item' : 'items'}`
             }
           />
         )}
-        <Box sx={{display: 'flex', flexDirection: 'column', height: 'inherit', maxHeight: 'inherit'}}>
-          <Box sx={{pt: 2, px: 3}}>
-            <Heading as="h1" id={titleId} sx={{fontSize: 1}}>
+        <Box
+          sx={enabled ? undefined : {display: 'flex', flexDirection: 'column', height: 'inherit', maxHeight: 'inherit'}}
+          className={enabled ? classes.Wrapper : undefined}
+        >
+          <Box sx={enabled ? undefined : {pt: 2, px: 3}} className={enabled ? classes.Content : undefined}>
+            <Heading
+              as="h1"
+              id={titleId}
+              sx={enabled ? undefined : {fontSize: 1}}
+              className={enabled ? classes.Title : undefined}
+            >
               {title}
             </Heading>
             {subtitle ? (
-              <Box id={subtitleId} sx={{fontSize: 0, color: 'fg.muted'}}>
+              <Box
+                id={subtitleId}
+                sx={enabled ? undefined : {fontSize: 0, color: 'fg.muted'}}
+                className={enabled ? classes.Subtitle : undefined}
+              >
                 {subtitle}
               </Box>
             ) : null}
@@ -245,16 +267,22 @@ export function SelectPanel({
             inputRef={inputRef}
             // inheriting height and maxHeight ensures that the FilteredActionList is never taller
             // than the Overlay (which would break scrolling the items)
-            sx={{...sx, height: 'inherit', maxHeight: 'inherit'}}
+            sx={enabled ? sx : {...sx, height: 'inherit', maxHeight: 'inherit'}}
+            className={enabled ? clsx(className, classes.FilteredActionList) : className}
           />
           {footer && (
             <Box
-              sx={{
-                display: 'flex',
-                borderTop: '1px solid',
-                borderColor: 'border.default',
-                padding: 2,
-              }}
+              sx={
+                enabled
+                  ? undefined
+                  : {
+                      display: 'flex',
+                      borderTop: '1px solid',
+                      borderColor: 'border.default',
+                      padding: 2,
+                    }
+              }
+              className={enabled ? classes.Footer : undefined}
             >
               {footer}
             </Box>

@@ -1,0 +1,30 @@
+@keyframes shimmer {
+  from {
+    mask-position: 200%;
+  }
+
+  to {
+    mask-position: 0%;
+  }
+}
+
+.SkeletonBox {
+  display: block;
+  height: 1rem;
+  background-color: var(--bgColor-muted);
+  border-radius: var(--borderRadius-small);
+  animation: shimmer;
+
+  @media (prefers-reduced-motion: no-preference) {
+    mask-image: linear-gradient(75deg, #000 30%, rgba(0, 0, 0, 0.65) 80%);
+    mask-size: 200%;
+    animation: shimmer;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+  }
+
+  @media (forced-colors: active) {
+    outline: 1px solid transparent;
+    outline-offset: -1px;
+  }
+}

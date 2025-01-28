@@ -4,11 +4,13 @@ import type {SpinnerProps} from '..'
 import {Spinner} from '..'
 import {behavesAsComponent, checkExports} from '../utils/testing'
 import {render as HTMLRender, screen} from '@testing-library/react'
-import {FeatureFlags} from '../FeatureFlags'
 
 describe('Spinner', () => {
   behavesAsComponent({
     Component: Spinner,
+    options: {
+      skipAs: true,
+    },
   })
 
   checkExports('Spinner', {
@@ -17,21 +19,7 @@ describe('Spinner', () => {
 
   it('should support `className` on the outermost element', () => {
     const Element = () => <Spinner className={'test-class-name'} />
-    const FeatureFlagElement = () => {
-      return (
-        <FeatureFlags
-          flags={{
-            primer_react_css_modules_team: true,
-            primer_react_css_modules_staff: true,
-            primer_react_css_modules_ga: true,
-          }}
-        >
-          <Element />
-        </FeatureFlags>
-      )
-    }
     expect(HTMLRender(<Element />).container.firstChild?.firstChild).toHaveClass('test-class-name')
-    expect(HTMLRender(<FeatureFlagElement />).container.firstChild?.firstChild).toHaveClass('test-class-name')
   })
 
   it('should label the spinner with default loading text', async () => {

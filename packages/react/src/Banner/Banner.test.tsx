@@ -115,9 +115,9 @@ describe('Banner', () => {
       />,
     )
 
-    expect(screen.getByRole('button', {name: 'test primary action'})).toBeInTheDocument()
+    expect(screen.queryAllByRole('button', {name: 'test primary action', hidden: true}).length).toBe(2)
 
-    await user.click(screen.getByRole('button', {name: 'test primary action'}))
+    await user.click(screen.queryAllByText('test primary action')[0])
     expect(onClick).toHaveBeenCalledTimes(1)
   })
 
@@ -132,9 +132,9 @@ describe('Banner', () => {
       />,
     )
 
-    expect(screen.getByRole('button', {name: 'test secondary action'})).toBeInTheDocument()
+    expect(screen.queryAllByRole('button', {name: 'test secondary action', hidden: true}).length).toBe(2)
 
-    await user.click(screen.getByRole('button', {name: 'test secondary action'}))
+    await user.click(screen.queryAllByText('test secondary action')[0])
     expect(onClick).toHaveBeenCalledTimes(1)
   })
 
@@ -148,8 +148,8 @@ describe('Banner', () => {
       />,
     )
 
-    expect(screen.getByRole('button', {name: 'test primary action'})).toBeInTheDocument()
-    expect(screen.getByRole('button', {name: 'test secondary action'})).toBeInTheDocument()
+    expect(screen.queryAllByRole('button', {name: 'test primary action', hidden: true}).length).toBe(2)
+    expect(screen.queryAllByRole('button', {name: 'test secondary action', hidden: true}).length).toBe(2)
   })
 
   it('should call `onDismiss` when the dismiss button is activated', async () => {
@@ -169,11 +169,14 @@ describe('Banner', () => {
     expect(onDismiss).toHaveBeenCalledTimes(3)
   })
 
-  it('should not support onDismiss when `variant="critical"`', () => {
-    const onDismiss = jest.fn()
-    render(<Banner title="test" description="test-description" onDismiss={onDismiss} variant="critical" />)
-    expect(screen.queryByRole('button', {name: 'Dismiss banner'})).toBe(null)
-  })
+  it.each(['critical', 'info', 'success', 'upsell', 'warning'] as const)(
+    'should support onDismiss for the %s variant',
+    variant => {
+      const onDismiss = jest.fn()
+      render(<Banner title="test" description="test-description" onDismiss={onDismiss} variant={variant} />)
+      expect(screen.queryByRole('button', {name: 'Dismiss banner'})).toBeInTheDocument()
+    },
+  )
 
   it('should pass extra props onto the container element', () => {
     const {container} = render(<Banner title="test" data-testid="test" />)

@@ -1,5 +1,6 @@
 import React from 'react'
-import {Select, FormControl, Box, Heading} from '..'
+import {FormControl, Box, Heading} from '..'
+import Select from './Select'
 
 export default {
   title: 'Components/Select/Features',

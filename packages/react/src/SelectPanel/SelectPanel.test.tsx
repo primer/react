@@ -490,6 +490,16 @@ for (const useModernActionList of [false, true]) {
             expect(getLiveRegion().getMessage('polite')).toBe('No matching items.')
           })
         })
+
+        it('should accept a className to style the component', async () => {
+          const user = userEvent.setup()
+
+          renderWithFlag(<BasicSelectPanel className="test-class" />, useModernActionList)
+
+          await user.click(screen.getByText('Select items'))
+
+          expect(screen.getByTestId('filtered-action-list')).toHaveClass('test-class')
+        })
       })
 
       describe('with footer', () => {

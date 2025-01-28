@@ -1,5 +1,454 @@
 # @primer/react
 
+## 37.11.0
+
+### Minor Changes
+
+- [#5583](https://github.com/primer/react/pull/5583) [`db6c360`](https://github.com/primer/react/commit/db6c3607c43ba288d4df1a68e1590bbb5f5aedb6) Thanks [@brphelps](https://github.com/brphelps)! - Banner now supports onDismiss used when using variant critical.
+
+- [#5578](https://github.com/primer/react/pull/5578) [`88b8533`](https://github.com/primer/react/commit/88b8533e6656f81c6351f25c2afab7f01e0acedc) Thanks [@hussam-i-am](https://github.com/hussam-i-am)! - Update FormControl to use CSS Modules behind feature flag
+
+- [#5540](https://github.com/primer/react/pull/5540) [`20788da`](https://github.com/primer/react/commit/20788daa3b80c3a332946abac8ab4c57cc9e3f35) Thanks [@langermank](https://github.com/langermank)! - - Convert ActionBar to CSS Modules
+
+  - Add new padding prop for container padding
+
+- [#5527](https://github.com/primer/react/pull/5527) [`ccc3c99`](https://github.com/primer/react/commit/ccc3c9926b0b3ff0b02fd2520883ea4a14f4046d) Thanks [@ddoyle2017](https://github.com/ddoyle2017)! - Add an onSelect callback for UnderlinePanels.Tab
+
+### Patch Changes
+
+- [#5568](https://github.com/primer/react/pull/5568) [`42c20dd`](https://github.com/primer/react/commit/42c20ddc6b850d548e263f6d76bdda1895a97bfe) Thanks [@khiga8](https://github.com/khiga8)! - bug: ensure Announce components work without pre-existing text node
+
+- [#5591](https://github.com/primer/react/pull/5591) [`12f1af7`](https://github.com/primer/react/commit/12f1af7bd8e19a077646c25a5c8cbddd9f69aca7) Thanks [@jonrohan](https://github.com/jonrohan)! - Move Popover CSS modules feature flag from staff to ga
+
+- [#5591](https://github.com/primer/react/pull/5591) [`12f1af7`](https://github.com/primer/react/commit/12f1af7bd8e19a077646c25a5c8cbddd9f69aca7) Thanks [@jonrohan](https://github.com/jonrohan)! - Move Textarea CSS modules feature flag from staff to ga
+
+- [#5591](https://github.com/primer/react/pull/5591) [`12f1af7`](https://github.com/primer/react/commit/12f1af7bd8e19a077646c25a5c8cbddd9f69aca7) Thanks [@jonrohan](https://github.com/jonrohan)! - Move UnstyledTextInput CSS modules feature flag from staff to ga
+
+- [#5591](https://github.com/primer/react/pull/5591) [`12f1af7`](https://github.com/primer/react/commit/12f1af7bd8e19a077646c25a5c8cbddd9f69aca7) Thanks [@jonrohan](https://github.com/jonrohan)! - Move SelectPanel2 CSS modules feature flag from staff to ga
+
+- [#5551](https://github.com/primer/react/pull/5551) [`c0360db`](https://github.com/primer/react/commit/c0360db263e046f7d756bb157fb520167353be91) Thanks [@camertron](https://github.com/camertron)! - Fix an issue in useAnnouncements.tsx causing a TypeError in production. The activeItem variable may be null.
+
+- [#5591](https://github.com/primer/react/pull/5591) [`12f1af7`](https://github.com/primer/react/commit/12f1af7bd8e19a077646c25a5c8cbddd9f69aca7) Thanks [@jonrohan](https://github.com/jonrohan)! - Move Breadcrumbs CSS modules feature flag from staff to ga
+
+- [#5591](https://github.com/primer/react/pull/5591) [`12f1af7`](https://github.com/primer/react/commit/12f1af7bd8e19a077646c25a5c8cbddd9f69aca7) Thanks [@jonrohan](https://github.com/jonrohan)! - Move ProgressBar CSS modules feature flag from staff to ga
+
+- [#5552](https://github.com/primer/react/pull/5552) [`c87e80c`](https://github.com/primer/react/commit/c87e80c129fd293610bdc7df902c0df2b08f3220) Thanks [@camertron](https://github.com/camertron)! - Avoid accessing properties of potentially null document.body in PageLayout
+
+- [#5591](https://github.com/primer/react/pull/5591) [`12f1af7`](https://github.com/primer/react/commit/12f1af7bd8e19a077646c25a5c8cbddd9f69aca7) Thanks [@jonrohan](https://github.com/jonrohan)! - Move Dialog CSS modules feature flag from staff to ga
+
+- [#5591](https://github.com/primer/react/pull/5591) [`12f1af7`](https://github.com/primer/react/commit/12f1af7bd8e19a077646c25a5c8cbddd9f69aca7) Thanks [@jonrohan](https://github.com/jonrohan)! - Move Timeline CSS modules feature flag from staff to ga
+
+- [#5585](https://github.com/primer/react/pull/5585) [`d76cd26`](https://github.com/primer/react/commit/d76cd26f3accdcf06b993d3962fbea2f90f9a426) Thanks [@langermank](https://github.com/langermank)! - Promote ActionList to staff
+
+- [#5467](https://github.com/primer/react/pull/5467) [`c7b109d`](https://github.com/primer/react/commit/c7b109d5c8532dbdc90461df36d148de3c471181) Thanks [@langermank](https://github.com/langermank)! - Add `flex-shrink` to IconButton
+
+- [#5584](https://github.com/primer/react/pull/5584) [`b661959`](https://github.com/primer/react/commit/b66195900793006af301fd1bfb5c82849eac05f1) Thanks [@joshblack](https://github.com/joshblack)! - Update specificity for ButtonBase to be at least 0,1,0
+
+- [#5567](https://github.com/primer/react/pull/5567) [`8bdff77`](https://github.com/primer/react/commit/8bdff77820a3ba9735e794f2cc0eb0e702c67bc0) Thanks [@langermank](https://github.com/langermank)! - Hide NavList sub items if collapsed
+
+- [#5591](https://github.com/primer/react/pull/5591) [`12f1af7`](https://github.com/primer/react/commit/12f1af7bd8e19a077646c25a5c8cbddd9f69aca7) Thanks [@jonrohan](https://github.com/jonrohan)! - Move DialogV1 CSS modules feature flag from staff to ga
+
+- [#5591](https://github.com/primer/react/pull/5591) [`12f1af7`](https://github.com/primer/react/commit/12f1af7bd8e19a077646c25a5c8cbddd9f69aca7) Thanks [@jonrohan](https://github.com/jonrohan)! - Move TreeView CSS modules feature flag from staff to ga
+
+- [#5549](https://github.com/primer/react/pull/5549) [`16c572e`](https://github.com/primer/react/commit/16c572e47475eb402c100a219049cbfc1141a597) Thanks [@francinelucca](https://github.com/francinelucca)! - fix(SelectPanel): pass anchorId to AnchoredOverlay
+
+- [#5591](https://github.com/primer/react/pull/5591) [`12f1af7`](https://github.com/primer/react/commit/12f1af7bd8e19a077646c25a5c8cbddd9f69aca7) Thanks [@jonrohan](https://github.com/jonrohan)! - Move CheckboxOrRadioGroup CSS modules feature flag from staff to ga
+
+## 37.10.0
+
+### Minor Changes
+
+- [#5457](https://github.com/primer/react/pull/5457) [`b1e5699`](https://github.com/primer/react/commit/b1e56994d460ee088508445d28150abc902781a8) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove CSS modules feature flag from ButtonGroup
+
+- [#5458](https://github.com/primer/react/pull/5458) [`b763ecd`](https://github.com/primer/react/commit/b763ecd69c8f024feaaabdc31d8805dd50007736) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove CSS modules feature flag from Details
+
+- [#5463](https://github.com/primer/react/pull/5463) [`b55025c`](https://github.com/primer/react/commit/b55025cf2bf7f349cecb856449508bf822507c6d) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove CSS modules feature flag from Radio
+
+- [#5462](https://github.com/primer/react/pull/5462) [`8b8ec3c`](https://github.com/primer/react/commit/8b8ec3c64fce6f113b81f4169fe9460d1cef1967) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove the CSS module feature flag from Pagehead
+
+### Patch Changes
+
+- [#5488](https://github.com/primer/react/pull/5488) [`e352e19`](https://github.com/primer/react/commit/e352e192dae7ae7b24420f4afae08871536c0484) Thanks [@hectahertz](https://github.com/hectahertz)! - Pagination: Hides the `Pagination` Previous and Next buttons from the accessibility tree when they are disabled.
+
+## 37.9.1
+
+### Patch Changes
+
+- [`8c1cff4`](https://github.com/primer/react/commit/8c1cff46f206b0c51feeb32ed1ab85c7db18acd1) Thanks [@francinelucca](https://github.com/francinelucca)! - fix(ActionList): remove className from menuItemProps to prevent duplicate className bug
+
+## 37.9.0
+
+### Minor Changes
+
+- [#5448](https://github.com/primer/react/pull/5448) [`00600f7`](https://github.com/primer/react/commit/00600f783e4ce807cd1e33f2bb183ced9cf66291) Thanks [@mperrotti](https://github.com/mperrotti)! - Corrects horizontal padding of `<Button>` when the button only contains an icon and a counter label (no button text label).
+
+- [#5398](https://github.com/primer/react/pull/5398) [`215d8e6`](https://github.com/primer/react/commit/215d8e643629b918b581daddf9d1ce9beabac74e) Thanks [@langermank](https://github.com/langermank)! - Convert ActionList, ActionList sub components and NavList to CSS Modules
+
+- [#5453](https://github.com/primer/react/pull/5453) [`b07f806`](https://github.com/primer/react/commit/b07f8063371073551741356f0523d7b8ae733322) Thanks [@hussam-i-am](https://github.com/hussam-i-am)! - Convert Autocomplete to CSS modules behind feature flag
+
+- [#5443](https://github.com/primer/react/pull/5443) [`f03ae58`](https://github.com/primer/react/commit/f03ae58b1546289096a725c357c735cb4c41bc91) Thanks [@jonrohan](https://github.com/jonrohan)! - Deprecate use of sx prop by deprecating the `SxProp` type definition
+
+- [#5484](https://github.com/primer/react/pull/5484) [`efb1659`](https://github.com/primer/react/commit/efb16598f77eabc3afbbdf2ae12856b97317b81d) Thanks [@hussam-i-am](https://github.com/hussam-i-am)! - Fix responsive width of PageLayout
+
+- [#5456](https://github.com/primer/react/pull/5456) [`e990fdb`](https://github.com/primer/react/commit/e990fdbcb64c97c5808d6e1649d020a923956270) Thanks [@langermank](https://github.com/langermank)! - chore(deps): update @primer/octicons-react to 19.13.0
+
+- [#5451](https://github.com/primer/react/pull/5451) [`59a1346`](https://github.com/primer/react/commit/59a1346b54581170b70ae60ad673eeec085c379f) Thanks [@randall-krauskopf](https://github.com/randall-krauskopf)! - Convert Box usage in Autocomplete to CSS modules behind feature flag
+
+- [#5435](https://github.com/primer/react/pull/5435) [`5cba52a`](https://github.com/primer/react/commit/5cba52a445c45b56b54163922fb59ba1059351ec) Thanks [@joshblack](https://github.com/joshblack)! - Update Table to use CSS Modules behind feature flag
+
+### Patch Changes
+
+- [#5123](https://github.com/primer/react/pull/5123) [`becad7d`](https://github.com/primer/react/commit/becad7dfa2522c1b211ebeeacba0d0cedc16dd85) Thanks [@langermank](https://github.com/langermank)! - Bug fix: ButtonGroup with Tooltip border-radius is incorrect
+
+- [#5382](https://github.com/primer/react/pull/5382) [`83607df`](https://github.com/primer/react/commit/83607dfeff055b651eeeeb79bc9bb651def081a8) Thanks [@jonrohan](https://github.com/jonrohan)! - Move Skeleton component css module feature flag to ga
+
+- [#5441](https://github.com/primer/react/pull/5441) [`30e8c31`](https://github.com/primer/react/commit/30e8c31a9497a96e77fccbc8f33519dcfdf23abf) Thanks [@joshblack](https://github.com/joshblack)! - test: add check for story ids in generated docs
+
+- [#5386](https://github.com/primer/react/pull/5386) [`177eadc`](https://github.com/primer/react/commit/177eadcfa217ed196bf97ad894fe483dd2d63edb) Thanks [@jonrohan](https://github.com/jonrohan)! - Move Select component css module feature flag to ga
+
+- [#5388](https://github.com/primer/react/pull/5388) [`e3856ba`](https://github.com/primer/react/commit/e3856ba959c8ec43b9bd19da1239a828524bcb82) Thanks [@jonrohan](https://github.com/jonrohan)! - Move TreeView component css module feature flag to staff
+
+- [#5384](https://github.com/primer/react/pull/5384) [`eedbdbd`](https://github.com/primer/react/commit/eedbdbd6569e5faf18486dd8935f9af46ac17e31) Thanks [@jonrohan](https://github.com/jonrohan)! - Move Stack component css module feature flag to ga
+
+- [#5444](https://github.com/primer/react/pull/5444) [`8e481ca`](https://github.com/primer/react/commit/8e481cadd1fc45119f28428f97b75817179473d5) Thanks [@JelloBagel](https://github.com/JelloBagel)! - Fix Typography and Common props for BaseStyles when CSS modules feature flag is enabled
+
+- [#5387](https://github.com/primer/react/pull/5387) [`e29c40c`](https://github.com/primer/react/commit/e29c40c31d0630873de5a03f501f5b1f86b511ef) Thanks [@jonrohan](https://github.com/jonrohan)! - Move Breadcrumbs component css module feature flag to ga
+
+- [#5380](https://github.com/primer/react/pull/5380) [`fcc041d`](https://github.com/primer/react/commit/fcc041dbcc8915eff7cd419269faaff8a408b180) Thanks [@jonrohan](https://github.com/jonrohan)! - Move Header component css module feature flag to ga
+
+- [#5476](https://github.com/primer/react/pull/5476) [`578a33d`](https://github.com/primer/react/commit/578a33d77e68695edd285cd03435d3190d025dfc) Thanks [@TylerJDev](https://github.com/TylerJDev)! - ActionBar: Fixes issue where `ActionBar` overflow menu would persist even if it was no longer needed; allows overflow menu to appear on initial render if there is no space for all items.
+
+## 37.8.0
+
+### Minor Changes
+
+- [#5414](https://github.com/primer/react/pull/5414) [`d44a4cf`](https://github.com/primer/react/commit/d44a4cf2c7fcc9ab66568120a26e8223dede01ee) Thanks [@iansan5653](https://github.com/iansan5653)! - Add `onPrimary` `variant` to `KeybindingHint`
+
+- [#5310](https://github.com/primer/react/pull/5310) [`13ce9a3`](https://github.com/primer/react/commit/13ce9a3f4bd8efdea2669ef9400528922688ea72) Thanks [@francinelucca](https://github.com/francinelucca)! - feat(Overlay): Convert Overlay to CSS modules behind team feature flag
+
+- [#5413](https://github.com/primer/react/pull/5413) [`9f5a9ac`](https://github.com/primer/react/commit/9f5a9acc065326b7c56ff3868d2a72cad25ca0f7) Thanks [@JelloBagel](https://github.com/JelloBagel)! - Convert SideNav component to CSS Modules behind team feature flag
+
+- [#5403](https://github.com/primer/react/pull/5403) [`877497c`](https://github.com/primer/react/commit/877497cabb7cd348328efa99d5c812d8f02601fb) Thanks [@JelloBagel](https://github.com/JelloBagel)! - Convert `Hidden` to CSS modules behind team feature flag
+
+- [#5357](https://github.com/primer/react/pull/5357) [`161e3fd`](https://github.com/primer/react/commit/161e3fd7c7ee64f07853405980b35b44eae61c9f) Thanks [@randall-krauskopf](https://github.com/randall-krauskopf)! - Convert UnderlinePanels to CSS modules behind feature flags
+
+- [#5331](https://github.com/primer/react/pull/5331) [`e39dddb`](https://github.com/primer/react/commit/e39dddb32beea3e583aa1cf9f42ae8ba521dbaed) Thanks [@TylerJDev](https://github.com/TylerJDev)! - Convert ConfirmationDialog to CSS modules behind feature flag
+
+### Patch Changes
+
+- [#5419](https://github.com/primer/react/pull/5419) [`73da985`](https://github.com/primer/react/commit/73da985f4303af60daf788c2dceba096ffc34cb0) Thanks [@jonrohan](https://github.com/jonrohan)! - bugfix(Stack): Fix typo in custom media variable used in Stack component
+
+- [#5415](https://github.com/primer/react/pull/5415) [`67fc8f5`](https://github.com/primer/react/commit/67fc8f5cd5369d4a9dfcf1a04612fca8d49855bc) Thanks [@randall-krauskopf](https://github.com/randall-krauskopf)! - Fix display bug for `PageHeader` component title.
+
+- [#5378](https://github.com/primer/react/pull/5378) [`5a8138a`](https://github.com/primer/react/commit/5a8138ac6bad67d0b573f98713c2063160d4eae8) Thanks [@jonrohan](https://github.com/jonrohan)! - Move Pagehead component css module feature flag to ga
+
+- [#5416](https://github.com/primer/react/pull/5416) [`1dcc534`](https://github.com/primer/react/commit/1dcc534c01b94a7568b472176612d5b8ea262e8d) Thanks [@langermank](https://github.com/langermank)! - ActionList color bug fixes
+
+- [#5381](https://github.com/primer/react/pull/5381) [`18692e5`](https://github.com/primer/react/commit/18692e58e2badc3e227da26712964f63594180bd) Thanks [@jonrohan](https://github.com/jonrohan)! - Move BranchName component css module feature flag to ga
+
+- [#5350](https://github.com/primer/react/pull/5350) [`4bcf78b`](https://github.com/primer/react/commit/4bcf78b137bd12344b9cde6baac7802d067a13d8) Thanks [@francinelucca](https://github.com/francinelucca)! - fix(TooltipV2): delay tooltip opening time by ms
+
+- [#5434](https://github.com/primer/react/pull/5434) [`da7debd`](https://github.com/primer/react/commit/da7debd89e796353963da4b6a86e432c328411b4) Thanks [@francinelucca](https://github.com/francinelucca)! - Revert "refactor(FormControl): update to CSS Modules behind feature flag" & "refactor(Table): update to CSS Modules"
+
+- [#5428](https://github.com/primer/react/pull/5428) [`d544f64`](https://github.com/primer/react/commit/d544f64afbaf77f64648da8d9aeb4b1e4d4e47e2) Thanks [@joshblack](https://github.com/joshblack)! - Update Pagination CSS syntax to help with parsing downstream
+
+- [#5409](https://github.com/primer/react/pull/5409) [`d48afbc`](https://github.com/primer/react/commit/d48afbc5daae5a194e65f67a63698d2030aeb60a) Thanks [@langermank](https://github.com/langermank)! - Fix `border-color` on ActionList Group header
+
+- [#5411](https://github.com/primer/react/pull/5411) [`74d3de4`](https://github.com/primer/react/commit/74d3de44f140949c63b335d130708e1895176fa5) Thanks [@langermank](https://github.com/langermank)! - Remove `min-width` on leading visuals in ActionList
+
+- [#5432](https://github.com/primer/react/pull/5432) [`60a2f47`](https://github.com/primer/react/commit/60a2f471c9b6bdbaecc3972d1c02a738dd99daa5) Thanks [@langermank](https://github.com/langermank)! - Add `headingWrapElement` prop to `ActionList.GroupHeading` to support `div` or `li` elements for proper list markup
+
+## 37.7.2
+
+### Patch Changes
+
+- [`f2d188f`](https://github.com/primer/react/commit/f2d188f24c7c0a5697956b97a98431eb8d087f1f) Thanks [@TylerDixon](https://github.com/TylerDixon)! - Add className back to TokenBase
+
+## 37.7.1
+
+### Patch Changes
+
+- [#5412](https://github.com/primer/react/pull/5412) [`7d195fc`](https://github.com/primer/react/commit/7d195fc7c60e5d480e28e71928ce72e152703a48) Thanks [@jonrohan](https://github.com/jonrohan)! - Revert changes to ButtonGroup component
+
+## 37.7.0
+
+### Minor Changes
+
+- [#5324](https://github.com/primer/react/pull/5324) [`bd5f0d4`](https://github.com/primer/react/commit/bd5f0d4cd78d2fb557f2a7bb3ba7157d5ca5c3b9) Thanks [@hussam-i-am](https://github.com/hussam-i-am)! - Convert SelectPanel to CSS modules behind feature flag
+
+- [#5336](https://github.com/primer/react/pull/5336) [`59a6654`](https://github.com/primer/react/commit/59a6654b34430d4469e94c5b56881558e599bccd) Thanks [@hussam-i-am](https://github.com/hussam-i-am)! - Convert SegmentedControl to use CSS modules behind feature flag
+
+- [#5339](https://github.com/primer/react/pull/5339) [`dc2f083`](https://github.com/primer/react/commit/dc2f083eb3c07a4bcb9adcf9d2e8395d4daef1a9) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove the CSS modules feature flag from ButtonGroup
+
+- [#5332](https://github.com/primer/react/pull/5332) [`3fcfba8`](https://github.com/primer/react/commit/3fcfba8a2c85a4d4f58eb66f7567b96adfcb2f20) Thanks [@hussam-i-am](https://github.com/hussam-i-am)! - Convert PageHeader to CSS modules behind feature flag
+
+- [#5326](https://github.com/primer/react/pull/5326) [`1d79cc5`](https://github.com/primer/react/commit/1d79cc5c2ee19b0d957e68d783ac644728fae6ba) Thanks [@hussam-i-am](https://github.com/hussam-i-am)! - Convert KeybindingHint to CSS modules behind feature flag
+
+- [#5361](https://github.com/primer/react/pull/5361) [`2fbdd3b`](https://github.com/primer/react/commit/2fbdd3b9c6a4acb3b3356191c79a7d38fdd4163f) Thanks [@JelloBagel](https://github.com/JelloBagel)! - Convert BaseStyles to CSS modules behind team feature flag
+
+- [#5299](https://github.com/primer/react/pull/5299) [`8673664`](https://github.com/primer/react/commit/867366474d67360d74b771ffbf5b58789535dad2) Thanks [@jonrohan](https://github.com/jonrohan)! - Update `AvatarStack` component to use CSS modules behind the feature flag primer_react_css_modules_team
+
+- [#5376](https://github.com/primer/react/pull/5376) [`167c8d4`](https://github.com/primer/react/commit/167c8d493fdf75227b4a8987323ca9a555d3799a) Thanks [@hussam-i-am](https://github.com/hussam-i-am)! - fix(useFormControlForwardedProps): do not pass through validationStatus
+
+- [#5337](https://github.com/primer/react/pull/5337) [`7d9bb0c`](https://github.com/primer/react/commit/7d9bb0cad33fc4bcb1121f3437466924190952de) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove the CSS modules feature flag from Checkbox
+
+- [#5282](https://github.com/primer/react/pull/5282) [`d6fe52e`](https://github.com/primer/react/commit/d6fe52e69edb123ee67321c818d94bf00082fae9) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove the CSS modules feature flag from Banner
+
+- [#5367](https://github.com/primer/react/pull/5367) [`844e41f`](https://github.com/primer/react/commit/844e41f440d933b9a55d245bef6ff4ff3b7de325) Thanks [@langermank](https://github.com/langermank)! - Convert ActionList.Heading to CSS Modules
+
+- [#5302](https://github.com/primer/react/pull/5302) [`82bf850`](https://github.com/primer/react/commit/82bf85030b8f728b8a7845b0a523cff1b0704e05) Thanks [@randall-krauskopf](https://github.com/randall-krauskopf)! - Convert `Pagination` component to use CSS modules
+
+- [#5271](https://github.com/primer/react/pull/5271) [`05db651`](https://github.com/primer/react/commit/05db651698af5a713cf0a5624016a2f86ab13a90) Thanks [@randall-krauskopf](https://github.com/randall-krauskopf)! - Update `Token`, `IssueLabelToken`, `AvatarToken` components to use CSS Modules
+
+- [#5342](https://github.com/primer/react/pull/5342) [`39df71e`](https://github.com/primer/react/commit/39df71e0c8724de6d26dcb35b8eb1bc85b36281e) Thanks [@joshblack](https://github.com/joshblack)! - Update FormControl sub-components to use new styled components format for migration
+
+- [#5338](https://github.com/primer/react/pull/5338) [`4c7056b`](https://github.com/primer/react/commit/4c7056bd979b605691d07fcb35cd2d8bd1780964) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove the CSS modules feature flag from Checkbox
+
+- [#5222](https://github.com/primer/react/pull/5222) [`b5ff840`](https://github.com/primer/react/commit/b5ff84017842987388baae8e7950b8faf49bcfd4) Thanks [@jonrohan](https://github.com/jonrohan)! - feat(ButtonBase): Remove css modules feature flag from ButtonBase
+
+- [#5375](https://github.com/primer/react/pull/5375) [`ba0a6c0`](https://github.com/primer/react/commit/ba0a6c0446882bf2087f7c7e42576aa4a0a2cbab) Thanks [@langermank](https://github.com/langermank)! - Convert ActionList (wrapper) and ActionList.Divider to CSS Modules
+
+### Patch Changes
+
+- [#5343](https://github.com/primer/react/pull/5343) [`70005b8`](https://github.com/primer/react/commit/70005b8043ed8845ccc8d675f9bf4735a5da94c8) Thanks [@jonrohan](https://github.com/jonrohan)! - BugFix: Fix issue in ButtonGroup Overlay screenshots by updating the selector to use `:is(button, a)` and `:first-of-type` and `:last-of-type` pseudo-classes.
+
+- [#5402](https://github.com/primer/react/pull/5402) [`6978865`](https://github.com/primer/react/commit/6978865ab17cb31412a84180485fa3dab1da168d) Thanks [@francinelucca](https://github.com/francinelucca)! - fix(PageHeader): use display block insteaf of flex when FF off
+
+- [#5383](https://github.com/primer/react/pull/5383) [`efc5c47`](https://github.com/primer/react/commit/efc5c47a8eda691ded260b2cbc1247683c36fba1) Thanks [@jonrohan](https://github.com/jonrohan)! - Move VisuallyHidden component css module feature flag to ga
+
+- [#5394](https://github.com/primer/react/pull/5394) [`1a51288`](https://github.com/primer/react/commit/1a51288ee2d759a16c69f98823d227a9db9fe5d9) Thanks [@jonrohan](https://github.com/jonrohan)! - Move Dialog component css module feature flag to staff
+
+- [#5397](https://github.com/primer/react/pull/5397) [`3dd1e5e`](https://github.com/primer/react/commit/3dd1e5e14c1721ee1332c48a1f8e1ec1802c7098) Thanks [@jonrohan](https://github.com/jonrohan)! - Move Textarea component css module feature flag to staff
+
+- [#5358](https://github.com/primer/react/pull/5358) [`b08f770`](https://github.com/primer/react/commit/b08f7705eb56e5190279c45d8da45d99d353c2f1) Thanks [@langermank](https://github.com/langermank)! - ActionList UI bug fixes
+
+- [#5363](https://github.com/primer/react/pull/5363) [`3e0fc7c`](https://github.com/primer/react/commit/3e0fc7c883e80ce12652883b0d7e2fc728abba55) Thanks [@joshblack](https://github.com/joshblack)! - Update line-height value for Table to be a valid calc() expression
+
+- [#5377](https://github.com/primer/react/pull/5377) [`6bf3e9e`](https://github.com/primer/react/commit/6bf3e9efbc14edbdfc844b6edf9c6299d5b29895) Thanks [@jonrohan](https://github.com/jonrohan)! - Move Radio component css module feature flag to ga
+
+- [#5345](https://github.com/primer/react/pull/5345) [`e231b5f`](https://github.com/primer/react/commit/e231b5f1f70d789fa65f28e768f8675ba2d8cad5) Thanks [@francinelucca](https://github.com/francinelucca)! - docs: fix \*.docs.json story ids
+
+- [#5379](https://github.com/primer/react/pull/5379) [`2ced9a3`](https://github.com/primer/react/commit/2ced9a363d5998992719a43c5c79b9a2f52243bc) Thanks [@jonrohan](https://github.com/jonrohan)! - Move Details component css module feature flag to ga
+
+- [#5385](https://github.com/primer/react/pull/5385) [`2afdd5d`](https://github.com/primer/react/commit/2afdd5dc69d98e5e1ffe1504ad144cb755f70bde) Thanks [@jonrohan](https://github.com/jonrohan)! - Move Spinner component css module feature flag to ga
+
+- [#5391](https://github.com/primer/react/pull/5391) [`f0a530b`](https://github.com/primer/react/commit/f0a530b31b45840c3690ae80a2390e9b628d8e53) Thanks [@jonrohan](https://github.com/jonrohan)! - Move Popover component css module feature flag to staff
+
+- [#5396](https://github.com/primer/react/pull/5396) [`64bb31b`](https://github.com/primer/react/commit/64bb31bf9067a351619d245e3b7bab7a8abfef1a) Thanks [@jonrohan](https://github.com/jonrohan)! - Move Textarea component css module feature flag to staff
+
+- [#5389](https://github.com/primer/react/pull/5389) [`2129f9d`](https://github.com/primer/react/commit/2129f9db86f936f7e863ead00a5373663fb7ad44) Thanks [@jonrohan](https://github.com/jonrohan)! - Move Timeline component css module feature flag to staff
+
+- [#5395](https://github.com/primer/react/pull/5395) [`a90da75`](https://github.com/primer/react/commit/a90da75c552677f62cb6d2e4629b76fcd9d5d59e) Thanks [@jonrohan](https://github.com/jonrohan)! - Move DialogV1 component css module feature flag to staff
+
+- [#5390](https://github.com/primer/react/pull/5390) [`20957b4`](https://github.com/primer/react/commit/20957b48bce649bfa8fa0f403fe4a3ecb58ad4dc) Thanks [@jonrohan](https://github.com/jonrohan)! - Move ProgressBar component css module feature flag to staff
+
+- [#5392](https://github.com/primer/react/pull/5392) [`184e292`](https://github.com/primer/react/commit/184e2920d8377a5b60be0664370a74961e767827) Thanks [@jonrohan](https://github.com/jonrohan)! - Move CheckboxOrRadioGroup component css module feature flag to staff
+
+- [#5393](https://github.com/primer/react/pull/5393) [`eec92da`](https://github.com/primer/react/commit/eec92dac3c77cdbf36b0f239dd8a5cb4c32b1901) Thanks [@jonrohan](https://github.com/jonrohan)! - Move UnstyledTextInput component css module feature flag to staff
+
+## 37.6.0
+
+### Minor Changes
+
+- [#5325](https://github.com/primer/react/pull/5325) [`cdc4da1`](https://github.com/primer/react/commit/cdc4da128895f4f63a526748fd4df63c9f27d055) Thanks [@hussam-i-am](https://github.com/hussam-i-am)! - Convert SelectPanel2 to CSS modules
+
+- [#5252](https://github.com/primer/react/pull/5252) [`bb0cd90`](https://github.com/primer/react/commit/bb0cd90cab27012ad8bcb33a23f67951d6e213b4) Thanks [@iansan5653](https://github.com/iansan5653)! - Adds `keybindingHint` prop to `TooltipV2` and `IconButton`, updates `onEmphasis` design variant for `KeybindingHint`, and adds `size` prop with `small` option to `KeybindingHint`.
+
+- [#5294](https://github.com/primer/react/pull/5294) [`912a0d7`](https://github.com/primer/react/commit/912a0d7102cb65d2b9c31a68a244795586d1ee3b) Thanks [@randall-krauskopf](https://github.com/randall-krauskopf)! - Update `Textarea` component to use CSS module
+
+- [#5227](https://github.com/primer/react/pull/5227) [`1cfbf63`](https://github.com/primer/react/commit/1cfbf633c6ccc01595a19b2e1d8714d59e56a007) Thanks [@hussam-i-am](https://github.com/hussam-i-am)! - Convert TextInput to CSS module behind feature flag
+
+- [#5150](https://github.com/primer/react/pull/5150) [`e89edbc`](https://github.com/primer/react/commit/e89edbc6c8892e324eeb1af381a70f2ac0e75a3c) Thanks [@jonrohan](https://github.com/jonrohan)! - Convert Breadcrumbs to css module behind feature flag
+
+- [#5298](https://github.com/primer/react/pull/5298) [`3935811`](https://github.com/primer/react/commit/393581160180ccb87da126e441439748909f138d) Thanks [@hussam-i-am](https://github.com/hussam-i-am)! - Convert Dialog v2 to CSS Modules behind feature flag
+
+- [#5267](https://github.com/primer/react/pull/5267) [`ffc8f91`](https://github.com/primer/react/commit/ffc8f91e9c96033abad523cb4440a144ace30db9) Thanks [@ktravers](https://github.com/ktravers)! - Update `TreeView` component to use CSS Modules
+
+- [#5320](https://github.com/primer/react/pull/5320) [`e9e4d1c`](https://github.com/primer/react/commit/e9e4d1c2781f6d45a3a001f89b352abb1a265c26) Thanks [@hussam-i-am](https://github.com/hussam-i-am)! - Add forward ref to Popover
+
+- [#5306](https://github.com/primer/react/pull/5306) [`84c3e62`](https://github.com/primer/react/commit/84c3e62b317e5cd3d65ef31c11ccc3071f373b35) Thanks [@randall-krauskopf](https://github.com/randall-krauskopf)! - Convert PageLayout to CSS modules behind feature flags
+
+- [#5319](https://github.com/primer/react/pull/5319) [`37c4e97`](https://github.com/primer/react/commit/37c4e9731af622be2b19fed82a1c9235517b918e) Thanks [@hussam-i-am](https://github.com/hussam-i-am)! - Do not pass through hoverColor prop into DOM element
+
+- [#5257](https://github.com/primer/react/pull/5257) [`4aa40c9`](https://github.com/primer/react/commit/4aa40c9acd90f432c505abba6ca9213dbd971f5c) Thanks [@hussam-i-am](https://github.com/hussam-i-am)! - Convert TextInput to use data attributes
+
+- [#5329](https://github.com/primer/react/pull/5329) [`e7547e8`](https://github.com/primer/react/commit/e7547e8304fa2a6ea06d0f12a9a3ecd8cbdc429b) Thanks [@francinelucca](https://github.com/francinelucca)! - Update `Timeline` component to use CSS modules behind the feature flag primer_react_css_modules_team
+
+- [#5304](https://github.com/primer/react/pull/5304) [`a3fc488`](https://github.com/primer/react/commit/a3fc4881b8e3916a054900fa2a2b252056350bc9) Thanks [@TylerJDev](https://github.com/TylerJDev)! - Convert ProgressBar to CSS modules behind feature flag
+
+- [#5276](https://github.com/primer/react/pull/5276) [`d91dc54`](https://github.com/primer/react/commit/d91dc541ece37c4a9681ded10b220f511aa34b2f) Thanks [@hussam-i-am](https://github.com/hussam-i-am)! - Migrate TextInputAction & TextInputInnerVisualSlot to CSS Modules behind feature flag
+
+- [#5300](https://github.com/primer/react/pull/5300) [`65802fc`](https://github.com/primer/react/commit/65802fcbe2e882a53fef85a4b0efb6c326012ad6) Thanks [@francinelucca](https://github.com/francinelucca)! - Update `Popover` component to use CSS modules behind the feature flag primer_react_css_modules_team
+
+### Patch Changes
+
+- [#5285](https://github.com/primer/react/pull/5285) [`057d868`](https://github.com/primer/react/commit/057d868d657e88aeba6eea930bd4fdd50027f62c) Thanks [@jonrohan](https://github.com/jonrohan)! - Move Select component from team to staff flag
+
+- [#5279](https://github.com/primer/react/pull/5279) [`aac10fa`](https://github.com/primer/react/commit/aac10fa1c134444791a01fe7c71d508f94ab5ca5) Thanks [@jonrohan](https://github.com/jonrohan)! - Move CounterLabel CSS module feature flag from staff to ga
+
+- [#5286](https://github.com/primer/react/pull/5286) [`d4cb322`](https://github.com/primer/react/commit/d4cb322ef030bb4bbf379a4a962fc39659779297) Thanks [@jonrohan](https://github.com/jonrohan)! - Move Spinner component from team to staff flag
+
+- [#5288](https://github.com/primer/react/pull/5288) [`9d004d0`](https://github.com/primer/react/commit/9d004d037bbd740d30424e919383ba32a5f04eda) Thanks [@jonrohan](https://github.com/jonrohan)! - Move Radio component from team to staff flag
+
+- [#5291](https://github.com/primer/react/pull/5291) [`8fd0035`](https://github.com/primer/react/commit/8fd003505d91a92c1ea9dc73c4b4efd926c2b6c0) Thanks [@jonrohan](https://github.com/jonrohan)! - Move Pagehead component from team to staff flag
+
+- [#5190](https://github.com/primer/react/pull/5190) [`32c4fe1`](https://github.com/primer/react/commit/32c4fe1441e2f0d4f71ba5c6c75fe0c654908063) Thanks [@mperrotti](https://github.com/mperrotti)! - Changes `<label>` wrapper of `FormControl` to put padding directly on the `label` so the entire row is clickable
+
+- [#5290](https://github.com/primer/react/pull/5290) [`7c94916`](https://github.com/primer/react/commit/7c9491628a2905c806a4d2758152f93331755ffc) Thanks [@jonrohan](https://github.com/jonrohan)! - Move Details component from team to staff flag
+
+- [#5284](https://github.com/primer/react/pull/5284) [`8853f5f`](https://github.com/primer/react/commit/8853f5f9daa6e4f4c284d432e7ce6747709afc27) Thanks [@jonrohan](https://github.com/jonrohan)! - Move Header component from team to staff flag
+
+- [#5275](https://github.com/primer/react/pull/5275) [`d1b7bce`](https://github.com/primer/react/commit/d1b7bceb9ca9211a1d12dbf83c973ddbe7cde973) Thanks [@jonrohan](https://github.com/jonrohan)! - Convert CheckBoxOrRadioGroup to CSS modules behind feature flag
+
+- [#5287](https://github.com/primer/react/pull/5287) [`41ae5aa`](https://github.com/primer/react/commit/41ae5aa7b38707072310354d89721b677bfa4d23) Thanks [@jonrohan](https://github.com/jonrohan)! - Move BranchName component from team to staff flag
+
+- [#5289](https://github.com/primer/react/pull/5289) [`cc876d9`](https://github.com/primer/react/commit/cc876d9ecbf7f4e2d1a7af94605c6be2d7b6fe45) Thanks [@jonrohan](https://github.com/jonrohan)! - Move Skeleton component from team to staff flag
+
+- [#5281](https://github.com/primer/react/pull/5281) [`b8e138e`](https://github.com/primer/react/commit/b8e138e76721003240cf813257e717d607cbb467) Thanks [@jonrohan](https://github.com/jonrohan)! - chore(ButtonGroup): Move ButtonGroup CSS module feature flag from staff to ga
+
+- [#5333](https://github.com/primer/react/pull/5333) [`f0603fd`](https://github.com/primer/react/commit/f0603fd763327e47b862fa94f56a074eede6298b) Thanks [@mperrotti](https://github.com/mperrotti)! - - Makes {Checkbox|Radio}Group `<legend>` bold and default font size
+
+  - Makes Checkbox and Radio `<label>` default font weight
+
+- [#5209](https://github.com/primer/react/pull/5209) [`556afbd`](https://github.com/primer/react/commit/556afbda728ef34a278f786f11cce6c459817178) Thanks [@dusave](https://github.com/dusave)! - Check certain refs for nullishness to address HMR issues in dotcom
+
+## 37.5.0
+
+### Minor Changes
+
+- [#5253](https://github.com/primer/react/pull/5253) [`729c0fa`](https://github.com/primer/react/commit/729c0fac9a8d84f20bb77c046063837b38e90d37) Thanks [@hussam-i-am](https://github.com/hussam-i-am)! - Deprecate width, minWidth and maxWidth props from TextInput
+
+- [#5169](https://github.com/primer/react/pull/5169) [`a2efba0`](https://github.com/primer/react/commit/a2efba0079304e25dd700523dbfa35fab56249ad) Thanks [@francinelucca](https://github.com/francinelucca)! - fix(ActionList): do not truncate description by default
+
+- [#5254](https://github.com/primer/react/pull/5254) [`ac6ddcd`](https://github.com/primer/react/commit/ac6ddcd4b15526dd6f5ad6072a4daa57087eb1e7) Thanks [@hussam-i-am](https://github.com/hussam-i-am)! - Convert UnstyledTextInput to use CSS Modules behing feature flag
+
+- [#5246](https://github.com/primer/react/pull/5246) [`c4ecb73`](https://github.com/primer/react/commit/c4ecb7312c1f595361a6b5a247c73af894c0be54) Thanks [@keithamus](https://github.com/keithamus)! - Migrate DialogV1 to CSS Modules
+
+### Patch Changes
+
+- [#5277](https://github.com/primer/react/pull/5277) [`a9088e6`](https://github.com/primer/react/commit/a9088e60b6f60ee13e309b7c263def781caba97e) Thanks [@langermank](https://github.com/langermank)! - Fix `TreeViewItem` folder icon color in legacy fallback theme + update VRT
+
+- [#4745](https://github.com/primer/react/pull/4745) [`3f508c7`](https://github.com/primer/react/commit/3f508c7778839a8bfd659adcb21a1eda558e0f0a) Thanks [@cihad](https://github.com/cihad)! - UnderlineNav: Display loading counters only for items with the "counter" prop.
+
+- [#5283](https://github.com/primer/react/pull/5283) [`d6ea909`](https://github.com/primer/react/commit/d6ea909eb3ef8c2ae178ee590865b80108fa3390) Thanks [@jonrohan](https://github.com/jonrohan)! - Move VisuallyHidden component from team to staff flag
+
+- [#5292](https://github.com/primer/react/pull/5292) [`d3959f3`](https://github.com/primer/react/commit/d3959f3685bcf8aff908efe69cbf80c92c85483c) Thanks [@jonrohan](https://github.com/jonrohan)! - Move Stack component from team to staff flag
+
+- [#5280](https://github.com/primer/react/pull/5280) [`973130e`](https://github.com/primer/react/commit/973130e9119e1f592345d3e67c1b61f37957191b) Thanks [@jonrohan](https://github.com/jonrohan)! - Move Checkbox CSS module feature flag from staff to ga
+
+## 37.4.0
+
+### Minor Changes
+
+- [#5221](https://github.com/primer/react/pull/5221) [`11c455c`](https://github.com/primer/react/commit/11c455c1592e2d5919fed2cfbe09b2c1917124ed) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove the CSS modules feature flag from Avatar
+
+- [#5243](https://github.com/primer/react/pull/5243) [`bc9c696`](https://github.com/primer/react/commit/bc9c696320d83c9d871ac49978e213a9c5cb39d2) Thanks [@hussam-i-am](https://github.com/hussam-i-am)! - Fix small TextInput to be the use the correct font size
+
+- [#5228](https://github.com/primer/react/pull/5228) [`2da7336`](https://github.com/primer/react/commit/2da7336c6568fd7337b654e54503549715b57e44) Thanks [@jonrohan](https://github.com/jonrohan)! - feat(Tooltip): Convert Tooltip to CSS modules behind team flag
+
+- [#5122](https://github.com/primer/react/pull/5122) [`e021a8f`](https://github.com/primer/react/commit/e021a8f6f1a85e5f70b069674e02c40f56f674d7) Thanks [@TylerJDev](https://github.com/TylerJDev)! - TreeView: Adds prop `truncate`, keeps default behavior of truncation but allows for text to wrap when turned off.
+
+- [#5210](https://github.com/primer/react/pull/5210) [`b1950f5`](https://github.com/primer/react/commit/b1950f572954f504d91c49cc16220be91ecfc38e) Thanks [@francinelucca](https://github.com/francinelucca)! - feat(AnchoredOverlay): allow overlay to reflow
+
+### Patch Changes
+
+- [#5236](https://github.com/primer/react/pull/5236) [`2e5c601`](https://github.com/primer/react/commit/2e5c601b8793c2f15604258b4f66371ea791cac7) Thanks [@jonrohan](https://github.com/jonrohan)! - Update Spinner component to correctly use the `size` prop when both `sx` and `size` are provided
+
+- [#5200](https://github.com/primer/react/pull/5200) [`b28e6b2`](https://github.com/primer/react/commit/b28e6b2ca37cd7138dd7ff5c52594dd2c1a584f8) Thanks [@francinelucca](https://github.com/francinelucca)! - fix(ButtonGroup): add toolbar interactions for role toolbar
+
+## 37.3.0
+
+### Minor Changes
+
+- [#5204](https://github.com/primer/react/pull/5204) [`209c9b0`](https://github.com/primer/react/commit/209c9b0f92a7e1006db8e5752ace247168268340) Thanks [@randall-krauskopf](https://github.com/randall-krauskopf)! - Migrate 'InlineMessage' component to use CSS modules
+
+### Patch Changes
+
+- [#5229](https://github.com/primer/react/pull/5229) [`33c5086`](https://github.com/primer/react/commit/33c5086f24cb42a1b2bf7447021520467cb54af6) Thanks [@joshblack](https://github.com/joshblack)! - Update Blankslate description text to always be centered
+
+- [#4693](https://github.com/primer/react/pull/4693) [`570d4b3`](https://github.com/primer/react/commit/570d4b3f3e14f58c134a1716cec6b8bbe79e4f48) Thanks [@renbaoshuo](https://github.com/renbaoshuo)! - fix: hover background in ActionList.Item
+
+- [#5196](https://github.com/primer/react/pull/5196) [`49cbff2`](https://github.com/primer/react/commit/49cbff223459b3805dc6160c771529b7752a9042) Thanks [@francinelucca](https://github.com/francinelucca)! - fix(Treevieew):do not add aria-describedby attribute when empty leading/trailing visual
+
+- [#5144](https://github.com/primer/react/pull/5144) [`271d063`](https://github.com/primer/react/commit/271d063813f3e623bcced3bf949e5c31ba0e3fd9) Thanks [@jonrohan](https://github.com/jonrohan)! - Move ButtonGroup css module feature flag to staff
+
+## 37.2.0
+
+### Minor Changes
+
+- [#5168](https://github.com/primer/react/pull/5168) [`b9749d4`](https://github.com/primer/react/commit/b9749d4efccf17b4aa669231a57df55333497ca2) Thanks [@TylerJDev](https://github.com/TylerJDev)! - TreeView: Adds indication of no nodes in a tree item, allows for `aria-expanded even if the item is empty.
+
+- [#5202](https://github.com/primer/react/pull/5202) [`293c574`](https://github.com/primer/react/commit/293c574a25d49bb52a2f5c17e4c54b1b1b598ddc) Thanks [@hussam-i-am](https://github.com/hussam-i-am)! - Update `SubNav` component to use CSS modules behind the feature flag primer_react_css_modules_team
+
+### Patch Changes
+
+- [#5225](https://github.com/primer/react/pull/5225) [`e732591`](https://github.com/primer/react/commit/e732591e939e5a86dc5ce2ce2da25388177b6a54) Thanks [@jonrohan](https://github.com/jonrohan)! - chore(Banner): Move Banner CSS module flag from staff to ga
+
+- [#5177](https://github.com/primer/react/pull/5177) [`26b54d8`](https://github.com/primer/react/commit/26b54d8a58e83e50127b5c04ac26ec953a89c108) Thanks [@lukasoppermann](https://github.com/lukasoppermann)! - Allow primitives dep to be if version 9 OR 10
+
+## 37.1.0
+
+### Minor Changes
+
+- [#5156](https://github.com/primer/react/pull/5156) [`8e58e4d`](https://github.com/primer/react/commit/8e58e4d1fc8a6ec9e9329b152f3d43d15d6dd5d5) Thanks [@francinelucca](https://github.com/francinelucca)! - feat(LabelGroup): render as list by default
+
+- [#5167](https://github.com/primer/react/pull/5167) [`07b75e7`](https://github.com/primer/react/commit/07b75e78f6842713fff12dad1e7a0502596e30bf) Thanks [@jonrohan](https://github.com/jonrohan)! - Convert Details to css module behind feature flag
+
+- [#5195](https://github.com/primer/react/pull/5195) [`d349cfc`](https://github.com/primer/react/commit/d349cfcb3fca9982040a1389c0fabcaafca5b85e) Thanks [@jonrohan](https://github.com/jonrohan)! - \* Convert SkeletonAvatar to CSS modules behind the feature flag
+
+  - Convert SkeletonBox to CSS modules behind the feature flag
+  - Convert SkeletonText to CSS modules behind the feature flag
+
+- [#5187](https://github.com/primer/react/pull/5187) [`2ab7b9e`](https://github.com/primer/react/commit/2ab7b9e649cc2f6a1c290bdbfcf48d3e635d998f) Thanks [@jonrohan](https://github.com/jonrohan)! - Convert Radio to css modules behind feature flag
+
+- [#5129](https://github.com/primer/react/pull/5129) [`e27decd`](https://github.com/primer/react/commit/e27decdae5fcff3b25c9c58194709abbf4de85f8) Thanks [@TylerJDev](https://github.com/TylerJDev)! - Overlay: Adds `min-width` to container to improve responsiveness
+
+- [#5040](https://github.com/primer/react/pull/5040) [`8d9a357`](https://github.com/primer/react/commit/8d9a357db49dbf1f00e19c7aa489bd963a0d3dd5) Thanks [@joshblack](https://github.com/joshblack)! - Update BranchName to use CSS Modules behind feature flag
+
+- [#5188](https://github.com/primer/react/pull/5188) [`573ae51`](https://github.com/primer/react/commit/573ae5168879998946ba1aa3e21af8ddf54351af) Thanks [@randall-krauskopf](https://github.com/randall-krauskopf)! - Migrated `Spinner` component to use support CSS modules
+
+- [#5193](https://github.com/primer/react/pull/5193) [`ed3d8c1`](https://github.com/primer/react/commit/ed3d8c1d0825502293b7a772a26e2e3865c9c162) Thanks [@randall-krauskopf](https://github.com/randall-krauskopf)! - Migrated `VisuallyHidden` to CSS Modules
+
+- [#4878](https://github.com/primer/react/pull/4878) [`73312d8`](https://github.com/primer/react/commit/73312d8ceb98ae84c0291f05b0b30f7f06975d3c) Thanks [@TylerJDev](https://github.com/TylerJDev)! - Move `aria-*` attributes to `ProgressBar.Item` and marks `ProgressBar.Item` as `role="progressbar".
+
+- [#5194](https://github.com/primer/react/pull/5194) [`719def7`](https://github.com/primer/react/commit/719def7ea83f5212dc6ba888fe22d29b6620ce37) Thanks [@randall-krauskopf](https://github.com/randall-krauskopf)! - Migrate `Select` component to css modules
+
+- [#5192](https://github.com/primer/react/pull/5192) [`cbeed21`](https://github.com/primer/react/commit/cbeed2111c02c6e4457228acdb7d83f11e866197) Thanks [@hussam-i-am](https://github.com/hussam-i-am)! - Update `Header` component to use CSS modules behind the feature flag primer_react_css_modules_team
+
+- [#5015](https://github.com/primer/react/pull/5015) [`1473c26`](https://github.com/primer/react/commit/1473c26abb37b2de2af5f4ff848107971ee557c7) Thanks [@francinelucca](https://github.com/francinelucca)! - feat(Details): Add summary subcomponent
+
+- [#5197](https://github.com/primer/react/pull/5197) [`ad84d4f`](https://github.com/primer/react/commit/ad84d4f494cb424b307ed3fa7eb77aec21c2ad40) Thanks [@randall-krauskopf](https://github.com/randall-krauskopf)! - Convert `Pagehead` to CSS Modules
+
+- [#5134](https://github.com/primer/react/pull/5134) [`6713e72`](https://github.com/primer/react/commit/6713e72124f4b9e594b31d5abc7dda258940c9cc) Thanks [@TylerJDev](https://github.com/TylerJDev)! - AvatarStack: Adds keyboard support to `AvatarStack`
+
+- [#5060](https://github.com/primer/react/pull/5060) [`33396ea`](https://github.com/primer/react/commit/33396ead24bb25dc042004cd82bbdbe235403c61) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove CSS modules feature flag from Label component
+
+- [#5185](https://github.com/primer/react/pull/5185) [`461ae57`](https://github.com/primer/react/commit/461ae57b4efd1053449643fe4dbd8c18ff86ddd0) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - SelectPanel: Allow using SelectPanel in FormControl
+
+- [#5148](https://github.com/primer/react/pull/5148) [`002be35`](https://github.com/primer/react/commit/002be358676c2a882893dfbe518e1eafbd38db55) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove the CSS modules feature flag from the Link component
+
+- [#5106](https://github.com/primer/react/pull/5106) [`851c857`](https://github.com/primer/react/commit/851c857f1a69541b6b8b77dac714f2de51419936) Thanks [@mperrotti](https://github.com/mperrotti)! - Adds NavList.GroupHeading component that can be used instead of the ActionList.Group 'title' prop if you need to render something besides a string
+
+### Patch Changes
+
+- [#5213](https://github.com/primer/react/pull/5213) [`a5d7fe3`](https://github.com/primer/react/commit/a5d7fe34a20c9eeffe879e10b4f0165b8f1a6da8) Thanks [@langermank](https://github.com/langermank)! - Bug fix: `ButtonBase` sx base styles leaking into CSS modules feat flag
+
+- [#5214](https://github.com/primer/react/pull/5214) [`916ed95`](https://github.com/primer/react/commit/916ed952d38502b72640dcb07dac69005cb176e3) Thanks [@jonrohan](https://github.com/jonrohan)! - Convert Stack to CSS modules behind feature flag
+
+- [#5146](https://github.com/primer/react/pull/5146) [`ad554da`](https://github.com/primer/react/commit/ad554da1ed3907e5764f68190c0a3dd1cf7529b7) Thanks [@jonrohan](https://github.com/jonrohan)! - Move Checkbox css module feature flag to staff
+
+- [#5171](https://github.com/primer/react/pull/5171) [`8138dee`](https://github.com/primer/react/commit/8138dee8d8235475ec8135591c52abf3df90d50b) Thanks [@alondahari](https://github.com/alondahari)! - catch TooltipV2 errors in old browsers as a temp fix for unnecessary Sentry reports
+
+- [#5140](https://github.com/primer/react/pull/5140) [`73796d3`](https://github.com/primer/react/commit/73796d3b249ade8b69adb5aa720432d77a433103) Thanks [@francinelucca](https://github.com/francinelucca)! - fix(SegmentedControl): set global focus styles
+
+- [#5201](https://github.com/primer/react/pull/5201) [`29a9770`](https://github.com/primer/react/commit/29a9770ead42b01026e8277f6c30d18d2ccaaf84) Thanks [@joshblack](https://github.com/joshblack)! - Update the foreground color for FormControl.Caption to use the control tokens when disabled
+
+- [#5182](https://github.com/primer/react/pull/5182) [`31d9a05`](https://github.com/primer/react/commit/31d9a0587eb76f8d786404881b1727213c55fdbc) Thanks [@francinelucca](https://github.com/francinelucca)! - fix(DataTable): export datatable utility types
+
+- [#5027](https://github.com/primer/react/pull/5027) [`9a30c63`](https://github.com/primer/react/commit/9a30c63dc8e0c2923952f7ffea831446d0ed6122) Thanks [@francinelucca](https://github.com/francinelucca)! - fix(FormControl): allow required check boxes in CheckboxGroup
+
+- [#5147](https://github.com/primer/react/pull/5147) [`e421f32`](https://github.com/primer/react/commit/e421f32002ad07582d0221862f7afb6e8afbbc51) Thanks [@jonrohan](https://github.com/jonrohan)! - Move CounterLabel css modules feature flag to staff
+
 ## 37.0.1
 
 ### Patch Changes
@@ -2368,7 +2817,7 @@
 
   ```jsx
   // Hide pane on narrow viewports
-  <PageLayout.Pane hidden={{narrow: true}}>...</PageLayout.Pane>
+  <PageLayout.Pane hidden={{ narrow: true }}>...</PageLayout.Pane>
   ```
 
 - [#2199](https://github.com/primer/react/pull/2199) [`fb385b63`](https://github.com/primer/react/commit/fb385b63f22c1eb76193e42e92ea2a056e61fdbb) Thanks [@colebemis](https://github.com/colebemis)! - \* Updated the `position` prop in `PageLayout.Pane` to use the new responsive prop API introduced in https://github.com/primer/react/pull/2174.
@@ -2529,7 +2978,7 @@
 - [#2112](https://github.com/primer/react/pull/2112) [`74e1d138`](https://github.com/primer/react/commit/74e1d1386bc6bb6326c3c2b64b5e31146f9cc56b) Thanks [@colebemis](https://github.com/colebemis)! - [NavList](https://primer.style/NavList) is ready to use. You can now import it from the main bundle:
 
   ```js
-  import {NavList} from '@primer/react'
+  import { NavList } from "@primer/react";
   ```
 
 ### Patch Changes
@@ -2670,11 +3119,11 @@
   ```jsx
   <ActionList
     items={[
-      {text: 'New file'},
-      {text: 'Copy link'},
-      {text: 'Edit file'},
+      { text: "New file" },
+      { text: "Copy link" },
+      { text: "Edit file" },
       ActionList.Divider,
-      {text: 'Delete file', variant: 'danger'},
+      { text: "Delete file", variant: "danger" },
     ]}
   />
   ```
@@ -2702,21 +3151,21 @@
     showItemDividers
     items={[
       {
-        key: '0',
+        key: "0",
         leadingVisual: LinkIcon,
-        text: 'github/primer',
+        text: "github/primer",
       },
       {
-        key: '1',
+        key: "1",
         leadingVisual: () => <Avatar src="https://github.com/mona.png" />,
-        text: 'mona',
-        description: 'Monalisa Octocat',
-        descriptionVariant: 'block',
+        text: "mona",
+        description: "Monalisa Octocat",
+        descriptionVariant: "block",
       },
       {
-        key: '2',
+        key: "2",
         leadingVisual: GearIcon,
-        text: 'View Settings',
+        text: "View Settings",
         trailingVisual: ArrowRightIcon,
       },
     ]}
@@ -2739,7 +3188,9 @@
         <Avatar src="https://github.com/mona.png" />
       </ActionList.LeadingVisual>
       mona
-      <ActionList.Description variant="block">Monalisa Octocat</ActionList.Description>
+      <ActionList.Description variant="block">
+        Monalisa Octocat
+      </ActionList.Description>
     </ActionList.Item>
     <ActionList.Item>
       <ActionList.LeadingVisual>
@@ -2761,14 +3212,14 @@
   ```jsx
   <ActionList
     groupMetadata={[
-      {groupId: '0', header: {title: 'Live query'}},
-      {groupId: '1', header: {title: 'Layout'}},
+      { groupId: "0", header: { title: "Live query" } },
+      { groupId: "1", header: { title: "Layout" } },
     ]}
     items={[
-      {key: '0', text: 'repo:github/github', groupId: '0'},
-      {key: '1', text: 'Table', groupId: '1'},
-      {key: '2', text: 'Board', groupId: '1'},
-      {key: '3', text: 'View settings'},
+      { key: "0", text: "repo:github/github", groupId: "0" },
+      { key: "1", text: "Table", groupId: "1" },
+      { key: "2", text: "Board", groupId: "1" },
+      { key: "3", text: "View settings" },
     ]}
   />
   ```
@@ -2800,7 +3251,7 @@
   To continue to use the deprecated API for now, change the import path to `@primer/react/deprecated`:
 
   ```js
-  import {ActionList} from '@primer/react/deprecated'
+  import { ActionList } from "@primer/react/deprecated";
   ```
 
   You can use the [one-time codemod](https://github.com/primer/react-migrate#readme) to change your import statements automatically.
@@ -2851,13 +3302,13 @@
     anchorContent="Menu"
     onAction={fn}
     items={[
-      {text: 'New file'},
-      {text: 'Copy link'},
-      {text: 'Edit file'},
+      { text: "New file" },
+      { text: "Copy link" },
+      { text: "Edit file" },
       ActionMenu.Divider,
-      {text: 'Delete file', variant: 'danger'},
+      { text: "Delete file", variant: "danger" },
     ]}
-    overlayProps={{width: 'small'}}
+    overlayProps={{ width: "small" }}
   />
   ```
 
@@ -2886,7 +3337,7 @@
   To continue to use the deprecated API for now, change the import path to `@primer/react/deprecated`:
 
   ```js
-  import {ActionMenu} from '@primer/react/deprecated'
+  import { ActionMenu } from "@primer/react/deprecated";
   ```
 
   You can use the [one-time codemod](https://github.com/primer/react-migrate#readme) to change your import statements automatically.
@@ -2918,19 +3369,19 @@
 
   ```js
   const fieldTypes = [
-    {key: 0, text: 'Text'},
-    {key: 1, text: 'Number'},
-    {key: 3, text: 'Date'},
-    {key: 4, text: 'Single select'},
-    {key: 5, text: 'Iteration'},
-  ]
+    { key: 0, text: "Text" },
+    { key: 1, text: "Number" },
+    { key: 3, text: "Date" },
+    { key: 4, text: "Single select" },
+    { key: 5, text: "Iteration" },
+  ];
 
   const Example = () => {
-    const [selectedType, setSelectedType] = React.useState()
+    const [selectedType, setSelectedType] = React.useState();
 
     return (
       <DropdownMenu
-        renderAnchor={({children, ...anchorProps}) => (
+        renderAnchor={({ children, ...anchorProps }) => (
           <ButtonInvisible {...anchorProps}>
             {children} <GearIcon />
           </ButtonInvisible>
@@ -2939,10 +3390,10 @@
         items={fieldTypes}
         selectedItem={selectedType}
         onChange={setSelectedType}
-        overlayProps={{width: 'medium'}}
+        overlayProps={{ width: "medium" }}
       />
-    )
-  }
+    );
+  };
   ```
 
    </td>
@@ -2950,22 +3401,24 @@
 
   ```jsx
   const fieldTypes = [
-    {id: 0, text: 'Text'},
-    {id: 1, text: 'Number'},
-    {id: 3, text: 'Date'},
-    {id: 4, text: 'Single select'},
-    {id: 5, text: 'Iteration'},
-  ]
+    { id: 0, text: "Text" },
+    { id: 1, text: "Number" },
+    { id: 3, text: "Date" },
+    { id: 4, text: "Single select" },
+    { id: 5, text: "Iteration" },
+  ];
 
   const Example = () => {
-    const [selectedType, setSelectedType] = React.useState()
+    const [selectedType, setSelectedType] = React.useState();
 
     render(
       <ActionMenu>
-        <ActionMenu.Button aria-label="Select field type">{selectedType.name || 'Field type'}</ActionMenu.Button>
+        <ActionMenu.Button aria-label="Select field type">
+          {selectedType.name || "Field type"}
+        </ActionMenu.Button>
         <ActionMenu.Overlay width="medium">
           <ActionList selectionVariant="single">
-            {fieldTypes.map(type => (
+            {fieldTypes.map((type) => (
               <ActionList.Item
                 key={type.id}
                 selected={type.id === selectedType.id}
@@ -2977,8 +3430,8 @@
           </ActionList>
         </ActionMenu.Overlay>
       </ActionMenu>,
-    )
-  }
+    );
+  };
   ```
 
   </td>
@@ -2988,7 +3441,7 @@
   To continue to use the deprecated API for now, change the import path to `@primer/react/deprecated`:
 
   ```js
-  import {DropdownMenu} from '@primer/react/deprecated'
+  import { DropdownMenu } from "@primer/react/deprecated";
   ```
 
   You can use the [one-time codemod](https://github.com/primer/react-migrate#readme) to change your import statements automatically.
@@ -3019,17 +3472,21 @@
   <td valign="top">
 
   ```jsx
-  import {Label} from '@primer/react'
+  import { Label } from "@primer/react";
 
   function Example() {
     return (
       <>
         <Label outline>default</Label>
-        <Label variant="small" outline sx={{borderColor: 'danger.emphasis', color: 'danger.fg'}}>
+        <Label
+          variant="small"
+          outline
+          sx={{ borderColor: "danger.emphasis", color: "danger.fg" }}
+        >
           danger
         </Label>
       </>
-    )
+    );
   }
   ```
 
@@ -3037,7 +3494,7 @@
   <td valign="top">
 
   ```jsx
-  import {Label} from '@primer/react'
+  import { Label } from "@primer/react";
 
   function Example() {
     return (
@@ -3047,7 +3504,7 @@
           danger
         </Label>
       </>
-    )
+    );
   }
   ```
 
@@ -3058,7 +3515,7 @@
   To continue to use the deprecated API for now, change the import path to `@primer/react/deprecated`:
 
   ```js
-  import {Label} from '@primer/react/deprecated'
+  import { Label } from "@primer/react/deprecated";
   ```
 
   You can use the [one-time codemod](https://github.com/primer/react-migrate#readme) to change your import statements automatically.
@@ -3081,7 +3538,12 @@
   <td valign="top">
 
   ```jsx
-  import {ButtonPrimary, ButtonInvisible, ButtonOutline, ButtonDanger} from '@primer/react'
+  import {
+    ButtonPrimary,
+    ButtonInvisible,
+    ButtonOutline,
+    ButtonDanger,
+  } from "@primer/react";
 
   function Example() {
     return (
@@ -3091,7 +3553,7 @@
         <ButtonOutline>Outline Button</ButtonOutline>
         <ButtonDanger>Danger Button</ButtonDanger>
       </>
-    )
+    );
   }
   ```
 
@@ -3099,7 +3561,7 @@
   <td valign="top">
 
   ```jsx
-  import {Button} from '@primer/react'
+  import { Button } from "@primer/react";
 
   function Example() {
     return (
@@ -3109,7 +3571,7 @@
         <Button variant="outline">Outline Button</Button>
         <Button variant="danger">Danger Button</Button>
       </>
-    )
+    );
   }
   ```
 
@@ -3216,34 +3678,50 @@
   <td valign="top">
 
   ```jsx
-  import {ChoiceFieldset} from '@primer/react'
+  import { ChoiceFieldset } from "@primer/react";
 
   function Example() {
     return (
       <>
         {/* Multi-select */}
         <ChoiceFieldset>
-          <ChoiceFieldset.Legend>Preferred Primer component interface</ChoiceFieldset.Legend>
+          <ChoiceFieldset.Legend>
+            Preferred Primer component interface
+          </ChoiceFieldset.Legend>
           <ChoiceFieldset.List selectionVariant="multiple">
-            <ChoiceFieldset.Item value="figma">Figma library</ChoiceFieldset.Item>
+            <ChoiceFieldset.Item value="figma">
+              Figma library
+            </ChoiceFieldset.Item>
             <ChoiceFieldset.Item value="css">Primer CSS</ChoiceFieldset.Item>
-            <ChoiceFieldset.Item value="react">Primer React components</ChoiceFieldset.Item>
-            <ChoiceFieldset.Item value="viewcomponents">Primer ViewComponents</ChoiceFieldset.Item>
+            <ChoiceFieldset.Item value="react">
+              Primer React components
+            </ChoiceFieldset.Item>
+            <ChoiceFieldset.Item value="viewcomponents">
+              Primer ViewComponents
+            </ChoiceFieldset.Item>
           </ChoiceFieldset.List>
         </ChoiceFieldset>
 
         {/* Single select */}
         <ChoiceFieldset>
-          <ChoiceFieldset.Legend>Preferred Primer component interface</ChoiceFieldset.Legend>
+          <ChoiceFieldset.Legend>
+            Preferred Primer component interface
+          </ChoiceFieldset.Legend>
           <ChoiceFieldset.List>
-            <ChoiceFieldset.Item value="figma">Figma library</ChoiceFieldset.Item>
+            <ChoiceFieldset.Item value="figma">
+              Figma library
+            </ChoiceFieldset.Item>
             <ChoiceFieldset.Item value="css">Primer CSS</ChoiceFieldset.Item>
-            <ChoiceFieldset.Item value="react">Primer React components</ChoiceFieldset.Item>
-            <ChoiceFieldset.Item value="viewcomponents">Primer ViewComponents</ChoiceFieldset.Item>
+            <ChoiceFieldset.Item value="react">
+              Primer React components
+            </ChoiceFieldset.Item>
+            <ChoiceFieldset.Item value="viewcomponents">
+              Primer ViewComponents
+            </ChoiceFieldset.Item>
           </ChoiceFieldset.List>
         </ChoiceFieldset>
       </>
-    )
+    );
   }
   ```
 
@@ -3251,14 +3729,22 @@
   <td valign="top">
 
   ```jsx
-  import {CheckboxGroup, RadioGroup, FormControl, Checkbox, Radio} from '@primer/react'
+  import {
+    CheckboxGroup,
+    RadioGroup,
+    FormControl,
+    Checkbox,
+    Radio,
+  } from "@primer/react";
 
   function Example() {
     return (
       <>
         {/* Multi-select */}
         <CheckboxGroup>
-          <CheckboxGroup.Label>Preferred Primer component interface</CheckboxGroup.Label>
+          <CheckboxGroup.Label>
+            Preferred Primer component interface
+          </CheckboxGroup.Label>
           <FormControl>
             <Checkbox value="figma" />
             <FormControl.Label>Figma</FormControl.Label>
@@ -3279,7 +3765,9 @@
 
         {/* Single select */}
         <RadioGroup name="preferred-primer">
-          <RadioGroup.Label>Preferred Primer component interface</RadioGroup.Label>
+          <RadioGroup.Label>
+            Preferred Primer component interface
+          </RadioGroup.Label>
           <FormControl>
             <Radio value="figma" />
             <FormControl.Label>Figma</FormControl.Label>
@@ -3298,7 +3786,7 @@
           </FormControl>
         </RadioGroup>
       </>
-    )
+    );
   }
   ```
 
@@ -3309,7 +3797,7 @@
   To continue to use the deprecated API for now, change the import path to `@primer/react/deprecated`:
 
   ```js
-  import {ChoiceFieldset} from '@primer/react/deprecated'
+  import { ChoiceFieldset } from "@primer/react/deprecated";
   ```
 
   You can use the [one-time codemod](https://github.com/primer/react-migrate#readme) to change your import statements automatically.
@@ -3341,7 +3829,7 @@
   <td valign="top">
 
   ```jsx
-  import {FormControl, Checkbox, TextInput} from '@primer/react'
+  import { FormControl, Checkbox, TextInput } from "@primer/react";
 
   function Example() {
     return (
@@ -3361,7 +3849,7 @@
           <Checkbox />
         </ChoiceInputField>
       </>
-    )
+    );
   }
   ```
 
@@ -3369,7 +3857,7 @@
   <td valign="top">
 
   ```jsx
-  import {FormGroup, TextInput} from '@primer/react'
+  import { FormGroup, TextInput } from "@primer/react";
 
   function Example() {
     return (
@@ -3384,7 +3872,7 @@
           <Checkbox />
         </FormControl>
       </>
-    )
+    );
   }
   ```
 
@@ -3394,7 +3882,7 @@
   <td valign="top">
 
   ```jsx
-  import {InputField, TextInput} from '@primer/react'
+  import { InputField, TextInput } from "@primer/react";
 
   function Example() {
     return (
@@ -3402,7 +3890,7 @@
         <InputField.Label>Example text</InputField.Label>
         <TextInput />
       </InputField>
-    )
+    );
   }
   ```
 
@@ -3410,7 +3898,7 @@
   <td valign="top">
 
   ```jsx
-  import {FormControl, TextInput} from '@primer/react'
+  import { FormControl, TextInput } from "@primer/react";
 
   function Example() {
     return (
@@ -3418,7 +3906,7 @@
         <FormControl.Label>Example text</FormControl.Label>
         <TextInput />
       </FormControl>
-    )
+    );
   }
   ```
 
@@ -3429,7 +3917,11 @@
   To continue to use the deprecated API for now, change the import path to `@primer/react/deprecated`:
 
   ```js
-  import {FormGroup, ChoiceInputField, InputField} from '@primer/react/deprecated'
+  import {
+    FormGroup,
+    ChoiceInputField,
+    InputField,
+  } from "@primer/react/deprecated";
   ```
 
   You can use the [one-time codemod](https://github.com/primer/react-migrate#readme) to change your import statements automatically.
@@ -3500,23 +3992,25 @@
 
   ```jsx
   const fieldTypes = [
-    {leadingVisual: TypographyIcon, text: 'Text'},
-    {leadingVisual: NumberIcon, text: 'Number'},
-  ]
+    { leadingVisual: TypographyIcon, text: "Text" },
+    { leadingVisual: NumberIcon, text: "Number" },
+  ];
 
   const Example = () => {
-    const [selectedItem, setSelectedItem] = React.useState()
+    const [selectedItem, setSelectedItem] = React.useState();
 
     return (
       <DropdownMenu
-        renderAnchor={({children, ...anchorProps}) => <ButtonInvisible {...anchorProps}>{children}</ButtonInvisible>}
+        renderAnchor={({ children, ...anchorProps }) => (
+          <ButtonInvisible {...anchorProps}>{children}</ButtonInvisible>
+        )}
         placeholder="Select a field type"
         items={fieldTypes}
         selectedItem={selectedItem}
         onChange={() => setSelectedIndex(index)}
       />
-    )
-  }
+    );
+  };
   ```
 
    </td>
@@ -3524,29 +4018,36 @@
 
   ```jsx
   const fieldTypes = [
-    {icon: <TypographyIcon />, name: 'Text'},
-    {icon: <NumberIcon />, name: 'Number'},
-  ]
+    { icon: <TypographyIcon />, name: "Text" },
+    { icon: <NumberIcon />, name: "Number" },
+  ];
 
   const Example = () => {
-    const [selectedItem, setSelectedItem] = React.useState()
+    const [selectedItem, setSelectedItem] = React.useState();
 
     return (
       <ActionMenu>
-        <ActionMenu.Button>{selectedItem ? selectedItem.name : 'Select a field type'}</ActionMenu.Button>
+        <ActionMenu.Button>
+          {selectedItem ? selectedItem.name : "Select a field type"}
+        </ActionMenu.Button>
         <ActionMenu.Overlay>
           <ActionList selectionVariant="single">
-            {fieldTypes.map(field => (
-              <ActionList.Item onSelect={() => setSelectedItem(field)} key={field.name}>
-                <ActionList.LeadingVisual>{field.icon}</ActionList.LeadingVisual>
+            {fieldTypes.map((field) => (
+              <ActionList.Item
+                onSelect={() => setSelectedItem(field)}
+                key={field.name}
+              >
+                <ActionList.LeadingVisual>
+                  {field.icon}
+                </ActionList.LeadingVisual>
                 {field.name}
               </ActionList.Item>
             ))}
           </ActionList>
         </ActionMenu.Overlay>
       </ActionMenu>
-    )
-  }
+    );
+  };
   ```
 
   </td>
@@ -3648,7 +4149,12 @@
   <td valign="top">
 
   ```jsx
-  <Box borderWidth="1px" borderStyle="solid" borderColor="border.default" borderRadius={2}>
+  <Box
+    borderWidth="1px"
+    borderStyle="solid"
+    borderColor="border.default"
+    borderRadius={2}
+  >
     Item 1
   </Box>
   ```
@@ -4692,8 +5198,8 @@
 * [`beef075e`](https://github.com/primer/react/commit/beef075e0274396b77887adf0b912583fe564b3f) [#1094](https://github.com/primer/react/pull/1094) Thanks [@colebemis](https://github.com/colebemis)! - Components no longer have a default `theme` prop. To ensure components still render correctly, you'll need pass the Primer theme to a [styled-components](https://styled-components.com/) `<ThemeProvider>` at the root of your application:
 
   ```jsx
-  import {ThemeProvider} from 'styled-components'
-  import {theme} from '@primer/react'
+  import { ThemeProvider } from "styled-components";
+  import { theme } from "@primer/react";
 
   function App(props) {
     return (
@@ -4702,7 +5208,7 @@
           <div>your app here</div>
         </ThemeProvider>
       </div>
-    )
+    );
   }
   ```
 

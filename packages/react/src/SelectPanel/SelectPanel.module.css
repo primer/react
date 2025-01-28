@@ -1,0 +1,33 @@
+.Wrapper {
+  display: flex;
+  height: inherit;
+  max-height: inherit;
+  flex-direction: column;
+}
+
+.Content {
+  padding-top: var(--base-size-8);
+  padding-right: var(--base-size-16);
+  padding-left: var(--base-size-16);
+}
+
+.Title {
+  font-size: var(--text-body-size-medium);
+}
+
+.Subtitle {
+  font-size: var(--text-body-size-small);
+  color: var(--fgColor-muted);
+}
+
+.Footer {
+  display: flex;
+  padding: var(--base-size-8);
+  border-color: var(--borderColor-default);
+  border-top: var(--borderWidth-thin) solid;
+}
+
+.FilteredActionList {
+  height: inherit;
+  max-height: inherit;
+}
