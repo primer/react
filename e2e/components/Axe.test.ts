@@ -10,7 +10,7 @@ import {themes} from '../test-helpers/themes'
  */
 const SKIPPED_TESTS = [
   'components-treeview-features--stress-test',
-  'components-treeview-features--contain-intrinsic-size ',
+  'components-treeview-features--contain-intrinsic-size',
 ]
 
 type Component = {
@@ -32,15 +32,15 @@ test.describe('@aat', () => {
           test(cleanedName, async ({page}) => {
             if (SKIPPED_TESTS.includes(id)) {
               return
+            } else {
+              await visit(page, {
+                id,
+                globals: {
+                  colorScheme: themes[0],
+                },
+              })
+              await expect(page).toHaveNoViolations()
             }
-
-            await visit(page, {
-              id,
-              globals: {
-                colorScheme: themes[0],
-              },
-            })
-            await expect(page).toHaveNoViolations()
           })
         })
       }
