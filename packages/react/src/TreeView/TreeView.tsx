@@ -27,7 +27,7 @@ import {SkeletonText} from '../experimental/Skeleton/SkeletonText'
 import {toggleStyledComponent} from '../internal/utils/toggleStyledComponent'
 import {useFeatureFlag} from '../FeatureFlags'
 
-const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_staff'
+const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_ga'
 
 // ----------------------------------------------------------------------------
 // Context

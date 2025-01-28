@@ -258,14 +258,6 @@ export const globalTypes = {
 
 export const decorators = [
   (Story, context) => {
-    const {featureFlags} = context.globals
-    return (
-      <FeatureFlags flags={featureFlags}>
-        <Story {...context} />
-      </FeatureFlags>
-    )
-  },
-  (Story, context) => {
     const {colorScheme} = context.globals
     useEffect(() => {
       const colorMode = colorScheme.startsWith('light') ? 'light' : 'dark'
@@ -323,6 +315,14 @@ export const decorators = [
           </div>
         </ThemeProvider>
       </Profiler>
+    )
+  },
+  (Story, context) => {
+    const {featureFlags} = context.globals
+    return (
+      <FeatureFlags flags={featureFlags}>
+        <Story {...context} />
+      </FeatureFlags>
     )
   },
 ]

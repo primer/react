@@ -6,7 +6,7 @@ import Box from '../Box'
 import {useFeatureFlag} from '../FeatureFlags'
 import classes from './Hidden.module.css'
 
-const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_team'
+const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_staff'
 
 type Viewport = 'narrow' | 'regular' | 'wide'
 
