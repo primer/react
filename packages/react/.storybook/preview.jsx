@@ -62,8 +62,8 @@ const preview = {
                     ['*', 'Playground', /Playground$/, 'Features', 'Examples'],
                   ],
                 ],
-              ]
-            ]
+              ],
+            ],
           ],
           'Behaviors',
           'Hooks',
@@ -82,8 +82,8 @@ const preview = {
                     ['*', 'Playground', /Playground$/, 'Features', 'Examples'],
                   ],
                 ],
-              ]
-            ]
+              ],
+            ],
           ],
           [
             'Private',
@@ -100,8 +100,8 @@ const preview = {
                     ['*', 'Playground', /Playground$/, 'Features', 'Examples'],
                   ],
                 ],
-              ]
-            ]
+              ],
+            ],
           ],
           '*',
         ]
@@ -258,14 +258,6 @@ export const globalTypes = {
 
 export const decorators = [
   (Story, context) => {
-    const {featureFlags} = context.globals
-    return (
-      <FeatureFlags flags={featureFlags}>
-        <Story {...context} />
-      </FeatureFlags>
-    )
-  },
-  (Story, context) => {
     const {colorScheme} = context.globals
 
     useEffect(() => {
@@ -316,6 +308,14 @@ export const decorators = [
           </div>
         </ThemeProvider>
       </Profiler>
+    )
+  },
+  (Story, context) => {
+    const {featureFlags} = context.globals
+    return (
+      <FeatureFlags flags={featureFlags}>
+        <Story {...context} />
+      </FeatureFlags>
     )
   },
 ]
