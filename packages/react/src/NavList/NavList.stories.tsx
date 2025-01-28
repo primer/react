@@ -373,6 +373,32 @@ export const WithExpand: StoryFn = () => (
           <NavList.Item>Item 4</NavList.Item>
           <NavList.Item>Item 5</NavList.Item>
           <NavList.Item>Item 6</NavList.Item>
+          <NavList.Item>Item 7</NavList.Item>
+          <NavList.Item>Item 8</NavList.Item>
+          <NavList.Item>Item 9</NavList.Item>
+        </NavList.ShowMoreItem>
+      </NavList>
+    </PageLayout.Pane>
+    <PageLayout.Content></PageLayout.Content>
+  </PageLayout>
+)
+
+export const ExpandWithPages: StoryFn = () => (
+  <PageLayout>
+    <PageLayout.Pane position="start">
+      <NavList>
+        <NavList.Item href="#" aria-current="page">
+          Item 1
+        </NavList.Item>
+        <NavList.Item href="#">Item 2</NavList.Item>
+        <NavList.Item href="#">Item 3</NavList.Item>
+        <NavList.ShowMoreItem pages={2} label="Show more">
+          <NavList.Item>Item 4</NavList.Item>
+          <NavList.Item>Item 5</NavList.Item>
+          <NavList.Item>Item 6</NavList.Item>
+          <NavList.Item>Item 7</NavList.Item>
+          <NavList.Item>Item 8</NavList.Item>
+          <NavList.Item>Item 9</NavList.Item>
         </NavList.ShowMoreItem>
       </NavList>
     </PageLayout.Pane>

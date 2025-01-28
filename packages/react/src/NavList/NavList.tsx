@@ -418,50 +418,79 @@ const Group: React.FC<NavListGroupProps> = ({title, children, sx: sxProp = defau
 export type NavListShowMoreItemProps = {
   children: React.ReactNode
   label?: string
+  pages?: number
 } & SxProp
 
 const ItemWithinGroup = React.createContext<{id: string} | null>(null)
 
 const ShowMoreItem = React.forwardRef<HTMLButtonElement, NavListShowMoreItemProps>(
-  ({label = 'Show more', children, ...props}, forwardedRef) => {
+  ({label = 'Show more', children, pages = 0, ...props}, forwardedRef) => {
     const [expanded, setExpanded] = React.useState(false)
-    const targetFocused = React.useRef(false)
+    const [currentPage, setCurrentPage] = React.useState(0)
+    const targetFocused = React.useRef(currentPage)
 
     const id = useId()
     const groupId = React.useMemo(() => ({id}), [id])
+    const childCount = React.Children.count(children)
 
     React.useEffect(() => {
-      if (expanded && !targetFocused.current) {
-        const focusTarget: HTMLAnchorElement | null = document.querySelector(
-          `[data-show-more-group-id="${groupId.id}"]`,
+      if (expanded && targetFocused.current !== currentPage) {
+        const focusTarget: HTMLElement[] = Array.from(
+          document.querySelectorAll(`[data-show-more-group-id="${groupId.id}"]`),
         )
 
-        if (focusTarget) {
-          focusTarget.focus()
-          targetFocused.current = true
+        if (focusTarget.length) {
+          const itemsPerPage = Math.ceil(childCount / pages)
+          const nextItemToFocus = itemsPerPage * currentPage - itemsPerPage
+
+          focusTarget[pages ? nextItemToFocus : focusTarget.length - childCount].focus()
+          targetFocused.current = currentPage
         }
       }
-    }, [expanded, groupId])
+    }, [expanded, groupId, currentPage, childCount, pages])
 
-    return !expanded ? (
-      <Box as="li" sx={{listStyle: 'none'}}>
-        <ActionList.Item
-          as="button"
-          aria-expanded="false"
-          ref={forwardedRef}
-          onClick={() => {
-            setExpanded(true)
-          }}
-          {...props}
-        >
-          {label}
-          <ActionList.TrailingVisual>
-            <PlusIcon />
-          </ActionList.TrailingVisual>
-        </ActionList.Item>
-      </Box>
-    ) : (
-      <ItemWithinGroup.Provider value={groupId}>{children}</ItemWithinGroup.Provider>
+    return (
+      <>
+        {expanded && (
+          <ItemWithinGroup.Provider value={groupId}>
+            {React.Children.toArray(children).filter((child, index, arr) => {
+              const childrenLength = arr.length
+
+              // If pages === 2, we want to show the amount of items in the array divided by 2
+              // If there are 10 items, we should show 5 at a time
+              if (pages) {
+                const pageCount = childrenLength / pages
+                const amountToShow = Math.ceil(pageCount * currentPage)
+
+                if (index < amountToShow) {
+                  return React.isValidElement(child)
+                }
+              } else {
+                return React.isValidElement(child)
+              }
+            })}
+          </ItemWithinGroup.Provider>
+        )}
+        {(currentPage < pages || (!pages && !expanded)) && (
+          <Box as="li" sx={{listStyle: 'none'}}>
+            <ActionList.Item
+              as="button"
+              aria-expanded="false"
+              ref={forwardedRef}
+              onClick={() => {
+                setCurrentPage(currentPage + 1)
+                setExpanded(true)
+              }}
+              {...props}
+            >
+              {label}
+              <ActionList.TrailingVisual>
+                <PlusIcon />
+              </ActionList.TrailingVisual>
+            </ActionList.Item>
+          </Box>
+        )}
+      </>
     )
   },
 )
