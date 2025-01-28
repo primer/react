@@ -1,21 +1,11 @@
 name: VRT Reports
 on:
-  push:
-    branches:
-      - main
-      - next-major
   workflow_call:
     outputs:
       aat-all-flags:
         value: ${{ jobs.vrt-all-flags.result }}
       aat-no-flag:
         value: ${{ jobs.vrt.result }}
-  merge_group:
-    branches:
-      - main
-      - next-major
-    types:
-      - checks_requested
 
 concurrency:
   group: vrt-${{ github.workflow }}-${{ github.ref }}

@@ -1,0 +1,23 @@
+name: Build Reports
+on:
+  push:
+    branches:
+      - main
+      - next-major
+  merge_group:
+    branches:
+      - main
+      - next-major
+    types:
+      - checks_requested
+
+concurrency:
+  group: reports-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  vrt-reports:
+    uses: ./.github/workflows/vrt-reports.yml
+
+  aat-reports:
+    uses: ./.github/workflows/aat-reports.yml
