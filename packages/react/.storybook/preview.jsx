@@ -290,7 +290,6 @@ export const decorators = [
             data-color-mode={theme.startsWith('dark') ? 'dark' : 'light'}
             data-light-theme={theme.startsWith('light') ? theme : undefined}
             data-dark-theme={theme.startsWith('dark') ? theme : undefined}
-            data-a11y-link-underlines="true"
           >
             <BaseStyles>
               <Story {...context} />
@@ -307,7 +306,7 @@ export const decorators = [
           colorMode="day"
           data-a11y-link-underlines="true"
         >
-          <div className={clsx('story-wrap')}>
+          <div data-a11y-link-underlines="true" className={clsx('story-wrap')}>
             <BaseStyles>
               {showSurroundingElements ? <a href="https://github.com/primer/react">Primer documentation</a> : ''}
               <FeatureFlags flags={{primer_react_action_list_item_as_button: true}}>
