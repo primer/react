@@ -62,8 +62,8 @@ const preview = {
                     ['*', 'Playground', /Playground$/, 'Features', 'Examples'],
                   ],
                 ],
-              ]
-            ]
+              ],
+            ],
           ],
           'Behaviors',
           'Hooks',
@@ -82,8 +82,8 @@ const preview = {
                     ['*', 'Playground', /Playground$/, 'Features', 'Examples'],
                   ],
                 ],
-              ]
-            ]
+              ],
+            ],
           ],
           [
             'Private',
@@ -100,8 +100,8 @@ const preview = {
                     ['*', 'Playground', /Playground$/, 'Features', 'Examples'],
                   ],
                 ],
-              ]
-            ]
+              ],
+            ],
           ],
           '*',
         ]
@@ -290,6 +290,7 @@ export const decorators = [
             data-color-mode={theme.startsWith('dark') ? 'dark' : 'light'}
             data-light-theme={theme.startsWith('light') ? theme : undefined}
             data-dark-theme={theme.startsWith('dark') ? theme : undefined}
+            data-a11y-link-underlines="true"
           >
             <BaseStyles>
               <Story {...context} />
@@ -304,6 +305,7 @@ export const decorators = [
           dayScheme={context.globals.colorScheme}
           nightScheme={context.globals.colorScheme}
           colorMode="day"
+          data-a11y-link-underlines="true"
         >
           <div className={clsx('story-wrap')}>
             <BaseStyles>
