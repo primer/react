@@ -1,21 +1,11 @@
 name: AAT Reports
 on:
-  push:
-    branches:
-      - main
-      - next-major
   workflow_call:
     outputs:
       aat-all-flags:
         value: ${{ jobs.aat-all-flags.result }}
       aat-no-flag:
         value: ${{ jobs.aat.result }}
-  merge_group:
-    branches:
-      - main
-      - next-major
-    types:
-      - checks_requested
 
 concurrency:
   group: aat-${{ github.workflow }}-${{ github.ref }}
