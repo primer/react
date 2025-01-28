@@ -5,6 +5,7 @@
   height: var(--control-medium-size);
   /* stylelint-disable-next-line primer/spacing */
   padding: 0 var(--control-medium-paddingInline-normal);
+  padding-top: 0;
   font-family: inherit;
   font-size: var(--text-body-size-medium);
   font-weight: var(--base-text-weight-medium);
