@@ -39,12 +39,9 @@ export function useResizeObserver<T extends HTMLElement>(
       }
     } else {
       const saveTargetDimensions = () => {
-        if (!targetEl) {
-          return
-        }
         const currTargetRect = targetEl.getBoundingClientRect()
 
-        if (currTargetRect.width !== targetClientRect?.width || currTargetRect.height !== targetClientRect?.height) {
+        if (currTargetRect.width !== targetClientRect?.width || currTargetRect.height !== targetClientRect.height) {
           savedCallback.current([
             {
               contentRect: currTargetRect,
@@ -53,6 +50,7 @@ export function useResizeObserver<T extends HTMLElement>(
         }
         setTargetClientRect(currTargetRect)
       }
+      // eslint-disable-next-line github/prefer-observers
       window.addEventListener('resize', saveTargetDimensions)
 
       return () => {
