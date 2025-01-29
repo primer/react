@@ -1,5 +1,11 @@
 # @primer/react
 
+## 37.11.1
+
+### Patch Changes
+
+- [`a12ab59`](https://github.com/primer/react/commit/a12ab599565651cf30233a2cd97357f07cf39cb8) Thanks [@hussam-i-am](https://github.com/hussam-i-am)! - fix(FormControl): fix spacing in vertical layouts"
+
 ## 37.11.0
 
 ### Minor Changes
