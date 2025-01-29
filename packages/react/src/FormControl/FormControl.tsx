@@ -8,6 +8,7 @@ import {SelectPanel} from '../SelectPanel'
 import TextInput from '../TextInput'
 import TextInputWithTokens from '../TextInputWithTokens'
 import Textarea from '../Textarea'
+import Box from '../Box'
 import {CheckboxOrRadioGroupContext} from '../internal/components/CheckboxOrRadioGroup'
 import ValidationAnimationContainer from '../internal/components/ValidationAnimationContainer'
 import {useSlots} from '../hooks/useSlots'
@@ -182,9 +183,12 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
             </StyledLabelContainer>
           </StyledHorizontalLayout>
         ) : (
-          <StyledVerticalLayout
+          <Box
             ref={ref}
             data-has-label={!isLabelHidden ? '' : undefined}
+            display="flex"
+            flexDirection="column"
+            alignItems="flex-start"
             sx={
               enabled
                 ? sx
@@ -218,7 +222,7 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
               <ValidationAnimationContainer show>{slots.validation}</ValidationAnimationContainer>
             ) : null}
             {slots.caption}
-          </StyledVerticalLayout>
+          </Box>
         )}
       </FormControlContextProvider>
     )
@@ -261,18 +265,6 @@ const StyledLabelContainer = toggleStyledComponent(
     > label {
       font-weight: var(--base-text-weight-normal);
     }
-  `,
-)
-
-const StyledVerticalLayout = toggleStyledComponent(
-  cssModulesFlag,
-  'div',
-  styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-
-    ${sx}
   `,
 )
 
