@@ -11,6 +11,7 @@ import {ActionList} from '../ActionList'
 import type {GroupedListProps, ListPropsBase, ItemInput} from '../SelectPanel/types'
 import {useFocusZone} from '../hooks/useFocusZone'
 import {useId} from '../hooks/useId'
+import {useProvidedRefOrCreate} from '../hooks/useProvidedRefOrCreate'
 import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
 import useScrollFlash from '../hooks/useScrollFlash'
 import {VisuallyHidden} from '../VisuallyHidden'
@@ -20,6 +21,7 @@ import {FilteredActionListLoadingTypes, FilteredActionListBodyLoader} from './Fi
 
 import {isValidElementType} from 'react-is'
 import type {RenderItemFn} from '../deprecated/ActionList/List'
+import {useAnnouncements} from './useAnnouncements'
 
 const menuScrollMargins: ScrollIntoViewOptions = {startMargin: 0, endMargin: 8}
 
@@ -38,6 +40,7 @@ export interface FilteredActionListProps
   inputRef?: React.RefObject<HTMLInputElement>
   message?: React.ReactNode[]
   className?: string
+  announcementsEnabled?: boolean
 }
 
 const StyledHeader = styled.div`
@@ -55,14 +58,15 @@ export function FilteredActionList({
   onInputRefChanged,
   items,
   textInputProps,
+  inputRef: providedInputRef,
   sx,
   groupMetadata,
   showItemDividers,
   message,
   className,
+  announcementsEnabled = true,
   ...listProps
 }: FilteredActionListProps): JSX.Element {
-  const inputRef = useRef<HTMLInputElement>(null)
   const [filterValue, setInternalFilterValue] = useProvidedStateOrCreate(externalFilterValue, undefined, '')
   const onInputChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -74,6 +78,7 @@ export function FilteredActionList({
   )
 
   const scrollContainerRef = useRef<HTMLDivElement>(null)
+  const inputRef = useProvidedRefOrCreate<HTMLInputElement>(providedInputRef)
   const [listContainerElement, setListContainerElement] = useState<HTMLUListElement | null>(null)
   const activeDescendantRef = useRef<HTMLElement>()
   const listId = useId()
@@ -137,6 +142,7 @@ export function FilteredActionList({
     }
   }, [items])
 
+  useAnnouncements(items, {current: listContainerElement}, inputRef, announcementsEnabled)
   useScrollFlash(scrollContainerRef)
 
   function getItemListForEachGroup(groupId: string) {
@@ -203,14 +209,14 @@ export function FilteredActionList({
                         {group.header?.title ? group.header.title : `Group ${group.groupId}`}
                       </ActionList.GroupHeading>
                       {getItemListForEachGroup(group.groupId).map((item, index) => {
-                        const key = ('key' in item ? item.key : undefined) ?? item.id?.toString() ?? index.toString()
+                        const key = item.key ?? item.id?.toString() ?? index.toString()
                         return <MappedActionListItem key={key} {...item} renderItem={listProps.renderItem} />
                       })}
                     </ActionList.Group>
                   )
                 })
               : items.map((item, index) => {
-                  const key = ('key' in item ? item.key : undefined) ?? item.id?.toString() ?? index.toString()
+                  const key = item.key ?? item.id?.toString() ?? index.toString()
                   return <MappedActionListItem key={key} {...item} renderItem={listProps.renderItem} />
                 })}
           </ActionList>

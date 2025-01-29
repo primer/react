@@ -7,6 +7,9 @@ import ThemeProvider from '../ThemeProvider'
 import {FeatureFlags} from '../FeatureFlags'
 import type {InitialLoadingType} from './SelectPanel'
 import {getLiveRegion} from '../utils/testing'
+import {IconButton} from '../Button'
+import {ArrowLeftIcon} from '@primer/octicons-react'
+import Box from '../Box'
 
 const renderWithFlag = (children: React.ReactNode, flag: boolean) => {
   return render(
@@ -217,6 +220,37 @@ for (const useModernActionList of [false, true]) {
         renderWithFlag(<BasicSelectPanel aria-label="Custom label" />, useModernActionList)
         await user.click(screen.getByText('Select items'))
         expect(screen.getByRole('listbox', {name: 'Custom label'})).toBeInTheDocument()
+      })
+
+      it('should focus the filter input on open', async () => {
+        const user = userEvent.setup()
+
+        // This panel contains another focusable thing (the IconButton) that should not receive focus
+        // when the panel opens.
+        renderWithFlag(
+          <ThemeProvider>
+            <SelectPanel
+              onOpenChange={() => {}}
+              onFilterChange={() => {}}
+              onSelectedChange={() => {}}
+              open={true}
+              items={items}
+              selected={[]}
+              placeholder="Select items"
+              placeholderText="Filter items"
+              title={
+                <Box sx={{display: 'flex', alignItems: 'center', gap: 1}}>
+                  <IconButton icon={ArrowLeftIcon} aria-label="Back" />
+                  <span>Title</span>
+                </Box>
+              }
+            />
+          </ThemeProvider>,
+          useModernActionList,
+        )
+
+        await user.click(screen.getByText('Select items'))
+        expect(screen.getByLabelText('Filter items')).toHaveFocus()
       })
 
       describe('selection', () => {

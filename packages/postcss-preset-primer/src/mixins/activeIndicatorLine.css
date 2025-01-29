@@ -1,0 +1,11 @@
+@define-mixin activeIndicatorLine {
+  position: absolute;
+  top: calc(50% - var(--base-size-12));
+  left: calc(-1 * var(--base-size-8));
+  width: var(--base-size-4);
+  height: var(--base-size-24);
+  content: '';
+  /* stylelint-disable-next-line primer/colors */
+  background: var(--borderColor-accent-emphasis);
+  border-radius: var(--borderRadius-medium);
+}

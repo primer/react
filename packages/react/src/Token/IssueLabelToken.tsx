@@ -19,7 +19,7 @@ export interface IssueLabelTokenProps extends TokenBaseProps {
   fillColor?: string
 }
 
-const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_team'
+const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_staff'
 const tokenBorderWidthPx = 1
 
 const lightModeStyles = {
@@ -180,6 +180,7 @@ const IssueLabelToken = forwardRef((props, forwardedRef) => {
       text={text}
       size={size}
       sx={labelStyles}
+      className={className}
       {...(!hasMultipleActionTargets ? interactiveTokenProps : {})}
       {...rest}
       ref={forwardedRef}

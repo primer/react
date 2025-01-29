@@ -43,69 +43,62 @@ const getItemWithActiveDescendant = (
   const optionElements = listElement.querySelectorAll('[role="option"]')
 
   const index = Array.from(optionElements).indexOf(activeItemElement)
-  const activeItem = items[index]
+  const activeItem = items[index] as ItemInput | undefined
 
-  const text = activeItem.text
-  const selected = activeItem.selected
+  const text = activeItem?.text
+  const selected = activeItem?.selected
 
   return {index, text, selected}
 }
 
-function announceFilterFocused() {
+async function announceText(text: string) {
   const liveRegion = document.querySelector('live-region')
 
   liveRegion?.clear() // clear previous announcements
 
-  announce('Focus on filter text box and list of items', {
+  await announce(text, {
     delayMs,
     from: liveRegion ? liveRegion : undefined, // announce will create a liveRegion if it doesn't find one
   })
 }
 
-function announceNoItems() {
-  const liveRegion = document.querySelector('live-region')
-
-  liveRegion?.clear() // clear previous announcements
-
-  announce('No matching items.', {
-    delayMs,
-    from: liveRegion ? liveRegion : undefined, // announce will create a liveRegion if it doesn't find one
-  })
+async function announceFilterFocused() {
+  await announceText('Focus on filter text box and list of items')
 }
 
-function announceLoading() {
-  const liveRegion = document.querySelector('live-region')
-
-  liveRegion?.clear() // clear previous announcements
-
-  announce('Loading.', {
-    delayMs,
-    from: liveRegion ? liveRegion : undefined, // announce will create a liveRegion if it doesn't find one
-  })
+async function announceNoItems() {
+  await announceText('No matching items.')
 }
 
-function announceItemsChanged(items: FilteredActionListProps['items'], listContainerRef: React.RefObject<HTMLElement>) {
+async function announceLoading() {
+  await announceText('Loading.')
+}
+
+async function announceItemsChanged(
+  items: FilteredActionListProps['items'],
+  listContainerRef: React.RefObject<HTMLElement>,
+) {
   const liveRegion = document.querySelector('live-region')
 
   liveRegion?.clear() // clear previous announcements
 
   // give @primer/behaviors a moment to update active-descendant
-  window.requestAnimationFrame(() => {
-    const activeItem = getItemWithActiveDescendant(listContainerRef, items)
-    if (!activeItem) return
-    const {index, text, selected} = activeItem
+  await new Promise(resolve => window.requestAnimationFrame(resolve))
 
-    const announcementText = [
-      'List updated',
-      `Focused item: ${text}`,
-      `${selected ? 'selected' : 'not selected'}`,
-      `${index + 1} of ${items.length}`,
-    ].join(', ')
+  const activeItem = getItemWithActiveDescendant(listContainerRef, items)
+  if (!activeItem) return
+  const {index, text, selected} = activeItem
 
-    announce(announcementText, {
-      delayMs,
-      from: liveRegion ? liveRegion : undefined, // announce will create a liveRegion if it doesn't find one
-    })
+  const announcementText = [
+    'List updated',
+    `Focused item: ${text}`,
+    `${selected ? 'selected' : 'not selected'}`,
+    `${index + 1} of ${items.length}`,
+  ].join(', ')
+
+  await announce(announcementText, {
+    delayMs,
+    from: liveRegion ? liveRegion : undefined, // announce will create a liveRegion if it doesn't find one
   })
 }
 
@@ -198,6 +191,7 @@ function Panel({
   height,
   children,
   className,
+  id,
   ...listProps
 }: SelectPanelProps): JSX.Element {
   const titleId = useId()
@@ -235,14 +229,14 @@ function Panel({
   const onFilterChange: FilteredActionListProps['onFilterChange'] = useCallback(
     (value, e) => {
       if (loadingManagedInternally) {
+        if (loadingDelayTimeoutId.current) {
+          safeClearTimeout(loadingDelayTimeoutId.current)
+        }
+
         if (dataLoadedOnce) {
           // If data has already been loaded once, delay the spinner a bit. This also helps
           // not show and then immediately hide the spinner if items are loaded quickly, i.e.
           // not async.
-
-          if (loadingDelayTimeoutId.current) {
-            safeClearTimeout(loadingDelayTimeoutId.current)
-          }
 
           loadingDelayTimeoutId.current = safeSetTimeout(() => {
             setIsLoading(true)
@@ -254,10 +248,6 @@ function Panel({
 
           if (items.length === 0) {
             setIsLoading(true)
-          }
-
-          if (loadingDelayTimeoutId.current) {
-            safeClearTimeout(loadingDelayTimeoutId.current)
           }
 
           // We still want to announce if loading is taking too long
@@ -328,9 +318,16 @@ function Panel({
 
       ref.addEventListener('focus', listener)
 
+      // We would normally expect AnchoredOverlay's focus trap to automatically focus the input,
+      // but for some reason the ref isn't populated until _after_ the panel is open, which is
+      // too late. So, we focus manually here.
+      if (open) {
+        ref.focus()
+      }
+
       return () => ref.removeEventListener('focus', listener)
     }
-  }, [inputRef])
+  }, [inputRef, open])
 
   // Populate panel with items on first open
   useEffect(() => {
@@ -349,7 +346,7 @@ function Panel({
     }
   }, [open, dataLoadedOnce, onFilterChange, filterValue, items, loadingManagedExternally, listContainerElement])
 
-  const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_team'
+  const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_staff'
   const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
 
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
@@ -514,6 +511,7 @@ function Panel({
         focusTrapSettings={focusTrapSettings}
         focusZoneSettings={focusZoneSettings}
         height={height}
+        anchorId={id}
       >
         <LiveRegionOutlet />
         {usingModernActionList ? null : (
@@ -522,8 +520,8 @@ function Panel({
               filterValue === ''
                 ? 'Showing all items'
                 : items.length <= 0
-                ? 'No matching items'
-                : `${items.length} matching ${items.length === 1 ? 'item' : 'items'}`
+                  ? 'No matching items'
+                  : `${items.length} matching ${items.length === 1 ? 'item' : 'items'}`
             }
           />
         )}
@@ -573,6 +571,7 @@ function Panel({
             // than the Overlay (which would break scrolling the items)
             sx={enabled ? sx : {...sx, height: 'inherit', maxHeight: 'inherit'}}
             className={enabled ? clsx(className, classes.FilteredActionList) : className}
+            announcementsEnabled={false}
           />
           {footer && (
             <Box

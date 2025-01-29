@@ -4,16 +4,18 @@ exports[`BaseStyles has default styles 1`] = `
 .c0 {
   font-family: normal;
   line-height: default;
-  color: fg.default;
+  color: var(--fgColor-default);
 }
 
 <div>
   <div
     class="c0"
-    color="fg.default"
+    color="var(--fgColor-default)"
     data-color-mode="light"
     data-portal-root="true"
     font-family="normal"
-  />
+  >
+    Hello
+  </div>
 </div>
 `;

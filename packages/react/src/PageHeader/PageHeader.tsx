@@ -66,7 +66,7 @@ const hiddenOnNarrow = {
   wide: false,
 }
 
-const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_team'
+const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_staff'
 
 // Root
 // -----------------------------------------------------------------------------
@@ -535,6 +535,7 @@ const Title: React.FC<React.PropsWithChildren<TitleProps>> = ({
     <Heading
       className={clsx(enabled && classes.Title, className)}
       data-component="PH_Title"
+      data-hidden={hidden}
       as={as}
       style={style}
       sx={
@@ -546,7 +547,7 @@ const Title: React.FC<React.PropsWithChildren<TitleProps>> = ({
                 display: 'flex',
                 order: TITLE_AREA_REGION_ORDER.Title,
                 ...getBreakpointDeclarations(hidden, 'display', value => {
-                  return value ? 'none' : 'flex'
+                  return value ? 'none' : 'block'
                 }),
                 fontSize: 'inherit',
                 fontWeight: 'inherit',
