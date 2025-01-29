@@ -231,6 +231,13 @@
           "description": "Acccessible name for the control."
         },
         {
+          "name": "pages",
+          "type": "number",
+          "defaultValue": "0",
+          "required": false,
+          "description": "The total number of pages, used to calculate the number of items to show at a given time."
+        },
+        {
           "name": "ref",
           "type": "React.RefObject<HTMLButtonElement>"
         }

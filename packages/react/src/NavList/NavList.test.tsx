@@ -505,3 +505,42 @@ describe('NavList.ShowMoreItem with Group', () => {
     expect(buttonParent.parentElement!.tagName).toEqual('UL')
   })
 })
+
+describe('NavList.ShowMoreItem with pages', () => {
+  function NavListExpandWithPages() {
+    return (
+      <NavList>
+        <NavList.Item href="#">Item 1</NavList.Item>
+        <NavList.Item href="#">Item 2</NavList.Item>
+        <NavList.ShowMoreItem pages={2} label="More">
+          <NavList.Item href="#">Item 3</NavList.Item>
+          <NavList.Item href="#">Item 4</NavList.Item>
+          <NavList.Item href="#">Item 5</NavList.Item>
+          <NavList.Item href="#">Item 6</NavList.Item>
+          <NavList.Item href="#">Item 7</NavList.Item>
+        </NavList.ShowMoreItem>
+      </NavList>
+    )
+  }
+
+  it('renders an expand button', () => {
+    const {queryByRole} = render(<NavListExpandWithPages />)
+
+    expect(queryByRole('button', {name: 'More'})).toBeInTheDocument()
+  })
+
+  it('expands the list when the expand button is clicked', () => {
+    const {queryByRole} = render(<NavListExpandWithPages />)
+    const button = queryByRole('button', {name: 'More'})
+
+    act(() => {
+      button?.click()
+    })
+
+    expect(queryByRole('link', {name: 'Item 3'})).toBeInTheDocument()
+    expect(queryByRole('link', {name: 'Item 4'})).toBeInTheDocument()
+    expect(queryByRole('link', {name: 'Item 5'})).toBeInTheDocument()
+    expect(queryByRole('link', {name: 'Item 6'})).not.toBeInTheDocument()
+    expect(queryByRole('link', {name: 'Item 7'})).not.toBeInTheDocument()
+  })
+})

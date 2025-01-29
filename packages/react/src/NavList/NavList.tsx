@@ -472,7 +472,7 @@ const ShowMoreItem = React.forwardRef<HTMLButtonElement, NavListShowMoreItemProp
             })}
           </ItemWithinGroup.Provider>
         )}
-        {(currentPage < pages || (!pages && !expanded)) && !enabled && (
+        {!enabled && (currentPage < pages || (!pages && !expanded)) ? (
           <Box as="li" sx={{listStyle: 'none'}}>
             <ActionList.Item
               as="button"
@@ -490,8 +490,8 @@ const ShowMoreItem = React.forwardRef<HTMLButtonElement, NavListShowMoreItemProp
               </ActionList.TrailingVisual>
             </ActionList.Item>
           </Box>
-        )}
-        {(currentPage < pages || (!pages && !expanded)) && enabled && (
+        ) : null}
+        {enabled && (currentPage < pages || (!pages && !expanded)) ? (
           <ActionList.Item
             as="button"
             aria-expanded="false"
@@ -507,7 +507,7 @@ const ShowMoreItem = React.forwardRef<HTMLButtonElement, NavListShowMoreItemProp
               <PlusIcon />
             </ActionList.TrailingVisual>
           </ActionList.Item>
-        )}
+        ) : null}
       </>
     )
   },
