@@ -38,6 +38,6 @@ figma.connect(
         gray: 'neutral.epmhasis',
       }),
     },
-    example: ({color}) => <ProgressBarItem aria-label="Uploading image.png" bg={color} />,
+    example: ({color}) => <ProgressBarItem bg={color} />,
   },
 )

@@ -1,7 +1,6 @@
 import React, {useEffect} from 'react'
 import type {Meta} from '@storybook/react'
-import {ProgressBar} from '..'
-import type {ProgressBarProps} from './ProgressBar'
+import {ProgressBar, type ProgressBarProps} from '..'
 
 const sectionColorsDefault = [
   'success.emphasis',
@@ -32,9 +31,9 @@ export const Playground = ({sections, ...args}: ProgressBarProps & {sections: nu
     return <ProgressBar {...args} sx={args.inline ? {width: '100px'} : {}} aria-label="Upload test.png" />
   } else {
     return (
-      <ProgressBar>
+      <ProgressBar aria-label="Upload test.png">
         {[...Array(sections).keys()].map(i => (
-          <ProgressBar.Item key={i} progress={100 / sections} bg={sectionColors[i]} aria-label="Upload test.png" />
+          <ProgressBar.Item key={i} progress={100 / sections} bg={sectionColors[i]} />
         ))}
       </ProgressBar>
     )
