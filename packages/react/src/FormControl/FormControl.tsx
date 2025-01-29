@@ -185,7 +185,11 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
           <StyledVerticalLayout
             ref={ref}
             data-has-label={!isLabelHidden ? '' : undefined}
-            sx={sx}
+            sx={
+              enabled
+                ? sx
+                : {...(isLabelHidden ? {'> *:not(label) + *': {marginTop: 1}} : {'> * + *': {marginTop: 1}}), ...sx}
+            }
             className={clsx(className, {
               [classes.ControlVerticalLayout]: enabled,
             })}
@@ -267,14 +271,6 @@ const StyledVerticalLayout = toggleStyledComponent(
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-
-    & > *:not(label) + * {
-      margin-top: var(--base-size-4);
-    }
-
-    &:where([data-has-label]) > * + * {
-      margin-top: var(--base-size-4);
-    }
 
     ${sx}
   `,
