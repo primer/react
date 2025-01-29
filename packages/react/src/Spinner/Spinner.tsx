@@ -4,7 +4,6 @@ import sx, {type SxProp} from '../sx'
 import {VisuallyHidden} from '../VisuallyHidden'
 import type {HTMLDataAttributes} from '../internal/internal-types'
 import {useId} from '../hooks'
-import {useFeatureFlag} from '../FeatureFlags'
 import classes from './Spinner.module.css'
 import {clsx} from 'clsx'
 
@@ -75,33 +74,16 @@ function Spinner({
   )
 }
 
-const StyledComponentSpinner = styled(Spinner)`
-  @keyframes rotate-keyframes {
-    100% {
-      transform: rotate(360deg);
-    }
-  }
-
-  animation: rotate-keyframes 1s linear infinite;
-
-  ${sx}
-`
-
 const StyledBaseSpinner = styled.div`
   ${sx}
 `
 
 function StyledSpinner({sx, className, ...props}: SpinnerProps) {
-  const enabled = useFeatureFlag('primer_react_css_modules_ga')
-  if (enabled) {
-    if (sx) {
-      return <StyledBaseSpinner sx={sx} as={Spinner} className={clsx(className, classes.SpinnerAnimation)} {...props} />
-    }
-
-    return <Spinner className={clsx(className, classes.SpinnerAnimation)} {...props} />
+  if (sx) {
+    return <StyledBaseSpinner sx={sx} as={Spinner} className={clsx(className, classes.SpinnerAnimation)} {...props} />
   }
 
-  return <StyledComponentSpinner sx={sx} className={className} {...props} />
+  return <Spinner className={clsx(className, classes.SpinnerAnimation)} {...props} />
 }
 
 StyledSpinner.displayName = 'Spinner'
