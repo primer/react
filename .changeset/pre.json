@@ -1,0 +1,13 @@
+{
+  "mode": "pre",
+  "tag": "rc",
+  "initialVersions": {
+    "codesandbox": "0.0.0",
+    "example-nextjs": "0.0.0",
+    "example-theming": "0.0.0",
+    "postcss-preset-primer": "0.0.0",
+    "@primer/react": "37.11.0",
+    "rollup-plugin-import-css": "0.0.0"
+  },
+  "changesets": []
+}
