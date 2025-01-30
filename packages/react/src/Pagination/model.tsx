@@ -22,10 +22,10 @@ export function buildPaginationModel(
   // standardGap: 3
   const standardGap = surroundingPageCount + marginPageCount
 
-  // the maximum number of pages that can be shown at a given time
+  // the maximum number of pages that can be shown at a given time (account for current page, left and right ellipsis)
   // [1, ..., 7, 8, _9_, 10, 11, ..., 15]
-  // maxVisiblePages: 7
-  const maxVisiblePages = standardGap + standardGap + 1
+  // maxVisiblePages: 9
+  const maxVisiblePages = standardGap + standardGap + 3
 
   // if the number of pages is less than the maximum number of pages that can be shown just return all of them
   if (pageCount <= maxVisiblePages) {
