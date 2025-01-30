@@ -274,7 +274,7 @@ export const decorators = [
     let wrapperProps =
       context.id !== 'components-link-devonly--inline'
         ? {
-            'data-a11y-link-underlines': context.id !== 'components-link-devonly--inline',
+            'data-a11y-link-underlines': false,
             className: clsx('story-wrap'),
           }
         : {className: clsx('story-wrap')}
