@@ -3,6 +3,8 @@ export type KeybindingHintFormat = 'condensed' | 'full'
 export type KeybindingHintVariant = 'normal' | 'onEmphasis' | 'onPrimary'
 
 export interface KeybindingHintProps {
+  description?: string
+
   /**
    * The keys involved in this keybinding. These should be the full names of the keys as would
    * be returned by `KeyboardEvent.key` (e.g. "Control", "Shift", "ArrowUp", "a", etc.).

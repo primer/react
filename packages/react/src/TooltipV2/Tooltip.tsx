@@ -142,6 +142,7 @@ export type TooltipProps = React.PropsWithChildren<
     text: string
     type?: 'label' | 'description'
     keybindingHint?: KeybindingHintProps['keys']
+    keybindingDescription?: KeybindingHintProps['description']
   } & SxProp
 > &
   React.HTMLAttributes<HTMLElement>
@@ -201,10 +202,21 @@ export const TooltipContext = React.createContext<{tooltipId?: string}>({})
 
 export const Tooltip = React.forwardRef(
   (
-    {direction = 's', text, type = 'description', children, id, className, keybindingHint, ...rest}: TooltipProps,
+    {
+      direction = 's',
+      text,
+      type = 'description',
+      children,
+      id,
+      className,
+      keybindingHint,
+      keybindingDescription,
+      ...rest
+    }: TooltipProps,
     forwardedRef,
   ) => {
     const tooltipId = useId(id)
+    const controlHintId = useId()
     const child = Children.only(children)
     const triggerRef = useProvidedRefOrCreate(forwardedRef as React.RefObject<HTMLElement>)
     const tooltipElRef = useRef<HTMLDivElement>(null)
@@ -355,7 +367,10 @@ export const Tooltip = React.forwardRef(
             React.cloneElement(child as React.ReactElement<TriggerPropsType>, {
               ref: triggerRef,
               // If it is a type description, we use tooltip to describe the trigger
-              'aria-describedby': type === 'description' ? tooltipId : child.props['aria-describedby'],
+              'aria-describedby':
+                type === 'description'
+                  ? [tooltipId, controlHintId].join(' ')
+                  : [child.props['aria-describedby'], controlHintId].filter(Boolean).join(' '),
               // If it is a label type, we use tooltip to label the trigger
               'aria-labelledby': type === 'label' ? tooltipId : child.props['aria-labelledby'],
               onBlur: (event: React.FocusEvent) => {
@@ -400,19 +415,21 @@ export const Tooltip = React.forwardRef(
             role={type === 'description' ? 'tooltip' : undefined}
             // stop AT from announcing the tooltip twice: when it is a label type it will be announced with "aria-labelledby",when it is a description type it will be announced with "aria-describedby"
             aria-hidden={true}
-            id={tooltipId}
             // mouse leave and enter on the tooltip itself is needed to keep the tooltip open when the mouse is over the tooltip
             onMouseEnter={openTooltip}
             onMouseLeave={closeTooltip}
           >
-            {text}
-            {keybindingHint && (
+            <span id={tooltipId}>{text}</span>
+            {keybindingHint ? (
               <span className={clsx(classes.keybindingHintContainer, text && classes.hasTextBefore)}>
                 <VisuallyHidden>(</VisuallyHidden>
                 <KeybindingHint keys={keybindingHint} format="condensed" variant="onEmphasis" size="small" />
                 <VisuallyHidden>)</VisuallyHidden>
               </span>
-            )}
+            ) : null}
+            {keybindingDescription ? (
+              <VisuallyHidden id={controlHintId}>. {keybindingDescription}</VisuallyHidden>
+            ) : null}
           </StyledTooltip>
         </>
       </TooltipContext.Provider>
