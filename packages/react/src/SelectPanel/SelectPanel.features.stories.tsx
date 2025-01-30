@@ -1,9 +1,9 @@
 import React, {useState, useRef} from 'react'
-import type {Meta} from '@storybook/react'
+import type {Meta, StoryObj} from '@storybook/react'
 import Box from '../Box'
 import {Button} from '../Button'
 import type {ItemInput, GroupedListProps} from '../deprecated/ActionList/List'
-import {SelectPanel} from './SelectPanel'
+import {SelectPanel, type SelectPanelProps} from './SelectPanel'
 import {
   FilterIcon,
   GearIcon,
@@ -14,12 +14,13 @@ import {
   TypographyIcon,
   VersionsIcon,
 } from '@primer/octicons-react'
+import useSafeTimeout from '../hooks/useSafeTimeout'
 import FormControl from '../FormControl'
 
 const meta = {
   title: 'Components/SelectPanel/Features',
   component: SelectPanel,
-} satisfies Meta<typeof SelectPanel>
+} satisfies Meta<SelectPanelProps>
 
 export default meta
 
@@ -484,4 +485,70 @@ export const WithLabelInternally = () => {
       onFilterChange={setFilter}
     />
   )
+}
+
+export const AsyncFetch: StoryObj<SelectPanelProps> = {
+  render: ({initialLoadingType, height}: SelectPanelProps) => {
+    const [selected, setSelected] = React.useState<ItemInput[]>([])
+    const [filteredItems, setFilteredItems] = React.useState<ItemInput[]>([])
+    const [open, setOpen] = useState(false)
+    const filterTimerId = useRef<number | null>(null)
+    const {safeSetTimeout, safeClearTimeout} = useSafeTimeout()
+
+    const fetchItems = (query: string) => {
+      if (filterTimerId.current) {
+        safeClearTimeout(filterTimerId.current)
+      }
+
+      filterTimerId.current = safeSetTimeout(() => {
+        setFilteredItems(items.filter(item => item.text.toLowerCase().startsWith(query.toLowerCase())))
+      }, 2000) as unknown as number
+    }
+
+    const onOpenChange = (value: boolean) => {
+      setOpen(value)
+      fetchItems('')
+    }
+
+    return (
+      <SelectPanel
+        title="Select labels"
+        subtitle="Use labels to organize issues and pull requests"
+        renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
+          <Button
+            trailingAction={TriangleDownIcon}
+            aria-labelledby={` ${ariaLabelledBy}`}
+            {...anchorProps}
+            aria-haspopup="dialog"
+          >
+            {children ?? 'Select Labels'}
+          </Button>
+        )}
+        placeholderText="Filter labels"
+        open={open}
+        onOpenChange={onOpenChange}
+        items={filteredItems}
+        selected={selected}
+        onSelectedChange={setSelected}
+        onFilterChange={fetchItems}
+        showItemDividers={true}
+        height={height}
+        initialLoadingType={initialLoadingType}
+      />
+    )
+  },
+  args: {
+    initialLoadingType: 'spinner',
+    height: 'medium',
+  },
+  argTypes: {
+    initialLoadingType: {
+      control: 'select',
+      options: ['spinner', 'skeleton'],
+    },
+    height: {
+      control: 'select',
+      options: ['auto', 'xsmall', 'small', 'medium', 'large', 'xlarge'],
+    },
+  },
 }
