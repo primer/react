@@ -84,11 +84,7 @@ describe('Pagination model', () => {
         type: 'NUM',
         num: 6,
         selected: false,
-        precedesBreak: true,
-      },
-      {
-        type: 'BREAK',
-        num: 7,
+        precedesBreak: false,
       },
       {
         type: 'NEXT',
