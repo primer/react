@@ -19,7 +19,7 @@ export const Critical = () => {
       description={
         <>
           GitHub users are{' '}
-          <Link inline underline href="#">
+          <Link inline href="#">
             now required
           </Link>{' '}
           to enable two-factor authentication as an additional security measure.
@@ -37,7 +37,7 @@ export const Info = () => {
       description={
         <>
           GitHub users are{' '}
-          <Link inline underline href="#">
+          <Link inline href="#">
             now required
           </Link>{' '}
           to enable two-factor authentication as an additional security measure.
@@ -56,7 +56,7 @@ export const Success = () => {
       description={
         <>
           GitHub users are{' '}
-          <Link inline underline href="#">
+          <Link inline href="#">
             now required
           </Link>{' '}
           to enable two-factor authentication as an additional security measure.
@@ -75,7 +75,7 @@ export const Upsell = () => {
       description={
         <>
           GitHub users are{' '}
-          <Link inline underline href="#">
+          <Link inline href="#">
             now required
           </Link>{' '}
           to enable two-factor authentication as an additional security measure.
@@ -94,7 +94,7 @@ export const Warning = () => {
       description={
         <>
           GitHub users are{' '}
-          <Link inline underline href="#">
+          <Link inline href="#">
             now required
           </Link>{' '}
           to enable two-factor authentication as an additional security measure.
@@ -113,7 +113,7 @@ export const Dismiss = () => {
       description={
         <>
           GitHub users are{' '}
-          <Link inline underline href="#">
+          <Link inline href="#">
             now required
           </Link>{' '}
           to enable two-factor authentication as an additional security measure.
@@ -131,7 +131,7 @@ export const DismissWithActions = () => {
       description={
         <>
           GitHub users are{' '}
-          <Link inline underline href="#">
+          <Link inline href="#">
             now required
           </Link>{' '}
           to enable two-factor authentication as an additional security measure.
@@ -152,7 +152,7 @@ export const WithHiddenTitle = () => {
       description={
         <>
           GitHub users are{' '}
-          <Link inline underline href="#">
+          <Link inline href="#">
             now required
           </Link>{' '}
           to enable two-factor authentication as an additional security measure.
@@ -171,7 +171,7 @@ export const WithHiddenTitleAndActions = () => {
       description={
         <>
           GitHub users are{' '}
-          <Link inline underline href="#">
+          <Link inline href="#">
             now required
           </Link>{' '}
           to enable two-factor authentication as an additional security measure.
@@ -192,7 +192,7 @@ export const DismissibleWithHiddenTitleAndActions = () => {
       description={
         <>
           GitHub users are{' '}
-          <Link inline underline href="#">
+          <Link inline href="#">
             now required
           </Link>{' '}
           to enable two-factor authentication as an additional security measure.
@@ -214,7 +214,7 @@ export const DismissibleWithHiddenTitleAndSecondaryAction = () => {
       description={
         <>
           GitHub users are{' '}
-          <Link inline underline href="#">
+          <Link inline href="#">
             now required
           </Link>{' '}
           to enable two-factor authentication as an additional security measure.
@@ -234,7 +234,7 @@ export const WithActions = () => {
       description={
         <>
           GitHub users are{' '}
-          <Link inline underline href="#">
+          <Link inline href="#">
             now required
           </Link>{' '}
           to enable two-factor authentication as an additional security measure.
