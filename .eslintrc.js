@@ -19,6 +19,7 @@ module.exports = {
     'plugin:ssr-friendly/recommended',
     'plugin:clsx/recommended',
   ],
+  plugins: ['eslint-plugin-react-compiler'],
   settings: {
     react: {
       version: 'detect',
@@ -77,6 +78,8 @@ module.exports = {
       },
     ],
 
+    'react-compiler/react-compiler': 'error',
+
     // Overrides from updating plugin:github
     'filenames/match-regex': 'off',
     'import/extensions': 'off',
@@ -89,6 +92,7 @@ module.exports = {
     'github/no-inner-html': 'off',
     'github/role-supports-aria-props': 'off',
     'no-restricted-syntax': 'off',
+
     'primer-react/a11y-use-next-tooltip': 'off',
   },
   overrides: [
