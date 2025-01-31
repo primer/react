@@ -6,6 +6,12 @@ function replacementPlugin(env) {
 
 const sharedPlugins = [
   'macros',
+  [
+    'babel-plugin-react-compiler',
+    {
+      target: '18',
+    },
+  ],
   'dev-expression',
   'add-react-displayname',
   'babel-plugin-styled-components',
