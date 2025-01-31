@@ -1,6 +1,7 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {createPortal} from 'react-dom'
 import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
+import {canUseDOM} from '../utils/environment'
 
 const PRIMER_PORTAL_ROOT_ID = '__primerPortalRoot__'
 const DEFAULT_PORTAL_CONTAINER_NAME = '__default__'
@@ -65,8 +66,9 @@ export const Portal: React.FC<React.PropsWithChildren<PortalProps>> = ({
   onMount,
   containerName: _containerName,
 }) => {
+  const savedOnMount = React.useRef(onMount)
   const elementRef = React.useRef<HTMLDivElement | null>(null)
-  if (!elementRef.current) {
+  if (!elementRef.current && canUseDOM) {
     const div = document.createElement('div')
     // Portaled content should get their own stacking context so they don't interfere
     // with each other in unexpected ways. One should never find themselves tempted
@@ -76,9 +78,16 @@ export const Portal: React.FC<React.PropsWithChildren<PortalProps>> = ({
     elementRef.current = div
   }
 
-  const element = elementRef.current
+  useEffect(() => {
+    savedOnMount.current = onMount
+  })
 
   useLayoutEffect(() => {
+    if (!elementRef.current) {
+      return
+    }
+
+    const {current: element} = elementRef
     let containerName = _containerName
     if (containerName === undefined) {
       containerName = DEFAULT_PORTAL_CONTAINER_NAME
@@ -92,13 +101,15 @@ export const Portal: React.FC<React.PropsWithChildren<PortalProps>> = ({
       )
     }
     parentElement.appendChild(element)
-    onMount?.()
+    savedOnMount.current?.()
 
     return () => {
       parentElement.removeChild(element)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [element])
+  }, [_containerName])
 
-  return createPortal(children, element)
+  if (elementRef.current) {
+    return createPortal(children, elementRef.current)
+  }
+  return null
 }
