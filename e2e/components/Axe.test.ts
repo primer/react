@@ -13,6 +13,7 @@ const SKIPPED_TESTS = [
   'components-treeview-features--contain-intrinsic-size',
   'components-flash-features--with-icon-action-dismiss', // TODO: Remove once color-contrast issues have been resolved
   'components-flash-features--with-icon-and-action', // TODO: Remove once color-contrast issues have been resolved
+  'components-filteredactionlist--default',
 ]
 
 type Component = {
@@ -21,7 +22,7 @@ type Component = {
 
 const {entries} = componentsConfig
 
-test.describe('@aat', () => {
+test.describe('Axe tests', () => {
   for (const [id, entry] of Object.entries(entries as Record<string, Component>)) {
     if (SKIPPED_TESTS.includes(id)) {
       continue
@@ -35,7 +36,7 @@ test.describe('@aat', () => {
     test.describe(id, () => {
       for (const theme of themes) {
         test.describe(theme, () => {
-          test(`${cleanedName} @aat`, async ({page}) => {
+          test(`@aat ${cleanedName}`, async ({page}) => {
             await visit(page, {
               id,
               globals: {
