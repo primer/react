@@ -29,6 +29,7 @@ import {clsx} from 'clsx'
 import {useFeatureFlag} from '../../FeatureFlags'
 
 import classes from './SelectPanel.module.css'
+import type {PositionSettings} from '@primer/behaviors'
 
 const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_ga'
 
@@ -66,6 +67,7 @@ export type SelectPanelProps = {
   defaultOpen?: boolean
   open?: boolean
   anchorRef?: React.RefObject<HTMLButtonElement>
+  anchoredPositionSettings?: Partial<PositionSettings>
 
   onCancel?: () => void
   onClearSelection?: undefined | (() => void)
@@ -89,6 +91,7 @@ const Panel: React.FC<SelectPanelProps> = ({
   defaultOpen = false,
   open: propsOpen,
   anchorRef: providedAnchorRef,
+  anchoredPositionSettings,
 
   onCancel: propsOnCancel,
   onClearSelection: propsOnClearSelection,
@@ -228,6 +231,7 @@ const Panel: React.FC<SelectPanelProps> = ({
       floatingElementRef: dialogRef,
       side: 'outside-bottom',
       align: 'start',
+      ...anchoredPositionSettings,
     },
     [internalOpen, anchorRef.current, dialogRef.current],
   )
@@ -267,7 +271,6 @@ const Panel: React.FC<SelectPanelProps> = ({
                 border: 'none',
                 padding: 0,
                 color: 'fg.default',
-                '&[open]': {display: 'flex'}, // to fit children
 
                 '&[data-variant="anchored"], &[data-variant="full-screen"]': {
                   margin: 0,
@@ -309,8 +312,13 @@ const Panel: React.FC<SelectPanelProps> = ({
                 '--max-height': maxHeightValue,
                 '--position-top': `${position?.top ?? 0}px`,
                 '--position-left': `${position?.left ?? 0}px`,
+                visibility: internalOpen ? 'visible' : 'hidden',
+                display: 'flex',
               } as React.CSSProperties)
-            : undefined
+            : {
+                visibility: internalOpen ? 'visible' : 'hidden',
+                display: 'flex',
+              }
         }
         className={enabled ? classes.Overlay : undefined}
         {...props}

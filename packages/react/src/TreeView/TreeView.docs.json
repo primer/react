@@ -190,6 +190,11 @@
           "name": "count",
           "type": "number",
           "description": "The number of items expected to be in the subtree. When in the loading state, the subtree will render a skeleton loading placeholder with the specified count of items"
+        },
+        {
+          "name": "aria-label",
+          "type": "string",
+          "description": "An accessible name for the subtree. It is recommended that you provide a short version of the parent list item's name as the name of the subtree."
         }
       ]
     },
