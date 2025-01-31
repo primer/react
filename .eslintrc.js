@@ -31,6 +31,10 @@ module.exports = {
       node: true,
       typescript: true,
     },
+    'jsx-a11y': {
+      polymorphicPropName: 'as',
+      polymorphicAllowList: ['Text', 'Box'],
+    },
   },
   ignorePatterns: [
     'node_modules',
