@@ -21,7 +21,7 @@ type Component = {
 
 const {entries} = componentsConfig
 
-test.describe('@aat', () => {
+test.describe('Axe tests', () => {
   for (const [id, entry] of Object.entries(entries as Record<string, Component>)) {
     if (SKIPPED_TESTS.includes(id)) {
       continue
@@ -35,7 +35,7 @@ test.describe('@aat', () => {
     test.describe(id, () => {
       for (const theme of themes) {
         test.describe(theme, () => {
-          test(`${cleanedName} @aat`, async ({page}) => {
+          test(`@aat ${cleanedName}`, async ({page}) => {
             await visit(page, {
               id,
               globals: {
