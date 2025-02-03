@@ -13,7 +13,8 @@
   text-decoration: none;
   cursor: pointer;
   user-select: none;
-  background-color: transparent;
+  /* background-color: transparent; */
+  background-color: magenta;
   border: var(--borderWidth-thin) solid;
   border-color: var(--button-default-borderColor-rest);
   border-radius: var(--borderRadius-medium);
