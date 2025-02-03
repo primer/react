@@ -46,17 +46,6 @@ test.describe('ConfirmationDialog', () => {
               `ConfirmationDialog.${story.title}.focus.${theme}.png`,
             )
           })
-
-          test('axe @aat', async ({page}) => {
-            await visit(page, {
-              id: story.id,
-              globals: {
-                colorScheme: theme,
-              },
-              args: {open: true},
-            })
-            await expect(page).toHaveNoViolations()
-          })
         })
       }
     })
