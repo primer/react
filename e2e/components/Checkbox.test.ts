@@ -57,6 +57,17 @@ test.describe('Checkbox', () => {
               `Checkbox.${story.title}.focus.${theme}.png`,
             )
           })
+
+          test('axe @aat', async ({page}) => {
+            await visit(page, {
+              id: story.id,
+              globals: {
+                colorScheme: theme,
+              },
+              args: 'args' in story ? story.args : {},
+            })
+            await expect(page).toHaveNoViolations()
+          })
         })
       }
     })
