@@ -127,7 +127,7 @@ jobs:
           echo "pid=$pid" >> $GITHUB_OUTPUT
           sleep 5
       - name: Run VRT
-        uses: docker://mcr.microsoft.com/playwright:v1.47.2-jammy
+        uses: docker://mcr.microsoft.com/playwright:v1.50.0-jammy
         env:
           STORYBOOK_URL: 'http://172.17.0.1:6006'
         with:
@@ -203,7 +203,7 @@ jobs:
           echo "pid=$pid" >> $GITHUB_OUTPUT
           sleep 5
       - name: Run VRT
-        uses: docker://mcr.microsoft.com/playwright:v1.47.2-jammy
+        uses: docker://mcr.microsoft.com/playwright:v1.50.0-jammy
         env:
           STORYBOOK_URL: 'http://172.17.0.1:6006'
         with:
@@ -275,7 +275,7 @@ jobs:
           echo "pid=$pid" >> $GITHUB_OUTPUT
           sleep 5
       - name: Run AAT
-        uses: docker://mcr.microsoft.com/playwright:v1.47.2-jammy
+        uses: docker://mcr.microsoft.com/playwright:v1.50.0-jammy
         env:
           STORYBOOK_URL: 'http://172.17.0.1:6006'
         with:
@@ -351,7 +351,7 @@ jobs:
           echo "pid=$pid" >> $GITHUB_OUTPUT
           sleep 5
       - name: Run AAT
-        uses: docker://mcr.microsoft.com/playwright:v1.47.2-jammy
+        uses: docker://mcr.microsoft.com/playwright:v1.50.0-jammy
         env:
           STORYBOOK_URL: 'http://172.17.0.1:6006'
         with:
