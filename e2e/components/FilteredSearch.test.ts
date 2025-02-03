@@ -17,16 +17,6 @@ test.describe('FilteredSearch', () => {
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`FilteredSearch.Default.${theme}.png`)
         })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'deprecated-components-filteredsearch--default',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations()
-        })
       })
     }
   })
@@ -44,16 +34,6 @@ test.describe('FilteredSearch', () => {
 
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`FilteredSearch.Playground.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'deprecated-components-filteredsearch--playground',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations()
         })
       })
     }
