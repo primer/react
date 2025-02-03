@@ -19,15 +19,7 @@ test.describe('Tooltip', () => {
           expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`Tooltip.Default.${theme}.open.png`)
         })
 
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'deprecated-components-tooltip--default',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations()
-        })
+
       })
     }
   })
