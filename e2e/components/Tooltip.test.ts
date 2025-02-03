@@ -18,8 +18,6 @@ test.describe('Tooltip', () => {
           await page.keyboard.press('Tab')
           expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`Tooltip.Default.${theme}.open.png`)
         })
-
-
       })
     }
   })
