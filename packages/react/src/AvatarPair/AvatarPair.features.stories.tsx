@@ -10,14 +10,14 @@ export default {
 
 export const ParentCircle = () => (
   <AvatarPair>
-    <Avatar src="https://avatars.githubusercontent.com/u/7143434?v=4" />
-    <Avatar square src="https://avatars.githubusercontent.com/primer" />
+    <Avatar src="https://avatars.githubusercontent.com/u/7143434?v=4" alt="Primer avatar, parent" />
+    <Avatar square src="https://avatars.githubusercontent.com/primer" alt="Primer avatar, child" />
   </AvatarPair>
 )
 
 export const ParentSquare = () => (
   <AvatarPair>
-    <Avatar square src="https://avatars.githubusercontent.com/primer" />
-    <Avatar src="https://avatars.githubusercontent.com/u/7143434?v=4" />
+    <Avatar square src="https://avatars.githubusercontent.com/primer" alt="Primer avatar, parent" />
+    <Avatar src="https://avatars.githubusercontent.com/u/7143434?v=4" alt="Primer avatar, child" />
   </AvatarPair>
 )
