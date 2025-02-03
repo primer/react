@@ -238,7 +238,7 @@ describe('Markup', () => {
   })
 
   it('should render with containIntrinsicSize', () => {
-    const {getByLabelText} = renderWithTheme(
+    const {getByText} = renderWithTheme(
       <TreeView aria-label="Test tree">
         <TreeView.Item id="parent" containIntrinsicSize="2rem" defaultExpanded>
           Parent
@@ -253,9 +253,9 @@ describe('Markup', () => {
 
     // The test runner removes the contain-intrinsic-size and content-visibility
     // properties, so we can only test that the elements are still rendering.
-    const childItem = getByLabelText(/Child/)
+    const childItem = getByText(/Child/)
     expect(childItem).toBeInTheDocument()
-    const parentItem = getByLabelText(/Parent/)
+    const parentItem = getByText(/Parent/)
     expect(parentItem).toBeInTheDocument()
   })
 

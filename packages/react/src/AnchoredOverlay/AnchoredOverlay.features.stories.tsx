@@ -26,7 +26,7 @@ const hoverCard = (
     <Stack direction="horizontal" gap="none">
       <Text weight="medium">monalisa</Text>
       <Text color={'var(--fgColor-muted)'} ml={1}>
-        <Link inline underline muted href="#">
+        <Link inline muted href="#">
           Monalisa Octocat
         </Link>
       </Text>

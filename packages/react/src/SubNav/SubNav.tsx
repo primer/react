@@ -11,7 +11,7 @@ import {useFeatureFlag} from '../FeatureFlags'
 
 import styles from './SubNav.module.css'
 
-const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_team'
+const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_staff'
 
 type StyledSubNavProps = React.ComponentProps<'nav'> & {
   actions?: React.ReactNode
