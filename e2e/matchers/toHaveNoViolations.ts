@@ -16,14 +16,13 @@ const COLOR_CONTRAST_SKIP = [
   'components-pageheader-examples--issues-page',
   'components-pageheader-examples--with-page-layout',
   'components-pagelayout-features--pull-request-page',
-  'components-pagelayout-features--sticky-pane',
   'components-statelabel--default',
   'components-statelabel--playground',
   'components-statelabel-features--issue-opened',
   'components-statelabel-features--pull-opened',
   'components-statelabel-features--small',
   'hooks-usefocuszone--special-situations',
-  'deprecated-components-actionlist--complex-list-full-variant-story',
+  'deprecated-components-actionlist--complex-list-full-variant-story', // Deprecated component
 ]
 
 const defaultOptions = (colorScheme: string, shouldSkip: boolean) => ({
@@ -59,7 +58,7 @@ expect.extend({
 
     const pageUrl = page.url()
     const isDev = pageUrl.includes('-dev--')
-    const idName = pageUrl.split('id=')[0].split('&')[0]
+    const idName = pageUrl.split('id=')[1].split('&')[0]
 
     const shouldSkip = COLOR_CONTRAST_SKIP.includes(idName)
 
