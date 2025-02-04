@@ -16,12 +16,14 @@ const COLOR_CONTRAST_SKIP = [
   'components-pageheader-examples--with-page-layout',
   'components-pageheader-examples--pull-request-page',
   'experimental-components-hidden-examples--pull-request-page-on-narrow-viewport',
+  'omponents-pageheader-examples--pull-request-page-on-narrow-viewport',
   'components-pagelayout-features--pull-request-page',
   'components-statelabel--default',
   'components-statelabel--playground',
   'components-statelabel-features--issue-opened',
   'components-statelabel-features--pull-opened',
   'components-statelabel-features--small',
+  'hooks-usefocuszone--special-situations',
   'deprecated-components-actionlist--complex-list-inset-variant-story', // Deprecated component
   'deprecated-components-actionlist--complex-list-full-variant-story', // Deprecated component
 ]
