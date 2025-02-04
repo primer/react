@@ -8,7 +8,7 @@ import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 export interface AnchoredPositionHookSettings extends Partial<PositionSettings> {
   floatingElementRef?: React.RefObject<Element>
   anchorElementRef?: React.RefObject<Element>
-  pinPosition?: Boolean
+  pinPosition?: boolean
 }
 
 /**
@@ -31,6 +31,7 @@ export function useAnchoredPosition(
   const floatingElementRef = useProvidedRefOrCreate(settings?.floatingElementRef)
   const anchorElementRef = useProvidedRefOrCreate(settings?.anchorElementRef)
   const [position, setPosition] = React.useState<AnchorPosition | undefined>(undefined)
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, setPrevHeight] = React.useState<number | undefined>(undefined)
 
   const updatePosition = React.useCallback(
@@ -64,7 +65,7 @@ export function useAnchoredPosition(
       } else {
         setPosition(undefined)
       }
-      setPrevHeight(floatingElementRef?.current?.clientHeight)
+      setPrevHeight(floatingElementRef.current?.clientHeight)
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [floatingElementRef, anchorElementRef, ...dependencies],

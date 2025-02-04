@@ -160,7 +160,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
     {
       anchorElementRef: anchorRef,
       floatingElementRef: overlayRef,
-      pinPosition: pinPosition,
+      pinPosition,
       side,
       align,
       alignmentOffset,
