@@ -37,7 +37,7 @@ expect.extend({
     // get color scheme from globals
 
     const pageUrl = page.url()
-    const isDev = pageUrl.includes('--dev-')
+    const isDev = pageUrl.includes('-dev--')
 
     const globals = new URL(pageUrl).searchParams.get('globals')
     console.log(globals?.split('colorScheme:')[1])
