@@ -447,7 +447,7 @@ const ShowMoreItem = React.forwardRef<HTMLButtonElement, NavListShowMoreItemProp
         focusTarget[pages ? nextItemToFocus : focusTarget.length - childCount].focus()
         targetFocused.current = currentPage
       }
-    }, [])
+    }, [childCount, currentPage, groupId, pages])
 
     React.useEffect(() => {
       if (expanded && targetFocused.current !== currentPage) {
