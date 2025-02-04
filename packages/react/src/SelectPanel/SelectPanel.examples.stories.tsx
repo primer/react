@@ -449,15 +449,27 @@ export const RepositionAfterLoading = () => {
   const [selected, setSelected] = React.useState<ItemInput[]>([items[0], items[1]])
   const [open, setOpen] = useState(false)
   const [filter, setFilter] = React.useState('')
-  const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
+  const [filteredItems, setFilteredItems] = React.useState<typeof items>([])
+
   const [loading, setLoading] = useState(true)
 
   React.useEffect(() => {
     if (!open) setLoading(true)
     window.setTimeout(() => {
-      if (open) setLoading(false)
+      if (open) {
+        setFilteredItems(items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase())))
+        setLoading(false)
+      }
     }, 2000)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open])
+
+  React.useEffect(() => {
+    if (!loading) {
+      setFilteredItems(items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase())))
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filter])
 
   return (
     <>
@@ -483,15 +495,27 @@ export const SelectPanelRepositionInsideDialog = () => {
   const [selected, setSelected] = React.useState<ItemInput[]>([items[0], items[1]])
   const [open, setOpen] = useState(false)
   const [filter, setFilter] = React.useState('')
-  const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
+  const [filteredItems, setFilteredItems] = React.useState<typeof items>([])
+
   const [loading, setLoading] = useState(true)
 
   React.useEffect(() => {
     if (!open) setLoading(true)
     window.setTimeout(() => {
-      if (open) setLoading(false)
+      if (open) {
+        setFilteredItems(items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase())))
+        setLoading(false)
+      }
     }, 2000)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open])
+
+  React.useEffect(() => {
+    if (!loading) {
+      setFilteredItems(items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase())))
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filter])
 
   return (
     <Dialog title="SelectPanel reposition after loading inside Dialog" onClose={() => {}}>
