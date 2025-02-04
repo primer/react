@@ -557,7 +557,7 @@ test.describe('Button', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-button-devonly--invisible-variants',
+            id: 'components-button-dev--invisible-variants',
             globals: {
               colorScheme: theme,
             },
@@ -575,7 +575,7 @@ test.describe('Button', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-button-devonly--test-sx-prop',
+            id: 'components-button-dev--test-sx-prop',
             globals: {
               colorScheme: theme,
             },
@@ -632,7 +632,7 @@ test.describe('Button', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-button-devonly--disabled-button-variants',
+            id: 'components-button-dev--disabled-button-variants',
             globals: {
               colorScheme: theme,
             },
