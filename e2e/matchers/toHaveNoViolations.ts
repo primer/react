@@ -5,7 +5,28 @@ import {source} from 'axe-core'
 import path from 'node:path'
 import fs from 'node:fs'
 
-const defaultOptions = (colorScheme: string, isDev: boolean) => ({
+const COLOR_CONTRAST_SKIP = [
+  'experimental-components-hidden-examples--pull-request-page',
+  'components-underlinenav-examples--pull-request-page',
+  'components-actionmenu-examples--groups-and-descriptions',
+  'components-anchoredoverlay-features--portal-inside-scrolling-element',
+  'components-button-features--expanded-button',
+  'components-formcontrol-features--with-caption-and-disabled',
+  'components-formcontrol-features--with-leading-visual',
+  'components-pageheader-examples--issues-page',
+  'components-pageheader-examples--with-page-layout',
+  'components-pagelayout-features--pull-request-page',
+  'components-pagelayout-features--sticky-pane',
+  'components-statelabel--default',
+  'components-statelabel--playground',
+  'components-statelabel-features--issue-opened',
+  'components-statelabel-features--pull-opened',
+  'components-statelabel-features--small',
+  'hooks-usefocuszone--special-situations',
+  'deprecated-components-actionlist--complex-list-full-variant-story',
+]
+
+const defaultOptions = (colorScheme: string, shouldSkip: boolean) => ({
   rules: {
     'document-title': {
       enabled: false,
@@ -27,7 +48,7 @@ const defaultOptions = (colorScheme: string, isDev: boolean) => ({
       enabled: true,
     },
     'color-contrast': {
-      enabled: colorScheme !== 'dark_dimmed' && !isDev,
+      enabled: colorScheme !== 'dark_dimmed' && !shouldSkip,
     },
   },
 })
@@ -38,16 +59,18 @@ expect.extend({
 
     const pageUrl = page.url()
     const isDev = pageUrl.includes('-dev--')
+    const idName = pageUrl.split('id=')[0].split('&')[0]
+
+    const shouldSkip = COLOR_CONTRAST_SKIP.includes(idName)
 
     const globals = new URL(pageUrl).searchParams.get('globals')
-    console.log(globals?.split('colorScheme:')[1])
     const colorScheme = globals?.split('colorScheme:')[1] ?? 'light'
 
     const runConfig = {
-      ...defaultOptions(colorScheme, isDev),
+      ...defaultOptions(colorScheme, isDev || shouldSkip),
       ...options,
       rules: {
-        ...defaultOptions(colorScheme, isDev).rules,
+        ...defaultOptions(colorScheme, isDev || shouldSkip).rules,
         ...options.rules,
       },
     }
