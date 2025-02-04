@@ -443,7 +443,6 @@ const ShowMoreItem = React.forwardRef<HTMLButtonElement, NavListShowMoreItemProp
         const itemsPerPage = Math.ceil(childCount / pages)
         const nextItemToFocus = itemsPerPage * currentPage - itemsPerPage
 
-        // console.log(focusTarget, focusTarget.length, childCount)
         focusTarget[pages ? nextItemToFocus : focusTarget.length - childCount].focus()
         targetFocused.current = currentPage
       }
