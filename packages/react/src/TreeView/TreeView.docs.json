@@ -124,7 +124,7 @@
       ]
     },
     {
-      "name": "TreeView.LeadingVisual",
+      "name": "TreeView.LeadingVisual (Known accessiblity issues. Use at your own risk ⚠️)",
       "props": [
         {
           "name": "children",
