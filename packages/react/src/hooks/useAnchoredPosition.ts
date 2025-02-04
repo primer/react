@@ -8,6 +8,7 @@ import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 export interface AnchoredPositionHookSettings extends Partial<PositionSettings> {
   floatingElementRef?: React.RefObject<Element>
   anchorElementRef?: React.RefObject<Element>
+  pinPosition?: Boolean
 }
 
 /**
@@ -34,29 +35,24 @@ export function useAnchoredPosition(
 
   const updatePosition = React.useCallback(
     () => {
-      // TODO: remove
-      console.log('updatePosition')
       if (floatingElementRef.current instanceof Element && anchorElementRef.current instanceof Element) {
         const newPosition = getAnchoredPosition(floatingElementRef.current, anchorElementRef.current, settings)
-        const anchorTop = anchorElementRef.current?.getBoundingClientRect().top
         setPosition(prev => {
-          // TODO: remove
-          console.log({
-            prev,
-            newPosition,
-            floatingHeight: floatingElementRef.current?.clientHeight,
-            floatingBottom: floatingElementRef.current?.getBoundingClientRect().bottom,
-            anchorTop,
-          })
           if (
+            settings?.pinPosition &&
             prev &&
-            prev.anchorSide !== newPosition.anchorSide &&
-            ['outside-top', 'inside-top'].includes(prev.anchorSide)
+            ['outside-top', 'inside-top'].includes(prev.anchorSide) &&
+            (prev.anchorSide !== newPosition.anchorSide || prev.top < newPosition.top)
           ) {
+            const anchorTop = anchorElementRef.current?.getBoundingClientRect().top ?? 0
             if (anchorTop > (floatingElementRef.current?.clientHeight ?? 0)) {
               setPrevHeight(prevHeight => {
-                if (floatingElementRef?.current && prevHeight) {
-                  ;(floatingElementRef.current as HTMLElement).style.height = `${prevHeight}px`
+                if (prevHeight && prevHeight > (floatingElementRef.current?.clientHeight ?? 0)) {
+                  requestAnimationFrame(() => {
+                    ;(floatingElementRef.current as HTMLElement).style.height = `${prevHeight}px`
+                  })
+                } else {
+                  prev = newPosition
                 }
                 return prevHeight
               })

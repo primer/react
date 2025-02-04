@@ -89,6 +89,10 @@ interface AnchoredOverlayBaseProps extends Pick<OverlayProps, 'height' | 'width'
    * If `preventOverflow` is `true`, the width of the `Overlay` will not be adjusted.
    */
   preventOverflow?: boolean
+  /**
+   * If true, the overlay will attempt to prevent position shifting when sitting at the top of the anchor.
+   */
+  pinPosition?: boolean
 }
 
 export type AnchoredOverlayProps = AnchoredOverlayBaseProps &
@@ -117,6 +121,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   alignmentOffset,
   anchorOffset,
   className,
+  pinPosition,
   preventOverflow = true,
 }) => {
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
@@ -155,6 +160,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
     {
       anchorElementRef: anchorRef,
       floatingElementRef: overlayRef,
+      pinPosition: pinPosition,
       side,
       align,
       alignmentOffset,
