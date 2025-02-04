@@ -434,7 +434,7 @@ const ShowMoreItem = React.forwardRef<HTMLButtonElement, NavListShowMoreItemProp
     const groupId = React.useMemo(() => ({id}), [id])
     const childCount = React.Children.count(children)
 
-    const focusExpandedItem = () => {
+    const focusExpandedItem = React.useCallback(() => {
       const focusTarget: HTMLElement[] = Array.from(
         document.querySelectorAll(`[data-show-more-group-id="${groupId.id}"]`),
       )
@@ -447,13 +447,13 @@ const ShowMoreItem = React.forwardRef<HTMLButtonElement, NavListShowMoreItemProp
         focusTarget[pages ? nextItemToFocus : focusTarget.length - childCount].focus()
         targetFocused.current = currentPage
       }
-    }
+    }, [])
 
     React.useEffect(() => {
       if (expanded && targetFocused.current !== currentPage) {
         focusExpandedItem()
       }
-    }, [expanded])
+    }, [expanded, currentPage, focusExpandedItem])
 
     const items = React.Children.toArray(children).filter(child => isValidElement(child) && child.type === Item)
 
