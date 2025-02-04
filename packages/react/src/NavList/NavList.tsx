@@ -434,40 +434,46 @@ const ShowMoreItem = React.forwardRef<HTMLButtonElement, NavListShowMoreItemProp
     const groupId = React.useMemo(() => ({id}), [id])
     const childCount = React.Children.count(children)
 
+    const focusExpandedItem = () => {
+      const focusTarget: HTMLElement[] = Array.from(
+        document.querySelectorAll(`[data-show-more-group-id="${groupId.id}"]`),
+      )
+
+      if (focusTarget.length) {
+        const itemsPerPage = Math.ceil(childCount / pages)
+        const nextItemToFocus = itemsPerPage * currentPage - itemsPerPage
+
+        // console.log(focusTarget, focusTarget.length, childCount)
+        focusTarget[pages ? nextItemToFocus : focusTarget.length - childCount].focus()
+        targetFocused.current = currentPage
+      }
+    }
+
     React.useEffect(() => {
       if (expanded && targetFocused.current !== currentPage) {
-        const focusTarget: HTMLElement[] = Array.from(
-          document.querySelectorAll(`[data-show-more-group-id="${groupId.id}"]`),
-        )
-
-        if (focusTarget.length) {
-          const itemsPerPage = Math.ceil(childCount / pages)
-          const nextItemToFocus = itemsPerPage * currentPage - itemsPerPage
-
-          focusTarget[pages ? nextItemToFocus : focusTarget.length - childCount].focus()
-          targetFocused.current = currentPage
-        }
+        focusExpandedItem()
       }
-    }, [expanded, groupId, currentPage, childCount, pages])
+    }, [expanded])
+
+    const items = React.Children.toArray(children).filter(child => isValidElement(child) && child.type === Item)
 
     return (
       <>
         {expanded && (
           <ItemWithinGroup.Provider value={groupId}>
-            {React.Children.toArray(children).filter((child, index, arr) => {
+            {items.map((child, index, arr) => {
               const childrenLength = arr.length
-
-              // If pages === 2, we want to show the amount of items in the array divided by 2
-              // If there are 10 items, we should show 5 at a time
               if (pages) {
+                // If pages === 2, we want to show the amount of items in the array divided by 2
+                // If there are 10 items, we should show 5 at a time
                 const pageCount = childrenLength / pages
                 const amountToShow = Math.ceil(pageCount * currentPage)
 
                 if (index < amountToShow) {
-                  return React.isValidElement(child)
+                  return child
                 }
               } else {
-                return React.isValidElement(child)
+                return child
               }
             })}
           </ItemWithinGroup.Provider>
