@@ -9,7 +9,6 @@ const COLOR_CONTRAST_SKIP = [
   'experimental-components-hidden-examples--pull-request-page',
   'components-underlinenav-examples--pull-request-page',
   'components-actionmenu-examples--groups-and-descriptions',
-  'components-anchoredoverlay-features--portal-inside-scrolling-element',
   'components-button-features--expanded-button',
   'components-formcontrol-features--with-caption-and-disabled',
   'components-formcontrol-features--with-leading-visual',
@@ -21,7 +20,6 @@ const COLOR_CONTRAST_SKIP = [
   'components-statelabel-features--issue-opened',
   'components-statelabel-features--pull-opened',
   'components-statelabel-features--small',
-  'hooks-usefocuszone--special-situations',
   'deprecated-components-actionlist--complex-list-full-variant-story', // Deprecated component
 ]
 

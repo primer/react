@@ -3,6 +3,7 @@ import type {Meta} from '@storybook/react'
 import styled from 'styled-components'
 import {Box, BaseStyles, Flash, theme, ThemeProvider} from '..'
 import {Button} from '../Button'
+import Link from '../Link'
 import {FocusKeys} from '@primer/behaviors'
 import type {Direction} from '@primer/behaviors'
 import {themeGet} from '@styled-system/theme-get'
@@ -385,7 +386,7 @@ export const SpecialSituations = () => {
         <Flash sx={{mb: 3}}>
           This story is very esoteric! It only exists to show some of the nuance of the arrow key focus behavior in
           different situations. Focus treatment within your component should be evaluated for your particular UX using
-          the <a href="https://www.w3.org/TR/wai-aria-practices-1.1/#keyboard">ARIA guidelines</a>.
+          the <Link href="https://www.w3.org/TR/wai-aria-practices-1.1/#keyboard">ARIA guidelines</Link>.
         </Flash>
         <Box position="absolute" right={5} top={2}>
           Last key pressed: {lastKey}
