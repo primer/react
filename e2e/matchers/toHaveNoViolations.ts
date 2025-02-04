@@ -5,7 +5,7 @@ import {source} from 'axe-core'
 import path from 'node:path'
 import fs from 'node:fs'
 
-const defaultOptions = {
+const defaultOptions = (theme: string) => ({
   rules: {
     'document-title': {
       enabled: false,
@@ -27,18 +27,25 @@ const defaultOptions = {
       enabled: true,
     },
     'color-contrast': {
-      enabled: false,
+      enabled: theme !== 'dark_dimmed',
     },
   },
-}
+})
 
 expect.extend({
   async toHaveNoViolations(page: Page, options = {rules: {}}) {
+    // get color scheme from globals
+
+    const pageUrl = page.url()
+
+    const globals = new URL(pageUrl).searchParams.get('globals')
+    const colorScheme = globals?.split('colorScheme:')[1] ?? 'light'
+
     const runConfig = {
-      ...defaultOptions,
+      ...defaultOptions(colorScheme),
       ...options,
       rules: {
-        ...defaultOptions.rules,
+        ...defaultOptions(colorScheme).rules,
         ...options.rules,
       },
     }
