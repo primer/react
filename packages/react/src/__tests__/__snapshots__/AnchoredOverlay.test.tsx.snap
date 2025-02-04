@@ -27,6 +27,7 @@ exports[`AnchoredOverlay should render consistently when open 1`] = `
 
 .c1[data-reflow-container='true'] {
   max-width: calc(100vw - 2rem);
+  max-height: 100vh;
 }
 
 @media (forced-colors:active) {
