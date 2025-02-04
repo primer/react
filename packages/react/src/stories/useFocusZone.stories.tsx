@@ -386,7 +386,11 @@ export const SpecialSituations = () => {
         <Flash sx={{mb: 3}}>
           This story is very esoteric! It only exists to show some of the nuance of the arrow key focus behavior in
           different situations. Focus treatment within your component should be evaluated for your particular UX using
-          the <Link href="https://www.w3.org/TR/wai-aria-practices-1.1/#keyboard">ARIA guidelines</Link>.
+          the{' '}
+          <Link href="https://www.w3.org/TR/wai-aria-practices-1.1/#keyboard" inline>
+            ARIA guidelines
+          </Link>
+          .
         </Flash>
         <Box position="absolute" right={5} top={2}>
           Last key pressed: {lastKey}
