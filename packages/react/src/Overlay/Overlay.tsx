@@ -75,7 +75,7 @@ const StyledOverlay = toggleStyledComponent(
     min-width: 192px;
     max-width: ${props => props.maxWidth && widthMap[props.maxWidth]};
     height: ${props => heightMap[props.height || 'auto']};
-    max-height: ${props => props.maxHeight && heightMap[props.maxHeight]};
+    max-height: ${props => (props.maxHeight ? heightMap[props.maxHeight] : '100vh')};
     width: ${props => widthMap[props.width || 'auto']};
     border-radius: 12px;
     overflow: ${props => (props.overflow ? props.overflow : 'hidden')};
@@ -101,7 +101,6 @@ const StyledOverlay = toggleStyledComponent(
 
     &[data-reflow-container='true'] {
       max-width: calc(100vw - 2rem);
-      max-height: 100vh;
     }
 
     ${sx};
