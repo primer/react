@@ -132,7 +132,7 @@ interface SelectPanelBaseProps {
 
 export type SelectPanelProps = SelectPanelBaseProps &
   Omit<FilteredActionListProps, 'selectionVariant'> &
-  Pick<AnchoredOverlayProps, 'open' | 'height' | 'preventOverflow' | 'width'> &
+  Pick<AnchoredOverlayProps, 'open' | 'height' | 'width'> &
   AnchoredOverlayWrapperAnchorProps &
   (SelectPanelSingleSelection | SelectPanelMultiSelection)
 
@@ -189,7 +189,6 @@ export function SelectPanel({
   height,
   width,
   id,
-  preventOverflow = false,
   ...listProps
 }: SelectPanelProps): JSX.Element {
   const titleId = useId()
@@ -452,7 +451,6 @@ export function SelectPanel({
         }}
         focusTrapSettings={focusTrapSettings}
         focusZoneSettings={focusZoneSettings}
-        preventOverflow={preventOverflow}
         height={height}
         width={width}
         anchorId={id}
