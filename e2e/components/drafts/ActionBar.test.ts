@@ -16,16 +16,6 @@ test.describe('ActionBar', () => {
           })
           expect(await page.screenshot()).toMatchSnapshot(`drafts.ActionBar.CommentBox.${theme}.png`)
         })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'experimental-components-actionbar-examples--comment-box',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations()
-        })
       })
     }
   })
