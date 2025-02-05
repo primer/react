@@ -1,4 +1,5 @@
 import React, {useContext, useEffect, useMemo, useRef, useState} from 'react'
+import {Announce} from '../live-region'
 import {scrollIntoView} from '@primer/behaviors'
 import type {ScrollIntoViewOptions} from '@primer/behaviors'
 import type {ActionListItemProps} from '../ActionList'
@@ -381,9 +382,9 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
             </ActionList>
           ) : emptyStateText !== false && emptyStateText !== null ? (
             enabled ? (
-              <Box className={classes.EmptyStateWrapper}>{emptyStateText}</Box>
+              <Announce className={classes.EmptyStateWrapper}>{emptyStateText}</Announce>
             ) : (
-              <Box p={3}>{emptyStateText}</Box>
+              <Announce p={3}>{emptyStateText}</Announce>
             )
           ) : null}
         </div>
