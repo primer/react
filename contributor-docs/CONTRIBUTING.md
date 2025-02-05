@@ -109,7 +109,7 @@ Here's an example of a basic component written in the style of Primer react comp
 ```tsx
 import React from 'react'
 import styles from './Component.module.css'
-import clsx from 'clsx'
+import {clsx} from 'clsx'
 
 export type ComponentProps = {
   prop?: 'value1' | 'value2'
@@ -154,7 +154,7 @@ Each component should accept a prop called `className` that allows for consumers
 For multiple classnames, use `clsx` to merge them together. 
 
 ```tsx
-import clsx from 'clsx'
+import {clsx} from 'clsx'
 import styles from './Component.module.css'
 
 const Nav = ({className}) => {
