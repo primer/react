@@ -369,7 +369,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
           >
             <LiBox
               {...containerProps}
-              sx={merge<BetterSystemStyleObject>(styles, sxProp)}
+              sx={sxProp}
               ref={listSemantics ? forwardedRef : null}
               data-variant={variant === 'danger' ? variant : undefined}
               data-active={active ? true : undefined}

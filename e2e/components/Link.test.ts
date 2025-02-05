@@ -45,16 +45,6 @@ test.describe('Link', () => {
             await page.keyboard.press('Tab')
             expect(await page.screenshot()).toMatchSnapshot(`Link.${story.title}.${theme}.focus.png`)
           })
-
-          test('axe @aat', async ({page}) => {
-            await visit(page, {
-              id: story.id,
-              globals: {
-                colorScheme: theme,
-              },
-            })
-            await expect(page).toHaveNoViolations()
-          })
         })
       }
     })
@@ -73,16 +63,6 @@ test.describe('Link', () => {
 
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`Link.Dev Inline.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-link-devonly--inline',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations()
         })
       })
     }

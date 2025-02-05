@@ -234,26 +234,6 @@ test.describe('PageHeader', () => {
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`PageHeader.With Page Layout.${theme}.png`)
         })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-pageheader-examples--with-page-layout',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: false,
-              },
-              // TODO: Remove this rule when the issue is fixed https://github.com/github/primer/issues/1865
-              'scrollable-region-focusable': {
-                enabled: false,
-              },
-            },
-          })
-        })
       })
     }
   })

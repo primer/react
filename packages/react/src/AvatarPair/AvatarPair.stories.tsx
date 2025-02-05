@@ -10,7 +10,7 @@ export default {
 
 export const Default = () => (
   <AvatarPair>
-    <Avatar src="https://avatars.githubusercontent.com/u/7143434?v=4" />
-    <Avatar src="https://avatars.githubusercontent.com/primer" />
+    <Avatar src="https://avatars.githubusercontent.com/u/7143434?v=4" alt="Primer avatar, parent" />
+    <Avatar src="https://avatars.githubusercontent.com/primer" alt="Primer avatar, child" />
   </AvatarPair>
 )

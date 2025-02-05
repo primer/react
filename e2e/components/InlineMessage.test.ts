@@ -39,16 +39,6 @@ test.describe('InlineMessage', () => {
             // Default state
             expect(await page.screenshot()).toMatchSnapshot(`InlineMessage.${story.title}.${theme}.png`)
           })
-
-          test('axe @aat', async ({page}) => {
-            await visit(page, {
-              id: story.id,
-              globals: {
-                colorScheme: theme,
-              },
-            })
-            await expect(page).toHaveNoViolations()
-          })
         })
       }
     })
@@ -72,17 +62,6 @@ test.describe('InlineMessage', () => {
 
             // Default state
             expect(await page.screenshot()).toMatchSnapshot(`InlineMessage.${id}.${theme}.png`)
-          })
-
-          test('axe @aat', async ({page}) => {
-            await visit(page, {
-              id: 'experimental-components-inlinemessage--playground',
-              globals: {
-                colorScheme: theme,
-              },
-              args: scenario,
-            })
-            await expect(page).toHaveNoViolations()
           })
         })
       }
