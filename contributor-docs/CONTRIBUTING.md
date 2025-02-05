@@ -123,10 +123,7 @@ const Component: React.FC<React.PropsWithChildren<ComponentProps>> = ({
   ...props
 }) => {
   return (
-    <nav
-      className={clsx(className, styles.Nav)}
-      {...props}
-    >
+    <nav className={clsx(className, styles.Nav)} {...props}>
       {children}
     </nav>
   )
@@ -149,9 +146,9 @@ We use [`eslint-plugin-ssr-friendly`](https://github.com/kopiro/eslint-plugin-ss
 
 ### Adding the `className` prop
 
-Each component should accept a prop called `className` that allows for consumers to pass along a custom class. Only pass a `className` to the top level dom element of each component and sub component. 
+Each component should accept a prop called `className` that allows for consumers to pass along a custom class. Only pass a `className` to the top level dom element of each component and sub component.
 
-For multiple classnames, use `clsx` to merge them together. 
+For multiple classnames, use `clsx` to merge them together.
 
 ```tsx
 import {clsx} from 'clsx'
@@ -159,10 +156,7 @@ import styles from './Component.module.css'
 
 const Nav = ({className}) => {
   return (
-    <nav
-      className={clsx(className, styles.Nav)}
-      {...props}
-    >
+    <nav className={clsx(className, styles.Nav)} {...props}>
       {children}
     </nav>
   )
