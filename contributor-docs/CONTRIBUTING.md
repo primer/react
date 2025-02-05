@@ -33,7 +33,7 @@ If you're looking for ways to contribute, a great place to start is our issues l
 
 A common question asked about Primer Components is how to know what should be added to Primer Components and what is best left as a local component in a consuming application. Though there are no hard & fast rules about what can and cannot be added to Primer Components, here are a few things we take into consideration:
 
-- Is the new feature an existing pattern in Primer CSS or related to UI built at GitHub? Primer Components is first and foremost a library for building UI at GitHub - patterns that aren't currently being used in GitHub UI (either on github.com or in a GitHub owned project outside of github.com) probably shouldn't be added to Primer Components. Exceptions to this could be helper components that don't necessarily render UI but help with the development process (like `Box`).
+- Is the new feature an existing pattern in Primer CSS or related to UI built at GitHub? Primer Components is first and foremost a library for building UI at GitHub - patterns that aren't currently being used in GitHub UI (either on github.com or in a GitHub owned project outside of github.com) probably shouldn't be added to Primer Components. Exceptions to this could be helper components that don't necessarily render UI but help with the development process.
 
 - Does the proposed component get used in more than one or two places across GitHub UI? A component that's only meant to be used in one place and doesn't have potential to be reused in many places probably should exist as a local component. An example of something like this might be a component that renders content specific to a single GitHub product.
 
@@ -82,6 +82,7 @@ primer-react/
 │  ├─ Breadcrumbs/
 │  │  ├─ index.ts                             // Exporting the component
 │  │  ├─ Breadcrumbs.tsx                      // Primary component file
+│  │  ├─ Breadcrumbs.module.css               // Primary component CSS file
 │  │  ├─ BreadcrumbsItem.tsx                  // Subcomponent (include parent component name to increase findability in most IDEs)
 │  │  ├─ Breadcrumbs.stories.tsx              // Storybook stories (Default and Playground)
 │  │  ├─ Breadcrumbs.features.stories.tsx     // Storybook feature stories
@@ -107,33 +108,27 @@ Here's an example of a basic component written in the style of Primer react comp
 
 ```tsx
 import React from 'react'
-import Box from '../Box'
-import type {BetterSystemStyleObject, SxProp} from '../sx'
-import {merge} from '../sx'
+import styles from './Component.module.css'
+import clsx from 'clsx'
 
 export type ComponentProps = {
   prop?: 'value1' | 'value2'
+  className?: string
 } & SxProp
 
 const Component: React.FC<React.PropsWithChildren<ComponentProps>> = ({
   prop = 'value1',
-  sx = {},
   children,
+  className,
   ...props
 }) => {
   return (
-    <Box
-      as="nav"
-      sx={merge<BetterSystemStyleObject>(
-        {
-          // additional styles
-        },
-        sx,
-      )}
+    <nav
+      className={clsx(className, styles.Nav)}
       {...props}
     >
       {children}
-    </Box>
+    </nav>
   )
 }
 
@@ -152,21 +147,26 @@ We consider a component SSR-compatible if it...
 
 We use [`eslint-plugin-ssr-friendly`](https://github.com/kopiro/eslint-plugin-ssr-friendly) to prevent misuse of DOM globals. If you see an error from this plugin, please fix it before merging your PR.
 
-### Adding the `sx` prop
+### Adding the `className` prop
 
-Each component should accept a prop called `sx` that allows for setting theme-aware ad-hoc styles. See the [overriding styles](https://primer.style/react/overriding-styles) doc for more information on using the prop.
+Each component should accept a prop called `className` that allows for consumers to pass along a custom class. Only pass a `className` to the top level dom element of each component and sub component. 
 
-To add the `sx` prop to your component: import the default export from the `sx` module, add it to your style definition, and add the appropriate prop types. **The `sx` prop should go at the _very end_ of your style definition.**
+For multiple classnames, use `clsx` to merge them together. 
 
 ```tsx
-import type {SxProp} from './sx'
-import sx from './sx'
+import clsx from 'clsx'
+import styles from './Component.module.css'
 
-const Component = styled.div<SxProp>`
-  // additional styles here
-
-  ${sx};
-`
+const Nav = ({className}) => {
+  return (
+    <nav
+      className={clsx(className, styles.Nav)}
+      {...props}
+    >
+      {children}
+    </nav>
+  )
+}
 ```
 
 ### Linting
@@ -201,6 +201,20 @@ We use [markdownlint](https://github.com/markdownlint/markdownlint) to lint Mark
 npm run lint:md
 ```
 
+#### Stylelint
+
+We use the [Primer stylelint config](https://github.com/primer/stylelint-config) to lint CSS files. To check your work before pushing, run:
+
+```sh
+npm run lint:css
+```
+
+Some CSS rules can be autofixed by running the following command:
+
+```sh
+npm run lint:css:fix
+```
+
 ### TypeScript support
 
 Primer React is written in TypeScript. We include type definitions in our built artifacts. To check types, run the `type-check` test script:
@@ -211,8 +225,9 @@ npm run test:type-check
 
 ### Additional resources
 
-- [Primer Components Philosophy](https://primer.style/components/philosophy)
-- [Primer Components Core Concepts](https://primer.style/components/core-concepts)
+- [Primer Components Philosophy](https://primer.style/guides/react/philosophy)
+- [Primer Components Core Concepts](https://primer.style/guides/react/core-concepts)
+- [Authoring CSS](./authoring-css.md)
 
 ## Writing documentation
 
