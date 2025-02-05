@@ -281,7 +281,7 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
     if (allItemsToRender.length === 0) {
       debounceAnnouncement(emptyStateText as string)
     }
-  }, [allItemsToRender])
+  }, [allItemsToRender, emptyStateText])
 
   useFocusZone(
     {
