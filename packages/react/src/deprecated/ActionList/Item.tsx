@@ -253,7 +253,6 @@ const StyledItem = styled.div<
 
   &:focus {
     background: ${({variant, item}) => getItemVariant(variant, item?.disabled).focusBg};
-    outline: none;
   }
 
   &:active {

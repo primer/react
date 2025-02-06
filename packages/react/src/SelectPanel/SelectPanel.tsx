@@ -9,7 +9,7 @@ import {FilteredActionList} from '../FilteredActionList'
 import Heading from '../Heading'
 import type {OverlayProps} from '../Overlay'
 import type {TextInputProps} from '../TextInput'
-import type {ItemProps, ItemInput} from './types'
+import type {ItemInput} from './types'
 
 import {Button} from '../Button'
 import {useProvidedRefOrCreate} from '../hooks'
@@ -25,30 +25,11 @@ import {announce} from '@primer/live-region-element'
 
 import classes from './SelectPanel.module.css'
 import {clsx} from 'clsx'
+import {ActionListContainerContext} from '../ActionList/ActionListContainerContext'
 
 // we add a delay so that it does not interrupt default screen reader announcement and queues after it
 const delayMs = 500
 const loadingDelayMs = 1000
-
-const getItemWithActiveDescendant = (
-  listRef: React.RefObject<HTMLElement>,
-  items: FilteredActionListProps['items'],
-) => {
-  const listElement = listRef.current
-  const activeItemElement = listElement?.querySelector('[data-is-active-descendant]')
-
-  if (!listElement || !activeItemElement?.textContent) return
-
-  const optionElements = listElement.querySelectorAll('[role="option"]')
-
-  const index = Array.from(optionElements).indexOf(activeItemElement)
-  const activeItem = items[index] as ItemInput | undefined
-
-  const text = activeItem?.text
-  const selected = activeItem?.selected
-
-  return {index, text, selected}
-}
 
 async function announceText(text: string) {
   const liveRegion = document.querySelector('live-region')
@@ -61,10 +42,6 @@ async function announceText(text: string) {
   })
 }
 
-async function announceFilterFocused() {
-  await announceText('Focus on filter text box and list of items')
-}
-
 async function announceNoItems() {
   await announceText('No matching items.')
 }
@@ -73,32 +50,13 @@ async function announceLoading() {
   await announceText('Loading.')
 }
 
-async function announceItemsChanged(
-  items: FilteredActionListProps['items'],
-  listContainerRef: React.RefObject<HTMLElement>,
-) {
-  const liveRegion = document.querySelector('live-region')
-
-  liveRegion?.clear() // clear previous announcements
-
-  // give @primer/behaviors a moment to update active-descendant
-  await new Promise(resolve => window.requestAnimationFrame(resolve))
-
-  const activeItem = getItemWithActiveDescendant(listContainerRef, items)
-  if (!activeItem) return
-  const {index, text, selected} = activeItem
-
+async function announceItemsChanged(items: FilteredActionListProps['items']) {
   const announcementText = [
     'List updated',
-    `Focused item: ${text}`,
-    `${selected ? 'selected' : 'not selected'}`,
-    `${index + 1} of ${items.length}`,
+    `${items.length} matching ${items.length === 1 ? 'item' : 'items'} listed`,
   ].join(', ')
 
-  await announce(announcementText, {
-    delayMs,
-    from: liveRegion ? liveRegion : undefined, // announce will create a liveRegion if it doesn't find one
-  })
+  await announceText(announcementText)
 }
 
 interface SelectPanelSingleSelection {
@@ -200,20 +158,13 @@ export function SelectPanel({
   const loadingManagedInternally = loading === undefined
   const loadingManagedExternally = !loadingManagedInternally
   const [inputRef, setInputRef] = React.useState<React.RefObject<HTMLInputElement> | null>(null)
-  const [listContainerElement, setListContainerElement] = useState<HTMLElement | null>(null)
-  const [needItemsChangedAnnouncement, setNeedItemsChangedAnnouncement] = useState<boolean>(false)
+  const panelRef = useRef<HTMLDivElement>(null)
 
-  const onListContainerRefChanged: FilteredActionListProps['onListContainerRefChanged'] = useCallback(
-    (node: HTMLElement | null) => {
-      setListContainerElement(node)
-
-      if (needItemsChangedAnnouncement) {
-        announceItemsChanged(items, {current: node})
-        setNeedItemsChangedAnnouncement(false)
-      }
-    },
-    [items, needItemsChangedAnnouncement],
-  )
+  useEffect(() => {
+    if (open && inputRef) {
+      inputRef.current?.focus()
+    }
+  }, [inputRef, open])
 
   const onInputRefChanged = useCallback(
     (ref: React.RefObject<HTMLInputElement>) => {
@@ -221,6 +172,26 @@ export function SelectPanel({
     },
     [setInputRef],
   )
+
+  useEffect(() => {
+    if (inputRef?.current) {
+      const inputEl = inputRef.current
+      const keydownListener = (event: KeyboardEvent) => {
+        if (event.key === 'ArrowDown') {
+          if (panelRef.current) {
+            const firstItem = panelRef.current.querySelector('[data-select-panel-item=true]') as HTMLElement | undefined
+            firstItem?.focus()
+
+            // prevent scrolling the item out of view
+            event.preventDefault()
+          }
+        }
+      }
+
+      inputRef.current.addEventListener('keydown', keydownListener)
+      return () => inputEl.removeEventListener('keydown', keydownListener)
+    }
+  }, [inputRef])
 
   const onFilterChange: FilteredActionListProps['onFilterChange'] = useCallback(
     (value, e) => {
@@ -272,11 +243,7 @@ export function SelectPanel({
       if (items.length === 0) {
         announceNoItems()
       } else {
-        if (listContainerElement) {
-          announceItemsChanged(items, {current: listContainerElement})
-        } else {
-          setNeedItemsChangedAnnouncement(true)
-        }
+        announceItemsChanged(items)
       }
     }
 
@@ -301,30 +268,6 @@ export function SelectPanel({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [items])
 
-  useEffect(() => {
-    if (inputRef?.current) {
-      const ref = inputRef.current
-      const listener = () => {
-        announceFilterFocused()
-      }
-
-      if (document.activeElement === ref) {
-        listener()
-      }
-
-      ref.addEventListener('focus', listener)
-
-      // We would normally expect AnchoredOverlay's focus trap to automatically focus the input,
-      // but for some reason the ref isn't populated until _after_ the panel is open, which is
-      // too late. So, we focus manually here.
-      if (open) {
-        ref.focus()
-      }
-
-      return () => ref.removeEventListener('focus', listener)
-    }
-  }, [inputRef, open])
-
   // Populate panel with items on first open
   useEffect(() => {
     if (loadingManagedExternally) return
@@ -340,7 +283,7 @@ export function SelectPanel({
         onFilterChange(filterValue, null)
       }
     }
-  }, [open, dataLoadedOnce, onFilterChange, filterValue, items, loadingManagedExternally, listContainerElement])
+  }, [open, dataLoadedOnce, onFilterChange, filterValue, items, loadingManagedExternally])
 
   const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_staff'
   const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
@@ -378,7 +321,7 @@ export function SelectPanel({
 
       return {
         ...item,
-        role: 'option',
+        'data-select-panel-item': 'true',
         selected: 'selected' in item && item.selected === undefined ? undefined : isItemSelected,
         onAction: (itemFromAction, event) => {
           item.onAction?.(itemFromAction, event)
@@ -403,7 +346,7 @@ export function SelectPanel({
           singleSelectOnChange(item === selected ? undefined : item)
           onClose('selection')
         },
-      } as ItemProps
+      } as ItemInput
     })
   }, [onClose, onSelectedChange, items, selected])
 
@@ -468,6 +411,7 @@ export function SelectPanel({
         <Box
           sx={enabled ? undefined : {display: 'flex', flexDirection: 'column', height: 'inherit', maxHeight: 'inherit'}}
           className={enabled ? classes.Wrapper : undefined}
+          ref={panelRef}
         >
           <Box sx={enabled ? undefined : {pt: 2, px: 3}} className={enabled ? classes.Content : undefined}>
             <Heading
@@ -488,29 +432,29 @@ export function SelectPanel({
               </Box>
             ) : null}
           </Box>
-          <FilteredActionList
-            filterValue={filterValue}
-            onFilterChange={onFilterChange}
-            onListContainerRefChanged={onListContainerRefChanged}
-            onInputRefChanged={onInputRefChanged}
-            placeholderText={placeholderText}
-            {...listProps}
-            role="listbox"
-            // browsers give aria-labelledby precedence over aria-label so we need to make sure
-            // we don't accidentally override props.aria-label
-            aria-labelledby={listProps['aria-label'] ? undefined : titleId}
-            aria-multiselectable={isMultiSelectVariant(selected) ? 'true' : 'false'}
-            selectionVariant={isMultiSelectVariant(selected) ? 'multiple' : 'single'}
-            items={itemsToRender}
-            textInputProps={extendedTextInputProps}
-            loading={loading || isLoading}
-            loadingType={loadingType()}
-            // inheriting height and maxHeight ensures that the FilteredActionList is never taller
-            // than the Overlay (which would break scrolling the items)
-            sx={enabled ? sx : {...sx, height: 'inherit', maxHeight: 'inherit'}}
-            className={enabled ? clsx(className, classes.FilteredActionList) : className}
-            announcementsEnabled={false}
-          />
+          <ActionListContainerContext.Provider value={{container: 'SelectPanel', focusZoneFocusOutBehavior: 'wrap'}}>
+            <FilteredActionList
+              filterValue={filterValue}
+              onFilterChange={onFilterChange}
+              onInputRefChanged={onInputRefChanged}
+              placeholderText={placeholderText}
+              {...listProps}
+              role="listbox"
+              // browsers give aria-labelledby precedence over aria-label so we need to make sure
+              // we don't accidentally override props.aria-label
+              aria-labelledby={listProps['aria-label'] ? undefined : titleId}
+              // aria-multiselectable={isMultiSelectVariant(selected) ? 'true' : 'false'}
+              selectionVariant={isMultiSelectVariant(selected) ? 'multiple' : 'single'}
+              items={itemsToRender}
+              textInputProps={extendedTextInputProps}
+              loading={loading || isLoading}
+              loadingType={loadingType()}
+              // inheriting height and maxHeight ensures that the FilteredActionList is never taller
+              // than the Overlay (which would break scrolling the items)
+              sx={enabled ? sx : {...sx, height: 'inherit', maxHeight: 'inherit'}}
+              className={enabled ? clsx(className, classes.FilteredActionList) : className}
+            />
+          </ActionListContainerContext.Provider>
           {footer && (
             <Box
               sx={
