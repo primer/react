@@ -46,7 +46,7 @@ export type ActionBarProps = {
   className?: string
 } & A11yProps
 
-export type ActionBarIconButtonProps = IconButtonProps
+export type ActionBarIconButtonProps = {disabled?: boolean} & IconButtonProps
 
 const MORE_BTN_WIDTH = 86
 
@@ -215,7 +215,13 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
                     if (menuItem.type === ActionList.Divider) {
                       return <ActionList.Divider key={index} />
                     } else {
-                      const {children: menuItemChildren, onClick, icon: Icon, 'aria-label': ariaLabel} = menuItem.props
+                      const {
+                        children: menuItemChildren,
+                        onClick,
+                        icon: Icon,
+                        'aria-label': ariaLabel,
+                        disabled,
+                      } = menuItem.props
                       return (
                         <ActionList.Item
                           key={menuItemChildren}
@@ -224,6 +230,7 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
                             focusOnMoreMenuBtn()
                             typeof onClick === 'function' && onClick(event)
                           }}
+                          disabled={disabled}
                         >
                           {Icon ? (
                             <ActionList.LeadingVisual>
@@ -254,7 +261,7 @@ export const ActionBarIconButton = forwardRef((props: ActionBarIconButtonProps, 
     const domRect = (ref as MutableRefObject<HTMLElement>).current.getBoundingClientRect()
     setChildrenWidth({text, width: domRect.width})
   }, [ref, setChildrenWidth])
-  return <IconButton ref={ref} size={size} {...props} variant="invisible" />
+  return <IconButton aria-disabled={props.disabled} ref={ref} size={size} {...props} variant="invisible" />
 })
 
 export const VerticalDivider = () => {
