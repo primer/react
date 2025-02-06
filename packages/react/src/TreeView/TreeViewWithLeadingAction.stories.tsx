@@ -29,7 +29,7 @@ export const LeadingAction: StoryFn = () => {
         title="High-risk feature"
         description={
           <p>
-            Usage of LeadingAction is discouraged due to high-accessibility risk. See
+            Usage of LeadingAction is discouraged due to high-accessibility risk. See{' '}
             <Link inline={true} href="https://github.com/github/primer/issues/3446">
               audit issue (staff only)
             </Link>
