@@ -1,0 +1,42 @@
+name: chatops
+on:
+  issue_comment:
+    types: [created]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  pull-requests: write
+
+jobs:
+  lock:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: github/command@v1.3.0
+        id: command
+        with:
+          command: '.lock'
+          allowed_contexts: 'pull_request'
+          allowlist: 'primer/engineer-reviewers'
+          permissions: 'admin'
+      - name: Update branch protections
+        if: ${{ steps.command.outputs.continue == 'true' }}
+        run: gh api -X PUT /repos/primer/react/branches/main/protection -F 'lock_branch=true'
+
+  unlock:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: github/command@v1.3.0
+        id: command
+        with:
+          command: '.lock'
+          allowed_contexts: 'pull_request'
+          allowlist: 'primer/engineer-reviewers'
+          permissions: 'admin'
+      - name: Update branch protections
+        if: ${{ steps.command.outputs.continue == 'true' }}
+        run: gh api -X PUT /repos/primer/react/branches/main/protection -F 'lock_branch=false'
