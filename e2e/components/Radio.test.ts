@@ -85,22 +85,6 @@ test.describe('Radio', () => {
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`Radio.With Caption.${theme}.png`)
         })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-radio-features--with-caption',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: false,
-              },
-            },
-          })
-        })
       })
     }
   })

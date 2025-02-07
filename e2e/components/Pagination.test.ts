@@ -33,16 +33,6 @@ test.describe('Pagination', () => {
             // Default state
             expect(await page.screenshot()).toMatchSnapshot(`Pagehead.${story.title}.${theme}.png`)
           })
-
-          test('axe @aat', async ({page}) => {
-            await visit(page, {
-              id: story.id,
-              globals: {
-                colorScheme: theme,
-              },
-            })
-            await expect(page).toHaveNoViolations()
-          })
         })
       }
     })

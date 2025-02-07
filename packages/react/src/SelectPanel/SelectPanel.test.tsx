@@ -5,7 +5,11 @@ import type {ItemInput, GroupedListProps} from '../deprecated/ActionList/List'
 import {userEvent} from '@testing-library/user-event'
 import ThemeProvider from '../ThemeProvider'
 import {FeatureFlags} from '../FeatureFlags'
+import type {InitialLoadingType} from './SelectPanel'
 import {getLiveRegion} from '../utils/testing'
+import {IconButton} from '../Button'
+import {ArrowLeftIcon} from '@primer/octicons-react'
+import Box from '../Box'
 
 const renderWithFlag = (children: React.ReactNode, flag: boolean) => {
   return render(
@@ -216,6 +220,37 @@ for (const useModernActionList of [false, true]) {
         renderWithFlag(<BasicSelectPanel aria-label="Custom label" />, useModernActionList)
         await user.click(screen.getByText('Select items'))
         expect(screen.getByRole('listbox', {name: 'Custom label'})).toBeInTheDocument()
+      })
+
+      it('should focus the filter input on open', async () => {
+        const user = userEvent.setup()
+
+        // This panel contains another focusable thing (the IconButton) that should not receive focus
+        // when the panel opens.
+        renderWithFlag(
+          <ThemeProvider>
+            <SelectPanel
+              onOpenChange={() => {}}
+              onFilterChange={() => {}}
+              onSelectedChange={() => {}}
+              open={true}
+              items={items}
+              selected={[]}
+              placeholder="Select items"
+              placeholderText="Filter items"
+              title={
+                <Box sx={{display: 'flex', alignItems: 'center', gap: 1}}>
+                  <IconButton icon={ArrowLeftIcon} aria-label="Back" />
+                  <span>Title</span>
+                </Box>
+              }
+            />
+          </ThemeProvider>,
+          useModernActionList,
+        )
+
+        await user.click(screen.getByText('Select items'))
+        expect(screen.getByLabelText('Filter items')).toHaveFocus()
       })
 
       describe('selection', () => {
@@ -435,7 +470,79 @@ for (const useModernActionList of [false, true]) {
         // this is only implemented with the feature flag
         if (!useModernActionList) return
 
-        it('should announce initial focused item', async () => {
+        beforeEach(() => {
+          const liveRegion = document.createElement('live-region')
+          document.body.appendChild(liveRegion)
+        })
+
+        function LoadingSelectPanel({
+          initialLoadingType = 'spinner',
+          items = [],
+        }: {
+          initialLoadingType?: InitialLoadingType
+          items?: SelectPanelProps['items']
+        }) {
+          const [open, setOpen] = React.useState(false)
+
+          return (
+            <ThemeProvider>
+              <SelectPanel
+                title="test title"
+                subtitle="test subtitle"
+                placeholder="Select items"
+                open={open}
+                items={items}
+                onFilterChange={() => {}}
+                selected={[]}
+                onSelectedChange={() => {}}
+                onOpenChange={isOpen => {
+                  setOpen(isOpen)
+                }}
+                initialLoadingType={initialLoadingType}
+              />
+            </ThemeProvider>
+          )
+        }
+
+        it('displays a loading spinner on first open', async () => {
+          const user = userEvent.setup()
+
+          renderWithFlag(<LoadingSelectPanel />, useModernActionList)
+
+          await user.click(screen.getByText('Select items'))
+
+          expect(screen.getByTestId('filtered-action-list-spinner')).toBeTruthy()
+        })
+
+        it('displays a loading skeleton on first open', async () => {
+          const user = userEvent.setup()
+
+          renderWithFlag(<LoadingSelectPanel initialLoadingType="skeleton" />, useModernActionList)
+
+          await user.click(screen.getByText('Select items'))
+
+          expect(screen.getByTestId('filtered-action-list-skeleton')).toBeTruthy()
+        })
+
+        it('displays a loading spinner in the text input if items are already loaded', async () => {
+          const user = userEvent.setup()
+
+          renderWithFlag(<LoadingSelectPanel items={items} />, useModernActionList)
+
+          await user.click(screen.getByText('Select items'))
+
+          expect(screen.getAllByRole('option')).toHaveLength(3)
+
+          // since the test component never repopulates the panel's list of items, the panel will
+          // enter the loading state after the following line executes and stay there indefinitely
+          await user.type(document.activeElement!, 'two')
+
+          // The aria-describedby attribute is only available if the icon is present. The input
+          // field has a role of combobox.
+          expect(screen.getByRole('combobox').hasAttribute('aria-describedby')).toBeTruthy()
+        })
+
+        it('should announce initially focused item', async () => {
           const user = userEvent.setup()
           renderWithFlag(<FilterableSelectPanel />, useModernActionList)
 
@@ -445,7 +552,7 @@ for (const useModernActionList of [false, true]) {
           // we wait because announcement is intentionally updated after a timeout to not interrupt user input
           await waitFor(async () => {
             expect(getLiveRegion().getMessage('polite')).toBe(
-              'Focus on filter text box and list of items, Focused item: item one, not selected, 1 of 3',
+              'List updated, Focused item: item one, not selected, 1 of 3',
             )
           })
         })
@@ -455,6 +562,17 @@ for (const useModernActionList of [false, true]) {
           renderWithFlag(<FilterableSelectPanel />, useModernActionList)
 
           await user.click(screen.getByText('Select items'))
+          expect(screen.getByLabelText('Filter items')).toHaveFocus()
+
+          await waitFor(
+            async () => {
+              expect(getLiveRegion().getMessage('polite')).toBe(
+                'List updated, Focused item: item one, not selected, 1 of 3',
+              )
+            },
+            {timeout: 3000}, // increased timeout because we don't want the test to compare with previous announcement
+          )
+
           await user.type(document.activeElement!, 'o')
           expect(screen.getAllByRole('option')).toHaveLength(2)
 

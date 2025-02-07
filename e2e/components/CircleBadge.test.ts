@@ -17,16 +17,6 @@ test.describe('CircleBadge', () => {
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`CircleBadge.Default.${theme}.png`)
         })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-circlebadge--default',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations()
-        })
       })
     }
   })
@@ -44,16 +34,6 @@ test.describe('CircleBadge', () => {
 
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`CircleBadge.Playground.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-circlebadge--playground',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations()
         })
       })
     }

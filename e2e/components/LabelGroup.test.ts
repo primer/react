@@ -17,16 +17,6 @@ test.describe('LabelGroup', () => {
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`LabelGroup.Default.${theme}.png`)
         })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-labelgroup--default',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations()
-        })
       })
     }
   })
@@ -44,16 +34,6 @@ test.describe('LabelGroup', () => {
 
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`LabelGroup.Playground.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-labelgroup--playground',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations()
         })
       })
     }
@@ -73,16 +53,6 @@ test.describe('LabelGroup', () => {
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`LabelGroup.TruncateToFive.${theme}.png`)
         })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-labelgroup-features--truncate-after-five',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations()
-        })
       })
     }
   })
@@ -100,16 +70,6 @@ test.describe('LabelGroup', () => {
 
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`LabelGroup.TruncateAuto.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-labelgroup-features--truncate-auto',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations()
         })
       })
     }

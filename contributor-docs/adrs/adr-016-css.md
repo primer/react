@@ -2,10 +2,10 @@
 
 ## Status
 
-| Stage    | Status                                                                |
-| -------- | --------------------------------------------------------------------- |
-| Approved | ✅                                                                    |
-| Adopted  | 🚧 [github/primer#2160](https://github.com/github/primer/issues/2160) |
+| Stage    | Status |
+| -------- | ------ |
+| Approved | ✅     |
+| Adopted  | ✅     |
 
 ## Context
 

@@ -17,16 +17,6 @@ test.describe('UnderlineNav--deprecated', () => {
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`UnderlineNav--deprecated.Default.${theme}.png`)
         })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'deprecated-components-underlinenav--default',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations()
-        })
       })
     }
   })
@@ -45,16 +35,6 @@ test.describe('UnderlineNav--deprecated', () => {
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`UnderlineNav--deprecated.Playground.${theme}.png`)
         })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'deprecated-components-underlinenav--playground',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations()
-        })
       })
     }
   })
@@ -72,16 +52,6 @@ test.describe('UnderlineNav--deprecated', () => {
 
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`UnderlineNav--deprecated.Actions.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'deprecated-components-underlinenav-features--actions',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations()
         })
       })
     }

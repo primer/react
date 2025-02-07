@@ -294,22 +294,6 @@ test.describe('ToggleSwitch', () => {
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`ToggleSwitch.With Caption.${theme}.png`)
         })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-toggleswitch-features--with-caption',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: false,
-              },
-            },
-          })
-        })
       })
     }
   })

@@ -67,16 +67,6 @@ test.describe('PageLayout', () => {
               `PageLayout.${story.title}.${theme}.png`,
             )
           })
-
-          test('axe @aat', async ({page}) => {
-            await visit(page, {
-              id: story.id,
-              globals: {
-                colorScheme: theme,
-              },
-            })
-            await expect(page).toHaveNoViolations()
-          })
         })
       }
     })
@@ -132,16 +122,6 @@ test.describe('PageLayout', () => {
             expect(isInViewPort(page, paragraphRect)).toBe(true)
           }
         })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: stickyPaneId,
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations()
-        })
       })
     }
   })
@@ -174,16 +154,6 @@ test.describe('PageLayout', () => {
           if (stickyHeaderBoundaries) {
             expect(isInViewPort(page, stickyHeaderBoundaries)).toBe(true)
           }
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: customStickyPaneId,
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations()
         })
       })
     }

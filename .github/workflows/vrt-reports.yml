@@ -82,7 +82,6 @@ jobs:
           path: playwright-report
       - name: check vrt-runner job status
         if: ${{ needs.vrt-runner.result == 'failure' }}
-        continue-on-error: true
         run: exit 1
 
   vrt-runner-all-flags:
@@ -159,5 +158,4 @@ jobs:
           path: playwright-report
       - name: check vrt-runner-all-flags job status
         if: ${{ needs.vrt-runner-all-flags.result == 'failure' }}
-        continue-on-error: true
         run: exit 1

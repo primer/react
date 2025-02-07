@@ -162,16 +162,6 @@ test.describe('ComponentName', () => {
               `ComponentName.${story.title}.${theme}.png`,
             )
           })
-
-          test('axe @aat', async ({page}) => {
-            await visit(page, {
-              id: story.id,
-              globals: {
-                colorScheme: theme,
-              },
-            })
-            await expect(page).toHaveNoViolations()
-          })
         })
       }
     })

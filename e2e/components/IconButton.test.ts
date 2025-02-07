@@ -377,7 +377,7 @@ test.describe('IconButton', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-iconbutton-devonly--icon-button-within-flex-container',
+            id: 'components-iconbutton-dev--icon-button-within-flex-container',
             globals: {
               colorScheme: theme,
             },
@@ -389,7 +389,7 @@ test.describe('IconButton', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-iconbutton-devonly--icon-button-within-flex-container',
+            id: 'components-iconbutton-dev--icon-button-within-flex-container',
             globals: {
               colorScheme: theme,
             },

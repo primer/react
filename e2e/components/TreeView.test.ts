@@ -144,7 +144,7 @@ test.describe('TreeView', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-treeview-features--leading-action',
+            id: 'private-components-treeviewwithleadingaction--leading-action',
             globals: {
               colorScheme: theme,
             },
@@ -155,7 +155,7 @@ test.describe('TreeView', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-treeview-features--leading-action',
+            id: 'private-components-treeviewwithleadingaction--leading-action',
             globals: {
               colorScheme: theme,
             },
