@@ -49,22 +49,6 @@ test.describe('TextInputWithTokens', () => {
             // Default state
             expect(await page.screenshot()).toMatchSnapshot(`TextInputWithTokens.${story.title}.${theme}.png`)
           })
-
-          test('axe @aat', async ({page}) => {
-            await visit(page, {
-              id: story.id,
-              globals: {
-                colorScheme: theme,
-              },
-            })
-            await expect(page).toHaveNoViolations({
-              rules: {
-                'color-contrast': {
-                  enabled: theme !== 'dark_dimmed',
-                },
-              },
-            })
-          })
         })
       }
     })

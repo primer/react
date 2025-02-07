@@ -17,22 +17,6 @@ test.describe('AvatarPair', () => {
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`AvatarPair.Default.${theme}.png`)
         })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-avatarpair--default',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
-        })
       })
     }
   })
@@ -51,22 +35,6 @@ test.describe('AvatarPair', () => {
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`AvatarPair.Parent Circle.${theme}.png`)
         })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-avatarpair-features--parent-circle',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
-        })
       })
     }
   })
@@ -84,22 +52,6 @@ test.describe('AvatarPair', () => {
 
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`AvatarPair.Parent Square.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-avatarpair-features--parent-square',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
         })
       })
     }

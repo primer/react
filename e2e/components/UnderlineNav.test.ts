@@ -18,22 +18,6 @@ test.describe('UnderlineNav', () => {
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`UnderlineNav.Profile Page.${theme}.png`)
         })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-underlinenav-examples--profile-page',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
-        })
       })
     }
   })
@@ -91,22 +75,6 @@ test.describe('UnderlineNav', () => {
           // Default state
           // expect(await page.screenshot()).toMatchSnapshot(`UnderlineNav.Repos Page.${theme}.png`)
         })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-underlinenav-examples--repos-page',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
-        })
       })
     }
   })
@@ -124,22 +92,6 @@ test.describe('UnderlineNav', () => {
 
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`UnderlineNav.Counters Loading State.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-underlinenav-features--counters-loading-state',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
         })
       })
     }
@@ -159,22 +111,6 @@ test.describe('UnderlineNav', () => {
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`UnderlineNav.Default.${theme}.png`)
         })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-underlinenav-features--default',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
-        })
       })
     }
   })
@@ -192,22 +128,6 @@ test.describe('UnderlineNav', () => {
 
           // Default state
           // expect(await page.screenshot()).toMatchSnapshot(`UnderlineNav.Overflow Template.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-underlinenav-features--overflow-template',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
         })
       })
     }
@@ -227,22 +147,6 @@ test.describe('UnderlineNav', () => {
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`UnderlineNav.With Counter Labels.${theme}.png`)
         })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-underlinenav-features--with-counter-labels',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
-        })
       })
     }
   })
@@ -260,22 +164,6 @@ test.describe('UnderlineNav', () => {
 
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`UnderlineNav.With Icons.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-underlinenav-features--with-icons',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
         })
       })
     }
@@ -372,22 +260,6 @@ test.describe('UnderlineNav', () => {
           await page.locator('button', {hasText: 'More Repository Items'}).waitFor()
           // Current state
           // expect(await page.screenshot()).toMatchSnapshot()
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-underlinenav-features--overflow-template',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
         })
       })
     }

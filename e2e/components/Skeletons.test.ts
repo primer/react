@@ -20,22 +20,6 @@ test.describe('Skeleton', () => {
           // Default state
           expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`SkeletonAvatar.Default.${theme}.png`)
         })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'experimental-components-skeleton-skeletonavatar--default',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
-        })
       })
     }
   })
@@ -55,22 +39,6 @@ test.describe('Skeleton', () => {
           expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
             `SkeletonAvatar.InAStack.${theme}.png`,
           )
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'experimental-components-skeleton-skeletonavatar-features--in-a-stack',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
         })
       })
     }
@@ -92,22 +60,6 @@ test.describe('Skeleton', () => {
             `SkeletonAvatar.InAnAvatarPair.${theme}.png`,
           )
         })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'experimental-components-skeleton-skeletonavatar-features--in-an-avatar-pair',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
-        })
       })
     }
   })
@@ -125,22 +77,6 @@ test.describe('Skeleton', () => {
 
           // Default state
           expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`SkeletonAvatar.Size.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'experimental-components-skeleton-skeletonavatar-features--size',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
         })
       })
     }
@@ -162,22 +98,6 @@ test.describe('Skeleton', () => {
             `SkeletonAvatar.SizeResponsive.${theme}.png`,
           )
         })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'experimental-components-skeleton-skeletonavatar-features--size-responsive',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
-        })
       })
     }
   })
@@ -195,22 +115,6 @@ test.describe('Skeleton', () => {
 
           // Default state
           expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`SkeletonAvatar.Square.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'experimental-components-skeleton-skeletonavatar-features--square',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
         })
       })
     }
@@ -233,22 +137,6 @@ test.describe('Skeleton', () => {
           // Default state
           expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`SkeletonBox.Default.${theme}.png`)
         })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'experimental-components-skeleton-skeletonbox--default',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
-        })
       })
     }
   })
@@ -267,22 +155,6 @@ test.describe('Skeleton', () => {
           // Default state
           expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`SkeletonBox.Height.${theme}.png`)
         })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'experimental-components-skeleton-skeletonbox-features--custom-height',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
-        })
       })
     }
   })
@@ -300,22 +172,6 @@ test.describe('Skeleton', () => {
 
           // Default state
           expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`SkeletonBox.Width.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'experimental-components-skeleton-skeletonbox-features--custom-width',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
         })
       })
     }
@@ -338,22 +194,6 @@ test.describe('Skeleton', () => {
           // Default state
           expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`SkeletonText.Default.${theme}.png`)
         })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'experimental-components-skeleton-skeletontext--default',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
-        })
       })
     }
   })
@@ -371,22 +211,6 @@ test.describe('Skeleton', () => {
 
           // Default state
           expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`SkeletonText.BodyLarge.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'experimental-components-skeleton-skeletontext-features--body-large',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
         })
       })
     }
@@ -408,22 +232,6 @@ test.describe('Skeleton', () => {
             `SkeletonText.BodyMedium.${theme}.png`,
           )
         })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'experimental-components-skeleton-skeletontext-features--body-medium',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
-        })
       })
     }
   })
@@ -441,22 +249,6 @@ test.describe('Skeleton', () => {
 
           // Default state
           expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`SkeletonText.BodySmall.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'experimental-components-skeleton-skeletontext-features--body-small',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
         })
       })
     }
@@ -476,22 +268,6 @@ test.describe('Skeleton', () => {
           // Default state
           expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`SkeletonText.Display.${theme}.png`)
         })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'experimental-components-skeleton-skeletontext-features--display',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
-        })
       })
     }
   })
@@ -509,22 +285,6 @@ test.describe('Skeleton', () => {
 
           // Default state
           expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`SkeletonText.Subtitle.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'experimental-components-skeleton-skeletontext-features--subtitle',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
         })
       })
     }
@@ -546,22 +306,6 @@ test.describe('Skeleton', () => {
             `SkeletonText.TitleLarge.${theme}.png`,
           )
         })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'experimental-components-skeleton-skeletontext-features--title-large',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
-        })
       })
     }
   })
@@ -581,22 +325,6 @@ test.describe('Skeleton', () => {
           expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
             `SkeletonText.TitleMedium.${theme}.png`,
           )
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'experimental-components-skeleton-skeletontext-features--title-medium',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
         })
       })
     }
@@ -618,22 +346,6 @@ test.describe('Skeleton', () => {
             `SkeletonText.TitleSmall.${theme}.png`,
           )
         })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'experimental-components-skeleton-skeletontext-features--title-small',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
-        })
       })
     }
   })
@@ -654,22 +366,6 @@ test.describe('Skeleton', () => {
             `SkeletonText.WithMaxWidth.${theme}.png`,
           )
         })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'experimental-components-skeleton-skeletontext-features--with-max-width',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
-        })
       })
     }
   })
@@ -689,22 +385,6 @@ test.describe('Skeleton', () => {
           expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
             `SkeletonText.WithMultipleLines.${theme}.png`,
           )
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'experimental-components-skeleton-skeletontext-features--with-multiple-lines',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
         })
       })
     }

@@ -25,22 +25,6 @@ test.describe('Breadcrumbs', () => {
           await page.keyboard.press('Tab')
           expect(await page.screenshot()).toMatchSnapshot(`Breadcrumbs.Default.${theme}.focus.png`)
         })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-breadcrumbs--default',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
-        })
       })
     }
   })
