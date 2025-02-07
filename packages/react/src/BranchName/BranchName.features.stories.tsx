@@ -20,3 +20,11 @@ export const WithBranchIcon = () => (
 )
 
 export const NotALink = () => <BranchName as="span">branch_name_as_span</BranchName>
+
+export const WithUnderline = () => (
+  <div data-a11y-link-underlines="true">
+    <BranchName href="#" inline>
+      branch_name
+    </BranchName>
+  </div>
+)

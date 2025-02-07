@@ -20,37 +20,56 @@ const StyledBranchName = styled.a<SxProp>`
   &:is(:not(a)) {
     color: var(--fgColor-muted);
   }
+  [data-a11y-link-underlines='true'] &:where([data-inline='true']) {
+    text-decoration: underline;
+  }
   ${sx};
 `
+
+type ElementProps =
+  | {
+      inline?: never
+    }
+  | {
+      as?: 'a'
+      inline?: boolean
+    }
 
 type BranchNameProps<As extends React.ElementType> = {
   as?: As
 } & DistributiveOmit<React.ComponentPropsWithRef<React.ElementType extends As ? 'a' : As>, 'as'> &
-  SxProp
+  SxProp &
+  ElementProps
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function BranchName<As extends React.ElementType>(props: BranchNameProps<As>, ref: ForwardedRef<any>) {
-  const {as: BaseComponent = 'a', className, children, sx, ...rest} = props
+  const {as: BaseComponent = 'a', className, children, inline, sx, ...rest} = props
   const enabled = useFeatureFlag('primer_react_css_modules_ga')
-
   if (enabled) {
     if (sx) {
       return (
-        <Box {...rest} ref={ref} as={BaseComponent} className={clsx(className, classes.BranchName)} sx={sx}>
+        <Box
+          {...rest}
+          ref={ref}
+          as={BaseComponent}
+          data-inline={inline}
+          className={clsx(className, classes.BranchName)}
+          sx={sx}
+        >
           {children}
         </Box>
       )
     }
 
     return (
-      <BaseComponent {...rest} ref={ref} className={clsx(className, classes.BranchName)}>
+      <BaseComponent {...rest} ref={ref} data-inline={inline} className={clsx(className, classes.BranchName)}>
         {children}
       </BaseComponent>
     )
   }
 
   return (
-    <StyledBranchName {...rest} as={BaseComponent} ref={ref} className={className} sx={sx}>
+    <StyledBranchName {...rest} as={BaseComponent} ref={ref} className={className} data-inline={inline} sx={sx}>
       {children}
     </StyledBranchName>
   )
