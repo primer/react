@@ -62,8 +62,8 @@ const preview = {
                     ['*', 'Playground', /Playground$/, 'Features', 'Examples'],
                   ],
                 ],
-              ]
-            ]
+              ],
+            ],
           ],
           'Behaviors',
           'Hooks',
@@ -82,8 +82,8 @@ const preview = {
                     ['*', 'Playground', /Playground$/, 'Features', 'Examples'],
                   ],
                 ],
-              ]
-            ]
+              ],
+            ],
           ],
           [
             'Private',
@@ -100,8 +100,8 @@ const preview = {
                     ['*', 'Playground', /Playground$/, 'Features', 'Examples'],
                   ],
                 ],
-              ]
-            ]
+              ],
+            ],
           ],
           '*',
         ]
@@ -258,16 +258,7 @@ export const globalTypes = {
 
 export const decorators = [
   (Story, context) => {
-    const {featureFlags} = context.globals
-    return (
-      <FeatureFlags flags={featureFlags}>
-        <Story {...context} />
-      </FeatureFlags>
-    )
-  },
-  (Story, context) => {
     const {colorScheme} = context.globals
-
     useEffect(() => {
       const colorMode = colorScheme.startsWith('light') ? 'light' : 'dark'
       document.body.setAttribute('data-color-mode', colorMode)
@@ -279,6 +270,14 @@ export const decorators = [
       document.body.setAttribute('data-dark-theme', darkTheme)
     }, [colorScheme])
 
+    // Set data-a11y-link-underlines=true to enable underlines in all stories except the Link dev Inline Story.
+    let wrapperProps =
+      context.id !== 'components-link-dev--inline'
+        ? {
+            'data-a11y-link-underlines': context.id !== 'components-link-dev--inline',
+            className: clsx('story-wrap'),
+          }
+        : {className: clsx('story-wrap')}
     const showSurroundingElements =
       context.globals.showSurroundingElements ?? window.localStorage.getItem('showSurroundingElements') === 'true'
     return context.globals.colorScheme === 'all' ? (
@@ -305,7 +304,7 @@ export const decorators = [
           nightScheme={context.globals.colorScheme}
           colorMode="day"
         >
-          <div className={clsx('story-wrap')}>
+          <div {...wrapperProps}>
             <BaseStyles>
               {showSurroundingElements ? <a href="https://github.com/primer/react">Primer documentation</a> : ''}
               <FeatureFlags flags={{primer_react_action_list_item_as_button: true}}>
@@ -316,6 +315,14 @@ export const decorators = [
           </div>
         </ThemeProvider>
       </Profiler>
+    )
+  },
+  (Story, context) => {
+    const {featureFlags} = context.globals
+    return (
+      <FeatureFlags flags={featureFlags}>
+        <Story {...context} />
+      </FeatureFlags>
     )
   },
 ]

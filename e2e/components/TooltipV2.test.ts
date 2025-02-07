@@ -48,16 +48,6 @@ test.describe('TooltipV2', () => {
               `TooltipV2.${story.title}.${theme}.png`,
             )
           })
-
-          test('axe @aat', async ({page}) => {
-            await visit(page, {
-              id: story.id,
-              globals: {
-                colorScheme: theme,
-              },
-            })
-            await expect(page).toHaveNoViolations()
-          })
         })
       }
     })

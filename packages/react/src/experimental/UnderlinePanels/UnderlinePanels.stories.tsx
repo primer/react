@@ -16,11 +16,6 @@ const meta: Meta<typeof UnderlinePanels> = {
         name: 'string',
       },
     },
-    'aria-labelledby': {
-      type: {
-        name: 'string',
-      },
-    },
     id: {
       type: {
         name: 'string',
@@ -34,7 +29,6 @@ const meta: Meta<typeof UnderlinePanels> = {
   },
   args: {
     'aria-label': 'Select a tab',
-    'aria-labelledby': 'tab',
     id: 'test',
     loadingCounters: false,
   },
