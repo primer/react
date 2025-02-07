@@ -270,11 +270,11 @@ export const decorators = [
       document.body.setAttribute('data-dark-theme', darkTheme)
     }, [colorScheme])
 
-    // Set data-a11y-link-underlines=true to enable underlines in all stories except the Link DevOnly Inline Story.
+    // Set data-a11y-link-underlines=true to enable underlines in all stories except the Link dev Inline Story.
     let wrapperProps =
-      context.id !== 'components-link-devonly--inline'
+      context.id !== 'components-link-dev--inline'
         ? {
-            'data-a11y-link-underlines': context.id !== 'components-link-devonly--inline',
+            'data-a11y-link-underlines': context.id !== 'components-link-dev--inline',
             className: clsx('story-wrap'),
           }
         : {className: clsx('story-wrap')}

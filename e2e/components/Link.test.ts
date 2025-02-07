@@ -55,7 +55,7 @@ test.describe('Link', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-link-devonly--inline',
+            id: 'components-link-dev--inline',
             globals: {
               colorScheme: theme,
             },
