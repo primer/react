@@ -164,6 +164,52 @@ describe('SegmentedControl', () => {
     }
   })
 
+  it('renders icon button with tooltip label', () => {
+    const {getByLabelText} = render(
+      <SegmentedControl aria-label="File view">
+        {segmentData.map(({label, icon}) => (
+          <SegmentedControl.IconButton icon={icon} aria-label={label} key={label} />
+        ))}
+      </SegmentedControl>,
+    )
+
+    for (const datum of segmentData) {
+      const labelledButton = getByLabelText(datum.label)
+      expect(labelledButton).toBeDefined()
+      // expect tooltip
+    }
+  })
+
+  it('renders icon button with tooltip description', () => {
+    const {getByLabelText} = render(
+      <SegmentedControl aria-label="File view">
+        {segmentData.map(({label, icon}) => (
+          <SegmentedControl.IconButton icon={icon} aria-label={label} description="I am some description" key={label} />
+        ))}
+      </SegmentedControl>,
+    )
+
+    for (const datum of segmentData) {
+      // butotn has `aria-label`
+      // button has `aria-describedby` pointing to tooltip
+    }
+  })
+
+  it('renders icon button without tooltip by setting `unsafeDisableTooltip`', () => {
+    const {getByLabelText} = render(
+      <SegmentedControl aria-label="File view">
+        {segmentData.map(({label, icon}) => (
+          <SegmentedControl.IconButton icon={icon} unsafeDisableTooltip={true} aria-label={label} key={label} />
+        ))}
+      </SegmentedControl>,
+    )
+
+    for (const datum of segmentData) {
+      // no tooltip
+      // button has `aria-label`
+    }
+  })
+
   it('calls onChange with index of clicked segment button', async () => {
     const user = userEvent.setup()
     const handleChange = jest.fn()
