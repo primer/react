@@ -11,9 +11,9 @@ import {act} from 'react-test-renderer'
 import {viewportRanges} from '../hooks/useResponsiveValue'
 
 const segmentData = [
-  {label: 'Preview', id: 'preview', iconLabel: 'EyeIcon', icon: () => <EyeIcon aria-label="EyeIcon" />},
-  {label: 'Raw', id: 'raw', iconLabel: 'FileCodeIcon', icon: () => <FileCodeIcon aria-label="FileCodeIcon" />},
-  {label: 'Blame', id: 'blame', iconLabel: 'PeopleIcon', icon: () => <PeopleIcon aria-label="PeopleIcon" />},
+  {label: 'Preview', description: 'This preview does blah.', id: 'preview', iconLabel: 'EyeIcon', icon: () => <EyeIcon aria-label="EyeIcon" />},
+  {label: 'Raw', description: 'This shows the raw content.', id: 'raw', iconLabel: 'FileCodeIcon', icon: () => <FileCodeIcon aria-label="FileCodeIcon" />},
+  {label: 'Blame', description: 'This shows the blame.', id: 'blame', iconLabel: 'PeopleIcon', icon: () => <PeopleIcon aria-label="PeopleIcon" />},
 ]
 
 let matchMedia: MatchMediaMock
@@ -164,8 +164,8 @@ describe('SegmentedControl', () => {
     }
   })
 
-  it('renders icon button with tooltip label', () => {
-    const {getByLabelText} = render(
+  it('renders icon button with tooltip as label', () => {
+    const {getByRole, getByText, getAllByRole} = render(
       <SegmentedControl aria-label="File view">
         {segmentData.map(({label, icon}) => (
           <SegmentedControl.IconButton icon={icon} aria-label={label} key={label} />
@@ -174,29 +174,33 @@ describe('SegmentedControl', () => {
     )
 
     for (const datum of segmentData) {
-      const labelledButton = getByLabelText(datum.label)
-      expect(labelledButton).toBeDefined()
-      // expect tooltip
+      const labelledButton = getByRole('button', {name: datum.label})
+      const tooltipElement = getByText(datum.label)
+      expect(labelledButton).toHaveAttribute('aria-labelledby', tooltipElement.id)
+      expect(labelledButton).not.toHaveAttribute('aria-label')
     }
   })
 
   it('renders icon button with tooltip description', () => {
-    const {getByLabelText} = render(
+    const {getByRole, getByText} = render(
       <SegmentedControl aria-label="File view">
-        {segmentData.map(({label, icon}) => (
-          <SegmentedControl.IconButton icon={icon} aria-label={label} description="I am some description" key={label} />
+        {segmentData.map(({label, icon, description}) => (
+          <SegmentedControl.IconButton icon={icon} aria-label={label} description={description} key={label} />
         ))}
       </SegmentedControl>,
     )
 
     for (const datum of segmentData) {
-      // butotn has `aria-label`
-      // button has `aria-describedby` pointing to tooltip
+      const labelledButton = getByRole('button', {name: datum.label})
+      const tooltipElement = getByText(datum.description)
+      expect(labelledButton).toHaveAttribute('aria-describedby', tooltipElement.id)
+      expect(labelledButton).toHaveAccessibleName(datum.label)
+      expect(labelledButton).toHaveAttribute('aria-label', datum.label)
     }
   })
 
-  it('renders icon button without tooltip by setting `unsafeDisableTooltip`', () => {
-    const {getByLabelText} = render(
+  it('renders icon button with aria-label and no tooltip when unsafeDisableTooltip is true', () => {
+    const {getByRole} = render(
       <SegmentedControl aria-label="File view">
         {segmentData.map(({label, icon}) => (
           <SegmentedControl.IconButton icon={icon} unsafeDisableTooltip={true} aria-label={label} key={label} />
@@ -205,8 +209,8 @@ describe('SegmentedControl', () => {
     )
 
     for (const datum of segmentData) {
-      // no tooltip
-      // button has `aria-label`
+      const labelledButton = getByRole('button', {name: datum.label})
+      expect(labelledButton).toHaveAttribute('aria-label', datum.label)
     }
   })
 
