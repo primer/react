@@ -1,5 +1,5 @@
 import {List} from './List'
-import {Group, GroupHeading} from './Group'
+import {Group, GroupHeading, GroupExpand} from './Group'
 import {Item} from './Item'
 import {LinkItem} from './LinkItem'
 import {Divider} from './Divider'
@@ -48,6 +48,9 @@ export const ActionList = Object.assign(List, {
 
   /** Heading for `ActionList.Group` */
   GroupHeading,
+
+  /** Expands a group of items */
+  GroupExpand,
 
   /** Secondary action */
   TrailingAction,

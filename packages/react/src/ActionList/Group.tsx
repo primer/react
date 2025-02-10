@@ -1,8 +1,11 @@
 import React from 'react'
 import {useId} from '../hooks/useId'
 import Box from '../Box'
+import {Item} from './Item'
+import {TrailingVisual} from './Visuals'
+import {PlusIcon} from '@primer/octicons-react'
 import type {SxProp} from '../sx'
-import {ListContext, type ActionListProps} from './shared'
+import {ListContext, type ActionListProps, type ActionListItemProps} from './shared'
 import type {AriaRole} from '../utils/types'
 import type {ActionListHeadingProps} from './Heading'
 import {useSlots} from '../hooks/useSlots'
@@ -13,6 +16,7 @@ import {useFeatureFlag} from '../FeatureFlags'
 import classes from './ActionList.module.css'
 import groupClasses from './Group.module.css'
 import {actionListCssModulesFlag} from './featureflag'
+import {flushSync} from 'react-dom'
 
 type HeadingProps = {
   as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
@@ -74,7 +78,9 @@ export type ActionListGroupProps = {
     selectionVariant?: ActionListProps['selectionVariant'] | false
   }
 
-type ContextProps = Pick<ActionListGroupProps, 'selectionVariant'> & {groupHeadingId: string | undefined}
+type ContextProps = Pick<ActionListGroupProps, 'selectionVariant'> & {
+  groupHeadingId: string | undefined
+}
 export const GroupContext = React.createContext<ContextProps>({
   groupHeadingId: undefined,
   selectionVariant: undefined,
@@ -292,3 +298,91 @@ export const GroupHeading: React.FC<React.PropsWithChildren<ActionListGroupHeadi
     </>
   )
 }
+
+type GroupItems = {
+  text: string
+  'data-expand-focus-target'?: string // TODO: can we not have this as a prop/type?
+} & Omit<ActionListItemProps, 'children'>
+
+export type ActionListGroupExpandProps = {
+  label?: string
+  pages?: number
+  items: GroupItems[]
+  renderItem?: (item: GroupItems) => React.ReactNode
+}
+
+export const GroupExpand = React.forwardRef<HTMLButtonElement, ActionListGroupExpandProps>(
+  ({label = 'Show more', pages = 0, items, renderItem, ...props}, forwardedRef) => {
+    const [expanded, setExpanded] = React.useState(false)
+    const [currentPage, setCurrentPage] = React.useState(0)
+
+    const id = useId()
+    const groupId = React.useMemo(() => ({id}), [id])
+
+    return (
+      <>
+        {expanded ? (
+          <>
+            {items.map((itemArr, index) => {
+              const {text, ...rest} = itemArr
+              // If pages === 2, we want to show the amount of items in the array divided by 2
+              // If there are 10 items, we should show 5 at a time
+              const itemsPerPage = items.length / pages // TODO: Maybe we should move this logic into a function?
+              const amountToShow = pages === 0 ? items.length : Math.ceil(itemsPerPage * currentPage)
+
+              // If the current page is 0, the focus target index should be 0, as it is the first item
+              // If the current page is 1, the focus target index should be the amount to show - 1
+              const focusTargetIndex = currentPage === 1 ? 0 : amountToShow - Math.floor(itemsPerPage)
+
+              if (index < amountToShow) {
+                if (renderItem) {
+                  if (index === focusTargetIndex) {
+                    itemArr['data-expand-focus-target'] = groupId.id // TODO: DRY here? we set the same in <Item /> below
+                  }
+                  return renderItem(itemArr)
+                }
+                return (
+                  <Item
+                    key={index}
+                    {...{['data-expand-focus-target']: index === focusTargetIndex ? groupId.id : 'false'}} // TODO: can we simplify this
+                    {...rest} // TODO: how useful is this? maybe we should restrict
+                  >
+                    {text}
+                  </Item>
+                )
+              }
+            })}
+          </>
+        ) : null}
+        {currentPage < pages || (!pages && !expanded) ? (
+          <Box as="li" sx={{listStyle: 'none'}}>
+            <Item
+              as="button"
+              aria-expanded="false"
+              ref={forwardedRef}
+              onClick={() => {
+                setExpanded(true) // TODO: is this needed, could we utilize currentPage if page is > 0?
+                flushSync(() => {
+                  setCurrentPage(currentPage + 1)
+                })
+                const focusTarget: HTMLElement[] | null = document.querySelectorAll(
+                  `[data-expand-focus-target="${groupId.id}"]`,
+                )
+
+                if (focusTarget && focusTarget.length > 0) {
+                  focusTarget[focusTarget.length - 1].focus()
+                }
+              }}
+              {...props}
+            >
+              {label}
+              <TrailingVisual>
+                <PlusIcon /> {/* TODO: make this a prop? */}
+              </TrailingVisual>
+            </Item>
+          </Box>
+        ) : null}
+      </>
+    )
+  },
+)

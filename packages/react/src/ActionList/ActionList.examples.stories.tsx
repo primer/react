@@ -1,8 +1,7 @@
 import type {Meta} from '@storybook/react'
 import React, {forwardRef} from 'react'
-import {DndProvider, useDrag, useDrop} from 'react-dnd'
-import {HTML5Backend} from 'react-dnd-html5-backend'
 import {
+  type Icon,
   TypographyIcon,
   StarIcon,
   TableIcon,
@@ -12,6 +11,17 @@ import {
   NumberIcon,
   LinkIcon,
   XIcon,
+  BookIcon,
+  FileDirectoryIcon,
+  CodeIcon,
+  RepoIcon,
+  GitPullRequestIcon,
+  CommentDiscussionIcon,
+  GitCommitIcon,
+  PackageIcon,
+  MilestoneIcon,
+  TelescopeIcon,
+  ArrowRightIcon,
 } from '@primer/octicons-react'
 import type {ActionListItemProps} from '.'
 import {ActionList} from '.'
@@ -574,5 +584,134 @@ export function AllCombinations(): JSX.Element {
         </ActionList>
       </Box>
     </>
+  )
+}
+
+export const GroupWithExpand = () => {
+  const items = [
+    {href: '#', text: 'Item 3', leadingVisual: BookIcon},
+    {href: '#', text: 'Item 4', leadingVisual: BookIcon},
+    {href: '#', text: 'Item 5', leadingVisual: FileDirectoryIcon},
+    {href: '#', text: 'Item 6'},
+    {href: '#', text: 'Item 7'},
+    {href: '#', text: 'Item 8'},
+    {href: '#', text: 'Item 9'},
+  ]
+  return (
+    <ActionList>
+      <ActionList.Group>
+        <ActionList.Item>Item 1</ActionList.Item>
+        <ActionList.Item>Item 2</ActionList.Item>
+        <ActionList.GroupExpand items={items} />
+      </ActionList.Group>
+    </ActionList>
+  )
+}
+
+export const GroupWithExpandAndPages = () => {
+  const items = [
+    {href: '#', text: 'Item 3'},
+    {href: '#', text: 'Item 4'},
+    {href: '#', text: 'Item 5'},
+    {href: '#', text: 'Item 6'},
+    {href: '#', text: 'Item 7'},
+    {href: '#', text: 'Item 8'},
+    {href: '#', text: 'Item 9'},
+    {href: '#', text: 'Item 10'},
+  ]
+  return (
+    <ActionList>
+      <ActionList.Group>
+        <ActionList.Item>Item 1</ActionList.Item>
+        <ActionList.Item>Item 2</ActionList.Item>
+        <ActionList.GroupExpand pages={2} items={items} />
+      </ActionList.Group>
+    </ActionList>
+  )
+}
+
+type CustomItemProps = {
+  text: string
+  leadingVisual?: Icon
+  trailingVisual?: string | React.ElementType
+}
+
+export const GroupWithExpandAndCustomItems = () => {
+  const Item = ({leadingVisual: LeadingVisual, text, trailingVisual: TrailingVisual, ...rest}: CustomItemProps) => {
+    return (
+      <ActionList.LinkItem onClick={() => {}} href="#" {...rest}>
+        {LeadingVisual ? (
+          <ActionList.LeadingVisual>
+            <LeadingVisual />
+          </ActionList.LeadingVisual>
+        ) : null}
+        {text}
+
+        {TrailingVisual ? (
+          <ActionList.TrailingVisual>
+            {typeof TrailingVisual === 'string' ? TrailingVisual : <TrailingVisual />}
+            <VisuallyHidden>results</VisuallyHidden>
+          </ActionList.TrailingVisual>
+        ) : null}
+      </ActionList.LinkItem>
+    )
+  }
+
+  const items = [
+    {href: '#', text: 'Commits', leadingVisual: GitCommitIcon, trailingVisual: '32k'},
+    {href: '#', text: 'Packages', leadingVisual: PackageIcon, trailingVisual: '1k'},
+    {href: '#', text: 'Wikis', leadingVisual: BookIcon, trailingVisual: '121'},
+    {href: '#', text: 'Topics', leadingVisual: MilestoneIcon, trailingVisual: '12k'},
+    {href: '#', text: 'Marketplace', leadingVisual: TelescopeIcon, trailingVisual: ArrowRightIcon},
+  ]
+
+  return (
+    <ActionList>
+      <ActionList.Group>
+        <ActionList.Item>
+          <ActionList.LeadingVisual>
+            <CodeIcon />
+          </ActionList.LeadingVisual>
+          Code
+          <ActionList.TrailingVisual>3k</ActionList.TrailingVisual>
+        </ActionList.Item>
+        <ActionList.Item>
+          <ActionList.LeadingVisual>
+            <RepoIcon />
+          </ActionList.LeadingVisual>
+          Repositories
+          <ActionList.TrailingVisual>713</ActionList.TrailingVisual>
+        </ActionList.Item>
+        <ActionList.Item>
+          <ActionList.LeadingVisual>
+            <IssueOpenedIcon />
+          </ActionList.LeadingVisual>
+          Issues
+          <ActionList.TrailingVisual>6k</ActionList.TrailingVisual>
+        </ActionList.Item>
+        <ActionList.Item>
+          <ActionList.LeadingVisual>
+            <GitPullRequestIcon />
+          </ActionList.LeadingVisual>
+          Pull requests
+          <ActionList.TrailingVisual>4k</ActionList.TrailingVisual>
+        </ActionList.Item>
+        <ActionList.Item>
+          <ActionList.LeadingVisual>
+            <CommentDiscussionIcon />
+          </ActionList.LeadingVisual>
+          Discussions
+          <ActionList.TrailingVisual>236</ActionList.TrailingVisual>
+        </ActionList.Item>
+        <ActionList.Item>
+          <ActionList.LeadingVisual>
+            <PeopleIcon />
+          </ActionList.LeadingVisual>
+          Users
+          <ActionList.TrailingVisual>10k</ActionList.TrailingVisual>
+        </ActionList.Item>
+        <ActionList.GroupExpand items={items} renderItem={Item} />
+      </ActionList.Group>
+    </ActionList>
   )
 }
