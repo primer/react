@@ -67,28 +67,28 @@ export const SegmentedControlIconButton: React.FC<React.PropsWithChildren<Segmen
         },
         sxProp as SxProp,
       )
-  
+
   if (unsafeDisableTooltip) {
-      return (
-        <Box
-          as="li"
-          sx={mergedSx}
-          className={clsx(enabled && classes.Item, className)}
-          data-selected={selected || undefined}
+    return (
+      <Box
+        as="li"
+        sx={mergedSx}
+        className={clsx(enabled && classes.Item, className)}
+        data-selected={selected || undefined}
+      >
+        <SegmentedControlIconButtonStyled
+          aria-label={ariaLabel}
+          aria-current={selected}
+          sx={enabled ? undefined : getSegmentedControlButtonStyles({selected})}
+          className={clsx(enabled && classes.Button, enabled && classes.IconButton)}
+          {...rest}
         >
-          <SegmentedControlIconButtonStyled
-            aria-label={ariaLabel}
-            aria-current={selected}
-            sx={enabled ? undefined : getSegmentedControlButtonStyles({selected})}
-            className={clsx(enabled && classes.Button, enabled && classes.IconButton)}
-            {...rest}
-            >
-            <span className={clsx(enabled ? classes.Content : 'segmentedControl-content')}>
-              {isElement(Icon) ? Icon : <Icon />}
-            </span>
-          </SegmentedControlIconButtonStyled>
-        </Box>
-      ) 
+          <span className={clsx(enabled ? classes.Content : 'segmentedControl-content')}>
+            {isElement(Icon) ? Icon : <Icon />}
+          </span>
+        </SegmentedControlIconButtonStyled>
+      </Box>
+    )
   } else {
     return (
       <Box
@@ -97,7 +97,7 @@ export const SegmentedControlIconButton: React.FC<React.PropsWithChildren<Segmen
         className={clsx(enabled && classes.Item, className)}
         data-selected={selected || undefined}
       >
-        <Tooltip 
+        <Tooltip
           type={description ? undefined : 'label'}
           text={description ? description : ariaLabel}
           direction={tooltipDirection}
@@ -109,7 +109,7 @@ export const SegmentedControlIconButton: React.FC<React.PropsWithChildren<Segmen
             sx={enabled ? undefined : getSegmentedControlButtonStyles({selected})}
             className={clsx(enabled && classes.Button, enabled && classes.IconButton)}
             {...rest}
-            >
+          >
             <span className={clsx(enabled ? classes.Content : 'segmentedControl-content')}>
               {isElement(Icon) ? Icon : <Icon />}
             </span>
