@@ -99,7 +99,7 @@ export const SegmentedControlIconButton: React.FC<React.PropsWithChildren<Segmen
       >
         <Tooltip 
           type={description ? undefined : 'label'}
-          text={ariaLabel}
+          text={description ? description : ariaLabel}
           direction={tooltipDirection}
         >
           <SegmentedControlIconButtonStyled
