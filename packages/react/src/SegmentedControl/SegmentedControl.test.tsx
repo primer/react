@@ -11,9 +11,27 @@ import {act} from 'react-test-renderer'
 import {viewportRanges} from '../hooks/useResponsiveValue'
 
 const segmentData = [
-  {label: 'Preview', description: 'This preview does blah.', id: 'preview', iconLabel: 'EyeIcon', icon: () => <EyeIcon aria-label="EyeIcon" />},
-  {label: 'Raw', description: 'This shows the raw content.', id: 'raw', iconLabel: 'FileCodeIcon', icon: () => <FileCodeIcon aria-label="FileCodeIcon" />},
-  {label: 'Blame', description: 'This shows the blame.', id: 'blame', iconLabel: 'PeopleIcon', icon: () => <PeopleIcon aria-label="PeopleIcon" />},
+  {
+    label: 'Preview',
+    description: 'This preview does blah.',
+    id: 'preview',
+    iconLabel: 'EyeIcon',
+    icon: () => <EyeIcon aria-label="EyeIcon" />,
+  },
+  {
+    label: 'Raw',
+    description: 'This shows the raw content.',
+    id: 'raw',
+    iconLabel: 'FileCodeIcon',
+    icon: () => <FileCodeIcon aria-label="FileCodeIcon" />,
+  },
+  {
+    label: 'Blame',
+    description: 'This shows the blame.',
+    id: 'blame',
+    iconLabel: 'PeopleIcon',
+    icon: () => <PeopleIcon aria-label="PeopleIcon" />,
+  },
 ]
 
 let matchMedia: MatchMediaMock
@@ -165,7 +183,7 @@ describe('SegmentedControl', () => {
   })
 
   it('renders icon button with tooltip as label', () => {
-    const {getByRole, getByText, getAllByRole} = render(
+    const {getByRole, getByText} = render(
       <SegmentedControl aria-label="File view">
         {segmentData.map(({label, icon}) => (
           <SegmentedControl.IconButton icon={icon} aria-label={label} key={label} />
