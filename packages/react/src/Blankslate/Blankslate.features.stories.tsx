@@ -48,7 +48,7 @@ export const WithPrimaryActionAsButton = () => {
         </Blankslate.Visual>
         <Blankslate.Heading>Blankslate heading</Blankslate.Heading>
         <Blankslate.Description>Use it to provide information when no dynamic content exists.</Blankslate.Description>
-        <Blankslate.PrimaryAction onClick={() => setIsOpen(!isOpen)}>Primary action</Blankslate.PrimaryAction>
+        <Blankslate.PrimaryAction onClick={() => setIsOpen(true)}>Primary action</Blankslate.PrimaryAction>
       </Blankslate>
       {isOpen ? (
         <ConfirmationDialog
