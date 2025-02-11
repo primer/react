@@ -59,13 +59,13 @@ function Description({children}: DescriptionProps) {
 }
 
 export type PrimaryActionProps = React.PropsWithChildren<{
-  href: string
+  href?: string
 }>
 
 function PrimaryAction({children, href}: PrimaryActionProps) {
   return (
     <div className={clsx('Blankslate-Action', classes.Action)}>
-      <Button as="a" href={href} variant="primary">
+      <Button as={href ? 'a' : 'button'} href={href} variant="primary">
         {children}
       </Button>
     </div>

@@ -24,7 +24,7 @@ export const WithVisual = () => (
   </Blankslate>
 )
 
-export const WithPrimaryAction = () => (
+export const WithPrimaryActionAsLink = () => (
   <Blankslate>
     <Blankslate.Visual>
       <BookIcon size="medium" />
@@ -32,6 +32,17 @@ export const WithPrimaryAction = () => (
     <Blankslate.Heading>Blankslate heading</Blankslate.Heading>
     <Blankslate.Description>Use it to provide information when no dynamic content exists.</Blankslate.Description>
     <Blankslate.PrimaryAction href="#">Primary action</Blankslate.PrimaryAction>
+  </Blankslate>
+)
+
+export const WithPrimaryActionAsButton = () => (
+  <Blankslate>
+    <Blankslate.Visual>
+      <BookIcon size="medium" />
+    </Blankslate.Visual>
+    <Blankslate.Heading>Blankslate heading</Blankslate.Heading>
+    <Blankslate.Description>Use it to provide information when no dynamic content exists.</Blankslate.Description>
+    <Blankslate.PrimaryAction>Primary action</Blankslate.PrimaryAction>
   </Blankslate>
 )
 
