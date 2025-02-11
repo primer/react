@@ -51,7 +51,7 @@ export const SegmentedControlIconButton: React.FC<React.PropsWithChildren<Segmen
   sx: sxProp = defaultSxProp,
   className,
   description,
-  tooltipDirection
+  tooltipDirection,
   ...rest
 }) => {
   const enabled = useFeatureFlag(SEGMENTED_CONTROL_CSS_MODULES_FEATURE_FLAG)
