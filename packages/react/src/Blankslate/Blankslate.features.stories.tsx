@@ -1,6 +1,7 @@
 import {BookIcon} from '@primer/octicons-react'
 import React from 'react'
 import {Blankslate} from '../Blankslate'
+import {ConfirmationDialog} from '../ConfirmationDialog/ConfirmationDialog'
 
 export default {
   title: 'Experimental/Components/Blankslate/Features',
@@ -35,16 +36,34 @@ export const WithPrimaryActionAsLink = () => (
   </Blankslate>
 )
 
-export const WithPrimaryActionAsButton = () => (
-  <Blankslate>
-    <Blankslate.Visual>
-      <BookIcon size="medium" />
-    </Blankslate.Visual>
-    <Blankslate.Heading>Blankslate heading</Blankslate.Heading>
-    <Blankslate.Description>Use it to provide information when no dynamic content exists.</Blankslate.Description>
-    <Blankslate.PrimaryAction>Primary action</Blankslate.PrimaryAction>
-  </Blankslate>
-)
+export const WithPrimaryActionAsButton = () => {
+  const [isOpen, setIsOpen] = React.useState(false)
+  const onDialogClose = React.useCallback(() => setIsOpen(false), [])
+
+  return (
+    <>
+      <Blankslate>
+        <Blankslate.Visual>
+          <BookIcon size="medium" />
+        </Blankslate.Visual>
+        <Blankslate.Heading>Blankslate heading</Blankslate.Heading>
+        <Blankslate.Description>Use it to provide information when no dynamic content exists.</Blankslate.Description>
+        <Blankslate.PrimaryAction onClick={() => setIsOpen(!isOpen)}>Primary action</Blankslate.PrimaryAction>
+      </Blankslate>
+      {isOpen ? (
+        <ConfirmationDialog
+          title="Delete universe?"
+          onClose={onDialogClose}
+          confirmButtonContent="Delete it!"
+          confirmButtonType="danger"
+        >
+          Deleting the universe could have disastrous effects, including but not limited to destroying all life on
+          Earth.
+        </ConfirmationDialog>
+      ) : null}
+    </>
+  )
+}
 
 export const WithSecondaryAction = () => (
   <Blankslate>

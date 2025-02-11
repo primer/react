@@ -1,6 +1,6 @@
 import {clsx} from 'clsx'
 import React from 'react'
-import {Button} from '../Button'
+import {Button, type ButtonProps} from '../Button'
 import Link from '../Link'
 import classes from './Blankslate.module.css'
 
@@ -58,14 +58,19 @@ function Description({children}: DescriptionProps) {
   return <p className={clsx('Blankslate-Description', classes.Description)}>{children}</p>
 }
 
-export type PrimaryActionProps = React.PropsWithChildren<{
-  href?: string
-}>
+export type PrimaryActionProps =
+  | (React.PropsWithChildren<{
+      href?: never
+    }> &
+      ButtonProps)
+  | React.PropsWithChildren<{
+      href: string
+    }>
 
-function PrimaryAction({children, href}: PrimaryActionProps) {
+function PrimaryAction({children, href, ...props}: PrimaryActionProps) {
   return (
     <div className={clsx('Blankslate-Action', classes.Action)}>
-      <Button as={href ? 'a' : 'button'} href={href} variant="primary">
+      <Button as={href ? 'a' : 'button'} href={href} variant="primary" {...props}>
         {children}
       </Button>
     </div>
