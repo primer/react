@@ -28,8 +28,6 @@ export type SegmentedControlIconButtonProps = {
   selected?: boolean
   /** Whether the segment is selected. This is used for uncontrolled SegmentedControls to pick one SegmentedControlButton that is selected on the initial render. */
   defaultSelected?: boolean
-  /** Whether the tooltip should shown. This is meant to be a temporary prop until default tooltip on icon buttons are fully rolled out.*/
-  unsafeDisableTooltip?: boolean
   /** Supplementary description that renders inside tooltip in place of the label.*/
   description?: string
   /** The direction for the tooltip.*/
@@ -53,8 +51,7 @@ export const SegmentedControlIconButton: React.FC<React.PropsWithChildren<Segmen
   sx: sxProp = defaultSxProp,
   className,
   description,
-  tooltipDirection,
-  unsafeDisableTooltip = false,
+  tooltipDirection
   ...rest
 }) => {
   const enabled = useFeatureFlag(SEGMENTED_CONTROL_CSS_MODULES_FEATURE_FLAG)
@@ -68,28 +65,8 @@ export const SegmentedControlIconButton: React.FC<React.PropsWithChildren<Segmen
         sxProp as SxProp,
       )
 
-  if (unsafeDisableTooltip) {
-    return (
-      <Box
-        as="li"
-        sx={mergedSx}
-        className={clsx(enabled && classes.Item, className)}
-        data-selected={selected || undefined}
-      >
-        <SegmentedControlIconButtonStyled
-          aria-label={ariaLabel}
-          aria-current={selected}
-          sx={enabled ? undefined : getSegmentedControlButtonStyles({selected})}
-          className={clsx(enabled && classes.Button, enabled && classes.IconButton)}
-          {...rest}
-        >
-          <span className={clsx(enabled ? classes.Content : 'segmentedControl-content')}>
-            {isElement(Icon) ? Icon : <Icon />}
-          </span>
-        </SegmentedControlIconButtonStyled>
-      </Box>
-    )
-  } else {
+  const tooltipFlagEnabled = useFeatureFlag('primer_react_segmented_control_tooltip')
+  if (tooltipFlagEnabled) {
     return (
       <Box
         as="li"
@@ -115,6 +92,28 @@ export const SegmentedControlIconButton: React.FC<React.PropsWithChildren<Segmen
             </span>
           </SegmentedControlIconButtonStyled>
         </Tooltip>
+      </Box>
+    )
+  } else {
+    // This can be removed when primer_react_segmented_control_tooltip feature flag is GA-ed.
+    return (
+      <Box
+        as="li"
+        sx={mergedSx}
+        className={clsx(enabled && classes.Item, className)}
+        data-selected={selected || undefined}
+      >
+        <SegmentedControlIconButtonStyled
+          aria-label={ariaLabel}
+          aria-current={selected}
+          sx={enabled ? undefined : getSegmentedControlButtonStyles({selected})}
+          className={clsx(enabled && classes.Button, enabled && classes.IconButton)}
+          {...rest}
+        >
+          <span className={clsx(enabled ? classes.Content : 'segmentedControl-content')}>
+            {isElement(Icon) ? Icon : <Icon />}
+          </span>
+        </SegmentedControlIconButtonStyled>
       </Box>
     )
   }
