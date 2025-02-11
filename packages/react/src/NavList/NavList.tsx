@@ -436,8 +436,17 @@ export const GroupExpand = React.forwardRef<HTMLButtonElement, NavListGroupExpan
   ({label = 'Show more', pages = 0, items, renderItem, ...props}, forwardedRef) => {
     const [currentPage, setCurrentPage] = React.useState(0)
     const groupId = useId()
+
     const teamEnabled = useFeatureFlag('primer_react_css_modules_team')
     const staffEnabled = useFeatureFlag('primer_react_css_modules_staff')
+
+    const calculateVisibleItems = React.useCallback(() => {
+      const itemsPerPage = items.length / pages
+      const amountToShow = pages === 0 ? items.length : Math.ceil(itemsPerPage * currentPage)
+      const focusTargetIndex = currentPage === 1 ? 0 : amountToShow - Math.floor(itemsPerPage)
+
+      return {amountToShow, focusTargetIndex}
+    }, [pages, items, currentPage])
 
     return (
       <>
@@ -451,9 +460,7 @@ export const GroupExpand = React.forwardRef<HTMLButtonElement, NavListGroupExpan
                 trailingAction,
                 ...rest
               } = itemArr
-              const itemsPerPage = items.length / pages
-              const amountToShow = pages === 0 ? items.length : Math.ceil(itemsPerPage * currentPage)
-              const focusTargetIndex = currentPage === 1 ? 0 : amountToShow - Math.floor(itemsPerPage)
+              const {amountToShow, focusTargetIndex} = calculateVisibleItems()
               const focusTarget = index === focusTargetIndex ? groupId : 'false'
 
               const {icon, label: actionLabel, ...props} = trailingAction || {}
@@ -473,14 +480,12 @@ export const GroupExpand = React.forwardRef<HTMLButtonElement, NavListGroupExpan
                       </LeadingVisual>
                     ) : null}
                     {text}
-                    {!trailingAction && TrailingVisualIcon ? (
+                    {TrailingVisualIcon ? (
                       <TrailingVisual>
                         <TrailingVisualIcon />
                       </TrailingVisual>
                     ) : null}
-                    {!TrailingVisualIcon && trailingAction ? (
-                      <TrailingAction icon={icon} label={actionLabel || ''} {...props} />
-                    ) : null}
+                    {trailingAction ? <TrailingAction icon={icon} label={actionLabel || ''} {...props} /> : null}
                   </Item>
                 )
               }
