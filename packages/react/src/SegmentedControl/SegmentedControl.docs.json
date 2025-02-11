@@ -169,12 +169,6 @@
           "required": false
         },
         {
-          "name": "unsafeDisableTooltip",
-          "type": "boolean",
-          "defaultValue": "false",
-          "required": false
-        },
-        {
           "name": "description",
           "type": "string",
           "required": false,
