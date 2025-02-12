@@ -3,6 +3,7 @@ import React from 'react'
 import {ThemeProvider} from '..'
 import {NavList} from './NavList'
 import {FeatureFlags} from '../FeatureFlags'
+import {text} from 'node:stream/consumers'
 
 type ReactRouterLikeLinkProps = {to: string; children: React.ReactNode}
 
@@ -382,16 +383,18 @@ describe('NavList.Item with NavList.SubNav', () => {
   })
 })
 
-describe('NavList.ShowMoreItem', () => {
+describe('NavList.GroupExpand', () => {
   function NavListWithExpand() {
+    const items = [
+      {text: 'Item 3', href: '#'},
+      {text: 'Item 4', href: '#'},
+    ]
+
     return (
       <NavList>
         <NavList.Item href="#">Item 1</NavList.Item>
         <NavList.Item href="#">Item 2</NavList.Item>
-        <NavList.ShowMoreItem label="More">
-          <NavList.Item href="#">Item 3</NavList.Item>
-          <NavList.Item href="#">Item 4</NavList.Item>
-        </NavList.ShowMoreItem>
+        <NavList.GroupExpand label="More" items={items} />
       </NavList>
     )
   }
@@ -457,8 +460,20 @@ describe('NavList.ShowMoreItem', () => {
   })
 })
 
-describe('NavList.ShowMoreItem with Group', () => {
+describe('NavList.GroupExpand with Group', () => {
   function NavListWithExpand() {
+    const items1 = [
+      {text: 'Item 1D', href: '#'},
+      {text: 'Item 1E', href: '#'},
+      {text: 'Item 1F', href: '#'},
+    ]
+
+    const items2 = [
+      {text: 'Item 2D', href: '#'},
+      {text: 'Item 2E', href: '#'},
+      {text: 'Item 2F', href: '#'},
+    ]
+
     return (
       <NavList>
         <NavList.Group title="Group 1">
@@ -467,21 +482,13 @@ describe('NavList.ShowMoreItem with Group', () => {
           </NavList.Item>
           <NavList.Item href="#">Item 1B</NavList.Item>
           <NavList.Item href="#">Item 1C</NavList.Item>
-          <NavList.ShowMoreItem label="More">
-            <NavList.Item>Item 1D</NavList.Item>
-            <NavList.Item>Item 1E</NavList.Item>
-            <NavList.Item>Item 1F</NavList.Item>
-          </NavList.ShowMoreItem>
+          <NavList.GroupExpand label="More" items={items1} />
         </NavList.Group>
         <NavList.Group title="Group 2">
           <NavList.Item href="#">Item 2A</NavList.Item>
           <NavList.Item href="#">Item 2B</NavList.Item>
           <NavList.Item href="#">Item 2C</NavList.Item>
-          <NavList.ShowMoreItem label="Show">
-            <NavList.Item>Item 2D</NavList.Item>
-            <NavList.Item>Item 2E</NavList.Item>
-            <NavList.Item>Item 2F</NavList.Item>
-          </NavList.ShowMoreItem>
+          <NavList.GroupExpand label="Show" items={items2} />
         </NavList.Group>
       </NavList>
     )
@@ -508,17 +515,19 @@ describe('NavList.ShowMoreItem with Group', () => {
 
 describe('NavList.ShowMoreItem with pages', () => {
   function NavListExpandWithPages() {
+    const items = [
+      {text: 'Item 3', href: '#'},
+      {text: 'Item 4', href: '#'},
+      {text: 'Item 5', href: '#'},
+      {text: 'Item 6', href: '#'},
+      {text: 'Item 7', href: '#'},
+    ]
+
     return (
       <NavList>
         <NavList.Item href="#">Item 1</NavList.Item>
         <NavList.Item href="#">Item 2</NavList.Item>
-        <NavList.ShowMoreItem pages={2} label="More">
-          <NavList.Item href="#">Item 3</NavList.Item>
-          <NavList.Item href="#">Item 4</NavList.Item>
-          <NavList.Item href="#">Item 5</NavList.Item>
-          <NavList.Item href="#">Item 6</NavList.Item>
-          <NavList.Item href="#">Item 7</NavList.Item>
-        </NavList.ShowMoreItem>
+        <NavList.GroupExpand pages={2} label="More" items={items} />
       </NavList>
     )
   }
