@@ -14,10 +14,11 @@ import {defaultSxProp} from '../utils/defaultSxProp'
 import {isElement} from 'react-is'
 import getGlobalFocusStyles from '../internal/utils/getGlobalFocusStyles'
 import {useFeatureFlag} from '../FeatureFlags'
-
+import type {TooltipDirection} from '../TooltipV2'
 import classes from './SegmentedControl.module.css'
 import {clsx} from 'clsx'
 import {toggleStyledComponent} from '../internal/utils/toggleStyledComponent'
+import {Tooltip} from '../TooltipV2'
 
 export type SegmentedControlIconButtonProps = {
   'aria-label': string
@@ -27,6 +28,10 @@ export type SegmentedControlIconButtonProps = {
   selected?: boolean
   /** Whether the segment is selected. This is used for uncontrolled SegmentedControls to pick one SegmentedControlButton that is selected on the initial render. */
   defaultSelected?: boolean
+  /** Supplementary description that renders inside tooltip in place of the label.*/
+  description?: string
+  /** The direction for the tooltip.*/
+  tooltipDirection?: TooltipDirection
 } & SxProp &
   ButtonHTMLAttributes<HTMLButtonElement | HTMLLIElement>
 
@@ -39,18 +44,14 @@ const SegmentedControlIconButtonStyled = toggleStyledComponent(
   `,
 )
 
-// TODO: update this component to be accessible when we update the Tooltip component
-// - we wouldn't render tooltip content inside a pseudoelement
-// - users can pass custom tooltip text in addition to `ariaLabel`
-//
-// See Slack thread: https://github.slack.com/archives/C02NUUQ9C30/p1656444474509599
-//
 export const SegmentedControlIconButton: React.FC<React.PropsWithChildren<SegmentedControlIconButtonProps>> = ({
   'aria-label': ariaLabel,
   icon: Icon,
   selected,
   sx: sxProp = defaultSxProp,
   className,
+  description,
+  tooltipDirection,
   ...rest
 }) => {
   const enabled = useFeatureFlag(SEGMENTED_CONTROL_CSS_MODULES_FEATURE_FLAG)
@@ -64,27 +65,58 @@ export const SegmentedControlIconButton: React.FC<React.PropsWithChildren<Segmen
         sxProp as SxProp,
       )
 
-  return (
-    <Box
-      as="li"
-      sx={mergedSx}
-      className={clsx(enabled && classes.Item, className)}
-      data-selected={selected || undefined}
-    >
-      {/* TODO: Once the tooltip remediations are resolved (especially https://github.com/github/primer/issues/1909) - bring it back */}
-      <SegmentedControlIconButtonStyled
-        aria-label={ariaLabel}
-        aria-current={selected}
-        sx={enabled ? undefined : getSegmentedControlButtonStyles({selected})}
-        className={clsx(enabled && classes.Button, enabled && classes.IconButton)}
-        {...rest}
+  const tooltipFlagEnabled = useFeatureFlag('primer_react_segmented_control_tooltip')
+  if (tooltipFlagEnabled) {
+    return (
+      <Box
+        as="li"
+        sx={mergedSx}
+        className={clsx(enabled && classes.Item, className)}
+        data-selected={selected || undefined}
       >
-        <span className={clsx(enabled ? classes.Content : 'segmentedControl-content')}>
-          {isElement(Icon) ? Icon : <Icon />}
-        </span>
-      </SegmentedControlIconButtonStyled>
-    </Box>
-  )
+        <Tooltip
+          type={description ? undefined : 'label'}
+          text={description ? description : ariaLabel}
+          direction={tooltipDirection}
+        >
+          <SegmentedControlIconButtonStyled
+            aria-current={selected}
+            // If description is provided, we will use the tooltip to describe the button, so we need to keep the aria-label to label the button.
+            aria-label={description ? ariaLabel : undefined}
+            sx={enabled ? undefined : getSegmentedControlButtonStyles({selected})}
+            className={clsx(enabled && classes.Button, enabled && classes.IconButton)}
+            {...rest}
+          >
+            <span className={clsx(enabled ? classes.Content : 'segmentedControl-content')}>
+              {isElement(Icon) ? Icon : <Icon />}
+            </span>
+          </SegmentedControlIconButtonStyled>
+        </Tooltip>
+      </Box>
+    )
+  } else {
+    // This can be removed when primer_react_segmented_control_tooltip feature flag is GA-ed.
+    return (
+      <Box
+        as="li"
+        sx={mergedSx}
+        className={clsx(enabled && classes.Item, className)}
+        data-selected={selected || undefined}
+      >
+        <SegmentedControlIconButtonStyled
+          aria-label={ariaLabel}
+          aria-current={selected}
+          sx={enabled ? undefined : getSegmentedControlButtonStyles({selected})}
+          className={clsx(enabled && classes.Button, enabled && classes.IconButton)}
+          {...rest}
+        >
+          <span className={clsx(enabled ? classes.Content : 'segmentedControl-content')}>
+            {isElement(Icon) ? Icon : <Icon />}
+          </span>
+        </SegmentedControlIconButtonStyled>
+      </Box>
+    )
+  }
 }
 
 export default SegmentedControlIconButton

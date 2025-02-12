@@ -1,12 +1,7 @@
 import React, {type CSSProperties} from 'react'
 import {clsx} from 'clsx'
 import type {ResponsiveValue} from '../hooks/useResponsiveValue'
-import {getBreakpointDeclarations} from '../utils/getBreakpointDeclarations'
-import Box from '../Box'
-import {useFeatureFlag} from '../FeatureFlags'
 import classes from './Hidden.module.css'
-
-const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_staff'
 
 type Viewport = 'narrow' | 'regular' | 'wide'
 
@@ -39,15 +34,11 @@ function normalize(hiddenViewports: Array<Viewport> | Viewport): ResponsiveValue
 }
 
 export const Hidden = ({when, className, style, children}: HiddenProps) => {
-  const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
   const normalizedStyles = normalize(when)
 
-  // Get breakpoint declarations for the normalized ResponsiveValue object
-  const breakpointSx = getBreakpointDeclarations(normalizedStyles, 'display', () => 'none')
-
-  return enabled ? (
+  return (
     <div
-      className={clsx(className, {[classes.Hidden]: enabled})}
+      className={clsx(className, classes.Hidden)}
       style={
         {
           '--hiddenDisplay-narrow': normalizedStyles.narrow ? 'none' : undefined,
@@ -59,8 +50,6 @@ export const Hidden = ({when, className, style, children}: HiddenProps) => {
     >
       {children}
     </div>
-  ) : (
-    <Box sx={breakpointSx}>{children}</Box>
   )
 }
 

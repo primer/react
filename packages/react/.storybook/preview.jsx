@@ -224,11 +224,7 @@ const primerThemes = [
 ]
 
 const defaultFeatureFlags = new Map(DefaultFeatureFlags.flags)
-const featureFlagEnvList = new Set([
-  'PRIMER_REACT_CSS_MODULES_TEAM',
-  'PRIMER_REACT_CSS_MODULES_STAFF',
-  'PRIMER_REACT_CSS_MODULES_GA',
-])
+const featureFlagEnvList = new Set(['PRIMER_REACT_CSS_MODULES_STAFF', 'PRIMER_REACT_CSS_MODULES_GA'])
 
 for (const flag of featureFlagEnvList) {
   if (import.meta.env[`VITE_${flag}`] === '1') {
