@@ -62,7 +62,7 @@ export type PrimaryActionProps =
   | (React.PropsWithChildren<{
       href?: never
     }> &
-      ButtonProps)
+      React.ComponentPropsWithoutRef<'button'>)
   | React.PropsWithChildren<{
       href: string
     }>
