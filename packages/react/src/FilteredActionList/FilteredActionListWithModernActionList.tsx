@@ -1,5 +1,5 @@
 import type {KeyboardEventHandler} from 'react'
-import React, {useCallback, useEffect, useRef} from 'react'
+import React, {useCallback, useContext, useEffect, useRef} from 'react'
 import styled from 'styled-components'
 import Box from '../Box'
 import type {TextInputProps} from '../TextInput'
@@ -18,6 +18,7 @@ import {FilteredActionListLoadingTypes, FilteredActionListBodyLoader} from './Fi
 
 import {isValidElementType} from 'react-is'
 import type {RenderItemFn} from '../deprecated/ActionList/List'
+import {ActionListContainerContext} from '../ActionList/ActionListContainerContext'
 
 export interface FilteredActionListProps
   extends Partial<Omit<GroupedListProps, keyof ListPropsBase>>,
@@ -185,9 +186,19 @@ export function FilteredActionList({
 }
 
 function MappedActionListItem(item: ItemInput & {renderItem?: RenderItemFn}) {
+  const {container} = useContext(ActionListContainerContext)
+
   // keep backward compatibility for renderItem
   // escape hatch for custom Item rendering
-  if (typeof item.renderItem === 'function') return item.renderItem(item)
+  if (typeof item.renderItem === 'function') {
+    if (container === 'SelectPanel') {
+      return React.cloneElement(item.renderItem(item), {
+        'data-select-panel-item': true,
+      })
+    }
+
+    return item.renderItem(item)
+  }
 
   const {
     id,
@@ -211,6 +222,7 @@ function MappedActionListItem(item: ItemInput & {renderItem?: RenderItemFn}) {
           onAction(item, e as React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>)
       }}
       data-id={id}
+      data-select-panel-item={container === 'SelectPanel'}
       {...rest}
     >
       {LeadingVisual ? (

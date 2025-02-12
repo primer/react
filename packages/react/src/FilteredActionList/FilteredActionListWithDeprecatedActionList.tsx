@@ -1,6 +1,6 @@
 import {FocusKeys} from '@primer/behaviors'
 import type {KeyboardEventHandler, RefObject} from 'react'
-import React, {useCallback, useEffect, useRef, useState} from 'react'
+import React, {useCallback, useContext, useEffect, useRef, useState} from 'react'
 import styled from 'styled-components'
 import Box from '../Box'
 import type {TextInputProps} from '../TextInput'
@@ -20,6 +20,7 @@ import {
   FilteredActionListBodyLoader,
   FilteredActionListLoadingTypes,
 } from './FilteredActionListLoaders'
+import {ActionListContainerContext} from '../ActionList/ActionListContainerContext'
 
 export interface FilteredActionListProps
   extends Partial<Omit<GroupedListProps, keyof ListPropsBase>>,
@@ -59,6 +60,7 @@ export function FilteredActionList({
   announcementsEnabled: _announcementsEnabled = true,
   ...listProps
 }: FilteredActionListProps): JSX.Element {
+  const {container} = useContext(ActionListContainerContext)
   const [filterValue, setInternalFilterValue] = useProvidedStateOrCreate(externalFilterValue, undefined, '')
   const onInputChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -149,7 +151,7 @@ export function FilteredActionList({
             items={items.map(item => {
               return {
                 ...item,
-                'data-select-panel-item': 'true',
+                'data-select-panel-item': container === 'SelectPanel',
                 role: 'option',
               }
             })}

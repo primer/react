@@ -14,12 +14,9 @@ import type {Merge} from '../../utils/types/Merge'
 
 export type RenderItemFn = (props: ItemProps) => React.ReactElement
 
-type DataAttributeKey = `data-${string}`
-
-export type ItemInput = (
+export type ItemInput =
   | Merge<React.ComponentPropsWithoutRef<'div'>, ItemProps>
   | ((Partial<ItemProps> & {renderItem: RenderItemFn}) & {key?: Key})
-) & {[dataAttribute: DataAttributeKey]: string}
 
 /**
  * Contract for props passed to the `List` component.
@@ -95,9 +92,7 @@ export interface GroupedListProps extends ListPropsBase {
    * A collection of `Item` props, plus associated group identifiers
    * and `Item`-level custom `Item` renderers.
    */
-  items: ((ItemProps | (Partial<ItemProps> & {renderItem: RenderItemFn})) & {groupId: string} & {
-    [dataAttribute: DataAttributeKey]: string
-  })[]
+  items: ((ItemProps | (Partial<ItemProps> & {renderItem: RenderItemFn})) & {groupId: string})[]
 }
 
 /**

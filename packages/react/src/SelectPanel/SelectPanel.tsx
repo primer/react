@@ -321,7 +321,6 @@ export function SelectPanel({
 
       return {
         ...item,
-        'data-select-panel-item': 'true',
         selected: 'selected' in item && item.selected === undefined ? undefined : isItemSelected,
         onAction: (itemFromAction, event) => {
           item.onAction?.(itemFromAction, event)
