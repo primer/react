@@ -70,7 +70,7 @@ export type PrimaryActionProps =
 function PrimaryAction({children, href, ...props}: PrimaryActionProps) {
   return (
     <div className={clsx('Blankslate-Action', classes.Action)}>
-      <Button as={href ? 'a' : 'button'} href={href} variant="primary" {...props}>
+      <Button {...props} as={href ? 'a' : 'button'} href={href} variant="primary">
         {children}
       </Button>
     </div>
