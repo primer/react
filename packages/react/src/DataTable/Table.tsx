@@ -18,7 +18,7 @@ import {toggleStyledComponent} from '../internal/utils/toggleStyledComponent'
 import {Button} from '../internal/components/ButtonReset'
 import classes from './Table.module.css'
 
-const cssModulesFlag = 'primer_react_css_modules_team'
+const cssModulesFlag = 'primer_react_css_modules_staff'
 
 // ----------------------------------------------------------------------------
 // Table
@@ -228,6 +228,10 @@ const StyledTable = toggleStyledComponent(
         grid-column: -1 /1;
       }
     }
+
+    .TableSortButton {
+      column-gap: 0.5rem;
+    }
   `,
 )
 
@@ -390,7 +394,7 @@ function TableSortHeader({align, children, direction, onToggleSort, ...rest}: Ta
           <SortAscIcon
             className={clsx('TableSortIcon', 'TableSortIcon--ascending', {
               [classes.TableSortIcon]: enabled,
-              // [classes['TableSortIcon--ascending']]: enabled,
+              [classes['TableSortIcon--ascending']]: enabled,
             })}
           />
         ) : null}
@@ -398,7 +402,7 @@ function TableSortHeader({align, children, direction, onToggleSort, ...rest}: Ta
           <SortDescIcon
             className={clsx('TableSortIcon', 'TableSortIcon--descending', {
               [classes.TableSortIcon]: enabled,
-              // [classes['TableSortIcon--descending']]: enabled,
+              [classes['TableSortIcon--descending']]: enabled,
             })}
           />
         ) : null}
@@ -588,7 +592,7 @@ const StyledTableTitle = toggleStyledComponent(
   'h2',
   styled.h2`
     color: var(--fgColor-default);
-    font-size: var(--text-body-size-small);
+    font-size: var(--text-body-size-medium);
     font-weight: var(--base-text-weight-semibold);
     line-height: calc(20 / 14);
     margin: 0;
@@ -632,7 +636,7 @@ const StyledTableSubtitle = toggleStyledComponent(
     color: var(--fgColor-default);
     font-weight: var(--base-text-weight-normal);
     font-size: var(--text-body-size-small);
-    line-height: var(--text-body-lineHeight-small);
+    line-height: var(--text-title-lineHeight-small);
     margin: 0;
   `,
 )

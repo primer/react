@@ -145,6 +145,7 @@ export const StressTest = ({width, height, subtitle}: DialogStoryProps) => {
             {buttonType: 'danger', content: 'Delete the universe', onClick: onDialogClose},
             {buttonType: 'primary', content: 'Proceed', onClick: openSecondDialog},
           ]}
+          position={{narrow: 'fullscreen', regular: 'center'}}
         >
           {lipsum}
           {secondOpen && (

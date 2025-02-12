@@ -1,0 +1,17 @@
+{
+  "name": "useFeatureFlag",
+  "importPath": "@primer/react",
+  "stories": [],
+  "parameters": [
+    {
+      "name": "flag",
+      "type": "string",
+      "required": true,
+      "description": "The feature flag ID."
+    }
+  ],
+  "returns": {
+    "type": "boolean",
+    "description": "Whether the feature flag is enabled."
+  }
+}

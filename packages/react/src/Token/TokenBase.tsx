@@ -116,7 +116,7 @@ const variants = variant<
   },
 })
 
-const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_team'
+const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_staff'
 
 const StyledTokenBase = toggleStyledComponent(
   CSS_MODULES_FEATURE_FLAG,

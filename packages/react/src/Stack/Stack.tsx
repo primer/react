@@ -7,7 +7,7 @@ import {toggleStyledComponent} from '../internal/utils/toggleStyledComponent'
 import {useFeatureFlag} from '../FeatureFlags'
 import {clsx} from 'clsx'
 
-const CSS_MODULE_FEATURE_FLAG = 'primer_react_css_modules_staff'
+const CSS_MODULE_FEATURE_FLAG = 'primer_react_css_modules_ga'
 
 const StyledStack = toggleStyledComponent(
   CSS_MODULE_FEATURE_FLAG,

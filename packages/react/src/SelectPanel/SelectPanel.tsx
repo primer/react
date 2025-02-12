@@ -1,5 +1,5 @@
 import {SearchIcon, TriangleDownIcon} from '@primer/octicons-react'
-import React, {useCallback, useMemo} from 'react'
+import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react'
 import type {AnchoredOverlayProps} from '../AnchoredOverlay'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import type {AnchoredOverlayWrapperAnchorProps} from '../AnchoredOverlay/AnchoredOverlay'
@@ -17,10 +17,89 @@ import type {FocusZoneHookSettings} from '../hooks/useFocusZone'
 import {useId} from '../hooks/useId'
 import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
 import {LiveRegion, LiveRegionOutlet, Message} from '../internal/components/LiveRegion'
+import useSafeTimeout from '../hooks/useSafeTimeout'
+import type {FilteredActionListLoadingType} from '../FilteredActionList/FilteredActionListLoaders'
+import {FilteredActionListLoadingTypes} from '../FilteredActionList/FilteredActionListLoaders'
 import {useFeatureFlag} from '../FeatureFlags'
+import {announce} from '@primer/live-region-element'
 
 import classes from './SelectPanel.module.css'
 import {clsx} from 'clsx'
+
+// we add a delay so that it does not interrupt default screen reader announcement and queues after it
+const delayMs = 500
+const loadingDelayMs = 1000
+
+const getItemWithActiveDescendant = (
+  listRef: React.RefObject<HTMLElement>,
+  items: FilteredActionListProps['items'],
+) => {
+  const listElement = listRef.current
+  const activeItemElement = listElement?.querySelector('[data-is-active-descendant]')
+
+  if (!listElement || !activeItemElement?.textContent) return
+
+  const optionElements = listElement.querySelectorAll('[role="option"]')
+
+  const index = Array.from(optionElements).indexOf(activeItemElement)
+  const activeItem = items[index] as ItemInput | undefined
+
+  const text = activeItem?.text
+  const selected = activeItem?.selected
+
+  return {index, text, selected}
+}
+
+async function announceText(text: string) {
+  const liveRegion = document.querySelector('live-region')
+
+  liveRegion?.clear() // clear previous announcements
+
+  await announce(text, {
+    delayMs,
+    from: liveRegion ? liveRegion : undefined, // announce will create a liveRegion if it doesn't find one
+  })
+}
+
+async function announceFilterFocused() {
+  await announceText('Focus on filter text box and list of items')
+}
+
+async function announceNoItems() {
+  await announceText('No matching items.')
+}
+
+async function announceLoading() {
+  await announceText('Loading.')
+}
+
+async function announceItemsChanged(
+  items: FilteredActionListProps['items'],
+  listContainerRef: React.RefObject<HTMLElement>,
+) {
+  const liveRegion = document.querySelector('live-region')
+
+  liveRegion?.clear() // clear previous announcements
+
+  // give @primer/behaviors a moment to update active-descendant
+  await new Promise(resolve => window.requestAnimationFrame(resolve))
+
+  const activeItem = getItemWithActiveDescendant(listContainerRef, items)
+  if (!activeItem) return
+  const {index, text, selected} = activeItem
+
+  const announcementText = [
+    'List updated',
+    `Focused item: ${text}`,
+    `${selected ? 'selected' : 'not selected'}`,
+    `${index + 1} of ${items.length}`,
+  ].join(', ')
+
+  await announce(announcementText, {
+    delayMs,
+    from: liveRegion ? liveRegion : undefined, // announce will create a liveRegion if it doesn't find one
+  })
+}
 
 interface SelectPanelSingleSelection {
   selected: ItemInput | undefined
@@ -31,6 +110,8 @@ interface SelectPanelMultiSelection {
   selected: ItemInput[]
   onSelectedChange: (selected: ItemInput[]) => void
 }
+
+export type InitialLoadingType = 'spinner' | 'skeleton'
 
 interface SelectPanelBaseProps {
   // TODO: Make `title` required in the next major version
@@ -45,12 +126,13 @@ interface SelectPanelBaseProps {
   inputLabel?: string
   overlayProps?: Partial<OverlayProps>
   footer?: string | React.ReactElement
+  initialLoadingType?: InitialLoadingType
   className?: string
 }
 
 export type SelectPanelProps = SelectPanelBaseProps &
   Omit<FilteredActionListProps, 'selectionVariant'> &
-  Pick<AnchoredOverlayProps, 'open'> &
+  Pick<AnchoredOverlayProps, 'open' | 'height'> &
   AnchoredOverlayWrapperAnchorProps &
   (SelectPanelSingleSelection | SelectPanelMultiSelection)
 
@@ -101,21 +183,166 @@ export function SelectPanel({
   textInputProps,
   overlayProps,
   sx,
+  loading,
+  initialLoadingType = 'spinner',
+  height,
   className,
+  id,
   ...listProps
 }: SelectPanelProps): JSX.Element {
   const titleId = useId()
   const subtitleId = useId()
+  const [dataLoadedOnce, setDataLoadedOnce] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
   const [filterValue, setInternalFilterValue] = useProvidedStateOrCreate(externalFilterValue, undefined, '')
+  const {safeSetTimeout, safeClearTimeout} = useSafeTimeout()
+  const loadingDelayTimeoutId = useRef<number | null>(null)
+  const loadingManagedInternally = loading === undefined
+  const loadingManagedExternally = !loadingManagedInternally
+  const [inputRef, setInputRef] = React.useState<React.RefObject<HTMLInputElement> | null>(null)
+  const [listContainerElement, setListContainerElement] = useState<HTMLElement | null>(null)
+  const [needItemsChangedAnnouncement, setNeedItemsChangedAnnouncement] = useState<boolean>(false)
+
+  const onListContainerRefChanged: FilteredActionListProps['onListContainerRefChanged'] = useCallback(
+    (node: HTMLElement | null) => {
+      setListContainerElement(node)
+
+      if (needItemsChangedAnnouncement) {
+        announceItemsChanged(items, {current: node})
+        setNeedItemsChangedAnnouncement(false)
+      }
+    },
+    [items, needItemsChangedAnnouncement],
+  )
+
+  const onInputRefChanged = useCallback(
+    (ref: React.RefObject<HTMLInputElement>) => {
+      setInputRef(ref)
+    },
+    [setInputRef],
+  )
+
   const onFilterChange: FilteredActionListProps['onFilterChange'] = useCallback(
     (value, e) => {
+      if (loadingManagedInternally) {
+        if (loadingDelayTimeoutId.current) {
+          safeClearTimeout(loadingDelayTimeoutId.current)
+        }
+
+        if (dataLoadedOnce) {
+          // If data has already been loaded once, delay the spinner a bit. This also helps
+          // not show and then immediately hide the spinner if items are loaded quickly, i.e.
+          // not async.
+
+          loadingDelayTimeoutId.current = safeSetTimeout(() => {
+            setIsLoading(true)
+            announceLoading()
+          }, loadingDelayMs)
+        } else {
+          // If this is the first data load and there are no items, show the loading spinner
+          // immediately
+
+          if (items.length === 0) {
+            setIsLoading(true)
+          }
+
+          // We still want to announce if loading is taking too long
+          loadingDelayTimeoutId.current = safeSetTimeout(() => {
+            announceLoading()
+          }, loadingDelayMs)
+        }
+      }
+
       externalOnFilterChange(value, e)
       setInternalFilterValue(value)
     },
-    [externalOnFilterChange, setInternalFilterValue],
+    [
+      loadingManagedInternally,
+      externalOnFilterChange,
+      setInternalFilterValue,
+      dataLoadedOnce,
+      safeSetTimeout,
+      safeClearTimeout,
+      items.length,
+    ],
   )
 
-  const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_team'
+  useEffect(() => {
+    if (open) {
+      if (items.length === 0) {
+        announceNoItems()
+      } else {
+        if (listContainerElement) {
+          announceItemsChanged(items, {current: listContainerElement})
+        } else {
+          setNeedItemsChangedAnnouncement(true)
+        }
+      }
+    }
+
+    if (loadingManagedExternally) {
+      if (items.length > 0) {
+        setDataLoadedOnce(true)
+      }
+
+      return
+    }
+
+    if (isLoading) {
+      setIsLoading(false)
+      setDataLoadedOnce(true)
+    }
+
+    if (loadingDelayTimeoutId.current) {
+      safeClearTimeout(loadingDelayTimeoutId.current)
+    }
+
+    // Only fire this effect if items have changed
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [items])
+
+  useEffect(() => {
+    if (inputRef?.current) {
+      const ref = inputRef.current
+      const listener = () => {
+        announceFilterFocused()
+      }
+
+      if (document.activeElement === ref) {
+        listener()
+      }
+
+      ref.addEventListener('focus', listener)
+
+      // We would normally expect AnchoredOverlay's focus trap to automatically focus the input,
+      // but for some reason the ref isn't populated until _after_ the panel is open, which is
+      // too late. So, we focus manually here.
+      if (open) {
+        ref.focus()
+      }
+
+      return () => ref.removeEventListener('focus', listener)
+    }
+  }, [inputRef, open])
+
+  // Populate panel with items on first open
+  useEffect(() => {
+    if (loadingManagedExternally) return
+
+    // If data was already loaded once, do nothing
+    if (dataLoadedOnce) return
+
+    // Only load data when the panel is open
+    if (open) {
+      // Only trigger filter change event if there are no items
+      if (items.length === 0) {
+        // Trigger filter event to populate panel on first open
+        onFilterChange(filterValue, null)
+      }
+    }
+  }, [open, dataLoadedOnce, onFilterChange, filterValue, items, loadingManagedExternally, listContainerElement])
+
+  const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_staff'
   const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
 
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
@@ -180,9 +407,8 @@ export function SelectPanel({
     })
   }, [onClose, onSelectedChange, items, selected])
 
-  const inputRef = React.useRef<HTMLInputElement>(null)
   const focusTrapSettings = {
-    initialFocusRef: inputRef,
+    initialFocusRef: inputRef || undefined,
   }
 
   const extendedTextInputProps: Partial<TextInputProps> = useMemo(() => {
@@ -195,6 +421,17 @@ export function SelectPanel({
     }
   }, [inputLabel, textInputProps])
 
+  const loadingType = (): FilteredActionListLoadingType => {
+    if (dataLoadedOnce) {
+      return FilteredActionListLoadingTypes.input
+    } else {
+      if (initialLoadingType === 'spinner') {
+        return FilteredActionListLoadingTypes.bodySpinner
+      } else {
+        return FilteredActionListLoadingTypes.bodySkeleton
+      }
+    }
+  }
   const usingModernActionList = useFeatureFlag('primer_react_select_panel_with_modern_action_list')
 
   return (
@@ -213,6 +450,8 @@ export function SelectPanel({
         }}
         focusTrapSettings={focusTrapSettings}
         focusZoneSettings={focusZoneSettings}
+        height={height}
+        anchorId={id}
       >
         <LiveRegionOutlet />
         {usingModernActionList ? null : (
@@ -252,6 +491,8 @@ export function SelectPanel({
           <FilteredActionList
             filterValue={filterValue}
             onFilterChange={onFilterChange}
+            onListContainerRefChanged={onListContainerRefChanged}
+            onInputRefChanged={onInputRefChanged}
             placeholderText={placeholderText}
             {...listProps}
             role="listbox"
@@ -262,11 +503,13 @@ export function SelectPanel({
             selectionVariant={isMultiSelectVariant(selected) ? 'multiple' : 'single'}
             items={itemsToRender}
             textInputProps={extendedTextInputProps}
-            inputRef={inputRef}
+            loading={loading || isLoading}
+            loadingType={loadingType()}
             // inheriting height and maxHeight ensures that the FilteredActionList is never taller
             // than the Overlay (which would break scrolling the items)
             sx={enabled ? sx : {...sx, height: 'inherit', maxHeight: 'inherit'}}
             className={enabled ? clsx(className, classes.FilteredActionList) : className}
+            announcementsEnabled={false}
           />
           {footer && (
             <Box

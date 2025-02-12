@@ -14,7 +14,7 @@ describe('Radio', () => {
     jest.resetAllMocks()
   })
 
-  behavesAsComponent({Component: Radio, toRender: () => <Radio {...defaultProps} />})
+  behavesAsComponent({options: {skipAs: true}, Component: Radio, toRender: () => <Radio {...defaultProps} />})
 
   checkExports('Radio', {
     default: Radio,
@@ -26,7 +26,6 @@ describe('Radio', () => {
       return (
         <FeatureFlags
           flags={{
-            primer_react_css_modules_team: true,
             primer_react_css_modules_staff: true,
             primer_react_css_modules_ga: true,
           }}

@@ -15,10 +15,10 @@
 /* TableTitle */
 .TableTitle {
   margin: 0;
-  font-size: var(--text-body-size-small);
+  font-size: var(--text-body-size-medium);
   font-weight: var(--base-text-weight-semibold);
   /* stylelint-disable-next-line primer/typography */
-  line-height: calc(20 / 14);
+  line-height: 20px;
   color: var(--fgColor-default);
   grid-area: title;
   align-self: center;
@@ -29,7 +29,7 @@
   margin: 0;
   font-size: var(--text-body-size-small);
   font-weight: var(--base-text-weight-normal);
-  line-height: var(--text-body-lineHeight-small);
+  line-height: var(--text-title-lineHeight-small);
   color: var(--fgColor-default);
   grid-area: subtitle;
 }
@@ -263,6 +263,10 @@
 
 .TableCellSkeletonItem:not(:last-of-type) {
   border-block-end: var(--borderWidth-thin) solid var(--borderColor-default);
+}
+
+.TableSortButton {
+  column-gap: 0.5rem;
 }
 
 /* Grid layout */

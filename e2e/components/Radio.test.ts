@@ -17,22 +17,6 @@ test.describe('Radio', () => {
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`Radio.Default.${theme}.png`)
         })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-radio--default',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
-        })
       })
     }
   })
@@ -50,22 +34,6 @@ test.describe('Radio', () => {
 
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`Radio.Disabled.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-radio-features--disabled',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
         })
       })
     }
@@ -85,22 +53,6 @@ test.describe('Radio', () => {
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`Radio.With Caption.${theme}.png`)
         })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-radio-features--with-caption',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: false,
-              },
-            },
-          })
-        })
       })
     }
   })
@@ -118,22 +70,6 @@ test.describe('Radio', () => {
 
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`Radio.With Leading Visual.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-radio-features--with-leading-visual',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
         })
       })
     }

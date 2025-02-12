@@ -12,6 +12,7 @@ import {invariant} from '../utils/invariant'
 import {clsx} from 'clsx'
 import {useFeatureFlag} from '../FeatureFlags'
 import classes from './Heading.module.css'
+import {actionListCssModulesFlag} from './featureflag'
 
 type HeadingLevels = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
 type HeadingVariants = 'large' | 'medium' | 'small'
@@ -27,7 +28,7 @@ export const Heading = forwardRef(
     const innerRef = React.useRef<HTMLHeadingElement>(null)
     useRefObjectAsForwardedRef(forwardedRef, innerRef)
 
-    const enabled = useFeatureFlag('primer_react_css_modules_team')
+    const enabled = useFeatureFlag(actionListCssModulesFlag)
 
     const {headingId: headingId, variant: listVariant} = React.useContext(ListContext)
     const {container} = React.useContext(ActionListContainerContext)
