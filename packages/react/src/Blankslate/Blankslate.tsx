@@ -1,6 +1,6 @@
 import {clsx} from 'clsx'
 import React from 'react'
-import {Button, type ButtonProps} from '../Button'
+import {Button} from '../Button'
 import Link from '../Link'
 import classes from './Blankslate.module.css'
 
