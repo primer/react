@@ -521,7 +521,7 @@ export const WithGroupExpand = () => {
 export const GroupWithExpandAndCustomItems = () => {
   const Item = ({leadingVisual: LeadingVisual, text, trailingVisual: TrailingVisual, ...rest}: CustomItemProps) => {
     return (
-      <NavList.Item onClick={() => {}} href="#" {...rest}>
+      <NavList.Item onClick={() => {}} href="#" {...rest} key={text}>
         {LeadingVisual ? (
           <NavList.LeadingVisual>
             <LeadingVisual />

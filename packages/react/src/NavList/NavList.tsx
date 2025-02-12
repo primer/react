@@ -460,7 +460,7 @@ export const GroupExpand = React.forwardRef<HTMLButtonElement, NavListGroupExpan
                 trailingAction,
                 ...rest
               } = itemArr
-              const {icon, label: actionLabel, ...props} = trailingAction || {}
+              const {icon, label: actionLabel, ...actionProps} = trailingAction || {}
               const focusTarget = index === focusTargetIndex ? groupId : 'false'
 
               if (index < amountToShow) {
@@ -483,7 +483,7 @@ export const GroupExpand = React.forwardRef<HTMLButtonElement, NavListGroupExpan
                         <TrailingVisualIcon />
                       </TrailingVisual>
                     ) : null}
-                    {trailingAction ? <TrailingAction {...props} icon={icon} label={actionLabel || ''} /> : null}
+                    {trailingAction ? <TrailingAction {...actionProps} icon={icon} label={actionLabel || ''} /> : null}
                   </Item>
                 )
               }
