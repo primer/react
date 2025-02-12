@@ -4,12 +4,24 @@
   "status": "beta",
   "a11yReviewed": true,
   "stories": [
-    {"id": "components-treeview-features--files"},
-    {"id": "components-treeview-features--files-changed"},
-    {"id": "components-treeview-features--async-success"},
-    {"id": "components-treeview-features--async-error"},
-    {"id": "components-treeview-features--async-with-count"},
-    {"id": "components-treeview-features--controlled"}
+    {
+      "id": "components-treeview-features--files"
+    },
+    {
+      "id": "components-treeview-features--files-changed"
+    },
+    {
+      "id": "components-treeview-features--async-success"
+    },
+    {
+      "id": "components-treeview-features--async-error"
+    },
+    {
+      "id": "components-treeview-features--async-with-count"
+    },
+    {
+      "id": "components-treeview-features--controlled"
+    }
   ],
   "importPath": "@primer/react",
   "props": [
@@ -150,23 +162,6 @@
           "name": "label",
           "type": "string",
           "description": "Provide an accessible label for the visual. This is not necessary for decorative visuals."
-        }
-      ]
-    },
-    {
-      "name": "TreeView.LeadingAction",
-      "props": [
-        {
-          "name": "children",
-          "required": true,
-          "type": "React.ReactNode"
-        },
-        {
-          "name": "label",
-          "type": "string",
-          "required": false,
-          "description": "Provide an accessible label for the visual. This is not necessary for decorative visuals.",
-          "defaultValue": ""
         }
       ]
     },
