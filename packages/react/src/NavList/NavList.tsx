@@ -461,9 +461,8 @@ export const GroupExpand = React.forwardRef<HTMLButtonElement, NavListGroupExpan
                 ...rest
               } = itemArr
               const {amountToShow, focusTargetIndex} = calculateVisibleItems()
-              const focusTarget = index === focusTargetIndex ? groupId : 'false'
-
               const {icon, label: actionLabel, ...props} = trailingAction || {}
+              const focusTarget = index === focusTargetIndex ? groupId : 'false'
 
               if (index < amountToShow) {
                 if (renderItem) {
