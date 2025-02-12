@@ -3,7 +3,6 @@ import React from 'react'
 import {ThemeProvider} from '..'
 import {NavList} from './NavList'
 import {FeatureFlags} from '../FeatureFlags'
-import {text} from 'node:stream/consumers'
 
 type ReactRouterLikeLinkProps = {to: string; children: React.ReactNode}
 
