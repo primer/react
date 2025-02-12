@@ -440,7 +440,7 @@ export const GroupExpand = React.forwardRef<HTMLButtonElement, NavListGroupExpan
     const teamEnabled = useFeatureFlag('primer_react_css_modules_team')
     const staffEnabled = useFeatureFlag('primer_react_css_modules_staff')
 
-    const calculateVisibleItems = React.useCallback(() => {
+    const {amountToShow, focusTargetIndex} = React.useMemo(() => {
       const itemsPerPage = items.length / pages
       const amountToShow = pages === 0 ? items.length : Math.ceil(itemsPerPage * currentPage)
       const focusTargetIndex = currentPage === 1 ? 0 : amountToShow - Math.floor(itemsPerPage)
@@ -460,7 +460,6 @@ export const GroupExpand = React.forwardRef<HTMLButtonElement, NavListGroupExpan
                 trailingAction,
                 ...rest
               } = itemArr
-              const {amountToShow, focusTargetIndex} = calculateVisibleItems()
               const {icon, label: actionLabel, ...props} = trailingAction || {}
               const focusTarget = index === focusTargetIndex ? groupId : 'false'
 
@@ -472,7 +471,7 @@ export const GroupExpand = React.forwardRef<HTMLButtonElement, NavListGroupExpan
                   return renderItem(itemArr)
                 }
                 return (
-                  <Item key={index} data-expand-focus-target={focusTarget} {...rest}>
+                  <Item {...rest} key={index} data-expand-focus-target={focusTarget}>
                     {LeadingVisualIcon ? (
                       <LeadingVisual>
                         <LeadingVisualIcon />
@@ -484,7 +483,7 @@ export const GroupExpand = React.forwardRef<HTMLButtonElement, NavListGroupExpan
                         <TrailingVisualIcon />
                       </TrailingVisual>
                     ) : null}
-                    {trailingAction ? <TrailingAction icon={icon} label={actionLabel || ''} {...props} /> : null}
+                    {trailingAction ? <TrailingAction {...props} icon={icon} label={actionLabel || ''} /> : null}
                   </Item>
                 )
               }

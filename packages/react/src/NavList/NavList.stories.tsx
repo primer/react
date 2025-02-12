@@ -403,17 +403,17 @@ export const WithExpandAndIcons: StoryFn = () => {
 type CustomItemProps = {
   text: string
   leadingVisual?: Icon
-  trailingVisual?: string | React.ElementType
+  trailingVisual?: Icon | string
 }
 
 export const ExpandWithCustomItems: StoryFn = () => {
-  const items = [
-    {href: '#', text: 'Item 4', 'aria-current': 'page', index: 1},
-    {href: '#', text: 'Item 5', index: 2},
-    {href: '#', text: 'Item 6', index: 3},
-    {href: '#', text: 'Item 7', index: 4},
-    {href: '#', text: 'Item 8', index: 5},
-    {href: '#', text: 'Item 9', index: 6},
+  const items: {href: string; text: string; 'aria-current'?: 'page'}[] = [
+    {href: '#', text: 'Item 4', 'aria-current': 'page'},
+    {href: '#', text: 'Item 5'},
+    {href: '#', text: 'Item 6'},
+    {href: '#', text: 'Item 7'},
+    {href: '#', text: 'Item 8'},
+    {href: '#', text: 'Item 9'},
   ]
 
   const Item = ({leadingVisual, text, trailingVisual, ...rest}: CustomItemProps) => {
@@ -457,8 +457,8 @@ export const ExpandWithCustomItems: StoryFn = () => {
 
 export const ExpandWithPages: StoryFn = () => {
   const items = [
-    {href: '#', text: 'Item 4', leadingVisual: BookIcon},
-    {href: '#', text: 'Item 5', leadingVisual: FileDirectoryIcon},
+    {href: '#', text: 'Item 4'},
+    {href: '#', text: 'Item 5'},
     {href: '#', text: 'Item 6'},
     {href: '#', text: 'Item 7'},
     {href: '#', text: 'Item 8'},
