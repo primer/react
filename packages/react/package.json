@@ -21,6 +21,7 @@
       "import": "./lib-esm/next/index.js",
       "require": "./lib/next/index.js"
     },
+    "./css/*": "./css/*",
     "./test-helpers": {
       "import": "./lib-esm/test-helpers.js",
       "require": "./lib/test-helpers.js"
