@@ -3,7 +3,6 @@ import {Header} from '..'
 import {render, behavesAsComponent, checkExports} from '../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
 import axe from 'axe-core'
-import {FeatureFlags} from '../FeatureFlags'
 
 describe('Header', () => {
   behavesAsComponent({Component: Header})
