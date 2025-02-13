@@ -27,6 +27,7 @@ import useIsomorphicLayoutEffect from '../../utils/useIsomorphicLayoutEffect'
 import {useFeatureFlag} from '../../FeatureFlags'
 import classes from './UnderlinePanels.module.css'
 import {toggleStyledComponent} from '../../internal/utils/toggleStyledComponent'
+import {clsx} from 'clsx'
 
 const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_staff'
 
@@ -51,6 +52,10 @@ export type UnderlinePanelsProps = {
    * Loading state for all counters. It displays loading animation for individual counters until all are resolved. It is needed to prevent multiple layout shift.
    */
   loadingCounters?: boolean
+  /**
+   * Class name for custom styling
+   */
+  className?: string
 } & SxProp
 
 export type TabProps = PropsWithChildren<{
@@ -89,6 +94,7 @@ const UnderlinePanels: FC<UnderlinePanelsProps> = ({
   children,
   loadingCounters,
   sx: sxProp = defaultSxProp,
+  className,
   ...props
 }) => {
   const [iconsVisible, setIconsVisible] = useState(true)
@@ -184,7 +190,7 @@ const UnderlinePanels: FC<UnderlinePanelsProps> = ({
           slot="tablist-wrapper"
           data-icons-visible={iconsVisible}
           sx={sxProp}
-          className={classes.StyledUnderlineWrapper}
+          className={clsx(className, classes.StyledUnderlineWrapper)}
           {...props}
         >
           <StyledUnderlineItemList ref={listRef} aria-label={ariaLabel} aria-labelledby={ariaLabelledBy} role="tablist">
@@ -214,6 +220,7 @@ const UnderlinePanels: FC<UnderlinePanelsProps> = ({
           },
           sxProp as SxProp,
         )}
+        className={className}
         {...props}
       >
         <StyledUnderlineItemList ref={listRef} aria-label={ariaLabel} aria-labelledby={ariaLabelledBy} role="tablist">
