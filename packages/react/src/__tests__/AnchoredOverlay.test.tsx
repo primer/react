@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react'
+import React, {act, useCallback, useState} from 'react'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import {behavesAsComponent, checkExports} from '../utils/testing'
 import {render as HTMLRender, fireEvent} from '@testing-library/react'
@@ -70,7 +70,11 @@ describe('AnchoredOverlay', () => {
 
   it('should have no axe violations when closed', async () => {
     const {container} = HTMLRender(<AnchoredOverlayTestComponent></AnchoredOverlayTestComponent>)
-    const results = await axe.run(container)
+
+    let results
+    await act(async () => {
+      results = await axe.run(container)
+    })
     expect(results).toHaveNoViolations()
   })
 

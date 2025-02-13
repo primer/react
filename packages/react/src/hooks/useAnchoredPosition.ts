@@ -34,29 +34,40 @@ export function useAnchoredPosition(
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, setPrevHeight] = React.useState<number | undefined>(undefined)
 
+  const topPositionChanged = (prevPosition: AnchorPosition | undefined, newPosition: AnchorPosition) => {
+    return (
+      prevPosition &&
+      ['outside-top', 'inside-top'].includes(prevPosition.anchorSide) &&
+      // either the anchor changed or the element is trying to shrink in height
+      (prevPosition.anchorSide !== newPosition.anchorSide || prevPosition.top < newPosition.top)
+    )
+  }
+
+  const updateElementHeight = () => {
+    let heightUpdated = false
+    setPrevHeight(prevHeight => {
+      // if the element is trying to shrink in height, restore to old height to prevent it from jumping
+      if (prevHeight && prevHeight > (floatingElementRef.current?.clientHeight ?? 0)) {
+        requestAnimationFrame(() => {
+          ;(floatingElementRef.current as HTMLElement).style.height = `${prevHeight}px`
+        })
+        heightUpdated = true
+      }
+      return prevHeight
+    })
+    return heightUpdated
+  }
+
   const updatePosition = React.useCallback(
     () => {
       if (floatingElementRef.current instanceof Element && anchorElementRef.current instanceof Element) {
         const newPosition = getAnchoredPosition(floatingElementRef.current, anchorElementRef.current, settings)
         setPosition(prev => {
-          if (
-            settings?.pinPosition &&
-            prev &&
-            ['outside-top', 'inside-top'].includes(prev.anchorSide) &&
-            (prev.anchorSide !== newPosition.anchorSide || prev.top < newPosition.top)
-          ) {
+          if (settings?.pinPosition && topPositionChanged(prev, newPosition)) {
             const anchorTop = anchorElementRef.current?.getBoundingClientRect().top ?? 0
-            if (anchorTop > (floatingElementRef.current?.clientHeight ?? 0)) {
-              setPrevHeight(prevHeight => {
-                if (prevHeight && prevHeight > (floatingElementRef.current?.clientHeight ?? 0)) {
-                  requestAnimationFrame(() => {
-                    ;(floatingElementRef.current as HTMLElement).style.height = `${prevHeight}px`
-                  })
-                } else {
-                  prev = newPosition
-                }
-                return prevHeight
-              })
+            const elementStillFitsOnTop = anchorTop > (floatingElementRef.current?.clientHeight ?? 0)
+
+            if (elementStillFitsOnTop && updateElementHeight()) {
               return prev
             }
           }

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {act} from 'react'
 import type {TooltipProps} from './Tooltip'
 import Tooltip from './Tooltip'
 import {render, renderClasses, rendersClass, behavesAsComponent, checkExports} from '../utils/testing'
@@ -17,7 +17,10 @@ describe('Tooltip', () => {
 
   it('should have no axe violations', async () => {
     const {container} = HTMLRender(<Tooltip text="hi" />)
-    const results = await axe.run(container)
+    let results
+    await act(async () => {
+      results = await axe.run(container)
+    })
     expect(results).toHaveNoViolations()
   })
 

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {act} from 'react'
 import {promisify} from 'util'
 import renderer from 'react-test-renderer'
 import {render as HTMLRender} from '@testing-library/react'
@@ -275,7 +275,10 @@ export function checkStoriesForAxeViolations(name: string, storyDir?: string) {
         </ThemeProvider>,
       )
 
-      const results = await axe.run(container)
+      let results
+      await act(async () => {
+        results = await axe.run(container)
+      })
       expect(results).toHaveNoViolations()
     })
   })

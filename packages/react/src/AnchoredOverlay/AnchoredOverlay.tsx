@@ -130,6 +130,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
 
   const onClickOutside = useCallback(() => onClose?.('click-outside'), [onClose])
   const onEscape = useCallback(() => onClose?.('escape'), [onClose])
+  const [visible, setVisible] = React.useState(true)
 
   const onAnchorKeyDown = useCallback(
     (event: React.KeyboardEvent<HTMLElement>) => {
@@ -170,6 +171,13 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   )
 
   useEffect(() => {
+    // trick to delay visibility until after the overlay is positioned
+    setTimeout(() => {
+      setVisible(open)
+    })
+  }, [open])
+
+  useEffect(() => {
     // ensure overlay ref gets cleared when closed, so position can reset between closing/re-opening
     if (!open && overlayRef.current) {
       updateOverlayRef(null)
@@ -178,10 +186,10 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
 
   useFocusZone({
     containerRef: overlayRef,
-    disabled: !open || !position,
+    disabled: !open || !position || !visible,
     ...focusZoneSettings,
   })
-  useFocusTrap({containerRef: overlayRef, disabled: !open || !position, ...focusTrapSettings})
+  useFocusTrap({containerRef: overlayRef, disabled: !open || !position || !visible, ...focusTrapSettings})
 
   return (
     <>
@@ -203,7 +211,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
           onEscape={onEscape}
           ref={updateOverlayRef}
           role="none"
-          visibility={position ? 'visible' : 'hidden'}
+          visibility={position && visible ? 'visible' : 'hidden'}
           height={height}
           width={width}
           top={position?.top || 0}

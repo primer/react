@@ -1,6 +1,6 @@
 import {render as HTMLRender, fireEvent} from '@testing-library/react'
 import axe from 'axe-core'
-import React from 'react'
+import React, {act} from 'react'
 import theme from '../../theme'
 import {ActionMenu} from '../../deprecated'
 import {behavesAsComponent, checkExports} from '../../utils/testing'
@@ -46,7 +46,10 @@ describe('ActionMenu', () => {
 
   it('should have no axe violations', async () => {
     const {container} = HTMLRender(<SimpleActionMenu />)
-    const results = await axe.run(container)
+    let results
+    await act(async () => {
+      results = await axe.run(container)
+    })
     expect(results).toHaveNoViolations()
   })
 
