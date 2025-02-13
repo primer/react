@@ -5,7 +5,7 @@ import Box from '../Box'
 import {Stack} from '../Stack'
 
 export default {
-  title: 'Components/IconButton/DevOnly',
+  title: 'Components/IconButton/Dev',
 }
 
 export const CustomSize = () => (

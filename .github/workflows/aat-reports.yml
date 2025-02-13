@@ -82,7 +82,6 @@ jobs:
           path: playwright-report
       - name: Check aat-runner job status
         if: ${{ needs.aat-runner.result == 'failure' }}
-        continue-on-error: true
         run: exit 1
 
   aat-runner-all-flags:
@@ -92,7 +91,6 @@ jobs:
       matrix:
         shard: [1, 2, 3, 4]
     env:
-      VITE_PRIMER_REACT_CSS_MODULES_TEAM: 1
       VITE_PRIMER_REACT_CSS_MODULES_STAFF: 1
       VITE_PRIMER_REACT_CSS_MODULES_GA: 1
     steps:
@@ -159,5 +157,4 @@ jobs:
           path: playwright-report
       - name: Check aat-runner-all-flags job status
         if: ${{ needs.aat-runner-all-flags.result == 'failure' }}
-        continue-on-error: true
         run: exit 1
