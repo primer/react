@@ -73,7 +73,6 @@ describe('AnchoredOverlay', () => {
 
   it('should have no axe violations when closed', async () => {
     const {container} = HTMLRender(<AnchoredOverlayTestComponent></AnchoredOverlayTestComponent>)
-
     const results = await axe.run(container)
     expect(results).toHaveNoViolations()
   })

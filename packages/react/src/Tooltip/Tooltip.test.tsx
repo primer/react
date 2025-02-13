@@ -1,4 +1,4 @@
-import React, {act} from 'react'
+import React from 'react'
 import type {TooltipProps} from './Tooltip'
 import Tooltip from './Tooltip'
 import {render, renderClasses, rendersClass, behavesAsComponent, checkExports} from '../utils/testing'
