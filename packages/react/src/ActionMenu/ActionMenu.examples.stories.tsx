@@ -410,15 +410,15 @@ export const MultipleSections = () => {
       </ActionMenu.Anchor>
       <ActionMenu.Overlay width="small">
         <ActionList>
-          <ActionList.Group selectionVariant="multiple">
+          <ActionList.Group>
             <ActionList.GroupHeading>Raw file content</ActionList.GroupHeading>
-            <ActionList.Item onSelect={() => alert('Workflows clicked')}>Download</ActionList.Item>
+            <ActionList.Item onClick={() => alert('Workflows clicked')}>Download</ActionList.Item>
             <ActionList.Divider />
-            <ActionList.Item onSelect={() => alert('Workflows clicked')}>Jump to line</ActionList.Item>
-            <ActionList.Item onSelect={() => alert('Workflows clicked')}>Find in file</ActionList.Item>
+            <ActionList.Item onClick={() => alert('Workflows clicked')}>Jump to line</ActionList.Item>
+            <ActionList.Item onClick={() => alert('Workflows clicked')}>Find in file</ActionList.Item>
             <ActionList.Divider />
-            <ActionList.Item onSelect={() => alert('Workflows clicked')}>Copy path</ActionList.Item>
-            <ActionList.Item onSelect={() => alert('Workflows clicked')}>Copy permalink</ActionList.Item>
+            <ActionList.Item onClick={() => alert('Workflows clicked')}>Copy path</ActionList.Item>
+            <ActionList.Item onClick={() => alert('Workflows clicked')}>Copy permalink</ActionList.Item>
           </ActionList.Group>
           <ActionList.Divider />
           <ActionList.Group selectionVariant="multiple">
@@ -434,9 +434,9 @@ export const MultipleSections = () => {
             ))}
           </ActionList.Group>
           <ActionList.Divider />
-          <ActionList.Group selectionVariant="multiple">
+          <ActionList.Group>
             <ActionList.GroupHeading>View options</ActionList.GroupHeading>
-            <ActionList.Item onSelect={() => alert('Delete file')} variant="danger">
+            <ActionList.Item onClick={() => alert('Delete file')} variant="danger">
               Delete file
             </ActionList.Item>
           </ActionList.Group>

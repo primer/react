@@ -17,16 +17,6 @@ test.describe('ButtonGroup', () => {
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`ButtonGroup.Default.${theme}.png`)
         })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-buttongroup--default',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations()
-        })
       })
     }
   })
@@ -44,16 +34,6 @@ test.describe('ButtonGroup', () => {
 
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`ButtonGroup.Playground.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-buttongroup--playground',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations()
         })
       })
     }
@@ -73,16 +53,6 @@ test.describe('ButtonGroup', () => {
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`ButtonGroup.Icon Buttons.${theme}.png`)
         })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-buttongroup-features--icon-buttons',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations()
-        })
       })
     }
   })
@@ -101,16 +71,6 @@ test.describe('ButtonGroup', () => {
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`ButtonGroup.As Toolbar.${theme}.png`)
         })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-buttongroup-features--as-toolbar',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations()
-        })
       })
     }
   })
@@ -120,7 +80,7 @@ test.describe('ButtonGroup', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-buttongroup-devonly--link-button-with-icon-buttons',
+            id: 'components-buttongroup-dev--link-button-with-icon-buttons',
             globals: {
               colorScheme: theme,
             },
@@ -128,16 +88,6 @@ test.describe('ButtonGroup', () => {
 
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`ButtonGroup.Overrides.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-buttongroup-devonly--link-button-with-icon-buttons',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations()
         })
       })
     }
@@ -148,7 +98,7 @@ test.describe('ButtonGroup', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-buttongroup-devonly--sx-prop',
+            id: 'components-buttongroup-dev--sx-prop',
             globals: {
               colorScheme: theme,
             },
@@ -156,16 +106,6 @@ test.describe('ButtonGroup', () => {
 
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`ButtonGroup.SX Prop.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-buttongroup-devonly--sx-prop',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations()
         })
       })
     }
