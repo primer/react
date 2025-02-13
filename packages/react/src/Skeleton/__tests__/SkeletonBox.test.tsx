@@ -1,6 +1,6 @@
 import {render} from '@testing-library/react'
 import React from 'react'
-import {FeatureFlags} from '../../../FeatureFlags'
+import {FeatureFlags} from '../../FeatureFlags'
 import {SkeletonBox} from '../SkeletonBox'
 
 describe('SkeletonBox', () => {
