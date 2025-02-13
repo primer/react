@@ -1,6 +1,6 @@
 import React, {type CSSProperties, type HTMLProps} from 'react'
 import Box from '../../Box'
-import {SkeletonBox} from './SkeletonBox'
+import {SkeletonBox} from './'
 import classes from './SkeletonText.module.css'
 import {useFeatureFlag} from '../../FeatureFlags'
 import {clsx} from 'clsx'
@@ -18,61 +18,6 @@ type SkeletonTextProps = {
   className?: string
 } & Omit<HTMLProps<HTMLDivElement>, 'size'>
 
-const skeletonTextStyles = {
-  '&[data-component="SkeletonText"]': {
-    '--font-size': 'var(--text-body-size-medium, 0.875rem)',
-    '--line-height': 'var(--text-body-lineHeight-medium, 1.4285)',
-    '--leading': 'calc(var(--font-size) * var(--line-height) - var(--font-size))',
-    borderRadius: 'var(--borderRadius-small, 0.1875rem)',
-    height: 'var(--font-size)',
-    marginBlock: 'calc(var(--leading) / 2)',
-  },
-  '&[data-in-multiline="true"]': {
-    marginBlockEnd: 'calc(var(--leading) * 2)',
-  },
-  '&[data-in-multiline="true"]:last-child': {
-    maxWidth: '65%',
-    minWidth: '50px',
-    marginBottom: 0,
-  },
-  '@supports (margin-block: mod(1px, 1px))': {
-    '&[data-component="SkeletonText"]': {
-      '--leading': 'mod(var(--font-size) * var(--line-height), var(--font-size))',
-    },
-  },
-  '&[data-text-skeleton-size="display"], &[data-text-skeleton-size="titleLarge"]': {
-    borderRadius: 'var(--borderRadius-medium, 0.375rem)',
-  },
-  '&[data-text-skeleton-size="display"]': {
-    '--font-size': 'var(--text-display-size, 2.5rem)',
-    '--line-height': 'var(--text-display-lineHeight, 1.4)',
-  },
-  '&[data-text-skeleton-size="titleLarge"]': {
-    '--font-size': 'var(--text-title-size-large, 2.5rem)',
-    '--line-height': 'var(--text-title-lineHeight-large, 1.5)',
-  },
-  '&[data-text-skeleton-size="titleMedium"]': {
-    '--font-size': 'var(--text-title-size-medium, 1.25rem)',
-    '--line-height': 'var(--text-title-lineHeight-medium, 1.6)',
-  },
-  '&[data-text-skeleton-size="titleSmall"]': {
-    '--font-size': 'var(--text-title-size-small, 1rem)',
-    '--line-height': 'var(--text-title-lineHeight-small, 1.5)',
-  },
-  '&[data-text-skeleton-size="subtitle"]': {
-    '--font-size': 'var(--text-subtitle-size, 1.25rem)',
-    '--line-height': 'var(--text-subtitle-lineHeight, 1.6)',
-  },
-  '&[data-text-skeleton-size="bodyLarge"]': {
-    '--font-size': 'var(--text-body-size-large, 1rem)',
-    '--line-height': 'var(--text-body-lineHeight-large, 1.5)',
-  },
-  '&[data-text-skeleton-size="bodySmall"]': {
-    '--font-size': 'var(--text-body-size-small, 0.75rem)',
-    '--line-height': 'var(--text-body-lineHeight-small, 1.6666)',
-  },
-}
-
 export const SkeletonText: React.FC<SkeletonTextProps> = ({
   lines = 1,
   maxWidth,
@@ -84,20 +29,13 @@ export const SkeletonText: React.FC<SkeletonTextProps> = ({
   const enabled = useFeatureFlag(CSS_MODULE_FLAG)
 
   if (lines < 2) {
+    // TODO: fix
     return (
       <SkeletonBox
         data-component="SkeletonText"
         data-text-skeleton-size={size}
         width="100%"
         className={clsx(className, {[classes.SkeletonText]: enabled})}
-        sx={
-          enabled
-            ? {}
-            : {
-                maxWidth,
-                ...skeletonTextStyles,
-              }
-        }
         style={enabled ? merge(style as CSSProperties, {maxWidth} as CSSProperties) : style}
         {...rest}
       />
@@ -116,12 +54,12 @@ export const SkeletonText: React.FC<SkeletonTextProps> = ({
         style={enabled ? merge(style as CSSProperties, {maxWidth, paddingBlock: '0.1px'} as CSSProperties) : style}
       >
         {Array.from({length: lines}, (_, index) => (
+          // TODO: fix
           <SkeletonBox
             key={index}
             data-component="SkeletonText"
             data-in-multiline="true"
             data-text-skeleton-size={size}
-            sx={enabled ? {} : skeletonTextStyles}
             className={clsx(className, {[classes.SkeletonText]: enabled})}
             {...rest}
           />
