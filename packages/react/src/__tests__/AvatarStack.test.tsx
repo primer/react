@@ -47,7 +47,6 @@ describe('Avatar', () => {
       return (
         <FeatureFlags
           flags={{
-            primer_react_css_modules_team: true,
             primer_react_css_modules_staff: true,
             primer_react_css_modules_ga: true,
           }}
@@ -92,5 +91,16 @@ describe('Avatar', () => {
       </AvatarStack>,
     )
     expect(container.querySelector('[tabindex="0"]')).not.toBeInTheDocument()
+  })
+
+  it('should support `style` prop on the outermost element', () => {
+    const style = {backgroundColor: 'red'}
+    const {container} = HTMLRender(
+      <AvatarStack style={style}>
+        <img src="https://avatars.githubusercontent.com/primer" alt="" />
+        <img src="https://avatars.githubusercontent.com/github" alt="" />
+      </AvatarStack>,
+    )
+    expect(container.firstChild).toHaveStyle('background-color: red')
   })
 })

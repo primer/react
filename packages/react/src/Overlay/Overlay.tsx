@@ -18,7 +18,7 @@ import {toggleStyledComponent} from '../internal/utils/toggleStyledComponent'
 import classes from './Overlay.module.css'
 import {clsx} from 'clsx'
 
-const CSS_MODULES_FLAG = 'primer_react_css_modules_team'
+const CSS_MODULES_FLAG = 'primer_react_css_modules_staff'
 
 type StyledOverlayProps = {
   width?: keyof typeof widthMap
@@ -232,6 +232,7 @@ type internalOverlayProps = Merge<OwnOverlayProps, ContainerProps>
  * @param onEscape Required. Function to call when user presses `Escape`. Typically this function removes the Overlay.
  * @param portalContainerName Optional. The name of the portal container to render the Overlay into.
  * @param preventOverflow Optional. The Overlay width will be adjusted responsively if there is not enough space to display the Overlay. If `preventOverflow` is `true`, the width of the `Overlay` will not be adjusted.
+ * @param preventFocusOnOpen Optional. If 'true', focus will not be applied when the component is first mounted, even if initialFocusRef prop is given.
  * @param returnFocusRef Required. Ref for the element to focus when the `Overlay` is closed.
  * @param right Optional. Horizontal right position of the overlay, relative to its closest positioned ancestor (often its `Portal`).
  * @param width Sets the width of the `Overlay`, pick from our set list of widths, or pass `auto` to automatically set the width based on the content of the `Overlay`. `small` corresponds to `256px`, `medium` corresponds to `320px`, `large` corresponds to `480px`, `xlarge` corresponds to `640px`, `xxlarge` corresponds to `960px`.

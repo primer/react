@@ -1,4 +1,6 @@
 import React, {useContext, useEffect, useMemo, useRef, useState} from 'react'
+import {debounce} from '@github/mini-throttle'
+import {announce} from '@primer/live-region-element'
 import {scrollIntoView} from '@primer/behaviors'
 import type {ScrollIntoViewOptions} from '@primer/behaviors'
 import type {ActionListItemProps} from '../ActionList'
@@ -13,6 +15,9 @@ import type {IconProps} from '@primer/octicons-react'
 import {PlusIcon} from '@primer/octicons-react'
 import VisuallyHidden from '../_VisuallyHidden'
 import {isElement} from 'react-is'
+import {useFeatureFlag} from '../FeatureFlags'
+
+import classes from './AutocompleteMenu.module.css'
 
 type OnSelectedChange<T> = (item: T | T[]) => void
 export type AutocompleteMenuItem = MandateProps<ActionListItemProps, 'id'> & {
@@ -116,6 +121,16 @@ export type AutocompleteMenuInternalProps<T extends AutocompleteItemProps> = {
   // TODO: instead of making this required, maybe we can infer aria-labelledby from the ID of the text input somehow?
   ['aria-labelledby']: string
 }
+
+const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_staff'
+
+/**
+ * Announces a message to screen readers at a slowed-down rate. This is useful when you want to announce don't want to
+ * overwhelm the user with too many announcements in rapid succession.
+ */
+const debounceAnnouncement = debounce((announcement: string) => {
+  announce(announcement)
+}, 250)
 
 function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMenuInternalProps<T>) {
   const autocompleteContext = useContext(AutocompleteContext)
@@ -262,6 +277,12 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
     allItemsToRenderRef.current = allItemsToRender
   })
 
+  React.useEffect(() => {
+    if (allItemsToRender.length === 0) {
+      debounceAnnouncement(emptyStateText as string)
+    }
+  }, [allItemsToRender, emptyStateText])
+
   useFocusZone(
     {
       containerRef: listContainerRef,
@@ -324,12 +345,20 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
     throw new Error('Autocomplete: selectionVariant "single" cannot be used with multiple selected items')
   }
 
+  const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
+
   return (
     <VisuallyHidden isVisible={showMenu}>
       {loading ? (
-        <Box p={3} display="flex" justifyContent="center">
-          <Spinner />
-        </Box>
+        enabled ? (
+          <Box className={classes.SpinnerWrapper}>
+            <Spinner />
+          </Box>
+        ) : (
+          <Box p={3} display="flex" justifyContent="center">
+            <Spinner />
+          </Box>
+        )
       ) : (
         <div ref={listContainerRef}>
           {allItemsToRender.length ? (
@@ -367,7 +396,11 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
               })}
             </ActionList>
           ) : emptyStateText !== false && emptyStateText !== null ? (
-            <Box p={3}>{emptyStateText}</Box>
+            enabled ? (
+              <Box className={classes.EmptyStateWrapper}>{emptyStateText}</Box>
+            ) : (
+              <Box p={3}>{emptyStateText}</Box>
+            )
           ) : null}
         </div>
       )}

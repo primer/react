@@ -6,7 +6,7 @@ import {CopilotIcon} from '@primer/octicons-react'
 import {Box, Tooltip, ThemeProvider, BaseStyles} from '..'
 
 const meta: Meta<typeof ButtonGroup> = {
-  title: 'Components/ButtonGroup/DevOnly',
+  title: 'Components/ButtonGroup/Dev',
   component: ButtonGroup,
   decorators: [
     Story => {
@@ -61,5 +61,13 @@ export const LinkButtonWithIconButtons = () => (
     <Button className="testCustomClassnameColor">Pink link</Button>
     <IconButton icon={CopilotIcon} aria-label="Open GitHub Copilot chat" />
     <IconButton icon={CopilotIcon} aria-label="Open GitHub Copilot chat" />
+  </ButtonGroup>
+)
+
+export const SxProp = () => (
+  <ButtonGroup sx={{border: '1px solid red'}}>
+    <Button>Button 1</Button>
+    <Button>Button 2</Button>
+    <Button>Button 3</Button>
   </ButtonGroup>
 )

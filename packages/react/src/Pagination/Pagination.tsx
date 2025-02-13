@@ -12,7 +12,7 @@ import {useFeatureFlag} from '../FeatureFlags'
 import {clsx} from 'clsx'
 import classes from './Pagination.module.css'
 
-const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_team'
+const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_staff'
 
 const getViewportRangesToHidePages = (showPages: PaginationProps['showPages']) => {
   if (showPages && typeof showPages !== 'boolean') {
@@ -91,17 +91,8 @@ const Page = toggleStyledComponent(
       box-shadow: inset 0 0 0 3px ${get('colors.fg.onEmphasis')};
     }
 
-    &[aria-disabled],
-    &[aria-disabled]:hover {
-      margin: 0 2px;
-
-      &:first-child {
-        margin-right: 6px;
-      }
-    }
-
-    &[aria-disabled],
-    &[aria-disabled]:hover,
+    &[aria-hidden],
+    &[aria-hidden]:hover,
     &[role='presentation'],
     &[role='presentation']:hover {
       color: ${get('colors.primer.fg.disabled')}; // check

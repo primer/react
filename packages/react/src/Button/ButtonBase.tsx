@@ -72,7 +72,8 @@ const ButtonBase = forwardRef(
         if (
           innerRef.current &&
           !(innerRef.current instanceof HTMLButtonElement) &&
-          !((innerRef.current as unknown) instanceof HTMLAnchorElement)
+          !((innerRef.current as unknown) instanceof HTMLAnchorElement) &&
+          !((innerRef.current as HTMLElement).tagName === 'SUMMARY')
         ) {
           // eslint-disable-next-line no-console
           console.warn('This component should be an instanceof a semantic button or anchor')
@@ -105,6 +106,7 @@ const ButtonBase = forwardRef(
             data-size={size}
             data-variant={variant}
             data-label-wrap={labelWrap}
+            data-has-count={count !== undefined ? true : undefined}
             aria-describedby={[loadingAnnouncementID, ariaDescribedBy]
               .filter(descriptionID => Boolean(descriptionID))
               .join(' ')}
@@ -140,6 +142,7 @@ const ButtonBase = forwardRef(
                       !LeadingVisual &&
                       !TrailingVisual &&
                       !TrailingAction &&
+                      count === undefined &&
                       renderModuleVisual(Spinner, loading, 'loadingSpinner', false)
                   }
                   {
@@ -225,6 +228,7 @@ const ButtonBase = forwardRef(
           data-size={size}
           data-variant={variant}
           data-label-wrap={labelWrap}
+          data-has-count={count !== undefined ? true : undefined}
           aria-describedby={[loadingAnnouncementID, ariaDescribedBy]
             .filter(descriptionID => Boolean(descriptionID))
             .join(' ')}
@@ -256,6 +260,7 @@ const ButtonBase = forwardRef(
                     !LeadingVisual &&
                     !TrailingVisual &&
                     !TrailingAction &&
+                    count === undefined &&
                     renderModuleVisual(Spinner, loading, 'loadingSpinner', false)
                 }
                 {
