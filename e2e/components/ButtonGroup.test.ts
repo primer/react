@@ -80,7 +80,7 @@ test.describe('ButtonGroup', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-buttongroup-devonly--link-button-with-icon-buttons',
+            id: 'components-buttongroup-dev--link-button-with-icon-buttons',
             globals: {
               colorScheme: theme,
             },
@@ -98,7 +98,7 @@ test.describe('ButtonGroup', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-buttongroup-devonly--sx-prop',
+            id: 'components-buttongroup-dev--sx-prop',
             globals: {
               colorScheme: theme,
             },
