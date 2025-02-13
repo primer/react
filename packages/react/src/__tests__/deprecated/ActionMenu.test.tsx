@@ -1,6 +1,6 @@
 import {render as HTMLRender, fireEvent} from '@testing-library/react'
 import axe from 'axe-core'
-import React, {act} from 'react'
+import React from 'react'
 import theme from '../../theme'
 import {ActionMenu} from '../../deprecated'
 import {behavesAsComponent, checkExports} from '../../utils/testing'
