@@ -1,0 +1,10 @@
+@import './reset.css';
+@import './themes/dark-colorblind.css';
+@import './themes/dark-dimmed.css';
+@import './themes/dark-high-contrast.css';
+@import './themes/dark-tritanopia.css';
+@import './themes/dark.css';
+@import './themes/light-colorblind.css';
+@import './themes/light-high-contrast.css';
+@import './themes/light-tritanopia.css';
+@import './themes/light.css';

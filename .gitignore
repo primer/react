@@ -3,7 +3,6 @@ dist/
 lib/
 !packages/react/codemods/lib/
 lib-esm/
-css/
 
 # Editor
 .DS_Store
