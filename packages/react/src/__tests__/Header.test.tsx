@@ -21,20 +21,7 @@ describe('Header', () => {
 
     it('should support `className` on the outermost element', () => {
       const Element = () => <Header.Item className={'test-class-name'} />
-      const FeatureFlagElement = () => {
-        return (
-          <FeatureFlags
-            flags={{
-              primer_react_css_modules_staff: true,
-              primer_react_css_modules_ga: true,
-            }}
-          >
-            <Element />
-          </FeatureFlags>
-        )
-      }
       expect(HTMLRender(<Element />).container.firstChild).toHaveClass('test-class-name')
-      expect(HTMLRender(<FeatureFlagElement />).container.firstChild).toHaveClass('test-class-name')
     })
   })
 
@@ -43,20 +30,7 @@ describe('Header', () => {
 
     it('should support `className` on the outermost element', () => {
       const Element = () => <Header.Link className={'test-class-name'} />
-      const FeatureFlagElement = () => {
-        return (
-          <FeatureFlags
-            flags={{
-              primer_react_css_modules_staff: true,
-              primer_react_css_modules_ga: true,
-            }}
-          >
-            <Element />
-          </FeatureFlags>
-        )
-      }
       expect(HTMLRender(<Element />).container.firstChild).toHaveClass('test-class-name')
-      expect(HTMLRender(<FeatureFlagElement />).container.firstChild).toHaveClass('test-class-name')
     })
   })
 
@@ -87,19 +61,6 @@ describe('Header', () => {
 
   it('should support `className` on the outermost element', () => {
     const Element = () => <Header className={'test-class-name'} />
-    const FeatureFlagElement = () => {
-      return (
-        <FeatureFlags
-          flags={{
-            primer_react_css_modules_staff: true,
-            primer_react_css_modules_ga: true,
-          }}
-        >
-          <Element />
-        </FeatureFlags>
-      )
-    }
     expect(HTMLRender(<Element />).container.firstChild).toHaveClass('test-class-name')
-    expect(HTMLRender(<FeatureFlagElement />).container.firstChild).toHaveClass('test-class-name')
   })
 })
