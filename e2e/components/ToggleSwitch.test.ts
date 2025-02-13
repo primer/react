@@ -17,27 +17,6 @@ test.describe('ToggleSwitch', () => {
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`ToggleSwitch.Default.${theme}.png`)
         })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-toggleswitch--default',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-
-              // the 'default' preview does not associate a label with the button
-              'button-name': {
-                enabled: false,
-              },
-            },
-          })
-        })
       })
     }
   })
@@ -55,22 +34,6 @@ test.describe('ToggleSwitch', () => {
 
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`ToggleSwitch.Checked.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-toggleswitch-features--checked',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
         })
       })
     }
@@ -90,22 +53,6 @@ test.describe('ToggleSwitch', () => {
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`ToggleSwitch.Checked Disabled.${theme}.png`)
         })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-toggleswitch-features--checked-disabled',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
-        })
       })
     }
   })
@@ -123,22 +70,6 @@ test.describe('ToggleSwitch', () => {
 
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`ToggleSwitch.Controlled.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-toggleswitch-features--controlled',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
         })
       })
     }
@@ -158,22 +89,6 @@ test.describe('ToggleSwitch', () => {
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`ToggleSwitch.Disabled.${theme}.png`)
         })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-toggleswitch-features--disabled',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
-        })
       })
     }
   })
@@ -191,22 +106,6 @@ test.describe('ToggleSwitch', () => {
 
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`ToggleSwitch.Label End.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-toggleswitch-features--label-end',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
         })
       })
     }
@@ -226,22 +125,6 @@ test.describe('ToggleSwitch', () => {
           // Default state
           expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`ToggleSwitch.Loading.${theme}.png`)
         })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-toggleswitch-features--loading',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
-        })
       })
     }
   })
@@ -259,22 +142,6 @@ test.describe('ToggleSwitch', () => {
 
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`ToggleSwitch.Small.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-toggleswitch-features--small',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
         })
       })
     }

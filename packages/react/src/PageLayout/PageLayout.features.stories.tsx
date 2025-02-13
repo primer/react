@@ -126,7 +126,10 @@ export const StickyPane: StoryFn = args => (
           )
         })}
         <Box as="p">
-          Donec sit amet massa purus. <a href="#foo">Plura de lorem Ispum.</a>
+          Donec sit amet massa purus.{' '}
+          <Link inline href="#foo">
+            Plura de lorem Ispum.
+          </Link>
         </Box>
       </Box>
     </PageLayout.Pane>

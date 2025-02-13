@@ -5,7 +5,7 @@ import {default as Text} from '../Text'
 import {Stack} from '../Stack'
 
 export default {
-  title: 'Components/Button/DevOnly',
+  title: 'Components/Button/Dev',
 }
 
 export const InvisibleVariants = () => {

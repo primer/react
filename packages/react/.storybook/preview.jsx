@@ -224,11 +224,7 @@ const primerThemes = [
 ]
 
 const defaultFeatureFlags = new Map(DefaultFeatureFlags.flags)
-const featureFlagEnvList = new Set([
-  'PRIMER_REACT_CSS_MODULES_TEAM',
-  'PRIMER_REACT_CSS_MODULES_STAFF',
-  'PRIMER_REACT_CSS_MODULES_GA',
-])
+const featureFlagEnvList = new Set(['PRIMER_REACT_CSS_MODULES_STAFF', 'PRIMER_REACT_CSS_MODULES_GA'])
 
 for (const flag of featureFlagEnvList) {
   if (import.meta.env[`VITE_${flag}`] === '1') {
@@ -270,11 +266,11 @@ export const decorators = [
       document.body.setAttribute('data-dark-theme', darkTheme)
     }, [colorScheme])
 
-    // Set data-a11y-link-underlines=true to enable underlines in all stories except the Link DevOnly Inline Story.
+    // Set data-a11y-link-underlines=true to enable underlines in all stories except the Link dev Inline Story.
     let wrapperProps =
-      context.id !== 'components-link-devonly--inline'
+      context.id !== 'components-link-dev--inline'
         ? {
-            'data-a11y-link-underlines': context.id !== 'components-link-devonly--inline',
+            'data-a11y-link-underlines': context.id !== 'components-link-dev--inline',
             className: clsx('story-wrap'),
           }
         : {className: clsx('story-wrap')}

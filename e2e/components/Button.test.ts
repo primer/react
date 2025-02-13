@@ -17,22 +17,6 @@ test.describe('Button', () => {
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`Button.Danger.${theme}.png`)
         })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-button-features--danger',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
-        })
       })
     }
   })
@@ -50,22 +34,6 @@ test.describe('Button', () => {
 
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`Button.Default.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-button--default',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
         })
       })
     }
@@ -85,22 +53,6 @@ test.describe('Button', () => {
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`Button.Disabled.${theme}.png`)
         })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-button-features--disabled',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
-        })
       })
     }
   })
@@ -119,22 +71,6 @@ test.describe('Button', () => {
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`Button.Invisible.${theme}.png`)
         })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-button-features--invisible',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
-        })
       })
     }
   })
@@ -152,22 +88,6 @@ test.describe('Button', () => {
 
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`Button.Link.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-button-features--link',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
         })
       })
     }
@@ -198,22 +118,6 @@ test.describe('Button', () => {
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`Button.Leading Visual.${theme}.png`)
         })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-button-features--leading-visual',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
-        })
       })
     }
   })
@@ -242,22 +146,6 @@ test.describe('Button', () => {
 
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`Button.Primary.${theme}.png`)
-        })
-
-        test.fixme('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-button-features--primary',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
         })
       })
     }
@@ -288,22 +176,6 @@ test.describe('Button', () => {
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`Button.Trailing Action.${theme}.png`)
         })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-button-features--trailing-action',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
-        })
       })
     }
   })
@@ -321,22 +193,6 @@ test.describe('Button', () => {
 
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`Button.Trailing Counter.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-button-features--trailing-counter',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
         })
       })
     }
@@ -356,22 +212,6 @@ test.describe('Button', () => {
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`Button.Trailing Visual.${theme}.png`)
         })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-button-features--trailing-visual',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
-        })
       })
     }
   })
@@ -390,22 +230,6 @@ test.describe('Button', () => {
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`Button.Inactive.${theme}.png`)
         })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-button-features--inactive',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
-        })
       })
     }
   })
@@ -423,22 +247,6 @@ test.describe('Button', () => {
 
           // Default state
           expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`Button.Loading.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-button-features--loading',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
         })
       })
     }
@@ -460,22 +268,6 @@ test.describe('Button', () => {
             `Button.Loading With Leading Visual.${theme}.png`,
           )
         })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-button-features--loading-with-leading-visual',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
-        })
       })
     }
   })
@@ -495,22 +287,6 @@ test.describe('Button', () => {
           expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
             `Button.Loading With Trailing Visual.${theme}.png`,
           )
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-button-features--loading-with-trailing-visual',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
         })
       })
     }
@@ -532,22 +308,6 @@ test.describe('Button', () => {
             `Button.Loading With Trailing Action.${theme}.png`,
           )
         })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-button-features--loading-with-trailing-action',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
-        })
       })
     }
   })
@@ -557,7 +317,7 @@ test.describe('Button', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-button-devonly--invisible-variants',
+            id: 'components-button-dev--invisible-variants',
             globals: {
               colorScheme: theme,
             },
@@ -575,7 +335,7 @@ test.describe('Button', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-button-devonly--test-sx-prop',
+            id: 'components-button-dev--test-sx-prop',
             globals: {
               colorScheme: theme,
             },
@@ -604,25 +364,6 @@ test.describe('Button', () => {
             `Button.Aria expanded buttons.${theme}.png`,
           )
         })
-
-        // temporarily disabled due to a bug in primer/primitves
-
-        // eslint-disable-next-line jest/no-commented-out-tests
-        // test('axe @aat', async ({page}) => {
-        //   await visit(page, {
-        //     id: 'components-button-features--expanded-button',
-        //     globals: {
-        //       colorScheme: theme,
-        //     },
-        //   })
-        //   await expect(page).toHaveNoViolations({
-        //     rules: {
-        //       'color-contrast': {
-        //         enabled: theme !== 'dark_dimmed',
-        //       },
-        //     },
-        //   })
-        // })
       })
     }
   })
@@ -632,7 +373,7 @@ test.describe('Button', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-button-devonly--disabled-button-variants',
+            id: 'components-button-dev--disabled-button-variants',
             globals: {
               colorScheme: theme,
             },

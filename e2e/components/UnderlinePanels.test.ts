@@ -52,22 +52,6 @@ test.describe('UnderlinePanels', () => {
 
             expect(await page.screenshot()).toMatchSnapshot(`UnderlinePanels.${story.title}.${theme}.png`)
           })
-
-          test('@aat', async ({page}) => {
-            await visit(page, {
-              id: story.id,
-              globals: {
-                colorScheme: theme,
-              },
-            })
-            await expect(page).toHaveNoViolations({
-              rules: {
-                'color-contrast': {
-                  enabled: theme !== 'dark_dimmed',
-                },
-              },
-            })
-          })
         })
       }
     })

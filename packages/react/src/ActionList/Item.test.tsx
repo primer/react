@@ -161,7 +161,6 @@ describe('ActionList.Item', () => {
   })
   it('should render ActionList.Item as button when feature flag is enabled', async () => {
     const featureFlag = {
-      primer_react_css_modules_team: true,
       primer_react_css_modules_staff: true,
       primer_react_css_modules_ga: true,
     }
@@ -184,7 +183,6 @@ describe('ActionList.Item', () => {
     const {container} = HTMLRender(
       <FeatureFlags
         flags={{
-          primer_react_css_modules_team: false,
           primer_react_css_modules_staff: false,
           primer_react_css_modules_ga: false,
         }}
@@ -212,7 +210,6 @@ describe('ActionList.Item', () => {
       return (
         <FeatureFlags
           flags={{
-            primer_react_css_modules_team: false,
             primer_react_css_modules_staff: false,
             primer_react_css_modules_ga: false,
           }}
@@ -306,7 +303,6 @@ describe('ActionList.Item', () => {
     const {getByRole} = HTMLRender(
       <FeatureFlags
         flags={{
-          primer_react_css_modules_team: true,
           primer_react_css_modules_staff: true,
           primer_react_css_modules_ga: true,
         }}
@@ -326,7 +322,6 @@ describe('ActionList.Item', () => {
     const {getByRole} = HTMLRender(
       <FeatureFlags
         flags={{
-          primer_react_css_modules_team: true,
           primer_react_css_modules_staff: true,
           primer_react_css_modules_ga: true,
         }}

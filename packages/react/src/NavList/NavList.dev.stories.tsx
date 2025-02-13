@@ -5,7 +5,7 @@ import {NavList} from './NavList'
 import {ArrowRightIcon, ArrowLeftIcon, BookIcon, FileDirectoryIcon} from '@primer/octicons-react'
 
 const meta: Meta = {
-  title: 'Components/NavList/DevOnly',
+  title: 'Components/NavList/Dev',
   component: NavList,
   parameters: {
     layout: 'fullscreen',
