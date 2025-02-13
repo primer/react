@@ -130,7 +130,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
 
   const onClickOutside = useCallback(() => onClose?.('click-outside'), [onClose])
   const onEscape = useCallback(() => onClose?.('escape'), [onClose])
-  const [visible, setVisible] = React.useState(true)
+  const [visible, setVisible] = React.useState(false)
 
   const onAnchorKeyDown = useCallback(
     (event: React.KeyboardEvent<HTMLElement>) => {
@@ -172,9 +172,10 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
 
   useEffect(() => {
     // trick to delay visibility until after the overlay is positioned
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       setVisible(open)
     })
+    return () => clearTimeout(timer)
   }, [open])
 
   useEffect(() => {

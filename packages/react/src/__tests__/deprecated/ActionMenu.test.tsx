@@ -46,10 +46,7 @@ describe('ActionMenu', () => {
 
   it('should have no axe violations', async () => {
     const {container} = HTMLRender(<SimpleActionMenu />)
-    let results
-    await act(async () => {
-      results = await axe.run(container)
-    })
+    const results = await axe.run(container)
     expect(results).toHaveNoViolations()
   })
 

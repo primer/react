@@ -63,18 +63,18 @@ describe('AnchoredOverlay', () => {
   })
 
   it('should have no axe violations when open', async () => {
+    jest.useFakeTimers({advanceTimers: true})
     const {container} = HTMLRender(<AnchoredOverlayTestComponent initiallyOpen={true}></AnchoredOverlayTestComponent>)
+    act(() => jest.runAllTimers())
     const results = await axe.run(container)
     expect(results).toHaveNoViolations()
+    jest.useRealTimers()
   })
 
   it('should have no axe violations when closed', async () => {
     const {container} = HTMLRender(<AnchoredOverlayTestComponent></AnchoredOverlayTestComponent>)
 
-    let results
-    await act(async () => {
-      results = await axe.run(container)
-    })
+    const results = await axe.run(container)
     expect(results).toHaveNoViolations()
   })
 
@@ -142,7 +142,10 @@ describe('AnchoredOverlay', () => {
   })
 
   it('should render consistently when open', () => {
+    jest.useFakeTimers({advanceTimers: true})
     const {container} = HTMLRender(<AnchoredOverlayTestComponent initiallyOpen={true} />)
+    act(() => jest.runAllTimers())
     expect(container).toMatchSnapshot()
+    jest.useRealTimers()
   })
 })

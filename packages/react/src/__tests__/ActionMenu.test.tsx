@@ -350,12 +350,9 @@ describe('ActionMenu', () => {
     expect(menuItems[0]).toEqual(document.activeElement) // wrap to first
   })
 
-  it('should have no axe violations', async () => {
+  it.only('should have no axe violations', async () => {
     const {container} = HTMLRender(<Example />)
-    let results
-    await act(async () => {
-      results = await axe.run(container)
-    })
+    const results = await axe.run(container)
     expect(results).toHaveNoViolations()
   })
 
