@@ -253,6 +253,18 @@ for (const useModernActionList of [false, true]) {
         expect(screen.getByLabelText('Filter items')).toHaveFocus()
       })
 
+      it('should attach data-select-panel-item to each item', async () => {
+        const user = userEvent.setup()
+
+        renderWithFlag(<BasicSelectPanel />, useModernActionList)
+
+        await user.click(screen.getByText('Select items'))
+
+        const panel = screen.getByRole('listbox')
+        const items = panel.querySelectorAll('[data-select-panel-item=true]')
+        expect(items.length).toEqual(3)
+      })
+
       describe('selection', () => {
         it('should select an active option when activated', async () => {
           const user = userEvent.setup()

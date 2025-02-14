@@ -155,28 +155,14 @@ export function FilteredActionList({
                       </ActionList.GroupHeading>
                       {getItemListForEachGroup(group.groupId).map((item, index) => {
                         const key = item.key ?? item.id?.toString() ?? index.toString()
-                        return (
-                          <MappedActionListItem
-                            key={key}
-                            {...item}
-                            renderItem={listProps.renderItem}
-                            data-select-panel-item="true"
-                          />
-                        )
+                        return <MappedActionListItem key={key} {...item} renderItem={listProps.renderItem} />
                       })}
                     </ActionList.Group>
                   )
                 })
               : items.map((item, index) => {
                   const key = item.key ?? item.id?.toString() ?? index.toString()
-                  return (
-                    <MappedActionListItem
-                      key={key}
-                      {...item}
-                      renderItem={listProps.renderItem}
-                      data-select-panel-item="true"
-                    />
-                  )
+                  return <MappedActionListItem key={key} {...item} renderItem={listProps.renderItem} />
                 })}
           </ActionList>
         )}
