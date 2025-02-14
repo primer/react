@@ -1,4 +1,4 @@
-import React, {act, useCallback, useState} from 'react'
+import React, {useCallback, useState} from 'react'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import {behavesAsComponent, checkExports} from '../utils/testing'
 import {render as HTMLRender, fireEvent} from '@testing-library/react'
@@ -63,12 +63,9 @@ describe('AnchoredOverlay', () => {
   })
 
   it('should have no axe violations when open', async () => {
-    jest.useFakeTimers({advanceTimers: true})
     const {container} = HTMLRender(<AnchoredOverlayTestComponent initiallyOpen={true}></AnchoredOverlayTestComponent>)
-    act(() => jest.runAllTimers())
     const results = await axe.run(container)
     expect(results).toHaveNoViolations()
-    jest.useRealTimers()
   })
 
   it('should have no axe violations when closed', async () => {
@@ -141,10 +138,7 @@ describe('AnchoredOverlay', () => {
   })
 
   it('should render consistently when open', () => {
-    jest.useFakeTimers({advanceTimers: true})
     const {container} = HTMLRender(<AnchoredOverlayTestComponent initiallyOpen={true} />)
-    act(() => jest.runAllTimers())
     expect(container).toMatchSnapshot()
-    jest.useRealTimers()
   })
 })
