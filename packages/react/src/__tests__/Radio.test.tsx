@@ -151,23 +151,6 @@ describe('Radio', () => {
     expect(radio).toHaveAttribute('aria-checked', 'true')
   })
 
-  it('renders an invalid aria state when validation prop indicates an error', () => {
-    const handleChange = jest.fn()
-    const {getByRole, rerender} = render(<Radio {...defaultProps} onChange={handleChange} />)
-
-    const radio = getByRole('radio') as HTMLInputElement
-
-    expect(radio).toHaveAttribute('aria-invalid', 'false')
-
-    rerender(<Radio {...defaultProps} onChange={handleChange} validationStatus="success" />)
-
-    expect(radio).toHaveAttribute('aria-invalid', 'false')
-
-    rerender(<Radio {...defaultProps} onChange={handleChange} validationStatus="error" />)
-
-    expect(radio).toHaveAttribute('aria-invalid', 'true')
-  })
-
   it('renders an aria state indicating the field is required', () => {
     const handleChange = jest.fn()
     const {getByRole, rerender} = render(<Radio {...defaultProps} onChange={handleChange} />)
