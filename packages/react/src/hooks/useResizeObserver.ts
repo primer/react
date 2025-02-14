@@ -59,5 +59,5 @@ export function useResizeObserver<T extends HTMLElement>(
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [target, ...depsArray])
+  }, [target?.current, ...depsArray])
 }
