@@ -536,6 +536,7 @@ export const InOverlayWithCustomScrollContainerRef = () => {
         side="inside-top"
         anchorRef={triggerRef}
         renderAnchor={props => <Button {...props}>open overlay</Button>}
+        preventOverflow={false}
       >
         <Autocomplete>
           <Box
