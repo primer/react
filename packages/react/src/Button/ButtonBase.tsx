@@ -197,11 +197,11 @@ const ButtonBase = forwardRef(
               </>
             )}
           </Box>
-          {loading && (
+          {loading ? (
             <VisuallyHidden>
               <AriaStatus id={loadingAnnouncementID}>{loadingAnnouncement}</AriaStatus>
             </VisuallyHidden>
-          )}
+          ) : null}
         </ConditionalWrapper>
       )
     }
@@ -229,7 +229,7 @@ const ButtonBase = forwardRef(
           data-variant={variant}
           data-label-wrap={labelWrap}
           data-has-count={count !== undefined ? true : undefined}
-          aria-describedby={[loadingAnnouncementID, ariaDescribedBy]
+          aria-describedby={[loading && loadingAnnouncementID, ariaDescribedBy]
             .filter(descriptionID => Boolean(descriptionID))
             .join(' ')}
           // aria-labelledby is needed because the accessible name becomes unset when the button is in a loading state.
