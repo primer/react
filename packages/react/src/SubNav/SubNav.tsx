@@ -156,6 +156,7 @@ const SubNavLink = React.forwardRef<HTMLElement, StyledSubNavLinkProps>(function
       ref={forwardRef}
       className={clsx(className, enabled && styles.Link)}
       data-selected={rest.selected}
+      aria-current={rest.selected}
       {...rest}
     >
       {children}
