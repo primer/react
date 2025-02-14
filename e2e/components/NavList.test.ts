@@ -26,7 +26,7 @@ test.describe('NavList', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-navlist-devonly--with-group-title-and-heading',
+            id: 'components-navlist-dev--with-group-title-and-heading',
             globals: {
               colorScheme: theme,
             },
