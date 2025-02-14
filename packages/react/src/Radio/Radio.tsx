@@ -1,13 +1,9 @@
 import type {ChangeEventHandler, InputHTMLAttributes, ReactElement} from 'react'
 import React, {useContext} from 'react'
-import type {SxProp} from '../sx'
-import type {FormValidationStatus} from '../utils/types/FormValidationStatus'
 import {RadioGroupContext} from '../RadioGroup/RadioGroup'
 import {clsx} from 'clsx'
 import classes from './Radio.module.css'
 import sharedClasses from '../Checkbox/shared.module.css'
-import {defaultSxProp} from '../utils/defaultSxProp'
-import Box from '../Box'
 
 export type RadioProps = {
   /**
@@ -35,30 +31,14 @@ export type RadioProps = {
    * Indicates whether the radio button must be checked before the form can be submitted
    */
   required?: boolean
-  /**
-   * Only used to inform ARIA attributes. Individual radio inputs do not have validation styles.
-   */
-  validationStatus?: FormValidationStatus
-} & InputHTMLAttributes<HTMLInputElement> &
-  SxProp
+} & InputHTMLAttributes<HTMLInputElement>
 
 /**
  * An accessible, native radio component for selecting one option from a list.
  */
 const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
   (
-    {
-      checked,
-      disabled,
-      name: nameProp,
-      onChange,
-      sx: sxProp = defaultSxProp,
-      required,
-      validationStatus,
-      value,
-      className,
-      ...rest
-    }: RadioProps,
+    {checked, disabled, name: nameProp, onChange, required, value, className, ...rest}: RadioProps,
     ref,
   ): ReactElement => {
     const radioGroupContext = useContext(RadioGroupContext)
@@ -75,31 +55,7 @@ const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
       )
     }
 
-    if (sxProp !== defaultSxProp) {
-      return (
-        // eslint-disable-next-line github/a11y-role-supports-aria-props
-        <Box
-          as="input"
-          sx={sxProp}
-          type="radio"
-          value={value}
-          name={name}
-          ref={ref}
-          disabled={disabled}
-          checked={checked}
-          aria-checked={checked ? 'true' : 'false'}
-          required={required}
-          aria-required={required ? 'true' : 'false'}
-          aria-invalid={validationStatus === 'error' ? 'true' : 'false'}
-          onChange={handleOnChange}
-          className={clsx(className, sharedClasses.Input, classes.Radio)}
-          {...rest}
-        />
-      )
-    }
-
     return (
-      // eslint-disable-next-line github/a11y-role-supports-aria-props
       <input
         type="radio"
         value={value}
@@ -109,8 +65,6 @@ const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
         checked={checked}
         aria-checked={checked ? 'true' : 'false'}
         required={required}
-        aria-required={required ? 'true' : 'false'}
-        aria-invalid={validationStatus === 'error' ? 'true' : 'false'}
         onChange={handleOnChange}
         className={clsx(className, sharedClasses.Input, classes.Radio)}
         {...rest}
