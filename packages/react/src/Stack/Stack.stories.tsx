@@ -412,7 +412,6 @@ export const Playground: Story = {
   render: args => {
     return (
       <Stack
-        {...args}
         gap={getControlValues(args.gap, {narrow: args.gapNarrow, regular: args.gapRegular, wide: args.gapWide})}
         direction={getControlValues(args.direction, {
           narrow: args.directionNarrow,
