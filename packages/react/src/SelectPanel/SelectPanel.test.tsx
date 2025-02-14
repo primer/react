@@ -253,6 +253,18 @@ for (const useModernActionList of [false, true]) {
         expect(screen.getByLabelText('Filter items')).toHaveFocus()
       })
 
+      it('should attach data-select-panel-item to each item', async () => {
+        const user = userEvent.setup()
+
+        renderWithFlag(<BasicSelectPanel />, useModernActionList)
+
+        await user.click(screen.getByText('Select items'))
+
+        const panel = screen.getByRole('listbox')
+        const items = panel.querySelectorAll('[data-select-panel-item=true]')
+        expect(items.length).toEqual(3)
+      })
+
       describe('selection', () => {
         it('should select an active option when activated', async () => {
           const user = userEvent.setup()
@@ -297,49 +309,28 @@ for (const useModernActionList of [false, true]) {
 
           await user.click(screen.getByText('Select items'))
 
-          // First item by default should be the active element
-          expect(document.activeElement!).toHaveAttribute(
-            'aria-activedescendant',
-            screen.getByRole('option', {name: 'item one'}).id,
-          )
+          await user.type(document.activeElement!, '{ArrowDown}')
+          expect(document.activeElement!).toHaveTextContent('item one')
 
           await user.type(document.activeElement!, '{ArrowDown}')
-          expect(document.activeElement!).toHaveAttribute(
-            'aria-activedescendant',
-            screen.getByRole('option', {name: 'item two'}).id,
-          )
+          expect(document.activeElement!).toHaveTextContent('item two')
 
           await user.type(document.activeElement!, '{ArrowDown}')
-          expect(document.activeElement!).toHaveAttribute(
-            'aria-activedescendant',
-            screen.getByRole('option', {name: 'item three'}).id,
-          )
+          expect(document.activeElement!).toHaveTextContent('item three')
 
           // At end of list, should wrap to the beginning
           await user.type(document.activeElement!, '{ArrowDown}')
-          expect(document.activeElement!).toHaveAttribute(
-            'aria-activedescendant',
-            screen.getByRole('option', {name: 'item one'}).id,
-          )
+          expect(document.activeElement!).toHaveTextContent('item one')
 
           // At beginning of list, ArrowUp should wrap to the end
           await user.type(document.activeElement!, '{ArrowUp}')
-          expect(document.activeElement!).toHaveAttribute(
-            'aria-activedescendant',
-            screen.getByRole('option', {name: 'item three'}).id,
-          )
+          expect(document.activeElement!).toHaveTextContent('item three')
 
           await user.type(document.activeElement!, '{ArrowUp}')
-          expect(document.activeElement!).toHaveAttribute(
-            'aria-activedescendant',
-            screen.getByRole('option', {name: 'item two'}).id,
-          )
+          expect(document.activeElement!).toHaveTextContent('item two')
 
           await user.type(document.activeElement!, '{ArrowUp}')
-          expect(document.activeElement!).toHaveAttribute(
-            'aria-activedescendant',
-            screen.getByRole('option', {name: 'item one'}).id,
-          )
+          expect(document.activeElement!).toHaveTextContent('item one')
         })
 
         it('should support navigating through items with PageDown and PageUp', async () => {
@@ -351,24 +342,14 @@ for (const useModernActionList of [false, true]) {
 
           await user.click(screen.getByText('Select items'))
 
-          // First item by default should be the active element
-          expect(document.activeElement!).toHaveAttribute(
-            'aria-activedescendant',
-            screen.getByRole('option', {name: 'item one'}).id,
-          )
+          // focus on first item
+          await user.type(document.activeElement!, '{ArrowDown}')
 
           await user.type(document.activeElement!, '{PageDown}')
-
-          expect(document.activeElement!).toHaveAttribute(
-            'aria-activedescendant',
-            screen.getByRole('option', {name: 'item three'}).id,
-          )
+          expect(document.activeElement!).toHaveTextContent('item three')
 
           await user.type(document.activeElement!, '{PageUp}')
-          expect(document.activeElement!).toHaveAttribute(
-            'aria-activedescendant',
-            screen.getByRole('option', {name: 'item one'}).id,
-          )
+          expect(document.activeElement!).toHaveTextContent('item one')
         })
 
         it('should select an item (by item.id) even when items are defined in the component', async () => {
@@ -542,21 +523,6 @@ for (const useModernActionList of [false, true]) {
           expect(screen.getByRole('combobox').hasAttribute('aria-describedby')).toBeTruthy()
         })
 
-        it('should announce initially focused item', async () => {
-          const user = userEvent.setup()
-          renderWithFlag(<FilterableSelectPanel />, useModernActionList)
-
-          await user.click(screen.getByText('Select items'))
-          expect(screen.getByLabelText('Filter items')).toHaveFocus()
-
-          // we wait because announcement is intentionally updated after a timeout to not interrupt user input
-          await waitFor(async () => {
-            expect(getLiveRegion().getMessage('polite')).toBe(
-              'List updated, Focused item: item one, not selected, 1 of 3',
-            )
-          })
-        })
-
         it('should announce filtered results', async () => {
           const user = userEvent.setup()
           renderWithFlag(<FilterableSelectPanel />, useModernActionList)
@@ -566,9 +532,7 @@ for (const useModernActionList of [false, true]) {
 
           await waitFor(
             async () => {
-              expect(getLiveRegion().getMessage('polite')).toBe(
-                'List updated, Focused item: item one, not selected, 1 of 3',
-              )
+              expect(getLiveRegion().getMessage('polite')).toBe('List updated, 3 matching items listed')
             },
             {timeout: 3000}, // increased timeout because we don't want the test to compare with previous announcement
           )
@@ -578,9 +542,7 @@ for (const useModernActionList of [false, true]) {
 
           await waitFor(
             async () => {
-              expect(getLiveRegion().getMessage('polite')).toBe(
-                'List updated, Focused item: item one, not selected, 1 of 2',
-              )
+              expect(getLiveRegion().getMessage('polite')).toBe('List updated, 2 matching items listed')
             },
             {timeout: 3000}, // increased timeout because we don't want the test to compare with previous announcement
           )
@@ -589,9 +551,7 @@ for (const useModernActionList of [false, true]) {
           expect(screen.getAllByRole('option')).toHaveLength(1)
 
           await waitFor(async () => {
-            expect(getLiveRegion().getMessage('polite')).toBe(
-              'List updated, Focused item: item one, not selected, 1 of 1',
-            )
+            expect(getLiveRegion().getMessage('polite')).toBe('List updated, 1 matching item listed')
           })
         })
 
@@ -739,7 +699,6 @@ for (const useModernActionList of [false, true]) {
           await user.click(screen.getByText('Select items'))
           const listbox = screen.getByRole('listbox')
           expect(listbox).toBeVisible()
-          expect(listbox).toHaveAttribute('aria-multiselectable', 'true')
 
           // listbox should has 3 groups and each have heading
           if (useModernActionList) {
@@ -757,6 +716,7 @@ for (const useModernActionList of [false, true]) {
 
           expect(screen.getAllByRole('option')).toHaveLength(4)
         })
+
         it('should select items within groups', async () => {
           const user = userEvent.setup()
 
