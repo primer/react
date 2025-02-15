@@ -1,4 +1,4 @@
-import {ChevronDownIcon} from '@primer/octicons-react'
+import {ChevronDownIcon, PlusIcon, type Icon} from '@primer/octicons-react'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import React, {isValidElement} from 'react'
 import styled from 'styled-components'
@@ -22,6 +22,7 @@ import useIsomorphicLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 import {useFeatureFlag} from '../FeatureFlags'
 import classes from '../ActionList/ActionList.module.css'
 import {toggleStyledComponent} from '../internal/utils/toggleStyledComponent'
+import {flushSync} from 'react-dom'
 
 const getSubnavStyles = (depth: number) => {
   return {
@@ -413,7 +414,141 @@ const Group: React.FC<NavListGroupProps> = ({title, children, sx: sxProp = defau
   )
 }
 
-Group.displayName = 'NavList.Group'
+// ----------------------------------------------------------------------------
+// NavList.GroupExpand
+
+type GroupItems = {
+  text: string
+  trailingVisual?: Icon | string
+  leadingVisual?: Icon | string
+  trailingAction?: ActionListTrailingActionProps
+  'data-expand-focus-target'?: string
+} & Omit<NavListItemProps, 'children'>
+
+export type NavListGroupExpandProps = {
+  label?: string
+  pages?: number
+  items: GroupItems[]
+  renderItem?: (item: {text: string}) => React.ReactNode
+}
+
+export const GroupExpand = React.forwardRef<HTMLButtonElement, NavListGroupExpandProps>(
+  ({label = 'Show more', pages = 0, items, renderItem, ...props}, forwardedRef) => {
+    const [currentPage, setCurrentPage] = React.useState(0)
+    const groupId = useId()
+
+    const teamEnabled = useFeatureFlag('primer_react_css_modules_team')
+    const staffEnabled = useFeatureFlag('primer_react_css_modules_staff')
+
+    const {amountToShow, focusTargetIndex} = React.useMemo(() => {
+      const itemsPerPage = items.length / pages
+      const amountToShow = pages === 0 ? items.length : Math.ceil(itemsPerPage * currentPage)
+      const focusTargetIndex = currentPage === 1 ? 0 : amountToShow - Math.floor(itemsPerPage)
+
+      return {amountToShow, focusTargetIndex}
+    }, [pages, items, currentPage])
+
+    return (
+      <>
+        {currentPage > 0 ? (
+          <>
+            {items.map((itemArr, index) => {
+              const {
+                text,
+                trailingVisual: TrailingVisualIcon,
+                leadingVisual: LeadingVisualIcon,
+                trailingAction,
+                ...rest
+              } = itemArr
+              const {icon, label: actionLabel, ...actionProps} = trailingAction || {}
+              const focusTarget = index === focusTargetIndex ? groupId : 'false'
+
+              if (index < amountToShow) {
+                if (renderItem) {
+                  if (index === focusTargetIndex) {
+                    itemArr['data-expand-focus-target'] = focusTarget
+                  }
+                  return renderItem(itemArr)
+                }
+                return (
+                  <Item {...rest} key={index} data-expand-focus-target={focusTarget}>
+                    {LeadingVisualIcon ? (
+                      <LeadingVisual>
+                        <LeadingVisualIcon />
+                      </LeadingVisual>
+                    ) : null}
+                    {text}
+                    {TrailingVisualIcon ? (
+                      <TrailingVisual>
+                        <TrailingVisualIcon />
+                      </TrailingVisual>
+                    ) : null}
+                    {trailingAction ? <TrailingAction {...actionProps} icon={icon} label={actionLabel || ''} /> : null}
+                  </Item>
+                )
+              }
+            })}
+          </>
+        ) : null}
+        {(currentPage < pages || currentPage === 0) && !teamEnabled && !staffEnabled ? (
+          <Box as="li" sx={{listStyle: 'none'}}>
+            <ActionList.Item
+              as="button"
+              aria-expanded="false"
+              ref={forwardedRef}
+              onClick={() => {
+                flushSync(() => {
+                  setCurrentPage(currentPage + 1)
+                })
+                const focusTarget: HTMLElement[] | null = Array.from(
+                  document.querySelectorAll(`[data-expand-focus-target="${groupId}"]`),
+                )
+
+                if (focusTarget.length > 0) {
+                  focusTarget[focusTarget.length - 1].focus()
+                }
+              }}
+              {...props}
+            >
+              {label}
+              <TrailingVisual>
+                <PlusIcon />
+              </TrailingVisual>
+            </ActionList.Item>
+          </Box>
+        ) : null}
+        {(currentPage < pages || currentPage === 0) && (teamEnabled || staffEnabled) ? (
+          <ActionList.Item
+            as="button"
+            aria-expanded="false"
+            ref={forwardedRef}
+            onClick={() => {
+              flushSync(() => {
+                setCurrentPage(currentPage + 1)
+              })
+              const focusTarget: HTMLElement[] | null = Array.from(
+                document.querySelectorAll(`[data-expand-focus-target="${groupId}"]`),
+              )
+
+              if (focusTarget.length > 0) {
+                focusTarget[focusTarget.length - 1].focus()
+              }
+            }}
+            {...props}
+          >
+            {label}
+            <TrailingVisual>
+              <PlusIcon />
+            </TrailingVisual>
+          </ActionList.Item>
+        ) : null}
+      </>
+    )
+  },
+)
+
+// ----------------------------------------------------------------------------
+// NavList.GroupHeading
 
 export type NavListGroupHeadingProps = ActionListGroupHeadingProps
 
@@ -453,5 +588,6 @@ export const NavList = Object.assign(Root, {
   TrailingAction,
   Divider,
   Group,
+  GroupExpand,
   GroupHeading,
 })
