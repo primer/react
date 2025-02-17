@@ -7,6 +7,7 @@ module.exports = {
       jsx: true,
     },
   },
+  plugins: ['react-compiler'],
   extends: [
     'plugin:react/recommended',
     'plugin:jsx-a11y/recommended',
@@ -61,6 +62,7 @@ module.exports = {
   },
   // rules which apply to JS, TS, etc.
   rules: {
+    'react-compiler/react-compiler': 'warn',
     'no-shadow': 'off',
     'react/button-has-type': 'error',
     'react/prop-types': 'off',
