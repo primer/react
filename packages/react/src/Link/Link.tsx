@@ -21,20 +21,13 @@ const Link = forwardRef(({as: Component = 'a', className, inline, underline, hov
   const innerRef = React.useRef<HTMLAnchorElement>(null)
   useRefObjectAsForwardedRef(forwardedRef, innerRef)
 
-  if (__DEV__) {
-    /**
-     * The Linter yells because it thinks this conditionally calls an effect,
-     * but since this is a compile-time flag and not a runtime conditional
-     * this is safe, and ensures the entire effect is kept out of prod builds
-     * shaving precious bytes from the output, and avoiding mounting a noop effect
-     */
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    useEffect(() => {
-      if (
-        innerRef.current &&
-        !(innerRef.current instanceof HTMLButtonElement) &&
-        !(innerRef.current instanceof HTMLAnchorElement)
-      ) {
+  useEffect(() => {
+    if (
+      innerRef.current &&
+      !(innerRef.current instanceof HTMLButtonElement) &&
+      !(innerRef.current instanceof HTMLAnchorElement)
+    ) {
+      if (__DEV__) {
         // eslint-disable-next-line no-console
         console.error(
           'Error: Found `Link` component that renders an inaccessible element',
@@ -42,8 +35,8 @@ const Link = forwardRef(({as: Component = 'a', className, inline, underline, hov
           'Please ensure `Link` always renders as <a> or <button>',
         )
       }
-    }, [innerRef])
-  }
+    }
+  }, [innerRef])
 
   if (props.sx) {
     return (
