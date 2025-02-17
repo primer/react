@@ -5,6 +5,7 @@ function replacementPlugin(env) {
 }
 
 const sharedPlugins = [
+  'babel-plugin-react-compiler',
   'macros',
   'dev-expression',
   'add-react-displayname',
