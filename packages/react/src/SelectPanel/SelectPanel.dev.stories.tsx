@@ -86,7 +86,6 @@ export const WithCss = () => {
   return (
     <FeatureFlags
       flags={{
-        primer_react_css_modules_team: true,
         primer_react_css_modules_staff: true,
         primer_react_css_modules_ga: true,
       }}

@@ -4,12 +4,24 @@
   "status": "beta",
   "a11yReviewed": true,
   "stories": [
-    {"id": "components-treeview-features--files"},
-    {"id": "components-treeview-features--files-changed"},
-    {"id": "components-treeview-features--async-success"},
-    {"id": "components-treeview-features--async-error"},
-    {"id": "components-treeview-features--async-with-count"},
-    {"id": "components-treeview-features--controlled"}
+    {
+      "id": "components-treeview-features--files"
+    },
+    {
+      "id": "components-treeview-features--files-changed"
+    },
+    {
+      "id": "components-treeview-features--async-success"
+    },
+    {
+      "id": "components-treeview-features--async-error"
+    },
+    {
+      "id": "components-treeview-features--async-with-count"
+    },
+    {
+      "id": "components-treeview-features--controlled"
+    }
   ],
   "importPath": "@primer/react",
   "props": [
@@ -154,23 +166,6 @@
       ]
     },
     {
-      "name": "TreeView.LeadingAction",
-      "props": [
-        {
-          "name": "children",
-          "required": true,
-          "type": "React.ReactNode"
-        },
-        {
-          "name": "label",
-          "type": "string",
-          "required": false,
-          "description": "Provide an accessible label for the visual. This is not necessary for decorative visuals.",
-          "defaultValue": ""
-        }
-      ]
-    },
-    {
       "name": "TreeView.DirectoryIcon",
       "props": []
     },
@@ -190,6 +185,11 @@
           "name": "count",
           "type": "number",
           "description": "The number of items expected to be in the subtree. When in the loading state, the subtree will render a skeleton loading placeholder with the specified count of items"
+        },
+        {
+          "name": "aria-label",
+          "type": "string",
+          "description": "An accessible name for the subtree. It is recommended that you provide a short version of the parent list item's name as the name of the subtree."
         }
       ]
     },

@@ -2,8 +2,7 @@ import React from 'react'
 import {render} from '@testing-library/react'
 import {Hidden} from '.'
 import MatchMediaMock from 'jest-matchmedia-mock'
-import {behavesAsComponent, checkExports, renderStyles, checkStoriesForAxeViolations} from '../utils/testing'
-import {mediaQueries} from '../utils/layout'
+import {behavesAsComponent, checkExports, checkStoriesForAxeViolations} from '../utils/testing'
 
 let matchMedia: MatchMediaMock
 describe('Hidden', () => {
@@ -40,37 +39,31 @@ describe('Hidden', () => {
   })
 
   it('renders the styles as expected when a single viewport value is provided as a string via `when` prop', () => {
-    const expectedStyles = {
-      // `.replace` is used because renderStyles return the JSON object without a space after the column
-      [`${mediaQueries.regular.replace(': ', ':')}`]: {
-        display: 'none',
-      },
-    }
-    expect(
-      renderStyles(
+    const hiddenElement = render(
+      <div data-testid="hidden-regular">
         <Hidden when="regular">
           <div>This is hidden when regular viewports</div>
-        </Hidden>,
-      ),
-    ).toEqual(expect.objectContaining(expectedStyles))
+        </Hidden>
+      </div>,
+    )
+    expect(hiddenElement.getAllByTestId('hidden-regular')[0].firstChild).toHaveAttribute(
+      'style',
+      '--hiddenDisplay-regular: none;',
+    )
   })
 
   it('renders the styles as expected when multiple viewport values are provided as an array via `when` prop', () => {
-    const expectedStyles = {
-      [`${mediaQueries.narrow.replace(': ', ':')}`]: {
-        display: 'none',
-      },
-      [`${mediaQueries.wide.replace(': ', ':')}`]: {
-        display: 'none',
-      },
-    }
-    expect(
-      renderStyles(
+    const hiddenElement = render(
+      <div data-testid="hidden-regular">
         <Hidden when={['narrow', 'wide']}>
-          <div>This is hidden when regular and wide viewports</div>
-        </Hidden>,
-      ),
-    ).toEqual(expect.objectContaining(expectedStyles))
+          <div>This is hidden when regular viewports</div>
+        </Hidden>
+      </div>,
+    )
+    expect(hiddenElement.getAllByTestId('hidden-regular')[0].firstChild).toHaveAttribute(
+      'style',
+      '--hiddenDisplay-narrow: none; --hiddenDisplay-wide: none;',
+    )
   })
 })
 

@@ -7,7 +7,7 @@ import {useFeatureFlag} from '../../FeatureFlags'
 import styles from './UnstyledTextInput.module.css'
 import {clsx} from 'clsx'
 
-export const TEXT_INPUT_CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_staff'
+export const TEXT_INPUT_CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_ga'
 
 type ToggledUnstyledTextInputProps = React.ComponentPropsWithoutRef<'input'> & SxProp
 

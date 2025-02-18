@@ -4,6 +4,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 
 const ROOT_DIRECTORY = path.resolve(__dirname, '..', '..')
+
 // Components opted into the new story format
 // TODO: Remove this allowlist when all components use the new story format
 const allowlist = [
@@ -56,6 +57,7 @@ const allowlist = [
   'Token',
   'UnderlineNav2',
 ]
+
 const stories = glob
   .sync('src/**/*.stories.tsx', {
     cwd: ROOT_DIRECTORY,
@@ -72,7 +74,12 @@ const stories = glob
     const type = path.basename(filepath, '.stories.tsx').endsWith('features') ? 'feature' : 'default'
     const name = type === 'feature' ? path.basename(file, '.features.stories.tsx') : path.basename(file, '.stories.tsx')
 
-    return {name, story: require(filepath), type, relativeFilepath: path.relative(ROOT_DIRECTORY, filepath)}
+    return {
+      name,
+      story: require(filepath),
+      type,
+      relativeFilepath: path.relative(ROOT_DIRECTORY, filepath),
+    }
   })
 
 const components = Object.entries(

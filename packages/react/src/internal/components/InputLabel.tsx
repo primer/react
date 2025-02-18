@@ -5,6 +5,7 @@ import sx, {type SxProp} from '../../sx'
 import {cssModulesFlag} from '../../FormControl/feature-flags'
 import {useFeatureFlag} from '../../FeatureFlags'
 import classes from './InputLabel.module.css'
+import {toggleStyledComponent} from '../utils/toggleStyledComponent'
 
 type BaseProps = SxProp & {
   disabled?: boolean
@@ -72,38 +73,46 @@ function InputLabel({
   )
 }
 
-const StyledLabel = styled.label`
-  align-self: flex-start;
-  display: block;
-  color: var(--fgColor-default);
-  cursor: pointer;
-  font-weight: 600;
-  font-size: var(--text-body-size-medium);
+const StyledLabel = toggleStyledComponent(
+  cssModulesFlag,
+  'label',
+  styled.label`
+    align-self: flex-start;
+    display: block;
+    color: var(--fgColor-default);
+    cursor: pointer;
+    font-weight: 600;
+    font-size: var(--text-body-size-medium);
 
-  &:where([data-control-disabled]) {
-    color: var(--fgColor-muted);
-    cursor: not-allowed;
-  }
+    &:where([data-control-disabled]) {
+      color: var(--fgColor-muted);
+      cursor: not-allowed;
+    }
 
-  &:where([data-visually-hidden]) {
-    border: 0;
-    clip: rect(0 0 0 0);
-    clip-path: inset(50%);
-    height: 1px;
-    margin: -1px;
-    overflow: hidden;
-    padding: 0;
-    position: absolute;
-    white-space: nowrap;
-    width: 1px;
-  }
+    &:where([data-visually-hidden]) {
+      border: 0;
+      clip: rect(0 0 0 0);
+      clip-path: inset(50%);
+      height: 1px;
+      margin: -1px;
+      overflow: hidden;
+      padding: 0;
+      position: absolute;
+      white-space: nowrap;
+      width: 1px;
+    }
 
-  ${sx}
-`
+    ${sx}
+  `,
+)
 
-const StyledRequiredText = styled.span`
-  display: flex;
-  column-gap: var(--base-size-4);
-`
+const StyledRequiredText = toggleStyledComponent(
+  cssModulesFlag,
+  'span',
+  styled.span`
+    display: flex;
+    column-gap: var(--base-size-4);
+  `,
+)
 
 export {InputLabel}

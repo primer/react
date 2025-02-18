@@ -1,10 +1,11 @@
-import {SearchIcon, TriangleDownIcon, EyeIcon, IssueClosedIcon} from '@primer/octicons-react'
+import {SearchIcon, TriangleDownIcon, EyeIcon, IssueClosedIcon, HeartFillIcon} from '@primer/octicons-react'
 import React from 'react'
 import {Button, IconButton} from '.'
 import {default as Text} from '../Text'
+import {Stack} from '../Stack'
 
 export default {
-  title: 'Components/Button/DevOnly',
+  title: 'Components/Button/Dev',
 }
 
 export const InvisibleVariants = () => {
@@ -92,5 +93,60 @@ export const TestSxProp = () => {
         Watch
       </Button>
     </div>
+  )
+}
+
+export const DisabledButtonVariants = () => {
+  return (
+    <Stack direction="horizontal">
+      <Stack align="start">
+        <Button
+          variant="invisible"
+          leadingVisual={SearchIcon}
+          trailingAction={TriangleDownIcon}
+          trailingVisual={HeartFillIcon}
+          count={4}
+          disabled
+        >
+          Invisible
+        </Button>
+        <Button
+          variant="default"
+          leadingVisual={SearchIcon}
+          trailingAction={TriangleDownIcon}
+          trailingVisual={HeartFillIcon}
+          count={4}
+          disabled
+        >
+          Default
+        </Button>
+        <Button
+          variant="primary"
+          leadingVisual={SearchIcon}
+          trailingAction={TriangleDownIcon}
+          trailingVisual={HeartFillIcon}
+          count={4}
+          disabled
+        >
+          Primary
+        </Button>
+        <Button
+          variant="danger"
+          leadingVisual={SearchIcon}
+          trailingAction={TriangleDownIcon}
+          trailingVisual={HeartFillIcon}
+          count={4}
+          disabled
+        >
+          Danger
+        </Button>
+      </Stack>
+      <Stack>
+        <IconButton icon={HeartFillIcon} variant="invisible" aria-label="Invisible" disabled />
+        <IconButton icon={HeartFillIcon} variant="default" aria-label="Default" disabled />
+        <IconButton icon={HeartFillIcon} variant="primary" aria-label="Primary" disabled />
+        <IconButton icon={HeartFillIcon} variant="danger" aria-label="Danger" disabled />
+      </Stack>
+    </Stack>
   )
 }

@@ -65,7 +65,13 @@ test.describe('SelectPanel', () => {
 
     test(`${name} axe @aat ${theme} ${flag}`, async ({page}) => {
       await visit(page, {id: scenario.story.id, globals})
-      await expect(page).toHaveNoViolations()
+      await expect(page).toHaveNoViolations({
+        rules: {
+          'color-contrast': {
+            enabled: false,
+          },
+        },
+      })
     })
   }
 

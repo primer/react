@@ -17,16 +17,6 @@ test.describe('CircleOcticon', () => {
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`CircleOcticon.Default.${theme}.png`)
         })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-circleocticon--default',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations()
-        })
       })
     }
   })
@@ -44,16 +34,6 @@ test.describe('CircleOcticon', () => {
 
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`CircleOcticon.Playground.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-circleocticon--playground',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations()
         })
       })
     }

@@ -1,0 +1,88 @@
+{
+  "name": "useDetails",
+  "importPath": "@primer/react",
+  "stories": [
+    {
+      "id": "components-details--default"
+    }
+  ],
+  "parameters": [
+    {
+      "name": "options",
+      "type": "UseDetailsParameters",
+      "required": true
+    }
+  ],
+  "returns": {
+    "type": "UseDetailsReturn"
+  },
+  "relatedTypes": [
+    {
+      "name": "UseDetailsReturn",
+      "properties": [
+        {
+          "name": "open",
+          "type": "boolean",
+          "description": "Whether the details element is open."
+        },
+        {
+          "name": "setOpen",
+          "type": "React.Dispatch<React.SetStateAction<boolean>>",
+          "description": "A function to set the open state."
+        },
+        {
+          "name": "getDetailsProps",
+          "type": "() => DetailsProps",
+          "description": "A function to get the props to attach to the details element."
+        }
+      ]
+    },
+    {
+      "name": "DetailsProps",
+      "properties": [
+        {
+          "name": "onToggle",
+          "type": "(e: React.SyntheticEvent<HTMLElement, Event>) => void",
+          "description": "Callback function to handle toggling the details element."
+        },
+        {
+          "name": "open",
+          "type": "boolean",
+          "description": "Whether the details element is open."
+        },
+        {
+          "name": "ref",
+          "type": "React.RefObject<HTMLDetailsElement>",
+          "description": "A ref object to attach to the details element."
+        }
+      ]
+    },
+    {
+      "name": "UseDetailsParameters",
+      "properties": [
+        {
+          "name": "ref",
+          "type": "React.RefObject<HTMLDetailsElement>",
+          "description": "A ref object to attach to the details element."
+        },
+        {
+          "name": "closeOnOutsideClick",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Whether to close the details element when clicking outside of it."
+        },
+        {
+          "name": "defaultOpen",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Whether the details element is open by default."
+        },
+        {
+          "name": "onClickOutside",
+          "type": "(event: MouseEvent) => void",
+          "description": "Callback function to handle clicks outside the details element."
+        }
+      ]
+    }
+  ]
+}

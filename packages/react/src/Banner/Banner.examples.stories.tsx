@@ -46,7 +46,7 @@ export const WithUserAction = () => {
   )
 }
 
-export const WithDynamicContent = () => {
+export const WithAnnouncement = () => {
   type Choice = 'one' | 'two' | 'three'
   const messages: Map<Choice, string> = new Map([
     ['one', 'This is a message for choice one'],
@@ -99,7 +99,7 @@ export const WithCustomHeading = () => {
       <Banner.Title as="h3">Info</Banner.Title>
       <Banner.Description>
         GitHub users are{' '}
-        <Link inline underline href="#">
+        <Link inline href="#">
           now required
         </Link>{' '}
         to enable two-factor authentication as an additional security measure.
@@ -120,7 +120,7 @@ export const InSidebar = () => {
             description={
               <>
                 GitHub users are{' '}
-                <Link inline underline href="#">
+                <Link inline href="#">
                   now required
                 </Link>{' '}
                 to enable two-factor authentication as an additional security measure.
@@ -157,7 +157,7 @@ export const DismissBanner = () => {
     description: (
       <>
         GitHub users are{' '}
-        <Link inline underline href="#">
+        <Link inline href="#">
           now required
         </Link>{' '}
         to enable two-factor authentication as an additional security measure.
