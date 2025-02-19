@@ -30,7 +30,7 @@
 .ItemWrapper {
   display: flex;
   align-items: center;
- 
+
   /* 
     This min-height matches the height of the expand/collapse button.
     Without it, the labels/tokens will do a slight layout shift when expanded.
