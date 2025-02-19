@@ -5,3 +5,43 @@
 .OverlayToggle_CloseButtonWrapper {
   min-inline-size: unset !important;
 }
+
+.LabelGroupContainer {
+  display: flex;
+  max-width: 100%;
+  overflow: hidden;
+  /* stylelint-disable-next-line primer/typography */
+  line-height: 1;
+  flex-wrap: nowrap;
+  gap: var(--base-size-4);
+
+  &[data-overflow='inline'] {
+    flex-wrap: wrap;
+  }
+
+  &[data-list] {
+    padding-inline-start: 0;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    list-style-type: none;
+  }
+}
+
+.ItemWrapper {
+  display: flex;
+  align-items: center;
+ 
+  /* 
+    This min-height matches the height of the expand/collapse button.
+    Without it, the labels/tokens will do a slight layout shift when expanded.
+    This is because the height of the first row will match the token sizes,
+    but the height of the second row will be the height of the collapse button. 
+  */
+  min-height: 28px;
+}
+
+.Hidden {
+  order: 9999;
+  pointer-events: none;
+  visibility: hidden;
+}

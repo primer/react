@@ -144,7 +144,7 @@ describe('LabelGroup', () => {
     const expandButton = getByText('+2')
     const fourthLabel = getByText('Four')
 
-    expect(fourthLabel).not.toBeVisible()
+    expect(fourthLabel.parentElement).toHaveClass('Hidden')
 
     await user.click(expandButton)
 
