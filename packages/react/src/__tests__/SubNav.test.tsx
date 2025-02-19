@@ -18,7 +18,6 @@ describe('SubNav', () => {
       return (
         <FeatureFlags
           flags={{
-            primer_react_css_modules_team: true,
             primer_react_css_modules_staff: true,
             primer_react_css_modules_ga: true,
           }}
@@ -65,5 +64,21 @@ describe('SubNav', () => {
     const {getByTestId} = HTMLRender(<SubNav actions={<span data-testid="action">action</span>} />)
     expect(getByTestId('action')).toBeInTheDocument()
     expect(getByTestId('action').parentElement).toHaveClass('SubNav-actions')
+  })
+
+  it('sets aria-current on the selected child', () => {
+    const {getByTestId} = HTMLRender(
+      <SubNav>
+        <SubNav.Link to="/foo" data-testid="foo" selected>
+          Foo
+        </SubNav.Link>
+        <SubNav.Link to="/bar" data-testid="bar">
+          Bar
+        </SubNav.Link>
+      </SubNav>,
+    )
+
+    expect(getByTestId('foo')).toHaveAttribute('aria-current', 'true')
+    expect(getByTestId('bar')).not.toHaveAttribute('aria-current')
   })
 })

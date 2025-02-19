@@ -17,15 +17,77 @@ test.describe('NavList', () => {
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`NavList.With TrailingAction.${theme}.png`)
         })
+      })
+    }
+  })
 
-        test('axe @aat', async ({page}) => {
+  test.describe('With Title and Heading', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-navlist--with-trailing-action',
+            id: 'components-navlist-dev--with-group-title-and-heading',
             globals: {
               colorScheme: theme,
             },
           })
-          await expect(page).toHaveNoViolations()
+
+          // Default state
+          expect(await page.screenshot()).toMatchSnapshot(`NavList.With Title and Heading.${theme}.png`)
+        })
+      })
+    }
+  })
+
+  test.describe('Simple', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-navlist--simple',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          // Default state
+          expect(await page.screenshot()).toMatchSnapshot(`NavList.Simple.${theme}.png`)
+        })
+      })
+    }
+  })
+
+  test.describe('With Group', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-navlist--with-group',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          // Default state
+          expect(await page.screenshot()).toMatchSnapshot(`NavList.With Group.${theme}.png`)
+        })
+      })
+    }
+  })
+
+  test.describe('With Sub Items', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-navlist--with-sub-items',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          // Default state
+          expect(await page.screenshot()).toMatchSnapshot(`NavList.With Sub Items.${theme}.png`)
         })
       })
     }

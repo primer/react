@@ -10,7 +10,7 @@ import {
   GraphIcon,
   ShieldLockIcon,
   GearIcon,
-  CommitIcon,
+  GitCommitIcon,
   ChecklistIcon,
   FileDiffIcon,
   BookIcon,
@@ -51,7 +51,7 @@ export const PullRequestPage = () => {
         <UnderlineNav.Item icon={CommentDiscussionIcon} counter="0" aria-current="page">
           Conversation
         </UnderlineNav.Item>
-        <UnderlineNav.Item counter={3} icon={CommitIcon}>
+        <UnderlineNav.Item counter={3} icon={GitCommitIcon}>
           Commits
         </UnderlineNav.Item>
         <UnderlineNav.Item counter={7} icon={ChecklistIcon}>

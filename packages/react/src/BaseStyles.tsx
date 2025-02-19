@@ -1,18 +1,20 @@
-import React from 'react'
+import React, {type CSSProperties, type PropsWithChildren} from 'react'
 import {clsx} from 'clsx'
 import styled, {createGlobalStyle} from 'styled-components'
-import type {ComponentProps} from './utils/types'
 import type {SystemCommonProps, SystemTypographyProps} from './constants'
 import {COMMON, TYPOGRAPHY} from './constants'
 import {useTheme} from './ThemeProvider'
 import {useFeatureFlag} from './FeatureFlags'
-import {toggleStyledComponent} from './internal/utils/toggleStyledComponent'
+import Box from './Box'
+import type {SxProp} from './sx'
+import {includesSystemProps, getTypographyAndCommonProps} from './utils/includeSystemProps'
+
 import classes from './BaseStyles.module.css'
 
 // load polyfill for :focus-visible
 import 'focus-visible'
 
-const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_team'
+const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_staff'
 
 const GlobalStyle = createGlobalStyle<{colorScheme?: 'light' | 'dark'}>`
   * { box-sizing: border-box; }
@@ -35,45 +37,107 @@ const GlobalStyle = createGlobalStyle<{colorScheme?: 'light' | 'dark'}>`
   }
 `
 
-const Base = toggleStyledComponent(
-  CSS_MODULES_FEATURE_FLAG,
-  'div',
-  styled.div<SystemTypographyProps & SystemCommonProps>`
-    ${TYPOGRAPHY};
-    ${COMMON};
-  `,
-)
+const StyledDiv = styled.div<SystemTypographyProps & SystemCommonProps>`
+  ${TYPOGRAPHY};
+  ${COMMON};
+`
 
-export type BaseStylesProps = ComponentProps<typeof Base>
+export type BaseStylesProps = PropsWithChildren & {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  as?: React.ComponentType<any> | keyof JSX.IntrinsicElements
+  className?: string
+  style?: CSSProperties
+  color?: string // Fixes `color` ts-error
+} & SystemTypographyProps &
+  SystemCommonProps &
+  SxProp
 
 function BaseStyles(props: BaseStylesProps) {
-  const {children, color = 'fg.default', fontFamily = 'normal', lineHeight = 'default', className, ...rest} = props
-
+  const {children, color, fontFamily, lineHeight, className, as: Component = 'div', style, ...rest} = props
   const {colorScheme, dayScheme, nightScheme} = useTheme()
   const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
 
-  const stylingProps = enabled ? {className: clsx(classes.BaseStyles, className)} : {className}
+  if (enabled) {
+    const newClassName = clsx(classes.BaseStyles, className)
+    const baseStyles = {
+      ['--BaseStyles-fgColor']: color,
+      ['--BaseStyles-fontFamily']: fontFamily,
+      ['--BaseStyles-lineHeight']: lineHeight,
+    }
 
-  /**
-   * We need to map valid primer/react color modes onto valid color modes for primer/primitives
-   * valid color modes for primer/primitives: auto | light | dark
-   * valid color modes for primer/primer: auto | day | night | light | dark
-   */
+    // If props includes TYPOGRAPHY or COMMON props, pass them to the Box component
+    if (includesSystemProps(props)) {
+      const systemProps = getTypographyAndCommonProps(props)
+      return (
+        // @ts-ignore shh
+        <Box
+          as={Component}
+          className={newClassName}
+          data-portal-root
+          /**
+           * We need to map valid primer/react color modes onto valid color modes for primer/primitives
+           * valid color modes for primer/primitives: auto | light | dark
+           * valid color modes for primer/primer: auto | day | night | light | dark
+           */
+          data-color-mode={colorScheme?.includes('dark') ? 'dark' : 'light'}
+          data-light-theme={dayScheme}
+          data-dark-theme={nightScheme}
+          style={{
+            ...systemProps,
+            ...baseStyles,
+            ...style,
+          }}
+          {...rest}
+        >
+          {children}
+        </Box>
+      )
+    }
+
+    return (
+      <Component
+        className={newClassName}
+        data-portal-root
+        /**
+         * We need to map valid primer/react color modes onto valid color modes for primer/primitives
+         * valid color modes for primer/primitives: auto | light | dark
+         * valid color modes for primer/primer: auto | day | night | light | dark
+         */
+        data-color-mode={colorScheme?.includes('dark') ? 'dark' : 'light'}
+        data-light-theme={dayScheme}
+        data-dark-theme={nightScheme}
+        style={{
+          ...baseStyles,
+          ...style,
+        }}
+        {...rest}
+      >
+        {children}
+      </Component>
+    )
+  }
+
   return (
-    <Base
-      {...rest}
-      {...stylingProps}
-      color={color}
-      fontFamily={fontFamily}
-      lineHeight={lineHeight}
+    <StyledDiv
+      className={className}
+      color={color ?? 'var(--fgColor-default)'}
+      fontFamily={fontFamily ?? 'normal'}
+      lineHeight={lineHeight ?? 'default'}
       data-portal-root
+      /**
+       * We need to map valid primer/react color modes onto valid color modes for primer/primitives
+       * valid color modes for primer/primitives: auto | light | dark
+       * valid color modes for primer/primer: auto | day | night | light | dark
+       */
       data-color-mode={colorScheme?.includes('dark') ? 'dark' : 'light'}
       data-light-theme={dayScheme}
       data-dark-theme={nightScheme}
+      style={style}
+      {...rest}
     >
-      {!enabled && <GlobalStyle colorScheme={colorScheme?.includes('dark') ? 'dark' : 'light'} />}
+      <GlobalStyle colorScheme={colorScheme?.includes('dark') ? 'dark' : 'light'} />
       {children}
-    </Base>
+    </StyledDiv>
   )
 }
 

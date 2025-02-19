@@ -9,11 +9,30 @@ import theme from '../theme'
 import {BaseStyles, ThemeProvider} from '..'
 import {act} from 'react-test-renderer'
 import {viewportRanges} from '../hooks/useResponsiveValue'
+import {FeatureFlags} from '../FeatureFlags'
 
 const segmentData = [
-  {label: 'Preview', id: 'preview', iconLabel: 'EyeIcon', icon: () => <EyeIcon aria-label="EyeIcon" />},
-  {label: 'Raw', id: 'raw', iconLabel: 'FileCodeIcon', icon: () => <FileCodeIcon aria-label="FileCodeIcon" />},
-  {label: 'Blame', id: 'blame', iconLabel: 'PeopleIcon', icon: () => <PeopleIcon aria-label="PeopleIcon" />},
+  {
+    label: 'Preview',
+    description: 'This preview does blah.',
+    id: 'preview',
+    iconLabel: 'EyeIcon',
+    icon: () => <EyeIcon aria-label="EyeIcon" />,
+  },
+  {
+    label: 'Raw',
+    description: 'This shows the raw content.',
+    id: 'raw',
+    iconLabel: 'FileCodeIcon',
+    icon: () => <FileCodeIcon aria-label="FileCodeIcon" />,
+  },
+  {
+    label: 'Blame',
+    description: 'This shows the blame.',
+    id: 'blame',
+    iconLabel: 'PeopleIcon',
+    icon: () => <PeopleIcon aria-label="PeopleIcon" />,
+  },
 ]
 
 let matchMedia: MatchMediaMock
@@ -161,6 +180,68 @@ describe('SegmentedControl', () => {
     for (const datum of segmentData) {
       const labelledButton = getByLabelText(datum.label)
       expect(labelledButton).toBeDefined()
+    }
+  })
+
+  it('renders icon button with tooltip as label when feature flag is enabled', () => {
+    const {getByRole, getByText} = render(
+      <FeatureFlags
+        flags={{
+          primer_react_segmented_control_tooltip: true,
+        }}
+      >
+        <SegmentedControl aria-label="File view">
+          {segmentData.map(({label, icon}) => (
+            <SegmentedControl.IconButton icon={icon} aria-label={label} key={label} />
+          ))}
+        </SegmentedControl>
+      </FeatureFlags>,
+    )
+
+    for (const datum of segmentData) {
+      const labelledButton = getByRole('button', {name: datum.label})
+      const tooltipElement = getByText(datum.label)
+      expect(labelledButton).toHaveAttribute('aria-labelledby', tooltipElement.id)
+      expect(labelledButton).not.toHaveAttribute('aria-label')
+    }
+  })
+
+  it('renders icon button with tooltip description when feature flag is enabled', () => {
+    const {getByRole, getByText} = render(
+      <FeatureFlags
+        flags={{
+          primer_react_segmented_control_tooltip: true,
+        }}
+      >
+        <SegmentedControl aria-label="File view">
+          {segmentData.map(({label, icon, description}) => (
+            <SegmentedControl.IconButton icon={icon} aria-label={label} description={description} key={label} />
+          ))}
+        </SegmentedControl>
+      </FeatureFlags>,
+    )
+
+    for (const datum of segmentData) {
+      const labelledButton = getByRole('button', {name: datum.label})
+      const tooltipElement = getByText(datum.description)
+      expect(labelledButton).toHaveAttribute('aria-describedby', tooltipElement.id)
+      expect(labelledButton).toHaveAccessibleName(datum.label)
+      expect(labelledButton).toHaveAttribute('aria-label', datum.label)
+    }
+  })
+
+  it('renders icon button with aria-label and no tooltip', () => {
+    const {getByRole} = render(
+      <SegmentedControl aria-label="File view">
+        {segmentData.map(({label, icon}) => (
+          <SegmentedControl.IconButton icon={icon} aria-label={label} key={label} />
+        ))}
+      </SegmentedControl>,
+    )
+
+    for (const datum of segmentData) {
+      const labelledButton = getByRole('button', {name: datum.label})
+      expect(labelledButton).toHaveAttribute('aria-label', datum.label)
     }
   })
 

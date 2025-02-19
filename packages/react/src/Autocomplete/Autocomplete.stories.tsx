@@ -116,7 +116,7 @@ const autocompleteStoryMeta: Meta = {
         <ThemeProvider>
           <BaseStyles>
             <Box onKeyDownCapture={reportKey}>
-              <Box position="absolute" right={5} top={2}>
+              <Box as="p" position="absolute" right={5} top={2} id="key-press-label">
                 Last key pressed: {lastKey}
               </Box>
               <Box paddingTop={5}>

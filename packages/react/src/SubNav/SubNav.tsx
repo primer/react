@@ -11,7 +11,7 @@ import {useFeatureFlag} from '../FeatureFlags'
 
 import styles from './SubNav.module.css'
 
-const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_team'
+const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_staff'
 
 type StyledSubNavProps = React.ComponentProps<'nav'> & {
   actions?: React.ReactNode
@@ -156,6 +156,7 @@ const SubNavLink = React.forwardRef<HTMLElement, StyledSubNavLinkProps>(function
       ref={forwardRef}
       className={clsx(className, enabled && styles.Link)}
       data-selected={rest.selected}
+      aria-current={rest.selected}
       {...rest}
     >
       {children}

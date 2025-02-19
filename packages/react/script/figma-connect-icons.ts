@@ -171,6 +171,10 @@ ${Array.from(uniqueNames)
 ${icons
   .map(
     icon => `figma.connect(${icon.name}, '${icon.figmaUrl}', {
+  props: {
+    name: "${icon.name}",
+    fn: ${icon.name}
+  },
   example: () => <${icon.name} size={${icon.size}} />,
 })`,
   )

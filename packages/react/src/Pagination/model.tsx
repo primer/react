@@ -5,125 +5,126 @@ export function buildPaginationModel(
   marginPageCount: number,
   surroundingPageCount: number,
 ) {
-  const pages = []
+  const prev: PageType = {type: 'PREV', num: currentPage - 1, disabled: currentPage === 1}
+  const next: PageType = {type: 'NEXT', num: currentPage + 1, disabled: currentPage === pageCount}
+  if (!showPages) {
+    return [prev, next]
+  }
 
-  if (showPages) {
-    const pageNums: Array<number> = []
-    const addPage = (n: number) => {
-      if (n >= 1 && n <= pageCount) {
-        pageNums.push(n)
-      }
-    }
+  if (pageCount <= 0) {
+    return [prev, {...next, disabled: true}]
+  }
 
-    // Start by defining the window of pages to show around the current page.
-    // If the window goes off either edge, shift it until it fits.
-    let extentLeft = currentPage - surroundingPageCount
-    let extentRight = currentPage + surroundingPageCount
-    if (extentLeft < 1 && extentRight > pageCount) {
-      // Our window is larger than the entire range,
-      // so simply display every page.
-      extentLeft = 1
-      extentRight = pageCount
-    } else if (extentLeft < 1) {
-      while (extentLeft < 1) {
-        extentLeft++
-        extentRight++
-      }
-    } else if (extentRight > pageCount) {
-      while (extentRight > pageCount) {
-        extentLeft--
-        extentRight--
-      }
-    }
+  const pages: PageType[] = []
 
-    // Next, include the pages in the margins.
-    // If a margin page is already covered in the window,
-    // extend the window to the other direction.
-    for (let i = 1; i <= marginPageCount; i++) {
-      const leftPage = i
-      const rightPage = pageCount - (i - 1)
-      if (leftPage >= extentLeft) {
-        extentRight++
-      } else {
-        addPage(leftPage)
-      }
-      if (rightPage <= extentRight) {
-        extentLeft--
-      } else {
-        addPage(rightPage)
-      }
-    }
+  // number of pages shown on each side of the current page
+  // [1, ..., 7, 8, _9_, 10, 11, ..., 15]
+  // standardGap: 3
+  const standardGap = surroundingPageCount + marginPageCount
 
-    for (let i = extentLeft; i <= extentRight; i++) {
-      addPage(i)
-    }
+  // the maximum number of pages that can be shown at a given time (account for current page, left and right ellipsis)
+  // [1, ..., 7, 8, _9_, 10, 11, ..., 15]
+  // maxVisiblePages: 9
+  const maxVisiblePages = standardGap + standardGap + 3
 
-    const sorted = pageNums
-      .slice()
-      .sort((a, b) => a - b)
-      .filter((item, idx, ary) => !idx || item !== ary[idx - 1])
-    for (let idx = 0; idx < sorted.length; idx++) {
-      const num = sorted[idx]
-      const selected = num === currentPage
-      const last = sorted[idx - 1]
-      const next = sorted[idx + 1]
-      const lastDelta = num - last
-      const nextDelta = num - next
-      const precedesBreak = nextDelta !== -1
+  // if the number of pages is less than the maximum number of pages that can be shown just return all of them
+  if (pageCount <= maxVisiblePages) {
+    addPages(1, pageCount, false)
+    return [prev, ...pages, next]
+  }
 
-      if (idx === 0) {
-        if (num !== 1) {
-          // If the first page isn't page one,
-          // we need to add a break
-          pages.push({
-            type: 'BREAK',
-            num: 1,
-          })
-        }
-        pages.push({
-          type: 'NUM',
-          num,
-          selected,
-          precedesBreak,
-        })
-      } else {
-        if (lastDelta === 1) {
-          pages.push({
-            type: 'NUM',
-            num,
-            selected,
-            precedesBreak,
-          })
-        } else {
-          // We skipped some, so add a break
-          pages.push({
-            type: 'BREAK',
-            num: num - 1,
-          })
-          pages.push({
-            type: 'NUM',
-            num,
-            selected,
-            precedesBreak: false,
-          })
-        }
-      }
-    }
+  // startGap is the number of pages hidden by the start ellipsis
+  // startOffset is the number of pages to offset at the start to compensate
+  // [1, ..., 7, 8, _9_, 10, 11, ..., 15]
+  // startGap: 5
+  // startOffset: 0
+  // when the margin and the surrounding windows overlap.
+  // [1, _2_, 3, 4, 5, 6, ..., 15]
+  // startGap = 0
+  // startOffset: -3 <--
+  let startGap = 0
+  let startOffset = 0
 
-    const lastPage = pages[pages.length - 1]
-    if (lastPage.type === 'NUM' && lastPage.num !== pageCount) {
-      // The last page we rendered wasn't the actual last page,
-      // so we need an additional break
+  // When there is overlap
+  if (currentPage - standardGap - 1 <= 1) {
+    startOffset = currentPage - standardGap - 2
+  } else {
+    startGap = currentPage - standardGap - 1
+  }
+
+  // These are equivalent to startGap and startOffset but at the end of the list
+  let endGap = 0
+  let endOffset = 0
+
+  // When there is overlap
+  if (pageCount - currentPage - standardGap <= 1) {
+    endOffset = pageCount - currentPage - standardGap - 1
+  } else {
+    endGap = pageCount - currentPage - standardGap
+  }
+
+  const hasStartEllipsis = startGap > 0
+  const hasEndEllipsis = endGap > 0
+
+  // add pages "before" the start ellipsis (if any)
+  // [1, ..., 7, 8, _9_, 10, 11, ..., 15]
+  // marginPageCount: 1
+  // addPages(1, 1, true)
+  addPages(1, marginPageCount, hasStartEllipsis)
+
+  if (hasStartEllipsis) {
+    addEllipsis(marginPageCount)
+  }
+
+  // add middle pages
+  // [1, ..., 7, 8, _9_, 10, 11, ..., 15]
+  // marginPageCount: 1
+  // surroundingPageCount: 2
+  // startGap: 5
+  // startOffset: 0
+  // endGap: 3
+  // endOffset: 0
+  // addPages(7, 11, true)
+  addPages(
+    marginPageCount + startGap + endOffset + 1,
+    pageCount - startOffset - endGap - marginPageCount,
+    hasEndEllipsis,
+  )
+
+  if (hasEndEllipsis) {
+    addEllipsis(pageCount - startOffset - endGap - marginPageCount)
+  }
+
+  // add pages "after" the start ellipsis (if any)
+  // [1, ..., 7, 8, _9_, 10, 11, ..., 15]
+  // marginPageCount: 1
+  // surroundingPageCount: 2
+  // startGap: 5
+  // startOffset: 0
+  // endGap: 3
+  // endOffset: 0
+  // addPages(15, 15)
+  addPages(pageCount - marginPageCount + 1, pageCount)
+
+  return [prev, ...pages, next]
+
+  function addEllipsis(previousPage: number): void {
+    pages.push({
+      type: 'BREAK',
+      num: previousPage + 1,
+    })
+  }
+
+  function addPages(start: number, end: number, precedesBreak: boolean = false): void {
+    for (let i = start; i <= end; i++) {
       pages.push({
-        type: 'BREAK',
-        num: pageCount,
+        type: 'NUM',
+        num: i,
+        selected: i === currentPage,
+        precedesBreak: i === end && precedesBreak,
       })
     }
   }
-
-  const prev = {type: 'PREV', num: currentPage - 1, disabled: currentPage === 1}
-  const next = {type: 'NEXT', num: currentPage + 1, disabled: currentPage === pageCount}
-  return [prev, ...pages, next]
 }
 
 type PageType = {
@@ -148,7 +149,7 @@ export function buildComponentData(
       key = 'page-prev'
       content = 'Previous'
       if (page.disabled) {
-        Object.assign(props, {'aria-disabled': 'true', role: 'link'})
+        Object.assign(props, {rel: 'prev', 'aria-hidden': 'true', 'aria-disabled': 'true'})
       } else {
         Object.assign(props, {
           rel: 'prev',
@@ -163,7 +164,7 @@ export function buildComponentData(
       key = 'page-next'
       content = 'Next'
       if (page.disabled) {
-        Object.assign(props, {'aria-disabled': 'true', role: 'link'})
+        Object.assign(props, {rel: 'next', 'aria-hidden': 'true', 'aria-disabled': 'true'})
       } else {
         Object.assign(props, {
           rel: 'next',
