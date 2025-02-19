@@ -29,8 +29,11 @@ const AvatarStackWrapper = toggleStyledComponent(
   'span',
   styled.span<StyledAvatarStackWrapperProps>`
     --avatar-border-width: 1px;
-    --avatar-two-margin: calc(var(--avatar-stack-size) * -0.55);
-    --avatar-three-margin: calc(var(--avatar-stack-size) * -0.85);
+    --overlap-size: calc(var(--avatar-stack-size) * 0.55);
+    --overlap-size-avatar-three-plus: calc(var(--avatar-stack-size) * 0.85);
+    --mask-size: calc(100% + (var(--avatar-border-width) * 2));
+    --mask-start: -1;
+    --opacity-step: 15%;
 
     display: flex;
     position: relative;
@@ -52,36 +55,50 @@ const AvatarStackWrapper = toggleStyledComponent(
       position: relative;
       overflow: hidden;
       display: flex;
+      transition:
+        margin 0.2s ease-in-out,
+        opacity 0.2s ease-in-out,
+        mask-position 0.2s ease-in-out,
+        mask-size 0.2s ease-in-out;
 
       &:is(img) {
         box-shadow: 0 0 0 var(--avatar-border-width)
-          ${props => (props.count === 1 ? get('colors.avatar.border') : get('colors.canvas.default'))};
+          ${props => (props.count === 1 ? get('colors.avatar.border') : 'transparent')};
       }
 
       &:first-child {
         margin-left: 0;
-        z-index: 10;
       }
 
       &:nth-child(n + 2) {
-        margin-left: var(--avatar-two-margin);
-        z-index: 9;
+        margin-left: calc(var(--overlap-size) * -1);
+        mask-image: radial-gradient(at 50% 50%, rgb(0, 0, 0) 70%, rgba(0, 0, 0, 0) 71%),
+          linear-gradient(rgb(0, 0, 0) 0px, rgb(0, 0, 0) 0px);
+        mask-repeat: no-repeat, no-repeat;
+        mask-size:
+          var(--mask-size) var(--mask-size),
+          auto;
+        mask-composite: exclude;
+        // HORIZONTAL POSITION CALC FORMULA EXPLAINED:
+        // width of the visible part of the avatar ➡️ var(--avatar-stack-size) - var(--overlap-size)
+        // multiply by -1 for left-aligned, 1 for right-aligned ➡️ var(--mask-start)
+        // subtract the avatar border width ➡️ var(--avatar-border-width)
+        mask-position:
+          calc((var(--avatar-stack-size) - var(--overlap-size)) * var(--mask-start) - var(--avatar-border-width)) center,
+          0 0;
       }
 
       &:nth-child(n + 3) {
-        margin-left: var(--avatar-three-margin);
-        opacity: ${100 - 3 * 15}%;
-        z-index: 8;
+        --overlap-size: var(--overlap-size-avatar-three-plus);
+        opacity: calc(100% - 2 * var(--opacity-step));
       }
 
       &:nth-child(n + 4) {
-        opacity: ${100 - 4 * 15}%;
-        z-index: 7;
+        opacity: calc(100% - 3 * var(--opacity-step));
       }
 
       &:nth-child(n + 5) {
-        opacity: ${100 - 5 * 15}%;
-        z-index: 6;
+        opacity: calc(100% - 4 * var(--opacity-step));
       }
 
       &:nth-child(n + 6) {
@@ -91,42 +108,36 @@ const AvatarStackWrapper = toggleStyledComponent(
     }
 
     &.pc-AvatarStack--two {
-      // this calc explained:
-      // 1. avatar size + the non-overlapping part of the second avatar
-      // 2. + the border widths of the first two avatars
-      min-width: calc(
-        var(--avatar-stack-size) + calc(var(--avatar-stack-size) + var(--avatar-two-margin)) +
-          var(--avatar-border-width)
-      );
+      // MIN-WIDTH CALC FORMULA EXPLAINED:
+      // avatar size ➡️ var(--avatar-stack-size)
+      // plus the visible part of the 2nd avatar ➡️ var(--avatar-stack-size) - var(--overlap-size)
+      min-width: calc(var(--avatar-stack-size) + (var(--avatar-stack-size) - var(--overlap-size)));
     }
 
     &.pc-AvatarStack--three {
-      // this calc explained:
-      // 1. avatar size + the non-overlapping part of the second avatar
-      // 2. + the non-overlapping part of the third avatar
+      // MIN-WIDTH CALC FORMULA EXPLAINED:
+      // avatar size ➡️ var(--avatar-stack-size)
+      // plus the visible part of the 2nd avatar ➡️ var(--avatar-stack-size) - var(--overlap-size)
+      // plus the visible part of the 3rd avatar ➡️ var(--avatar-stack-size) - var(--overlap-size-avatar-three-plus)
       min-width: calc(
-        var(--avatar-stack-size) +
-          calc(
-            calc(var(--avatar-stack-size) + var(--avatar-two-margin)) +
-              calc(var(--avatar-stack-size) + var(--avatar-three-margin))
-          )
+        var(--avatar-stack-size) + (var(--avatar-stack-size) - var(--overlap-size)) +
+          (var(--avatar-stack-size) - var(--overlap-size-avatar-three-plus))
       );
     }
 
     &.pc-AvatarStack--three-plus {
-      // this calc explained:
-      // 1. avatar size + the non-overlapping part of the second avatar
-      // 2. + the non-overlapping part of the third and fourth avatar
+      // MIN-WIDTH CALC FORMULA EXPLAINED:
+      // avatar size ➡️ var(--avatar-stack-size)
+      // plus the visible part of the 2nd avatar ➡️ var(--avatar-stack-size) - var(--overlap-size)
+      // plus the visible part of the 3rd AND 4th avatar ➡️ (var(--avatar-stack-size) - var(--overlap-size-avatar-three-plus)) * 2
       min-width: calc(
-        var(--avatar-stack-size) +
-          calc(
-            calc(var(--avatar-stack-size) + var(--avatar-two-margin)) +
-              calc(var(--avatar-stack-size) + var(--avatar-three-margin)) * 2
-          )
+        var(--avatar-stack-size) + (var(--avatar-stack-size) - var(--overlap-size)) +
+          (var(--avatar-stack-size) - var(--overlap-size-avatar-three-plus)) * 2
       );
     }
 
     &.pc-AvatarStack--right {
+      --mask-start: 1;
       justify-content: flex-end;
       .pc-AvatarItem {
         margin-left: 0 !important;
@@ -136,11 +147,7 @@ const AvatarStackWrapper = toggleStyledComponent(
         }
 
         &:nth-child(n + 2) {
-          margin-right: var(--avatar-two-margin);
-        }
-
-        &:nth-child(n + 3) {
-          margin-right: var(--avatar-three-margin);
+          margin-right: calc(var(--overlap-size) * -1);
         }
       }
 
@@ -166,15 +173,17 @@ const AvatarStackWrapper = toggleStyledComponent(
       width: auto;
 
       .pc-AvatarItem {
+        // reset size of the mask to prevent unintentially clipping due to the additional size created by the border width
+        --mask-size: 100%;
         margin-left: ${get('space.1')};
-        opacity: 100%;
+        opacity: 1;
         visibility: visible;
-        ${props => (props.count === 1 ? '' : `box-shadow: inset 0 0 0 4px ${get('colors.canvas.default')};`)}
-        transition:
-        margin 0.2s ease-in-out,
-        opacity 0.2s ease-in-out,
-        visibility 0.2s ease-in-out,
-        box-shadow 0.1s ease-in-out;
+        // HORIZONTAL POSITION CALC FORMULA EXPLAINED:
+        // width of the full avatar ➡️ var(--avatar-stack-size)
+        // multiply by -1 for left-aligned, 1 for right-aligned ➡️ var(--mask-start)
+        mask-position:
+          calc(var(--avatar-stack-size) * var(--mask-start)) center,
+          0 0;
 
         ${getGlobalFocusStyles('1px')}
 
