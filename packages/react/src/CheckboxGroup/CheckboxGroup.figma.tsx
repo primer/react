@@ -16,7 +16,7 @@ const props = {
     text: figma.textContent('Caption'),
   }),
   Label: figma.boolean('Label'),
-  labelProps: figma.nestedProps('Label', {
+  labelProps: figma.nestedProps('FormControl.Label', {
     text: figma.textContent('Label'),
   }),
   children: figma.nestedProps('Items', {
