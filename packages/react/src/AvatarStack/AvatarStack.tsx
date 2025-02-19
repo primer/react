@@ -67,11 +67,11 @@ const AvatarStackWrapper = toggleStyledComponent(
       }
 
       &:first-child {
-        margin-left: 0;
+        margin-inline-start: 0;
       }
 
       &:nth-child(n + 2) {
-        margin-left: calc(var(--overlap-size) * -1);
+        margin-inline-start: calc(var(--overlap-size) * -1);
         mask-image: radial-gradient(at 50% 50%, rgb(0, 0, 0) 70%, rgba(0, 0, 0, 0) 71%),
           linear-gradient(rgb(0, 0, 0) 0px, rgb(0, 0, 0) 0px);
         mask-repeat: no-repeat, no-repeat;
@@ -138,34 +138,7 @@ const AvatarStackWrapper = toggleStyledComponent(
 
     &.pc-AvatarStack--right {
       --mask-start: 1;
-      justify-content: flex-end;
-      .pc-AvatarItem {
-        margin-left: 0 !important;
-
-        &:first-child {
-          margin-right: 0;
-        }
-
-        &:nth-child(n + 2) {
-          margin-right: calc(var(--overlap-size) * -1);
-        }
-      }
-
-      .pc-AvatarStackBody {
-        flex-direction: row-reverse;
-
-        &:not(.pc-AvatarStack--disableExpand):hover,
-        &:not(.pc-AvatarStack--disableExpand):focus-within {
-          .pc-AvatarItem {
-            margin-right: ${get('space.1')}!important;
-            margin-left: 0 !important;
-
-            &:first-child {
-              margin-right: 0 !important;
-            }
-          }
-        }
-      }
+      direction: rtl;
     }
 
     .pc-AvatarStackBody:not(.pc-AvatarStack--disableExpand):hover,
@@ -175,7 +148,7 @@ const AvatarStackWrapper = toggleStyledComponent(
       .pc-AvatarItem {
         // reset size of the mask to prevent unintentially clipping due to the additional size created by the border width
         --mask-size: 100%;
-        margin-left: ${get('space.1')};
+        margin-inline-start: ${get('space.1')};
         opacity: 1;
         visibility: visible;
         // HORIZONTAL POSITION CALC FORMULA EXPLAINED:
@@ -188,7 +161,7 @@ const AvatarStackWrapper = toggleStyledComponent(
         ${getGlobalFocusStyles('1px')}
 
         &:first-child {
-          margin-left: 0;
+          margin-inline-start: 0;
         }
       }
     }
