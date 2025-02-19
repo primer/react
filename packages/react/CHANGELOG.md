@@ -1,5 +1,27 @@
 # @primer/react
 
+## 37.13.0
+
+### Minor Changes
+
+- [#5679](https://github.com/primer/react/pull/5679) [`dbcb8f7`](https://github.com/primer/react/commit/dbcb8f7bba145e6463e14823a352e829ffcb4c9d) Thanks [@khiga8](https://github.com/khiga8)! - feat: Introduce Tooltip to SegmentedControlIconButton
+
+### Patch Changes
+
+- [#5636](https://github.com/primer/react/pull/5636) [`c2165af`](https://github.com/primer/react/commit/c2165af0786e416d0893482fa2ad2b4dbb0dce61) Thanks [@ktravers](https://github.com/ktravers)! - Update useOpenAndCloseFocus hook to apply return focus when preventFocusOnOpen prop is given
+
+- [#5662](https://github.com/primer/react/pull/5662) [`613cf0c`](https://github.com/primer/react/commit/613cf0cc81ee5d65a3045d04f197e2a1921a8745) Thanks [@kendallgassner](https://github.com/kendallgassner)! - Autocomplete: Use aria-live to announce "no selectable options".
+
+- [#5669](https://github.com/primer/react/pull/5669) [`b2bc006`](https://github.com/primer/react/commit/b2bc0069f4c25ca87ffa140ffbcc985c500129a0) Thanks [@jonrohan](https://github.com/jonrohan)! - Move FormControl css modules feature flag from team to staff
+
+- [#5628](https://github.com/primer/react/pull/5628) [`621c878`](https://github.com/primer/react/commit/621c878a3f4dd15e9336041c48be330e74738030) Thanks [@hectahertz](https://github.com/hectahertz)! - Update the Dialog stress test story to go fullscreen on narrow screens
+
+- [#5667](https://github.com/primer/react/pull/5667) [`10436f5`](https://github.com/primer/react/commit/10436f55cce2797c07b09ed6fe96845c6cb8eda5) Thanks [@lukasoppermann](https://github.com/lukasoppermann)! - Replaced raw values for duration and easing with primitives
+
+- [#4481](https://github.com/primer/react/pull/4481) [`6e7da1e`](https://github.com/primer/react/commit/6e7da1eaa48420bdf32ed20eccda041991a533ea) Thanks [@TylerJDev](https://github.com/TylerJDev)! - Allows `ActionMenu` and `SelectPanel` items to remain focusable when `disabled`
+
+- [#5683](https://github.com/primer/react/pull/5683) [`8bb78e1`](https://github.com/primer/react/commit/8bb78e18ce18badfe1c2e285b123dfbf96c8c5c3) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove the CSS modules feature flag from the Hidden component
+
 ## 37.12.0
 
 ### Minor Changes

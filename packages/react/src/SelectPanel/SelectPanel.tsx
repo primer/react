@@ -132,7 +132,7 @@ interface SelectPanelBaseProps {
 
 export type SelectPanelProps = SelectPanelBaseProps &
   Omit<FilteredActionListProps, 'selectionVariant'> &
-  Pick<AnchoredOverlayProps, 'open' | 'height'> &
+  Pick<AnchoredOverlayProps, 'open' | 'height' | 'width'> &
   AnchoredOverlayWrapperAnchorProps &
   (SelectPanelSingleSelection | SelectPanelMultiSelection)
 
@@ -185,8 +185,9 @@ export function SelectPanel({
   sx,
   loading,
   initialLoadingType = 'spinner',
-  height,
   className,
+  height,
+  width,
   id,
   ...listProps
 }: SelectPanelProps): JSX.Element {
@@ -451,7 +452,9 @@ export function SelectPanel({
         focusTrapSettings={focusTrapSettings}
         focusZoneSettings={focusZoneSettings}
         height={height}
+        width={width}
         anchorId={id}
+        pinPosition={!height}
       >
         <LiveRegionOutlet />
         {usingModernActionList ? null : (

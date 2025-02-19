@@ -1,4 +1,3 @@
-import type {ComponentPropsWithRef} from 'react'
 import React, {forwardRef} from 'react'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import Box from '../Box'
@@ -319,7 +318,5 @@ const ButtonBase = forwardRef(
     )
   },
 ) as PolymorphicForwardRefComponent<'button' | 'a', ButtonProps>
-
-export type ButtonBaseProps = ComponentPropsWithRef<typeof ButtonBase>
 
 export {ButtonBase}
