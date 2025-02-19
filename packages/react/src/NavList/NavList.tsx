@@ -39,7 +39,7 @@ export type NavListProps = {
 } & SxProp &
   React.ComponentProps<'nav'>
 
-const NavBox = toggleStyledComponent('primer_react_css_modules_staff', 'nav', styled.nav<SxProp>(sx))
+const NavBox = toggleStyledComponent('primer_react_css_modules_ga', 'nav', styled.nav<SxProp>(sx))
 
 const Root = React.forwardRef<HTMLElement, NavListProps>(({children, ...props}, ref) => {
   return (
@@ -70,7 +70,7 @@ export type NavListItemProps = {
 
 const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(
   ({'aria-current': ariaCurrent, children, defaultOpen, sx: sxProp = defaultSxProp, ...props}, ref) => {
-    const enabled = useFeatureFlag('primer_react_css_modules_staff')
+    const enabled = useFeatureFlag('primer_react_css_modules_ga')
     const {depth} = React.useContext(SubNavContext)
 
     // Get SubNav from children
@@ -161,7 +161,7 @@ function ItemWithSubNav({
     }
   }, [subNav, buttonId])
 
-  const enabled = useFeatureFlag('primer_react_css_modules_staff')
+  const enabled = useFeatureFlag('primer_react_css_modules_ga')
   if (enabled) {
     if (sxProp !== defaultSxProp) {
       return (
@@ -255,7 +255,7 @@ const SubNavContext = React.createContext<{depth: number}>({depth: 0})
 const SubNav = React.forwardRef(({children, sx: sxProp = defaultSxProp}: NavListSubNavProps, forwardedRef) => {
   const {buttonId, subNavId, isOpen} = React.useContext(ItemWithSubNavContext)
   const {depth} = React.useContext(SubNavContext)
-  const enabled = useFeatureFlag('primer_react_css_modules_staff')
+  const enabled = useFeatureFlag('primer_react_css_modules_ga')
   if (!buttonId || !subNavId) {
     // eslint-disable-next-line no-console
     console.error('NavList.SubNav must be a child of a NavList.Item')
@@ -362,7 +362,7 @@ export type NavListGroupProps = {
 
 const defaultSx = {}
 const Group: React.FC<NavListGroupProps> = ({title, children, sx: sxProp = defaultSx, ...props}) => {
-  const enabled = useFeatureFlag('primer_react_css_modules_staff')
+  const enabled = useFeatureFlag('primer_react_css_modules_ga')
 
   if (enabled) {
     if (sxProp !== defaultSx) {
