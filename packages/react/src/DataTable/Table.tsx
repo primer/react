@@ -394,7 +394,7 @@ function TableSortHeader({align, children, direction, onToggleSort, ...rest}: Ta
           <SortAscIcon
             className={clsx('TableSortIcon', 'TableSortIcon--ascending', {
               [classes.TableSortIcon]: enabled,
-              [classes['TableSortIcon--ascending']]: enabled,
+              [classes['TableSortIcon-ascending']]: enabled,
             })}
           />
         ) : null}
@@ -402,7 +402,7 @@ function TableSortHeader({align, children, direction, onToggleSort, ...rest}: Ta
           <SortDescIcon
             className={clsx('TableSortIcon', 'TableSortIcon--descending', {
               [classes.TableSortIcon]: enabled,
-              [classes['TableSortIcon--descending']]: enabled,
+              [classes['TableSortIcon-descending']]: enabled,
             })}
           />
         ) : null}
