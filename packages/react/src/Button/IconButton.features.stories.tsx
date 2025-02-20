@@ -91,7 +91,10 @@ export const KeybindingHintOnDescription = () => (
     aria-label="Notifications"
     description="You have unread notifications"
     keybindingHint="G+N"
+    keybindingDescription="G, N"
   />
 )
 
-export const KeybindingHint = () => <IconButton icon={BoldIcon} aria-label="Bold" keybindingHint="Mod+B" />
+export const KeybindingHint = () => (
+  <IconButton icon={BoldIcon} aria-label="Bold" keybindingHint="Mod+B" keybindingDescription="Command, B" />
+)
