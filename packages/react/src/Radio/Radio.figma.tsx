@@ -9,7 +9,7 @@ figma.connect(Radio, 'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Primer
       true: figma.children('Caption'),
     }),
     label: figma.children('Label'),
-    labelProps: figma.nestedProps('Label', {
+    labelProps: figma.nestedProps('FormControl.Label', {
       required: figma.boolean('required'),
     }),
     disabled: figma.enum('state', {
