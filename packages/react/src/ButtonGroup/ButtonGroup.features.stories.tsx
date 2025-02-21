@@ -73,7 +73,7 @@ export const InactiveButtonsGroup = () => {
   )
 
   const secondaryButton = (
-    <IconButton aria-label="Secondary Button Aria Label" aria-disabled={true} inactive={true} icon={DashIcon} />
+    <IconButton aria-label="Secondary Button" aria-disabled={true} inactive={true} icon={DashIcon} />
   )
 
   return (
@@ -84,7 +84,7 @@ export const InactiveButtonsGroup = () => {
 
       <ActionMenu open={false} onOpenChange={() => {}}>
         <ActionMenu.Anchor>
-          <Tooltip text="this button is inactive" direction="ne" type="label">
+          <Tooltip text="this button is inactive" direction="ne" type="description">
             {secondaryButton}
           </Tooltip>
         </ActionMenu.Anchor>
@@ -111,7 +111,7 @@ export const DropdownSplit = () => {
         {selectedAction}
       </Button>
       <ActionMenu>
-        <ActionMenu.Button icon={TriangleDownIcon}>More options</ActionMenu.Button>
+        <ActionMenu.Button aria-label="More options" icon={TriangleDownIcon} />
         <ActionMenu.Overlay>
           <ActionList>
             {actions.map((action, index) => {

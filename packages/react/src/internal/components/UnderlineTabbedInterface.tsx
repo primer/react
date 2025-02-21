@@ -18,7 +18,7 @@ import {clsx} from 'clsx'
 // The gap between the list items. It is a constant because the gap is used to calculate the possible number of items that can fit in the container.
 export const GAP = 8
 
-const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_team'
+const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_staff'
 
 const StyledComponentUnderlineWrapper = toggleStyledComponent(
   CSS_MODULES_FEATURE_FLAG,

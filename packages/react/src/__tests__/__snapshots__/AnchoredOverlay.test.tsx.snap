@@ -13,6 +13,7 @@ exports[`AnchoredOverlay should render consistently when open 1`] = `
   position: absolute;
   min-width: 192px;
   height: auto;
+  max-height: 100vh;
   width: auto;
   border-radius: 12px;
   overflow: hidden;

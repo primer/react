@@ -49,13 +49,6 @@ test.describe('Text', () => {
         // Default state
         expect(await page.screenshot()).toMatchSnapshot(`Text.${story.title}.png`)
       })
-
-      test('axe @aat', async ({page}) => {
-        await visit(page, {
-          id: story.id,
-        })
-        await expect(page).toHaveNoViolations()
-      })
     })
   }
 })

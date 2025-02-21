@@ -147,6 +147,12 @@
       "required": false,
       "description": "",
       "defaultValue": ""
+    },    {
+      "name": "pinPosition",
+      "type": "boolean",
+      "required": false,
+      "description": "If true, the overlay will attempt to prevent position shifting when sitting at the top of the anchor.",
+      "defaultValue": "false"
     }
   ]
 }

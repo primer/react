@@ -17,22 +17,6 @@ test.describe('Avatar', () => {
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`Avatar.Default.${theme}.png`)
         })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-avatar--default',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
-        })
       })
     }
   })
@@ -50,22 +34,6 @@ test.describe('Avatar', () => {
 
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`Avatar.Size.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-avatar-features--size',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
         })
       })
     }
@@ -85,22 +53,6 @@ test.describe('Avatar', () => {
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`Avatar.Size Responsive.${theme}.png`)
         })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-avatar-features--size-responsive',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
-        })
       })
     }
   })
@@ -118,22 +70,6 @@ test.describe('Avatar', () => {
 
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`Avatar.Square.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-avatar-features--square',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
         })
       })
     }
