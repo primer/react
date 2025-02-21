@@ -417,7 +417,7 @@ const Group: React.FC<NavListGroupProps> = ({title, children, sx: sxProp = defau
 // ----------------------------------------------------------------------------
 // NavList.GroupExpand
 
-type GroupItems = {
+type GroupItem = {
   text: string
   trailingVisual?: Icon | string
   leadingVisual?: Icon | string
@@ -428,8 +428,8 @@ type GroupItems = {
 export type NavListGroupExpandProps = {
   label?: string
   pages?: number
-  items: GroupItems[]
-  renderItem?: (item: {text: string}) => React.ReactNode
+  items: GroupItem[]
+  renderItem?: (item: GroupItem) => React.ReactNode
 }
 
 export const GroupExpand = React.forwardRef<HTMLButtonElement, NavListGroupExpandProps>(
@@ -440,13 +440,9 @@ export const GroupExpand = React.forwardRef<HTMLButtonElement, NavListGroupExpan
     const teamEnabled = useFeatureFlag('primer_react_css_modules_team')
     const staffEnabled = useFeatureFlag('primer_react_css_modules_staff')
 
-    const {amountToShow, focusTargetIndex} = React.useMemo(() => {
-      const itemsPerPage = items.length / pages
-      const amountToShow = pages === 0 ? items.length : Math.ceil(itemsPerPage * currentPage)
-      const focusTargetIndex = currentPage === 1 ? 0 : amountToShow - Math.floor(itemsPerPage)
-
-      return {amountToShow, focusTargetIndex}
-    }, [pages, items, currentPage])
+    const itemsPerPage = items.length / pages
+    const amountToShow = pages === 0 ? items.length : Math.ceil(itemsPerPage * currentPage)
+    const focusTargetIndex = currentPage === 1 ? 0 : amountToShow - Math.floor(itemsPerPage)
 
     return (
       <>
@@ -465,10 +461,10 @@ export const GroupExpand = React.forwardRef<HTMLButtonElement, NavListGroupExpan
 
               if (index < amountToShow) {
                 if (renderItem) {
-                  if (index === focusTargetIndex) {
-                    itemArr['data-expand-focus-target'] = focusTarget
-                  }
-                  return renderItem(itemArr)
+                  return renderItem({
+                    ...itemArr,
+                    ['data-expand-focus-target']: focusTarget,
+                  })
                 }
                 return (
                   <Item {...rest} key={index} data-expand-focus-target={focusTarget}>
