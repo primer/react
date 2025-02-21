@@ -7,10 +7,10 @@ export default {
     // We want to allow type selectors like `svg`
     'selector-max-type': 1,
     'selector-class-pattern': [
-      '^(focus-visible|[A-Z][a-zA-Z0-9]+(-[a-zA-Z0-9]+)*)$',
+      '^(focus-visible|[A-Z][a-zA-Z0-9]+(__[a-z]+(-[a-z]+)*)?(--[a-z]+(-[a-z]+)*)?)$',
       {
         resolveNestedSelectors: true,
-        message: '"%s" selector should be written in PascalCase, allowing for modifiers (e.g. ComponentName-modifier)',
+        message: '"%s" selector should be written in PascalCase or BEM format (e.g. block__element--modifier)',
       },
     ],
   },

@@ -197,14 +197,14 @@
 }
 
 /* The ASC icon is visible if the header is sortable and is hovered or focused */
-.TableHeader:hover .TableSortIcon-ascending,
-.TableHeader .TableSortButton:focus .TableSortIcon-ascending {
+.TableHeader:hover .TableSortIcon--ascending,
+.TableHeader .TableSortButton:focus .TableSortIcon--ascending {
   visibility: visible;
 }
 
 /* Each sort icon is visible if the TableHeader is currently in the corresponding sort state */
-.TableHeader[aria-sort='ascending'] .TableSortIcon-ascending,
-.TableHeader[aria-sort='descending'] .TableSortIcon-descending {
+.TableHeader[aria-sort='ascending'] .TableSortIcon--ascending,
+.TableHeader[aria-sort='descending'] .TableSortIcon--descending {
   visibility: visible;
 }
 
