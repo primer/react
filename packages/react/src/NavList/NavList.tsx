@@ -420,7 +420,7 @@ const Group: React.FC<NavListGroupProps> = ({title, children, sx: sxProp = defau
 type GroupItem = {
   text: string
   trailingVisual?: Icon | string
-  leadingVisual?: Icon | string
+  leadingVisual?: Icon
   trailingAction?: ActionListTrailingActionProps
   'data-expand-focus-target'?: string
 } & Omit<NavListItemProps, 'children'>
