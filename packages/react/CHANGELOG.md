@@ -1,5 +1,25 @@
 # @primer/react
 
+## 37.14.0
+
+### Minor Changes
+
+- [#5687](https://github.com/primer/react/pull/5687) [`2bbc5a0`](https://github.com/primer/react/commit/2bbc5a036bc5e57d25aa559e88b16a6063e27646) Thanks [@TylerJDev](https://github.com/TylerJDev)! - Blankslate: Add support for button in `Blankslate.PrimaryAction`
+
+- [#5510](https://github.com/primer/react/pull/5510) [`37a91b5`](https://github.com/primer/react/commit/37a91b51569bc4be92c6994ec6fe433584328911) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove CSS modules feature flag from Header
+
+### Patch Changes
+
+- [#5712](https://github.com/primer/react/pull/5712) [`22508b7`](https://github.com/primer/react/commit/22508b7ceb10638d983c68a800d691aed812d724) Thanks [@jonrohan](https://github.com/jonrohan)! - bugfix(SelectPanel): Set border-top-color on selectpanel footer
+
+- [#5686](https://github.com/primer/react/pull/5686) [`64f183b`](https://github.com/primer/react/commit/64f183bb028cd1072af2c7e2892ad21bdadf882c) Thanks [@jonrohan](https://github.com/jonrohan)! - The `UnderlinePanels` component wasn't supporting passing in `className`. Adding to the prop list
+
+- [#5661](https://github.com/primer/react/pull/5661) [`1262f5a`](https://github.com/primer/react/commit/1262f5affa84330c917b964fa0cd8d907b398afc) Thanks [@TylerJDev](https://github.com/TylerJDev)! - SubNav: Adds `aria-current` to selected links
+
+- [#5562](https://github.com/primer/react/pull/5562) [`947b59d`](https://github.com/primer/react/commit/947b59d43079003f5be6eea60b7dc2025fb21a4e) Thanks [@francinelucca](https://github.com/francinelucca)! - fix(SelectPanel): Correctly recalculate position on overflow
+
+- [#5655](https://github.com/primer/react/pull/5655) [`56baa0a`](https://github.com/primer/react/commit/56baa0a791ba8a714fec28e3794e471358ddfde3) Thanks [@hectahertz](https://github.com/hectahertz)! - Fix LinkButton types and stories
+
 ## 37.13.0
 
 ### Minor Changes
