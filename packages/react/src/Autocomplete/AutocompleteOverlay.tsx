@@ -50,7 +50,7 @@ function AutocompleteOverlay({
     setShowMenu(false)
   }, [setShowMenu])
 
-  const enabled = useFeatureFlag('primer_react_css_modules_staff')
+  const enabled = useFeatureFlag('primer_react_css_modules_ga')
 
   if (typeof window === 'undefined') {
     return null

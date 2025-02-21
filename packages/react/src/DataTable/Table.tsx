@@ -18,7 +18,7 @@ import {toggleStyledComponent} from '../internal/utils/toggleStyledComponent'
 import {Button} from '../internal/components/ButtonReset'
 import classes from './Table.module.css'
 
-const cssModulesFlag = 'primer_react_css_modules_staff'
+const cssModulesFlag = 'primer_react_css_modules_ga'
 
 // ----------------------------------------------------------------------------
 // Table
