@@ -10,7 +10,7 @@ import {clsx} from 'clsx'
 
 /** `kbd` element with style resets. */
 const Kbd = ({children, className}: {children: ReactNode; className?: string}) => {
-  const enabled = useFeatureFlag('primer_react_css_modules_staff')
+  const enabled = useFeatureFlag('primer_react_css_modules_ga')
 
   return (
     <Text
