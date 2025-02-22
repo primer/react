@@ -1,8 +1,10 @@
-import React from 'react'
+import React, {useState} from 'react'
+import type {ToggleSwitchProps} from './ToggleSwitch'
 import ToggleSwitch from './ToggleSwitch'
-import {Box, Text} from '..'
+import {Box, Text, useSafeTimeout} from '..'
 import {action} from '@storybook/addon-actions'
 import ToggleSwitchStoryWrapper from './ToggleSwitchStoryWrapper'
+import type {StoryFn} from '@storybook/react'
 
 export default {
   title: 'Components/ToggleSwitch/Features',
@@ -66,6 +68,62 @@ export const Loading = () => (
     <ToggleSwitch loading aria-labelledby="toggle" />
   </ToggleSwitchStoryWrapper>
 )
+
+type LoadingWithDelayProps = {
+  loadingDelay: number
+}
+
+export const LoadingWithDelay: StoryFn<ToggleSwitchProps & LoadingWithDelayProps> = args => {
+  const {loadingDelay, loadingLabelDelay} = args
+
+  const [isLoading, setIsLoading] = useState(false)
+  const [timeoutId, setTimeoutId] = useState<number | null>(null)
+
+  const {safeSetTimeout, safeClearTimeout} = useSafeTimeout()
+
+  const handleToggleClick = () => {
+    setIsLoading(true)
+
+    if (timeoutId) {
+      safeClearTimeout(timeoutId)
+      setTimeoutId(null)
+    }
+
+    setTimeoutId(safeSetTimeout(() => setIsLoading(false), loadingDelay) as unknown as number)
+  }
+
+  return (
+    <ToggleSwitchStoryWrapper>
+      <Text id="toggle" fontWeight={'bold'} fontSize={1}>
+        Save changes
+      </Text>
+      <ToggleSwitch
+        loading={isLoading}
+        loadingLabel="Saving file changes"
+        loadingLabelDelay={loadingLabelDelay}
+        aria-labelledby="toggle"
+        onClick={handleToggleClick}
+      />
+    </ToggleSwitchStoryWrapper>
+  )
+}
+
+LoadingWithDelay.args = {
+  loadingDelay: 5000,
+  loadingLabelDelay: 2000,
+}
+LoadingWithDelay.argTypes = {
+  loadingDelay: {
+    control: {
+      type: 'number',
+    },
+  },
+  loadingLabelDelay: {
+    control: {
+      type: 'number',
+    },
+  },
+}
 
 export const LabelEnd = () => (
   <ToggleSwitchStoryWrapper>

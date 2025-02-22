@@ -1,5 +1,5 @@
 import React from 'react'
-import {render} from '@testing-library/react'
+import {render, waitFor} from '@testing-library/react'
 import ToggleSwitch from './'
 import {behavesAsComponent, checkExports, checkStoriesForAxeViolations} from '../utils/testing'
 import userEvent from '@testing-library/user-event'
@@ -55,7 +55,7 @@ describe('ToggleSwitch', () => {
     expect(toggleSwitch).toHaveAttribute('aria-pressed', 'false')
   })
 
-  it("renders a switch who's state is loading", async () => {
+  it('renders a switch whose state is loading', async () => {
     const user = userEvent.setup()
     const {getByLabelText, container} = render(
       <>
@@ -101,6 +101,22 @@ describe('ToggleSwitch', () => {
     expect(toggleSwitch).toHaveAttribute('aria-pressed', 'false')
     await user.click(toggleSwitchStatusLabel)
     expect(toggleSwitch).toHaveAttribute('aria-pressed', 'true')
+  })
+
+  it('ensures the status label cannot toggle a disabled switch', async () => {
+    const user = userEvent.setup()
+    const {getByLabelText, getByText} = render(
+      <>
+        <div id="switchLabel">{SWITCH_LABEL_TEXT}</div>
+        <ToggleSwitch aria-labelledby="switchLabel" disabled />
+      </>,
+    )
+    const toggleSwitch = getByLabelText(SWITCH_LABEL_TEXT)
+    const toggleSwitchStatusLabel = getByText('Off')
+
+    expect(toggleSwitch).toHaveAttribute('aria-pressed', 'false')
+    await user.click(toggleSwitchStatusLabel)
+    expect(toggleSwitch).toHaveAttribute('aria-pressed', 'false')
   })
 
   it('switches from off to on with a controlled prop', async () => {
@@ -178,6 +194,20 @@ describe('ToggleSwitch', () => {
 
     expect(ref).toHaveBeenCalled()
     expect(ref).toHaveBeenCalledWith(expect.any(HTMLButtonElement))
+  })
+
+  it('displays a loading label', async () => {
+    const TEST_ID = 'a test id'
+
+    const {getByTestId} = render(
+      <>
+        <span id="label">label</span>
+        <ToggleSwitch data-testid={TEST_ID} aria-labelledby="label" loadingLabelDelay={0} loading />
+      </>,
+    )
+
+    const toggleSwitch = getByTestId(TEST_ID)
+    await waitFor(() => expect(toggleSwitch).toHaveTextContent('Loading'))
   })
 
   checkStoriesForAxeViolations('ToggleSwitch.features', '../ToggleSwitch/')
