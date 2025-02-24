@@ -19,7 +19,7 @@ export interface IssueLabelTokenProps extends TokenBaseProps {
   fillColor?: string
 }
 
-const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_staff'
+const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_ga'
 const tokenBorderWidthPx = 1
 
 const lightModeStyles = {
