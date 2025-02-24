@@ -1,4 +1,4 @@
-import {render, fireEvent} from '@testing-library/react'
+import {render, fireEvent, act} from '@testing-library/react'
 import React from 'react'
 import {ThemeProvider} from '..'
 import {NavList} from './NavList'
@@ -379,5 +379,176 @@ describe('NavList.Item with NavList.SubNav', () => {
       expect(queryByRole('link', {name: 'Sub Item 1'})).toBeVisible()
       expect(queryByRole('button', {name: 'Trailing Action for Sub Item 1'})).toBeVisible()
     })
+  })
+})
+
+describe('NavList.GroupExpand', () => {
+  function NavListWithExpand() {
+    const items = [
+      {text: 'Item 3', href: '#'},
+      {text: 'Item 4', href: '#'},
+    ]
+
+    return (
+      <NavList>
+        <NavList.Item href="#">Item 1</NavList.Item>
+        <NavList.Item href="#">Item 2</NavList.Item>
+        <NavList.GroupExpand label="More" items={items} />
+      </NavList>
+    )
+  }
+
+  it('renders with button', () => {
+    const {queryByRole} = render(<NavListWithExpand />)
+    const button = queryByRole('button', {name: 'More'})
+    expect(button).toBeInTheDocument()
+  })
+
+  it('renders button as child of <ul>', () => {
+    const {queryByRole} = render(<NavListWithExpand />)
+    const button = queryByRole('button', {name: 'More'})
+    const buttonParent = button!.parentElement as HTMLButtonElement
+
+    expect(buttonParent).toBeInTheDocument()
+    expect(buttonParent.tagName).toEqual('LI')
+    expect(buttonParent.parentElement?.tagName).toEqual('UL')
+  })
+
+  it('hides items inside of NavList.ShowMoreItem by default', () => {
+    const {queryByRole} = render(<NavListWithExpand />)
+
+    expect(queryByRole('link', {name: 'Item 1'})).toBeInTheDocument()
+    expect(queryByRole('link', {name: 'Item 2'})).toBeInTheDocument()
+    expect(queryByRole('link', {name: 'Item 3'})).not.toBeInTheDocument()
+    expect(queryByRole('link', {name: 'Item 4'})).not.toBeInTheDocument()
+  })
+
+  it('shows items inside of NavList.ShowMoreItem when expand button is activated', () => {
+    const {queryByRole} = render(<NavListWithExpand />)
+
+    act(() => {
+      queryByRole('button', {name: 'More'})?.click()
+    })
+
+    expect(queryByRole('link', {name: 'Item 1'})).toBeInTheDocument()
+    expect(queryByRole('link', {name: 'Item 2'})).toBeInTheDocument()
+    expect(queryByRole('link', {name: 'Item 3'})).toBeInTheDocument()
+    expect(queryByRole('link', {name: 'Item 4'})).toBeInTheDocument()
+
+    expect(queryByRole('button', {name: 'More'})).not.toBeInTheDocument()
+  })
+
+  it('removes expand button after it is activated', () => {
+    const {queryByRole} = render(<NavListWithExpand />)
+
+    act(() => {
+      queryByRole('button', {name: 'More'})?.click()
+    })
+
+    expect(queryByRole('button', {name: 'More'})).not.toBeInTheDocument()
+  })
+
+  it('places focus on the first of the newly shown list item', () => {
+    const {queryByRole} = render(<NavListWithExpand />)
+
+    act(() => {
+      queryByRole('button', {name: 'More'})?.click()
+    })
+
+    expect(queryByRole('link', {name: 'Item 3'})).toHaveFocus()
+  })
+})
+
+describe('NavList.GroupExpand with Group', () => {
+  function NavListWithExpand() {
+    const items1 = [
+      {text: 'Item 1D', href: '#'},
+      {text: 'Item 1E', href: '#'},
+      {text: 'Item 1F', href: '#'},
+    ]
+
+    const items2 = [
+      {text: 'Item 2D', href: '#'},
+      {text: 'Item 2E', href: '#'},
+      {text: 'Item 2F', href: '#'},
+    ]
+
+    return (
+      <NavList>
+        <NavList.Group title="Group 1">
+          <NavList.Item aria-current="true" href="#">
+            Item 1A
+          </NavList.Item>
+          <NavList.Item href="#">Item 1B</NavList.Item>
+          <NavList.Item href="#">Item 1C</NavList.Item>
+          <NavList.GroupExpand label="More" items={items1} />
+        </NavList.Group>
+        <NavList.Group title="Group 2">
+          <NavList.Item href="#">Item 2A</NavList.Item>
+          <NavList.Item href="#">Item 2B</NavList.Item>
+          <NavList.Item href="#">Item 2C</NavList.Item>
+          <NavList.GroupExpand label="Show" items={items2} />
+        </NavList.Group>
+      </NavList>
+    )
+  }
+
+  it('renders expand buttons for each group', () => {
+    const {queryByRole} = render(<NavListWithExpand />)
+
+    expect(queryByRole('button', {name: 'More'})).toBeInTheDocument()
+    expect(queryByRole('button', {name: 'Show'})).toBeInTheDocument()
+  })
+
+  it('renders expand buttons as within <ul>', () => {
+    const {queryByRole} = render(<NavListWithExpand />)
+
+    const group1Button = queryByRole('button', {name: 'More'})
+    const buttonParent = group1Button?.parentElement as HTMLUListElement
+
+    expect(buttonParent).toBeInTheDocument()
+    expect(buttonParent.tagName).toEqual('LI')
+    expect(buttonParent.parentElement!.tagName).toEqual('UL')
+  })
+})
+
+describe('NavList.ShowMoreItem with pages', () => {
+  function NavListExpandWithPages() {
+    const items = [
+      {text: 'Item 3', href: '#'},
+      {text: 'Item 4', href: '#'},
+      {text: 'Item 5', href: '#'},
+      {text: 'Item 6', href: '#'},
+      {text: 'Item 7', href: '#'},
+    ]
+
+    return (
+      <NavList>
+        <NavList.Item href="#">Item 1</NavList.Item>
+        <NavList.Item href="#">Item 2</NavList.Item>
+        <NavList.GroupExpand pages={2} label="More" items={items} />
+      </NavList>
+    )
+  }
+
+  it('renders an expand button', () => {
+    const {queryByRole} = render(<NavListExpandWithPages />)
+
+    expect(queryByRole('button', {name: 'More'})).toBeInTheDocument()
+  })
+
+  it('expands the list when the expand button is clicked', () => {
+    const {queryByRole} = render(<NavListExpandWithPages />)
+    const button = queryByRole('button', {name: 'More'})
+
+    act(() => {
+      button?.click()
+    })
+
+    expect(queryByRole('link', {name: 'Item 3'})).toBeInTheDocument()
+    expect(queryByRole('link', {name: 'Item 4'})).toBeInTheDocument()
+    expect(queryByRole('link', {name: 'Item 5'})).toBeInTheDocument()
+    expect(queryByRole('link', {name: 'Item 6'})).not.toBeInTheDocument()
+    expect(queryByRole('link', {name: 'Item 7'})).not.toBeInTheDocument()
   })
 })
