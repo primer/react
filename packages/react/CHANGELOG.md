@@ -1,5 +1,51 @@
 # @primer/react
 
+## 37.15.0
+
+### Minor Changes
+
+- [#4686](https://github.com/primer/react/pull/4686) [`6b137a4`](https://github.com/primer/react/commit/6b137a4c5358c776d67de63798056444ca66c136) Thanks [@TylerJDev](https://github.com/TylerJDev)! - Add `NavList.ShowMoreItem` component to support showing more content within a `NavList`.
+
+### Patch Changes
+
+- [#5710](https://github.com/primer/react/pull/5710) [`b1cdc63`](https://github.com/primer/react/commit/b1cdc6337d0b83eefe33446f2f212090acb5a61d) Thanks [@jonrohan](https://github.com/jonrohan)! - Moving AvatarStack to `primer_react_css_modules_ga` feature flag
+
+- [#5710](https://github.com/primer/react/pull/5710) [`b1cdc63`](https://github.com/primer/react/commit/b1cdc6337d0b83eefe33446f2f212090acb5a61d) Thanks [@jonrohan](https://github.com/jonrohan)! - Moving PageLayout to `primer_react_css_modules_ga` feature flag
+
+- [#5710](https://github.com/primer/react/pull/5710) [`b1cdc63`](https://github.com/primer/react/commit/b1cdc6337d0b83eefe33446f2f212090acb5a61d) Thanks [@jonrohan](https://github.com/jonrohan)! - Moving Pagination to `primer_react_css_modules_ga` feature flag
+
+- [#5710](https://github.com/primer/react/pull/5710) [`b1cdc63`](https://github.com/primer/react/commit/b1cdc6337d0b83eefe33446f2f212090acb5a61d) Thanks [@jonrohan](https://github.com/jonrohan)! - Moving SegmentedControl to `primer_react_css_modules_ga` feature flag
+
+- [#5710](https://github.com/primer/react/pull/5710) [`b1cdc63`](https://github.com/primer/react/commit/b1cdc6337d0b83eefe33446f2f212090acb5a61d) Thanks [@jonrohan](https://github.com/jonrohan)! - Moving SelectPanel to `primer_react_css_modules_ga` feature flag
+
+- [#5710](https://github.com/primer/react/pull/5710) [`b1cdc63`](https://github.com/primer/react/commit/b1cdc6337d0b83eefe33446f2f212090acb5a61d) Thanks [@jonrohan](https://github.com/jonrohan)! - Moving SubNav to `primer_react_css_modules_ga` feature flag
+
+- [#5710](https://github.com/primer/react/pull/5710) [`b1cdc63`](https://github.com/primer/react/commit/b1cdc6337d0b83eefe33446f2f212090acb5a61d) Thanks [@jonrohan](https://github.com/jonrohan)! - Moving Token to `primer_react_css_modules_ga` feature flag
+
+- [#5710](https://github.com/primer/react/pull/5710) [`b1cdc63`](https://github.com/primer/react/commit/b1cdc6337d0b83eefe33446f2f212090acb5a61d) Thanks [@jonrohan](https://github.com/jonrohan)! - Moving Tooltip to `primer_react_css_modules_ga` feature flag
+
+- [#5710](https://github.com/primer/react/pull/5710) [`b1cdc63`](https://github.com/primer/react/commit/b1cdc6337d0b83eefe33446f2f212090acb5a61d) Thanks [@jonrohan](https://github.com/jonrohan)! - Moving BaseStyles to `primer_react_css_modules_ga` feature flag
+
+- [#5710](https://github.com/primer/react/pull/5710) [`b1cdc63`](https://github.com/primer/react/commit/b1cdc6337d0b83eefe33446f2f212090acb5a61d) Thanks [@jonrohan](https://github.com/jonrohan)! - Moving SideNav to `primer_react_css_modules_ga` feature flag
+
+- [#5710](https://github.com/primer/react/pull/5710) [`b1cdc63`](https://github.com/primer/react/commit/b1cdc6337d0b83eefe33446f2f212090acb5a61d) Thanks [@jonrohan](https://github.com/jonrohan)! - Moving ConfirmationDialog to `primer_react_css_modules_ga` feature flag
+
+- [#5710](https://github.com/primer/react/pull/5710) [`b1cdc63`](https://github.com/primer/react/commit/b1cdc6337d0b83eefe33446f2f212090acb5a61d) Thanks [@jonrohan](https://github.com/jonrohan)! - Moving DataTable to `primer_react_css_modules_ga` feature flag
+
+- [#5710](https://github.com/primer/react/pull/5710) [`b1cdc63`](https://github.com/primer/react/commit/b1cdc6337d0b83eefe33446f2f212090acb5a61d) Thanks [@jonrohan](https://github.com/jonrohan)! - Moving UnderlinePanels to `primer_react_css_modules_ga` feature flag
+
+- [#5710](https://github.com/primer/react/pull/5710) [`b1cdc63`](https://github.com/primer/react/commit/b1cdc6337d0b83eefe33446f2f212090acb5a61d) Thanks [@jonrohan](https://github.com/jonrohan)! - Moving InlineMessage to `primer_react_css_modules_ga` feature flag
+
+- [#5710](https://github.com/primer/react/pull/5710) [`b1cdc63`](https://github.com/primer/react/commit/b1cdc6337d0b83eefe33446f2f212090acb5a61d) Thanks [@jonrohan](https://github.com/jonrohan)! - Moving KeybindingHint to `primer_react_css_modules_ga` feature flag
+
+- [#5710](https://github.com/primer/react/pull/5710) [`b1cdc63`](https://github.com/primer/react/commit/b1cdc6337d0b83eefe33446f2f212090acb5a61d) Thanks [@jonrohan](https://github.com/jonrohan)! - Moving NavList to `primer_react_css_modules_ga` feature flag
+
+- [#5710](https://github.com/primer/react/pull/5710) [`b1cdc63`](https://github.com/primer/react/commit/b1cdc6337d0b83eefe33446f2f212090acb5a61d) Thanks [@jonrohan](https://github.com/jonrohan)! - Moving Overlay to `primer_react_css_modules_ga` feature flag
+
+- [#5710](https://github.com/primer/react/pull/5710) [`b1cdc63`](https://github.com/primer/react/commit/b1cdc6337d0b83eefe33446f2f212090acb5a61d) Thanks [@jonrohan](https://github.com/jonrohan)! - Moving PageHeader to `primer_react_css_modules_ga` feature flag
+
+- [#5710](https://github.com/primer/react/pull/5710) [`b1cdc63`](https://github.com/primer/react/commit/b1cdc6337d0b83eefe33446f2f212090acb5a61d) Thanks [@jonrohan](https://github.com/jonrohan)! - Moving Autocomplete to `primer_react_css_modules_ga` feature flag
+
 ## 37.14.0
 
 ### Minor Changes
