@@ -343,7 +343,7 @@ export function SelectPanel({
     }
   }, [open, dataLoadedOnce, onFilterChange, filterValue, items, loadingManagedExternally, listContainerElement])
 
-  const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_staff'
+  const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_ga'
   const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
 
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
