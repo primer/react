@@ -54,7 +54,7 @@ export type BaseStylesProps = PropsWithChildren & {
 
 function BaseStyles(props: BaseStylesProps) {
   const {children, color, fontFamily, lineHeight, className, as: Component = 'div', style, ...rest} = props
-  const {colorScheme, dayScheme, nightScheme} = useTheme()
+  const {colorMode, colorScheme, dayScheme, nightScheme} = useTheme()
   const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
 
   if (enabled) {
@@ -79,7 +79,7 @@ function BaseStyles(props: BaseStylesProps) {
            * valid color modes for primer/primitives: auto | light | dark
            * valid color modes for primer/primer: auto | day | night | light | dark
            */
-          data-color-mode={colorScheme?.includes('dark') ? 'dark' : 'light'}
+          data-color-mode={colorMode === 'auto' ? 'auto' : colorScheme?.includes('dark') ? 'dark' : 'light'}
           data-light-theme={dayScheme}
           data-dark-theme={nightScheme}
           style={{
@@ -103,7 +103,7 @@ function BaseStyles(props: BaseStylesProps) {
          * valid color modes for primer/primitives: auto | light | dark
          * valid color modes for primer/primer: auto | day | night | light | dark
          */
-        data-color-mode={colorScheme?.includes('dark') ? 'dark' : 'light'}
+        data-color-mode={colorMode === 'auto' ? 'auto' : colorScheme?.includes('dark') ? 'dark' : 'light'}
         data-light-theme={dayScheme}
         data-dark-theme={nightScheme}
         style={{
@@ -129,7 +129,7 @@ function BaseStyles(props: BaseStylesProps) {
        * valid color modes for primer/primitives: auto | light | dark
        * valid color modes for primer/primer: auto | day | night | light | dark
        */
-      data-color-mode={colorScheme?.includes('dark') ? 'dark' : 'light'}
+      data-color-mode={colorMode === 'auto' ? 'auto' : colorScheme?.includes('dark') ? 'dark' : 'light'}
       data-light-theme={dayScheme}
       data-dark-theme={nightScheme}
       style={style}
