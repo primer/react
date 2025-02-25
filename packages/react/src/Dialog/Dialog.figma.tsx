@@ -1,5 +1,5 @@
 import React from 'react'
-import {Dialog} from '../'
+import {Dialog, type ResponsiveValue} from '../'
 import figma from '@figma/code-connect'
 
 figma.connect(Dialog, 'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?node-id=16593%3A65798', {
@@ -9,7 +9,7 @@ figma.connect(Dialog, 'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Prime
       center: 'center',
       left: 'left',
       right: 'right',
-      bottom: 'bottom',
+      bottom: 'bottom' as ResponsiveValue<'bottom'>,
     }),
     // No matching props could be found for these Figma properties:
     // "size": figma.enum('size', {
@@ -22,5 +22,5 @@ figma.connect(Dialog, 'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Prime
     //   "medium-portrait": "medium-portrait"
     // })
   },
-  example: props => <Dialog onClose={/* TODO */} position={props.position} />,
+  example: props => <Dialog onClose={() => {}} position={props.position} />,
 })

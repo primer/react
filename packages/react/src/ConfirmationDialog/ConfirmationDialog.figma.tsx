@@ -6,7 +6,11 @@ figma.connect(
   ConfirmationDialog,
   'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?node-id=16593%3A65794',
   {
-    props: {},
-    example: props => <ConfirmationDialog onClose={/* TODO */} title={/* TODO */} />,
+    props: {
+      headerProps: figma.nestedProps('Header', {
+        title: figma.string('title'),
+      }),
+    },
+    example: ({headerProps}) => <ConfirmationDialog onClose={() => {}} title={headerProps.title} />,
   },
 )
