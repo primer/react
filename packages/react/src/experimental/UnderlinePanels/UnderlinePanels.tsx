@@ -29,7 +29,7 @@ import classes from './UnderlinePanels.module.css'
 import {toggleStyledComponent} from '../../internal/utils/toggleStyledComponent'
 import {clsx} from 'clsx'
 
-const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_staff'
+const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_ga'
 
 export type UnderlinePanelsProps = {
   /**

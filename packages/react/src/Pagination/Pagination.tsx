@@ -12,7 +12,7 @@ import {useFeatureFlag} from '../FeatureFlags'
 import {clsx} from 'clsx'
 import classes from './Pagination.module.css'
 
-const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_staff'
+const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_ga'
 
 const getViewportRangesToHidePages = (showPages: PaginationProps['showPages']) => {
   if (showPages && typeof showPages !== 'boolean') {
