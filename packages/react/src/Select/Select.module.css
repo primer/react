@@ -50,7 +50,7 @@
   }
 }
 
-.disabled {
+.Disabled {
   @media screen and (forced-colors: active) {
     svg {
       fill: 'GrayText';
