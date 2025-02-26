@@ -1,4 +1,4 @@
-.header {
+.Header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -6,7 +6,7 @@
   padding: var(--base-size-16);
 }
 
-.logo {
+.Logo {
   color: inherit;
   text-decoration: none;
 }

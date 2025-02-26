@@ -29,7 +29,7 @@
     border-bottom: none;
   }
 
-  .SideNav.SideNavVariant-normal > & {
+  .SideNav.SideNavVariant--normal > & {
     padding: var(--base-size-16);
     color: var(--fgColor-default);
     border: 0;
@@ -83,7 +83,7 @@
     }
   }
 
-  .SideNav.SideNavVariant-lightweight > & {
+  .SideNav.SideNavVariant--lightweight > & {
     padding: var(--base-size-4) 0;
     color: var(--fgColor-accent);
 

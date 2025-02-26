@@ -30,8 +30,8 @@ export function ThemePreference() {
         })
       }}
     >
-      <SunIcon className={clsx(classes.icon, classes.light)} />
-      <MoonIcon className={clsx(classes.icon, classes.dark)} />
+      <SunIcon className={clsx(classes.icon, classes.Light)} />
+      <MoonIcon className={clsx(classes.icon, classes.Dark)} />
     </Button>
   )
 }

@@ -105,6 +105,7 @@
 .TextInput {
   padding-left: var(--base-size-8) !important;
 
+  /* stylelint-disable-next-line selector-class-pattern */
   &:has(input:placeholder-shown) :global(.TextInput-action) {
     display: none;
   }
