@@ -1,4 +1,3 @@
-/* stylelint-disable max-nesting-depth */
 /* stylelint-disable selector-max-specificity */
 .AvatarStack {
   --avatar-border-width: 1px;
@@ -72,6 +71,7 @@
 
   &:where([data-align-right]) {
     --mask-start: 1;
+
     direction: rtl;
   }
 }
@@ -113,12 +113,13 @@
     /* stylelint-disable-next-line primer/spacing */
     margin-inline-start: calc(var(--overlap-size) * -1);
     mask-image: radial-gradient(at 50% 50%, rgb(0, 0, 0) 70%, rgba(0, 0, 0, 0) 71%),
-      linear-gradient(rgb(0, 0, 0) 0px, rgb(0, 0, 0) 0px);
+      linear-gradient(rgb(0, 0, 0) 0, rgb(0, 0, 0) 0);
     mask-repeat: no-repeat, no-repeat;
     mask-size:
       var(--mask-size) var(--mask-size),
       auto;
     mask-composite: exclude;
+
     /*
     HORIZONTAL POSITION CALC FORMULA EXPLAINED:
     width of the visible part of the avatar ➡️ var(--avatar-stack-size) - var(--overlap-size)
@@ -132,20 +133,21 @@
 
   &:nth-child(n + 3) {
     --overlap-size: var(--overlap-size-avatar-three-plus);
-    opacity: calc(100% - 2 * var(--opacity-step));
+
+    opacity: calc(1 - 2 * var(--opacity-step));
   }
 
   &:nth-child(n + 4) {
-    opacity: calc(100% - 3 * var(--opacity-step));
+    opacity: calc(1 - 3 * var(--opacity-step));
   }
 
   &:nth-child(n + 5) {
-    opacity: calc(100% - 4 * var(--opacity-step));
+    opacity: calc(1 - 4 * var(--opacity-step));
   }
 
   &:nth-child(n + 6) {
-    opacity: 0;
     visibility: hidden;
+    opacity: 0;
   }
 }
 
@@ -155,9 +157,11 @@
 
   .AvatarItem {
     --mask-size: 100%; /* reset size of the mask to prevent unintentially clipping due to the additional size created by the border width */
+
     margin-inline-start: var(--base-size-4);
     visibility: visible;
     opacity: 1;
+
     /*
     HORIZONTAL POSITION CALC FORMULA EXPLAINED:
     width of the full avatar ➡️ var(--avatar-stack-size)
