@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# Remove all build folders, node_modules folders
+npm run clean:all
+
+# Install latest dependencies from lockfile
+npm install
+
+# Build packages
+npm build

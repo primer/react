@@ -39,6 +39,7 @@ const AvatarStackWrapper = toggleStyledComponent(
     position: relative;
     height: var(--avatar-stack-size);
     min-width: var(--avatar-stack-size);
+    isolation: isolate;
 
     .pc-AvatarStackBody {
       display: flex;
