@@ -8,7 +8,7 @@ test.describe('Dialog v1', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-dialogv1--default',
+            id: 'deprecated-components-dialogv1--default',
             globals: {
               colorScheme: theme,
             },
