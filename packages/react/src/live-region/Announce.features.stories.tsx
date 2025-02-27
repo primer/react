@@ -2,6 +2,7 @@ import type {StoryObj} from '@storybook/react'
 import React, {useEffect, useState} from 'react'
 import {Announce} from './Announce'
 import {VisuallyHidden} from '../VisuallyHidden'
+import RelativeTime from '../RelativeTime'
 
 export default {
   title: 'Experimental/Components/Announce/Features',
@@ -35,4 +36,12 @@ export const WithDelay = () => {
   }, [])
 
   return <Announce delayMs={1000}>{message}</Announce>
+}
+
+export const WithCustomElement = () => {
+  return (
+    <Announce>
+      <RelativeTime date={new Date('2020-01-01T00:00:00Z')} noTitle={true} />
+    </Announce>
+  )
 }

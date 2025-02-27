@@ -150,11 +150,7 @@ function computeTextEquivalent(
   elementOrText: HTMLElement | Text,
   options: TextEquivalentOptions = defaultOptions,
 ): string {
-  if (elementOrText instanceof Text) {
-    return elementOrText.textContent?.trim() ?? ''
-  }
-
-  if (elementOrText.shadowRoot) {
+  if (elementOrText instanceof HTMLElement && elementOrText.shadowRoot) {
     return Array.from(elementOrText.shadowRoot.childNodes)
       .map(node => {
         if (node instanceof Text) {
@@ -169,6 +165,10 @@ function computeTextEquivalent(
       })
       .filter(Boolean)
       .join(' ')
+  }
+
+  if (elementOrText instanceof Text) {
+    return elementOrText.textContent?.trim() ?? ''
   }
 
   const style = window.getComputedStyle(elementOrText)
@@ -223,6 +223,18 @@ function computeTextEquivalent(
 
   if (elementOrText.hasAttribute('aria-label')) {
     return elementOrText.getAttribute('aria-label')!.trim()
+  }
+
+  if (elementOrText.childNodes.length > 0) {
+    return Array.from(elementOrText.childNodes)
+      .map(node => {
+        if (node instanceof Text || node instanceof HTMLElement) {
+          return computeTextEquivalent(node, options)
+        }
+        return null
+      })
+      .filter(Boolean)
+      .join(' ')
   }
 
   return elementOrText.textContent?.trim() ?? ''
