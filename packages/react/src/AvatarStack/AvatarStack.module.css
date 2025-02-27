@@ -9,6 +9,7 @@
   display: flex;
   min-width: var(--avatar-stack-size);
   height: var(--avatar-stack-size);
+  isolation: isolate;
 
   &:where([data-responsive]) {
     @media screen and (--viewportRange-narrow) {
