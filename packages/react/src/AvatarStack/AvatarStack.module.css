@@ -134,15 +134,15 @@
   &:nth-child(n + 3) {
     --overlap-size: var(--overlap-size-avatar-three-plus);
 
-    opacity: calc(1 - 2 * var(--opacity-step));
+    opacity: calc(100% - 2 * var(--opacity-step));
   }
 
   &:nth-child(n + 4) {
-    opacity: calc(1 - 3 * var(--opacity-step));
+    opacity: calc(100% - 3 * var(--opacity-step));
   }
 
   &:nth-child(n + 5) {
-    opacity: calc(1 - 4 * var(--opacity-step));
+    opacity: calc(100% - 4 * var(--opacity-step));
   }
 
   &:nth-child(n + 6) {
