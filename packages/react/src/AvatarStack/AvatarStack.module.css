@@ -134,14 +134,17 @@
   &:nth-child(n + 3) {
     --overlap-size: var(--overlap-size-avatar-three-plus);
 
+    /* stylelint-disable-next-line alpha-value-notation */
     opacity: calc(100% - 2 * var(--opacity-step));
   }
 
   &:nth-child(n + 4) {
+    /* stylelint-disable-next-line alpha-value-notation */
     opacity: calc(100% - 3 * var(--opacity-step));
   }
 
   &:nth-child(n + 5) {
+    /* stylelint-disable-next-line alpha-value-notation */
     opacity: calc(100% - 4 * var(--opacity-step));
   }
 
