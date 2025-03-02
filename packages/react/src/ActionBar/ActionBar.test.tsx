@@ -32,4 +32,18 @@ describe('ActionBar', () => {
     const results = await axe.run(container)
     expect(results).toHaveNoViolations()
   })
+
+  it('should not trigger disabled button', () => {
+    const onClick = jest.fn()
+    const {getByRole} = HTMLRender(
+      <ActionBar aria-label="Toolbar">
+        <ActionBar.IconButton icon={BoldIcon} aria-label="Default" onClick={onClick} disabled></ActionBar.IconButton>
+      </ActionBar>,
+    )
+
+    const button = getByRole('button')
+    button.click()
+
+    expect(onClick).not.toHaveBeenCalled()
+  })
 })
