@@ -9,5 +9,9 @@ figma.connect(Overlay, 'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Prim
     children: figma.children('*'),
     overflow: figma.boolean('overflow'),
   },
-  example: ({children}) => <Overlay>{children}</Overlay>,
+  example: ({children}) => (
+    <Overlay onClickOutside={() => {}} onEscape={() => {}} returnFocusRef={}>
+      {children}
+    </Overlay>
+  ),
 })

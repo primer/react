@@ -7,9 +7,19 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build:
+  vrt-reports:
     if: ${{ github.event.pull_request.head.repo.full_name == 'primer/react' }}
+    uses: ./.github/workflows/vrt-reports.yml
+
+  aat-reports:
+    if: ${{ github.event.pull_request.head.repo.full_name == 'primer/react' }}
+    uses: ./.github/workflows/aat-reports.yml
+
+  build:
+    if: ${{ always() && github.event.pull_request.head.repo.full_name == 'primer/react' }}
+    needs: [vrt-reports, aat-reports]
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -22,13 +32,33 @@ jobs:
         run: npm ci
       - name: Build docs preview
         run: npm run build:docs:preview
+      - name: Download VRT reports (All flags enabled)
+        uses: actions/download-artifact@v4
+        with:
+          name: vrt-all-flags
+          path: docs/public/vrt-all-flags
+      - name: Download VRT reports (No flags enabled)
+        uses: actions/download-artifact@v4
+        with:
+          name: vrt-no-flag
+          path: docs/public/vrt-no-flag
+      - name: Download AAT reports (All flags enabled)
+        uses: actions/download-artifact@v4
+        with:
+          name: axe-all-flags
+          path: docs/public/aat-all-flags
+      - name: Download AAT reports (No flags enabled)
+        uses: actions/download-artifact@v4
+        with:
+          name: axe
+          path: docs/public/aat-no-flag
       - uses: actions/upload-pages-artifact@v3
         with:
           name: github-pages
           path: docs/public
 
   deploy-preview:
-    if: ${{ github.event.pull_request.head.repo.full_name == 'primer/react' }}
+    if: ${{ always() && github.event.pull_request.head.repo.full_name == 'primer/react' }}
     needs: build
     permissions:
       pages: write
@@ -48,7 +78,7 @@ jobs:
 
   deploy-storybook:
     name: Preview Storybook
-    if: ${{ github.event.pull_request.head.repo.full_name == 'primer/react' }}
+    if: ${{ always() && github.event.pull_request.head.repo.full_name == 'primer/react' }}
     needs: deploy-preview
     permissions:
       deployments: write
@@ -60,13 +90,13 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           environment: storybook-preview-${{ github.event.number }}
-          environment_url: '${{ needs.deploy-preview.outputs.deployment_url }}/storybook'
+          environment-url: '${{ needs.deploy-preview.outputs.deployment_url }}storybook'
       - name: Update storybook deployment status (success)
         if: success()
         uses: chrnorm/deployment-status@v2.0.3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          environment-url: '${{ needs.deploy-preview.outputs.deployment_url }}/storybook'
+          environment-url: '${{ needs.deploy-preview.outputs.deployment_url }}storybook'
           state: 'success'
           deployment-id: ${{ steps.storybook.outputs.deployment_id }}
       - name: Update storybook deployment status (failure)
@@ -76,3 +106,127 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           state: 'failure'
           deployment-id: ${{ steps.storybook.outputs.deployment_id }}
+
+  # deploy-vrt-no-flag:
+  #   name: VRT (No flags enabled)
+  #   if: ${{ always() && github.event.pull_request.head.repo.full_name == 'primer/react' }}
+  #   needs: [deploy-preview]
+  #   permissions:
+  #     deployments: write
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: chrnorm/deployment-action@v2.0.7
+  #       name: Create GitHub deployment for vrt-no-flag
+  #       id: vrt-no-flag
+  #       with:
+  #         token: ${{ secrets.GITHUB_TOKEN }}
+  #         environment: vrt-no-flag-${{ github.event.number }}
+  #         environment-url: '${{ needs.deploy-preview.outputs.deployment_url }}vrt-no-flag'
+  #     - name: Update vrt-no-flag deployment status (success)
+  #       if: success()
+  #       uses: chrnorm/deployment-status@v2.0.3
+  #       with:
+  #         token: ${{ secrets.GITHUB_TOKEN }}
+  #         environment-url: '${{ needs.deploy-preview.outputs.deployment_url }}vrt-no-flag'
+  #         state: 'success'
+  #         deployment-id: ${{ steps.vrt-no-flag.outputs.deployment_id }}
+  #     - name: Update vrt-no-flag deployment status (failure)
+  #       if: failure()
+  #       uses: chrnorm/deployment-status@v2.0.3
+  #       with:
+  #         token: ${{ secrets.GITHUB_TOKEN }}
+  #         state: 'failure'
+  #         deployment-id: ${{ steps.vrt-no-flag.outputs.deployment_id }}
+
+  # deploy-vrt-all-flags:
+  #   name: VRT (All flags enabled)
+  #   if: ${{ always() && github.event.pull_request.head.repo.full_name == 'primer/react' }}
+  #   needs: deploy-preview
+  #   permissions:
+  #     deployments: write
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: chrnorm/deployment-action@v2.0.7
+  #       name: Create GitHub deployment for vrt-all-flags
+  #       id: vrt-all-flags
+  #       with:
+  #         token: ${{ secrets.GITHUB_TOKEN }}
+  #         environment: vrt-all-flags-${{ github.event.number }}
+  #         environment-url: '${{ needs.deploy-preview.outputs.deployment_url }}vrt-all-flags'
+  #     - name: Update vrt-all-flags deployment status (success)
+  #       if: success()
+  #       uses: chrnorm/deployment-status@v2.0.3
+  #       with:
+  #         token: ${{ secrets.GITHUB_TOKEN }}
+  #         environment-url: '${{ needs.deploy-preview.outputs.deployment_url }}vrt-all-flags'
+  #         state: 'success'
+  #         deployment-id: ${{ steps.vrt-all-flags.outputs.deployment_id }}
+  #     - name: Update vrt-all-flags deployment status (failure)
+  #       if: failure()
+  #       uses: chrnorm/deployment-status@v2.0.3
+  #       with:
+  #         token: ${{ secrets.GITHUB_TOKEN }}
+  #         state: 'failure'
+  #         deployment-id: ${{ steps.vrt-all-flags.outputs.deployment_id }}
+
+  # deploy-aat-no-flag:
+  #   name: AAT (No flags enabled)
+  #   if: ${{ always() && github.event.pull_request.head.repo.full_name == 'primer/react' }}
+  #   needs: deploy-preview
+  #   permissions:
+  #     deployments: write
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: chrnorm/deployment-action@v2.0.7
+  #       name: Create GitHub deployment for aat-no-flag
+  #       id: aat-no-flag
+  #       with:
+  #         token: ${{ secrets.GITHUB_TOKEN }}
+  #         environment: aat-no-flag-${{ github.event.number }}
+  #         environment-url: '${{ needs.deploy-preview.outputs.deployment_url }}aat-no-flag'
+  #     - name: Update aat-no-flag deployment status (success)
+  #       if: success()
+  #       uses: chrnorm/deployment-status@v2.0.3
+  #       with:
+  #         token: ${{ secrets.GITHUB_TOKEN }}
+  #         environment-url: '${{ needs.deploy-preview.outputs.deployment_url }}aat-no-flag'
+  #         state: 'success'
+  #         deployment-id: ${{ steps.aat-no-flag.outputs.deployment_id }}
+  #     - name: Update aat-no-flag deployment status (failure)
+  #       if: failure()
+  #       uses: chrnorm/deployment-status@v2.0.3
+  #       with:
+  #         token: ${{ secrets.GITHUB_TOKEN }}
+  #         state: 'failure'
+  #         deployment-id: ${{ steps.aat-no-flag.outputs.deployment_id }}
+
+  # deploy-aat-all-flags:
+  #   name: AAT (All flags enabled)
+  #   if: ${{ always() && github.event.pull_request.head.repo.full_name == 'primer/react' }}
+  #   needs: deploy-preview
+  #   permissions:
+  #     deployments: write
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: chrnorm/deployment-action@v2.0.7
+  #       name: Create GitHub deployment for aat-all-flags
+  #       id: aat-all-flags
+  #       with:
+  #         token: ${{ secrets.GITHUB_TOKEN }}
+  #         environment: aat-all-flags-${{ github.event.number }}
+  #         environment-url: '${{ needs.deploy-preview.outputs.deployment_url }}aat-all-flags'
+  #     - name: Update aat-all-flags deployment status (success)
+  #       if: success()
+  #       uses: chrnorm/deployment-status@v2.0.3
+  #       with:
+  #         token: ${{ secrets.GITHUB_TOKEN }}
+  #         environment-url: '${{ needs.deploy-preview.outputs.deployment_url }}aat-all-flags'
+  #         state: 'success'
+  #         deployment-id: ${{ steps.aat-all-flags.outputs.deployment_id }}
+  #     - name: Update aat-all-flags deployment status (failure)
+  #       if: failure()
+  #       uses: chrnorm/deployment-status@v2.0.3
+  #       with:
+  #         token: ${{ secrets.GITHUB_TOKEN }}
+  #         state: 'failure'
+  #         deployment-id: ${{ steps.aat-all-flags.outputs.deployment_id }}

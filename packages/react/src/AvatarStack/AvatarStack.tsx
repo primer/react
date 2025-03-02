@@ -22,7 +22,7 @@ type StyledAvatarStackWrapperProps = {
   count?: number
 } & SxProp
 
-const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_team'
+const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_ga'
 
 const AvatarStackWrapper = toggleStyledComponent(
   CSS_MODULES_FEATURE_FLAG,
@@ -36,6 +36,7 @@ const AvatarStackWrapper = toggleStyledComponent(
     position: relative;
     height: var(--avatar-stack-size);
     min-width: var(--avatar-stack-size);
+    isolation: isolate;
 
     .pc-AvatarStackBody {
       display: flex;
@@ -208,6 +209,7 @@ export type AvatarStackProps = {
   size?: number | ResponsiveValue<number>
   className?: string
   children: React.ReactNode
+  style?: React.CSSProperties
 } & SxProp
 
 const AvatarStackBody = ({
@@ -254,6 +256,7 @@ const AvatarStack = ({
   disableExpand,
   size,
   className,
+  style,
   sx: sxProp = defaultSxProp,
 }: AvatarStackProps) => {
   const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
@@ -382,7 +385,7 @@ const AvatarStack = ({
       data-align-right={enabled && alignRight ? '' : undefined}
       data-responsive={enabled && (!size || isResponsiveValue(size)) ? '' : undefined}
       className={clsx(wrapperClassNames, {[classes.AvatarStack]: enabled})}
-      style={enabled ? getResponsiveAvatarSizeStyles() : undefined}
+      style={enabled ? {...getResponsiveAvatarSizeStyles(), style} : style}
       sx={avatarStackSx}
     >
       <AvatarStackBody

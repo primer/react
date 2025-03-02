@@ -14,7 +14,7 @@ import classes from './BaseStyles.module.css'
 // load polyfill for :focus-visible
 import 'focus-visible'
 
-const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_team'
+const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_ga'
 
 const GlobalStyle = createGlobalStyle<{colorScheme?: 'light' | 'dark'}>`
   * { box-sizing: border-box; }
@@ -53,21 +53,17 @@ export type BaseStylesProps = PropsWithChildren & {
   SxProp
 
 function BaseStyles(props: BaseStylesProps) {
-  const {
-    children,
-    color = 'var(--fgColor-default)',
-    fontFamily = 'normal',
-    lineHeight = 'default',
-    className,
-    as: Component = 'div',
-    ...rest
-  } = props
-
+  const {children, color, fontFamily, lineHeight, className, as: Component = 'div', style, ...rest} = props
   const {colorScheme, dayScheme, nightScheme} = useTheme()
   const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
 
   if (enabled) {
     const newClassName = clsx(classes.BaseStyles, className)
+    const baseStyles = {
+      ['--BaseStyles-fgColor']: color,
+      ['--BaseStyles-fontFamily']: fontFamily,
+      ['--BaseStyles-lineHeight']: lineHeight,
+    }
 
     // If props includes TYPOGRAPHY or COMMON props, pass them to the Box component
     if (includesSystemProps(props)) {
@@ -77,9 +73,6 @@ function BaseStyles(props: BaseStylesProps) {
         <Box
           as={Component}
           className={newClassName}
-          color={color}
-          fontFamily={fontFamily}
-          lineHeight={lineHeight}
           data-portal-root
           /**
            * We need to map valid primer/react color modes onto valid color modes for primer/primitives
@@ -89,7 +82,11 @@ function BaseStyles(props: BaseStylesProps) {
           data-color-mode={colorScheme?.includes('dark') ? 'dark' : 'light'}
           data-light-theme={dayScheme}
           data-dark-theme={nightScheme}
-          style={systemProps}
+          style={{
+            ...systemProps,
+            ...baseStyles,
+            ...style,
+          }}
           {...rest}
         >
           {children}
@@ -100,9 +97,6 @@ function BaseStyles(props: BaseStylesProps) {
     return (
       <Component
         className={newClassName}
-        color={color}
-        fontFamily={fontFamily}
-        lineHeight={lineHeight}
         data-portal-root
         /**
          * We need to map valid primer/react color modes onto valid color modes for primer/primitives
@@ -112,6 +106,10 @@ function BaseStyles(props: BaseStylesProps) {
         data-color-mode={colorScheme?.includes('dark') ? 'dark' : 'light'}
         data-light-theme={dayScheme}
         data-dark-theme={nightScheme}
+        style={{
+          ...baseStyles,
+          ...style,
+        }}
         {...rest}
       >
         {children}
@@ -122,9 +120,9 @@ function BaseStyles(props: BaseStylesProps) {
   return (
     <StyledDiv
       className={className}
-      color={color}
-      fontFamily={fontFamily}
-      lineHeight={lineHeight}
+      color={color ?? 'var(--fgColor-default)'}
+      fontFamily={fontFamily ?? 'normal'}
+      lineHeight={lineHeight ?? 'default'}
       data-portal-root
       /**
        * We need to map valid primer/react color modes onto valid color modes for primer/primitives
@@ -134,6 +132,7 @@ function BaseStyles(props: BaseStylesProps) {
       data-color-mode={colorScheme?.includes('dark') ? 'dark' : 'light'}
       data-light-theme={dayScheme}
       data-dark-theme={nightScheme}
+      style={style}
       {...rest}
     >
       <GlobalStyle colorScheme={colorScheme?.includes('dark') ? 'dark' : 'light'} />

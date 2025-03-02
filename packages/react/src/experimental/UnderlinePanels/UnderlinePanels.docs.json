@@ -72,7 +72,13 @@
           "name": "aria-selected",
           "type": "| boolean | 'true' | 'false'",
           "defaultValue": "false",
-          "description": "Whether this is the selected tab. For more information about `aria-current`, see [MDN](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-selected)."
+          "description": "Whether this is the selected tab. For more information about `aria-selected`, see [MDN](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-selected)."
+        },
+        {
+          "name": "onSelect",
+          "type": "(event) => void",
+          "defaultValue": "",
+          "description": "The handler that gets called when the tab is selected"
         },
         {
           "name": "counter",

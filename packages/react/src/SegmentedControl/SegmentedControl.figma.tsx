@@ -1,5 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
 import React from 'react'
 import {SegmentedControl} from './SegmentedControl'
 import figma from '@figma/code-connect'
@@ -48,6 +46,8 @@ figma.connect(
       selected: figma.enum('state', {selected: true}),
       icon: figma.instance('icon').getProps<{name: string; fn: React.ReactElement}>(),
     },
-    example: ({selected, icon}) => <SegmentedControl.IconButton selected={selected} icon={icon.fn} />,
+    example: ({selected, icon}) => (
+      <SegmentedControl.IconButton aria-label="Describe action" selected={selected} icon={icon.fn} />
+    ),
   },
 )
