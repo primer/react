@@ -20,7 +20,7 @@
   "devDependencies": {
     "@rollup/plugin-commonjs": "^25.0.7",
     "@rollup/plugin-node-resolve": "^15.2.3",
-    "esbuild": "^0.21.3",
+    "esbuild": "^0.25.0",
     "postcss": "^8.4.38",
     "postcss-modules": "^6.0.0",
     "rimraf": "^5.0.7",

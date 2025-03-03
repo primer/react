@@ -1,5 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
 import {figma} from '@figma/code-connect'
 import {Button} from '../../src'
 import React from 'react'

@@ -12,6 +12,7 @@ exports[`Avatar respects alignRight props 1`] = `
   position: relative;
   height: var(--avatar-stack-size);
   min-width: var(--avatar-stack-size);
+  isolation: isolate;
   --avatar-stack-size: 20px;
 }
 
