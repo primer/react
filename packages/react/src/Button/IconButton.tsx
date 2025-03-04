@@ -22,6 +22,7 @@ const IconButton = forwardRef(
       unsafeDisableTooltip = false,
       keyshortcuts,
       keybindingHint,
+      keybindingDescription,
       className,
       ...props
     },
@@ -67,6 +68,7 @@ const IconButton = forwardRef(
           type={description ? undefined : 'label'}
           direction={tooltipDirection}
           keybindingHint={keybindingHint ?? keyshortcuts}
+          keybindingDescription={keybindingDescription}
         >
           <ButtonBase
             icon={Icon}
