@@ -19,6 +19,7 @@ module.exports = {
     'plugin:ssr-friendly/recommended',
     'plugin:clsx/recommended',
   ],
+  plugins: ['react-refresh'],
   settings: {
     react: {
       version: 'detect',
@@ -90,6 +91,7 @@ module.exports = {
     'github/role-supports-aria-props': 'off',
     'no-restricted-syntax': 'off',
     'primer-react/a11y-use-next-tooltip': 'off',
+    'react-refresh/only-export-components': 'error',
   },
   overrides: [
     // rules which apply only to JS
