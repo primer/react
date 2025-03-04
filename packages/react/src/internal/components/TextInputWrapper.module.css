@@ -166,8 +166,8 @@
     margin-right: var(--base-size-8);
   }
 
-  & :global(.TextInput-icon),
-  & :global(.TextInput-action) {
+  & :global(.TextInput-icon) /* stylelint-disable-line selector-class-pattern */,
+  & :global(.TextInput-action)  /* stylelint-disable-line selector-class-pattern */ {
     align-self: center;
     color: var(--fgColor-muted);
     flex-shrink: 0;
