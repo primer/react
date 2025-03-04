@@ -32,6 +32,7 @@
     "test:type-check": "tcm -p **/*.module.css && tsc --noEmit",
     "type-check": "tcm -p **/*.module.css && tsc --noEmit && npm run type-check -ws --if-present",
     "release": "npm run build && changeset publish",
+    "reset": "script/reset",
     "size": "size-limit"
   },
   "author": "GitHub, Inc.",
