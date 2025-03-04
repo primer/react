@@ -32,7 +32,7 @@
     "test:coverage": "npm run test -- --coverage",
     "test:type-check": "npm run type-css-modules && tsc --noEmit",
     "type-check": "npm run type-css-modules && tsc --noEmit && npm run type-check -ws --if-present",
-    "type-css-modules": "tcm -p **/*.module.css",
+    "type-css-modules": "tcm -p **/packages/react/src/**/*.module.css",
     "release": "npm run build && changeset publish",
     "reset": "script/reset",
     "size": "size-limit"
