@@ -86,7 +86,7 @@ export type ButtonProps = {
 
   children?: React.ReactNode
 
-  count?: number
+  count?: number | string
 } & ButtonBaseProps
 
 export type IconButtonProps = ButtonA11yProps & {
