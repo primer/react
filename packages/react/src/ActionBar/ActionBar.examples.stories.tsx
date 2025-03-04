@@ -336,43 +336,27 @@ export const WithActionMenu = () => (
   </ActionBar>
 )
 
-export const WithActionMenuAsIcon = () => (
-  <ActionBar aria-label="Toolbar">
-    <ActionBar.IconButton icon={BoldIcon} aria-label="Bold"></ActionBar.IconButton>
-    <ActionBar.IconButton icon={ItalicIcon} aria-label="Italic"></ActionBar.IconButton>
-    <ActionBar.IconButton icon={CodeIcon} aria-label="Code"></ActionBar.IconButton>
-    <ActionBar.IconButton icon={LinkIcon} aria-label="Link"></ActionBar.IconButton>
-    <ActionBar.Divider />
-    <ActionBar.IconButton icon={FileAddedIcon} aria-label="File Added"></ActionBar.IconButton>
-    <ActionBar.IconButton icon={SearchIcon} aria-label="Search"></ActionBar.IconButton>
-    <ActionBar.IconButton icon={QuoteIcon} aria-label="Insert Quote"></ActionBar.IconButton>
-    <ActionBar.IconButton icon={ListUnorderedIcon} aria-label="Unordered List"></ActionBar.IconButton>
-    <ActionBar.IconButton icon={ListOrderedIcon} aria-label="Ordered List"></ActionBar.IconButton>
-    <ActionBar.IconButton icon={TasklistIcon} aria-label="Task List"></ActionBar.IconButton>
+export const WithActionMenuAsIcon = () => {
+  const items = [
+    {text: 'Copy link', onClick: () => alert('Copy link clicked')},
+    {text: 'Quote reply', onClick: () => alert('Quote reply clicked')},
+  ]
 
-    <ActionMenu>
-      <ActionMenu.IconButton icon={KebabHorizontalIcon} aria-label="More tools" variant="invisible" />
-      <ActionMenu.Overlay width="medium">
-        <ActionList>
-          <ActionList.Item onSelect={() => alert('Copy link clicked')}>
-            Copy link
-            <ActionList.TrailingVisual>⌘C</ActionList.TrailingVisual>
-          </ActionList.Item>
-          <ActionList.Item onSelect={() => alert('Quote reply clicked')}>
-            Quote reply
-            <ActionList.TrailingVisual>⌘Q</ActionList.TrailingVisual>
-          </ActionList.Item>
-          <ActionList.Item onSelect={() => alert('Edit comment clicked')}>
-            Edit comment
-            <ActionList.TrailingVisual>⌘E</ActionList.TrailingVisual>
-          </ActionList.Item>
-          <ActionList.Divider />
-          <ActionList.Item variant="danger" onSelect={() => alert('Delete file clicked')}>
-            Delete file
-            <ActionList.TrailingVisual>⌘D</ActionList.TrailingVisual>
-          </ActionList.Item>
-        </ActionList>
-      </ActionMenu.Overlay>
-    </ActionMenu>
-  </ActionBar>
-)
+  return (
+    <ActionBar aria-label="Toolbar">
+      <ActionBar.IconButton icon={BoldIcon} aria-label="Bold"></ActionBar.IconButton>
+      <ActionBar.IconButton icon={ItalicIcon} aria-label="Italic"></ActionBar.IconButton>
+      <ActionBar.IconButton icon={CodeIcon} aria-label="Code"></ActionBar.IconButton>
+      <ActionBar.IconButton icon={LinkIcon} aria-label="Link"></ActionBar.IconButton>
+      <ActionBar.Divider />
+      <ActionBar.IconButton icon={FileAddedIcon} aria-label="File Added"></ActionBar.IconButton>
+      <ActionBar.IconButton icon={SearchIcon} aria-label="Search"></ActionBar.IconButton>
+      <ActionBar.IconButton icon={QuoteIcon} aria-label="Insert Quote"></ActionBar.IconButton>
+      <ActionBar.IconButton icon={ListUnorderedIcon} aria-label="Unordered List"></ActionBar.IconButton>
+      <ActionBar.IconButton icon={ListOrderedIcon} aria-label="Ordered List"></ActionBar.IconButton>
+      <ActionBar.IconButton icon={TasklistIcon} aria-label="Task List"></ActionBar.IconButton>
+
+      <ActionBar.Menu anchorIcon={LinkIcon} anchorLabel="More tools" items={items} />
+    </ActionBar>
+  )
+}

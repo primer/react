@@ -1,7 +1,7 @@
 import type {RefObject, MutableRefObject} from 'react'
 import React, {useState, useCallback, useRef, forwardRef} from 'react'
-import {KebabHorizontalIcon} from '@primer/octicons-react'
-import {ActionList} from '../ActionList'
+import {KebabHorizontalIcon, type Icon} from '@primer/octicons-react'
+import {type ActionListItemProps, ActionList} from '../ActionList'
 import useIsomorphicLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 import {useOnEscapePress} from '../hooks/useOnEscapePress'
 import type {ResizeObserverEntry} from '../hooks/useResizeObserver'
@@ -106,7 +106,7 @@ const overflowEffect = (
       if (index < numberOfListItems) {
         items.push(child)
         //if the last item is a divider
-      } else if (childWidthArray[index].text === 'divider') {
+      } else if (childWidthArray[index]?.text === 'divider') {
         if (index === numberOfListItems - 1 || index === numberOfListItems) {
           continue
         } else {
@@ -114,7 +114,7 @@ const overflowEffect = (
           menuItems.push(divider)
         }
       } else {
-        menuItems.push(child)
+        if (childWidthArray[index]?.text) menuItems.push(child)
       }
     }
 
@@ -153,11 +153,29 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
     return validChildren.find(child => child.key === item.key) ?? item
   })
 
+  const renderedMenuItems = listItems.filter(item => {
+    const {
+      props: {items},
+    } = item
+    return validChildren.find(child => child.key === item.key && items) ?? null
+  })
+
+  const availableMenuItems = renderedMenuItems.map(item => {
+    return item.props.items
+  })
+
+  console.log(availableMenuItems, 'availableMenuItems')
+
   // Make sure to have the fresh props data for menu items when children are changed (keeping aria-current up-to-date)
   const menuItems = responsiveProps.menuItems.map(menuItem => {
+    if (menuItem.props.items) {
+      console.log('it has')
+    }
+
     return validChildren.find(child => child.key === menuItem.key) ?? menuItem
   })
 
+  console.log(menuItems, 'menuItems')
   const updateListAndMenu = useCallback((props: ResponsiveProps) => {
     setResponsiveProps(props)
   }, [])
@@ -242,6 +260,13 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
                       )
                     }
                   })}
+                  {availableMenuItems.map((item, index) => {
+                    return (
+                      <ActionList.Item key={index} onClick={item.onClick}>
+                        {item.text}
+                      </ActionList.Item>
+                    )
+                  })}
                 </ActionList>
               </ActionMenu.Overlay>
             </ActionMenu>
@@ -296,3 +321,41 @@ export const VerticalDivider = () => {
   }, [ref, setChildrenWidth])
   return <div ref={ref} data-component="ActionBar.VerticalDivider" aria-hidden="true" className={styles.Divider} />
 }
+
+export type ActionBarMenuItems = {
+  text: string
+  icon?: Icon
+} & Omit<ActionListItemProps, 'children' | '_PrivateItemWrapper'>
+
+export type ActionBarMenuProps = {
+  items: ActionBarMenuItems[]
+  anchorIcon: Icon
+  anchorLabel: string
+}
+
+export const ActionBarMenu = forwardRef(({items, anchorIcon, anchorLabel}: ActionBarMenuProps, ref) => {
+  return (
+    <ActionMenu>
+      <ActionMenu.Anchor>
+        <IconButton variant="invisible" aria-label={anchorLabel} icon={anchorIcon} />
+      </ActionMenu.Anchor>
+      <ActionMenu.Overlay>
+        <ActionList>
+          {items.map((menuItem, index) => {
+            const {text, icon: Icon, disabled, ...props} = menuItem
+            return (
+              <ActionList.Item key={index} disabled={disabled} {...props}>
+                {Icon ? (
+                  <ActionList.LeadingVisual>
+                    <Icon />
+                  </ActionList.LeadingVisual>
+                ) : null}
+                {text}
+              </ActionList.Item>
+            )
+          })}
+        </ActionList>
+      </ActionMenu.Overlay>
+    </ActionMenu>
+  )
+})
