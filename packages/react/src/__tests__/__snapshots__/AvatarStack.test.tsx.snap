@@ -70,8 +70,8 @@ exports[`Avatar respects alignRight props 1`] = `
 
 .c0 .pc-AvatarItem:nth-child(n + 2) {
   margin-inline-start: calc(var(--overlap-size) * -1);
-  -webkit-mask-image: radial-gradient(at 50% 50%,rgb(0,0,0) 70%,rgba(0,0,0,0) 71%),linear-gradient(rgb(0,0,0) 0px,rgb(0,0,0) 0px);
-  mask-image: radial-gradient(at 50% 50%,rgb(0,0,0) 70%,rgba(0,0,0,0) 71%),linear-gradient(rgb(0,0,0) 0px,rgb(0,0,0) 0px);
+  -webkit-mask-image: radial-gradient(at 50% 50%,rgb(0,0,0) 70%,rgba(0,0,0,0) 71%),linear-gradient(rgb(0,0,0) 0 0);
+  mask-image: radial-gradient(at 50% 50%,rgb(0,0,0) 70%,rgba(0,0,0,0) 71%),linear-gradient(rgb(0,0,0) 0 0);
   -webkit-mask-repeat: no-repeat,no-repeat;
   mask-repeat: no-repeat,no-repeat;
   -webkit-mask-size: var(--mask-size) var(--mask-size),auto;

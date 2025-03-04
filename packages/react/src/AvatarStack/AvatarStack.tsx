@@ -74,7 +74,7 @@ const AvatarStackWrapper = toggleStyledComponent(
       &:nth-child(n + 2) {
         margin-inline-start: calc(var(--overlap-size) * -1);
         mask-image: radial-gradient(at 50% 50%, rgb(0, 0, 0) 70%, rgba(0, 0, 0, 0) 71%),
-          linear-gradient(rgb(0, 0, 0) 0px, rgb(0, 0, 0) 0px);
+          linear-gradient(rgb(0, 0, 0) 0 0);
         mask-repeat: no-repeat, no-repeat;
         mask-size:
           var(--mask-size) var(--mask-size),
