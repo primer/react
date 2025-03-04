@@ -50,6 +50,7 @@ const StyledTextInputBaseWrapper = toggleStyledComponent(
     line-height: var(--base-size-20);
     color: ${get('colors.fg.default')};
     vertical-align: middle;
+    cursor: text;
     background-color: ${get('colors.canvas.default')};
     border: 1px solid var(--control-borderColor-rest, ${get('colors.border.default')});
     border-radius: ${get('radii.2')};
