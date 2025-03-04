@@ -8,6 +8,7 @@
   ],
   "scripts": {
     "setup": "./script/setup",
+    "prebuild": "npm run type-css-modules",
     "build": "npm run build -w rollup-plugin-import-css -w @primer/react",
     "clean": "npm run clean -ws --if-present",
     "clean:all": "npm run clean && rimraf node_modules packages/*/node_modules examples/*/node_modules",
@@ -29,8 +30,9 @@
     "test:update": "npm run test -- --updateSnapshot",
     "test:watch": "npm run test -- --watch",
     "test:coverage": "npm run test -- --coverage",
-    "test:type-check": "tcm -p **/*.module.css && tsc --noEmit",
-    "type-check": "tcm -p **/*.module.css && tsc --noEmit && npm run type-check -ws --if-present",
+    "test:type-check": "npm run type-css-modules && tsc --noEmit",
+    "type-check": "npm run type-css-modules && tsc --noEmit && npm run type-check -ws --if-present",
+    "type-css-modules": "tcm -p **/*.module.css",
     "release": "npm run build && changeset publish",
     "reset": "script/reset",
     "size": "size-limit"
