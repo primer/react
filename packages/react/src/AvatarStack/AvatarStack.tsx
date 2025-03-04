@@ -87,6 +87,8 @@ const AvatarStackWrapper = toggleStyledComponent(
         mask-position:
           calc((var(--avatar-stack-size) - var(--overlap-size)) * var(--mask-start) - var(--avatar-border-width)) center,
           0 0;
+        // HACK: This padding fixes a weird rendering bug where a tiiiiny outline is visible at the edges of the element
+        padding: 0.1px;
       }
 
       &:nth-child(n + 3) {

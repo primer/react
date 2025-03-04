@@ -80,6 +80,7 @@ exports[`Avatar respects alignRight props 1`] = `
   mask-composite: exclude;
   -webkit-mask-position: calc((var(--avatar-stack-size) - var(--overlap-size)) * var(--mask-start) - var(--avatar-border-width)) center,0 0;
   mask-position: calc((var(--avatar-stack-size) - var(--overlap-size)) * var(--mask-start) - var(--avatar-border-width)) center,0 0;
+  padding: 0.1px;
 }
 
 .c0 .pc-AvatarItem:nth-child(n + 3) {
