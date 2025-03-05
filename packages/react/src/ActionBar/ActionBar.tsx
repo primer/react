@@ -253,7 +253,7 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
 }
 
 export const ActionBarIconButton = forwardRef(
-  ({disabled, onClick, ...props}: ActionBarIconButtonProps, forwardedRef) => {
+  ({disabled, onClick, onKeyDown, ...props}: ActionBarIconButtonProps, forwardedRef) => {
     const backupRef = useRef<HTMLElement>(null)
     const ref = (forwardedRef ?? backupRef) as RefObject<HTMLAnchorElement>
     const {size, setChildrenWidth} = React.useContext(ActionBarContext)
@@ -273,12 +273,26 @@ export const ActionBarIconButton = forwardRef(
       [disabled, onClick],
     )
 
+    const keyDownHandler = React.useCallback(
+      (event: React.KeyboardEvent<HTMLButtonElement>) => {
+        if (disabled) return
+        if ([' ', 'Enter'].includes(event.key)) {
+          if (event.key === ' ') {
+            event.preventDefault()
+          }
+          onKeyDown?.(event)
+        }
+      },
+      [disabled, onKeyDown],
+    )
+
     return (
       <IconButton
         aria-disabled={disabled}
         ref={ref}
         size={size}
         onClick={clickHandler}
+        onKeyDown={keyDownHandler}
         {...props}
         variant="invisible"
       />
