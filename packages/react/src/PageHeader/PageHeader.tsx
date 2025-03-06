@@ -75,10 +75,11 @@ export type PageHeaderProps = {
   as?: React.ElementType | 'header' | 'div'
   className?: string
   role?: AriaRole
+  hasBorder?: boolean
 } & SxProp
 
 const Root = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeaderProps>>(
-  ({children, className, sx = {}, as = 'div', 'aria-label': ariaLabel, role}, forwardedRef) => {
+  ({children, className, sx = {}, as = 'div', 'aria-label': ariaLabel, role, hasBorder}, forwardedRef) => {
     const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
 
     const rootStyles = {
@@ -116,6 +117,12 @@ const Root = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeader
         {
           height: 'calc(var(--title-line-height) * 1em)',
         },
+      '&[data-has-border="true"]': {
+        borderBlockEnd: '1px solid var(--borderColor-default)',
+        '&:not(:has([data-component="PH_Navigation"]))': {
+          paddingBlockEnd: 'var(--stack-padding-condensed)',
+        },
+      },
     }
 
     const rootRef = useProvidedRefOrCreate<HTMLDivElement>(forwardedRef as React.RefObject<HTMLDivElement>)
@@ -176,6 +183,7 @@ const Root = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeader
         ref={rootRef}
         as={as}
         className={clsx(enabled && classes.PageHeader, className)}
+        data-has-border={hasBorder}
         sx={enabled ? sx : merge<BetterSystemStyleObject>(rootStyles, sx)}
         aria-label={ariaLabel}
         role={role}
@@ -754,6 +762,7 @@ const Navigation: React.FC<React.PropsWithChildren<NavigationProps>> = ({
       aria-label={as === 'nav' ? ariaLabel : undefined}
       aria-labelledby={as === 'nav' ? ariaLabelledBy : undefined}
       className={clsx(enabled && classes.Navigation, className)}
+      data-component="PH_Navigation"
       sx={
         enabled
           ? sx
