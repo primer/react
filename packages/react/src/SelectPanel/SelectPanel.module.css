@@ -1,3 +1,8 @@
+.Overlay {
+    /* CSS variables values are passed in via styles */
+    --max-height: 0;
+}
+
 .Wrapper {
   display: flex;
   height: inherit;
@@ -35,8 +40,6 @@
 .Message {
   display: flex;
   height: 100%;
-
-  /* TODO: does this work? */
   min-height: min(calc(var(--max-height) - 150px), 324px); /* maxHeight of dialog - (header & footer) */
   padding-top: var(--base-size-24);
   padding-bottom: var(--base-size-24);

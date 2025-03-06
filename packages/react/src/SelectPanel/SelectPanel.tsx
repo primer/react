@@ -26,6 +26,7 @@ import {announce} from '@primer/live-region-element'
 
 import classes from './SelectPanel.module.css'
 import {clsx} from 'clsx'
+import {heightMap} from '../Overlay/Overlay'
 
 // we add a delay so that it does not interrupt default screen reader announcement and queues after it
 const delayMs = 500
@@ -499,6 +500,9 @@ function Panel({
           'aria-labelledby': titleId,
           'aria-describedby': subtitle ? subtitleId : undefined,
           ...overlayProps,
+          style: {
+            '--max-height': overlayProps?.maxHeight ? heightMap[overlayProps?.maxHeight] : '100vh',
+          } as React.CSSProperties,
         }}
         focusTrapSettings={focusTrapSettings}
         focusZoneSettings={focusZoneSettings}
@@ -506,6 +510,7 @@ function Panel({
         width={width}
         anchorId={id}
         pinPosition={!height}
+        className={classes.Overlay}
       >
         <LiveRegionOutlet />
         {usingModernActionList ? null : (
