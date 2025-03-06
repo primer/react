@@ -501,7 +501,7 @@ function Panel({
           'aria-describedby': subtitle ? subtitleId : undefined,
           ...overlayProps,
           style: {
-            '--max-height': overlayProps?.maxHeight ? heightMap[overlayProps?.maxHeight] : '100vh',
+            '--max-height': overlayProps?.maxHeight ? heightMap[overlayProps.maxHeight] : '100vh',
           } as React.CSSProperties,
         }}
         focusTrapSettings={focusTrapSettings}
