@@ -1,6 +1,6 @@
 .Overlay {
-    /* CSS variables values are passed in via styles */
-    --max-height: 0;
+  /* CSS variables values are passed in via styles */
+  --max-height: 0;
 }
 
 .Wrapper {
