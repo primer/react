@@ -252,22 +252,6 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
   )
 }
 
-interface RepoPickerProps {
-  id: string
-  name: string
-  ownerLogin: string
-  visibility: 'public' | 'private' | 'internal'
-  selected?: boolean
-}
-
-// {
-//     id: string, required: false
-//     name: string, required: true
-//     ownerLogin: string, required: true
-//     visibility: 'public' | 'private' | 'internal', required: true
-//     selected: boolean, required: false
-// }
-
 export const ActionBarIconButton = forwardRef(
   ({disabled, onClick, onKeyDown, ...props}: ActionBarIconButtonProps, forwardedRef) => {
     const backupRef = useRef<HTMLElement>(null)
