@@ -37,7 +37,6 @@
   height: 100%;
 
   /* TODO: does this work? */
-  /* stylelint-disable-next-line csstools/value-no-unknown-custom-properties */
   min-height: min(calc(var(--max-height) - 150px), 324px); /* maxHeight of dialog - (header & footer) */
   padding-top: var(--base-size-24);
   padding-bottom: var(--base-size-24);
