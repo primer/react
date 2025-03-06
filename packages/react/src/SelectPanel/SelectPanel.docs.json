@@ -146,5 +146,35 @@
       "description": "Footer rendered at the end of the panel"
     }
   ],
-  "subcomponents": []
+  "subcomponents": [
+    {
+      "name": "SelectPanel.Message",
+      "props": [
+        {
+          "name": "title", 
+          "type": "string",
+          "description": "A title for the message"
+        },
+        {
+          "name": "variant",
+          "type": "'empty' | 'noResult' | 'error' | 'warning'",
+          "description": "The variant of the message",
+          "required": true
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "defaultValue": "",
+          "description": "Custom className"
+        },
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "defaultValue": "",
+          "required": true,
+          "description": "The message to display"
+        }
+      ]
+    }
+  ]
 }
