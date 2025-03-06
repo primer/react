@@ -593,10 +593,10 @@ export const CustomisedNoInitialItems = () => {
         onFilterChange={onFilterChange}
         overlayProps={{width: 'medium', height: 'large'}}
       >
-        <SelectPanel.Message variant="noInitialItems" title="You haven't created any projects yet">
+        <SelectPanel.Message variant="empty" title="You haven't created any projects yet">
           <Link href="https://github.com/projects">Start your first project </Link> to organise your issues.
         </SelectPanel.Message>
-        <SelectPanel.Message variant="noFilteredItems" title={`No language found for `}>
+        <SelectPanel.Message variant="noResults" title={`No language found for `}>
           Adjust your search term to find other languages
         </SelectPanel.Message>
         {isError ? (
@@ -609,7 +609,7 @@ export const CustomisedNoInitialItems = () => {
   )
 }
 
-export const CustomisedNoFilteredItems: StoryObj<typeof SelectPanel> = {
+export const CustomisedNoResults: StoryObj<typeof SelectPanel> = {
   render: ({initialLoadingType, height}) => {
     const [selected, setSelected] = React.useState<ItemInput[]>([])
     const [filteredItems, setFilteredItems] = React.useState<ItemInput[]>([])
@@ -653,7 +653,7 @@ export const CustomisedNoFilteredItems: StoryObj<typeof SelectPanel> = {
         initialLoadingType={initialLoadingType}
         height={height}
       >
-        <SelectPanel.Message variant="noFilteredItems" title={`No label found for ${filterValue}`}>
+        <SelectPanel.Message variant="noResults" title={`No label found for ${filterValue}`}>
           Adjust your search term to find other labels
         </SelectPanel.Message>
       </SelectPanel>

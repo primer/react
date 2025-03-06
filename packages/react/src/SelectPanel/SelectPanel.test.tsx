@@ -479,10 +479,10 @@ for (const useModernActionList of [false, true]) {
                 setOpen(isOpen)
               }}
             >
-              <SelectPanel.Message variant="noInitialItems" title="You haven't created any projects yet">
+              <SelectPanel.Message variant="empty" title="You haven't created any projects yet">
                 Start your first project to organise your issues
               </SelectPanel.Message>
-              <SelectPanel.Message variant="noFilteredItems" title={`No language found for ${filter} `}>
+              <SelectPanel.Message variant="noResults" title={`No language found for ${filter} `}>
                 Adjust your search term to find other languages
               </SelectPanel.Message>
             </SelectPanel>

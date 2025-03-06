@@ -31,3 +31,48 @@
   height: inherit;
   max-height: inherit;
 }
+
+.Message {
+  display: flex;
+  height: '100%';
+
+  /* TODO: does this work? */
+  /* stylelint-disable-next-line csstools/value-no-unknown-custom-properties */ 
+  min-height: min(calc(var(--max-height) - 150px), 324px); /* maxHeight of dialog - (header & footer) */
+  padding-top: var(--base-size-24);
+  padding-bottom: var(--base-size-24);
+  text-align: 'center';
+  flex-direction: column;
+  justify-content: 'center';
+  align-items: 'center';
+  flex-grow: 1;
+  gap: var(--base-size-4);
+
+  a{ 
+    color: 'inherit';
+    text-decoration: 'underline';
+  }
+}
+
+.MessageTitle {
+  font-size: var(--text-body-size-medium);
+  font-weight: var(--base-text-weight-semibold);
+}
+
+.MessageBody {
+  display: 'flex';
+  font-size: var(--text-body-size-medium);
+  color: var(--fgColor-muted);
+  align-items: 'center';
+  flex-direction: 'column';
+  gap: var(--stack-gap-condensed);
+}
+
+.MessageIcon {
+  margin-bottom: var(--base-size-8);
+  color: var(--fgColor-attention);
+
+  &:where([data-variant='error']) {
+    color: var(--fgColor-danger);
+  }
+}

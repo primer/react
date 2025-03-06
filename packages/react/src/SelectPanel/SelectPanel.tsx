@@ -449,17 +449,17 @@ function Panel({
     for (const child of React.Children.toArray(children)) {
       if (React.isValidElement(child)) {
         const variant = child.props.variant ?? null
-        if (variant === 'noInitialItems' && isNoItemsState) {
-          variantMap.set('noInitialItems', child)
-        } else if (variant === 'noFilteredItems' && isNoMatchState) {
-          variantMap.set('noFilteredItems', child)
+        if (variant === 'empty' && isNoItemsState) {
+          variantMap.set('empty', child)
+        } else if (variant === 'noResults' && isNoMatchState) {
+          variantMap.set('noResults', child)
         } else if (variant === 'error' || variant === 'warning') {
           variantMap.set(variant, child)
         }
       }
     }
 
-    const priorityOrder = ['error', 'warning', 'noInitialItems', 'noFilteredItems']
+    const priorityOrder = ['error', 'warning', 'empty', 'noResults']
 
     for (const key of priorityOrder) {
       if (variantMap.has(key)) {
@@ -470,21 +470,13 @@ function Panel({
     // Return a default message if there is no custom message provided.
     if (isNoItemsState)
       return [
-        <SelectPanel.Message
-          title="You haven't created any items yet"
-          variant="noInitialItems"
-          key="default-noInitialItems"
-        >
+        <SelectPanel.Message title="You haven't created any items yet" variant="empty" key="default-empty">
           Please add or create new items to populate the list.
         </SelectPanel.Message>,
       ]
     else if (isNoMatchState)
       return [
-        <SelectPanel.Message
-          title={`No items found for ${filterValue}`}
-          variant="noFilteredItems"
-          key="default-noFilteredItems"
-        >
+        <SelectPanel.Message title={`No items found for ${filterValue}`} variant="noResults" key="default-noResults">
           Adjust your search term to find other items.
         </SelectPanel.Message>,
       ]
@@ -567,8 +559,7 @@ function Panel({
             textInputProps={extendedTextInputProps}
             loading={loading || isLoading}
             loadingType={loadingType()}
-            // TODO: We will remove the flag in the follow up PR and make sure that the messages are properly implemented for the deprecated SelectPanel as well.
-            {...(usingModernActionList ? {message: currentMessage} : undefined)}
+            {...{message: usingModernActionList ? currentMessage : undefined}}
             // inheriting height and maxHeight ensures that the FilteredActionList is never taller
             // than the Overlay (which would break scrolling the items)
             sx={enabled ? sx : {...sx, height: 'inherit', maxHeight: 'inherit'}}

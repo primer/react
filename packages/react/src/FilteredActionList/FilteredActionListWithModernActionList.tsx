@@ -18,6 +18,7 @@ import {VisuallyHidden} from '../VisuallyHidden'
 import type {SxProp} from '../sx'
 import type {FilteredActionListLoadingType} from './FilteredActionListLoaders'
 import {FilteredActionListLoadingTypes, FilteredActionListBodyLoader} from './FilteredActionListLoaders'
+import classes from './FilteredActionList.module.css'
 
 import {isValidElementType} from 'react-is'
 import type {RenderItemFn} from '../deprecated/ActionList/List'
@@ -156,6 +157,45 @@ export function FilteredActionList({
     return itemsInGroup
   }
 
+  function getBodyContent() {
+    if (loading && scrollContainerRef.current && loadingType.appearsInBody) {
+      return <FilteredActionListBodyLoader loadingType={loadingType} height={scrollContainerRef.current.clientHeight} />
+    }
+    if (message && message.length > 0) {
+      return message
+    }
+
+    return (
+      <ActionList
+        ref={listContainerRefCallback}
+        showDividers={showItemDividers}
+        {...listProps}
+        role="listbox"
+        id={listId}
+        sx={{flexGrow: 1}}
+      >
+        {groupMetadata?.length
+          ? groupMetadata.map((group, index) => {
+              return (
+                <ActionList.Group key={index}>
+                  <ActionList.GroupHeading variant={group.header?.variant ? group.header.variant : undefined}>
+                    {group.header?.title ? group.header.title : `Group ${group.groupId}`}
+                  </ActionList.GroupHeading>
+                  {getItemListForEachGroup(group.groupId).map((item, index) => {
+                    const key = item.key ?? item.id?.toString() ?? index.toString()
+                    return <MappedActionListItem key={key} {...item} renderItem={listProps.renderItem} />
+                  })}
+                </ActionList.Group>
+              )
+            })
+          : items.map((item, index) => {
+              const key = item.key ?? item.id?.toString() ?? index.toString()
+              return <MappedActionListItem key={key} {...item} renderItem={listProps.renderItem} />
+            })}
+      </ActionList>
+    )
+  }
+
   return (
     <Box
       display="flex"
@@ -187,41 +227,9 @@ export function FilteredActionList({
         />
       </StyledHeader>
       <VisuallyHidden id={inputDescriptionTextId}>Items will be filtered as you type</VisuallyHidden>
-      <Box ref={scrollContainerRef} overflow="auto" display="flex" flexGrow={1} height="100%">
-        {loading && scrollContainerRef.current && loadingType.appearsInBody ? (
-          <FilteredActionListBodyLoader loadingType={loadingType} height={scrollContainerRef.current.clientHeight} />
-        ) : message && message.length > 0 ? (
-          message
-        ) : (
-          <ActionList
-            ref={listContainerRefCallback}
-            showDividers={showItemDividers}
-            {...listProps}
-            role="listbox"
-            id={listId}
-            sx={{flexGrow: 1}}
-          >
-            {groupMetadata?.length
-              ? groupMetadata.map((group, index) => {
-                  return (
-                    <ActionList.Group key={index}>
-                      <ActionList.GroupHeading variant={group.header?.variant ? group.header.variant : undefined}>
-                        {group.header?.title ? group.header.title : `Group ${group.groupId}`}
-                      </ActionList.GroupHeading>
-                      {getItemListForEachGroup(group.groupId).map((item, index) => {
-                        const key = item.key ?? item.id?.toString() ?? index.toString()
-                        return <MappedActionListItem key={key} {...item} renderItem={listProps.renderItem} />
-                      })}
-                    </ActionList.Group>
-                  )
-                })
-              : items.map((item, index) => {
-                  const key = item.key ?? item.id?.toString() ?? index.toString()
-                  return <MappedActionListItem key={key} {...item} renderItem={listProps.renderItem} />
-                })}
-          </ActionList>
-        )}
-      </Box>
+      <div ref={scrollContainerRef} className={classes.Container}>
+        {getBodyContent()}
+      </div>
     </Box>
   )
 }
