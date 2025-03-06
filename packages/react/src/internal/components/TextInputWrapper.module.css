@@ -7,6 +7,7 @@
   line-height: var(--base-size-20);
   color: var(--fgColor-default);
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default);
   border: var(--borderWidth-thin) solid var(--control-borderColor-rest);
   border-radius: var(--borderRadius-medium);
@@ -166,8 +167,8 @@
     margin-right: var(--base-size-8);
   }
 
-  & :global(.TextInput-icon),
-  & :global(.TextInput-action) {
+  & :global(.TextInput-icon) /* stylelint-disable-line selector-class-pattern */,
+  & :global(.TextInput-action)  /* stylelint-disable-line selector-class-pattern */ {
     align-self: center;
     color: var(--fgColor-muted);
     flex-shrink: 0;

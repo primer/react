@@ -1,4 +1,6 @@
 import React, {useContext, useEffect, useMemo, useRef, useState} from 'react'
+import {debounce} from '@github/mini-throttle'
+import {announce} from '@primer/live-region-element'
 import {scrollIntoView} from '@primer/behaviors'
 import type {ScrollIntoViewOptions} from '@primer/behaviors'
 import type {ActionListItemProps} from '../ActionList'
@@ -120,7 +122,15 @@ export type AutocompleteMenuInternalProps<T extends AutocompleteItemProps> = {
   ['aria-labelledby']: string
 }
 
-const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_staff'
+const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_ga'
+
+/**
+ * Announces a message to screen readers at a slowed-down rate. This is useful when you want to announce don't want to
+ * overwhelm the user with too many announcements in rapid succession.
+ */
+const debounceAnnouncement = debounce((announcement: string) => {
+  announce(announcement)
+}, 250)
 
 function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMenuInternalProps<T>) {
   const autocompleteContext = useContext(AutocompleteContext)
@@ -266,6 +276,12 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
   React.useEffect(() => {
     allItemsToRenderRef.current = allItemsToRender
   })
+
+  React.useEffect(() => {
+    if (allItemsToRender.length === 0) {
+      debounceAnnouncement(emptyStateText as string)
+    }
+  }, [allItemsToRender, emptyStateText])
 
   useFocusZone(
     {

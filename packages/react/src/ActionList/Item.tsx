@@ -317,13 +317,20 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     const selectableRoles = ['menuitemradio', 'menuitemcheckbox', 'option']
     const includeSelectionAttribute = itemSelectionAttribute && itemRole && selectableRoles.includes(itemRole)
 
+    let focusable
+
+    // if item is disabled and is of type (menuitem*, option) it should remain focusable, if inactive, apply the same rules
+    if ((disabled && !inferredItemRole) || showInactiveIndicator) {
+      focusable = true
+    }
+
     const menuItemProps = {
       onClick: clickHandler,
       onKeyPress: !buttonSemantics ? keyPressHandler : undefined,
       'aria-disabled': disabled ? true : undefined,
       'data-inactive': inactive ? true : undefined,
       'data-loading': loading && !inactive ? true : undefined,
-      tabIndex: disabled || showInactiveIndicator ? undefined : 0,
+      tabIndex: focusable ? undefined : 0,
       'aria-labelledby': `${labelId} ${slots.trailingVisual ? trailingVisualId : ''} ${
         slots.inlineDescription ? inlineDescriptionId : ''
       }`,
@@ -369,7 +376,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
           >
             <LiBox
               {...containerProps}
-              sx={merge<BetterSystemStyleObject>(styles, sxProp)}
+              sx={sxProp}
               ref={listSemantics ? forwardedRef : null}
               data-variant={variant === 'danger' ? variant : undefined}
               data-active={active ? true : undefined}

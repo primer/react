@@ -134,11 +134,10 @@ interface SelectPanelBaseProps {
 export type SelectPanelProps = React.PropsWithChildren<
   SelectPanelBaseProps &
     Omit<FilteredActionListProps, 'selectionVariant'> &
-    Pick<AnchoredOverlayProps, 'open' | 'height'> &
+    Pick<AnchoredOverlayProps, 'open' | 'height' | 'width'> &
     AnchoredOverlayWrapperAnchorProps &
     (SelectPanelSingleSelection | SelectPanelMultiSelection)
 >
-
 function isMultiSelectVariant(
   selected: SelectPanelSingleSelection['selected'] | SelectPanelMultiSelection['selected'],
 ): selected is SelectPanelMultiSelection['selected'] {
@@ -188,9 +187,10 @@ function Panel({
   sx,
   loading,
   initialLoadingType = 'spinner',
-  height,
   children,
   className,
+  height,
+  width,
   id,
   ...listProps
 }: SelectPanelProps): JSX.Element {
@@ -346,7 +346,7 @@ function Panel({
     }
   }, [open, dataLoadedOnce, onFilterChange, filterValue, items, loadingManagedExternally, listContainerElement])
 
-  const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_staff'
+  const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_ga'
   const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
 
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
@@ -511,7 +511,9 @@ function Panel({
         focusTrapSettings={focusTrapSettings}
         focusZoneSettings={focusZoneSettings}
         height={height}
+        width={width}
         anchorId={id}
+        pinPosition={!height}
       >
         <LiveRegionOutlet />
         {usingModernActionList ? null : (

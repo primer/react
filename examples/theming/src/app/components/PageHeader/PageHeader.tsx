@@ -4,8 +4,8 @@ import classes from './PageHeader.module.css'
 
 export function PageHeader() {
   return (
-    <header className={classes.header}>
-      <Link href="/" className={classes.logo}>
+    <header className={classes.Header}>
+      <Link href="/" className={classes.Logo}>
         Primer
       </Link>
       <ThemePreference />

@@ -20,6 +20,7 @@ exports[`TextInput renders 1`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -255,6 +256,7 @@ exports[`TextInput renders block 1`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -491,6 +493,7 @@ exports[`TextInput renders contrast 1`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -727,6 +730,7 @@ exports[`TextInput renders error 1`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -964,6 +968,7 @@ exports[`TextInput renders large 1`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -1200,6 +1205,7 @@ exports[`TextInput renders leadingVisual 1`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -1464,6 +1470,7 @@ exports[`TextInput renders leadingVisual 2`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -1728,6 +1735,7 @@ exports[`TextInput renders leadingVisual 3`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -1975,6 +1983,7 @@ exports[`TextInput renders leadingVisual 4`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -2222,6 +2231,7 @@ exports[`TextInput renders monospace 1`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -2458,6 +2468,7 @@ exports[`TextInput renders placeholder 1`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -2694,6 +2705,7 @@ exports[`TextInput renders small 1`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -3062,6 +3074,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -3404,6 +3417,7 @@ exports[`TextInput renders trailingAction text button 1`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -3827,6 +3841,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -4131,6 +4146,7 @@ exports[`TextInput renders trailingVisual 1`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -4395,6 +4411,7 @@ exports[`TextInput renders trailingVisual 2`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -4659,6 +4676,7 @@ exports[`TextInput renders trailingVisual 3`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -4906,6 +4924,7 @@ exports[`TextInput renders trailingVisual 4`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -5179,6 +5198,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -5491,6 +5511,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -5843,6 +5864,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -6164,6 +6186,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -6558,6 +6581,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -6952,6 +6976,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -7343,6 +7368,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -7693,6 +7719,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -8084,6 +8111,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -8443,6 +8471,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -8877,6 +8906,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -9310,6 +9340,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -9701,6 +9732,7 @@ exports[`TextInput should render a password input 1`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
