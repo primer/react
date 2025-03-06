@@ -467,7 +467,7 @@ function Panel({
       }
     }
 
-    // Return a default message if there is no custom message is provided.
+    // Return a default message if there is no custom message provided.
     if (isNoItemsState)
       return [
         <SelectPanel.Message
