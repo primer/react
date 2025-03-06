@@ -20,7 +20,7 @@ import ToggleSwitch from '../ToggleSwitch'
 import Text from '../Text'
 import FormControl from '../FormControl'
 
-const meta: Meta = {
+const meta: Meta<typeof SelectPanel> = {
   title: 'Components/SelectPanel/Features',
   component: SelectPanel,
 } satisfies Meta<SelectPanelProps>
