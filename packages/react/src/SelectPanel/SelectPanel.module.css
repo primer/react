@@ -34,23 +34,23 @@
 
 .Message {
   display: flex;
-  height: '100%';
+  height: 100%;
 
   /* TODO: does this work? */
   /* stylelint-disable-next-line csstools/value-no-unknown-custom-properties */ 
   min-height: min(calc(var(--max-height) - 150px), 324px); /* maxHeight of dialog - (header & footer) */
   padding-top: var(--base-size-24);
   padding-bottom: var(--base-size-24);
-  text-align: 'center';
+  text-align: center;
   flex-direction: column;
-  justify-content: 'center';
-  align-items: 'center';
+  justify-content: center;
+  align-items: center;
   flex-grow: 1;
   gap: var(--base-size-4);
 
   a{ 
-    color: 'inherit';
-    text-decoration: 'underline';
+    color: inherit;
+    text-decoration: underline;
   }
 }
 
@@ -60,11 +60,11 @@
 }
 
 .MessageBody {
-  display: 'flex';
+  display: flex;
   font-size: var(--text-body-size-medium);
   color: var(--fgColor-muted);
-  align-items: 'center';
-  flex-direction: 'column';
+  align-items: center;
+  flex-direction: column;
   gap: var(--stack-gap-condensed);
 }
 
