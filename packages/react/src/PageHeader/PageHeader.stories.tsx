@@ -59,6 +59,9 @@ const meta: Meta<typeof PageHeader> = {
       description:
         'ContextArea is only visible on narrow viewports by default to provide user context of where they are at their journey.',
     },
+    hasBorder: {
+      type: 'boolean',
+    },
     ParentLink: {
       type: 'string',
       if: {arg: 'hasContextArea'},

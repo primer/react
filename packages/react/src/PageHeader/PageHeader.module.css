@@ -58,6 +58,14 @@
     --title-line-height: var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6));
   }
 
+  &[data-has-border='true'] {
+    border-block-end: 1px solid var(--borderColor-default);
+
+    &:not(:has([data-component='PH_Navigation'])) {
+      padding-block-end: var(--stack-padding-condensed);
+    }
+  }
+
   & [data-component='PH_LeadingAction'],
   & [data-component='PH_TrailingAction'],
   & [data-component='PH_Actions'],
