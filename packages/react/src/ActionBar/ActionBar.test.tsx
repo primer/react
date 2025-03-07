@@ -64,15 +64,10 @@ describe('ActionBar', () => {
 
   it('should not trigger disabled button with spacebar or enter', async () => {
     const user = userEvent.setup()
-    const onKeyDown = jest.fn()
+    const onClick = jest.fn()
     const {getByRole} = HTMLRender(
       <ActionBar aria-label="Toolbar">
-        <ActionBar.IconButton
-          icon={BoldIcon}
-          aria-label="Default"
-          onKeyDown={onKeyDown}
-          disabled
-        ></ActionBar.IconButton>
+        <ActionBar.IconButton icon={BoldIcon} aria-label="Default" onClick={onClick} disabled></ActionBar.IconButton>
       </ActionBar>,
     )
 
@@ -84,15 +79,15 @@ describe('ActionBar', () => {
 
     await user.keyboard('{Enter}')
 
-    expect(onKeyDown).not.toHaveBeenCalled()
+    expect(onClick).not.toHaveBeenCalled()
   })
 
   it('should trigger non-disabled button with spacebar or enter', async () => {
     const user = userEvent.setup()
-    const onKeyDown = jest.fn()
+    const onClick = jest.fn()
     const {getByRole} = HTMLRender(
       <ActionBar aria-label="Toolbar">
-        <ActionBar.IconButton icon={BoldIcon} aria-label="Default" onKeyDown={onKeyDown}></ActionBar.IconButton>
+        <ActionBar.IconButton icon={BoldIcon} aria-label="Default" onClick={onClick}></ActionBar.IconButton>
       </ActionBar>,
     )
 
@@ -104,6 +99,6 @@ describe('ActionBar', () => {
 
     await user.keyboard('{Enter}')
 
-    expect(onKeyDown).toHaveBeenCalled()
+    expect(onClick).toHaveBeenCalled()
   })
 })
