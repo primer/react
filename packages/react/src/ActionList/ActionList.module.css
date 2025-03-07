@@ -453,12 +453,6 @@
     & .ExpandIcon {
       transform: scaleY(-1);
     }
-
-    &.ActionListContent--hasActiveSubItem {
-      & > .ItemLabel {
-        font-weight: var(--base-text-weight-semibold);
-      }
-    }
   }
 
   &[aria-expanded='false'] {

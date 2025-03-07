@@ -46,7 +46,7 @@ export type ActionBarProps = {
   className?: string
 } & A11yProps
 
-export type ActionBarIconButtonProps = IconButtonProps
+export type ActionBarIconButtonProps = {disabled?: boolean} & IconButtonProps
 
 const MORE_BTN_WIDTH = 86
 
@@ -215,7 +215,13 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
                     if (menuItem.type === ActionList.Divider) {
                       return <ActionList.Divider key={index} />
                     } else {
-                      const {children: menuItemChildren, onClick, icon: Icon, 'aria-label': ariaLabel} = menuItem.props
+                      const {
+                        children: menuItemChildren,
+                        onClick,
+                        icon: Icon,
+                        'aria-label': ariaLabel,
+                        disabled,
+                      } = menuItem.props
                       return (
                         <ActionList.Item
                           key={menuItemChildren}
@@ -224,6 +230,7 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
                             focusOnMoreMenuBtn()
                             typeof onClick === 'function' && onClick(event)
                           }}
+                          disabled={disabled}
                         >
                           {Icon ? (
                             <ActionList.LeadingVisual>
@@ -245,17 +252,37 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
   )
 }
 
-export const ActionBarIconButton = forwardRef((props: ActionBarIconButtonProps, forwardedRef) => {
-  const backupRef = useRef<HTMLElement>(null)
-  const ref = (forwardedRef ?? backupRef) as RefObject<HTMLAnchorElement>
-  const {size, setChildrenWidth} = React.useContext(ActionBarContext)
-  useIsomorphicLayoutEffect(() => {
-    const text = props['aria-label'] ? props['aria-label'] : ''
-    const domRect = (ref as MutableRefObject<HTMLElement>).current.getBoundingClientRect()
-    setChildrenWidth({text, width: domRect.width})
-  }, [ref, setChildrenWidth])
-  return <IconButton ref={ref} size={size} {...props} variant="invisible" />
-})
+export const ActionBarIconButton = forwardRef(
+  ({disabled, onClick, ...props}: ActionBarIconButtonProps, forwardedRef) => {
+    const backupRef = useRef<HTMLElement>(null)
+    const ref = (forwardedRef ?? backupRef) as RefObject<HTMLAnchorElement>
+    const {size, setChildrenWidth} = React.useContext(ActionBarContext)
+    useIsomorphicLayoutEffect(() => {
+      const text = props['aria-label'] ? props['aria-label'] : ''
+      const domRect = (ref as MutableRefObject<HTMLElement>).current.getBoundingClientRect()
+      setChildrenWidth({text, width: domRect.width})
+    }, [ref, setChildrenWidth])
+
+    const clickHandler = useCallback(
+      (event: React.MouseEvent<HTMLButtonElement>) => {
+        if (disabled) return
+        onClick?.(event)
+      },
+      [disabled, onClick],
+    )
+
+    return (
+      <IconButton
+        aria-disabled={disabled}
+        ref={ref}
+        size={size}
+        onClick={clickHandler}
+        {...props}
+        variant="invisible"
+      />
+    )
+  },
+)
 
 export const VerticalDivider = () => {
   const ref = useRef<HTMLDivElement>(null)
