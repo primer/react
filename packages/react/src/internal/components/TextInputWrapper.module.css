@@ -69,9 +69,8 @@
 
     &:where([data-trailing-action][data-focused]),
     &:where(:not([data-trailing-action])):focus-within {
-      /* stylelint-disable-next-line primer/colors */
-      border-color: var(--fgColor-accent);
-      outline: 2px solid var(--fgColor-accent);
+      border-color: var(--borderColor-danger-emphasis);
+      outline: 2px solid var(--borderColor-danger-emphasis);
       outline-offset: -1px;
     }
   }
