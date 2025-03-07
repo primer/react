@@ -2,6 +2,7 @@
 
 import React from 'react'
 import type {AriaRole} from '../utils/types'
+import type {FocusZoneSettings} from '@primer/behaviors'
 
 type ContextProps = {
   container?: string
@@ -14,6 +15,7 @@ type ContextProps = {
   // eslint-disable-next-line @typescript-eslint/ban-types
   afterSelect?: Function
   enableFocusZone?: boolean
+  focusZoneFocusOutBehavior?: FocusZoneSettings['focusOutBehavior']
   defaultTrailingVisual?: React.ReactElement
 }
 
