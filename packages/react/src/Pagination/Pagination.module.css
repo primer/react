@@ -120,6 +120,10 @@
   text-align: center;
 }
 
+.TablePaginationSteps {
+  display: inline-block;
+}
+
 @media screen and (--viewportRange-narrow) {
   .TablePaginationSteps[data-hidden-viewport-ranges*='narrow'] > *:not(:first-child):not(:last-child) {
     display: none;
