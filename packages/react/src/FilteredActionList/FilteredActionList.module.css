@@ -1,0 +1,6 @@
+.Container {
+  display: flex;
+  height: 100%;
+  overflow: auto;
+  flex-grow: 1;
+}
