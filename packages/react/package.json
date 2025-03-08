@@ -200,7 +200,7 @@
     "terser": "5.36.0",
     "ts-toolbelt": "9.6.0",
     "tsx": "4.7.0",
-    "typescript": "^5.7.2",
+    "typescript": "^5.8.2",
     "typescript-plugin-css-modules": "5.1.0",
     "unist-util-find": "3.0.0",
     "unist-util-find-before": "4.0.0",
