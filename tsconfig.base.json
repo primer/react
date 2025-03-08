@@ -16,6 +16,7 @@
     "typeRoots": ["./node_modules/@types", "./@types"],
     "isolatedModules": true,
     "moduleDetection": "force",
+    "erasableSyntaxOnly": true,
     "verbatimModuleSyntax": true
   }
 }
