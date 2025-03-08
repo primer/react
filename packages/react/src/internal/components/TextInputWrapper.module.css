@@ -69,8 +69,8 @@
 
     &:where([data-trailing-action][data-focused]),
     &:where(:not([data-trailing-action])):focus-within {
-      border-color: var(--borderColor-danger-emphasis);
-      outline: 2px solid var(--borderColor-danger-emphasis);
+      border-color: var(--control-borderColor-danger);
+      outline: 2px solid var(--control-borderColor-danger);
       outline-offset: -1px;
     }
   }
