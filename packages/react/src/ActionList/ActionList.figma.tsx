@@ -1,4 +1,4 @@
-/* eslint-disable eslint-comments/no-use */
+/* eslint eslint-comments/no-use: off */
 /* eslint-disable primer-react/direct-slot-children */
 import React from 'react'
 import {ActionList} from '../../src'
@@ -57,7 +57,7 @@ figma.connect(
   {
     example: () => (
       <ActionList.LeadingVisual>
-        <div style="border-radius: var(--borderRadius-full); display: inline-block; height: 10px; width: 10px;"></div>
+        <div style={{borderRadius: '24px', display: 'inline-block', height: '10px', width: '10px'}}></div>
       </ActionList.LeadingVisual>
     ),
   },
@@ -70,7 +70,7 @@ figma.connect(
     props: {
       child: figma.children('*'),
     },
-    example: ({child}) => <ActionList.TrailingAction>{child}</ActionList.TrailingAction>,
+    example: ({child}) => <ActionList.TrailingAction label="Trailing Action">{child}</ActionList.TrailingAction>,
   },
 )
 
@@ -81,7 +81,7 @@ figma.connect(
     props: {
       child: figma.children('*'),
     },
-    example: ({child}) => <ActionList.TrailingAction>{child}</ActionList.TrailingAction>,
+    example: ({child}) => <ActionList.TrailingAction label="Trailing Action">{child}</ActionList.TrailingAction>,
   },
 )
 
@@ -92,7 +92,7 @@ figma.connect(
     props: {
       text: figma.textContent('Trailing text'),
     },
-    example: ({text}) => <ActionList.TrailingAction>{text}</ActionList.TrailingAction>,
+    example: ({text}) => <ActionList.TrailingAction label="Trailing Action">{text}</ActionList.TrailingAction>,
   },
 )
 
