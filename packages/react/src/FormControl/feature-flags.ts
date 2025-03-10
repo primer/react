@@ -1,1 +1,1 @@
-export const cssModulesFlag = 'primer_react_css_modules_staff'
+export const cssModulesFlag = 'primer_react_css_modules_ga'
