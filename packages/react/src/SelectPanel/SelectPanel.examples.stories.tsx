@@ -11,7 +11,7 @@ import FormControl from '../FormControl'
 import {Stack} from '../Stack'
 import {Dialog} from '../experimental'
 
-const meta = {
+const meta: Meta<typeof SelectPanel> = {
   title: 'Components/SelectPanel/Examples',
   component: SelectPanel,
 } satisfies Meta<typeof SelectPanel>
