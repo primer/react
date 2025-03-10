@@ -343,7 +343,7 @@ export const WithActionMenuAsIcon = () => {
   ]
 
   return (
-    <ActionBar aria-label="Toolbar">
+    <ActionBar aria-label="Toolbar" menuItems={items}>
       <ActionBar.IconButton icon={BoldIcon} aria-label="Bold"></ActionBar.IconButton>
       <ActionBar.IconButton icon={ItalicIcon} aria-label="Italic"></ActionBar.IconButton>
       <ActionBar.IconButton icon={CodeIcon} aria-label="Code"></ActionBar.IconButton>
@@ -355,8 +355,6 @@ export const WithActionMenuAsIcon = () => {
       <ActionBar.IconButton icon={ListUnorderedIcon} aria-label="Unordered List"></ActionBar.IconButton>
       <ActionBar.IconButton icon={ListOrderedIcon} aria-label="Ordered List"></ActionBar.IconButton>
       <ActionBar.IconButton icon={TasklistIcon} aria-label="Task List"></ActionBar.IconButton>
-
-      <ActionBar.Menu anchorIcon={LinkIcon} anchorLabel="More tools" items={items} />
     </ActionBar>
   )
 }

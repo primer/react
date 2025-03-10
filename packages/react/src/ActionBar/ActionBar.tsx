@@ -44,6 +44,7 @@ export type ActionBarProps = {
   children: React.ReactNode
   flush?: boolean
   className?: string
+  menuItems?: Omit<ActionListItemProps, 'children' | '_PrivateItemWrapper'>[]
 } & A11yProps
 
 export type ActionBarIconButtonProps = {disabled?: boolean} & IconButtonProps
@@ -141,6 +142,8 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
   const moreMenuBtnRef = useRef<HTMLButtonElement>(null)
   const containerRef = React.useRef<HTMLUListElement>(null)
 
+  const {menuItems: items} = props
+
   const validChildren = getValidChildren(children)
   // Responsive props object manages which items are in the list and which items are in the menu.
   const [responsiveProps, setResponsiveProps] = useState<ResponsiveProps>({
@@ -153,29 +156,11 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
     return validChildren.find(child => child.key === item.key) ?? item
   })
 
-  const renderedMenuItems = listItems.filter(item => {
-    const {
-      props: {items},
-    } = item
-    return validChildren.find(child => child.key === item.key && items) ?? null
-  })
-
-  const availableMenuItems = renderedMenuItems.map(item => {
-    return item.props.items
-  })
-
-  console.log(availableMenuItems, 'availableMenuItems')
-
   // Make sure to have the fresh props data for menu items when children are changed (keeping aria-current up-to-date)
   const menuItems = responsiveProps.menuItems.map(menuItem => {
-    if (menuItem.props.items) {
-      console.log('it has')
-    }
-
     return validChildren.find(child => child.key === menuItem.key) ?? menuItem
   })
 
-  console.log(menuItems, 'menuItems')
   const updateListAndMenu = useCallback((props: ResponsiveProps) => {
     setResponsiveProps(props)
   }, [])
@@ -222,31 +207,25 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
       <div ref={navRef} className={clsx(className, styles.Nav)} data-flush={flush}>
         <div ref={listRef} role="toolbar" className={styles.List}>
           {listItems}
-          {menuItems.length > 0 && (
+          {(menuItems.length > 0 || items.length > 0) && (
             <ActionMenu>
               <ActionMenu.Anchor>
                 <IconButton variant="invisible" aria-label={`More ${ariaLabel} items`} icon={KebabHorizontalIcon} />
               </ActionMenu.Anchor>
               <ActionMenu.Overlay>
                 <ActionList>
-                  {menuItems.map((menuItem, index) => {
+                  {items.map((menuItem, index) => {
                     if (menuItem.type === ActionList.Divider) {
                       return <ActionList.Divider key={index} />
                     } else {
-                      const {
-                        children: menuItemChildren,
-                        onClick,
-                        icon: Icon,
-                        'aria-label': ariaLabel,
-                        disabled,
-                      } = menuItem.props
+                      const {onSelect, icon: Icon, 'aria-label': ariaLabel, disabled, text} = menuItem
                       return (
                         <ActionList.Item
-                          key={menuItemChildren}
+                          key={text}
                           onClick={(event: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
                             closeOverlay()
                             focusOnMoreMenuBtn()
-                            typeof onClick === 'function' && onClick(event)
+                            typeof onSelect === 'function' && onSelect(event)
                           }}
                           disabled={disabled}
                         >
@@ -255,17 +234,10 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
                               <Icon />
                             </ActionList.LeadingVisual>
                           ) : null}
-                          {ariaLabel}
+                          {ariaLabel || text}
                         </ActionList.Item>
                       )
                     }
-                  })}
-                  {availableMenuItems.map((item, index) => {
-                    return (
-                      <ActionList.Item key={index} onClick={item.onClick}>
-                        {item.text}
-                      </ActionList.Item>
-                    )
                   })}
                 </ActionList>
               </ActionMenu.Overlay>
