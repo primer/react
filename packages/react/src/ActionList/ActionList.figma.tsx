@@ -57,7 +57,9 @@ figma.connect(
   {
     example: () => (
       <ActionList.LeadingVisual>
-        <div style={'border-radius: var(--borderRadius-full); display: inline-block; height: 10px; width: 10px;'}></div>
+        <div
+          style={{borderRadius: 'var(--borderRadius-full)', display: 'inline-block', height: '10px', width: '10px'}}
+        ></div>
       </ActionList.LeadingVisual>
     ),
   },
