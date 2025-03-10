@@ -4,7 +4,7 @@ import {get} from '../../constants'
 import {isResponsiveValue} from '../../hooks/useResponsiveValue'
 import type {AvatarProps} from '../../Avatar'
 import {DEFAULT_AVATAR_SIZE} from '../../Avatar/Avatar'
-import {SkeletonBox} from './SkeletonBox'
+import {SkeletonBox} from './'
 import classes from './SkeletonAvatar.module.css'
 import {clsx} from 'clsx'
 import {useFeatureFlag} from '../../FeatureFlags'
@@ -67,7 +67,7 @@ export const SkeletonAvatar: React.FC<SkeletonAvatarProps> = ({
 
   return (
     <SkeletonBox
-      sx={enabled ? undefined : avatarSx}
+      // TODO: fix
       className={clsx(className, {[classes.SkeletonAvatar]: enabled})}
       {...rest}
       data-component="SkeletonAvatar"

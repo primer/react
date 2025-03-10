@@ -1,20 +1,20 @@
 {
   "id": "skeleton_box",
   "name": "SkeletonBox",
-  "status": "draft",
+  "status": "alpha",
   "a11yReviewed": false,
   "stories": [
     {
-      "id": "experimental-components-skeleton-skeletonbox--default"
+      "id": "components-skeleton-skeletonbox--default"
     },
     {
-      "id": "experimental-components-skeleton-skeletonbox-features--custom-height"
+      "id": "components-skeleton-skeletonbox-features--custom-height"
     },
     {
-      "id": "experimental-components-skeleton-skeletonbox-features--custom-width"
+      "id": "components-skeleton-skeletonbox-features--custom-width"
     }
   ],
-  "importPath": "@primer/react/experimental",
+  "importPath": "@primer/react",
   "props": [
     {
       "name": "width",
