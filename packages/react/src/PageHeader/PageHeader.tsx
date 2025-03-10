@@ -117,9 +117,26 @@ const Root = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeader
         {
           height: 'calc(var(--title-line-height) * 1em)',
         },
-      '&[data-has-border="true"]': {
-        borderBlockEnd: '1px solid var(--borderColor-default)',
-        '&:not(:has([data-component="PH_Navigation"]))': {
+      '&[data-has-border="true"]:has([data-component="PH_Navigation"][data-hidden-all]), &[data-has-border="true"]:not(:has([data-component="PH_Navigation"]))':
+        {
+          borderBlockEnd: '1px solid var(--borderColor-default)',
+          paddingBlockEnd: 'var(--stack-padding-condensed)',
+        },
+      '@media screen and (max-width: 768px)': {
+        '&[data-has-border="true"]:has([data-component="PH_Navigation"][data-hidden-narrow])': {
+          borderBlockEnd: '1px solid var(--borderColor-default)',
+          paddingBlockEnd: 'var(--stack-padding-condensed)',
+        },
+      },
+      '@media screen and (min-width: 768px)': {
+        '&[data-has-border="true"]:has([data-component="PH_Navigation"][data-hidden-regular])': {
+          borderBlockEnd: '1px solid var(--borderColor-default)',
+          paddingBlockEnd: 'var(--stack-padding-condensed)',
+        },
+      },
+      '@media screen and (min-width: 1440px)': {
+        '&[data-has-border="true"]:has([data-component="PH_Navigation"][data-hidden-wide])': {
+          borderBlockEnd: '1px solid var(--borderColor-default)',
           paddingBlockEnd: 'var(--stack-padding-condensed)',
         },
       },
@@ -782,7 +799,9 @@ const Navigation: React.FC<React.PropsWithChildren<NavigationProps>> = ({
               sx,
             )
       }
-      {...getHiddenDataAttributes(enabled, hidden)}
+      // passing `true` always get the data attributes for the hidden prop,
+      // not just for CSS modules
+      {...getHiddenDataAttributes(true, hidden)}
     >
       {children}
     </Box>
