@@ -1,5 +1,6 @@
 'use strict'
-
+const a=1
+const b=2
 const fs = require('node:fs')
 const path = require('node:path')
 const prettier = require('@prettier/sync')
