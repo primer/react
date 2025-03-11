@@ -115,8 +115,8 @@ const StyledTextInputBaseWrapper = toggleStyledComponent(
 
       &:where([data-trailing-action][data-focused]),
       &:where(:not([data-trailing-action])):focus-within {
-        border-color: ${get('colors.accent.fg')};
-        outline: 2px solid ${get('colors.accent.fg')};
+        border-color: ${get('colors.danger.emphasis')};
+        outline: 2px solid ${get('colors.danger.emphasis')};
         outline-offset: -1px;
       }
     }
