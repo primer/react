@@ -1,5 +1,6 @@
 import {render, screen, waitFor} from '@testing-library/react'
 import React from 'react'
+import MatchMediaMock from 'jest-matchmedia-mock'
 import {SelectPanel, type SelectPanelProps} from '../SelectPanel'
 import type {ItemInput, GroupedListProps} from '../deprecated/ActionList/List'
 import {userEvent} from '@testing-library/user-event'
@@ -63,6 +64,10 @@ function BasicSelectPanel(passthroughProps: Record<string, unknown>) {
 }
 
 global.Element.prototype.scrollTo = jest.fn()
+
+let matchMedia: MatchMediaMock
+beforeAll(() => (matchMedia = new MatchMediaMock()))
+afterEach(() => matchMedia.clear())
 
 for (const useModernActionList of [false, true]) {
   describe('SelectPanel', () => {
