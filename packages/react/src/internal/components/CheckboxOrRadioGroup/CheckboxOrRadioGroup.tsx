@@ -108,10 +108,10 @@ const CheckboxOrRadioGroup: React.FC<React.PropsWithChildren<CheckboxOrRadioGrou
             <Box
               className={clsx(className, classes.GroupFieldset)}
               data-validation={validationChild ? '' : undefined}
-              {...(labelChild && {
+              {...(labelChild ? {
                 as: 'fieldset',
                 disabled,
-              })}
+              } : {})}
               sx={sx}
             >
               {labelChild ? (
@@ -138,12 +138,12 @@ const CheckboxOrRadioGroup: React.FC<React.PropsWithChildren<CheckboxOrRadioGrou
 
               <Body
                 className={classes.Body}
-                {...(!labelChild && {
+                {...(!labelChild ? {
                   ['aria-labelledby']: ariaLabelledby,
                   ['aria-describedby']: [validationMessageId, captionId].filter(Boolean).join(' '),
                   as: 'div',
                   role: 'group',
-                })}
+                } : {})}
               >
                 {React.Children.toArray(rest).filter(child => React.isValidElement(child))}
               </Body>
@@ -174,10 +174,10 @@ const CheckboxOrRadioGroup: React.FC<React.PropsWithChildren<CheckboxOrRadioGrou
           <fieldset
             className={clsx(className, classes.GroupFieldset)}
             data-validation={validationChild ? '' : undefined}
-            {...(labelChild && {
+            {...(labelChild ? {
               as: 'fieldset',
               disabled,
-            })}
+            } : {})}
           >
             {labelChild ? (
               /*
@@ -203,12 +203,12 @@ const CheckboxOrRadioGroup: React.FC<React.PropsWithChildren<CheckboxOrRadioGrou
 
             <Body
               className={classes.Body}
-              {...(!labelChild && {
+              {...(!labelChild ? {
                 ['aria-labelledby']: ariaLabelledby,
                 ['aria-describedby']: [validationMessageId, captionId].filter(Boolean).join(' '),
                 as: 'div',
                 role: 'group',
-              })}
+              } : {})}
             >
               {React.Children.toArray(rest).filter(child => React.isValidElement(child))}
             </Body>
@@ -242,10 +242,10 @@ const CheckboxOrRadioGroup: React.FC<React.PropsWithChildren<CheckboxOrRadioGrou
           margin={0}
           mb={validationChild ? 2 : undefined}
           padding={0}
-          {...(labelChild && {
+          {...(labelChild ? {
             as: 'fieldset',
             disabled,
-          })}
+          } : {})}
           className={className}
           sx={sx}
         >
@@ -272,12 +272,12 @@ const CheckboxOrRadioGroup: React.FC<React.PropsWithChildren<CheckboxOrRadioGrou
           )}
 
           <Body
-            {...(!labelChild && {
+            {...(!labelChild ? {
               ['aria-labelledby']: ariaLabelledby,
               ['aria-describedby']: [validationMessageId, captionId].filter(Boolean).join(' '),
               as: 'div',
               role: 'group',
-            })}
+            } : {})}
           >
             {React.Children.toArray(rest).filter(child => React.isValidElement(child))}
           </Body>
