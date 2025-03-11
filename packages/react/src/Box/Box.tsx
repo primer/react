@@ -12,13 +12,12 @@ import type {
   TypographyProps,
 } from 'styled-system'
 import {background, border, color, flexbox, grid, layout, position, shadow, space, typography} from 'styled-system'
-import type {BetterSystemStyleObject} from '../sx'
+import type {SxProp} from '../sx'
 import sx from '../sx'
 import type {ComponentProps} from '../utils/types'
 
-type StyledBoxProps = {
-  sx?: BetterSystemStyleObject
-} & SpaceProps &
+type StyledBoxProps = SxProp &
+  SpaceProps &
   ColorProps &
   TypographyProps &
   LayoutProps &
@@ -29,6 +28,10 @@ type StyledBoxProps = {
   PositionProps &
   ShadowProps
 
+/**
+ * @deprecated The Box component is deprecated. Replace with a `div` or
+ * appropriate HTML element instead, with CSS modules for styling.
+ */
 const Box = styled.div<StyledBoxProps>(
   space,
   color,
@@ -43,5 +46,9 @@ const Box = styled.div<StyledBoxProps>(
   sx,
 )
 
+/**
+ * @deprecated The Box component is deprecated. Replace with a `div` or
+ * appropriate HTML element instead, with CSS modules for styling.
+ */
 export type BoxProps = ComponentProps<typeof Box>
 export default Box
