@@ -8,6 +8,7 @@ import {useFocusZone} from '../hooks/useFocusZone'
 import {useAnchoredPosition, useProvidedRefOrCreate, useRenderForcingRef} from '../hooks'
 import {useId} from '../hooks/useId'
 import type {PositionSettings} from '@primer/behaviors'
+import {useResponsiveValue, type ResponsiveValue} from '../hooks/useResponsiveValue'
 
 interface AnchoredOverlayPropsWithAnchor {
   /**
@@ -93,6 +94,10 @@ interface AnchoredOverlayBaseProps extends Pick<OverlayProps, 'height' | 'width'
    * If true, the overlay will attempt to prevent position shifting when sitting at the top of the anchor.
    */
   pinPosition?: boolean
+  /**
+   * Optional prop to set variant for narrow screen sizes
+   */
+  variant?: ResponsiveValue<'anchored', 'anchored' | 'full-screen'>
 }
 
 export type AnchoredOverlayProps = AnchoredOverlayBaseProps &
@@ -122,6 +127,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   anchorOffset,
   className,
   pinPosition,
+  variant = {regular: 'anchored', narrow: 'anchored'},
   preventOverflow = true,
 }) => {
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
@@ -183,6 +189,8 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   })
   useFocusTrap({containerRef: overlayRef, disabled: !open || !position, ...focusTrapSettings})
 
+  const currentResponsiveVariant = useResponsiveValue(variant, 'anchored')
+
   return (
     <>
       {renderAnchor &&
@@ -206,8 +214,9 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
           visibility={position ? 'visible' : 'hidden'}
           height={height}
           width={width}
-          top={position?.top || 0}
-          left={position?.left || 0}
+          top={currentResponsiveVariant === 'anchored' ? position?.top || 0 : undefined}
+          left={currentResponsiveVariant === 'anchored' ? position?.left || 0 : undefined}
+          data-variant={currentResponsiveVariant}
           anchorSide={position?.anchorSide}
           className={className}
           preventOverflow={preventOverflow}
