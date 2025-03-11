@@ -48,9 +48,7 @@ To learn more about how to use `@primer/react`, visit our documentation site at:
 
 ## Usage
 
-The `@primer/react` package provides components in React for the Primer Design System.
-
-To use a component, it directly from the package:
+The `@primer/react` package provides components in React for the Primer Design System. To use a component, import it directly from the package:
 
 ```tsx
 import {Button} from '@primer/react'
@@ -65,8 +63,6 @@ At the root of your application, you'll also want to include our
 `@primer/primitives` package. For example:
 
 ```tsx
-// This should be at the root of your application
-
 // Import each of the themes you would like to use, by default we are including
 // the light theme below
 import '@primer/primitives/dist/css/functional/themes/light.css'
