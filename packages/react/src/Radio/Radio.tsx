@@ -1,7 +1,6 @@
 import type {ChangeEventHandler, InputHTMLAttributes, ReactElement} from 'react'
 import React, {useContext} from 'react'
 import type {SxProp} from '../sx'
-import type {FormValidationStatus} from '../utils/types/FormValidationStatus'
 import {RadioGroupContext} from '../RadioGroup/RadioGroup'
 import {clsx} from 'clsx'
 import classes from './Radio.module.css'
@@ -35,10 +34,6 @@ export type RadioProps = {
    * Indicates whether the radio button must be checked before the form can be submitted
    */
   required?: boolean
-  /**
-   * Only used to inform ARIA attributes. Individual radio inputs do not have validation styles.
-   */
-  validationStatus?: FormValidationStatus
 } & InputHTMLAttributes<HTMLInputElement> &
   SxProp
 
@@ -54,7 +49,6 @@ const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
       onChange,
       sx: sxProp = defaultSxProp,
       required,
-      validationStatus,
       value,
       className,
       ...rest
