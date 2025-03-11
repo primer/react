@@ -30,6 +30,15 @@ exports[`AnchoredOverlay should render consistently when open 1`] = `
   max-width: calc(100vw - 2rem);
 }
 
+.c1:where([data-variant='full-screen']) {
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  border-radius: unset;
+}
+
 @media (forced-colors:active) {
   .c1 {
     outline: solid 1px transparent;
@@ -82,6 +91,7 @@ exports[`AnchoredOverlay should render consistently when open 1`] = `
         <div
           class="c1"
           data-focus-trap="active"
+          data-variant="anchored"
           height="auto"
           role="none"
           style="left: 0px; top: 4px; --styled-overlay-visibility: visible;"

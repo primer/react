@@ -2,6 +2,7 @@ import React, {useCallback, useState} from 'react'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import {behavesAsComponent, checkExports} from '../utils/testing'
 import {render as HTMLRender, fireEvent} from '@testing-library/react'
+import MatchMediaMock from 'jest-matchmedia-mock'
 import axe from 'axe-core'
 import {Button} from '../Button'
 import theme from '../theme'
@@ -49,6 +50,10 @@ const AnchoredOverlayTestComponent = ({
     </ThemeProvider>
   )
 }
+
+let matchMedia: MatchMediaMock
+beforeAll(() => (matchMedia = new MatchMediaMock()))
+afterEach(() => matchMedia.clear())
 
 describe('AnchoredOverlay', () => {
   behavesAsComponent({
