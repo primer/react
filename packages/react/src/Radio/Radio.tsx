@@ -77,7 +77,6 @@ const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
 
     if (sxProp !== defaultSxProp) {
       return (
-        // eslint-disable-next-line github/a11y-role-supports-aria-props
         <Box
           as="input"
           sx={sxProp}
@@ -89,8 +88,6 @@ const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
           checked={checked}
           aria-checked={checked ? 'true' : 'false'}
           required={required}
-          aria-required={required ? 'true' : 'false'}
-          aria-invalid={validationStatus === 'error' ? 'true' : 'false'}
           onChange={handleOnChange}
           className={clsx(className, sharedClasses.Input, classes.Radio)}
           {...rest}
@@ -99,7 +96,6 @@ const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
     }
 
     return (
-      // eslint-disable-next-line github/a11y-role-supports-aria-props
       <input
         type="radio"
         value={value}
@@ -109,8 +105,6 @@ const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
         checked={checked}
         aria-checked={checked ? 'true' : 'false'}
         required={required}
-        aria-required={required ? 'true' : 'false'}
-        aria-invalid={validationStatus === 'error' ? 'true' : 'false'}
         onChange={handleOnChange}
         className={clsx(className, sharedClasses.Input, classes.Radio)}
         {...rest}
