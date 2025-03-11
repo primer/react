@@ -31,3 +31,12 @@
   height: inherit;
   max-height: inherit;
 }
+
+.ResponsiveSaveButton {
+  display: none;
+  margin: var(--base-size-8);
+
+  @media screen and (--viewportRange-narrow) {
+    display: block;
+  }
+}

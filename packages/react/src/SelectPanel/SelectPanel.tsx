@@ -515,7 +515,7 @@ export function SelectPanel({
             className={enabled ? clsx(className, classes.FilteredActionList) : className}
             announcementsEnabled={false}
           />
-          {footer && (
+          {footer ? (
             <Box
               sx={
                 enabled
@@ -530,6 +530,16 @@ export function SelectPanel({
               className={enabled ? classes.Footer : undefined}
             >
               {footer}
+            </Box>
+          ) : (
+            <Box
+              sx={enabled ? undefined : {margin: 2, display: ['block', 'block', 'none', 'none']}}
+              className={enabled ? classes.ResponsiveSaveButton : undefined}
+            >
+              {/* we add a save button on narrow screens because SelectPanel is full-screen */}
+              <Button variant="primary" block onClick={() => onClose('click-outside')}>
+                Save
+              </Button>
             </Box>
           )}
         </Box>
