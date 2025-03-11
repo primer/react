@@ -21,6 +21,7 @@ exports[`snapshots renders a custom empty state message 1`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -110,8 +111,8 @@ exports[`snapshots renders a custom empty state message 1`] = `
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 
@@ -301,6 +302,7 @@ exports[`snapshots renders a loading state 1`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -390,8 +392,8 @@ exports[`snapshots renders a loading state 1`] = `
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 
@@ -633,6 +635,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -722,8 +725,8 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 
@@ -1594,6 +1597,7 @@ exports[`snapshots renders a multiselect input 1`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -1683,8 +1687,8 @@ exports[`snapshots renders a multiselect input 1`] = `
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 
@@ -2435,6 +2439,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -2524,8 +2529,8 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 
@@ -3464,6 +3469,7 @@ exports[`snapshots renders a single select input 1`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -3553,8 +3559,8 @@ exports[`snapshots renders a single select input 1`] = `
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 
@@ -4687,6 +4693,7 @@ exports[`snapshots renders with an input value 1`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -4776,8 +4783,8 @@ exports[`snapshots renders with an input value 1`] = `
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 

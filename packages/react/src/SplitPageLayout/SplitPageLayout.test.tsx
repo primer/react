@@ -44,4 +44,19 @@ describe('SplitPageLayout', () => {
 
     expect(pane.getAttribute('id')).toBe('customId')
   })
+
+  it('applies custom className', () => {
+    const {container} = render(
+      <ThemeProvider>
+        <SplitPageLayout className="custom-class">
+          <SplitPageLayout.Header>Header</SplitPageLayout.Header>
+          <SplitPageLayout.Content>Content</SplitPageLayout.Content>
+          <SplitPageLayout.Pane>Pane</SplitPageLayout.Pane>
+          <SplitPageLayout.Footer>Footer</SplitPageLayout.Footer>
+        </SplitPageLayout>
+      </ThemeProvider>,
+    )
+
+    expect(container.firstChild).toHaveClass('custom-class')
+  })
 })
