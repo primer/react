@@ -31,7 +31,7 @@ type StyledBoxProps = SxProp &
 /**
  * @deprecated The Box component is deprecated. Replace with a `div` or
  * appropriate HTML element instead, with CSS modules for styling.
- * @see {@link contributor-docs/migration-from-box.md}
+ * @see https://github.com/primer/react/blob/main/contributor-docs/migration-from-box.md
  */
 const Box = styled.div<StyledBoxProps>(
   space,
@@ -50,7 +50,7 @@ const Box = styled.div<StyledBoxProps>(
 /**
  * @deprecated The Box component is deprecated. Replace with a `div` or
  * appropriate HTML element instead, with CSS modules for styling.
- * @see {@link contributor-docs/migration-from-box.md}
+ * @see https://github.com/primer/react/blob/main/contributor-docs/migration-from-box.md
  */
 export type BoxProps = ComponentProps<typeof Box>
 export default Box
