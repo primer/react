@@ -1,7 +1,7 @@
 {
   "id": "box",
   "name": "Box",
-  "status": "beta",
+  "status": "deprecated",
   "a11yReviewed": false,
   "stories": [],
   "importPath": "@primer/react",
