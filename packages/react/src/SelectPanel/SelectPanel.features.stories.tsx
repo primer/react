@@ -93,6 +93,7 @@ export const WithItemDividers = () => {
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         showItemDividers={true}
+        width="medium"
       />
     </FormControl>
   )
@@ -137,6 +138,7 @@ export const WithPlaceholderForSearchInput = () => {
         selected={selected}
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
+        width="medium"
       />
     </FormControl>
   )
@@ -172,7 +174,7 @@ export const SingleSelect = () => {
         selected={selected}
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
-        overlayProps={{width: 'small', height: 'xsmall'}}
+        width="medium"
       />
     </FormControl>
   )
@@ -216,6 +218,7 @@ export const MultiSelect = () => {
         selected={selected}
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
+        width="medium"
       />
     </FormControl>
   )
@@ -257,7 +260,7 @@ export const WithExternalAnchor = () => {
         selected={selectedItemsSortedFirst}
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
-        overlayProps={{width: 'small', height: 'xsmall'}}
+        width="medium"
       />
     </FormControl>
   )
@@ -305,6 +308,7 @@ export const WithFooter = () => {
             Edit labels
           </Button>
         }
+        width="medium"
       />
     </FormControl>
   )
@@ -397,6 +401,7 @@ export const WithGroups = () => {
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         overlayProps={{width: 'large', height: 'xlarge'}}
+        width="medium"
       />
     </FormControl>
   )
@@ -440,6 +445,7 @@ export const WithLabelVisuallyHidden = () => {
         selected={selected}
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
+        width="medium"
       />
     </FormControl>
   )
@@ -486,6 +492,7 @@ export const WithLabelInternally = () => {
       selected={selected}
       onSelectedChange={setSelected}
       onFilterChange={setFilter}
+      width="medium"
     />
   )
 }
@@ -537,6 +544,7 @@ export const AsyncFetch: StoryObj<SelectPanelProps> = {
         showItemDividers={true}
         height={height}
         initialLoadingType={initialLoadingType}
+        width="medium"
       />
     )
   },

@@ -162,8 +162,8 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 
@@ -1093,8 +1093,8 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 
@@ -1625,8 +1625,8 @@ exports[`TextInputWithTokens renders as block layout 1`] = `
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 
@@ -1945,8 +1945,8 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 
@@ -2793,8 +2793,8 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 
@@ -3634,8 +3634,8 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 
@@ -4475,8 +4475,8 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 
@@ -5316,8 +5316,8 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 
@@ -6159,8 +6159,8 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 
@@ -7005,8 +7005,8 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 
@@ -7571,8 +7571,8 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 
@@ -8471,8 +8471,8 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 
@@ -9410,8 +9410,8 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 
@@ -10319,8 +10319,8 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 
@@ -11300,8 +11300,8 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 
@@ -12281,8 +12281,8 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 
@@ -13259,8 +13259,8 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 
@@ -14197,8 +14197,8 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 
@@ -15175,8 +15175,8 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 
@@ -16122,8 +16122,8 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 
@@ -17140,8 +17140,8 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 
@@ -18160,8 +18160,8 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 
@@ -19148,8 +19148,8 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 
@@ -19978,8 +19978,8 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 
@@ -20780,8 +20780,8 @@ exports[`TextInputWithTokens renders without tokens 1`] = `
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 
