@@ -1,0 +1,62 @@
+name: 'Label Pull Request'
+on:
+  pull_request:
+    branches:
+      - main
+    types: [opened, edited, ready_for_review, reopened]
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+
+jobs:
+  label:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request == false
+    steps:
+      - id: labeler
+        uses: github/issue-labeler@v3.4
+        with:
+          configuration-path: .github/labeler.yml
+          repo-token: ${{ github.token }}
+          sync-labels: 1
+      - name: Manage incomplete labels
+        if: ${{ (steps.labeler.outputs.labels-added != '') || (steps.labeler.outputs.labels-removed != '') }}
+        uses: actions/github-script@v7
+        env:
+          AUTHOR: ${{ github.event.pull_request.user.login }}
+          LABELS_ADDED: ${{ steps.labeler.outputs.labels-added }}
+          LABELS_REMOVED: ${{ steps.labeler.outputs.labels-removed }}
+        with:
+          script: |
+            const { AUTHOR, LABELS_ADDED, LABELS_REMOVED } = process.env;
+
+            // Label prefixes that should only have one label applied at a time
+            const exactlyOnePrefix = ['risk', 'release'];
+
+            const existingLabels = context.payload.pull_request.labels.map(l => l.name);
+            const addedLabels = LABELS_ADDED ? JSON.parse(LABELS_ADDED) : []
+            const removedLabels = LABELS_REMOVED ? JSON.parse(LABELS_REMOVED) : []
+            const currentLabels = [...new Set([...existingLabels, ...addedLabels])].filter(label => !removedLabels.includes(label));
+
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.pull_request.number
+            });
+            const commentIdentifier = '<!-- action:label-pull-request job:label -->';
+            const previousComment = comments.find(comment => {
+              return comment.body.includes(commentIdentifier);
+            });
+
+            let comment = `${commentIdentifier}\n\n`;
+
+            for (const prefix of exactlyOnePrefix) {
+              const matches = currentLabels.filter(label => label.startsWith(`${prefix}:`));
+              if (matches.length === 1) {
+                //
+              } else if (matches.length > 1) {
+                //
+              }
+            }
