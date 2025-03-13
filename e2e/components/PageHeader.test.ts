@@ -185,6 +185,24 @@ test.describe('PageHeader', () => {
     }
   })
 
+  test.describe('Has Border', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-pageheader-features--has-bottom-border',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          // Default state
+          expect(await page.screenshot()).toMatchSnapshot(`PageHeader.Has Border.${theme}.png`)
+        })
+      })
+    }
+  })
+
   test.describe('Has Large Title', () => {
     for (const theme of themes) {
       test.describe(theme, () => {
