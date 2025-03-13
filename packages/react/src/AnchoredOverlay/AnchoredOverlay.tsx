@@ -97,7 +97,7 @@ interface AnchoredOverlayBaseProps extends Pick<OverlayProps, 'height' | 'width'
   /**
    * Optional prop to set variant for narrow screen sizes
    */
-  variant?: ResponsiveValue<'anchored', 'anchored' | 'full-screen'>
+  variant?: ResponsiveValue<'anchored', 'anchored' | 'fullscreen'>
 }
 
 export type AnchoredOverlayProps = AnchoredOverlayBaseProps &
