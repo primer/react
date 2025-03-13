@@ -47,7 +47,32 @@ const HeadingWrap: React.FC<HeadingWrapProps> = ({as = 'div', children, classNam
   return React.createElement(as, {...rest, className}, children)
 }
 
-export type ActionListGroupProps = {
+export type ActionListGroupProps = React.ComponentPropsWithoutRef<'div'> & {
+  /**
+   * Secondary text which provides additional information about a `Group`.
+   */
+  auxiliaryText?: string
+
+  /**
+   * Provide an optional class name to be passed to the outermost element rendered by the component.
+   */
+  className?: string
+  
+  /**
+   * The ARIA role describing the function of the list inside `Group` component. `listbox` or `menu` are a common values.
+   */
+  role?: AriaRole
+
+  /**
+   * Whether multiple Items or a single Item can be selected in the Group. Overrides value on ActionList root.
+   */
+  selectionVariant?: ActionListProps['selectionVariant'] | false
+
+  /**
+   * @deprecated (Use `ActionList.GroupHeading` instead. i.e. <ActionList.Group title="Group title"> → <ActionList.GroupHeading>Group title</ActionList.GroupHeading>)
+   */
+  title?: string
+
   /**
    * Style variations. Usage is discretionary.
    *
@@ -55,24 +80,7 @@ export type ActionListGroupProps = {
    * - `"subtle"` - Relatively less offset from nearby content
    */
   variant?: 'filled' | 'subtle'
-  /**
-   * @deprecated (Use `ActionList.GroupHeading` instead. i.e. <ActionList.Group title="Group title"> → <ActionList.GroupHeading>Group title</ActionList.GroupHeading>)
-   */
-  title?: string
-  /**
-   * Secondary text which provides additional information about a `Group`.
-   */
-  auxiliaryText?: string
-  /**
-   * The ARIA role describing the function of the list inside `Group` component. `listbox` or `menu` are a common values.
-   */
-  role?: AriaRole
-} & SxProp & {
-    /**
-     * Whether multiple Items or a single Item can be selected in the Group. Overrides value on ActionList root.
-     */
-    selectionVariant?: ActionListProps['selectionVariant'] | false
-  }
+} & SxProp
 
 type ContextProps = Pick<ActionListGroupProps, 'selectionVariant'> & {groupHeadingId: string | undefined}
 export const GroupContext = React.createContext<ContextProps>({
