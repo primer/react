@@ -455,7 +455,7 @@ export function SelectPanel({
         height={height}
         width={width}
         anchorId={id}
-        variant={{regular: 'anchored', narrow: 'full-screen'}}
+        variant={{regular: 'anchored', narrow: 'fullscreen'}}
         pinPosition={!height}
       >
         <LiveRegionOutlet />
