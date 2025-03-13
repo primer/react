@@ -91,7 +91,6 @@ jobs:
       matrix:
         shard: [1, 2, 3, 4]
     env:
-      VITE_PRIMER_REACT_CSS_MODULES_STAFF: 1
       VITE_PRIMER_REACT_CSS_MODULES_GA: 1
     steps:
       - uses: actions/checkout@v4
