@@ -1,5 +1,5 @@
 import {SearchIcon, TriangleDownIcon} from '@primer/octicons-react'
-import React, {useCallback, useEffect, useMemo, useRef, useState, type ReactNode} from 'react'
+import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react'
 import type {AnchoredOverlayProps} from '../AnchoredOverlay'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import type {AnchoredOverlayWrapperAnchorProps} from '../AnchoredOverlay/AnchoredOverlay'
@@ -31,6 +31,12 @@ import {heightMap} from '../Overlay/Overlay'
 // we add a delay so that it does not interrupt default screen reader announcement and queues after it
 const delayMs = 500
 const loadingDelayMs = 1000
+
+type SelectPanelStatus = 'error' | 'warning' | 'empty' | 'no-results' | undefined
+
+export const SelectPanelContext = React.createContext<{
+  status: SelectPanelStatus
+}>({status: undefined})
 
 const getItemWithActiveDescendant = (
   listRef: React.RefObject<HTMLElement>,
@@ -130,6 +136,8 @@ interface SelectPanelBaseProps {
   footer?: string | React.ReactElement
   initialLoadingType?: InitialLoadingType
   className?: string
+  status?: SelectPanelStatus
+  messages?: React.ReactNode[]
 }
 
 export type SelectPanelProps = React.PropsWithChildren<
@@ -160,6 +168,18 @@ const doesItemsIncludeItem = (items: ItemInput[], item: ItemInput) => {
   return items.some(i => areItemsEqual(i, item))
 }
 
+export const getDefaultFilterMessage = (filterValue: string) => (
+  <SelectPanelMessage title={`No items found for \`${filterValue}\``} variant="no-results" key="default-no-results">
+    Adjust your search term to find other items.
+  </SelectPanelMessage>
+)
+
+export const getDefaultEmptyMessage = () => (
+  <SelectPanelMessage title="You haven't created any items yet" variant="empty" key="default-empty">
+    Please add or create new items to populate the list.
+  </SelectPanelMessage>
+)
+
 function Panel({
   open,
   onOpenChange,
@@ -188,11 +208,12 @@ function Panel({
   sx,
   loading,
   initialLoadingType = 'spinner',
-  children,
   className,
   height,
   width,
   id,
+  status,
+  messages,
   ...listProps
 }: SelectPanelProps): JSX.Element {
   const titleId = useId()
@@ -439,158 +460,131 @@ function Panel({
   }
   const usingModernActionList = useFeatureFlag('primer_react_select_panel_with_modern_action_list')
 
-  // If there is no items after the first load, show the no items state
-  const isNoItemsState = items.length === 0 && dataLoadedOnce && !loading && filterValue === ''
-  // If there is no items after the first load and the user is filtering, show the no match state
-  const isNoMatchState = items.length === 0 && dataLoadedOnce && !loading && filterValue !== ''
-
-  function getCurrentMessage(children: ReactNode): ReactNode[] {
-    const variantMap = new Map<string, React.ReactElement>()
-
-    for (const child of React.Children.toArray(children)) {
-      if (React.isValidElement(child)) {
-        const variant = child.props.variant ?? null
-        if (variant === 'empty' && isNoItemsState) {
-          variantMap.set('empty', child)
-        } else if (variant === 'no-results' && isNoMatchState) {
-          variantMap.set('no-results', child)
-        } else if (variant === 'error' || variant === 'warning') {
-          variantMap.set(variant, child)
-        }
-      }
-    }
-
-    const priorityOrder = ['error', 'warning', 'empty', 'no-results']
-
-    for (const key of priorityOrder) {
-      if (variantMap.has(key)) {
-        return [variantMap.get(key)!]
-      }
-    }
-
-    // Return a default message if there is no custom message provided.
-    if (isNoItemsState)
-      return [
-        <SelectPanel.Message title="You haven't created any items yet" variant="empty" key="default-empty">
-          Please add or create new items to populate the list.
-        </SelectPanel.Message>,
-      ]
-    else if (isNoMatchState)
-      return [
-        <SelectPanel.Message title={`No items found for ${filterValue}`} variant="no-results" key="default-no-results">
-          Adjust your search term to find other items.
-        </SelectPanel.Message>,
-      ]
-    else return []
+  function getStatus(): SelectPanelStatus {
+    const isNoItemsState = items.length === 0 && dataLoadedOnce && !loading && filterValue === ''
+    // If there is no items after the first load and the user is filtering, show the no match state
+    const isNoMatchState = items.length === 0 && dataLoadedOnce && !loading && filterValue !== ''
+    if (status) return status
+    if (isNoItemsState) return 'empty'
+    if (isNoMatchState) return 'no-results'
   }
 
-  // We don't need to call this function when the flag is off but we will implement the empty state for the deprecated SelectPanel in the follow up PR, so I am keeping it as is for now.
-  const currentMessage = getCurrentMessage(children)
+  const currentStatus = getStatus()
+
+  const displayMessages = messages ?? [getDefaultEmptyMessage(), getDefaultFilterMessage(filterValue)]
+
+  // If there is no items after the first load, show the no items state
 
   return (
-    <LiveRegion>
-      <AnchoredOverlay
-        renderAnchor={renderMenuAnchor}
-        anchorRef={anchorRef}
-        open={open}
-        onOpen={onOpen}
-        onClose={onClose}
-        overlayProps={{
-          role: 'dialog',
-          'aria-labelledby': titleId,
-          'aria-describedby': subtitle ? subtitleId : undefined,
-          ...overlayProps,
-          style: {
-            '--max-height': overlayProps?.maxHeight ? heightMap[overlayProps.maxHeight] : '100vh',
-          } as React.CSSProperties,
-        }}
-        focusTrapSettings={focusTrapSettings}
-        focusZoneSettings={focusZoneSettings}
-        height={height}
-        width={width}
-        anchorId={id}
-        pinPosition={!height}
-        className={classes.Overlay}
-      >
-        <LiveRegionOutlet />
-        {usingModernActionList ? null : (
-          <Message
-            value={
-              filterValue === ''
-                ? 'Showing all items'
-                : items.length <= 0
-                  ? 'No matching items'
-                  : `${items.length} matching ${items.length === 1 ? 'item' : 'items'}`
-            }
-          />
-        )}
-        <Box
-          sx={enabled ? undefined : {display: 'flex', flexDirection: 'column', height: 'inherit', maxHeight: 'inherit'}}
-          className={enabled ? classes.Wrapper : undefined}
+    <SelectPanelContext.Provider value={{status: currentStatus}}>
+      <LiveRegion>
+        <AnchoredOverlay
+          renderAnchor={renderMenuAnchor}
+          anchorRef={anchorRef}
+          open={open}
+          onOpen={onOpen}
+          onClose={onClose}
+          overlayProps={{
+            role: 'dialog',
+            'aria-labelledby': titleId,
+            'aria-describedby': subtitle ? subtitleId : undefined,
+            ...overlayProps,
+            style: {
+              '--max-height': overlayProps?.maxHeight ? heightMap[overlayProps.maxHeight] : heightMap['large'],
+            } as React.CSSProperties,
+          }}
+          focusTrapSettings={focusTrapSettings}
+          focusZoneSettings={focusZoneSettings}
+          height={height}
+          width={width}
+          anchorId={id}
+          pinPosition={!height}
+          className={classes.Overlay}
         >
-          <Box sx={enabled ? undefined : {pt: 2, px: 3}} className={enabled ? classes.Content : undefined}>
-            <Heading
-              as="h1"
-              id={titleId}
-              sx={enabled ? undefined : {fontSize: 1}}
-              className={enabled ? classes.Title : undefined}
-            >
-              {title}
-            </Heading>
-            {subtitle ? (
-              <Box
-                id={subtitleId}
-                sx={enabled ? undefined : {fontSize: 0, color: 'fg.muted'}}
-                className={enabled ? classes.Subtitle : undefined}
-              >
-                {subtitle}
-              </Box>
-            ) : null}
-          </Box>
-          <FilteredActionList
-            filterValue={filterValue}
-            onFilterChange={onFilterChange}
-            onListContainerRefChanged={onListContainerRefChanged}
-            onInputRefChanged={onInputRefChanged}
-            placeholderText={placeholderText}
-            {...listProps}
-            role="listbox"
-            // browsers give aria-labelledby precedence over aria-label so we need to make sure
-            // we don't accidentally override props.aria-label
-            aria-labelledby={listProps['aria-label'] ? undefined : titleId}
-            aria-multiselectable={isMultiSelectVariant(selected) ? 'true' : 'false'}
-            selectionVariant={isMultiSelectVariant(selected) ? 'multiple' : 'single'}
-            items={itemsToRender}
-            textInputProps={extendedTextInputProps}
-            loading={loading || isLoading}
-            loadingType={loadingType()}
-            {...{message: usingModernActionList ? currentMessage : undefined}}
-            // inheriting height and maxHeight ensures that the FilteredActionList is never taller
-            // than the Overlay (which would break scrolling the items)
-            sx={enabled ? sx : {...sx, height: 'inherit', maxHeight: 'inherit'}}
-            className={enabled ? clsx(className, classes.FilteredActionList) : className}
-            announcementsEnabled={false}
-          />
-          {footer && (
-            <Box
-              sx={
-                enabled
-                  ? undefined
-                  : {
-                      display: 'flex',
-                      borderTop: '1px solid',
-                      borderColor: 'border.default',
-                      padding: 2,
-                    }
+          <LiveRegionOutlet />
+          {usingModernActionList ? null : (
+            <Message
+              value={
+                filterValue === ''
+                  ? 'Showing all items'
+                  : items.length <= 0
+                    ? 'No matching items'
+                    : `${items.length} matching ${items.length === 1 ? 'item' : 'items'}`
               }
-              className={enabled ? classes.Footer : undefined}
-            >
-              {footer}
-            </Box>
+            />
           )}
-        </Box>
-      </AnchoredOverlay>
-    </LiveRegion>
+          <Box
+            sx={
+              enabled ? undefined : {display: 'flex', flexDirection: 'column', height: 'inherit', maxHeight: 'inherit'}
+            }
+            className={enabled ? classes.Wrapper : undefined}
+          >
+            <Box sx={enabled ? undefined : {pt: 2, px: 3}} className={enabled ? classes.Content : undefined}>
+              <Heading
+                as="h1"
+                id={titleId}
+                sx={enabled ? undefined : {fontSize: 1}}
+                className={enabled ? classes.Title : undefined}
+              >
+                {title}
+              </Heading>
+              {subtitle ? (
+                <Box
+                  id={subtitleId}
+                  sx={enabled ? undefined : {fontSize: 0, color: 'fg.muted'}}
+                  className={enabled ? classes.Subtitle : undefined}
+                >
+                  {subtitle}
+                </Box>
+              ) : null}
+            </Box>
+            <FilteredActionList
+              filterValue={filterValue}
+              onFilterChange={onFilterChange}
+              onListContainerRefChanged={onListContainerRefChanged}
+              onInputRefChanged={onInputRefChanged}
+              placeholderText={placeholderText}
+              {...listProps}
+              role="listbox"
+              // browsers give aria-labelledby precedence over aria-label so we need to make sure
+              // we don't accidentally override props.aria-label
+              aria-labelledby={listProps['aria-label'] ? undefined : titleId}
+              aria-multiselectable={isMultiSelectVariant(selected) ? 'true' : 'false'}
+              selectionVariant={isMultiSelectVariant(selected) ? 'multiple' : 'single'}
+              items={itemsToRender}
+              textInputProps={extendedTextInputProps}
+              loading={loading || isLoading}
+              loadingType={loadingType()}
+              {...{
+                message: usingModernActionList && currentStatus ? displayMessages : undefined,
+              }}
+              // inheriting height and maxHeight ensures that the FilteredActionList is never taller
+              // than the Overlay (which would break scrolling the items)
+              sx={enabled ? sx : {...sx, height: 'inherit', maxHeight: 'inherit'}}
+              className={enabled ? clsx(className, classes.FilteredActionList) : className}
+              announcementsEnabled={false}
+            />
+            {footer && (
+              <Box
+                sx={
+                  enabled
+                    ? undefined
+                    : {
+                        display: 'flex',
+                        borderTop: '1px solid',
+                        borderColor: 'border.default',
+                        padding: 2,
+                      }
+                }
+                className={enabled ? classes.Footer : undefined}
+              >
+                {footer}
+              </Box>
+            )}
+          </Box>
+        </AnchoredOverlay>
+      </LiveRegion>
+    </SelectPanelContext.Provider>
   )
 }
 

@@ -560,8 +560,9 @@ export const CustomisedNoInitialItems = () => {
   const [selected, setSelected] = React.useState<ItemInput[]>([])
   const [filteredItems, setFilteredItems] = React.useState<ItemInput[]>([])
   const [open, setOpen] = useState(false)
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [filter, setFilter] = useState<string>('')
   const onFilterChange = (value: string = '') => {
+    setFilter(value)
     setTimeout(() => {
       // fetch the items
       setFilteredItems([])
@@ -592,19 +593,23 @@ export const CustomisedNoInitialItems = () => {
         onSelectedChange={setSelected}
         onFilterChange={onFilterChange}
         overlayProps={{width: 'medium', height: 'large'}}
-      >
-        <SelectPanel.Message variant="empty" title="You haven't created any projects yet">
-          <Link href="https://github.com/projects">Start your first project </Link> to organise your issues.
-        </SelectPanel.Message>
-        <SelectPanel.Message variant="no-results" title={`No language found for `}>
-          Adjust your search term to find other languages
-        </SelectPanel.Message>
-        {isError ? (
-          <SelectPanel.Message variant="error" title={`Ooops`}>
+        messages={[
+          <SelectPanel.Message variant="empty" title="You haven't created any projects yet" key="empty-message">
+            <Link href="https://github.com/projects">Start your first project </Link> to organise your issues.
+          </SelectPanel.Message>,
+          <SelectPanel.Message
+            variant="no-results"
+            title={`No language found for \`${filter}\``}
+            key="no-results-message"
+          >
+            Adjust your search term to find other languages
+          </SelectPanel.Message>,
+          <SelectPanel.Message variant="error" title={`Ooops`} key="error-message">
             Something is wrong.
-          </SelectPanel.Message>
-        ) : null}
-      </SelectPanel>
+          </SelectPanel.Message>,
+        ]}
+        status={isError ? 'error' : undefined}
+      />
     </>
   )
 }
@@ -652,11 +657,17 @@ export const CustomisedNoResults: StoryObj<typeof SelectPanel> = {
         showItemDividers={true}
         initialLoadingType={initialLoadingType}
         height={height}
-      >
-        <SelectPanel.Message variant="no-results" title={`No label found for ${filterValue}`}>
-          Adjust your search term to find other labels
-        </SelectPanel.Message>
-      </SelectPanel>
+        overlayProps={{maxHeight: height === 'auto' || height === 'initial' ? 'xlarge' : height}}
+        messages={[
+          <SelectPanel.Message
+            variant="no-results"
+            title={`No label found for \`${filterValue}\``}
+            key="no-results-message"
+          >
+            Adjust your search term to find other labels
+          </SelectPanel.Message>,
+        ]}
+      />
     )
   },
   args: {

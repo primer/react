@@ -1,9 +1,10 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import Text from '../Text'
 import Octicon from '../Octicon'
 import {AlertIcon} from '@primer/octicons-react'
 import classes from './SelectPanel.module.css'
 import {clsx} from 'clsx'
+import {SelectPanelContext} from './SelectPanel'
 
 export type SelectPanelMessageProps = {
   children: React.ReactNode
@@ -13,6 +14,10 @@ export type SelectPanelMessageProps = {
 }
 
 export const SelectPanelMessage: React.FC<SelectPanelMessageProps> = ({variant, title, children, className}) => {
+  const {status} = useContext(SelectPanelContext)
+  if (status !== variant) {
+    return null
+  }
   return (
     <div className={clsx(classes.Message, className)}>
       {variant !== 'empty' && variant !== 'no-results' ? (

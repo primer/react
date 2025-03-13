@@ -478,14 +478,19 @@ for (const useModernActionList of [false, true]) {
               onOpenChange={isOpen => {
                 setOpen(isOpen)
               }}
-            >
-              <SelectPanel.Message variant="empty" title="You haven't created any projects yet">
-                Start your first project to organise your issues
-              </SelectPanel.Message>
-              <SelectPanel.Message variant="no-results" title={`No language found for ${filter} `}>
-                Adjust your search term to find other languages
-              </SelectPanel.Message>
-            </SelectPanel>
+              messages={[
+                <SelectPanel.Message variant="empty" title="You haven't created any projects yet" key="empty-message">
+                  Start your first project to organise your issues
+                </SelectPanel.Message>,
+                <SelectPanel.Message
+                  variant="no-results"
+                  title={`No language found for ${filter} `}
+                  key="no-results-message"
+                >
+                  Adjust your search term to find other languages
+                </SelectPanel.Message>,
+              ]}
+            />
           </ThemeProvider>
         )
       }
@@ -708,7 +713,7 @@ for (const useModernActionList of [false, true]) {
 
           await user.type(document.activeElement!, 'something')
           // expect(screen.getAllByRole('option')).toHaveLength(0)
-          expect(screen.getByText('No items found for something')).toBeVisible()
+          expect(screen.getByText('No items found for `something`')).toBeVisible()
           expect(screen.getByText('Adjust your search term to find other items.')).toBeVisible()
         })
 
