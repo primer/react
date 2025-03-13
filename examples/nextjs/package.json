@@ -15,7 +15,7 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "styled-components": "5.x",
-    "typescript": "^5.7.2"
+    "typescript": "^5.8.2"
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "^15.1.4",
