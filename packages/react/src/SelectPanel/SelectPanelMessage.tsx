@@ -8,14 +8,14 @@ import {clsx} from 'clsx'
 export type SelectPanelMessageProps = {
   children: React.ReactNode
   title: string
-  variant: 'empty' | 'noResults' | 'error' | 'warning'
+  variant: 'empty' | 'no-results' | 'error' | 'warning'
   className?: string
 }
 
 export const SelectPanelMessage: React.FC<SelectPanelMessageProps> = ({variant, title, children, className}) => {
   return (
     <div className={clsx(classes.Message, className)}>
-      {variant !== 'empty' && variant !== 'noResults' ? (
+      {variant !== 'empty' && variant !== 'no-results' ? (
         <Octicon icon={AlertIcon} className={classes.MessageIcon} data-variant={variant} />
       ) : null}
       <Text className={classes.MessageTitle}>{title}</Text>

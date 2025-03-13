@@ -482,7 +482,7 @@ for (const useModernActionList of [false, true]) {
               <SelectPanel.Message variant="empty" title="You haven't created any projects yet">
                 Start your first project to organise your issues
               </SelectPanel.Message>
-              <SelectPanel.Message variant="noResults" title={`No language found for ${filter} `}>
+              <SelectPanel.Message variant="no-results" title={`No language found for ${filter} `}>
                 Adjust your search term to find other languages
               </SelectPanel.Message>
             </SelectPanel>

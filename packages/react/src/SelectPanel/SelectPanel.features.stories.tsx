@@ -596,7 +596,7 @@ export const CustomisedNoInitialItems = () => {
         <SelectPanel.Message variant="empty" title="You haven't created any projects yet">
           <Link href="https://github.com/projects">Start your first project </Link> to organise your issues.
         </SelectPanel.Message>
-        <SelectPanel.Message variant="noResults" title={`No language found for `}>
+        <SelectPanel.Message variant="no-results" title={`No language found for `}>
           Adjust your search term to find other languages
         </SelectPanel.Message>
         {isError ? (
@@ -653,7 +653,7 @@ export const CustomisedNoResults: StoryObj<typeof SelectPanel> = {
         initialLoadingType={initialLoadingType}
         height={height}
       >
-        <SelectPanel.Message variant="noResults" title={`No label found for ${filterValue}`}>
+        <SelectPanel.Message variant="no-results" title={`No label found for ${filterValue}`}>
           Adjust your search term to find other labels
         </SelectPanel.Message>
       </SelectPanel>

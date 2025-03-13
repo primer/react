@@ -452,15 +452,15 @@ function Panel({
         const variant = child.props.variant ?? null
         if (variant === 'empty' && isNoItemsState) {
           variantMap.set('empty', child)
-        } else if (variant === 'noResults' && isNoMatchState) {
-          variantMap.set('noResults', child)
+        } else if (variant === 'no-results' && isNoMatchState) {
+          variantMap.set('no-results', child)
         } else if (variant === 'error' || variant === 'warning') {
           variantMap.set(variant, child)
         }
       }
     }
 
-    const priorityOrder = ['error', 'warning', 'empty', 'noResults']
+    const priorityOrder = ['error', 'warning', 'empty', 'no-results']
 
     for (const key of priorityOrder) {
       if (variantMap.has(key)) {
@@ -477,7 +477,7 @@ function Panel({
       ]
     else if (isNoMatchState)
       return [
-        <SelectPanel.Message title={`No items found for ${filterValue}`} variant="noResults" key="default-noResults">
+        <SelectPanel.Message title={`No items found for ${filterValue}`} variant="no-results" key="default-no-results">
           Adjust your search term to find other items.
         </SelectPanel.Message>,
       ]
