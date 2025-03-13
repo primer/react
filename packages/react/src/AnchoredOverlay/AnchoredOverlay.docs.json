@@ -157,7 +157,7 @@
     },
     {
       "name": "variant",
-      "type": "{ regular?: 'anchored', narrow?: 'anchored' | 'full-screen' }",
+      "type": "{ regular?: 'anchored', narrow?: 'anchored' | 'fullscreen' }",
       "required": false,
       "description": "Optional prop to set variant for narrow screen sizes",
       "defaultValue": "{ regular: 'anchored', narrow: 'anchored' }"
