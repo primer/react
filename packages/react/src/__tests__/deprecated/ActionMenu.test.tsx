@@ -6,6 +6,9 @@ import {ActionMenu} from '../../deprecated'
 import {behavesAsComponent, checkExports} from '../../utils/testing'
 import {BaseStyles, ThemeProvider} from '../..'
 import type {ItemProps} from '../../deprecated/ActionList/Item'
+import {setupMatchMedia} from '../../utils/test-helpers'
+
+setupMatchMedia()
 
 const items = [
   {text: 'New file'},

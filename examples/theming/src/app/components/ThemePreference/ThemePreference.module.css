@@ -1,9 +1,9 @@
 /* stylelint-disable selector-no-qualifying-type */
-html[data-color-mode='dark'] .light {
+html[data-color-mode='dark'] .Light {
   display: none !important;
 }
 
-html[data-color-mode='light'] .dark,
-html[data-color-mode='auto'] .dark {
+html[data-color-mode='light'] .Dark,
+html[data-color-mode='auto'] .Dark {
   display: none !important;
 }

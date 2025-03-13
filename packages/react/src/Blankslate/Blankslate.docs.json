@@ -11,7 +11,10 @@
       "id": "experimental-components-blankslate-features--with-visual"
     },
     {
-      "id": "experimental-components-blankslate-features--with-primary-action"
+      "id": "experimental-components-blankslate-features--with-primary-action-as-link"
+    },
+    {
+      "id": "experimental-components-blankslate-features--with-primary-action-as-button"
     },
     {
       "id": "experimental-components-blankslate-features--with-secondary-action"
@@ -74,7 +77,8 @@
         {
           "name": "href",
           "type": "string",
-          "description": "Link to complete primary action"
+          "required": false,
+          "description": "Link to complete primary action. If defined, will render as an anchor instead of a button."
         }
       ]
     },

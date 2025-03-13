@@ -219,6 +219,41 @@
           "description": "href when the TrailingAction is rendered as a link."
         }
       ]
+    },
+    {
+      "name": "NavList.GroupExpand",
+      "props": [
+        {
+          "name": "label",
+          "type": "string",
+          "defaultValue": "",
+          "required": true,
+          "description": "Acccessible name for the control."
+        },
+        {
+          "name": "pages",
+          "type": "number",
+          "defaultValue": "0",
+          "required": false,
+          "description": "The total number of pages, used to calculate the number of items to show at a given time."
+        },
+        {
+          "name": "items",
+          "type": "Array<GroupItems>",
+          "required": true,
+          "description": "The NavList.Items to render in the group."
+        },
+        {
+          "name": "renderItem",
+          "type": "(item: {text: string}) => React.ReactNode",
+          "required": false,
+          "description": "A function that returns a ReactNode to render in the group. If this is not provided, the group will only render the items in the array."
+        },
+        {
+          "name": "ref",
+          "type": "React.RefObject<HTMLButtonElement>"
+        }
+      ]
     }
   ]
 }

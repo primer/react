@@ -122,7 +122,7 @@ export type AutocompleteMenuInternalProps<T extends AutocompleteItemProps> = {
   ['aria-labelledby']: string
 }
 
-const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_staff'
+const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_ga'
 
 /**
  * Announces a message to screen readers at a slowed-down rate. This is useful when you want to announce don't want to

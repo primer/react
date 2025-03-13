@@ -12,7 +12,7 @@ import {toggleStyledComponent} from './internal/utils/toggleStyledComponent'
 import classes from './SideNav.module.css'
 import {useFeatureFlag} from './FeatureFlags'
 
-const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_staff'
+const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_ga'
 
 type SideNavBaseProps = {
   as?: React.ElementType
@@ -64,7 +64,7 @@ function SideNav({
     {
       [classes.SideNav]: enabled,
       [classes.SideNavBordered]: enabled && bordered,
-      [classes[`SideNavVariant-${variantClassName}`]]: enabled,
+      [classes[`SideNavVariant--${variantClassName}`]]: enabled,
       sidenav: !enabled,
       [`variant-${variantClassName}`]: !enabled,
     },

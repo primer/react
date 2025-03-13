@@ -20,7 +20,7 @@
     outline: none;
 
     &:focus-visible > div,
-    &.focus-visible > div {
+    &:global(.focus-visible) > div {
       box-shadow: var(--boxShadow-thick) var(--fgColor-accent);
 
       @media (forced-colors: active) {

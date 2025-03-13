@@ -23,8 +23,8 @@
 .Footer {
   display: flex;
   padding: var(--base-size-8);
-  border-color: var(--borderColor-default);
   border-top: var(--borderWidth-thin) solid;
+  border-top-color: var(--borderColor-default);
 }
 
 .FilteredActionList {

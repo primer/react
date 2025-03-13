@@ -9,7 +9,7 @@ import classes from './InlineMessage.module.css'
 import type {SxProp} from '../sx'
 type MessageVariant = 'critical' | 'success' | 'unavailable' | 'warning'
 
-const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_staff'
+const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_ga'
 
 export type InlineMessageProps = React.ComponentPropsWithoutRef<'div'> &
   SxProp & {

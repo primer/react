@@ -828,7 +828,7 @@ const SkeletonItem = () => {
     <StyledSkeletonItemContainer
       className={clsx(
         {
-          [classes.TreeViewSkeletonItemContainerStyles]: cssModulesEnabled,
+          [classes.TreeViewSkeletonItemContainerStyle]: cssModulesEnabled,
           [classes.TreeViewItemSkeleton]: cssModulesEnabled,
         },
         'PRIVATE_TreeView-item-skeleton',
