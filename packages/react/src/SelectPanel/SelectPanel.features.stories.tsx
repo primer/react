@@ -592,7 +592,8 @@ export const CustomisedNoInitialItems = () => {
         selected={selected}
         onSelectedChange={setSelected}
         onFilterChange={onFilterChange}
-        overlayProps={{width: 'medium', height: 'large'}}
+        width="medium"
+        height="large"
         messages={[
           <SelectPanel.Message variant="empty" title="You haven't created any projects yet" key="empty-message">
             <Link href="https://github.com/projects">Start your first project </Link> to organise your issues.

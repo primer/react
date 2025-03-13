@@ -41,8 +41,7 @@
   display: flex;
   height: 100%;
   min-height: min(calc(var(--max-height) - 150px), 324px); /* maxHeight of dialog - (header & footer) */
-  padding-top: var(--base-size-24);
-  padding-bottom: var(--base-size-24);
+  padding: var(--base-size-24);
   text-align: center;
   flex-direction: column;
   justify-content: center;
@@ -62,11 +61,9 @@
 }
 
 .MessageBody {
-  display: flex;
-  font-size: var(--text-body-size-medium);
+  font-size: var(--text-body-size-small);
   color: var(--fgColor-muted);
   align-items: center;
-  flex-direction: column;
   gap: var(--stack-gap-condensed);
 }
 
