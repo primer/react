@@ -100,6 +100,7 @@ export const Default = () => {
         selected={selected}
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
+        width="medium"
       />
     </FormControl>
   )

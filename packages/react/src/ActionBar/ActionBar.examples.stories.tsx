@@ -47,6 +47,22 @@ export const SmallActionBar = () => (
   </ActionBar>
 )
 
+export const WithDisabledItems = () => (
+  <ActionBar aria-label="Toolbar">
+    <ActionBar.IconButton icon={BoldIcon} aria-label="Bold"></ActionBar.IconButton>
+    <ActionBar.IconButton icon={ItalicIcon} aria-label="Italic"></ActionBar.IconButton>
+    <ActionBar.IconButton icon={CodeIcon} aria-label="Code"></ActionBar.IconButton>
+    <ActionBar.IconButton icon={LinkIcon} aria-label="Link"></ActionBar.IconButton>
+    <ActionBar.Divider />
+    <ActionBar.IconButton disabled icon={FileAddedIcon} aria-label="File Added"></ActionBar.IconButton>
+    <ActionBar.IconButton disabled icon={SearchIcon} aria-label="Search"></ActionBar.IconButton>
+    <ActionBar.IconButton disabled icon={QuoteIcon} aria-label="Insert Quote"></ActionBar.IconButton>
+    <ActionBar.IconButton icon={ListUnorderedIcon} aria-label="Unordered List"></ActionBar.IconButton>
+    <ActionBar.IconButton icon={ListOrderedIcon} aria-label="Ordered List"></ActionBar.IconButton>
+    <ActionBar.IconButton icon={TasklistIcon} aria-label="Task List"></ActionBar.IconButton>
+  </ActionBar>
+)
+
 type CommentBoxProps = {'aria-label': string}
 
 export const CommentBox = (props: CommentBoxProps) => {
