@@ -27,16 +27,11 @@ import {announce} from '@primer/live-region-element'
 import classes from './SelectPanel.module.css'
 import {clsx} from 'clsx'
 import {heightMap} from '../Overlay/Overlay'
+import {SelectPanelContext, type SelectPanelStatus} from './SelectPanelContext'
 
 // we add a delay so that it does not interrupt default screen reader announcement and queues after it
 const delayMs = 500
 const loadingDelayMs = 1000
-
-type SelectPanelStatus = 'error' | 'warning' | 'empty' | 'no-results' | undefined
-
-export const SelectPanelContext = React.createContext<{
-  status: SelectPanelStatus
-}>({status: undefined})
 
 const getItemWithActiveDescendant = (
   listRef: React.RefObject<HTMLElement>,

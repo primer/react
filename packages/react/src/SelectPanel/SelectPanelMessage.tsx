@@ -4,7 +4,7 @@ import Octicon from '../Octicon'
 import {AlertIcon} from '@primer/octicons-react'
 import classes from './SelectPanel.module.css'
 import {clsx} from 'clsx'
-import {SelectPanelContext} from './SelectPanel'
+import SelectPanelContext from './SelectPanelContext'
 
 export type SelectPanelMessageProps = {
   children: React.ReactNode
