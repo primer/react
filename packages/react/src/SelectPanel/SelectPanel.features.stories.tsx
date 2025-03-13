@@ -586,7 +586,7 @@ export const CustomisedNoInitialItems = () => {
       <Text id="toggle" fontWeight={'bold'} fontSize={2}>
         Enable Error State :{isError ? 'On' : 'Off'}
       </Text>
-      <ToggleSwitch onClick={onClick} checked={isError} aria-labelledby="switchLabel" />
+      <ToggleSwitch onClick={onClick} checked={isError} aria-labelledby="toggle" />
       <SelectPanel
         title="Set projects"
         renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
