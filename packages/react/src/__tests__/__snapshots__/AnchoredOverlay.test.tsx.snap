@@ -30,7 +30,7 @@ exports[`AnchoredOverlay should render consistently when open 1`] = `
   max-width: calc(100vw - 2rem);
 }
 
-.c1:where([data-variant='full-screen']) {
+.c1:where([data-variant='fullscreen']) {
   top: 0;
   left: 0;
   width: 100vw;
