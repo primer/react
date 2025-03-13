@@ -604,7 +604,7 @@ export const CustomisedNoInitialItems = () => {
         height="large"
         messages={[
           <SelectPanel.Message variant="empty" title="You haven't created any projects yet" key="empty-message">
-            <Link href="https://github.com/projects">Start your first project </Link> to organise your issues.
+            <Link href="https://github.com/projects">Start your first project</Link> to organise your issues.
           </SelectPanel.Message>,
           <SelectPanel.Message
             variant="no-results"
