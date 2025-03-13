@@ -63,7 +63,7 @@
 
 .MessageBody {
   display: flex;
-  font-size: var(--text-body-size-medium);
+  font-size: var(--text-body-size-small);
   color: var(--fgColor-muted);
   align-items: center;
   flex-direction: column;
