@@ -73,6 +73,7 @@
     max-width: var(--base-size-24);
     margin-bottom: var(--base-size-8);
     color: var(--fgColor-muted);
+
     & svg {
       width: 100%;
     }
