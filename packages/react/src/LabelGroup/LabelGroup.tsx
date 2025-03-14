@@ -1,15 +1,14 @@
 import React from 'react'
-import styled from 'styled-components'
 import {XIcon} from '@primer/octicons-react'
 import {getFocusableChild} from '@primer/behaviors/utils'
 import {get} from '../constants'
 import VisuallyHidden from '../_VisuallyHidden'
 import {AnchoredOverlay} from '../AnchoredOverlay'
-import Box from '../Box'
 import {Button, IconButton} from '../Button'
 import {useTheme} from '../ThemeProvider'
-import type {SxProp} from '../sx'
-import sx from '../sx'
+import {Stack, StackItem} from '../Stack/Stack'
+import classes from './LabelGroup.module.css'
+import {clsx} from 'clsx'
 
 export type LabelGroupProps = {
   /** Customize the element type of the rendered container */
@@ -18,47 +17,7 @@ export type LabelGroupProps = {
   overflowStyle?: 'inline' | 'overlay'
   /** How many tokens to show. `'auto'` truncates the tokens to fit in the parent container. Passing a number will truncate after that number tokens. If this is undefined, tokens will never be truncated. */
   visibleChildCount?: 'auto' | number
-} & SxProp
-
-const StyledLabelGroupContainer = styled.div<SxProp>`
-  display: flex;
-  flex-wrap: nowrap;
-  gap: ${get('space.1')};
-  line-height: 1;
-  max-width: 100%;
-  overflow: hidden;
-
-  &[data-overflow='inline'] {
-    flex-wrap: wrap;
-  }
-
-  &[data-list] {
-    padding-inline-start: 0;
-    margin-block-start: 0;
-    margin-block-end: 0;
-    list-style-type: none;
-  }
-
-  ${sx};
-`
-
-const ItemWrapper = styled.div`
-  display: flex;
-  align-items: center;
-
-  /* This min-height matches the height of the expand/collapse button.
-     Without it, the labels/tokens will do a slight layout shift when expanded.
-     This is because the height of the first row will match the token sizes,
-     but the height of the second row will be the height of the collapse button.
-  */
-  min-height: 28px;
-
-  &.ItemWrapper--hidden {
-    order: 9999;
-    pointer-events: none;
-    visibility: hidden;
-  }
-`
+}
 
 // Calculates the width of the overlay to cover the labels/tokens and the expand button.
 const getOverlayWidth = (
@@ -136,18 +95,22 @@ const OverlayToggle: React.FC<
       )}
       focusZoneSettings={{disabled: true}}
     >
-      <Box alignItems="flex-start" display="flex" width={overlayWidth} padding={`${overlayPaddingPx}px`}>
-        <Box display="flex" flexWrap="wrap" sx={{gap: 1}}>
-          {children}
-        </Box>
-        <IconButton
-          onClick={closeOverflowOverlay}
-          icon={XIcon}
-          aria-label="Close"
-          variant="invisible"
-          sx={{flexShrink: 0}}
-        />
-      </Box>
+      <Stack gap="none" direction="horizontal" style={{width: overlayWidth, padding: `${overlayPaddingPx}px`}}>
+        <StackItem>
+          <Stack
+            wrap="wrap"
+            gap="none"
+            align="start"
+            direction="horizontal"
+            className={classes.OverlayToggle_LabelWrapper}
+          >
+            {children}
+          </Stack>
+        </StackItem>
+        <StackItem className={classes.OverlayToggle_CloseButtonWrapper}>
+          <IconButton onClick={closeOverflowOverlay} icon={XIcon} aria-label="Close" variant="invisible" />
+        </StackItem>
+      </Stack>
     </AnchoredOverlay>
   ) : null
 
@@ -156,8 +119,7 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
   children,
   visibleChildCount,
   overflowStyle = 'overlay',
-  sx: sxProp,
-  as = 'ul',
+  as: ContainerAs = 'ul',
 }) => {
   const containerRef = React.useRef<HTMLElement>(null)
   const collapseButtonRef = React.useRef<HTMLButtonElement>(null)
@@ -254,7 +216,7 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
     }
 
     if (visibleChildCount === 'auto') {
-      // Instatiates the IntersectionObserver to track when children fit in the container.
+      // Instantiates the IntersectionObserver to track when children fit in the container.
       const observer = new IntersectionObserver(
         (entries: IntersectionObserverEntry[]) => {
           const updatedEntries: Record<string, boolean> = {}
@@ -327,24 +289,23 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
     }
   }, [overflowStyle, isOverflowShown])
 
-  const isList = as === 'ul' || as === 'ol'
+  const isList = ContainerAs === 'ul' || ContainerAs === 'ol'
   const ToggleWrapper = isList ? 'li' : React.Fragment
+  const ItemWrapper = isList ? 'li' : 'span'
 
   // If truncation is enabled, we need to render based on truncation logic.
   return visibleChildCount ? (
-    <StyledLabelGroupContainer
+    <ContainerAs
+      className={classes.LabelGroupContainer}
       ref={containerRef}
       data-overflow={overflowStyle === 'inline' && isOverflowShown ? 'inline' : undefined}
       data-list={isList || undefined}
-      sx={sxProp}
-      as={as}
     >
       {React.Children.map(children, (child, index) => (
         <ItemWrapper
           // data-index is used as an identifier we can use in the IntersectionObserver
           data-index={index}
-          className={hiddenItemIds.includes(index.toString()) ? 'ItemWrapper--hidden' : undefined}
-          as={isList ? 'li' : 'span'}
+          className={clsx(classes.ItemWrapper, hiddenItemIds.includes(index.toString()) && classes.Hidden)}
           key={index}
         >
           {child}
@@ -376,15 +337,15 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
           </OverlayToggle>
         )}
       </ToggleWrapper>
-    </StyledLabelGroupContainer>
+    </ContainerAs>
   ) : (
-    <StyledLabelGroupContainer data-overflow="inline" data-list={isList || undefined} sx={sxProp} as={as}>
+    <ContainerAs className={classes.LabelGroupContainer} data-overflow="inline" data-list={isList || undefined}>
       {isList
         ? React.Children.map(children, (child, index) => {
             return <li key={index}>{child}</li>
           })
         : children}
-    </StyledLabelGroupContainer>
+    </ContainerAs>
   )
 }
 

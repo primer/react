@@ -32,7 +32,7 @@ describe('LabelGroup', () => {
     thresholds: [],
   })) as jest.Mock<IntersectionObserver>
 
-  behavesAsComponent({Component: LabelGroup, options: {skipAs: true}})
+  behavesAsComponent({Component: LabelGroup, options: {skipAs: true, skipSx: true}})
 
   checkExports('LabelGroup', {
     default: LabelGroup,
@@ -147,7 +147,7 @@ describe('LabelGroup', () => {
     const expandButton = getByText('+2')
     const fourthLabel = getByText('Four')
 
-    expect(fourthLabel).not.toBeVisible()
+    expect(fourthLabel.parentElement).toHaveClass('Hidden')
 
     await user.click(expandButton)
 
