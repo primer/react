@@ -133,7 +133,7 @@ export const Group: React.FC<React.PropsWithChildren<ActionListGroupProps>> = ({
               // because the heading is hidden from the accessibility tree and only used for presentation role.
               // We will instead use aria-label to label the list. See a line below.
               aria-labelledby={listRole ? undefined : groupHeadingId}
-              aria-label={listRole ? title ?? (slots.groupHeading?.props.children as string) : undefined}
+              aria-label={listRole ? (title ?? (slots.groupHeading?.props.children as string)) : undefined}
               role={role || (listRole && 'group')}
             >
               {slots.groupHeading ? childrenWithoutSlots : props.children}
@@ -156,7 +156,7 @@ export const Group: React.FC<React.PropsWithChildren<ActionListGroupProps>> = ({
             // because the heading is hidden from the accessibility tree and only used for presentation role.
             // We will instead use aria-label to label the list. See a line below.
             aria-labelledby={listRole ? undefined : groupHeadingId}
-            aria-label={listRole ? title ?? (slots.groupHeading?.props.children as string) : undefined}
+            aria-label={listRole ? (title ?? (slots.groupHeading?.props.children as string)) : undefined}
             role={role || (listRole && 'group')}
           >
             {slots.groupHeading ? childrenWithoutSlots : props.children}
@@ -190,7 +190,7 @@ export const Group: React.FC<React.PropsWithChildren<ActionListGroupProps>> = ({
           // because the heading is hidden from the accessibility tree and only used for presentation role.
           // We will instead use aria-label to label the list. See a line below.
           aria-labelledby={listRole ? undefined : groupHeadingId}
-          aria-label={listRole ? title ?? (slots.groupHeading?.props.children as string) : undefined}
+          aria-label={listRole ? (title ?? (slots.groupHeading?.props.children as string)) : undefined}
           role={role || (listRole && 'group')}
         >
           {slots.groupHeading ? childrenWithoutSlots : props.children}
