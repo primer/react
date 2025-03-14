@@ -1,0 +1,59 @@
+name: Lock Release Pull Request
+
+on:
+  workflow_dispatch:
+    inputs:
+      action:
+        description: 'Lock or unlock the release?'
+        required: true
+        type: choice
+        options:
+          - lock
+          - unlock
+
+jobs:
+  lock:
+    name: Toggle Release Lock
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get App Token
+        uses: actions/create-github-app-token@v1
+        id: app-token
+        with:
+          app-id: ${{ vars.PRIMER_APP_ID_SHARED }}
+          owner: primer
+          repositories: react
+          private-key: ${{ secrets.PRIMER_APP_PRIVATE_KEY_SHARED }}
+      - name: Toggle Rule > Release Conductor
+        run: |
+          enforcement=$([ "${{ github.event.inputs.action }}" == "lock" ] && echo "active" || echo "disabled")
+          gh api \
+            --method PUT \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            /repos/primer/react/rulesets/3801256 \
+            -f "enforcement=${enforcement}"
+        env:
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+      - name: Toggle Rule > Update Before Merging
+        run: |
+          enforcement=$([ "${{ github.event.inputs.action }}" == "lock" ] && echo "active" || echo "disabled")
+          gh api \
+            --method PUT \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            /repos/primer/react/rulesets/4089341 \
+            -f "enforcement=${enforcement}"
+        env:
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+      - name: Toggle Rule > Merge Queue
+        run: |
+          enforcement=$([ "${{ github.event.inputs.action }}" == "lock" ] && echo "disabled" || echo "active")
+          gh api \
+            --method PUT \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            /repos/primer/react/rulesets/4089335 \
+            -f "enforcement=${enforcement}"
+        env:
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
