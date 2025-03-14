@@ -2,4 +2,4 @@
 "@primer/react": patch
 ---
 
-Fixed icon color on BlankSlate
+Update icon color for Blankslate to `--fgColor-muted` to align with Figma and Primer ViewComponents
