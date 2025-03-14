@@ -9,7 +9,7 @@ import type {ItemInput} from '../deprecated/ActionList/List'
 import {FeatureFlags} from '../FeatureFlags'
 import FormControl from '../FormControl'
 
-const meta = {
+const meta: Meta<typeof SelectPanel> = {
   title: 'Components/SelectPanel/Dev',
   component: SelectPanel,
 } satisfies Meta<typeof SelectPanel>

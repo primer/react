@@ -8,7 +8,7 @@ import {SelectPanel} from '../SelectPanel'
 import type {ItemInput} from '../deprecated/ActionList/List'
 import FormControl from '../FormControl'
 
-const meta = {
+const meta: Meta<typeof SelectPanel> = {
   title: 'Components/SelectPanel',
   component: SelectPanel,
 } satisfies Meta<typeof SelectPanel>

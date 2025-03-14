@@ -3,6 +3,7 @@ import type {Meta, StoryObj} from '@storybook/react'
 import Box from '../Box'
 import {Button} from '../Button'
 import type {ItemInput, GroupedListProps} from '../deprecated/ActionList/List'
+import Link from '../Link'
 import {SelectPanel, type SelectPanelProps} from './SelectPanel'
 import {
   FilterIcon,
@@ -15,9 +16,11 @@ import {
   VersionsIcon,
 } from '@primer/octicons-react'
 import useSafeTimeout from '../hooks/useSafeTimeout'
+import ToggleSwitch from '../ToggleSwitch'
+import Text from '../Text'
 import FormControl from '../FormControl'
 
-const meta = {
+const meta: Meta<typeof SelectPanel> = {
   title: 'Components/SelectPanel/Features',
   component: SelectPanel,
 } satisfies Meta<SelectPanelProps>
@@ -542,6 +545,137 @@ export const AsyncFetch: StoryObj<SelectPanelProps> = {
         height={height}
         initialLoadingType={initialLoadingType}
         width="medium"
+      />
+    )
+  },
+  args: {
+    initialLoadingType: 'spinner',
+    height: 'medium',
+  },
+  argTypes: {
+    initialLoadingType: {
+      control: 'select',
+      options: ['spinner', 'skeleton'],
+    },
+    height: {
+      control: 'select',
+      options: ['auto', 'xsmall', 'small', 'medium', 'large', 'xlarge'],
+    },
+  },
+}
+
+export const CustomisedNoInitialItems = () => {
+  const [selected, setSelected] = React.useState<ItemInput[]>([])
+  const [filteredItems, setFilteredItems] = React.useState<ItemInput[]>([])
+  const [open, setOpen] = useState(false)
+  const [filter, setFilter] = useState<string>('')
+  const onFilterChange = (value: string = '') => {
+    setFilter(value)
+    setTimeout(() => {
+      // fetch the items
+      setFilteredItems([])
+    }, 0)
+  }
+  const [isError, setIsError] = React.useState(false)
+
+  const onClick = React.useCallback(() => {
+    setIsError(!isError)
+  }, [setIsError, isError])
+  return (
+    <>
+      <Text id="toggle" fontWeight={'bold'} fontSize={2}>
+        Enable Error State :{isError ? 'On' : 'Off'}
+      </Text>
+      <ToggleSwitch onClick={onClick} checked={isError} aria-labelledby="toggle" />
+      <SelectPanel
+        title="Set projects"
+        renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
+          <Button trailingAction={TriangleDownIcon} aria-labelledby={` ${ariaLabelledBy}`} {...anchorProps}>
+            {children ?? 'Select Labels'}
+          </Button>
+        )}
+        open={open}
+        onOpenChange={setOpen}
+        items={filteredItems}
+        selected={selected}
+        onSelectedChange={setSelected}
+        onFilterChange={onFilterChange}
+        width="medium"
+        height="large"
+        messages={[
+          <SelectPanel.Message variant="empty" title="You haven't created any projects yet" key="empty-message">
+            <Link href="https://github.com/projects">Start your first project</Link> to organise your issues.
+          </SelectPanel.Message>,
+          <SelectPanel.Message
+            variant="no-results"
+            title={`No language found for \`${filter}\``}
+            key="no-results-message"
+          >
+            Adjust your search term to find other languages
+          </SelectPanel.Message>,
+          <SelectPanel.Message variant="error" title={`Ooops`} key="error-message">
+            Something is wrong.
+          </SelectPanel.Message>,
+        ]}
+        status={isError ? 'error' : undefined}
+      />
+    </>
+  )
+}
+
+export const CustomisedNoResults: StoryObj<typeof SelectPanel> = {
+  render: ({initialLoadingType, height}) => {
+    const [selected, setSelected] = React.useState<ItemInput[]>([])
+    const [filteredItems, setFilteredItems] = React.useState<ItemInput[]>([])
+    const [filterValue, setFilterValue] = React.useState<string>('')
+    const [open, setOpen] = useState(false)
+    const filterTimerId = useRef<number | null>(null)
+    const {safeSetTimeout, safeClearTimeout} = useSafeTimeout()
+    const onFilterChange = (value: string) => {
+      setFilterValue(value)
+      if (filterTimerId.current) {
+        safeClearTimeout(filterTimerId.current)
+      }
+
+      filterTimerId.current = safeSetTimeout(() => {
+        setFilteredItems(items.filter(item => item.text.toLowerCase().startsWith(value.toLowerCase())))
+      }, 2000) as unknown as number
+    }
+
+    return (
+      <SelectPanel
+        title="Select labels"
+        subtitle="Use labels to organize issues and pull requests"
+        renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
+          <Button
+            trailingAction={TriangleDownIcon}
+            aria-labelledby={` ${ariaLabelledBy}`}
+            {...anchorProps}
+            aria-haspopup="dialog"
+          >
+            {children ?? 'Select Labels'}
+          </Button>
+        )}
+        placeholderText="Filter labels"
+        open={open}
+        onOpenChange={setOpen}
+        items={filteredItems}
+        selected={selected}
+        onSelectedChange={setSelected}
+        onFilterChange={onFilterChange}
+        showItemDividers={true}
+        initialLoadingType={initialLoadingType}
+        height={height}
+        overlayProps={{maxHeight: height === 'auto' || height === 'initial' ? 'xlarge' : height}}
+        messages={[
+          <SelectPanel.Message
+            variant="no-results"
+            title={`No label found for \`${filterValue}\``}
+            key="no-results-message"
+          >
+            Adjust your search term to find other labels
+          </SelectPanel.Message>,
+        ]}
       />
     )
   },

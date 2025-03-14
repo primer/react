@@ -144,7 +144,18 @@
       "type": "string | React.ReactElement",
       "defaultValue": "null",
       "description": "Footer rendered at the end of the panel"
+    },
+    {
+      "name": "status",
+      "type": "'empty' | 'no-result' | 'error' | 'warning' | undefined",
+      "defaultValue": "null",
+      "description": "Status of the panel, used to display error, empty or warning messages"
+    },
+    {
+      "name": "messages",
+      "type": "React.ReactNode[]",
+      "defaultValue": "A default empty and no-result message is provided by default if this option is not supplied",
+      "description": "Array of potential messages to display in the panel depending on the status"
     }
-  ],
-  "subcomponents": []
+  ]
 }
