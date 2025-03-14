@@ -1,5 +1,29 @@
 # @primer/react
 
+## 37.16.0
+
+### Minor Changes
+
+- [#5763](https://github.com/primer/react/pull/5763) [`d3926d1`](https://github.com/primer/react/commit/d3926d183c690f4c3ca80c6f5de92a869688ead7) Thanks [@hussam-i-am](https://github.com/hussam-i-am)! - chore(Box): Mark Box and its props as deprecated
+
+- [#5760](https://github.com/primer/react/pull/5760) [`8b492cf`](https://github.com/primer/react/commit/8b492cfef0a086d95803e85c3fc63b4c07b58aa5) Thanks [@TylerJDev](https://github.com/TylerJDev)! - Radio: Removes `aria-invalid` and `aria-required` from `Radio`, as they are not supported on the element's role.
+
+- [#5759](https://github.com/primer/react/pull/5759) [`76bf60d`](https://github.com/primer/react/commit/76bf60d6772d39322def284d43d711480bcc5c81) Thanks [@siddharthkp](https://github.com/siddharthkp)! - AnchoredOverlay: Add prop to set responsive variant. Example: `variant: {regular: 'anchored', narrow: 'anchored'}`
+
+### Patch Changes
+
+- [#5768](https://github.com/primer/react/pull/5768) [`7b2eb4e`](https://github.com/primer/react/commit/7b2eb4e71966321eed9f5b779bb5bbf997ca9191) Thanks [@joshblack](https://github.com/joshblack)! - Update CSS Custom Property used in skeletons to fix animation behind feature flag.
+
+- [#5773](https://github.com/primer/react/pull/5773) [`9e18567`](https://github.com/primer/react/commit/9e1856799e8d6f54262fec020635ba1ee0ed5ad0) Thanks [@lukasoppermann](https://github.com/lukasoppermann)! - Update icon color for Blankslate to `--fgColor-muted` to align with Figma and Primer ViewComponents
+
+- [#5764](https://github.com/primer/react/pull/5764) [`c63e805`](https://github.com/primer/react/commit/c63e80540f9be6debeb2bbab13979ab12099414c) Thanks [@joshblack](https://github.com/joshblack)! - Update base component for Checkbox and Radio to pass along correct prop type in React 19
+
+- [#5765](https://github.com/primer/react/pull/5765) [`86a6211`](https://github.com/primer/react/commit/86a6211656e991fbd1d202253636296351cc11d8) Thanks [@joshblack](https://github.com/joshblack)! - Update ordering of selectors to improve rendering of checked Radio options
+
+- [#5649](https://github.com/primer/react/pull/5649) [`63ca6f2`](https://github.com/primer/react/commit/63ca6f2796688d5777edf1dd568c8bd1bb337f11) Thanks [@joshblack](https://github.com/joshblack)! - Update BaseStyles to set data-color-mode to auto when colorMode in ThemeProvider is auto
+
+- [#5767](https://github.com/primer/react/pull/5767) [`e0c34d0`](https://github.com/primer/react/commit/e0c34d06b83d22776e22472fd9d9ee821ff14f44) Thanks [@mperrotti](https://github.com/mperrotti)! - Upgrades tab-container-element
+
 ## 37.15.0
 
 ### Minor Changes
