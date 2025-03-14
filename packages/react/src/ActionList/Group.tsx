@@ -57,7 +57,7 @@ export type ActionListGroupProps = React.ComponentPropsWithoutRef<'div'> & {
    * Provide an optional class name to be passed to the outermost element rendered by the component.
    */
   className?: string
-  
+
   /**
    * The ARIA role describing the function of the list inside `Group` component. `listbox` or `menu` are a common values.
    */
