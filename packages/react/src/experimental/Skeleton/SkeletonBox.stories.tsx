@@ -13,12 +13,6 @@ export const Default = () => <SkeletonBox />
 export const Playground: StoryFn<ComponentProps<typeof SkeletonBox>> = args => <SkeletonBox {...args} />
 
 Playground.argTypes = {
-  sx: {
-    controls: false,
-    table: {
-      disable: true,
-    },
-  },
   height: {
     type: 'string',
   },
