@@ -2,9 +2,9 @@
 
 ## Status
 
-| Stage    | Status |
-| -------- | ------ |
-| Approved | ✅     |
+| Stage    | Status                                                              |
+| -------- | ------------------------------------------------------------------- |
+| Approved | ✅                                                                  |
 | Adopted  | 🚧, remaining work in: https://github.com/github/primer/issues/4892 |
 
 ## Context
