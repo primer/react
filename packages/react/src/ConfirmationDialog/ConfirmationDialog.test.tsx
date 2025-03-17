@@ -10,6 +10,9 @@ import {ConfirmationDialog, useConfirm} from './ConfirmationDialog'
 import theme from '../theme'
 import {ThemeProvider} from '../ThemeProvider'
 import {behavesAsComponent, checkExports} from '../utils/testing'
+import {setupMatchMedia} from '../utils/test-helpers'
+
+setupMatchMedia() // need to mock media for deprecated/ActionMenu
 
 const Basic = ({confirmButtonType}: Pick<React.ComponentProps<typeof ConfirmationDialog>, 'confirmButtonType'>) => {
   const [isOpen, setIsOpen] = useState(false)

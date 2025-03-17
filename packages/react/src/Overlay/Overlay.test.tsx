@@ -8,6 +8,9 @@ import BaseStyles from '../BaseStyles'
 import {ThemeProvider} from '../ThemeProvider'
 import {NestedOverlays, MemexNestedOverlays, MemexIssueOverlay, PositionedOverlays} from './Overlay.features.stories'
 import {FeatureFlags} from '../FeatureFlags'
+import {setupMatchMedia} from '../utils/test-helpers'
+
+setupMatchMedia()
 
 type TestComponentSettings = {
   initialFocus?: 'button'

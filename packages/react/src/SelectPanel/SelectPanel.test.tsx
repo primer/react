@@ -10,6 +10,9 @@ import {getLiveRegion} from '../utils/testing'
 import {IconButton} from '../Button'
 import {ArrowLeftIcon} from '@primer/octicons-react'
 import Box from '../Box'
+import {setupMatchMedia} from '../utils/test-helpers'
+
+setupMatchMedia()
 
 const renderWithFlag = (children: React.ReactNode, flag: boolean) => {
   return render(
