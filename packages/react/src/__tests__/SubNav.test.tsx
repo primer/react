@@ -5,7 +5,7 @@ import {render as HTMLRender} from '@testing-library/react'
 import axe from 'axe-core'
 
 describe('SubNav', () => {
-  behavesAsComponent({Component: SubNav, options: {skipSx: true, skipAs: true}})
+  behavesAsComponent({Component: SubNav, options: {skipAs: true}})
 
   checkExports('SubNav', {
     default: SubNav,
