@@ -53,7 +53,7 @@ const TimelineItem = React.forwardRef<HTMLDivElement, TimelineItemProps>(
         <Box
           as="div"
           {...props}
-          className={clsx(className, classes.TimelineItem)}
+          className={clsx(className, 'Timeline-Item', classes.TimelineItem)}
           ref={forwardRef}
           data-condensed={condensed ? '' : undefined}
           sx={sxProp}
@@ -63,7 +63,7 @@ const TimelineItem = React.forwardRef<HTMLDivElement, TimelineItemProps>(
     return (
       <div
         {...props}
-        className={clsx(className, classes.TimelineItem)}
+        className={clsx(className, 'Timeline-Item', classes.TimelineItem)}
         ref={forwardRef}
         data-condensed={condensed ? '' : undefined}
       />
