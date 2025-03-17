@@ -6,6 +6,9 @@ import {render as HTMLRender} from '@testing-library/react'
 import theme from '../../theme'
 import {Button, IconButton, ActionMenu, ActionList, ThemeProvider, BaseStyles, ButtonGroup} from '../..'
 import {XIcon} from '@primer/octicons-react'
+import {setupMatchMedia} from '../../utils/test-helpers'
+
+setupMatchMedia()
 
 const TooltipComponent = (props: Omit<TooltipProps, 'text'> & {text?: string}) => (
   <Tooltip text="Tooltip text" {...props}>
