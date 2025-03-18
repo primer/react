@@ -119,25 +119,25 @@ const Root = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeader
         },
       '&[data-has-border="true"]:has([data-component="PH_Navigation"][data-hidden-all]), &[data-has-border="true"]:not(:has([data-component="PH_Navigation"]))':
         {
-          borderBlockEnd: '1px solid var(--borderColor-default)',
-          paddingBlockEnd: 'var(--stack-padding-condensed)',
+          borderBlockEnd: 'var(--borderWidth-thin) solid var(--borderColor-default)',
+          paddingBlockEnd: 'var(--base-size-8)',
         },
       '@media screen and (max-width: 768px)': {
         '&[data-has-border="true"]:has([data-component="PH_Navigation"][data-hidden-narrow])': {
-          borderBlockEnd: '1px solid var(--borderColor-default)',
-          paddingBlockEnd: 'var(--stack-padding-condensed)',
+          borderBlockEnd: 'var(--borderWidth-thin) solid var(--borderColor-default)',
+          paddingBlockEnd: 'var(--base-size-8)',
         },
       },
       '@media screen and (min-width: 768px)': {
         '&[data-has-border="true"]:has([data-component="PH_Navigation"][data-hidden-regular])': {
-          borderBlockEnd: '1px solid var(--borderColor-default)',
-          paddingBlockEnd: 'var(--stack-padding-condensed)',
+          borderBlockEnd: 'var(--borderWidth-thin) solid var(--borderColor-default)',
+          paddingBlockEnd: 'var(--base-size-8)',
         },
       },
       '@media screen and (min-width: 1440px)': {
         '&[data-has-border="true"]:has([data-component="PH_Navigation"][data-hidden-wide])': {
-          borderBlockEnd: '1px solid var(--borderColor-default)',
-          paddingBlockEnd: 'var(--stack-padding-condensed)',
+          borderBlockEnd: 'var(--borderWidth-thin) solid var(--borderColor-default)',
+          paddingBlockEnd: 'var(--base-size-8)',
         },
       },
     }
