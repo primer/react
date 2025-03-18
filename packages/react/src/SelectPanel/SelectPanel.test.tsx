@@ -511,6 +511,40 @@ for (const useModernActionList of [false, true]) {
         )
       }
 
+      function NoItemAvailableSelectPanel() {
+        const [selected, setSelected] = React.useState<SelectPanelProps['items']>([])
+        const [filter, setFilter] = React.useState('')
+        const [open, setOpen] = React.useState(false)
+
+        const onSelectedChange = (selected: SelectPanelProps['items']) => {
+          setSelected(selected)
+        }
+
+        const items: SelectPanelProps['items'] = []
+
+        return (
+          <ThemeProvider>
+            <SelectPanel
+              title="test title"
+              subtitle="test subtitle"
+              items={items.filter(item => item.text?.includes(filter))}
+              placeholder="Select items"
+              placeholderText="Filter items"
+              selected={selected}
+              onSelectedChange={onSelectedChange}
+              filterValue={filter}
+              onFilterChange={value => {
+                setFilter(value)
+              }}
+              open={open}
+              onOpenChange={isOpen => {
+                setOpen(isOpen)
+              }}
+            />
+          </ThemeProvider>
+        )
+      }
+
       describe('filtering', () => {
         it('should filter the list of items when the user types into the input', async () => {
           const user = userEvent.setup()
@@ -683,6 +717,60 @@ for (const useModernActionList of [false, true]) {
       describe('Empty state', () => {
         // This is only implemented with the feature flag (for now)
         if (!useModernActionList) return
+
+        it('should display the default empty state message when there is no matching item after filtering (No custom message is provided)', async () => {
+          const user = userEvent.setup()
+
+          renderWithFlag(<FilterableSelectPanel />, useModernActionList)
+
+          await user.click(screen.getByText('Select items'))
+
+          expect(screen.getAllByRole('option')).toHaveLength(3)
+
+          await user.type(document.activeElement!, 'something')
+          expect(screen.getByText("You haven't created any items yet")).toBeVisible()
+          expect(screen.getByText('Please add or create new items to populate the list.')).toBeVisible()
+        })
+
+        it('should display the default empty state message when there is no item after the initial load (No custom message is provided)', async () => {
+          const user = userEvent.setup()
+
+          renderWithFlag(<NoItemAvailableSelectPanel />, useModernActionList)
+
+          await waitFor(async () => {
+            await user.click(screen.getByText('Select items'))
+            expect(screen.getByText("You haven't created any items yet")).toBeVisible()
+            expect(screen.getByText('Please add or create new items to populate the list.')).toBeVisible()
+          })
+        })
+        it('should display the custom empty state message when there is no matching item after filtering', async () => {
+          const user = userEvent.setup()
+
+          renderWithFlag(
+            <SelectPanelWithCustomMessages
+              items={[
+                {
+                  text: 'item one',
+                },
+                {
+                  text: 'item two',
+                },
+                {
+                  text: 'item three',
+                },
+              ]}
+            />,
+            useModernActionList,
+          )
+
+          await user.click(screen.getByText('Select items'))
+
+          expect(screen.getAllByRole('option')).toHaveLength(3)
+
+          await user.type(document.activeElement!, 'something')
+          expect(screen.getByText('No language found for something')).toBeVisible()
+          expect(screen.getByText('Adjust your search term to find other languages')).toBeVisible()
+        })
 
         it('should display the custom empty state message when there is no item after the initial load', async () => {
           const user = userEvent.setup()

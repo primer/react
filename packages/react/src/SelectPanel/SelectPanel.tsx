@@ -32,6 +32,12 @@ import {heightMap} from '../Overlay/Overlay'
 const delayMs = 500
 const loadingDelayMs = 1000
 
+const DefaultEmptyMessage = (
+  <SelectPanelMessage variant="empty" title="You haven't created any items yet" key="empty-message">
+    Please add or create new items to populate the list.
+  </SelectPanelMessage>
+)
+
 const getItemWithActiveDescendant = (
   listRef: React.RefObject<HTMLElement>,
   items: FilteredActionListProps['items'],
@@ -442,6 +448,8 @@ function Panel({
 
   // If there is no items after the first load, show the no items state
 
+  const isEmpty = items.length === 0
+
   return (
     <LiveRegion>
       <AnchoredOverlay
@@ -521,7 +529,7 @@ function Panel({
             loadingType={loadingType()}
             // hack because the deprecated ActionList does not support this prop
             {...{
-              message,
+              message: isEmpty && !message ? DefaultEmptyMessage : message,
             }}
             // inheriting height and maxHeight ensures that the FilteredActionList is never taller
             // than the Overlay (which would break scrolling the items)
