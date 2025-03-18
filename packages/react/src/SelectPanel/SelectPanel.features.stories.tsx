@@ -562,9 +562,10 @@ export const AsyncFetch: StoryObj<SelectPanelProps> = {
 }
 
 export const WithOnCancel = () => {
-  const intialSelection = items.slice(1, 3)
-  const [selected, setSelected] = useState<ItemInput[]>(intialSelection)
-  const [filter, setFilter] = useState('')
+  const [intialSelection, setInitialSelection] = React.useState<ItemInput[]>(items.slice(1, 3))
+
+  const [selected, setSelected] = React.useState<ItemInput[]>(intialSelection)
+  const [filter, setFilter] = React.useState('')
   const filteredItems = items.filter(
     item =>
       // design guidelines say to always show selected items in the list
@@ -580,7 +581,11 @@ export const WithOnCancel = () => {
     if (!aIsSelected && bIsSelected) return 1
     return 0
   })
+
   const [open, setOpen] = useState(false)
+  React.useEffect(() => {
+    if (!open) setInitialSelection(selected) // set initialSelection for next time
+  }, [open])
 
   return (
     <FormControl>
