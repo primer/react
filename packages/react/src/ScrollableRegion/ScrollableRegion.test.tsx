@@ -37,8 +37,8 @@ describe('ScrollableRegion', () => {
     expect(screen.getByTestId('container')).not.toHaveAttribute('aria-labelledby')
     expect(screen.getByTestId('container')).not.toHaveAttribute('aria-label')
 
-    expect(screen.getByTestId('container')).toHaveStyleRule('overflow', 'auto')
-    expect(screen.getByTestId('container')).toHaveStyleRule('position', 'relative')
+    expect(screen.getByTestId('container')).not.toHaveStyleRule('overflow', 'auto')
+    expect(screen.getByTestId('container')).not.toHaveStyleRule('position', 'relative')
   })
 
   test('does render with region props when overflow is present', () => {
@@ -84,5 +84,7 @@ describe('ScrollableRegion', () => {
     expect(screen.getByLabelText('Example label')).toHaveAttribute('role', 'region')
     expect(screen.getByLabelText('Example label')).toHaveAttribute('tabindex', '0')
     expect(screen.getByLabelText('Example label')).toHaveAttribute('aria-label')
+    expect(screen.getByTestId('container')).toHaveStyleRule('overflow', 'auto')
+    expect(screen.getByTestId('container')).toHaveStyleRule('position', 'relative')
   })
 })
