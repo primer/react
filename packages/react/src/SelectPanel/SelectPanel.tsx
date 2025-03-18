@@ -562,7 +562,8 @@ export function SelectPanel({
             >
               {footer}
             </Box>
-          ) : (
+          ) : isMultiSelectVariant(selected) ? (
+            /* Save and Cancel buttons are only useful for multiple selection, single selection instantly closes the panel */
             <Box
               sx={
                 enabled
@@ -601,7 +602,7 @@ export function SelectPanel({
                 Save
               </Button>
             </Box>
-          )}
+          ) : null}
         </Box>
       </AnchoredOverlay>
     </LiveRegion>
