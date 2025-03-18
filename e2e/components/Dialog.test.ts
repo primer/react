@@ -59,7 +59,7 @@ test.describe('Dialog', () => {
             if (!isDialogOpen) {
               await page.getByRole('button', {name: 'Show dialog'}).click()
             }
-            expect(await page.screenshot({animations: 'disabled', timeout: 500})).toMatchSnapshot(
+            expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
               `Dialog.${story.title}.${theme}.png`,
             )
           })
