@@ -187,7 +187,7 @@ const Backdrop = toggleStyledComponent(
     align-items: center;
     justify-content: center;
     background-color: ${get('colors.primer.canvas.backdrop')};
-    animation: dialog-backdrop-appear 200ms ${get('animation.easeOutCubic')};
+    animation: dialog-backdrop-appear 200s ${get('animation.easeOutCubic')};
 
     &[data-position-regular='center'] {
       align-items: center;
@@ -271,14 +271,14 @@ const StyledDialog = toggleStyledComponent(
     opacity: 1;
 
     @media screen and (prefers-reduced-motion: no-preference) {
-      animation: Overlay--motion-scaleFade 0.2s cubic-bezier(0.33, 1, 0.68, 1) 0ms 1 normal none running;
+      animation: Overlay--motion-scaleFade 0.2s cubic-bezier(0.33, 1, 0.68, 1) 0s 1 normal none running;
     }
 
     &[data-position-regular='center'] {
       border-radius: var(--borderRadius-large, 0.75rem);
 
       @media screen and (prefers-reduced-motion: no-preference) {
-        animation: Overlay--motion-scaleFade 0.2s cubic-bezier(0.33, 1, 0.68, 1) 0ms 1 normal none running;
+        animation: Overlay--motion-scaleFade 0.2s cubic-bezier(0.33, 1, 0.68, 1) 0s 1 normal none running;
       }
     }
 
@@ -290,7 +290,7 @@ const StyledDialog = toggleStyledComponent(
       border-bottom-left-radius: 0;
 
       @media screen and (prefers-reduced-motion: no-preference) {
-        animation: Overlay--motion-slideInRight 0.25s cubic-bezier(0.33, 1, 0.68, 1) 0ms 1 normal none running;
+        animation: Overlay--motion-slideInRight 0.25s cubic-bezier(0.33, 1, 0.68, 1) 0s 1 normal none running;
       }
     }
 
@@ -323,7 +323,7 @@ const StyledDialog = toggleStyledComponent(
         border-bottom-left-radius: 0;
 
         @media screen and (prefers-reduced-motion: no-preference) {
-          animation: Overlay--motion-slideUp 0.25s cubic-bezier(0.33, 1, 0.68, 1) 0ms 1 normal none running;
+          animation: Overlay--motion-slideUp 0.25s cubic-bezier(0.33, 1, 0.68, 1) 0s 1 normal none running;
         }
       }
 
@@ -336,7 +336,7 @@ const StyledDialog = toggleStyledComponent(
         flex-grow: 1;
 
         @media screen and (prefers-reduced-motion: no-preference) {
-          animation: Overlay--motion-scaleFade 0.2s cubic-bezier(0.33, 1, 0.68, 1) 0ms 1 normal none running;
+          animation: Overlay--motion-scaleFade 0.2s cubic-bezier(0.33, 1, 0.68, 1) 0s 1 normal none running;
         }
       }
     }
@@ -677,7 +677,7 @@ const Buttons: React.FC<React.PropsWithChildren<{buttons: DialogButtonProps[]}>>
 }
 
 const CloseButton: React.FC<React.PropsWithChildren<{onClose: () => void}>> = ({onClose}) => {
-  return <IconButton tooltipDirection="n" icon={XIcon} aria-label="Close" onClick={onClose} variant="invisible" />
+  return <IconButton icon={XIcon} aria-label="Close" onClick={onClose} variant="invisible" />
 }
 
 /**
