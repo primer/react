@@ -26,8 +26,8 @@
   flex-direction: row;
   gap: var(--base-size-8);
   padding-top: var(--base-size-12);
-  padding-right: var(--base-size-24);
-  padding-left: var(--base-size-24);
+  padding-right: var(--base-size-16);
+  padding-left: var(--base-size-16);
   padding-bottom: var(--base-size-12);
   border-top: 1px solid;
   border-bottom: 1px solid;
