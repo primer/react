@@ -47,6 +47,7 @@
 
 .ResponsiveFooter {
   display: none;
+  padding: var(--base-size-16);
 
   @media screen and (--viewportRange-narrow) {
     display: flex;
