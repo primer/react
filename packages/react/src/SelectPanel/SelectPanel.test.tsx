@@ -511,40 +511,6 @@ for (const useModernActionList of [false, true]) {
         )
       }
 
-      function NoItemAvailableSelectPanel() {
-        const [selected, setSelected] = React.useState<SelectPanelProps['items']>([])
-        const [filter, setFilter] = React.useState('')
-        const [open, setOpen] = React.useState(false)
-
-        const onSelectedChange = (selected: SelectPanelProps['items']) => {
-          setSelected(selected)
-        }
-
-        const items: SelectPanelProps['items'] = []
-
-        return (
-          <ThemeProvider>
-            <SelectPanel
-              title="test title"
-              subtitle="test subtitle"
-              items={items.filter(item => item.text?.includes(filter))}
-              placeholder="Select items"
-              placeholderText="Filter items"
-              selected={selected}
-              onSelectedChange={onSelectedChange}
-              filterValue={filter}
-              onFilterChange={value => {
-                setFilter(value)
-              }}
-              open={open}
-              onOpenChange={isOpen => {
-                setOpen(isOpen)
-              }}
-            />
-          </ThemeProvider>
-        )
-      }
-
       describe('filtering', () => {
         it('should filter the list of items when the user types into the input', async () => {
           const user = userEvent.setup()
