@@ -585,7 +585,7 @@ export const WithOnCancel = () => {
   const [open, setOpen] = useState(false)
   React.useEffect(() => {
     if (!open) setInitialSelection(selected) // set initialSelection for next time
-  }, [open])
+  }, [open, selected])
 
   return (
     <FormControl>
