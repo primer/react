@@ -63,7 +63,7 @@ export function renderRoot(component: React.ReactElement) {
  *   .toEqual(['a', 'b'])
  * ```
  */
-export function renderClasses(component: React.ReactElement): string {
+export function renderClasses(component: React.ReactElement): Array<string> {
   const {
     props: {className},
   } = render(component)

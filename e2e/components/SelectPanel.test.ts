@@ -108,4 +108,24 @@ test.describe('SelectPanel', () => {
       `SelectPanel-Default-forced-colors-dark-modern-action-list--true.png`,
     )
   })
+
+  test(`Default @vrt responsive width .modern-action-list--true`, async ({page}) => {
+    await visit(page, {
+      id: 'components-selectpanel--default',
+      globals: {featureFlags: {primer_react_select_panel_with_modern_action_list: true}},
+    })
+
+    await page.setViewportSize({width: 767, height: 767})
+
+    // Open select panel
+    const isPanelOpen = await page.isVisible('[role="listbox"]')
+    if (!isPanelOpen) {
+      await page.keyboard.press('Tab')
+      await page.keyboard.press('Enter')
+    }
+
+    expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
+      `SelectPanel-Default-responsive-width-light-modern-action-list--true.png`,
+    )
+  })
 })
