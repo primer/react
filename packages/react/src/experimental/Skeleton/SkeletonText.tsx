@@ -1,5 +1,4 @@
 import React, {type CSSProperties, type HTMLProps} from 'react'
-import Box from '../../Box'
 import {SkeletonBox} from './SkeletonBox'
 import classes from './SkeletonText.module.css'
 import {clsx} from 'clsx'
@@ -37,9 +36,10 @@ export const SkeletonText: React.FC<SkeletonTextProps> = ({
     )
   } else {
     return (
-      <Box
+      <div
         data-component="multilineContainer"
-        style={merge(style as CSSProperties, {maxWidth, paddingBlock: '0.1px'} as CSSProperties)}
+        className={classes.SkeletonTextWrapper}
+        style={merge(style as CSSProperties, {maxWidth} as CSSProperties)}
       >
         {Array.from({length: lines}, (_, index) => (
           <SkeletonBox
@@ -51,7 +51,7 @@ export const SkeletonText: React.FC<SkeletonTextProps> = ({
             {...rest}
           />
         ))}
-      </Box>
+      </div>
     )
   }
 }
