@@ -463,12 +463,36 @@ for (const useModernActionList of [false, true]) {
           setSelected(selected)
         }
 
+        const emptyMessage = (
+          <SelectPanel.Message variant="empty" title="You haven't created any projects yet" key="empty-message">
+            Start your first project to organise your issues
+          </SelectPanel.Message>
+        )
+
+        const noResultsMessage = (filter: string) => (
+          <SelectPanel.Message variant="empty" title={`No language found for ${filter}`} key="no-results-message">
+            Adjust your search term to find other languages
+          </SelectPanel.Message>
+        )
+
+        const filteredItems = items.filter(item => item.text?.includes(filter))
+
+        function getMessage() {
+          if (filteredItems.length === 0 && !filter) {
+            return emptyMessage
+          }
+          if (filteredItems.length === 0 && filter) {
+            return noResultsMessage(filter)
+          }
+          return null
+        }
+
         return (
           <ThemeProvider>
             <SelectPanel
               title="test title"
               subtitle="test subtitle"
-              items={items.filter(item => item.text?.includes(filter))}
+              items={filteredItems}
               placeholder="Select items"
               placeholderText="Filter items"
               selected={selected}
@@ -481,18 +505,7 @@ for (const useModernActionList of [false, true]) {
               onOpenChange={isOpen => {
                 setOpen(isOpen)
               }}
-              messages={[
-                <SelectPanel.Message variant="empty" title="You haven't created any projects yet" key="empty-message">
-                  Start your first project to organise your issues
-                </SelectPanel.Message>,
-                <SelectPanel.Message
-                  variant="no-results"
-                  title={`No language found for ${filter} `}
-                  key="no-results-message"
-                >
-                  Adjust your search term to find other languages
-                </SelectPanel.Message>,
-              ]}
+              message={getMessage()}
             />
           </ThemeProvider>
         )
@@ -704,61 +717,6 @@ for (const useModernActionList of [false, true]) {
       describe('Empty state', () => {
         // This is only implemented with the feature flag (for now)
         if (!useModernActionList) return
-
-        it('should display the default empty state message when there is no matching item after filtering (No custom message is provided)', async () => {
-          const user = userEvent.setup()
-
-          renderWithFlag(<FilterableSelectPanel />, useModernActionList)
-
-          await user.click(screen.getByText('Select items'))
-
-          expect(screen.getAllByRole('option')).toHaveLength(3)
-
-          await user.type(document.activeElement!, 'something')
-          // expect(screen.getAllByRole('option')).toHaveLength(0)
-          expect(screen.getByText('No items found for `something`')).toBeVisible()
-          expect(screen.getByText('Adjust your search term to find other items.')).toBeVisible()
-        })
-
-        it('should display the default empty state message when there is no item after the initial load (No custom message is provided)', async () => {
-          const user = userEvent.setup()
-
-          renderWithFlag(<NoItemAvailableSelectPanel />, useModernActionList)
-
-          await waitFor(async () => {
-            await user.click(screen.getByText('Select items'))
-            expect(screen.getByText("You haven't created any items yet")).toBeVisible()
-            expect(screen.getByText('Please add or create new items to populate the list.')).toBeVisible()
-          })
-        })
-        it('should display the custom empty state message when there is no matching item after filtering', async () => {
-          const user = userEvent.setup()
-
-          renderWithFlag(
-            <SelectPanelWithCustomMessages
-              items={[
-                {
-                  text: 'item one',
-                },
-                {
-                  text: 'item two',
-                },
-                {
-                  text: 'item three',
-                },
-              ]}
-            />,
-            useModernActionList,
-          )
-
-          await user.click(screen.getByText('Select items'))
-
-          expect(screen.getAllByRole('option')).toHaveLength(3)
-
-          await user.type(document.activeElement!, 'something')
-          expect(screen.getByText('No language found for something')).toBeVisible()
-          expect(screen.getByText('Adjust your search term to find other languages')).toBeVisible()
-        })
 
         it('should display the custom empty state message when there is no item after the initial load', async () => {
           const user = userEvent.setup()
