@@ -564,23 +564,7 @@ export function SelectPanel({
             </Box>
           ) : isMultiSelectVariant(selected) ? (
             /* Save and Cancel buttons are only useful for multiple selection, single selection instantly closes the panel */
-            <Box
-              sx={
-                enabled
-                  ? undefined
-                  : {
-                      // .responsiveFooter
-                      display: ['flex', 'flex', 'none', 'none'],
-                      gap: 'var(--stack-gap-condensed)',
-                      justifyContent: 'right',
-                      padding: 3,
-                      // .Footer
-                      borderTop: 'var(--borderWidth-thin) solid',
-                      borderTopColor: 'var(--borderColor-default)',
-                    }
-              }
-              className={enabled ? clsx(classes.Footer, classes.ResponsiveFooter) : undefined}
-            >
+            <div className={clsx(classes.Footer, classes.ResponsiveFooter)}>
               {/* we add a save and cancel button on narrow screens when SelectPanel is full-screen */}
               {onCancel && (
                 <Button
@@ -601,7 +585,7 @@ export function SelectPanel({
               >
                 Save
               </Button>
-            </Box>
+            </div>
           ) : null}
         </Box>
       </AnchoredOverlay>
