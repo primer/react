@@ -41,7 +41,7 @@ function ScrollableRegion({
     : {}
 
   return (
-    <Box {...rest} {...regionProps} ref={ref} sx={defaultStyles}>
+    <Box {...rest} {...regionProps} ref={ref} sx={hasOverflow ? defaultStyles : undefined}>
       {children}
     </Box>
   )
