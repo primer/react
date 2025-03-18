@@ -16,6 +16,24 @@ const meta: Meta<typeof SelectPanel> = {
 
 export default meta
 
+const emptyMessage = (filter: string) => (
+  <SelectPanel.Message variant="empty" title={`No language found for \`${filter}\``} key="no-results-message">
+    Adjust your search term to find other languages
+  </SelectPanel.Message>
+)
+
+function isEmpty(filteredItems: ItemInput[], selected: ItemInput[], filter: string) {
+  if (filteredItems.length > selected.length) return false
+  if (filteredItems.length === 0) return true
+  if (
+    filteredItems.length === selected.length &&
+    !selected.some(item => item.text?.toLowerCase().startsWith(filter.toLowerCase()))
+  )
+    return true
+
+  return false
+}
+
 function getColorCircle(color: string) {
   return function () {
     return (
@@ -108,6 +126,7 @@ export const WithCss = () => {
           onSelectedChange={setSelected}
           onFilterChange={setFilter}
           className="testCustomClassnameMono"
+          message={isEmpty(selectedItemsSortedFirst, selected, filter) ? emptyMessage(filter) : undefined}
         />
       </FormControl>
     </FeatureFlags>
@@ -159,6 +178,7 @@ export const WithSx = () => {
           onSelectedChange={setSelected}
           onFilterChange={setFilter}
           sx={{fontFamily: 'Times New Roman'}}
+          message={isEmpty(selectedItemsSortedFirst, selected, filter) ? emptyMessage(filter) : undefined}
         />
       </FormControl>
     </FeatureFlags>
@@ -211,6 +231,7 @@ export const WithSxAndCSS = () => {
           onFilterChange={setFilter}
           sx={{fontFamily: 'Times New Roman'}}
           className="testCustomClassnameMono"
+          message={isEmpty(selectedItemsSortedFirst, selected, filter) ? emptyMessage(filter) : undefined}
         />
       </FormControl>
     </FeatureFlags>

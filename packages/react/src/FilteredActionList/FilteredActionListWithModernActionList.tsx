@@ -161,7 +161,7 @@ export function FilteredActionList({
     if (loading && scrollContainerRef.current && loadingType.appearsInBody) {
       return <FilteredActionListBodyLoader loadingType={loadingType} height={scrollContainerRef.current.clientHeight} />
     }
-    if (message && message.length > 0) {
+    if (message) {
       return message
     }
 

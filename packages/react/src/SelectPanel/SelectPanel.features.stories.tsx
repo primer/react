@@ -27,6 +27,36 @@ const meta: Meta<typeof SelectPanel> = {
 
 export default meta
 
+const noResultsMessage = (filter: string) => (
+  <SelectPanel.Message variant="empty" title={`No language found for \`${filter}\``} key="no-results-message">
+    Adjust your search term to find other languages
+  </SelectPanel.Message>
+)
+
+const emptyMessage = (
+  <SelectPanel.Message variant="empty" title="You haven't created any projects yet" key="empty-message">
+    <Link href="https://github.com/projects">Start your first project</Link> to organise your issues.
+  </SelectPanel.Message>
+)
+
+const errorMessage = (
+  <SelectPanel.Message variant="error" title={`Ooops`} key="error-message">
+    Something is wrong.
+  </SelectPanel.Message>
+)
+
+function isEmpty(filteredItems: ItemInput[], selected: ItemInput[], filter: string) {
+  if (filteredItems.length > selected.length) return false
+  if (filteredItems.length === 0) return true
+  if (
+    filteredItems.length === selected.length &&
+    !selected.some(item => item.text?.toLowerCase().startsWith(filter.toLowerCase()))
+  )
+    return true
+
+  return false
+}
+
 function getColorCircle(color: string) {
   return function () {
     return (
@@ -94,6 +124,7 @@ export const WithItemDividers = () => {
         onFilterChange={setFilter}
         showItemDividers={true}
         width="medium"
+        message={isEmpty(selectedItemsSortedFirst, selected, filter) ? noResultsMessage(filter) : undefined}
       />
     </FormControl>
   )
@@ -139,6 +170,7 @@ export const WithPlaceholderForSearchInput = () => {
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         width="medium"
+        message={isEmpty(selectedItemsSortedFirst, selected, filter) ? noResultsMessage(filter) : undefined}
       />
     </FormControl>
   )
@@ -158,6 +190,15 @@ export const SingleSelect = () => {
   })
   const [open, setOpen] = useState(false)
 
+  function isEmpty() {
+    if (filteredItems.length > 1) return false
+    if (filteredItems.length === 0) return true
+    if (selected && filteredItems.length === 1 && !selected.text?.toLowerCase().startsWith(filter.toLowerCase()))
+      return true
+
+    return false
+  }
+
   return (
     <FormControl>
       <FormControl.Label>Label</FormControl.Label>
@@ -175,6 +216,7 @@ export const SingleSelect = () => {
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         width="medium"
+        message={isEmpty() ? noResultsMessage(filter) : undefined}
       />
     </FormControl>
   )
@@ -219,6 +261,7 @@ export const MultiSelect = () => {
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         width="medium"
+        message={isEmpty(selectedItemsSortedFirst, selected, filter) ? noResultsMessage(filter) : undefined}
       />
     </FormControl>
   )
@@ -261,6 +304,7 @@ export const WithExternalAnchor = () => {
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         width="medium"
+        message={isEmpty(selectedItemsSortedFirst, selected, filter) ? noResultsMessage(filter) : undefined}
       />
     </FormControl>
   )
@@ -309,6 +353,7 @@ export const WithFooter = () => {
           </Button>
         }
         width="medium"
+        message={isEmpty(selectedItemsSortedFirst, selected, filter) ? noResultsMessage(filter) : undefined}
       />
     </FormControl>
   )
@@ -402,6 +447,7 @@ export const WithGroups = () => {
         onFilterChange={setFilter}
         overlayProps={{width: 'large', height: 'xlarge'}}
         width="medium"
+        message={isEmpty(selectedItemsSortedFirst, selected, filter) ? noResultsMessage(filter) : undefined}
       />
     </FormControl>
   )
@@ -446,6 +492,7 @@ export const WithLabelVisuallyHidden = () => {
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         width="medium"
+        message={isEmpty(selectedItemsSortedFirst, selected, filter) ? noResultsMessage(filter) : undefined}
       />
     </FormControl>
   )
@@ -493,6 +540,7 @@ export const WithLabelInternally = () => {
       onSelectedChange={setSelected}
       onFilterChange={setFilter}
       width="medium"
+      message={isEmpty(selectedItemsSortedFirst, selected, filter) ? noResultsMessage(filter) : undefined}
     />
   )
 }
@@ -504,10 +552,12 @@ export const AsyncFetch: StoryObj<SelectPanelProps> = {
     const [open, setOpen] = useState(false)
     const filterTimerId = useRef<number | null>(null)
     const {safeSetTimeout, safeClearTimeout} = useSafeTimeout()
+    const [query, setQuery] = useState('')
 
     const fetchItems = (query: string) => {
       if (filterTimerId.current) {
         safeClearTimeout(filterTimerId.current)
+        setQuery(query)
       }
 
       filterTimerId.current = safeSetTimeout(() => {
@@ -545,6 +595,7 @@ export const AsyncFetch: StoryObj<SelectPanelProps> = {
         height={height}
         initialLoadingType={initialLoadingType}
         width="medium"
+        message={isEmpty(filteredItems, selected, query) ? noResultsMessage(query) : undefined}
       />
     )
   },
@@ -581,6 +632,13 @@ export const CustomisedNoInitialItems = () => {
   const onClick = React.useCallback(() => {
     setIsError(!isError)
   }, [setIsError, isError])
+
+  function getMessage() {
+    if (isError) return errorMessage
+    else if (filter) return noResultsMessage(filter)
+    else return emptyMessage
+  }
+
   return (
     <>
       <Text id="toggle" fontWeight={'bold'} fontSize={2}>
@@ -602,22 +660,7 @@ export const CustomisedNoInitialItems = () => {
         onFilterChange={onFilterChange}
         width="medium"
         height="large"
-        messages={[
-          <SelectPanel.Message variant="empty" title="You haven't created any projects yet" key="empty-message">
-            <Link href="https://github.com/projects">Start your first project</Link> to organise your issues.
-          </SelectPanel.Message>,
-          <SelectPanel.Message
-            variant="no-results"
-            title={`No language found for \`${filter}\``}
-            key="no-results-message"
-          >
-            Adjust your search term to find other languages
-          </SelectPanel.Message>,
-          <SelectPanel.Message variant="error" title={`Ooops`} key="error-message">
-            Something is wrong.
-          </SelectPanel.Message>,
-        ]}
-        status={isError ? 'error' : undefined}
+        message={getMessage()}
       />
     </>
   )
@@ -667,15 +710,7 @@ export const CustomisedNoResults: StoryObj<typeof SelectPanel> = {
         initialLoadingType={initialLoadingType}
         height={height}
         overlayProps={{maxHeight: height === 'auto' || height === 'initial' ? 'xlarge' : height}}
-        messages={[
-          <SelectPanel.Message
-            variant="no-results"
-            title={`No label found for \`${filterValue}\``}
-            key="no-results-message"
-          >
-            Adjust your search term to find other labels
-          </SelectPanel.Message>,
-        ]}
+        message={isEmpty(filteredItems, selected, filterValue) ? noResultsMessage(filterValue) : undefined}
       />
     )
   },

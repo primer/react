@@ -15,6 +15,12 @@ const meta: Meta<typeof SelectPanel> = {
 
 export default meta
 
+const emptyMessage = (filter: string) => (
+  <SelectPanel.Message variant="empty" title={`No language found for \`${filter}\``} key="no-results-message">
+    Adjust your search term to find other languages
+  </SelectPanel.Message>
+)
+
 function getColorCircle(color: string) {
   return function () {
     return (
@@ -82,6 +88,18 @@ export const Default = () => {
   })
   const [open, setOpen] = useState(false)
 
+  function isEmpty() {
+    if (filteredItems.length > selected.length) return false
+    if (filteredItems.length === 0) return true
+    if (
+      filteredItems.length === selected.length &&
+      !selected.some(item => item.text?.toLowerCase().startsWith(filter.toLowerCase()))
+    )
+      return true
+
+    return false
+  }
+
   return (
     <FormControl>
       <FormControl.Label>Labels</FormControl.Label>
@@ -101,6 +119,7 @@ export const Default = () => {
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         width="medium"
+        message={isEmpty() ? emptyMessage(filter) : undefined}
       />
     </FormControl>
   )
