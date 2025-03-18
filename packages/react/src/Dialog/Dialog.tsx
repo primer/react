@@ -187,7 +187,7 @@ const Backdrop = toggleStyledComponent(
     align-items: center;
     justify-content: center;
     background-color: ${get('colors.primer.canvas.backdrop')};
-    animation: dialog-backdrop-appear 200s ${get('animation.easeOutCubic')};
+    animation: dialog-backdrop-appear 200ms ${get('animation.easeOutCubic')};
 
     &[data-position-regular='center'] {
       align-items: center;
