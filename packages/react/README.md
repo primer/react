@@ -22,32 +22,67 @@
   </a>
 </p>
 
-## Documentation
+## Getting started
 
-Our documentation site lives at [primer.style/react](https://primer.style/react). You'll be able to find detailed documentation on getting started, all of the components, our theme, our principles, and more.
+To install `@primer/react` in your project, you will need to run the following
+command using [npm](https://www.npmjs.com/):
 
-## Installation
-
-Install @primer/react in your project with your package manager of choice:
-
-```console
-npm install @primer/react
+```bash
+npm install -S @primer/react @primer/primitives styled-components@5.x
 ```
 
-```console
-yarn add @primer/react
+If you prefer [Yarn](https://yarnpkg.com/), use the following command instead:
+
+```bash
+yarn add @primer/react @primer/primitives styled-components@5.x
 ```
 
-## Roadmap
+This command will install three packages in your project:
 
-You can track our roadmap progress in the [Roadmap Project Board](https://github.com/primer/react/projects/3), see more detail in the [quarterly planning Discussions](https://github.com/primer/react/discussions?discussions_q=%5BRoadmap%5D), and find a [list of all the current epic tracking issues](https://github.com/primer/react/discussions/997).
+- `@primer/react`: used to import and use all the components from Primer
+- `@primer/primitives`: used to include the design tokens from Primer
+- `styled-components`: used to style components
 
-## Contributing
+To learn more about how to use `@primer/react`, visit our documentation site at:
+[primer.style](https://primer.style).
 
-We love collaborating with folks inside and outside of GitHub and welcome contributions!
+## Usage
 
-> 👉 See [the contributing docs](contributor-docs/CONTRIBUTING.md) for more info on code style, testing, coverage, and troubleshooting.
+The `@primer/react` package provides components in React for the Primer Design System. To use a component, import it directly from the package:
 
-## New Component Proposals
+```tsx
+import {Button} from '@primer/react'
 
-We welcome and encourage new component proposals from internal GitHub teams! Our best work comes from collaborating directly with the teams using Primer React Components in their projects. If you'd like to kick off a new component proposal, please submit an issue using the [component proposal issue template](https://github.com/primer/react/issues/new?template=new-component-proposal.md) and we will get in touch!
+function App() {
+  return <Button>Hello world</Button>
+}
+```
+
+At the root of your application, you'll also want to include our
+`ThemeProvider` and `BaseStyles` components along with styles from the
+`@primer/primitives` package. For example:
+
+```tsx
+// Import each of the themes you would like to use, by default we are including
+// the light theme below
+import '@primer/primitives/dist/css/functional/themes/light.css'
+import {BaseStyles, ThemeProvider} from '@primer/react'
+
+function RootLayout() {
+  return (
+    <ThemeProvider>
+      <BaseStyles>
+        <App />
+      </BaseStyles>
+    </ThemeProvider>
+  )
+}
+```
+
+## 📖 Documentation
+
+The documentation for `@primer/react` lives at [primer.style](https://primer.style). There, you'll find detailed documentation on getting started, all of the components, our theme, our principles, and more.
+
+## 🙌 Contributing
+
+We love collaborating with folks inside and outside of GitHub and welcome contributions! If you're interested, check out our [contributing docs](contributor-docs/CONTRIBUTING.md) for more info on how to get started.

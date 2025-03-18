@@ -2,10 +2,10 @@
 
 ## Status
 
-| Stage    | Status |
-| -------- | ------ |
-| Approved | 🚧     |
-| Adopted  | 🚧     |
+| Stage    | Status                                                                                |
+| -------- | ------------------------------------------------------------------------------------- |
+| Approved | :white_check_mark:                                                                    |
+| Adopted  | :white_check_mark: remaining work here - https://github.com/github/primer/issues/4891 |
 
 ## Context
 

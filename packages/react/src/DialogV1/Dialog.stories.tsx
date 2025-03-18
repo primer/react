@@ -8,7 +8,7 @@ import {default as Dialog} from './Dialog'
 /* Dialog Version 1*/
 
 export default {
-  title: 'Components/DialogV1',
+  title: 'Deprecated/Components/DialogV1',
   component: Dialog,
 } as Meta
 
@@ -19,10 +19,10 @@ export const Default = () => {
     <div>
       <Box sx={{mb: 3}}>
         <Banner
-          title="Planned for deprecation"
+          title="This component is deprecated"
           description={
             <div data-a11y-link-underlines="true">
-              There are plans to deprecate this component in a future release. We recommend using{' '}
+              We recommend using{' '}
               <Link inline={true} href="/?path=/story/components-dialog--default">
                 Dialog
               </Link>{' '}

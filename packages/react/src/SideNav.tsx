@@ -64,7 +64,7 @@ function SideNav({
     {
       [classes.SideNav]: enabled,
       [classes.SideNavBordered]: enabled && bordered,
-      [classes[`SideNavVariant-${variantClassName}`]]: enabled,
+      [classes[`SideNavVariant--${variantClassName}`]]: enabled,
       sidenav: !enabled,
       [`variant-${variantClassName}`]: !enabled,
     },

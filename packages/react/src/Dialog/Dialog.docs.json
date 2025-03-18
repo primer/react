@@ -2,7 +2,7 @@
   "id": "dialog_v2",
   "docsId": "dialog",
   "name": "Dialog",
-  "status": "draft",
+  "status": "alpha",
   "a11yReviewed": false,
   "stories": [
     {
