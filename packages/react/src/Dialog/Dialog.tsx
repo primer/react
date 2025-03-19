@@ -677,7 +677,7 @@ const Buttons: React.FC<React.PropsWithChildren<{buttons: DialogButtonProps[]}>>
 }
 
 const CloseButton: React.FC<React.PropsWithChildren<{onClose: () => void}>> = ({onClose}) => {
-  return <IconButton tooltipDirection="n" icon={XIcon} aria-label="Close" onClick={onClose} variant="invisible" />
+  return <IconButton icon={XIcon} aria-label="Close" onClick={onClose} variant="invisible" />
 }
 
 /**
