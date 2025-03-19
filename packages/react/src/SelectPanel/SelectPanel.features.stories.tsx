@@ -118,7 +118,7 @@ export const WithItemDividers = () => {
         )}
         open={open}
         onOpenChange={setOpen}
-        items={selectedItemsSortedFirst}
+        items={isEmpty(selectedItemsSortedFirst, selected, filter) ? [] : selectedItemsSortedFirst}
         selected={selected}
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
@@ -165,7 +165,7 @@ export const WithPlaceholderForSearchInput = () => {
         placeholderText="Filter labels"
         open={open}
         onOpenChange={setOpen}
-        items={selectedItemsSortedFirst}
+        items={isEmpty(selectedItemsSortedFirst, selected, filter) ? [] : selectedItemsSortedFirst}
         selected={selected}
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
@@ -211,7 +211,7 @@ export const SingleSelect = () => {
         placeholder="Select labels" // button text when no items are selected
         open={open}
         onOpenChange={setOpen}
-        items={selectedItemsSortedFirst}
+        items={isEmpty() ? [] : selectedItemsSortedFirst}
         selected={selected}
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
@@ -256,7 +256,7 @@ export const MultiSelect = () => {
         )}
         open={open}
         onOpenChange={setOpen}
-        items={selectedItemsSortedFirst}
+        items={isEmpty(selectedItemsSortedFirst, selected, filter) ? [] : selectedItemsSortedFirst}
         selected={selected}
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
@@ -299,7 +299,7 @@ export const WithExternalAnchor = () => {
         anchorRef={buttonRef}
         open={open}
         onOpenChange={setOpen}
-        items={filteredItems}
+        items={isEmpty(selectedItemsSortedFirst, selected, filter) ? [] : filteredItems}
         selected={selectedItemsSortedFirst}
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
@@ -342,7 +342,7 @@ export const WithFooter = () => {
         placeholder="Select labels" // button text when no items are selected
         open={open}
         onOpenChange={setOpen}
-        items={selectedItemsSortedFirst}
+        items={isEmpty(selectedItemsSortedFirst, selected, filter) ? [] : selectedItemsSortedFirst}
         selected={selected}
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
@@ -441,7 +441,7 @@ export const WithGroups = () => {
         groupMetadata={groupMetadata}
         open={open}
         onOpenChange={setOpen}
-        items={selectedItemsSortedFirst}
+        items={isEmpty(selectedItemsSortedFirst, selected, filter) ? [] : selectedItemsSortedFirst}
         selected={selected}
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
@@ -487,7 +487,7 @@ export const WithLabelVisuallyHidden = () => {
         )}
         open={open}
         onOpenChange={setOpen}
-        items={selectedItemsSortedFirst}
+        items={isEmpty(selectedItemsSortedFirst, selected, filter) ? [] : selectedItemsSortedFirst}
         selected={selected}
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
@@ -535,7 +535,7 @@ export const WithLabelInternally = () => {
       )}
       open={open}
       onOpenChange={setOpen}
-      items={selectedItemsSortedFirst}
+      items={isEmpty(selectedItemsSortedFirst, selected, filter) ? [] : selectedItemsSortedFirst}
       selected={selected}
       onSelectedChange={setSelected}
       onFilterChange={setFilter}
@@ -587,7 +587,7 @@ export const AsyncFetch: StoryObj<SelectPanelProps> = {
         placeholderText="Filter labels"
         open={open}
         onOpenChange={onOpenChange}
-        items={filteredItems}
+        items={isEmpty(filteredItems, selected, query) ? [] : filteredItems}
         selected={selected}
         onSelectedChange={setSelected}
         onFilterChange={fetchItems}
@@ -702,7 +702,7 @@ export const CustomisedNoResults: StoryObj<typeof SelectPanel> = {
         placeholderText="Filter labels"
         open={open}
         onOpenChange={setOpen}
-        items={filteredItems}
+        items={isEmpty(filteredItems, selected, filterValue) ? [] : filteredItems}
         selected={selected}
         onSelectedChange={setSelected}
         onFilterChange={onFilterChange}

@@ -95,7 +95,7 @@ export const HeightInitialWithOverflowingItemsStory = () => {
         placeholder="Select labels" // button text when no items are selected
         open={open}
         onOpenChange={setOpen}
-        items={selectedItemsSortedFirst}
+        items={isEmpty(selectedItemsSortedFirst, selected, filter) ? [] : selectedItemsSortedFirst}
         selected={selected}
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
@@ -140,7 +140,7 @@ export const HeightInitialWithUnderflowingItemsStory = () => {
         placeholder="Select labels" // button text when no items are selected
         open={open}
         onOpenChange={setOpen}
-        items={selectedItemsSortedFirst}
+        items={isEmpty(selectedItemsSortedFirst, selected, filter) ? [] : selectedItemsSortedFirst}
         selected={selected}
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
@@ -200,7 +200,7 @@ export const HeightInitialWithUnderflowingItemsAfterFetch = () => {
         open={open}
         onOpenChange={onOpenChange}
         loading={filteredItems.length === 0}
-        items={selectedItemsSortedFirst}
+        items={isEmpty(selectedItemsSortedFirst, selected, filter) ? [] : selectedItemsSortedFirst}
         selected={selected}
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
@@ -244,7 +244,7 @@ export const AboveTallBody = () => {
         placeholder="Select labels" // button text when no items are selected
         open={open}
         onOpenChange={setOpen}
-        items={selectedItemsSortedFirst}
+        items={isEmpty(selectedItemsSortedFirst, selected, filter) ? [] : selectedItemsSortedFirst}
         selected={selected}
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
@@ -318,7 +318,7 @@ export const HeightVariationsAndScroll = () => {
           placeholder="Select labels" // button text when no items are selected
           open={openA}
           onOpenChange={setOpenA}
-          items={selectedItemsSortedFirstA}
+          items={isEmpty(selectedItemsSortedFirstA, selectedA) ? [] : selectedItemsSortedFirstA}
           selected={selectedA}
           onSelectedChange={setSelectedA}
           onFilterChange={setFilter}
@@ -339,7 +339,7 @@ export const HeightVariationsAndScroll = () => {
           placeholder="Select labels" // button text when no items are selected
           open={openB}
           onOpenChange={setOpenB}
-          items={selectedItemsSortedFirstB}
+          items={isEmpty(selectedItemsSortedFirstB, selectedB) ? [] : selectedItemsSortedFirstB}
           selected={selectedB}
           onSelectedChange={setSelectedB}
           onFilterChange={setFilter}
@@ -393,7 +393,7 @@ export const CustomItemRenderer = () => {
         )}
         open={open}
         onOpenChange={setOpen}
-        items={selectedItemsSortedFirst}
+        items={isEmpty(selectedItemsSortedFirst, selected, filter) ? [] : selectedItemsSortedFirst}
         selected={selected}
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
@@ -469,7 +469,7 @@ export const ItemsInScope = () => {
         placeholder="Select labels" // button text when no items are selected
         open={open}
         onOpenChange={setOpen}
-        items={selectedItemsSortedFirst}
+        items={isEmpty(selectedItemsSortedFirst, selected, filter) ? [] : selectedItemsSortedFirst}
         selected={selected}
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
@@ -515,7 +515,7 @@ export const RepositionAfterLoading = () => {
           placeholderText="Filter Labels"
           open={open}
           onOpenChange={setOpen}
-          items={filteredItems}
+          items={isEmpty(filteredItems, selected, filter) ? [] : filteredItems}
           selected={selected}
           onSelectedChange={setSelected}
           onFilterChange={setFilter}
@@ -562,7 +562,7 @@ export const SelectPanelRepositionInsideDialog = () => {
           placeholderText="Filter Labels"
           open={open}
           onOpenChange={setOpen}
-          items={filteredItems}
+          items={isEmpty(filteredItems, selected, filter) ? [] : filteredItems}
           selected={selected}
           onSelectedChange={setSelected}
           onFilterChange={setFilter}
