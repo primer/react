@@ -440,24 +440,6 @@ export function SelectPanel({
   }
   const usingModernActionList = useFeatureFlag('primer_react_select_panel_with_modern_action_list')
 
-  const stylesForNoticeVariant = {
-    info: {
-      backgroundColor: 'accent.subtle',
-      color: 'accent.fg',
-      borderColor: 'accent.muted',
-    },
-    warning: {
-      backgroundColor: 'attention.subtle',
-      color: 'attention.fg',
-      borderColor: 'attention.muted',
-    },
-    error: {
-      backgroundColor: 'danger.subtle',
-      color: 'danger.fg',
-      borderColor: 'danger.muted',
-    },
-  }
-
   const iconForNoticeVariant = {
     info: <InfoIcon size={16} />,
     warning: <AlertIcon size={16} />,
@@ -520,34 +502,12 @@ export function SelectPanel({
               </Box>
             ) : null}
           </Box>
-          {notice &&
-            (enabled ? (
-              <div aria-live="polite" data-variant={notice.variant} className={classes.Notice}>
-                {iconForNoticeVariant[notice.variant]}
-                <div>{notice.text}</div>
-              </div>
-            ) : (
-              <Box
-                aria-live="polite"
-                data-variant={notice.variant}
-                sx={{
-                  display: 'flex',
-                  gap: 2,
-                  paddingX: 3,
-                  paddingY: '12px',
-                  marginTop: 1,
-                  borderTop: '1px solid',
-                  borderBottom: '1px solid',
-                  fontSize: 0,
-                  a: {color: 'inherit', textDecoration: 'underline'},
-                  ...stylesForNoticeVariant[notice.variant],
-                }}
-                className={enabled ? classes.Notice : undefined}
-              >
-                {iconForNoticeVariant[notice.variant]}
-                <Box>{notice.text}</Box>
-              </Box>
-            ))}
+          {notice && (
+            <div aria-live="polite" data-variant={notice.variant} className={classes.Notice}>
+              {iconForNoticeVariant[notice.variant]}
+              <div>{notice.text}</div>
+            </div>
+          )}
           <FilteredActionList
             filterValue={filterValue}
             onFilterChange={onFilterChange}
