@@ -53,7 +53,7 @@ const getItemWithActiveDescendant = (
   const activeItem = items[index] as ItemInput | undefined
 
   const text = activeItem?.text
-  const selected = activeItem?.selected
+  const selected = activeItemElement.getAttribute('aria-selected') === 'true'
 
   return {index, text, selected}
 }
