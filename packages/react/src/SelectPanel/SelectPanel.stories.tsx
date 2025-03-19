@@ -88,18 +88,6 @@ export const Default = () => {
   })
   const [open, setOpen] = useState(false)
 
-  function isEmpty() {
-    if (filteredItems.length > selected.length) return false
-    if (filteredItems.length === 0) return true
-    if (
-      filteredItems.length === selected.length &&
-      !selected.some(item => item.text?.toLowerCase().startsWith(filter.toLowerCase()))
-    )
-      return true
-
-    return false
-  }
-
   return (
     <FormControl>
       <FormControl.Label>Labels</FormControl.Label>
@@ -114,12 +102,12 @@ export const Default = () => {
         )}
         open={open}
         onOpenChange={setOpen}
-        items={isEmpty() ? [] : selectedItemsSortedFirst}
+        items={selectedItemsSortedFirst}
         selected={selected}
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         width="medium"
-        message={isEmpty() ? emptyMessage(filter) : undefined}
+        message={selectedItemsSortedFirst.length == 0 ? emptyMessage(filter) : undefined}
       />
     </FormControl>
   )

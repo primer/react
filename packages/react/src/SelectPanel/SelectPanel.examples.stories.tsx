@@ -24,18 +24,6 @@ const noResultsMessage = (filter: string) => (
   </SelectPanel.Message>
 )
 
-function isEmpty(filteredItems: ItemInput[], selected: ItemInput[], filter: string) {
-  if (filteredItems.length > selected.length) return false
-  if (filteredItems.length === 0) return true
-  if (
-    filteredItems.length === selected.length &&
-    !selected.some(item => item.text?.toLowerCase().startsWith(filter.toLowerCase()))
-  )
-    return true
-
-  return false
-}
-
 function getColorCircle(color: string) {
   return function () {
     return (
@@ -95,12 +83,12 @@ export const HeightInitialWithOverflowingItemsStory = () => {
         placeholder="Select labels" // button text when no items are selected
         open={open}
         onOpenChange={setOpen}
-        items={isEmpty(selectedItemsSortedFirst, selected, filter) ? [] : selectedItemsSortedFirst}
+        items={selectedItemsSortedFirst}
         selected={selected}
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         overlayProps={{width: 'small', height: 'initial', maxHeight: 'xsmall'}}
-        message={isEmpty(selectedItemsSortedFirst, selected, filter) ? noResultsMessage(filter) : undefined}
+        message={selectedItemsSortedFirst.length == 0 ? noResultsMessage(filter) : undefined}
       />
     </FormControl>
   )
@@ -140,13 +128,13 @@ export const HeightInitialWithUnderflowingItemsStory = () => {
         placeholder="Select labels" // button text when no items are selected
         open={open}
         onOpenChange={setOpen}
-        items={isEmpty(selectedItemsSortedFirst, selected, filter) ? [] : selectedItemsSortedFirst}
+        items={selectedItemsSortedFirst}
         selected={selected}
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         showItemDividers={true}
         overlayProps={{width: 'small', height: 'initial', maxHeight: 'xsmall'}}
-        message={isEmpty(selectedItemsSortedFirst, selected, filter) ? noResultsMessage(filter) : undefined}
+        message={selectedItemsSortedFirst.length == 0 ? noResultsMessage(filter) : undefined}
       />
     </FormControl>
   )
@@ -200,13 +188,13 @@ export const HeightInitialWithUnderflowingItemsAfterFetch = () => {
         open={open}
         onOpenChange={onOpenChange}
         loading={filteredItems.length === 0}
-        items={isEmpty(selectedItemsSortedFirst, selected, filter) ? [] : selectedItemsSortedFirst}
+        items={selectedItemsSortedFirst}
         selected={selected}
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         showItemDividers={true}
         overlayProps={{width: 'small', height, maxHeight: 'xsmall'}}
-        message={isEmpty(selectedItemsSortedFirst, selected, filter) ? noResultsMessage(filter) : undefined}
+        message={selectedItemsSortedFirst.length == 0 ? noResultsMessage(filter) : undefined}
       />
     </FormControl>
   )
@@ -244,12 +232,12 @@ export const AboveTallBody = () => {
         placeholder="Select labels" // button text when no items are selected
         open={open}
         onOpenChange={setOpen}
-        items={isEmpty(selectedItemsSortedFirst, selected, filter) ? [] : selectedItemsSortedFirst}
+        items={selectedItemsSortedFirst}
         selected={selected}
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         showItemDividers={true}
-        message={isEmpty(selectedItemsSortedFirst, selected, filter) ? noResultsMessage(filter) : undefined}
+        message={selectedItemsSortedFirst.length == 0 ? noResultsMessage(filter) : undefined}
       />
       <div
         style={{
@@ -296,15 +284,6 @@ export const HeightVariationsAndScroll = () => {
   })
   const [openB, setOpenB] = useState(false)
 
-  function isEmpty(filteredItems: ItemInput[], selected?: ItemInput) {
-    if (filteredItems.length > 1) return false
-    if (filteredItems.length === 0) return true
-    if (selected && filteredItems.length === 1 && !selected.text?.toLowerCase().startsWith(filter.toLowerCase()))
-      return true
-
-    return false
-  }
-
   return (
     <>
       <FormControl>
@@ -318,13 +297,13 @@ export const HeightVariationsAndScroll = () => {
           placeholder="Select labels" // button text when no items are selected
           open={openA}
           onOpenChange={setOpenA}
-          items={isEmpty(selectedItemsSortedFirstA, selectedA) ? [] : selectedItemsSortedFirstA}
+          items={selectedItemsSortedFirstA}
           selected={selectedA}
           onSelectedChange={setSelectedA}
           onFilterChange={setFilter}
           showItemDividers={true}
           overlayProps={{height: 'medium'}}
-          message={isEmpty(selectedItemsSortedFirstA, selectedA) ? noResultsMessage(filter) : undefined}
+          message={selectedItemsSortedFirstA.length == 0 ? noResultsMessage(filter) : undefined}
         />
       </FormControl>
       <br />
@@ -339,7 +318,7 @@ export const HeightVariationsAndScroll = () => {
           placeholder="Select labels" // button text when no items are selected
           open={openB}
           onOpenChange={setOpenB}
-          items={isEmpty(selectedItemsSortedFirstB, selectedB) ? [] : selectedItemsSortedFirstB}
+          items={selectedItemsSortedFirstB}
           selected={selectedB}
           onSelectedChange={setSelectedB}
           onFilterChange={setFilter}
@@ -348,7 +327,7 @@ export const HeightVariationsAndScroll = () => {
             height: 'auto',
             maxHeight: 'medium',
           }}
-          message={isEmpty(selectedItemsSortedFirstB, selectedB) ? noResultsMessage(filter) : undefined}
+          message={selectedItemsSortedFirstB.length == 0 ? noResultsMessage(filter) : undefined}
         />
       </FormControl>
     </>
@@ -393,7 +372,7 @@ export const CustomItemRenderer = () => {
         )}
         open={open}
         onOpenChange={setOpen}
-        items={isEmpty(selectedItemsSortedFirst, selected, filter) ? [] : selectedItemsSortedFirst}
+        items={selectedItemsSortedFirst}
         selected={selected}
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
@@ -423,7 +402,7 @@ export const CustomItemRenderer = () => {
             </Box>
           </ActionList.Item>
         )}
-        message={isEmpty(selectedItemsSortedFirst, selected, filter) ? noResultsMessage(filter) : undefined}
+        message={selectedItemsSortedFirst.length == 0 ? noResultsMessage(filter) : undefined}
       />
     </FormControl>
   )
@@ -469,11 +448,11 @@ export const ItemsInScope = () => {
         placeholder="Select labels" // button text when no items are selected
         open={open}
         onOpenChange={setOpen}
-        items={isEmpty(selectedItemsSortedFirst, selected, filter) ? [] : selectedItemsSortedFirst}
+        items={selectedItemsSortedFirst}
         selected={selected}
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
-        message={isEmpty(selectedItemsSortedFirst, selected, filter) ? noResultsMessage(filter) : undefined}
+        message={selectedItemsSortedFirst.length == 0 ? noResultsMessage(filter) : undefined}
       />
     </FormControl>
   )
@@ -515,11 +494,11 @@ export const RepositionAfterLoading = () => {
           placeholderText="Filter Labels"
           open={open}
           onOpenChange={setOpen}
-          items={isEmpty(filteredItems, selected, filter) ? [] : filteredItems}
+          items={filteredItems}
           selected={selected}
           onSelectedChange={setSelected}
           onFilterChange={setFilter}
-          message={isEmpty(filteredItems, selected, filter) ? noResultsMessage(filter) : undefined}
+          message={filteredItems.length == 0 ? noResultsMessage(filter) : undefined}
         />
       </Stack>
     </>
@@ -562,12 +541,12 @@ export const SelectPanelRepositionInsideDialog = () => {
           placeholderText="Filter Labels"
           open={open}
           onOpenChange={setOpen}
-          items={isEmpty(filteredItems, selected, filter) ? [] : filteredItems}
+          items={filteredItems}
           selected={selected}
           onSelectedChange={setSelected}
           onFilterChange={setFilter}
           overlayProps={{anchorSide: 'outside-top'}}
-          message={isEmpty(filteredItems, selected, filter) ? noResultsMessage(filter) : undefined}
+          message={filteredItems.length == 0 ? noResultsMessage(filter) : undefined}
         />
       </Stack>
     </Dialog>

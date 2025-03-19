@@ -45,18 +45,6 @@ const errorMessage = (
   </SelectPanel.Message>
 )
 
-function isEmpty(filteredItems: ItemInput[], selected: ItemInput[], filter: string) {
-  if (filteredItems.length > selected.length) return false
-  if (filteredItems.length === 0) return true
-  if (
-    filteredItems.length === selected.length &&
-    !selected.some(item => item.text?.toLowerCase().startsWith(filter.toLowerCase()))
-  )
-    return true
-
-  return false
-}
-
 function getColorCircle(color: string) {
   return function () {
     return (
@@ -118,13 +106,13 @@ export const WithItemDividers = () => {
         )}
         open={open}
         onOpenChange={setOpen}
-        items={isEmpty(selectedItemsSortedFirst, selected, filter) ? [] : selectedItemsSortedFirst}
+        items={selectedItemsSortedFirst}
         selected={selected}
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         showItemDividers={true}
         width="medium"
-        message={isEmpty(selectedItemsSortedFirst, selected, filter) ? noResultsMessage(filter) : undefined}
+        message={selectedItemsSortedFirst.length == 0 ? noResultsMessage(filter) : undefined}
       />
     </FormControl>
   )
@@ -165,12 +153,12 @@ export const WithPlaceholderForSearchInput = () => {
         placeholderText="Filter labels"
         open={open}
         onOpenChange={setOpen}
-        items={isEmpty(selectedItemsSortedFirst, selected, filter) ? [] : selectedItemsSortedFirst}
+        items={selectedItemsSortedFirst}
         selected={selected}
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         width="medium"
-        message={isEmpty(selectedItemsSortedFirst, selected, filter) ? noResultsMessage(filter) : undefined}
+        message={selectedItemsSortedFirst.length == 0 ? noResultsMessage(filter) : undefined}
       />
     </FormControl>
   )
@@ -190,15 +178,6 @@ export const SingleSelect = () => {
   })
   const [open, setOpen] = useState(false)
 
-  function isEmpty() {
-    if (filteredItems.length > 1) return false
-    if (filteredItems.length === 0) return true
-    if (selected && filteredItems.length === 1 && !selected.text?.toLowerCase().startsWith(filter.toLowerCase()))
-      return true
-
-    return false
-  }
-
   return (
     <FormControl>
       <FormControl.Label>Label</FormControl.Label>
@@ -211,12 +190,12 @@ export const SingleSelect = () => {
         placeholder="Select labels" // button text when no items are selected
         open={open}
         onOpenChange={setOpen}
-        items={isEmpty() ? [] : selectedItemsSortedFirst}
+        items={selectedItemsSortedFirst}
         selected={selected}
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         width="medium"
-        message={isEmpty() ? noResultsMessage(filter) : undefined}
+        message={selectedItemsSortedFirst.length == 0 ? noResultsMessage(filter) : undefined}
       />
     </FormControl>
   )
@@ -256,12 +235,12 @@ export const MultiSelect = () => {
         )}
         open={open}
         onOpenChange={setOpen}
-        items={isEmpty(selectedItemsSortedFirst, selected, filter) ? [] : selectedItemsSortedFirst}
+        items={selectedItemsSortedFirst}
         selected={selected}
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         width="medium"
-        message={isEmpty(selectedItemsSortedFirst, selected, filter) ? noResultsMessage(filter) : undefined}
+        message={selectedItemsSortedFirst.length == 0 ? noResultsMessage(filter) : undefined}
       />
     </FormControl>
   )
@@ -299,12 +278,12 @@ export const WithExternalAnchor = () => {
         anchorRef={buttonRef}
         open={open}
         onOpenChange={setOpen}
-        items={isEmpty(selectedItemsSortedFirst, selected, filter) ? [] : filteredItems}
+        items={filteredItems}
         selected={selectedItemsSortedFirst}
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         width="medium"
-        message={isEmpty(selectedItemsSortedFirst, selected, filter) ? noResultsMessage(filter) : undefined}
+        message={filteredItems.length == 0 ? noResultsMessage(filter) : undefined}
       />
     </FormControl>
   )
@@ -342,7 +321,7 @@ export const WithFooter = () => {
         placeholder="Select labels" // button text when no items are selected
         open={open}
         onOpenChange={setOpen}
-        items={isEmpty(selectedItemsSortedFirst, selected, filter) ? [] : selectedItemsSortedFirst}
+        items={selectedItemsSortedFirst}
         selected={selected}
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
@@ -353,7 +332,7 @@ export const WithFooter = () => {
           </Button>
         }
         width="medium"
-        message={isEmpty(selectedItemsSortedFirst, selected, filter) ? noResultsMessage(filter) : undefined}
+        message={selectedItemsSortedFirst.length == 0 ? noResultsMessage(filter) : undefined}
       />
     </FormControl>
   )
@@ -441,13 +420,13 @@ export const WithGroups = () => {
         groupMetadata={groupMetadata}
         open={open}
         onOpenChange={setOpen}
-        items={isEmpty(selectedItemsSortedFirst, selected, filter) ? [] : selectedItemsSortedFirst}
+        items={selectedItemsSortedFirst}
         selected={selected}
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         overlayProps={{width: 'large', height: 'xlarge'}}
         width="medium"
-        message={isEmpty(selectedItemsSortedFirst, selected, filter) ? noResultsMessage(filter) : undefined}
+        message={selectedItemsSortedFirst.length == 0 ? noResultsMessage(filter) : undefined}
       />
     </FormControl>
   )
@@ -487,12 +466,12 @@ export const WithLabelVisuallyHidden = () => {
         )}
         open={open}
         onOpenChange={setOpen}
-        items={isEmpty(selectedItemsSortedFirst, selected, filter) ? [] : selectedItemsSortedFirst}
+        items={selectedItemsSortedFirst}
         selected={selected}
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         width="medium"
-        message={isEmpty(selectedItemsSortedFirst, selected, filter) ? noResultsMessage(filter) : undefined}
+        message={selectedItemsSortedFirst.length == 0 ? noResultsMessage(filter) : undefined}
       />
     </FormControl>
   )
@@ -535,12 +514,12 @@ export const WithLabelInternally = () => {
       )}
       open={open}
       onOpenChange={setOpen}
-      items={isEmpty(selectedItemsSortedFirst, selected, filter) ? [] : selectedItemsSortedFirst}
+      items={selectedItemsSortedFirst}
       selected={selected}
       onSelectedChange={setSelected}
       onFilterChange={setFilter}
       width="medium"
-      message={isEmpty(selectedItemsSortedFirst, selected, filter) ? noResultsMessage(filter) : undefined}
+      message={selectedItemsSortedFirst.length == 0 ? noResultsMessage(filter) : undefined}
     />
   )
 }
@@ -587,7 +566,7 @@ export const AsyncFetch: StoryObj<SelectPanelProps> = {
         placeholderText="Filter labels"
         open={open}
         onOpenChange={onOpenChange}
-        items={isEmpty(filteredItems, selected, query) ? [] : filteredItems}
+        items={filteredItems}
         selected={selected}
         onSelectedChange={setSelected}
         onFilterChange={fetchItems}
@@ -595,7 +574,7 @@ export const AsyncFetch: StoryObj<SelectPanelProps> = {
         height={height}
         initialLoadingType={initialLoadingType}
         width="medium"
-        message={isEmpty(filteredItems, selected, query) ? noResultsMessage(query) : undefined}
+        message={filteredItems.length == 0 ? noResultsMessage(query) : undefined}
       />
     )
   },
@@ -702,7 +681,7 @@ export const CustomisedNoResults: StoryObj<typeof SelectPanel> = {
         placeholderText="Filter labels"
         open={open}
         onOpenChange={setOpen}
-        items={isEmpty(filteredItems, selected, filterValue) ? [] : filteredItems}
+        items={filteredItems}
         selected={selected}
         onSelectedChange={setSelected}
         onFilterChange={onFilterChange}
@@ -710,7 +689,7 @@ export const CustomisedNoResults: StoryObj<typeof SelectPanel> = {
         initialLoadingType={initialLoadingType}
         height={height}
         overlayProps={{maxHeight: height === 'auto' || height === 'initial' ? 'xlarge' : height}}
-        message={isEmpty(filteredItems, selected, filterValue) ? noResultsMessage(filterValue) : undefined}
+        message={filteredItems.length == 0 ? noResultsMessage(filterValue) : undefined}
       />
     )
   },
