@@ -146,10 +146,10 @@
       "description": "Footer rendered at the end of the panel"
     },
     {
-      "name": "messages",
-      "type": "React.ReactNode[]",
-      "defaultValue": "A default empty and no-result message is provided by default if this option is not supplied",
-      "description": "Array of potential messages to display in the panel depending on the status"
+      "name": "message",
+      "type": "React.ReactNode",
+      "defaultValue": "A default empty message is provided by default if this option is not supplied",
+      "description": "Message node to display in the panel"
     }
   ],
   "subcomponents": [
