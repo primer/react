@@ -146,12 +146,6 @@
       "description": "Footer rendered at the end of the panel"
     },
     {
-      "name": "status",
-      "type": "'empty' | 'no-result' | 'error' | 'warning' | undefined",
-      "defaultValue": "null",
-      "description": "Status of the panel, used to display error, empty or warning messages"
-    },
-    {
       "name": "messages",
       "type": "React.ReactNode[]",
       "defaultValue": "A default empty and no-result message is provided by default if this option is not supplied",
@@ -169,7 +163,7 @@
         },
         {
           "name": "variant",
-          "type": "'empty' | 'noResult' | 'error' | 'warning'",
+          "type": "'empty' | 'error' | 'warning'",
           "description": "The variant of the message",
           "required": true
         },
