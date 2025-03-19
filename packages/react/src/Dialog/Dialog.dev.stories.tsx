@@ -83,7 +83,7 @@ export const WithCss = ({width, height, subtitle}: DialogStoryProps) => {
             {buttonType: 'danger', content: 'Delete the universe', onClick: onDialogClose},
             {buttonType: 'primary', content: 'Proceed'},
           ]}
-          className="testCustomClassnameBorder"
+          className="testCustomClassnameBorder testCustomAnimation"
         >
           {lipsum}
         </Dialog>
