@@ -147,6 +147,20 @@
       "required": false,
       "description": "",
       "defaultValue": ""
+    },
+    {
+      "name": "pinPosition",
+      "type": "boolean",
+      "required": false,
+      "description": "If true, the overlay will attempt to prevent position shifting when sitting at the top of the anchor.",
+      "defaultValue": "false"
+    },
+    {
+      "name": "variant",
+      "type": "{ regular?: 'anchored', narrow?: 'anchored' | 'fullscreen' }",
+      "required": false,
+      "description": "Optional prop to set variant for narrow screen sizes",
+      "defaultValue": "{ regular: 'anchored', narrow: 'anchored' }"
     }
   ]
 }

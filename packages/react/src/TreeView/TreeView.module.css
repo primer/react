@@ -20,7 +20,7 @@
     outline: none;
 
     &:focus-visible > div,
-    &.focus-visible > div {
+    &:global(.focus-visible) > div {
       box-shadow: var(--boxShadow-thick) var(--fgColor-accent);
 
       @media (forced-colors: active) {
@@ -174,6 +174,10 @@
     display: flex;
     color: var(--fgColor-muted);
     grid-area: leadingAction;
+
+    & > button {
+      flex-shrink: 1;
+    }
   }
 
   .TreeViewItemLevelLine {

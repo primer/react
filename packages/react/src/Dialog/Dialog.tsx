@@ -172,7 +172,7 @@ export interface DialogHeaderProps extends DialogProps {
   dialogDescriptionId: string
 }
 
-const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_staff'
+const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_ga'
 
 const Backdrop = toggleStyledComponent(
   CSS_MODULES_FEATURE_FLAG,

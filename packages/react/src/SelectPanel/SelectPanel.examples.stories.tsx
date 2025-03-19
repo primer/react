@@ -8,6 +8,8 @@ import type {OverlayProps} from '../Overlay'
 import {TriangleDownIcon} from '@primer/octicons-react'
 import {ActionList} from '../deprecated/ActionList'
 import FormControl from '../FormControl'
+import {Stack} from '../Stack'
+import {Dialog} from '../experimental'
 
 const meta = {
   title: 'Components/SelectPanel/Examples',
@@ -226,7 +228,6 @@ export const AboveTallBody = () => {
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         showItemDividers={true}
-        overlayProps={{width: 'small', height: 'xsmall'}}
       />
       <div
         style={{
@@ -440,5 +441,98 @@ export const ItemsInScope = () => {
         onFilterChange={setFilter}
       />
     </FormControl>
+  )
+}
+
+export const RepositionAfterLoading = () => {
+  const [selected, setSelected] = React.useState<ItemInput[]>([items[0], items[1]])
+  const [open, setOpen] = useState(false)
+  const [filter, setFilter] = React.useState('')
+  const [filteredItems, setFilteredItems] = React.useState<typeof items>([])
+
+  const [loading, setLoading] = useState(true)
+
+  React.useEffect(() => {
+    if (!open) setLoading(true)
+    window.setTimeout(() => {
+      if (open) {
+        setFilteredItems(items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase())))
+        setLoading(false)
+      }
+    }, 2000)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open])
+
+  React.useEffect(() => {
+    if (!loading) {
+      setFilteredItems(items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase())))
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filter])
+
+  return (
+    <>
+      <Stack direction="vertical" justify="space-between" style={{height: 'calc(100vh - 300px)', width: 'fit-content'}}>
+        <h1>Reposition panel after loading</h1>
+        <SelectPanel
+          loading={loading}
+          title="Select labels"
+          placeholderText="Filter Labels"
+          open={open}
+          onOpenChange={setOpen}
+          items={filteredItems}
+          selected={selected}
+          onSelectedChange={setSelected}
+          onFilterChange={setFilter}
+        />
+      </Stack>
+    </>
+  )
+}
+
+export const SelectPanelRepositionInsideDialog = () => {
+  const [selected, setSelected] = React.useState<ItemInput[]>([items[0], items[1]])
+  const [open, setOpen] = useState(false)
+  const [filter, setFilter] = React.useState('')
+  const [filteredItems, setFilteredItems] = React.useState<typeof items>([])
+
+  const [loading, setLoading] = useState(true)
+
+  React.useEffect(() => {
+    if (!open) setLoading(true)
+    window.setTimeout(() => {
+      if (open) {
+        setFilteredItems(items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase())))
+        setLoading(false)
+      }
+    }, 2000)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open])
+
+  React.useEffect(() => {
+    if (!loading) {
+      setFilteredItems(items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase())))
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filter])
+
+  return (
+    <Dialog title="SelectPanel reposition after loading inside Dialog" onClose={() => {}}>
+      <Stack direction="vertical" justify="space-between" style={{height: 'calc(100vh - 500px)', width: 'fit-content'}}>
+        <p>other content</p>
+        <SelectPanel
+          loading={loading}
+          title="Select labels"
+          placeholderText="Filter Labels"
+          open={open}
+          onOpenChange={setOpen}
+          items={filteredItems}
+          selected={selected}
+          onSelectedChange={setSelected}
+          onFilterChange={setFilter}
+          overlayProps={{anchorSide: 'outside-top'}}
+        />
+      </Stack>
+    </Dialog>
   )
 }

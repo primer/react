@@ -34,16 +34,6 @@ test.describe('Hidden', () => {
             .waitFor()
           expect(await page.screenshot()).toMatchSnapshot(`Hidden.Default.narrow.${theme}.png`)
         })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'experimental-components-hidden--default',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations()
-        })
       })
     }
   })

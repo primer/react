@@ -72,7 +72,7 @@
           "name": "href",
           "type": "string",
           "defaultValue": "",
-          "description": "The URL that the item navigates to. 'href' is passed to the underlying '<a>' element. If 'as' is specified, the component may need different props and 'href' is ignored. (Required prop for the react router is 'to' for example)"
+          "description": "The URL that the item navigates to. `href` is passed to the underlying `<a>` element. If 'as' is specified, the component may need different props and 'href' is ignored. (Required prop for the react router is 'to' for example)"
         },
         {
           "name": "icon",

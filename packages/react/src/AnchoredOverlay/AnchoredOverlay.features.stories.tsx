@@ -26,7 +26,7 @@ const hoverCard = (
     <Stack direction="horizontal" gap="none">
       <Text weight="medium">monalisa</Text>
       <Text color={'var(--fgColor-muted)'} ml={1}>
-        <Link inline underline muted href="#">
+        <Link inline muted href="#">
           Monalisa Octocat
         </Link>
       </Text>
@@ -55,7 +55,7 @@ const HeaderAndLayout = ({children}: {children: JSX.Element}) => {
     }
   }, [scrollingElementRef])
   return (
-    <Box position="absolute" top={0} right={0} bottom={0} left={0} padding={4} backgroundColor="lavenderblush">
+    <Box position="absolute" top={0} right={0} bottom={0} left={0} padding={4}>
       <Heading>Header or some such</Heading>
       <Box position="absolute" top={10} right={4} bottom={4} left={4} overflow="scroll" backgroundColor="powderblue">
         {children}

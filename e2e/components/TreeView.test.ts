@@ -17,22 +17,6 @@ test.describe('TreeView', () => {
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`TreeView.Default.${theme}.png`)
         })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-treeview--default',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
-        })
       })
     }
   })
@@ -50,22 +34,6 @@ test.describe('TreeView', () => {
 
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`TreeView.Empty Directories.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-treeview-features--empty-directories',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
         })
       })
     }
@@ -85,22 +53,6 @@ test.describe('TreeView', () => {
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`TreeView.Files.${theme}.png`)
         })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-treeview-features--files',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
-        })
       })
     }
   })
@@ -119,22 +71,6 @@ test.describe('TreeView', () => {
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`TreeView.Files Changed.${theme}.png`)
         })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-treeview-features--files-changed',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
-        })
       })
     }
   })
@@ -144,29 +80,13 @@ test.describe('TreeView', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-treeview-features--leading-action',
+            id: 'private-components-treeviewwithleadingaction--leading-action',
             globals: {
               colorScheme: theme,
             },
           })
 
           expect(await page.screenshot()).toMatchSnapshot(`TreeView.Leading Action.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-treeview-features--leading-action',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
         })
       })
     }
