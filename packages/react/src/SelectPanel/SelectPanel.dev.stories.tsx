@@ -126,7 +126,7 @@ export const WithCss = () => {
           onSelectedChange={setSelected}
           onFilterChange={setFilter}
           className="testCustomClassnameMono"
-          message={isEmpty(selectedItemsSortedFirst, selected, filter) ? emptyMessage(filter) : undefined}
+          message={isEmpty(selectedItemsSortedFirst, selected, filter) ? <EmptyMessage filter={filter} /> : undefined}
         />
       </FormControl>
     </FeatureFlags>
