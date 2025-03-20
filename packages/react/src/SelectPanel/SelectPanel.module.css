@@ -21,17 +21,17 @@
 }
 
 .Notice {
-  margin-top: var(--base-size-4);
   display: flex;
-  flex-direction: row;
-  gap: var(--base-size-8);
   padding-top: var(--base-size-12);
   padding-right: var(--base-size-16);
-  padding-left: var(--base-size-16);
   padding-bottom: var(--base-size-12);
-  border-top: 1px solid;
-  border-bottom: 1px solid;
+  padding-left: var(--base-size-16);
+  margin-top: var(--base-size-4);
   font-size: var(--text-body-size-small);
+  flex-direction: row;
+  border-top: var(--borderWidth-thin) solid;
+  border-bottom: var(--borderWidth-thin) solid;
+  gap: var(--base-size-8);
 }
 
 .Notice a {
