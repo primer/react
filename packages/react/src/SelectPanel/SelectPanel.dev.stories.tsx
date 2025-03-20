@@ -16,7 +16,7 @@ const meta: Meta<typeof SelectPanel> = {
 
 export default meta
 
-const emptyMessage = (filter: string) => (
+const EmptyMessage = ({ filter }: { filter: string }) => (
   <SelectPanel.Message variant="empty" title={`No language found for \`${filter}\``} key="no-results-message">
     Adjust your search term to find other languages
   </SelectPanel.Message>
