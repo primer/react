@@ -39,7 +39,7 @@ export interface FilteredActionListProps
   onInputRefChanged?: (ref: React.RefObject<HTMLInputElement>) => void
   textInputProps?: Partial<Omit<TextInputProps, 'onChange'>>
   inputRef?: React.RefObject<HTMLInputElement>
-  message?: React.ReactNode[]
+  message?: React.ReactNode
   className?: string
   announcementsEnabled?: boolean
 }
