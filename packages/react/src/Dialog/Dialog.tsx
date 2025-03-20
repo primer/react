@@ -632,7 +632,7 @@ const StyledFooter = toggleStyledComponent(
     z-index: 1;
     flex-shrink: 0;
 
-    @media (max-height: 256px) {
+    @media (max-height: 325px) {
       flex-wrap: nowrap;
       overflow-x: scroll;
     }
