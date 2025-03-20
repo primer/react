@@ -114,7 +114,7 @@ export const WithCss = () => {
           onSelectedChange={setSelected}
           onFilterChange={setFilter}
           className="testCustomClassnameMono"
-          message={selectedItemsSortedFirst.length == 0 ? <NoResultsMessage filter={filter} /> : undefined}
+          message={selectedItemsSortedFirst.length === 0 ? <NoResultsMessage filter={filter} /> : undefined}
         />
       </FormControl>
     </FeatureFlags>
@@ -166,7 +166,7 @@ export const WithSx = () => {
           onSelectedChange={setSelected}
           onFilterChange={setFilter}
           sx={{fontFamily: 'Times New Roman'}}
-          message={selectedItemsSortedFirst.length == 0 ? <NoResultsMessage filter={filter} /> : undefined}
+          message={selectedItemsSortedFirst.length === 0 ? <NoResultsMessage filter={filter} /> : undefined}
         />
       </FormControl>
     </FeatureFlags>
@@ -219,7 +219,7 @@ export const WithSxAndCSS = () => {
           onFilterChange={setFilter}
           sx={{fontFamily: 'Times New Roman'}}
           className="testCustomClassnameMono"
-          message={selectedItemsSortedFirst.length == 0 ? <NoResultsMessage filter={filter} /> : undefined}
+          message={selectedItemsSortedFirst.length === 0 ? <NoResultsMessage filter={filter} /> : undefined}
         />
       </FormControl>
     </FeatureFlags>

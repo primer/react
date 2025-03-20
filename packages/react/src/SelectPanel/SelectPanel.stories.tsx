@@ -107,7 +107,7 @@ export const Default = () => {
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         width="medium"
-        message={selectedItemsSortedFirst.length == 0 ? <NoResultsMessage filter={filter} /> : undefined}
+        message={selectedItemsSortedFirst.length === 0 ? <NoResultsMessage filter={filter} /> : undefined}
       />
     </FormControl>
   )

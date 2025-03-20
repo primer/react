@@ -112,7 +112,7 @@ export const WithItemDividers = () => {
         onFilterChange={setFilter}
         showItemDividers={true}
         width="medium"
-        message={selectedItemsSortedFirst.length == 0 ? <NoResultsMessage filter={filter} /> : undefined}
+        message={selectedItemsSortedFirst.length === 0 ? <NoResultsMessage filter={filter} /> : undefined}
       />
     </FormControl>
   )
@@ -158,7 +158,7 @@ export const WithPlaceholderForSearchInput = () => {
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         width="medium"
-        message={selectedItemsSortedFirst.length == 0 ? <NoResultsMessage filter={filter} /> : undefined}
+        message={selectedItemsSortedFirst.length === 0 ? <NoResultsMessage filter={filter} /> : undefined}
       />
     </FormControl>
   )
@@ -195,7 +195,7 @@ export const SingleSelect = () => {
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         width="medium"
-        message={selectedItemsSortedFirst.length == 0 ? <NoResultsMessage filter={filter} /> : undefined}
+        message={selectedItemsSortedFirst.length === 0 ? <NoResultsMessage filter={filter} /> : undefined}
       />
     </FormControl>
   )
@@ -240,7 +240,7 @@ export const MultiSelect = () => {
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         width="medium"
-        message={selectedItemsSortedFirst.length == 0 ? <NoResultsMessage filter={filter} /> : undefined}
+        message={selectedItemsSortedFirst.length === 0 ? <NoResultsMessage filter={filter} /> : undefined}
       />
     </FormControl>
   )
@@ -283,7 +283,7 @@ export const WithExternalAnchor = () => {
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         width="medium"
-        message={filteredItems.length == 0 ? <NoResultsMessage filter={filter} /> : undefined}
+        message={filteredItems.length === 0 ? <NoResultsMessage filter={filter} /> : undefined}
       />
     </FormControl>
   )
@@ -332,7 +332,7 @@ export const WithFooter = () => {
           </Button>
         }
         width="medium"
-        message={selectedItemsSortedFirst.length == 0 ? <NoResultsMessage filter={filter} /> : undefined}
+        message={selectedItemsSortedFirst.length === 0 ? <NoResultsMessage filter={filter} /> : undefined}
       />
     </FormControl>
   )
@@ -426,7 +426,7 @@ export const WithGroups = () => {
         onFilterChange={setFilter}
         overlayProps={{width: 'large', height: 'xlarge'}}
         width="medium"
-        message={selectedItemsSortedFirst.length == 0 ? <NoResultsMessage filter={filter} /> : undefined}
+        message={selectedItemsSortedFirst.length === 0 ? <NoResultsMessage filter={filter} /> : undefined}
       />
     </FormControl>
   )
@@ -471,7 +471,7 @@ export const WithLabelVisuallyHidden = () => {
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         width="medium"
-        message={selectedItemsSortedFirst.length == 0 ? <NoResultsMessage filter={filter} /> : undefined}
+        message={selectedItemsSortedFirst.length === 0 ? <NoResultsMessage filter={filter} /> : undefined}
       />
     </FormControl>
   )
@@ -519,7 +519,7 @@ export const WithLabelInternally = () => {
       onSelectedChange={setSelected}
       onFilterChange={setFilter}
       width="medium"
-      message={selectedItemsSortedFirst.length == 0 ? <NoResultsMessage filter={filter} /> : undefined}
+      message={selectedItemsSortedFirst.length === 0 ? <NoResultsMessage filter={filter} /> : undefined}
     />
   )
 }
@@ -574,7 +574,7 @@ export const AsyncFetch: StoryObj<SelectPanelProps> = {
         height={height}
         initialLoadingType={initialLoadingType}
         width="medium"
-        message={filteredItems.length == 0 ? <NoResultsMessage filter={query} /> : undefined}
+        message={filteredItems.length === 0 ? <NoResultsMessage filter={query} /> : undefined}
       />
     )
   },
@@ -689,7 +689,7 @@ export const CustomisedNoResults: StoryObj<typeof SelectPanel> = {
         initialLoadingType={initialLoadingType}
         height={height}
         overlayProps={{maxHeight: height === 'auto' || height === 'initial' ? 'xlarge' : height}}
-        message={filteredItems.length == 0 ? <NoResultsMessage filter={filterValue} /> : undefined}
+        message={filteredItems.length === 0 ? <NoResultsMessage filter={filterValue} /> : undefined}
       />
     )
   },
