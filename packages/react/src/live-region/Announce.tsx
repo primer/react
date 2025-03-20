@@ -109,7 +109,6 @@ export function Announce({
       subtree: true,
       childList: true,
       characterData: true,
-      childList: true,
     })
 
     return () => {
