@@ -15,7 +15,7 @@ const meta: Meta<typeof SelectPanel> = {
 
 export default meta
 
-const emptyMessage = (filter: string) => (
+const NoResultsMessage = ({filter}: {filter: string}) => (
   <SelectPanel.Message variant="empty" title={`No language found for \`${filter}\``} key="no-results-message">
     Adjust your search term to find other languages
   </SelectPanel.Message>
@@ -107,7 +107,7 @@ export const Default = () => {
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         width="medium"
-        message={selectedItemsSortedFirst.length == 0 ? emptyMessage(filter) : undefined}
+        message={selectedItemsSortedFirst.length == 0 ? <NoResultsMessage filter={filter} /> : undefined}
       />
     </FormControl>
   )

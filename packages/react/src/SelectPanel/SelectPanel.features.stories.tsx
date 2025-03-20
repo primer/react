@@ -27,13 +27,13 @@ const meta: Meta<typeof SelectPanel> = {
 
 export default meta
 
-const noResultsMessage = (filter: string) => (
+const NoResultsMessage = ({filter}: {filter: string}) => (
   <SelectPanel.Message variant="empty" title={`No language found for \`${filter}\``} key="no-results-message">
     Adjust your search term to find other languages
   </SelectPanel.Message>
 )
 
-const emptyMessage = (
+const EmptyMessage = (
   <SelectPanel.Message variant="empty" title="You haven't created any projects yet" key="empty-message">
     <Link href="https://github.com/projects">Start your first project</Link> to organise your issues.
   </SelectPanel.Message>
@@ -112,7 +112,7 @@ export const WithItemDividers = () => {
         onFilterChange={setFilter}
         showItemDividers={true}
         width="medium"
-        message={selectedItemsSortedFirst.length == 0 ? noResultsMessage(filter) : undefined}
+        message={selectedItemsSortedFirst.length == 0 ? <NoResultsMessage filter={filter} /> : undefined}
       />
     </FormControl>
   )
@@ -158,7 +158,7 @@ export const WithPlaceholderForSearchInput = () => {
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         width="medium"
-        message={selectedItemsSortedFirst.length == 0 ? noResultsMessage(filter) : undefined}
+        message={selectedItemsSortedFirst.length == 0 ? <NoResultsMessage filter={filter} /> : undefined}
       />
     </FormControl>
   )
@@ -195,7 +195,7 @@ export const SingleSelect = () => {
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         width="medium"
-        message={selectedItemsSortedFirst.length == 0 ? noResultsMessage(filter) : undefined}
+        message={selectedItemsSortedFirst.length == 0 ? <NoResultsMessage filter={filter} /> : undefined}
       />
     </FormControl>
   )
@@ -240,7 +240,7 @@ export const MultiSelect = () => {
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         width="medium"
-        message={selectedItemsSortedFirst.length == 0 ? noResultsMessage(filter) : undefined}
+        message={selectedItemsSortedFirst.length == 0 ? <NoResultsMessage filter={filter} /> : undefined}
       />
     </FormControl>
   )
@@ -283,7 +283,7 @@ export const WithExternalAnchor = () => {
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         width="medium"
-        message={filteredItems.length == 0 ? noResultsMessage(filter) : undefined}
+        message={filteredItems.length == 0 ? <NoResultsMessage filter={filter} /> : undefined}
       />
     </FormControl>
   )
@@ -332,7 +332,7 @@ export const WithFooter = () => {
           </Button>
         }
         width="medium"
-        message={selectedItemsSortedFirst.length == 0 ? noResultsMessage(filter) : undefined}
+        message={selectedItemsSortedFirst.length == 0 ? <NoResultsMessage filter={filter} /> : undefined}
       />
     </FormControl>
   )
@@ -426,7 +426,7 @@ export const WithGroups = () => {
         onFilterChange={setFilter}
         overlayProps={{width: 'large', height: 'xlarge'}}
         width="medium"
-        message={selectedItemsSortedFirst.length == 0 ? noResultsMessage(filter) : undefined}
+        message={selectedItemsSortedFirst.length == 0 ? <NoResultsMessage filter={filter} /> : undefined}
       />
     </FormControl>
   )
@@ -471,7 +471,7 @@ export const WithLabelVisuallyHidden = () => {
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         width="medium"
-        message={selectedItemsSortedFirst.length == 0 ? noResultsMessage(filter) : undefined}
+        message={selectedItemsSortedFirst.length == 0 ? <NoResultsMessage filter={filter} /> : undefined}
       />
     </FormControl>
   )
@@ -519,7 +519,7 @@ export const WithLabelInternally = () => {
       onSelectedChange={setSelected}
       onFilterChange={setFilter}
       width="medium"
-      message={selectedItemsSortedFirst.length == 0 ? noResultsMessage(filter) : undefined}
+      message={selectedItemsSortedFirst.length == 0 ? <NoResultsMessage filter={filter} /> : undefined}
     />
   )
 }
@@ -574,7 +574,7 @@ export const AsyncFetch: StoryObj<SelectPanelProps> = {
         height={height}
         initialLoadingType={initialLoadingType}
         width="medium"
-        message={filteredItems.length == 0 ? noResultsMessage(query) : undefined}
+        message={filteredItems.length == 0 ? <NoResultsMessage filter={query} /> : undefined}
       />
     )
   },
@@ -614,8 +614,8 @@ export const CustomisedNoInitialItems = () => {
 
   function getMessage() {
     if (isError) return errorMessage
-    else if (filter) return noResultsMessage(filter)
-    else return emptyMessage
+    else if (filter) return <NoResultsMessage filter={filter} />
+    else return EmptyMessage
   }
 
   return (
@@ -689,7 +689,7 @@ export const CustomisedNoResults: StoryObj<typeof SelectPanel> = {
         initialLoadingType={initialLoadingType}
         height={height}
         overlayProps={{maxHeight: height === 'auto' || height === 'initial' ? 'xlarge' : height}}
-        message={filteredItems.length == 0 ? noResultsMessage(filterValue) : undefined}
+        message={filteredItems.length == 0 ? <NoResultsMessage filter={filterValue} /> : undefined}
       />
     )
   },
