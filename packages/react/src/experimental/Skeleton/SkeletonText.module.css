@@ -63,3 +63,8 @@
     --line-height: var(--text-body-lineHeight-small);
   }
 }
+
+.SkeletonTextWrapper {
+  /* stylelint-disable-next-line primer/spacing */
+  padding-block: 0.1px;
+}
