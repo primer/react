@@ -3,7 +3,6 @@ import React from 'react'
 import theme from '../theme'
 import {ActionList} from '.'
 import {BaseStyles, ThemeProvider, ActionMenu} from '..'
-import {FeatureFlags} from '../FeatureFlags'
 
 describe('ActionList.Group', () => {
   it('should throw an error when ActionList.GroupHeading has an `as` prop when it is used within ActionMenu context', async () => {

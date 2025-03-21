@@ -3,7 +3,6 @@ import React from 'react'
 import theme from '../theme'
 import {ActionList} from '.'
 import {BaseStyles, ThemeProvider, ActionMenu} from '..'
-import {FeatureFlags} from '../FeatureFlags'
 
 describe('ActionList.Heading', () => {
   it('should render the ActionList.Heading component as a heading with the given heading level', async () => {
