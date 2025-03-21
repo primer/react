@@ -806,14 +806,6 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
 
 }
 
-@media (forced-colors:active) {
-
-}
-
-@media (forced-colors:active) {
-
-}
-
 @media (hover:hover) and (pointer:fine) {
 
 }
@@ -858,67 +850,6 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
     />
   </span>,
   .c3 {
-  height: 20px;
-  max-width: 20px;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-  margin-right: 8px;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-  min-width: 16px;
-}
-
-.c4 {
-  border-color: var(--control-borderColor-emphasis);
-  border-style: solid;
-  border-width: 1px;
-  border-radius: 3px;
-  cursor: pointer;
-  display: grid;
-  height: var(--base-size-16,16px);
-  margin: 0;
-  place-content: center;
-  width: var(--base-size-16,16px);
-  background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
-  -webkit-transition: background-color,border-color 80ms cubic-bezier(0.32,0,0.67,0) 0ms;
-  transition: background-color,border-color 80ms cubic-bezier(0.32,0,0.67,0) 0ms;
-}
-
-.c4::before {
-  width: var(--base-size-16,16px);
-  height: var(--base-size-16,16px);
-  visibility: hidden;
-  content: "";
-  background-color: var(--fgColor-onEmphasis,var(--color-fg-on-emphasis,#ffffff));
-  -webkit-transition: visibility 0s linear 230ms;
-  transition: visibility 0s linear 230ms;
-  -webkit-clip-path: inset(var(--base-size-16,16px) 0 0 0);
-  clip-path: inset(var(--base-size-16,16px) 0 0 0);
-  -webkit-mask-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIiIGhlaWdodD0iOSIgdmlld0JveD0iMCAwIDEyIDkiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBkPSJNMTEuNzgwMyAwLjIxOTYyNUMxMS45MjEgMC4zNjA0MjcgMTIgMC41NTEzMDUgMTIgMC43NTAzMTNDMTIgMC45NDkzMjEgMTEuOTIxIDEuMTQwMTkgMTEuNzgwMyAxLjI4MUw0LjUxODYgOC41NDA0MkM0LjM3Nzc1IDguNjgxIDQuMTg2ODIgOC43NiAzLjk4Nzc0IDguNzZDMy43ODg2NyA4Ljc2IDMuNTk3NzMgOC42ODEgMy40NTY4OSA4LjU0MDQyTDAuMjAxNjIyIDUuMjg2MkMwLjA2ODkyNzcgNS4xNDM4MyAtMC4wMDMzMDkwNSA0Ljk1NTU1IDAuMDAwMTE2NDkzIDQuNzYwOThDMC4wMDM1NTIwNSA0LjU2NjQzIDAuMDgyMzg5NCA0LjM4MDgxIDAuMjIwMDMyIDQuMjQzMjFDMC4zNTc2NjUgNC4xMDU2MiAwLjU0MzM1NSA0LjAyNjgxIDAuNzM3OTcgNC4wMjMzOEMwLjkzMjU4NCA0LjAxOTk0IDEuMTIwOTMgNC4wOTIxNyAxLjI2MzM0IDQuMjI0ODJMMy45ODc3NCA2Ljk0ODM1TDEwLjcxODYgMC4yMTk2MjVDMTAuODU5NSAwLjA3ODk5MjMgMTEuMDUwNCAwIDExLjI0OTUgMEMxMS40NDg1IDAgMTEuNjM5NSAwLjA3ODk5MjMgMTEuNzgwMyAwLjIxOTYyNVoiIGZpbGw9IndoaXRlIi8+Cjwvc3ZnPgo=');
-  mask-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIiIGhlaWdodD0iOSIgdmlld0JveD0iMCAwIDEyIDkiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBkPSJNMTEuNzgwMyAwLjIxOTYyNUMxMS45MjEgMC4zNjA0MjcgMTIgMC41NTEzMDUgMTIgMC43NTAzMTNDMTIgMC45NDkzMjEgMTEuOTIxIDEuMTQwMTkgMTEuNzgwMyAxLjI4MUw0LjUxODYgOC41NDA0MkM0LjM3Nzc1IDguNjgxIDQuMTg2ODIgOC43NiAzLjk4Nzc0IDguNzZDMy43ODg2NyA4Ljc2IDMuNTk3NzMgOC42ODEgMy40NTY4OSA4LjU0MDQyTDAuMjAxNjIyIDUuMjg2MkMwLjA2ODkyNzcgNS4xNDM4MyAtMC4wMDMzMDkwNSA0Ljk1NTU1IDAuMDAwMTE2NDkzIDQuNzYwOThDMC4wMDM1NTIwNSA0LjU2NjQzIDAuMDgyMzg5NCA0LjM4MDgxIDAuMjIwMDMyIDQuMjQzMjFDMC4zNTc2NjUgNC4xMDU2MiAwLjU0MzM1NSA0LjAyNjgxIDAuNzM3OTcgNC4wMjMzOEMwLjkzMjU4NCA0LjAxOTk0IDEuMTIwOTMgNC4wOTIxNyAxLjI2MzM0IDQuMjI0ODJMMy45ODc3NCA2Ljk0ODM1TDEwLjcxODYgMC4yMTk2MjVDMTAuODU5NSAwLjA3ODk5MjMgMTEuMDUwNCAwIDExLjI0OTUgMEMxMS40NDg1IDAgMTEuNjM5NSAwLjA3ODk5MjMgMTEuNzgwMyAwLjIxOTYyNVoiIGZpbGw9IndoaXRlIi8+Cjwvc3ZnPgo=');
-  -webkit-mask-size: 75%;
-  mask-size: 75%;
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-  -webkit-mask-position: center;
-  mask-position: center;
-  -webkit-animation: checkmarkOut 80ms cubic-bezier(0.65,0,0.35,1) forwards;
-  animation: checkmarkOut 80ms cubic-bezier(0.65,0,0.35,1) forwards;
-}
-
-.c5 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -933,7 +864,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   min-width: 0;
 }
 
-.c6 {
+.c4 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -1062,19 +993,9 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   --divider-color: transparent !important;
 }
 
-.c7:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c1,
-.c7[data-focus-visible-added] + li {
+.c5:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c1,
+.c5[data-focus-visible-added] + li {
   --divider-color: transparent;
-}
-
-@media (forced-colors:active) {
-  .c4 {
-    border-width: 1px;
-  }
-}
-
-@media (forced-colors:active) {
-
 }
 
 @media (forced-colors:active) {
@@ -1143,20 +1064,18 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
           tabIndex={0}
         >
           <span
-            className="c3"
-            data-component="ActionList.Selection"
+            className="VisualWrap"
           >
             <div
-              className="c4"
-              data-component="ActionList.Checkbox"
+              className="MultiSelectCheckbox"
             />
           </span>
           <div
-            className="c5"
+            className="c3"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c6"
+              className="c4"
               id="0--label"
             >
               zero
@@ -1175,20 +1094,18 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
           tabIndex={0}
         >
           <span
-            className="c3"
-            data-component="ActionList.Selection"
+            className="VisualWrap"
           >
             <div
-              className="c4"
-              data-component="ActionList.Checkbox"
+              className="MultiSelectCheckbox"
             />
           </span>
           <div
-            className="c5"
+            className="c3"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c6"
+              className="c4"
               id="1--label"
             >
               one
@@ -1207,20 +1124,18 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
           tabIndex={0}
         >
           <span
-            className="c3"
-            data-component="ActionList.Selection"
+            className="VisualWrap"
           >
             <div
-              className="c4"
-              data-component="ActionList.Checkbox"
+              className="MultiSelectCheckbox"
             />
           </span>
           <div
-            className="c5"
+            className="c3"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c6"
+              className="c4"
               id="2--label"
             >
               two
@@ -1239,20 +1154,18 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
           tabIndex={0}
         >
           <span
-            className="c3"
-            data-component="ActionList.Selection"
+            className="VisualWrap"
           >
             <div
-              className="c4"
-              data-component="ActionList.Checkbox"
+              className="MultiSelectCheckbox"
             />
           </span>
           <div
-            className="c5"
+            className="c3"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c6"
+              className="c4"
               id="3--label"
             >
               three
@@ -1271,20 +1184,18 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
           tabIndex={0}
         >
           <span
-            className="c3"
-            data-component="ActionList.Selection"
+            className="VisualWrap"
           >
             <div
-              className="c4"
-              data-component="ActionList.Checkbox"
+              className="MultiSelectCheckbox"
             />
           </span>
           <div
-            className="c5"
+            className="c3"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c6"
+              className="c4"
               id="4--label"
             >
               four
@@ -1303,20 +1214,18 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
           tabIndex={0}
         >
           <span
-            className="c3"
-            data-component="ActionList.Selection"
+            className="VisualWrap"
           >
             <div
-              className="c4"
-              data-component="ActionList.Checkbox"
+              className="MultiSelectCheckbox"
             />
           </span>
           <div
-            className="c5"
+            className="c3"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c6"
+              className="c4"
               id="5--label"
             >
               five
@@ -1335,20 +1244,18 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
           tabIndex={0}
         >
           <span
-            className="c3"
-            data-component="ActionList.Selection"
+            className="VisualWrap"
           >
             <div
-              className="c4"
-              data-component="ActionList.Checkbox"
+              className="MultiSelectCheckbox"
             />
           </span>
           <div
-            className="c5"
+            className="c3"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c6"
+              className="c4"
               id="6--label"
             >
               six
@@ -1367,20 +1274,18 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
           tabIndex={0}
         >
           <span
-            className="c3"
-            data-component="ActionList.Selection"
+            className="VisualWrap"
           >
             <div
-              className="c4"
-              data-component="ActionList.Checkbox"
+              className="MultiSelectCheckbox"
             />
           </span>
           <div
-            className="c5"
+            className="c3"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c6"
+              className="c4"
               id="7--label"
             >
               seven
@@ -1399,20 +1304,18 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
           tabIndex={0}
         >
           <span
-            className="c3"
-            data-component="ActionList.Selection"
+            className="VisualWrap"
           >
             <div
-              className="c4"
-              data-component="ActionList.Checkbox"
+              className="MultiSelectCheckbox"
             />
           </span>
           <div
-            className="c5"
+            className="c3"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c6"
+              className="c4"
               id="20--label"
             >
               twenty
@@ -1431,20 +1334,18 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
           tabIndex={0}
         >
           <span
-            className="c3"
-            data-component="ActionList.Selection"
+            className="VisualWrap"
           >
             <div
-              className="c4"
-              data-component="ActionList.Checkbox"
+              className="MultiSelectCheckbox"
             />
           </span>
           <div
-            className="c5"
+            className="c3"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c6"
+              className="c4"
               id="21--label"
             >
               twentyone
@@ -1463,12 +1364,10 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
           tabIndex={0}
         >
           <span
-            className="c3"
-            data-component="ActionList.Selection"
+            className="VisualWrap"
           >
             <div
-              className="c4"
-              data-component="ActionList.Checkbox"
+              className="MultiSelectCheckbox"
             />
           </span>
           <span
@@ -1496,11 +1395,11 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
             </svg>
           </span>
           <div
-            className="c5"
+            className="c3"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c6"
+              className="c4"
               id="add-new-item--label"
             >
               Add new item
@@ -1732,10 +1631,6 @@ exports[`snapshots renders a multiselect input 1`] = `
 
 }
 
-@media (forced-colors:active) {
-
-}
-
 @media (hover:hover) and (pointer:fine) {
 
 }
@@ -1772,67 +1667,6 @@ exports[`snapshots renders a multiselect input 1`] = `
     />
   </span>,
   .c3 {
-  height: 20px;
-  max-width: 20px;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-  margin-right: 8px;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-  min-width: 16px;
-}
-
-.c4 {
-  border-color: var(--control-borderColor-emphasis);
-  border-style: solid;
-  border-width: 1px;
-  border-radius: 3px;
-  cursor: pointer;
-  display: grid;
-  height: var(--base-size-16,16px);
-  margin: 0;
-  place-content: center;
-  width: var(--base-size-16,16px);
-  background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
-  -webkit-transition: background-color,border-color 80ms cubic-bezier(0.32,0,0.67,0) 0ms;
-  transition: background-color,border-color 80ms cubic-bezier(0.32,0,0.67,0) 0ms;
-}
-
-.c4::before {
-  width: var(--base-size-16,16px);
-  height: var(--base-size-16,16px);
-  visibility: hidden;
-  content: "";
-  background-color: var(--fgColor-onEmphasis,var(--color-fg-on-emphasis,#ffffff));
-  -webkit-transition: visibility 0s linear 230ms;
-  transition: visibility 0s linear 230ms;
-  -webkit-clip-path: inset(var(--base-size-16,16px) 0 0 0);
-  clip-path: inset(var(--base-size-16,16px) 0 0 0);
-  -webkit-mask-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIiIGhlaWdodD0iOSIgdmlld0JveD0iMCAwIDEyIDkiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBkPSJNMTEuNzgwMyAwLjIxOTYyNUMxMS45MjEgMC4zNjA0MjcgMTIgMC41NTEzMDUgMTIgMC43NTAzMTNDMTIgMC45NDkzMjEgMTEuOTIxIDEuMTQwMTkgMTEuNzgwMyAxLjI4MUw0LjUxODYgOC41NDA0MkM0LjM3Nzc1IDguNjgxIDQuMTg2ODIgOC43NiAzLjk4Nzc0IDguNzZDMy43ODg2NyA4Ljc2IDMuNTk3NzMgOC42ODEgMy40NTY4OSA4LjU0MDQyTDAuMjAxNjIyIDUuMjg2MkMwLjA2ODkyNzcgNS4xNDM4MyAtMC4wMDMzMDkwNSA0Ljk1NTU1IDAuMDAwMTE2NDkzIDQuNzYwOThDMC4wMDM1NTIwNSA0LjU2NjQzIDAuMDgyMzg5NCA0LjM4MDgxIDAuMjIwMDMyIDQuMjQzMjFDMC4zNTc2NjUgNC4xMDU2MiAwLjU0MzM1NSA0LjAyNjgxIDAuNzM3OTcgNC4wMjMzOEMwLjkzMjU4NCA0LjAxOTk0IDEuMTIwOTMgNC4wOTIxNyAxLjI2MzM0IDQuMjI0ODJMMy45ODc3NCA2Ljk0ODM1TDEwLjcxODYgMC4yMTk2MjVDMTAuODU5NSAwLjA3ODk5MjMgMTEuMDUwNCAwIDExLjI0OTUgMEMxMS40NDg1IDAgMTEuNjM5NSAwLjA3ODk5MjMgMTEuNzgwMyAwLjIxOTYyNVoiIGZpbGw9IndoaXRlIi8+Cjwvc3ZnPgo=');
-  mask-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIiIGhlaWdodD0iOSIgdmlld0JveD0iMCAwIDEyIDkiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBkPSJNMTEuNzgwMyAwLjIxOTYyNUMxMS45MjEgMC4zNjA0MjcgMTIgMC41NTEzMDUgMTIgMC43NTAzMTNDMTIgMC45NDkzMjEgMTEuOTIxIDEuMTQwMTkgMTEuNzgwMyAxLjI4MUw0LjUxODYgOC41NDA0MkM0LjM3Nzc1IDguNjgxIDQuMTg2ODIgOC43NiAzLjk4Nzc0IDguNzZDMy43ODg2NyA4Ljc2IDMuNTk3NzMgOC42ODEgMy40NTY4OSA4LjU0MDQyTDAuMjAxNjIyIDUuMjg2MkMwLjA2ODkyNzcgNS4xNDM4MyAtMC4wMDMzMDkwNSA0Ljk1NTU1IDAuMDAwMTE2NDkzIDQuNzYwOThDMC4wMDM1NTIwNSA0LjU2NjQzIDAuMDgyMzg5NCA0LjM4MDgxIDAuMjIwMDMyIDQuMjQzMjFDMC4zNTc2NjUgNC4xMDU2MiAwLjU0MzM1NSA0LjAyNjgxIDAuNzM3OTcgNC4wMjMzOEMwLjkzMjU4NCA0LjAxOTk0IDEuMTIwOTMgNC4wOTIxNyAxLjI2MzM0IDQuMjI0ODJMMy45ODc3NCA2Ljk0ODM1TDEwLjcxODYgMC4yMTk2MjVDMTAuODU5NSAwLjA3ODk5MjMgMTEuMDUwNCAwIDExLjI0OTUgMEMxMS40NDg1IDAgMTEuNjM5NSAwLjA3ODk5MjMgMTEuNzgwMyAwLjIxOTYyNVoiIGZpbGw9IndoaXRlIi8+Cjwvc3ZnPgo=');
-  -webkit-mask-size: 75%;
-  mask-size: 75%;
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-  -webkit-mask-position: center;
-  mask-position: center;
-  -webkit-animation: checkmarkOut 80ms cubic-bezier(0.65,0,0.35,1) forwards;
-  animation: checkmarkOut 80ms cubic-bezier(0.65,0,0.35,1) forwards;
-}
-
-.c5 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -1847,7 +1681,7 @@ exports[`snapshots renders a multiselect input 1`] = `
   min-width: 0;
 }
 
-.c6 {
+.c4 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -1973,12 +1807,6 @@ exports[`snapshots renders a multiselect input 1`] = `
 }
 
 @media (forced-colors:active) {
-  .c4 {
-    border-width: 1px;
-  }
-}
-
-@media (forced-colors:active) {
   .c2:focus,
   .c2:focus-visible,
   .c2 > a.focus-visible,
@@ -2036,20 +1864,18 @@ exports[`snapshots renders a multiselect input 1`] = `
           tabIndex={0}
         >
           <span
-            className="c3"
-            data-component="ActionList.Selection"
+            className="VisualWrap"
           >
             <div
-              className="c4"
-              data-component="ActionList.Checkbox"
+              className="MultiSelectCheckbox"
             />
           </span>
           <div
-            className="c5"
+            className="c3"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c6"
+              className="c4"
               id="0--label"
             >
               zero
@@ -2068,20 +1894,18 @@ exports[`snapshots renders a multiselect input 1`] = `
           tabIndex={0}
         >
           <span
-            className="c3"
-            data-component="ActionList.Selection"
+            className="VisualWrap"
           >
             <div
-              className="c4"
-              data-component="ActionList.Checkbox"
+              className="MultiSelectCheckbox"
             />
           </span>
           <div
-            className="c5"
+            className="c3"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c6"
+              className="c4"
               id="1--label"
             >
               one
@@ -2100,20 +1924,18 @@ exports[`snapshots renders a multiselect input 1`] = `
           tabIndex={0}
         >
           <span
-            className="c3"
-            data-component="ActionList.Selection"
+            className="VisualWrap"
           >
             <div
-              className="c4"
-              data-component="ActionList.Checkbox"
+              className="MultiSelectCheckbox"
             />
           </span>
           <div
-            className="c5"
+            className="c3"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c6"
+              className="c4"
               id="2--label"
             >
               two
@@ -2132,20 +1954,18 @@ exports[`snapshots renders a multiselect input 1`] = `
           tabIndex={0}
         >
           <span
-            className="c3"
-            data-component="ActionList.Selection"
+            className="VisualWrap"
           >
             <div
-              className="c4"
-              data-component="ActionList.Checkbox"
+              className="MultiSelectCheckbox"
             />
           </span>
           <div
-            className="c5"
+            className="c3"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c6"
+              className="c4"
               id="3--label"
             >
               three
@@ -2164,20 +1984,18 @@ exports[`snapshots renders a multiselect input 1`] = `
           tabIndex={0}
         >
           <span
-            className="c3"
-            data-component="ActionList.Selection"
+            className="VisualWrap"
           >
             <div
-              className="c4"
-              data-component="ActionList.Checkbox"
+              className="MultiSelectCheckbox"
             />
           </span>
           <div
-            className="c5"
+            className="c3"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c6"
+              className="c4"
               id="4--label"
             >
               four
@@ -2196,20 +2014,18 @@ exports[`snapshots renders a multiselect input 1`] = `
           tabIndex={0}
         >
           <span
-            className="c3"
-            data-component="ActionList.Selection"
+            className="VisualWrap"
           >
             <div
-              className="c4"
-              data-component="ActionList.Checkbox"
+              className="MultiSelectCheckbox"
             />
           </span>
           <div
-            className="c5"
+            className="c3"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c6"
+              className="c4"
               id="5--label"
             >
               five
@@ -2228,20 +2044,18 @@ exports[`snapshots renders a multiselect input 1`] = `
           tabIndex={0}
         >
           <span
-            className="c3"
-            data-component="ActionList.Selection"
+            className="VisualWrap"
           >
             <div
-              className="c4"
-              data-component="ActionList.Checkbox"
+              className="MultiSelectCheckbox"
             />
           </span>
           <div
-            className="c5"
+            className="c3"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c6"
+              className="c4"
               id="6--label"
             >
               six
@@ -2260,20 +2074,18 @@ exports[`snapshots renders a multiselect input 1`] = `
           tabIndex={0}
         >
           <span
-            className="c3"
-            data-component="ActionList.Selection"
+            className="VisualWrap"
           >
             <div
-              className="c4"
-              data-component="ActionList.Checkbox"
+              className="MultiSelectCheckbox"
             />
           </span>
           <div
-            className="c5"
+            className="c3"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c6"
+              className="c4"
               id="7--label"
             >
               seven
@@ -2292,20 +2104,18 @@ exports[`snapshots renders a multiselect input 1`] = `
           tabIndex={0}
         >
           <span
-            className="c3"
-            data-component="ActionList.Selection"
+            className="VisualWrap"
           >
             <div
-              className="c4"
-              data-component="ActionList.Checkbox"
+              className="MultiSelectCheckbox"
             />
           </span>
           <div
-            className="c5"
+            className="c3"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c6"
+              className="c4"
               id="20--label"
             >
               twenty
@@ -2324,20 +2134,18 @@ exports[`snapshots renders a multiselect input 1`] = `
           tabIndex={0}
         >
           <span
-            className="c3"
-            data-component="ActionList.Selection"
+            className="VisualWrap"
           >
             <div
-              className="c4"
-              data-component="ActionList.Checkbox"
+              className="MultiSelectCheckbox"
             />
           </span>
           <div
-            className="c5"
+            className="c3"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c6"
+              className="c4"
               id="21--label"
             >
               twentyone
@@ -2569,14 +2377,6 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
 
 }
 
-@media (forced-colors:active) {
-
-}
-
-@media (forced-colors:active) {
-
-}
-
 @media (hover:hover) and (pointer:fine) {
 
 }
@@ -2621,67 +2421,6 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
     />
   </span>,
   .c3 {
-  height: 20px;
-  max-width: 20px;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-  margin-right: 8px;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-  min-width: 16px;
-}
-
-.c4 {
-  border-color: var(--control-checked-borderColor-rest);
-  border-style: solid;
-  border-width: 1px;
-  border-radius: 3px;
-  cursor: pointer;
-  display: grid;
-  height: var(--base-size-16,16px);
-  margin: 0;
-  place-content: center;
-  width: var(--base-size-16,16px);
-  background-color: var(--control-checked-bgColor-rest);
-  -webkit-transition: background-color,border-color 80ms cubic-bezier(0.33,1,0.68,1);
-  transition: background-color,border-color 80ms cubic-bezier(0.33,1,0.68,1);
-}
-
-.c4::before {
-  width: var(--base-size-16,16px);
-  height: var(--base-size-16,16px);
-  visibility: visible;
-  content: "";
-  background-color: var(--fgColor-onEmphasis,var(--color-fg-on-emphasis,#ffffff));
-  -webkit-transition: visibility 0s linear 0s;
-  transition: visibility 0s linear 0s;
-  -webkit-clip-path: inset(var(--base-size-16,16px) 0 0 0);
-  clip-path: inset(var(--base-size-16,16px) 0 0 0);
-  -webkit-mask-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIiIGhlaWdodD0iOSIgdmlld0JveD0iMCAwIDEyIDkiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBkPSJNMTEuNzgwMyAwLjIxOTYyNUMxMS45MjEgMC4zNjA0MjcgMTIgMC41NTEzMDUgMTIgMC43NTAzMTNDMTIgMC45NDkzMjEgMTEuOTIxIDEuMTQwMTkgMTEuNzgwMyAxLjI4MUw0LjUxODYgOC41NDA0MkM0LjM3Nzc1IDguNjgxIDQuMTg2ODIgOC43NiAzLjk4Nzc0IDguNzZDMy43ODg2NyA4Ljc2IDMuNTk3NzMgOC42ODEgMy40NTY4OSA4LjU0MDQyTDAuMjAxNjIyIDUuMjg2MkMwLjA2ODkyNzcgNS4xNDM4MyAtMC4wMDMzMDkwNSA0Ljk1NTU1IDAuMDAwMTE2NDkzIDQuNzYwOThDMC4wMDM1NTIwNSA0LjU2NjQzIDAuMDgyMzg5NCA0LjM4MDgxIDAuMjIwMDMyIDQuMjQzMjFDMC4zNTc2NjUgNC4xMDU2MiAwLjU0MzM1NSA0LjAyNjgxIDAuNzM3OTcgNC4wMjMzOEMwLjkzMjU4NCA0LjAxOTk0IDEuMTIwOTMgNC4wOTIxNyAxLjI2MzM0IDQuMjI0ODJMMy45ODc3NCA2Ljk0ODM1TDEwLjcxODYgMC4yMTk2MjVDMTAuODU5NSAwLjA3ODk5MjMgMTEuMDUwNCAwIDExLjI0OTUgMEMxMS40NDg1IDAgMTEuNjM5NSAwLjA3ODk5MjMgMTEuNzgwMyAwLjIxOTYyNVoiIGZpbGw9IndoaXRlIi8+Cjwvc3ZnPgo=');
-  mask-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIiIGhlaWdodD0iOSIgdmlld0JveD0iMCAwIDEyIDkiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBkPSJNMTEuNzgwMyAwLjIxOTYyNUMxMS45MjEgMC4zNjA0MjcgMTIgMC41NTEzMDUgMTIgMC43NTAzMTNDMTIgMC45NDkzMjEgMTEuOTIxIDEuMTQwMTkgMTEuNzgwMyAxLjI4MUw0LjUxODYgOC41NDA0MkM0LjM3Nzc1IDguNjgxIDQuMTg2ODIgOC43NiAzLjk4Nzc0IDguNzZDMy43ODg2NyA4Ljc2IDMuNTk3NzMgOC42ODEgMy40NTY4OSA4LjU0MDQyTDAuMjAxNjIyIDUuMjg2MkMwLjA2ODkyNzcgNS4xNDM4MyAtMC4wMDMzMDkwNSA0Ljk1NTU1IDAuMDAwMTE2NDkzIDQuNzYwOThDMC4wMDM1NTIwNSA0LjU2NjQzIDAuMDgyMzg5NCA0LjM4MDgxIDAuMjIwMDMyIDQuMjQzMjFDMC4zNTc2NjUgNC4xMDU2MiAwLjU0MzM1NSA0LjAyNjgxIDAuNzM3OTcgNC4wMjMzOEMwLjkzMjU4NCA0LjAxOTk0IDEuMTIwOTMgNC4wOTIxNyAxLjI2MzM0IDQuMjI0ODJMMy45ODc3NCA2Ljk0ODM1TDEwLjcxODYgMC4yMTk2MjVDMTAuODU5NSAwLjA3ODk5MjMgMTEuMDUwNCAwIDExLjI0OTUgMEMxMS40NDg1IDAgMTEuNjM5NSAwLjA3ODk5MjMgMTEuNzgwMyAwLjIxOTYyNVoiIGZpbGw9IndoaXRlIi8+Cjwvc3ZnPgo=');
-  -webkit-mask-size: 75%;
-  mask-size: 75%;
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-  -webkit-mask-position: center;
-  mask-position: center;
-  -webkit-animation: checkmarkIn 80ms cubic-bezier(0.65,0,0.35,1) forwards 80ms;
-  animation: checkmarkIn 80ms cubic-bezier(0.65,0,0.35,1) forwards 80ms;
-}
-
-.c5 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -2696,7 +2435,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   min-width: 0;
 }
 
-.c6 {
+.c4 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -2704,44 +2443,6 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   font-weight: 400;
   word-break: break-word;
   line-height: 20px;
-}
-
-.c8 {
-  border-color: var(--control-borderColor-emphasis);
-  border-style: solid;
-  border-width: 1px;
-  border-radius: 3px;
-  cursor: pointer;
-  display: grid;
-  height: var(--base-size-16,16px);
-  margin: 0;
-  place-content: center;
-  width: var(--base-size-16,16px);
-  background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
-  -webkit-transition: background-color,border-color 80ms cubic-bezier(0.32,0,0.67,0) 0ms;
-  transition: background-color,border-color 80ms cubic-bezier(0.32,0,0.67,0) 0ms;
-}
-
-.c8::before {
-  width: var(--base-size-16,16px);
-  height: var(--base-size-16,16px);
-  visibility: hidden;
-  content: "";
-  background-color: var(--fgColor-onEmphasis,var(--color-fg-on-emphasis,#ffffff));
-  -webkit-transition: visibility 0s linear 230ms;
-  transition: visibility 0s linear 230ms;
-  -webkit-clip-path: inset(var(--base-size-16,16px) 0 0 0);
-  clip-path: inset(var(--base-size-16,16px) 0 0 0);
-  -webkit-mask-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIiIGhlaWdodD0iOSIgdmlld0JveD0iMCAwIDEyIDkiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBkPSJNMTEuNzgwMyAwLjIxOTYyNUMxMS45MjEgMC4zNjA0MjcgMTIgMC41NTEzMDUgMTIgMC43NTAzMTNDMTIgMC45NDkzMjEgMTEuOTIxIDEuMTQwMTkgMTEuNzgwMyAxLjI4MUw0LjUxODYgOC41NDA0MkM0LjM3Nzc1IDguNjgxIDQuMTg2ODIgOC43NiAzLjk4Nzc0IDguNzZDMy43ODg2NyA4Ljc2IDMuNTk3NzMgOC42ODEgMy40NTY4OSA4LjU0MDQyTDAuMjAxNjIyIDUuMjg2MkMwLjA2ODkyNzcgNS4xNDM4MyAtMC4wMDMzMDkwNSA0Ljk1NTU1IDAuMDAwMTE2NDkzIDQuNzYwOThDMC4wMDM1NTIwNSA0LjU2NjQzIDAuMDgyMzg5NCA0LjM4MDgxIDAuMjIwMDMyIDQuMjQzMjFDMC4zNTc2NjUgNC4xMDU2MiAwLjU0MzM1NSA0LjAyNjgxIDAuNzM3OTcgNC4wMjMzOEMwLjkzMjU4NCA0LjAxOTk0IDEuMTIwOTMgNC4wOTIxNyAxLjI2MzM0IDQuMjI0ODJMMy45ODc3NCA2Ljk0ODM1TDEwLjcxODYgMC4yMTk2MjVDMTAuODU5NSAwLjA3ODk5MjMgMTEuMDUwNCAwIDExLjI0OTUgMEMxMS40NDg1IDAgMTEuNjM5NSAwLjA3ODk5MjMgMTEuNzgwMyAwLjIxOTYyNVoiIGZpbGw9IndoaXRlIi8+Cjwvc3ZnPgo=');
-  mask-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIiIGhlaWdodD0iOSIgdmlld0JveD0iMCAwIDEyIDkiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBkPSJNMTEuNzgwMyAwLjIxOTYyNUMxMS45MjEgMC4zNjA0MjcgMTIgMC41NTEzMDUgMTIgMC43NTAzMTNDMTIgMC45NDkzMjEgMTEuOTIxIDEuMTQwMTkgMTEuNzgwMyAxLjI4MUw0LjUxODYgOC41NDA0MkM0LjM3Nzc1IDguNjgxIDQuMTg2ODIgOC43NiAzLjk4Nzc0IDguNzZDMy43ODg2NyA4Ljc2IDMuNTk3NzMgOC42ODEgMy40NTY4OSA4LjU0MDQyTDAuMjAxNjIyIDUuMjg2MkMwLjA2ODkyNzcgNS4xNDM4MyAtMC4wMDMzMDkwNSA0Ljk1NTU1IDAuMDAwMTE2NDkzIDQuNzYwOThDMC4wMDM1NTIwNSA0LjU2NjQzIDAuMDgyMzg5NCA0LjM4MDgxIDAuMjIwMDMyIDQuMjQzMjFDMC4zNTc2NjUgNC4xMDU2MiAwLjU0MzM1NSA0LjAyNjgxIDAuNzM3OTcgNC4wMjMzOEMwLjkzMjU4NCA0LjAxOTk0IDEuMTIwOTMgNC4wOTIxNyAxLjI2MzM0IDQuMjI0ODJMMy45ODc3NCA2Ljk0ODM1TDEwLjcxODYgMC4yMTk2MjVDMTAuODU5NSAwLjA3ODk5MjMgMTEuMDUwNCAwIDExLjI0OTUgMEMxMS40NDg1IDAgMTEuNjM5NSAwLjA3ODk5MjMgMTEuNzgwMyAwLjIxOTYyNVoiIGZpbGw9IndoaXRlIi8+Cjwvc3ZnPgo=');
-  -webkit-mask-size: 75%;
-  mask-size: 75%;
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-  -webkit-mask-position: center;
-  mask-position: center;
-  -webkit-animation: checkmarkOut 80ms cubic-bezier(0.65,0,0.35,1) forwards;
-  animation: checkmarkOut 80ms cubic-bezier(0.65,0,0.35,1) forwards;
 }
 
 .c0 {
@@ -2859,7 +2560,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   border-radius: 6px;
 }
 
-.c7 {
+.c5 {
   position: relative;
   display: -webkit-box;
   display: -webkit-flex;
@@ -2891,32 +2592,32 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   margin-bottom: unset;
 }
 
-.c7[data-loading] {
+.c5[data-loading] {
   cursor: default;
 }
 
-.c7[aria-disabled],
-.c7[data-inactive] {
+.c5[aria-disabled],
+.c5[data-inactive] {
   cursor: not-allowed;
 }
 
-.c7[aria-disabled] [data-component="ActionList.Checkbox"],
-.c7[data-inactive] [data-component="ActionList.Checkbox"] {
+.c5[aria-disabled] [data-component="ActionList.Checkbox"],
+.c5[data-inactive] [data-component="ActionList.Checkbox"] {
   cursor: not-allowed;
   background-color: var(--control-bgColor-disabled,rgba(175,184,193,0.2));
   border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
 }
 
-.c7[aria-disabled] [data-component="ActionList.Selection"],
-.c7[data-inactive] [data-component="ActionList.Selection"] {
+.c5[aria-disabled] [data-component="ActionList.Selection"],
+.c5[data-inactive] [data-component="ActionList.Selection"] {
   color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
 }
 
-.c7 [data-component="ActionList.Item--DividerContainer"] {
+.c5 [data-component="ActionList.Item--DividerContainer"] {
   position: relative;
 }
 
-.c7 [data-component="ActionList.Item--DividerContainer"]::before {
+.c5 [data-component="ActionList.Item--DividerContainer"]::before {
   content: " ";
   display: block;
   position: absolute;
@@ -2927,7 +2628,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   border-color: var(--divider-color,transparent);
 }
 
-.c7:not(:first-of-type) {
+.c5:not(:first-of-type) {
   --divider-color: var(--borderColor-muted,var(--color-action-list-item-inline-divider,rgba(208,215,222,0.48)));
 }
 
@@ -2935,22 +2636,22 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   --divider-color: transparent !important;
 }
 
-.c7:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]),
-.c7[data-focus-visible-added]:not([aria-disabled]):not([data-inactive]) {
+.c5:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]),
+.c5[data-focus-visible-added]:not([aria-disabled]):not([data-inactive]) {
   --divider-color: transparent;
 }
 
-.c7:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c1,
-.c7[data-focus-visible-added] + li {
+.c5:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c1,
+.c5[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
 
-.c7[data-is-active-descendant] {
+.c5[data-is-active-descendant] {
   font-weight: 400;
   background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
 }
 
-.c7[data-is-active-descendant]::after {
+.c5[data-is-active-descendant]::after {
   position: absolute;
   top: calc(50% - 12px);
   left: -8px;
@@ -2959,18 +2660,6 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   content: "";
   background-color: var(--borderColor-accent-emphasis);
   border-radius: 6px;
-}
-
-@media (forced-colors:active) {
-  .c4 {
-    border-width: 8px;
-  }
-}
-
-@media (forced-colors:active) {
-  .c8 {
-    border-width: 1px;
-  }
 }
 
 @media (forced-colors:active) {
@@ -3004,30 +2693,30 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
 }
 
 @media (forced-colors:active) {
-  .c7:focus,
-  .c7:focus-visible,
-  .c7 > a.focus-visible,
-  .c7[data-is-active-descendant] {
+  .c5:focus,
+  .c5:focus-visible,
+  .c5 > a.focus-visible,
+  .c5[data-is-active-descendant] {
     outline: solid 1px transparent !important;
   }
 }
 
 @media (hover:hover) and (pointer:fine) {
-  .c7:hover:not([aria-disabled]):not([data-inactive]) {
+  .c5:hover:not([aria-disabled]):not([data-inactive]) {
     background-color: var(--control-transparent-bgColor-hover,var(--color-action-list-item-default-hover-bg,rgba(208,215,222,0.32)));
     color: var(--fgColor-default,var(--color-fg-default,#1F2328));
     box-shadow: inset 0 0 0 max(1px,0.0625rem) var(--control-transparent-borderColor-active,var(--color-action-list-item-default-active-border,transparent));
   }
 
-  .c7:focus-visible,
-  .c7 > a.focus-visible,
-  .c7:focus.focus-visible {
+  .c5:focus-visible,
+  .c5 > a.focus-visible,
+  .c5:focus.focus-visible {
     outline: none;
     border: 2 solid;
     box-shadow: 0 0 0 2px var(--focus-outlineColor);
   }
 
-  .c7:active:not([aria-disabled]):not([data-inactive]) {
+  .c5:active:not([aria-disabled]):not([data-inactive]) {
     background-color: var(--control-transparent-bgColor-active,var(--color-action-list-item-default-active-bg,rgba(208,215,222,0.48)));
     color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   }
@@ -3061,20 +2750,18 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
           tabIndex={0}
         >
           <span
-            className="c3"
-            data-component="ActionList.Selection"
+            className="VisualWrap"
           >
             <div
-              className="c4"
-              data-component="ActionList.Checkbox"
+              className="MultiSelectCheckbox"
             />
           </span>
           <div
-            className="c5"
+            className="c3"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c6"
+              className="c4"
               id="0--label"
             >
               zero
@@ -3093,20 +2780,18 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
           tabIndex={0}
         >
           <span
-            className="c3"
-            data-component="ActionList.Selection"
+            className="VisualWrap"
           >
             <div
-              className="c4"
-              data-component="ActionList.Checkbox"
+              className="MultiSelectCheckbox"
             />
           </span>
           <div
-            className="c5"
+            className="c3"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c6"
+              className="c4"
               id="1--label"
             >
               one
@@ -3125,20 +2810,18 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
           tabIndex={0}
         >
           <span
-            className="c3"
-            data-component="ActionList.Selection"
+            className="VisualWrap"
           >
             <div
-              className="c4"
-              data-component="ActionList.Checkbox"
+              className="MultiSelectCheckbox"
             />
           </span>
           <div
-            className="c5"
+            className="c3"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c6"
+              className="c4"
               id="2--label"
             >
               two
@@ -3148,7 +2831,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
         <li
           aria-labelledby="3--label  "
           aria-selected={false}
-          className="c1 c7"
+          className="c1 c5"
           data-id="3"
           id="3"
           onClick={[Function]}
@@ -3157,20 +2840,18 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
           tabIndex={0}
         >
           <span
-            className="c3"
-            data-component="ActionList.Selection"
+            className="VisualWrap"
           >
             <div
-              className="c8"
-              data-component="ActionList.Checkbox"
+              className="MultiSelectCheckbox"
             />
           </span>
           <div
-            className="c5"
+            className="c3"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c6"
+              className="c4"
               id="3--label"
             >
               three
@@ -3180,7 +2861,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
         <li
           aria-labelledby="4--label  "
           aria-selected={false}
-          className="c1 c7"
+          className="c1 c5"
           data-id="4"
           id="4"
           onClick={[Function]}
@@ -3189,20 +2870,18 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
           tabIndex={0}
         >
           <span
-            className="c3"
-            data-component="ActionList.Selection"
+            className="VisualWrap"
           >
             <div
-              className="c8"
-              data-component="ActionList.Checkbox"
+              className="MultiSelectCheckbox"
             />
           </span>
           <div
-            className="c5"
+            className="c3"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c6"
+              className="c4"
               id="4--label"
             >
               four
@@ -3212,7 +2891,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
         <li
           aria-labelledby="5--label  "
           aria-selected={false}
-          className="c1 c7"
+          className="c1 c5"
           data-id="5"
           id="5"
           onClick={[Function]}
@@ -3221,20 +2900,18 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
           tabIndex={0}
         >
           <span
-            className="c3"
-            data-component="ActionList.Selection"
+            className="VisualWrap"
           >
             <div
-              className="c8"
-              data-component="ActionList.Checkbox"
+              className="MultiSelectCheckbox"
             />
           </span>
           <div
-            className="c5"
+            className="c3"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c6"
+              className="c4"
               id="5--label"
             >
               five
@@ -3244,7 +2921,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
         <li
           aria-labelledby="6--label  "
           aria-selected={false}
-          className="c1 c7"
+          className="c1 c5"
           data-id="6"
           id="6"
           onClick={[Function]}
@@ -3253,20 +2930,18 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
           tabIndex={0}
         >
           <span
-            className="c3"
-            data-component="ActionList.Selection"
+            className="VisualWrap"
           >
             <div
-              className="c8"
-              data-component="ActionList.Checkbox"
+              className="MultiSelectCheckbox"
             />
           </span>
           <div
-            className="c5"
+            className="c3"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c6"
+              className="c4"
               id="6--label"
             >
               six
@@ -3276,7 +2951,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
         <li
           aria-labelledby="7--label  "
           aria-selected={false}
-          className="c1 c7"
+          className="c1 c5"
           data-id="7"
           id="7"
           onClick={[Function]}
@@ -3285,20 +2960,18 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
           tabIndex={0}
         >
           <span
-            className="c3"
-            data-component="ActionList.Selection"
+            className="VisualWrap"
           >
             <div
-              className="c8"
-              data-component="ActionList.Checkbox"
+              className="MultiSelectCheckbox"
             />
           </span>
           <div
-            className="c5"
+            className="c3"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c6"
+              className="c4"
               id="7--label"
             >
               seven
@@ -3308,7 +2981,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
         <li
           aria-labelledby="20--label  "
           aria-selected={false}
-          className="c1 c7"
+          className="c1 c5"
           data-id="20"
           id="20"
           onClick={[Function]}
@@ -3317,20 +2990,18 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
           tabIndex={0}
         >
           <span
-            className="c3"
-            data-component="ActionList.Selection"
+            className="VisualWrap"
           >
             <div
-              className="c8"
-              data-component="ActionList.Checkbox"
+              className="MultiSelectCheckbox"
             />
           </span>
           <div
-            className="c5"
+            className="c3"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c6"
+              className="c4"
               id="20--label"
             >
               twenty
@@ -3340,7 +3011,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
         <li
           aria-labelledby="21--label  "
           aria-selected={false}
-          className="c1 c7"
+          className="c1 c5"
           data-id="21"
           id="21"
           onClick={[Function]}
@@ -3349,20 +3020,18 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
           tabIndex={0}
         >
           <span
-            className="c3"
-            data-component="ActionList.Selection"
+            className="VisualWrap"
           >
             <div
-              className="c8"
-              data-component="ActionList.Checkbox"
+              className="MultiSelectCheckbox"
             />
           </span>
           <div
-            className="c5"
+            className="c3"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c6"
+              className="c4"
               id="21--label"
             >
               twentyone
@@ -3630,29 +3299,6 @@ exports[`snapshots renders a single select input 1`] = `
     />
   </span>,
   .c3 {
-  height: 20px;
-  max-width: 20px;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-  margin-right: 8px;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-  min-width: 16px;
-}
-
-.c4 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -3667,7 +3313,7 @@ exports[`snapshots renders a single select input 1`] = `
   min-width: 0;
 }
 
-.c5 {
+.c4 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -3849,15 +3495,35 @@ exports[`snapshots renders a single select input 1`] = `
           tabIndex={0}
         >
           <span
-            className="c3"
-            data-component="ActionList.Selection"
-          />
+            className="VisualWrap"
+          >
+            <svg
+              aria-hidden="true"
+              className="octicon octicon-check SingleSelectCheckmark"
+              display="inline-block"
+              fill="currentColor"
+              focusable="false"
+              height={16}
+              overflow="visible"
+              style={
+                {
+                  "verticalAlign": "text-bottom",
+                }
+              }
+              viewBox="0 0 16 16"
+              width={16}
+            >
+              <path
+                d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"
+              />
+            </svg>
+          </span>
           <div
-            className="c4"
+            className="c3"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c5"
+              className="c4"
               id="0--label"
             >
               zero
@@ -3875,15 +3541,35 @@ exports[`snapshots renders a single select input 1`] = `
           tabIndex={0}
         >
           <span
-            className="c3"
-            data-component="ActionList.Selection"
-          />
+            className="VisualWrap"
+          >
+            <svg
+              aria-hidden="true"
+              className="octicon octicon-check SingleSelectCheckmark"
+              display="inline-block"
+              fill="currentColor"
+              focusable="false"
+              height={16}
+              overflow="visible"
+              style={
+                {
+                  "verticalAlign": "text-bottom",
+                }
+              }
+              viewBox="0 0 16 16"
+              width={16}
+            >
+              <path
+                d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"
+              />
+            </svg>
+          </span>
           <div
-            className="c4"
+            className="c3"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c5"
+              className="c4"
               id="1--label"
             >
               one
@@ -3901,15 +3587,35 @@ exports[`snapshots renders a single select input 1`] = `
           tabIndex={0}
         >
           <span
-            className="c3"
-            data-component="ActionList.Selection"
-          />
+            className="VisualWrap"
+          >
+            <svg
+              aria-hidden="true"
+              className="octicon octicon-check SingleSelectCheckmark"
+              display="inline-block"
+              fill="currentColor"
+              focusable="false"
+              height={16}
+              overflow="visible"
+              style={
+                {
+                  "verticalAlign": "text-bottom",
+                }
+              }
+              viewBox="0 0 16 16"
+              width={16}
+            >
+              <path
+                d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"
+              />
+            </svg>
+          </span>
           <div
-            className="c4"
+            className="c3"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c5"
+              className="c4"
               id="2--label"
             >
               two
@@ -3927,15 +3633,35 @@ exports[`snapshots renders a single select input 1`] = `
           tabIndex={0}
         >
           <span
-            className="c3"
-            data-component="ActionList.Selection"
-          />
+            className="VisualWrap"
+          >
+            <svg
+              aria-hidden="true"
+              className="octicon octicon-check SingleSelectCheckmark"
+              display="inline-block"
+              fill="currentColor"
+              focusable="false"
+              height={16}
+              overflow="visible"
+              style={
+                {
+                  "verticalAlign": "text-bottom",
+                }
+              }
+              viewBox="0 0 16 16"
+              width={16}
+            >
+              <path
+                d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"
+              />
+            </svg>
+          </span>
           <div
-            className="c4"
+            className="c3"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c5"
+              className="c4"
               id="3--label"
             >
               three
@@ -3953,15 +3679,35 @@ exports[`snapshots renders a single select input 1`] = `
           tabIndex={0}
         >
           <span
-            className="c3"
-            data-component="ActionList.Selection"
-          />
+            className="VisualWrap"
+          >
+            <svg
+              aria-hidden="true"
+              className="octicon octicon-check SingleSelectCheckmark"
+              display="inline-block"
+              fill="currentColor"
+              focusable="false"
+              height={16}
+              overflow="visible"
+              style={
+                {
+                  "verticalAlign": "text-bottom",
+                }
+              }
+              viewBox="0 0 16 16"
+              width={16}
+            >
+              <path
+                d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"
+              />
+            </svg>
+          </span>
           <div
-            className="c4"
+            className="c3"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c5"
+              className="c4"
               id="4--label"
             >
               four
@@ -3979,15 +3725,35 @@ exports[`snapshots renders a single select input 1`] = `
           tabIndex={0}
         >
           <span
-            className="c3"
-            data-component="ActionList.Selection"
-          />
+            className="VisualWrap"
+          >
+            <svg
+              aria-hidden="true"
+              className="octicon octicon-check SingleSelectCheckmark"
+              display="inline-block"
+              fill="currentColor"
+              focusable="false"
+              height={16}
+              overflow="visible"
+              style={
+                {
+                  "verticalAlign": "text-bottom",
+                }
+              }
+              viewBox="0 0 16 16"
+              width={16}
+            >
+              <path
+                d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"
+              />
+            </svg>
+          </span>
           <div
-            className="c4"
+            className="c3"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c5"
+              className="c4"
               id="5--label"
             >
               five
@@ -4005,15 +3771,35 @@ exports[`snapshots renders a single select input 1`] = `
           tabIndex={0}
         >
           <span
-            className="c3"
-            data-component="ActionList.Selection"
-          />
+            className="VisualWrap"
+          >
+            <svg
+              aria-hidden="true"
+              className="octicon octicon-check SingleSelectCheckmark"
+              display="inline-block"
+              fill="currentColor"
+              focusable="false"
+              height={16}
+              overflow="visible"
+              style={
+                {
+                  "verticalAlign": "text-bottom",
+                }
+              }
+              viewBox="0 0 16 16"
+              width={16}
+            >
+              <path
+                d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"
+              />
+            </svg>
+          </span>
           <div
-            className="c4"
+            className="c3"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c5"
+              className="c4"
               id="6--label"
             >
               six
@@ -4031,15 +3817,35 @@ exports[`snapshots renders a single select input 1`] = `
           tabIndex={0}
         >
           <span
-            className="c3"
-            data-component="ActionList.Selection"
-          />
+            className="VisualWrap"
+          >
+            <svg
+              aria-hidden="true"
+              className="octicon octicon-check SingleSelectCheckmark"
+              display="inline-block"
+              fill="currentColor"
+              focusable="false"
+              height={16}
+              overflow="visible"
+              style={
+                {
+                  "verticalAlign": "text-bottom",
+                }
+              }
+              viewBox="0 0 16 16"
+              width={16}
+            >
+              <path
+                d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"
+              />
+            </svg>
+          </span>
           <div
-            className="c4"
+            className="c3"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c5"
+              className="c4"
               id="7--label"
             >
               seven
@@ -4057,15 +3863,35 @@ exports[`snapshots renders a single select input 1`] = `
           tabIndex={0}
         >
           <span
-            className="c3"
-            data-component="ActionList.Selection"
-          />
+            className="VisualWrap"
+          >
+            <svg
+              aria-hidden="true"
+              className="octicon octicon-check SingleSelectCheckmark"
+              display="inline-block"
+              fill="currentColor"
+              focusable="false"
+              height={16}
+              overflow="visible"
+              style={
+                {
+                  "verticalAlign": "text-bottom",
+                }
+              }
+              viewBox="0 0 16 16"
+              width={16}
+            >
+              <path
+                d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"
+              />
+            </svg>
+          </span>
           <div
-            className="c4"
+            className="c3"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c5"
+              className="c4"
               id="20--label"
             >
               twenty
@@ -4083,15 +3909,35 @@ exports[`snapshots renders a single select input 1`] = `
           tabIndex={0}
         >
           <span
-            className="c3"
-            data-component="ActionList.Selection"
-          />
+            className="VisualWrap"
+          >
+            <svg
+              aria-hidden="true"
+              className="octicon octicon-check SingleSelectCheckmark"
+              display="inline-block"
+              fill="currentColor"
+              focusable="false"
+              height={16}
+              overflow="visible"
+              style={
+                {
+                  "verticalAlign": "text-bottom",
+                }
+              }
+              viewBox="0 0 16 16"
+              width={16}
+            >
+              <path
+                d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"
+              />
+            </svg>
+          </span>
           <div
-            className="c4"
+            className="c3"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c5"
+              className="c4"
               id="21--label"
             >
               twentyone
@@ -4119,29 +3965,6 @@ exports[`snapshots renders with a custom text input component 1`] = `
     type="text"
   />,
   .c3 {
-  height: 20px;
-  max-width: 20px;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-  margin-right: 8px;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-  min-width: 16px;
-}
-
-.c4 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -4156,7 +3979,7 @@ exports[`snapshots renders with a custom text input component 1`] = `
   min-width: 0;
 }
 
-.c5 {
+.c4 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -4334,15 +4157,35 @@ exports[`snapshots renders with a custom text input component 1`] = `
           tabIndex={0}
         >
           <span
-            className="c3"
-            data-component="ActionList.Selection"
-          />
+            className="VisualWrap"
+          >
+            <svg
+              aria-hidden="true"
+              className="octicon octicon-check SingleSelectCheckmark"
+              display="inline-block"
+              fill="currentColor"
+              focusable="false"
+              height={16}
+              overflow="visible"
+              style={
+                {
+                  "verticalAlign": "text-bottom",
+                }
+              }
+              viewBox="0 0 16 16"
+              width={16}
+            >
+              <path
+                d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"
+              />
+            </svg>
+          </span>
           <div
-            className="c4"
+            className="c3"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c5"
+              className="c4"
               id="0--label"
             >
               zero
@@ -4360,15 +4203,35 @@ exports[`snapshots renders with a custom text input component 1`] = `
           tabIndex={0}
         >
           <span
-            className="c3"
-            data-component="ActionList.Selection"
-          />
+            className="VisualWrap"
+          >
+            <svg
+              aria-hidden="true"
+              className="octicon octicon-check SingleSelectCheckmark"
+              display="inline-block"
+              fill="currentColor"
+              focusable="false"
+              height={16}
+              overflow="visible"
+              style={
+                {
+                  "verticalAlign": "text-bottom",
+                }
+              }
+              viewBox="0 0 16 16"
+              width={16}
+            >
+              <path
+                d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"
+              />
+            </svg>
+          </span>
           <div
-            className="c4"
+            className="c3"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c5"
+              className="c4"
               id="1--label"
             >
               one
@@ -4386,15 +4249,35 @@ exports[`snapshots renders with a custom text input component 1`] = `
           tabIndex={0}
         >
           <span
-            className="c3"
-            data-component="ActionList.Selection"
-          />
+            className="VisualWrap"
+          >
+            <svg
+              aria-hidden="true"
+              className="octicon octicon-check SingleSelectCheckmark"
+              display="inline-block"
+              fill="currentColor"
+              focusable="false"
+              height={16}
+              overflow="visible"
+              style={
+                {
+                  "verticalAlign": "text-bottom",
+                }
+              }
+              viewBox="0 0 16 16"
+              width={16}
+            >
+              <path
+                d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"
+              />
+            </svg>
+          </span>
           <div
-            className="c4"
+            className="c3"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c5"
+              className="c4"
               id="2--label"
             >
               two
@@ -4412,15 +4295,35 @@ exports[`snapshots renders with a custom text input component 1`] = `
           tabIndex={0}
         >
           <span
-            className="c3"
-            data-component="ActionList.Selection"
-          />
+            className="VisualWrap"
+          >
+            <svg
+              aria-hidden="true"
+              className="octicon octicon-check SingleSelectCheckmark"
+              display="inline-block"
+              fill="currentColor"
+              focusable="false"
+              height={16}
+              overflow="visible"
+              style={
+                {
+                  "verticalAlign": "text-bottom",
+                }
+              }
+              viewBox="0 0 16 16"
+              width={16}
+            >
+              <path
+                d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"
+              />
+            </svg>
+          </span>
           <div
-            className="c4"
+            className="c3"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c5"
+              className="c4"
               id="3--label"
             >
               three
@@ -4438,15 +4341,35 @@ exports[`snapshots renders with a custom text input component 1`] = `
           tabIndex={0}
         >
           <span
-            className="c3"
-            data-component="ActionList.Selection"
-          />
+            className="VisualWrap"
+          >
+            <svg
+              aria-hidden="true"
+              className="octicon octicon-check SingleSelectCheckmark"
+              display="inline-block"
+              fill="currentColor"
+              focusable="false"
+              height={16}
+              overflow="visible"
+              style={
+                {
+                  "verticalAlign": "text-bottom",
+                }
+              }
+              viewBox="0 0 16 16"
+              width={16}
+            >
+              <path
+                d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"
+              />
+            </svg>
+          </span>
           <div
-            className="c4"
+            className="c3"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c5"
+              className="c4"
               id="4--label"
             >
               four
@@ -4464,15 +4387,35 @@ exports[`snapshots renders with a custom text input component 1`] = `
           tabIndex={0}
         >
           <span
-            className="c3"
-            data-component="ActionList.Selection"
-          />
+            className="VisualWrap"
+          >
+            <svg
+              aria-hidden="true"
+              className="octicon octicon-check SingleSelectCheckmark"
+              display="inline-block"
+              fill="currentColor"
+              focusable="false"
+              height={16}
+              overflow="visible"
+              style={
+                {
+                  "verticalAlign": "text-bottom",
+                }
+              }
+              viewBox="0 0 16 16"
+              width={16}
+            >
+              <path
+                d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"
+              />
+            </svg>
+          </span>
           <div
-            className="c4"
+            className="c3"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c5"
+              className="c4"
               id="5--label"
             >
               five
@@ -4490,15 +4433,35 @@ exports[`snapshots renders with a custom text input component 1`] = `
           tabIndex={0}
         >
           <span
-            className="c3"
-            data-component="ActionList.Selection"
-          />
+            className="VisualWrap"
+          >
+            <svg
+              aria-hidden="true"
+              className="octicon octicon-check SingleSelectCheckmark"
+              display="inline-block"
+              fill="currentColor"
+              focusable="false"
+              height={16}
+              overflow="visible"
+              style={
+                {
+                  "verticalAlign": "text-bottom",
+                }
+              }
+              viewBox="0 0 16 16"
+              width={16}
+            >
+              <path
+                d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"
+              />
+            </svg>
+          </span>
           <div
-            className="c4"
+            className="c3"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c5"
+              className="c4"
               id="6--label"
             >
               six
@@ -4516,15 +4479,35 @@ exports[`snapshots renders with a custom text input component 1`] = `
           tabIndex={0}
         >
           <span
-            className="c3"
-            data-component="ActionList.Selection"
-          />
+            className="VisualWrap"
+          >
+            <svg
+              aria-hidden="true"
+              className="octicon octicon-check SingleSelectCheckmark"
+              display="inline-block"
+              fill="currentColor"
+              focusable="false"
+              height={16}
+              overflow="visible"
+              style={
+                {
+                  "verticalAlign": "text-bottom",
+                }
+              }
+              viewBox="0 0 16 16"
+              width={16}
+            >
+              <path
+                d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"
+              />
+            </svg>
+          </span>
           <div
-            className="c4"
+            className="c3"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c5"
+              className="c4"
               id="7--label"
             >
               seven
@@ -4542,15 +4525,35 @@ exports[`snapshots renders with a custom text input component 1`] = `
           tabIndex={0}
         >
           <span
-            className="c3"
-            data-component="ActionList.Selection"
-          />
+            className="VisualWrap"
+          >
+            <svg
+              aria-hidden="true"
+              className="octicon octicon-check SingleSelectCheckmark"
+              display="inline-block"
+              fill="currentColor"
+              focusable="false"
+              height={16}
+              overflow="visible"
+              style={
+                {
+                  "verticalAlign": "text-bottom",
+                }
+              }
+              viewBox="0 0 16 16"
+              width={16}
+            >
+              <path
+                d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"
+              />
+            </svg>
+          </span>
           <div
-            className="c4"
+            className="c3"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c5"
+              className="c4"
               id="20--label"
             >
               twenty
@@ -4568,15 +4571,35 @@ exports[`snapshots renders with a custom text input component 1`] = `
           tabIndex={0}
         >
           <span
-            className="c3"
-            data-component="ActionList.Selection"
-          />
+            className="VisualWrap"
+          >
+            <svg
+              aria-hidden="true"
+              className="octicon octicon-check SingleSelectCheckmark"
+              display="inline-block"
+              fill="currentColor"
+              focusable="false"
+              height={16}
+              overflow="visible"
+              style={
+                {
+                  "verticalAlign": "text-bottom",
+                }
+              }
+              viewBox="0 0 16 16"
+              width={16}
+            >
+              <path
+                d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"
+              />
+            </svg>
+          </span>
           <div
-            className="c4"
+            className="c3"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c5"
+              className="c4"
               id="21--label"
             >
               twentyone
