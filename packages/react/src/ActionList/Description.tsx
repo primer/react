@@ -130,3 +130,4 @@ export const Description: React.FC<React.PropsWithChildren<ActionListDescription
     </Truncate>
   )
 }
+Description.displayName = 'ActionList.Description'

@@ -199,6 +199,7 @@ export function unloadCSS(path: string) {
 interface Options {
   skipAs?: boolean
   skipSx?: boolean
+  skipClassName?: boolean
   skipDisplayName?: boolean
 }
 
@@ -231,6 +232,15 @@ export function behavesAsComponent({Component, toRender, options}: BehavesAsComp
   if (!options.skipDisplayName) {
     it('sets a valid displayName', () => {
       expect(Component.displayName).toMatch(COMPONENT_DISPLAY_NAME_REGEX)
+    })
+  }
+
+  if (!options.skipClassName) {
+    it('supports className prop', () => {
+      const className = 'test-class'
+      const elem = React.cloneElement(getElement(), {className})
+      const {container} = HTMLRender(elem)
+      expect(container.querySelector('.test-class')).not.toBeNull()
     })
   }
 }

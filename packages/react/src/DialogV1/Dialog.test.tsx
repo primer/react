@@ -107,11 +107,11 @@ describe('Dialog', () => {
   behavesAsComponent({
     Component: Dialog,
     toRender: () => comp,
-    options: {skipAs: true, skipSx: true},
+    options: {skipAs: true, skipSx: true, skipClassName: true},
   })
 
   describe('Dialog.Header', () => {
-    behavesAsComponent({Component: Dialog.Header})
+    behavesAsComponent({Component: Dialog.Header, options: {skipClassName: true}})
   })
 
   it('should support `className` on the Dialog element', () => {

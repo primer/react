@@ -73,7 +73,7 @@ describe('ConfirmationDialog', () => {
   behavesAsComponent({
     Component: ConfirmationDialog,
     toRender: () => <Basic />,
-    options: {skipAs: true, skipSx: true},
+    options: {skipAs: true, skipSx: true, skipClassName: true},
   })
 
   checkExports('ConfirmationDialog/ConfirmationDialog', {

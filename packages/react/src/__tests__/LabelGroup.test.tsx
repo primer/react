@@ -32,7 +32,7 @@ describe('LabelGroup', () => {
     thresholds: [],
   })) as jest.Mock<IntersectionObserver>
 
-  behavesAsComponent({Component: LabelGroup, options: {skipAs: true}})
+  behavesAsComponent({Component: LabelGroup, options: {skipAs: true, skipClassName: true}})
 
   checkExports('LabelGroup', {
     default: LabelGroup,

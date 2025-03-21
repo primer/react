@@ -4,6 +4,7 @@ import React from 'react'
 import {ActionList} from '.'
 import {BookIcon} from '@primer/octicons-react'
 import {FeatureFlags} from '../FeatureFlags'
+import {behavesAsComponent} from '../utils/testing'
 
 function SimpleActionList(): JSX.Element {
   return (
@@ -57,6 +58,48 @@ function SingleSelectListStory(): JSX.Element {
 }
 
 describe('ActionList.Item', () => {
+  behavesAsComponent({
+    Component: ActionList.Item,
+    options: {skipAs: true, skipSx: true},
+    toRender: () => <ActionList.Item />,
+  })
+
+  behavesAsComponent({
+    Component: ActionList.LinkItem,
+    options: {skipAs: true, skipSx: true},
+    toRender: () => <ActionList.LinkItem />,
+  })
+
+  behavesAsComponent({
+    Component: ActionList.TrailingVisual,
+    options: {skipAs: true, skipSx: true, skipClassName: true},
+    toRender: () => (
+      <ActionList.Item>
+        <ActionList.TrailingVisual>Trailing Visual</ActionList.TrailingVisual>
+      </ActionList.Item>
+    ),
+  })
+
+  behavesAsComponent({
+    Component: ActionList.LeadingVisual,
+    options: {skipAs: true, skipSx: true, skipClassName: true},
+    toRender: () => (
+      <ActionList.Item>
+        <ActionList.LeadingVisual>Leading Visual</ActionList.LeadingVisual>
+      </ActionList.Item>
+    ),
+  })
+
+  behavesAsComponent({
+    Component: ActionList.Description,
+    options: {skipAs: true, skipSx: true, skipClassName: true},
+    toRender: () => (
+      <ActionList.Item>
+        <ActionList.Description>Description</ActionList.Description>
+      </ActionList.Item>
+    ),
+  })
+
   it('should have aria-keyshortcuts applied to the correct element', async () => {
     const {container} = HTMLRender(<SimpleActionList />)
     const linkOptions = await waitFor(() => container.querySelectorAll('a'))

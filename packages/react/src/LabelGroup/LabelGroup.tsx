@@ -18,6 +18,7 @@ export type LabelGroupProps = {
   overflowStyle?: 'inline' | 'overlay'
   /** How many tokens to show. `'auto'` truncates the tokens to fit in the parent container. Passing a number will truncate after that number tokens. If this is undefined, tokens will never be truncated. */
   visibleChildCount?: 'auto' | number
+  className?: string
 } & SxProp
 
 const StyledLabelGroupContainer = styled.div<SxProp>`
@@ -158,6 +159,7 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
   overflowStyle = 'overlay',
   sx: sxProp,
   as = 'ul',
+  className,
 }) => {
   const containerRef = React.useRef<HTMLElement>(null)
   const collapseButtonRef = React.useRef<HTMLButtonElement>(null)
@@ -337,6 +339,7 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
       data-overflow={overflowStyle === 'inline' && isOverflowShown ? 'inline' : undefined}
       data-list={isList || undefined}
       sx={sxProp}
+      className={className}
       as={as}
     >
       {React.Children.map(children, (child, index) => (
@@ -378,7 +381,13 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
       </ToggleWrapper>
     </StyledLabelGroupContainer>
   ) : (
-    <StyledLabelGroupContainer data-overflow="inline" data-list={isList || undefined} sx={sxProp} as={as}>
+    <StyledLabelGroupContainer
+      data-overflow="inline"
+      data-list={isList || undefined}
+      sx={sxProp}
+      as={as}
+      className={className}
+    >
       {isList
         ? React.Children.map(children, (child, index) => {
             return <li key={index}>{child}</li>

@@ -52,3 +52,4 @@ export const Divider: React.FC<React.PropsWithChildren<ActionListDividerProps>> 
     />
   )
 }
+Divider.displayName = 'ActionList.Divider'

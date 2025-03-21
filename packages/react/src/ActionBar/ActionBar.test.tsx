@@ -24,7 +24,7 @@ describe('ActionBar', () => {
 
   behavesAsComponent({
     Component: ActionBar,
-    options: {skipAs: true, skipSx: true},
+    options: {skipAs: true, skipSx: true, skipClassName: true},
     toRender: () => <SimpleActionBar />,
   })
 
