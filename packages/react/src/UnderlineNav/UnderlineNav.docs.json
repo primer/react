@@ -32,7 +32,7 @@
       "name": "aria-label",
       "type": "string",
       "defaultValue": "",
-      "description": "A unique name for the rendered nav landmark."
+      "description": "A unique name for the rendered nav landmark. It will also be used to label the arrow\nbuttons that control the scroll behaviour on coarse pointer devices. (I.e.\n'Scroll _aria-label_ left/right')\n"
     },
     {
       "name": "children",
