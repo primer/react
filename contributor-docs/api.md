@@ -118,6 +118,8 @@ across major versions. These should be tested.
 
 #### Deriving state from props
 
+- Avoid using effects to synchronize state with props
+
 ### Effects
 
 - Only synchronize effects with values it should re-synchronize with
@@ -162,9 +164,25 @@ function MyComponent() {
 
 #### Hooks that use a callback
 
+- It can be convenient to allow consumers of a hook to pass an unmemoized
+  callback to hooks
+- Technique: create a stable reference to the callback that is called instead of
+  synchronizing the value with the effect
+
 ### Focus management
 
+- Prefer managing focus in event handlers over effects
+- Technique: how to manage focus when visibility is managed by state
+  - Use `flushSync()`
+  - Use custom hook for this (`useFocus`)
+
 ## CSS
+
+### Use `clsx` for conditional class names
+
+### Use `data-*` attributes for variants and conditions
+
+### Prefer CSS Custom Properties as the bridge between JavaScript and CSS
 
 ## Techniques
 
