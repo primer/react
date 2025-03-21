@@ -7,7 +7,6 @@ import type {ActionListItemProps} from '../ActionList'
 import {ActionList} from '../ActionList'
 import {useFocusZone} from '../hooks/useFocusZone'
 import type {ComponentProps, MandateProps} from '../utils/types'
-import Box from '../Box'
 import Spinner from '../Spinner'
 import {useId} from '../hooks/useId'
 import {AutocompleteContext} from './AutocompleteContext'
@@ -15,7 +14,6 @@ import type {IconProps} from '@primer/octicons-react'
 import {PlusIcon} from '@primer/octicons-react'
 import VisuallyHidden from '../_VisuallyHidden'
 import {isElement} from 'react-is'
-import {useFeatureFlag} from '../FeatureFlags'
 
 import classes from './AutocompleteMenu.module.css'
 
@@ -121,8 +119,6 @@ export type AutocompleteMenuInternalProps<T extends AutocompleteItemProps> = {
   // TODO: instead of making this required, maybe we can infer aria-labelledby from the ID of the text input somehow?
   ['aria-labelledby']: string
 }
-
-const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_ga'
 
 /**
  * Announces a message to screen readers at a slowed-down rate. This is useful when you want to announce don't want to
@@ -345,20 +341,12 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
     throw new Error('Autocomplete: selectionVariant "single" cannot be used with multiple selected items')
   }
 
-  const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
-
   return (
     <VisuallyHidden isVisible={showMenu}>
       {loading ? (
-        enabled ? (
-          <Box className={classes.SpinnerWrapper}>
-            <Spinner />
-          </Box>
-        ) : (
-          <Box p={3} display="flex" justifyContent="center">
-            <Spinner />
-          </Box>
-        )
+        <div className={classes.SpinnerWrapper}>
+          <Spinner />
+        </div>
       ) : (
         <div ref={listContainerRef}>
           {allItemsToRender.length ? (
@@ -396,11 +384,7 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
               })}
             </ActionList>
           ) : emptyStateText !== false && emptyStateText !== null ? (
-            enabled ? (
-              <Box className={classes.EmptyStateWrapper}>{emptyStateText}</Box>
-            ) : (
-              <Box p={3}>{emptyStateText}</Box>
-            )
+            <div className={classes.EmptyStateWrapper}>{emptyStateText}</div>
           ) : null}
         </div>
       )}
