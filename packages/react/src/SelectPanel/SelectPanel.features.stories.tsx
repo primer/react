@@ -22,7 +22,6 @@ import useSafeTimeout from '../hooks/useSafeTimeout'
 import ToggleSwitch from '../ToggleSwitch'
 import Text from '../Text'
 import FormControl from '../FormControl'
-import Link from '../Link'
 import {SegmentedControl} from '../SegmentedControl'
 import {Stack} from '../Stack'
 
