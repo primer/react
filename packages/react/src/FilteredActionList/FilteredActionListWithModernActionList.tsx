@@ -1,5 +1,3 @@
-import type {ScrollIntoViewOptions} from '@primer/behaviors'
-import {scrollIntoView} from '@primer/behaviors'
 import React, {useCallback, useEffect, useRef, useState} from 'react'
 import styled from 'styled-components'
 import Box from '../Box'
@@ -21,8 +19,6 @@ import {ActionListContainerContext} from '../ActionList/ActionListContainerConte
 import {isValidElementType} from 'react-is'
 import type {RenderItemFn} from '../deprecated/ActionList/List'
 import {useAnnouncements} from './useAnnouncements'
-
-const menuScrollMargins: ScrollIntoViewOptions = {startMargin: 0, endMargin: 8}
 
 export interface FilteredActionListProps
   extends Partial<Omit<GroupedListProps, keyof ListPropsBase>>,
