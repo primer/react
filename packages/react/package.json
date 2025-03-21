@@ -79,7 +79,7 @@
     "npm": ">=7"
   },
   "dependencies": {
-    "@github/relative-time-element": "^4.4.3",
+    "@github/relative-time-element": "^4.4.5",
     "@github/tab-container-element": "4.8.2",
     "@lit-labs/react": "1.2.1",
     "@oddbird/popover-polyfill": "^0.4.4",
