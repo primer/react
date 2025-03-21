@@ -3,39 +3,14 @@ import {memo} from 'react'
 import Text from '../Text'
 import type {KeybindingHintProps} from './props'
 import {accessibleSequenceString, Sequence} from './components/Sequence'
-import {useFeatureFlag} from '../FeatureFlags'
 
 import classes from './KeybindingHint.module.css'
 import {clsx} from 'clsx'
 
 /** `kbd` element with style resets. */
 const Kbd = ({children, className}: {children: ReactNode; className?: string}) => {
-  const enabled = useFeatureFlag('primer_react_css_modules_ga')
-
   return (
-    <Text
-      as={'kbd' as 'span'}
-      className={clsx(className, enabled && classes.KeybindingHint)}
-      data-testid="keybinding-hint"
-      sx={
-        enabled
-          ? undefined
-          : {
-              color: 'inherit',
-              fontFamily: 'inherit',
-              fontSize: 'inherit',
-              border: 'none',
-              background: 'none',
-              boxShadow: 'none',
-              p: 0,
-              lineHeight: 'unset',
-              position: 'relative',
-              overflow: 'visible',
-              verticalAlign: 'baseline',
-              textWrap: 'nowrap',
-            }
-      }
-    >
+    <Text as={'kbd' as 'span'} className={clsx(className, classes.KeybindingHint)} data-testid="keybinding-hint">
       {children}
     </Text>
   )

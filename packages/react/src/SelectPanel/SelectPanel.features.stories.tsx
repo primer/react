@@ -5,17 +5,23 @@ import {Button} from '../Button'
 import type {ItemInput, GroupedListProps} from '../deprecated/ActionList/List'
 import {SelectPanel, type SelectPanelProps} from './SelectPanel'
 import {
+  AlertIcon,
   FilterIcon,
   GearIcon,
+  InfoIcon,
   NoteIcon,
   ProjectIcon,
   SearchIcon,
+  StopIcon,
   TriangleDownIcon,
   TypographyIcon,
   VersionsIcon,
 } from '@primer/octicons-react'
 import useSafeTimeout from '../hooks/useSafeTimeout'
 import FormControl from '../FormControl'
+import Link from '../Link'
+import {SegmentedControl} from '../SegmentedControl'
+import {Stack} from '../Stack'
 
 const meta = {
   title: 'Components/SelectPanel/Features',
@@ -171,6 +177,7 @@ export const SingleSelect = () => {
         selected={selected}
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
+        onCancel={() => setOpen(false)}
         width="medium"
       />
     </FormControl>
@@ -308,6 +315,92 @@ export const WithFooter = () => {
         width="medium"
       />
     </FormControl>
+  )
+}
+
+export const WithNotice = () => {
+  const [selected, setSelected] = useState<ItemInput[]>(items.slice(1, 3))
+  const [filter, setFilter] = useState('')
+  const filteredItems = items.filter(
+    item =>
+      // design guidelines say to always show selected items in the list
+      selected.some(selectedItem => selectedItem.text === item.text) ||
+      // then filter the rest
+      item.text.toLowerCase().startsWith(filter.toLowerCase()),
+  )
+  // design guidelines say to sort selected items first
+  const selectedItemsSortedFirst = filteredItems.sort((a, b) => {
+    const aIsSelected = selected.some(selectedItem => selectedItem.text === a.text)
+    const bIsSelected = selected.some(selectedItem => selectedItem.text === b.text)
+    if (aIsSelected && !bIsSelected) return -1
+    if (!aIsSelected && bIsSelected) return 1
+    return 0
+  })
+  const [open, setOpen] = useState(false)
+  const [noticeVariant, setNoticeVariant] = useState(0)
+
+  const noticeVariants: Array<{text: string | React.ReactElement; variant: 'info' | 'warning' | 'error'}> = [
+    {
+      variant: 'info',
+      text: 'Try a different search term.',
+    },
+    {
+      variant: 'warning',
+      text: (
+        <>
+          You have reached the limit of assignees on your free account.{' '}
+          <Link href="/upgrade">Upgrade your account.</Link>
+        </>
+      ),
+    },
+    {
+      variant: 'error',
+      text: (
+        <>
+          We couldn&apos;t load all collaborators. Try again or if the problem persists,{' '}
+          <Link href="/support">contact support</Link>
+        </>
+      ),
+    },
+  ]
+
+  return (
+    <Stack align="start">
+      <FormControl>
+        <FormControl.Label>Notice variant</FormControl.Label>
+        <SegmentedControl aria-label="Notice variant" onChange={setNoticeVariant}>
+          <SegmentedControl.Button defaultSelected aria-label={'Info'} leadingIcon={InfoIcon}>
+            Info notice
+          </SegmentedControl.Button>
+          <SegmentedControl.Button aria-label={'Warning'} leadingIcon={AlertIcon}>
+            Warning notice
+          </SegmentedControl.Button>
+          <SegmentedControl.Button aria-label={'Error'} leadingIcon={StopIcon}>
+            Error notice
+          </SegmentedControl.Button>
+        </SegmentedControl>
+      </FormControl>
+      <FormControl>
+        <FormControl.Label>SelectPanel with notice</FormControl.Label>
+        <SelectPanel
+          renderAnchor={({children, ...anchorProps}) => (
+            <Button trailingAction={TriangleDownIcon} {...anchorProps}>
+              {children}
+            </Button>
+          )}
+          placeholder="Select labels" // button text when no items are selected
+          open={open}
+          onOpenChange={setOpen}
+          items={selectedItemsSortedFirst}
+          selected={selected}
+          onSelectedChange={setSelected}
+          onFilterChange={setFilter}
+          overlayProps={{width: 'small', height: 'medium'}}
+          width="medium"
+          notice={noticeVariants[noticeVariant]}
+        />
+      </FormControl>
+    </Stack>
   )
 }
 
@@ -559,4 +652,55 @@ export const AsyncFetch: StoryObj<SelectPanelProps> = {
       options: ['auto', 'xsmall', 'small', 'medium', 'large', 'xlarge'],
     },
   },
+}
+
+export const WithOnCancel = () => {
+  const [intialSelection, setInitialSelection] = React.useState<ItemInput[]>(items.slice(1, 3))
+
+  const [selected, setSelected] = React.useState<ItemInput[]>(intialSelection)
+  const [filter, setFilter] = React.useState('')
+  const filteredItems = items.filter(
+    item =>
+      // design guidelines say to always show selected items in the list
+      selected.some(selectedItem => selectedItem.text === item.text) ||
+      // then filter the rest
+      item.text.toLowerCase().startsWith(filter.toLowerCase()),
+  )
+  // design guidelines say to sort selected items first
+  const selectedItemsSortedFirst = filteredItems.sort((a, b) => {
+    const aIsSelected = selected.some(selectedItem => selectedItem.text === a.text)
+    const bIsSelected = selected.some(selectedItem => selectedItem.text === b.text)
+    if (aIsSelected && !bIsSelected) return -1
+    if (!aIsSelected && bIsSelected) return 1
+    return 0
+  })
+
+  const [open, setOpen] = useState(false)
+  React.useEffect(() => {
+    if (!open) setInitialSelection(selected) // set initialSelection for next time
+  }, [open, selected])
+
+  return (
+    <FormControl>
+      <FormControl.Label>Labels</FormControl.Label>
+      <SelectPanel
+        title="Select labels"
+        placeholder="Select labels"
+        subtitle="Use labels to organize issues and pull requests"
+        renderAnchor={({children, ...anchorProps}) => (
+          <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
+            {children}
+          </Button>
+        )}
+        open={open}
+        onOpenChange={setOpen}
+        items={selectedItemsSortedFirst}
+        selected={selected}
+        onSelectedChange={setSelected}
+        onCancel={() => setSelected(intialSelection)}
+        onFilterChange={setFilter}
+        width="medium"
+      />
+    </FormControl>
+  )
 }
