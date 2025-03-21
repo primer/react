@@ -65,6 +65,8 @@ export function FilteredActionList({
 }: FilteredActionListProps): JSX.Element {
   const [filterValue, setInternalFilterValue] = useProvidedStateOrCreate(externalFilterValue, undefined, '')
   const [enableAnnouncements, setEnableAnnouncements] = useState(false)
+  const [selectedItems, setSelectedItems] = useState<(string | number | undefined)[]>([])
+
   const onInputChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const value = e.target.value
@@ -77,7 +79,6 @@ export function FilteredActionList({
   const scrollContainerRef = useRef<HTMLDivElement>(null)
   const inputRef = useProvidedRefOrCreate<HTMLInputElement>(providedInputRef)
   const listRef = useRef<HTMLUListElement>(null)
-  const activeDescendantRef = useRef<HTMLElement>()
   const listId = useId()
   const inputDescriptionTextId = useId()
 
@@ -107,16 +108,21 @@ export function FilteredActionList({
   }, [inputRef, onInputRefChanged])
 
   useEffect(() => {
-    // if items changed, we want to instantly move active descendant into view
-    if (activeDescendantRef.current && scrollContainerRef.current) {
-      scrollIntoView(activeDescendantRef.current, scrollContainerRef.current, {
-        ...menuScrollMargins,
-        behavior: 'auto',
-      })
-    }
-
     if (items.length === 0) {
       inputRef.current?.focus()
+    } else {
+      const itemIds = items.map(item => item.id)
+      const removedItem = selectedItems.find(item => !itemIds.includes(item))
+
+      setSelectedItems(itemIds)
+
+      if (removedItem && document.activeElement !== inputRef.current) {
+        const list = listRef?.current
+        if (list) {
+          const firstSelectedItem = list.querySelector('[role="option"]') as HTMLElement
+          firstSelectedItem?.focus()
+        }
+      }
     }
   }, [items])
 
