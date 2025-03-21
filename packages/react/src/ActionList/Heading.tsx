@@ -1,6 +1,5 @@
 import React, {forwardRef} from 'react'
-import type {BetterSystemStyleObject, SxProp} from '../sx'
-import {merge} from '../sx'
+import type {SxProp} from '../sx'
 import {defaultSxProp} from '../utils/defaultSxProp'
 import {useRefObjectAsForwardedRef} from '../hooks'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
@@ -10,9 +9,7 @@ import VisuallyHidden from '../_VisuallyHidden'
 import {ActionListContainerContext} from './ActionListContainerContext'
 import {invariant} from '../utils/invariant'
 import {clsx} from 'clsx'
-import {useFeatureFlag} from '../FeatureFlags'
 import classes from './Heading.module.css'
-import {actionListCssModulesFlag} from './featureflag'
 
 type HeadingLevels = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
 type HeadingVariants = 'large' | 'medium' | 'small'
@@ -28,8 +25,6 @@ export const Heading = forwardRef(
     const innerRef = React.useRef<HTMLHeadingElement>(null)
     useRefObjectAsForwardedRef(forwardedRef, innerRef)
 
-    const enabled = useFeatureFlag(actionListCssModulesFlag)
-
     const {headingId: headingId, variant: listVariant} = React.useContext(ListContext)
     const {container} = React.useContext(ActionListContainerContext)
 
@@ -39,42 +34,22 @@ export const Heading = forwardRef(
       `ActionList.Heading shouldn't be used within an ActionMenu container. Menus are labelled by the menu button's name.`,
     )
 
-    const styles = {
-      marginBottom: 2,
-      marginX: listVariant === 'full' ? 2 : 3,
-    }
-
     return (
       <VisuallyHidden isVisible={!visuallyHidden}>
-        {enabled ? (
-          sx !== defaultSxProp ? (
-            <HeadingComponent
-              as={as}
-              variant={size}
-              ref={innerRef}
-              // use custom id if it is provided. Otherwise, use the id from the context
-              id={props.id ?? headingId}
-              className={clsx(className, classes.ActionListHeader)}
-              data-list-variant={listVariant}
-              sx={sx}
-              {...props}
-            >
-              {children}
-            </HeadingComponent>
-          ) : (
-            <HeadingComponent
-              as={as}
-              variant={size}
-              ref={innerRef}
-              // use custom id if it is provided. Otherwise, use the id from the context
-              id={props.id ?? headingId}
-              className={clsx(className, classes.ActionListHeader)}
-              data-list-variant={listVariant}
-              {...props}
-            >
-              {children}
-            </HeadingComponent>
-          )
+        {sx !== defaultSxProp ? (
+          <HeadingComponent
+            as={as}
+            variant={size}
+            ref={innerRef}
+            // use custom id if it is provided. Otherwise, use the id from the context
+            id={props.id ?? headingId}
+            className={clsx(className, classes.ActionListHeader)}
+            data-list-variant={listVariant}
+            sx={sx}
+            {...props}
+          >
+            {children}
+          </HeadingComponent>
         ) : (
           <HeadingComponent
             as={as}
@@ -82,8 +57,8 @@ export const Heading = forwardRef(
             ref={innerRef}
             // use custom id if it is provided. Otherwise, use the id from the context
             id={props.id ?? headingId}
-            sx={merge<BetterSystemStyleObject>(styles, sx)}
-            className={className}
+            className={clsx(className, classes.ActionListHeader)}
+            data-list-variant={listVariant}
             {...props}
           >
             {children}
