@@ -111,7 +111,7 @@ export function FilteredActionList({
     if (items.length === 0) {
       inputRef.current?.focus()
     } else {
-      const itemIds = items.map(item => item.id)
+      const itemIds = items.filter(item => (item.selected ? item.id : false)).map(item => item.id)
       const removedItem = selectedItems.find(item => !itemIds.includes(item))
 
       setSelectedItems(itemIds)
