@@ -20,12 +20,8 @@ import FormControlLeadingVisual from './FormControlLeadingVisual'
 import FormControlValidation from './_FormControlValidation'
 import {FormControlContextProvider} from './_FormControlContext'
 import {warning} from '../utils/warning'
-import styled from 'styled-components'
-import sx from '../sx'
-import {toggleStyledComponent} from '../internal/utils/toggleStyledComponent'
-import {cssModulesFlag} from './feature-flags'
-import {useFeatureFlag} from '../FeatureFlags'
 import classes from './FormControl.module.css'
+import {defaultSxProp} from '../utils/defaultSxProp'
 
 export type FormControlProps = {
   children?: React.ReactNode
@@ -51,7 +47,6 @@ export type FormControlProps = {
 
 const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
   ({children, disabled: disabledProp, layout = 'vertical', id: idProp, required, sx, className}, ref) => {
-    const enabled = useFeatureFlag(cssModulesFlag)
     const [slots, childrenWithoutSlots] = useSlots(children, {
       caption: FormControlCaption,
       label: FormControlLabel,
@@ -122,6 +117,46 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
     }
 
     const isLabelHidden = slots.label?.props.visuallyHidden
+    const InputChildren = (
+      <>
+        <div className={classes.ControlChoiceInputs}>
+          {React.isValidElement(InputComponent)
+            ? React.cloneElement(
+                InputComponent as React.ReactElement<{
+                  id: string
+                  disabled: boolean
+                  required: boolean
+                  ['aria-describedby']: string
+                }>,
+                {
+                  id,
+                  disabled,
+                  // allow checkboxes to be required
+                  required: required && !isRadioInput,
+                  ['aria-describedby']: captionId as string,
+                },
+              )
+            : null}
+          {childrenWithoutSlots.filter(
+            child =>
+              React.isValidElement(child) && ![Checkbox, Radio].some(inputComponent => child.type === inputComponent),
+          )}
+        </div>
+        {slots.leadingVisual ? (
+          <div
+            className={classes.LeadingVisual}
+            data-disabled={disabled ? '' : undefined}
+            data-has-caption={slots.caption ? '' : undefined}
+          >
+            {slots.leadingVisual}
+          </div>
+        ) : null}
+        <div className={classes.LabelContainer}>
+          {slots.label}
+          {slots.caption}
+        </div>
+      </>
+    )
 
     return (
       <FormControlContextProvider
@@ -134,54 +169,24 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
         }}
       >
         {isChoiceInput || layout === 'horizontal' ? (
-          <StyledHorizontalLayout
-            ref={ref}
-            data-has-leading-visual={slots.leadingVisual ? '' : undefined}
-            sx={sx}
-            className={clsx(className, {
-              [classes.ControlHorizontalLayout]: enabled,
-            })}
-          >
-            <StyledChoiceInputs className={classes.ControlChoiceInputs}>
-              {React.isValidElement(InputComponent)
-                ? React.cloneElement(
-                    InputComponent as React.ReactElement<{
-                      id: string
-                      disabled: boolean
-                      required: boolean
-                      ['aria-describedby']: string
-                    }>,
-                    {
-                      id,
-                      disabled,
-                      // allow checkboxes to be required
-                      required: required && !isRadioInput,
-                      ['aria-describedby']: captionId as string,
-                    },
-                  )
-                : null}
-              {childrenWithoutSlots.filter(
-                child =>
-                  React.isValidElement(child) &&
-                  ![Checkbox, Radio].some(inputComponent => child.type === inputComponent),
-              )}
-            </StyledChoiceInputs>
-            {slots.leadingVisual ? (
-              <StyledLeadingVisual
-                className={clsx({
-                  [classes.LeadingVisual]: enabled,
-                })}
-                data-disabled={disabled ? '' : undefined}
-                data-has-caption={slots.caption ? '' : undefined}
-              >
-                {slots.leadingVisual}
-              </StyledLeadingVisual>
-            ) : null}
-            <StyledLabelContainer className={classes.LabelContainer}>
-              {slots.label}
-              {slots.caption}
-            </StyledLabelContainer>
-          </StyledHorizontalLayout>
+          sx !== defaultSxProp ? (
+            <Box
+              ref={ref}
+              data-has-leading-visual={slots.leadingVisual ? '' : undefined}
+              sx={sx}
+              className={clsx(className, classes.ControlHorizontalLayout)}
+            >
+              {InputChildren}
+            </Box>
+          ) : (
+            <div
+              ref={ref}
+              data-has-leading-visual={slots.leadingVisual ? '' : undefined}
+              className={clsx(className, classes.ControlHorizontalLayout)}
+            >
+              {InputChildren}
+            </div>
+          )
         ) : (
           <Box
             ref={ref}
@@ -189,14 +194,8 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
             display="flex"
             flexDirection="column"
             alignItems="flex-start"
-            sx={
-              enabled
-                ? sx
-                : {...(isLabelHidden ? {'> *:not(label) + *': {marginTop: 1}} : {'> * + *': {marginTop: 1}}), ...sx}
-            }
-            className={clsx(className, {
-              [classes.ControlVerticalLayout]: enabled,
-            })}
+            sx={sx}
+            className={clsx(className, classes.ControlVerticalLayout)}
           >
             {slots.label}
             {React.isValidElement(InputComponent) &&
@@ -227,69 +226,6 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
       </FormControlContextProvider>
     )
   },
-)
-
-const StyledHorizontalLayout = toggleStyledComponent(
-  cssModulesFlag,
-  'div',
-  styled.div`
-    display: flex;
-
-    &:where([data-has-leading-visual]) {
-      align-items: center;
-    }
-
-    ${sx}
-  `,
-)
-
-const StyledChoiceInputs = toggleStyledComponent(
-  cssModulesFlag,
-  'div',
-  styled.div`
-    > input {
-      margin-left: 0;
-      margin-right: 0;
-    }
-  `,
-)
-
-const StyledLabelContainer = toggleStyledComponent(
-  cssModulesFlag,
-  'div',
-  styled.div`
-    > * {
-      padding-left: var(--stack-gap-condensed);
-    }
-
-    > label {
-      font-weight: var(--base-text-weight-normal);
-    }
-  `,
-)
-
-const StyledLeadingVisual = toggleStyledComponent(
-  cssModulesFlag,
-  'div',
-  styled.div`
-    color: var(--fgColor-default);
-    margin-left: var(--base-size-8);
-
-    &:where([data-disabled]) {
-      color: var(--fgColor-muted);
-    }
-
-    > * {
-      fill: currentColor;
-      min-width: var(--text-body-size-large);
-      min-height: var(--text-body-size-large);
-    }
-
-    > *:where([data-has-caption]) {
-      min-width: var(--base-size-24);
-      min-height: var(--base-size-24);
-    }
-  `,
 )
 
 export default Object.assign(FormControl, {
