@@ -312,7 +312,7 @@ export function SelectPanel({
     if (inputRef?.current) {
       const ref = inputRef.current
       const listener = () => {
-        announceFilterFocused()
+        // announceFilterFocused()
       }
 
       if (document.activeElement === ref) {
@@ -380,12 +380,13 @@ export function SelectPanel({
   }, [placeholder, renderAnchor, selected])
 
   const itemsToRender = useMemo(() => {
-    return items.map(item => {
+    return items.map((item, index) => {
       const isItemSelected = isMultiSelectVariant(selected) ? doesItemsIncludeItem(selected, item) : selected === item
 
       return {
         ...item,
         role: 'option',
+        id: item.id || `select-panel-item-${index}`,
         selected: 'selected' in item && item.selected === undefined ? undefined : isItemSelected,
         onAction: (itemFromAction, event) => {
           item.onAction?.(itemFromAction, event)
@@ -561,7 +562,7 @@ export function SelectPanel({
             // than the Overlay (which would break scrolling the items)
             sx={enabled ? sx : {...sx, height: 'inherit', maxHeight: 'inherit'}}
             className={enabled ? clsx(className, classes.FilteredActionList) : className}
-            announcementsEnabled={false}
+            announcementsEnabled={usingModernActionList}
           />
           {footer ? (
             <Box
