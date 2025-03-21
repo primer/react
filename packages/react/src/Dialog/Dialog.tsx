@@ -626,15 +626,16 @@ const StyledFooter = toggleStyledComponent(
     box-shadow: 0 -1px 0 ${get('colors.border.default')};
     padding: ${get('space.3')};
     display: flex;
-    flex-direction: row-reverse;
-    flex-wrap: wrap-reverse;
+    flex-flow: wrap;
+    justify-content: flex-end;
     gap: ${get('space.2')};
     z-index: 1;
     flex-shrink: 0;
-
     @media (max-height: 325px) {
       flex-wrap: nowrap;
       overflow-x: scroll;
+      flex-direction: row;
+      justify-content: unset;
     }
     ${sx};
   `,
@@ -662,22 +663,20 @@ const Buttons: React.FC<React.PropsWithChildren<{buttons: DialogButtonProps[]}>>
 
   return (
     <>
-      {buttons
-        .map((dialogButtonProps, index) => {
-          const {content, buttonType = 'default', autoFocus = false, ...buttonProps} = dialogButtonProps
-          return (
-            <Button
-              key={index}
-              {...buttonProps}
-              // 'normal' value is equivalent to 'default', this is used for backwards compatibility
-              variant={buttonType === 'normal' ? 'default' : buttonType}
-              ref={autoFocus && autoFocusCount === 0 ? (autoFocusCount++, autoFocusRef) : null}
-            >
-              {content}
-            </Button>
-          )
-        })
-        .reverse()}
+      {buttons.map((dialogButtonProps, index) => {
+        const {content, buttonType = 'default', autoFocus = false, ...buttonProps} = dialogButtonProps
+        return (
+          <Button
+            key={index}
+            {...buttonProps}
+            // 'normal' value is equivalent to 'default', this is used for backwards compatibility
+            variant={buttonType === 'normal' ? 'default' : buttonType}
+            ref={autoFocus && autoFocusCount === 0 ? (autoFocusCount++, autoFocusRef) : null}
+          >
+            {content}
+          </Button>
+        )
+      })}
     </>
   )
 }
