@@ -1,4 +1,4 @@
-import {SearchIcon, TriangleDownIcon} from '@primer/octicons-react'
+import {AlertIcon, InfoIcon, SearchIcon, StopIcon, TriangleDownIcon, XIcon} from '@primer/octicons-react'
 import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react'
 import type {AnchoredOverlayProps} from '../AnchoredOverlay'
 import {AnchoredOverlay} from '../AnchoredOverlay'
@@ -12,7 +12,7 @@ import type {TextInputProps} from '../TextInput'
 import type {ItemProps, ItemInput} from './types'
 import {SelectPanelMessage} from './SelectPanelMessage'
 
-import {Button} from '../Button'
+import {Button, IconButton} from '../Button'
 import {useProvidedRefOrCreate} from '../hooks'
 import type {FocusZoneHookSettings} from '../hooks/useFocusZone'
 import {useId} from '../hooks/useId'
@@ -23,7 +23,6 @@ import type {FilteredActionListLoadingType} from '../FilteredActionList/Filtered
 import {FilteredActionListLoadingTypes} from '../FilteredActionList/FilteredActionListLoaders'
 import {useFeatureFlag} from '../FeatureFlags'
 import {announce} from '@primer/live-region-element'
-
 import classes from './SelectPanel.module.css'
 import {clsx} from 'clsx'
 import {heightMap} from '../Overlay/Overlay'
@@ -137,6 +136,11 @@ interface SelectPanelBaseProps {
   initialLoadingType?: InitialLoadingType
   className?: string
   message?: React.ReactNode
+  notice?: {
+    text: string | React.ReactElement
+    variant: 'info' | 'warning' | 'error'
+  }
+  onCancel?: () => void
 }
 
 export type SelectPanelProps = React.PropsWithChildren<
@@ -200,6 +204,8 @@ function Panel({
   width,
   id,
   message,
+  notice,
+  onCancel,
   ...listProps
 }: SelectPanelProps): JSX.Element {
   const titleId = useId()
@@ -363,7 +369,7 @@ function Panel({
     [onOpenChange],
   )
   const onClose = useCallback(
-    (gesture: Parameters<Exclude<AnchoredOverlayProps['onClose'], undefined>>[0] | 'selection') => {
+    (gesture: Parameters<Exclude<AnchoredOverlayProps['onClose'], undefined>>[0] | 'selection' | 'escape') => {
       onOpenChange(false, gesture)
     },
     [onOpenChange],
@@ -449,6 +455,11 @@ function Panel({
   // If there is no items after the first load, show the no items state
 
   const isEmpty = items.length === 0
+  const iconForNoticeVariant = {
+    info: <InfoIcon size={16} />,
+    warning: <AlertIcon size={16} />,
+    error: <StopIcon size={16} />,
+  }
 
   return (
     <LiveRegion>
@@ -472,6 +483,7 @@ function Panel({
         height={height}
         width={width}
         anchorId={id}
+        variant={{regular: 'anchored', narrow: 'fullscreen'}}
         pinPosition={!height}
         className={classes.Overlay}
       >
@@ -491,25 +503,61 @@ function Panel({
           sx={enabled ? undefined : {display: 'flex', flexDirection: 'column', height: 'inherit', maxHeight: 'inherit'}}
           className={enabled ? classes.Wrapper : undefined}
         >
-          <Box sx={enabled ? undefined : {pt: 2, px: 3}} className={enabled ? classes.Content : undefined}>
-            <Heading
-              as="h1"
-              id={titleId}
-              sx={enabled ? undefined : {fontSize: 1}}
-              className={enabled ? classes.Title : undefined}
-            >
-              {title}
-            </Heading>
-            {subtitle ? (
-              <Box
-                id={subtitleId}
-                sx={enabled ? undefined : {fontSize: 0, color: 'fg.muted'}}
-                className={enabled ? classes.Subtitle : undefined}
+          <Box
+            sx={
+              enabled
+                ? undefined
+                : {
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    paddingTop: 2,
+                    paddingRight: 2,
+                    paddingLeft: 2,
+                  }
+            }
+            className={enabled ? classes.Header : undefined}
+          >
+            <div>
+              <Heading
+                as="h1"
+                id={titleId}
+                sx={enabled ? undefined : {fontSize: 1, marginLeft: 2}}
+                className={enabled ? classes.Title : undefined}
               >
-                {subtitle}
-              </Box>
-            ) : null}
+                {title}
+              </Heading>
+              {subtitle ? (
+                <Box
+                  id={subtitleId}
+                  sx={enabled ? undefined : {marginLeft: 2, fontSize: 0, color: 'fg.muted'}}
+                  className={enabled ? classes.Subtitle : undefined}
+                >
+                  {subtitle}
+                </Box>
+              ) : null}
+            </div>
+            {onCancel && (
+              <IconButton
+                type="button"
+                variant="invisible"
+                icon={XIcon}
+                aria-label="Cancel and close"
+                sx={enabled ? undefined : {display: ['inline-grid', 'inline-grid', 'none', 'none']}}
+                className={enabled ? classes.ResponsiveCloseButton : undefined}
+                onClick={() => {
+                  onCancel()
+                  onClose('escape')
+                }}
+              />
+            )}
           </Box>
+          {notice && (
+            <div aria-live="polite" data-variant={notice.variant} className={classes.Notice}>
+              {iconForNoticeVariant[notice.variant]}
+              <div>{notice.text}</div>
+            </div>
+          )}
           <FilteredActionList
             filterValue={filterValue}
             onFilterChange={onFilterChange}
@@ -537,7 +585,7 @@ function Panel({
             className={enabled ? clsx(className, classes.FilteredActionList) : className}
             announcementsEnabled={false}
           />
-          {footer && (
+          {footer ? (
             <Box
               sx={
                 enabled
@@ -553,7 +601,31 @@ function Panel({
             >
               {footer}
             </Box>
-          )}
+          ) : isMultiSelectVariant(selected) ? (
+            /* Save and Cancel buttons are only useful for multiple selection, single selection instantly closes the panel */
+            <div className={clsx(classes.Footer, classes.ResponsiveFooter)}>
+              {/* we add a save and cancel button on narrow screens when SelectPanel is full-screen */}
+              {onCancel && (
+                <Button
+                  size="medium"
+                  onClick={() => {
+                    onCancel()
+                    onClose('escape')
+                  }}
+                >
+                  Cancel
+                </Button>
+              )}
+              <Button
+                variant="primary"
+                size="medium"
+                block={onCancel ? false : true}
+                onClick={() => onClose('click-outside')}
+              >
+                Save
+              </Button>
+            </div>
+          ) : null}
         </Box>
       </AnchoredOverlay>
     </LiveRegion>
