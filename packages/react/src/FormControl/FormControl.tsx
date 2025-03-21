@@ -117,7 +117,7 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
     }
 
     const isLabelHidden = slots.label?.props.visuallyHidden
-    const LayoutChildren = (
+    const InputChildren = (
       <>
         <div className={classes.ControlChoiceInputs}>
           {React.isValidElement(InputComponent)
@@ -176,7 +176,7 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
               sx={sx}
               className={clsx(className, classes.ControlHorizontalLayout)}
             >
-              {LayoutChildren}
+              {InputChildren}
             </Box>
           ) : (
             <div
@@ -184,7 +184,7 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
               data-has-leading-visual={slots.leadingVisual ? '' : undefined}
               className={clsx(className, classes.ControlHorizontalLayout)}
             >
-              {LayoutChildren}
+              {InputChildren}
             </div>
           )
         ) : (
