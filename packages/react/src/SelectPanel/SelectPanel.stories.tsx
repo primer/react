@@ -8,12 +8,18 @@ import {SelectPanel} from '../SelectPanel'
 import type {ItemInput} from '../deprecated/ActionList/List'
 import FormControl from '../FormControl'
 
-const meta = {
+const meta: Meta<typeof SelectPanel> = {
   title: 'Components/SelectPanel',
   component: SelectPanel,
 } satisfies Meta<typeof SelectPanel>
 
 export default meta
+
+const NoResultsMessage = ({filter}: {filter: string}) => (
+  <SelectPanel.Message variant="empty" title={`No language found for \`${filter}\``} key="no-results-message">
+    Adjust your search term to find other languages
+  </SelectPanel.Message>
+)
 
 function getColorCircle(color: string) {
   return function () {
@@ -101,6 +107,7 @@ export const Default = () => {
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         width="medium"
+        message={selectedItemsSortedFirst.length === 0 ? <NoResultsMessage filter={filter} /> : undefined}
       />
     </FormControl>
   )

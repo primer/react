@@ -11,12 +11,18 @@ import FormControl from '../FormControl'
 import {Stack} from '../Stack'
 import {Dialog} from '../experimental'
 
-const meta = {
+const meta: Meta<typeof SelectPanel> = {
   title: 'Components/SelectPanel/Examples',
   component: SelectPanel,
 } satisfies Meta<typeof SelectPanel>
 
 export default meta
+
+const NoResultsMessage = ({filter}: {filter: string}) => (
+  <SelectPanel.Message variant="empty" title={`No language found for \`${filter}\``} key="no-results-message">
+    Adjust your search term to find other languages
+  </SelectPanel.Message>
+)
 
 function getColorCircle(color: string) {
   return function () {
@@ -82,6 +88,7 @@ export const HeightInitialWithOverflowingItemsStory = () => {
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         overlayProps={{width: 'small', height: 'initial', maxHeight: 'xsmall'}}
+        message={selectedItemsSortedFirst.length === 0 ? <NoResultsMessage filter={filter} /> : undefined}
       />
     </FormControl>
   )
@@ -127,6 +134,7 @@ export const HeightInitialWithUnderflowingItemsStory = () => {
         onFilterChange={setFilter}
         showItemDividers={true}
         overlayProps={{width: 'small', height: 'initial', maxHeight: 'xsmall'}}
+        message={selectedItemsSortedFirst.length === 0 ? <NoResultsMessage filter={filter} /> : undefined}
       />
     </FormControl>
   )
@@ -149,7 +157,7 @@ export const HeightInitialWithUnderflowingItemsAfterFetch = () => {
     [fetchedItems, filter, selected],
   )
   // design guidelines say to sort selected items first
-  const selectedItemsSortedFirst = fetchedItems.sort((a, b) => {
+  const selectedItemsSortedFirst = filteredItems.sort((a, b) => {
     const aIsSelected = selected.some(selectedItem => selectedItem.text === a.text)
     const bIsSelected = selected.some(selectedItem => selectedItem.text === b.text)
     if (aIsSelected && !bIsSelected) return -1
@@ -179,13 +187,14 @@ export const HeightInitialWithUnderflowingItemsAfterFetch = () => {
         placeholder="Select labels" // button text when no items are selected
         open={open}
         onOpenChange={onOpenChange}
-        loading={filteredItems.length === 0}
+        loading={filteredItems.length === 0 && !filter}
         items={selectedItemsSortedFirst}
         selected={selected}
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         showItemDividers={true}
         overlayProps={{width: 'small', height, maxHeight: 'xsmall'}}
+        message={selectedItemsSortedFirst.length === 0 ? <NoResultsMessage filter={filter} /> : undefined}
       />
     </FormControl>
   )
@@ -228,6 +237,7 @@ export const AboveTallBody = () => {
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         showItemDividers={true}
+        message={selectedItemsSortedFirst.length === 0 ? <NoResultsMessage filter={filter} /> : undefined}
       />
       <div
         style={{
@@ -245,7 +255,7 @@ export const AboveTallBody = () => {
   )
 }
 
-export const HeightVariantionsAndScroll = () => {
+export const HeightVariationsAndScroll = () => {
   const longItems = [...items, ...items, ...items, ...items, ...items, ...items, ...items, ...items]
   const [filter, setFilter] = useState('')
   // Example A
@@ -293,6 +303,7 @@ export const HeightVariantionsAndScroll = () => {
           onFilterChange={setFilter}
           showItemDividers={true}
           overlayProps={{height: 'medium'}}
+          message={selectedItemsSortedFirstA.length === 0 ? <NoResultsMessage filter={filter} /> : undefined}
         />
       </FormControl>
       <br />
@@ -316,6 +327,7 @@ export const HeightVariantionsAndScroll = () => {
             height: 'auto',
             maxHeight: 'medium',
           }}
+          message={selectedItemsSortedFirstB.length === 0 ? <NoResultsMessage filter={filter} /> : undefined}
         />
       </FormControl>
     </>
@@ -390,6 +402,7 @@ export const CustomItemRenderer = () => {
             </Box>
           </ActionList.Item>
         )}
+        message={selectedItemsSortedFirst.length === 0 ? <NoResultsMessage filter={filter} /> : undefined}
       />
     </FormControl>
   )
@@ -439,6 +452,7 @@ export const ItemsInScope = () => {
         selected={selected}
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
+        message={selectedItemsSortedFirst.length === 0 ? <NoResultsMessage filter={filter} /> : undefined}
       />
     </FormControl>
   )
@@ -484,6 +498,7 @@ export const RepositionAfterLoading = () => {
           selected={selected}
           onSelectedChange={setSelected}
           onFilterChange={setFilter}
+          message={filteredItems.length === 0 ? <NoResultsMessage filter={filter} /> : undefined}
         />
       </Stack>
     </>
@@ -531,6 +546,7 @@ export const SelectPanelRepositionInsideDialog = () => {
           onSelectedChange={setSelected}
           onFilterChange={setFilter}
           overlayProps={{anchorSide: 'outside-top'}}
+          message={filteredItems.length === 0 ? <NoResultsMessage filter={filter} /> : undefined}
         />
       </Stack>
     </Dialog>

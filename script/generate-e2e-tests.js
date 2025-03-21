@@ -1142,8 +1142,8 @@ const components = new Map([
           name: 'Above Tall Body',
         },
         {
-          id: 'components-selectpanel-examples--height-variantions-and-scroll',
-          name: 'Height Variantions and Scroll',
+          id: 'components-selectpanel-examples--height-variations-and-scroll',
+          name: 'Height Variations and Scroll',
         },
         {
           id: 'components-selectpanel-examples--height-initial-with-overflowing-items-story',

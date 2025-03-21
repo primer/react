@@ -10,6 +10,7 @@ import Heading from '../Heading'
 import type {OverlayProps} from '../Overlay'
 import type {TextInputProps} from '../TextInput'
 import type {ItemProps, ItemInput} from './types'
+import {SelectPanelMessage} from './SelectPanelMessage'
 
 import {Button, IconButton} from '../Button'
 import {useProvidedRefOrCreate} from '../hooks'
@@ -24,10 +25,17 @@ import {useFeatureFlag} from '../FeatureFlags'
 import {announce} from '@primer/live-region-element'
 import classes from './SelectPanel.module.css'
 import {clsx} from 'clsx'
+import {heightMap} from '../Overlay/Overlay'
 
 // we add a delay so that it does not interrupt default screen reader announcement and queues after it
 const delayMs = 500
 const loadingDelayMs = 1000
+
+const DefaultEmptyMessage = (
+  <SelectPanelMessage variant="empty" title="You haven't created any items yet" key="empty-message">
+    Please add or create new items to populate the list.
+  </SelectPanelMessage>
+)
 
 const getItemWithActiveDescendant = (
   listRef: React.RefObject<HTMLElement>,
@@ -44,7 +52,7 @@ const getItemWithActiveDescendant = (
   const activeItem = items[index] as ItemInput | undefined
 
   const text = activeItem?.text
-  const selected = activeItem?.selected
+  const selected = activeItemElement.getAttribute('aria-selected') === 'true'
 
   return {index, text, selected}
 }
@@ -127,6 +135,7 @@ interface SelectPanelBaseProps {
   footer?: string | React.ReactElement
   initialLoadingType?: InitialLoadingType
   className?: string
+  message?: React.ReactNode
   notice?: {
     text: string | React.ReactElement
     variant: 'info' | 'warning' | 'error'
@@ -134,12 +143,13 @@ interface SelectPanelBaseProps {
   onCancel?: () => void
 }
 
-export type SelectPanelProps = SelectPanelBaseProps &
-  Omit<FilteredActionListProps, 'selectionVariant'> &
-  Pick<AnchoredOverlayProps, 'open' | 'height' | 'width'> &
-  AnchoredOverlayWrapperAnchorProps &
-  (SelectPanelSingleSelection | SelectPanelMultiSelection)
-
+export type SelectPanelProps = React.PropsWithChildren<
+  SelectPanelBaseProps &
+    Omit<FilteredActionListProps, 'selectionVariant'> &
+    Pick<AnchoredOverlayProps, 'open' | 'height' | 'width'> &
+    AnchoredOverlayWrapperAnchorProps &
+    (SelectPanelSingleSelection | SelectPanelMultiSelection)
+>
 function isMultiSelectVariant(
   selected: SelectPanelSingleSelection['selected'] | SelectPanelMultiSelection['selected'],
 ): selected is SelectPanelMultiSelection['selected'] {
@@ -161,7 +171,7 @@ const doesItemsIncludeItem = (items: ItemInput[], item: ItemInput) => {
   return items.some(i => areItemsEqual(i, item))
 }
 
-export function SelectPanel({
+function Panel({
   open,
   onOpenChange,
   renderAnchor = props => {
@@ -193,6 +203,7 @@ export function SelectPanel({
   height,
   width,
   id,
+  message,
   notice,
   onCancel,
   ...listProps
@@ -295,7 +306,7 @@ export function SelectPanel({
       return
     }
 
-    if (isLoading) {
+    if (isLoading || items.length > 0) {
       setIsLoading(false)
       setDataLoadedOnce(true)
     }
@@ -441,6 +452,9 @@ export function SelectPanel({
   }
   const usingModernActionList = useFeatureFlag('primer_react_select_panel_with_modern_action_list')
 
+  // If there is no items after the first load, show the no items state
+
+  const isEmpty = items.length === 0
   const iconForNoticeVariant = {
     info: <InfoIcon size={16} />,
     warning: <AlertIcon size={16} />,
@@ -460,6 +474,9 @@ export function SelectPanel({
           'aria-labelledby': titleId,
           'aria-describedby': subtitle ? subtitleId : undefined,
           ...overlayProps,
+          style: {
+            '--max-height': overlayProps?.maxHeight ? heightMap[overlayProps.maxHeight] : heightMap['large'],
+          } as React.CSSProperties,
         }}
         focusTrapSettings={focusTrapSettings}
         focusZoneSettings={focusZoneSettings}
@@ -468,6 +485,7 @@ export function SelectPanel({
         anchorId={id}
         variant={{regular: 'anchored', narrow: 'fullscreen'}}
         pinPosition={!height}
+        className={classes.Overlay}
       >
         <LiveRegionOutlet />
         {usingModernActionList ? null : (
@@ -557,6 +575,10 @@ export function SelectPanel({
             textInputProps={extendedTextInputProps}
             loading={loading || isLoading}
             loadingType={loadingType()}
+            // hack because the deprecated ActionList does not support this prop
+            {...{
+              message: isEmpty && !message ? DefaultEmptyMessage : message,
+            }}
             // inheriting height and maxHeight ensures that the FilteredActionList is never taller
             // than the Overlay (which would break scrolling the items)
             sx={enabled ? sx : {...sx, height: 'inherit', maxHeight: 'inherit'}}
@@ -610,4 +632,8 @@ export function SelectPanel({
   )
 }
 
-SelectPanel.displayName = 'SelectPanel'
+Panel.displayName = 'SelectPanel'
+
+export const SelectPanel = Object.assign(Panel, {
+  Message: SelectPanelMessage,
+})
