@@ -59,21 +59,7 @@ describe('ActionList.Description', () => {
         </ActionList>
       )
     }
-    const FeatureFlagElement = () => {
-      return (
-        <FeatureFlags
-          flags={{
-            primer_react_css_modules_staff: true,
-            primer_react_css_modules_ga: true,
-          }}
-        >
-          <Element />
-        </FeatureFlags>
-      )
-    }
-    expect(
-      HTMLRender(<FeatureFlagElement />).container.querySelector('span[data-component="ActionList.Description"]'),
-    ).toHaveClass('test-class-name')
+
     expect(
       HTMLRender(<Element />).container.querySelector('span[data-component="ActionList.Description"]'),
     ).toHaveClass('test-class-name')
