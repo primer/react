@@ -13,7 +13,7 @@ jobs:
       PROJECT_ID: 4503
     steps:
       - id: get-primer-access-token
-        uses: camertron/github-app-installation-auth-action@v1
+        uses: camertron/github-app-installation-auth-action@fa97ea3e744a2903ae6078628ad8aa9ed1e65723
         with:
           app-id: ${{ vars.PRIMER_ISSUE_TRIAGE_APP_ID }}
           private-key: ${{ secrets.PRIMER_ISSUE_TRIAGE_APP_PRIVATE_KEY }}
@@ -26,7 +26,7 @@ jobs:
         env:
           GH_TOKEN: ${{ steps.get-primer-access-token.outputs.access-token }}
       - id: get-github-access-token
-        uses: camertron/github-app-installation-auth-action@v1
+        uses: camertron/github-app-installation-auth-action@fa97ea3e744a2903ae6078628ad8aa9ed1e65723
         with:
           app-id: ${{ vars.PRIMER_ISSUE_TRIAGE_APP_ID_FOR_GITHUB }}
           private-key: ${{ secrets.PRIMER_ISSUE_TRIAGE_APP_PRIVATE_KEY_FOR_GITHUB }}
