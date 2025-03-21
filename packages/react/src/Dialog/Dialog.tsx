@@ -631,7 +631,12 @@ const StyledFooter = toggleStyledComponent(
     gap: ${get('space.2')};
     z-index: 1;
     flex-shrink: 0;
-
+    @media (max-height: 325px) {
+      flex-wrap: nowrap;
+      overflow-x: scroll;
+      flex-direction: row;
+      justify-content: unset;
+    }
     ${sx};
   `,
 )
