@@ -26,7 +26,7 @@ export const useAnnouncements = (
 
   // Notify user of the number of items available
   const selectedItems = items.filter(item => item.selected).length
-  const announcementText = `${items.length} items available, ${selectedItems} selected.`
+  const announcementText = `${items.length} item${items.length > 1 ? 's' : ''} available, ${selectedItems} selected.`
 
   const announce = useCallback(
     (...args: Parameters<typeof liveRegionAnnounce>): ReturnType<typeof liveRegionAnnounce> | undefined => {

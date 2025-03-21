@@ -92,9 +92,7 @@ export function FilteredActionList({
           event.preventDefault()
         }
       } else if (event.key === 'Enter') {
-        const firstItemId = listRef.current?.querySelector('[role="option"]')?.getAttribute('data-id')
-        const firstItem = items.find(item => item.id === Number(firstItemId))
-
+        const firstItem = items[0]
         if (firstItem && firstItem.onAction) {
           firstItem.onAction(firstItem, event)
         }
@@ -111,7 +109,7 @@ export function FilteredActionList({
     if (items.length === 0) {
       inputRef.current?.focus()
     } else {
-      const itemIds = items.filter(item => (item.selected ? item.id : false)).map(item => item.id)
+      const itemIds = items.filter(item => item.selected).map(item => item.id)
       const removedItem = selectedItems.find(item => !itemIds.includes(item))
 
       setSelectedItems(itemIds)
