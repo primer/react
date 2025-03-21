@@ -1,7 +1,6 @@
 import {render as HTMLRender} from '@testing-library/react'
 import React from 'react'
 import {ActionList} from '.'
-import {FeatureFlags} from '../FeatureFlags'
 
 describe('ActionList.Description', () => {
   it('should render the description as inline without truncation by default', () => {
