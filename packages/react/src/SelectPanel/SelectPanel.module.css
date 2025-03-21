@@ -25,6 +25,43 @@
   color: var(--fgColor-muted);
 }
 
+.Notice {
+  display: flex;
+  padding-top: var(--base-size-12);
+  padding-right: var(--base-size-16);
+  padding-bottom: var(--base-size-12);
+  padding-left: var(--base-size-16);
+  margin-top: var(--base-size-4);
+  font-size: var(--text-body-size-small);
+  flex-direction: row;
+  border-top: var(--borderWidth-thin) solid;
+  border-bottom: var(--borderWidth-thin) solid;
+  gap: var(--base-size-8);
+}
+
+.Notice a {
+  color: inherit;
+  text-decoration: underline;
+}
+
+.Notice:where([data-variant='info']) {
+  color: var(--fgColor-accent);
+  background-color: var(--bgColor-accent-muted);
+  border-color: var(--borderColor-accent-muted);
+}
+
+.Notice:where([data-variant='warning']) {
+  color: var(--fgColor-attention);
+  background-color: var(--bgColor-attention-muted);
+  border-color: var(--borderColor-attention-muted);
+}
+
+.Notice:where([data-variant='error']) {
+  color: var(--fgColor-danger);
+  background-color: var(--bgColor-danger-muted);
+  border-color: var(--borderColor-danger-muted);
+}
+
 .Footer {
   display: flex;
   padding: var(--base-size-8);
