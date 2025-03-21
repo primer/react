@@ -4,13 +4,11 @@ import Box from '../Box'
 import Spinner from '../Spinner'
 import type {SxProp} from '../sx'
 import {merge} from '../sx'
-import {ItemContext, getVariantStyles} from './shared'
+import {ItemContext} from './shared'
 import {Tooltip, type TooltipProps} from '../TooltipV2'
 import {clsx} from 'clsx'
-import {useFeatureFlag} from '../FeatureFlags'
 import classes from './ActionList.module.css'
 import {defaultSxProp} from '../utils/defaultSxProp'
-import {actionListCssModulesFlag} from './featureflag'
 
 export type VisualProps = SxProp & React.HTMLAttributes<HTMLSpanElement>
 
@@ -25,7 +23,7 @@ export const VisualContainer: React.FC<React.PropsWithChildren<VisualProps>> = (
   return <span className={clsx(className, classes.VisualWrap)} {...props} />
 }
 
-// remove when primer_react_css_modules_X is shipped
+// @deprecated Not needed, use VisualContainer instead
 export const LeadingVisualContainer: React.FC<React.PropsWithChildren<VisualProps>> = ({
   sx = defaultSxProp,
   ...props
@@ -57,35 +55,10 @@ export const LeadingVisual: React.FC<React.PropsWithChildren<VisualProps>> = ({
   className,
   ...props
 }) => {
-  const {variant, disabled, inactive} = React.useContext(ItemContext)
-
-  const enabled = useFeatureFlag(actionListCssModulesFlag)
-
-  if (enabled) {
-    return (
-      <VisualContainer className={clsx(className, classes.LeadingVisual)} sx={sx} {...props}>
-        {props.children}
-      </VisualContainer>
-    )
-  }
   return (
-    <LeadingVisualContainer
-      className={className}
-      sx={merge(
-        {
-          color: getVariantStyles(variant, disabled, inactive).iconColor,
-          svg: {fontSize: 0},
-          '[data-variant="danger"]:not([aria-disabled]):not([data-inactive]):hover &, [data-variant="danger"]:active &':
-            {
-              color: getVariantStyles(variant, disabled, inactive).hoverColor,
-            },
-        },
-        sx as SxProp,
-      )}
-      {...props}
-    >
+    <VisualContainer className={clsx(className, classes.LeadingVisual)} sx={sx} {...props}>
       {props.children}
-    </LeadingVisualContainer>
+    </VisualContainer>
   )
 }
 
@@ -95,46 +68,18 @@ export const TrailingVisual: React.FC<React.PropsWithChildren<VisualProps>> = ({
   className,
   ...props
 }) => {
-  const {variant, disabled, inactive, trailingVisualId} = React.useContext(ItemContext)
-  const enabled = useFeatureFlag(actionListCssModulesFlag)
-  if (enabled) {
-    if (sx !== defaultSxProp) {
-      return (
-        <VisualContainer className={clsx(className, classes.TrailingVisual)} sx={sx} id={trailingVisualId} {...props}>
-          {props.children}
-        </VisualContainer>
-      )
-    }
+  const {trailingVisualId} = React.useContext(ItemContext)
+  if (sx !== defaultSxProp) {
     return (
-      <VisualContainer className={clsx(className, classes.TrailingVisual)} id={trailingVisualId} {...props}>
+      <VisualContainer className={clsx(className, classes.TrailingVisual)} sx={sx} id={trailingVisualId} {...props}>
         {props.children}
       </VisualContainer>
     )
   }
   return (
-    <Box
-      id={trailingVisualId}
-      as="span"
-      className={className}
-      sx={merge(
-        {
-          height: '20px', // match height of text row
-          flexShrink: 0,
-          color: getVariantStyles(variant, disabled, inactive).annotationColor,
-          marginLeft: 2,
-          fontWeight: 'initial',
-          display: 'grid',
-          alignContent: 'center',
-          '[data-variant="danger"]:hover &, [data-variant="danger"]:active &': {
-            color: getVariantStyles(variant, disabled, inactive).hoverColor,
-          },
-        },
-        sx as SxProp,
-      )}
-      {...props}
-    >
+    <VisualContainer className={clsx(className, classes.TrailingVisual)} id={trailingVisualId} {...props}>
       {props.children}
-    </Box>
+    </VisualContainer>
   )
 }
 
