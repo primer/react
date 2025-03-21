@@ -1,6 +1,6 @@
 import type {ScrollIntoViewOptions} from '@primer/behaviors'
 import {scrollIntoView} from '@primer/behaviors'
-import React, {useCallback, useEffect, useRef} from 'react'
+import React, {useCallback, useEffect, useRef, useState} from 'react'
 import styled from 'styled-components'
 import Box from '../Box'
 import type {TextInputProps} from '../TextInput'
@@ -20,6 +20,7 @@ import {ActionListContainerContext} from '../ActionList/ActionListContainerConte
 
 import {isValidElementType} from 'react-is'
 import type {RenderItemFn} from '../deprecated/ActionList/List'
+import {useAnnouncements} from './useAnnouncements'
 
 const menuScrollMargins: ScrollIntoViewOptions = {startMargin: 0, endMargin: 8}
 
@@ -36,6 +37,7 @@ export interface FilteredActionListProps
   textInputProps?: Partial<Omit<TextInputProps, 'onChange'>>
   inputRef?: React.RefObject<HTMLInputElement>
   className?: string
+  announcementsEnabled?: boolean
 }
 
 const StyledHeader = styled.div`
@@ -58,9 +60,11 @@ export function FilteredActionList({
   showItemDividers,
   className,
   selectionVariant,
+  announcementsEnabled = true,
   ...listProps
 }: FilteredActionListProps): JSX.Element {
   const [filterValue, setInternalFilterValue] = useProvidedStateOrCreate(externalFilterValue, undefined, '')
+  const [enableAnnouncements, setEnableAnnouncements] = useState(false)
   const onInputChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const value = e.target.value
@@ -110,7 +114,15 @@ export function FilteredActionList({
         behavior: 'auto',
       })
     }
+
+    if (items.length === 0) {
+      inputRef.current?.focus()
+    }
   }, [items])
+
+  useEffect(() => {
+    setEnableAnnouncements(announcementsEnabled)
+  }, [])
 
   useScrollFlash(scrollContainerRef)
 
@@ -124,6 +136,8 @@ export function FilteredActionList({
     }
     return itemsInGroup
   }
+
+  useAnnouncements(items, listRef, inputRef, enableAnnouncements)
 
   return (
     <Box
