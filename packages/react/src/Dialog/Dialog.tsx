@@ -527,7 +527,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
             className={clsx(className, enabled && classes.Dialog)}
           >
             {header}
-            <ScrollableRegion aria-labelledby={dialogLabelId} className="DialogOverflowWrapper">
+            <ScrollableRegion aria-labelledby={dialogLabelId} className={classes.DialogOverflowWrapper}>
               {body}
             </ScrollableRegion>
             {footer}
