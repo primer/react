@@ -244,15 +244,15 @@
   z-index: 1;
   display: flex;
   padding: var(--base-size-16);
-  /* stylelint-disable-next-line primer/box-shadow*/
-  box-shadow: 0 -1px 0 var(--borderColor-default);
   flex-direction: row-reverse;
+  /* stylelint-disable-next-line primer/box-shadow */
+  box-shadow: 0 -1px 0 var(--borderColor-default);
   flex-wrap: wrap-reverse;
+  gap: var(--base-size-8);
+  flex-shrink: 0;
 
   @media (max-height: 256px) {
     flex-wrap: nowrap;
     overflow-x: scroll;
   }
-  gap: var(--base-size-8);
-  flex-shrink: 0;
 }
