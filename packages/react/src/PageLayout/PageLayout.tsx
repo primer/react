@@ -117,7 +117,7 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
 
   const contentStylingProps = enabled
     ? {
-        className: clsx(classes.PageLayoutContent, className),
+        className: clsx(classes.PageLayoutContent),
       }
     : {
         sx: {display: 'flex', flex: '1 1 100%', flexWrap: 'wrap', maxWidth: '100%'},
