@@ -56,7 +56,7 @@ export const List = React.forwardRef<HTMLUListElement, ActionListProps>(
       disabled: !enableFocusZone,
       containerRef: listRef,
       bindKeys: FocusKeys.ArrowVertical | FocusKeys.HomeAndEnd | FocusKeys.PageUpDown,
-      focusOutBehavior: listRole === 'menu' || container === 'SelectPanel' ? 'wrap' : undefined,
+      focusOutBehavior: listRole === 'menu' || container === 'FilteredActionList' ? 'wrap' : undefined,
     })
 
     const enabled = useFeatureFlag(actionListCssModulesFlag)

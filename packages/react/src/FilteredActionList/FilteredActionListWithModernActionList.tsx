@@ -179,7 +179,7 @@ export function FilteredActionList({
         ) : (
           <ActionListContainerContext.Provider
             value={{
-              container: 'SelectPanel',
+              container: 'FilteredActionList',
               listRole: 'listbox',
               selectionAttribute: 'aria-selected',
               selectionVariant,

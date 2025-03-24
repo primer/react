@@ -60,10 +60,6 @@ async function announceText(text: string) {
   })
 }
 
-async function announceFilterFocused() {
-  await announceText('Focus on filter text box and list of items')
-}
-
 async function announceNoItems() {
   await announceText('No matching items.')
 }
@@ -276,7 +272,7 @@ export function SelectPanel({
 
   useEffect(() => {
     if (open) {
-      if (items.length === 0) {
+      if (items.length === 0 && !usingModernActionList) {
         announceNoItems()
       } else {
         if (listContainerElement) {
@@ -311,15 +307,6 @@ export function SelectPanel({
   useEffect(() => {
     if (inputRef?.current) {
       const ref = inputRef.current
-      const listener = () => {
-        // announceFilterFocused()
-      }
-
-      if (document.activeElement === ref) {
-        listener()
-      }
-
-      ref.addEventListener('focus', listener)
 
       // We would normally expect AnchoredOverlay's focus trap to automatically focus the input,
       // but for some reason the ref isn't populated until _after_ the panel is open, which is
@@ -327,8 +314,6 @@ export function SelectPanel({
       if (open) {
         ref.focus()
       }
-
-      return () => ref.removeEventListener('focus', listener)
     }
   }, [inputRef, open])
 
