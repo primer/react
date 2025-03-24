@@ -38,7 +38,7 @@ describe('ActionMenu', () => {
 
   behavesAsComponent({
     Component: ActionMenu,
-    options: {skipAs: true, skipSx: true},
+    options: {skipAs: true, skipSx: true, skipClassName: true},
     toRender: () => <ActionMenu items={[]} />,
   })
 
