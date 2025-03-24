@@ -127,6 +127,7 @@ type BaseOverlayProps = {
   role?: AriaRole
   children?: React.ReactNode
   className?: string
+  'data-variant'?: 'anchored' | 'fullscreen' | 'modal'
 }
 
 type OwnOverlayProps = Merge<StyledOverlayProps, BaseOverlayProps>

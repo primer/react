@@ -131,14 +131,17 @@ interface SelectPanelBaseProps {
     text: string | React.ReactElement
     variant: 'info' | 'warning' | 'error'
   }
-  onCancel?: () => void
 }
 
+// onCancel is optional with variant=anchored, but required with variant=modal
+type SelectPanelVariantProps = {variant?: 'anchored'; onCancel?: () => void} | {variant: 'modal'; onCancel: () => void}
+
 export type SelectPanelProps = SelectPanelBaseProps &
-  Omit<FilteredActionListProps, 'selectionVariant'> &
+  Omit<FilteredActionListProps, 'selectionVariant' | 'variant'> &
   Pick<AnchoredOverlayProps, 'open' | 'height' | 'width'> &
   AnchoredOverlayWrapperAnchorProps &
-  (SelectPanelSingleSelection | SelectPanelMultiSelection)
+  (SelectPanelSingleSelection | SelectPanelMultiSelection) &
+  SelectPanelVariantProps
 
 function isMultiSelectVariant(
   selected: SelectPanelSingleSelection['selected'] | SelectPanelMultiSelection['selected'],
@@ -195,6 +198,7 @@ export function SelectPanel({
   id,
   notice,
   onCancel,
+  variant = 'anchored',
   ...listProps
 }: SelectPanelProps): JSX.Element {
   const titleId = useId()
@@ -459,6 +463,7 @@ export function SelectPanel({
           role: 'dialog',
           'aria-labelledby': titleId,
           'aria-describedby': subtitle ? subtitleId : undefined,
+          ...(variant === 'modal' ? {'data-variant': 'modal' /* override AnchoredOverlay */} : {}),
           ...overlayProps,
         }}
         focusTrapSettings={focusTrapSettings}
@@ -606,6 +611,7 @@ export function SelectPanel({
           ) : null}
         </Box>
       </AnchoredOverlay>
+      {variant === 'modal' && open ? <div className={classes.Backdrop} /> : null}
     </LiveRegion>
   )
 }

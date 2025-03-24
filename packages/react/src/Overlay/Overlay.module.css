@@ -165,4 +165,18 @@
     margin: 0;
     border-radius: unset;
   }
+
+  &:where([data-variant='modal']) {
+    position: absolute;
+    top: 50vh !important; /* override anchored styles if any */
+    left: 50vw !important; /* override anchored styles if any */
+    transform: translate(-50%, -50%);
+
+    @media screen and (--viewportRange-narrow) {
+      /* behave like data-variant=fullscreen */
+      width: 100vw;
+      height: 100vh;
+      border-radius: unset;
+    }
+  }
 }
