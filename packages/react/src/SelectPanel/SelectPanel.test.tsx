@@ -264,16 +264,21 @@ for (const useModernActionList of [false, true]) {
 
           await user.click(screen.getByText('Select items'))
 
-          if (useModernActionList) expect(document.activeElement!).toHaveAttribute('role', 'combobox')
+          if (useModernActionList) {
+            expect(document.activeElement!).toHaveAttribute('role', 'combobox')
+            await user.type(document.activeElement!, '{ArrowDown}')
+            await user.keyboard('{Enter}')
+          } else {
+            await user.type(document.activeElement!, '{Enter}')
+          }
 
-          await user.type(document.activeElement!, '{Enter}')
           expect(
             screen.getByRole('option', {
               name: 'item one',
             }),
           ).toHaveAttribute('aria-selected', 'true')
 
-          await user.type(document.activeElement!, '{Enter}')
+          await user.keyboard('{Enter}')
           expect(
             screen.getByRole('option', {
               name: 'item one',

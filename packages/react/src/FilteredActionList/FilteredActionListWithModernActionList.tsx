@@ -78,24 +78,16 @@ export function FilteredActionList({
   const listId = useId()
   const inputDescriptionTextId = useId()
 
-  const keydownListener = useCallback(
-    (event: React.KeyboardEvent<HTMLDivElement>) => {
-      if (event.key === 'ArrowDown') {
-        if (listRef.current) {
-          const firstSelectedItem = listRef.current.querySelector('[role="option"]') as HTMLElement | undefined
-          firstSelectedItem?.focus()
+  const keydownListener = useCallback((event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (event.key === 'ArrowDown') {
+      if (listRef.current) {
+        const firstSelectedItem = listRef.current.querySelector('[role="option"]') as HTMLElement | undefined
+        firstSelectedItem?.focus()
 
-          event.preventDefault()
-        }
-      } else if (event.key === 'Enter') {
-        const firstItem = items[0]
-        if (firstItem.onAction) {
-          firstItem.onAction(firstItem, event)
-        }
+        event.preventDefault()
       }
-    },
-    [items],
-  )
+    }
+  }, [])
 
   useEffect(() => {
     onInputRefChanged?.(inputRef)
