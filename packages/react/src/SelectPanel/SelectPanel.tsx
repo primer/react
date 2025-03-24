@@ -1,4 +1,4 @@
-import {SearchIcon, TriangleDownIcon, XIcon} from '@primer/octicons-react'
+import {AlertIcon, InfoIcon, SearchIcon, StopIcon, TriangleDownIcon, XIcon} from '@primer/octicons-react'
 import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react'
 import type {AnchoredOverlayProps} from '../AnchoredOverlay'
 import {AnchoredOverlay} from '../AnchoredOverlay'
@@ -127,6 +127,10 @@ interface SelectPanelBaseProps {
   footer?: string | React.ReactElement
   initialLoadingType?: InitialLoadingType
   className?: string
+  notice?: {
+    text: string | React.ReactElement
+    variant: 'info' | 'warning' | 'error'
+  }
   onCancel?: () => void
 }
 
@@ -189,6 +193,7 @@ export function SelectPanel({
   height,
   width,
   id,
+  notice,
   onCancel,
   ...listProps
 }: SelectPanelProps): JSX.Element {
@@ -437,6 +442,12 @@ export function SelectPanel({
   }
   const usingModernActionList = useFeatureFlag('primer_react_select_panel_with_modern_action_list')
 
+  const iconForNoticeVariant = {
+    info: <InfoIcon size={16} />,
+    warning: <AlertIcon size={16} />,
+    error: <StopIcon size={16} />,
+  }
+
   return (
     <LiveRegion>
       <AnchoredOverlay
@@ -524,6 +535,12 @@ export function SelectPanel({
               />
             )}
           </Box>
+          {notice && (
+            <div aria-live="polite" data-variant={notice.variant} className={classes.Notice}>
+              {iconForNoticeVariant[notice.variant]}
+              <div>{notice.text}</div>
+            </div>
+          )}
           <FilteredActionList
             filterValue={filterValue}
             onFilterChange={onFilterChange}
