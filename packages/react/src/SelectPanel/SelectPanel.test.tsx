@@ -1,4 +1,4 @@
-import {getByRole, render, screen, waitFor} from '@testing-library/react'
+import {render, screen, waitFor} from '@testing-library/react'
 import React from 'react'
 import {SelectPanel, type SelectPanelProps} from '../SelectPanel'
 import type {ItemInput, GroupedListProps} from '../deprecated/ActionList/List'
@@ -258,94 +258,15 @@ for (const useModernActionList of [false, true]) {
 
       describe('selection', () => {
         it('should select an active option when activated', async () => {
-          if (!useModernActionList) return // this feature is only enabled with feature flag on
-
           const user = userEvent.setup()
 
           renderWithFlag(<BasicSelectPanel />, useModernActionList)
 
           await user.click(screen.getByText('Select items'))
 
-          expect(document.activeElement!).toHaveAttribute('role', 'combobox')
+          if (useModernActionList) expect(document.activeElement!).toHaveAttribute('role', 'combobox')
 
           await user.type(document.activeElement!, '{Enter}')
-          expect(
-            screen.getByRole('option', {
-              name: 'item one',
-            }),
-          ).toHaveAttribute('aria-selected', 'true')
-
-          await user.type(document.activeElement!, '{Enter}')
-          expect(
-            screen.getByRole('option', {
-              name: 'item one',
-            }),
-          ).toHaveAttribute('aria-selected', 'false')
-
-          await user.click(screen.getByText('item one'))
-          expect(
-            screen.getByRole('option', {
-              name: 'item one',
-            }),
-          ).toHaveAttribute('aria-selected', 'true')
-
-          await user.click(screen.getByRole('option', {name: 'item one'}))
-          expect(
-            screen.getByRole('option', {
-              name: 'item one',
-            }),
-          ).toHaveAttribute('aria-selected', 'false')
-        })
-
-        it('should select an active option when activated', async () => {
-          if (useModernActionList) return
-          const user = userEvent.setup()
-
-          renderWithFlag(<BasicSelectPanel />, useModernActionList)
-
-          await user.click(screen.getByText('Select items'))
-
-          await user.type(document.activeElement!, '{Enter}')
-          expect(
-            screen.getByRole('option', {
-              name: 'item one',
-            }),
-          ).toHaveAttribute('aria-selected', 'true')
-
-          await user.type(document.activeElement!, '{Enter}')
-          expect(
-            screen.getByRole('option', {
-              name: 'item one',
-            }),
-          ).toHaveAttribute('aria-selected', 'false')
-
-          await user.click(screen.getByText('item one'))
-          expect(
-            screen.getByRole('option', {
-              name: 'item one',
-            }),
-          ).toHaveAttribute('aria-selected', 'true')
-
-          await user.click(screen.getByRole('option', {name: 'item one'}))
-          expect(
-            screen.getByRole('option', {
-              name: 'item one',
-            }),
-          ).toHaveAttribute('aria-selected', 'false')
-        })
-
-        it('should select an active option when activated', async () => {
-          if (!useModernActionList) return // this feature is only enabled with feature flag on
-          const user = userEvent.setup()
-
-          renderWithFlag(<BasicSelectPanel />, useModernActionList)
-
-          await user.click(screen.getByText('Select items'))
-
-          expect(document.activeElement!).toHaveAttribute('role', 'combobox')
-
-          await user.type(document.activeElement!, '{Enter}')
-
           expect(
             screen.getByRole('option', {
               name: 'item one',
@@ -385,31 +306,31 @@ for (const useModernActionList of [false, true]) {
 
           expect(document.activeElement!).toHaveAttribute('role', 'combobox')
 
-          await user.type(document.activeElement!, '{ArrowDown}')
+          await user.keyboard('{ArrowDown}')
           expect(document.activeElement!).toHaveAccessibleName('item one')
 
-          await user.type(document.activeElement!, '{ArrowDown}')
+          await user.keyboard('{ArrowDown}')
           expect(document.activeElement!).toHaveAccessibleName('item two')
 
-          await user.type(document.activeElement!, '{ArrowDown}')
+          await user.keyboard('{ArrowDown}')
           expect(document.activeElement!).toHaveAccessibleName('item three')
 
           // At end of list, should wrap to the beginning
-          await user.type(document.activeElement!, '{ArrowDown}')
+          await user.keyboard('{ArrowDown}')
           expect(document.activeElement!).toHaveAccessibleName('item one')
 
           // At beginning of list, ArrowUp should wrap to the end
-          await user.type(document.activeElement!, '{ArrowUp}')
+          await user.keyboard('{ArrowUp}')
           expect(document.activeElement!).toHaveAccessibleName('item three')
 
-          await user.type(document.activeElement!, '{ArrowUp}')
+          await user.keyboard('{ArrowUp}')
           expect(document.activeElement!).toHaveAccessibleName('item two')
 
-          await user.type(document.activeElement!, '{ArrowUp}')
+          await user.keyboard('{ArrowUp}')
           expect(document.activeElement!).toHaveAccessibleName('item one')
         })
 
-        it('should support navigating through items with ArrowUp and ArrowDown', async () => {
+        it('should support navigating through items with ArrowUp and ArrowDown using `aria-activedescendant`', async () => {
           if (useModernActionList) return // this feature is only enabled with feature flag on
 
           const user = userEvent.setup()

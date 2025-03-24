@@ -89,7 +89,7 @@ export function FilteredActionList({
         }
       } else if (event.key === 'Enter') {
         const firstItem = items[0]
-        if (firstItem && firstItem.onAction) {
+        if (firstItem.onAction) {
           firstItem.onAction(firstItem, event)
         }
       }
@@ -108,21 +108,24 @@ export function FilteredActionList({
       const itemIds = items.filter(item => item.selected).map(item => item.id)
       const removedItem = selectedItems.find(item => !itemIds.includes(item))
 
-      setSelectedItems(itemIds)
-
       if (removedItem && document.activeElement !== inputRef.current) {
-        const list = listRef?.current
+        const list = listRef.current
         if (list) {
           const firstSelectedItem = list.querySelector('[role="option"]') as HTMLElement
-          firstSelectedItem?.focus()
+          firstSelectedItem.focus()
         }
       }
     }
+  }, [items, inputRef, selectedItems])
+
+  useEffect(() => {
+    const selectedItemIds = items.filter(item => item.selected).map(item => item.id)
+    setSelectedItems(selectedItemIds)
   }, [items])
 
   useEffect(() => {
     setEnableAnnouncements(announcementsEnabled)
-  }, [])
+  }, [announcementsEnabled])
 
   useScrollFlash(scrollContainerRef)
 
