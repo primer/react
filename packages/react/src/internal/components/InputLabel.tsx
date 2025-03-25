@@ -1,10 +1,9 @@
 import {clsx} from 'clsx'
 import React from 'react'
-import styled from 'styled-components'
-import sx, {type SxProp} from '../../sx'
+import {type SxProp} from '../../sx'
 import classes from './InputLabel.module.css'
-import {toggleStyledComponent} from '../utils/toggleStyledComponent'
 import {toggleSxComponent} from '../utils/toggleSxComponent'
+
 type BaseProps = SxProp & {
   disabled?: boolean
   required?: boolean
