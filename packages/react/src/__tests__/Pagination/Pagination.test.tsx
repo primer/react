@@ -31,11 +31,7 @@ describe('Pagination', () => {
       <Pagination
         pageCount={10}
         currentPage={1}
-        renderPageLink={({content, key, number, className}) => (
-          <ReactRouterLikeLink key={key} className={className} to={`#${number}`}>
-            {content}
-          </ReactRouterLikeLink>
-        )}
+        renderPageLink={({number, ...props}) => <ReactRouterLikeLink to={`#${number}`} {...props} />}
       />,
     )
 

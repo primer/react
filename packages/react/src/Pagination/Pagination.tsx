@@ -147,13 +147,13 @@ const Page = toggleStyledComponent(
 )
 
 export type PageProps = {
-  /* unique key for the page number */
+  /* Unique key for the page number */
   key: string
-  /* content to display for the page number (number, Next, Prev) */
-  content: string
-  /* page number */
+  /* Children to render, typically the page number, 'Prev', or 'Next' */
+  children: React.ReactNode
+  /* Page number */
   number: number
-  /* default styles for the page number */
+  /* Default styles for the page number */
   className: string
 } & PageDataProps['props']
 
@@ -191,8 +191,8 @@ function usePaginationPages({
   const children = React.useMemo(() => {
     return model.map(page => {
       const {props, key, content} = buildComponentData(page, hrefBuilder, pageChange(page.num))
-      if (renderPageLink) {
-        return renderPageLink({key, content, number: page.num, className: classes.Page, ...props})
+      if (renderPageLink && props.as !== 'span') {
+        return renderPageLink({key, children: content, number: page.num, className: classes.Page, ...props})
       }
 
       return (
