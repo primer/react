@@ -21,7 +21,7 @@ import {
 } from '@primer/octicons-react'
 import Octicon from '../Octicon'
 import VisuallyHidden from '../_VisuallyHidden'
-import {ReactRouterLikeLink} from '../../mocks/ReactRouterLink'
+import {ReactRouterLikeLink} from '../__tests__/mocks/ReactRouterLink'
 
 const meta: Meta = {
   title: 'Components/NavList',

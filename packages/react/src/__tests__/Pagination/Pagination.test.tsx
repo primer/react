@@ -1,9 +1,9 @@
 import React from 'react'
 import Pagination from '../../Pagination'
 import {behavesAsComponent} from '../../utils/testing'
-import {ReactRouterLikeLink} from '../../../mocks/ReactRouterLink'
 import {render as HTMLRender} from '@testing-library/react'
 import axe from 'axe-core'
+import {ReactRouterLikeLink} from '../mocks/ReactRouterLink'
 
 const reqProps = {pageCount: 10, currentPage: 1}
 const comp = <Pagination {...reqProps} />

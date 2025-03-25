@@ -19,7 +19,7 @@ import Text from '../Text'
 import FormControl from '../FormControl'
 import {AriaStatus} from '../live-region'
 import {VisuallyHidden} from '../VisuallyHidden'
-import {ReactRouterLikeLink} from '../../mocks/ReactRouterLink'
+import {ReactRouterLikeLink} from '../__tests__/mocks/ReactRouterLink'
 
 const meta: Meta = {
   title: 'Components/ActionList/Examples',

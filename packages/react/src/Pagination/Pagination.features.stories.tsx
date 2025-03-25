@@ -1,8 +1,8 @@
-import React, {useState} from 'react'
+import {useState} from 'react'
 import type {Meta} from '@storybook/react'
 import type {ComponentProps} from '../utils/types'
 import Pagination from './Pagination'
-import {ReactRouterLikeLink} from '../../mocks/ReactRouterLink'
+import {ReactRouterLikeLink} from '../__tests__/mocks/ReactRouterLink'
 
 export default {
   title: 'Components/Pagination/Features',

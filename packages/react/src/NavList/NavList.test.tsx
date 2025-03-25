@@ -3,7 +3,7 @@ import React from 'react'
 import {ThemeProvider} from '..'
 import {NavList} from './NavList'
 import {FeatureFlags} from '../FeatureFlags'
-import {ReactRouterLikeLink} from '../../mocks/ReactRouterLink'
+import {ReactRouterLikeLink} from '../__tests__/mocks/ReactRouterLink'
 
 type NextJSLinkProps = {href: string; children: React.ReactNode}
 

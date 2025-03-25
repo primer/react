@@ -1,7 +1,6 @@
 import {EyeIcon, ChevronRightIcon, HeartIcon, DownloadIcon} from '@primer/octicons-react'
-import React from 'react'
 import {LinkButton} from '.'
-import {ReactRouterLikeLink} from '../../mocks/ReactRouterLink'
+import {ReactRouterLikeLink} from '../__tests__/mocks/ReactRouterLink'
 
 export default {
   title: 'Components/LinkButton/Features',

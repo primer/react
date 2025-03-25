@@ -19,7 +19,7 @@ import {ActionList as _ActionList} from '../../deprecated/ActionList'
 import {Header} from '../../deprecated/ActionList/Header'
 import BaseStyles from '../../BaseStyles'
 import sx from '../../sx'
-import {ReactRouterLikeLink} from '../../../mocks/ReactRouterLink'
+import {ReactRouterLikeLink} from '../../__tests__/mocks/ReactRouterLink'
 
 const ActionList = Object.assign(_ActionList, {
   Header,
