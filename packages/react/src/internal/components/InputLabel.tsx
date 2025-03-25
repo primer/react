@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import sx, {type SxProp} from '../../sx'
 import classes from './InputLabel.module.css'
 import {toggleStyledComponent} from '../utils/toggleStyledComponent'
-
+import {toggleSxComponent} from '../utils/toggleSxComponent'
 type BaseProps = SxProp & {
   disabled?: boolean
   required?: boolean
@@ -41,17 +41,14 @@ function InputLabel({
   className,
   ...props
 }: Props) {
+  const Label = toggleSxComponent({sx}, as) as React.ComponentType<Props>
   return (
-    <StyledLabel
-      as={as}
+    <Label
       data-control-disabled={disabled ? '' : undefined}
       data-visually-hidden={visuallyHidden ? '' : undefined}
       htmlFor={htmlFor}
       id={id}
-      className={clsx(className, {
-        [classes.Label]: enabled,
-      })}
-      sx={sx}
+      className={clsx(className, classes.Label)}
       {...props}
     >
       {required || requiredText ? (
@@ -62,41 +59,8 @@ function InputLabel({
       ) : (
         children
       )}
-    </StyledLabel>
+    </Label>
   )
 }
-
-const StyledLabel = toggleStyledComponent(
-  '',
-  'label',
-  styled.label`
-    align-self: flex-start;
-    display: block;
-    color: var(--fgColor-default);
-    cursor: pointer;
-    font-weight: 600;
-    font-size: var(--text-body-size-medium);
-
-    &:where([data-control-disabled]) {
-      color: var(--fgColor-muted);
-      cursor: not-allowed;
-    }
-
-    &:where([data-visually-hidden]) {
-      border: 0;
-      clip: rect(0 0 0 0);
-      clip-path: inset(50%);
-      height: 1px;
-      margin: -1px;
-      overflow: hidden;
-      padding: 0;
-      position: absolute;
-      white-space: nowrap;
-      width: 1px;
-    }
-
-    ${sx}
-  `,
-)
 
 export {InputLabel}
