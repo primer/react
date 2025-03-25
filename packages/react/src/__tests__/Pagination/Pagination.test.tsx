@@ -1,3 +1,4 @@
+import React from 'react'
 import Pagination from '../../Pagination'
 import {behavesAsComponent} from '../../utils/testing'
 import {ReactRouterLikeLink} from '../../../mocks/ReactRouterLink'
