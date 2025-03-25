@@ -266,4 +266,14 @@ export const WithActionsThatHaveResponsiveContent = () => (
   </Box>
 )
 
+export const HasBottomBorder = () => (
+  <Box sx={{padding: 3}}>
+    <PageHeader role="banner" aria-label="Title" hasBorder>
+      <PageHeader.TitleArea>
+        <PageHeader.Title>Title</PageHeader.Title>
+      </PageHeader.TitleArea>
+    </PageHeader>
+  </Box>
+)
+
 export default meta
