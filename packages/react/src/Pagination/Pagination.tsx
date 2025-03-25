@@ -4,7 +4,7 @@ import Box from '../Box'
 import {get} from '../constants'
 import type {SxProp} from '../sx'
 import sx from '../sx'
-import {buildComponentData, buildPaginationModel} from './model'
+import {buildComponentData, buildPaginationModel, type PageDataProps} from './model'
 import type {ResponsiveValue} from '../hooks/useResponsiveValue'
 import {viewportRanges} from '../hooks/useResponsiveValue'
 import {toggleStyledComponent} from '../internal/utils/toggleStyledComponent'
@@ -146,6 +146,12 @@ const Page = toggleStyledComponent(
   `,
 )
 
+export type PageProps = {
+  key: string
+  content: string
+  className: string
+} & PageDataProps['props']
+
 type UsePaginationPagesParameters = {
   theme?: Record<string, unknown> // set to theme type once /src/theme.js is converted
   pageCount: number
@@ -155,6 +161,7 @@ type UsePaginationPagesParameters = {
   marginPageCount: number
   showPages?: PaginationProps['showPages']
   surroundingPageCount: number
+  renderPage?: (props: PageProps) => React.ReactNode
 }
 
 function usePaginationPages({
@@ -166,6 +173,7 @@ function usePaginationPages({
   marginPageCount,
   showPages,
   surroundingPageCount,
+  renderPage,
 }: UsePaginationPagesParameters) {
   const pageChange = React.useCallback((n: number) => (e: React.MouseEvent) => onPageChange(e, n), [onPageChange])
 
@@ -178,13 +186,17 @@ function usePaginationPages({
   const children = React.useMemo(() => {
     return model.map(page => {
       const {props, key, content} = buildComponentData(page, hrefBuilder, pageChange(page.num))
+      if (renderPage) {
+        return renderPage({key, content, className: classes.Page, ...props})
+      }
+
       return (
         <Page {...props} key={key} theme={theme} className={clsx(enabled && classes.Page)}>
           {content}
         </Page>
       )
     })
-  }, [model, hrefBuilder, pageChange, theme, enabled])
+  }, [model, hrefBuilder, pageChange, renderPage, theme, enabled])
 
   return children
 }
@@ -233,6 +245,7 @@ export type PaginationProps = {
   marginPageCount?: number
   showPages?: boolean | ResponsiveValue<boolean>
   surroundingPageCount?: number
+  renderPage?: (props: PageProps) => React.ReactNode
 }
 
 function Pagination({
@@ -244,6 +257,7 @@ function Pagination({
   marginPageCount = 1,
   showPages = true,
   surroundingPageCount = 2,
+  renderPage,
   ...rest
 }: PaginationProps) {
   const pageElements = usePaginationPages({
@@ -255,6 +269,7 @@ function Pagination({
     marginPageCount,
     showPages,
     surroundingPageCount,
+    renderPage,
   })
 
   const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)

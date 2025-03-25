@@ -3,6 +3,7 @@ import Pagination from '../../Pagination'
 import {behavesAsComponent} from '../../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
 import axe from 'axe-core'
+import Link from '../../Link'
 
 const reqProps = {pageCount: 10, currentPage: 1}
 const comp = <Pagination {...reqProps} />
@@ -23,5 +24,21 @@ describe('Pagination', () => {
       },
     })
     expect(results).toHaveNoViolations()
+  })
+
+  it('should render links instead of anchor tags with the renderPage prop', () => {
+    const {container} = HTMLRender(
+      <Pagination
+        pageCount={10}
+        currentPage={1}
+        renderPage={({content, key, className}) => (
+          <Link key={key} className={className}>
+            {content}
+          </Link>
+        )}
+      />,
+    )
+
+    expect(container.querySelectorAll('a').length).toEqual(11)
   })
 })
