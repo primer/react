@@ -78,16 +78,34 @@ export function FilteredActionList({
   const listId = useId()
   const inputDescriptionTextId = useId()
 
-  const keydownListener = useCallback((event: React.KeyboardEvent<HTMLDivElement>) => {
-    if (event.key === 'ArrowDown') {
-      if (listRef.current) {
-        const firstSelectedItem = listRef.current.querySelector('[role="option"]') as HTMLElement | undefined
-        firstSelectedItem?.focus()
+  const keydownListener = useCallback(
+    (event: React.KeyboardEvent<HTMLDivElement>) => {
+      if (event.key === 'ArrowDown') {
+        if (listRef.current) {
+          const firstSelectedItem = listRef.current.querySelector('[role="option"]') as HTMLElement | undefined
+          firstSelectedItem?.focus()
 
-        event.preventDefault()
+          event.preventDefault()
+        }
+      } else if (event.key === 'Enter') {
+        let firstItem
+        // If there are groups, it's not guaranteed that the first item is the actual first item in the first -
+        // as groups are rendered in the order of the groupId provided
+        if (groupMetadata) {
+          const firstGroup = groupMetadata[0].groupId
+          firstItem = items.filter(item => item.groupId === firstGroup)[0]
+        } else {
+          firstItem = items[0]
+        }
+
+        if (firstItem.onAction) {
+          firstItem.onAction(firstItem, event)
+          event.preventDefault()
+        }
       }
-    }
-  }, [])
+    },
+    [items, groupMetadata],
+  )
 
   useEffect(() => {
     onInputRefChanged?.(inputRef)

@@ -266,11 +266,9 @@ for (const useModernActionList of [false, true]) {
 
           if (useModernActionList) {
             expect(document.activeElement!).toHaveAttribute('role', 'combobox')
-            await user.type(document.activeElement!, '{ArrowDown}')
-            await user.keyboard('{Enter}')
-          } else {
-            await user.type(document.activeElement!, '{Enter}')
           }
+
+          await user.type(document.activeElement!, '{Enter}')
 
           expect(
             screen.getByRole('option', {
