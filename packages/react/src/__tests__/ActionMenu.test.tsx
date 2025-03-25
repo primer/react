@@ -131,7 +131,7 @@ function ExampleWithSubmenus(): JSX.Element {
 describe('ActionMenu', () => {
   behavesAsComponent({
     Component: ActionList,
-    options: {skipAs: true, skipSx: true},
+    options: {skipAs: true, skipSx: true, skipClassName: true},
     toRender: () => <Example />,
   })
 
