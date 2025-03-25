@@ -67,6 +67,7 @@ export const TrailingAction = forwardRef(
         sx={{
           flexShrink: 0,
         }}
+        className={className}
       >
         {icon ? (
           <IconButton
