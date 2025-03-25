@@ -1,4 +1,3 @@
-import React from 'react'
 import Pagination from '../../Pagination'
 import {behavesAsComponent} from '../../utils/testing'
 import {ReactRouterLikeLink} from '../../../mocks/ReactRouterLink'
@@ -26,12 +25,12 @@ describe('Pagination', () => {
     expect(results).toHaveNoViolations()
   })
 
-  it('should render links instead of anchor tags with the renderPage prop', () => {
+  it('should render links instead of anchor tags with the renderPageLink prop', () => {
     const {container} = HTMLRender(
       <Pagination
         pageCount={10}
         currentPage={1}
-        renderPage={({content, key, className}) => (
+        renderPageLink={({content, key, className}) => (
           <ReactRouterLikeLink key={key} className={className} to={`#${content}`}>
             {content}
           </ReactRouterLikeLink>

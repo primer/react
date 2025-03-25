@@ -161,7 +161,7 @@ type UsePaginationPagesParameters = {
   marginPageCount: number
   showPages?: PaginationProps['showPages']
   surroundingPageCount: number
-  renderPage?: (props: PageProps) => React.ReactNode
+  renderPageLink?: (props: PageProps) => React.ReactNode
 }
 
 function usePaginationPages({
@@ -173,7 +173,7 @@ function usePaginationPages({
   marginPageCount,
   showPages,
   surroundingPageCount,
-  renderPage,
+  renderPageLink,
 }: UsePaginationPagesParameters) {
   const pageChange = React.useCallback((n: number) => (e: React.MouseEvent) => onPageChange(e, n), [onPageChange])
 
@@ -186,8 +186,8 @@ function usePaginationPages({
   const children = React.useMemo(() => {
     return model.map(page => {
       const {props, key, content} = buildComponentData(page, hrefBuilder, pageChange(page.num))
-      if (renderPage) {
-        return renderPage({key, content, className: classes.Page, ...props})
+      if (renderPageLink) {
+        return renderPageLink({key, content, className: classes.Page, ...props})
       }
 
       return (
@@ -196,7 +196,7 @@ function usePaginationPages({
         </Page>
       )
     })
-  }, [model, hrefBuilder, pageChange, renderPage, theme, enabled])
+  }, [model, hrefBuilder, pageChange, renderPageLink, theme, enabled])
 
   return children
 }
@@ -245,7 +245,7 @@ export type PaginationProps = {
   marginPageCount?: number
   showPages?: boolean | ResponsiveValue<boolean>
   surroundingPageCount?: number
-  renderPage?: (props: PageProps) => React.ReactNode
+  renderPageLink?: (props: PageProps) => React.ReactNode
 }
 
 function Pagination({
@@ -257,7 +257,7 @@ function Pagination({
   marginPageCount = 1,
   showPages = true,
   surroundingPageCount = 2,
-  renderPage,
+  renderPageLink,
   ...rest
 }: PaginationProps) {
   const pageElements = usePaginationPages({
@@ -269,7 +269,7 @@ function Pagination({
     marginPageCount,
     showPages,
     surroundingPageCount,
-    renderPage,
+    renderPageLink,
   })
 
   const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
