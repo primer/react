@@ -153,9 +153,14 @@
     },
     {
       "name": "message",
-      "type": "React.ReactNode",
+      "type": "{title: string | React.ReactElement; variant: 'empty' | 'error' | 'warning';  body: React.ReactNode;}",
       "defaultValue": "A default empty message is provided by default if this option is not supplied",
-      "description": "Message node to display in the panel"
+      "description": "Message to display in the panel in case of error or empty results"
+    },
+    {
+      "name": "notice",
+      "type": "{text: string | React.ReactElement; variant: 'empty' | 'error' | 'warning';}",
+      "description": "Optional notice to display on top of the panel"
     }
   ],
   "subcomponents": [

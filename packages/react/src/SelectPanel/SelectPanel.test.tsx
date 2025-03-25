@@ -463,17 +463,17 @@ for (const useModernActionList of [false, true]) {
           setSelected(selected)
         }
 
-        const emptyMessage = (
-          <SelectPanel.Message variant="empty" title="You haven't created any projects yet" key="empty-message">
-            Start your first project to organise your issues
-          </SelectPanel.Message>
-        )
+        const emptyMessage: {variant: 'empty'; title: string; body: string} = {
+          variant: 'empty',
+          title: "You haven't created any projects yet",
+          body: 'Start your first project to organise your issues',
+        }
 
-        const noResultsMessage = (filter: string) => (
-          <SelectPanel.Message variant="empty" title={`No language found for ${filter}`} key="no-results-message">
-            Adjust your search term to find other languages
-          </SelectPanel.Message>
-        )
+        const noResultsMessage = (filter: string): {variant: 'empty'; title: string; body: string} => ({
+          variant: 'empty',
+          title: `No language found for ${filter}`,
+          body: 'Adjust your search term to find other languages',
+        })
 
         const filteredItems = items.filter(item => item.text?.includes(filter))
 
@@ -484,7 +484,7 @@ for (const useModernActionList of [false, true]) {
           if (filteredItems.length === 0 && filter) {
             return noResultsMessage(filter)
           }
-          return null
+          return undefined
         }
 
         return (

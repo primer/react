@@ -135,10 +135,14 @@ interface SelectPanelBaseProps {
   footer?: string | React.ReactElement
   initialLoadingType?: InitialLoadingType
   className?: string
-  message?: React.ReactNode
   notice?: {
     text: string | React.ReactElement
     variant: 'info' | 'warning' | 'error'
+  }
+  message?: {
+    title: string
+    body: string | React.ReactElement
+    variant: 'empty' | 'error' | 'warning'
   }
   onCancel?: () => void
 }
@@ -171,7 +175,7 @@ const doesItemsIncludeItem = (items: ItemInput[], item: ItemInput) => {
   return items.some(i => areItemsEqual(i, item))
 }
 
-function Panel({
+export function SelectPanel({
   open,
   onOpenChange,
   renderAnchor = props => {
@@ -454,11 +458,22 @@ function Panel({
 
   // If there is no items after the first load, show the no items state
 
-  const isEmpty = items.length === 0
   const iconForNoticeVariant = {
     info: <InfoIcon size={16} />,
     warning: <AlertIcon size={16} />,
     error: <StopIcon size={16} />,
+  }
+
+  function getMessage() {
+    if (items.length === 0 && !message) {
+      return DefaultEmptyMessage
+    } else if (message) {
+      return (
+        <SelectPanelMessage title={message.title} variant={message.variant}>
+          {message.body}
+        </SelectPanelMessage>
+      )
+    }
   }
 
   return (
@@ -577,7 +592,7 @@ function Panel({
             loadingType={loadingType()}
             // hack because the deprecated ActionList does not support this prop
             {...{
-              message: isEmpty && !message ? DefaultEmptyMessage : message,
+              message: getMessage(),
             }}
             // inheriting height and maxHeight ensures that the FilteredActionList is never taller
             // than the Overlay (which would break scrolling the items)
@@ -631,9 +646,3 @@ function Panel({
     </LiveRegion>
   )
 }
-
-Panel.displayName = 'SelectPanel'
-
-export const SelectPanel = Object.assign(Panel, {
-  Message: SelectPanelMessage,
-})

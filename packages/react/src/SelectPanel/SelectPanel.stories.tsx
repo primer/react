@@ -15,12 +15,6 @@ const meta: Meta<typeof SelectPanel> = {
 
 export default meta
 
-const NoResultsMessage = ({filter}: {filter: string}) => (
-  <SelectPanel.Message variant="empty" title={`No language found for \`${filter}\``} key="no-results-message">
-    Adjust your search term to find other languages
-  </SelectPanel.Message>
-)
-
 function getColorCircle(color: string) {
   return function () {
     return (
@@ -107,7 +101,15 @@ export const Default = () => {
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         width="medium"
-        message={selectedItemsSortedFirst.length === 0 ? <NoResultsMessage filter={filter} /> : undefined}
+        message={
+          selectedItemsSortedFirst.length === 0
+            ? {
+                variant: 'empty',
+                title: `No language found for \`${filter}\``,
+                body: 'Adjust your search term to find other languages',
+              }
+            : undefined
+        }
       />
     </FormControl>
   )
