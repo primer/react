@@ -1,4 +1,3 @@
-import React from 'react'
 import Pagination from '../../Pagination'
 import {behavesAsComponent} from '../../utils/testing'
 import {ReactRouterLikeLink} from '../../../mocks/ReactRouterLink'
@@ -35,6 +34,6 @@ describe('Pagination', () => {
       />,
     )
 
-    expect(container.querySelectorAll('a').length).toEqual(11)
+    expect(container.querySelectorAll('a').length).toEqual(10)
   })
 })
