@@ -2,8 +2,6 @@ import {clsx} from 'clsx'
 import React from 'react'
 import styled from 'styled-components'
 import sx, {type SxProp} from '../../sx'
-import {cssModulesFlag} from '../../FormControl/feature-flags'
-import {useFeatureFlag} from '../../FeatureFlags'
 import classes from './InputLabel.module.css'
 import {toggleStyledComponent} from '../utils/toggleStyledComponent'
 
@@ -43,7 +41,6 @@ function InputLabel({
   className,
   ...props
 }: Props) {
-  const enabled = useFeatureFlag(cssModulesFlag)
   return (
     <StyledLabel
       as={as}
@@ -58,14 +55,10 @@ function InputLabel({
       {...props}
     >
       {required || requiredText ? (
-        <StyledRequiredText
-          className={clsx({
-            [classes.RequiredText]: enabled,
-          })}
-        >
+        <span className={classes.RequiredText}>
           <span>{children}</span>
           <span aria-hidden={requiredIndicator ? undefined : true}>{requiredText ?? '*'}</span>
-        </StyledRequiredText>
+        </span>
       ) : (
         children
       )}
@@ -74,7 +67,7 @@ function InputLabel({
 }
 
 const StyledLabel = toggleStyledComponent(
-  cssModulesFlag,
+  '',
   'label',
   styled.label`
     align-self: flex-start;
@@ -103,15 +96,6 @@ const StyledLabel = toggleStyledComponent(
     }
 
     ${sx}
-  `,
-)
-
-const StyledRequiredText = toggleStyledComponent(
-  cssModulesFlag,
-  'span',
-  styled.span`
-    display: flex;
-    column-gap: var(--base-size-4);
   `,
 )
 
