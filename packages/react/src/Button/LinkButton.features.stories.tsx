@@ -1,6 +1,7 @@
 import {EyeIcon, ChevronRightIcon, HeartIcon, DownloadIcon} from '@primer/octicons-react'
-import React, {forwardRef} from 'react'
+import React from 'react'
 import {LinkButton} from '.'
+import {ReactRouterLikeLink} from '../../mocks/ReactRouterLink'
 
 export default {
   title: 'Components/LinkButton/Features',
@@ -64,17 +65,6 @@ export const Large = () => (
   <LinkButton href="#" size="large">
     Default
   </LinkButton>
-)
-
-type ReactRouterLikeLinkProps = {to: string; children: React.ReactNode}
-const ReactRouterLikeLink = forwardRef<HTMLAnchorElement, ReactRouterLikeLinkProps>(
-  ({to, children, ...props}: {to: string; children: React.ReactNode}, ref) => {
-    return (
-      <a ref={ref} href={to} {...props}>
-        {children}
-      </a>
-    )
-  },
 )
 
 export const WithReactRouter = () => (

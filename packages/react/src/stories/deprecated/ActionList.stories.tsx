@@ -19,6 +19,7 @@ import {ActionList as _ActionList} from '../../deprecated/ActionList'
 import {Header} from '../../deprecated/ActionList/Header'
 import BaseStyles from '../../BaseStyles'
 import sx from '../../sx'
+import {ReactRouterLikeLink} from '../../../mocks/ReactRouterLink'
 
 const ActionList = Object.assign(_ActionList, {
   Header,
@@ -364,17 +365,6 @@ export function SizeStressTestingStory(): JSX.Element {
   )
 }
 SizeStressTestingStory.storyName = 'Size Stress Testing'
-
-type ReactRouterLikeLinkProps = {to: string; children: React.ReactNode}
-const ReactRouterLikeLink = forwardRef<HTMLAnchorElement, ReactRouterLikeLinkProps>(
-  ({to, children, ...props}: {to: string; children: React.ReactNode}, ref) => {
-    return (
-      <a ref={ref} href={to} {...props}>
-        {children}
-      </a>
-    )
-  },
-)
 
 const NextJSLikeLink = forwardRef(
   ({href, children}: {href: string; children: React.ReactNode}, ref): React.ReactElement => {

@@ -19,6 +19,7 @@ import Text from '../Text'
 import FormControl from '../FormControl'
 import {AriaStatus} from '../live-region'
 import {VisuallyHidden} from '../VisuallyHidden'
+import {ReactRouterLikeLink} from '../../mocks/ReactRouterLink'
 
 const meta: Meta = {
   title: 'Components/ActionList/Examples',
@@ -30,17 +31,6 @@ const meta: Meta = {
   },
 }
 export default meta
-
-type ReactRouterLikeLinkProps = {to: string; children: React.ReactNode}
-const ReactRouterLikeLink = forwardRef<HTMLAnchorElement, ReactRouterLikeLinkProps>(
-  ({to, children, ...props}: {to: string; children: React.ReactNode}, ref) => {
-    return (
-      <a ref={ref} href={to} {...props}>
-        {children}
-      </a>
-    )
-  },
-)
 
 const NextJSLikeLink = forwardRef(
   ({href, children}: {href: string; children: React.ReactNode}, ref): React.ReactElement => {

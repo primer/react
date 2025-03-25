@@ -21,6 +21,7 @@ import {
 } from '@primer/octicons-react'
 import Octicon from '../Octicon'
 import VisuallyHidden from '../_VisuallyHidden'
+import {ReactRouterLikeLink} from '../../mocks/ReactRouterLink'
 
 const meta: Meta = {
   title: 'Components/NavList',
@@ -108,17 +109,6 @@ export const WithNestedSubItems: StoryFn = () => (
     </PageLayout.Pane>
     <PageLayout.Content></PageLayout.Content>
   </PageLayout>
-)
-
-type ReactRouterLikeLinkProps = {to: string; children: React.ReactNode}
-const ReactRouterLikeLink = React.forwardRef<HTMLAnchorElement, ReactRouterLikeLinkProps>(
-  ({to, children, ...props}, ref) => {
-    return (
-      <a ref={ref} href={to} {...props}>
-        {children}
-      </a>
-    )
-  },
 )
 
 export const WithReactRouterLink = () => (
