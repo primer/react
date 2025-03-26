@@ -17,7 +17,6 @@ import {useProvidedRefOrCreate} from '../hooks'
 import type {FocusZoneHookSettings} from '../hooks/useFocusZone'
 import {useId} from '../hooks/useId'
 import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
-import {LiveRegion, LiveRegionOutlet, Message} from '../internal/components/LiveRegion'
 import useSafeTimeout from '../hooks/useSafeTimeout'
 import type {FilteredActionListLoadingType} from '../FilteredActionList/FilteredActionListLoaders'
 import {FilteredActionListLoadingTypes} from '../FilteredActionList/FilteredActionListLoaders'
@@ -477,172 +476,158 @@ export function SelectPanel({
   }
 
   return (
-    <LiveRegion>
-      <AnchoredOverlay
-        renderAnchor={renderMenuAnchor}
-        anchorRef={anchorRef}
-        open={open}
-        onOpen={onOpen}
-        onClose={onClose}
-        overlayProps={{
-          role: 'dialog',
-          'aria-labelledby': titleId,
-          'aria-describedby': subtitle ? subtitleId : undefined,
-          ...overlayProps,
-          style: {
-            '--max-height': overlayProps?.maxHeight ? heightMap[overlayProps.maxHeight] : heightMap['large'],
-          } as React.CSSProperties,
-        }}
-        focusTrapSettings={focusTrapSettings}
-        focusZoneSettings={focusZoneSettings}
-        height={height}
-        width={width}
-        anchorId={id}
-        variant={{regular: 'anchored', narrow: 'fullscreen'}}
-        pinPosition={!height}
-        className={classes.Overlay}
+    <AnchoredOverlay
+      renderAnchor={renderMenuAnchor}
+      anchorRef={anchorRef}
+      open={open}
+      onOpen={onOpen}
+      onClose={onClose}
+      overlayProps={{
+        role: 'dialog',
+        'aria-labelledby': titleId,
+        'aria-describedby': subtitle ? subtitleId : undefined,
+        ...overlayProps,
+        style: {
+          '--max-height': overlayProps?.maxHeight ? heightMap[overlayProps.maxHeight] : heightMap['large'],
+        } as React.CSSProperties,
+      }}
+      focusTrapSettings={focusTrapSettings}
+      focusZoneSettings={focusZoneSettings}
+      height={height}
+      width={width}
+      anchorId={id}
+      variant={{regular: 'anchored', narrow: 'fullscreen'}}
+      pinPosition={!height}
+      className={classes.Overlay}
+    >
+      <Box
+        sx={enabled ? undefined : {display: 'flex', flexDirection: 'column', height: 'inherit', maxHeight: 'inherit'}}
+        className={enabled ? classes.Wrapper : undefined}
       >
-        <LiveRegionOutlet />
-        {usingModernActionList ? null : (
-          <Message
-            value={
-              filterValue === ''
-                ? 'Showing all items'
-                : items.length <= 0
-                  ? 'No matching items'
-                  : `${items.length} matching ${items.length === 1 ? 'item' : 'items'}`
-            }
-          />
-        )}
         <Box
-          sx={enabled ? undefined : {display: 'flex', flexDirection: 'column', height: 'inherit', maxHeight: 'inherit'}}
-          className={enabled ? classes.Wrapper : undefined}
+          sx={
+            enabled
+              ? undefined
+              : {
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  paddingTop: 2,
+                  paddingRight: 2,
+                  paddingLeft: 2,
+                }
+          }
+          className={enabled ? classes.Header : undefined}
         >
+          <div>
+            <Heading
+              as="h1"
+              id={titleId}
+              sx={enabled ? undefined : {fontSize: 1, marginLeft: 2}}
+              className={enabled ? classes.Title : undefined}
+            >
+              {title}
+            </Heading>
+            {subtitle ? (
+              <Box
+                id={subtitleId}
+                sx={enabled ? undefined : {marginLeft: 2, fontSize: 0, color: 'fg.muted'}}
+                className={enabled ? classes.Subtitle : undefined}
+              >
+                {subtitle}
+              </Box>
+            ) : null}
+          </div>
+          {onCancel && (
+            <IconButton
+              type="button"
+              variant="invisible"
+              icon={XIcon}
+              aria-label="Cancel and close"
+              sx={enabled ? undefined : {display: ['inline-grid', 'inline-grid', 'none', 'none']}}
+              className={enabled ? classes.ResponsiveCloseButton : undefined}
+              onClick={() => {
+                onCancel()
+                onClose('escape')
+              }}
+            />
+          )}
+        </Box>
+        {notice && (
+          <div aria-live="polite" data-variant={notice.variant} className={classes.Notice}>
+            {iconForNoticeVariant[notice.variant]}
+            <div>{notice.text}</div>
+          </div>
+        )}
+        <FilteredActionList
+          filterValue={filterValue}
+          onFilterChange={onFilterChange}
+          onListContainerRefChanged={onListContainerRefChanged}
+          onInputRefChanged={onInputRefChanged}
+          placeholderText={placeholderText}
+          {...listProps}
+          role="listbox"
+          // browsers give aria-labelledby precedence over aria-label so we need to make sure
+          // we don't accidentally override props.aria-label
+          aria-labelledby={listProps['aria-label'] ? undefined : titleId}
+          aria-multiselectable={isMultiSelectVariant(selected) ? 'true' : 'false'}
+          selectionVariant={isMultiSelectVariant(selected) ? 'multiple' : 'single'}
+          items={itemsToRender}
+          textInputProps={extendedTextInputProps}
+          loading={loading || isLoading}
+          loadingType={loadingType()}
+          // hack because the deprecated ActionList does not support this prop
+          {...{
+            message: getMessage(),
+          }}
+          // inheriting height and maxHeight ensures that the FilteredActionList is never taller
+          // than the Overlay (which would break scrolling the items)
+          sx={enabled ? sx : {...sx, height: 'inherit', maxHeight: 'inherit'}}
+          className={enabled ? clsx(className, classes.FilteredActionList) : className}
+          announcementsEnabled={false}
+        />
+        {footer ? (
           <Box
             sx={
               enabled
                 ? undefined
                 : {
                     display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    paddingTop: 2,
-                    paddingRight: 2,
-                    paddingLeft: 2,
+                    borderTop: '1px solid',
+                    borderColor: 'border.default',
+                    padding: 2,
                   }
             }
-            className={enabled ? classes.Header : undefined}
+            className={enabled ? classes.Footer : undefined}
           >
-            <div>
-              <Heading
-                as="h1"
-                id={titleId}
-                sx={enabled ? undefined : {fontSize: 1, marginLeft: 2}}
-                className={enabled ? classes.Title : undefined}
-              >
-                {title}
-              </Heading>
-              {subtitle ? (
-                <Box
-                  id={subtitleId}
-                  sx={enabled ? undefined : {marginLeft: 2, fontSize: 0, color: 'fg.muted'}}
-                  className={enabled ? classes.Subtitle : undefined}
-                >
-                  {subtitle}
-                </Box>
-              ) : null}
-            </div>
+            {footer}
+          </Box>
+        ) : isMultiSelectVariant(selected) ? (
+          /* Save and Cancel buttons are only useful for multiple selection, single selection instantly closes the panel */
+          <div className={clsx(classes.Footer, classes.ResponsiveFooter)}>
+            {/* we add a save and cancel button on narrow screens when SelectPanel is full-screen */}
             {onCancel && (
-              <IconButton
-                type="button"
-                variant="invisible"
-                icon={XIcon}
-                aria-label="Cancel and close"
-                sx={enabled ? undefined : {display: ['inline-grid', 'inline-grid', 'none', 'none']}}
-                className={enabled ? classes.ResponsiveCloseButton : undefined}
+              <Button
+                size="medium"
                 onClick={() => {
                   onCancel()
                   onClose('escape')
                 }}
-              />
-            )}
-          </Box>
-          {notice && (
-            <div aria-live="polite" data-variant={notice.variant} className={classes.Notice}>
-              {iconForNoticeVariant[notice.variant]}
-              <div>{notice.text}</div>
-            </div>
-          )}
-          <FilteredActionList
-            filterValue={filterValue}
-            onFilterChange={onFilterChange}
-            onListContainerRefChanged={onListContainerRefChanged}
-            onInputRefChanged={onInputRefChanged}
-            placeholderText={placeholderText}
-            {...listProps}
-            role="listbox"
-            // browsers give aria-labelledby precedence over aria-label so we need to make sure
-            // we don't accidentally override props.aria-label
-            aria-labelledby={listProps['aria-label'] ? undefined : titleId}
-            aria-multiselectable={isMultiSelectVariant(selected) ? 'true' : 'false'}
-            selectionVariant={isMultiSelectVariant(selected) ? 'multiple' : 'single'}
-            items={itemsToRender}
-            textInputProps={extendedTextInputProps}
-            loading={loading || isLoading}
-            loadingType={loadingType()}
-            // hack because the deprecated ActionList does not support this prop
-            {...{
-              message: getMessage(),
-            }}
-            // inheriting height and maxHeight ensures that the FilteredActionList is never taller
-            // than the Overlay (which would break scrolling the items)
-            sx={enabled ? sx : {...sx, height: 'inherit', maxHeight: 'inherit'}}
-            className={enabled ? clsx(className, classes.FilteredActionList) : className}
-            announcementsEnabled={false}
-          />
-          {footer ? (
-            <Box
-              sx={
-                enabled
-                  ? undefined
-                  : {
-                      display: 'flex',
-                      borderTop: '1px solid',
-                      borderColor: 'border.default',
-                      padding: 2,
-                    }
-              }
-              className={enabled ? classes.Footer : undefined}
-            >
-              {footer}
-            </Box>
-          ) : isMultiSelectVariant(selected) ? (
-            /* Save and Cancel buttons are only useful for multiple selection, single selection instantly closes the panel */
-            <div className={clsx(classes.Footer, classes.ResponsiveFooter)}>
-              {/* we add a save and cancel button on narrow screens when SelectPanel is full-screen */}
-              {onCancel && (
-                <Button
-                  size="medium"
-                  onClick={() => {
-                    onCancel()
-                    onClose('escape')
-                  }}
-                >
-                  Cancel
-                </Button>
-              )}
-              <Button
-                variant="primary"
-                size="medium"
-                block={onCancel ? false : true}
-                onClick={() => onClose('click-outside')}
               >
-                Save
+                Cancel
               </Button>
-            </div>
-          ) : null}
-        </Box>
-      </AnchoredOverlay>
-    </LiveRegion>
+            )}
+            <Button
+              variant="primary"
+              size="medium"
+              block={onCancel ? false : true}
+              onClick={() => onClose('click-outside')}
+            >
+              Save
+            </Button>
+          </div>
+        ) : null}
+      </Box>
+    </AnchoredOverlay>
   )
 }
