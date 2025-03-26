@@ -363,9 +363,10 @@ export function SelectPanel({
   )
   const onClose = useCallback(
     (gesture: Parameters<Exclude<AnchoredOverlayProps['onClose'], undefined>>[0] | 'selection' | 'escape') => {
+      if (variant === 'modal' && gesture === 'click-outside') onCancel?.()
       onOpenChange(false, gesture)
     },
-    [onOpenChange],
+    [onOpenChange, variant, onCancel],
   )
 
   const renderMenuAnchor = useMemo(() => {
