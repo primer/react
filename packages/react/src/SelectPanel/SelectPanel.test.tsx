@@ -264,19 +264,14 @@ for (const useModernActionList of [false, true]) {
 
           await user.click(screen.getByText('Select items'))
 
-          if (useModernActionList) {
-            expect(document.activeElement!).toHaveAttribute('role', 'combobox')
-          }
-
           await user.type(document.activeElement!, '{Enter}')
-
           expect(
             screen.getByRole('option', {
               name: 'item one',
             }),
           ).toHaveAttribute('aria-selected', 'true')
 
-          await user.keyboard('{Enter}')
+          await user.type(document.activeElement!, '{Enter}')
           expect(
             screen.getByRole('option', {
               name: 'item one',
@@ -299,43 +294,6 @@ for (const useModernActionList of [false, true]) {
         })
 
         it('should support navigating through items with ArrowUp and ArrowDown', async () => {
-          if (!useModernActionList) return // this feature is only enabled with feature flag on
-
-          const user = userEvent.setup()
-
-          renderWithFlag(<BasicSelectPanel />, useModernActionList)
-
-          await user.click(screen.getByText('Select items'))
-
-          expect(document.activeElement!).toHaveAttribute('role', 'combobox')
-
-          await user.keyboard('{ArrowDown}')
-          expect(document.activeElement!).toHaveAccessibleName('item one')
-
-          await user.keyboard('{ArrowDown}')
-          expect(document.activeElement!).toHaveAccessibleName('item two')
-
-          await user.keyboard('{ArrowDown}')
-          expect(document.activeElement!).toHaveAccessibleName('item three')
-
-          // At end of list, should wrap to the beginning
-          await user.keyboard('{ArrowDown}')
-          expect(document.activeElement!).toHaveAccessibleName('item one')
-
-          // At beginning of list, ArrowUp should wrap to the end
-          await user.keyboard('{ArrowUp}')
-          expect(document.activeElement!).toHaveAccessibleName('item three')
-
-          await user.keyboard('{ArrowUp}')
-          expect(document.activeElement!).toHaveAccessibleName('item two')
-
-          await user.keyboard('{ArrowUp}')
-          expect(document.activeElement!).toHaveAccessibleName('item one')
-        })
-
-        it('should support navigating through items with ArrowUp and ArrowDown using `aria-activedescendant`', async () => {
-          if (useModernActionList) return // this feature is only enabled with feature flag on
-
           const user = userEvent.setup()
 
           renderWithFlag(<BasicSelectPanel />, useModernActionList)
@@ -397,18 +355,23 @@ for (const useModernActionList of [false, true]) {
           await user.click(screen.getByText('Select items'))
 
           // First item by default should be the active element
-          expect(document.activeElement!).toHaveAttribute('role', 'combobox')
-
-          await user.type(document.activeElement!, '{ArrowDown}')
-
-          expect(document.activeElement!).toHaveAttribute('role', 'option')
+          expect(document.activeElement!).toHaveAttribute(
+            'aria-activedescendant',
+            screen.getByRole('option', {name: 'item one'}).id,
+          )
 
           await user.type(document.activeElement!, '{PageDown}')
 
-          expect(document.activeElement!).toHaveAccessibleName('item three')
+          expect(document.activeElement!).toHaveAttribute(
+            'aria-activedescendant',
+            screen.getByRole('option', {name: 'item three'}).id,
+          )
 
           await user.type(document.activeElement!, '{PageUp}')
-          expect(document.activeElement!).toHaveAccessibleName('item one')
+          expect(document.activeElement!).toHaveAttribute(
+            'aria-activedescendant',
+            screen.getByRole('option', {name: 'item one'}).id,
+          )
         })
 
         it('should select an item (by item.id) even when items are defined in the component', async () => {
@@ -467,97 +430,6 @@ for (const useModernActionList of [false, true]) {
         const onSelectedChange = (selected: SelectPanelProps['items']) => {
           setSelected(selected)
         }
-
-        return (
-          <ThemeProvider>
-            <SelectPanel
-              title="test title"
-              subtitle="test subtitle"
-              items={items.filter(item => item.text?.includes(filter))}
-              placeholder="Select items"
-              placeholderText="Filter items"
-              selected={selected}
-              onSelectedChange={onSelectedChange}
-              filterValue={filter}
-              onFilterChange={value => {
-                setFilter(value)
-              }}
-              open={open}
-              onOpenChange={isOpen => {
-                setOpen(isOpen)
-              }}
-            />
-          </ThemeProvider>
-        )
-      }
-
-      const SelectPanelWithCustomMessages: React.FC<{items: SelectPanelProps['items']}> = ({items}) => {
-        const [selected, setSelected] = React.useState<SelectPanelProps['items']>([])
-        const [filter, setFilter] = React.useState('')
-        const [open, setOpen] = React.useState(false)
-
-        const onSelectedChange = (selected: SelectPanelProps['items']) => {
-          setSelected(selected)
-        }
-
-        const emptyMessage: {variant: 'empty'; title: string; body: string} = {
-          variant: 'empty',
-          title: "You haven't created any projects yet",
-          body: 'Start your first project to organise your issues',
-        }
-
-        const noResultsMessage = (filter: string): {variant: 'empty'; title: string; body: string} => ({
-          variant: 'empty',
-          title: `No language found for ${filter}`,
-          body: 'Adjust your search term to find other languages',
-        })
-
-        const filteredItems = items.filter(item => item.text?.includes(filter))
-
-        function getMessage() {
-          if (filteredItems.length === 0 && !filter) {
-            return emptyMessage
-          }
-          if (filteredItems.length === 0 && filter) {
-            return noResultsMessage(filter)
-          }
-          return undefined
-        }
-
-        return (
-          <ThemeProvider>
-            <SelectPanel
-              title="test title"
-              subtitle="test subtitle"
-              items={filteredItems}
-              placeholder="Select items"
-              placeholderText="Filter items"
-              selected={selected}
-              onSelectedChange={onSelectedChange}
-              filterValue={filter}
-              onFilterChange={value => {
-                setFilter(value)
-              }}
-              open={open}
-              onOpenChange={isOpen => {
-                setOpen(isOpen)
-              }}
-              message={getMessage()}
-            />
-          </ThemeProvider>
-        )
-      }
-
-      function NoItemAvailableSelectPanel() {
-        const [selected, setSelected] = React.useState<SelectPanelProps['items']>([])
-        const [filter, setFilter] = React.useState('')
-        const [open, setOpen] = React.useState(false)
-
-        const onSelectedChange = (selected: SelectPanelProps['items']) => {
-          setSelected(selected)
-        }
-
-        const items: SelectPanelProps['items'] = []
 
         return (
           <ThemeProvider>
@@ -682,7 +554,9 @@ for (const useModernActionList of [false, true]) {
 
           // we wait because announcement is intentionally updated after a timeout to not interrupt user input
           await waitFor(async () => {
-            expect(getLiveRegion().getMessage('polite')).toBe('3 items available, 0 selected.')
+            expect(getLiveRegion().getMessage('polite')).toBe(
+              'List updated, Focused item: item one, not selected, 1 of 3',
+            )
           })
         })
 
@@ -695,7 +569,9 @@ for (const useModernActionList of [false, true]) {
 
           await waitFor(
             async () => {
-              expect(getLiveRegion().getMessage('polite')).toBe('3 items available, 0 selected.')
+              expect(getLiveRegion().getMessage('polite')).toBe(
+                'List updated, Focused item: item one, not selected, 1 of 3',
+              )
             },
             {timeout: 3000}, // increased timeout because we don't want the test to compare with previous announcement
           )
@@ -705,7 +581,9 @@ for (const useModernActionList of [false, true]) {
 
           await waitFor(
             async () => {
-              expect(getLiveRegion().getMessage('polite')).toBe('2 items available, 0 selected.')
+              expect(getLiveRegion().getMessage('polite')).toBe(
+                'List updated, Focused item: item one, not selected, 1 of 2',
+              )
             },
             {timeout: 3000}, // increased timeout because we don't want the test to compare with previous announcement
           )
@@ -714,7 +592,9 @@ for (const useModernActionList of [false, true]) {
           expect(screen.getAllByRole('option')).toHaveLength(1)
 
           await waitFor(async () => {
-            expect(getLiveRegion().getMessage('polite')).toBe('1 item available, 0 selected.')
+            expect(getLiveRegion().getMessage('polite')).toBe(
+              'List updated, Focused item: item one, not selected, 1 of 1',
+            )
           })
         })
 
@@ -743,76 +623,6 @@ for (const useModernActionList of [false, true]) {
         })
       })
 
-      describe('Empty state', () => {
-        // This is only implemented with the feature flag (for now)
-        if (!useModernActionList) return
-
-        it('should display the default empty state message when there is no matching item after filtering (No custom message is provided)', async () => {
-          const user = userEvent.setup()
-
-          renderWithFlag(<FilterableSelectPanel />, useModernActionList)
-
-          await user.click(screen.getByText('Select items'))
-
-          expect(screen.getAllByRole('option')).toHaveLength(3)
-
-          await user.type(document.activeElement!, 'something')
-          expect(screen.getByText("You haven't created any items yet")).toBeVisible()
-          expect(screen.getByText('Please add or create new items to populate the list.')).toBeVisible()
-        })
-
-        it('should display the default empty state message when there is no item after the initial load (No custom message is provided)', async () => {
-          const user = userEvent.setup()
-
-          renderWithFlag(<NoItemAvailableSelectPanel />, useModernActionList)
-
-          await waitFor(async () => {
-            await user.click(screen.getByText('Select items'))
-            expect(screen.getByText("You haven't created any items yet")).toBeVisible()
-            expect(screen.getByText('Please add or create new items to populate the list.')).toBeVisible()
-          })
-        })
-        it('should display the custom empty state message when there is no matching item after filtering', async () => {
-          const user = userEvent.setup()
-
-          renderWithFlag(
-            <SelectPanelWithCustomMessages
-              items={[
-                {
-                  text: 'item one',
-                },
-                {
-                  text: 'item two',
-                },
-                {
-                  text: 'item three',
-                },
-              ]}
-            />,
-            useModernActionList,
-          )
-
-          await user.click(screen.getByText('Select items'))
-
-          expect(screen.getAllByRole('option')).toHaveLength(3)
-
-          await user.type(document.activeElement!, 'something')
-          expect(screen.getByText('No language found for something')).toBeVisible()
-          expect(screen.getByText('Adjust your search term to find other languages')).toBeVisible()
-        })
-
-        it('should display the custom empty state message when there is no item after the initial load', async () => {
-          const user = userEvent.setup()
-
-          renderWithFlag(<SelectPanelWithCustomMessages items={[]} />, useModernActionList)
-
-          await waitFor(async () => {
-            await user.click(screen.getByText('Select items'))
-            expect(screen.getByText("You haven't created any projects yet")).toBeVisible()
-            expect(screen.getByText('Start your first project to organise your issues')).toBeVisible()
-          })
-        })
-      })
       describe('with footer', () => {
         function SelectPanelWithFooter() {
           const [selected, setSelected] = React.useState<SelectPanelProps['items']>([])
