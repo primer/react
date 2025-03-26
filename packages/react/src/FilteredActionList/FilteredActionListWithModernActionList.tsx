@@ -14,7 +14,6 @@ import {VisuallyHidden} from '../VisuallyHidden'
 import type {SxProp} from '../sx'
 import type {FilteredActionListLoadingType} from './FilteredActionListLoaders'
 import {FilteredActionListLoadingTypes, FilteredActionListBodyLoader} from './FilteredActionListLoaders'
-import classes from './FilteredActionList.module.css'
 import {ActionListContainerContext} from '../ActionList/ActionListContainerContext'
 
 import {isValidElementType} from 'react-is'
@@ -33,7 +32,6 @@ export interface FilteredActionListProps
   onInputRefChanged?: (ref: React.RefObject<HTMLInputElement>) => void
   textInputProps?: Partial<Omit<TextInputProps, 'onChange'>>
   inputRef?: React.RefObject<HTMLInputElement>
-  message?: React.ReactNode
   className?: string
   announcementsEnabled?: boolean
 }
@@ -56,7 +54,6 @@ export function FilteredActionList({
   sx,
   groupMetadata,
   showItemDividers,
-  message,
   className,
   selectionVariant,
   announcementsEnabled = true,
@@ -153,47 +150,6 @@ export function FilteredActionList({
     return itemsInGroup
   }
 
-  function getBodyContent() {
-    if (loading && scrollContainerRef.current && loadingType.appearsInBody) {
-      return <FilteredActionListBodyLoader loadingType={loadingType} height={scrollContainerRef.current.clientHeight} />
-    }
-    if (message) {
-      return message
-    }
-
-    return (
-      <ActionListContainerContext.Provider
-        value={{
-          container: 'FilteredActionList',
-          listRole: 'listbox',
-          selectionAttribute: 'aria-selected',
-          selectionVariant,
-          enableFocusZone: true,
-        }}
-      >
-        <ActionList ref={listRef} showDividers={showItemDividers} {...listProps} id={listId} sx={{flexGrow: 1}}>
-          {groupMetadata?.length
-            ? groupMetadata.map((group, index) => {
-                return (
-                  <ActionList.Group key={index}>
-                    <ActionList.GroupHeading variant={group.header?.variant ? group.header.variant : undefined}>
-                      {group.header?.title ? group.header.title : `Group ${group.groupId}`}
-                    </ActionList.GroupHeading>
-                    {getItemListForEachGroup(group.groupId).map((item, index) => {
-                      const key = item.key ?? item.id?.toString() ?? index.toString()
-                      return <MappedActionListItem key={key} {...item} renderItem={listProps.renderItem} />
-                    })}
-                  </ActionList.Group>
-                )
-              })
-            : items.map((item, index) => {
-                const key = item.key ?? item.id?.toString() ?? index.toString()
-                return <MappedActionListItem key={key} {...item} renderItem={listProps.renderItem} />
-              })}
-        </ActionList>
-      </ActionListContainerContext.Provider>
-    )
-  }
   useAnnouncements(items, listRef, inputRef, enableAnnouncements)
 
   return (
@@ -227,9 +183,42 @@ export function FilteredActionList({
         />
       </StyledHeader>
       <VisuallyHidden id={inputDescriptionTextId}>Items will be filtered as you type</VisuallyHidden>
-      <div ref={scrollContainerRef} className={classes.Container}>
-        {getBodyContent()}
-      </div>
+      <Box ref={scrollContainerRef} overflow="auto" display="flex" flexGrow={1}>
+        {loading && scrollContainerRef.current && loadingType.appearsInBody ? (
+          <FilteredActionListBodyLoader loadingType={loadingType} height={scrollContainerRef.current.clientHeight} />
+        ) : (
+          <ActionListContainerContext.Provider
+            value={{
+              container: 'FilteredActionList',
+              listRole: 'listbox',
+              selectionAttribute: 'aria-selected',
+              selectionVariant,
+              enableFocusZone: true,
+            }}
+          >
+            <ActionList ref={listRef} showDividers={showItemDividers} {...listProps} id={listId} sx={{flexGrow: 1}}>
+              {groupMetadata?.length
+                ? groupMetadata.map((group, index) => {
+                    return (
+                      <ActionList.Group key={index}>
+                        <ActionList.GroupHeading variant={group.header?.variant ? group.header.variant : undefined}>
+                          {group.header?.title ? group.header.title : `Group ${group.groupId}`}
+                        </ActionList.GroupHeading>
+                        {getItemListForEachGroup(group.groupId).map((item, index) => {
+                          const key = item.key ?? item.id?.toString() ?? index.toString()
+                          return <MappedActionListItem key={key} {...item} renderItem={listProps.renderItem} />
+                        })}
+                      </ActionList.Group>
+                    )
+                  })
+                : items.map((item, index) => {
+                    const key = item.key ?? item.id?.toString() ?? index.toString()
+                    return <MappedActionListItem key={key} {...item} renderItem={listProps.renderItem} />
+                  })}
+            </ActionList>
+          </ActionListContainerContext.Provider>
+        )}
+      </Box>
     </Box>
   )
 }
