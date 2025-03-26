@@ -470,6 +470,7 @@ export function SelectPanel({
                 top: '50vh',
                 left: '50vw',
                 style: {transform: 'translate(-50%, -50%)'},
+                anchorSide: undefined,
               }
             : {}),
 
