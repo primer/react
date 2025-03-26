@@ -103,15 +103,6 @@ const StyledOverlay = toggleStyledComponent(
       max-width: calc(100vw - 2rem);
     }
 
-    &:where([data-variant='fullscreen']) {
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      margin: 0;
-      border-radius: unset;
-    }
-
     ${sx};
   `,
 )
@@ -127,7 +118,7 @@ type BaseOverlayProps = {
   role?: AriaRole
   children?: React.ReactNode
   className?: string
-  'data-variant'?: 'anchored' | 'fullscreen' | 'modal'
+  'data-responsive'?: 'fullscreen' // we only support fullscreen today but we might add bottomsheet in the future
 }
 
 type OwnOverlayProps = Merge<StyledOverlayProps, BaseOverlayProps>

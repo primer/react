@@ -157,25 +157,13 @@
     visibility: hidden;
   }
 
-  &:where([data-variant='fullscreen']) {
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    margin: 0;
-    border-radius: unset;
-  }
-
-  &:where([data-variant='modal']) {
-    position: absolute;
-    top: 50vh !important; /* override anchored styles if any */
-    left: 50vw !important; /* override anchored styles if any */
-    transform: translate(-50%, -50%);
-
+  &:where([data-responsive='fullscreen']) {
     @media screen and (--viewportRange-narrow) {
-      /* behave like data-variant=fullscreen */
+      top: 0;
+      left: 0;
       width: 100vw;
       height: 100vh;
+      margin: 0;
       border-radius: unset;
     }
   }

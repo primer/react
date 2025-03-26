@@ -216,7 +216,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
           width={width}
           top={currentResponsiveVariant === 'anchored' ? position?.top || 0 : undefined}
           left={currentResponsiveVariant === 'anchored' ? position?.left || 0 : undefined}
-          data-variant={currentResponsiveVariant}
+          data-responsive={variant.narrow === 'fullscreen' ? 'fullscreen' : undefined}
           anchorSide={position?.anchorSide}
           className={className}
           preventOverflow={preventOverflow}

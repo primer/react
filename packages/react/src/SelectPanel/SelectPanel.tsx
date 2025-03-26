@@ -464,7 +464,15 @@ export function SelectPanel({
           role: 'dialog',
           'aria-labelledby': titleId,
           'aria-describedby': subtitle ? subtitleId : undefined,
-          ...(variant === 'modal' ? {'data-variant': 'modal' /* override AnchoredOverlay */} : {}),
+          ...(variant === 'modal'
+            ? {
+                /* override AnchoredOverlay position */
+                top: '50vh',
+                left: '50vw',
+                style: {transform: 'translate(-50%, -50%)'},
+              }
+            : {}),
+
           ...overlayProps,
         }}
         focusTrapSettings={focusTrapSettings}
@@ -490,6 +498,7 @@ export function SelectPanel({
         <Box
           sx={enabled ? undefined : {display: 'flex', flexDirection: 'column', height: 'inherit', maxHeight: 'inherit'}}
           className={enabled ? classes.Wrapper : undefined}
+          data-variant={variant}
         >
           <Box
             sx={
