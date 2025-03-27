@@ -364,8 +364,9 @@ export const Tooltip = React.forwardRef(
                 child.props.onBlur?.(event)
               },
               onTouchEnd: (event: React.TouchEvent) => {
-                closeTooltip()
                 child.props.onTouchEnd?.(event)
+                // setTimeout to take effect after the `focus` event
+                setTimeout(() => closeTooltip())
               },
               onFocus: (event: React.FocusEvent) => {
                 // only show tooltip on :focus-visible, not on :focus
