@@ -264,19 +264,14 @@ for (const useModernActionList of [false, true]) {
 
           await user.click(screen.getByText('Select items'))
 
-          if (useModernActionList) {
-            expect(document.activeElement!).toHaveAttribute('role', 'combobox')
-          }
-
           await user.type(document.activeElement!, '{Enter}')
-
           expect(
             screen.getByRole('option', {
               name: 'item one',
             }),
           ).toHaveAttribute('aria-selected', 'true')
 
-          await user.keyboard('{Enter}')
+          await user.type(document.activeElement!, '{Enter}')
           expect(
             screen.getByRole('option', {
               name: 'item one',
@@ -299,43 +294,6 @@ for (const useModernActionList of [false, true]) {
         })
 
         it('should support navigating through items with ArrowUp and ArrowDown', async () => {
-          if (!useModernActionList) return // this feature is only enabled with feature flag on
-
-          const user = userEvent.setup()
-
-          renderWithFlag(<BasicSelectPanel />, useModernActionList)
-
-          await user.click(screen.getByText('Select items'))
-
-          expect(document.activeElement!).toHaveAttribute('role', 'combobox')
-
-          await user.keyboard('{ArrowDown}')
-          expect(document.activeElement!).toHaveAccessibleName('item one')
-
-          await user.keyboard('{ArrowDown}')
-          expect(document.activeElement!).toHaveAccessibleName('item two')
-
-          await user.keyboard('{ArrowDown}')
-          expect(document.activeElement!).toHaveAccessibleName('item three')
-
-          // At end of list, should wrap to the beginning
-          await user.keyboard('{ArrowDown}')
-          expect(document.activeElement!).toHaveAccessibleName('item one')
-
-          // At beginning of list, ArrowUp should wrap to the end
-          await user.keyboard('{ArrowUp}')
-          expect(document.activeElement!).toHaveAccessibleName('item three')
-
-          await user.keyboard('{ArrowUp}')
-          expect(document.activeElement!).toHaveAccessibleName('item two')
-
-          await user.keyboard('{ArrowUp}')
-          expect(document.activeElement!).toHaveAccessibleName('item one')
-        })
-
-        it('should support navigating through items with ArrowUp and ArrowDown using `aria-activedescendant`', async () => {
-          if (useModernActionList) return // this feature is only enabled with feature flag on
-
           const user = userEvent.setup()
 
           renderWithFlag(<BasicSelectPanel />, useModernActionList)
@@ -397,18 +355,23 @@ for (const useModernActionList of [false, true]) {
           await user.click(screen.getByText('Select items'))
 
           // First item by default should be the active element
-          expect(document.activeElement!).toHaveAttribute('role', 'combobox')
-
-          await user.type(document.activeElement!, '{ArrowDown}')
-
-          expect(document.activeElement!).toHaveAttribute('role', 'option')
+          expect(document.activeElement!).toHaveAttribute(
+            'aria-activedescendant',
+            screen.getByRole('option', {name: 'item one'}).id,
+          )
 
           await user.type(document.activeElement!, '{PageDown}')
 
-          expect(document.activeElement!).toHaveAccessibleName('item three')
+          expect(document.activeElement!).toHaveAttribute(
+            'aria-activedescendant',
+            screen.getByRole('option', {name: 'item three'}).id,
+          )
 
           await user.type(document.activeElement!, '{PageUp}')
-          expect(document.activeElement!).toHaveAccessibleName('item one')
+          expect(document.activeElement!).toHaveAttribute(
+            'aria-activedescendant',
+            screen.getByRole('option', {name: 'item one'}).id,
+          )
         })
 
         it('should select an item (by item.id) even when items are defined in the component', async () => {
@@ -591,7 +554,9 @@ for (const useModernActionList of [false, true]) {
 
           // we wait because announcement is intentionally updated after a timeout to not interrupt user input
           await waitFor(async () => {
-            expect(getLiveRegion().getMessage('polite')).toBe('3 items available, 0 selected.')
+            expect(getLiveRegion().getMessage('polite')).toBe(
+              'List updated, Focused item: item one, not selected, 1 of 3',
+            )
           })
         })
 
@@ -604,7 +569,9 @@ for (const useModernActionList of [false, true]) {
 
           await waitFor(
             async () => {
-              expect(getLiveRegion().getMessage('polite')).toBe('3 items available, 0 selected.')
+              expect(getLiveRegion().getMessage('polite')).toBe(
+                'List updated, Focused item: item one, not selected, 1 of 3',
+              )
             },
             {timeout: 3000}, // increased timeout because we don't want the test to compare with previous announcement
           )
@@ -614,7 +581,9 @@ for (const useModernActionList of [false, true]) {
 
           await waitFor(
             async () => {
-              expect(getLiveRegion().getMessage('polite')).toBe('2 items available, 0 selected.')
+              expect(getLiveRegion().getMessage('polite')).toBe(
+                'List updated, Focused item: item one, not selected, 1 of 2',
+              )
             },
             {timeout: 3000}, // increased timeout because we don't want the test to compare with previous announcement
           )
@@ -623,7 +592,9 @@ for (const useModernActionList of [false, true]) {
           expect(screen.getAllByRole('option')).toHaveLength(1)
 
           await waitFor(async () => {
-            expect(getLiveRegion().getMessage('polite')).toBe('1 item available, 0 selected.')
+            expect(getLiveRegion().getMessage('polite')).toBe(
+              'List updated, Focused item: item one, not selected, 1 of 1',
+            )
           })
         })
 

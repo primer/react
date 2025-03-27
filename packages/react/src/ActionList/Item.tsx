@@ -137,12 +137,12 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       if (selectionVariant === 'single') inferredItemRole = 'menuitemradio'
       else if (selectionVariant === 'multiple') inferredItemRole = 'menuitemcheckbox'
       else inferredItemRole = 'menuitem'
-    } else if (container && ['SelectPanel', 'FilteredActionList'].includes(container) && listRole === 'listbox') {
+    } else if (container === 'SelectPanel' && listRole === 'listbox') {
       if (selectionVariant !== undefined) inferredItemRole = 'option'
     }
 
     const itemRole = role || inferredItemRole
-    const menuContext = container === 'ActionMenu' || container === 'SelectPanel' || container === 'FilteredActionList'
+    const menuContext = container === 'ActionMenu' || container === 'SelectPanel'
 
     if (slots.trailingAction) {
       invariant(!menuContext, `ActionList.TrailingAction can not be used within a ${container}.`)
