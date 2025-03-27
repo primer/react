@@ -131,17 +131,15 @@ interface SelectPanelBaseProps {
     text: string | React.ReactElement
     variant: 'info' | 'warning' | 'error'
   }
+  onCancel?: () => void
+  variant?: 'anchored' | 'modal'
 }
-
-// onCancel is optional with variant=anchored, but required with variant=modal
-type SelectPanelVariantProps = {variant?: 'anchored'; onCancel?: () => void} | {variant: 'modal'; onCancel: () => void}
 
 export type SelectPanelProps = SelectPanelBaseProps &
   Omit<FilteredActionListProps, 'selectionVariant' | 'variant'> &
   Pick<AnchoredOverlayProps, 'open' | 'height' | 'width'> &
   AnchoredOverlayWrapperAnchorProps &
-  (SelectPanelSingleSelection | SelectPanelMultiSelection) &
-  SelectPanelVariantProps
+  (SelectPanelSingleSelection | SelectPanelMultiSelection)
 
 function isMultiSelectVariant(
   selected: SelectPanelSingleSelection['selected'] | SelectPanelMultiSelection['selected'],
