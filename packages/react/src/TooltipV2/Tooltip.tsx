@@ -151,6 +151,7 @@ type TriggerPropsType = {
   'aria-labelledby'?: string
   'aria-label'?: string
   onBlur?: React.FocusEventHandler
+  onTouchEnd?: React.TouchEventHandler
   onFocus?: React.FocusEventHandler
   onMouseEnter?: React.MouseEventHandler
   onMouseLeave?: React.MouseEventHandler
@@ -361,6 +362,10 @@ export const Tooltip = React.forwardRef(
               onBlur: (event: React.FocusEvent) => {
                 closeTooltip()
                 child.props.onBlur?.(event)
+              },
+              onTouchEnd: (event: React.TouchEvent) => {
+                closeTooltip()
+                child.props.onTouchEnd?.(event)
               },
               onFocus: (event: React.FocusEvent) => {
                 // only show tooltip on :focus-visible, not on :focus
