@@ -113,7 +113,9 @@ test.describe('SelectPanel', () => {
   test(`Default @vrt responsive width .modern-action-list--true`, async ({page}) => {
     await visit(page, {
       id: 'components-selectpanel--default',
-      globals: {featureFlags: {primer_react_select_panel_with_modern_action_list: true}},
+      globals: {
+        featureFlags: {primer_react_select_panel_with_modern_action_list: true, primer_react_css_modules_ga: true},
+      },
     })
 
     await page.setViewportSize({width: 767, height: 767})
