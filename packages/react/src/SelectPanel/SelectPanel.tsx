@@ -25,10 +25,11 @@ import {announce} from '@primer/live-region-element'
 import classes from './SelectPanel.module.css'
 import {clsx} from 'clsx'
 import {heightMap} from '../Overlay/Overlay'
+import {debounce} from '@github/mini-throttle'
 
 // we add a delay so that it does not interrupt default screen reader announcement and queues after it
-const delayMs = 500
-const loadingDelayMs = 1000
+const SHORT_DELAY_MS = 500
+const LONG_DELAY_MS = 1000
 
 const DefaultEmptyMessage = (
   <SelectPanelMessage variant="empty" title="You haven't created any items yet" key="empty-message">
@@ -56,7 +57,7 @@ const getItemWithActiveDescendant = (
   return {index, text, selected}
 }
 
-async function announceText(text: string) {
+async function announceText(text: string, delayMs = SHORT_DELAY_MS) {
   const liveRegion = document.querySelector('live-region')
 
   liveRegion?.clear() // clear previous announcements
@@ -70,42 +71,37 @@ async function announceText(text: string) {
 async function announceFilterFocused() {
   await announceText('Focus on filter text box and list of items')
 }
-
-async function announceNoItems() {
-  await announceText('No matching items.')
-}
-
 async function announceLoading() {
   await announceText('Loading.')
 }
 
-async function announceItemsChanged(
-  items: FilteredActionListProps['items'],
-  listContainerRef: React.RefObject<HTMLElement>,
-) {
-  const liveRegion = document.querySelector('live-region')
+const announceItemsChanged = debounce(
+  async (items: FilteredActionListProps['items'], listContainerRef: React.RefObject<HTMLElement>) => {
+    const liveRegion = document.querySelector('live-region')
 
-  liveRegion?.clear() // clear previous announcements
+    liveRegion?.clear() // clear previous announcements
 
-  // give @primer/behaviors a moment to update active-descendant
-  await new Promise(resolve => window.requestAnimationFrame(resolve))
+    // give @primer/behaviors a moment to update active-descendant
+    await new Promise(resolve => window.requestAnimationFrame(resolve))
 
-  const activeItem = getItemWithActiveDescendant(listContainerRef, items)
-  if (!activeItem) return
-  const {index, text, selected} = activeItem
+    const activeItem = getItemWithActiveDescendant(listContainerRef, items)
+    if (!activeItem) return
+    const {index, text, selected} = activeItem
 
-  const announcementText = [
-    'List updated',
-    `Focused item: ${text}`,
-    `${selected ? 'selected' : 'not selected'}`,
-    `${index + 1} of ${items.length}`,
-  ].join(', ')
+    const announcementText = [
+      'List updated',
+      `Focused item: ${text}`,
+      `${selected ? 'selected' : 'not selected'}`,
+      `${index + 1} of ${items.length}`,
+    ].join(', ')
 
-  await announce(announcementText, {
-    delayMs,
-    from: liveRegion ? liveRegion : undefined, // announce will create a liveRegion if it doesn't find one
-  })
-}
+    await announce(announcementText, {
+      delayMs: SHORT_DELAY_MS,
+      from: liveRegion ? liveRegion : undefined, // announce will create a liveRegion if it doesn't find one
+    })
+  },
+  250,
+)
 
 interface SelectPanelSingleSelection {
   selected: ItemInput | undefined
@@ -258,7 +254,7 @@ export function SelectPanel({
           loadingDelayTimeoutId.current = safeSetTimeout(() => {
             setIsLoading(true)
             announceLoading()
-          }, loadingDelayMs)
+          }, LONG_DELAY_MS)
         } else {
           // If this is the first data load and there are no items, show the loading spinner
           // immediately
@@ -270,7 +266,7 @@ export function SelectPanel({
           // We still want to announce if loading is taking too long
           loadingDelayTimeoutId.current = safeSetTimeout(() => {
             announceLoading()
-          }, loadingDelayMs)
+          }, LONG_DELAY_MS)
         }
       }
 
@@ -287,6 +283,16 @@ export function SelectPanel({
       items.length,
     ],
   )
+
+  const announceNoItems = useCallback(async () => {
+    if (listContainerElement) {
+      safeSetTimeout(async () => {
+        await announceText(message?.title ?? 'No matching items.', LONG_DELAY_MS)
+      })
+    } else {
+      announceText(message?.title ?? 'No matching items.', LONG_DELAY_MS)
+    }
+  }, [listContainerElement, message?.title])
 
   useEffect(() => {
     if (open) {
@@ -453,7 +459,6 @@ export function SelectPanel({
       }
     }
   }
-  const usingModernActionList = useFeatureFlag('primer_react_select_panel_with_modern_action_list')
 
   // If there is no items after the first load, show the no items state
 
