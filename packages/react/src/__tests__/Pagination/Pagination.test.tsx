@@ -26,12 +26,12 @@ describe('Pagination', () => {
     expect(results).toHaveNoViolations()
   })
 
-  it('should render links instead of anchor tags with the renderPageLink prop', () => {
+  it('should render links instead of anchor tags with the renderPage prop', () => {
     const {container} = HTMLRender(
       <Pagination
         pageCount={10}
         currentPage={1}
-        renderPageLink={({number, ...props}) => <ReactRouterLikeLink to={`#${number}`} {...props} />}
+        renderPage={({number, ...props}) => <ReactRouterLikeLink to={`#${number}`} {...props} />}
       />,
     )
 

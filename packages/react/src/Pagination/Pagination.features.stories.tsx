@@ -45,7 +45,7 @@ export const RenderLinks = () => {
         e.preventDefault()
         setPage(n)
       }}
-      renderPageLink={({number, ...props}) => <ReactRouterLikeLink to={`#${number}`} {...props} />}
+      renderPage={({number, ...props}) => <ReactRouterLikeLink to={`#${number}`} {...props} />}
     />
   )
 }

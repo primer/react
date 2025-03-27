@@ -2,4 +2,4 @@
 '@primer/react': minor
 ---
 
-feat(Pagination): add renderPageLink prop to Pagination
+feat(Pagination): add renderPage prop to Pagination
