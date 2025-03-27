@@ -440,6 +440,7 @@ export function SelectPanel({
     }
   }
   const usingModernActionList = useFeatureFlag('primer_react_select_panel_with_modern_action_list')
+  const usingFullScreenOnNarrow = useFeatureFlag('primer_react_select_panel_fullscreen_on_narrow')
 
   const iconForNoticeVariant = {
     info: <InfoIcon size={16} />,
@@ -466,7 +467,7 @@ export function SelectPanel({
         height={height}
         width={width}
         anchorId={id}
-        variant={{regular: 'anchored', narrow: 'fullscreen'}}
+        variant={usingFullScreenOnNarrow ? {regular: 'anchored', narrow: 'fullscreen'} : undefined}
         pinPosition={!height}
       >
         <LiveRegionOutlet />
@@ -519,7 +520,7 @@ export function SelectPanel({
                 </Box>
               ) : null}
             </div>
-            {onCancel && (
+            {onCancel && usingFullScreenOnNarrow && (
               <IconButton
                 type="button"
                 variant="invisible"
@@ -579,7 +580,7 @@ export function SelectPanel({
             >
               {footer}
             </Box>
-          ) : isMultiSelectVariant(selected) ? (
+          ) : isMultiSelectVariant(selected) && usingFullScreenOnNarrow ? (
             /* Save and Cancel buttons are only useful for multiple selection, single selection instantly closes the panel */
             <div className={clsx(classes.Footer, classes.ResponsiveFooter)}>
               {/* we add a save and cancel button on narrow screens when SelectPanel is full-screen */}
