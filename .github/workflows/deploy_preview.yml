@@ -22,9 +22,9 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@cdca7365b2dadb8aad0a33bc7601856ffabcc48e
         with:
           node-version: 22
           cache: 'npm'
@@ -33,26 +33,26 @@ jobs:
       - name: Build docs preview
         run: npm run build:docs:preview
       - name: Download VRT reports (All flags enabled)
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@cc203385981b70ca67e1cc392babf9cc229d5806
         with:
           name: vrt-all-flags
           path: docs/public/vrt-all-flags
       - name: Download VRT reports (No flags enabled)
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@cc203385981b70ca67e1cc392babf9cc229d5806
         with:
           name: vrt-no-flag
           path: docs/public/vrt-no-flag
       - name: Download AAT reports (All flags enabled)
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@cc203385981b70ca67e1cc392babf9cc229d5806
         with:
           name: axe-all-flags
           path: docs/public/aat-all-flags
       - name: Download AAT reports (No flags enabled)
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@cc203385981b70ca67e1cc392babf9cc229d5806
         with:
           name: axe
           path: docs/public/aat-no-flag
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa
         with:
           name: github-pages
           path: docs/public
@@ -72,7 +72,7 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e
         with:
           preview: true
 
@@ -84,7 +84,7 @@ jobs:
       deployments: write
     runs-on: ubuntu-latest
     steps:
-      - uses: chrnorm/deployment-action@v2.0.7
+      - uses: chrnorm/deployment-action@55729fcebec3d284f60f5bcabbd8376437d696b1
         name: Create GitHub deployment for storybook
         id: storybook
         with:
@@ -93,7 +93,7 @@ jobs:
           environment-url: '${{ needs.deploy-preview.outputs.deployment_url }}storybook'
       - name: Update storybook deployment status (success)
         if: success()
-        uses: chrnorm/deployment-status@v2.0.3
+        uses: chrnorm/deployment-status@9a72af4586197112e0491ea843682b5dc280d806
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           environment-url: '${{ needs.deploy-preview.outputs.deployment_url }}storybook'
@@ -101,7 +101,7 @@ jobs:
           deployment-id: ${{ steps.storybook.outputs.deployment_id }}
       - name: Update storybook deployment status (failure)
         if: failure()
-        uses: chrnorm/deployment-status@v2.0.3
+        uses: chrnorm/deployment-status@9a72af4586197112e0491ea843682b5dc280d806
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           state: 'failure'
@@ -115,7 +115,7 @@ jobs:
   #     deployments: write
   #   runs-on: ubuntu-latest
   #   steps:
-  #     - uses: chrnorm/deployment-action@v2.0.7
+  #     - uses: chrnorm/deployment-action@55729fcebec3d284f60f5bcabbd8376437d696b1
   #       name: Create GitHub deployment for vrt-no-flag
   #       id: vrt-no-flag
   #       with:
@@ -124,7 +124,7 @@ jobs:
   #         environment-url: '${{ needs.deploy-preview.outputs.deployment_url }}vrt-no-flag'
   #     - name: Update vrt-no-flag deployment status (success)
   #       if: success()
-  #       uses: chrnorm/deployment-status@v2.0.3
+  #       uses: chrnorm/deployment-status@9a72af4586197112e0491ea843682b5dc280d806
   #       with:
   #         token: ${{ secrets.GITHUB_TOKEN }}
   #         environment-url: '${{ needs.deploy-preview.outputs.deployment_url }}vrt-no-flag'
@@ -132,7 +132,7 @@ jobs:
   #         deployment-id: ${{ steps.vrt-no-flag.outputs.deployment_id }}
   #     - name: Update vrt-no-flag deployment status (failure)
   #       if: failure()
-  #       uses: chrnorm/deployment-status@v2.0.3
+  #       uses: chrnorm/deployment-status@9a72af4586197112e0491ea843682b5dc280d806
   #       with:
   #         token: ${{ secrets.GITHUB_TOKEN }}
   #         state: 'failure'
@@ -146,7 +146,7 @@ jobs:
   #     deployments: write
   #   runs-on: ubuntu-latest
   #   steps:
-  #     - uses: chrnorm/deployment-action@v2.0.7
+  #     - uses: chrnorm/deployment-action@55729fcebec3d284f60f5bcabbd8376437d696b1
   #       name: Create GitHub deployment for vrt-all-flags
   #       id: vrt-all-flags
   #       with:
@@ -155,7 +155,7 @@ jobs:
   #         environment-url: '${{ needs.deploy-preview.outputs.deployment_url }}vrt-all-flags'
   #     - name: Update vrt-all-flags deployment status (success)
   #       if: success()
-  #       uses: chrnorm/deployment-status@v2.0.3
+  #       uses: chrnorm/deployment-status@9a72af4586197112e0491ea843682b5dc280d806
   #       with:
   #         token: ${{ secrets.GITHUB_TOKEN }}
   #         environment-url: '${{ needs.deploy-preview.outputs.deployment_url }}vrt-all-flags'
@@ -163,7 +163,7 @@ jobs:
   #         deployment-id: ${{ steps.vrt-all-flags.outputs.deployment_id }}
   #     - name: Update vrt-all-flags deployment status (failure)
   #       if: failure()
-  #       uses: chrnorm/deployment-status@v2.0.3
+  #       uses: chrnorm/deployment-status@9a72af4586197112e0491ea843682b5dc280d806
   #       with:
   #         token: ${{ secrets.GITHUB_TOKEN }}
   #         state: 'failure'
@@ -177,7 +177,7 @@ jobs:
   #     deployments: write
   #   runs-on: ubuntu-latest
   #   steps:
-  #     - uses: chrnorm/deployment-action@v2.0.7
+  #     - uses: chrnorm/deployment-action@55729fcebec3d284f60f5bcabbd8376437d696b1
   #       name: Create GitHub deployment for aat-no-flag
   #       id: aat-no-flag
   #       with:
@@ -186,7 +186,7 @@ jobs:
   #         environment-url: '${{ needs.deploy-preview.outputs.deployment_url }}aat-no-flag'
   #     - name: Update aat-no-flag deployment status (success)
   #       if: success()
-  #       uses: chrnorm/deployment-status@v2.0.3
+  #       uses: chrnorm/deployment-status@9a72af4586197112e0491ea843682b5dc280d806
   #       with:
   #         token: ${{ secrets.GITHUB_TOKEN }}
   #         environment-url: '${{ needs.deploy-preview.outputs.deployment_url }}aat-no-flag'
@@ -194,7 +194,7 @@ jobs:
   #         deployment-id: ${{ steps.aat-no-flag.outputs.deployment_id }}
   #     - name: Update aat-no-flag deployment status (failure)
   #       if: failure()
-  #       uses: chrnorm/deployment-status@v2.0.3
+  #       uses: chrnorm/deployment-status@9a72af4586197112e0491ea843682b5dc280d806
   #       with:
   #         token: ${{ secrets.GITHUB_TOKEN }}
   #         state: 'failure'
@@ -208,7 +208,7 @@ jobs:
   #     deployments: write
   #   runs-on: ubuntu-latest
   #   steps:
-  #     - uses: chrnorm/deployment-action@v2.0.7
+  #     - uses: chrnorm/deployment-action@55729fcebec3d284f60f5bcabbd8376437d696b1
   #       name: Create GitHub deployment for aat-all-flags
   #       id: aat-all-flags
   #       with:
@@ -217,7 +217,7 @@ jobs:
   #         environment-url: '${{ needs.deploy-preview.outputs.deployment_url }}aat-all-flags'
   #     - name: Update aat-all-flags deployment status (success)
   #       if: success()
-  #       uses: chrnorm/deployment-status@v2.0.3
+  #       uses: chrnorm/deployment-status@9a72af4586197112e0491ea843682b5dc280d806
   #       with:
   #         token: ${{ secrets.GITHUB_TOKEN }}
   #         environment-url: '${{ needs.deploy-preview.outputs.deployment_url }}aat-all-flags'
@@ -225,7 +225,7 @@ jobs:
   #         deployment-id: ${{ steps.aat-all-flags.outputs.deployment_id }}
   #     - name: Update aat-all-flags deployment status (failure)
   #       if: failure()
-  #       uses: chrnorm/deployment-status@v2.0.3
+  #       uses: chrnorm/deployment-status@9a72af4586197112e0491ea843682b5dc280d806
   #       with:
   #         token: ${{ secrets.GITHUB_TOKEN }}
   #         state: 'failure'
