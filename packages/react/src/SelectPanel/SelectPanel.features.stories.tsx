@@ -177,7 +177,6 @@ export const SingleSelect = () => {
         selected={selected}
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
-        onCancel={() => setOpen(false)}
         width="medium"
       />
     </FormControl>
@@ -652,55 +651,4 @@ export const AsyncFetch: StoryObj<SelectPanelProps> = {
       options: ['auto', 'xsmall', 'small', 'medium', 'large', 'xlarge'],
     },
   },
-}
-
-export const WithOnCancel = () => {
-  const [intialSelection, setInitialSelection] = React.useState<ItemInput[]>(items.slice(1, 3))
-
-  const [selected, setSelected] = React.useState<ItemInput[]>(intialSelection)
-  const [filter, setFilter] = React.useState('')
-  const filteredItems = items.filter(
-    item =>
-      // design guidelines say to always show selected items in the list
-      selected.some(selectedItem => selectedItem.text === item.text) ||
-      // then filter the rest
-      item.text.toLowerCase().startsWith(filter.toLowerCase()),
-  )
-  // design guidelines say to sort selected items first
-  const selectedItemsSortedFirst = filteredItems.sort((a, b) => {
-    const aIsSelected = selected.some(selectedItem => selectedItem.text === a.text)
-    const bIsSelected = selected.some(selectedItem => selectedItem.text === b.text)
-    if (aIsSelected && !bIsSelected) return -1
-    if (!aIsSelected && bIsSelected) return 1
-    return 0
-  })
-
-  const [open, setOpen] = useState(false)
-  React.useEffect(() => {
-    if (!open) setInitialSelection(selected) // set initialSelection for next time
-  }, [open, selected])
-
-  return (
-    <FormControl>
-      <FormControl.Label>Labels</FormControl.Label>
-      <SelectPanel
-        title="Select labels"
-        placeholder="Select labels"
-        subtitle="Use labels to organize issues and pull requests"
-        renderAnchor={({children, ...anchorProps}) => (
-          <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
-            {children}
-          </Button>
-        )}
-        open={open}
-        onOpenChange={setOpen}
-        items={selectedItemsSortedFirst}
-        selected={selected}
-        onSelectedChange={setSelected}
-        onCancel={() => setSelected(intialSelection)}
-        onFilterChange={setFilter}
-        width="medium"
-      />
-    </FormControl>
-  )
 }

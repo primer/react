@@ -128,12 +128,6 @@
       "defaultValue": ""
     },
     {
-      "name": "onCancel",
-      "type": "() => void",
-      "description": "(Narrow screens) Callback when the user hits cancel or close",
-      "defaultValue": ""
-    },
-    {
       "name": "overlayProps",
       "type": "Partial<OverlayProps>",
       "defaultValue": "",
