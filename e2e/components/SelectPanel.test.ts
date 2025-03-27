@@ -45,6 +45,7 @@ const scenarios = matrix({
       id: 'components-selectpanel-dev--with-sx-and-css',
       name: 'With Sx and Css',
     },
+    {id: 'components-selectpanel-features--as-modal', name: 'As Modal'},
   ],
 })
 
