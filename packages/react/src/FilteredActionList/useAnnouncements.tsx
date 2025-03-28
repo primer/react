@@ -115,6 +115,6 @@ export const useAnnouncements = (
         })
       })
     },
-    [announce, isFirstRender, items, listContainerRef, liveRegion],
+    [announce, isFirstRender, items, listContainerRef, liveRegion, loading],
   )
 }
