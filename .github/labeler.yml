@@ -1,0 +1,13 @@
+# Add label for the selected risk.
+risk:low:
+  - '(-.*\(`risk:low`)'
+risk:high:
+  - '(-.*\(`risk:high`)'
+
+# Add label for the selected rollout.
+release:patch:
+  - '(-.*\(`release:patch`)'
+release:minor:
+  - '(-.*\(`release:minor`)'
+release:major:
+  - '(-.*\(`release:major`)'

@@ -20,13 +20,18 @@ Closes #
 
 <!-- List of things removed in this PR -->
 
+### Risk
+
+- **Low risk:** TBD low risk definition. <!-- (`risk:low`) -->
+- **High risk:** TBD high risk definition. <!-- (`risk:high`) -->
+
 ### Rollout strategy
 
 <!-- How do you recommend this change to be rolled out? Refer to [contributor docs on Versioning](https://github.com/primer/react/blob/main/contributor-docs/versioning.md) for details. -->
 
-- [ ] Patch release
-- [ ] Minor release
-- [ ] Major release; if selected, include a written rollout or migration plan
+- [ ] Patch release <!-- (`release:patch`) -->
+- [ ] Minor release <!-- (`release:minor`) -->
+- [ ] Major release; if selected, include a written rollout or migration plan <!-- (`release:major`) -->
 - [ ] None; if selected, include a brief description as to why
 
 ### Testing & Reviewing
