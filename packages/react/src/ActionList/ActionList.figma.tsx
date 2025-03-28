@@ -4,12 +4,17 @@ import figma from '@figma/code-connect'
 
 figma.connect(
   ActionList,
-  'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?node-id=27975-14901&t=m8uYul4RVKTAkjzl-4',
+  'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?node-id=39883-5896&t=HMGAnO63EZZSdkly-4',
   {
     props: {
       children: figma.children('*'),
+      selectionVariant: figma.enum('selectionVariant', {
+        single: 'single',
+        multiple: 'multiple',
+        none: undefined,
+      }),
     },
-    example: ({children}) => <ActionList>{children}</ActionList>,
+    example: ({children, selectionVariant}) => <ActionList selectionVariant={selectionVariant}>{children}</ActionList>,
   },
 )
 
