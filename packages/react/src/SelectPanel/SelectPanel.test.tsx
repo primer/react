@@ -637,30 +637,39 @@ for (const useModernActionList of [false, true]) {
         })
 
         it('should announce initially focused item', async () => {
-          const user = userEvent.setup()
+          jest.useFakeTimers()
+          const user = userEvent.setup({
+            advanceTimers: jest.advanceTimersByTime,
+          })
           renderWithFlag(<FilterableSelectPanel />, useModernActionList)
 
           await user.click(screen.getByText('Select items'))
           expect(screen.getByLabelText('Filter items')).toHaveFocus()
 
+          jest.runAllTimers()
           // we wait because announcement is intentionally updated after a timeout to not interrupt user input
           await waitFor(async () => {
-            expect(getLiveRegion().getMessage('polite')).toBe(
+            expect(getLiveRegion().getMessage('polite')?.trim()).toEqual(
               'List updated, Focused item: item one, not selected, 1 of 3',
             )
           })
+          jest.useRealTimers()
         })
 
         it('should announce filtered results', async () => {
-          const user = userEvent.setup()
+          jest.useFakeTimers()
+          const user = userEvent.setup({
+            advanceTimers: jest.advanceTimersByTime,
+          })
           renderWithFlag(<FilterableSelectPanel />, useModernActionList)
 
           await user.click(screen.getByText('Select items'))
           expect(screen.getByLabelText('Filter items')).toHaveFocus()
 
+          jest.runAllTimers()
           await waitFor(
             async () => {
-              expect(getLiveRegion().getMessage('polite')).toBe(
+              expect(getLiveRegion().getMessage('polite')?.trim()).toEqual(
                 'List updated, Focused item: item one, not selected, 1 of 3',
               )
             },
@@ -670,6 +679,7 @@ for (const useModernActionList of [false, true]) {
           await user.type(document.activeElement!, 'o')
           expect(screen.getAllByRole('option')).toHaveLength(2)
 
+          jest.runAllTimers()
           await waitFor(
             async () => {
               expect(getLiveRegion().getMessage('polite')).toBe(
@@ -682,15 +692,20 @@ for (const useModernActionList of [false, true]) {
           await user.type(document.activeElement!, 'ne') // now: one
           expect(screen.getAllByRole('option')).toHaveLength(1)
 
+          jest.runAllTimers()
           await waitFor(async () => {
-            expect(getLiveRegion().getMessage('polite')).toBe(
+            expect(getLiveRegion().getMessage('polite')?.trim()).toBe(
               'List updated, Focused item: item one, not selected, 1 of 1',
             )
           })
+          jest.useRealTimers()
         })
 
         it('should announce when no results are available', async () => {
-          const user = userEvent.setup()
+          jest.useFakeTimers()
+          const user = userEvent.setup({
+            advanceTimers: jest.advanceTimersByTime,
+          })
           renderWithFlag(<FilterableSelectPanel />, useModernActionList)
 
           await user.click(screen.getByText('Select items'))
@@ -698,9 +713,11 @@ for (const useModernActionList of [false, true]) {
           await user.type(document.activeElement!, 'zero')
           expect(screen.queryByRole('option')).toBeNull()
 
+          jest.runAllTimers()
           await waitFor(async () => {
             expect(getLiveRegion().getMessage('polite')).toBe('No matching items.')
           })
+          jest.useRealTimers()
         })
 
         it('should accept a className to style the component', async () => {
