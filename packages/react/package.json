@@ -1,6 +1,6 @@
 {
   "name": "@primer/react",
-  "version": "37.15.0",
+  "version": "37.17.0",
   "description": "An implementation of GitHub's Primer Design System using React",
   "main": "lib/index.js",
   "module": "lib-esm/index.js",
@@ -79,7 +79,7 @@
     "npm": ">=7"
   },
   "dependencies": {
-    "@github/relative-time-element": "^4.4.3",
+    "@github/relative-time-element": "^4.4.5",
     "@github/tab-container-element": "4.8.2",
     "@lit-labs/react": "1.2.1",
     "@oddbird/popover-polyfill": "^0.4.4",
@@ -194,7 +194,7 @@
     "rollup-plugin-import-css": "^0.0.0",
     "rollup-plugin-postcss": "4.0.2",
     "rollup-plugin-visualizer": "5.9.2",
-    "semver": "7.6.3",
+    "semver": "7.7.1",
     "storybook": "^8.6.6",
     "styled-components": "5.3.11",
     "terser": "5.36.0",
