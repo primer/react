@@ -162,5 +162,6 @@
       "type": "{text: string | React.ReactElement; variant: 'empty' | 'error' | 'warning';}",
       "description": "Optional notice to display on top of the panel"
     }
-  ]
+  ],
+  "subcomponents": []
 }
