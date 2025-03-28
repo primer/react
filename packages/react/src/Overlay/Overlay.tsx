@@ -118,7 +118,7 @@ type BaseOverlayProps = {
   role?: AriaRole
   children?: React.ReactNode
   className?: string
-  'data-responsive'?: 'fullscreen' // we only support fullscreen today but we might add bottomsheet in the future
+  responsiveVariant?: 'fullscreen' // we only support fullscreen today but we might add bottomsheet in the future
 }
 
 type OwnOverlayProps = Merge<StyledOverlayProps, BaseOverlayProps>
@@ -257,6 +257,7 @@ const Overlay = React.forwardRef<HTMLDivElement, internalOverlayProps>(
       role = 'none',
       visibility = 'visible',
       width = 'auto',
+      responsiveVariant,
       ...props
     },
     forwardedRef,
@@ -314,6 +315,7 @@ const Overlay = React.forwardRef<HTMLDivElement, internalOverlayProps>(
           right={right}
           height={height}
           visibility={visibility}
+          data-responsive={responsiveVariant}
           {...props}
         />
       </Portal>
