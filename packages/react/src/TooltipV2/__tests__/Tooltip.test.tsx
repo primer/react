@@ -2,7 +2,7 @@ import React from 'react'
 import type {TooltipProps} from '../Tooltip'
 import {Tooltip} from '../Tooltip'
 import {checkStoriesForAxeViolations} from '../../utils/testing'
-import {render as HTMLRender} from '@testing-library/react'
+import {act, fireEvent, render as HTMLRender} from '@testing-library/react'
 import theme from '../../theme'
 import {Button, IconButton, ActionMenu, ActionList, ThemeProvider, BaseStyles, ButtonGroup} from '../..'
 import {XIcon} from '@primer/octicons-react'
@@ -32,6 +32,8 @@ function ExampleWithActionMenu(actionMenuTrigger: React.ReactElement): JSX.Eleme
     </ThemeProvider>
   )
 }
+
+jest.useFakeTimers()
 
 describe('Tooltip', () => {
   checkStoriesForAxeViolations('Tooltip.features', '../TooltipV2/')
@@ -156,5 +158,30 @@ describe('Tooltip', () => {
 
     const triggerEL = getByText('Button 1')
     expect(triggerEL).toBeInTheDocument()
+  })
+
+  it('should become visible after delay when the target is hovered over', async () => {
+    const {getByRole, getByText} = HTMLRender(<TooltipComponent />)
+    const triggerEL = getByRole('button')
+    const tooltip = getByText('Tooltip text')
+    expect(tooltip).not.toHaveClass(':popover-open')
+    fireEvent.mouseOver(triggerEL)
+    expect(tooltip).not.toHaveClass(':popover-open')
+    act(() => jest.advanceTimersByTime(50))
+    expect(tooltip).toHaveClass(':popover-open')
+  })
+
+  it('should not become visible after delay when the target is tapped', async () => {
+    const {getByRole, getByText} = HTMLRender(<TooltipComponent />)
+    const triggerEL = getByRole('button')
+    const tooltip = getByText('Tooltip text')
+    expect(tooltip).not.toHaveClass(':popover-open')
+    // 'sort of' simulating a tap event here. MouseOver normally happens after
+    // touchEnd but we are 'capture'ing it in the component
+    fireEvent.mouseOver(triggerEL)
+    fireEvent.focus(triggerEL)
+    fireEvent.touchEnd(triggerEL)
+    act(() => jest.advanceTimersByTime(50))
+    expect(tooltip).not.toHaveClass(':popover-open')
   })
 })

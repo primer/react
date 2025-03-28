@@ -3327,6 +3327,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
       onFocus={[Function]}
       onMouseEnter={[Function]}
       onMouseLeave={[Function]}
+      onTouchEnd={[Function]}
       type="button"
     >
       <svg
@@ -4095,6 +4096,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
       onFocus={[Function]}
       onMouseEnter={[Function]}
       onMouseLeave={[Function]}
+      onTouchEnd={[Function]}
       style={
         {
           "--button-color": "fg.subtle",
