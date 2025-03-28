@@ -3354,11 +3354,14 @@ exports[`TextInput renders trailingAction icon button 1`] = `
       aria-hidden={true}
       className="c5"
       data-direction="s"
-      id=":r2j:"
       onMouseEnter={[Function]}
       onMouseLeave={[Function]}
     >
-      Icon label
+      <span
+        id=":r2j:"
+      >
+        Icon label
+      </span>
     </span>
   </span>
 </span>
@@ -4115,12 +4118,15 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
       aria-hidden={true}
       className="c6"
       data-direction="s"
-      id=":r2d:"
       onMouseEnter={[Function]}
       onMouseLeave={[Function]}
       role="tooltip"
     >
-      Clear input
+      <span
+        id=":r2d:"
+      >
+        Clear input
+      </span>
     </span>
   </span>
 </span>
