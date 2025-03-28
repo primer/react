@@ -539,7 +539,11 @@ export function SelectPanel({
                 variant="invisible"
                 icon={XIcon}
                 aria-label="Cancel and close"
-                sx={enabled ? undefined : {display: ['inline-grid', 'inline-grid', 'none', 'none']}}
+                sx={
+                  enabled
+                    ? undefined
+                    : {display: variant === 'modal' ? 'inline-grid' : ['inline-grid', 'inline-grid', 'none', 'none']}
+                }
                 className={enabled ? classes.ResponsiveCloseButton : undefined}
                 onClick={() => {
                   onCancel()
