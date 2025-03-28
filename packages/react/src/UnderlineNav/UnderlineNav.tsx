@@ -10,12 +10,7 @@ import {useTheme} from '../ThemeProvider'
 import type {ChildWidthArray, ResponsiveProps, ChildSize} from './types'
 import VisuallyHidden from '../_VisuallyHidden'
 import {moreBtnStyles, getDividerStyle, menuStyles, menuItemStyles, baseMenuStyles, baseMenuMinWidth} from './styles'
-import {
-  StyledUnderlineItemList,
-  StyledUnderlineWrapper,
-  LoadingCounter,
-  GAP,
-} from '../internal/components/UnderlineTabbedInterface'
+import {UnderlineItemList, UnderlineWrapper, LoadingCounter, GAP} from '../internal/components/UnderlineTabbedInterface'
 import styled from 'styled-components'
 import {Button} from '../Button'
 import {TriangleDownIcon} from '@primer/octicons-react'
@@ -311,8 +306,8 @@ export const UnderlineNav = forwardRef(
         }}
       >
         {ariaLabel && <VisuallyHidden as="h2">{`${ariaLabel} navigation`}</VisuallyHidden>}
-        <StyledUnderlineWrapper as={as} aria-label={ariaLabel} ref={navRef} sx={sxProp}>
-          <StyledUnderlineItemList ref={listRef} role="list">
+        <UnderlineWrapper as={as} aria-label={ariaLabel} ref={navRef} sx={sxProp}>
+          <UnderlineItemList ref={listRef} role="list">
             {listItems}
             {menuItems.length > 0 && (
               <MoreMenuListItem ref={moreMenuRef}>
@@ -404,8 +399,8 @@ export const UnderlineNav = forwardRef(
                 </ActionList>
               </MoreMenuListItem>
             )}
-          </StyledUnderlineItemList>
-        </StyledUnderlineWrapper>
+          </UnderlineItemList>
+        </UnderlineWrapper>
       </UnderlineNavContext.Provider>
     )
   },
