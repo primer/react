@@ -103,6 +103,17 @@ const StyledOverlay = toggleStyledComponent(
       max-width: calc(100vw - 2rem);
     }
 
+    &:where([data-responsive='fullscreen']) {
+      @media screen and (max-width: calc(768px - 0.02px)) {
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        margin: 0;
+        border-radius: unset;
+      }
+    }
+
     ${sx};
   `,
 )
