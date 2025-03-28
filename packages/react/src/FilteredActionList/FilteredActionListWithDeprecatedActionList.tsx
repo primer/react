@@ -61,7 +61,7 @@ const getItemWithActiveDescendant = (
 
   const index = Array.from(optionElements).indexOf(activeItemElement)
   const activeItem = items[index]
-  const text = activeItem?.text
+  const text = activeItem.text
   const selected = activeItemElement.getAttribute('aria-selected') === 'true'
 
   return {index, text, selected}
@@ -167,7 +167,7 @@ export function FilteredActionList({
         setNeedItemsChangedAnnouncement(false)
       }
     },
-    [onListContainerRefChanged],
+    [items, needItemsChangedAnnouncement, onListContainerRefChanged],
   )
 
   useEffect(() => {
@@ -212,6 +212,7 @@ export function FilteredActionList({
         setNeedItemsChangedAnnouncement(true)
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [items])
 
   useScrollFlash(scrollContainerRef)

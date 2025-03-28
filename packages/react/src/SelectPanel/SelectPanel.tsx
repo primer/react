@@ -181,7 +181,7 @@ export function SelectPanel({
         setNeedsNoItemsAnnouncement(false)
       }
     },
-    [items],
+    [needsNoItemsAnnouncement],
   )
 
   const onInputRefChanged = useCallback(
