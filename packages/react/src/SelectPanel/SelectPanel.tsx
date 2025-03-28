@@ -95,13 +95,12 @@ interface SelectPanelBaseProps {
   onCancel?: () => void
 }
 
-export type SelectPanelProps = React.PropsWithChildren<
-  SelectPanelBaseProps &
-    Omit<FilteredActionListProps, 'selectionVariant'> &
-    Pick<AnchoredOverlayProps, 'open' | 'height' | 'width'> &
-    AnchoredOverlayWrapperAnchorProps &
-    (SelectPanelSingleSelection | SelectPanelMultiSelection)
->
+export type SelectPanelProps = SelectPanelBaseProps &
+  Omit<FilteredActionListProps, 'selectionVariant'> &
+  Pick<AnchoredOverlayProps, 'open' | 'height' | 'width'> &
+  AnchoredOverlayWrapperAnchorProps &
+  (SelectPanelSingleSelection | SelectPanelMultiSelection)
+
 function isMultiSelectVariant(
   selected: SelectPanelSingleSelection['selected'] | SelectPanelMultiSelection['selected'],
 ): selected is SelectPanelMultiSelection['selected'] {
