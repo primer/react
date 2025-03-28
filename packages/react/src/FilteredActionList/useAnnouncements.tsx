@@ -42,6 +42,7 @@ export const useAnnouncements = (
   listContainerRef: React.RefObject<HTMLUListElement>,
   inputRef: React.RefObject<HTMLInputElement>,
   enabled: boolean = true,
+  loading: boolean = false,
 ) => {
   const liveRegion = document.querySelector('live-region')
 
@@ -90,7 +91,7 @@ export const useAnnouncements = (
 
       liveRegion?.clear() // clear previous announcements
 
-      if (items.length === 0) {
+      if (items.length === 0 && !loading) {
         announce('No matching items.', {delayMs})
         return
       }

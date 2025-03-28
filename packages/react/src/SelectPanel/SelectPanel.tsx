@@ -237,7 +237,7 @@ export function SelectPanel({
 
   useEffect(() => {
     if (open) {
-      if (items.length === 0) {
+      if (items.length === 0 && !(isLoading || loading)) {
         // we need to wait for the listContainerElement to disappear before announcing no items, otherwise it will be interrupted
         if (!listContainerElement || !usingModernActionList) {
           announceNoItems(message?.title)

@@ -143,7 +143,7 @@ export function FilteredActionList({
     }
   }, [items])
 
-  useAnnouncements(items, {current: listContainerElement}, inputRef, announcementsEnabled)
+  useAnnouncements(items, {current: listContainerElement}, inputRef, announcementsEnabled, loading)
   useScrollFlash(scrollContainerRef)
 
   function getItemListForEachGroup(groupId: string) {
