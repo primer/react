@@ -17,7 +17,7 @@ type CSSModulesProps = {
  * @param defaultAs - the default component to use when `as` is not provided
  */
 export function toggleSxComponent<T, P extends CSSModulesProps>(
-  sx: BetterSystemStyleObject,
+  sx: BetterSystemStyleObject | undefined,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   defaultAs: string | React.ComponentType<any>,
 ) {

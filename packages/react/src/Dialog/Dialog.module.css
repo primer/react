@@ -243,11 +243,18 @@
 .Footer {
   z-index: 1;
   display: flex;
+  flex-flow: wrap;
+  justify-content: flex-end;
   padding: var(--base-size-16);
   /* stylelint-disable-next-line primer/box-shadow */
   box-shadow: 0 -1px 0 var(--borderColor-default);
-  flex-flow: wrap;
-  justify-content: flex-end;
   gap: var(--base-size-8);
   flex-shrink: 0;
+
+  @media (max-height: 325px) {
+    flex-wrap: nowrap;
+    overflow-x: scroll;
+    flex-direction: row;
+    justify-content: unset;
+  }
 }

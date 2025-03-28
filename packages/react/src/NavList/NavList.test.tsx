@@ -3,18 +3,7 @@ import React from 'react'
 import {ThemeProvider} from '..'
 import {NavList} from './NavList'
 import {FeatureFlags} from '../FeatureFlags'
-
-type ReactRouterLikeLinkProps = {to: string; children: React.ReactNode}
-
-const ReactRouterLikeLink = React.forwardRef<HTMLAnchorElement, ReactRouterLikeLinkProps>(
-  ({to, children, ...props}, ref) => {
-    return (
-      <a ref={ref} href={to} {...props}>
-        {children}
-      </a>
-    )
-  },
-)
+import {ReactRouterLikeLink} from '../__tests__/mocks/ReactRouterLink'
 
 type NextJSLinkProps = {href: string; children: React.ReactNode}
 
@@ -97,7 +86,7 @@ describe('NavList.Item', () => {
     expect(aboutLink).not.toHaveAttribute('aria-current')
   })
 
-  it('is compatiable with React-Router-like link components', () => {
+  it('is compatible with React-Router-like link components', () => {
     const {getByRole} = render(
       <NavList>
         <NavList.Item as={ReactRouterLikeLink} to={'/'} aria-current="page">
