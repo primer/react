@@ -9,12 +9,20 @@ import type {ItemInput} from '../deprecated/ActionList/List'
 import {FeatureFlags} from '../FeatureFlags'
 import FormControl from '../FormControl'
 
-const meta = {
+const meta: Meta<typeof SelectPanel> = {
   title: 'Components/SelectPanel/Dev',
   component: SelectPanel,
 } satisfies Meta<typeof SelectPanel>
 
 export default meta
+
+const NoResultsMessage = (filter: string): {variant: 'empty'; title: string; body: string} => {
+  return {
+    variant: 'empty',
+    title: `No language found for \`${filter}\``,
+    body: 'Adjust your search term to find other languages',
+  }
+}
 
 function getColorCircle(color: string) {
   return function () {
@@ -108,6 +116,7 @@ export const WithCss = () => {
           onSelectedChange={setSelected}
           onFilterChange={setFilter}
           className="testCustomClassnameMono"
+          message={selectedItemsSortedFirst.length === 0 ? NoResultsMessage(filter) : undefined}
         />
       </FormControl>
     </FeatureFlags>
@@ -159,6 +168,7 @@ export const WithSx = () => {
           onSelectedChange={setSelected}
           onFilterChange={setFilter}
           sx={{fontFamily: 'Times New Roman'}}
+          message={selectedItemsSortedFirst.length === 0 ? NoResultsMessage(filter) : undefined}
         />
       </FormControl>
     </FeatureFlags>
@@ -211,6 +221,7 @@ export const WithSxAndCSS = () => {
           onFilterChange={setFilter}
           sx={{fontFamily: 'Times New Roman'}}
           className="testCustomClassnameMono"
+          message={selectedItemsSortedFirst.length === 0 ? NoResultsMessage(filter) : undefined}
         />
       </FormControl>
     </FeatureFlags>
