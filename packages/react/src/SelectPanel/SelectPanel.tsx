@@ -37,26 +37,6 @@ const DefaultEmptyMessage = (
   </SelectPanelMessage>
 )
 
-const getItemWithActiveDescendant = (
-  listRef: React.RefObject<HTMLElement>,
-  items: FilteredActionListProps['items'],
-) => {
-  const listElement = listRef.current
-  const activeItemElement = listElement?.querySelector('[data-is-active-descendant]')
-
-  if (!listElement || !activeItemElement?.textContent) return
-
-  const optionElements = listElement.querySelectorAll('[role="option"]')
-
-  const index = Array.from(optionElements).indexOf(activeItemElement)
-  const activeItem = items[index] as ItemInput | undefined
-
-  const text = activeItem?.text
-  const selected = activeItemElement.getAttribute('aria-selected') === 'true'
-
-  return {index, text, selected}
-}
-
 async function announceText(text: string, delayMs = SHORT_DELAY_MS) {
   const liveRegion = document.querySelector('live-region')
 
@@ -68,40 +48,13 @@ async function announceText(text: string, delayMs = SHORT_DELAY_MS) {
   })
 }
 
-async function announceFilterFocused() {
-  await announceText('Focus on filter text box and list of items')
-}
 async function announceLoading() {
   await announceText('Loading.')
 }
 
-const announceItemsChanged = debounce(
-  async (items: FilteredActionListProps['items'], listContainerRef: React.RefObject<HTMLElement>) => {
-    const liveRegion = document.querySelector('live-region')
-
-    liveRegion?.clear() // clear previous announcements
-
-    // give @primer/behaviors a moment to update active-descendant
-    await new Promise(resolve => window.requestAnimationFrame(resolve))
-
-    const activeItem = getItemWithActiveDescendant(listContainerRef, items)
-    if (!activeItem) return
-    const {index, text, selected} = activeItem
-
-    const announcementText = [
-      'List updated',
-      `Focused item: ${text}`,
-      `${selected ? 'selected' : 'not selected'}`,
-      `${index + 1} of ${items.length}`,
-    ].join(', ')
-
-    await announce(announcementText, {
-      delayMs: SHORT_DELAY_MS,
-      from: liveRegion ? liveRegion : undefined, // announce will create a liveRegion if it doesn't find one
-    })
-  },
-  250,
-)
+const announceNoItems = debounce((message?: string) => {
+  announceText(message ?? 'No matching items.', LONG_DELAY_MS)
+}, 250)
 
 interface SelectPanelSingleSelection {
   selected: ItemInput | undefined
@@ -218,18 +171,17 @@ export function SelectPanel({
   const loadingManagedExternally = !loadingManagedInternally
   const [inputRef, setInputRef] = React.useState<React.RefObject<HTMLInputElement> | null>(null)
   const [listContainerElement, setListContainerElement] = useState<HTMLElement | null>(null)
-  const [needItemsChangedAnnouncement, setNeedItemsChangedAnnouncement] = useState<boolean>(false)
+  const [needsNoItemsAnnouncement, setNeedsNoItemsAnnouncement] = useState<boolean>(false)
 
   const onListContainerRefChanged: FilteredActionListProps['onListContainerRefChanged'] = useCallback(
     (node: HTMLElement | null) => {
       setListContainerElement(node)
-
-      if (needItemsChangedAnnouncement) {
-        announceItemsChanged(items, {current: node})
-        setNeedItemsChangedAnnouncement(false)
+      if (!node && needsNoItemsAnnouncement) {
+        announceNoItems()
+        setNeedsNoItemsAnnouncement(false)
       }
     },
-    [items, needItemsChangedAnnouncement],
+    [items],
   )
 
   const onInputRefChanged = useCallback(
@@ -284,25 +236,13 @@ export function SelectPanel({
     ],
   )
 
-  const announceNoItems = useCallback(async () => {
-    if (listContainerElement) {
-      safeSetTimeout(async () => {
-        await announceText(message?.title ?? 'No matching items.', LONG_DELAY_MS)
-      })
-    } else {
-      announceText(message?.title ?? 'No matching items.', LONG_DELAY_MS)
-    }
-  }, [listContainerElement, message?.title])
-
   useEffect(() => {
     if (open) {
       if (items.length === 0) {
-        announceNoItems()
-      } else {
-        if (listContainerElement) {
-          announceItemsChanged(items, {current: listContainerElement})
+        if (!listContainerElement || !usingModernActionList) {
+          announceNoItems(message?.title)
         } else {
-          setNeedItemsChangedAnnouncement(true)
+          setNeedsNoItemsAnnouncement(true)
         }
       }
     }
@@ -331,15 +271,6 @@ export function SelectPanel({
   useEffect(() => {
     if (inputRef?.current) {
       const ref = inputRef.current
-      const listener = () => {
-        announceFilterFocused()
-      }
-
-      if (document.activeElement === ref) {
-        listener()
-      }
-
-      ref.addEventListener('focus', listener)
 
       // We would normally expect AnchoredOverlay's focus trap to automatically focus the input,
       // but for some reason the ref isn't populated until _after_ the panel is open, which is
@@ -347,8 +278,6 @@ export function SelectPanel({
       if (open) {
         ref.focus()
       }
-
-      return () => ref.removeEventListener('focus', listener)
     }
   }, [inputRef, open])
 
@@ -460,6 +389,7 @@ export function SelectPanel({
     }
   }
 
+  const usingModernActionList = useFeatureFlag('primer_react_select_panel_modern_action_list')
   const usingFullScreenOnNarrow = useFeatureFlag('primer_react_select_panel_fullscreen_on_narrow')
 
   const iconForNoticeVariant = {
@@ -589,7 +519,8 @@ export function SelectPanel({
           // than the Overlay (which would break scrolling the items)
           sx={enabled ? sx : {...sx, height: 'inherit', maxHeight: 'inherit'}}
           className={enabled ? clsx(className, classes.FilteredActionList) : className}
-          announcementsEnabled={false}
+          // needed to explicitly enable announcements for deprecated FilteredActionList, we can remove when we fully remove the deprecated version
+          announcementsEnabled
         />
         {footer ? (
           <Box

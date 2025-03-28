@@ -21,6 +21,8 @@ import {
   FilteredActionListBodyLoader,
   FilteredActionListLoadingTypes,
 } from './FilteredActionListLoaders'
+import {announce} from '@primer/live-region-element'
+import {debounce} from '@github/mini-throttle'
 
 const menuScrollMargins: ScrollIntoViewOptions = {startMargin: 0, endMargin: 8}
 
@@ -46,6 +48,68 @@ const StyledHeader = styled.div`
   z-index: 1;
 `
 
+const getItemWithActiveDescendant = (
+  listRef: React.RefObject<HTMLElement>,
+  items: FilteredActionListProps['items'],
+) => {
+  const listElement = listRef.current
+  const activeItemElement = listElement?.querySelector('[data-is-active-descendant]')
+
+  if (!listElement || !activeItemElement?.textContent) return
+
+  const optionElements = listElement.querySelectorAll('[role="option"]')
+
+  const index = Array.from(optionElements).indexOf(activeItemElement)
+  const activeItem = items[index]
+  const text = activeItem?.text
+  const selected = activeItemElement.getAttribute('aria-selected') === 'true'
+
+  return {index, text, selected}
+}
+
+async function announceText(text: string) {
+  const liveRegion = document.querySelector('live-region')
+
+  liveRegion?.clear() // clear previous announcements
+
+  await announce(text, {
+    delayMs: 500,
+    from: liveRegion ? liveRegion : undefined, // announce will create a liveRegion if it doesn't find one
+  })
+}
+
+const announceItemsChanged = debounce(
+  async (items: FilteredActionListProps['items'], listContainerRef: React.RefObject<HTMLElement>) => {
+    const liveRegion = document.querySelector('live-region')
+
+    liveRegion?.clear() // clear previous announcements
+
+    // give @primer/behaviors a moment to update active-descendant
+    await new Promise(resolve => window.requestAnimationFrame(resolve))
+
+    const activeItem = getItemWithActiveDescendant(listContainerRef, items)
+    if (!activeItem) return
+    const {index, text, selected} = activeItem
+
+    const announcementText = [
+      'List updated',
+      `Focused item: ${text}`,
+      `${selected ? 'selected' : 'not selected'}`,
+      `${index + 1} of ${items.length}`,
+    ].join(', ')
+
+    await announce(announcementText, {
+      delayMs: 500,
+      from: liveRegion ? liveRegion : undefined, // announce will create a liveRegion if it doesn't find one
+    })
+  },
+  250,
+)
+
+async function announceFilterFocused() {
+  await announceText('Focus on filter text box and list of items')
+}
+
 export function FilteredActionList({
   loading = false,
   loadingType = FilteredActionListLoadingTypes.bodySpinner,
@@ -59,7 +123,7 @@ export function FilteredActionList({
   inputRef: providedInputRef,
   sx,
   className,
-  announcementsEnabled: _announcementsEnabled = true,
+  announcementsEnabled = false,
   ...listProps
 }: FilteredActionListProps): JSX.Element {
   const [filterValue, setInternalFilterValue] = useProvidedStateOrCreate(externalFilterValue, undefined, '')
@@ -75,6 +139,7 @@ export function FilteredActionList({
   const scrollContainerRef = useRef<HTMLDivElement>(null)
   const [listContainerElement, setListContainerElement] = useState<HTMLDivElement | null>(null)
   const inputRef = useProvidedRefOrCreate<HTMLInputElement>(providedInputRef)
+  const [needItemsChangedAnnouncement, setNeedItemsChangedAnnouncement] = useState<boolean>(false)
   const activeDescendantRef = useRef<HTMLElement>()
   const listId = useId()
   const inputDescriptionTextId = useId()
@@ -96,6 +161,11 @@ export function FilteredActionList({
     (node: HTMLDivElement | null) => {
       setListContainerElement(node)
       onListContainerRefChanged?.(node)
+
+      if (needItemsChangedAnnouncement) {
+        announceItemsChanged(items, {current: node})
+        setNeedItemsChangedAnnouncement(false)
+      }
     },
     [onListContainerRefChanged],
   )
@@ -134,6 +204,14 @@ export function FilteredActionList({
         behavior: 'auto',
       })
     }
+
+    if (announcementsEnabled) {
+      if (listContainerElement) {
+        announceItemsChanged(items, {current: listContainerElement})
+      } else {
+        setNeedItemsChangedAnnouncement(true)
+      }
+    }
   }, [items])
 
   useScrollFlash(scrollContainerRef)
@@ -163,6 +241,7 @@ export function FilteredActionList({
           aria-describedby={inputDescriptionTextId}
           loaderPosition={'leading'}
           loading={loading && !loadingType.appearsInBody}
+          onFocus={announcementsEnabled ? announceFilterFocused : undefined}
           {...textInputProps}
         />
       </StyledHeader>
