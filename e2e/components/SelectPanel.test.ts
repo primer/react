@@ -109,10 +109,15 @@ test.describe('SelectPanel', () => {
     )
   })
 
-  test(`Default @vrt responsive width .modern-action-list--true`, async ({page}) => {
+  test(`Default @vrt responsive width .modern-action-list--true .fullscreen-on-narrow--true`, async ({page}) => {
     await visit(page, {
       id: 'components-selectpanel--default',
-      globals: {featureFlags: {primer_react_select_panel_with_modern_action_list: true}},
+      globals: {
+        featureFlags: {
+          primer_react_select_panel_with_modern_action_list: true,
+          primer_react_select_panel_fullscreen_on_narrow: true,
+        },
+      },
     })
 
     await page.setViewportSize({width: 767, height: 767})
@@ -125,7 +130,7 @@ test.describe('SelectPanel', () => {
     }
 
     expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
-      `SelectPanel-Default-responsive-width-light-modern-action-list--true.png`,
+      `SelectPanel-Default-responsive-width-light-modern-action-list--true-full-screen-on-narrow--true.png`,
     )
   })
 })
