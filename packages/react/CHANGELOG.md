@@ -1,5 +1,44 @@
 # @primer/react
 
+## 37.17.0
+
+### Minor Changes
+
+- [#5804](https://github.com/primer/react/pull/5804) [`687343c`](https://github.com/primer/react/commit/687343c6c0b57c80862b898ecd7ed51cc4c2fec8) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove CSS modules feature flag from the InlineMessage component
+
+- [#5786](https://github.com/primer/react/pull/5786) [`0f165d4`](https://github.com/primer/react/commit/0f165d443586a9bf34931b944bc00e031b7c81ab) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove the CSS modules feature flag from the Timeline component
+
+- [#5793](https://github.com/primer/react/pull/5793) [`4213a86`](https://github.com/primer/react/commit/4213a86c64d938d787c022d0a61b6379d3ff9418) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove the CSS modules feature flag from the Autocomplete component.
+
+- [#5741](https://github.com/primer/react/pull/5741) [`d32dd27`](https://github.com/primer/react/commit/d32dd272771dee777bc31d67713b87f189bc8661) Thanks [@mperrotti](https://github.com/mperrotti)! - Adds `hasBorder` prop to PageHeader to allow a bottom border
+
+- [#5810](https://github.com/primer/react/pull/5810) [`2411aa9`](https://github.com/primer/react/commit/2411aa98388a695fc3246725f74503a44a4b97fe) Thanks [@hussam-i-am](https://github.com/hussam-i-am)! - ActionList.Group + ActionList.TrailingAction: add missing className prop
+  LabelGroup: add missing className prop
+
+- [#5792](https://github.com/primer/react/pull/5792) [`4e85438`](https://github.com/primer/react/commit/4e85438a878f80ccb3ffc8167b31afe93d81d752) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove the CSS modules feature flag from the KeybindingHint Component.
+
+- [#5790](https://github.com/primer/react/pull/5790) [`acc5d27`](https://github.com/primer/react/commit/acc5d27fc43d08b6a2efca9c86aba5dec88fe3dc) Thanks [@hectahertz](https://github.com/hectahertz)! - Add Notice to SelectPanel
+
+- [#5821](https://github.com/primer/react/pull/5821) [`3a102a7`](https://github.com/primer/react/commit/3a102a7ed43b84eea5d708fbe0855c272c239371) Thanks [@jamieshark](https://github.com/jamieshark)! - Adds util function to swap out SX enabled components.
+
+- [#5795](https://github.com/primer/react/pull/5795) [`1555b1b`](https://github.com/primer/react/commit/1555b1b5f1c900c303c49eb2c7898460a7db1de2) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove the CSS modules feature flag from the ConfirmationDialog component
+
+- [#5787](https://github.com/primer/react/pull/5787) [`9272a8c`](https://github.com/primer/react/commit/9272a8c4311dbcbd909490e79a185e29e18d15d5) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove the CSS module feature flag from SkeletonAvatar SkeletonBox and SkeletonText
+
+### Patch Changes
+
+- [#5811](https://github.com/primer/react/pull/5811) [`91b52f7`](https://github.com/primer/react/commit/91b52f70da11c1f2d6f666483ea28fd43676b5bb) Thanks [@TylerJDev](https://github.com/TylerJDev)! - DialogV2: Fix CSS issue where `flex-grow` wasn't getting applied via classname
+
+- [#5436](https://github.com/primer/react/pull/5436) [`11b8d4c`](https://github.com/primer/react/commit/11b8d4c418d4de21d3ff86a7031a4eca844bc34b) Thanks [@TylerJDev](https://github.com/TylerJDev)! - Show `Tooltip` on close button in `Dialog`
+
+- [#5832](https://github.com/primer/react/pull/5832) [`b6c7690`](https://github.com/primer/react/commit/b6c769004b6ce02b6377c91766714cbe16478778) Thanks [@francinelucca](https://github.com/francinelucca)! - chore(SelectPanel): put fullscreen functionality behind FF
+
+- [#5816](https://github.com/primer/react/pull/5816) [`59e62c1`](https://github.com/primer/react/commit/59e62c1b190a5bccf30ffa1ba355b0ed5368bf89) Thanks [@langermank](https://github.com/langermank)! - Bug fix: `className` passed to PageLayout twice
+
+- [#5761](https://github.com/primer/react/pull/5761) [`94bc6e4`](https://github.com/primer/react/commit/94bc6e41319a711650957fa2e728f75c72a36772) Thanks [@siddharthkp](https://github.com/siddharthkp)! - SelectPanel: Make SelectPanel full screen on narrow devices with a Save button
+
+- [#5797](https://github.com/primer/react/pull/5797) [`fbc6f97`](https://github.com/primer/react/commit/fbc6f97aae024917b56cfbc98244030d40f3ea00) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - SubNav: Update selected styles to only apply to `data-selected='true'`
+
 ## 37.16.0
 
 ### Minor Changes
