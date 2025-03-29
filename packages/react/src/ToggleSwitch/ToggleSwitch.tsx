@@ -239,14 +239,14 @@ const ToggleSwitch = React.forwardRef<HTMLButtonElement, React.PropsWithChildren
         }
         onClick && onClick(e)
       },
-      [onClick, isControlled, isOn, setIsOn, buttonType],
+      [onClick, isControlled, isOn, setIsOn],
     )
 
     useEffect(() => {
       if (onChange && isControlled) {
         onChange(Boolean(checked))
       }
-    }, [onChange, checked, isControlled])
+    }, [onChange, checked, isControlled, buttonType])
 
     return (
       <Box
