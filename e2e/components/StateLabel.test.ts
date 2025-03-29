@@ -182,4 +182,40 @@ test.describe('StateLabel', () => {
       })
     }
   })
+
+  test.describe('Open', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-statelabel-features--open',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          // Default state
+          expect(await page.screenshot()).toMatchSnapshot(`StateLabel.Open.${theme}.png`)
+        })
+      })
+    }
+  })
+
+  test.describe('Closed', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-statelabel-features--closed',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          // Default state
+          expect(await page.screenshot()).toMatchSnapshot(`StateLabel.Closed.${theme}.png`)
+        })
+      })
+    }
+  })
 })

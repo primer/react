@@ -1200,6 +1200,14 @@ const components = new Map([
           id: 'components-statelabel-features--small',
           name: 'Small',
         },
+        {
+          id: 'components-statelabel-features--open',
+          name: 'Open',
+        },
+        {
+          id: 'components-statelabel-features--closed',
+          name: 'Closed',
+        },
       ],
     },
   ],

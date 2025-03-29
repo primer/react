@@ -2,6 +2,7 @@ import React from 'react'
 import type {Meta} from '@storybook/react'
 import type {ComponentProps} from '../utils/types'
 import StateLabel from './StateLabel'
+import VisuallyHidden from '../_VisuallyHidden'
 
 export default {
   title: 'Components/StateLabel/Features',
@@ -19,6 +20,14 @@ export const PullMerged = () => <StateLabel status="pullMerged">Merged</StateLab
 export const Queued = () => <StateLabel status="pullQueued">Queued</StateLabel>
 export const Draft = () => <StateLabel status="draft">Draft</StateLabel>
 export const Unavailable = () => <StateLabel status="unavailable">Unavailable</StateLabel>
+export const Open = () => (
+  <StateLabel status="open">
+    {/* Because open is a generic status, a visually hidden text could be added to specify the type of the artifact */}
+    <VisuallyHidden>Milestone</VisuallyHidden>
+    Open
+  </StateLabel>
+)
+export const Closed = () => <StateLabel status="closed">Closed</StateLabel>
 
 export const Small = () => (
   <StateLabel status="issueOpened" variant="small">

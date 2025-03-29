@@ -31,6 +31,8 @@ const octiconMap = {
   issueDraft: IssueDraftIcon,
   pullQueued: GitMergeQueueIcon,
   unavailable: AlertIcon,
+  open: null,
+  closed: null,
 }
 
 const labelMap: Record<keyof typeof octiconMap, 'Issue' | 'Issue, not planned' | 'Pull request' | ''> = {
@@ -44,6 +46,8 @@ const labelMap: Record<keyof typeof octiconMap, 'Issue' | 'Issue, not planned' |
   issueDraft: 'Issue',
   pullQueued: 'Pull request',
   unavailable: '',
+  open: '',
+  closed: '',
 }
 
 const colorVariants = variant({
@@ -99,6 +103,16 @@ const colorVariants = variant({
       color: 'fg.onEmphasis',
       boxShadow: 'var(--boxShadow-thin, inset 0 0 0 1px) var(--borderColor-neutral-emphasis, transparent)',
     },
+    open: {
+      backgroundColor: 'open.emphasis',
+      color: 'fg.onEmphasis',
+      boxShadow: 'var(--boxShadow-thin, inset 0 0 0 1px) var(--borderColor-open-emphasis, transparent)',
+    },
+    closed: {
+      backgroundColor: 'done.emphasis',
+      color: 'fg.onEmphasis',
+      boxShadow: 'var(--boxShadow-thin, inset 0 0 0 1px) var(--borderColor-done-emphasis, transparent)',
+    },
   },
 })
 
@@ -140,10 +154,12 @@ export type StateLabelProps = ComponentProps<typeof StateLabelBase>
 
 function StateLabel({children, status, variant: variantProp = 'normal', ...rest}: StateLabelProps) {
   const octiconProps = variantProp === 'small' ? {width: '1em'} : {}
+  // Open and closed statuses, we don't want to show an icon
+  const noIconStatus = status === 'open' || status === 'closed'
   return (
     <StateLabelBase {...rest} variant={variantProp} status={status}>
       {/* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition */}
-      {status && (
+      {status && !noIconStatus && (
         <Octicon
           {...octiconProps}
           // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
