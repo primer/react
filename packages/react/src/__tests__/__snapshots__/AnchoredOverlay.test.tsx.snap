@@ -7,44 +7,6 @@ exports[`AnchoredOverlay should render consistently when open 1`] = `
   color: var(--fgColor-default);
 }
 
-.c1 {
-  background-color: var(--overlay-bgColor,var(--color-canvas-overlay,#ffffff));
-  box-shadow: var(--shadow-floating-small,var(--color-overlay-shadow,0 1px 3px rgba(31,35,40,0.12),0 8px 24px rgba(66,74,83,0.12)));
-  position: absolute;
-  min-width: 192px;
-  height: auto;
-  max-height: 100vh;
-  width: auto;
-  border-radius: 12px;
-  overflow: hidden;
-  -webkit-animation: overlay-appear 200ms cubic-bezier(0.33,1,0.68,1);
-  animation: overlay-appear 200ms cubic-bezier(0.33,1,0.68,1);
-  visibility: var(--styled-overlay-visibility);
-}
-
-.c1:focus {
-  outline: none;
-}
-
-.c1[data-reflow-container='true'] {
-  max-width: calc(100vw - 2rem);
-}
-
-.c1:where([data-variant='fullscreen']) {
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  margin: 0;
-  border-radius: unset;
-}
-
-@media (forced-colors:active) {
-  .c1 {
-    outline: solid 1px transparent;
-  }
-}
-
 <div>
   <div
     class="c0"
@@ -89,13 +51,14 @@ exports[`AnchoredOverlay should render consistently when open 1`] = `
         style="position: relative; z-index: 1;"
       >
         <div
-          class="c1"
+          class="Overlay"
           data-focus-trap="active"
+          data-height-auto=""
           data-variant="anchored"
-          height="auto"
+          data-visibility-visible=""
+          data-width-auto=""
           role="none"
-          style="left: 0px; top: 4px; --styled-overlay-visibility: visible;"
-          width="auto"
+          style="left: 0px; top: 4px;"
         >
           <span
             aria-hidden="true"
