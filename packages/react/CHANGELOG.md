@@ -1,5 +1,23 @@
 # @primer/react
 
+## 37.18.0
+
+### Minor Changes
+
+- [#5820](https://github.com/primer/react/pull/5820) [`bd9225d`](https://github.com/primer/react/commit/bd9225df84b1636c6db17217d3304bbdc026d998) Thanks [@hussam-i-am](https://github.com/hussam-i-am)! - feat(Pagination): add renderPage prop to Pagination
+
+- [#5807](https://github.com/primer/react/pull/5807) [`926f8f8`](https://github.com/primer/react/commit/926f8f8124bc7c825908dd28b3e4d5673a8f295b) Thanks [@jamieshark](https://github.com/jamieshark)! - Removes feature flag for FormControl
+
+- [#5826](https://github.com/primer/react/pull/5826) [`5f40e43`](https://github.com/primer/react/commit/5f40e43cb3d70f049b23de005849f543cdeaa9d6) Thanks [@francinelucca](https://github.com/francinelucca)! - SelectPanel: Implement empty state (behind ff)
+
+### Patch Changes
+
+- [#5818](https://github.com/primer/react/pull/5818) [`a19676d`](https://github.com/primer/react/commit/a19676d1f019c8c944e0644e94d7d3f558bbb726) Thanks [@iansan5653](https://github.com/iansan5653)! - Add workaround for Chrome bug where `KeybindingHint` in combination with `aria-labelledby` results in incorrect label
+
+- [#5629](https://github.com/primer/react/pull/5629) [`b7346b2`](https://github.com/primer/react/commit/b7346b296b831efa9e2c3db24c6460623c0efae5) Thanks [@hectahertz](https://github.com/hectahertz)! - Make Dialog footer scrollable on very short viewports
+
+- [#5629](https://github.com/primer/react/pull/5629) [`b7346b2`](https://github.com/primer/react/commit/b7346b296b831efa9e2c3db24c6460623c0efae5) Thanks [@hectahertz](https://github.com/hectahertz)! - Update the Dialog stress test story to go fullscreen on narrow screens
+
 ## 37.17.0
 
 ### Minor Changes
