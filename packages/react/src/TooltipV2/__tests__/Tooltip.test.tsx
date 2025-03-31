@@ -33,8 +33,6 @@ function ExampleWithActionMenu(actionMenuTrigger: React.ReactElement): JSX.Eleme
   )
 }
 
-jest.useFakeTimers()
-
 describe('Tooltip', () => {
   checkStoriesForAxeViolations('Tooltip.features', '../TooltipV2/')
 
