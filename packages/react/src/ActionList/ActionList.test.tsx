@@ -34,6 +34,18 @@ describe('ActionList', () => {
     toRender: () => <ActionList />,
   })
 
+  behavesAsComponent({
+    Component: ActionList.Divider,
+    options: {skipAs: true, skipSx: true},
+    toRender: () => <ActionList.Divider />,
+  })
+
+  behavesAsComponent({
+    Component: ActionList.TrailingAction,
+    options: {skipAs: true, skipSx: true},
+    toRender: () => <ActionList.TrailingAction label="Action">Action</ActionList.TrailingAction>,
+  })
+
   checkExports('ActionList', {
     default: undefined,
     ActionList,
@@ -106,7 +118,6 @@ describe('ActionList', () => {
       return (
         <FeatureFlags
           flags={{
-            primer_react_css_modules_team: true,
             primer_react_css_modules_staff: true,
             primer_react_css_modules_ga: true,
           }}
@@ -132,7 +143,6 @@ describe('ActionList', () => {
       return (
         <FeatureFlags
           flags={{
-            primer_react_css_modules_team: true,
             primer_react_css_modules_staff: true,
             primer_react_css_modules_ga: true,
           }}
@@ -145,5 +155,47 @@ describe('ActionList', () => {
       'test-class-name',
     )
     expect(HTMLRender(<Element />).container.querySelector('li[aria-hidden="true"]')).toHaveClass('test-class-name')
+  })
+
+  it('list and its sub-components support classname', () => {
+    const {container} = HTMLRender(
+      <ActionList className="list">
+        <ActionList.Heading as="h2" className="heading">
+          Heading
+        </ActionList.Heading>
+        <ActionList.Item className="item">
+          Item
+          <ActionList.TrailingAction label="action" className="trailing_action">
+            Trailing Action
+          </ActionList.TrailingAction>
+        </ActionList.Item>
+        <ActionList.Divider className="divider" />
+        <ActionList.LinkItem className="link" href="//github.com" title="anchor" aria-keyshortcuts="d">
+          Link Item
+        </ActionList.LinkItem>
+        <ActionList.Group className="group">
+          <ActionList.GroupHeading as="h2" className="group_heading">
+            Group Heading
+          </ActionList.GroupHeading>
+          <ActionList.Item className="item">
+            <ActionList.TrailingVisual className="trailing">Trailing Visual</ActionList.TrailingVisual>
+            <ActionList.LeadingVisual className="leading">Leading Visual</ActionList.LeadingVisual>
+            <ActionList.Description className="description">Description</ActionList.Description>
+          </ActionList.Item>
+        </ActionList.Group>
+      </ActionList>,
+    )
+
+    expect(container.querySelector('.list')).toBeInTheDocument()
+    expect(container.querySelector('.heading')).toBeInTheDocument()
+    expect(container.querySelector('.item')).toBeInTheDocument()
+    expect(container.querySelector('.trailing_action')).toBeInTheDocument()
+    expect(container.querySelector('.divider')).toBeInTheDocument()
+    expect(container.querySelector('.link')).toBeInTheDocument()
+    expect(container.querySelector('.group')).toBeInTheDocument()
+    expect(container.querySelector('.group_heading')).toBeInTheDocument()
+    expect(container.querySelector('.trailing')).toBeInTheDocument()
+    expect(container.querySelector('.leading')).toBeInTheDocument()
+    expect(container.querySelector('.description')).toBeInTheDocument()
   })
 })

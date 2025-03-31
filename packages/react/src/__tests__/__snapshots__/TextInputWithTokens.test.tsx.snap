@@ -72,6 +72,7 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -161,8 +162,8 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 
@@ -1002,6 +1003,7 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -1091,8 +1093,8 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 
@@ -1533,6 +1535,7 @@ exports[`TextInputWithTokens renders as block layout 1`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -1622,8 +1625,8 @@ exports[`TextInputWithTokens renders as block layout 1`] = `
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 
@@ -1852,6 +1855,7 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -1941,8 +1945,8 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 
@@ -2699,6 +2703,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -2788,8 +2793,8 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 
@@ -3539,6 +3544,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -3628,8 +3634,8 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 
@@ -4379,6 +4385,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -4468,8 +4475,8 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 
@@ -5219,6 +5226,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -5308,8 +5316,8 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 
@@ -6061,6 +6069,7 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -6150,8 +6159,8 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 
@@ -6906,6 +6915,7 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -6995,8 +7005,8 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 
@@ -7435,8 +7445,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 }
 
 .c10 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
   visibility: visible;
 }
 
@@ -7473,6 +7481,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -7562,8 +7571,8 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 
@@ -8253,7 +8262,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         >
           <svg
             aria-hidden={true}
-            className="c10"
+            className="c10 SpinnerAnimation"
             fill="none"
             height="16px"
             sx={
@@ -8332,14 +8341,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 }
 
 .c3 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
   visibility: visible;
 }
 
 .c11 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
   visibility: hidden;
 }
 
@@ -8376,6 +8381,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -8465,8 +8471,8 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 
@@ -8731,7 +8737,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         >
           <svg
             aria-hidden={true}
-            className="c3"
+            className="c3 SpinnerAnimation"
             fill="none"
             height="16px"
             sx={
@@ -9199,7 +9205,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         >
           <svg
             aria-hidden={true}
-            className="c11"
+            className="c11 SpinnerAnimation"
             fill="none"
             height="16px"
             sx={
@@ -9278,8 +9284,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 }
 
 .c10 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
   visibility: visible;
 }
 
@@ -9316,6 +9320,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -9405,8 +9410,8 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 
@@ -10096,7 +10101,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         >
           <svg
             aria-hidden={true}
-            className="c10"
+            className="c10 SpinnerAnimation"
             fill="none"
             height="16px"
             sx={
@@ -10179,14 +10184,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 }
 
 .c12 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
   visibility: hidden;
 }
 
 .c4 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
   position: absolute;
   top: 0;
   height: 100%;
@@ -10228,6 +10229,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -10317,8 +10319,8 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 
@@ -10607,7 +10609,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         >
           <svg
             aria-hidden={true}
-            className="c4"
+            className="c4 SpinnerAnimation"
             fill="none"
             height="32px"
             sx={
@@ -11080,7 +11082,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         >
           <svg
             aria-hidden={true}
-            className="c12"
+            className="c12 SpinnerAnimation"
             fill="none"
             height="16px"
             sx={
@@ -11163,14 +11165,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 }
 
 .c12 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
   visibility: hidden;
 }
 
 .c4 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
   position: absolute;
   top: 0;
   height: 100%;
@@ -11212,6 +11210,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -11301,8 +11300,8 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 
@@ -11591,7 +11590,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         >
           <svg
             aria-hidden={true}
-            className="c4"
+            className="c4 SpinnerAnimation"
             fill="none"
             height="32px"
             sx={
@@ -12064,7 +12063,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         >
           <svg
             aria-hidden={true}
-            className="c12"
+            className="c12 SpinnerAnimation"
             fill="none"
             height="16px"
             sx={
@@ -12147,14 +12146,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 }
 
 .c12 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
   visibility: visible;
 }
 
 .c4 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
   position: absolute;
   top: 0;
   height: 100%;
@@ -12196,6 +12191,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -12285,8 +12281,8 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 
@@ -12576,7 +12572,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         >
           <svg
             aria-hidden={true}
-            className="c4"
+            className="c4 SpinnerAnimation"
             fill="none"
             height="32px"
             sx={
@@ -13049,7 +13045,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         >
           <svg
             aria-hidden={true}
-            className="c12"
+            className="c12 SpinnerAnimation"
             fill="none"
             height="16px"
             sx={
@@ -13132,8 +13128,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 }
 
 .c11 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
   position: absolute;
   top: 0;
   height: 100%;
@@ -13175,6 +13169,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -13264,8 +13259,8 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 
@@ -13979,7 +13974,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         >
           <svg
             aria-hidden={true}
-            className="c11"
+            className="c11 SpinnerAnimation"
             fill="none"
             height="32px"
             sx={
@@ -14067,14 +14062,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 }
 
 .c3 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
   visibility: visible;
 }
 
 .c12 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
   position: absolute;
   top: 0;
   height: 100%;
@@ -14116,6 +14107,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -14205,8 +14197,8 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 
@@ -14472,7 +14464,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         >
           <svg
             aria-hidden={true}
-            className="c3"
+            className="c3 SpinnerAnimation"
             fill="none"
             height="16px"
             sx={
@@ -14964,7 +14956,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         >
           <svg
             aria-hidden={true}
-            className="c12"
+            className="c12 SpinnerAnimation"
             fill="none"
             height="32px"
             sx={
@@ -15052,8 +15044,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 }
 
 .c11 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
   position: absolute;
   top: 0;
   height: 100%;
@@ -15095,6 +15085,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -15184,8 +15175,8 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 
@@ -15899,7 +15890,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         >
           <svg
             aria-hidden={true}
-            className="c11"
+            className="c11 SpinnerAnimation"
             fill="none"
             height="32px"
             sx={
@@ -15991,8 +15982,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 }
 
 .c4 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
   position: absolute;
   top: 0;
   height: 100%;
@@ -16002,8 +15991,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 }
 
 .c13 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
   position: absolute;
   top: 0;
   height: 100%;
@@ -16045,6 +16032,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -16134,8 +16122,8 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 
@@ -16423,7 +16411,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         >
           <svg
             aria-hidden={true}
-            className="c4"
+            className="c4 SpinnerAnimation"
             fill="none"
             height="32px"
             sx={
@@ -16920,7 +16908,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         >
           <svg
             aria-hidden={true}
-            className="c13"
+            className="c13 SpinnerAnimation"
             fill="none"
             height="32px"
             sx={
@@ -17012,8 +17000,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 }
 
 .c4 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
   position: absolute;
   top: 0;
   height: 100%;
@@ -17023,8 +17009,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 }
 
 .c13 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
   position: absolute;
   top: 0;
   height: 100%;
@@ -17066,6 +17050,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -17155,8 +17140,8 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 
@@ -17446,7 +17431,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         >
           <svg
             aria-hidden={true}
-            className="c4"
+            className="c4 SpinnerAnimation"
             fill="none"
             height="32px"
             sx={
@@ -17943,7 +17928,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         >
           <svg
             aria-hidden={true}
-            className="c13"
+            className="c13 SpinnerAnimation"
             fill="none"
             height="32px"
             sx={
@@ -18035,8 +18020,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 }
 
 .c4 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
   position: absolute;
   top: 0;
   height: 100%;
@@ -18046,8 +18029,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 }
 
 .c13 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
   position: absolute;
   top: 0;
   height: 100%;
@@ -18089,6 +18070,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -18178,8 +18160,8 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 
@@ -18467,7 +18449,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         >
           <svg
             aria-hidden={true}
-            className="c4"
+            className="c4 SpinnerAnimation"
             fill="none"
             height="32px"
             sx={
@@ -18964,7 +18946,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         >
           <svg
             aria-hidden={true}
-            className="c13"
+            className="c13 SpinnerAnimation"
             fill="none"
             height="32px"
             sx={
@@ -19076,6 +19058,7 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -19165,8 +19148,8 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 
@@ -19905,6 +19888,7 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -19994,8 +19978,8 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 
@@ -20706,6 +20690,7 @@ exports[`TextInputWithTokens renders without tokens 1`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -20795,8 +20780,8 @@ exports[`TextInputWithTokens renders without tokens 1`] = `
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 

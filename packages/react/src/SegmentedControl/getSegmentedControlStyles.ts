@@ -1,7 +1,7 @@
 import {get} from '../constants'
 import type {SegmentedControlButtonProps} from './SegmentedControlButton'
 
-export const SEGMENTED_CONTROL_CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_team'
+export const SEGMENTED_CONTROL_CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_ga'
 
 export const directChildLayoutAdjustments = {
   ':first-child': {

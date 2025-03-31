@@ -4,10 +4,9 @@ import {render, rendersClass, behavesAsComponent, checkExports} from '../../util
 
 import React from 'react'
 import Timeline from '..'
-import {FeatureFlags} from '../../FeatureFlags'
 
 describe('Timeline', () => {
-  behavesAsComponent({Component: Timeline})
+  behavesAsComponent({Component: Timeline, options: {skipAs: true}})
 
   checkExports('Timeline', {
     default: Timeline,
@@ -24,27 +23,12 @@ describe('Timeline', () => {
   })
 
   it('should support `className` on the outermost element', () => {
-    const Element = () => <Timeline className={'test-class-name'} />
-    const FeatureFlagElement = () => {
-      return (
-        <FeatureFlags
-          flags={{
-            primer_react_css_modules_team: true,
-            primer_react_css_modules_staff: true,
-            primer_react_css_modules_ga: true,
-          }}
-        >
-          <Element />
-        </FeatureFlags>
-      )
-    }
-    expect(HTMLRender(<Element />).container.firstChild).toHaveClass('test-class-name')
-    expect(HTMLRender(<FeatureFlagElement />).container.firstChild).toHaveClass('test-class-name')
+    expect(HTMLRender(<Timeline className={'test-class-name'} />).container.firstChild).toHaveClass('test-class-name')
   })
 })
 
 describe('Timeline.Item', () => {
-  behavesAsComponent({Component: Timeline.Item})
+  behavesAsComponent({Component: Timeline.Item, options: {skipAs: true}})
 
   it('should have no axe violations', async () => {
     const {container} = HTMLRender(<Timeline.Item />)
@@ -61,22 +45,9 @@ describe('Timeline.Item', () => {
   })
 
   it('should support `className` on the outermost element', () => {
-    const Element = () => <Timeline.Item className={'test-class-name'} />
-    const FeatureFlagElement = () => {
-      return (
-        <FeatureFlags
-          flags={{
-            primer_react_css_modules_team: true,
-            primer_react_css_modules_staff: true,
-            primer_react_css_modules_ga: true,
-          }}
-        >
-          <Element />
-        </FeatureFlags>
-      )
-    }
-    expect(HTMLRender(<Element />).container.firstChild).toHaveClass('test-class-name')
-    expect(HTMLRender(<FeatureFlagElement />).container.firstChild).toHaveClass('test-class-name')
+    expect(HTMLRender(<Timeline.Item className={'test-class-name'} />).container.firstChild).toHaveClass(
+      'test-class-name',
+    )
   })
 })
 
@@ -90,21 +61,9 @@ describe('Timeline.Badge', () => {
   })
 
   it('should support `className` on the outermost element', () => {
-    const Element = () => <Timeline.Badge className={'test-class-name'} />
-    const FeatureFlagElement = () => {
-      return (
-        <FeatureFlags
-          flags={{
-            primer_react_css_modules_team: true,
-            primer_react_css_modules_staff: true,
-            primer_react_css_modules_ga: true,
-          }}
-        >
-          <Element />
-        </FeatureFlags>
-      )
-    }
-    expect(HTMLRender(<FeatureFlagElement />).container.firstChild?.firstChild).toHaveClass('test-class-name')
+    expect(HTMLRender(<Timeline.Badge className={'test-class-name'} />).container.firstChild?.firstChild).toHaveClass(
+      'test-class-name',
+    )
   })
 })
 
@@ -118,22 +77,9 @@ describe('Timeline.Body', () => {
   })
 
   it('should support `className` on the outermost element', () => {
-    const Element = () => <Timeline.Body className={'test-class-name'} />
-    const FeatureFlagElement = () => {
-      return (
-        <FeatureFlags
-          flags={{
-            primer_react_css_modules_team: true,
-            primer_react_css_modules_staff: true,
-            primer_react_css_modules_ga: true,
-          }}
-        >
-          <Element />
-        </FeatureFlags>
-      )
-    }
-    expect(HTMLRender(<Element />).container.firstChild).toHaveClass('test-class-name')
-    expect(HTMLRender(<FeatureFlagElement />).container.firstChild).toHaveClass('test-class-name')
+    expect(HTMLRender(<Timeline.Body className={'test-class-name'} />).container.firstChild).toHaveClass(
+      'test-class-name',
+    )
   })
 })
 
@@ -147,21 +93,8 @@ describe('Timeline.Break', () => {
   })
 
   it('should support `className` on the outermost element', () => {
-    const Element = () => <Timeline.Break className={'test-class-name'} />
-    const FeatureFlagElement = () => {
-      return (
-        <FeatureFlags
-          flags={{
-            primer_react_css_modules_team: true,
-            primer_react_css_modules_staff: true,
-            primer_react_css_modules_ga: true,
-          }}
-        >
-          <Element />
-        </FeatureFlags>
-      )
-    }
-    expect(HTMLRender(<Element />).container.firstChild).toHaveClass('test-class-name')
-    expect(HTMLRender(<FeatureFlagElement />).container.firstChild).toHaveClass('test-class-name')
+    expect(HTMLRender(<Timeline.Break className={'test-class-name'} />).container.firstChild).toHaveClass(
+      'test-class-name',
+    )
   })
 })

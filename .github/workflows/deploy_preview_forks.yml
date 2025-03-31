@@ -7,15 +7,24 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  vrt-reports:
+    if: ${{ github.repository != github.event.pull_request.head.repo.full_name }}
+    uses: ./.github/workflows/vrt-reports.yml
+
+  aat-reports:
+    if: ${{ github.repository != github.event.pull_request.head.repo.full_name }}
+    uses: ./.github/workflows/aat-reports.yml
+
   build:
     # target repository for pull_request is different from source repository
-    if: ${{ github.repository != github.event.pull_request.head.repo.full_name }}
+    if: ${{ always() && github.repository != github.event.pull_request.head.repo.full_name }}
+    needs: [vrt-reports, aat-reports]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@cdca7365b2dadb8aad0a33bc7601856ffabcc48e
         with:
           node-version: 22
           cache: 'npm'
@@ -23,13 +32,33 @@ jobs:
         run: npm ci
       - name: Build docs preview
         run: npm run build:docs:preview
-      - uses: actions/upload-pages-artifact@v3
+      - name: Download VRT reports (All flags enabled)
+        uses: actions/download-artifact@95815c38cf2ff2164869cbab79da8d1f422bc89e
+        with:
+          name: vrt-all-flags
+          path: docs/public/vrt-all-flags
+      - name: Download VRT reports (No flags enabled)
+        uses: actions/download-artifact@95815c38cf2ff2164869cbab79da8d1f422bc89e
+        with:
+          name: vrt-no-flag
+          path: docs/public/vrt-no-flag
+      - name: Download AAT reports (All flags enabled)
+        uses: actions/download-artifact@95815c38cf2ff2164869cbab79da8d1f422bc89e
+        with:
+          name: axe-all-flags
+          path: docs/public/aat-all-flags
+      - name: Download AAT reports (No flags enabled)
+        uses: actions/download-artifact@95815c38cf2ff2164869cbab79da8d1f422bc89e
+        with:
+          name: axe
+          path: docs/public/aat-no-flag
+      - uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa
         with:
           name: github-pages
           path: docs/public
 
   deploy-preview:
-    if: ${{ github.repository != github.event.pull_request.head.repo.full_name }}
+    if: ${{ always() && github.repository != github.event.pull_request.head.repo.full_name }}
     needs: build
     permissions:
       pages: write
@@ -43,6 +72,6 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e
         with:
           preview: true

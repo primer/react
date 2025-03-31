@@ -4,6 +4,7 @@ import React from 'react'
 import {ActionList} from '.'
 import {BookIcon} from '@primer/octicons-react'
 import {FeatureFlags} from '../FeatureFlags'
+import {behavesAsComponent} from '../utils/testing'
 
 function SimpleActionList(): JSX.Element {
   return (
@@ -57,6 +58,48 @@ function SingleSelectListStory(): JSX.Element {
 }
 
 describe('ActionList.Item', () => {
+  behavesAsComponent({
+    Component: ActionList.Item,
+    options: {skipAs: true, skipSx: true},
+    toRender: () => <ActionList.Item />,
+  })
+
+  behavesAsComponent({
+    Component: ActionList.LinkItem,
+    options: {skipAs: true, skipSx: true},
+    toRender: () => <ActionList.LinkItem />,
+  })
+
+  behavesAsComponent({
+    Component: ActionList.TrailingVisual,
+    options: {skipAs: true, skipSx: true, skipClassName: true},
+    toRender: () => (
+      <ActionList.Item>
+        <ActionList.TrailingVisual>Trailing Visual</ActionList.TrailingVisual>
+      </ActionList.Item>
+    ),
+  })
+
+  behavesAsComponent({
+    Component: ActionList.LeadingVisual,
+    options: {skipAs: true, skipSx: true, skipClassName: true},
+    toRender: () => (
+      <ActionList.Item>
+        <ActionList.LeadingVisual>Leading Visual</ActionList.LeadingVisual>
+      </ActionList.Item>
+    ),
+  })
+
+  behavesAsComponent({
+    Component: ActionList.Description,
+    options: {skipAs: true, skipSx: true, skipClassName: true},
+    toRender: () => (
+      <ActionList.Item>
+        <ActionList.Description>Description</ActionList.Description>
+      </ActionList.Item>
+    ),
+  })
+
   it('should have aria-keyshortcuts applied to the correct element', async () => {
     const {container} = HTMLRender(<SimpleActionList />)
     const linkOptions = await waitFor(() => container.querySelectorAll('a'))
@@ -161,7 +204,6 @@ describe('ActionList.Item', () => {
   })
   it('should render ActionList.Item as button when feature flag is enabled', async () => {
     const featureFlag = {
-      primer_react_css_modules_team: true,
       primer_react_css_modules_staff: true,
       primer_react_css_modules_ga: true,
     }
@@ -184,7 +226,6 @@ describe('ActionList.Item', () => {
     const {container} = HTMLRender(
       <FeatureFlags
         flags={{
-          primer_react_css_modules_team: false,
           primer_react_css_modules_staff: false,
           primer_react_css_modules_ga: false,
         }}
@@ -212,7 +253,6 @@ describe('ActionList.Item', () => {
       return (
         <FeatureFlags
           flags={{
-            primer_react_css_modules_team: false,
             primer_react_css_modules_staff: false,
             primer_react_css_modules_ga: false,
           }}
@@ -306,7 +346,6 @@ describe('ActionList.Item', () => {
     const {getByRole} = HTMLRender(
       <FeatureFlags
         flags={{
-          primer_react_css_modules_team: true,
           primer_react_css_modules_staff: true,
           primer_react_css_modules_ga: true,
         }}
@@ -326,7 +365,6 @@ describe('ActionList.Item', () => {
     const {getByRole} = HTMLRender(
       <FeatureFlags
         flags={{
-          primer_react_css_modules_team: true,
           primer_react_css_modules_staff: true,
           primer_react_css_modules_ga: true,
         }}

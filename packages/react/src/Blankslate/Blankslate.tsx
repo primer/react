@@ -58,14 +58,19 @@ function Description({children}: DescriptionProps) {
   return <p className={clsx('Blankslate-Description', classes.Description)}>{children}</p>
 }
 
-export type PrimaryActionProps = React.PropsWithChildren<{
-  href: string
-}>
+export type PrimaryActionProps =
+  | (React.PropsWithChildren<{
+      href?: never
+    }> &
+      React.ComponentPropsWithoutRef<'button'>)
+  | React.PropsWithChildren<{
+      href: string
+    }>
 
-function PrimaryAction({children, href}: PrimaryActionProps) {
+function PrimaryAction({children, href, ...props}: PrimaryActionProps) {
   return (
     <div className={clsx('Blankslate-Action', classes.Action)}>
-      <Button as="a" href={href} variant="primary">
+      <Button {...props} as={href ? 'a' : 'button'} href={href} variant="primary">
         {children}
       </Button>
     </div>

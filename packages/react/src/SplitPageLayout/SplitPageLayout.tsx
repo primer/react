@@ -11,7 +11,7 @@ import {PageLayout} from '../PageLayout'
 // ----------------------------------------------------------------------------
 // SplitPageLayout
 
-export type SplitPageLayoutProps = SxProp
+export type SplitPageLayoutProps = SxProp & {className?: string}
 
 export const Root: React.FC<React.PropsWithChildren<SplitPageLayoutProps>> = props => {
   return (

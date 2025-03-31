@@ -65,10 +65,6 @@
     justify-content: flex-end;
   }
 
-  .DialogOverflowWrapper {
-    flex-grow: 1;
-  }
-
   @media (max-width: 767px) {
     &[data-position-narrow='center'] {
       align-items: center;
@@ -119,14 +115,14 @@
   }
 
   @media screen and (prefers-reduced-motion: no-preference) {
-    animation: Overlay--motion-scaleFade 0.2s cubic-bezier(0.33, 1, 0.68, 1) 0s 1 normal none running;
+    animation: Overlay--motion-scaleFade 0.2s cubic-bezier(0.33, 1, 0.68, 1) 1ms 1 normal none running;
   }
 
   &[data-position-regular='center'] {
     border-radius: var(--borderRadius-large, var(--borderRadius-large));
 
     @media screen and (prefers-reduced-motion: no-preference) {
-      animation: Overlay--motion-scaleFade 0.2s cubic-bezier(0.33, 1, 0.68, 1) 0s 1 normal none running;
+      animation: Overlay--motion-scaleFade 0.2s cubic-bezier(0.33, 1, 0.68, 1) 1ms 1 normal none running;
     }
   }
 
@@ -138,7 +134,7 @@
     border-bottom-left-radius: 0;
 
     @media screen and (prefers-reduced-motion: no-preference) {
-      animation: Overlay--motion-slideInRight 0.25s cubic-bezier(0.33, 1, 0.68, 1) 0s 1 normal none running;
+      animation: Overlay--motion-slideInRight 0.25s cubic-bezier(0.33, 1, 0.68, 1) 1ms 1 normal none running;
     }
   }
 
@@ -193,7 +189,7 @@
       border-bottom-left-radius: 0;
 
       @media screen and (prefers-reduced-motion: no-preference) {
-        animation: Overlay--motion-slideUp 0.25s cubic-bezier(0.33, 1, 0.68, 1) 0s 1 normal none running;
+        animation: Overlay--motion-slideUp 0.25s cubic-bezier(0.33, 1, 0.68, 1) 1ms 1 normal none running;
       }
     }
 
@@ -206,10 +202,14 @@
       flex-grow: 1;
 
       @media screen and (prefers-reduced-motion: no-preference) {
-        animation: Overlay--motion-scaleFade 0.2s cubic-bezier(0.33, 1, 0.68, 1) 0s 1 normal none running;
+        animation: Overlay--motion-scaleFade 0.2s cubic-bezier(0.33, 1, 0.68, 1) 1ms 1 normal none running;
       }
     }
   }
+}
+
+.DialogOverflowWrapper {
+  flex-grow: 1;
 }
 
 .Header {
@@ -243,11 +243,18 @@
 .Footer {
   z-index: 1;
   display: flex;
+  flex-flow: wrap;
+  justify-content: flex-end;
   padding: var(--base-size-16);
   /* stylelint-disable-next-line primer/box-shadow */
   box-shadow: 0 -1px 0 var(--borderColor-default);
-  flex-flow: wrap;
-  justify-content: flex-end;
   gap: var(--base-size-8);
   flex-shrink: 0;
+
+  @media (max-height: 325px) {
+    flex-wrap: nowrap;
+    overflow-x: scroll;
+    flex-direction: row;
+    justify-content: unset;
+  }
 }

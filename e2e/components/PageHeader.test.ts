@@ -18,22 +18,6 @@ test.describe('PageHeader', () => {
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`PageHeader.Files Page.${theme}.png`)
         })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-pageheader-examples--files-page',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
-        })
       })
     }
   })
@@ -51,22 +35,6 @@ test.describe('PageHeader', () => {
 
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`PageHeader.Files Page on Narrow Viewport.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-pageheader-examples--files-page-on-narrow-viewport',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
         })
       })
     }
@@ -126,27 +94,6 @@ test.describe('PageHeader', () => {
           expect(await page.screenshot()).toMatchSnapshot(
             `PageHeader.Pull Request Page on Narrow Viewport.${theme}.png`,
           )
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-pageheader-examples--pull-request-page-on-narrow-viewport',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled:
-                  theme !== 'dark_colorblind' &&
-                  theme !== 'dark_dimmed' &&
-                  theme !== 'light' &&
-                  theme !== 'light_colorblind' &&
-                  theme !== 'light_tritanopia',
-              },
-            },
-          })
         })
       })
     }
@@ -234,25 +181,23 @@ test.describe('PageHeader', () => {
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`PageHeader.With Page Layout.${theme}.png`)
         })
+      })
+    }
+  })
 
-        test('axe @aat', async ({page}) => {
+  test.describe('Has Border', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-pageheader-examples--with-page-layout',
+            id: 'components-pageheader-features--has-bottom-border',
             globals: {
               colorScheme: theme,
             },
           })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: false,
-              },
-              // TODO: Remove this rule when the issue is fixed https://github.com/github/primer/issues/1865
-              'scrollable-region-focusable': {
-                enabled: false,
-              },
-            },
-          })
+
+          // Default state
+          expect(await page.screenshot()).toMatchSnapshot(`PageHeader.Has Border.${theme}.png`)
         })
       })
     }
@@ -272,22 +217,6 @@ test.describe('PageHeader', () => {
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`PageHeader.Has Large Title.${theme}.png`)
         })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-pageheader-features--has-large-title',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
-        })
       })
     }
   })
@@ -305,22 +234,6 @@ test.describe('PageHeader', () => {
 
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`PageHeader.Has Title Only.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-pageheader-features--has-title-only',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
         })
       })
     }
@@ -412,22 +325,6 @@ test.describe('PageHeader', () => {
             `PageHeader.With Context Bar and Actions of Context Area.${theme}.png`,
           )
         })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-pageheader-features--with-context-bar-and-actions-of-context-area',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
-        })
       })
     }
   })
@@ -445,22 +342,6 @@ test.describe('PageHeader', () => {
 
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`PageHeader.With Custom Navigation.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-pageheader-features--with-custom-navigation',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
         })
       })
     }
@@ -480,22 +361,6 @@ test.describe('PageHeader', () => {
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`PageHeader.With Description Slot.${theme}.png`)
         })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-pageheader-features--with-description-slot',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
-        })
       })
     }
   })
@@ -514,22 +379,6 @@ test.describe('PageHeader', () => {
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`PageHeader.With Leading and Trailing Actions.${theme}.png`)
         })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-pageheader-features--with-leading-and-trailing-actions',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
-        })
       })
     }
   })
@@ -547,22 +396,6 @@ test.describe('PageHeader', () => {
 
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`PageHeader.With Leading and Trailing Visuals.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-pageheader-features--with-leading-and-trailing-visuals',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
         })
       })
     }
@@ -584,22 +417,6 @@ test.describe('PageHeader', () => {
             `PageHeader.With Leading Visual Hidden on Regular Viewport.${theme}.png`,
           )
         })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-pageheader-features--with-leading-visual-hidden-on-regular-viewport',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
-        })
       })
     }
   })
@@ -617,22 +434,6 @@ test.describe('PageHeader', () => {
 
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`PageHeader.With Navigation Slot.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-pageheader-features--with-navigation-slot',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
         })
       })
     }
@@ -654,22 +455,6 @@ test.describe('PageHeader', () => {
             `PageHeader.With Parent Link and Actions of Context Area.${theme}.png`,
           )
         })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-pageheader-features--with-parent-link-and-actions-of-context-area',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
-        })
       })
     }
   })
@@ -679,7 +464,7 @@ test.describe('PageHeader', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-pageheader-devonly--large-variant-with-multiline-title',
+            id: 'components-pageheader-dev--large-variant-with-multiline-title',
             globals: {
               colorScheme: theme,
             },
@@ -687,22 +472,6 @@ test.describe('PageHeader', () => {
 
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`PageHeader.Large Variant with Multiline Title.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-pageheader-devonly--large-variant-with-multiline-title',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
         })
       })
     }

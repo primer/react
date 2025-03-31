@@ -1,18 +1,14 @@
 import React from 'react'
 import {EyeClosedIcon, EyeIcon, SearchIcon, XIcon, HeartIcon, ChevronRightIcon} from '@primer/octicons-react'
 import type {Meta, StoryFn} from '@storybook/react'
-import {Button} from '.'
+import {LinkButton} from '.'
 import {OcticonArgType} from '../utils/story-helpers'
 
 export default {
   title: 'Components/LinkButton',
-} as Meta<typeof Button>
+} as Meta<typeof LinkButton>
 
-export const Playground: StoryFn = args => (
-  <Button as="a" {...args}>
-    Default
-  </Button>
-)
+export const Playground: StoryFn = args => <LinkButton {...args}>Default</LinkButton>
 Playground.argTypes = {
   size: {
     control: {
@@ -54,12 +50,8 @@ Playground.args = {
   alignContent: 'center',
   trailingIcon: null,
   leadingIcon: null,
-  href: '/',
+  href: '#',
   loading: false,
 }
 
-export const Default = () => (
-  <Button as="a" href="/">
-    Default
-  </Button>
-)
+export const Default = () => <LinkButton href="#">Default</LinkButton>

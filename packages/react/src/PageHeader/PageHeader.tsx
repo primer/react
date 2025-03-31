@@ -66,7 +66,7 @@ const hiddenOnNarrow = {
   wide: false,
 }
 
-const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_team'
+const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_ga'
 
 // Root
 // -----------------------------------------------------------------------------
@@ -75,10 +75,11 @@ export type PageHeaderProps = {
   as?: React.ElementType | 'header' | 'div'
   className?: string
   role?: AriaRole
+  hasBorder?: boolean
 } & SxProp
 
 const Root = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeaderProps>>(
-  ({children, className, sx = {}, as = 'div', 'aria-label': ariaLabel, role}, forwardedRef) => {
+  ({children, className, sx = {}, as = 'div', 'aria-label': ariaLabel, role, hasBorder}, forwardedRef) => {
     const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
 
     const rootStyles = {
@@ -116,6 +117,29 @@ const Root = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeader
         {
           height: 'calc(var(--title-line-height) * 1em)',
         },
+      '&[data-has-border="true"]:has([data-component="PH_Navigation"][data-hidden-all]), &[data-has-border="true"]:not(:has([data-component="PH_Navigation"]))':
+        {
+          borderBlockEnd: 'var(--borderWidth-thin) solid var(--borderColor-default)',
+          paddingBlockEnd: 'var(--base-size-8)',
+        },
+      '@media screen and (max-width: 768px)': {
+        '&[data-has-border="true"]:has([data-component="PH_Navigation"][data-hidden-narrow])': {
+          borderBlockEnd: 'var(--borderWidth-thin) solid var(--borderColor-default)',
+          paddingBlockEnd: 'var(--base-size-8)',
+        },
+      },
+      '@media screen and (min-width: 768px)': {
+        '&[data-has-border="true"]:has([data-component="PH_Navigation"][data-hidden-regular])': {
+          borderBlockEnd: 'var(--borderWidth-thin) solid var(--borderColor-default)',
+          paddingBlockEnd: 'var(--base-size-8)',
+        },
+      },
+      '@media screen and (min-width: 1440px)': {
+        '&[data-has-border="true"]:has([data-component="PH_Navigation"][data-hidden-wide])': {
+          borderBlockEnd: 'var(--borderWidth-thin) solid var(--borderColor-default)',
+          paddingBlockEnd: 'var(--base-size-8)',
+        },
+      },
     }
 
     const rootRef = useProvidedRefOrCreate<HTMLDivElement>(forwardedRef as React.RefObject<HTMLDivElement>)
@@ -176,6 +200,7 @@ const Root = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeader
         ref={rootRef}
         as={as}
         className={clsx(enabled && classes.PageHeader, className)}
+        data-has-border={hasBorder ? 'true' : undefined}
         sx={enabled ? sx : merge<BetterSystemStyleObject>(rootStyles, sx)}
         aria-label={ariaLabel}
         role={role}
@@ -754,6 +779,7 @@ const Navigation: React.FC<React.PropsWithChildren<NavigationProps>> = ({
       aria-label={as === 'nav' ? ariaLabel : undefined}
       aria-labelledby={as === 'nav' ? ariaLabelledBy : undefined}
       className={clsx(enabled && classes.Navigation, className)}
+      data-component="PH_Navigation"
       sx={
         enabled
           ? sx
@@ -773,7 +799,9 @@ const Navigation: React.FC<React.PropsWithChildren<NavigationProps>> = ({
               sx,
             )
       }
-      {...getHiddenDataAttributes(enabled, hidden)}
+      // passing `true` always get the data attributes for the hidden prop,
+      // not just for CSS modules
+      {...getHiddenDataAttributes(true, hidden)}
     >
       {children}
     </Box>

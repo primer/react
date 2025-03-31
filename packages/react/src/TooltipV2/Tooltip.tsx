@@ -17,7 +17,7 @@ import {KeybindingHint, type KeybindingHintProps} from '../KeybindingHint'
 import VisuallyHidden from '../_VisuallyHidden'
 import useSafeTimeout from '../hooks/useSafeTimeout'
 
-const CSS_MODULE_FEATURE_FLAG = 'primer_react_css_modules_team'
+const CSS_MODULE_FEATURE_FLAG = 'primer_react_css_modules_ga'
 
 const animationStyles = `
   animation-name: tooltip-appear;
@@ -407,7 +407,7 @@ export const Tooltip = React.forwardRef(
           >
             {text}
             {keybindingHint && (
-              <span className={clsx(classes.keybindingHintContainer, text && classes.hasTextBefore)}>
+              <span className={clsx(classes.KeybindingHintContainer, text && classes.HasTextBefore)}>
                 <VisuallyHidden>(</VisuallyHidden>
                 <KeybindingHint keys={keybindingHint} format="condensed" variant="onEmphasis" size="small" />
                 <VisuallyHidden>)</VisuallyHidden>

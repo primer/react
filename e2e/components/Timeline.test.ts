@@ -41,22 +41,6 @@ test.describe('Timeline', () => {
             // Default state
             expect(await page.screenshot()).toMatchSnapshot(`Timeline.${story.title}.${theme}.png`)
           })
-
-          test('axe @aat', async ({page}) => {
-            await visit(page, {
-              id: story.id,
-              globals: {
-                colorScheme: theme,
-              },
-            })
-            await expect(page).toHaveNoViolations({
-              rules: {
-                'color-contrast': {
-                  enabled: theme !== 'dark_dimmed',
-                },
-              },
-            })
-          })
         })
       }
     })
@@ -86,22 +70,6 @@ test.describe('Timeline', () => {
           // Focus state
           await page.keyboard.press('Tab')
           expect(await page.screenshot()).toMatchSnapshot(`Timeline.With Inline Links.${theme}.focus.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-timeline-features--with-inline-links',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
         })
       })
     }

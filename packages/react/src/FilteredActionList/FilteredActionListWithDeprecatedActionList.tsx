@@ -1,10 +1,9 @@
 import type {ScrollIntoViewOptions} from '@primer/behaviors'
 import {scrollIntoView} from '@primer/behaviors'
-import type {KeyboardEventHandler} from 'react'
-import React, {useCallback, useEffect, useRef} from 'react'
+import type {KeyboardEventHandler, RefObject} from 'react'
+import React, {useCallback, useEffect, useRef, useState} from 'react'
 import styled from 'styled-components'
 import Box from '../Box'
-import Spinner from '../Spinner'
 import type {TextInputProps} from '../TextInput'
 import TextInput from '../TextInput'
 import {get} from '../constants'
@@ -17,6 +16,13 @@ import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
 import useScrollFlash from '../hooks/useScrollFlash'
 import {VisuallyHidden} from '../VisuallyHidden'
 import type {SxProp} from '../sx'
+import {
+  type FilteredActionListLoadingType,
+  FilteredActionListBodyLoader,
+  FilteredActionListLoadingTypes,
+} from './FilteredActionListLoaders'
+import {announce} from '@primer/live-region-element'
+import {debounce} from '@github/mini-throttle'
 
 const menuScrollMargins: ScrollIntoViewOptions = {startMargin: 0, endMargin: 8}
 
@@ -25,12 +31,16 @@ export interface FilteredActionListProps
     ListPropsBase,
     SxProp {
   loading?: boolean
+  loadingType?: FilteredActionListLoadingType
   placeholderText?: string
   filterValue?: string
-  onFilterChange: (value: string, e: React.ChangeEvent<HTMLInputElement>) => void
+  onFilterChange: (value: string, e: React.ChangeEvent<HTMLInputElement> | null) => void
+  onListContainerRefChanged?: (ref: HTMLElement | null) => void
+  onInputRefChanged?: (ref: React.RefObject<HTMLInputElement>) => void
   textInputProps?: Partial<Omit<TextInputProps, 'onChange'>>
   inputRef?: React.RefObject<HTMLInputElement>
   className?: string
+  announcementsEnabled?: boolean
 }
 
 const StyledHeader = styled.div`
@@ -38,16 +48,82 @@ const StyledHeader = styled.div`
   z-index: 1;
 `
 
+const getItemWithActiveDescendant = (
+  listRef: React.RefObject<HTMLElement>,
+  items: FilteredActionListProps['items'],
+) => {
+  const listElement = listRef.current
+  const activeItemElement = listElement?.querySelector('[data-is-active-descendant]')
+
+  if (!listElement || !activeItemElement?.textContent) return
+
+  const optionElements = listElement.querySelectorAll('[role="option"]')
+
+  const index = Array.from(optionElements).indexOf(activeItemElement)
+  const activeItem = items[index]
+  const text = activeItem.text
+  const selected = activeItemElement.getAttribute('aria-selected') === 'true'
+
+  return {index, text, selected}
+}
+
+async function announceText(text: string) {
+  const liveRegion = document.querySelector('live-region')
+
+  liveRegion?.clear() // clear previous announcements
+
+  await announce(text, {
+    delayMs: 500,
+    from: liveRegion ? liveRegion : undefined, // announce will create a liveRegion if it doesn't find one
+  })
+}
+
+const announceItemsChanged = debounce(
+  async (items: FilteredActionListProps['items'], listContainerRef: React.RefObject<HTMLElement>) => {
+    const liveRegion = document.querySelector('live-region')
+
+    liveRegion?.clear() // clear previous announcements
+
+    // give @primer/behaviors a moment to update active-descendant
+    await new Promise(resolve => window.requestAnimationFrame(resolve))
+
+    const activeItem = getItemWithActiveDescendant(listContainerRef, items)
+    if (!activeItem) return
+    const {index, text, selected} = activeItem
+
+    const announcementText = [
+      'List updated',
+      `Focused item: ${text}`,
+      `${selected ? 'selected' : 'not selected'}`,
+      `${index + 1} of ${items.length}`,
+    ].join(', ')
+
+    await announce(announcementText, {
+      delayMs: 500,
+      from: liveRegion ? liveRegion : undefined, // announce will create a liveRegion if it doesn't find one
+    })
+  },
+  250,
+)
+
+async function announceFilterFocused() {
+  await announceText('Focus on filter text box and list of items')
+}
+
 export function FilteredActionList({
   loading = false,
+  loadingType = FilteredActionListLoadingTypes.bodySpinner,
   placeholderText,
   filterValue: externalFilterValue,
   onFilterChange,
+  onListContainerRefChanged,
+  onInputRefChanged,
   items,
   textInputProps,
   inputRef: providedInputRef,
   sx,
   className,
+  announcementsEnabled = false,
   ...listProps
 }: FilteredActionListProps): JSX.Element {
   const [filterValue, setInternalFilterValue] = useProvidedStateOrCreate(externalFilterValue, undefined, '')
@@ -61,8 +137,9 @@ export function FilteredActionList({
   )
 
   const scrollContainerRef = useRef<HTMLDivElement>(null)
-  const listContainerRef = useRef<HTMLDivElement>(null)
+  const [listContainerElement, setListContainerElement] = useState<HTMLDivElement | null>(null)
   const inputRef = useProvidedRefOrCreate<HTMLInputElement>(providedInputRef)
+  const [needItemsChangedAnnouncement, setNeedItemsChangedAnnouncement] = useState<boolean>(false)
   const activeDescendantRef = useRef<HTMLElement>()
   const listId = useId()
   const inputDescriptionTextId = useId()
@@ -80,9 +157,26 @@ export function FilteredActionList({
     [activeDescendantRef],
   )
 
+  const listContainerRefCallback = useCallback(
+    (node: HTMLDivElement | null) => {
+      setListContainerElement(node)
+      onListContainerRefChanged?.(node)
+
+      if (needItemsChangedAnnouncement) {
+        announceItemsChanged(items, {current: node})
+        setNeedItemsChangedAnnouncement(false)
+      }
+    },
+    [items, needItemsChangedAnnouncement, onListContainerRefChanged],
+  )
+
+  useEffect(() => {
+    onInputRefChanged?.(inputRef)
+  }, [inputRef, onInputRefChanged])
+
   useFocusZone(
     {
-      containerRef: listContainerRef,
+      containerRef: {current: listContainerElement},
       focusOutBehavior: 'wrap',
       focusableElementFilter: element => {
         return !(element instanceof HTMLInputElement)
@@ -97,16 +191,28 @@ export function FilteredActionList({
       },
     },
     [
-      // List ref isn't set while loading.  Need to re-bind focus zone when it changes
-      loading,
+      // List container isn't in the DOM while loading.  Need to re-bind focus zone when it changes.
+      listContainerElement,
     ],
   )
 
   useEffect(() => {
     // if items changed, we want to instantly move active descendant into view
     if (activeDescendantRef.current && scrollContainerRef.current) {
-      scrollIntoView(activeDescendantRef.current, scrollContainerRef.current, {...menuScrollMargins, behavior: 'auto'})
+      scrollIntoView(activeDescendantRef.current, scrollContainerRef.current, {
+        ...menuScrollMargins,
+        behavior: 'auto',
+      })
     }
+
+    if (announcementsEnabled) {
+      if (listContainerElement) {
+        announceItemsChanged(items, {current: listContainerElement})
+      } else {
+        setNeedItemsChangedAnnouncement(true)
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [items])
 
   useScrollFlash(scrollContainerRef)
@@ -116,6 +222,7 @@ export function FilteredActionList({
       display="flex"
       flexDirection="column"
       overflow="hidden"
+      flexGrow={1}
       sx={sx}
       className={className}
       data-testid="filtered-action-list"
@@ -133,17 +240,18 @@ export function FilteredActionList({
           aria-label={placeholderText}
           aria-controls={listId}
           aria-describedby={inputDescriptionTextId}
+          loaderPosition={'leading'}
+          loading={loading && !loadingType.appearsInBody}
+          onFocus={announcementsEnabled ? announceFilterFocused : undefined}
           {...textInputProps}
         />
       </StyledHeader>
       <VisuallyHidden id={inputDescriptionTextId}>Items will be filtered as you type</VisuallyHidden>
-      <Box ref={scrollContainerRef} overflow="auto">
-        {loading ? (
-          <Box width="100%" display="flex" flexDirection="row" justifyContent="center" pt={6} pb={7}>
-            <Spinner />
-          </Box>
+      <Box ref={scrollContainerRef} overflow="auto" flexGrow={1}>
+        {loading && scrollContainerRef.current && loadingType.appearsInBody ? (
+          <FilteredActionListBodyLoader loadingType={loadingType} height={scrollContainerRef.current.clientHeight} />
         ) : (
-          <ActionList ref={listContainerRef} items={items} {...listProps} role="listbox" id={listId} />
+          <ActionList ref={listContainerRefCallback} items={items} {...listProps} role="listbox" id={listId} />
         )}
       </Box>
     </Box>
