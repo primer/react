@@ -64,7 +64,6 @@ export const WithCss = ({width, height, subtitle}: DialogStoryProps) => {
   return (
     <FeatureFlags
       flags={{
-        primer_react_css_modules_team: true,
         primer_react_css_modules_staff: true,
         primer_react_css_modules_ga: true,
       }}
@@ -84,7 +83,7 @@ export const WithCss = ({width, height, subtitle}: DialogStoryProps) => {
             {buttonType: 'danger', content: 'Delete the universe', onClick: onDialogClose},
             {buttonType: 'primary', content: 'Proceed'},
           ]}
-          className="testCustomClassnameBorder"
+          className="testCustomClassnameBorder testCustomAnimation"
         >
           {lipsum}
         </Dialog>
@@ -119,7 +118,6 @@ export const WithSx = ({width, height, subtitle}: DialogStoryProps) => {
   return (
     <FeatureFlags
       flags={{
-        primer_react_css_modules_team: true,
         primer_react_css_modules_staff: true,
         primer_react_css_modules_ga: true,
       }}
@@ -139,7 +137,7 @@ export const WithSx = ({width, height, subtitle}: DialogStoryProps) => {
             {buttonType: 'danger', content: 'Delete the universe', onClick: onDialogClose},
             {buttonType: 'primary', content: 'Proceed'},
           ]}
-          sx={{borderColor: 'accent.emphasis', borderWidth: '1px', borderStyle: 'solid'}}
+          sx={{borderColor: 'accent.emphasis', borderWidth: '1px', borderStyle: 'solid', animation: 'none !important'}}
         >
           {lipsum}
         </Dialog>
@@ -182,7 +180,6 @@ export const WithSxAndCss = ({width, height, subtitle}: DialogStoryProps) => {
   return (
     <FeatureFlags
       flags={{
-        primer_react_css_modules_team: true,
         primer_react_css_modules_staff: true,
         primer_react_css_modules_ga: true,
       }}
@@ -202,7 +199,7 @@ export const WithSxAndCss = ({width, height, subtitle}: DialogStoryProps) => {
             {buttonType: 'danger', content: 'Delete the universe', onClick: onDialogClose},
             {buttonType: 'primary', content: 'Proceed'},
           ]}
-          sx={{borderColor: 'border.accent', borderWidth: '1px', borderStyle: 'solid'}}
+          sx={{borderColor: 'border.accent', borderWidth: '1px', borderStyle: 'solid', animation: 'none !important'}}
           className="testCustomClassnameBorder"
         >
           {lipsum}

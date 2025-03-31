@@ -8,7 +8,7 @@ test.describe('Dialog v1', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-dialogv1--default',
+            id: 'deprecated-components-dialogv1--default',
             globals: {
               colorScheme: theme,
             },
@@ -17,16 +17,6 @@ test.describe('Dialog v1', () => {
           // Default state
           await page.getByRole('button', {name: 'Show dialog'}).click()
           expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`Dialogv1.Default.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-dialogv1--default',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations()
         })
       })
     }

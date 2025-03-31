@@ -60,7 +60,7 @@
     transition: background-color 0.2s ease;
   }
 
-  &:is([data-selected]) {
+  &:is([data-selected='true']) {
     color: var(--fgColor-onEmphasis);
     background-color: var(--bgColor-accent-emphasis);
     /* stylelint-disable-next-line primer/colors */

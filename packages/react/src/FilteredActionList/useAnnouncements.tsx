@@ -1,8 +1,8 @@
 // Announcements for FilteredActionList (and SelectPanel) based
 // on https://github.com/github/multi-select-user-testing
 
-import {announce} from '@primer/live-region-element'
-import {useEffect, useRef} from 'react'
+import {announce as liveRegionAnnounce} from '@primer/live-region-element'
+import {useCallback, useEffect, useRef} from 'react'
 import type {FilteredActionListProps} from './FilteredActionListEntry'
 import type {ItemInput} from '../deprecated/ActionList/List'
 
@@ -41,8 +41,19 @@ export const useAnnouncements = (
   items: FilteredActionListProps['items'],
   listContainerRef: React.RefObject<HTMLUListElement>,
   inputRef: React.RefObject<HTMLInputElement>,
+  enabled: boolean = true,
+  loading: boolean = false,
 ) => {
   const liveRegion = document.querySelector('live-region')
+
+  const announce = useCallback(
+    (...args: Parameters<typeof liveRegionAnnounce>): ReturnType<typeof liveRegionAnnounce> | undefined => {
+      if (enabled) {
+        return liveRegionAnnounce(...args)
+      }
+    },
+    [enabled],
+  )
 
   useEffect(
     function announceInitialFocus() {
@@ -70,7 +81,7 @@ export const useAnnouncements = (
       inputElement?.addEventListener('focus', focusHandler)
       return () => inputElement?.removeEventListener('focus', focusHandler)
     },
-    [listContainerRef, inputRef, items, liveRegion],
+    [listContainerRef, inputRef, items, liveRegion, announce],
   )
 
   const isFirstRender = useFirstRender()
@@ -80,7 +91,7 @@ export const useAnnouncements = (
 
       liveRegion?.clear() // clear previous announcements
 
-      if (items.length === 0) {
+      if (items.length === 0 && !loading) {
         announce('No matching items.', {delayMs})
         return
       }
@@ -104,6 +115,6 @@ export const useAnnouncements = (
         })
       })
     },
-    [isFirstRender, items, listContainerRef, liveRegion],
+    [announce, isFirstRender, items, listContainerRef, liveRegion, loading],
   )
 }

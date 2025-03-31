@@ -6,7 +6,7 @@ import {CopilotIcon} from '@primer/octicons-react'
 import {Box, Tooltip, ThemeProvider, BaseStyles} from '..'
 
 const meta: Meta<typeof ButtonGroup> = {
-  title: 'Components/ButtonGroup/DevOnly',
+  title: 'Components/ButtonGroup/Dev',
   component: ButtonGroup,
   decorators: [
     Story => {

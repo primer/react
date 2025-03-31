@@ -217,9 +217,8 @@ const Anchor = React.forwardRef<HTMLElement, ActionMenuAnchorProps>(({children: 
 })
 
 /** this component is syntactical sugar 🍭 */
-export type ActionMenuButtonProps = Omit<ButtonProps, 'children'> & {
-  children: React.ReactNode
-}
+export type ActionMenuButtonProps = ButtonProps
+
 const MenuButton = React.forwardRef(({...props}, anchorRef) => {
   return (
     <Anchor ref={anchorRef}>

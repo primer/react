@@ -63,6 +63,10 @@ export const TrailingCounter = () => {
 
 export const TrailingCounterWithNoText = () => <Button aria-label="Comments" leadingVisual={CommentIcon} count={3} />
 
+export const TrailingCounterWithHumanFormat = () => (
+  <Button aria-label="Comments" leadingVisual={CommentIcon} count="3.2k" />
+)
+
 export const TrailingCounterAllVariants = () => {
   const [count, setCount] = useState(0)
   const onClick = () => {

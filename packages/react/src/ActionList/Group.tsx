@@ -67,6 +67,10 @@ export type ActionListGroupProps = {
    * The ARIA role describing the function of the list inside `Group` component. `listbox` or `menu` are a common values.
    */
   role?: AriaRole
+  /**
+   * Custom class name to apply to the `Group`.
+   */
+  className?: string
 } & SxProp & {
     /**
      * Whether multiple Items or a single Item can be selected in the Group. Overrides value on ActionList root.
@@ -86,6 +90,7 @@ export const Group: React.FC<React.PropsWithChildren<ActionListGroupProps>> = ({
   auxiliaryText,
   selectionVariant,
   role,
+  className,
   sx = defaultSxProp,
   ...props
 }) => {
@@ -112,7 +117,13 @@ export const Group: React.FC<React.PropsWithChildren<ActionListGroupProps>> = ({
   if (enabled) {
     if (sx !== defaultSxProp) {
       return (
-        <Box as="li" className={groupClasses.Group} role={listRole ? 'none' : undefined} sx={sx} {...props}>
+        <Box
+          as="li"
+          className={clsx(className, groupClasses.Group)}
+          role={listRole ? 'none' : undefined}
+          sx={sx}
+          {...props}
+        >
           <GroupContext.Provider value={{selectionVariant, groupHeadingId}}>
             {title && !slots.groupHeading ? (
               // Escape hatch: supports old API <ActionList.Group title="group title"> in a non breaking way
@@ -135,7 +146,7 @@ export const Group: React.FC<React.PropsWithChildren<ActionListGroupProps>> = ({
       )
     }
     return (
-      <li className={groupClasses.Group} role={listRole ? 'none' : undefined} {...props}>
+      <li className={clsx(className, groupClasses.Group)} role={listRole ? 'none' : undefined} {...props}>
         <GroupContext.Provider value={{selectionVariant, groupHeadingId}}>
           {title && !slots.groupHeading ? (
             // Escape hatch: supports old API <ActionList.Group title="group title"> in a non breaking way
@@ -166,6 +177,7 @@ export const Group: React.FC<React.PropsWithChildren<ActionListGroupProps>> = ({
         listStyle: 'none', // hide the ::marker inserted by browser's stylesheet
         ...sx,
       }}
+      className={className}
       {...props}
     >
       <GroupContext.Provider value={{selectionVariant, groupHeadingId}}>
@@ -292,3 +304,6 @@ export const GroupHeading: React.FC<React.PropsWithChildren<ActionListGroupHeadi
     </>
   )
 }
+
+GroupHeading.displayName = 'ActionList.GroupHeading'
+Group.displayName = 'ActionList.Group'

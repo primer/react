@@ -8,13 +8,23 @@ import type {OverlayProps} from '../Overlay'
 import {TriangleDownIcon} from '@primer/octicons-react'
 import {ActionList} from '../deprecated/ActionList'
 import FormControl from '../FormControl'
+import {Stack} from '../Stack'
+import {Dialog} from '../experimental'
 
-const meta = {
+const meta: Meta<typeof SelectPanel> = {
   title: 'Components/SelectPanel/Examples',
   component: SelectPanel,
 } satisfies Meta<typeof SelectPanel>
 
 export default meta
+
+const NoResultsMessage = (filter: string): {variant: 'empty'; title: string; body: string} => {
+  return {
+    variant: 'empty',
+    title: `No language found for \`${filter}\``,
+    body: 'Adjust your search term to find other languages',
+  }
+}
 
 function getColorCircle(color: string) {
   return function () {
@@ -80,6 +90,7 @@ export const HeightInitialWithOverflowingItemsStory = () => {
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         overlayProps={{width: 'small', height: 'initial', maxHeight: 'xsmall'}}
+        message={selectedItemsSortedFirst.length === 0 ? NoResultsMessage(filter) : undefined}
       />
     </FormControl>
   )
@@ -125,6 +136,7 @@ export const HeightInitialWithUnderflowingItemsStory = () => {
         onFilterChange={setFilter}
         showItemDividers={true}
         overlayProps={{width: 'small', height: 'initial', maxHeight: 'xsmall'}}
+        message={selectedItemsSortedFirst.length === 0 ? NoResultsMessage(filter) : undefined}
       />
     </FormControl>
   )
@@ -147,7 +159,7 @@ export const HeightInitialWithUnderflowingItemsAfterFetch = () => {
     [fetchedItems, filter, selected],
   )
   // design guidelines say to sort selected items first
-  const selectedItemsSortedFirst = fetchedItems.sort((a, b) => {
+  const selectedItemsSortedFirst = filteredItems.sort((a, b) => {
     const aIsSelected = selected.some(selectedItem => selectedItem.text === a.text)
     const bIsSelected = selected.some(selectedItem => selectedItem.text === b.text)
     if (aIsSelected && !bIsSelected) return -1
@@ -177,13 +189,14 @@ export const HeightInitialWithUnderflowingItemsAfterFetch = () => {
         placeholder="Select labels" // button text when no items are selected
         open={open}
         onOpenChange={onOpenChange}
-        loading={filteredItems.length === 0}
+        loading={filteredItems.length === 0 && !filter}
         items={selectedItemsSortedFirst}
         selected={selected}
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         showItemDividers={true}
         overlayProps={{width: 'small', height, maxHeight: 'xsmall'}}
+        message={selectedItemsSortedFirst.length === 0 ? NoResultsMessage(filter) : undefined}
       />
     </FormControl>
   )
@@ -226,7 +239,7 @@ export const AboveTallBody = () => {
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         showItemDividers={true}
-        overlayProps={{width: 'small', height: 'xsmall'}}
+        message={selectedItemsSortedFirst.length === 0 ? NoResultsMessage(filter) : undefined}
       />
       <div
         style={{
@@ -244,7 +257,7 @@ export const AboveTallBody = () => {
   )
 }
 
-export const HeightVariantionsAndScroll = () => {
+export const HeightVariationsAndScroll = () => {
   const longItems = [...items, ...items, ...items, ...items, ...items, ...items, ...items, ...items]
   const [filter, setFilter] = useState('')
   // Example A
@@ -292,6 +305,7 @@ export const HeightVariantionsAndScroll = () => {
           onFilterChange={setFilter}
           showItemDividers={true}
           overlayProps={{height: 'medium'}}
+          message={selectedItemsSortedFirstA.length === 0 ? NoResultsMessage(filter) : undefined}
         />
       </FormControl>
       <br />
@@ -315,6 +329,7 @@ export const HeightVariantionsAndScroll = () => {
             height: 'auto',
             maxHeight: 'medium',
           }}
+          message={selectedItemsSortedFirstB.length === 0 ? NoResultsMessage(filter) : undefined}
         />
       </FormControl>
     </>
@@ -389,6 +404,7 @@ export const CustomItemRenderer = () => {
             </Box>
           </ActionList.Item>
         )}
+        message={selectedItemsSortedFirst.length === 0 ? NoResultsMessage(filter) : undefined}
       />
     </FormControl>
   )
@@ -438,7 +454,103 @@ export const ItemsInScope = () => {
         selected={selected}
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
+        message={selectedItemsSortedFirst.length === 0 ? NoResultsMessage(filter) : undefined}
       />
     </FormControl>
+  )
+}
+
+export const RepositionAfterLoading = () => {
+  const [selected, setSelected] = React.useState<ItemInput[]>([items[0], items[1]])
+  const [open, setOpen] = useState(false)
+  const [filter, setFilter] = React.useState('')
+  const [filteredItems, setFilteredItems] = React.useState<typeof items>([])
+
+  const [loading, setLoading] = useState(true)
+
+  React.useEffect(() => {
+    if (!open) setLoading(true)
+    window.setTimeout(() => {
+      if (open) {
+        setFilteredItems(items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase())))
+        setLoading(false)
+      }
+    }, 2000)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open])
+
+  React.useEffect(() => {
+    if (!loading) {
+      setFilteredItems(items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase())))
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filter])
+
+  return (
+    <>
+      <Stack direction="vertical" justify="space-between" style={{height: 'calc(100vh - 300px)', width: 'fit-content'}}>
+        <h1>Reposition panel after loading</h1>
+        <SelectPanel
+          loading={loading}
+          title="Select labels"
+          placeholderText="Filter Labels"
+          open={open}
+          onOpenChange={setOpen}
+          items={filteredItems}
+          selected={selected}
+          onSelectedChange={setSelected}
+          onFilterChange={setFilter}
+          message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}
+        />
+      </Stack>
+    </>
+  )
+}
+
+export const SelectPanelRepositionInsideDialog = () => {
+  const [selected, setSelected] = React.useState<ItemInput[]>([items[0], items[1]])
+  const [open, setOpen] = useState(false)
+  const [filter, setFilter] = React.useState('')
+  const [filteredItems, setFilteredItems] = React.useState<typeof items>([])
+
+  const [loading, setLoading] = useState(true)
+
+  React.useEffect(() => {
+    if (!open) setLoading(true)
+    window.setTimeout(() => {
+      if (open) {
+        setFilteredItems(items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase())))
+        setLoading(false)
+      }
+    }, 2000)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open])
+
+  React.useEffect(() => {
+    if (!loading) {
+      setFilteredItems(items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase())))
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filter])
+
+  return (
+    <Dialog title="SelectPanel reposition after loading inside Dialog" onClose={() => {}}>
+      <Stack direction="vertical" justify="space-between" style={{height: 'calc(100vh - 500px)', width: 'fit-content'}}>
+        <p>other content</p>
+        <SelectPanel
+          loading={loading}
+          title="Select labels"
+          placeholderText="Filter Labels"
+          open={open}
+          onOpenChange={setOpen}
+          items={filteredItems}
+          selected={selected}
+          onSelectedChange={setSelected}
+          onFilterChange={setFilter}
+          overlayProps={{anchorSide: 'outside-top'}}
+          message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}
+        />
+      </Stack>
+    </Dialog>
   )
 }

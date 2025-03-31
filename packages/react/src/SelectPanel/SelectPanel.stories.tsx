@@ -8,7 +8,7 @@ import {SelectPanel} from '../SelectPanel'
 import type {ItemInput} from '../deprecated/ActionList/List'
 import FormControl from '../FormControl'
 
-const meta = {
+const meta: Meta<typeof SelectPanel> = {
   title: 'Components/SelectPanel',
   component: SelectPanel,
 } satisfies Meta<typeof SelectPanel>
@@ -100,6 +100,16 @@ export const Default = () => {
         selected={selected}
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
+        width="medium"
+        message={
+          selectedItemsSortedFirst.length === 0
+            ? {
+                variant: 'empty',
+                title: `No language found for \`${filter}\``,
+                body: 'Adjust your search term to find other languages',
+              }
+            : undefined
+        }
       />
     </FormControl>
   )

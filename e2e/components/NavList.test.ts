@@ -17,16 +17,6 @@ test.describe('NavList', () => {
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`NavList.With TrailingAction.${theme}.png`)
         })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-navlist--with-trailing-action',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations()
-        })
       })
     }
   })
@@ -36,7 +26,7 @@ test.describe('NavList', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-navlist-devonly--with-group-title-and-heading',
+            id: 'components-navlist-dev--with-group-title-and-heading',
             globals: {
               colorScheme: theme,
             },
@@ -44,16 +34,6 @@ test.describe('NavList', () => {
 
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`NavList.With Title and Heading.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-navlist-devonly--with-group-title-and-heading',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations()
         })
       })
     }
@@ -73,16 +53,6 @@ test.describe('NavList', () => {
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`NavList.Simple.${theme}.png`)
         })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-navlist--simple',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations()
-        })
       })
     }
   })
@@ -100,16 +70,6 @@ test.describe('NavList', () => {
 
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`NavList.With Group.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-navlist--with-group',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations()
         })
       })
     }
@@ -129,10 +89,56 @@ test.describe('NavList', () => {
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`NavList.With Sub Items.${theme}.png`)
         })
+      })
+    }
+  })
+
+  test.describe('With expand', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-navlist--with-expand',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          // Default state
+          expect(await page.screenshot()).toMatchSnapshot(`NavList.With expand.${theme}.png`)
+        })
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-navlist--with-sub-items',
+            id: 'components-navlist--with-expand',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+          await expect(page).toHaveNoViolations()
+        })
+      })
+    }
+  })
+
+  test.describe('With group expand', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-navlist--with-group-expand',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          // Default state
+          expect(await page.screenshot()).toMatchSnapshot(`NavList.With group expand.${theme}.png`)
+        })
+
+        test('axe @aat', async ({page}) => {
+          await visit(page, {
+            id: 'components-navlist--with-group-expand',
             globals: {
               colorScheme: theme,
             },

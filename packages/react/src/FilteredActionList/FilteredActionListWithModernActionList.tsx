@@ -1,10 +1,9 @@
 import type {ScrollIntoViewOptions} from '@primer/behaviors'
 import {scrollIntoView, FocusKeys} from '@primer/behaviors'
 import type {KeyboardEventHandler} from 'react'
-import React, {useCallback, useEffect, useRef} from 'react'
+import React, {useCallback, useEffect, useRef, useState} from 'react'
 import styled from 'styled-components'
 import Box from '../Box'
-import Spinner from '../Spinner'
 import type {TextInputProps} from '../TextInput'
 import TextInput from '../TextInput'
 import {get} from '../constants'
@@ -17,6 +16,9 @@ import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
 import useScrollFlash from '../hooks/useScrollFlash'
 import {VisuallyHidden} from '../VisuallyHidden'
 import type {SxProp} from '../sx'
+import type {FilteredActionListLoadingType} from './FilteredActionListLoaders'
+import {FilteredActionListLoadingTypes, FilteredActionListBodyLoader} from './FilteredActionListLoaders'
+import classes from './FilteredActionList.module.css'
 
 import {isValidElementType} from 'react-is'
 import type {RenderItemFn} from '../deprecated/ActionList/List'
@@ -29,12 +31,17 @@ export interface FilteredActionListProps
     ListPropsBase,
     SxProp {
   loading?: boolean
+  loadingType?: FilteredActionListLoadingType
   placeholderText?: string
   filterValue?: string
   onFilterChange: (value: string, e: React.ChangeEvent<HTMLInputElement>) => void
+  onListContainerRefChanged?: (ref: HTMLElement | null) => void
+  onInputRefChanged?: (ref: React.RefObject<HTMLInputElement>) => void
   textInputProps?: Partial<Omit<TextInputProps, 'onChange'>>
   inputRef?: React.RefObject<HTMLInputElement>
+  message?: React.ReactNode
   className?: string
+  announcementsEnabled?: boolean
 }
 
 const StyledHeader = styled.div`
@@ -46,14 +53,19 @@ export function FilteredActionList({
   loading = false,
   placeholderText,
   filterValue: externalFilterValue,
+  loadingType = FilteredActionListLoadingTypes.bodySpinner,
   onFilterChange,
+  onListContainerRefChanged,
+  onInputRefChanged,
   items,
   textInputProps,
   inputRef: providedInputRef,
   sx,
   groupMetadata,
   showItemDividers,
+  message,
   className,
+  announcementsEnabled = true,
   ...listProps
 }: FilteredActionListProps): JSX.Element {
   const [filterValue, setInternalFilterValue] = useProvidedStateOrCreate(externalFilterValue, undefined, '')
@@ -67,8 +79,8 @@ export function FilteredActionList({
   )
 
   const scrollContainerRef = useRef<HTMLDivElement>(null)
-  const listContainerRef = useRef<HTMLUListElement>(null)
   const inputRef = useProvidedRefOrCreate<HTMLInputElement>(providedInputRef)
+  const [listContainerElement, setListContainerElement] = useState<HTMLUListElement | null>(null)
   const activeDescendantRef = useRef<HTMLElement>()
   const listId = useId()
   const inputDescriptionTextId = useId()
@@ -86,9 +98,21 @@ export function FilteredActionList({
     [activeDescendantRef],
   )
 
+  const listContainerRefCallback = useCallback(
+    (node: HTMLUListElement | null) => {
+      setListContainerElement(node)
+      onListContainerRefChanged?.(node)
+    },
+    [onListContainerRefChanged],
+  )
+
+  useEffect(() => {
+    onInputRefChanged?.(inputRef)
+  }, [inputRef, onInputRefChanged])
+
   useFocusZone(
     {
-      containerRef: listContainerRef,
+      containerRef: {current: listContainerElement},
       bindKeys: FocusKeys.ArrowVertical | FocusKeys.PageUpDown,
       focusOutBehavior: 'wrap',
       focusableElementFilter: element => {
@@ -104,20 +128,23 @@ export function FilteredActionList({
       },
     },
     [
-      // List ref isn't set while loading.  Need to re-bind focus zone when it changes
-      loading,
+      // List container isn't in the DOM while loading.  Need to re-bind focus zone when it changes.
+      listContainerElement,
     ],
   )
 
   useEffect(() => {
     // if items changed, we want to instantly move active descendant into view
     if (activeDescendantRef.current && scrollContainerRef.current) {
-      scrollIntoView(activeDescendantRef.current, scrollContainerRef.current, {...menuScrollMargins, behavior: 'auto'})
+      scrollIntoView(activeDescendantRef.current, scrollContainerRef.current, {
+        ...menuScrollMargins,
+        behavior: 'auto',
+      })
     }
   }, [items])
 
+  useAnnouncements(items, {current: listContainerElement}, inputRef, announcementsEnabled, loading)
   useScrollFlash(scrollContainerRef)
-  useAnnouncements(items, listContainerRef, inputRef)
 
   function getItemListForEachGroup(groupId: string) {
     const itemsInGroup = []
@@ -128,6 +155,45 @@ export function FilteredActionList({
       }
     }
     return itemsInGroup
+  }
+
+  function getBodyContent() {
+    if (loading && scrollContainerRef.current && loadingType.appearsInBody) {
+      return <FilteredActionListBodyLoader loadingType={loadingType} height={scrollContainerRef.current.clientHeight} />
+    }
+    if (message) {
+      return message
+    }
+
+    return (
+      <ActionList
+        ref={listContainerRefCallback}
+        showDividers={showItemDividers}
+        {...listProps}
+        role="listbox"
+        id={listId}
+        sx={{flexGrow: 1}}
+      >
+        {groupMetadata?.length
+          ? groupMetadata.map((group, index) => {
+              return (
+                <ActionList.Group key={index}>
+                  <ActionList.GroupHeading variant={group.header?.variant ? group.header.variant : undefined}>
+                    {group.header?.title ? group.header.title : `Group ${group.groupId}`}
+                  </ActionList.GroupHeading>
+                  {getItemListForEachGroup(group.groupId).map((item, index) => {
+                    const key = item.key ?? item.id?.toString() ?? index.toString()
+                    return <MappedActionListItem key={key} {...item} renderItem={listProps.renderItem} />
+                  })}
+                </ActionList.Group>
+              )
+            })
+          : items.map((item, index) => {
+              const key = item.key ?? item.id?.toString() ?? index.toString()
+              return <MappedActionListItem key={key} {...item} renderItem={listProps.renderItem} />
+            })}
+      </ActionList>
+    )
   }
 
   return (
@@ -155,36 +221,15 @@ export function FilteredActionList({
           aria-controls={listId}
           aria-label={placeholderText}
           aria-describedby={inputDescriptionTextId}
+          loaderPosition={'leading'}
+          loading={loading && !loadingType.appearsInBody}
           {...textInputProps}
         />
       </StyledHeader>
       <VisuallyHidden id={inputDescriptionTextId}>Items will be filtered as you type</VisuallyHidden>
-      <Box ref={scrollContainerRef} overflow="auto">
-        {loading ? (
-          <Box width="100%" display="flex" flexDirection="row" justifyContent="center" pt={6} pb={7}>
-            <Spinner />
-          </Box>
-        ) : (
-          <ActionList ref={listContainerRef} showDividers={showItemDividers} {...listProps} role="listbox" id={listId}>
-            {groupMetadata?.length
-              ? groupMetadata.map((group, index) => {
-                  return (
-                    <ActionList.Group key={index}>
-                      <ActionList.GroupHeading variant={group.header?.variant ? group.header.variant : undefined}>
-                        {group.header?.title ? group.header.title : `Group ${group.groupId}`}
-                      </ActionList.GroupHeading>
-                      {getItemListForEachGroup(group.groupId).map((item, index) => {
-                        return <MappedActionListItem key={index} {...item} renderItem={listProps.renderItem} />
-                      })}
-                    </ActionList.Group>
-                  )
-                })
-              : items.map((item, index) => {
-                  return <MappedActionListItem key={index} {...item} renderItem={listProps.renderItem} />
-                })}
-          </ActionList>
-        )}
-      </Box>
+      <div ref={scrollContainerRef} className={classes.Container}>
+        {getBodyContent()}
+      </div>
     </Box>
   )
 }

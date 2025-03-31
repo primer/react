@@ -64,7 +64,7 @@
     },
     {
       "name": "variant",
-      "type": "'default' | 'primary' | 'danger' | 'outline' | 'invisible' | 'link'",
+      "type": "'default' | 'primary' | 'danger' | 'invisible' | 'link'",
       "defaultValue": "",
       "description": "Changes the look and feel of the button which is different for each variant"
     },
