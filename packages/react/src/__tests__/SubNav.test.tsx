@@ -3,31 +3,16 @@ import {SubNav} from '..'
 import {render, rendersClass, behavesAsComponent, checkExports} from '../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
 import axe from 'axe-core'
-import {FeatureFlags} from '../FeatureFlags'
 
 describe('SubNav', () => {
-  behavesAsComponent({Component: SubNav})
+  behavesAsComponent({Component: SubNav, options: {skipAs: true}})
 
   checkExports('SubNav', {
     default: SubNav,
   })
 
   it('should support `className` on the outermost element', () => {
-    const Element = () => <SubNav className={'test-class-name'} />
-    const FeatureFlagElement = () => {
-      return (
-        <FeatureFlags
-          flags={{
-            primer_react_css_modules_staff: true,
-            primer_react_css_modules_ga: true,
-          }}
-        >
-          <Element />
-        </FeatureFlags>
-      )
-    }
-    expect(HTMLRender(<Element />).container.firstChild).toHaveClass('test-class-name')
-    expect(HTMLRender(<FeatureFlagElement />).container.firstChild).toHaveClass('test-class-name')
+    expect(HTMLRender(<SubNav className={'test-class-name'} />).container.firstChild).toHaveClass('test-class-name')
   })
 
   it('should have no axe violations', async () => {

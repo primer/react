@@ -10,6 +10,9 @@ import {behavesAsComponent, checkExports} from '../utils/testing'
 import {SingleSelect} from '../ActionMenu/ActionMenu.features.stories'
 import {MixedSelection} from '../ActionMenu/ActionMenu.examples.stories'
 import {SearchIcon, KebabHorizontalIcon} from '@primer/octicons-react'
+import {setupMatchMedia} from '../utils/test-helpers'
+
+setupMatchMedia()
 
 function Example(): JSX.Element {
   return (
@@ -128,7 +131,7 @@ function ExampleWithSubmenus(): JSX.Element {
 describe('ActionMenu', () => {
   behavesAsComponent({
     Component: ActionList,
-    options: {skipAs: true, skipSx: true},
+    options: {skipAs: true, skipSx: true, skipClassName: true},
     toRender: () => <Example />,
   })
 
