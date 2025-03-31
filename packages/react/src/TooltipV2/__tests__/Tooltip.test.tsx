@@ -16,6 +16,14 @@ const TooltipComponent = (props: Omit<TooltipProps, 'text'> & {text?: string}) =
   </Tooltip>
 )
 
+function expectToBeOpen(tooltip: HTMLElement) {
+  expect(tooltip).toMatch(':popover-open, .:popover-open')
+}
+
+function expectNotToBeOpen(tooltip: HTMLElement) {
+  expect(tooltip).not.toMatch(':popover-open, .:popover-open')
+}
+
 function ExampleWithActionMenu(actionMenuTrigger: React.ReactElement): JSX.Element {
   return (
     <ThemeProvider theme={theme}>
@@ -164,24 +172,24 @@ describe('Tooltip', () => {
     const {getByRole, getByText} = HTMLRender(<TooltipComponent />)
     const triggerEL = getByRole('button')
     const tooltip = getByText('Tooltip text')
-    expect(tooltip).not.toHaveClass(':popover-open')
+    expectNotToBeOpen(tooltip)
     fireEvent.mouseOver(triggerEL)
     expect(tooltip).not.toHaveClass(':popover-open')
     act(() => jest.advanceTimersByTime(50))
-    expect(tooltip).toHaveClass(':popover-open')
+    expectToBeOpen(tooltip)
   })
 
   it('should not become visible after delay when the target is tapped', async () => {
     const {getByRole, getByText} = HTMLRender(<TooltipComponent />)
     const triggerEL = getByRole('button')
     const tooltip = getByText('Tooltip text')
-    expect(tooltip).not.toHaveClass(':popover-open')
+    expectNotToBeOpen(tooltip)
     // 'sort of' simulating a tap event here. MouseOver normally happens after
     // touchEnd but we are 'capture'ing it in the component
     fireEvent.mouseOver(triggerEL)
     fireEvent.focus(triggerEL)
     fireEvent.touchEnd(triggerEL)
     act(() => jest.advanceTimersByTime(50))
-    expect(tooltip).not.toHaveClass(':popover-open')
+    expectNotToBeOpen(tooltip)
   })
 })
