@@ -53,6 +53,8 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
+    matrix:
+      test-framework: [jest, vitest]
     steps:
       - name: Checkout repository
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
@@ -65,10 +67,14 @@ jobs:
         run: npm ci
       - name: Build
         run: npm run build
-      - name: Test
-        run: npm run test -- --coverage
+      - name: Run jest
+        if: ${{ matrix.test-framework == 'jest' }}
+        run: npm test
       - name: Run vitest
-        run: npx vitest
+        if: ${{ matrix.test-framework == 'vitest' }}
+        run: |
+          npx playwright install
+          npx vitest
 
   type-check:
     runs-on: ubuntu-latest
