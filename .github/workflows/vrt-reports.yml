@@ -19,9 +19,9 @@ jobs:
       matrix:
         shard: [1, 2, 3, 4]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
       - name: Use Node.js 20.x
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@cdca7365b2dadb8aad0a33bc7601856ffabcc48e
         with:
           node-version: 22
           cache: 'npm'
@@ -48,7 +48,7 @@ jobs:
         run: kill ${{ steps.storybook.outputs.pid }}
       - name: Upload report
         if: ${{ always() }}
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@4cec3d8aa04e39d1a68397de0c4cd6fb9dce8ec1
         with:
           name: vrt-no-flag-${{ matrix.shard }}
           path: blob-report
@@ -59,16 +59,16 @@ jobs:
     runs-on: ubuntu-latest
     needs: vrt-runner
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
       - name: Use Node.js 20.x
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@cdca7365b2dadb8aad0a33bc7601856ffabcc48e
         with:
           node-version: 22
           cache: 'npm'
       - name: install dependencies
         run: npm ci
       - name: download all reports
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@95815c38cf2ff2164869cbab79da8d1f422bc89e
         with:
           path: all-blob-reports
           pattern: vrt-no-flag-*
@@ -76,7 +76,7 @@ jobs:
       - name: merge all reports
         run: npx playwright merge-reports --reporter html ./all-blob-reports
       - name: Upload report
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@4cec3d8aa04e39d1a68397de0c4cd6fb9dce8ec1
         with:
           name: vrt-no-flag
           path: playwright-report
@@ -94,9 +94,9 @@ jobs:
       VITE_PRIMER_REACT_CSS_MODULES_STAFF: 1
       VITE_PRIMER_REACT_CSS_MODULES_GA: 1
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
       - name: Use Node.js 20.x
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@cdca7365b2dadb8aad0a33bc7601856ffabcc48e
         with:
           node-version: 22
           cache: 'npm'
@@ -123,7 +123,7 @@ jobs:
         run: kill ${{ steps.storybook.outputs.pid }}
       - name: Upload report
         if: ${{ always() }}
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@4cec3d8aa04e39d1a68397de0c4cd6fb9dce8ec1
         with:
           name: vrt-all-flags-${{ matrix.shard }}
           path: blob-report
@@ -134,16 +134,16 @@ jobs:
     runs-on: ubuntu-latest
     needs: vrt-runner-all-flags
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
       - name: Use Node.js 20.x
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@cdca7365b2dadb8aad0a33bc7601856ffabcc48e
         with:
           node-version: 22
           cache: 'npm'
       - name: install dependencies
         run: npm ci
       - name: download all reports
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@95815c38cf2ff2164869cbab79da8d1f422bc89e
         with:
           path: all-blob-reports
           pattern: vrt-all-flags-*
@@ -151,7 +151,7 @@ jobs:
       - name: merge all reports
         run: npx playwright merge-reports --reporter html ./all-blob-reports
       - name: Upload report
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@4cec3d8aa04e39d1a68397de0c4cd6fb9dce8ec1
         with:
           name: vrt-all-flags
           path: playwright-report

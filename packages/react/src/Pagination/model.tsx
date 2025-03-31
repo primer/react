@@ -135,11 +135,27 @@ type PageType = {
   precedesBreak?: boolean
 }
 
+export type PageDataProps = {
+  props: {
+    href?: string
+    rel?: string
+    'aria-label'?: string
+    'aria-current'?: 'page' | 'step' | 'location' | 'date' | 'time' | 'true' | 'false' | boolean
+    'aria-hidden'?: boolean
+    'aria-disabled'?: boolean
+    onClick?: (e: React.MouseEvent) => void
+    as?: string
+    role?: string
+  }
+  key: string
+  content: string
+}
+
 export function buildComponentData(
   page: PageType,
   hrefBuilder: (n: number) => string,
   onClick: (e: React.MouseEvent) => void,
-) {
+): PageDataProps {
   const props = {}
   let content = ''
   let key = ''

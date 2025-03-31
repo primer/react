@@ -10,13 +10,13 @@ import Heading from '../Heading'
 import type {OverlayProps} from '../Overlay'
 import type {TextInputProps} from '../TextInput'
 import type {ItemProps, ItemInput} from './types'
+import {SelectPanelMessage} from './SelectPanelMessage'
 
 import {Button, IconButton} from '../Button'
 import {useProvidedRefOrCreate} from '../hooks'
 import type {FocusZoneHookSettings} from '../hooks/useFocusZone'
 import {useId} from '../hooks/useId'
 import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
-import {LiveRegion, LiveRegionOutlet, Message} from '../internal/components/LiveRegion'
 import useSafeTimeout from '../hooks/useSafeTimeout'
 import type {FilteredActionListLoadingType} from '../FilteredActionList/FilteredActionListLoaders'
 import {FilteredActionListLoadingTypes} from '../FilteredActionList/FilteredActionListLoaders'
@@ -24,32 +24,20 @@ import {useFeatureFlag} from '../FeatureFlags'
 import {announce} from '@primer/live-region-element'
 import classes from './SelectPanel.module.css'
 import {clsx} from 'clsx'
+import {heightMap} from '../Overlay/Overlay'
+import {debounce} from '@github/mini-throttle'
 
 // we add a delay so that it does not interrupt default screen reader announcement and queues after it
-const delayMs = 500
-const loadingDelayMs = 1000
+const SHORT_DELAY_MS = 500
+const LONG_DELAY_MS = 1000
 
-const getItemWithActiveDescendant = (
-  listRef: React.RefObject<HTMLElement>,
-  items: FilteredActionListProps['items'],
-) => {
-  const listElement = listRef.current
-  const activeItemElement = listElement?.querySelector('[data-is-active-descendant]')
+const DefaultEmptyMessage = (
+  <SelectPanelMessage variant="empty" title="You haven't created any items yet" key="empty-message">
+    Please add or create new items to populate the list.
+  </SelectPanelMessage>
+)
 
-  if (!listElement || !activeItemElement?.textContent) return
-
-  const optionElements = listElement.querySelectorAll('[role="option"]')
-
-  const index = Array.from(optionElements).indexOf(activeItemElement)
-  const activeItem = items[index] as ItemInput | undefined
-
-  const text = activeItem?.text
-  const selected = activeItem?.selected
-
-  return {index, text, selected}
-}
-
-async function announceText(text: string) {
+async function announceText(text: string, delayMs = SHORT_DELAY_MS) {
   const liveRegion = document.querySelector('live-region')
 
   liveRegion?.clear() // clear previous announcements
@@ -60,45 +48,13 @@ async function announceText(text: string) {
   })
 }
 
-async function announceFilterFocused() {
-  await announceText('Focus on filter text box and list of items')
-}
-
-async function announceNoItems() {
-  await announceText('No matching items.')
-}
-
 async function announceLoading() {
   await announceText('Loading.')
 }
 
-async function announceItemsChanged(
-  items: FilteredActionListProps['items'],
-  listContainerRef: React.RefObject<HTMLElement>,
-) {
-  const liveRegion = document.querySelector('live-region')
-
-  liveRegion?.clear() // clear previous announcements
-
-  // give @primer/behaviors a moment to update active-descendant
-  await new Promise(resolve => window.requestAnimationFrame(resolve))
-
-  const activeItem = getItemWithActiveDescendant(listContainerRef, items)
-  if (!activeItem) return
-  const {index, text, selected} = activeItem
-
-  const announcementText = [
-    'List updated',
-    `Focused item: ${text}`,
-    `${selected ? 'selected' : 'not selected'}`,
-    `${index + 1} of ${items.length}`,
-  ].join(', ')
-
-  await announce(announcementText, {
-    delayMs,
-    from: liveRegion ? liveRegion : undefined, // announce will create a liveRegion if it doesn't find one
-  })
-}
+const announceNoItems = debounce((message?: string) => {
+  announceText(message ?? 'No matching items.', LONG_DELAY_MS)
+}, 250)
 
 interface SelectPanelSingleSelection {
   selected: ItemInput | undefined
@@ -130,6 +86,11 @@ interface SelectPanelBaseProps {
   notice?: {
     text: string | React.ReactElement
     variant: 'info' | 'warning' | 'error'
+  }
+  message?: {
+    title: string
+    body: string | React.ReactElement
+    variant: 'empty' | 'error' | 'warning'
   }
   onCancel?: () => void
 }
@@ -193,6 +154,7 @@ export function SelectPanel({
   height,
   width,
   id,
+  message,
   notice,
   onCancel,
   ...listProps
@@ -208,18 +170,17 @@ export function SelectPanel({
   const loadingManagedExternally = !loadingManagedInternally
   const [inputRef, setInputRef] = React.useState<React.RefObject<HTMLInputElement> | null>(null)
   const [listContainerElement, setListContainerElement] = useState<HTMLElement | null>(null)
-  const [needItemsChangedAnnouncement, setNeedItemsChangedAnnouncement] = useState<boolean>(false)
+  const [needsNoItemsAnnouncement, setNeedsNoItemsAnnouncement] = useState<boolean>(false)
 
   const onListContainerRefChanged: FilteredActionListProps['onListContainerRefChanged'] = useCallback(
     (node: HTMLElement | null) => {
       setListContainerElement(node)
-
-      if (needItemsChangedAnnouncement) {
-        announceItemsChanged(items, {current: node})
-        setNeedItemsChangedAnnouncement(false)
+      if (!node && needsNoItemsAnnouncement) {
+        announceNoItems()
+        setNeedsNoItemsAnnouncement(false)
       }
     },
-    [items, needItemsChangedAnnouncement],
+    [needsNoItemsAnnouncement],
   )
 
   const onInputRefChanged = useCallback(
@@ -244,7 +205,7 @@ export function SelectPanel({
           loadingDelayTimeoutId.current = safeSetTimeout(() => {
             setIsLoading(true)
             announceLoading()
-          }, loadingDelayMs)
+          }, LONG_DELAY_MS)
         } else {
           // If this is the first data load and there are no items, show the loading spinner
           // immediately
@@ -256,7 +217,7 @@ export function SelectPanel({
           // We still want to announce if loading is taking too long
           loadingDelayTimeoutId.current = safeSetTimeout(() => {
             announceLoading()
-          }, loadingDelayMs)
+          }, LONG_DELAY_MS)
         }
       }
 
@@ -276,13 +237,12 @@ export function SelectPanel({
 
   useEffect(() => {
     if (open) {
-      if (items.length === 0) {
-        announceNoItems()
-      } else {
-        if (listContainerElement) {
-          announceItemsChanged(items, {current: listContainerElement})
+      if (items.length === 0 && !(isLoading || loading)) {
+        // we need to wait for the listContainerElement to disappear before announcing no items, otherwise it will be interrupted
+        if (!listContainerElement || !usingModernActionList) {
+          announceNoItems(message?.title)
         } else {
-          setNeedItemsChangedAnnouncement(true)
+          setNeedsNoItemsAnnouncement(true)
         }
       }
     }
@@ -295,7 +255,7 @@ export function SelectPanel({
       return
     }
 
-    if (isLoading) {
+    if (isLoading || items.length > 0) {
       setIsLoading(false)
       setDataLoadedOnce(true)
     }
@@ -311,15 +271,6 @@ export function SelectPanel({
   useEffect(() => {
     if (inputRef?.current) {
       const ref = inputRef.current
-      const listener = () => {
-        announceFilterFocused()
-      }
-
-      if (document.activeElement === ref) {
-        listener()
-      }
-
-      ref.addEventListener('focus', listener)
 
       // We would normally expect AnchoredOverlay's focus trap to automatically focus the input,
       // but for some reason the ref isn't populated until _after_ the panel is open, which is
@@ -327,8 +278,6 @@ export function SelectPanel({
       if (open) {
         ref.focus()
       }
-
-      return () => ref.removeEventListener('focus', listener)
     }
   }, [inputRef, open])
 
@@ -439,7 +388,9 @@ export function SelectPanel({
       }
     }
   }
-  const usingModernActionList = useFeatureFlag('primer_react_select_panel_with_modern_action_list')
+
+  const usingModernActionList = useFeatureFlag('primer_react_select_panel_modern_action_list')
+  const usingFullScreenOnNarrow = useFeatureFlag('primer_react_select_panel_fullscreen_on_narrow')
 
   const iconForNoticeVariant = {
     info: <InfoIcon size={16} />,
@@ -447,167 +398,172 @@ export function SelectPanel({
     error: <StopIcon size={16} />,
   }
 
+  function getMessage() {
+    if (items.length === 0 && !message) {
+      return DefaultEmptyMessage
+    } else if (message) {
+      return (
+        <SelectPanelMessage title={message.title} variant={message.variant}>
+          {message.body}
+        </SelectPanelMessage>
+      )
+    }
+  }
+
   return (
-    <LiveRegion>
-      <AnchoredOverlay
-        renderAnchor={renderMenuAnchor}
-        anchorRef={anchorRef}
-        open={open}
-        onOpen={onOpen}
-        onClose={onClose}
-        overlayProps={{
-          role: 'dialog',
-          'aria-labelledby': titleId,
-          'aria-describedby': subtitle ? subtitleId : undefined,
-          ...overlayProps,
-        }}
-        focusTrapSettings={focusTrapSettings}
-        focusZoneSettings={focusZoneSettings}
-        height={height}
-        width={width}
-        anchorId={id}
-        variant={{regular: 'anchored', narrow: 'fullscreen'}}
-        pinPosition={!height}
+    <AnchoredOverlay
+      renderAnchor={renderMenuAnchor}
+      anchorRef={anchorRef}
+      open={open}
+      onOpen={onOpen}
+      onClose={onClose}
+      overlayProps={{
+        role: 'dialog',
+        'aria-labelledby': titleId,
+        'aria-describedby': subtitle ? subtitleId : undefined,
+        ...overlayProps,
+        style: {
+          '--max-height': overlayProps?.maxHeight ? heightMap[overlayProps.maxHeight] : heightMap['large'],
+        } as React.CSSProperties,
+      }}
+      focusTrapSettings={focusTrapSettings}
+      focusZoneSettings={focusZoneSettings}
+      height={height}
+      width={width}
+      anchorId={id}
+      variant={usingFullScreenOnNarrow ? {regular: 'anchored', narrow: 'fullscreen'} : undefined}
+      pinPosition={!height}
+      className={classes.Overlay}
+    >
+      <Box
+        sx={enabled ? undefined : {display: 'flex', flexDirection: 'column', height: 'inherit', maxHeight: 'inherit'}}
+        className={enabled ? classes.Wrapper : undefined}
       >
-        <LiveRegionOutlet />
-        {usingModernActionList ? null : (
-          <Message
-            value={
-              filterValue === ''
-                ? 'Showing all items'
-                : items.length <= 0
-                  ? 'No matching items'
-                  : `${items.length} matching ${items.length === 1 ? 'item' : 'items'}`
-            }
-          />
-        )}
         <Box
-          sx={enabled ? undefined : {display: 'flex', flexDirection: 'column', height: 'inherit', maxHeight: 'inherit'}}
-          className={enabled ? classes.Wrapper : undefined}
+          sx={
+            enabled
+              ? undefined
+              : {
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  paddingTop: 2,
+                  paddingRight: 2,
+                  paddingLeft: 2,
+                }
+          }
+          className={enabled ? classes.Header : undefined}
         >
+          <div>
+            <Heading
+              as="h1"
+              id={titleId}
+              sx={enabled ? undefined : {fontSize: 1, marginLeft: 2}}
+              className={enabled ? classes.Title : undefined}
+            >
+              {title}
+            </Heading>
+            {subtitle ? (
+              <Box
+                id={subtitleId}
+                sx={enabled ? undefined : {marginLeft: 2, fontSize: 0, color: 'fg.muted'}}
+                className={enabled ? classes.Subtitle : undefined}
+              >
+                {subtitle}
+              </Box>
+            ) : null}
+          </div>
+          {onCancel && usingFullScreenOnNarrow && (
+            <IconButton
+              type="button"
+              variant="invisible"
+              icon={XIcon}
+              aria-label="Cancel and close"
+              sx={enabled ? undefined : {display: ['inline-grid', 'inline-grid', 'none', 'none']}}
+              className={enabled ? classes.ResponsiveCloseButton : undefined}
+              onClick={() => {
+                onCancel()
+                onClose('escape')
+              }}
+            />
+          )}
+        </Box>
+        {notice && (
+          <div aria-live="polite" data-variant={notice.variant} className={classes.Notice}>
+            {iconForNoticeVariant[notice.variant]}
+            <div>{notice.text}</div>
+          </div>
+        )}
+        <FilteredActionList
+          filterValue={filterValue}
+          onFilterChange={onFilterChange}
+          onListContainerRefChanged={onListContainerRefChanged}
+          onInputRefChanged={onInputRefChanged}
+          placeholderText={placeholderText}
+          {...listProps}
+          role="listbox"
+          // browsers give aria-labelledby precedence over aria-label so we need to make sure
+          // we don't accidentally override props.aria-label
+          aria-labelledby={listProps['aria-label'] ? undefined : titleId}
+          aria-multiselectable={isMultiSelectVariant(selected) ? 'true' : 'false'}
+          selectionVariant={isMultiSelectVariant(selected) ? 'multiple' : 'single'}
+          items={itemsToRender}
+          textInputProps={extendedTextInputProps}
+          loading={loading || isLoading}
+          loadingType={loadingType()}
+          // hack because the deprecated ActionList does not support this prop
+          {...{
+            message: getMessage(),
+          }}
+          // inheriting height and maxHeight ensures that the FilteredActionList is never taller
+          // than the Overlay (which would break scrolling the items)
+          sx={enabled ? sx : {...sx, height: 'inherit', maxHeight: 'inherit'}}
+          className={enabled ? clsx(className, classes.FilteredActionList) : className}
+          // needed to explicitly enable announcements for deprecated FilteredActionList, we can remove when we fully remove the deprecated version
+          announcementsEnabled
+        />
+        {footer ? (
           <Box
             sx={
               enabled
                 ? undefined
                 : {
                     display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    paddingTop: 2,
-                    paddingRight: 2,
-                    paddingLeft: 2,
+                    borderTop: '1px solid',
+                    borderColor: 'border.default',
+                    padding: 2,
                   }
             }
-            className={enabled ? classes.Header : undefined}
+            className={enabled ? classes.Footer : undefined}
           >
-            <div>
-              <Heading
-                as="h1"
-                id={titleId}
-                sx={enabled ? undefined : {fontSize: 1, marginLeft: 2}}
-                className={enabled ? classes.Title : undefined}
-              >
-                {title}
-              </Heading>
-              {subtitle ? (
-                <Box
-                  id={subtitleId}
-                  sx={enabled ? undefined : {marginLeft: 2, fontSize: 0, color: 'fg.muted'}}
-                  className={enabled ? classes.Subtitle : undefined}
-                >
-                  {subtitle}
-                </Box>
-              ) : null}
-            </div>
+            {footer}
+          </Box>
+        ) : isMultiSelectVariant(selected) && usingFullScreenOnNarrow ? (
+          /* Save and Cancel buttons are only useful for multiple selection, single selection instantly closes the panel */
+          <div className={clsx(classes.Footer, classes.ResponsiveFooter)}>
+            {/* we add a save and cancel button on narrow screens when SelectPanel is full-screen */}
             {onCancel && (
-              <IconButton
-                type="button"
-                variant="invisible"
-                icon={XIcon}
-                aria-label="Cancel and close"
-                sx={enabled ? undefined : {display: ['inline-grid', 'inline-grid', 'none', 'none']}}
-                className={enabled ? classes.ResponsiveCloseButton : undefined}
+              <Button
+                size="medium"
                 onClick={() => {
                   onCancel()
                   onClose('escape')
                 }}
-              />
-            )}
-          </Box>
-          {notice && (
-            <div aria-live="polite" data-variant={notice.variant} className={classes.Notice}>
-              {iconForNoticeVariant[notice.variant]}
-              <div>{notice.text}</div>
-            </div>
-          )}
-          <FilteredActionList
-            filterValue={filterValue}
-            onFilterChange={onFilterChange}
-            onListContainerRefChanged={onListContainerRefChanged}
-            onInputRefChanged={onInputRefChanged}
-            placeholderText={placeholderText}
-            {...listProps}
-            role="listbox"
-            // browsers give aria-labelledby precedence over aria-label so we need to make sure
-            // we don't accidentally override props.aria-label
-            aria-labelledby={listProps['aria-label'] ? undefined : titleId}
-            aria-multiselectable={isMultiSelectVariant(selected) ? 'true' : 'false'}
-            selectionVariant={isMultiSelectVariant(selected) ? 'multiple' : 'single'}
-            items={itemsToRender}
-            textInputProps={extendedTextInputProps}
-            loading={loading || isLoading}
-            loadingType={loadingType()}
-            // inheriting height and maxHeight ensures that the FilteredActionList is never taller
-            // than the Overlay (which would break scrolling the items)
-            sx={enabled ? sx : {...sx, height: 'inherit', maxHeight: 'inherit'}}
-            className={enabled ? clsx(className, classes.FilteredActionList) : className}
-            announcementsEnabled={false}
-          />
-          {footer ? (
-            <Box
-              sx={
-                enabled
-                  ? undefined
-                  : {
-                      display: 'flex',
-                      borderTop: '1px solid',
-                      borderColor: 'border.default',
-                      padding: 2,
-                    }
-              }
-              className={enabled ? classes.Footer : undefined}
-            >
-              {footer}
-            </Box>
-          ) : isMultiSelectVariant(selected) ? (
-            /* Save and Cancel buttons are only useful for multiple selection, single selection instantly closes the panel */
-            <div className={clsx(classes.Footer, classes.ResponsiveFooter)}>
-              {/* we add a save and cancel button on narrow screens when SelectPanel is full-screen */}
-              {onCancel && (
-                <Button
-                  size="medium"
-                  onClick={() => {
-                    onCancel()
-                    onClose('escape')
-                  }}
-                >
-                  Cancel
-                </Button>
-              )}
-              <Button
-                variant="primary"
-                size="medium"
-                block={onCancel ? false : true}
-                onClick={() => onClose('click-outside')}
               >
-                Save
+                Cancel
               </Button>
-            </div>
-          ) : null}
-        </Box>
-      </AnchoredOverlay>
-    </LiveRegion>
+            )}
+            <Button
+              variant="primary"
+              size="medium"
+              block={onCancel ? false : true}
+              onClick={() => onClose('click-outside')}
+            >
+              Save
+            </Button>
+          </div>
+        ) : null}
+      </Box>
+    </AnchoredOverlay>
   )
 }
-
-SelectPanel.displayName = 'SelectPanel'
