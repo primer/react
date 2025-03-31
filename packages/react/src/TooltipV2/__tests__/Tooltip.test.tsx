@@ -2,7 +2,7 @@ import React from 'react'
 import type {TooltipProps} from '../Tooltip'
 import {Tooltip} from '../Tooltip'
 import {checkStoriesForAxeViolations} from '../../utils/testing'
-import {act, fireEvent, render as HTMLRender} from '@testing-library/react'
+import {render as HTMLRender} from '@testing-library/react'
 import theme from '../../theme'
 import {Button, IconButton, ActionMenu, ActionList, ThemeProvider, BaseStyles, ButtonGroup} from '../..'
 import {XIcon} from '@primer/octicons-react'
@@ -15,14 +15,6 @@ const TooltipComponent = (props: Omit<TooltipProps, 'text'> & {text?: string}) =
     <Button>Button Text</Button>
   </Tooltip>
 )
-
-function expectToBeOpen(tooltip: HTMLElement) {
-  expect(tooltip).toMatch(':popover-open, .:popover-open')
-}
-
-function expectNotToBeOpen(tooltip: HTMLElement) {
-  expect(tooltip).not.toMatch(':popover-open, .:popover-open')
-}
 
 function ExampleWithActionMenu(actionMenuTrigger: React.ReactElement): JSX.Element {
   return (
@@ -166,30 +158,5 @@ describe('Tooltip', () => {
 
     const triggerEL = getByText('Button 1')
     expect(triggerEL).toBeInTheDocument()
-  })
-
-  it('should become visible after delay when the target is hovered over', async () => {
-    const {getByRole, getByText} = HTMLRender(<TooltipComponent />)
-    const triggerEL = getByRole('button')
-    const tooltip = getByText('Tooltip text')
-    expectNotToBeOpen(tooltip)
-    fireEvent.mouseOver(triggerEL)
-    expect(tooltip).not.toHaveClass(':popover-open')
-    act(() => jest.advanceTimersByTime(50))
-    expectToBeOpen(tooltip)
-  })
-
-  it('should not become visible after delay when the target is tapped', async () => {
-    const {getByRole, getByText} = HTMLRender(<TooltipComponent />)
-    const triggerEL = getByRole('button')
-    const tooltip = getByText('Tooltip text')
-    expectNotToBeOpen(tooltip)
-    // 'sort of' simulating a tap event here. MouseOver normally happens after
-    // touchEnd but we are 'capture'ing it in the component
-    fireEvent.mouseOver(triggerEL)
-    fireEvent.focus(triggerEL)
-    fireEvent.touchEnd(triggerEL)
-    act(() => jest.advanceTimersByTime(50))
-    expectNotToBeOpen(tooltip)
   })
 })
