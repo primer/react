@@ -1,11 +1,10 @@
-import React from 'react'
-import {behavesAsComponent} from '../utils/testing'
+import {BoldIcon, CodeIcon, ItalicIcon, LinkIcon} from '@primer/octicons-react'
 import userEvent from '@testing-library/user-event'
 import {render as HTMLRender, act} from '@testing-library/react'
 import axe from 'axe-core'
-
+import React from 'react'
+import {afterEach, describe, expect, it, vi} from 'vitest'
 import ActionBar from './'
-import {BoldIcon, CodeIcon, ItalicIcon, LinkIcon} from '@primer/octicons-react'
 
 const SimpleActionBar = () => (
   <ActionBar aria-label="Toolbar">
@@ -19,13 +18,7 @@ const SimpleActionBar = () => (
 
 describe('ActionBar', () => {
   afterEach(() => {
-    jest.clearAllMocks()
-  })
-
-  behavesAsComponent({
-    Component: ActionBar,
-    options: {skipAs: true, skipSx: true, skipClassName: true},
-    toRender: () => <SimpleActionBar />,
+    vi.clearAllMocks()
   })
 
   it('should have no axe violations', async () => {
@@ -35,7 +28,7 @@ describe('ActionBar', () => {
   })
 
   it('should not trigger disabled button', () => {
-    const onClick = jest.fn()
+    const onClick = vi.fn()
     const {getByRole} = HTMLRender(
       <ActionBar aria-label="Toolbar">
         <ActionBar.IconButton icon={BoldIcon} aria-label="Default" onClick={onClick} disabled></ActionBar.IconButton>
@@ -49,7 +42,7 @@ describe('ActionBar', () => {
   })
 
   it('should trigger non-disabled button', () => {
-    const onClick = jest.fn()
+    const onClick = vi.fn()
     const {getByRole} = HTMLRender(
       <ActionBar aria-label="Toolbar">
         <ActionBar.IconButton icon={BoldIcon} aria-label="Default" onClick={onClick}></ActionBar.IconButton>
@@ -64,7 +57,7 @@ describe('ActionBar', () => {
 
   it('should not trigger disabled button with spacebar or enter', async () => {
     const user = userEvent.setup()
-    const onClick = jest.fn()
+    const onClick = vi.fn()
     const {getByRole} = HTMLRender(
       <ActionBar aria-label="Toolbar">
         <ActionBar.IconButton icon={BoldIcon} aria-label="Default" onClick={onClick} disabled></ActionBar.IconButton>
@@ -84,7 +77,7 @@ describe('ActionBar', () => {
 
   it('should trigger non-disabled button with spacebar or enter', async () => {
     const user = userEvent.setup()
-    const onClick = jest.fn()
+    const onClick = vi.fn()
     const {getByRole} = HTMLRender(
       <ActionBar aria-label="Toolbar">
         <ActionBar.IconButton icon={BoldIcon} aria-label="Default" onClick={onClick}></ActionBar.IconButton>
