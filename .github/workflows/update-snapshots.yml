@@ -110,7 +110,7 @@ jobs:
             rm snapshots.zip
             rm $filepath
           done
-      - uses: stefanzweifel/git-auto-commit-action@3ea6ae190baf489ba007f7c92608f33ce20ef04a
+      - uses: stefanzweifel/git-auto-commit-action@e348103e9026cc0eee72ae06630dbe30c8bf7a79
         with:
           commit_message: 'test(vrt): update snapshots'
 
