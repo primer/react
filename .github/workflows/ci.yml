@@ -67,6 +67,8 @@ jobs:
         run: npm run build
       - name: Test
         run: npm run test -- --coverage
+      - name: Run vitest
+        run: npx vitest
 
   type-check:
     runs-on: ubuntu-latest
