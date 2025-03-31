@@ -13,16 +13,17 @@ import {toggleStyledComponent} from '../internal/utils/toggleStyledComponent'
 type FormControlCaptionProps = React.PropsWithChildren<
   {
     id?: string
+    className?: string
   } & SxProp
 >
 
-function FormControlCaption({id, children, sx}: FormControlCaptionProps) {
+function FormControlCaption({id, children, sx, className}: FormControlCaptionProps) {
   const enabled = useFeatureFlag(cssModulesFlag)
   const {captionId, disabled} = useFormControlContext()
   return (
     <StyledCaption
       id={id ?? captionId}
-      className={clsx({
+      className={clsx(className, {
         [classes.Caption]: enabled,
       })}
       data-control-disabled={disabled ? '' : undefined}

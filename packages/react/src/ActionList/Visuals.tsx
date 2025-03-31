@@ -182,3 +182,6 @@ export const VisualOrIndicator: React.FC<
     </VisualComponent>
   )
 }
+
+LeadingVisual.displayName = 'ActionList.LeadingVisual'
+TrailingVisual.displayName = 'ActionList.TrailingVisual'

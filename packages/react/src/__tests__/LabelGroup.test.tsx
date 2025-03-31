@@ -5,6 +5,9 @@ import {LabelGroup, Label, ThemeProvider, BaseStyles} from '..'
 import {behavesAsComponent, checkExports} from '../utils/testing'
 import theme from '../theme'
 import userEvent from '@testing-library/user-event'
+import {setupMatchMedia} from '../utils/test-helpers'
+
+setupMatchMedia()
 
 const ThemeAndStyleContainer: React.FC<React.PropsWithChildren> = ({children}) => (
   <ThemeProvider theme={theme}>
@@ -29,7 +32,7 @@ describe('LabelGroup', () => {
     thresholds: [],
   })) as jest.Mock<IntersectionObserver>
 
-  behavesAsComponent({Component: LabelGroup, options: {skipAs: true}})
+  behavesAsComponent({Component: LabelGroup, options: {skipAs: true, skipClassName: true}})
 
   checkExports('LabelGroup', {
     default: LabelGroup,
