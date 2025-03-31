@@ -4,7 +4,7 @@ import {Button} from '../Button'
 import Link from '../Link'
 import classes from './Blankslate.module.css'
 
-export type BlankslateProps = React.PropsWithChildren<{
+type BlankslateProps = React.HTMLAttributes<HTMLElement> & {
   /**
    * Add a border around this component
    */
@@ -21,11 +21,11 @@ export type BlankslateProps = React.PropsWithChildren<{
   spacious?: boolean
 
   className?: string
-}>
+}
 
-function Blankslate({border, children, narrow, spacious, className}: BlankslateProps) {
+function Blankslate({border, children, narrow, spacious, className, ...rest}: BlankslateProps) {
   return (
-    <div className={classes.Container}>
+    <div {...rest} className={classes.Container}>
       <div
         className={clsx(classes.Blankslate, className)}
         data-border={border}
@@ -38,27 +38,39 @@ function Blankslate({border, children, narrow, spacious, className}: BlankslateP
   )
 }
 
-export type VisualProps = React.PropsWithChildren
+type BlankslateVisualProps = React.HTMLAttributes<HTMLElement>
 
-function Visual({children}: VisualProps) {
-  return <span className={clsx('Blankslate-Visual', classes.Visual)}>{children}</span>
+function Visual({children, className, ...rest}: BlankslateVisualProps) {
+  return (
+    <span {...rest} className={clsx('Blankslate-Visual', classes.Visual, className)}>
+      {children}
+    </span>
+  )
 }
 
-export type HeadingProps = React.PropsWithChildren<{
+type BlankslateHeadingProps = React.HTMLAttributes<HTMLElement> & {
   as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
-}>
-
-function Heading({as: Component = 'h2', children}: HeadingProps) {
-  return <Component className={clsx('Blankslate-Heading', classes.Heading)}>{children}</Component>
 }
 
-export type DescriptionProps = React.PropsWithChildren
-
-function Description({children}: DescriptionProps) {
-  return <p className={clsx('Blankslate-Description', classes.Description)}>{children}</p>
+function Heading({as: Component = 'h2', children, className, ...rest}: BlankslateHeadingProps) {
+  return (
+    <Component {...rest} className={clsx('Blankslate-Heading', classes.Heading, className)}>
+      {children}
+    </Component>
+  )
 }
 
-export type PrimaryActionProps =
+type BlankslateDescriptionProps = React.HTMLAttributes<HTMLElement>
+
+function Description({children, className, ...rest}: BlankslateDescriptionProps) {
+  return (
+    <p {...rest} className={clsx('Blankslate-Description', classes.Description, className)}>
+      {children}
+    </p>
+  )
+}
+
+type BlankslatePrimaryActionProps =
   | (React.PropsWithChildren<{
       href?: never
     }> &
@@ -67,7 +79,7 @@ export type PrimaryActionProps =
       href: string
     }>
 
-function PrimaryAction({children, href, ...props}: PrimaryActionProps) {
+function PrimaryAction({children, href, ...props}: BlankslatePrimaryActionProps) {
   return (
     <div className={clsx('Blankslate-Action', classes.Action)}>
       <Button {...props} as={href ? 'a' : 'button'} href={href} variant="primary">
@@ -77,11 +89,11 @@ function PrimaryAction({children, href, ...props}: PrimaryActionProps) {
   )
 }
 
-export type SecondaryActionProps = React.PropsWithChildren<{
+type BlankslateSecondaryActionProps = React.PropsWithChildren<{
   href: string
 }>
 
-function SecondaryAction({children, href}: SecondaryActionProps) {
+function SecondaryAction({children, href}: BlankslateSecondaryActionProps) {
   return (
     <div className={clsx('Blankslate-Action', classes.Action)}>
       <Link href={href}>{children}</Link>
@@ -89,10 +101,12 @@ function SecondaryAction({children, href}: SecondaryActionProps) {
   )
 }
 
-export default Object.assign(Blankslate, {
-  Visual,
-  Heading,
-  Description,
-  PrimaryAction,
-  SecondaryAction,
-})
+export {Blankslate, Visual, Heading, Description, PrimaryAction, SecondaryAction}
+export type {
+  BlankslateProps,
+  BlankslateVisualProps,
+  BlankslateHeadingProps,
+  BlankslateDescriptionProps,
+  BlankslatePrimaryActionProps,
+  BlankslateSecondaryActionProps,
+}
