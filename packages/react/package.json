@@ -25,7 +25,7 @@
       "import": "./lib-esm/test-helpers.js",
       "require": "./lib/test-helpers.js"
     },
-    "./generated/components.json": "./generated/components.json"
+    "./generated/components.json": "./generated/components.json",
     "./generated/hooks.json": "./generated/hooks.json"
   },
   "typings": "lib/index.d.ts",
