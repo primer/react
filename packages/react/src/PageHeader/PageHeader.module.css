@@ -229,7 +229,7 @@
   display: flex;
   padding-top: var(--base-size-8);
   font-size: var(--text-body-size-medium, 0.875rem);
-  font-weight: var(--base-text-weight-light);
+  font-weight: initial;
   line-height: var(--text-body-lineHeight-medium, 1.4285);
   flex-direction: row;
   grid-row: var(--grid-row-order-description);
