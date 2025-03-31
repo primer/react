@@ -28,6 +28,11 @@ module.exports = {
   setupFiles: ['<rootDir>/src/utils/test-helpers.tsx'],
   setupFilesAfterEnv: ['<rootDir>/src/utils/test-matchers.tsx', '<rootDir>/src/utils/test-deprecations.tsx'],
   testMatch: ['<rootDir>/**/*.test.[jt]s?(x)', '!**/*.types.test.[jt]s?(x)'],
-  testPathIgnorePatterns: ['src/ActionBar', 'src/experimental', 'src/FeatureFlags'],
+  testPathIgnorePatterns: [
+    '/node_modules/',
+    '<rootDir>/src/ActionBar',
+    '<rootDir>/src/experimental',
+    '<rootDir>/src/FeatureFlags',
+  ],
   transformIgnorePatterns: ['node_modules/(?!@github/[a-z-]+-element|@lit-labs/react|@oddbird/popover-polyfill)'],
 }
