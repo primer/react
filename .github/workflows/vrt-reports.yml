@@ -68,7 +68,7 @@ jobs:
       - name: install dependencies
         run: npm ci
       - name: download all reports
-        uses: actions/download-artifact@cc203385981b70ca67e1cc392babf9cc229d5806
+        uses: actions/download-artifact@95815c38cf2ff2164869cbab79da8d1f422bc89e
         with:
           path: all-blob-reports
           pattern: vrt-no-flag-*
@@ -143,7 +143,7 @@ jobs:
       - name: install dependencies
         run: npm ci
       - name: download all reports
-        uses: actions/download-artifact@cc203385981b70ca67e1cc392babf9cc229d5806
+        uses: actions/download-artifact@95815c38cf2ff2164869cbab79da8d1f422bc89e
         with:
           path: all-blob-reports
           pattern: vrt-all-flags-*
