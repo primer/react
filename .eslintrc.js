@@ -19,7 +19,6 @@ module.exports = {
     'plugin:ssr-friendly/recommended',
     'plugin:clsx/recommended',
   ],
-  plugins: ['react-refresh'],
   settings: {
     react: {
       version: 'detect',
@@ -91,7 +90,6 @@ module.exports = {
     'github/role-supports-aria-props': 'off',
     'no-restricted-syntax': 'off',
     'primer-react/a11y-use-next-tooltip': 'off',
-    'react-refresh/only-export-components': 'error',
   },
   overrides: [
     // rules which apply only to JS
@@ -119,6 +117,7 @@ module.exports = {
       },
       files: ['**/*.{ts,tsx}'],
       extends: ['plugin:@typescript-eslint/recommended'],
+      plugins: ['react-refresh'],
       rules: {
         '@typescript-eslint/consistent-type-imports': 'error',
         '@typescript-eslint/no-explicit-any': 'error',
@@ -143,6 +142,12 @@ module.exports = {
         'import/no-named-as-default': 'off',
         'import/no-named-as-default-member': 'off',
         'primer-react/direct-slot-children': ['error', {skipImportCheck: true}],
+        'react-refresh/only-export-components': [
+          'error',
+          {
+            allowConstantExport: true,
+          },
+        ],
         'no-restricted-imports': [
           'error',
           {
