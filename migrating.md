@@ -147,41 +147,41 @@ The following table lists color prop values that have changed in `1.0.0-beta`:
 
 | Prop          | Before         | After         | Notes            |
 | :------------ | :------------- | :------------ | :--------------- |
-| `bg`          | `blue-light`   | `blue.0`      |
-| `bg`          | `blue`         | `blue.5`      |
-| `bg`          | `gray-dark`    | `gray.9`      |
-| `bg`          | `gray-light`   | `gray.0`      |
-| `bg`          | `gray`         | `gray.1`      |
-| `bg`          | `green-light`  | `green.1`     |
-| `bg`          | `green`        | `green.5`     |
-| `bg`          | `orange`       | `orange.7`    |
-| `bg`          | `purple-light` | `purple.0`    |
-| `bg`          | `purple`       | `purple.5`    |
-| `bg`          | `red-light`    | `red.1`       |
-| `bg`          | `red`          | `red.5`       |
-| `bg`          | `yellow-light` | `yellow.2`    |
-| `bg`          | `yellow`       | `yellow.5`    |
-| `borderColor` | `black-fade`   | `blackfade15` |
-| `borderColor` | `blue-light`   | `blue.2`      |
-| `borderColor` | `blue`         | `blue.5`      |
-| `borderColor` | `gray-dark`    | `gray.3`      |
-| `borderColor` | `gray-darker`  | `gray.7`      |
+| `bg`          | `blue-light`   | `blue.0`      |                  |
+| `bg`          | `blue`         | `blue.5`      |                  |
+| `bg`          | `gray-dark`    | `gray.9`      |                  |
+| `bg`          | `gray-light`   | `gray.0`      |                  |
+| `bg`          | `gray`         | `gray.1`      |                  |
+| `bg`          | `green-light`  | `green.1`     |                  |
+| `bg`          | `green`        | `green.5`     |                  |
+| `bg`          | `orange`       | `orange.7`    |                  |
+| `bg`          | `purple-light` | `purple.0`    |                  |
+| `bg`          | `purple`       | `purple.5`    |                  |
+| `bg`          | `red-light`    | `red.1`       |                  |
+| `bg`          | `red`          | `red.5`       |                  |
+| `bg`          | `yellow-light` | `yellow.2`    |                  |
+| `bg`          | `yellow`       | `yellow.5`    |                  |
+| `borderColor` | `black-fade`   | `blackfade15` |                  |
+| `borderColor` | `blue-light`   | `blue.2`      |                  |
+| `borderColor` | `blue`         | `blue.5`      |                  |
+| `borderColor` | `gray-dark`    | `gray.3`      |                  |
+| `borderColor` | `gray-darker`  | `gray.7`      |                  |
 | `borderColor` | `gray-light`   | `#eaecef`     | Not yet migrated |
-| `borderColor` | `gray`         | `gray.2`      |
+| `borderColor` | `gray`         | `gray.2`      |                  |
 | `borderColor` | `green-light`  | `#a2cbac`     | Not yet migrated |
-| `borderColor` | `green`        | `green.4`     |
-| `borderColor` | `purple`       | `purple.5`    |
+| `borderColor` | `green`        | `green.4`     |                  |
+| `borderColor` | `purple`       | `purple.5`    |                  |
 | `borderColor` | `red-light`    | `#cea0a5`     | Not yet migrated |
 | `borderColor` | `yellow`       | `#d9d0a5`     | Not yet migrated |
-| `color`       | `blue`         | `blue.5`      |
-| `color`       | `gray-dark`    | `gray.9`      |
-| `color`       | `gray-light`   | `gray.5`      |
-| `color`       | `gray`         | `gray.6`      |
-| `color`       | `green`        | `green.5`     |
-| `color`       | `orange-light` | `orange.6`    |
-| `color`       | `orange`       | `orange.9`    |
-| `color`       | `purple`       | `purple.5`    |
-| `color`       | `red`          | `red.6`       |
+| `color`       | `blue`         | `blue.5`      |                  |
+| `color`       | `gray-dark`    | `gray.9`      |                  |
+| `color`       | `gray-light`   | `gray.5`      |                  |
+| `color`       | `gray`         | `gray.6`      |                  |
+| `color`       | `green`        | `green.5`     |                  |
+| `color`       | `orange-light` | `orange.6`    |                  |
+| `color`       | `orange`       | `orange.9`    |                  |
+| `color`       | `purple`       | `purple.5`    |                  |
+| `color`       | `red`          | `red.6`       |                  |
 
 Remember that all `fg` props must be renamed to `color`.
 
