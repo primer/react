@@ -2,12 +2,12 @@
 
 import React from 'react'
 import {render, screen} from '@testing-library/react'
+import {afterEach, describe, expect, it, vi} from 'vitest'
 import UnderlinePanels from './UnderlinePanels'
-import {behavesAsComponent} from '../../utils/testing'
 import TabContainerElement from '@github/tab-container-element'
 import {FeatureFlags} from '../../FeatureFlags'
 
-TabContainerElement.prototype.selectTab = jest.fn()
+TabContainerElement.prototype.selectTab = vi.fn()
 
 const UnderlinePanelsMockComponent = (props: {'aria-label'?: string; 'aria-labelledby'?: string; id?: string}) => (
   <UnderlinePanels {...props}>
@@ -22,12 +22,8 @@ const UnderlinePanelsMockComponent = (props: {'aria-label'?: string; 'aria-label
 
 describe('UnderlinePanels', () => {
   afterEach(() => {
-    jest.restoreAllMocks()
+    vi.restoreAllMocks()
   })
-
-  behavesAsComponent({Component: UnderlinePanels, options: {skipAs: true}})
-
-  behavesAsComponent({Component: UnderlinePanels.Tab})
 
   it('renders without errors', () => {
     render(<UnderlinePanelsMockComponent aria-label="Select a tab" />)
@@ -42,12 +38,14 @@ describe('UnderlinePanels', () => {
     expect(firstTab).toHaveAttribute('id', 'custom-id-tab-0')
     expect(firstPanel).toHaveAttribute('aria-labelledby', 'custom-id-tab-0')
   })
+
   it('renders aria-label', () => {
     render(<UnderlinePanelsMockComponent aria-label="Select a tab" />)
 
     const tabList = screen.getByRole('tablist')
     expect(tabList).toHaveAccessibleName('Select a tab')
   })
+
   it('renders aria-labelledby', () => {
     render(
       <>
@@ -59,6 +57,7 @@ describe('UnderlinePanels', () => {
     const tabList = screen.getByRole('tablist')
     expect(tabList).toHaveAccessibleName('Select a tab')
   })
+
   it('updates the selected tab when aria-selected changes', () => {
     const {rerender} = render(
       <UnderlinePanels aria-label="Select a tab">
@@ -93,8 +92,9 @@ describe('UnderlinePanels', () => {
     expect(firstTab).toHaveAttribute('aria-selected', 'false')
     expect(secondTab).toHaveAttribute('aria-selected', 'true')
   })
+
   it('calls onSelect when a tab is clicked', () => {
-    const onSelect = jest.fn()
+    const onSelect = vi.fn()
     render(
       <UnderlinePanels aria-label="Select a tab">
         <UnderlinePanels.Tab onSelect={onSelect}>Tab 1</UnderlinePanels.Tab>
@@ -107,11 +107,13 @@ describe('UnderlinePanels', () => {
 
     expect(onSelect).toHaveBeenCalled()
   })
+
   it('throws an error when the neither aria-label nor aria-labelledby are passed', () => {
     render(<UnderlinePanelsMockComponent />)
   })
+
   it('throws an error when the number of tabs does not match the number of panels', () => {
-    const spy = jest.spyOn(console, 'error').mockImplementation()
+    const spy = vi.spyOn(console, 'error').mockImplementation(() => {})
     expect(() => {
       render(
         <UnderlinePanels aria-label="Select a tab">
@@ -126,8 +128,9 @@ describe('UnderlinePanels', () => {
     expect(spy).toHaveBeenCalled()
     spy.mockRestore()
   })
+
   it('throws an error when the number of panels does not match the number of tabs', () => {
-    const spy = jest.spyOn(console, 'error').mockImplementation()
+    const spy = vi.spyOn(console, 'error').mockImplementation(() => {})
     expect(() => {
       render(
         <UnderlinePanels aria-label="Select a tab">
@@ -142,8 +145,9 @@ describe('UnderlinePanels', () => {
     expect(spy).toHaveBeenCalled()
     spy.mockRestore()
   })
+
   it('throws an error when there are multiple items that have aria-selected', () => {
-    const spy = jest.spyOn(console, 'error').mockImplementation()
+    const spy = vi.spyOn(console, 'error').mockImplementation(() => {})
     expect(() => {
       render(
         <UnderlinePanels aria-label="Select a tab">
@@ -159,6 +163,7 @@ describe('UnderlinePanels', () => {
     expect(spy).toHaveBeenCalled()
     spy.mockRestore()
   })
+
   it('should support `className` on the outermost element', () => {
     const Element = () => (
       <UnderlinePanels className={'test-class-name'}>
@@ -180,7 +185,10 @@ describe('UnderlinePanels', () => {
         </FeatureFlags>
       )
     }
-    expect(render(<Element />).baseElement.firstChild?.firstChild?.firstChild).toHaveClass('test-class-name')
-    expect(render(<FeatureFlagElement />).baseElement.firstChild?.firstChild?.firstChild).toHaveClass('test-class-name')
+
+    for (const Component of [Element, FeatureFlagElement]) {
+      const {container} = render(<Component />)
+      expect(container.firstChild?.firstChild).toHaveClass('test-class-name')
+    }
   })
 })
