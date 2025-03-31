@@ -53,8 +53,9 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
-    matrix:
-      test-framework: [jest, vitest]
+    strategy:
+      matrix:
+        test-framework: [jest, vitest]
     steps:
       - name: Checkout repository
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
