@@ -30,6 +30,7 @@ afterEach(() => {
   cleanup()
 })
 
+// eslint-disable-next-line ssr-friendly/no-dom-globals-in-module-scope
 // @ts-expect-error we are not implementing all of CSS
 window.CSS = {
   supports: vi.fn(),

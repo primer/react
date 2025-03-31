@@ -10,6 +10,9 @@
     "src/**/*.js",
     "src/**/*.ts",
     "src/**/*.tsx",
+    "config/**/*.ts",
     "script/**/*.ts",
+    "vitest.config.browser.mts",
+    "vitest.config.mts",
   ]
 }
