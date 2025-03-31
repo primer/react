@@ -31,6 +31,7 @@ module.exports = {
   testPathIgnorePatterns: [
     '/node_modules/',
     '<rootDir>/src/ActionBar',
+    '<rootDir>/src/Banner',
     '<rootDir>/src/experimental',
     '<rootDir>/src/FeatureFlags',
   ],
