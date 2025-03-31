@@ -157,4 +157,14 @@ describe('Tooltip', () => {
     const triggerEL = getByText('Button 1')
     expect(triggerEL).toBeInTheDocument()
   })
+  it('includes keybinding hints in the label text', () => {
+    const {getByRole} = HTMLRender(<TooltipComponent type="label" keybindingHint="Control+K" />)
+    expect(getByRole('button', {name: 'Tooltip text (control k)'})).toBeInTheDocument()
+  })
+  it('allows overriding the accessible label with aria-label', () => {
+    const {getByRole} = HTMLRender(
+      <TooltipComponent type="label" keybindingHint="Control+K" aria-label="Overridden label" />,
+    )
+    expect(getByRole('button', {name: 'Overridden label'})).toBeInTheDocument()
+  })
 })
