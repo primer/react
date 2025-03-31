@@ -40,7 +40,7 @@ function InputLabel({
   className,
   ...props
 }: Props) {
-  const Label = toggleSxComponent({sx}, as) as React.ComponentType<Props>
+  const Label = toggleSxComponent(sx, as) as React.ComponentType<Props>
   return (
     <Label
       data-control-disabled={disabled ? '' : undefined}
