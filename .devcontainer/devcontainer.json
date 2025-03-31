@@ -8,6 +8,9 @@
   "features": {
     "ghcr.io/devcontainers/features/sshd:1": {
       "version": "latest"
+    },
+    "ghcr.io/devcontainers/features/github-cli": {
+      "version": "latest"
     }
   },
   "hostRequirements": {

@@ -26,7 +26,8 @@ export const KeybindingHint = memo(({className, ...props}: KeybindingHintProps) 
 KeybindingHint.displayName = 'KeybindingHint'
 
 /**
- * AVOID: `KeybindingHint` is nearly always sufficient for providing both visible and accessible keyboard hints.
+ * AVOID: `KeybindingHint` is nearly always sufficient for providing both visible and accessible keyboard hints, and
+ * will result in a good screen reader experience when used as the target for `aria-describedby` and `aria-labelledby`.
  * However, there may be cases where we need a plain string version, such as when building `aria-label` or
  * `aria-description`. In that case, this plain string builder can be used instead.
  *
