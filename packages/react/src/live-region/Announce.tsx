@@ -3,6 +3,7 @@ import React, {useEffect, useRef, useState, type ElementRef} from 'react'
 import Box from '../Box'
 import {useEffectOnce} from '../internal/hooks/useEffectOnce'
 import {useEffectCallback} from '../internal/hooks/useEffectCallback'
+import {computeTextEquivalent} from './computeTextEquivalent'
 
 export type AnnounceProps = React.ComponentPropsWithoutRef<typeof Box> & {
   /**
@@ -130,112 +131,4 @@ export function Announce({
       {children}
     </Box>
   )
-}
-
-type TextEquivalentOptions = {
-  allowHidden: boolean
-}
-
-const defaultOptions: TextEquivalentOptions = {
-  allowHidden: false,
-}
-
-/**
- * Simplified version of the algorithm to compute the text equivalent of an
- * element.
- *
- * @see https://www.w3.org/TR/accname-1.2/#computation-steps
- */
-function computeTextEquivalent(
-  elementOrText: HTMLElement | Text,
-  options: TextEquivalentOptions = defaultOptions,
-): string {
-  if (elementOrText instanceof HTMLElement && elementOrText.shadowRoot) {
-    return Array.from(elementOrText.shadowRoot.childNodes)
-      .map(node => {
-        if (node instanceof Text) {
-          return computeTextEquivalent(node, options)
-        }
-
-        if (node instanceof HTMLElement) {
-          return computeTextEquivalent(node, options)
-        }
-
-        return null
-      })
-      .filter(Boolean)
-      .join(' ')
-  }
-
-  if (elementOrText instanceof Text) {
-    return elementOrText.textContent?.trim() ?? ''
-  }
-
-  const style = window.getComputedStyle(elementOrText)
-  if (style.display === 'none' || style.visibility === 'hidden') {
-    return ''
-  }
-
-  if (options.allowHidden === false && elementOrText.getAttribute('aria-hidden') === 'true') {
-    return ''
-  }
-
-  if (elementOrText.hasAttribute('aria-labelledby')) {
-    const idrefs = elementOrText.getAttribute('aria-labelledby')!
-    return idrefs
-      .split(' ')
-      .map(idref => {
-        const item = document.getElementById(idref)
-        if (item) {
-          return computeTextEquivalent(item, {allowHidden: true})
-        }
-        return null
-      })
-      .filter(Boolean)
-      .join(' ')
-  }
-
-  const role = elementOrText.getAttribute('role')
-
-  if (role === 'combobox' || role === 'listbox') {
-    const options = elementOrText.querySelectorAll('option[aria-selected="true"]')
-    return Array.from(options)
-      .map(option => {
-        if (option instanceof HTMLOptionElement) {
-          return option.value.trim()
-        }
-        return null
-      })
-      .filter(Boolean)
-      .join(', ')
-  }
-
-  if (role === 'range') {
-    if (elementOrText.hasAttribute('aria-valuetext')) {
-      return elementOrText.getAttribute('aria-valuetext')!.trim()
-    }
-
-    if (elementOrText.hasAttribute('aria-valuenow')) {
-      return elementOrText.getAttribute('aria-valuenow')!.trim()
-    }
-    return elementOrText.textContent?.trim() ?? ''
-  }
-
-  if (elementOrText.hasAttribute('aria-label')) {
-    return elementOrText.getAttribute('aria-label')!.trim()
-  }
-
-  if (elementOrText.childNodes.length > 0) {
-    return Array.from(elementOrText.childNodes)
-      .map(node => {
-        if (node instanceof Text || node instanceof HTMLElement) {
-          return computeTextEquivalent(node, options)
-        }
-        return null
-      })
-      .filter(Boolean)
-      .join(' ')
-  }
-
-  return elementOrText.textContent?.trim() ?? ''
 }
