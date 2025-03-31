@@ -83,6 +83,10 @@ runs:
               },
             })
 
+            if (!response.ok) {
+              throw new Error(`Received unexpected ${response.status} response with body: ${await response.text()}`);
+            }
+
             const data = await response.json()
             if (!data.schedule) {
               throw new Error('Unable to get schedule for id: ${{ inputs.schedule-id }}')
