@@ -95,6 +95,7 @@ export const Default = () => {
           </Button>
         )}
         open={open}
+        isMultiSelect={false}
         onOpenChange={setOpen}
         items={selectedItemsSortedFirst}
         selected={selected}
