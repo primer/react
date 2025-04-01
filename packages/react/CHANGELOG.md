@@ -1,5 +1,74 @@
 # @primer/react
 
+## 37.17.0
+
+### Minor Changes
+
+- [#5804](https://github.com/primer/react/pull/5804) [`687343c`](https://github.com/primer/react/commit/687343c6c0b57c80862b898ecd7ed51cc4c2fec8) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove CSS modules feature flag from the InlineMessage component
+
+- [#5786](https://github.com/primer/react/pull/5786) [`0f165d4`](https://github.com/primer/react/commit/0f165d443586a9bf34931b944bc00e031b7c81ab) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove the CSS modules feature flag from the Timeline component
+
+- [#5793](https://github.com/primer/react/pull/5793) [`4213a86`](https://github.com/primer/react/commit/4213a86c64d938d787c022d0a61b6379d3ff9418) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove the CSS modules feature flag from the Autocomplete component.
+
+- [#5741](https://github.com/primer/react/pull/5741) [`d32dd27`](https://github.com/primer/react/commit/d32dd272771dee777bc31d67713b87f189bc8661) Thanks [@mperrotti](https://github.com/mperrotti)! - Adds `hasBorder` prop to PageHeader to allow a bottom border
+
+- [#5810](https://github.com/primer/react/pull/5810) [`2411aa9`](https://github.com/primer/react/commit/2411aa98388a695fc3246725f74503a44a4b97fe) Thanks [@hussam-i-am](https://github.com/hussam-i-am)! - ActionList.Group + ActionList.TrailingAction: add missing className prop
+  LabelGroup: add missing className prop
+
+- [#5792](https://github.com/primer/react/pull/5792) [`4e85438`](https://github.com/primer/react/commit/4e85438a878f80ccb3ffc8167b31afe93d81d752) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove the CSS modules feature flag from the KeybindingHint Component.
+
+- [#5790](https://github.com/primer/react/pull/5790) [`acc5d27`](https://github.com/primer/react/commit/acc5d27fc43d08b6a2efca9c86aba5dec88fe3dc) Thanks [@hectahertz](https://github.com/hectahertz)! - Add Notice to SelectPanel
+
+- [#5821](https://github.com/primer/react/pull/5821) [`3a102a7`](https://github.com/primer/react/commit/3a102a7ed43b84eea5d708fbe0855c272c239371) Thanks [@jamieshark](https://github.com/jamieshark)! - Adds util function to swap out SX enabled components.
+
+- [#5795](https://github.com/primer/react/pull/5795) [`1555b1b`](https://github.com/primer/react/commit/1555b1b5f1c900c303c49eb2c7898460a7db1de2) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove the CSS modules feature flag from the ConfirmationDialog component
+
+- [#5787](https://github.com/primer/react/pull/5787) [`9272a8c`](https://github.com/primer/react/commit/9272a8c4311dbcbd909490e79a185e29e18d15d5) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove the CSS module feature flag from SkeletonAvatar SkeletonBox and SkeletonText
+
+### Patch Changes
+
+- [#5811](https://github.com/primer/react/pull/5811) [`91b52f7`](https://github.com/primer/react/commit/91b52f70da11c1f2d6f666483ea28fd43676b5bb) Thanks [@TylerJDev](https://github.com/TylerJDev)! - DialogV2: Fix CSS issue where `flex-grow` wasn't getting applied via classname
+
+- [#5436](https://github.com/primer/react/pull/5436) [`11b8d4c`](https://github.com/primer/react/commit/11b8d4c418d4de21d3ff86a7031a4eca844bc34b) Thanks [@TylerJDev](https://github.com/TylerJDev)! - Show `Tooltip` on close button in `Dialog`
+
+- [#5832](https://github.com/primer/react/pull/5832) [`b6c7690`](https://github.com/primer/react/commit/b6c769004b6ce02b6377c91766714cbe16478778) Thanks [@francinelucca](https://github.com/francinelucca)! - chore(SelectPanel): put fullscreen functionality behind FF
+
+- [#5816](https://github.com/primer/react/pull/5816) [`59e62c1`](https://github.com/primer/react/commit/59e62c1b190a5bccf30ffa1ba355b0ed5368bf89) Thanks [@langermank](https://github.com/langermank)! - Bug fix: `className` passed to PageLayout twice
+
+- [#5761](https://github.com/primer/react/pull/5761) [`94bc6e4`](https://github.com/primer/react/commit/94bc6e41319a711650957fa2e728f75c72a36772) Thanks [@siddharthkp](https://github.com/siddharthkp)! - SelectPanel: Make SelectPanel full screen on narrow devices with a Save button
+
+- [#5797](https://github.com/primer/react/pull/5797) [`fbc6f97`](https://github.com/primer/react/commit/fbc6f97aae024917b56cfbc98244030d40f3ea00) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - SubNav: Update selected styles to only apply to `data-selected='true'`
+
+## 37.16.0
+
+### Minor Changes
+
+- [#5763](https://github.com/primer/react/pull/5763) [`d3926d1`](https://github.com/primer/react/commit/d3926d183c690f4c3ca80c6f5de92a869688ead7) Thanks [@hussam-i-am](https://github.com/hussam-i-am)! - chore(Box): Mark Box and its props as deprecated
+
+- [#5772](https://github.com/primer/react/pull/5772) [`0970415`](https://github.com/primer/react/commit/09704159839484eaa709f8db2261b38d713a8f1b) Thanks [@jonrohan](https://github.com/jonrohan)! - Removing the CSS modules feature flag from the SubNav component.
+
+- [#5785](https://github.com/primer/react/pull/5785) [`fbd7fc9`](https://github.com/primer/react/commit/fbd7fc9dbad337e6558d9628a9c21ff2a74200b1) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove CSS modules feature flag from VisuallyHidden
+
+- [#5760](https://github.com/primer/react/pull/5760) [`8b492cf`](https://github.com/primer/react/commit/8b492cfef0a086d95803e85c3fc63b4c07b58aa5) Thanks [@TylerJDev](https://github.com/TylerJDev)! - Radio: Removes `aria-invalid` and `aria-required` from `Radio`, as they are not supported on the element's role.
+
+- [#5759](https://github.com/primer/react/pull/5759) [`76bf60d`](https://github.com/primer/react/commit/76bf60d6772d39322def284d43d711480bcc5c81) Thanks [@siddharthkp](https://github.com/siddharthkp)! - AnchoredOverlay: Add prop to set responsive variant. Example: `variant: {regular: 'anchored', narrow: 'anchored'}`
+
+- [#5725](https://github.com/primer/react/pull/5725) [`d3b48b1`](https://github.com/primer/react/commit/d3b48b1cc2d4d5e23fbcdc4052e0db3bf03397ce) Thanks [@lukasoppermann](https://github.com/lukasoppermann)! - Allow button count prop to accept a number or a string, to allow for human format, like 3.2k
+
+### Patch Changes
+
+- [#5768](https://github.com/primer/react/pull/5768) [`7b2eb4e`](https://github.com/primer/react/commit/7b2eb4e71966321eed9f5b779bb5bbf997ca9191) Thanks [@joshblack](https://github.com/joshblack)! - Update CSS Custom Property used in skeletons to fix animation behind feature flag.
+
+- [#5773](https://github.com/primer/react/pull/5773) [`9e18567`](https://github.com/primer/react/commit/9e1856799e8d6f54262fec020635ba1ee0ed5ad0) Thanks [@lukasoppermann](https://github.com/lukasoppermann)! - Update icon color for Blankslate to `--fgColor-muted` to align with Figma and Primer ViewComponents
+
+- [#5764](https://github.com/primer/react/pull/5764) [`c63e805`](https://github.com/primer/react/commit/c63e80540f9be6debeb2bbab13979ab12099414c) Thanks [@joshblack](https://github.com/joshblack)! - Update base component for Checkbox and Radio to pass along correct prop type in React 19
+
+- [#5765](https://github.com/primer/react/pull/5765) [`86a6211`](https://github.com/primer/react/commit/86a6211656e991fbd1d202253636296351cc11d8) Thanks [@joshblack](https://github.com/joshblack)! - Update ordering of selectors to improve rendering of checked Radio options
+
+- [#5649](https://github.com/primer/react/pull/5649) [`63ca6f2`](https://github.com/primer/react/commit/63ca6f2796688d5777edf1dd568c8bd1bb337f11) Thanks [@joshblack](https://github.com/joshblack)! - Update BaseStyles to set data-color-mode to auto when colorMode in ThemeProvider is auto
+
+- [#5767](https://github.com/primer/react/pull/5767) [`e0c34d0`](https://github.com/primer/react/commit/e0c34d06b83d22776e22472fd9d9ee821ff14f44) Thanks [@mperrotti](https://github.com/mperrotti)! - Upgrades tab-container-element
+
 ## 37.15.0
 
 ### Minor Changes
@@ -3005,7 +3074,7 @@ N/A, re-release of v37.11.1
 
   ```jsx
   // Hide pane on narrow viewports
-  <PageLayout.Pane hidden={{ narrow: true }}>...</PageLayout.Pane>
+  <PageLayout.Pane hidden={{narrow: true}}>...</PageLayout.Pane>
   ```
 
 - [#2199](https://github.com/primer/react/pull/2199) [`fb385b63`](https://github.com/primer/react/commit/fb385b63f22c1eb76193e42e92ea2a056e61fdbb) Thanks [@colebemis](https://github.com/colebemis)! - \* Updated the `position` prop in `PageLayout.Pane` to use the new responsive prop API introduced in https://github.com/primer/react/pull/2174.
@@ -3166,7 +3235,7 @@ N/A, re-release of v37.11.1
 - [#2112](https://github.com/primer/react/pull/2112) [`74e1d138`](https://github.com/primer/react/commit/74e1d1386bc6bb6326c3c2b64b5e31146f9cc56b) Thanks [@colebemis](https://github.com/colebemis)! - [NavList](https://primer.style/NavList) is ready to use. You can now import it from the main bundle:
 
   ```js
-  import { NavList } from "@primer/react";
+  import {NavList} from '@primer/react'
   ```
 
 ### Patch Changes
@@ -3307,11 +3376,11 @@ N/A, re-release of v37.11.1
   ```jsx
   <ActionList
     items={[
-      { text: "New file" },
-      { text: "Copy link" },
-      { text: "Edit file" },
+      {text: 'New file'},
+      {text: 'Copy link'},
+      {text: 'Edit file'},
       ActionList.Divider,
-      { text: "Delete file", variant: "danger" },
+      {text: 'Delete file', variant: 'danger'},
     ]}
   />
   ```
@@ -3339,21 +3408,21 @@ N/A, re-release of v37.11.1
     showItemDividers
     items={[
       {
-        key: "0",
+        key: '0',
         leadingVisual: LinkIcon,
-        text: "github/primer",
+        text: 'github/primer',
       },
       {
-        key: "1",
+        key: '1',
         leadingVisual: () => <Avatar src="https://github.com/mona.png" />,
-        text: "mona",
-        description: "Monalisa Octocat",
-        descriptionVariant: "block",
+        text: 'mona',
+        description: 'Monalisa Octocat',
+        descriptionVariant: 'block',
       },
       {
-        key: "2",
+        key: '2',
         leadingVisual: GearIcon,
-        text: "View Settings",
+        text: 'View Settings',
         trailingVisual: ArrowRightIcon,
       },
     ]}
@@ -3376,9 +3445,7 @@ N/A, re-release of v37.11.1
         <Avatar src="https://github.com/mona.png" />
       </ActionList.LeadingVisual>
       mona
-      <ActionList.Description variant="block">
-        Monalisa Octocat
-      </ActionList.Description>
+      <ActionList.Description variant="block">Monalisa Octocat</ActionList.Description>
     </ActionList.Item>
     <ActionList.Item>
       <ActionList.LeadingVisual>
@@ -3400,14 +3467,14 @@ N/A, re-release of v37.11.1
   ```jsx
   <ActionList
     groupMetadata={[
-      { groupId: "0", header: { title: "Live query" } },
-      { groupId: "1", header: { title: "Layout" } },
+      {groupId: '0', header: {title: 'Live query'}},
+      {groupId: '1', header: {title: 'Layout'}},
     ]}
     items={[
-      { key: "0", text: "repo:github/github", groupId: "0" },
-      { key: "1", text: "Table", groupId: "1" },
-      { key: "2", text: "Board", groupId: "1" },
-      { key: "3", text: "View settings" },
+      {key: '0', text: 'repo:github/github', groupId: '0'},
+      {key: '1', text: 'Table', groupId: '1'},
+      {key: '2', text: 'Board', groupId: '1'},
+      {key: '3', text: 'View settings'},
     ]}
   />
   ```
@@ -3439,7 +3506,7 @@ N/A, re-release of v37.11.1
   To continue to use the deprecated API for now, change the import path to `@primer/react/deprecated`:
 
   ```js
-  import { ActionList } from "@primer/react/deprecated";
+  import {ActionList} from '@primer/react/deprecated'
   ```
 
   You can use the [one-time codemod](https://github.com/primer/react-migrate#readme) to change your import statements automatically.
@@ -3490,13 +3557,13 @@ N/A, re-release of v37.11.1
     anchorContent="Menu"
     onAction={fn}
     items={[
-      { text: "New file" },
-      { text: "Copy link" },
-      { text: "Edit file" },
+      {text: 'New file'},
+      {text: 'Copy link'},
+      {text: 'Edit file'},
       ActionMenu.Divider,
-      { text: "Delete file", variant: "danger" },
+      {text: 'Delete file', variant: 'danger'},
     ]}
-    overlayProps={{ width: "small" }}
+    overlayProps={{width: 'small'}}
   />
   ```
 
@@ -3525,7 +3592,7 @@ N/A, re-release of v37.11.1
   To continue to use the deprecated API for now, change the import path to `@primer/react/deprecated`:
 
   ```js
-  import { ActionMenu } from "@primer/react/deprecated";
+  import {ActionMenu} from '@primer/react/deprecated'
   ```
 
   You can use the [one-time codemod](https://github.com/primer/react-migrate#readme) to change your import statements automatically.
@@ -3557,19 +3624,19 @@ N/A, re-release of v37.11.1
 
   ```js
   const fieldTypes = [
-    { key: 0, text: "Text" },
-    { key: 1, text: "Number" },
-    { key: 3, text: "Date" },
-    { key: 4, text: "Single select" },
-    { key: 5, text: "Iteration" },
-  ];
+    {key: 0, text: 'Text'},
+    {key: 1, text: 'Number'},
+    {key: 3, text: 'Date'},
+    {key: 4, text: 'Single select'},
+    {key: 5, text: 'Iteration'},
+  ]
 
   const Example = () => {
-    const [selectedType, setSelectedType] = React.useState();
+    const [selectedType, setSelectedType] = React.useState()
 
     return (
       <DropdownMenu
-        renderAnchor={({ children, ...anchorProps }) => (
+        renderAnchor={({children, ...anchorProps}) => (
           <ButtonInvisible {...anchorProps}>
             {children} <GearIcon />
           </ButtonInvisible>
@@ -3578,10 +3645,10 @@ N/A, re-release of v37.11.1
         items={fieldTypes}
         selectedItem={selectedType}
         onChange={setSelectedType}
-        overlayProps={{ width: "medium" }}
+        overlayProps={{width: 'medium'}}
       />
-    );
-  };
+    )
+  }
   ```
 
    </td>
@@ -3589,24 +3656,22 @@ N/A, re-release of v37.11.1
 
   ```jsx
   const fieldTypes = [
-    { id: 0, text: "Text" },
-    { id: 1, text: "Number" },
-    { id: 3, text: "Date" },
-    { id: 4, text: "Single select" },
-    { id: 5, text: "Iteration" },
-  ];
+    {id: 0, text: 'Text'},
+    {id: 1, text: 'Number'},
+    {id: 3, text: 'Date'},
+    {id: 4, text: 'Single select'},
+    {id: 5, text: 'Iteration'},
+  ]
 
   const Example = () => {
-    const [selectedType, setSelectedType] = React.useState();
+    const [selectedType, setSelectedType] = React.useState()
 
     render(
       <ActionMenu>
-        <ActionMenu.Button aria-label="Select field type">
-          {selectedType.name || "Field type"}
-        </ActionMenu.Button>
+        <ActionMenu.Button aria-label="Select field type">{selectedType.name || 'Field type'}</ActionMenu.Button>
         <ActionMenu.Overlay width="medium">
           <ActionList selectionVariant="single">
-            {fieldTypes.map((type) => (
+            {fieldTypes.map(type => (
               <ActionList.Item
                 key={type.id}
                 selected={type.id === selectedType.id}
@@ -3618,8 +3683,8 @@ N/A, re-release of v37.11.1
           </ActionList>
         </ActionMenu.Overlay>
       </ActionMenu>,
-    );
-  };
+    )
+  }
   ```
 
   </td>
@@ -3629,7 +3694,7 @@ N/A, re-release of v37.11.1
   To continue to use the deprecated API for now, change the import path to `@primer/react/deprecated`:
 
   ```js
-  import { DropdownMenu } from "@primer/react/deprecated";
+  import {DropdownMenu} from '@primer/react/deprecated'
   ```
 
   You can use the [one-time codemod](https://github.com/primer/react-migrate#readme) to change your import statements automatically.
@@ -3660,21 +3725,17 @@ N/A, re-release of v37.11.1
   <td valign="top">
 
   ```jsx
-  import { Label } from "@primer/react";
+  import {Label} from '@primer/react'
 
   function Example() {
     return (
       <>
         <Label outline>default</Label>
-        <Label
-          variant="small"
-          outline
-          sx={{ borderColor: "danger.emphasis", color: "danger.fg" }}
-        >
+        <Label variant="small" outline sx={{borderColor: 'danger.emphasis', color: 'danger.fg'}}>
           danger
         </Label>
       </>
-    );
+    )
   }
   ```
 
@@ -3682,7 +3743,7 @@ N/A, re-release of v37.11.1
   <td valign="top">
 
   ```jsx
-  import { Label } from "@primer/react";
+  import {Label} from '@primer/react'
 
   function Example() {
     return (
@@ -3692,7 +3753,7 @@ N/A, re-release of v37.11.1
           danger
         </Label>
       </>
-    );
+    )
   }
   ```
 
@@ -3703,7 +3764,7 @@ N/A, re-release of v37.11.1
   To continue to use the deprecated API for now, change the import path to `@primer/react/deprecated`:
 
   ```js
-  import { Label } from "@primer/react/deprecated";
+  import {Label} from '@primer/react/deprecated'
   ```
 
   You can use the [one-time codemod](https://github.com/primer/react-migrate#readme) to change your import statements automatically.
@@ -3726,12 +3787,7 @@ N/A, re-release of v37.11.1
   <td valign="top">
 
   ```jsx
-  import {
-    ButtonPrimary,
-    ButtonInvisible,
-    ButtonOutline,
-    ButtonDanger,
-  } from "@primer/react";
+  import {ButtonPrimary, ButtonInvisible, ButtonOutline, ButtonDanger} from '@primer/react'
 
   function Example() {
     return (
@@ -3741,7 +3797,7 @@ N/A, re-release of v37.11.1
         <ButtonOutline>Outline Button</ButtonOutline>
         <ButtonDanger>Danger Button</ButtonDanger>
       </>
-    );
+    )
   }
   ```
 
@@ -3749,7 +3805,7 @@ N/A, re-release of v37.11.1
   <td valign="top">
 
   ```jsx
-  import { Button } from "@primer/react";
+  import {Button} from '@primer/react'
 
   function Example() {
     return (
@@ -3759,7 +3815,7 @@ N/A, re-release of v37.11.1
         <Button variant="outline">Outline Button</Button>
         <Button variant="danger">Danger Button</Button>
       </>
-    );
+    )
   }
   ```
 
@@ -3866,50 +3922,34 @@ N/A, re-release of v37.11.1
   <td valign="top">
 
   ```jsx
-  import { ChoiceFieldset } from "@primer/react";
+  import {ChoiceFieldset} from '@primer/react'
 
   function Example() {
     return (
       <>
         {/* Multi-select */}
         <ChoiceFieldset>
-          <ChoiceFieldset.Legend>
-            Preferred Primer component interface
-          </ChoiceFieldset.Legend>
+          <ChoiceFieldset.Legend>Preferred Primer component interface</ChoiceFieldset.Legend>
           <ChoiceFieldset.List selectionVariant="multiple">
-            <ChoiceFieldset.Item value="figma">
-              Figma library
-            </ChoiceFieldset.Item>
+            <ChoiceFieldset.Item value="figma">Figma library</ChoiceFieldset.Item>
             <ChoiceFieldset.Item value="css">Primer CSS</ChoiceFieldset.Item>
-            <ChoiceFieldset.Item value="react">
-              Primer React components
-            </ChoiceFieldset.Item>
-            <ChoiceFieldset.Item value="viewcomponents">
-              Primer ViewComponents
-            </ChoiceFieldset.Item>
+            <ChoiceFieldset.Item value="react">Primer React components</ChoiceFieldset.Item>
+            <ChoiceFieldset.Item value="viewcomponents">Primer ViewComponents</ChoiceFieldset.Item>
           </ChoiceFieldset.List>
         </ChoiceFieldset>
 
         {/* Single select */}
         <ChoiceFieldset>
-          <ChoiceFieldset.Legend>
-            Preferred Primer component interface
-          </ChoiceFieldset.Legend>
+          <ChoiceFieldset.Legend>Preferred Primer component interface</ChoiceFieldset.Legend>
           <ChoiceFieldset.List>
-            <ChoiceFieldset.Item value="figma">
-              Figma library
-            </ChoiceFieldset.Item>
+            <ChoiceFieldset.Item value="figma">Figma library</ChoiceFieldset.Item>
             <ChoiceFieldset.Item value="css">Primer CSS</ChoiceFieldset.Item>
-            <ChoiceFieldset.Item value="react">
-              Primer React components
-            </ChoiceFieldset.Item>
-            <ChoiceFieldset.Item value="viewcomponents">
-              Primer ViewComponents
-            </ChoiceFieldset.Item>
+            <ChoiceFieldset.Item value="react">Primer React components</ChoiceFieldset.Item>
+            <ChoiceFieldset.Item value="viewcomponents">Primer ViewComponents</ChoiceFieldset.Item>
           </ChoiceFieldset.List>
         </ChoiceFieldset>
       </>
-    );
+    )
   }
   ```
 
@@ -3917,22 +3957,14 @@ N/A, re-release of v37.11.1
   <td valign="top">
 
   ```jsx
-  import {
-    CheckboxGroup,
-    RadioGroup,
-    FormControl,
-    Checkbox,
-    Radio,
-  } from "@primer/react";
+  import {CheckboxGroup, RadioGroup, FormControl, Checkbox, Radio} from '@primer/react'
 
   function Example() {
     return (
       <>
         {/* Multi-select */}
         <CheckboxGroup>
-          <CheckboxGroup.Label>
-            Preferred Primer component interface
-          </CheckboxGroup.Label>
+          <CheckboxGroup.Label>Preferred Primer component interface</CheckboxGroup.Label>
           <FormControl>
             <Checkbox value="figma" />
             <FormControl.Label>Figma</FormControl.Label>
@@ -3953,9 +3985,7 @@ N/A, re-release of v37.11.1
 
         {/* Single select */}
         <RadioGroup name="preferred-primer">
-          <RadioGroup.Label>
-            Preferred Primer component interface
-          </RadioGroup.Label>
+          <RadioGroup.Label>Preferred Primer component interface</RadioGroup.Label>
           <FormControl>
             <Radio value="figma" />
             <FormControl.Label>Figma</FormControl.Label>
@@ -3974,7 +4004,7 @@ N/A, re-release of v37.11.1
           </FormControl>
         </RadioGroup>
       </>
-    );
+    )
   }
   ```
 
@@ -3985,7 +4015,7 @@ N/A, re-release of v37.11.1
   To continue to use the deprecated API for now, change the import path to `@primer/react/deprecated`:
 
   ```js
-  import { ChoiceFieldset } from "@primer/react/deprecated";
+  import {ChoiceFieldset} from '@primer/react/deprecated'
   ```
 
   You can use the [one-time codemod](https://github.com/primer/react-migrate#readme) to change your import statements automatically.
@@ -4017,7 +4047,7 @@ N/A, re-release of v37.11.1
   <td valign="top">
 
   ```jsx
-  import { FormControl, Checkbox, TextInput } from "@primer/react";
+  import {FormControl, Checkbox, TextInput} from '@primer/react'
 
   function Example() {
     return (
@@ -4037,7 +4067,7 @@ N/A, re-release of v37.11.1
           <Checkbox />
         </ChoiceInputField>
       </>
-    );
+    )
   }
   ```
 
@@ -4045,7 +4075,7 @@ N/A, re-release of v37.11.1
   <td valign="top">
 
   ```jsx
-  import { FormGroup, TextInput } from "@primer/react";
+  import {FormGroup, TextInput} from '@primer/react'
 
   function Example() {
     return (
@@ -4060,7 +4090,7 @@ N/A, re-release of v37.11.1
           <Checkbox />
         </FormControl>
       </>
-    );
+    )
   }
   ```
 
@@ -4070,7 +4100,7 @@ N/A, re-release of v37.11.1
   <td valign="top">
 
   ```jsx
-  import { InputField, TextInput } from "@primer/react";
+  import {InputField, TextInput} from '@primer/react'
 
   function Example() {
     return (
@@ -4078,7 +4108,7 @@ N/A, re-release of v37.11.1
         <InputField.Label>Example text</InputField.Label>
         <TextInput />
       </InputField>
-    );
+    )
   }
   ```
 
@@ -4086,7 +4116,7 @@ N/A, re-release of v37.11.1
   <td valign="top">
 
   ```jsx
-  import { FormControl, TextInput } from "@primer/react";
+  import {FormControl, TextInput} from '@primer/react'
 
   function Example() {
     return (
@@ -4094,7 +4124,7 @@ N/A, re-release of v37.11.1
         <FormControl.Label>Example text</FormControl.Label>
         <TextInput />
       </FormControl>
-    );
+    )
   }
   ```
 
@@ -4105,11 +4135,7 @@ N/A, re-release of v37.11.1
   To continue to use the deprecated API for now, change the import path to `@primer/react/deprecated`:
 
   ```js
-  import {
-    FormGroup,
-    ChoiceInputField,
-    InputField,
-  } from "@primer/react/deprecated";
+  import {FormGroup, ChoiceInputField, InputField} from '@primer/react/deprecated'
   ```
 
   You can use the [one-time codemod](https://github.com/primer/react-migrate#readme) to change your import statements automatically.
@@ -4180,25 +4206,23 @@ N/A, re-release of v37.11.1
 
   ```jsx
   const fieldTypes = [
-    { leadingVisual: TypographyIcon, text: "Text" },
-    { leadingVisual: NumberIcon, text: "Number" },
-  ];
+    {leadingVisual: TypographyIcon, text: 'Text'},
+    {leadingVisual: NumberIcon, text: 'Number'},
+  ]
 
   const Example = () => {
-    const [selectedItem, setSelectedItem] = React.useState();
+    const [selectedItem, setSelectedItem] = React.useState()
 
     return (
       <DropdownMenu
-        renderAnchor={({ children, ...anchorProps }) => (
-          <ButtonInvisible {...anchorProps}>{children}</ButtonInvisible>
-        )}
+        renderAnchor={({children, ...anchorProps}) => <ButtonInvisible {...anchorProps}>{children}</ButtonInvisible>}
         placeholder="Select a field type"
         items={fieldTypes}
         selectedItem={selectedItem}
         onChange={() => setSelectedIndex(index)}
       />
-    );
-  };
+    )
+  }
   ```
 
    </td>
@@ -4206,36 +4230,29 @@ N/A, re-release of v37.11.1
 
   ```jsx
   const fieldTypes = [
-    { icon: <TypographyIcon />, name: "Text" },
-    { icon: <NumberIcon />, name: "Number" },
-  ];
+    {icon: <TypographyIcon />, name: 'Text'},
+    {icon: <NumberIcon />, name: 'Number'},
+  ]
 
   const Example = () => {
-    const [selectedItem, setSelectedItem] = React.useState();
+    const [selectedItem, setSelectedItem] = React.useState()
 
     return (
       <ActionMenu>
-        <ActionMenu.Button>
-          {selectedItem ? selectedItem.name : "Select a field type"}
-        </ActionMenu.Button>
+        <ActionMenu.Button>{selectedItem ? selectedItem.name : 'Select a field type'}</ActionMenu.Button>
         <ActionMenu.Overlay>
           <ActionList selectionVariant="single">
-            {fieldTypes.map((field) => (
-              <ActionList.Item
-                onSelect={() => setSelectedItem(field)}
-                key={field.name}
-              >
-                <ActionList.LeadingVisual>
-                  {field.icon}
-                </ActionList.LeadingVisual>
+            {fieldTypes.map(field => (
+              <ActionList.Item onSelect={() => setSelectedItem(field)} key={field.name}>
+                <ActionList.LeadingVisual>{field.icon}</ActionList.LeadingVisual>
                 {field.name}
               </ActionList.Item>
             ))}
           </ActionList>
         </ActionMenu.Overlay>
       </ActionMenu>
-    );
-  };
+    )
+  }
   ```
 
   </td>
@@ -4337,12 +4354,7 @@ N/A, re-release of v37.11.1
   <td valign="top">
 
   ```jsx
-  <Box
-    borderWidth="1px"
-    borderStyle="solid"
-    borderColor="border.default"
-    borderRadius={2}
-  >
+  <Box borderWidth="1px" borderStyle="solid" borderColor="border.default" borderRadius={2}>
     Item 1
   </Box>
   ```
@@ -5386,8 +5398,8 @@ N/A, re-release of v37.11.1
 * [`beef075e`](https://github.com/primer/react/commit/beef075e0274396b77887adf0b912583fe564b3f) [#1094](https://github.com/primer/react/pull/1094) Thanks [@colebemis](https://github.com/colebemis)! - Components no longer have a default `theme` prop. To ensure components still render correctly, you'll need pass the Primer theme to a [styled-components](https://styled-components.com/) `<ThemeProvider>` at the root of your application:
 
   ```jsx
-  import { ThemeProvider } from "styled-components";
-  import { theme } from "@primer/react";
+  import {ThemeProvider} from 'styled-components'
+  import {theme} from '@primer/react'
 
   function App(props) {
     return (
@@ -5396,7 +5408,7 @@ N/A, re-release of v37.11.1
           <div>your app here</div>
         </ThemeProvider>
       </div>
-    );
+    )
   }
   ```
 

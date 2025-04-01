@@ -74,6 +74,10 @@
   border: var(--borderWidth-thin) solid var(--borderColor-sponsors-emphasis) !important;
 }
 
+.testCustomAnimation {
+  animation: none !important;
+}
+
 .testCustomClassnameMono {
   font-family: var(--fontStack-monospace) !important;
 }

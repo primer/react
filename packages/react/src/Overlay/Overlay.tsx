@@ -104,6 +104,7 @@ const StyledOverlay = toggleStyledComponent(
     }
 
     &:where([data-variant='fullscreen']) {
+      position: fixed;
       top: 0;
       left: 0;
       width: 100vw;

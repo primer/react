@@ -1,6 +1,8 @@
-name: Lock Release Pull Request
+name: Toggle Release Lock
 
 on:
+  release:
+    types: [released]
   workflow_dispatch:
     inputs:
       action:
@@ -13,47 +15,64 @@ on:
 
 jobs:
   lock:
-    name: Toggle Release Lock
+    if: ${{ github.event.inputs.action == 'lock' }}
+    name: Lock the release
     runs-on: ubuntu-latest
     steps:
       - name: Get App Token
-        uses: actions/create-github-app-token@v1
+        uses: actions/create-github-app-token@d72941d797fd3113feb6b93fd0dec494b13a2547
         id: app-token
         with:
           app-id: ${{ vars.PRIMER_APP_ID_SHARED }}
           owner: primer
           repositories: react
           private-key: ${{ secrets.PRIMER_APP_PRIVATE_KEY_SHARED }}
-      - name: Toggle Rule > Release Conductor
+      - name: Toggle rulesets
         run: |
-          enforcement=$([ "${{ github.event.inputs.action }}" == "lock" ] && echo "active" || echo "disabled")
-          gh api \
-            --method PUT \
-            -H "Accept: application/vnd.github+json" \
-            -H "X-GitHub-Api-Version: 2022-11-28" \
-            /repos/primer/react/rulesets/3801256 \
-            -f "enforcement=${enforcement}"
-        env:
-          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
-      - name: Toggle Rule > Update Before Merging
-        run: |
-          enforcement=$([ "${{ github.event.inputs.action }}" == "lock" ] && echo "active" || echo "disabled")
-          gh api \
-            --method PUT \
-            -H "Accept: application/vnd.github+json" \
-            -H "X-GitHub-Api-Version: 2022-11-28" \
-            /repos/primer/react/rulesets/4089341 \
-            -f "enforcement=${enforcement}"
-        env:
-          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
-      - name: Toggle Rule > Merge Queue
-        run: |
-          enforcement=$([ "${{ github.event.inputs.action }}" == "lock" ] && echo "disabled" || echo "active")
+          # Allow react-release-conductor to bypass merge queue
           gh api \
             --method PUT \
             -H "Accept: application/vnd.github+json" \
             -H "X-GitHub-Api-Version: 2022-11-28" \
             /repos/primer/react/rulesets/4089335 \
-            -f "enforcement=${enforcement}"
+            -F "bypass_actors[][actor_id]=12276524" \
+            -f "bypass_actors[][actor_type]=Team" \
+            -f "bypass_actors[][bypass_mode]=always"
+          gh api \
+            --method PUT \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            /repos/primer/react/rulesets/3801256 \
+            -f "enforcement=active"
+        env:
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+
+  unlock:
+    if: ${{ github.event.inputs.action == 'unlock' || github.event.action == 'released' }}
+    name: Unlock the release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get App Token
+        uses: actions/create-github-app-token@d72941d797fd3113feb6b93fd0dec494b13a2547
+        id: app-token
+        with:
+          app-id: ${{ vars.PRIMER_APP_ID_SHARED }}
+          owner: primer
+          repositories: react
+          private-key: ${{ secrets.PRIMER_APP_PRIVATE_KEY_SHARED }}
+      - name: Toggle rulesets
+        run: |
+          gh api \
+            --method PUT \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            /repos/primer/react/rulesets/4089335 \
+            -F "bypass_actors[]"
+          gh api \
+            --method PUT \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            /repos/primer/react/rulesets/3801256 \
+            -f "enforcement=disabled"
         env:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
