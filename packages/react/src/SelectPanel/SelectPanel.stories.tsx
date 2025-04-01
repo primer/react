@@ -15,51 +15,35 @@ const meta: Meta<typeof SelectPanel> = {
 
 export default meta
 
-function getColorCircle(color: string) {
-  return function () {
-    return (
-      <Box
-        sx={{
-          backgroundColor: color,
-          borderColor: color,
-          width: 14,
-          height: 14,
-          borderRadius: 10,
-          margin: 'auto',
-          borderWidth: '1px',
-          borderStyle: 'solid',
-        }}
-      />
-    )
-  }
-}
-
 const items: ItemInput[] = [
   {
-    leadingVisual: getColorCircle('#a2eeef'),
     text: 'enhancement',
-    description: 'New feature or request',
-    descriptionVariant: 'block',
     id: 1,
   },
   {
-    leadingVisual: getColorCircle('#d73a4a'),
     text: 'bug',
-    description: "Something isn't working",
-    descriptionVariant: 'block',
     id: 2,
   },
   {
-    leadingVisual: getColorCircle('#0cf478'),
     text: 'good first issue',
-    description: 'Good for newcomers',
-    descriptionVariant: 'block',
     id: 3,
   },
-  {leadingVisual: getColorCircle('#ffd78e'), text: 'design', id: 4},
-  {leadingVisual: getColorCircle('#ff0000'), text: 'blocker', id: 5},
-  {leadingVisual: getColorCircle('#a4f287'), text: 'backend', id: 6},
-  {leadingVisual: getColorCircle('#8dc6fc'), text: 'frontend', id: 7},
+  {
+    text: 'design',
+    id: 4,
+  },
+  {
+    text: 'blocker',
+    id: 5,
+  },
+  {
+    text: 'backend',
+    id: 6,
+  },
+  {
+    text: 'frontend',
+    id: 7,
+  },
 ]
 
 export const Default = () => {
@@ -80,7 +64,6 @@ export const Default = () => {
     if (!aIsSelected && bIsSelected) return 1
     return 0
   })
-  const [open, setOpen] = useState(false)
 
   return (
     <FormControl>
@@ -94,8 +77,6 @@ export const Default = () => {
             {children}
           </Button>
         )}
-        open={open}
-        onOpenChange={setOpen}
         items={selectedItemsSortedFirst}
         selected={selected}
         onSelectedChange={setSelected}
