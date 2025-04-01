@@ -349,6 +349,7 @@ export const Tooltip = React.forwardRef(
     )
 
     const isMacOS = useIsMacOS()
+    const hasAriaLabel = 'aria-label' in rest
 
     return (
       <TooltipContext.Provider value={value}>
@@ -405,22 +406,26 @@ export const Tooltip = React.forwardRef(
             // mouse leave and enter on the tooltip itself is needed to keep the tooltip open when the mouse is over the tooltip
             onMouseEnter={openTooltip}
             onMouseLeave={closeTooltip}
+            // If there is an aria-label prop, always assign the ID to the parent so the accessible label can be overridden
+            id={hasAriaLabel || !keybindingHint ? tooltipId : undefined}
           >
-            <span id={tooltipId}>
-              {text}
-              {/* There is a bug in Chrome browsers where `aria-hidden` text inside the target of an `aria-labelledby`
+            {keybindingHint ? (
+              <>
+                <span id={hasAriaLabel ? undefined : tooltipId}>
+                  {text}
+                  {/* There is a bug in Chrome browsers where `aria-hidden` text inside the target of an `aria-labelledby`
                still gets included in the accessible label. `KeybindingHint` renders the symbols as `aria-hidden` text
                and renders full key names as `VisuallyHidden` text. Due to the browser bug this causes the label text
                to duplicate the symbols and key names. To work around this, we exclude the hint from being part of the
                label and instead render the plain keybinding description string. */}
-              {keybindingHint && (
-                <VisuallyHidden>({getAccessibleKeybindingHintString(keybindingHint, isMacOS)})</VisuallyHidden>
-              )}
-            </span>
-            {keybindingHint && (
-              <span className={clsx(classes.KeybindingHintContainer, text && classes.HasTextBefore)} aria-hidden>
-                <KeybindingHint keys={keybindingHint} format="condensed" variant="onEmphasis" size="small" />
-              </span>
+                  <VisuallyHidden>({getAccessibleKeybindingHintString(keybindingHint, isMacOS)})</VisuallyHidden>
+                </span>
+                <span className={clsx(classes.KeybindingHintContainer, text && classes.HasTextBefore)} aria-hidden>
+                  <KeybindingHint keys={keybindingHint} format="condensed" variant="onEmphasis" size="small" />
+                </span>
+              </>
+            ) : (
+              text
             )}
           </StyledTooltip>
         </>

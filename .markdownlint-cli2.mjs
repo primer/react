@@ -1,4 +1,4 @@
-const githubMarkdownOpinions = require('@github/markdownlint-github')
+import githubMarkdownOpinions, {init} from '@github/markdownlint-github'
 
 // Rules we want to turn on but currently have too many violations
 const rulesToEnforce = {
@@ -28,11 +28,16 @@ const defaultOverrides = {
   'no-generic-link-text': {exceptions: ['link']}, // We don't want it to flag links that link to `Link` component.
 }
 
-const options = githubMarkdownOpinions.init({...rulesToNotEnforce, ...rulesToEnforce, ...defaultOverrides})
-module.exports = {
-  config: options,
+const options = {
+  config: init({
+    ...rulesToNotEnforce,
+    ...rulesToEnforce,
+    ...defaultOverrides,
+  }),
   customRules: ['@github/markdownlint-github'],
   outputFormatters: [
     ['markdownlint-cli2-formatter-pretty', {appendLink: true}], // ensures the error message includes a link to the rule documentation
   ],
 }
+
+export default options

@@ -8,6 +8,6 @@ jobs:
       CI_JOB_NUMBER: 1
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
-      - uses: andresz1/size-limit-action@f7a56ece616db5bddde81de219695c920a8ae137
+      - uses: andresz1/size-limit-action@e7493a72a44b113341c0cf6186ab49c17c4b65c1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}

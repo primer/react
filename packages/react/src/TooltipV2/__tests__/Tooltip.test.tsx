@@ -38,11 +38,11 @@ describe('Tooltip', () => {
 
   it('renders `data-direction="s"` by default', () => {
     const {getByText} = HTMLRender(<TooltipComponent />)
-    expect(getByText('Tooltip text').closest('[role=tooltip]')).toHaveAttribute('data-direction', 's')
+    expect(getByText('Tooltip text')).toHaveAttribute('data-direction', 's')
   })
   it('renders `data-direction` attribute with the correct value when the `direction` prop is specified', () => {
     const {getByText} = HTMLRender(<TooltipComponent direction="n" />)
-    expect(getByText('Tooltip text').closest('[role=tooltip]')).toHaveAttribute('data-direction', 'n')
+    expect(getByText('Tooltip text')).toHaveAttribute('data-direction', 'n')
   })
   it('should label the trigger element by its tooltip when the tooltip type is label', () => {
     const {getByRole, getByText} = HTMLRender(<TooltipComponent type="label" />)
@@ -52,11 +52,11 @@ describe('Tooltip', () => {
   })
   it('should render aria-hidden on the tooltip element when the tooltip is label type', () => {
     const {getByText} = HTMLRender(<TooltipComponent type="label" />)
-    expect(getByText('Tooltip text').parentElement).toHaveAttribute('aria-hidden', 'true')
+    expect(getByText('Tooltip text')).toHaveAttribute('aria-hidden', 'true')
   })
   it('should render aria-hidden on the tooltip element when the tooltip is description type', () => {
     const {getByText} = HTMLRender(<TooltipComponent type="description" />)
-    expect(getByText('Tooltip text').closest('[role=tooltip]')).toHaveAttribute('aria-hidden', 'true')
+    expect(getByText('Tooltip text')).toHaveAttribute('aria-hidden', 'true')
   })
   it('should describe the trigger element by its tooltip when the tooltip type is description (by default)', () => {
     const {getByRole, getByText} = HTMLRender(<TooltipComponent />)
@@ -66,7 +66,7 @@ describe('Tooltip', () => {
   })
   it('should render the tooltip element with role="tooltip" when the tooltip type is description (by default)', () => {
     const {getByText} = HTMLRender(<TooltipComponent />)
-    expect(getByText('Tooltip text').closest('[role=tooltip]')).toHaveAttribute('role', 'tooltip')
+    expect(getByText('Tooltip text')).toHaveAttribute('role', 'tooltip')
   })
 
   it('should spread the accessibility attributes correctly on the trigger (ActionMenu.Button) when tooltip is used in an action menu', () => {
@@ -156,5 +156,15 @@ describe('Tooltip', () => {
 
     const triggerEL = getByText('Button 1')
     expect(triggerEL).toBeInTheDocument()
+  })
+  it('includes keybinding hints in the label text', () => {
+    const {getByRole} = HTMLRender(<TooltipComponent type="label" keybindingHint="Control+K" />)
+    expect(getByRole('button', {name: 'Tooltip text (control k)'})).toBeInTheDocument()
+  })
+  it('allows overriding the accessible label with aria-label', () => {
+    const {getByRole} = HTMLRender(
+      <TooltipComponent type="label" keybindingHint="Control+K" aria-label="Overridden label" />,
+    )
+    expect(getByRole('button', {name: 'Overridden label'})).toBeInTheDocument()
   })
 })
