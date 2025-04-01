@@ -19,16 +19,25 @@ type UnderlineWrapperProps = {
   slot?: string
   as?: React.ElementType
   className?: string
+  ref?: React.Ref<unknown>
 } & SxProp
 
+const UnderlineWrapperComponent = toggleSxComponent({}, 'div') as React.ComponentType<
+  PropsWithChildren<UnderlineWrapperProps>
+>
+
 export const UnderlineWrapper = forwardRef(
-  ({children, className, sx, ...rest}: PropsWithChildren<UnderlineWrapperProps>, forwardedRef) => {
-    const UnderlineWrapperComponent = toggleSxComponent(sx, 'div') as React.ComponentType<
-      PropsWithChildren<UnderlineWrapperProps>
-    >
+  (
+    {children, className, sx: sxProp = defaultSxProp, ...rest}: PropsWithChildren<UnderlineWrapperProps>,
+    forwardedRef,
+  ) => {
     return (
-      // @ts-ignore ref prop
-      <UnderlineWrapperComponent className={clsx(classes.UnderlineWrapper, className)} ref={forwardedRef} {...rest}>
+      <UnderlineWrapperComponent
+        className={clsx(classes.UnderlineWrapper, className)}
+        ref={forwardedRef}
+        sx={sxProp}
+        {...rest}
+      >
         {children}
       </UnderlineWrapperComponent>
     )
@@ -81,12 +90,16 @@ export const LoadingCounter = () => {
 
 export type UnderlineItemProps = {
   as?: React.ElementType | 'a' | 'button'
+  className?: string
   iconsVisible?: boolean
   loadingCounters?: boolean
   counter?: number | string
   icon?: FC<IconProps> | React.ReactElement
   id?: string
+  ref?: React.Ref<unknown>
 } & SxProp
+
+const UnderlineComponent = toggleSxComponent({}, 'a') as React.ComponentType<PropsWithChildren<UnderlineItemProps>>
 
 export const UnderlineItem = forwardRef(
   (
@@ -102,12 +115,8 @@ export const UnderlineItem = forwardRef(
     }: PropsWithChildren<UnderlineItemProps>,
     forwardedRef,
   ) => {
-    const UnderlineComponent = toggleSxComponent(sxProp, as) as React.ComponentType<
-      PropsWithChildren<UnderlineItemProps>
-    >
     return (
-      // @ts-ignore ref prop
-      <UnderlineComponent ref={forwardedRef} as={as} className={classes.UnderlineItem} {...rest}>
+      <UnderlineComponent ref={forwardedRef} as={as} sx={sxProp} className={classes.UnderlineItem} {...rest}>
         {iconsVisible && Icon && <span data-component="icon">{isElement(Icon) ? Icon : <Icon />}</span>}
         {children && (
           <span data-component="text" data-content={children}>

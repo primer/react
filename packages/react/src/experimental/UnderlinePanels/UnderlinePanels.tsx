@@ -141,15 +141,19 @@ const UnderlinePanels: FC<UnderlinePanelsProps> = ({
 
   // when the wrapper resizes, check if the icons should be visible
   // by comparing the wrapper width to the list width
-  useResizeObserver((resizeObserverEntries: ResizeObserverEntry[]) => {
-    if (!tabsHaveIcons) {
-      return
-    }
+  useResizeObserver(
+    (resizeObserverEntries: ResizeObserverEntry[]) => {
+      if (!tabsHaveIcons) {
+        return
+      }
 
-    const wrapperWidth = resizeObserverEntries[0].contentRect.width
+      const wrapperWidth = resizeObserverEntries[0].contentRect.width
 
-    setIconsVisible(wrapperWidth > listWidth)
-  }, wrapperRef)
+      setIconsVisible(wrapperWidth > listWidth)
+    },
+    wrapperRef,
+    [],
+  )
 
   if (__DEV__) {
     const selectedTabs = tabs.filter(tab => {
