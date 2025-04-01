@@ -82,6 +82,7 @@ interface SelectPanelBaseProps {
   overlayProps?: Partial<OverlayProps>
   footer?: string | React.ReactElement
   initialLoadingType?: InitialLoadingType
+  isMultiSelect?: boolean
   className?: string
   notice?: {
     text: string | React.ReactElement
@@ -100,12 +101,6 @@ export type SelectPanelProps = SelectPanelBaseProps &
   Pick<AnchoredOverlayProps, 'open' | 'height' | 'width'> &
   AnchoredOverlayWrapperAnchorProps &
   (SelectPanelSingleSelection | SelectPanelMultiSelection)
-
-function isMultiSelectVariant(
-  selected: SelectPanelSingleSelection['selected'] | SelectPanelMultiSelection['selected'],
-): selected is SelectPanelMultiSelection['selected'] {
-  return Array.isArray(selected)
-}
 
 const focusZoneSettings: Partial<FocusZoneHookSettings> = {
   // Let FilteredActionList handle focus zone
@@ -138,7 +133,8 @@ export function SelectPanel({
   placeholderText = 'Filter items',
   inputLabel = placeholderText,
   selected,
-  title = isMultiSelectVariant(selected) ? 'Select items' : 'Select an item',
+  isMultiSelect = Array.isArray(selected),
+  title = isMultiSelect ? 'Select items' : 'Select an item',
   subtitle,
   onSelectedChange,
   filterValue: externalFilterValue,
@@ -330,7 +326,8 @@ export function SelectPanel({
 
   const itemsToRender = useMemo(() => {
     return items.map(item => {
-      const isItemSelected = isMultiSelectVariant(selected) ? doesItemsIncludeItem(selected, item) : selected === item
+      const isItemSelected =
+        isMultiSelect && Array.isArray(selected) ? doesItemsIncludeItem(selected, item) : selected === item
 
       return {
         ...item,
@@ -343,7 +340,7 @@ export function SelectPanel({
             return
           }
 
-          if (isMultiSelectVariant(selected)) {
+          if (isMultiSelect && Array.isArray(selected)) {
             const otherSelectedItems = selected.filter(selectedItem => !areItemsEqual(selectedItem, item))
             const newSelectedItems = doesItemsIncludeItem(selected, item)
               ? otherSelectedItems
@@ -505,8 +502,8 @@ export function SelectPanel({
           // browsers give aria-labelledby precedence over aria-label so we need to make sure
           // we don't accidentally override props.aria-label
           aria-labelledby={listProps['aria-label'] ? undefined : titleId}
-          aria-multiselectable={isMultiSelectVariant(selected) ? 'true' : 'false'}
-          selectionVariant={isMultiSelectVariant(selected) ? 'multiple' : 'single'}
+          aria-multiselectable={isMultiSelect ? 'true' : 'false'}
+          selectionVariant={isMultiSelect ? 'multiple' : 'single'}
           items={itemsToRender}
           textInputProps={extendedTextInputProps}
           loading={loading || isLoading}
@@ -538,7 +535,7 @@ export function SelectPanel({
           >
             {footer}
           </Box>
-        ) : isMultiSelectVariant(selected) && usingFullScreenOnNarrow ? (
+        ) : isMultiSelect && usingFullScreenOnNarrow ? (
           /* Save and Cancel buttons are only useful for multiple selection, single selection instantly closes the panel */
           <div className={clsx(classes.Footer, classes.ResponsiveFooter)}>
             {/* we add a save and cancel button on narrow screens when SelectPanel is full-screen */}
