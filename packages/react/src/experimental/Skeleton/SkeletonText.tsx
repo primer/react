@@ -2,7 +2,7 @@ import React, {type CSSProperties, type HTMLProps} from 'react'
 import classes from './SkeletonText.module.css'
 import {clsx} from 'clsx'
 import {merge} from '../../sx'
-import SkeletonBox from '../../Skeleton'
+import {SkeletonBox} from './'
 
 type SkeletonTextProps = {
   /** Size of the text that the skeleton is replacing. */
