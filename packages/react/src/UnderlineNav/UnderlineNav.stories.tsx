@@ -27,6 +27,11 @@ const meta: Meta<typeof UnderlineNav> = {
         type: 'boolean',
       },
     },
+    noInlineGap: {
+      control: {
+        type: 'boolean',
+      },
+    },
   },
   args: {
     'aria-label': 'Repository',

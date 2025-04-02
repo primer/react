@@ -53,6 +53,11 @@ export type UnderlinePanelsProps = {
    */
   loadingCounters?: boolean
   /**
+   * There are cases where you may not want the horizontal padding on items,
+   * and panels to make the tabs look horizontally aligned with the content above and below it.
+   */
+  noInlineGap?: boolean
+  /**
    * Class name for custom styling
    */
   className?: string
@@ -93,6 +98,7 @@ const UnderlinePanels: FC<UnderlinePanelsProps> = ({
   'aria-labelledby': ariaLabelledBy,
   children,
   loadingCounters,
+  noInlineGap,
   sx: sxProp = defaultSxProp,
   className,
   ...props
@@ -189,6 +195,7 @@ const UnderlinePanels: FC<UnderlinePanelsProps> = ({
           ref={wrapperRef}
           slot="tablist-wrapper"
           data-icons-visible={iconsVisible}
+          data-padded={!noInlineGap}
           sx={sxProp}
           className={clsx(className, classes.StyledUnderlineWrapper)}
           {...props}
