@@ -22,7 +22,7 @@ const ERROR_TEXT = 'This field is invalid'
 describe('FormControl', () => {
   behavesAsComponent({
     Component: FormControl,
-    options: {skipAs: true, skipClassName: true, skipDisplayName: true},
+    options: {skipAs: true, skipDisplayName: true},
     toRender: () => (
       <FormControl>
         <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
