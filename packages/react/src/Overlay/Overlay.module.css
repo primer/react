@@ -13,6 +13,7 @@
   width: auto;
   min-width: 192px;
   height: auto;
+  max-height: 100vh;
   overflow: hidden;
   background-color: var(--overlay-bgColor);
   border-radius: var(--borderRadius-large);
@@ -154,5 +155,15 @@
 
   &:where([data-visibility-hidden]) {
     visibility: hidden;
+  }
+
+  &:where([data-variant='fullscreen']) {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    border-radius: unset;
   }
 }

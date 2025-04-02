@@ -65,7 +65,7 @@ export type PageLayoutProps = {
   style?: React.CSSProperties
 } & SxProp
 
-const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_staff'
+const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_ga'
 
 const containerWidths = {
   full: '100%',
@@ -117,7 +117,7 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
 
   const contentStylingProps = enabled
     ? {
-        className: clsx(classes.PageLayoutContent, className),
+        className: clsx(classes.PageLayoutContent),
       }
     : {
         sx: {display: 'flex', flex: '1 1 100%', flexWrap: 'wrap', maxWidth: '100%'},

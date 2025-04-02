@@ -8,6 +8,7 @@ import {useFocusZone} from '../hooks/useFocusZone'
 import {useAnchoredPosition, useProvidedRefOrCreate, useRenderForcingRef} from '../hooks'
 import {useId} from '../hooks/useId'
 import type {PositionSettings} from '@primer/behaviors'
+import {useResponsiveValue, type ResponsiveValue} from '../hooks/useResponsiveValue'
 
 interface AnchoredOverlayPropsWithAnchor {
   /**
@@ -89,6 +90,14 @@ interface AnchoredOverlayBaseProps extends Pick<OverlayProps, 'height' | 'width'
    * If `preventOverflow` is `true`, the width of the `Overlay` will not be adjusted.
    */
   preventOverflow?: boolean
+  /**
+   * If true, the overlay will attempt to prevent position shifting when sitting at the top of the anchor.
+   */
+  pinPosition?: boolean
+  /**
+   * Optional prop to set variant for narrow screen sizes
+   */
+  variant?: ResponsiveValue<'anchored', 'anchored' | 'fullscreen'>
 }
 
 export type AnchoredOverlayProps = AnchoredOverlayBaseProps &
@@ -112,11 +121,13 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   overlayProps,
   focusTrapSettings,
   focusZoneSettings,
-  side = 'outside-bottom',
+  side = overlayProps?.['anchorSide'] || 'outside-bottom',
   align = 'start',
   alignmentOffset,
   anchorOffset,
   className,
+  pinPosition,
+  variant = {regular: 'anchored', narrow: 'anchored'},
   preventOverflow = true,
 }) => {
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
@@ -155,6 +166,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
     {
       anchorElementRef: anchorRef,
       floatingElementRef: overlayRef,
+      pinPosition,
       side,
       align,
       alignmentOffset,
@@ -176,6 +188,8 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
     ...focusZoneSettings,
   })
   useFocusTrap({containerRef: overlayRef, disabled: !open || !position, ...focusTrapSettings})
+
+  const currentResponsiveVariant = useResponsiveValue(variant, 'anchored')
 
   return (
     <>
@@ -200,8 +214,9 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
           visibility={position ? 'visible' : 'hidden'}
           height={height}
           width={width}
-          top={position?.top || 0}
-          left={position?.left || 0}
+          top={currentResponsiveVariant === 'anchored' ? position?.top || 0 : undefined}
+          left={currentResponsiveVariant === 'anchored' ? position?.left || 0 : undefined}
+          data-variant={currentResponsiveVariant}
           anchorSide={position?.anchorSide}
           className={className}
           preventOverflow={preventOverflow}

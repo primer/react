@@ -1,3 +1,8 @@
+.Overlay {
+  /* CSS variables values are passed in via styles */
+  --max-height: 0;
+}
+
 .Wrapper {
   display: flex;
   height: inherit;
@@ -5,29 +10,129 @@
   flex-direction: column;
 }
 
-.Content {
+.Header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   padding-top: var(--base-size-8);
-  padding-right: var(--base-size-16);
-  padding-left: var(--base-size-16);
+  padding-right: var(--base-size-8);
+  padding-left: var(--base-size-8);
 }
 
 .Title {
+  margin-left: var(--base-size-8);
   font-size: var(--text-body-size-medium);
 }
 
 .Subtitle {
+  margin-left: var(--base-size-8);
   font-size: var(--text-body-size-small);
   color: var(--fgColor-muted);
+}
+
+.Notice {
+  display: flex;
+  padding-top: var(--base-size-12);
+  padding-right: var(--base-size-16);
+  padding-bottom: var(--base-size-12);
+  padding-left: var(--base-size-16);
+  margin-top: var(--base-size-4);
+  font-size: var(--text-body-size-small);
+  flex-direction: row;
+  border-top: var(--borderWidth-thin) solid;
+  border-bottom: var(--borderWidth-thin) solid;
+  gap: var(--base-size-8);
+}
+
+.Notice a {
+  color: inherit;
+  text-decoration: underline;
+}
+
+.Notice:where([data-variant='info']) {
+  color: var(--fgColor-accent);
+  background-color: var(--bgColor-accent-muted);
+  border-color: var(--borderColor-accent-muted);
+}
+
+.Notice:where([data-variant='warning']) {
+  color: var(--fgColor-attention);
+  background-color: var(--bgColor-attention-muted);
+  border-color: var(--borderColor-attention-muted);
+}
+
+.Notice:where([data-variant='error']) {
+  color: var(--fgColor-danger);
+  background-color: var(--bgColor-danger-muted);
+  border-color: var(--borderColor-danger-muted);
 }
 
 .Footer {
   display: flex;
   padding: var(--base-size-8);
-  border-color: var(--borderColor-default);
   border-top: var(--borderWidth-thin) solid;
+  border-top-color: var(--borderColor-default);
 }
 
 .FilteredActionList {
   height: inherit;
   max-height: inherit;
+}
+
+.Message {
+  display: flex;
+  height: 100%;
+  min-height: min(calc(var(--max-height) - 150px), 324px); /* maxHeight of dialog - (header & footer) */
+  padding: var(--base-size-24);
+  text-align: center;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+  gap: var(--base-size-4);
+
+  a {
+    color: inherit;
+    text-decoration: underline;
+  }
+}
+
+.MessageTitle {
+  font-size: var(--text-body-size-medium);
+  font-weight: var(--base-text-weight-semibold);
+}
+
+.MessageBody {
+  font-size: var(--text-body-size-small);
+  color: var(--fgColor-muted);
+  align-items: center;
+  gap: var(--stack-gap-condensed);
+}
+
+.MessageIcon {
+  margin-bottom: var(--base-size-8);
+  color: var(--fgColor-attention);
+
+  &:where([data-variant='error']) {
+    color: var(--fgColor-danger);
+  }
+}
+
+.ResponsiveCloseButton {
+  display: none;
+
+  @media screen and (--viewportRange-narrow) {
+    display: inline-grid;
+  }
+}
+
+.ResponsiveFooter {
+  display: none;
+  padding: var(--base-size-16);
+
+  @media screen and (--viewportRange-narrow) {
+    display: flex;
+    gap: var(--stack-gap-condensed);
+    justify-content: right;
+  }
 }

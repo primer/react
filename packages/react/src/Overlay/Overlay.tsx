@@ -18,7 +18,7 @@ import {toggleStyledComponent} from '../internal/utils/toggleStyledComponent'
 import classes from './Overlay.module.css'
 import {clsx} from 'clsx'
 
-const CSS_MODULES_FLAG = 'primer_react_css_modules_staff'
+const CSS_MODULES_FLAG = 'primer_react_css_modules_ga'
 
 type StyledOverlayProps = {
   width?: keyof typeof widthMap
@@ -75,7 +75,7 @@ const StyledOverlay = toggleStyledComponent(
     min-width: 192px;
     max-width: ${props => props.maxWidth && widthMap[props.maxWidth]};
     height: ${props => heightMap[props.height || 'auto']};
-    max-height: ${props => props.maxHeight && heightMap[props.maxHeight]};
+    max-height: ${props => (props.maxHeight ? heightMap[props.maxHeight] : '100vh')};
     width: ${props => widthMap[props.width || 'auto']};
     border-radius: 12px;
     overflow: ${props => (props.overflow ? props.overflow : 'hidden')};
@@ -101,6 +101,16 @@ const StyledOverlay = toggleStyledComponent(
 
     &[data-reflow-container='true'] {
       max-width: calc(100vw - 2rem);
+    }
+
+    &:where([data-variant='fullscreen']) {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      margin: 0;
+      border-radius: unset;
     }
 
     ${sx};

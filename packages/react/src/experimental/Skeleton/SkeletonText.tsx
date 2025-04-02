@@ -1,11 +1,8 @@
 import React, {type CSSProperties, type HTMLProps} from 'react'
-import Box from '../../Box'
-import {SkeletonBox} from './'
 import classes from './SkeletonText.module.css'
-import {useFeatureFlag} from '../../FeatureFlags'
 import {clsx} from 'clsx'
 import {merge} from '../../sx'
-import {CSS_MODULE_FLAG} from './FeatureFlag'
+import SkeletonBox from '../../Skeleton'
 
 type SkeletonTextProps = {
   /** Size of the text that the skeleton is replacing. */
@@ -26,8 +23,6 @@ export const SkeletonText: React.FC<SkeletonTextProps> = ({
   style,
   ...rest
 }) => {
-  const enabled = useFeatureFlag(CSS_MODULE_FLAG)
-
   if (lines < 2) {
     // TODO: fix
     return (
@@ -35,23 +30,17 @@ export const SkeletonText: React.FC<SkeletonTextProps> = ({
         data-component="SkeletonText"
         data-text-skeleton-size={size}
         width="100%"
-        className={clsx(className, {[classes.SkeletonText]: enabled})}
-        style={enabled ? merge(style as CSSProperties, {maxWidth} as CSSProperties) : style}
+        className={clsx(className, classes.SkeletonText)}
+        style={merge(style as CSSProperties, {maxWidth} as CSSProperties)}
         {...rest}
       />
     )
   } else {
     return (
-      <Box
+      <div
         data-component="multilineContainer"
-        sx={{
-          maxWidth,
-          /* The tiny `paddingBlock` prevents margin collapse between the first skeleton line
-           * and a bottom margin above it.
-           */
-          paddingBlock: '0.1px',
-        }}
-        style={enabled ? merge(style as CSSProperties, {maxWidth, paddingBlock: '0.1px'} as CSSProperties) : style}
+        className={classes.SkeletonTextWrapper}
+        style={merge(style as CSSProperties, {maxWidth} as CSSProperties)}
       >
         {Array.from({length: lines}, (_, index) => (
           // TODO: fix
@@ -60,11 +49,11 @@ export const SkeletonText: React.FC<SkeletonTextProps> = ({
             data-component="SkeletonText"
             data-in-multiline="true"
             data-text-skeleton-size={size}
-            className={clsx(className, {[classes.SkeletonText]: enabled})}
+            className={clsx(className, classes.SkeletonText)}
             {...rest}
           />
         ))}
-      </Box>
+      </div>
     )
   }
 }

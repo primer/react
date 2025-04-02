@@ -32,7 +32,7 @@
       "name": "aria-label",
       "type": "string",
       "defaultValue": "",
-      "description": "A unique name for the rendered 'nav' landmark. It will also be used to label the arrow\nbuttons that control the scroll behaviour on coarse pointer devices. (I.e.\n'Scroll ${aria-label} left/right')\n"
+      "description": "A unique name for the rendered nav landmark. It will also be used to label the arrow\nbuttons that control the scroll behaviour on coarse pointer devices. (I.e.\n'Scroll _aria-label_ left/right')\n"
     },
     {
       "name": "children",
@@ -72,7 +72,7 @@
           "name": "href",
           "type": "string",
           "defaultValue": "",
-          "description": "The URL that the item navigates to. 'href' is passed to the underlying '<a>' element. If 'as' is specified, the component may need different props and 'href' is ignored. (Required prop for the react router is 'to' for example)"
+          "description": "The URL that the item navigates to. `href` is passed to the underlying `<a>` element. If 'as' is specified, the component may need different props and 'href' is ignored. (Required prop for the react router is 'to' for example)"
         },
         {
           "name": "icon",

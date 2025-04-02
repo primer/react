@@ -6,7 +6,7 @@ import classes from './_TokenTextContainer.module.css'
 import {useFeatureFlag} from '../FeatureFlags'
 import {clsx} from 'clsx'
 
-const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_staff'
+const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_ga'
 
 const StyledTokenTextContainer = toggleStyledComponent(
   CSS_MODULES_FEATURE_FLAG,

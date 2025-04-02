@@ -15,6 +15,10 @@ const stories = [
     title: 'Hide Page Numbers',
     id: 'components-pagination-features--hide-page-numbers',
   },
+  {
+    title: 'Render Links',
+    id: 'components-pagination-features--render-links',
+  },
 ] as const
 
 test.describe('Pagination', () => {

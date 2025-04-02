@@ -1,14 +1,17 @@
-/* stylelint-disable max-nesting-depth */
 /* stylelint-disable selector-max-specificity */
 .AvatarStack {
   --avatar-border-width: 1px;
-  --avatar-two-margin: calc(var(--avatar-stack-size) * -0.55);
-  --avatar-three-margin: calc(var(--avatar-stack-size) * -0.85);
+  --overlap-size: calc(var(--avatar-stack-size) * 0.55);
+  --overlap-size-avatar-three-plus: calc(var(--avatar-stack-size) * 0.85);
+  --mask-size: calc(100% + (var(--avatar-border-width) * 2));
+  --mask-start: -1;
+  --opacity-step: 15%;
 
   position: relative;
   display: flex;
   min-width: var(--avatar-stack-size);
   height: var(--avatar-stack-size);
+  isolation: isolate;
 
   &:where([data-responsive]) {
     @media screen and (--viewportRange-narrow) {
@@ -32,82 +35,44 @@
   }
 
   &:where([data-avatar-count='2']) {
-    /* this calc explained: */
-
-    /* 1. avatar size + the non-overlapping part of the second avatar */
-
-    /* 2. + the border widths of the first two avatars */
-    min-width: calc(
-      var(--avatar-stack-size) + calc(var(--avatar-stack-size) + var(--avatar-two-margin)) + var(--avatar-border-width)
-    );
+    /*
+    MIN-WIDTH CALC FORMULA EXPLAINED:
+    avatar size ➡️ var(--avatar-stack-size)
+    plus the visible part of the 2nd avatar ➡️ var(--avatar-stack-size) - var(--overlap-size)
+    */
+    min-width: calc(var(--avatar-stack-size) + (var(--avatar-stack-size) - var(--overlap-size)));
   }
 
   &:where([data-avatar-count='3']) {
-    /* this calc explained: */
-
-    /* 1. avatar size + the non-overlapping part of the second avatar */
-
-    /* 2. + the non-overlapping part of the third avatar */
+    /*
+    MIN-WIDTH CALC FORMULA EXPLAINED:
+    avatar size ➡️ var(--avatar-stack-size)
+    plus the visible part of the 2nd avatar ➡️ var(--avatar-stack-size) - var(--overlap-size)
+    plus the visible part of the 3rd avatar ➡️ var(--avatar-stack-size) - var(--overlap-size-avatar-three-plus)
+    */
     min-width: calc(
-      var(--avatar-stack-size) +
-        calc(
-          calc(var(--avatar-stack-size) + var(--avatar-two-margin)) +
-            calc(var(--avatar-stack-size) + var(--avatar-three-margin))
-        )
+      var(--avatar-stack-size) + (var(--avatar-stack-size) - var(--overlap-size)) +
+        (var(--avatar-stack-size) - var(--overlap-size-avatar-three-plus))
     );
   }
 
   &:where([data-avatar-count='3+']) {
-    /* this calc explained: */
-
-    /* 1. avatar size + the non-overlapping part of the second avatar */
-
-    /* 2. + the non-overlapping part of the third and fourth avatar */
+    /*
+    MIN-WIDTH CALC FORMULA EXPLAINED:
+    avatar size ➡️ var(--avatar-stack-size)
+    plus the visible part of the 2nd avatar ➡️ var(--avatar-stack-size) - var(--overlap-size)
+    plus the visible part of the 3rd AND 4th avatar ➡️ (var(--avatar-stack-size) - var(--overlap-size-avatar-three-plus)) * 2
+    */
     min-width: calc(
-      var(--avatar-stack-size) +
-        calc(
-          calc(var(--avatar-stack-size) + var(--avatar-two-margin)) +
-            calc(var(--avatar-stack-size) + var(--avatar-three-margin)) * 2
-        )
+      var(--avatar-stack-size) + (var(--avatar-stack-size) - var(--overlap-size)) +
+        (var(--avatar-stack-size) - var(--overlap-size-avatar-three-plus)) * 2
     );
   }
 
   &:where([data-align-right]) {
-    justify-content: flex-end;
+    --mask-start: 1;
 
-    .AvatarItem {
-      margin-left: 0 !important;
-
-      &:first-child {
-        margin-right: 0;
-      }
-
-      &:nth-child(n + 2) {
-        /* stylelint-disable-next-line primer/spacing */
-        margin-right: var(--avatar-two-margin);
-      }
-
-      &:nth-child(n + 3) {
-        /* stylelint-disable-next-line primer/spacing */
-        margin-right: var(--avatar-three-margin);
-      }
-    }
-
-    .AvatarStackBody {
-      flex-direction: row-reverse;
-
-      &:not([data-disable-expand]):hover,
-      &:not([data-disable-expand]):focus-within {
-        .AvatarItem {
-          margin-right: var(--base-size-4) !important;
-          margin-left: 0 !important;
-
-          &:first-child {
-            margin-right: 0 !important;
-          }
-        }
-      }
-    }
+    direction: rtl;
   }
 }
 
@@ -129,38 +94,61 @@
   height: var(--avatar-stack-size);
   overflow: hidden;
   flex-shrink: 0;
+  transition:
+    margin 0.2s ease-in-out,
+    opacity 0.2s ease-in-out,
+    mask-position 0.2s ease-in-out,
+    mask-size 0.2s ease-in-out;
 
   &:is(img) {
     /* stylelint-disable-next-line primer/box-shadow */
-    box-shadow: 0 0 0 var(--avatar-border-width) var(--bgColor-default);
+    box-shadow: 0 0 0 var(--avatar-border-width) transparent;
   }
 
   &:first-child {
-    z-index: 10;
-    margin-left: 0;
+    margin-inline-start: 0;
   }
 
   &:nth-child(n + 2) {
-    z-index: 9;
     /* stylelint-disable-next-line primer/spacing */
-    margin-left: var(--avatar-two-margin);
+    margin-inline-start: calc(var(--overlap-size) * -1);
+    mask-image: radial-gradient(at 50% 50%, rgb(0, 0, 0) 70%, rgba(0, 0, 0, 0) 71%), linear-gradient(rgb(0, 0, 0) 0 0);
+    mask-repeat: no-repeat, no-repeat;
+    mask-size:
+      var(--mask-size) var(--mask-size),
+      auto;
+    mask-composite: exclude;
+
+    /*
+    HORIZONTAL POSITION CALC FORMULA EXPLAINED:
+    width of the visible part of the avatar ➡️ var(--avatar-stack-size) - var(--overlap-size)
+    multiply by -1 for left-aligned, 1 for right-aligned ➡️ var(--mask-start)
+    subtract the avatar border width ➡️ var(--avatar-border-width)
+    */
+    mask-position:
+      calc((var(--avatar-stack-size) - var(--overlap-size)) * var(--mask-start) - var(--avatar-border-width)) center,
+      0 0;
+
+    /* HACK: This padding fixes a weird rendering bug where a tiiiiny outline is visible at the edges of the element */
+    /* stylelint-disable-next-line primer/spacing */
+    padding: 0.1px;
   }
 
   &:nth-child(n + 3) {
-    z-index: 8;
-    /* stylelint-disable-next-line primer/spacing */
-    margin-left: var(--avatar-three-margin);
-    opacity: 0.55;
+    --overlap-size: var(--overlap-size-avatar-three-plus);
+
+    /* stylelint-disable-next-line alpha-value-notation */
+    opacity: calc(100% - 2 * var(--opacity-step));
   }
 
   &:nth-child(n + 4) {
-    z-index: 7;
-    opacity: 0.4;
+    /* stylelint-disable-next-line alpha-value-notation */
+    opacity: calc(100% - 3 * var(--opacity-step));
   }
 
   &:nth-child(n + 5) {
-    z-index: 6;
-    opacity: 0.25;
+    /* stylelint-disable-next-line alpha-value-notation */
+    opacity: calc(100% - 4 * var(--opacity-step));
   }
 
   &:nth-child(n + 6) {
@@ -174,17 +162,23 @@
   width: auto;
 
   .AvatarItem {
-    margin-left: var(--base-size-4);
+    --mask-size: 100%; /* reset size of the mask to prevent unintentially clipping due to the additional size created by the border width */
+
+    margin-inline-start: var(--base-size-4);
     visibility: visible;
     opacity: 1;
-    transition:
-      margin 0.2s ease-in-out,
-      opacity 0.2s ease-in-out,
-      visibility 0.2s ease-in-out,
-      box-shadow 0.1s ease-in-out;
+
+    /*
+    HORIZONTAL POSITION CALC FORMULA EXPLAINED:
+    width of the full avatar ➡️ var(--avatar-stack-size)
+    multiply by -1 for left-aligned, 1 for right-aligned ➡️ var(--mask-start)
+    */
+    mask-position:
+      calc(var(--avatar-stack-size) * var(--mask-start)) center,
+      0 0;
 
     &:first-child {
-      margin-left: 0;
+      margin-inline-start: 0;
     }
   }
 }

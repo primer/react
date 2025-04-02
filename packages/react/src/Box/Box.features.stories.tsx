@@ -3,7 +3,7 @@ import type {Meta} from '@storybook/react'
 import Box from './Box'
 
 export default {
-  title: 'Components/Box/Features',
+  title: 'Deprecated/Components/Box/Features',
   component: Box,
 } as Meta<typeof Box>
 

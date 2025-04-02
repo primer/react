@@ -6,6 +6,9 @@ import {render as HTMLRender} from '@testing-library/react'
 import theme from '../../theme'
 import {Button, IconButton, ActionMenu, ActionList, ThemeProvider, BaseStyles, ButtonGroup} from '../..'
 import {XIcon} from '@primer/octicons-react'
+import {setupMatchMedia} from '../../utils/test-helpers'
+
+setupMatchMedia()
 
 const TooltipComponent = (props: Omit<TooltipProps, 'text'> & {text?: string}) => (
   <Tooltip text="Tooltip text" {...props}>
@@ -153,5 +156,15 @@ describe('Tooltip', () => {
 
     const triggerEL = getByText('Button 1')
     expect(triggerEL).toBeInTheDocument()
+  })
+  it('includes keybinding hints in the label text', () => {
+    const {getByRole} = HTMLRender(<TooltipComponent type="label" keybindingHint="Control+K" />)
+    expect(getByRole('button', {name: 'Tooltip text (control k)'})).toBeInTheDocument()
+  })
+  it('allows overriding the accessible label with aria-label', () => {
+    const {getByRole} = HTMLRender(
+      <TooltipComponent type="label" keybindingHint="Control+K" aria-label="Overridden label" />,
+    )
+    expect(getByRole('button', {name: 'Overridden label'})).toBeInTheDocument()
   })
 })
