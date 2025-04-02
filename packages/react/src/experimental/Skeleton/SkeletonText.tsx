@@ -24,7 +24,6 @@ export const SkeletonText: React.FC<SkeletonTextProps> = ({
   ...rest
 }) => {
   if (lines < 2) {
-    // TODO: fix
     return (
       <SkeletonBox
         data-component="SkeletonText"
@@ -43,7 +42,6 @@ export const SkeletonText: React.FC<SkeletonTextProps> = ({
         style={merge(style as CSSProperties, {maxWidth} as CSSProperties)}
       >
         {Array.from({length: lines}, (_, index) => (
-          // TODO: fix
           <SkeletonBox
             key={index}
             data-component="SkeletonText"
