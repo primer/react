@@ -2,4 +2,4 @@
 "@primer/react": minor
 ---
 
-WIP: chore(SkeletonBox): promote to Alpha
+chore(SkeletonBox): promote to Alpha
