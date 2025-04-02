@@ -446,18 +446,19 @@ export function SelectPanel({
           role: 'dialog',
           'aria-labelledby': titleId,
           'aria-describedby': subtitle ? subtitleId : undefined,
+          ...overlayProps,
           ...(variant === 'modal'
             ? {
                 /* override AnchoredOverlay position */
                 top: '50vh',
                 left: '50vw',
-                style: {transform: 'translate(-50%, -50%)'},
                 anchorSide: undefined,
               }
             : {}),
-          ...overlayProps,
           style: {
             '--max-height': overlayProps?.maxHeight ? heightMap[overlayProps.maxHeight] : heightMap['large'],
+            /* override AnchoredOverlay position */
+            transform: variant === 'modal' ? 'translate(-50%, -50%)' : undefined,
           } as React.CSSProperties,
         }}
         focusTrapSettings={focusTrapSettings}
