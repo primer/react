@@ -40,6 +40,7 @@ const items: ItemInput[] = [
     text: 'enhancement',
     description: 'New feature or request',
     descriptionVariant: 'block',
+    inactiveText: 'This is inactive',
     id: 1,
   },
   {

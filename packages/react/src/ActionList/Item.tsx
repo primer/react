@@ -112,7 +112,8 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     } = React.useContext(ListContext)
     const {selectionVariant: groupSelectionVariant} = React.useContext(GroupContext)
     const inactive = Boolean(inactiveText)
-    const showInactiveIndicator = inactive && container === undefined
+    const menuContext = listRole !== undefined && ['menu', 'listbox'].includes(listRole)
+    const showInactiveIndicator = inactive && !menuContext
 
     const onSelect = React.useCallback(
       (
@@ -142,7 +143,6 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     }
 
     const itemRole = role || inferredItemRole
-    const menuContext = container === 'ActionMenu' || container === 'SelectPanel'
 
     if (slots.trailingAction) {
       invariant(!menuContext, `ActionList.TrailingAction can not be used within a ${container}.`)
@@ -422,7 +422,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
                   {
                     // If the item is inactive, but it's not in an overlay (e.g. ActionMenu, SelectPanel),
                     // render the inactive warning message directly in the item.
-                    inactive && container ? (
+                    !showInactiveIndicator ? (
                       <span className={classes.InactiveWarning} id={inactiveWarningId}>
                         {inactiveText}
                       </span>
@@ -494,7 +494,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
                 {
                   // If the item is inactive, but it's not in an overlay (e.g. ActionMenu, SelectPanel),
                   // render the inactive warning message directly in the item.
-                  inactive && container ? (
+                  !showInactiveIndicator ? (
                     <span className={classes.InactiveWarning} id={inactiveWarningId}>
                       {inactiveText}
                     </span>
@@ -584,7 +584,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
               {
                 // If the item is inactive, but it's not in an overlay (e.g. ActionMenu, SelectPanel),
                 // render the inactive warning message directly in the item.
-                inactive && container ? (
+                !showInactiveIndicator ? (
                   <Box
                     as="span"
                     sx={{
