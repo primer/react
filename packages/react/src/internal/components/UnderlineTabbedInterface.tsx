@@ -23,8 +23,6 @@ type UnderlineWrapperProps = {
 } & SxProp
 
 const UnderlineWrapperComponent = toggleSxComponent('div') as React.ComponentType<
-  PropsWithChildren<UnderlineWrapperProps>
->
 
 export const UnderlineWrapper = forwardRef(
   (
