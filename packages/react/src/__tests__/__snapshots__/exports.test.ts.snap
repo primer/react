@@ -141,6 +141,8 @@ exports[`@primer/react should not update exports without a semver change 1`] = `
   "SideNav",
   "type SideNavLinkProps",
   "type SideNavProps",
+  "SkeletonBox",
+  "type SkeletonBoxProps",
   "Spinner",
   "type SpinnerProps",
   "SplitPageLayout",

@@ -56,13 +56,7 @@ const items = [
 export const HeightInitialWithOverflowingItemsStory = () => {
   const [selected, setSelected] = useState<ItemInput[]>(items.slice(1, 3))
   const [filter, setFilter] = useState('')
-  const filteredItems = items.filter(
-    item =>
-      // design guidelines say to always show selected items in the list
-      selected.some(selectedItem => selectedItem.text === item.text) ||
-      // then filter the rest
-      item.text.toLowerCase().startsWith(filter.toLowerCase()),
-  )
+  const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
   // design guidelines say to sort selected items first
   const selectedItemsSortedFirst = filteredItems.sort((a, b) => {
     const aIsSelected = selected.some(selectedItem => selectedItem.text === a.text)
@@ -101,13 +95,7 @@ export const HeightInitialWithUnderflowingItemsStory = () => {
   const underflowingItems = [items[0], items[1]]
   const [selected, setSelected] = useState<ItemInput[]>([underflowingItems[0]])
   const [filter, setFilter] = useState('')
-  const filteredItems = underflowingItems.filter(
-    item =>
-      // design guidelines say to always show selected items in the list
-      selected.some(selectedItem => selectedItem.text === item.text) ||
-      // then filter the rest
-      item.text.toLowerCase().startsWith(filter.toLowerCase()),
-  )
+  const filteredItems = underflowingItems.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
   // design guidelines say to sort selected items first
   const selectedItemsSortedFirst = filteredItems.sort((a, b) => {
     const aIsSelected = selected.some(selectedItem => selectedItem.text === a.text)
@@ -148,15 +136,8 @@ export const HeightInitialWithUnderflowingItemsAfterFetch = () => {
   const [filter, setFilter] = useState('')
   const [fetchedItems, setFetchedItems] = useState<typeof items>([])
   const filteredItems = useMemo(
-    () =>
-      fetchedItems.filter(
-        item =>
-          // design guidelines say to always show selected items in the list
-          selected.some(selectedItem => selectedItem.text === item.text) ||
-          // then filter the rest
-          item.text.toLowerCase().startsWith(filter.toLowerCase()),
-      ),
-    [fetchedItems, filter, selected],
+    () => fetchedItems.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase())),
+    [fetchedItems, filter],
   )
   // design guidelines say to sort selected items first
   const selectedItemsSortedFirst = filteredItems.sort((a, b) => {
@@ -206,13 +187,7 @@ HeightInitialWithUnderflowingItemsAfterFetch.storyName = 'Height: Initial, Under
 export const AboveTallBody = () => {
   const [selected, setSelected] = useState<ItemInput[]>(items.slice(1, 3))
   const [filter, setFilter] = useState('')
-  const filteredItems = items.filter(
-    item =>
-      // design guidelines say to always show selected items in the list
-      selected.some(selectedItem => selectedItem.text === item.text) ||
-      // then filter the rest
-      item.text.toLowerCase().startsWith(filter.toLowerCase()),
-  )
+  const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
   // design guidelines say to sort selected items first
   const selectedItemsSortedFirst = filteredItems.sort((a, b) => {
     const aIsSelected = selected.some(selectedItem => selectedItem.text === a.text)
@@ -262,9 +237,7 @@ export const HeightVariationsAndScroll = () => {
   const [filter, setFilter] = useState('')
   // Example A
   const [selectedA, setSelectedA] = React.useState<ItemInput | undefined>(longItems[0])
-  const filteredItemsA = longItems.filter(
-    item => item.text === selectedA?.text || item.text.toLowerCase().startsWith(filter.toLowerCase()),
-  )
+  const filteredItemsA = longItems.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
   // design guidelines say to sort selected items first
   const selectedItemsSortedFirstA = filteredItemsA.sort((a, b) => {
     if (a.text === selectedA?.text) return -1
@@ -275,9 +248,7 @@ export const HeightVariationsAndScroll = () => {
 
   // Example B
   const [selectedB, setSelectedB] = React.useState<ItemInput | undefined>(longItems[0])
-  const filteredItemsB = longItems.filter(
-    item => item.text === selectedB?.text || item.text.toLowerCase().startsWith(filter.toLowerCase()),
-  )
+  const filteredItemsB = longItems.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
   // design guidelines say to sort selected items first
   const selectedItemsSortedFirstB = filteredItemsB.sort((a, b) => {
     if (a.text === selectedB?.text) return -1
@@ -345,13 +316,7 @@ export const CustomItemRenderer = () => {
   ]
   const [selected, setSelected] = useState<ItemInput[]>(items.slice(1, 3))
   const [filter, setFilter] = useState('')
-  const filteredItems = items.filter(
-    item =>
-      // design guidelines say to always show selected items in the list
-      selected.some(selectedItem => selectedItem.text === item.text) ||
-      // then filter the rest
-      item.text.toLowerCase().startsWith(filter.toLowerCase()),
-  )
+  const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
   // design guidelines say to sort selected items first
   const selectedItemsSortedFirst = filteredItems.sort((a, b) => {
     const aIsSelected = selected.some(selectedItem => selectedItem.text === a.text)
@@ -426,13 +391,7 @@ export const ItemsInScope = () => {
 
   const [selected, setSelected] = useState<ItemInput[]>(items.slice(1, 3))
   const [filter, setFilter] = useState('')
-  const filteredItems = items.filter(
-    item =>
-      // design guidelines say to always show selected items in the list
-      selected.some(selectedItem => selectedItem.text === item.text) ||
-      // then filter the rest
-      item.text.toLowerCase().startsWith(filter.toLowerCase()),
-  )
+  const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
   // design guidelines say to sort selected items first
   const selectedItemsSortedFirst = filteredItems.sort((a, b) => {
     const aIsSelected = selected.some(selectedItem => selectedItem.text === a.text)

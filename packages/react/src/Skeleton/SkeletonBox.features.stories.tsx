@@ -1,10 +1,9 @@
-import React from 'react'
+import React, {type ComponentProps} from 'react'
 import type {Meta} from '@storybook/react'
-import type {ComponentProps} from '../../utils/types'
 import {SkeletonBox} from './SkeletonBox'
 
 export default {
-  title: 'Experimental/Components/Skeleton/SkeletonBox/Features',
+  title: 'Components/Skeleton/SkeletonBox/Features',
   component: SkeletonBox,
 } as Meta<ComponentProps<typeof SkeletonBox>>
 

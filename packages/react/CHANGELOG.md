@@ -1,5 +1,29 @@
 # @primer/react
 
+## 37.18.0
+
+### Minor Changes
+
+- [#5820](https://github.com/primer/react/pull/5820) [`bd9225d`](https://github.com/primer/react/commit/bd9225df84b1636c6db17217d3304bbdc026d998) Thanks [@hussam-i-am](https://github.com/hussam-i-am)! - feat(Pagination): add renderPage prop to Pagination
+
+- [#5546](https://github.com/primer/react/pull/5546) [`2aef81a`](https://github.com/primer/react/commit/2aef81a1252598c21b3e615590b468a5774ab74e) Thanks [@joshblack](https://github.com/joshblack)! - Add support for importing `@primer/react/generated/components.json` to npm package
+
+- [#5826](https://github.com/primer/react/pull/5826) [`5f40e43`](https://github.com/primer/react/commit/5f40e43cb3d70f049b23de005849f543cdeaa9d6) Thanks [@francinelucca](https://github.com/francinelucca)! - SelectPanel: Implement empty state (behind ff)
+
+- [#5803](https://github.com/primer/react/pull/5803) [`9c135c4`](https://github.com/primer/react/commit/9c135c40170cddf7b4308b97134578df87f7141f) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - StateLabel: Add open and closed states for no icon cases
+
+### Patch Changes
+
+- [#5853](https://github.com/primer/react/pull/5853) [`ba415bb`](https://github.com/primer/react/commit/ba415bb6f95f1be39ac14265b5707aa91265150a) Thanks [@iansan5653](https://github.com/iansan5653)! - Add workaround for Chrome bug where `KeybindingHint` in combination with `aria-labelledby` results in incorrect label
+
+- [#5835](https://github.com/primer/react/pull/5835) [`2cb629a`](https://github.com/primer/react/commit/2cb629a17c6adcac536c3424d99880f58468e0f3) Thanks [@siddharthkp](https://github.com/siddharthkp)! - Overlay: Fix position for fullscreen overlay on narrow screens
+
+- [#5629](https://github.com/primer/react/pull/5629) [`b7346b2`](https://github.com/primer/react/commit/b7346b296b831efa9e2c3db24c6460623c0efae5) Thanks [@hectahertz](https://github.com/hectahertz)! - Make Dialog footer scrollable on very short viewports
+
+- [#5852](https://github.com/primer/react/pull/5852) [`5d66a4c`](https://github.com/primer/react/commit/5d66a4c07f9d0c45e9cb6e119b4e41ee95e15edd) Thanks [@jonrohan](https://github.com/jonrohan)! - bugfix(PageHeader): Use font-weight initial to match the styled component styling
+
+- [#5629](https://github.com/primer/react/pull/5629) [`b7346b2`](https://github.com/primer/react/commit/b7346b296b831efa9e2c3db24c6460623c0efae5) Thanks [@hectahertz](https://github.com/hectahertz)! - Update the Dialog stress test story to go fullscreen on narrow screens
+
 ## 37.17.0
 
 ### Minor Changes
