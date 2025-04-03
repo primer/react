@@ -1,11 +1,8 @@
 import {clsx} from 'clsx'
 import React from 'react'
-import styled from 'styled-components'
-import sx, {type SxProp} from '../../sx'
-import {cssModulesFlag} from '../../FormControl/feature-flags'
-import {useFeatureFlag} from '../../FeatureFlags'
+import {type SxProp} from '../../sx'
 import classes from './InputLabel.module.css'
-import {toggleStyledComponent} from '../utils/toggleStyledComponent'
+import {toggleSxComponent} from '../utils/toggleSxComponent'
 
 type BaseProps = SxProp & {
   disabled?: boolean
@@ -29,6 +26,8 @@ export type LegendOrSpanProps = BaseProps & {
 
 type Props = React.PropsWithChildren<LabelProps | LegendOrSpanProps>
 
+const Label = toggleSxComponent({}, 'label') as React.ComponentType<Props>
+
 function InputLabel({
   children,
   disabled,
@@ -43,76 +42,28 @@ function InputLabel({
   className,
   ...props
 }: Props) {
-  const enabled = useFeatureFlag(cssModulesFlag)
   return (
-    <StyledLabel
+    // @ts-ignore weird typing issue with union for `as` prop
+    <Label
       as={as}
+      sx={sx}
       data-control-disabled={disabled ? '' : undefined}
       data-visually-hidden={visuallyHidden ? '' : undefined}
       htmlFor={htmlFor}
       id={id}
-      className={clsx(className, {
-        [classes.Label]: enabled,
-      })}
-      sx={sx}
+      className={clsx(className, classes.Label)}
       {...props}
     >
       {required || requiredText ? (
-        <StyledRequiredText
-          className={clsx({
-            [classes.RequiredText]: enabled,
-          })}
-        >
+        <span className={classes.RequiredText}>
           <span>{children}</span>
           <span aria-hidden={requiredIndicator ? undefined : true}>{requiredText ?? '*'}</span>
-        </StyledRequiredText>
+        </span>
       ) : (
         children
       )}
-    </StyledLabel>
+    </Label>
   )
 }
-
-const StyledLabel = toggleStyledComponent(
-  cssModulesFlag,
-  'label',
-  styled.label`
-    align-self: flex-start;
-    display: block;
-    color: var(--fgColor-default);
-    cursor: pointer;
-    font-weight: 600;
-    font-size: var(--text-body-size-medium);
-
-    &:where([data-control-disabled]) {
-      color: var(--fgColor-muted);
-      cursor: not-allowed;
-    }
-
-    &:where([data-visually-hidden]) {
-      border: 0;
-      clip: rect(0 0 0 0);
-      clip-path: inset(50%);
-      height: 1px;
-      margin: -1px;
-      overflow: hidden;
-      padding: 0;
-      position: absolute;
-      white-space: nowrap;
-      width: 1px;
-    }
-
-    ${sx}
-  `,
-)
-
-const StyledRequiredText = toggleStyledComponent(
-  cssModulesFlag,
-  'span',
-  styled.span`
-    display: flex;
-    column-gap: var(--base-size-4);
-  `,
-)
 
 export {InputLabel}
