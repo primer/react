@@ -434,6 +434,10 @@ export function SelectPanel({
     }
   }
 
+  // We add a save and cancel button on narrow screens when SelectPanel is full-screen
+  // Save and Cancel buttons are only useful for multiple selection, single selection instantly closes the panel
+  const showCancelSaveButtons = isMultiSelectVariant(selected) && usingFullScreenOnNarrow
+
   return (
     <>
       <AnchoredOverlay
@@ -532,10 +536,9 @@ export function SelectPanel({
           />
           {footer ? (
             <div className={classes.Footer}>{footer}</div>
-          ) : isMultiSelectVariant(selected) && usingFullScreenOnNarrow ? (
+          ) : showCancelSaveButtons ? (
             /* Save and Cancel buttons are only useful for multiple selection, single selection instantly closes the panel */
             <div className={clsx(classes.Footer, classes.ResponsiveFooter)}>
-              {/* we add a save and cancel button on narrow screens when SelectPanel is full-screen */}
               {onCancel && (
                 <Button
                   size="medium"
