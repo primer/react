@@ -187,7 +187,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       paddingY: '6px', // custom value off the scale
       lineHeight: '16px',
       minHeight: 5,
-      marginX: listVariant === 'inset' ? 2 : 0,
+      marginX: listVariant === 'inset' || listVariant === 'horizontal-inset' ? 2 : 0,
       borderRadius: 2,
       transition: 'background 33.333ms linear',
       color: getVariantStyles(variant, disabled, inactive || loading).color,
@@ -211,7 +211,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       appearance: 'none',
       background: 'unset',
       border: 'unset',
-      width: listVariant === 'inset' ? 'calc(100% - 16px)' : '100%',
+      width: listVariant === 'inset' || listVariant === 'horizontal-inset' ? 'calc(100% - 16px)' : '100%',
       fontFamily: 'unset',
       textAlign: 'unset',
       marginY: 'unset',
