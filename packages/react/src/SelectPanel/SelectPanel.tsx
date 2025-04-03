@@ -340,7 +340,7 @@ export function SelectPanel({
     }
   }, [placeholder, renderAnchor, selected])
 
-  function resetSort() {
+  const resetSort = useCallback(() => {
     if (isMultiSelectVariant(selected)) {
       setSelectedOnSort(selected)
     } else if (selected) {
@@ -348,25 +348,25 @@ export function SelectPanel({
     } else {
       setSelectedOnSort([])
     }
-  }
+  }, [selected, setSelectedOnSort])
 
   useEffect(() => {
     if (!filterValue) {
       resetSort()
     }
-  }, [filterValue])
+  }, [filterValue, resetSort])
 
   useEffect(() => {
     if (open) {
       resetSort()
     }
-  }, [open])
+  }, [open, resetSort])
 
   useEffect(() => {
-    if (prevItems.length == 0 && items.length > 0) {
+    if (prevItems.length === 0 && items.length > 0) {
       resetSort()
     }
-  }, [items])
+  }, [items, resetSort, prevItems])
 
   const itemsToRender = useMemo(() => {
     return items
