@@ -14,7 +14,8 @@ type StyledTextProps = {
   weight?: 'light' | 'normal' | 'medium' | 'semibold'
 } & SystemTypographyProps &
   SystemCommonProps &
-  SxProp
+  SxProp &
+  React.HTMLAttributes<HTMLSpanElement>
 
 const Text = forwardRef(({as: Component = 'span', className, size, weight, ...props}, forwardedRef) => {
   const innerRef = React.useRef<HTMLElement>(null)
