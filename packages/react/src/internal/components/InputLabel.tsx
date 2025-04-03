@@ -26,7 +26,7 @@ export type LegendOrSpanProps = BaseProps & {
 
 type Props = React.PropsWithChildren<LabelProps | LegendOrSpanProps>
 
-const Label = toggleSxComponent({}, 'label') as React.ComponentType<Props>
+const Label = toggleSxComponent('label') as React.ComponentType<Props>
 
 function InputLabel({
   children,
