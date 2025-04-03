@@ -405,7 +405,8 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
                     <span id={labelId} className={classes.ItemLabel}>
                       {childrenWithoutSlots}
                       {/* Loading message needs to be in here so it is read with the label */}
-                      {loading === true && <VisuallyHidden>Loading</VisuallyHidden>}
+                      {/* If the item is inactive, we do not simultaneously announce that it is loading */}
+                      {loading === true && !inactive && <VisuallyHidden>Loading</VisuallyHidden>}
                     </span>
                     {slots.description}
                   </ConditionalWrapper>
@@ -477,7 +478,8 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
                   <span id={labelId} className={classes.ItemLabel}>
                     {childrenWithoutSlots}
                     {/* Loading message needs to be in here so it is read with the label */}
-                    {loading === true && <VisuallyHidden>Loading</VisuallyHidden>}
+                    {/* If the item is inactive, we do not simultaneously announce that it is loading */}
+                    {loading === true && !inactive && <VisuallyHidden>Loading</VisuallyHidden>}
                   </span>
                   {slots.description}
                 </ConditionalWrapper>
@@ -567,7 +569,8 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
                   >
                     {childrenWithoutSlots}
                     {/* Loading message needs to be in here so it is read with the label */}
-                    {loading === true && <VisuallyHidden>Loading</VisuallyHidden>}
+                    {/* If the item is inactive, we do not simultaneously announce that it is loading */}
+                    {loading === true && !inactive && <VisuallyHidden>Loading</VisuallyHidden>}
                   </Box>
                   {slots.inlineDescription}
                 </ConditionalWrapper>
