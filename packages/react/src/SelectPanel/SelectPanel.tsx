@@ -178,6 +178,13 @@ export function SelectPanel({
   const usingModernActionList = useFeatureFlag('primer_react_select_panel_modern_action_list')
   const usingFullScreenOnNarrow = useFeatureFlag('primer_react_select_panel_fullscreen_on_narrow')
 
+  // Single select modals work differently, they have an intermediate state where the user has selected an item but
+  // has not yet confirmed the selection. This is the only time the user can cancel the selection.
+  const isSingleSelectModal = variant === 'modal' && !isMultiSelectVariant(selected)
+  const [intermediateSelected, setIntermediateSelected] = useState<ItemInput | undefined>(
+    isSingleSelectModal ? selected : undefined,
+  )
+
   const onListContainerRefChanged: FilteredActionListProps['onListContainerRefChanged'] = useCallback(
     (node: HTMLElement | null) => {
       setListContainerElement(node)
@@ -357,7 +364,11 @@ export function SelectPanel({
 
   const itemsToRender = useMemo(() => {
     return items.map(item => {
-      const isItemSelected = isMultiSelectVariant(selected) ? doesItemsIncludeItem(selected, item) : selected === item
+      const isItemSelected = isMultiSelectVariant(selected)
+        ? doesItemsIncludeItem(selected, item)
+        : isSingleSelectModal
+          ? intermediateSelected?.id === item.id
+          : selected?.id === item.id
 
       return {
         ...item,
@@ -381,14 +392,18 @@ export function SelectPanel({
             return
           }
 
-          // single select
+          if (isSingleSelectModal) {
+            setIntermediateSelected(item)
+            return
+          }
+          // single select anchored, direct save on click
           const singleSelectOnChange = onSelectedChange as SelectPanelSingleSelection['onSelectedChange']
           singleSelectOnChange(item === selected ? undefined : item)
           onClose('selection')
         },
       } as ItemProps
     })
-  }, [onClose, onSelectedChange, items, selected])
+  }, [onClose, onSelectedChange, items, selected, intermediateSelected])
 
   const focusTrapSettings = {
     initialFocusRef: inputRef || undefined,
@@ -549,7 +564,19 @@ export function SelectPanel({
               >
                 Cancel
               </Button>
-              <Button variant="primary" size="medium" onClick={() => onClose('click-outside')}>
+              <Button
+                variant="primary"
+                size="medium"
+                onClick={() => {
+                  if (isSingleSelectModal) {
+                    const singleSelectOnChange = onSelectedChange as SelectPanelSingleSelection['onSelectedChange']
+                    singleSelectOnChange(intermediateSelected)
+                    onClose('selection')
+                  } else {
+                    onClose('click-outside')
+                  }
+                }}
+              >
                 Save
               </Button>
             </div>
