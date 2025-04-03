@@ -22,7 +22,7 @@ type UnderlineWrapperProps = {
   ref?: React.Ref<unknown>
 } & SxProp
 
-const UnderlineWrapperComponent = toggleSxComponent({}, 'div') as React.ComponentType<
+const UnderlineWrapperComponent = toggleSxComponent('div') as React.ComponentType<
   PropsWithChildren<UnderlineWrapperProps>
 >
 
@@ -99,7 +99,7 @@ export type UnderlineItemProps = {
   ref?: React.Ref<unknown>
 } & SxProp
 
-const UnderlineComponent = toggleSxComponent({}, 'a') as React.ComponentType<PropsWithChildren<UnderlineItemProps>>
+const UnderlineComponent = toggleSxComponent('a') as React.ComponentType<PropsWithChildren<UnderlineItemProps>>
 
 export const UnderlineItem = forwardRef(
   (
