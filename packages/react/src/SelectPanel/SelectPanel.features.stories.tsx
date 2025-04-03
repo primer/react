@@ -87,14 +87,6 @@ export const WithItemDividers = () => {
   const [selected, setSelected] = useState<ItemInput[]>(items.slice(1, 3))
   const [filter, setFilter] = useState('')
   const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
-  // design guidelines say to sort selected items first
-  const selectedItemsSortedFirst = filteredItems.sort((a, b) => {
-    const aIsSelected = selected.some(selectedItem => selectedItem.text === a.text)
-    const bIsSelected = selected.some(selectedItem => selectedItem.text === b.text)
-    if (aIsSelected && !bIsSelected) return -1
-    if (!aIsSelected && bIsSelected) return 1
-    return 0
-  })
   const [open, setOpen] = useState(false)
 
   return (
@@ -111,13 +103,13 @@ export const WithItemDividers = () => {
         )}
         open={open}
         onOpenChange={setOpen}
-        items={selectedItemsSortedFirst}
+        items={filteredItems}
         selected={selected}
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         showItemDividers={true}
         width="medium"
-        message={selectedItemsSortedFirst.length === 0 ? NoResultsMessage(filter) : undefined}
+        message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}
       />
     </FormControl>
   )
@@ -127,14 +119,6 @@ export const WithPlaceholderForSearchInput = () => {
   const [selected, setSelected] = useState<ItemInput[]>(items.slice(1, 3))
   const [filter, setFilter] = useState('')
   const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
-  // design guidelines say to sort selected items first
-  const selectedItemsSortedFirst = filteredItems.sort((a, b) => {
-    const aIsSelected = selected.some(selectedItem => selectedItem.text === a.text)
-    const bIsSelected = selected.some(selectedItem => selectedItem.text === b.text)
-    if (aIsSelected && !bIsSelected) return -1
-    if (!aIsSelected && bIsSelected) return 1
-    return 0
-  })
   const [open, setOpen] = useState(false)
 
   return (
@@ -152,12 +136,12 @@ export const WithPlaceholderForSearchInput = () => {
         placeholderText="Filter labels"
         open={open}
         onOpenChange={setOpen}
-        items={selectedItemsSortedFirst}
+        items={filteredItems}
         selected={selected}
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         width="medium"
-        message={selectedItemsSortedFirst.length === 0 ? NoResultsMessage(filter) : undefined}
+        message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}
       />
     </FormControl>
   )
@@ -167,12 +151,6 @@ export const SingleSelect = () => {
   const [selected, setSelected] = useState<ItemInput | undefined>(items[0])
   const [filter, setFilter] = useState('')
   const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
-  // design guidelines say to sort selected items first
-  const selectedItemsSortedFirst = filteredItems.sort((a, b) => {
-    if (a.text === selected?.text) return -1
-    if (b.text === selected?.text) return 1
-    return 0
-  })
   const [open, setOpen] = useState(false)
 
   return (
@@ -187,13 +165,13 @@ export const SingleSelect = () => {
         placeholder="Select labels" // button text when no items are selected
         open={open}
         onOpenChange={setOpen}
-        items={selectedItemsSortedFirst}
+        items={filteredItems}
         selected={selected}
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         onCancel={() => setOpen(false)}
         width="medium"
-        message={selectedItemsSortedFirst.length === 0 ? NoResultsMessage(filter) : undefined}
+        message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}
       />
     </FormControl>
   )
@@ -203,14 +181,6 @@ export const MultiSelect = () => {
   const [selected, setSelected] = useState<ItemInput[]>(items.slice(1, 3))
   const [filter, setFilter] = useState('')
   const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
-  // design guidelines say to sort selected items first
-  const selectedItemsSortedFirst = filteredItems.sort((a, b) => {
-    const aIsSelected = selected.some(selectedItem => selectedItem.text === a.text)
-    const bIsSelected = selected.some(selectedItem => selectedItem.text === b.text)
-    if (aIsSelected && !bIsSelected) return -1
-    if (!aIsSelected && bIsSelected) return 1
-    return 0
-  })
   const [open, setOpen] = useState(false)
 
   return (
@@ -227,12 +197,12 @@ export const MultiSelect = () => {
         )}
         open={open}
         onOpenChange={setOpen}
-        items={selectedItemsSortedFirst}
+        items={filteredItems}
         selected={selected}
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         width="medium"
-        message={selectedItemsSortedFirst.length === 0 ? NoResultsMessage(filter) : undefined}
+        message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}
       />
     </FormControl>
   )
@@ -242,14 +212,6 @@ export const WithExternalAnchor = () => {
   const [selected, setSelected] = useState<ItemInput[]>(items.slice(1, 3))
   const [filter, setFilter] = useState('')
   const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
-  // design guidelines say to sort selected items first
-  const selectedItemsSortedFirst = filteredItems.sort((a, b) => {
-    const aIsSelected = selected.some(selectedItem => selectedItem.text === a.text)
-    const bIsSelected = selected.some(selectedItem => selectedItem.text === b.text)
-    if (aIsSelected && !bIsSelected) return -1
-    if (!aIsSelected && bIsSelected) return 1
-    return 0
-  })
   const [open, setOpen] = useState(false)
   const buttonRef = useRef<HTMLButtonElement>(null)
 
@@ -265,7 +227,7 @@ export const WithExternalAnchor = () => {
         open={open}
         onOpenChange={setOpen}
         items={filteredItems}
-        selected={selectedItemsSortedFirst}
+        selected={filteredItems}
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         width="medium"
@@ -279,14 +241,6 @@ export const WithFooter = () => {
   const [selected, setSelected] = useState<ItemInput[]>(items.slice(1, 3))
   const [filter, setFilter] = useState('')
   const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
-  // design guidelines say to sort selected items first
-  const selectedItemsSortedFirst = filteredItems.sort((a, b) => {
-    const aIsSelected = selected.some(selectedItem => selectedItem.text === a.text)
-    const bIsSelected = selected.some(selectedItem => selectedItem.text === b.text)
-    if (aIsSelected && !bIsSelected) return -1
-    if (!aIsSelected && bIsSelected) return 1
-    return 0
-  })
   const [open, setOpen] = useState(false)
 
   return (
@@ -301,7 +255,7 @@ export const WithFooter = () => {
         placeholder="Select labels" // button text when no items are selected
         open={open}
         onOpenChange={setOpen}
-        items={selectedItemsSortedFirst}
+        items={filteredItems}
         selected={selected}
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
@@ -312,7 +266,7 @@ export const WithFooter = () => {
           </Button>
         }
         width="medium"
-        message={selectedItemsSortedFirst.length === 0 ? NoResultsMessage(filter) : undefined}
+        message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}
       />
     </FormControl>
   )
@@ -322,14 +276,6 @@ export const WithNotice = () => {
   const [selected, setSelected] = useState<ItemInput[]>(items.slice(1, 3))
   const [filter, setFilter] = useState('')
   const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
-  // design guidelines say to sort selected items first
-  const selectedItemsSortedFirst = filteredItems.sort((a, b) => {
-    const aIsSelected = selected.some(selectedItem => selectedItem.text === a.text)
-    const bIsSelected = selected.some(selectedItem => selectedItem.text === b.text)
-    if (aIsSelected && !bIsSelected) return -1
-    if (!aIsSelected && bIsSelected) return 1
-    return 0
-  })
   const [open, setOpen] = useState(false)
   const [noticeVariant, setNoticeVariant] = useState(0)
 
@@ -385,7 +331,7 @@ export const WithNotice = () => {
           placeholder="Select labels" // button text when no items are selected
           open={open}
           onOpenChange={setOpen}
-          items={selectedItemsSortedFirst}
+          items={filteredItems}
           selected={selected}
           onSelectedChange={setSelected}
           onFilterChange={setFilter}
@@ -447,16 +393,6 @@ export const WithGroups = () => {
   const [selected, setSelected] = useState<ItemInput[]>([])
   const [filter, setFilter] = useState('')
   const filteredItems = listOfItems.filter(item => item.text?.toLowerCase().startsWith(filter.toLowerCase()))
-  // design guidelines say to sort selected items first
-  const selectedItemsSortedFirst = filteredItems.sort((a, b) => {
-    if (a.groupId === b.groupId) {
-      const aIsSelected = selected.some(selectedItem => selectedItem.text === a.text)
-      const bIsSelected = selected.some(selectedItem => selectedItem.text === b.text)
-      if (aIsSelected && !bIsSelected) return -1
-      if (!aIsSelected && bIsSelected) return 1
-    }
-    return 0
-  })
   const [open, setOpen] = useState(false)
 
   return (
@@ -474,13 +410,13 @@ export const WithGroups = () => {
         groupMetadata={groupMetadata}
         open={open}
         onOpenChange={setOpen}
-        items={selectedItemsSortedFirst}
+        items={filteredItems}
         selected={selected}
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         overlayProps={{width: 'large', height: 'xlarge'}}
         width="medium"
-        message={selectedItemsSortedFirst.length === 0 ? NoResultsMessage(filter) : undefined}
+        message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}
       />
     </FormControl>
   )
@@ -490,14 +426,6 @@ export const WithLabelVisuallyHidden = () => {
   const [selected, setSelected] = useState<ItemInput[]>(items.slice(1, 3))
   const [filter, setFilter] = useState('')
   const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
-  // design guidelines say to sort selected items first
-  const selectedItemsSortedFirst = filteredItems.sort((a, b) => {
-    const aIsSelected = selected.some(selectedItem => selectedItem.text === a.text)
-    const bIsSelected = selected.some(selectedItem => selectedItem.text === b.text)
-    if (aIsSelected && !bIsSelected) return -1
-    if (!aIsSelected && bIsSelected) return 1
-    return 0
-  })
   const [open, setOpen] = useState(false)
 
   return (
@@ -514,12 +442,12 @@ export const WithLabelVisuallyHidden = () => {
         )}
         open={open}
         onOpenChange={setOpen}
-        items={selectedItemsSortedFirst}
+        items={filteredItems}
         selected={selected}
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         width="medium"
-        message={selectedItemsSortedFirst.length === 0 ? NoResultsMessage(filter) : undefined}
+        message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}
       />
     </FormControl>
   )
@@ -529,14 +457,6 @@ export const WithLabelInternally = () => {
   const [selected, setSelected] = useState<ItemInput[]>(items.slice(1, 3))
   const [filter, setFilter] = useState('')
   const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
-  // design guidelines say to sort selected items first
-  const selectedItemsSortedFirst = filteredItems.sort((a, b) => {
-    const aIsSelected = selected.some(selectedItem => selectedItem.text === a.text)
-    const bIsSelected = selected.some(selectedItem => selectedItem.text === b.text)
-    if (aIsSelected && !bIsSelected) return -1
-    if (!aIsSelected && bIsSelected) return 1
-    return 0
-  })
   const [open, setOpen] = useState(false)
 
   return (
@@ -556,12 +476,12 @@ export const WithLabelInternally = () => {
       )}
       open={open}
       onOpenChange={setOpen}
-      items={selectedItemsSortedFirst}
+      items={filteredItems}
       selected={selected}
       onSelectedChange={setSelected}
       onFilterChange={setFilter}
       width="medium"
-      message={selectedItemsSortedFirst.length === 0 ? NoResultsMessage(filter) : undefined}
+      message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}
     />
   )
 }
@@ -757,15 +677,6 @@ export const WithOnCancel = () => {
   const [selected, setSelected] = React.useState<ItemInput[]>(intialSelection)
   const [filter, setFilter] = React.useState('')
   const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
-  // design guidelines say to sort selected items first
-  const selectedItemsSortedFirst = filteredItems.sort((a, b) => {
-    const aIsSelected = selected.some(selectedItem => selectedItem.text === a.text)
-    const bIsSelected = selected.some(selectedItem => selectedItem.text === b.text)
-    if (aIsSelected && !bIsSelected) return -1
-    if (!aIsSelected && bIsSelected) return 1
-    return 0
-  })
-
   const [open, setOpen] = useState(false)
   React.useEffect(() => {
     if (!open) setInitialSelection(selected) // set initialSelection for next time
@@ -785,7 +696,7 @@ export const WithOnCancel = () => {
         )}
         open={open}
         onOpenChange={setOpen}
-        items={selectedItemsSortedFirst}
+        items={filteredItems}
         selected={selected}
         onSelectedChange={setSelected}
         onCancel={() => setSelected(intialSelection)}

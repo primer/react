@@ -122,6 +122,16 @@ const doesItemsIncludeItem = (items: ItemInput[], item: ItemInput) => {
   return items.some(i => areItemsEqual(i, item))
 }
 
+function usePreviousValue<T>(value: T): T {
+  const ref = React.useRef(value)
+
+  React.useEffect(() => {
+    ref.current = value
+  }, [value])
+
+  return ref.current
+}
+
 export function SelectPanel({
   open,
   onOpenChange,
@@ -171,6 +181,8 @@ export function SelectPanel({
   const [inputRef, setInputRef] = React.useState<React.RefObject<HTMLInputElement> | null>(null)
   const [listContainerElement, setListContainerElement] = useState<HTMLElement | null>(null)
   const [needsNoItemsAnnouncement, setNeedsNoItemsAnnouncement] = useState<boolean>(false)
+  const prevItems = usePreviousValue(items)
+  const [selectedOnSort, setSelectedOnSort] = useState<ItemInput[]>([])
 
   const onListContainerRefChanged: FilteredActionListProps['onListContainerRefChanged'] = useCallback(
     (node: HTMLElement | null) => {
@@ -328,40 +340,106 @@ export function SelectPanel({
     }
   }, [placeholder, renderAnchor, selected])
 
+  function resetSort() {
+    if (isMultiSelectVariant(selected)) {
+      setSelectedOnSort(selected)
+    } else if (selected) {
+      setSelectedOnSort([selected])
+    } else {
+      setSelectedOnSort([])
+    }
+  }
+
+  useEffect(() => {
+    if (!filterValue) {
+      resetSort()
+    }
+  }, [filterValue])
+
+  useEffect(() => {
+    if (open) {
+      resetSort()
+    }
+  }, [open])
+
+  useEffect(() => {
+    if (prevItems.length == 0 && items.length > 0) {
+      resetSort()
+    }
+  }, [items])
+
   const itemsToRender = useMemo(() => {
-    return items.map(item => {
-      const isItemSelected = isMultiSelectVariant(selected) ? doesItemsIncludeItem(selected, item) : selected === item
+    return items
+      .map(item => {
+        const isItemSelected = isMultiSelectVariant(selected) ? doesItemsIncludeItem(selected, item) : selected === item
 
-      return {
-        ...item,
-        role: 'option',
-        selected: 'selected' in item && item.selected === undefined ? undefined : isItemSelected,
-        onAction: (itemFromAction, event) => {
-          item.onAction?.(itemFromAction, event)
+        return {
+          ...item,
+          role: 'option',
+          selected: 'selected' in item && item.selected === undefined ? undefined : isItemSelected,
+          onAction: (itemFromAction, event) => {
+            item.onAction?.(itemFromAction, event)
 
-          if (event.defaultPrevented) {
-            return
-          }
+            if (event.defaultPrevented) {
+              return
+            }
 
-          if (isMultiSelectVariant(selected)) {
-            const otherSelectedItems = selected.filter(selectedItem => !areItemsEqual(selectedItem, item))
-            const newSelectedItems = doesItemsIncludeItem(selected, item)
-              ? otherSelectedItems
-              : [...otherSelectedItems, item]
+            if (isMultiSelectVariant(selected)) {
+              const otherSelectedItems = selected.filter(selectedItem => !areItemsEqual(selectedItem, item))
+              const newSelectedItems = doesItemsIncludeItem(selected, item)
+                ? otherSelectedItems
+                : [...otherSelectedItems, item]
 
-            const multiSelectOnChange = onSelectedChange as SelectPanelMultiSelection['onSelectedChange']
-            multiSelectOnChange(newSelectedItems)
-            return
-          }
+              const multiSelectOnChange = onSelectedChange as SelectPanelMultiSelection['onSelectedChange']
+              multiSelectOnChange(newSelectedItems)
+              return
+            }
 
-          // single select
-          const singleSelectOnChange = onSelectedChange as SelectPanelSingleSelection['onSelectedChange']
-          singleSelectOnChange(item === selected ? undefined : item)
-          onClose('selection')
-        },
-      } as ItemProps
-    })
-  }, [onClose, onSelectedChange, items, selected])
+            // single select
+            const singleSelectOnChange = onSelectedChange as SelectPanelSingleSelection['onSelectedChange']
+            singleSelectOnChange(item === selected ? undefined : item)
+            onClose('selection')
+          },
+        } as ItemProps
+      })
+      .sort((itemA, itemB) => {
+        // itemA is selected (for sorting purposes) if an object in selectedOnSort matches every property of itemA, except for the selected property
+        const itemASelected = selectedOnSort.some(item =>
+          Object.entries(item).every(([key, value]) => {
+            if (key === 'selected') {
+              return true
+            }
+            return itemA[key as keyof ItemProps] === value
+          }),
+        )
+
+        // itemB is selected (for sorting purposes) if an object in selectedOnSort matches every property of itemA, except for the selected property
+        const itemBSelected = selectedOnSort.some(item =>
+          Object.entries(item).every(([key, value]) => {
+            if (key === 'selected') {
+              return true
+            }
+            return itemB[key as keyof ItemProps] === value
+          }),
+        )
+
+        // order selected items first
+        if (itemASelected > itemBSelected) {
+          return -1
+        } else if (itemASelected < itemBSelected) {
+          return 1
+        }
+
+        // Then order by text
+        if ((itemA.text ?? '') < (itemB.text ?? '')) {
+          return -1
+        } else if ((itemA.text ?? '') > (itemB.text ?? '')) {
+          return 1
+        }
+
+        return 0
+      })
+  }, [onClose, onSelectedChange, items, selected, selectedOnSort])
 
   const focusTrapSettings = {
     initialFocusRef: inputRef || undefined,
