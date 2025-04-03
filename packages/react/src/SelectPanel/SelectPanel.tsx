@@ -481,7 +481,7 @@ export function SelectPanel({
                 : {
                     display: 'flex',
                     justifyContent: 'space-between',
-                    alignItems: 'center',
+                    alignItems: 'flex-start',
                     paddingTop: 2,
                     paddingRight: 2,
                     paddingLeft: 2,
