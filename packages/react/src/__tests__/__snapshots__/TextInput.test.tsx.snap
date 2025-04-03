@@ -3213,8 +3213,9 @@ exports[`TextInput renders trailingAction icon button 1`] = `
       onBlur={[Function]}
       onClick={[MockFunction]}
       onFocus={[Function]}
-      onMouseEnter={[Function]}
       onMouseLeave={[Function]}
+      onMouseOverCapture={[Function]}
+      onTouchEnd={[Function]}
       type="button"
     >
       <svg
@@ -3869,8 +3870,9 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
       onBlur={[Function]}
       onClick={[MockFunction]}
       onFocus={[Function]}
-      onMouseEnter={[Function]}
       onMouseLeave={[Function]}
+      onMouseOverCapture={[Function]}
+      onTouchEnd={[Function]}
       style={
         {
           "--button-color": "fg.subtle",
