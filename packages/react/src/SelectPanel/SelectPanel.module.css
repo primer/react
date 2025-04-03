@@ -13,7 +13,7 @@
 .Header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   padding-top: var(--base-size-8);
   padding-right: var(--base-size-8);
   padding-left: var(--base-size-8);
