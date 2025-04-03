@@ -415,8 +415,8 @@ export function SelectPanel({
 
   // We add a save and cancel button on narrow screens when SelectPanel is full-screen
   // Save and Cancel buttons are only useful for multiple selection, single selection instantly closes the panel
-  const showCancelSaveButtons = isMultiSelectVariant(selected) && usingFullScreenOnNarrow
-  const showXCloseIcon = (onCancel && variant === 'modal') || (onCancel && usingFullScreenOnNarrow)
+  const showCancelSaveButtons = variant === 'modal' || (isMultiSelectVariant(selected) && usingFullScreenOnNarrow)
+  const showXCloseIcon = variant === 'modal' || usingFullScreenOnNarrow
 
   return (
     <>
@@ -506,7 +506,7 @@ export function SelectPanel({
                 }
                 className={enabled ? classes.ResponsiveCloseButton : undefined}
                 onClick={() => {
-                  onCancel()
+                  onCancel && onCancel()
                   onClose('escape')
                 }}
               />
@@ -564,23 +564,16 @@ export function SelectPanel({
             </Box>
           ) : showCancelSaveButtons ? (
             <div className={clsx(classes.Footer, classes.ResponsiveFooter)}>
-              {onCancel && (
-                <Button
-                  size="medium"
-                  onClick={() => {
-                    onCancel()
-                    onClose('escape')
-                  }}
-                >
-                  Cancel
-                </Button>
-              )}
               <Button
-                variant="primary"
                 size="medium"
-                block={onCancel ? false : true}
-                onClick={() => onClose('click-outside')}
+                onClick={() => {
+                  onCancel && onCancel()
+                  onClose('escape')
+                }}
               >
+                Cancel
+              </Button>
+              <Button variant="primary" size="medium" onClick={() => onClose('click-outside')}>
                 Save
               </Button>
             </div>
