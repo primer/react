@@ -545,7 +545,7 @@ export function SelectPanel({
             // we don't accidentally override props.aria-label
             aria-labelledby={listProps['aria-label'] ? undefined : titleId}
             aria-multiselectable={isMultiSelectVariant(selected) ? 'true' : 'false'}
-            selectionVariant={isMultiSelectVariant(selected) ? 'multiple' : 'single'}
+            selectionVariant={isSingleSelectModal ? 'radio' : isMultiSelectVariant(selected) ? 'multiple' : 'single'}
             items={itemsToRender}
             textInputProps={extendedTextInputProps}
             loading={loading || isLoading}
