@@ -823,28 +823,25 @@ export const AsMultiSelectModal = () => {
   }, [open, selected])
 
   return (
-    <FormControl>
-      <FormControl.Label>Labels</FormControl.Label>
-      <SelectPanel
-        variant="modal"
-        title="Select labels"
-        placeholder="Select labels"
-        subtitle="Use labels to organize issues and pull requests"
-        renderAnchor={({children, ...anchorProps}) => (
-          <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
-            {children}
-          </Button>
-        )}
-        open={open}
-        onOpenChange={setOpen}
-        items={selectedItemsSortedFirst}
-        selected={selected}
-        onSelectedChange={setSelected}
-        onCancel={() => setSelected(intialSelection)}
-        onFilterChange={setFilter}
-        width="medium"
-      />
-    </FormControl>
+    <SelectPanel
+      variant="modal"
+      title="Select labels"
+      placeholder="Select labels"
+      subtitle="Use labels to organize issues and pull requests"
+      renderAnchor={({children, ...anchorProps}) => (
+        <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
+          {children}
+        </Button>
+      )}
+      open={open}
+      onOpenChange={setOpen}
+      items={selectedItemsSortedFirst}
+      selected={selected}
+      onSelectedChange={setSelected}
+      onCancel={() => setSelected(intialSelection)}
+      onFilterChange={setFilter}
+      width="medium"
+    />
   )
 }
 
