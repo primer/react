@@ -1,22 +1,188 @@
 import {clsx} from 'clsx'
 import React, {useEffect, useRef, useState} from 'react'
-import type {SxProp} from '../sx'
+import styled from 'styled-components'
+import {get} from '../constants'
+import Box from '../Box'
+import type {BetterCssProperties, BetterSystemStyleObject, SxProp} from '../sx'
+import sx, {merge} from '../sx'
 import type {AvatarProps} from '../Avatar/Avatar'
 import {DEFAULT_AVATAR_SIZE} from '../Avatar/Avatar'
 import type {ResponsiveValue} from '../hooks/useResponsiveValue'
 import {isResponsiveValue} from '../hooks/useResponsiveValue'
+import {getBreakpointDeclarations} from '../utils/getBreakpointDeclarations'
 import {defaultSxProp} from '../utils/defaultSxProp'
 import type {WidthOnlyViewportRangeKeys} from '../utils/types/ViewportRangeKeys'
 import classes from './AvatarStack.module.css'
+import {toggleStyledComponent} from '../internal/utils/toggleStyledComponent'
+import {useFeatureFlag} from '../FeatureFlags'
 import {hasInteractiveNodes} from '../internal/utils/hasInteractiveNodes'
-import {toggleSxComponent} from '../internal/utils/toggleSxComponent'
+import getGlobalFocusStyles from '../internal/utils/getGlobalFocusStyles'
 
-const transformChildren = (children: React.ReactNode) => {
+type StyledAvatarStackWrapperProps = {
+  count?: number
+} & SxProp
+
+const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_ga'
+
+const AvatarStackWrapper = toggleStyledComponent(
+  CSS_MODULES_FEATURE_FLAG,
+  'span',
+  styled.span<StyledAvatarStackWrapperProps>`
+    --avatar-border-width: 1px;
+    --overlap-size: calc(var(--avatar-stack-size) * 0.55);
+    --overlap-size-avatar-three-plus: calc(var(--avatar-stack-size) * 0.85);
+    --mask-size: calc(100% + (var(--avatar-border-width) * 2));
+    --mask-start: -1;
+    --opacity-step: 15%;
+
+    display: flex;
+    position: relative;
+    height: var(--avatar-stack-size);
+    min-width: var(--avatar-stack-size);
+    isolation: isolate;
+
+    .pc-AvatarStackBody {
+      display: flex;
+      position: absolute;
+
+      ${getGlobalFocusStyles('1px')}
+    }
+
+    .pc-AvatarItem {
+      --avatar-size: var(--avatar-stack-size);
+      flex-shrink: 0;
+      height: var(--avatar-stack-size);
+      width: var(--avatar-stack-size);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      transition:
+        margin 0.2s ease-in-out,
+        opacity 0.2s ease-in-out,
+        mask-position 0.2s ease-in-out,
+        mask-size 0.2s ease-in-out;
+
+      &:is(img) {
+        box-shadow: 0 0 0 var(--avatar-border-width)
+          ${props => (props.count === 1 ? get('colors.avatar.border') : 'transparent')};
+      }
+
+      &:first-child {
+        margin-inline-start: 0;
+      }
+
+      &:nth-child(n + 2) {
+        margin-inline-start: calc(var(--overlap-size) * -1);
+        mask-image: radial-gradient(at 50% 50%, rgb(0, 0, 0) 70%, rgba(0, 0, 0, 0) 71%),
+          linear-gradient(rgb(0, 0, 0) 0 0);
+        mask-repeat: no-repeat, no-repeat;
+        mask-size:
+          var(--mask-size) var(--mask-size),
+          auto;
+        mask-composite: exclude;
+        // HORIZONTAL POSITION CALC FORMULA EXPLAINED:
+        // width of the visible part of the avatar ➡️ var(--avatar-stack-size) - var(--overlap-size)
+        // multiply by -1 for left-aligned, 1 for right-aligned ➡️ var(--mask-start)
+        // subtract the avatar border width ➡️ var(--avatar-border-width)
+        mask-position:
+          calc((var(--avatar-stack-size) - var(--overlap-size)) * var(--mask-start) - var(--avatar-border-width)) center,
+          0 0;
+        // HACK: This padding fixes a weird rendering bug where a tiiiiny outline is visible at the edges of the element
+        padding: 0.1px;
+      }
+
+      &:nth-child(n + 3) {
+        --overlap-size: var(--overlap-size-avatar-three-plus);
+        opacity: calc(100% - 2 * var(--opacity-step));
+      }
+
+      &:nth-child(n + 4) {
+        opacity: calc(100% - 3 * var(--opacity-step));
+      }
+
+      &:nth-child(n + 5) {
+        opacity: calc(100% - 4 * var(--opacity-step));
+      }
+
+      &:nth-child(n + 6) {
+        opacity: 0;
+        visibility: hidden;
+      }
+    }
+
+    &.pc-AvatarStack--two {
+      // MIN-WIDTH CALC FORMULA EXPLAINED:
+      // avatar size ➡️ var(--avatar-stack-size)
+      // plus the visible part of the 2nd avatar ➡️ var(--avatar-stack-size) - var(--overlap-size)
+      min-width: calc(var(--avatar-stack-size) + (var(--avatar-stack-size) - var(--overlap-size)));
+    }
+
+    &.pc-AvatarStack--three {
+      // MIN-WIDTH CALC FORMULA EXPLAINED:
+      // avatar size ➡️ var(--avatar-stack-size)
+      // plus the visible part of the 2nd avatar ➡️ var(--avatar-stack-size) - var(--overlap-size)
+      // plus the visible part of the 3rd avatar ➡️ var(--avatar-stack-size) - var(--overlap-size-avatar-three-plus)
+      min-width: calc(
+        var(--avatar-stack-size) + (var(--avatar-stack-size) - var(--overlap-size)) +
+          (var(--avatar-stack-size) - var(--overlap-size-avatar-three-plus))
+      );
+    }
+
+    &.pc-AvatarStack--three-plus {
+      // MIN-WIDTH CALC FORMULA EXPLAINED:
+      // avatar size ➡️ var(--avatar-stack-size)
+      // plus the visible part of the 2nd avatar ➡️ var(--avatar-stack-size) - var(--overlap-size)
+      // plus the visible part of the 3rd AND 4th avatar ➡️ (var(--avatar-stack-size) - var(--overlap-size-avatar-three-plus)) * 2
+      min-width: calc(
+        var(--avatar-stack-size) + (var(--avatar-stack-size) - var(--overlap-size)) +
+          (var(--avatar-stack-size) - var(--overlap-size-avatar-three-plus)) * 2
+      );
+    }
+
+    &.pc-AvatarStack--right {
+      --mask-start: 1;
+      direction: rtl;
+    }
+
+    .pc-AvatarStackBody:not(.pc-AvatarStack--disableExpand):hover,
+    .pc-AvatarStackBody:not(.pc-AvatarStack--disableExpand):focus-within {
+      width: auto;
+
+      .pc-AvatarItem {
+        // reset size of the mask to prevent unintentially clipping due to the additional size created by the border width
+        --mask-size: 100%;
+        margin-inline-start: ${get('space.1')};
+        opacity: 1;
+        visibility: visible;
+        // HORIZONTAL POSITION CALC FORMULA EXPLAINED:
+        // width of the full avatar ➡️ var(--avatar-stack-size)
+        // multiply by -1 for left-aligned, 1 for right-aligned ➡️ var(--mask-start)
+        mask-position:
+          calc(var(--avatar-stack-size) * var(--mask-start)) center,
+          0 0;
+
+        ${getGlobalFocusStyles('1px')}
+
+        &:first-child {
+          margin-inline-start: 0;
+        }
+      }
+    }
+
+    .pc-AvatarStack--disableExpand {
+      position: relative;
+    }
+
+    ${sx};
+  `,
+)
+
+const transformChildren = (children: React.ReactNode, enabled: boolean) => {
   return React.Children.map(children, child => {
     if (!React.isValidElement(child)) return child
     return React.cloneElement(child, {
       ...child.props,
-      className: clsx(child.props.className, 'pc-AvatarItem', classes.AvatarItem),
+      className: clsx(child.props.className, 'pc-AvatarItem', {[classes.AvatarItem]: enabled}),
     })
   })
 }
@@ -43,16 +209,28 @@ const AvatarStackBody = ({
   const bodyClassNames = clsx('pc-AvatarStackBody', {
     'pc-AvatarStack--disableExpand': disableExpand,
   })
+  const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
 
+  if (enabled) {
+    return (
+      <div
+        data-disable-expand={disableExpand ? '' : undefined}
+        className={clsx(bodyClassNames, classes.AvatarStackBody)}
+        tabIndex={!hasInteractiveChildren && !disableExpand ? 0 : undefined}
+        ref={stackContainer}
+      >
+        {children}
+      </div>
+    )
+  }
   return (
-    <div
-      data-disable-expand={disableExpand ? '' : undefined}
-      className={clsx(bodyClassNames, classes.AvatarStackBody)}
+    <Box
+      className={bodyClassNames}
       tabIndex={!hasInteractiveChildren && !disableExpand ? 0 : undefined}
       ref={stackContainer}
     >
       {children}
-    </div>
+    </Box>
   )
 }
 
@@ -65,6 +243,7 @@ const AvatarStack = ({
   style,
   sx: sxProp = defaultSxProp,
 }: AvatarStackProps) => {
+  const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
   const [hasInteractiveChildren, setHasInteractiveChildren] = useState<boolean | undefined>(false)
   const stackContainer = useRef<HTMLDivElement>(null)
 
@@ -142,36 +321,56 @@ const AvatarStack = ({
   const getResponsiveAvatarSizeStyles = () => {
     // if there is no size set on the AvatarStack, use the `size` props of the Avatar children to set the `--avatar-stack-size` CSS variable
     if (!size) {
-      return {
-        '--stackSize-narrow': `${childSizes.narrow}px`,
-        '--stackSize-regular': `${childSizes.regular}px`,
-        '--stackSize-wide': `${childSizes.wide}px`,
+      if (enabled) {
+        return {
+          '--stackSize-narrow': `${childSizes.narrow}px`,
+          '--stackSize-regular': `${childSizes.regular}px`,
+          '--stackSize-wide': `${childSizes.wide}px`,
+        }
       }
+
+      return getBreakpointDeclarations(
+        childSizes,
+        '--avatar-stack-size' as keyof React.CSSProperties,
+        value => `${value}px`,
+      )
     }
 
     // if the `size` prop is set and responsive, set the `--avatar-stack-size` CSS variable for each viewport
     if (isResponsiveValue(size)) {
-      return {
-        '--stackSize-narrow': `${size.narrow || DEFAULT_AVATAR_SIZE}px`,
-        '--stackSize-regular': `${size.regular || DEFAULT_AVATAR_SIZE}px`,
-        '--stackSize-wide': `${size.wide || DEFAULT_AVATAR_SIZE}px`,
+      if (enabled) {
+        return {
+          '--stackSize-narrow': `${size.narrow || DEFAULT_AVATAR_SIZE}px`,
+          '--stackSize-regular': `${size.regular || DEFAULT_AVATAR_SIZE}px`,
+          '--stackSize-wide': `${size.wide || DEFAULT_AVATAR_SIZE}px`,
+        }
       }
+
+      return getBreakpointDeclarations(
+        size,
+        '--avatar-stack-size' as keyof React.CSSProperties,
+        value => `${value || DEFAULT_AVATAR_SIZE}px`,
+      )
     }
 
     // if the `size` prop is set and not responsive, it is a number, so we can just set the `--avatar-stack-size` CSS variable to that number
     return {'--avatar-stack-size': `${size}px`} as React.CSSProperties
   }
 
-  const BaseComponentWrapper = toggleSxComponent('div')
+  const avatarStackSx = merge<BetterCssProperties | BetterSystemStyleObject>(
+    !enabled && getResponsiveAvatarSizeStyles(),
+    sxProp as SxProp,
+  )
 
   return (
-    <BaseComponentWrapper
-      data-avatar-count={count > 3 ? '3+' : count}
-      data-align-right={alignRight ? '' : undefined}
-      data-responsive={!size || isResponsiveValue(size) ? '' : undefined}
-      className={clsx(wrapperClassNames, classes.AvatarStack)}
-      style={{...getResponsiveAvatarSizeStyles(), ...style}}
-      sx={sxProp}
+    <AvatarStackWrapper
+      count={enabled ? undefined : count}
+      data-avatar-count={enabled ? (count > 3 ? '3+' : count) : undefined}
+      data-align-right={enabled && alignRight ? '' : undefined}
+      data-responsive={enabled && (!size || isResponsiveValue(size)) ? '' : undefined}
+      className={clsx(wrapperClassNames, {[classes.AvatarStack]: enabled})}
+      style={enabled ? {...getResponsiveAvatarSizeStyles(), style} : style}
+      sx={avatarStackSx}
     >
       <AvatarStackBody
         disableExpand={disableExpand}
@@ -179,9 +378,9 @@ const AvatarStack = ({
         stackContainer={stackContainer}
       >
         {' '}
-        {transformChildren(children)}
+        {transformChildren(children, enabled)}
       </AvatarStackBody>
-    </BaseComponentWrapper>
+    </AvatarStackWrapper>
   )
 }
 
