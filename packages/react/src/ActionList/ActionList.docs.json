@@ -17,7 +17,7 @@
       "name": "variant",
       "type": "'inset' | 'horizontal-inset' | 'full'",
       "defaultValue": "'inset'",
-      "description": "`inset` children are offset (vertically and horizontally) from list edges. `full` children are flush (vertically and horizontally) with list edges"
+      "description": "`inset` children are offset (vertically and/or horizontally) from list edges. `full` children are flush (vertically and horizontally) with list edges"
     },
     {
       "name": "selectionVariant",
