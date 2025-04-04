@@ -501,6 +501,7 @@ export function SelectPanel({
           onInputRefChanged={onInputRefChanged}
           placeholderText={placeholderText}
           {...listProps}
+          variant="horizontal-inset"
           role="listbox"
           // browsers give aria-labelledby precedence over aria-label so we need to make sure
           // we don't accidentally override props.aria-label
