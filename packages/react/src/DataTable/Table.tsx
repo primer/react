@@ -13,7 +13,7 @@ import {ScrollableRegion} from '../ScrollableRegion'
 import {Button} from '../internal/components/ButtonReset'
 import classes from './Table.module.css'
 import {defaultSxProp} from '../utils/defaultSxProp'
-import Box from '../Box'
+import {toggleSxComponent} from '../internal/utils/toggleSxComponent'
 
 // ----------------------------------------------------------------------------
 // Table
@@ -231,63 +231,67 @@ function TableCellPlaceholder({children}: TableCellPlaceholderProps) {
 // ----------------------------------------------------------------------------
 // TableContainer
 // ----------------------------------------------------------------------------
-export type TableContainerProps = React.PropsWithChildren<SxProp>
+export type TableContainerProps = React.PropsWithChildren<SxProp & React.HTMLAttributes<HTMLDivElement>>
 
 function TableContainer({children, sx: sxProp = defaultSxProp}: TableContainerProps) {
-  if (sxProp !== defaultSxProp) {
-    return (
-      <Box as="div" className={clsx(classes.TableContainer)} sx={sxProp}>
-        {children}
-      </Box>
-    )
-  }
-
-  return <div className={clsx(classes.TableContainer)}>{children}</div>
+  const BaseComponent = toggleSxComponent('div') as React.ComponentType<TableContainerProps>
+  return (
+    <BaseComponent className={clsx(classes.TableContainer)} sx={sxProp}>
+      {children}
+    </BaseComponent>
+  )
 }
 
-export type TableTitleProps = React.PropsWithChildren<{
-  /**
-   * Provide an alternate element or component to use as the container for
-   * `TableSubtitle`. This is useful when specifying markup that is more
-   * semantic for your use-case, such as a heading tag.
-   */
-  as?: keyof JSX.IntrinsicElements | React.ComponentType
+export type TableTitleProps = React.PropsWithChildren<
+  {
+    /**
+     * Provide an alternate element or component to use as the container for
+     * `TableSubtitle`. This is useful when specifying markup that is more
+     * semantic for your use-case, such as a heading tag.
+     */
+    as?: keyof JSX.IntrinsicElements | React.ComponentType
 
-  /**
-   * Provide a unique id for the table subtitle. This should be used along with
-   * `aria-labelledby` on `DataTable`
-   */
-  id: string
-}>
+    /**
+     * Provide a unique id for the table subtitle. This should be used along with
+     * `aria-labelledby` on `DataTable`
+     */
+    id: string
+  } & React.HTMLAttributes<HTMLElement> &
+    React.RefAttributes<HTMLElement>
+>
 
 const TableTitle = React.forwardRef<HTMLElement, TableTitleProps>(function TableTitle({as = 'h2', children, id}, ref) {
+  const BaseComponent = toggleSxComponent(as) as React.ComponentType<TableTitleProps>
   return (
-    <Box as={as} className={clsx('TableTitle', classes.TableTitle)} id={id} ref={ref}>
+    <BaseComponent className={clsx('TableTitle', classes.TableTitle)} id={id} ref={ref}>
       {children}
-    </Box>
+    </BaseComponent>
   )
 })
 
-export type TableSubtitleProps = React.PropsWithChildren<{
-  /**
-   * Provide an alternate element or component to use as the container for
-   * `TableSubtitle`. This is useful when specifying markup that is more
-   * semantic for your use-case
-   */
-  as?: keyof JSX.IntrinsicElements | React.ComponentType
+export type TableSubtitleProps = React.PropsWithChildren<
+  {
+    /**
+     * Provide an alternate element or component to use as the container for
+     * `TableSubtitle`. This is useful when specifying markup that is more
+     * semantic for your use-case
+     */
+    as?: keyof JSX.IntrinsicElements | React.ComponentType
 
-  /**
-   * Provide a unique id for the table subtitle. This should be used along with
-   * `aria-describedby` on `DataTable`
-   */
-  id: string
-}>
+    /**
+     * Provide a unique id for the table subtitle. This should be used along with
+     * `aria-describedby` on `DataTable`
+     */
+    id: string
+  } & React.HTMLAttributes<HTMLElement>
+>
 
 function TableSubtitle({as, children, id}: TableSubtitleProps) {
+  const BaseComponent = toggleSxComponent(as) as React.ComponentType<TableSubtitleProps>
   return (
-    <Box as={as} className={clsx('TableSubtitle', classes.TableSubtitle)} id={id}>
+    <BaseComponent className={clsx('TableSubtitle', classes.TableSubtitle)} id={id}>
       {children}
-    </Box>
+    </BaseComponent>
   )
 }
 

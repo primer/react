@@ -17,7 +17,7 @@ type CSSModulesProps = {
  */
 export function toggleSxComponent<T, P extends CSSModulesProps>(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  defaultAs: string | React.ComponentType<any>,
+  defaultAs: string | React.ComponentType<any> | undefined = 'div',
 ) {
   const Wrapper = React.forwardRef<T, P>(function Wrapper(
     {as: BaseComponent = defaultAs, sx: sxProp = defaultSxProp, ...rest},
