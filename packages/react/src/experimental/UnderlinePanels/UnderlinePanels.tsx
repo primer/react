@@ -12,24 +12,20 @@ import {TabContainerElement} from '@github/tab-container-element'
 import type {IconProps} from '@primer/octicons-react'
 import {createComponent} from '../../utils/create-component'
 import {
-  StyledUnderlineItemList,
-  StyledUnderlineWrapper,
+  UnderlineItemList,
+  UnderlineWrapper,
   UnderlineItem,
   type UnderlineItemProps,
 } from '../../internal/components/UnderlineTabbedInterface'
 import Box, {type BoxProps} from '../../Box'
 import {useId} from '../../hooks'
 import {invariant} from '../../utils/invariant'
-import {merge, type BetterSystemStyleObject, type SxProp} from '../../sx'
+import {type SxProp} from '../../sx'
 import {defaultSxProp} from '../../utils/defaultSxProp'
 import {useResizeObserver, type ResizeObserverEntry} from '../../hooks/useResizeObserver'
 import useIsomorphicLayoutEffect from '../../utils/useIsomorphicLayoutEffect'
-import {useFeatureFlag} from '../../FeatureFlags'
 import classes from './UnderlinePanels.module.css'
-import {toggleStyledComponent} from '../../internal/utils/toggleStyledComponent'
 import {clsx} from 'clsx'
-
-const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_ga'
 
 export type UnderlinePanelsProps = {
   /**
@@ -82,12 +78,6 @@ export type PanelProps = Omit<BoxProps, 'as'>
 
 const TabContainerComponent = createComponent(TabContainerElement, 'tab-container')
 
-const StyledTabContainerComponent = toggleStyledComponent(
-  CSS_MODULES_FEATURE_FLAG,
-  'tab-container',
-  TabContainerComponent,
-)
-
 const UnderlinePanels: FC<UnderlinePanelsProps> = ({
   'aria-label': ariaLabel,
   'aria-labelledby': ariaLabelledBy,
@@ -139,8 +129,6 @@ const UnderlinePanels: FC<UnderlinePanelsProps> = ({
 
   const tabsHaveIcons = tabs.some(tab => React.isValidElement(tab) && tab.props.icon)
 
-  const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
-
   // this is a workaround to get the list's width on the first render
   const [listWidth, setListWidth] = useState(0)
   useIsomorphicLayoutEffect(() => {
@@ -164,7 +152,7 @@ const UnderlinePanels: FC<UnderlinePanelsProps> = ({
       setIconsVisible(wrapperWidth > listWidth)
     },
     wrapperRef,
-    [enabled],
+    [],
   )
 
   if (__DEV__) {
@@ -182,53 +170,22 @@ const UnderlinePanels: FC<UnderlinePanelsProps> = ({
     )
   }
 
-  if (enabled) {
-    return (
-      <StyledTabContainerComponent>
-        <StyledUnderlineWrapper
-          ref={wrapperRef}
-          slot="tablist-wrapper"
-          data-icons-visible={iconsVisible}
-          sx={sxProp}
-          className={clsx(className, classes.StyledUnderlineWrapper)}
-          {...props}
-        >
-          <StyledUnderlineItemList ref={listRef} aria-label={ariaLabel} aria-labelledby={ariaLabelledBy} role="tablist">
-            {tabs}
-          </StyledUnderlineItemList>
-        </StyledUnderlineWrapper>
-        {tabPanels}
-      </StyledTabContainerComponent>
-    )
-  }
-
   return (
-    <StyledTabContainerComponent>
-      <StyledUnderlineWrapper
+    <TabContainerComponent>
+      <UnderlineWrapper
         ref={wrapperRef}
         slot="tablist-wrapper"
         data-icons-visible={iconsVisible}
-        sx={merge<BetterSystemStyleObject>(
-          {
-            width: '100%',
-            overflowX: 'auto',
-            overflowY: 'hidden',
-            '-webkit-overflow-scrolling': 'auto',
-            '&[data-icons-visible="false"] [data-component="icon"]': {
-              display: 'none',
-            },
-          },
-          sxProp as SxProp,
-        )}
-        className={className}
+        sx={sxProp}
+        className={clsx(className, classes.StyledUnderlineWrapper)}
         {...props}
       >
-        <StyledUnderlineItemList ref={listRef} aria-label={ariaLabel} aria-labelledby={ariaLabelledBy} role="tablist">
+        <UnderlineItemList ref={listRef} aria-label={ariaLabel} aria-labelledby={ariaLabelledBy} role="tablist">
           {tabs}
-        </StyledUnderlineItemList>
-      </StyledUnderlineWrapper>
+        </UnderlineItemList>
+      </UnderlineWrapper>
       {tabPanels}
-    </StyledTabContainerComponent>
+    </TabContainerComponent>
   )
 }
 
