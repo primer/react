@@ -80,7 +80,6 @@ interface SelectPanelBaseProps {
   // TODO: Make `inputLabel` required in next major version
   inputLabel?: string
   overlayProps?: Partial<OverlayProps>
-  footer?: string | React.ReactElement
   initialLoadingType?: InitialLoadingType
   className?: string
   notice?: {
@@ -93,6 +92,10 @@ interface SelectPanelBaseProps {
     variant: 'empty' | 'error' | 'warning'
   }
   onCancel?: () => void
+  /**
+   * @deprecated Use the `actions` property instead
+   */
+  footer?: string | React.ReactElement
 }
 
 export type SelectPanelProps = SelectPanelBaseProps &
