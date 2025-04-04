@@ -145,7 +145,10 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     const itemRole = role || inferredItemRole
 
     if (slots.trailingAction) {
-      invariant(!menuContext, `ActionList.TrailingAction can not be used within a ${container}.`)
+      invariant(
+        !menuContext,
+        `ActionList.TrailingAction can not be used within a list with an ARIA role of "menu" or "listbox".`,
+      )
     }
 
     /** Infer the proper selection attribute based on the item's role */
