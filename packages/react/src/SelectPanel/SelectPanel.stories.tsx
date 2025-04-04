@@ -8,7 +8,7 @@ import {SelectPanel} from '../SelectPanel'
 import type {ItemInput} from '../deprecated/ActionList/List'
 import FormControl from '../FormControl'
 
-const meta = {
+const meta: Meta<typeof SelectPanel> = {
   title: 'Components/SelectPanel',
   component: SelectPanel,
 } satisfies Meta<typeof SelectPanel>
@@ -65,13 +65,7 @@ const items: ItemInput[] = [
 export const Default = () => {
   const [selected, setSelected] = useState<ItemInput[]>(items.slice(1, 3))
   const [filter, setFilter] = useState('')
-  const filteredItems = items.filter(
-    item =>
-      // design guidelines say to always show selected items in the list
-      selected.some(selectedItem => selectedItem.text === item.text) ||
-      // then filter the rest
-      item.text?.toLowerCase().startsWith(filter.toLowerCase()),
-  )
+  const filteredItems = items.filter(item => item.text?.toLowerCase().startsWith(filter.toLowerCase()))
   // design guidelines say to sort selected items first
   const selectedItemsSortedFirst = filteredItems.sort((a, b) => {
     const aIsSelected = selected.some(selectedItem => selectedItem.text === a.text)
@@ -101,6 +95,15 @@ export const Default = () => {
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         width="medium"
+        message={
+          selectedItemsSortedFirst.length === 0
+            ? {
+                variant: 'empty',
+                title: `No language found for \`${filter}\``,
+                body: 'Adjust your search term to find other languages',
+              }
+            : undefined
+        }
       />
     </FormControl>
   )

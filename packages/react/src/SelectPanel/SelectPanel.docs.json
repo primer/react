@@ -128,6 +128,12 @@
       "defaultValue": ""
     },
     {
+      "name": "onCancel",
+      "type": "() => void",
+      "description": "(Narrow screens) Callback when the user hits cancel or close",
+      "defaultValue": ""
+    },
+    {
       "name": "overlayProps",
       "type": "Partial<OverlayProps>",
       "defaultValue": "",
@@ -144,6 +150,17 @@
       "type": "string | React.ReactElement",
       "defaultValue": "null",
       "description": "Footer rendered at the end of the panel"
+    },
+    {
+      "name": "message",
+      "type": "{title: string | React.ReactElement; variant: 'empty' | 'error' | 'warning';  body: React.ReactNode;}",
+      "defaultValue": "A default empty message is provided by default if this option is not supplied",
+      "description": "Message to display in the panel in case of error or empty results"
+    },
+    {
+      "name": "notice",
+      "type": "{text: string | React.ReactElement; variant: 'empty' | 'error' | 'warning';}",
+      "description": "Optional notice to display on top of the panel"
     }
   ],
   "subcomponents": []

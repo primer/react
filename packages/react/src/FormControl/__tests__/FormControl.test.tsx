@@ -12,6 +12,7 @@ import {
   TextInput,
   TextInputWithTokens,
 } from '../..'
+import {behavesAsComponent} from '../../utils/testing'
 import {MarkGithubIcon} from '@primer/octicons-react'
 
 const LABEL_TEXT = 'Form control'
@@ -19,6 +20,17 @@ const CAPTION_TEXT = 'Hint text'
 const ERROR_TEXT = 'This field is invalid'
 
 describe('FormControl', () => {
+  behavesAsComponent({
+    Component: FormControl,
+    options: {skipAs: true, skipDisplayName: true},
+    toRender: () => (
+      <FormControl>
+        <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
+        <TextInput />
+      </FormControl>
+    ),
+  })
+
   describe('vertically stacked layout (default)', () => {
     describe('rendering', () => {
       it('renders with a hidden label', () => {

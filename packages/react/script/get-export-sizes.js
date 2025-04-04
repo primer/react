@@ -6,6 +6,7 @@ const core = require('@actions/core')
 const commonjs = require('@rollup/plugin-commonjs')
 const {nodeResolve} = require('@rollup/plugin-node-resolve')
 const virtual = require('@rollup/plugin-virtual')
+const json = require('@rollup/plugin-json')
 const {filesize} = require('filesize')
 const {rollup} = require('rollup')
 const {minify} = require('terser')
@@ -54,6 +55,7 @@ async function main() {
         commonjs({
           include: [/node_modules/],
         }),
+        json(),
         noopCSSModules,
       ],
       onwarn: () => {},
@@ -78,6 +80,7 @@ async function main() {
             include: /node_modules/,
           }),
           noopCSSModules,
+          json(),
           virtual({
             __entrypoint__: `export { ${identifier} } from '${filepath}';`,
           }),

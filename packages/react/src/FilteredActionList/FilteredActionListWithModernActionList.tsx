@@ -18,6 +18,7 @@ import {VisuallyHidden} from '../VisuallyHidden'
 import type {SxProp} from '../sx'
 import type {FilteredActionListLoadingType} from './FilteredActionListLoaders'
 import {FilteredActionListLoadingTypes, FilteredActionListBodyLoader} from './FilteredActionListLoaders'
+import classes from './FilteredActionList.module.css'
 
 import {isValidElementType} from 'react-is'
 import type {RenderItemFn} from '../deprecated/ActionList/List'
@@ -38,6 +39,7 @@ export interface FilteredActionListProps
   onInputRefChanged?: (ref: React.RefObject<HTMLInputElement>) => void
   textInputProps?: Partial<Omit<TextInputProps, 'onChange'>>
   inputRef?: React.RefObject<HTMLInputElement>
+  message?: React.ReactNode
   className?: string
   announcementsEnabled?: boolean
 }
@@ -61,6 +63,7 @@ export function FilteredActionList({
   sx,
   groupMetadata,
   showItemDividers,
+  message,
   className,
   announcementsEnabled = true,
   ...listProps
@@ -140,7 +143,7 @@ export function FilteredActionList({
     }
   }, [items])
 
-  useAnnouncements(items, {current: listContainerElement}, inputRef, announcementsEnabled)
+  useAnnouncements(items, {current: listContainerElement}, inputRef, announcementsEnabled, loading)
   useScrollFlash(scrollContainerRef)
 
   function getItemListForEachGroup(groupId: string) {
@@ -152,6 +155,45 @@ export function FilteredActionList({
       }
     }
     return itemsInGroup
+  }
+
+  function getBodyContent() {
+    if (loading && scrollContainerRef.current && loadingType.appearsInBody) {
+      return <FilteredActionListBodyLoader loadingType={loadingType} height={scrollContainerRef.current.clientHeight} />
+    }
+    if (message) {
+      return message
+    }
+
+    return (
+      <ActionList
+        ref={listContainerRefCallback}
+        showDividers={showItemDividers}
+        {...listProps}
+        role="listbox"
+        id={listId}
+        sx={{flexGrow: 1}}
+      >
+        {groupMetadata?.length
+          ? groupMetadata.map((group, index) => {
+              return (
+                <ActionList.Group key={index}>
+                  <ActionList.GroupHeading variant={group.header?.variant ? group.header.variant : undefined}>
+                    {group.header?.title ? group.header.title : `Group ${group.groupId}`}
+                  </ActionList.GroupHeading>
+                  {getItemListForEachGroup(group.groupId).map((item, index) => {
+                    const key = item.key ?? item.id?.toString() ?? index.toString()
+                    return <MappedActionListItem key={key} {...item} renderItem={listProps.renderItem} />
+                  })}
+                </ActionList.Group>
+              )
+            })
+          : items.map((item, index) => {
+              const key = item.key ?? item.id?.toString() ?? index.toString()
+              return <MappedActionListItem key={key} {...item} renderItem={listProps.renderItem} />
+            })}
+      </ActionList>
+    )
   }
 
   return (
@@ -185,39 +227,9 @@ export function FilteredActionList({
         />
       </StyledHeader>
       <VisuallyHidden id={inputDescriptionTextId}>Items will be filtered as you type</VisuallyHidden>
-      <Box ref={scrollContainerRef} overflow="auto" display="flex" flexGrow={1}>
-        {loading && scrollContainerRef.current && loadingType.appearsInBody ? (
-          <FilteredActionListBodyLoader loadingType={loadingType} height={scrollContainerRef.current.clientHeight} />
-        ) : (
-          <ActionList
-            ref={listContainerRefCallback}
-            showDividers={showItemDividers}
-            {...listProps}
-            role="listbox"
-            id={listId}
-            sx={{flexGrow: 1}}
-          >
-            {groupMetadata?.length
-              ? groupMetadata.map((group, index) => {
-                  return (
-                    <ActionList.Group key={index}>
-                      <ActionList.GroupHeading variant={group.header?.variant ? group.header.variant : undefined}>
-                        {group.header?.title ? group.header.title : `Group ${group.groupId}`}
-                      </ActionList.GroupHeading>
-                      {getItemListForEachGroup(group.groupId).map((item, index) => {
-                        const key = item.key ?? item.id?.toString() ?? index.toString()
-                        return <MappedActionListItem key={key} {...item} renderItem={listProps.renderItem} />
-                      })}
-                    </ActionList.Group>
-                  )
-                })
-              : items.map((item, index) => {
-                  const key = item.key ?? item.id?.toString() ?? index.toString()
-                  return <MappedActionListItem key={key} {...item} renderItem={listProps.renderItem} />
-                })}
-          </ActionList>
-        )}
-      </Box>
+      <div ref={scrollContainerRef} className={classes.Container}>
+        {getBodyContent()}
+      </div>
     </Box>
   )
 }

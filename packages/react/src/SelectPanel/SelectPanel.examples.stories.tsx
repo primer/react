@@ -11,12 +11,20 @@ import FormControl from '../FormControl'
 import {Stack} from '../Stack'
 import {Dialog} from '../experimental'
 
-const meta = {
+const meta: Meta<typeof SelectPanel> = {
   title: 'Components/SelectPanel/Examples',
   component: SelectPanel,
 } satisfies Meta<typeof SelectPanel>
 
 export default meta
+
+const NoResultsMessage = (filter: string): {variant: 'empty'; title: string; body: string} => {
+  return {
+    variant: 'empty',
+    title: `No language found for \`${filter}\``,
+    body: 'Adjust your search term to find other languages',
+  }
+}
 
 function getColorCircle(color: string) {
   return function () {
@@ -48,13 +56,7 @@ const items = [
 export const HeightInitialWithOverflowingItemsStory = () => {
   const [selected, setSelected] = useState<ItemInput[]>(items.slice(1, 3))
   const [filter, setFilter] = useState('')
-  const filteredItems = items.filter(
-    item =>
-      // design guidelines say to always show selected items in the list
-      selected.some(selectedItem => selectedItem.text === item.text) ||
-      // then filter the rest
-      item.text.toLowerCase().startsWith(filter.toLowerCase()),
-  )
+  const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
   // design guidelines say to sort selected items first
   const selectedItemsSortedFirst = filteredItems.sort((a, b) => {
     const aIsSelected = selected.some(selectedItem => selectedItem.text === a.text)
@@ -82,6 +84,7 @@ export const HeightInitialWithOverflowingItemsStory = () => {
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         overlayProps={{width: 'small', height: 'initial', maxHeight: 'xsmall'}}
+        message={selectedItemsSortedFirst.length === 0 ? NoResultsMessage(filter) : undefined}
       />
     </FormControl>
   )
@@ -92,13 +95,7 @@ export const HeightInitialWithUnderflowingItemsStory = () => {
   const underflowingItems = [items[0], items[1]]
   const [selected, setSelected] = useState<ItemInput[]>([underflowingItems[0]])
   const [filter, setFilter] = useState('')
-  const filteredItems = underflowingItems.filter(
-    item =>
-      // design guidelines say to always show selected items in the list
-      selected.some(selectedItem => selectedItem.text === item.text) ||
-      // then filter the rest
-      item.text.toLowerCase().startsWith(filter.toLowerCase()),
-  )
+  const filteredItems = underflowingItems.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
   // design guidelines say to sort selected items first
   const selectedItemsSortedFirst = filteredItems.sort((a, b) => {
     const aIsSelected = selected.some(selectedItem => selectedItem.text === a.text)
@@ -127,6 +124,7 @@ export const HeightInitialWithUnderflowingItemsStory = () => {
         onFilterChange={setFilter}
         showItemDividers={true}
         overlayProps={{width: 'small', height: 'initial', maxHeight: 'xsmall'}}
+        message={selectedItemsSortedFirst.length === 0 ? NoResultsMessage(filter) : undefined}
       />
     </FormControl>
   )
@@ -138,18 +136,11 @@ export const HeightInitialWithUnderflowingItemsAfterFetch = () => {
   const [filter, setFilter] = useState('')
   const [fetchedItems, setFetchedItems] = useState<typeof items>([])
   const filteredItems = useMemo(
-    () =>
-      fetchedItems.filter(
-        item =>
-          // design guidelines say to always show selected items in the list
-          selected.some(selectedItem => selectedItem.text === item.text) ||
-          // then filter the rest
-          item.text.toLowerCase().startsWith(filter.toLowerCase()),
-      ),
-    [fetchedItems, filter, selected],
+    () => fetchedItems.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase())),
+    [fetchedItems, filter],
   )
   // design guidelines say to sort selected items first
-  const selectedItemsSortedFirst = fetchedItems.sort((a, b) => {
+  const selectedItemsSortedFirst = filteredItems.sort((a, b) => {
     const aIsSelected = selected.some(selectedItem => selectedItem.text === a.text)
     const bIsSelected = selected.some(selectedItem => selectedItem.text === b.text)
     if (aIsSelected && !bIsSelected) return -1
@@ -179,13 +170,14 @@ export const HeightInitialWithUnderflowingItemsAfterFetch = () => {
         placeholder="Select labels" // button text when no items are selected
         open={open}
         onOpenChange={onOpenChange}
-        loading={filteredItems.length === 0}
+        loading={filteredItems.length === 0 && !filter}
         items={selectedItemsSortedFirst}
         selected={selected}
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         showItemDividers={true}
         overlayProps={{width: 'small', height, maxHeight: 'xsmall'}}
+        message={selectedItemsSortedFirst.length === 0 ? NoResultsMessage(filter) : undefined}
       />
     </FormControl>
   )
@@ -195,13 +187,7 @@ HeightInitialWithUnderflowingItemsAfterFetch.storyName = 'Height: Initial, Under
 export const AboveTallBody = () => {
   const [selected, setSelected] = useState<ItemInput[]>(items.slice(1, 3))
   const [filter, setFilter] = useState('')
-  const filteredItems = items.filter(
-    item =>
-      // design guidelines say to always show selected items in the list
-      selected.some(selectedItem => selectedItem.text === item.text) ||
-      // then filter the rest
-      item.text.toLowerCase().startsWith(filter.toLowerCase()),
-  )
+  const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
   // design guidelines say to sort selected items first
   const selectedItemsSortedFirst = filteredItems.sort((a, b) => {
     const aIsSelected = selected.some(selectedItem => selectedItem.text === a.text)
@@ -228,6 +214,7 @@ export const AboveTallBody = () => {
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         showItemDividers={true}
+        message={selectedItemsSortedFirst.length === 0 ? NoResultsMessage(filter) : undefined}
       />
       <div
         style={{
@@ -245,14 +232,12 @@ export const AboveTallBody = () => {
   )
 }
 
-export const HeightVariantionsAndScroll = () => {
+export const HeightVariationsAndScroll = () => {
   const longItems = [...items, ...items, ...items, ...items, ...items, ...items, ...items, ...items]
   const [filter, setFilter] = useState('')
   // Example A
   const [selectedA, setSelectedA] = React.useState<ItemInput | undefined>(longItems[0])
-  const filteredItemsA = longItems.filter(
-    item => item.text === selectedA?.text || item.text.toLowerCase().startsWith(filter.toLowerCase()),
-  )
+  const filteredItemsA = longItems.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
   // design guidelines say to sort selected items first
   const selectedItemsSortedFirstA = filteredItemsA.sort((a, b) => {
     if (a.text === selectedA?.text) return -1
@@ -263,9 +248,7 @@ export const HeightVariantionsAndScroll = () => {
 
   // Example B
   const [selectedB, setSelectedB] = React.useState<ItemInput | undefined>(longItems[0])
-  const filteredItemsB = longItems.filter(
-    item => item.text === selectedB?.text || item.text.toLowerCase().startsWith(filter.toLowerCase()),
-  )
+  const filteredItemsB = longItems.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
   // design guidelines say to sort selected items first
   const selectedItemsSortedFirstB = filteredItemsB.sort((a, b) => {
     if (a.text === selectedB?.text) return -1
@@ -293,6 +276,7 @@ export const HeightVariantionsAndScroll = () => {
           onFilterChange={setFilter}
           showItemDividers={true}
           overlayProps={{height: 'medium'}}
+          message={selectedItemsSortedFirstA.length === 0 ? NoResultsMessage(filter) : undefined}
         />
       </FormControl>
       <br />
@@ -316,6 +300,7 @@ export const HeightVariantionsAndScroll = () => {
             height: 'auto',
             maxHeight: 'medium',
           }}
+          message={selectedItemsSortedFirstB.length === 0 ? NoResultsMessage(filter) : undefined}
         />
       </FormControl>
     </>
@@ -331,13 +316,7 @@ export const CustomItemRenderer = () => {
   ]
   const [selected, setSelected] = useState<ItemInput[]>(items.slice(1, 3))
   const [filter, setFilter] = useState('')
-  const filteredItems = items.filter(
-    item =>
-      // design guidelines say to always show selected items in the list
-      selected.some(selectedItem => selectedItem.text === item.text) ||
-      // then filter the rest
-      item.text.toLowerCase().startsWith(filter.toLowerCase()),
-  )
+  const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
   // design guidelines say to sort selected items first
   const selectedItemsSortedFirst = filteredItems.sort((a, b) => {
     const aIsSelected = selected.some(selectedItem => selectedItem.text === a.text)
@@ -390,6 +369,7 @@ export const CustomItemRenderer = () => {
             </Box>
           </ActionList.Item>
         )}
+        message={selectedItemsSortedFirst.length === 0 ? NoResultsMessage(filter) : undefined}
       />
     </FormControl>
   )
@@ -411,13 +391,7 @@ export const ItemsInScope = () => {
 
   const [selected, setSelected] = useState<ItemInput[]>(items.slice(1, 3))
   const [filter, setFilter] = useState('')
-  const filteredItems = items.filter(
-    item =>
-      // design guidelines say to always show selected items in the list
-      selected.some(selectedItem => selectedItem.text === item.text) ||
-      // then filter the rest
-      item.text.toLowerCase().startsWith(filter.toLowerCase()),
-  )
+  const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
   // design guidelines say to sort selected items first
   const selectedItemsSortedFirst = filteredItems.sort((a, b) => {
     const aIsSelected = selected.some(selectedItem => selectedItem.text === a.text)
@@ -439,6 +413,7 @@ export const ItemsInScope = () => {
         selected={selected}
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
+        message={selectedItemsSortedFirst.length === 0 ? NoResultsMessage(filter) : undefined}
       />
     </FormControl>
   )
@@ -484,6 +459,7 @@ export const RepositionAfterLoading = () => {
           selected={selected}
           onSelectedChange={setSelected}
           onFilterChange={setFilter}
+          message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}
         />
       </Stack>
     </>
@@ -531,6 +507,7 @@ export const SelectPanelRepositionInsideDialog = () => {
           onSelectedChange={setSelected}
           onFilterChange={setFilter}
           overlayProps={{anchorSide: 'outside-top'}}
+          message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}
         />
       </Stack>
     </Dialog>

@@ -59,6 +59,9 @@ const meta: Meta<typeof PageHeader> = {
       description:
         'ContextArea is only visible on narrow viewports by default to provide user context of where they are at their journey.',
     },
+    hasBorder: {
+      type: 'boolean',
+    },
     ParentLink: {
       type: 'string',
       if: {arg: 'hasContextArea'},
@@ -189,7 +192,7 @@ export default meta
 
 export const Playground: StoryFn = args => (
   <Box sx={{padding: 3}}>
-    <PageHeader aria-label={args.Title} role="banner">
+    <PageHeader aria-label={args.Title} role="banner" hasBorder={args.hasBorder}>
       <PageHeader.TitleArea
         variant={{
           narrow: args['Title.variant'],
