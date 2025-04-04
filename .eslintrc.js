@@ -117,6 +117,7 @@ module.exports = {
       },
       files: ['**/*.{ts,tsx}'],
       extends: ['plugin:@typescript-eslint/recommended'],
+      plugins: ['react-refresh'],
       rules: {
         '@typescript-eslint/consistent-type-imports': 'error',
         '@typescript-eslint/no-explicit-any': 'error',
@@ -141,6 +142,12 @@ module.exports = {
         'import/no-named-as-default': 'off',
         'import/no-named-as-default-member': 'off',
         'primer-react/direct-slot-children': ['error', {skipImportCheck: true}],
+        'react-refresh/only-export-components': [
+          'error',
+          {
+            allowConstantExport: true,
+          },
+        ],
         'no-restricted-imports': [
           'error',
           {
