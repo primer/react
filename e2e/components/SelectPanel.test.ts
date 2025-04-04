@@ -45,6 +45,10 @@ const scenarios = matrix({
       id: 'components-selectpanel-dev--with-sx-and-css',
       name: 'With Sx and Css',
     },
+    {
+      id: 'components-selectpanel-features--with-notice',
+      name: 'With Notice',
+    },
   ],
 })
 
