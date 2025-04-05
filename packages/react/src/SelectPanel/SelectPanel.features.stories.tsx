@@ -801,26 +801,13 @@ export const AsMultiSelectModal = () => {
 
   const [selected, setSelected] = React.useState<ItemInput[]>(intialSelection)
   const [filter, setFilter] = React.useState('')
-  const filteredItems = items.filter(
-    item =>
-      // design guidelines say to always show selected items in the list
-      selected.some(selectedItem => selectedItem.text === item.text) ||
-      // then filter the rest
-      item.text.toLowerCase().startsWith(filter.toLowerCase()),
-  )
-  // design guidelines say to sort selected items first
-  const selectedItemsSortedFirst = filteredItems.sort((a, b) => {
-    const aIsSelected = selected.some(selectedItem => selectedItem.text === a.text)
-    const bIsSelected = selected.some(selectedItem => selectedItem.text === b.text)
-    if (aIsSelected && !bIsSelected) return -1
-    if (!aIsSelected && bIsSelected) return 1
-    return 0
-  })
-
   const [open, setOpen] = useState(false)
+
   React.useEffect(() => {
     if (!open) setInitialSelection(selected) // set initialSelection for next time
   }, [open, selected])
+
+  const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
 
   return (
     <SelectPanel
@@ -835,7 +822,7 @@ export const AsMultiSelectModal = () => {
       )}
       open={open}
       onOpenChange={setOpen}
-      items={selectedItemsSortedFirst}
+      items={filteredItems}
       selected={selected}
       onSelectedChange={setSelected}
       onCancel={() => setSelected(intialSelection)}
