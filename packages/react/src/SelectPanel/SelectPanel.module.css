@@ -13,7 +13,7 @@
 .Header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   padding-top: var(--base-size-8);
   padding-right: var(--base-size-8);
   padding-left: var(--base-size-8);
@@ -126,15 +126,31 @@
   @media screen and (--viewportRange-narrow) {
     display: inline-grid;
   }
+
+  &:where([data-variant='modal'] &) {
+    display: inline-grid;
+  }
 }
 
 .ResponsiveFooter {
   display: none;
   padding: var(--base-size-16);
+  gap: var(--stack-gap-condensed);
+  justify-content: right;
 
   @media screen and (--viewportRange-narrow) {
     display: flex;
     gap: var(--stack-gap-condensed);
     justify-content: right;
   }
+
+  &:where([data-variant='modal'] &) {
+    display: flex;
+  }
+}
+
+.Backdrop {
+  position: absolute;
+  inset: 0;
+  background-color: var(--overlay-backdrop-bgColor);
 }

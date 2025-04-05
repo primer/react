@@ -103,14 +103,16 @@ const StyledOverlay = toggleStyledComponent(
       max-width: calc(100vw - 2rem);
     }
 
-    &:where([data-variant='fullscreen']) {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      margin: 0;
-      border-radius: unset;
+    &:where([data-responsive='fullscreen']) {
+      @media screen and (max-width: calc(768px - 0.02px)) {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        margin: 0;
+        border-radius: unset;
+      }
     }
 
     ${sx};
@@ -128,6 +130,7 @@ type BaseOverlayProps = {
   role?: AriaRole
   children?: React.ReactNode
   className?: string
+  responsiveVariant?: 'fullscreen' // we only support fullscreen today but we might add bottomsheet in the future
 }
 
 type OwnOverlayProps = Merge<StyledOverlayProps, BaseOverlayProps>
@@ -266,6 +269,7 @@ const Overlay = React.forwardRef<HTMLDivElement, internalOverlayProps>(
       role = 'none',
       visibility = 'visible',
       width = 'auto',
+      responsiveVariant,
       ...props
     },
     forwardedRef,
@@ -323,6 +327,7 @@ const Overlay = React.forwardRef<HTMLDivElement, internalOverlayProps>(
           right={right}
           height={height}
           visibility={visibility}
+          data-responsive={responsiveVariant}
           {...props}
         />
       </Portal>
