@@ -37,11 +37,13 @@
   padding-bottom: var(--base-size-12);
   padding-left: var(--base-size-16);
   margin-top: var(--base-size-4);
+  margin-right: var(--base-size-8);
+  margin-left: var(--base-size-8);
   font-size: var(--text-body-size-small);
   flex-direction: row;
-  border-top: var(--borderWidth-thin) solid;
-  border-bottom: var(--borderWidth-thin) solid;
+  border: var(--borderWidth-thin) solid;
   gap: var(--base-size-8);
+  border-radius: var(--borderRadius-medium);
 }
 
 .Notice a {
