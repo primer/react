@@ -1,5 +1,27 @@
 # @primer/react
 
+## 37.19.0
+
+### Minor Changes
+
+- [#5830](https://github.com/primer/react/pull/5830) [`f8760fe`](https://github.com/primer/react/commit/f8760fecf9433e548e90ad7e6cf30d216122091d) Thanks [@iansan5653](https://github.com/iansan5653)! - Hide `TooltipV2` tooltips on `touchend` event
+
+- [#5873](https://github.com/primer/react/pull/5873) [`0a2e3f0`](https://github.com/primer/react/commit/0a2e3f071fed8ff1109751c56faf4a92f8cf0542) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove the CSS modules feature flag for the TextArea component
+
+- [#5693](https://github.com/primer/react/pull/5693) [`da85192`](https://github.com/primer/react/commit/da851921e7e4cddba577d08da44ffbe32936c15b) Thanks [@francinelucca](https://github.com/francinelucca)! - chore(SkeletonBox): promote to Alpha
+
+- [#5876](https://github.com/primer/react/pull/5876) [`a78c820`](https://github.com/primer/react/commit/a78c820d9c5ac5c29fdccfd30e8dd1944653f1f4) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove the CSS modules feature flag from the SideNav component
+
+- [#5851](https://github.com/primer/react/pull/5851) [`a812a86`](https://github.com/primer/react/commit/a812a868c8eb98c3a1ad6540806b7db2bb75aa0d) Thanks [@jamieshark](https://github.com/jamieshark)! - Removes feature flag for FormControl
+
+- [#5861](https://github.com/primer/react/pull/5861) [`ecb449f`](https://github.com/primer/react/commit/ecb449f41f8e2a16f3c547877f53208f6eef92eb) Thanks [@jamieshark](https://github.com/jamieshark)! - Changes argument signature for toggleSxComponent to simplify
+
+- [#5836](https://github.com/primer/react/pull/5836) [`c177e5e`](https://github.com/primer/react/commit/c177e5e5b89ef7039dde039b5b2f4a925a3bdc24) Thanks [@jamieshark](https://github.com/jamieshark)! - Removes css module flag for UnderlinePanels and associated components.
+
+### Patch Changes
+
+- [#5881](https://github.com/primer/react/pull/5881) [`ea1fb50`](https://github.com/primer/react/commit/ea1fb509f2b0f143a0f18be1882a4de665313679) Thanks [@emilybrick](https://github.com/emilybrick)! - fix(SelectPanel): Add margin around notice styles
+
 ## 37.18.0
 
 ### Minor Changes
