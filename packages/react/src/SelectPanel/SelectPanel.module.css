@@ -126,15 +126,31 @@
   @media screen and (--viewportRange-narrow) {
     display: inline-grid;
   }
+
+  &:where([data-variant='modal'] &) {
+    display: inline-grid;
+  }
 }
 
 .ResponsiveFooter {
   display: none;
   padding: var(--base-size-16);
+  gap: var(--stack-gap-condensed);
+  justify-content: right;
 
   @media screen and (--viewportRange-narrow) {
     display: flex;
     gap: var(--stack-gap-condensed);
     justify-content: right;
   }
+
+  &:where([data-variant='modal'] &) {
+    display: flex;
+  }
+}
+
+.Backdrop {
+  position: absolute;
+  inset: 0;
+  background-color: var(--overlay-backdrop-bgColor);
 }
