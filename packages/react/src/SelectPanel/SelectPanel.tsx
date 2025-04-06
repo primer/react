@@ -362,18 +362,28 @@ export function SelectPanel({
     }
   }, [placeholder, renderAnchor, selected])
 
+  function isItemCurrentlySelected(item: ItemInput) {
+    // For multi-select, we just need to check if the item is in the selected array
+    if (isMultiSelectVariant(selected)) {
+      return doesItemsIncludeItem(selected, item)
+    }
+
+    // For single-select modal, there is an intermediate state when the user has selected
+    // an item but has not yet saved the selection. We need to check for this state.
+    if (isSingleSelectModal) {
+      return intermediateSelected?.id === item.id
+    }
+
+    // For single-select anchored, we just need to check if the item is the selected item
+    return selected?.id === item.id
+  }
+
   const itemsToRender = useMemo(() => {
     return items.map(item => {
-      const isItemSelected = isMultiSelectVariant(selected)
-        ? doesItemsIncludeItem(selected, item)
-        : isSingleSelectModal
-          ? intermediateSelected?.id === item.id
-          : selected?.id === item.id
-
       return {
         ...item,
         role: 'option',
-        selected: 'selected' in item && item.selected === undefined ? undefined : isItemSelected,
+        selected: 'selected' in item && item.selected === undefined ? undefined : isItemCurrentlySelected(item),
         onAction: (itemFromAction, event) => {
           item.onAction?.(itemFromAction, event)
 
