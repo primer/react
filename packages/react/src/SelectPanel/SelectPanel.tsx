@@ -465,7 +465,6 @@ export function SelectPanel({
   }
 
   // We add a save and cancel button on narrow screens when SelectPanel is full-screen
-  // Save and Cancel buttons are only useful for multiple selection, single selection instantly closes the panel
   const showCancelSaveButtons = variant === 'modal' || (isMultiSelectVariant(selected) && usingFullScreenOnNarrow)
   const showXCloseIcon = variant === 'modal' || usingFullScreenOnNarrow
 
