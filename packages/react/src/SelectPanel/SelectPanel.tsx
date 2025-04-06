@@ -27,6 +27,8 @@ import {clsx} from 'clsx'
 import {heightMap} from '../Overlay/Overlay'
 import {debounce} from '@github/mini-throttle'
 
+type Gesture = 'anchor-click' | 'anchor-key-press' | 'click-outside' | 'escape' | 'selection'
+
 // we add a delay so that it does not interrupt default screen reader announcement and queues after it
 const SHORT_DELAY_MS = 500
 const LONG_DELAY_MS = 1000
@@ -72,10 +74,8 @@ interface SelectPanelBaseProps {
   // TODO: Make `title` required in the next major version
   title?: string | React.ReactElement
   subtitle?: string | React.ReactElement
-  onOpenChange: (
-    open: boolean,
-    gesture: 'anchor-click' | 'anchor-key-press' | 'click-outside' | 'escape' | 'selection',
-  ) => void
+  open?: boolean
+  onOpenChange?: (open: boolean, gesture: Gesture) => void
   placeholder?: string
   // TODO: Make `inputLabel` required in next major version
   inputLabel?: string
@@ -97,7 +97,7 @@ interface SelectPanelBaseProps {
 
 export type SelectPanelProps = SelectPanelBaseProps &
   Omit<FilteredActionListProps, 'selectionVariant'> &
-  Pick<AnchoredOverlayProps, 'open' | 'height' | 'width'> &
+  Pick<AnchoredOverlayProps, 'height' | 'width'> &
   AnchoredOverlayWrapperAnchorProps &
   (SelectPanelSingleSelection | SelectPanelMultiSelection)
 
@@ -122,9 +122,28 @@ const doesItemsIncludeItem = (items: ItemInput[], item: ItemInput) => {
   return items.some(i => areItemsEqual(i, item))
 }
 
+// We can't use the `useProvidedStateOrCreate` hook here because we need to handle the gesture
+// separately from the open state. So, we have to use a separate state and a callback to update
+// the open state.
+function useProvidedOnOpenOrCreate(
+  externalOpen: boolean | undefined,
+  externalOnOpenChange: ((open: boolean, gesture: Gesture) => void) | undefined,
+) {
+  const [internalOpen, setInternalOpen] = useState<boolean>(false)
+  const open = externalOpen ?? internalOpen
+  const onOpenChange = useCallback(
+    (newOpen: boolean, gesture: Gesture) => {
+      setInternalOpen(newOpen)
+      if (externalOnOpenChange) externalOnOpenChange(open, gesture)
+    },
+    [open, externalOnOpenChange],
+  )
+  return [open, onOpenChange] as const
+}
+
 export function SelectPanel({
-  open,
-  onOpenChange,
+  open: externalOpen,
+  onOpenChange: externalOnOpenChange,
   renderAnchor = props => {
     const {children, ...rest} = props
     return (
@@ -182,6 +201,8 @@ export function SelectPanel({
     },
     [needsNoItemsAnnouncement],
   )
+
+  const [open, onOpenChange] = useProvidedOnOpenOrCreate(externalOpen, externalOnOpenChange)
 
   const onInputRefChanged = useCallback(
     (ref: React.RefObject<HTMLInputElement>) => {
@@ -307,9 +328,8 @@ export function SelectPanel({
     [onOpenChange],
   )
   const onClose = useCallback(
-    (gesture: Parameters<Exclude<AnchoredOverlayProps['onClose'], undefined>>[0] | 'selection' | 'escape') => {
-      onOpenChange(false, gesture)
-    },
+    (gesture: Parameters<Exclude<AnchoredOverlayProps['onClose'], undefined>>[0] | 'selection' | 'escape') =>
+      onOpenChange(false, gesture),
     [onOpenChange],
   )
 
