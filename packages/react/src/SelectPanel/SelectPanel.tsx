@@ -185,6 +185,11 @@ export function SelectPanel({
     isSingleSelectModal ? selected : undefined,
   )
 
+  // Reset the intermediate selected item when the panel is open/closed
+  useEffect(() => {
+    setIntermediateSelected(isSingleSelectModal ? selected : undefined)
+  }, [open])
+
   const onListContainerRefChanged: FilteredActionListProps['onListContainerRefChanged'] = useCallback(
     (node: HTMLElement | null) => {
       setListContainerElement(node)
