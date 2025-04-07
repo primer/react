@@ -354,19 +354,19 @@ export function SelectPanel({
     if (!filterValue) {
       resetSort()
     }
-  }, [filterValue, resetSort])
+  }, [filterValue])
 
   useEffect(() => {
     if (open) {
       resetSort()
     }
-  }, [open, resetSort])
+  }, [open])
 
   useEffect(() => {
     if (prevItems.length === 0 && items.length > 0) {
       resetSort()
     }
-  }, [items, resetSort, prevItems])
+  }, [items, prevItems])
 
   const itemsToRender = useMemo(() => {
     return items
