@@ -1,7 +1,7 @@
 import React, {useEffect, useState, type MutableRefObject} from 'react'
 import {SearchIcon, XCircleFillIcon, XIcon, FilterRemoveIcon, AlertIcon, ArrowLeftIcon} from '@primer/octicons-react'
 
-import type {ButtonProps, TextInputProps, ActionListProps, LinkProps, CheckboxProps} from '../../index'
+import type {ButtonProps, TextInputProps, ActionListProps, LinkProps, CheckboxProps} from '../index'
 import {
   Button,
   IconButton,
@@ -13,20 +13,20 @@ import {
   Link,
   Checkbox,
   useFormControlForwardedProps,
-} from '../../index'
-import Octicon from '../../Octicon'
-import {ActionListContainerContext} from '../../ActionList/ActionListContainerContext'
-import {useSlots} from '../../hooks/useSlots'
-import {useProvidedRefOrCreate, useId, useAnchoredPosition} from '../../hooks'
-import type {OverlayProps} from '../../Overlay/Overlay'
-import {BaseOverlay, heightMap} from '../../Overlay/Overlay'
-import {InputLabel} from '../../internal/components/InputLabel'
-import {invariant} from '../../utils/invariant'
-import {AriaStatus} from '../../live-region'
-import {useResponsiveValue} from '../../hooks/useResponsiveValue'
-import type {ResponsiveValue} from '../../hooks/useResponsiveValue'
+} from '../index'
+import Octicon from '../Octicon'
+import {ActionListContainerContext} from '../ActionList/ActionListContainerContext'
+import {useSlots} from '../hooks/useSlots'
+import {useProvidedRefOrCreate, useId, useAnchoredPosition} from '../hooks'
+import type {OverlayProps} from '../Overlay/Overlay'
+import {BaseOverlay, heightMap} from '../Overlay/Overlay'
+import {InputLabel} from '../internal/components/InputLabel'
+import {invariant} from '../utils/invariant'
+import {AriaStatus} from '../live-region'
+import {useResponsiveValue} from '../hooks/useResponsiveValue'
+import type {ResponsiveValue} from '../hooks/useResponsiveValue'
 import {clsx} from 'clsx'
-import {useFeatureFlag} from '../../FeatureFlags'
+import {useFeatureFlag} from '../FeatureFlags'
 
 import classes from './SelectPanel.module.css'
 import type {PositionSettings} from '@primer/behaviors'

@@ -1,10 +1,10 @@
 import React from 'react'
 import {SelectPanel} from './SelectPanel'
-import {ActionList, Box} from '../../index'
+import {ActionList, Box} from '../index'
 import data from './mock-story-data'
 
 export default {
-  title: 'Experimental/Components/SelectPanel',
+  title: 'Deprecated/Components/SelectPanel',
   component: SelectPanel,
 }
 

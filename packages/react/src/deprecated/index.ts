@@ -42,3 +42,5 @@ export type {TabNavProps, TabNavLinkProps} from '../TabNav'
 export {default as Tooltip} from '../Tooltip/Tooltip'
 export type {TooltipProps} from '../Tooltip/Tooltip'
 // end of v37.0.0
+
+export * from '../SelectPanel2'

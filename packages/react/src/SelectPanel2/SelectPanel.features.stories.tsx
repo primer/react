@@ -1,16 +1,6 @@
 import React from 'react'
 import {SelectPanel} from './SelectPanel'
-import {
-  ActionList,
-  Avatar,
-  Box,
-  Button,
-  Link,
-  SegmentedControl,
-  Text,
-  ToggleSwitch,
-  useResponsiveValue,
-} from '../../index'
+import {ActionList, Avatar, Box, Button, Link, SegmentedControl, Text, ToggleSwitch, useResponsiveValue} from '../index'
 import {TagIcon, GearIcon, ArrowBothIcon} from '@primer/octicons-react'
 import data from './mock-story-data'
 

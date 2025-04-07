@@ -2,11 +2,11 @@ import React from 'react'
 import type {Meta, StoryFn} from '@storybook/react'
 import type {SelectPanelProps} from './SelectPanel'
 import {SelectPanel} from './SelectPanel'
-import {ActionList, Box} from '../../index'
+import {ActionList, Box} from '../index'
 import data from './mock-story-data'
 
 export default {
-  title: 'Experimental/Components/SelectPanel/Playground',
+  title: 'Deprecated/Components/SelectPanel/Playground',
   component: SelectPanel,
 
   args: {

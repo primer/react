@@ -1,5 +1,5 @@
 import React from 'react'
-import {ThemeProvider, ActionList, FormControl} from '../../'
+import {ThemeProvider, ActionList, FormControl} from '../'
 import type {RenderResult} from '@testing-library/react'
 import {render} from '@testing-library/react'
 import type {UserEvent} from '@testing-library/user-event'

@@ -5,17 +5,17 @@
   "status": "draft",
   "a11yReviewed": false,
   "stories": [
-    {"id": "experimental-components-selectpanel-examples--minimal"},
-    {"id": "experimental-components-selectpanel-examples--short-select-panel"},
-    {"id": "experimental-components-selectpanel-features--instant-selection-variant"},
-    {"id": "experimental-components-selectpanel-features--with-warning"},
-    {"id": "experimental-components-selectpanel-examples--open-from-menu"},
-    {"id": "experimental-components-selectpanel-examples--with-groups"},
-    {"id": "experimental-components-selectpanel-examples--async-search-with-use-transition"},
-    {"id": "experimental-components-selectpanel-examples--async-with-suspended-list"},
-    {"id": "experimental-components-selectpanel-examples--with-filter-buttons"}
+    {"id": "deprecated-components-selectpanel-examples--minimal"},
+    {"id": "deprecated-components-selectpanel-examples--short-select-panel"},
+    {"id": "deprecated-components-selectpanel-features--instant-selection-variant"},
+    {"id": "deprecated-components-selectpanel-features--with-warning"},
+    {"id": "deprecated-components-selectpanel-examples--open-from-menu"},
+    {"id": "deprecated-components-selectpanel-examples--with-groups"},
+    {"id": "deprecated-components-selectpanel-examples--async-search-with-use-transition"},
+    {"id": "deprecated-components-selectpanel-examples--async-with-suspended-list"},
+    {"id": "deprecated-components-selectpanel-examples--with-filter-buttons"}
   ],
-  "importPath": "@primer/react/experimental",
+  "importPath": "@primer/react/deprecated",
   "props": [
     {
       "name": "title",
