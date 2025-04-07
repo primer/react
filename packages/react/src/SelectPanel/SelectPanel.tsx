@@ -354,22 +354,26 @@ export function SelectPanel({
     if (!filterValue) {
       resetSort()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filterValue])
 
   useEffect(() => {
     if (open) {
       resetSort()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open])
 
   useEffect(() => {
     if (prevItems.length === 0 && items.length > 0) {
       resetSort()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [items, prevItems])
 
   const itemsToRender = useMemo(() => {
-    return items
+    const lastSelected: Record<string, ItemProps> = {}
+    const itemsToRender = items
       .map(item => {
         const isItemSelected = isMultiSelectVariant(selected) ? doesItemsIncludeItem(selected, item) : selected === item
 
@@ -423,6 +427,35 @@ export function SelectPanel({
           }),
         )
 
+        // keep track of the last selected item in each group
+        if (itemASelected) {
+          if (itemA.groupId) {
+            // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+            if ((itemA.text ?? '') >= (lastSelected[itemA.groupId]?.text ?? '')) {
+              lastSelected[itemA.groupId] = itemA
+            }
+          } else {
+            // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+            if ((itemA.text ?? '') >= (lastSelected.general?.text ?? '')) {
+              lastSelected.general = itemA
+            }
+          }
+        }
+
+        if (itemBSelected) {
+          if (itemB.groupId) {
+            // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+            if ((itemB.text ?? '') >= (lastSelected[itemB.groupId]?.text ?? '')) {
+              lastSelected[itemB.groupId] = itemB
+            }
+          } else {
+            // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+            if ((itemB.text ?? '') >= (lastSelected.general?.text ?? '')) {
+              lastSelected.general = itemB
+            }
+          }
+        }
+
         // order selected items first
         if (itemASelected > itemBSelected) {
           return -1
@@ -439,6 +472,13 @@ export function SelectPanel({
 
         return 0
       })
+
+    for (const item of Object.values(lastSelected)) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      ;(item as any)['data-last-selected'] = ''
+    }
+
+    return itemsToRender
   }, [onClose, onSelectedChange, items, selected, selectedOnSort])
 
   const focusTrapSettings = {

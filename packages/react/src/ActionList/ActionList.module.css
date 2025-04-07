@@ -213,6 +213,23 @@
       }
     }
 
+    &:where([data-last-selected]:not(:last-of-type)) {
+      padding-bottom: var(--base-size-4);
+
+      &::before {
+        position: absolute;
+        bottom: 0;
+        width: calc(100% + var(--base-size-16));
+        margin-left: calc(-1 * var(--base-size-8));
+        content: '';
+        /* stylelint-disable-next-line primer/borders */
+        border-bottom: 1px solid var(--borderColor-default);
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+      }
+      
+    }
+
     /* inactive */
     &:where([data-inactive='true']) {
       /* ignore tooltip */

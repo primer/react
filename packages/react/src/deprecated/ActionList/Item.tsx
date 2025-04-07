@@ -22,7 +22,7 @@ import type {AriaRole} from '../../utils/types'
 /**
  * Contract for props passed to the `Item` component.
  */
-export interface ItemProps extends SxProp {
+export interface ItemProps extends SxProp, Omit<React.HTMLAttributes<HTMLElement>, 'id'> {
   /**
    * Primary text which names an `Item`.
    */
