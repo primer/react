@@ -11,6 +11,11 @@ type BlankslateProps = React.HTMLAttributes<HTMLElement> & {
   border?: boolean
 
   /**
+   * Provide an optional class name to be applied to the container element
+   */
+  className?: string
+
+  /**
    * Constrain the maximum width of this component
    */
   narrow?: boolean
@@ -20,17 +25,21 @@ type BlankslateProps = React.HTMLAttributes<HTMLElement> & {
    */
   spacious?: boolean
 
-  className?: string
+  /**
+   * Specify the variant of this component
+   */
+  variant?: 'small' | 'default' | 'large'
 }
 
-function Blankslate({border, children, narrow, spacious, className, ...rest}: BlankslateProps) {
+function Blankslate({border, children, narrow, spacious, className, variant = 'default', ...rest}: BlankslateProps) {
   return (
     <div {...rest} className={classes.Container}>
       <div
         className={clsx(classes.Blankslate, className)}
-        data-border={border}
-        data-narrow={narrow}
-        data-spacious={spacious}
+        data-border={border ? '' : undefined}
+        data-narrow={narrow ? '' : undefined}
+        data-spacious={spacious ? '' : undefined}
+        data-variant={variant}
       >
         {children}
       </div>
@@ -81,7 +90,7 @@ type BlankslatePrimaryActionProps =
 
 function PrimaryAction({children, href, ...props}: BlankslatePrimaryActionProps) {
   return (
-    <div className={clsx('Blankslate-Action', classes.Action)}>
+    <div className={clsx('Blankslate-Action', classes.Action)} data-variant="primary">
       <Button {...props} as={href ? 'a' : 'button'} href={href} variant="primary">
         {children}
       </Button>
@@ -95,7 +104,7 @@ type BlankslateSecondaryActionProps = React.PropsWithChildren<{
 
 function SecondaryAction({children, href}: BlankslateSecondaryActionProps) {
   return (
-    <div className={clsx('Blankslate-Action', classes.Action)}>
+    <div className={clsx('Blankslate-Action', classes.Action)} data-variant="secondary">
       <Link href={href}>{children}</Link>
     </div>
   )
