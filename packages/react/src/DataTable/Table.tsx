@@ -260,8 +260,11 @@ export type TableTitleProps = React.PropsWithChildren<
     React.RefAttributes<HTMLElement>
 >
 
-const TableTitle = React.forwardRef<HTMLElement, TableTitleProps>(function TableTitle({as = 'h2', children, id}, ref) {
-  const BaseComponent = toggleSxComponent(as) as React.ComponentType<TableTitleProps>
+const TableTitle = React.forwardRef<HTMLElement, TableTitleProps>(function TableTitle(
+  {as: Component = 'h2', children, id},
+  ref,
+) {
+  const BaseComponent = Component as React.ElementType
   return (
     <BaseComponent className={clsx('TableTitle', classes.TableTitle)} id={id} ref={ref}>
       {children}
@@ -286,8 +289,7 @@ export type TableSubtitleProps = React.PropsWithChildren<
   } & React.HTMLAttributes<HTMLElement>
 >
 
-function TableSubtitle({as, children, id}: TableSubtitleProps) {
-  const BaseComponent = toggleSxComponent(as) as React.ComponentType<TableSubtitleProps>
+function TableSubtitle({as: BaseComponent = 'div', children, id}: TableSubtitleProps) {
   return (
     <BaseComponent className={clsx('TableSubtitle', classes.TableSubtitle)} id={id}>
       {children}
