@@ -55,7 +55,7 @@ test.describe('SelectPanel', () => {
             await page.getByText(buttonText).click()
             await waitForImages(page)
             expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
-              `drafts.SelectPanel.${story.title}.${theme}.png`,
+              `deprecated.SelectPanel.${story.title}.${theme}.png`,
             )
           })
 
