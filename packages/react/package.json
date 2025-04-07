@@ -153,7 +153,7 @@
     "@types/react": "18.3.11",
     "@types/react-dom": "18.3.0",
     "@types/react-test-renderer": "18.3.0",
-    "@types/semver": "7.5.8",
+    "@types/semver": "7.7.0",
     "@types/styled-components": "^5.1.26",
     "@vitejs/plugin-react": "^4.3.3",
     "ajv": "8.16.0",
