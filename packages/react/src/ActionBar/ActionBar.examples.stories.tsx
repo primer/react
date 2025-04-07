@@ -21,7 +21,7 @@ import {
 import {Box, Button, Avatar, ActionMenu, IconButton, ActionList, Textarea} from '..'
 import {Dialog} from '../DialogV1'
 import {Divider} from '../deprecated/ActionList/Divider'
-import mockData from '../experimental/SelectPanel2/mock-story-data'
+import mockData from '../SelectPanel2/mock-story-data'
 
 export default {
   title: 'Experimental/Components/ActionBar/Examples',
