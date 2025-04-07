@@ -370,6 +370,35 @@ const StyledDialog = toggleStyledComponent(
       }
     }
 
+    /* Used to determine whether there should be a border between the body and footer */
+    @keyframes detect-scroll {
+      from,
+      to {
+        --can-scroll: 1;
+      }
+    }
+
+    /*
+    Add a border between the body and footer if:
+    - the dialog has a footer
+    - the dialog has a body that can scroll
+    - the browser supports the animation-timeline property and its scroll() function
+    */
+    &:has([data-component='Dialog.Footer']) {
+      --can-scroll: 0;
+      [data-component='Dialog.Body'] {
+        animation: detect-scroll;
+        animation-timeline: scroll(self);
+
+        /* If the browser does not support the animation-timeline property, always show a border */
+        border-bottom: var(--borderWidth-default) solid var(--borderColor-default);
+
+        @supports (animation-timeline: scroll(self)) {
+          border-bottom: calc(1px * var(--can-scroll)) solid var(--borderColor-default);
+        }
+      }
+    }
+
     ${sx};
   `,
 )
@@ -527,7 +556,13 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
             className={clsx(className, enabled && classes.Dialog)}
           >
             {header}
-            <ScrollableRegion aria-labelledby={dialogLabelId} className={classes.DialogOverflowWrapper}>
+            <ScrollableRegion
+              // `data-component` is used for a `:has` selector for `styled-components`.
+              // This can be removed when we remove `styled-components`.
+              data-component="Dialog.Body"
+              aria-labelledby={dialogLabelId}
+              className={classes.DialogOverflowWrapper}
+            >
               {body}
             </ScrollableRegion>
             {footer}
@@ -623,7 +658,6 @@ const StyledFooter = toggleStyledComponent(
   CSS_MODULES_FEATURE_FLAG,
   'div',
   styled.div<SxProp>`
-    box-shadow: 0 -1px 0 ${get('colors.border.default')};
     padding: ${get('space.3')};
     display: flex;
     flex-flow: wrap;
@@ -644,7 +678,16 @@ type StyledFooterProps = React.ComponentProps<'div'> & SxProp
 
 const Footer = React.forwardRef<HTMLElement, StyledFooterProps>(function Footer({className, ...rest}, forwardRef) {
   const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
-  return <StyledFooter ref={forwardRef} className={clsx(className, enabled && classes.Footer)} {...rest} />
+  return (
+    <StyledFooter
+      ref={forwardRef}
+      className={clsx(className, enabled && classes.Footer)}
+      // `data-component` is used for a `:has` selector for `styled-components`.
+      // This can be removed when we remove `styled-components`.
+      data-component="Dialog.Footer"
+      {...rest}
+    />
+  )
 })
 Footer.displayName = 'Dialog.Footer'
 

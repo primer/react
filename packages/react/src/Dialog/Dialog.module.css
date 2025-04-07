@@ -38,6 +38,14 @@
   }
 }
 
+/* Used to determine whether there should be a border between the body and footer */
+@keyframes detect-scroll {
+  from,
+  to {
+    --can-scroll: 1;
+  }
+}
+
 .Backdrop {
   position: fixed;
   top: 0;
@@ -212,6 +220,28 @@
   flex-grow: 1;
 }
 
+/*
+Add a border between the body and footer if:
+- the dialog has a footer
+- the dialog has a body that can scroll
+- the browser supports the `animation-timeline` property and its `scroll()` function
+*/
+.Dialog:has(.Footer) {
+  --can-scroll: 0;
+
+  .DialogOverflowWrapper {
+    animation: detect-scroll;
+    animation-timeline: scroll(self);
+
+    /* If the browser does not support the `animation-timeline` property, always show a border */
+    border-bottom: var(--borderWidth-default) solid var(--borderColor-default);
+
+    @supports (animation-timeline: scroll(self)) {
+      border-bottom: calc(1px * var(--can-scroll)) solid var(--borderColor-default);
+    }
+  }
+}
+
 .Header {
   z-index: 1;
   padding: var(--base-size-8);
@@ -246,8 +276,6 @@
   flex-flow: wrap;
   justify-content: flex-end;
   padding: var(--base-size-16);
-  /* stylelint-disable-next-line primer/box-shadow */
-  box-shadow: 0 -1px 0 var(--borderColor-default);
   gap: var(--base-size-8);
   flex-shrink: 0;
 
