@@ -5,7 +5,7 @@ import {TagIcon, GearIcon, ArrowBothIcon} from '@primer/octicons-react'
 import data from './mock-story-data'
 
 export default {
-  title: 'Experimental/Components/SelectPanel/Features',
+  title: 'Deprecated/Components/SelectPanel/Features',
   component: SelectPanel,
 }
 
