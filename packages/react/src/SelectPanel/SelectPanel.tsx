@@ -80,7 +80,6 @@ interface SelectPanelBaseProps {
   // TODO: Make `inputLabel` required in next major version
   inputLabel?: string
   overlayProps?: Partial<OverlayProps>
-  footer?: string | React.ReactElement
   initialLoadingType?: InitialLoadingType
   className?: string
   notice?: {
@@ -92,7 +91,18 @@ interface SelectPanelBaseProps {
     body: string | React.ReactElement
     variant: 'empty' | 'error' | 'warning'
   }
+  secondaryAction?:
+    | {render: () => React.ReactElement}
+    | {
+        label: string
+        onClick: () => void
+      }
+
   onCancel?: () => void
+  /**
+   * @deprecated Use the `secondaryAction` property instead
+   */
+  footer?: string | React.ReactElement
 }
 
 export type SelectPanelProps = SelectPanelBaseProps &
@@ -145,6 +155,7 @@ export function SelectPanel({
   onFilterChange: externalOnFilterChange,
   items,
   footer,
+  secondaryAction,
   textInputProps,
   overlayProps,
   sx,
@@ -522,6 +533,7 @@ export function SelectPanel({
           // needed to explicitly enable announcements for deprecated FilteredActionList, we can remove when we fully remove the deprecated version
           announcementsEnabled
         />
+        {secondaryAction?.render && <div className={classes.SecondaryAction}>{secondaryAction.render()}</div>}
         {footer ? (
           <Box
             sx={
