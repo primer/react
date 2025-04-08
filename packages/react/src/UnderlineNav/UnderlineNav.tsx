@@ -148,6 +148,7 @@ export const UnderlineNav = forwardRef(
       loadingCounters = false,
       flush = false,
       className,
+      flush = false,
       children,
     }: UnderlineNavProps,
     forwardedRef,
