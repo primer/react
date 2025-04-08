@@ -61,14 +61,13 @@ describe('ActionList.Heading', () => {
   })
 
   it('should support a custom `className` on the outermost element', () => {
-    expect(() =>
-      HTMLRender(
-        <ActionList>
-          <ActionList.Heading as="h2" className="test-class-name">
-            Filter by
-          </ActionList.Heading>
-        </ActionList>,
-      ).container.querySelector('h2'),
-    ).toHaveClass('test-class-name')
+    const actionList = HTMLRender(
+      <ActionList>
+        <ActionList.Heading as="h2" className="test-class-name">
+          Filter by
+        </ActionList.Heading>
+      </ActionList>,
+    )
+    expect(actionList.container.querySelector('h2')).toHaveClass('test-class-name')
   })
 })
