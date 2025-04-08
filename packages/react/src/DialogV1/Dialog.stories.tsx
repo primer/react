@@ -1,7 +1,7 @@
 import React, {useState, useRef} from 'react'
 import type {Meta} from '@storybook/react'
 import {Button} from '../Button'
-import {Box, Link, Text} from '..'
+import {Box, Text} from '..'
 import {Banner} from '../Banner'
 import {default as Dialog} from './Dialog'
 
