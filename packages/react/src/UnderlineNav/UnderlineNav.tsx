@@ -32,6 +32,11 @@ export type UnderlineNavProps = {
    * loading state for all counters. It displays loading animation for individual counters (UnderlineNav.Item) until all are resolved. It is needed to prevent multiple layout shift.
    */
   loadingCounters?: boolean
+  /**
+   * There are cases where you may not want the horizontal padding on items,
+   * and panels to make the tabs look horizontally aligned with the content above and below it.
+   */
+  flush?: boolean
 }
 // When page is loaded, we don't have ref for the more button as it is not on the DOM yet.
 // However, we need to calculate number of possible items when the more button present as well. So using the width of the more button as a constant.
@@ -141,6 +146,7 @@ export const UnderlineNav = forwardRef(
       'aria-label': ariaLabel,
       sx: sxProp = defaultSxProp,
       loadingCounters = false,
+      flush = false,
       className,
       children,
     }: UnderlineNavProps,
@@ -308,7 +314,14 @@ export const UnderlineNav = forwardRef(
         }}
       >
         {ariaLabel && <VisuallyHidden as="h2">{`${ariaLabel} navigation`}</VisuallyHidden>}
-        <UnderlineWrapper as={as} aria-label={ariaLabel} className={className} ref={navRef} sx={sxProp}>
+        <UnderlineWrapper
+          as={as}
+          aria-label={ariaLabel}
+          className={className}
+          ref={navRef}
+          sx={sxProp}
+          data-flush={flush}
+        >
           <UnderlineItemList ref={listRef} role="list">
             {listItems}
             {menuItems.length > 0 && (

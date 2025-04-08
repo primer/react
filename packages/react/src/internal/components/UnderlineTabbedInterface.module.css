@@ -1,7 +1,5 @@
 .UnderlineWrapper {
   display: flex;
-  /* stylelint-disable-next-line primer/spacing */
-  padding-inline: var(--stack-padding-normal);
   justify-content: flex-start;
   align-items: center;
 
@@ -11,6 +9,11 @@
   /* using a box-shadow instead of a border to accomodate 'overflow-y: hidden' on UnderlinePanels */
   /* stylelint-disable-next-line primer/box-shadow */
   box-shadow: inset 0 -1px var(--borderColor-muted);
+
+  &:where([data-flush="false"], &[data-flush="false"] &) {
+    /* stylelint-disable-next-line primer/spacing */
+    padding-inline: var(--stack-padding-normal);
+  }
 }
 
 .UnderlineItemList {

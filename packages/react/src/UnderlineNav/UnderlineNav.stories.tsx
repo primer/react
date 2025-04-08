@@ -26,10 +26,16 @@ const meta: Meta<typeof UnderlineNav> = {
         type: 'boolean',
       },
     },
+    flush: {
+      control: {
+        type: 'boolean',
+      },
+    },
   },
   args: {
     'aria-label': 'Repository',
     loadingCounters: false,
+    flush: false,
   },
 }
 
