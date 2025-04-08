@@ -50,6 +50,12 @@ export type DataTableProps<Data extends UniqueRow> = {
    * currently sorted column
    */
   initialSortDirection?: Exclude<SortDirection, 'NONE'>
+
+  /**
+   * Provide the field name from the `data` object used to uniqeuly identify each row.
+   * This should correspond to a property in the `Data` type.
+   */
+  keyField?: keyof Data
 }
 
 function DataTable<Data extends UniqueRow>({
@@ -60,6 +66,7 @@ function DataTable<Data extends UniqueRow>({
   data,
   initialSortColumn,
   initialSortDirection,
+  keyField,
 }: DataTableProps<Data>) {
   const {headers, rows, actions, gridTemplateColumns} = useTable({
     data,
@@ -102,9 +109,10 @@ function DataTable<Data extends UniqueRow>({
       </TableHead>
       <TableBody>
         {rows.map(row => {
+          const keyValue = keyField ? String(row.getValue()[keyField]) : row.id
           return (
-            <TableRow key={row.id}>
-              {row.getCells().map(cell => {
+            <TableRow key={keyValue}>
+              {row.getCells(keyValue).map(cell => {
                 return (
                   <TableCell key={cell.id} scope={cell.rowHeader ? 'row' : undefined} align={cell.column.align}>
                     {cell.column.renderCell
