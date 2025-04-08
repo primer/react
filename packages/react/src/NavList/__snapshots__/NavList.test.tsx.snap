@@ -182,6 +182,21 @@ exports[`NavList renders a simple list 1`] = `
   border-radius: 6px;
 }
 
+.c2[data-last-selected]:not(:last-of-type) {
+  padding-bottom: 4px;
+}
+
+.c2[data-last-selected]:not(:last-of-type)::before {
+  position: absolute;
+  bottom: 0;
+  width: calc(100% + 16px);
+  margin-left: -16px;
+  content: "";
+  border-bottom: 1px solid var(--borderColor-default);
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
 .c6 {
   position: relative;
   display: -webkit-box;
@@ -282,6 +297,21 @@ exports[`NavList renders a simple list 1`] = `
   content: "";
   background-color: var(--borderColor-accent-emphasis);
   border-radius: 6px;
+}
+
+.c6[data-last-selected]:not(:last-of-type) {
+  padding-bottom: 4px;
+}
+
+.c6[data-last-selected]:not(:last-of-type)::before {
+  position: absolute;
+  bottom: 0;
+  width: calc(100% + 16px);
+  margin-left: -16px;
+  content: "";
+  border-bottom: 1px solid var(--borderColor-default);
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
 }
 
 @media (forced-colors:active) {
@@ -639,6 +669,21 @@ exports[`NavList renders with groups 1`] = `
   border-radius: 6px;
 }
 
+.c5[data-last-selected]:not(:last-of-type) {
+  padding-bottom: 4px;
+}
+
+.c5[data-last-selected]:not(:last-of-type)::before {
+  position: absolute;
+  bottom: 0;
+  width: calc(100% + 16px);
+  margin-left: -16px;
+  content: "";
+  border-bottom: 1px solid var(--borderColor-default);
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
 .c9 {
   position: relative;
   display: -webkit-box;
@@ -739,6 +784,21 @@ exports[`NavList renders with groups 1`] = `
   content: "";
   background-color: var(--borderColor-accent-emphasis);
   border-radius: 6px;
+}
+
+.c9[data-last-selected]:not(:last-of-type) {
+  padding-bottom: 4px;
+}
+
+.c9[data-last-selected]:not(:last-of-type)::before {
+  position: absolute;
+  bottom: 0;
+  width: calc(100% + 16px);
+  margin-left: -16px;
+  content: "";
+  border-bottom: 1px solid var(--borderColor-default);
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
 }
 
 @media (forced-colors:active) {
@@ -1148,6 +1208,21 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   border-radius: 6px;
 }
 
+.c11[data-last-selected]:not(:last-of-type) {
+  padding-bottom: 4px;
+}
+
+.c11[data-last-selected]:not(:last-of-type)::before {
+  position: absolute;
+  bottom: 0;
+  width: calc(100% + 16px);
+  margin-left: -16px;
+  content: "";
+  border-bottom: 1px solid var(--borderColor-default);
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
 .c4 {
   position: relative;
   display: -webkit-box;
@@ -1249,6 +1324,21 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   content: "";
   background-color: var(--borderColor-accent-emphasis);
   border-radius: 6px;
+}
+
+.c4[data-last-selected]:not(:last-of-type) {
+  padding-bottom: 4px;
+}
+
+.c4[data-last-selected]:not(:last-of-type)::before {
+  position: absolute;
+  bottom: 0;
+  width: calc(100% + 16px);
+  margin-left: -16px;
+  content: "";
+  border-bottom: 1px solid var(--borderColor-default);
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
 }
 
 .c9 {
@@ -1642,6 +1732,21 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   border-radius: 6px;
 }
 
+.c11[data-last-selected]:not(:last-of-type) {
+  padding-bottom: 4px;
+}
+
+.c11[data-last-selected]:not(:last-of-type)::before {
+  position: absolute;
+  bottom: 0;
+  width: calc(100% + 16px);
+  margin-left: -16px;
+  content: "";
+  border-bottom: 1px solid var(--borderColor-default);
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
 [data-component="ActionList.Divider"] + .c3 {
   --divider-color: transparent !important;
 }
@@ -1764,6 +1869,21 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   content: "";
   background-color: var(--borderColor-accent-emphasis);
   border-radius: 6px;
+}
+
+.c4[data-last-selected]:not(:last-of-type) {
+  padding-bottom: 4px;
+}
+
+.c4[data-last-selected]:not(:last-of-type)::before {
+  position: absolute;
+  bottom: 0;
+  width: calc(100% + 16px);
+  margin-left: -16px;
+  content: "";
+  border-bottom: 1px solid var(--borderColor-default);
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
 }
 
 .c9 {
