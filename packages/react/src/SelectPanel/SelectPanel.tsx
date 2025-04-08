@@ -25,6 +25,7 @@ import classes from './SelectPanel.module.css'
 import {clsx} from 'clsx'
 import {heightMap} from '../Overlay/Overlay'
 import {debounce} from '@github/mini-throttle'
+import {useResponsiveValue} from '../hooks/useResponsiveValue'
 
 // we add a delay so that it does not interrupt default screen reader announcement and queues after it
 const SHORT_DELAY_MS = 500
@@ -170,6 +171,10 @@ export function SelectPanel({
   const [inputRef, setInputRef] = React.useState<React.RefObject<HTMLInputElement> | null>(null)
   const [listContainerElement, setListContainerElement] = useState<HTMLElement | null>(null)
   const [needsNoItemsAnnouncement, setNeedsNoItemsAnnouncement] = useState<boolean>(false)
+  const isNarrowScreenSize = useResponsiveValue({narrow: true, regular: false, wide: false}, false)
+
+  const usingModernActionList = useFeatureFlag('primer_react_select_panel_modern_action_list')
+  const usingFullScreenOnNarrow = useFeatureFlag('primer_react_select_panel_fullscreen_on_narrow')
 
   const onListContainerRefChanged: FilteredActionListProps['onListContainerRefChanged'] = useCallback(
     (node: HTMLElement | null) => {
@@ -233,6 +238,25 @@ export function SelectPanel({
       items.length,
     ],
   )
+
+  // disable body scroll when the panel is open on narrow screens
+  useEffect(() => {
+    if (open && isNarrowScreenSize && usingFullScreenOnNarrow) {
+      const bodyOverflowStyle = document.body.style.overflow || ''
+      // If the body is already set to overflow: hidden, it likely means
+      // that there is already a modal open. In that case, we should bail
+      // so we don't re-enable scroll after the second dialog is closed.
+      if (bodyOverflowStyle === 'hidden') {
+        return
+      }
+
+      document.body.style.overflow = 'hidden'
+
+      return () => {
+        document.body.style.overflow = bodyOverflowStyle
+      }
+    }
+  }, [isNarrowScreenSize, open, usingFullScreenOnNarrow])
 
   useEffect(() => {
     if (open) {
@@ -384,9 +408,6 @@ export function SelectPanel({
       }
     }
   }
-
-  const usingModernActionList = useFeatureFlag('primer_react_select_panel_modern_action_list')
-  const usingFullScreenOnNarrow = useFeatureFlag('primer_react_select_panel_fullscreen_on_narrow')
 
   const iconForNoticeVariant = {
     info: <InfoIcon size={16} />,
