@@ -3,7 +3,6 @@ import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react'
 import type {AnchoredOverlayProps} from '../AnchoredOverlay'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import type {AnchoredOverlayWrapperAnchorProps} from '../AnchoredOverlay/AnchoredOverlay'
-import Box from '../Box'
 import type {FilteredActionListProps} from '../FilteredActionList'
 import {FilteredActionList} from '../FilteredActionList'
 import Heading from '../Heading'
@@ -26,6 +25,7 @@ import classes from './SelectPanel.module.css'
 import {clsx} from 'clsx'
 import {heightMap} from '../Overlay/Overlay'
 import {debounce} from '@github/mini-throttle'
+import {useResponsiveValue} from '../hooks/useResponsiveValue'
 
 // we add a delay so that it does not interrupt default screen reader announcement and queues after it
 const SHORT_DELAY_MS = 500
@@ -171,6 +171,10 @@ export function SelectPanel({
   const [inputRef, setInputRef] = React.useState<React.RefObject<HTMLInputElement> | null>(null)
   const [listContainerElement, setListContainerElement] = useState<HTMLElement | null>(null)
   const [needsNoItemsAnnouncement, setNeedsNoItemsAnnouncement] = useState<boolean>(false)
+  const isNarrowScreenSize = useResponsiveValue({narrow: true, regular: false, wide: false}, false)
+
+  const usingModernActionList = useFeatureFlag('primer_react_select_panel_modern_action_list')
+  const usingFullScreenOnNarrow = useFeatureFlag('primer_react_select_panel_fullscreen_on_narrow')
 
   const onListContainerRefChanged: FilteredActionListProps['onListContainerRefChanged'] = useCallback(
     (node: HTMLElement | null) => {
@@ -235,6 +239,25 @@ export function SelectPanel({
     ],
   )
 
+  // disable body scroll when the panel is open on narrow screens
+  useEffect(() => {
+    if (open && isNarrowScreenSize && usingFullScreenOnNarrow) {
+      const bodyOverflowStyle = document.body.style.overflow || ''
+      // If the body is already set to overflow: hidden, it likely means
+      // that there is already a modal open. In that case, we should bail
+      // so we don't re-enable scroll after the second dialog is closed.
+      if (bodyOverflowStyle === 'hidden') {
+        return
+      }
+
+      document.body.style.overflow = 'hidden'
+
+      return () => {
+        document.body.style.overflow = bodyOverflowStyle
+      }
+    }
+  }, [isNarrowScreenSize, open, usingFullScreenOnNarrow])
+
   useEffect(() => {
     if (open) {
       if (items.length === 0 && !(isLoading || loading)) {
@@ -297,9 +320,6 @@ export function SelectPanel({
       }
     }
   }, [open, dataLoadedOnce, onFilterChange, filterValue, items, loadingManagedExternally, listContainerElement])
-
-  const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_ga'
-  const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
 
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
   const onOpen: AnchoredOverlayProps['onOpen'] = useCallback(
@@ -389,9 +409,6 @@ export function SelectPanel({
     }
   }
 
-  const usingModernActionList = useFeatureFlag('primer_react_select_panel_modern_action_list')
-  const usingFullScreenOnNarrow = useFeatureFlag('primer_react_select_panel_fullscreen_on_narrow')
-
   const iconForNoticeVariant = {
     info: <InfoIcon size={16} />,
     warning: <AlertIcon size={16} />,
@@ -435,42 +452,16 @@ export function SelectPanel({
       pinPosition={!height}
       className={classes.Overlay}
     >
-      <Box
-        sx={enabled ? undefined : {display: 'flex', flexDirection: 'column', height: 'inherit', maxHeight: 'inherit'}}
-        className={enabled ? classes.Wrapper : undefined}
-      >
-        <Box
-          sx={
-            enabled
-              ? undefined
-              : {
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  paddingTop: 2,
-                  paddingRight: 2,
-                  paddingLeft: 2,
-                }
-          }
-          className={enabled ? classes.Header : undefined}
-        >
+      <div className={classes.Wrapper}>
+        <div className={classes.Header}>
           <div>
-            <Heading
-              as="h1"
-              id={titleId}
-              sx={enabled ? undefined : {fontSize: 1, marginLeft: 2}}
-              className={enabled ? classes.Title : undefined}
-            >
+            <Heading as="h1" id={titleId} className={classes.Title}>
               {title}
             </Heading>
             {subtitle ? (
-              <Box
-                id={subtitleId}
-                sx={enabled ? undefined : {marginLeft: 2, fontSize: 0, color: 'fg.muted'}}
-                className={enabled ? classes.Subtitle : undefined}
-              >
+              <div id={subtitleId} className={classes.Subtitle}>
                 {subtitle}
-              </Box>
+              </div>
             ) : null}
           </div>
           {onCancel && usingFullScreenOnNarrow && (
@@ -479,15 +470,14 @@ export function SelectPanel({
               variant="invisible"
               icon={XIcon}
               aria-label="Cancel and close"
-              sx={enabled ? undefined : {display: ['inline-grid', 'inline-grid', 'none', 'none']}}
-              className={enabled ? classes.ResponsiveCloseButton : undefined}
+              className={classes.ResponsiveCloseButton}
               onClick={() => {
                 onCancel()
                 onClose('escape')
               }}
             />
           )}
-        </Box>
+        </div>
         {notice && (
           <div aria-live="polite" data-variant={notice.variant} className={classes.Notice}>
             {iconForNoticeVariant[notice.variant]}
@@ -517,27 +507,13 @@ export function SelectPanel({
           }}
           // inheriting height and maxHeight ensures that the FilteredActionList is never taller
           // than the Overlay (which would break scrolling the items)
-          sx={enabled ? sx : {...sx, height: 'inherit', maxHeight: 'inherit'}}
-          className={enabled ? clsx(className, classes.FilteredActionList) : className}
+          sx={sx}
+          className={clsx(className, classes.FilteredActionList)}
           // needed to explicitly enable announcements for deprecated FilteredActionList, we can remove when we fully remove the deprecated version
           announcementsEnabled
         />
         {footer ? (
-          <Box
-            sx={
-              enabled
-                ? undefined
-                : {
-                    display: 'flex',
-                    borderTop: '1px solid',
-                    borderColor: 'border.default',
-                    padding: 2,
-                  }
-            }
-            className={enabled ? classes.Footer : undefined}
-          >
-            {footer}
-          </Box>
+          <div className={classes.Footer}>{footer}</div>
         ) : isMultiSelectVariant(selected) && usingFullScreenOnNarrow ? (
           /* Save and Cancel buttons are only useful for multiple selection, single selection instantly closes the panel */
           <div className={clsx(classes.Footer, classes.ResponsiveFooter)}>
@@ -563,7 +539,7 @@ export function SelectPanel({
             </Button>
           </div>
         ) : null}
-      </Box>
+      </div>
     </AnchoredOverlay>
   )
 }
