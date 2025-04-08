@@ -493,7 +493,7 @@ const Navigation: React.FC<React.PropsWithChildren<NavigationProps>> = ({
     as === 'nav' && !ariaLabel && !ariaLabelledBy,
     'Use `aria-label` or `aria-labelledby` prop to provide an accessible label to the `nav` landmark for assistive technology',
   )
-  const BaseComponent = toggleSxComponent(as) as React.ComponentType<
+  const BaseComponent = toggleSxComponent(as || 'div') as React.ComponentType<
     React.PropsWithChildren<NavigationProps & React.RefAttributes<HTMLDivElement>>
   >
   return (
