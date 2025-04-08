@@ -3,7 +3,6 @@ import React from 'react'
 import theme from '../theme'
 import {ActionList} from '.'
 import {BaseStyles, ThemeProvider, ActionMenu} from '..'
-import {FeatureFlags} from '../FeatureFlags'
 import {behavesAsComponent} from '../utils/testing'
 
 describe('ActionList.Group', () => {
