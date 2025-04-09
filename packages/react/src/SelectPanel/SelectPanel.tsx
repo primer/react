@@ -74,7 +74,7 @@ interface SelectPanelBaseProps {
   subtitle?: string | React.ReactElement
   onOpenChange: (
     open: boolean,
-    gesture: 'anchor-click' | 'anchor-key-press' | 'click-outside' | 'escape' | 'selection',
+    gesture: 'anchor-click' | 'anchor-key-press' | 'click-outside' | 'escape' | 'selection' | 'cancel',
   ) => void
   placeholder?: string
   // TODO: Make `inputLabel` required in next major version
@@ -333,6 +333,10 @@ export function SelectPanel({
     [onOpenChange],
   )
 
+  const onCancelRequested = useCallback(() => {
+    onOpenChange(false, 'cancel')
+  }, [onOpenChange])
+
   const renderMenuAnchor = useMemo(() => {
     if (renderAnchor === null) {
       return null
@@ -473,7 +477,7 @@ export function SelectPanel({
               className={classes.ResponsiveCloseButton}
               onClick={() => {
                 onCancel()
-                onClose('escape')
+                onCancelRequested()
               }}
             />
           )}
@@ -523,7 +527,7 @@ export function SelectPanel({
                 size="medium"
                 onClick={() => {
                   onCancel()
-                  onClose('escape')
+                  onCancelRequested()
                 }}
               >
                 Cancel
