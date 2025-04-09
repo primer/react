@@ -11,7 +11,6 @@ import {SingleSelect} from '../ActionMenu/ActionMenu.features.stories'
 import {MixedSelection} from '../ActionMenu/ActionMenu.examples.stories'
 import {SearchIcon, KebabHorizontalIcon} from '@primer/octicons-react'
 import {setupMatchMedia} from '../utils/test-helpers'
-import type {AnchorPosition} from '@primer/behaviors'
 
 setupMatchMedia()
 
