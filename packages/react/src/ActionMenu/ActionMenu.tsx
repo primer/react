@@ -7,6 +7,7 @@ import {useProvidedRefOrCreate, useProvidedStateOrCreate, useMenuKeyboardNavigat
 import {Divider} from '../ActionList/Divider'
 import {ActionListContainerContext} from '../ActionList/ActionListContainerContext'
 import type {ButtonProps} from '../Button'
+import type {AnchorPosition} from '@primer/behaviors'
 import {Button} from '../Button'
 import {useId} from '../hooks/useId'
 import type {MandateProps} from '../utils/types'
@@ -233,11 +234,13 @@ type MenuOverlayProps = Partial<OverlayProps> &
      * Recommended: `ActionList`
      */
     children: React.ReactNode
+    onSideChange?: (side: AnchorPosition) => void
   }
 const Overlay: React.FC<React.PropsWithChildren<MenuOverlayProps>> = ({
   children,
   align = 'start',
   side,
+  onSideChange,
   'aria-labelledby': ariaLabelledby,
   ...overlayProps
 }) => {
@@ -281,6 +284,7 @@ const Overlay: React.FC<React.PropsWithChildren<MenuOverlayProps>> = ({
       side={side ?? (isSubmenu ? 'outside-right' : 'outside-bottom')}
       overlayProps={overlayProps}
       focusZoneSettings={{focusOutBehavior: 'wrap'}}
+      onPositionChange={onSideChange}
     >
       <div ref={containerRef}>
         <ActionListContainerContext.Provider
