@@ -105,23 +105,15 @@ const AvatarStackWrapper = toggleStyledComponent(
     &.pc-AvatarStack--three {
       // MIN-WIDTH CALC FORMULA EXPLAINED:
       // avatar size ➡️ var(--avatar-stack-size)
-      // plus the visible part of the 2nd avatar ➡️ var(--avatar-stack-size) - var(--overlap-size)
-      // plus the visible part of the 3rd avatar ➡️ var(--avatar-stack-size) - var(--overlap-size-avatar-three-plus)
-      min-width: calc(
-        var(--avatar-stack-size) + (var(--avatar-stack-size) - var(--overlap-size)) +
-          (var(--avatar-stack-size) - var(--overlap-size-avatar-three-plus))
-      );
+      // plus the visible part of the 2nd and 3rd avatars ➡️ (var(--avatar-stack-size) - var(--overlap-size)) * 2
+      min-width: calc(var(--avatar-stack-size) + ((var(--avatar-stack-size) - var(--overlap-size)) * 2));
     }
 
     &.pc-AvatarStack--three-plus {
       // MIN-WIDTH CALC FORMULA EXPLAINED:
       // avatar size ➡️ var(--avatar-stack-size)
-      // plus the visible part of the 2nd avatar ➡️ var(--avatar-stack-size) - var(--overlap-size)
-      // plus the visible part of the 3rd AND 4th avatar ➡️ (var(--avatar-stack-size) - var(--overlap-size-avatar-three-plus)) * 2
-      min-width: calc(
-        var(--avatar-stack-size) + (var(--avatar-stack-size) - var(--overlap-size)) +
-          (var(--avatar-stack-size) - var(--overlap-size-avatar-three-plus)) * 2
-      );
+      // plus the visible part of the 2nd, 3rd, and 4th avatars ➡️ (var(--avatar-stack-size) - var(--overlap-size)) * 3
+      min-width: calc(var(--avatar-stack-size) + ((var(--avatar-stack-size) - var(--overlap-size)) * 3));
     }
 
     &.pc-AvatarStack--right {
