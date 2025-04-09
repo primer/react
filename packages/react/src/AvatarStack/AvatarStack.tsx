@@ -58,7 +58,8 @@ const AvatarStackWrapper = toggleStyledComponent(
         margin 0.2s ease-in-out,
         opacity 0.2s ease-in-out,
         mask-position 0.2s ease-in-out,
-        mask-size 0.2s ease-in-out;
+        mask-size 0.2s ease-in-out,
+        visibility 0.2s ease-in-out;
 
       &:is(img) {
         box-shadow: 0 0 0 var(--avatar-border-width)
