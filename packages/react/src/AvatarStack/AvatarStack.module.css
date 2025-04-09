@@ -4,7 +4,6 @@
   --overlap-size: calc(var(--avatar-stack-size) * 0.5);
   --mask-size: calc(100% + (var(--avatar-border-width) * 2));
   --mask-start: -1;
-  --opacity-step: 15%;
 
   position: relative;
   display: flex;
@@ -131,21 +130,6 @@
     /* HACK: This padding fixes a weird rendering bug where a tiiiiny outline is visible at the edges of the element */
     /* stylelint-disable-next-line primer/spacing */
     padding: 0.1px;
-  }
-
-  &:nth-child(n + 3) {
-    /* stylelint-disable-next-line alpha-value-notation */
-    opacity: calc(100% - 2 * var(--opacity-step));
-  }
-
-  &:nth-child(n + 4) {
-    /* stylelint-disable-next-line alpha-value-notation */
-    opacity: calc(100% - 3 * var(--opacity-step));
-  }
-
-  &:nth-child(n + 5) {
-    /* stylelint-disable-next-line alpha-value-notation */
-    opacity: calc(100% - 4 * var(--opacity-step));
   }
 
   &:nth-child(n + 6) {
