@@ -29,8 +29,7 @@ const AvatarStackWrapper = toggleStyledComponent(
   'span',
   styled.span<StyledAvatarStackWrapperProps>`
     --avatar-border-width: 1px;
-    --overlap-size: calc(var(--avatar-stack-size) * 0.55);
-    --overlap-size-avatar-three-plus: calc(var(--avatar-stack-size) * 0.85);
+    --overlap-size: calc(var(--avatar-stack-size) * 0.5);
     --mask-size: calc(100% + (var(--avatar-border-width) * 2));
     --mask-start: -1;
     --opacity-step: 15%;
@@ -92,7 +91,6 @@ const AvatarStackWrapper = toggleStyledComponent(
       }
 
       &:nth-child(n + 3) {
-        --overlap-size: var(--overlap-size-avatar-three-plus);
         opacity: calc(100% - 2 * var(--opacity-step));
       }
 
