@@ -5,7 +5,7 @@ import {render as HTMLRender} from '@testing-library/react'
 import axe from 'axe-core'
 
 describe('SubNav.Link', () => {
-  behavesAsComponent({Component: SubNav.Link})
+  behavesAsComponent({Component: SubNav.Link, options: {skipAs: true}})
 
   it('renders an <a> by default', () => {
     expect(render(<SubNav.Link />).type).toEqual('a')

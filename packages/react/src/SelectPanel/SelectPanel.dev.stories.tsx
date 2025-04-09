@@ -9,12 +9,20 @@ import type {ItemInput} from '../deprecated/ActionList/List'
 import {FeatureFlags} from '../FeatureFlags'
 import FormControl from '../FormControl'
 
-const meta = {
+const meta: Meta<typeof SelectPanel> = {
   title: 'Components/SelectPanel/Dev',
   component: SelectPanel,
 } satisfies Meta<typeof SelectPanel>
 
 export default meta
+
+const NoResultsMessage = (filter: string): {variant: 'empty'; title: string; body: string} => {
+  return {
+    variant: 'empty',
+    title: `No language found for \`${filter}\``,
+    body: 'Adjust your search term to find other languages',
+  }
+}
 
 function getColorCircle(color: string) {
   return function () {
@@ -66,13 +74,7 @@ const items: ItemInput[] = [
 export const WithCss = () => {
   const [selected, setSelected] = useState<ItemInput[]>(items.slice(1, 3))
   const [filter, setFilter] = useState('')
-  const filteredItems = items.filter(
-    item =>
-      // design guidelines say to always show selected items in the list
-      selected.some(selectedItem => selectedItem.text === item.text) ||
-      // then filter the rest
-      item.text?.toLowerCase().startsWith(filter.toLowerCase()),
-  )
+  const filteredItems = items.filter(item => item.text?.toLowerCase().startsWith(filter.toLowerCase()))
   // design guidelines say to sort selected items first
   const selectedItemsSortedFirst = filteredItems.sort((a, b) => {
     const aIsSelected = selected.some(selectedItem => selectedItem.text === a.text)
@@ -108,6 +110,7 @@ export const WithCss = () => {
           onSelectedChange={setSelected}
           onFilterChange={setFilter}
           className="testCustomClassnameMono"
+          message={selectedItemsSortedFirst.length === 0 ? NoResultsMessage(filter) : undefined}
         />
       </FormControl>
     </FeatureFlags>
@@ -117,13 +120,7 @@ export const WithCss = () => {
 export const WithSx = () => {
   const [selected, setSelected] = useState<ItemInput[]>(items.slice(1, 3))
   const [filter, setFilter] = useState('')
-  const filteredItems = items.filter(
-    item =>
-      // design guidelines say to always show selected items in the list
-      selected.some(selectedItem => selectedItem.text === item.text) ||
-      // then filter the rest
-      item.text?.toLowerCase().startsWith(filter.toLowerCase()),
-  )
+  const filteredItems = items.filter(item => item.text?.toLowerCase().startsWith(filter.toLowerCase()))
   // design guidelines say to sort selected items first
   const selectedItemsSortedFirst = filteredItems.sort((a, b) => {
     const aIsSelected = selected.some(selectedItem => selectedItem.text === a.text)
@@ -159,6 +156,7 @@ export const WithSx = () => {
           onSelectedChange={setSelected}
           onFilterChange={setFilter}
           sx={{fontFamily: 'Times New Roman'}}
+          message={selectedItemsSortedFirst.length === 0 ? NoResultsMessage(filter) : undefined}
         />
       </FormControl>
     </FeatureFlags>
@@ -168,13 +166,7 @@ export const WithSx = () => {
 export const WithSxAndCSS = () => {
   const [selected, setSelected] = useState<ItemInput[]>(items.slice(1, 3))
   const [filter, setFilter] = useState('')
-  const filteredItems = items.filter(
-    item =>
-      // design guidelines say to always show selected items in the list
-      selected.some(selectedItem => selectedItem.text === item.text) ||
-      // then filter the rest
-      item.text?.toLowerCase().startsWith(filter.toLowerCase()),
-  )
+  const filteredItems = items.filter(item => item.text?.toLowerCase().startsWith(filter.toLowerCase()))
   // design guidelines say to sort selected items first
   const selectedItemsSortedFirst = filteredItems.sort((a, b) => {
     const aIsSelected = selected.some(selectedItem => selectedItem.text === a.text)
@@ -211,6 +203,7 @@ export const WithSxAndCSS = () => {
           onFilterChange={setFilter}
           sx={{fontFamily: 'Times New Roman'}}
           className="testCustomClassnameMono"
+          message={selectedItemsSortedFirst.length === 0 ? NoResultsMessage(filter) : undefined}
         />
       </FormControl>
     </FeatureFlags>

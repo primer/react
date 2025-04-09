@@ -20,7 +20,7 @@ const scenarios = matrix({
       name: 'With Placeholder for Search Input',
     },
     {id: 'components-selectpanel-examples--above-tall-body', name: 'Above Tall Body'},
-    {id: 'components-selectpanel-examples--height-variantions-and-scroll', name: 'Height Variantions and Scroll'},
+    {id: 'components-selectpanel-examples--height-variations-and-scroll', name: 'Height Variations and Scroll'},
     {
       id: 'components-selectpanel-examples--height-initial-with-overflowing-items-story',
       name: 'Height Initial with Overflowing Items',
@@ -109,10 +109,15 @@ test.describe('SelectPanel', () => {
     )
   })
 
-  test(`Default @vrt responsive width .modern-action-list--true`, async ({page}) => {
+  test(`Default @vrt responsive width .modern-action-list--true .fullscreen-on-narrow--true`, async ({page}) => {
     await visit(page, {
       id: 'components-selectpanel--default',
-      globals: {featureFlags: {primer_react_select_panel_with_modern_action_list: true}},
+      globals: {
+        featureFlags: {
+          primer_react_select_panel_with_modern_action_list: true,
+          primer_react_select_panel_fullscreen_on_narrow: true,
+        },
+      },
     })
 
     await page.setViewportSize({width: 767, height: 767})
@@ -125,7 +130,32 @@ test.describe('SelectPanel', () => {
     }
 
     expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
-      `SelectPanel-Default-responsive-width-light-modern-action-list--true.png`,
+      `SelectPanel-Default-responsive-width-light-modern-action-list--true-full-screen-on-narrow--true.png`,
+    )
+  })
+
+  test(`Default @vrt with notice`, async ({page}) => {
+    await visit(page, {
+      id: 'components-selectpanel-features--with-notice',
+      globals: {
+        featureFlags: {
+          primer_react_select_panel_with_modern_action_list: true,
+        },
+      },
+    })
+
+    // Open select panel
+    const isPanelOpen = await page.isVisible('[role="listbox"]')
+    if (!isPanelOpen) {
+      await page.keyboard.press('Tab')
+      await page.keyboard.press('Tab')
+      await page.keyboard.press('Tab')
+      await page.keyboard.press('Tab')
+      await page.keyboard.press('Enter')
+    }
+
+    expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
+      `SelectPanel-features--with-notice-light-modern-action-list--true.png`,
     )
   })
 })

@@ -1,3 +1,5 @@
+/* eslint eslint-comments/no-use: off */
+/* eslint-disable primer-react/direct-slot-children */
 import React from 'react'
 import {ActionList} from '../../src'
 import figma from '@figma/code-connect'
@@ -28,6 +30,75 @@ figma.connect(
 )
 
 figma.connect(
+  ActionList.LeadingVisual,
+  'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?node-id=15039-46399&t=YefUJRQj0NNo9Plz-4',
+  {
+    props: {
+      child: figma.children('*'),
+    },
+    example: ({child}) => <ActionList.LeadingVisual>{child}</ActionList.LeadingVisual>,
+  },
+)
+
+figma.connect(
+  ActionList.LeadingVisual,
+  'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?node-id=15039-46400&t=YefUJRQj0NNo9Plz-4',
+  {
+    props: {
+      child: figma.children('*'),
+    },
+    example: ({child}) => <ActionList.LeadingVisual>{child}</ActionList.LeadingVisual>,
+  },
+)
+
+figma.connect(
+  ActionList.LeadingVisual,
+  'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?node-id=23595-96989&t=YefUJRQj0NNo9Plz-4',
+  {
+    example: () => (
+      <ActionList.LeadingVisual>
+        <div
+          style={{borderRadius: 'var(--borderRadius-full)', display: 'inline-block', height: '10px', width: '10px'}}
+        ></div>
+      </ActionList.LeadingVisual>
+    ),
+  },
+)
+
+figma.connect(
+  ActionList.TrailingAction,
+  'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?node-id=15096-46632&m=dev',
+  {
+    props: {
+      child: figma.children('*'),
+    },
+    example: ({child}) => <ActionList.TrailingAction label="Trailing Action">{child}</ActionList.TrailingAction>,
+  },
+)
+
+figma.connect(
+  ActionList.TrailingAction,
+  'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?node-id=15096-52769&t=YefUJRQj0NNo9Plz-4',
+  {
+    props: {
+      child: figma.children('*'),
+    },
+    example: ({child}) => <ActionList.TrailingAction label="Trailing Action">{child}</ActionList.TrailingAction>,
+  },
+)
+
+figma.connect(
+  ActionList.TrailingAction,
+  'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?node-id=15096-46633&t=YefUJRQj0NNo9Plz-4',
+  {
+    props: {
+      text: figma.textContent('Trailing text'),
+    },
+    example: ({text}) => <ActionList.TrailingAction label="Trailing Action">{text}</ActionList.TrailingAction>,
+  },
+)
+
+figma.connect(
   ActionList.GroupHeading,
   'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?node-id=6-38837&m=dev',
   {
@@ -47,41 +118,16 @@ figma.connect(
   'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?node-id=15096-47245&m=dev',
   {
     props: {
-      text: figma.nestedProps('label and description', {
-        label: figma.textContent('label'),
-        description: figma.textContent('description'),
-      }),
-      disabled: figma.enum('state', {disabled: true}),
+      text: figma.children('label and description'),
       selected: figma.boolean('currentSelection'),
-    },
-    variant: {'leadingVisual?': false, 'trailingVisual?': false},
-    example: ({text, disabled, selected}) => (
-      <ActionList.Item variant="default" disabled={disabled} selected={selected}>
-        {text.label}
-      </ActionList.Item>
-    ),
-  },
-)
-
-figma.connect(
-  ActionList.Item,
-  'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?node-id=15096-47245&m=dev',
-  {
-    props: {
-      text: figma.nestedProps('label and description', {
-        label: figma.textContent('label'),
-        description: figma.textContent('description'),
-      }),
-      disabled: figma.enum('state', {disabled: true}),
       leadingVisual: figma.instance('leadingVisual'),
       trailingVisual: figma.instance('trailingVisual'),
     },
-    variant: {'leadingVisual?': true, 'trailingVisual?': true},
-    example: ({text, disabled, leadingVisual, trailingVisual}) => (
-      <ActionList.Item variant="default" disabled={disabled}>
-        <ActionList.LeadingVisual>{leadingVisual}</ActionList.LeadingVisual>
-        {text.label}
-        <ActionList.TrailingVisual>{trailingVisual}</ActionList.TrailingVisual>
+    example: ({text, selected, leadingVisual, trailingVisual}) => (
+      <ActionList.Item variant="default" selected={selected}>
+        {leadingVisual}
+        {text}
+        {trailingVisual}
       </ActionList.Item>
     ),
   },
@@ -89,43 +135,39 @@ figma.connect(
 
 figma.connect(
   ActionList.Item,
-  'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?node-id=15096-47245&m=dev',
+  'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?node-id=29564-68229&m=dev',
   {
     props: {
-      text: figma.nestedProps('label and description', {
-        label: figma.textContent('label'),
-        description: figma.textContent('description'),
-      }),
-      disabled: figma.enum('state', {disabled: true}),
+      text: figma.children('label and description'),
+      selected: figma.boolean('currentSelection'),
       leadingVisual: figma.instance('leadingVisual'),
-    },
-    variant: {'leadingVisual?': true, 'trailingVisual?': false},
-    example: ({text, disabled, leadingVisual}) => (
-      <ActionList.Item variant="default" disabled={disabled}>
-        <ActionList.LeadingVisual>{leadingVisual}</ActionList.LeadingVisual>
-        {text.label}
-      </ActionList.Item>
-    ),
-  },
-)
-
-figma.connect(
-  ActionList.Item,
-  'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?node-id=15096-47245&m=dev',
-  {
-    props: {
-      text: figma.nestedProps('label and description', {
-        label: figma.textContent('label'),
-        description: figma.textContent('description'),
-      }),
-      disabled: figma.enum('state', {disabled: true}),
       trailingVisual: figma.instance('trailingVisual'),
     },
-    variant: {'leadingVisual?': false, 'trailingVisual?': true},
-    example: ({text, disabled, trailingVisual}) => (
-      <ActionList.Item variant="default" disabled={disabled}>
-        {text.label}
-        <ActionList.TrailingVisual>{trailingVisual}</ActionList.TrailingVisual>
+    example: ({text, selected, leadingVisual, trailingVisual}) => (
+      <ActionList.Item variant="default" disabled selected={selected}>
+        {leadingVisual}
+        {text}
+        {trailingVisual}
+      </ActionList.Item>
+    ),
+  },
+)
+
+figma.connect(
+  ActionList.Item,
+  'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?node-id=30051-5381&m=dev',
+  {
+    props: {
+      text: figma.children('label and description'),
+      selected: figma.boolean('currentSelection'),
+      leadingVisual: figma.instance('leadingVisual'),
+      trailingVisual: figma.instance('trailingVisual'),
+    },
+    example: ({text, selected, leadingVisual, trailingVisual}) => (
+      <ActionList.Item variant="default" loading selected={selected}>
+        {leadingVisual}
+        {text}
+        {trailingVisual}
       </ActionList.Item>
     ),
   },
@@ -137,32 +179,13 @@ figma.connect(
   'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?node-id=15614-56205&m=dev',
   {
     props: {
-      text: figma.nestedProps('label and description', {
-        label: figma.textContent('label'),
-        description: figma.textContent('description'),
-      }),
+      text: figma.children('label and description'),
+      leadingVisual: figma.children('leadingVisualIcon'),
     },
-    variant: {'leadingVisual?': false},
-    example: ({text}) => <ActionList.Item variant="danger">{text.label}</ActionList.Item>,
-  },
-)
-
-figma.connect(
-  ActionList.Item,
-  'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?node-id=15614-56205&m=dev',
-  {
-    props: {
-      text: figma.nestedProps('label and description', {
-        label: figma.textContent('label'),
-        description: figma.textContent('description'),
-      }),
-      leadingVisual: figma.instance('leadingVisual'),
-    },
-    variant: {'leadingVisual?': true},
     example: ({text, leadingVisual}) => (
       <ActionList.Item variant="danger">
-        <ActionList.LeadingVisual>{leadingVisual}</ActionList.LeadingVisual>
-        {text.label}
+        {leadingVisual}
+        {text}
       </ActionList.Item>
     ),
   },
@@ -180,24 +203,21 @@ figma.connect(
       }),
       selected: figma.boolean('selected?'),
       currentSelection: figma.boolean('currentSelection'),
-      text: figma.nestedProps('label and description', {
-        label: figma.textContent('label'),
-        description: figma.textContent('description'),
-      }),
-      leadingVisual: figma.instance('leadingVisual'),
+      text: figma.children('label and description'),
+      leadingVisual: figma.children('leadingVisual'),
     },
-    variant: {'leadingVisual?': true},
     example: ({text, selected, currentSelection, leadingVisual}) => (
-      <ActionList.Item selected={selected} active={currentSelection} variant="default">
-        <ActionList.LeadingVisual>{leadingVisual}</ActionList.LeadingVisual>
-        {text.label}
+      <ActionList.Item selected={selected} active={currentSelection}>
+        {leadingVisual}
+        {text}
       </ActionList.Item>
     ),
   },
 )
+
 figma.connect(
   ActionList.Item,
-  'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?node-id=15614-56202&m=dev',
+  'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?node-id=29564-70674&m=dev',
   {
     props: {
       size: figma.enum('size', {
@@ -207,15 +227,96 @@ figma.connect(
       }),
       selected: figma.boolean('selected?'),
       currentSelection: figma.boolean('currentSelection'),
-      text: figma.nestedProps('label and description', {
-        label: figma.textContent('label'),
-        description: figma.textContent('description'),
-      }),
+      text: figma.children('label and description'),
+      leadingVisual: figma.children('leadingVisual'),
     },
-    variant: {'leadingVisual?': false},
-    example: ({text, selected, currentSelection}) => (
-      <ActionList.Item selected={selected} active={currentSelection} variant="default">
-        {text.label}
+    example: ({text, selected, currentSelection, leadingVisual}) => (
+      <ActionList.Item selected={selected} active={currentSelection} disabled>
+        {leadingVisual}
+        {text}
+      </ActionList.Item>
+    ),
+  },
+)
+
+figma.connect(
+  ActionList.Item,
+  'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?node-id=30051-4912&m=dev',
+  {
+    props: {
+      size: figma.enum('size', {
+        small: 'small',
+        medium: 'medium',
+        large: 'large',
+      }),
+      selected: figma.boolean('selected?'),
+      currentSelection: figma.boolean('currentSelection'),
+      text: figma.children('label and description'),
+      leadingVisual: figma.children('leadingVisual'),
+    },
+    example: ({text, selected, currentSelection, leadingVisual}) => (
+      <ActionList.Item selected={selected} active={currentSelection} loading>
+        {leadingVisual}
+        {text}
+      </ActionList.Item>
+    ),
+  },
+)
+
+/** Multi Select ITEM */
+figma.connect(
+  ActionList.Item,
+  'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?node-id=15614-56203&t=HMGAnO63EZZSdkly-4',
+  {
+    props: {
+      text: figma.children('label and description'),
+      selected: figma.boolean('currentSelection'),
+      leadingVisual: figma.instance('leadingVisual'),
+      trailingVisual: figma.instance('trailingVisual'),
+    },
+    example: ({text, selected, leadingVisual, trailingVisual}) => (
+      <ActionList.Item selected={selected}>
+        {leadingVisual}
+        {text}
+        {trailingVisual}
+      </ActionList.Item>
+    ),
+  },
+)
+figma.connect(
+  ActionList.Item,
+  'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?node-id=29564-70145&t=HMGAnO63EZZSdkly-4',
+  {
+    props: {
+      text: figma.children('label and description'),
+      selected: figma.boolean('currentSelection'),
+      leadingVisual: figma.instance('leadingVisual'),
+      trailingVisual: figma.instance('trailingVisual'),
+    },
+    example: ({text, selected, leadingVisual, trailingVisual}) => (
+      <ActionList.Item selected={selected} disabled>
+        {leadingVisual}
+        {text}
+        {trailingVisual}
+      </ActionList.Item>
+    ),
+  },
+)
+figma.connect(
+  ActionList.Item,
+  'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?node-id=30051-5141&m=dev',
+  {
+    props: {
+      text: figma.children('label and description'),
+      selected: figma.boolean('currentSelection'),
+      leadingVisual: figma.instance('leadingVisual'),
+      trailingVisual: figma.instance('trailingVisual'),
+    },
+    example: ({text, selected, leadingVisual, trailingVisual}) => (
+      <ActionList.Item selected={selected} loading>
+        {leadingVisual}
+        {text}
+        {trailingVisual}
       </ActionList.Item>
     ),
   },

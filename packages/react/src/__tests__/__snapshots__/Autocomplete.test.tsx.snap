@@ -246,11 +246,7 @@ exports[`snapshots renders a custom empty state message 1`] = `
       type="text"
     />
   </span>,
-  .c1 {
-  padding: 16px;
-}
-
-.c0 {
+  .c0 {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -272,7 +268,7 @@ exports[`snapshots renders a custom empty state message 1`] = `
   >
     <div>
       <div
-        className="c1"
+        className="EmptyStateWrapper"
       >
         No results
       </div>
@@ -527,29 +523,7 @@ exports[`snapshots renders a loading state 1`] = `
       type="text"
     />
   </span>,
-  .c1 {
-  padding: 16px;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-}
-
-.c2:not(:focus):not(:active):not(:focus-within) {
-  -webkit-clip-path: inset(50%);
-  clip-path: inset(50%);
-  height: 1px;
-  overflow: hidden;
-  position: absolute;
-  white-space: nowrap;
-  width: 1px;
-}
-
-.c0 {
+  .c0 {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -570,8 +544,7 @@ exports[`snapshots renders a loading state 1`] = `
     className="c0"
   >
     <div
-      className="c1"
-      display="flex"
+      className="SpinnerWrapper"
     >
       <span
         className="Box"
@@ -603,7 +576,7 @@ exports[`snapshots renders a loading state 1`] = `
           />
         </svg>
         <span
-          className="c2"
+          className="VisuallyHidden"
           id=":r2h:"
         >
           Loading
@@ -4926,11 +4899,7 @@ exports[`snapshots renders with an input value 1`] = `
       type="text"
     />
   </span>,
-  .c1 {
-  padding: 16px;
-}
-
-.c0 {
+  .c0 {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -4960,7 +4929,7 @@ exports[`snapshots renders with an input value 1`] = `
   >
     <div>
       <div
-        className="c1"
+        className="EmptyStateWrapper"
       >
         No selectable options
       </div>
