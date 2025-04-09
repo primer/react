@@ -17,6 +17,10 @@ function SimpleActionList(): JSX.Element {
       <ActionList.LinkItem href="//github.com" title="anchor" aria-keyshortcuts="d">
         Link Item
       </ActionList.LinkItem>
+      <ActionList.Item inactiveText="Unavailable due to an outage">Inactive item</ActionList.Item>
+      <ActionList.Item inactiveText="Unavailable due to an outage" loading>
+        Loading and inactive item
+      </ActionList.Item>
     </ActionList>
   )
 }
@@ -171,23 +175,53 @@ describe('ActionList.Item', () => {
     fireEvent.keyPress(option, {key: 'Enter', charCode: 13})
     expect(option).toBeInTheDocument()
   })
-  it('should focus the button around the leading visual when tabbing to an inactive item', async () => {
+  it('should focus the button around the alert icon when tabbing to an inactive item', async () => {
+    const component = HTMLRender(<SimpleActionList />)
+    const inactiveIndicatorButton = await waitFor(() => component.getByRole('button', {name: 'Inactive item'}))
+    await userEvent.tab()
+    await userEvent.tab()
+    await userEvent.tab()
+    await userEvent.tab()
+    await userEvent.tab()
+    await userEvent.tab() // focuses 6th element, which is inactive
+    expect(inactiveIndicatorButton).toHaveFocus()
+    expect(document.activeElement).toHaveAccessibleDescription('Unavailable due to an outage')
+  })
+  it('should focus the option or menu item when moving focus to an inactive item **in a listbox**', async () => {
     const component = HTMLRender(<SingleSelectListStory />)
-    const inactiveOptionButton = await waitFor(() => component.getByRole('button', {name: projects[3].inactiveText}))
+    const inactiveOption = await waitFor(() => component.getByRole('option', {name: projects[3].name}))
     await userEvent.tab() // get focus on first element
     await userEvent.keyboard('{ArrowDown}')
     await userEvent.keyboard('{ArrowDown}')
-    expect(inactiveOptionButton).toHaveFocus()
+    expect(inactiveOption).toHaveFocus()
+    expect(document.activeElement).toHaveAccessibleDescription(projects[3].inactiveText as string)
   })
   it('should behave as inactive if both inactiveText and loading props are passed', async () => {
+    const component = HTMLRender(<SimpleActionList />)
+    const inactiveIndicatorButton = await waitFor(() =>
+      component.getByRole('button', {name: 'Loading and inactive item'}),
+    )
+    await userEvent.tab()
+    await userEvent.tab()
+    await userEvent.tab()
+    await userEvent.tab()
+    await userEvent.tab()
+    await userEvent.tab()
+    await userEvent.tab() // focuses 7th element, which is inactive AND has a loading prop
+    expect(inactiveIndicatorButton).toHaveFocus()
+    expect(document.activeElement).toHaveAccessibleDescription('Unavailable due to an outage')
+  })
+
+  it('should behave as inactive if both inactiveText and loading props are passed **in a listbox**', async () => {
     const component = HTMLRender(<SingleSelectListStory />)
-    const inactiveOptionButton = await waitFor(() => component.getByRole('button', {name: projects[5].inactiveText}))
+    const inactiveOption = await waitFor(() => component.getByRole('option', {name: projects[5].name}))
     await userEvent.tab() // get focus on first element
     await userEvent.keyboard('{ArrowDown}')
     await userEvent.keyboard('{ArrowDown}')
     await userEvent.keyboard('{ArrowDown}')
     await userEvent.keyboard('{ArrowDown}')
-    expect(inactiveOptionButton).toHaveFocus()
+    expect(inactiveOption).toHaveFocus()
+    expect(document.activeElement).toHaveAccessibleDescription(projects[5].inactiveText as string)
   })
   it('should call onClick for a link item', async () => {
     const onClick = jest.fn()
