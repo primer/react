@@ -112,8 +112,11 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     } = React.useContext(ListContext)
     const {selectionVariant: groupSelectionVariant} = React.useContext(GroupContext)
     const inactive = Boolean(inactiveText)
-    const menuContext = listRole !== undefined && ['menu', 'listbox'].includes(listRole)
-    const showInactiveIndicator = inactive && !menuContext
+    // TODO change `menuContext` check to ```listRole !== undefined && ['menu', 'listbox'].includes(listRole)```
+    // once we have a better way to handle existing usage in dotcom that incorrectly use ActionList.TrailingAction
+    const menuContext = container === 'ActionMenu' || container === 'SelectPanel'
+    // TODO: when we change `menuContext` to check `listRole` instead of `container`
+    const showInactiveIndicator = inactive && !(listRole !== undefined && ['menu', 'listbox'].includes(listRole))
 
     const onSelect = React.useCallback(
       (
