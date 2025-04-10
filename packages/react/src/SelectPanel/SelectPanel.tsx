@@ -26,6 +26,8 @@ import {clsx} from 'clsx'
 import {heightMap} from '../Overlay/Overlay'
 import {debounce} from '@github/mini-throttle'
 import {useResponsiveValue} from '../hooks/useResponsiveValue'
+import {action} from '@storybook/addon-actions'
+import {on} from 'events'
 
 // we add a delay so that it does not interrupt default screen reader announcement and queues after it
 const SHORT_DELAY_MS = 500
@@ -123,6 +125,8 @@ const doesItemsIncludeItem = (items: ItemInput[], item: ItemInput) => {
   return items.some(i => areItemsEqual(i, item))
 }
 
+type ActionMode = 'single-anchored' | 'multi-anchored' | 'single-modal' | 'multi-modal'
+
 export function SelectPanel({
   open,
   onOpenChange,
@@ -180,15 +184,23 @@ export function SelectPanel({
 
   // Single select modals work differently, they have an intermediate state where the user has selected an item but
   // has not yet confirmed the selection. This is the only time the user can cancel the selection.
-  const isSingleSelectModal = variant === 'modal' && !isMultiSelectVariant(selected)
+  const mode =
+    variant === 'modal'
+      ? isMultiSelectVariant(selected)
+        ? 'multi-modal'
+        : 'single-modal'
+      : isMultiSelectVariant(selected)
+        ? 'multi-anchored'
+        : 'single-anchored'
+
   const [intermediateSelected, setIntermediateSelected] = useState<ItemInput | undefined>(
-    isSingleSelectModal ? selected : undefined,
+    mode === 'single-modal' ? selected : undefined,
   )
 
   // Reset the intermediate selected item when the panel is open/closed
   useEffect(() => {
-    setIntermediateSelected(isSingleSelectModal ? selected : undefined)
-  }, [isSingleSelectModal, open, selected])
+    setIntermediateSelected(mode === 'single-modal' ? selected : undefined)
+  }, [mode === 'single-modal', open, selected])
 
   const onListContainerRefChanged: FilteredActionListProps['onListContainerRefChanged'] = useCallback(
     (node: HTMLElement | null) => {
@@ -376,14 +388,14 @@ export function SelectPanel({
 
       // For single-select modal, there is an intermediate state when the user has selected
       // an item but has not yet saved the selection. We need to check for this state.
-      if (isSingleSelectModal) {
+      if (mode === 'single-modal') {
         return intermediateSelected?.id === item.id
       }
 
       // For single-select anchored, we just need to check if the item is the selected item
       return selected?.id === item.id
     },
-    [selected, intermediateSelected, isSingleSelectModal],
+    [selected, intermediateSelected, mode === 'single-modal'],
   )
 
   const itemsToRender = useMemo(() => {
@@ -410,7 +422,7 @@ export function SelectPanel({
             return
           }
 
-          if (isSingleSelectModal) {
+          if (mode === 'single-modal') {
             setIntermediateSelected(item)
             return
           }
@@ -421,7 +433,7 @@ export function SelectPanel({
         },
       } as ItemProps
     })
-  }, [onClose, onSelectedChange, items, selected, isItemCurrentlySelected, isSingleSelectModal])
+  }, [onClose, onSelectedChange, items, selected, isItemCurrentlySelected, mode === 'single-modal'])
 
   const focusTrapSettings = {
     initialFocusRef: inputRef || undefined,
@@ -467,10 +479,42 @@ export function SelectPanel({
     }
   }
 
+  const actionsByMode = {
+    ['single-anchored']: {
+      cancel: {
+        show: true,
+        action: () => {
+          onOpenChange(false, 'cancel')
+        },
+      },
+      xbutton: {
+        show: true,
+        action: () => {
+          onOpenChange(false, 'click-outside')
+        },
+      },
+      clickOutside: {
+        show: true,
+        action: () => {
+          onOpenChange(false, 'click-outside')
+        },
+      },
+      save: {
+        show: true,
+        action: () => {
+          const singleSelectOnChange = onSelectedChange as SelectPanelSingleSelection['onSelectedChange']
+          singleSelectOnChange(intermediateSelected)
+          onClose('selection')
+        },
+      },
+    },
+  }
+
   // We add a save and cancel button on narrow screens when SelectPanel is full-screen
   const showCancelSaveButtons = variant === 'modal' || (isMultiSelectVariant(selected) && usingFullScreenOnNarrow)
   const showXCloseIcon = variant === 'modal' || usingFullScreenOnNarrow
 
+  mode === 'single-modal'
   return (
     <>
       <AnchoredOverlay
@@ -519,17 +563,14 @@ export function SelectPanel({
                 </div>
               ) : null}
             </div>
-            {showXCloseIcon && (
+            {actionsByMode[mode].xbutton.show && (
               <IconButton
                 type="button"
                 variant="invisible"
                 icon={XIcon}
                 aria-label="Cancel and close"
                 className={classes.ResponsiveCloseButton}
-                onClick={() => {
-                  onCancel?.()
-                  onCancelRequested()
-                }}
+                onClick={actionsByMode[mode].xbutton.action}
               />
             )}
           </div>
@@ -551,7 +592,9 @@ export function SelectPanel({
             // we don't accidentally override props.aria-label
             aria-labelledby={listProps['aria-label'] ? undefined : titleId}
             aria-multiselectable={isMultiSelectVariant(selected) ? 'true' : 'false'}
-            selectionVariant={isSingleSelectModal ? 'radio' : isMultiSelectVariant(selected) ? 'multiple' : 'single'}
+            selectionVariant={
+              mode === 'single-modal' ? 'radio' : isMultiSelectVariant(selected) ? 'multiple' : 'single'
+            }
             items={itemsToRender}
             textInputProps={extendedTextInputProps}
             loading={loading || isLoading}
@@ -587,7 +630,7 @@ export function SelectPanel({
                 variant="primary"
                 size="medium"
                 onClick={() => {
-                  if (isSingleSelectModal) {
+                  if (mode === 'single-modal') {
                     const singleSelectOnChange = onSelectedChange as SelectPanelSingleSelection['onSelectedChange']
                     singleSelectOnChange(intermediateSelected)
                     onClose('selection')
