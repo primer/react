@@ -26,6 +26,8 @@ export type LegendOrSpanProps = BaseProps & {
 
 type Props = React.PropsWithChildren<LabelProps | LegendOrSpanProps>
 
+const Label = toggleSxComponent('label') as React.ComponentType<Props>
+
 function InputLabel({
   children,
   disabled,
@@ -40,9 +42,11 @@ function InputLabel({
   className,
   ...props
 }: Props) {
-  const Label = toggleSxComponent({sx}, as) as React.ComponentType<Props>
   return (
+    // @ts-ignore weird typing issue with union for `as` prop
     <Label
+      as={as}
+      sx={sx}
       data-control-disabled={disabled ? '' : undefined}
       data-visually-hidden={visuallyHidden ? '' : undefined}
       htmlFor={htmlFor}

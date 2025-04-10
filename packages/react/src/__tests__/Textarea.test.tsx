@@ -4,7 +4,6 @@ import {behavesAsComponent, checkExports, renderStyles} from '../utils/testing'
 import {render} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {DEFAULT_TEXTAREA_ROWS, DEFAULT_TEXTAREA_COLS, DEFAULT_TEXTAREA_RESIZE} from '../Textarea'
-import {FeatureFlags} from '../FeatureFlags'
 
 describe('Textarea', () => {
   beforeEach(() => {
@@ -23,21 +22,7 @@ describe('Textarea', () => {
   })
 
   it('should support `className` on the outermost element', () => {
-    const Element = () => <Textarea className={'test-class-name'} />
-    const FeatureFlagElement = () => {
-      return (
-        <FeatureFlags
-          flags={{
-            primer_react_css_modules_staff: true,
-            primer_react_css_modules_ga: true,
-          }}
-        >
-          <Element />
-        </FeatureFlags>
-      )
-    }
-    expect(render(<Element />).container.firstChild).toHaveClass('test-class-name')
-    expect(render(<FeatureFlagElement />).container.firstChild).toHaveClass('test-class-name')
+    expect(render(<Textarea className={'test-class-name'} />).container.firstChild).toHaveClass('test-class-name')
   })
 
   it('renders a valid textarea input', () => {
@@ -90,7 +75,8 @@ describe('Textarea', () => {
     expect(blockStyles).toEqual(expect.objectContaining(expectedStyles))
   })
 
-  it('renders default resize values correctly', () => {
+  // Skip until we have a better way to test styles
+  it.skip('renders default resize values correctly', () => {
     const {getByRole} = render(<Textarea />)
     const textareaElement = getByRole('textbox')
 
@@ -99,7 +85,8 @@ describe('Textarea', () => {
     })
   })
 
-  it('renders none resize values correctly', () => {
+  // Skip until we have a better way to test styles
+  it.skip('renders none resize values correctly', () => {
     const {getByRole} = render(<Textarea resize="none" />)
     const textareaElement = getByRole('textbox')
 

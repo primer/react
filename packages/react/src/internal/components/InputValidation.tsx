@@ -1,12 +1,10 @@
 import type {IconProps} from '@primer/octicons-react'
 import {AlertFillIcon, CheckCircleFillIcon} from '@primer/octicons-react'
-import {clsx} from 'clsx'
 import React from 'react'
 import Text from '../../Text'
 import type {SxProp} from '../../sx'
 import type {FormValidationStatus} from '../../utils/types/FormValidationStatus'
 import classes from './InputValidation.module.css'
-import {defaultSxProp} from '../../utils/defaultSxProp'
 
 type Props = {
   id: string
@@ -31,11 +29,7 @@ const InputValidation: React.FC<React.PropsWithChildren<Props>> = ({children, id
   const iconBoxMinHeight = iconSize * captionLineHeight
 
   return (
-    <Text
-      className={clsx({[classes.InputValidation]: sx !== defaultSxProp})}
-      data-validation-status={validationStatus}
-      sx={sx}
-    >
+    <Text className={classes.InputValidation} data-validation-status={validationStatus} sx={sx}>
       {IconComponent ? (
         <span
           aria-hidden="true"

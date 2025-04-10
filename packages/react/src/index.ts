@@ -204,3 +204,6 @@ export type {PageHeaderProps} from './PageHeader'
 
 export {default as sx, merge} from './sx'
 export type {BetterCssProperties, BetterSystemStyleObject, SxProp} from './sx'
+
+export {SkeletonBox} from './Skeleton'
+export type {SkeletonBoxProps} from './Skeleton'

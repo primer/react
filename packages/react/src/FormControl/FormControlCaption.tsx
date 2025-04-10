@@ -13,15 +13,17 @@ type FormControlCaptionProps = React.PropsWithChildren<
   } & SxProp
 >
 
+const Caption = toggleSxComponent(Text) as React.ComponentType<FormControlCaptionProps>
+
 function FormControlCaption({id, children, sx, className}: FormControlCaptionProps) {
   const {captionId, disabled} = useFormControlContext()
-  const Caption = toggleSxComponent(sx, Text) as React.ComponentType<FormControlCaptionProps>
 
   return (
     <Caption
       id={id ?? captionId}
       className={clsx(className, classes.Caption)}
       data-control-disabled={disabled ? '' : undefined}
+      sx={sx}
     >
       {children}
     </Caption>

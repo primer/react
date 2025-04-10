@@ -39,6 +39,12 @@
     },
     {
       "id": "components-statelabel-features--small"
+    },
+    {
+      "id": "components-statelabel-features--open"
+    },
+    {
+      "id": "components-statelabel-features--closed"
     }
   ],
   "importPath": "@primer/react",
@@ -50,7 +56,7 @@
     },
     {
       "name": "status",
-      "type": "'issueOpened' | 'issueClosed' | 'issueClosedNotPlanned' | 'pullOpened' | 'pullClosed' | 'pullMerged' | 'draft' | 'issueDraft' | 'unavailable'",
+      "type": "'issueOpened' | 'issueClosed' | 'issueClosedNotPlanned' | 'pullOpened' | 'pullClosed' | 'pullMerged' | 'draft' | 'issueDraft' | 'unavailable' | 'open' | 'closed'",
       "required": true
     },
     {
