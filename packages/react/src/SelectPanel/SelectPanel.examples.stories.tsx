@@ -77,6 +77,7 @@ export const HeightInitialWithOverflowingItemsStory = () => {
         onFilterChange={setFilter}
         overlayProps={{width: 'small', height: 'initial', maxHeight: 'xsmall'}}
         message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}
+        sortKey="text"
       />
     </FormControl>
   )
@@ -109,6 +110,7 @@ export const HeightInitialWithUnderflowingItemsStory = () => {
         showItemDividers={true}
         overlayProps={{width: 'small', height: 'initial', maxHeight: 'xsmall'}}
         message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}
+        sortKey="text"
       />
     </FormControl>
   )
@@ -154,6 +156,7 @@ export const HeightInitialWithUnderflowingItemsAfterFetch = () => {
         showItemDividers={true}
         overlayProps={{width: 'small', height, maxHeight: 'xsmall'}}
         message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}
+        sortKey="text"
       />
     </FormControl>
   )
@@ -183,6 +186,7 @@ export const AboveTallBody = () => {
         onFilterChange={setFilter}
         showItemDividers={true}
         message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}
+        sortKey="text"
       />
       <div
         style={{
@@ -233,6 +237,7 @@ export const HeightVariationsAndScroll = () => {
           showItemDividers={true}
           overlayProps={{height: 'medium'}}
           message={filteredItemsA.length === 0 ? NoResultsMessage(filter) : undefined}
+          sortKey="text"
         />
       </FormControl>
       <br />
@@ -257,6 +262,7 @@ export const HeightVariationsAndScroll = () => {
             maxHeight: 'medium',
           }}
           message={filteredItemsB.length === 0 ? NoResultsMessage(filter) : undefined}
+          sortKey="text"
         />
       </FormControl>
     </>
@@ -318,6 +324,7 @@ export const CustomItemRenderer = () => {
           </ActionList.Item>
         )}
         message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}
+        sortKey="text"
       />
     </FormControl>
   )
@@ -354,6 +361,7 @@ export const ItemsInScope = () => {
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}
+        sortKey="text"
       />
     </FormControl>
   )
@@ -400,6 +408,7 @@ export const RepositionAfterLoading = () => {
           onSelectedChange={setSelected}
           onFilterChange={setFilter}
           message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}
+          sortKey="text"
         />
       </Stack>
     </>
@@ -448,6 +457,7 @@ export const SelectPanelRepositionInsideDialog = () => {
           onFilterChange={setFilter}
           overlayProps={{anchorSide: 'outside-top'}}
           message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}
+          sortKey="text"
         />
       </Stack>
     </Dialog>

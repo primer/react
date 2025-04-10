@@ -96,6 +96,7 @@ export const Default = () => {
               }
             : undefined
         }
+        sortKey="text"
       />
     </FormControl>
   )

@@ -110,6 +110,7 @@ export const WithItemDividers = () => {
         showItemDividers={true}
         width="medium"
         message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}
+        sortKey="text"
       />
     </FormControl>
   )
@@ -142,6 +143,7 @@ export const WithPlaceholderForSearchInput = () => {
         onFilterChange={setFilter}
         width="medium"
         message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}
+        sortKey="text"
       />
     </FormControl>
   )
@@ -172,6 +174,7 @@ export const SingleSelect = () => {
         onCancel={() => setOpen(false)}
         width="medium"
         message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}
+        sortKey="text"
       />
     </FormControl>
   )
@@ -203,6 +206,7 @@ export const MultiSelect = () => {
         onFilterChange={setFilter}
         width="medium"
         message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}
+        sortKey="text"
       />
     </FormControl>
   )
@@ -232,6 +236,7 @@ export const WithExternalAnchor = () => {
         onFilterChange={setFilter}
         width="medium"
         message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}
+        sortKey="text"
       />
     </FormControl>
   )
@@ -267,6 +272,7 @@ export const WithFooter = () => {
         }
         width="medium"
         message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}
+        sortKey="text"
       />
     </FormControl>
   )
@@ -338,6 +344,7 @@ export const WithNotice = () => {
           overlayProps={{width: 'small', height: 'medium'}}
           width="medium"
           notice={noticeVariants[noticeVariant]}
+          sortKey="text"
         />
       </FormControl>
     </Stack>
@@ -417,6 +424,7 @@ export const WithGroups = () => {
         overlayProps={{width: 'large', height: 'xlarge'}}
         width="medium"
         message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}
+        sortKey="text"
       />
     </FormControl>
   )
@@ -448,6 +456,7 @@ export const WithLabelVisuallyHidden = () => {
         onFilterChange={setFilter}
         width="medium"
         message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}
+        sortKey="text"
       />
     </FormControl>
   )
@@ -482,6 +491,7 @@ export const WithLabelInternally = () => {
       onFilterChange={setFilter}
       width="medium"
       message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}
+      sortKey="text"
     />
   )
 }
@@ -537,6 +547,7 @@ export const AsyncFetch: StoryObj<SelectPanelProps> = {
         initialLoadingType={initialLoadingType}
         width="medium"
         message={filteredItems.length === 0 ? NoResultsMessage(query) : undefined}
+        sortKey="text"
       />
     )
   },
@@ -602,6 +613,7 @@ export const CustomisedNoInitialItems = () => {
         width="medium"
         height="large"
         message={getMessage()}
+        sortKey="text"
       />
     </>
   )
@@ -652,6 +664,7 @@ export const CustomisedNoResults: StoryObj<typeof SelectPanel> = {
         height={height}
         overlayProps={{maxHeight: height === 'auto' || height === 'initial' ? 'xlarge' : height}}
         message={filteredItems.length === 0 ? NoResultsMessage(filterValue) : undefined}
+        sortKey="text"
       />
     )
   },
@@ -702,6 +715,7 @@ export const WithOnCancel = () => {
         onCancel={() => setSelected(intialSelection)}
         onFilterChange={setFilter}
         width="medium"
+        sortKey="text"
       />
     </FormControl>
   )
