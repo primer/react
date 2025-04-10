@@ -218,14 +218,12 @@
 
       &::before {
         position: absolute;
-        bottom: 0;
-        width: calc(100% + var(--base-size-16));
-        margin-left: calc(-1 * var(--base-size-8));
+        /* stylelint-disable-next-line csstools/value-no-unknown-custom-properties */
+        height: var(--borderWidth-default);
         content: '';
-        /* stylelint-disable-next-line primer/borders */
-        border-bottom: 1px solid var(--borderColor-default);
-        border-bottom-right-radius: 0;
-        border-bottom-left-radius: 0;
+        /* stylelint-disable-next-line primer/colors */
+        background-color: var(--borderColor-default);
+        inset: 100% calc(-1 * var(--base-size-8));
       }
     }
 
