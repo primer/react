@@ -279,7 +279,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       '&[data-is-active-descendant]': {...activeStyles, fontWeight: 'normal'}, // SelectPanel
       // SelectPanel
       '&[data-last-selected]:not(:last-of-type)': {
-        'padding-bottom': '4px',
+        'padding-bottom': '10px',
 
         '&::before': {
           position: 'absolute',
