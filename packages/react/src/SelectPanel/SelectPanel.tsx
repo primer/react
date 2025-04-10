@@ -569,15 +569,17 @@ export function SelectPanel({
           ) : showCancelSaveButtons ? (
             /* Save and Cancel buttons are only useful for multiple selection, single selection instantly closes the panel */
             <div className={clsx(classes.Footer, classes.ResponsiveFooter)}>
-              <Button
-                size="medium"
-                onClick={() => {
-                  onCancel?.()
-                  onCancelRequested()
-                }}
-              >
-                Cancel
-              </Button>
+              {onCancel && (
+                <Button
+                  size="medium"
+                  onClick={() => {
+                    onCancel()
+                    onCancelRequested()
+                  }}
+                >
+                  Cancel
+                </Button>
+              )}
               <Button
                 variant="primary"
                 size="medium"
