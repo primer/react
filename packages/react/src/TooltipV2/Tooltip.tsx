@@ -81,6 +81,10 @@ const isInteractive = (element: HTMLElement) => {
 }
 export const TooltipContext = React.createContext<{tooltipId?: string}>({})
 
+const BaseComponent = toggleSxComponent('span') as React.ComponentType<
+  SxProp & React.HTMLAttributes<HTMLElement> & React.RefAttributes<HTMLSpanElement>
+>
+
 export const Tooltip = React.forwardRef(
   (
     {direction = 's', text, type = 'description', children, id, className, keybindingHint, ...rest}: TooltipProps,
@@ -235,10 +239,6 @@ export const Tooltip = React.forwardRef(
 
     const isMacOS = useIsMacOS()
     const hasAriaLabel = 'aria-label' in rest
-
-    const BaseComponent = toggleSxComponent('span') as React.ComponentType<
-      SxProp & React.HTMLAttributes<HTMLElement> & React.RefAttributes<HTMLSpanElement>
-    >
 
     return (
       <TooltipContext.Provider value={value}>
