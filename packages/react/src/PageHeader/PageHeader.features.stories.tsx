@@ -5,7 +5,7 @@ import {
   PencilIcon,
   SidebarExpandIcon,
   CommentDiscussionIcon,
-  CommitIcon,
+  GitCommitIcon,
   FileDiffIcon,
   ChecklistIcon,
   WorkflowIcon,
@@ -134,7 +134,7 @@ export const WithNavigationSlot = () => (
           <UnderlineNav.Item icon={CommentDiscussionIcon} counter="12" aria-current="page">
             Conversation
           </UnderlineNav.Item>
-          <UnderlineNav.Item counter={3} icon={CommitIcon}>
+          <UnderlineNav.Item counter={3} icon={GitCommitIcon}>
             Commits
           </UnderlineNav.Item>
           <UnderlineNav.Item counter={7} icon={ChecklistIcon}>
@@ -262,6 +262,16 @@ export const WithActionsThatHaveResponsiveContent = () => (
           <Button variant="primary">New</Button>
         </Hidden>
       </PageHeader.Actions>
+    </PageHeader>
+  </Box>
+)
+
+export const HasBottomBorder = () => (
+  <Box sx={{padding: 3}}>
+    <PageHeader role="banner" aria-label="Title" hasBorder>
+      <PageHeader.TitleArea>
+        <PageHeader.Title>Title</PageHeader.Title>
+      </PageHeader.TitleArea>
     </PageHeader>
   </Box>
 )

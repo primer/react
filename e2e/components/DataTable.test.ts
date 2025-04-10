@@ -2,202 +2,79 @@ import {test, expect} from '@playwright/test'
 import {visit} from '../test-helpers/storybook'
 import {themes} from '../test-helpers/themes'
 
+const stories = [
+  {
+    title: 'Default',
+    id: 'experimental-components-datatable--default',
+  },
+  {
+    title: 'With Title',
+    id: 'experimental-components-datatable-features--with-title',
+  },
+  {
+    title: 'With Title and Subtitle',
+    id: 'experimental-components-datatable-features--with-title-and-subtitle',
+  },
+  {
+    title: 'With Sorting',
+    id: 'experimental-components-datatable-features--with-sorting',
+  },
+  {
+    title: 'With Actions',
+    id: 'experimental-components-datatable-features--with-actions',
+  },
+  {
+    title: 'With Action',
+    id: 'experimental-components-datatable-features--with-action',
+  },
+  {
+    title: 'With Row Action',
+    id: 'experimental-components-datatable-features--with-row-action',
+  },
+  {
+    title: 'With Row Actions',
+    id: 'experimental-components-datatable-features--with-row-actions',
+  },
+  {
+    title: 'With Row Action Menu',
+    id: 'experimental-components-datatable-features--with-row-action-menu',
+  },
+  {
+    title: 'With Custom Heading',
+    id: 'experimental-components-datatable-features--with-custom-heading',
+  },
+  {
+    title: 'With Overflow',
+    id: 'experimental-components-datatable-features--with-overflow',
+  },
+] as const
+
 test.describe('DataTable', () => {
-  test.describe('Default', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'experimental-components-datatable--default',
-            globals: {
-              colorScheme: theme,
-            },
+  for (const story of stories) {
+    test.describe(story.title, () => {
+      for (const theme of themes) {
+        test.describe(theme, () => {
+          test('default @vrt', async ({page}) => {
+            await visit(page, {
+              id: story.id,
+              globals: {
+                colorScheme: theme,
+              },
+            })
+
+            // Default state
+            expect(
+              await page.screenshot({
+                mask: await page
+                  .locator('td', {
+                    has: page.locator('relative-time'),
+                  })
+                  .all(),
+              }),
+            ).toMatchSnapshot(`DataTable.${story.title}.${theme}.png`)
           })
-          await expect(page).toHaveNoViolations()
         })
-      })
-    }
-  })
-
-  test.describe('With Title', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'experimental-components-datatable-features--with-title',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations()
-        })
-      })
-    }
-  })
-
-  test.describe('With Title and Subtitle', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'experimental-components-datatable-features--with-title-and-subtitle',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations()
-        })
-      })
-    }
-  })
-
-  test.describe('With Sorting', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'experimental-components-datatable-features--with-sorting',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations()
-        })
-      })
-    }
-  })
-
-  test.describe('With Actions', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'experimental-components-datatable-features--with-actions',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations()
-        })
-      })
-    }
-  })
-
-  test.describe('With Action', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'experimental-components-datatable-features--with-action',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations()
-        })
-      })
-    }
-  })
-
-  test.describe('With Row Action', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'experimental-components-datatable-features--with-row-action',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations()
-        })
-      })
-    }
-  })
-
-  test.describe('With Row Actions', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'experimental-components-datatable-features--with-row-actions',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations()
-        })
-      })
-    }
-  })
-
-  test.describe('With Row Action Menu', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'experimental-components-datatable-features--with-row-action-menu',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations()
-        })
-      })
-    }
-  })
-
-  test.describe('With Custom Heading', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'experimental-components-datatable-features--with-custom-heading',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations()
-        })
-      })
-    }
-  })
-
-  test.describe('With Overflow', () => {
-    test('focusable region for overflow', async ({page}) => {
-      await visit(page, {
-        id: 'experimental-components-datatable-features--with-overflow',
-      })
-
-      const heading = page.getByRole('heading', {name: 'Repositories'})
-      const headingId = await heading.getAttribute('id')
-
-      const region = page.getByRole('region')
-      const table = region.getByRole('table')
-
-      const tabIndex = await region.getAttribute('tabindex')
-      const labelledby = await region.getAttribute('aria-labelledby')
-
-      await expect(region).toBeVisible()
-      expect(tabIndex).toBe('0')
-      expect(labelledby).toBe(headingId)
-
-      await expect(table).toBeVisible()
-      expect(labelledby).toBe(headingId)
+      }
     })
-
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'experimental-components-datatable-features--with-overflow',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations()
-        })
-      })
-    }
-  })
+  }
 })

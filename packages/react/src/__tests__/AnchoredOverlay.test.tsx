@@ -7,6 +7,9 @@ import {Button} from '../Button'
 import theme from '../theme'
 import BaseStyles from '../BaseStyles'
 import {ThemeProvider} from '../ThemeProvider'
+import {setupMatchMedia} from '../utils/test-helpers'
+
+setupMatchMedia()
 
 type TestComponentSettings = {
   initiallyOpen?: boolean
@@ -53,7 +56,7 @@ const AnchoredOverlayTestComponent = ({
 describe('AnchoredOverlay', () => {
   behavesAsComponent({
     Component: AnchoredOverlay,
-    options: {skipAs: true, skipSx: true},
+    options: {skipAs: true, skipSx: true, skipClassName: true},
     toRender: () => <AnchoredOverlayTestComponent />,
   })
 

@@ -2,7 +2,6 @@
 
 import {SunIcon, MoonIcon} from '@primer/octicons-react'
 import {Button, useTheme} from '@primer/react'
-import {clsx} from 'clsx'
 import classes from './ThemePreference.module.css'
 
 export function ThemePreference() {
@@ -30,8 +29,8 @@ export function ThemePreference() {
         })
       }}
     >
-      <SunIcon className={clsx(classes.icon, classes.light)} />
-      <MoonIcon className={clsx(classes.icon, classes.dark)} />
+      <SunIcon className={classes.Light} />
+      <MoonIcon className={classes.Dark} />
     </Button>
   )
 }

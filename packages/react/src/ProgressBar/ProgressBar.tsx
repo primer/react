@@ -21,7 +21,7 @@ const shimmer = keyframes`
   to { mask-position: 0%; }
 `
 
-const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_team'
+const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_ga'
 
 const ProgressItem = toggleStyledComponent(
   CSS_MODULES_FEATURE_FLAG,

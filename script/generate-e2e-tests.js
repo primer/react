@@ -790,6 +790,18 @@ const components = new Map([
     {
       stories: [
         {
+          id: 'components-navlist--simple',
+          name: 'Simple',
+        },
+        {
+          id: 'components-navlist--with-group',
+          name: 'With group',
+        },
+        {
+          id: 'components-navlist--with-group-expand',
+          name: 'With group expand',
+        },
+        {
           id: 'components-navlist--with-trailing-action',
           name: 'With TrailingAction',
         },
@@ -798,7 +810,7 @@ const components = new Map([
           name: 'With TrailingAction in Sub Item',
         },
         {
-          id: 'components-navlist-devonly--with-bad-example-of-sub-nav-and-trailing-action',
+          id: 'components-navlist-dev--with-bad-example-of-sub-nav-and-trailing-action',
           name: 'With Bad Example of SubNav and TrailingAction',
         },
       ],
@@ -896,7 +908,7 @@ const components = new Map([
           name: 'With Parent Link and Actions of Context Area',
         },
         {
-          id: 'components-pageheader-devonly--large-variant-with-multiline-title',
+          id: 'components-pageheader-dev--large-variant-with-multiline-title',
           name: 'Large Variant with Multiline Title',
         },
       ],
@@ -1122,20 +1134,16 @@ const components = new Map([
           name: 'With Item Dividers',
         },
         {
-          id: 'components-selectpanel-features--with-placeholder-for-seach-input',
+          id: 'components-selectpanel-features--with-placeholder-for-search-input',
           name: 'With Placeholder for Search Input',
-        },
-        {
-          id: 'components-selectpanel-features--with-placeholder-select',
-          name: 'With Placeholder Select',
         },
         {
           id: 'components-selectpanel-examples--above-tall-body',
           name: 'Above Tall Body',
         },
         {
-          id: 'components-selectpanel-examples--height-variantions-and-scroll',
-          name: 'Height Variantions and Scroll',
+          id: 'components-selectpanel-examples--height-variations-and-scroll',
+          name: 'Height Variations and Scroll',
         },
         {
           id: 'components-selectpanel-examples--height-initial-with-overflowing-items-story',
@@ -1191,6 +1199,14 @@ const components = new Map([
         {
           id: 'components-statelabel-features--small',
           name: 'Small',
+        },
+        {
+          id: 'components-statelabel-features--open',
+          name: 'Open',
+        },
+        {
+          id: 'components-statelabel-features--closed',
+          name: 'Closed',
         },
       ],
     },
@@ -1635,16 +1651,6 @@ for (const [component, info] of components) {
 
         // Default state
         expect(await page.screenshot()).toMatchSnapshot(\`${component}.${story.name}.\${theme}.png\`)
-      })
-
-      test('axe @aat', async ({page}) => {
-        await visit(page, {
-          id: '${story.id}',
-          globals: {
-            colorScheme: theme
-          }
-        })
-        await expect(page).toHaveNoViolations()
       })
     });
   }

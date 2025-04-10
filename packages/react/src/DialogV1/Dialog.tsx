@@ -15,7 +15,7 @@ import {useFeatureFlag} from '../FeatureFlags'
 import {clsx} from 'clsx'
 import classes from './Dialog.module.css'
 
-const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_team'
+const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_ga'
 
 // Dialog v1
 const noop = () => null

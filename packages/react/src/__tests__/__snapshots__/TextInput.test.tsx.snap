@@ -20,6 +20,7 @@ exports[`TextInput renders 1`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -109,8 +110,8 @@ exports[`TextInput renders 1`] = `
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 
@@ -255,6 +256,7 @@ exports[`TextInput renders block 1`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -344,8 +346,8 @@ exports[`TextInput renders block 1`] = `
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 
@@ -491,6 +493,7 @@ exports[`TextInput renders contrast 1`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -580,8 +583,8 @@ exports[`TextInput renders contrast 1`] = `
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 
@@ -727,6 +730,7 @@ exports[`TextInput renders error 1`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -816,8 +820,8 @@ exports[`TextInput renders error 1`] = `
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 
@@ -964,6 +968,7 @@ exports[`TextInput renders large 1`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -1053,8 +1058,8 @@ exports[`TextInput renders large 1`] = `
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 
@@ -1200,6 +1205,7 @@ exports[`TextInput renders leadingVisual 1`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -1289,8 +1295,8 @@ exports[`TextInput renders leadingVisual 1`] = `
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 
@@ -1413,14 +1419,13 @@ exports[`TextInput renders leadingVisual 1`] = `
     <svg
       aria-hidden="true"
       className="octicon octicon-search"
+      display="inline-block"
       fill="currentColor"
       focusable="false"
       height={16}
+      overflow="visible"
       style={
         {
-          "display": "inline-block",
-          "overflow": "visible",
-          "userSelect": "none",
           "verticalAlign": "text-bottom",
         }
       }
@@ -1465,6 +1470,7 @@ exports[`TextInput renders leadingVisual 2`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -1554,8 +1560,8 @@ exports[`TextInput renders leadingVisual 2`] = `
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 
@@ -1678,14 +1684,13 @@ exports[`TextInput renders leadingVisual 2`] = `
     <svg
       aria-hidden="true"
       className="octicon octicon-search"
+      display="inline-block"
       fill="currentColor"
       focusable="false"
       height={16}
+      overflow="visible"
       style={
         {
-          "display": "inline-block",
-          "overflow": "visible",
-          "userSelect": "none",
           "verticalAlign": "text-bottom",
         }
       }
@@ -1730,6 +1735,7 @@ exports[`TextInput renders leadingVisual 3`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -1819,8 +1825,8 @@ exports[`TextInput renders leadingVisual 3`] = `
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 
@@ -1977,6 +1983,7 @@ exports[`TextInput renders leadingVisual 4`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -2066,8 +2073,8 @@ exports[`TextInput renders leadingVisual 4`] = `
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 
@@ -2224,6 +2231,7 @@ exports[`TextInput renders monospace 1`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -2313,8 +2321,8 @@ exports[`TextInput renders monospace 1`] = `
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 
@@ -2460,6 +2468,7 @@ exports[`TextInput renders placeholder 1`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -2549,8 +2558,8 @@ exports[`TextInput renders placeholder 1`] = `
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 
@@ -2696,6 +2705,7 @@ exports[`TextInput renders small 1`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -2785,8 +2795,8 @@ exports[`TextInput renders small 1`] = `
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 
@@ -2917,297 +2927,6 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   margin-left: 4px;
   margin-right: 4px;
   line-height: 0;
-}
-
-.c4 {
-  border-radius: 6px;
-  border: 1px solid;
-  border-color: transparent;
-  font-family: inherit;
-  font-weight: 500;
-  font-size: 14px;
-  cursor: pointer;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  text-align: center;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-  height: 32px;
-  padding: 0 12px;
-  gap: 8px;
-  min-width: -webkit-max-content;
-  min-width: -moz-max-content;
-  min-width: max-content;
-  -webkit-transition: 80ms cubic-bezier(0.65,0,0.35,1);
-  transition: 80ms cubic-bezier(0.65,0,0.35,1);
-  -webkit-transition-property: color,fill,background-color,border-color;
-  transition-property: color,fill,background-color,border-color;
-  color: var(--button-invisible-fgColor-rest,var(--button-default-fgColor-rest,var(--color-btn-text,#24292f)));
-  background-color: transparent;
-  box-shadow: none;
-}
-
-.c4:focus:not(:disabled) {
-  box-shadow: none;
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline-offset: -2px;
-}
-
-.c4:focus:not(:disabled):not(:focus-visible) {
-  outline: solid 1px transparent;
-}
-
-.c4:focus-visible:not(:disabled) {
-  box-shadow: none;
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline-offset: -2px;
-}
-
-.c4[href] {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-}
-
-.c4[href]:hover {
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.c4:hover {
-  -webkit-transition-duration: 80ms;
-  transition-duration: 80ms;
-}
-
-.c4:active {
-  -webkit-transition: none;
-  transition: none;
-}
-
-.c4[data-inactive] {
-  cursor: auto;
-}
-
-.c4:disabled {
-  cursor: not-allowed;
-  box-shadow: none;
-  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
-  background-color: var(--button-invisible-bgColor-disabled,transparent);
-}
-
-.c4:disabled [data-component=ButtonCounter],
-.c4:disabled [data-component="leadingVisual"],
-.c4:disabled [data-component="trailingAction"] {
-  color: inherit;
-}
-
-.c4 [data-component=ButtonCounter] {
-  font-size: 12px;
-}
-
-.c4[data-component=IconButton] {
-  display: inline-grid;
-  padding: unset;
-  place-content: center;
-  width: 32px;
-  min-width: unset;
-}
-
-.c4[data-size="small"] {
-  padding: 0 8px;
-  height: 28px;
-  gap: 4px;
-  font-size: 12px;
-}
-
-.c4[data-size="small"] [data-component="text"] {
-  line-height: 1.6666667;
-}
-
-.c4[data-size="small"] [data-component=ButtonCounter] {
-  font-size: 12px;
-}
-
-.c4[data-size="small"] [data-component="buttonContent"] > :not(:last-child) {
-  margin-right: 4px;
-}
-
-.c4[data-size="small"][data-component=IconButton] {
-  width: 28px;
-  padding: unset;
-}
-
-.c4[data-size="large"] {
-  padding: 0 16px;
-  height: 40px;
-  gap: 8px;
-}
-
-.c4[data-size="large"] [data-component="buttonContent"] > :not(:last-child) {
-  margin-right: 8px;
-}
-
-.c4[data-size="large"][data-component=IconButton] {
-  width: 40px;
-  padding: unset;
-}
-
-.c4[data-block="block"] {
-  width: 100%;
-}
-
-.c4[data-label-wrap="true"] {
-  min-width: -webkit-fit-content;
-  min-width: -moz-fit-content;
-  min-width: fit-content;
-  height: unset;
-  min-height: var(--control-medium-size,2rem);
-}
-
-.c4[data-label-wrap="true"] [data-component="buttonContent"] {
-  -webkit-flex: 1 1 auto;
-  -ms-flex: 1 1 auto;
-  flex: 1 1 auto;
-  -webkit-align-self: stretch;
-  -ms-flex-item-align: stretch;
-  align-self: stretch;
-  padding-block: calc(var(--control-medium-paddingBlock,0.375rem) - 2px);
-}
-
-.c4[data-label-wrap="true"] [data-component="text"] {
-  white-space: unset;
-  word-break: break-word;
-}
-
-.c4[data-label-wrap="true"][data-size="small"] {
-  height: unset;
-  min-height: var(--control-small-size,1.75rem);
-}
-
-.c4[data-label-wrap="true"][data-size="small"] [data-component="buttonContent"] {
-  padding-block: calc(var(--control-small-paddingBlock,0.25rem) - 2px);
-}
-
-.c4[data-label-wrap="true"][data-size="large"] {
-  height: unset;
-  min-height: var(--control-large-size,2.5rem);
-  padding-inline: var(--control-large-paddingInline-spacious,1rem);
-}
-
-.c4[data-label-wrap="true"][data-size="large"] [data-component="buttonContent"] {
-  padding-block: calc(var(--control-large-paddingBlock,0.625rem) - 2px);
-}
-
-.c4[data-inactive]:not([disabled]) {
-  background-color: var(--button-inactive-bgColor,var(--button-inactive-bgColor-rest,var(--color-btn-inactive-bg,#eaeef2)));
-  border-color: var(--button-inactive-bgColor,var(--button-inactive-bgColor-rest,var(--color-btn-inactive-bg,#eaeef2)));
-  color: var(--button-inactive-fgColor,var(--button-inactive-fgColor-rest,var(--color-btn-inactive-text,#57606a)));
-}
-
-.c4[data-inactive]:not([disabled]):focus-visible {
-  box-shadow: none;
-}
-
-.c4 [data-component="leadingVisual"] {
-  grid-area: leadingVisual;
-  color: var(--button-invisible-iconColor-rest,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
-}
-
-.c4 [data-component="text"] {
-  grid-area: text;
-  line-height: 1.4285714;
-  white-space: nowrap;
-}
-
-.c4 [data-component="trailingVisual"] {
-  grid-area: trailingVisual;
-  color: var(--button-invisible-iconColor-rest,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
-}
-
-.c4 [data-component="trailingAction"] {
-  margin-right: -4px;
-  color: var(--button-invisible-iconColor-rest,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
-}
-
-.c4 [data-component="buttonContent"] {
-  -webkit-flex: 1 0 auto;
-  -ms-flex: 1 0 auto;
-  flex: 1 0 auto;
-  display: grid;
-  grid-template-areas: "leadingVisual text trailingVisual";
-  grid-template-columns: min-content minmax(0,auto) min-content;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-align-content: center;
-  -ms-flex-line-pack: center;
-  align-content: center;
-}
-
-.c4 [data-component="buttonContent"] > :not(:last-child) {
-  margin-right: 8px;
-}
-
-.c4 [data-component="loadingSpinner"] {
-  grid-area: text;
-  margin-right: 0px !important;
-  place-self: center;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-}
-
-.c4 [data-component="loadingSpinner"] + [data-component="text"] {
-  visibility: hidden;
-}
-
-.c4:hover:not([disabled]) {
-  background-color: var(--control-transparent-bgColor-hover,var(--color-action-list-item-default-hover-bg,rgba(208,215,222,0.32)));
-}
-
-.c4:active:not([disabled]) {
-  background-color: var(--control-transparent-bgColor-active,var(--color-action-list-item-default-active-bg,rgba(208,215,222,0.48)));
-}
-
-.c4[aria-expanded=true] {
-  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
-}
-
-.c4[data-component="IconButton"][data-no-visuals] {
-  color: var(--button-invisible-iconColor-rest,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
-}
-
-.c4[data-no-visuals] {
-  color: var(--button-invisible-fgColor-rest,var(--button-default-fgColor-rest,var(--color-btn-text,#24292f)));
-}
-
-.c4:has([data-component="ButtonCounter"]) {
-  color: var(--button-invisible-fgColor-rest,var(--button-default-fgColor-rest,var(--color-btn-text,#24292f)));
-}
-
-.c4:disabled[data-no-visuals] {
-  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
-}
-
-.c4:disabled[data-no-visuals] [data-component=ButtonCounter] {
-  color: inherit;
 }
 
 .c4[data-size="small"][data-no-visuals] {
@@ -3355,6 +3074,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -3444,8 +3164,8 @@ exports[`TextInput renders trailingAction icon button 1`] = `
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 
@@ -3546,12 +3266,6 @@ exports[`TextInput renders trailingAction icon button 1`] = `
 .c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
 .c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
   padding-right: var(--base-size-12);
-}
-
-@media (forced-colors:active) {
-  .c4:focus {
-    outline: solid 1px transparent;
-  }
 }
 
 @media (pointer:coarse) {
@@ -3601,30 +3315,31 @@ exports[`TextInput renders trailingAction icon button 1`] = `
     <button
       aria-describedby=":r2k:-loading-announcement"
       aria-labelledby=":r2j:"
-      className="c4 IconButton"
+      className="c4 ButtonBase IconButton"
       data-block={null}
       data-component="IconButton"
       data-loading={false}
       data-no-visuals={true}
       data-size="small"
+      data-variant="invisible"
       onBlur={[Function]}
       onClick={[MockFunction]}
       onFocus={[Function]}
-      onMouseEnter={[Function]}
       onMouseLeave={[Function]}
+      onMouseOverCapture={[Function]}
+      onTouchEnd={[Function]}
       type="button"
     >
       <svg
         aria-hidden="true"
         className="octicon octicon-search"
+        display="inline-block"
         fill="currentColor"
         focusable="false"
         height={16}
+        overflow="visible"
         style={
           {
-            "display": "inline-block",
-            "overflow": "visible",
-            "userSelect": "none",
             "verticalAlign": "text-bottom",
           }
         }
@@ -3657,304 +3372,6 @@ exports[`TextInput renders trailingAction text button 1`] = `
   line-height: 0;
 }
 
-.c5 {
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-}
-
-.c4 {
-  border-radius: 6px;
-  border: 1px solid;
-  border-color: transparent;
-  font-family: inherit;
-  font-weight: 500;
-  font-size: 14px;
-  cursor: pointer;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  text-align: center;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-  height: 32px;
-  padding: 0 12px;
-  gap: 8px;
-  min-width: -webkit-max-content;
-  min-width: -moz-max-content;
-  min-width: max-content;
-  -webkit-transition: 80ms cubic-bezier(0.65,0,0.35,1);
-  transition: 80ms cubic-bezier(0.65,0,0.35,1);
-  -webkit-transition-property: color,fill,background-color,border-color;
-  transition-property: color,fill,background-color,border-color;
-  color: var(--button-invisible-fgColor-rest,var(--button-default-fgColor-rest,var(--color-btn-text,#24292f)));
-  background-color: transparent;
-  box-shadow: none;
-}
-
-.c4:focus:not(:disabled) {
-  box-shadow: none;
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline-offset: -2px;
-}
-
-.c4:focus:not(:disabled):not(:focus-visible) {
-  outline: solid 1px transparent;
-}
-
-.c4:focus-visible:not(:disabled) {
-  box-shadow: none;
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline-offset: -2px;
-}
-
-.c4[href] {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-}
-
-.c4[href]:hover {
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.c4:hover {
-  -webkit-transition-duration: 80ms;
-  transition-duration: 80ms;
-}
-
-.c4:active {
-  -webkit-transition: none;
-  transition: none;
-}
-
-.c4[data-inactive] {
-  cursor: auto;
-}
-
-.c4:disabled {
-  cursor: not-allowed;
-  box-shadow: none;
-  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
-  background-color: var(--button-invisible-bgColor-disabled,transparent);
-}
-
-.c4:disabled [data-component=ButtonCounter],
-.c4:disabled [data-component="leadingVisual"],
-.c4:disabled [data-component="trailingAction"] {
-  color: inherit;
-}
-
-.c4 [data-component=ButtonCounter] {
-  font-size: 12px;
-}
-
-.c4[data-component=IconButton] {
-  display: inline-grid;
-  padding: unset;
-  place-content: center;
-  width: 32px;
-  min-width: unset;
-}
-
-.c4[data-size="small"] {
-  padding: 0 8px;
-  height: 28px;
-  gap: 4px;
-  font-size: 12px;
-}
-
-.c4[data-size="small"] [data-component="text"] {
-  line-height: 1.6666667;
-}
-
-.c4[data-size="small"] [data-component=ButtonCounter] {
-  font-size: 12px;
-}
-
-.c4[data-size="small"] [data-component="buttonContent"] > :not(:last-child) {
-  margin-right: 4px;
-}
-
-.c4[data-size="small"][data-component=IconButton] {
-  width: 28px;
-  padding: unset;
-}
-
-.c4[data-size="large"] {
-  padding: 0 16px;
-  height: 40px;
-  gap: 8px;
-}
-
-.c4[data-size="large"] [data-component="buttonContent"] > :not(:last-child) {
-  margin-right: 8px;
-}
-
-.c4[data-size="large"][data-component=IconButton] {
-  width: 40px;
-  padding: unset;
-}
-
-.c4[data-block="block"] {
-  width: 100%;
-}
-
-.c4[data-label-wrap="true"] {
-  min-width: -webkit-fit-content;
-  min-width: -moz-fit-content;
-  min-width: fit-content;
-  height: unset;
-  min-height: var(--control-medium-size,2rem);
-}
-
-.c4[data-label-wrap="true"] [data-component="buttonContent"] {
-  -webkit-flex: 1 1 auto;
-  -ms-flex: 1 1 auto;
-  flex: 1 1 auto;
-  -webkit-align-self: stretch;
-  -ms-flex-item-align: stretch;
-  align-self: stretch;
-  padding-block: calc(var(--control-medium-paddingBlock,0.375rem) - 2px);
-}
-
-.c4[data-label-wrap="true"] [data-component="text"] {
-  white-space: unset;
-  word-break: break-word;
-}
-
-.c4[data-label-wrap="true"][data-size="small"] {
-  height: unset;
-  min-height: var(--control-small-size,1.75rem);
-}
-
-.c4[data-label-wrap="true"][data-size="small"] [data-component="buttonContent"] {
-  padding-block: calc(var(--control-small-paddingBlock,0.25rem) - 2px);
-}
-
-.c4[data-label-wrap="true"][data-size="large"] {
-  height: unset;
-  min-height: var(--control-large-size,2.5rem);
-  padding-inline: var(--control-large-paddingInline-spacious,1rem);
-}
-
-.c4[data-label-wrap="true"][data-size="large"] [data-component="buttonContent"] {
-  padding-block: calc(var(--control-large-paddingBlock,0.625rem) - 2px);
-}
-
-.c4[data-inactive]:not([disabled]) {
-  background-color: var(--button-inactive-bgColor,var(--button-inactive-bgColor-rest,var(--color-btn-inactive-bg,#eaeef2)));
-  border-color: var(--button-inactive-bgColor,var(--button-inactive-bgColor-rest,var(--color-btn-inactive-bg,#eaeef2)));
-  color: var(--button-inactive-fgColor,var(--button-inactive-fgColor-rest,var(--color-btn-inactive-text,#57606a)));
-}
-
-.c4[data-inactive]:not([disabled]):focus-visible {
-  box-shadow: none;
-}
-
-.c4 [data-component="leadingVisual"] {
-  grid-area: leadingVisual;
-  color: var(--button-invisible-iconColor-rest,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
-}
-
-.c4 [data-component="text"] {
-  grid-area: text;
-  line-height: 1.4285714;
-  white-space: nowrap;
-}
-
-.c4 [data-component="trailingVisual"] {
-  grid-area: trailingVisual;
-  color: var(--button-invisible-iconColor-rest,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
-}
-
-.c4 [data-component="trailingAction"] {
-  margin-right: -4px;
-  color: var(--button-invisible-iconColor-rest,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
-}
-
-.c4 [data-component="buttonContent"] {
-  -webkit-flex: 1 0 auto;
-  -ms-flex: 1 0 auto;
-  flex: 1 0 auto;
-  display: grid;
-  grid-template-areas: "leadingVisual text trailingVisual";
-  grid-template-columns: min-content minmax(0,auto) min-content;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-align-content: center;
-  -ms-flex-line-pack: center;
-  align-content: center;
-}
-
-.c4 [data-component="buttonContent"] > :not(:last-child) {
-  margin-right: 8px;
-}
-
-.c4 [data-component="loadingSpinner"] {
-  grid-area: text;
-  margin-right: 0px !important;
-  place-self: center;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-}
-
-.c4 [data-component="loadingSpinner"] + [data-component="text"] {
-  visibility: hidden;
-}
-
-.c4:hover:not([disabled]) {
-  background-color: var(--control-transparent-bgColor-hover,var(--color-action-list-item-default-hover-bg,rgba(208,215,222,0.32)));
-}
-
-.c4:active:not([disabled]) {
-  background-color: var(--control-transparent-bgColor-active,var(--color-action-list-item-default-active-bg,rgba(208,215,222,0.48)));
-}
-
-.c4[aria-expanded=true] {
-  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
-}
-
-.c4[data-component="IconButton"][data-no-visuals] {
-  color: var(--button-invisible-iconColor-rest,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
-}
-
-.c4[data-no-visuals] {
-  color: var(--button-invisible-fgColor-rest,var(--button-default-fgColor-rest,var(--color-btn-text,#24292f)));
-}
-
-.c4:has([data-component="ButtonCounter"]) {
-  color: var(--button-invisible-fgColor-rest,var(--button-default-fgColor-rest,var(--color-btn-text,#24292f)));
-}
-
-.c4:disabled[data-no-visuals] {
-  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
-}
-
-.c4:disabled[data-no-visuals] [data-component=ButtonCounter] {
-  color: inherit;
-}
-
 .c4[data-size="medium"][data-no-visuals] {
   padding-top: 2px;
   padding-right: 4px;
@@ -3973,6 +3390,13 @@ exports[`TextInput renders trailingAction text button 1`] = `
 .c4[data-size="medium"][data-no-visuals][data-component="IconButton"] {
   width: var(--inner-action-size);
   height: var(--inner-action-size);
+}
+
+.c5 {
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
 }
 
 .c2 {
@@ -3994,6 +3418,7 @@ exports[`TextInput renders trailingAction text button 1`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -4083,8 +3508,8 @@ exports[`TextInput renders trailingAction text button 1`] = `
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 
@@ -4187,12 +3612,6 @@ exports[`TextInput renders trailingAction text button 1`] = `
   padding-right: var(--base-size-12);
 }
 
-@media (forced-colors:active) {
-  .c4:focus {
-    outline: solid 1px transparent;
-  }
-}
-
 @media (pointer:coarse) {
   .c4[data-size="medium"][data-no-visuals]:after {
     content: "";
@@ -4233,11 +3652,12 @@ exports[`TextInput renders trailingAction text button 1`] = `
   >
     <button
       aria-describedby=":r28:-loading-announcement"
-      className="c4"
+      className="c4 ButtonBase"
       data-block={null}
       data-loading={false}
       data-no-visuals={true}
       data-size="medium"
+      data-variant="invisible"
       onClick={[MockFunction]}
       style={
         {
@@ -4247,10 +3667,11 @@ exports[`TextInput renders trailingAction text button 1`] = `
       type="button"
     >
       <span
-        className="c5"
+        className="c5 ButtonContent"
         data-component="buttonContent"
       >
         <span
+          className="Label"
           data-component="text"
         >
           Clear
@@ -4266,304 +3687,6 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   margin-left: 4px;
   margin-right: 4px;
   line-height: 0;
-}
-
-.c5 {
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-}
-
-.c4 {
-  border-radius: 6px;
-  border: 1px solid;
-  border-color: transparent;
-  font-family: inherit;
-  font-weight: 500;
-  font-size: 14px;
-  cursor: pointer;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  text-align: center;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-  height: 32px;
-  padding: 0 12px;
-  gap: 8px;
-  min-width: -webkit-max-content;
-  min-width: -moz-max-content;
-  min-width: max-content;
-  -webkit-transition: 80ms cubic-bezier(0.65,0,0.35,1);
-  transition: 80ms cubic-bezier(0.65,0,0.35,1);
-  -webkit-transition-property: color,fill,background-color,border-color;
-  transition-property: color,fill,background-color,border-color;
-  color: var(--button-invisible-fgColor-rest,var(--button-default-fgColor-rest,var(--color-btn-text,#24292f)));
-  background-color: transparent;
-  box-shadow: none;
-}
-
-.c4:focus:not(:disabled) {
-  box-shadow: none;
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline-offset: -2px;
-}
-
-.c4:focus:not(:disabled):not(:focus-visible) {
-  outline: solid 1px transparent;
-}
-
-.c4:focus-visible:not(:disabled) {
-  box-shadow: none;
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline-offset: -2px;
-}
-
-.c4[href] {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-}
-
-.c4[href]:hover {
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.c4:hover {
-  -webkit-transition-duration: 80ms;
-  transition-duration: 80ms;
-}
-
-.c4:active {
-  -webkit-transition: none;
-  transition: none;
-}
-
-.c4[data-inactive] {
-  cursor: auto;
-}
-
-.c4:disabled {
-  cursor: not-allowed;
-  box-shadow: none;
-  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
-  background-color: var(--button-invisible-bgColor-disabled,transparent);
-}
-
-.c4:disabled [data-component=ButtonCounter],
-.c4:disabled [data-component="leadingVisual"],
-.c4:disabled [data-component="trailingAction"] {
-  color: inherit;
-}
-
-.c4 [data-component=ButtonCounter] {
-  font-size: 12px;
-}
-
-.c4[data-component=IconButton] {
-  display: inline-grid;
-  padding: unset;
-  place-content: center;
-  width: 32px;
-  min-width: unset;
-}
-
-.c4[data-size="small"] {
-  padding: 0 8px;
-  height: 28px;
-  gap: 4px;
-  font-size: 12px;
-}
-
-.c4[data-size="small"] [data-component="text"] {
-  line-height: 1.6666667;
-}
-
-.c4[data-size="small"] [data-component=ButtonCounter] {
-  font-size: 12px;
-}
-
-.c4[data-size="small"] [data-component="buttonContent"] > :not(:last-child) {
-  margin-right: 4px;
-}
-
-.c4[data-size="small"][data-component=IconButton] {
-  width: 28px;
-  padding: unset;
-}
-
-.c4[data-size="large"] {
-  padding: 0 16px;
-  height: 40px;
-  gap: 8px;
-}
-
-.c4[data-size="large"] [data-component="buttonContent"] > :not(:last-child) {
-  margin-right: 8px;
-}
-
-.c4[data-size="large"][data-component=IconButton] {
-  width: 40px;
-  padding: unset;
-}
-
-.c4[data-block="block"] {
-  width: 100%;
-}
-
-.c4[data-label-wrap="true"] {
-  min-width: -webkit-fit-content;
-  min-width: -moz-fit-content;
-  min-width: fit-content;
-  height: unset;
-  min-height: var(--control-medium-size,2rem);
-}
-
-.c4[data-label-wrap="true"] [data-component="buttonContent"] {
-  -webkit-flex: 1 1 auto;
-  -ms-flex: 1 1 auto;
-  flex: 1 1 auto;
-  -webkit-align-self: stretch;
-  -ms-flex-item-align: stretch;
-  align-self: stretch;
-  padding-block: calc(var(--control-medium-paddingBlock,0.375rem) - 2px);
-}
-
-.c4[data-label-wrap="true"] [data-component="text"] {
-  white-space: unset;
-  word-break: break-word;
-}
-
-.c4[data-label-wrap="true"][data-size="small"] {
-  height: unset;
-  min-height: var(--control-small-size,1.75rem);
-}
-
-.c4[data-label-wrap="true"][data-size="small"] [data-component="buttonContent"] {
-  padding-block: calc(var(--control-small-paddingBlock,0.25rem) - 2px);
-}
-
-.c4[data-label-wrap="true"][data-size="large"] {
-  height: unset;
-  min-height: var(--control-large-size,2.5rem);
-  padding-inline: var(--control-large-paddingInline-spacious,1rem);
-}
-
-.c4[data-label-wrap="true"][data-size="large"] [data-component="buttonContent"] {
-  padding-block: calc(var(--control-large-paddingBlock,0.625rem) - 2px);
-}
-
-.c4[data-inactive]:not([disabled]) {
-  background-color: var(--button-inactive-bgColor,var(--button-inactive-bgColor-rest,var(--color-btn-inactive-bg,#eaeef2)));
-  border-color: var(--button-inactive-bgColor,var(--button-inactive-bgColor-rest,var(--color-btn-inactive-bg,#eaeef2)));
-  color: var(--button-inactive-fgColor,var(--button-inactive-fgColor-rest,var(--color-btn-inactive-text,#57606a)));
-}
-
-.c4[data-inactive]:not([disabled]):focus-visible {
-  box-shadow: none;
-}
-
-.c4 [data-component="leadingVisual"] {
-  grid-area: leadingVisual;
-  color: var(--button-invisible-iconColor-rest,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
-}
-
-.c4 [data-component="text"] {
-  grid-area: text;
-  line-height: 1.4285714;
-  white-space: nowrap;
-}
-
-.c4 [data-component="trailingVisual"] {
-  grid-area: trailingVisual;
-  color: var(--button-invisible-iconColor-rest,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
-}
-
-.c4 [data-component="trailingAction"] {
-  margin-right: -4px;
-  color: var(--button-invisible-iconColor-rest,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
-}
-
-.c4 [data-component="buttonContent"] {
-  -webkit-flex: 1 0 auto;
-  -ms-flex: 1 0 auto;
-  flex: 1 0 auto;
-  display: grid;
-  grid-template-areas: "leadingVisual text trailingVisual";
-  grid-template-columns: min-content minmax(0,auto) min-content;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-align-content: center;
-  -ms-flex-line-pack: center;
-  align-content: center;
-}
-
-.c4 [data-component="buttonContent"] > :not(:last-child) {
-  margin-right: 8px;
-}
-
-.c4 [data-component="loadingSpinner"] {
-  grid-area: text;
-  margin-right: 0px !important;
-  place-self: center;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-}
-
-.c4 [data-component="loadingSpinner"] + [data-component="text"] {
-  visibility: hidden;
-}
-
-.c4:hover:not([disabled]) {
-  background-color: var(--control-transparent-bgColor-hover,var(--color-action-list-item-default-hover-bg,rgba(208,215,222,0.32)));
-}
-
-.c4:active:not([disabled]) {
-  background-color: var(--control-transparent-bgColor-active,var(--color-action-list-item-default-active-bg,rgba(208,215,222,0.48)));
-}
-
-.c4[aria-expanded=true] {
-  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
-}
-
-.c4[data-component="IconButton"][data-no-visuals] {
-  color: var(--button-invisible-iconColor-rest,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
-}
-
-.c4[data-no-visuals] {
-  color: var(--button-invisible-fgColor-rest,var(--button-default-fgColor-rest,var(--color-btn-text,#24292f)));
-}
-
-.c4:has([data-component="ButtonCounter"]) {
-  color: var(--button-invisible-fgColor-rest,var(--button-default-fgColor-rest,var(--color-btn-text,#24292f)));
-}
-
-.c4:disabled[data-no-visuals] {
-  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
-}
-
-.c4:disabled[data-no-visuals] [data-component=ButtonCounter] {
-  color: inherit;
 }
 
 .c4[data-size="medium"][data-no-visuals] {
@@ -4584,6 +3707,13 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 .c4[data-size="medium"][data-no-visuals][data-component="IconButton"] {
   width: var(--inner-action-size);
   height: var(--inner-action-size);
+}
+
+.c5 {
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
 }
 
 .c6 {
@@ -4712,6 +3842,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -4801,8 +3932,8 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 
@@ -4905,12 +4036,6 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   padding-right: var(--base-size-12);
 }
 
-@media (forced-colors:active) {
-  .c4:focus {
-    outline: solid 1px transparent;
-  }
-}
-
 @media (pointer:coarse) {
   .c4[data-size="medium"][data-no-visuals]:after {
     content: "";
@@ -4957,16 +4082,18 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   >
     <button
       aria-describedby=":r2e:-loading-announcement :r2d:"
-      className="c4"
+      className="c4 ButtonBase"
       data-block={null}
       data-loading={false}
       data-no-visuals={true}
       data-size="medium"
+      data-variant="invisible"
       onBlur={[Function]}
       onClick={[MockFunction]}
       onFocus={[Function]}
-      onMouseEnter={[Function]}
       onMouseLeave={[Function]}
+      onMouseOverCapture={[Function]}
+      onTouchEnd={[Function]}
       style={
         {
           "--button-color": "fg.subtle",
@@ -4975,10 +4102,11 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
       type="button"
     >
       <span
-        className="c5"
+        className="c5 ButtonContent"
         data-component="buttonContent"
       >
         <span
+          className="Label"
           data-component="text"
         >
           Clear
@@ -5020,6 +4148,7 @@ exports[`TextInput renders trailingVisual 1`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -5109,8 +4238,8 @@ exports[`TextInput renders trailingVisual 1`] = `
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 
@@ -5243,14 +4372,13 @@ exports[`TextInput renders trailingVisual 1`] = `
     <svg
       aria-hidden="true"
       className="octicon octicon-search"
+      display="inline-block"
       fill="currentColor"
       focusable="false"
       height={16}
+      overflow="visible"
       style={
         {
-          "display": "inline-block",
-          "overflow": "visible",
-          "userSelect": "none",
           "verticalAlign": "text-bottom",
         }
       }
@@ -5285,6 +4413,7 @@ exports[`TextInput renders trailingVisual 2`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -5374,8 +4503,8 @@ exports[`TextInput renders trailingVisual 2`] = `
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 
@@ -5508,14 +4637,13 @@ exports[`TextInput renders trailingVisual 2`] = `
     <svg
       aria-hidden="true"
       className="octicon octicon-search"
+      display="inline-block"
       fill="currentColor"
       focusable="false"
       height={16}
+      overflow="visible"
       style={
         {
-          "display": "inline-block",
-          "overflow": "visible",
-          "userSelect": "none",
           "verticalAlign": "text-bottom",
         }
       }
@@ -5550,6 +4678,7 @@ exports[`TextInput renders trailingVisual 3`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -5639,8 +4768,8 @@ exports[`TextInput renders trailingVisual 3`] = `
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 
@@ -5797,6 +4926,7 @@ exports[`TextInput renders trailingVisual 4`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -5886,8 +5016,8 @@ exports[`TextInput renders trailingVisual 4`] = `
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 
@@ -6035,8 +5165,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c5 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
   visibility: visible;
 }
 
@@ -6072,6 +5200,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -6161,8 +5290,8 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 
@@ -6304,7 +5433,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
         >
           <svg
             aria-hidden={true}
-            className="c5"
+            className="c5 SpinnerAnimation"
             fill="none"
             height="16px"
             sx={
@@ -6345,14 +5474,10 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c3 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
   visibility: visible;
 }
 
 .c6 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
   visibility: hidden;
 }
 
@@ -6388,6 +5513,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -6477,8 +5603,8 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 
@@ -6606,7 +5732,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
         >
           <svg
             aria-hidden={true}
-            className="c3"
+            className="c3 SpinnerAnimation"
             fill="none"
             height="16px"
             sx={
@@ -6664,7 +5790,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
         >
           <svg
             aria-hidden={true}
-            className="c6"
+            className="c6 SpinnerAnimation"
             fill="none"
             height="16px"
             sx={
@@ -6705,8 +5831,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c5 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
   visibility: visible;
 }
 
@@ -6742,6 +5866,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -6831,8 +5956,8 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 
@@ -6974,7 +6099,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
         >
           <svg
             aria-hidden={true}
-            className="c5"
+            className="c5 SpinnerAnimation"
             fill="none"
             height="16px"
             sx={
@@ -7019,14 +6144,10 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c7 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
   visibility: hidden;
 }
 
 .c4 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
   position: absolute;
   top: 0;
   height: 100%;
@@ -7067,6 +6188,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -7156,8 +6278,8 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 
@@ -7286,14 +6408,13 @@ exports[`TextInput renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-search"
+            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={16}
+            overflow="visible"
             style={
               {
-                "display": "inline-block",
-                "overflow": "visible",
-                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -7310,7 +6431,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
         >
           <svg
             aria-hidden={true}
-            className="c4"
+            className="c4 SpinnerAnimation"
             fill="none"
             height="32px"
             sx={
@@ -7373,7 +6494,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
         >
           <svg
             aria-hidden={true}
-            className="c7"
+            className="c7 SpinnerAnimation"
             fill="none"
             height="16px"
             sx={
@@ -7418,14 +6539,10 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c7 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
   visibility: hidden;
 }
 
 .c4 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
   position: absolute;
   top: 0;
   height: 100%;
@@ -7466,6 +6583,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -7555,8 +6673,8 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 
@@ -7685,14 +6803,13 @@ exports[`TextInput renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-search"
+            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={16}
+            overflow="visible"
             style={
               {
-                "display": "inline-block",
-                "overflow": "visible",
-                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -7709,7 +6826,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
         >
           <svg
             aria-hidden={true}
-            className="c4"
+            className="c4 SpinnerAnimation"
             fill="none"
             height="32px"
             sx={
@@ -7772,7 +6889,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
         >
           <svg
             aria-hidden={true}
-            className="c7"
+            className="c7 SpinnerAnimation"
             fill="none"
             height="16px"
             sx={
@@ -7817,14 +6934,10 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c7 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
   visibility: visible;
 }
 
 .c4 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
   position: absolute;
   top: 0;
   height: 100%;
@@ -7865,6 +6978,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -7954,8 +7068,8 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 
@@ -8085,14 +7199,13 @@ exports[`TextInput renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-search"
+            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={16}
+            overflow="visible"
             style={
               {
-                "display": "inline-block",
-                "overflow": "visible",
-                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -8109,7 +7222,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
         >
           <svg
             aria-hidden={true}
-            className="c4"
+            className="c4 SpinnerAnimation"
             fill="none"
             height="32px"
             sx={
@@ -8172,7 +7285,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
         >
           <svg
             aria-hidden={true}
-            className="c7"
+            className="c7 SpinnerAnimation"
             fill="none"
             height="16px"
             sx={
@@ -8217,8 +7330,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c6 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
   position: absolute;
   top: 0;
   height: 100%;
@@ -8259,6 +7370,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -8348,8 +7460,8 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 
@@ -8492,14 +7604,13 @@ exports[`TextInput renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-search"
+            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={16}
+            overflow="visible"
             style={
               {
-                "display": "inline-block",
-                "overflow": "visible",
-                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -8516,7 +7627,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
         >
           <svg
             aria-hidden={true}
-            className="c6"
+            className="c6 SpinnerAnimation"
             fill="none"
             height="32px"
             sx={
@@ -8566,14 +7677,10 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c3 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
   visibility: visible;
 }
 
 .c7 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
   position: absolute;
   top: 0;
   height: 100%;
@@ -8614,6 +7721,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -8703,8 +7811,8 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 
@@ -8833,7 +7941,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
         >
           <svg
             aria-hidden={true}
-            className="c3"
+            className="c3 SpinnerAnimation"
             fill="none"
             height="16px"
             sx={
@@ -8892,14 +8000,13 @@ exports[`TextInput renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-search"
+            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={16}
+            overflow="visible"
             style={
               {
-                "display": "inline-block",
-                "overflow": "visible",
-                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -8916,7 +8023,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
         >
           <svg
             aria-hidden={true}
-            className="c7"
+            className="c7 SpinnerAnimation"
             fill="none"
             height="32px"
             sx={
@@ -8966,8 +8073,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c6 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
   position: absolute;
   top: 0;
   height: 100%;
@@ -9008,6 +8113,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -9097,8 +8203,8 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 
@@ -9241,14 +8347,13 @@ exports[`TextInput renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-search"
+            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={16}
+            overflow="visible"
             style={
               {
-                "display": "inline-block",
-                "overflow": "visible",
-                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -9265,7 +8370,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
         >
           <svg
             aria-hidden={true}
-            className="c6"
+            className="c6 SpinnerAnimation"
             fill="none"
             height="32px"
             sx={
@@ -9319,8 +8424,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c4 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
   position: absolute;
   top: 0;
   height: 100%;
@@ -9330,8 +8433,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c8 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
   position: absolute;
   top: 0;
   height: 100%;
@@ -9372,6 +8473,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -9461,8 +8563,8 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 
@@ -9593,14 +8695,13 @@ exports[`TextInput renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-search"
+            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={16}
+            overflow="visible"
             style={
               {
-                "display": "inline-block",
-                "overflow": "visible",
-                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -9617,7 +8718,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
         >
           <svg
             aria-hidden={true}
-            className="c4"
+            className="c4 SpinnerAnimation"
             fill="none"
             height="32px"
             sx={
@@ -9681,14 +8782,13 @@ exports[`TextInput renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-search"
+            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={16}
+            overflow="visible"
             style={
               {
-                "display": "inline-block",
-                "overflow": "visible",
-                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -9705,7 +8805,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
         >
           <svg
             aria-hidden={true}
-            className="c8"
+            className="c8 SpinnerAnimation"
             fill="none"
             height="32px"
             sx={
@@ -9759,8 +8859,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c4 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
   position: absolute;
   top: 0;
   height: 100%;
@@ -9770,8 +8868,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c8 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
   position: absolute;
   top: 0;
   height: 100%;
@@ -9812,6 +8908,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -9901,8 +8998,8 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 
@@ -10032,14 +9129,13 @@ exports[`TextInput renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-search"
+            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={16}
+            overflow="visible"
             style={
               {
-                "display": "inline-block",
-                "overflow": "visible",
-                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -10056,7 +9152,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
         >
           <svg
             aria-hidden={true}
-            className="c4"
+            className="c4 SpinnerAnimation"
             fill="none"
             height="32px"
             sx={
@@ -10120,14 +9216,13 @@ exports[`TextInput renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-search"
+            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={16}
+            overflow="visible"
             style={
               {
-                "display": "inline-block",
-                "overflow": "visible",
-                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -10144,7 +9239,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
         >
           <svg
             aria-hidden={true}
-            className="c8"
+            className="c8 SpinnerAnimation"
             fill="none"
             height="32px"
             sx={
@@ -10198,8 +9293,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c4 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
   position: absolute;
   top: 0;
   height: 100%;
@@ -10209,8 +9302,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c8 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
   position: absolute;
   top: 0;
   height: 100%;
@@ -10251,6 +9342,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -10340,8 +9432,8 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 
@@ -10472,14 +9564,13 @@ exports[`TextInput renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-search"
+            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={16}
+            overflow="visible"
             style={
               {
-                "display": "inline-block",
-                "overflow": "visible",
-                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -10496,7 +9587,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
         >
           <svg
             aria-hidden={true}
-            className="c4"
+            className="c4 SpinnerAnimation"
             fill="none"
             height="32px"
             sx={
@@ -10560,14 +9651,13 @@ exports[`TextInput renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-search"
+            display="inline-block"
             fill="currentColor"
             focusable="false"
             height={16}
+            overflow="visible"
             style={
               {
-                "display": "inline-block",
-                "overflow": "visible",
-                "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
             }
@@ -10584,7 +9674,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
         >
           <svg
             aria-hidden={true}
-            className="c8"
+            className="c8 SpinnerAnimation"
             fill="none"
             height="32px"
             sx={
@@ -10644,6 +9734,7 @@ exports[`TextInput should render a password input 1`] = `
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
+  cursor: text;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
   border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
   border-radius: 6px;
@@ -10733,8 +9824,8 @@ exports[`TextInput should render a password input 1`] = `
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
 .c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
   outline-offset: -1px;
 }
 

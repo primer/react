@@ -1,7 +1,6 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
 import {figma} from '@figma/code-connect'
 import {IconButton} from '../../src'
+import type {VariantType} from './types'
 import React from 'react'
 
 figma.connect(
@@ -9,12 +8,11 @@ figma.connect(
   'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?node-id=30468-5843&t=eGzObFz2btFEDDNj-4',
   {
     props: {
-      icon: figma.instance('icon'),
-      variant: figma.enum('variant', {
+      icon: figma.instance('icon').getProps<{name: string; fn: React.FC}>(),
+      variant: figma.enum<VariantType>('variant', {
         primary: 'primary',
-        secondary: 'secondary',
+        secondary: 'default',
         danger: 'danger',
-        outline: 'outline',
         invisible: 'invisible',
       }),
       size: figma.enum('size', {
@@ -25,7 +23,7 @@ figma.connect(
       ariaLabel: figma.string('aria-label'),
     },
     example: ({icon, ariaLabel, variant, size}) => (
-      <IconButton variant={variant} icon={icon} aria-label={ariaLabel} size={size} />
+      <IconButton variant={variant} icon={icon.fn} aria-label={ariaLabel} size={size} />
     ),
   },
 )

@@ -1,7 +1,5 @@
 import type {Meta} from '@storybook/react'
 import React, {forwardRef} from 'react'
-import {DndProvider, useDrag, useDrop} from 'react-dnd'
-import {HTML5Backend} from 'react-dnd-html5-backend'
 import {
   TypographyIcon,
   StarIcon,
@@ -13,7 +11,6 @@ import {
   LinkIcon,
   XIcon,
 } from '@primer/octicons-react'
-import type {ActionListItemProps} from '.'
 import {ActionList} from '.'
 import TextInput from '../TextInput'
 import Spinner from '../Spinner'
@@ -22,6 +19,7 @@ import Text from '../Text'
 import FormControl from '../FormControl'
 import {AriaStatus} from '../live-region'
 import {VisuallyHidden} from '../VisuallyHidden'
+import {ReactRouterLikeLink} from '../__tests__/mocks/ReactRouterLink'
 
 const meta: Meta = {
   title: 'Components/ActionList/Examples',
@@ -33,17 +31,6 @@ const meta: Meta = {
   },
 }
 export default meta
-
-type ReactRouterLikeLinkProps = {to: string; children: React.ReactNode}
-const ReactRouterLikeLink = forwardRef<HTMLAnchorElement, ReactRouterLikeLinkProps>(
-  ({to, children, ...props}: {to: string; children: React.ReactNode}, ref) => {
-    return (
-      <a ref={ref} href={to} {...props}>
-        {children}
-      </a>
-    )
-  },
-)
 
 const NextJSLikeLink = forwardRef(
   ({href, children}: {href: string; children: React.ReactNode}, ref): React.ReactElement => {
@@ -94,9 +81,21 @@ export const ListLinkItem = () => (
       <ActionList.LeadingVisual>
         <LinkIcon />
       </ActionList.LeadingVisual>
-      ActionList.LinkItem with everything
+      With inline description
       <ActionList.Description variant="inline">inline description</ActionList.Description>
+    </ActionList.LinkItem>
+    <ActionList.LinkItem href="?path=/story/components-actionlist--default">
+      <ActionList.LeadingVisual>
+        <LinkIcon />
+      </ActionList.LeadingVisual>
+      With block description
       <ActionList.Description variant="block">Block description</ActionList.Description>
+    </ActionList.LinkItem>
+    <ActionList.LinkItem href="?path=/story/components-actionlist--default">
+      <ActionList.LeadingVisual>
+        <LinkIcon />
+      </ActionList.LeadingVisual>
+      Trailing visual
       <ActionList.TrailingVisual>⌘ + L</ActionList.TrailingVisual>
     </ActionList.LinkItem>
   </ActionList>
@@ -236,127 +235,6 @@ export function AsyncListWithSpinner(): JSX.Element {
         )}
       </ActionList>
     </>
-  )
-}
-
-type Option = {text: string; icon: React.ReactNode; selected: boolean}
-export function MemexSortable(): JSX.Element {
-  const [options, setOptions] = React.useState<Option[]>([
-    {text: 'Status', icon: <IssueOpenedIcon />, selected: true},
-    {text: 'Stage', icon: <TableIcon />, selected: true},
-    {text: 'Assignee', icon: <PeopleIcon />, selected: true},
-    {text: 'Team', icon: <TypographyIcon />, selected: true},
-    {text: 'Estimate', icon: <NumberIcon />, selected: false},
-    {text: 'Due Date', icon: <CalendarIcon />, selected: false},
-  ])
-
-  const toggle = (text: string) => {
-    setOptions(
-      options.map(option => {
-        if (option.text === text) option.selected = !option.selected
-        return option
-      }),
-    )
-  }
-
-  const reorder = ({optionToMove, moveAfterOption}: {optionToMove: Option; moveAfterOption: Option}) => {
-    setOptions(currentOptions => {
-      const newOptions = [...currentOptions]
-      // remove option to move
-      const currentPosition = newOptions.findIndex(o => o.text === optionToMove.text)
-      newOptions.splice(currentPosition, 1)
-      // add it after the provided element
-      const newPosition = newOptions.findIndex(o => o.text === moveAfterOption.text) + 1
-      newOptions.splice(newPosition, 0, optionToMove)
-      return newOptions
-    })
-  }
-
-  const visibleOptions = options.filter(option => option.selected)
-  const hiddenOptions = options.filter(option => !option.selected)
-
-  return (
-    // @ts-ignore react-dnd needs to be updated to support React 18
-    <DndProvider backend={HTML5Backend}>
-      <ActionList selectionVariant="multiple" role="menu">
-        <ActionList.Group>
-          <ActionList.GroupHeading>Visible fields (can be reordered)</ActionList.GroupHeading>
-          {visibleOptions.map(option => (
-            <SortableItem
-              key={option.text}
-              role="menuitemcheckbox"
-              option={option}
-              onSelect={() => toggle(option.text)}
-              reorder={reorder}
-            />
-          ))}
-        </ActionList.Group>
-        <ActionList.Group
-          selectionVariant={
-            /** selectionVariant override on Group: disable selection if there are no options */
-            hiddenOptions.length ? 'multiple' : false
-          }
-        >
-          <ActionList.GroupHeading>Hidden fields</ActionList.GroupHeading>
-          {hiddenOptions.map((option, index) => (
-            <ActionList.Item
-              key={index}
-              role="menuitemcheckbox"
-              selected={option.selected}
-              onSelect={() => toggle(option.text)}
-            >
-              <ActionList.LeadingVisual>{option.icon}</ActionList.LeadingVisual>
-              {option.text}
-            </ActionList.Item>
-          ))}
-          {hiddenOptions.length === 0 && <ActionList.Item disabled>No hidden fields</ActionList.Item>}
-        </ActionList.Group>
-      </ActionList>
-    </DndProvider>
-  )
-}
-MemexSortable.storyName = 'Memex Sortable List'
-
-type SortableItemProps = {
-  option: Option
-  role: ActionListItemProps['role']
-  onSelect: ActionListItemProps['onSelect']
-  reorder: ({optionToMove, moveAfterOption}: {optionToMove: Option; moveAfterOption: Option}) => void
-}
-const SortableItem: React.FC<React.PropsWithChildren<SortableItemProps>> = ({option, role, onSelect, reorder}) => {
-  const [{isDragging}, dragRef] = useDrag(() => ({
-    type: 'ITEM',
-    item: option,
-    collect: monitor => {
-      return {isDragging: monitor.isDragging()}
-    },
-  }))
-
-  const [{isOver}, dropRef] = useDrop(() => ({
-    accept: 'ITEM',
-    collect: monitor => {
-      return {isOver: monitor.isOver()}
-    },
-    drop: (optionDropped: Option) => {
-      reorder({optionToMove: optionDropped, moveAfterOption: option})
-    },
-  }))
-
-  return (
-    <ActionList.Item
-      role={role}
-      ref={element => dragRef(element) && dropRef(element)} // merge refs
-      selected={option.selected}
-      onSelect={onSelect}
-      sx={{
-        opacity: isDragging ? 0.5 : 1,
-        boxShadow: isOver ? theme => `0px 2px 0 0px ${theme.colors.accent.emphasis}` : undefined,
-        borderRadius: isOver ? 0 : 2,
-      }}
-    >
-      <ActionList.LeadingVisual>{option.icon}</ActionList.LeadingVisual>
-      {option.text}
-    </ActionList.Item>
   )
 }
 

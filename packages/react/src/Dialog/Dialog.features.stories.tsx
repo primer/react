@@ -123,7 +123,7 @@ export const StressTest = ({width, height, subtitle}: DialogStoryProps) => {
   const onDialogClose = useCallback(() => setIsOpen(false), [])
   const onSecondDialogClose = useCallback(() => setSecondOpen(false), [])
   const openSecondDialog = useCallback(() => setSecondOpen(true), [])
-  const manyButtons = new Array(10).fill(undefined).map((_, i) => ({content: `Button ${i}`}))
+  const manyButtons = new Array(7).fill(undefined).map((_, i) => ({content: `Button ${i}`}))
   return (
     <>
       <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
@@ -145,6 +145,7 @@ export const StressTest = ({width, height, subtitle}: DialogStoryProps) => {
             {buttonType: 'danger', content: 'Delete the universe', onClick: onDialogClose},
             {buttonType: 'primary', content: 'Proceed', onClick: openSecondDialog},
           ]}
+          position={{narrow: 'fullscreen', regular: 'center'}}
         >
           {lipsum}
           {secondOpen && (

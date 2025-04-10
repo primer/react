@@ -1,13 +1,9 @@
-import styled from 'styled-components'
 import type {SxProp} from '../sx'
-import sx from '../sx'
-import {toggleStyledComponent} from '../internal/utils/toggleStyledComponent'
 import {clsx} from 'clsx'
-import {useFeatureFlag} from '../FeatureFlags'
 import React, {type HTMLAttributes} from 'react'
 import classes from './VisuallyHidden.module.css'
-
-const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_staff'
+import {defaultSxProp} from '../utils/defaultSxProp'
+import Box from '../Box'
 
 /**
  * Provides a component that implements the "visually hidden" technique. This is
@@ -19,29 +15,19 @@ const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_staff'
  *
  * @see https://www.scottohara.me/blog/2023/03/21/visually-hidden-hack.html
  */
-const StyledVisuallyHidden = toggleStyledComponent(
-  CSS_MODULES_FEATURE_FLAG,
-  'span',
-  styled.span<SxProp>`
-    &:not(:focus):not(:active):not(:focus-within) {
-      clip-path: inset(50%);
-      height: 1px;
-      overflow: hidden;
-      position: absolute;
-      white-space: nowrap;
-      width: 1px;
-    }
+export const VisuallyHidden = ({className, children, sx: sxProp = defaultSxProp, ...rest}: VisuallyHiddenProps) => {
+  if (sxProp !== defaultSxProp) {
+    return (
+      <Box sx={sxProp} className={clsx(className, classes.VisuallyHidden)} {...rest}>
+        {children}
+      </Box>
+    )
+  }
 
-    ${sx}
-  `,
-)
-
-export const VisuallyHidden = ({className, children, ...rest}: VisuallyHiddenProps) => {
-  const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
   return (
-    <StyledVisuallyHidden className={clsx(className, enabled && classes.VisuallyHidden)} {...rest}>
+    <span className={clsx(className, classes.VisuallyHidden)} {...rest}>
       {children}
-    </StyledVisuallyHidden>
+    </span>
   )
 }
 

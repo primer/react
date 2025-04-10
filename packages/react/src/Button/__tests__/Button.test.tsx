@@ -32,7 +32,6 @@ describe('IconButton', () => {
       return (
         <FeatureFlags
           flags={{
-            primer_react_css_modules_team: true,
             primer_react_css_modules_staff: true,
             primer_react_css_modules_ga: true,
           }}
@@ -53,7 +52,6 @@ describe('LinkButton', () => {
       return (
         <FeatureFlags
           flags={{
-            primer_react_css_modules_team: true,
             primer_react_css_modules_staff: true,
             primer_react_css_modules_ga: true,
           }}
@@ -79,7 +77,6 @@ describe('Button', () => {
       return (
         <FeatureFlags
           flags={{
-            primer_react_css_modules_team: true,
             primer_react_css_modules_staff: true,
             primer_react_css_modules_ga: true,
           }}
@@ -341,7 +338,7 @@ describe('Button', () => {
   })
   it('should append the keyshortcuts to the tooltip text that labels the icon button when keyshortcuts prop is passed', () => {
     const {getByRole} = render(<IconButton icon={HeartIcon} aria-label="Heart" keyshortcuts="Command+H" />)
-    const triggerEl = getByRole('button', {name: 'Heart ( command h )'})
+    const triggerEl = getByRole('button', {name: 'Heart (command h)'})
     expect(triggerEl).toBeInTheDocument()
   })
   it('should render aria-keyshortcuts on an icon button when keyshortcuts prop is passed (Description Type)', () => {
@@ -356,6 +353,6 @@ describe('Button', () => {
       <IconButton icon={HeartIcon} aria-label="Heart" description="Love is all around" keyshortcuts="Command+H" />,
     )
     const triggerEl = getByRole('button', {name: 'Heart'})
-    expect(triggerEl).toHaveAccessibleDescription('Love is all around ( command h )')
+    expect(triggerEl).toHaveAccessibleDescription('Love is all around (command h)')
   })
 })

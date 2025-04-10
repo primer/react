@@ -19,7 +19,7 @@ import {ActionListContainerContext} from '../../ActionList/ActionListContainerCo
 import {useSlots} from '../../hooks/useSlots'
 import {useProvidedRefOrCreate, useId, useAnchoredPosition} from '../../hooks'
 import type {OverlayProps} from '../../Overlay/Overlay'
-import {StyledOverlay, heightMap} from '../../Overlay/Overlay'
+import {BaseOverlay, heightMap} from '../../Overlay/Overlay'
 import {InputLabel} from '../../internal/components/InputLabel'
 import {invariant} from '../../utils/invariant'
 import {AriaStatus} from '../../live-region'
@@ -29,8 +29,9 @@ import {clsx} from 'clsx'
 import {useFeatureFlag} from '../../FeatureFlags'
 
 import classes from './SelectPanel.module.css'
+import type {PositionSettings} from '@primer/behaviors'
 
-const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_team'
+const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_ga'
 
 const SelectPanelContext = React.createContext<{
   title: string
@@ -66,6 +67,7 @@ export type SelectPanelProps = {
   defaultOpen?: boolean
   open?: boolean
   anchorRef?: React.RefObject<HTMLButtonElement>
+  anchoredPositionSettings?: Partial<PositionSettings>
 
   onCancel?: () => void
   onClearSelection?: undefined | (() => void)
@@ -89,6 +91,7 @@ const Panel: React.FC<SelectPanelProps> = ({
   defaultOpen = false,
   open: propsOpen,
   anchorRef: providedAnchorRef,
+  anchoredPositionSettings,
 
   onCancel: propsOnCancel,
   onClearSelection: propsOnClearSelection,
@@ -228,11 +231,12 @@ const Panel: React.FC<SelectPanelProps> = ({
       floatingElementRef: dialogRef,
       side: 'outside-bottom',
       align: 'start',
+      ...anchoredPositionSettings,
     },
     [internalOpen, anchorRef.current, dialogRef.current],
   )
 
-  /* 
+  /*
     We want to cancel and close the panel when user clicks outside.
     See decision log: https://github.com/github/primer/discussions/2614#discussioncomment-8544561
   */
@@ -249,7 +253,7 @@ const Panel: React.FC<SelectPanelProps> = ({
     <>
       {Anchor}
 
-      <StyledOverlay
+      <BaseOverlay
         as="dialog"
         ref={dialogRef}
         aria-labelledby={`${panelId}--title`}
@@ -267,7 +271,6 @@ const Panel: React.FC<SelectPanelProps> = ({
                 border: 'none',
                 padding: 0,
                 color: 'fg.default',
-                '&[open]': {display: 'flex'}, // to fit children
 
                 '&[data-variant="anchored"], &[data-variant="full-screen"]': {
                   margin: 0,
@@ -309,12 +312,17 @@ const Panel: React.FC<SelectPanelProps> = ({
                 '--max-height': maxHeightValue,
                 '--position-top': `${position?.top ?? 0}px`,
                 '--position-left': `${position?.left ?? 0}px`,
+                visibility: internalOpen ? 'visible' : 'hidden',
+                display: 'flex',
               } as React.CSSProperties)
-            : undefined
+            : {
+                visibility: internalOpen ? 'visible' : 'hidden',
+                display: 'flex',
+              }
         }
         className={enabled ? classes.Overlay : undefined}
         {...props}
-        onClick={event => {
+        onClick={(event: React.MouseEvent<HTMLElement>) => {
           if (event.target === event.currentTarget) onClickOutside()
         }}
       >
@@ -378,7 +386,7 @@ const Panel: React.FC<SelectPanelProps> = ({
             </SelectPanelContext.Provider>
           </>
         )}
-      </StyledOverlay>
+      </BaseOverlay>
     </>
   )
 }
@@ -468,7 +476,7 @@ const SelectPanelHeader: React.FC<React.ComponentPropsWithoutRef<'div'> & {onBac
             data-description={description ? true : undefined}
             data-on-back={onBack ? true : undefined}
           >
-            {/* heading element is intentionally hardcoded to h1, it is not customisable 
+            {/* heading element is intentionally hardcoded to h1, it is not customisable
             see https://github.com/github/primer/issues/2578 for context
           */}
             <Heading

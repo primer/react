@@ -1,15 +1,13 @@
 import React, {useCallback} from 'react'
 import {createRoot} from 'react-dom/client'
-import styled from 'styled-components'
-import Box from '../Box'
 import type {ThemeProviderProps} from '../ThemeProvider'
 import {ThemeProvider, useTheme} from '../ThemeProvider'
 import {FocusKeys} from '@primer/behaviors'
-import {get} from '../constants'
 import type {DialogProps, DialogHeaderProps, DialogButtonProps} from '../Dialog/Dialog'
 import {Dialog} from '../Dialog/Dialog'
 import {useFocusZone} from '../hooks/useFocusZone'
 import BaseStyles from '../BaseStyles'
+import classes from './ConfirmationDialog.module.css'
 
 /**
  * Props to customize the ConfirmationDialog.
@@ -43,56 +41,34 @@ export interface ConfirmationDialogProps {
   confirmButtonType?: 'normal' | 'primary' | 'danger'
 }
 
-const StyledConfirmationHeader = styled.div`
-  padding: ${get('space.2')};
-  display: flex;
-  flex-direction: row;
-`
-const StyledTitle = styled(Box).attrs({as: 'h1'})`
-  font-size: ${get('fontSizes.3')};
-  font-weight: ${get('fontWeights.bold')};
-  padding: 6px ${get('space.2')};
-  flex-grow: 1;
-  margin: 0; /* override default margin */
-`
 const ConfirmationHeader: React.FC<React.PropsWithChildren<DialogHeaderProps>> = ({title, onClose, dialogLabelId}) => {
   const onCloseClick = useCallback(() => {
     onClose('close-button')
   }, [onClose])
+
   return (
-    <StyledConfirmationHeader>
-      <StyledTitle id={dialogLabelId}>{title}</StyledTitle>
+    <div className={classes.ConfirmationHeader}>
+      <h1 id={dialogLabelId}>{title}</h1>
       <Dialog.CloseButton onClose={onCloseClick} />
-    </StyledConfirmationHeader>
+    </div>
   )
 }
-const StyledConfirmationBody = styled(Box)`
-  font-size: ${get('fontSizes.1')};
-  padding: 0 ${get('space.3')} ${get('space.3')} ${get('space.3')};
-  flex-grow: 1;
-`
+
 const ConfirmationBody: React.FC<React.PropsWithChildren<DialogProps>> = ({children}) => {
-  return <StyledConfirmationBody>{children}</StyledConfirmationBody>
+  return <div className={classes.ConfirmationBody}>{children}</div>
 }
-const StyledConfirmationFooter = styled(Box)`
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: max-content;
-  grid-gap: ${get('space.2')};
-  align-items: end;
-  justify-content: end;
-  padding: ${get('space.1')} ${get('space.3')} ${get('space.3')};
-`
+
 const ConfirmationFooter: React.FC<React.PropsWithChildren<DialogProps>> = ({footerButtons}) => {
   const {containerRef: footerRef} = useFocusZone({
     bindKeys: FocusKeys.ArrowHorizontal | FocusKeys.Tab,
     focusInStrategy: 'closest',
   })
+
   // Must have exactly 2 buttons!
   return (
-    <StyledConfirmationFooter ref={footerRef as React.RefObject<HTMLDivElement>}>
+    <div ref={footerRef as React.RefObject<HTMLDivElement>} className={classes.ConfirmationFooter}>
       <Dialog.Buttons buttons={footerButtons ?? []} />
-    </StyledConfirmationFooter>
+    </div>
   )
 }
 

@@ -1,7 +1,5 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
 import React from 'react'
-import {Banner} from '../../src/drafts'
+import {Banner} from '../../src/experimental/'
 import figma from '@figma/code-connect'
 
 const componentProps = {
@@ -31,7 +29,7 @@ const componentProps = {
     false: figma.textContent('Body'),
   }),
   dismissible: figma.boolean('Dismissible?', {
-    true: '() => { /* implement dismiss functionality */ }',
+    true: () => {},
     false: undefined,
   }),
 }

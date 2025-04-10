@@ -2,7 +2,6 @@ import React from 'react'
 import type {Meta} from '@storybook/react'
 import SubNav from './SubNav'
 import type {ComponentProps} from '../utils/types'
-import {FeatureFlags} from '../FeatureFlags'
 
 import styles from './SubNav.dev.module.css'
 
@@ -15,27 +14,19 @@ export default {
 } as Meta<ComponentProps<typeof SubNav>>
 
 export const WithCss = () => (
-  <FeatureFlags
-    flags={{
-      primer_react_css_modules_team: true,
-      primer_react_css_modules_staff: true,
-      primer_react_css_modules_ga: true,
-    }}
-  >
-    <SubNav aria-label="Main" className={styles.SubNavDev}>
-      <SubNav.Links className={styles.SubNavLinksDev}>
-        <SubNav.Link href="#home" selected className={styles.SubNavLinkDev}>
-          Home
-        </SubNav.Link>
-        <SubNav.Link href="#documentation" className={styles.SubNavLinkDev}>
-          Documentation
-        </SubNav.Link>
-        <SubNav.Link href="#support" className={styles.SubNavLinkDev}>
-          Support
-        </SubNav.Link>
-      </SubNav.Links>
-    </SubNav>
-  </FeatureFlags>
+  <SubNav aria-label="Main" className={styles.SubNavDev}>
+    <SubNav.Links className={styles.SubNavLinksDev}>
+      <SubNav.Link href="#home" selected className={styles.SubNavLinkDev}>
+        Home
+      </SubNav.Link>
+      <SubNav.Link href="#documentation" className={styles.SubNavLinkDev}>
+        Documentation
+      </SubNav.Link>
+      <SubNav.Link href="#support" className={styles.SubNavLinkDev}>
+        Support
+      </SubNav.Link>
+    </SubNav.Links>
+  </SubNav>
 )
 
 export const WithSx = () => (
@@ -59,34 +50,26 @@ export const WithSx = () => (
 )
 
 export const WithSxAndCSS = () => (
-  <FeatureFlags
-    flags={{
-      primer_react_css_modules_team: true,
-      primer_react_css_modules_staff: true,
-      primer_react_css_modules_ga: true,
-    }}
+  <SubNav
+    aria-label="Main"
+    sx={{p: 1, display: 'flex', border: '2px solid', borderColor: 'border.default'}}
+    className={styles.SubNavDev}
   >
-    <SubNav
-      aria-label="Main"
-      sx={{p: 1, display: 'flex', border: '2px solid', borderColor: 'border.default'}}
-      className={styles.SubNavDev}
-    >
-      <SubNav.Links sx={{m: 2}} className={styles.SubNavLinksDev}>
-        <SubNav.Link
-          href="#home"
-          selected
-          className={styles.SubNavLinkDev}
-          sx={{'&:is([data-selected])': {backgroundColor: 'danger.fg'}}}
-        >
-          Home
-        </SubNav.Link>
-        <SubNav.Link href="#documentation" className={styles.SubNavLinkDev}>
-          Documentation
-        </SubNav.Link>
-        <SubNav.Link href="#support" sx={{color: 'accent.fg', fontWeight: 'bold'}} className={styles.SubNavLinkDev}>
-          Support
-        </SubNav.Link>
-      </SubNav.Links>
-    </SubNav>
-  </FeatureFlags>
+    <SubNav.Links sx={{m: 2}} className={styles.SubNavLinksDev}>
+      <SubNav.Link
+        href="#home"
+        selected
+        className={styles.SubNavLinkDev}
+        sx={{'&:is([data-selected])': {backgroundColor: 'danger.fg'}}}
+      >
+        Home
+      </SubNav.Link>
+      <SubNav.Link href="#documentation" className={styles.SubNavLinkDev}>
+        Documentation
+      </SubNav.Link>
+      <SubNav.Link href="#support" sx={{color: 'accent.fg', fontWeight: 'bold'}} className={styles.SubNavLinkDev}>
+        Support
+      </SubNav.Link>
+    </SubNav.Links>
+  </SubNav>
 )

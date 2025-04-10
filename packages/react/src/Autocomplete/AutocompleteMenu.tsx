@@ -1,11 +1,12 @@
 import React, {useContext, useEffect, useMemo, useRef, useState} from 'react'
+import {debounce} from '@github/mini-throttle'
+import {announce} from '@primer/live-region-element'
 import {scrollIntoView} from '@primer/behaviors'
 import type {ScrollIntoViewOptions} from '@primer/behaviors'
 import type {ActionListItemProps} from '../ActionList'
 import {ActionList} from '../ActionList'
 import {useFocusZone} from '../hooks/useFocusZone'
 import type {ComponentProps, MandateProps} from '../utils/types'
-import Box from '../Box'
 import Spinner from '../Spinner'
 import {useId} from '../hooks/useId'
 import {AutocompleteContext} from './AutocompleteContext'
@@ -13,6 +14,8 @@ import type {IconProps} from '@primer/octicons-react'
 import {PlusIcon} from '@primer/octicons-react'
 import VisuallyHidden from '../_VisuallyHidden'
 import {isElement} from 'react-is'
+
+import classes from './AutocompleteMenu.module.css'
 
 type OnSelectedChange<T> = (item: T | T[]) => void
 export type AutocompleteMenuItem = MandateProps<ActionListItemProps, 'id'> & {
@@ -116,6 +119,14 @@ export type AutocompleteMenuInternalProps<T extends AutocompleteItemProps> = {
   // TODO: instead of making this required, maybe we can infer aria-labelledby from the ID of the text input somehow?
   ['aria-labelledby']: string
 }
+
+/**
+ * Announces a message to screen readers at a slowed-down rate. This is useful when you want to announce don't want to
+ * overwhelm the user with too many announcements in rapid succession.
+ */
+const debounceAnnouncement = debounce((announcement: string) => {
+  announce(announcement)
+}, 250)
 
 function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMenuInternalProps<T>) {
   const autocompleteContext = useContext(AutocompleteContext)
@@ -262,6 +273,12 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
     allItemsToRenderRef.current = allItemsToRender
   })
 
+  React.useEffect(() => {
+    if (allItemsToRender.length === 0) {
+      debounceAnnouncement(emptyStateText as string)
+    }
+  }, [allItemsToRender, emptyStateText])
+
   useFocusZone(
     {
       containerRef: listContainerRef,
@@ -327,9 +344,9 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
   return (
     <VisuallyHidden isVisible={showMenu}>
       {loading ? (
-        <Box p={3} display="flex" justifyContent="center">
+        <div className={classes.SpinnerWrapper}>
           <Spinner />
-        </Box>
+        </div>
       ) : (
         <div ref={listContainerRef}>
           {allItemsToRender.length ? (
@@ -367,7 +384,7 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
               })}
             </ActionList>
           ) : emptyStateText !== false && emptyStateText !== null ? (
-            <Box p={3}>{emptyStateText}</Box>
+            <div className={classes.EmptyStateWrapper}>{emptyStateText}</div>
           ) : null}
         </div>
       )}

@@ -61,9 +61,11 @@ export const TrailingCounter = () => {
   )
 }
 
-export const TrailingCounterWithNoText = () => {
-  return <Button leadingVisual={CommentIcon} count={3} />
-}
+export const TrailingCounterWithNoText = () => <Button aria-label="Comments" leadingVisual={CommentIcon} count={3} />
+
+export const TrailingCounterWithHumanFormat = () => (
+  <Button aria-label="Comments" leadingVisual={CommentIcon} count="3.2k" />
+)
 
 export const TrailingCounterAllVariants = () => {
   const [count, setCount] = useState(0)
@@ -73,7 +75,7 @@ export const TrailingCounterAllVariants = () => {
   }
   return (
     <>
-      <div style={{display: 'flex', flexDirection: 'row', gap: '1rem'}}>
+      <Stack gap="normal" wrap="wrap" direction="horizontal">
         <Button onClick={onClick} count={count}>
           Watch
         </Button>
@@ -98,7 +100,7 @@ export const TrailingCounterAllVariants = () => {
         <Button onClick={onClick} variant="invisible" disabled count={count}>
           Watch
         </Button>
-      </div>
+      </Stack>
       <AccessibilityNote />
       <p>In these examples, a live region has been implemented to communicate the change.</p>
     </>
@@ -196,9 +198,6 @@ export const LabelWrap = () => {
         This large button label will wrap if the label is too long
       </Button>
       <Button labelWrap leadingVisual={HeartIcon} trailingVisual={EyeIcon}>
-        This button label will wrap if the label is too long
-      </Button>
-      <Button labelWrap trailingAction={TriangleDownIcon}>
         This button label will wrap if the label is too long
       </Button>
     </Stack>

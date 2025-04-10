@@ -22,3 +22,6 @@ npx copyfiles --flat ./lib/components.css ./css
 
 # Build components.json file for documentation
 npm run build:components.json
+
+# Build hooks.json file for documentation
+npm run build:hooks.json

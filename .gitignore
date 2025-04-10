@@ -40,3 +40,6 @@ blob-report
 
 # ESLint
 .eslintcache
+
+# CSS modules type definitions
+*.module.css.d.ts

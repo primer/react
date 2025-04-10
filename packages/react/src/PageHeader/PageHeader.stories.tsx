@@ -11,7 +11,7 @@ import {
   PeopleIcon,
   PencilIcon,
   CommentDiscussionIcon,
-  CommitIcon,
+  GitCommitIcon,
   ChecklistIcon,
   FileDiffIcon,
   ArrowRightIcon,
@@ -58,6 +58,9 @@ const meta: Meta<typeof PageHeader> = {
       },
       description:
         'ContextArea is only visible on narrow viewports by default to provide user context of where they are at their journey.',
+    },
+    hasBorder: {
+      type: 'boolean',
     },
     ParentLink: {
       type: 'string',
@@ -189,7 +192,7 @@ export default meta
 
 export const Playground: StoryFn = args => (
   <Box sx={{padding: 3}}>
-    <PageHeader aria-label={args.Title} role="banner">
+    <PageHeader aria-label={args.Title} role="banner" hasBorder={args.hasBorder}>
       <PageHeader.TitleArea
         variant={{
           narrow: args['Title.variant'],
@@ -270,7 +273,7 @@ export const Playground: StoryFn = args => (
           <UnderlineNav.Item icon={CommentDiscussionIcon} counter="12" aria-current="page">
             Conversation
           </UnderlineNav.Item>
-          <UnderlineNav.Item counter={3} icon={CommitIcon}>
+          <UnderlineNav.Item counter={3} icon={GitCommitIcon}>
             Commits
           </UnderlineNav.Item>
           <UnderlineNav.Item counter={7} icon={ChecklistIcon}>

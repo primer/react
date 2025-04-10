@@ -114,7 +114,7 @@ const autocompleteStoryMeta: Meta = {
         <ThemeProvider>
           <BaseStyles>
             <Box onKeyDownCapture={reportKey}>
-              <Box position="absolute" right={5} top={2}>
+              <Box as="p" position="absolute" right={5} top={2} id="key-press-label">
                 Last key pressed: {lastKey}
               </Box>
               <Box paddingTop={5}>
@@ -536,6 +536,7 @@ export const InOverlayWithCustomScrollContainerRef = () => {
         side="inside-top"
         anchorRef={triggerRef}
         renderAnchor={props => <Button {...props}>open overlay</Button>}
+        preventOverflow={false}
       >
         <Autocomplete>
           <Box
@@ -567,6 +568,7 @@ export const InOverlayWithCustomScrollContainerRef = () => {
                   },
                 }}
                 block
+                aria-label="Search"
               />
             </Box>
             <Box
@@ -606,7 +608,12 @@ export const InADialog = () => {
   return (
     <>
       <Button onClick={() => setIsDialogOpen(true)}>Show dialog</Button>
-      <Dialog id="dialog-with-autocomplete" isOpen={isDialogOpen} onDismiss={() => setIsDialogOpen(false)}>
+      <Dialog
+        aria-label="Dialog with autocomplete"
+        id="dialog-with-autocomplete"
+        isOpen={isDialogOpen}
+        onDismiss={() => setIsDialogOpen(false)}
+      >
         <div ref={outerContainerRef}>
           <Box as="form" sx={{p: 3}}>
             {mounted ? (

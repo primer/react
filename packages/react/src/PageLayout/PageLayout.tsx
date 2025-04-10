@@ -65,7 +65,7 @@ export type PageLayoutProps = {
   style?: React.CSSProperties
 } & SxProp
 
-const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_team'
+const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_ga'
 
 const containerWidths = {
   full: '100%',
@@ -117,7 +117,7 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
 
   const contentStylingProps = enabled
     ? {
-        className: clsx(classes.PageLayoutContent, className),
+        className: clsx(classes.PageLayoutContent),
       }
     : {
         sx: {display: 'flex', flex: '1 1 100%', flexWrap: 'wrap', maxWidth: '100%'},
@@ -364,13 +364,15 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
       window.addEventListener('keydown', handleKeyDrag)
       window.addEventListener('mouseup', handleDragEnd)
       window.addEventListener('keyup', handleKeyDragEnd)
-      document.body.setAttribute('data-page-layout-dragging', 'true')
+      const body = document.body as HTMLElement | undefined
+      body?.setAttribute('data-page-layout-dragging', 'true')
     } else {
       window.removeEventListener('mousemove', handleDrag)
       window.removeEventListener('mouseup', handleDragEnd)
       window.removeEventListener('keydown', handleKeyDrag)
       window.removeEventListener('keyup', handleKeyDragEnd)
-      document.body.removeAttribute('data-page-layout-dragging')
+      const body = document.body as HTMLElement | undefined
+      body?.removeAttribute('data-page-layout-dragging')
     }
 
     return () => {
@@ -378,7 +380,8 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
       window.removeEventListener('mouseup', handleDragEnd)
       window.removeEventListener('keydown', handleKeyDrag)
       window.removeEventListener('keyup', handleKeyDragEnd)
-      document.body.removeAttribute('data-page-layout-dragging')
+      const body = document.body as HTMLElement | undefined
+      body?.removeAttribute('data-page-layout-dragging')
     }
   }, [isDragging, isKeyboardDrag, currentWidth, minWidth, maxWidth])
 
@@ -759,10 +762,12 @@ const panePositions = {
 const paneWidths = {
   small: ['100%', null, '240px', '256px'],
   medium: ['100%', null, '256px', '296px'],
-  large: ['100%', null, '256px', '320px', '336px'],
+  large: ['100%', null, '256px', '320px'],
 }
 
 const defaultPaneWidth = {small: 256, medium: 296, large: 320}
+
+const overflowProps = {tabIndex: 0, role: 'region'}
 
 const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayoutPaneProps>>(
   (
@@ -998,7 +1003,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
         />
         <Box
           ref={paneRef}
-          {...(hasOverflow && {tabIndex: 0, role: 'region'})}
+          {...(hasOverflow ? overflowProps : {})}
           {...labelProp}
           {...(id && {id: paneId})}
           {...paneStylingProps}

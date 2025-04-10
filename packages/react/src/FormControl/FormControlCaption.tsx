@@ -1,35 +1,32 @@
+import {clsx} from 'clsx'
 import React from 'react'
-import type {SxProp} from '../sx'
-import {useFormControlContext} from './_FormControlContext'
 import Text from '../Text'
-import styled from 'styled-components'
-import {get} from '../constants'
-import sx from '../sx'
-
-const StyledCaption = styled(Text)`
-  color: var(--fgColor-muted);
-  display: block;
-  font-size: ${get('fontSizes.0')};
-
-  &:where([data-control-disabled]) {
-    color: var(--control-fgColor-disabled);
-  }
-
-  ${sx}
-`
+import type {SxProp} from '../sx'
+import classes from './FormControlCaption.module.css'
+import {useFormControlContext} from './_FormControlContext'
+import {toggleSxComponent} from '../internal/utils/toggleSxComponent'
 
 type FormControlCaptionProps = React.PropsWithChildren<
   {
     id?: string
+    className?: string
   } & SxProp
 >
 
-function FormControlCaption({id, children, sx}: FormControlCaptionProps) {
+const Caption = toggleSxComponent(Text) as React.ComponentType<FormControlCaptionProps>
+
+function FormControlCaption({id, children, sx, className}: FormControlCaptionProps) {
   const {captionId, disabled} = useFormControlContext()
+
   return (
-    <StyledCaption id={id ?? captionId} data-control-disabled={disabled ? '' : undefined} sx={sx}>
+    <Caption
+      id={id ?? captionId}
+      className={clsx(className, classes.Caption)}
+      data-control-disabled={disabled ? '' : undefined}
+      sx={sx}
+    >
       {children}
-    </StyledCaption>
+    </Caption>
   )
 }
 

@@ -5,7 +5,30 @@ import {source} from 'axe-core'
 import path from 'node:path'
 import fs from 'node:fs'
 
-const defaultOptions = {
+const COLOR_CONTRAST_SKIP = [
+  'experimental-components-hidden-examples--pull-request-page',
+  'components-underlinenav-examples--pull-request-page',
+  'components-actionmenu-examples--groups-and-descriptions',
+  'components-button-features--expanded-button',
+  'components-formcontrol-features--with-caption-and-disabled',
+  'components-formcontrol-features--with-leading-visual',
+  'components-pageheader-examples--issues-page',
+  'components-pageheader-examples--with-page-layout',
+  'components-pageheader-examples--pull-request-page',
+  'experimental-components-hidden-examples--pull-request-page-on-narrow-viewport',
+  'components-pageheader-examples--pull-request-page-on-narrow-viewport',
+  'components-pagelayout-features--pull-request-page',
+  'components-statelabel--default',
+  'components-statelabel--playground',
+  'components-statelabel-features--issue-opened',
+  'components-statelabel-features--pull-opened',
+  'components-statelabel-features--small',
+  'components-statelabel-features--open',
+  'deprecated-components-actionlist--complex-list-inset-variant-story', // Deprecated component
+  'deprecated-components-actionlist--complex-list-full-variant-story', // Deprecated component
+]
+
+const defaultOptions = (colorScheme: string, shouldSkip: boolean) => ({
   rules: {
     'document-title': {
       enabled: false,
@@ -27,18 +50,29 @@ const defaultOptions = {
       enabled: true,
     },
     'color-contrast': {
-      enabled: false,
+      enabled: colorScheme !== 'dark_dimmed' && !shouldSkip,
     },
   },
-}
+})
 
 expect.extend({
   async toHaveNoViolations(page: Page, options = {rules: {}}) {
+    // get color scheme from globals
+
+    const pageUrl = page.url()
+    const isDev = pageUrl.includes('-dev--')
+    const idName = pageUrl.split('id=')[1].split('&')[0]
+
+    const shouldSkip = COLOR_CONTRAST_SKIP.includes(idName)
+
+    const globals = new URL(pageUrl).searchParams.get('globals')
+    const colorScheme = globals?.split('colorScheme:')[1] ?? 'light'
+
     const runConfig = {
-      ...defaultOptions,
+      ...defaultOptions(colorScheme, isDev || shouldSkip),
       ...options,
       rules: {
-        ...defaultOptions.rules,
+        ...defaultOptions(colorScheme, isDev || shouldSkip).rules,
         ...options.rules,
       },
     }

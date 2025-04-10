@@ -7,6 +7,8 @@ import {AutocompleteContext} from './AutocompleteContext'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import VisuallyHidden from '../_VisuallyHidden'
 
+import classes from './AutocompleteOverlay.module.css'
+
 type AutocompleteOverlayInternalProps = {
   /**
    * The ref of the element that the position of the menu is based on. By default, the menu is positioned based on the text input
@@ -60,9 +62,7 @@ function AutocompleteOverlay({
       ref={floatingElementRef as React.RefObject<HTMLDivElement>}
       top={position?.top}
       left={position?.left}
-      sx={{
-        overflow: 'auto',
-      }}
+      className={classes.Overlay}
       {...overlayProps}
     >
       {children}

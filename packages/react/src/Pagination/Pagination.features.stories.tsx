@@ -1,7 +1,8 @@
-import React from 'react'
+import React, {useState} from 'react'
 import type {Meta} from '@storybook/react'
 import type {ComponentProps} from '../utils/types'
 import Pagination from './Pagination'
+import {ReactRouterLikeLink} from '../__tests__/mocks/ReactRouterLink'
 
 export default {
   title: 'Components/Pagination/Features',
@@ -32,3 +33,19 @@ HidePageNumbersByViewport.parameters = {
 export const HigherSurroundingPageCount = () => (
   <Pagination pageCount={15} currentPage={5} surroundingPageCount={4} onPageChange={e => e.preventDefault()} />
 )
+
+export const RenderLinks = () => {
+  const [page, setPage] = useState(2)
+
+  return (
+    <Pagination
+      pageCount={15}
+      currentPage={page}
+      onPageChange={(e, n) => {
+        e.preventDefault()
+        setPage(n)
+      }}
+      renderPage={({number, ...props}) => <ReactRouterLikeLink to={`#${number}`} {...props} />}
+    />
+  )
+}

@@ -32,7 +32,7 @@ type StyledPopoverProps = {
   open?: boolean
 } & SxProp
 
-const CSS_MODULES_FLAG = 'primer_react_css_modules_team'
+const CSS_MODULES_FLAG = 'primer_react_css_modules_ga'
 
 const StyledPopover = styled.div.attrs<StyledPopoverProps>(({className, caret = 'top'}) => {
   return {

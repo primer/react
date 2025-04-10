@@ -14,11 +14,10 @@ jobs:
     if: github.head_ref == 'changeset-release/main'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - uses: actions/setup-node@cdca7365b2dadb8aad0a33bc7601856ffabcc48e
         with:
           node-version: 22
-      - run: npm i -g npm@^10.5.1
       - run: npm ci
       - uses: ./.github/actions/pagerduty
         id: pagerduty
@@ -27,7 +26,7 @@ jobs:
           token: ${{ secrets.PAGERDUTY_API_KEY_SID }}
       - run: echo ${{ steps.pagerduty.outputs.user }} is release conductor
       - name: Add user as assignee and reviewer
-        uses: actions/github-script@v7
+        uses: actions/github-script@5c56fde4671bc2d3592fb0f2c5b5bab9ddae03b1
         env:
           PR_NUMBER: ${{ github.event.inputs.pull-request || github.event.pull_request.number }}
           RELEASE_CONDUCTOR: ${{ steps.pagerduty.outputs.user }}

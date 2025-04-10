@@ -15,13 +15,11 @@ import type {Meta} from '@storybook/react'
 import React, {useCallback, useState, useRef} from 'react'
 import styled from 'styled-components'
 import {ThemeProvider} from '../..'
-import type {LinkProps} from '../../Link'
-import Link from '../../Link'
 import type {ActionMenuProps} from '../../deprecated'
 import {ActionMenu, ActionList} from '../../deprecated'
 import type {ItemProps} from '../../deprecated/ActionList'
 import BaseStyles from '../../BaseStyles'
-import {Button} from '../../Button'
+import {Button, type ButtonProps} from '../../Button'
 
 const meta: Meta = {
   title: 'Deprecated/Components/ActionMenu',
@@ -233,7 +231,7 @@ export function ComplexListStory(): JSX.Element {
 ComplexListStory.storyName = 'Complex List'
 
 export function CustomTrigger(): JSX.Element {
-  const customAnchor = (props: LinkProps) => <Link {...props} sx={{cursor: 'pointer'}} />
+  const customAnchor = (props: ButtonProps) => <Button {...props} sx={{cursor: 'pointer'}} />
   const [option, setOption] = useState('Select an option')
   const onAction = useCallback((itemProps: ItemProps) => {
     setOption(itemProps.text || '')

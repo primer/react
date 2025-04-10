@@ -35,7 +35,7 @@
       "id": "components-iconbutton-features--external-tooltip"
     },
     {
-      "id": "components-iconbutton-features--external-tooltip-version1"
+      "id": "components-iconbutton-features--external-tooltip-version-1"
     },
     {
       "id": "components-iconbutton-features--as-a-menu-anchor"
@@ -64,7 +64,7 @@
     },
     {
       "name": "variant",
-      "type": "'default' | 'primary' | 'danger' | 'outline' | 'invisible' | 'link'",
+      "type": "'default' | 'primary' | 'danger' | 'invisible' | 'link'",
       "defaultValue": "",
       "description": "Changes the look and feel of the button which is different for each variant"
     },

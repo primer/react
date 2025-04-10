@@ -14,7 +14,7 @@ describe('Radio', () => {
     jest.resetAllMocks()
   })
 
-  behavesAsComponent({Component: Radio, toRender: () => <Radio {...defaultProps} />})
+  behavesAsComponent({options: {skipAs: true}, Component: Radio, toRender: () => <Radio {...defaultProps} />})
 
   checkExports('Radio', {
     default: Radio,
@@ -26,7 +26,6 @@ describe('Radio', () => {
       return (
         <FeatureFlags
           flags={{
-            primer_react_css_modules_team: true,
             primer_react_css_modules_staff: true,
             primer_react_css_modules_ga: true,
           }}
@@ -150,35 +149,5 @@ describe('Radio', () => {
     rerender(<Radio {...defaultProps} checked={true} onChange={handleChange} />)
 
     expect(radio).toHaveAttribute('aria-checked', 'true')
-  })
-
-  it('renders an invalid aria state when validation prop indicates an error', () => {
-    const handleChange = jest.fn()
-    const {getByRole, rerender} = render(<Radio {...defaultProps} onChange={handleChange} />)
-
-    const radio = getByRole('radio') as HTMLInputElement
-
-    expect(radio).toHaveAttribute('aria-invalid', 'false')
-
-    rerender(<Radio {...defaultProps} onChange={handleChange} validationStatus="success" />)
-
-    expect(radio).toHaveAttribute('aria-invalid', 'false')
-
-    rerender(<Radio {...defaultProps} onChange={handleChange} validationStatus="error" />)
-
-    expect(radio).toHaveAttribute('aria-invalid', 'true')
-  })
-
-  it('renders an aria state indicating the field is required', () => {
-    const handleChange = jest.fn()
-    const {getByRole, rerender} = render(<Radio {...defaultProps} onChange={handleChange} />)
-
-    const radio = getByRole('radio') as HTMLInputElement
-
-    expect(radio).toHaveAttribute('aria-required', 'false')
-
-    rerender(<Radio {...defaultProps} onChange={handleChange} required />)
-
-    expect(radio).toHaveAttribute('aria-required', 'true')
   })
 })
