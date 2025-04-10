@@ -218,7 +218,6 @@
 
       &::before {
         position: absolute;
-        /* stylelint-disable-next-line csstools/value-no-unknown-custom-properties */
         height: var(--borderWidth-default);
         content: '';
         /* stylelint-disable-next-line primer/colors */
