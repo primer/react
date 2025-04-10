@@ -283,13 +283,10 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
 
         '&::before': {
           position: 'absolute',
-          bottom: 0,
-          width: 'calc(100% + 16px)',
-          'margin-left': '-16px',
+          height: 'var(--borderWidth-default)',
           content: '""',
-          'border-bottom': '1px solid var(--borderColor-default)',
-          'border-bottom-left-radius': 0,
-          'border-bottom-right-radius': 0,
+          'background-color': 'var(--borderColor-default)',
+          inset: '100% calc(-1 * var(--base-size-8))',
         },
       },
     }
