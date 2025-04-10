@@ -19,13 +19,13 @@ const BreadcrumbsList = ({children}: React.PropsWithChildren) => {
   return <ol className={classes.BreadcrumbsList}>{children}</ol>
 }
 
+const BreadcrumbsBaseComponent = toggleSxComponent('nav') as React.ComponentType<BreadcrumbsProps>
 function Breadcrumbs({className, children, sx: sxProp}: BreadcrumbsProps) {
   const wrappedChildren = React.Children.map(children, child => <li className={classes.ItemWrapper}>{child}</li>)
-  const BaseComponent = toggleSxComponent('nav') as React.ComponentType<BreadcrumbsProps>
   return (
-    <BaseComponent className={clsx(className, classes.BreadcrumbsBase)} aria-label="Breadcrumbs" sx={sxProp}>
+    <BreadcrumbsBaseComponent className={clsx(className, classes.BreadcrumbsBase)} aria-label="Breadcrumbs" sx={sxProp}>
       <BreadcrumbsList>{wrappedChildren}</BreadcrumbsList>
-    </BaseComponent>
+    </BreadcrumbsBaseComponent>
   )
 }
 
@@ -37,10 +37,10 @@ type StyledBreadcrumbsItemProps = {
   React.HTMLAttributes<HTMLAnchorElement> &
   React.ComponentPropsWithRef<'a'>
 
+const BreadcrumbsItemBaseComponent = toggleSxComponent('a') as React.ComponentType<StyledBreadcrumbsItemProps>
 const BreadcrumbsItem = React.forwardRef(({selected, className, ...rest}, ref) => {
-  const BaseComponent = toggleSxComponent('a') as React.ComponentType<StyledBreadcrumbsItemProps>
   return (
-    <BaseComponent
+    <BreadcrumbsItemBaseComponent
       className={clsx(className, classes.Item, {
         [SELECTED_CLASS]: selected,
         [classes.ItemSelected]: selected,
