@@ -191,7 +191,6 @@ export const SingleSelect = () => {
         selected={selected}
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
-        onCancel={() => setOpen(false)}
         width="medium"
         message={selectedItemsSortedFirst.length === 0 ? NoResultsMessage(filter) : undefined}
       />
