@@ -17,13 +17,14 @@ type StyledTextProps = {
   SxProp &
   React.HTMLAttributes<HTMLSpanElement>
 
+const TextBaseComponent = toggleSxComponent('span') as React.ComponentType<StyledTextProps>
 const Text = forwardRef(({as: Component = 'span', className, size, weight, ...props}, forwardedRef) => {
   const innerRef = React.useRef<HTMLElement>(null)
   useRefObjectAsForwardedRef(forwardedRef, innerRef)
-  const BaseComponent = toggleSxComponent(Component) as React.ComponentType<StyledTextProps>
 
   return (
-    <BaseComponent
+    <TextBaseComponent
+      as={Component}
       className={clsx(className, classes.Text)}
       data-size={size}
       data-weight={weight}
