@@ -10,28 +10,28 @@ const stories: Array<{
 }> = [
   {
     title: 'Default',
-    id: 'experimental-components-selectpanel--default',
+    id: 'deprecated-components-selectpanel--default',
   },
   {
-    id: 'experimental-components-selectpanel-features--as-modal',
+    id: 'deprecated-components-selectpanel-features--as-modal',
     title: 'As Modal',
   },
   {
-    id: 'experimental-components-selectpanel-features--external-anchor',
+    id: 'deprecated-components-selectpanel-features--external-anchor',
     title: 'External Anchor',
   },
   {
-    id: 'experimental-components-selectpanel-features--instant-selection-variant',
+    id: 'deprecated-components-selectpanel-features--instant-selection-variant',
     title: 'Instant Selection Variant',
     buttonText: 'Choose a tag',
   },
   {
-    id: 'experimental-components-selectpanel-features--with-warning',
+    id: 'deprecated-components-selectpanel-features--with-warning',
     title: 'With Warning',
     buttonText: 'Assignees',
   },
   {
-    id: 'experimental-components-selectpanel-features--with-errors',
+    id: 'deprecated-components-selectpanel-features--with-errors',
     title: 'With Errors',
     buttonText: 'Assignees',
   },
