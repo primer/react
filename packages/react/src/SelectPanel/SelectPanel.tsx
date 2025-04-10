@@ -94,7 +94,7 @@ interface SelectPanelBaseProps {
   }
   onCancel?: () => void
   orderSelectedFirst?: boolean
-  sortkey?: keyof ItemInput
+  sortKey?: keyof ItemInput
   sortDirection?: 'asc' | 'desc'
   sortFn?: (a: ItemInput, b: ItemInput) => number
 }
@@ -136,6 +136,27 @@ function usePreviousValue<T>(value: T): T {
   return ref.current
 }
 
+function compareByKey(sortKey?: keyof ItemInput, sortDirection: 'asc' | 'desc' = 'asc') {
+  return (itemA: ItemInput, itemB: ItemInput) => {
+    if (sortKey) {
+      if (sortDirection === 'asc') {
+        if ((itemA[sortKey] ?? '') < (itemB[sortKey] ?? '')) {
+          return -1
+        } else if ((itemA.text ?? '') > (itemB.text ?? '')) {
+          return 1
+        }
+      } else {
+        if ((itemA[sortKey] ?? '') > (itemB[sortKey] ?? '')) {
+          return -1
+        } else if ((itemA.text ?? '') < (itemB.text ?? '')) {
+          return 1
+        }
+      }
+    }
+    return 0
+  }
+}
+
 export function SelectPanel({
   open,
   onOpenChange,
@@ -172,6 +193,9 @@ export function SelectPanel({
   notice,
   onCancel,
   orderSelectedFirst = true,
+  sortDirection = 'asc',
+  sortFn,
+  sortKey,
   ...listProps
 }: SelectPanelProps): JSX.Element {
   const titleId = useId()
@@ -369,7 +393,12 @@ export function SelectPanel({
     return <T extends React.HTMLAttributes<HTMLElement>>(props: T) => {
       return renderAnchor({
         ...props,
-        children: selectedItems.length ? selectedItems.map(item => item.text).join(', ') : placeholder,
+        children: selectedItems.length
+          ? selectedItems
+              .sort(sortFn ?? compareByKey(sortKey, sortDirection))
+              .map(item => item.text)
+              .join(', ')
+          : placeholder,
       })
     }
   }, [placeholder, renderAnchor, selected])
@@ -436,81 +465,85 @@ export function SelectPanel({
   }, [onClose, onSelectedChange, items, selected])
 
   useEffect(() => {
-    const lastSelected: Record<string, ItemProps> = {}
+    if (sortFn) {
+      setSortedItems(itemsToRender.sort(sortFn))
+      return
+    } else if (sortKey || orderSelectedFirst) {
+      const lastSelected: Record<string, ItemProps> = {}
+      const compare = compareByKey(sortKey, sortDirection)
 
-    const sorted = itemsToRender.sort((itemA, itemB) => {
-      // itemA is selected (for sorting purposes) if an object in selectedOnSort matches every property of itemA, except for the selected property
-      const itemASelected = selectedOnSort.some(item =>
-        Object.entries(item).every(([key, value]) => {
-          if (key === 'selected') {
-            return true
-          }
-          return itemA[key as keyof ItemProps] === value
-        }),
-      )
+      const sorted = itemsToRender.sort((itemA, itemB) => {
+        if (orderSelectedFirst) {
+          // itemA is selected (for sorting purposes) if an object in selectedOnSort matches every property of itemA, except for the selected property
+          const itemASelected = selectedOnSort.some(item =>
+            Object.entries(item).every(([key, value]) => {
+              if (key === 'selected') {
+                return true
+              }
+              return itemA[key as keyof ItemProps] === value
+            }),
+          )
 
-      // itemB is selected (for sorting purposes) if an object in selectedOnSort matches every property of itemA, except for the selected property
-      const itemBSelected = selectedOnSort.some(item =>
-        Object.entries(item).every(([key, value]) => {
-          if (key === 'selected') {
-            return true
-          }
-          return itemB[key as keyof ItemProps] === value
-        }),
-      )
+          // itemB is selected (for sorting purposes) if an object in selectedOnSort matches every property of itemA, except for the selected property
+          const itemBSelected = selectedOnSort.some(item =>
+            Object.entries(item).every(([key, value]) => {
+              if (key === 'selected') {
+                return true
+              }
+              return itemB[key as keyof ItemProps] === value
+            }),
+          )
 
-      // keep track of the last selected item in each group
-      if (itemASelected) {
-        if (itemA.groupId) {
-          // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-          if ((itemA.text ?? '') >= (lastSelected[itemA.groupId]?.text ?? '')) {
-            lastSelected[itemA.groupId] = itemA
+          // keep track of the last selected item in each group
+          if (itemASelected) {
+            if (itemA.groupId) {
+              // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+              if ((itemA.text ?? '') >= (lastSelected[itemA.groupId]?.text ?? '')) {
+                lastSelected[itemA.groupId] = itemA
+              }
+            } else {
+              // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+              if ((itemA.text ?? '') >= (lastSelected.general?.text ?? '')) {
+                lastSelected.general = itemA
+              }
+            }
           }
-        } else {
-          // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-          if ((itemA.text ?? '') >= (lastSelected.general?.text ?? '')) {
-            lastSelected.general = itemA
+
+          if (itemBSelected) {
+            if (itemB.groupId) {
+              // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+              if ((itemB.text ?? '') >= (lastSelected[itemB.groupId]?.text ?? '')) {
+                lastSelected[itemB.groupId] = itemB
+              }
+            } else {
+              // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+              if ((itemB.text ?? '') >= (lastSelected.general?.text ?? '')) {
+                lastSelected.general = itemB
+              }
+            }
+          }
+
+          // order selected items first
+          if (itemASelected > itemBSelected) {
+            return -1
+          } else if (itemASelected < itemBSelected) {
+            return 1
           }
         }
+
+        return compare(itemA, itemB)
+      })
+
+      for (const item of Object.values(lastSelected)) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        ;(item as any)['data-last-selected'] = ''
       }
 
-      if (itemBSelected) {
-        if (itemB.groupId) {
-          // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-          if ((itemB.text ?? '') >= (lastSelected[itemB.groupId]?.text ?? '')) {
-            lastSelected[itemB.groupId] = itemB
-          }
-        } else {
-          // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-          if ((itemB.text ?? '') >= (lastSelected.general?.text ?? '')) {
-            lastSelected.general = itemB
-          }
-        }
-      }
-
-      // order selected items first
-      if (itemASelected > itemBSelected) {
-        return -1
-      } else if (itemASelected < itemBSelected) {
-        return 1
-      }
-
-      // Then order by text
-      if ((itemA.text ?? '') < (itemB.text ?? '')) {
-        return -1
-      } else if ((itemA.text ?? '') > (itemB.text ?? '')) {
-        return 1
-      }
-
-      return 0
-    })
-
-    for (const item of Object.values(lastSelected)) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      ;(item as any)['data-last-selected'] = ''
+      setSortedItems(sorted)
+    } else {
+      setSortedItems(itemsToRender)
     }
-    setSortedItems(sorted)
-  }, [itemsToRender, selectedOnSort])
+  }, [itemsToRender, selectedOnSort, sortKey, sortDirection, sortFn])
 
   const focusTrapSettings = {
     initialFocusRef: inputRef || undefined,
