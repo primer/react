@@ -431,6 +431,9 @@ export function SelectPanel({
     }
   }
 
+  // because of instant selection, canceling on single select is the same as closing the panel, no onCancel needed
+  const shouldShowXButton = (onCancel || !isMultiSelectVariant(selected)) && usingFullScreenOnNarrow
+
   return (
     <AnchoredOverlay
       renderAnchor={renderMenuAnchor}
@@ -468,7 +471,7 @@ export function SelectPanel({
               </div>
             ) : null}
           </div>
-          {onCancel && usingFullScreenOnNarrow && (
+          {shouldShowXButton ? (
             <IconButton
               type="button"
               variant="invisible"
@@ -476,11 +479,11 @@ export function SelectPanel({
               aria-label="Cancel and close"
               className={classes.ResponsiveCloseButton}
               onClick={() => {
-                onCancel()
+                onCancel?.()
                 onCancelRequested()
               }}
             />
-          )}
+          ) : null}
         </div>
         {notice && (
           <div aria-live="polite" data-variant={notice.variant} className={classes.Notice}>
