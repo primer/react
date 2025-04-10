@@ -109,7 +109,7 @@ function DataTable<Data extends UniqueRow>({
       </TableHead>
       <TableBody>
         {rows.map(row => {
-          const keyValue = keyField ? String(row.getValue()[keyField]) : row.id
+          const keyValue = keyField ? String(row.getValue()[keyField]) : row.id;
           return (
             <TableRow key={keyValue}>
               {row.getCells(keyValue).map(cell => {
