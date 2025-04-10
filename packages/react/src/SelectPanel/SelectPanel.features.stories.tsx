@@ -706,3 +706,121 @@ export const WithOnCancel = () => {
     </FormControl>
   )
 }
+
+export const WithSorting: StoryObj<SelectPanelProps> = {
+  render: ({sortKey, sortDirection, orderSelectedFirst}: SelectPanelProps) => {
+    const [selected, setSelected] = React.useState<ItemInput[]>([items[2], items[4]])
+    const [open, setOpen] = useState(false)
+    const [filter, setFilter] = useState('')
+
+    const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
+
+    const onOpenChange = (value: boolean) => {
+      setOpen(value)
+    }
+
+    const onFilterChange = (value: string) => {
+      setFilter(value)
+    }
+
+    return (
+      <SelectPanel
+        title="Select labels"
+        subtitle="Use labels to organize issues and pull requests"
+        renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
+          <Button
+            trailingAction={TriangleDownIcon}
+            aria-labelledby={` ${ariaLabelledBy}`}
+            {...anchorProps}
+            aria-haspopup="dialog"
+          >
+            {children ?? 'Select Labels'}
+          </Button>
+        )}
+        placeholderText="Filter labels"
+        open={open}
+        onOpenChange={onOpenChange}
+        items={filteredItems}
+        selected={selected}
+        onSelectedChange={setSelected}
+        onFilterChange={onFilterChange}
+        showItemDividers={true}
+        width="medium"
+        message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}
+        sortDirection={sortDirection}
+        sortKey={sortKey}
+        orderSelectedFirst={orderSelectedFirst}
+      />
+    )
+  },
+  args: {
+    sortDirection: 'asc',
+    sortKey: 'text',
+    orderSelectedFirst: true,
+  },
+  argTypes: {
+    sortDirection: {
+      control: 'select',
+      options: ['asc', 'desc'],
+    },
+    sortKey: {
+      control: 'select',
+      options: ['text', 'id'],
+    },
+    orderSelectedFirst: {
+      control: 'boolean',
+    },
+  },
+}
+
+export const WithCustomSorting = () => {
+  const [selected, setSelected] = React.useState<ItemInput[]>([items[2], items[4]])
+  const [open, setOpen] = useState(false)
+  const [filter, setFilter] = useState('')
+
+  const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
+
+  const onOpenChange = (value: boolean) => {
+    setOpen(value)
+  }
+
+  const onFilterChange = (value: string) => {
+    setFilter(value)
+  }
+
+  return (
+    <SelectPanel
+      title="Select labels"
+      subtitle="Use labels to organize issues and pull requests"
+      renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
+        <Button
+          trailingAction={TriangleDownIcon}
+          aria-labelledby={` ${ariaLabelledBy}`}
+          {...anchorProps}
+          aria-haspopup="dialog"
+        >
+          {children ?? 'Select Labels'}
+        </Button>
+      )}
+      placeholderText="Filter labels"
+      open={open}
+      onOpenChange={onOpenChange}
+      items={filteredItems}
+      selected={selected}
+      onSelectedChange={setSelected}
+      onFilterChange={onFilterChange}
+      showItemDividers={true}
+      width="medium"
+      message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}
+      sortFn={(a, b) => {
+        const aSelected = selected.some(i => i.id === a.id)
+        const bSelected = selected.some(i => i.id === b.id)
+        if (aSelected && !bSelected) return 1
+        if (bSelected && !aSelected) return -1
+        return a.text!.localeCompare(b.text!)
+      }}
+    />
+  )
+}
+
+WithCustomSorting.storyName = 'With Sorting (custom)'
