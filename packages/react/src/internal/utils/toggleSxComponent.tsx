@@ -1,13 +1,12 @@
 import React from 'react'
 import Box from '../../Box'
 import {defaultSxProp} from '../../utils/defaultSxProp'
-import type {BetterSystemStyleObject} from '../../sx'
 
 type CSSModulesProps = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   as?: string | React.ComponentType<any>
   sx?: React.CSSProperties
-} & React.HTMLAttributes<HTMLElement>
+}
 
 /**
  * Utility to toggle rendering a Box component that receives sx props
@@ -17,12 +16,11 @@ type CSSModulesProps = {
  * @param defaultAs - the default component to use when `as` is not provided
  */
 export function toggleSxComponent<T, P extends CSSModulesProps>(
-  sx: BetterSystemStyleObject | undefined,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   defaultAs: string | React.ComponentType<any>,
 ) {
   const Wrapper = React.forwardRef<T, P>(function Wrapper(
-    {as: BaseComponent = defaultAs, sx: sxProp = sx, ...rest},
+    {as: BaseComponent = defaultAs, sx: sxProp = defaultSxProp, ...rest},
     ref,
   ) {
     if (sxProp !== defaultSxProp) {
