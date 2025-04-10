@@ -237,6 +237,16 @@ export function SelectPanel({
     [setInputRef],
   )
 
+  const resetSort = useCallback(() => {
+    if (isMultiSelectVariant(selected)) {
+      setSelectedOnSort(selected)
+    } else if (selected) {
+      setSelectedOnSort([selected])
+    } else {
+      setSelectedOnSort([])
+    }
+  }, [selected])
+
   const onFilterChange: FilteredActionListProps['onFilterChange'] = useCallback(
     (value, e) => {
       if (loadingManagedInternally) {
@@ -282,6 +292,7 @@ export function SelectPanel({
       safeSetTimeout,
       safeClearTimeout,
       items.length,
+      resetSort,
     ],
   )
 
@@ -401,17 +412,7 @@ export function SelectPanel({
           : placeholder,
       })
     }
-  }, [placeholder, renderAnchor, selected])
-
-  const resetSort = () => {
-    if (isMultiSelectVariant(selected)) {
-      setSelectedOnSort(selected)
-    } else if (selected) {
-      setSelectedOnSort([selected])
-    } else {
-      setSelectedOnSort([])
-    }
-  }
+  }, [placeholder, renderAnchor, selected, sortDirection, sortFn, sortKey])
 
   useEffect(() => {
     if (open) {
@@ -543,7 +544,7 @@ export function SelectPanel({
     } else {
       setSortedItems(itemsToRender)
     }
-  }, [itemsToRender, selectedOnSort, sortKey, sortDirection, sortFn])
+  }, [itemsToRender, selectedOnSort, sortKey, sortDirection, sortFn, orderSelectedFirst])
 
   const focusTrapSettings = {
     initialFocusRef: inputRef || undefined,
