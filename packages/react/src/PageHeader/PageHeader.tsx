@@ -49,6 +49,9 @@ export type PageHeaderProps = {
   hasBorder?: boolean
 } & SxProp
 
+const RootBaseComponent = toggleSxComponent('div') as React.ComponentType<
+  React.PropsWithChildren<PageHeaderProps & React.RefAttributes<HTMLDivElement>>
+>
 const Root = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeaderProps>>(
   ({children, className, sx = {}, as = 'div', 'aria-label': ariaLabel, role, hasBorder}, forwardedRef) => {
     const rootRef = useProvidedRefOrCreate<HTMLDivElement>(forwardedRef as React.RefObject<HTMLDivElement>)
@@ -104,12 +107,10 @@ const Root = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeader
       },
       [children, rootRef],
     )
-    const BaseComponent = toggleSxComponent(as) as React.ComponentType<
-      React.PropsWithChildren<PageHeaderProps & React.RefAttributes<HTMLDivElement>>
-    >
 
     return (
-      <BaseComponent
+      <RootBaseComponent
+        as={as}
         ref={rootRef}
         className={clsx(classes.PageHeader, className)}
         data-has-border={hasBorder ? 'true' : undefined}
@@ -118,11 +119,14 @@ const Root = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeader
         role={role}
       >
         {children}
-      </BaseComponent>
+      </RootBaseComponent>
     )
   },
 ) as PolymorphicForwardRefComponent<'div', PageHeaderProps>
 
+const ContextAreaBaseComponent = toggleSxComponent('div') as React.ComponentType<
+  React.PropsWithChildren<ChildrenPropTypes & React.RefAttributes<HTMLDivElement>>
+>
 // PageHeader.ContextArea : Only visible on narrow viewports by default to provide user context of where they are at their journey. `hidden` prop available
 // to manage their custom visibility but consumers should be careful if they choose to hide this on narrow viewports.
 // PageHeader.ContextArea Sub Components: PageHeader.ParentLink, PageHeader.ContextBar, PageHeader.ContextAreaActions
@@ -133,13 +137,14 @@ const ContextArea: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
   hidden = hiddenOnRegularAndWide,
   sx: sxProp = defaultSxProp,
 }) => {
-  const BaseComponent = toggleSxComponent('div') as React.ComponentType<
-    React.PropsWithChildren<ChildrenPropTypes & React.RefAttributes<HTMLDivElement>>
-  >
   return (
-    <BaseComponent className={clsx(classes.ContextArea, className)} sx={sxProp} {...getHiddenDataAttributes(hidden)}>
+    <ContextAreaBaseComponent
+      className={clsx(classes.ContextArea, className)}
+      sx={sxProp}
+      {...getHiddenDataAttributes(hidden)}
+    >
       {children}
-    </BaseComponent>
+    </ContextAreaBaseComponent>
   )
 }
 type LinkProps = Pick<
@@ -189,22 +194,29 @@ ParentLink.displayName = 'ParentLink'
 // Generic slot for any component above the title region. Use it for custom breadcrumbs and other navigation elements instead of ParentLink.
 // ---------------------------------------------------------------------
 
+const ContextBarBaseComponent = toggleSxComponent('div') as React.ComponentType<
+  React.PropsWithChildren<ChildrenPropTypes & React.RefAttributes<HTMLDivElement>>
+>
 const ContextBar: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
   children,
   className,
   sx: sxProp = defaultSxProp,
   hidden = hiddenOnRegularAndWide,
 }) => {
-  const BaseComponent = toggleSxComponent('div') as React.ComponentType<
-    React.PropsWithChildren<ChildrenPropTypes & React.RefAttributes<HTMLDivElement>>
-  >
   return (
-    <BaseComponent className={clsx(classes.ContextBar, className)} sx={sxProp} {...getHiddenDataAttributes(hidden)}>
+    <ContextBarBaseComponent
+      className={clsx(classes.ContextBar, className)}
+      sx={sxProp}
+      {...getHiddenDataAttributes(hidden)}
+    >
       {children}
-    </BaseComponent>
+    </ContextBarBaseComponent>
   )
 }
 
+const ContextAreaActionsBaseComponent = toggleSxComponent('div') as React.ComponentType<
+  React.PropsWithChildren<ChildrenPropTypes & React.RefAttributes<HTMLDivElement>>
+>
 // ContextAreaActions
 // ---------------------------------------------------------------------
 const ContextAreaActions: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
@@ -213,18 +225,15 @@ const ContextAreaActions: React.FC<React.PropsWithChildren<ChildrenPropTypes>> =
   sx: sxProp = defaultSxProp,
   hidden = hiddenOnRegularAndWide,
 }) => {
-  const BaseComponent = toggleSxComponent('div') as React.ComponentType<
-    React.PropsWithChildren<ChildrenPropTypes & React.RefAttributes<HTMLDivElement>>
-  >
   return (
-    <BaseComponent
+    <ContextAreaActionsBaseComponent
       className={clsx(classes.ContextAreaActions, className)}
       {...getHiddenDataAttributes(hidden)}
       sx={sxProp}
       {...getHiddenDataAttributes(hidden)}
     >
       {children}
-    </BaseComponent>
+    </ContextAreaActionsBaseComponent>
   )
 }
 
@@ -235,15 +244,15 @@ type TitleAreaProps = {
 // PageHeader.TitleArea Sub Components: PageHeader.LeadingVisual, PageHeader.Title, PageTitle.TrailingVisual
 // ---------------------------------------------------------------------
 
+const TitleAreaBaseComponent = toggleSxComponent('div') as React.ComponentType<
+  React.PropsWithChildren<TitleAreaProps & React.RefAttributes<HTMLDivElement>>
+>
 const TitleArea = React.forwardRef<HTMLDivElement, React.PropsWithChildren<TitleAreaProps>>(
   ({children, className, sx: sxProp = defaultSxProp, hidden = false, variant = 'medium'}, forwardedRef) => {
     const titleAreaRef = useProvidedRefOrCreate<HTMLDivElement>(forwardedRef as React.RefObject<HTMLDivElement>)
     const currentVariant = useResponsiveValue(variant, 'medium')
-    const BaseComponent = toggleSxComponent('div') as React.ComponentType<
-      React.PropsWithChildren<TitleAreaProps & React.RefAttributes<HTMLDivElement>>
-    >
     return (
-      <BaseComponent
+      <TitleAreaBaseComponent
         className={clsx(classes.TitleArea, className)}
         ref={titleAreaRef}
         data-component="TitleArea"
@@ -252,12 +261,16 @@ const TitleArea = React.forwardRef<HTMLDivElement, React.PropsWithChildren<Title
         {...getHiddenDataAttributes(hidden)}
       >
         {children}
-      </BaseComponent>
+      </TitleAreaBaseComponent>
     )
   },
 ) as PolymorphicForwardRefComponent<'div', TitleAreaProps>
 TitleArea.displayName = 'TitleArea'
 
+const LeadingActionBaseComponent = toggleSxComponent('div') as React.ComponentType<
+  React.PropsWithChildren<ChildrenPropTypes & React.RefAttributes<HTMLDivElement>> &
+    React.HtmlHTMLAttributes<HTMLDivElement>
+>
 // PageHeader.LeadingAction and PageHeader.TrailingAction should only be visible on regular viewports.
 // So they come as hidden on narrow viewports by default and their visibility can be managed by their `hidden` prop.
 const LeadingAction: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
@@ -270,12 +283,8 @@ const LeadingAction: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
   // @ts-ignore sx has height attribute
   const {height} = sxProp
   if (height) style['--custom-height'] = height
-  const BaseComponent = toggleSxComponent('div') as React.ComponentType<
-    React.PropsWithChildren<ChildrenPropTypes & React.RefAttributes<HTMLDivElement>> &
-      React.HtmlHTMLAttributes<HTMLDivElement>
-  >
   return (
-    <BaseComponent
+    <LeadingActionBaseComponent
       className={clsx(classes.LeadingAction, className)}
       data-component="PH_LeadingAction"
       sx={sxProp}
@@ -283,10 +292,13 @@ const LeadingAction: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
       {...getHiddenDataAttributes(hidden)}
     >
       {children}
-    </BaseComponent>
+    </LeadingActionBaseComponent>
   )
 }
 
+const BreadcrumbsBaseComponent = toggleSxComponent('div') as React.ComponentType<
+  React.PropsWithChildren<ChildrenPropTypes & React.RefAttributes<HTMLDivElement>>
+>
 // This is reserved for only breadcrumbs.
 const Breadcrumbs: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
   children,
@@ -294,21 +306,23 @@ const Breadcrumbs: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
   sx: sxProp = defaultSxProp,
   hidden = false,
 }) => {
-  const BaseComponent = toggleSxComponent('div') as React.ComponentType<
-    React.PropsWithChildren<ChildrenPropTypes & React.RefAttributes<HTMLDivElement>>
-  >
   return (
-    <BaseComponent
+    <BreadcrumbsBaseComponent
       className={clsx(classes.Breadcrumbs, className)}
       data-component="PH_Breadcrumbs"
       sx={sxProp}
       {...getHiddenDataAttributes(hidden)}
     >
       {children}
-    </BaseComponent>
+    </BreadcrumbsBaseComponent>
   )
 }
 
+const LeadingVisualBaseComponent = toggleSxComponent('div') as React.ComponentType<
+  React.PropsWithChildren<
+    ChildrenPropTypes & React.RefAttributes<HTMLDivElement> & React.HtmlHTMLAttributes<HTMLDivElement>
+  >
+>
 // PageHeader.LeadingVisual and PageHeader.TrailingVisual should remain visible on narrow viewports.
 const LeadingVisual: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
   children,
@@ -320,13 +334,8 @@ const LeadingVisual: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
   // @ts-ignore sx has height attribute
   const {height} = sxProp
   if (height) style['--custom-height'] = height
-  const BaseComponent = toggleSxComponent('div') as React.ComponentType<
-    React.PropsWithChildren<
-      ChildrenPropTypes & React.RefAttributes<HTMLDivElement> & React.HtmlHTMLAttributes<HTMLDivElement>
-    >
-  >
   return (
-    <BaseComponent
+    <LeadingVisualBaseComponent
       className={clsx(classes.LeadingVisual, className)}
       data-component="PH_LeadingVisual"
       sx={sxProp}
@@ -334,7 +343,7 @@ const LeadingVisual: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
       {...getHiddenDataAttributes(hidden)}
     >
       {children}
-    </BaseComponent>
+    </LeadingVisualBaseComponent>
   )
 }
 
@@ -371,6 +380,11 @@ const Title: React.FC<React.PropsWithChildren<TitleProps>> = ({
   )
 }
 
+const TrailingVisualBaseComponent = toggleSxComponent('div') as React.ComponentType<
+  React.PropsWithChildren<
+    ChildrenPropTypes & React.RefAttributes<HTMLDivElement> & React.HtmlHTMLAttributes<HTMLDivElement>
+  >
+>
 // PageHeader.LeadingVisual and PageHeader.TrailingVisual should remain visible on narrow viewports.
 const TrailingVisual: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
   children,
@@ -382,13 +396,8 @@ const TrailingVisual: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
   // @ts-ignore sx has height attribute
   const {height} = sxProp
   if (height) style['--custom-height'] = height
-  const BaseComponent = toggleSxComponent('div') as React.ComponentType<
-    React.PropsWithChildren<
-      ChildrenPropTypes & React.RefAttributes<HTMLDivElement> & React.HtmlHTMLAttributes<HTMLDivElement>
-    >
-  >
   return (
-    <BaseComponent
+    <TrailingVisualBaseComponent
       className={clsx(classes.TrailingVisual, className)}
       data-component="PH_TrailingVisual"
       sx={sxProp}
@@ -396,10 +405,15 @@ const TrailingVisual: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
       {...getHiddenDataAttributes(hidden)}
     >
       {children}
-    </BaseComponent>
+    </TrailingVisualBaseComponent>
   )
 }
 
+const TrailingActionBaseComponent = toggleSxComponent('div') as React.ComponentType<
+  React.PropsWithChildren<
+    ChildrenPropTypes & React.RefAttributes<HTMLDivElement> & React.HtmlHTMLAttributes<HTMLDivElement>
+  >
+>
 const TrailingAction: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
   children,
   className,
@@ -410,13 +424,8 @@ const TrailingAction: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
   // @ts-ignore sx has height attribute
   const {height} = sxProp
   if (height) style['--custom-height'] = height
-  const BaseComponent = toggleSxComponent('div') as React.ComponentType<
-    React.PropsWithChildren<
-      ChildrenPropTypes & React.RefAttributes<HTMLDivElement> & React.HtmlHTMLAttributes<HTMLDivElement>
-    >
-  >
   return (
-    <BaseComponent
+    <TrailingActionBaseComponent
       className={clsx(classes.TrailingAction, className)}
       data-component="PH_TrailingAction"
       sx={sxProp}
@@ -424,10 +433,15 @@ const TrailingAction: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
       {...getHiddenDataAttributes(hidden)}
     >
       {children}
-    </BaseComponent>
+    </TrailingActionBaseComponent>
   )
 }
 
+const ActionsBaseComponent = toggleSxComponent('div') as React.ComponentType<
+  React.PropsWithChildren<
+    ChildrenPropTypes & React.RefAttributes<HTMLDivElement> & React.HtmlHTMLAttributes<HTMLDivElement>
+  >
+>
 const Actions: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
   children,
   className,
@@ -438,13 +452,8 @@ const Actions: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
   // @ts-ignore sx has height attribute
   const {height} = sxProp
   if (height) style['--custom-height'] = height
-  const BaseComponent = toggleSxComponent('div') as React.ComponentType<
-    React.PropsWithChildren<
-      ChildrenPropTypes & React.RefAttributes<HTMLDivElement> & React.HtmlHTMLAttributes<HTMLDivElement>
-    >
-  >
   return (
-    <BaseComponent
+    <ActionsBaseComponent
       className={clsx(classes.Actions, className)}
       data-component="PH_Actions"
       sx={sxProp}
@@ -452,9 +461,13 @@ const Actions: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
       {...getHiddenDataAttributes(hidden)}
     >
       {children}
-    </BaseComponent>
+    </ActionsBaseComponent>
   )
 }
+
+const DescriptionBaseComponent = toggleSxComponent('div') as React.ComponentType<
+  React.PropsWithChildren<ChildrenPropTypes & React.RefAttributes<HTMLDivElement>>
+>
 
 // PageHeader.Description: The description area of the header. Visible on all viewports
 const Description: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
@@ -463,13 +476,14 @@ const Description: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
   sx: sxProp = defaultSxProp,
   hidden = false,
 }) => {
-  const BaseComponent = toggleSxComponent('div') as React.ComponentType<
-    React.PropsWithChildren<ChildrenPropTypes & React.RefAttributes<HTMLDivElement>>
-  >
   return (
-    <BaseComponent className={clsx(classes.Description, className)} sx={sxProp} {...getHiddenDataAttributes(hidden)}>
+    <DescriptionBaseComponent
+      className={clsx(classes.Description, className)}
+      sx={sxProp}
+      {...getHiddenDataAttributes(hidden)}
+    >
       {children}
-    </BaseComponent>
+    </DescriptionBaseComponent>
   )
 }
 
@@ -478,6 +492,10 @@ export type NavigationProps = {
   'aria-label'?: React.AriaAttributes['aria-label']
   'aria-labelledby'?: React.AriaAttributes['aria-labelledby']
 } & ChildrenPropTypes
+
+const NavigationBaseComponent = toggleSxComponent('div') as React.ComponentType<
+  React.PropsWithChildren<NavigationProps & React.RefAttributes<HTMLDivElement>>
+>
 
 // PageHeader.Navigation: The local navigation area of the header. Visible on all viewports
 const Navigation: React.FC<React.PropsWithChildren<NavigationProps>> = ({
@@ -493,11 +511,10 @@ const Navigation: React.FC<React.PropsWithChildren<NavigationProps>> = ({
     as === 'nav' && !ariaLabel && !ariaLabelledBy,
     'Use `aria-label` or `aria-labelledby` prop to provide an accessible label to the `nav` landmark for assistive technology',
   )
-  const BaseComponent = toggleSxComponent(as || 'div') as React.ComponentType<
-    React.PropsWithChildren<NavigationProps & React.RefAttributes<HTMLDivElement>>
-  >
+
   return (
-    <BaseComponent
+    <NavigationBaseComponent
+      as={as}
       // Render `aria-label` and `aria-labelledby` only on `nav` elements
       aria-label={as === 'nav' ? ariaLabel : undefined}
       aria-labelledby={as === 'nav' ? ariaLabelledBy : undefined}
@@ -507,7 +524,7 @@ const Navigation: React.FC<React.PropsWithChildren<NavigationProps>> = ({
       {...getHiddenDataAttributes(hidden)}
     >
       {children}
-    </BaseComponent>
+    </NavigationBaseComponent>
   )
 }
 
