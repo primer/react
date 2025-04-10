@@ -236,7 +236,9 @@ export const Tooltip = React.forwardRef(
     const isMacOS = useIsMacOS()
     const hasAriaLabel = 'aria-label' in rest
 
-    const BaseComponent = toggleSxComponent('span')
+    const BaseComponent = toggleSxComponent('span') as React.ComponentType<
+      SxProp & React.HTMLAttributes<HTMLElement> & React.RefAttributes<HTMLSpanElement>
+    >
 
     return (
       <TooltipContext.Provider value={value}>
