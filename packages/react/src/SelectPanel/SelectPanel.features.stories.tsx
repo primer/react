@@ -795,3 +795,67 @@ export const WithOnCancel = () => {
     </FormControl>
   )
 }
+
+export const AsMultiSelectModal = () => {
+  const [intialSelection, setInitialSelection] = React.useState<ItemInput[]>(items.slice(1, 3))
+
+  const [selected, setSelected] = React.useState<ItemInput[]>(intialSelection)
+  const [filter, setFilter] = React.useState('')
+  const [open, setOpen] = useState(false)
+
+  React.useEffect(() => {
+    if (!open) setInitialSelection(selected) // set initialSelection for next time
+  }, [open, selected])
+
+  const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
+
+  return (
+    <SelectPanel
+      variant="modal"
+      title="Select labels"
+      placeholder="Select labels"
+      subtitle="Use labels to organize issues and pull requests"
+      renderAnchor={({children, ...anchorProps}) => (
+        <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
+          {children}
+        </Button>
+      )}
+      open={open}
+      onOpenChange={setOpen}
+      items={filteredItems}
+      selected={selected}
+      onSelectedChange={setSelected}
+      onCancel={() => setSelected(intialSelection)}
+      onFilterChange={setFilter}
+      width="medium"
+    />
+  )
+}
+
+export const AsSingleSelectModal = () => {
+  const [selected, setSelected] = useState<ItemInput | undefined>(undefined)
+  const [filter, setFilter] = useState('')
+  const [open, setOpen] = useState(false)
+  const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
+
+  return (
+    <SelectPanel
+      variant="modal"
+      title="Select labels"
+      placeholder="Select labels"
+      subtitle="Use labels to organize issues and pull requests"
+      renderAnchor={({children, ...anchorProps}) => (
+        <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
+          {children}
+        </Button>
+      )}
+      open={open}
+      onOpenChange={setOpen}
+      items={filteredItems}
+      selected={selected}
+      onSelectedChange={setSelected}
+      onFilterChange={setFilter}
+      width="medium"
+    />
+  )
+}
