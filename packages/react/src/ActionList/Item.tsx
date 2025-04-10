@@ -26,6 +26,7 @@ import {clsx} from 'clsx'
 
 import {actionListCssModulesFlag} from './featureflag'
 
+// For demo purposes
 const LiBox = styled.li<SxProp>(sx)
 
 type ActionListSubItemProps = {
