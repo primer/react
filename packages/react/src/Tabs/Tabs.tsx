@@ -1,7 +1,7 @@
 import React, {createContext, useContext, useId, useMemo, useRef, type ElementRef} from 'react'
-import {useEffectCallback} from '../internal/hooks/useEffectCallback'
+import useIsomorphicLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 
-type TabsProps = React.PropsWithChildren<{
+type TabsProps = React.HTMLAttributes<HTMLElement> & {
   /**
    * Specify the selected tab
    */
@@ -16,24 +16,26 @@ type TabsProps = React.PropsWithChildren<{
    * Provide an optional callback that is called when the selected tab changes
    */
   onValueChange?: ({value}: {value: string}) => void
-}>
+}
 
 function Tabs({children, defaultValue, onValueChange}: TabsProps) {
   const groupId = useId()
   const [selectedValue, setSelectedValue] = React.useState(defaultValue)
-  const savedOnValueChange = useEffectCallback(value => {
-    onValueChange?.({value})
-  })
+  const savedOnValueChange = React.useRef(onValueChange)
   const value: TabsContextValue = useMemo(() => {
     return {
       groupId,
       selectedValue,
       selectTab(value: string) {
         setSelectedValue(value)
-        savedOnValueChange(value)
+        savedOnValueChange.current?.({value})
       },
     }
-  }, [selectedValue, savedOnValueChange])
+  }, [selectedValue])
+
+  useIsomorphicLayoutEffect(() => {
+    savedOnValueChange.current = onValueChange
+  }, [onValueChange])
 
   return <TabsContext.Provider value={value}>{children}</TabsContext.Provider>
 }
@@ -47,8 +49,7 @@ type LabelledBy = {
 }
 
 type Labelled = Label | LabelledBy
-
-type TabListProps = Labelled & React.ComponentPropsWithoutRef<'div'>
+type TabListProps = Labelled & React.HTMLAttributes<HTMLElement>
 
 function TabList({'aria-label': label, 'aria-labelledby': labelledby, children}: TabListProps) {
   const ref = useRef<React.ElementRef<'div'>>(null)
@@ -171,7 +172,7 @@ const Tab = React.forwardRef<ElementRef<'button'>, TabProps>(function Tab(props,
   )
 })
 
-type TabPanelProps = React.ComponentPropsWithoutRef<'div'> & {
+type TabPanelProps = React.HTMLAttributes<HTMLElement> & {
   /**
    * Provide a value that uniquely identities the tab panel. This should mirror
    * the value set for the corresponding tab
