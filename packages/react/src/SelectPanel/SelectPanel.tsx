@@ -188,7 +188,7 @@ export function SelectPanel({
   // Reset the intermediate selected item when the panel is open/closed
   useEffect(() => {
     setIntermediateSelected(isSingleSelectModal ? selected : undefined)
-  }, [open])
+  }, [isSingleSelectModal, open, selected])
 
   const onListContainerRefChanged: FilteredActionListProps['onListContainerRefChanged'] = useCallback(
     (node: HTMLElement | null) => {
@@ -367,21 +367,24 @@ export function SelectPanel({
     }
   }, [placeholder, renderAnchor, selected])
 
-  function isItemCurrentlySelected(item: ItemInput) {
-    // For multi-select, we just need to check if the item is in the selected array
-    if (isMultiSelectVariant(selected)) {
-      return doesItemsIncludeItem(selected, item)
-    }
+  const isItemCurrentlySelected = useCallback(
+    (item: ItemInput) => {
+      // For multi-select, we just need to check if the item is in the selected array
+      if (isMultiSelectVariant(selected)) {
+        return doesItemsIncludeItem(selected, item)
+      }
 
-    // For single-select modal, there is an intermediate state when the user has selected
-    // an item but has not yet saved the selection. We need to check for this state.
-    if (isSingleSelectModal) {
-      return intermediateSelected?.id === item.id
-    }
+      // For single-select modal, there is an intermediate state when the user has selected
+      // an item but has not yet saved the selection. We need to check for this state.
+      if (isSingleSelectModal) {
+        return intermediateSelected?.id === item.id
+      }
 
-    // For single-select anchored, we just need to check if the item is the selected item
-    return selected?.id === item.id
-  }
+      // For single-select anchored, we just need to check if the item is the selected item
+      return selected?.id === item.id
+    },
+    [selected, intermediateSelected, isSingleSelectModal],
+  )
 
   const itemsToRender = useMemo(() => {
     return items.map(item => {
@@ -418,7 +421,7 @@ export function SelectPanel({
         },
       } as ItemProps
     })
-  }, [onClose, onSelectedChange, items, selected, intermediateSelected, isItemCurrentlySelected, isSingleSelectModal])
+  }, [onClose, onSelectedChange, items, selected, isItemCurrentlySelected, isSingleSelectModal])
 
   const focusTrapSettings = {
     initialFocusRef: inputRef || undefined,
