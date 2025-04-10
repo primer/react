@@ -6,6 +6,8 @@ import type {ComponentProps} from '../utils/types'
 import classes from './Breadcrumbs.module.css'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {toggleSxComponent} from '../internal/utils/toggleSxComponent'
+import {ActionMenu} from '../'
+import {ActionList} from '../'
 
 const SELECTED_CLASS = 'selected'
 
