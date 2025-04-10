@@ -944,6 +944,12 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
 }
 
 .c9 {
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--fgColor-attention,var(--color-attention-fg,#9a6700));
+}
+
+.c10 {
   height: 20px;
   max-width: 20px;
   display: -webkit-box;
@@ -965,12 +971,12 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
 }
 
-.c9 svg {
+.c10 svg {
   font-size: 12px;
 }
 
 [data-variant="danger"]:not([aria-disabled]):not([data-inactive]):hover .c4,
-[data-variant="danger"]:active .c9 {
+[data-variant="danger"]:active .c10 {
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
 }
 
@@ -1115,8 +1121,8 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   --divider-color: transparent !important;
 }
 
-.c10:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c2,
-.c10[data-focus-visible-added] + li {
+.c11:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c2,
+.c11[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
 
@@ -1212,6 +1218,9 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
             >
               zero
             </span>
+            <span
+              className="c4 c9"
+            />
           </div>
         </li>
         <li
@@ -1244,6 +1253,9 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
             >
               one
             </span>
+            <span
+              className="c4 c9"
+            />
           </div>
         </li>
         <li
@@ -1276,6 +1288,9 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
             >
               two
             </span>
+            <span
+              className="c4 c9"
+            />
           </div>
         </li>
         <li
@@ -1308,6 +1323,9 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
             >
               three
             </span>
+            <span
+              className="c4 c9"
+            />
           </div>
         </li>
         <li
@@ -1340,6 +1358,9 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
             >
               four
             </span>
+            <span
+              className="c4 c9"
+            />
           </div>
         </li>
         <li
@@ -1372,6 +1393,9 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
             >
               five
             </span>
+            <span
+              className="c4 c9"
+            />
           </div>
         </li>
         <li
@@ -1404,6 +1428,9 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
             >
               six
             </span>
+            <span
+              className="c4 c9"
+            />
           </div>
         </li>
         <li
@@ -1436,6 +1463,9 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
             >
               seven
             </span>
+            <span
+              className="c4 c9"
+            />
           </div>
         </li>
         <li
@@ -1468,6 +1498,9 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
             >
               twenty
             </span>
+            <span
+              className="c4 c9"
+            />
           </div>
         </li>
         <li
@@ -1500,6 +1533,9 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
             >
               twentyone
             </span>
+            <span
+              className="c4 c9"
+            />
           </div>
         </li>
         <li
@@ -1523,7 +1559,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
             />
           </span>
           <span
-            className="c4 c9"
+            className="c4 c10"
           >
             <svg
               aria-hidden="true"
@@ -1556,6 +1592,9 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
             >
               Add new item
             </span>
+            <span
+              className="c4 c9"
+            />
           </div>
         </li>
       </ul>
@@ -1908,6 +1947,12 @@ exports[`snapshots renders a multiselect input 1`] = `
   line-height: 20px;
 }
 
+.c8 {
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--fgColor-attention,var(--color-attention-fg,#9a6700));
+}
+
 .c0 {
   position: absolute;
   width: 1px;
@@ -2125,6 +2170,9 @@ exports[`snapshots renders a multiselect input 1`] = `
             >
               zero
             </span>
+            <span
+              className="c8"
+            />
           </div>
         </li>
         <li
@@ -2157,6 +2205,9 @@ exports[`snapshots renders a multiselect input 1`] = `
             >
               one
             </span>
+            <span
+              className="c8"
+            />
           </div>
         </li>
         <li
@@ -2189,6 +2240,9 @@ exports[`snapshots renders a multiselect input 1`] = `
             >
               two
             </span>
+            <span
+              className="c8"
+            />
           </div>
         </li>
         <li
@@ -2221,6 +2275,9 @@ exports[`snapshots renders a multiselect input 1`] = `
             >
               three
             </span>
+            <span
+              className="c8"
+            />
           </div>
         </li>
         <li
@@ -2253,6 +2310,9 @@ exports[`snapshots renders a multiselect input 1`] = `
             >
               four
             </span>
+            <span
+              className="c8"
+            />
           </div>
         </li>
         <li
@@ -2285,6 +2345,9 @@ exports[`snapshots renders a multiselect input 1`] = `
             >
               five
             </span>
+            <span
+              className="c8"
+            />
           </div>
         </li>
         <li
@@ -2317,6 +2380,9 @@ exports[`snapshots renders a multiselect input 1`] = `
             >
               six
             </span>
+            <span
+              className="c8"
+            />
           </div>
         </li>
         <li
@@ -2349,6 +2415,9 @@ exports[`snapshots renders a multiselect input 1`] = `
             >
               seven
             </span>
+            <span
+              className="c8"
+            />
           </div>
         </li>
         <li
@@ -2381,6 +2450,9 @@ exports[`snapshots renders a multiselect input 1`] = `
             >
               twenty
             </span>
+            <span
+              className="c8"
+            />
           </div>
         </li>
         <li
@@ -2413,6 +2485,9 @@ exports[`snapshots renders a multiselect input 1`] = `
             >
               twentyone
             </span>
+            <span
+              className="c8"
+            />
           </div>
         </li>
       </ul>
@@ -2777,7 +2852,13 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   line-height: 20px;
 }
 
-.c9 {
+.c8 {
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--fgColor-attention,var(--color-attention-fg,#9a6700));
+}
+
+.c10 {
   border-color: var(--control-borderColor-emphasis);
   border-style: solid;
   border-width: 1px;
@@ -2793,7 +2874,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   transition: background-color,border-color 80ms cubic-bezier(0.32,0,0.67,0) 0ms;
 }
 
-.c9::before {
+.c10::before {
   width: var(--base-size-16,16px);
   height: var(--base-size-16,16px);
   visibility: hidden;
@@ -2952,7 +3033,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   border-bottom-right-radius: 0;
 }
 
-.c8 {
+.c9 {
   position: relative;
   display: -webkit-box;
   display: -webkit-flex;
@@ -2984,32 +3065,32 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   margin-bottom: unset;
 }
 
-.c8[data-loading] {
+.c9[data-loading] {
   cursor: default;
 }
 
-.c8[aria-disabled],
-.c8[data-inactive] {
+.c9[aria-disabled],
+.c9[data-inactive] {
   cursor: not-allowed;
 }
 
-.c8[aria-disabled] [data-component="ActionList.Checkbox"],
-.c8[data-inactive] [data-component="ActionList.Checkbox"] {
+.c9[aria-disabled] [data-component="ActionList.Checkbox"],
+.c9[data-inactive] [data-component="ActionList.Checkbox"] {
   cursor: not-allowed;
   background-color: var(--control-bgColor-disabled,rgba(175,184,193,0.2));
   border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
 }
 
-.c8[aria-disabled] [data-component="ActionList.Selection"],
-.c8[data-inactive] [data-component="ActionList.Selection"] {
+.c9[aria-disabled] [data-component="ActionList.Selection"],
+.c9[data-inactive] [data-component="ActionList.Selection"] {
   color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
 }
 
-.c8 [data-component="ActionList.Item--DividerContainer"] {
+.c9 [data-component="ActionList.Item--DividerContainer"] {
   position: relative;
 }
 
-.c8 [data-component="ActionList.Item--DividerContainer"]::before {
+.c9 [data-component="ActionList.Item--DividerContainer"]::before {
   content: " ";
   display: block;
   position: absolute;
@@ -3020,7 +3101,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   border-color: var(--divider-color,transparent);
 }
 
-.c8:not(:first-of-type) {
+.c9:not(:first-of-type) {
   --divider-color: var(--borderColor-muted,var(--color-action-list-item-inline-divider,rgba(208,215,222,0.48)));
 }
 
@@ -3028,22 +3109,22 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   --divider-color: transparent !important;
 }
 
-.c8:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]),
-.c8[data-focus-visible-added]:not([aria-disabled]):not([data-inactive]) {
+.c9:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]),
+.c9[data-focus-visible-added]:not([aria-disabled]):not([data-inactive]) {
   --divider-color: transparent;
 }
 
-.c8:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c2,
-.c8[data-focus-visible-added] + li {
+.c9:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c2,
+.c9[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
 
-.c8[data-is-active-descendant] {
+.c9[data-is-active-descendant] {
   font-weight: 400;
   background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
 }
 
-.c8[data-is-active-descendant]::after {
+.c9[data-is-active-descendant]::after {
   position: absolute;
   top: calc(50% - 12px);
   left: -8px;
@@ -3054,11 +3135,11 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   border-radius: 6px;
 }
 
-.c8[data-last-selected]:not(:last-of-type) {
+.c9[data-last-selected]:not(:last-of-type) {
   padding-bottom: 4px;
 }
 
-.c8[data-last-selected]:not(:last-of-type)::before {
+.c9[data-last-selected]:not(:last-of-type)::before {
   position: absolute;
   bottom: 0;
   width: calc(100% + 16px);
@@ -3076,7 +3157,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
 }
 
 @media (forced-colors:active) {
-  .c9 {
+  .c10 {
     border-width: 1px;
   }
 }
@@ -3112,30 +3193,30 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
 }
 
 @media (forced-colors:active) {
-  .c8:focus,
-  .c8:focus-visible,
-  .c8 > a.focus-visible,
-  .c8[data-is-active-descendant] {
+  .c9:focus,
+  .c9:focus-visible,
+  .c9 > a.focus-visible,
+  .c9[data-is-active-descendant] {
     outline: solid 1px transparent !important;
   }
 }
 
 @media (hover:hover) and (pointer:fine) {
-  .c8:hover:not([aria-disabled]):not([data-inactive]) {
+  .c9:hover:not([aria-disabled]):not([data-inactive]) {
     background-color: var(--control-transparent-bgColor-hover,var(--color-action-list-item-default-hover-bg,rgba(208,215,222,0.32)));
     color: var(--fgColor-default,var(--color-fg-default,#1F2328));
     box-shadow: inset 0 0 0 max(1px,0.0625rem) var(--control-transparent-borderColor-active,var(--color-action-list-item-default-active-border,transparent));
   }
 
-  .c8:focus-visible,
-  .c8 > a.focus-visible,
-  .c8:focus.focus-visible {
+  .c9:focus-visible,
+  .c9 > a.focus-visible,
+  .c9:focus.focus-visible {
     outline: none;
     border: 2 solid;
     box-shadow: 0 0 0 2px var(--focus-outlineColor);
   }
 
-  .c8:active:not([aria-disabled]):not([data-inactive]) {
+  .c9:active:not([aria-disabled]):not([data-inactive]) {
     background-color: var(--control-transparent-bgColor-active,var(--color-action-list-item-default-active-bg,rgba(208,215,222,0.48)));
     color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   }
@@ -3185,6 +3266,9 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
             >
               zero
             </span>
+            <span
+              className="c8"
+            />
           </div>
         </li>
         <li
@@ -3217,6 +3301,9 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
             >
               one
             </span>
+            <span
+              className="c8"
+            />
           </div>
         </li>
         <li
@@ -3249,12 +3336,15 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
             >
               two
             </span>
+            <span
+              className="c8"
+            />
           </div>
         </li>
         <li
           aria-labelledby="3--label  "
           aria-selected={false}
-          className="c2 c8"
+          className="c2 c9"
           data-id="3"
           id="3"
           onClick={[Function]}
@@ -3267,7 +3357,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
             data-component="ActionList.Selection"
           >
             <div
-              className="c9"
+              className="c10"
               data-component="ActionList.Checkbox"
             />
           </span>
@@ -3281,12 +3371,15 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
             >
               three
             </span>
+            <span
+              className="c8"
+            />
           </div>
         </li>
         <li
           aria-labelledby="4--label  "
           aria-selected={false}
-          className="c2 c8"
+          className="c2 c9"
           data-id="4"
           id="4"
           onClick={[Function]}
@@ -3299,7 +3392,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
             data-component="ActionList.Selection"
           >
             <div
-              className="c9"
+              className="c10"
               data-component="ActionList.Checkbox"
             />
           </span>
@@ -3313,12 +3406,15 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
             >
               four
             </span>
+            <span
+              className="c8"
+            />
           </div>
         </li>
         <li
           aria-labelledby="5--label  "
           aria-selected={false}
-          className="c2 c8"
+          className="c2 c9"
           data-id="5"
           id="5"
           onClick={[Function]}
@@ -3331,7 +3427,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
             data-component="ActionList.Selection"
           >
             <div
-              className="c9"
+              className="c10"
               data-component="ActionList.Checkbox"
             />
           </span>
@@ -3345,12 +3441,15 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
             >
               five
             </span>
+            <span
+              className="c8"
+            />
           </div>
         </li>
         <li
           aria-labelledby="6--label  "
           aria-selected={false}
-          className="c2 c8"
+          className="c2 c9"
           data-id="6"
           id="6"
           onClick={[Function]}
@@ -3363,7 +3462,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
             data-component="ActionList.Selection"
           >
             <div
-              className="c9"
+              className="c10"
               data-component="ActionList.Checkbox"
             />
           </span>
@@ -3377,12 +3476,15 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
             >
               six
             </span>
+            <span
+              className="c8"
+            />
           </div>
         </li>
         <li
           aria-labelledby="7--label  "
           aria-selected={false}
-          className="c2 c8"
+          className="c2 c9"
           data-id="7"
           id="7"
           onClick={[Function]}
@@ -3395,7 +3497,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
             data-component="ActionList.Selection"
           >
             <div
-              className="c9"
+              className="c10"
               data-component="ActionList.Checkbox"
             />
           </span>
@@ -3409,12 +3511,15 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
             >
               seven
             </span>
+            <span
+              className="c8"
+            />
           </div>
         </li>
         <li
           aria-labelledby="20--label  "
           aria-selected={false}
-          className="c2 c8"
+          className="c2 c9"
           data-id="20"
           id="20"
           onClick={[Function]}
@@ -3427,7 +3532,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
             data-component="ActionList.Selection"
           >
             <div
-              className="c9"
+              className="c10"
               data-component="ActionList.Checkbox"
             />
           </span>
@@ -3441,12 +3546,15 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
             >
               twenty
             </span>
+            <span
+              className="c8"
+            />
           </div>
         </li>
         <li
           aria-labelledby="21--label  "
           aria-selected={false}
-          className="c2 c8"
+          className="c2 c9"
           data-id="21"
           id="21"
           onClick={[Function]}
@@ -3459,7 +3567,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
             data-component="ActionList.Selection"
           >
             <div
-              className="c9"
+              className="c10"
               data-component="ActionList.Checkbox"
             />
           </span>
@@ -3473,6 +3581,9 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
             >
               twentyone
             </span>
+            <span
+              className="c8"
+            />
           </div>
         </li>
       </ul>
@@ -3783,6 +3894,12 @@ exports[`snapshots renders a single select input 1`] = `
   line-height: 20px;
 }
 
+.c7 {
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--fgColor-attention,var(--color-attention-fg,#9a6700));
+}
+
 .c0 {
   position: absolute;
   width: 1px;
@@ -3988,6 +4105,9 @@ exports[`snapshots renders a single select input 1`] = `
             >
               zero
             </span>
+            <span
+              className="c7"
+            />
           </div>
         </li>
         <li
@@ -4014,6 +4134,9 @@ exports[`snapshots renders a single select input 1`] = `
             >
               one
             </span>
+            <span
+              className="c7"
+            />
           </div>
         </li>
         <li
@@ -4040,6 +4163,9 @@ exports[`snapshots renders a single select input 1`] = `
             >
               two
             </span>
+            <span
+              className="c7"
+            />
           </div>
         </li>
         <li
@@ -4066,6 +4192,9 @@ exports[`snapshots renders a single select input 1`] = `
             >
               three
             </span>
+            <span
+              className="c7"
+            />
           </div>
         </li>
         <li
@@ -4092,6 +4221,9 @@ exports[`snapshots renders a single select input 1`] = `
             >
               four
             </span>
+            <span
+              className="c7"
+            />
           </div>
         </li>
         <li
@@ -4118,6 +4250,9 @@ exports[`snapshots renders a single select input 1`] = `
             >
               five
             </span>
+            <span
+              className="c7"
+            />
           </div>
         </li>
         <li
@@ -4144,6 +4279,9 @@ exports[`snapshots renders a single select input 1`] = `
             >
               six
             </span>
+            <span
+              className="c7"
+            />
           </div>
         </li>
         <li
@@ -4170,6 +4308,9 @@ exports[`snapshots renders a single select input 1`] = `
             >
               seven
             </span>
+            <span
+              className="c7"
+            />
           </div>
         </li>
         <li
@@ -4196,6 +4337,9 @@ exports[`snapshots renders a single select input 1`] = `
             >
               twenty
             </span>
+            <span
+              className="c7"
+            />
           </div>
         </li>
         <li
@@ -4222,6 +4366,9 @@ exports[`snapshots renders a single select input 1`] = `
             >
               twentyone
             </span>
+            <span
+              className="c7"
+            />
           </div>
         </li>
       </ul>
@@ -4290,6 +4437,12 @@ exports[`snapshots renders with a custom text input component 1`] = `
   font-weight: 400;
   word-break: break-word;
   line-height: 20px;
+}
+
+.c7 {
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--fgColor-attention,var(--color-attention-fg,#9a6700));
 }
 
 .c0 {
@@ -4493,6 +4646,9 @@ exports[`snapshots renders with a custom text input component 1`] = `
             >
               zero
             </span>
+            <span
+              className="c7"
+            />
           </div>
         </li>
         <li
@@ -4519,6 +4675,9 @@ exports[`snapshots renders with a custom text input component 1`] = `
             >
               one
             </span>
+            <span
+              className="c7"
+            />
           </div>
         </li>
         <li
@@ -4545,6 +4704,9 @@ exports[`snapshots renders with a custom text input component 1`] = `
             >
               two
             </span>
+            <span
+              className="c7"
+            />
           </div>
         </li>
         <li
@@ -4571,6 +4733,9 @@ exports[`snapshots renders with a custom text input component 1`] = `
             >
               three
             </span>
+            <span
+              className="c7"
+            />
           </div>
         </li>
         <li
@@ -4597,6 +4762,9 @@ exports[`snapshots renders with a custom text input component 1`] = `
             >
               four
             </span>
+            <span
+              className="c7"
+            />
           </div>
         </li>
         <li
@@ -4623,6 +4791,9 @@ exports[`snapshots renders with a custom text input component 1`] = `
             >
               five
             </span>
+            <span
+              className="c7"
+            />
           </div>
         </li>
         <li
@@ -4649,6 +4820,9 @@ exports[`snapshots renders with a custom text input component 1`] = `
             >
               six
             </span>
+            <span
+              className="c7"
+            />
           </div>
         </li>
         <li
@@ -4675,6 +4849,9 @@ exports[`snapshots renders with a custom text input component 1`] = `
             >
               seven
             </span>
+            <span
+              className="c7"
+            />
           </div>
         </li>
         <li
@@ -4701,6 +4878,9 @@ exports[`snapshots renders with a custom text input component 1`] = `
             >
               twenty
             </span>
+            <span
+              className="c7"
+            />
           </div>
         </li>
         <li
@@ -4727,6 +4907,9 @@ exports[`snapshots renders with a custom text input component 1`] = `
             >
               twentyone
             </span>
+            <span
+              className="c7"
+            />
           </div>
         </li>
       </ul>
