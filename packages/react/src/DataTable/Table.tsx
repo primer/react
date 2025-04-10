@@ -233,12 +233,12 @@ function TableCellPlaceholder({children}: TableCellPlaceholderProps) {
 // ----------------------------------------------------------------------------
 export type TableContainerProps = React.PropsWithChildren<SxProp & React.HTMLAttributes<HTMLDivElement>>
 
+const TableContainerBaseComponent = toggleSxComponent('div') as React.ComponentType<TableContainerProps>
 function TableContainer({children, sx: sxProp = defaultSxProp}: TableContainerProps) {
-  const BaseComponent = toggleSxComponent('div') as React.ComponentType<TableContainerProps>
   return (
-    <BaseComponent className={clsx(classes.TableContainer)} sx={sxProp}>
+    <TableContainerBaseComponent className={clsx(classes.TableContainer)} sx={sxProp}>
       {children}
-    </BaseComponent>
+    </TableContainerBaseComponent>
   )
 }
 
