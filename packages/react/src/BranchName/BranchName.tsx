@@ -7,16 +7,18 @@ import {toggleSxComponent} from '../internal/utils/toggleSxComponent'
 type BranchNameProps<As extends React.ElementType> = {
   as?: As
 } & DistributiveOmit<React.ComponentPropsWithRef<React.ElementType extends As ? 'a' : As>, 'as'> &
-  Omit<SxProp, 'sx'> & {sx?: React.CSSProperties | undefined}
+  Omit<SxProp, 'sx'> &
+  SxProp
+
+const BaseComponent = toggleSxComponent('div') as React.ComponentType<
+  React.PropsWithChildren<BranchNameProps<React.ElementType> & React.RefAttributes<HTMLElement>>
+>
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function BranchName<As extends React.ElementType>(props: BranchNameProps<As>, ref: ForwardedRef<any>) {
   const {as: Component = 'a', className, children, ...rest} = props
-
-  const BaseComponent = toggleSxComponent(Component)
-
   return (
-    <BaseComponent {...rest} ref={ref} className={clsx(className, classes.BranchName)}>
+    <BaseComponent as={Component} {...rest} ref={ref} className={clsx(className, classes.BranchName)}>
       {children}
     </BaseComponent>
   )
