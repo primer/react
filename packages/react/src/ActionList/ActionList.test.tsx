@@ -100,7 +100,8 @@ describe('ActionList', () => {
     expect(document.activeElement).toHaveTextContent('Option 4')
 
     await userEvent.keyboard('{ArrowDown}')
-    expect(document.activeElement).toHaveAccessibleName('Unavailable due to an outage')
+    expect(document.activeElement).toHaveAccessibleName('Option 5')
+    expect(document.activeElement).toHaveAccessibleDescription('Unavailable due to an outage')
 
     await userEvent.keyboard('{ArrowUp}')
     expect(document.activeElement).toHaveTextContent('Option 4')
