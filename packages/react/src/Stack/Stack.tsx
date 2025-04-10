@@ -66,6 +66,7 @@ type StackProps<As> = React.PropsWithChildren<{
   className?: string
 }>
 
+const StackBaseComponent = toggleSxComponent('div') as React.ComponentType<StackProps<React.ElementType>>
 function Stack<As extends ElementType>({
   as,
   children,
@@ -78,9 +79,9 @@ function Stack<As extends ElementType>({
   className,
   ...rest
 }: StackProps<As> & React.ComponentPropsWithoutRef<ElementType extends As ? As : 'div'>) {
-  const BaseComponent = toggleSxComponent(as ?? 'div')
   return (
-    <BaseComponent
+    <StackBaseComponent
+      as={as}
       {...rest}
       className={clsx(className, classes.Stack)}
       {...getResponsiveAttributes('gap', gap)}
@@ -91,7 +92,7 @@ function Stack<As extends ElementType>({
       {...getResponsiveAttributes('padding', padding)}
     >
       {children}
-    </BaseComponent>
+    </StackBaseComponent>
   )
 }
 
@@ -109,6 +110,7 @@ type StackItemProps<As> = React.PropsWithChildren<{
   className?: string
 }>
 
+const StackItemBaseComponent = toggleSxComponent('div') as React.ComponentType<StackItemProps<React.ElementType>>
 function StackItem<As extends ElementType>({
   as,
   children,
@@ -116,12 +118,15 @@ function StackItem<As extends ElementType>({
   className,
   ...rest
 }: StackItemProps<As> & React.ComponentPropsWithoutRef<ElementType extends As ? As : 'div'>) {
-  const BaseComponent = toggleSxComponent(as ?? 'div')
-
   return (
-    <BaseComponent {...rest} className={clsx(className, classes.StackItem)} {...getResponsiveAttributes('grow', grow)}>
+    <StackItemBaseComponent
+      as={as}
+      {...rest}
+      className={clsx(className, classes.StackItem)}
+      {...getResponsiveAttributes('grow', grow)}
+    >
       {children}
-    </BaseComponent>
+    </StackItemBaseComponent>
   )
 }
 
