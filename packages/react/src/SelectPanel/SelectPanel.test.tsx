@@ -968,6 +968,130 @@ for (const useModernActionList of [false, true]) {
           ).toHaveAttribute('aria-selected', 'true')
         })
       })
+
+      describe('sorting', () => {
+        const items = [
+          {
+            text: 'item one',
+            id: '3',
+          },
+          {
+            text: 'item two',
+            id: '1',
+            selected: true,
+          },
+          {
+            text: 'item three',
+            id: '2',
+          },
+        ]
+
+        it('should render selected items at the top by default', async () => {
+          const user = userEvent.setup()
+
+          renderWithFlag(<BasicSelectPanel items={items} selected={[items[1]]} />, useModernActionList)
+
+          await user.click(screen.getByText('item two')) // item two is selected so that's what the anchor text is
+
+          const options = screen.getAllByRole('option')
+          expect(options[0]).toHaveTextContent('item two') // item two is selected
+          expect(options[1]).toHaveTextContent('item one')
+          expect(options[2]).toHaveTextContent('item three')
+        })
+        it('should not render selected items at the top when orderSelectedFirst set to false', async () => {
+          const user = userEvent.setup()
+
+          renderWithFlag(
+            <BasicSelectPanel items={items} selected={[items[1]]} orderSelectedFirst={false} />,
+            useModernActionList,
+          )
+
+          await user.click(screen.getByText('item two')) // item two is selected so that's what the anchor text is
+
+          const options = screen.getAllByRole('option')
+          expect(options[0]).toHaveTextContent('item one')
+          expect(options[1]).toHaveTextContent('item two') // item two is selected
+          expect(options[2]).toHaveTextContent('item three')
+        })
+        it('should support rendering by selected and then by key', async () => {
+          const user = userEvent.setup()
+
+          renderWithFlag(<BasicSelectPanel items={items} selected={[items[1]]} sortKey="id" />, useModernActionList)
+
+          await user.click(screen.getByText('item two')) // item two is selected so that's what the anchor text is
+
+          const options = screen.getAllByRole('option')
+          expect(options[0]).toHaveTextContent('item two') // item two is selected
+          expect(options[1]).toHaveTextContent('item three') // id = 2
+          expect(options[2]).toHaveTextContent('item one') // id = 3
+        })
+        it('should support rendering by key only', async () => {
+          const user = userEvent.setup()
+
+          renderWithFlag(
+            <BasicSelectPanel items={items} selected={[items[0]]} sortKey="id" orderSelectedFirst={false} />,
+            useModernActionList,
+          )
+
+          await user.click(screen.getByText('item one')) // item one is selected so that's what the anchor text is
+
+          const options = screen.getAllByRole('option')
+          expect(options[0]).toHaveTextContent('item two') // id = 1
+          expect(options[1]).toHaveTextContent('item three') // id = 2
+          expect(options[2]).toHaveTextContent('item one') // id = 3
+        })
+        it('should support rendering in descending order', async () => {
+          const user = userEvent.setup()
+
+          renderWithFlag(
+            <BasicSelectPanel
+              items={items}
+              selected={[items[0]]}
+              sortKey="id"
+              orderSelectedFirst={false}
+              sortDirection="desc"
+            />,
+            useModernActionList,
+          )
+
+          await user.click(screen.getByText('item one')) // item one is selected so that's what the anchor text is
+
+          const options = screen.getAllByRole('option')
+          expect(options[0]).toHaveTextContent('item one') // id = 3
+          expect(options[1]).toHaveTextContent('item three') // id = 2
+          expect(options[2]).toHaveTextContent('item two') // id = 1
+        })
+        it('should support custom sorting function', async () => {
+          const user = userEvent.setup()
+
+          renderWithFlag(
+            <BasicSelectPanel
+              items={items}
+              selected={[items[2]]}
+              sortKey="id"
+              orderSelectedFirst={false}
+              sortDirection="asc"
+              sortFn={(a: {text: string}, b: {text: string}) => {
+                // item one first, then follow original order
+                if (a.text === 'item one') {
+                  return -1
+                } else if (b.text === 'item one') {
+                  return 1
+                }
+                return 0
+              }}
+            />,
+            useModernActionList,
+          )
+
+          await user.click(screen.getByText('item three')) // item three is selected so that's what the anchor text is
+
+          const options = screen.getAllByRole('option')
+          expect(options[0]).toHaveTextContent('item one') // id = 3
+          expect(options[1]).toHaveTextContent('item two') // id = 1
+          expect(options[2]).toHaveTextContent('item three') // id = 2
+        })
+      })
     })
   })
 }
