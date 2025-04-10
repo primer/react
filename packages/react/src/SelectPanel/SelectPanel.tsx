@@ -93,6 +93,10 @@ interface SelectPanelBaseProps {
     variant: 'empty' | 'error' | 'warning'
   }
   onCancel?: () => void
+  orderSelectedFirst?: boolean
+  sortkey?: keyof ItemInput
+  sortDirection?: 'asc' | 'desc'
+  sortFn?: (a: ItemInput, b: ItemInput) => number
 }
 
 export type SelectPanelProps = SelectPanelBaseProps &
@@ -167,6 +171,7 @@ export function SelectPanel({
   message,
   notice,
   onCancel,
+  orderSelectedFirst = true,
   ...listProps
 }: SelectPanelProps): JSX.Element {
   const titleId = useId()
@@ -183,6 +188,8 @@ export function SelectPanel({
   const [needsNoItemsAnnouncement, setNeedsNoItemsAnnouncement] = useState<boolean>(false)
   const prevItems = usePreviousValue(items)
   const [selectedOnSort, setSelectedOnSort] = useState<ItemInput[]>([])
+  const [itemsToRender, setItemsToRender] = useState<ItemInput[]>([])
+  const [sortedItems, setSortedItems] = useState<ItemInput[]>([])
   const isNarrowScreenSize = useResponsiveValue({narrow: true, regular: false, wide: false}, false)
 
   const usingModernActionList = useFeatureFlag('primer_react_select_panel_modern_action_list')
@@ -239,6 +246,9 @@ export function SelectPanel({
 
       externalOnFilterChange(value, e)
       setInternalFilterValue(value)
+      if (!value) {
+        resetSort()
+      }
     },
     [
       loadingManagedInternally,
@@ -364,7 +374,7 @@ export function SelectPanel({
     }
   }, [placeholder, renderAnchor, selected])
 
-  const resetSort = useCallback(() => {
+  const resetSort = () => {
     if (isMultiSelectVariant(selected)) {
       setSelectedOnSort(selected)
     } else if (selected) {
@@ -372,14 +382,7 @@ export function SelectPanel({
     } else {
       setSelectedOnSort([])
     }
-  }, [selected, setSelectedOnSort])
-
-  useEffect(() => {
-    if (!filterValue) {
-      resetSort()
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filterValue])
+  }
 
   useEffect(() => {
     if (open) {
@@ -395,115 +398,119 @@ export function SelectPanel({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [items, prevItems])
 
-  const itemsToRender = useMemo(() => {
+  useEffect(() => {
+    const itemsToRender = items.map(item => {
+      const isItemSelected = isMultiSelectVariant(selected) ? doesItemsIncludeItem(selected, item) : selected === item
+
+      return {
+        ...item,
+        role: 'option',
+        selected: 'selected' in item && item.selected === undefined ? undefined : isItemSelected,
+        onAction: (itemFromAction, event) => {
+          item.onAction?.(itemFromAction, event)
+
+          if (event.defaultPrevented) {
+            return
+          }
+
+          if (isMultiSelectVariant(selected)) {
+            const otherSelectedItems = selected.filter(selectedItem => !areItemsEqual(selectedItem, item))
+            const newSelectedItems = doesItemsIncludeItem(selected, item)
+              ? otherSelectedItems
+              : [...otherSelectedItems, item]
+
+            const multiSelectOnChange = onSelectedChange as SelectPanelMultiSelection['onSelectedChange']
+            multiSelectOnChange(newSelectedItems)
+            return
+          }
+
+          // single select
+          const singleSelectOnChange = onSelectedChange as SelectPanelSingleSelection['onSelectedChange']
+          singleSelectOnChange(item === selected ? undefined : item)
+          onClose('selection')
+        },
+      } as ItemProps
+    })
+
+    setItemsToRender(itemsToRender)
+  }, [onClose, onSelectedChange, items, selected])
+
+  useEffect(() => {
     const lastSelected: Record<string, ItemProps> = {}
-    const itemsToRender = items
-      .map(item => {
-        const isItemSelected = isMultiSelectVariant(selected) ? doesItemsIncludeItem(selected, item) : selected === item
 
-        return {
-          ...item,
-          role: 'option',
-          selected: 'selected' in item && item.selected === undefined ? undefined : isItemSelected,
-          onAction: (itemFromAction, event) => {
-            item.onAction?.(itemFromAction, event)
+    const sorted = itemsToRender.sort((itemA, itemB) => {
+      // itemA is selected (for sorting purposes) if an object in selectedOnSort matches every property of itemA, except for the selected property
+      const itemASelected = selectedOnSort.some(item =>
+        Object.entries(item).every(([key, value]) => {
+          if (key === 'selected') {
+            return true
+          }
+          return itemA[key as keyof ItemProps] === value
+        }),
+      )
 
-            if (event.defaultPrevented) {
-              return
-            }
+      // itemB is selected (for sorting purposes) if an object in selectedOnSort matches every property of itemA, except for the selected property
+      const itemBSelected = selectedOnSort.some(item =>
+        Object.entries(item).every(([key, value]) => {
+          if (key === 'selected') {
+            return true
+          }
+          return itemB[key as keyof ItemProps] === value
+        }),
+      )
 
-            if (isMultiSelectVariant(selected)) {
-              const otherSelectedItems = selected.filter(selectedItem => !areItemsEqual(selectedItem, item))
-              const newSelectedItems = doesItemsIncludeItem(selected, item)
-                ? otherSelectedItems
-                : [...otherSelectedItems, item]
-
-              const multiSelectOnChange = onSelectedChange as SelectPanelMultiSelection['onSelectedChange']
-              multiSelectOnChange(newSelectedItems)
-              return
-            }
-
-            // single select
-            const singleSelectOnChange = onSelectedChange as SelectPanelSingleSelection['onSelectedChange']
-            singleSelectOnChange(item === selected ? undefined : item)
-            onClose('selection')
-          },
-        } as ItemProps
-      })
-      .sort((itemA, itemB) => {
-        // itemA is selected (for sorting purposes) if an object in selectedOnSort matches every property of itemA, except for the selected property
-        const itemASelected = selectedOnSort.some(item =>
-          Object.entries(item).every(([key, value]) => {
-            if (key === 'selected') {
-              return true
-            }
-            return itemA[key as keyof ItemProps] === value
-          }),
-        )
-
-        // itemB is selected (for sorting purposes) if an object in selectedOnSort matches every property of itemA, except for the selected property
-        const itemBSelected = selectedOnSort.some(item =>
-          Object.entries(item).every(([key, value]) => {
-            if (key === 'selected') {
-              return true
-            }
-            return itemB[key as keyof ItemProps] === value
-          }),
-        )
-
-        // keep track of the last selected item in each group
-        if (itemASelected) {
-          if (itemA.groupId) {
-            // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-            if ((itemA.text ?? '') >= (lastSelected[itemA.groupId]?.text ?? '')) {
-              lastSelected[itemA.groupId] = itemA
-            }
-          } else {
-            // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-            if ((itemA.text ?? '') >= (lastSelected.general?.text ?? '')) {
-              lastSelected.general = itemA
-            }
+      // keep track of the last selected item in each group
+      if (itemASelected) {
+        if (itemA.groupId) {
+          // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+          if ((itemA.text ?? '') >= (lastSelected[itemA.groupId]?.text ?? '')) {
+            lastSelected[itemA.groupId] = itemA
+          }
+        } else {
+          // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+          if ((itemA.text ?? '') >= (lastSelected.general?.text ?? '')) {
+            lastSelected.general = itemA
           }
         }
+      }
 
-        if (itemBSelected) {
-          if (itemB.groupId) {
-            // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-            if ((itemB.text ?? '') >= (lastSelected[itemB.groupId]?.text ?? '')) {
-              lastSelected[itemB.groupId] = itemB
-            }
-          } else {
-            // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-            if ((itemB.text ?? '') >= (lastSelected.general?.text ?? '')) {
-              lastSelected.general = itemB
-            }
+      if (itemBSelected) {
+        if (itemB.groupId) {
+          // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+          if ((itemB.text ?? '') >= (lastSelected[itemB.groupId]?.text ?? '')) {
+            lastSelected[itemB.groupId] = itemB
+          }
+        } else {
+          // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+          if ((itemB.text ?? '') >= (lastSelected.general?.text ?? '')) {
+            lastSelected.general = itemB
           }
         }
+      }
 
-        // order selected items first
-        if (itemASelected > itemBSelected) {
-          return -1
-        } else if (itemASelected < itemBSelected) {
-          return 1
-        }
+      // order selected items first
+      if (itemASelected > itemBSelected) {
+        return -1
+      } else if (itemASelected < itemBSelected) {
+        return 1
+      }
 
-        // Then order by text
-        if ((itemA.text ?? '') < (itemB.text ?? '')) {
-          return -1
-        } else if ((itemA.text ?? '') > (itemB.text ?? '')) {
-          return 1
-        }
+      // Then order by text
+      if ((itemA.text ?? '') < (itemB.text ?? '')) {
+        return -1
+      } else if ((itemA.text ?? '') > (itemB.text ?? '')) {
+        return 1
+      }
 
-        return 0
-      })
+      return 0
+    })
 
     for (const item of Object.values(lastSelected)) {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       ;(item as any)['data-last-selected'] = ''
     }
-
-    return itemsToRender
-  }, [onClose, onSelectedChange, items, selected, selectedOnSort])
+    setSortedItems(sorted)
+  }, [itemsToRender, selectedOnSort])
 
   const focusTrapSettings = {
     initialFocusRef: inputRef || undefined,
@@ -619,7 +626,7 @@ export function SelectPanel({
           aria-labelledby={listProps['aria-label'] ? undefined : titleId}
           aria-multiselectable={isMultiSelectVariant(selected) ? 'true' : 'false'}
           selectionVariant={isMultiSelectVariant(selected) ? 'multiple' : 'single'}
-          items={itemsToRender}
+          items={sortedItems}
           textInputProps={extendedTextInputProps}
           loading={loading || isLoading}
           loadingType={loadingType()}
