@@ -29,7 +29,7 @@ jobs:
         env:
           STORYBOOK_URL: 'http://172.17.0.1:6006'
         with:
-          args: npx playwright test --grep @stress-test"
+          args: npx playwright test --update-snapshots --grep @stress-test"
       - name: Stop storybook
         if: ${{ always() }}
         run: kill ${{ steps.storybook.outputs.pid }}
