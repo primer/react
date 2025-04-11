@@ -29,7 +29,7 @@ interface Header<Data extends UniqueRow> {
 
 interface Row<Data extends UniqueRow> {
   id: string | number
-  getCells: () => Array<Cell<Data>>
+  getCells: (rowId: string | number) => Array<Cell<Data>>
   getValue: () => Data
 }
 
@@ -186,10 +186,10 @@ export function useTable<Data extends UniqueRow>({
         getValue() {
           return row
         },
-        getCells() {
+        getCells(rowId) {
           return headers.map(header => {
             return {
-              id: `${row.id}:${header.id}`,
+              id: `${rowId}:${header.id}`,
               column: header.column,
               rowHeader: header.column.rowHeader ?? false,
               getValue() {
