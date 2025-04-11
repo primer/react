@@ -128,7 +128,7 @@ test.describe('Skeleton', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'experimental-components-skeleton-skeletonbox--default',
+            id: 'components-skeleton-skeletonbox--default',
             globals: {
               colorScheme: theme,
             },
@@ -146,7 +146,7 @@ test.describe('Skeleton', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'experimental-components-skeleton-skeletonbox-features--custom-height',
+            id: 'components-skeleton-skeletonbox-features--custom-height',
             globals: {
               colorScheme: theme,
             },
@@ -164,7 +164,7 @@ test.describe('Skeleton', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'experimental-components-skeleton-skeletonbox-features--custom-width',
+            id: 'components-skeleton-skeletonbox-features--custom-width',
             globals: {
               colorScheme: theme,
             },
