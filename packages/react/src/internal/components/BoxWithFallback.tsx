@@ -11,6 +11,7 @@ const BoxWithFallback = React.forwardRef(function BoxWithFallback(
     return <Box {...rest} ref={ref} as={BaseComponent} sx={sx} />
   }
   return <BaseComponent {...rest} ref={ref} />
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
 }) as StyledComponent<'div', any, React.ComponentPropsWithoutRef<typeof Box>, never>
 
 export {BoxWithFallback}
