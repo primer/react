@@ -1,4 +1,4 @@
-import type {Page} from '@playwright/test'
+import type {Locator, Page} from '@playwright/test'
 import {waitForImages} from './waitForImages'
 
 type Value =
@@ -17,7 +17,7 @@ interface Options {
 
 const {STORYBOOK_URL = 'http://localhost:6006'} = process.env
 
-export async function visit(page: Page, options: Options) {
+async function visit(page: Page, options: Options) {
   const {id, args, globals} = options
   // In CI, the static server strips `.html` extensions
   const url = process.env.CI ? new URL(`${STORYBOOK_URL}/iframe`) : new URL(`${STORYBOOK_URL}/iframe.html`)
@@ -77,3 +77,9 @@ function serialize(value: Value): string {
 
   return `${value}`
 }
+
+function getStorybookRoot(page: Page): Locator {
+  return page.locator('#storybook-root')
+}
+
+export {visit, getStorybookRoot}
