@@ -1,7 +1,6 @@
 import React from 'react'
 import {Blankslate} from '../Blankslate'
 import figma from '@figma/code-connect'
-import type {Primary} from '../Button/IconButton.features.stories'
 
 const props = {
   leadingVisual: figma.nestedProps('_BlankslateVisual', {
