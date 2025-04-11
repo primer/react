@@ -2,4 +2,4 @@
 '@primer/react': minor
 ---
 
-Add support for different variants for sizing to Blankslate
+Add support for different sizes to Blankslate
