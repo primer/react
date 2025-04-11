@@ -1,530 +1,536 @@
-/* Base styles */
-.ButtonBase {
-  display: flex;
-  min-width: max-content;
-  height: var(--control-medium-size);
-  /* stylelint-disable-next-line primer/spacing */
-  padding: 0 var(--control-medium-paddingInline-normal);
-  font-family: inherit;
-  font-size: var(--text-body-size-medium);
-  font-weight: var(--base-text-weight-medium);
-  color: var(--button-default-fgColor-rest);
-  text-align: center;
-  text-decoration: none;
-  cursor: pointer;
-  user-select: none;
-  background-color: transparent;
-  border: var(--borderWidth-thin) solid;
-  border-color: var(--button-default-borderColor-rest);
-  border-radius: var(--borderRadius-medium);
-  transition: 80ms cubic-bezier(0.65, 0, 0.35, 1);
-  transition-property: color, fill, background-color, border-color;
-  appearance: none;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--base-size-8);
-
-  &:hover {
-    transition-duration: 80ms;
-  }
-
-  &:focus-visible {
-    @mixin focusOutline;
-  }
-
-  &:active {
-    transition: none;
-  }
-
-  &:disabled,
-  &[aria-disabled='true']:not([data-loading='true']) {
-    cursor: not-allowed;
-    box-shadow: none;
-
-    & .Visual,
-    & .CounterLabel {
-      color: inherit;
-    }
-  }
-
-  @media (forced-colors: active) {
-    &:focus {
-      outline: solid 1px transparent;
-    }
-  }
-
-  /* Visuals */
-  & :where(.Visual) {
+@layer primer.components.button-base {
+  /* Base styles */
+  .ButtonBase {
     display: flex;
-    color: var(--fgColor-muted);
-    pointer-events: none;
-  }
-
-  /* mostly for CounterLabel */
-  & :where(.VisualWrap) {
-    display: flex;
-    pointer-events: none;
-  }
-
-  /* IconButton */
-
-  &:where(.IconButton) {
-    display: inline-grid;
-    width: var(--control-medium-size);
-    min-width: unset;
+    min-width: max-content;
+    height: var(--control-medium-size);
     /* stylelint-disable-next-line primer/spacing */
-    padding: unset;
-    place-content: center;
-    flex-shrink: 0;
-
-    &:where([data-size='small']) {
-      width: var(--control-small-size);
-    }
-
-    &:where([data-size='large']) {
-      width: var(--control-large-size);
-    }
-  }
-
-  /* LinkButton */
-
-  &:where([href]) {
-    display: inline-flex;
+    padding: 0 var(--control-medium-paddingInline-normal);
+    font-family: inherit;
+    font-size: var(--text-body-size-medium);
+    font-weight: var(--base-text-weight-medium);
+    color: var(--button-default-fgColor-rest);
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    user-select: none;
+    background-color: transparent;
+    border: var(--borderWidth-thin) solid;
+    border-color: var(--button-default-borderColor-rest);
+    border-radius: var(--borderRadius-medium);
+    transition: 80ms cubic-bezier(0.65, 0, 0.35, 1);
+    transition-property: color, fill, background-color, border-color;
+    appearance: none;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--base-size-8);
 
     &:hover {
-      text-decoration: none;
-    }
-  }
-
-  /* Button layout */
-
-  & :where(.ButtonContent) {
-    flex: 1 0 auto;
-    display: grid;
-    grid-template-areas: 'leadingVisual text trailingVisual';
-    grid-template-columns: min-content minmax(0, auto) min-content;
-    align-items: center;
-    align-content: center;
-
-    & > :not(:last-child) {
-      margin-right: var(--base-size-8);
+      transition-duration: 80ms;
     }
 
-    /* Content alignment */
-
-    &:where([data-align='center']) {
-      justify-content: center;
+    &:focus-visible {
+      @mixin focusOutline;
     }
 
-    &:where([data-align='start']) {
-      justify-content: flex-start;
+    &:active {
+      transition: none;
     }
-  }
 
-  & :where([data-component='leadingVisual']) {
-    grid-area: leadingVisual;
-  }
+    &:disabled,
+    &[aria-disabled='true']:not([data-loading='true']) {
+      cursor: not-allowed;
+      box-shadow: none;
 
-  & :where(.Label) {
-    /* stylelint-disable-next-line primer/typography */
-    line-height: 1.4285714; /* temporary until we use Text component with --text-body-lineHeight-medium */
-    white-space: nowrap;
-    grid-area: text;
-  }
+      & .Visual,
+      & .CounterLabel {
+        color: inherit;
+      }
+    }
 
-  & :where([data-component='trailingVisual']) {
-    grid-area: trailingVisual;
-  }
+    @media (forced-colors: active) {
+      &:focus {
+        outline: solid 1px transparent;
+      }
+    }
 
-  & :where([data-component='trailingAction']) {
-    margin-right: calc(var(--base-size-4) * -1);
-  }
+    /* Visuals */
+    & .Visual {
+      display: flex;
+      color: var(--fgColor-muted);
+      pointer-events: none;
+    }
 
-  /* Size */
+    /* mostly for CounterLabel */
+    & .VisualWrap {
+      display: flex;
+      pointer-events: none;
+    }
 
-  &:where([data-size='small']) {
-    height: var(--control-small-size);
-    /* stylelint-disable-next-line primer/spacing */
-    padding: 0 var(--control-small-paddingInline-condensed);
-    gap: var(--control-small-gap);
-    font-size: var(--text-body-size-small);
+    /* IconButton */
 
-    & .ButtonContent > :not(:last-child) {
+    &.IconButton {
+      display: inline-grid;
+      width: var(--control-medium-size);
+      min-width: unset;
       /* stylelint-disable-next-line primer/spacing */
-      margin-right: var(--control-small-gap);
+      padding: unset;
+      place-content: center;
+      flex-shrink: 0;
+
+      &[data-size='small'] {
+        width: var(--control-small-size);
+      }
+
+      &[data-size='large'] {
+        width: var(--control-large-size);
+      }
+    }
+
+    /* LinkButton */
+
+    &[href] {
+      display: inline-flex;
+
+      &:hover {
+        text-decoration: none;
+      }
+    }
+
+    /* Button layout */
+
+    & .ButtonContent {
+      flex: 1 0 auto;
+      display: grid;
+      grid-template-areas: 'leadingVisual text trailingVisual';
+      grid-template-columns: min-content minmax(0, auto) min-content;
+      align-items: center;
+      align-content: center;
+
+      & > :not(:last-child) {
+        margin-right: var(--base-size-8);
+      }
+
+      /* Content alignment */
+
+      &[data-align='center'] {
+        justify-content: center;
+      }
+
+      &[data-align='start'] {
+        justify-content: flex-start;
+      }
+    }
+
+    & [data-component='leadingVisual'] {
+      grid-area: leadingVisual;
     }
 
     & .Label {
       /* stylelint-disable-next-line primer/typography */
-      line-height: 1.6666667; /* temporary until we use Text component with --text-body-lineHeight-small */
+      line-height: 1.4285714; /* temporary until we use Text component with --text-body-lineHeight-medium */
+      white-space: nowrap;
+      grid-area: text;
     }
-  }
 
-  &:where([data-size='large']) {
-    height: var(--control-large-size);
-    /* stylelint-disable-next-line primer/spacing */
-    padding: 0 var(--control-large-paddingInline-spacious);
-    gap: var(--control-large-gap);
+    & [data-component='trailingVisual'] {
+      grid-area: trailingVisual;
+    }
 
-    & .ButtonContent > :not(:last-child) {
+    & [data-component='trailingAction'] {
+      margin-right: calc(var(--base-size-4) * -1);
+    }
+
+    /* Size */
+
+    &[data-size='small'] {
+      height: var(--control-small-size);
       /* stylelint-disable-next-line primer/spacing */
-      margin-right: var(--control-large-gap);
-    }
-  }
+      padding: 0 var(--control-small-paddingInline-condensed);
+      gap: var(--control-small-gap);
+      font-size: var(--text-body-size-small);
 
-  /* Full width */
-
-  &:where([data-block='block']) {
-    width: 100%;
-  }
-
-  /* Wrap label text */
-
-  &:where([data-label-wrap='true']) {
-    min-width: fit-content;
-    height: unset;
-    min-height: var(--control-medium-size);
-
-    & .ButtonContent {
-      flex: 1 1 auto;
-      align-self: stretch;
-      /* stylelint-disable-next-line primer/spacing */
-      padding-block: calc(var(--control-medium-paddingBlock) - var(--base-size-2));
-    }
-
-    & .Label {
-      word-break: break-word;
-      white-space: unset;
-    }
-
-    &:where([data-size='small']) {
-      height: unset;
-      min-height: var(--control-small-size);
-
-      & .ButtonContent {
+      & .ButtonContent > :not(:last-child) {
         /* stylelint-disable-next-line primer/spacing */
-        padding-block: calc(var(--control-small-paddingBlock) - var(--base-size-2));
+        margin-right: var(--control-small-gap);
+      }
+
+      & .Label {
+        /* stylelint-disable-next-line primer/typography */
+        line-height: 1.6666667; /* temporary until we use Text component with --text-body-lineHeight-small */
       }
     }
 
-    &:where([data-size='large']) {
-      height: unset;
-      min-height: var(--control-large-size);
+    &[data-size='large'] {
+      height: var(--control-large-size);
       /* stylelint-disable-next-line primer/spacing */
-      padding-inline: var(--control-large-paddingInline-spacious);
+      padding: 0 var(--control-large-paddingInline-spacious);
+      gap: var(--control-large-gap);
 
-      & .ButtonContent {
+      & .ButtonContent > :not(:last-child) {
         /* stylelint-disable-next-line primer/spacing */
-        padding-block: calc(var(--control-large-paddingBlock) - var(--base-size-2));
+        margin-right: var(--control-large-gap);
       }
     }
-  }
 
-  /* Loading */
+    /* Full width */
 
-  /* only hide label if there's no leading/trailing visuals
+    &[data-block='block'] {
+      width: 100%;
+    }
+
+    /* Wrap label text */
+
+    &[data-label-wrap='true'] {
+      min-width: fit-content;
+      height: unset;
+      min-height: var(--control-medium-size);
+
+      & .ButtonContent {
+        flex: 1 1 auto;
+        align-self: stretch;
+        /* stylelint-disable-next-line primer/spacing */
+        padding-block: calc(var(--control-medium-paddingBlock) - var(--base-size-2));
+      }
+
+      & .Label {
+        word-break: break-word;
+        white-space: unset;
+      }
+
+      &[data-size='small'] {
+        height: unset;
+        min-height: var(--control-small-size);
+
+        & .ButtonContent {
+          /* stylelint-disable-next-line primer/spacing */
+          padding-block: calc(var(--control-small-paddingBlock) - var(--base-size-2));
+        }
+      }
+
+      &[data-size='large'] {
+        height: unset;
+        min-height: var(--control-large-size);
+        /* stylelint-disable-next-line primer/spacing */
+        padding-inline: var(--control-large-paddingInline-spacious);
+
+        & .ButtonContent {
+          /* stylelint-disable-next-line primer/spacing */
+          padding-block: calc(var(--control-large-paddingBlock) - var(--base-size-2));
+        }
+      }
+    }
+
+    /* Loading */
+
+    /* only hide label if there's no leading/trailing visuals
   * move spinner to label spot if not leading/trailing visuals
   */
 
-  &:where([data-loading='true']) {
-    &
-      .LoadingSpinner:not(
-        [data-component='leadingVisual'],
-        [data-component='trailingVisual'],
-        [data-component='trailingAction']
-      ) {
-      grid-area: text;
-      margin-right: 0 !important;
-      place-self: center;
+    &[data-loading='true'] {
+      &
+        .LoadingSpinner:not(
+          [data-component='leadingVisual'],
+          [data-component='trailingVisual'],
+          [data-component='trailingAction']
+        ) {
+        grid-area: text;
+        margin-right: 0 !important;
+        place-self: center;
 
-      & + .Label {
-        visibility: hidden;
+        & + .Label {
+          visibility: hidden;
+        }
       }
     }
-  }
 
-  /* Default Variant */
+    /* Default Variant */
 
-  &:where([data-variant='default']) {
-    color: var(--button-default-fgColor-rest);
-    background-color: var(--button-default-bgColor-rest);
-    box-shadow: var(--button-default-shadow-resting);
+    &[data-variant='default'] {
+      color: var(--button-default-fgColor-rest);
+      background-color: var(--button-default-bgColor-rest);
+      box-shadow: var(--button-default-shadow-resting);
 
-    &[aria-expanded='true'] {
-      background-color: var(--button-default-bgColor-active);
-      border-color: var(--button-default-borderColor-active);
+      &[aria-expanded='true'] {
+        background-color: var(--button-default-bgColor-active);
+        border-color: var(--button-default-borderColor-active);
+      }
+
+      &:hover {
+        background-color: var(--button-default-bgColor-hover);
+        border-color: var(--button-default-borderColor-hover);
+      }
+
+      &:active {
+        background-color: var(--button-default-bgColor-active);
+        border-color: var(--button-default-borderColor-active);
+      }
+
+      &:disabled,
+      &[aria-disabled='true']:not([data-loading='true']) {
+        color: var(--control-fgColor-disabled);
+        background-color: var(--button-default-bgColor-disabled);
+        border-color: var(--button-default-borderColor-disabled);
+        box-shadow: none;
+      }
+
+      & .CounterLabel {
+        background-color: var(
+          --buttonCounter-default-bgColor-rest
+        ) !important; /* temporarily override our own sx prop */
+      }
+
+      &.IconButton {
+        color: var(--fgColor-muted);
+      }
     }
 
-    &:hover {
-      background-color: var(--button-default-bgColor-hover);
-      border-color: var(--button-default-borderColor-hover);
-    }
+    /* Primary variant */
 
-    &:active {
-      background-color: var(--button-default-bgColor-active);
-      border-color: var(--button-default-borderColor-active);
-    }
-
-    &:disabled,
-    &[aria-disabled='true']:not([data-loading='true']) {
-      color: var(--control-fgColor-disabled);
-      background-color: var(--button-default-bgColor-disabled);
-      border-color: var(--button-default-borderColor-disabled);
-      box-shadow: none;
-    }
-
-    & .CounterLabel {
-      background-color: var(--buttonCounter-default-bgColor-rest) !important; /* temporarily override our own sx prop */
-    }
-
-    &:where(.IconButton) {
-      color: var(--fgColor-muted);
-    }
-  }
-
-  /* Primary variant */
-
-  &:where([data-variant='primary']) {
-    color: var(--button-primary-fgColor-rest);
-    background-color: var(--button-primary-bgColor-rest);
-    border-color: var(--button-primary-borderColor-rest);
-    box-shadow: var(--shadow-resting-small);
-
-    &[aria-expanded='true'] {
-      background-color: var(--button-primary-bgColor-active);
-      box-shadow: var(--button-primary-shadow-selected);
-    }
-
-    &:hover {
-      background-color: var(--button-primary-bgColor-hover);
-      border-color: var(--button-primary-borderColor-hover);
-    }
-
-    &:focus-visible {
-      @mixin focusOutlineOnEmphasis;
-    }
-
-    &:active {
-      background-color: var(--button-primary-bgColor-active);
-      box-shadow: var(--button-primary-shadow-selected);
-    }
-
-    &:disabled,
-    &[aria-disabled='true']:not([data-loading='true']) {
-      color: var(--button-primary-fgColor-disabled);
-      background-color: var(--button-primary-bgColor-disabled);
-      border-color: var(--button-primary-borderColor-disabled);
-      box-shadow: none;
-    }
-
-    & .CounterLabel {
-      color: var(--button-primary-fgColor-rest) !important; /* temporarily override our own sx prop */
-      background-color: var(--buttonCounter-primary-bgColor-rest) !important; /* temporarily override our own sx prop */
-    }
-
-    /* temporarily using the fgColor to match legacy and reduce visual changes- will eventually be iconColor */
-    & .Visual {
+    &[data-variant='primary'] {
       color: var(--button-primary-fgColor-rest);
-    }
-  }
-
-  /* Danger variant */
-
-  &:where([data-variant='danger']) {
-    color: var(--button-danger-fgColor-rest);
-    background-color: var(--button-danger-bgColor-rest);
-    box-shadow: var(--button-default-shadow-resting);
-
-    &[aria-expanded='true'] {
-      color: var(--button-danger-fgColor-active);
-      background-color: var(--button-danger-bgColor-active);
-      border-color: var(--button-danger-borderColor-active);
-      box-shadow: var(--button-danger-shadow-selected);
-
-      & .Visual {
-        color: var(--button-danger-iconColor-hover);
-      }
-    }
-
-    &:hover {
-      color: var(--button-danger-fgColor-hover);
-      background-color: var(--button-danger-bgColor-hover);
-      border-color: var(--button-danger-borderColor-hover);
+      background-color: var(--button-primary-bgColor-rest);
+      border-color: var(--button-primary-borderColor-rest);
       box-shadow: var(--shadow-resting-small);
 
-      & .CounterLabel {
-        color: var(--buttonCounter-danger-fgColor-hover) !important; /* temporarily override our own sx prop */
-        background-color: var(--buttonCounter-danger-bgColor-hover) !important;
+      &[aria-expanded='true'] {
+        background-color: var(--button-primary-bgColor-active);
+        box-shadow: var(--button-primary-shadow-selected);
       }
 
-      & .Visual {
-        color: var(--button-danger-iconColor-hover);
-      }
-    }
-
-    &:active {
-      color: var(--button-danger-fgColor-active);
-      background-color: var(--button-danger-bgColor-active);
-      border-color: var(--button-danger-borderColor-active);
-      box-shadow: var(--button-danger-shadow-selected);
-
-      & .CounterLabel {
-        color: var(--buttonCounter-danger-fgColor-hover) !important; /* temporarily override our own sx prop */
-        background-color: var(--buttonCounter-danger-bgColor-hover) !important;
+      &:hover {
+        background-color: var(--button-primary-bgColor-hover);
+        border-color: var(--button-primary-borderColor-hover);
       }
 
-      & .Visual {
-        color: var(--button-danger-iconColor-hover);
+      &:focus-visible {
+        @mixin focusOutlineOnEmphasis;
       }
-    }
 
-    &:disabled,
-    &[aria-disabled='true']:not([data-loading='true']) {
-      color: var(--button-danger-fgColor-disabled);
-      background-color: var(--button-danger-bgColor-disabled);
-      border-color: var(--button-default-borderColor-disabled);
-      box-shadow: none;
+      &:active {
+        background-color: var(--button-primary-bgColor-active);
+        box-shadow: var(--button-primary-shadow-selected);
+      }
+
+      &:disabled,
+      &[aria-disabled='true']:not([data-loading='true']) {
+        color: var(--button-primary-fgColor-disabled);
+        background-color: var(--button-primary-bgColor-disabled);
+        border-color: var(--button-primary-borderColor-disabled);
+        box-shadow: none;
+      }
 
       & .CounterLabel {
-        color: var(--buttonCounter-danger-fgColor-disabled) !important; /* temporarily override our own sx prop */
-        background-color: var(--buttonCounter-danger-bgColor-disabled) !important;
+        color: var(--button-primary-fgColor-rest) !important; /* temporarily override our own sx prop */
+        background-color: var(
+          --buttonCounter-primary-bgColor-rest
+        ) !important; /* temporarily override our own sx prop */
+      }
+
+      /* temporarily using the fgColor to match legacy and reduce visual changes- will eventually be iconColor */
+      & .Visual {
+        color: var(--button-primary-fgColor-rest);
       }
     }
 
-    & .CounterLabel {
-      color: var(--buttonCounter-danger-fgColor-rest) !important; /* temporarily override our own sx prop */
-      background-color: var(--buttonCounter-danger-bgColor-rest) !important;
-    }
+    /* Danger variant */
 
-    & .Visual {
-      color: var(--button-danger-iconColor-rest);
-    }
-  }
+    &[data-variant='danger'] {
+      color: var(--button-danger-fgColor-rest);
+      background-color: var(--button-danger-bgColor-rest);
+      box-shadow: var(--button-default-shadow-resting);
 
-  /* Invisible variant */
+      &[aria-expanded='true'] {
+        color: var(--button-danger-fgColor-active);
+        background-color: var(--button-danger-bgColor-active);
+        border-color: var(--button-danger-borderColor-active);
+        box-shadow: var(--button-danger-shadow-selected);
 
-  &:where([data-variant='invisible']) {
-    color: var(--button-default-fgColor-rest);
-    border-color: transparent;
-    box-shadow: none;
+        & .Visual {
+          color: var(--button-danger-iconColor-hover);
+        }
+      }
 
-    &[aria-expanded='true'] {
-      background-color: var(--button-invisible-bgColor-active);
-    }
+      &:hover {
+        color: var(--button-danger-fgColor-hover);
+        background-color: var(--button-danger-bgColor-hover);
+        border-color: var(--button-danger-borderColor-hover);
+        box-shadow: var(--shadow-resting-small);
 
-    &:hover {
-      background-color: var(--button-invisible-bgColor-hover);
+        & .CounterLabel {
+          color: var(--buttonCounter-danger-fgColor-hover) !important; /* temporarily override our own sx prop */
+          background-color: var(--buttonCounter-danger-bgColor-hover) !important;
+        }
+
+        & .Visual {
+          color: var(--button-danger-iconColor-hover);
+        }
+      }
+
+      &:active {
+        color: var(--button-danger-fgColor-active);
+        background-color: var(--button-danger-bgColor-active);
+        border-color: var(--button-danger-borderColor-active);
+        box-shadow: var(--button-danger-shadow-selected);
+
+        & .CounterLabel {
+          color: var(--buttonCounter-danger-fgColor-hover) !important; /* temporarily override our own sx prop */
+          background-color: var(--buttonCounter-danger-bgColor-hover) !important;
+        }
+
+        & .Visual {
+          color: var(--button-danger-iconColor-hover);
+        }
+      }
+
+      &:disabled,
+      &[aria-disabled='true']:not([data-loading='true']) {
+        color: var(--button-danger-fgColor-disabled);
+        background-color: var(--button-danger-bgColor-disabled);
+        border-color: var(--button-default-borderColor-disabled);
+        box-shadow: none;
+
+        & .CounterLabel {
+          color: var(--buttonCounter-danger-fgColor-disabled) !important; /* temporarily override our own sx prop */
+          background-color: var(--buttonCounter-danger-bgColor-disabled) !important;
+        }
+      }
+
+      & .CounterLabel {
+        color: var(--buttonCounter-danger-fgColor-rest) !important; /* temporarily override our own sx prop */
+        background-color: var(--buttonCounter-danger-bgColor-rest) !important;
+      }
 
       & .Visual {
-        color: var(--button-invisible-iconColor-hover);
+        color: var(--button-danger-iconColor-rest);
       }
     }
 
-    &:active {
-      background-color: var(--button-invisible-bgColor-active);
+    /* Invisible variant */
 
-      & .Visual {
-        color: var(--button-invisible-iconColor-hover);
-      }
-    }
-
-    &:disabled,
-    &[aria-disabled='true']:not([data-loading='true']) {
-      color: var(--button-invisible-fgColor-disabled);
-      background-color: var(--button-invisible-bgColor-disabled);
-      border-color: var(--button-invisible-borderColor-disabled);
-      box-shadow: none;
-    }
-
-    & .Visual {
-      color: var(--button-invisible-iconColor-rest);
-    }
-
-    & .CounterLabel {
-      background-color: var(--buttonCounter-invisible-bgColor-rest) !important;
-    }
-
-    &:where(.IconButton) {
-      color: var(--button-invisible-iconColor-rest);
-    }
-  }
-
-  /* Link variant */
-
-  &:where([data-variant='link']) {
-    display: inline-flex;
-    min-width: fit-content;
-    height: unset;
-    padding: 0;
-    font-size: inherit;
-    color: var(--fgColor-link);
-    text-align: left;
-    border: unset;
-
-    &:hover:not(:disabled, [data-inactive]) {
-      text-decoration: underline;
-    }
-
-    &:focus-visible,
-    &:focus {
-      outline-offset: 2px;
-    }
-
-    &:disabled,
-    &[aria-disabled='true']:not([data-loading='true']) {
-      color: var(--control-fgColor-disabled);
-      background-color: transparent;
+    &[data-variant='invisible'] {
+      color: var(--button-default-fgColor-rest);
       border-color: transparent;
+      box-shadow: none;
+
+      &[aria-expanded='true'] {
+        background-color: var(--button-invisible-bgColor-active);
+      }
+
+      &:hover {
+        background-color: var(--button-invisible-bgColor-hover);
+
+        & .Visual {
+          color: var(--button-invisible-iconColor-hover);
+        }
+      }
+
+      &:active {
+        background-color: var(--button-invisible-bgColor-active);
+
+        & .Visual {
+          color: var(--button-invisible-iconColor-hover);
+        }
+      }
+
+      &:disabled,
+      &[aria-disabled='true']:not([data-loading='true']) {
+        color: var(--button-invisible-fgColor-disabled);
+        background-color: var(--button-invisible-bgColor-disabled);
+        border-color: var(--button-invisible-borderColor-disabled);
+        box-shadow: none;
+      }
+
+      & .Visual {
+        color: var(--button-invisible-iconColor-rest);
+      }
+
+      & .CounterLabel {
+        background-color: var(--buttonCounter-invisible-bgColor-rest) !important;
+      }
+
+      &.IconButton {
+        color: var(--button-invisible-iconColor-rest);
+      }
     }
 
-    & .Label {
-      white-space: unset;
-    }
+    /* Link variant */
 
-    &:where([data-inactive]) {
-      color: var(--button-inactive-fgColor);
-      background: transparent !important;
-    }
-
-    & .Visual {
+    &[data-variant='link'] {
+      display: inline-flex;
+      min-width: fit-content;
+      height: unset;
+      padding: 0;
+      font-size: inherit;
       color: var(--fgColor-link);
+      text-align: left;
+      border: unset;
+
+      &:hover:not(:disabled, [data-inactive]) {
+        text-decoration: underline;
+      }
+
+      &:focus-visible,
+      &:focus {
+        outline-offset: 2px;
+      }
+
+      &:disabled,
+      &[aria-disabled='true']:not([data-loading='true']) {
+        color: var(--control-fgColor-disabled);
+        background-color: transparent;
+        border-color: transparent;
+      }
+
+      & .Label {
+        white-space: unset;
+      }
+
+      &[data-inactive] {
+        color: var(--button-inactive-fgColor);
+        background: transparent !important;
+      }
+
+      & .Visual {
+        color: var(--fgColor-link);
+      }
     }
-  }
 
-  /* Inactive */
+    /* Inactive */
 
-  &:where([data-inactive]),
-  &:where([data-inactive]):hover {
-    color: var(--button-inactive-fgColor);
-    cursor: auto;
-    background-color: var(--button-inactive-bgColor);
-    /* stylelint-disable-next-line primer/colors */
-    border-color: var(--button-inactive-bgColor);
+    &[data-inactive],
+    &[data-inactive]:hover {
+      color: var(--button-inactive-fgColor);
+      cursor: auto;
+      background-color: var(--button-inactive-bgColor);
+      /* stylelint-disable-next-line primer/colors */
+      border-color: var(--button-inactive-bgColor);
 
-    & .Visual,
-    & .CounterLabel {
-      color: inherit !important;
+      & .Visual,
+      & .CounterLabel {
+        color: inherit !important;
+      }
     }
-  }
 
-  /* Icon-only + Counter */
+    /* Icon-only + Counter */
 
-  &:where([data-has-count]):has([data-component='leadingVisual']):not(:has([data-component='text'])) {
-    /* stylelint-disable-next-line primer/spacing */
-    padding-inline: var(--control-medium-paddingInline-condensed);
-
-    &:where([data-size='small']) {
+    &[data-has-count]:has([data-component='leadingVisual']):not(:has([data-component='text'])) {
       /* stylelint-disable-next-line primer/spacing */
-      padding-inline: var(--control-xsmall-paddingInline-condensed);
-    }
+      padding-inline: var(--control-medium-paddingInline-condensed);
 
-    &:where([data-size='large']) {
-      /* stylelint-disable-next-line primer/spacing */
-      padding-inline: var(--control-large-paddingInline-normal);
+      &[data-size='small'] {
+        /* stylelint-disable-next-line primer/spacing */
+        padding-inline: var(--control-xsmall-paddingInline-condensed);
+      }
+
+      &[data-size='large'] {
+        /* stylelint-disable-next-line primer/spacing */
+        padding-inline: var(--control-large-paddingInline-normal);
+      }
     }
   }
-}
 
-.ConditionalWrapper {
-  display: block;
+  .ConditionalWrapper {
+    display: block;
+  }
 }
