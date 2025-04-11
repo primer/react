@@ -45,8 +45,8 @@ test.describe('Pagination', () => {
 
 const stressStories = [
   {
-    title: 'Default',
-    id: 'components-pagination-stresstests--default',
+    title: 'Pagination Page Update',
+    id: 'components-pagination-stresstests--page-update',
   },
 ] as const
 
@@ -56,18 +56,39 @@ test.describe('Pagination Stress Tests', () => {
       for (const theme of themes) {
         test.describe(theme, () => {
           test(`${story.title} @stress-test`, async ({page}) => {
+            const interaction = measureInteraction('stress-test')
             await visit(page, {
               id: story.id,
               globals: {
                 colorScheme: theme,
               },
             })
-
-            // Default state
-            expect(await page.screenshot()).toMatchSnapshot(`Pagehead.${story.title}.${theme}.png`)
+            interaction.end()
+            expect(interaction.getDuration()).toBeLessThan(1000)
           })
         })
       }
     })
   }
 })
+
+function measureInteraction(interactionName: string) {
+  performance.mark(`${interactionName} start`)
+
+  let duration = 0
+
+  return {
+    end() {
+      performance.mark(`${interactionName} end`)
+      const measure = performance.measure(
+        `${interactionName} duration`,
+        `${interactionName} start`,
+        `${interactionName} end`,
+      )
+      duration = measure.duration
+    },
+    getDuration() {
+      return duration
+    },
+  }
+}
