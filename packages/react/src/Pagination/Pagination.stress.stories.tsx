@@ -13,12 +13,26 @@ export default {
 } as Meta<ComponentProps<typeof Pagination>>
 
 export const PageUpdate = () => {
+  return (
+    <StressTest
+      renderIteration={(count, totalIterations) => (
+        <Pagination pageCount={totalIterations} currentPage={count} showPages={{narrow: false}} />
+      )}
+    />
+  )
+}
+
+interface StressTestProps {
+  renderIteration: (count: number, totalIterations: number) => React.ReactNode
+}
+
+const StressTest: React.FC<StressTestProps> = ({renderIteration}) => {
   const [count, setCount] = useState(1)
   const [result, setResult] = useState<undefined | number>(undefined)
   const totalIterations = 100
 
   // Initialize the observer to log performance metrics, stored in a ref and initialized only once
-  const observer = React.useRef<{observer: PerformanceObserver; data: Map<string, number[]>} | null>(null)
+  const observer = React.useRef<{observer: PerformanceObserver; data: number[]} | null>(null)
   if (!observer.current) {
     observer.current = initializeObserver()
   }
@@ -32,13 +46,12 @@ export const PageUpdate = () => {
     }
   }, [])
 
-  // button callback to start the profiler
   const onClick = () => {
     setCount(1)
     let count = 0
     const interval = setInterval(() => {
       if (count < totalIterations - 1) {
-        const interaction = measureInteraction('page-update')
+        const interaction = measureInteraction()
         // The afterFrame library calls the function
         // when the next frame starts
         afterFrame(() => {
@@ -56,7 +69,7 @@ export const PageUpdate = () => {
   useEffect(() => {
     if (count === totalIterations) {
       // Get the median of the duration
-      const durations = observer.current?.data.get('page-update-duration') ?? []
+      const durations = observer.current?.data ?? []
       const median = durations.sort((a, b) => a - b)[Math.floor(durations.length / 2)]
       setResult(median)
     }
@@ -77,7 +90,7 @@ export const PageUpdate = () => {
 
   return (
     <>
-      <Pagination pageCount={totalIterations} currentPage={count} showPages={{narrow: false}} />
+      {renderIteration(count, totalIterations)}
       <Button
         variant="primary"
         disabled={count !== 1 && count !== totalIterations}
@@ -90,7 +103,7 @@ export const PageUpdate = () => {
       </Button>
       {result !== undefined && (
         <Text as="em">
-          Median duration: <span data-testid="result">{result.toFixed(2)}</span>
+          Median duration: <span data-testid="result">{result.toFixed(5)}</span>
           ms
         </Text>
       )}
@@ -98,27 +111,27 @@ export const PageUpdate = () => {
   )
 }
 
-function measureInteraction(interactionName: string) {
-  performance.mark(`${interactionName}-start`)
+function measureInteraction() {
+  performance.mark('interaction-start')
   return {
     end() {
-      performance.mark(`${interactionName}-end`)
-      performance.measure(`${interactionName}-duration`, `${interactionName}-start`, `${interactionName}-end`)
+      performance.mark('interaction-end')
+      performance.measure('interaction-duration', 'interaction-start', 'interaction-end')
     },
   }
 }
 
 const initializeObserver = () => {
-  const durationByEntryName = new Map<string, number[]>()
+  const duration: number[] = []
 
   const observer = new PerformanceObserver(function perfObserver(list, _observer) {
     for (const entry of list.getEntries()) {
       if (entry.entryType === 'measure') {
-        durationByEntryName.set(entry.name, [...(durationByEntryName.get(entry.name) ?? []), entry.duration])
+        duration.push(entry.duration)
       }
     }
   })
 
   observer.observe({entryTypes: ['measure']})
-  return {data: durationByEntryName, observer}
+  return {data: duration, observer}
 }
