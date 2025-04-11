@@ -105,3 +105,27 @@ export const Spacious = () => (
     <Blankslate.Description>Use it to provide information when no dynamic content exists.</Blankslate.Description>
   </Blankslate>
 )
+
+export const SizeSmall = () => (
+  <Blankslate size="small">
+    <Blankslate.Visual>
+      <BookIcon size="medium" />
+    </Blankslate.Visual>
+    <Blankslate.Heading>Blankslate heading</Blankslate.Heading>
+    <Blankslate.Description>Use it to provide information when no dynamic content exists.</Blankslate.Description>
+    <Blankslate.PrimaryAction href="#">Primary action</Blankslate.PrimaryAction>
+    <Blankslate.SecondaryAction href="#">Secondary action</Blankslate.SecondaryAction>
+  </Blankslate>
+)
+
+export const SizeLarge = () => (
+  <Blankslate size="large">
+    <Blankslate.Visual>
+      <BookIcon size="medium" />
+    </Blankslate.Visual>
+    <Blankslate.Heading>Blankslate heading</Blankslate.Heading>
+    <Blankslate.Description>Use it to provide information when no dynamic content exists.</Blankslate.Description>
+    <Blankslate.PrimaryAction href="#">Primary action</Blankslate.PrimaryAction>
+    <Blankslate.SecondaryAction href="#">Secondary action</Blankslate.SecondaryAction>
+  </Blankslate>
+)

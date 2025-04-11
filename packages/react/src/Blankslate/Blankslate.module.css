@@ -9,7 +9,7 @@
   padding: var(--blankslate-padding);
 
   &:where([data-border]) {
-    border: var(--borderWidth-thin) solid var(--borderColor-default);
+    border: var(--borderWidth-thin) solid var(--borderColor-medium);
     border-radius: var(--borderRadius-medium);
   }
 
@@ -18,7 +18,7 @@
     margin: 0 auto;
   }
 
-  &:where([data-variant='default']) {
+  &:where([data-size='medium']) {
     --blankslate-heading-text: var(--text-title-shorthand-medium);
     --blankslate-heading-margin-block: 0 var(--base-size-4);
     --blankslate-description-text: var(--text-body-shorthand-large);
@@ -26,11 +26,11 @@
     --blankslate-action-margin-block-end: var(--base-size-16);
   }
 
-  &:where([data-variant='default'][data-spacious]) {
+  &:where([data-size='medium'][data-spacious]) {
     --blankslate-padding: var(--base-size-80) var(--base-size-40);
   }
 
-  &:where([data-variant='small']) {
+  &:where([data-size='small']) {
     --blankslate-heading-text: var(--text-title-shorthand-small);
     --blankslate-heading-margin-block: 0 var(--base-size-4);
     --blankslate-description-text: var(--text-body-shorthand-medium);
@@ -38,11 +38,11 @@
     --blankslate-action-margin-block-end: var(--base-size-12);
   }
 
-  &:where([data-variant='small'][data-spacious]) {
+  &:where([data-size='small'][data-spacious]) {
     --blankslate-padding: var(--base-size-44) var(--base-size-28);
   }
 
-  &:where([data-variant='large']) {
+  &:where([data-size='large']) {
     --blankslate-heading-text: var(--text-title-shorthand-large);
     --blankslate-heading-margin-block: var(--base-size-8) var(--base-size-4);
     --blankslate-description-text: var(--text-body-shorthand-large);
@@ -51,7 +51,7 @@
     --blankslate-action-margin-block-end: var(--base-size-16);
   }
 
-  &:where([data-variant='large'][data-spacious]) {
+  &:where([data-size='large'][data-spacious]) {
     --blankslate-padding: var(--base-size-80) var(--base-size-40);
   }
 }
@@ -79,6 +79,7 @@
 }
 
 .Action {
+  font: var(--blankslate-description-text);
   margin-block-start: var(--base-size-16);
 
   &:where(:last-of-type) {

@@ -27,7 +27,7 @@ figma.connect(Blankslate, 'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/P
   props,
   variant: {'SecondaryAction?': 'true'},
   example: ({leadingVisual, border, spacious, size, description, heading, SecondaryActionText, PrimaryAction}) => (
-    <Blankslate border={border} spacious={spacious} variant={size}>
+    <Blankslate border={border} spacious={spacious} size={size}>
       <Blankslate.Visual>{leadingVisual.item}</Blankslate.Visual>
       <Blankslate.Heading>{heading}</Blankslate.Heading>
       <Blankslate.Description>{description}</Blankslate.Description>
@@ -39,8 +39,8 @@ figma.connect(Blankslate, 'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/P
 figma.connect(Blankslate, 'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?node-id=4398-2383&m=dev', {
   props,
   variant: {'SecondaryAction?': 'false'},
-  example: ({leadingVisual, border, spacious, description, heading, PrimaryAction}) => (
-    <Blankslate border={border} spacious={spacious} variant={size}>
+  example: ({leadingVisual, border, spacious, size, description, heading, PrimaryAction}) => (
+    <Blankslate border={border} spacious={spacious} size={size}>
       <Blankslate.Visual>{leadingVisual.item}</Blankslate.Visual>
       <Blankslate.Heading>{heading}</Blankslate.Heading>
       <Blankslate.Description>{description}</Blankslate.Description>

@@ -26,12 +26,12 @@ type BlankslateProps = React.HTMLAttributes<HTMLElement> & {
   spacious?: boolean
 
   /**
-   * Specify the variant of this component
+   * Specify the size of this component
    */
-  variant?: 'small' | 'default' | 'large'
+  size?: 'small' | 'medium' | 'large'
 }
 
-function Blankslate({border, children, narrow, spacious, className, variant = 'default', ...rest}: BlankslateProps) {
+function Blankslate({border, children, narrow, spacious, className, size = 'medium', ...rest}: BlankslateProps) {
   return (
     <div {...rest} className={classes.Container}>
       <div
@@ -39,7 +39,7 @@ function Blankslate({border, children, narrow, spacious, className, variant = 'd
         data-border={border ? '' : undefined}
         data-narrow={narrow ? '' : undefined}
         data-spacious={spacious ? '' : undefined}
-        data-variant={variant}
+        data-size={size}
       >
         {children}
       </div>
@@ -90,7 +90,7 @@ type BlankslatePrimaryActionProps =
 
 function PrimaryAction({children, href, ...props}: BlankslatePrimaryActionProps) {
   return (
-    <div className={clsx('Blankslate-Action', classes.Action)} data-variant="primary">
+    <div className={clsx('Blankslate-Action', classes.Action)}>
       <Button {...props} as={href ? 'a' : 'button'} href={href} variant="primary">
         {children}
       </Button>
@@ -104,7 +104,7 @@ type BlankslateSecondaryActionProps = React.PropsWithChildren<{
 
 function SecondaryAction({children, href}: BlankslateSecondaryActionProps) {
   return (
-    <div className={clsx('Blankslate-Action', classes.Action)} data-variant="secondary">
+    <div className={clsx('Blankslate-Action', classes.Action)}>
       <Link href={href}>{children}</Link>
     </div>
   )

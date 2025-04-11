@@ -50,12 +50,12 @@ Playground.args = {
   border: false,
   narrow: false,
   spacious: false,
-  variant: 'default',
+  size: 'medium',
 }
 Playground.argTypes = {
-  variant: {
+  size: {
     controls: {
-      options: ['default', 'large', 'small'],
+      options: ['small', 'medium', 'large'],
     },
   },
 }
