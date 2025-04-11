@@ -18,7 +18,7 @@ export const PageUpdate = () => {
     setCount(1)
     let count = 0
     const interval = setInterval(() => {
-      if (count < totalIterations) {
+      if (count < totalIterations - 1) {
         setCount(c => c + 1)
         count++
       } else {
@@ -27,11 +27,28 @@ export const PageUpdate = () => {
     }, 10)
   }
 
+  function getButtonLabel(count: number, totalIterations: number): React.ReactNode {
+    switch (count) {
+      case 1:
+        return 'Start stress test'
+      case totalIterations:
+        return 'Stress test complete, click to restart'
+      default:
+        return `Stress test in progress (${count}/${totalIterations})`
+    }
+  }
+
   return (
     <>
       <Pagination pageCount={totalIterations} currentPage={count} showPages={{narrow: false}} />
-      <Button variant="primary" onClick={onClick} size="large" block>
-        Start stress test
+      <Button
+        variant="primary"
+        disabled={count !== 1 && count !== totalIterations}
+        onClick={onClick}
+        size="large"
+        block
+      >
+        {getButtonLabel(count, totalIterations)}
       </Button>
     </>
   )
