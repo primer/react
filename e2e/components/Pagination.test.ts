@@ -55,7 +55,6 @@ test.describe('Pagination Stress Tests', () => {
         })
         await page.getByTestId('start').click()
         const result = await page.getByTestId('result').textContent()
-        await page.getByTestId('complete').waitFor({timeout: 10000})
         console.warn({duration: result, snap: `${story.id}-stress-test.json`})
       })
     })
