@@ -63,8 +63,8 @@ test.describe('Pagination Stress Tests', () => {
               },
             })
             const interaction = measureInteraction('stress-test')
-            await page.getByRole('button', {name: 'Start stress test'}).click()
-            await page.waitForTimeout(1000)
+            await page.getByTestId('start').click()
+            await page.getByTestId('complete').waitFor({timeout: 10000})
             interaction.end()
             console.warn({duration: interaction.getDuration(), snap: `${story.id}-stress-test.json`})
           })

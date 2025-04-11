@@ -27,11 +27,13 @@ export const PageUpdate = () => {
     }, 10)
   }
 
-  function getButtonLabel(count: number, totalIterations: number): React.ReactNode {
-    switch (count) {
-      case 1:
+  const testId = count === 1 ? 'start' : count === totalIterations ? 'complete' : 'in-progress'
+
+  function getButtonLabel(testId: 'start' | 'complete' | 'in-progress'): React.ReactNode {
+    switch (testId) {
+      case 'start':
         return 'Start stress test'
-      case totalIterations:
+      case 'complete':
         return 'Stress test complete, click to restart'
       default:
         return `Stress test in progress (${count}/${totalIterations})`
@@ -47,8 +49,9 @@ export const PageUpdate = () => {
         onClick={onClick}
         size="large"
         block
+        data-testid={testId}
       >
-        {getButtonLabel(count, totalIterations)}
+        {getButtonLabel(testId)}
       </Button>
     </>
   )
