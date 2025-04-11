@@ -171,7 +171,6 @@ export const SingleSelect = () => {
         selected={selected}
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
-        onCancel={() => setOpen(false)}
         width="medium"
         message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}
         sortKey="text"
