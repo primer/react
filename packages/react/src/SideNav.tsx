@@ -5,8 +5,8 @@ import React, {type PropsWithChildren} from 'react'
 import {clsx} from 'clsx'
 import type {SxProp} from './sx'
 import classes from './SideNav.module.css'
-import {toggleSxComponent} from './internal/utils/toggleSxComponent'
 import {defaultSxProp} from './utils/defaultSxProp'
+import {BoxWithFallback} from './internal/components/BoxWithFallback'
 
 type SideNavBaseProps = {
   as?: React.ElementType
@@ -38,12 +38,10 @@ function SideNav({
     },
   )
 
-  const BaseComponent = toggleSxComponent(as) as React.ComponentType<SideNavBaseProps>
-
   return (
-    <BaseComponent className={newClassName} aria-label={ariaLabel} sx={sxProp}>
+    <BoxWithFallback as={as} className={newClassName} aria-label={ariaLabel} sx={sxProp}>
       {children}
-    </BaseComponent>
+    </BoxWithFallback>
   )
 }
 
@@ -57,18 +55,18 @@ type StyledSideNavLinkProps = PropsWithChildren<{
 const SideNavLink = ({selected, to, variant, className, children, ...rest}: StyledSideNavLinkProps) => {
   const isReactRouter = typeof to === 'string'
   const newClassName = clsx(classes.SideNavLink, className, {[classes.SideNavLinkFull]: variant === 'full'})
-  const BaseComponent = toggleSxComponent(Link) as React.ComponentType<StyledSideNavLinkProps>
   // according to their docs, NavLink supports aria-current:
   // https://reacttraining.com/react-router/web/api/NavLink/aria-current-string
   return (
-    <BaseComponent
+    <BoxWithFallback
+      as={Link}
       aria-current={isReactRouter || selected ? 'page' : undefined}
       className={newClassName}
       variant={variant}
       {...rest}
     >
       {children}
-    </BaseComponent>
+    </BoxWithFallback>
   )
 }
 
