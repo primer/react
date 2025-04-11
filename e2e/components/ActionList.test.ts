@@ -520,3 +520,22 @@ test.describe('ActionList', () => {
     }
   })
 })
+
+test.describe('ActionList Single Select Stress Tests', () => {
+  for (const theme of themes) {
+    test.describe(theme, () => {
+      test(`single-select @stress-test`, async ({page}) => {
+        await visit(page, {
+          id: 'components-actionlist-stress-test--single-select',
+          globals: {
+            colorScheme: theme,
+          },
+        })
+        await page.getByTestId('start').click()
+        const result = await page.getByTestId('result').textContent()
+        await page.getByTestId('complete').waitFor({timeout: 10000})
+        console.warn({duration: result, snap: `${story.id}-stress-test.json`})
+      })
+    })
+  }
+})

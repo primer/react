@@ -7,13 +7,13 @@ import classes from './StressTest.module.css'
 import {ProgressBar} from '../ProgressBar'
 
 export interface StressTestProps {
+  totalIterations: number
   renderIteration: (count: number, totalIterations: number) => React.ReactNode
 }
 
-export const StressTest: React.FC<StressTestProps> = ({renderIteration}) => {
-  const [count, setCount] = useState(1)
+export const StressTest: React.FC<StressTestProps> = ({renderIteration, totalIterations}) => {
+  const [count, setCount] = useState(0)
   const [result, setResult] = useState<undefined | number>(undefined)
-  const totalIterations = 300
 
   // Initialize the observer to log performance metrics, stored in a ref and initialized only once
   const observer = React.useRef<{observer: PerformanceObserver; data: number[]} | null>(null)
@@ -31,7 +31,7 @@ export const StressTest: React.FC<StressTestProps> = ({renderIteration}) => {
   }, [])
 
   const onClick = () => {
-    setCount(1)
+    setCount(0)
     let count = 0
     const interval = setInterval(() => {
       if (count < totalIterations - 1) {
@@ -51,23 +51,23 @@ export const StressTest: React.FC<StressTestProps> = ({renderIteration}) => {
   }
 
   useEffect(() => {
-    if (count === totalIterations) {
+    if (count === totalIterations - 1) {
       // Get the median of the duration
       const durations = observer.current?.data ?? []
       const median = durations.sort((a, b) => a - b)[Math.floor(durations.length / 2)]
       setResult(median)
     }
-  }, [count])
+  }, [count, totalIterations])
 
   return (
     <div className={classes.Root}>
       <div className={classes.Container}>{renderIteration(count, totalIterations)}</div>
-      <ProgressBar className={classes.ProgressBar} progress={(count / totalIterations) * 100} animated />
+      <ProgressBar className={classes.ProgressBar} progress={(count / (totalIterations - 1)) * 100} animated />
       <Button
         variant="primary"
-        disabled={count !== 1 && count !== totalIterations}
+        disabled={count !== 0 && count !== totalIterations - 1}
         onClick={onClick}
-        loading={count !== 1 && count !== totalIterations}
+        loading={count !== 0 && count !== totalIterations - 1}
         size="large"
         block
         data-testid={'start'}

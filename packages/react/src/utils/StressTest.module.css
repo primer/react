@@ -9,11 +9,8 @@
 }
 
 .Container {
-  min-height: 200px;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  justify-content: center;
+  height: 300px;
+  overflow: scroll;
   border-radius: var(--borderRadius-large);
   box-shadow: var(--shadow-floating-small);
 }

@@ -10,11 +10,14 @@ export default {
   component: Pagination,
 } as Meta<ComponentProps<typeof Pagination>>
 
+const totalIterations = 500
+
 export const PageUpdate = () => {
   return (
     <StressTest
-      renderIteration={(count, totalIterations) => (
-        <Pagination pageCount={totalIterations} currentPage={count} showPages={{narrow: false}} />
+      totalIterations={totalIterations}
+      renderIteration={count => (
+        <Pagination pageCount={totalIterations} currentPage={count + 1} showPages={{narrow: false}} />
       )}
     />
   )
