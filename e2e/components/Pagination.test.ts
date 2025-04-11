@@ -42,3 +42,32 @@ test.describe('Pagination', () => {
     })
   }
 })
+
+const stressStories = [
+  {
+    title: 'Default',
+    id: 'components-pagination-stresstests--default',
+  },
+] as const
+
+test.describe('Pagination Stress Tests', () => {
+  for (const story of stressStories) {
+    test.describe(story.id, () => {
+      for (const theme of themes) {
+        test.describe(theme, () => {
+          test(`${story.title} @stress-test`, async ({page}) => {
+            await visit(page, {
+              id: story.id,
+              globals: {
+                colorScheme: theme,
+              },
+            })
+
+            // Default state
+            expect(await page.screenshot()).toMatchSnapshot(`Pagehead.${story.title}.${theme}.png`)
+          })
+        })
+      }
+    })
+  }
+})
