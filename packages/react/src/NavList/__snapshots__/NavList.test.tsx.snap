@@ -188,18 +188,6 @@ exports[`NavList renders a simple list 1`] = `
   border-radius: 6px;
 }
 
-.c2[data-last-selected]:not(:last-of-type) {
-  padding-bottom: 10px;
-}
-
-.c2[data-last-selected]:not(:last-of-type)::before {
-  position: absolute;
-  height: var(--borderWidth-default);
-  content: "";
-  background-color: var(--borderColor-default);
-  inset: 100% calc(-1 * var(--base-size-8));
-}
-
 .c7 {
   position: relative;
   display: -webkit-box;
@@ -300,18 +288,6 @@ exports[`NavList renders a simple list 1`] = `
   content: "";
   background-color: var(--borderColor-accent-emphasis);
   border-radius: 6px;
-}
-
-.c7[data-last-selected]:not(:last-of-type) {
-  padding-bottom: 10px;
-}
-
-.c7[data-last-selected]:not(:last-of-type)::before {
-  position: absolute;
-  height: var(--borderWidth-default);
-  content: "";
-  background-color: var(--borderColor-default);
-  inset: 100% calc(-1 * var(--base-size-8));
 }
 
 @media (forced-colors:active) {
@@ -684,18 +660,6 @@ exports[`NavList renders with groups 1`] = `
   border-radius: 6px;
 }
 
-.c5[data-last-selected]:not(:last-of-type) {
-  padding-bottom: 10px;
-}
-
-.c5[data-last-selected]:not(:last-of-type)::before {
-  position: absolute;
-  height: var(--borderWidth-default);
-  content: "";
-  background-color: var(--borderColor-default);
-  inset: 100% calc(-1 * var(--base-size-8));
-}
-
 .c10 {
   position: relative;
   display: -webkit-box;
@@ -796,18 +760,6 @@ exports[`NavList renders with groups 1`] = `
   content: "";
   background-color: var(--borderColor-accent-emphasis);
   border-radius: 6px;
-}
-
-.c10[data-last-selected]:not(:last-of-type) {
-  padding-bottom: 10px;
-}
-
-.c10[data-last-selected]:not(:last-of-type)::before {
-  position: absolute;
-  height: var(--borderWidth-default);
-  content: "";
-  background-color: var(--borderColor-default);
-  inset: 100% calc(-1 * var(--base-size-8));
 }
 
 @media (forced-colors:active) {
@@ -1229,18 +1181,6 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   border-radius: 6px;
 }
 
-.c12[data-last-selected]:not(:last-of-type) {
-  padding-bottom: 10px;
-}
-
-.c12[data-last-selected]:not(:last-of-type)::before {
-  position: absolute;
-  height: var(--borderWidth-default);
-  content: "";
-  background-color: var(--borderColor-default);
-  inset: 100% calc(-1 * var(--base-size-8));
-}
-
 .c4 {
   position: relative;
   display: -webkit-box;
@@ -1342,18 +1282,6 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   content: "";
   background-color: var(--borderColor-accent-emphasis);
   border-radius: 6px;
-}
-
-.c4[data-last-selected]:not(:last-of-type) {
-  padding-bottom: 10px;
-}
-
-.c4[data-last-selected]:not(:last-of-type)::before {
-  position: absolute;
-  height: var(--borderWidth-default);
-  content: "";
-  background-color: var(--borderColor-default);
-  inset: 100% calc(-1 * var(--base-size-8));
 }
 
 .c9 {
@@ -1759,18 +1687,6 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   border-radius: 6px;
 }
 
-.c12[data-last-selected]:not(:last-of-type) {
-  padding-bottom: 10px;
-}
-
-.c12[data-last-selected]:not(:last-of-type)::before {
-  position: absolute;
-  height: var(--borderWidth-default);
-  content: "";
-  background-color: var(--borderColor-default);
-  inset: 100% calc(-1 * var(--base-size-8));
-}
-
 [data-component="ActionList.Divider"] + .c3 {
   --divider-color: transparent !important;
 }
@@ -1893,18 +1809,6 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   content: "";
   background-color: var(--borderColor-accent-emphasis);
   border-radius: 6px;
-}
-
-.c4[data-last-selected]:not(:last-of-type) {
-  padding-bottom: 10px;
-}
-
-.c4[data-last-selected]:not(:last-of-type)::before {
-  position: absolute;
-  height: var(--borderWidth-default);
-  content: "";
-  background-color: var(--borderColor-default);
-  inset: 100% calc(-1 * var(--base-size-8));
 }
 
 .c9 {

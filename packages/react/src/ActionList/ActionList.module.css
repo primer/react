@@ -213,19 +213,6 @@
       }
     }
 
-    &:where([data-last-selected]:not(:last-of-type)) {
-      padding-bottom: var(--base-size-4);
-
-      &::before {
-        position: absolute;
-        height: var(--borderWidth-default);
-        content: '';
-        /* stylelint-disable-next-line primer/colors */
-        background-color: var(--borderColor-default);
-        inset: 100% calc(-1 * var(--base-size-8));
-      }
-    }
-
     /* inactive */
     &:where([data-inactive='true']) {
       /* ignore tooltip */

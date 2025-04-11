@@ -470,7 +470,6 @@ export function SelectPanel({
       setSortedItems(itemsToRender.sort(sortFn))
       return
     } else if (sortKey || orderSelectedFirst) {
-      const lastSelected: Record<string, ItemProps> = {}
       const compare = compareByKey(sortKey, sortDirection)
 
       const sorted = itemsToRender.sort((itemA, itemB) => {
@@ -495,35 +494,6 @@ export function SelectPanel({
             }),
           )
 
-          // keep track of the last selected item in each group
-          if (itemASelected) {
-            if (itemA.groupId) {
-              // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-              if ((itemA.text ?? '') >= (lastSelected[itemA.groupId]?.text ?? '')) {
-                lastSelected[itemA.groupId] = itemA
-              }
-            } else {
-              // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-              if ((itemA.text ?? '') >= (lastSelected.general?.text ?? '')) {
-                lastSelected.general = itemA
-              }
-            }
-          }
-
-          if (itemBSelected) {
-            if (itemB.groupId) {
-              // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-              if ((itemB.text ?? '') >= (lastSelected[itemB.groupId]?.text ?? '')) {
-                lastSelected[itemB.groupId] = itemB
-              }
-            } else {
-              // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-              if ((itemB.text ?? '') >= (lastSelected.general?.text ?? '')) {
-                lastSelected.general = itemB
-              }
-            }
-          }
-
           // order selected items first
           if (itemASelected > itemBSelected) {
             return -1
@@ -534,11 +504,6 @@ export function SelectPanel({
 
         return compare(itemA, itemB)
       })
-
-      for (const item of Object.values(lastSelected)) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        ;(item as any)['data-last-selected'] = ''
-      }
 
       setSortedItems(sorted)
     } else {

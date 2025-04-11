@@ -277,18 +277,6 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       /** Active styles */
       ...(active ? activeStyles : {}), // NavList
       '&[data-is-active-descendant]': {...activeStyles, fontWeight: 'normal'}, // SelectPanel
-      // SelectPanel
-      '&[data-last-selected]:not(:last-of-type)': {
-        'padding-bottom': '10px',
-
-        '&::before': {
-          position: 'absolute',
-          height: 'var(--borderWidth-default)',
-          content: '""',
-          'background-color': 'var(--borderColor-default)',
-          inset: '100% calc(-1 * var(--base-size-8))',
-        },
-      },
     }
 
     const clickHandler = React.useCallback(
