@@ -1,5 +1,17 @@
 # @primer/react
 
+## 37.20.0
+
+### Minor Changes
+
+- [#5788](https://github.com/primer/react/pull/5788) [`cd9987d`](https://github.com/primer/react/commit/cd9987d9b8620355e438048eef4a4186626a6a95) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove the CSS modules feature flag from Table
+
+- [#5875](https://github.com/primer/react/pull/5875) [`3014334`](https://github.com/primer/react/commit/301433464a6da7814d3e923aa9e4129b0c118148) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove the CSS modules feature flag from the BranchName component
+
+- [#5868](https://github.com/primer/react/pull/5868) [`7e6475d`](https://github.com/primer/react/commit/7e6475dc1ee3bbaa445741d4f7dc826284017c26) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove the CSS modules feature flag from Text
+
+- [#5870](https://github.com/primer/react/pull/5870) [`7373295`](https://github.com/primer/react/commit/737329511320e7adac8092f03250960138ffee32) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove the CSS modules feature flag from the Stack component
+
 ## 37.19.0
 
 ### Minor Changes
