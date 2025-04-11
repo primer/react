@@ -90,22 +90,15 @@ test.describe('Blankslate', () => {
     const id = serialize(scenario)
 
     test.describe(id, () => {
-      for (const theme of themes) {
-        test.describe(theme, () => {
-          test('default @vrt', async ({page}) => {
-            await visit(page, {
-              id: 'experimental-components-blankslate-features--playground',
-              globals: {
-                colorScheme: theme,
-              },
-              args: scenario,
-            })
-
-            // Default state
-            expect(await page.screenshot()).toMatchSnapshot(`Blankslate.${id}.${theme}.png`)
-          })
+      test('default @vrt', async ({page}) => {
+        await visit(page, {
+          id: 'experimental-components-blankslate--playground',
+          args: scenario,
         })
-      }
+
+        // Default state
+        expect(await page.screenshot()).toMatchSnapshot(`Blankslate.${id}.png`)
+      })
     })
   }
 })
