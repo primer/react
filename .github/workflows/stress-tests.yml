@@ -1,0 +1,37 @@
+name: stress-tests
+on:
+  pull_request:
+    types:
+      - labeled
+
+jobs:
+  stress-tests:
+    runs-on: ubuntu-latest-8-cores
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - name: Set up Node.js
+        uses: actions/setup-node@cdca7365b2dadb8aad0a33bc7601856ffabcc48e
+        with:
+          node-version: 22
+          cache: 'npm'
+      - name: Install dependencies
+        run: npm ci
+      - name: Build storybook
+        run: npx storybook build
+        working-directory: packages/react
+      - name: Run storybook
+        id: storybook
+        run: |
+          npx serve -l 6006 packages/react/storybook-static &
+          pid=$!
+          echo "pid=$pid" >> $GITHUB_OUTPUT
+          sleep 5
+      - name: Run Stress Tests
+        uses: docker://mcr.microsoft.com/playwright:v1.51.0-jammy
+        env:
+          STORYBOOK_URL: 'http://172.17.0.1:6006'
+        with:
+          args: npx playwright test --grep @stress-test --update-snapshots --shard="${{ matrix.shard }}/${{ strategy.job-total }}"
+      - name: Stop storybook
+        if: ${{ always() }}
+        run: kill ${{ steps.storybook.outputs.pid }}
