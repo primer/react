@@ -29,19 +29,7 @@ jobs:
         env:
           STORYBOOK_URL: 'http://172.17.0.1:6006'
         with:
-          args: npx playwright test --update-snapshots --grep @stress-test"
+          args: npx playwright test --grep @stress-test"
       - name: Stop storybook
         if: ${{ always() }}
         run: kill ${{ steps.storybook.outputs.pid }}
-      - name: Create snapshots.zip
-        run: |
-          if [[ ! -z  $(git ls-files --others --exclude-standard --modified) ]]; then
-            git ls-files --others --exclude-standard --modified | zip snapshots -@
-          fi
-      - name: Upload snapshots
-        uses: actions/upload-artifact@4cec3d8aa04e39d1a68397de0c4cd6fb9dce8ec1
-        with:
-          name: snapshots
-          path: snapshots.zip
-          retention-days: 1
-          if-no-files-found: ignore
