@@ -986,7 +986,24 @@ for (const useModernActionList of [false, true]) {
           },
         ]
 
-        it('should render selected items at the top by default', async () => {
+        it('should render selected items at the top by default when FF on', async () => {
+          const user = userEvent.setup()
+
+          renderWithFlag(
+            <FeatureFlags flags={{primer_react_select_panel_order_selected_at_top: true}}>
+              <BasicSelectPanel items={items} selected={[items[1]]} />
+            </FeatureFlags>,
+            useModernActionList,
+          )
+
+          await user.click(screen.getByText('item two')) // item two is selected so that's what the anchor text is
+
+          const options = screen.getAllByRole('option')
+          expect(options[0]).toHaveTextContent('item two') // item two is selected
+          expect(options[1]).toHaveTextContent('item one')
+          expect(options[2]).toHaveTextContent('item three')
+        })
+        it('should not render selected items at the top by default when FF off', async () => {
           const user = userEvent.setup()
 
           renderWithFlag(<BasicSelectPanel items={items} selected={[items[1]]} />, useModernActionList)
@@ -994,8 +1011,8 @@ for (const useModernActionList of [false, true]) {
           await user.click(screen.getByText('item two')) // item two is selected so that's what the anchor text is
 
           const options = screen.getAllByRole('option')
-          expect(options[0]).toHaveTextContent('item two') // item two is selected
-          expect(options[1]).toHaveTextContent('item one')
+          expect(options[0]).toHaveTextContent('item one')
+          expect(options[1]).toHaveTextContent('item two') // item two is selected
           expect(options[2]).toHaveTextContent('item three')
         })
         it('should not render selected items at the top when orderSelectedFirst set to false', async () => {
@@ -1013,17 +1030,34 @@ for (const useModernActionList of [false, true]) {
           expect(options[1]).toHaveTextContent('item two') // item two is selected
           expect(options[2]).toHaveTextContent('item three')
         })
-        it('should support rendering by selected and then by key', async () => {
+        it('should support sorting by selected and then by key', async () => {
           const user = userEvent.setup()
 
-          renderWithFlag(<BasicSelectPanel items={items} selected={[items[1]]} sortKey="id" />, useModernActionList)
+          renderWithFlag(
+            <FeatureFlags flags={{primer_react_select_panel_order_selected_at_top: true}}>
+              <BasicSelectPanel items={items} selected={[items[1]]} sortKey="text" />
+            </FeatureFlags>,
+            useModernActionList,
+          )
 
           await user.click(screen.getByText('item two')) // item two is selected so that's what the anchor text is
 
           const options = screen.getAllByRole('option')
           expect(options[0]).toHaveTextContent('item two') // item two is selected
-          expect(options[1]).toHaveTextContent('item three') // id = 2
-          expect(options[2]).toHaveTextContent('item one') // id = 3
+          expect(options[1]).toHaveTextContent('item one')
+          expect(options[2]).toHaveTextContent('item three')
+        })
+        it('should only sort by key when FF turned off', async () => {
+          const user = userEvent.setup()
+
+          renderWithFlag(<BasicSelectPanel items={items} selected={[items[1]]} sortKey="text" />, useModernActionList)
+
+          await user.click(screen.getByText('item two')) // item two is selected so that's what the anchor text is
+
+          const options = screen.getAllByRole('option')
+          expect(options[0]).toHaveTextContent('item one')
+          expect(options[1]).toHaveTextContent('item three')
+          expect(options[2]).toHaveTextContent('item two') // item two is selected
         })
         it('should support rendering by key only', async () => {
           const user = userEvent.setup()

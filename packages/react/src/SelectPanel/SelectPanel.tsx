@@ -218,6 +218,8 @@ export function SelectPanel({
 
   const usingModernActionList = useFeatureFlag('primer_react_select_panel_modern_action_list')
   const usingFullScreenOnNarrow = useFeatureFlag('primer_react_select_panel_fullscreen_on_narrow')
+  const shouldOrderSelectedFirst =
+    orderSelectedFirst && useFeatureFlag('primer_react_select_panel_order_selected_at_top')
 
   const onListContainerRefChanged: FilteredActionListProps['onListContainerRefChanged'] = useCallback(
     (node: HTMLElement | null) => {
@@ -469,11 +471,11 @@ export function SelectPanel({
     if (sortFn) {
       setSortedItems(itemsToRender.sort(sortFn))
       return
-    } else if (sortKey || orderSelectedFirst) {
+    } else if (sortKey || shouldOrderSelectedFirst) {
       const compare = compareByKey(sortKey, sortDirection)
 
       const sorted = itemsToRender.sort((itemA, itemB) => {
-        if (orderSelectedFirst) {
+        if (shouldOrderSelectedFirst) {
           // itemA is selected (for sorting purposes) if an object in selectedOnSort matches every property of itemA, except for the selected property
           const itemASelected = selectedOnSort.some(item =>
             Object.entries(item).every(([key, value]) => {
@@ -509,7 +511,7 @@ export function SelectPanel({
     } else {
       setSortedItems(itemsToRender)
     }
-  }, [itemsToRender, selectedOnSort, sortKey, sortDirection, sortFn, orderSelectedFirst])
+  }, [itemsToRender, selectedOnSort, sortKey, sortDirection, sortFn, shouldOrderSelectedFirst])
 
   const focusTrapSettings = {
     initialFocusRef: inputRef || undefined,

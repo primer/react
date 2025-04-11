@@ -24,6 +24,7 @@ import Text from '../Text'
 import FormControl from '../FormControl'
 import {SegmentedControl} from '../SegmentedControl'
 import {Stack} from '../Stack'
+import {FeatureFlags} from '../FeatureFlags'
 
 const meta: Meta<typeof SelectPanel> = {
   title: 'Components/SelectPanel/Features',
@@ -737,33 +738,35 @@ export const WithSorting: StoryObj<SelectPanelProps> = {
     }
 
     return (
-      <SelectPanel
-        title="Select labels"
-        subtitle="Use labels to organize issues and pull requests"
-        renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
-          <Button
-            trailingAction={TriangleDownIcon}
-            aria-labelledby={` ${ariaLabelledBy}`}
-            {...anchorProps}
-            aria-haspopup="dialog"
-          >
-            {children ?? 'Select Labels'}
-          </Button>
-        )}
-        placeholderText="Filter labels"
-        open={open}
-        onOpenChange={onOpenChange}
-        items={filteredItems}
-        selected={selected}
-        onSelectedChange={setSelected}
-        onFilterChange={onFilterChange}
-        showItemDividers={true}
-        width="medium"
-        message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}
-        sortDirection={sortDirection}
-        sortKey={sortKey}
-        orderSelectedFirst={orderSelectedFirst}
-      />
+      <FeatureFlags flags={{primer_react_select_panel_order_selected_at_top: true}}>
+        <SelectPanel
+          title="Select labels"
+          subtitle="Use labels to organize issues and pull requests"
+          renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
+            <Button
+              trailingAction={TriangleDownIcon}
+              aria-labelledby={` ${ariaLabelledBy}`}
+              {...anchorProps}
+              aria-haspopup="dialog"
+            >
+              {children ?? 'Select Labels'}
+            </Button>
+          )}
+          placeholderText="Filter labels"
+          open={open}
+          onOpenChange={onOpenChange}
+          items={filteredItems}
+          selected={selected}
+          onSelectedChange={setSelected}
+          onFilterChange={onFilterChange}
+          showItemDividers={true}
+          width="medium"
+          message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}
+          sortDirection={sortDirection}
+          sortKey={sortKey}
+          orderSelectedFirst={orderSelectedFirst}
+        />
+      </FeatureFlags>
     )
   },
   args: {
