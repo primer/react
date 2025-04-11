@@ -56,13 +56,15 @@ test.describe('Pagination Stress Tests', () => {
       for (const theme of themes) {
         test.describe(theme, () => {
           test(`${story.title} @stress-test`, async ({page}) => {
-            const interaction = measureInteraction('stress-test')
             await visit(page, {
               id: story.id,
               globals: {
                 colorScheme: theme,
               },
             })
+            const interaction = measureInteraction('stress-test')
+            await page.getByRole('button', {name: 'Start stress test'}).click()
+            await page.waitForTimeout(1000)
             interaction.end()
             console.warn({duration: interaction.getDuration(), snap: `${story.id}-stress-test.json`})
           })
