@@ -18,9 +18,10 @@ const projects = Array.from({length: totalIterations}, (_, i) => ({
   scope: `Scope ${i + 1}`,
 }))
 
-export const PageUpdate = () => {
+export const SingleSelect = () => {
   return (
     <StressTest
+      title="ActionList Single Select"
       totalIterations={totalIterations}
       renderIteration={count => {
         return (

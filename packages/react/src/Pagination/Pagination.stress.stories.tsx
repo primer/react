@@ -15,6 +15,7 @@ const totalIterations = 500
 export const PageUpdate = () => {
   return (
     <StressTest
+      title="Pagination Page Update"
       totalIterations={totalIterations}
       renderIteration={count => (
         <Pagination pageCount={totalIterations} currentPage={count + 1} showPages={{narrow: false}} />

@@ -5,13 +5,15 @@ import {Button} from '../Button'
 import Text from '../Text'
 import classes from './StressTest.module.css'
 import {ProgressBar} from '../ProgressBar'
+import Heading from '../Heading'
 
 export interface StressTestProps {
+  title: string
   totalIterations: number
   renderIteration: (count: number, totalIterations: number) => React.ReactNode
 }
 
-export const StressTest: React.FC<StressTestProps> = ({renderIteration, totalIterations}) => {
+export const StressTest: React.FC<StressTestProps> = ({title, totalIterations, renderIteration}) => {
   const [count, setCount] = useState(0)
   const [result, setResult] = useState<undefined | number>(undefined)
 
@@ -61,6 +63,9 @@ export const StressTest: React.FC<StressTestProps> = ({renderIteration, totalIte
 
   return (
     <div className={classes.Root}>
+      <Heading variant="medium" as="h2" className={classes.Heading}>
+        {title}
+      </Heading>
       <div className={classes.Container}>{renderIteration(count, totalIterations)}</div>
       <ProgressBar className={classes.ProgressBar} progress={(count / (totalIterations - 1)) * 100} animated />
       <Button
