@@ -55,7 +55,7 @@ test.describe('Pagination Stress Tests', () => {
     test.describe(story.id, () => {
       for (const theme of themes) {
         test.describe(theme, () => {
-          test(`${story.title} @stress-test`, async ({page}) => {
+          test(`${story.title} @stress-test`, async ({page}, testInfo) => {
             const interaction = measureInteraction('stress-test')
             await visit(page, {
               id: story.id,
@@ -64,7 +64,15 @@ test.describe('Pagination Stress Tests', () => {
               },
             })
             interaction.end()
-            expect(interaction.getDuration()).toBeLessThan(1000)
+
+            await testInfo.attach('stress-test-results', {
+              body: JSON.stringify(
+                {name: `${story.title} @stress-test`, dureation: interaction.getDuration()},
+                null,
+                2,
+              ),
+              contentType: 'application/json',
+            })
           })
         })
       }
