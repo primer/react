@@ -1,8 +1,6 @@
 name: stress-tests
-on:
-  pull_request:
-    types:
-      - labeled
+
+on: [push]
 
 jobs:
   stress-tests:
