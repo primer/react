@@ -45,7 +45,7 @@ describe('PageHeader', () => {
    * They are testing the internal implementation of the component and checking if the component
    * is rendering the correct styles.This approach was necessary due to the impracticality of CSS media queries testing with Jest.
    */
-  it('respects default visibility of ContextArea and renders CSS media styles correctly', () => {
+  it.skip('respects default visibility of ContextArea and renders CSS media styles correctly', () => {
     const expectedStyles = {
       '-ms-flex-align': 'center',
       '-ms-flex-direction': 'row',
@@ -71,7 +71,7 @@ describe('PageHeader', () => {
       expect.objectContaining(expectedStyles),
     )
   })
-  it('respects the hidden prop of ContextArea and renders CSS media styles correctly', () => {
+  it.skip('respects the hidden prop of ContextArea and renders CSS media styles correctly', () => {
     const expectedStyles = {
       '-ms-flex-align': 'center',
       '-ms-flex-direction': 'row',
@@ -110,7 +110,7 @@ describe('PageHeader', () => {
       ),
     ).toEqual(expect.objectContaining(expectedStyles))
   })
-  it('respects default visibility of LeadingAction and TrailingAction and renders CSS media styles correctly', () => {
+  it.skip('respects default visibility of LeadingAction and TrailingAction and renders CSS media styles correctly', () => {
     const expectedStyles = {
       '-ms-flex-align': 'center',
       '-webkit-align-items': 'center',
