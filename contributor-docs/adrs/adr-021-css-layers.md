@@ -95,6 +95,9 @@ Modules. For each file, we will need to update the module to be wrapped in a CSS
 layer. This layer will be named following the convention:
 `primer.components.<component-name>`
 
+In addition, selectors that use `:where()` may now be refactored to no longer
+use the `:where()` pseudo-class.
+
 ## Unresolved questions
 
 - Is it possible for stylelint to have a rule to guarantee the presence of a CSS
