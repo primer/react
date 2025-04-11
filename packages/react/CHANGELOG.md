@@ -1,5 +1,41 @@
 # @primer/react
 
+## 37.19.0
+
+### Minor Changes
+
+- [#5900](https://github.com/primer/react/pull/5900) [`ebc6813`](https://github.com/primer/react/commit/ebc68133edd927072bca65e34147df2017e95a86) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove the CSS modules feature flag from the ActionList.Heading component
+
+- [#5830](https://github.com/primer/react/pull/5830) [`f8760fe`](https://github.com/primer/react/commit/f8760fecf9433e548e90ad7e6cf30d216122091d) Thanks [@iansan5653](https://github.com/iansan5653)! - Hide `TooltipV2` tooltips on `touchend` event
+
+- [#5873](https://github.com/primer/react/pull/5873) [`0a2e3f0`](https://github.com/primer/react/commit/0a2e3f071fed8ff1109751c56faf4a92f8cf0542) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove the CSS modules feature flag for the TextArea component
+
+- [#5693](https://github.com/primer/react/pull/5693) [`da85192`](https://github.com/primer/react/commit/da851921e7e4cddba577d08da44ffbe32936c15b) Thanks [@francinelucca](https://github.com/francinelucca)! - chore(SkeletonBox): promote to Alpha
+
+- [#5876](https://github.com/primer/react/pull/5876) [`a78c820`](https://github.com/primer/react/commit/a78c820d9c5ac5c29fdccfd30e8dd1944653f1f4) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove the CSS modules feature flag from the SideNav component
+
+- [#5882](https://github.com/primer/react/pull/5882) [`6eecde6`](https://github.com/primer/react/commit/6eecde60f93407dcc1d32fe81fb86229c04ad595) Thanks [@francinelucca](https://github.com/francinelucca)! - chore(SelectPanel): remove css modules feature flag
+
+- [#5851](https://github.com/primer/react/pull/5851) [`a812a86`](https://github.com/primer/react/commit/a812a868c8eb98c3a1ad6540806b7db2bb75aa0d) Thanks [@jamieshark](https://github.com/jamieshark)! - Removes feature flag for FormControl
+
+- [#5861](https://github.com/primer/react/pull/5861) [`ecb449f`](https://github.com/primer/react/commit/ecb449f41f8e2a16f3c547877f53208f6eef92eb) Thanks [@jamieshark](https://github.com/jamieshark)! - Changes argument signature for toggleSxComponent to simplify
+
+- [#5836](https://github.com/primer/react/pull/5836) [`c177e5e`](https://github.com/primer/react/commit/c177e5e5b89ef7039dde039b5b2f4a925a3bdc24) Thanks [@jamieshark](https://github.com/jamieshark)! - Removes css module flag for UnderlinePanels and associated components.
+
+### Patch Changes
+
+- [#5866](https://github.com/primer/react/pull/5866) [`f978534`](https://github.com/primer/react/commit/f9785343716435f43e3d82482b057a17bd345c25) Thanks [@mperrotti](https://github.com/mperrotti)! - Improves how we detect context for inactive item messaging by checking the `role` on `ActionList` instead of relying on parent components, making the logic more robust and consistent. It also fixes incorrect behavior in `NavList` and `SelectPanel`, and improves accessibility by correcting `aria` relationships on tooltip buttons.
+
+- [#5912](https://github.com/primer/react/pull/5912) [`81821db`](https://github.com/primer/react/commit/81821db70b054c5d2f932b4fbb8642dfea9625f8) Thanks [@francinelucca](https://github.com/francinelucca)! - fix(SelectPanel): always show x button on single select
+
+- [#5908](https://github.com/primer/react/pull/5908) [`8e7bc0e`](https://github.com/primer/react/commit/8e7bc0e4299b3c43ef128a9482bef4bb7f539a71) Thanks [@francinelucca](https://github.com/francinelucca)! - fix(SelectPanel): differentiate onCancel gesture from escape
+
+- [#5904](https://github.com/primer/react/pull/5904) [`a522fdb`](https://github.com/primer/react/commit/a522fdb14562b6dff2f2382f20fc9aefc01a26bc) Thanks [@francinelucca](https://github.com/francinelucca)! - fix(SelectPanel): disable body scroll on full screen
+
+- [#5906](https://github.com/primer/react/pull/5906) [`8fa12ea`](https://github.com/primer/react/commit/8fa12ead9ec467293e6e6edb38c2ccc90da9fe5e) Thanks [@TylerJDev](https://github.com/TylerJDev)! - SelectPanelV2: Add `deprecated` status to SelectPanelV2 docs and stories
+
+- [#5881](https://github.com/primer/react/pull/5881) [`ea1fb50`](https://github.com/primer/react/commit/ea1fb509f2b0f143a0f18be1882a4de665313679) Thanks [@emilybrick](https://github.com/emilybrick)! - fix(SelectPanel): Add margin around notice styles
+
 ## 37.18.0
 
 ### Minor Changes
