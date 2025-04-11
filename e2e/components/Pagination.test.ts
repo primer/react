@@ -62,35 +62,13 @@ test.describe('Pagination Stress Tests', () => {
                 colorScheme: theme,
               },
             })
-            const interaction = measureInteraction('stress-test')
             await page.getByTestId('start').click()
+            const result = await page.getByTestId('result').textContent()
             await page.getByTestId('complete').waitFor({timeout: 10000})
-            interaction.end()
-            console.warn({duration: interaction.getDuration(), snap: `${story.id}-stress-test.json`})
+            console.warn({duration: result, snap: `${story.id}-stress-test.json`})
           })
         })
       }
     })
   }
 })
-
-function measureInteraction(interactionName: string) {
-  performance.mark(`${interactionName} start`)
-
-  let duration = 0
-
-  return {
-    end() {
-      performance.mark(`${interactionName} end`)
-      const measure = performance.measure(
-        `${interactionName} duration`,
-        `${interactionName} start`,
-        `${interactionName} end`,
-      )
-      duration = measure.duration
-    },
-    getDuration() {
-      return duration
-    },
-  }
-}
