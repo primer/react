@@ -161,6 +161,28 @@
       "name": "notice",
       "type": "{text: string | React.ReactElement; variant: 'empty' | 'error' | 'warning';}",
       "description": "Optional notice to display on top of the panel"
+    },
+    {
+      "name": "sortKey",
+      "type": "string",
+      "description": "The key to sort items by"
+    },
+    {
+      "name": "sortFn",
+      "type": "(a: ItemInput, b: ItemInput) => number",
+      "description": "The sort function to use to compare to items"
+    },
+    {
+      "name": "sortDirection",
+      "type": "'asc' | 'desc'",
+      "description": "The direction to sort items by",
+      "default": "'asc'"
+    },
+    {
+      "name": "orderSelectedFirst",
+      "type": "boolean",
+      "description": "Whether to display the selected items at the top of the list",
+      "default": "true"
     }
   ],
   "subcomponents": []

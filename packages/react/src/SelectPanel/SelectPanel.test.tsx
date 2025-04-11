@@ -22,13 +22,13 @@ const renderWithFlag = (children: React.ReactNode, flag: boolean) => {
 
 const items: SelectPanelProps['items'] = [
   {
-    text: 'item one',
+    text: '1 - item one',
   },
   {
-    text: 'item two',
+    text: '2 - item two',
   },
   {
-    text: 'item three',
+    text: '3 - item three',
   },
 ]
 
@@ -267,28 +267,28 @@ for (const useModernActionList of [false, true]) {
           await user.type(document.activeElement!, '{Enter}')
           expect(
             screen.getByRole('option', {
-              name: 'item one',
+              name: '1 - item one',
             }),
           ).toHaveAttribute('aria-selected', 'true')
 
           await user.type(document.activeElement!, '{Enter}')
           expect(
             screen.getByRole('option', {
-              name: 'item one',
+              name: '1 - item one',
             }),
           ).toHaveAttribute('aria-selected', 'false')
 
-          await user.click(screen.getByText('item one'))
+          await user.click(screen.getByText('1 - item one'))
           expect(
             screen.getByRole('option', {
-              name: 'item one',
+              name: '1 - item one',
             }),
           ).toHaveAttribute('aria-selected', 'true')
 
-          await user.click(screen.getByRole('option', {name: 'item one'}))
+          await user.click(screen.getByRole('option', {name: '1 - item one'}))
           expect(
             screen.getByRole('option', {
-              name: 'item one',
+              name: '1 - item one',
             }),
           ).toHaveAttribute('aria-selected', 'false')
         })
@@ -303,45 +303,45 @@ for (const useModernActionList of [false, true]) {
           // First item by default should be the active element
           expect(document.activeElement!).toHaveAttribute(
             'aria-activedescendant',
-            screen.getByRole('option', {name: 'item one'}).id,
+            screen.getByRole('option', {name: '1 - item one'}).id,
           )
 
           await user.type(document.activeElement!, '{ArrowDown}')
           expect(document.activeElement!).toHaveAttribute(
             'aria-activedescendant',
-            screen.getByRole('option', {name: 'item two'}).id,
+            screen.getByRole('option', {name: '2 - item two'}).id,
           )
 
           await user.type(document.activeElement!, '{ArrowDown}')
           expect(document.activeElement!).toHaveAttribute(
             'aria-activedescendant',
-            screen.getByRole('option', {name: 'item three'}).id,
+            screen.getByRole('option', {name: '3 - item three'}).id,
           )
 
           // At end of list, should wrap to the beginning
           await user.type(document.activeElement!, '{ArrowDown}')
           expect(document.activeElement!).toHaveAttribute(
             'aria-activedescendant',
-            screen.getByRole('option', {name: 'item one'}).id,
+            screen.getByRole('option', {name: '1 - item one'}).id,
           )
 
           // At beginning of list, ArrowUp should wrap to the end
           await user.type(document.activeElement!, '{ArrowUp}')
           expect(document.activeElement!).toHaveAttribute(
             'aria-activedescendant',
-            screen.getByRole('option', {name: 'item three'}).id,
+            screen.getByRole('option', {name: '3 - item three'}).id,
           )
 
           await user.type(document.activeElement!, '{ArrowUp}')
           expect(document.activeElement!).toHaveAttribute(
             'aria-activedescendant',
-            screen.getByRole('option', {name: 'item two'}).id,
+            screen.getByRole('option', {name: '2 - item two'}).id,
           )
 
           await user.type(document.activeElement!, '{ArrowUp}')
           expect(document.activeElement!).toHaveAttribute(
             'aria-activedescendant',
-            screen.getByRole('option', {name: 'item one'}).id,
+            screen.getByRole('option', {name: '1 - item one'}).id,
           )
         })
 
@@ -357,20 +357,20 @@ for (const useModernActionList of [false, true]) {
           // First item by default should be the active element
           expect(document.activeElement!).toHaveAttribute(
             'aria-activedescendant',
-            screen.getByRole('option', {name: 'item one'}).id,
+            screen.getByRole('option', {name: '1 - item one'}).id,
           )
 
           await user.type(document.activeElement!, '{PageDown}')
 
           expect(document.activeElement!).toHaveAttribute(
             'aria-activedescendant',
-            screen.getByRole('option', {name: 'item three'}).id,
+            screen.getByRole('option', {name: '3 - item three'}).id,
           )
 
           await user.type(document.activeElement!, '{PageUp}')
           expect(document.activeElement!).toHaveAttribute(
             'aria-activedescendant',
-            screen.getByRole('option', {name: 'item one'}).id,
+            screen.getByRole('option', {name: '1 - item one'}).id,
           )
         })
 
@@ -381,9 +381,9 @@ for (const useModernActionList of [false, true]) {
             // items are defined in the same scope as selection, so they could rerender and create new object references
             // We use item.id to track selection
             const items: SelectPanelProps['items'] = [
-              {id: 'one', text: 'item one'},
-              {id: 'two', text: 'item two'},
-              {id: 'three', text: 'item three'},
+              {id: 'one', text: '1 - item one'},
+              {id: 'two', text: '2 - item two'},
+              {id: 'three', text: '3 - item three'},
             ]
 
             const [open, setOpen] = React.useState(false)
@@ -411,14 +411,14 @@ for (const useModernActionList of [false, true]) {
 
           await user.click(screen.getByText('Select items'))
 
-          await user.click(screen.getByText('item one'))
-          expect(screen.getByRole('option', {name: 'item one'})).toHaveAttribute('aria-selected', 'true')
+          await user.click(screen.getByText('1 - item one'))
+          expect(screen.getByRole('option', {name: '1 - item one'})).toHaveAttribute('aria-selected', 'true')
 
-          await user.click(screen.getByText('item two'))
-          expect(screen.getByRole('option', {name: 'item two'})).toHaveAttribute('aria-selected', 'true')
+          await user.click(screen.getByText('2 - item two'))
+          expect(screen.getByRole('option', {name: '2 - item two'})).toHaveAttribute('aria-selected', 'true')
 
-          await user.click(screen.getByRole('option', {name: 'item one'}))
-          expect(screen.getByRole('option', {name: 'item one'})).toHaveAttribute('aria-selected', 'false')
+          await user.click(screen.getByRole('option', {name: '1 - item one'}))
+          expect(screen.getByRole('option', {name: '1 - item one'})).toHaveAttribute('aria-selected', 'false')
         })
       })
 
@@ -650,7 +650,7 @@ for (const useModernActionList of [false, true]) {
           // we wait because announcement is intentionally updated after a timeout to not interrupt user input
           await waitFor(async () => {
             expect(getLiveRegion().getMessage('polite')?.trim()).toEqual(
-              'List updated, Focused item: item one, not selected, 1 of 3',
+              'List updated, Focused item: 1 - item one, not selected, 1 of 3',
             )
           })
           jest.useRealTimers()
@@ -670,7 +670,7 @@ for (const useModernActionList of [false, true]) {
           await waitFor(
             async () => {
               expect(getLiveRegion().getMessage('polite')?.trim()).toEqual(
-                'List updated, Focused item: item one, not selected, 1 of 3',
+                'List updated, Focused item: 1 - item one, not selected, 1 of 3',
               )
             },
             {timeout: 3000}, // increased timeout because we don't want the test to compare with previous announcement
@@ -683,7 +683,7 @@ for (const useModernActionList of [false, true]) {
           await waitFor(
             async () => {
               expect(getLiveRegion().getMessage('polite')).toBe(
-                'List updated, Focused item: item one, not selected, 1 of 2',
+                'List updated, Focused item: 1 - item one, not selected, 1 of 2',
               )
             },
             {timeout: 3000}, // increased timeout because we don't want the test to compare with previous announcement
@@ -695,7 +695,7 @@ for (const useModernActionList of [false, true]) {
           jest.runAllTimers()
           await waitFor(async () => {
             expect(getLiveRegion().getMessage('polite')?.trim()).toBe(
-              'List updated, Focused item: item one, not selected, 1 of 1',
+              'List updated, Focused item: 1 - item one, not selected, 1 of 1',
             )
           })
           jest.useRealTimers()
@@ -767,13 +767,13 @@ for (const useModernActionList of [false, true]) {
             <SelectPanelWithCustomMessages
               items={[
                 {
-                  text: 'item one',
+                  text: '1 - item one',
                 },
                 {
-                  text: 'item two',
+                  text: '2 - item two',
                 },
                 {
-                  text: 'item three',
+                  text: '3 - item three',
                 },
               ]}
             />,
@@ -966,6 +966,164 @@ for (const useModernActionList of [false, true]) {
               name: 'Item 4',
             }),
           ).toHaveAttribute('aria-selected', 'true')
+        })
+      })
+
+      describe('sorting', () => {
+        const items = [
+          {
+            text: 'item one',
+            id: '3',
+          },
+          {
+            text: 'item two',
+            id: '1',
+            selected: true,
+          },
+          {
+            text: 'item three',
+            id: '2',
+          },
+        ]
+
+        it('should render selected items at the top by default when FF on', async () => {
+          const user = userEvent.setup()
+
+          renderWithFlag(
+            <FeatureFlags flags={{primer_react_select_panel_order_selected_at_top: true}}>
+              <BasicSelectPanel items={items} selected={[items[1]]} />
+            </FeatureFlags>,
+            useModernActionList,
+          )
+
+          await user.click(screen.getByText('item two')) // item two is selected so that's what the anchor text is
+
+          const options = screen.getAllByRole('option')
+          expect(options[0]).toHaveTextContent('item two') // item two is selected
+          expect(options[1]).toHaveTextContent('item one')
+          expect(options[2]).toHaveTextContent('item three')
+        })
+        it('should not render selected items at the top by default when FF off', async () => {
+          const user = userEvent.setup()
+
+          renderWithFlag(<BasicSelectPanel items={items} selected={[items[1]]} />, useModernActionList)
+
+          await user.click(screen.getByText('item two')) // item two is selected so that's what the anchor text is
+
+          const options = screen.getAllByRole('option')
+          expect(options[0]).toHaveTextContent('item one')
+          expect(options[1]).toHaveTextContent('item two') // item two is selected
+          expect(options[2]).toHaveTextContent('item three')
+        })
+        it('should not render selected items at the top when orderSelectedFirst set to false', async () => {
+          const user = userEvent.setup()
+
+          renderWithFlag(
+            <BasicSelectPanel items={items} selected={[items[1]]} orderSelectedFirst={false} />,
+            useModernActionList,
+          )
+
+          await user.click(screen.getByText('item two')) // item two is selected so that's what the anchor text is
+
+          const options = screen.getAllByRole('option')
+          expect(options[0]).toHaveTextContent('item one')
+          expect(options[1]).toHaveTextContent('item two') // item two is selected
+          expect(options[2]).toHaveTextContent('item three')
+        })
+        it('should support sorting by selected and then by key', async () => {
+          const user = userEvent.setup()
+
+          renderWithFlag(
+            <FeatureFlags flags={{primer_react_select_panel_order_selected_at_top: true}}>
+              <BasicSelectPanel items={items} selected={[items[1]]} sortKey="text" />
+            </FeatureFlags>,
+            useModernActionList,
+          )
+
+          await user.click(screen.getByText('item two')) // item two is selected so that's what the anchor text is
+
+          const options = screen.getAllByRole('option')
+          expect(options[0]).toHaveTextContent('item two') // item two is selected
+          expect(options[1]).toHaveTextContent('item one')
+          expect(options[2]).toHaveTextContent('item three')
+        })
+        it('should only sort by key when FF turned off', async () => {
+          const user = userEvent.setup()
+
+          renderWithFlag(<BasicSelectPanel items={items} selected={[items[1]]} sortKey="text" />, useModernActionList)
+
+          await user.click(screen.getByText('item two')) // item two is selected so that's what the anchor text is
+
+          const options = screen.getAllByRole('option')
+          expect(options[0]).toHaveTextContent('item one')
+          expect(options[1]).toHaveTextContent('item three')
+          expect(options[2]).toHaveTextContent('item two') // item two is selected
+        })
+        it('should support rendering by key only', async () => {
+          const user = userEvent.setup()
+
+          renderWithFlag(
+            <BasicSelectPanel items={items} selected={[items[0]]} sortKey="id" orderSelectedFirst={false} />,
+            useModernActionList,
+          )
+
+          await user.click(screen.getByText('item one')) // item one is selected so that's what the anchor text is
+
+          const options = screen.getAllByRole('option')
+          expect(options[0]).toHaveTextContent('item two') // id = 1
+          expect(options[1]).toHaveTextContent('item three') // id = 2
+          expect(options[2]).toHaveTextContent('item one') // id = 3
+        })
+        it('should support rendering in descending order', async () => {
+          const user = userEvent.setup()
+
+          renderWithFlag(
+            <BasicSelectPanel
+              items={items}
+              selected={[items[0]]}
+              sortKey="id"
+              orderSelectedFirst={false}
+              sortDirection="desc"
+            />,
+            useModernActionList,
+          )
+
+          await user.click(screen.getByText('item one')) // item one is selected so that's what the anchor text is
+
+          const options = screen.getAllByRole('option')
+          expect(options[0]).toHaveTextContent('item one') // id = 3
+          expect(options[1]).toHaveTextContent('item three') // id = 2
+          expect(options[2]).toHaveTextContent('item two') // id = 1
+        })
+        it('should support custom sorting function', async () => {
+          const user = userEvent.setup()
+
+          renderWithFlag(
+            <BasicSelectPanel
+              items={items}
+              selected={[items[2]]}
+              sortKey="id"
+              orderSelectedFirst={false}
+              sortDirection="asc"
+              sortFn={(a: {text: string}, b: {text: string}) => {
+                // item one first, then follow original order
+                if (a.text === 'item one') {
+                  return -1
+                } else if (b.text === 'item one') {
+                  return 1
+                }
+                return 0
+              }}
+            />,
+            useModernActionList,
+          )
+
+          await user.click(screen.getByText('item three')) // item three is selected so that's what the anchor text is
+
+          const options = screen.getAllByRole('option')
+          expect(options[0]).toHaveTextContent('item one') // id = 3
+          expect(options[1]).toHaveTextContent('item two') // id = 1
+          expect(options[2]).toHaveTextContent('item three') // id = 2
         })
       })
     })
