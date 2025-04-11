@@ -1,15 +1,16 @@
 import {clsx} from 'clsx'
 import type {To} from 'history'
-import React from 'react'
+import React, {useCallback, useRef, useState} from 'react'
 import type {SxProp} from '../sx'
 import type {ComponentProps} from '../utils/types'
 import classes from './Breadcrumbs.module.css'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {toggleSxComponent} from '../internal/utils/toggleSxComponent'
-import {ActionMenu} from '../'
-import {ActionList} from '../'
+import {ActionMenu, ActionList} from '../'
+import {useResizeObserver} from '../hooks/useResizeObserver'
 
 const SELECTED_CLASS = 'selected'
+const MIN_VISIBLE_ITEMS = 1
 
 export type BreadcrumbsProps = React.PropsWithChildren<
   {
@@ -22,12 +23,68 @@ const BreadcrumbsList = ({children}: React.PropsWithChildren) => {
 }
 
 function Breadcrumbs({className, children, sx: sxProp}: BreadcrumbsProps) {
-  const wrappedChildren = React.Children.map(children, child => <li className={classes.ItemWrapper}>{child}</li>)
-  const BaseComponent = toggleSxComponent('nav') as React.ComponentType<BreadcrumbsProps>
+  const containerRef = useRef<HTMLElement>(null)
+  const [visibleItems, setVisibleItems] = useState(React.Children.count(children))
+
+  const updateOverflow = useCallback(() => {
+    const container = containerRef.current
+    if (!container) return
+
+    const items = Array.from(container.querySelectorAll(`.${classes.ItemWrapper}`))
+    let totalWidth = 0
+    let visibleCount = 0
+
+    // Calculate visible items starting from the first item, excluding the last item
+    for (let i = 0; i < items.length - 1; i++) {
+      totalWidth += items[i].getBoundingClientRect().width
+      if (totalWidth + items[items.length - 1].getBoundingClientRect().width > container.offsetWidth) break
+      visibleCount++
+    }
+
+    // Ensure the last item is always visible outside the menu
+    visibleCount = Math.min(visibleCount + 1, items.length)
+
+    setVisibleItems(Math.max(MIN_VISIBLE_ITEMS, visibleCount))
+  }, [])
+
+  useResizeObserver(updateOverflow, containerRef)
+
+  const wrappedChildren = React.Children.toArray(children).map((child, index) => (
+    <li className={classes.ItemWrapper} key={index} style={{display: index < visibleItems ? 'block' : 'none'}}>
+      {child}
+    </li>
+  ))
+
+  const overflowItems = React.Children.toArray(children).slice(visibleItems)
+
+  // const wrappedChildren = React.Children.map(children, child => <li className={classes.ItemWrapper}>{child}</li>)
+  const BreadcrumbsBaseComponent = toggleSxComponent('nav') as React.ComponentType<BreadcrumbsProps>
+
   return (
-    <BaseComponent className={clsx(className, classes.BreadcrumbsBase)} aria-label="Breadcrumbs" sx={sxProp}>
-      <BreadcrumbsList>{wrappedChildren}</BreadcrumbsList>
-    </BaseComponent>
+    <BreadcrumbsBaseComponent
+      ref={containerRef}
+      className={clsx(className, classes.BreadcrumbsBase)}
+      aria-label="Breadcrumbs"
+      sx={sxProp}
+    >
+      <BreadcrumbsList>
+        {overflowItems.length > 0 && (
+          <li className={classes.ItemWrapper}>
+            <ActionMenu>
+              <ActionMenu.Button>...</ActionMenu.Button>
+              <ActionMenu.Overlay>
+                <ActionList>
+                  {overflowItems.map((item, index) => (
+                    <ActionList.Item key={index}>{item}</ActionList.Item>
+                  ))}
+                </ActionList>
+              </ActionMenu.Overlay>
+            </ActionMenu>
+          </li>
+        )}
+        {wrappedChildren}
+      </BreadcrumbsList>
+    </BreadcrumbsBaseComponent>
   )
 }
 

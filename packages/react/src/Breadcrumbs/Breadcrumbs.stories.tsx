@@ -22,10 +22,18 @@ Playground.args = {}
 
 export const Default = () => (
   <Breadcrumbs>
-    <Breadcrumbs.Item href="#">Home</Breadcrumbs.Item>
-    <Breadcrumbs.Item href="#">About</Breadcrumbs.Item>
+    <Breadcrumbs.Item href="#">First</Breadcrumbs.Item>
+    <Breadcrumbs.Item href="#">Second</Breadcrumbs.Item>
+    <Breadcrumbs.Item href="#">Third</Breadcrumbs.Item>
+    <Breadcrumbs.Item href="#">Fourth</Breadcrumbs.Item>
+    <Breadcrumbs.Item href="#">Fifth</Breadcrumbs.Item>
+    <Breadcrumbs.Item href="#">Sixth</Breadcrumbs.Item>
+    <Breadcrumbs.Item href="#">Seventh</Breadcrumbs.Item>
+    <Breadcrumbs.Item href="#">Eighth</Breadcrumbs.Item>
+    <Breadcrumbs.Item href="#">Ninth</Breadcrumbs.Item>
+    <Breadcrumbs.Item href="#">Tenth</Breadcrumbs.Item>
     <Breadcrumbs.Item href="#" selected>
-      Team
+      Last
     </Breadcrumbs.Item>
   </Breadcrumbs>
 )
