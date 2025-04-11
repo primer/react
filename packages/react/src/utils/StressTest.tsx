@@ -4,6 +4,7 @@ import afterFrame from 'afterframe'
 import {Button} from '../Button'
 import Text from '../Text'
 import classes from './StressTest.module.css'
+import {ProgressBar} from '../ProgressBar'
 
 export interface StressTestProps {
   renderIteration: (count: number, totalIterations: number) => React.ReactNode
@@ -58,42 +59,35 @@ export const StressTest: React.FC<StressTestProps> = ({renderIteration}) => {
     }
   }, [count])
 
-  const testState = count === 1 ? 'start' : count === totalIterations ? 'complete' : 'in-progress'
-
-  function getButtonLabel(testState: 'start' | 'complete' | 'in-progress'): React.ReactNode {
-    switch (testState) {
-      case 'start':
-        return 'Start stress test'
-      case 'complete':
-        return 'Stress test complete, click to restart'
-      default:
-        return `Stress test in progress (${count}/${totalIterations})`
-    }
-  }
-
   return (
     <div className={classes.Root}>
       <div className={classes.Container}>{renderIteration(count, totalIterations)}</div>
+      <ProgressBar className={classes.ProgressBar} progress={(count / totalIterations) * 100} animated />
       <Button
-        className={classes.Button}
         variant="primary"
         disabled={count !== 1 && count !== totalIterations}
         onClick={onClick}
+        loading={count !== 1 && count !== totalIterations}
         size="large"
-        data-testid={testState}
+        block
+        data-testid={'start'}
       >
-        {getButtonLabel(testState)}
+        {count === 1 ? 'Run' : 'Re-run'}
       </Button>
-      <Text className={classes.Result} as="em">
-        {result !== undefined ? (
-          <>
-            {'Median duration: '}
-            <span data-testid="result">{result.toFixed(2)}</span>
-            ms
-          </>
-        ) : (
-          <span>...</span>
-        )}
+      <Text className={classes.Result}>
+        <p>
+          <strong>Results:</strong>
+          <br />
+          {result !== undefined ? (
+            <>
+              {'Median duration: '}
+              <span data-testid="result">{result.toFixed(2)}</span>
+              ms
+            </>
+          ) : (
+            <span>Pending</span>
+          )}
+        </p>
       </Text>
     </div>
   )
