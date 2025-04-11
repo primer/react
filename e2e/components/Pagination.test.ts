@@ -43,32 +43,21 @@ test.describe('Pagination', () => {
   }
 })
 
-const stressStories = [
-  {
-    title: 'Pagination Page Update',
-    id: 'components-pagination-stresstests--page-update',
-  },
-] as const
-
 test.describe('Pagination Stress Tests', () => {
-  for (const story of stressStories) {
-    test.describe(story.id, () => {
-      for (const theme of themes) {
-        test.describe(theme, () => {
-          test(`${story.title} @stress-test`, async ({page}) => {
-            await visit(page, {
-              id: story.id,
-              globals: {
-                colorScheme: theme,
-              },
-            })
-            await page.getByTestId('start').click()
-            const result = await page.getByTestId('result').textContent()
-            await page.getByTestId('complete').waitFor({timeout: 10000})
-            console.warn({duration: result, snap: `${story.id}-stress-test.json`})
-          })
+  for (const theme of themes) {
+    test.describe(theme, () => {
+      test('page-update @stress-test', async ({page}) => {
+        await visit(page, {
+          id: 'components-pagination-stresstests--page-update',
+          globals: {
+            colorScheme: theme,
+          },
         })
-      }
+        await page.getByTestId('start').click()
+        const result = await page.getByTestId('result').textContent()
+        await page.getByTestId('complete').waitFor({timeout: 10000})
+        console.warn({duration: result, snap: `${story.id}-stress-test.json`})
+      })
     })
   }
 })
