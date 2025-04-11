@@ -1,306 +1,9 @@
 import React, {type ElementType} from 'react'
-import styled from 'styled-components'
 import type {ResponsiveValue} from '../hooks/useResponsiveValue'
 import {getResponsiveAttributes} from '../internal/utils/getResponsiveAttributes'
 import classes from './Stack.module.css'
-import {toggleStyledComponent} from '../internal/utils/toggleStyledComponent'
-import {useFeatureFlag} from '../FeatureFlags'
 import {clsx} from 'clsx'
-
-const CSS_MODULE_FEATURE_FLAG = 'primer_react_css_modules_ga'
-
-const StyledStack = toggleStyledComponent(
-  CSS_MODULE_FEATURE_FLAG,
-  'div',
-  styled.div`
-    display: flex;
-    flex-flow: column;
-    align-items: stretch;
-    align-content: flex-start;
-    gap: var(--stack-gap, var(--stack-gap-normal, 1rem));
-
-    // non-responsive values
-
-    &[data-padding='none'],
-    &[data-padding-narrow='none'] {
-      padding: 0;
-    }
-
-    &[data-padding='condensed'],
-    &[data-padding-narrow='condensed'] {
-      padding: var(--stack-padding-condensed, 8px);
-    }
-
-    &[data-padding='normal'],
-    &[data-padding-narrow='normal'] {
-      padding: var(--stack-padding-normal, 16px);
-    }
-
-    &[data-padding='spacious'],
-    &[data-padding-narrow='spacious'] {
-      padding: var(--stack-padding-spacious, 24px);
-    }
-
-    &[data-direction='horizontal'],
-    &[data-direction-narrow='horizontal'] {
-      flex-flow: row;
-    }
-
-    &[data-direction='vertical'],
-    &[data-direction-narrow='vertical'] {
-      flex-flow: column;
-    }
-
-    &[data-gap='none'],
-    &[data-gap-narrow='none'] {
-      --stack-gap: var(--stack-gap-none, 0);
-    }
-
-    &[data-gap='condensed'],
-    &[data-gap-narrow='condensed'] {
-      --stack-gap: var(--stack-gap-condensed, 0.5rem);
-    }
-
-    &[data-gap='normal'],
-    &[data-gap-narrow='normal'] {
-      --stack-gap: var(--stack-gap-normal, 1rem);
-    }
-
-    &[data-gap='spacious'],
-    &[data-gap-narrow='spacious'] {
-      --stack-gap: var(--stack-gap-spacious, 1.5rem);
-    }
-
-    &[data-align='start'],
-    &[data-align-narrow='start'] {
-      align-items: flex-start;
-    }
-
-    &[data-align='center'],
-    &[data-align-narrow='center'] {
-      align-items: center;
-    }
-
-    &[data-align='end'],
-    &[data-align-narrow='end'] {
-      align-items: flex-end;
-    }
-
-    &[data-align='baseline'],
-    &[data-align-narrow='baseline'] {
-      align-items: baseline;
-    }
-
-    &[data-justify='start'],
-    &[data-justify-narrow='start'] {
-      justify-content: flex-start;
-    }
-
-    &[data-justify='center'],
-    &[data-justify-narrow='center'] {
-      justify-content: center;
-    }
-
-    &[data-justify='end'],
-    &[data-justify-narrow='end'] {
-      justify-content: flex-end;
-    }
-
-    &[data-justify='space-between'],
-    &[data-justify-narrow='space-between'] {
-      justify-content: space-between;
-    }
-
-    &[data-justify='space-evenly'],
-    &[data-justify-narrow='space-evenly'] {
-      justify-content: space-evenly;
-    }
-
-    &[data-wrap='wrap'],
-    &[data-wrap-narrow='wrap'] {
-      flex-wrap: wrap;
-    }
-
-    &[data-wrap='nowrap'],
-    &[data-wrap-narrow='nowrap'] {
-      flex-wrap: nowrap;
-    }
-
-    // @custom-media --viewportRange-regular
-    @media (min-width: 48rem) {
-      &[data-padding-regular='none'] {
-        padding: 0;
-      }
-
-      &[data-padding-regular='condensed'] {
-        padding: var(--stack-padding-condensed, 8px);
-      }
-
-      &[data-padding-regular='normal'] {
-        padding: var(--stack-padding-normal, 16px);
-      }
-
-      &[data-padding-regular='spacious'] {
-        padding: var(--stack-padding-spacious, 24px);
-      }
-
-      &[data-direction-regular='horizontal'] {
-        flex-flow: row;
-      }
-
-      &[data-direction-regular='vertical'] {
-        flex-flow: column;
-      }
-
-      &[data-gap-regular='none'] {
-        --stack-gap: var(--stack-gap-none, 0);
-      }
-
-      &[data-gap-regular='condensed'] {
-        --stack-gap: var(--stack-gap-condensed, 0.5rem);
-      }
-
-      &[data-gap-regular='normal'] {
-        --stack-gap: var(--stack-gap-normal, 1rem);
-      }
-
-      &[data-gap-regular='spacious'] {
-        --stack-gap: var(--stack-gap-spacious, 1.5rem);
-      }
-
-      &[data-align-regular='start'] {
-        align-items: flex-start;
-      }
-
-      &[data-align-regular='center'] {
-        align-items: center;
-      }
-
-      &[data-align-regular='end'] {
-        align-items: flex-end;
-      }
-
-      &[data-align-regular='baseline'] {
-        align-items: baseline;
-      }
-
-      &[data-justify-regular='start'] {
-        justify-content: flex-start;
-      }
-
-      &[data-justify-regular='center'] {
-        justify-content: center;
-      }
-
-      &[data-justify-regular='end'] {
-        justify-content: flex-end;
-      }
-
-      &[data-justify-regular='space-between'] {
-        justify-content: space-between;
-      }
-
-      &[data-justify-regular='space-evenly'] {
-        justify-content: space-evenly;
-      }
-
-      &[data-wrap-regular='wrap'] {
-        flex-wrap: wrap;
-      }
-
-      &[data-wrap-regular='nowrap'] {
-        flex-wrap: nowrap;
-      }
-    }
-
-    // @custom-media --viewportRange-wide
-    @media (min-width: 87.5rem) {
-      &[data-padding-wide='none'] {
-        padding: 0;
-      }
-
-      &[data-padding-wide='condensed'] {
-        padding: var(--stack-padding-condensed, 8px);
-      }
-
-      &[data-padding-wide='normal'] {
-        padding: var(--stack-padding-normal, 16px);
-      }
-
-      &[data-padding-wide='spacious'] {
-        padding: var(--stack-padding-spacious, 24px);
-      }
-
-      &[data-direction-wide='horizontal'] {
-        flex-flow: row;
-      }
-
-      &[data-direction-wide='vertical'] {
-        flex-flow: column;
-      }
-
-      &[data-gap-wide='none'] {
-        --stack-gap: var(--stack-gap-none, 0);
-      }
-
-      &[data-gap-wide='condensed'] {
-        --stack-gap: var(--stack-gap-condensed, 0.5rem);
-      }
-
-      &[data-gap-wide='normal'] {
-        --stack-gap: var(--stack-gap-normal, 1rem);
-      }
-
-      &[data-gap-wide='spacious'] {
-        --stack-gap: var(--stack-gap-spacious, 1.5rem);
-      }
-
-      &[data-align-wide='start'] {
-        align-items: flex-start;
-      }
-
-      &[data-align-wide='center'] {
-        align-items: center;
-      }
-
-      &[data-align-wide='end'] {
-        align-items: flex-end;
-      }
-
-      &[data-align-wide='baseline'] {
-        align-items: baseline;
-      }
-
-      &[data-justify-wide='start'] {
-        justify-content: flex-start;
-      }
-
-      &[data-justify-wide='center'] {
-        justify-content: center;
-      }
-
-      &[data-justify-wide='end'] {
-        justify-content: flex-end;
-      }
-
-      &[data-justify-wide='space-between'] {
-        justify-content: space-between;
-      }
-
-      &[data-justify-wide='space-evenly'] {
-        justify-content: space-evenly;
-      }
-
-      &[data-wrap-wide='wrap'] {
-        flex-wrap: wrap;
-      }
-
-      &[data-wrap-wide='nowrap'] {
-        flex-wrap: nowrap;
-      }
-    }
-  `,
-)
+import {toggleSxComponent} from '../internal/utils/toggleSxComponent'
 
 type GapScale = 'none' | 'condensed' | 'normal' | 'spacious'
 type Gap = GapScale | ResponsiveValue<GapScale>
@@ -363,6 +66,7 @@ type StackProps<As> = React.PropsWithChildren<{
   className?: string
 }>
 
+const StackBaseComponent = toggleSxComponent('div') as React.ComponentType<StackProps<React.ElementType>>
 function Stack<As extends ElementType>({
   as,
   children,
@@ -375,13 +79,11 @@ function Stack<As extends ElementType>({
   className,
   ...rest
 }: StackProps<As> & React.ComponentPropsWithoutRef<ElementType extends As ? As : 'div'>) {
-  const BaseComponent = as ?? 'div'
-  const enabled = useFeatureFlag(CSS_MODULE_FEATURE_FLAG)
   return (
-    <StyledStack
+    <StackBaseComponent
+      as={as}
       {...rest}
-      as={BaseComponent}
-      className={clsx(className, {[classes.Stack]: enabled})}
+      className={clsx(className, classes.Stack)}
       {...getResponsiveAttributes('gap', gap)}
       {...getResponsiveAttributes('direction', direction)}
       {...getResponsiveAttributes('align', align)}
@@ -390,45 +92,9 @@ function Stack<As extends ElementType>({
       {...getResponsiveAttributes('padding', padding)}
     >
       {children}
-    </StyledStack>
+    </StackBaseComponent>
   )
 }
-
-const StyledStackItem = toggleStyledComponent(
-  CSS_MODULE_FEATURE_FLAG,
-  'div',
-  styled.div`
-    flex: 0 1 auto;
-    min-inline-size: 0;
-
-    &[data-grow='true'],
-    &[data-grow-narrow='true'] {
-      flex-grow: 1;
-    }
-
-    // @custom-media --viewportRange-regular
-    @media (min-width: 48rem) {
-      &[data-grow-regular='true'] {
-        flex-grow: 1;
-      }
-
-      &[data-grow-regular='false'] {
-        flex-grow: 0;
-      }
-    }
-
-    // @custom-media --viewportRange-wide
-    @media (min-width: 87.5rem) {
-      &[data-grow-wide='true'] {
-        flex-grow: 1;
-      }
-
-      &[data-grow-wide='false'] {
-        flex-grow: 0;
-      }
-    }
-  `,
-)
 
 type StackItemProps<As> = React.PropsWithChildren<{
   /**
@@ -444,6 +110,7 @@ type StackItemProps<As> = React.PropsWithChildren<{
   className?: string
 }>
 
+const StackItemBaseComponent = toggleSxComponent('div') as React.ComponentType<StackItemProps<React.ElementType>>
 function StackItem<As extends ElementType>({
   as,
   children,
@@ -451,18 +118,15 @@ function StackItem<As extends ElementType>({
   className,
   ...rest
 }: StackItemProps<As> & React.ComponentPropsWithoutRef<ElementType extends As ? As : 'div'>) {
-  const BaseComponent = as ?? 'div'
-  const enabled = useFeatureFlag(CSS_MODULE_FEATURE_FLAG)
-
   return (
-    <StyledStackItem
+    <StackItemBaseComponent
+      as={as}
       {...rest}
-      as={BaseComponent}
-      className={clsx(className, {[classes.StackItem]: enabled})}
+      className={clsx(className, classes.StackItem)}
       {...getResponsiveAttributes('grow', grow)}
     >
       {children}
-    </StyledStackItem>
+    </StackItemBaseComponent>
   )
 }
 
