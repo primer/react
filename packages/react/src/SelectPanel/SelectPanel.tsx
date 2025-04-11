@@ -219,7 +219,7 @@ export function SelectPanel({
   const usingModernActionList = useFeatureFlag('primer_react_select_panel_modern_action_list')
   const usingFullScreenOnNarrow = useFeatureFlag('primer_react_select_panel_fullscreen_on_narrow')
   const shouldOrderSelectedFirst =
-    orderSelectedFirst && useFeatureFlag('primer_react_select_panel_order_selected_at_top')
+    useFeatureFlag('primer_react_select_panel_order_selected_at_top') && orderSelectedFirst
 
   const onListContainerRefChanged: FilteredActionListProps['onListContainerRefChanged'] = useCallback(
     (node: HTMLElement | null) => {
