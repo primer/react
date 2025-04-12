@@ -1,4 +1,5 @@
 import type {FullConfig, FullResult, Reporter, Suite, TestCase, TestResult} from '@playwright/test/reporter'
+import {writeFileSync} from 'fs'
 
 class MyReporter implements Reporter {
   onBegin(_config: FullConfig, suite: Suite) {
@@ -33,8 +34,7 @@ class MyReporter implements Reporter {
         }
         const fileContentString = JSON.stringify(fileContent, null, 2)
         console.log(`✨ File content: ${fileContentString}`)
-        // Save the file content to a file
-        require('fs').writeFileSync(fileName, fileContentString)
+        writeFileSync(fileName, fileContentString)
         console.log(`✨ File saved: ${fileName}`)
       }
     }
