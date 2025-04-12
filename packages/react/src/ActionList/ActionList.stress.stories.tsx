@@ -7,7 +7,7 @@ import {TableIcon} from '@primer/octicons-react'
 import {ActionList} from '.'
 
 export default {
-  title: 'Components/ActionList/StressTests',
+  title: 'StressTests/Components/ActionList',
   component: ActionList,
 } as Meta<ComponentProps<typeof ActionList>>
 

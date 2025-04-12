@@ -48,14 +48,14 @@ test.describe('Pagination Stress Tests', () => {
     test.describe(theme, () => {
       test('page-update @stress-test', async ({page}) => {
         await visit(page, {
-          id: 'components-pagination-stresstests--page-update',
+          id: 'stresstests-components-pagination--page-update',
           globals: {
             colorScheme: theme,
           },
         })
         await page.getByTestId('start').click()
         const result = await page.getByTestId('result').textContent()
-        console.warn({duration: result, snap: 'components-pagination-stresstests--page-update-stress-test.json'})
+        console.warn({duration: result, snap: 'stresstests-components-pagination--page-update-stress-test.json'})
       })
     })
   }

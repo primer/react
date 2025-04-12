@@ -526,14 +526,14 @@ test.describe('ActionList Single Select Stress Tests', () => {
     test.describe(theme, () => {
       test(`single-select @stress-test`, async ({page}) => {
         await visit(page, {
-          id: 'components-actionlist-stress-test--single-select',
+          id: 'stresstests-components-actionlist--single-select',
           globals: {
             colorScheme: theme,
           },
         })
         await page.getByTestId('start').click()
         const result = await page.getByTestId('result').textContent()
-        console.warn({duration: result, snap: 'components-actionlist-stress-test--single-select-stress-test.json'})
+        console.warn({duration: result, snap: 'stresstests-components-actionlist--single-select-stress-test.json'})
       })
     })
   }

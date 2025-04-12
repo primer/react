@@ -6,7 +6,7 @@ import Pagination from './Pagination'
 import {StressTest} from '../utils/StressTest'
 
 export default {
-  title: 'Components/Pagination/StressTests',
+  title: 'StressTests/Components/Pagination',
   component: Pagination,
 } as Meta<ComponentProps<typeof Pagination>>
 
