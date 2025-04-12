@@ -13,6 +13,11 @@ export interface StressTestProps {
   renderIteration: (count: number, totalIterations: number) => React.ReactNode
 }
 
+// TODO:
+// - Document so the limitations of the test; so startTransition etc.
+// - Block the UI while the test is running
+// - Add a way to cancel the test
+
 export const StressTest: React.FC<StressTestProps> = ({title, totalIterations, renderIteration}) => {
   const [count, setCount] = useState(0)
   const [result, setResult] = useState<undefined | number>(undefined)
