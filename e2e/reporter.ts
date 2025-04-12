@@ -13,8 +13,10 @@ class MyReporter implements Reporter {
     console.log(`✨ Finished test ${test.title}: ${result.status}`)
     for (const attachment of result.attachments) {
       console.log(`✨ Attachment: ${attachment.name} (${attachment.contentType})`)
-      if (attachment.body) {
-        console.log(`✨ Attachment body: ${JSON.stringify(attachment.body, null, 2)}`)
+      // get the content of the attachment to an object
+      if (attachment.body !== undefined && attachment.contentType === 'application/json') {
+        const content = JSON.parse(attachment.body.toString())
+        console.log(`✨ Attachment content: ${JSON.stringify(content, null, 2)}`)
       }
     }
   }
