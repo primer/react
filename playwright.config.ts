@@ -41,5 +41,6 @@ export default defineConfig({
         outputFile: path.join(__dirname, '.playwright', 'results.json'),
       },
     ],
+    ['e2e/reporter.ts'],
   ],
 })
