@@ -25,22 +25,40 @@ export const SingleSelect = () => {
       totalIterations={totalIterations}
       renderIteration={count => {
         return (
-          <ActionList selectionVariant="single" showDividers role="menu" aria-label="Project">
-            {projects.map((project, index) => (
-              <ActionList.Item
-                key={index}
-                role="menuitemradio"
-                selected={index === count}
-                aria-checked={index === count}
-              >
-                <ActionList.LeadingVisual>
-                  <TableIcon />
-                </ActionList.LeadingVisual>
-                {project.name}
-                <ActionList.Description variant="block">{project.scope}</ActionList.Description>
-              </ActionList.Item>
-            ))}
-          </ActionList>
+          <>
+            <ActionList selectionVariant="single" showDividers role="menu" aria-label="Project">
+              {projects.map((project, index) => (
+                <ActionList.Item
+                  key={index}
+                  role="menuitemradio"
+                  selected={index === count}
+                  aria-checked={index === count}
+                >
+                  <ActionList.LeadingVisual>
+                    <TableIcon />
+                  </ActionList.LeadingVisual>
+                  {project.name}
+                  <ActionList.Description variant="block">{project.scope}</ActionList.Description>
+                </ActionList.Item>
+              ))}
+            </ActionList>
+            <ActionList selectionVariant="single" showDividers role="menu" aria-label="Project">
+              {projects.map((project, index) => (
+                <ActionList.Item
+                  key={index}
+                  role="menuitemradio"
+                  selected={index === count}
+                  aria-checked={index === count}
+                >
+                  <ActionList.LeadingVisual>
+                    <TableIcon />
+                  </ActionList.LeadingVisual>
+                  {project.name}
+                  <ActionList.Description variant="block">{project.scope}</ActionList.Description>
+                </ActionList.Item>
+              ))}
+            </ActionList>
+          </>
         )
       }}
     />
