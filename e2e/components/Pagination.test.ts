@@ -55,7 +55,7 @@ test.describe('Pagination Stress Tests', () => {
         })
         await page.getByTestId('start').click()
         const result = await page.getByTestId('result').textContent()
-        console.warn({duration: result, snap: `${story.id}-stress-test.json`})
+        console.warn({duration: result, snap: 'components-pagination-stresstests--page-update-stress-test.json'})
       })
     })
   }

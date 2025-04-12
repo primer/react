@@ -533,7 +533,7 @@ test.describe('ActionList Single Select Stress Tests', () => {
         })
         await page.getByTestId('start').click()
         const result = await page.getByTestId('result').textContent()
-        console.warn({duration: result, snap: `${story.id}-stress-test.json`})
+        console.warn({duration: result, snap: 'components-actionlist-stress-test--single-select-stress-test.json'})
       })
     })
   }
