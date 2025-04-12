@@ -44,7 +44,7 @@ test.describe('Pagination', () => {
 })
 
 test.describe('Pagination Stress Tests', () => {
-  test('page-update @stress-test', async ({page}) => {
+  test('page-update @stress-test', async ({page}, testInfo) => {
     const id = 'stresstests-components-pagination--page-update'
     await visit(page, {id})
     await page.getByTestId('start').click()
