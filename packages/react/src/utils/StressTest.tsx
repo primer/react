@@ -17,6 +17,8 @@ export interface StressTestProps {
 // - Document so the limitations of the test; so startTransition etc.
 // - Block the UI while the test is running
 // - Add a way to cancel the test
+// - Check when it runs; PRs? What is the baseline?
+// - Add a way to run the test in a consisent environment with the same specs as much as possible.
 
 export const StressTest: React.FC<StressTestProps> = ({title, totalIterations, renderIteration}) => {
   const [count, setCount] = useState(0)
