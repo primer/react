@@ -30,12 +30,13 @@ class MyReporter implements Reporter {
           name: content.id,
           unit: 'ms',
           value: parseFloat(content.duration),
-      }
+        }
         const fileContentString = JSON.stringify(fileContent, null, 2)
         console.log(`✨ File content: ${fileContentString}`)
         // Save the file content to a file
         require('fs').writeFileSync(fileName, fileContentString)
         console.log(`✨ File saved: ${fileName}`)
+      }
     }
   }
 
