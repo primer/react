@@ -11,6 +11,12 @@ class MyReporter implements Reporter {
 
   onTestEnd(test: TestCase, result: TestResult) {
     console.log(`✨ Finished test ${test.title}: ${result.status}`)
+    for (const attachment of result.attachments) {
+      console.log(`✨ Attachment: ${attachment.name} (${attachment.contentType})`)
+      if (attachment.body) {
+        console.log(`✨ Attachment body: ${JSON.stringify(attachment.body, null, 2)}`)
+      }
+    }
   }
 
   onEnd(result: FullResult) {
