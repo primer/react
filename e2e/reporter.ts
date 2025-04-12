@@ -17,7 +17,25 @@ class MyReporter implements Reporter {
       if (attachment.body !== undefined && attachment.contentType === 'application/json') {
         const content = JSON.parse(attachment.body.toString())
         console.log(`✨ Attachment content: ${JSON.stringify(content, null, 2)}`)
+        // ✨ Attachment content: {
+        // "id": "stresstests-components-actionlist--single-select",
+        // "duration": "31.50"
+        // }
+
+        // Save to a file compatible with the format we need
+        // https://github.com/benchmark-action/github-action-benchmark?tab=readme-ov-file#examples
+
+        const fileName = 'results.json'
+        const fileContent = {
+          name: content.id,
+          unit: 'ms',
+          value: parseFloat(content.duration),
       }
+        const fileContentString = JSON.stringify(fileContent, null, 2)
+        console.log(`✨ File content: ${fileContentString}`)
+        // Save the file content to a file
+        require('fs').writeFileSync(fileName, fileContentString)
+        console.log(`✨ File saved: ${fileName}`)
     }
   }
 
