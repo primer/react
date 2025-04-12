@@ -522,13 +522,15 @@ test.describe('ActionList', () => {
 })
 
 test.describe('ActionList Single Select Stress Tests', () => {
-  test(`single-select @stress-test`, async ({page}) => {
-    // const id = 'stresstests-components-actionlist--single-select'
-    // await visit(page, {
-    //   id,
-    // })
-    // await page.getByTestId('start').click()
-    // const result = await page.getByTestId('result').textContent()
-    // console.warn({duration: result, id})
+  test(`single-select @stress-test`, async ({page}, testInfo) => {
+    const id = 'stresstests-components-actionlist--single-select'
+    await visit(page, {id})
+    await page.getByTestId('start').click()
+    const result = await page.getByTestId('result').textContent()
+    await testInfo.attach('result', {
+      body: JSON.stringify({id, duration: result}),
+      contentType: 'application/json',
+    })
+    console.warn({duration: result, id})
   })
 })
