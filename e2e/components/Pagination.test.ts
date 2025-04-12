@@ -44,19 +44,17 @@ test.describe('Pagination', () => {
 })
 
 test.describe('Pagination Stress Tests', () => {
-  for (const theme of themes) {
-    test.describe(theme, () => {
-      test('page-update @stress-test', async ({page}) => {
-        await visit(page, {
-          id: 'stresstests-components-pagination--page-update',
-          globals: {
-            colorScheme: theme,
-          },
-        })
-        await page.getByTestId('start').click()
-        const result = await page.getByTestId('result').textContent()
-        console.warn({duration: result, snap: 'stresstests-components-pagination--page-update-stress-test.json'})
-      })
+  test('page-update @stress-test', async ({page}, testInfo) => {
+    const id = 'stresstests-components-pagination--page-update'
+    await visit(page, {
+      id,
     })
-  }
+    await page.getByTestId('start').click()
+    const result = await page.getByTestId('result').textContent()
+    await testInfo.attach('result', {
+      body: JSON.stringify({id, duration: result}),
+      contentType: 'application/json',
+    })
+    console.warn({duration: result, id})
+  })
 })
