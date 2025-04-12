@@ -41,7 +41,7 @@ jobs:
       - name: Store benchmark result
         uses: benchmark-action/github-action-benchmark@v1
         with:
-          tool: 'benchmarkjs'
+          tool: 'customSmallerIsBetter'
           output-file-path: results.json
           # Where the previous data file is stored
           external-data-json-path: ./cache/benchmark-data.json
