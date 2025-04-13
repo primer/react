@@ -403,4 +403,26 @@ test.describe('Button', () => {
       })
     }
   })
+
+  test('label-update @stress-test', async ({page}, testInfo) => {
+    const id = 'stresstests-components-button--label-update'
+    await visit(page, {id})
+    await page.getByTestId('start').click()
+    const result = await page.getByTestId('result').textContent()
+    await testInfo.attach('result', {
+      body: JSON.stringify({id, duration: result}),
+      contentType: 'application/json',
+    })
+  })
+
+  test('count-update @stress-test', async ({page}, testInfo) => {
+    const id = 'stresstests-components-button--count-update'
+    await visit(page, {id})
+    await page.getByTestId('start').click()
+    const result = await page.getByTestId('result').textContent()
+    await testInfo.attach('result', {
+      body: JSON.stringify({id, duration: result}),
+      contentType: 'application/json',
+    })
+  })
 })
