@@ -21,7 +21,9 @@ const projects = Array.from({length: totalIterations}, (_, i) => ({
 export const SingleSelect = () => {
   return (
     <StressTest
-      title="ActionList Single Select"
+      componentName="ActionList"
+      title="Single Select"
+      description="Selecting a single item from a large list."
       totalIterations={totalIterations}
       renderIteration={count => {
         return (

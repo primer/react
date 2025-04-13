@@ -4,11 +4,12 @@ import afterFrame from 'afterframe'
 import {Button} from '../Button'
 import Text from '../Text'
 import classes from './StressTest.module.css'
-import {ProgressBar} from '../ProgressBar'
-import Heading from '../Heading'
+import {PlayIcon} from '@primer/octicons-react'
 
 export interface StressTestProps {
+  componentName: string
   title: string
+  description: string
   totalIterations: number
   renderIteration: (count: number, totalIterations: number) => React.ReactNode
 }
@@ -18,17 +19,25 @@ export interface StressTestProps {
 // - Check when it runs; PRs? What is the baseline?
 // - Filter out other playwright tests from the new runner
 
-export const StressTest: React.FC<StressTestProps> = ({title, totalIterations, renderIteration}) => {
+export const StressTest: React.FC<StressTestProps> = ({
+  componentName,
+  title,
+  description,
+  totalIterations,
+  renderIteration,
+}) => {
   const [count, setCount] = useState(0)
   const [result, setResult] = useState<undefined | number>(undefined)
 
   // Initialize the observer to log performance metrics, stored in a ref and initialized only once
   const observer = React.useRef<{observer: PerformanceObserver; data: number[]} | null>(null)
-  if (!observer.current) {
-    observer.current = initializeObserver()
-  }
-  // Cleanup the observer when the component unmounts
+
   useEffect(() => {
+    // Initialize the observer when the component mounts
+    if (!observer.current) {
+      observer.current = initializeObserver()
+    }
+    // Cleanup the observer when the component unmounts
     return () => {
       if (observer.current) {
         observer.current.observer.disconnect()
@@ -68,37 +77,60 @@ export const StressTest: React.FC<StressTestProps> = ({title, totalIterations, r
 
   return (
     <div className={classes.Root}>
-      <Heading variant="medium" as="h2" className={classes.Heading}>
-        {title}
-      </Heading>
-      <div className={classes.Container}>{renderIteration(count, totalIterations)}</div>
-      <ProgressBar className={classes.ProgressBar} progress={(count / (totalIterations - 1)) * 100} animated />
-      <Button
-        variant="primary"
-        disabled={count !== 0 && count !== totalIterations - 1}
-        onClick={onClick}
-        loading={count !== 0 && count !== totalIterations - 1}
-        size="large"
-        block
-        data-testid={'start'}
-      >
-        {count === 1 ? 'Run' : 'Re-run'}
-      </Button>
-      <Text className={classes.Result}>
-        <p>
-          <strong>Results:</strong>
-          <br />
-          {result !== undefined ? (
-            <>
-              {'Median duration: '}
-              <span data-testid="result">{result.toFixed(2)}</span>
-              ms
-            </>
-          ) : (
-            <span>Pending</span>
-          )}
-        </p>
-      </Text>
+      <div className={classes.Header}>
+        <div className={classes.HeaderColumn}>
+          <div className={classes.HeaderRow}>
+            <PlayIcon size={16} />
+            <Text size="medium">
+              <code>{componentName}</code>
+            </Text>
+          </div>
+          <div className={classes.HeaderRow}>
+            <Text size="small" color="fg.muted">
+              <code>
+                {count === 0 ? (
+                  'Click the button to start the test'
+                ) : count === totalIterations - 1 ? (
+                  <>
+                    {'Median duration: '}
+                    {result !== undefined ? (
+                      <>
+                        <span data-testid="result">{result.toFixed(2)}</span>
+                        ms
+                      </>
+                    ) : (
+                      <span>pending</span>
+                    )}
+                  </>
+                ) : (
+                  `Running... (${count}/${totalIterations})`
+                )}
+              </code>
+            </Text>
+          </div>
+        </div>
+        <div className={classes.HeaderColumn}>
+          <Button
+            variant="primary"
+            disabled={count !== 0 && count !== totalIterations - 1}
+            onClick={onClick}
+            loading={count !== 0 && count !== totalIterations - 1}
+            size="large"
+            data-testid={'start'}
+          >
+            {count === 0 ? 'Start' : 'Re-run'}
+          </Button>
+        </div>
+      </div>
+      <div className={classes.Container}>
+        <div className={classes.Box}>{renderIteration(count, totalIterations)}</div>
+      </div>
+
+      <div className={classes.Footer}>
+        <Text size="medium" color="fg.muted">
+          {title}: {description}
+        </Text>
+      </div>
     </div>
   )
 }
