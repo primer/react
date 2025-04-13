@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState, useRef} from 'react'
 import afterFrame from 'afterframe'
 
 import {Button} from '../Button'
@@ -26,6 +26,7 @@ export const StressTest: React.FC<StressTestProps> = ({
   totalIterations,
   renderIteration,
 }) => {
+  const startTime = useRef<number>()
   const [count, setCount] = useState(0)
   const [median, setMedian] = useState<undefined | number>(undefined)
   const [average, setAverage] = useState<undefined | number>(undefined)
@@ -33,7 +34,7 @@ export const StressTest: React.FC<StressTestProps> = ({
   const [max, setMax] = useState<undefined | number>(undefined)
 
   // Initialize the observer to log performance metrics, stored in a ref and initialized only once
-  const observer = React.useRef<{observer: PerformanceObserver; data: number[]} | null>(null)
+  const observer = useRef<{observer: PerformanceObserver; data: number[]} | null>(null)
 
   useEffect(() => {
     // Initialize the observer when the component mounts
@@ -51,6 +52,7 @@ export const StressTest: React.FC<StressTestProps> = ({
 
   const onClick = () => {
     setCount(0)
+    startTime.current = performance.now()
     let count = 0
     const interval = setInterval(() => {
       if (count < totalIterations - 1) {
@@ -105,7 +107,9 @@ export const StressTest: React.FC<StressTestProps> = ({
                     {`Max: ${max?.toFixed(2)}ms`}
                   </>
                 ) : (
-                  `Running... (${count}/${totalIterations})`
+                  `Step ${count}/${totalIterations} — ${((performance.now() - (startTime.current ?? 0)) / 1000).toFixed(
+                    0,
+                  )}s`
                 )}
               </code>
             </Text>
