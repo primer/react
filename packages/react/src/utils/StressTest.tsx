@@ -27,7 +27,7 @@ export const StressTest: React.FC<StressTestProps> = ({
   renderIteration,
 }) => {
   const [count, setCount] = useState(0)
-  const [result, setResult] = useState<undefined | number>(undefined)
+  const [median, setMedian] = useState<undefined | number>(undefined)
 
   // Initialize the observer to log performance metrics, stored in a ref and initialized only once
   const observer = React.useRef<{observer: PerformanceObserver; data: number[]} | null>(null)
@@ -68,10 +68,10 @@ export const StressTest: React.FC<StressTestProps> = ({
 
   useEffect(() => {
     if (count === totalIterations - 1) {
-      // Get the median of the duration
+      // Get the median of the duration when the test is done
       const durations = observer.current?.data ?? []
       const median = durations.sort((a, b) => a - b)[Math.floor(durations.length / 2)]
-      setResult(median)
+      setMedian(median)
     }
   }, [count, totalIterations])
 
@@ -92,15 +92,8 @@ export const StressTest: React.FC<StressTestProps> = ({
                   'Click the button to start the test'
                 ) : count === totalIterations - 1 ? (
                   <>
-                    {'Median duration: '}
-                    {result !== undefined ? (
-                      <>
-                        <span data-testid="result">{result.toFixed(2)}</span>
-                        ms
-                      </>
-                    ) : (
-                      <span>pending</span>
-                    )}
+                    <span data-testid="result">{median?.toFixed(2)}</span>
+                    ms
                   </>
                 ) : (
                   `Running... (${count}/${totalIterations})`
