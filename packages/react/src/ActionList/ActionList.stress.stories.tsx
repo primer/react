@@ -11,7 +11,7 @@ export default {
   component: ActionList,
 } as Meta<ComponentProps<typeof ActionList>>
 
-const totalIterations = 250
+const totalIterations = 100
 
 const projects = Array.from({length: totalIterations}, (_, i) => ({
   name: `Project ${i + 1}`,
