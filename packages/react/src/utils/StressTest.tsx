@@ -88,12 +88,11 @@ export const StressTest: React.FC<StressTestProps> = ({
         <div className={classes.HeaderColumn}>
           <div className={classes.HeaderRow}>
             <PlayIcon size={16} />
-            <Text size="medium">
+            <Text size="large" weight="semibold">
               <code>{componentName}</code>
             </Text>
           </div>
           <div className={classes.HeaderRow}>
-            {' '}
             <Text size="medium" color="fg.muted">
               {title}: {description}
             </Text>
@@ -117,17 +116,19 @@ export const StressTest: React.FC<StressTestProps> = ({
       </div>
 
       <div className={classes.Footer}>
-        <Text size="small" color="fg.muted">
+        <Text size="medium" color="fg.muted">
           <code>
             {count === 0 ? (
               'Click the button to start the test'
             ) : count === totalIterations - 1 ? (
               <>
                 {'Median: '}
-                <span data-testid="result">{median?.toFixed(2)}</span>
-                {'ms, '}
-                {`Average: ${average?.toFixed(2)}ms, `}
-                {`Min: ${min?.toFixed(2)}ms, `}
+                <strong>
+                  <span data-testid="result">{median?.toFixed(2)}</span>
+                  {'ms  |  '}
+                </strong>
+                {`Average: ${average?.toFixed(2)}ms  |  `}
+                {`Min: ${min?.toFixed(2)}ms  |  `}
                 {`Max: ${max?.toFixed(2)}ms`}
               </>
             ) : (
