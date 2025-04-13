@@ -28,6 +28,9 @@ export const StressTest: React.FC<StressTestProps> = ({
 }) => {
   const [count, setCount] = useState(0)
   const [median, setMedian] = useState<undefined | number>(undefined)
+  const [average, setAverage] = useState<undefined | number>(undefined)
+  const [min, setMin] = useState<undefined | number>(undefined)
+  const [max, setMax] = useState<undefined | number>(undefined)
 
   // Initialize the observer to log performance metrics, stored in a ref and initialized only once
   const observer = React.useRef<{observer: PerformanceObserver; data: number[]} | null>(null)
@@ -70,8 +73,10 @@ export const StressTest: React.FC<StressTestProps> = ({
     if (count === totalIterations - 1) {
       // Get the median of the duration when the test is done
       const durations = observer.current?.data ?? []
-      const median = durations.sort((a, b) => a - b)[Math.floor(durations.length / 2)]
-      setMedian(median)
+      setMedian(durations.sort((a, b) => a - b)[Math.floor(durations.length / 2)])
+      setAverage(durations.reduce((a, b) => a + b, 0) / durations.length)
+      setMin(Math.min(...durations))
+      setMax(Math.max(...durations))
     }
   }, [count, totalIterations])
 
@@ -92,8 +97,12 @@ export const StressTest: React.FC<StressTestProps> = ({
                   'Click the button to start the test'
                 ) : count === totalIterations - 1 ? (
                   <>
+                    {'Median: '}
                     <span data-testid="result">{median?.toFixed(2)}</span>
-                    ms
+                    {'ms, '}
+                    {`Average: ${average?.toFixed(2)}ms, `}
+                    {`Min: ${min?.toFixed(2)}ms, `}
+                    {`Max: ${max?.toFixed(2)}ms`}
                   </>
                 ) : (
                   `Running... (${count}/${totalIterations})`
