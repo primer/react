@@ -53,6 +53,5 @@ test.describe('Pagination Stress Tests', () => {
       body: JSON.stringify({id, duration: result}),
       contentType: 'application/json',
     })
-    console.warn({duration: result, id})
   })
 })

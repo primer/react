@@ -119,15 +119,15 @@ export const StressTest: React.FC<StressTestProps> = ({
         <Text size="medium" color="fg.muted">
           <code>
             {count === 0 ? (
-              'Click the button to start the test'
+              "Click 'Start' to start the test"
             ) : count === totalIterations - 1 ? (
               <>
-                {'Median: '}
                 <strong>
+                  {'Median: '}
                   <span data-testid="result">{median?.toFixed(2)}</span>
-                  {'ms  |  '}
+                  ms
                 </strong>
-                {`Average: ${average?.toFixed(2)}ms  |  `}
+                {`  |  Average: ${average?.toFixed(2)}ms  |  `}
                 {`Min: ${min?.toFixed(2)}ms  |  `}
                 {`Max: ${max?.toFixed(2)}ms`}
               </>
