@@ -4,7 +4,7 @@ import afterFrame from 'afterframe'
 import {Button} from '../Button'
 import Text from '../Text'
 import classes from './StressTest.module.css'
-import {PlayIcon} from '@primer/octicons-react'
+import {ZapIcon} from '@primer/octicons-react'
 
 export interface StressTestProps {
   componentName: string
@@ -87,7 +87,7 @@ export const StressTest: React.FC<StressTestProps> = ({
       <div className={classes.Header}>
         <div className={classes.HeaderColumn}>
           <div className={classes.HeaderRow}>
-            <PlayIcon size={16} />
+            <ZapIcon size={16} />
             <Text size="large" weight="semibold">
               <code>{componentName}</code>
             </Text>
