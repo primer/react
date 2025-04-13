@@ -93,25 +93,9 @@ export const StressTest: React.FC<StressTestProps> = ({
             </Text>
           </div>
           <div className={classes.HeaderRow}>
-            <Text size="small" color="fg.muted">
-              <code>
-                {count === 0 ? (
-                  'Click the button to start the test'
-                ) : count === totalIterations - 1 ? (
-                  <>
-                    {'Median: '}
-                    <span data-testid="result">{median?.toFixed(2)}</span>
-                    {'ms, '}
-                    {`Average: ${average?.toFixed(2)}ms, `}
-                    {`Min: ${min?.toFixed(2)}ms, `}
-                    {`Max: ${max?.toFixed(2)}ms`}
-                  </>
-                ) : (
-                  `Step ${count}/${totalIterations} — ${((performance.now() - (startTime.current ?? 0)) / 1000).toFixed(
-                    0,
-                  )}s`
-                )}
-              </code>
+            {' '}
+            <Text size="medium" color="fg.muted">
+              {title}: {description}
             </Text>
           </div>
         </div>
@@ -133,8 +117,25 @@ export const StressTest: React.FC<StressTestProps> = ({
       </div>
 
       <div className={classes.Footer}>
-        <Text size="medium" color="fg.muted">
-          {title}: {description}
+        <Text size="small" color="fg.muted">
+          <code>
+            {count === 0 ? (
+              'Click the button to start the test'
+            ) : count === totalIterations - 1 ? (
+              <>
+                {'Median: '}
+                <span data-testid="result">{median?.toFixed(2)}</span>
+                {'ms, '}
+                {`Average: ${average?.toFixed(2)}ms, `}
+                {`Min: ${min?.toFixed(2)}ms, `}
+                {`Max: ${max?.toFixed(2)}ms`}
+              </>
+            ) : (
+              `Step ${count}/${totalIterations} — ${((performance.now() - (startTime.current ?? 0)) / 1000).toFixed(
+                0,
+              )}s`
+            )}
+          </code>
         </Text>
       </div>
     </div>
