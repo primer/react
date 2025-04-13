@@ -16,6 +16,7 @@ export interface StressTestProps {
 // TODO:
 // - Document so the limitations of the test; so startTransition etc.
 // - Check when it runs; PRs? What is the baseline?
+// - Filter out other playwright tests from the new runner
 
 export const StressTest: React.FC<StressTestProps> = ({title, totalIterations, renderIteration}) => {
   const [count, setCount] = useState(0)
