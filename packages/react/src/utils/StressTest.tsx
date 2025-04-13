@@ -15,7 +15,6 @@ export interface StressTestProps {
 
 // TODO:
 // - Document so the limitations of the test; so startTransition etc.
-// - Block the UI while the test is running
 // - Check when it runs; PRs? What is the baseline?
 
 export const StressTest: React.FC<StressTestProps> = ({title, totalIterations, renderIteration}) => {
