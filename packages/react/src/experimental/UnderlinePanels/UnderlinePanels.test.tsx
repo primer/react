@@ -5,7 +5,6 @@ import {render, screen} from '@testing-library/react'
 import UnderlinePanels from './UnderlinePanels'
 import {behavesAsComponent} from '../../utils/testing'
 import TabContainerElement from '@github/tab-container-element'
-import {FeatureFlags} from '../../FeatureFlags'
 
 TabContainerElement.prototype.selectTab = jest.fn()
 
