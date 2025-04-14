@@ -8,7 +8,6 @@ import BaseStyles from '../BaseStyles'
 import theme from '../theme'
 import {ThemeProvider} from '../ThemeProvider'
 import {render} from '../utils/testing'
-import {FeatureFlags} from '../FeatureFlags'
 
 const mockItems = [
   {text: 'zero', id: '0'},
@@ -226,20 +225,7 @@ describe('Autocomplete', () => {
           <Autocomplete.Input className={'test-class-name'} />
         </Autocomplete>
       )
-      const FeatureFlagElement = () => {
-        return (
-          <FeatureFlags
-            flags={{
-              primer_react_css_modules_staff: true,
-              primer_react_css_modules_ga: true,
-            }}
-          >
-            <Element />
-          </FeatureFlags>
-        )
-      }
       expect(HTMLRender(<Element />).container.firstChild).toHaveClass('test-class-name')
-      expect(HTMLRender(<FeatureFlagElement />).container.firstChild).toHaveClass('test-class-name')
     })
   })
 
@@ -474,33 +460,12 @@ describe('Autocomplete', () => {
           </Autocomplete>
         </ThemeProvider>
       )
-      const FeatureFlagElement = () => {
-        return (
-          <FeatureFlags
-            flags={{
-              primer_react_css_modules_staff: true,
-              primer_react_css_modules_ga: true,
-            }}
-          >
-            <Element className="test-class-name-2" />
-          </FeatureFlags>
-        )
-      }
-      const {container: elementContainer, getByRole, rerender} = HTMLRender(<Element className="test-class-name" />)
-      let inputNode = getByRole('combobox')
+      const {container: elementContainer, getByRole} = HTMLRender(<Element className="test-class-name" />)
+      const inputNode = getByRole('combobox')
       await userEvent.click(inputNode)
       await userEvent.keyboard('{ArrowDown}')
       // overlay is a sibling of elementContainer
       expect(elementContainer.parentElement?.querySelectorAll('.test-class-name')).toHaveLength(1)
-
-      rerender(<FeatureFlagElement />)
-      expect(elementContainer.parentElement?.querySelectorAll('.test-class-name')).toHaveLength(0)
-      inputNode = getByRole('combobox')
-      await userEvent.click(inputNode)
-      await userEvent.keyboard('{ArrowDown}')
-
-      // overlay is a sibling of ffContainer
-      expect(elementContainer.parentElement?.querySelectorAll('.test-class-name-2')).toHaveLength(1)
     })
   })
 
