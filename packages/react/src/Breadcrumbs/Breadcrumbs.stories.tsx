@@ -37,3 +37,19 @@ export const Default = () => (
     </Breadcrumbs.Item>
   </Breadcrumbs>
 )
+
+const breadcrumbItems = [
+  {label: 'First', href: '/'},
+  {label: 'Second', href: '/'},
+  {label: 'Third', href: '/'},
+  {label: 'Fourth', href: '/'},
+  {label: 'Fifth', href: '/'},
+  {label: 'Sixth', href: '/'},
+  {label: 'Seventh', href: '/'},
+  {label: 'Eighth', href: '/'},
+  {label: 'Ninth', href: '/'},
+  {label: 'Tenth', href: '/'},
+  {label: 'Last', href: '/'},
+]
+
+export const Responsive = () => <Breadcrumbs responsive items={breadcrumbItems} />

@@ -6,7 +6,7 @@
 .BreadcrumbsList {
   --divider: deeppink;
 
-  display: flex;
+  display: inline-flex;
   padding-left: 0;
   margin-top: 0;
   margin-bottom: 0;
@@ -25,7 +25,7 @@
 }
 
 .ItemWrapper {
-  display: inline-block;
+  /* display: inline-block; */
   font-size: var(--text-body-size-medium);
   white-space: nowrap;
   list-style: none;
@@ -63,7 +63,7 @@
 }
 
 .Item {
-  display: inline-block;
+  /* display: inline-block; */
   height: var(--control-medium-size);
   /* stylelint-disable-next-line primer/spacing */
   padding: 0 var(--control-medium-paddingInline-normal);
@@ -85,4 +85,10 @@
   &:focus {
     text-decoration: none;
   }
+}
+
+.OverflowHidden {
+  visibility: hidden;
+  position: absolute;
+  pointer-events: none;
 }

@@ -1,121 +1,179 @@
 import {clsx} from 'clsx'
-import type {To} from 'history'
-import React, {useCallback, useRef, useState} from 'react'
+import React, {useEffect, useRef, useState, useCallback} from 'react'
+import useIsomorphicLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 import type {SxProp} from '../sx'
 import type {ComponentProps} from '../utils/types'
 import classes from './Breadcrumbs.module.css'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {toggleSxComponent} from '../internal/utils/toggleSxComponent'
 import {ActionMenu, ActionList} from '../'
-import {useResizeObserver} from '../hooks/useResizeObserver'
+import {IconButton} from '../Button'
+import {KebabHorizontalIcon} from '@primer/octicons-react'
 
-const SELECTED_CLASS = 'selected'
-const MIN_VISIBLE_ITEMS = 1
+interface BreadcrumbItem {
+  label: string
+  href?: string
+  onClick?: () => void
+}
 
-export type BreadcrumbsProps = React.PropsWithChildren<
-  {
-    className?: string
-  } & SxProp
->
+export type BreadcrumbsProps = {
+  className?: string
+  items?: BreadcrumbItem[]
+  children?: React.ReactNode
+  responsive?: boolean
+} & SxProp
 
 const BreadcrumbsList = ({children}: React.PropsWithChildren) => {
   return <ol className={classes.BreadcrumbsList}>{children}</ol>
 }
 
-function Breadcrumbs({className, children, sx: sxProp}: BreadcrumbsProps) {
-  const containerRef = useRef<HTMLElement>(null)
-  const [visibleItems, setVisibleItems] = useState(React.Children.count(children))
-
-  const updateOverflow = useCallback(() => {
-    const container = containerRef.current
-    if (!container) return
-
-    const items = Array.from(container.querySelectorAll(`.${classes.ItemWrapper}`))
-    let totalWidth = 0
-    let visibleCount = 0
-
-    // Calculate visible items starting from the first item, excluding the last item
-    for (let i = 0; i < items.length - 1; i++) {
-      totalWidth += items[i].getBoundingClientRect().width
-      if (totalWidth + items[items.length - 1].getBoundingClientRect().width > container.offsetWidth) break
-      visibleCount++
-    }
-
-    // Ensure the last item is always visible outside the menu
-    visibleCount = Math.min(visibleCount + 1, items.length)
-
-    setVisibleItems(Math.max(MIN_VISIBLE_ITEMS, visibleCount))
-  }, [])
-
-  useResizeObserver(updateOverflow, containerRef)
-
-  const wrappedChildren = React.Children.toArray(children).map((child, index) => (
-    <li className={classes.ItemWrapper} key={index} style={{display: index < visibleItems ? 'block' : 'none'}}>
-      {child}
-    </li>
-  ))
-
-  const overflowItems = React.Children.toArray(children).slice(visibleItems)
-
-  // const wrappedChildren = React.Children.map(children, child => <li className={classes.ItemWrapper}>{child}</li>)
-  const BreadcrumbsBaseComponent = toggleSxComponent('nav') as React.ComponentType<BreadcrumbsProps>
-
-  return (
-    <BreadcrumbsBaseComponent
-      ref={containerRef}
-      className={clsx(className, classes.BreadcrumbsBase)}
-      aria-label="Breadcrumbs"
-      sx={sxProp}
-    >
-      <BreadcrumbsList>
-        {overflowItems.length > 0 && (
-          <li className={classes.ItemWrapper}>
-            <ActionMenu>
-              <ActionMenu.Button>...</ActionMenu.Button>
-              <ActionMenu.Overlay>
-                <ActionList>
-                  {overflowItems.map((item, index) => (
-                    <ActionList.Item key={index}>{item}</ActionList.Item>
-                  ))}
-                </ActionList>
-              </ActionMenu.Overlay>
-            </ActionMenu>
-          </li>
-        )}
-        {wrappedChildren}
-      </BreadcrumbsList>
-    </BreadcrumbsBaseComponent>
-  )
-}
-
+const BreadcrumbsItemBaseComponent = toggleSxComponent('a') as React.ComponentType<StyledBreadcrumbsItemProps>
 type StyledBreadcrumbsItemProps = {
-  to?: To
+  to?: string
   selected?: boolean
   className?: string
 } & SxProp &
   React.HTMLAttributes<HTMLAnchorElement> &
   React.ComponentPropsWithRef<'a'>
 
-const BreadcrumbsItem = React.forwardRef(({selected, className, ...rest}, ref) => {
-  const BaseComponent = toggleSxComponent('a') as React.ComponentType<StyledBreadcrumbsItemProps>
-  return (
-    <BaseComponent
-      className={clsx(className, classes.Item, {
-        [SELECTED_CLASS]: selected,
-        [classes.ItemSelected]: selected,
-      })}
-      aria-current={selected ? 'page' : undefined}
-      ref={ref}
-      {...rest}
-    />
-  )
-}) as PolymorphicForwardRefComponent<'a', StyledBreadcrumbsItemProps>
-
-Breadcrumbs.displayName = 'Breadcrumbs'
+const BreadcrumbsItem = React.forwardRef<HTMLAnchorElement, StyledBreadcrumbsItemProps>(
+  ({selected, className, ...rest}, ref) => {
+    return (
+      <BreadcrumbsItemBaseComponent
+        className={clsx(className, classes.Item, {
+          [classes.ItemSelected]: selected,
+        })}
+        aria-current={selected ? 'page' : undefined}
+        ref={ref}
+        {...rest}
+      />
+    )
+  },
+) as PolymorphicForwardRefComponent<'a', StyledBreadcrumbsItemProps>
 
 BreadcrumbsItem.displayName = 'Breadcrumbs.Item'
 
 export type BreadcrumbsItemProps = ComponentProps<typeof BreadcrumbsItem>
+
+const BreadcrumbsBaseComponent = toggleSxComponent('nav') as React.ComponentType<BreadcrumbsProps>
+
+function Breadcrumbs({className, sx: sxProp, items = [], children, responsive = false}: BreadcrumbsProps) {
+  const containerRef = useRef<HTMLDivElement>(null)
+  const itemRefs = useRef<(HTMLLIElement | null)[]>([])
+  const overflowRef = useRef<HTMLLIElement>(null)
+  const [visibleCount, setVisibleCount] = useState(items.length)
+
+  // Initialize refs only once for stability
+  useEffect(() => {
+    itemRefs.current = new Array(items.length).fill(null)
+  }, [items.length])
+
+  const updateVisibleItems = useCallback(() => {
+    const container = containerRef.current
+    if (!container) return
+
+    const containerWidth = container.offsetWidth
+    const overflowWidth = overflowRef.current?.offsetWidth ?? 0
+    let totalWidth = 0
+    let count = items.length
+
+    for (let i = items.length - 1; i >= 0; i--) {
+      const item = itemRefs.current[i]
+      if (!item) continue
+      totalWidth += item.offsetWidth
+
+      const requiredWidth = totalWidth + overflowWidth
+
+      if (requiredWidth > containerWidth) {
+        count = i
+        break
+      }
+    }
+    setVisibleCount(prev => (prev !== count ? count : prev))
+  }, [items])
+
+  useIsomorphicLayoutEffect(() => {
+    if (responsive) {
+      updateVisibleItems()
+    }
+  }, [items, responsive, updateVisibleItems])
+
+  useEffect(() => {
+    if (!responsive) return
+    const resizeObserver = new ResizeObserver(() => {
+      updateVisibleItems()
+    })
+    if (containerRef.current) {
+      resizeObserver.observe(containerRef.current)
+    }
+    updateVisibleItems() // Ensure it's triggered on mount after first paint
+    return () => resizeObserver.disconnect()
+  }, [responsive, updateVisibleItems])
+
+  if (!responsive) {
+    return (
+      <BreadcrumbsBaseComponent
+        className={clsx(className, classes.BreadcrumbsBase)}
+        aria-label="Breadcrumbs"
+        sx={sxProp}
+      >
+        <div className={classes.BreadcrumbsContainer}>
+          <BreadcrumbsList>{children}</BreadcrumbsList>
+        </div>
+      </BreadcrumbsBaseComponent>
+    )
+  }
+
+  const hiddenItems = items.slice(0, items.length - visibleCount)
+  const visibleItems = items.slice(items.length - visibleCount)
+
+  return (
+    <BreadcrumbsBaseComponent className={clsx(className, classes.BreadcrumbsBase)} aria-label="Breadcrumbs" sx={sxProp}>
+      <div className={classes.BreadcrumbsContainer} ref={containerRef}>
+        <BreadcrumbsList>
+          <li
+            ref={overflowRef}
+            className={clsx(
+              classes.ItemWrapper,
+              classes.OverflowMenu,
+              hiddenItems.length === 0 && classes.OverflowHidden,
+            )}
+          >
+            <ActionMenu>
+              <ActionMenu.Anchor>
+                <IconButton variant="invisible" aria-label="More breadcrumb items" icon={KebabHorizontalIcon} />
+              </ActionMenu.Anchor>
+              <ActionMenu.Overlay>
+                <ActionList>
+                  {hiddenItems.map((item, i) => (
+                    <ActionList.Item as="a" href={item.href} key={i}>
+                      {item.label}
+                    </ActionList.Item>
+                  ))}
+                </ActionList>
+              </ActionMenu.Overlay>
+            </ActionMenu>
+          </li>
+          {visibleItems.map((item, i) => (
+            <li
+              key={i + hiddenItems.length}
+              className={classes.ItemWrapper}
+              ref={el => {
+                const index = i + hiddenItems.length
+                if (itemRefs.current[index] !== el) {
+                  itemRefs.current[index] = el
+                }
+              }}
+            >
+              <BreadcrumbsItem href={item.href}>{item.label}</BreadcrumbsItem>
+            </li>
+          ))}
+        </BreadcrumbsList>
+      </div>
+    </BreadcrumbsBaseComponent>
+  )
+}
+
 export default Object.assign(Breadcrumbs, {Item: BreadcrumbsItem})
 
 /**
