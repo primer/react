@@ -45,6 +45,14 @@ const scenarios = matrix({
       id: 'components-selectpanel-dev--with-sx-and-css',
       name: 'With Sx and Css',
     },
+    {
+      id: 'components-selectpanel-features--with-custom-sorting',
+      name: 'With Sorting (custom)',
+    },
+    {
+      id: 'components-selectpanel-features--with-sorting',
+      name: 'With Sorting',
+    },
   ],
 })
 

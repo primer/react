@@ -93,6 +93,10 @@ interface SelectPanelBaseProps {
     variant: 'empty' | 'error' | 'warning'
   }
   onCancel?: () => void
+  orderSelectedFirst?: boolean
+  sortKey?: keyof ItemInput
+  sortDirection?: 'asc' | 'desc'
+  sortFn?: (a: ItemInput, b: ItemInput) => number
 }
 
 export type SelectPanelProps = SelectPanelBaseProps &
@@ -120,6 +124,37 @@ const areItemsEqual = (itemA: ItemInput, itemB: ItemInput) => {
 
 const doesItemsIncludeItem = (items: ItemInput[], item: ItemInput) => {
   return items.some(i => areItemsEqual(i, item))
+}
+
+function usePreviousValue<T>(value: T): T {
+  const ref = React.useRef(value)
+
+  React.useEffect(() => {
+    ref.current = value
+  }, [value])
+
+  return ref.current
+}
+
+function compareByKey(sortKey?: keyof ItemInput, sortDirection: 'asc' | 'desc' = 'asc') {
+  return (itemA: ItemInput, itemB: ItemInput) => {
+    if (sortKey) {
+      if (sortDirection === 'asc') {
+        if ((itemA[sortKey] ?? '') < (itemB[sortKey] ?? '')) {
+          return -1
+        } else if ((itemA.text ?? '') > (itemB.text ?? '')) {
+          return 1
+        }
+      } else {
+        if ((itemA[sortKey] ?? '') > (itemB[sortKey] ?? '')) {
+          return -1
+        } else if ((itemA.text ?? '') < (itemB.text ?? '')) {
+          return 1
+        }
+      }
+    }
+    return 0
+  }
 }
 
 export function SelectPanel({
@@ -157,6 +192,10 @@ export function SelectPanel({
   message,
   notice,
   onCancel,
+  orderSelectedFirst = true,
+  sortDirection = 'asc',
+  sortFn,
+  sortKey,
   ...listProps
 }: SelectPanelProps): JSX.Element {
   const titleId = useId()
@@ -171,10 +210,16 @@ export function SelectPanel({
   const [inputRef, setInputRef] = React.useState<React.RefObject<HTMLInputElement> | null>(null)
   const [listContainerElement, setListContainerElement] = useState<HTMLElement | null>(null)
   const [needsNoItemsAnnouncement, setNeedsNoItemsAnnouncement] = useState<boolean>(false)
+  const prevItems = usePreviousValue(items)
+  const [selectedOnSort, setSelectedOnSort] = useState<ItemInput[]>([])
+  const [itemsToRender, setItemsToRender] = useState<ItemInput[]>([])
+  const [sortedItems, setSortedItems] = useState<ItemInput[]>([])
   const isNarrowScreenSize = useResponsiveValue({narrow: true, regular: false, wide: false}, false)
 
   const usingModernActionList = useFeatureFlag('primer_react_select_panel_modern_action_list')
   const usingFullScreenOnNarrow = useFeatureFlag('primer_react_select_panel_fullscreen_on_narrow')
+  const shouldOrderSelectedFirst =
+    useFeatureFlag('primer_react_select_panel_order_selected_at_top') && orderSelectedFirst
 
   const onListContainerRefChanged: FilteredActionListProps['onListContainerRefChanged'] = useCallback(
     (node: HTMLElement | null) => {
@@ -193,6 +238,16 @@ export function SelectPanel({
     },
     [setInputRef],
   )
+
+  const resetSort = useCallback(() => {
+    if (isMultiSelectVariant(selected)) {
+      setSelectedOnSort(selected)
+    } else if (selected) {
+      setSelectedOnSort([selected])
+    } else {
+      setSelectedOnSort([])
+    }
+  }, [selected])
 
   const onFilterChange: FilteredActionListProps['onFilterChange'] = useCallback(
     (value, e) => {
@@ -227,6 +282,9 @@ export function SelectPanel({
 
       externalOnFilterChange(value, e)
       setInternalFilterValue(value)
+      if (!value) {
+        resetSort()
+      }
     },
     [
       loadingManagedInternally,
@@ -236,6 +294,7 @@ export function SelectPanel({
       safeSetTimeout,
       safeClearTimeout,
       items.length,
+      resetSort,
     ],
   )
 
@@ -347,13 +406,32 @@ export function SelectPanel({
     return <T extends React.HTMLAttributes<HTMLElement>>(props: T) => {
       return renderAnchor({
         ...props,
-        children: selectedItems.length ? selectedItems.map(item => item.text).join(', ') : placeholder,
+        children: selectedItems.length
+          ? selectedItems
+              .sort(sortFn ?? compareByKey(sortKey, sortDirection))
+              .map(item => item.text)
+              .join(', ')
+          : placeholder,
       })
     }
-  }, [placeholder, renderAnchor, selected])
+  }, [placeholder, renderAnchor, selected, sortDirection, sortFn, sortKey])
 
-  const itemsToRender = useMemo(() => {
-    return items.map(item => {
+  useEffect(() => {
+    if (open) {
+      resetSort()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open])
+
+  useEffect(() => {
+    if (prevItems.length === 0 && items.length > 0) {
+      resetSort()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [items, prevItems])
+
+  useEffect(() => {
+    const itemsToRender = items.map(item => {
       const isItemSelected = isMultiSelectVariant(selected) ? doesItemsIncludeItem(selected, item) : selected === item
 
       return {
@@ -385,7 +463,55 @@ export function SelectPanel({
         },
       } as ItemProps
     })
+
+    setItemsToRender(itemsToRender)
   }, [onClose, onSelectedChange, items, selected])
+
+  useEffect(() => {
+    if (sortFn) {
+      setSortedItems(itemsToRender.sort(sortFn))
+      return
+    } else if (sortKey || shouldOrderSelectedFirst) {
+      const compare = compareByKey(sortKey, sortDirection)
+
+      const sorted = itemsToRender.sort((itemA, itemB) => {
+        if (shouldOrderSelectedFirst) {
+          // itemA is selected (for sorting purposes) if an object in selectedOnSort matches every property of itemA, except for the selected property
+          const itemASelected = selectedOnSort.some(item =>
+            Object.entries(item).every(([key, value]) => {
+              if (key === 'selected') {
+                return true
+              }
+              return itemA[key as keyof ItemProps] === value
+            }),
+          )
+
+          // itemB is selected (for sorting purposes) if an object in selectedOnSort matches every property of itemA, except for the selected property
+          const itemBSelected = selectedOnSort.some(item =>
+            Object.entries(item).every(([key, value]) => {
+              if (key === 'selected') {
+                return true
+              }
+              return itemB[key as keyof ItemProps] === value
+            }),
+          )
+
+          // order selected items first
+          if (itemASelected > itemBSelected) {
+            return -1
+          } else if (itemASelected < itemBSelected) {
+            return 1
+          }
+        }
+
+        return compare(itemA, itemB)
+      })
+
+      setSortedItems(sorted)
+    } else {
+      setSortedItems(itemsToRender)
+    }
+  }, [itemsToRender, selectedOnSort, sortKey, sortDirection, sortFn, shouldOrderSelectedFirst])
 
   const focusTrapSettings = {
     initialFocusRef: inputRef || undefined,
@@ -504,7 +630,7 @@ export function SelectPanel({
           aria-labelledby={listProps['aria-label'] ? undefined : titleId}
           aria-multiselectable={isMultiSelectVariant(selected) ? 'true' : 'false'}
           selectionVariant={isMultiSelectVariant(selected) ? 'multiple' : 'single'}
-          items={itemsToRender}
+          items={sortedItems}
           textInputProps={extendedTextInputProps}
           loading={loading || isLoading}
           loadingType={loadingType()}
