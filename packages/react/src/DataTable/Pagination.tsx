@@ -367,7 +367,7 @@ type RangeProps = {
 
 function Range({pageStart, pageEnd, totalCount}: RangeProps) {
   const start = pageStart + 1
-  const end = pageEnd === totalCount - 1 ? totalCount : pageEnd
+  const end = pageEnd
   return (
     <>
       <Message value={`Showing ${start} through ${end} of ${totalCount}`} />
@@ -524,7 +524,7 @@ function usePagination(config: PaginationConfig): PaginationResult {
     onChange?.({pageIndex: defaultPageIndex})
   }
   const pageStart = pageIndex * pageSize
-  const pageEnd = Math.min(pageIndex * pageSize + pageSize, totalCount - 1)
+  const pageEnd = Math.min((pageIndex + 1) * pageSize, totalCount)
   const hasNextPage = pageIndex + 1 < pageCount
   const hasPreviousPage = pageIndex > 0
 
