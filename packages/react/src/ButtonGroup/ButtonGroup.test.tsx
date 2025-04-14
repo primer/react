@@ -1,7 +1,6 @@
 import {Button} from '../Button'
 import {render, screen} from '@testing-library/react'
 import axe from 'axe-core'
-import {FeatureFlags} from '../FeatureFlags'
 import {behavesAsComponent} from '../utils/testing'
 import type {ButtonGroupProps} from './ButtonGroup'
 import ButtonGroup from './ButtonGroup'
@@ -23,20 +22,7 @@ describe('ButtonGroup', () => {
 
   it('should support `className` on the outermost element', () => {
     const Element = () => <ButtonGroup className={'test-class-name'} />
-    const FeatureFlagElement = () => {
-      return (
-        <FeatureFlags
-          flags={{
-            primer_react_css_modules_staff: true,
-            primer_react_css_modules_ga: true,
-          }}
-        >
-          <Element />
-        </FeatureFlags>
-      )
-    }
     expect(render(<Element />).container.firstChild).toHaveClass('test-class-name')
-    expect(render(<FeatureFlagElement />).container.firstChild).toHaveClass('test-class-name')
   })
 
   it('renders a <div>', () => {
