@@ -14,7 +14,6 @@ export default {
 export const WithCSS = () => (
   <FeatureFlags
     flags={{
-      primer_react_css_modules_staff: true,
       primer_react_css_modules_ga: true,
     }}
   >
@@ -39,7 +38,6 @@ export const WithSx = () => (
 export const WithSxAndCSS = () => (
   <FeatureFlags
     flags={{
-      primer_react_css_modules_staff: true,
       primer_react_css_modules_ga: true,
     }}
   >
