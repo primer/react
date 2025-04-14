@@ -25,6 +25,7 @@ import classes from './SelectPanel.module.css'
 import {clsx} from 'clsx'
 import {heightMap} from '../Overlay/Overlay'
 import {debounce} from '@github/mini-throttle'
+import {useResponsiveValue} from '../hooks/useResponsiveValue'
 
 // we add a delay so that it does not interrupt default screen reader announcement and queues after it
 const SHORT_DELAY_MS = 500
@@ -73,7 +74,7 @@ interface SelectPanelBaseProps {
   subtitle?: string | React.ReactElement
   onOpenChange: (
     open: boolean,
-    gesture: 'anchor-click' | 'anchor-key-press' | 'click-outside' | 'escape' | 'selection',
+    gesture: 'anchor-click' | 'anchor-key-press' | 'click-outside' | 'escape' | 'selection' | 'cancel',
   ) => void
   placeholder?: string
   // TODO: Make `inputLabel` required in next major version
@@ -170,6 +171,10 @@ export function SelectPanel({
   const [inputRef, setInputRef] = React.useState<React.RefObject<HTMLInputElement> | null>(null)
   const [listContainerElement, setListContainerElement] = useState<HTMLElement | null>(null)
   const [needsNoItemsAnnouncement, setNeedsNoItemsAnnouncement] = useState<boolean>(false)
+  const isNarrowScreenSize = useResponsiveValue({narrow: true, regular: false, wide: false}, false)
+
+  const usingModernActionList = useFeatureFlag('primer_react_select_panel_modern_action_list')
+  const usingFullScreenOnNarrow = useFeatureFlag('primer_react_select_panel_fullscreen_on_narrow')
 
   const onListContainerRefChanged: FilteredActionListProps['onListContainerRefChanged'] = useCallback(
     (node: HTMLElement | null) => {
@@ -233,6 +238,25 @@ export function SelectPanel({
       items.length,
     ],
   )
+
+  // disable body scroll when the panel is open on narrow screens
+  useEffect(() => {
+    if (open && isNarrowScreenSize && usingFullScreenOnNarrow) {
+      const bodyOverflowStyle = document.body.style.overflow || ''
+      // If the body is already set to overflow: hidden, it likely means
+      // that there is already a modal open. In that case, we should bail
+      // so we don't re-enable scroll after the second dialog is closed.
+      if (bodyOverflowStyle === 'hidden') {
+        return
+      }
+
+      document.body.style.overflow = 'hidden'
+
+      return () => {
+        document.body.style.overflow = bodyOverflowStyle
+      }
+    }
+  }, [isNarrowScreenSize, open, usingFullScreenOnNarrow])
 
   useEffect(() => {
     if (open) {
@@ -308,6 +332,10 @@ export function SelectPanel({
     },
     [onOpenChange],
   )
+
+  const onCancelRequested = useCallback(() => {
+    onOpenChange(false, 'cancel')
+  }, [onOpenChange])
 
   const renderMenuAnchor = useMemo(() => {
     if (renderAnchor === null) {
@@ -385,9 +413,6 @@ export function SelectPanel({
     }
   }
 
-  const usingModernActionList = useFeatureFlag('primer_react_select_panel_modern_action_list')
-  const usingFullScreenOnNarrow = useFeatureFlag('primer_react_select_panel_fullscreen_on_narrow')
-
   const iconForNoticeVariant = {
     info: <InfoIcon size={16} />,
     warning: <AlertIcon size={16} />,
@@ -405,6 +430,9 @@ export function SelectPanel({
       )
     }
   }
+
+  // because of instant selection, canceling on single select is the same as closing the panel, no onCancel needed
+  const shouldShowXButton = (onCancel || !isMultiSelectVariant(selected)) && usingFullScreenOnNarrow
 
   return (
     <AnchoredOverlay
@@ -443,7 +471,7 @@ export function SelectPanel({
               </div>
             ) : null}
           </div>
-          {onCancel && usingFullScreenOnNarrow && (
+          {shouldShowXButton ? (
             <IconButton
               type="button"
               variant="invisible"
@@ -451,11 +479,11 @@ export function SelectPanel({
               aria-label="Cancel and close"
               className={classes.ResponsiveCloseButton}
               onClick={() => {
-                onCancel()
-                onClose('escape')
+                onCancel?.()
+                onCancelRequested()
               }}
             />
-          )}
+          ) : null}
         </div>
         {notice && (
           <div aria-live="polite" data-variant={notice.variant} className={classes.Notice}>
@@ -502,7 +530,7 @@ export function SelectPanel({
                 size="medium"
                 onClick={() => {
                   onCancel()
-                  onClose('escape')
+                  onCancelRequested()
                 }}
               >
                 Cancel
