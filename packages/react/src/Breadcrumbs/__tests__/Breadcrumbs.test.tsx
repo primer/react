@@ -13,8 +13,9 @@ describe('Breadcrumbs', () => {
   })
 
   it('should support `className` on the outermost element', () => {
-    const Element = () => <Breadcrumbs className={'test-class-name'} />
-    expect(HTMLRender(<Element />).container.firstChild).toHaveClass('test-class-name')
+    expect(HTMLRender(<Breadcrumbs className={'test-class-name'} />).container.firstChild).toHaveClass(
+      'test-class-name',
+    )
   })
 
   it('should have no axe violations', async () => {
