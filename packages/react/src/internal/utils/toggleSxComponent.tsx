@@ -1,7 +1,7 @@
 import React from 'react'
 import Box from '../../Box'
 import {defaultSxProp} from '../../utils/defaultSxProp'
-import type {BetterSystemStyleObject} from '../../sx'
+import {includesSystemProps} from '../../utils/includeSystemProps'
 
 type CSSModulesProps = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -17,15 +17,14 @@ type CSSModulesProps = {
  * @param defaultAs - the default component to use when `as` is not provided
  */
 export function toggleSxComponent<T, P extends CSSModulesProps>(
-  sx: BetterSystemStyleObject,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   defaultAs: string | React.ComponentType<any>,
 ) {
   const Wrapper = React.forwardRef<T, P>(function Wrapper(
-    {as: BaseComponent = defaultAs, sx: sxProp = sx, ...rest},
+    {as: BaseComponent = defaultAs, sx: sxProp = defaultSxProp, ...rest},
     ref,
   ) {
-    if (sxProp !== defaultSxProp) {
+    if (sxProp !== defaultSxProp || includesSystemProps(rest)) {
       return <Box as={BaseComponent} {...rest} sx={sxProp} ref={ref} />
     }
     return <BaseComponent {...rest} ref={ref} />
