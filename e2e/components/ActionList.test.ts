@@ -527,7 +527,7 @@ test.describe('ActionList Single Select Stress Tests', () => {
     await visit(page, {id})
     await page.getByTestId('start').click()
     const result = await page.getByTestId('result').textContent()
-    await testInfo.attach('result', {
+    await testInfo.attach('stress-test-result', {
       body: JSON.stringify({id, duration: result}),
       contentType: 'application/json',
     })

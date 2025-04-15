@@ -1,4 +1,4 @@
-import type {FullConfig, FullResult, Reporter, Suite, TestCase, TestResult} from '@playwright/test/reporter'
+import type {FullResult, Reporter, TestCase, TestResult} from '@playwright/test/reporter'
 import {writeFileSync} from 'fs'
 
 class MyReporter implements Reporter {
@@ -6,22 +6,17 @@ class MyReporter implements Reporter {
   // https://github.com/benchmark-action/github-action-benchmark?tab=readme-ov-file#examples
   results: {name: string; unit: string; value: number}[] = []
 
-  onBegin(_config: FullConfig, suite: Suite) {
-    console.log(`✨ Starting the run with ${suite.allTests().length} tests`)
-  }
-
-  onTestBegin(test: TestCase, _result: TestResult) {
-    console.log(`✨ Starting test ${test.title}`)
-  }
-
   onTestEnd(test: TestCase, result: TestResult) {
-    console.log(`✨ Finished test ${test.title}: ${result.status}`)
+    console.log(`⚡️ Finished stress-test ${test.title}: ${result.status}`)
     for (const attachment of result.attachments) {
-      console.log(`✨ Attachment: ${attachment.name} (${attachment.contentType})`)
       // get the content of the attachment to an object
-      if (attachment.body !== undefined && attachment.contentType === 'application/json') {
+      if (
+        attachment.body !== undefined &&
+        attachment.name === 'stress-test-result' &&
+        attachment.contentType === 'application/json'
+      ) {
         const content = JSON.parse(attachment.body.toString())
-        console.log(`✨ Attachment content: ${content}`)
+        console.log(`⚡️ Test result: ${content}`)
         this.results.push({
           name: content.id,
           unit: 'ms',
@@ -32,12 +27,12 @@ class MyReporter implements Reporter {
   }
 
   onEnd(result: FullResult) {
-    console.log(`✨ Finished the run: ${result.status}`)
+    console.log(`⚡️ Finished the stress tests run: ${result.status}`)
     const fileName = 'results.json'
     const fileContentString = JSON.stringify(this.results, null, 2)
-    console.log(`✨ File content: ${fileContentString}`)
+    console.log(`⚡️ Results file content: ${fileContentString}`)
     writeFileSync(fileName, fileContentString)
-    console.log(`✨ File saved: ${fileName}`)
+    console.log(`⚡️ File saved: ${fileName}`)
   }
 }
 

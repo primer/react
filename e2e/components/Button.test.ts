@@ -409,7 +409,7 @@ test.describe('Button', () => {
     await visit(page, {id})
     await page.getByTestId('start').click()
     const result = await page.getByTestId('result').textContent()
-    await testInfo.attach('result', {
+    await testInfo.attach('stress-test-result', {
       body: JSON.stringify({id, duration: result}),
       contentType: 'application/json',
     })
@@ -420,7 +420,7 @@ test.describe('Button', () => {
     await visit(page, {id})
     await page.getByTestId('start').click()
     const result = await page.getByTestId('result').textContent()
-    await testInfo.attach('result', {
+    await testInfo.attach('stress-test-result', {
       body: JSON.stringify({id, duration: result}),
       contentType: 'application/json',
     })
