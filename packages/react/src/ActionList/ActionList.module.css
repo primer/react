@@ -409,10 +409,6 @@
   visibility: hidden;
 }
 
-.SingleSelectRadio {
-  margin-right: var(--base-size-8);
-}
-
 /* button or a tag */
 
 /* [ [spacer] [leadingAction] [leadingVisual] [content] ] */

@@ -736,14 +736,6 @@ export const WithOnCancel = () => {
   const [selected, setSelected] = React.useState<ItemInput[]>(intialSelection)
   const [filter, setFilter] = React.useState('')
   const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
-  // design guidelines say to sort selected items first
-  const selectedItemsSortedFirst = filteredItems.sort((a, b) => {
-    const aIsSelected = selected.some(selectedItem => selectedItem.text === a.text)
-    const bIsSelected = selected.some(selectedItem => selectedItem.text === b.text)
-    if (aIsSelected && !bIsSelected) return -1
-    if (!aIsSelected && bIsSelected) return 1
-    return 0
-  })
 
   const [open, setOpen] = useState(false)
   React.useEffect(() => {
@@ -764,7 +756,7 @@ export const WithOnCancel = () => {
         )}
         open={open}
         onOpenChange={setOpen}
-        items={selectedItemsSortedFirst}
+        items={filteredItems}
         selected={selected}
         onSelectedChange={setSelected}
         onCancel={() => setSelected(intialSelection)}
@@ -869,7 +861,7 @@ export const AllVariants = () => {
       <Text fontWeight="bold">Multi Select Panel</Text>
       <br />
       <Text>This panel allows selecting multiple items from the list.</Text>
-      <MultiSelect />
+      <WithOnCancel />
       <br />
 
       <Text fontWeight="bold">Multi Select Modal</Text>
