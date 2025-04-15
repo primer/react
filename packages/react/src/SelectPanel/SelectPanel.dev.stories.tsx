@@ -6,15 +6,22 @@ import Box from '../Box'
 import {Button} from '../Button'
 import {SelectPanel} from '.'
 import type {ItemInput} from '../deprecated/ActionList/List'
-import {FeatureFlags} from '../FeatureFlags'
 import FormControl from '../FormControl'
 
-const meta = {
+const meta: Meta<typeof SelectPanel> = {
   title: 'Components/SelectPanel/Dev',
   component: SelectPanel,
 } satisfies Meta<typeof SelectPanel>
 
 export default meta
+
+const NoResultsMessage = (filter: string): {variant: 'empty'; title: string; body: string} => {
+  return {
+    variant: 'empty',
+    title: `No language found for \`${filter}\``,
+    body: 'Adjust your search term to find other languages',
+  }
+}
 
 function getColorCircle(color: string) {
   return function () {
@@ -66,13 +73,7 @@ const items: ItemInput[] = [
 export const WithCss = () => {
   const [selected, setSelected] = useState<ItemInput[]>(items.slice(1, 3))
   const [filter, setFilter] = useState('')
-  const filteredItems = items.filter(
-    item =>
-      // design guidelines say to always show selected items in the list
-      selected.some(selectedItem => selectedItem.text === item.text) ||
-      // then filter the rest
-      item.text?.toLowerCase().startsWith(filter.toLowerCase()),
-  )
+  const filteredItems = items.filter(item => item.text?.toLowerCase().startsWith(filter.toLowerCase()))
   // design guidelines say to sort selected items first
   const selectedItemsSortedFirst = filteredItems.sort((a, b) => {
     const aIsSelected = selected.some(selectedItem => selectedItem.text === a.text)
@@ -84,46 +85,34 @@ export const WithCss = () => {
   const [open, setOpen] = useState(false)
 
   return (
-    <FeatureFlags
-      flags={{
-        primer_react_css_modules_staff: true,
-        primer_react_css_modules_ga: true,
-      }}
-    >
-      <FormControl>
-        <FormControl.Label>Labels</FormControl.Label>
-        <SelectPanel
-          title="Select labels"
-          placeholder="Select labels" // button text when no items are selected
-          subtitle="Use labels to organize issues and pull requests"
-          renderAnchor={({children, ...anchorProps}) => (
-            <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
-              {children}
-            </Button>
-          )}
-          open={open}
-          onOpenChange={setOpen}
-          items={selectedItemsSortedFirst}
-          selected={selected}
-          onSelectedChange={setSelected}
-          onFilterChange={setFilter}
-          className="testCustomClassnameMono"
-        />
-      </FormControl>
-    </FeatureFlags>
+    <FormControl>
+      <FormControl.Label>Labels</FormControl.Label>
+      <SelectPanel
+        title="Select labels"
+        placeholder="Select labels" // button text when no items are selected
+        subtitle="Use labels to organize issues and pull requests"
+        renderAnchor={({children, ...anchorProps}) => (
+          <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
+            {children}
+          </Button>
+        )}
+        open={open}
+        onOpenChange={setOpen}
+        items={selectedItemsSortedFirst}
+        selected={selected}
+        onSelectedChange={setSelected}
+        onFilterChange={setFilter}
+        className="testCustomClassnameMono"
+        message={selectedItemsSortedFirst.length === 0 ? NoResultsMessage(filter) : undefined}
+      />
+    </FormControl>
   )
 }
 
 export const WithSx = () => {
   const [selected, setSelected] = useState<ItemInput[]>(items.slice(1, 3))
   const [filter, setFilter] = useState('')
-  const filteredItems = items.filter(
-    item =>
-      // design guidelines say to always show selected items in the list
-      selected.some(selectedItem => selectedItem.text === item.text) ||
-      // then filter the rest
-      item.text?.toLowerCase().startsWith(filter.toLowerCase()),
-  )
+  const filteredItems = items.filter(item => item.text?.toLowerCase().startsWith(filter.toLowerCase()))
   // design guidelines say to sort selected items first
   const selectedItemsSortedFirst = filteredItems.sort((a, b) => {
     const aIsSelected = selected.some(selectedItem => selectedItem.text === a.text)
@@ -135,46 +124,34 @@ export const WithSx = () => {
   const [open, setOpen] = useState(false)
 
   return (
-    <FeatureFlags
-      flags={{
-        primer_react_css_modules_staff: true,
-        primer_react_css_modules_ga: true,
-      }}
-    >
-      <FormControl>
-        <FormControl.Label>Labels</FormControl.Label>
-        <SelectPanel
-          title="Select labels"
-          placeholder="Select labels" // button text when no items are selected
-          subtitle="Use labels to organize issues and pull requests"
-          renderAnchor={({children, ...anchorProps}) => (
-            <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
-              {children}
-            </Button>
-          )}
-          open={open}
-          onOpenChange={setOpen}
-          items={selectedItemsSortedFirst}
-          selected={selected}
-          onSelectedChange={setSelected}
-          onFilterChange={setFilter}
-          sx={{fontFamily: 'Times New Roman'}}
-        />
-      </FormControl>
-    </FeatureFlags>
+    <FormControl>
+      <FormControl.Label>Labels</FormControl.Label>
+      <SelectPanel
+        title="Select labels"
+        placeholder="Select labels" // button text when no items are selected
+        subtitle="Use labels to organize issues and pull requests"
+        renderAnchor={({children, ...anchorProps}) => (
+          <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
+            {children}
+          </Button>
+        )}
+        open={open}
+        onOpenChange={setOpen}
+        items={selectedItemsSortedFirst}
+        selected={selected}
+        onSelectedChange={setSelected}
+        onFilterChange={setFilter}
+        sx={{fontFamily: 'Times New Roman'}}
+        message={selectedItemsSortedFirst.length === 0 ? NoResultsMessage(filter) : undefined}
+      />
+    </FormControl>
   )
 }
 
 export const WithSxAndCSS = () => {
   const [selected, setSelected] = useState<ItemInput[]>(items.slice(1, 3))
   const [filter, setFilter] = useState('')
-  const filteredItems = items.filter(
-    item =>
-      // design guidelines say to always show selected items in the list
-      selected.some(selectedItem => selectedItem.text === item.text) ||
-      // then filter the rest
-      item.text?.toLowerCase().startsWith(filter.toLowerCase()),
-  )
+  const filteredItems = items.filter(item => item.text?.toLowerCase().startsWith(filter.toLowerCase()))
   // design guidelines say to sort selected items first
   const selectedItemsSortedFirst = filteredItems.sort((a, b) => {
     const aIsSelected = selected.some(selectedItem => selectedItem.text === a.text)
@@ -186,33 +163,27 @@ export const WithSxAndCSS = () => {
   const [open, setOpen] = useState(false)
 
   return (
-    <FeatureFlags
-      flags={{
-        primer_react_css_modules_staff: true,
-        primer_react_css_modules_ga: true,
-      }}
-    >
-      <FormControl>
-        <FormControl.Label>Labels</FormControl.Label>
-        <SelectPanel
-          title="Select labels"
-          placeholder="Select labels" // button text when no items are selected
-          subtitle="Use labels to organize issues and pull requests"
-          renderAnchor={({children, ...anchorProps}) => (
-            <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
-              {children}
-            </Button>
-          )}
-          open={open}
-          onOpenChange={setOpen}
-          items={selectedItemsSortedFirst}
-          selected={selected}
-          onSelectedChange={setSelected}
-          onFilterChange={setFilter}
-          sx={{fontFamily: 'Times New Roman'}}
-          className="testCustomClassnameMono"
-        />
-      </FormControl>
-    </FeatureFlags>
+    <FormControl>
+      <FormControl.Label>Labels</FormControl.Label>
+      <SelectPanel
+        title="Select labels"
+        placeholder="Select labels" // button text when no items are selected
+        subtitle="Use labels to organize issues and pull requests"
+        renderAnchor={({children, ...anchorProps}) => (
+          <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
+            {children}
+          </Button>
+        )}
+        open={open}
+        onOpenChange={setOpen}
+        items={selectedItemsSortedFirst}
+        selected={selected}
+        onSelectedChange={setSelected}
+        onFilterChange={setFilter}
+        sx={{fontFamily: 'Times New Roman'}}
+        className="testCustomClassnameMono"
+        message={selectedItemsSortedFirst.length === 0 ? NoResultsMessage(filter) : undefined}
+      />
+    </FormControl>
   )
 }

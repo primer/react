@@ -13,19 +13,19 @@
   outline: 0;
 }
 
-.TextArea[resize='none'] {
+.TextArea[data-resize='none'] {
   resize: none;
 }
 
-.TextArea[resize='both'] {
+.TextArea[data-resize='both'] {
   resize: both;
 }
 
-.TextArea[resize='horizontal'] {
+.TextArea[data-resize='horizontal'] {
   resize: horizontal;
 }
 
-.TextArea[resize='vertical'] {
+.TextArea[data-resize='vertical'] {
   resize: vertical;
 }
 

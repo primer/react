@@ -4,8 +4,21 @@ import theme from '../theme'
 import {ActionList} from '.'
 import {BaseStyles, ThemeProvider, ActionMenu} from '..'
 import {FeatureFlags} from '../FeatureFlags'
+import {behavesAsComponent} from '../utils/testing'
 
 describe('ActionList.Group', () => {
+  behavesAsComponent({
+    Component: ActionList.Group,
+    options: {skipAs: true, skipSx: true},
+    toRender: () => <ActionList.Group />,
+  })
+
+  behavesAsComponent({
+    Component: ActionList.GroupHeading,
+    options: {skipAs: true, skipSx: true},
+    toRender: () => <ActionList.GroupHeading />,
+  })
+
   it('should throw an error when ActionList.GroupHeading has an `as` prop when it is used within ActionMenu context', async () => {
     const spy = jest.spyOn(console, 'error').mockImplementation(() => jest.fn())
     expect(() =>
@@ -135,7 +148,6 @@ describe('ActionList.Group', () => {
       return (
         <FeatureFlags
           flags={{
-            primer_react_css_modules_staff: true,
             primer_react_css_modules_ga: true,
           }}
         >

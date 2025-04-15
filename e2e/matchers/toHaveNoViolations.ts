@@ -23,6 +23,7 @@ const COLOR_CONTRAST_SKIP = [
   'components-statelabel-features--issue-opened',
   'components-statelabel-features--pull-opened',
   'components-statelabel-features--small',
+  'components-statelabel-features--open',
   'deprecated-components-actionlist--complex-list-inset-variant-story', // Deprecated component
   'deprecated-components-actionlist--complex-list-full-variant-story', // Deprecated component
 ]

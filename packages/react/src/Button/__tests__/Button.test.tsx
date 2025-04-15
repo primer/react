@@ -5,7 +5,6 @@ import React from 'react'
 import {IconButton, Button, LinkButton} from '../../Button'
 import type {ButtonProps} from '../../Button'
 import {behavesAsComponent} from '../../utils/testing'
-import {FeatureFlags} from '../../FeatureFlags'
 
 type StatefulLoadingButtonProps = {
   children?: React.ReactNode
@@ -28,40 +27,14 @@ const StatefulLoadingButton = (props: StatefulLoadingButtonProps) => {
 describe('IconButton', () => {
   it('should support `className` on the outermost element', () => {
     const Element = () => <IconButton className={'test-class-name'} icon={SearchIcon} aria-label="Search button" />
-    const FeatureFlagElement = () => {
-      return (
-        <FeatureFlags
-          flags={{
-            primer_react_css_modules_staff: true,
-            primer_react_css_modules_ga: true,
-          }}
-        >
-          <Element />
-        </FeatureFlags>
-      )
-    }
     expect(render(<Element />).container.firstChild).toHaveClass('test-class-name')
-    expect(render(<FeatureFlagElement />).container.firstChild).toHaveClass('test-class-name')
   })
 })
 
 describe('LinkButton', () => {
   it('should support `className` on the outermost element', () => {
     const Element = () => <LinkButton className={'test-class-name'} />
-    const FeatureFlagElement = () => {
-      return (
-        <FeatureFlags
-          flags={{
-            primer_react_css_modules_staff: true,
-            primer_react_css_modules_ga: true,
-          }}
-        >
-          <Element />
-        </FeatureFlags>
-      )
-    }
     expect(render(<Element />).container.firstChild).toHaveClass('test-class-name')
-    expect(render(<FeatureFlagElement />).container.firstChild).toHaveClass('test-class-name')
   })
 })
 
@@ -73,20 +46,7 @@ describe('Button', () => {
 
   it('should support `className` on the outermost element', () => {
     const Element = () => <Button className={'test-class-name'} />
-    const FeatureFlagElement = () => {
-      return (
-        <FeatureFlags
-          flags={{
-            primer_react_css_modules_staff: true,
-            primer_react_css_modules_ga: true,
-          }}
-        >
-          <Element />
-        </FeatureFlags>
-      )
-    }
     expect(render(<Element />).container.firstChild).toHaveClass('test-class-name')
-    expect(render(<FeatureFlagElement />).container.firstChild).toHaveClass('test-class-name')
   })
 
   it('renders a <button>', () => {
@@ -338,7 +298,7 @@ describe('Button', () => {
   })
   it('should append the keyshortcuts to the tooltip text that labels the icon button when keyshortcuts prop is passed', () => {
     const {getByRole} = render(<IconButton icon={HeartIcon} aria-label="Heart" keyshortcuts="Command+H" />)
-    const triggerEl = getByRole('button', {name: 'Heart ( command h )'})
+    const triggerEl = getByRole('button', {name: 'Heart (command h)'})
     expect(triggerEl).toBeInTheDocument()
   })
   it('should render aria-keyshortcuts on an icon button when keyshortcuts prop is passed (Description Type)', () => {
@@ -353,6 +313,6 @@ describe('Button', () => {
       <IconButton icon={HeartIcon} aria-label="Heart" description="Love is all around" keyshortcuts="Command+H" />,
     )
     const triggerEl = getByRole('button', {name: 'Heart'})
-    expect(triggerEl).toHaveAccessibleDescription('Love is all around ( command h )')
+    expect(triggerEl).toHaveAccessibleDescription('Love is all around (command h)')
   })
 })

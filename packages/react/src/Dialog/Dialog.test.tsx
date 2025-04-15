@@ -21,7 +21,7 @@ describe('Dialog', () => {
 
   behavesAsComponent({
     Component: Dialog,
-    options: {skipAs: true, skipSx: true},
+    options: {skipAs: true, skipSx: true, skipClassName: true},
     toRender: () => (
       <Dialog onClose={() => {}}>
         <div>Hidden when narrow</div>
@@ -251,7 +251,6 @@ describe('Dialog', () => {
       return (
         <FeatureFlags
           flags={{
-            primer_react_css_modules_staff: true,
             primer_react_css_modules_ga: true,
           }}
         >

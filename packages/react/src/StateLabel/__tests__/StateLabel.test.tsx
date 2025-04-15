@@ -53,4 +53,14 @@ describe('StateLabel', () => {
     expect(screen2.getByLabelText('Pull request')).toBeInTheDocument() // svg
     expect(screen2.getByText('Merged')).toBeInTheDocument() // text
   })
+  it('renders open status without an icon', () => {
+    const screen = HTMLRender(<StateLabel status="open">Open</StateLabel>)
+    expect(screen.queryByRole('img')).not.toBeInTheDocument() // svg
+    expect(screen.getByText('Open')).toBeInTheDocument() // text
+  })
+  it('renders closed status without an icon', () => {
+    const screen = HTMLRender(<StateLabel status="closed">Closed</StateLabel>)
+    expect(screen.queryByRole('img')).not.toBeInTheDocument() // svg
+    expect(screen.getByText('Closed')).toBeInTheDocument() // text
+  })
 })

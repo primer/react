@@ -26,7 +26,11 @@ type CSSSelectorObject = {
 export type BetterSystemStyleObject = BetterCssProperties | SystemStyleObject | CSSCustomProperties | CSSSelectorObject
 
 export interface SxProp {
-  /** @deprecated Use CSS modules for styling instead */
+  /**
+   * @deprecated The `sx` prop is deprecated. Replace with a `div` or
+   * appropriate HTML element instead, with a CSS class for styling.
+   * @see https://github.com/primer/react/blob/main/contributor-docs/migration-from-box.md
+   * */
   sx?: BetterSystemStyleObject
 }
 
