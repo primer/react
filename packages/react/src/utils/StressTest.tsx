@@ -54,11 +54,10 @@ export const StressTest: React.FC<StressTestProps> = ({
         const interaction = measureInteraction()
         // The afterFrame library calls the function
         // when the next frame starts
+        setCount(c => c + 1)
         afterFrame(() => {
           interaction.end()
         })
-
-        setCount(c => c + 1)
         count++
       } else {
         clearInterval(interval)
