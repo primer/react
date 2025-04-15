@@ -8,6 +8,7 @@ import Box from '../Box'
 import {useFeatureFlag} from '../FeatureFlags'
 import classes from './ActionList.module.css'
 import {actionListCssModulesFlag} from './featureflag'
+import Radio from '../Radio'
 
 type SelectionProps = Pick<ActionListItemProps, 'selected' | 'className'>
 export const Selection: React.FC<React.PropsWithChildren<SelectionProps>> = ({selected, className}) => {
@@ -32,6 +33,17 @@ export const Selection: React.FC<React.PropsWithChildren<SelectionProps>> = ({se
     } else {
       return null
     }
+  }
+
+  if (selectionVariant === 'radio') {
+    return (
+      <VisualContainer className={className}>
+        {/* This is just a way to get the visuals from Radio, but it should be ignored in terms of accessibility */}
+        <div aria-hidden="true">
+          <Radio className={classes.SingleSelectRadio} value="unused" checked={selected} />
+        </div>
+      </VisualContainer>
+    )
   }
 
   if (selectionVariant === 'single' || listRole === 'menu') {

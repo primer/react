@@ -93,10 +93,11 @@ interface SelectPanelBaseProps {
     variant: 'empty' | 'error' | 'warning'
   }
   onCancel?: () => void
+  variant?: 'anchored' | 'modal'
 }
 
 export type SelectPanelProps = SelectPanelBaseProps &
-  Omit<FilteredActionListProps, 'selectionVariant'> &
+  Omit<FilteredActionListProps, 'selectionVariant' | 'variant'> &
   Pick<AnchoredOverlayProps, 'open' | 'height' | 'width'> &
   AnchoredOverlayWrapperAnchorProps &
   (SelectPanelSingleSelection | SelectPanelMultiSelection)
@@ -157,6 +158,7 @@ export function SelectPanel({
   message,
   notice,
   onCancel,
+  variant = 'anchored',
   ...listProps
 }: SelectPanelProps): JSX.Element {
   const titleId = useId()
@@ -175,6 +177,18 @@ export function SelectPanel({
 
   const usingModernActionList = useFeatureFlag('primer_react_select_panel_modern_action_list')
   const usingFullScreenOnNarrow = useFeatureFlag('primer_react_select_panel_fullscreen_on_narrow')
+
+  // Single select modals work differently, they have an intermediate state where the user has selected an item but
+  // has not yet confirmed the selection. This is the only time the user can cancel the selection.
+  const isSingleSelectModal = variant === 'modal' && !isMultiSelectVariant(selected)
+  const [intermediateSelected, setIntermediateSelected] = useState<ItemInput | undefined>(
+    isSingleSelectModal ? selected : undefined,
+  )
+
+  // Reset the intermediate selected item when the panel is open/closed
+  useEffect(() => {
+    setIntermediateSelected(isSingleSelectModal ? selected : undefined)
+  }, [isSingleSelectModal, open, selected])
 
   const onListContainerRefChanged: FilteredActionListProps['onListContainerRefChanged'] = useCallback(
     (node: HTMLElement | null) => {
@@ -328,9 +342,13 @@ export function SelectPanel({
   )
   const onClose = useCallback(
     (gesture: Parameters<Exclude<AnchoredOverlayProps['onClose'], undefined>>[0] | 'selection' | 'escape') => {
+      // Clicking outside should cancel the selection only on modals
+      if (variant === 'modal' && gesture === 'click-outside') {
+        onCancel?.()
+      }
       onOpenChange(false, gesture)
     },
-    [onOpenChange],
+    [onOpenChange, variant, onCancel],
   )
 
   const onCancelRequested = useCallback(() => {
@@ -352,14 +370,31 @@ export function SelectPanel({
     }
   }, [placeholder, renderAnchor, selected])
 
+  const isItemCurrentlySelected = useCallback(
+    (item: ItemInput) => {
+      // For multi-select, we just need to check if the item is in the selected array
+      if (isMultiSelectVariant(selected)) {
+        return doesItemsIncludeItem(selected, item)
+      }
+
+      // For single-select modal, there is an intermediate state when the user has selected
+      // an item but has not yet saved the selection. We need to check for this state.
+      if (isSingleSelectModal) {
+        return intermediateSelected?.id === item.id
+      }
+
+      // For single-select anchored, we just need to check if the item is the selected item
+      return selected?.id === item.id
+    },
+    [selected, intermediateSelected, isSingleSelectModal],
+  )
+
   const itemsToRender = useMemo(() => {
     return items.map(item => {
-      const isItemSelected = isMultiSelectVariant(selected) ? doesItemsIncludeItem(selected, item) : selected === item
-
       return {
         ...item,
         role: 'option',
-        selected: 'selected' in item && item.selected === undefined ? undefined : isItemSelected,
+        selected: 'selected' in item && item.selected === undefined ? undefined : isItemCurrentlySelected(item),
         onAction: (itemFromAction, event) => {
           item.onAction?.(itemFromAction, event)
 
@@ -378,14 +413,18 @@ export function SelectPanel({
             return
           }
 
-          // single select
+          if (isSingleSelectModal) {
+            setIntermediateSelected(item)
+            return
+          }
+          // single select anchored, direct save on click
           const singleSelectOnChange = onSelectedChange as SelectPanelSingleSelection['onSelectedChange']
           singleSelectOnChange(item === selected ? undefined : item)
           onClose('selection')
         },
       } as ItemProps
     })
-  }, [onClose, onSelectedChange, items, selected])
+  }, [onClose, onSelectedChange, items, selected, isItemCurrentlySelected, isSingleSelectModal])
 
   const focusTrapSettings = {
     initialFocusRef: inputRef || undefined,
@@ -431,122 +470,142 @@ export function SelectPanel({
     }
   }
 
+  // We add a save and cancel button on narrow screens when SelectPanel is full-screen
+  const showCancelSaveButtons = variant === 'modal' || (isMultiSelectVariant(selected) && usingFullScreenOnNarrow)
   // because of instant selection, canceling on single select is the same as closing the panel, no onCancel needed
-  const shouldShowXButton = (onCancel || !isMultiSelectVariant(selected)) && usingFullScreenOnNarrow
+  const showXCloseIcon =
+    variant === 'modal' || ((onCancel || !isMultiSelectVariant(selected)) && usingFullScreenOnNarrow)
 
   return (
-    <AnchoredOverlay
-      renderAnchor={renderMenuAnchor}
-      anchorRef={anchorRef}
-      open={open}
-      onOpen={onOpen}
-      onClose={onClose}
-      overlayProps={{
-        role: 'dialog',
-        'aria-labelledby': titleId,
-        'aria-describedby': subtitle ? subtitleId : undefined,
-        ...overlayProps,
-        style: {
-          '--max-height': overlayProps?.maxHeight ? heightMap[overlayProps.maxHeight] : heightMap['large'],
-        } as React.CSSProperties,
-      }}
-      focusTrapSettings={focusTrapSettings}
-      focusZoneSettings={focusZoneSettings}
-      height={height}
-      width={width}
-      anchorId={id}
-      variant={usingFullScreenOnNarrow ? {regular: 'anchored', narrow: 'fullscreen'} : undefined}
-      pinPosition={!height}
-      className={classes.Overlay}
-    >
-      <div className={classes.Wrapper}>
-        <div className={classes.Header}>
-          <div>
-            <Heading as="h1" id={titleId} className={classes.Title}>
-              {title}
-            </Heading>
-            {subtitle ? (
-              <div id={subtitleId} className={classes.Subtitle}>
-                {subtitle}
-              </div>
-            ) : null}
-          </div>
-          {shouldShowXButton ? (
-            <IconButton
-              type="button"
-              variant="invisible"
-              icon={XIcon}
-              aria-label="Cancel and close"
-              className={classes.ResponsiveCloseButton}
-              onClick={() => {
-                onCancel?.()
-                onCancelRequested()
-              }}
-            />
-          ) : null}
-        </div>
-        {notice && (
-          <div aria-live="polite" data-variant={notice.variant} className={classes.Notice}>
-            {iconForNoticeVariant[notice.variant]}
-            <div>{notice.text}</div>
-          </div>
-        )}
-        <FilteredActionList
-          filterValue={filterValue}
-          onFilterChange={onFilterChange}
-          onListContainerRefChanged={onListContainerRefChanged}
-          onInputRefChanged={onInputRefChanged}
-          placeholderText={placeholderText}
-          {...listProps}
-          role="listbox"
-          // browsers give aria-labelledby precedence over aria-label so we need to make sure
-          // we don't accidentally override props.aria-label
-          aria-labelledby={listProps['aria-label'] ? undefined : titleId}
-          aria-multiselectable={isMultiSelectVariant(selected) ? 'true' : 'false'}
-          selectionVariant={isMultiSelectVariant(selected) ? 'multiple' : 'single'}
-          items={itemsToRender}
-          textInputProps={extendedTextInputProps}
-          loading={loading || isLoading}
-          loadingType={loadingType()}
-          // hack because the deprecated ActionList does not support this prop
-          {...{
-            message: getMessage(),
-          }}
-          // inheriting height and maxHeight ensures that the FilteredActionList is never taller
-          // than the Overlay (which would break scrolling the items)
-          sx={sx}
-          className={clsx(className, classes.FilteredActionList)}
-          // needed to explicitly enable announcements for deprecated FilteredActionList, we can remove when we fully remove the deprecated version
-          announcementsEnabled
-        />
-        {footer ? (
-          <div className={classes.Footer}>{footer}</div>
-        ) : isMultiSelectVariant(selected) && usingFullScreenOnNarrow ? (
-          /* Save and Cancel buttons are only useful for multiple selection, single selection instantly closes the panel */
-          <div className={clsx(classes.Footer, classes.ResponsiveFooter)}>
-            {/* we add a save and cancel button on narrow screens when SelectPanel is full-screen */}
-            {onCancel && (
-              <Button
-                size="medium"
+    <>
+      <AnchoredOverlay
+        renderAnchor={renderMenuAnchor}
+        anchorRef={anchorRef}
+        open={open}
+        onOpen={onOpen}
+        onClose={onClose}
+        overlayProps={{
+          role: 'dialog',
+          'aria-labelledby': titleId,
+          'aria-describedby': subtitle ? subtitleId : undefined,
+          ...overlayProps,
+          ...(variant === 'modal'
+            ? {
+                /* override AnchoredOverlay position */
+                top: '50vh',
+                left: '50vw',
+                anchorSide: undefined,
+              }
+            : {}),
+          style: {
+            '--max-height': overlayProps?.maxHeight ? heightMap[overlayProps.maxHeight] : heightMap['large'],
+            /* override AnchoredOverlay position */
+            transform: variant === 'modal' ? 'translate(-50%, -50%)' : undefined,
+          } as React.CSSProperties,
+        }}
+        focusTrapSettings={focusTrapSettings}
+        focusZoneSettings={focusZoneSettings}
+        height={height}
+        width={width}
+        anchorId={id}
+        variant={usingFullScreenOnNarrow ? {regular: 'anchored', narrow: 'fullscreen'} : undefined}
+        pinPosition={!height}
+        className={classes.Overlay}
+      >
+        <div className={classes.Wrapper} data-variant={variant}>
+          <div className={classes.Header}>
+            <div>
+              <Heading as="h1" id={titleId} className={classes.Title}>
+                {title}
+              </Heading>
+              {subtitle ? (
+                <div id={subtitleId} className={classes.Subtitle}>
+                  {subtitle}
+                </div>
+              ) : null}
+            </div>
+            {showXCloseIcon && (
+              <IconButton
+                type="button"
+                variant="invisible"
+                icon={XIcon}
+                aria-label="Cancel and close"
+                className={classes.ResponsiveCloseButton}
                 onClick={() => {
-                  onCancel()
+                  onCancel?.()
                   onCancelRequested()
                 }}
-              >
-                Cancel
-              </Button>
+              />
             )}
-            <Button
-              variant="primary"
-              size="medium"
-              block={onCancel ? false : true}
-              onClick={() => onClose('click-outside')}
-            >
-              Save
-            </Button>
           </div>
-        ) : null}
-      </div>
-    </AnchoredOverlay>
+          {notice && (
+            <div aria-live="polite" data-variant={notice.variant} className={classes.Notice}>
+              {iconForNoticeVariant[notice.variant]}
+              <div>{notice.text}</div>
+            </div>
+          )}
+          <FilteredActionList
+            filterValue={filterValue}
+            onFilterChange={onFilterChange}
+            onListContainerRefChanged={onListContainerRefChanged}
+            onInputRefChanged={onInputRefChanged}
+            placeholderText={placeholderText}
+            {...listProps}
+            role="listbox"
+            // browsers give aria-labelledby precedence over aria-label so we need to make sure
+            // we don't accidentally override props.aria-label
+            aria-labelledby={listProps['aria-label'] ? undefined : titleId}
+            aria-multiselectable={isMultiSelectVariant(selected) ? 'true' : 'false'}
+            selectionVariant={isSingleSelectModal ? 'radio' : isMultiSelectVariant(selected) ? 'multiple' : 'single'}
+            items={itemsToRender}
+            textInputProps={extendedTextInputProps}
+            loading={loading || isLoading}
+            loadingType={loadingType()}
+            // hack because the deprecated ActionList does not support this prop
+            {...{
+              message: getMessage(),
+            }}
+            // inheriting height and maxHeight ensures that the FilteredActionList is never taller
+            // than the Overlay (which would break scrolling the items)
+            sx={sx}
+            className={clsx(className, classes.FilteredActionList)}
+            // needed to explicitly enable announcements for deprecated FilteredActionList, we can remove when we fully remove the deprecated version
+            announcementsEnabled
+          />
+          {footer ? (
+            <div className={classes.Footer}>{footer}</div>
+          ) : showCancelSaveButtons ? (
+            /* Save and Cancel buttons are only useful for multiple selection, single selection instantly closes the panel */
+            <div className={clsx(classes.Footer, classes.ResponsiveFooter)}>
+              {onCancel && (
+                <Button
+                  size="medium"
+                  onClick={() => {
+                    onCancel()
+                    onCancelRequested()
+                  }}
+                >
+                  Cancel
+                </Button>
+              )}
+              <Button
+                variant="primary"
+                size="medium"
+                onClick={() => {
+                  if (isSingleSelectModal) {
+                    const singleSelectOnChange = onSelectedChange as SelectPanelSingleSelection['onSelectedChange']
+                    singleSelectOnChange(intermediateSelected)
+                  }
+                  onClose('selection')
+                }}
+              >
+                Save
+              </Button>
+            </div>
+          ) : null}
+        </div>
+      </AnchoredOverlay>
+      {variant === 'modal' && open ? <div className={classes.Backdrop} /> : null}
+    </>
   )
 }

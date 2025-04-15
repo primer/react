@@ -176,25 +176,22 @@ export const SingleSelect = () => {
   const [open, setOpen] = useState(false)
 
   return (
-    <FormControl>
-      <FormControl.Label>Label</FormControl.Label>
-      <SelectPanel
-        renderAnchor={({children, ...anchorProps}) => (
-          <Button trailingAction={TriangleDownIcon} {...anchorProps}>
-            {children ?? 'Select Labels'}
-          </Button>
-        )}
-        placeholder="Select labels" // button text when no items are selected
-        open={open}
-        onOpenChange={setOpen}
-        items={selectedItemsSortedFirst}
-        selected={selected}
-        onSelectedChange={setSelected}
-        onFilterChange={setFilter}
-        width="medium"
-        message={selectedItemsSortedFirst.length === 0 ? NoResultsMessage(filter) : undefined}
-      />
-    </FormControl>
+    <SelectPanel
+      renderAnchor={({children, ...anchorProps}) => (
+        <Button trailingAction={TriangleDownIcon} {...anchorProps}>
+          {children ?? 'Select Labels'}
+        </Button>
+      )}
+      placeholder="Select labels" // button text when no items are selected
+      open={open}
+      onOpenChange={setOpen}
+      items={selectedItemsSortedFirst}
+      selected={selected}
+      onSelectedChange={setSelected}
+      onFilterChange={setFilter}
+      width="medium"
+      message={selectedItemsSortedFirst.length === 0 ? NoResultsMessage(filter) : undefined}
+    />
   )
 }
 
@@ -213,27 +210,24 @@ export const MultiSelect = () => {
   const [open, setOpen] = useState(false)
 
   return (
-    <FormControl>
-      <FormControl.Label>Labels</FormControl.Label>
-      <SelectPanel
-        title="Select labels"
-        placeholder="Select labels"
-        subtitle="Use labels to organize issues and pull requests"
-        renderAnchor={({children, ...anchorProps}) => (
-          <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
-            {children}
-          </Button>
-        )}
-        open={open}
-        onOpenChange={setOpen}
-        items={selectedItemsSortedFirst}
-        selected={selected}
-        onSelectedChange={setSelected}
-        onFilterChange={setFilter}
-        width="medium"
-        message={selectedItemsSortedFirst.length === 0 ? NoResultsMessage(filter) : undefined}
-      />
-    </FormControl>
+    <SelectPanel
+      title="Select labels"
+      placeholder="Select labels"
+      subtitle="Use labels to organize issues and pull requests"
+      renderAnchor={({children, ...anchorProps}) => (
+        <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
+          {children}
+        </Button>
+      )}
+      open={open}
+      onOpenChange={setOpen}
+      items={selectedItemsSortedFirst}
+      selected={selected}
+      onSelectedChange={setSelected}
+      onFilterChange={setFilter}
+      width="medium"
+      message={selectedItemsSortedFirst.length === 0 ? NoResultsMessage(filter) : undefined}
+    />
   )
 }
 
@@ -792,5 +786,112 @@ export const WithOnCancel = () => {
         width="medium"
       />
     </FormControl>
+  )
+}
+
+export const MultiSelectModal = () => {
+  const [intialSelection, setInitialSelection] = React.useState<ItemInput[]>(items.slice(1, 3))
+
+  const [selected, setSelected] = React.useState<ItemInput[]>(intialSelection)
+  const [filter, setFilter] = React.useState('')
+  const [open, setOpen] = useState(false)
+
+  React.useEffect(() => {
+    if (!open) setInitialSelection(selected) // Save selection as initialSelection for next time
+  }, [open, selected])
+
+  const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
+
+  return (
+    <SelectPanel
+      variant="modal"
+      title="Select labels"
+      placeholder="Select labels"
+      subtitle="Use labels to organize issues and pull requests"
+      renderAnchor={({children, ...anchorProps}) => (
+        <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
+          {children}
+        </Button>
+      )}
+      open={open}
+      onOpenChange={setOpen}
+      items={filteredItems}
+      selected={selected}
+      onSelectedChange={setSelected}
+      onCancel={() => setSelected(intialSelection)}
+      onFilterChange={setFilter}
+      width="medium"
+    />
+  )
+}
+
+export const SingleSelectModal = () => {
+  const [selected, setSelected] = useState<ItemInput | undefined>(undefined)
+  const [filter, setFilter] = useState('')
+  const [open, setOpen] = useState(false)
+  const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
+
+  return (
+    <SelectPanel
+      variant="modal"
+      title="Select labels"
+      placeholder="Select labels"
+      subtitle="Use labels to organize issues and pull requests"
+      renderAnchor={({children, ...anchorProps}) => (
+        <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
+          {children}
+        </Button>
+      )}
+      open={open}
+      onOpenChange={setOpen}
+      items={filteredItems}
+      selected={selected}
+      onSelectedChange={setSelected}
+      onCancel={() => {}}
+      onFilterChange={setFilter}
+      width="medium"
+    />
+  )
+}
+
+export const AllVariants = () => {
+  return (
+    <>
+      <Text fontSize={3} fontWeight="bold">
+        Showcase of all the SelectPanel variants
+      </Text>
+      <br />
+      <Text>
+        Test the different interactions below to see how the SelectPanel behaves in different selection and anchoring
+        modes. The size of the screen also affects how the user interacts with the SelectPanel.
+      </Text>
+      <br />
+      <br />
+
+      <Text fontWeight="bold">Single Select Panel</Text>
+      <br />
+      <Text>This panel allows selecting a single item from the list.</Text>
+      <SingleSelect />
+      <br />
+
+      <Text fontWeight="bold">Single Select Modal</Text>
+      <br />
+      <Text>This modal allows selecting a single item with a modal interface.</Text>
+      <SingleSelectModal />
+      <br />
+
+      <Text fontWeight="bold">Multi Select Panel</Text>
+      <br />
+      <Text>This panel allows selecting multiple items from the list.</Text>
+      <MultiSelect />
+      <br />
+
+      <Text fontWeight="bold">Multi Select Modal</Text>
+      <Text>
+        <br />
+        This modal allows selecting multiple items with a modal interface.
+      </Text>
+      <MultiSelectModal />
+    </>
   )
 }
