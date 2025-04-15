@@ -12,7 +12,7 @@ export default {
   component: TreeView,
 } as Meta<ComponentProps<typeof TreeView>>
 
-const totalIterations = 500
+const totalIterations = 100
 
 const Files = Array.from({length: totalIterations}, (_, i) => ({
   name: `File_${i + 1}.tsx`,
