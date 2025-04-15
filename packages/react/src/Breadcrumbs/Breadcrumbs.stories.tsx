@@ -21,7 +21,7 @@ export const Playground: StoryFn<typeof Breadcrumbs> = args => (
 Playground.args = {}
 
 export const Default = () => (
-  <Breadcrumbs>
+  <Breadcrumbs style={{maxWidth: 300}}>
     <Breadcrumbs.Item href="#">First</Breadcrumbs.Item>
     <Breadcrumbs.Item href="#">Second</Breadcrumbs.Item>
     <Breadcrumbs.Item href="#">Third</Breadcrumbs.Item>

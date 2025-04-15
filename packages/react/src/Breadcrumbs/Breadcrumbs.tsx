@@ -1,5 +1,6 @@
 import {clsx} from 'clsx'
-import React, {useEffect, useRef, useState, useCallback} from 'react'
+import React, {useEffect, useRef, useState, useCallback, forwardRef, useContext} from 'react'
+import type {RefObject, MutableRefObject} from 'react'
 import useIsomorphicLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 import type {SxProp} from '../sx'
 import type {ComponentProps} from '../utils/types'
@@ -9,6 +10,11 @@ import {toggleSxComponent} from '../internal/utils/toggleSxComponent'
 import {ActionMenu, ActionList} from '../'
 import {IconButton} from '../Button'
 import {KebabHorizontalIcon} from '@primer/octicons-react'
+import {useOnEscapePress} from '../hooks/useOnEscapePress'
+import type {ResizeObserverEntry} from '../hooks/useResizeObserver'
+import {useResizeObserver} from '../hooks/useResizeObserver'
+import {useOnOutsideClick} from '../hooks/useOnOutsideClick'
+import {useFocusZone, FocusKeys} from '../hooks/useFocusZone'
 
 interface BreadcrumbItem {
   label: string
@@ -22,6 +28,86 @@ export type BreadcrumbsProps = {
   children?: React.ReactNode
   responsive?: boolean
 } & SxProp
+
+type ChildSize = {
+  text: string
+  width: number
+}
+type ChildWidthArray = Array<ChildSize>
+type ResponsiveProps = {
+  items: Array<React.ReactElement>
+  menuItems: Array<React.ReactElement>
+}
+
+const BreadcrumbsContext = React.createContext<{
+  setChildrenWidth: React.Dispatch<{text: string; width: number}>
+}>({setChildrenWidth: () => null})
+
+const MORE_BTN_WIDTH = 86
+const GAP = 8
+
+const getValidChildren = (children: React.ReactNode) => {
+  return React.Children.toArray(children).filter(child => {
+    return React.isValidElement(child)
+  }) as React.ReactElement[]
+}
+
+const calculatePossibleItems = (childWidthArray: ChildWidthArray, navWidth: number, moreMenuWidth = 0) => {
+  const widthToFit = navWidth - moreMenuWidth
+  let breakpoint = childWidthArray.length
+  let sumsOfChildWidth = 0
+  for (const [index, childWidth] of childWidthArray.entries()) {
+    sumsOfChildWidth += childWidth.width + GAP
+    if (sumsOfChildWidth > widthToFit) {
+      breakpoint = index
+      break
+    }
+  }
+  return breakpoint
+}
+
+const overflowEffect = (navWidth, moreMenuWidth, childArray, childWidthArray, updateListAndMenu, hasActiveMenu) => {
+  console.log('navWidth:', navWidth)
+  console.log('moreMenuWidth:', moreMenuWidth)
+  console.log('childWidthArray:', childWidthArray)
+
+  if (childWidthArray.length === 0) {
+    updateListAndMenu({items: childArray, menuItems: []})
+  }
+  const numberOfItemsPossible = calculatePossibleItems(childWidthArray, navWidth)
+  const numberOfItemsPossibleWithMoreMenu = calculatePossibleItems(
+    childWidthArray,
+    navWidth,
+    moreMenuWidth || MORE_BTN_WIDTH,
+  )
+
+  console.log('Possible items without menu:', numberOfItemsPossible)
+  console.log('Possible items with menu:', numberOfItemsPossibleWithMoreMenu)
+
+  const items = []
+  const menuItems = []
+
+  if (childArray.length >= numberOfItemsPossible) {
+    const numberOfItemsInMenu = childArray.length - numberOfItemsPossibleWithMoreMenu
+    const numberOfListItems =
+      numberOfItemsInMenu === 1 ? numberOfItemsPossibleWithMoreMenu - 1 : numberOfItemsPossibleWithMoreMenu
+
+    for (const [index, child] of childArray.entries()) {
+      if (index < numberOfItemsInMenu) {
+        menuItems.push(child) // Add items to the menu starting from the first
+      } else {
+        items.push(child) // Add remaining items to the nav
+      }
+    }
+
+    updateListAndMenu({items, menuItems})
+  } else if (numberOfItemsPossible > childArray.length && hasActiveMenu) {
+    updateListAndMenu({items: childArray, menuItems: []})
+  }
+
+  console.log('Visible items:', items.length)
+  console.log('Menu items:', menuItems.length)
+}
 
 const BreadcrumbsList = ({children}: React.PropsWithChildren) => {
   return <ol className={classes.BreadcrumbsList}>{children}</ol>
@@ -37,16 +123,35 @@ type StyledBreadcrumbsItemProps = {
   React.ComponentPropsWithRef<'a'>
 
 const BreadcrumbsItem = React.forwardRef<HTMLAnchorElement, StyledBreadcrumbsItemProps>(
-  ({selected, className, ...rest}, ref) => {
+  ({selected, className, children, ...rest}, ref) => {
+    const internalRef = useRef<HTMLAnchorElement>(null)
+    const {setChildrenWidth} = useContext(BreadcrumbsContext)
+
+    useEffect(() => {
+      if (internalRef.current) {
+        const width = internalRef.current.getBoundingClientRect().width
+        const text = typeof children === 'string' ? children : internalRef.current.textContent || ''
+        setChildrenWidth({text, width})
+
+        console.log('Measured item:', {text, width})
+      }
+    }, [children, setChildrenWidth])
+
     return (
       <BreadcrumbsItemBaseComponent
         className={clsx(className, classes.Item, {
           [classes.ItemSelected]: selected,
         })}
         aria-current={selected ? 'page' : undefined}
-        ref={ref}
+        ref={(node: HTMLAnchorElement) => {
+          if (typeof ref === 'function') ref(node)
+          else if (ref) (ref as React.MutableRefObject<HTMLAnchorElement>).current = node
+          internalRef.current = node
+        }}
         {...rest}
-      />
+      >
+        {children}
+      </BreadcrumbsItemBaseComponent>
     )
   },
 ) as PolymorphicForwardRefComponent<'a', StyledBreadcrumbsItemProps>
@@ -55,138 +160,145 @@ BreadcrumbsItem.displayName = 'Breadcrumbs.Item'
 
 export type BreadcrumbsItemProps = ComponentProps<typeof BreadcrumbsItem>
 
-const BreadcrumbsBaseComponent = toggleSxComponent('nav') as React.ComponentType<BreadcrumbsProps>
+const BreadcrumbsBaseComponent = toggleSxComponent('nav') as React.ForwardRefExoticComponent<
+  BreadcrumbsProps & React.RefAttributes<HTMLElement>
+>
 
-function Breadcrumbs({className, sx: sxProp, items = [], children, responsive = false}: BreadcrumbsProps) {
-  const containerRef = useRef<HTMLDivElement>(null)
-  const itemRefs = useRef<(HTMLLIElement | null)[]>([])
-  const overflowRef = useRef<HTMLLIElement>(null)
-  const [visibleCount, setVisibleCount] = useState(items.length)
+export const Breadcrumbs: React.FC<React.PropsWithChildren<BreadcrumbsProps>> = ({className, sx: sxProp, children}) => {
+  const [childWidthArray, setChildWidthArray] = useState<ChildWidthArray>([])
+  const setChildrenWidth = useCallback((size: ChildSize) => {
+    setChildWidthArray(arr => [...arr, size])
+  }, [])
 
-  // Initialize refs only once for stability
+  const navRef = useRef<HTMLElement>(null)
+  const listRef = useRef<HTMLDivElement>(null)
+  const moreMenuRef = useRef<HTMLLIElement>(null)
+  const moreMenuBtnRef = useRef<HTMLButtonElement>(null)
+
+  const validChildren = getValidChildren(children)
+
+  const [responsiveProps, setResponsiveProps] = useState<ResponsiveProps>({
+    items: validChildren,
+    menuItems: [],
+  })
+
+  const listItems = responsiveProps.items.map(item => {
+    return validChildren.find(child => child.key === item.key) ?? item
+  })
+
+  const menuItems = responsiveProps.menuItems.map(menuItem => {
+    return validChildren.find(child => child.key === menuItem.key) ?? menuItem
+  })
+
+  const updateListAndMenu = useCallback((props: ResponsiveProps) => {
+    setResponsiveProps(props)
+  }, [])
+
   useEffect(() => {
-    itemRefs.current = new Array(items.length).fill(null)
-  }, [items.length])
+    setChildWidthArray([])
+  }, [validChildren.length])
 
-  const updateVisibleItems = useCallback(() => {
-    const container = containerRef.current
-    if (!container) return
+  useResizeObserver((entries: ResizeObserverEntry[]) => {
+    const navWidth = entries[0].contentRect.width
+    const moreMenuWidth = moreMenuRef.current?.getBoundingClientRect().width ?? 0
+    const hasActiveMenu = menuItems.length > 0
 
-    const containerWidth = container.offsetWidth
-    const overflowWidth = overflowRef.current?.offsetWidth ?? 0
-    let totalWidth = 0
-    let count = items.length
+    console.log('Container width:', navWidth)
 
-    for (let i = items.length - 1; i >= 0; i--) {
-      const item = itemRefs.current[i]
-      if (!item) continue
-      totalWidth += item.offsetWidth
+    if (navWidth > 0) {
+      overflowEffect(navWidth, moreMenuWidth, validChildren, childWidthArray, updateListAndMenu, hasActiveMenu)
+    }
+  }, navRef)
 
-      const requiredWidth = totalWidth + overflowWidth
+  useEffect(() => {
+    console.table(childWidthArray)
+  }, [childWidthArray])
 
-      if (requiredWidth > containerWidth) {
-        count = i
-        break
+  useEffect(() => {
+    if (childWidthArray.length === validChildren.length) {
+      console.log('Child width array fully populated:', childWidthArray)
+      const navWidth = navRef.current?.getBoundingClientRect().width || 0
+      const moreMenuWidth = moreMenuRef.current?.getBoundingClientRect().width || 0
+      const hasActiveMenu = menuItems.length > 0
+
+      overflowEffect(navWidth, moreMenuWidth, validChildren, childWidthArray, updateListAndMenu, hasActiveMenu)
+    }
+  }, [childWidthArray, validChildren, menuItems, updateListAndMenu])
+
+  const [isWidgetOpen, setIsWidgetOpen] = useState(false)
+
+  const closeOverlay = useCallback(() => {
+    setIsWidgetOpen(false)
+  }, [])
+
+  const focusOnMoreMenuBtn = useCallback(() => {
+    moreMenuBtnRef.current?.focus()
+  }, [])
+
+  useOnEscapePress(
+    (event: KeyboardEvent) => {
+      if (isWidgetOpen) {
+        event.preventDefault()
+        closeOverlay()
+        focusOnMoreMenuBtn()
       }
-    }
-    setVisibleCount(prev => (prev !== count ? count : prev))
-  }, [items])
+    },
+    [isWidgetOpen],
+  )
 
-  useIsomorphicLayoutEffect(() => {
-    if (responsive) {
-      updateVisibleItems()
-    }
-  }, [items, responsive, updateVisibleItems])
+  useOnOutsideClick({onClickOutside: closeOverlay, containerRef: navRef, ignoreClickRefs: [moreMenuBtnRef]})
 
-  useEffect(() => {
-    if (!responsive) return
-    const resizeObserver = new ResizeObserver(() => {
-      updateVisibleItems()
-    })
-    if (containerRef.current) {
-      resizeObserver.observe(containerRef.current)
-    }
-    updateVisibleItems() // Ensure it's triggered on mount after first paint
-    return () => resizeObserver.disconnect()
-  }, [responsive, updateVisibleItems])
-
-  if (!responsive) {
-    return (
-      <BreadcrumbsBaseComponent
-        className={clsx(className, classes.BreadcrumbsBase)}
-        aria-label="Breadcrumbs"
-        sx={sxProp}
-      >
-        <div className={classes.BreadcrumbsContainer}>
-          <BreadcrumbsList>{children}</BreadcrumbsList>
-        </div>
-      </BreadcrumbsBaseComponent>
-    )
-  }
-
-  const hiddenItems = items.slice(0, items.length - visibleCount)
-  const visibleItems = items.slice(items.length - visibleCount)
+  useFocusZone({
+    containerRef: listRef,
+    bindKeys: FocusKeys.ArrowHorizontal | FocusKeys.HomeAndEnd,
+    focusOutBehavior: 'wrap',
+  })
 
   return (
-    <BreadcrumbsBaseComponent className={clsx(className, classes.BreadcrumbsBase)} aria-label="Breadcrumbs" sx={sxProp}>
-      <div className={classes.BreadcrumbsContainer} ref={containerRef}>
+    <BreadcrumbsContext.Provider value={{setChildrenWidth}}>
+      <nav
+        className={clsx(className, classes.BreadcrumbsBase)}
+        aria-label="Breadcrumbs"
+        ref={navRef}
+        // sx={sxProp}
+      >
         <BreadcrumbsList>
-          <li
-            ref={overflowRef}
-            className={clsx(
-              classes.ItemWrapper,
-              classes.OverflowMenu,
-              hiddenItems.length === 0 && classes.OverflowHidden,
-            )}
-          >
-            <ActionMenu>
-              <ActionMenu.Anchor>
-                <IconButton variant="invisible" aria-label="More breadcrumb items" icon={KebabHorizontalIcon} />
-              </ActionMenu.Anchor>
-              <ActionMenu.Overlay>
-                <ActionList>
-                  {hiddenItems.map((item, i) => (
-                    <ActionList.Item as="a" href={item.href} key={i}>
-                      {item.label}
-                    </ActionList.Item>
-                  ))}
-                </ActionList>
-              </ActionMenu.Overlay>
-            </ActionMenu>
-          </li>
-          {visibleItems.map((item, i) => (
-            <li
-              key={i + hiddenItems.length}
-              className={classes.ItemWrapper}
-              ref={el => {
-                const index = i + hiddenItems.length
-                if (itemRefs.current[index] !== el) {
-                  itemRefs.current[index] = el
-                }
-              }}
-            >
-              <BreadcrumbsItem href={item.href}>{item.label}</BreadcrumbsItem>
+          {menuItems.length > 0 && (
+            <li className={classes.ItemWrapper}>
+              <ActionMenu>
+                <ActionMenu.Anchor>
+                  <IconButton
+                    ref={moreMenuBtnRef}
+                    variant="invisible"
+                    aria-label="More breadcrumb items"
+                    icon={KebabHorizontalIcon}
+                  />
+                </ActionMenu.Anchor>
+                <ActionMenu.Overlay>
+                  <ActionList>
+                    {menuItems.map((menuItem, index) => (
+                      <ActionList.Item key={index} as="a">
+                        {menuItem}
+                      </ActionList.Item>
+                    ))}
+                  </ActionList>
+                </ActionMenu.Overlay>
+              </ActionMenu>
+            </li>
+          )}
+          {listItems.map((item, index) => (
+            <li key={index} className={classes.ItemWrapper}>
+              {item}
             </li>
           ))}
         </BreadcrumbsList>
-      </div>
-    </BreadcrumbsBaseComponent>
+      </nav>
+    </BreadcrumbsContext.Provider>
   )
 }
 
 export default Object.assign(Breadcrumbs, {Item: BreadcrumbsItem})
 
-/**
- * @deprecated Use the `Breadcrumbs` component instead (i.e. `<Breadcrumb>` → `<Breadcrumbs>`)
- */
 export const Breadcrumb = Object.assign(Breadcrumbs, {Item: BreadcrumbsItem})
-
-/**
- * @deprecated Use the `BreadcrumbsProps` type instead
- */
 export type BreadcrumbProps = BreadcrumbsProps
-
-/**
- * @deprecated Use the `BreadcrumbsItemProps` type instead
- */
 export type BreadcrumbItemProps = ComponentProps<typeof BreadcrumbsItem>
