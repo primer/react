@@ -520,16 +520,3 @@ test.describe('ActionList', () => {
     }
   })
 })
-
-test.describe('ActionList Single Select Stress Tests', () => {
-  test(`single-select @stress-test`, async ({page}, testInfo) => {
-    const id = 'stresstests-components-actionlist--single-select'
-    await visit(page, {id})
-    await page.getByTestId('start').click()
-    const result = await page.getByTestId('result').textContent()
-    await testInfo.attach('stress-test-result', {
-      body: JSON.stringify({id, duration: result}),
-      contentType: 'application/json',
-    })
-  })
-})

@@ -42,16 +42,3 @@ test.describe('Pagination', () => {
     })
   }
 })
-
-test.describe('Pagination Stress Tests', () => {
-  test('page-update @stress-test', async ({page}, testInfo) => {
-    const id = 'stresstests-components-pagination--page-update'
-    await visit(page, {id})
-    await page.getByTestId('start').click()
-    const result = await page.getByTestId('result').textContent()
-    await testInfo.attach('stress-test-result', {
-      body: JSON.stringify({id, duration: result}),
-      contentType: 'application/json',
-    })
-  })
-})

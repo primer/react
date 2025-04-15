@@ -92,16 +92,3 @@ test.describe('TreeView', () => {
     }
   })
 })
-
-test.describe('TreeView Single Select Stress Tests', () => {
-  test(`current-update @stress-test`, async ({page}, testInfo) => {
-    const id = 'stresstests-components-treeview--current-update'
-    await visit(page, {id})
-    await page.getByTestId('start').click()
-    const result = await page.getByTestId('result').textContent()
-    await testInfo.attach('stress-test-result', {
-      body: JSON.stringify({id, duration: result}),
-      contentType: 'application/json',
-    })
-  })
-})
