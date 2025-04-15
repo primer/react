@@ -20,7 +20,7 @@ export const LabelUpdate = () => {
       description="Update the label a large number of times."
       totalIterations={totalIterations}
       renderIteration={count => (
-        <>
+        <div>
           <Button variant="primary" size="large" onClick={() => {}}>
             {`Button ${count + 1}`}
           </Button>
@@ -30,7 +30,7 @@ export const LabelUpdate = () => {
           <Button variant="danger" size="small" onClick={() => {}}>
             {`Button ${count + 1}`}
           </Button>
-        </>
+        </div>
       )}
     />
   )
@@ -44,7 +44,7 @@ export const CountUpdate = () => {
       description="Update the count a large number of times."
       totalIterations={totalIterations}
       renderIteration={count => (
-        <>
+        <div>
           <Button variant="primary" size="large" onClick={() => {}} count={count}>
             Button
           </Button>
@@ -54,7 +54,7 @@ export const CountUpdate = () => {
           <Button variant="danger" size="small" onClick={() => {}} count={count}>
             Button
           </Button>
-        </>
+        </div>
       )}
     />
   )
