@@ -52,10 +52,13 @@ export type DataTableProps<Data extends UniqueRow> = {
   initialSortDirection?: Exclude<SortDirection, 'NONE'>
 
   /**
-   * Provide the field name from the `data` object used to uniqeuly identify each row.
-   * This should correspond to a property in the `Data` type.
+   * Provide a function to determine the unique identifier for each row.
+   * This function allows you to customize the key used for the row.
+   * By default, the table uses the `id` field from the data.
+   * @param rowData The row data object for which the ID is being retrieved.
+   * @returns The unique identifier for the row, which can be a string or number.
    */
-  keyField?: keyof Data
+  getRowId?: (rowData: Data) => string | number
 }
 
 function DataTable<Data extends UniqueRow>({
@@ -66,13 +69,14 @@ function DataTable<Data extends UniqueRow>({
   data,
   initialSortColumn,
   initialSortDirection,
-  keyField,
+  getRowId= (rowData) => rowData.id
 }: DataTableProps<Data>) {
   const {headers, rows, actions, gridTemplateColumns} = useTable({
     data,
     columns,
     initialSortColumn,
     initialSortDirection,
+    getRowId
   })
 
   return (
@@ -109,10 +113,11 @@ function DataTable<Data extends UniqueRow>({
       </TableHead>
       <TableBody>
         {rows.map(row => {
-          const keyValue = keyField ? String(row.getValue()[keyField]) : row.id;
+          const rowData = row.getValue()
+          const key = getRowId(rowData)
           return (
-            <TableRow key={keyValue}>
-              {row.getCells(keyValue).map(cell => {
+            <TableRow key={key}>
+              {row.getCells().map(cell => {
                 return (
                   <TableCell key={cell.id} scope={cell.rowHeader ? 'row' : undefined} align={cell.column.align}>
                     {cell.column.renderCell
