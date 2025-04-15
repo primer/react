@@ -3,7 +3,6 @@ import userEvent from '@testing-library/user-event'
 import React from 'react'
 import Checkbox from '../Checkbox'
 import {behavesAsComponent, checkExports} from '../utils/testing'
-import {FeatureFlags} from '../FeatureFlags'
 
 describe('Checkbox', () => {
   beforeEach(() => {
@@ -17,20 +16,7 @@ describe('Checkbox', () => {
 
   it('should support `className` on the outermost element', () => {
     const Element = () => <Checkbox className={'test-class-name'} />
-    const FeatureFlagElement = () => {
-      return (
-        <FeatureFlags
-          flags={{
-            primer_react_css_modules_staff: true,
-            primer_react_css_modules_ga: true,
-          }}
-        >
-          <Element />
-        </FeatureFlags>
-      )
-    }
     expect(render(<Element />).container.firstChild).toHaveClass('test-class-name')
-    expect(render(<FeatureFlagElement />).container.firstChild).toHaveClass('test-class-name')
   })
 
   it('renders a valid checkbox input', () => {

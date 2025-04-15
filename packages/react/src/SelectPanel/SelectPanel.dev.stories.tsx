@@ -6,7 +6,6 @@ import Box from '../Box'
 import {Button} from '../Button'
 import {SelectPanel} from '.'
 import type {ItemInput} from '../deprecated/ActionList/List'
-import {FeatureFlags} from '../FeatureFlags'
 import FormControl from '../FormControl'
 
 const meta: Meta<typeof SelectPanel> = {
@@ -86,34 +85,27 @@ export const WithCss = () => {
   const [open, setOpen] = useState(false)
 
   return (
-    <FeatureFlags
-      flags={{
-        primer_react_css_modules_staff: true,
-        primer_react_css_modules_ga: true,
-      }}
-    >
-      <FormControl>
-        <FormControl.Label>Labels</FormControl.Label>
-        <SelectPanel
-          title="Select labels"
-          placeholder="Select labels" // button text when no items are selected
-          subtitle="Use labels to organize issues and pull requests"
-          renderAnchor={({children, ...anchorProps}) => (
-            <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
-              {children}
-            </Button>
-          )}
-          open={open}
-          onOpenChange={setOpen}
-          items={selectedItemsSortedFirst}
-          selected={selected}
-          onSelectedChange={setSelected}
-          onFilterChange={setFilter}
-          className="testCustomClassnameMono"
-          message={selectedItemsSortedFirst.length === 0 ? NoResultsMessage(filter) : undefined}
-        />
-      </FormControl>
-    </FeatureFlags>
+    <FormControl>
+      <FormControl.Label>Labels</FormControl.Label>
+      <SelectPanel
+        title="Select labels"
+        placeholder="Select labels" // button text when no items are selected
+        subtitle="Use labels to organize issues and pull requests"
+        renderAnchor={({children, ...anchorProps}) => (
+          <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
+            {children}
+          </Button>
+        )}
+        open={open}
+        onOpenChange={setOpen}
+        items={selectedItemsSortedFirst}
+        selected={selected}
+        onSelectedChange={setSelected}
+        onFilterChange={setFilter}
+        className="testCustomClassnameMono"
+        message={selectedItemsSortedFirst.length === 0 ? NoResultsMessage(filter) : undefined}
+      />
+    </FormControl>
   )
 }
 
@@ -132,34 +124,27 @@ export const WithSx = () => {
   const [open, setOpen] = useState(false)
 
   return (
-    <FeatureFlags
-      flags={{
-        primer_react_css_modules_staff: true,
-        primer_react_css_modules_ga: true,
-      }}
-    >
-      <FormControl>
-        <FormControl.Label>Labels</FormControl.Label>
-        <SelectPanel
-          title="Select labels"
-          placeholder="Select labels" // button text when no items are selected
-          subtitle="Use labels to organize issues and pull requests"
-          renderAnchor={({children, ...anchorProps}) => (
-            <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
-              {children}
-            </Button>
-          )}
-          open={open}
-          onOpenChange={setOpen}
-          items={selectedItemsSortedFirst}
-          selected={selected}
-          onSelectedChange={setSelected}
-          onFilterChange={setFilter}
-          sx={{fontFamily: 'Times New Roman'}}
-          message={selectedItemsSortedFirst.length === 0 ? NoResultsMessage(filter) : undefined}
-        />
-      </FormControl>
-    </FeatureFlags>
+    <FormControl>
+      <FormControl.Label>Labels</FormControl.Label>
+      <SelectPanel
+        title="Select labels"
+        placeholder="Select labels" // button text when no items are selected
+        subtitle="Use labels to organize issues and pull requests"
+        renderAnchor={({children, ...anchorProps}) => (
+          <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
+            {children}
+          </Button>
+        )}
+        open={open}
+        onOpenChange={setOpen}
+        items={selectedItemsSortedFirst}
+        selected={selected}
+        onSelectedChange={setSelected}
+        onFilterChange={setFilter}
+        sx={{fontFamily: 'Times New Roman'}}
+        message={selectedItemsSortedFirst.length === 0 ? NoResultsMessage(filter) : undefined}
+      />
+    </FormControl>
   )
 }
 
@@ -178,34 +163,27 @@ export const WithSxAndCSS = () => {
   const [open, setOpen] = useState(false)
 
   return (
-    <FeatureFlags
-      flags={{
-        primer_react_css_modules_staff: true,
-        primer_react_css_modules_ga: true,
-      }}
-    >
-      <FormControl>
-        <FormControl.Label>Labels</FormControl.Label>
-        <SelectPanel
-          title="Select labels"
-          placeholder="Select labels" // button text when no items are selected
-          subtitle="Use labels to organize issues and pull requests"
-          renderAnchor={({children, ...anchorProps}) => (
-            <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
-              {children}
-            </Button>
-          )}
-          open={open}
-          onOpenChange={setOpen}
-          items={selectedItemsSortedFirst}
-          selected={selected}
-          onSelectedChange={setSelected}
-          onFilterChange={setFilter}
-          sx={{fontFamily: 'Times New Roman'}}
-          className="testCustomClassnameMono"
-          message={selectedItemsSortedFirst.length === 0 ? NoResultsMessage(filter) : undefined}
-        />
-      </FormControl>
-    </FeatureFlags>
+    <FormControl>
+      <FormControl.Label>Labels</FormControl.Label>
+      <SelectPanel
+        title="Select labels"
+        placeholder="Select labels" // button text when no items are selected
+        subtitle="Use labels to organize issues and pull requests"
+        renderAnchor={({children, ...anchorProps}) => (
+          <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
+            {children}
+          </Button>
+        )}
+        open={open}
+        onOpenChange={setOpen}
+        items={selectedItemsSortedFirst}
+        selected={selected}
+        onSelectedChange={setSelected}
+        onFilterChange={setFilter}
+        sx={{fontFamily: 'Times New Roman'}}
+        className="testCustomClassnameMono"
+        message={selectedItemsSortedFirst.length === 0 ? NoResultsMessage(filter) : undefined}
+      />
+    </FormControl>
   )
 }
