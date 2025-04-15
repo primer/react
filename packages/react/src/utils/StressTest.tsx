@@ -14,11 +14,6 @@ export interface StressTestProps {
   renderIteration: (count: number, totalIterations: number) => React.ReactNode
 }
 
-// TODO:
-// - Document so the limitations of the test; so startTransition etc.
-// - Filter out other playwright tests from the new reporter
-// - Clean up reporter.ts
-
 export const StressTest: React.FC<StressTestProps> = ({
   componentName,
   title,
