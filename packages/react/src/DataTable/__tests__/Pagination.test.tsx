@@ -116,6 +116,14 @@ describe('Table.Pagination', () => {
       expect(getPageRange()).toEqual('1 through 25 of 50')
     })
 
+    it('should display two pages with correct range when totalCount is one plus pageSize', () => {
+      render(<Pagination aria-label="Test label" pageSize={25} totalCount={26} />)
+
+      expect(getPages()).toHaveLength(2)
+      expect(getCurrentPage()).toEqual(getPage(0))
+      expect(getPageRange()).toEqual('1 through 25 of 26')
+    })
+
     it('should call `onChange` when clicking on pages', async () => {
       const user = userEvent.setup()
       const onChange = jest.fn()
