@@ -41,6 +41,6 @@ export default defineConfig({
         outputFile: path.join(__dirname, '.playwright', 'results.json'),
       },
     ],
-    [path.join(__dirname, 'e2e', 'reporter.ts')],
+    [path.join(__dirname, 'e2e', 'stress-test-reporter.ts')],
   ],
 })
