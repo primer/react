@@ -37,7 +37,7 @@ export const Selection: React.FC<React.PropsWithChildren<SelectionProps>> = ({se
 
   if (selectionVariant === 'radio') {
     return (
-      <VisualContainer className={className} sx={enabled ? {marginRight: '8px'} : undefined}>
+      <VisualContainer className={className} sx={enabled ? undefined : {marginRight: '8px'}}>
         {/* This is just a way to get the visuals from Radio, but it should be ignored in terms of accessibility */}
         <Radio value="unused" checked={selected} aria-hidden tabIndex={-1} />
       </VisualContainer>
