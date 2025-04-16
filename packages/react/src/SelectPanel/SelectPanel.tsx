@@ -431,7 +431,7 @@ export function SelectPanel({
         },
       } as ItemProps
     })
-  }, [onClose, onSelectedChange, items, selected, isItemCurrentlySelected, isSingleSelectModal])
+  }, [onClose, onSelectedChange, items, selected, isItemCurrentlySelected, isSingleSelectModal, intermediateSelected])
 
   const focusTrapSettings = {
     initialFocusRef: inputRef || undefined,
