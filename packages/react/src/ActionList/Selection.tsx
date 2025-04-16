@@ -39,7 +39,7 @@ export const Selection: React.FC<React.PropsWithChildren<SelectionProps>> = ({se
     return (
       <VisualContainer className={className}>
         {/* This is just a way to get the visuals from Radio, but it should be ignored in terms of accessibility */}
-        <Radio value="unused" checked={selected} aria-hidden />
+        <Radio value="unused" checked={selected} aria-hidden tabIndex={-1} />
       </VisualContainer>
     )
   }
