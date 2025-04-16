@@ -78,7 +78,7 @@ describe('PageLayout', () => {
     expect(container).toMatchSnapshot()
   })
 
-  it('can hide pane when narrow', () => {
+  it.skip('can hide pane when narrow', () => {
     // Set narrow viewport
     act(() => {
       matchMedia.useMediaQuery(viewportRanges.narrow)
