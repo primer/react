@@ -591,6 +591,7 @@ export function SelectPanel({
                 </Button>
               )}
               <Button
+                block={onCancel === undefined}
                 variant="primary"
                 size="medium"
                 onClick={() => {
