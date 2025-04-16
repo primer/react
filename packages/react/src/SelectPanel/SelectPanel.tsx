@@ -526,7 +526,7 @@ export function SelectPanel({
                 </div>
               ) : null}
             </div>
-            {showXCloseIcon && (
+            {showXCloseIcon ? (
               <IconButton
                 type="button"
                 variant="invisible"
@@ -536,7 +536,7 @@ export function SelectPanel({
                 onClick={() => {
                   onCancel?.()
                   onCancelRequested()
-                }}
+                } : null}
               />
             )}
           </div>
