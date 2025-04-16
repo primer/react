@@ -536,9 +536,9 @@ export function SelectPanel({
                 onClick={() => {
                   onCancel?.()
                   onCancelRequested()
-                } : null}
+                }}
               />
-            )}
+            ) : null}
           </div>
           {notice && (
             <div aria-live="polite" data-variant={notice.variant} className={classes.Notice}>
