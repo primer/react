@@ -55,7 +55,7 @@ const ResponsiveUnderlineNav = ({
 
   return (
     <div>
-      <UnderlineNav aria-label="Repository" loadingCounters={loadingCounters}>
+      <UnderlineNav aria-label="Repository" className="foo" loadingCounters={loadingCounters}>
         {items.map(item => (
           <UnderlineNav.Item
             key={item.navigation}
@@ -140,6 +140,12 @@ describe('UnderlineNav', () => {
     const counter = item.getElementsByTagName('span')[3]
     expect(counter.textContent).toBe('120')
     expect(counter).toHaveAttribute('aria-hidden', 'true')
+  })
+
+  it('adds className prop to base wrapper classes', () => {
+    const {getByRole} = render(<ResponsiveUnderlineNav />)
+    const nav = getByRole('navigation')
+    expect(nav).toHaveAttribute('class', 'UnderlineWrapper foo')
   })
 
   it('renders the content of visually hidden span properly for screen readers', () => {
