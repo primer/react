@@ -170,22 +170,25 @@ export const SingleSelect = () => {
   const [open, setOpen] = useState(false)
 
   return (
-    <SelectPanel
-      renderAnchor={({children, ...anchorProps}) => (
-        <Button trailingAction={TriangleDownIcon} {...anchorProps}>
-          {children ?? 'Select Labels'}
-        </Button>
-      )}
-      placeholder="Select labels" // button text when no items are selected
-      open={open}
-      onOpenChange={setOpen}
-      items={filteredItems}
-      selected={selected}
-      onSelectedChange={setSelected}
-      onFilterChange={setFilter}
-      width="medium"
-      message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}
-    />
+    <FormControl>
+      <FormControl.Label>Label</FormControl.Label>
+      <SelectPanel
+        renderAnchor={({children, ...anchorProps}) => (
+          <Button trailingAction={TriangleDownIcon} {...anchorProps}>
+            {children ?? 'Select Labels'}
+          </Button>
+        )}
+        placeholder="Select labels" // button text when no items are selected
+        open={open}
+        onOpenChange={setOpen}
+        items={filteredItems}
+        selected={selected}
+        onSelectedChange={setSelected}
+        onFilterChange={setFilter}
+        width="medium"
+        message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}
+      />
+    </FormControl>
   )
 }
 
@@ -196,24 +199,27 @@ export const MultiSelect = () => {
   const [open, setOpen] = useState(false)
 
   return (
-    <SelectPanel
-      title="Select labels"
-      placeholder="Select labels"
-      subtitle="Use labels to organize issues and pull requests"
-      renderAnchor={({children, ...anchorProps}) => (
-        <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
-          {children}
-        </Button>
-      )}
-      open={open}
-      onOpenChange={setOpen}
-      items={filteredItems}
-      selected={selected}
-      onSelectedChange={setSelected}
-      onFilterChange={setFilter}
-      width="medium"
-      message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}
-    />
+    <FormControl>
+      <FormControl.Label>Labels</FormControl.Label>
+      <SelectPanel
+        title="Select labels"
+        placeholder="Select labels"
+        subtitle="Use labels to organize issues and pull requests"
+        renderAnchor={({children, ...anchorProps}) => (
+          <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
+            {children}
+          </Button>
+        )}
+        open={open}
+        onOpenChange={setOpen}
+        items={filteredItems}
+        selected={selected}
+        onSelectedChange={setSelected}
+        onFilterChange={setFilter}
+        width="medium"
+        message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}
+      />
+    </FormControl>
   )
 }
 
