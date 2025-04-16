@@ -168,4 +168,11 @@
       border-radius: unset;
     }
   }
+
+  @supports (height: 100dvh) {
+    /* fix for mobile safari (100vh clips the screen with the toolbar) */
+    &:where([data-variant='fullscreen']) {
+      height: 100dvh;
+    }
+  }
 }
