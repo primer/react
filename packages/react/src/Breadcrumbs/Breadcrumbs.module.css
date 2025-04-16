@@ -50,6 +50,10 @@
   }
 }
 
+[popover] .Item {
+  color: red;
+}
+
 .ItemSelected {
   color: var(--fgColor-default);
   pointer-events: none;

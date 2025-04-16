@@ -55,6 +55,11 @@ template.innerHTML = `
   min-width: 192px;
   max-width: calc(100vw - 2rem);
   max-height: calc(100vh - 2rem);
+  padding: var(--base-size-8);
+}
+
+[popover] ::slotted(*) {
+  outline: solid 1px red;
 }
 
 [popover]:popover-open {
@@ -197,7 +202,7 @@ const BreadcrumbsList = ({children}: React.PropsWithChildren) => {
 
 function Breadcrumbs({className, children, sx: sxProp}: BreadcrumbsProps) {
   const wrappedChildren = React.Children.map(children, child => (
-    <dynamic-list-item class="test" role="listitem">
+    <dynamic-list-item part="link" class="test" role="listitem">
       {child}
     </dynamic-list-item>
   ))
@@ -225,7 +230,7 @@ const BreadcrumbsItem = React.forwardRef(({selected, className, ...rest}, ref) =
   return (
     <BoxWithFallback
       as="a"
-      className={clsx(className, classes.Item, {
+      className={clsx(className, classes.Item, 'item', {
         [SELECTED_CLASS]: selected,
         [classes.ItemSelected]: selected,
       })}
