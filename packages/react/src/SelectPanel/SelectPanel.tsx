@@ -416,7 +416,12 @@ export function SelectPanel({
           }
 
           if (isSingleSelectModal) {
-            setIntermediateSelected(item)
+            if (intermediateSelected?.id === item.id) {
+              // if the item is already selected, we need to unselect it
+              setIntermediateSelected(undefined)
+            } else {
+              setIntermediateSelected(item)
+            }
             return
           }
           // single select anchored, direct save on click
