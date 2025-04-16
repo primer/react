@@ -7,6 +7,8 @@ import classes from './Breadcrumbs.module.css'
 import {BoxWithFallback} from '../internal/components/BoxWithFallback'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {toggleSxComponent} from '../internal/utils/toggleSxComponent'
+import {KebabHorizontalIcon} from '@primer/octicons-react'
+import {IconButton} from '../'
 
 const SELECTED_CLASS = 'selected'
 
@@ -25,6 +27,34 @@ template.innerHTML = `
   width: 100%;
   min-width: 100%;
   max-width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.test {
+  font-size: var(--text-body-size-medium);
+  white-space: nowrap;
+  color: red;
+}
+
+[popover] {
+  position: absolute;
+  padding: 0;
+  overflow: visible;
+  border-width: 0;
+  display: flex;
+  padding: 0;
+  margin: auto;
+  flex-direction: column;
+  background-color: var(--overlay-bgColor);
+  border: 0;
+  border-radius: var(--borderRadius-large);
+  box-shadow: var(--shadow-floating-small);
+  opacity: 1;
+  inset: 0;
+  min-width: 192px;
+  max-width: calc(100vw - 2rem);
+  max-height: calc(100vh - 2rem);
 }
 
 [popover]:popover-open {
@@ -167,7 +197,7 @@ const BreadcrumbsList = ({children}: React.PropsWithChildren) => {
 
 function Breadcrumbs({className, children, sx: sxProp}: BreadcrumbsProps) {
   const wrappedChildren = React.Children.map(children, child => (
-    <dynamic-list-item className={classes.ItemWrapper} role="listitem">
+    <dynamic-list-item class="test" role="listitem">
       {child}
     </dynamic-list-item>
   ))
@@ -175,7 +205,7 @@ function Breadcrumbs({className, children, sx: sxProp}: BreadcrumbsProps) {
     <BoxWithFallback as="nav" className={clsx(className, classes.BreadcrumbsBase)} aria-label="Breadcrumbs" sx={sxProp}>
       <BreadcrumbsList>
         <dynamic-list-trigger>
-          <button>...</button>
+          <IconButton icon={KebabHorizontalIcon} aria-label="Open parent pages" variant="invisible" size="small" />
         </dynamic-list-trigger>
         {wrappedChildren}
       </BreadcrumbsList>
