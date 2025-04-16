@@ -599,7 +599,7 @@ export function SelectPanel({
                     const singleSelectOnChange = onSelectedChange as SelectPanelSingleSelection['onSelectedChange']
                     singleSelectOnChange(intermediateSelected)
                   }
-                  onClose('selection')
+                  onClose(variant === 'modal' ? 'selection' : 'click-outside')
                 }}
               >
                 Save
