@@ -61,7 +61,7 @@ export type SelectPanelProps = {
   title: string
   description?: string
   variant?: 'anchored' | 'modal' | ResponsiveValue<'anchored' | 'modal', 'full-screen' | 'bottom-sheet'>
-  selectionVariant?: ActionListProps['selectionVariant'] | 'instant'
+  selectionVariant?: 'single' | 'multiple' | 'instant'
   id?: string
 
   defaultOpen?: boolean

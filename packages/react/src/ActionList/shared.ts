@@ -124,7 +124,7 @@ export type ActionListProps = React.PropsWithChildren<{
   /**
    * Whether multiple Items or a single Item can be selected.
    */
-  selectionVariant?: 'single' | 'multiple'
+  selectionVariant?: 'single' | 'radio' | 'multiple'
   /**
    * Display a divider above each `Item` in this `List` when it does not follow a `Header` or `Divider`.
    */
