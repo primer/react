@@ -2,6 +2,7 @@ import {test, expect} from '@playwright/test'
 import {visit} from '../test-helpers/storybook'
 import {themes} from '../test-helpers/themes'
 import {viewports} from '../test-helpers/viewports'
+import {matrix, serialize} from '../test-helpers/matrix'
 
 const stories: Array<{title: string; id: string; viewports?: Array<keyof typeof viewports>}> = [
   {
@@ -41,6 +42,12 @@ const stories: Array<{title: string; id: string; viewports?: Array<keyof typeof 
   },
 ]
 
+const scenarios = matrix({
+  size: ['small', 'medium', 'large'],
+  spacious: [true, false],
+  border: [true, false],
+})
+
 test.describe('Blankslate', () => {
   for (const story of stories) {
     test.describe(story.title, () => {
@@ -76,6 +83,22 @@ test.describe('Blankslate', () => {
           })
         }
       }
+    })
+  }
+
+  for (const scenario of scenarios) {
+    const id = serialize(scenario)
+
+    test.describe(id, () => {
+      test('default @vrt', async ({page}) => {
+        await visit(page, {
+          id: 'experimental-components-blankslate--playground',
+          args: scenario,
+        })
+
+        // Default state
+        expect(await page.screenshot()).toMatchSnapshot(`Blankslate.${id}.png`)
+      })
     })
   }
 })
