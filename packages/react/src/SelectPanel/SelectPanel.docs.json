@@ -179,7 +179,7 @@
       "default": "'asc'"
     },
     {
-      "name": "orderSelectedFirst",
+      "name": "showSelectedOptionsFirst",
       "type": "boolean",
       "description": "Whether to display the selected items at the top of the list",
       "default": "true"

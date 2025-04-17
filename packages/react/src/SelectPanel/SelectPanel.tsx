@@ -93,7 +93,7 @@ interface SelectPanelBaseProps {
     variant: 'empty' | 'error' | 'warning'
   }
   onCancel?: () => void
-  orderSelectedFirst?: boolean
+  showSelectedOptionsFirst?: boolean
   sortKey?: keyof ItemInput
   sortDirection?: 'asc' | 'desc'
   sortFn?: (a: ItemInput, b: ItemInput) => number
@@ -192,7 +192,7 @@ export function SelectPanel({
   message,
   notice,
   onCancel,
-  orderSelectedFirst = true,
+  showSelectedOptionsFirst = true,
   sortDirection = 'asc',
   sortFn,
   sortKey,
@@ -219,7 +219,7 @@ export function SelectPanel({
   const usingModernActionList = useFeatureFlag('primer_react_select_panel_modern_action_list')
   const usingFullScreenOnNarrow = useFeatureFlag('primer_react_select_panel_fullscreen_on_narrow')
   const shouldOrderSelectedFirst =
-    useFeatureFlag('primer_react_select_panel_order_selected_at_top') && orderSelectedFirst
+    useFeatureFlag('primer_react_select_panel_order_selected_at_top') && showSelectedOptionsFirst
 
   const onListContainerRefChanged: FilteredActionListProps['onListContainerRefChanged'] = useCallback(
     (node: HTMLElement | null) => {
