@@ -62,3 +62,16 @@
     text-decoration: none;
   }
 }
+
+.DynamicList {
+  outline: 1px solid black;
+}
+
+.DynamicList::part(popover) {
+  padding: 1rem;
+  display: grid;
+}
+
+.DynamicListItem {
+  background: var(--item-background);
+}
