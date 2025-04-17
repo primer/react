@@ -22,23 +22,47 @@ const template = document.createElement('template')
 template.innerHTML = `
 <style>
 :host {
-  white-space: nowrap;
   overflow-x: hidden;
   width: 100%;
   min-width: 100%;
   max-width: 100%;
   display: flex;
   align-items: center;
+  --listitem-whitespace: wrap;
+  --listItem-textDecoration: underline;
+  --listItem-fgColor: var(--fgColor-link);
+  --listItem-divider: '';
 }
 
 #popover ::slotted(*) {
   --item-background: black;
+  --listItem-bgColor-rest: var(--control-transparent-bgColor-rest);
+  --listItem-bgColor-hover: var(--control-transparent-bgColor-hover);
+  --listItem-bgColor-active: var(--control-transparent-bgColor-active);
+  --listItem-borderRadius: var(--borderRadius-medium);
+  --listItem-width: 100%;
+  --listItem-paddingBlock: var(--control-medium-paddingBlock);
+  --listItem-paddingInline: var(--control-medium-paddingInline-condensed);
+  --listItem-display: flex;
+  --listItem-whitespace: wrap;
+  --listItem-textDecoration: none;
+  --listItem-fgColor: var(--fgColor-default);
+  --listItem-divider: none;
+
+}
+
+.OverflowList {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  margin: 0;
+  list-style: none;
 }
 </style>
 
-<ul id="popover" popover="manual" part="popover">
-  <slot name="overflow"></slot>
-</ul>
+<div id="popover" popover="manual" part="popover">
+  <ul class="OverflowList"><slot name="overflow"></slot></ul>
+</div>
 <slot name="visible"></slot>
 `
 
@@ -152,6 +176,11 @@ class DynamicList extends HTMLElement {
 
     visibleSlot.assign(...leading, triggerElement, ...visible)
     overflowSlot.assign(...overflow.reverse())
+    if (overflow.length > 0) {
+      triggerElement.style.display = 'block'
+    } else {
+      triggerElement.style.display = 'none'
+    }
   }
 }
 
@@ -180,7 +209,7 @@ function Breadcrumbs({className, children, sx: sxProp}: BreadcrumbsProps) {
   return (
     <BoxWithFallback as="nav" className={clsx(className, classes.BreadcrumbsBase)} aria-label="Breadcrumbs" sx={sxProp}>
       <BreadcrumbsList>
-        <dynamic-list-trigger class={classes.DynamicListTrigger}>
+        <dynamic-list-trigger class={classes.DynamicListTrigger} role="listitem">
           <IconButton icon={KebabHorizontalIcon} aria-label="Open parent pages" variant="invisible" size="small" />
         </dynamic-list-trigger>
         {wrappedChildren}
