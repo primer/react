@@ -210,11 +210,11 @@ export function SelectPanel({
   const [inputRef, setInputRef] = React.useState<React.RefObject<HTMLInputElement> | null>(null)
   const [listContainerElement, setListContainerElement] = useState<HTMLElement | null>(null)
   const [needsNoItemsAnnouncement, setNeedsNoItemsAnnouncement] = useState<boolean>(false)
-  const prevItems = usePreviousValue(items)
   const [selectedOnSort, setSelectedOnSort] = useState<ItemInput[]>([])
   const [itemsToRender, setItemsToRender] = useState<ItemInput[]>([])
   const [sortedItems, setSortedItems] = useState<ItemInput[]>([])
   const isNarrowScreenSize = useResponsiveValue({narrow: true, regular: false, wide: false}, false)
+  const [previousItems, setPreviousItems] = useState<ItemInput[]>([])
 
   const usingModernActionList = useFeatureFlag('primer_react_select_panel_modern_action_list')
   const usingFullScreenOnNarrow = useFeatureFlag('primer_react_select_panel_fullscreen_on_narrow')
@@ -424,13 +424,6 @@ export function SelectPanel({
   }, [open])
 
   useEffect(() => {
-    if (prevItems.length === 0 && items.length > 0) {
-      resetSort()
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [items, prevItems])
-
-  useEffect(() => {
     const itemsToRender = items.map(item => {
       const isItemSelected = isMultiSelectVariant(selected) ? doesItemsIncludeItem(selected, item) : selected === item
 
@@ -512,6 +505,13 @@ export function SelectPanel({
       setSortedItems(itemsToRender)
     }
   }, [itemsToRender, selectedOnSort, sortKey, sortDirection, sortFn, shouldOrderSelectedFirst])
+
+  if (previousItems !== items) {
+    setPreviousItems(items)
+    if (previousItems.length === 0 && items.length > 0) {
+      resetSort()
+    }
+  }
 
   const focusTrapSettings = {
     initialFocusRef: inputRef || undefined,
