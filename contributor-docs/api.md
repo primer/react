@@ -176,6 +176,8 @@ function MyComponent() {
   - Use `flushSync()`
   - Use custom hook for this (`useFocus`)
 
+### When to provide default props
+
 ## CSS
 
 ### Use `clsx` for conditional class names
