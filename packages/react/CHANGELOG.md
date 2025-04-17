@@ -1,5 +1,13 @@
 # @primer/react
 
+## 37.19.1
+
+### Patch Changes
+
+- Update data table pagination pageEnd to handle zero based index
+
+- [`b926c08`](https://github.com/primer/react/commit/b926c08f8e3a2c6578014edd6bf0ee0d095065c7) Thanks [@AAugustine](https://github.com/AAugustine)! - Update data table pagination pageEnd to handle zero based index
+
 ## 37.19.0
 
 ### Minor Changes

@@ -1,6 +1,6 @@
 {
   "name": "@primer/react",
-  "version": "37.19.0",
+  "version": "37.19.1",
   "description": "An implementation of GitHub's Primer Design System using React",
   "main": "lib/index.js",
   "module": "lib-esm/index.js",
@@ -99,7 +99,7 @@
     "clsx": "^2.1.1",
     "color2k": "^2.0.3",
     "deepmerge": "^4.3.1",
-    "focus-visible": "^5.2.0",
+    "focus-visible": "^5.2.1",
     "history": "^5.0.0",
     "hsluv": "1.0.1",
     "lodash.isempty": "^4.4.0",

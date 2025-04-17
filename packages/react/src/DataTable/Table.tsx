@@ -13,7 +13,7 @@ import {ScrollableRegion} from '../ScrollableRegion'
 import {Button} from '../internal/components/ButtonReset'
 import classes from './Table.module.css'
 import {defaultSxProp} from '../utils/defaultSxProp'
-import {toggleSxComponent} from '../internal/utils/toggleSxComponent'
+import {BoxWithFallback} from '../internal/components/BoxWithFallback'
 
 // ----------------------------------------------------------------------------
 // Table
@@ -233,12 +233,11 @@ function TableCellPlaceholder({children}: TableCellPlaceholderProps) {
 // ----------------------------------------------------------------------------
 export type TableContainerProps = React.PropsWithChildren<SxProp & React.HTMLAttributes<HTMLDivElement>>
 
-const TableContainerBaseComponent = toggleSxComponent('div') as React.ComponentType<TableContainerProps>
 function TableContainer({children, sx: sxProp = defaultSxProp}: TableContainerProps) {
   return (
-    <TableContainerBaseComponent className={clsx(classes.TableContainer)} sx={sxProp}>
+    <BoxWithFallback className={clsx(classes.TableContainer)} sx={sxProp}>
       {children}
-    </TableContainerBaseComponent>
+    </BoxWithFallback>
   )
 }
 
