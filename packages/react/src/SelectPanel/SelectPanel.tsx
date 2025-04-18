@@ -76,11 +76,11 @@ interface SelectPanelBaseProps {
     open: boolean,
     gesture: 'anchor-click' | 'anchor-key-press' | 'click-outside' | 'escape' | 'selection' | 'cancel',
   ) => void
+  secondaryAction?: React.ReactElement
   placeholder?: string
   // TODO: Make `inputLabel` required in next major version
   inputLabel?: string
   overlayProps?: Partial<OverlayProps>
-  footer?: string | React.ReactElement
   initialLoadingType?: InitialLoadingType
   className?: string
   notice?: {
@@ -92,6 +92,10 @@ interface SelectPanelBaseProps {
     body: string | React.ReactElement
     variant: 'empty' | 'error' | 'warning'
   }
+  /**
+   * @deprecated Use `secondaryAction` instead.
+   */
+  footer?: string | React.ReactElement
 }
 
 // onCancel is optional with variant=anchored, but required with variant=modal
@@ -161,6 +165,7 @@ export function SelectPanel({
   notice,
   onCancel,
   variant = 'anchored',
+  secondaryAction,
   ...listProps
 }: SelectPanelProps): JSX.Element {
   const titleId = useId()
@@ -482,6 +487,7 @@ export function SelectPanel({
   // because of instant selection, canceling on single select is the same as closing the panel, no onCancel needed
   const showXCloseIcon =
     variant === 'modal' || ((onCancel || !isMultiSelectVariant(selected)) && usingFullScreenOnNarrow)
+  const footerLayout = secondaryAction !== undefined ? (showCancelSaveButtons ? 'all' : 'secondary') : 'primary'
 
   return (
     <>
@@ -581,34 +587,41 @@ export function SelectPanel({
           />
           {footer ? (
             <div className={classes.Footer}>{footer}</div>
-          ) : showCancelSaveButtons ? (
+          ) : secondaryAction !== undefined || showCancelSaveButtons ? (
             /* Save and Cancel buttons are only useful for multiple selection, single selection instantly closes the panel */
-            <div className={clsx(classes.Footer, classes.ResponsiveFooter)}>
-              {onCancel && (
-                <Button
-                  size="medium"
-                  onClick={() => {
-                    onCancel()
-                    onCancelRequested()
-                  }}
-                >
-                  Cancel
-                </Button>
-              )}
-              <Button
-                block={onCancel === undefined}
-                variant="primary"
-                size="medium"
-                onClick={() => {
-                  if (isSingleSelectModal) {
-                    const singleSelectOnChange = onSelectedChange as SelectPanelSingleSelection['onSelectedChange']
-                    singleSelectOnChange(intermediateSelected)
-                  }
-                  onClose(variant === 'modal' ? 'selection' : 'click-outside')
-                }}
-              >
-                Save
-              </Button>
+            <div data-footer-layout={footerLayout} className={clsx(classes.Footer, classes.ResponsiveFooter)}>
+              <div data-footer-layout={footerLayout} className={classes.SecondaryAction}>
+                {secondaryAction}
+              </div>
+              {showCancelSaveButtons ? (
+                <div className={classes.CancelSaveButtons}>
+                  {onCancel ? (
+                    <Button
+                      size="medium"
+                      onClick={() => {
+                        onCancel()
+                        onCancelRequested()
+                      }}
+                    >
+                      Cancel
+                    </Button>
+                  ) : null}
+                  <Button
+                    block={onCancel === undefined}
+                    variant="primary"
+                    size="medium"
+                    onClick={() => {
+                      if (isSingleSelectModal) {
+                        const singleSelectOnChange = onSelectedChange as SelectPanelSingleSelection['onSelectedChange']
+                        singleSelectOnChange(intermediateSelected)
+                      }
+                      onClose(variant === 'modal' ? 'selection' : 'click-outside')
+                    }}
+                  >
+                    Apply
+                  </Button>
+                </div>
+              ) : null}
             </div>
           ) : null}
         </div>
