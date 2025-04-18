@@ -756,7 +756,6 @@ export const WithOnCancel = () => {
         onCancel={() => setSelected(intialSelection)}
         onFilterChange={setFilter}
         width="medium"
-        secondaryAction={<Button block>Edit labels</Button>}
       />
     </FormControl>
   )
@@ -794,7 +793,6 @@ export const MultiSelectModal = () => {
       onCancel={() => setSelected(intialSelection)}
       onFilterChange={setFilter}
       width="medium"
-      secondaryAction={<Button block>Edit labels</Button>}
     />
   )
 }
@@ -824,7 +822,6 @@ export const SingleSelectModal = () => {
       onCancel={() => {}}
       onFilterChange={setFilter}
       width="medium"
-      secondaryAction={<Button block>Edit labels</Button>}
     />
   )
 }
