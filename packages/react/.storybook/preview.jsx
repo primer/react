@@ -303,7 +303,7 @@ export const decorators = [
           <div {...wrapperProps}>
             <BaseStyles>
               {showSurroundingElements ? <a href="https://github.com/primer/react">Primer documentation</a> : ''}
-              <FeatureFlags flags={{primer_react_action_list_item_as_button: true}}>
+              <FeatureFlags flags={{primer_react_select_panel_with_modern_action_list: true}}>
                 <Story {...context} />
               </FeatureFlags>
               {showSurroundingElements ? <a href="https://github.com/primer/react">Primer documentation</a> : ''}
