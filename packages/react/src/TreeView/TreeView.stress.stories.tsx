@@ -4,7 +4,7 @@ import type {Meta} from '@storybook/react'
 import type {ComponentProps} from '../utils/types'
 import {StressTest} from '../utils/StressTest'
 import {TreeView} from './TreeView'
-import {FileIcon, DiffAddedIcon, DiffModifiedIcon} from '@primer/octicons-react'
+import {FileIcon, DiffAddedIcon} from '@primer/octicons-react'
 import Octicon from '../Octicon'
 
 export default {

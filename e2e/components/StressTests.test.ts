@@ -9,7 +9,7 @@ const stressTests = [
   {component: 'TreeView', testName: 'Current update', id: 'stresstests-components-treeview--current-update'},
 ]
 
-stressTests.forEach(({component, testName, id}) => {
+for (const {component, testName, id} of stressTests) {
   test.describe(`${component} Stress Tests`, () => {
     test(`${testName} @stress-test`, async ({page}, testInfo) => {
       await visit(page, {id})
@@ -21,4 +21,4 @@ stressTests.forEach(({component, testName, id}) => {
       })
     })
   })
-})
+}
