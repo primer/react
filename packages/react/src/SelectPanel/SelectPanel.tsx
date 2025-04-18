@@ -177,7 +177,7 @@ export function SelectPanel({
   const [needsNoItemsAnnouncement, setNeedsNoItemsAnnouncement] = useState<boolean>(false)
   const isNarrowScreenSize = useResponsiveValue({narrow: true, regular: false, wide: false}, false)
 
-  const usingModernActionList = useFeatureFlag('primer_react_select_panel_modern_action_list')
+  const usingModernActionList = useFeatureFlag('primer_react_select_panel_with_modern_action_list')
   const usingFullScreenOnNarrow = useFeatureFlag('primer_react_select_panel_fullscreen_on_narrow')
 
   // Single select modals work differently, they have an intermediate state where the user has selected an item but
