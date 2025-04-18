@@ -35,7 +35,7 @@ export interface ToggleSwitchProps extends Omit<React.HTMLAttributes<HTMLDivElem
    */
   statusLabelPosition?: CellAlignment
   /** type of button to account for behavior when added to a form*/
-  type?: 'button' | 'submit' | 'reset'
+  buttonType?: 'button' | 'submit' | 'reset'
 }
 
 const sizeVariants = variant({
