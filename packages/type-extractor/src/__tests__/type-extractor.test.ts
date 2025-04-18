@@ -237,6 +237,7 @@ describe('type-extractor', () => {
             },
           },
         ],
+
         [
           'Type Alias',
           'export type test = { a: number };',
@@ -261,17 +262,346 @@ describe('type-extractor', () => {
           },
         ],
 
+        [
+          'Object',
+          `
+            export const test: {
+              a: string;
+              b: 1;
+              c: () => void;
+              d(): void;
+            } = {
+              a: 'test',
+              b: 1,
+              c: () => {},
+              d: () => {},
+            }
+          `,
+          {
+            test: {
+              name: 'test',
+              type: {
+                type: types.Object,
+                properties: [],
+              },
+            },
+          },
+        ],
+
+        [
+          'Function Declaration with void return type',
+          `
+            export function test() {}
+          `,
+          {
+            test: {
+              name: 'test',
+              type: {
+                type: types.FunctionDeclaration,
+                signatures: [
+                  {
+                    parameters: [],
+                    returnType: {
+                      type: types.Void,
+                    },
+                  },
+                ],
+              },
+            },
+          },
+        ],
+
+        [
+          'Function Declaration with parameters',
+          `
+            export function test(a: number, b: number) {}
+          `,
+          {
+            test: {
+              name: 'test',
+              type: {
+                type: types.FunctionDeclaration,
+                signatures: [
+                  {
+                    parameters: [
+                      {
+                        name: 'a',
+                        type: {
+                          type: types.Number,
+                          restParameter: false,
+                        },
+                      },
+                      {
+                        name: 'b',
+                        type: {
+                          type: types.Number,
+                          restParameter: false,
+                        },
+                      },
+                    ],
+                    returnType: {
+                      type: types.Void,
+                    },
+                  },
+                ],
+              },
+            },
+          },
+        ],
+
+        [
+          'Function Declaration with explicit return type',
+          `
+            export function test(): number {
+              return 1
+            }
+          `,
+          {
+            test: {
+              name: 'test',
+              type: {
+                type: types.FunctionDeclaration,
+                signatures: [
+                  {
+                    parameters: [],
+                    returnType: {
+                      type: types.Number,
+                    },
+                  },
+                ],
+              },
+            },
+          },
+        ],
+
+        [
+          'Function Declaration with implicit return type',
+          `
+            export function test(){
+              return 1
+            }
+          `,
+          {
+            test: {
+              name: 'test',
+              type: {
+                type: types.FunctionDeclaration,
+                signatures: [
+                  {
+                    parameters: [],
+                    returnType: {
+                      type: types.NumberLiteral,
+                      value: '1',
+                    },
+                  },
+                ],
+              },
+            },
+          },
+        ],
+
+        [
+          'Function Declaration with argument spread',
+          `
+            export function test(a: number, b: number, ...rest: Array<number>) {
+              return 1
+            }
+          `,
+          {
+            test: {
+              name: 'test',
+              type: {
+                type: types.FunctionDeclaration,
+                signatures: [
+                  {
+                    parameters: [
+                      {
+                        name: 'a',
+                        type: {
+                          type: types.Number,
+                        },
+                        restParameter: false,
+                      },
+                      {
+                        name: 'b',
+                        type: {
+                          type: types.Number,
+                        },
+                        restParameter: false,
+                      },
+                      {
+                        name: 'rest',
+                        type: {
+                          type: types.Array,
+                          typeArgs: [
+                            {
+                              type: types.Number,
+                            },
+                          ],
+                        },
+                        restParameter: true,
+                      },
+                    ],
+                    returnType: {
+                      type: types.Number,
+                    },
+                  },
+                ],
+              },
+            },
+          },
+        ],
+
+        [
+          'Function Declaration with object binding pattern',
+          `
+            export function test({ a }: { a: number }) {}
+          `,
+          {
+            test: {
+              name: 'test',
+              type: {
+                type: types.FunctionDeclaration,
+                signatures: [
+                  {
+                    parameters: [
+                      {
+                        type: 'ObjectBindingPattern',
+                        elements: [
+                          {
+                            type: 'NamedBindingElement',
+                            name: 'a',
+                          },
+                        ],
+                        symbolType: {
+                          type: types.Object,
+                          properties: [
+                            {
+                              name: 'a',
+                              type: {
+                                type: types.Number,
+                              },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                    returnType: {
+                      type: types.Void,
+                    },
+                  },
+                ],
+              },
+            },
+          },
+        ],
+
+        [
+          'Function Declaration with array binding pattern',
+          `
+            export function test([a, b]: Array<number>) {}
+          `,
+          {
+            test: {
+              name: 'test',
+              type: {
+                type: types.FunctionDeclaration,
+                signatures: [
+                  {
+                    parameters: [
+                      {
+                        type: 'ArrayBindingPattern',
+                        elements: [
+                          {
+                            type: 'NamedBindingElement',
+                            name: 'a',
+                          },
+                          {
+                            type: 'NamedBindingElement',
+                            name: 'b',
+                          },
+                        ],
+                        symbolType: {
+                          type: types.Array,
+                          typeArgs: [
+                            {
+                              type: types.Number,
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                    returnType: {
+                      type: types.Void,
+                    },
+                  },
+                ],
+              },
+            },
+          },
+        ],
+
+        [
+          'Function Declaration with optional parameters',
+          `
+            export function test(a?: number) {}
+          `,
+          {
+            test: {
+              name: 'test',
+              type: {
+                type: types.FunctionDeclaration,
+                signatures: [
+                  {
+                    parameters: [
+                      {
+                        type: 'NamedParameter',
+                        name: 'a',
+                        optional: true,
+                        symbolType: {
+                          type: types.Union,
+                          types: [
+                            {
+                              type: types.Undefined,
+                            },
+                            {
+                              type: types.Number,
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                    returnType: {
+                      type: types.Void,
+                    },
+                  },
+                ],
+              },
+            },
+          },
+        ],
+
+        // optional parameters
+        // overload function
+        // function generics
+
         // object
+        // object rest parameter
+        // key in object
+        // intersection
+        // union
         // const
         // class
         // interface
+        // function with overloads
         // type
         // generics
         // built-ins
+        // utility types (like Extract, Partial, Exclude, etc)
       ] as const
     ).filter(test => {
       // return true
-      return test[0] === 'Type Alias'
+      return test[0] === 'Function Declaration with optional parameters'
     }),
   )('%s', (_name, code, expected) => {
     const program = getTypeScriptProgram({

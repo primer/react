@@ -26,7 +26,6 @@ type FileSymbols = Map<ID, Symbol>
 
 function getFileSymbols(typeChecker: ts.TypeChecker, sourceFile: ts.SourceFile): FileSymbols {
   const symbols: Map<ID, Symbol> = new Map()
-  const exported: Set<ID> = new Set()
 
   ts.forEachChild(sourceFile, node => {
     if (!isNodeExported(node)) {
@@ -54,7 +53,6 @@ function getFileSymbols(typeChecker: ts.TypeChecker, sourceFile: ts.SourceFile):
           exported: true,
         }
 
-        exported.add(id)
         symbols.set(id, data)
       }
     }
@@ -77,7 +75,131 @@ function getFileSymbols(typeChecker: ts.TypeChecker, sourceFile: ts.SourceFile):
           value: typeInfo,
         },
       }
-      exported.add(id)
+      symbols.set(id, data)
+    }
+
+    if (ts.isFunctionDeclaration(node)) {
+      if (!node.name) {
+        return
+      }
+
+      const symbol = typeChecker.getSymbolAtLocation(node.name)
+      if (!symbol) {
+        return
+      }
+
+      const type = typeChecker.getTypeOfSymbolAtLocation(symbol, symbol.valueDeclaration!)
+      const signatures = type.getCallSignatures()
+      const id = getSymbolId(sourceFile, symbol)
+      const data: Symbol = {
+        id,
+        name: symbol.name,
+        type: {
+          type: types.FunctionDeclaration,
+          signatures: signatures.map(signature => {
+            const returnType = typeChecker.getReturnTypeOfSignature(signature)
+            const parameters = signature.getParameters()
+            return {
+              parameters: parameters.map(parameter => {
+                const valueDeclaration = parameter.valueDeclaration
+                if (!valueDeclaration) {
+                  throw new Error('Parameter does not have a value declaration')
+                }
+
+                const parameterDeclaration = valueDeclaration as ts.ParameterDeclaration
+                const type = typeChecker.getTypeOfSymbolAtLocation(parameter, parameterDeclaration)
+                const restParameter =
+                  'dotDotDotToken' in valueDeclaration && valueDeclaration.dotDotDotToken !== undefined
+
+                if (ts.isArrayBindingPattern(parameterDeclaration.name)) {
+                  const elements = parameterDeclaration.name.elements.map(element => {
+                    if (ts.isBindingElement(element)) {
+                      if (element.dotDotDotToken) {
+                        return {
+                          type: types.RestBindingElement,
+                          name: element.name.getText(),
+                        }
+                      }
+
+                      if (element.propertyName) {
+                        return {
+                          type: types.RenamedBindingElement,
+                          propertyName: element.propertyName.getText(),
+                          name: element.name.getText(),
+                        }
+                      }
+
+                      return {
+                        type: types.NamedBindingElement,
+                        name: element.name.getText(),
+                      }
+                    }
+                    throw new Error('Element is not a binding element')
+                  })
+
+                  return {
+                    type: 'ArrayBindingPattern',
+                    elements,
+                    symbolType: getTypeInfo(typeChecker, type),
+                  }
+                }
+
+                if (ts.isObjectBindingPattern(parameterDeclaration.name)) {
+                  const elements = parameterDeclaration.name.elements.map(element => {
+                    if (ts.isBindingElement(element)) {
+                      if (element.dotDotDotToken) {
+                        return {
+                          type: types.RestBindingElement,
+                          name: element.name.getText(),
+                        }
+                      }
+
+                      if (element.propertyName) {
+                        return {
+                          type: types.RenamedBindingElement,
+                          propertyName: element.propertyName.getText(),
+                          name: element.name.getText(),
+                        }
+                      }
+
+                      return {
+                        type: types.NamedBindingElement,
+                        name: element.name.getText(),
+                      }
+                    }
+                    throw new Error('Element is not a binding element')
+                  })
+
+                  return {
+                    type: 'ObjectBindingPattern',
+                    elements,
+                    symbolType: getTypeInfo(typeChecker, type),
+                  }
+                }
+
+                if (restParameter) {
+                  return {
+                    type: 'RestParameter',
+                    name: parameter.name,
+                    symbolType: getTypeInfo(typeChecker, type),
+                  }
+                }
+
+                const optional = parameterDeclaration.questionToken !== undefined
+
+                return {
+                  type: 'NamedParameter',
+                  name: parameter.name,
+                  symbolType: getTypeInfo(typeChecker, type),
+                  optional,
+                }
+              }),
+              returnType: getTypeInfo(typeChecker, returnType),
+            }
+          }),
+        },
+        exported: true,
+      }
       symbols.set(id, data)
     }
   })
@@ -140,9 +262,15 @@ const types = {
   StringLiteral: 'StringLiteral',
   Undefined: 'Undefined',
   Unknown: 'Unknown',
+  Void: 'Void',
   Unsupported: 'Unsupported',
   TypeAlias: 'TypeAlias',
   Object: 'Object',
+  FunctionDeclaration: 'FunctionDeclaration',
+  NamedBindingElement: 'NamedBindingElement',
+  RenamedBindingElement: 'RenamedBindingElement',
+  RestBindingElement: 'RestBindingElement',
+  Union: 'Union',
 } as const
 
 type Type =
@@ -201,11 +329,66 @@ type Type =
       }>
     }
   | {
+      type: 'FunctionDeclaration'
+      signatures: Array<Signature>
+      // typeParameters?: Array<Type>
+    }
+  | {
       type: 'Unknown'
+    }
+  | {
+      type: 'Void'
+    }
+  | {
+      type: 'Union'
+      types: Array<Type>
     }
   | {
       type: 'Unsupported'
       value: string
+    }
+
+type Signature = {
+  parameters: Array<Parameter>
+  returnType: Type
+}
+
+type Parameter =
+  | {
+      type: 'NamedParameter'
+      name: string
+      symbolType: Type
+      optional: boolean
+    }
+  | {
+      type: 'RestParameter'
+      name: string
+      symbolType: Type
+    }
+  | {
+      type: 'ArrayBindingPattern'
+      elements: Array<BindingElement>
+      symbolType: Type
+    }
+  | {
+      type: 'ObjectBindingPattern'
+      elements: Array<BindingElement>
+      symbolType: Type
+    }
+
+type BindingElement =
+  | {
+      type: 'NamedBindingElement'
+      name: string
+    }
+  | {
+      type: 'RestBindingElement'
+      name: string
+    }
+  | {
+      type: 'RenamedBindingElement'
+      propertyName: string
+      name: string
     }
 
 function getTypeInfo(typeChecker: ts.TypeChecker, type: ts.Type): Type {
@@ -274,6 +457,12 @@ function getTypeInfo(typeChecker: ts.TypeChecker, type: ts.Type): Type {
     }
   }
 
+  if (type.flags & ts.TypeFlags.Void) {
+    return {
+      type: types.Void,
+    }
+  }
+
   if (type.flags & ts.TypeFlags.Object) {
     const objectType = type as ts.ObjectType
     if (objectType.objectFlags & ts.ObjectFlags.Reference) {
@@ -316,6 +505,14 @@ function getTypeInfo(typeChecker: ts.TypeChecker, type: ts.Type): Type {
           }
         }),
       }
+    }
+  }
+
+  if (type.flags & ts.TypeFlags.Union) {
+    const unionType = type as ts.UnionType
+    return {
+      type: types.Union,
+      types: unionType.types.map(type => getTypeInfo(typeChecker, type)),
     }
   }
 
