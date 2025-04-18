@@ -50,6 +50,15 @@ export type DataTableProps<Data extends UniqueRow> = {
    * currently sorted column
    */
   initialSortDirection?: Exclude<SortDirection, 'NONE'>
+
+  /**
+   * Provide a function to determine the unique identifier for each row.
+   * This function allows you to customize the key used for the row.
+   * By default, the table uses the `id` field from the data.
+   * @param rowData The row data object for which the ID is being retrieved.
+   * @returns The unique identifier for the row, which can be a string or number.
+   */
+  getRowId?: (rowData: Data) => string | number
 }
 
 function DataTable<Data extends UniqueRow>({
@@ -60,12 +69,14 @@ function DataTable<Data extends UniqueRow>({
   data,
   initialSortColumn,
   initialSortDirection,
+  getRowId= (rowData) => rowData.id
 }: DataTableProps<Data>) {
   const {headers, rows, actions, gridTemplateColumns} = useTable({
     data,
     columns,
     initialSortColumn,
     initialSortDirection,
+    getRowId
   })
 
   return (
@@ -102,8 +113,10 @@ function DataTable<Data extends UniqueRow>({
       </TableHead>
       <TableBody>
         {rows.map(row => {
+          const rowData = row.getValue()
+          const key = getRowId(rowData)
           return (
-            <TableRow key={row.id}>
+            <TableRow key={key}>
               {row.getCells().map(cell => {
                 return (
                   <TableCell key={cell.id} scope={cell.rowHeader ? 'row' : undefined} align={cell.column.align}>
