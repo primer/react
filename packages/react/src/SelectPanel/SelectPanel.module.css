@@ -134,19 +134,44 @@
 
 .ResponsiveFooter {
   display: none;
+  align-items: center;
   padding: var(--base-size-16);
   gap: var(--stack-gap-condensed);
-  justify-content: right;
 
   @media screen and (--viewportRange-narrow) {
     display: flex;
-    gap: var(--stack-gap-condensed);
-    justify-content: right;
   }
 
-  &:where([data-variant='modal'] &) {
+  &:where(
+      [data-variant='modal'],
+      [data-footer-layout='primary'],
+      [data-footer-layout='secondary'],
+      [data-footer-layout='all']
+    ) {
     display: flex;
   }
+
+  &[data-footer-layout='all'] {
+    justify-content: space-between;
+  }
+}
+
+.SecondaryAction {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+
+  &[data-footer-layout='all'] {
+    flex-grow: 0;
+    align-items: flex-start;
+  }
+}
+
+.CancelSaveButtons {
+  display: flex;
+  gap: var(--stack-gap-condensed);
+  justify-content: flex-end;
 }
 
 .Backdrop {
