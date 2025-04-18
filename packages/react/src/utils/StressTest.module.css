@@ -1,23 +1,23 @@
 .Root {
   display: flex;
-  flex-direction: column;
   margin-top: var(--base-size-16);
+  margin-right: var(--base-size-32);
   margin-bottom: var(--base-size-16);
   margin-left: var(--base-size-32);
-  margin-right: var(--base-size-32);
+  flex-direction: column;
 }
 
 .Header {
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  gap: var(--base-size-4);
-  background-color: var(--bgColor-muted);
   padding: var(--base-size-16) var(--base-size-24);
+  flex-direction: row;
+  background-color: var(--bgColor-muted);
   border: var(--borderWidth-thin) solid var(--borderColor-default);
   border-top-left-radius: var(--borderRadius-medium);
   border-top-right-radius: var(--borderRadius-medium);
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--base-size-4);
 }
 
 .HeaderRow {
@@ -37,26 +37,26 @@
 }
 
 .Container {
-  flex: 1;
   display: flex;
-  overflow: auto;
   max-height: 300px;
   padding: var(--base-size-16);
+  overflow: auto;
   border: var(--borderWidth-thin) solid var(--borderColor-default);
-  border-top: none;
   border: var(--borderWidth-thin) solid var(--borderColor-muted);
+  border-top: none;
+  flex: 1;
 }
 
 .Footer {
   display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
   padding: var(--base-size-12) var(--base-size-24);
+  flex-direction: row;
   border: var(--borderWidth-thin) solid var(--borderColor-default);
   border-top: none;
-  border-bottom-left-radius: var(--borderRadius-medium);
   border-bottom-right-radius: var(--borderRadius-medium);
+  border-bottom-left-radius: var(--borderRadius-medium);
+  justify-content: flex-start;
+  align-items: center;
 }
 
 .Box {
