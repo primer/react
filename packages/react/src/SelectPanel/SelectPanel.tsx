@@ -482,12 +482,34 @@ export function SelectPanel({
     }
   }
 
-  // We add a save and cancel button on narrow screens when SelectPanel is full-screen
-  const showCancelSaveButtons = variant === 'modal' || (isMultiSelectVariant(selected) && usingFullScreenOnNarrow)
   // because of instant selection, canceling on single select is the same as closing the panel, no onCancel needed
   const showXCloseIcon =
-    variant === 'modal' || ((onCancel || !isMultiSelectVariant(selected)) && usingFullScreenOnNarrow)
-  const footerLayout = secondaryAction !== undefined ? (showCancelSaveButtons ? 'all' : 'secondary') : 'primary'
+    variant === 'modal' || ((onCancel !== undefined || !isMultiSelectVariant(selected)) && usingFullScreenOnNarrow)
+
+  // We add a save and cancel button on:
+  // - modals
+  // - anchored panels with multi select if there is onCancel
+  const showCancelSaveButtons =
+    variant === 'modal' || (isMultiSelectVariant(selected) && usingFullScreenOnNarrow && onCancel !== undefined)
+
+  // The save and close button is only covering a very specific case:
+  // - anchored panel with multi select if there is no onCancel
+  const showSaveAndCloseButton =
+    variant !== 'modal' && usingFullScreenOnNarrow && isMultiSelectVariant(selected) && onCancel === undefined
+
+  // If there is any element in the footer, we render it.
+  const renderFooter = secondaryAction !== undefined || showCancelSaveButtons || showSaveAndCloseButton
+
+  // If there's any permanent elements in the footer, we show it always.
+  // The save and close button is only shown on small screens.
+  const displayFooter =
+    secondaryAction !== undefined || showCancelSaveButtons
+      ? 'always'
+      : showSaveAndCloseButton
+        ? 'only-small'
+        : undefined
+
+  const stretchSecondaryAction = showSaveAndCloseButton ? 'only-big' : showCancelSaveButtons ? 'never' : 'always'
 
   return (
     <>
@@ -587,25 +609,26 @@ export function SelectPanel({
           />
           {footer ? (
             <div className={classes.Footer}>{footer}</div>
-          ) : secondaryAction !== undefined || showCancelSaveButtons ? (
-            /* Save and Cancel buttons are only useful for multiple selection, single selection instantly closes the panel */
-            <div data-footer-layout={footerLayout} className={clsx(classes.Footer, classes.ResponsiveFooter)}>
-              <div data-footer-layout={footerLayout} className={classes.SecondaryAction}>
+          ) : renderFooter ? (
+            <div
+              data-display-footer={displayFooter}
+              data-stretch-secondary-action={stretchSecondaryAction}
+              className={clsx(classes.Footer, classes.ResponsiveFooter)}
+            >
+              <div data-stretch-secondary-action={stretchSecondaryAction} className={classes.SecondaryAction}>
                 {secondaryAction}
               </div>
               {showCancelSaveButtons ? (
                 <div className={classes.CancelSaveButtons}>
-                  {onCancel ? (
-                    <Button
-                      size="medium"
-                      onClick={() => {
-                        onCancel()
-                        onCancelRequested()
-                      }}
-                    >
-                      Cancel
-                    </Button>
-                  ) : null}
+                  <Button
+                    size="medium"
+                    onClick={() => {
+                      onCancel?.()
+                      onCancelRequested()
+                    }}
+                  >
+                    Cancel
+                  </Button>
                   <Button
                     block={onCancel === undefined}
                     variant="primary"
@@ -619,6 +642,20 @@ export function SelectPanel({
                     }}
                   >
                     Apply
+                  </Button>
+                </div>
+              ) : null}
+              {showSaveAndCloseButton ? (
+                <div className={classes.SaveAndCloseButton}>
+                  <Button
+                    block
+                    variant="primary"
+                    size="medium"
+                    onClick={() => {
+                      onClose('click-outside')
+                    }}
+                  >
+                    Save and close
                   </Button>
                 </div>
               ) : null}
