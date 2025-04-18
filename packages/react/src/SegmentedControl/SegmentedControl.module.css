@@ -151,9 +151,9 @@
   border-style: solid;
   border-width: var(--borderWidth-thin);
 
-  /* 
-    innerRadius = outerRadius - distance/2 
-    https://stackoverflow.com/questions/2932146/math-problem-determine-the-corner-radius-of-an-inner-border-based-on-outer-corn 
+  /*
+    innerRadius = outerRadius - distance/2
+    https://stackoverflow.com/questions/2932146/math-problem-determine-the-corner-radius-of-an-inner-border-based-on-outer-corn
   */
   /* stylelint-disable-next-line primer/borders */
   border-radius: calc(var(--segmented-control-outer-radius) - var(--segmented-control-button-bg-inset) / 2);
@@ -196,4 +196,8 @@
   visibility: hidden;
   content: attr(data-text);
   user-select: none;
+}
+
+.LeadingIcon {
+  margin-right: var(--base-size-4);
 }

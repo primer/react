@@ -7,29 +7,16 @@ import {ActionList} from '../ActionList'
 import {ActionMenu} from '../ActionMenu'
 import {useTheme} from '../ThemeProvider'
 import type {SxProp} from '../sx'
-import sx, {merge} from '../sx'
 import type {ResponsiveValue} from '../hooks/useResponsiveValue'
 import {useResponsiveValue} from '../hooks/useResponsiveValue'
 import type {WidthOnlyViewportRangeKeys} from '../utils/types/ViewportRangeKeys'
-import styled from 'styled-components'
 import {defaultSxProp} from '../utils/defaultSxProp'
 import {isElement} from 'react-is'
 
 import classes from './SegmentedControl.module.css'
 
-import {toggleStyledComponent} from '../internal/utils/toggleStyledComponent'
-import {useFeatureFlag} from '../FeatureFlags'
 import {clsx} from 'clsx'
-import {SEGMENTED_CONTROL_CSS_MODULES_FEATURE_FLAG} from './getSegmentedControlStyles'
-
-// Needed because passing a ref to `Box` causes a type error
-const SegmentedControlList = toggleStyledComponent(
-  SEGMENTED_CONTROL_CSS_MODULES_FEATURE_FLAG,
-  'ul',
-  styled.ul`
-    ${sx};
-  `,
-)
+import {BoxWithFallback} from '../internal/components/BoxWithFallback'
 
 type SegmentedControlProps = {
   'aria-label'?: string
@@ -45,19 +32,6 @@ type SegmentedControlProps = {
   variant?: 'default' | Partial<Record<WidthOnlyViewportRangeKeys, 'hideLabels' | 'dropdown' | 'default'>>
   className?: string
 } & SxProp
-
-const getSegmentedControlStyles = (props: {isFullWidth?: boolean; size?: SegmentedControlProps['size']}) => ({
-  backgroundColor: 'segmentedControl.bg',
-  borderRadius: 2,
-  border: '1px solid',
-  borderColor: 'var(--controlTrack-borderColor-rest, transparent)',
-  display: props.isFullWidth ? 'flex' : 'inline-flex',
-  fontSize: props.size === 'small' ? 0 : 1,
-  height: props.size === 'small' ? '28px' : '32px', // TODO: use primitive `control.{small|medium}.size` when it is available
-  margin: 0,
-  padding: 0,
-  width: props.isFullWidth ? '100%' : undefined,
-})
 
 const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
   'aria-label': ariaLabel,
@@ -130,9 +104,6 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
     return React.isValidElement<SegmentedControlIconButtonProps>(childArg) ? childArg.props['aria-label'] : null
   }
 
-  const enabled = useFeatureFlag(SEGMENTED_CONTROL_CSS_MODULES_FEATURE_FLAG)
-  const listSx = enabled ? sxProp : merge(getSegmentedControlStyles({isFullWidth, size}), sxProp as SxProp)
-
   if (!ariaLabel && !ariaLabelledby) {
     // eslint-disable-next-line no-console
     console.warn(
@@ -183,12 +154,13 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
     </>
   ) : (
     // Render a segmented control
-    <SegmentedControlList
-      sx={listSx}
+    <BoxWithFallback
+      as={'ul'}
+      sx={sxProp}
       aria-label={ariaLabel}
       aria-labelledby={ariaLabelledby}
       ref={segmentedControlContainerRef}
-      className={clsx(enabled && classes.SegmentedControl, className)}
+      className={clsx(classes.SegmentedControl, className)}
       data-full-width={isFullWidth || undefined}
       data-size={size}
       {...rest}
@@ -210,9 +182,12 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
                 isUncontrolled && setSelectedIndexInternalState(index)
               },
           selected: index === selectedIndex,
-          sx: {
+          style: {
             '--separator-color':
               index === selectedIndex || index === selectedIndex - 1 ? 'transparent' : theme?.colors.border.default,
+            ...child.props.style,
+          },
+          sx: {
             ...child.props.sx,
           },
         }
@@ -255,7 +230,7 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
         // Render the children as-is and add the shared child props
         return React.cloneElement(child, sharedChildProps)
       })}
-    </SegmentedControlList>
+    </BoxWithFallback>
   )
 }
 
