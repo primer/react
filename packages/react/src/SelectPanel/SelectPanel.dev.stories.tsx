@@ -9,7 +9,7 @@ import type {ItemInput} from '../deprecated/ActionList/List'
 import FormControl from '../FormControl'
 import Text from '../Text'
 import Select from '../Select/Select'
-import type {SelectPanelSecondaryAction} from './SelectPanel'
+import Link from '../Link'
 
 const meta: Meta<typeof SelectPanel> = {
   title: 'Components/SelectPanel/Dev',
@@ -203,8 +203,8 @@ const simpleItems = [
 
 // onCancel is optional with variant=anchored, but required with variant=modal
 type ParamProps =
-  | {variant: 'anchored'; onCancel?: () => void; secondaryAction?: SelectPanelSecondaryAction}
-  | {variant: 'modal'; onCancel: () => void; secondaryAction?: SelectPanelSecondaryAction}
+  | {variant: 'anchored'; onCancel?: () => void; secondaryAction?: React.ReactElement}
+  | {variant: 'modal'; onCancel: () => void; secondaryAction?: React.ReactElement}
 
 const SingleSelectParams = ({variant, onCancel, secondaryAction}: ParamProps) => {
   const [selected, setSelected] = useState<ItemInput | undefined>(simpleItems[0])
@@ -324,9 +324,11 @@ export const AllVariants = () => {
 
   const secondaryActionElement =
     secondaryAction === 'button' ? (
-      <SelectPanel.SecondaryActionButton>Edit labels</SelectPanel.SecondaryActionButton>
+      <Button block>Edit labels</Button>
     ) : (
-      <SelectPanel.SecondaryActionLink href="#">Edit labels</SelectPanel.SecondaryActionLink>
+      <Button variant="link" as={Link} href="#" block>
+        Edit labels
+      </Button>
     )
 
   return (
@@ -370,13 +372,10 @@ export const AllVariants = () => {
               With <code>onCancel</code>
             </th>
             <th>
+              With <code>secondaryAction</code> and no <code>onCancel</code>
+            </th>
+            <th>
               With <code>onCancel</code> and <code>secondaryAction</code>
-            </th>
-            <th>
-              No <code>onCancel</code>
-            </th>
-            <th>
-              No <code>onCancel</code> and <code>secondaryAction</code>
             </th>
           </tr>
         </thead>
@@ -388,15 +387,14 @@ export const AllVariants = () => {
                 <Component onCancel={() => {}} variant={variant} />
               </td>
               <td>
-                <Component onCancel={() => {}} secondaryAction={secondaryActionElement} variant={variant} />
-              </td>
-              <td>{variant === 'anchored' ? <Component variant={variant} /> : 'Not supported'}</td>
-              <td>
                 {variant === 'anchored' ? (
                   <Component secondaryAction={secondaryActionElement} variant={variant} />
                 ) : (
                   'Not supported'
                 )}
+              </td>
+              <td>
+                <Component onCancel={() => {}} secondaryAction={secondaryActionElement} variant={variant} />
               </td>
             </tr>
           ))}

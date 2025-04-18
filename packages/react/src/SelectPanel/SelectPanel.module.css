@@ -135,55 +135,36 @@
 .ResponsiveFooter {
   display: none;
   align-items: center;
-  padding: var(--base-size-8);
+  padding: var(--base-size-16);
   gap: var(--stack-gap-condensed);
-  justify-content: center;
 
-  &:where([data-display-footer='always']) {
+  @media screen and (--viewportRange-narrow) {
     display: flex;
   }
 
-  &:where([data-display-footer='only-small']) {
-    @media screen and (--viewportRange-narrow) {
-      display: flex;
-    }
+  &:where(
+      [data-variant='modal'],
+      [data-footer-layout='primary'],
+      [data-footer-layout='secondary'],
+      [data-footer-layout='all']
+    ) {
+    display: flex;
   }
 
-  &[data-stretch-secondary-action='never'] {
+  &[data-footer-layout='all'] {
     justify-content: space-between;
-  }
-
-  &:where([data-stretch-secondary-action='only-big']) {
-    @media screen and (--viewportRange-narrow) {
-      justify-content: space-between;
-    }
-  }
-
-  &:where([data-stretch-save-button='only-small']) {
-    justify-content: space-between;
-
-    @media screen and (--viewportRange-narrow) {
-      justify-content: center;
-    }
   }
 }
 
 .SecondaryAction {
   flex-grow: 1;
-  align-items: stretch;
   display: flex;
   justify-content: center;
+  align-items: stretch;
 
-  &[data-stretch-secondary-action='never'] {
+  &[data-footer-layout='all'] {
     flex-grow: 0;
     align-items: flex-start;
-  }
-
-  &:where([data-stretch-secondary-action='only-big']) {
-    @media screen and (--viewportRange-narrow) {
-      flex-grow: 0;
-      align-items: flex-start;
-    }
   }
 }
 
@@ -191,30 +172,6 @@
   display: flex;
   gap: var(--stack-gap-condensed);
   justify-content: flex-end;
-}
-
-.ResponsiveCancelSaveButtons {
-  display: none;
-
-  @media screen and (--viewportRange-narrow) {
-    display: flex;
-    gap: var(--stack-gap-condensed);
-    justify-content: flex-end;
-  }
-}
-
-.ResponsiveSaveButton {
-  display: none;
-
-  @media screen and (--viewportRange-narrow) {
-    display: flex;
-  }
-
-  &:where([data-stretch-save-button='only-small']) {
-    @media screen and (--viewportRange-narrow) {
-      flex-grow: 1;
-    }
-  }
 }
 
 .Backdrop {
