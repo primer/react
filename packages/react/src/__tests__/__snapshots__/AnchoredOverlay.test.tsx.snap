@@ -30,19 +30,21 @@ exports[`AnchoredOverlay should render consistently when open 1`] = `
   max-width: calc(100vw - 2rem);
 }
 
-.c1:where([data-variant='fullscreen']) {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  margin: 0;
-  border-radius: unset;
-}
-
 @media (forced-colors:active) {
   .c1 {
     outline: solid 1px transparent;
+  }
+}
+
+@media screen and (max-width:calc(768px - 0.02px)) {
+  .c1:where([data-responsive='fullscreen']) {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    border-radius: unset;
   }
 }
 
