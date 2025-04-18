@@ -19,6 +19,7 @@ import {
   RocketIcon,
   WorkflowIcon,
 } from '@primer/octicons-react'
+import type {AnchorSide} from '@primer/behaviors'
 
 export default {
   title: 'Components/ActionMenu/Examples',
@@ -577,3 +578,38 @@ export const OnlyInactiveItems = () => (
     </ActionMenu.Overlay>
   </ActionMenu>
 )
+
+export const DynamicAnchorSides = () => {
+  const [currentSide, setCurrentSide] = React.useState<AnchorSide>('outside-bottom')
+
+  return (
+    <>
+      <div className="testCustomPositionMiddle">
+        <ActionMenu>
+          <ActionMenu.Button>Open menu</ActionMenu.Button>
+          <ActionMenu.Overlay width="auto" maxHeight="large" side={currentSide}>
+            <ActionList>
+              <ActionList.Group>
+                <ActionList.GroupHeading>Inside</ActionList.GroupHeading>
+                <ActionList.Item onSelect={() => setCurrentSide('inside-top')}>Inside-top</ActionList.Item>
+                <ActionList.Item onSelect={() => setCurrentSide('inside-bottom')}>Inside-bottom</ActionList.Item>
+                <ActionList.Item onSelect={() => setCurrentSide('inside-left')}>Inside-left</ActionList.Item>
+                <ActionList.Item onSelect={() => setCurrentSide('inside-right')}>Inside-right</ActionList.Item>
+                <ActionList.Item onSelect={() => setCurrentSide('inside-center')}>Inside-center</ActionList.Item>
+              </ActionList.Group>
+              <ActionList.Group>
+                <ActionList.GroupHeading>Outside</ActionList.GroupHeading>
+                <ActionList.Item onSelect={() => setCurrentSide('outside-top')}>Outside-top</ActionList.Item>
+                <ActionList.Item onSelect={() => setCurrentSide('outside-bottom')}>Outside-bottom</ActionList.Item>
+                <ActionList.Item onSelect={() => setCurrentSide('outside-left')}>Outside-left</ActionList.Item>
+                <ActionList.Item onSelect={() => setCurrentSide('outside-right')}>Outside-right</ActionList.Item>
+              </ActionList.Group>
+            </ActionList>
+          </ActionMenu.Overlay>
+        </ActionMenu>
+
+        <span>Current Overlay Side: {currentSide}</span>
+      </div>
+    </>
+  )
+}

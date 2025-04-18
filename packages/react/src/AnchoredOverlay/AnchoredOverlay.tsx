@@ -7,7 +7,7 @@ import type {FocusZoneHookSettings} from '../hooks/useFocusZone'
 import {useFocusZone} from '../hooks/useFocusZone'
 import {useAnchoredPosition, useProvidedRefOrCreate, useRenderForcingRef} from '../hooks'
 import {useId} from '../hooks/useId'
-import type {PositionSettings} from '@primer/behaviors'
+import type {AnchorPosition, PositionSettings} from '@primer/behaviors'
 import {useResponsiveValue, type ResponsiveValue} from '../hooks/useResponsiveValue'
 
 interface AnchoredOverlayPropsWithAnchor {
@@ -98,6 +98,10 @@ interface AnchoredOverlayBaseProps extends Pick<OverlayProps, 'height' | 'width'
    * Optional prop to set variant for narrow screen sizes
    */
   variant?: ResponsiveValue<'anchored', 'anchored' | 'fullscreen'>
+  /**
+   * An override to the internal position that will be used to position the overlay.
+   */
+  onPositionChange?: (position: AnchorPosition) => void
 }
 
 export type AnchoredOverlayProps = AnchoredOverlayBaseProps &
@@ -129,10 +133,13 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   pinPosition,
   variant = {regular: 'anchored', narrow: 'anchored'},
   preventOverflow = true,
+  onPositionChange,
 }) => {
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
   const [overlayRef, updateOverlayRef] = useRenderForcingRef<HTMLDivElement>()
   const anchorId = useId(externalAnchorId)
+
+  const [anchorSide, setAnchorSide] = React.useState<AnchorPosition['anchorSide']>()
 
   const onClickOutside = useCallback(() => onClose?.('click-outside'), [onClose])
   const onEscape = useCallback(() => onClose?.('escape'), [onClose])
@@ -181,6 +188,13 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
       updateOverlayRef(null)
     }
   }, [open, overlayRef, updateOverlayRef])
+
+  useEffect(() => {
+    if (position && onPositionChange && position.anchorSide !== anchorSide) {
+      setAnchorSide(position.anchorSide)
+      onPositionChange(position)
+    }
+  }, [position, onPositionChange, anchorSide])
 
   useFocusZone({
     containerRef: overlayRef,
