@@ -121,19 +121,21 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
         sx: {display: 'flex', flex: '1 1 100%', flexWrap: 'wrap', maxWidth: '100%'},
       }
 
+  const memoizedContextValue = React.useMemo(() => {
+    return {
+      padding,
+      rowGap,
+      columnGap,
+      enableStickyPane,
+      disableStickyPane,
+      contentTopRef,
+      contentBottomRef,
+      paneRef,
+    }
+  }, [padding, rowGap, columnGap, enableStickyPane, disableStickyPane, contentTopRef, contentBottomRef, paneRef])
+
   return (
-    <PageLayoutContext.Provider
-      value={{
-        padding,
-        rowGap,
-        columnGap,
-        enableStickyPane,
-        disableStickyPane,
-        contentTopRef,
-        contentBottomRef,
-        paneRef,
-      }}
-    >
+    <PageLayoutContext.Provider value={memoizedContextValue}>
       <div
         ref={rootRef}
         style={
@@ -385,7 +387,6 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
 
   const stylingProps = enabled
     ? {
-        sx,
         className: clsx(classes.VerticalDivider, className),
         'data-variant': responsiveVariant,
         'data-position': position,
@@ -410,16 +411,6 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
         // Drag handle
         <>
           <div
-            sx={{
-              position: 'absolute',
-              inset: '0 -2px',
-              cursor: 'col-resize',
-              bg: isDragging || isKeyboardDrag ? 'accent.fg' : 'transparent',
-              transitionDelay: '0.1s',
-              '&:hover': {
-                bg: isDragging || isKeyboardDrag ? 'accent.fg' : 'neutral.muted',
-              },
-            }}
             role="slider"
             aria-label="Draggable pane splitter"
             aria-valuemin={minWidth}
