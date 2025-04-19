@@ -547,17 +547,10 @@ const Header: React.FC<React.PropsWithChildren<PageLayoutHeaderProps>> = ({
       }
 
   return (
-    <div
-      as="header"
-      aria-label={label}
-      aria-labelledby={labelledBy}
-      hidden={isHidden}
-      style={style}
-      {...headerStylingProps}
-    >
+    <header aria-label={label} aria-labelledby={labelledBy} hidden={isHidden} style={style} {...headerStylingProps}>
       <div {...contentStylingProps}>{children}</div>
       <HorizontalDivider variant={dividerVariant} {...dividerStylingProps} />
-    </div>
+    </header>
   )
 }
 
