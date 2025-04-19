@@ -96,7 +96,6 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
 
   const stylingProps = enabled
     ? {
-        sx,
         className: clsx(classes.PageLayoutRoot, className),
       }
     : {
@@ -516,7 +515,6 @@ const Header: React.FC<React.PropsWithChildren<PageLayoutHeaderProps>> = ({
 
   const headerStylingProps = enabled
     ? {
-        sx,
         className: clsx(classes.Header, className),
         style: {
           '--spacing': `var(--spacing-${rowGap})`,
@@ -628,7 +626,6 @@ const Content: React.FC<React.PropsWithChildren<PageLayoutContentProps>> = ({
 
   const wrapperStylingProps = enabled
     ? {
-        sx,
         className: clsx(classes.ContentWrapper, className),
         'data-is-hidden': isHidden,
       }
@@ -883,7 +880,6 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
 
     const paneWrapperStylingProps = enabled
       ? {
-          sx,
           className: clsx(classes.PaneWrapper, className),
           style: {
             '--offset-header': typeof offsetHeader === 'number' ? `${offsetHeader}px` : offsetHeader,
@@ -1108,7 +1104,6 @@ const Footer: React.FC<React.PropsWithChildren<PageLayoutFooterProps>> = ({
   const footerStylingProps = enabled
     ? {
         className: clsx(classes.FooterWrapper, className),
-        sx,
         style: {
           '--spacing': `var(--spacing-${rowGap})`,
           ...style,
