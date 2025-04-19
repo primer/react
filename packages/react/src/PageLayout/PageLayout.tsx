@@ -1,7 +1,6 @@
 import React, {useRef} from 'react'
 import {createGlobalStyle} from 'styled-components'
 import {clsx} from 'clsx'
-import Box from '../Box'
 import {useId} from '../hooks/useId'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import type {ResponsiveValue} from '../hooks/useResponsiveValue'
@@ -135,7 +134,7 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
         paneRef,
       }}
     >
-      <Box
+      <div
         ref={rootRef}
         style={
           {
@@ -146,12 +145,12 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
         }
         {...stylingProps}
       >
-        <Box {...wrapperStylingProps}>
+        <div {...wrapperStylingProps}>
           {slots.header}
-          <Box {...contentStylingProps}>{rest}</Box>
+          <div {...contentStylingProps}>{rest}</div>
           {slots.footer}
-        </Box>
-      </Box>
+        </div>
+      </div>
     </PageLayoutContext.Provider>
   )
 }
@@ -181,7 +180,7 @@ const horizontalDividerVariants = {
     display: 'block',
     height: 8,
     backgroundColor: 'canvas.inset',
-    boxShadow: (theme: Theme) =>
+    divShadow: (theme: Theme) =>
       `inset 0 -1px 0 0 ${theme.colors.border.default}, inset 0 1px 0 0 ${theme.colors.border.default}`,
   },
 }
@@ -234,7 +233,7 @@ const HorizontalDivider: React.FC<React.PropsWithChildren<DividerProps>> = ({
         style,
       }
 
-  return <Box {...stylingProps} />
+  return <div {...stylingProps} />
 }
 
 const verticalDividerVariants = {
@@ -250,7 +249,7 @@ const verticalDividerVariants = {
     display: 'block',
     width: 8,
     backgroundColor: 'canvas.inset',
-    boxShadow: (theme: Theme) =>
+    divShadow: (theme: Theme) =>
       `inset -1px 0 0 0 ${theme.colors.border.default}, inset 1px 0 0 0 ${theme.colors.border.default}`,
   },
 }
@@ -406,11 +405,11 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
       }
 
   return (
-    <Box {...stylingProps}>
+    <div {...stylingProps}>
       {draggable ? (
         // Drag handle
         <>
-          <Box
+          <div
             sx={{
               position: 'absolute',
               inset: '0 -2px',
@@ -450,7 +449,7 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
           {!enabled && <DraggingGlobalStyles />}
         </>
       ) : null}
-    </Box>
+    </div>
   )
 }
 
@@ -558,7 +557,7 @@ const Header: React.FC<React.PropsWithChildren<PageLayoutHeaderProps>> = ({
       }
 
   return (
-    <Box
+    <div
       as="header"
       aria-label={label}
       aria-labelledby={labelledBy}
@@ -566,9 +565,9 @@ const Header: React.FC<React.PropsWithChildren<PageLayoutHeaderProps>> = ({
       style={style}
       {...headerStylingProps}
     >
-      <Box {...contentStylingProps}>{children}</Box>
+      <div {...contentStylingProps}>{children}</div>
       <HorizontalDivider variant={dividerVariant} {...dividerStylingProps} />
-    </Box>
+    </div>
   )
 }
 
@@ -667,15 +666,15 @@ const Content: React.FC<React.PropsWithChildren<PageLayoutContentProps>> = ({
       }
 
   return (
-    <Box as={as} aria-label={label} aria-labelledby={labelledBy} style={style} {...wrapperStylingProps}>
+    <div as={as} aria-label={label} aria-labelledby={labelledBy} style={style} {...wrapperStylingProps}>
       {/* Track the top of the content region so we can calculate the height of the pane region */}
-      <Box ref={contentTopRef} />
+      <div ref={contentTopRef} />
 
-      <Box {...stylingProps}>{children}</Box>
+      <div {...stylingProps}>{children}</div>
 
       {/* Track the bottom of the content region so we can calculate the height of the pane region */}
-      <Box ref={contentBottomRef} />
-    </Box>
+      <div ref={contentBottomRef} />
+    </div>
   )
 }
 
@@ -990,14 +989,14 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
         }
 
     return (
-      <Box {...paneWrapperStylingProps}>
+      <div {...paneWrapperStylingProps}>
         {/* Show a horizontal divider when viewport is narrow. Otherwise, show a vertical divider. */}
         <HorizontalDivider
           variant={{narrow: dividerVariant, regular: 'none'}}
           {...horizontalDividerStylingProps}
           position={position}
         />
-        <Box
+        <div
           ref={paneRef}
           {...(hasOverflow ? overflowProps : {})}
           {...labelProp}
@@ -1005,7 +1004,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
           {...paneStylingProps}
         >
           {children}
-        </Box>
+        </div>
         <VerticalDivider
           variant={{
             narrow: 'none',
@@ -1035,7 +1034,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
           onDoubleClick={() => updatePaneWidth(getDefaultPaneWidth(width))}
           {...verticalDividerStylingProps}
         />
-      </Box>
+      </div>
     )
   },
 )
@@ -1147,10 +1146,10 @@ const Footer: React.FC<React.PropsWithChildren<PageLayoutFooterProps>> = ({
       }
 
   return (
-    <Box as="footer" aria-label={label} aria-labelledby={labelledBy} hidden={isHidden} {...footerStylingProps}>
+    <div as="footer" aria-label={label} aria-labelledby={labelledBy} hidden={isHidden} {...footerStylingProps}>
       <HorizontalDivider {...dividerStylingProps} variant={dividerVariant} />
-      <Box {...contentStylingProps}>{children}</Box>
-    </Box>
+      <div {...contentStylingProps}>{children}</div>
+    </div>
   )
 }
 
