@@ -209,7 +209,6 @@ const HorizontalDivider: React.FC<React.PropsWithChildren<DividerProps>> = ({
 
   const stylingProps = enabled
     ? {
-        sx,
         className: clsx(classes.HorizontalDivider, className),
         'data-variant': responsiveVariant,
         'data-position': position,
