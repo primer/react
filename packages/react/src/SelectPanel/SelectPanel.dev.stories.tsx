@@ -372,10 +372,13 @@ export const AllVariants = () => {
               With <code>onCancel</code>
             </th>
             <th>
-              With <code>secondaryAction</code> and no <code>onCancel</code>
+              With <code>onCancel</code> and <code>secondaryAction</code>
             </th>
             <th>
-              With <code>onCancel</code> and <code>secondaryAction</code>
+              No <code>onCancel</code>
+            </th>
+            <th>
+              No <code>onCancel</code> and <code>secondaryAction</code>
             </th>
           </tr>
         </thead>
@@ -387,14 +390,15 @@ export const AllVariants = () => {
                 <Component onCancel={() => {}} variant={variant} />
               </td>
               <td>
+                <Component onCancel={() => {}} secondaryAction={secondaryActionElement} variant={variant} />
+              </td>
+              <td>{variant === 'anchored' ? <Component variant={variant} /> : 'Not supported'}</td>
+              <td>
                 {variant === 'anchored' ? (
                   <Component secondaryAction={secondaryActionElement} variant={variant} />
                 ) : (
                   'Not supported'
                 )}
-              </td>
-              <td>
-                <Component onCancel={() => {}} secondaryAction={secondaryActionElement} variant={variant} />
               </td>
             </tr>
           ))}
