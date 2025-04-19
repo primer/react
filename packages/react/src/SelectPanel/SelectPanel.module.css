@@ -137,34 +137,45 @@
   align-items: center;
   padding: var(--base-size-16);
   gap: var(--stack-gap-condensed);
+  justify-content: center;
 
-  @media screen and (--viewportRange-narrow) {
+  &:where([data-display-footer='always']) {
     display: flex;
   }
 
-  &:where(
-      [data-variant='modal'],
-      [data-footer-layout='primary'],
-      [data-footer-layout='secondary'],
-      [data-footer-layout='all']
-    ) {
-    display: flex;
+  &:where([data-display-footer='only-small']) {
+    @media screen and (--viewportRange-narrow) {
+      display: flex;
+    }
   }
 
-  &[data-footer-layout='all'] {
+  &[data-stretch-secondary-action='never'] {
     justify-content: space-between;
+  }
+
+  &:where([data-stretch-secondary-action='only-big']) {
+    @media screen and (--viewportRange-narrow) {
+      justify-content: space-between;
+    }
   }
 }
 
 .SecondaryAction {
   flex-grow: 1;
+  align-items: stretch;
   display: flex;
   justify-content: center;
-  align-items: stretch;
 
-  &[data-footer-layout='all'] {
+  &[data-stretch-secondary-action='never'] {
     flex-grow: 0;
     align-items: flex-start;
+  }
+
+  &:where([data-stretch-secondary-action='only-big']) {
+    @media screen and (--viewportRange-narrow) {
+      flex-grow: 0;
+      align-items: flex-start;
+    }
   }
 }
 
@@ -172,6 +183,14 @@
   display: flex;
   gap: var(--stack-gap-condensed);
   justify-content: flex-end;
+}
+
+.ResponsiveSaveButton {
+  display: none;
+
+  @media screen and (--viewportRange-narrow) {
+    display: flex;
+  }
 }
 
 .Backdrop {
