@@ -12,6 +12,8 @@ export interface StressTestProps {
   description: string
   totalIterations: number
   renderIteration: (count: number, totalIterations: number) => React.ReactNode
+  onIteration?: (count: number) => void
+  ms?: number
 }
 
 export const StressTest: React.FC<StressTestProps> = ({
@@ -20,6 +22,8 @@ export const StressTest: React.FC<StressTestProps> = ({
   description,
   totalIterations,
   renderIteration,
+  onIteration,
+  ms = 10,
 }) => {
   const startTime = useRef<number>()
   const [count, setCount] = useState(0)
@@ -55,6 +59,7 @@ export const StressTest: React.FC<StressTestProps> = ({
         // The afterFrame library calls the function
         // when the next frame starts
         setCount(c => c + 1)
+        onIteration?.(count)
         afterFrame(() => {
           interaction.end()
         })
@@ -62,7 +67,7 @@ export const StressTest: React.FC<StressTestProps> = ({
       } else {
         clearInterval(interval)
       }
-    }, 10)
+    }, ms)
   }
 
   useEffect(() => {
