@@ -134,17 +134,61 @@
 
 .ResponsiveFooter {
   display: none;
+  align-items: center;
   padding: var(--base-size-16);
   gap: var(--stack-gap-condensed);
-  justify-content: right;
+  justify-content: center;
 
-  @media screen and (--viewportRange-narrow) {
+  &:where([data-display-footer='always']) {
     display: flex;
-    gap: var(--stack-gap-condensed);
-    justify-content: right;
   }
 
-  &:where([data-variant='modal'] &) {
+  &:where([data-display-footer='only-small']) {
+    @media screen and (--viewportRange-narrow) {
+      display: flex;
+    }
+  }
+
+  &[data-stretch-secondary-action='never'] {
+    justify-content: space-between;
+  }
+
+  &:where([data-stretch-secondary-action='only-big']) {
+    @media screen and (--viewportRange-narrow) {
+      justify-content: space-between;
+    }
+  }
+}
+
+.SecondaryAction {
+  flex-grow: 1;
+  align-items: stretch;
+  display: flex;
+  justify-content: center;
+
+  &[data-stretch-secondary-action='never'] {
+    flex-grow: 0;
+    align-items: flex-start;
+  }
+
+  &:where([data-stretch-secondary-action='only-big']) {
+    @media screen and (--viewportRange-narrow) {
+      flex-grow: 0;
+      align-items: flex-start;
+    }
+  }
+}
+
+.CancelSaveButtons {
+  display: flex;
+  gap: var(--stack-gap-condensed);
+  justify-content: flex-end;
+}
+
+.ResponsiveSaveButton {
+  display: none;
+
+  @media screen and (--viewportRange-narrow) {
     display: flex;
   }
 }

@@ -1122,7 +1122,7 @@ const components = new Map([
           name: 'With External Anchor',
         },
         {
-          id: 'components-selectpanel-features--with-footer',
+          id: 'components-selectpanel-features--with-secondary-action',
           name: 'With Footer',
         },
         {

@@ -76,11 +76,11 @@ interface SelectPanelBaseProps {
     open: boolean,
     gesture: 'anchor-click' | 'anchor-key-press' | 'click-outside' | 'escape' | 'selection' | 'cancel',
   ) => void
+  secondaryAction?: React.ReactElement
   placeholder?: string
   // TODO: Make `inputLabel` required in next major version
   inputLabel?: string
   overlayProps?: Partial<OverlayProps>
-  footer?: string | React.ReactElement
   initialLoadingType?: InitialLoadingType
   className?: string
   notice?: {
@@ -92,6 +92,10 @@ interface SelectPanelBaseProps {
     body: string | React.ReactElement
     variant: 'empty' | 'error' | 'warning'
   }
+  /**
+   * @deprecated Use `secondaryAction` instead.
+   */
+  footer?: string | React.ReactElement
 }
 
 // onCancel is optional with variant=anchored, but required with variant=modal
@@ -161,6 +165,7 @@ export function SelectPanel({
   notice,
   onCancel,
   variant = 'anchored',
+  secondaryAction,
   ...listProps
 }: SelectPanelProps): JSX.Element {
   const titleId = useId()
@@ -477,11 +482,34 @@ export function SelectPanel({
     }
   }
 
-  // We add a save and cancel button on narrow screens when SelectPanel is full-screen
-  const showCancelSaveButtons = variant === 'modal' || (isMultiSelectVariant(selected) && usingFullScreenOnNarrow)
   // because of instant selection, canceling on single select is the same as closing the panel, no onCancel needed
   const showXCloseIcon =
-    variant === 'modal' || ((onCancel || !isMultiSelectVariant(selected)) && usingFullScreenOnNarrow)
+    variant === 'modal' || ((onCancel !== undefined || !isMultiSelectVariant(selected)) && usingFullScreenOnNarrow)
+
+  // We add a save and cancel button on:
+  // - modals
+  // - anchored panels with multi select if there is onCancel
+  const showCancelSaveButtons =
+    variant === 'modal' || (isMultiSelectVariant(selected) && usingFullScreenOnNarrow && onCancel !== undefined)
+
+  // The responsive save button is only covering a very specific case:
+  // - anchored panel with multi select if there is no onCancel
+  const showResponsiveSaveButton =
+    variant !== 'modal' && usingFullScreenOnNarrow && isMultiSelectVariant(selected) && onCancel === undefined
+
+  // If there is any element in the footer, we render it.
+  const renderFooter = secondaryAction !== undefined || showCancelSaveButtons || showResponsiveSaveButton
+
+  // If there's any permanent elements in the footer, we show it always.
+  // The save and close button is only shown on small screens.
+  const displayFooter =
+    secondaryAction !== undefined || showCancelSaveButtons
+      ? 'always'
+      : showResponsiveSaveButton
+        ? 'only-small'
+        : undefined
+
+  const stretchSecondaryAction = showResponsiveSaveButton ? 'only-big' : showCancelSaveButtons ? 'never' : 'always'
 
   return (
     <>
@@ -581,34 +609,56 @@ export function SelectPanel({
           />
           {footer ? (
             <div className={classes.Footer}>{footer}</div>
-          ) : showCancelSaveButtons ? (
-            /* Save and Cancel buttons are only useful for multiple selection, single selection instantly closes the panel */
-            <div className={clsx(classes.Footer, classes.ResponsiveFooter)}>
-              {onCancel && (
-                <Button
-                  size="medium"
-                  onClick={() => {
-                    onCancel()
-                    onCancelRequested()
-                  }}
-                >
-                  Cancel
-                </Button>
-              )}
-              <Button
-                block={onCancel === undefined}
-                variant="primary"
-                size="medium"
-                onClick={() => {
-                  if (isSingleSelectModal) {
-                    const singleSelectOnChange = onSelectedChange as SelectPanelSingleSelection['onSelectedChange']
-                    singleSelectOnChange(intermediateSelected)
-                  }
-                  onClose(variant === 'modal' ? 'selection' : 'click-outside')
-                }}
-              >
-                Save
-              </Button>
+          ) : renderFooter ? (
+            <div
+              data-display-footer={displayFooter}
+              data-stretch-secondary-action={stretchSecondaryAction}
+              className={clsx(classes.Footer, classes.ResponsiveFooter)}
+            >
+              <div data-stretch-secondary-action={stretchSecondaryAction} className={classes.SecondaryAction}>
+                {secondaryAction}
+              </div>
+              {showCancelSaveButtons ? (
+                <div className={classes.CancelSaveButtons}>
+                  <Button
+                    size="medium"
+                    onClick={() => {
+                      onCancel?.()
+                      onCancelRequested()
+                    }}
+                  >
+                    Cancel
+                  </Button>
+                  <Button
+                    block={onCancel === undefined}
+                    variant="primary"
+                    size="medium"
+                    onClick={() => {
+                      if (isSingleSelectModal) {
+                        const singleSelectOnChange = onSelectedChange as SelectPanelSingleSelection['onSelectedChange']
+                        singleSelectOnChange(intermediateSelected)
+                      }
+                      onClose(variant === 'modal' ? 'selection' : 'click-outside')
+                    }}
+                  >
+                    Save
+                  </Button>
+                </div>
+              ) : null}
+              {showResponsiveSaveButton ? (
+                <div className={classes.ResponsiveSaveButton}>
+                  <Button
+                    block
+                    variant="primary"
+                    size="medium"
+                    onClick={() => {
+                      onClose('click-outside')
+                    }}
+                  >
+                    Save
+                  </Button>
+                </div>
+              ) : null}
             </div>
           ) : null}
         </div>
