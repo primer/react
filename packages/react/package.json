@@ -156,6 +156,7 @@
     "@types/semver": "7.7.0",
     "@types/styled-components": "^5.1.26",
     "@vitejs/plugin-react": "^4.3.3",
+    "afterframe": "^1.0.2",
     "ajv": "8.16.0",
     "axe-core": "4.9.1",
     "babel-core": "7.0.0-bridge.0",
