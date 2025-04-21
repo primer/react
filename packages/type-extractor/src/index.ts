@@ -43,17 +43,30 @@ function getFileSymbols(typeChecker: ts.TypeChecker, sourceFile: ts.SourceFile):
           continue
         }
 
-        const type = typeChecker.getTypeOfSymbolAtLocation(symbol, symbol.valueDeclaration!)
-        const typeInfo = getTypeInfo(typeChecker, type)
-        const id = getSymbolId(sourceFile, symbol)
-        const data: Symbol = {
-          id,
-          name: symbol.name,
-          type: typeInfo,
-          exported: true,
-        }
+        if (declaration.type) {
+          const typeInfo = getTypeFromNode(typeChecker, declaration.type)
+          const id = getSymbolId(sourceFile, symbol)
+          const data: Symbol = {
+            id,
+            name: symbol.name,
+            type: typeInfo,
+            exported: true,
+          }
 
-        symbols.set(id, data)
+          symbols.set(id, data)
+        } else {
+          const type = typeChecker.getTypeOfSymbolAtLocation(symbol, symbol.valueDeclaration!)
+          const typeInfo = getTypeInfo(typeChecker, type)
+          const id = getSymbolId(sourceFile, symbol)
+          const data: Symbol = {
+            id,
+            name: symbol.name,
+            type: typeInfo,
+            exported: true,
+          }
+
+          symbols.set(id, data)
+        }
       }
     }
 
@@ -271,6 +284,10 @@ const types = {
   RenamedBindingElement: 'RenamedBindingElement',
   RestBindingElement: 'RestBindingElement',
   Union: 'Union',
+  Never: 'Never',
+  TypeReference: 'TypeReference',
+  Identifier: 'Identifier',
+  QualifiedName: 'QualifiedName',
 } as const
 
 type Type =
@@ -308,6 +325,11 @@ type Type =
       typeArgs: Array<Type>
     }
   | {
+      type: 'TypeReference'
+      typeName: Identifier | QualifiedName
+      typeArguments: Array<Type>
+    }
+  | {
       type: 'Null'
     }
   | {
@@ -315,6 +337,9 @@ type Type =
     }
   | {
       type: 'Any'
+    }
+  | {
+      type: 'Never'
     }
   | {
       type: 'TypeAlias'
@@ -347,6 +372,17 @@ type Type =
       type: 'Unsupported'
       value: string
     }
+
+type Identifier = {
+  type: 'Identifier'
+  name: string
+}
+
+type QualifiedName = {
+  type: 'QualifiedName'
+  left: Identifier | QualifiedName
+  right: Identifier | QualifiedName
+}
 
 type Signature = {
   parameters: Array<Parameter>
@@ -465,32 +501,22 @@ function getTypeInfo(typeChecker: ts.TypeChecker, type: ts.Type): Type {
 
   if (type.flags & ts.TypeFlags.Object) {
     const objectType = type as ts.ObjectType
+
     if (objectType.objectFlags & ts.ObjectFlags.Reference) {
       const typeReference = objectType as ts.TypeReference
+      const target = typeReference.target
 
-      if (typeReference.target.symbol.name === 'Array') {
-        const typeArgs = typeReference.typeArguments
-
-        return {
-          type: types.Array,
-          typeArgs: typeArgs ? typeArgs.map(type => getTypeInfo(typeChecker, type)) : [],
-        }
-      }
-
-      if (typeReference.target.symbol.name === 'Set') {
-        const typeArgs = typeReference.typeArguments
-        return {
-          type: types.Set,
-          typeArgs: typeArgs ? typeArgs.map(type => getTypeInfo(typeChecker, type)) : [],
-        }
-      }
-
-      if (typeReference.target.symbol.name === 'Map') {
-        const typeArgs = typeReference.typeArguments
-        return {
-          type: types.Map,
-          typeArgs: typeArgs ? typeArgs.map(type => getTypeInfo(typeChecker, type)) : [],
-        }
+      return {
+        type: types.TypeReference,
+        typeName: {
+          type: types.Identifier,
+          name: target.symbol.name,
+        },
+        typeArguments: Array.isArray(typeReference.typeArguments)
+          ? typeReference.typeArguments.map(type => {
+              return getTypeInfo(typeChecker, type)
+            })
+          : [],
       }
     }
 
@@ -512,7 +538,105 @@ function getTypeInfo(typeChecker: ts.TypeChecker, type: ts.Type): Type {
     const unionType = type as ts.UnionType
     return {
       type: types.Union,
-      types: unionType.types.map(type => getTypeInfo(typeChecker, type)),
+      types: unionType.types.map(type => {
+        return getTypeInfo(typeChecker, type)
+      }),
+    }
+  }
+
+  if (type.flags & ts.TypeFlags.Never) {
+    return {
+      type: types.Never,
+    }
+  }
+
+  return {
+    type: types.Unsupported,
+    value: typeText,
+  }
+}
+
+function getTypeName(typeChecker: ts.TypeChecker, value: ts.Identifier | ts.QualifiedName): Identifier | QualifiedName {
+  if (ts.isIdentifier(value)) {
+    return {
+      type: types.Identifier,
+      name: value.getText(),
+    }
+  }
+  return {
+    type: types.QualifiedName,
+    left: getTypeName(typeChecker, value.left),
+    right: getTypeName(typeChecker, value.right),
+  }
+}
+
+function getTypeFromNode(typeChecker: ts.TypeChecker, typeNode: ts.TypeNode): Type {
+  const type = typeChecker.getTypeFromTypeNode(typeNode)
+  const typeText = typeChecker.typeToString(type, undefined, ts.TypeFormatFlags.WriteArrayAsGenericType)
+
+  if (ts.isTypeReferenceNode(typeNode)) {
+    return {
+      type: types.TypeReference,
+      typeName: getTypeName(typeChecker, typeNode.typeName),
+      typeArguments: Array.isArray(typeNode.typeArguments)
+        ? typeNode.typeArguments.map(typeArgument => {
+            return getTypeFromNode(typeChecker, typeArgument)
+          })
+        : [],
+    }
+  }
+
+  if (typeNode.kind & ts.SyntaxKind.BooleanKeyword) {
+    return {
+      type: types.Boolean,
+    }
+  }
+
+  if (typeNode.kind & ts.SyntaxKind.NumberKeyword) {
+    return {
+      type: types.Number,
+    }
+  }
+
+  if (typeNode.kind & ts.SyntaxKind.StringKeyword) {
+    return {
+      type: types.String,
+    }
+  }
+
+  if (typeNode.kind & ts.SyntaxKind.UndefinedKeyword) {
+    return {
+      type: types.Undefined,
+    }
+  }
+
+  if (typeNode.kind & ts.SyntaxKind.NullKeyword) {
+    return {
+      type: types.Null,
+    }
+  }
+
+  if (typeNode.kind & ts.SyntaxKind.AnyKeyword) {
+    return {
+      type: types.Any,
+    }
+  }
+
+  if (typeNode.kind & ts.SyntaxKind.UnknownKeyword) {
+    return {
+      type: types.Unknown,
+    }
+  }
+
+  if (typeNode.kind & ts.SyntaxKind.VoidKeyword) {
+    return {
+      type: types.Void,
+    }
+  }
+
+  if (typeNode.kind & ts.SyntaxKind.NeverKeyword) {
+    return {
+      type: types.Never,
     }
   }
 

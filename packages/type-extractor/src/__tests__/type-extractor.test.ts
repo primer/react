@@ -1,188 +1,376 @@
 import ts from 'typescript'
 import {getFileSymbols, getFileSymbol, types} from '../'
 
-function getTypeScriptProgram(fsMap: Record<string, string>): ts.Program {
-  const memfs = new Map()
-  for (const [fileName, content] of Object.entries(fsMap)) {
-    memfs.set(fileName, ts.createSourceFile(fileName, content, ts.ScriptTarget.Latest, true))
-  }
+describe('getFileSymbols', () => {
+  describe('literal types', () => {
+    test('numeric literal', () => {
+      const program = getTypeScriptProgram({
+        ['test.ts']: 'export const test = 1',
+      })
+      const typeChecker = program.getTypeChecker()
+      const sourceFile = program.getSourceFile('test.ts')!
+      const symbols = getFileSymbols(typeChecker, sourceFile)
+      const symbol = getFileSymbol(symbols, 'test')
 
-  const compilerOptions: ts.CompilerOptions = {
-    module: ts.ModuleKind.ESNext,
-    moduleResolution: ts.ModuleResolutionKind.NodeNext,
-    target: ts.ScriptTarget.Latest,
-    skipLibCheck: true,
-    strict: true,
-    isolatedModules: true,
-    esModuleInterop: true,
-  }
-  const host = ts.createCompilerHost(compilerOptions)
-  const program = ts.createProgram({
-    rootNames: Array.from(memfs.keys()),
-    options: compilerOptions,
-    host: {
-      ...host,
-      getSourceFile(fileName, ...args) {
-        if (memfs.has(fileName)) {
-          return memfs.get(fileName)
-        }
-        return host.getSourceFile(fileName, ...args)
-      },
-    },
+      expect(symbol).toEqual({
+        id: expect.any(Number),
+        exported: true,
+        name: 'test',
+        type: {
+          type: types.NumberLiteral,
+          value: '1',
+        },
+      })
+    })
+
+    test('boolean literal', () => {
+      const program = getTypeScriptProgram({
+        ['test.ts']: 'export const test = true',
+      })
+      const typeChecker = program.getTypeChecker()
+      const sourceFile = program.getSourceFile('test.ts')!
+      const symbols = getFileSymbols(typeChecker, sourceFile)
+      const symbol = getFileSymbol(symbols, 'test')
+
+      expect(symbol).toEqual({
+        id: expect.any(Number),
+        exported: true,
+        name: 'test',
+        type: {
+          type: types.BooleanLiteral,
+          value: 'true',
+        },
+      })
+    })
+
+    test('boolean literal (false)', () => {
+      const program = getTypeScriptProgram({
+        ['test.ts']: 'export const test = false',
+      })
+      const typeChecker = program.getTypeChecker()
+      const sourceFile = program.getSourceFile('test.ts')!
+      const symbols = getFileSymbols(typeChecker, sourceFile)
+      const symbol = getFileSymbol(symbols, 'test')
+
+      expect(symbol).toEqual({
+        id: expect.any(Number),
+        exported: true,
+        name: 'test',
+        type: {
+          type: types.BooleanLiteral,
+          value: 'false',
+        },
+      })
+    })
+
+    test('string literal', () => {
+      const program = getTypeScriptProgram({
+        ['test.ts']: 'export const test = "foo"',
+      })
+      const typeChecker = program.getTypeChecker()
+      const sourceFile = program.getSourceFile('test.ts')!
+      const symbols = getFileSymbols(typeChecker, sourceFile)
+      const symbol = getFileSymbol(symbols, 'test')
+
+      expect(symbol).toEqual({
+        id: expect.any(Number),
+        exported: true,
+        name: 'test',
+        type: {
+          type: types.StringLiteral,
+          value: '"foo"',
+        },
+      })
+    })
   })
-  const diagnostics = [
-    ...program.getSyntacticDiagnostics(),
-    ...program.getGlobalDiagnostics(),
-    ...program.getSemanticDiagnostics(),
-    ...program.getDeclarationDiagnostics(),
-  ]
-  if (diagnostics.length > 0) {
-    throw new Error(diagnostics.map(d => d.messageText).join('\n'))
-  }
 
-  return program
-}
+  describe('basic types', () => {
+    test('boolean', () => {
+      const program = getTypeScriptProgram({
+        ['test.ts']: 'export const test: boolean = true',
+      })
+      const typeChecker = program.getTypeChecker()
+      const sourceFile = program.getSourceFile('test.ts')!
+      const symbols = getFileSymbols(typeChecker, sourceFile)
+      const symbol = getFileSymbol(symbols, 'test')
 
-describe('type-extractor', () => {
+      expect(symbol).toEqual({
+        id: expect.any(Number),
+        exported: true,
+        name: 'test',
+        type: {
+          type: types.Boolean,
+        },
+      })
+    })
+
+    test('number', () => {
+      const program = getTypeScriptProgram({
+        ['test.ts']: 'export const test: number = 1',
+      })
+      const typeChecker = program.getTypeChecker()
+      const sourceFile = program.getSourceFile('test.ts')!
+      const symbols = getFileSymbols(typeChecker, sourceFile)
+      const symbol = getFileSymbol(symbols, 'test')
+
+      expect(symbol).toEqual({
+        id: expect.any(Number),
+        exported: true,
+        name: 'test',
+        type: {
+          type: types.Number,
+        },
+      })
+    })
+
+    test('string', () => {
+      const program = getTypeScriptProgram({
+        ['test.ts']: 'export const test: string = "foo"',
+      })
+      const typeChecker = program.getTypeChecker()
+      const sourceFile = program.getSourceFile('test.ts')!
+      const symbols = getFileSymbols(typeChecker, sourceFile)
+      const symbol = getFileSymbol(symbols, 'test')
+
+      expect(symbol).toEqual({
+        id: expect.any(Number),
+        exported: true,
+        name: 'test',
+        type: {
+          type: types.String,
+        },
+      })
+    })
+
+    test('null', () => {
+      const program = getTypeScriptProgram({
+        ['test.ts']: 'export const test: null = null',
+      })
+      const typeChecker = program.getTypeChecker()
+      const sourceFile = program.getSourceFile('test.ts')!
+      const symbols = getFileSymbols(typeChecker, sourceFile)
+      const symbol = getFileSymbol(symbols, 'test')
+
+      expect(symbol).toEqual({
+        id: expect.any(Number),
+        exported: true,
+        name: 'test',
+        type: {
+          type: types.Null,
+        },
+      })
+    })
+
+    test('undefined', () => {
+      const program = getTypeScriptProgram({
+        ['test.ts']: 'export const test: undefined = undefined',
+      })
+      const typeChecker = program.getTypeChecker()
+      const sourceFile = program.getSourceFile('test.ts')!
+      const symbols = getFileSymbols(typeChecker, sourceFile)
+      const symbol = getFileSymbol(symbols, 'test')
+
+      expect(symbol).toEqual({
+        id: expect.any(Number),
+        exported: true,
+        name: 'test',
+        type: {
+          type: types.Undefined,
+        },
+      })
+    })
+
+    test('unknown', () => {
+      const program = getTypeScriptProgram({
+        ['test.ts']: 'export const test: unknown = 1',
+      })
+      const typeChecker = program.getTypeChecker()
+      const sourceFile = program.getSourceFile('test.ts')!
+      const symbols = getFileSymbols(typeChecker, sourceFile)
+      const symbol = getFileSymbol(symbols, 'test')
+
+      expect(symbol).toEqual({
+        id: expect.any(Number),
+        exported: true,
+        name: 'test',
+        type: {
+          type: types.Unknown,
+        },
+      })
+    })
+
+    test('any', () => {
+      const program = getTypeScriptProgram({
+        ['test.ts']: 'export const test: any = 1',
+      })
+      const typeChecker = program.getTypeChecker()
+      const sourceFile = program.getSourceFile('test.ts')!
+      const symbols = getFileSymbols(typeChecker, sourceFile)
+      const symbol = getFileSymbol(symbols, 'test')
+
+      expect(symbol).toEqual({
+        id: expect.any(Number),
+        exported: true,
+        name: 'test',
+        type: {
+          type: types.Any,
+        },
+      })
+    })
+
+    test('never', () => {
+      const program = getTypeScriptProgram({
+        ['test.ts']: 'export var test: never',
+      })
+      const typeChecker = program.getTypeChecker()
+      const sourceFile = program.getSourceFile('test.ts')!
+      const symbols = getFileSymbols(typeChecker, sourceFile)
+      const symbol = getFileSymbol(symbols, 'test')
+
+      expect(symbol).toEqual({
+        id: expect.any(Number),
+        exported: true,
+        name: 'test',
+        type: {
+          type: types.Never,
+        },
+      })
+    })
+
+    test.todo('object')
+
+    test.todo('symbol')
+  })
+
+  describe('type references', () => {
+    test('Array', () => {
+      const program = getTypeScriptProgram({
+        ['test.ts']: 'export const test: Array<number> = []',
+      })
+      const typeChecker = program.getTypeChecker()
+      const sourceFile = program.getSourceFile('test.ts')!
+      const symbols = getFileSymbols(typeChecker, sourceFile)
+      const symbol = getFileSymbol(symbols, 'test')
+
+      expect(symbol).toEqual({
+        id: expect.any(Number),
+        exported: true,
+        name: 'test',
+        type: {
+          type: types.TypeReference,
+          typeName: {
+            type: types.Identifier,
+            name: 'Array',
+          },
+          typeArguments: [
+            {
+              type: types.Number,
+            },
+          ],
+        },
+      })
+    })
+
+    test.only('Array (with reference type)', () => {
+      const program = getTypeScriptProgram({
+        ['test.ts']: `
+          type Member = number;
+          export const test: Array<Member> = []
+        `,
+      })
+      const typeChecker = program.getTypeChecker()
+      const sourceFile = program.getSourceFile('test.ts')!
+      console.log(sourceFile)
+      const symbols = getFileSymbols(typeChecker, sourceFile)
+      const symbol = getFileSymbol(symbols, 'test')
+
+      expect(symbol).toEqual({
+        id: expect.any(Number),
+        exported: true,
+        name: 'test',
+        type: {
+          type: types.TypeReference,
+          typeName: {
+            type: types.Identifier,
+            name: 'Array',
+          },
+          typeArguments: [
+            {
+              type: types.TypeReference,
+              typeName: {
+                type: types.Identifier,
+                name: 'Member',
+              },
+              typeArguments: [],
+            },
+          ],
+        },
+      })
+    })
+
+    test('Set', () => {
+      const program = getTypeScriptProgram({
+        ['test.ts']: 'export const test: Set<number> = new Set()',
+      })
+      const typeChecker = program.getTypeChecker()
+      const sourceFile = program.getSourceFile('test.ts')!
+      const symbols = getFileSymbols(typeChecker, sourceFile)
+      const symbol = getFileSymbol(symbols, 'test')
+
+      expect(symbol).toEqual({
+        id: expect.any(Number),
+        exported: true,
+        name: 'test',
+        type: {
+          type: types.TypeReference,
+          typeName: {
+            type: types.Identifier,
+            name: 'Set',
+          },
+          typeArguments: [
+            {
+              type: types.Number,
+            },
+          ],
+        },
+      })
+    })
+
+    test('Map', () => {
+      const program = getTypeScriptProgram({
+        ['test.ts']: 'export const test: Map<number, string> = new Map()',
+      })
+      const typeChecker = program.getTypeChecker()
+      const sourceFile = program.getSourceFile('test.ts')!
+      const symbols = getFileSymbols(typeChecker, sourceFile)
+      const symbol = getFileSymbol(symbols, 'test')
+
+      expect(symbol).toEqual({
+        id: expect.any(Number),
+        exported: true,
+        name: 'test',
+        type: {
+          type: types.TypeReference,
+          typeName: {
+            type: types.Identifier,
+            name: 'Map',
+          },
+          typeArguments: [
+            {
+              type: types.Number,
+            },
+            {
+              type: types.String,
+            },
+          ],
+        },
+      })
+    })
+  })
+
   test.each(
     (
       [
-        [
-          'numeric literal',
-          'export const test = 1',
-          {
-            test: {
-              name: 'test',
-              type: {
-                type: types.NumberLiteral,
-                value: '1',
-              },
-            },
-          },
-        ],
-        [
-          'boolean literal',
-          'export const test = true',
-          {
-            test: {
-              name: 'test',
-              type: {
-                type: types.BooleanLiteral,
-                value: 'true',
-              },
-            },
-          },
-        ],
-        [
-          'boolean literal (false)',
-          'export const test = false',
-          {
-            test: {
-              name: 'test',
-              type: {
-                type: types.BooleanLiteral,
-                value: 'false',
-              },
-            },
-          },
-        ],
-        [
-          'string literal',
-          'export const test = "foo"',
-          {
-            test: {
-              name: 'test',
-              type: {
-                type: types.StringLiteral,
-                value: '"foo"',
-              },
-            },
-          },
-        ],
-        [
-          'boolean',
-          'export const test: boolean = true',
-          {
-            test: {
-              name: 'test',
-              type: {
-                type: types.Boolean,
-              },
-            },
-          },
-        ],
-        [
-          'number',
-          'export const test: number = 1',
-          {
-            test: {
-              name: 'test',
-              type: {
-                type: types.Number,
-              },
-            },
-          },
-        ],
-        [
-          'string',
-          'export const test: string = "foo"',
-          {
-            test: {
-              name: 'test',
-              type: {
-                type: types.String,
-              },
-            },
-          },
-        ],
-        [
-          'null',
-          'export const test: null = null;',
-          {
-            test: {
-              name: 'test',
-              type: {
-                type: types.Null,
-              },
-            },
-          },
-        ],
-        [
-          'undefined',
-          'export const test: undefined = undefined;',
-          {
-            test: {
-              name: 'test',
-              type: {
-                type: types.Undefined,
-              },
-            },
-          },
-        ],
-        [
-          'unknown',
-          'export const test: unknown = 1;',
-          {
-            test: {
-              name: 'test',
-              type: {
-                type: types.Unknown,
-              },
-            },
-          },
-        ],
-        [
-          'any',
-          'export const test: any = 1;',
-          {
-            test: {
-              name: 'test',
-              type: {
-                type: types.Any,
-              },
-            },
-          },
-        ],
         [
           'Array',
           'export const test: Array<number> = [];',
@@ -619,4 +807,70 @@ describe('type-extractor', () => {
       })
     }
   })
+
+  describe('Tuples', () => {
+    //
+  })
+
+  describe('function types', () => {
+    //
+  })
+
+  describe('Classes', () => {
+    //
+  })
+
+  describe('Interfaces', () => {
+    //
+  })
+
+  describe('Type Aliases', () => {
+    //
+  })
+
+  describe('objects', () => {
+    //
+  })
 })
+
+function getTypeScriptProgram(fsMap: Record<string, string>): ts.Program {
+  const memfs = new Map()
+  for (const [fileName, content] of Object.entries(fsMap)) {
+    memfs.set(fileName, ts.createSourceFile(fileName, content, ts.ScriptTarget.Latest, true))
+  }
+
+  const compilerOptions: ts.CompilerOptions = {
+    module: ts.ModuleKind.ESNext,
+    moduleResolution: ts.ModuleResolutionKind.NodeNext,
+    target: ts.ScriptTarget.Latest,
+    skipLibCheck: true,
+    strict: true,
+    isolatedModules: true,
+    esModuleInterop: true,
+  }
+  const host = ts.createCompilerHost(compilerOptions)
+  const program = ts.createProgram({
+    rootNames: Array.from(memfs.keys()),
+    options: compilerOptions,
+    host: {
+      ...host,
+      getSourceFile(fileName, ...args) {
+        if (memfs.has(fileName)) {
+          return memfs.get(fileName)
+        }
+        return host.getSourceFile(fileName, ...args)
+      },
+    },
+  })
+  const diagnostics = [
+    ...program.getSyntacticDiagnostics(),
+    ...program.getGlobalDiagnostics(),
+    ...program.getSemanticDiagnostics(),
+    ...program.getDeclarationDiagnostics(),
+  ]
+  if (diagnostics.length > 0) {
+    throw new Error(diagnostics.map(d => d.messageText).join('\n'))
+  }
+
+  return program
+}
