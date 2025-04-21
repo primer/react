@@ -27,6 +27,8 @@ const SegmentedControlButton: React.FC<React.PropsWithChildren<SegmentedControlB
   selected,
   sx: sxProp = defaultSxProp,
   className,
+  // Note: this value is read in the `SegmentedControl` component to determine which button is selected but we do not need to apply it to an underlying element
+  defaultSelected: _defaultSelected,
   ...rest
 }) => {
   return (
