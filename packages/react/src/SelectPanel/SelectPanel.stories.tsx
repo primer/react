@@ -42,7 +42,6 @@ const items: ItemInput[] = [
 ]
 
 export const Default = () => {
-  const [selected, setSelected] = useState<ItemInput[]>(items.slice(1, 3))
   const [filter, setFilter] = useState('')
   const filteredItems = items.filter(item => item.text?.toLowerCase().startsWith(filter.toLowerCase()))
 
@@ -58,8 +57,8 @@ export const Default = () => {
         open={open}
         onOpenChange={setOpen}
         items={filteredItems}
-        selected={selected}
-        onSelectedChange={setSelected}
+        selectionMode="multiple"
+        onSelectedChange={selected => console.log('Selected items:', selected)}
         onFilterChange={setFilter}
         width="medium"
         message={

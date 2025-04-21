@@ -56,15 +56,28 @@ const announceNoItems = debounce((message?: string) => {
   announceText(message ?? 'No matching items.', LONG_DELAY_MS)
 }, 250)
 
-interface SelectPanelSingleSelection {
-  selected: ItemInput | undefined
-  onSelectedChange: (selected: ItemInput | undefined) => void
-}
-
-interface SelectPanelMultiSelection {
-  selected: ItemInput[]
-  onSelectedChange: (selected: ItemInput[]) => void
-}
+// TODO: Make `selectionMode` required in the next major version
+type SelectPanelSelection =
+  | {
+      selectionMode: undefined
+      selected: ItemInput | undefined
+      onSelectedChange: (selected: ItemInput | undefined) => void
+    }
+  | {
+      selectionMode: undefined
+      selected: ItemInput[]
+      onSelectedChange: (selected: ItemInput[]) => void
+    }
+  | {
+      selectionMode: 'single'
+      selected?: ItemInput | undefined
+      onSelectedChange: (selected: ItemInput | undefined) => void
+    }
+  | {
+      selectionMode: 'multiple'
+      selected?: ItemInput[]
+      onSelectedChange: (selected: ItemInput[]) => void
+    }
 
 export type InitialLoadingType = 'spinner' | 'skeleton'
 
@@ -101,12 +114,17 @@ export type SelectPanelProps = SelectPanelBaseProps &
   Omit<FilteredActionListProps, 'selectionVariant' | 'variant'> &
   Pick<AnchoredOverlayProps, 'open' | 'height' | 'width'> &
   AnchoredOverlayWrapperAnchorProps &
-  (SelectPanelSingleSelection | SelectPanelMultiSelection) &
+  SelectPanelSelection &
   SelectPanelVariantProps
 
 function isMultiSelectVariant(
-  selected: SelectPanelSingleSelection['selected'] | SelectPanelMultiSelection['selected'],
-): selected is SelectPanelMultiSelection['selected'] {
+  selectionMode: 'single' | 'multiple' | undefined,
+  selected: ItemInput | ItemInput[] | undefined,
+): selected is ItemInput[] {
+  if (selectionMode !== undefined) {
+    return selectionMode === 'multiple'
+  }
+
   return Array.isArray(selected)
 }
 
@@ -141,7 +159,8 @@ export function SelectPanel({
   placeholderText = 'Filter items',
   inputLabel = placeholderText,
   selected,
-  title = isMultiSelectVariant(selected) ? 'Select items' : 'Select an item',
+  selectionMode,
+  title = isMultiSelectVariant(selectionMode, selected) ? 'Select items' : 'Select an item',
   subtitle,
   onSelectedChange,
   filterValue: externalFilterValue,
@@ -182,7 +201,7 @@ export function SelectPanel({
 
   // Single select modals work differently, they have an intermediate state where the user has selected an item but
   // has not yet confirmed the selection. This is the only time the user can cancel the selection.
-  const isSingleSelectModal = variant === 'modal' && !isMultiSelectVariant(selected)
+  const isSingleSelectModal = variant === 'modal' && !isMultiSelectVariant(selectionMode, selected)
   const [intermediateSelected, setIntermediateSelected] = useState<ItemInput | undefined>(
     isSingleSelectModal ? selected : undefined,
   )
@@ -375,7 +394,7 @@ export function SelectPanel({
   const isItemCurrentlySelected = useCallback(
     (item: ItemInput) => {
       // For multi-select, we just need to check if the item is in the selected array
-      if (isMultiSelectVariant(selected)) {
+      if (isMultiSelectVariant(selectionMode, selected)) {
         return doesItemsIncludeItem(selected, item)
       }
 
@@ -388,7 +407,7 @@ export function SelectPanel({
       // For single-select anchored, we just need to check if the item is the selected item
       return selected?.id === item.id
     },
-    [selected, intermediateSelected, isSingleSelectModal],
+    [selectionMode, selected, isSingleSelectModal, intermediateSelected?.id],
   )
 
   const itemsToRender = useMemo(() => {
@@ -404,14 +423,13 @@ export function SelectPanel({
             return
           }
 
-          if (isMultiSelectVariant(selected)) {
+          if (isMultiSelectVariant(selectionMode, selected)) {
             const otherSelectedItems = selected.filter(selectedItem => !areItemsEqual(selectedItem, item))
             const newSelectedItems = doesItemsIncludeItem(selected, item)
               ? otherSelectedItems
               : [...otherSelectedItems, item]
 
-            const multiSelectOnChange = onSelectedChange as SelectPanelMultiSelection['onSelectedChange']
-            multiSelectOnChange(newSelectedItems)
+            onSelectedChange(newSelectedItems)
             return
           }
 
@@ -425,13 +443,22 @@ export function SelectPanel({
             return
           }
           // single select anchored, direct save on click
-          const singleSelectOnChange = onSelectedChange as SelectPanelSingleSelection['onSelectedChange']
+          const singleSelectOnChange = onSelectedChange as (selected: ItemInput | undefined) => void
           singleSelectOnChange(item === selected ? undefined : item)
           onClose('selection')
         },
       } as ItemProps
     })
-  }, [onClose, onSelectedChange, items, selected, isItemCurrentlySelected, isSingleSelectModal, intermediateSelected])
+  }, [
+    items,
+    isItemCurrentlySelected,
+    selectionMode,
+    selected,
+    isSingleSelectModal,
+    onSelectedChange,
+    onClose,
+    intermediateSelected?.id,
+  ])
 
   const focusTrapSettings = {
     initialFocusRef: inputRef || undefined,
@@ -478,10 +505,11 @@ export function SelectPanel({
   }
 
   // We add a save and cancel button on narrow screens when SelectPanel is full-screen
-  const showCancelSaveButtons = variant === 'modal' || (isMultiSelectVariant(selected) && usingFullScreenOnNarrow)
+  const showCancelSaveButtons =
+    variant === 'modal' || (isMultiSelectVariant(selectionMode, selected) && usingFullScreenOnNarrow)
   // because of instant selection, canceling on single select is the same as closing the panel, no onCancel needed
   const showXCloseIcon =
-    variant === 'modal' || ((onCancel || !isMultiSelectVariant(selected)) && usingFullScreenOnNarrow)
+    variant === 'modal' || ((onCancel || !isMultiSelectVariant(selectionMode, selected)) && usingFullScreenOnNarrow)
 
   return (
     <>
@@ -562,8 +590,10 @@ export function SelectPanel({
             // browsers give aria-labelledby precedence over aria-label so we need to make sure
             // we don't accidentally override props.aria-label
             aria-labelledby={listProps['aria-label'] ? undefined : titleId}
-            aria-multiselectable={isMultiSelectVariant(selected) ? 'true' : 'false'}
-            selectionVariant={isSingleSelectModal ? 'radio' : isMultiSelectVariant(selected) ? 'multiple' : 'single'}
+            aria-multiselectable={isMultiSelectVariant(selectionMode, selected) ? 'true' : 'false'}
+            selectionVariant={
+              isSingleSelectModal ? 'radio' : isMultiSelectVariant(selectionMode, selected) ? 'multiple' : 'single'
+            }
             items={itemsToRender}
             textInputProps={extendedTextInputProps}
             loading={loading || isLoading}
@@ -601,7 +631,7 @@ export function SelectPanel({
                 size="medium"
                 onClick={() => {
                   if (isSingleSelectModal) {
-                    const singleSelectOnChange = onSelectedChange as SelectPanelSingleSelection['onSelectedChange']
+                    const singleSelectOnChange = onSelectedChange as (selected: ItemInput | undefined) => void
                     singleSelectOnChange(intermediateSelected)
                   }
                   onClose(variant === 'modal' ? 'selection' : 'click-outside')
