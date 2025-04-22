@@ -88,6 +88,22 @@ Since we are moving our CSS into a CSS layer, this means that later layers (in
 particularly the anonymous layer) will take precedence when two rules are
 matching the same element. For example:
 
+```css
+@layer primer.components.component {
+  .Component[data-variant='default'] {
+    color: var(--fgColor-default);
+  }
+}
+
+.override {
+  color: var(--fgColor-muted);
+}
+```
+
+It's important to note that even though the `override` class has lower
+specificity, it will still take precedence over the
+`.Component[data-variant='default']` due to how CSS layers work.
+
 ### Impact
 
 This decision will impact our component styles that are authored with CSS
