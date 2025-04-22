@@ -1,12 +1,6 @@
 'use strict'
 
 module.exports = {
-  parser: '@typescript-eslint/parser',
-  parserOptions: {
-    ecmaFeatures: {
-      jsx: true,
-    },
-  },
   extends: [
     'plugin:react/recommended',
     'plugin:jsx-a11y/recommended',
@@ -19,46 +13,6 @@ module.exports = {
     'plugin:ssr-friendly/recommended',
     'plugin:clsx/recommended',
   ],
-  settings: {
-    react: {
-      version: 'detect',
-    },
-    'import/parsers': {
-      '@typescript-eslint/parser': ['.js', '.jsx', '.ts', '.tsx'],
-      'eslint-mdx': ['.mdx'],
-    },
-    'import/resolver': {
-      node: true,
-      typescript: true,
-    },
-  },
-  ignorePatterns: [
-    'node_modules',
-    '.cache',
-    'coverage/**/*',
-    'docs/public/**/*',
-    'dist/**/*',
-    'lib/**/*',
-    'lib-*/**/*',
-    'types/**/*',
-    'consumer-test/**/*',
-    'contributor-docs/adrs/*',
-    'examples/codesandbox/**',
-    // Note: this file is inlined from an external dependency
-    'packages/react/src/utils/polymorphic.ts',
-    'storybook-static',
-    'CHANGELOG.md',
-  ],
-  globals: {
-    __DEV__: 'readonly',
-  },
-  env: {
-    browser: true,
-    commonjs: true,
-    es6: true,
-    jest: true,
-    node: true,
-  },
   // rules which apply to JS, TS, etc.
   rules: {
     'no-shadow': 'off',
