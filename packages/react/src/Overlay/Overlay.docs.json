@@ -143,6 +143,13 @@
     {
       "name": "sx",
       "type": "SystemStyleObject"
+    },
+    {
+      "name": "responsiveVariant",
+      "type": "'fullscreen'",
+      "required": false,
+      "description": "Optional prop to set responsive variant for narrow screen sizes",
+      "defaultValue": ""
     }
   ],
   "subcomponents": []
