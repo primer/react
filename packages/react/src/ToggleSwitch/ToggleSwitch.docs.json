@@ -94,6 +94,12 @@
       "type": "'start' | 'end'",
       "defaultValue": "'start'",
       "description": "<div>Whether the \"on\" and \"off\" labels should appear before or after the switch.</div> <div> <Text fontWeight=\"bold\">This should only be changed when the switch's alignment needs to be adjusted.</Text> For example: It needs to be left-aligned because the label appears above it and the caption appears below it. </div>"
+    },
+    {
+      "name": "buttonType",
+      "type": "'button' | 'submit' | 'reset'",
+      "defaultValue": "'button'",
+      "description": "<div>As it’s part of form behavior, this controls whether the button is of type button, submit, or reset.</div>"
     }
   ],
   "subcomponents": []
