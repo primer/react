@@ -8,11 +8,17 @@ concurrency:
 
 jobs:
   vrt-reports:
-    if: ${{ github.repository != github.event.pull_request.head.repo.full_name }}
+    if: |
+      ${{ github.repository != github.event.pull_request.head.repo.full_name &&
+      (github.event.pull_request.changed_files == 0 ||
+       contains(toJSON(github.event.pull_request.files.*.filename), 'packages/react')) }}
     uses: ./.github/workflows/vrt-reports.yml
 
   aat-reports:
-    if: ${{ github.repository != github.event.pull_request.head.repo.full_name }}
+    if: |
+      ${{ github.repository != github.event.pull_request.head.repo.full_name &&
+      (github.event.pull_request.changed_files == 0 ||
+       contains(toJSON(github.event.pull_request.files.*.filename), 'packages/react')) }}
     uses: ./.github/workflows/aat-reports.yml
 
   build:
