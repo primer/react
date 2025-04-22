@@ -7,6 +7,8 @@ import {Button} from '../Button'
 import {SelectPanel} from '.'
 import type {ItemInput} from '../deprecated/ActionList/List'
 import FormControl from '../FormControl'
+import Text from '../Text'
+import {MultiSelectModal, SingleSelect, SingleSelectModal, WithOnCancel} from './SelectPanel.features.stories'
 
 const meta: Meta<typeof SelectPanel> = {
   title: 'Components/SelectPanel/Dev',
@@ -185,5 +187,47 @@ export const WithSxAndCSS = () => {
         message={selectedItemsSortedFirst.length === 0 ? NoResultsMessage(filter) : undefined}
       />
     </FormControl>
+  )
+}
+
+export const AllVariants = () => {
+  return (
+    <>
+      <Text fontSize={3} fontWeight="bold">
+        Showcase of all the SelectPanel variants
+      </Text>
+      <br />
+      <Text>
+        Test the different interactions below to see how the SelectPanel behaves in different selection and anchoring
+        modes. The size of the screen also affects how the user interacts with the SelectPanel.
+      </Text>
+      <br />
+      <br />
+
+      <Text fontWeight="bold">Single Select Panel</Text>
+      <br />
+      <Text>This panel allows selecting a single item from the list.</Text>
+      <SingleSelect />
+      <br />
+
+      <Text fontWeight="bold">Single Select Modal</Text>
+      <br />
+      <Text>This modal allows selecting a single item with a modal interface.</Text>
+      <SingleSelectModal />
+      <br />
+
+      <Text fontWeight="bold">Multi Select Panel</Text>
+      <br />
+      <Text>This panel allows selecting multiple items from the list.</Text>
+      <WithOnCancel />
+      <br />
+
+      <Text fontWeight="bold">Multi Select Modal</Text>
+      <Text>
+        <br />
+        This modal allows selecting multiple items with a modal interface.
+      </Text>
+      <MultiSelectModal />
+    </>
   )
 }
