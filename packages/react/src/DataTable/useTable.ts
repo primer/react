@@ -48,7 +48,7 @@ export function useTable<Data extends UniqueRow>({
   data,
   initialSortColumn,
   initialSortDirection,
-  getRowId
+  getRowId,
 }: TableConfig<Data>): Table<Data> {
   const [rowOrder, setRowOrder] = useState(data)
   const [prevData, setPrevData] = useState(data)

@@ -69,14 +69,14 @@ function DataTable<Data extends UniqueRow>({
   data,
   initialSortColumn,
   initialSortDirection,
-  getRowId= (rowData) => rowData.id
+  getRowId = rowData => rowData.id,
 }: DataTableProps<Data>) {
   const {headers, rows, actions, gridTemplateColumns} = useTable({
     data,
     columns,
     initialSortColumn,
     initialSortDirection,
-    getRowId
+    getRowId,
   })
 
   return (
