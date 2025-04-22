@@ -185,6 +185,16 @@
   justify-content: flex-end;
 }
 
+.ResponsiveCancelSaveButtons {
+  display: none;
+
+  @media screen and (--viewportRange-narrow) {
+    display: flex;
+    gap: var(--stack-gap-condensed);
+    justify-content: flex-end;
+  }
+}
+
 .ResponsiveSaveButton {
   display: none;
 

@@ -486,11 +486,16 @@ export function SelectPanel({
   const showXCloseIcon =
     variant === 'modal' || ((onCancel !== undefined || !isMultiSelectVariant(selected)) && usingFullScreenOnNarrow)
 
-  // We add a save and cancel button on:
+  // We add permanent save and cancel buttons on:
   // - modals
+  const showPermanentCancelSaveButtons = variant === 'modal'
+
+  // The next two could be collapsed, left them separate for readability
+
+  // We add a responsive save and cancel button on:
   // - anchored panels with multi select if there is onCancel
-  const showCancelSaveButtons =
-    variant === 'modal' || (isMultiSelectVariant(selected) && usingFullScreenOnNarrow && onCancel !== undefined)
+  const showResponsiveCancelSaveButtons =
+    variant !== 'modal' && usingFullScreenOnNarrow && isMultiSelectVariant(selected) && onCancel !== undefined
 
   // The responsive save button is only covering a very specific case:
   // - anchored panel with multi select if there is no onCancel
@@ -498,18 +503,27 @@ export function SelectPanel({
     variant !== 'modal' && usingFullScreenOnNarrow && isMultiSelectVariant(selected) && onCancel === undefined
 
   // If there is any element in the footer, we render it.
-  const renderFooter = secondaryAction !== undefined || showCancelSaveButtons || showResponsiveSaveButton
+  const renderFooter =
+    secondaryAction !== undefined ||
+    showPermanentCancelSaveButtons ||
+    showResponsiveSaveButton ||
+    showResponsiveCancelSaveButtons
 
   // If there's any permanent elements in the footer, we show it always.
-  // The save and close button is only shown on small screens.
+  // The save button is only shown on small screens.
   const displayFooter =
-    secondaryAction !== undefined || showCancelSaveButtons
+    secondaryAction !== undefined || showPermanentCancelSaveButtons
       ? 'always'
-      : showResponsiveSaveButton
+      : showResponsiveSaveButton || showResponsiveCancelSaveButtons
         ? 'only-small'
         : undefined
 
-  const stretchSecondaryAction = showResponsiveSaveButton ? 'only-big' : showCancelSaveButtons ? 'never' : 'always'
+  const stretchSecondaryAction =
+    showResponsiveSaveButton || showResponsiveCancelSaveButtons
+      ? 'only-big'
+      : showPermanentCancelSaveButtons
+        ? 'never'
+        : 'always'
 
   return (
     <>
@@ -618,8 +632,12 @@ export function SelectPanel({
               <div data-stretch-secondary-action={stretchSecondaryAction} className={classes.SecondaryAction}>
                 {secondaryAction}
               </div>
-              {showCancelSaveButtons ? (
-                <div className={classes.CancelSaveButtons}>
+              {showPermanentCancelSaveButtons || showResponsiveCancelSaveButtons ? (
+                <div
+                  className={clsx(classes.CancelSaveButtons, {
+                    [classes.ResponsiveSaveButton]: showResponsiveCancelSaveButtons,
+                  })}
+                >
                   <Button
                     size="medium"
                     onClick={() => {
