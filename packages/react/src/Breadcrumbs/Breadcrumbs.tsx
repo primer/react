@@ -207,7 +207,7 @@ function Breadcrumbs({className, children, sx: sxProp}: BreadcrumbsProps) {
     </dynamic-list-item>
   ))
   return (
-    <BoxWithFallback as="nav" className={clsx(className, classes.BreadcrumbsBase)} aria-label="Breadcrumbs" sx={sxProp}>
+    <BoxWithFallback as="nav" className={clsx(className)} aria-label="Breadcrumbs" sx={sxProp}>
       <BreadcrumbsList>
         <dynamic-list-trigger class={classes.DynamicListTrigger} role="listitem">
           <IconButton icon={KebabHorizontalIcon} aria-label="Open parent pages" variant="invisible" size="small" />
