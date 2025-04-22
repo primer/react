@@ -76,3 +76,8 @@ jobs:
             -f "enforcement=disabled"
         env:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+      - name: Update all PRs that are toggled merge when ready
+        run: |
+          gh pr list --state open --json number,mergeable,baseRefName,autoMergeRequest -q '.[] | select(.autoMergeRequest != null) | select(.mergeable == "MERGEABLE") | select(.baseRefName == "main") | .number' | xargs -I {} gh pr update-branch {}
+        env:
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
