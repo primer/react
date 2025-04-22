@@ -26,11 +26,6 @@ const stories: Array<{
     buttonText: 'Choose a tag',
   },
   {
-    id: 'deprecated-components-selectpanel-features--with-warning',
-    title: 'With Warning',
-    buttonText: 'Assignees',
-  },
-  {
     id: 'deprecated-components-selectpanel-features--with-errors',
     title: 'With Errors',
     buttonText: 'Assignees',
