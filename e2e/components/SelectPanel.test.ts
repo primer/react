@@ -15,6 +15,8 @@ const scenarios = matrix({
     {id: 'components-selectpanel-features--with-item-dividers', name: 'With Item Dividers'},
     {id: 'components-selectpanel-features--with-label-internally', name: 'With Label Internally'},
     {id: 'components-selectpanel-features--with-label-visually-hidden', name: 'With Label Visually Hidden'},
+    {id: 'components-selectpanel-features--multi-select-modal', name: 'Multi Select Modal'},
+    {id: 'components-selectpanel-features--single-select-modal', name: 'Single Select Modal'},
     {
       id: 'components-selectpanel-features--with-placeholder-for-search-input',
       name: 'With Placeholder for Search Input',
