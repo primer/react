@@ -78,6 +78,11 @@ jobs:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
       - name: Update all PRs that are toggled merge when ready
         run: |
-          gh pr list --state open --json number,mergeable,baseRefName,autoMergeRequest -q '.[] | select(.autoMergeRequest != null) | select(.mergeable == "MERGEABLE") | select(.baseRefName == "main") | .number' | xargs -I {} gh pr update-branch {}
+          PR_NUMBERS=$(gh pr list --state open --json number,mergeable,baseRefName,autoMergeRequest -q '.[] | select(.autoMergeRequest != null) | select(.mergeable == "MERGEABLE") | select(.baseRefName == "main") | .number')
+          if [ -n "$PR_NUMBERS" ]; then
+            echo "$PR_NUMBERS" | xargs -I {} gh pr update-branch {}
+          else
+            echo "No PRs to update."
+          fi
         env:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
