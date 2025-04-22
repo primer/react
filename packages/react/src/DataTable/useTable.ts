@@ -183,7 +183,7 @@ export function useTable<Data extends UniqueRow>({
   return {
     headers,
     rows: rowOrder.map(row => {
-      const rowId = getRowId ? getRowId(row) : row.id
+      const rowId = getRowId(row)
       return {
         id: `${row.id}`,
         getValue() {
