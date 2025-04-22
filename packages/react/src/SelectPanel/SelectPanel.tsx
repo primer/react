@@ -501,16 +501,18 @@ function Panel({
   const showResponsiveCancelSaveButtons =
     variant !== 'modal' && usingFullScreenOnNarrow && isMultiSelectVariant(selected) && onCancel !== undefined
 
-  // The responsive save button is only covering a very specific case:
-  // - anchored panel with multi select if there is no onCancel
-  const showResponsiveSaveButton =
+  // The responsive save and close button is only covering a very specific case:
+  // - anchored panel with multi select if there is no onCancel.
+  // This variant should disappear in the future, once onCancel is required,
+  // but for now we need to support it so there is a user friendly way to close the panel.
+  const showResponsiveSaveAndCloseButton =
     variant !== 'modal' && usingFullScreenOnNarrow && isMultiSelectVariant(selected) && onCancel === undefined
 
   // If there is any element in the footer, we render it.
   const renderFooter =
     secondaryAction !== undefined ||
     showPermanentCancelSaveButtons ||
-    showResponsiveSaveButton ||
+    showResponsiveSaveAndCloseButton ||
     showResponsiveCancelSaveButtons
 
   // If there's any permanent elements in the footer, we show it always.
@@ -518,18 +520,18 @@ function Panel({
   const displayFooter =
     secondaryAction !== undefined || showPermanentCancelSaveButtons
       ? 'always'
-      : showResponsiveSaveButton || showResponsiveCancelSaveButtons
+      : showResponsiveSaveAndCloseButton || showResponsiveCancelSaveButtons
         ? 'only-small'
         : undefined
 
   const stretchSecondaryAction =
-    showResponsiveSaveButton || showResponsiveCancelSaveButtons
+    showResponsiveSaveAndCloseButton || showResponsiveCancelSaveButtons
       ? 'only-big'
       : showPermanentCancelSaveButtons
         ? 'never'
         : 'always'
 
-  const stretchSaveButton = showResponsiveSaveButton && secondaryAction === undefined ? 'only-small' : 'never'
+  const stretchSaveButton = showResponsiveSaveAndCloseButton && secondaryAction === undefined ? 'only-small' : 'never'
 
   return (
     <>
@@ -671,7 +673,7 @@ function Panel({
                   </Button>
                 </div>
               ) : null}
-              {showResponsiveSaveButton ? (
+              {showResponsiveSaveAndCloseButton ? (
                 <div className={classes.ResponsiveSaveButton} data-stretch-save-button={stretchSaveButton}>
                   <Button
                     block
@@ -681,7 +683,7 @@ function Panel({
                       onClose('click-outside')
                     }}
                   >
-                    Save
+                    Save and close
                   </Button>
                 </div>
               ) : null}
