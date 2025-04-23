@@ -139,6 +139,10 @@
   gap: var(--stack-gap-condensed);
   justify-content: center;
 
+  @media screen and (--viewportRange-narrow) {
+    padding: var(--base-size-8);
+  }
+
   &:where([data-display-footer='always']) {
     display: flex;
   }
