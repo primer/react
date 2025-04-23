@@ -24,6 +24,10 @@
   font-size: var(--text-body-size-medium);
 }
 
+.Wrapper[data-variant='modal'] .Title {
+  margin-top: var(--base-size-8); /* styling specific to the modal variant */
+}
+
 .Subtitle {
   margin-left: var(--base-size-8);
   font-size: var(--text-body-size-small);
