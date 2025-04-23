@@ -6,11 +6,11 @@
 
 <!-- One of: Proposed, Accepted, Superseded by [LINK](), Deprecated -->
 
-Status: [Proposed ❓ | Accepted ✅ | Superseded by <ADD LINK> ⚠️ | Deprecated ⛔]
+Status: [Proposed ❓ | Accepted ✅ | Superseded by LINK ⚠️ | Deprecated ⛔]
 
 <!-- One of: Adoption awaiting in [LINK](), Adopted -->
 
-Implementation: [Not planned ⛔ | Adoption awaiting in [LINK]() ⏸️ | Adopted ✅ ]
+Implementation: [Not planned ⛔ | Adoption awaiting in LINK ⏸️ | Adopted ✅ ]
 
 ## Context
 
