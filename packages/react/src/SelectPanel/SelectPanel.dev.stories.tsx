@@ -3,13 +3,12 @@ import type {Meta} from '@storybook/react'
 import React, {useState} from 'react'
 
 import Box from '../Box'
-import {Button} from '../Button'
+import {Button, LinkButton} from '../Button'
 import {SelectPanel} from '.'
 import type {ItemInput} from '../deprecated/ActionList/List'
 import FormControl from '../FormControl'
 import Text from '../Text'
 import Select from '../Select/Select'
-import Link from '../Link'
 
 const meta: Meta<typeof SelectPanel> = {
   title: 'Components/SelectPanel/Dev',
@@ -326,9 +325,9 @@ export const AllVariants = () => {
     secondaryAction === 'button' ? (
       <Button block>Edit labels</Button>
     ) : (
-      <Link muted href="#">
+      <LinkButton variant="invisible" href="#">
         Edit labels
-      </Link>
+      </LinkButton>
     )
 
   return (
