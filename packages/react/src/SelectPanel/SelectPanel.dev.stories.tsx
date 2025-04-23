@@ -325,7 +325,7 @@ export const AllVariants = () => {
     secondaryAction === 'button' ? (
       <Button block>Edit labels</Button>
     ) : (
-      <LinkButton variant="invisible" href="#">
+      <LinkButton variant="invisible" block href="#">
         Edit labels
       </LinkButton>
     )

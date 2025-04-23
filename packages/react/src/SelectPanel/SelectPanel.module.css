@@ -135,13 +135,9 @@
 .ResponsiveFooter {
   display: none;
   align-items: center;
-  padding: var(--base-size-16);
+  padding: var(--base-size-8);
   gap: var(--stack-gap-condensed);
   justify-content: center;
-
-  @media screen and (--viewportRange-narrow) {
-    padding: var(--base-size-8);
-  }
 
   &:where([data-display-footer='always']) {
     display: flex;
