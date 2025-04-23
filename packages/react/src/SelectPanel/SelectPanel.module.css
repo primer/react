@@ -161,6 +161,7 @@
 
   &:where([data-stretch-save-button='only-small']) {
     justify-content: space-between;
+
     @media screen and (--viewportRange-narrow) {
       justify-content: center;
     }
