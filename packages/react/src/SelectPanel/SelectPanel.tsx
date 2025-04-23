@@ -529,6 +529,8 @@ function Panel({
         ? 'never'
         : 'always'
 
+  const stretchSaveButton = showResponsiveSaveButton && secondaryAction === undefined ? 'only-small' : 'never'
+
   return (
     <>
       <AnchoredOverlay
@@ -631,6 +633,7 @@ function Panel({
             <div
               data-display-footer={displayFooter}
               data-stretch-secondary-action={stretchSecondaryAction}
+              data-stretch-save-button={stretchSaveButton}
               className={clsx(classes.Footer, classes.ResponsiveFooter)}
             >
               <div data-stretch-secondary-action={stretchSecondaryAction} className={classes.SecondaryAction}>
@@ -638,6 +641,7 @@ function Panel({
               </div>
               {showPermanentCancelSaveButtons || showResponsiveCancelSaveButtons ? (
                 <div
+                  data-stretch-save-button={stretchSaveButton}
                   className={clsx(classes.CancelSaveButtons, {
                     [classes.ResponsiveSaveButton]: showResponsiveCancelSaveButtons,
                   })}
@@ -668,7 +672,7 @@ function Panel({
                 </div>
               ) : null}
               {showResponsiveSaveButton ? (
-                <div className={classes.ResponsiveSaveButton}>
+                <div className={classes.ResponsiveSaveButton} data-stretch-save-button={stretchSaveButton}>
                   <Button
                     block
                     variant="primary"

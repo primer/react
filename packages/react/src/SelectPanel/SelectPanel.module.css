@@ -158,6 +158,13 @@
       justify-content: space-between;
     }
   }
+
+  &:where([data-stretch-save-button='only-small']) {
+    justify-content: space-between;
+    @media screen and (--viewportRange-narrow) {
+      justify-content: center;
+    }
+  }
 }
 
 .SecondaryAction {
@@ -200,6 +207,12 @@
 
   @media screen and (--viewportRange-narrow) {
     display: flex;
+  }
+
+  &:where([data-stretch-save-button='only-small']) {
+    @media screen and (--viewportRange-narrow) {
+      flex-grow: 1;
+    }
   }
 }
 
