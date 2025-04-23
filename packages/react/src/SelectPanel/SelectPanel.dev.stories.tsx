@@ -3,12 +3,13 @@ import type {Meta} from '@storybook/react'
 import React, {useState} from 'react'
 
 import Box from '../Box'
-import {Button, LinkButton} from '../Button'
+import {Button} from '../Button'
 import {SelectPanel} from '.'
 import type {ItemInput} from '../deprecated/ActionList/List'
 import FormControl from '../FormControl'
 import Text from '../Text'
 import Select from '../Select/Select'
+import type {SelectPanelSecondaryAction} from './SelectPanel'
 
 const meta: Meta<typeof SelectPanel> = {
   title: 'Components/SelectPanel/Dev',
@@ -202,8 +203,8 @@ const simpleItems = [
 
 // onCancel is optional with variant=anchored, but required with variant=modal
 type ParamProps =
-  | {variant: 'anchored'; onCancel?: () => void; secondaryAction?: React.ReactElement}
-  | {variant: 'modal'; onCancel: () => void; secondaryAction?: React.ReactElement}
+  | {variant: 'anchored'; onCancel?: () => void; secondaryAction?: SelectPanelSecondaryAction}
+  | {variant: 'modal'; onCancel: () => void; secondaryAction?: SelectPanelSecondaryAction}
 
 const SingleSelectParams = ({variant, onCancel, secondaryAction}: ParamProps) => {
   const [selected, setSelected] = useState<ItemInput | undefined>(simpleItems[0])
@@ -323,11 +324,9 @@ export const AllVariants = () => {
 
   const secondaryActionElement =
     secondaryAction === 'button' ? (
-      <Button block>Edit labels</Button>
+      <SelectPanel.SecondaryActionButton>Edit labels</SelectPanel.SecondaryActionButton>
     ) : (
-      <LinkButton variant="invisible" block href="#">
-        Edit labels
-      </LinkButton>
+      <SelectPanel.SecondaryActionLink href="#">Edit labels</SelectPanel.SecondaryActionLink>
     )
 
   return (

@@ -80,7 +80,7 @@ interface SelectPanelBaseProps {
     open: boolean,
     gesture: 'anchor-click' | 'anchor-key-press' | 'click-outside' | 'escape' | 'selection' | 'cancel',
   ) => void
-  secondaryAction?: React.ReactElement
+  secondaryAction?: SelectPanelSecondaryAction
   placeholder?: string
   // TODO: Make `inputLabel` required in next major version
   inputLabel?: string
