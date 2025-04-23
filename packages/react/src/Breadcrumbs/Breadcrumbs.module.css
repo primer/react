@@ -27,6 +27,25 @@
   }
 }
 
+.DynamicList:not(:defined) {
+  display: flex;
+  outline: 1px dashed magenta;
+}
+
+.DynamicList:not([hide-root]):not(:defined) {
+  dynamic-list-trigger {
+    order: 1;
+  }
+
+  dynamic-list-item:first-of-type {
+    order: 0;
+  }
+
+  dynamic-list-item {
+    order: 1;
+  }
+}
+
 .DynamicList::part(popover) {
   /* display: grid; */
   min-width: 192px;
@@ -41,6 +60,8 @@
 
 .DynamicListItem {
   display: var(--listItem-display);
+  display: flex;
+  align-items: center;
   width: var(--listItem-width);
   padding: var(--listItem-paddingBlock) var(--listItem-paddingInline);
   cursor: pointer;
@@ -54,7 +75,15 @@
   &:active {
     background: var(--listItem-bgColor-active);
   }
+}
 
+.DynamicListTrigger {
+  display: flex;
+  align-items: center;
+}
+
+.DynamicListItem,
+.DynamicListTrigger {
   &::before {
     display: inline-block;
     height: 0.8em;
@@ -66,20 +95,20 @@
     border-right: 0.1em solid var(--fgColor-muted);
     transform: rotate(15deg) translateY(0.0625em);
   }
+}
 
-  /* &:first-child {
-    margin-left: 0;
-  } */
-
-  &:first-of-type {
+dynamic-list:not([hide-root]) {
+  .DynamicListItem:first-of-type {
     &::before {
       content: none;
     }
   }
 }
 
-/* .DynamicListTrigger:has(button) {
+dynamic-list[hide-root] {
+  .DynamicListTrigger:first-of-type {
+    &::before {
+      content: none;
+    }
+  }
 }
-
-.BreadcrumbsList:has(dynamic-list-trigger) {
-} */

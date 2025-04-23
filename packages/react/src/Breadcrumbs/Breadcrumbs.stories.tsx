@@ -29,7 +29,6 @@ export const Default = () => (
     </Breadcrumbs.Item>
   </Breadcrumbs>
 )
-
 // Breadcrumb with 6 items
 export const SixItems = () => (
   <Breadcrumbs>
@@ -47,6 +46,22 @@ export const SixItems = () => (
 // Breadcrumb with 8 items
 export const EightItems = () => (
   <Breadcrumbs>
+    <Breadcrumbs.Item href="#">First</Breadcrumbs.Item>
+    <Breadcrumbs.Item href="#">Second</Breadcrumbs.Item>
+    <Breadcrumbs.Item href="#">Third</Breadcrumbs.Item>
+    <Breadcrumbs.Item href="#">Fourth</Breadcrumbs.Item>
+    <Breadcrumbs.Item href="#">Fifth</Breadcrumbs.Item>
+    <Breadcrumbs.Item href="#">Sixth</Breadcrumbs.Item>
+    <Breadcrumbs.Item href="#">Seventh</Breadcrumbs.Item>
+    <Breadcrumbs.Item href="#" selected>
+      Last
+    </Breadcrumbs.Item>
+  </Breadcrumbs>
+)
+
+// Breadcrumb with 8 items and root hidden
+export const EightItemsWithRootHidden = () => (
+  <Breadcrumbs hideRoot>
     <Breadcrumbs.Item href="#">First</Breadcrumbs.Item>
     <Breadcrumbs.Item href="#">Second</Breadcrumbs.Item>
     <Breadcrumbs.Item href="#">Third</Breadcrumbs.Item>
