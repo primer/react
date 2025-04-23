@@ -11,7 +11,7 @@ import type {TextInputProps} from '../TextInput'
 import type {ItemProps, ItemInput} from './types'
 import {SelectPanelMessage} from './SelectPanelMessage'
 
-import {Button, IconButton} from '../Button'
+import {Button, IconButton, LinkButton} from '../Button'
 import {useProvidedRefOrCreate} from '../hooks'
 import type {FocusZoneHookSettings} from '../hooks/useFocusZone'
 import {useId} from '../hooks/useId'
@@ -26,6 +26,7 @@ import {clsx} from 'clsx'
 import {heightMap} from '../Overlay/Overlay'
 import {debounce} from '@github/mini-throttle'
 import {useResponsiveValue} from '../hooks/useResponsiveValue'
+import type {ButtonProps, LinkButtonProps} from '../Button/types'
 
 // we add a delay so that it does not interrupt default screen reader announcement and queues after it
 const SHORT_DELAY_MS = 500
@@ -67,6 +68,9 @@ interface SelectPanelMultiSelection {
 }
 
 export type InitialLoadingType = 'spinner' | 'skeleton'
+export type SelectPanelSecondaryAction =
+  | React.ReactElement<typeof SecondaryButton>
+  | React.ReactElement<typeof SecondaryLink>
 
 interface SelectPanelBaseProps {
   // TODO: Make `title` required in the next major version
@@ -76,7 +80,7 @@ interface SelectPanelBaseProps {
     open: boolean,
     gesture: 'anchor-click' | 'anchor-key-press' | 'click-outside' | 'escape' | 'selection' | 'cancel',
   ) => void
-  secondaryAction?: React.ReactElement
+  secondaryAction?: SelectPanelSecondaryAction
   placeholder?: string
   // TODO: Make `inputLabel` required in next major version
   inputLabel?: string
@@ -129,7 +133,7 @@ const doesItemsIncludeItem = (items: ItemInput[], item: ItemInput) => {
   return items.some(i => areItemsEqual(i, item))
 }
 
-export function SelectPanel({
+function Panel({
   open,
   onOpenChange,
   renderAnchor = props => {
@@ -689,3 +693,24 @@ export function SelectPanel({
     </>
   )
 }
+
+const SecondaryButton: React.FC<ButtonProps> = props => {
+  return (
+    <Button block {...props}>
+      {props.children}
+    </Button>
+  )
+}
+
+const SecondaryLink: React.FC<LinkButtonProps & ButtonProps> = props => {
+  return (
+    <LinkButton {...props} variant="invisible" block>
+      {props.children}
+    </LinkButton>
+  )
+}
+
+export const SelectPanel = Object.assign(Panel, {
+  SecondaryActionButton: SecondaryButton,
+  SecondaryActionLink: SecondaryLink,
+})
