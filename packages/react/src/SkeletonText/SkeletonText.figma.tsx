@@ -1,5 +1,5 @@
 import React from 'react'
-import {SkeletonText} from '../../../src/experimental/'
+import {SkeletonText} from '../SkeletonText'
 import figma from '@figma/code-connect'
 
 const props = {
