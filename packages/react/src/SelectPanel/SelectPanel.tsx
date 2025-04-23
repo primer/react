@@ -525,6 +525,8 @@ export function SelectPanel({
         ? 'never'
         : 'always'
 
+  const stretchSaveButton = showResponsiveSaveButton && secondaryAction === undefined ? 'only-small' : 'never'
+
   return (
     <>
       <AnchoredOverlay
@@ -627,6 +629,7 @@ export function SelectPanel({
             <div
               data-display-footer={displayFooter}
               data-stretch-secondary-action={stretchSecondaryAction}
+              data-stretch-save-button={stretchSaveButton}
               className={clsx(classes.Footer, classes.ResponsiveFooter)}
             >
               <div data-stretch-secondary-action={stretchSecondaryAction} className={classes.SecondaryAction}>
@@ -634,6 +637,7 @@ export function SelectPanel({
               </div>
               {showPermanentCancelSaveButtons || showResponsiveCancelSaveButtons ? (
                 <div
+                  data-stretch-save-button={stretchSaveButton}
                   className={clsx(classes.CancelSaveButtons, {
                     [classes.ResponsiveSaveButton]: showResponsiveCancelSaveButtons,
                   })}
@@ -664,7 +668,7 @@ export function SelectPanel({
                 </div>
               ) : null}
               {showResponsiveSaveButton ? (
-                <div className={classes.ResponsiveSaveButton}>
+                <div className={classes.ResponsiveSaveButton} data-stretch-save-button={stretchSaveButton}>
                   <Button
                     block
                     variant="primary"
