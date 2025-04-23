@@ -25,8 +25,7 @@
 }
 
 .Wrapper[data-variant='modal'] .Title {
-  margin-top: var(--base-size-8);
-  /* styling specific to the modal variant */
+  margin-top: var(--base-size-8); /* styling specific to the modal variant */
 }
 
 .Subtitle {
