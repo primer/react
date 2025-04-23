@@ -23,27 +23,28 @@ type ButtonA11yProps =
 
 export type ButtonBaseProps = {
   /**
-   * Determine's the styles on a button one of 'default' | 'primary' | 'invisible' | 'danger'
+   * Determines the styles on a button, one of 'default' | 'primary' | 'invisible' | 'danger' | 'link'
    */
   variant?: VariantType
   /**
-   * Size of button and fontSize of text in button
+   * Size of the button and fontSize of the text in the button
    */
   size?: Size
   /**
-   * Avoid disabling buttons because it will make them inaccessible to users who rely on keyboard navigation. that are disabled can not be clicked, selected, or navigated through.
+   * Disables a button. Avoid disabling buttons because it will make them inaccessible to users
+   * who rely on keyboard navigation. Buttons that are disabled can not be clicked, selected, or navigated through.
    */
   disabled?: boolean
   /**
-   * Allow button width to fill its container.
+   * Allow a button to fill its container horizontally
    */
   block?: boolean
   /**
-   * When true, the button is in a loading state.
+   * When true, the button is in a loading state
    */
   loading?: boolean
   /**
-   * The content to announce to screen readers when loading.
+   * The content to announce to screen readers when loading
    */
   loadingAnnouncement?: string
   /*
@@ -52,7 +53,7 @@ export type ButtonBaseProps = {
    */
   inactive?: boolean
   /**
-   * Whether the button label should wrap to multiple lines of it is longer than the button width.
+   * Whether the button label should wrap to multiple lines of it is longer than the button width
    */
   labelWrap?: boolean
 } & SxProp &
@@ -80,7 +81,8 @@ export type ButtonProps = {
   trailingVisual?: React.ElementType | React.ReactElement | null
 
   /**
-   * Trailing action appears to the right of the trailing visual and is always locked to the end
+   * Trailing action which comes after the trailing visual and is always the last element
+   * in the button
    */
   trailingAction?: React.ElementType | null
 
