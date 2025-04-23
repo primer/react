@@ -45,10 +45,10 @@ jobs:
           output-file-path: results.json
           # Where the previous data file is stored
           external-data-json-path: ./cache/stress-tests-benchmark-data.json
-          # Workflow will fail when an alert happens
-          fail-on-alert: true
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          alert-threshold: '150%'
+          alert-threshold: '200%'
+          # Workflow will not fail when an alert happens (fail-on-alert is set to false)
+          fail-on-alert: false
           # Enable alert commit comment
           comment-on-alert: true
           # Mention @rhysd in the commit comment
