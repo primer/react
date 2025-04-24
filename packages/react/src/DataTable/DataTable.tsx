@@ -61,6 +61,10 @@ export type DataTableProps<Data extends UniqueRow> = {
   getRowId?: (rowData: Data) => string | number
 }
 
+function defaultGetRowId<D extends UniqueRow>(row: D) {
+  return row.id
+}
+
 function DataTable<Data extends UniqueRow>({
   'aria-labelledby': labelledby,
   'aria-describedby': describedby,
@@ -69,7 +73,7 @@ function DataTable<Data extends UniqueRow>({
   data,
   initialSortColumn,
   initialSortDirection,
-  getRowId = rowData => rowData.id,
+  getRowId = defaultGetRowId,
 }: DataTableProps<Data>) {
   const {headers, rows, actions, gridTemplateColumns} = useTable({
     data,
@@ -113,10 +117,8 @@ function DataTable<Data extends UniqueRow>({
       </TableHead>
       <TableBody>
         {rows.map(row => {
-          const rowData = row.getValue()
-          const key = getRowId(rowData)
           return (
-            <TableRow key={key}>
+            <TableRow key={row.id}>
               {row.getCells().map(cell => {
                 return (
                   <TableCell key={cell.id} scope={cell.rowHeader ? 'row' : undefined} align={cell.column.align}>
