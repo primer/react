@@ -8,7 +8,7 @@ import {BoxWithFallback} from '../internal/components/BoxWithFallback'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {KebabHorizontalIcon} from '@primer/octicons-react'
 import {DynamicList, DynamicListItem, DynamicListTrigger} from '../DynamicList'
-import {IconButton} from '../'
+import {IconButton} from '../Button'
 import {useAnchoredPosition} from '../hooks'
 import type {DynamicListElement} from '@primer/dynamic-list-element'
 
