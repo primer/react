@@ -40,7 +40,7 @@ export type ButtonBaseProps = {
    */
   block?: boolean
   /**
-   * When true, the button is in a loading state
+   * Specify whether the button is in a loading state
    */
   loading?: boolean
   /**
