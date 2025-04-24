@@ -1,6 +1,5 @@
 import {clsx} from 'clsx'
 import React from 'react'
-import Box from '../Box'
 import type {SxProp} from '../sx'
 import type {ResponsiveValue} from '../hooks/useResponsiveValue'
 import {isResponsiveValue} from '../hooks/useResponsiveValue'
