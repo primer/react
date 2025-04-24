@@ -4,7 +4,6 @@ import {Dialog} from '../DialogV1'
 import {render as HTMLRender, fireEvent} from '@testing-library/react'
 import axe from 'axe-core'
 import {behavesAsComponent} from '../utils/testing'
-import {FeatureFlags} from '../FeatureFlags'
 
 /* Dialog Version 1*/
 

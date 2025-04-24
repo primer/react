@@ -6,7 +6,6 @@ import MatchMediaMock from 'jest-matchmedia-mock'
 import {behavesAsComponent, checkExports} from '../utils/testing'
 import axe from 'axe-core'
 import {Button} from '../Button'
-import {FeatureFlags} from '../FeatureFlags'
 
 let matchMedia: MatchMediaMock
 
