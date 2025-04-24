@@ -109,6 +109,7 @@ export const LinkItem = React.forwardRef(
         sx={{paddingY: 0, paddingX: 0}}
         inactiveText={inactiveText}
         data-inactive={inactiveText ? true : undefined}
+        variant={variant}
         _PrivateItemWrapper={({children, onClick, ...rest}) => {
           const clickHandler = (event: React.MouseEvent<HTMLElement>) => {
             onClick && onClick(event)

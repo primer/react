@@ -26,6 +26,7 @@ export type UnderlineNavProps = {
   children: React.ReactNode
   'aria-label'?: React.AriaAttributes['aria-label']
   as?: React.ElementType
+  className?: string
   sx?: SxProp['sx']
   /**
    * loading state for all counters. It displays loading animation for individual counters (UnderlineNav.Item) until all are resolved. It is needed to prevent multiple layout shift.
@@ -140,6 +141,7 @@ export const UnderlineNav = forwardRef(
       'aria-label': ariaLabel,
       sx: sxProp = defaultSxProp,
       loadingCounters = false,
+      className,
       children,
     }: UnderlineNavProps,
     forwardedRef,
@@ -306,7 +308,7 @@ export const UnderlineNav = forwardRef(
         }}
       >
         {ariaLabel && <VisuallyHidden as="h2">{`${ariaLabel} navigation`}</VisuallyHidden>}
-        <UnderlineWrapper as={as} aria-label={ariaLabel} ref={navRef} sx={sxProp}>
+        <UnderlineWrapper as={as} aria-label={ariaLabel} className={className} ref={navRef} sx={sxProp}>
           <UnderlineItemList ref={listRef} role="list">
             {listItems}
             {menuItems.length > 0 && (

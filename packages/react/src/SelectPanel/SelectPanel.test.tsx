@@ -968,6 +968,36 @@ for (const useModernActionList of [false, true]) {
           ).toHaveAttribute('aria-selected', 'true')
         })
       })
+
+      describe('As Modal', () => {
+        it('selections render as radios when variant modal and single select', async () => {
+          const user = userEvent.setup()
+
+          renderWithFlag(
+            <BasicSelectPanel variant="modal" onCancel={() => {}} selected={undefined} />,
+            useModernActionList,
+          )
+
+          await user.click(screen.getByText('Select items'))
+
+          if (useModernActionList) {
+            expect(screen.getAllByRole('radio').length).toBe(items.length)
+          }
+
+          expect(screen.getByRole('button', {name: 'Save'})).toBeVisible()
+          expect(screen.getByRole('button', {name: 'Cancel'})).toBeVisible()
+        })
+        it('save and oncancel buttons are present when variant modal', async () => {
+          const user = userEvent.setup()
+
+          renderWithFlag(<BasicSelectPanel variant="modal" onCancel={() => {}} />, useModernActionList)
+
+          await user.click(screen.getByText('Select items'))
+
+          expect(screen.getByRole('button', {name: 'Save'})).toBeVisible()
+          expect(screen.getByRole('button', {name: 'Cancel'})).toBeVisible()
+        })
+      })
     })
   })
 }
