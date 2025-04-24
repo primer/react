@@ -10,9 +10,33 @@
 
   &:where([data-token-wrapping]) {
     overflow: auto;
+
+    .Container {
+      flex-wrap: nowrap;
+    }
   }
 }
 
 .UnstyledTextInput {
   height: 100%;
+}
+
+.InputWrapper {
+  order: 1;
+  flex-grow: 1;
+}
+
+.Container {
+  display: flex;
+  margin-bottom: calc(var(--base-size-4) * -1);
+  margin-left: calc(var(--base-size-4) * -1);
+  align-items: center;
+  flex-wrap: wrap;
+  flex-grow: 1;
+
+  > * {
+    margin-bottom: var(--base-size-4);
+    margin-left: var(--base-size-4);
+    flex-shrink: 0;
+  }
 }

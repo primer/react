@@ -4,7 +4,6 @@ import {omit} from '@styled-system/props'
 import type {FocusEventHandler, KeyboardEventHandler, MouseEventHandler, RefObject} from 'react'
 import React, {useRef, useState} from 'react'
 import {isValidElementType} from 'react-is'
-import Box from '../Box'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import {useFocusZone} from '../hooks/useFocusZone'
 import Text from '../Text'
@@ -14,12 +13,10 @@ import type {TokenSizeKeys} from '../Token/TokenBase'
 
 import type {TextInputSizes} from '../internal/components/TextInputWrapper'
 import TextInputWrapper from '../internal/components/TextInputWrapper'
-import UnstyledTextInput, {TEXT_INPUT_CSS_MODULES_FEATURE_FLAG} from '../internal/components/UnstyledTextInput'
+import UnstyledTextInput from '../internal/components/UnstyledTextInput'
 import TextInputInnerVisualSlot from '../internal/components/TextInputInnerVisualSlot'
-import {useFeatureFlag} from '../FeatureFlags'
 import styles from './TextInputWithTokens.module.css'
 import {clsx} from 'clsx'
-import type {BetterSystemStyleObject} from '../sx'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type AnyReactComponent = React.ComponentType<React.PropsWithChildren<any>>
@@ -255,48 +252,6 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
   const showTrailingLoadingIndicator =
     loading && (loaderPosition === 'trailing' || (loaderPosition === 'auto' && !LeadingVisual))
 
-  const enabled = useFeatureFlag(TEXT_INPUT_CSS_MODULES_FEATURE_FLAG)
-
-  const stylingProps = React.useMemo(
-    () =>
-      enabled
-        ? {
-            className: clsx(className, styles.TextInputWrapper),
-            style: maxHeight ? {maxHeight, ...style} : style,
-            sx: sxProp,
-          }
-        : {
-            className,
-            style,
-            sx: {
-              paddingLeft: '12px',
-              py: '6px',
-              ...(block
-                ? {
-                    display: 'flex',
-                    width: '100%',
-                  }
-                : {}),
-
-              ...(maxHeight
-                ? {
-                    maxHeight,
-                    overflow: 'auto',
-                  }
-                : {}),
-
-              ...(preventTokenWrapping
-                ? {
-                    overflow: 'auto',
-                  }
-                : {}),
-
-              ...sxProp,
-            } as BetterSystemStyleObject,
-          },
-    [block, className, enabled, maxHeight, preventTokenWrapping, style, sxProp],
-  )
-
   return (
     <TextInputWrapper
       block={block}
@@ -312,7 +267,9 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
       variant={variantProp} // deprecated. use `size` prop instead
       onClick={focusInput}
       data-token-wrapping={Boolean(preventTokenWrapping || maxHeight) || undefined}
-      {...stylingProps}
+      className={clsx(className, styles.TextInputWrapper)}
+      style={maxHeight ? {maxHeight, ...style} : style}
+      sx={sxProp}
     >
       {IconComponent && !LeadingVisual && <IconComponent className="TextInput-icon" />}
       <TextInputInnerVisualSlot
@@ -322,29 +279,8 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
       >
         {typeof LeadingVisual !== 'string' && isValidElementType(LeadingVisual) ? <LeadingVisual /> : LeadingVisual}
       </TextInputInnerVisualSlot>
-      <Box
-        ref={containerRef as RefObject<HTMLDivElement>}
-        display="flex"
-        sx={{
-          alignItems: 'center',
-          flexWrap: preventTokenWrapping ? 'nowrap' : 'wrap',
-          marginLeft: '-0.25rem',
-          marginBottom: '-0.25rem',
-          flexGrow: 1,
-
-          '> *': {
-            flexShrink: 0,
-            marginLeft: '0.25rem',
-            marginBottom: '0.25rem',
-          },
-        }}
-      >
-        <Box
-          sx={{
-            order: 1,
-            flexGrow: 1,
-          }}
-        >
+      <div ref={containerRef as RefObject<HTMLDivElement>} className={styles.Container}>
+        <div className={styles.InputWrapper}>
           <UnstyledTextInput
             ref={ref}
             disabled={disabled}
@@ -352,12 +288,11 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
             onBlur={handleInputBlur}
             onKeyDown={handleInputKeyDown}
             type="text"
-            sx={enabled ? undefined : {height: '100%'}}
-            className={enabled ? styles.UnstyledTextInput : undefined}
+            className={styles.UnstyledTextInput}
             aria-invalid={validationStatus === 'error' ? 'true' : 'false'}
             {...inputPropsRest}
           />
-        </Box>
+        </div>
         {visibleTokens.map(({id, ...tokenRest}, i) => (
           <TokenComponent
             disabled={disabled}
@@ -381,7 +316,7 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
             +{tokens.length - visibleTokens.length}
           </Text>
         ) : null}
-      </Box>
+      </div>
       <TextInputInnerVisualSlot
         hasLoadingIndicator={typeof loading === 'boolean'}
         visualPosition="trailing"
