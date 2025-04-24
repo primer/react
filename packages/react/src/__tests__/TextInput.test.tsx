@@ -5,7 +5,6 @@ import axe from 'axe-core'
 import React from 'react'
 import {TextInput} from '..'
 import {render, behavesAsComponent, checkExports} from '../utils/testing'
-import {FeatureFlags} from '../FeatureFlags'
 
 describe('TextInput', () => {
   behavesAsComponent({Component: TextInput, options: {skipAs: true}})
@@ -16,19 +15,7 @@ describe('TextInput', () => {
 
   it('should support `className` on the outermost element', () => {
     const Element = () => <TextInput className={'test-class-name'} />
-    const FeatureFlagElement = () => {
-      return (
-        <FeatureFlags
-          flags={{
-            primer_react_css_modules_ga: true,
-          }}
-        >
-          <Element />
-        </FeatureFlags>
-      )
-    }
     expect(HTMLRender(<Element />).container.firstChild).toHaveClass('test-class-name')
-    expect(HTMLRender(<FeatureFlagElement />).container.firstChild).toHaveClass('test-class-name')
   })
 
   it.skip('should have no axe violations', async () => {
