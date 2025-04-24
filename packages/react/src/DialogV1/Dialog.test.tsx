@@ -116,19 +116,7 @@ describe('Dialog', () => {
 
   it('should support `className` on the Dialog element', () => {
     const Element = () => <Dialog isOpen className={'test-class-name'} />
-    const FeatureFlagElement = () => {
-      return (
-        <FeatureFlags
-          flags={{
-            primer_react_css_modules_ga: true,
-          }}
-        >
-          <Element />
-        </FeatureFlags>
-      )
-    }
     expect(HTMLRender(<Element />).container.children[1]).toHaveClass('test-class-name')
-    expect(HTMLRender(<FeatureFlagElement />).container.children[1]).toHaveClass('test-class-name')
   })
 
   it('should have no axe violations', async () => {

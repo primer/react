@@ -65,3 +65,8 @@
     border-radius: 0;
   }
 }
+
+.HeaderChild {
+  font-size: var(--text-body-size-small);
+  font-weight: var(--text-body-weight-bold);
+}

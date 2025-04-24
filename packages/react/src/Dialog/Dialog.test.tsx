@@ -247,30 +247,13 @@ describe('Dialog', () => {
       )
     }
 
-    const FeatureFlagElement = () => {
-      return (
-        <FeatureFlags
-          flags={{
-            primer_react_css_modules_ga: true,
-          }}
-        >
-          <Fixture />
-        </FeatureFlags>
-      )
-    }
-
     const user = userEvent.setup()
 
-    let component = render(<Fixture />)
-    let triggerButton = component.getByRole('button', {name: 'Show dialog'})
+    const component = render(<Fixture />)
+    const triggerButton = component.getByRole('button', {name: 'Show dialog'})
     await user.click(triggerButton)
     expect(component.getByRole('dialog')).toHaveClass('custom-class')
     component.unmount()
-
-    component = render(<FeatureFlagElement />)
-    triggerButton = component.getByRole('button', {name: 'Show dialog'})
-    await user.click(triggerButton)
-    expect(component.getByRole('dialog')).toHaveClass('custom-class')
   })
 })
 
