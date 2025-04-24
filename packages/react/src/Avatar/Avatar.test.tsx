@@ -49,7 +49,7 @@ describe('Avatar', () => {
     expect(render(<Avatar src="primer.png" alt="" sx={{m: 2}} />)).toHaveStyleRule('margin', px(theme.space[2]))
   })
 
-  it('should support the `style` prop without overridding internal styles', () => {
+  it('should support the `style` prop without overriding internal styles', () => {
     HTMLRender(
       <Avatar
         data-testid="avatar"
