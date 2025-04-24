@@ -1,5 +1,27 @@
 # @primer/react
 
+## 37.21.0
+
+### Minor Changes
+
+- [#5841](https://github.com/primer/react/pull/5841) [`fe429d7`](https://github.com/primer/react/commit/fe429d75e759b195ccacab80ef56e793a764e0ec) Thanks [@dwsosa](https://github.com/dwsosa)! - added default button type to switch button to prevent submit when included in form
+
+- [#5929](https://github.com/primer/react/pull/5929) [`294dac3`](https://github.com/primer/react/commit/294dac335a955b22f73c1427eef183bf4672a01b) Thanks [@hectahertz](https://github.com/hectahertz)! - Add the framework required to run component stress tests
+
+- [#5939](https://github.com/primer/react/pull/5939) [`633fd39`](https://github.com/primer/react/commit/633fd39cd7fe55542782e3c4ad492e1ad2b435ab) Thanks [@hectahertz](https://github.com/hectahertz)! - Implement the secondaryAction prop and deprecate footer
+
+- [#5935](https://github.com/primer/react/pull/5935) [`4f9aae7`](https://github.com/primer/react/commit/4f9aae7a22736dc46928920ad17cf4919bca0ea1) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove the CSS modules feature flag for the PageLayout component
+
+### Patch Changes
+
+- [#5942](https://github.com/primer/react/pull/5942) [`596388d`](https://github.com/primer/react/commit/596388dd4f0dd5899d5fde88fcd6adf879a16f39) Thanks [@hectahertz](https://github.com/hectahertz)! - Improve PageLayout performance
+
+- [#5962](https://github.com/primer/react/pull/5962) [`196de0f`](https://github.com/primer/react/commit/196de0f290808bfa38c9f77d5ebfa473f17173f1) Thanks [@emilybrick](https://github.com/emilybrick)! - Fix spacing for SelectPanel header on modal to better align with x button
+
+- [#5958](https://github.com/primer/react/pull/5958) [`9110f71`](https://github.com/primer/react/commit/9110f71b0fbc3e127e0e59418ac6e9800f274a8e) Thanks [@joshblack](https://github.com/joshblack)! - Update ActionList.LinkItem to pass through the `variant` prop when the CSS Modules flag is disabled
+
+- [#5956](https://github.com/primer/react/pull/5956) [`5cb35f3`](https://github.com/primer/react/commit/5cb35f3f9050d3db5e101f799365f64e1cd2721c) Thanks [@hectahertz](https://github.com/hectahertz)! - Introduce Save and close on SelectPanel
+
 ## 37.20.0
 
 ### Minor Changes

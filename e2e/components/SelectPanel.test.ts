@@ -10,7 +10,7 @@ const scenarios = matrix({
     {id: 'components-selectpanel--default', name: 'Default'},
     {id: 'components-selectpanel-features--single-select', name: 'Single Select'},
     {id: 'components-selectpanel-features--with-external-anchor', name: 'External Anchor'},
-    {id: 'components-selectpanel-features--with-footer', name: 'With Footer'},
+    {id: 'components-selectpanel-features--with-secondary-action', name: 'With Footer'},
     {id: 'components-selectpanel-features--with-groups', name: 'With Groups'},
     {id: 'components-selectpanel-features--with-item-dividers', name: 'With Item Dividers'},
     {id: 'components-selectpanel-features--with-label-internally', name: 'With Label Internally'},

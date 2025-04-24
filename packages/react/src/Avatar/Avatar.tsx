@@ -1,10 +1,10 @@
 import {clsx} from 'clsx'
 import React from 'react'
-import Box from '../Box'
 import type {SxProp} from '../sx'
 import type {ResponsiveValue} from '../hooks/useResponsiveValue'
 import {isResponsiveValue} from '../hooks/useResponsiveValue'
 import {defaultSxProp} from '../utils/defaultSxProp'
+import {BoxWithFallback} from '../internal/components/BoxWithFallback'
 import classes from './Avatar.module.css'
 
 export const DEFAULT_AVATAR_SIZE = 20
@@ -24,7 +24,7 @@ export type AvatarProps = {
   React.ComponentPropsWithoutRef<'img'>
 
 const Avatar = React.forwardRef<HTMLImageElement, AvatarProps>(function Avatar(
-  {alt = '', size = DEFAULT_AVATAR_SIZE, square = false, sx: sxProp = defaultSxProp, className, ...rest},
+  {alt = '', size = DEFAULT_AVATAR_SIZE, square = false, sx: sxProp = defaultSxProp, className, style, ...rest},
   ref,
 ) {
   const isResponsive = isResponsiveValue(size)
@@ -38,27 +38,9 @@ const Avatar = React.forwardRef<HTMLImageElement, AvatarProps>(function Avatar(
     cssSizeVars['--avatarSize-regular'] = `${size}px`
   }
 
-  if (sxProp !== defaultSxProp) {
-    return (
-      <Box
-        as={'img'}
-        data-component="Avatar"
-        className={clsx(className, classes.Avatar)}
-        ref={ref}
-        alt={alt}
-        data-responsive={isResponsive ? '' : undefined}
-        data-square={square ? '' : undefined}
-        width={isResponsive ? undefined : size}
-        height={isResponsive ? undefined : size}
-        style={cssSizeVars as React.CSSProperties}
-        sx={sxProp}
-        {...rest}
-      />
-    )
-  }
-
   return (
-    <img
+    <BoxWithFallback
+      as="img"
       data-component="Avatar"
       className={clsx(className, classes.Avatar)}
       ref={ref}
@@ -67,7 +49,15 @@ const Avatar = React.forwardRef<HTMLImageElement, AvatarProps>(function Avatar(
       data-square={square ? '' : undefined}
       width={isResponsive ? undefined : size}
       height={isResponsive ? undefined : size}
-      style={cssSizeVars as React.CSSProperties}
+      style={
+        style
+          ? {
+              ...cssSizeVars,
+              ...style,
+            }
+          : (cssSizeVars as React.CSSProperties)
+      }
+      sx={sxProp}
       {...rest}
     />
   )
