@@ -4,13 +4,10 @@
 
 ## Status
 
-<!-- One of: Proposed, Accepted, Superseded by [LINK](), Deprecated -->
-
-Status: [Proposed ❓ | Accepted ✅ | Superseded by LINK ⚠️ | Deprecated ⛔]
-
-<!-- One of: Adoption awaiting in [LINK](), Adopted -->
-
-Implementation: [Not planned ⛔ | Adoption awaiting in LINK ⏸️ | Adopted ✅ ]
+| Stage    | State      |
+| -------- | ----------- |
+| Status | Proposed ❓ OR Accepted ✅ OR Superseded by [LINK]() ⚠️ OR Deprecated ⛔ |
+| Implementation | Not planned ⛔ OR Adoption awaiting in [LINK]() ⏸️ OR Adopted ✅ |
 
 ## Context
 
