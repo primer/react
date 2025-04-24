@@ -67,6 +67,6 @@
 }
 
 .HeaderChild {
-  font-size: var(--text-body-size-small);
-  font-weight: var(--text-body-weight-bold);
+  font-size: var(--text-body-size-medium);
+  font-weight: var(--base-text-weight-semibold);
 }
