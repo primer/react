@@ -6,8 +6,8 @@
 
 | Stage    | State      |
 | -------- | ----------- |
-| Status | Proposed ❓ OR Accepted ✅ OR Superseded by [LINK]() ⚠️ OR Deprecated ⛔ |
-| Implementation | Not planned ⛔ OR Adoption awaiting in [LINK]() ⏸️ OR Adopted ✅ |
+| Status | Proposed ❓ OR Accepted ✅ OR Superseded by [LINK](https://) ⚠️ OR Deprecated ⛔ |
+| Implementation | Not planned ⛔ OR Adoption awaiting in [LINK](https://) ⏸️ OR Adopted ✅ |
 
 ## Context
 
