@@ -53,7 +53,7 @@ export type ButtonBaseProps = {
    */
   inactive?: boolean
   /**
-   * Whether the button label should wrap to multiple lines of it is longer than the button width
+   * Whether the button label should wrap to multiple lines if it is longer than the button width
    */
   labelWrap?: boolean
 } & SxProp &
