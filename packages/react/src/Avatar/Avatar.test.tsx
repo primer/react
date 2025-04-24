@@ -2,7 +2,7 @@ import React from 'react'
 import {Avatar} from '..'
 import theme from '../theme'
 import {px, render, behavesAsComponent, checkExports} from '../utils/testing'
-import {render as HTMLRender} from '@testing-library/react'
+import {render as HTMLRender, screen} from '@testing-library/react'
 import axe from 'axe-core'
 
 describe('Avatar', () => {
@@ -47,5 +47,22 @@ describe('Avatar', () => {
 
   it('respects margin props', () => {
     expect(render(<Avatar src="primer.png" alt="" sx={{m: 2}} />)).toHaveStyleRule('margin', px(theme.space[2]))
+  })
+
+  it('should support the `style` prop without overridding internal styles', () => {
+    HTMLRender(
+      <Avatar
+        data-testid="avatar"
+        src="primer.png"
+        style={{
+          background: 'black',
+        }}
+      />,
+    )
+
+    expect(screen.getByTestId('avatar')).toHaveStyle({
+      background: 'black',
+      ['--avatarSize-regular']: '20px',
+    })
   })
 })
