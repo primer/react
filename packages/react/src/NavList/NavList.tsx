@@ -513,29 +513,31 @@ export const GroupExpand = React.forwardRef<HTMLButtonElement, NavListGroupExpan
           </Box>
         ) : null}
         {(currentPage < pages || currentPage === 0) && teamEnabled ? (
-          <ActionList.Item
-            as="button"
-            aria-expanded="false"
-            ref={forwardedRef}
-            onClick={() => {
-              flushSync(() => {
-                setCurrentPage(currentPage + 1)
-              })
-              const focusTarget: HTMLElement[] | null = Array.from(
-                document.querySelectorAll(`[data-expand-focus-target="${groupId}"]`),
-              )
-
-              if (focusTarget.length > 0) {
-                focusTarget[focusTarget.length - 1].focus()
-              }
-            }}
-            {...props}
-          >
-            {label}
-            <TrailingVisual>
-              <PlusIcon />
-            </TrailingVisual>
-          </ActionList.Item>
+          <li>
+            <ActionList.Item
+              as="button"
+              aria-expanded="false"
+              ref={forwardedRef}
+              onClick={() => {
+                flushSync(() => {
+                  setCurrentPage(currentPage + 1)
+                })
+                const focusTarget: HTMLElement[] | null = Array.from(
+                  document.querySelectorAll(`[data-expand-focus-target="${groupId}"]`),
+                )
+  
+                if (focusTarget.length > 0) {
+                  focusTarget[focusTarget.length - 1].focus()
+                }
+              }}
+              {...props}
+            >
+              {label}
+              <TrailingVisual>
+                <PlusIcon />
+              </TrailingVisual>
+            </ActionList.Item>
+          </li>
         ) : null}
       </>
     )
