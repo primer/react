@@ -1,4 +1,8 @@
+/* eslint-disable-next-line eslint-comments/no-use */
+/* eslint-disable ssr-friendly/no-dom-globals-in-module-scope */
+
 const template = document.createElement('template')
+
 template.innerHTML = `
 <style>
 :host {
@@ -111,7 +115,7 @@ class DynamicListElement extends HTMLElement {
     })
     this.observer.observe(this)
 
-    triggerElement?.addEventListener('click', this.onTriggerClick)
+    triggerElement.addEventListener('click', this.onTriggerClick)
     window.addEventListener('click', this.onClick)
     window.addEventListener('keydown', this.onKeyDown)
   }

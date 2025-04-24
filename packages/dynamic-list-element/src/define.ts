@@ -1,3 +1,6 @@
+/* eslint-disable-next-line eslint-comments/no-use */
+/* eslint-disable ssr-friendly/no-dom-globals-in-module-scope */
+
 import {DynamicListElement} from './dynamic-list-element'
 import {DynamicListItemElement} from './dynamic-list-item-element'
 import {DynamicListTriggerElement} from './dynamic-list-trigger-element'

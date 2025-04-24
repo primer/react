@@ -1,5 +1,5 @@
-import {DynamicListElement, DynamicListItemElement, DynamicListTriggerElement} from '@primer/dynamic-list-element'
 import React from 'react'
+import type {DynamicListElement, DynamicListItemElement, DynamicListTriggerElement} from '@primer/dynamic-list-element'
 
 type CustomElementAttributes<I> = React.DetailedHTMLProps<React.HTMLAttributes<I>, I> &
   ElementProps<I> & {
@@ -12,6 +12,7 @@ type DynamicListItemAttributes = CustomElementAttributes<DynamicListItemElement>
 type DynamicListTriggerAttributes = CustomElementAttributes<DynamicListTriggerElement>
 
 declare global {
+  // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace JSX {
     interface IntrinsicElements {
       'dynamic-list': DynamicListAttributes
