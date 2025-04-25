@@ -437,8 +437,7 @@ export const GroupExpand = React.forwardRef<HTMLButtonElement, NavListGroupExpan
     const [currentPage, setCurrentPage] = React.useState(0)
     const groupId = useId()
 
-    const teamEnabled = useFeatureFlag('primer_react_css_modules_team')
-    const staffEnabled = useFeatureFlag('primer_react_css_modules_staff')
+    const gaEnabled = useFeatureFlag('primer_react_css_modules_ga')
 
     const itemsPerPage = items.length / pages
     const amountToShow = pages === 0 ? items.length : Math.ceil(itemsPerPage * currentPage)
@@ -486,7 +485,7 @@ export const GroupExpand = React.forwardRef<HTMLButtonElement, NavListGroupExpan
             })}
           </>
         ) : null}
-        {(currentPage < pages || currentPage === 0) && !teamEnabled && !staffEnabled ? (
+        {(currentPage < pages || currentPage === 0) && !gaEnabled ? (
           <Box as="li" sx={{listStyle: 'none'}}>
             <ActionList.Item
               as="button"
@@ -513,7 +512,7 @@ export const GroupExpand = React.forwardRef<HTMLButtonElement, NavListGroupExpan
             </ActionList.Item>
           </Box>
         ) : null}
-        {(currentPage < pages || currentPage === 0) && (teamEnabled || staffEnabled) ? (
+        {(currentPage < pages || currentPage === 0) && gaEnabled ? (
           <ActionList.Item
             as="button"
             aria-expanded="false"
