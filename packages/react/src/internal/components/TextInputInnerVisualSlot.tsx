@@ -1,12 +1,9 @@
 import React from 'react'
-import Box from '../../Box'
 import Spinner from '../../Spinner'
 import {clsx} from 'clsx'
 import type {TextInputNonPassthroughProps} from '../../TextInput'
 
 import styles from './TextInputInnerVisualSlot.module.css'
-import {useFeatureFlag} from '../../FeatureFlags'
-import {TEXT_INPUT_CSS_MODULES_FEATURE_FLAG} from './UnstyledTextInput'
 
 const TextInputInnerVisualSlot: React.FC<
   React.PropsWithChildren<{
@@ -20,7 +17,6 @@ const TextInputInnerVisualSlot: React.FC<
     id?: string
   }>
 > = ({children, hasLoadingIndicator, showLoadingIndicator, visualPosition, id}) => {
-  const enabled = useFeatureFlag(TEXT_INPUT_CSS_MODULES_FEATURE_FLAG)
   const isLeading = visualPosition === 'leading'
   if ((!children && !hasLoadingIndicator) || (isLeading && !children && !showLoadingIndicator)) {
     return null
@@ -34,41 +30,22 @@ const TextInputInnerVisualSlot: React.FC<
     )
   }
 
-  const boxStyleProps = enabled
-    ? {className: clsx(showLoadingIndicator ? styles.SpinnerHidden : styles.SpinnerVisible)}
-    : {
-        sx: {
-          visibility: showLoadingIndicator ? 'hidden' : 'visible',
-        },
-      }
-
-  const spinnerStyleProps = enabled
-    ? {
-        className: clsx(
-          showLoadingIndicator ? styles.SpinnerVisible : styles.SpinnerHidden,
-          children && styles.Spinner,
-          children && isLeading && styles.SpinnerLeading,
-        ),
-      }
-    : {
-        sx: children
-          ? {
-              position: 'absolute',
-              top: 0,
-              height: '100%',
-              maxWidth: '100%',
-              visibility: showLoadingIndicator ? 'visible' : 'hidden',
-              ...(isLeading ? {left: 0} : {right: 0}),
-            }
-          : {visibility: showLoadingIndicator ? 'visible' : 'hidden'},
-      }
-
   return (
     <span className="TextInput-icon">
-      <Box display="flex" position="relative" id={id}>
-        {children && <Box {...boxStyleProps}>{children}</Box>}
-        <Spinner srText={null} {...spinnerStyleProps} size={children ? undefined : 'small'} />
-      </Box>
+      <div className={styles.Box} id={id}>
+        {children && (
+          <div className={clsx(showLoadingIndicator ? styles.SpinnerHidden : styles.SpinnerVisible)}>{children}</div>
+        )}
+        <Spinner
+          srText={null}
+          className={clsx(
+            showLoadingIndicator ? styles.SpinnerVisible : styles.SpinnerHidden,
+            children && styles.Spinner,
+            children && isLeading && styles.SpinnerLeading,
+          )}
+          size={children ? undefined : 'small'}
+        />
+      </div>
     </span>
   )
 }
