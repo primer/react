@@ -525,7 +525,7 @@ export const GroupExpand = React.forwardRef<HTMLButtonElement, NavListGroupExpan
                 const focusTarget: HTMLElement[] | null = Array.from(
                   document.querySelectorAll(`[data-expand-focus-target="${groupId}"]`),
                 )
-  
+
                 if (focusTarget.length > 0) {
                   focusTarget[focusTarget.length - 1].focus()
                 }
