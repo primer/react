@@ -29,3 +29,14 @@
     }
   }
 }
+
+.TextInputAction {
+  margin-right: var(--base-size-4);
+  margin-left: var(--base-size-4);
+  /* stylelint-disable-next-line primer/typography */
+  line-height: 0;
+}
+
+.ConditionalTooltip {
+  display: inline-block;
+}

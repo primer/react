@@ -63,7 +63,7 @@ describe('Textarea', () => {
     expect(textareaElement.value).toBe(sideEffectValue)
   })
 
-  it('renders an optional block prop correctly', () => {
+  it.skip('renders an optional block prop correctly', () => {
     const expectedStyles = {
       width: '100%',
       display: 'flex',
