@@ -37,6 +37,8 @@ const config: StorybookConfig = {
       __DEV__: JSON.stringify(true),
     }
 
+    const postcss = typeof config.css?.postcss !== 'string' ? config.css?.postcss : {}
+
     config.css = {
       ...config.css,
       modules: {
@@ -44,7 +46,7 @@ const config: StorybookConfig = {
         generateScopedName: 'prc-[folder]-[local]-[hash:base64:5]',
       },
       postcss: {
-        ...config.css?.postcss,
+        ...postcss,
         plugins: [postcssPresetPrimer()],
       },
     }
