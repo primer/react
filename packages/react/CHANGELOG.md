@@ -1,5 +1,53 @@
 # @primer/react
 
+## 37.21.0
+
+### Minor Changes
+
+- [#5841](https://github.com/primer/react/pull/5841) [`fe429d7`](https://github.com/primer/react/commit/fe429d75e759b195ccacab80ef56e793a764e0ec) Thanks [@dwsosa](https://github.com/dwsosa)! - added default button type to switch button to prevent submit when included in form
+
+- [#5929](https://github.com/primer/react/pull/5929) [`294dac3`](https://github.com/primer/react/commit/294dac335a955b22f73c1427eef183bf4672a01b) Thanks [@hectahertz](https://github.com/hectahertz)! - Add the framework required to run component stress tests
+
+- [#5939](https://github.com/primer/react/pull/5939) [`633fd39`](https://github.com/primer/react/commit/633fd39cd7fe55542782e3c4ad492e1ad2b435ab) Thanks [@hectahertz](https://github.com/hectahertz)! - Implement the secondaryAction prop and deprecate footer
+
+- [#5935](https://github.com/primer/react/pull/5935) [`4f9aae7`](https://github.com/primer/react/commit/4f9aae7a22736dc46928920ad17cf4919bca0ea1) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove the CSS modules feature flag for the PageLayout component
+
+### Patch Changes
+
+- [#5942](https://github.com/primer/react/pull/5942) [`596388d`](https://github.com/primer/react/commit/596388dd4f0dd5899d5fde88fcd6adf879a16f39) Thanks [@hectahertz](https://github.com/hectahertz)! - Improve PageLayout performance
+
+- [#5962](https://github.com/primer/react/pull/5962) [`196de0f`](https://github.com/primer/react/commit/196de0f290808bfa38c9f77d5ebfa473f17173f1) Thanks [@emilybrick](https://github.com/emilybrick)! - Fix spacing for SelectPanel header on modal to better align with x button
+
+- [#5958](https://github.com/primer/react/pull/5958) [`9110f71`](https://github.com/primer/react/commit/9110f71b0fbc3e127e0e59418ac6e9800f274a8e) Thanks [@joshblack](https://github.com/joshblack)! - Update ActionList.LinkItem to pass through the `variant` prop when the CSS Modules flag is disabled
+
+- [#5956](https://github.com/primer/react/pull/5956) [`5cb35f3`](https://github.com/primer/react/commit/5cb35f3f9050d3db5e101f799365f64e1cd2721c) Thanks [@hectahertz](https://github.com/hectahertz)! - Introduce Save and close on SelectPanel
+
+## 37.20.0
+
+### Minor Changes
+
+- [#5788](https://github.com/primer/react/pull/5788) [`cd9987d`](https://github.com/primer/react/commit/cd9987d9b8620355e438048eef4a4186626a6a95) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove the CSS modules feature flag from Table
+
+- [#5875](https://github.com/primer/react/pull/5875) [`3014334`](https://github.com/primer/react/commit/301433464a6da7814d3e923aa9e4129b0c118148) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove the CSS modules feature flag from the BranchName component
+
+- [#5874](https://github.com/primer/react/pull/5874) [`365d53d`](https://github.com/primer/react/commit/365d53d860c51684453235e313c25ec9dd68f5ea) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove the CSS modules feature flag from the Breadcrumbs component
+
+- [#5868](https://github.com/primer/react/pull/5868) [`7e6475d`](https://github.com/primer/react/commit/7e6475dc1ee3bbaa445741d4f7dc826284017c26) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove the CSS modules feature flag from Text
+
+- [#5883](https://github.com/primer/react/pull/5883) [`703b69d`](https://github.com/primer/react/commit/703b69dc06db5701a0b09dd51f46b6ceb9ec2e25) Thanks [@hectahertz](https://github.com/hectahertz)! - SelectPanel: Add variant="modal"
+
+- [#5870](https://github.com/primer/react/pull/5870) [`7373295`](https://github.com/primer/react/commit/737329511320e7adac8092f03250960138ffee32) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove the CSS modules feature flag from the Stack component
+
+- [#5877](https://github.com/primer/react/pull/5877) [`8a7d583`](https://github.com/primer/react/commit/8a7d5835e01fe4f1c073ba5c33bc73d0cfe148b9) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove the CSS modules feature flag from the PageHeader component
+
+- [#5931](https://github.com/primer/react/pull/5931) [`96af0aa`](https://github.com/primer/react/commit/96af0aac9d55b00bb1d27003fe01e5ce32791b15) Thanks [@jamieshark](https://github.com/jamieshark)! - Adds className prop to UnderlineNav component.
+
+### Patch Changes
+
+- [#5902](https://github.com/primer/react/pull/5902) [`c9659fd`](https://github.com/primer/react/commit/c9659fdd4c917ce6d91900e229ecb70d78ba954b) Thanks [@hectahertz](https://github.com/hectahertz)! - Fix DialogV1 story broken link
+
+- [#5930](https://github.com/primer/react/pull/5930) [`876b822`](https://github.com/primer/react/commit/876b822f8bb8b28fbe084b16849bd1b9e5f8a8ab) Thanks [@francinelucca](https://github.com/francinelucca)! - fix(SelectPanel): use dvh units for full screen when available
+
 ## 37.19.1
 
 ### Patch Changes

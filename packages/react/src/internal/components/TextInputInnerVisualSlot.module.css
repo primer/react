@@ -17,3 +17,8 @@
 .SpinnerVisible {
   visibility: visible;
 }
+
+.Box {
+  position: relative;
+  display: flex;
+}
