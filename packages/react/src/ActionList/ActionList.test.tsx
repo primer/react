@@ -100,7 +100,8 @@ describe('ActionList', () => {
     expect(document.activeElement).toHaveTextContent('Option 4')
 
     await userEvent.keyboard('{ArrowDown}')
-    expect(document.activeElement).toHaveAccessibleName('Unavailable due to an outage')
+    expect(document.activeElement).toHaveAccessibleName('Option 5')
+    expect(document.activeElement).toHaveAccessibleDescription('Unavailable due to an outage')
 
     await userEvent.keyboard('{ArrowUp}')
     expect(document.activeElement).toHaveTextContent('Option 4')
@@ -118,7 +119,6 @@ describe('ActionList', () => {
       return (
         <FeatureFlags
           flags={{
-            primer_react_css_modules_staff: true,
             primer_react_css_modules_ga: true,
           }}
         >
@@ -143,7 +143,6 @@ describe('ActionList', () => {
       return (
         <FeatureFlags
           flags={{
-            primer_react_css_modules_staff: true,
             primer_react_css_modules_ga: true,
           }}
         >

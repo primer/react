@@ -1,13 +1,13 @@
 import React from 'react'
 import Box from '../../Box'
 import {defaultSxProp} from '../../utils/defaultSxProp'
-import type {BetterSystemStyleObject} from '../../sx'
+import {includesSystemProps} from '../../utils/includeSystemProps'
 
 type CSSModulesProps = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   as?: string | React.ComponentType<any>
-  sx?: React.CSSProperties | BetterSystemStyleObject
-} & React.HTMLAttributes<HTMLElement>
+  sx?: React.CSSProperties
+}
 
 /**
  * Utility to toggle rendering a Box component that receives sx props
@@ -24,7 +24,7 @@ export function toggleSxComponent<T, P extends CSSModulesProps>(
     {as: BaseComponent = defaultAs, sx: sxProp = defaultSxProp, ...rest},
     ref,
   ) {
-    if (sxProp !== defaultSxProp) {
+    if (sxProp !== defaultSxProp || includesSystemProps(rest)) {
       return <Box as={BaseComponent} {...rest} sx={sxProp} ref={ref} />
     }
     return <BaseComponent {...rest} ref={ref} />

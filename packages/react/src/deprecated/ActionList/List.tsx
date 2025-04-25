@@ -67,7 +67,7 @@ export interface ListPropsBase {
   /**
    *  For `Item`s which can be selected, whether `multiple` `Item`s or a `single` `Item` can be selected
    */
-  selectionVariant?: 'single' | 'multiple'
+  selectionVariant?: 'single' | 'multiple' | 'radio'
 
   /**
    * Whether to display a divider above each `Item` in this `List` when it does not follow a `Header` or `Divider`.
