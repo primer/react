@@ -8,12 +8,8 @@
     width: 100%;
   }
 
-  &:where([data-token-wrapping]) {
+  &:where([data-token-wrapping='true']) {
     overflow: auto;
-
-    .Container {
-      flex-wrap: nowrap;
-    }
   }
 }
 
@@ -33,6 +29,10 @@
   align-items: center;
   flex-wrap: wrap;
   flex-grow: 1;
+
+  &:where([data-prevent-token-wrapping='true']) {
+    flex-wrap: nowrap;
+  }
 
   > * {
     margin-bottom: var(--base-size-4);
