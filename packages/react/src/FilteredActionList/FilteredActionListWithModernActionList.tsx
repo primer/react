@@ -182,15 +182,15 @@ export function FilteredActionList({
                   <ActionList.GroupHeading variant={group.header?.variant ? group.header.variant : undefined}>
                     {group.header?.title ? group.header.title : `Group ${group.groupId}`}
                   </ActionList.GroupHeading>
-                  {getItemListForEachGroup(group.groupId).map((item, index) => {
-                    const key = item.key ?? item.id?.toString() ?? index.toString()
+                  {getItemListForEachGroup(group.groupId).map(({key: itemKey, ...item}, index) => {
+                    const key = itemKey ?? item.id?.toString() ?? index.toString()
                     return <MappedActionListItem key={key} {...item} renderItem={listProps.renderItem} />
                   })}
                 </ActionList.Group>
               )
             })
-          : items.map((item, index) => {
-              const key = item.key ?? item.id?.toString() ?? index.toString()
+          : items.map(({key: itemKey, ...item}, index) => {
+              const key = itemKey ?? item.id?.toString() ?? index.toString()
               return <MappedActionListItem key={key} {...item} renderItem={listProps.renderItem} />
             })}
       </ActionList>
