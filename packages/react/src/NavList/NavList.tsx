@@ -437,7 +437,7 @@ export const GroupExpand = React.forwardRef<HTMLButtonElement, NavListGroupExpan
     const [currentPage, setCurrentPage] = React.useState(0)
     const groupId = useId()
 
-    const teamEnabled = useFeatureFlag('primer_react_css_modules_team')
+    const gaEnabled = useFeatureFlag('primer_react_css_modules_ga')
 
     const itemsPerPage = items.length / pages
     const amountToShow = pages === 0 ? items.length : Math.ceil(itemsPerPage * currentPage)
@@ -485,7 +485,7 @@ export const GroupExpand = React.forwardRef<HTMLButtonElement, NavListGroupExpan
             })}
           </>
         ) : null}
-        {(currentPage < pages || currentPage === 0) && !teamEnabled ? (
+        {(currentPage < pages || currentPage === 0) && !gaEnabled ? (
           <Box as="li" sx={{listStyle: 'none'}}>
             <ActionList.Item
               as="button"
@@ -512,32 +512,30 @@ export const GroupExpand = React.forwardRef<HTMLButtonElement, NavListGroupExpan
             </ActionList.Item>
           </Box>
         ) : null}
-        {(currentPage < pages || currentPage === 0) && teamEnabled ? (
-          <li>
-            <ActionList.Item
-              as="button"
-              aria-expanded="false"
-              ref={forwardedRef}
-              onClick={() => {
-                flushSync(() => {
-                  setCurrentPage(currentPage + 1)
-                })
-                const focusTarget: HTMLElement[] | null = Array.from(
-                  document.querySelectorAll(`[data-expand-focus-target="${groupId}"]`),
-                )
+        {(currentPage < pages || currentPage === 0) && gaEnabled ? (
+          <ActionList.Item
+            as="button"
+            aria-expanded="false"
+            ref={forwardedRef}
+            onClick={() => {
+              flushSync(() => {
+                setCurrentPage(currentPage + 1)
+              })
+              const focusTarget: HTMLElement[] | null = Array.from(
+                document.querySelectorAll(`[data-expand-focus-target="${groupId}"]`),
+              )
 
-                if (focusTarget.length > 0) {
-                  focusTarget[focusTarget.length - 1].focus()
-                }
-              }}
-              {...props}
-            >
-              {label}
-              <TrailingVisual>
-                <PlusIcon />
-              </TrailingVisual>
-            </ActionList.Item>
-          </li>
+              if (focusTarget.length > 0) {
+                focusTarget[focusTarget.length - 1].focus()
+              }
+            }}
+            {...props}
+          >
+            {label}
+            <TrailingVisual>
+              <PlusIcon />
+            </TrailingVisual>
+          </ActionList.Item>
         ) : null}
       </>
     )
