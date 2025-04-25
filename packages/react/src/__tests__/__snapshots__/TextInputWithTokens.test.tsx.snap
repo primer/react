@@ -174,6 +174,7 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
   </span>
   <div
     className="Container"
+    data-prevent-token-wrapping={false}
   >
     <div
       className="InputWrapper"
@@ -776,6 +777,7 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
 >
   <div
     className="Container"
+    data-prevent-token-wrapping={false}
   >
     <div
       className="InputWrapper"
@@ -912,6 +914,7 @@ exports[`TextInputWithTokens renders as block layout 1`] = `
 >
   <div
     className="Container"
+    data-prevent-token-wrapping={false}
   >
     <div
       className="InputWrapper"
@@ -1082,6 +1085,7 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
 >
   <div
     className="Container"
+    data-prevent-token-wrapping={false}
   >
     <div
       className="InputWrapper"
@@ -1652,6 +1656,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
 >
   <div
     className="Container"
+    data-prevent-token-wrapping={false}
   >
     <div
       className="InputWrapper"
@@ -2222,6 +2227,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
 >
   <div
     className="Container"
+    data-prevent-token-wrapping={false}
   >
     <div
       className="InputWrapper"
@@ -2792,6 +2798,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
 >
   <div
     className="Container"
+    data-prevent-token-wrapping={false}
   >
     <div
       className="InputWrapper"
@@ -3364,6 +3371,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
 >
   <div
     className="Container"
+    data-prevent-token-wrapping={false}
   >
     <div
       className="InputWrapper"
@@ -3937,6 +3945,7 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
 >
   <div
     className="Container"
+    data-prevent-token-wrapping={true}
   >
     <div
       className="InputWrapper"
@@ -4459,6 +4468,7 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
 >
   <div
     className="Container"
+    data-prevent-token-wrapping={false}
   >
     <div
       className="InputWrapper"
@@ -4793,6 +4803,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   >
     <div
       className="Container"
+      data-prevent-token-wrapping={false}
     >
       <div
         className="InputWrapper"
@@ -5437,6 +5448,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
     </span>
     <div
       className="Container"
+      data-prevent-token-wrapping={false}
     >
       <div
         className="InputWrapper"
@@ -6044,6 +6056,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   >
     <div
       className="Container"
+      data-prevent-token-wrapping={false}
     >
       <div
         className="InputWrapper"
@@ -6712,6 +6725,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
     </span>
     <div
       className="Container"
+      data-prevent-token-wrapping={false}
     >
       <div
         className="InputWrapper"
@@ -7380,6 +7394,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
     </span>
     <div
       className="Container"
+      data-prevent-token-wrapping={false}
     >
       <div
         className="InputWrapper"
@@ -8049,6 +8064,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
     </span>
     <div
       className="Container"
+      data-prevent-token-wrapping={false}
     >
       <div
         className="InputWrapper"
@@ -8656,6 +8672,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   >
     <div
       className="Container"
+      data-prevent-token-wrapping={false}
     >
       <div
         className="InputWrapper"
@@ -9325,6 +9342,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
     </span>
     <div
       className="Container"
+      data-prevent-token-wrapping={false}
     >
       <div
         className="InputWrapper"
@@ -9956,6 +9974,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   >
     <div
       className="Container"
+      data-prevent-token-wrapping={false}
     >
       <div
         className="InputWrapper"
@@ -10647,6 +10666,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
     </span>
     <div
       className="Container"
+      data-prevent-token-wrapping={false}
     >
       <div
         className="InputWrapper"
@@ -11340,6 +11360,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
     </span>
     <div
       className="Container"
+      data-prevent-token-wrapping={false}
     >
       <div
         className="InputWrapper"
@@ -12031,6 +12052,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
     </span>
     <div
       className="Container"
+      data-prevent-token-wrapping={false}
     >
       <div
         className="InputWrapper"
@@ -12665,6 +12687,7 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
 >
   <div
     className="Container"
+    data-prevent-token-wrapping={false}
   >
     <div
       className="InputWrapper"
@@ -13236,6 +13259,7 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
 >
   <div
     className="Container"
+    data-prevent-token-wrapping={false}
   >
     <div
       className="InputWrapper"
@@ -13629,6 +13653,7 @@ exports[`TextInputWithTokens renders without tokens 1`] = `
 >
   <div
     className="Container"
+    data-prevent-token-wrapping={false}
   >
     <div
       className="InputWrapper"
