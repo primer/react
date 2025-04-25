@@ -1,4 +1,5 @@
-import React, {type CSSProperties, type PropsWithChildren} from 'react'
+import type React from 'react'
+import {type CSSProperties, type PropsWithChildren} from 'react'
 import {clsx} from 'clsx'
 import styled, {createGlobalStyle} from 'styled-components'
 import type {SystemCommonProps, SystemTypographyProps} from './constants'

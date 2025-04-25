@@ -6,7 +6,8 @@ import sx from '../sx'
 
 type EventNames = Record<string, EventName | string>
 const rename = (str: string): string => str[0].toUpperCase() + str.slice(1).replace(/(-\w)/g, s => s[1].toUpperCase())
-// eslint-disable-next-line @typescript-eslint/ban-types
+
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export const createComponent = <I extends HTMLElement, E extends EventNames = {}>(
   elementClass: new () => I,
   tagName: string,

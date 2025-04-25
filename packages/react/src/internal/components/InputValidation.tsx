@@ -1,6 +1,6 @@
 import type {IconProps} from '@primer/octicons-react'
 import {AlertFillIcon, CheckCircleFillIcon} from '@primer/octicons-react'
-import React from 'react'
+import type React from 'react'
 import Text from '../../Text'
 import type {SxProp} from '../../sx'
 import type {FormValidationStatus} from '../../utils/types/FormValidationStatus'

@@ -1,4 +1,5 @@
-import React, {useEffect, useState, useRef} from 'react'
+import type React from 'react'
+import {useEffect, useState, useRef} from 'react'
 import afterFrame from 'afterframe'
 
 import {Button} from '../Button'

@@ -45,7 +45,7 @@ const getServerHandoff = (id: string) => {
   try {
     const serverData = document.getElementById(`__PRIMER_DATA_${id}__`)?.textContent
     if (serverData) return JSON.parse(serverData)
-  } catch (error) {
+  } catch (_error) {
     // if document/element does not exist or JSON is invalid, supress error
   }
   return {}

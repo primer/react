@@ -1,7 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 const fm = require('front-matter') // FIXME after this bugfix is merged https://github.com/jxson/front-matter/pull/77
 
 const sourceDirectory = path.resolve(__dirname, '../../docs/content/')

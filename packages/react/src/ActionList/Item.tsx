@@ -119,11 +119,8 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     const showInactiveIndicator = inactive && !(listRole !== undefined && ['menu', 'listbox'].includes(listRole))
 
     const onSelect = React.useCallback(
-      (
-        event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>,
-        // eslint-disable-next-line @typescript-eslint/ban-types
-        afterSelect?: Function,
-      ) => {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
+      (event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>, afterSelect?: Function) => {
         if (typeof onSelectUser === 'function') onSelectUser(event)
         if (event.defaultPrevented) return
         if (typeof afterSelect === 'function') afterSelect(event)

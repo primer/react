@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/named
 import {create} from '@storybook/theming'
 import packageJson from '../package.json'
 

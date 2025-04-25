@@ -1,14 +1,19 @@
 import {defineConfig, globalIgnores} from 'eslint/config'
-import {fixupConfigRules} from '@eslint/compat'
+import {fixupConfigRules, fixupPluginRules} from '@eslint/compat'
 import globals from 'globals'
 import path from 'node:path'
 import {fileURLToPath} from 'node:url'
 import js from '@eslint/js'
 import {FlatCompat} from '@eslint/eslintrc'
 import githubPlugin from 'eslint-plugin-github'
+import jest from 'eslint-plugin-jest'
+import storybook from 'eslint-plugin-storybook'
 import react from 'eslint-plugin-react'
 import reactHooks from 'eslint-plugin-react-hooks'
 import playwright from 'eslint-plugin-playwright'
+import prettierRecommended from 'eslint-plugin-prettier/recommended'
+import primerReact from 'eslint-plugin-primer-react'
+import testingLibrary from 'eslint-plugin-testing-library'
 import tseslint from 'typescript-eslint'
 
 const __filename = fileURLToPath(import.meta.url)
@@ -56,8 +61,31 @@ const config = defineConfig([
   github.recommended,
   github.react,
 
+  prettierRecommended,
+
   tseslint.configs.recommended,
-  // ...compat.extends('plugin:clsx/recommended'),
+  {
+    extends: fixupConfigRules(compat.extends('plugin:clsx/recommended', 'plugin:ssr-friendly/recommended')),
+  },
+
+  // eslint-plugin-primer-react
+  {
+    plugins: {
+      'primer-react': fixupPluginRules(primerReact),
+    },
+    rules: {
+      'primer-react/direct-slot-children': 'error',
+      'primer-react/no-system-props': 'error',
+      'primer-react/a11y-tooltip-interactive-trigger': 'error',
+      'primer-react/new-color-css-vars': 'error',
+      'primer-react/a11y-explicit-heading': 'error',
+      'primer-react/no-deprecated-props': 'error',
+      'primer-react/a11y-remove-disable-tooltip': 'error',
+      'primer-react/a11y-use-next-tooltip': 'error',
+      'primer-react/no-unnecessary-components': 'error',
+      'primer-react/prefer-action-list-item-onselect': 'error',
+    },
+  },
 
   {
     languageOptions: {
@@ -82,37 +110,170 @@ const config = defineConfig([
       },
     },
     rules: {
-      // 'no-shadow': 'off',
-      // 'react/button-has-type': 'error',
-      // 'react/prop-types': 'off',
-      // 'react/display-name': 'off',
-      // 'react-hooks/exhaustive-deps': 'error',
-      // camelcase: [
-      // 'error',
-      // {
-      // allow: [
-      // 'dark_dimmed',
-      // // Allow feature flag names that start with `primer_react_`
-      // '^primer_react_',
-      // ],
-      // },
-      // ],
+      'no-shadow': 'off',
+      'react/button-has-type': 'error',
+      'react/prop-types': 'off',
+      'react/display-name': 'off',
+      'react/jsx-uses-react': 'error',
+      'react-hooks/exhaustive-deps': 'error',
+      camelcase: [
+        'error',
+        {
+          allow: [
+            'dark_dimmed',
+            // Allow feature flag names that start with `primer_react_`
+            '^primer_react_',
+          ],
+        },
+      ],
+      // Overrides from updating plugin:github
+      'filenames/match-regex': 'off',
+      'import/extensions': 'off',
+      'import/namespace': 'off',
+      'import/no-commonjs': 'off',
+      'import/no-nodejs-modules': 'off',
+      'import/no-dynamic-require': 'off',
+      'import/no-unresolved': 'off',
+      'i18n-text/no-en': 'off',
+      'github/filenames-match-regex': 'off',
+      'github/no-inner-html': 'off',
+      'github/role-supports-aria-props': 'off',
+      'no-restricted-syntax': 'off',
+      'primer-react/a11y-use-next-tooltip': 'off',
     },
   },
 
-  // // Overrides from updating plugin:github
-  // 'filenames/match-regex': 'off',
-  // 'i18n-text/no-en': 'off',
-  // 'github/no-inner-html': 'off',
-  // 'github/role-supports-aria-props': 'off',
-  // 'no-restricted-syntax': 'off',
-  // 'primer-react/a11y-use-next-tooltip': 'off',
-  // },
-  // },
+  // rules which apply only to JS
   {
-    files: ['packages/react/src/**'],
+    files: ['**/*.{js,jsx}'],
+    rules: {
+      'eslint-comments/no-use': 'off',
+      'import/no-namespace': 'off',
+      'import/no-named-as-default': 'off',
+      'import/no-named-as-default-member': 'off',
+      'primer-react/direct-slot-children': ['error', {skipImportCheck: true}],
+      'no-unused-vars': [
+        'error',
+        {
+          ignoreRestSiblings: true,
+        },
+      ],
+    },
   },
 
+  // rules which apply only to TS
+  {
+    files: ['**/*.{ts,tsx}'],
+    languageOptions: {
+      parserOptions: {
+        projectService: true,
+        tsconfigRootDir: __dirname,
+      },
+    },
+    rules: {
+      '@typescript-eslint/consistent-type-imports': 'error',
+      '@typescript-eslint/no-explicit-any': 'error',
+      '@typescript-eslint/no-unnecessary-condition': 'error',
+      '@typescript-eslint/explicit-module-boundary-types': 'off',
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        {
+          argsIgnorePattern: '^_',
+          caughtErrorsIgnorePattern: '^_',
+        },
+      ],
+      '@typescript-eslint/no-shadow': 'off',
+      '@typescript-eslint/no-empty-function': 'off',
+      '@typescript-eslint/ban-ts-comment': [
+        'error',
+        {
+          'ts-ignore': 'allow-with-description',
+        },
+      ],
+      // Remove after initial migration to eslint v9
+      '@typescript-eslint/no-unused-expressions': 'off',
+      'import/default': 'off',
+      'import/no-deprecated': 'off',
+      'import/no-named-as-default': 'off',
+      'import/no-named-as-default-member': 'off',
+      'primer-react/direct-slot-children': ['error', {skipImportCheck: true}],
+      'no-restricted-imports': [
+        'error',
+        {
+          paths: [
+            {
+              name: 'react',
+              importNames: ['useLayoutEffect'],
+              message:
+                'Please use the `useIsomorphicLayoutEffect` hook from `src/hooks/useIsomorphicLayoutEffect.ts` instead',
+            },
+            {
+              name: 'clsx',
+              importNames: ['default'],
+              message: 'Use the named import instead: `import {clsx} from "clsx"`',
+            },
+          ],
+          patterns: [
+            {
+              group: ['**/utils/ssr'],
+              importNames: ['useSSRSafeId'],
+              message: 'Please use the `useId` hook from `src/hooks/useId.ts` instead',
+            },
+          ],
+        },
+      ],
+    },
+  },
+
+  // Tests
+  // eslint-plugin-jest
+  {
+    files: ['**/*.test.{ts,tsx}'],
+    ignores: ['**/e2e/**'],
+    plugins: {
+      jest,
+      ['testing-library']: testingLibrary,
+    },
+    languageOptions: {
+      globals: jest.environments.globals.globals,
+    },
+    ...jest.configs['flat/recommended'],
+    rules: {
+      ...jest.configs['flat/recommended'].rules,
+      'jest/expect-expect': 'off',
+      'jest/no-conditional-expect': 'off',
+      'jest/no-disabled-tests': 'off',
+    },
+  },
+
+  // eslint-plugin-testing-library
+  {
+    files: ['**/*.test.{ts,tsx}'],
+    ignores: ['**/e2e/**'],
+    plugins: {
+      testingLibrary,
+    },
+    ...testingLibrary.configs['flat/react'],
+    rules: {
+      'testing-library/prefer-screen-queries': 'off',
+      'testing-library/no-node-access': 'off',
+      'testing-library/no-container': 'off',
+      'testing-library/render-result-naming-convention': 'off',
+      'testing-library/prefer-presence-queries': 'off',
+      'testing-library/prefer-find-by': 'off',
+      'testing-library/no-wait-for-multiple-assertions': 'off',
+    },
+  },
+
+  {
+    files: ['**/*.types.test.{ts,tsx}'],
+    rules: {
+      // We often use assertions that are not used in type tests
+      '@typescript-eslint/no-unused-vars': 'off',
+    },
+  },
+
+  // Script files that run in a Node.js context and may be CommonJS
   {
     files: ['**/script/**/*.{ts,tsx,mts,mtsx,cjs,js,mjs}', '**/*.config.{ts,tsx,mts,mtsx,cjs,js,mjs}'],
     rules: {
@@ -123,6 +284,17 @@ const config = defineConfig([
       'import/no-dynamic-require': 'off',
       'import/no-unresolved': 'off',
       '@typescript-eslint/no-require-imports': 'off',
+    },
+  },
+
+  // Packages that may run in a Node.js context
+  {
+    files: [
+      'packages/postcss-preset-primer/**/**.{ts,tsx,mts,mtsx,cjs,js,mjs}',
+      'packages/rollup-plugin-import-css/**/**.{ts,tsx,mts,mtsx,cjs,js,mjs}',
+    ],
+    rules: {
+      'import/no-nodejs-modules': 'off',
     },
   },
 
@@ -141,226 +313,9 @@ const config = defineConfig([
       'playwright/valid-title': 'off',
     },
   },
+
+  // Storybook stories
+  ...storybook.configs['flat/recommended'],
 ])
 
 export default tseslint.config(config)
-
-// export default defineConfig([
-// {
-// extends: fixupConfigRules(
-// compat.extends(
-// 'plugin:react/recommended',
-// 'plugin:jsx-a11y/recommended',
-// 'plugin:react-hooks/recommended',
-// 'plugin:prettier/recommended',
-// 'plugin:primer-react/recommended',
-// 'plugin:ssr-friendly/recommended',
-// ),
-// ),
-
-// rules: {
-// 'no-shadow': 'off',
-// 'react/button-has-type': 'error',
-// 'react/prop-types': 'off',
-// 'react/display-name': 'off',
-// 'react-hooks/exhaustive-deps': 'error',
-
-// camelcase: [
-// 'error',
-// {
-// allow: ['dark_dimmed', '^primer_react_'],
-// },
-// ],
-
-// 'filenames/match-regex': 'off',
-// 'import/extensions': 'off',
-// 'import/namespace': 'off',
-// 'import/no-commonjs': 'off',
-// 'import/no-nodejs-modules': 'off',
-// 'import/no-dynamic-require': 'off',
-// 'import/no-unresolved': 'off',
-// 'i18n-text/no-en': 'off',
-// 'github/no-inner-html': 'off',
-// 'github/role-supports-aria-props': 'off',
-// 'no-restricted-syntax': 'off',
-// 'primer-react/a11y-use-next-tooltip': 'off',
-// },
-// },
-// {
-// files: ['**/*.{js,jsx}'],
-
-// rules: {
-// 'eslint-comments/no-use': 'off',
-// 'import/no-namespace': 'off',
-// 'import/no-named-as-default': 'off',
-// 'import/no-named-as-default-member': 'off',
-
-// 'primer-react/direct-slot-children': [
-// 'error',
-// {
-// skipImportCheck: true,
-// },
-// ],
-
-// 'no-unused-vars': [
-// 'error',
-// {
-// ignoreRestSiblings: true,
-// },
-// ],
-// },
-// },
-// {
-// files: ['**/*.{ts,tsx}'],
-// extends: compat.extends('plugin:@typescript-eslint/recommended'),
-
-// languageOptions: {
-// ecmaVersion: 5,
-// sourceType: 'script',
-
-// parserOptions: {
-// project: ['./tsconfig.json', './packages/**/tsconfig.json', './examples/**/tsconfig.json'],
-// },
-// },
-
-// rules: {
-// '@typescript-eslint/consistent-type-imports': 'error',
-// '@typescript-eslint/no-explicit-any': 'error',
-// '@typescript-eslint/no-unnecessary-condition': 'error',
-// '@typescript-eslint/explicit-module-boundary-types': 'off',
-
-// '@typescript-eslint/no-unused-vars': [
-// 'error',
-// {
-// argsIgnorePattern: '^_',
-// },
-// ],
-
-// '@typescript-eslint/no-shadow': 'off',
-// '@typescript-eslint/no-empty-function': 'off',
-
-// '@typescript-eslint/ban-ts-comment': [
-// 'error',
-// {
-// 'ts-ignore': 'allow-with-description',
-// },
-// ],
-
-// 'import/default': 'off',
-// 'import/no-deprecated': 'off',
-// 'import/no-named-as-default': 'off',
-// 'import/no-named-as-default-member': 'off',
-
-// 'primer-react/direct-slot-children': [
-// 'error',
-// {
-// skipImportCheck: true,
-// },
-// ],
-
-// 'no-restricted-imports': [
-// 'error',
-// {
-// paths: [
-// {
-// name: 'react',
-// importNames: ['useLayoutEffect'],
-// message:
-// 'Please use the `useIsomorphicLayoutEffect` hook from `src/hooks/useIsomorphicLayoutEffect.ts` instead',
-// },
-// {
-// name: 'clsx',
-// importNames: ['default'],
-// message: 'Use the named import instead: `import {clsx} from "clsx"`',
-// },
-// ],
-
-// patterns: [
-// {
-// group: ['**/utils/ssr'],
-// importNames: ['useSSRSafeId'],
-// message: 'Please use the `useId` hook from `src/hooks/useId.ts` instead',
-// },
-// ],
-// },
-// ],
-// },
-// },
-// {
-// files: ['**/*.test.{ts,tsx}'],
-// extends: compat.extends('plugin:jest/recommended', 'plugin:testing-library/react'),
-
-// rules: {
-// '@typescript-eslint/no-non-null-assertion': 'off',
-// 'jest/expect-expect': 'off',
-// 'jest/no-conditional-expect': 'off',
-// 'jest/no-disabled-tests': 'off',
-// 'testing-library/prefer-screen-queries': 'off',
-// 'testing-library/no-node-access': 'off',
-// 'testing-library/no-container': 'off',
-// 'testing-library/render-result-naming-convention': 'off',
-// 'testing-library/prefer-presence-queries': 'off',
-// 'testing-library/prefer-find-by': 'off',
-// 'testing-library/no-wait-for-multiple-assertions': 'off',
-// },
-// },
-// {
-// files: ['**/*.stories.{ts,tsx}'],
-// extends: compat.extends('plugin:storybook/recommended'),
-// rules: {},
-// },
-// {
-// files: ['**/*.{md,mdx}'],
-// extends: compat.extends('plugin:mdx/recommended'),
-
-// settings: {
-// 'mdx/code-blocks': true,
-// },
-
-// rules: {
-// 'no-unused-vars': 'off',
-// 'prettier/prettier': 'off',
-// 'react/jsx-no-undef': 'off',
-// 'react/no-unescaped-entities': 'off',
-// 'primer-react/direct-slot-children': 'off',
-// },
-// },
-// {
-// files: ['**/*.{md,mdx}/**'],
-
-// languageOptions: {
-// ecmaVersion: 5,
-// sourceType: 'script',
-
-// parserOptions: {
-// project: false,
-// },
-// },
-
-// rules: {
-// camelcase: 'off',
-// 'no-constant-condition': 'off',
-// 'no-console': 'off',
-// 'no-empty-pattern': 'off',
-// 'no-unused-vars': 'off',
-// 'no-undef': 'off',
-// 'react/no-unescaped-entities': 'off',
-// 'react/react-in-jsx-scope': 'off',
-// 'react/jsx-no-undef': 'off',
-// 'react/jsx-key': 'off',
-// 'react/jsx-no-comment-textnodes': 'off',
-// 'react-hooks/rules-of-hooks': 'off',
-// 'import/no-anonymous-default-export': 'off',
-// 'prettier/prettier': 'off',
-// 'jsx-a11y/anchor-is-valid': 'off',
-// 'jsx-a11y/accessible-emoji': 'off',
-// 'jsx-a11y/label-has-for': 'off',
-// '@typescript-eslint/no-unnecessary-condition': 'off',
-// '@typescript-eslint/no-unused-vars': 'off',
-// 'no-redeclare': 'off',
-// 'ssr-friendly/no-dom-globals-in-module-scope': 'off',
-// 'ssr-friendly/no-dom-globals-in-react-fc': 'off',
-// },
-// },
-// ])
-
