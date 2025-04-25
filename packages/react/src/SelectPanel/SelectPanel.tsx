@@ -170,6 +170,7 @@ function Panel({
   onCancel,
   variant = 'anchored',
   secondaryAction,
+  groupMetadata,
   ...listProps
 }: SelectPanelProps): JSX.Element {
   const titleId = useId()
@@ -608,6 +609,8 @@ function Panel({
             onInputRefChanged={onInputRefChanged}
             placeholderText={placeholderText}
             {...listProps}
+            variant={groupMetadata?.length ? 'horizontal-inset' : 'inset'}
+            groupMetadata={groupMetadata}
             role="listbox"
             // browsers give aria-labelledby precedence over aria-label so we need to make sure
             // we don't accidentally override props.aria-label
