@@ -78,6 +78,7 @@ const baseConfig = {
           '@babel/preset-react',
           {
             modules: false,
+            runtime: 'automatic',
           },
         ],
       ],
