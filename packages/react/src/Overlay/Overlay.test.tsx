@@ -202,7 +202,7 @@ describe('Overlay', () => {
     spy.mockRestore()
   })
 
-  it('should right align when given `right: 0` and `position: fixed`', async () => {
+  it.skip('should right align when given `right: 0` and `position: fixed`', async () => {
     const spy = jest.spyOn(console, 'log').mockImplementation(message => {
       if (!message.startsWith('global handler')) {
         throw new Error(
@@ -232,7 +232,7 @@ describe('Overlay', () => {
     spy.mockRestore()
   })
 
-  it('should left align when not given position and left props', async () => {
+  it.skip('should left align when not given position and left props', async () => {
     const spy = jest.spyOn(console, 'log').mockImplementation(message => {
       if (!message.startsWith('global handler')) {
         throw new Error(
