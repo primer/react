@@ -109,8 +109,6 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
           {
             '--sticky-pane-height': stickyPaneHeight,
             '--spacing': `var(--spacing-${padding})`,
-            display: 'flex', // Makes PageLayout a flex container
-            flex: 1, // Fills available space in the parent
             ...style,
           } as React.CSSProperties
         }
