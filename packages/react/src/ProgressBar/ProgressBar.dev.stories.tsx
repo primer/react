@@ -18,3 +18,5 @@ export const Default = () => (
     }}
   />
 )
+
+export const RespectsWidth = () => <ProgressBar aria-label="Status" progress={50} width={'100px'} />
