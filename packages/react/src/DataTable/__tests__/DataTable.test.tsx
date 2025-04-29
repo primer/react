@@ -1065,7 +1065,7 @@ describe('DataTable', () => {
     })
   })
 
-  it('overriders row.id with result of getRowId function', () => {
+  it('overrides row.id with result of getRowId function', () => {
     const data = [
       {id: 1, name: 'Sabine', _uid: 'abc123'},
       {id: 2, name: 'The Matador', _uid: 'abc12334'},
