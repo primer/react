@@ -3,7 +3,6 @@ import {ProgressBar} from '..'
 import {render, behavesAsComponent, checkExports} from '../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
 import axe from 'axe-core'
-import {FeatureFlags} from '../FeatureFlags'
 
 describe('ProgressBar', () => {
   behavesAsComponent({Component: ProgressBar, toRender: () => <ProgressBar aria-valuenow={10} progress={0} />})
@@ -17,19 +16,7 @@ describe('ProgressBar', () => {
     const Element = () => (
       <ProgressBar progress={80} barSize="small" aria-label="Upload test.png" className={'test-class-name'} />
     )
-    const FeatureFlagElement = () => {
-      return (
-        <FeatureFlags
-          flags={{
-            primer_react_css_modules_ga: true,
-          }}
-        >
-          <Element />
-        </FeatureFlags>
-      )
-    }
     expect(HTMLRender(<Element />).container.firstChild).toHaveClass('test-class-name')
-    expect(HTMLRender(<FeatureFlagElement />).container.firstChild).toHaveClass('test-class-name')
   })
 
   it('should have no axe violations', async () => {
@@ -39,32 +26,20 @@ describe('ProgressBar', () => {
   })
 
   it('respects the "barSize" prop', () => {
-    expect(render(<ProgressBar progress={80} barSize="small" aria-label="Upload test.png" />)).toHaveStyleRule(
-      'height',
-      '5px',
-    )
-    expect(render(<ProgressBar progress={80} barSize="default" aria-label="Upload test.png" />)).toHaveStyleRule(
-      'height',
-      '8px',
-    )
-    expect(render(<ProgressBar progress={80} barSize="large" aria-label="Upload test.png" />)).toHaveStyleRule(
-      'height',
-      '10px',
-    )
+    const barSizeSmall = HTMLRender(<ProgressBar progress={80} barSize="small" aria-label="Upload test.png" />)
+    expect(barSizeSmall.container.firstChild).toHaveAttribute('data-progress-bar-size', 'small')
+
+    const barSizeDefault = HTMLRender(<ProgressBar progress={80} barSize="default" aria-label="Upload test.png" />)
+    expect(barSizeDefault.container.firstChild).toHaveAttribute('data-progress-bar-size', 'default')
+
+    const barSizeLarge = HTMLRender(<ProgressBar progress={80} barSize="large" aria-label="Upload test.png" />)
+    expect(barSizeLarge.container.firstChild).toHaveAttribute('data-progress-bar-size', 'large')
   })
 
   it('respects the "inline" prop', () => {
-    expect(render(<ProgressBar progress={80} inline aria-label="Upload test.png" />)).toHaveStyleRule(
-      'display',
-      'inline-flex',
-    )
-  })
+    const {container} = HTMLRender(<ProgressBar progress={80} barSize="small" aria-label="Upload test.png" inline />)
 
-  it('respects the "width" prop', () => {
-    expect(render(<ProgressBar progress={80} inline width="100px" aria-label="Upload test.png" />)).toHaveStyleRule(
-      'width',
-      '100px',
-    )
+    expect(container.firstChild).toHaveAttribute('data-progress-display', 'inline')
   })
 
   it('respects the "progress" prop', () => {
