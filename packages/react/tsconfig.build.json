@@ -23,6 +23,6 @@
     "e2e/**/*.ts",
     "playwright.config.ts",
     "vitest.config.mts",
-    "config/**/*.ts",
+    "config/**/*.ts"
   ]
 }

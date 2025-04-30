@@ -10,7 +10,7 @@
     "src/**/*.js",
     "src/**/*.ts",
     "src/**/*.tsx",
-    "script/**/*.ts",,
+    "script/**/*.ts",
     "vitest.config.mts",
     "config/**/*.ts"
   ]
