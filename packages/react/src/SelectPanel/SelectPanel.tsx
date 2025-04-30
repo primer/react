@@ -395,7 +395,7 @@ function Panel({
       }
 
       // For single-select anchored, we just need to check if the item is the selected item
-      return selected?.id ? selected?.id == item.id : selected === item
+      return selected?.id !== undefined ? selected?.id == item.id : selected === item
     },
     [selected, intermediateSelected, isSingleSelectModal],
   )
