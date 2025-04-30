@@ -180,5 +180,17 @@ describe('ToggleSwitch', () => {
     expect(ref).toHaveBeenCalledWith(expect.any(HTMLButtonElement))
   })
 
+  it('renders a switch that has button type button', () => {
+    const {getByLabelText} = render(
+      <>
+        <div id="switchLabel">{SWITCH_LABEL_TEXT}</div>
+        <ToggleSwitch aria-labelledby="switchLabel" />
+      </>,
+    )
+
+    const toggleSwitch = getByLabelText(SWITCH_LABEL_TEXT)
+    expect(toggleSwitch).toHaveAttribute('type', 'button')
+  })
+
   checkStoriesForAxeViolations('ToggleSwitch.features', '../ToggleSwitch/')
 })

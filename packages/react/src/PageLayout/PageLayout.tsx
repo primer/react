@@ -88,19 +88,21 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
 
   const [slots, rest] = useSlots(children, slotsConfig ?? {header: Header, footer: Footer})
 
+  const memoizedContextValue = React.useMemo(() => {
+    return {
+      padding,
+      rowGap,
+      columnGap,
+      enableStickyPane,
+      disableStickyPane,
+      contentTopRef,
+      contentBottomRef,
+      paneRef,
+    }
+  }, [padding, rowGap, columnGap, enableStickyPane, disableStickyPane, contentTopRef, contentBottomRef, paneRef])
+
   return (
-    <PageLayoutContext.Provider
-      value={{
-        padding,
-        rowGap,
-        columnGap,
-        enableStickyPane,
-        disableStickyPane,
-        contentTopRef,
-        contentBottomRef,
-        paneRef,
-      }}
-    >
+    <PageLayoutContext.Provider value={memoizedContextValue}>
       <BoxWithFallback
         ref={rootRef}
         style={

@@ -34,6 +34,8 @@ export interface ToggleSwitchProps extends Omit<React.HTMLAttributes<HTMLDivElem
    * **This should only be changed when the switch's alignment needs to be adjusted.** For example: It needs to be left-aligned because the label appears above it and the caption appears below it.
    */
   statusLabelPosition?: CellAlignment
+  /** type of button to account for behavior when added to a form*/
+  buttonType?: 'button' | 'submit' | 'reset'
 }
 
 const sizeVariants = variant({
@@ -221,6 +223,7 @@ const ToggleSwitch = React.forwardRef<HTMLButtonElement, React.PropsWithChildren
       checked,
       onChange,
       onClick,
+      buttonType = 'button',
       size = 'medium',
       statusLabelPosition = 'start',
       sx: sxProp,
@@ -243,7 +246,7 @@ const ToggleSwitch = React.forwardRef<HTMLButtonElement, React.PropsWithChildren
       if (onChange && isControlled) {
         onChange(Boolean(checked))
       }
-    }, [onChange, checked, isControlled])
+    }, [onChange, checked, isControlled, buttonType])
 
     return (
       <Box
@@ -271,6 +274,7 @@ const ToggleSwitch = React.forwardRef<HTMLButtonElement, React.PropsWithChildren
         </Text>
         <SwitchButton
           ref={ref}
+          type={buttonType}
           onClick={handleToggleClick}
           aria-labelledby={ariaLabelledby}
           aria-describedby={ariaDescribedby}
