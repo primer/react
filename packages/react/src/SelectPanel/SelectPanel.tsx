@@ -391,11 +391,11 @@ function Panel({
       // For single-select modal, there is an intermediate state when the user has selected
       // an item but has not yet saved the selection. We need to check for this state.
       if (isSingleSelectModal) {
-        return intermediateSelected === item
+        return intermediateSelected?.id ? intermediateSelected?.id == item.id : intermediateSelected === item
       }
 
       // For single-select anchored, we just need to check if the item is the selected item
-      return selected === item
+      return selected?.id ? selected?.id == item.id : selected === item
     },
     [selected, intermediateSelected, isSingleSelectModal],
   )
