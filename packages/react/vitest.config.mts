@@ -6,7 +6,11 @@ export default defineConfig({
   },
   test: {
     exclude: ['**/node_modules/**', '**/dist/**', '**/lib-esm/**', '**/lib/**', '**/generated/**'],
-    include: ['src/Banner/**/*.test.?(c|m)[jt]s?(x)', 'src/Stack/**/*.test.?(c|m)[jt]s?(x)'],
+    include: [
+      'src/Banner/**/*.test.?(c|m)[jt]s?(x)',
+      'src/FeatureFlags/**/*.test.?(c|m)[jt]s?(x)',
+      'src/Stack/**/*.test.?(c|m)[jt]s?(x)',
+    ],
     setupFiles: ['config/vitest/setup.ts'],
     css: {
       include: [/.+/],
