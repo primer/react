@@ -8,6 +8,7 @@ export default defineConfig({
     exclude: ['**/node_modules/**', '**/dist/**', '**/lib-esm/**', '**/lib/**', '**/generated/**'],
     include: [
       'src/Banner/**/*.test.?(c|m)[jt]s?(x)',
+      'src/DataTable/**/*.test.?(c|m)[jt]s?(x)',
       'src/FeatureFlags/**/*.test.?(c|m)[jt]s?(x)',
       'src/Stack/**/*.test.?(c|m)[jt]s?(x)',
     ],
@@ -18,7 +19,7 @@ export default defineConfig({
     browser: {
       provider: 'playwright',
       enabled: true,
-      headless: true,
+      headless: process.env.DEBUG_BROWSER_TESTS === 'true' ? false : true,
       instances: [
         {
           browser: 'chromium',

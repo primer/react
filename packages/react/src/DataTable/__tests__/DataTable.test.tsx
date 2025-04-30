@@ -1,3 +1,4 @@
+import {describe, expect, it, vi} from 'vitest'
 import userEvent from '@testing-library/user-event'
 import {render, screen, getByRole, queryByRole, queryAllByRole} from '@testing-library/react'
 import React from 'react'
@@ -365,7 +366,7 @@ describe('DataTable', () => {
       })
 
       it('should not set a default sort state if `initialSortColumn` is provided but no columns are sortable', () => {
-        const spy = jest.spyOn(console, 'warn').mockImplementationOnce(() => {})
+        const spy = vi.spyOn(console, 'warn').mockImplementationOnce(() => {})
 
         render(
           <DataTable
@@ -410,7 +411,7 @@ describe('DataTable', () => {
       })
 
       it('should not set a default sort state if `initialSortColumn` is provided but does not correspond to a column', () => {
-        const spy = jest.spyOn(console, 'warn').mockImplementationOnce(() => {})
+        const spy = vi.spyOn(console, 'warn').mockImplementationOnce(() => {})
         render(
           <DataTable
             data={[
@@ -508,7 +509,7 @@ describe('DataTable', () => {
       })
 
       it('should not set a default sort state if `initialSortDirection` is provided but no columns are sortable', () => {
-        const spy = jest.spyOn(console, 'warn').mockImplementationOnce(() => {})
+        const spy = vi.spyOn(console, 'warn').mockImplementationOnce(() => {})
         render(
           <DataTable
             data={[
@@ -837,7 +838,7 @@ describe('DataTable', () => {
 
     it('should support a custom sort function', async () => {
       const user = userEvent.setup()
-      const customSortFn = jest.fn().mockImplementation((a, b) => {
+      const customSortFn = vi.fn().mockImplementation((a, b) => {
         return a.value - b.value
       })
 
