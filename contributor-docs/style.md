@@ -57,11 +57,9 @@ row before the </tbody></table> line.
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 ## Table of Contents
 
-- [About](#about)
-- [JavaScript](#javascript)
 - [React](#react)
-  - [Managing focus](#managing-focus)
   - [Server-side rendering](#server-side-rendering)
+  - [Prefer managing focus through event handlers instead of effects](#prefer-managing-focus-through-event-handlers-instead-of-effects)
   - [Prefer the `useControllableState` hook when authoring components that can be controlled or uncontrolled](#prefer-the-usecontrollablestate-hook-when-authoring-components-that-can-be-controlled-or-uncontrolled)
   - [Props](#props)
     - [Prefer naming opt-in `boolean` props so that applying them specifies the change that will occur](#prefer-naming-opt-in-boolean-props-so-that-applying-them-specifies-the-change-that-will-occur)
