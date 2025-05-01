@@ -382,7 +382,7 @@ function Example({isActive}) {
 ```tsx
 function Example({isActive}) {
   return (
-    <div className={className('example', isActive && 'active'}`}>
+    <div className={clsx('example', {'active' : isActive}}>
       <div>Example</div>
     </div>
   )
