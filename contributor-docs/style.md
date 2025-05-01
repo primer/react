@@ -260,7 +260,7 @@ type Props = {
 
 ```tsx
 type Props = {
-  onChange: ({ a, b, c } { a: boolean; b: string; c: number }) => void
+  onChange: ({ a, b, c }: { a: boolean; b: string; c: number }) => void
 }
 ```
 
