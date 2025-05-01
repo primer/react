@@ -1071,7 +1071,7 @@ describe('DataTable', () => {
       {id: 2, name: 'The Matador', _uid: 'abc12334'},
     ]
 
-    const getRowId = (row: any) => row._uid
+    const getRowId = (row: {id: number; name: string; _uid: string}) => row._uid
 
     const {result} = renderHook(() =>
       useTable({
@@ -1091,7 +1091,7 @@ describe('DataTable', () => {
       {id: 2, name: 'The Matador', _uid: 'abc12334'},
     ]
 
-    const getRowId = (row: any) => row.id
+    const getRowId = (row: {id: number; name: string; _uid: string}) => row.id
 
     const {result} = renderHook(() =>
       useTable({
