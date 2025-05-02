@@ -78,7 +78,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
           disabled={disabled}
           rows={rows}
           cols={cols}
-          className={clsx(classes.TextArea, className)}
+          className={classes.TextArea}
           {...rest}
         />
       </TextInputBaseWrapper>
