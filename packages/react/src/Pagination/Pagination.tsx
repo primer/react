@@ -68,9 +68,9 @@ function usePaginationPages({
       }
 
       return (
-        <a {...props} key={key} className={clsx(classes.Page)}>
+        <span {...props} key={key} className={clsx(classes.Page)}>
           {content}
-        </a>
+        </span>
       )
     })
   }, [model, hrefBuilder, pageChange, renderPage])
