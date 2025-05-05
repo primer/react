@@ -80,7 +80,7 @@ jobs:
         run: |
           PR_NUMBERS=$(gh pr list -R primer/react --state open --json number,mergeable,baseRefName,autoMergeRequest -q '.[] | select(.autoMergeRequest != null) | select(.mergeable == "MERGEABLE") | select(.baseRefName == "main") | .number')
           if [ -n "$PR_NUMBERS" ]; then
-            echo "$PR_NUMBERS" | xargs -I {} gh pr update-branch -R primer/react {}
+            echo "$PR_NUMBERS" | xargs -I {} gh pr update-branch --rebase -R primer/react {}
           else
             echo "No PRs to update."
           fi
