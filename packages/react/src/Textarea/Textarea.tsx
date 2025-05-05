@@ -3,7 +3,6 @@ import React from 'react'
 import {TextInputBaseWrapper} from '../internal/components/TextInputWrapper'
 import type {FormValidationStatus} from '../utils/types/FormValidationStatus'
 import type {SxProp} from '../sx'
-import {clsx} from 'clsx'
 import classes from './TextArea.module.css'
 
 export const DEFAULT_TEXTAREA_ROWS = 7
