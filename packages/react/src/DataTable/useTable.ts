@@ -9,6 +9,7 @@ interface TableConfig<Data extends UniqueRow> {
   data: Array<Data>
   initialSortColumn?: string | number
   initialSortDirection?: Exclude<SortDirection, 'NONE'>
+  getRowId: (rowData: Data) => string | number
 }
 
 interface Table<Data extends UniqueRow> {
@@ -47,6 +48,7 @@ export function useTable<Data extends UniqueRow>({
   data,
   initialSortColumn,
   initialSortDirection,
+  getRowId,
 }: TableConfig<Data>): Table<Data> {
   const [rowOrder, setRowOrder] = useState(data)
   const [prevData, setPrevData] = useState(data)
@@ -181,15 +183,16 @@ export function useTable<Data extends UniqueRow>({
   return {
     headers,
     rows: rowOrder.map(row => {
+      const rowId = getRowId(row)
       return {
-        id: `${row.id}`,
+        id: `${rowId}`,
         getValue() {
           return row
         },
         getCells() {
           return headers.map(header => {
             return {
-              id: `${row.id}:${header.id}`,
+              id: `${rowId}:${header.id}`,
               column: header.column,
               rowHeader: header.column.rowHeader ?? false,
               getValue() {
