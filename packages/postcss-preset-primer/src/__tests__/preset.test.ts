@@ -1,7 +1,4 @@
-/**
- * @jest-environment node
- */
-
+import {describe, expect, test} from 'vitest'
 import postcss from 'postcss'
 import preset from '../'
 

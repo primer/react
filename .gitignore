@@ -43,3 +43,6 @@ blob-report
 
 # CSS modules type definitions
 *.module.css.d.ts
+
+# Vitest
+**/__screenshots__/**
