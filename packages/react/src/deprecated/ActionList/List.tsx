@@ -62,7 +62,7 @@ export interface ListPropsBase {
    * - `"inset"` - `List` children are offset (vertically and horizontally) from `List`’s edges
    * - `"full"` - `List` children are flush (vertically and horizontally) with `List` edges
    */
-  variant?: 'inset' | 'horizontal-inset' | 'full'
+  variant?: 'inset' | 'full'
 
   /**
    *  For `Item`s which can be selected, whether `multiple` `Item`s or a `single` `Item` can be selected
