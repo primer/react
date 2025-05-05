@@ -86,7 +86,9 @@
     "@rollup/rollup-linux-x64-gnu": "^4.9.6"
   },
   "overrides": {
-    "nwsapi": "2.2.2"
+    "nwsapi": "2.2.2",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
   },
   "prettier": "@github/prettier-config",
   "size-limit": [
