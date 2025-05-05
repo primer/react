@@ -1,10 +1,10 @@
 import userEvent from '@testing-library/user-event'
-import {render, screen, getByRole, queryByRole, queryAllByRole} from '@testing-library/react'
+import {render, screen, getByRole, queryByRole, queryAllByRole, renderHook} from '@testing-library/react'
 import React from 'react'
 import {DataTable, Table} from '../../DataTable'
 import type {Column} from '../column'
 import {createColumnHelper} from '../column'
-import {getGridTemplateFromColumns} from '../useTable'
+import {getGridTemplateFromColumns, useTable} from '../useTable'
 
 describe('DataTable', () => {
   it('should render a semantic <table> through `data` and `columns`', () => {
@@ -1063,5 +1063,45 @@ describe('DataTable', () => {
         '--grid-template-columns': 'minmax(max-content, 1fr)',
       })
     })
+  })
+
+  it('overrides row.id with result of getRowId function', () => {
+    const data = [
+      {id: 1, name: 'Sabine', _uid: 'abc123'},
+      {id: 2, name: 'The Matador', _uid: 'abc12334'},
+    ]
+
+    const getRowId = (row: {id: number; name: string; _uid: string}) => row._uid
+
+    const {result} = renderHook(() =>
+      useTable({
+        data,
+        columns: [],
+        getRowId,
+      }),
+    )
+
+    expect(result.current.rows[0].id).toBe('abc123')
+    expect(result.current.rows[1].id).toBe('abc12334')
+  })
+
+  it('uses default row.id when getRowId is not provided', () => {
+    const data = [
+      {id: 1, name: 'Sabine', _uid: 'abc123'},
+      {id: 2, name: 'The Matador', _uid: 'abc12334'},
+    ]
+
+    const getRowId = (row: {id: number; name: string; _uid: string}) => row.id
+
+    const {result} = renderHook(() =>
+      useTable({
+        data,
+        columns: [],
+        getRowId,
+      }),
+    )
+
+    expect(result.current.rows[0].id).toBe('1')
+    expect(result.current.rows[1].id).toBe('2')
   })
 })
