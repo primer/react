@@ -1,4 +1,4 @@
-import React from 'react'
+import type React from 'react'
 import {ConfirmationDialog} from '../ConfirmationDialog/ConfirmationDialog'
 
 export type TableErrorDialogProps = React.PropsWithChildren<{

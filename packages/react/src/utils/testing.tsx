@@ -11,7 +11,7 @@ import type {LiveRegionElement} from '@primer/live-region-element'
 
 type ComputedStyles = Record<string, string | Record<string, string>>
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 const readFile = promisify(require('fs').readFile)
 
 export const COMPONENT_DISPLAY_NAME_REGEX = /^[A-Z][A-Za-z]+(\.[A-Z][A-Za-z]+)*$/
@@ -124,7 +124,7 @@ export function getComputedStyles(className: string, restProps?: Record<string, 
     }
     try {
       return node.matches(selector)
-    } catch (error) {
+    } catch {
       return false
     }
   }
@@ -248,7 +248,7 @@ export function behavesAsComponent({Component, toRender, options}: BehavesAsComp
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function checkExports(path: string, exports: Record<any, any>): void {
   it('has declared exports', () => {
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
     const mod = require(`../${path}`)
     expect(mod).toSetExports(exports)
   })
@@ -257,7 +257,7 @@ export function checkExports(path: string, exports: Record<any, any>): void {
 axe.configure(customRules)
 
 export function checkStoriesForAxeViolations(name: string, storyDir?: string) {
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
   const stories = require(`${storyDir || '../stories/'}${name}.stories`)
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars -- _meta

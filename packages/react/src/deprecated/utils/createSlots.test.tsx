@@ -1,4 +1,4 @@
-import React from 'react'
+import type React from 'react'
 import {render, waitFor} from '@testing-library/react'
 import createSlots from './create-slots'
 

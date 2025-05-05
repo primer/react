@@ -1,5 +1,5 @@
 import type {ButtonHTMLAttributes} from 'react'
-import React from 'react'
+import type React from 'react'
 import type {IconProps} from '@primer/octicons-react'
 import styled from 'styled-components'
 import type {SxProp} from '../sx'

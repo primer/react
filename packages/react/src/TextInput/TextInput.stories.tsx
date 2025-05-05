@@ -1,4 +1,5 @@
-import React, {useState} from 'react'
+import type React from 'react'
+import {useState} from 'react'
 import type {Meta} from '@storybook/react'
 import {Box, FormControl} from '..'
 import type {TextInputProps} from '../TextInput'

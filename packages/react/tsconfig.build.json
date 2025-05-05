@@ -21,6 +21,8 @@
     "src/utils/test-*.tsx",
     "src/utils/testing.tsx",
     "e2e/**/*.ts",
-    "playwright.config.ts"
+    "playwright.config.ts",
+    ".storybook/**/*.ts",
+    ".storybook/**/*.tsx"
   ]
 }

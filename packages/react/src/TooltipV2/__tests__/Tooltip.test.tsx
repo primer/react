@@ -1,4 +1,4 @@
-import React from 'react'
+import type React from 'react'
 import type {TooltipProps} from '../Tooltip'
 import {Tooltip} from '../Tooltip'
 import {checkStoriesForAxeViolations} from '../../utils/testing'

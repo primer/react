@@ -1,4 +1,4 @@
-import React from 'react'
+import type React from 'react'
 import type {Meta} from '@storybook/react'
 import {action} from '@storybook/addon-actions'
 

@@ -1,4 +1,4 @@
-import React from 'react'
+import type React from 'react'
 import {render as HTMLRender, waitFor} from '@testing-library/react'
 import axe from 'axe-core'
 import {LabelGroup, Label, ThemeProvider, BaseStyles} from '..'

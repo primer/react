@@ -1,5 +1,6 @@
 import type {HTMLProps} from 'react'
-import React, {useEffect, useState} from 'react'
+import type React from 'react'
+import {useEffect, useState} from 'react'
 import styled, {keyframes, css} from 'styled-components'
 import Box from '../../Box'
 

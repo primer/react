@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import type {TokenBaseProps} from './TokenBase'
 import {toggleStyledComponent} from '../internal/utils/toggleStyledComponent'
-import React from 'react'
+import type React from 'react'
 import classes from './_TokenTextContainer.module.css'
 import {useFeatureFlag} from '../FeatureFlags'
 import {clsx} from 'clsx'

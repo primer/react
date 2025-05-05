@@ -18,7 +18,9 @@
     "typescript": "^5.8.2"
   },
   "devDependencies": {
+    "@eslint/compat": "^1.2.8",
     "@next/eslint-plugin-next": "^15.1.4",
+    "eslint": "^9.25.1",
     "rimraf": "^5.0.5"
   }
 }

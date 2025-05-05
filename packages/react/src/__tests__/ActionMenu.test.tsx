@@ -1,7 +1,7 @@
 import {render as HTMLRender, waitFor, act, within} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import axe from 'axe-core'
-import React from 'react'
+import type React from 'react'
 import theme from '../theme'
 import {ActionMenu, ActionList, BaseStyles, ThemeProvider, Button, IconButton} from '..'
 import Tooltip from '../Tooltip'

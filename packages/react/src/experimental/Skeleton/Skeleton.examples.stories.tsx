@@ -121,6 +121,7 @@ export const CommentsLoadingWithSuspense = () => {
       try {
         await dataPromise
         setLoadingStatus('fulfilled')
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
       } catch (error) {
         // Handle error if needed
       }

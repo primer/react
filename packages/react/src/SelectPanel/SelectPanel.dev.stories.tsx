@@ -1,6 +1,7 @@
 import {TriangleDownIcon} from '@primer/octicons-react'
 import type {Meta} from '@storybook/react'
-import React, {useState} from 'react'
+import type React from 'react'
+import {useState} from 'react'
 
 import Box from '../Box'
 import {Button} from '../Button'

@@ -1,4 +1,5 @@
-import React, {forwardRef} from 'react'
+import type React from 'react'
+import {forwardRef} from 'react'
 import Box from '../Box'
 import {Button, IconButton} from '../Button'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'

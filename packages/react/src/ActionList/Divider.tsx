@@ -1,4 +1,4 @@
-import React from 'react'
+import type React from 'react'
 import Box from '../Box'
 import {get} from '../constants'
 import type {Theme} from '../ThemeProvider'

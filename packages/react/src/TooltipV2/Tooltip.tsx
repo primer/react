@@ -265,7 +265,7 @@ export const Tooltip = React.forwardRef(
                 // only show tooltip on :focus-visible, not on :focus
                 try {
                   if (!event.target.matches(':focus-visible')) return
-                } catch (error) {
+                } catch {
                   // jsdom (jest) does not support `:focus-visible` yet and would throw an error
                   // https://github.com/jsdom/jsdom/issues/3426
                 }

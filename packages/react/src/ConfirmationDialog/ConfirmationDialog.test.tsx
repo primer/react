@@ -1,6 +1,7 @@
 import {render as HTMLRender, fireEvent} from '@testing-library/react'
 import axe from 'axe-core'
-import React, {useCallback, useRef, useState} from 'react'
+import type React from 'react'
+import {useCallback, useRef, useState} from 'react'
 
 import {ActionMenu} from '../deprecated/ActionMenu'
 import BaseStyles from '../BaseStyles'

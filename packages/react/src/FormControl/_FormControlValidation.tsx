@@ -1,4 +1,4 @@
-import React from 'react'
+import type React from 'react'
 import InputValidation from '../internal/components/InputValidation'
 import type {SxProp} from '../sx'
 import type {FormValidationStatus} from '../utils/types/FormValidationStatus'
