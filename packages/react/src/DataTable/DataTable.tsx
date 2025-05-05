@@ -50,6 +50,19 @@ export type DataTableProps<Data extends UniqueRow> = {
    * currently sorted column
    */
   initialSortDirection?: Exclude<SortDirection, 'NONE'>
+
+  /**
+   * Provide a function to determine the unique identifier for each row.
+   * This function allows you to customize the key used for the row.
+   * By default, the table uses the `id` field from the data.
+   * @param rowData The row data object for which the ID is being retrieved.
+   * @returns The unique identifier for the row, which can be a string or number.
+   */
+  getRowId?: (rowData: Data) => string | number
+}
+
+function defaultGetRowId<D extends UniqueRow>(row: D) {
+  return row.id
 }
 
 function DataTable<Data extends UniqueRow>({
@@ -60,12 +73,14 @@ function DataTable<Data extends UniqueRow>({
   data,
   initialSortColumn,
   initialSortDirection,
+  getRowId = defaultGetRowId,
 }: DataTableProps<Data>) {
   const {headers, rows, actions, gridTemplateColumns} = useTable({
     data,
     columns,
     initialSortColumn,
     initialSortDirection,
+    getRowId,
   })
 
   return (
