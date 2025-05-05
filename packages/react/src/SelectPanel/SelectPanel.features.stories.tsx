@@ -260,7 +260,7 @@ export const WithExternalAnchor = () => {
   )
 }
 
-export const WithSecondaryAction = () => {
+export const WithSecondaryActionButton = () => {
   const [selected, setSelected] = useState<ItemInput[]>(items.slice(1, 3))
   const [filter, setFilter] = useState('')
   const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
@@ -283,7 +283,38 @@ export const WithSecondaryAction = () => {
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         overlayProps={{width: 'small', height: 'medium'}}
-        secondaryAction={<Button block>Edit labels</Button>}
+        secondaryAction={<SelectPanel.SecondaryActionButton>Edit labels</SelectPanel.SecondaryActionButton>}
+        width="medium"
+        message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}
+      />
+    </FormControl>
+  )
+}
+
+export const WithSecondaryActionLink = () => {
+  const [selected, setSelected] = useState<ItemInput[]>(items.slice(1, 3))
+  const [filter, setFilter] = useState('')
+  const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
+  const [open, setOpen] = useState(false)
+
+  return (
+    <FormControl>
+      <FormControl.Label>Labels</FormControl.Label>
+      <SelectPanel
+        renderAnchor={({children, ...anchorProps}) => (
+          <Button trailingAction={TriangleDownIcon} {...anchorProps}>
+            {children}
+          </Button>
+        )}
+        placeholder="Select labels" // button text when no items are selected
+        open={open}
+        onOpenChange={setOpen}
+        items={filteredItems}
+        selected={selected}
+        onSelectedChange={setSelected}
+        onFilterChange={setFilter}
+        overlayProps={{width: 'small', height: 'medium'}}
+        secondaryAction={<SelectPanel.SecondaryActionLink href="#">Edit labels</SelectPanel.SecondaryActionLink>}
         width="medium"
         message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}
       />
