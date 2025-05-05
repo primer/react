@@ -2,7 +2,6 @@ import React, {useState, useCallback} from 'react'
 import {Text, Button} from '..'
 import type {DialogProps, DialogWidth, DialogHeight} from './Dialog'
 import {Dialog} from './Dialog'
-import {FeatureFlags} from '../FeatureFlags'
 
 /* Dialog Version 2 */
 
@@ -62,12 +61,7 @@ export const WithCss = ({width, height, subtitle}: DialogStoryProps) => {
   const [isOpen, setIsOpen] = useState(true)
   const onDialogClose = useCallback(() => setIsOpen(false), [])
   return (
-    <FeatureFlags
-      flags={{
-        primer_react_css_modules_staff: true,
-        primer_react_css_modules_ga: true,
-      }}
-    >
+    <>
       <Button onClick={() => setIsOpen(!isOpen)}>Show dialog</Button>
       {isOpen && (
         <Dialog
@@ -88,7 +82,7 @@ export const WithCss = ({width, height, subtitle}: DialogStoryProps) => {
           {lipsum}
         </Dialog>
       )}
-    </FeatureFlags>
+    </>
   )
 }
 
@@ -116,12 +110,7 @@ export const WithSx = ({width, height, subtitle}: DialogStoryProps) => {
   const [isOpen, setIsOpen] = useState(true)
   const onDialogClose = useCallback(() => setIsOpen(false), [])
   return (
-    <FeatureFlags
-      flags={{
-        primer_react_css_modules_staff: true,
-        primer_react_css_modules_ga: true,
-      }}
-    >
+    <>
       <Button onClick={() => setIsOpen(!isOpen)}>Show dialog</Button>
       {isOpen && (
         <Dialog
@@ -142,7 +131,7 @@ export const WithSx = ({width, height, subtitle}: DialogStoryProps) => {
           {lipsum}
         </Dialog>
       )}
-    </FeatureFlags>
+    </>
   )
 }
 
@@ -178,12 +167,7 @@ export const WithSxAndCss = ({width, height, subtitle}: DialogStoryProps) => {
   const [isOpen, setIsOpen] = useState(true)
   const onDialogClose = useCallback(() => setIsOpen(false), [])
   return (
-    <FeatureFlags
-      flags={{
-        primer_react_css_modules_staff: true,
-        primer_react_css_modules_ga: true,
-      }}
-    >
+    <>
       <Button onClick={() => setIsOpen(!isOpen)}>Show dialog</Button>
       {isOpen && (
         <Dialog
@@ -205,6 +189,6 @@ export const WithSxAndCss = ({width, height, subtitle}: DialogStoryProps) => {
           {lipsum}
         </Dialog>
       )}
-    </FeatureFlags>
+    </>
   )
 }

@@ -19,7 +19,7 @@ jobs:
           echo $NUMBER > ./PR/number
         env:
           NUMBER: ${{ github.event.number }}
-      - uses: actions/upload-artifact@4cec3d8aa04e39d1a68397de0c4cd6fb9dce8ec1
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: pull-request
           path: ./PR
@@ -35,7 +35,7 @@ jobs:
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
       - name: Set up Node.js
-        uses: actions/setup-node@cdca7365b2dadb8aad0a33bc7601856ffabcc48e
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
         with:
           node-version: 22
           cache: 'npm'
@@ -66,7 +66,7 @@ jobs:
             git ls-files --others --exclude-standard --modified | zip snapshots -@
           fi
       - name: Upload snapshots
-        uses: actions/upload-artifact@4cec3d8aa04e39d1a68397de0c4cd6fb9dce8ec1
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: snapshots-${{ matrix.shard }}
           path: snapshots.zip

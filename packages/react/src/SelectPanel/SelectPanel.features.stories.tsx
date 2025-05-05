@@ -167,12 +167,6 @@ export const SingleSelect = () => {
   const [selected, setSelected] = useState<ItemInput | undefined>(items[0])
   const [filter, setFilter] = useState('')
   const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
-  // design guidelines say to sort selected items first
-  const selectedItemsSortedFirst = filteredItems.sort((a, b) => {
-    if (a.text === selected?.text) return -1
-    if (b.text === selected?.text) return 1
-    return 0
-  })
   const [open, setOpen] = useState(false)
 
   return (
@@ -187,12 +181,12 @@ export const SingleSelect = () => {
         placeholder="Select labels" // button text when no items are selected
         open={open}
         onOpenChange={setOpen}
-        items={selectedItemsSortedFirst}
+        items={filteredItems}
         selected={selected}
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         width="medium"
-        message={selectedItemsSortedFirst.length === 0 ? NoResultsMessage(filter) : undefined}
+        message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}
       />
     </FormControl>
   )
@@ -202,14 +196,6 @@ export const MultiSelect = () => {
   const [selected, setSelected] = useState<ItemInput[]>(items.slice(1, 3))
   const [filter, setFilter] = useState('')
   const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
-  // design guidelines say to sort selected items first
-  const selectedItemsSortedFirst = filteredItems.sort((a, b) => {
-    const aIsSelected = selected.some(selectedItem => selectedItem.text === a.text)
-    const bIsSelected = selected.some(selectedItem => selectedItem.text === b.text)
-    if (aIsSelected && !bIsSelected) return -1
-    if (!aIsSelected && bIsSelected) return 1
-    return 0
-  })
   const [open, setOpen] = useState(false)
 
   return (
@@ -226,12 +212,12 @@ export const MultiSelect = () => {
         )}
         open={open}
         onOpenChange={setOpen}
-        items={selectedItemsSortedFirst}
+        items={filteredItems}
         selected={selected}
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         width="medium"
-        message={selectedItemsSortedFirst.length === 0 ? NoResultsMessage(filter) : undefined}
+        message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}
       />
     </FormControl>
   )
@@ -274,18 +260,10 @@ export const WithExternalAnchor = () => {
   )
 }
 
-export const WithFooter = () => {
+export const WithSecondaryAction = () => {
   const [selected, setSelected] = useState<ItemInput[]>(items.slice(1, 3))
   const [filter, setFilter] = useState('')
   const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
-  // design guidelines say to sort selected items first
-  const selectedItemsSortedFirst = filteredItems.sort((a, b) => {
-    const aIsSelected = selected.some(selectedItem => selectedItem.text === a.text)
-    const bIsSelected = selected.some(selectedItem => selectedItem.text === b.text)
-    if (aIsSelected && !bIsSelected) return -1
-    if (!aIsSelected && bIsSelected) return 1
-    return 0
-  })
   const [open, setOpen] = useState(false)
 
   return (
@@ -300,18 +278,14 @@ export const WithFooter = () => {
         placeholder="Select labels" // button text when no items are selected
         open={open}
         onOpenChange={setOpen}
-        items={selectedItemsSortedFirst}
+        items={filteredItems}
         selected={selected}
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         overlayProps={{width: 'small', height: 'medium'}}
-        footer={
-          <Button size="small" block>
-            Edit labels
-          </Button>
-        }
+        secondaryAction={<Button block>Edit labels</Button>}
         width="medium"
-        message={selectedItemsSortedFirst.length === 0 ? NoResultsMessage(filter) : undefined}
+        message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}
       />
     </FormControl>
   )
@@ -756,14 +730,6 @@ export const WithOnCancel = () => {
   const [selected, setSelected] = React.useState<ItemInput[]>(intialSelection)
   const [filter, setFilter] = React.useState('')
   const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
-  // design guidelines say to sort selected items first
-  const selectedItemsSortedFirst = filteredItems.sort((a, b) => {
-    const aIsSelected = selected.some(selectedItem => selectedItem.text === a.text)
-    const bIsSelected = selected.some(selectedItem => selectedItem.text === b.text)
-    if (aIsSelected && !bIsSelected) return -1
-    if (!aIsSelected && bIsSelected) return 1
-    return 0
-  })
 
   const [open, setOpen] = useState(false)
   React.useEffect(() => {
@@ -784,7 +750,7 @@ export const WithOnCancel = () => {
         )}
         open={open}
         onOpenChange={setOpen}
-        items={selectedItemsSortedFirst}
+        items={filteredItems}
         selected={selected}
         onSelectedChange={setSelected}
         onCancel={() => setSelected(intialSelection)}
@@ -792,5 +758,70 @@ export const WithOnCancel = () => {
         width="medium"
       />
     </FormControl>
+  )
+}
+
+export const MultiSelectModal = () => {
+  const [intialSelection, setInitialSelection] = React.useState<ItemInput[]>(items.slice(1, 3))
+
+  const [selected, setSelected] = React.useState<ItemInput[]>(intialSelection)
+  const [filter, setFilter] = React.useState('')
+  const [open, setOpen] = useState(false)
+
+  React.useEffect(() => {
+    if (!open) setInitialSelection(selected) // Save selection as initialSelection for next time
+  }, [open, selected])
+
+  const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
+
+  return (
+    <SelectPanel
+      variant="modal"
+      title="Select labels"
+      placeholder="Select labels"
+      subtitle="Use labels to organize issues and pull requests"
+      renderAnchor={({children, ...anchorProps}) => (
+        <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
+          {children}
+        </Button>
+      )}
+      open={open}
+      onOpenChange={setOpen}
+      items={filteredItems}
+      selected={selected}
+      onSelectedChange={setSelected}
+      onCancel={() => setSelected(intialSelection)}
+      onFilterChange={setFilter}
+      width="medium"
+    />
+  )
+}
+
+export const SingleSelectModal = () => {
+  const [selected, setSelected] = useState<ItemInput | undefined>(undefined)
+  const [filter, setFilter] = useState('')
+  const [open, setOpen] = useState(false)
+  const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
+
+  return (
+    <SelectPanel
+      variant="modal"
+      title="Select labels"
+      placeholder="Select labels"
+      subtitle="Use labels to organize issues and pull requests"
+      renderAnchor={({children, ...anchorProps}) => (
+        <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
+          {children}
+        </Button>
+      )}
+      open={open}
+      onOpenChange={setOpen}
+      items={filteredItems}
+      selected={selected}
+      onSelectedChange={setSelected}
+      onCancel={() => {}}
+      onFilterChange={setFilter}
+      width="medium"
+    />
   )
 }

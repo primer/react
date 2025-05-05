@@ -8,11 +8,35 @@
     width: 100%;
   }
 
-  &:where([data-token-wrapping]) {
+  &:where([data-token-wrapping='true']) {
     overflow: auto;
   }
 }
 
 .UnstyledTextInput {
   height: 100%;
+}
+
+.InputWrapper {
+  order: 1;
+  flex-grow: 1;
+}
+
+.Container {
+  display: flex;
+  margin-bottom: calc(var(--base-size-4) * -1);
+  margin-left: calc(var(--base-size-4) * -1);
+  align-items: center;
+  flex-wrap: wrap;
+  flex-grow: 1;
+
+  &:where([data-prevent-token-wrapping='true']) {
+    flex-wrap: nowrap;
+  }
+
+  > * {
+    margin-bottom: var(--base-size-4);
+    margin-left: var(--base-size-4);
+    flex-shrink: 0;
+  }
 }

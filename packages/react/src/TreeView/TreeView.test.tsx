@@ -4,7 +4,6 @@ import React from 'react'
 import {ThemeProvider} from '../ThemeProvider'
 import type {SubTreeState} from './TreeView'
 import {TreeView} from './TreeView'
-import {FeatureFlags} from '../FeatureFlags'
 
 jest.useFakeTimers()
 
@@ -1651,21 +1650,8 @@ describe('CSS Module Migration', () => {
         <TreeView.Item id="item-3">Item 3</TreeView.Item>
       </TreeView>
     )
-    const FeatureFlagElement = () => {
-      return (
-        <FeatureFlags
-          flags={{
-            primer_react_css_modules_staff: true,
-            primer_react_css_modules_ga: true,
-          }}
-        >
-          <TreeViewTestComponent />
-        </FeatureFlags>
-      )
-    }
 
     // Testing on the second child element because the first child element is visually hidden
     expect(render(<TreeViewTestComponent />).container.children[1]).toHaveClass('test-class-name')
-    expect(render(<FeatureFlagElement />).container.children[1]).toHaveClass('test-class-name')
   })
 })
