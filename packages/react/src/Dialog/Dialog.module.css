@@ -214,7 +214,9 @@
 
 .Header {
   z-index: 1;
+  max-height: 35vh;
   padding: var(--base-size-8);
+  overflow-y: auto;
   /* stylelint-disable-next-line primer/box-shadow */
   box-shadow: 0 1px 0 var(--borderColor-default);
   flex-shrink: 0;
