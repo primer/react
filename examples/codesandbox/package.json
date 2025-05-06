@@ -26,6 +26,6 @@
     "eslint-plugin-react-refresh": "^0.4.19",
     "styled-components": "5.x",
     "typescript": "^5.8.2",
-    "vite": "^6.2.7"
+    "vite": "^6.3.5"
   }
 }
