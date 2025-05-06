@@ -24,6 +24,10 @@
   font-size: var(--text-body-size-medium);
 }
 
+.Wrapper[data-variant='modal'] .Title {
+  margin-top: var(--base-size-8); /* styling specific to the modal variant */
+}
+
 .Subtitle {
   margin-left: var(--base-size-8);
   font-size: var(--text-body-size-small);
@@ -134,18 +138,86 @@
 
 .ResponsiveFooter {
   display: none;
-  padding: var(--base-size-16);
+  align-items: center;
+  padding: var(--base-size-8);
   gap: var(--stack-gap-condensed);
-  justify-content: right;
+  justify-content: center;
+
+  &:where([data-display-footer='always']) {
+    display: flex;
+  }
+
+  &:where([data-display-footer='only-small']) {
+    @media screen and (--viewportRange-narrow) {
+      display: flex;
+    }
+  }
+
+  &[data-stretch-secondary-action='never'] {
+    justify-content: space-between;
+  }
+
+  &:where([data-stretch-secondary-action='only-big']) {
+    @media screen and (--viewportRange-narrow) {
+      justify-content: space-between;
+    }
+  }
+
+  &:where([data-stretch-save-button='only-small']) {
+    justify-content: space-between;
+
+    @media screen and (--viewportRange-narrow) {
+      justify-content: center;
+    }
+  }
+}
+
+.SecondaryAction {
+  flex-grow: 1;
+  align-items: stretch;
+  display: flex;
+  justify-content: center;
+
+  &[data-stretch-secondary-action='never'] {
+    flex-grow: 0;
+    align-items: flex-start;
+  }
+
+  &:where([data-stretch-secondary-action='only-big']) {
+    @media screen and (--viewportRange-narrow) {
+      flex-grow: 0;
+      align-items: flex-start;
+    }
+  }
+}
+
+.CancelSaveButtons {
+  display: flex;
+  gap: var(--stack-gap-condensed);
+  justify-content: flex-end;
+}
+
+.ResponsiveCancelSaveButtons {
+  display: none;
 
   @media screen and (--viewportRange-narrow) {
     display: flex;
     gap: var(--stack-gap-condensed);
-    justify-content: right;
+    justify-content: flex-end;
+  }
+}
+
+.ResponsiveSaveButton {
+  display: none;
+
+  @media screen and (--viewportRange-narrow) {
+    display: flex;
   }
 
-  &:where([data-variant='modal'] &) {
-    display: flex;
+  &:where([data-stretch-save-button='only-small']) {
+    @media screen and (--viewportRange-narrow) {
+      flex-grow: 1;
+    }
   }
 }
 

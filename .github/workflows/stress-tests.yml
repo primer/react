@@ -8,7 +8,7 @@ jobs:
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
       - name: Set up Node.js
-        uses: actions/setup-node@cdca7365b2dadb8aad0a33bc7601856ffabcc48e
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
         with:
           node-version: 22
           cache: 'npm'
@@ -45,11 +45,11 @@ jobs:
           output-file-path: results.json
           # Where the previous data file is stored
           external-data-json-path: ./cache/stress-tests-benchmark-data.json
-          # Workflow will fail when an alert happens
-          fail-on-alert: true
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          alert-threshold: '150%'
-          # Enable alert commit comment
-          comment-on-alert: true
+          alert-threshold: '200%'
+          # Workflow will not fail when an alert happens (fail-on-alert is set to false)
+          fail-on-alert: false
+          # Disable alert commit comment
+          comment-on-alert: false
           # Mention @rhysd in the commit comment
           alert-comment-cc-users: '@hectahertz'

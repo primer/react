@@ -14,7 +14,16 @@ const sharedPlugins = [
 ]
 
 function makePresets(moduleValue) {
-  return ['@babel/preset-typescript', ['@babel/preset-react', {modules: moduleValue}]]
+  return [
+    '@babel/preset-typescript',
+    [
+      '@babel/preset-react',
+      {
+        modules: moduleValue,
+        runtime: 'automatic',
+      },
+    ],
+  ]
 }
 
 module.exports = {
