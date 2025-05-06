@@ -62,7 +62,6 @@ row before the </tbody></table> line.
   - [Prefer managing focus through event handlers instead of effects](#prefer-managing-focus-through-event-handlers-instead-of-effects)
   - [Prefer the `useControllableState` hook when authoring components that can be controlled or uncontrolled](#prefer-the-usecontrollablestate-hook-when-authoring-components-that-can-be-controlled-or-uncontrolled)
   - [Props](#props)
-    - [Prefer naming opt-in `boolean` props so that applying them specifies the change that will occur](#prefer-naming-opt-in-boolean-props-so-that-applying-them-specifies-the-change-that-will-occur)
     - [Prefer applying component rest parameters to the root element rendered by a component](#prefer-applying-component-rest-parameters-to-the-root-element-rendered-by-a-component)
     - [Prefer authoring callback prop types with arguments that can be extended](#prefer-authoring-callback-prop-types-with-arguments-that-can-be-extended)
   - [Hooks](#hooks)
@@ -155,28 +154,6 @@ function Example({defaultValue, onChange, value: controlledValue}: ExampleProps)
 
 ### Props
 
-#### Prefer naming opt-in `boolean` props so that applying them specifies the change that will occur
-
-<table>
-<thead><tr><th>Unpreferred</th><th>Preferred</th></tr></thead>
-<tbody>
-<tr><td>
-
-```tsx
-type Props = {}
-```
-
-</td><td>
-
-```tsx
-type Props = {
-  fullWidth?: boolean
-}
-```
-
-</td></tr>
-</tbody></table>
-
 #### Prefer applying component rest parameters to the root element rendered by a component
 
 Components may accept forwarding props to an underlying element through rest parameters. This strategy allows the component to accept common prop types like `className`, `data-testid`, and more without having to explicitly annotate each property in the component prop type definition. For example:
@@ -260,7 +237,7 @@ type Props = {
 
 ```tsx
 type Props = {
-  onChange: ({ a, b, c }: { a: boolean; b: string; c: number }) => void
+  onChange: ({a, b, c}: {a: boolean; b: string; c: number}) => void
 }
 ```
 
