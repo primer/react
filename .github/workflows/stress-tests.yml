@@ -49,7 +49,7 @@ jobs:
           alert-threshold: '200%'
           # Workflow will not fail when an alert happens (fail-on-alert is set to false)
           fail-on-alert: false
-          # Enable alert commit comment
-          comment-on-alert: true
+          # Disable alert commit comment
+          comment-on-alert: false
           # Mention @rhysd in the commit comment
           alert-comment-cc-users: '@hectahertz'
