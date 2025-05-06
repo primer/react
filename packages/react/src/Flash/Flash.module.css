@@ -1,11 +1,11 @@
 .Flash {
   position: relative;
-  color: var(--fgColor-default);
   padding: var(--base-size-16);
-  border-style: solid;
-  border-width: 1px;
-  border-radius: var(--borderRadius-medium);
   margin-top: 0;
+  color: var(--fgColor-default);
+  border-style: solid;
+  border-width: var(--borderWidth-thin);
+  border-radius: var(--borderRadius-medium);
 
   &:where([data-variant='default']) {
     background-color: var(--bgColor-accent-muted);
@@ -44,9 +44,10 @@
   }
 
   &:where([data-full]) {
-    border-width: 1px 0px;
-    border-radius: 0;
+    /* stylelint-disable-next-line primer/spacing */
     margin-top: -1px;
+    border-width: var(--borderWidth-thin) 0;
+    border-radius: 0;
   }
 
   & :where(p:last-child) {
