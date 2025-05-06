@@ -1,3 +1,4 @@
+import {describe, expect, it, vi} from 'vitest'
 import userEvent from '@testing-library/user-event'
 import {render, screen} from '@testing-library/react'
 import React from 'react'
@@ -30,7 +31,7 @@ describe('Table.ErrorDialog', () => {
 
   it('should call `onRetry` if the confirm button is interacted with', async () => {
     const user = userEvent.setup()
-    const onRetry = jest.fn()
+    const onRetry = vi.fn()
 
     render(<ErrorDialog onRetry={onRetry} />)
     await user.click(screen.getByText('Retry'))
@@ -49,7 +50,7 @@ describe('Table.ErrorDialog', () => {
 
   it('should call `onDismiss` if the cancel button is interacted with', async () => {
     const user = userEvent.setup()
-    const onDismiss = jest.fn()
+    const onDismiss = vi.fn()
 
     render(<ErrorDialog onDismiss={onDismiss} />)
     await user.click(screen.getByText('Dismiss'))

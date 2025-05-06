@@ -364,10 +364,13 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
                   text,
                   leadingVisual: LeadingVisual,
                   trailingVisual: TrailingVisual,
+                  // @ts-expect-error this is defined in the items above but is
+                  // missing in TS
+                  key,
                   ...itemProps
                 } = item
                 return (
-                  <ActionList.Item key={id} onSelect={() => onAction(item)} {...itemProps} id={id} data-id={id}>
+                  <ActionList.Item key={key ?? id} onSelect={() => onAction(item)} {...itemProps} id={id} data-id={id}>
                     {LeadingVisual && (
                       <ActionList.LeadingVisual>
                         {isElement(LeadingVisual) ? LeadingVisual : <LeadingVisual />}
