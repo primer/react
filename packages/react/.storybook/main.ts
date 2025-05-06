@@ -53,6 +53,11 @@ const config: StorybookConfig = {
 
     return config
   },
+  previewHead: head => {
+    // Override the default storybook padding so that VRT screenshots can
+    // contain padding
+    return `${head}<style>.sb-show-main.sb-main-padded { padding: 0 } #storybook-root { padding: 1rem }</style>`
+  },
 }
 
 export default config

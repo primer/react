@@ -1,5 +1,5 @@
 import {test, expect} from '@playwright/test'
-import {visit} from '../test-helpers/storybook'
+import {getStorybookRoot, visit} from '../test-helpers/storybook'
 import {themes} from '../test-helpers/themes'
 import {viewports} from '../test-helpers/viewports'
 
@@ -86,7 +86,7 @@ test.describe('Banner', () => {
             })
 
             // Default state
-            expect(await page.screenshot()).toMatchSnapshot(`Banner.${story.title}.${theme}.png`)
+            await expect(getStorybookRoot(page)).toHaveScreenshot(`Banner.${story.title}.${theme}.png`)
           })
         })
       }
@@ -103,7 +103,7 @@ test.describe('Banner', () => {
               width,
               height: 667,
             })
-            expect(await page.screenshot()).toMatchSnapshot(`Banner.${story.title}.${name}.png`)
+            await expect(getStorybookRoot(page)).toHaveScreenshot(`Banner.${story.title}.${name}.png`)
           })
         }
       }
