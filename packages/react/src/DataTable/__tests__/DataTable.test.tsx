@@ -1,10 +1,11 @@
+import {describe, expect, it, vi} from 'vitest'
 import userEvent from '@testing-library/user-event'
-import {render, screen, getByRole, queryByRole, queryAllByRole} from '@testing-library/react'
+import {render, screen, getByRole, queryByRole, queryAllByRole, renderHook} from '@testing-library/react'
 import React from 'react'
 import {DataTable, Table} from '../../DataTable'
 import type {Column} from '../column'
 import {createColumnHelper} from '../column'
-import {getGridTemplateFromColumns} from '../useTable'
+import {getGridTemplateFromColumns, useTable} from '../useTable'
 
 describe('DataTable', () => {
   it('should render a semantic <table> through `data` and `columns`', () => {
@@ -365,7 +366,7 @@ describe('DataTable', () => {
       })
 
       it('should not set a default sort state if `initialSortColumn` is provided but no columns are sortable', () => {
-        const spy = jest.spyOn(console, 'warn').mockImplementationOnce(() => {})
+        const spy = vi.spyOn(console, 'warn').mockImplementationOnce(() => {})
 
         render(
           <DataTable
@@ -410,7 +411,7 @@ describe('DataTable', () => {
       })
 
       it('should not set a default sort state if `initialSortColumn` is provided but does not correspond to a column', () => {
-        const spy = jest.spyOn(console, 'warn').mockImplementationOnce(() => {})
+        const spy = vi.spyOn(console, 'warn').mockImplementationOnce(() => {})
         render(
           <DataTable
             data={[
@@ -508,7 +509,7 @@ describe('DataTable', () => {
       })
 
       it('should not set a default sort state if `initialSortDirection` is provided but no columns are sortable', () => {
-        const spy = jest.spyOn(console, 'warn').mockImplementationOnce(() => {})
+        const spy = vi.spyOn(console, 'warn').mockImplementationOnce(() => {})
         render(
           <DataTable
             data={[
@@ -837,7 +838,7 @@ describe('DataTable', () => {
 
     it('should support a custom sort function', async () => {
       const user = userEvent.setup()
-      const customSortFn = jest.fn().mockImplementation((a, b) => {
+      const customSortFn = vi.fn().mockImplementation((a, b) => {
         return a.value - b.value
       })
 
@@ -1063,5 +1064,45 @@ describe('DataTable', () => {
         '--grid-template-columns': 'minmax(max-content, 1fr)',
       })
     })
+  })
+
+  it('overrides row.id with result of getRowId function', () => {
+    const data = [
+      {id: 1, name: 'Sabine', _uid: 'abc123'},
+      {id: 2, name: 'The Matador', _uid: 'abc12334'},
+    ]
+
+    const getRowId = (row: {id: number; name: string; _uid: string}) => row._uid
+
+    const {result} = renderHook(() =>
+      useTable({
+        data,
+        columns: [],
+        getRowId,
+      }),
+    )
+
+    expect(result.current.rows[0].id).toBe('abc123')
+    expect(result.current.rows[1].id).toBe('abc12334')
+  })
+
+  it('uses default row.id when getRowId is not provided', () => {
+    const data = [
+      {id: 1, name: 'Sabine', _uid: 'abc123'},
+      {id: 2, name: 'The Matador', _uid: 'abc12334'},
+    ]
+
+    const getRowId = (row: {id: number; name: string; _uid: string}) => row.id
+
+    const {result} = renderHook(() =>
+      useTable({
+        data,
+        columns: [],
+        getRowId,
+      }),
+    )
+
+    expect(result.current.rows[0].id).toBe('1')
+    expect(result.current.rows[1].id).toBe('2')
   })
 })
