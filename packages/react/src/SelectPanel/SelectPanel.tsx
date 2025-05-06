@@ -11,7 +11,7 @@ import type {TextInputProps} from '../TextInput'
 import type {ItemProps, ItemInput} from './types'
 import {SelectPanelMessage} from './SelectPanelMessage'
 
-import {Button, IconButton} from '../Button'
+import {Button, IconButton, LinkButton} from '../Button'
 import {useProvidedRefOrCreate} from '../hooks'
 import type {FocusZoneHookSettings} from '../hooks/useFocusZone'
 import {useId} from '../hooks/useId'
@@ -26,6 +26,7 @@ import {clsx} from 'clsx'
 import {heightMap} from '../Overlay/Overlay'
 import {debounce} from '@github/mini-throttle'
 import {useResponsiveValue} from '../hooks/useResponsiveValue'
+import type {ButtonProps, LinkButtonProps} from '../Button/types'
 
 // we add a delay so that it does not interrupt default screen reader announcement and queues after it
 const SHORT_DELAY_MS = 500
@@ -67,6 +68,9 @@ interface SelectPanelMultiSelection {
 }
 
 export type InitialLoadingType = 'spinner' | 'skeleton'
+export type SelectPanelSecondaryAction =
+  | React.ReactElement<typeof SecondaryButton>
+  | React.ReactElement<typeof SecondaryLink>
 
 interface SelectPanelBaseProps {
   // TODO: Make `title` required in the next major version
@@ -76,11 +80,11 @@ interface SelectPanelBaseProps {
     open: boolean,
     gesture: 'anchor-click' | 'anchor-key-press' | 'click-outside' | 'escape' | 'selection' | 'cancel',
   ) => void
+  secondaryAction?: SelectPanelSecondaryAction
   placeholder?: string
   // TODO: Make `inputLabel` required in next major version
   inputLabel?: string
   overlayProps?: Partial<OverlayProps>
-  footer?: string | React.ReactElement
   initialLoadingType?: InitialLoadingType
   className?: string
   notice?: {
@@ -92,6 +96,10 @@ interface SelectPanelBaseProps {
     body: string | React.ReactElement
     variant: 'empty' | 'error' | 'warning'
   }
+  /**
+   * @deprecated Use `secondaryAction` instead.
+   */
+  footer?: string | React.ReactElement
 }
 
 // onCancel is optional with variant=anchored, but required with variant=modal
@@ -125,7 +133,7 @@ const doesItemsIncludeItem = (items: ItemInput[], item: ItemInput) => {
   return items.some(i => areItemsEqual(i, item))
 }
 
-export function SelectPanel({
+function Panel({
   open,
   onOpenChange,
   renderAnchor = props => {
@@ -161,6 +169,7 @@ export function SelectPanel({
   notice,
   onCancel,
   variant = 'anchored',
+  secondaryAction,
   ...listProps
 }: SelectPanelProps): JSX.Element {
   const titleId = useId()
@@ -382,11 +391,13 @@ export function SelectPanel({
       // For single-select modal, there is an intermediate state when the user has selected
       // an item but has not yet saved the selection. We need to check for this state.
       if (isSingleSelectModal) {
-        return intermediateSelected?.id === item.id
+        return intermediateSelected?.id !== undefined
+          ? intermediateSelected.id === item.id
+          : intermediateSelected === item
       }
 
       // For single-select anchored, we just need to check if the item is the selected item
-      return selected?.id === item.id
+      return selected?.id !== undefined ? selected.id === item.id : selected === item
     },
     [selected, intermediateSelected, isSingleSelectModal],
   )
@@ -477,11 +488,52 @@ export function SelectPanel({
     }
   }
 
-  // We add a save and cancel button on narrow screens when SelectPanel is full-screen
-  const showCancelSaveButtons = variant === 'modal' || (isMultiSelectVariant(selected) && usingFullScreenOnNarrow)
   // because of instant selection, canceling on single select is the same as closing the panel, no onCancel needed
   const showXCloseIcon =
-    variant === 'modal' || ((onCancel || !isMultiSelectVariant(selected)) && usingFullScreenOnNarrow)
+    variant === 'modal' || ((onCancel !== undefined || !isMultiSelectVariant(selected)) && usingFullScreenOnNarrow)
+
+  // We add permanent save and cancel buttons on:
+  // - modals
+  const showPermanentCancelSaveButtons = variant === 'modal'
+
+  // The next two could be collapsed, left them separate for readability
+
+  // We add a responsive save and cancel button on:
+  // - anchored panels with multi select if there is onCancel
+  const showResponsiveCancelSaveButtons =
+    variant !== 'modal' && usingFullScreenOnNarrow && isMultiSelectVariant(selected) && onCancel !== undefined
+
+  // The responsive save and close button is only covering a very specific case:
+  // - anchored panel with multi select if there is no onCancel.
+  // This variant should disappear in the future, once onCancel is required,
+  // but for now we need to support it so there is a user friendly way to close the panel.
+  const showResponsiveSaveAndCloseButton =
+    variant !== 'modal' && usingFullScreenOnNarrow && isMultiSelectVariant(selected) && onCancel === undefined
+
+  // If there is any element in the footer, we render it.
+  const renderFooter =
+    secondaryAction !== undefined ||
+    showPermanentCancelSaveButtons ||
+    showResponsiveSaveAndCloseButton ||
+    showResponsiveCancelSaveButtons
+
+  // If there's any permanent elements in the footer, we show it always.
+  // The save button is only shown on small screens.
+  const displayFooter =
+    secondaryAction !== undefined || showPermanentCancelSaveButtons
+      ? 'always'
+      : showResponsiveSaveAndCloseButton || showResponsiveCancelSaveButtons
+        ? 'only-small'
+        : undefined
+
+  const stretchSecondaryAction =
+    showResponsiveSaveAndCloseButton || showResponsiveCancelSaveButtons
+      ? 'only-big'
+      : showPermanentCancelSaveButtons
+        ? 'never'
+        : 'always'
+
+  const stretchSaveButton = showResponsiveSaveAndCloseButton && secondaryAction === undefined ? 'only-small' : 'never'
 
   return (
     <>
@@ -581,34 +633,62 @@ export function SelectPanel({
           />
           {footer ? (
             <div className={classes.Footer}>{footer}</div>
-          ) : showCancelSaveButtons ? (
-            /* Save and Cancel buttons are only useful for multiple selection, single selection instantly closes the panel */
-            <div className={clsx(classes.Footer, classes.ResponsiveFooter)}>
-              {onCancel && (
-                <Button
-                  size="medium"
-                  onClick={() => {
-                    onCancel()
-                    onCancelRequested()
-                  }}
+          ) : renderFooter ? (
+            <div
+              data-display-footer={displayFooter}
+              data-stretch-secondary-action={stretchSecondaryAction}
+              data-stretch-save-button={stretchSaveButton}
+              className={clsx(classes.Footer, classes.ResponsiveFooter)}
+            >
+              <div data-stretch-secondary-action={stretchSecondaryAction} className={classes.SecondaryAction}>
+                {secondaryAction}
+              </div>
+              {showPermanentCancelSaveButtons || showResponsiveCancelSaveButtons ? (
+                <div
+                  data-stretch-save-button={stretchSaveButton}
+                  className={clsx(classes.CancelSaveButtons, {
+                    [classes.ResponsiveSaveButton]: showResponsiveCancelSaveButtons,
+                  })}
                 >
-                  Cancel
-                </Button>
-              )}
-              <Button
-                block={onCancel === undefined}
-                variant="primary"
-                size="medium"
-                onClick={() => {
-                  if (isSingleSelectModal) {
-                    const singleSelectOnChange = onSelectedChange as SelectPanelSingleSelection['onSelectedChange']
-                    singleSelectOnChange(intermediateSelected)
-                  }
-                  onClose(variant === 'modal' ? 'selection' : 'click-outside')
-                }}
-              >
-                Save
-              </Button>
+                  <Button
+                    size="medium"
+                    onClick={() => {
+                      onCancel?.()
+                      onCancelRequested()
+                    }}
+                  >
+                    Cancel
+                  </Button>
+                  <Button
+                    block={onCancel === undefined}
+                    variant="primary"
+                    size="medium"
+                    onClick={() => {
+                      if (isSingleSelectModal) {
+                        const singleSelectOnChange = onSelectedChange as SelectPanelSingleSelection['onSelectedChange']
+                        singleSelectOnChange(intermediateSelected)
+                      }
+                      onClose(variant === 'modal' ? 'selection' : 'click-outside')
+                    }}
+                  >
+                    Save
+                  </Button>
+                </div>
+              ) : null}
+              {showResponsiveSaveAndCloseButton ? (
+                <div className={classes.ResponsiveSaveButton} data-stretch-save-button={stretchSaveButton}>
+                  <Button
+                    block
+                    variant="primary"
+                    size="medium"
+                    onClick={() => {
+                      onClose('click-outside')
+                    }}
+                  >
+                    Save and close
+                  </Button>
+                </div>
+              ) : null}
             </div>
           ) : null}
         </div>
@@ -617,3 +697,24 @@ export function SelectPanel({
     </>
   )
 }
+
+const SecondaryButton: React.FC<ButtonProps> = props => {
+  return (
+    <Button block {...props}>
+      {props.children}
+    </Button>
+  )
+}
+
+const SecondaryLink: React.FC<LinkButtonProps & ButtonProps> = props => {
+  return (
+    <LinkButton {...props} variant="invisible" block>
+      {props.children}
+    </LinkButton>
+  )
+}
+
+export const SelectPanel = Object.assign(Panel, {
+  SecondaryActionButton: SecondaryButton,
+  SecondaryActionLink: SecondaryLink,
+})

@@ -24,7 +24,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
       - name: Set up Node.js
-        uses: actions/setup-node@cdca7365b2dadb8aad0a33bc7601856ffabcc48e
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
         with:
           node-version: 22
           cache: 'npm'
@@ -33,22 +33,22 @@ jobs:
       - name: Build docs preview
         run: npm run build:docs:preview
       - name: Download VRT reports (All flags enabled)
-        uses: actions/download-artifact@95815c38cf2ff2164869cbab79da8d1f422bc89e
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
         with:
           name: vrt-all-flags
           path: docs/public/vrt-all-flags
       - name: Download VRT reports (No flags enabled)
-        uses: actions/download-artifact@95815c38cf2ff2164869cbab79da8d1f422bc89e
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
         with:
           name: vrt-no-flag
           path: docs/public/vrt-no-flag
       - name: Download AAT reports (All flags enabled)
-        uses: actions/download-artifact@95815c38cf2ff2164869cbab79da8d1f422bc89e
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
         with:
           name: axe-all-flags
           path: docs/public/aat-all-flags
       - name: Download AAT reports (No flags enabled)
-        uses: actions/download-artifact@95815c38cf2ff2164869cbab79da8d1f422bc89e
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
         with:
           name: axe
           path: docs/public/aat-no-flag

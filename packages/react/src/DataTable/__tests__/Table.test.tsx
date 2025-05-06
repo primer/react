@@ -1,3 +1,4 @@
+import {describe, expect, it} from 'vitest'
 import {render, screen} from '@testing-library/react'
 import React from 'react'
 import {Table} from '../../DataTable'
@@ -231,8 +232,7 @@ describe('Table', () => {
       expect(screen.getByRole('rowheader', {name: 'Cell'})).toBeInTheDocument()
     })
 
-    // Can't run this test because jest can't render styles
-    it.skip('should vertically align cell contents', () => {
+    it('should vertically align cell contents', () => {
       render(
         <Table>
           <Table.Head>
