@@ -191,7 +191,7 @@ function Panel({
   const [prevItems, setPrevItems] = useState<ItemInput[]>([])
   const [prevOpen, setPrevOpen] = useState(open)
 
-  const usingModernActionList = useFeatureFlag('primer_react_select_panel_modern_action_list')
+  const usingModernActionList = useFeatureFlag('primer_react_select_panel_with_modern_action_list')
   const usingFullScreenOnNarrow = useFeatureFlag('primer_react_select_panel_fullscreen_on_narrow')
   const shouldOrderSelectedFirst =
     useFeatureFlag('primer_react_select_panel_order_selected_at_top') && showSelectedOptionsFirst
