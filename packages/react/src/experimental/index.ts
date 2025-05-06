@@ -76,7 +76,7 @@ export {UnderlinePanels} from './UnderlinePanels'
 export type {UnderlinePanelsProps, UnderlinePanelsTabProps, UnderlinePanelsPanelProps} from './UnderlinePanels'
 
 export {SkeletonBox, SkeletonText, SkeletonAvatar} from './Skeleton'
-export {FeatureFlags, DefaultFeatureFlags, useFeatureFlag} from '../FeatureFlags'
+export {FeatureFlags, DefaultFeatureFlags, featureFlags, useFeatureFlag} from '../FeatureFlags'
 export type {FeatureFlagsProps} from '../FeatureFlags'
 
 export {FilteredActionList} from '../FilteredActionList'
