@@ -59,6 +59,13 @@ export type DataTableProps<Data extends UniqueRow> = {
    * @returns The unique identifier for the row, which can be a string or number.
    */
   getRowId?: (rowData: Data) => string | number
+
+  /**
+   * Fires every time the user clicks a sortable column header. It reports
+   * the column id that is now sorted and the direction after the toggle
+   * (never `"NONE"`).
+   */
+  onToggleSort?: (columnId: ObjectPaths<Data> | string | number, direction: Exclude<SortDirection, 'NONE'>) => void
 }
 
 function defaultGetRowId<D extends UniqueRow>(row: D) {
@@ -74,6 +81,7 @@ function DataTable<Data extends UniqueRow>({
   initialSortColumn,
   initialSortDirection,
   getRowId = defaultGetRowId,
+  onToggleSort,
 }: DataTableProps<Data>) {
   const {headers, rows, actions, gridTemplateColumns} = useTable({
     data,
@@ -100,7 +108,10 @@ function DataTable<Data extends UniqueRow>({
                   align={header.column.align}
                   direction={header.getSortDirection()}
                   onToggleSort={() => {
+                    const nextDirection: Exclude<SortDirection, 'NONE'> =
+                      header.getSortDirection() === 'ASC' ? 'DESC' : 'ASC'
                     actions.sortBy(header)
+                    onToggleSort?.(header.id, nextDirection)
                   }}
                 >
                   {typeof header.column.header === 'string' ? header.column.header : header.column.header()}
