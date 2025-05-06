@@ -262,7 +262,7 @@ export const WithSecondaryActionButton = () => {
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         overlayProps={{width: 'small', height: 'medium'}}
-        secondaryAction={<SelectPanel.SecondaryActionButton>Manage labels</SelectPanel.SecondaryActionButton>}
+        secondaryAction={<SelectPanel.SecondaryActionButton>Edit labels</SelectPanel.SecondaryActionButton>}
         width="medium"
         message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}
       />
