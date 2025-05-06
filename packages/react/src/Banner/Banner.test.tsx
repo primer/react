@@ -1,28 +1,10 @@
+import {describe, expect, it, vi} from 'vitest'
 import {render, screen} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React from 'react'
 import {Banner} from '../Banner'
 
 describe('Banner', () => {
-  let spy: jest.SpyInstance
-
-  beforeEach(() => {
-    // Note: this error occurs due to our usage of `@container` within a
-    // `<style>` tag in Banner. The CSS parser for jsdom does not support this
-    // syntax and will fail with an error containing the message below.
-    // eslint-disable-next-line no-console
-    const originalConsoleError = console.error
-    spy = jest.spyOn(console, 'error').mockImplementation((value, ...args) => {
-      if (!value?.message?.includes('Could not parse CSS stylesheet')) {
-        originalConsoleError(value, ...args)
-      }
-    })
-  })
-
-  afterEach(() => {
-    spy.mockRestore()
-  })
-
   it('should render as a region element', () => {
     render(<Banner title="test" />)
     expect(screen.getByRole('region', {name: 'Information'})).toBeInTheDocument()
@@ -76,7 +58,7 @@ describe('Banner', () => {
   })
 
   it('should throw an error if no title is provided', () => {
-    const spy = jest.spyOn(console, 'error').mockImplementation(() => {})
+    const spy = vi.spyOn(console, 'error').mockImplementation(() => {})
     expect(() => {
       render(<Banner />)
     }).toThrowErrorMatchingSnapshot()
@@ -91,7 +73,7 @@ describe('Banner', () => {
 
   it('should support a primary action', async () => {
     const user = userEvent.setup()
-    const onClick = jest.fn()
+    const onClick = vi.fn()
     render(
       <Banner
         title="test"
@@ -108,7 +90,7 @@ describe('Banner', () => {
 
   it('should support a secondary action', async () => {
     const user = userEvent.setup()
-    const onClick = jest.fn()
+    const onClick = vi.fn()
     render(
       <Banner
         title="test"
@@ -139,7 +121,7 @@ describe('Banner', () => {
 
   it('should call `onDismiss` when the dismiss button is activated', async () => {
     const user = userEvent.setup()
-    const onDismiss = jest.fn()
+    const onDismiss = vi.fn()
     render(<Banner title="test" description="test-description" onDismiss={onDismiss} />)
 
     await user.click(screen.getByRole('button', {name: 'Dismiss banner'}))
@@ -157,7 +139,7 @@ describe('Banner', () => {
   it.each(['critical', 'info', 'success', 'upsell', 'warning'] as const)(
     'should support onDismiss for the %s variant',
     variant => {
-      const onDismiss = jest.fn()
+      const onDismiss = vi.fn()
       render(<Banner title="test" description="test-description" onDismiss={onDismiss} variant={variant} />)
       expect(screen.queryByRole('button', {name: 'Dismiss banner'})).toBeInTheDocument()
     },
@@ -169,7 +151,7 @@ describe('Banner', () => {
   })
 
   it('should support a custom icon for info and upsell variants', () => {
-    const CustomIcon = jest.fn(() => <svg data-testid="icon" aria-hidden="true" />)
+    const CustomIcon = vi.fn(() => <svg data-testid="icon" aria-hidden="true" />)
     const {rerender} = render(
       <Banner title="test" description="test-description" variant="info" icon={<CustomIcon />} />,
     )
