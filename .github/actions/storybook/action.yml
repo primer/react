@@ -19,7 +19,8 @@ runs:
       name: Build storybook
       run: npx storybook build
       working-directory: packages/react
-    - name: Save storybook
+    - if: steps.cache-storybook-restore.outputs.cache-hit != 'true'
+      name: Save storybook
       id: cache-storybook-save
       uses: actions/cache/save@v4
       with:
