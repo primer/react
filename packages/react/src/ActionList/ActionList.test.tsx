@@ -6,7 +6,6 @@ import theme from '../theme'
 import {ActionList} from '.'
 import {behavesAsComponent, checkExports} from '../utils/testing'
 import {BaseStyles, ThemeProvider} from '..'
-import {FeatureFlags} from '../FeatureFlags'
 
 function SimpleActionList(): JSX.Element {
   return (
@@ -115,18 +114,6 @@ describe('ActionList', () => {
         </ActionList>
       )
     }
-    const FeatureFlagElement = () => {
-      return (
-        <FeatureFlags
-          flags={{
-            primer_react_css_modules_ga: true,
-          }}
-        >
-          <Element />
-        </FeatureFlags>
-      )
-    }
-    expect(HTMLRender(<FeatureFlagElement />).container.querySelector('ul')).toHaveClass('test-class-name')
     expect(HTMLRender(<Element />).container.querySelector('ul')).toHaveClass('test-class-name')
   })
 
@@ -139,20 +126,6 @@ describe('ActionList', () => {
         </ActionList>
       )
     }
-    const FeatureFlagElement = () => {
-      return (
-        <FeatureFlags
-          flags={{
-            primer_react_css_modules_ga: true,
-          }}
-        >
-          <Element />
-        </FeatureFlags>
-      )
-    }
-    expect(HTMLRender(<FeatureFlagElement />).container.querySelector('li[aria-hidden="true"]')).toHaveClass(
-      'test-class-name',
-    )
     expect(HTMLRender(<Element />).container.querySelector('li[aria-hidden="true"]')).toHaveClass('test-class-name')
   })
 
