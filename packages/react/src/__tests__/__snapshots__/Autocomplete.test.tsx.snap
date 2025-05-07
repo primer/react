@@ -192,7 +192,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
       type="text"
     />
   </span>,
-  .c5 {
+  .c4 {
   height: 20px;
   max-width: 20px;
   display: -webkit-box;
@@ -215,7 +215,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   min-width: 16px;
 }
 
-.c6 {
+.c5 {
   border-color: var(--control-borderColor-emphasis);
   border-style: solid;
   border-width: 1px;
@@ -231,7 +231,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   transition: background-color,border-color 80ms cubic-bezier(0.32,0,0.67,0) 0ms;
 }
 
-.c6::before {
+.c5::before {
   width: var(--base-size-16,16px);
   height: var(--base-size-16,16px);
   visibility: hidden;
@@ -253,7 +253,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   animation: checkmarkOut 80ms cubic-bezier(0.65,0,0.35,1) forwards;
 }
 
-.c7 {
+.c6 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -268,7 +268,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   min-width: 0;
 }
 
-.c8 {
+.c7 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -278,41 +278,10 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   line-height: 20px;
 }
 
-.c9 {
+.c8 {
   font-size: 12px;
   line-height: 16px;
   color: var(--fgColor-attention,var(--color-attention-fg,#9a6700));
-}
-
-.c10 {
-  height: 20px;
-  max-width: 20px;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-  margin-right: 8px;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-}
-
-.c10 svg {
-  font-size: 12px;
-}
-
-[data-variant="danger"]:not([aria-disabled]):not([data-inactive]):hover .c4,
-[data-variant="danger"]:active .c10 {
-  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
 }
 
 .c0 {
@@ -441,13 +410,13 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   --divider-color: transparent !important;
 }
 
-.c11:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c2,
-.c11[data-focus-visible-added] + li {
+.c9:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c2,
+.c9[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
 
 @media (forced-colors:active) {
-  .c6 {
+  .c5 {
     border-width: 1px;
   }
 }
@@ -516,26 +485,26 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
           tabIndex={0}
         >
           <span
-            className="c4 c5"
+            className="c4"
             data-component="ActionList.Selection"
           >
             <div
-              className="c4 c6"
+              className="c5"
               data-component="ActionList.Checkbox"
             />
           </span>
           <div
-            className="c4 c7"
+            className="c6"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c4 c8"
+              className="c7"
               id="0--label"
             >
               zero
             </span>
             <span
-              className="c4 c9"
+              className="c8"
             />
           </div>
         </li>
@@ -551,26 +520,26 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
           tabIndex={0}
         >
           <span
-            className="c4 c5"
+            className="c4"
             data-component="ActionList.Selection"
           >
             <div
-              className="c4 c6"
+              className="c5"
               data-component="ActionList.Checkbox"
             />
           </span>
           <div
-            className="c4 c7"
+            className="c6"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c4 c8"
+              className="c7"
               id="1--label"
             >
               one
             </span>
             <span
-              className="c4 c9"
+              className="c8"
             />
           </div>
         </li>
@@ -586,26 +555,26 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
           tabIndex={0}
         >
           <span
-            className="c4 c5"
+            className="c4"
             data-component="ActionList.Selection"
           >
             <div
-              className="c4 c6"
+              className="c5"
               data-component="ActionList.Checkbox"
             />
           </span>
           <div
-            className="c4 c7"
+            className="c6"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c4 c8"
+              className="c7"
               id="2--label"
             >
               two
             </span>
             <span
-              className="c4 c9"
+              className="c8"
             />
           </div>
         </li>
@@ -621,26 +590,26 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
           tabIndex={0}
         >
           <span
-            className="c4 c5"
+            className="c4"
             data-component="ActionList.Selection"
           >
             <div
-              className="c4 c6"
+              className="c5"
               data-component="ActionList.Checkbox"
             />
           </span>
           <div
-            className="c4 c7"
+            className="c6"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c4 c8"
+              className="c7"
               id="3--label"
             >
               three
             </span>
             <span
-              className="c4 c9"
+              className="c8"
             />
           </div>
         </li>
@@ -656,26 +625,26 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
           tabIndex={0}
         >
           <span
-            className="c4 c5"
+            className="c4"
             data-component="ActionList.Selection"
           >
             <div
-              className="c4 c6"
+              className="c5"
               data-component="ActionList.Checkbox"
             />
           </span>
           <div
-            className="c4 c7"
+            className="c6"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c4 c8"
+              className="c7"
               id="4--label"
             >
               four
             </span>
             <span
-              className="c4 c9"
+              className="c8"
             />
           </div>
         </li>
@@ -691,26 +660,26 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
           tabIndex={0}
         >
           <span
-            className="c4 c5"
+            className="c4"
             data-component="ActionList.Selection"
           >
             <div
-              className="c4 c6"
+              className="c5"
               data-component="ActionList.Checkbox"
             />
           </span>
           <div
-            className="c4 c7"
+            className="c6"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c4 c8"
+              className="c7"
               id="5--label"
             >
               five
             </span>
             <span
-              className="c4 c9"
+              className="c8"
             />
           </div>
         </li>
@@ -726,26 +695,26 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
           tabIndex={0}
         >
           <span
-            className="c4 c5"
+            className="c4"
             data-component="ActionList.Selection"
           >
             <div
-              className="c4 c6"
+              className="c5"
               data-component="ActionList.Checkbox"
             />
           </span>
           <div
-            className="c4 c7"
+            className="c6"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c4 c8"
+              className="c7"
               id="6--label"
             >
               six
             </span>
             <span
-              className="c4 c9"
+              className="c8"
             />
           </div>
         </li>
@@ -761,26 +730,26 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
           tabIndex={0}
         >
           <span
-            className="c4 c5"
+            className="c4"
             data-component="ActionList.Selection"
           >
             <div
-              className="c4 c6"
+              className="c5"
               data-component="ActionList.Checkbox"
             />
           </span>
           <div
-            className="c4 c7"
+            className="c6"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c4 c8"
+              className="c7"
               id="7--label"
             >
               seven
             </span>
             <span
-              className="c4 c9"
+              className="c8"
             />
           </div>
         </li>
@@ -796,26 +765,26 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
           tabIndex={0}
         >
           <span
-            className="c4 c5"
+            className="c4"
             data-component="ActionList.Selection"
           >
             <div
-              className="c4 c6"
+              className="c5"
               data-component="ActionList.Checkbox"
             />
           </span>
           <div
-            className="c4 c7"
+            className="c6"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c4 c8"
+              className="c7"
               id="20--label"
             >
               twenty
             </span>
             <span
-              className="c4 c9"
+              className="c8"
             />
           </div>
         </li>
@@ -831,26 +800,26 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
           tabIndex={0}
         >
           <span
-            className="c4 c5"
+            className="c4"
             data-component="ActionList.Selection"
           >
             <div
-              className="c4 c6"
+              className="c5"
               data-component="ActionList.Checkbox"
             />
           </span>
           <div
-            className="c4 c7"
+            className="c6"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c4 c8"
+              className="c7"
               id="21--label"
             >
               twentyone
             </span>
             <span
-              className="c4 c9"
+              className="c8"
             />
           </div>
         </li>
@@ -866,16 +835,16 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
           tabIndex={0}
         >
           <span
-            className="c4 c5"
+            className="c4"
             data-component="ActionList.Selection"
           >
             <div
-              className="c4 c6"
+              className="c5"
               data-component="ActionList.Checkbox"
             />
           </span>
           <span
-            className="c4 c10"
+            className="LeadingVisual VisualWrap"
           >
             <svg
               aria-hidden="true"
@@ -899,17 +868,17 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
             </svg>
           </span>
           <div
-            className="c4 c7"
+            className="c6"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c4 c8"
+              className="c7"
               id="add-new-item--label"
             >
               Add new item
             </span>
             <span
-              className="c4 c9"
+              className="c8"
             />
           </div>
         </li>
