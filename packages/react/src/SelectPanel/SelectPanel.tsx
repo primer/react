@@ -100,6 +100,7 @@ interface SelectPanelBaseProps {
    * @deprecated Use `secondaryAction` instead.
    */
   footer?: string | React.ReactElement
+  showSelectedOptionsFirst?: boolean
 }
 
 // onCancel is optional with variant=anchored, but required with variant=modal
@@ -170,6 +171,7 @@ function Panel({
   onCancel,
   variant = 'anchored',
   secondaryAction,
+  showSelectedOptionsFirst = true,
   ...listProps
 }: SelectPanelProps): JSX.Element {
   const titleId = useId()
@@ -185,9 +187,14 @@ function Panel({
   const [listContainerElement, setListContainerElement] = useState<HTMLElement | null>(null)
   const [needsNoItemsAnnouncement, setNeedsNoItemsAnnouncement] = useState<boolean>(false)
   const isNarrowScreenSize = useResponsiveValue({narrow: true, regular: false, wide: false}, false)
+  const [selectedOnSort, setSelectedOnSort] = useState<ItemInput[]>([])
+  const [prevItems, setPrevItems] = useState<ItemInput[]>([])
+  const [prevOpen, setPrevOpen] = useState(open)
 
-  const usingModernActionList = useFeatureFlag('primer_react_select_panel_modern_action_list')
+  const usingModernActionList = useFeatureFlag('primer_react_select_panel_with_modern_action_list')
   const usingFullScreenOnNarrow = useFeatureFlag('primer_react_select_panel_fullscreen_on_narrow')
+  const shouldOrderSelectedFirst =
+    useFeatureFlag('primer_react_select_panel_order_selected_at_top') && showSelectedOptionsFirst
 
   // Single select modals work differently, they have an intermediate state where the user has selected an item but
   // has not yet confirmed the selection. This is the only time the user can cancel the selection.
@@ -218,6 +225,16 @@ function Panel({
     },
     [setInputRef],
   )
+
+  const resetSort = useCallback(() => {
+    if (isMultiSelectVariant(selected)) {
+      setSelectedOnSort(selected)
+    } else if (selected) {
+      setSelectedOnSort([selected])
+    } else {
+      setSelectedOnSort([])
+    }
+  }, [selected])
 
   const onFilterChange: FilteredActionListProps['onFilterChange'] = useCallback(
     (value, e) => {
@@ -252,6 +269,9 @@ function Panel({
 
       externalOnFilterChange(value, e)
       setInternalFilterValue(value)
+      if (!value) {
+        resetSort()
+      }
     },
     [
       loadingManagedInternally,
@@ -261,6 +281,7 @@ function Panel({
       safeSetTimeout,
       safeClearTimeout,
       items.length,
+      resetSort,
     ],
   )
 
@@ -403,46 +424,101 @@ function Panel({
   )
 
   const itemsToRender = useMemo(() => {
-    return items.map(item => {
-      return {
-        ...item,
-        role: 'option',
-        selected: 'selected' in item && item.selected === undefined ? undefined : isItemCurrentlySelected(item),
-        onAction: (itemFromAction, event) => {
-          item.onAction?.(itemFromAction, event)
+    return items
+      .map(item => {
+        return {
+          ...item,
+          role: 'option',
+          selected: 'selected' in item && item.selected === undefined ? undefined : isItemCurrentlySelected(item),
+          onAction: (itemFromAction, event) => {
+            item.onAction?.(itemFromAction, event)
 
-          if (event.defaultPrevented) {
-            return
-          }
-
-          if (isMultiSelectVariant(selected)) {
-            const otherSelectedItems = selected.filter(selectedItem => !areItemsEqual(selectedItem, item))
-            const newSelectedItems = doesItemsIncludeItem(selected, item)
-              ? otherSelectedItems
-              : [...otherSelectedItems, item]
-
-            const multiSelectOnChange = onSelectedChange as SelectPanelMultiSelection['onSelectedChange']
-            multiSelectOnChange(newSelectedItems)
-            return
-          }
-
-          if (isSingleSelectModal) {
-            if (intermediateSelected?.id === item.id) {
-              // if the item is already selected, we need to unselect it
-              setIntermediateSelected(undefined)
-            } else {
-              setIntermediateSelected(item)
+            if (event.defaultPrevented) {
+              return
             }
-            return
+
+            if (isMultiSelectVariant(selected)) {
+              const otherSelectedItems = selected.filter(selectedItem => !areItemsEqual(selectedItem, item))
+              const newSelectedItems = doesItemsIncludeItem(selected, item)
+                ? otherSelectedItems
+                : [...otherSelectedItems, item]
+
+              const multiSelectOnChange = onSelectedChange as SelectPanelMultiSelection['onSelectedChange']
+              multiSelectOnChange(newSelectedItems)
+              return
+            }
+
+            if (isSingleSelectModal) {
+              if (intermediateSelected?.id === item.id) {
+                // if the item is already selected, we need to unselect it
+                setIntermediateSelected(undefined)
+              } else {
+                setIntermediateSelected(item)
+              }
+              return
+            }
+            // single select anchored, direct save on click
+            const singleSelectOnChange = onSelectedChange as SelectPanelSingleSelection['onSelectedChange']
+            singleSelectOnChange(item === selected ? undefined : item)
+            onClose('selection')
+          },
+        } as ItemProps
+      })
+      .sort((itemA, itemB) => {
+        if (shouldOrderSelectedFirst) {
+          // itemA is selected (for sorting purposes) if an object in selectedOnSort matches every property of itemA, except for the selected property
+          const itemASelected = selectedOnSort.some(item =>
+            Object.entries(item).every(([key, value]) => {
+              if (key === 'selected') {
+                return true
+              }
+              return itemA[key as keyof ItemProps] === value
+            }),
+          )
+
+          // itemB is selected (for sorting purposes) if an object in selectedOnSort matches every property of itemA, except for the selected property
+          const itemBSelected = selectedOnSort.some(item =>
+            Object.entries(item).every(([key, value]) => {
+              if (key === 'selected') {
+                return true
+              }
+              return itemB[key as keyof ItemProps] === value
+            }),
+          )
+
+          // order selected items first
+          if (itemASelected > itemBSelected) {
+            return -1
+          } else if (itemASelected < itemBSelected) {
+            return 1
           }
-          // single select anchored, direct save on click
-          const singleSelectOnChange = onSelectedChange as SelectPanelSingleSelection['onSelectedChange']
-          singleSelectOnChange(item === selected ? undefined : item)
-          onClose('selection')
-        },
-      } as ItemProps
-    })
-  }, [onClose, onSelectedChange, items, selected, isItemCurrentlySelected, isSingleSelectModal, intermediateSelected])
+        }
+
+        return 0
+      })
+  }, [
+    onClose,
+    onSelectedChange,
+    items,
+    selected,
+    isItemCurrentlySelected,
+    isSingleSelectModal,
+    intermediateSelected,
+    shouldOrderSelectedFirst,
+    selectedOnSort,
+  ])
+
+  if (prevItems !== items) {
+    setPrevItems(items)
+    if (prevItems.length === 0 && items.length > 0) {
+      resetSort()
+    }
+  }
+
+  if (open !== prevOpen) {
+    setPrevOpen(open)
+    resetSort()
+  }
 
   const focusTrapSettings = {
     initialFocusRef: inputRef || undefined,
