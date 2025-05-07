@@ -85,7 +85,7 @@ jobs:
         run: exit 1
 
   aat-runner-all-flags:
-    if: ${{ false }}
+    if: ${{ vars.SKIP_FLAG_TESTS != '1' }}
     runs-on: ubuntu-latest-16-cores
     strategy:
       fail-fast: false
@@ -130,7 +130,7 @@ jobs:
           retention-days: 1
 
   aat-all-flags:
-    if: ${{ always() }}
+    if: ${{ always() && vars.SKIP_FLAG_TESTS != '1' }}
     runs-on: ubuntu-latest
     needs: aat-runner-all-flags
     steps:
