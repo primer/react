@@ -5,7 +5,15 @@ export default defineConfig({
     __DEV__: true,
   },
   test: {
-    exclude: ['**/node_modules/**', '**/dist/**', '**/lib-esm/**', '**/lib/**', '**/generated/**', '**/*.figma.tsx'],
+    exclude: [
+      '**/node_modules/**',
+      '**/dist/**',
+      '**/lib-esm/**',
+      '**/lib/**',
+      '**/generated/**',
+      '**/*.figma.tsx',
+      '**/*.types.test.tsx',
+    ],
     include: [
       'src/ActionBar/**/*.test.?(c|m)[jt]s?(x)',
       'src/AnchoredOverlay/**/*.test.?(c|m)[jt]s?(x)',
