@@ -31,7 +31,9 @@ export const Default = () => (
   </Blankslate>
 )
 
-export const Playground: StoryFn<ComponentProps<typeof Blankslate> & {actions: boolean}> = ({actions, ...rest}) => (
+export const Playground: StoryFn<
+  ComponentProps<typeof Blankslate> & {primaryAction: boolean; secondaryAction: boolean}
+> = ({primaryAction, secondaryAction, ...rest}) => (
   <Blankslate {...rest}>
     <Blankslate.Visual>
       <BookIcon size="medium" />
@@ -41,12 +43,8 @@ export const Playground: StoryFn<ComponentProps<typeof Blankslate> & {actions: b
       Wikis provide a place in your repository to lay out the roadmap of your project, show the current status, and
       document software better, together.
     </Blankslate.Description>
-    {actions ? (
-      <>
-        <Blankslate.PrimaryAction href="#">Create the first page</Blankslate.PrimaryAction>
-        <Blankslate.SecondaryAction href="#">Learn more about wikis</Blankslate.SecondaryAction>
-      </>
-    ) : null}
+    {primaryAction ? <Blankslate.PrimaryAction href="#">Create the first page</Blankslate.PrimaryAction> : null}
+    {secondaryAction ? <Blankslate.SecondaryAction href="#">Learn more about wikis</Blankslate.SecondaryAction> : null}
   </Blankslate>
 )
 
@@ -55,7 +53,8 @@ Playground.args = {
   narrow: false,
   spacious: false,
   size: 'medium',
-  actions: true,
+  primaryAction: true,
+  secondaryAction: true,
 }
 
 Playground.argTypes = {
