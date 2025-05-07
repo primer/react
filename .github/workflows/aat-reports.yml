@@ -76,7 +76,7 @@ jobs:
       - name: Upload report
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
-          name: axe
+          name: aat
           path: playwright-report
       - name: Check aat-runner job status
         if: ${{ needs.aat-runner.result == 'failure' }}
