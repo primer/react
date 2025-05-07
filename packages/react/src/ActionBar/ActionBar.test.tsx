@@ -4,17 +4,7 @@ import {render, screen, act} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
 import ActionBar from './'
-import {BoldIcon, CodeIcon, ItalicIcon, LinkIcon} from '@primer/octicons-react'
-
-const SimpleActionBar = () => (
-  <ActionBar aria-label="Toolbar">
-    <ActionBar.IconButton icon={BoldIcon} aria-label="Default"></ActionBar.IconButton>
-    <ActionBar.IconButton icon={ItalicIcon} aria-label="Default"></ActionBar.IconButton>
-    <ActionBar.Divider />
-    <ActionBar.IconButton icon={CodeIcon} aria-label="Default"></ActionBar.IconButton>
-    <ActionBar.IconButton icon={LinkIcon} aria-label="Default"></ActionBar.IconButton>
-  </ActionBar>
-)
+import {BoldIcon} from '@primer/octicons-react'
 
 describe('ActionBar', () => {
   afterEach(() => {
