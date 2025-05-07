@@ -139,8 +139,6 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   const [overlayRef, updateOverlayRef] = useRenderForcingRef<HTMLDivElement>()
   const anchorId = useId(externalAnchorId)
 
-  const [anchorSide, setAnchorSide] = React.useState<AnchorPosition['anchorSide']>()
-
   const onClickOutside = useCallback(() => onClose?.('click-outside'), [onClose])
   const onEscape = useCallback(() => onClose?.('escape'), [onClose])
 
@@ -169,6 +167,12 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
     [open, onOpen, onClose],
   )
 
+  const positionChange = (position: AnchorPosition | undefined) => {
+    if (onPositionChange && position) {
+      onPositionChange(position)
+    }
+  }
+
   const {position} = useAnchoredPosition(
     {
       anchorElementRef: anchorRef,
@@ -178,6 +182,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
       align,
       alignmentOffset,
       anchorOffset,
+      onPositionChange: positionChange,
     },
     [overlayRef.current],
   )
@@ -188,13 +193,6 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
       updateOverlayRef(null)
     }
   }, [open, overlayRef, updateOverlayRef])
-
-  useEffect(() => {
-    if (position && onPositionChange && position.anchorSide !== anchorSide) {
-      setAnchorSide(position.anchorSide)
-      onPositionChange(position)
-    }
-  }, [position, onPositionChange, anchorSide])
 
   useFocusZone({
     containerRef: overlayRef,
