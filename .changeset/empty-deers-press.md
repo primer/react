@@ -2,4 +2,4 @@
 '@primer/react': patch
 ---
 
-feat(ActionList); remove modern actionlsit FF
+feat(ActionList); remove modern actionlist FF
