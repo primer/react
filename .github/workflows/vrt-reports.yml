@@ -2,7 +2,7 @@ name: VRT Reports
 on:
   workflow_call:
     outputs:
-      aat:
+      vrt:
         value: ${{ jobs.vrt.result }}
 
 concurrency:
