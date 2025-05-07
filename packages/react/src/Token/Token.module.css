@@ -22,7 +22,7 @@
 
 .LeadingVisualContainer {
   margin-right: var(--base-size-4);
-  line-height: 0;
+  line-height: var(--text-title-lineHeight-large);
   flex-shrink: 0;
 }
 
