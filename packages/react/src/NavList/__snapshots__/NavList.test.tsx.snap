@@ -457,23 +457,11 @@ exports[`NavList renders with groups 1`] = `
   display: none;
 }
 
-.c2 {
-  list-style: none;
-}
-
-.c2:not(:first-child) {
-  margin-top: 8px;
-}
-
 .c2:has([data-component="GroupHeadingWrap"] + ul > [data-component="GroupHeadingWrap"]) > [data-component="GroupHeadingWrap"] {
   display: none;
 }
 
-.c3 {
-  padding-inline-start: 0;
-}
-
-.c6 {
+.c5 {
   padding-left: 8px;
   padding-right: 8px;
   padding-top: 6px;
@@ -491,13 +479,13 @@ exports[`NavList renders with groups 1`] = `
   font-size: 14px;
 }
 
-.c6:hover {
+.c5:hover {
   color: inherit;
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
-.c7 {
+.c6 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -512,7 +500,7 @@ exports[`NavList renders with groups 1`] = `
   min-width: 0;
 }
 
-.c8 {
+.c7 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -522,13 +510,13 @@ exports[`NavList renders with groups 1`] = `
   line-height: 20px;
 }
 
-.c9 {
+.c8 {
   font-size: 12px;
   line-height: 16px;
   color: var(--fgColor-attention,var(--color-attention-fg,#9a6700));
 }
 
-.c11 {
+.c10 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -545,7 +533,7 @@ exports[`NavList renders with groups 1`] = `
   padding-bottom: 8px;
 }
 
-.c5 {
+.c4 {
   position: relative;
   display: -webkit-box;
   display: -webkit-flex;
@@ -579,32 +567,32 @@ exports[`NavList renders with groups 1`] = `
   background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
 }
 
-.c5[data-loading] {
+.c4[data-loading] {
   cursor: default;
 }
 
-.c5[aria-disabled],
-.c5[data-inactive] {
+.c4[aria-disabled],
+.c4[data-inactive] {
   cursor: not-allowed;
 }
 
-.c5[aria-disabled] [data-component="ActionList.Checkbox"],
-.c5[data-inactive] [data-component="ActionList.Checkbox"] {
+.c4[aria-disabled] [data-component="ActionList.Checkbox"],
+.c4[data-inactive] [data-component="ActionList.Checkbox"] {
   cursor: not-allowed;
   background-color: var(--control-bgColor-disabled,rgba(175,184,193,0.2));
   border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
 }
 
-.c5[aria-disabled] [data-component="ActionList.Selection"],
-.c5[data-inactive] [data-component="ActionList.Selection"] {
+.c4[aria-disabled] [data-component="ActionList.Selection"],
+.c4[data-inactive] [data-component="ActionList.Selection"] {
   color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
 }
 
-.c5 [data-component="ActionList.Item--DividerContainer"] {
+.c4 [data-component="ActionList.Item--DividerContainer"] {
   position: relative;
 }
 
-.c5 [data-component="ActionList.Item--DividerContainer"]::before {
+.c4 [data-component="ActionList.Item--DividerContainer"]::before {
   content: " ";
   display: block;
   position: absolute;
@@ -615,25 +603,25 @@ exports[`NavList renders with groups 1`] = `
   border-color: var(--divider-color,transparent);
 }
 
-.c5:not(:first-of-type) {
+.c4:not(:first-of-type) {
   --divider-color: var(--borderColor-muted,var(--color-action-list-item-inline-divider,rgba(208,215,222,0.48)));
 }
 
-[data-component="ActionList.Divider"] + .c4 {
+[data-component="ActionList.Divider"] + .c3 {
   --divider-color: transparent !important;
 }
 
-.c5:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]),
-.c5[data-focus-visible-added]:not([aria-disabled]):not([data-inactive]) {
+.c4:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]),
+.c4[data-focus-visible-added]:not([aria-disabled]):not([data-inactive]) {
   --divider-color: transparent;
 }
 
-.c5:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c4,
-.c5[data-focus-visible-added] + li {
+.c4:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c3,
+.c4[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
 
-.c5::after {
+.c4::after {
   position: absolute;
   top: calc(50% - 12px);
   left: -8px;
@@ -644,12 +632,12 @@ exports[`NavList renders with groups 1`] = `
   border-radius: 6px;
 }
 
-.c5[data-is-active-descendant] {
+.c4[data-is-active-descendant] {
   font-weight: 400;
   background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
 }
 
-.c5[data-is-active-descendant]::after {
+.c4[data-is-active-descendant]::after {
   position: absolute;
   top: calc(50% - 12px);
   left: -8px;
@@ -660,7 +648,7 @@ exports[`NavList renders with groups 1`] = `
   border-radius: 6px;
 }
 
-.c10 {
+.c9 {
   position: relative;
   display: -webkit-box;
   display: -webkit-flex;
@@ -692,32 +680,32 @@ exports[`NavList renders with groups 1`] = `
   margin-bottom: unset;
 }
 
-.c10[data-loading] {
+.c9[data-loading] {
   cursor: default;
 }
 
-.c10[aria-disabled],
-.c10[data-inactive] {
+.c9[aria-disabled],
+.c9[data-inactive] {
   cursor: not-allowed;
 }
 
-.c10[aria-disabled] [data-component="ActionList.Checkbox"],
-.c10[data-inactive] [data-component="ActionList.Checkbox"] {
+.c9[aria-disabled] [data-component="ActionList.Checkbox"],
+.c9[data-inactive] [data-component="ActionList.Checkbox"] {
   cursor: not-allowed;
   background-color: var(--control-bgColor-disabled,rgba(175,184,193,0.2));
   border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
 }
 
-.c10[aria-disabled] [data-component="ActionList.Selection"],
-.c10[data-inactive] [data-component="ActionList.Selection"] {
+.c9[aria-disabled] [data-component="ActionList.Selection"],
+.c9[data-inactive] [data-component="ActionList.Selection"] {
   color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
 }
 
-.c10 [data-component="ActionList.Item--DividerContainer"] {
+.c9 [data-component="ActionList.Item--DividerContainer"] {
   position: relative;
 }
 
-.c10 [data-component="ActionList.Item--DividerContainer"]::before {
+.c9 [data-component="ActionList.Item--DividerContainer"]::before {
   content: " ";
   display: block;
   position: absolute;
@@ -728,30 +716,30 @@ exports[`NavList renders with groups 1`] = `
   border-color: var(--divider-color,transparent);
 }
 
-.c10:not(:first-of-type) {
+.c9:not(:first-of-type) {
   --divider-color: var(--borderColor-muted,var(--color-action-list-item-inline-divider,rgba(208,215,222,0.48)));
 }
 
-[data-component="ActionList.Divider"] + .c4 {
+[data-component="ActionList.Divider"] + .c3 {
   --divider-color: transparent !important;
 }
 
-.c10:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]),
-.c10[data-focus-visible-added]:not([aria-disabled]):not([data-inactive]) {
+.c9:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]),
+.c9[data-focus-visible-added]:not([aria-disabled]):not([data-inactive]) {
   --divider-color: transparent;
 }
 
-.c10:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c4,
-.c10[data-focus-visible-added] + li {
+.c9:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c3,
+.c9[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
 
-.c10[data-is-active-descendant] {
+.c9[data-is-active-descendant] {
   font-weight: 400;
   background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
 }
 
-.c10[data-is-active-descendant]::after {
+.c9[data-is-active-descendant]::after {
   position: absolute;
   top: calc(50% - 12px);
   left: -8px;
@@ -763,60 +751,60 @@ exports[`NavList renders with groups 1`] = `
 }
 
 @media (forced-colors:active) {
-  .c5:focus,
-  .c5:focus-visible,
-  .c5 > a.focus-visible,
-  .c5[data-is-active-descendant] {
+  .c4:focus,
+  .c4:focus-visible,
+  .c4 > a.focus-visible,
+  .c4[data-is-active-descendant] {
     outline: solid 1px transparent !important;
   }
 }
 
 @media (hover:hover) and (pointer:fine) {
-  .c5:hover:not([aria-disabled]):not([data-inactive]) {
+  .c4:hover:not([aria-disabled]):not([data-inactive]) {
     background-color: var(--control-transparent-bgColor-hover,var(--color-action-list-item-default-hover-bg,rgba(208,215,222,0.32)));
     color: var(--fgColor-default,var(--color-fg-default,#1F2328));
     box-shadow: inset 0 0 0 max(1px,0.0625rem) var(--control-transparent-borderColor-active,var(--color-action-list-item-default-active-border,transparent));
   }
 
-  .c5:focus-visible,
-  .c5 > a.focus-visible,
-  .c5:focus.focus-visible {
+  .c4:focus-visible,
+  .c4 > a.focus-visible,
+  .c4:focus.focus-visible {
     outline: none;
     border: 2 solid;
     box-shadow: 0 0 0 2px var(--focus-outlineColor);
   }
 
-  .c5:active:not([aria-disabled]):not([data-inactive]) {
+  .c4:active:not([aria-disabled]):not([data-inactive]) {
     background-color: var(--control-transparent-bgColor-active,var(--color-action-list-item-default-active-bg,rgba(208,215,222,0.48)));
     color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   }
 }
 
 @media (forced-colors:active) {
-  .c10:focus,
-  .c10:focus-visible,
-  .c10 > a.focus-visible,
-  .c10[data-is-active-descendant] {
+  .c9:focus,
+  .c9:focus-visible,
+  .c9 > a.focus-visible,
+  .c9[data-is-active-descendant] {
     outline: solid 1px transparent !important;
   }
 }
 
 @media (hover:hover) and (pointer:fine) {
-  .c10:hover:not([aria-disabled]):not([data-inactive]) {
+  .c9:hover:not([aria-disabled]):not([data-inactive]) {
     background-color: var(--control-transparent-bgColor-hover,var(--color-action-list-item-default-hover-bg,rgba(208,215,222,0.32)));
     color: var(--fgColor-default,var(--color-fg-default,#1F2328));
     box-shadow: inset 0 0 0 max(1px,0.0625rem) var(--control-transparent-borderColor-active,var(--color-action-list-item-default-active-border,transparent));
   }
 
-  .c10:focus-visible,
-  .c10 > a.focus-visible,
-  .c10:focus.focus-visible {
+  .c9:focus-visible,
+  .c9 > a.focus-visible,
+  .c9:focus.focus-visible {
     outline: none;
     border: 2 solid;
     box-shadow: 0 0 0 2px var(--focus-outlineColor);
   }
 
-  .c10:active:not([aria-disabled]):not([data-inactive]) {
+  .c9:active:not([aria-disabled]):not([data-inactive]) {
     background-color: var(--control-transparent-bgColor-active,var(--color-action-list-item-default-active-bg,rgba(208,215,222,0.48)));
     color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   }
@@ -835,7 +823,7 @@ exports[`NavList renders with groups 1`] = `
         data-component="ActionList.Divider"
       />
       <li
-        class="c2"
+        class="c2 Group"
       >
         <div
           class="GroupHeadingWrap"
@@ -852,32 +840,31 @@ exports[`NavList renders with groups 1`] = `
         </div>
         <ul
           aria-labelledby=":r7:"
-          class="c3"
         >
           <li
-            class="c4 c5"
+            class="c3 c4"
           >
             <a
               aria-current="page"
               aria-labelledby=":r8:--label  "
-              class="c6 Link"
+              class="c5 Link"
               href="/getting-started"
               id=":r8:"
               style="--subitem-depth: 0;"
               tabindex="0"
             >
               <div
-                class="c7"
+                class="c6"
                 data-component="ActionList.Item--DividerContainer"
               >
                 <span
-                  class="c8"
+                  class="c7"
                   id=":r8:--label"
                 >
                   Getting started
                 </span>
                 <span
-                  class="c9"
+                  class="c8"
                 />
               </div>
             </a>
@@ -890,7 +877,7 @@ exports[`NavList renders with groups 1`] = `
         data-component="ActionList.Divider"
       />
       <li
-        class="c2"
+        class="c2 Group"
       >
         <div
           class="GroupHeadingWrap"
@@ -907,31 +894,30 @@ exports[`NavList renders with groups 1`] = `
         </div>
         <ul
           aria-labelledby=":r9:"
-          class="c3"
         >
           <li
-            class="c4 c10"
+            class="c3 c9"
           >
             <a
               aria-labelledby=":ra:--label  "
-              class="c6 Link"
+              class="c5 Link"
               href="/Avatar"
               id=":ra:"
               style="--subitem-depth: 0;"
               tabindex="0"
             >
               <div
-                class="c7"
+                class="c6"
                 data-component="ActionList.Item--DividerContainer"
               >
                 <span
-                  class="c11"
+                  class="c10"
                   id=":ra:--label"
                 >
                   Avatar
                 </span>
                 <span
-                  class="c9"
+                  class="c8"
                 />
               </div>
             </a>
