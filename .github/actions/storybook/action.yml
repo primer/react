@@ -7,6 +7,7 @@ description: Storybook cache workflow
 runs:
   using: composite
   steps:
-    - name: Build storybook
+    - shell: bash
+      name: Build storybook
       run: npx storybook build
       working-directory: packages/react
