@@ -127,9 +127,8 @@ jobs:
       - if: ${{ vars.SKIP_FLAG_TESTS != '1' }}
         name: Stop storybook
         run: kill ${{ steps.storybook.outputs.pid }}
-      - if: ${{ vars.SKIP_FLAG_TESTS != '1' }}
-        name: Upload report
-        if: ${{ always() }}
+      - name: Upload report
+        if: ${{ always() && vars.SKIP_FLAG_TESTS != '1' }}
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: vrt-all-flags-${{ matrix.shard }}
