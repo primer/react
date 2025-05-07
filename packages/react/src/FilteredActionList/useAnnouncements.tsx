@@ -3,8 +3,8 @@
 
 import {announce as liveRegionAnnounce} from '@primer/live-region-element'
 import {useCallback, useEffect, useRef} from 'react'
-import type {FilteredActionListProps} from './FilteredActionListEntry'
 import type {ItemInput} from '../deprecated/ActionList/List'
+import type {FilteredActionListProps} from './FilteredActionList'
 
 // we add a delay so that it does not interrupt default screen reader announcement and queues after it
 const delayMs = 500
