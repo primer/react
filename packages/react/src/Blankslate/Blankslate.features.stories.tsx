@@ -87,7 +87,7 @@ export const WithBorder = () => (
 )
 
 export const Narrow = () => (
-  <Blankslate narrow>
+  <Blankslate border narrow>
     <Blankslate.Visual>
       <BookIcon size="medium" />
     </Blankslate.Visual>
@@ -107,7 +107,7 @@ export const Spacious = () => (
 )
 
 export const SizeSmall = () => (
-  <Blankslate size="small">
+  <Blankslate border size="small">
     <Blankslate.Visual>
       <BookIcon size="medium" />
     </Blankslate.Visual>
