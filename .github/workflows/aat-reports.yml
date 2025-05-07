@@ -94,19 +94,22 @@ jobs:
       VITE_PRIMER_REACT_CSS_MODULES_GA: 1
     steps:
       - if: ${{ vars.SKIP_FLAG_TESTS != '1' }}
-        run: echo "Skipping AAT tests for all flags" && exit 0
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
-      - name: Use Node.js 20.x
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - if: ${{ vars.SKIP_FLAG_TESTS != '1' }}
+        name: Use Node.js 20.x
         uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
         with:
           node-version: 22
           cache: 'npm'
-      - name: Install dependencies
+      - if: ${{ vars.SKIP_FLAG_TESTS != '1' }}
+        name: Install dependencies
         run: npm ci
-      - name: Build storybook
+      - if: ${{ vars.SKIP_FLAG_TESTS != '1' }}
+        name: Build storybook
         run: npx storybook build
         working-directory: packages/react
-      - name: Run storybook
+      - if: ${{ vars.SKIP_FLAG_TESTS != '1' }}
+        name: Run storybook
         id: storybook
         working-directory: packages/react
         run: |
@@ -114,21 +117,24 @@ jobs:
           pid=$!
           echo "pid=$pid" >> $GITHUB_OUTPUT
           sleep 5
-      - name: Run AAT
+      - if: ${{ vars.SKIP_FLAG_TESTS != '1' }}
+        name: Run AAT
         uses: docker://mcr.microsoft.com/playwright:v1.52.0-jammy
         env:
           STORYBOOK_URL: 'http://172.17.0.1:6006'
         with:
           args: npx playwright test --grep @aat --shard="${{ matrix.shard }}/${{ strategy.job-total }}"
-      - name: Stop storybook
+      - if: ${{ vars.SKIP_FLAG_TESTS != '1' }}
+        name: Stop storybook
         run: kill ${{ steps.storybook.outputs.pid }}
       - name: Upload report
-        if: ${{ always() }}
+        if: ${{ always() && vars.SKIP_FLAG_TESTS != '1' }}
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: axe-all-flags-${{ matrix.shard }}
           path: blob-report
           retention-days: 1
+      - run: echo "Runner completed"
 
   aat-all-flags:
     if: ${{ always() }}
@@ -136,24 +142,28 @@ jobs:
     needs: aat-runner-all-flags
     steps:
       - if: ${{ vars.SKIP_FLAG_TESTS != '1' }}
-        run: echo "Skipping AAT tests for all flags" && exit 0
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
-      - name: Use Node.js 20.x
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - if: ${{ vars.SKIP_FLAG_TESTS != '1' }}
+        name: Use Node.js 20.x
         uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
         with:
           node-version: 22
           cache: 'npm'
-      - name: install dependencies
+      - if: ${{ vars.SKIP_FLAG_TESTS != '1' }}
+        name: install dependencies
         run: npm ci
-      - name: download all reports
+      - if: ${{ vars.SKIP_FLAG_TESTS != '1' }}
+        name: download all reports
         uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
         with:
           path: all-blob-reports
           pattern: axe-all-flags-*
           merge-multiple: true
-      - name: merge all reports
+      - if: ${{ vars.SKIP_FLAG_TESTS != '1' }}
+        name: merge all reports
         run: npx playwright merge-reports --reporter html ./all-blob-reports
-      - name: Upload report
+      - if: ${{ vars.SKIP_FLAG_TESTS != '1' }}
+        name: Upload report
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: axe-all-flags
@@ -161,3 +171,4 @@ jobs:
       - name: Check aat-runner-all-flags job status
         if: ${{ needs.aat-runner-all-flags.result == 'failure' }}
         run: exit 1
+      - run: echo "Runner completed"
