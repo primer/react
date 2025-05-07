@@ -5,8 +5,9 @@ export default defineConfig({
     __DEV__: true,
   },
   test: {
-    exclude: ['**/node_modules/**', '**/dist/**', '**/lib-esm/**', '**/lib/**', '**/generated/**'],
+    exclude: ['**/node_modules/**', '**/dist/**', '**/lib-esm/**', '**/lib/**', '**/generated/**', '**/*.figma.tsx'],
     include: [
+      'src/ActionBar/**/*.test.?(c|m)[jt]s?(x)',
       'src/Banner/**/*.test.?(c|m)[jt]s?(x)',
       'src/DataTable/**/*.test.?(c|m)[jt]s?(x)',
       'src/FeatureFlags/**/*.test.?(c|m)[jt]s?(x)',

@@ -29,6 +29,7 @@ module.exports = {
   setupFilesAfterEnv: ['<rootDir>/src/utils/test-matchers.tsx', '<rootDir>/src/utils/test-deprecations.tsx'],
   testMatch: ['<rootDir>/**/*.test.[jt]s?(x)', '!**/*.types.test.[jt]s?(x)'],
   modulePathIgnorePatterns: [
+    '<rootDir>/src/ActionBar/',
     '<rootDir>/src/Banner/',
     '<rootDir>/src/DataTable/',
     '<rootDir>/src/FeatureFlags/',
