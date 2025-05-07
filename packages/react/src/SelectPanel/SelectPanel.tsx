@@ -107,7 +107,7 @@ interface SelectPanelBaseProps {
 type SelectPanelVariantProps = {variant?: 'anchored'; onCancel?: () => void} | {variant: 'modal'; onCancel: () => void}
 
 export type SelectPanelProps = SelectPanelBaseProps &
-  Omit<FilteredActionListProps, 'selectionVariant' | 'variant'> &
+  Omit<FilteredActionListProps, 'selectionVariant' | 'variant' | 'message'> &
   Pick<AnchoredOverlayProps, 'open' | 'height' | 'width'> &
   AnchoredOverlayWrapperAnchorProps &
   (SelectPanelSingleSelection | SelectPanelMultiSelection) &
@@ -191,7 +191,6 @@ function Panel({
   const [prevItems, setPrevItems] = useState<ItemInput[]>([])
   const [prevOpen, setPrevOpen] = useState(open)
 
-  const usingModernActionList = useFeatureFlag('primer_react_select_panel_with_modern_action_list')
   const usingFullScreenOnNarrow = useFeatureFlag('primer_react_select_panel_fullscreen_on_narrow')
   const shouldOrderSelectedFirst =
     useFeatureFlag('primer_react_select_panel_order_selected_at_top') && showSelectedOptionsFirst
@@ -308,10 +307,10 @@ function Panel({
     if (open) {
       if (items.length === 0 && !(isLoading || loading)) {
         // we need to wait for the listContainerElement to disappear before announcing no items, otherwise it will be interrupted
-        if (!listContainerElement || !usingModernActionList) {
-          announceNoItems(message?.title)
-        } else {
+        if (listContainerElement) {
           setNeedsNoItemsAnnouncement(true)
+        } else {
+          announceNoItems(message?.title)
         }
       }
     }
@@ -362,7 +361,7 @@ function Panel({
       // Only trigger filter change event if there are no items
       if (items.length === 0) {
         // Trigger filter event to populate panel on first open
-        onFilterChange(filterValue, null)
+        onFilterChange(filterValue, undefined)
       }
     }
   }, [open, dataLoadedOnce, onFilterChange, filterValue, items, loadingManagedExternally, listContainerElement])
