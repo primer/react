@@ -13,7 +13,7 @@ runs:
       with:
         path: |
           packages/react/storybook-static
-        key: ${{ runner.os }}-storybook-${{github.sha}}
+        key: ${{ runner.os }}-storybook-${{github.run_id}}
     - if: steps.cache-storybook-restore.outputs.cache-hit != 'true'
       shell: bash
       name: Build storybook

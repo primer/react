@@ -7,12 +7,21 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  storybook:
+    if: ${{ github.event.pull_request.head.repo.full_name == 'primer/react' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build and Cache storybook
+        uses: ./.github/actions/storybook
+
   vrt-reports:
     if: ${{ github.event.pull_request.head.repo.full_name == 'primer/react' }}
+    needs: storybook
     uses: ./.github/workflows/vrt-reports.yml
 
   aat-reports:
     if: ${{ github.event.pull_request.head.repo.full_name == 'primer/react' }}
+    needs: storybook
     uses: ./.github/workflows/aat-reports.yml
 
   build:
