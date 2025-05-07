@@ -1,0 +1,12 @@
+name: Build and Cache storybook
+description: Storybook cache workflow
+# inputs:
+#   token:
+#     description: 'The API token used for making requests to PagerDuty'
+#     required: true
+runs:
+  using: composite
+  steps:
+    - name: Build storybook
+      run: npx storybook build
+      working-directory: packages/react
