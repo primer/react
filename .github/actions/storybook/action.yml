@@ -17,7 +17,7 @@ runs:
     - if: steps.cache-storybook-restore.outputs.cache-hit != 'true'
       shell: bash
       name: Build storybook
-      run: npx storybook build
+      run: npm run build:docs:preview
       working-directory: packages/react
     - if: steps.cache-storybook-restore.outputs.cache-hit != 'true'
       name: Save storybook
