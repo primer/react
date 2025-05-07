@@ -1,8 +1,5 @@
 import React from 'react'
-import styled from 'styled-components'
-import Box from '../../../Box'
 import ValidationAnimationContainer from '../ValidationAnimationContainer'
-import {get} from '../../../constants'
 import {useId} from '../../../hooks/useId'
 import CheckboxOrRadioGroupCaption from './CheckboxOrRadioGroupCaption'
 import CheckboxOrRadioGroupLabel from './CheckboxOrRadioGroupLabel'
@@ -12,10 +9,8 @@ import VisuallyHidden from '../../../_VisuallyHidden'
 import {useSlots} from '../../../hooks/useSlots'
 import type {SxProp} from '../../../sx'
 import classes from './CheckboxOrRadioGroup.module.css'
-import {toggleStyledComponent} from '../../utils/toggleStyledComponent'
-import {useFeatureFlag} from '../../../FeatureFlags'
 import {clsx} from 'clsx'
-import {CSS_MODULES_FLAG} from './FeatureFlag'
+import {BoxWithFallback} from '../BoxWithFallback'
 
 export type CheckboxOrRadioGroupProps = {
   /** Class name for custom styling */
@@ -38,22 +33,6 @@ export type CheckboxOrRadioGroupProps = {
    */
   required?: boolean
 } & SxProp
-
-const Body = toggleStyledComponent(
-  CSS_MODULES_FLAG,
-  'div',
-  styled.div`
-    display: flex;
-    flex-direction: column;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-
-    > * + * {
-      margin-top: ${get('space.2')};
-    }
-  `,
-)
 
 const CheckboxOrRadioGroup: React.FC<React.PropsWithChildren<CheckboxOrRadioGroupProps>> = ({
   'aria-labelledby': ariaLabelledby,
@@ -91,150 +70,6 @@ const CheckboxOrRadioGroup: React.FC<React.PropsWithChildren<CheckboxOrRadioGrou
 
   const isLegendVisible = React.isValidElement(labelChild) && !labelChild.props.visuallyHidden
 
-  const enabled = useFeatureFlag(CSS_MODULES_FLAG)
-
-  if (enabled) {
-    if (sx) {
-      return (
-        <CheckboxOrRadioGroupContext.Provider
-          value={{
-            disabled,
-            required,
-            captionId,
-            validationMessageId,
-          }}
-        >
-          <div>
-            <Box
-              className={clsx(className, classes.GroupFieldset)}
-              data-validation={validationChild ? '' : undefined}
-              {...(labelChild
-                ? {
-                    as: 'fieldset',
-                    disabled,
-                  }
-                : {})}
-              sx={sx}
-            >
-              {labelChild ? (
-                /*
-                  Placing the caption text and validation text in the <legend> provides a better user
-                  experience for more screenreaders.
-
-                  Reference: https://blog.tenon.io/accessible-validation-of-checkbox-and-radiobutton-groups/
-                */
-                <legend className={classes.GroupLegend} data-legend-visible={isLegendVisible ? '' : undefined}>
-                  {slots.label}
-                  {slots.caption}
-                  {React.isValidElement(slots.validation) && slots.validation.props.children && (
-                    <VisuallyHidden>{slots.validation.props.children}</VisuallyHidden>
-                  )}
-                </legend>
-              ) : (
-                /*
-                  If CheckboxOrRadioGroup.Label wasn't passed as a child, we don't render a <legend>
-                  but we still want to render a caption
-                */
-                slots.caption
-              )}
-
-              <Body
-                className={classes.Body}
-                {...(!labelChild
-                  ? {
-                      ['aria-labelledby']: ariaLabelledby,
-                      ['aria-describedby']: [validationMessageId, captionId].filter(Boolean).join(' '),
-                      as: 'div',
-                      role: 'group',
-                    }
-                  : {})}
-              >
-                {React.Children.toArray(rest).filter(child => React.isValidElement(child))}
-              </Body>
-            </Box>
-            {validationChild && (
-              <ValidationAnimationContainer
-                // If we have CheckboxOrRadioGroup.Label as a child, we render a screenreader-accessible validation message in the <legend>
-                aria-hidden={Boolean(labelChild)}
-                show
-              >
-                {slots.validation}
-              </ValidationAnimationContainer>
-            )}
-          </div>
-        </CheckboxOrRadioGroupContext.Provider>
-      )
-    }
-    return (
-      <CheckboxOrRadioGroupContext.Provider
-        value={{
-          disabled,
-          required,
-          captionId,
-          validationMessageId,
-        }}
-      >
-        <div>
-          <fieldset
-            className={clsx(className, classes.GroupFieldset)}
-            data-validation={validationChild ? '' : undefined}
-            {...(labelChild
-              ? {
-                  as: 'fieldset',
-                  disabled,
-                }
-              : {})}
-          >
-            {labelChild ? (
-              /*
-                Placing the caption text and validation text in the <legend> provides a better user
-                experience for more screenreaders.
-
-                Reference: https://blog.tenon.io/accessible-validation-of-checkbox-and-radiobutton-groups/
-              */
-              <legend className={classes.GroupLegend} data-legend-visible={isLegendVisible ? '' : undefined}>
-                {slots.label}
-                {slots.caption}
-                {React.isValidElement(slots.validation) && slots.validation.props.children && (
-                  <VisuallyHidden>{slots.validation.props.children}</VisuallyHidden>
-                )}
-              </legend>
-            ) : (
-              /*
-                If CheckboxOrRadioGroup.Label wasn't passed as a child, we don't render a <legend>
-                but we still want to render a caption
-              */
-              slots.caption
-            )}
-
-            <Body
-              className={classes.Body}
-              {...(!labelChild
-                ? {
-                    ['aria-labelledby']: ariaLabelledby,
-                    ['aria-describedby']: [validationMessageId, captionId].filter(Boolean).join(' '),
-                    as: 'div',
-                    role: 'group',
-                  }
-                : {})}
-            >
-              {React.Children.toArray(rest).filter(child => React.isValidElement(child))}
-            </Body>
-          </fieldset>
-          {validationChild && (
-            <ValidationAnimationContainer
-              // If we have CheckboxOrRadioGroup.Label as a child, we render a screenreader-accessible validation message in the <legend>
-              aria-hidden={Boolean(labelChild)}
-              show
-            >
-              {slots.validation}
-            </ValidationAnimationContainer>
-          )}
-        </div>
-      </CheckboxOrRadioGroupContext.Provider>
-    )
-  }
-
   return (
     <CheckboxOrRadioGroupContext.Provider
       value={{
@@ -245,43 +80,41 @@ const CheckboxOrRadioGroup: React.FC<React.PropsWithChildren<CheckboxOrRadioGrou
       }}
     >
       <div>
-        <Box
-          border="none"
-          margin={0}
-          mb={validationChild ? 2 : undefined}
-          padding={0}
+        <BoxWithFallback
+          className={clsx(className, classes.GroupFieldset)}
+          data-validation={validationChild ? '' : undefined}
           {...(labelChild
             ? {
                 as: 'fieldset',
                 disabled,
               }
             : {})}
-          className={className}
           sx={sx}
         >
           {labelChild ? (
             /*
-              Placing the caption text and validation text in the <legend> provides a better user
-              experience for more screenreaders.
+                  Placing the caption text and validation text in the <legend> provides a better user
+                  experience for more screenreaders.
 
-              Reference: https://blog.tenon.io/accessible-validation-of-checkbox-and-radiobutton-groups/
-            */
-            <Box as="legend" mb={isLegendVisible ? 2 : undefined} padding={0}>
+                  Reference: https://blog.tenon.io/accessible-validation-of-checkbox-and-radiobutton-groups/
+                */
+            <legend className={classes.GroupLegend} data-legend-visible={isLegendVisible ? '' : undefined}>
               {slots.label}
               {slots.caption}
               {React.isValidElement(slots.validation) && slots.validation.props.children && (
                 <VisuallyHidden>{slots.validation.props.children}</VisuallyHidden>
               )}
-            </Box>
+            </legend>
           ) : (
             /*
-              If CheckboxOrRadioGroup.Label wasn't passed as a child, we don't render a <legend>
-              but we still want to render a caption
-            */
+                  If CheckboxOrRadioGroup.Label wasn't passed as a child, we don't render a <legend>
+                  but we still want to render a caption
+                */
             slots.caption
           )}
 
-          <Body
+          <div
+            className={classes.Body}
             {...(!labelChild
               ? {
                   ['aria-labelledby']: ariaLabelledby,
@@ -292,8 +125,8 @@ const CheckboxOrRadioGroup: React.FC<React.PropsWithChildren<CheckboxOrRadioGrou
               : {})}
           >
             {React.Children.toArray(rest).filter(child => React.isValidElement(child))}
-          </Body>
-        </Box>
+          </div>
+        </BoxWithFallback>
         {validationChild && (
           <ValidationAnimationContainer
             // If we have CheckboxOrRadioGroup.Label as a child, we render a screenreader-accessible validation message in the <legend>
