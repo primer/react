@@ -22,7 +22,8 @@
 
 .LeadingVisualContainer {
   margin-right: var(--base-size-4);
-  line-height: var(--text-title-lineHeight-large);
+  /* stylelint-disable-next-line primer/typography */
+  line-height: 0;
   flex-shrink: 0;
 }
 
