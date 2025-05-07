@@ -872,8 +872,8 @@ describe('ActionMenu', () => {
     })
   })
 
-  it('should call onSideChange when the side of the menu changes', async () => {
-    const onSideChange = jest.fn(side => side)
+  it('should call onPositionChange when the side of the menu changes', async () => {
+    const onPositionChange = jest.fn(side => side)
 
     const component = HTMLRender(
       <ThemeProvider theme={theme}>
@@ -882,7 +882,7 @@ describe('ActionMenu', () => {
             <ActionMenu.Anchor>
               <IconButton icon={KebabHorizontalIcon} aria-label="Open menu" />
             </ActionMenu.Anchor>
-            <ActionMenu.Overlay onSideChange={onSideChange}>
+            <ActionMenu.Overlay onPositionChange={onPositionChange}>
               <ActionList>
                 <ActionList.Item>New file</ActionList.Item>
                 <ActionList.Divider />
@@ -904,10 +904,10 @@ describe('ActionMenu', () => {
 
     const user = userEvent.setup()
 
-    expect(onSideChange).not.toHaveBeenCalled()
+    expect(onPositionChange).not.toHaveBeenCalled()
     await user.click(button)
 
     expect(component.getByRole('menu')).toBeInTheDocument()
-    expect(onSideChange).toHaveBeenCalledWith({anchorAlign: 'start', anchorSide: 'outside-bottom', left: 0, top: 4})
+    expect(onPositionChange).toHaveBeenCalledWith({anchorAlign: 'start', anchorSide: 'outside-bottom', left: 0, top: 4})
   })
 })

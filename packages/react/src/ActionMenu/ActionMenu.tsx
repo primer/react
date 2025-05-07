@@ -234,13 +234,13 @@ type MenuOverlayProps = Partial<OverlayProps> &
      * Recommended: `ActionList`
      */
     children: React.ReactNode
-    onSideChange?: (side: AnchorPosition) => void
+    onPositionChange?: (side: AnchorPosition) => void
   }
 const Overlay: React.FC<React.PropsWithChildren<MenuOverlayProps>> = ({
   children,
   align = 'start',
   side,
-  onSideChange,
+  onPositionChange,
   'aria-labelledby': ariaLabelledby,
   ...overlayProps
 }) => {
@@ -284,7 +284,7 @@ const Overlay: React.FC<React.PropsWithChildren<MenuOverlayProps>> = ({
       side={side ?? (isSubmenu ? 'outside-right' : 'outside-bottom')}
       overlayProps={overlayProps}
       focusZoneSettings={{focusOutBehavior: 'wrap'}}
-      onPositionChange={onSideChange}
+      onPositionChange={onPositionChange}
     >
       <div ref={containerRef}>
         <ActionListContainerContext.Provider

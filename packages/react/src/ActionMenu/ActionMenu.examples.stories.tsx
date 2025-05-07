@@ -592,7 +592,7 @@ export const DynamicAnchorSides = () => {
             width="auto"
             maxHeight="large"
             side={currentSide}
-            onSideChange={position => {
+            onPositionChange={position => {
               setUpdatedSide(position)
             }}
           >
