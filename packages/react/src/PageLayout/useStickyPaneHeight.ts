@@ -84,23 +84,33 @@ export function useStickyPaneHeight() {
     }
   }, [isEnabled, contentTopInView, contentBottomInView, calculateHeight])
 
-  function enableStickyPane(top: string | number) {
-    setIsEnabled(true)
-    setOffsetHeader(top)
-  }
+  const enableStickyPane = React.useCallback(
+    function enableStickyPane(top: string | number) {
+      setIsEnabled(true)
+      setOffsetHeader(top)
+    },
+    [setIsEnabled, setOffsetHeader],
+  )
 
-  function disableStickyPane() {
-    setIsEnabled(false)
-  }
+  const disableStickyPane = React.useCallback(
+    function disableStickyPane() {
+      setIsEnabled(false)
+    },
+    [setIsEnabled],
+  )
 
-  return {
-    rootRef,
-    enableStickyPane,
-    disableStickyPane,
-    contentTopRef,
-    contentBottomRef,
-    stickyPaneHeight: height,
-  }
+  const memoizedResult = React.useMemo(() => {
+    return {
+      rootRef,
+      enableStickyPane,
+      disableStickyPane,
+      contentTopRef,
+      contentBottomRef,
+      stickyPaneHeight: height,
+    }
+  }, [rootRef, enableStickyPane, disableStickyPane, contentTopRef, contentBottomRef, height])
+
+  return memoizedResult
 }
 
 // TODO: there is currently an issue with dvh on Desktop Safari 15.6, 16.0. To

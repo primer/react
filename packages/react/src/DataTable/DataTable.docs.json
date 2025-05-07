@@ -98,6 +98,13 @@
       "required": false,
       "description": "Provide the sort direction that the table should be sorted by on the\ncurrently sorted column",
       "defaultValue": ""
+    },
+    {
+      "name": "onToggleSort",
+      "type": "(columnId: ObjectPaths<Data> | string | number, direction: 'ASC' | 'DESC') => void",
+      "required": false,
+      "description": "Fires every time the user clicks a sortable column header. It reports the column id that is now sorted and the direction after the toggle (never 'NONE').",
+      "defaultValue": ""
     }
   ],
   "subcomponents": [
