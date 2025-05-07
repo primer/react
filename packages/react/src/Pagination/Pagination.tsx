@@ -1,12 +1,11 @@
 import React from 'react'
 import Box from '../Box'
-import type {SxProp} from '../sx'
 import {buildComponentData, buildPaginationModel, type PageDataProps} from './model'
 import type {ResponsiveValue} from '../hooks/useResponsiveValue'
 import {viewportRanges} from '../hooks/useResponsiveValue'
-import {toggleSxComponent} from '../internal/utils/toggleSxComponent'
 import {clsx} from 'clsx'
 import classes from './Pagination.module.css'
+import {BoxWithFallback} from '../internal/components/BoxWithFallback'
 
 const getViewportRangesToHidePages = (showPages: PaginationProps['showPages']) => {
   if (showPages && typeof showPages !== 'boolean') {
@@ -34,6 +33,7 @@ export type PageProps = {
 } & Omit<PageDataProps['props'], 'as' | 'role'>
 
 type UsePaginationPagesParameters = {
+  _theme?: Record<string, unknown> // set to theme type once /src/theme.js is converted
   pageCount: number
   currentPage: number
   onPageChange: (e: React.MouseEvent, n: number) => void
@@ -78,12 +78,9 @@ function usePaginationPages({
   return children
 }
 
-const PaginationContainer = toggleSxComponent('nav') as React.ComponentType<
-  React.HTMLAttributes<HTMLElement> & SxProp & React.PropsWithChildren
->
-
 export type PaginationProps = {
   className?: string
+  theme?: Record<string, unknown>
   pageCount: number
   currentPage: number
   onPageChange?: (e: React.MouseEvent, n: number) => void
@@ -96,6 +93,7 @@ export type PaginationProps = {
 
 function Pagination({
   className,
+  theme: _theme,
   pageCount,
   currentPage,
   onPageChange = noop,
@@ -107,6 +105,7 @@ function Pagination({
   ...rest
 }: PaginationProps) {
   const pageElements = usePaginationPages({
+    _theme,
     pageCount,
     currentPage,
     onPageChange,
@@ -118,7 +117,12 @@ function Pagination({
   })
 
   return (
-    <PaginationContainer className={clsx(classes.PaginationContainer, className)} aria-label="Pagination" {...rest}>
+    <BoxWithFallback
+      as="nav"
+      className={clsx(classes.PaginationContainer, className)}
+      aria-label="Pagination"
+      {...rest}
+    >
       <Box
         display="inline-block"
         className={classes.TablePaginationSteps}
@@ -126,7 +130,7 @@ function Pagination({
       >
         {pageElements}
       </Box>
-    </PaginationContainer>
+    </BoxWithFallback>
   )
 }
 
