@@ -35,6 +35,7 @@ module.exports = {
     '<rootDir>/src/DataTable/',
     '<rootDir>/src/FeatureFlags/',
     '<rootDir>/src/Stack/',
+    '<rootDir>/src/Truncate/',
     '<rootDir>/src/UnderlineNav/',
   ],
   transformIgnorePatterns: ['node_modules/(?!@github/[a-z-]+-element|@lit-labs/react|@oddbird/popover-polyfill)'],
