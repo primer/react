@@ -1,5 +1,31 @@
 # @primer/react
 
+## 37.23.0
+
+### Minor Changes
+
+- [#6013](https://github.com/primer/react/pull/6013) [`2b2b541`](https://github.com/primer/react/commit/2b2b541eed1905751f1ade2e20ad632df8fa636c) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove the CSS modules feature flag from the CheckboxOrRadioGroup component
+
+- [#6007](https://github.com/primer/react/pull/6007) [`6e03bf9`](https://github.com/primer/react/commit/6e03bf9993fdf27b6b6efc2f0eee4b298032eedc) Thanks [@joshblack](https://github.com/joshblack)! - Update Flash from sx to CSS Modules
+
+- [#6015](https://github.com/primer/react/pull/6015) [`237186a`](https://github.com/primer/react/commit/237186ac490ca00edd025917bff35161513c212e) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove the CSS modules feature flag from the Select component
+
+- [#5991](https://github.com/primer/react/pull/5991) [`f1fedf3`](https://github.com/primer/react/commit/f1fedf3dca46444c044ee565b375f8daa7215b82) Thanks [@veryfancy](https://github.com/veryfancy)! - Add support for the `onToggleSort` prop to `DataTable`
+
+- [#5907](https://github.com/primer/react/pull/5907) [`dbeca84`](https://github.com/primer/react/commit/dbeca840e48eff3fe24babec7a9eb85f42be43db) Thanks [@bibektamang7](https://github.com/bibektamang7)! - feat(Datatable): add optional getRowId prop to support custom row identifiers
+
+- [#5971](https://github.com/primer/react/pull/5971) [`56248f7`](https://github.com/primer/react/commit/56248f716bf2580c2d2199ae1ed5171034600fcf) Thanks [@francinelucca](https://github.com/francinelucca)! - feat(SelectPanel): display selected items at the top under FF
+
+### Patch Changes
+
+- [#6024](https://github.com/primer/react/pull/6024) [`a470e14`](https://github.com/primer/react/commit/a470e14bf143f5be50047f6c43c7853980d6e952) Thanks [@francinelucca](https://github.com/francinelucca)! - turn off primer_react_select_panel_order_selected_at_top by default
+
+- [#5914](https://github.com/primer/react/pull/5914) [`159d124`](https://github.com/primer/react/commit/159d12426d723fd5fe949a559cd4ef7d1ce5b1ab) Thanks [@langermank](https://github.com/langermank)! - Bump `primer/primitives` v10 or v11 to prep for next major
+
+- [#5996](https://github.com/primer/react/pull/5996) [`49fa2c8`](https://github.com/primer/react/commit/49fa2c809bcf1f9e23016859c36d0445b10b2036) Thanks [@francinelucca](https://github.com/francinelucca)! - Fix(Dialog): set height limit of 35% to DialogHeader
+
+- [#5995](https://github.com/primer/react/pull/5995) [`48909e4`](https://github.com/primer/react/commit/48909e4aa1a340e529aed8c17de3e6f069e49d80) Thanks [@joshblack](https://github.com/joshblack)! - fix(TextArea): only add class name to outermost element
+
 ## 37.22.0
 
 ### Minor Changes
