@@ -153,7 +153,7 @@ describe('UnderlineNav', () => {
   })
 
   it('throws an error when there are multiple items that have aria-current', () => {
-    const spy = vi.spyOn(console, 'error').mockImplementation()
+    const spy = vi.spyOn(console, 'error').mockImplementation(() => {})
     expect(() => {
       render(
         <UnderlineNav aria-label="Test Navigation">
