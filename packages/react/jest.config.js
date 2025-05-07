@@ -35,6 +35,7 @@ module.exports = {
     '<rootDir>/src/DataTable/',
     '<rootDir>/src/FeatureFlags/',
     '<rootDir>/src/Stack/',
+    '<rootDir>/src/ToggleSwitch/',
     '<rootDir>/src/Truncate/',
     '<rootDir>/src/UnderlineNav/',
   ],
