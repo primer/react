@@ -11,11 +11,11 @@ concurrency:
 
 jobs:
   vrt-runner:
-    runs-on: ubuntu-latest-16-cores
+    runs-on: ubuntu-latest-96-cores
     strategy:
       fail-fast: false
       matrix:
-        shard: [1, 2, 3, 4, 5, 6]
+        shard: [1, 2, 3, 4]
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
       - name: Use Node.js 20.x
