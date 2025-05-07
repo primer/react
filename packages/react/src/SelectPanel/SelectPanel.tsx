@@ -361,7 +361,7 @@ function Panel({
       // Only trigger filter change event if there are no items
       if (items.length === 0) {
         // Trigger filter event to populate panel on first open
-        onFilterChange(filterValue, undefined)
+        onFilterChange(filterValue)
       }
     }
   }, [open, dataLoadedOnce, onFilterChange, filterValue, items, loadingManagedExternally, listContainerElement])
