@@ -10,7 +10,6 @@ import type {SxProp} from '../sx'
 import {canUseDOM} from '../utils/environment'
 import {useOverflow} from '../hooks/useOverflow'
 import {warning} from '../utils/warning'
-import {useStickyPaneHeight} from './useStickyPaneHeight'
 
 import classes from './PageLayout.module.css'
 import {BoxWithFallback} from '../internal/components/BoxWithFallback'
@@ -34,10 +33,6 @@ const PageLayoutContext = React.createContext<{
   rowGap: keyof typeof SPACING_MAP
   columnGap: keyof typeof SPACING_MAP
   paneRef: React.RefObject<HTMLDivElement>
-  enableStickyPane?: (top: number | string) => void
-  disableStickyPane?: () => void
-  contentTopRef?: (node?: Element | null | undefined) => void
-  contentBottomRef?: (node?: Element | null | undefined) => void
 }>({
   padding: 'normal',
   rowGap: 'normal',
@@ -81,9 +76,6 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
   style,
   _slotsConfig: slotsConfig,
 }) => {
-  const {rootRef, enableStickyPane, disableStickyPane, contentTopRef, contentBottomRef, stickyPaneHeight} =
-    useStickyPaneHeight()
-
   const paneRef = useRef<HTMLDivElement>(null)
 
   const [slots, rest] = useSlots(children, slotsConfig ?? {header: Header, footer: Footer})
@@ -93,21 +85,15 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
       padding,
       rowGap,
       columnGap,
-      enableStickyPane,
-      disableStickyPane,
-      contentTopRef,
-      contentBottomRef,
       paneRef,
     }
-  }, [padding, rowGap, columnGap, enableStickyPane, disableStickyPane, contentTopRef, contentBottomRef, paneRef])
+  }, [columnGap, padding, rowGap])
 
   return (
     <PageLayoutContext.Provider value={memoizedContextValue}>
       <BoxWithFallback
-        ref={rootRef}
         style={
           {
-            '--sticky-pane-height': stickyPaneHeight,
             '--spacing': `var(--spacing-${padding})`,
             ...style,
           } as React.CSSProperties
@@ -478,7 +464,6 @@ const Content: React.FC<React.PropsWithChildren<PageLayoutContentProps>> = ({
   style,
 }) => {
   const isHidden = useResponsiveValue(hidden, false)
-  const {contentTopRef, contentBottomRef} = React.useContext(PageLayoutContext)
 
   return (
     <BoxWithFallback
@@ -490,9 +475,6 @@ const Content: React.FC<React.PropsWithChildren<PageLayoutContentProps>> = ({
       className={clsx(classes.ContentWrapper, className)}
       data-is-hidden={isHidden}
     >
-      {/* Track the top of the content region so we can calculate the height of the pane region */}
-      <div ref={contentTopRef} />
-
       <div
         className={classes.Content}
         data-width={width}
@@ -504,9 +486,6 @@ const Content: React.FC<React.PropsWithChildren<PageLayoutContentProps>> = ({
       >
         {children}
       </div>
-
-      {/* Track the bottom of the content region so we can calculate the height of the pane region */}
-      <div ref={contentBottomRef} />
     </BoxWithFallback>
   )
 }
@@ -641,15 +620,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
 
     const isHidden = useResponsiveValue(responsiveHidden, false)
 
-    const {rowGap, columnGap, enableStickyPane, disableStickyPane, paneRef} = React.useContext(PageLayoutContext)
-
-    React.useEffect(() => {
-      if (sticky) {
-        enableStickyPane?.(offsetHeader)
-      } else {
-        disableStickyPane?.()
-      }
-    }, [sticky, enableStickyPane, disableStickyPane, offsetHeader])
+    const {rowGap, columnGap, paneRef} = React.useContext(PageLayoutContext)
 
     const getDefaultPaneWidth = (width: PaneWidth | CustomWidthOptions): number => {
       if (isPaneWidth(width)) {
