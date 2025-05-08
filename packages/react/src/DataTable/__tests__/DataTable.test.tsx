@@ -886,6 +886,41 @@ describe('DataTable', () => {
       expect(customSortFn).toHaveBeenCalled()
       expect(getRowOrder()).toEqual(['3', '2', '1'])
     })
+
+    it('invokes onToggleSort with column id and next direction', async () => {
+      const user = userEvent.setup()
+      const handler = vi.fn()
+
+      render(
+        <DataTable
+          data={[
+            {id: 1, first: 'a', second: 'c'},
+            {id: 2, first: 'b', second: 'b'},
+            {id: 3, first: 'c', second: 'a'},
+          ]}
+          columns={[
+            {header: 'First', field: 'first', sortBy: true},
+            {header: 'Second', field: 'second', sortBy: true},
+          ]}
+          initialSortColumn="first"
+          initialSortDirection="ASC"
+          onToggleSort={handler}
+        />,
+      )
+
+      // No calls on initial render
+      expect(handler).not.toHaveBeenCalled()
+
+      // Same column, flips ASC to DESC
+      await user.click(screen.getByText('First'))
+      expect(handler).toHaveBeenLastCalledWith('first', 'DESC')
+
+      // Different column, resets to ASC on that column
+      await user.click(screen.getByText('Second'))
+      expect(handler).toHaveBeenLastCalledWith('second', 'ASC')
+
+      expect(handler).toHaveBeenCalledTimes(2)
+    })
   })
 
   describe('column widths', () => {

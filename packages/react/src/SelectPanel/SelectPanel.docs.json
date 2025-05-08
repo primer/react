@@ -177,6 +177,12 @@
       "type": "React.ReactElement",
       "defaultValue": "null",
       "description": "Secondary action, it will be rendered in the footer of the panel. Use `SecondaryActionButton` or `SecondaryActionLink` for the action."
+    },
+    {
+      "name": "showSelectedOptionsFirst",
+      "type": "boolean",
+      "description": "Whether to display the selected items at the top of the list",
+      "default": "true"
     }
   ],
   "subcomponents": []
