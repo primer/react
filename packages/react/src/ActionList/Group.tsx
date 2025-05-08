@@ -133,6 +133,7 @@ export const Group: React.FC<React.PropsWithChildren<ActionListGroupProps>> = ({
           aria-labelledby={listRole ? undefined : groupHeadingId}
           aria-label={listRole ? (title ?? (slots.groupHeading?.props.children as string)) : undefined}
           role={role || (listRole && 'group')}
+          className={groupClasses.GroupList}
         >
           {slots.groupHeading ? childrenWithoutSlots : props.children}
         </ul>
@@ -215,26 +216,15 @@ export const GroupHeading: React.FC<React.PropsWithChildren<ActionListGroupHeadi
           as={headingWrapElement}
           data-component="GroupHeadingWrap"
         >
-          {sx !== defaultSxProp ? (
-            <Heading
-              className={clsx(className, groupClasses.GroupHeading)}
-              as={as || 'h3'}
-              id={groupHeadingId}
-              sx={sx}
-              {...props}
-            >
-              {_internalBackwardCompatibleTitle ?? children}
-            </Heading>
-          ) : (
-            <Heading
-              className={clsx(className, groupClasses.GroupHeading)}
-              as={as || 'h3'}
-              id={groupHeadingId}
-              {...props}
-            >
-              {_internalBackwardCompatibleTitle ?? children}
-            </Heading>
-          )}
+          <Heading
+            className={clsx(className, groupClasses.GroupHeading)}
+            as={as || 'h3'}
+            id={groupHeadingId}
+            sx={sx}
+            {...props}
+          >
+            {_internalBackwardCompatibleTitle ?? children}
+          </Heading>
           {auxiliaryText && <div className={classes.Description}>{auxiliaryText}</div>}
         </HeadingWrap>
       )}

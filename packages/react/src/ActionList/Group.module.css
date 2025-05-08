@@ -15,6 +15,10 @@
   }
 }
 
+.GroupList {
+  padding-inline-start: 0;
+}
+
 .GroupHeadingWrap {
   display: flex;
   font-size: var(--text-body-size-small);

@@ -840,6 +840,7 @@ exports[`NavList renders with groups 1`] = `
         </div>
         <ul
           aria-labelledby=":r7:"
+          class="GroupList"
         >
           <li
             class="c3 c4"
@@ -894,6 +895,7 @@ exports[`NavList renders with groups 1`] = `
         </div>
         <ul
           aria-labelledby=":r9:"
+          class="GroupList"
         >
           <li
             class="c3 c9"
