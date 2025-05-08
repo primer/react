@@ -8,6 +8,7 @@ import theme from '../theme'
 import BaseStyles from '../BaseStyles'
 import {ThemeProvider} from '../ThemeProvider'
 import {setupMatchMedia} from '../utils/test-helpers'
+import type {AnchorPosition} from '@primer/behaviors'
 
 setupMatchMedia()
 
@@ -15,12 +16,14 @@ type TestComponentSettings = {
   initiallyOpen?: boolean
   onOpenCallback?: (gesture: string) => void
   onCloseCallback?: (gesture: string) => void
+  onPositionChange?: (position: AnchorPosition | undefined) => void
 }
 
 const AnchoredOverlayTestComponent = ({
   initiallyOpen = false,
   onOpenCallback,
   onCloseCallback,
+  onPositionChange,
 }: TestComponentSettings = {}) => {
   const [open, setOpen] = useState(initiallyOpen)
   const onOpen = useCallback(
@@ -45,6 +48,7 @@ const AnchoredOverlayTestComponent = ({
           onOpen={onOpen}
           onClose={onClose}
           renderAnchor={props => <Button {...props}>Anchor Button</Button>}
+          onPositionChange={onPositionChange}
         >
           <button type="button">Focusable Child</button>
         </AnchoredOverlay>
@@ -143,5 +147,22 @@ describe('AnchoredOverlay', () => {
   it('should render consistently when open', () => {
     const {container} = HTMLRender(<AnchoredOverlayTestComponent initiallyOpen={true} />)
     expect(container).toMatchSnapshot()
+  })
+
+  it('should call onPositionChange when provided', () => {
+    const mockPositionChangeCallback = jest.fn(side => side)
+    const anchoredOverlay = HTMLRender(
+      <AnchoredOverlayTestComponent initiallyOpen={true} onPositionChange={mockPositionChangeCallback} />,
+    )
+    const overlay = anchoredOverlay.baseElement.querySelector('[role="none"]')!
+    fireEvent.keyDown(overlay, {key: 'Escape'})
+
+    expect(mockPositionChangeCallback).toHaveBeenCalledTimes(1)
+    expect(mockPositionChangeCallback).toHaveBeenCalledWith({
+      anchorAlign: 'start',
+      anchorSide: 'outside-bottom',
+      left: 0,
+      top: 4,
+    })
   })
 })

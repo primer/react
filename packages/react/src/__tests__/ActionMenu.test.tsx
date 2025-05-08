@@ -871,43 +871,4 @@ describe('ActionMenu', () => {
       expect(mockOnKeyDown).toHaveBeenCalledTimes(1)
     })
   })
-
-  it('should call onPositionChange when the side of the menu changes', async () => {
-    const onPositionChange = jest.fn(side => side)
-
-    const component = HTMLRender(
-      <ThemeProvider theme={theme}>
-        <BaseStyles>
-          <ActionMenu>
-            <ActionMenu.Anchor>
-              <IconButton icon={KebabHorizontalIcon} aria-label="Open menu" />
-            </ActionMenu.Anchor>
-            <ActionMenu.Overlay onPositionChange={onPositionChange}>
-              <ActionList>
-                <ActionList.Item>New file</ActionList.Item>
-                <ActionList.Divider />
-                <ActionList.Item>Copy link</ActionList.Item>
-                <ActionList.Item>Edit file</ActionList.Item>
-                <ActionList.Item variant="danger" onSelect={event => event.preventDefault()}>
-                  Delete file
-                </ActionList.Item>
-                <ActionList.LinkItem href="//github.com" title="anchor" aria-keyshortcuts="s">
-                  Github
-                </ActionList.LinkItem>
-              </ActionList>
-            </ActionMenu.Overlay>
-          </ActionMenu>
-        </BaseStyles>
-      </ThemeProvider>,
-    )
-    const button = component.getByRole('button')
-
-    const user = userEvent.setup()
-
-    expect(onPositionChange).not.toHaveBeenCalled()
-    await user.click(button)
-
-    expect(component.getByRole('menu')).toBeInTheDocument()
-    expect(onPositionChange).toHaveBeenCalledWith({anchorAlign: 'start', anchorSide: 'outside-bottom', left: 0, top: 4})
-  })
 })
