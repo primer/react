@@ -9,11 +9,16 @@ runs:
       with:
         path: |
           packages/react/storybook-static
+          docs/
         key: ${{ runner.os }}-storybook-${{github.run_id}}
     - if: steps.cache-storybook-restore.outputs.cache-hit != 'true'
       shell: bash
-      name: Build storybook
+      name: Build docs
       run: npm run build:docs:preview
+    - if: steps.cache-storybook-restore.outputs.cache-hit != 'true'
+      shell: bash
+      name: Build storybook
+      run: npm run build:storybook
     - if: steps.cache-storybook-restore.outputs.cache-hit != 'true'
       name: Save storybook
       id: cache-storybook-save
@@ -21,4 +26,5 @@ runs:
       with:
         path: |
           packages/react/storybook-static
+          docs/
         key: ${{ steps.cache-storybook-restore.outputs.cache-primary-key }}
