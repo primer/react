@@ -10,7 +10,7 @@ jobs:
   storybook:
     name: Pre-Build Storybook
     if: ${{ github.event.pull_request.head.repo.full_name == 'primer/react' }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest-8-cores
     steps:
       - name: Checkout repository
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
