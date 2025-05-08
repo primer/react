@@ -2,27 +2,7 @@
 
 exports[`NavList renders a simple list 1`] = `
 .c3 {
-  padding-left: 8px;
-  padding-right: 8px;
-  padding-top: 6px;
-  padding-bottom: 6px;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  border-radius: 6px;
-  color: inherit;
   font-size: 14px;
-}
-
-.c3:hover {
-  color: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
 }
 
 .c4 {
@@ -79,11 +59,11 @@ exports[`NavList renders a simple list 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  padding-left: 0;
-  padding-right: 0;
+  padding-left: 8px;
+  padding-right: 8px;
   font-size: 14px;
-  padding-top: 0;
-  padding-bottom: 0;
+  padding-top: 6px;
+  padding-bottom: 6px;
   line-height: 16px;
   min-height: 5px;
   margin-left: 8px;
@@ -194,11 +174,11 @@ exports[`NavList renders a simple list 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  padding-left: 0;
-  padding-right: 0;
+  padding-left: 8px;
+  padding-right: 8px;
   font-size: 14px;
-  padding-top: 0;
-  padding-bottom: 0;
+  padding-top: 6px;
+  padding-bottom: 6px;
   line-height: 16px;
   min-height: 5px;
   margin-left: 8px;
@@ -474,27 +454,7 @@ exports[`NavList renders with groups 1`] = `
 }
 
 .c6 {
-  padding-left: 8px;
-  padding-right: 8px;
-  padding-top: 6px;
-  padding-bottom: 6px;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  border-radius: 6px;
-  color: inherit;
   font-size: 14px;
-}
-
-.c6:hover {
-  color: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
 }
 
 .c7 {
@@ -551,11 +511,11 @@ exports[`NavList renders with groups 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  padding-left: 0;
-  padding-right: 0;
+  padding-left: 8px;
+  padding-right: 8px;
   font-size: 14px;
-  padding-top: 0;
-  padding-bottom: 0;
+  padding-top: 6px;
+  padding-bottom: 6px;
   line-height: 16px;
   min-height: 5px;
   margin-left: 8px;
@@ -666,11 +626,11 @@ exports[`NavList renders with groups 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  padding-left: 0;
-  padding-right: 0;
+  padding-left: 8px;
+  padding-right: 8px;
   font-size: 14px;
-  padding-top: 0;
-  padding-bottom: 0;
+  padding-top: 6px;
+  padding-bottom: 6px;
   line-height: 16px;
   min-height: 5px;
   margin-left: 8px;
@@ -1011,27 +971,8 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
 
 .c13 {
   padding-left: 16px;
-  padding-right: 8px;
-  padding-top: 6px;
-  padding-bottom: 6px;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  border-radius: 6px;
-  color: inherit;
   font-size: 12px;
   font-weight: 400;
-}
-
-.c13:hover {
-  color: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
 }
 
 .c14 {
@@ -1072,11 +1013,11 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  padding-left: 0;
-  padding-right: 0;
+  padding-left: 8px;
+  padding-right: 8px;
   font-size: 14px;
-  padding-top: 0;
-  padding-bottom: 0;
+  padding-top: 6px;
+  padding-bottom: 6px;
   line-height: 16px;
   min-height: 5px;
   margin-left: 8px;
@@ -1521,29 +1462,10 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   display: none;
 }
 
-.c13 {
+.c12 {
   padding-left: 16px;
-  padding-right: 8px;
-  padding-top: 6px;
-  padding-bottom: 6px;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  border-radius: 6px;
-  color: inherit;
   font-size: 12px;
   font-weight: 400;
-}
-
-.c13:hover {
-  color: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
 }
 
 .c7 {
@@ -1567,132 +1489,8 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   --divider-color: transparent !important;
 }
 
-.c14:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c3,
-.c14[data-focus-visible-added] + li {
-  --divider-color: transparent;
-}
-
-.c12 {
-  position: relative;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  padding-left: 0;
-  padding-right: 0;
-  font-size: 14px;
-  padding-top: 0;
-  padding-bottom: 0;
-  line-height: 16px;
-  min-height: 5px;
-  margin-left: 8px;
-  margin-right: 8px;
-  border-radius: 6px;
-  -webkit-transition: background 33.333ms linear;
-  transition: background 33.333ms linear;
-  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
-  cursor: pointer;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  background: unset;
-  border: unset;
-  width: calc(100% - 16px);
-  font-family: unset;
-  text-align: unset;
-  margin-top: unset;
-  margin-bottom: unset;
-  font-weight: 600;
-  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
-}
-
-.c12[data-loading] {
-  cursor: default;
-}
-
-.c12[aria-disabled],
-.c12[data-inactive] {
-  cursor: not-allowed;
-}
-
-.c12[aria-disabled] [data-component="ActionList.Checkbox"],
-.c12[data-inactive] [data-component="ActionList.Checkbox"] {
-  cursor: not-allowed;
-  background-color: var(--control-bgColor-disabled,rgba(175,184,193,0.2));
-  border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
-}
-
-.c12[aria-disabled] [data-component="ActionList.Selection"],
-.c12[data-inactive] [data-component="ActionList.Selection"] {
-  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
-}
-
-.c12 [data-component="ActionList.Item--DividerContainer"] {
-  position: relative;
-}
-
-.c12 [data-component="ActionList.Item--DividerContainer"]::before {
-  content: " ";
-  display: block;
-  position: absolute;
-  width: 100%;
-  top: -7px;
-  border: 0 solid;
-  border-top-width: 0;
-  border-color: var(--divider-color,transparent);
-}
-
-.c12:not(:first-of-type) {
-  --divider-color: var(--borderColor-muted,var(--color-action-list-item-inline-divider,rgba(208,215,222,0.48)));
-}
-
-[data-component="ActionList.Divider"] + .c3 {
-  --divider-color: transparent !important;
-}
-
-.c12:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]),
-.c12[data-focus-visible-added]:not([aria-disabled]):not([data-inactive]) {
-  --divider-color: transparent;
-}
-
-.c12:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c3,
-.c12[data-focus-visible-added] + li {
-  --divider-color: transparent;
-}
-
-.c12::after {
-  position: absolute;
-  top: calc(50% - 12px);
-  left: -8px;
-  width: 4px;
-  height: 24px;
-  content: "";
-  background-color: var(--borderColor-accent-emphasis);
-  border-radius: 6px;
-}
-
-.c12[data-is-active-descendant] {
-  font-weight: 400;
-  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
-}
-
-.c12[data-is-active-descendant]::after {
-  position: absolute;
-  top: calc(50% - 12px);
-  left: -8px;
-  width: 4px;
-  height: 24px;
-  content: "";
-  background-color: var(--borderColor-accent-emphasis);
-  border-radius: 6px;
-}
-
-[data-component="ActionList.Divider"] + .c3 {
-  --divider-color: transparent !important;
-}
-
-.c15:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c3,
-.c15[data-focus-visible-added] + li {
+.c13:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c3,
+.c13[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
 
@@ -1811,48 +1609,19 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   border-radius: 6px;
 }
 
+[data-component="ActionList.Divider"] + .c3 {
+  --divider-color: transparent !important;
+}
+
+.c14:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c3,
+.c14[data-focus-visible-added] + li {
+  --divider-color: transparent;
+}
+
 .c9 {
   -webkit-transform: rotate(0deg);
   -ms-transform: rotate(0deg);
   transform: rotate(0deg);
-}
-
-@media (forced-colors:active) {
-
-}
-
-@media (hover:hover) and (pointer:fine) {
-
-}
-
-@media (forced-colors:active) {
-  .c12:focus,
-  .c12:focus-visible,
-  .c12 > a.focus-visible,
-  .c12[data-is-active-descendant] {
-    outline: solid 1px transparent !important;
-  }
-}
-
-@media (hover:hover) and (pointer:fine) {
-  .c12:hover:not([aria-disabled]):not([data-inactive]) {
-    background-color: var(--control-transparent-bgColor-hover,var(--color-action-list-item-default-hover-bg,rgba(208,215,222,0.32)));
-    color: var(--fgColor-default,var(--color-fg-default,#1F2328));
-    box-shadow: inset 0 0 0 max(1px,0.0625rem) var(--control-transparent-borderColor-active,var(--color-action-list-item-default-active-border,transparent));
-  }
-
-  .c12:focus-visible,
-  .c12 > a.focus-visible,
-  .c12:focus.focus-visible {
-    outline: none;
-    border: 2 solid;
-    box-shadow: 0 0 0 2px var(--focus-outlineColor);
-  }
-
-  .c12:active:not([aria-disabled]):not([data-inactive]) {
-    background-color: var(--control-transparent-bgColor-active,var(--color-action-list-item-default-active-bg,rgba(208,215,222,0.48)));
-    color: var(--fgColor-default,var(--color-fg-default,#1F2328));
-  }
 }
 
 @media (forced-colors:active) {
@@ -1891,6 +1660,14 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
     background-color: var(--control-transparent-bgColor-active,var(--color-action-list-item-default-active-bg,rgba(208,215,222,0.48)));
     color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   }
+}
+
+@media (forced-colors:active) {
+
+}
+
+@media (hover:hover) and (pointer:fine) {
+
 }
 
 <div>
@@ -1959,12 +1736,12 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
             id=":r21:"
           >
             <li
-              class="c3 c12"
+              class="c3 c4"
             >
               <a
                 aria-current="page"
                 aria-labelledby=":r23:--label  "
-                class="c1 c13 Link"
+                class="c1 c12 Link"
                 href="#"
                 id=":r23:"
                 style="--subitem-depth: 1;"
