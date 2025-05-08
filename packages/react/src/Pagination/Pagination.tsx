@@ -33,7 +33,7 @@ export type PageProps = {
 } & Omit<PageDataProps['props'], 'as' | 'role'>
 
 type UsePaginationPagesParameters = {
-  _theme?: Record<string, unknown> // set to theme type once /src/theme.js is converted
+  theme?: Record<string, unknown> // set to theme type once /src/theme.js is converted
   pageCount: number
   currentPage: number
   onPageChange: (e: React.MouseEvent, n: number) => void
@@ -45,6 +45,7 @@ type UsePaginationPagesParameters = {
 }
 
 function usePaginationPages({
+  theme,
   pageCount,
   currentPage,
   onPageChange,
@@ -68,12 +69,13 @@ function usePaginationPages({
       }
 
       return (
-        <span {...props} key={key} className={clsx(classes.Page)}>
+        // @ts-ignore giving me grief about children and "as" props
+        <BoxWithFallback as="a" key={key} theme={theme} className={clsx(classes.Page)} {...props}>
           {content}
-        </span>
+        </BoxWithFallback>
       )
     })
-  }, [model, hrefBuilder, pageChange, renderPage])
+  }, [model, hrefBuilder, pageChange, renderPage, theme])
 
   return children
 }
@@ -105,7 +107,7 @@ function Pagination({
   ...rest
 }: PaginationProps) {
   const pageElements = usePaginationPages({
-    _theme,
+    theme: _theme,
     pageCount,
     currentPage,
     onPageChange,
