@@ -22,6 +22,10 @@
     }
   }
 
+  &:where([data-variant='horizontal-inset']) {
+    padding-bottom: var(--base-size-8);
+  }
+
   &:where([data-dividers='true']) {
     /* place dividers on the wrapper that excludes leading visuals/actions */
     & .ActionListSubContent::before {
