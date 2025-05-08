@@ -27,7 +27,7 @@ export const List = React.forwardRef<HTMLUListElement, ActionListProps>(
       margin: 0,
       paddingInlineStart: 0, // reset ul styles
       paddingTop: variant === 'inset' ? 2 : 0,
-      paddingBottom: variant === 'inset' || variant == 'horizontal-inset' ? 2 : 0,
+      paddingBottom: variant === 'inset' || variant === 'horizontal-inset' ? 2 : 0,
     }
 
     const [slots, childrenWithoutSlots] = useSlots(props.children, {
