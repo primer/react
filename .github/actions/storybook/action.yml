@@ -7,6 +7,15 @@ description: Storybook cache workflow
 runs:
   using: composite
   steps:
+    - name: Checkout repository
+      uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+    - name: Set up Node.js
+      uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+      with:
+        node-version: 22
+        cache: 'npm'
+    - name: Install dependencies
+      run: npm ci
     - name: Restore cached storybook
       id: cache-storybook-restore
       uses: actions/cache/restore@v4
