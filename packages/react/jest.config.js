@@ -36,6 +36,7 @@ module.exports = {
     '<rootDir>/src/FeatureFlags/',
     '<rootDir>/src/Spinner/',
     '<rootDir>/src/Stack/',
+    '<rootDir>/src/StateLabel/',
     '<rootDir>/src/SubNav/',
     '<rootDir>/src/TabNav/',
     '<rootDir>/src/Textarea/',
