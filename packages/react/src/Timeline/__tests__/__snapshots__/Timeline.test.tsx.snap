@@ -9,13 +9,6 @@ exports[`Timeline > renders with clipSidebar prop 1`] = `
 </div>
 `;
 
-exports[`Timeline renders with clipSidebar prop 1`] = `
-<div
-  className="Timeline"
-  data-clip-sidebar=""
-/>
-`;
-
 exports[`Timeline.Item > renders with condensed prop 1`] = `
 <div>
   <div
@@ -23,11 +16,4 @@ exports[`Timeline.Item > renders with condensed prop 1`] = `
     data-condensed=""
   />
 </div>
-`;
-
-exports[`Timeline.Item renders with condensed prop 1`] = `
-<div
-  className="Timeline-Item TimelineItem"
-  data-condensed=""
-/>
 `;
