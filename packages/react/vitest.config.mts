@@ -24,6 +24,7 @@ export default defineConfig({
       'src/Stack/**/*.test.?(c|m)[jt]s?(x)',
       'src/ToggleSwitch/**/*.test.?(c|m)[jt]s?(x)',
       'src/Tooltip/**/*.test.?(c|m)[jt]s?(x)',
+      'src/TooltipV2/**/*.test.?(c|m)[jt]s?(x)',
       'src/Truncate/**/*.test.?(c|m)[jt]s?(x)',
       'src/UnderlineNav/**/*.test.?(c|m)[jt]s?(x)',
     ],

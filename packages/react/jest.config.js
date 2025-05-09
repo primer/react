@@ -38,6 +38,7 @@ module.exports = {
     '<rootDir>/src/Stack/',
     '<rootDir>/src/ToggleSwitch/',
     '<rootDir>/src/Tooltip/',
+    '<rootDir>/src/TooltipV2/',
     '<rootDir>/src/Truncate/',
     '<rootDir>/src/UnderlineNav/',
   ],
