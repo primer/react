@@ -22,6 +22,7 @@ export default defineConfig({
       'src/FeatureFlags/**/*.test.?(c|m)[jt]s?(x)',
       'src/Spinner/**/*.test.?(c|m)[jt]s?(x)',
       'src/Stack/**/*.test.?(c|m)[jt]s?(x)',
+      'src/Textarea/**/*.test.?(c|m)[jt]s?(x)',
       'src/TextInputWithTokens/**/*.test.?(c|m)[jt]s?(x)',
       'src/Timeline/**/*.test.?(c|m)[jt]s?(x)',
       'src/ToggleSwitch/**/*.test.?(c|m)[jt]s?(x)',

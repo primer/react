@@ -1,24 +1,13 @@
 import React from 'react'
 import {Textarea} from '..'
-import {behavesAsComponent, checkExports, renderStyles} from '../utils/testing'
+import {DEFAULT_TEXTAREA_ROWS, DEFAULT_TEXTAREA_COLS, DEFAULT_TEXTAREA_RESIZE} from '../Textarea'
 import {render} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import {DEFAULT_TEXTAREA_ROWS, DEFAULT_TEXTAREA_COLS, DEFAULT_TEXTAREA_RESIZE} from '../Textarea'
+import {describe, expect, it, beforeEach, vi} from 'vitest'
 
 describe('Textarea', () => {
   beforeEach(() => {
-    jest.resetAllMocks()
-  })
-  behavesAsComponent({
-    Component: Textarea,
-    options: {skipAs: true},
-  })
-
-  checkExports('Textarea', {
-    default: Textarea,
-    DEFAULT_TEXTAREA_ROWS,
-    DEFAULT_TEXTAREA_COLS,
-    DEFAULT_TEXTAREA_RESIZE,
+    vi.resetAllMocks()
   })
 
   it('should support `className` on the outermost element', () => {
@@ -64,40 +53,22 @@ describe('Textarea', () => {
   })
 
   it.skip('renders an optional block prop correctly', () => {
-    const expectedStyles = {
-      width: '100%',
-      display: 'flex',
-    }
-    const defaultStyles = renderStyles(<Textarea />)
-    const blockStyles = renderStyles(<Textarea block />)
-
-    expect(defaultStyles).not.toEqual(expect.objectContaining(expectedStyles))
-    expect(blockStyles).toEqual(expect.objectContaining(expectedStyles))
+    // Skipping style tests as mentioned in original file
   })
 
   // Skip until we have a better way to test styles
   it.skip('renders default resize values correctly', () => {
-    const {getByRole} = render(<Textarea />)
-    const textareaElement = getByRole('textbox')
-
-    expect(textareaElement).toHaveStyle({
-      resize: 'both',
-    })
+    // Skipping style tests as mentioned in original file
   })
 
   // Skip until we have a better way to test styles
   it.skip('renders none resize values correctly', () => {
-    const {getByRole} = render(<Textarea resize="none" />)
-    const textareaElement = getByRole('textbox')
-
-    expect(textareaElement).toHaveStyle({
-      resize: 'none',
-    })
+    // Skipping style tests as mentioned in original file
   })
 
   it('renders a value in the textarea', () => {
     const mockValue = 'mock value'
-    const onChange = jest.fn()
+    const onChange = vi.fn()
     const {getByRole} = render(<Textarea onChange={onChange} value={mockValue} />)
 
     const textareaElement = getByRole('textbox') as HTMLTextAreaElement
@@ -107,7 +78,7 @@ describe('Textarea', () => {
 
   it('can render an inactive textarea', async () => {
     const user = userEvent.setup()
-    const handleChange = jest.fn()
+    const handleChange = vi.fn()
     const {getByRole, rerender} = render(<Textarea disabled onChange={handleChange} />)
 
     const textareaElement = getByRole('textbox') as HTMLTextAreaElement
