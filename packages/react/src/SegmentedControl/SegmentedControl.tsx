@@ -155,7 +155,7 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
   ) : (
     // Render a segmented control
     <BoxWithFallback
-      as={'ul'}
+      as="ul"
       sx={sxProp}
       aria-label={ariaLabel}
       aria-labelledby={ariaLabelledby}
@@ -187,7 +187,7 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
               index === selectedIndex || index === selectedIndex - 1 ? 'transparent' : theme?.colors.border.default,
             ...child.props.style,
           },
-          sx: {
+          sx: child.props.sx
             ...child.props.sx,
           },
         }

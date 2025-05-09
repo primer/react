@@ -32,7 +32,7 @@ const SegmentedControlButton: React.FC<React.PropsWithChildren<SegmentedControlB
   ...rest
 }) => {
   return (
-    <BoxWithFallback as="li" sx={sxProp} className={clsx(classes.Item)} data-selected={selected || undefined}>
+    <BoxWithFallback as="li" sx={sxProp} className={clsx(classes.Item)} data-selected={selected ? '' : undefined}>
       <BoxWithFallback
         as="button"
         aria-current={selected}
