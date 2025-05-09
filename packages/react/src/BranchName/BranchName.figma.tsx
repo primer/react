@@ -12,7 +12,15 @@ figma.connect(
         text: 'span',
         link: undefined,
       }),
+      href: figma.enum('type', {
+        text: undefined,
+        link: '#',
+      }),
     },
-    example: ({as, label}) => <BranchName as={as}>{label}</BranchName>,
+    example: ({as, label, href}) => (
+      <BranchName as={as} href={href}>
+        {label}
+      </BranchName>
+    ),
   },
 )
