@@ -440,14 +440,6 @@ exports[`NavList renders a simple list 1`] = `
 `;
 
 exports[`NavList renders with groups 1`] = `
-.c0 {
-  height: 1px;
-  background-color: var(--borderColor-muted,var(--color-action-list-item-inline-divider,rgba(208,215,222,0.48)));
-  margin-top: calc(8px - 1px);
-  margin-bottom: 8px;
-  list-style: none;
-}
-
 .c0:first-child {
   display: none;
 }
@@ -821,7 +813,7 @@ exports[`NavList renders with groups 1`] = `
     >
       <li
         aria-hidden="true"
-        class="c0"
+        class="c0 Divider"
         data-component="ActionList.Divider"
       />
       <li
@@ -876,7 +868,7 @@ exports[`NavList renders with groups 1`] = `
       </li>
       <li
         aria-hidden="true"
-        class="c0"
+        class="c0 Divider"
         data-component="ActionList.Divider"
       />
       <li
