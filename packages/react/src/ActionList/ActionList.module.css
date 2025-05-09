@@ -13,11 +13,17 @@
 
   &:where([data-variant='inset']) {
     padding-block: var(--base-size-8);
+  }
 
+  &:where([data-variant='inset'], [data-variant='horizontal-inset']) {
     /* this is only to match default experience */
     & .ActionListItem {
       margin-inline: var(--base-size-8);
     }
+  }
+
+  &:where([data-variant='horizontal-inset']) {
+    padding-bottom: var(--base-size-8);
   }
 
   &:where([data-dividers='true']) {
