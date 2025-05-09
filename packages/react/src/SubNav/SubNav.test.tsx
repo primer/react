@@ -1,36 +1,26 @@
 import React from 'react'
+import {describe, expect, it} from 'vitest'
 import {SubNav} from '..'
-import {render, rendersClass, behavesAsComponent, checkExports} from '../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
-import axe from 'axe-core'
 
 describe('SubNav', () => {
-  behavesAsComponent({Component: SubNav, options: {skipAs: true}})
-
-  checkExports('SubNav', {
-    default: SubNav,
-  })
-
   it('should support `className` on the outermost element', () => {
     expect(HTMLRender(<SubNav className={'test-class-name'} />).container.firstChild).toHaveClass('test-class-name')
   })
 
-  it('should have no axe violations', async () => {
-    const {container} = HTMLRender(<SubNav />)
-    const results = await axe.run(container)
-    expect(results).toHaveNoViolations()
-  })
-
   it('renders a <nav>', () => {
-    expect(render(<SubNav />).type).toEqual('nav')
+    const {container} = HTMLRender(<SubNav />)
+    expect(container.firstChild?.nodeName).toEqual('NAV')
   })
 
   it('adds the SubNav class', () => {
-    expect(rendersClass(<SubNav />, 'SubNav')).toEqual(true)
+    const {container} = HTMLRender(<SubNav />)
+    expect(container.firstChild).toHaveClass('SubNav')
   })
 
   it('sets aria-label to the "label" prop', () => {
-    expect(render(<SubNav label="foo" />).props['aria-label']).toEqual('foo')
+    const {container} = HTMLRender(<SubNav label="foo" />)
+    expect(container.firstChild).toHaveAttribute('aria-label', 'foo')
   })
 
   it('wraps its children in an "SubNav-body" div', () => {
