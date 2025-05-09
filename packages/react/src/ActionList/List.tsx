@@ -1,8 +1,5 @@
 import React from 'react'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
-import styled from 'styled-components'
-import type {SxProp} from '../sx'
-import sx, {merge} from '../sx'
 import {ActionListContainerContext} from './ActionListContainerContext'
 import {defaultSxProp} from '../utils/defaultSxProp'
 import {useSlots} from '../hooks/useSlots'
@@ -12,24 +9,14 @@ import {ListContext, type ActionListProps} from './shared'
 import {useProvidedRefOrCreate} from '../hooks'
 import {FocusKeys, useFocusZone} from '../hooks/useFocusZone'
 import {clsx} from 'clsx'
-import {useFeatureFlag} from '../FeatureFlags'
 import classes from './ActionList.module.css'
-import {actionListCssModulesFlag} from './featureflag'
-
-const ListBox = styled.ul<SxProp>(sx)
+import {BoxWithFallback} from '../internal/components/BoxWithFallback'
 
 export const List = React.forwardRef<HTMLUListElement, ActionListProps>(
   (
     {variant = 'inset', selectionVariant, showDividers = false, role, sx: sxProp = defaultSxProp, className, ...props},
     forwardedRef,
   ): JSX.Element => {
-    const styles = {
-      margin: 0,
-      paddingInlineStart: 0, // reset ul styles
-      paddingTop: variant === 'inset' ? 2 : 0,
-      paddingBottom: variant === 'inset' || variant === 'horizontal-inset' ? 2 : 0,
-    }
-
     const [slots, childrenWithoutSlots] = useSlots(props.children, {
       heading: Heading,
     })
@@ -59,8 +46,6 @@ export const List = React.forwardRef<HTMLUListElement, ActionListProps>(
       focusOutBehavior: listRole === 'menu' ? 'wrap' : undefined,
     })
 
-    const enabled = useFeatureFlag(actionListCssModulesFlag)
-
     return (
       <ListContext.Provider
         value={{
@@ -72,45 +57,19 @@ export const List = React.forwardRef<HTMLUListElement, ActionListProps>(
         }}
       >
         {slots.heading}
-        {enabled ? (
-          sxProp !== defaultSxProp ? (
-            <ListBox
-              sx={merge(styles, sxProp as SxProp)}
-              className={clsx(classes.ActionList, className)}
-              role={listRole}
-              aria-labelledby={ariaLabelledBy}
-              ref={listRef}
-              data-dividers={showDividers}
-              data-variant={variant}
-              {...props}
-            >
-              {childrenWithoutSlots}
-            </ListBox>
-          ) : (
-            <ul
-              className={clsx(classes.ActionList, className)}
-              role={listRole}
-              aria-labelledby={ariaLabelledBy}
-              ref={listRef}
-              data-dividers={showDividers}
-              data-variant={variant}
-              {...props}
-            >
-              {childrenWithoutSlots}
-            </ul>
-          )
-        ) : (
-          <ListBox
-            sx={merge(styles, sxProp as SxProp)}
-            role={listRole}
-            aria-labelledby={ariaLabelledBy}
-            {...props}
-            ref={listRef}
-            className={className}
-          >
-            {childrenWithoutSlots}
-          </ListBox>
-        )}
+        <BoxWithFallback
+          as="ul"
+          sx={sxProp}
+          className={clsx(classes.ActionList, className)}
+          role={listRole}
+          aria-labelledby={ariaLabelledBy}
+          ref={listRef}
+          data-dividers={showDividers}
+          data-variant={variant}
+          {...props}
+        >
+          {childrenWithoutSlots}
+        </BoxWithFallback>
       </ListContext.Provider>
     )
   },
