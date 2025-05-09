@@ -1,6 +1,5 @@
 import React from 'react'
 import {useId} from '../hooks/useId'
-import Box from '../Box'
 import type {SxProp} from '../sx'
 import {ListContext, type ActionListProps} from './shared'
 import type {AriaRole} from '../utils/types'
@@ -9,10 +8,9 @@ import {useSlots} from '../hooks/useSlots'
 import {defaultSxProp} from '../utils/defaultSxProp'
 import {invariant} from '../utils/invariant'
 import {clsx} from 'clsx'
-import {useFeatureFlag} from '../FeatureFlags'
 import classes from './ActionList.module.css'
 import groupClasses from './Group.module.css'
-import {actionListCssModulesFlag} from './featureflag'
+import {BoxWithFallback} from '../internal/components/BoxWithFallback'
 
 type HeadingProps = {
   as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
@@ -31,9 +29,9 @@ const Heading: React.FC<HeadingProps & React.HTMLAttributes<HTMLHeadingElement>>
 }) => {
   return (
     // Box is temporary to support lingering sx usage
-    <Box as={Component} className={className} sx={sx} id={id} {...rest}>
+    <BoxWithFallback as={Component} className={className} sx={sx} id={id} {...rest}>
       {children}
-    </Box>
+    </BoxWithFallback>
   )
 }
 
@@ -94,7 +92,6 @@ export const Group: React.FC<React.PropsWithChildren<ActionListGroupProps>> = ({
   sx = defaultSxProp,
   ...props
 }) => {
-  const enabled = useFeatureFlag(actionListCssModulesFlag)
   const id = useId()
   const {role: listRole} = React.useContext(ListContext)
 
@@ -114,70 +111,12 @@ export const Group: React.FC<React.PropsWithChildren<ActionListGroupProps>> = ({
     groupHeadingId = id
   }
 
-  if (enabled) {
-    if (sx !== defaultSxProp) {
-      return (
-        <Box
-          as="li"
-          className={clsx(className, groupClasses.Group)}
-          role={listRole ? 'none' : undefined}
-          sx={sx}
-          {...props}
-        >
-          <GroupContext.Provider value={{selectionVariant, groupHeadingId}}>
-            {title && !slots.groupHeading ? (
-              // Escape hatch: supports old API <ActionList.Group title="group title"> in a non breaking way
-              <GroupHeading variant={variant} auxiliaryText={auxiliaryText} _internalBackwardCompatibleTitle={title} />
-            ) : null}
-            {/* Supports new API ActionList.GroupHeading */}
-            {!title && slots.groupHeading ? React.cloneElement(slots.groupHeading) : null}
-            <ul
-              // if listRole is set (listbox or menu), we don't label the list with the groupHeadingId
-              // because the heading is hidden from the accessibility tree and only used for presentation role.
-              // We will instead use aria-label to label the list. See a line below.
-              aria-labelledby={listRole ? undefined : groupHeadingId}
-              aria-label={listRole ? (title ?? (slots.groupHeading?.props.children as string)) : undefined}
-              role={role || (listRole && 'group')}
-            >
-              {slots.groupHeading ? childrenWithoutSlots : props.children}
-            </ul>
-          </GroupContext.Provider>
-        </Box>
-      )
-    }
-    return (
-      <li className={clsx(className, groupClasses.Group)} role={listRole ? 'none' : undefined} {...props}>
-        <GroupContext.Provider value={{selectionVariant, groupHeadingId}}>
-          {title && !slots.groupHeading ? (
-            // Escape hatch: supports old API <ActionList.Group title="group title"> in a non breaking way
-            <GroupHeading variant={variant} auxiliaryText={auxiliaryText} _internalBackwardCompatibleTitle={title} />
-          ) : null}
-          {/* Supports new API ActionList.GroupHeading */}
-          {!title && slots.groupHeading ? React.cloneElement(slots.groupHeading) : null}
-          <ul
-            // if listRole is set (listbox or menu), we don't label the list with the groupHeadingId
-            // because the heading is hidden from the accessibility tree and only used for presentation role.
-            // We will instead use aria-label to label the list. See a line below.
-            aria-labelledby={listRole ? undefined : groupHeadingId}
-            aria-label={listRole ? (title ?? (slots.groupHeading?.props.children as string)) : undefined}
-            role={role || (listRole && 'group')}
-          >
-            {slots.groupHeading ? childrenWithoutSlots : props.children}
-          </ul>
-        </GroupContext.Provider>
-      </li>
-    )
-  }
   return (
-    <Box
+    <BoxWithFallback
       as="li"
+      className={clsx(className, groupClasses.Group)}
       role={listRole ? 'none' : undefined}
-      sx={{
-        '&:not(:first-child)': {marginTop: 2},
-        listStyle: 'none', // hide the ::marker inserted by browser's stylesheet
-        ...sx,
-      }}
-      className={className}
+      sx={sx}
       {...props}
     >
       <GroupContext.Provider value={{selectionVariant, groupHeadingId}}>
@@ -187,20 +126,19 @@ export const Group: React.FC<React.PropsWithChildren<ActionListGroupProps>> = ({
         ) : null}
         {/* Supports new API ActionList.GroupHeading */}
         {!title && slots.groupHeading ? React.cloneElement(slots.groupHeading) : null}
-        <Box
-          as="ul"
-          sx={{paddingInlineStart: 0}}
+        <ul
           // if listRole is set (listbox or menu), we don't label the list with the groupHeadingId
           // because the heading is hidden from the accessibility tree and only used for presentation role.
           // We will instead use aria-label to label the list. See a line below.
           aria-labelledby={listRole ? undefined : groupHeadingId}
           aria-label={listRole ? (title ?? (slots.groupHeading?.props.children as string)) : undefined}
           role={role || (listRole && 'group')}
+          className={groupClasses.GroupList}
         >
           {slots.groupHeading ? childrenWithoutSlots : props.children}
-        </Box>
+        </ul>
       </GroupContext.Provider>
-    </Box>
+    </BoxWithFallback>
   )
 }
 
@@ -278,26 +216,15 @@ export const GroupHeading: React.FC<React.PropsWithChildren<ActionListGroupHeadi
           as={headingWrapElement}
           data-component="GroupHeadingWrap"
         >
-          {sx !== defaultSxProp ? (
-            <Heading
-              className={clsx(className, groupClasses.GroupHeading)}
-              as={as || 'h3'}
-              id={groupHeadingId}
-              sx={sx}
-              {...props}
-            >
-              {_internalBackwardCompatibleTitle ?? children}
-            </Heading>
-          ) : (
-            <Heading
-              className={clsx(className, groupClasses.GroupHeading)}
-              as={as || 'h3'}
-              id={groupHeadingId}
-              {...props}
-            >
-              {_internalBackwardCompatibleTitle ?? children}
-            </Heading>
-          )}
+          <Heading
+            className={clsx(className, groupClasses.GroupHeading)}
+            as={as || 'h3'}
+            id={groupHeadingId}
+            sx={sx}
+            {...props}
+          >
+            {_internalBackwardCompatibleTitle ?? children}
+          </Heading>
           {auxiliaryText && <div className={classes.Description}>{auxiliaryText}</div>}
         </HeadingWrap>
       )}
