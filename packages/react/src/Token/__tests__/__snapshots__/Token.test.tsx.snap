@@ -1,22 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Token components AvatarToken renders all sizes 1`] = `
-.c1 {
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-  line-height: 0;
-  margin-right: 4px;
-}
-
-.c3 {
-  width: 16px;
-  height: 16px;
-  width: 100%;
-  height: 100%;
-}
-
-.c5 {
+.c0 {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -29,146 +14,29 @@ exports[`Token components AvatarToken renders all sizes 1`] = `
   border-width: 0;
 }
 
-.c0 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 999px;
-  cursor: auto;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  font-weight: 600;
-  font-family: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  position: relative;
-  white-space: nowrap;
-  font-size: 12px;
-  height: 16px;
-  line-height: 16px;
-  padding-left: 4px;
-  padding-right: 4px;
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
-  border-color: var(--borderColor-muted,var(--color-border-subtle,rgba(31,35,40,0.15)));
-  border-style: solid;
-  border-width: 1px;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-  max-width: 100%;
-  padding-right: 0;
-  padding-left: 4px;
-}
-
-.c6 {
-  background-color: transparent;
-  font-family: inherit;
-  color: currentColor;
-  cursor: pointer;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  padding: 0;
-  -webkit-transform: translate(1px,-1px);
-  -ms-transform: translate(1px,-1px);
-  transform: translate(1px,-1px);
-  -webkit-align-self: baseline;
-  -ms-flex-item-align: baseline;
-  align-self: baseline;
-  border: 0;
-  border-radius: 999px;
-  margin-left: 4px;
-  height: 16px;
-  width: 16px;
-}
-
-.c6:hover,
-.c6:focus {
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
-}
-
-.c6:active {
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
-}
-
-.c4 {
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  background: transparent;
-  border: none;
-  color: inherit;
-  font: inherit;
-  margin: 0;
-  padding: 0;
-  width: auto;
-  -webkit-font-smoothing: inherit;
-  -moz-osx-font-smoothing: inherit;
-  -webkit-appearance: none;
-  line-height: normal;
-  color: currentColor;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.c4:is(a,button,[tabIndex='0']) {
-  cursor: pointer;
-}
-
-.c4:is(a,button,[tabIndex='0']):after {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-}
-
-.c2 {
-  --spacing: calc(4px * 2);
-  display: block;
-  height: calc(16px - var(--spacing));
-  width: calc(16px - var(--spacing));
-}
-
 <span
-  className="c0"
+  className="TokenBase Token Token"
+  data-cursor-is-interactive={false}
+  data-is-remove-btn={true}
+  data-size="small"
   onKeyDown={[Function]}
-  size="small"
+  style={
+    {
+      "borderWidth": "1px",
+    }
+  }
+  text="token"
 >
   <div
-    className="c1"
+    className="LeadingVisualContainer"
   >
     <span
-      className="c2"
+      className="AvatarContainer"
+      data-size="small"
     >
       <img
         alt=""
-        className="c3 Avatar"
+        className="Avatar Avatar"
         data-component="Avatar"
         height={16}
         src="https://avatars.githubusercontent.com/mperrotti"
@@ -182,11 +50,11 @@ exports[`Token components AvatarToken renders all sizes 1`] = `
     </span>
   </div>
   <span
-    className="c4"
+    className="TokenTextContainer"
   >
     token
     <span
-      className="c5"
+      className="c0"
     >
        (press backspace or delete to remove)
     </span>
@@ -194,11 +62,14 @@ exports[`Token components AvatarToken renders all sizes 1`] = `
   <button
     aria-hidden="false"
     aria-label="Remove token"
-    className="c6"
+    className="TokenButton"
     data-size="small"
     onClick={[Function]}
-    size="small"
-    style={{}}
+    style={
+      {
+        "transform": "translate(1px, -1px)",
+      }
+    }
   >
     <svg
       aria-hidden="true"
@@ -225,22 +96,7 @@ exports[`Token components AvatarToken renders all sizes 1`] = `
 `;
 
 exports[`Token components AvatarToken renders all sizes 2`] = `
-.c1 {
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-  line-height: 0;
-  margin-right: 4px;
-}
-
-.c3 {
-  width: 20px;
-  height: 20px;
-  width: 100%;
-  height: 100%;
-}
-
-.c5 {
+.c0 {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -253,146 +109,29 @@ exports[`Token components AvatarToken renders all sizes 2`] = `
   border-width: 0;
 }
 
-.c0 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 999px;
-  cursor: auto;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  font-weight: 600;
-  font-family: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  position: relative;
-  white-space: nowrap;
-  font-size: 12px;
-  height: 20px;
-  line-height: 20px;
-  padding-left: 8px;
-  padding-right: 8px;
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
-  border-color: var(--borderColor-muted,var(--color-border-subtle,rgba(31,35,40,0.15)));
-  border-style: solid;
-  border-width: 1px;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-  max-width: 100%;
-  padding-right: 0;
-  padding-left: 4px;
-}
-
-.c6 {
-  background-color: transparent;
-  font-family: inherit;
-  color: currentColor;
-  cursor: pointer;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  padding: 0;
-  -webkit-transform: translate(1px,-1px);
-  -ms-transform: translate(1px,-1px);
-  transform: translate(1px,-1px);
-  -webkit-align-self: baseline;
-  -ms-flex-item-align: baseline;
-  align-self: baseline;
-  border: 0;
-  border-radius: 999px;
-  margin-left: 4px;
-  height: 20px;
-  width: 20px;
-}
-
-.c6:hover,
-.c6:focus {
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
-}
-
-.c6:active {
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
-}
-
-.c4 {
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  background: transparent;
-  border: none;
-  color: inherit;
-  font: inherit;
-  margin: 0;
-  padding: 0;
-  width: auto;
-  -webkit-font-smoothing: inherit;
-  -moz-osx-font-smoothing: inherit;
-  -webkit-appearance: none;
-  line-height: normal;
-  color: currentColor;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.c4:is(a,button,[tabIndex='0']) {
-  cursor: pointer;
-}
-
-.c4:is(a,button,[tabIndex='0']):after {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-}
-
-.c2 {
-  --spacing: calc(4px * 2);
-  display: block;
-  height: calc(20px - var(--spacing));
-  width: calc(20px - var(--spacing));
-}
-
 <span
-  className="c0"
+  className="TokenBase Token Token"
+  data-cursor-is-interactive={false}
+  data-is-remove-btn={true}
+  data-size="medium"
   onKeyDown={[Function]}
-  size="medium"
+  style={
+    {
+      "borderWidth": "1px",
+    }
+  }
+  text="token"
 >
   <div
-    className="c1"
+    className="LeadingVisualContainer"
   >
     <span
-      className="c2"
+      className="AvatarContainer"
+      data-size="medium"
     >
       <img
         alt=""
-        className="c3 Avatar"
+        className="Avatar Avatar"
         data-component="Avatar"
         height={20}
         src="https://avatars.githubusercontent.com/mperrotti"
@@ -406,11 +145,11 @@ exports[`Token components AvatarToken renders all sizes 2`] = `
     </span>
   </div>
   <span
-    className="c4"
+    className="TokenTextContainer"
   >
     token
     <span
-      className="c5"
+      className="c0"
     >
        (press backspace or delete to remove)
     </span>
@@ -418,11 +157,14 @@ exports[`Token components AvatarToken renders all sizes 2`] = `
   <button
     aria-hidden="false"
     aria-label="Remove token"
-    className="c6"
+    className="TokenButton"
     data-size="medium"
     onClick={[Function]}
-    size="medium"
-    style={{}}
+    style={
+      {
+        "transform": "translate(1px, -1px)",
+      }
+    }
   >
     <svg
       aria-hidden="true"
@@ -449,22 +191,7 @@ exports[`Token components AvatarToken renders all sizes 2`] = `
 `;
 
 exports[`Token components AvatarToken renders all sizes 3`] = `
-.c1 {
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-  line-height: 0;
-  margin-right: 8px;
-}
-
-.c3 {
-  width: 24px;
-  height: 24px;
-  width: 100%;
-  height: 100%;
-}
-
-.c5 {
+.c0 {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -477,146 +204,29 @@ exports[`Token components AvatarToken renders all sizes 3`] = `
   border-width: 0;
 }
 
-.c0 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 999px;
-  cursor: auto;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  font-weight: 600;
-  font-family: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  position: relative;
-  white-space: nowrap;
-  font-size: 12px;
-  height: 24px;
-  line-height: 24px;
-  padding-left: 8px;
-  padding-right: 8px;
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
-  border-color: var(--borderColor-muted,var(--color-border-subtle,rgba(31,35,40,0.15)));
-  border-style: solid;
-  border-width: 1px;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-  max-width: 100%;
-  padding-right: 0;
-  padding-left: 4px;
-}
-
-.c6 {
-  background-color: transparent;
-  font-family: inherit;
-  color: currentColor;
-  cursor: pointer;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  padding: 0;
-  -webkit-transform: translate(1px,-1px);
-  -ms-transform: translate(1px,-1px);
-  transform: translate(1px,-1px);
-  -webkit-align-self: baseline;
-  -ms-flex-item-align: baseline;
-  align-self: baseline;
-  border: 0;
-  border-radius: 999px;
-  margin-left: 8px;
-  height: 24px;
-  width: 24px;
-}
-
-.c6:hover,
-.c6:focus {
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
-}
-
-.c6:active {
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
-}
-
-.c4 {
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  background: transparent;
-  border: none;
-  color: inherit;
-  font: inherit;
-  margin: 0;
-  padding: 0;
-  width: auto;
-  -webkit-font-smoothing: inherit;
-  -moz-osx-font-smoothing: inherit;
-  -webkit-appearance: none;
-  line-height: normal;
-  color: currentColor;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.c4:is(a,button,[tabIndex='0']) {
-  cursor: pointer;
-}
-
-.c4:is(a,button,[tabIndex='0']):after {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-}
-
-.c2 {
-  --spacing: calc(4px * 2);
-  display: block;
-  height: calc(24px - var(--spacing));
-  width: calc(24px - var(--spacing));
-}
-
 <span
-  className="c0"
+  className="TokenBase Token Token"
+  data-cursor-is-interactive={false}
+  data-is-remove-btn={true}
+  data-size="large"
   onKeyDown={[Function]}
-  size="large"
+  style={
+    {
+      "borderWidth": "1px",
+    }
+  }
+  text="token"
 >
   <div
-    className="c1"
+    className="LeadingVisualContainer LargeLeadingVisual"
   >
     <span
-      className="c2"
+      className="AvatarContainer"
+      data-size="large"
     >
       <img
         alt=""
-        className="c3 Avatar"
+        className="Avatar Avatar"
         data-component="Avatar"
         height={24}
         src="https://avatars.githubusercontent.com/mperrotti"
@@ -630,11 +240,11 @@ exports[`Token components AvatarToken renders all sizes 3`] = `
     </span>
   </div>
   <span
-    className="c4"
+    className="TokenTextContainer"
   >
     token
     <span
-      className="c5"
+      className="c0"
     >
        (press backspace or delete to remove)
     </span>
@@ -642,11 +252,14 @@ exports[`Token components AvatarToken renders all sizes 3`] = `
   <button
     aria-hidden="false"
     aria-label="Remove token"
-    className="c6"
+    className="TokenButton"
     data-size="large"
     onClick={[Function]}
-    size="large"
-    style={{}}
+    style={
+      {
+        "transform": "translate(1px, -1px)",
+      }
+    }
   >
     <svg
       aria-hidden="true"
@@ -673,22 +286,7 @@ exports[`Token components AvatarToken renders all sizes 3`] = `
 `;
 
 exports[`Token components AvatarToken renders all sizes 4`] = `
-.c1 {
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-  line-height: 0;
-  margin-right: 8px;
-}
-
-.c3 {
-  width: 32px;
-  height: 32px;
-  width: 100%;
-  height: 100%;
-}
-
-.c5 {
+.c0 {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -701,148 +299,29 @@ exports[`Token components AvatarToken renders all sizes 4`] = `
   border-width: 0;
 }
 
-.c0 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 999px;
-  cursor: auto;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  font-weight: 600;
-  font-family: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  position: relative;
-  white-space: nowrap;
-  font-size: 14px;
-  height: 32px;
-  line-height: 32px;
-  padding-left: 16px;
-  padding-right: 16px;
-  padding-top: 0;
-  padding-bottom: 0;
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
-  border-color: var(--borderColor-muted,var(--color-border-subtle,rgba(31,35,40,0.15)));
-  border-style: solid;
-  border-width: 1px;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-  max-width: 100%;
-  padding-right: 0;
-  padding-left: 4px;
-}
-
-.c6 {
-  background-color: transparent;
-  font-family: inherit;
-  color: currentColor;
-  cursor: pointer;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  padding: 0;
-  -webkit-transform: translate(1px,-1px);
-  -ms-transform: translate(1px,-1px);
-  transform: translate(1px,-1px);
-  -webkit-align-self: baseline;
-  -ms-flex-item-align: baseline;
-  align-self: baseline;
-  border: 0;
-  border-radius: 999px;
-  margin-left: 8px;
-  height: 32px;
-  width: 32px;
-}
-
-.c6:hover,
-.c6:focus {
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
-}
-
-.c6:active {
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
-}
-
-.c4 {
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  background: transparent;
-  border: none;
-  color: inherit;
-  font: inherit;
-  margin: 0;
-  padding: 0;
-  width: auto;
-  -webkit-font-smoothing: inherit;
-  -moz-osx-font-smoothing: inherit;
-  -webkit-appearance: none;
-  line-height: normal;
-  color: currentColor;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.c4:is(a,button,[tabIndex='0']) {
-  cursor: pointer;
-}
-
-.c4:is(a,button,[tabIndex='0']):after {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-}
-
-.c2 {
-  --spacing: calc(4px * 2);
-  display: block;
-  height: calc(32px - var(--spacing));
-  width: calc(32px - var(--spacing));
-}
-
 <span
-  className="c0"
+  className="TokenBase Token Token"
+  data-cursor-is-interactive={false}
+  data-is-remove-btn={true}
+  data-size="xlarge"
   onKeyDown={[Function]}
-  size="xlarge"
+  style={
+    {
+      "borderWidth": "1px",
+    }
+  }
+  text="token"
 >
   <div
-    className="c1"
+    className="LeadingVisualContainer LargeLeadingVisual"
   >
     <span
-      className="c2"
+      className="AvatarContainer"
+      data-size="xlarge"
     >
       <img
         alt=""
-        className="c3 Avatar"
+        className="Avatar Avatar"
         data-component="Avatar"
         height={32}
         src="https://avatars.githubusercontent.com/mperrotti"
@@ -856,11 +335,11 @@ exports[`Token components AvatarToken renders all sizes 4`] = `
     </span>
   </div>
   <span
-    className="c4"
+    className="TokenTextContainer"
   >
     token
     <span
-      className="c5"
+      className="c0"
     >
        (press backspace or delete to remove)
     </span>
@@ -868,11 +347,14 @@ exports[`Token components AvatarToken renders all sizes 4`] = `
   <button
     aria-hidden="false"
     aria-label="Remove token"
-    className="c6"
+    className="TokenButton"
     data-size="xlarge"
     onClick={[Function]}
-    size="xlarge"
-    style={{}}
+    style={
+      {
+        "transform": "translate(1px, -1px)",
+      }
+    }
   >
     <svg
       aria-hidden="true"
@@ -899,111 +381,30 @@ exports[`Token components AvatarToken renders all sizes 4`] = `
 `;
 
 exports[`Token components AvatarToken renders isSelected 1`] = `
-.c1 {
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-  line-height: 0;
-  margin-right: 4px;
-}
-
-.c3 {
-  width: 20px;
-  height: 20px;
-  width: 100%;
-  height: 100%;
-}
-
-.c0 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 999px;
-  cursor: auto;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  font-weight: 600;
-  font-family: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  position: relative;
-  white-space: nowrap;
-  font-size: 12px;
-  height: 20px;
-  line-height: 20px;
-  padding-left: 8px;
-  padding-right: 8px;
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
-  border-color: var(--fgColor-default,var(--color-fg-default,#1F2328));
-  border-style: solid;
-  border-width: 1px;
-  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
-  max-width: 100%;
-  padding-left: 4px;
-}
-
-.c4 {
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  background: transparent;
-  border: none;
-  color: inherit;
-  font: inherit;
-  margin: 0;
-  padding: 0;
-  width: auto;
-  -webkit-font-smoothing: inherit;
-  -moz-osx-font-smoothing: inherit;
-  -webkit-appearance: none;
-  line-height: normal;
-  color: currentColor;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.c4:is(a,button,[tabIndex='0']) {
-  cursor: pointer;
-}
-
-.c4:is(a,button,[tabIndex='0']):after {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-}
-
-.c2 {
-  --spacing: calc(4px * 2);
-  display: block;
-  height: calc(20px - var(--spacing));
-  width: calc(20px - var(--spacing));
-}
-
 <span
-  className="c0"
+  className="TokenBase Token Token"
+  data-cursor-is-interactive={false}
+  data-is-remove-btn={false}
+  data-is-selected={true}
+  data-size="medium"
   onKeyDown={[Function]}
-  size="medium"
+  style={
+    {
+      "borderWidth": "1px",
+    }
+  }
+  text="token"
 >
   <div
-    className="c1"
+    className="LeadingVisualContainer"
   >
     <span
-      className="c2"
+      className="AvatarContainer"
+      data-size="medium"
     >
       <img
         alt=""
-        className="c3 Avatar"
+        className="Avatar Avatar"
         data-component="Avatar"
         height={20}
         src="https://avatars.githubusercontent.com/mperrotti"
@@ -1017,7 +418,7 @@ exports[`Token components AvatarToken renders isSelected 1`] = `
     </span>
   </div>
   <span
-    className="c4"
+    className="TokenTextContainer"
   >
     token
   </span>
@@ -1025,22 +426,7 @@ exports[`Token components AvatarToken renders isSelected 1`] = `
 `;
 
 exports[`Token components AvatarToken renders with a remove button 1`] = `
-.c1 {
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-  line-height: 0;
-  margin-right: 4px;
-}
-
-.c3 {
-  width: 20px;
-  height: 20px;
-  width: 100%;
-  height: 100%;
-}
-
-.c5 {
+.c0 {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -1053,146 +439,29 @@ exports[`Token components AvatarToken renders with a remove button 1`] = `
   border-width: 0;
 }
 
-.c0 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 999px;
-  cursor: auto;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  font-weight: 600;
-  font-family: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  position: relative;
-  white-space: nowrap;
-  font-size: 12px;
-  height: 20px;
-  line-height: 20px;
-  padding-left: 8px;
-  padding-right: 8px;
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
-  border-color: var(--borderColor-muted,var(--color-border-subtle,rgba(31,35,40,0.15)));
-  border-style: solid;
-  border-width: 1px;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-  max-width: 100%;
-  padding-right: 0;
-  padding-left: 4px;
-}
-
-.c6 {
-  background-color: transparent;
-  font-family: inherit;
-  color: currentColor;
-  cursor: pointer;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  padding: 0;
-  -webkit-transform: translate(1px,-1px);
-  -ms-transform: translate(1px,-1px);
-  transform: translate(1px,-1px);
-  -webkit-align-self: baseline;
-  -ms-flex-item-align: baseline;
-  align-self: baseline;
-  border: 0;
-  border-radius: 999px;
-  margin-left: 4px;
-  height: 20px;
-  width: 20px;
-}
-
-.c6:hover,
-.c6:focus {
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
-}
-
-.c6:active {
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
-}
-
-.c4 {
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  background: transparent;
-  border: none;
-  color: inherit;
-  font: inherit;
-  margin: 0;
-  padding: 0;
-  width: auto;
-  -webkit-font-smoothing: inherit;
-  -moz-osx-font-smoothing: inherit;
-  -webkit-appearance: none;
-  line-height: normal;
-  color: currentColor;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.c4:is(a,button,[tabIndex='0']) {
-  cursor: pointer;
-}
-
-.c4:is(a,button,[tabIndex='0']):after {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-}
-
-.c2 {
-  --spacing: calc(4px * 2);
-  display: block;
-  height: calc(20px - var(--spacing));
-  width: calc(20px - var(--spacing));
-}
-
 <span
-  className="c0"
+  className="TokenBase Token Token"
+  data-cursor-is-interactive={false}
+  data-is-remove-btn={true}
+  data-size="medium"
   onKeyDown={[Function]}
-  size="medium"
+  style={
+    {
+      "borderWidth": "1px",
+    }
+  }
+  text="token"
 >
   <div
-    className="c1"
+    className="LeadingVisualContainer"
   >
     <span
-      className="c2"
+      className="AvatarContainer"
+      data-size="medium"
     >
       <img
         alt=""
-        className="c3 Avatar"
+        className="Avatar Avatar"
         data-component="Avatar"
         height={20}
         src="https://avatars.githubusercontent.com/mperrotti"
@@ -1206,11 +475,11 @@ exports[`Token components AvatarToken renders with a remove button 1`] = `
     </span>
   </div>
   <span
-    className="c4"
+    className="TokenTextContainer"
   >
     token
     <span
-      className="c5"
+      className="c0"
     >
        (press backspace or delete to remove)
     </span>
@@ -1218,11 +487,14 @@ exports[`Token components AvatarToken renders with a remove button 1`] = `
   <button
     aria-hidden="false"
     aria-label="Remove token"
-    className="c6"
+    className="TokenButton"
     data-size="medium"
     onClick={[Function]}
-    size="medium"
-    style={{}}
+    style={
+      {
+        "transform": "translate(1px, -1px)",
+      }
+    }
   >
     <svg
       aria-hidden="true"
@@ -1249,153 +521,53 @@ exports[`Token components AvatarToken renders with a remove button 1`] = `
 `;
 
 exports[`Token components IssueLabelToken renders all sizes 1`] = `
-.c0 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 999px;
-  cursor: auto;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  font-weight: 600;
-  font-family: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  position: relative;
-  white-space: nowrap;
-  font-size: 12px;
-  height: 16px;
-  line-height: 16px;
-  padding-left: 4px;
-  padding-right: 4px;
-  --label-r: 153;
-  --label-g: 153;
-  --label-b: 153;
-  --label-h: 0;
-  --label-s: 0;
-  --label-l: 60;
-  --perceived-lightness: calc(((var(--label-r) * 0.2126) + (var(--label-g) * 0.7152) + (var(--label-b) * 0.0722)) / 255);
-  --lightness-switch: max(0,min(calc((var(--perceived-lightness) - var(--lightness-threshold)) * -1000),1));
-  padding-right: 0;
-  position: relative;
-  --lightness-threshold: 0.453;
-  --border-threshold: 0.96;
-  --border-alpha: max(0,min(calc((var(--perceived-lightness) - var(--border-threshold)) * 100),1));
-  background: rgb(var(--label-r),var(--label-g),var(--label-b));
-  color: hsl(0,0%,calc(var(--lightness-switch) * 100%));
-  border-width: 1px;
-  border-style: solid;
-  border-color: hsla(var(--label-h),calc(var(--label-s) * 1%),calc((var(--label-l) - 25) * 1%),var(--border-alpha));
-}
-
-.c2 {
-  background-color: transparent;
-  font-family: inherit;
-  color: currentColor;
-  cursor: pointer;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  padding: 0;
-  -webkit-transform: translate(1px,-1px);
-  -ms-transform: translate(1px,-1px);
-  transform: translate(1px,-1px);
-  -webkit-align-self: baseline;
-  -ms-flex-item-align: baseline;
-  align-self: baseline;
-  border: 0;
-  border-radius: 999px;
-  margin-left: 4px;
-  height: 16px;
-  width: 16px;
-}
-
-.c2:hover,
-.c2:focus {
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
-}
-
-.c2:active {
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
-}
-
-.c1 {
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  background: transparent;
-  border: none;
-  color: inherit;
-  font: inherit;
-  margin: 0;
-  padding: 0;
-  width: auto;
-  -webkit-font-smoothing: inherit;
-  -moz-osx-font-smoothing: inherit;
-  -webkit-appearance: none;
-  line-height: normal;
-  color: currentColor;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.c1:is(a,button,[tabIndex='0']) {
-  cursor: pointer;
-}
-
-.c1:is(a,button,[tabIndex='0']):after {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-}
-
 <span
-  className="c0"
+  className="TokenBase IssueLabel"
+  data-cursor-is-interactive={false}
+  data-has-remove-button={true}
+  data-size="small"
   onKeyDown={[Function]}
-  size="small"
+  style={
+    {
+      "--border-alpha": "max(0, min(calc((var(--perceived-lightness) - var(--border-threshold)) * 100), 1))",
+      "--border-threshold": "0.96",
+      "--label-b": "153",
+      "--label-g": "153",
+      "--label-h": "0",
+      "--label-l": "60",
+      "--label-r": "153",
+      "--label-s": "0",
+      "--lightness-switch": "max(0, min(calc((var(--perceived-lightness) - var(--lightness-threshold)) * -1000), 1))",
+      "--lightness-threshold": "0.453",
+      "--perceived-lightness": "calc(((var(--label-r) * 0.2126) + (var(--label-g) * 0.7152) + (var(--label-b) * 0.0722)) / 255)",
+      "background": "rgb(var(--label-r), var(--label-g), var(--label-b))",
+      "borderColor": "hsla(var(--label-h),calc(var(--label-s) * 1%),calc((var(--label-l) - 25) * 1%),var(--border-alpha))",
+      "borderStyle": "solid",
+      "borderWidth": 1,
+      "color": "hsl(0, 0%, calc(var(--lightness-switch) * 100%))",
+      "paddingRight": 0,
+      "position": "relative",
+    }
+  }
+  text="token"
 >
   <span
-    className="c1"
+    className="TokenTextContainer"
   >
     token
   </span>
   <button
     aria-hidden="false"
     aria-label="Remove token"
-    className="c2"
+    className="TokenButton RemoveButton"
+    data-has-multiple-action-targets={false}
     data-size="small"
     onClick={[Function]}
-    size="small"
-    style={{}}
+    style={
+      {
+        "transform": "translate(1px, -1px)",
+      }
+    }
   >
     <svg
       aria-hidden="true"
@@ -1422,153 +594,53 @@ exports[`Token components IssueLabelToken renders all sizes 1`] = `
 `;
 
 exports[`Token components IssueLabelToken renders all sizes 2`] = `
-.c0 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 999px;
-  cursor: auto;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  font-weight: 600;
-  font-family: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  position: relative;
-  white-space: nowrap;
-  font-size: 12px;
-  height: 20px;
-  line-height: 20px;
-  padding-left: 8px;
-  padding-right: 8px;
-  --label-r: 153;
-  --label-g: 153;
-  --label-b: 153;
-  --label-h: 0;
-  --label-s: 0;
-  --label-l: 60;
-  --perceived-lightness: calc(((var(--label-r) * 0.2126) + (var(--label-g) * 0.7152) + (var(--label-b) * 0.0722)) / 255);
-  --lightness-switch: max(0,min(calc((var(--perceived-lightness) - var(--lightness-threshold)) * -1000),1));
-  padding-right: 0;
-  position: relative;
-  --lightness-threshold: 0.453;
-  --border-threshold: 0.96;
-  --border-alpha: max(0,min(calc((var(--perceived-lightness) - var(--border-threshold)) * 100),1));
-  background: rgb(var(--label-r),var(--label-g),var(--label-b));
-  color: hsl(0,0%,calc(var(--lightness-switch) * 100%));
-  border-width: 1px;
-  border-style: solid;
-  border-color: hsla(var(--label-h),calc(var(--label-s) * 1%),calc((var(--label-l) - 25) * 1%),var(--border-alpha));
-}
-
-.c2 {
-  background-color: transparent;
-  font-family: inherit;
-  color: currentColor;
-  cursor: pointer;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  padding: 0;
-  -webkit-transform: translate(1px,-1px);
-  -ms-transform: translate(1px,-1px);
-  transform: translate(1px,-1px);
-  -webkit-align-self: baseline;
-  -ms-flex-item-align: baseline;
-  align-self: baseline;
-  border: 0;
-  border-radius: 999px;
-  margin-left: 4px;
-  height: 20px;
-  width: 20px;
-}
-
-.c2:hover,
-.c2:focus {
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
-}
-
-.c2:active {
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
-}
-
-.c1 {
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  background: transparent;
-  border: none;
-  color: inherit;
-  font: inherit;
-  margin: 0;
-  padding: 0;
-  width: auto;
-  -webkit-font-smoothing: inherit;
-  -moz-osx-font-smoothing: inherit;
-  -webkit-appearance: none;
-  line-height: normal;
-  color: currentColor;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.c1:is(a,button,[tabIndex='0']) {
-  cursor: pointer;
-}
-
-.c1:is(a,button,[tabIndex='0']):after {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-}
-
 <span
-  className="c0"
+  className="TokenBase IssueLabel"
+  data-cursor-is-interactive={false}
+  data-has-remove-button={true}
+  data-size="medium"
   onKeyDown={[Function]}
-  size="medium"
+  style={
+    {
+      "--border-alpha": "max(0, min(calc((var(--perceived-lightness) - var(--border-threshold)) * 100), 1))",
+      "--border-threshold": "0.96",
+      "--label-b": "153",
+      "--label-g": "153",
+      "--label-h": "0",
+      "--label-l": "60",
+      "--label-r": "153",
+      "--label-s": "0",
+      "--lightness-switch": "max(0, min(calc((var(--perceived-lightness) - var(--lightness-threshold)) * -1000), 1))",
+      "--lightness-threshold": "0.453",
+      "--perceived-lightness": "calc(((var(--label-r) * 0.2126) + (var(--label-g) * 0.7152) + (var(--label-b) * 0.0722)) / 255)",
+      "background": "rgb(var(--label-r), var(--label-g), var(--label-b))",
+      "borderColor": "hsla(var(--label-h),calc(var(--label-s) * 1%),calc((var(--label-l) - 25) * 1%),var(--border-alpha))",
+      "borderStyle": "solid",
+      "borderWidth": 1,
+      "color": "hsl(0, 0%, calc(var(--lightness-switch) * 100%))",
+      "paddingRight": 0,
+      "position": "relative",
+    }
+  }
+  text="token"
 >
   <span
-    className="c1"
+    className="TokenTextContainer"
   >
     token
   </span>
   <button
     aria-hidden="false"
     aria-label="Remove token"
-    className="c2"
+    className="TokenButton RemoveButton"
+    data-has-multiple-action-targets={false}
     data-size="medium"
     onClick={[Function]}
-    size="medium"
-    style={{}}
+    style={
+      {
+        "transform": "translate(1px, -1px)",
+      }
+    }
   >
     <svg
       aria-hidden="true"
@@ -1595,153 +667,53 @@ exports[`Token components IssueLabelToken renders all sizes 2`] = `
 `;
 
 exports[`Token components IssueLabelToken renders all sizes 3`] = `
-.c0 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 999px;
-  cursor: auto;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  font-weight: 600;
-  font-family: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  position: relative;
-  white-space: nowrap;
-  font-size: 12px;
-  height: 24px;
-  line-height: 24px;
-  padding-left: 8px;
-  padding-right: 8px;
-  --label-r: 153;
-  --label-g: 153;
-  --label-b: 153;
-  --label-h: 0;
-  --label-s: 0;
-  --label-l: 60;
-  --perceived-lightness: calc(((var(--label-r) * 0.2126) + (var(--label-g) * 0.7152) + (var(--label-b) * 0.0722)) / 255);
-  --lightness-switch: max(0,min(calc((var(--perceived-lightness) - var(--lightness-threshold)) * -1000),1));
-  padding-right: 0;
-  position: relative;
-  --lightness-threshold: 0.453;
-  --border-threshold: 0.96;
-  --border-alpha: max(0,min(calc((var(--perceived-lightness) - var(--border-threshold)) * 100),1));
-  background: rgb(var(--label-r),var(--label-g),var(--label-b));
-  color: hsl(0,0%,calc(var(--lightness-switch) * 100%));
-  border-width: 1px;
-  border-style: solid;
-  border-color: hsla(var(--label-h),calc(var(--label-s) * 1%),calc((var(--label-l) - 25) * 1%),var(--border-alpha));
-}
-
-.c2 {
-  background-color: transparent;
-  font-family: inherit;
-  color: currentColor;
-  cursor: pointer;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  padding: 0;
-  -webkit-transform: translate(1px,-1px);
-  -ms-transform: translate(1px,-1px);
-  transform: translate(1px,-1px);
-  -webkit-align-self: baseline;
-  -ms-flex-item-align: baseline;
-  align-self: baseline;
-  border: 0;
-  border-radius: 999px;
-  margin-left: 8px;
-  height: 24px;
-  width: 24px;
-}
-
-.c2:hover,
-.c2:focus {
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
-}
-
-.c2:active {
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
-}
-
-.c1 {
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  background: transparent;
-  border: none;
-  color: inherit;
-  font: inherit;
-  margin: 0;
-  padding: 0;
-  width: auto;
-  -webkit-font-smoothing: inherit;
-  -moz-osx-font-smoothing: inherit;
-  -webkit-appearance: none;
-  line-height: normal;
-  color: currentColor;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.c1:is(a,button,[tabIndex='0']) {
-  cursor: pointer;
-}
-
-.c1:is(a,button,[tabIndex='0']):after {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-}
-
 <span
-  className="c0"
+  className="TokenBase IssueLabel"
+  data-cursor-is-interactive={false}
+  data-has-remove-button={true}
+  data-size="large"
   onKeyDown={[Function]}
-  size="large"
+  style={
+    {
+      "--border-alpha": "max(0, min(calc((var(--perceived-lightness) - var(--border-threshold)) * 100), 1))",
+      "--border-threshold": "0.96",
+      "--label-b": "153",
+      "--label-g": "153",
+      "--label-h": "0",
+      "--label-l": "60",
+      "--label-r": "153",
+      "--label-s": "0",
+      "--lightness-switch": "max(0, min(calc((var(--perceived-lightness) - var(--lightness-threshold)) * -1000), 1))",
+      "--lightness-threshold": "0.453",
+      "--perceived-lightness": "calc(((var(--label-r) * 0.2126) + (var(--label-g) * 0.7152) + (var(--label-b) * 0.0722)) / 255)",
+      "background": "rgb(var(--label-r), var(--label-g), var(--label-b))",
+      "borderColor": "hsla(var(--label-h),calc(var(--label-s) * 1%),calc((var(--label-l) - 25) * 1%),var(--border-alpha))",
+      "borderStyle": "solid",
+      "borderWidth": 1,
+      "color": "hsl(0, 0%, calc(var(--lightness-switch) * 100%))",
+      "paddingRight": 0,
+      "position": "relative",
+    }
+  }
+  text="token"
 >
   <span
-    className="c1"
+    className="TokenTextContainer"
   >
     token
   </span>
   <button
     aria-hidden="false"
     aria-label="Remove token"
-    className="c2"
+    className="TokenButton RemoveButton"
+    data-has-multiple-action-targets={false}
     data-size="large"
     onClick={[Function]}
-    size="large"
-    style={{}}
+    style={
+      {
+        "transform": "translate(1px, -1px)",
+      }
+    }
   >
     <svg
       aria-hidden="true"
@@ -1768,155 +740,53 @@ exports[`Token components IssueLabelToken renders all sizes 3`] = `
 `;
 
 exports[`Token components IssueLabelToken renders all sizes 4`] = `
-.c0 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 999px;
-  cursor: auto;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  font-weight: 600;
-  font-family: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  position: relative;
-  white-space: nowrap;
-  font-size: 14px;
-  height: 32px;
-  line-height: 32px;
-  padding-left: 16px;
-  padding-right: 16px;
-  padding-top: 0;
-  padding-bottom: 0;
-  --label-r: 153;
-  --label-g: 153;
-  --label-b: 153;
-  --label-h: 0;
-  --label-s: 0;
-  --label-l: 60;
-  --perceived-lightness: calc(((var(--label-r) * 0.2126) + (var(--label-g) * 0.7152) + (var(--label-b) * 0.0722)) / 255);
-  --lightness-switch: max(0,min(calc((var(--perceived-lightness) - var(--lightness-threshold)) * -1000),1));
-  padding-right: 0;
-  position: relative;
-  --lightness-threshold: 0.453;
-  --border-threshold: 0.96;
-  --border-alpha: max(0,min(calc((var(--perceived-lightness) - var(--border-threshold)) * 100),1));
-  background: rgb(var(--label-r),var(--label-g),var(--label-b));
-  color: hsl(0,0%,calc(var(--lightness-switch) * 100%));
-  border-width: 1px;
-  border-style: solid;
-  border-color: hsla(var(--label-h),calc(var(--label-s) * 1%),calc((var(--label-l) - 25) * 1%),var(--border-alpha));
-}
-
-.c2 {
-  background-color: transparent;
-  font-family: inherit;
-  color: currentColor;
-  cursor: pointer;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  padding: 0;
-  -webkit-transform: translate(1px,-1px);
-  -ms-transform: translate(1px,-1px);
-  transform: translate(1px,-1px);
-  -webkit-align-self: baseline;
-  -ms-flex-item-align: baseline;
-  align-self: baseline;
-  border: 0;
-  border-radius: 999px;
-  margin-left: 8px;
-  height: 32px;
-  width: 32px;
-}
-
-.c2:hover,
-.c2:focus {
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
-}
-
-.c2:active {
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
-}
-
-.c1 {
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  background: transparent;
-  border: none;
-  color: inherit;
-  font: inherit;
-  margin: 0;
-  padding: 0;
-  width: auto;
-  -webkit-font-smoothing: inherit;
-  -moz-osx-font-smoothing: inherit;
-  -webkit-appearance: none;
-  line-height: normal;
-  color: currentColor;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.c1:is(a,button,[tabIndex='0']) {
-  cursor: pointer;
-}
-
-.c1:is(a,button,[tabIndex='0']):after {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-}
-
 <span
-  className="c0"
+  className="TokenBase IssueLabel"
+  data-cursor-is-interactive={false}
+  data-has-remove-button={true}
+  data-size="xlarge"
   onKeyDown={[Function]}
-  size="xlarge"
+  style={
+    {
+      "--border-alpha": "max(0, min(calc((var(--perceived-lightness) - var(--border-threshold)) * 100), 1))",
+      "--border-threshold": "0.96",
+      "--label-b": "153",
+      "--label-g": "153",
+      "--label-h": "0",
+      "--label-l": "60",
+      "--label-r": "153",
+      "--label-s": "0",
+      "--lightness-switch": "max(0, min(calc((var(--perceived-lightness) - var(--lightness-threshold)) * -1000), 1))",
+      "--lightness-threshold": "0.453",
+      "--perceived-lightness": "calc(((var(--label-r) * 0.2126) + (var(--label-g) * 0.7152) + (var(--label-b) * 0.0722)) / 255)",
+      "background": "rgb(var(--label-r), var(--label-g), var(--label-b))",
+      "borderColor": "hsla(var(--label-h),calc(var(--label-s) * 1%),calc((var(--label-l) - 25) * 1%),var(--border-alpha))",
+      "borderStyle": "solid",
+      "borderWidth": 1,
+      "color": "hsl(0, 0%, calc(var(--lightness-switch) * 100%))",
+      "paddingRight": 0,
+      "position": "relative",
+    }
+  }
+  text="token"
 >
   <span
-    className="c1"
+    className="TokenTextContainer"
   >
     token
   </span>
   <button
     aria-hidden="false"
     aria-label="Remove token"
-    className="c2"
+    className="TokenButton RemoveButton"
+    data-has-multiple-action-targets={false}
     data-size="xlarge"
     onClick={[Function]}
-    size="xlarge"
-    style={{}}
+    style={
+      {
+        "transform": "translate(1px, -1px)",
+      }
+    }
   >
     <svg
       aria-hidden="true"
@@ -1943,153 +813,53 @@ exports[`Token components IssueLabelToken renders all sizes 4`] = `
 `;
 
 exports[`Token components IssueLabelToken renders custom fill color 1`] = `
-.c0 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 999px;
-  cursor: auto;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  font-weight: 600;
-  font-family: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  position: relative;
-  white-space: nowrap;
-  font-size: 12px;
-  height: 20px;
-  line-height: 20px;
-  padding-left: 8px;
-  padding-right: 8px;
-  --label-r: 3;
-  --label-g: 102;
-  --label-b: 214;
-  --label-h: 212;
-  --label-s: 97;
-  --label-l: 43;
-  --perceived-lightness: calc(((var(--label-r) * 0.2126) + (var(--label-g) * 0.7152) + (var(--label-b) * 0.0722)) / 255);
-  --lightness-switch: max(0,min(calc((var(--perceived-lightness) - var(--lightness-threshold)) * -1000),1));
-  padding-right: 0;
-  position: relative;
-  --lightness-threshold: 0.453;
-  --border-threshold: 0.96;
-  --border-alpha: max(0,min(calc((var(--perceived-lightness) - var(--border-threshold)) * 100),1));
-  background: rgb(var(--label-r),var(--label-g),var(--label-b));
-  color: hsl(0,0%,calc(var(--lightness-switch) * 100%));
-  border-width: 1px;
-  border-style: solid;
-  border-color: hsla(var(--label-h),calc(var(--label-s) * 1%),calc((var(--label-l) - 25) * 1%),var(--border-alpha));
-}
-
-.c2 {
-  background-color: transparent;
-  font-family: inherit;
-  color: currentColor;
-  cursor: pointer;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  padding: 0;
-  -webkit-transform: translate(1px,-1px);
-  -ms-transform: translate(1px,-1px);
-  transform: translate(1px,-1px);
-  -webkit-align-self: baseline;
-  -ms-flex-item-align: baseline;
-  align-self: baseline;
-  border: 0;
-  border-radius: 999px;
-  margin-left: 4px;
-  height: 20px;
-  width: 20px;
-}
-
-.c2:hover,
-.c2:focus {
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
-}
-
-.c2:active {
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
-}
-
-.c1 {
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  background: transparent;
-  border: none;
-  color: inherit;
-  font: inherit;
-  margin: 0;
-  padding: 0;
-  width: auto;
-  -webkit-font-smoothing: inherit;
-  -moz-osx-font-smoothing: inherit;
-  -webkit-appearance: none;
-  line-height: normal;
-  color: currentColor;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.c1:is(a,button,[tabIndex='0']) {
-  cursor: pointer;
-}
-
-.c1:is(a,button,[tabIndex='0']):after {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-}
-
 <span
-  className="c0"
+  className="TokenBase IssueLabel"
+  data-cursor-is-interactive={false}
+  data-has-remove-button={true}
+  data-size="medium"
   onKeyDown={[Function]}
-  size="medium"
+  style={
+    {
+      "--border-alpha": "max(0, min(calc((var(--perceived-lightness) - var(--border-threshold)) * 100), 1))",
+      "--border-threshold": "0.96",
+      "--label-b": "214",
+      "--label-g": "102",
+      "--label-h": "212",
+      "--label-l": "43",
+      "--label-r": "3",
+      "--label-s": "97",
+      "--lightness-switch": "max(0, min(calc((var(--perceived-lightness) - var(--lightness-threshold)) * -1000), 1))",
+      "--lightness-threshold": "0.453",
+      "--perceived-lightness": "calc(((var(--label-r) * 0.2126) + (var(--label-g) * 0.7152) + (var(--label-b) * 0.0722)) / 255)",
+      "background": "rgb(var(--label-r), var(--label-g), var(--label-b))",
+      "borderColor": "hsla(var(--label-h),calc(var(--label-s) * 1%),calc((var(--label-l) - 25) * 1%),var(--border-alpha))",
+      "borderStyle": "solid",
+      "borderWidth": 1,
+      "color": "hsl(0, 0%, calc(var(--lightness-switch) * 100%))",
+      "paddingRight": 0,
+      "position": "relative",
+    }
+  }
+  text="token"
 >
   <span
-    className="c1"
+    className="TokenTextContainer"
   >
     token
   </span>
   <button
     aria-hidden="false"
     aria-label="Remove token"
-    className="c2"
+    className="TokenButton RemoveButton"
+    data-has-multiple-action-targets={false}
     data-size="medium"
     onClick={[Function]}
-    size="medium"
-    style={{}}
+    style={
+      {
+        "transform": "translate(1px, -1px)",
+      }
+    }
   >
     <svg
       aria-hidden="true"
@@ -2116,153 +886,53 @@ exports[`Token components IssueLabelToken renders custom fill color 1`] = `
 `;
 
 exports[`Token components IssueLabelToken renders default fill color 1`] = `
-.c0 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 999px;
-  cursor: auto;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  font-weight: 600;
-  font-family: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  position: relative;
-  white-space: nowrap;
-  font-size: 12px;
-  height: 20px;
-  line-height: 20px;
-  padding-left: 8px;
-  padding-right: 8px;
-  --label-r: 153;
-  --label-g: 153;
-  --label-b: 153;
-  --label-h: 0;
-  --label-s: 0;
-  --label-l: 60;
-  --perceived-lightness: calc(((var(--label-r) * 0.2126) + (var(--label-g) * 0.7152) + (var(--label-b) * 0.0722)) / 255);
-  --lightness-switch: max(0,min(calc((var(--perceived-lightness) - var(--lightness-threshold)) * -1000),1));
-  padding-right: 0;
-  position: relative;
-  --lightness-threshold: 0.453;
-  --border-threshold: 0.96;
-  --border-alpha: max(0,min(calc((var(--perceived-lightness) - var(--border-threshold)) * 100),1));
-  background: rgb(var(--label-r),var(--label-g),var(--label-b));
-  color: hsl(0,0%,calc(var(--lightness-switch) * 100%));
-  border-width: 1px;
-  border-style: solid;
-  border-color: hsla(var(--label-h),calc(var(--label-s) * 1%),calc((var(--label-l) - 25) * 1%),var(--border-alpha));
-}
-
-.c2 {
-  background-color: transparent;
-  font-family: inherit;
-  color: currentColor;
-  cursor: pointer;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  padding: 0;
-  -webkit-transform: translate(1px,-1px);
-  -ms-transform: translate(1px,-1px);
-  transform: translate(1px,-1px);
-  -webkit-align-self: baseline;
-  -ms-flex-item-align: baseline;
-  align-self: baseline;
-  border: 0;
-  border-radius: 999px;
-  margin-left: 4px;
-  height: 20px;
-  width: 20px;
-}
-
-.c2:hover,
-.c2:focus {
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
-}
-
-.c2:active {
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
-}
-
-.c1 {
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  background: transparent;
-  border: none;
-  color: inherit;
-  font: inherit;
-  margin: 0;
-  padding: 0;
-  width: auto;
-  -webkit-font-smoothing: inherit;
-  -moz-osx-font-smoothing: inherit;
-  -webkit-appearance: none;
-  line-height: normal;
-  color: currentColor;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.c1:is(a,button,[tabIndex='0']) {
-  cursor: pointer;
-}
-
-.c1:is(a,button,[tabIndex='0']):after {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-}
-
 <span
-  className="c0"
+  className="TokenBase IssueLabel"
+  data-cursor-is-interactive={false}
+  data-has-remove-button={true}
+  data-size="medium"
   onKeyDown={[Function]}
-  size="medium"
+  style={
+    {
+      "--border-alpha": "max(0, min(calc((var(--perceived-lightness) - var(--border-threshold)) * 100), 1))",
+      "--border-threshold": "0.96",
+      "--label-b": "153",
+      "--label-g": "153",
+      "--label-h": "0",
+      "--label-l": "60",
+      "--label-r": "153",
+      "--label-s": "0",
+      "--lightness-switch": "max(0, min(calc((var(--perceived-lightness) - var(--lightness-threshold)) * -1000), 1))",
+      "--lightness-threshold": "0.453",
+      "--perceived-lightness": "calc(((var(--label-r) * 0.2126) + (var(--label-g) * 0.7152) + (var(--label-b) * 0.0722)) / 255)",
+      "background": "rgb(var(--label-r), var(--label-g), var(--label-b))",
+      "borderColor": "hsla(var(--label-h),calc(var(--label-s) * 1%),calc((var(--label-l) - 25) * 1%),var(--border-alpha))",
+      "borderStyle": "solid",
+      "borderWidth": 1,
+      "color": "hsl(0, 0%, calc(var(--lightness-switch) * 100%))",
+      "paddingRight": 0,
+      "position": "relative",
+    }
+  }
+  text="token"
 >
   <span
-    className="c1"
+    className="TokenTextContainer"
   >
     token
   </span>
   <button
     aria-hidden="false"
     aria-label="Remove token"
-    className="c2"
+    className="TokenButton RemoveButton"
+    data-has-multiple-action-targets={false}
     data-size="medium"
     onClick={[Function]}
-    size="medium"
-    style={{}}
+    style={
+      {
+        "transform": "translate(1px, -1px)",
+      }
+    }
   >
     <svg
       aria-hidden="true"
@@ -2289,110 +959,54 @@ exports[`Token components IssueLabelToken renders default fill color 1`] = `
 `;
 
 exports[`Token components IssueLabelToken renders isSelected 1`] = `
-.c0 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 999px;
-  cursor: auto;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  font-weight: 600;
-  font-family: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  position: relative;
-  white-space: nowrap;
-  font-size: 12px;
-  height: 20px;
-  line-height: 20px;
-  padding-left: 8px;
-  padding-right: 8px;
-  --label-r: 153;
-  --label-g: 153;
-  --label-b: 153;
-  --label-h: 0;
-  --label-s: 0;
-  --label-l: 60;
-  --perceived-lightness: calc(((var(--label-r) * 0.2126) + (var(--label-g) * 0.7152) + (var(--label-b) * 0.0722)) / 255);
-  --lightness-switch: max(0,min(calc((var(--perceived-lightness) - var(--lightness-threshold)) * -1000),1));
-  position: relative;
-  --lightness-threshold: 0.453;
-  --border-threshold: 0.96;
-  --border-alpha: max(0,min(calc((var(--perceived-lightness) - var(--border-threshold)) * 100),1));
-  background: hsl(var(--label-h),calc(var(--label-s) * 1%),calc((var(--label-l) - 5) * 1%));
-  color: hsl(0,0%,calc(var(--lightness-switch) * 100%));
-  border-width: 1px;
-  border-style: solid;
-  border-color: hsla(var(--label-h),calc(var(--label-s) * 1%),calc((var(--label-l) - 25) * 1%),var(--border-alpha));
-}
-
-.c0:focus {
-  outline: none;
-}
-
-.c0:after {
-  content: "";
-  position: absolute;
-  z-index: 1;
-  top: -2px;
-  right: -2px;
-  bottom: -2px;
-  left: -2px;
-  display: block;
-  pointer-events: none;
-  box-shadow: 0 0 0 2px rgb(var(--label-r),var(--label-g),var(--label-b));
-  border-radius: 999px;
-}
-
-.c1 {
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  background: transparent;
-  border: none;
-  color: inherit;
-  font: inherit;
-  margin: 0;
-  padding: 0;
-  width: auto;
-  -webkit-font-smoothing: inherit;
-  -moz-osx-font-smoothing: inherit;
-  -webkit-appearance: none;
-  line-height: normal;
-  color: currentColor;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.c1:is(a,button,[tabIndex='0']) {
-  cursor: pointer;
-}
-
-.c1:is(a,button,[tabIndex='0']):after {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-}
-
 <span
-  className="c0"
+  className="TokenBase IssueLabel"
+  data-cursor-is-interactive={false}
+  data-has-remove-button={false}
+  data-size="medium"
   onKeyDown={[Function]}
-  size="medium"
+  style={
+    {
+      "--border-alpha": "max(0, min(calc((var(--perceived-lightness) - var(--border-threshold)) * 100), 1))",
+      "--border-threshold": "0.96",
+      "--label-b": "153",
+      "--label-g": "153",
+      "--label-h": "0",
+      "--label-l": "60",
+      "--label-r": "153",
+      "--label-s": "0",
+      "--lightness-switch": "max(0, min(calc((var(--perceived-lightness) - var(--lightness-threshold)) * -1000), 1))",
+      "--lightness-threshold": "0.453",
+      "--perceived-lightness": "calc(((var(--label-r) * 0.2126) + (var(--label-g) * 0.7152) + (var(--label-b) * 0.0722)) / 255)",
+      ":after": {
+        "borderRadius": "999px",
+        "bottom": "-2px",
+        "boxShadow": "0 0 0 2px rgb(var(--label-r), var(--label-g), var(--label-b))",
+        "content": """",
+        "display": "block",
+        "left": "-2px",
+        "pointerEvents": "none",
+        "position": "absolute",
+        "right": "-2px",
+        "top": "-2px",
+        "zIndex": 1,
+      },
+      ":focus": {
+        "outline": "none",
+      },
+      "background": "hsl(var(--label-h), calc(var(--label-s) * 1%), calc((var(--label-l) - 5) * 1%))",
+      "borderColor": "hsla(var(--label-h),calc(var(--label-s) * 1%),calc((var(--label-l) - 25) * 1%),var(--border-alpha))",
+      "borderStyle": "solid",
+      "borderWidth": 1,
+      "color": "hsl(0, 0%, calc(var(--lightness-switch) * 100%))",
+      "paddingRight": undefined,
+      "position": "relative",
+    }
+  }
+  text="token"
 >
   <span
-    className="c1"
+    className="TokenTextContainer"
   >
     token
   </span>
@@ -2400,153 +1014,53 @@ exports[`Token components IssueLabelToken renders isSelected 1`] = `
 `;
 
 exports[`Token components IssueLabelToken renders with a remove button 1`] = `
-.c0 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 999px;
-  cursor: auto;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  font-weight: 600;
-  font-family: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  position: relative;
-  white-space: nowrap;
-  font-size: 12px;
-  height: 20px;
-  line-height: 20px;
-  padding-left: 8px;
-  padding-right: 8px;
-  --label-r: 153;
-  --label-g: 153;
-  --label-b: 153;
-  --label-h: 0;
-  --label-s: 0;
-  --label-l: 60;
-  --perceived-lightness: calc(((var(--label-r) * 0.2126) + (var(--label-g) * 0.7152) + (var(--label-b) * 0.0722)) / 255);
-  --lightness-switch: max(0,min(calc((var(--perceived-lightness) - var(--lightness-threshold)) * -1000),1));
-  padding-right: 0;
-  position: relative;
-  --lightness-threshold: 0.453;
-  --border-threshold: 0.96;
-  --border-alpha: max(0,min(calc((var(--perceived-lightness) - var(--border-threshold)) * 100),1));
-  background: rgb(var(--label-r),var(--label-g),var(--label-b));
-  color: hsl(0,0%,calc(var(--lightness-switch) * 100%));
-  border-width: 1px;
-  border-style: solid;
-  border-color: hsla(var(--label-h),calc(var(--label-s) * 1%),calc((var(--label-l) - 25) * 1%),var(--border-alpha));
-}
-
-.c2 {
-  background-color: transparent;
-  font-family: inherit;
-  color: currentColor;
-  cursor: pointer;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  padding: 0;
-  -webkit-transform: translate(1px,-1px);
-  -ms-transform: translate(1px,-1px);
-  transform: translate(1px,-1px);
-  -webkit-align-self: baseline;
-  -ms-flex-item-align: baseline;
-  align-self: baseline;
-  border: 0;
-  border-radius: 999px;
-  margin-left: 4px;
-  height: 20px;
-  width: 20px;
-}
-
-.c2:hover,
-.c2:focus {
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
-}
-
-.c2:active {
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
-}
-
-.c1 {
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  background: transparent;
-  border: none;
-  color: inherit;
-  font: inherit;
-  margin: 0;
-  padding: 0;
-  width: auto;
-  -webkit-font-smoothing: inherit;
-  -moz-osx-font-smoothing: inherit;
-  -webkit-appearance: none;
-  line-height: normal;
-  color: currentColor;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.c1:is(a,button,[tabIndex='0']) {
-  cursor: pointer;
-}
-
-.c1:is(a,button,[tabIndex='0']):after {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-}
-
 <span
-  className="c0"
+  className="TokenBase IssueLabel"
+  data-cursor-is-interactive={false}
+  data-has-remove-button={true}
+  data-size="medium"
   onKeyDown={[Function]}
-  size="medium"
+  style={
+    {
+      "--border-alpha": "max(0, min(calc((var(--perceived-lightness) - var(--border-threshold)) * 100), 1))",
+      "--border-threshold": "0.96",
+      "--label-b": "153",
+      "--label-g": "153",
+      "--label-h": "0",
+      "--label-l": "60",
+      "--label-r": "153",
+      "--label-s": "0",
+      "--lightness-switch": "max(0, min(calc((var(--perceived-lightness) - var(--lightness-threshold)) * -1000), 1))",
+      "--lightness-threshold": "0.453",
+      "--perceived-lightness": "calc(((var(--label-r) * 0.2126) + (var(--label-g) * 0.7152) + (var(--label-b) * 0.0722)) / 255)",
+      "background": "rgb(var(--label-r), var(--label-g), var(--label-b))",
+      "borderColor": "hsla(var(--label-h),calc(var(--label-s) * 1%),calc((var(--label-l) - 25) * 1%),var(--border-alpha))",
+      "borderStyle": "solid",
+      "borderWidth": 1,
+      "color": "hsl(0, 0%, calc(var(--lightness-switch) * 100%))",
+      "paddingRight": 0,
+      "position": "relative",
+    }
+  }
+  text="token"
 >
   <span
-    className="c1"
+    className="TokenTextContainer"
   >
     token
   </span>
   <button
     aria-hidden="false"
     aria-label="Remove token"
-    className="c2"
+    className="TokenButton RemoveButton"
+    data-has-multiple-action-targets={false}
     data-size="medium"
     onClick={[Function]}
-    size="medium"
-    style={{}}
+    style={
+      {
+        "transform": "translate(1px, -1px)",
+      }
+    }
   >
     <svg
       aria-hidden="true"
@@ -2573,7 +1087,7 @@ exports[`Token components IssueLabelToken renders with a remove button 1`] = `
 `;
 
 exports[`Token components Token renders all sizes 1`] = `
-.c2 {
+.c0 {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -2586,135 +1100,25 @@ exports[`Token components Token renders all sizes 1`] = `
   border-width: 0;
 }
 
-.c0 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 999px;
-  cursor: auto;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  font-weight: 600;
-  font-family: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  position: relative;
-  white-space: nowrap;
-  font-size: 12px;
-  height: 16px;
-  line-height: 16px;
-  padding-left: 4px;
-  padding-right: 4px;
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
-  border-color: var(--borderColor-muted,var(--color-border-subtle,rgba(31,35,40,0.15)));
-  border-style: solid;
-  border-width: 1px;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-  max-width: 100%;
-  padding-right: 0;
-}
-
-.c3 {
-  background-color: transparent;
-  font-family: inherit;
-  color: currentColor;
-  cursor: pointer;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  padding: 0;
-  -webkit-transform: translate(1px,-1px);
-  -ms-transform: translate(1px,-1px);
-  transform: translate(1px,-1px);
-  -webkit-align-self: baseline;
-  -ms-flex-item-align: baseline;
-  align-self: baseline;
-  border: 0;
-  border-radius: 999px;
-  margin-left: 4px;
-  height: 16px;
-  width: 16px;
-}
-
-.c3:hover,
-.c3:focus {
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
-}
-
-.c3:active {
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
-}
-
-.c1 {
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  background: transparent;
-  border: none;
-  color: inherit;
-  font: inherit;
-  margin: 0;
-  padding: 0;
-  width: auto;
-  -webkit-font-smoothing: inherit;
-  -moz-osx-font-smoothing: inherit;
-  -webkit-appearance: none;
-  line-height: normal;
-  color: currentColor;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.c1:is(a,button,[tabIndex='0']) {
-  cursor: pointer;
-}
-
-.c1:is(a,button,[tabIndex='0']):after {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-}
-
 <span
-  className="c0"
+  className="TokenBase Token"
+  data-cursor-is-interactive={false}
+  data-is-remove-btn={true}
+  data-size="small"
   onKeyDown={[Function]}
-  size="small"
+  style={
+    {
+      "borderWidth": "1px",
+    }
+  }
+  text="token"
 >
   <span
-    className="c1"
+    className="TokenTextContainer"
   >
     token
     <span
-      className="c2"
+      className="c0"
     >
        (press backspace or delete to remove)
     </span>
@@ -2722,11 +1126,14 @@ exports[`Token components Token renders all sizes 1`] = `
   <button
     aria-hidden="false"
     aria-label="Remove token"
-    className="c3"
+    className="TokenButton"
     data-size="small"
     onClick={[Function]}
-    size="small"
-    style={{}}
+    style={
+      {
+        "transform": "translate(1px, -1px)",
+      }
+    }
   >
     <svg
       aria-hidden="true"
@@ -2753,7 +1160,7 @@ exports[`Token components Token renders all sizes 1`] = `
 `;
 
 exports[`Token components Token renders all sizes 2`] = `
-.c2 {
+.c0 {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -2766,135 +1173,25 @@ exports[`Token components Token renders all sizes 2`] = `
   border-width: 0;
 }
 
-.c0 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 999px;
-  cursor: auto;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  font-weight: 600;
-  font-family: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  position: relative;
-  white-space: nowrap;
-  font-size: 12px;
-  height: 20px;
-  line-height: 20px;
-  padding-left: 8px;
-  padding-right: 8px;
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
-  border-color: var(--borderColor-muted,var(--color-border-subtle,rgba(31,35,40,0.15)));
-  border-style: solid;
-  border-width: 1px;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-  max-width: 100%;
-  padding-right: 0;
-}
-
-.c3 {
-  background-color: transparent;
-  font-family: inherit;
-  color: currentColor;
-  cursor: pointer;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  padding: 0;
-  -webkit-transform: translate(1px,-1px);
-  -ms-transform: translate(1px,-1px);
-  transform: translate(1px,-1px);
-  -webkit-align-self: baseline;
-  -ms-flex-item-align: baseline;
-  align-self: baseline;
-  border: 0;
-  border-radius: 999px;
-  margin-left: 4px;
-  height: 20px;
-  width: 20px;
-}
-
-.c3:hover,
-.c3:focus {
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
-}
-
-.c3:active {
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
-}
-
-.c1 {
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  background: transparent;
-  border: none;
-  color: inherit;
-  font: inherit;
-  margin: 0;
-  padding: 0;
-  width: auto;
-  -webkit-font-smoothing: inherit;
-  -moz-osx-font-smoothing: inherit;
-  -webkit-appearance: none;
-  line-height: normal;
-  color: currentColor;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.c1:is(a,button,[tabIndex='0']) {
-  cursor: pointer;
-}
-
-.c1:is(a,button,[tabIndex='0']):after {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-}
-
 <span
-  className="c0"
+  className="TokenBase Token"
+  data-cursor-is-interactive={false}
+  data-is-remove-btn={true}
+  data-size="medium"
   onKeyDown={[Function]}
-  size="medium"
+  style={
+    {
+      "borderWidth": "1px",
+    }
+  }
+  text="token"
 >
   <span
-    className="c1"
+    className="TokenTextContainer"
   >
     token
     <span
-      className="c2"
+      className="c0"
     >
        (press backspace or delete to remove)
     </span>
@@ -2902,11 +1199,14 @@ exports[`Token components Token renders all sizes 2`] = `
   <button
     aria-hidden="false"
     aria-label="Remove token"
-    className="c3"
+    className="TokenButton"
     data-size="medium"
     onClick={[Function]}
-    size="medium"
-    style={{}}
+    style={
+      {
+        "transform": "translate(1px, -1px)",
+      }
+    }
   >
     <svg
       aria-hidden="true"
@@ -2933,7 +1233,7 @@ exports[`Token components Token renders all sizes 2`] = `
 `;
 
 exports[`Token components Token renders all sizes 3`] = `
-.c2 {
+.c0 {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -2946,135 +1246,25 @@ exports[`Token components Token renders all sizes 3`] = `
   border-width: 0;
 }
 
-.c0 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 999px;
-  cursor: auto;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  font-weight: 600;
-  font-family: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  position: relative;
-  white-space: nowrap;
-  font-size: 12px;
-  height: 24px;
-  line-height: 24px;
-  padding-left: 8px;
-  padding-right: 8px;
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
-  border-color: var(--borderColor-muted,var(--color-border-subtle,rgba(31,35,40,0.15)));
-  border-style: solid;
-  border-width: 1px;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-  max-width: 100%;
-  padding-right: 0;
-}
-
-.c3 {
-  background-color: transparent;
-  font-family: inherit;
-  color: currentColor;
-  cursor: pointer;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  padding: 0;
-  -webkit-transform: translate(1px,-1px);
-  -ms-transform: translate(1px,-1px);
-  transform: translate(1px,-1px);
-  -webkit-align-self: baseline;
-  -ms-flex-item-align: baseline;
-  align-self: baseline;
-  border: 0;
-  border-radius: 999px;
-  margin-left: 8px;
-  height: 24px;
-  width: 24px;
-}
-
-.c3:hover,
-.c3:focus {
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
-}
-
-.c3:active {
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
-}
-
-.c1 {
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  background: transparent;
-  border: none;
-  color: inherit;
-  font: inherit;
-  margin: 0;
-  padding: 0;
-  width: auto;
-  -webkit-font-smoothing: inherit;
-  -moz-osx-font-smoothing: inherit;
-  -webkit-appearance: none;
-  line-height: normal;
-  color: currentColor;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.c1:is(a,button,[tabIndex='0']) {
-  cursor: pointer;
-}
-
-.c1:is(a,button,[tabIndex='0']):after {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-}
-
 <span
-  className="c0"
+  className="TokenBase Token"
+  data-cursor-is-interactive={false}
+  data-is-remove-btn={true}
+  data-size="large"
   onKeyDown={[Function]}
-  size="large"
+  style={
+    {
+      "borderWidth": "1px",
+    }
+  }
+  text="token"
 >
   <span
-    className="c1"
+    className="TokenTextContainer"
   >
     token
     <span
-      className="c2"
+      className="c0"
     >
        (press backspace or delete to remove)
     </span>
@@ -3082,11 +1272,14 @@ exports[`Token components Token renders all sizes 3`] = `
   <button
     aria-hidden="false"
     aria-label="Remove token"
-    className="c3"
+    className="TokenButton"
     data-size="large"
     onClick={[Function]}
-    size="large"
-    style={{}}
+    style={
+      {
+        "transform": "translate(1px, -1px)",
+      }
+    }
   >
     <svg
       aria-hidden="true"
@@ -3113,7 +1306,7 @@ exports[`Token components Token renders all sizes 3`] = `
 `;
 
 exports[`Token components Token renders all sizes 4`] = `
-.c2 {
+.c0 {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -3126,137 +1319,25 @@ exports[`Token components Token renders all sizes 4`] = `
   border-width: 0;
 }
 
-.c0 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 999px;
-  cursor: auto;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  font-weight: 600;
-  font-family: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  position: relative;
-  white-space: nowrap;
-  font-size: 14px;
-  height: 32px;
-  line-height: 32px;
-  padding-left: 16px;
-  padding-right: 16px;
-  padding-top: 0;
-  padding-bottom: 0;
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
-  border-color: var(--borderColor-muted,var(--color-border-subtle,rgba(31,35,40,0.15)));
-  border-style: solid;
-  border-width: 1px;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-  max-width: 100%;
-  padding-right: 0;
-}
-
-.c3 {
-  background-color: transparent;
-  font-family: inherit;
-  color: currentColor;
-  cursor: pointer;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  padding: 0;
-  -webkit-transform: translate(1px,-1px);
-  -ms-transform: translate(1px,-1px);
-  transform: translate(1px,-1px);
-  -webkit-align-self: baseline;
-  -ms-flex-item-align: baseline;
-  align-self: baseline;
-  border: 0;
-  border-radius: 999px;
-  margin-left: 8px;
-  height: 32px;
-  width: 32px;
-}
-
-.c3:hover,
-.c3:focus {
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
-}
-
-.c3:active {
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
-}
-
-.c1 {
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  background: transparent;
-  border: none;
-  color: inherit;
-  font: inherit;
-  margin: 0;
-  padding: 0;
-  width: auto;
-  -webkit-font-smoothing: inherit;
-  -moz-osx-font-smoothing: inherit;
-  -webkit-appearance: none;
-  line-height: normal;
-  color: currentColor;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.c1:is(a,button,[tabIndex='0']) {
-  cursor: pointer;
-}
-
-.c1:is(a,button,[tabIndex='0']):after {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-}
-
 <span
-  className="c0"
+  className="TokenBase Token"
+  data-cursor-is-interactive={false}
+  data-is-remove-btn={true}
+  data-size="xlarge"
   onKeyDown={[Function]}
-  size="xlarge"
+  style={
+    {
+      "borderWidth": "1px",
+    }
+  }
+  text="token"
 >
   <span
-    className="c1"
+    className="TokenTextContainer"
   >
     token
     <span
-      className="c2"
+      className="c0"
     >
        (press backspace or delete to remove)
     </span>
@@ -3264,11 +1345,14 @@ exports[`Token components Token renders all sizes 4`] = `
   <button
     aria-hidden="false"
     aria-label="Remove token"
-    className="c3"
+    className="TokenButton"
     data-size="xlarge"
     onClick={[Function]}
-    size="xlarge"
-    style={{}}
+    style={
+      {
+        "transform": "translate(1px, -1px)",
+      }
+    }
   >
     <svg
       aria-hidden="true"
@@ -3295,81 +1379,22 @@ exports[`Token components Token renders all sizes 4`] = `
 `;
 
 exports[`Token components Token renders isSelected 1`] = `
-.c0 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 999px;
-  cursor: auto;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  font-weight: 600;
-  font-family: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  position: relative;
-  white-space: nowrap;
-  font-size: 12px;
-  height: 20px;
-  line-height: 20px;
-  padding-left: 8px;
-  padding-right: 8px;
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
-  border-color: var(--fgColor-default,var(--color-fg-default,#1F2328));
-  border-style: solid;
-  border-width: 1px;
-  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
-  max-width: 100%;
-}
-
-.c1 {
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  background: transparent;
-  border: none;
-  color: inherit;
-  font: inherit;
-  margin: 0;
-  padding: 0;
-  width: auto;
-  -webkit-font-smoothing: inherit;
-  -moz-osx-font-smoothing: inherit;
-  -webkit-appearance: none;
-  line-height: normal;
-  color: currentColor;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.c1:is(a,button,[tabIndex='0']) {
-  cursor: pointer;
-}
-
-.c1:is(a,button,[tabIndex='0']):after {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-}
-
 <span
-  className="c0"
+  className="TokenBase Token"
+  data-cursor-is-interactive={false}
+  data-is-remove-btn={false}
+  data-is-selected={true}
+  data-size="medium"
   onKeyDown={[Function]}
-  size="medium"
+  style={
+    {
+      "borderWidth": "1px",
+    }
+  }
+  text="token"
 >
   <span
-    className="c1"
+    className="TokenTextContainer"
   >
     token
   </span>
@@ -3377,89 +1402,21 @@ exports[`Token components Token renders isSelected 1`] = `
 `;
 
 exports[`Token components Token renders with a leadingVisual 1`] = `
-.c1 {
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-  line-height: 0;
-  margin-right: 4px;
-}
-
-.c0 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 999px;
-  cursor: auto;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  font-weight: 600;
-  font-family: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  position: relative;
-  white-space: nowrap;
-  font-size: 12px;
-  height: 20px;
-  line-height: 20px;
-  padding-left: 8px;
-  padding-right: 8px;
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
-  border-color: var(--borderColor-muted,var(--color-border-subtle,rgba(31,35,40,0.15)));
-  border-style: solid;
-  border-width: 1px;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-  max-width: 100%;
-}
-
-.c2 {
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  background: transparent;
-  border: none;
-  color: inherit;
-  font: inherit;
-  margin: 0;
-  padding: 0;
-  width: auto;
-  -webkit-font-smoothing: inherit;
-  -moz-osx-font-smoothing: inherit;
-  -webkit-appearance: none;
-  line-height: normal;
-  color: currentColor;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.c2:is(a,button,[tabIndex='0']) {
-  cursor: pointer;
-}
-
-.c2:is(a,button,[tabIndex='0']):after {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-}
-
 <span
-  className="c0"
+  className="TokenBase Token"
+  data-cursor-is-interactive={false}
+  data-is-remove-btn={false}
+  data-size="medium"
   onKeyDown={[Function]}
-  size="medium"
+  style={
+    {
+      "borderWidth": "1px",
+    }
+  }
+  text="token"
 >
   <div
-    className="c1"
+    className="LeadingVisualContainer"
   >
     <div
       style={
@@ -3470,7 +1427,7 @@ exports[`Token components Token renders with a leadingVisual 1`] = `
     />
   </div>
   <span
-    className="c2"
+    className="TokenTextContainer"
   >
     token
   </span>
@@ -3478,7 +1435,7 @@ exports[`Token components Token renders with a leadingVisual 1`] = `
 `;
 
 exports[`Token components Token renders with a remove button 1`] = `
-.c2 {
+.c0 {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -3491,135 +1448,25 @@ exports[`Token components Token renders with a remove button 1`] = `
   border-width: 0;
 }
 
-.c0 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 999px;
-  cursor: auto;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  font-weight: 600;
-  font-family: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  position: relative;
-  white-space: nowrap;
-  font-size: 12px;
-  height: 20px;
-  line-height: 20px;
-  padding-left: 8px;
-  padding-right: 8px;
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
-  border-color: var(--borderColor-muted,var(--color-border-subtle,rgba(31,35,40,0.15)));
-  border-style: solid;
-  border-width: 1px;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-  max-width: 100%;
-  padding-right: 0;
-}
-
-.c3 {
-  background-color: transparent;
-  font-family: inherit;
-  color: currentColor;
-  cursor: pointer;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  padding: 0;
-  -webkit-transform: translate(1px,-1px);
-  -ms-transform: translate(1px,-1px);
-  transform: translate(1px,-1px);
-  -webkit-align-self: baseline;
-  -ms-flex-item-align: baseline;
-  align-self: baseline;
-  border: 0;
-  border-radius: 999px;
-  margin-left: 4px;
-  height: 20px;
-  width: 20px;
-}
-
-.c3:hover,
-.c3:focus {
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
-}
-
-.c3:active {
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
-}
-
-.c1 {
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  background: transparent;
-  border: none;
-  color: inherit;
-  font: inherit;
-  margin: 0;
-  padding: 0;
-  width: auto;
-  -webkit-font-smoothing: inherit;
-  -moz-osx-font-smoothing: inherit;
-  -webkit-appearance: none;
-  line-height: normal;
-  color: currentColor;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.c1:is(a,button,[tabIndex='0']) {
-  cursor: pointer;
-}
-
-.c1:is(a,button,[tabIndex='0']):after {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-}
-
 <span
-  className="c0"
+  className="TokenBase Token"
+  data-cursor-is-interactive={false}
+  data-is-remove-btn={true}
+  data-size="medium"
   onKeyDown={[Function]}
-  size="medium"
+  style={
+    {
+      "borderWidth": "1px",
+    }
+  }
+  text="token"
 >
   <span
-    className="c1"
+    className="TokenTextContainer"
   >
     token
     <span
-      className="c2"
+      className="c0"
     >
        (press backspace or delete to remove)
     </span>
@@ -3627,11 +1474,14 @@ exports[`Token components Token renders with a remove button 1`] = `
   <button
     aria-hidden="false"
     aria-label="Remove token"
-    className="c3"
+    className="TokenButton"
     data-size="medium"
     onClick={[Function]}
-    size="medium"
-    style={{}}
+    style={
+      {
+        "transform": "translate(1px, -1px)",
+      }
+    }
   >
     <svg
       aria-hidden="true"
