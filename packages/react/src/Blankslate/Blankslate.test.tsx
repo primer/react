@@ -17,7 +17,6 @@ describe('Blankslate', () => {
 
   it('should render with narrow style when narrow is true', () => {
     const {container} = render(<Blankslate narrow>Test content</Blankslate>)
-    const blankslateElement = container.querySelector('[data-narrow="true"]')
     expect(container.firstChild!.firstChild).toHaveAttribute('data-narrow', 'true')
   })
 
