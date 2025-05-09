@@ -23,6 +23,7 @@ export default defineConfig({
       'src/Spinner/**/*.test.?(c|m)[jt]s?(x)',
       'src/Stack/**/*.test.?(c|m)[jt]s?(x)',
       'src/ToggleSwitch/**/*.test.?(c|m)[jt]s?(x)',
+      'src/Tooltip/**/*.test.?(c|m)[jt]s?(x)',
       'src/Truncate/**/*.test.?(c|m)[jt]s?(x)',
       'src/UnderlineNav/**/*.test.?(c|m)[jt]s?(x)',
     ],

@@ -37,6 +37,7 @@ module.exports = {
     '<rootDir>/src/Spinner/',
     '<rootDir>/src/Stack/',
     '<rootDir>/src/ToggleSwitch/',
+    '<rootDir>/src/Tooltip/',
     '<rootDir>/src/Truncate/',
     '<rootDir>/src/UnderlineNav/',
   ],
