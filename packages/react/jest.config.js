@@ -41,7 +41,6 @@ module.exports = {
     '<rootDir>/src/StateLabel/',
     '<rootDir>/src/SubNav/',
     '<rootDir>/src/TabNav/',
-    '<rootDir>/src/Textarea/',
     '<rootDir>/src/TextInputWithTokens/',
     '<rootDir>/src/Timeline/',
     '<rootDir>/src/ToggleSwitch/',
