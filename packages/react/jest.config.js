@@ -36,6 +36,7 @@ module.exports = {
     '<rootDir>/src/FeatureFlags/',
     '<rootDir>/src/Spinner/',
     '<rootDir>/src/Stack/',
+    '<rootDir>/src/Timeline/',
     '<rootDir>/src/ToggleSwitch/',
     '<rootDir>/src/Tooltip/',
     '<rootDir>/src/TooltipV2/',
