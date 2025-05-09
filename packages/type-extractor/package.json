@@ -1,0 +1,10 @@
+{
+  "name": "@primer/type-extractor",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": "./src/index.ts",
+  "devDependencies": {
+    "typescript": "^5.8.3"
+  }
+}
