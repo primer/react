@@ -24,7 +24,10 @@
       "id": "components-selectpanel-features--with-external-anchor"
     },
     {
-      "id": "components-selectpanel-features--with-secondary-action"
+      "id": "components-selectpanel-features--with-secondary-action-button"
+    },
+    {
+      "id": "components-selectpanel-features--with-secondary-action-link"
     },
     {
       "id": "components-selectpanel-features--with-groups"
@@ -173,7 +176,13 @@
       "name": "secondaryAction",
       "type": "React.ReactElement",
       "defaultValue": "null",
-      "description": "Secondary action, it will be rendered in the footer of the panel"
+      "description": "Secondary action, it will be rendered in the footer of the panel. Use `SecondaryActionButton` or `SecondaryActionLink` for the action."
+    },
+    {
+      "name": "showSelectedOptionsFirst",
+      "type": "boolean",
+      "description": "Whether to display the selected items at the top of the list",
+      "default": "true"
     }
   ],
   "subcomponents": []

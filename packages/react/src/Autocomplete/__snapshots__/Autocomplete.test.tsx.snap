@@ -2,228 +2,9 @@
 
 exports[`snapshots renders a custom empty state message 1`] = `
 [
-  .c2 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c2:focus {
-  outline: 0;
-}
-
-.c0 {
-  font-size: 14px;
-  line-height: var(--base-size-20);
-  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
-  vertical-align: middle;
-  cursor: text;
-  background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
-  border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
-  border-radius: 6px;
-  outline: none;
-  box-shadow: var(--shadow-inset,var(--color-primer-shadow-inset,inset 0 1px 0 rgba(208,215,222,0.2)));
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: stretch;
-  -webkit-box-align: stretch;
-  -ms-flex-align: stretch;
-  align-items: stretch;
-  min-height: var(--base-size-32);
-  overflow: hidden;
-  --inner-action-size: var(--base-size-24);
-}
-
-.c0 input,
-.c0 textarea {
-  cursor: text;
-}
-
-.c0 select {
-  cursor: pointer;
-}
-
-.c0 input::-webkit-input-placeholder,
-.c0 textarea::-webkit-input-placeholder,
-.c0 select::-webkit-input-placeholder {
-  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
-}
-
-.c0 input::-moz-placeholder,
-.c0 textarea::-moz-placeholder,
-.c0 select::-moz-placeholder {
-  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
-}
-
-.c0 input:-ms-input-placeholder,
-.c0 textarea:-ms-input-placeholder,
-.c0 select:-ms-input-placeholder {
-  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
-}
-
-.c0 input::placeholder,
-.c0 textarea::placeholder,
-.c0 select::placeholder {
-  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
-}
-
-.c0:where([data-trailing-action][data-focused]),
-.c0:where(:not([data-trailing-action]):focus-within) {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline-offset: -1px;
-}
-
-.c0 > textarea {
-  padding: var(--base-size-12);
-}
-
-.c0:where([data-contrast]) {
-  background-color: var(--bgColor-inset,var(--color-canvas-inset,#f6f8fa));
-}
-
-.c0:where([data-disabled]) {
-  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
-  background-color: var(--control-bgColor-disabled,var(--color-input-disabled-bg,rgba(175,184,193,0.2)));
-  box-shadow: none;
-  border-color: var(--control-borderColor-disabled,var(--borderColor-default,var(--color-border-default,#d0d7de)));
-}
-
-.c0:where([data-disabled]) input,
-.c0:where([data-disabled]) textarea,
-.c0:where([data-disabled]) select {
-  cursor: not-allowed;
-}
-
-.c0:where([data-monospace]) {
-  font-family: var(--fontStack-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace);
-}
-
-.c0:where([data-validation='error']) {
-  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
-}
-
-.c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
-.c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
-  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
-  outline-offset: -1px;
-}
-
-.c0:where([data-validation='success']) {
-  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
-}
-
-.c0:where([data-block]) {
-  width: 100%;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-self: stretch;
-  -ms-flex-item-align: stretch;
-  align-self: stretch;
-}
-
-.c0:where([data-size='small']) {
-  --inner-action-size: var(--base-size-20);
-  min-height: var(--base-size-28);
-  padding-top: 3px;
-  padding-right: var(--base-size-8);
-  padding-bottom: 3px;
-  padding-left: var(--base-size-8);
-  font-size: var(--text-body-size-small);
-  line-height: var(--base-size-20);
-}
-
-.c0:where([data-size='large']) {
-  --inner-action-size: var(--base-size-28);
-  height: var(--base-size-40);
-  padding-top: 10px;
-  padding-right: var(--base-size-8);
-  padding-bottom: 10px;
-  padding-left: var(--base-size-8);
-}
-
-.c0:where([data-variant='small']) {
-  min-height: 28px;
-  padding-top: 3px;
-  padding-right: var(--base-size-8);
-  padding-bottom: 3px;
-  padding-left: var(--base-size-8);
-  font-size: (--text-body-size-small);
-  line-height: var(--base-size-20);
-}
-
-.c0:where([data-variant='large']) {
-  padding-top: 10px;
-  padding-right: var(--base-size-8);
-  padding-bottom: 10px;
-  padding-left: var(--base-size-8);
-  font-size: var(--text-title-size-medium);
-}
-
-.c1 {
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  padding-right: 0;
-  padding-left: 0;
-}
-
-.c1 > :not(:last-child) {
-  margin-right: 8px;
-}
-
-.c1 .TextInput-icon,
-.c1 .TextInput-action {
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-}
-
-.c1 > input,
-.c1 > select {
-  padding-right: 0;
-  padding-left: 0;
-}
-
-.c1:where([data-leading-visual]) {
-  padding-left: var(--base-size-12);
-}
-
-.c1:where([data-trailing-visual]:not([data-trailing-action])) {
-  padding-right: var(--base-size-12);
-}
-
-.c1:where(:not([data-leading-visual])) > input,
-.c1:where(:not([data-leading-visual])) > select {
-  padding-left: var(--base-size-12);
-}
-
-.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
-.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
-  padding-right: var(--base-size-12);
-}
-
-@media (min-width:768px) {
-  .c0 {
-    font-size: var(--text-body-size-medium);
-  }
-}
-
-<span
+  <span
     aria-busy={false}
-    className="c0 c1 TextInput-wrapper"
+    className="TextInput-wrapper TextInputWrapper TextInputBaseWrapper"
     onClick={[Function]}
   >
     <input
@@ -233,7 +14,7 @@ exports[`snapshots renders a custom empty state message 1`] = `
       aria-haspopup="listbox"
       aria-owns="autocompleteId-listbox"
       autoComplete="off"
-      className="c2"
+      className="Input"
       data-component="input"
       id="autocompleteId"
       onBlur={[Function]}
@@ -257,10 +38,6 @@ exports[`snapshots renders a custom empty state message 1`] = `
   clip: rect(0,0,0,0);
   white-space: nowrap;
   border-width: 0;
-}
-
-@media (min-width:768px) {
-
 }
 
 <span
@@ -279,228 +56,9 @@ exports[`snapshots renders a custom empty state message 1`] = `
 
 exports[`snapshots renders a loading state 1`] = `
 [
-  .c2 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c2:focus {
-  outline: 0;
-}
-
-.c0 {
-  font-size: 14px;
-  line-height: var(--base-size-20);
-  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
-  vertical-align: middle;
-  cursor: text;
-  background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
-  border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
-  border-radius: 6px;
-  outline: none;
-  box-shadow: var(--shadow-inset,var(--color-primer-shadow-inset,inset 0 1px 0 rgba(208,215,222,0.2)));
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: stretch;
-  -webkit-box-align: stretch;
-  -ms-flex-align: stretch;
-  align-items: stretch;
-  min-height: var(--base-size-32);
-  overflow: hidden;
-  --inner-action-size: var(--base-size-24);
-}
-
-.c0 input,
-.c0 textarea {
-  cursor: text;
-}
-
-.c0 select {
-  cursor: pointer;
-}
-
-.c0 input::-webkit-input-placeholder,
-.c0 textarea::-webkit-input-placeholder,
-.c0 select::-webkit-input-placeholder {
-  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
-}
-
-.c0 input::-moz-placeholder,
-.c0 textarea::-moz-placeholder,
-.c0 select::-moz-placeholder {
-  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
-}
-
-.c0 input:-ms-input-placeholder,
-.c0 textarea:-ms-input-placeholder,
-.c0 select:-ms-input-placeholder {
-  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
-}
-
-.c0 input::placeholder,
-.c0 textarea::placeholder,
-.c0 select::placeholder {
-  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
-}
-
-.c0:where([data-trailing-action][data-focused]),
-.c0:where(:not([data-trailing-action]):focus-within) {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline-offset: -1px;
-}
-
-.c0 > textarea {
-  padding: var(--base-size-12);
-}
-
-.c0:where([data-contrast]) {
-  background-color: var(--bgColor-inset,var(--color-canvas-inset,#f6f8fa));
-}
-
-.c0:where([data-disabled]) {
-  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
-  background-color: var(--control-bgColor-disabled,var(--color-input-disabled-bg,rgba(175,184,193,0.2)));
-  box-shadow: none;
-  border-color: var(--control-borderColor-disabled,var(--borderColor-default,var(--color-border-default,#d0d7de)));
-}
-
-.c0:where([data-disabled]) input,
-.c0:where([data-disabled]) textarea,
-.c0:where([data-disabled]) select {
-  cursor: not-allowed;
-}
-
-.c0:where([data-monospace]) {
-  font-family: var(--fontStack-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace);
-}
-
-.c0:where([data-validation='error']) {
-  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
-}
-
-.c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
-.c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
-  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
-  outline-offset: -1px;
-}
-
-.c0:where([data-validation='success']) {
-  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
-}
-
-.c0:where([data-block]) {
-  width: 100%;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-self: stretch;
-  -ms-flex-item-align: stretch;
-  align-self: stretch;
-}
-
-.c0:where([data-size='small']) {
-  --inner-action-size: var(--base-size-20);
-  min-height: var(--base-size-28);
-  padding-top: 3px;
-  padding-right: var(--base-size-8);
-  padding-bottom: 3px;
-  padding-left: var(--base-size-8);
-  font-size: var(--text-body-size-small);
-  line-height: var(--base-size-20);
-}
-
-.c0:where([data-size='large']) {
-  --inner-action-size: var(--base-size-28);
-  height: var(--base-size-40);
-  padding-top: 10px;
-  padding-right: var(--base-size-8);
-  padding-bottom: 10px;
-  padding-left: var(--base-size-8);
-}
-
-.c0:where([data-variant='small']) {
-  min-height: 28px;
-  padding-top: 3px;
-  padding-right: var(--base-size-8);
-  padding-bottom: 3px;
-  padding-left: var(--base-size-8);
-  font-size: (--text-body-size-small);
-  line-height: var(--base-size-20);
-}
-
-.c0:where([data-variant='large']) {
-  padding-top: 10px;
-  padding-right: var(--base-size-8);
-  padding-bottom: 10px;
-  padding-left: var(--base-size-8);
-  font-size: var(--text-title-size-medium);
-}
-
-.c1 {
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  padding-right: 0;
-  padding-left: 0;
-}
-
-.c1 > :not(:last-child) {
-  margin-right: 8px;
-}
-
-.c1 .TextInput-icon,
-.c1 .TextInput-action {
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-}
-
-.c1 > input,
-.c1 > select {
-  padding-right: 0;
-  padding-left: 0;
-}
-
-.c1:where([data-leading-visual]) {
-  padding-left: var(--base-size-12);
-}
-
-.c1:where([data-trailing-visual]:not([data-trailing-action])) {
-  padding-right: var(--base-size-12);
-}
-
-.c1:where(:not([data-leading-visual])) > input,
-.c1:where(:not([data-leading-visual])) > select {
-  padding-left: var(--base-size-12);
-}
-
-.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
-.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
-  padding-right: var(--base-size-12);
-}
-
-@media (min-width:768px) {
-  .c0 {
-    font-size: var(--text-body-size-medium);
-  }
-}
-
-<span
+  <span
     aria-busy={false}
-    className="c0 c1 TextInput-wrapper"
+    className="TextInput-wrapper TextInputWrapper TextInputBaseWrapper"
     onClick={[Function]}
   >
     <input
@@ -510,7 +68,7 @@ exports[`snapshots renders a loading state 1`] = `
       aria-haspopup="listbox"
       aria-owns="autocompleteId-listbox"
       autoComplete="off"
-      className="c2"
+      className="Input"
       data-component="input"
       id="autocompleteId"
       onBlur={[Function]}
@@ -534,10 +92,6 @@ exports[`snapshots renders a loading state 1`] = `
   clip: rect(0,0,0,0);
   white-space: nowrap;
   border-width: 0;
-}
-
-@media (min-width:768px) {
-
 }
 
 <span
@@ -589,220 +143,7 @@ exports[`snapshots renders a loading state 1`] = `
 
 exports[`snapshots renders a menu that contains an item to add to the menu 1`] = `
 [
-  .c2 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c2:focus {
-  outline: 0;
-}
-
-.c0 {
-  font-size: 14px;
-  line-height: var(--base-size-20);
-  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
-  vertical-align: middle;
-  cursor: text;
-  background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
-  border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
-  border-radius: 6px;
-  outline: none;
-  box-shadow: var(--shadow-inset,var(--color-primer-shadow-inset,inset 0 1px 0 rgba(208,215,222,0.2)));
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: stretch;
-  -webkit-box-align: stretch;
-  -ms-flex-align: stretch;
-  align-items: stretch;
-  min-height: var(--base-size-32);
-  overflow: hidden;
-  --inner-action-size: var(--base-size-24);
-}
-
-.c0 input,
-.c0 textarea {
-  cursor: text;
-}
-
-.c0 select {
-  cursor: pointer;
-}
-
-.c0 input::-webkit-input-placeholder,
-.c0 textarea::-webkit-input-placeholder,
-.c0 select::-webkit-input-placeholder {
-  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
-}
-
-.c0 input::-moz-placeholder,
-.c0 textarea::-moz-placeholder,
-.c0 select::-moz-placeholder {
-  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
-}
-
-.c0 input:-ms-input-placeholder,
-.c0 textarea:-ms-input-placeholder,
-.c0 select:-ms-input-placeholder {
-  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
-}
-
-.c0 input::placeholder,
-.c0 textarea::placeholder,
-.c0 select::placeholder {
-  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
-}
-
-.c0:where([data-trailing-action][data-focused]),
-.c0:where(:not([data-trailing-action]):focus-within) {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline-offset: -1px;
-}
-
-.c0 > textarea {
-  padding: var(--base-size-12);
-}
-
-.c0:where([data-contrast]) {
-  background-color: var(--bgColor-inset,var(--color-canvas-inset,#f6f8fa));
-}
-
-.c0:where([data-disabled]) {
-  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
-  background-color: var(--control-bgColor-disabled,var(--color-input-disabled-bg,rgba(175,184,193,0.2)));
-  box-shadow: none;
-  border-color: var(--control-borderColor-disabled,var(--borderColor-default,var(--color-border-default,#d0d7de)));
-}
-
-.c0:where([data-disabled]) input,
-.c0:where([data-disabled]) textarea,
-.c0:where([data-disabled]) select {
-  cursor: not-allowed;
-}
-
-.c0:where([data-monospace]) {
-  font-family: var(--fontStack-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace);
-}
-
-.c0:where([data-validation='error']) {
-  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
-}
-
-.c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
-.c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
-  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
-  outline-offset: -1px;
-}
-
-.c0:where([data-validation='success']) {
-  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
-}
-
-.c0:where([data-block]) {
-  width: 100%;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-self: stretch;
-  -ms-flex-item-align: stretch;
-  align-self: stretch;
-}
-
-.c0:where([data-size='small']) {
-  --inner-action-size: var(--base-size-20);
-  min-height: var(--base-size-28);
-  padding-top: 3px;
-  padding-right: var(--base-size-8);
-  padding-bottom: 3px;
-  padding-left: var(--base-size-8);
-  font-size: var(--text-body-size-small);
-  line-height: var(--base-size-20);
-}
-
-.c0:where([data-size='large']) {
-  --inner-action-size: var(--base-size-28);
-  height: var(--base-size-40);
-  padding-top: 10px;
-  padding-right: var(--base-size-8);
-  padding-bottom: 10px;
-  padding-left: var(--base-size-8);
-}
-
-.c0:where([data-variant='small']) {
-  min-height: 28px;
-  padding-top: 3px;
-  padding-right: var(--base-size-8);
-  padding-bottom: 3px;
-  padding-left: var(--base-size-8);
-  font-size: (--text-body-size-small);
-  line-height: var(--base-size-20);
-}
-
-.c0:where([data-variant='large']) {
-  padding-top: 10px;
-  padding-right: var(--base-size-8);
-  padding-bottom: 10px;
-  padding-left: var(--base-size-8);
-  font-size: var(--text-title-size-medium);
-}
-
-.c1 {
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  padding-right: 0;
-  padding-left: 0;
-}
-
-.c1 > :not(:last-child) {
-  margin-right: 8px;
-}
-
-.c1 .TextInput-icon,
-.c1 .TextInput-action {
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-}
-
-.c1 > input,
-.c1 > select {
-  padding-right: 0;
-  padding-left: 0;
-}
-
-.c1:where([data-leading-visual]) {
-  padding-left: var(--base-size-12);
-}
-
-.c1:where([data-trailing-visual]:not([data-trailing-action])) {
-  padding-right: var(--base-size-12);
-}
-
-.c1:where(:not([data-leading-visual])) > input,
-.c1:where(:not([data-leading-visual])) > select {
-  padding-left: var(--base-size-12);
-}
-
-.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
-.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
-  padding-right: var(--base-size-12);
-}
-
-@media (forced-colors:active) {
+  @media (forced-colors:active) {
 
 }
 
@@ -824,17 +165,11 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
 
 @media (hover:hover) and (pointer:fine) {
 
-}
-
-@media (min-width:768px) {
-  .c0 {
-    font-size: var(--text-body-size-medium);
-  }
 }
 
 <span
     aria-busy={false}
-    className="c0 c1 TextInput-wrapper"
+    className="TextInput-wrapper TextInputWrapper TextInputBaseWrapper"
     onClick={[Function]}
   >
     <input
@@ -844,7 +179,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
       aria-haspopup="listbox"
       aria-owns="autocompleteId-listbox"
       autoComplete="off"
-      className="c2"
+      className="Input"
       data-component="input"
       id="autocompleteId"
       onBlur={[Function]}
@@ -857,7 +192,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
       type="text"
     />
   </span>,
-  .c5 {
+  .c4 {
   height: 20px;
   max-width: 20px;
   display: -webkit-box;
@@ -880,7 +215,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   min-width: 16px;
 }
 
-.c6 {
+.c5 {
   border-color: var(--control-borderColor-emphasis);
   border-style: solid;
   border-width: 1px;
@@ -896,7 +231,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   transition: background-color,border-color 80ms cubic-bezier(0.32,0,0.67,0) 0ms;
 }
 
-.c6::before {
+.c5::before {
   width: var(--base-size-16,16px);
   height: var(--base-size-16,16px);
   visibility: hidden;
@@ -918,7 +253,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   animation: checkmarkOut 80ms cubic-bezier(0.65,0,0.35,1) forwards;
 }
 
-.c7 {
+.c6 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -933,7 +268,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   min-width: 0;
 }
 
-.c8 {
+.c7 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -943,13 +278,13 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   line-height: 20px;
 }
 
-.c9 {
+.c8 {
   font-size: 12px;
   line-height: 16px;
   color: var(--fgColor-attention,var(--color-attention-fg,#9a6700));
 }
 
-.c10 {
+.c9 {
   height: 20px;
   max-width: 20px;
   display: -webkit-box;
@@ -971,12 +306,12 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
 }
 
-.c10 svg {
+.c9 svg {
   font-size: 12px;
 }
 
-[data-variant="danger"]:not([aria-disabled]):not([data-inactive]):hover .c4,
-[data-variant="danger"]:active .c10 {
+[data-variant="danger"]:not([aria-disabled]):not([data-inactive]):hover .c3,
+[data-variant="danger"]:active .c9 {
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
 }
 
@@ -993,14 +328,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   border-width: 0;
 }
 
-.c1 {
-  margin: 0;
-  padding-inline-start: 0;
-  padding-top: 8px;
-  padding-bottom: 8px;
-}
-
-.c3 {
+.c2 {
   position: relative;
   display: -webkit-box;
   display: -webkit-flex;
@@ -1032,32 +360,32 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   margin-bottom: unset;
 }
 
-.c3[data-loading] {
+.c2[data-loading] {
   cursor: default;
 }
 
-.c3[aria-disabled],
-.c3[data-inactive] {
+.c2[aria-disabled],
+.c2[data-inactive] {
   cursor: not-allowed;
 }
 
-.c3[aria-disabled] [data-component="ActionList.Checkbox"],
-.c3[data-inactive] [data-component="ActionList.Checkbox"] {
+.c2[aria-disabled] [data-component="ActionList.Checkbox"],
+.c2[data-inactive] [data-component="ActionList.Checkbox"] {
   cursor: not-allowed;
   background-color: var(--control-bgColor-disabled,rgba(175,184,193,0.2));
   border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
 }
 
-.c3[aria-disabled] [data-component="ActionList.Selection"],
-.c3[data-inactive] [data-component="ActionList.Selection"] {
+.c2[aria-disabled] [data-component="ActionList.Selection"],
+.c2[data-inactive] [data-component="ActionList.Selection"] {
   color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
 }
 
-.c3 [data-component="ActionList.Item--DividerContainer"] {
+.c2 [data-component="ActionList.Item--DividerContainer"] {
   position: relative;
 }
 
-.c3 [data-component="ActionList.Item--DividerContainer"]::before {
+.c2 [data-component="ActionList.Item--DividerContainer"]::before {
   content: " ";
   display: block;
   position: absolute;
@@ -1068,30 +396,30 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   border-color: var(--divider-color,transparent);
 }
 
-.c3:not(:first-of-type) {
+.c2:not(:first-of-type) {
   --divider-color: var(--borderColor-muted,var(--color-action-list-item-inline-divider,rgba(208,215,222,0.48)));
 }
 
-[data-component="ActionList.Divider"] + .c2 {
+[data-component="ActionList.Divider"] + .c1 {
   --divider-color: transparent !important;
 }
 
-.c3:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]),
-.c3[data-focus-visible-added]:not([aria-disabled]):not([data-inactive]) {
+.c2:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]),
+.c2[data-focus-visible-added]:not([aria-disabled]):not([data-inactive]) {
   --divider-color: transparent;
 }
 
-.c3:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c2,
-.c3[data-focus-visible-added] + li {
+.c2:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c1,
+.c2[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
 
-.c3[data-is-active-descendant] {
+.c2[data-is-active-descendant] {
   font-weight: 400;
   background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
 }
 
-.c3[data-is-active-descendant]::after {
+.c2[data-is-active-descendant]::after {
   position: absolute;
   top: calc(50% - 12px);
   left: -8px;
@@ -1102,17 +430,17 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   border-radius: 6px;
 }
 
-[data-component="ActionList.Divider"] + .c2 {
+[data-component="ActionList.Divider"] + .c1 {
   --divider-color: transparent !important;
 }
 
-.c11:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c2,
-.c11[data-focus-visible-added] + li {
+.c10:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c1,
+.c10[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
 
 @media (forced-colors:active) {
-  .c6 {
+  .c5 {
     border-width: 1px;
   }
 }
@@ -1122,30 +450,30 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
 }
 
 @media (forced-colors:active) {
-  .c3:focus,
-  .c3:focus-visible,
-  .c3 > a.focus-visible,
-  .c3[data-is-active-descendant] {
+  .c2:focus,
+  .c2:focus-visible,
+  .c2 > a.focus-visible,
+  .c2[data-is-active-descendant] {
     outline: solid 1px transparent !important;
   }
 }
 
 @media (hover:hover) and (pointer:fine) {
-  .c3:hover:not([aria-disabled]):not([data-inactive]) {
+  .c2:hover:not([aria-disabled]):not([data-inactive]) {
     background-color: var(--control-transparent-bgColor-hover,var(--color-action-list-item-default-hover-bg,rgba(208,215,222,0.32)));
     color: var(--fgColor-default,var(--color-fg-default,#1F2328));
     box-shadow: inset 0 0 0 max(1px,0.0625rem) var(--control-transparent-borderColor-active,var(--color-action-list-item-default-active-border,transparent));
   }
 
-  .c3:focus-visible,
-  .c3 > a.focus-visible,
-  .c3:focus.focus-visible {
+  .c2:focus-visible,
+  .c2 > a.focus-visible,
+  .c2:focus.focus-visible {
     outline: none;
     border: 2 solid;
     box-shadow: 0 0 0 2px var(--focus-outlineColor);
   }
 
-  .c3:active:not([aria-disabled]):not([data-inactive]) {
+  .c2:active:not([aria-disabled]):not([data-inactive]) {
     background-color: var(--control-transparent-bgColor-active,var(--color-action-list-item-default-active-bg,rgba(208,215,222,0.48)));
     color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   }
@@ -1159,24 +487,22 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
 
 }
 
-@media (min-width:768px) {
-
-}
-
 <span
     className="c0"
   >
     <div>
       <ul
         aria-labelledby="labelId"
-        className="c1"
+        className="ActionList"
+        data-dividers={false}
+        data-variant="inset"
         id="autocompleteId-listbox"
         role="listbox"
       >
         <li
           aria-labelledby="0--label  "
           aria-selected={false}
-          className="c2 c3"
+          className="c1 c2"
           data-id="0"
           id="0"
           onClick={[Function]}
@@ -1185,33 +511,33 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
           tabIndex={0}
         >
           <span
-            className="c4 c5"
+            className="c3 c4"
             data-component="ActionList.Selection"
           >
             <div
-              className="c4 c6"
+              className="c3 c5"
               data-component="ActionList.Checkbox"
             />
           </span>
           <div
-            className="c4 c7"
+            className="c3 c6"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c4 c8"
+              className="c3 c7"
               id="0--label"
             >
               zero
             </span>
             <span
-              className="c4 c9"
+              className="c3 c8"
             />
           </div>
         </li>
         <li
           aria-labelledby="1--label  "
           aria-selected={false}
-          className="c2 c3"
+          className="c1 c2"
           data-id="1"
           id="1"
           onClick={[Function]}
@@ -1220,33 +546,33 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
           tabIndex={0}
         >
           <span
-            className="c4 c5"
+            className="c3 c4"
             data-component="ActionList.Selection"
           >
             <div
-              className="c4 c6"
+              className="c3 c5"
               data-component="ActionList.Checkbox"
             />
           </span>
           <div
-            className="c4 c7"
+            className="c3 c6"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c4 c8"
+              className="c3 c7"
               id="1--label"
             >
               one
             </span>
             <span
-              className="c4 c9"
+              className="c3 c8"
             />
           </div>
         </li>
         <li
           aria-labelledby="2--label  "
           aria-selected={false}
-          className="c2 c3"
+          className="c1 c2"
           data-id="2"
           id="2"
           onClick={[Function]}
@@ -1255,33 +581,33 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
           tabIndex={0}
         >
           <span
-            className="c4 c5"
+            className="c3 c4"
             data-component="ActionList.Selection"
           >
             <div
-              className="c4 c6"
+              className="c3 c5"
               data-component="ActionList.Checkbox"
             />
           </span>
           <div
-            className="c4 c7"
+            className="c3 c6"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c4 c8"
+              className="c3 c7"
               id="2--label"
             >
               two
             </span>
             <span
-              className="c4 c9"
+              className="c3 c8"
             />
           </div>
         </li>
         <li
           aria-labelledby="3--label  "
           aria-selected={false}
-          className="c2 c3"
+          className="c1 c2"
           data-id="3"
           id="3"
           onClick={[Function]}
@@ -1290,33 +616,33 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
           tabIndex={0}
         >
           <span
-            className="c4 c5"
+            className="c3 c4"
             data-component="ActionList.Selection"
           >
             <div
-              className="c4 c6"
+              className="c3 c5"
               data-component="ActionList.Checkbox"
             />
           </span>
           <div
-            className="c4 c7"
+            className="c3 c6"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c4 c8"
+              className="c3 c7"
               id="3--label"
             >
               three
             </span>
             <span
-              className="c4 c9"
+              className="c3 c8"
             />
           </div>
         </li>
         <li
           aria-labelledby="4--label  "
           aria-selected={false}
-          className="c2 c3"
+          className="c1 c2"
           data-id="4"
           id="4"
           onClick={[Function]}
@@ -1325,33 +651,33 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
           tabIndex={0}
         >
           <span
-            className="c4 c5"
+            className="c3 c4"
             data-component="ActionList.Selection"
           >
             <div
-              className="c4 c6"
+              className="c3 c5"
               data-component="ActionList.Checkbox"
             />
           </span>
           <div
-            className="c4 c7"
+            className="c3 c6"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c4 c8"
+              className="c3 c7"
               id="4--label"
             >
               four
             </span>
             <span
-              className="c4 c9"
+              className="c3 c8"
             />
           </div>
         </li>
         <li
           aria-labelledby="5--label  "
           aria-selected={false}
-          className="c2 c3"
+          className="c1 c2"
           data-id="5"
           id="5"
           onClick={[Function]}
@@ -1360,33 +686,33 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
           tabIndex={0}
         >
           <span
-            className="c4 c5"
+            className="c3 c4"
             data-component="ActionList.Selection"
           >
             <div
-              className="c4 c6"
+              className="c3 c5"
               data-component="ActionList.Checkbox"
             />
           </span>
           <div
-            className="c4 c7"
+            className="c3 c6"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c4 c8"
+              className="c3 c7"
               id="5--label"
             >
               five
             </span>
             <span
-              className="c4 c9"
+              className="c3 c8"
             />
           </div>
         </li>
         <li
           aria-labelledby="6--label  "
           aria-selected={false}
-          className="c2 c3"
+          className="c1 c2"
           data-id="6"
           id="6"
           onClick={[Function]}
@@ -1395,33 +721,33 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
           tabIndex={0}
         >
           <span
-            className="c4 c5"
+            className="c3 c4"
             data-component="ActionList.Selection"
           >
             <div
-              className="c4 c6"
+              className="c3 c5"
               data-component="ActionList.Checkbox"
             />
           </span>
           <div
-            className="c4 c7"
+            className="c3 c6"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c4 c8"
+              className="c3 c7"
               id="6--label"
             >
               six
             </span>
             <span
-              className="c4 c9"
+              className="c3 c8"
             />
           </div>
         </li>
         <li
           aria-labelledby="7--label  "
           aria-selected={false}
-          className="c2 c3"
+          className="c1 c2"
           data-id="7"
           id="7"
           onClick={[Function]}
@@ -1430,33 +756,33 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
           tabIndex={0}
         >
           <span
-            className="c4 c5"
+            className="c3 c4"
             data-component="ActionList.Selection"
           >
             <div
-              className="c4 c6"
+              className="c3 c5"
               data-component="ActionList.Checkbox"
             />
           </span>
           <div
-            className="c4 c7"
+            className="c3 c6"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c4 c8"
+              className="c3 c7"
               id="7--label"
             >
               seven
             </span>
             <span
-              className="c4 c9"
+              className="c3 c8"
             />
           </div>
         </li>
         <li
           aria-labelledby="20--label  "
           aria-selected={false}
-          className="c2 c3"
+          className="c1 c2"
           data-id="20"
           id="20"
           onClick={[Function]}
@@ -1465,33 +791,33 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
           tabIndex={0}
         >
           <span
-            className="c4 c5"
+            className="c3 c4"
             data-component="ActionList.Selection"
           >
             <div
-              className="c4 c6"
+              className="c3 c5"
               data-component="ActionList.Checkbox"
             />
           </span>
           <div
-            className="c4 c7"
+            className="c3 c6"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c4 c8"
+              className="c3 c7"
               id="20--label"
             >
               twenty
             </span>
             <span
-              className="c4 c9"
+              className="c3 c8"
             />
           </div>
         </li>
         <li
           aria-labelledby="21--label  "
           aria-selected={false}
-          className="c2 c3"
+          className="c1 c2"
           data-id="21"
           id="21"
           onClick={[Function]}
@@ -1500,33 +826,33 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
           tabIndex={0}
         >
           <span
-            className="c4 c5"
+            className="c3 c4"
             data-component="ActionList.Selection"
           >
             <div
-              className="c4 c6"
+              className="c3 c5"
               data-component="ActionList.Checkbox"
             />
           </span>
           <div
-            className="c4 c7"
+            className="c3 c6"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c4 c8"
+              className="c3 c7"
               id="21--label"
             >
               twentyone
             </span>
             <span
-              className="c4 c9"
+              className="c3 c8"
             />
           </div>
         </li>
         <li
           aria-labelledby="add-new-item--label  "
           aria-selected={false}
-          className="c2 c3"
+          className="c1 c2"
           data-id="add-new-item"
           id="add-new-item"
           onClick={[Function]}
@@ -1535,16 +861,16 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
           tabIndex={0}
         >
           <span
-            className="c4 c5"
+            className="c3 c4"
             data-component="ActionList.Selection"
           >
             <div
-              className="c4 c6"
+              className="c3 c5"
               data-component="ActionList.Checkbox"
             />
           </span>
           <span
-            className="c4 c10"
+            className="c3 c9"
           >
             <svg
               aria-hidden="true"
@@ -1568,17 +894,17 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
             </svg>
           </span>
           <div
-            className="c4 c7"
+            className="c3 c6"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c4 c8"
+              className="c3 c7"
               id="add-new-item--label"
             >
               Add new item
             </span>
             <span
-              className="c4 c9"
+              className="c3 c8"
             />
           </div>
         </li>
@@ -1590,220 +916,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
 
 exports[`snapshots renders a multiselect input 1`] = `
 [
-  .c2 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c2:focus {
-  outline: 0;
-}
-
-.c0 {
-  font-size: 14px;
-  line-height: var(--base-size-20);
-  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
-  vertical-align: middle;
-  cursor: text;
-  background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
-  border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
-  border-radius: 6px;
-  outline: none;
-  box-shadow: var(--shadow-inset,var(--color-primer-shadow-inset,inset 0 1px 0 rgba(208,215,222,0.2)));
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: stretch;
-  -webkit-box-align: stretch;
-  -ms-flex-align: stretch;
-  align-items: stretch;
-  min-height: var(--base-size-32);
-  overflow: hidden;
-  --inner-action-size: var(--base-size-24);
-}
-
-.c0 input,
-.c0 textarea {
-  cursor: text;
-}
-
-.c0 select {
-  cursor: pointer;
-}
-
-.c0 input::-webkit-input-placeholder,
-.c0 textarea::-webkit-input-placeholder,
-.c0 select::-webkit-input-placeholder {
-  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
-}
-
-.c0 input::-moz-placeholder,
-.c0 textarea::-moz-placeholder,
-.c0 select::-moz-placeholder {
-  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
-}
-
-.c0 input:-ms-input-placeholder,
-.c0 textarea:-ms-input-placeholder,
-.c0 select:-ms-input-placeholder {
-  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
-}
-
-.c0 input::placeholder,
-.c0 textarea::placeholder,
-.c0 select::placeholder {
-  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
-}
-
-.c0:where([data-trailing-action][data-focused]),
-.c0:where(:not([data-trailing-action]):focus-within) {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline-offset: -1px;
-}
-
-.c0 > textarea {
-  padding: var(--base-size-12);
-}
-
-.c0:where([data-contrast]) {
-  background-color: var(--bgColor-inset,var(--color-canvas-inset,#f6f8fa));
-}
-
-.c0:where([data-disabled]) {
-  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
-  background-color: var(--control-bgColor-disabled,var(--color-input-disabled-bg,rgba(175,184,193,0.2)));
-  box-shadow: none;
-  border-color: var(--control-borderColor-disabled,var(--borderColor-default,var(--color-border-default,#d0d7de)));
-}
-
-.c0:where([data-disabled]) input,
-.c0:where([data-disabled]) textarea,
-.c0:where([data-disabled]) select {
-  cursor: not-allowed;
-}
-
-.c0:where([data-monospace]) {
-  font-family: var(--fontStack-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace);
-}
-
-.c0:where([data-validation='error']) {
-  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
-}
-
-.c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
-.c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
-  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
-  outline-offset: -1px;
-}
-
-.c0:where([data-validation='success']) {
-  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
-}
-
-.c0:where([data-block]) {
-  width: 100%;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-self: stretch;
-  -ms-flex-item-align: stretch;
-  align-self: stretch;
-}
-
-.c0:where([data-size='small']) {
-  --inner-action-size: var(--base-size-20);
-  min-height: var(--base-size-28);
-  padding-top: 3px;
-  padding-right: var(--base-size-8);
-  padding-bottom: 3px;
-  padding-left: var(--base-size-8);
-  font-size: var(--text-body-size-small);
-  line-height: var(--base-size-20);
-}
-
-.c0:where([data-size='large']) {
-  --inner-action-size: var(--base-size-28);
-  height: var(--base-size-40);
-  padding-top: 10px;
-  padding-right: var(--base-size-8);
-  padding-bottom: 10px;
-  padding-left: var(--base-size-8);
-}
-
-.c0:where([data-variant='small']) {
-  min-height: 28px;
-  padding-top: 3px;
-  padding-right: var(--base-size-8);
-  padding-bottom: 3px;
-  padding-left: var(--base-size-8);
-  font-size: (--text-body-size-small);
-  line-height: var(--base-size-20);
-}
-
-.c0:where([data-variant='large']) {
-  padding-top: 10px;
-  padding-right: var(--base-size-8);
-  padding-bottom: 10px;
-  padding-left: var(--base-size-8);
-  font-size: var(--text-title-size-medium);
-}
-
-.c1 {
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  padding-right: 0;
-  padding-left: 0;
-}
-
-.c1 > :not(:last-child) {
-  margin-right: 8px;
-}
-
-.c1 .TextInput-icon,
-.c1 .TextInput-action {
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-}
-
-.c1 > input,
-.c1 > select {
-  padding-right: 0;
-  padding-left: 0;
-}
-
-.c1:where([data-leading-visual]) {
-  padding-left: var(--base-size-12);
-}
-
-.c1:where([data-trailing-visual]:not([data-trailing-action])) {
-  padding-right: var(--base-size-12);
-}
-
-.c1:where(:not([data-leading-visual])) > input,
-.c1:where(:not([data-leading-visual])) > select {
-  padding-left: var(--base-size-12);
-}
-
-.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
-.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
-  padding-right: var(--base-size-12);
-}
-
-@media (forced-colors:active) {
+  @media (forced-colors:active) {
 
 }
 
@@ -1815,15 +928,9 @@ exports[`snapshots renders a multiselect input 1`] = `
 
 }
 
-@media (min-width:768px) {
-  .c0 {
-    font-size: var(--text-body-size-medium);
-  }
-}
-
 <span
     aria-busy={false}
-    className="c0 c1 TextInput-wrapper"
+    className="TextInput-wrapper TextInputWrapper TextInputBaseWrapper"
     onClick={[Function]}
   >
     <input
@@ -1833,7 +940,7 @@ exports[`snapshots renders a multiselect input 1`] = `
       aria-haspopup="listbox"
       aria-owns="autocompleteId-listbox"
       autoComplete="off"
-      className="c2"
+      className="Input"
       data-component="input"
       id="autocompleteId"
       onBlur={[Function]}
@@ -1846,7 +953,7 @@ exports[`snapshots renders a multiselect input 1`] = `
       type="text"
     />
   </span>,
-  .c4 {
+  .c3 {
   height: 20px;
   max-width: 20px;
   display: -webkit-box;
@@ -1869,7 +976,7 @@ exports[`snapshots renders a multiselect input 1`] = `
   min-width: 16px;
 }
 
-.c5 {
+.c4 {
   border-color: var(--control-borderColor-emphasis);
   border-style: solid;
   border-width: 1px;
@@ -1885,7 +992,7 @@ exports[`snapshots renders a multiselect input 1`] = `
   transition: background-color,border-color 80ms cubic-bezier(0.32,0,0.67,0) 0ms;
 }
 
-.c5::before {
+.c4::before {
   width: var(--base-size-16,16px);
   height: var(--base-size-16,16px);
   visibility: hidden;
@@ -1907,7 +1014,7 @@ exports[`snapshots renders a multiselect input 1`] = `
   animation: checkmarkOut 80ms cubic-bezier(0.65,0,0.35,1) forwards;
 }
 
-.c6 {
+.c5 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -1922,7 +1029,7 @@ exports[`snapshots renders a multiselect input 1`] = `
   min-width: 0;
 }
 
-.c7 {
+.c6 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -1932,7 +1039,7 @@ exports[`snapshots renders a multiselect input 1`] = `
   line-height: 20px;
 }
 
-.c8 {
+.c7 {
   font-size: 12px;
   line-height: 16px;
   color: var(--fgColor-attention,var(--color-attention-fg,#9a6700));
@@ -1951,14 +1058,7 @@ exports[`snapshots renders a multiselect input 1`] = `
   border-width: 0;
 }
 
-.c1 {
-  margin: 0;
-  padding-inline-start: 0;
-  padding-top: 8px;
-  padding-bottom: 8px;
-}
-
-.c3 {
+.c2 {
   position: relative;
   display: -webkit-box;
   display: -webkit-flex;
@@ -1990,32 +1090,32 @@ exports[`snapshots renders a multiselect input 1`] = `
   margin-bottom: unset;
 }
 
-.c3[data-loading] {
+.c2[data-loading] {
   cursor: default;
 }
 
-.c3[aria-disabled],
-.c3[data-inactive] {
+.c2[aria-disabled],
+.c2[data-inactive] {
   cursor: not-allowed;
 }
 
-.c3[aria-disabled] [data-component="ActionList.Checkbox"],
-.c3[data-inactive] [data-component="ActionList.Checkbox"] {
+.c2[aria-disabled] [data-component="ActionList.Checkbox"],
+.c2[data-inactive] [data-component="ActionList.Checkbox"] {
   cursor: not-allowed;
   background-color: var(--control-bgColor-disabled,rgba(175,184,193,0.2));
   border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
 }
 
-.c3[aria-disabled] [data-component="ActionList.Selection"],
-.c3[data-inactive] [data-component="ActionList.Selection"] {
+.c2[aria-disabled] [data-component="ActionList.Selection"],
+.c2[data-inactive] [data-component="ActionList.Selection"] {
   color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
 }
 
-.c3 [data-component="ActionList.Item--DividerContainer"] {
+.c2 [data-component="ActionList.Item--DividerContainer"] {
   position: relative;
 }
 
-.c3 [data-component="ActionList.Item--DividerContainer"]::before {
+.c2 [data-component="ActionList.Item--DividerContainer"]::before {
   content: " ";
   display: block;
   position: absolute;
@@ -2026,30 +1126,30 @@ exports[`snapshots renders a multiselect input 1`] = `
   border-color: var(--divider-color,transparent);
 }
 
-.c3:not(:first-of-type) {
+.c2:not(:first-of-type) {
   --divider-color: var(--borderColor-muted,var(--color-action-list-item-inline-divider,rgba(208,215,222,0.48)));
 }
 
-[data-component="ActionList.Divider"] + .c2 {
+[data-component="ActionList.Divider"] + .c1 {
   --divider-color: transparent !important;
 }
 
-.c3:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]),
-.c3[data-focus-visible-added]:not([aria-disabled]):not([data-inactive]) {
+.c2:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]),
+.c2[data-focus-visible-added]:not([aria-disabled]):not([data-inactive]) {
   --divider-color: transparent;
 }
 
-.c3:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c2,
-.c3[data-focus-visible-added] + li {
+.c2:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c1,
+.c2[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
 
-.c3[data-is-active-descendant] {
+.c2[data-is-active-descendant] {
   font-weight: 400;
   background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
 }
 
-.c3[data-is-active-descendant]::after {
+.c2[data-is-active-descendant]::after {
   position: absolute;
   top: calc(50% - 12px);
   left: -8px;
@@ -2061,43 +1161,39 @@ exports[`snapshots renders a multiselect input 1`] = `
 }
 
 @media (forced-colors:active) {
-  .c5 {
+  .c4 {
     border-width: 1px;
   }
 }
 
 @media (forced-colors:active) {
-  .c3:focus,
-  .c3:focus-visible,
-  .c3 > a.focus-visible,
-  .c3[data-is-active-descendant] {
+  .c2:focus,
+  .c2:focus-visible,
+  .c2 > a.focus-visible,
+  .c2[data-is-active-descendant] {
     outline: solid 1px transparent !important;
   }
 }
 
 @media (hover:hover) and (pointer:fine) {
-  .c3:hover:not([aria-disabled]):not([data-inactive]) {
+  .c2:hover:not([aria-disabled]):not([data-inactive]) {
     background-color: var(--control-transparent-bgColor-hover,var(--color-action-list-item-default-hover-bg,rgba(208,215,222,0.32)));
     color: var(--fgColor-default,var(--color-fg-default,#1F2328));
     box-shadow: inset 0 0 0 max(1px,0.0625rem) var(--control-transparent-borderColor-active,var(--color-action-list-item-default-active-border,transparent));
   }
 
-  .c3:focus-visible,
-  .c3 > a.focus-visible,
-  .c3:focus.focus-visible {
+  .c2:focus-visible,
+  .c2 > a.focus-visible,
+  .c2:focus.focus-visible {
     outline: none;
     border: 2 solid;
     box-shadow: 0 0 0 2px var(--focus-outlineColor);
   }
 
-  .c3:active:not([aria-disabled]):not([data-inactive]) {
+  .c2:active:not([aria-disabled]):not([data-inactive]) {
     background-color: var(--control-transparent-bgColor-active,var(--color-action-list-item-default-active-bg,rgba(208,215,222,0.48)));
     color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   }
-}
-
-@media (min-width:768px) {
-
 }
 
 <span
@@ -2106,14 +1202,16 @@ exports[`snapshots renders a multiselect input 1`] = `
     <div>
       <ul
         aria-labelledby="labelId"
-        className="c1"
+        className="ActionList"
+        data-dividers={false}
+        data-variant="inset"
         id="autocompleteId-listbox"
         role="listbox"
       >
         <li
           aria-labelledby="0--label  "
           aria-selected={false}
-          className="c2 c3"
+          className="c1 c2"
           data-id="0"
           id="0"
           onClick={[Function]}
@@ -2122,33 +1220,33 @@ exports[`snapshots renders a multiselect input 1`] = `
           tabIndex={0}
         >
           <span
-            className="c4"
+            className="c3"
             data-component="ActionList.Selection"
           >
             <div
-              className="c5"
+              className="c4"
               data-component="ActionList.Checkbox"
             />
           </span>
           <div
-            className="c6"
+            className="c5"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c7"
+              className="c6"
               id="0--label"
             >
               zero
             </span>
             <span
-              className="c8"
+              className="c7"
             />
           </div>
         </li>
         <li
           aria-labelledby="1--label  "
           aria-selected={false}
-          className="c2 c3"
+          className="c1 c2"
           data-id="1"
           id="1"
           onClick={[Function]}
@@ -2157,33 +1255,33 @@ exports[`snapshots renders a multiselect input 1`] = `
           tabIndex={0}
         >
           <span
-            className="c4"
+            className="c3"
             data-component="ActionList.Selection"
           >
             <div
-              className="c5"
+              className="c4"
               data-component="ActionList.Checkbox"
             />
           </span>
           <div
-            className="c6"
+            className="c5"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c7"
+              className="c6"
               id="1--label"
             >
               one
             </span>
             <span
-              className="c8"
+              className="c7"
             />
           </div>
         </li>
         <li
           aria-labelledby="2--label  "
           aria-selected={false}
-          className="c2 c3"
+          className="c1 c2"
           data-id="2"
           id="2"
           onClick={[Function]}
@@ -2192,33 +1290,33 @@ exports[`snapshots renders a multiselect input 1`] = `
           tabIndex={0}
         >
           <span
-            className="c4"
+            className="c3"
             data-component="ActionList.Selection"
           >
             <div
-              className="c5"
+              className="c4"
               data-component="ActionList.Checkbox"
             />
           </span>
           <div
-            className="c6"
+            className="c5"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c7"
+              className="c6"
               id="2--label"
             >
               two
             </span>
             <span
-              className="c8"
+              className="c7"
             />
           </div>
         </li>
         <li
           aria-labelledby="3--label  "
           aria-selected={false}
-          className="c2 c3"
+          className="c1 c2"
           data-id="3"
           id="3"
           onClick={[Function]}
@@ -2227,33 +1325,33 @@ exports[`snapshots renders a multiselect input 1`] = `
           tabIndex={0}
         >
           <span
-            className="c4"
+            className="c3"
             data-component="ActionList.Selection"
           >
             <div
-              className="c5"
+              className="c4"
               data-component="ActionList.Checkbox"
             />
           </span>
           <div
-            className="c6"
+            className="c5"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c7"
+              className="c6"
               id="3--label"
             >
               three
             </span>
             <span
-              className="c8"
+              className="c7"
             />
           </div>
         </li>
         <li
           aria-labelledby="4--label  "
           aria-selected={false}
-          className="c2 c3"
+          className="c1 c2"
           data-id="4"
           id="4"
           onClick={[Function]}
@@ -2262,33 +1360,33 @@ exports[`snapshots renders a multiselect input 1`] = `
           tabIndex={0}
         >
           <span
-            className="c4"
+            className="c3"
             data-component="ActionList.Selection"
           >
             <div
-              className="c5"
+              className="c4"
               data-component="ActionList.Checkbox"
             />
           </span>
           <div
-            className="c6"
+            className="c5"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c7"
+              className="c6"
               id="4--label"
             >
               four
             </span>
             <span
-              className="c8"
+              className="c7"
             />
           </div>
         </li>
         <li
           aria-labelledby="5--label  "
           aria-selected={false}
-          className="c2 c3"
+          className="c1 c2"
           data-id="5"
           id="5"
           onClick={[Function]}
@@ -2297,33 +1395,33 @@ exports[`snapshots renders a multiselect input 1`] = `
           tabIndex={0}
         >
           <span
-            className="c4"
+            className="c3"
             data-component="ActionList.Selection"
           >
             <div
-              className="c5"
+              className="c4"
               data-component="ActionList.Checkbox"
             />
           </span>
           <div
-            className="c6"
+            className="c5"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c7"
+              className="c6"
               id="5--label"
             >
               five
             </span>
             <span
-              className="c8"
+              className="c7"
             />
           </div>
         </li>
         <li
           aria-labelledby="6--label  "
           aria-selected={false}
-          className="c2 c3"
+          className="c1 c2"
           data-id="6"
           id="6"
           onClick={[Function]}
@@ -2332,33 +1430,33 @@ exports[`snapshots renders a multiselect input 1`] = `
           tabIndex={0}
         >
           <span
-            className="c4"
+            className="c3"
             data-component="ActionList.Selection"
           >
             <div
-              className="c5"
+              className="c4"
               data-component="ActionList.Checkbox"
             />
           </span>
           <div
-            className="c6"
+            className="c5"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c7"
+              className="c6"
               id="6--label"
             >
               six
             </span>
             <span
-              className="c8"
+              className="c7"
             />
           </div>
         </li>
         <li
           aria-labelledby="7--label  "
           aria-selected={false}
-          className="c2 c3"
+          className="c1 c2"
           data-id="7"
           id="7"
           onClick={[Function]}
@@ -2367,33 +1465,33 @@ exports[`snapshots renders a multiselect input 1`] = `
           tabIndex={0}
         >
           <span
-            className="c4"
+            className="c3"
             data-component="ActionList.Selection"
           >
             <div
-              className="c5"
+              className="c4"
               data-component="ActionList.Checkbox"
             />
           </span>
           <div
-            className="c6"
+            className="c5"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c7"
+              className="c6"
               id="7--label"
             >
               seven
             </span>
             <span
-              className="c8"
+              className="c7"
             />
           </div>
         </li>
         <li
           aria-labelledby="20--label  "
           aria-selected={false}
-          className="c2 c3"
+          className="c1 c2"
           data-id="20"
           id="20"
           onClick={[Function]}
@@ -2402,33 +1500,33 @@ exports[`snapshots renders a multiselect input 1`] = `
           tabIndex={0}
         >
           <span
-            className="c4"
+            className="c3"
             data-component="ActionList.Selection"
           >
             <div
-              className="c5"
+              className="c4"
               data-component="ActionList.Checkbox"
             />
           </span>
           <div
-            className="c6"
+            className="c5"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c7"
+              className="c6"
               id="20--label"
             >
               twenty
             </span>
             <span
-              className="c8"
+              className="c7"
             />
           </div>
         </li>
         <li
           aria-labelledby="21--label  "
           aria-selected={false}
-          className="c2 c3"
+          className="c1 c2"
           data-id="21"
           id="21"
           onClick={[Function]}
@@ -2437,26 +1535,26 @@ exports[`snapshots renders a multiselect input 1`] = `
           tabIndex={0}
         >
           <span
-            className="c4"
+            className="c3"
             data-component="ActionList.Selection"
           >
             <div
-              className="c5"
+              className="c4"
               data-component="ActionList.Checkbox"
             />
           </span>
           <div
-            className="c6"
+            className="c5"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c7"
+              className="c6"
               id="21--label"
             >
               twentyone
             </span>
             <span
-              className="c8"
+              className="c7"
             />
           </div>
         </li>
@@ -2468,220 +1566,7 @@ exports[`snapshots renders a multiselect input 1`] = `
 
 exports[`snapshots renders a multiselect input with selected menu items 1`] = `
 [
-  .c2 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c2:focus {
-  outline: 0;
-}
-
-.c0 {
-  font-size: 14px;
-  line-height: var(--base-size-20);
-  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
-  vertical-align: middle;
-  cursor: text;
-  background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
-  border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
-  border-radius: 6px;
-  outline: none;
-  box-shadow: var(--shadow-inset,var(--color-primer-shadow-inset,inset 0 1px 0 rgba(208,215,222,0.2)));
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: stretch;
-  -webkit-box-align: stretch;
-  -ms-flex-align: stretch;
-  align-items: stretch;
-  min-height: var(--base-size-32);
-  overflow: hidden;
-  --inner-action-size: var(--base-size-24);
-}
-
-.c0 input,
-.c0 textarea {
-  cursor: text;
-}
-
-.c0 select {
-  cursor: pointer;
-}
-
-.c0 input::-webkit-input-placeholder,
-.c0 textarea::-webkit-input-placeholder,
-.c0 select::-webkit-input-placeholder {
-  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
-}
-
-.c0 input::-moz-placeholder,
-.c0 textarea::-moz-placeholder,
-.c0 select::-moz-placeholder {
-  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
-}
-
-.c0 input:-ms-input-placeholder,
-.c0 textarea:-ms-input-placeholder,
-.c0 select:-ms-input-placeholder {
-  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
-}
-
-.c0 input::placeholder,
-.c0 textarea::placeholder,
-.c0 select::placeholder {
-  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
-}
-
-.c0:where([data-trailing-action][data-focused]),
-.c0:where(:not([data-trailing-action]):focus-within) {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline-offset: -1px;
-}
-
-.c0 > textarea {
-  padding: var(--base-size-12);
-}
-
-.c0:where([data-contrast]) {
-  background-color: var(--bgColor-inset,var(--color-canvas-inset,#f6f8fa));
-}
-
-.c0:where([data-disabled]) {
-  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
-  background-color: var(--control-bgColor-disabled,var(--color-input-disabled-bg,rgba(175,184,193,0.2)));
-  box-shadow: none;
-  border-color: var(--control-borderColor-disabled,var(--borderColor-default,var(--color-border-default,#d0d7de)));
-}
-
-.c0:where([data-disabled]) input,
-.c0:where([data-disabled]) textarea,
-.c0:where([data-disabled]) select {
-  cursor: not-allowed;
-}
-
-.c0:where([data-monospace]) {
-  font-family: var(--fontStack-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace);
-}
-
-.c0:where([data-validation='error']) {
-  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
-}
-
-.c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
-.c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
-  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
-  outline-offset: -1px;
-}
-
-.c0:where([data-validation='success']) {
-  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
-}
-
-.c0:where([data-block]) {
-  width: 100%;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-self: stretch;
-  -ms-flex-item-align: stretch;
-  align-self: stretch;
-}
-
-.c0:where([data-size='small']) {
-  --inner-action-size: var(--base-size-20);
-  min-height: var(--base-size-28);
-  padding-top: 3px;
-  padding-right: var(--base-size-8);
-  padding-bottom: 3px;
-  padding-left: var(--base-size-8);
-  font-size: var(--text-body-size-small);
-  line-height: var(--base-size-20);
-}
-
-.c0:where([data-size='large']) {
-  --inner-action-size: var(--base-size-28);
-  height: var(--base-size-40);
-  padding-top: 10px;
-  padding-right: var(--base-size-8);
-  padding-bottom: 10px;
-  padding-left: var(--base-size-8);
-}
-
-.c0:where([data-variant='small']) {
-  min-height: 28px;
-  padding-top: 3px;
-  padding-right: var(--base-size-8);
-  padding-bottom: 3px;
-  padding-left: var(--base-size-8);
-  font-size: (--text-body-size-small);
-  line-height: var(--base-size-20);
-}
-
-.c0:where([data-variant='large']) {
-  padding-top: 10px;
-  padding-right: var(--base-size-8);
-  padding-bottom: 10px;
-  padding-left: var(--base-size-8);
-  font-size: var(--text-title-size-medium);
-}
-
-.c1 {
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  padding-right: 0;
-  padding-left: 0;
-}
-
-.c1 > :not(:last-child) {
-  margin-right: 8px;
-}
-
-.c1 .TextInput-icon,
-.c1 .TextInput-action {
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-}
-
-.c1 > input,
-.c1 > select {
-  padding-right: 0;
-  padding-left: 0;
-}
-
-.c1:where([data-leading-visual]) {
-  padding-left: var(--base-size-12);
-}
-
-.c1:where([data-trailing-visual]:not([data-trailing-action])) {
-  padding-right: var(--base-size-12);
-}
-
-.c1:where(:not([data-leading-visual])) > input,
-.c1:where(:not([data-leading-visual])) > select {
-  padding-left: var(--base-size-12);
-}
-
-.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
-.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
-  padding-right: var(--base-size-12);
-}
-
-@media (forced-colors:active) {
+  @media (forced-colors:active) {
 
 }
 
@@ -2703,17 +1588,11 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
 
 @media (hover:hover) and (pointer:fine) {
 
-}
-
-@media (min-width:768px) {
-  .c0 {
-    font-size: var(--text-body-size-medium);
-  }
 }
 
 <span
     aria-busy={false}
-    className="c0 c1 TextInput-wrapper"
+    className="TextInput-wrapper TextInputWrapper TextInputBaseWrapper"
     onClick={[Function]}
   >
     <input
@@ -2723,7 +1602,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
       aria-haspopup="listbox"
       aria-owns="autocompleteId-listbox"
       autoComplete="off"
-      className="c2"
+      className="Input"
       data-component="input"
       id="autocompleteId"
       onBlur={[Function]}
@@ -2736,7 +1615,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
       type="text"
     />
   </span>,
-  .c4 {
+  .c3 {
   height: 20px;
   max-width: 20px;
   display: -webkit-box;
@@ -2759,7 +1638,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   min-width: 16px;
 }
 
-.c5 {
+.c4 {
   border-color: var(--control-checked-borderColor-rest);
   border-style: solid;
   border-width: 1px;
@@ -2775,7 +1654,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   transition: background-color,border-color 80ms cubic-bezier(0.33,1,0.68,1);
 }
 
-.c5::before {
+.c4::before {
   width: var(--base-size-16,16px);
   height: var(--base-size-16,16px);
   visibility: visible;
@@ -2797,7 +1676,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   animation: checkmarkIn 80ms cubic-bezier(0.65,0,0.35,1) forwards 80ms;
 }
 
-.c6 {
+.c5 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -2812,7 +1691,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   min-width: 0;
 }
 
-.c7 {
+.c6 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -2822,13 +1701,13 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   line-height: 20px;
 }
 
-.c8 {
+.c7 {
   font-size: 12px;
   line-height: 16px;
   color: var(--fgColor-attention,var(--color-attention-fg,#9a6700));
 }
 
-.c10 {
+.c9 {
   border-color: var(--control-borderColor-emphasis);
   border-style: solid;
   border-width: 1px;
@@ -2844,7 +1723,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   transition: background-color,border-color 80ms cubic-bezier(0.32,0,0.67,0) 0ms;
 }
 
-.c10::before {
+.c9::before {
   width: var(--base-size-16,16px);
   height: var(--base-size-16,16px);
   visibility: hidden;
@@ -2879,14 +1758,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   border-width: 0;
 }
 
-.c1 {
-  margin: 0;
-  padding-inline-start: 0;
-  padding-top: 8px;
-  padding-bottom: 8px;
-}
-
-.c3 {
+.c2 {
   position: relative;
   display: -webkit-box;
   display: -webkit-flex;
@@ -2918,32 +1790,32 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   margin-bottom: unset;
 }
 
-.c3[data-loading] {
+.c2[data-loading] {
   cursor: default;
 }
 
-.c3[aria-disabled],
-.c3[data-inactive] {
+.c2[aria-disabled],
+.c2[data-inactive] {
   cursor: not-allowed;
 }
 
-.c3[aria-disabled] [data-component="ActionList.Checkbox"],
-.c3[data-inactive] [data-component="ActionList.Checkbox"] {
+.c2[aria-disabled] [data-component="ActionList.Checkbox"],
+.c2[data-inactive] [data-component="ActionList.Checkbox"] {
   cursor: not-allowed;
   background-color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   border-color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
 }
 
-.c3[aria-disabled] [data-component="ActionList.Selection"],
-.c3[data-inactive] [data-component="ActionList.Selection"] {
+.c2[aria-disabled] [data-component="ActionList.Selection"],
+.c2[data-inactive] [data-component="ActionList.Selection"] {
   color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
 }
 
-.c3 [data-component="ActionList.Item--DividerContainer"] {
+.c2 [data-component="ActionList.Item--DividerContainer"] {
   position: relative;
 }
 
-.c3 [data-component="ActionList.Item--DividerContainer"]::before {
+.c2 [data-component="ActionList.Item--DividerContainer"]::before {
   content: " ";
   display: block;
   position: absolute;
@@ -2954,30 +1826,30 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   border-color: var(--divider-color,transparent);
 }
 
-.c3:not(:first-of-type) {
+.c2:not(:first-of-type) {
   --divider-color: var(--borderColor-muted,var(--color-action-list-item-inline-divider,rgba(208,215,222,0.48)));
 }
 
-[data-component="ActionList.Divider"] + .c2 {
+[data-component="ActionList.Divider"] + .c1 {
   --divider-color: transparent !important;
 }
 
-.c3:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]),
-.c3[data-focus-visible-added]:not([aria-disabled]):not([data-inactive]) {
+.c2:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]),
+.c2[data-focus-visible-added]:not([aria-disabled]):not([data-inactive]) {
   --divider-color: transparent;
 }
 
-.c3:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c2,
-.c3[data-focus-visible-added] + li {
+.c2:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c1,
+.c2[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
 
-.c3[data-is-active-descendant] {
+.c2[data-is-active-descendant] {
   font-weight: 400;
   background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
 }
 
-.c3[data-is-active-descendant]::after {
+.c2[data-is-active-descendant]::after {
   position: absolute;
   top: calc(50% - 12px);
   left: -8px;
@@ -2988,7 +1860,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   border-radius: 6px;
 }
 
-.c9 {
+.c8 {
   position: relative;
   display: -webkit-box;
   display: -webkit-flex;
@@ -3020,32 +1892,32 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   margin-bottom: unset;
 }
 
-.c9[data-loading] {
+.c8[data-loading] {
   cursor: default;
 }
 
-.c9[aria-disabled],
-.c9[data-inactive] {
+.c8[aria-disabled],
+.c8[data-inactive] {
   cursor: not-allowed;
 }
 
-.c9[aria-disabled] [data-component="ActionList.Checkbox"],
-.c9[data-inactive] [data-component="ActionList.Checkbox"] {
+.c8[aria-disabled] [data-component="ActionList.Checkbox"],
+.c8[data-inactive] [data-component="ActionList.Checkbox"] {
   cursor: not-allowed;
   background-color: var(--control-bgColor-disabled,rgba(175,184,193,0.2));
   border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
 }
 
-.c9[aria-disabled] [data-component="ActionList.Selection"],
-.c9[data-inactive] [data-component="ActionList.Selection"] {
+.c8[aria-disabled] [data-component="ActionList.Selection"],
+.c8[data-inactive] [data-component="ActionList.Selection"] {
   color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
 }
 
-.c9 [data-component="ActionList.Item--DividerContainer"] {
+.c8 [data-component="ActionList.Item--DividerContainer"] {
   position: relative;
 }
 
-.c9 [data-component="ActionList.Item--DividerContainer"]::before {
+.c8 [data-component="ActionList.Item--DividerContainer"]::before {
   content: " ";
   display: block;
   position: absolute;
@@ -3056,30 +1928,30 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   border-color: var(--divider-color,transparent);
 }
 
-.c9:not(:first-of-type) {
+.c8:not(:first-of-type) {
   --divider-color: var(--borderColor-muted,var(--color-action-list-item-inline-divider,rgba(208,215,222,0.48)));
 }
 
-[data-component="ActionList.Divider"] + .c2 {
+[data-component="ActionList.Divider"] + .c1 {
   --divider-color: transparent !important;
 }
 
-.c9:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]),
-.c9[data-focus-visible-added]:not([aria-disabled]):not([data-inactive]) {
+.c8:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]),
+.c8[data-focus-visible-added]:not([aria-disabled]):not([data-inactive]) {
   --divider-color: transparent;
 }
 
-.c9:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c2,
-.c9[data-focus-visible-added] + li {
+.c8:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c1,
+.c8[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
 
-.c9[data-is-active-descendant] {
+.c8[data-is-active-descendant] {
   font-weight: 400;
   background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
 }
 
-.c9[data-is-active-descendant]::after {
+.c8[data-is-active-descendant]::after {
   position: absolute;
   top: calc(50% - 12px);
   left: -8px;
@@ -3091,79 +1963,75 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
 }
 
 @media (forced-colors:active) {
-  .c5 {
+  .c4 {
     border-width: 8px;
   }
 }
 
 @media (forced-colors:active) {
-  .c10 {
+  .c9 {
     border-width: 1px;
   }
 }
 
 @media (forced-colors:active) {
-  .c3:focus,
-  .c3:focus-visible,
-  .c3 > a.focus-visible,
-  .c3[data-is-active-descendant] {
+  .c2:focus,
+  .c2:focus-visible,
+  .c2 > a.focus-visible,
+  .c2[data-is-active-descendant] {
     outline: solid 1px transparent !important;
   }
 }
 
 @media (hover:hover) and (pointer:fine) {
-  .c3:hover:not([aria-disabled]):not([data-inactive]) {
+  .c2:hover:not([aria-disabled]):not([data-inactive]) {
     background-color: var(--control-transparent-bgColor-hover,var(--color-action-list-item-default-hover-bg,rgba(208,215,222,0.32)));
     color: var(--fgColor-default,var(--color-fg-default,#1F2328));
     box-shadow: inset 0 0 0 max(1px,0.0625rem) var(--control-transparent-borderColor-active,var(--color-action-list-item-default-active-border,transparent));
   }
 
-  .c3:focus-visible,
-  .c3 > a.focus-visible,
-  .c3:focus.focus-visible {
+  .c2:focus-visible,
+  .c2 > a.focus-visible,
+  .c2:focus.focus-visible {
     outline: none;
     border: 2 solid;
     box-shadow: 0 0 0 2px var(--focus-outlineColor);
   }
 
-  .c3:active:not([aria-disabled]):not([data-inactive]) {
+  .c2:active:not([aria-disabled]):not([data-inactive]) {
     background-color: var(--control-transparent-bgColor-active,var(--color-action-list-item-default-active-bg,rgba(208,215,222,0.48)));
     color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   }
 }
 
 @media (forced-colors:active) {
-  .c9:focus,
-  .c9:focus-visible,
-  .c9 > a.focus-visible,
-  .c9[data-is-active-descendant] {
+  .c8:focus,
+  .c8:focus-visible,
+  .c8 > a.focus-visible,
+  .c8[data-is-active-descendant] {
     outline: solid 1px transparent !important;
   }
 }
 
 @media (hover:hover) and (pointer:fine) {
-  .c9:hover:not([aria-disabled]):not([data-inactive]) {
+  .c8:hover:not([aria-disabled]):not([data-inactive]) {
     background-color: var(--control-transparent-bgColor-hover,var(--color-action-list-item-default-hover-bg,rgba(208,215,222,0.32)));
     color: var(--fgColor-default,var(--color-fg-default,#1F2328));
     box-shadow: inset 0 0 0 max(1px,0.0625rem) var(--control-transparent-borderColor-active,var(--color-action-list-item-default-active-border,transparent));
   }
 
-  .c9:focus-visible,
-  .c9 > a.focus-visible,
-  .c9:focus.focus-visible {
+  .c8:focus-visible,
+  .c8 > a.focus-visible,
+  .c8:focus.focus-visible {
     outline: none;
     border: 2 solid;
     box-shadow: 0 0 0 2px var(--focus-outlineColor);
   }
 
-  .c9:active:not([aria-disabled]):not([data-inactive]) {
+  .c8:active:not([aria-disabled]):not([data-inactive]) {
     background-color: var(--control-transparent-bgColor-active,var(--color-action-list-item-default-active-bg,rgba(208,215,222,0.48)));
     color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   }
-}
-
-@media (min-width:768px) {
-
 }
 
 <span
@@ -3172,14 +2040,16 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
     <div>
       <ul
         aria-labelledby="labelId"
-        className="c1"
+        className="ActionList"
+        data-dividers={false}
+        data-variant="inset"
         id="autocompleteId-listbox"
         role="listbox"
       >
         <li
           aria-labelledby="0--label  "
           aria-selected={true}
-          className="c2 c3"
+          className="c1 c2"
           data-id="0"
           id="0"
           onClick={[Function]}
@@ -3188,33 +2058,33 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
           tabIndex={0}
         >
           <span
-            className="c4"
+            className="c3"
             data-component="ActionList.Selection"
           >
             <div
-              className="c5"
+              className="c4"
               data-component="ActionList.Checkbox"
             />
           </span>
           <div
-            className="c6"
+            className="c5"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c7"
+              className="c6"
               id="0--label"
             >
               zero
             </span>
             <span
-              className="c8"
+              className="c7"
             />
           </div>
         </li>
         <li
           aria-labelledby="1--label  "
           aria-selected={true}
-          className="c2 c3"
+          className="c1 c2"
           data-id="1"
           id="1"
           onClick={[Function]}
@@ -3223,33 +2093,33 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
           tabIndex={0}
         >
           <span
-            className="c4"
+            className="c3"
             data-component="ActionList.Selection"
           >
             <div
-              className="c5"
+              className="c4"
               data-component="ActionList.Checkbox"
             />
           </span>
           <div
-            className="c6"
+            className="c5"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c7"
+              className="c6"
               id="1--label"
             >
               one
             </span>
             <span
-              className="c8"
+              className="c7"
             />
           </div>
         </li>
         <li
           aria-labelledby="2--label  "
           aria-selected={true}
-          className="c2 c3"
+          className="c1 c2"
           data-id="2"
           id="2"
           onClick={[Function]}
@@ -3258,33 +2128,33 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
           tabIndex={0}
         >
           <span
-            className="c4"
+            className="c3"
             data-component="ActionList.Selection"
           >
             <div
-              className="c5"
+              className="c4"
               data-component="ActionList.Checkbox"
             />
           </span>
           <div
-            className="c6"
+            className="c5"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c7"
+              className="c6"
               id="2--label"
             >
               two
             </span>
             <span
-              className="c8"
+              className="c7"
             />
           </div>
         </li>
         <li
           aria-labelledby="3--label  "
           aria-selected={false}
-          className="c2 c9"
+          className="c1 c8"
           data-id="3"
           id="3"
           onClick={[Function]}
@@ -3293,33 +2163,33 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
           tabIndex={0}
         >
           <span
-            className="c4"
+            className="c3"
             data-component="ActionList.Selection"
           >
             <div
-              className="c10"
+              className="c9"
               data-component="ActionList.Checkbox"
             />
           </span>
           <div
-            className="c6"
+            className="c5"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c7"
+              className="c6"
               id="3--label"
             >
               three
             </span>
             <span
-              className="c8"
+              className="c7"
             />
           </div>
         </li>
         <li
           aria-labelledby="4--label  "
           aria-selected={false}
-          className="c2 c9"
+          className="c1 c8"
           data-id="4"
           id="4"
           onClick={[Function]}
@@ -3328,33 +2198,33 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
           tabIndex={0}
         >
           <span
-            className="c4"
+            className="c3"
             data-component="ActionList.Selection"
           >
             <div
-              className="c10"
+              className="c9"
               data-component="ActionList.Checkbox"
             />
           </span>
           <div
-            className="c6"
+            className="c5"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c7"
+              className="c6"
               id="4--label"
             >
               four
             </span>
             <span
-              className="c8"
+              className="c7"
             />
           </div>
         </li>
         <li
           aria-labelledby="5--label  "
           aria-selected={false}
-          className="c2 c9"
+          className="c1 c8"
           data-id="5"
           id="5"
           onClick={[Function]}
@@ -3363,33 +2233,33 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
           tabIndex={0}
         >
           <span
-            className="c4"
+            className="c3"
             data-component="ActionList.Selection"
           >
             <div
-              className="c10"
+              className="c9"
               data-component="ActionList.Checkbox"
             />
           </span>
           <div
-            className="c6"
+            className="c5"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c7"
+              className="c6"
               id="5--label"
             >
               five
             </span>
             <span
-              className="c8"
+              className="c7"
             />
           </div>
         </li>
         <li
           aria-labelledby="6--label  "
           aria-selected={false}
-          className="c2 c9"
+          className="c1 c8"
           data-id="6"
           id="6"
           onClick={[Function]}
@@ -3398,33 +2268,33 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
           tabIndex={0}
         >
           <span
-            className="c4"
+            className="c3"
             data-component="ActionList.Selection"
           >
             <div
-              className="c10"
+              className="c9"
               data-component="ActionList.Checkbox"
             />
           </span>
           <div
-            className="c6"
+            className="c5"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c7"
+              className="c6"
               id="6--label"
             >
               six
             </span>
             <span
-              className="c8"
+              className="c7"
             />
           </div>
         </li>
         <li
           aria-labelledby="7--label  "
           aria-selected={false}
-          className="c2 c9"
+          className="c1 c8"
           data-id="7"
           id="7"
           onClick={[Function]}
@@ -3433,33 +2303,33 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
           tabIndex={0}
         >
           <span
-            className="c4"
+            className="c3"
             data-component="ActionList.Selection"
           >
             <div
-              className="c10"
+              className="c9"
               data-component="ActionList.Checkbox"
             />
           </span>
           <div
-            className="c6"
+            className="c5"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c7"
+              className="c6"
               id="7--label"
             >
               seven
             </span>
             <span
-              className="c8"
+              className="c7"
             />
           </div>
         </li>
         <li
           aria-labelledby="20--label  "
           aria-selected={false}
-          className="c2 c9"
+          className="c1 c8"
           data-id="20"
           id="20"
           onClick={[Function]}
@@ -3468,33 +2338,33 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
           tabIndex={0}
         >
           <span
-            className="c4"
+            className="c3"
             data-component="ActionList.Selection"
           >
             <div
-              className="c10"
+              className="c9"
               data-component="ActionList.Checkbox"
             />
           </span>
           <div
-            className="c6"
+            className="c5"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c7"
+              className="c6"
               id="20--label"
             >
               twenty
             </span>
             <span
-              className="c8"
+              className="c7"
             />
           </div>
         </li>
         <li
           aria-labelledby="21--label  "
           aria-selected={false}
-          className="c2 c9"
+          className="c1 c8"
           data-id="21"
           id="21"
           onClick={[Function]}
@@ -3503,26 +2373,26 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
           tabIndex={0}
         >
           <span
-            className="c4"
+            className="c3"
             data-component="ActionList.Selection"
           >
             <div
-              className="c10"
+              className="c9"
               data-component="ActionList.Checkbox"
             />
           </span>
           <div
-            className="c6"
+            className="c5"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c7"
+              className="c6"
               id="21--label"
             >
               twentyone
             </span>
             <span
-              className="c8"
+              className="c7"
             />
           </div>
         </li>
@@ -3534,220 +2404,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
 
 exports[`snapshots renders a single select input 1`] = `
 [
-  .c2 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c2:focus {
-  outline: 0;
-}
-
-.c0 {
-  font-size: 14px;
-  line-height: var(--base-size-20);
-  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
-  vertical-align: middle;
-  cursor: text;
-  background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
-  border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
-  border-radius: 6px;
-  outline: none;
-  box-shadow: var(--shadow-inset,var(--color-primer-shadow-inset,inset 0 1px 0 rgba(208,215,222,0.2)));
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: stretch;
-  -webkit-box-align: stretch;
-  -ms-flex-align: stretch;
-  align-items: stretch;
-  min-height: var(--base-size-32);
-  overflow: hidden;
-  --inner-action-size: var(--base-size-24);
-}
-
-.c0 input,
-.c0 textarea {
-  cursor: text;
-}
-
-.c0 select {
-  cursor: pointer;
-}
-
-.c0 input::-webkit-input-placeholder,
-.c0 textarea::-webkit-input-placeholder,
-.c0 select::-webkit-input-placeholder {
-  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
-}
-
-.c0 input::-moz-placeholder,
-.c0 textarea::-moz-placeholder,
-.c0 select::-moz-placeholder {
-  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
-}
-
-.c0 input:-ms-input-placeholder,
-.c0 textarea:-ms-input-placeholder,
-.c0 select:-ms-input-placeholder {
-  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
-}
-
-.c0 input::placeholder,
-.c0 textarea::placeholder,
-.c0 select::placeholder {
-  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
-}
-
-.c0:where([data-trailing-action][data-focused]),
-.c0:where(:not([data-trailing-action]):focus-within) {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline-offset: -1px;
-}
-
-.c0 > textarea {
-  padding: var(--base-size-12);
-}
-
-.c0:where([data-contrast]) {
-  background-color: var(--bgColor-inset,var(--color-canvas-inset,#f6f8fa));
-}
-
-.c0:where([data-disabled]) {
-  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
-  background-color: var(--control-bgColor-disabled,var(--color-input-disabled-bg,rgba(175,184,193,0.2)));
-  box-shadow: none;
-  border-color: var(--control-borderColor-disabled,var(--borderColor-default,var(--color-border-default,#d0d7de)));
-}
-
-.c0:where([data-disabled]) input,
-.c0:where([data-disabled]) textarea,
-.c0:where([data-disabled]) select {
-  cursor: not-allowed;
-}
-
-.c0:where([data-monospace]) {
-  font-family: var(--fontStack-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace);
-}
-
-.c0:where([data-validation='error']) {
-  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
-}
-
-.c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
-.c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
-  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
-  outline-offset: -1px;
-}
-
-.c0:where([data-validation='success']) {
-  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
-}
-
-.c0:where([data-block]) {
-  width: 100%;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-self: stretch;
-  -ms-flex-item-align: stretch;
-  align-self: stretch;
-}
-
-.c0:where([data-size='small']) {
-  --inner-action-size: var(--base-size-20);
-  min-height: var(--base-size-28);
-  padding-top: 3px;
-  padding-right: var(--base-size-8);
-  padding-bottom: 3px;
-  padding-left: var(--base-size-8);
-  font-size: var(--text-body-size-small);
-  line-height: var(--base-size-20);
-}
-
-.c0:where([data-size='large']) {
-  --inner-action-size: var(--base-size-28);
-  height: var(--base-size-40);
-  padding-top: 10px;
-  padding-right: var(--base-size-8);
-  padding-bottom: 10px;
-  padding-left: var(--base-size-8);
-}
-
-.c0:where([data-variant='small']) {
-  min-height: 28px;
-  padding-top: 3px;
-  padding-right: var(--base-size-8);
-  padding-bottom: 3px;
-  padding-left: var(--base-size-8);
-  font-size: (--text-body-size-small);
-  line-height: var(--base-size-20);
-}
-
-.c0:where([data-variant='large']) {
-  padding-top: 10px;
-  padding-right: var(--base-size-8);
-  padding-bottom: 10px;
-  padding-left: var(--base-size-8);
-  font-size: var(--text-title-size-medium);
-}
-
-.c1 {
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  padding-right: 0;
-  padding-left: 0;
-}
-
-.c1 > :not(:last-child) {
-  margin-right: 8px;
-}
-
-.c1 .TextInput-icon,
-.c1 .TextInput-action {
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-}
-
-.c1 > input,
-.c1 > select {
-  padding-right: 0;
-  padding-left: 0;
-}
-
-.c1:where([data-leading-visual]) {
-  padding-left: var(--base-size-12);
-}
-
-.c1:where([data-trailing-visual]:not([data-trailing-action])) {
-  padding-right: var(--base-size-12);
-}
-
-.c1:where(:not([data-leading-visual])) > input,
-.c1:where(:not([data-leading-visual])) > select {
-  padding-left: var(--base-size-12);
-}
-
-.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
-.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
-  padding-right: var(--base-size-12);
-}
-
-@media (forced-colors:active) {
+  @media (forced-colors:active) {
 
 }
 
@@ -3755,15 +2412,9 @@ exports[`snapshots renders a single select input 1`] = `
 
 }
 
-@media (min-width:768px) {
-  .c0 {
-    font-size: var(--text-body-size-medium);
-  }
-}
-
 <span
     aria-busy={false}
-    className="c0 c1 TextInput-wrapper"
+    className="TextInput-wrapper TextInputWrapper TextInputBaseWrapper"
     onClick={[Function]}
   >
     <input
@@ -3773,7 +2424,7 @@ exports[`snapshots renders a single select input 1`] = `
       aria-haspopup="listbox"
       aria-owns="autocompleteId-listbox"
       autoComplete="off"
-      className="c2"
+      className="Input"
       data-component="input"
       id="autocompleteId"
       onBlur={[Function]}
@@ -3786,7 +2437,7 @@ exports[`snapshots renders a single select input 1`] = `
       type="text"
     />
   </span>,
-  .c4 {
+  .c3 {
   height: 20px;
   max-width: 20px;
   display: -webkit-box;
@@ -3809,7 +2460,7 @@ exports[`snapshots renders a single select input 1`] = `
   min-width: 16px;
 }
 
-.c5 {
+.c4 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -3824,7 +2475,7 @@ exports[`snapshots renders a single select input 1`] = `
   min-width: 0;
 }
 
-.c6 {
+.c5 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -3834,7 +2485,7 @@ exports[`snapshots renders a single select input 1`] = `
   line-height: 20px;
 }
 
-.c7 {
+.c6 {
   font-size: 12px;
   line-height: 16px;
   color: var(--fgColor-attention,var(--color-attention-fg,#9a6700));
@@ -3853,14 +2504,7 @@ exports[`snapshots renders a single select input 1`] = `
   border-width: 0;
 }
 
-.c1 {
-  margin: 0;
-  padding-inline-start: 0;
-  padding-top: 8px;
-  padding-bottom: 8px;
-}
-
-.c3 {
+.c2 {
   position: relative;
   display: -webkit-box;
   display: -webkit-flex;
@@ -3892,32 +2536,32 @@ exports[`snapshots renders a single select input 1`] = `
   margin-bottom: unset;
 }
 
-.c3[data-loading] {
+.c2[data-loading] {
   cursor: default;
 }
 
-.c3[aria-disabled],
-.c3[data-inactive] {
+.c2[aria-disabled],
+.c2[data-inactive] {
   cursor: not-allowed;
 }
 
-.c3[aria-disabled] [data-component="ActionList.Checkbox"],
-.c3[data-inactive] [data-component="ActionList.Checkbox"] {
+.c2[aria-disabled] [data-component="ActionList.Checkbox"],
+.c2[data-inactive] [data-component="ActionList.Checkbox"] {
   cursor: not-allowed;
   background-color: var(--control-bgColor-disabled,rgba(175,184,193,0.2));
   border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
 }
 
-.c3[aria-disabled] [data-component="ActionList.Selection"],
-.c3[data-inactive] [data-component="ActionList.Selection"] {
+.c2[aria-disabled] [data-component="ActionList.Selection"],
+.c2[data-inactive] [data-component="ActionList.Selection"] {
   color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
 }
 
-.c3 [data-component="ActionList.Item--DividerContainer"] {
+.c2 [data-component="ActionList.Item--DividerContainer"] {
   position: relative;
 }
 
-.c3 [data-component="ActionList.Item--DividerContainer"]::before {
+.c2 [data-component="ActionList.Item--DividerContainer"]::before {
   content: " ";
   display: block;
   position: absolute;
@@ -3928,30 +2572,30 @@ exports[`snapshots renders a single select input 1`] = `
   border-color: var(--divider-color,transparent);
 }
 
-.c3:not(:first-of-type) {
+.c2:not(:first-of-type) {
   --divider-color: var(--borderColor-muted,var(--color-action-list-item-inline-divider,rgba(208,215,222,0.48)));
 }
 
-[data-component="ActionList.Divider"] + .c2 {
+[data-component="ActionList.Divider"] + .c1 {
   --divider-color: transparent !important;
 }
 
-.c3:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]),
-.c3[data-focus-visible-added]:not([aria-disabled]):not([data-inactive]) {
+.c2:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]),
+.c2[data-focus-visible-added]:not([aria-disabled]):not([data-inactive]) {
   --divider-color: transparent;
 }
 
-.c3:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c2,
-.c3[data-focus-visible-added] + li {
+.c2:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c1,
+.c2[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
 
-.c3[data-is-active-descendant] {
+.c2[data-is-active-descendant] {
   font-weight: 400;
   background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
 }
 
-.c3[data-is-active-descendant]::after {
+.c2[data-is-active-descendant]::after {
   position: absolute;
   top: calc(50% - 12px);
   left: -8px;
@@ -3963,37 +2607,33 @@ exports[`snapshots renders a single select input 1`] = `
 }
 
 @media (forced-colors:active) {
-  .c3:focus,
-  .c3:focus-visible,
-  .c3 > a.focus-visible,
-  .c3[data-is-active-descendant] {
+  .c2:focus,
+  .c2:focus-visible,
+  .c2 > a.focus-visible,
+  .c2[data-is-active-descendant] {
     outline: solid 1px transparent !important;
   }
 }
 
 @media (hover:hover) and (pointer:fine) {
-  .c3:hover:not([aria-disabled]):not([data-inactive]) {
+  .c2:hover:not([aria-disabled]):not([data-inactive]) {
     background-color: var(--control-transparent-bgColor-hover,var(--color-action-list-item-default-hover-bg,rgba(208,215,222,0.32)));
     color: var(--fgColor-default,var(--color-fg-default,#1F2328));
     box-shadow: inset 0 0 0 max(1px,0.0625rem) var(--control-transparent-borderColor-active,var(--color-action-list-item-default-active-border,transparent));
   }
 
-  .c3:focus-visible,
-  .c3 > a.focus-visible,
-  .c3:focus.focus-visible {
+  .c2:focus-visible,
+  .c2 > a.focus-visible,
+  .c2:focus.focus-visible {
     outline: none;
     border: 2 solid;
     box-shadow: 0 0 0 2px var(--focus-outlineColor);
   }
 
-  .c3:active:not([aria-disabled]):not([data-inactive]) {
+  .c2:active:not([aria-disabled]):not([data-inactive]) {
     background-color: var(--control-transparent-bgColor-active,var(--color-action-list-item-default-active-bg,rgba(208,215,222,0.48)));
     color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   }
-}
-
-@media (min-width:768px) {
-
 }
 
 <span
@@ -4002,13 +2642,15 @@ exports[`snapshots renders a single select input 1`] = `
     <div>
       <ul
         aria-labelledby="labelId"
-        className="c1"
+        className="ActionList"
+        data-dividers={false}
+        data-variant="inset"
         id="autocompleteId-listbox"
         role="listbox"
       >
         <li
           aria-labelledby="0--label  "
-          className="c2 c3"
+          className="c1 c2"
           data-id="0"
           id="0"
           onClick={[Function]}
@@ -4017,27 +2659,27 @@ exports[`snapshots renders a single select input 1`] = `
           tabIndex={0}
         >
           <span
-            className="c4"
+            className="c3"
             data-component="ActionList.Selection"
           />
           <div
-            className="c5"
+            className="c4"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c6"
+              className="c5"
               id="0--label"
             >
               zero
             </span>
             <span
-              className="c7"
+              className="c6"
             />
           </div>
         </li>
         <li
           aria-labelledby="1--label  "
-          className="c2 c3"
+          className="c1 c2"
           data-id="1"
           id="1"
           onClick={[Function]}
@@ -4046,27 +2688,27 @@ exports[`snapshots renders a single select input 1`] = `
           tabIndex={0}
         >
           <span
-            className="c4"
+            className="c3"
             data-component="ActionList.Selection"
           />
           <div
-            className="c5"
+            className="c4"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c6"
+              className="c5"
               id="1--label"
             >
               one
             </span>
             <span
-              className="c7"
+              className="c6"
             />
           </div>
         </li>
         <li
           aria-labelledby="2--label  "
-          className="c2 c3"
+          className="c1 c2"
           data-id="2"
           id="2"
           onClick={[Function]}
@@ -4075,27 +2717,27 @@ exports[`snapshots renders a single select input 1`] = `
           tabIndex={0}
         >
           <span
-            className="c4"
+            className="c3"
             data-component="ActionList.Selection"
           />
           <div
-            className="c5"
+            className="c4"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c6"
+              className="c5"
               id="2--label"
             >
               two
             </span>
             <span
-              className="c7"
+              className="c6"
             />
           </div>
         </li>
         <li
           aria-labelledby="3--label  "
-          className="c2 c3"
+          className="c1 c2"
           data-id="3"
           id="3"
           onClick={[Function]}
@@ -4104,27 +2746,27 @@ exports[`snapshots renders a single select input 1`] = `
           tabIndex={0}
         >
           <span
-            className="c4"
+            className="c3"
             data-component="ActionList.Selection"
           />
           <div
-            className="c5"
+            className="c4"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c6"
+              className="c5"
               id="3--label"
             >
               three
             </span>
             <span
-              className="c7"
+              className="c6"
             />
           </div>
         </li>
         <li
           aria-labelledby="4--label  "
-          className="c2 c3"
+          className="c1 c2"
           data-id="4"
           id="4"
           onClick={[Function]}
@@ -4133,27 +2775,27 @@ exports[`snapshots renders a single select input 1`] = `
           tabIndex={0}
         >
           <span
-            className="c4"
+            className="c3"
             data-component="ActionList.Selection"
           />
           <div
-            className="c5"
+            className="c4"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c6"
+              className="c5"
               id="4--label"
             >
               four
             </span>
             <span
-              className="c7"
+              className="c6"
             />
           </div>
         </li>
         <li
           aria-labelledby="5--label  "
-          className="c2 c3"
+          className="c1 c2"
           data-id="5"
           id="5"
           onClick={[Function]}
@@ -4162,27 +2804,27 @@ exports[`snapshots renders a single select input 1`] = `
           tabIndex={0}
         >
           <span
-            className="c4"
+            className="c3"
             data-component="ActionList.Selection"
           />
           <div
-            className="c5"
+            className="c4"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c6"
+              className="c5"
               id="5--label"
             >
               five
             </span>
             <span
-              className="c7"
+              className="c6"
             />
           </div>
         </li>
         <li
           aria-labelledby="6--label  "
-          className="c2 c3"
+          className="c1 c2"
           data-id="6"
           id="6"
           onClick={[Function]}
@@ -4191,27 +2833,27 @@ exports[`snapshots renders a single select input 1`] = `
           tabIndex={0}
         >
           <span
-            className="c4"
+            className="c3"
             data-component="ActionList.Selection"
           />
           <div
-            className="c5"
+            className="c4"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c6"
+              className="c5"
               id="6--label"
             >
               six
             </span>
             <span
-              className="c7"
+              className="c6"
             />
           </div>
         </li>
         <li
           aria-labelledby="7--label  "
-          className="c2 c3"
+          className="c1 c2"
           data-id="7"
           id="7"
           onClick={[Function]}
@@ -4220,27 +2862,27 @@ exports[`snapshots renders a single select input 1`] = `
           tabIndex={0}
         >
           <span
-            className="c4"
+            className="c3"
             data-component="ActionList.Selection"
           />
           <div
-            className="c5"
+            className="c4"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c6"
+              className="c5"
               id="7--label"
             >
               seven
             </span>
             <span
-              className="c7"
+              className="c6"
             />
           </div>
         </li>
         <li
           aria-labelledby="20--label  "
-          className="c2 c3"
+          className="c1 c2"
           data-id="20"
           id="20"
           onClick={[Function]}
@@ -4249,27 +2891,27 @@ exports[`snapshots renders a single select input 1`] = `
           tabIndex={0}
         >
           <span
-            className="c4"
+            className="c3"
             data-component="ActionList.Selection"
           />
           <div
-            className="c5"
+            className="c4"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c6"
+              className="c5"
               id="20--label"
             >
               twenty
             </span>
             <span
-              className="c7"
+              className="c6"
             />
           </div>
         </li>
         <li
           aria-labelledby="21--label  "
-          className="c2 c3"
+          className="c1 c2"
           data-id="21"
           id="21"
           onClick={[Function]}
@@ -4278,21 +2920,21 @@ exports[`snapshots renders a single select input 1`] = `
           tabIndex={0}
         >
           <span
-            className="c4"
+            className="c3"
             data-component="ActionList.Selection"
           />
           <div
-            className="c5"
+            className="c4"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c6"
+              className="c5"
               id="21--label"
             >
               twentyone
             </span>
             <span
-              className="c7"
+              className="c6"
             />
           </div>
         </li>
@@ -4316,7 +2958,7 @@ exports[`snapshots renders with a custom text input component 1`] = `
     id="customInput"
     type="text"
   />,
-  .c4 {
+  .c3 {
   height: 20px;
   max-width: 20px;
   display: -webkit-box;
@@ -4339,7 +2981,7 @@ exports[`snapshots renders with a custom text input component 1`] = `
   min-width: 16px;
 }
 
-.c5 {
+.c4 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -4354,7 +2996,7 @@ exports[`snapshots renders with a custom text input component 1`] = `
   min-width: 0;
 }
 
-.c6 {
+.c5 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -4364,7 +3006,7 @@ exports[`snapshots renders with a custom text input component 1`] = `
   line-height: 20px;
 }
 
-.c7 {
+.c6 {
   font-size: 12px;
   line-height: 16px;
   color: var(--fgColor-attention,var(--color-attention-fg,#9a6700));
@@ -4383,14 +3025,7 @@ exports[`snapshots renders with a custom text input component 1`] = `
   border-width: 0;
 }
 
-.c1 {
-  margin: 0;
-  padding-inline-start: 0;
-  padding-top: 8px;
-  padding-bottom: 8px;
-}
-
-.c3 {
+.c2 {
   position: relative;
   display: -webkit-box;
   display: -webkit-flex;
@@ -4422,32 +3057,32 @@ exports[`snapshots renders with a custom text input component 1`] = `
   margin-bottom: unset;
 }
 
-.c3[data-loading] {
+.c2[data-loading] {
   cursor: default;
 }
 
-.c3[aria-disabled],
-.c3[data-inactive] {
+.c2[aria-disabled],
+.c2[data-inactive] {
   cursor: not-allowed;
 }
 
-.c3[aria-disabled] [data-component="ActionList.Checkbox"],
-.c3[data-inactive] [data-component="ActionList.Checkbox"] {
+.c2[aria-disabled] [data-component="ActionList.Checkbox"],
+.c2[data-inactive] [data-component="ActionList.Checkbox"] {
   cursor: not-allowed;
   background-color: var(--control-bgColor-disabled,rgba(175,184,193,0.2));
   border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
 }
 
-.c3[aria-disabled] [data-component="ActionList.Selection"],
-.c3[data-inactive] [data-component="ActionList.Selection"] {
+.c2[aria-disabled] [data-component="ActionList.Selection"],
+.c2[data-inactive] [data-component="ActionList.Selection"] {
   color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
 }
 
-.c3 [data-component="ActionList.Item--DividerContainer"] {
+.c2 [data-component="ActionList.Item--DividerContainer"] {
   position: relative;
 }
 
-.c3 [data-component="ActionList.Item--DividerContainer"]::before {
+.c2 [data-component="ActionList.Item--DividerContainer"]::before {
   content: " ";
   display: block;
   position: absolute;
@@ -4458,30 +3093,30 @@ exports[`snapshots renders with a custom text input component 1`] = `
   border-color: var(--divider-color,transparent);
 }
 
-.c3:not(:first-of-type) {
+.c2:not(:first-of-type) {
   --divider-color: var(--borderColor-muted,var(--color-action-list-item-inline-divider,rgba(208,215,222,0.48)));
 }
 
-[data-component="ActionList.Divider"] + .c2 {
+[data-component="ActionList.Divider"] + .c1 {
   --divider-color: transparent !important;
 }
 
-.c3:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]),
-.c3[data-focus-visible-added]:not([aria-disabled]):not([data-inactive]) {
+.c2:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]),
+.c2[data-focus-visible-added]:not([aria-disabled]):not([data-inactive]) {
   --divider-color: transparent;
 }
 
-.c3:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c2,
-.c3[data-focus-visible-added] + li {
+.c2:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c1,
+.c2[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
 
-.c3[data-is-active-descendant] {
+.c2[data-is-active-descendant] {
   font-weight: 400;
   background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
 }
 
-.c3[data-is-active-descendant]::after {
+.c2[data-is-active-descendant]::after {
   position: absolute;
   top: calc(50% - 12px);
   left: -8px;
@@ -4493,30 +3128,30 @@ exports[`snapshots renders with a custom text input component 1`] = `
 }
 
 @media (forced-colors:active) {
-  .c3:focus,
-  .c3:focus-visible,
-  .c3 > a.focus-visible,
-  .c3[data-is-active-descendant] {
+  .c2:focus,
+  .c2:focus-visible,
+  .c2 > a.focus-visible,
+  .c2[data-is-active-descendant] {
     outline: solid 1px transparent !important;
   }
 }
 
 @media (hover:hover) and (pointer:fine) {
-  .c3:hover:not([aria-disabled]):not([data-inactive]) {
+  .c2:hover:not([aria-disabled]):not([data-inactive]) {
     background-color: var(--control-transparent-bgColor-hover,var(--color-action-list-item-default-hover-bg,rgba(208,215,222,0.32)));
     color: var(--fgColor-default,var(--color-fg-default,#1F2328));
     box-shadow: inset 0 0 0 max(1px,0.0625rem) var(--control-transparent-borderColor-active,var(--color-action-list-item-default-active-border,transparent));
   }
 
-  .c3:focus-visible,
-  .c3 > a.focus-visible,
-  .c3:focus.focus-visible {
+  .c2:focus-visible,
+  .c2 > a.focus-visible,
+  .c2:focus.focus-visible {
     outline: none;
     border: 2 solid;
     box-shadow: 0 0 0 2px var(--focus-outlineColor);
   }
 
-  .c3:active:not([aria-disabled]):not([data-inactive]) {
+  .c2:active:not([aria-disabled]):not([data-inactive]) {
     background-color: var(--control-transparent-bgColor-active,var(--color-action-list-item-default-active-bg,rgba(208,215,222,0.48)));
     color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   }
@@ -4528,13 +3163,15 @@ exports[`snapshots renders with a custom text input component 1`] = `
     <div>
       <ul
         aria-labelledby="labelId"
-        className="c1"
+        className="ActionList"
+        data-dividers={false}
+        data-variant="inset"
         id="autocompleteId-listbox"
         role="listbox"
       >
         <li
           aria-labelledby="0--label  "
-          className="c2 c3"
+          className="c1 c2"
           data-id="0"
           id="0"
           onClick={[Function]}
@@ -4543,27 +3180,27 @@ exports[`snapshots renders with a custom text input component 1`] = `
           tabIndex={0}
         >
           <span
-            className="c4"
+            className="c3"
             data-component="ActionList.Selection"
           />
           <div
-            className="c5"
+            className="c4"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c6"
+              className="c5"
               id="0--label"
             >
               zero
             </span>
             <span
-              className="c7"
+              className="c6"
             />
           </div>
         </li>
         <li
           aria-labelledby="1--label  "
-          className="c2 c3"
+          className="c1 c2"
           data-id="1"
           id="1"
           onClick={[Function]}
@@ -4572,27 +3209,27 @@ exports[`snapshots renders with a custom text input component 1`] = `
           tabIndex={0}
         >
           <span
-            className="c4"
+            className="c3"
             data-component="ActionList.Selection"
           />
           <div
-            className="c5"
+            className="c4"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c6"
+              className="c5"
               id="1--label"
             >
               one
             </span>
             <span
-              className="c7"
+              className="c6"
             />
           </div>
         </li>
         <li
           aria-labelledby="2--label  "
-          className="c2 c3"
+          className="c1 c2"
           data-id="2"
           id="2"
           onClick={[Function]}
@@ -4601,27 +3238,27 @@ exports[`snapshots renders with a custom text input component 1`] = `
           tabIndex={0}
         >
           <span
-            className="c4"
+            className="c3"
             data-component="ActionList.Selection"
           />
           <div
-            className="c5"
+            className="c4"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c6"
+              className="c5"
               id="2--label"
             >
               two
             </span>
             <span
-              className="c7"
+              className="c6"
             />
           </div>
         </li>
         <li
           aria-labelledby="3--label  "
-          className="c2 c3"
+          className="c1 c2"
           data-id="3"
           id="3"
           onClick={[Function]}
@@ -4630,27 +3267,27 @@ exports[`snapshots renders with a custom text input component 1`] = `
           tabIndex={0}
         >
           <span
-            className="c4"
+            className="c3"
             data-component="ActionList.Selection"
           />
           <div
-            className="c5"
+            className="c4"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c6"
+              className="c5"
               id="3--label"
             >
               three
             </span>
             <span
-              className="c7"
+              className="c6"
             />
           </div>
         </li>
         <li
           aria-labelledby="4--label  "
-          className="c2 c3"
+          className="c1 c2"
           data-id="4"
           id="4"
           onClick={[Function]}
@@ -4659,27 +3296,27 @@ exports[`snapshots renders with a custom text input component 1`] = `
           tabIndex={0}
         >
           <span
-            className="c4"
+            className="c3"
             data-component="ActionList.Selection"
           />
           <div
-            className="c5"
+            className="c4"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c6"
+              className="c5"
               id="4--label"
             >
               four
             </span>
             <span
-              className="c7"
+              className="c6"
             />
           </div>
         </li>
         <li
           aria-labelledby="5--label  "
-          className="c2 c3"
+          className="c1 c2"
           data-id="5"
           id="5"
           onClick={[Function]}
@@ -4688,27 +3325,27 @@ exports[`snapshots renders with a custom text input component 1`] = `
           tabIndex={0}
         >
           <span
-            className="c4"
+            className="c3"
             data-component="ActionList.Selection"
           />
           <div
-            className="c5"
+            className="c4"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c6"
+              className="c5"
               id="5--label"
             >
               five
             </span>
             <span
-              className="c7"
+              className="c6"
             />
           </div>
         </li>
         <li
           aria-labelledby="6--label  "
-          className="c2 c3"
+          className="c1 c2"
           data-id="6"
           id="6"
           onClick={[Function]}
@@ -4717,27 +3354,27 @@ exports[`snapshots renders with a custom text input component 1`] = `
           tabIndex={0}
         >
           <span
-            className="c4"
+            className="c3"
             data-component="ActionList.Selection"
           />
           <div
-            className="c5"
+            className="c4"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c6"
+              className="c5"
               id="6--label"
             >
               six
             </span>
             <span
-              className="c7"
+              className="c6"
             />
           </div>
         </li>
         <li
           aria-labelledby="7--label  "
-          className="c2 c3"
+          className="c1 c2"
           data-id="7"
           id="7"
           onClick={[Function]}
@@ -4746,27 +3383,27 @@ exports[`snapshots renders with a custom text input component 1`] = `
           tabIndex={0}
         >
           <span
-            className="c4"
+            className="c3"
             data-component="ActionList.Selection"
           />
           <div
-            className="c5"
+            className="c4"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c6"
+              className="c5"
               id="7--label"
             >
               seven
             </span>
             <span
-              className="c7"
+              className="c6"
             />
           </div>
         </li>
         <li
           aria-labelledby="20--label  "
-          className="c2 c3"
+          className="c1 c2"
           data-id="20"
           id="20"
           onClick={[Function]}
@@ -4775,27 +3412,27 @@ exports[`snapshots renders with a custom text input component 1`] = `
           tabIndex={0}
         >
           <span
-            className="c4"
+            className="c3"
             data-component="ActionList.Selection"
           />
           <div
-            className="c5"
+            className="c4"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c6"
+              className="c5"
               id="20--label"
             >
               twenty
             </span>
             <span
-              className="c7"
+              className="c6"
             />
           </div>
         </li>
         <li
           aria-labelledby="21--label  "
-          className="c2 c3"
+          className="c1 c2"
           data-id="21"
           id="21"
           onClick={[Function]}
@@ -4804,21 +3441,21 @@ exports[`snapshots renders with a custom text input component 1`] = `
           tabIndex={0}
         >
           <span
-            className="c4"
+            className="c3"
             data-component="ActionList.Selection"
           />
           <div
-            className="c5"
+            className="c4"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              className="c6"
+              className="c5"
               id="21--label"
             >
               twentyone
             </span>
             <span
-              className="c7"
+              className="c6"
             />
           </div>
         </li>
@@ -4830,220 +3467,7 @@ exports[`snapshots renders with a custom text input component 1`] = `
 
 exports[`snapshots renders with an input value 1`] = `
 [
-  .c2 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c2:focus {
-  outline: 0;
-}
-
-.c0 {
-  font-size: 14px;
-  line-height: var(--base-size-20);
-  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
-  vertical-align: middle;
-  cursor: text;
-  background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
-  border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
-  border-radius: 6px;
-  outline: none;
-  box-shadow: var(--shadow-inset,var(--color-primer-shadow-inset,inset 0 1px 0 rgba(208,215,222,0.2)));
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: stretch;
-  -webkit-box-align: stretch;
-  -ms-flex-align: stretch;
-  align-items: stretch;
-  min-height: var(--base-size-32);
-  overflow: hidden;
-  --inner-action-size: var(--base-size-24);
-}
-
-.c0 input,
-.c0 textarea {
-  cursor: text;
-}
-
-.c0 select {
-  cursor: pointer;
-}
-
-.c0 input::-webkit-input-placeholder,
-.c0 textarea::-webkit-input-placeholder,
-.c0 select::-webkit-input-placeholder {
-  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
-}
-
-.c0 input::-moz-placeholder,
-.c0 textarea::-moz-placeholder,
-.c0 select::-moz-placeholder {
-  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
-}
-
-.c0 input:-ms-input-placeholder,
-.c0 textarea:-ms-input-placeholder,
-.c0 select:-ms-input-placeholder {
-  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
-}
-
-.c0 input::placeholder,
-.c0 textarea::placeholder,
-.c0 select::placeholder {
-  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
-}
-
-.c0:where([data-trailing-action][data-focused]),
-.c0:where(:not([data-trailing-action]):focus-within) {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline-offset: -1px;
-}
-
-.c0 > textarea {
-  padding: var(--base-size-12);
-}
-
-.c0:where([data-contrast]) {
-  background-color: var(--bgColor-inset,var(--color-canvas-inset,#f6f8fa));
-}
-
-.c0:where([data-disabled]) {
-  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
-  background-color: var(--control-bgColor-disabled,var(--color-input-disabled-bg,rgba(175,184,193,0.2)));
-  box-shadow: none;
-  border-color: var(--control-borderColor-disabled,var(--borderColor-default,var(--color-border-default,#d0d7de)));
-}
-
-.c0:where([data-disabled]) input,
-.c0:where([data-disabled]) textarea,
-.c0:where([data-disabled]) select {
-  cursor: not-allowed;
-}
-
-.c0:where([data-monospace]) {
-  font-family: var(--fontStack-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace);
-}
-
-.c0:where([data-validation='error']) {
-  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
-}
-
-.c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
-.c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
-  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
-  outline: 2px solid var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
-  outline-offset: -1px;
-}
-
-.c0:where([data-validation='success']) {
-  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
-}
-
-.c0:where([data-block]) {
-  width: 100%;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-self: stretch;
-  -ms-flex-item-align: stretch;
-  align-self: stretch;
-}
-
-.c0:where([data-size='small']) {
-  --inner-action-size: var(--base-size-20);
-  min-height: var(--base-size-28);
-  padding-top: 3px;
-  padding-right: var(--base-size-8);
-  padding-bottom: 3px;
-  padding-left: var(--base-size-8);
-  font-size: var(--text-body-size-small);
-  line-height: var(--base-size-20);
-}
-
-.c0:where([data-size='large']) {
-  --inner-action-size: var(--base-size-28);
-  height: var(--base-size-40);
-  padding-top: 10px;
-  padding-right: var(--base-size-8);
-  padding-bottom: 10px;
-  padding-left: var(--base-size-8);
-}
-
-.c0:where([data-variant='small']) {
-  min-height: 28px;
-  padding-top: 3px;
-  padding-right: var(--base-size-8);
-  padding-bottom: 3px;
-  padding-left: var(--base-size-8);
-  font-size: (--text-body-size-small);
-  line-height: var(--base-size-20);
-}
-
-.c0:where([data-variant='large']) {
-  padding-top: 10px;
-  padding-right: var(--base-size-8);
-  padding-bottom: 10px;
-  padding-left: var(--base-size-8);
-  font-size: var(--text-title-size-medium);
-}
-
-.c1 {
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  padding-right: 0;
-  padding-left: 0;
-}
-
-.c1 > :not(:last-child) {
-  margin-right: 8px;
-}
-
-.c1 .TextInput-icon,
-.c1 .TextInput-action {
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-}
-
-.c1 > input,
-.c1 > select {
-  padding-right: 0;
-  padding-left: 0;
-}
-
-.c1:where([data-leading-visual]) {
-  padding-left: var(--base-size-12);
-}
-
-.c1:where([data-trailing-visual]:not([data-trailing-action])) {
-  padding-right: var(--base-size-12);
-}
-
-.c1:where(:not([data-leading-visual])) > input,
-.c1:where(:not([data-leading-visual])) > select {
-  padding-left: var(--base-size-12);
-}
-
-.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
-.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
-  padding-right: var(--base-size-12);
-}
-
-@media (forced-colors:active) {
+  @media (forced-colors:active) {
 
 }
 
@@ -5051,15 +3475,9 @@ exports[`snapshots renders with an input value 1`] = `
 
 }
 
-@media (min-width:768px) {
-  .c0 {
-    font-size: var(--text-body-size-medium);
-  }
-}
-
 <span
     aria-busy={false}
-    className="c0 c1 TextInput-wrapper"
+    className="TextInput-wrapper TextInputWrapper TextInputBaseWrapper"
     onClick={[Function]}
   >
     <input
@@ -5069,7 +3487,7 @@ exports[`snapshots renders with an input value 1`] = `
       aria-haspopup="listbox"
       aria-owns="autocompleteId-listbox"
       autoComplete="off"
-      className="c2"
+      className="Input"
       data-component="input"
       id="autocompleteId"
       onBlur={[Function]}
@@ -5100,10 +3518,6 @@ exports[`snapshots renders with an input value 1`] = `
 }
 
 @media (hover:hover) and (pointer:fine) {
-
-}
-
-@media (min-width:768px) {
 
 }
 
