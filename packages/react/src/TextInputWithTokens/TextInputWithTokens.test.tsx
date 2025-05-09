@@ -1,6 +1,5 @@
 import React from 'react'
-import {render as HTMLRender, fireEvent, act} from '@testing-library/react'
-import {render} from '@testing-library/react'
+import {render as HTMLRender, fireEvent, act, render} from '@testing-library/react'
 import {describe, expect, it, vi, beforeEach, afterEach} from 'vitest'
 import type {TokenSizeKeys} from '../Token/TokenBase'
 import {tokenSizes} from '../Token/TokenBase'
@@ -341,8 +340,9 @@ describe('TextInputWithTokens', () => {
 
     act(() => {
       vi.runAllTimers()
-      fireEvent.focus(inputNode)
     })
+
+    fireEvent.focus(inputNode)
 
     setTimeout(() => {
       for (const tokenLabel of allTokenLabels) {
@@ -354,9 +354,9 @@ describe('TextInputWithTokens', () => {
     act(() => {
       vi.runAllTimers()
       // onBlur isn't called on input unless we specifically fire the "blur" event
-      fireEvent.blur(inputNode)
-      fireEvent.focus(focusableOutsideComponentNode)
     })
+
+    fireEvent.focus(focusableOutsideComponentNode)
 
     setTimeout(() => {
       expect(truncatedTokenCountNode).toBeDefined()

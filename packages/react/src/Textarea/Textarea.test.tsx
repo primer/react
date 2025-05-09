@@ -1,6 +1,5 @@
 import React from 'react'
-import {Textarea} from '..'
-import {DEFAULT_TEXTAREA_ROWS, DEFAULT_TEXTAREA_COLS, DEFAULT_TEXTAREA_RESIZE} from '../Textarea'
+import Textarea from '../Textarea'
 import {render} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {describe, expect, it, beforeEach, vi} from 'vitest'
