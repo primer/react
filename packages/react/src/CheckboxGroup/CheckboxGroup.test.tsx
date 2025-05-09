@@ -1,50 +1,37 @@
 import React from 'react'
-import {render} from '@testing-library/react'
+import {render, screen} from '@testing-library/react'
 import {Checkbox, CheckboxGroup, FormControl} from '..'
-import {behavesAsComponent, checkExports} from '../utils/testing'
 import userEvent from '@testing-library/user-event'
-import {CheckboxGroupContext} from '../CheckboxGroup'
+import {describe, expect, it, vi, beforeAll, afterAll} from 'vitest'
 
 describe('CheckboxGroup', () => {
-  const mockWarningFn = jest.fn()
+  const mockWarningFn = vi.fn()
 
   beforeAll(() => {
-    jest.spyOn(global.console, 'warn').mockImplementation(mockWarningFn)
+    vi.spyOn(console, 'warn').mockImplementation(mockWarningFn)
   })
 
   afterAll(() => {
-    jest.clearAllMocks()
+    vi.clearAllMocks()
   })
 
-  behavesAsComponent({
-    Component: CheckboxGroup,
-    options: {skipAs: true, skipSx: true},
-    toRender: () => (
-      <CheckboxGroup>
+  it('should support a custom className on the outermost element', () => {
+    render(
+      <CheckboxGroup className="test-class-name">
         <CheckboxGroup.Label>Choices</CheckboxGroup.Label>
         <FormControl>
           <Checkbox value="one" />
           <FormControl.Label>Choice one</FormControl.Label>
         </FormControl>
-        <FormControl>
-          <Checkbox value="two" />
-          <FormControl.Label>Choice two</FormControl.Label>
-        </FormControl>
-        <FormControl>
-          <Checkbox value="three" />
-          <FormControl.Label>Choice three</FormControl.Label>
-        </FormControl>
-      </CheckboxGroup>
-    ),
-  })
+      </CheckboxGroup>,
+    )
 
-  checkExports('CheckboxGroup', {
-    default: CheckboxGroup,
-    CheckboxGroupContext,
+    const group = screen.getByRole('group')
+    expect(group).toHaveClass('test-class-name')
   })
 
   it('renders a disabled group of inputs', () => {
-    const {getAllByRole, getByRole} = render(
+    render(
       <CheckboxGroup disabled>
         <CheckboxGroup.Label>Choices</CheckboxGroup.Label>
         <FormControl>
@@ -61,8 +48,8 @@ describe('CheckboxGroup', () => {
         </FormControl>
       </CheckboxGroup>,
     )
-    const checkboxInputs = getAllByRole('checkbox') as HTMLInputElement[]
-    const fieldset = getByRole('group') as HTMLFieldSetElement
+    const checkboxInputs = screen.getAllByRole('checkbox') as HTMLInputElement[]
+    const fieldset = screen.getByRole('group') as HTMLFieldSetElement
 
     for (const checkboxInput of checkboxInputs) {
       expect(checkboxInput.disabled).toBe(true)
@@ -72,7 +59,7 @@ describe('CheckboxGroup', () => {
   })
 
   it('renders a required group of inputs', () => {
-    const {getByTitle} = render(
+    render(
       <CheckboxGroup required>
         <CheckboxGroup.Label>Choices</CheckboxGroup.Label>
         <FormControl>
@@ -89,16 +76,16 @@ describe('CheckboxGroup', () => {
         </FormControl>
       </CheckboxGroup>,
     )
-    const requiredIndicator = getByTitle('required field')
+    const requiredIndicator = screen.getByTitle('required field')
 
     expect(requiredIndicator).toBeInTheDocument()
   })
 
   it('calls onChange handlers passed to CheckboxGroup and Checkbox', async () => {
     const user = userEvent.setup()
-    const handleParentChange = jest.fn()
-    const handleCheckboxChange = jest.fn()
-    const {getByLabelText} = render(
+    const handleParentChange = vi.fn()
+    const handleCheckboxChange = vi.fn()
+    render(
       <CheckboxGroup onChange={handleParentChange}>
         <CheckboxGroup.Label>Choices</CheckboxGroup.Label>
         <FormControl>
@@ -115,7 +102,7 @@ describe('CheckboxGroup', () => {
         </FormControl>
       </CheckboxGroup>,
     )
-    const checkbox = getByLabelText('Choice one') as HTMLInputElement
+    const checkbox = screen.getByLabelText('Choice one') as HTMLInputElement
 
     expect(handleParentChange).not.toHaveBeenCalled()
     expect(handleCheckboxChange).not.toHaveBeenCalled()
@@ -126,8 +113,8 @@ describe('CheckboxGroup', () => {
 
   it('calls onChange handler on CheckboxGroup with selected values', async () => {
     const user = userEvent.setup()
-    const handleParentChange = jest.fn()
-    const {getByLabelText} = render(
+    const handleParentChange = vi.fn()
+    render(
       <CheckboxGroup onChange={handleParentChange}>
         <CheckboxGroup.Label>Choices</CheckboxGroup.Label>
         <FormControl>
@@ -145,7 +132,7 @@ describe('CheckboxGroup', () => {
       </CheckboxGroup>,
     )
 
-    const checkbox = getByLabelText('Choice one') as HTMLInputElement
+    const checkbox = screen.getByLabelText('Choice one') as HTMLInputElement
 
     expect(handleParentChange).not.toHaveBeenCalled()
     await user.click(checkbox)
