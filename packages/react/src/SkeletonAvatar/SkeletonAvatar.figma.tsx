@@ -1,5 +1,5 @@
 import React from 'react'
-import {SkeletonAvatar} from '../../../src/experimental/'
+import {SkeletonAvatar} from '../SkeletonAvatar'
 import figma from '@figma/code-connect'
 
 figma.connect(

@@ -1,10 +1,10 @@
 import React, {Suspense} from 'react'
 import type {Meta} from '@storybook/react'
-import type {ComponentProps} from '../../utils/types'
-import {SkeletonText} from './SkeletonText'
+import type {ComponentProps} from '../utils/types'
+import {SkeletonText} from '../SkeletonText'
 import {Avatar, Box, Button, IconButton, Text} from '../../'
-import {SkeletonAvatar} from './SkeletonAvatar'
-import {VisuallyHidden} from '../../VisuallyHidden'
+import {SkeletonAvatar} from '../SkeletonAvatar'
+import {VisuallyHidden} from '../VisuallyHidden'
 import {KebabHorizontalIcon} from '@primer/octicons-react'
 
 export default {

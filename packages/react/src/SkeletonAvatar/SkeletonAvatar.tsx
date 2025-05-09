@@ -1,24 +1,20 @@
 import React, {type CSSProperties} from 'react'
-import {isResponsiveValue} from '../../hooks/useResponsiveValue'
-import type {AvatarProps} from '../../Avatar'
-import {DEFAULT_AVATAR_SIZE} from '../../Avatar/Avatar'
-import {SkeletonBox} from '../../Skeleton'
+import {isResponsiveValue} from '../hooks/useResponsiveValue'
+import type {AvatarProps} from '../Avatar'
+import {DEFAULT_AVATAR_SIZE} from '../Avatar/Avatar'
+import {SkeletonBox} from '../Skeleton'
 import classes from './SkeletonAvatar.module.css'
 import {clsx} from 'clsx'
-import {merge} from '../../sx'
+import {merge} from '../sx'
 
-export type SkeletonAvatarProps = Pick<AvatarProps, 'size' | 'square'> & {
+interface SkeletonAvatarProps extends Omit<React.HTMLProps<HTMLElement>, 'size'> {
   /** Class name for custom styling */
   className?: string
-} & Omit<React.HTMLProps<HTMLDivElement>, 'size'>
+  size?: AvatarProps['size']
+  square?: AvatarProps['square']
+}
 
-export const SkeletonAvatar: React.FC<SkeletonAvatarProps> = ({
-  size = DEFAULT_AVATAR_SIZE,
-  square,
-  className,
-  style,
-  ...rest
-}) => {
+function SkeletonAvatar({size = DEFAULT_AVATAR_SIZE, square, className, style, ...rest}: SkeletonAvatarProps) {
   const responsive = isResponsiveValue(size)
   const cssSizeVars = {} as Record<string, string>
 
@@ -41,3 +37,6 @@ export const SkeletonAvatar: React.FC<SkeletonAvatarProps> = ({
     />
   )
 }
+
+export {SkeletonAvatar}
+export type {SkeletonAvatarProps}
