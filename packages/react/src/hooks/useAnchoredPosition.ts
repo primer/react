@@ -9,6 +9,7 @@ export interface AnchoredPositionHookSettings extends Partial<PositionSettings> 
   floatingElementRef?: React.RefObject<Element>
   anchorElementRef?: React.RefObject<Element>
   pinPosition?: boolean
+  onPositionChange?: (position: AnchorPosition | undefined) => void
 }
 
 /**
@@ -30,6 +31,7 @@ export function useAnchoredPosition(
 } {
   const floatingElementRef = useProvidedRefOrCreate(settings?.floatingElementRef)
   const anchorElementRef = useProvidedRefOrCreate(settings?.anchorElementRef)
+  const savedOnPositionChange = React.useRef(settings?.onPositionChange)
   const [position, setPosition] = React.useState<AnchorPosition | undefined>(undefined)
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, setPrevHeight] = React.useState<number | undefined>(undefined)
@@ -71,16 +73,27 @@ export function useAnchoredPosition(
               return prev
             }
           }
+
+          if (prev && prev.anchorSide === newPosition.anchorSide) {
+            // if the position hasn't changed, don't update
+            savedOnPositionChange.current?.(newPosition)
+          }
+
           return newPosition
         })
       } else {
         setPosition(undefined)
+        savedOnPositionChange.current?.(undefined)
       }
       setPrevHeight(floatingElementRef.current?.clientHeight)
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [floatingElementRef, anchorElementRef, ...dependencies],
   )
+
+  useLayoutEffect(() => {
+    savedOnPositionChange.current = settings?.onPositionChange
+  }, [settings?.onPositionChange])
 
   useLayoutEffect(updatePosition, [updatePosition])
 
