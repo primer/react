@@ -233,9 +233,9 @@ function TableCellPlaceholder({children}: TableCellPlaceholderProps) {
 // ----------------------------------------------------------------------------
 export type TableContainerProps = React.PropsWithChildren<SxProp & React.HTMLAttributes<HTMLDivElement>>
 
-function TableContainer({children, sx: sxProp = defaultSxProp}: TableContainerProps) {
+function TableContainer({children, className, sx: sxProp = defaultSxProp, ...rest}: TableContainerProps) {
   return (
-    <BoxWithFallback className={clsx(classes.TableContainer)} sx={sxProp}>
+    <BoxWithFallback {...rest} className={clsx(className, classes.TableContainer)} sx={sxProp}>
       {children}
     </BoxWithFallback>
   )
