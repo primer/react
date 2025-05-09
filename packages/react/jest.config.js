@@ -34,6 +34,7 @@ module.exports = {
     '<rootDir>/src/Banner/',
     '<rootDir>/src/DataTable/',
     '<rootDir>/src/FeatureFlags/',
+    '<rootDir>/src/Spinner/',
     '<rootDir>/src/Stack/',
     '<rootDir>/src/ToggleSwitch/',
     '<rootDir>/src/Truncate/',

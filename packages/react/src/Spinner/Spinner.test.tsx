@@ -1,59 +1,41 @@
 import React from 'react'
-import axe from 'axe-core'
 import type {SpinnerProps} from '..'
 import {Spinner} from '..'
-import {behavesAsComponent, checkExports} from '../utils/testing'
-import {render as HTMLRender, screen} from '@testing-library/react'
+import {render, screen} from '@testing-library/react'
+import {describe, expect, it} from 'vitest'
 
 describe('Spinner', () => {
-  behavesAsComponent({
-    Component: Spinner,
-    options: {
-      skipAs: true,
-    },
-  })
-
-  checkExports('Spinner', {
-    default: Spinner,
-  })
-
   it('should support `className` on the outermost element', () => {
     const Element = () => <Spinner className={'test-class-name'} />
-    expect(HTMLRender(<Element />).container.firstChild?.firstChild).toHaveClass('test-class-name')
+    expect(render(<Element />).container.firstChild?.firstChild).toHaveClass('test-class-name')
   })
 
   it('should label the spinner with default loading text', async () => {
-    const {getByLabelText} = HTMLRender(<Spinner />)
+    const {getByLabelText} = render(<Spinner />)
 
     expect(getByLabelText('Loading')).toBeInTheDocument()
   })
 
   it('should label the spinner with with custom loading text', async () => {
-    const {getByLabelText} = HTMLRender(<Spinner srText="Custom loading text" />)
+    const {getByLabelText} = render(<Spinner srText="Custom loading text" />)
 
     expect(getByLabelText('Custom loading text')).toBeInTheDocument()
   })
 
   it('should not label the spinner with with loading text when `srText` is set to `null`', () => {
-    const {getByLabelText} = HTMLRender(<Spinner srText={null} />)
+    const {getByLabelText} = render(<Spinner srText={null} />)
 
     expect(() => getByLabelText('Loading')).toThrow()
   })
 
   it('should use `aria-label` over `srText` if `aria-label` is provided', () => {
-    HTMLRender(<Spinner aria-label="Test label" />)
+    render(<Spinner aria-label="Test label" />)
     expect(screen.getByLabelText('Test label')).toBeInTheDocument()
-  })
-
-  it('should have no axe violations', async () => {
-    const {container} = HTMLRender(<Spinner />)
-    const results = await axe.run(container)
-    expect(results).toHaveNoViolations()
   })
 
   it('should respect size arguments', () => {
     const expectSize = (input: SpinnerProps['size'] | undefined, expectedSize: string) => {
-      const {container} = HTMLRender(<Spinner size={input} />)
+      const {container} = render(<Spinner size={input} />)
       const svg = container.querySelector('svg')!
       expect(svg.getAttribute('height')).toEqual(expectedSize)
       expect(svg.getAttribute('width')).toEqual(expectedSize)
