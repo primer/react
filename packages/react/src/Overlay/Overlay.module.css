@@ -165,7 +165,7 @@
       width: 100vw;
       max-width: 100vw;
       height: 100vh;
-      max-height: unset;
+      max-height: none;
       margin: 0;
       border-radius: unset;
     }
