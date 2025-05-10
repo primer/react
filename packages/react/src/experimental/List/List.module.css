@@ -1,0 +1,76 @@
+.List {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+
+  &:where([data-variant='inset']) {
+    padding-block: var(--base-size-8);
+
+    /* this is only to match default experience */
+    & .ActionListItem {
+      margin-inline: var(--base-size-8);
+    }
+  }
+
+  &:where([data-dividers='true']) {
+    /* place dividers on the wrapper that excludes leading visuals/actions */
+    & .ActionListSubContent::before {
+      position: absolute;
+
+      /* use this top size after FF removed */
+
+      /* top: calc(-1 * var(--control-medium-paddingBlock)); */
+      /* stylelint-disable-next-line primer/spacing */
+      top: -7px;
+      display: block;
+      width: 100%;
+      height: 1px;
+      content: '';
+      /* stylelint-disable-next-line primer/colors */
+      background: var(--borderColor-muted);
+    }
+
+    /* if inline description, move pseudo divider to description wrapper */
+    & [data-description-variant='inline'] {
+      &::before {
+        position: absolute;
+
+        /* use this top size after FF removed */
+
+        /* top: calc(-1 * var(--control-medium-paddingBlock)); */
+        /* stylelint-disable-next-line primer/spacing */
+        top: -7px;
+        display: block;
+        width: 100%;
+        height: var(--borderWidth-thin);
+        content: '';
+        /* stylelint-disable-next-line primer/colors */
+        background: var(--borderColor-muted);
+      }
+
+      /* remove the default divider */
+      & .ActionListSubContent::before {
+        content: unset;
+      }
+    }
+
+    /* hide if item is first of type with label::before, or is the first item after a sectionDivider */
+    .ActionListItem:first-of-type .ActionListSubContent::before,
+    .Divider + .ActionListItem .ActionListSubContent::before {
+      visibility: hidden;
+    }
+
+    /* hide if item is first of type with label::before, or is the first item after a sectionDivider */
+    .ActionListItem:first-of-type [data-description-variant='inline']::before,
+    .Divider + .ActionListItem [data-description-variant='inline']::before {
+      visibility: hidden;
+    }
+  }
+}
+
+.Description {
+  font-size: var(--text-body-size-small);
+  font-weight: var(--base-text-weight-normal);
+  line-height: var(--text-caption-lineHeight);
+  color: var(--fgColor-muted);
+}
