@@ -30,7 +30,7 @@ describe('Blankslate', () => {
       render(
         <Blankslate>
           <Blankslate.Visual>
-            <svg data-testid="test-icon" />
+            <svg aria-hidden="true" data-testid="test-icon" />
           </Blankslate.Visual>
         </Blankslate>,
       )
