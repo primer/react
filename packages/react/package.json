@@ -1,6 +1,6 @@
 {
   "name": "@primer/react",
-  "version": "37.22.0",
+  "version": "37.23.0",
   "description": "An implementation of GitHub's Primer Design System using React",
   "main": "lib/index.js",
   "module": "lib-esm/index.js",
@@ -93,7 +93,7 @@
     "@styled-system/props": "^5.1.5",
     "@styled-system/theme-get": "^5.1.2",
     "@types/react-is": "^18.2.1",
-    "@types/styled-system": "^5.1.12",
+    "@types/styled-system": "^5.1.23",
     "@types/styled-system__css": "^5.0.16",
     "@types/styled-system__theme-get": "^5.0.1",
     "clsx": "^2.1.1",

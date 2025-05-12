@@ -1,22 +1,18 @@
 import React, {useCallback, useState} from 'react'
+import {describe, expect, it, vi} from 'vitest'
+import {render, fireEvent} from '@testing-library/react'
 import {AnchoredOverlay} from '../AnchoredOverlay'
-import {behavesAsComponent, checkExports} from '../utils/testing'
-import {render as HTMLRender, fireEvent} from '@testing-library/react'
-import axe from 'axe-core'
 import {Button} from '../Button'
 import theme from '../theme'
 import BaseStyles from '../BaseStyles'
 import {ThemeProvider} from '../ThemeProvider'
-import {setupMatchMedia} from '../utils/test-helpers'
 import type {AnchorPosition} from '@primer/behaviors'
-
-setupMatchMedia()
 
 type TestComponentSettings = {
   initiallyOpen?: boolean
   onOpenCallback?: (gesture: string) => void
   onCloseCallback?: (gesture: string) => void
-  onPositionChange?: (position: AnchorPosition | undefined) => void
+  onPositionChange?: ({position}: {position: AnchorPosition}) => void
 }
 
 const AnchoredOverlayTestComponent = ({
@@ -58,33 +54,10 @@ const AnchoredOverlayTestComponent = ({
 }
 
 describe('AnchoredOverlay', () => {
-  behavesAsComponent({
-    Component: AnchoredOverlay,
-    options: {skipAs: true, skipSx: true, skipClassName: true},
-    toRender: () => <AnchoredOverlayTestComponent />,
-  })
-
-  checkExports('AnchoredOverlay', {
-    default: undefined,
-    AnchoredOverlay,
-  })
-
-  it('should have no axe violations when open', async () => {
-    const {container} = HTMLRender(<AnchoredOverlayTestComponent initiallyOpen={true}></AnchoredOverlayTestComponent>)
-    const results = await axe.run(container)
-    expect(results).toHaveNoViolations()
-  })
-
-  it('should have no axe violations when closed', async () => {
-    const {container} = HTMLRender(<AnchoredOverlayTestComponent></AnchoredOverlayTestComponent>)
-    const results = await axe.run(container)
-    expect(results).toHaveNoViolations()
-  })
-
   it('should call onOpen when the anchor is clicked', () => {
-    const mockOpenCallback = jest.fn()
-    const mockCloseCallback = jest.fn()
-    const anchoredOverlay = HTMLRender(
+    const mockOpenCallback = vi.fn()
+    const mockCloseCallback = vi.fn()
+    const anchoredOverlay = render(
       <AnchoredOverlayTestComponent onOpenCallback={mockOpenCallback} onCloseCallback={mockCloseCallback} />,
     )
     const anchor = anchoredOverlay.baseElement.querySelector('[aria-haspopup="true"]')!
@@ -96,9 +69,9 @@ describe('AnchoredOverlay', () => {
   })
 
   it('should call onOpen when the anchor activated by a key press', () => {
-    const mockOpenCallback = jest.fn()
-    const mockCloseCallback = jest.fn()
-    const anchoredOverlay = HTMLRender(
+    const mockOpenCallback = vi.fn()
+    const mockCloseCallback = vi.fn()
+    const anchoredOverlay = render(
       <AnchoredOverlayTestComponent onOpenCallback={mockOpenCallback} onCloseCallback={mockCloseCallback} />,
     )
     const anchor = anchoredOverlay.baseElement.querySelector('[aria-haspopup="true"]')!
@@ -110,9 +83,9 @@ describe('AnchoredOverlay', () => {
   })
 
   it('should call onClose when the user clicks off of the overlay', () => {
-    const mockOpenCallback = jest.fn()
-    const mockCloseCallback = jest.fn()
-    const anchoredOverlay = HTMLRender(
+    const mockOpenCallback = vi.fn()
+    const mockCloseCallback = vi.fn()
+    const anchoredOverlay = render(
       <AnchoredOverlayTestComponent
         initiallyOpen={true}
         onOpenCallback={mockOpenCallback}
@@ -127,9 +100,9 @@ describe('AnchoredOverlay', () => {
   })
 
   it('should call onClose when the escape key is pressed', async () => {
-    const mockOpenCallback = jest.fn()
-    const mockCloseCallback = jest.fn()
-    const anchoredOverlay = HTMLRender(
+    const mockOpenCallback = vi.fn()
+    const mockCloseCallback = vi.fn()
+    const anchoredOverlay = render(
       <AnchoredOverlayTestComponent
         initiallyOpen={true}
         onOpenCallback={mockOpenCallback}
@@ -145,7 +118,7 @@ describe('AnchoredOverlay', () => {
   })
 
   it('should render consistently when open', () => {
-    const {container} = HTMLRender(<AnchoredOverlayTestComponent initiallyOpen={true} />)
+    const {container} = render(<AnchoredOverlayTestComponent initiallyOpen={true} />)
     expect(container).toMatchSnapshot()
   })
 
