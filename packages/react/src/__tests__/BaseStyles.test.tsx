@@ -1,7 +1,6 @@
 import {render} from '@testing-library/react'
 import MatchMediaMock from 'jest-matchmedia-mock'
 import 'jest-styled-components'
-import React from 'react'
 import {BaseStyles} from '..'
 
 let matchMedia: MatchMediaMock

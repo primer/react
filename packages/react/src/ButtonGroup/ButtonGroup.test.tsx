@@ -4,7 +4,6 @@ import axe from 'axe-core'
 import {behavesAsComponent} from '../utils/testing'
 import type {ButtonGroupProps} from './ButtonGroup'
 import ButtonGroup from './ButtonGroup'
-import React from 'react'
 
 const TestButtonGroup = (props: ButtonGroupProps) => (
   <ButtonGroup {...props}>

@@ -1,4 +1,3 @@
-import React from 'react'
 import {CheckIcon} from '@primer/octicons-react'
 import {CircleOcticon} from '..'
 import {render, behavesAsComponent, checkExports} from '../utils/testing'

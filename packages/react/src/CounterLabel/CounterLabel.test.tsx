@@ -1,4 +1,3 @@
-import React from 'react'
 import {CounterLabel} from '..'
 import {behavesAsComponent, checkExports} from '../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'

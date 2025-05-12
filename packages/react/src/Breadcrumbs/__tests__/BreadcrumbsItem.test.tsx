@@ -1,6 +1,5 @@
 import {render as HTMLRender} from '@testing-library/react'
 import axe from 'axe-core'
-import React from 'react'
 import Breadcrumbs from '..'
 import {behavesAsComponent, render} from '../../utils/testing'
 

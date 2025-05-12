@@ -1,4 +1,3 @@
-import React from 'react'
 import {render} from '@testing-library/react'
 import {Checkbox, CheckboxGroup, FormControl} from '..'
 import {behavesAsComponent, checkExports} from '../utils/testing'

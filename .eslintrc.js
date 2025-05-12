@@ -66,6 +66,7 @@ module.exports = {
     'react/button-has-type': 'error',
     'react/prop-types': 'off',
     'react/display-name': 'off',
+    'react/jsx-uses-react': 'off',
     'react-hooks/exhaustive-deps': 'error',
     camelcase: [
       'error',

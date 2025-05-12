@@ -1,4 +1,3 @@
-import React from 'react'
 import {describe, expect, it} from 'vitest'
 import StateLabel from '../StateLabel'
 import {render as HTMLRender} from '@testing-library/react'

@@ -1,4 +1,3 @@
-import React from 'react'
 import VisuallyHidden from '../../_VisuallyHidden'
 import {accessibleKeyName, condensedKeyName, fullKeyName} from '../key-names'
 import type {KeybindingHintFormat} from '../props'
