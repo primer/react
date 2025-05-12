@@ -12,7 +12,7 @@ describe('CheckboxGroup', () => {
   })
 
   afterAll(() => {
-    vi.clearAllMocks()
+    vi.restoreAllMocks()
   })
 
   it('renders a disabled group of inputs', () => {
