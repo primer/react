@@ -61,7 +61,7 @@
     "@vitest/browser": "^3.1.2",
     "eslint": "8.56.0",
     "eslint-import-resolver-typescript": "3.7.0",
-    "eslint-plugin-clsx": "0.0.9",
+    "eslint-plugin-clsx": "^0.0.10",
     "eslint-plugin-github": "5.0.2",
     "eslint-plugin-jest": "28.11.0",
     "eslint-plugin-jsx-a11y": "6.10.2",
