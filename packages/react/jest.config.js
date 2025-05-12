@@ -32,6 +32,7 @@ module.exports = {
     '<rootDir>/src/ActionBar/',
     '<rootDir>/src/AnchoredOverlay/',
     '<rootDir>/src/Banner/',
+    '<rootDir>/src/Blankslate/',
     '<rootDir>/src/DataTable/',
     '<rootDir>/src/FeatureFlags/',
     '<rootDir>/src/Select/',
