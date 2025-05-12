@@ -7,7 +7,6 @@ import theme from '../theme'
 import BaseStyles from '../BaseStyles'
 import {ThemeProvider} from '../ThemeProvider'
 import type {AnchorPosition} from '@primer/behaviors'
-
 type TestComponentSettings = {
   initiallyOpen?: boolean
   onOpenCallback?: (gesture: string) => void
@@ -124,7 +123,7 @@ describe('AnchoredOverlay', () => {
 
   it('should call onPositionChange when provided', () => {
     const mockPositionChangeCallback = jest.fn(side => side)
-    const anchoredOverlay = HTMLRender(
+    const anchoredOverlay = render(
       <AnchoredOverlayTestComponent initiallyOpen={true} onPositionChange={mockPositionChangeCallback} />,
     )
     const overlay = anchoredOverlay.baseElement.querySelector('[role="none"]')!
