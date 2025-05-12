@@ -122,7 +122,7 @@ describe('AnchoredOverlay', () => {
   })
 
   it('should call onPositionChange when provided', () => {
-    const mockPositionChangeCallback = jest.fn(side => side)
+    const mockPositionChangeCallback = vi.fn(({side}: {side: AnchorPosition}) => side)
     const anchoredOverlay = render(
       <AnchoredOverlayTestComponent initiallyOpen={true} onPositionChange={mockPositionChangeCallback} />,
     )
