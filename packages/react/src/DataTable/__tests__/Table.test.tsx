@@ -148,6 +148,16 @@ describe('Table', () => {
   })
 
   describe('Table.Container', () => {
+    it('should support additional props on the outermost element', () => {
+      const {container} = render(<Table.Container data-testid="test" />)
+      expect(container.firstElementChild).toHaveAttribute('data-testid', 'test')
+    })
+
+    it('should support a custom `className` through the `className` prop', () => {
+      const {container} = render(<Table.Container className="test" />)
+      expect(container.firstElementChild).toHaveClass('test')
+    })
+
     it('should support custom styles through the `sx` prop', () => {
       const {container} = render(<Table.Container sx={{m: 0}} />)
       expect(container.firstElementChild).toHaveStyle('margin:0')
