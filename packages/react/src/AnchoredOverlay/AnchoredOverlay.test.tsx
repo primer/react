@@ -122,7 +122,7 @@ describe('AnchoredOverlay', () => {
   })
 
   it('should call onPositionChange when provided', () => {
-    const mockPositionChangeCallback = vi.fn(({side}: {side: AnchorPosition}) => side)
+    const mockPositionChangeCallback = vi.fn(({position}: {position: AnchorPosition}) => position)
     const anchoredOverlay = render(
       <AnchoredOverlayTestComponent initiallyOpen={true} onPositionChange={mockPositionChangeCallback} />,
     )
@@ -131,10 +131,12 @@ describe('AnchoredOverlay', () => {
 
     expect(mockPositionChangeCallback).toHaveBeenCalledTimes(1)
     expect(mockPositionChangeCallback).toHaveBeenCalledWith({
-      anchorAlign: 'start',
-      anchorSide: 'outside-bottom',
-      left: 0,
-      top: 4,
+      position: {
+        anchorAlign: 'start',
+        anchorSide: 'outside-bottom',
+        left: 0,
+        top: 4,
+      },
     })
   })
 })
