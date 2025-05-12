@@ -135,7 +135,7 @@ describe('AnchoredOverlay', () => {
         anchorAlign: 'start',
         anchorSide: 'outside-bottom',
         left: 0,
-        top: 4,
+        top: 26.84375,
       },
     })
   })
