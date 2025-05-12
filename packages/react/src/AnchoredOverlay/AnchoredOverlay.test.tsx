@@ -6,17 +6,19 @@ import {Button} from '../Button'
 import theme from '../theme'
 import BaseStyles from '../BaseStyles'
 import {ThemeProvider} from '../ThemeProvider'
-
+import type {AnchorPosition} from '@primer/behaviors'
 type TestComponentSettings = {
   initiallyOpen?: boolean
   onOpenCallback?: (gesture: string) => void
   onCloseCallback?: (gesture: string) => void
+  onPositionChange?: ({position}: {position: AnchorPosition}) => void
 }
 
 const AnchoredOverlayTestComponent = ({
   initiallyOpen = false,
   onOpenCallback,
   onCloseCallback,
+  onPositionChange,
 }: TestComponentSettings = {}) => {
   const [open, setOpen] = useState(initiallyOpen)
   const onOpen = useCallback(
@@ -41,6 +43,7 @@ const AnchoredOverlayTestComponent = ({
           onOpen={onOpen}
           onClose={onClose}
           renderAnchor={props => <Button {...props}>Anchor Button</Button>}
+          onPositionChange={onPositionChange}
         >
           <button type="button">Focusable Child</button>
         </AnchoredOverlay>
@@ -116,5 +119,24 @@ describe('AnchoredOverlay', () => {
   it('should render consistently when open', () => {
     const {container} = render(<AnchoredOverlayTestComponent initiallyOpen={true} />)
     expect(container).toMatchSnapshot()
+  })
+
+  it('should call onPositionChange when provided', () => {
+    const mockPositionChangeCallback = vi.fn(({position}: {position: AnchorPosition}) => position)
+    const anchoredOverlay = render(
+      <AnchoredOverlayTestComponent initiallyOpen={true} onPositionChange={mockPositionChangeCallback} />,
+    )
+    const overlay = anchoredOverlay.baseElement.querySelector('[role="none"]')!
+    fireEvent.keyDown(overlay, {key: 'Escape'})
+
+    expect(mockPositionChangeCallback).toHaveBeenCalledTimes(1)
+    expect(mockPositionChangeCallback).toHaveBeenCalledWith({
+      position: {
+        anchorAlign: 'start',
+        anchorSide: 'outside-bottom',
+        left: 0,
+        top: 26.84375,
+      },
+    })
   })
 })
