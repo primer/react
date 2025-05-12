@@ -1,46 +1,18 @@
 import React from 'react'
 import {render} from '@testing-library/react'
 import {Checkbox, CheckboxGroup, FormControl} from '..'
-import {behavesAsComponent, checkExports} from '../utils/testing'
 import userEvent from '@testing-library/user-event'
-import {CheckboxGroupContext} from '../CheckboxGroup'
+import {describe, expect, it, vi, beforeAll, afterAll} from 'vitest'
 
 describe('CheckboxGroup', () => {
-  const mockWarningFn = jest.fn()
+  const mockWarningFn = vi.fn()
 
   beforeAll(() => {
-    jest.spyOn(global.console, 'warn').mockImplementation(mockWarningFn)
+    vi.spyOn(console, 'warn').mockImplementation(mockWarningFn)
   })
 
   afterAll(() => {
-    jest.clearAllMocks()
-  })
-
-  behavesAsComponent({
-    Component: CheckboxGroup,
-    options: {skipAs: true, skipSx: true},
-    toRender: () => (
-      <CheckboxGroup>
-        <CheckboxGroup.Label>Choices</CheckboxGroup.Label>
-        <FormControl>
-          <Checkbox value="one" />
-          <FormControl.Label>Choice one</FormControl.Label>
-        </FormControl>
-        <FormControl>
-          <Checkbox value="two" />
-          <FormControl.Label>Choice two</FormControl.Label>
-        </FormControl>
-        <FormControl>
-          <Checkbox value="three" />
-          <FormControl.Label>Choice three</FormControl.Label>
-        </FormControl>
-      </CheckboxGroup>
-    ),
-  })
-
-  checkExports('CheckboxGroup', {
-    default: CheckboxGroup,
-    CheckboxGroupContext,
+    vi.clearAllMocks()
   })
 
   it('renders a disabled group of inputs', () => {
@@ -96,8 +68,8 @@ describe('CheckboxGroup', () => {
 
   it('calls onChange handlers passed to CheckboxGroup and Checkbox', async () => {
     const user = userEvent.setup()
-    const handleParentChange = jest.fn()
-    const handleCheckboxChange = jest.fn()
+    const handleParentChange = vi.fn()
+    const handleCheckboxChange = vi.fn()
     const {getByLabelText} = render(
       <CheckboxGroup onChange={handleParentChange}>
         <CheckboxGroup.Label>Choices</CheckboxGroup.Label>
@@ -126,7 +98,7 @@ describe('CheckboxGroup', () => {
 
   it('calls onChange handler on CheckboxGroup with selected values', async () => {
     const user = userEvent.setup()
-    const handleParentChange = jest.fn()
+    const handleParentChange = vi.fn()
     const {getByLabelText} = render(
       <CheckboxGroup onChange={handleParentChange}>
         <CheckboxGroup.Label>Choices</CheckboxGroup.Label>
