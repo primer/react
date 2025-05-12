@@ -1,6 +1,7 @@
 import {clsx} from 'clsx'
 import type {HTMLAttributes} from 'react'
-import React, {forwardRef} from 'react'
+import type React from 'react'
+import {forwardRef} from 'react'
 import type {SxProp} from '../sx'
 import {VisuallyHidden} from '../VisuallyHidden'
 import {defaultSxProp} from '../utils/defaultSxProp'

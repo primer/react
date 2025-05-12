@@ -1,4 +1,4 @@
-import React from 'react'
+import type React from 'react'
 import {get} from '../constants'
 import type {SxProp} from '../sx'
 import {useFormControlContext} from './_FormControlContext'

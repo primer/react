@@ -1,4 +1,5 @@
-import React, {useCallback, useEffect} from 'react'
+import type React from 'react'
+import {useCallback, useEffect} from 'react'
 import type {OverlayProps} from '../Overlay'
 import Overlay from '../Overlay'
 import type {FocusTrapHookSettings} from '../hooks/useFocusTrap'

@@ -9,6 +9,7 @@ module.exports = {
   },
   extends: [
     'plugin:react/recommended',
+    'plugin:react/jsx-runtime',
     'plugin:jsx-a11y/recommended',
     'plugin:react-hooks/recommended',
     'plugin:prettier/recommended',
