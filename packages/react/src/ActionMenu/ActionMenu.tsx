@@ -234,7 +234,7 @@ type MenuOverlayProps = Partial<OverlayProps> &
      * Recommended: `ActionList`
      */
     children: React.ReactNode
-    onPositionChange?: (side: AnchorPosition) => void
+    onPositionChange?: ({position}: {position: AnchorPosition}) => void
   }
 const Overlay: React.FC<React.PropsWithChildren<MenuOverlayProps>> = ({
   children,

@@ -101,7 +101,7 @@ interface AnchoredOverlayBaseProps extends Pick<OverlayProps, 'height' | 'width'
   /**
    * An override to the internal position that will be used to position the overlay.
    */
-  onPositionChange?: (position: AnchorPosition) => void
+  onPositionChange?: ({position}: {position: AnchorPosition}) => void
 }
 
 export type AnchoredOverlayProps = AnchoredOverlayBaseProps &
@@ -169,7 +169,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
 
   const positionChange = (position: AnchorPosition | undefined) => {
     if (onPositionChange && position) {
-      onPositionChange(position)
+      onPositionChange({position})
     }
   }
 
