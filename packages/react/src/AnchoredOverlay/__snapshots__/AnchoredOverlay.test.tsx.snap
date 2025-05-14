@@ -43,7 +43,7 @@ exports[`AnchoredOverlay > should render consistently when open 1`] = `
         style="position: relative; z-index: 1;"
       >
         <div
-          class="_Overlay_3qzyn_11"
+          class="_Overlay_1a2ug_11"
           data-focus-trap="active"
           data-height-auto=""
           data-variant="anchored"
