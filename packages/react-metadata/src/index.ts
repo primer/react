@@ -1,5 +1,5 @@
 import ts from 'typescript'
-import {isNodeExported} from './isNodeExported'
+import {isNodeExported} from './isNodeExported.ts'
 
 function getMetadataFromSourceFile(typeChecker: ts.TypeChecker, sourceFile: ts.SourceFile): Metadata {
   const metadata: Metadata = {
@@ -46,6 +46,11 @@ function getMetadataFromSourceFile(typeChecker: ts.TypeChecker, sourceFile: ts.S
           }
         }
       }
+    } else if (ts.isVariableStatement(node)) {
+      for (const declaration of node.declarationList.declarations) {
+        const type = getTypeInfo(typeChecker, declaration)
+        metadata.exports.push(type)
+      }
     } else {
       const type = getTypeInfo(typeChecker, node)
       metadata.exports.push(type)
@@ -71,7 +76,10 @@ type Type =
       typeParameters: Array<TypeParameter>
       type: Type
     }
+  | CallExpression
+  | PropertyAccessExpression
   | TypeParameter
+  | VariableDeclaration
   | {
       kind: 'TypeLiteral'
       members: Array<PropertySignature>
@@ -91,6 +99,7 @@ type Type =
       typeArguments: Array<Type>
     }
   | FunctionDeclaration
+  | Function
   | Parameter
   | Identifier
   | QualifiedName
@@ -140,6 +149,12 @@ type Type =
       type: string
     }
 
+type VariableDeclaration = {
+  kind: 'VariableDeclaration'
+  name: Identifier
+  type: Type
+}
+
 type PropertySignature = {
   kind: 'PropertySignature'
   name: string
@@ -165,10 +180,30 @@ type TypeParameter = {
   default?: Type
 }
 
+type CallExpression = {
+  kind: 'CallExpression'
+  expression: Identifier | PropertyAccessExpression
+  typeArguments: Array<Type>
+  arguments: Array<Type>
+}
+
+type PropertyAccessExpression = {
+  kind: 'PropertyAccessExpression'
+  expression: Identifier | PropertyAccessExpression
+  name: Identifier
+}
+
 type FunctionDeclaration = {
   kind: 'FunctionDeclaration'
   name: string
   signatures: Array<Signature>
+}
+
+type Function = {
+  kind: 'Function'
+  parameters: Array<Parameter>
+  returnType: Type
+  typeParameters: Array<TypeParameter>
 }
 
 type Signature = {
@@ -213,11 +248,20 @@ type Tuple = {
 }
 
 function getTypeInfo(typeChecker: ts.TypeChecker, node: ts.Node): Type {
-  if (ts.isVariableStatement(node)) {
-    for (const declaration of node.declarationList.declarations) {
-      if (!ts.isIdentifier(declaration.name)) {
-        continue
-      }
+  if (ts.isVariableDeclaration(node)) {
+    const type = node.type
+      ? getTypeInfo(typeChecker, node.type)
+      : node.initializer
+        ? getTypeInfo(typeChecker, node.initializer)
+        : ({kind: 'Any'} as const)
+
+    return {
+      kind: 'VariableDeclaration',
+      name: {
+        kind: 'Identifier',
+        name: node.name.getText(),
+      },
+      type,
     }
   }
 
@@ -255,10 +299,147 @@ function getTypeInfo(typeChecker: ts.TypeChecker, node: ts.Node): Type {
 
       if (signature.typeParameters) {
         for (const typeParameter of signature.typeParameters) {
-          // const typeParameterType = getTypeInfo(typeChecker, typeParameter)
-          // if (typeParameterType.kind === 'TypeParameter') {
-          // typeParameters.push(typeParameterType)
-          // }
+          const typeParameterType = getTypeInfoFromType(typeChecker, typeParameter)
+          if (typeParameterType.kind === 'TypeParameter') {
+            typeParameters.push(typeParameterType)
+          }
+        }
+      }
+
+      signatures.push({
+        kind: 'Signature',
+        parameters,
+        returnType,
+        typeParameters,
+      })
+    }
+
+    return {
+      kind: 'FunctionDeclaration',
+      name: node.name.getText(),
+      signatures,
+    }
+  }
+
+  if (ts.isFunctionTypeNode(node)) {
+    const parameters: Array<Parameter> = []
+
+    for (const parameter of node.parameters) {
+      const parameterType = getTypeInfo(typeChecker, parameter)
+      if (parameterType.kind === 'Parameter') {
+        parameters.push(parameterType)
+      }
+    }
+
+    const typeParameters: Array<TypeParameter> = []
+
+    if (node.typeParameters) {
+      for (const typeParameter of node.typeParameters) {
+        const typeParameterType = getTypeInfo(typeChecker, typeParameter)
+        if (typeParameterType.kind === 'TypeParameter') {
+          typeParameters.push(typeParameterType)
+        }
+      }
+    }
+
+    return {
+      kind: 'Function',
+      parameters,
+      returnType: getTypeInfo(typeChecker, node.type),
+      typeParameters,
+    }
+  }
+
+  if (ts.isFunctionExpression(node)) {
+    if (!node.name) {
+      return unsupported(typeChecker, node)
+    }
+
+    const symbol = typeChecker.getSymbolAtLocation(node.name)
+    if (!symbol) {
+      return unsupported(typeChecker, node)
+    }
+
+    const type = typeChecker.getTypeOfSymbolAtLocation(symbol, node)
+    const signatures: Array<Signature> = []
+
+    for (const signature of type.getCallSignatures()) {
+      const returnType = getTypeInfoFromType(typeChecker, signature.getReturnType())
+      const parameters: Array<Parameter> = []
+      const typeParameters: Array<TypeParameter> = []
+
+      for (const parameter of signature.getParameters()) {
+        const valueDeclaration = parameter.valueDeclaration
+        if (!valueDeclaration) {
+          continue
+        }
+
+        const parameterDeclaration = valueDeclaration as ts.ParameterDeclaration
+        const parameterType = getTypeInfo(typeChecker, parameterDeclaration)
+
+        if (parameterType.kind === 'Parameter') {
+          parameters.push(parameterType)
+        }
+      }
+
+      if (signature.typeParameters) {
+        for (const typeParameter of signature.typeParameters) {
+          const typeParameterType = getTypeInfoFromType(typeChecker, typeParameter)
+          if (typeParameterType.kind === 'TypeParameter') {
+            typeParameters.push(typeParameterType)
+          }
+        }
+      }
+
+      signatures.push({
+        kind: 'Signature',
+        parameters,
+        returnType,
+        typeParameters,
+      })
+    }
+
+    return {
+      kind: 'FunctionDeclaration',
+      name: node.name.getText(),
+      signatures,
+    }
+  }
+
+  if (ts.isArrowFunction(node)) {
+    const symbol = typeChecker.getSymbolAtLocation(node)
+    if (!symbol) {
+      return unsupported(typeChecker, node)
+    }
+
+    const type = typeChecker.getTypeOfSymbolAtLocation(symbol, node)
+    const signatures: Array<Signature> = []
+
+    for (const signature of type.getCallSignatures()) {
+      const returnType = getTypeInfoFromType(typeChecker, signature.getReturnType())
+      const parameters: Array<Parameter> = []
+      const typeParameters: Array<TypeParameter> = []
+
+      for (const parameter of signature.getParameters()) {
+        const valueDeclaration = parameter.valueDeclaration
+        if (!valueDeclaration) {
+          continue
+        }
+
+        const parameterDeclaration = valueDeclaration as ts.ParameterDeclaration
+        const parameterType = getTypeInfo(typeChecker, parameterDeclaration)
+
+        if (parameterType.kind === 'Parameter') {
+          parameters.push(parameterType)
+        }
+      }
+
+      if (signature.typeParameters) {
+        for (const typeParameter of signature.typeParameters) {
+          const typeParameterType = getTypeInfoFromType(typeChecker, typeParameter)
+          if (typeParameterType.kind === 'TypeParameter') {
+            typeParameters.push(typeParameterType)
+          }
         }
       }
 
@@ -361,6 +542,50 @@ function getTypeInfo(typeChecker: ts.TypeChecker, node: ts.Node): Type {
       name: propertySignature.name.getText(),
       optional: !!propertySignature.questionToken,
       type: getTypeInfo(typeChecker, propertySignature.type),
+    }
+  }
+
+  if (ts.isCallExpression(node)) {
+    const expression = getTypeInfo(typeChecker, node.expression)
+    if (expression.kind === 'Identifier' || expression.kind === 'PropertyAccessExpression') {
+      const args: Array<Type> = []
+
+      for (const arg of node.arguments) {
+        const type = getTypeInfo(typeChecker, arg)
+        args.push(type)
+      }
+
+      const typeArguments: Array<Type> = []
+
+      if (node.typeArguments) {
+        for (const typeArgument of node.typeArguments) {
+          const type = getTypeInfo(typeChecker, typeArgument)
+          if (type.kind === 'TypeReference') {
+            typeArguments.push(type)
+          }
+        }
+      }
+
+      return {
+        kind: 'CallExpression',
+        expression,
+        typeArguments,
+        arguments: args,
+      }
+    }
+  }
+
+  if (ts.isPropertyAccessExpression(node)) {
+    const expression = getTypeInfo(typeChecker, node.expression)
+    if (expression.kind === 'Identifier' || expression.kind === 'PropertyAccessExpression') {
+      return {
+        kind: 'PropertyAccessExpression',
+        expression,
+        name: {
+          kind: 'Identifier',
+          name: node.name.getText(),
+        },
+      }
     }
   }
 
@@ -607,7 +832,8 @@ function getTypeInfoFromType(typeChecker: ts.TypeChecker, type: ts.Type): Type {
   if (type.flags & ts.TypeFlags.StringLiteral) {
     return {
       kind: 'StringLiteral',
-      value: typeChecker.typeToString(type),
+      // When using typeToString, the string literal is wrapped in quotes
+      value: typeChecker.typeToString(type).slice(1, -1),
     }
   }
 
@@ -689,10 +915,15 @@ function getTypeInfoFromType(typeChecker: ts.TypeChecker, type: ts.Type): Type {
   }
 
   if (type.flags & ts.TypeFlags.TypeParameter) {
-    // return {
-    // kind: 'TypeParameter',
-    // name: typeChecker.typeToString(type),
-    // }
+    const constraint = type.getConstraint()
+    const defaultType = type.getDefault()
+
+    return {
+      kind: 'TypeParameter',
+      name: typeChecker.typeToString(type),
+      constraint: constraint ? getTypeInfoFromType(typeChecker, constraint) : undefined,
+      default: defaultType ? getTypeInfoFromType(typeChecker, defaultType) : undefined,
+    }
   }
 
   if (type.flags & ts.TypeFlags.Object) {
@@ -710,6 +941,28 @@ function getTypeInfoFromType(typeChecker: ts.TypeChecker, type: ts.Type): Type {
               return getTypeInfoFromType(typeChecker, type)
             })
           : [],
+      }
+    } else if (objectType.objectFlags & ts.ObjectFlags.Anonymous) {
+      const members: Array<PropertySignature> = []
+
+      objectType.getProperties().forEach(property => {
+        const declaration = property.valueDeclaration
+        if (!declaration) {
+          return
+        }
+
+        const type = getTypeInfoFromType(typeChecker, typeChecker.getTypeOfSymbolAtLocation(property, declaration))
+        members.push({
+          kind: 'PropertySignature',
+          name: property.name,
+          optional: !!(declaration as ts.PropertySignature).questionToken,
+          type,
+        })
+      })
+
+      return {
+        kind: 'TypeLiteral',
+        members,
       }
     }
   }
@@ -760,5 +1013,191 @@ function unsupportedType(typeChecker: ts.TypeChecker, type: ts.Type) {
   } as const
 }
 
-export {getMetadataFromSourceFile}
+function format(type: Type): string {
+  if (type.kind === 'ExportSpecifier') {
+    return `${type.name}: ${format(type.type)}`
+  }
+
+  if (type.kind === 'TypeAlias') {
+    return `type ${type.name}${formatTypeParameters(type.typeParameters)} = ${format(type.type)}`
+  }
+
+  if (type.kind === 'VariableDeclaration') {
+    return `const ${type.name.name}: ${format(type.type)}`
+  }
+
+  if (type.kind === 'TypeReference') {
+    const typeArguments = type.typeArguments.length > 0 ? formatTypeParameters(type.typeArguments) : ''
+    return `${format(type.typeName)}${typeArguments}`
+  }
+
+  if (type.kind === 'CallExpression') {
+    const typeArguments = type.typeArguments.length > 0 ? formatTypeParameters(type.typeArguments) : ''
+    const args = type.arguments.length > 0 ? `(${type.arguments.map(format).join(', ')})` : ''
+    return `${format(type.expression)}${typeArguments}${args}`
+  }
+
+  if (type.kind === 'PropertyAccessExpression') {
+    return `${format(type.expression)}.${type.name.name}`
+  }
+
+  if (type.kind === 'Identifier') {
+    return type.name
+  }
+
+  if (type.kind === 'QualifiedName') {
+    return `${format(type.left)}.${type.right.name}`
+  }
+
+  if (type.kind === 'TypeParameter') {
+    const constraint = type.constraint ? ` extends ${format(type.constraint)}` : ''
+    const defaultType = type.default ? ` = ${format(type.default)}` : ''
+    return `${type.name}${constraint}${defaultType}`
+  }
+
+  if (type.kind === 'PropertySignature') {
+    return `${type.name}${type.optional ? '?' : ''}: ${format(type.type)}`
+  }
+
+  if (type.kind === 'TypeLiteral') {
+    return `{ ${type.members.map(format).join(', ')} }`
+  }
+
+  if (type.kind === 'Intersection') {
+    return type.members.map(format).join(' & ')
+  }
+
+  if (type.kind === 'Union') {
+    return type.members.map(format).join(' | ')
+  }
+
+  if (type.kind === 'Tuple') {
+    return `[${type.elements.map(format).join(', ')}]`
+  }
+
+  if (type.kind === 'BooleanLiteral') {
+    return type.value
+  }
+
+  if (type.kind === 'StringLiteral') {
+    return `"${type.value}"`
+  }
+
+  if (type.kind === 'NumericLiteral') {
+    return type.value
+  }
+
+  if (type.kind === 'Boolean') {
+    return 'boolean'
+  }
+
+  if (type.kind === 'Number') {
+    return 'number'
+  }
+
+  if (type.kind === 'String') {
+    return 'string'
+  }
+
+  if (type.kind === 'Never') {
+    return 'never'
+  }
+
+  if (type.kind === 'Null') {
+    return 'null'
+  }
+
+  if (type.kind === 'Undefined') {
+    return 'undefined'
+  }
+
+  if (type.kind === 'Any') {
+    return 'any'
+  }
+
+  if (type.kind === 'Void') {
+    return 'void'
+  }
+
+  if (type.kind === 'Unknown') {
+    return 'unknown'
+  }
+
+  if (type.kind === 'Function') {
+    const parameters = type.parameters.map(parameter => {
+      return `${parameter.name.name}${parameter.optional ? '?' : ''}: ${format(parameter.type)}`
+    })
+    const typeParameters = formatTypeParameters(type.typeParameters)
+    return `(${parameters.join(', ')}) => ${format(type.returnType)}`
+  }
+
+  if (type.kind === 'Signature') {
+    const parameters = type.parameters.map(parameter => {
+      return `${parameter.name.name}${parameter.optional ? '?' : ''}: ${format(parameter.type)}`
+    })
+    const typeParameters = formatTypeParameters(type.typeParameters)
+    return `(${parameters.join(', ')}) => ${format(type.returnType)}`
+  }
+
+  if (type.kind === 'Parameter') {
+    if (type.name.kind === 'ObjectBindingPattern') {
+      const elements = type.name.elements.map(element => {
+        if (element.propertyName) {
+          return `${element.propertyName.name}: ${element.name.name}`
+        }
+        return `${element.name.name}`
+      })
+      return `{ ${elements.join(', ')} }${type.optional ? '?' : ''}: ${format(type.type)}`
+    }
+
+    if (type.name.kind === 'ArrayBindingPattern') {
+      const elements = type.name.elements.map(element => {
+        if (element.kind === 'OmittedExpression') {
+          return `...`
+        }
+        return `${element.name.name}`
+      })
+      return `[${elements.join(', ')}]${type.optional ? '?' : ''}: ${format(type.type)}`
+    }
+
+    return `${type.name.name}${type.optional ? '?' : ''}: ${format(type.type)}`
+  }
+
+  if (type.kind === 'FunctionDeclaration') {
+    const signatures = type.signatures.map(signature => {
+      const parameters = signature.parameters.map(parameter => {
+        return `${parameter.name.name}${parameter.optional ? '?' : ''}: ${format(parameter.type)}`
+      })
+      const typeParameters = formatTypeParameters(signature.typeParameters)
+      return `(${parameters.join(', ')}) => ${format(signature.returnType)}`
+    })
+    return `function ${type.name}(${signatures.join(' | ')})`
+  }
+
+  if (type.kind === 'Unsupported') {
+    return type.type
+  }
+
+  exhaustiveCheck(type)
+}
+
+function formatTypeParameters(typeParameters: Array<TypeParameter>): string {
+  if (typeParameters.length === 0) {
+    return ''
+  }
+
+  const formattedTypeParameters = typeParameters.map(typeParameter => {
+    const constraint = typeParameter.constraint ? ` extends ${format(typeParameter.constraint)}` : ''
+    const defaultType = typeParameter.default ? ` = ${format(typeParameter.default)}` : ''
+    return `${typeParameter.name}${constraint}${defaultType}`
+  })
+
+  return `<${formattedTypeParameters.join(', ')}>`
+}
+
+function exhaustiveCheck(value: never): never {
+  throw new Error(`Unexpected value: ${value}`)
+}
+
+export {getMetadataFromSourceFile, format}
 export type {Metadata, Type}

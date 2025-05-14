@@ -723,6 +723,326 @@ describe('functions', () => {
       ],
     })
   })
+
+  test('type parameters', () => {
+    const program = getTypeScriptProgram({
+      'test.ts': `
+        export function t<T extends string = string>(a: T) {}
+      `,
+    })
+
+    const typeChecker = program.getTypeChecker()
+    const sourceFile = program.getSourceFile('test.ts')!
+    const metadata = getMetadataFromSourceFile(typeChecker, sourceFile)
+    expect(metadata).toEqual({
+      exports: [
+        {
+          kind: 'FunctionDeclaration',
+          name: 't',
+          signatures: [
+            {
+              kind: 'Signature',
+              parameters: [
+                {
+                  kind: 'Parameter',
+                  name: {
+                    kind: 'Identifier',
+                    name: 'a',
+                  },
+                  type: {
+                    kind: 'TypeReference',
+                    typeName: {
+                      kind: 'Identifier',
+                      name: 'T',
+                    },
+                    typeArguments: [],
+                  },
+                  optional: false,
+                  rest: false,
+                },
+              ],
+              returnType: {
+                kind: 'Void',
+              },
+              typeParameters: [
+                {
+                  kind: 'TypeParameter',
+                  name: 'T',
+                  constraint: {
+                    kind: 'String',
+                  },
+                  default: {
+                    kind: 'String',
+                  },
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    })
+  })
+
+  test('function type', () => {
+    const program = getTypeScriptProgram({
+      'test.ts': `
+        export type t1 = () => void
+        export type t2 = (a: number) => void
+        export type t3 = (a?: number) => void
+        export type t4 = (a: number, ...rest: Array<string>) => void
+        export type t5 = ({ a, b, ...rest}: { a: number; b: number; c: number; }) => void
+        export type t6 = ([a, ...rest]: [number, number]) => void
+      `,
+    })
+
+    const typeChecker = program.getTypeChecker()
+    const sourceFile = program.getSourceFile('test.ts')!
+    const metadata = getMetadataFromSourceFile(typeChecker, sourceFile)
+    expect(metadata).toEqual({
+      exports: [
+        {
+          kind: 'TypeAlias',
+          name: 't1',
+          type: {
+            kind: 'Function',
+            parameters: [],
+            returnType: {
+              kind: 'Void',
+            },
+            typeParameters: [],
+          },
+          typeParameters: [],
+        },
+        {
+          kind: 'TypeAlias',
+          name: 't2',
+          type: {
+            kind: 'Function',
+            parameters: [
+              {
+                kind: 'Parameter',
+                name: {
+                  kind: 'Identifier',
+                  name: 'a',
+                },
+                type: {
+                  kind: 'Number',
+                },
+                optional: false,
+                rest: false,
+              },
+            ],
+            returnType: {
+              kind: 'Void',
+            },
+            typeParameters: [],
+          },
+          typeParameters: [],
+        },
+        {
+          kind: 'TypeAlias',
+          name: 't3',
+          type: {
+            kind: 'Function',
+            parameters: [
+              {
+                kind: 'Parameter',
+                name: {
+                  kind: 'Identifier',
+                  name: 'a',
+                },
+                type: {
+                  kind: 'Number',
+                },
+                optional: true,
+                rest: false,
+              },
+            ],
+            returnType: {
+              kind: 'Void',
+            },
+            typeParameters: [],
+          },
+          typeParameters: [],
+        },
+        {
+          kind: 'TypeAlias',
+          name: 't4',
+          type: {
+            kind: 'Function',
+            parameters: [
+              {
+                kind: 'Parameter',
+                name: {
+                  kind: 'Identifier',
+                  name: 'a',
+                },
+                type: {
+                  kind: 'Number',
+                },
+                optional: false,
+                rest: false,
+              },
+              {
+                kind: 'Parameter',
+                name: {
+                  kind: 'Identifier',
+                  name: 'rest',
+                },
+                type: {
+                  kind: 'TypeReference',
+                  typeName: {
+                    kind: 'Identifier',
+                    name: 'Array',
+                  },
+                  typeArguments: [
+                    {
+                      kind: 'String',
+                    },
+                  ],
+                },
+                optional: false,
+                rest: true,
+              },
+            ],
+            returnType: {
+              kind: 'Void',
+            },
+            typeParameters: [],
+          },
+          typeParameters: [],
+        },
+        {
+          kind: 'TypeAlias',
+          name: 't5',
+          type: {
+            kind: 'Function',
+            parameters: [
+              {
+                kind: 'Parameter',
+                optional: false,
+                rest: false,
+                name: {
+                  kind: 'ObjectBindingPattern',
+                  elements: [
+                    {
+                      kind: 'BindingElement',
+                      name: {
+                        kind: 'Identifier',
+                        name: 'a',
+                      },
+                      restProperty: false,
+                    },
+                    {
+                      kind: 'BindingElement',
+                      name: {
+                        kind: 'Identifier',
+                        name: 'b',
+                      },
+                      restProperty: false,
+                    },
+                    {
+                      kind: 'BindingElement',
+                      name: {
+                        kind: 'Identifier',
+                        name: 'rest',
+                      },
+                      restProperty: true,
+                    },
+                  ],
+                },
+                type: {
+                  kind: 'TypeLiteral',
+                  members: [
+                    {
+                      kind: 'PropertySignature',
+                      name: 'a',
+                      optional: false,
+                      type: {
+                        kind: 'Number',
+                      },
+                    },
+                    {
+                      kind: 'PropertySignature',
+                      name: 'b',
+                      optional: false,
+                      type: {
+                        kind: 'Number',
+                      },
+                    },
+                    {
+                      kind: 'PropertySignature',
+                      name: 'c',
+                      optional: false,
+                      type: {
+                        kind: 'Number',
+                      },
+                    },
+                  ],
+                },
+              },
+            ],
+            returnType: {
+              kind: 'Void',
+            },
+            typeParameters: [],
+          },
+          typeParameters: [],
+        },
+        {
+          kind: 'TypeAlias',
+          name: 't6',
+          type: {
+            kind: 'Function',
+            parameters: [
+              {
+                kind: 'Parameter',
+                name: {
+                  kind: 'ArrayBindingPattern',
+                  elements: [
+                    {
+                      kind: 'BindingElement',
+                      name: {
+                        kind: 'Identifier',
+                        name: 'a',
+                      },
+                      restProperty: false,
+                    },
+                    {
+                      kind: 'BindingElement',
+                      name: {
+                        kind: 'Identifier',
+                        name: 'rest',
+                      },
+                      restProperty: true,
+                    },
+                  ],
+                },
+                type: {
+                  kind: 'Tuple',
+                  elements: [
+                    {
+                      kind: 'Number',
+                    },
+                    {
+                      kind: 'Number',
+                    },
+                  ],
+                },
+                optional: false,
+                rest: false,
+              },
+            ],
+            returnType: {
+              kind: 'Void',
+            },
+            typeParameters: [],
+          },
+          typeParameters: [],
+        },
+      ],
+    })
+  })
 })
 
 describe('type references', () => {
@@ -1052,6 +1372,33 @@ describe('unions', () => {
             ],
           },
           typeParameters: [],
+        },
+      ],
+    })
+  })
+})
+
+describe('variable declarations', () => {
+  test('variable declaration', () => {
+    const program = getTypeScriptProgram({
+      'test.ts': `export const t = 1;`,
+    })
+
+    const typeChecker = program.getTypeChecker()
+    const sourceFile = program.getSourceFile('test.ts')!
+    const metadata = getMetadataFromSourceFile(typeChecker, sourceFile)
+    expect(metadata).toEqual({
+      exports: [
+        {
+          kind: 'VariableDeclaration',
+          name: {
+            kind: 'Identifier',
+            name: 't',
+          },
+          type: {
+            kind: 'NumericLiteral',
+            value: '1',
+          },
         },
       ],
     })
