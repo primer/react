@@ -9,6 +9,7 @@ module.exports = {
   },
   extends: [
     'plugin:react/recommended',
+    'plugin:react/jsx-runtime',
     'plugin:jsx-a11y/recommended',
     'plugin:react-hooks/recommended',
     'plugin:prettier/recommended',
@@ -65,6 +66,7 @@ module.exports = {
     'react/button-has-type': 'error',
     'react/prop-types': 'off',
     'react/display-name': 'off',
+    'react/jsx-uses-react': 'off',
     'react-hooks/exhaustive-deps': 'error',
     camelcase: [
       'error',

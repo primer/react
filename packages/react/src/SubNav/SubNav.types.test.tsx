@@ -1,4 +1,3 @@
-import React from 'react'
 import SubNav from '../SubNav'
 
 export function shouldAcceptCallWithNoProps() {

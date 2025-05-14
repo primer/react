@@ -1,6 +1,5 @@
 /* eslint eslint-comments/no-use: off */
 /* eslint-disable primer-react/direct-slot-children */
-import React from 'react'
 import {ActionList} from '../../src'
 import figma from '@figma/code-connect'
 

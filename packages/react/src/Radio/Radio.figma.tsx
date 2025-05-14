@@ -1,4 +1,3 @@
-import React from 'react'
 import {FormControl, Radio} from '../'
 import figma from '@figma/code-connect'
 

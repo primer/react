@@ -1,4 +1,4 @@
-import React, {forwardRef} from 'react'
+import {forwardRef} from 'react'
 import type {TokenBaseProps} from './TokenBase'
 import {defaultTokenSize, tokenSizes} from './TokenBase'
 import Token from './Token'

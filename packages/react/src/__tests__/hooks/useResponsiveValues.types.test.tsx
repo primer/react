@@ -1,4 +1,3 @@
-import React from 'react'
 import type {ResponsiveValue} from '../../hooks/useResponsiveValue'
 import {useResponsiveValue} from '../../hooks/useResponsiveValue'
 

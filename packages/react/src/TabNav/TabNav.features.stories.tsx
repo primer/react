@@ -1,4 +1,3 @@
-import React from 'react'
 import type {Meta} from '@storybook/react'
 import TabNav from './TabNav'
 import type {ComponentProps} from '../utils/types'

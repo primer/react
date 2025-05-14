@@ -1,5 +1,5 @@
 import type {IconProps} from '@primer/octicons-react'
-import React from 'react'
+import type React from 'react'
 import type {BoxProps} from '../Box'
 import Box from '../Box'
 

@@ -1,4 +1,3 @@
-import React from 'react'
 import {IssueLabel} from '../IssueLabel'
 import type {Meta} from '@storybook/react'
 import {Stack} from '../../Stack'

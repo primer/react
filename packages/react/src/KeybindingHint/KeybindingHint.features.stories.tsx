@@ -1,4 +1,3 @@
-import React from 'react'
 import type {Meta, StoryObj} from '@storybook/react'
 import {KeybindingHint, type KeybindingHintProps} from '.'
 import Box from '../Box'

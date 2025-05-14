@@ -1,4 +1,3 @@
-import React from 'react'
 import {UnderlineNav} from '../../deprecated'
 
 export function shouldAcceptCallWithNoProps() {

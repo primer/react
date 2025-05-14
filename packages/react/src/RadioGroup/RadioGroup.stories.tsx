@@ -1,4 +1,3 @@
-import React from 'react'
 import type {Meta} from '@storybook/react'
 import {Radio, RadioGroup, FormControl} from '..'
 import type {CheckboxOrRadioGroupArgs} from '../utils/form-story-helpers'

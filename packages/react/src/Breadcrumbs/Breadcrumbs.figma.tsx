@@ -1,4 +1,3 @@
-import React from 'react'
 import Breadcrumbs from './Breadcrumbs'
 import figma from '@figma/code-connect'
 

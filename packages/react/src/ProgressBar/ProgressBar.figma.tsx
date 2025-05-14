@@ -1,4 +1,3 @@
-import React from 'react'
 import {ProgressBar, Item as ProgressBarItem} from './ProgressBar'
 import figma from '@figma/code-connect'
 

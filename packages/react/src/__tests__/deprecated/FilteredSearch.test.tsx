@@ -1,4 +1,3 @@
-import React from 'react'
 import {FilteredSearch} from '../../deprecated'
 import {render, behavesAsComponent, checkExports} from '../../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'

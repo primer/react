@@ -1,4 +1,3 @@
-import React from 'react'
 import {PointerBox} from '..'
 import {render, behavesAsComponent, checkExports, renderStyles} from '../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'

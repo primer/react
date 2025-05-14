@@ -1,4 +1,3 @@
-import React from 'react'
 import {Heading} from '../..'
 import {render, behavesAsComponent, checkExports} from '../../utils/testing'
 import {render as HTMLRender, screen} from '@testing-library/react'

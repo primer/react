@@ -1,4 +1,3 @@
-import React from 'react'
 import CircleBadge from '../CircleBadge'
 
 export function shouldAcceptCallWithNoProps() {

@@ -1,4 +1,4 @@
-import React, {type ComponentProps} from 'react'
+import {type ComponentProps} from 'react'
 import type {Meta} from '@storybook/react'
 import {SkeletonBox} from './SkeletonBox'
 

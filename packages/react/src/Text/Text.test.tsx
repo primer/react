@@ -1,4 +1,3 @@
-import React from 'react'
 import {Text} from '..'
 import theme from '../theme'
 import {px, render, renderStyles, behavesAsComponent, checkExports} from '../utils/testing'

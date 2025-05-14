@@ -1,4 +1,3 @@
-import React from 'react'
 import {XIcon} from '@primer/octicons-react'
 import Octicon from '../Octicon'
 import {behavesAsComponent, checkExports} from '../utils/testing'

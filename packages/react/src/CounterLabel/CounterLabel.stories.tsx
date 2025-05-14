@@ -1,4 +1,3 @@
-import React from 'react'
 import type {StoryFn, Meta, StoryObj} from '@storybook/react'
 import CounterLabel from './CounterLabel'
 

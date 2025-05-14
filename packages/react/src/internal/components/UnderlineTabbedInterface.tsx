@@ -1,6 +1,7 @@
 // Used for UnderlineNav and UnderlinePanels components
 
-import React, {forwardRef, type FC, type PropsWithChildren} from 'react'
+import type React from 'react'
+import {forwardRef, type FC, type PropsWithChildren} from 'react'
 import {isElement} from 'react-is'
 import type {IconProps} from '@primer/octicons-react'
 import CounterLabel from '../../CounterLabel'

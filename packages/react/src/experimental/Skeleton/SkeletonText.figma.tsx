@@ -1,4 +1,3 @@
-import React from 'react'
 import {SkeletonText} from '../../../src/experimental/'
 import figma from '@figma/code-connect'
 

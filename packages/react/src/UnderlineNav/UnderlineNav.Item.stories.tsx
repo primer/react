@@ -1,4 +1,3 @@
-import React from 'react'
 import type {Meta, StoryFn} from '@storybook/react'
 import {UnderlineNav} from './index'
 import {UnderlineNavItem} from './UnderlineNavItem'

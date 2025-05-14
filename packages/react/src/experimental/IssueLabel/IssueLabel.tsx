@@ -1,4 +1,4 @@
-import React from 'react'
+import type React from 'react'
 import {getColorsFromHex} from './getColorFromHex'
 import {useTheme} from '../../ThemeProvider'
 import {clsx} from 'clsx'

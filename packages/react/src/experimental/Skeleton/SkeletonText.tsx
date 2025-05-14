@@ -1,4 +1,5 @@
-import React, {type CSSProperties, type HTMLProps} from 'react'
+import type React from 'react'
+import {type CSSProperties, type HTMLProps} from 'react'
 import classes from './SkeletonText.module.css'
 import {clsx} from 'clsx'
 import {merge} from '../../sx'

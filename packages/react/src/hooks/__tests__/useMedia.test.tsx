@@ -1,5 +1,5 @@
 import {render} from '@testing-library/react'
-import React, {act} from 'react'
+import {act} from 'react'
 import ReactDOM from 'react-dom/server'
 import {useMedia, MatchMedia} from '../useMedia'
 

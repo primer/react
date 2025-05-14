@@ -1,4 +1,3 @@
-import React from 'react'
 import type {SpinnerProps} from '..'
 import {Spinner} from '..'
 import {render, screen} from '@testing-library/react'

@@ -1,5 +1,3 @@
-import React from 'react'
-
 import type {Meta} from '@storybook/react'
 import type {ComponentProps} from '../utils/types'
 import {StressTest} from '../utils/StressTest'

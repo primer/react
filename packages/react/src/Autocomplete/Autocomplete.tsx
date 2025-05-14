@@ -1,4 +1,5 @@
-import React, {useCallback, useReducer, useRef} from 'react'
+import type React from 'react'
+import {useCallback, useReducer, useRef} from 'react'
 import type {ComponentProps} from '../utils/types'
 import {AutocompleteContext} from './AutocompleteContext'
 import AutocompleteInput from './AutocompleteInput'

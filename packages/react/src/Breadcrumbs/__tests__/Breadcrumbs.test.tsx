@@ -1,4 +1,3 @@
-import React from 'react'
 import Breadcrumbs from '..'
 import {render as HTMLRender} from '@testing-library/react'
 import {describe, expect, it} from 'vitest'

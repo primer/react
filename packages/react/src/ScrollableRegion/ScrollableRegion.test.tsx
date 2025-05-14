@@ -1,5 +1,5 @@
 import {render, screen} from '@testing-library/react'
-import React, {act} from 'react'
+import {act} from 'react'
 import {ScrollableRegion} from '../ScrollableRegion'
 
 const originalResizeObserver = global.ResizeObserver

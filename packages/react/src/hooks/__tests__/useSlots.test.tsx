@@ -1,5 +1,5 @@
 import {renderHook} from '@testing-library/react-hooks'
-import React from 'react'
+import type React from 'react'
 import {useSlots} from '../useSlots'
 
 type TestComponentAProps = React.PropsWithChildren<{variant?: 'a' | 'b'}>

@@ -1,4 +1,3 @@
-import React from 'react'
 import {Blankslate} from '../Blankslate'
 import figma from '@figma/code-connect'
 

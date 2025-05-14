@@ -1,4 +1,3 @@
-import React from 'react'
 import StateLabel from '../StateLabel'
 
 export function shouldNotAcceptSystemProps() {

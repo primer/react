@@ -1,5 +1,4 @@
 import type {Meta, StoryObj} from '@storybook/react'
-import React from 'react'
 import Link from '../Link'
 import {Banner} from '../Banner'
 import {PageLayout} from '../PageLayout'

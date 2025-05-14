@@ -1,7 +1,6 @@
 import Portal, {registerPortalRoot} from '../Portal/index'
 
 import {render} from '@testing-library/react'
-import React from 'react'
 import BaseStyles from '../BaseStyles'
 
 describe('Portal', () => {

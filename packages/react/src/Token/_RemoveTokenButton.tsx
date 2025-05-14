@@ -1,4 +1,4 @@
-import React from 'react'
+import type React from 'react'
 import {XIcon} from '@primer/octicons-react'
 import {clsx} from 'clsx'
 import {type SxProp} from '../sx'

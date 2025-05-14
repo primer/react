@@ -1,4 +1,3 @@
-import React from 'react'
 import type {CaretProps} from '../Caret'
 import Caret from '../Caret'
 import {render, checkExports} from '../utils/testing'

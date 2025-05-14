@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react'
+import {Fragment} from 'react'
 import type {KeybindingHintProps} from '../props'
 import VisuallyHidden from '../../_VisuallyHidden'
 import {accessibleChordString, Chord} from './Chord'

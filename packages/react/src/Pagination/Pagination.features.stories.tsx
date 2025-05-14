@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import {useState} from 'react'
 import type {Meta} from '@storybook/react'
 import type {ComponentProps} from '../utils/types'
 import Pagination from './Pagination'

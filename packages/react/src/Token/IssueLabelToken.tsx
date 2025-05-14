@@ -1,5 +1,5 @@
 import type {MouseEventHandler} from 'react'
-import React, {forwardRef, useMemo} from 'react'
+import {forwardRef, useMemo} from 'react'
 import type {CSSObject} from '@styled-system/css'
 import type {TokenBaseProps} from './TokenBase'
 import TokenBase, {defaultTokenSize, isTokenInteractive} from './TokenBase'

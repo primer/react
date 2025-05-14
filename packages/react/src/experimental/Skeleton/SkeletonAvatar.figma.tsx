@@ -1,4 +1,3 @@
-import React from 'react'
 import {SkeletonAvatar} from '../../../src/experimental/'
 import figma from '@figma/code-connect'
 

@@ -1,4 +1,3 @@
-import React from 'react'
 import {Box, FormControl, Heading, Stack} from '..'
 import Textarea from '../Textarea'
 

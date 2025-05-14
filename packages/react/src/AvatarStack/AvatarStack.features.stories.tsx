@@ -1,4 +1,3 @@
-import React from 'react'
 import type {Meta} from '@storybook/react'
 import AvatarStack from './AvatarStack'
 import Avatar from '../Avatar'

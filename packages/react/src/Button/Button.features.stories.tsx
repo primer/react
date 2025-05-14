@@ -1,5 +1,5 @@
 import {EyeIcon, TriangleDownIcon, HeartIcon, DownloadIcon, CommentIcon} from '@primer/octicons-react'
-import React, {useState} from 'react'
+import {useState} from 'react'
 import {Button} from '.'
 import {Stack} from '../Stack/Stack'
 import {announce} from '@primer/live-region-element'

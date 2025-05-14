@@ -1,4 +1,5 @@
-import React, {useCallback} from 'react'
+import type React from 'react'
+import {useCallback} from 'react'
 import {createRoot} from 'react-dom/client'
 import type {ThemeProviderProps} from '../ThemeProvider'
 import {ThemeProvider, useTheme} from '../ThemeProvider'

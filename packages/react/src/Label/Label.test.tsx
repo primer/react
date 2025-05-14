@@ -1,4 +1,3 @@
-import React from 'react'
 import {render} from '@testing-library/react'
 import axe from 'axe-core'
 import type {LabelColorOptions} from '../Label'

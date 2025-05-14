@@ -1,4 +1,3 @@
-import React from 'react'
 import {MarkGithubIcon} from '@primer/octicons-react'
 import {Box, FormControl, Radio} from '..'
 

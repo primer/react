@@ -1,4 +1,3 @@
-import React from 'react'
 import {UnderlineNav} from '../../deprecated'
 import {render, rendersClass, checkExports} from '../../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'

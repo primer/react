@@ -1,4 +1,3 @@
-import React from 'react'
 import Select from '.'
 import FormControl from '../FormControl'
 import figma from '@figma/code-connect'

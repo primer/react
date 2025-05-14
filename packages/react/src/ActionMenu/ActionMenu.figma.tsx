@@ -1,4 +1,3 @@
-import React from 'react'
 import {ActionMenu} from '../../src'
 import figma from '@figma/code-connect'
 

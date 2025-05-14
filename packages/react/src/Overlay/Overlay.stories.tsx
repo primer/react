@@ -1,4 +1,4 @@
-import React, {useState, useRef, type ComponentProps} from 'react'
+import {useState, useRef, type ComponentProps} from 'react'
 import type {Args, Meta} from '@storybook/react'
 import {XIcon} from '@primer/octicons-react'
 import {Button, Text, useFocusTrap, Box, IconButton} from '..'

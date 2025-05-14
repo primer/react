@@ -1,5 +1,5 @@
 import type {StoryObj} from '@storybook/react'
-import React, {useEffect, useState} from 'react'
+import {useEffect, useState} from 'react'
 import {AriaStatus} from './AriaStatus'
 
 export default {

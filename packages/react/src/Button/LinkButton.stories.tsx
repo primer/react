@@ -1,4 +1,3 @@
-import React from 'react'
 import {EyeClosedIcon, EyeIcon, SearchIcon, XIcon, HeartIcon, ChevronRightIcon} from '@primer/octicons-react'
 import type {Meta, StoryFn} from '@storybook/react'
 import {LinkButton} from '.'

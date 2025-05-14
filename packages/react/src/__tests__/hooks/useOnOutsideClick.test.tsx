@@ -1,6 +1,6 @@
 import {useOnOutsideClick} from '../../hooks/useOnOutsideClick'
 import {render} from '@testing-library/react'
-import React, {useRef} from 'react'
+import {useRef} from 'react'
 import userEvent from '@testing-library/user-event'
 
 type ComponentProps = {

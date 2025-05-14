@@ -1,4 +1,4 @@
-import React, {useState, useRef, useCallback} from 'react'
+import {useState, useRef, useCallback} from 'react'
 import type {Meta} from '@storybook/react'
 import {Button, Text} from '..'
 import type {DialogProps} from './Dialog'
