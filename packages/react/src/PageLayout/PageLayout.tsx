@@ -94,7 +94,6 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
       <BoxWithFallback
         style={
           {
-            '--sticky-pane-height': '100vh',
             '--spacing': `var(--spacing-${padding})`,
             ...style,
           } as React.CSSProperties
