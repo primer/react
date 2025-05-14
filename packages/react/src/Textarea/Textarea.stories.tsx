@@ -1,4 +1,3 @@
-import React from 'react'
 import type {Meta} from '@storybook/react'
 import type {TextareaProps} from '..'
 import {Box, FormControl, Textarea} from '..'

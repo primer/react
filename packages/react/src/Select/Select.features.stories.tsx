@@ -1,4 +1,3 @@
-import React from 'react'
 import {FormControl, Box, Heading} from '..'
 import Select from './Select'
 

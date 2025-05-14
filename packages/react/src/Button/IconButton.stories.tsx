@@ -1,5 +1,4 @@
 import type {ComponentProps} from 'react'
-import React from 'react'
 import {EyeClosedIcon, EyeIcon, SearchIcon, XIcon, HeartIcon} from '@primer/octicons-react'
 import type {Meta, StoryFn} from '@storybook/react'
 import {IconButton} from '.'

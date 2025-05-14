@@ -1,4 +1,3 @@
-import React from 'react'
 import type {PopoverProps} from '../Popover'
 import Popover from '../Popover'
 import {render, behavesAsComponent, checkExports} from '../utils/testing'

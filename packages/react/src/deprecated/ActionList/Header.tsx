@@ -1,4 +1,4 @@
-import React from 'react'
+import type React from 'react'
 import styled, {css} from 'styled-components'
 import {get} from '../../constants'
 import type {SxProp} from '../../sx'

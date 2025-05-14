@@ -11,7 +11,6 @@ import {
   GitMergeQueueIcon,
   AlertIcon,
 } from '@primer/octicons-react'
-import React from 'react'
 import styled from 'styled-components'
 import {variant} from 'styled-system'
 import {get} from '../constants'

@@ -1,4 +1,4 @@
-import React from 'react'
+import type React from 'react'
 import Token from '../Token'
 import AvatarToken from '../AvatarToken'
 import IssueLabelToken from '../IssueLabelToken'

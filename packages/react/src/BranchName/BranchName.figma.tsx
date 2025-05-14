@@ -1,4 +1,3 @@
-import React from 'react'
 import BranchName from './BranchName'
 import figma from '@figma/code-connect'
 

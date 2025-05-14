@@ -1,4 +1,3 @@
-import React from 'react'
 import {CircleBadge} from '..'
 import {CheckIcon} from '@primer/octicons-react'
 import {render as HTMLRender} from '@testing-library/react'

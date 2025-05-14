@@ -1,5 +1,4 @@
 import {ActionMenu} from '..'
-import React from 'react'
 
 export function actionButtonWithoutProps() {
   return <ActionMenu.Button />

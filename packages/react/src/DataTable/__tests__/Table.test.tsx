@@ -1,6 +1,5 @@
 import {describe, expect, it} from 'vitest'
 import {render, screen} from '@testing-library/react'
-import React from 'react'
 import {Table} from '../../DataTable'
 import {createColumnHelper} from '../column'
 import type {TableProps} from '../Table'

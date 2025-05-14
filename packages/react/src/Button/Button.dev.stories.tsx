@@ -1,5 +1,4 @@
 import {SearchIcon, TriangleDownIcon, EyeIcon, IssueClosedIcon, HeartFillIcon} from '@primer/octicons-react'
-import React from 'react'
 import {Button, IconButton} from '.'
 import {default as Text} from '../Text'
 import {Stack} from '../Stack'

@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react'
+import {useCallback, useState} from 'react'
 import {describe, expect, it, vi} from 'vitest'
 import {render, fireEvent} from '@testing-library/react'
 import {AnchoredOverlay} from '../AnchoredOverlay'

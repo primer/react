@@ -1,5 +1,6 @@
 import type {MouseEventHandler} from 'react'
-import React, {forwardRef} from 'react'
+import type React from 'react'
+import {forwardRef} from 'react'
 import {type SxProp} from '../sx'
 import {defaultSxProp} from '../utils/defaultSxProp'
 import type {TokenBaseProps} from './TokenBase'

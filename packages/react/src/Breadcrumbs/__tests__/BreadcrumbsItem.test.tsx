@@ -1,6 +1,5 @@
 import {render as HTMLRender} from '@testing-library/react'
-import React from 'react'
-import Breadcrumbs from '..'
+import Breadcrumbs from '../'
 import {describe, expect, it} from 'vitest'
 
 describe('Breadcrumbs.Item', () => {

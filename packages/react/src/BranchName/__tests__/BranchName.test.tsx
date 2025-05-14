@@ -1,4 +1,3 @@
-import React from 'react'
 import BranchName from '../BranchName'
 import {render as HTMLRender} from '@testing-library/react'
 import {describe, expect, it} from 'vitest'

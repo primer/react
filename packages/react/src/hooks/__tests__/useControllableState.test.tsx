@@ -1,6 +1,7 @@
 import {render} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import React, {useState} from 'react'
+import type React from 'react'
+import {useState} from 'react'
 import {useControllableState} from '../useControllableState'
 
 describe('useControllableState', () => {

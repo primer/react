@@ -1,4 +1,5 @@
-import React, {useState} from 'react'
+import type React from 'react'
+import {useState} from 'react'
 import {Box, FormControl, Heading, Stack} from '..'
 import type {TextInputProps} from '../TextInput'
 import TextInput from '../TextInput'

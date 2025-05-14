@@ -1,7 +1,6 @@
 import {BaseStyles} from '.'
 import type {Meta} from '@storybook/react'
 import type {ComponentProps} from './utils/types'
-import React from 'react'
 
 export default {
   title: 'Behaviors/BaseStyles/Dev',

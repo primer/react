@@ -1,6 +1,5 @@
 import {render, screen} from '@testing-library/react'
 import ButtonGroup from './ButtonGroup'
-import React from 'react'
 import {describe, expect, it} from 'vitest'
 
 describe('ButtonGroup', () => {
