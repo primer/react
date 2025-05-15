@@ -94,7 +94,9 @@ describe('ActionList', () => {
     expect(document.activeElement).toHaveTextContent('Option 2')
 
     await userEvent.keyboard('{ArrowDown}')
-    expect(document.activeElement).not.toHaveTextContent('Option 3') // option 3 is disabled
+    expect(document.activeElement).toHaveTextContent('Option 3')
+
+    await userEvent.keyboard('{ArrowDown}')
     expect(document.activeElement).toHaveTextContent('Option 4')
 
     await userEvent.keyboard('{ArrowDown}')
