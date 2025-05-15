@@ -225,7 +225,7 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
                       return (
                         <ActionList.Item
                           key={menuItemChildren}
-                          onSelect={(event: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
+                          onSelect={(event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => {
                             closeOverlay()
                             focusOnMoreMenuBtn()
                             typeof onClick === 'function' && onClick(event)
