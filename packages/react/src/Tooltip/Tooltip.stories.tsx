@@ -42,7 +42,7 @@ export const Default = () => (
       />
     </Box>
     <Box sx={{p: 5}}>
-      <Tooltip aria-label="Hello, Tooltip!">
+      <Tooltip text="Hello, Tooltip!">
         <Button>Hover me</Button>
       </Tooltip>
     </Box>
