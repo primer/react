@@ -1,4 +1,3 @@
-import React from 'react'
 import CounterLabel from '../CounterLabel'
 
 export function shouldAcceptCallWithNoProps() {

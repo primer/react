@@ -1,7 +1,6 @@
 import {describe, expect, it, vi} from 'vitest'
 import userEvent from '@testing-library/user-event'
 import {render, screen, getByRole, queryByRole, queryAllByRole, renderHook} from '@testing-library/react'
-import React from 'react'
 import {DataTable, Table} from '../../DataTable'
 import type {Column} from '../column'
 import {createColumnHelper} from '../column'

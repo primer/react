@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react'
+import {useRef, useState} from 'react'
 import type {Args, Meta} from '@storybook/react'
 import Text from '../Text'
 import {Button, IconButton} from '../Button'

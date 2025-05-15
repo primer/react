@@ -1,4 +1,3 @@
-import React from 'react'
 import {Banner} from '../../src/experimental/'
 import figma from '@figma/code-connect'
 

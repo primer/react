@@ -1,4 +1,3 @@
-import React from 'react'
 import {describe, expect, it} from 'vitest'
 import {SubNav} from '..'
 import {render as HTMLRender} from '@testing-library/react'

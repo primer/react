@@ -1,4 +1,5 @@
-import React, {type ElementType} from 'react'
+import type React from 'react'
+import {type ElementType} from 'react'
 import type {ResponsiveValue} from '../hooks/useResponsiveValue'
 import {getResponsiveAttributes} from '../internal/utils/getResponsiveAttributes'
 import classes from './Stack.module.css'

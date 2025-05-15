@@ -1,4 +1,3 @@
-import React from 'react'
 import {CopilotIcon, GitPullRequestIcon} from '@primer/octicons-react'
 import {action} from '@storybook/addon-actions'
 import type {Meta} from '@storybook/react'
