@@ -65,6 +65,8 @@ This change will impact the following libraries:
 - primer/octicons: styles in this library should be wrapped in the icons
   layer
 - primer/react: styles in this library should be wrapped in the components layer
+- primer/view_components: styles in this library should be wrapped in the components
+  layer
 
 ## Unresolved questions
 
