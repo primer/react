@@ -37,17 +37,23 @@ order in which they should be applied.
 - `components`: styles that are applied to components
 - `utilities`: an optional layer for utility classes in order to take precedence over earlier styles
 
-All layers should exist within the `primer` namespace. For example:
+All layers should exist within the `primer` namespace and include a library,
+where applicable. For example:
 
 ```css
-@layer primer.base {
+@layer primer.react.base {
   /* ... */
 }
 
-@layer primer.components.Button {
+@layer primer.css.components.Button {
   /* ... */
 }
 ```
+
+Libraries should only be included in a layer name if the name may exist across multiple
+libraries, such as a component. We would not need to include a library name for
+primitives as those would belong already in `theme` or for utilities from
+primer/css as they would already be in `utilities`.
 
 This will allow downstream consumers to order `primer` layers in a way that
 makes sense to the application.
