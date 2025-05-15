@@ -14,10 +14,10 @@ describe('Tooltip', () => {
   })
 
   it('respects the "align" prop', () => {
-    const {container: leftContainer} = render(<Tooltip align="left" />)
+    const {container: leftContainer} = render(<Tooltip />)
     expect(leftContainer.firstChild).toHaveClass('tooltipped-align-left-2')
 
-    const {container: rightContainer} = render(<Tooltip align="right" />)
+    const {container: rightContainer} = render(<Tooltip />)
     expect(rightContainer.firstChild).toHaveClass('tooltipped-align-right-2')
   })
 
@@ -29,7 +29,7 @@ describe('Tooltip', () => {
   })
 
   it('respects the "noDelay" prop', () => {
-    const {container} = render(<Tooltip noDelay />)
+    const {container} = render(<Tooltip />)
     expect(container.firstChild).toHaveClass('tooltipped-no-delay')
   })
 
@@ -39,13 +39,13 @@ describe('Tooltip', () => {
   })
 
   it('respects the "wrap" prop', () => {
-    const {container} = render(<Tooltip wrap />)
+    const {container} = render(<Tooltip />)
     expect(container.firstChild).toHaveClass('tooltipped-multiline')
   })
 
   it('should label the link', () => {
     render(
-      <Tooltip aria-label="Tooltip text" id="tooltip-unique-id">
+      <Tooltip text="Tooltip text" id="tooltip-unique-id">
         <a aria-labelledby="tooltip-unique-id" href="#href">
           <CodeIcon />
         </a>
