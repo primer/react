@@ -84,7 +84,7 @@
     "@github/relative-time-element": "^4.4.5",
     "@github/tab-container-element": "4.8.2",
     "@lit-labs/react": "1.2.1",
-    "@oddbird/popover-polyfill": "^0.4.4",
+    "@oddbird/popover-polyfill": "^0.5.2",
     "@primer/behaviors": "^1.8.0",
     "@primer/live-region-element": "^0.7.1",
     "@primer/octicons-react": "^19.13.0",
