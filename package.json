@@ -81,7 +81,7 @@
     "prettier": "3.4.2",
     "rimraf": "5.0.5",
     "size-limit": "11.2.0",
-    "stylelint": "16.9.0",
+    "stylelint": "16.19.1",
     "typed-css-modules": "0.9.1",
     "typescript": "^5.8.2",
     "vitest": "^3.1.2"
