@@ -2,8 +2,6 @@
 
 'use strict'
 
-const path = require('node:path')
-
 /**
  * @type {import('jest').Config}
  */
