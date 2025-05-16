@@ -4,8 +4,6 @@
 
 const path = require('node:path')
 
-const ROOT_DIR = path.resolve(__dirname, '..', '..')
-
 /**
  * @type {import('jest').Config}
  */
