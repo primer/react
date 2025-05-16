@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react'
+import {useState, useRef} from 'react'
 import {Box, Text, Button} from '..'
 import {Dialog} from '../DialogV1'
 import {render as HTMLRender, fireEvent} from '@testing-library/react'

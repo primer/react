@@ -1,6 +1,5 @@
 import {render as HTMLRender} from '@testing-library/react'
 import axe from 'axe-core'
-import React from 'react'
 import theme from '../../theme'
 import {ActionList} from '../../deprecated/ActionList'
 import {behavesAsComponent, checkExports} from '../../utils/testing'

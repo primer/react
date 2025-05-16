@@ -1,4 +1,5 @@
-import React, {useCallback, useEffect} from 'react'
+import type React from 'react'
+import {useCallback, useEffect} from 'react'
 import type {OverlayProps} from '../Overlay'
 import Overlay from '../Overlay'
 import type {FocusTrapHookSettings} from '../hooks/useFocusTrap'
@@ -7,7 +8,7 @@ import type {FocusZoneHookSettings} from '../hooks/useFocusZone'
 import {useFocusZone} from '../hooks/useFocusZone'
 import {useAnchoredPosition, useProvidedRefOrCreate, useRenderForcingRef} from '../hooks'
 import {useId} from '../hooks/useId'
-import type {PositionSettings} from '@primer/behaviors'
+import type {AnchorPosition, PositionSettings} from '@primer/behaviors'
 import {useResponsiveValue, type ResponsiveValue} from '../hooks/useResponsiveValue'
 
 interface AnchoredOverlayPropsWithAnchor {
@@ -98,6 +99,10 @@ interface AnchoredOverlayBaseProps extends Pick<OverlayProps, 'height' | 'width'
    * Optional prop to set variant for narrow screen sizes
    */
   variant?: ResponsiveValue<'anchored', 'anchored' | 'fullscreen'>
+  /**
+   * An override to the internal position that will be used to position the overlay.
+   */
+  onPositionChange?: ({position}: {position: AnchorPosition}) => void
 }
 
 export type AnchoredOverlayProps = AnchoredOverlayBaseProps &
@@ -129,6 +134,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   pinPosition,
   variant = {regular: 'anchored', narrow: 'anchored'},
   preventOverflow = true,
+  onPositionChange,
 }) => {
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
   const [overlayRef, updateOverlayRef] = useRenderForcingRef<HTMLDivElement>()
@@ -162,6 +168,12 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
     [open, onOpen, onClose],
   )
 
+  const positionChange = (position: AnchorPosition | undefined) => {
+    if (onPositionChange && position) {
+      onPositionChange({position})
+    }
+  }
+
   const {position} = useAnchoredPosition(
     {
       anchorElementRef: anchorRef,
@@ -171,6 +183,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
       align,
       alignmentOffset,
       anchorOffset,
+      onPositionChange: positionChange,
     },
     [overlayRef.current],
   )

@@ -1,4 +1,3 @@
-import React from 'react'
 import {Button, Box} from '..'
 import {Tooltip} from './Tooltip'
 

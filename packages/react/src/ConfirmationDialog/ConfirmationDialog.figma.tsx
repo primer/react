@@ -1,4 +1,3 @@
-import React from 'react'
 import {ConfirmationDialog} from '../'
 import figma from '@figma/code-connect'
 

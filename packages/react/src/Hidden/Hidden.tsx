@@ -1,4 +1,5 @@
-import React, {type CSSProperties} from 'react'
+import type React from 'react'
+import {type CSSProperties} from 'react'
 import {clsx} from 'clsx'
 import type {ResponsiveValue} from '../hooks/useResponsiveValue'
 import classes from './Hidden.module.css'

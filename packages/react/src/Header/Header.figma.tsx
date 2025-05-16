@@ -1,4 +1,3 @@
-import React from 'react'
 import {Header} from '../'
 import figma from '@figma/code-connect'
 

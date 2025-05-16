@@ -1,4 +1,3 @@
-import React from 'react'
 import {Avatar} from '..'
 import theme from '../theme'
 import {px, render, behavesAsComponent, checkExports} from '../utils/testing'

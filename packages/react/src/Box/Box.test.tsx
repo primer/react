@@ -1,6 +1,5 @@
 import {render as HTMLRender} from '@testing-library/react'
 import axe from 'axe-core'
-import React from 'react'
 import {Box} from '..'
 import theme from '../theme'
 import {behavesAsComponent, checkExports, render} from '../utils/testing'

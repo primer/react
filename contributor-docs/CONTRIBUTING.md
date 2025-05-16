@@ -107,7 +107,7 @@ Please review the related docs and ADRs below for more information on how to str
 Here's an example of a basic component written in the style of Primer react components:
 
 ```tsx
-import React from 'react'
+import type React from 'react'
 import styles from './Component.module.css'
 import {clsx} from 'clsx'
 

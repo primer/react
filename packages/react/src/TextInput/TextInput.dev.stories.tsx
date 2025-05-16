@@ -1,4 +1,4 @@
-import React from 'react'
+import type React from 'react'
 import type {Meta} from '@storybook/react'
 import {Box, FormControl} from '..'
 import TextInput from '.'

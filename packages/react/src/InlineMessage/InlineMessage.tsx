@@ -1,6 +1,6 @@
 import {AlertFillIcon, AlertIcon, CheckCircleFillIcon, CheckCircleIcon} from '@primer/octicons-react'
 import {clsx} from 'clsx'
-import React from 'react'
+import type React from 'react'
 import classes from './InlineMessage.module.css'
 import type {SxProp} from '../sx'
 import {defaultSxProp} from '../utils/defaultSxProp'

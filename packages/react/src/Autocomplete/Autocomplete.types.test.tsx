@@ -1,6 +1,5 @@
 import {LogoGithubIcon} from '@primer/octicons-react'
 import {Autocomplete} from '..'
-import React from 'react'
 
 export function itemWithIconElements() {
   return (
