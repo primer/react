@@ -14,16 +14,6 @@ module.exports = {
   collectCoverageFrom: ['src/**/*.{js,jsx,ts,tsx}', '!src/stories/**', '!**/*.stories.{js,jsx,ts,tsx}'],
   moduleNameMapper: {
     '\\.css$': 'jest-css-modules',
-    // We need to specify this package subpath because it does not provide a `require` conditional export path
-    '@oddbird/popover-polyfill/fn': path.join(
-      // Note: we use ROOT_DIR here since this dependency is hoisted
-      ROOT_DIR,
-      'node_modules',
-      '@oddbird',
-      'popover-polyfill',
-      'dist',
-      'popover-fn.js',
-    ),
   },
   setupFiles: ['<rootDir>/src/utils/test-helpers.tsx'],
   setupFilesAfterEnv: ['<rootDir>/src/utils/test-matchers.tsx', '<rootDir>/src/utils/test-deprecations.tsx'],
