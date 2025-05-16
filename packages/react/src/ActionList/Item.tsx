@@ -141,8 +141,8 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       if (selectionVariant === 'single') inferredItemRole = 'menuitemradio'
       else if (selectionVariant === 'multiple') inferredItemRole = 'menuitemcheckbox'
       else inferredItemRole = 'menuitem'
-    } else if (container === 'SelectPanel' && listRole === 'listbox') {
-      if (selectionVariant !== undefined) inferredItemRole = 'option'
+    } else if ((container === 'SelectPanel' && listRole === 'listbox') || listRole === 'listbox') {
+      if (selectionVariant !== undefined && !role) inferredItemRole = 'option'
     }
 
     const itemRole = role || inferredItemRole
@@ -325,8 +325,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
 
     let focusable
 
-    // if item is disabled and is of type (menuitem*, option) it should remain focusable, if inactive, apply the same rules
-    if ((disabled && !inferredItemRole) || showInactiveIndicator) {
+    if (showInactiveIndicator) {
       focusable = true
     }
 

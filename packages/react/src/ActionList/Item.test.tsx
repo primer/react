@@ -47,7 +47,6 @@ function SingleSelectListStory(): JSX.Element {
       {projects.map((project, index) => (
         <ActionList.Item
           key={index}
-          role="option"
           selected={index === selectedIndex}
           onSelect={() => setSelectedIndex(index)}
           disabled={project.disabled}
@@ -193,6 +192,7 @@ describe('ActionList.Item', () => {
     await userEvent.tab() // get focus on first element
     await userEvent.keyboard('{ArrowDown}')
     await userEvent.keyboard('{ArrowDown}')
+    await userEvent.keyboard('{ArrowDown}')
     expect(inactiveOption).toHaveFocus()
     expect(document.activeElement).toHaveAccessibleDescription(projects[3].inactiveText as string)
   })
@@ -216,6 +216,7 @@ describe('ActionList.Item', () => {
     const component = HTMLRender(<SingleSelectListStory />)
     const inactiveOption = await waitFor(() => component.getByRole('option', {name: projects[5].name}))
     await userEvent.tab() // get focus on first element
+    await userEvent.keyboard('{ArrowDown}')
     await userEvent.keyboard('{ArrowDown}')
     await userEvent.keyboard('{ArrowDown}')
     await userEvent.keyboard('{ArrowDown}')
@@ -419,5 +420,19 @@ describe('ActionList.Item', () => {
     const button = getByRole('button')
     expect(button.parentElement?.tagName).toBe('LI')
     expect(button.textContent).toBe('Item 5')
+  })
+
+  it('should add `role="option"` if `role="listbox"` and `selectionVariant` is present', async () => {
+    const {getAllByRole} = HTMLRender(
+      <ActionList role="listbox" selectionVariant="single">
+        <ActionList.Item>Item 1</ActionList.Item>
+        <ActionList.Item>Item 2</ActionList.Item>
+        <ActionList.Item>Item 3</ActionList.Item>
+        <ActionList.Item>Item 4</ActionList.Item>
+      </ActionList>,
+    )
+    const options = getAllByRole('option')
+    expect(options[0]).toBeInTheDocument()
+    expect(options).toHaveLength(4)
   })
 })
