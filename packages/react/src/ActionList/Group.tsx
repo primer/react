@@ -73,7 +73,6 @@ export type ActionListGroupProps = {
    * `aria-label` to set directly on the `role="group"` element. This is used to label the group.
    */
   'aria-label'?: string
-
 } & SxProp & {
     /**
      * Whether multiple Items or a single Item can be selected in the Group. Overrides value on ActionList root.
@@ -137,10 +136,7 @@ export const Group: React.FC<React.PropsWithChildren<ActionListGroupProps>> = ({
           // because the heading is hidden from the accessibility tree and only used for presentation role.
           // We will instead use aria-label to label the list. See a line below.
           aria-labelledby={listRole ? undefined : groupHeadingId}
-          aria-label={
-            ariaLabel ??
-            (listRole ? (title ?? (slots.groupHeading?.props.children as string)) : undefined)
-          }          
+          aria-label={ariaLabel ?? (listRole ? (title ?? (slots.groupHeading?.props.children as string)) : undefined)}
           role={role || (listRole && 'group')}
           className={groupClasses.GroupList}
         >
