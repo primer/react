@@ -1,5 +1,35 @@
 # @primer/react
 
+## 37.24.0
+
+### Minor Changes
+
+- [#5933](https://github.com/primer/react/pull/5933) [`ed6e947`](https://github.com/primer/react/commit/ed6e947e571873f5680b6c1a5d9ed2b137e12b9b) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove the CSS modules feature flag from the SegmentedControl component
+
+- [#6022](https://github.com/primer/react/pull/6022) [`1f53127`](https://github.com/primer/react/commit/1f53127e8990bebea4330451c5eaaa687105a0d1) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove the CSS modules feature flag from the ActionList.Divider component
+
+- [#6023](https://github.com/primer/react/pull/6023) [`5e514f3`](https://github.com/primer/react/commit/5e514f3d6d1f16a1dab1304c0481f1d929c94534) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove the CSS modules feature flag from the ActionList.Group component
+
+- [#5827](https://github.com/primer/react/pull/5827) [`e76835c`](https://github.com/primer/react/commit/e76835c9d94fdd5aa2c8cdc947b69268297d8628) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove the CSS modules feature flag for Popover
+
+- [#5997](https://github.com/primer/react/pull/5997) [`882d923`](https://github.com/primer/react/commit/882d9238b0028abbabff55cfa848ec9222bb2758) Thanks [@jamieshark](https://github.com/jamieshark)! - Remove CSS modules flag from Pagination.
+
+- [#5910](https://github.com/primer/react/pull/5910) [`cdd4253`](https://github.com/primer/react/commit/cdd4253fccc62198dc270181541047d45b6806f1) Thanks [@TylerJDev](https://github.com/TylerJDev)! - ActionMenu: Adds new prop `onPositionChange` that is called when the position of the overlay is changed
+
+- [#6021](https://github.com/primer/react/pull/6021) [`a37d544`](https://github.com/primer/react/commit/a37d54472d3e691778b20c05c3dc9846d52e2f7e) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove the CSS modules feature flag from the ActionList.TrailingAction component
+
+- [#6019](https://github.com/primer/react/pull/6019) [`6c2c999`](https://github.com/primer/react/commit/6c2c9994d199344224c1d50f1796957a2785ea85) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove the CSS modules feature flag from the ActionList/List component
+
+- [#6014](https://github.com/primer/react/pull/6014) [`2fc9327`](https://github.com/primer/react/commit/2fc93275167ab3b5ce328e3f8dfcfbc9a9a4c802) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove the CSS modules feature flag from the Token component
+
+### Patch Changes
+
+- [#6036](https://github.com/primer/react/pull/6036) [`21a3529`](https://github.com/primer/react/commit/21a3529f480f4ca5e7e7f0a0c7d4a4bae8d86281) Thanks [@francinelucca](https://github.com/francinelucca)! - fix(Overlay): reset maxheight and maxwidth values when on fullscreen
+
+- [#6009](https://github.com/primer/react/pull/6009) [`261732e`](https://github.com/primer/react/commit/261732e045d8621d2d712ee7160c04a3ffbf0233) Thanks [@francinelucca](https://github.com/francinelucca)! - Fix extra padding on SelectPanel with groups
+
+- [#6032](https://github.com/primer/react/pull/6032) [`e0ef7e1`](https://github.com/primer/react/commit/e0ef7e1a06cee694418dc41b7657e5bbb443b070) Thanks [@joshblack](https://github.com/joshblack)! - Update the `Table.Container` component to place `className` on outermost element
+
 ## 37.23.0
 
 ### Minor Changes
