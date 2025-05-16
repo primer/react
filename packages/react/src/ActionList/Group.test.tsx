@@ -131,6 +131,19 @@ describe('ActionList.Group', () => {
     expect(list).not.toHaveAttribute('aria-labelledby', heading.id)
   })
 
+  it('should label the list with aria-label if it is specified', async () => {
+    const {container} = HTMLRender(
+      <ActionList>
+        <ActionList.Heading as="h1">Heading</ActionList.Heading>
+        <ActionList.Group aria-label="Animals" data-test-id="ActionList.Group">
+          <ActionList.Item>Item</ActionList.Item>
+        </ActionList.Group>
+      </ActionList>,
+    )
+    const list = container.querySelector(`li[data-test-id='ActionList.Group'] > ul`)
+    expect(list).toHaveAttribute('aria-label', 'Animals')
+  })
+
   it('should support a custom `className` on the outermost element', () => {
     const Element = () => {
       return (
