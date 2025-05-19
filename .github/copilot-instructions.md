@@ -9,6 +9,6 @@ The overall structure of the project is:
 
 - `e2e`: contains the end to end tests that run Visual Regression Tests and automated accessibility tests on components
 - `examples`: contains multiple example applications that use the design system
-- `packages`: contain multpile npm workspaces that are used to deliver the `@primer/react` package that is defined in `packages/react`
+- `packages`: contain multiple npm workspaces that are used to deliver the `@primer/react` package that is defined in `packages/react`
 - `script`: contains scripts that are used to build and run the project, npm workspaces may also contain their own scripts
 - `contributor-docs`: contains the documentation for contributing to the project
