@@ -77,7 +77,7 @@
     "jest": "29.7.0",
     "jest-watch-typeahead": "2.2.2",
     "markdownlint-cli2": "^0.17.2",
-    "markdownlint-cli2-formatter-pretty": "^0.0.7",
+    "markdownlint-cli2-formatter-pretty": "^0.0.8",
     "prettier": "3.4.2",
     "rimraf": "5.0.5",
     "size-limit": "11.2.0",
