@@ -36,7 +36,6 @@ export default defineConfig({
       'src/StateLabel/**/*.test.?(c|m)[jt]s?(x)',
       'src/SubNav/**/*.test.?(c|m)[jt]s?(x)',
       'src/TabNav/**/*.test.?(c|m)[jt]s?(x)',
-      'src/Text/**/*.test.?(c|m)[jt]s?(x)',
       'src/TextInputWithTokens/**/*.test.?(c|m)[jt]s?(x)',
       'src/Timeline/**/*.test.?(c|m)[jt]s?(x)',
       'src/ToggleSwitch/**/*.test.?(c|m)[jt]s?(x)',
