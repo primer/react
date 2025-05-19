@@ -141,7 +141,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       if (selectionVariant === 'single') inferredItemRole = 'menuitemradio'
       else if (selectionVariant === 'multiple') inferredItemRole = 'menuitemcheckbox'
       else inferredItemRole = 'menuitem'
-    } else if ((container === 'SelectPanel' && listRole === 'listbox') || listRole === 'listbox') {
+    } else if (listRole === 'listbox') {
       if (selectionVariant !== undefined && !role) inferredItemRole = 'option'
     }
 
