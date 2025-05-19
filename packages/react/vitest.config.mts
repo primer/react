@@ -27,6 +27,7 @@ export default defineConfig({
       'src/CheckboxGroup/**/*.test.?(c|m)[jt]s?(x)',
       'src/CircleBadge/**/*.test.?(c|m)[jt]s?(x)',
       'src/CircleOcticon/**/*.test.?(c|m)[jt]s?(x)',
+      'src/CounterLabel/**/*.test.?(c|m)[jt]s?(x)',
       'src/DataTable/**/*.test.?(c|m)[jt]s?(x)',
       'src/FeatureFlags/**/*.test.?(c|m)[jt]s?(x)',
       'src/Select/**/*.test.?(c|m)[jt]s?(x)',
@@ -50,7 +51,7 @@ export default defineConfig({
     },
     browser: {
       provider: 'playwright',
-      enabled: true,
+      enabled: false,
       headless: process.env.DEBUG_BROWSER_TESTS === 'true' ? false : true,
       instances: [
         {

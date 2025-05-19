@@ -25,6 +25,7 @@ module.exports = {
     '<rootDir>/src/CheckboxGroup/',
     '<rootDir>/src/CircleBadge/',
     '<rootDir>/src/CircleOcticon/',
+    '<rootDir>/src/CounterLabel/',
     '<rootDir>/src/DataTable/',
     '<rootDir>/src/FeatureFlags/',
     '<rootDir>/src/Select/',
