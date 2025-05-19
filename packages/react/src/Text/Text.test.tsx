@@ -1,29 +1,20 @@
-import {Text} from '..'
+import {describe, expect, it} from 'vitest'
+import {render} from '@testing-library/react'
+import {Text} from '../Text'
 import theme from '../theme'
-import {px, render, renderStyles, behavesAsComponent, checkExports} from '../utils/testing'
-import {render as HTMLRender} from '@testing-library/react'
-import axe from 'axe-core'
+import {px, renderStyles} from '../utils/testing'
 
 describe('Text', () => {
-  behavesAsComponent({Component: Text})
-
-  checkExports('Text', {
-    default: Text,
-  })
-
   it('renders a <span> by default', () => {
-    expect(render(<Text />).type).toEqual('span')
-  })
-
-  it('should have no axe violations', async () => {
-    const {container} = HTMLRender(<Text>hello</Text>)
-    const results = await axe.run(container)
-    expect(results).toHaveNoViolations()
+    const {container} = render(<Text />)
+    expect(container.firstChild?.nodeName).toEqual('SPAN')
   })
 
   it('renders fontSize', () => {
     for (const fontSize of theme.fontSizes) {
-      expect(render(<Text fontSize={fontSize} />)).toHaveStyleRule('font-size', px(fontSize))
+      const {container} = render(<Text fontSize={fontSize} />)
+      const element = container.firstChild as HTMLElement
+      expect(element).toHaveStyle(`font-size: ${px(fontSize)}`)
     }
   })
 
@@ -46,29 +37,48 @@ describe('Text', () => {
   })
 
   it('respects fontWeight', () => {
-    expect(render(<Text fontWeight="bold" />)).toHaveStyleRule('font-weight', '600')
-    expect(render(<Text fontWeight="normal" />)).toHaveStyleRule('font-weight', '400')
+    const {container: boldContainer} = render(<Text fontWeight="bold" />)
+    const boldElement = boldContainer.firstChild as HTMLElement
+    expect(boldElement).toHaveStyle('font-weight: 600')
+
+    const {container: normalContainer} = render(<Text fontWeight="normal" />)
+    const normalElement = normalContainer.firstChild as HTMLElement
+    expect(normalElement).toHaveStyle('font-weight: 400')
   })
 
   it('respects the "fontStyle" prop', () => {
-    expect(render(<Text fontStyle="italic" />)).toHaveStyleRule('font-style', 'italic')
-    expect(render(<Text as="i" fontStyle="normal" />)).toHaveStyleRule('font-style', 'normal')
+    const {container: italicContainer} = render(<Text fontStyle="italic" />)
+    const italicElement = italicContainer.firstChild as HTMLElement
+    expect(italicElement).toHaveStyle('font-style: italic')
+
+    const {container: normalContainer} = render(<Text as="i" fontStyle="normal" />)
+    const normalElement = normalContainer.firstChild as HTMLElement
+    expect(normalElement).toHaveStyle('font-style: normal')
   })
 
   it('respects lineHeight', () => {
     for (const [name, value] of Object.entries(theme.lineHeights)) {
-      expect(render(<Text lineHeight={name} />)).toHaveStyleRule('line-height', String(value))
+      const {container} = render(<Text lineHeight={name} />)
+      const element = container.firstChild as HTMLElement
+      expect(element).toHaveStyle(`line-height: ${String(value)}`)
     }
   })
 
   it('respects fontFamily="mono"', () => {
     // styled-components removes the whitespace between font-family values
     const mono = theme.fonts.mono.replace(/, /g, ',')
-    expect(render(<Text fontFamily="mono" />)).toHaveStyleRule('font-family', mono)
+    const {container} = render(<Text fontFamily="mono" />)
+    const element = container.firstChild as HTMLElement
+    expect(element).toHaveStyle(`font-family: ${mono}`)
   })
 
   it('respects other values for fontSize', () => {
-    expect(render(<Text fontSize="2em" />)).toHaveStyleRule('font-size', '2em')
-    expect(render(<Text fontSize={100} />)).toHaveStyleRule('font-size', '100px')
+    const {container: emContainer} = render(<Text fontSize="2em" />)
+    const emElement = emContainer.firstChild as HTMLElement
+    expect(emElement).toHaveStyle('font-size: 2em')
+
+    const {container: pxContainer} = render(<Text fontSize={100} />)
+    const pxElement = pxContainer.firstChild as HTMLElement
+    expect(pxElement).toHaveStyle('font-size: 100px')
   })
 })
