@@ -51,7 +51,7 @@ export default defineConfig({
     },
     browser: {
       provider: 'playwright',
-      enabled: false,
+      enabled: true,
       headless: process.env.DEBUG_BROWSER_TESTS === 'true' ? false : true,
       instances: [
         {

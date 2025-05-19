@@ -2,9 +2,6 @@ import {describe, expect, it} from 'vitest'
 import {render} from '@testing-library/react'
 import CounterLabel from './CounterLabel'
 
-// @ts-ignore - Required for React 18 with Testing Library
-global.IS_REACT_ACT_ENVIRONMENT = true
-
 describe('CounterLabel', () => {
   it('should support `className` on the outermost element', () => {
     const Element = () => <CounterLabel className={'test-class-name'} />
