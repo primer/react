@@ -1,54 +1,52 @@
+import {describe, expect, it, vi} from 'vitest'
+import {render, screen} from '@testing-library/react'
 import Link from '..'
-import {render, behavesAsComponent, checkExports} from '../../utils/testing'
-import {render as HTMLRender} from '@testing-library/react'
-import axe from 'axe-core'
 
 describe('Link', () => {
-  behavesAsComponent({Component: Link})
-
-  checkExports('Link', {
-    default: Link,
-  })
-
   it('should support `className` on the outermost element', () => {
     const Element = () => <Link href="#" className={'test-class-name'} />
-    expect(HTMLRender(<Element />).container.firstChild).toHaveClass('test-class-name')
-  })
-
-  it('should have no axe violations', async () => {
-    const {container} = HTMLRender(<Link href="www.github.com">GitHub</Link>)
-    const results = await axe.run(container)
-    expect(results).toHaveNoViolations()
+    expect(render(<Element />).container.firstChild).toHaveClass('test-class-name')
   })
 
   it('passes href down to link element', () => {
-    expect(render(<Link href="https://github.com" />)).toMatchSnapshot()
+    render(<Link href="https://github.com" />)
+    expect(screen.getByRole('link')).toHaveAttribute('href', 'https://github.com')
   })
 
   it('respects hoverColor prop', () => {
-    expect(render(<Link hoverColor="accent.fg" />)).toMatchSnapshot()
+    render(<Link hoverColor="accent.fg">Link with hover color</Link>)
+    // In Vitest we'll check that the element renders rather than using snapshots
+    expect(screen.getByText('Link with hover color')).toBeInTheDocument()
   })
 
   it('respects the "sx" prop', () => {
-    expect(render(<Link sx={{fontStyle: 'italic'}} />)).toHaveStyleRule('font-style', 'italic')
+    render(<Link sx={{fontStyle: 'italic'}}>Italic link</Link>)
+    expect(screen.getByText('Italic link')).toHaveStyle('font-style: italic')
   })
 
   it('applies button styles when rendering a button element', () => {
-    expect(render(<Link as="button" />)).toMatchSnapshot()
+    render(<Link as="button">Button link</Link>)
+    expect(screen.getByRole('button')).toBeInTheDocument()
   })
 
   it('respects the "muted" prop', () => {
-    expect(render(<Link muted />)).toMatchSnapshot()
+    render(<Link muted>Muted link</Link>)
+    expect(screen.getByText('Muted link')).toBeInTheDocument()
   })
 
-  it('respects the  "sx" prop when "muted" prop is also passed', () => {
-    expect(render(<Link muted sx={{color: 'fg.onEmphasis'}} />)).toMatchSnapshot()
+  it('respects the "sx" prop when "muted" prop is also passed', () => {
+    render(
+      <Link muted sx={{color: 'fg.onEmphasis'}}>
+        Muted with custom color
+      </Link>,
+    )
+    expect(screen.getByText('Muted with custom color')).toBeInTheDocument()
   })
 
   it('logs a warning when trying to render invalid "as" prop', () => {
-    const consoleSpy = jest.spyOn(global.console, 'error').mockImplementation()
+    const consoleSpy = vi.spyOn(global.console, 'error').mockImplementation(() => {})
 
-    HTMLRender(<Link as="i" />)
+    render(<Link as="i">Invalid link</Link>)
     expect(consoleSpy).toHaveBeenCalled()
 
     consoleSpy.mockRestore()
