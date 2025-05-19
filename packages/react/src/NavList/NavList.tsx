@@ -220,7 +220,7 @@ function ItemWithSubNav({
           sx={merge<SxProp['sx']>(
             {
               ...getSubnavStyles(depth),
-              fontWeight: containsCurrentItem ? 'bold' : null, // Parent item is bold if any of it's sub-items are current
+              fontWeight: containsCurrentItem ? 'bold' : null, // Parent item is bold if any of its sub-items are current
             },
             sxProp,
           )}

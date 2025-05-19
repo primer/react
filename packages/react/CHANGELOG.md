@@ -1039,7 +1039,7 @@ N/A, re-release of v37.11.1
 
 - [#4916](https://github.com/primer/react/pull/4916) [`7a24a01`](https://github.com/primer/react/commit/7a24a0153b0cbdd80d3a281b44a79b7852c1cf8e) Thanks [@jonrohan](https://github.com/jonrohan)! - Moving Link CSS modules to staff feature flag
 
-- [#4811](https://github.com/primer/react/pull/4811) [`5ee8704`](https://github.com/primer/react/commit/5ee8704ff5b85ec2b848dcfc10c3a8ae40a3a892) Thanks [@siddharthkp](https://github.com/siddharthkp)! - Octicon: Add aria-label to the Icon instead of it's container
+- [#4811](https://github.com/primer/react/pull/4811) [`5ee8704`](https://github.com/primer/react/commit/5ee8704ff5b85ec2b848dcfc10c3a8ae40a3a892) Thanks [@siddharthkp](https://github.com/siddharthkp)! - Octicon: Add aria-label to the Icon instead of its container
 
 - [#4911](https://github.com/primer/react/pull/4911) [`9846375`](https://github.com/primer/react/commit/9846375ebc12444936ebec8911b8006f22b1234c) Thanks [@TylerJDev](https://github.com/TylerJDev)! - Include current selected menu item in accessible name when using an `aria-label` in `SegmentedControl`
 
@@ -1433,7 +1433,7 @@ N/A, re-release of v37.11.1
 
 - [#4870](https://github.com/primer/react/pull/4870) [`3ca513c824fc50b49a88320ec98dd3f1a15d25b9`](https://github.com/primer/react/commit/3ca513c824fc50b49a88320ec98dd3f1a15d25b9) Thanks [@jonrohan](https://github.com/jonrohan)! - Add `:where()` selector to classes that land on nodes that have a `sx` prop.
 
-- [#4811](https://github.com/primer/react/pull/4811) [`5ee8704ff5b85ec2b848dcfc10c3a8ae40a3a892`](https://github.com/primer/react/commit/5ee8704ff5b85ec2b848dcfc10c3a8ae40a3a892) Thanks [@siddharthkp](https://github.com/siddharthkp)! - Octicon: Add aria-label to the Icon instead of it's container
+- [#4811](https://github.com/primer/react/pull/4811) [`5ee8704ff5b85ec2b848dcfc10c3a8ae40a3a892`](https://github.com/primer/react/commit/5ee8704ff5b85ec2b848dcfc10c3a8ae40a3a892) Thanks [@siddharthkp](https://github.com/siddharthkp)! - Octicon: Add aria-label to the Icon instead of its container
 
 - [#4858](https://github.com/primer/react/pull/4858) [`6c69bffb288caf8006cc3316afe86396d9987e49`](https://github.com/primer/react/commit/6c69bffb288caf8006cc3316afe86396d9987e49) Thanks [@jonrohan](https://github.com/jonrohan)! - Refactor Link, Blankslate, Heading to use :where css
 
@@ -1851,7 +1851,7 @@ N/A, re-release of v37.11.1
 
 - [#4349](https://github.com/primer/react/pull/4349) [`15c078dda93ae8579a858efcce3b6a2f97204373`](https://github.com/primer/react/commit/15c078dda93ae8579a858efcce3b6a2f97204373) Thanks [@jonrohan](https://github.com/jonrohan)! - Adding aria-invalid="true" to TextInput when error.
 
-- [#4365](https://github.com/primer/react/pull/4365) [`fe9f8baae473019e3605fae8895ba63f88fae074`](https://github.com/primer/react/commit/fe9f8baae473019e3605fae8895ba63f88fae074) Thanks [@pksjce](https://github.com/pksjce)! - Bugfix: `aria-invalid` is overriden in TextInput
+- [#4365](https://github.com/primer/react/pull/4365) [`fe9f8baae473019e3605fae8895ba63f88fae074`](https://github.com/primer/react/commit/fe9f8baae473019e3605fae8895ba63f88fae074) Thanks [@pksjce](https://github.com/pksjce)! - Bugfix: `aria-invalid` is overridden in TextInput
 
 - [#4354](https://github.com/primer/react/pull/4354) [`4b823ff237235564900aeadb81713e984676c5ad`](https://github.com/primer/react/commit/4b823ff237235564900aeadb81713e984676c5ad) Thanks [@siddharthkp](https://github.com/siddharthkp)! - TextInput: Remove redundant `aria-label` attribute from `TextInput.Action` when it already has an `aria-labelledby`.
 
@@ -3256,7 +3256,7 @@ N/A, re-release of v37.11.1
 
 - [#2232](https://github.com/primer/react/pull/2232) [`a0fcce61`](https://github.com/primer/react/commit/a0fcce61c04f45ead24fee8f8e25fcf6f3137cd3) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - Add a `stickyTop` prop, the height of a sticky header, to the `PageLayout.Pane` to push the pane down for the sticky header when necessary.
 
-* [#2228](https://github.com/primer/react/pull/2228) [`bf99db99`](https://github.com/primer/react/commit/bf99db999a54149682cc708f620145cd0fa1938d) Thanks [@mperrotti](https://github.com/mperrotti)! - Moves SegmentedControl to the main bundle and updates it's lifecycle status to "Alpha"
+* [#2228](https://github.com/primer/react/pull/2228) [`bf99db99`](https://github.com/primer/react/commit/bf99db999a54149682cc708f620145cd0fa1938d) Thanks [@mperrotti](https://github.com/mperrotti)! - Moves SegmentedControl to the main bundle and updates its lifecycle status to "Alpha"
 
 ### Patch Changes
 
