@@ -289,6 +289,9 @@ GroupPlayground.argTypes = {
   title: {
     type: 'string',
   },
+  'aria-label': {
+    type: 'string',
+  },
   auxiliaryText: {
     type: 'string',
   },
