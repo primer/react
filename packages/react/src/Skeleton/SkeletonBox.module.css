@@ -11,7 +11,7 @@
 .SkeletonBox {
   display: block;
   height: 1rem;
-  background-color: var(--bgColor-muted);
+  background-color: var(--skeletonLoader-bgColor);
   border-radius: var(--borderRadius-small);
   animation: shimmer;
 
