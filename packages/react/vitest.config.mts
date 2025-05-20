@@ -1,32 +1,21 @@
 import {defineConfig} from 'vitest/config'
 import react from '@vitejs/plugin-react'
-import fs from 'fs'
-import path from 'path'
-
-// This function creates a specific pattern to exclude all .figma.tsx files
-const getFigmaExcludePatterns = () => {
-  // Return specific exclude patterns for problematic files
-  return [
-    '**/node_modules/**',
-    '**/dist/**',
-    '**/lib-esm/**',
-    '**/lib/**',
-    '**/generated/**',
-    '**/*.figma.tsx',
-    '**/*.types.test.tsx',
-  ]
-}
 
 export default defineConfig({
   plugins: [react()],
   define: {
     __DEV__: true,
   },
-  optimizeDeps: {
-    exclude: ['@figma/code-connect'],
-  },
   test: {
-    exclude: getFigmaExcludePatterns(),
+    exclude: [
+      '**/node_modules/**',
+      '**/dist/**',
+      '**/lib-esm/**',
+      '**/lib/**',
+      '**/generated/**',
+      '**/*.figma.tsx',
+      '**/*.types.test.tsx',
+    ],
     include: [
       'src/ActionBar/**/*.test.?(c|m)[jt]s?(x)',
       'src/AnchoredOverlay/**/*.test.?(c|m)[jt]s?(x)',
@@ -60,9 +49,11 @@ export default defineConfig({
     css: {
       include: [/.+/],
     },
+    globals: true,
+    environment: process.env.FORCE_NODE_ENV ? 'node' : 'jsdom',
     browser: {
       provider: 'playwright',
-      enabled: true,
+      enabled: process.env.FORCE_NODE_ENV ? false : true,
       headless: process.env.DEBUG_BROWSER_TESTS === 'true' ? false : true,
       instances: [
         {
