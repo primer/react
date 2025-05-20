@@ -1,15 +1,17 @@
 import classes from './_VisuallyHidden.module.css'
 import {clsx} from 'clsx'
+import {BoxWithFallback} from './internal/components/BoxWithFallback'
 
 interface Props {
   isVisible?: boolean
+  as?: React.ElementType
 }
 
-function VisuallyHidden({isVisible, children, ...rest}: Props & React.HTMLAttributes<HTMLSpanElement>) {
+function VisuallyHidden({isVisible, children, as = 'span', ...rest}: Props & React.HTMLAttributes<HTMLSpanElement>) {
   return (
-    <span className={clsx({[classes.InternalVisuallyHidden]: !isVisible})} {...rest}>
+    <BoxWithFallback as={as} className={clsx({[classes.InternalVisuallyHidden]: !isVisible})} {...rest}>
       {children}
-    </span>
+    </BoxWithFallback>
   )
 }
 
