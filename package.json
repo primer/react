@@ -30,6 +30,7 @@
     "test:watch": "npm run test -- --watch",
     "test:coverage": "npm run test -- --coverage",
     "test:type-check": "npm run type-css-modules && tsc --noEmit",
+    "vitest:update": "vitest -u",
     "type-check": "npm run type-css-modules && tsc --noEmit && npm run type-check -ws --if-present",
     "type-css-modules": "tcm -p **/packages/react/src/**/*.module.css",
     "release": "npm run build && changeset publish",
