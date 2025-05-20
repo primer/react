@@ -1,6 +1,5 @@
 // Most of the functionality is already tested in [@github/tab-container-element](https://github.com/github/tab-container-element)
 
-import React from 'react'
 import {render, screen} from '@testing-library/react'
 import UnderlinePanels from './UnderlinePanels'
 import {behavesAsComponent} from '../../utils/testing'

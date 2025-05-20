@@ -1,4 +1,3 @@
-import React from 'react'
 import type {StoryFn, Meta} from '@storybook/react'
 import type {ActionListProps, ActionListGroupProps} from '.'
 import {ActionList} from '.'
@@ -288,6 +287,9 @@ GroupPlayground.argTypes = {
     type: 'string',
   },
   title: {
+    type: 'string',
+  },
+  'aria-label': {
     type: 'string',
   },
   auxiliaryText: {

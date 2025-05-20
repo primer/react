@@ -1,4 +1,3 @@
-import React from 'react'
 import FilteredSearch from '../../deprecated/FilteredSearch'
 
 export function shouldAcceptCallWithNoProps() {

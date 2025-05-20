@@ -1,5 +1,5 @@
 import {clsx} from 'clsx'
-import React from 'react'
+import type React from 'react'
 import {type SxProp} from '../../sx'
 import classes from './InputLabel.module.css'
 import {BoxWithFallback} from './BoxWithFallback'

@@ -1,4 +1,4 @@
-import React from 'react'
+import type React from 'react'
 import {describe, expect, it, vi} from 'vitest'
 import type {TooltipProps} from '../Tooltip'
 import {Tooltip} from '../Tooltip'

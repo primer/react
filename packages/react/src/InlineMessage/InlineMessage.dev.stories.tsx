@@ -1,5 +1,4 @@
 import type {Meta} from '@storybook/react'
-import React from 'react'
 import {InlineMessage} from '.'
 
 const meta = {

@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react'
+import {Fragment} from 'react'
 import Text from '../../Text'
 import type {KeybindingHintProps} from '../props'
 import {Key} from './Key'

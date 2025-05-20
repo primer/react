@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react'
+import {useState, useRef} from 'react'
 import type {Meta} from '@storybook/react'
 import {Button} from '../Button'
 import {Box, Text} from '..'

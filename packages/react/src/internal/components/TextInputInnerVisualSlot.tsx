@@ -1,4 +1,4 @@
-import React from 'react'
+import type React from 'react'
 import Spinner from '../../Spinner'
 import {clsx} from 'clsx'
 import type {TextInputNonPassthroughProps} from '../../TextInput'

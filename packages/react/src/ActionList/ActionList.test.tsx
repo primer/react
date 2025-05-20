@@ -1,7 +1,6 @@
 import {render as HTMLRender} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import axe from 'axe-core'
-import React from 'react'
 import theme from '../theme'
 import {ActionList} from '.'
 import {behavesAsComponent, checkExports} from '../utils/testing'
@@ -95,7 +94,9 @@ describe('ActionList', () => {
     expect(document.activeElement).toHaveTextContent('Option 2')
 
     await userEvent.keyboard('{ArrowDown}')
-    expect(document.activeElement).not.toHaveTextContent('Option 3') // option 3 is disabled
+    expect(document.activeElement).toHaveTextContent('Option 3')
+
+    await userEvent.keyboard('{ArrowDown}')
     expect(document.activeElement).toHaveTextContent('Option 4')
 
     await userEvent.keyboard('{ArrowDown}')
