@@ -12,10 +12,11 @@ function VisuallyHidden({
   isVisible,
   children,
   as = 'span',
+  className,
   ...rest
 }: Props & React.HTMLAttributes<HTMLSpanElement> & SxProp) {
   return (
-    <BoxWithFallback as={as} className={clsx({[classes.InternalVisuallyHidden]: !isVisible})} {...rest}>
+    <BoxWithFallback as={as} className={clsx(className, {[classes.InternalVisuallyHidden]: !isVisible})} {...rest}>
       {children}
     </BoxWithFallback>
   )
