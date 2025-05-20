@@ -1,22 +1,14 @@
 import {clsx} from 'clsx'
 import React, {useEffect, useRef, useState} from 'react'
-import styled from 'styled-components'
-import {get} from '../constants'
-import Box from '../Box'
-import type {BetterCssProperties, BetterSystemStyleObject, SxProp} from '../sx'
-import sx, {merge} from '../sx'
+import type {SxProp} from '../sx'
 import type {AvatarProps} from '../Avatar/Avatar'
 import {DEFAULT_AVATAR_SIZE} from '../Avatar/Avatar'
 import type {ResponsiveValue} from '../hooks/useResponsiveValue'
 import {isResponsiveValue} from '../hooks/useResponsiveValue'
-import {getBreakpointDeclarations} from '../utils/getBreakpointDeclarations'
 import {defaultSxProp} from '../utils/defaultSxProp'
 import type {WidthOnlyViewportRangeKeys} from '../utils/types/ViewportRangeKeys'
 import classes from './AvatarStack.module.css'
-import {toggleStyledComponent} from '../internal/utils/toggleStyledComponent'
-import {useFeatureFlag} from '../FeatureFlags'
 import {hasInteractiveNodes} from '../internal/utils/hasInteractiveNodes'
-import getGlobalFocusStyles from '../internal/utils/getGlobalFocusStyles'
 import {BoxWithFallback} from '../internal/components/BoxWithFallback'
 
 const transformChildren = (children: React.ReactNode) => {
@@ -79,7 +71,6 @@ const AvatarStack = ({
   const stackContainer = useRef<HTMLDivElement>(null)
 
   const count = React.Children.count(children)
-  const wrapperClassNames = clsx()
 
   const getAvatarChildSizes = () => {
     const avatarSizeMap: Record<WidthOnlyViewportRangeKeys, number[]> = {
