@@ -1,29 +1,16 @@
-import styled from 'styled-components'
-import type {SxProp} from './sx'
-import sx from './sx'
+import classes from './_VisuallyHidden.module.css'
+import {clsx} from 'clsx'
 
 interface Props {
   isVisible?: boolean
 }
 
-const VisuallyHidden = styled.span<Props & SxProp>`
-  ${({isVisible = false}) => {
-    if (isVisible) {
-      return sx
-    }
-
-    return `
-        position: absolute;
-        width: 1px;
-        height: 1px;
-        padding: 0;
-        margin: -1px;
-        overflow: hidden;
-        clip: rect(0, 0, 0, 0);
-        white-space: nowrap;
-        border-width: 0;
-    `
-  }}
-`
+function VisuallyHidden({isVisible, children, ...rest}: Props & React.HTMLAttributes<HTMLSpanElement>) {
+  return (
+    <span className={clsx({[classes.InternalVisuallyHidden]: !isVisible})} {...rest}>
+      {children}
+    </span>
+  )
+}
 
 export default VisuallyHidden
