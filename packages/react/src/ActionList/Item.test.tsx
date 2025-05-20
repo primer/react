@@ -1,4 +1,4 @@
-import {render as HTMLRender, waitFor, fireEvent, screen} from '@testing-library/react'
+import {render as HTMLRender, waitFor, fireEvent} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React from 'react'
 import {ActionList} from '.'

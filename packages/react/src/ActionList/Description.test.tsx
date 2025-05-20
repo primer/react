@@ -1,5 +1,5 @@
 import {expect, it, describe} from 'vitest'
-import {render as HTMLRender, screen} from '@testing-library/react'
+import {render as HTMLRender} from '@testing-library/react'
 import {ActionList} from '.'
 
 describe('ActionList.Description', () => {

@@ -2,7 +2,6 @@ import {render as HTMLRender} from '@testing-library/react'
 import theme from '../theme'
 import {ActionList} from '.'
 import {BaseStyles, ThemeProvider, ActionMenu} from '..'
-import {FeatureFlags} from '../FeatureFlags'
 import {behavesAsComponent} from '../utils/testing'
 
 describe('ActionList.Group', () => {
