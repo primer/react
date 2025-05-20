@@ -18,7 +18,7 @@ export default defineConfig({
     ],
     include: [
       'src/ActionBar/**/*.test.?(c|m)[jt]s?(x)',
-      'src/ActionList/**/Description.test.?(c|m)[jt]s?(x)',
+      'src/ActionList/**/*.test.?(c|m)[jt]s?(x)',
       'src/AnchoredOverlay/**/*.test.?(c|m)[jt]s?(x)',
       'src/Banner/**/*.test.?(c|m)[jt]s?(x)',
       'src/Blankslate/**/*.test.?(c|m)[jt]s?(x)',

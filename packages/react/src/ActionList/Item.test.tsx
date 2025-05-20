@@ -1,3 +1,4 @@
+import {describe, it, expect, vi} from 'vitest'
 import {render as HTMLRender, waitFor, fireEvent} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React from 'react'
@@ -181,7 +182,7 @@ describe('ActionList.Item', () => {
     expect(document.activeElement).toHaveAccessibleDescription(projects[5].inactiveText as string)
   })
   it('should call onClick for a link item', async () => {
-    const onClick = jest.fn()
+    const onClick = vi.fn()
     const component = HTMLRender(
       <ActionList role="listbox">
         <ActionList.LinkItem role="link" onClick={onClick}>
@@ -247,7 +248,7 @@ describe('ActionList.Item', () => {
     expect(action).toHaveAccessibleName('Action')
   })
   it('should do action when trailing action is clicked', async () => {
-    const onClick = jest.fn()
+    const onClick = vi.fn()
     const component = HTMLRender(
       <ActionList>
         <ActionList.Item>
@@ -275,7 +276,7 @@ describe('ActionList.Item', () => {
     expect(document.activeElement).toHaveAccessibleName('Action')
   })
   it('should only trigger a key event once', async () => {
-    const mockOnSelect = jest.fn()
+    const mockOnSelect = vi.fn()
     const user = userEvent.setup()
     const {getByRole} = HTMLRender(
       <ActionList>
