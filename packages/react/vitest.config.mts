@@ -1,21 +1,32 @@
 import {defineConfig} from 'vitest/config'
 import react from '@vitejs/plugin-react'
+import fs from 'fs'
+import path from 'path'
+
+// This function creates a specific pattern to exclude all .figma.tsx files
+const getFigmaExcludePatterns = () => {
+  // Return specific exclude patterns for problematic files
+  return [
+    '**/node_modules/**',
+    '**/dist/**',
+    '**/lib-esm/**',
+    '**/lib/**',
+    '**/generated/**',
+    '**/*.figma.tsx',
+    '**/*.types.test.tsx',
+  ]
+}
 
 export default defineConfig({
   plugins: [react()],
   define: {
     __DEV__: true,
   },
+  optimizeDeps: {
+    exclude: ['@figma/code-connect'],
+  },
   test: {
-    exclude: [
-      '**/node_modules/**',
-      '**/dist/**',
-      '**/lib-esm/**',
-      '**/lib/**',
-      '**/generated/**',
-      '**/*.figma.tsx',
-      '**/*.types.test.tsx',
-    ],
+    exclude: getFigmaExcludePatterns(),
     include: [
       'src/ActionBar/**/*.test.?(c|m)[jt]s?(x)',
       'src/AnchoredOverlay/**/*.test.?(c|m)[jt]s?(x)',
@@ -36,6 +47,7 @@ export default defineConfig({
       'src/StateLabel/**/*.test.?(c|m)[jt]s?(x)',
       'src/SubNav/**/*.test.?(c|m)[jt]s?(x)',
       'src/TabNav/**/*.test.?(c|m)[jt]s?(x)',
+      'src/Text/**/*.test.?(c|m)[jt]s?(x)',
       'src/TextInputWithTokens/**/*.test.?(c|m)[jt]s?(x)',
       'src/Timeline/**/*.test.?(c|m)[jt]s?(x)',
       'src/ToggleSwitch/**/*.test.?(c|m)[jt]s?(x)',
