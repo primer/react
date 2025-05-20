@@ -36,7 +36,6 @@ export default defineConfig({
       'src/StateLabel/**/*.test.?(c|m)[jt]s?(x)',
       'src/SubNav/**/*.test.?(c|m)[jt]s?(x)',
       'src/TabNav/**/*.test.?(c|m)[jt]s?(x)',
-      'src/Text/**/*.test.?(c|m)[jt]s?(x)',
       'src/TextInputWithTokens/**/*.test.?(c|m)[jt]s?(x)',
       'src/Timeline/**/*.test.?(c|m)[jt]s?(x)',
       'src/ToggleSwitch/**/*.test.?(c|m)[jt]s?(x)',
@@ -49,11 +48,9 @@ export default defineConfig({
     css: {
       include: [/.+/],
     },
-    globals: true,
-    environment: process.env.FORCE_NODE_ENV ? 'node' : 'jsdom',
     browser: {
       provider: 'playwright',
-      enabled: process.env.FORCE_NODE_ENV ? false : true,
+      enabled: true,
       headless: process.env.DEBUG_BROWSER_TESTS === 'true' ? false : true,
       instances: [
         {
