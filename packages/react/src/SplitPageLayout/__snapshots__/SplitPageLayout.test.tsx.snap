@@ -4,7 +4,7 @@ exports[`SplitPageLayout renders default layout 1`] = `
 <div>
   <div
     class="PageLayoutRoot"
-    style="--sticky-pane-height: 100vh; --spacing: var(--spacing-none);"
+    style="--spacing: var(--spacing-none);"
   >
     <div
       class="PageLayoutWrapper"
@@ -33,7 +33,6 @@ exports[`SplitPageLayout renders default layout 1`] = `
           class="ContentWrapper"
           data-is-hidden="false"
         >
-          <div />
           <div
             class="Content"
             data-width="large"
@@ -41,7 +40,6 @@ exports[`SplitPageLayout renders default layout 1`] = `
           >
             Content
           </div>
-          <div />
         </main>
         <div
           class="PaneWrapper"
