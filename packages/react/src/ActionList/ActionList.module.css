@@ -106,6 +106,7 @@
   @media (forced-colors: active) {
     :focus,
     &:focus-visible,
+    /* stylelint-disable-next-line selector-no-qualifying-type */
     > a.focus-visible,
     &[data-is-active-descendant] {
       /* Support for Windows high contrast https://sarahmhigley.com/writing/whcm-quick-tips */
@@ -386,8 +387,9 @@
 
     @media (forced-colors: active) {
       /* Support for Windows high contrast https://sarahmhigley.com/writing/whcm-quick-tips */
+
       /* background-color will be overriden but border-width is a workaround */
-      border-width: 1px;
+      border-width: var(--borderWidth-thin);
     }
   }
 
@@ -407,8 +409,9 @@
       }
 
       @media (forced-colors: active) {
-        /* Support for Windows high contrast https://sarahmhigley.com/writing/whcm-quick-tips */
-        /* background-color will be overriden but border-width is a workaround */
+        /* Support for Windows high contrast https://sarahmhigley.com/writing/whcm-quick-tips
+        background-color will be overriden but border-width is a workaround */
+        /* stylelint-disable-next-line primer/borders */
         border-width: 8px;
       }
     }
