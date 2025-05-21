@@ -29,6 +29,7 @@ export default defineConfig({
       'src/CircleOcticon/**/*.test.?(c|m)[jt]s?(x)',
       'src/DataTable/**/*.test.?(c|m)[jt]s?(x)',
       'src/FeatureFlags/**/*.test.?(c|m)[jt]s?(x)',
+      'src/Radio/**/*.test.?(c|m)[jt]s?(x)',
       'src/Select/**/*.test.?(c|m)[jt]s?(x)',
       'src/Skeleton/**/*.test.?(c|m)[jt]s?(x)',
       'src/Spinner/**/*.test.?(c|m)[jt]s?(x)',
@@ -47,10 +48,14 @@ export default defineConfig({
     setupFiles: ['config/vitest/setup.ts'],
     css: {
       include: [/.+/],
+      modules: {
+        classNameStrategy: 'non-scoped',
+      },
     },
+    environment: 'jsdom',
     browser: {
       provider: 'playwright',
-      enabled: true,
+      enabled: false,
       headless: process.env.DEBUG_BROWSER_TESTS === 'true' ? false : true,
       instances: [
         {
