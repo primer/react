@@ -8,13 +8,13 @@ interface Props {
   as?: React.ElementType
 }
 
-function VisuallyHidden({
+function VisuallyHidden<As extends React.ElementType>({
   isVisible,
   children,
   as = 'span',
   className,
   ...rest
-}: Props & React.HTMLAttributes<HTMLSpanElement> & SxProp) {
+}: Props & { as?: As } & React.ComponentPropsWithoutRef<ElementType extends As ? As : 'span'> & SxProp) {
   return (
     <BoxWithFallback as={as} className={clsx(className, {[classes.InternalVisuallyHidden]: !isVisible})} {...rest}>
       {children}
