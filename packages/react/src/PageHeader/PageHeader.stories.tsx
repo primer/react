@@ -16,7 +16,7 @@ import {
   ArrowRightIcon,
   SidebarExpandIcon,
 } from '@primer/octicons-react'
-import {OcticonArgType} from '../utils/story-helpers'
+import {OcticonArgType} from '../utils/storybook-helpers'
 
 import {PageHeader} from './PageHeader'
 import Hidden from '../Hidden'

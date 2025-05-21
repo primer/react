@@ -4,7 +4,7 @@ import type {Meta} from '@storybook/react'
 import {Box, FormControl} from '..'
 import type {TextInputWithTokensProps} from '../TextInputWithTokens'
 import TextInputWithTokens from '../TextInputWithTokens'
-import type {FormControlArgs} from '../utils/story-helpers'
+import type {FormControlArgs} from '../utils/storybook-helpers'
 import {
   formControlArgs,
   formControlArgTypes,
@@ -12,7 +12,7 @@ import {
   getTextInputArgTypes,
   textInputExcludedControlKeys,
   textInputWithTokensArgTypes,
-} from '../utils/story-helpers'
+} from '../utils/storybook-helpers'
 
 const excludedControls = ['tokens', 'onTokenRemove', 'tokenComponent', ...textInputExcludedControlKeys]
 

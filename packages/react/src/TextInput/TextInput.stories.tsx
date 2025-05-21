@@ -4,14 +4,14 @@ import type {Meta} from '@storybook/react'
 import {Box, FormControl} from '..'
 import type {TextInputProps} from '../TextInput'
 import TextInput from '../TextInput'
-import type {FormControlArgs} from '../utils/story-helpers'
+import type {FormControlArgs} from '../utils/storybook-helpers'
 import {
   formControlArgs,
   formControlArgTypes,
   getFormControlArgsByChildComponent,
   getTextInputArgTypes,
   textInputExcludedControlKeys,
-} from '../utils/story-helpers'
+} from '../utils/storybook-helpers'
 
 export default {
   title: 'Components/TextInput',

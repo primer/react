@@ -3,6 +3,7 @@ import type {CheckboxGroup, FormControl} from '../index'
 import type {ComponentProps} from './types'
 import type {ArgTypes} from '@storybook/react'
 import type {InputType} from '@storybook/csf'
+import type {Icon} from '@primer/octicons-react'
 
 type CheckboxOrRadioGroupWrapperArgs = ComponentProps<typeof CheckboxGroup>
 type CheckboxOrRadioGroupLabelArgs = ComponentProps<typeof CheckboxGroup.Label> & {
@@ -251,3 +252,19 @@ export const getFormControlArgsByChildComponent = ({
   captionArgs: {children: captionChildren},
   validationArgs: {children: validationChildren, variant},
 })
+
+// Use this function for icon options in the controls. Desired icons are passed in as an array of Octicons
+export const OcticonArgType = (iconList: Icon[]) => {
+  const icons = iconList.reduce<Record<string, Icon>>((obj, icon) => {
+    obj[icon.displayName || 'Icon'] = icon
+    return obj
+  }, {})
+
+  return {
+    options: Object.keys(icons),
+    control: {
+      type: 'select' as const,
+    },
+    mapping: icons,
+  }
+}

@@ -2,7 +2,7 @@ import type React from 'react'
 import type {Meta} from '@storybook/react'
 import {Box, FormControl} from '..'
 import TextInput from '.'
-import {textInputExcludedControlKeys} from '../utils/story-helpers'
+import {textInputExcludedControlKeys} from '../utils/storybook-helpers'
 
 export default {
   title: 'Components/TextInput/Dev',

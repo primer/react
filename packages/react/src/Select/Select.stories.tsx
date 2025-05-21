@@ -2,13 +2,13 @@ import type {Meta} from '@storybook/react'
 import {FormControl, Box} from '..'
 import Select from './Select'
 import type {SelectProps} from './Select'
-import type {FormControlArgs} from '../utils/form-story-helpers'
+import type {FormControlArgs} from '../utils/storybook-helpers'
 import {
   formControlArgs,
   formControlArgTypes,
   getFormControlArgsByChildComponent,
   inputWrapperArgTypes,
-} from '../utils/form-story-helpers'
+} from '../utils/storybook-helpers'
 
 export default {
   title: 'Components/Select',

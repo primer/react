@@ -4,8 +4,8 @@ import {Box, FormControl, Heading, Stack} from '..'
 import type {TextInputProps} from '../TextInput'
 import TextInput from '../TextInput'
 import {CalendarIcon, CheckIcon, XCircleFillIcon} from '@primer/octicons-react'
-import type {FormControlArgs} from '../utils/story-helpers'
-import {formControlArgTypes, textInputExcludedControlKeys} from '../utils/story-helpers'
+import type {FormControlArgs} from '../utils/storybook-helpers'
+import {formControlArgTypes, textInputExcludedControlKeys} from '../utils/storybook-helpers'
 
 export default {
   title: 'Components/TextInput/Features',

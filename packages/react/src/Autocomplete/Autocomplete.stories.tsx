@@ -8,13 +8,13 @@ import Autocomplete from './Autocomplete'
 import FormControl from '../FormControl'
 
 import type {ComponentProps} from '../utils/types'
-import type {FormControlArgs} from '../utils/story-helpers'
+import type {FormControlArgs} from '../utils/storybook-helpers'
 import {
   formControlArgs,
   formControlArgTypes,
   getFormControlArgsByChildComponent,
   getTextInputArgTypes,
-} from '../utils/story-helpers'
+} from '../utils/storybook-helpers'
 import {within, userEvent, expect} from '@storybook/test'
 
 type AutocompleteOverlayArgs = ComponentProps<typeof Autocomplete.Overlay>

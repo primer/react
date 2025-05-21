@@ -1,7 +1,7 @@
 import {EyeClosedIcon, EyeIcon, SearchIcon, XIcon, HeartIcon, ChevronRightIcon} from '@primer/octicons-react'
 import type {Meta, StoryFn} from '@storybook/react'
 import {LinkButton} from '.'
-import {OcticonArgType} from '../utils/story-helpers'
+import {OcticonArgType} from '../utils/storybook-helpers'
 
 export default {
   title: 'Components/LinkButton',

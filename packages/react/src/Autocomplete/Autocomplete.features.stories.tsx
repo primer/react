@@ -10,13 +10,13 @@ import {AnchoredOverlay} from '../AnchoredOverlay'
 import FormControl from '../FormControl'
 import {Button} from '../Button'
 import type {ComponentProps} from '../utils/types'
-import type {FormControlArgs} from '../utils/story-helpers'
+import type {FormControlArgs} from '../utils/storybook-helpers'
 import {
   formControlArgs,
   formControlArgTypes,
   getFormControlArgsByChildComponent,
   getTextInputArgTypes,
-} from '../utils/story-helpers'
+} from '../utils/storybook-helpers'
 
 type AutocompleteOverlayArgs = ComponentProps<typeof Autocomplete.Overlay>
 type AutocompleteMenuArgs = ComponentProps<typeof Autocomplete.Menu>

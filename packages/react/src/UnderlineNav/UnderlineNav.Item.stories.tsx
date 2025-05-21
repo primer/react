@@ -2,7 +2,7 @@ import type {Meta, StoryFn} from '@storybook/react'
 import {UnderlineNav} from './index'
 import {UnderlineNavItem} from './UnderlineNavItem'
 import {CodeIcon, GitPullRequestIcon, PeopleIcon} from '@primer/octicons-react'
-import {OcticonArgType} from '../utils/story-helpers'
+import {OcticonArgType} from '../utils/storybook-helpers'
 
 export default {
   title: 'Components/UnderlineNav/UnderlineNav.Item',

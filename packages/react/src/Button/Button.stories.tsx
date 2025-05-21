@@ -1,7 +1,7 @@
 import {EyeClosedIcon, EyeIcon, SearchIcon, TriangleDownIcon, XIcon, HeartIcon} from '@primer/octicons-react'
 import type {Meta, StoryObj} from '@storybook/react'
 import {Button} from '.'
-import {OcticonArgType} from '../utils/story-helpers'
+import {OcticonArgType} from '../utils/storybook-helpers'
 
 const meta: Meta<typeof Button> = {
   title: 'Components/Button',
