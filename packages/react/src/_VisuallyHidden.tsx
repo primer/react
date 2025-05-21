@@ -3,9 +3,9 @@ import {clsx} from 'clsx'
 import {BoxWithFallback} from './internal/components/BoxWithFallback'
 import type {SxProp} from './sx'
 
-interface Props {
+interface Props<As extends React.ElementType> {
   isVisible?: boolean
-  as?: React.ElementType
+  as?: As
 }
 
 function VisuallyHidden<As extends React.ElementType>({
