@@ -243,6 +243,10 @@
     }
   }
 
+  .LoadingSpinner{
+    display: flex;
+  }
+
   /* Default Variant */
 
   &:where([data-variant='default']) {
