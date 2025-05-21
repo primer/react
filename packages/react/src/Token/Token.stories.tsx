@@ -57,6 +57,8 @@ Playground.argTypes = {
     },
   },
   onClick: {
-    action: 'onClick',
+    control: {
+      type: 'boolean',
+    },
   },
 }
