@@ -4,7 +4,7 @@ import {createRoot} from 'react-dom/client'
 import type {ThemeProviderProps} from '../ThemeProvider'
 import {ThemeProvider, useTheme} from '../ThemeProvider'
 import {FocusKeys} from '@primer/behaviors'
-import type {DialogProps, DialogHeaderProps, DialogButtonProps} from '../Dialog/Dialog'
+import type {DialogProps, DialogHeaderProps, DialogButtonProps, DialogWidth, DialogHeight} from '../Dialog/Dialog'
 import {Dialog} from '../Dialog/Dialog'
 import {useFocusZone} from '../hooks/useFocusZone'
 import BaseStyles from '../BaseStyles'
@@ -40,6 +40,28 @@ export interface ConfirmationDialogProps {
    * The type of button to use for the confirm button. Default: Button.
    */
   confirmButtonType?: 'normal' | 'primary' | 'danger'
+
+  /**
+   * Additional class names to apply to the dialog
+   */
+  className?: string
+
+  /**
+   * The width of the dialog.
+   * small: 296px
+   * medium: 320px
+   * large: 480px
+   * xlarge: 640px
+   */
+  width?: DialogWidth
+
+  /**
+   * The height of the dialog.
+   * small: 480px
+   * large: 640px
+   * auto: variable based on contents
+   */
+  height?: DialogHeight
 }
 
 const ConfirmationHeader: React.FC<React.PropsWithChildren<DialogHeaderProps>> = ({title, onClose, dialogLabelId}) => {
@@ -87,6 +109,9 @@ export const ConfirmationDialog: React.FC<React.PropsWithChildren<ConfirmationDi
     confirmButtonContent = 'OK',
     confirmButtonType = 'normal',
     children,
+    className,
+    width = 'medium',
+    height,
   } = props
 
   const onCancelButtonClick = useCallback(() => {
@@ -114,7 +139,9 @@ export const ConfirmationDialog: React.FC<React.PropsWithChildren<ConfirmationDi
       title={title}
       footerButtons={footerButtons}
       role="alertdialog"
-      width="medium"
+      width={width}
+      height={height}
+      className={className}
       renderHeader={ConfirmationHeader}
       renderBody={ConfirmationBody}
       renderFooter={ConfirmationFooter}
