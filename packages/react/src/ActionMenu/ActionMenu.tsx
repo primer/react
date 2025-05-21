@@ -229,7 +229,7 @@ const MenuButton = React.forwardRef(({...props}, anchorRef) => {
 }) as PolymorphicForwardRefComponent<'button', ActionMenuButtonProps>
 
 type MenuOverlayProps = Partial<OverlayProps> &
-  Pick<AnchoredOverlayProps, 'align' | 'side'> & {
+  Pick<AnchoredOverlayProps, 'align' | 'side' | 'variant'> & {
     /**
      * Recommended: `ActionList`
      */
@@ -242,6 +242,7 @@ const Overlay: React.FC<React.PropsWithChildren<MenuOverlayProps>> = ({
   side,
   onPositionChange,
   'aria-labelledby': ariaLabelledby,
+  variant = {regular: 'anchored', narrow: 'anchored'},
   ...overlayProps
 }) => {
   // we typecast anchorRef as required instead of optional
@@ -285,6 +286,7 @@ const Overlay: React.FC<React.PropsWithChildren<MenuOverlayProps>> = ({
       overlayProps={overlayProps}
       focusZoneSettings={{focusOutBehavior: 'wrap'}}
       onPositionChange={onPositionChange}
+      variant={variant}
     >
       <div ref={containerRef}>
         <ActionListContainerContext.Provider
