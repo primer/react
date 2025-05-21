@@ -93,7 +93,7 @@ jobs:
           node-version: 22
           cache: 'npm'
       - if: ${{ matrix.react-version == 19 }}
-        run: node --experimental-strip-types scripts/setup-react-19.mts
+        run: node --experimental-strip-types script/setup-react-19.mts
       - name: Install dependencies
         run: npm ci
       - name: Build project
