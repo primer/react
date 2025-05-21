@@ -171,7 +171,7 @@ jobs:
               ISSUE_BODY += timeline;
               ISSUE_BODY += '\n';
               ISSUE_BODY += checklist;
-              ISSUE_BODY += "\n";
+              ISSUE_BODY += '\n';
               ISSUE_BODY += '\n';
               ISSUE_BODY += notes;
 
