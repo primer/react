@@ -27,7 +27,7 @@ figma.connect(
       counter: figma.nestedProps('CounterLabel', {
         count: figma.textContent('text'),
       }),
-      leadingVisual: figma.boolean('leadingIcon?', {
+      leadingVisual: figma.boolean('leadingVisual?', {
         false: undefined,
         true: figma.children('Icon'),
       }),

@@ -14,7 +14,7 @@ figma.connect(Radio, 'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Primer
     disabled: figma.enum('state', {
       disabled: true,
     }),
-    checked: figma.boolean('checked?'),
+    checked: figma.boolean('checked'),
   },
   example: ({disabled, label, caption, checked, labelProps}) => (
     <FormControl disabled={disabled} required={labelProps.required}>

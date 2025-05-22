@@ -15,13 +15,13 @@ figma.connect(
         loading: true,
       }),
       checked: figma.boolean('checked'),
-      labelposition: figma.enum('label position', {
+      statusLabelPosition: figma.enum('status label position', {
         start: 'start',
         end: 'end',
       }),
     },
-    example: ({size, checked, labelposition, loading}) => (
-      <ToggleSwitch size={size} checked={checked} statusLabelPosition={labelposition} loading={loading} />
+    example: ({size, checked, statusLabelPosition, loading}) => (
+      <ToggleSwitch size={size} checked={checked} statusLabelPosition={statusLabelPosition} loading={loading} />
     ),
   },
 )
