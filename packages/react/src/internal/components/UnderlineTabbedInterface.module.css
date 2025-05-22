@@ -105,11 +105,11 @@
   bottom: calc(50% - calc(var(--control-xlarge-size, var(--base-size-48)) / 2 + 1px));
   width: 100%;
   height: 2px;
+  pointer-events: none;
   content: '';
   background-color: transparent;
   border-radius: 0;
   transform: translate(50%, -50%);
-  pointer-events: none;
 }
 
 .UnderlineItem[aria-current]:not([aria-current='false']) [data-component='text'],
@@ -131,8 +131,7 @@
 .LoadingCounter {
   display: inline-block;
   width: 1.5rem;
-  height: 1rem;
-  /* 16px */
+  height: 1rem; /* 16px */
   background-color: var(--bgColor-neutral-muted);
   border-color: var(--borderColor-default);
   /* stylelint-disable-next-line primer/borders */
