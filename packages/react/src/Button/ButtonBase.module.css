@@ -243,6 +243,14 @@
     }
   }
 
+  /* Styles for the spinner element displayed when the Button is in a loading state.
+   * Ensures the spinner is centered within its container. */
+  .LoadingSpinner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   /* Default Variant */
 
   &:where([data-variant='default']) {

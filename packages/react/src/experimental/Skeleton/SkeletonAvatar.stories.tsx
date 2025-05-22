@@ -24,6 +24,7 @@ export const Playground: StoryFn<Args> = args => {
 
 Playground.args = {
   size: DEFAULT_AVATAR_SIZE,
+  square: false,
 }
 
 Playground.argTypes = {
