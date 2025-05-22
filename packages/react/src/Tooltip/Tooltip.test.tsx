@@ -1,4 +1,3 @@
-import React from 'react'
 import type {TooltipProps} from './Tooltip'
 import Tooltip from './Tooltip'
 import {render, screen} from '@testing-library/react'

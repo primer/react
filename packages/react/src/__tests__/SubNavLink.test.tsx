@@ -1,4 +1,3 @@
-import React from 'react'
 import {SubNav} from '..'
 import {render, behavesAsComponent} from '../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'

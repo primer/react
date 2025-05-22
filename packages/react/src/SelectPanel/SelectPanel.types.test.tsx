@@ -1,4 +1,3 @@
-import React from 'react'
 import {SelectPanel} from '../SelectPanel'
 
 export function shouldAcceptCallWithNoProps() {

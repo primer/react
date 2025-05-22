@@ -1,5 +1,5 @@
 import {Box} from '.'
-import React from 'react'
+import type React from 'react'
 
 /** Private component used to render placeholders in storybook and documentation examples  */
 export const Placeholder: React.FC<

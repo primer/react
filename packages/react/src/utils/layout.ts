@@ -21,18 +21,3 @@ export const PrimerBreakpoints = {
     width: '1400px',
   },
 }
-
-export function breakpointHigher(width: string): string {
-  return `@media screen and (min-width: ${width})`
-}
-
-export function breakpointLower(width: string): string {
-  return `@media screen and (max-width: calc(${width} - 0.02px))`
-}
-
-// Media queries associated with Primer viewport ranges.
-export const mediaQueries = {
-  narrow: breakpointLower(PrimerBreakpoints.medium.width), // @media screen and (max-width: 768px - 0.02px) // < 768px (max-with is inclusive)
-  regular: breakpointHigher(PrimerBreakpoints.medium.width), // @media screen and (min-width: 768) // >= 768px
-  wide: breakpointHigher(PrimerBreakpoints.xxlarge.width), // (min-width: 1400px) // >= 1400px
-}

@@ -1,5 +1,5 @@
 import {describe, expect, it, vi} from 'vitest'
-import React from 'react'
+import type React from 'react'
 import {render, screen} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import type {IconProps} from '@primer/octicons-react'

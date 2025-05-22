@@ -1,4 +1,4 @@
-import React from 'react'
+import type React from 'react'
 import {SegmentedControl} from './SegmentedControl'
 import figma from '@figma/code-connect'
 

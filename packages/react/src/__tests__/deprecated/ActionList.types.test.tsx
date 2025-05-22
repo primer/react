@@ -1,4 +1,3 @@
-import React from 'react'
 import {ActionList} from '../../deprecated/ActionList'
 
 export function emptyList() {

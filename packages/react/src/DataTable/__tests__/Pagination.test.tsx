@@ -1,6 +1,5 @@
 import {page} from '@vitest/browser/context'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
-import React from 'react'
 import {Pagination} from '../Pagination'
 import {render, screen} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'

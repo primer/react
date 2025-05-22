@@ -1,4 +1,3 @@
-import React from 'react'
 import FormControl from '../FormControl'
 import {render} from '@testing-library/react'
 

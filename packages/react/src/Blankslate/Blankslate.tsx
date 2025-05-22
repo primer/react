@@ -1,5 +1,6 @@
 import {clsx} from 'clsx'
-import React, {useMemo} from 'react'
+import {useMemo} from 'react'
+import type React from 'react'
 import {Button} from '../Button'
 import Link from '../Link'
 import {Provider, useBlankslate} from './BlankslateContext'

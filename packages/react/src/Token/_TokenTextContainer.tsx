@@ -1,5 +1,5 @@
 import type {TokenBaseProps} from './TokenBase'
-import React from 'react'
+import type React from 'react'
 import classes from './_TokenTextContainer.module.css'
 import {clsx} from 'clsx'
 import {BoxWithFallback} from '../internal/components/BoxWithFallback'
