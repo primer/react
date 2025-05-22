@@ -1,5 +1,5 @@
 import type React from 'react'
-import {type ElementType} from 'react'
+import {forwardRef, type ElementType} from 'react'
 import type {ResponsiveValue} from '../hooks/useResponsiveValue'
 import {getResponsiveAttributes} from '../internal/utils/getResponsiveAttributes'
 import classes from './Stack.module.css'
@@ -68,34 +68,40 @@ type StackProps<As> = React.PropsWithChildren<{
 }>
 
 const StackBaseComponent = toggleSxComponent('div') as React.ComponentType<StackProps<React.ElementType>>
-function Stack<As extends ElementType>({
-  as,
-  children,
-  align = 'stretch',
-  direction = 'vertical',
-  gap,
-  justify = 'start',
-  padding = 'none',
-  wrap = 'nowrap',
-  className,
-  ...rest
-}: StackProps<As> & React.ComponentPropsWithoutRef<ElementType extends As ? As : 'div'>) {
-  return (
-    <StackBaseComponent
-      as={as}
-      {...rest}
-      className={clsx(className, classes.Stack)}
-      {...getResponsiveAttributes('gap', gap)}
-      {...getResponsiveAttributes('direction', direction)}
-      {...getResponsiveAttributes('align', align)}
-      {...getResponsiveAttributes('wrap', wrap)}
-      {...getResponsiveAttributes('justify', justify)}
-      {...getResponsiveAttributes('padding', padding)}
-    >
-      {children}
-    </StackBaseComponent>
-  )
-}
+const Stack = forwardRef(
+  <As extends ElementType>(
+    {
+      as,
+      children,
+      align = 'stretch',
+      direction = 'vertical',
+      gap,
+      justify = 'start',
+      padding = 'none',
+      wrap = 'nowrap',
+      className,
+      ...rest
+    }: StackProps<As> & React.ComponentPropsWithRef<ElementType extends As ? As : 'div'>,
+    forwardedRef: React.Ref<HTMLDivElement> | undefined,
+  ) => {
+    return (
+      <StackBaseComponent
+        as={as}
+        ref={forwardedRef}
+        {...rest}
+        className={clsx(className, classes.Stack)}
+        {...getResponsiveAttributes('gap', gap)}
+        {...getResponsiveAttributes('direction', direction)}
+        {...getResponsiveAttributes('align', align)}
+        {...getResponsiveAttributes('wrap', wrap)}
+        {...getResponsiveAttributes('justify', justify)}
+        {...getResponsiveAttributes('padding', padding)}
+      >
+        {children}
+      </StackBaseComponent>
+    )
+  },
+)
 
 type StackItemProps<As> = React.PropsWithChildren<{
   /**
@@ -112,24 +118,30 @@ type StackItemProps<As> = React.PropsWithChildren<{
 }>
 
 const StackItemBaseComponent = toggleSxComponent('div') as React.ComponentType<StackItemProps<React.ElementType>>
-function StackItem<As extends ElementType>({
-  as,
-  children,
-  grow,
-  className,
-  ...rest
-}: StackItemProps<As> & React.ComponentPropsWithoutRef<ElementType extends As ? As : 'div'>) {
-  return (
-    <StackItemBaseComponent
-      as={as}
-      {...rest}
-      className={clsx(className, classes.StackItem)}
-      {...getResponsiveAttributes('grow', grow)}
-    >
-      {children}
-    </StackItemBaseComponent>
-  )
-}
+const StackItem = forwardRef(
+  <As extends ElementType>(
+    {
+      as,
+      children,
+      grow,
+      className,
+      ...rest
+    }: StackItemProps<As> & React.ComponentPropsWithoutRef<ElementType extends As ? As : 'div'>,
+    forwardRef: React.Ref<HTMLDivElement> | undefined,
+  ) => {
+    return (
+      <StackItemBaseComponent
+        as={as}
+        ref={forwardRef}
+        {...rest}
+        className={clsx(className, classes.StackItem)}
+        {...getResponsiveAttributes('grow', grow)}
+      >
+        {children}
+      </StackItemBaseComponent>
+    )
+  },
+)
 
 export {Stack, StackItem}
 export type {StackProps, StackItemProps}
