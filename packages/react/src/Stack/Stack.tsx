@@ -5,6 +5,7 @@ import {getResponsiveAttributes} from '../internal/utils/getResponsiveAttributes
 import classes from './Stack.module.css'
 import {clsx} from 'clsx'
 import {toggleSxComponent} from '../internal/utils/toggleSxComponent'
+import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 
 type GapScale = 'none' | 'condensed' | 'normal' | 'spacious'
 type Gap = GapScale | ResponsiveValue<GapScale>
@@ -82,7 +83,7 @@ const Stack = forwardRef(
       className,
       ...rest
     }: StackProps<As> & React.ComponentPropsWithRef<ElementType extends As ? As : 'div'>,
-    forwardedRef: React.Ref<HTMLDivElement> | undefined,
+    forwardedRef: React.Ref<As> | undefined,
   ) => {
     return (
       <StackBaseComponent
@@ -101,7 +102,7 @@ const Stack = forwardRef(
       </StackBaseComponent>
     )
   },
-)
+) as PolymorphicForwardRefComponent<ElementType, StackProps<ElementType>>
 
 type StackItemProps<As> = React.PropsWithChildren<{
   /**
@@ -127,7 +128,7 @@ const StackItem = forwardRef(
       className,
       ...rest
     }: StackItemProps<As> & React.ComponentPropsWithRef<ElementType extends As ? As : 'div'>,
-    forwardRef: React.Ref<HTMLDivElement> | undefined,
+    forwardRef: React.Ref<As> | undefined,
   ) => {
     return (
       <StackItemBaseComponent
@@ -141,7 +142,7 @@ const StackItem = forwardRef(
       </StackItemBaseComponent>
     )
   },
-)
+) as PolymorphicForwardRefComponent<ElementType, StackProps<ElementType>>
 
 export {Stack, StackItem}
 export type {StackProps, StackItemProps}
