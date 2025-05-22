@@ -126,7 +126,7 @@ const StackItem = forwardRef(
       grow,
       className,
       ...rest
-    }: StackItemProps<As> & React.ComponentPropsWithoutRef<ElementType extends As ? As : 'div'>,
+    }: StackItemProps<As> & React.ComponentPropsWithRef<ElementType extends As ? As : 'div'>,
     forwardRef: React.Ref<HTMLDivElement> | undefined,
   ) => {
     return (
