@@ -109,6 +109,7 @@
   background-color: transparent;
   border-radius: 0;
   transform: translate(50%, -50%);
+  pointer-events: none;
 }
 
 .UnderlineItem[aria-current]:not([aria-current='false']) [data-component='text'],
@@ -130,7 +131,8 @@
 .LoadingCounter {
   display: inline-block;
   width: 1.5rem;
-  height: 1rem; /* 16px */
+  height: 1rem;
+  /* 16px */
   background-color: var(--bgColor-neutral-muted);
   border-color: var(--borderColor-default);
   /* stylelint-disable-next-line primer/borders */
