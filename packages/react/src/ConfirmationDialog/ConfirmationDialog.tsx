@@ -52,6 +52,7 @@ export interface ConfirmationDialogProps {
    * medium: 320px
    * large: 480px
    * xlarge: 640px
+   * @default 'medium'
    */
   width?: DialogWidth
 
