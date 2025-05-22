@@ -32,6 +32,7 @@ export default defineConfig({
       'src/Radio/**/*.test.?(c|m)[jt]s?(x)',
       'src/RadioGroup/**/*.test.?(c|m)[jt]s?(x)',
       'src/RelativeTime/**/*.test.?(c|m)[jt]s?(x)',
+      'src/ProgressBar/**/*.test.?(c|m)[jt]s?(x)',
       'src/ScrollableRegion/**/*.test.?(c|m)[jt]s?(x)',
       'src/Select/**/*.test.?(c|m)[jt]s?(x)',
       'src/Skeleton/**/*.test.?(c|m)[jt]s?(x)',
