@@ -14,7 +14,7 @@ figma.connect(UnderlinePanels, 'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG
 
 const UnderlinePanelsTabProps = {
   selected: figma.boolean('selected'),
-  leadingIcon: figma.boolean('leadingIcon?', {
+  leadingIcon: figma.boolean('leadingVisual?', {
     true: figma.instance('icon').getProps<{name: string; fn: React.FC<IconProps>}>(),
     false: undefined,
   }),
@@ -39,7 +39,7 @@ figma.connect(
   'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?node-id=39456-2213&t=Ruhmu4yrZlzn11My-4',
   {
     props: UnderlinePanelsTabProps,
-    variant: {'leadingIcon?': true},
+    variant: {'leadingVisual?': true},
     example: ({label, selected, leadingIcon}) => (
       <UnderlinePanels.Tab aria-selected={selected} icon={leadingIcon.fn}>
         {label}
@@ -53,7 +53,7 @@ figma.connect(
   'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?node-id=39456-2213&t=Ruhmu4yrZlzn11My-4',
   {
     props: UnderlinePanelsTabProps,
-    variant: {'leadingIcon?': true, 'counter?': true},
+    variant: {'leadingVisual?': true, 'counter?': true},
     example: ({label, selected, leadingIcon, counterProps}) => (
       <UnderlinePanels.Tab aria-selected={selected} icon={leadingIcon.fn} counter={counterProps.value}>
         {label}
@@ -67,7 +67,7 @@ figma.connect(
   'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?node-id=39456-2213&t=Ruhmu4yrZlzn11My-4',
   {
     props: UnderlinePanelsTabProps,
-    variant: {'leadingIcon?': false, 'counter?': true},
+    variant: {'leadingVisual?': false, 'counter?': true},
     example: ({label, selected, counterProps}) => (
       <UnderlinePanels.Tab aria-selected={selected} counter={counterProps.value}>
         {label}

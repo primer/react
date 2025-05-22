@@ -7,7 +7,7 @@ figma.connect(
   {
     props: {
       label: figma.textContent('branch_name'),
-      as: figma.enum('type', {
+      as: figma.enum('as', {
         text: 'span',
         link: undefined,
       }),
