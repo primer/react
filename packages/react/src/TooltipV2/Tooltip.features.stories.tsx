@@ -1,4 +1,3 @@
-import React from 'react'
 import {IconButton, Button, Box, Link, ActionMenu, ActionList} from '..'
 import Octicon from '../Octicon'
 import {Tooltip} from './Tooltip'

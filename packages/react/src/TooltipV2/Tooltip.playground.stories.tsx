@@ -1,4 +1,3 @@
-import React from 'react'
 import {Button, Box} from '..'
 import {Tooltip} from './Tooltip'
 import type {Meta, StoryFn} from '@storybook/react'

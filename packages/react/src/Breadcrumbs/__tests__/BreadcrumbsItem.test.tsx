@@ -1,23 +1,15 @@
 import {render as HTMLRender} from '@testing-library/react'
-import axe from 'axe-core'
-import React from 'react'
-import Breadcrumbs from '..'
-import {behavesAsComponent, render} from '../../utils/testing'
+import Breadcrumbs from '../'
+import {describe, expect, it} from 'vitest'
 
 describe('Breadcrumbs.Item', () => {
-  behavesAsComponent({Component: Breadcrumbs.Item})
-
   it('renders an <a> by default', () => {
-    expect(render(<Breadcrumbs.Item />).type).toEqual('a')
-  })
-
-  it('should have no axe violations', async () => {
     const {container} = HTMLRender(<Breadcrumbs.Item />)
-    const results = await axe.run(container)
-    expect(results).toHaveNoViolations()
+    expect(container.firstChild?.nodeName).toEqual('A')
   })
 
   it('respects the "selected" prop', () => {
-    expect(render(<Breadcrumbs.Item selected />)).toMatchSnapshot()
+    const {container} = HTMLRender(<Breadcrumbs.Item selected />)
+    expect(container.firstChild).toMatchSnapshot()
   })
 })

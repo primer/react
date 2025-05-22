@@ -1,5 +1,6 @@
+import {describe, expect, it, vi} from 'vitest'
 import {render, screen} from '@testing-library/react'
-import React from 'react'
+import type React from 'react'
 import {Stack} from '../Stack'
 
 describe('Stack', () => {
@@ -21,7 +22,7 @@ describe('Stack', () => {
 
     expect(container.firstChild?.nodeName).toBe('SECTION')
 
-    const CustomComponent = jest.fn(({children}: React.PropsWithChildren) => {
+    const CustomComponent = vi.fn(({children}: React.PropsWithChildren) => {
       return <div data-testid="custom-component">{children}</div>
     })
     rerender(<Stack as={CustomComponent}></Stack>)

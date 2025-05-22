@@ -1,4 +1,3 @@
-import React from 'react'
 import type {Meta, StoryFn} from '@storybook/react'
 import Octicon from './Octicon'
 import {HeartFillIcon} from '@primer/octicons-react'

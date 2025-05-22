@@ -12,7 +12,8 @@ import {
   TriangleDownIcon,
 } from '@primer/octicons-react'
 import type {Meta} from '@storybook/react'
-import React, {useCallback, useState, useRef} from 'react'
+import type React from 'react'
+import {useCallback, useState, useRef} from 'react'
 import styled from 'styled-components'
 import {ThemeProvider} from '../..'
 import type {ActionMenuProps} from '../../deprecated'

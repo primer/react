@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import {useState} from 'react'
 import type {Args, Meta} from '@storybook/react'
 import {LocationIcon, RepoIcon} from '@primer/octicons-react'
 

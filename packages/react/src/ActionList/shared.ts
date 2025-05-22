@@ -120,11 +120,11 @@ export type ActionListProps = React.PropsWithChildren<{
   /**
    * `inset` children are offset (vertically and horizontally) from `List`’s edges, `full` children are flush (vertically and horizontally) with `List` edges
    */
-  variant?: 'inset' | 'full'
+  variant?: 'inset' | 'horizontal-inset' | 'full'
   /**
    * Whether multiple Items or a single Item can be selected.
    */
-  selectionVariant?: 'single' | 'multiple'
+  selectionVariant?: 'single' | 'radio' | 'multiple'
   /**
    * Display a divider above each `Item` in this `List` when it does not follow a `Header` or `Divider`.
    */

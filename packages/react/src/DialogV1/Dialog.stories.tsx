@@ -1,7 +1,7 @@
-import React, {useState, useRef} from 'react'
+import {useState, useRef} from 'react'
 import type {Meta} from '@storybook/react'
 import {Button} from '../Button'
-import {Box, Link, Text} from '..'
+import {Box, Text} from '..'
 import {Banner} from '../Banner'
 import {default as Dialog} from './Dialog'
 
@@ -20,15 +20,7 @@ export const Default = () => {
       <Box sx={{mb: 3}}>
         <Banner
           title="This component is deprecated"
-          description={
-            <div data-a11y-link-underlines="true">
-              We recommend using{' '}
-              <Link inline={true} href="/?path=/story/components-dialog--default">
-                Dialog
-              </Link>{' '}
-              instead.
-            </div>
-          }
+          description="We recommend using Dialog instead."
           variant="warning"
         />
       </Box>

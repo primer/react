@@ -1,6 +1,6 @@
 import {render, screen} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import React, {act} from 'react'
+import {act} from 'react'
 import {Details, useDetails, Box, Button} from '../..'
 import type {ButtonProps} from '../../Button'
 import {behavesAsComponent, checkExports} from '../../utils/testing'

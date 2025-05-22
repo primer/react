@@ -1,5 +1,5 @@
+import {describe, expect, it} from 'vitest'
 import {render, screen} from '@testing-library/react'
-import React from 'react'
 import {Table} from '../../DataTable'
 import {createColumnHelper} from '../column'
 import type {TableProps} from '../Table'
@@ -147,6 +147,16 @@ describe('Table', () => {
   })
 
   describe('Table.Container', () => {
+    it('should support additional props on the outermost element', () => {
+      const {container} = render(<Table.Container data-testid="test" />)
+      expect(container.firstElementChild).toHaveAttribute('data-testid', 'test')
+    })
+
+    it('should support a custom `className` through the `className` prop', () => {
+      const {container} = render(<Table.Container className="test" />)
+      expect(container.firstElementChild).toHaveClass('test')
+    })
+
     it('should support custom styles through the `sx` prop', () => {
       const {container} = render(<Table.Container sx={{m: 0}} />)
       expect(container.firstElementChild).toHaveStyle('margin:0')
@@ -231,8 +241,7 @@ describe('Table', () => {
       expect(screen.getByRole('rowheader', {name: 'Cell'})).toBeInTheDocument()
     })
 
-    // Can't run this test because jest can't render styles
-    it.skip('should vertically align cell contents', () => {
+    it('should vertically align cell contents', () => {
       render(
         <Table>
           <Table.Head>

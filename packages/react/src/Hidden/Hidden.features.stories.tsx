@@ -1,5 +1,4 @@
 import type {Meta} from '@storybook/react'
-import React from 'react'
 import {Hidden} from './Hidden'
 import {Box, Button} from '..'
 

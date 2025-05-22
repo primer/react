@@ -1,4 +1,5 @@
-import React, {type CSSProperties} from 'react'
+import type React from 'react'
+import {type CSSProperties} from 'react'
 import {isResponsiveValue} from '../../hooks/useResponsiveValue'
 import type {AvatarProps} from '../../Avatar'
 import {DEFAULT_AVATAR_SIZE} from '../../Avatar/Avatar'

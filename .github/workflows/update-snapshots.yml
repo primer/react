@@ -62,7 +62,7 @@ jobs:
     steps:
       - name: Generate token
         id: generate_token
-        uses: actions/create-github-app-token@3ff1caaa28b64c9cc276ce0a02e2ff584f3900c5
+        uses: actions/create-github-app-token@df432ceedc7162793a195dd1713ff69aefc7379e
         with:
           app-id: ${{ secrets.APP_ID }}
           private-key: ${{ secrets.PRIVATE_KEY }}
@@ -110,7 +110,7 @@ jobs:
             rm snapshots.zip
             rm $filepath
           done
-      - uses: stefanzweifel/git-auto-commit-action@e348103e9026cc0eee72ae06630dbe30c8bf7a79
+      - uses: stefanzweifel/git-auto-commit-action@b863ae1933cb653a53c021fe36dbb774e1fb9403
         with:
           commit_message: 'test(vrt): update snapshots'
 
