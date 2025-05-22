@@ -13,7 +13,7 @@ exports[`AnchoredOverlay > should render consistently when open 1`] = `
       aria-describedby=":rd:-loading-announcement"
       aria-expanded="true"
       aria-haspopup="true"
-      class="_ButtonBase_y24iw_2"
+      class="_ButtonBase_149hc_2"
       data-loading="false"
       data-no-visuals="true"
       data-size="medium"
@@ -23,12 +23,12 @@ exports[`AnchoredOverlay > should render consistently when open 1`] = `
       type="button"
     >
       <span
-        class="_ButtonContent_y24iw_101"
+        class="_ButtonContent_149hc_101"
         data-align="center"
         data-component="buttonContent"
       >
         <span
-          class="_Label_y24iw_128"
+          class="_Label_149hc_128"
           data-component="text"
         >
           Anchor Button
