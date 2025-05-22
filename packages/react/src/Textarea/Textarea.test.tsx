@@ -1,8 +1,20 @@
 import React from 'react'
-import {Textarea} from '..'
+import Textarea from '../Textarea'
 import {render, screen} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {describe, expect, it, vi, beforeEach} from 'vitest'
+import classes from './TextArea.module.css'
+
+function getCSSRules(selector: string): Array<CSSStyleRule> {
+  return Array.from(document.styleSheets).flatMap(sheet => {
+    return Array.from(sheet.cssRules).filter((rule): rule is CSSStyleRule => {
+      if (rule instanceof CSSStyleRule) {
+        return rule.selectorText === selector
+      }
+      return false
+    })
+  })
+}
 
 describe('Textarea', () => {
   beforeEach(() => {
@@ -44,13 +56,18 @@ describe('Textarea', () => {
     expect(textareaElement.value).toBe(sideEffectValue)
   })
 
-  // Enable these tests when we have a better way to test styles in Vitest
   it('renders an optional block prop correctly', () => {
-    render(<Textarea block />)
-    const textareaElement = screen.getByRole('textbox')
+    const {container} = render(<Textarea block />)
+    const textareaElement = screen.getByRole('textbox') as HTMLTextAreaElement
 
-    expect(textareaElement).toBeInTheDocument()
-    // Testing actual styles would be implemented here
+    const style = window.getComputedStyle(container.firstElementChild!)
+    expect(style.display).toBe('flex')
+
+    const rules = getCSSRules(`.${classes.TextArea}`)
+    const has100PercentWidth = rules.some(rule => {
+      return rule.style.width && rule.style.width === '100%'
+    })
+    expect(has100PercentWidth).toBe(true)
   })
 
   it('renders default resize values correctly', () => {
@@ -58,7 +75,11 @@ describe('Textarea', () => {
     const textareaElement = screen.getByRole('textbox')
 
     expect(textareaElement).toBeInTheDocument()
-    // Testing resize styles would be implemented here
+    const rules = getCSSRules(`.${classes.TextArea}`)
+    const hasResizeDeclaration = rules.some(rule => {
+      return rule.style.resize && rule.style.resize === 'both'
+    })
+    expect(hasResizeDeclaration).toBe(true)
   })
 
   it('renders none resize values correctly', () => {
@@ -66,7 +87,11 @@ describe('Textarea', () => {
     const textareaElement = screen.getByRole('textbox')
 
     expect(textareaElement).toBeInTheDocument()
-    // Testing resize styles would be implemented here
+    const rules = getCSSRules(`.${classes.TextArea}[data-resize="none"]`)
+    const hasResizeDeclaration = rules.some(rule => {
+      return rule.style.resize && rule.style.resize === 'none'
+    })
+    expect(hasResizeDeclaration).toBe(true)
   })
 
   it('renders a value in the textarea', () => {
