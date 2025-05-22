@@ -70,7 +70,11 @@ const ShorthandHookFromActionMenu = () => {
   )
 }
 
-const CustomProps = ({className, width, height}: Pick<React.ComponentProps<typeof ConfirmationDialog>, 'className' | 'width' | 'height'>) => {
+const CustomProps = ({
+  className,
+  width,
+  height,
+}: Pick<React.ComponentProps<typeof ConfirmationDialog>, 'className' | 'width' | 'height'>) => {
   const [isOpen, setIsOpen] = useState(false)
   const buttonRef = useRef<HTMLButtonElement>(null)
   const onDialogClose = useCallback(() => setIsOpen(false), [])
@@ -151,27 +155,27 @@ describe('ConfirmationDialog', () => {
   it('accepts a className prop', async () => {
     const testClassName = 'test-class-name'
     const {getByText, getByRole} = HTMLRender(<CustomProps className={testClassName} />)
-    
+
     fireEvent.click(getByText('Show dialog'))
-    
+
     const dialog = getByRole('alertdialog')
     expect(dialog.classList.contains(testClassName)).toBe(true)
   })
 
   it('accepts a width prop', async () => {
     const {getByText, getByRole} = HTMLRender(<CustomProps width="large" />)
-    
+
     fireEvent.click(getByText('Show dialog'))
-    
+
     const dialog = getByRole('alertdialog')
     expect(dialog.getAttribute('data-width')).toBe('large')
   })
 
   it('accepts a height prop', async () => {
     const {getByText, getByRole} = HTMLRender(<CustomProps height="small" />)
-    
+
     fireEvent.click(getByText('Show dialog'))
-    
+
     const dialog = getByRole('alertdialog')
     expect(dialog.getAttribute('data-height')).toBe('small')
   })
