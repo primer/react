@@ -41,6 +41,7 @@ module.exports = {
     '<rootDir>/src/TooltipV2/',
     '<rootDir>/src/Truncate/',
     '<rootDir>/src/UnderlineNav/',
+    '<rootDir>/src/Textarea/',
   ],
   transformIgnorePatterns: ['node_modules/(?!@github/[a-z-]+-element|@lit-labs/react|@oddbird/popover-polyfill)'],
 }

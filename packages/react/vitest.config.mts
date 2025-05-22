@@ -43,6 +43,7 @@ export default defineConfig({
       'src/TooltipV2/**/*.test.?(c|m)[jt]s?(x)',
       'src/Truncate/**/*.test.?(c|m)[jt]s?(x)',
       'src/UnderlineNav/**/*.test.?(c|m)[jt]s?(x)',
+      'src/Textarea/**/*.test.?(c|m)[jt]s?(x)',
     ],
     setupFiles: ['config/vitest/setup.ts'],
     css: {
