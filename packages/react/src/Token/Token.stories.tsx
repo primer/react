@@ -24,10 +24,10 @@ Playground.args = {
   text: 'Token',
   size: 'medium',
   isSelected: false,
-  leadingVisual: false,
+  leadingVisual: undefined,
   hideRemoveButton: false,
-  onRemove: false,
-  onClick: false,
+  onRemove: undefined,
+  onClick: undefined,
 }
 Playground.argTypes = {
   size: {
