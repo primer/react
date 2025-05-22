@@ -1,5 +1,5 @@
 ---
-"@primer/react": feat
+"@primer/react": minor
 ---
 
 feat(ConfirmationDialog): add className, width and height
