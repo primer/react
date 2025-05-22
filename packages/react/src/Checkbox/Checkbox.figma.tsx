@@ -17,8 +17,8 @@ figma.connect(
       disabled: figma.enum('state', {
         disabled: true,
       }),
-      checked: figma.boolean('checked?'),
-      indeterminate: figma.boolean('indeterminate?'),
+      checked: figma.boolean('checked'),
+      indeterminate: figma.boolean('indeterminate'),
     },
     example: ({disabled, label, caption, checked, indeterminate, labelProps}) => (
       <FormControl disabled={disabled} required={labelProps.required}>
