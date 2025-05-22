@@ -159,7 +159,7 @@ function TableSortHeader({align, children, direction, onToggleSort, ...rest}: Ta
                 classes['TableSortIcon--ascending'],
               )}
             />
-            {direction === SortDirection.NONE ? <VisuallyHidden>Sort ascending</VisuallyHidden> : null}
+            {direction === SortDirection.NONE ? <VisuallyHidden>sort ascending</VisuallyHidden> : null}
           </>
         ) : null}
         {direction === SortDirection.DESC ? (
