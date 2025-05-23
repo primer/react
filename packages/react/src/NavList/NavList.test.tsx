@@ -1,3 +1,4 @@
+import {describe, expect, it, vi} from 'vitest'
 import {render, fireEvent, act} from '@testing-library/react'
 import React from 'react'
 import {ThemeProvider} from '..'
@@ -251,7 +252,7 @@ describe('NavList.Item with NavList.SubNav', () => {
   })
 
   it('prevents more than 4 levels of nested SubNavs', () => {
-    const consoleSpy = jest
+    const consoleSpy = vi
       .spyOn(console, 'error')
       // Suppress error message in test output
       .mockImplementation(() => null)

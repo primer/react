@@ -1,6 +1,6 @@
-import Portal, {registerPortalRoot} from '../Portal/index'
-
+import {describe, expect, it} from 'vitest'
 import {render} from '@testing-library/react'
+import Portal, {registerPortalRoot} from '../Portal/index'
 import BaseStyles from '../BaseStyles'
 
 describe('Portal', () => {
