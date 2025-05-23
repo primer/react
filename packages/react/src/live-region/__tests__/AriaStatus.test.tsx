@@ -1,8 +1,17 @@
+import {describe, expect, it, beforeEach, afterEach} from 'vitest'
 import {render, screen} from '@testing-library/react'
 import React from 'react'
 import {AriaStatus} from '../AriaStatus'
 import {userEvent} from '@testing-library/user-event'
-import {getLiveRegion} from '../../utils/testing'
+import type {LiveRegionElement} from '@primer/live-region-element'
+
+function getLiveRegion(): LiveRegionElement {
+  const liveRegion = document.querySelector('live-region')
+  if (liveRegion) {
+    return liveRegion as LiveRegionElement
+  }
+  throw new Error('No live-region found')
+}
 
 describe('AriaStatus', () => {
   beforeEach(() => {
@@ -72,7 +81,7 @@ describe('AriaStatus', () => {
         test
       </AriaStatus>,
     )
-    expect(screen.getByTestId('container')).toHaveStyle('color: blue')
+    expect(screen.getByTestId('container')).toHaveStyle('color: rgb(0, 0, 255)')
   })
 
   it('should support customizing the container element with `as`', () => {

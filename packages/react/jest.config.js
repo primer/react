@@ -27,6 +27,7 @@ module.exports = {
     '<rootDir>/src/CircleOcticon/',
     '<rootDir>/src/DataTable/',
     '<rootDir>/src/FeatureFlags/',
+    '<rootDir>/src/live-region/',
     '<rootDir>/src/NavList/',
     '<rootDir>/src/Popover/',
     '<rootDir>/src/Portal/',

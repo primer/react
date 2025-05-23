@@ -29,6 +29,7 @@ export default defineConfig({
       'src/CircleOcticon/**/*.test.?(c|m)[jt]s?(x)',
       'src/DataTable/**/*.test.?(c|m)[jt]s?(x)',
       'src/FeatureFlags/**/*.test.?(c|m)[jt]s?(x)',
+      'src/live-region/**/*.test.?(c|m)[jt]s?(x)',
       'src/NavList/**/*.test.?(c|m)[jt]s?(x)',
       'src/Popover/**/*.test.?(c|m)[jt]s?(x)',
       'src/Portal/**/*.test.?(c|m)[jt]s?(x)',
