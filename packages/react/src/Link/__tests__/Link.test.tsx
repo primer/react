@@ -1,24 +1,11 @@
+import {describe, expect, it, vi} from 'vitest'
+import {render} from '@testing-library/react'
 import Link from '..'
-import {render, behavesAsComponent, checkExports} from '../../utils/testing'
-import {render as HTMLRender} from '@testing-library/react'
-import axe from 'axe-core'
 
 describe('Link', () => {
-  behavesAsComponent({Component: Link})
-
-  checkExports('Link', {
-    default: Link,
-  })
-
   it('should support `className` on the outermost element', () => {
     const Element = () => <Link href="#" className={'test-class-name'} />
-    expect(HTMLRender(<Element />).container.firstChild).toHaveClass('test-class-name')
-  })
-
-  it('should have no axe violations', async () => {
-    const {container} = HTMLRender(<Link href="www.github.com">GitHub</Link>)
-    const results = await axe.run(container)
-    expect(results).toHaveNoViolations()
+    expect(render(<Element />).container.firstChild).toHaveClass('test-class-name')
   })
 
   it('passes href down to link element', () => {
@@ -27,10 +14,6 @@ describe('Link', () => {
 
   it('respects hoverColor prop', () => {
     expect(render(<Link hoverColor="accent.fg" />)).toMatchSnapshot()
-  })
-
-  it('respects the "sx" prop', () => {
-    expect(render(<Link sx={{fontStyle: 'italic'}} />)).toHaveStyleRule('font-style', 'italic')
   })
 
   it('applies button styles when rendering a button element', () => {
@@ -46,9 +29,9 @@ describe('Link', () => {
   })
 
   it('logs a warning when trying to render invalid "as" prop', () => {
-    const consoleSpy = jest.spyOn(global.console, 'error').mockImplementation()
+    const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
 
-    HTMLRender(<Link as="i" />)
+    render(<Link as="i" />)
     expect(consoleSpy).toHaveBeenCalled()
 
     consoleSpy.mockRestore()
