@@ -58,8 +58,6 @@ describe('Textarea', () => {
 
   it('renders an optional block prop correctly', () => {
     const {container} = render(<Textarea block />)
-    const textareaElement = screen.getByRole('textbox') as HTMLTextAreaElement
-
     const style = window.getComputedStyle(container.firstElementChild!)
     expect(style.display).toBe('flex')
 
