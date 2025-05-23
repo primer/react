@@ -133,6 +133,10 @@ export type ActionListProps = React.PropsWithChildren<{
    * The ARIA role describing the function of `List` component. `listbox` or `menu` are a common values.
    */
   role?: AriaRole
+  /**
+   * Disables the focus zone for the list if applicable. Focus zone is enabled by default for `menu` and `listbox` roles, or components such as `ActionMenu` and `SelectPanel`.
+   */
+  disableFocusZone?: boolean
   className?: string
 }> &
   SxProp

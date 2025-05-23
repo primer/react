@@ -169,4 +169,29 @@ describe('ActionList', () => {
     expect(container.querySelector('.leading')).toBeInTheDocument()
     expect(container.querySelector('.description')).toBeInTheDocument()
   })
+
+  it('should not be navigatable with arrow keys if `disableFocusZone` is true', async () => {
+    const {container} = HTMLRender(
+      <ActionList role="listbox" aria-label="Select a project" disableFocusZone={true}>
+        <ActionList.Item role="option">Option 1</ActionList.Item>
+        <ActionList.Item role="option">Option 2</ActionList.Item>
+        <ActionList.Item role="option" disabled>
+          Option 3
+        </ActionList.Item>
+        <ActionList.Item role="option">Option 4</ActionList.Item>
+        <ActionList.Item role="option" inactiveText="Unavailable due to an outage">
+          Option 5
+        </ActionList.Item>
+      </ActionList>,
+    )
+
+    await userEvent.tab() // tab into the story, this should focus on the first button
+    expect(document.activeElement).toHaveTextContent('Option 1')
+
+    await userEvent.keyboard('{ArrowDown}')
+    expect(document.activeElement).toHaveTextContent('Option 1')
+
+    expect(container.querySelector('li[aria-disabled="true"]')?.nextElementSibling).toHaveTextContent('Option 4')
+    expect(container.querySelector('li[aria-disabled="true"]')?.nextElementSibling).toHaveAttribute('tabindex', '0')
+  })
 })
