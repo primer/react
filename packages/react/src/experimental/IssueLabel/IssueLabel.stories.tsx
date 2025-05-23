@@ -22,7 +22,7 @@ export const Playground: StoryObj<typeof IssueLabel> = {
       control: {type: 'color', presetColors: ['red', 'green', 'blue', 'brown', 'black', 'white', 'salmon', 'orange']},
     },
     variant: {
-      control: 'inline-radio',
+      control: 'select',
       options: [
         'pink',
         'plum',
