@@ -150,14 +150,17 @@ function TableSortHeader({align, children, direction, onToggleSort, ...rest}: Ta
       >
         {children}
         {direction === SortDirection.NONE || direction === SortDirection.ASC ? (
-          <SortAscIcon
-            className={clsx(
-              'TableSortIcon',
-              'TableSortIcon--ascending',
-              classes.TableSortIcon,
-              classes['TableSortIcon--ascending'],
-            )}
-          />
+          <>
+            <SortAscIcon
+              className={clsx(
+                'TableSortIcon',
+                'TableSortIcon--ascending',
+                classes.TableSortIcon,
+                classes['TableSortIcon--ascending'],
+              )}
+            />
+            {direction === SortDirection.NONE ? <VisuallyHidden>sort ascending</VisuallyHidden> : null}
+          </>
         ) : null}
         {direction === SortDirection.DESC ? (
           <SortDescIcon
