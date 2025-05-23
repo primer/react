@@ -1,4 +1,225 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`NavList > renders a simple list 1`] = `
+<div>
+  <nav
+    class="sc-bXCLTC"
+  >
+    <ul
+      class="_ActionList_l5vrv_3"
+      data-dividers="false"
+      data-variant="inset"
+    >
+      <li
+        class="sc-gsFSXq ifNCgy"
+      >
+        <a
+          aria-current="page"
+          aria-labelledby=":r2:--label  "
+          class="sc-aXZVg iGDNwK _Link_u1kmx_1"
+          href="/"
+          id=":r2:"
+          style="--subitem-depth: 0;"
+          tabindex="0"
+        >
+          <div
+            class="sc-aXZVg krQDEx"
+            data-component="ActionList.Item--DividerContainer"
+          >
+            <span
+              class="sc-aXZVg jukCsS"
+              id=":r2:--label"
+            >
+              Home
+            </span>
+            <span
+              class="sc-aXZVg mNVuK"
+            />
+          </div>
+        </a>
+      </li>
+      <li
+        class="sc-gsFSXq kAPGfS"
+      >
+        <a
+          aria-labelledby=":r3:--label  "
+          class="sc-aXZVg iGDNwK _Link_u1kmx_1"
+          href="/about"
+          id=":r3:"
+          style="--subitem-depth: 0;"
+          tabindex="0"
+        >
+          <div
+            class="sc-aXZVg krQDEx"
+            data-component="ActionList.Item--DividerContainer"
+          >
+            <span
+              class="sc-aXZVg clmQmg"
+              id=":r3:--label"
+            >
+              About
+            </span>
+            <span
+              class="sc-aXZVg mNVuK"
+            />
+          </div>
+        </a>
+      </li>
+      <li
+        class="sc-gsFSXq kAPGfS"
+      >
+        <a
+          aria-labelledby=":r4:--label  "
+          class="sc-aXZVg iGDNwK _Link_u1kmx_1"
+          href="/contact"
+          id=":r4:"
+          style="--subitem-depth: 0;"
+          tabindex="0"
+        >
+          <div
+            class="sc-aXZVg krQDEx"
+            data-component="ActionList.Item--DividerContainer"
+          >
+            <span
+              class="sc-aXZVg clmQmg"
+              id=":r4:--label"
+            >
+              Contact
+            </span>
+            <span
+              class="sc-aXZVg mNVuK"
+            />
+          </div>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>
+`;
+
+exports[`NavList > renders with groups 1`] = `
+<div>
+  <nav
+    class="sc-bXCLTC"
+  >
+    <ul
+      class="_ActionList_l5vrv_3"
+      data-dividers="false"
+      data-variant="inset"
+    >
+      <li
+        aria-hidden="true"
+        class="sc-aXZVg dBpexo _Divider_l5vrv_73"
+        data-component="ActionList.Divider"
+      />
+      <li
+        class="sc-aXZVg ibvnuc _Group_1rejt_1"
+      >
+        <div
+          class="_GroupHeadingWrap_1rejt_9"
+          data-component="GroupHeadingWrap"
+          data-variant="subtle"
+        >
+          <h3
+            class="_GroupHeading_1rejt_7"
+            data-component="ActionList.GroupHeading"
+            id=":r7:"
+          >
+            Overview
+          </h3>
+        </div>
+        <ul
+          aria-labelledby=":r7:"
+          class="_GroupList_1rejt_18"
+        >
+          <li
+            class="sc-gsFSXq ifNCgy"
+          >
+            <a
+              aria-current="page"
+              aria-labelledby=":r8:--label  "
+              class="sc-aXZVg iGDNwK _Link_u1kmx_1"
+              href="/getting-started"
+              id=":r8:"
+              style="--subitem-depth: 0;"
+              tabindex="0"
+            >
+              <div
+                class="sc-aXZVg krQDEx"
+                data-component="ActionList.Item--DividerContainer"
+              >
+                <span
+                  class="sc-aXZVg jukCsS"
+                  id=":r8:--label"
+                >
+                  Getting started
+                </span>
+                <span
+                  class="sc-aXZVg mNVuK"
+                />
+              </div>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li
+        aria-hidden="true"
+        class="sc-aXZVg dBpexo _Divider_l5vrv_73"
+        data-component="ActionList.Divider"
+      />
+      <li
+        class="sc-aXZVg ibvnuc _Group_1rejt_1"
+      >
+        <div
+          class="_GroupHeadingWrap_1rejt_9"
+          data-component="GroupHeadingWrap"
+          data-variant="subtle"
+        >
+          <h3
+            class="_GroupHeading_1rejt_7"
+            data-component="ActionList.GroupHeading"
+            id=":r9:"
+          >
+            Components
+          </h3>
+        </div>
+        <ul
+          aria-labelledby=":r9:"
+          class="_GroupList_1rejt_18"
+        >
+          <li
+            class="sc-gsFSXq kAPGfS"
+          >
+            <a
+              aria-labelledby=":ra:--label  "
+              class="sc-aXZVg iGDNwK _Link_u1kmx_1"
+              href="/Avatar"
+              id=":ra:"
+              style="--subitem-depth: 0;"
+              tabindex="0"
+            >
+              <div
+                class="sc-aXZVg krQDEx"
+                data-component="ActionList.Item--DividerContainer"
+              >
+                <span
+                  class="sc-aXZVg clmQmg"
+                  id=":ra:--label"
+                >
+                  Avatar
+                </span>
+                <span
+                  class="sc-aXZVg mNVuK"
+                />
+              </div>
+            </a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+</div>
+`;
 
 exports[`NavList renders a simple list 1`] = `
 .c2 {
@@ -907,6 +1128,214 @@ exports[`NavList renders with groups 1`] = `
             </a>
           </li>
         </ul>
+      </li>
+    </ul>
+  </nav>
+</div>
+`;
+
+exports[`NavList.Item with NavList.SubNav > does not have active styles if SubNav contains the current item and is open 1`] = `
+<div>
+  <nav
+    class="sc-bXCLTC"
+  >
+    <ul
+      class="_ActionList_l5vrv_3"
+      data-dividers="false"
+      data-variant="inset"
+    >
+      <li
+        aria-labelledby=":r26:"
+        class="sc-aXZVg gbyTpd"
+      >
+        <button
+          aria-controls=":r27:"
+          aria-expanded="true"
+          aria-labelledby=":r26:--label :r26:--trailing-visual "
+          class="sc-gsFSXq bwLYVT"
+          id=":r26:"
+          tabindex="0"
+        >
+          <div
+            class="sc-aXZVg krQDEx"
+            data-component="ActionList.Item--DividerContainer"
+          >
+            <div
+              class="sc-aXZVg cbLsYF"
+            >
+              <span
+                class="sc-aXZVg clmQmg"
+                id=":r26:--label"
+              >
+                Item
+              </span>
+              <span
+                class="sc-aXZVg dixcnE"
+                id=":r26:--trailing-visual"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="octicon octicon-chevron-down sc-dAbbOL gikFGX"
+                  display="inline-block"
+                  fill="currentColor"
+                  focusable="false"
+                  height="16"
+                  overflow="visible"
+                  style="vertical-align: text-bottom;"
+                  viewBox="0 0 16 16"
+                  width="16"
+                >
+                  <path
+                    d="M12.78 5.22a.749.749 0 0 1 0 1.06l-4.25 4.25a.749.749 0 0 1-1.06 0L3.22 6.28a.749.749 0 1 1 1.06-1.06L8 8.939l3.72-3.719a.749.749 0 0 1 1.06 0Z"
+                  />
+                </svg>
+              </span>
+            </div>
+            <span
+              class="sc-aXZVg mNVuK"
+            />
+          </div>
+        </button>
+        <div>
+          <ul
+            aria-labelledby=":r26:"
+            class="sc-aXZVg bspmNL"
+            id=":r27:"
+          >
+            <li
+              class="sc-gsFSXq ifNCgy"
+            >
+              <a
+                aria-current="page"
+                aria-labelledby=":r29:--label  "
+                class="sc-aXZVg bxgskw _Link_u1kmx_1"
+                href="#"
+                id=":r29:"
+                style="--subitem-depth: 1;"
+                tabindex="0"
+              >
+                <div
+                  class="sc-aXZVg krQDEx"
+                  data-component="ActionList.Item--DividerContainer"
+                >
+                  <span
+                    class="sc-aXZVg jukCsS"
+                    id=":r29:--label"
+                  >
+                    Sub Item
+                  </span>
+                  <span
+                    class="sc-aXZVg mNVuK"
+                  />
+                </div>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+  </nav>
+</div>
+`;
+
+exports[`NavList.Item with NavList.SubNav > has active styles if SubNav contains the current item and is closed 1`] = `
+<div>
+  <nav
+    class="sc-bXCLTC"
+  >
+    <ul
+      class="_ActionList_l5vrv_3"
+      data-dividers="false"
+      data-variant="inset"
+    >
+      <li
+        aria-labelledby=":r20:"
+        class="sc-aXZVg gbyTpd"
+      >
+        <button
+          aria-controls=":r21:"
+          aria-expanded="false"
+          aria-labelledby=":r20:--label :r20:--trailing-visual "
+          class="sc-gsFSXq jatQci"
+          id=":r20:"
+          tabindex="0"
+        >
+          <div
+            class="sc-aXZVg krQDEx"
+            data-component="ActionList.Item--DividerContainer"
+          >
+            <div
+              class="sc-aXZVg cbLsYF"
+            >
+              <span
+                class="sc-aXZVg jukCsS"
+                id=":r20:--label"
+              >
+                Item
+              </span>
+              <span
+                class="sc-aXZVg dixcnE"
+                id=":r20:--trailing-visual"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="octicon octicon-chevron-down sc-dAbbOL ijizfu"
+                  display="inline-block"
+                  fill="currentColor"
+                  focusable="false"
+                  height="16"
+                  overflow="visible"
+                  style="vertical-align: text-bottom;"
+                  viewBox="0 0 16 16"
+                  width="16"
+                >
+                  <path
+                    d="M12.78 5.22a.749.749 0 0 1 0 1.06l-4.25 4.25a.749.749 0 0 1-1.06 0L3.22 6.28a.749.749 0 1 1 1.06-1.06L8 8.939l3.72-3.719a.749.749 0 0 1 1.06 0Z"
+                  />
+                </svg>
+              </span>
+            </div>
+            <span
+              class="sc-aXZVg mNVuK"
+            />
+          </div>
+        </button>
+        <div>
+          <ul
+            aria-labelledby=":r20:"
+            class="sc-aXZVg hJUBsA"
+            id=":r21:"
+          >
+            <li
+              class="sc-gsFSXq ifNCgy"
+            >
+              <a
+                aria-current="page"
+                aria-labelledby=":r23:--label  "
+                class="sc-aXZVg bxgskw _Link_u1kmx_1"
+                href="#"
+                id=":r23:"
+                style="--subitem-depth: 1;"
+                tabindex="0"
+              >
+                <div
+                  class="sc-aXZVg krQDEx"
+                  data-component="ActionList.Item--DividerContainer"
+                >
+                  <span
+                    class="sc-aXZVg jukCsS"
+                    id=":r23:--label"
+                  >
+                    Sub Item
+                  </span>
+                  <span
+                    class="sc-aXZVg mNVuK"
+                  />
+                </div>
+              </a>
+            </li>
+          </ul>
+        </div>
       </li>
     </ul>
   </nav>
