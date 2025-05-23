@@ -1,5 +1,37 @@
 # @primer/react
 
+## 37.25.0
+
+### Minor Changes
+
+- [#6107](https://github.com/primer/react/pull/6107) [`694dd95`](https://github.com/primer/react/commit/694dd95fce74dac25f2f9eb100057b010e065e3f) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - feat(ConfirmationDialog): add className, width and height
+
+- [#5899](https://github.com/primer/react/pull/5899) [`7cf029d`](https://github.com/primer/react/commit/7cf029daa57c83d7dc5902b9a3e9aebc0c0f03cd) Thanks [@joshblack](https://github.com/joshblack)! - Add support for different sizes to Blankslate
+
+- [#6051](https://github.com/primer/react/pull/6051) [`a007808`](https://github.com/primer/react/commit/a00780835e483776b6fc0ff025d830fe0411f190) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove the css modules feature flag from the SelectPanel2 experimental component
+
+- [#6052](https://github.com/primer/react/pull/6052) [`06361d1`](https://github.com/primer/react/commit/06361d11efbe2f88e1acb22aa89b642880e88ca9) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove the CSS module feature flag from the AvatarStack component
+
+- [#5899](https://github.com/primer/react/pull/5899) [`7cf029d`](https://github.com/primer/react/commit/7cf029daa57c83d7dc5902b9a3e9aebc0c0f03cd) Thanks [@joshblack](https://github.com/joshblack)! - Add support for HTML attributes being passed to Blankslate components
+
+- [#6050](https://github.com/primer/react/pull/6050) [`53ef8ea`](https://github.com/primer/react/commit/53ef8ea973c6ff76b1cf91afe377fbdf041d414a) Thanks [@hectahertz](https://github.com/hectahertz)! - Switch to a CSS based solution for the PageLayout sticky pane
+
+### Patch Changes
+
+- [#6109](https://github.com/primer/react/pull/6109) [`f7471f8`](https://github.com/primer/react/commit/f7471f8d4a3b381c1d41d259a2751a21a8e62eeb) Thanks [@TylerJDev](https://github.com/TylerJDev)! - DataTable: Add visually hidden text to sortable DataTable column buttons
+
+- [#6055](https://github.com/primer/react/pull/6055) [`3b6b1d1`](https://github.com/primer/react/commit/3b6b1d16d071fcb2dc23a36e77d99a42bc566d1d) Thanks [@TylerJDev](https://github.com/TylerJDev)! - DataTable: Adds outline-offset to focus indicator on pagination buttons
+
+- [#6077](https://github.com/primer/react/pull/6077) [`cf97cb5`](https://github.com/primer/react/commit/cf97cb530bbe5c78f07f16884dfce21be4744ce6) Thanks [@langermank](https://github.com/langermank)! - Fix `Skeleton` background color
+
+- [#6054](https://github.com/primer/react/pull/6054) [`3fc7741`](https://github.com/primer/react/commit/3fc7741d59fa4b1586bd78d668d52b86c4099e83) Thanks [@khiga8](https://github.com/khiga8)! - Add support for aria-label on ActionList.Group
+
+- [#6095](https://github.com/primer/react/pull/6095) [`3beba5b`](https://github.com/primer/react/commit/3beba5b20fbd01fec08219e038056b9194783b90) Thanks [@francinelucca](https://github.com/francinelucca)! - fix(Button): correct loading alignment
+
+- [#6049](https://github.com/primer/react/pull/6049) [`776e05e`](https://github.com/primer/react/commit/776e05e7867d06b0b8dd855b2750e5510befe6ac) Thanks [@TylerJDev](https://github.com/TylerJDev)! - ActionList: Ensure `role="option"` is added when `role="listbox"` is used; allow disabled items to remain focusable
+
+- [#6100](https://github.com/primer/react/pull/6100) [`a7e99f8`](https://github.com/primer/react/commit/a7e99f87bb73470a1469ec3fc30ac09552962996) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove unused getBreakpointDeclarations function and any related code.
+
 ## 37.24.0
 
 ### Minor Changes
