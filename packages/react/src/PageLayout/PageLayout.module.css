@@ -18,6 +18,9 @@ body[data-page-layout-dragging='true'] * {
   --region-order-pane-end: 3;
   --region-order-footer: 4;
 
+  display: flex;
+  flex: 1;
+
   /* Spacing Values */
   --spacing-none: 0;
   --spacing-condensed: var(--base-size-16);
