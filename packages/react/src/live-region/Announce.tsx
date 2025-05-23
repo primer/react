@@ -4,6 +4,7 @@ import {useEffect, useRef, useState, type ElementRef} from 'react'
 import Box from '../Box'
 import {useEffectOnce} from '../internal/hooks/useEffectOnce'
 import {useEffectCallback} from '../internal/hooks/useEffectCallback'
+import {computeTextEquivalent} from './computeTextEquivalent'
 
 export type AnnounceProps = React.ComponentPropsWithoutRef<typeof Box> & {
   /**
@@ -67,7 +68,7 @@ export function Announce({
       return
     }
 
-    const textContent = getTextContent(element)
+    const textContent = computeTextEquivalent(element)
     if (textContent === previousAnnouncementText) {
       return
     }
@@ -131,14 +132,4 @@ export function Announce({
       {children}
     </Box>
   )
-}
-
-function getTextContent(element: HTMLElement): string {
-  let value = ''
-  if (element.hasAttribute('aria-label')) {
-    value = element.getAttribute('aria-label')!
-  } else if (element.textContent) {
-    value = element.textContent
-  }
-  return value ? value.trim() : ''
 }
