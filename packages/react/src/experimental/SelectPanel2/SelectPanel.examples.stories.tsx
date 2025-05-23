@@ -749,7 +749,7 @@ export const NestedSelection = () => {
       <h1>Nested selection</h1>
 
       <Flash variant="warning" sx={{mb: 2}}>
-        This story is not fully accesible, do not copy it without review!
+        This story is not fully accessible, do not copy it without review!
       </Flash>
 
       <Button

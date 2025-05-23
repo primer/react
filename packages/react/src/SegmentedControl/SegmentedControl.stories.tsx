@@ -47,7 +47,7 @@ export default {
     size: 'medium',
     variantAtNarrow: 'default',
     variantAtRegular: 'default',
-    variantAtWide: 'defualt',
+    variantAtWide: 'default',
   },
   argTypes: {
     fullWidth: {

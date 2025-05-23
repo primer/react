@@ -194,7 +194,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
 
     const [isExpanded, setIsExpanded] = useControllableState({
       name: itemId,
-      // If the item was previously mounted, it's expanded state might be cached.
+      // If the item was previously mounted, its expanded state might be cached.
       // We check the cache first, and then fall back to the defaultExpanded prop.
       // If defaultExpanded is not provided, we default to false unless the item
       // is the current item, in which case we default to true.
