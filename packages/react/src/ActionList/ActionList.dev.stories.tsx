@@ -112,8 +112,8 @@ export const GroupHeadingCustomClassname = () => (
       <ActionList.GroupHeading className="testCustomClassnameColor" as="h3">
         Repositories
       </ActionList.GroupHeading>
-      <ActionList.Item onClick={() => {}}>app/assets/modules</ActionList.Item>
-      <ActionList.Item onClick={() => {}}>src/react/components</ActionList.Item>
+      <ActionList.Item onSelect={() => {}}>app/assets/modules</ActionList.Item>
+      <ActionList.Item onSelect={() => {}}>src/react/components</ActionList.Item>
     </ActionList.Group>
   </ActionList>
 )
@@ -140,8 +140,8 @@ export const HeadingCustomClassname = () => (
     </ActionList.Heading>
     <ActionList.Group>
       <ActionList.GroupHeading as="h3">Repositories</ActionList.GroupHeading>
-      <ActionList.Item onClick={() => {}}>app/assets/modules</ActionList.Item>
-      <ActionList.Item onClick={() => {}}>src/react/components</ActionList.Item>
+      <ActionList.Item onSelect={() => {}}>app/assets/modules</ActionList.Item>
+      <ActionList.Item onSelect={() => {}}>src/react/components</ActionList.Item>
     </ActionList.Group>
   </ActionList>
 )
