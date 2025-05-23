@@ -1,0 +1,11 @@
+.DynamicList {
+  display: flex;
+  width: 100%;
+  max-width: 100%;
+  flex: 0 1 100%;
+  white-space: nowrap;
+  padding: 0;
+  list-style: none;
+  overflow: hidden;
+  margin: 0;
+}
