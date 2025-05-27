@@ -1,4 +1,3 @@
-import React from 'react'
 import {Radio, RadioGroup, FormControl, Box} from '..'
 
 export default {

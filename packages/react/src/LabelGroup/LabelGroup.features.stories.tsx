@@ -1,4 +1,3 @@
-import React from 'react'
 import styled from 'styled-components'
 import LabelGroup from './LabelGroup'
 import type {Meta, StoryFn} from '@storybook/react'

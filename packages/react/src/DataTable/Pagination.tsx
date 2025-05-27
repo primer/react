@@ -1,5 +1,6 @@
 import {ChevronLeftIcon, ChevronRightIcon} from '@primer/octicons-react'
-import React, {useCallback, useState} from 'react'
+import type React from 'react'
+import {useCallback, useState} from 'react'
 import styled from 'styled-components'
 import {get} from '../constants'
 import {Button} from '../internal/components/ButtonReset'
@@ -80,12 +81,17 @@ const StyledPagination = styled.nav`
   .TablePaginationPage:hover,
   .TablePaginationPage:focus {
     background-color: ${get('colors.actionListItem.default.hoverBg')};
-    transition-duration: 0.1s;
   }
 
   .TablePaginationPage[data-active='true'] {
     background-color: ${get('colors.accent.emphasis')};
     color: ${get('colors.fg.onEmphasis')};
+  }
+
+  .TablePaginationPage[data-active='true']:focus-visible {
+    outline: 2px solid var(--bgColor-accent-emphasis);
+    outline-offset: -2px;
+    box-shadow: inset 0 0 0 3px var(--fgColor-onEmphasis);
   }
 
   .TablePaginationTruncationStep {

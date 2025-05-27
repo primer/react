@@ -8,7 +8,7 @@ jobs:
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
       - name: Set up Node.js
-        uses: actions/setup-node@cdca7365b2dadb8aad0a33bc7601856ffabcc48e
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
         with:
           node-version: 22
           cache: 'npm'
@@ -25,7 +25,7 @@ jobs:
           echo "pid=$pid" >> $GITHUB_OUTPUT
           sleep 5
       - name: Run Stress Tests
-        uses: docker://mcr.microsoft.com/playwright:v1.51.0-jammy
+        uses: docker://mcr.microsoft.com/playwright:v1.52.0-jammy
         env:
           STORYBOOK_URL: 'http://172.17.0.1:6006'
         with:
@@ -49,7 +49,7 @@ jobs:
           alert-threshold: '200%'
           # Workflow will not fail when an alert happens (fail-on-alert is set to false)
           fail-on-alert: false
-          # Enable alert commit comment
-          comment-on-alert: true
+          # Disable alert commit comment
+          comment-on-alert: false
           # Mention @rhysd in the commit comment
           alert-comment-cc-users: '@hectahertz'

@@ -1,4 +1,3 @@
-import React from 'react'
 import {Checkbox, CheckboxGroup, FormControl, Box} from '..'
 
 export default {

@@ -1,4 +1,3 @@
-import React from 'react'
 import {act, fireEvent, render, screen} from '@testing-library/react'
 import MatchMediaMock from 'jest-matchmedia-mock'
 import 'react-intersection-observer/test-utils'

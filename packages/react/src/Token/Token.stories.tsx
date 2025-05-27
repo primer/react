@@ -1,6 +1,7 @@
-import React from 'react'
 import type {Meta, StoryFn} from '@storybook/react'
+import {action} from '@storybook/addon-actions'
 import Token from './Token'
+import {GitBranchIcon} from '@primer/octicons-react'
 
 export default {
   title: 'Components/Token',
@@ -9,12 +10,24 @@ export default {
 
 export const Default = () => <Token text="token" />
 
-export const Playground: StoryFn<typeof Token> = args => {
-  return <Token {...args} />
+export const Playground: StoryFn<typeof Token> = ({onRemove, onClick, leadingVisual, ...args}) => {
+  return (
+    <Token
+      {...args}
+      onRemove={onRemove ? action('onRemove') : undefined}
+      onClick={onClick ? action('onClick') : undefined}
+      leadingVisual={leadingVisual ? GitBranchIcon : undefined}
+    />
+  )
 }
 Playground.args = {
   text: 'Token',
   size: 'medium',
+  isSelected: false,
+  leadingVisual: undefined,
+  hideRemoveButton: false,
+  onRemove: undefined,
+  onClick: undefined,
 }
 Playground.argTypes = {
   size: {
@@ -22,5 +35,30 @@ Playground.argTypes = {
       type: 'radio',
     },
     options: ['small', 'medium', 'large', 'xlarge'],
+  },
+  isSelected: {
+    control: {
+      type: 'boolean',
+    },
+  },
+  leadingVisual: {
+    control: {
+      type: 'boolean',
+    },
+  },
+  hideRemoveButton: {
+    control: {
+      type: 'boolean',
+    },
+  },
+  onRemove: {
+    control: {
+      type: 'boolean',
+    },
+  },
+  onClick: {
+    control: {
+      type: 'boolean',
+    },
   },
 }

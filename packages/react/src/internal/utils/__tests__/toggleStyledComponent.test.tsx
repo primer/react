@@ -1,4 +1,3 @@
-import React from 'react'
 import {render} from '@testing-library/react'
 import {FeatureFlags} from '../../../FeatureFlags'
 import {toggleStyledComponent} from '../toggleStyledComponent'

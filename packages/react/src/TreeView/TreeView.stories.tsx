@@ -1,4 +1,3 @@
-import React from 'react'
 import {DiffAddedIcon, DiffModifiedIcon, FileIcon} from '@primer/octicons-react'
 import type {Meta, StoryFn} from '@storybook/react'
 import Box from '../Box'
