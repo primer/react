@@ -3,7 +3,7 @@ import Textarea from '../Textarea'
 import {render, screen} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {describe, expect, it, vi, beforeEach} from 'vitest'
-import classes from './TextArea.module.css'
+import classes from './Textarea.module.css'
 
 function getCSSRules(selector: string): Array<CSSStyleRule> {
   return Array.from(document.styleSheets).flatMap(sheet => {
