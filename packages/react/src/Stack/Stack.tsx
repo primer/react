@@ -6,6 +6,7 @@ import classes from './Stack.module.css'
 import {clsx} from 'clsx'
 import {toggleSxComponent} from '../internal/utils/toggleSxComponent'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
+import {BoxWithFallback} from '../internal/components/BoxWithFallback'
 
 type GapScale = 'none' | 'condensed' | 'normal' | 'spacious'
 type Gap = GapScale | ResponsiveValue<GapScale>
