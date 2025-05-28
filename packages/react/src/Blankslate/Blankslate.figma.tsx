@@ -23,7 +23,7 @@ const props = {
 
 figma.connect(Blankslate, 'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?node-id=4398-2383&m=dev', {
   props,
-  variant: {'primaryAction?': 'false', 'secondaryAction?': 'false'},
+  variant: {'primaryAction?': false, 'secondaryAction?': false},
   example: ({leadingVisual, border, spacious, size, description, heading}) => (
     <Blankslate border={border} spacious={spacious} size={size}>
       <Blankslate.Visual>{leadingVisual.item}</Blankslate.Visual>
@@ -34,7 +34,7 @@ figma.connect(Blankslate, 'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/P
 })
 figma.connect(Blankslate, 'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?node-id=4398-2383&m=dev', {
   props,
-  variant: {'primaryAction?': 'true', 'secondaryAction?': 'false'},
+  variant: {'primaryAction?': true, 'secondaryAction?': false},
   example: ({leadingVisual, border, spacious, size, description, heading, primaryAction}) => (
     <Blankslate border={border} spacious={spacious} size={size}>
       <Blankslate.Visual>{leadingVisual.item}</Blankslate.Visual>
@@ -46,7 +46,7 @@ figma.connect(Blankslate, 'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/P
 })
 figma.connect(Blankslate, 'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?node-id=4398-2383&m=dev', {
   props,
-  variant: {'primaryAction?': 'true', 'secondaryAction?': 'true'},
+  variant: {'primaryAction?': true, 'secondaryAction?': true},
   example: ({leadingVisual, border, spacious, size, description, heading, primaryAction, secondaryAction}) => (
     <Blankslate border={border} spacious={spacious} size={size}>
       <Blankslate.Visual>{leadingVisual.item}</Blankslate.Visual>
@@ -59,7 +59,7 @@ figma.connect(Blankslate, 'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/P
 })
 figma.connect(Blankslate, 'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?node-id=4398-2383&m=dev', {
   props,
-  variant: {'primaryAction?': 'false', 'secondaryAction?': 'true'},
+  variant: {'primaryAction?': false, 'secondaryAction?': true},
   example: ({leadingVisual, border, spacious, size, description, heading, secondaryAction}) => (
     <Blankslate border={border} spacious={spacious} size={size}>
       <Blankslate.Visual>{leadingVisual.item}</Blankslate.Visual>
