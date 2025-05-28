@@ -205,8 +205,8 @@ describe('UnderlineNav', () => {
       </UnderlineNav>,
     )
     const item = screen.getByRole('link', {name: 'Item 1'})
-    expect(item.className).toContain('custom-class')
-    expect(item.className).toContain('UnderlineItem')
+    expect(item).toHaveClass('custom-class')
+    expect(item).toHaveClass('UnderlineItem')
   })
 })
 
