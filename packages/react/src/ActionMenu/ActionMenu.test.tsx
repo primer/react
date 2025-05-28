@@ -392,7 +392,7 @@ describe('ActionMenu', () => {
     expect(component.getByRole('tooltip')).toBeInTheDocument()
   })
 
-  it.only('should display tooltip v2 when menu button is focused', async () => {
+  it('should display tooltip v2 when menu button is focused', async () => {
     const component = HTMLRender(
       ExampleWithTooltipV2(
         <TooltipV2 text="Additional context about the menu button" direction="s">
