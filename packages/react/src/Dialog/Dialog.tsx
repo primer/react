@@ -390,15 +390,7 @@ Body.displayName = 'Dialog.Body'
 type StyledFooterProps = React.ComponentProps<'div'> & SxProp
 
 const Footer = React.forwardRef<HTMLElement, StyledFooterProps>(function Footer({className, ...rest}, forwardRef) {
-  return (
-    <BoxWithFallback
-      as="div"
-      ref={forwardRef}
-      className={clsx(className, classes.Footer)}
-      data-component="Dialog.Footer"
-      {...rest}
-    />
-  )
+  return <BoxWithFallback as="div" ref={forwardRef} className={clsx(className, classes.Footer)} {...rest} />
 })
 Footer.displayName = 'Dialog.Footer'
 
