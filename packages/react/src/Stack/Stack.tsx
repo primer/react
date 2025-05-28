@@ -70,7 +70,7 @@ type StackProps<As> = React.PropsWithChildren<{
 
 const StackBaseComponent = toggleSxComponent('div') as React.ComponentType<StackProps<React.ElementType>>
 const Stack = forwardRef(
-  <As extends ElementType>(
+  (
     {
       as,
       children,
@@ -82,11 +82,11 @@ const Stack = forwardRef(
       wrap = 'nowrap',
       className,
       ...rest
-    }: StackProps<As> & React.ComponentPropsWithRef<ElementType extends As ? As : 'div'>,
-    forwardedRef: React.Ref<As> | undefined,
+    },
+    forwardedRef,
   ) => {
     return (
-      <StackBaseComponent
+      <BoxWithFallback
         as={as}
         ref={forwardedRef}
         {...rest}
@@ -99,7 +99,7 @@ const Stack = forwardRef(
         {...getResponsiveAttributes('padding', padding)}
       >
         {children}
-      </StackBaseComponent>
+      </BoxWithFallback>
     )
   },
 ) as PolymorphicForwardRefComponent<ElementType, StackProps<ElementType>>
