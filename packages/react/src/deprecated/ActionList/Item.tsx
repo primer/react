@@ -84,7 +84,7 @@ export interface ItemProps extends SxProp {
   /**
    *  For `Item`s which can be selected, whether `multiple` `Item`s or a `single` `Item` can be selected
    */
-  selectionVariant?: 'single' | 'multiple'
+  selectionVariant?: 'single' | 'multiple' | 'radio'
 
   /**
    * Designates the group that an item belongs to.

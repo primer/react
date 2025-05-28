@@ -1,12 +1,10 @@
 import {render as HTMLRender} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import axe from 'axe-core'
-import React from 'react'
 import theme from '../theme'
 import {ActionList} from '.'
 import {behavesAsComponent, checkExports} from '../utils/testing'
 import {BaseStyles, ThemeProvider} from '..'
-import {FeatureFlags} from '../FeatureFlags'
 
 function SimpleActionList(): JSX.Element {
   return (
@@ -96,7 +94,9 @@ describe('ActionList', () => {
     expect(document.activeElement).toHaveTextContent('Option 2')
 
     await userEvent.keyboard('{ArrowDown}')
-    expect(document.activeElement).not.toHaveTextContent('Option 3') // option 3 is disabled
+    expect(document.activeElement).toHaveTextContent('Option 3')
+
+    await userEvent.keyboard('{ArrowDown}')
     expect(document.activeElement).toHaveTextContent('Option 4')
 
     await userEvent.keyboard('{ArrowDown}')
@@ -115,19 +115,6 @@ describe('ActionList', () => {
         </ActionList>
       )
     }
-    const FeatureFlagElement = () => {
-      return (
-        <FeatureFlags
-          flags={{
-            primer_react_css_modules_staff: true,
-            primer_react_css_modules_ga: true,
-          }}
-        >
-          <Element />
-        </FeatureFlags>
-      )
-    }
-    expect(HTMLRender(<FeatureFlagElement />).container.querySelector('ul')).toHaveClass('test-class-name')
     expect(HTMLRender(<Element />).container.querySelector('ul')).toHaveClass('test-class-name')
   })
 
@@ -140,21 +127,6 @@ describe('ActionList', () => {
         </ActionList>
       )
     }
-    const FeatureFlagElement = () => {
-      return (
-        <FeatureFlags
-          flags={{
-            primer_react_css_modules_staff: true,
-            primer_react_css_modules_ga: true,
-          }}
-        >
-          <Element />
-        </FeatureFlags>
-      )
-    }
-    expect(HTMLRender(<FeatureFlagElement />).container.querySelector('li[aria-hidden="true"]')).toHaveClass(
-      'test-class-name',
-    )
     expect(HTMLRender(<Element />).container.querySelector('li[aria-hidden="true"]')).toHaveClass('test-class-name')
   })
 

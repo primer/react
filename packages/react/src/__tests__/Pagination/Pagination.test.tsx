@@ -1,4 +1,3 @@
-import React from 'react'
 import Pagination from '../../Pagination'
 import {behavesAsComponent} from '../../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
@@ -31,7 +30,7 @@ describe('Pagination', () => {
       <Pagination
         pageCount={10}
         currentPage={1}
-        renderPage={({number, ...props}) => <ReactRouterLikeLink to={`#${number}`} {...props} />}
+        renderPage={({key, number, ...props}) => <ReactRouterLikeLink key={key} to={`#${number}`} {...props} />}
       />,
     )
 

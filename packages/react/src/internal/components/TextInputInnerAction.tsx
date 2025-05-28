@@ -1,16 +1,13 @@
-import React, {forwardRef} from 'react'
+import type React from 'react'
+import {forwardRef} from 'react'
 import type {IconProps} from '@primer/octicons-react'
-import Box from '../../Box'
 import {Button, IconButton} from '../../Button'
 import {Tooltip} from '../../TooltipV2'
 import type {ButtonProps} from '../../Button'
-import type {BetterSystemStyleObject, SxProp} from '../../sx'
-import {merge} from '../../sx'
+import type {SxProp} from '../../sx'
 import {clsx} from 'clsx'
 
 import styles from './TextInputInnerAction.module.css'
-import {useFeatureFlag} from '../../FeatureFlags'
-import {TEXT_INPUT_CSS_MODULES_FEATURE_FLAG} from './UnstyledTextInput'
 
 type TextInputActionProps = Omit<
   React.ButtonHTMLAttributes<HTMLButtonElement>,
@@ -31,34 +28,6 @@ type TextInputActionProps = Omit<
   variant?: ButtonProps['variant']
 } & SxProp
 
-const invisibleButtonStyleOverrides = {
-  paddingTop: '2px',
-  paddingRight: '4px',
-  paddingBottom: '2px',
-  paddingLeft: '4px',
-  position: 'relative',
-  backgroundColor: 'transparent',
-  color: 'fg.subtle',
-  '&:hover, &:focus': {color: 'fg.default'},
-
-  '&[data-component="IconButton"]': {
-    width: 'var(--inner-action-size)',
-    height: 'var(--inner-action-size)',
-  },
-
-  '@media (pointer: coarse)': {
-    ':after': {
-      content: '""',
-      position: 'absolute',
-      left: 0,
-      right: 0,
-      transform: 'translateY(-50%)',
-      top: '50%',
-      minHeight: '44px',
-    },
-  },
-}
-
 const ConditionalTooltip: React.FC<
   React.PropsWithChildren<{
     ['aria-label']?: string
@@ -68,15 +37,7 @@ const ConditionalTooltip: React.FC<
 > = ({'aria-label': ariaLabel, children, tooltipDirection}) => (
   <>
     {ariaLabel ? (
-      <Tooltip
-        text={ariaLabel}
-        direction={tooltipDirection}
-        sx={{
-          /* inline-block is used to ensure the tooltip dimensions don't
-             collapse when being used with `grid` or `inline` children */
-          display: 'inline-block',
-        }}
-      >
+      <Tooltip text={ariaLabel} direction={tooltipDirection} className={styles.ConditionalTooltip}>
         {children}
       </Tooltip>
     ) : (
@@ -100,17 +61,7 @@ const TextInputAction = forwardRef<HTMLButtonElement, TextInputActionProps>(
     },
     forwardedRef,
   ) => {
-    const enabled = useFeatureFlag(TEXT_INPUT_CSS_MODULES_FEATURE_FLAG)
-
-    const styleProps = enabled
-      ? {className: clsx(variant === 'invisible' && styles.Invisible, className), sx: sxProp || {}}
-      : {
-          className,
-          sx:
-            variant === 'invisible'
-              ? merge<BetterSystemStyleObject>(invisibleButtonStyleOverrides, sxProp || {})
-              : sxProp || {},
-        }
+    const styleProps = {className: clsx(variant === 'invisible' && styles.Invisible, className), sx: sxProp || {}}
 
     if ((icon && !ariaLabel) || (!children && !ariaLabel)) {
       // eslint-disable-next-line no-console
@@ -126,7 +77,7 @@ const TextInputAction = forwardRef<HTMLButtonElement, TextInputActionProps>(
           }
 
     return (
-      <Box as="span" className="TextInput-action" marginLeft={1} marginRight={1} lineHeight="0">
+      <span className={clsx('TextInput-action', styles.TextInputAction)}>
         {icon && !children && ariaLabel ? (
           <IconButton
             {...accessibleLabel}
@@ -146,7 +97,7 @@ const TextInputAction = forwardRef<HTMLButtonElement, TextInputActionProps>(
             </Button>
           </ConditionalTooltip>
         )}
-      </Box>
+      </span>
     )
   },
 )

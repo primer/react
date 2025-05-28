@@ -1,5 +1,4 @@
 import type {Meta, StoryObj} from '@storybook/react'
-import React from 'react'
 import Link from '../Link'
 import {Banner} from '../Banner'
 import {PageLayout} from '../PageLayout'
@@ -72,6 +71,10 @@ export const Playground: StoryObj<typeof Banner> = {
     title: {
       control: 'text',
       defaultValue: 'Banner title',
+    },
+    hideTitle: {
+      control: 'boolean',
+      defaultValue: false,
     },
     description: {
       control: 'text',

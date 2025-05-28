@@ -1,4 +1,5 @@
-import React from 'react'
+import {describe, expect, it, vi} from 'vitest'
+import type React from 'react'
 import {render, screen} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import type {IconProps} from '@primer/octicons-react'
@@ -13,24 +14,7 @@ import {
 } from '@primer/octicons-react'
 
 import {UnderlineNav} from '.'
-import {checkExports, checkStoriesForAxeViolations} from '../utils/testing'
 import {baseMenuMinWidth, menuStyles} from './styles'
-
-// window.matchMedia() is not implemented by JSDOM so we have to create a mock:
-// https://jestjs.io/docs/manual-mocks#mocking-methods-which-are-not-implemented-in-jsdom
-Object.defineProperty(window, 'matchMedia', {
-  writable: true,
-  value: jest.fn().mockImplementation(query => ({
-    matches: false,
-    media: query,
-    onchange: null,
-    addListener: jest.fn(), // deprecated
-    removeListener: jest.fn(), // deprecated
-    addEventListener: jest.fn(),
-    removeEventListener: jest.fn(),
-    dispatchEvent: jest.fn(),
-  })),
-})
 
 const ResponsiveUnderlineNav = ({
   selectedItemText = 'Code',
@@ -55,7 +39,7 @@ const ResponsiveUnderlineNav = ({
 
   return (
     <div>
-      <UnderlineNav aria-label="Repository" loadingCounters={loadingCounters}>
+      <UnderlineNav aria-label="Repository" className="foo" loadingCounters={loadingCounters}>
         {items.map(item => (
           <UnderlineNav.Item
             key={item.navigation}
@@ -73,11 +57,6 @@ const ResponsiveUnderlineNav = ({
 }
 
 describe('UnderlineNav', () => {
-  checkExports('UnderlineNav', {
-    default: undefined,
-    UnderlineNav,
-  })
-
   it('renders aria-current attribute to be pages when an item is selected', () => {
     const {getByRole} = render(<ResponsiveUnderlineNav />)
     const selectedNavLink = getByRole('link', {name: 'Code'})
@@ -98,7 +77,7 @@ describe('UnderlineNav', () => {
   })
 
   it('fires onSelect on click', async () => {
-    const onSelect = jest.fn()
+    const onSelect = vi.fn()
     const {getByRole} = render(
       <UnderlineNav aria-label="Test Navigation">
         <UnderlineNav.Item onSelect={onSelect}>Item 1</UnderlineNav.Item>
@@ -113,7 +92,7 @@ describe('UnderlineNav', () => {
   })
 
   it('fires onSelect on keypress', async () => {
-    const onSelect = jest.fn()
+    const onSelect = vi.fn()
     const {getByRole} = render(
       <UnderlineNav aria-label="Test Navigation">
         <UnderlineNav.Item onSelect={onSelect}>Item 1</UnderlineNav.Item>
@@ -142,6 +121,13 @@ describe('UnderlineNav', () => {
     expect(counter).toHaveAttribute('aria-hidden', 'true')
   })
 
+  it('adds className prop to base wrapper classes', () => {
+    const {getByRole} = render(<ResponsiveUnderlineNav />)
+    const nav = getByRole('navigation')
+    expect(nav.className).toContain('foo')
+    expect(nav.className).toContain('UnderlineWrapper')
+  })
+
   it('renders the content of visually hidden span properly for screen readers', () => {
     const {getByRole} = render(<ResponsiveUnderlineNav />)
     const item = getByRole('link', {name: 'Issues (120)'})
@@ -163,12 +149,11 @@ describe('UnderlineNav', () => {
     const heading = getByRole('heading', {name: 'Repository navigation'})
     // check if heading is h2 tag
     expect(heading.tagName).toBe('H2')
-    expect(heading.className).toContain('VisuallyHidden')
     expect(heading.textContent).toBe('Repository navigation')
   })
 
   it('throws an error when there are multiple items that have aria-current', () => {
-    const spy = jest.spyOn(console, 'error').mockImplementation()
+    const spy = vi.spyOn(console, 'error').mockImplementation(() => {})
     expect(() => {
       render(
         <UnderlineNav aria-label="Test Navigation">
@@ -212,6 +197,17 @@ describe('UnderlineNav', () => {
     expect(screen.getByLabelText('Page two icon')).toBeInTheDocument()
     expect(screen.getByLabelText('Page three icon')).toBeInTheDocument()
   })
+
+  it('adds className prop to item classes', () => {
+    render(
+      <UnderlineNav aria-label="Repository">
+        <UnderlineNav.Item className="custom-class">Item 1</UnderlineNav.Item>
+      </UnderlineNav>,
+    )
+    const item = screen.getByRole('link', {name: 'Item 1'})
+    expect(item).toHaveClass('custom-class')
+    expect(item.className).toContain('UnderlineItem')
+  })
 })
 
 describe('Keyboard Navigation', () => {
@@ -227,5 +223,3 @@ describe('Keyboard Navigation', () => {
     expect(nextItem).toHaveFocus()
   })
 })
-
-checkStoriesForAxeViolations('UnderlineNav.examples', '../UnderlineNav/')

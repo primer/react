@@ -1,4 +1,3 @@
-import React from 'react'
 import type {FilteredActionListProps} from './FilteredActionListWithDeprecatedActionList'
 import {FilteredActionList as WithDeprecatedActionList} from './FilteredActionListWithDeprecatedActionList'
 import {FilteredActionList as WithStableActionList} from './FilteredActionListWithModernActionList'

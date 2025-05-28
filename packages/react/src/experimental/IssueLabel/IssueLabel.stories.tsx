@@ -1,4 +1,3 @@
-import React from 'react'
 import {IssueLabel} from '../IssueLabel'
 import type {Meta, StoryObj} from '@storybook/react'
 
@@ -23,7 +22,7 @@ export const Playground: StoryObj<typeof IssueLabel> = {
       control: {type: 'color', presetColors: ['red', 'green', 'blue', 'brown', 'black', 'white', 'salmon', 'orange']},
     },
     variant: {
-      control: 'inline-radio',
+      control: {type: 'select'},
       options: [
         'pink',
         'plum',

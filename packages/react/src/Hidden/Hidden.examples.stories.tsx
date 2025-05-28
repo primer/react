@@ -1,4 +1,3 @@
-import React from 'react'
 import type {Meta} from '@storybook/react'
 import {Button, Link, Text, StateLabel, BranchName, Box} from '..'
 import {ArrowRightIcon} from '@primer/octicons-react'

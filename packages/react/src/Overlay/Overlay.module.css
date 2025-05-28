@@ -157,13 +157,24 @@
     visibility: hidden;
   }
 
-  &:where([data-variant='fullscreen']) {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    margin: 0;
-    border-radius: unset;
+  &:where([data-responsive='fullscreen']) {
+    @media screen and (--viewportRange-narrow) {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      max-width: none;
+      height: 100vh;
+      max-height: none;
+      margin: 0;
+      border-radius: unset;
+    }
+  }
+
+  @supports (height: 100dvh) {
+    /* fix for mobile safari (100vh clips the screen with the toolbar) */
+    &:where([data-variant='fullscreen']) {
+      height: 100dvh;
+    }
   }
 }

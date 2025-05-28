@@ -1,4 +1,3 @@
-import React from 'react'
 import type {Meta} from '@storybook/react'
 import {BaseStyles, ThemeProvider, IconButton, Button} from '..'
 import Box from '../Box'

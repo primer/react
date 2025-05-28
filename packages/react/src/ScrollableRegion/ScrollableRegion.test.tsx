@@ -1,14 +1,15 @@
+import {describe, expect, test, beforeEach, afterEach} from 'vitest'
 import {render, screen} from '@testing-library/react'
-import React, {act} from 'react'
+import {act} from 'react'
 import {ScrollableRegion} from '../ScrollableRegion'
 
-const originalResizeObserver = global.ResizeObserver
+const originalResizeObserver = window.ResizeObserver
 
 describe('ScrollableRegion', () => {
   let mockResizeCallback: (entries: Array<ResizeObserverEntry>) => void
 
   beforeEach(() => {
-    global.ResizeObserver = class ResizeObserver {
+    window.ResizeObserver = class ResizeObserver {
       constructor(callback: ResizeObserverCallback) {
         mockResizeCallback = (entries: Array<ResizeObserverEntry>) => {
           return callback(entries, this)
@@ -22,7 +23,7 @@ describe('ScrollableRegion', () => {
   })
 
   afterEach(() => {
-    global.ResizeObserver = originalResizeObserver
+    window.ResizeObserver = originalResizeObserver
   })
 
   test('does not render with region props by default', () => {
@@ -37,8 +38,8 @@ describe('ScrollableRegion', () => {
     expect(screen.getByTestId('container')).not.toHaveAttribute('aria-labelledby')
     expect(screen.getByTestId('container')).not.toHaveAttribute('aria-label')
 
-    expect(screen.getByTestId('container')).toHaveStyleRule('overflow', 'auto')
-    expect(screen.getByTestId('container')).toHaveStyleRule('position', 'relative')
+    expect(screen.getByTestId('container')).toHaveStyle('overflow: auto')
+    expect(screen.getByTestId('container')).toHaveStyle('position: relative')
   })
 
   test('does render with region props when overflow is present', () => {

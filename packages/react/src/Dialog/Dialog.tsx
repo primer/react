@@ -1,13 +1,10 @@
 import React, {useCallback, useEffect, useRef, useState, type SyntheticEvent} from 'react'
-import styled from 'styled-components'
 import type {ButtonProps} from '../Button'
 import {Button, IconButton} from '../Button'
 import Box from '../Box'
-import {get} from '../constants'
 import {useOnEscapePress, useProvidedRefOrCreate} from '../hooks'
 import {useFocusTrap} from '../hooks/useFocusTrap'
 import type {SxProp} from '../sx'
-import sx from '../sx'
 import {XIcon} from '@primer/octicons-react'
 import {useFocusZone} from '../hooks/useFocusZone'
 import {FocusKeys} from '@primer/behaviors'
@@ -16,12 +13,11 @@ import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import {useId} from '../hooks/useId'
 import {ScrollableRegion} from '../ScrollableRegion'
 import type {ResponsiveValue} from '../hooks/useResponsiveValue'
-import {toggleStyledComponent} from '../internal/utils/toggleStyledComponent'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 
 import classes from './Dialog.module.css'
-import {useFeatureFlag} from '../FeatureFlags'
 import {clsx} from 'clsx'
+import {BoxWithFallback} from '../internal/components/BoxWithFallback'
 
 /* Dialog Version 2 */
 
@@ -172,66 +168,6 @@ export interface DialogHeaderProps extends DialogProps {
   dialogDescriptionId: string
 }
 
-const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_ga'
-
-const Backdrop = toggleStyledComponent(
-  CSS_MODULES_FEATURE_FLAG,
-  'div',
-  styled.div`
-    position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: ${get('colors.primer.canvas.backdrop')};
-    animation: dialog-backdrop-appear 200ms ${get('animation.easeOutCubic')};
-
-    &[data-position-regular='center'] {
-      align-items: center;
-      justify-content: center;
-    }
-
-    &[data-position-regular='left'] {
-      align-items: center;
-      justify-content: flex-start;
-    }
-
-    &[data-position-regular='right'] {
-      align-items: center;
-      justify-content: flex-end;
-    }
-
-    .DialogOverflowWrapper {
-      flex-grow: 1;
-    }
-
-    @media (max-width: 767px) {
-      &[data-position-narrow='center'] {
-        align-items: center;
-        justify-content: center;
-      }
-
-      &[data-position-narrow='bottom'] {
-        align-items: end;
-        justify-content: center;
-      }
-    }
-
-    @keyframes dialog-backdrop-appear {
-      0% {
-        opacity: 0;
-      }
-      100% {
-        opacity: 1;
-      }
-    }
-  `,
-)
-Backdrop.displayName = 'Backdrop'
-
 const heightMap = {
   small: '480px',
   large: '640px',
@@ -247,161 +183,6 @@ const widthMap = {
 
 export type DialogWidth = keyof typeof widthMap
 export type DialogHeight = keyof typeof heightMap
-
-type StyledDialogProps = {
-  width?: DialogWidth
-  height?: DialogHeight
-} & SxProp &
-  React.ComponentPropsWithRef<'div'>
-
-const StyledDialog = toggleStyledComponent(
-  CSS_MODULES_FEATURE_FLAG,
-  'div',
-  styled.div<StyledDialogProps>`
-    display: flex;
-    flex-direction: column;
-    background-color: ${get('colors.canvas.overlay')};
-    box-shadow: ${get('shadows.overlay.shadow')};
-    width: ${props => widthMap[props.width ?? ('xlarge' as const)]};
-    height: ${props => heightMap[props.height ?? ('auto' as const)]};
-    min-width: 296px;
-    max-width: calc(100dvw - 64px);
-    max-height: calc(100dvh - 64px);
-    border-radius: 12px;
-    opacity: 1;
-
-    @media screen and (prefers-reduced-motion: no-preference) {
-      animation: Overlay--motion-scaleFade 0.2s cubic-bezier(0.33, 1, 0.68, 1) 1ms 1 normal none running;
-    }
-
-    &[data-position-regular='center'] {
-      border-radius: var(--borderRadius-large, 0.75rem);
-
-      @media screen and (prefers-reduced-motion: no-preference) {
-        animation: Overlay--motion-scaleFade 0.2s cubic-bezier(0.33, 1, 0.68, 1) 1ms 1 normal none running;
-      }
-    }
-
-    &[data-position-regular='left'] {
-      height: 100dvh;
-      max-height: unset;
-      border-radius: var(--borderRadius-large, 0.75rem);
-      border-top-left-radius: 0;
-      border-bottom-left-radius: 0;
-
-      @media screen and (prefers-reduced-motion: no-preference) {
-        animation: Overlay--motion-slideInRight 0.25s cubic-bezier(0.33, 1, 0.68, 1) 1ms 1 normal none running;
-      }
-    }
-
-    &[data-position-regular='right'] {
-      height: 100dvh;
-      max-height: unset;
-      border-radius: var(--borderRadius-large, 0.75rem);
-      border-top-right-radius: 0;
-      border-bottom-right-radius: 0;
-
-      @media screen and (prefers-reduced-motion: no-preference) {
-        animation: Overlay--motion-slideInLeft 0.25s cubic-bezier(0.33, 1, 0.68, 1) 0s 1 normal none running;
-      }
-    }
-
-    @media (max-width: 767px) {
-      &[data-position-narrow='center'] {
-        border-radius: var(--borderRadius-large, 0.75rem);
-        width: ${props => widthMap[props.width ?? ('xlarge' as const)]};
-        height: ${props => heightMap[props.height ?? ('auto' as const)]};
-      }
-
-      &[data-position-narrow='bottom'] {
-        width: 100dvw;
-        height: auto;
-        max-width: 100dvw;
-        max-height: calc(100dvh - 64px);
-        border-radius: var(--borderRadius-large, 0.75rem);
-        border-bottom-right-radius: 0;
-        border-bottom-left-radius: 0;
-
-        @media screen and (prefers-reduced-motion: no-preference) {
-          animation: Overlay--motion-slideUp 0.25s cubic-bezier(0.33, 1, 0.68, 1) 1ms 1 normal none running;
-        }
-      }
-
-      &[data-position-narrow='fullscreen'] {
-        width: 100%;
-        max-width: 100dvw;
-        height: 100%;
-        max-height: 100dvh;
-        border-radius: unset !important;
-        flex-grow: 1;
-
-        @media screen and (prefers-reduced-motion: no-preference) {
-          animation: Overlay--motion-scaleFade 0.2s cubic-bezier(0.33, 1, 0.68, 1) 1ms 1 normal none running;
-        }
-      }
-    }
-
-    @keyframes Overlay--motion-scaleFade {
-      0% {
-        opacity: 0;
-        transform: scale(0.5);
-      }
-      100% {
-        opacity: 1;
-        transform: scale(1);
-      }
-    }
-
-    @keyframes Overlay--motion-slideUp {
-      from {
-        transform: translateY(100%);
-      }
-    }
-
-    @keyframes Overlay--motion-slideInRight {
-      from {
-        transform: translateX(-100%);
-      }
-    }
-
-    @keyframes Overlay--motion-slideInLeft {
-      from {
-        transform: translateX(100%);
-      }
-    }
-
-    /* Used to determine whether there should be a border between the body and footer */
-    @keyframes detect-scroll {
-      from,
-      to {
-        --can-scroll: 1;
-      }
-    }
-
-    /*
-    Add a border between the body and footer if:
-    - the dialog has a footer
-    - the dialog has a body that can scroll
-    - the browser supports the animation-timeline property and its scroll() function
-    */
-    &:has([data-component='Dialog.Footer']) {
-      --can-scroll: 0;
-      [data-component='Dialog.Body'] {
-        animation: detect-scroll;
-        animation-timeline: scroll(self);
-
-        /* If the browser does not support the animation-timeline property, always show a border */
-        border-bottom: var(--borderWidth-default) solid var(--borderColor-default);
-
-        @supports (animation-timeline: scroll(self)) {
-          border-bottom: calc(1px * var(--can-scroll)) solid var(--borderColor-default);
-        }
-      }
-    }
-
-    ${sx};
-  `,
-)
 
 const DefaultHeader: React.FC<React.PropsWithChildren<DialogHeaderProps>> = ({
   dialogLabelId,
@@ -463,8 +244,6 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
     sx,
     className,
   } = props
-  const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
-
   const dialogLabelId = useId()
   const dialogDescriptionId = useId()
   const autoFocusedFooterButtonRef = useRef<HTMLButtonElement>(null)
@@ -530,30 +309,32 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
             return [`data-position-${key}`, value]
           }),
         )
-  const dimensionProps = enabled ? {'data-width': width, 'data-height': height} : {width, height}
 
   return (
     <>
       <Portal>
-        <Backdrop
+        <BoxWithFallback
+          as="div"
           ref={backdropRef}
-          className={enabled ? classes.Backdrop : undefined}
+          className={classes.Backdrop}
           {...positionDataAttributes}
           onClick={onBackdropClick}
           onMouseDown={(e: React.MouseEvent<HTMLDivElement>) => {
             setLastMouseDownIsBackdrop(e.target === e.currentTarget)
           }}
         >
-          <StyledDialog
+          <BoxWithFallback
+            as="div"
             ref={dialogRef}
             role={role}
             aria-labelledby={dialogLabelId}
             aria-describedby={dialogDescriptionId}
             aria-modal
             {...positionDataAttributes}
-            {...dimensionProps}
+            data-width={width}
+            data-height={height}
             sx={sx}
-            className={clsx(className, enabled && classes.Dialog)}
+            className={clsx(className, classes.Dialog)}
           >
             {header}
             <ScrollableRegion
@@ -566,124 +347,54 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
               {body}
             </ScrollableRegion>
             {footer}
-          </StyledDialog>
-        </Backdrop>
+          </BoxWithFallback>
+        </BoxWithFallback>
       </Portal>
     </>
   )
 })
 _Dialog.displayName = 'Dialog'
 
-const StyledHeader = toggleStyledComponent(
-  CSS_MODULES_FEATURE_FLAG,
-  'div',
-  styled.div<SxProp>`
-    box-shadow: 0 1px 0 ${get('colors.border.default')};
-    padding: ${get('space.2')};
-    z-index: 1;
-    flex-shrink: 0;
-    ${sx};
-  `,
-)
 type StyledHeaderProps = React.ComponentProps<'div'> & SxProp
 
 const Header = React.forwardRef<HTMLElement, StyledHeaderProps>(function Header({className, ...rest}, forwardRef) {
-  const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
-  return <StyledHeader ref={forwardRef} className={clsx(className, enabled && classes.Header)} {...rest} />
+  return <BoxWithFallback as="div" ref={forwardRef} className={clsx(className, classes.Header)} {...rest} />
 })
 Header.displayName = 'Dialog.Header'
 
-const StyledTitle = toggleStyledComponent(
-  CSS_MODULES_FEATURE_FLAG,
-  'h1',
-  styled.h1<SxProp>`
-    font-size: ${get('fontSizes.1')};
-    font-weight: ${get('fontWeights.bold')};
-    margin: 0; /* override default margin */
-    ${sx};
-  `,
-)
 type StyledTitleProps = React.ComponentProps<'h1'> & SxProp
 
 const Title = React.forwardRef<HTMLElement, StyledTitleProps>(function Title({className, ...rest}, forwardRef) {
-  const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
-  return <StyledTitle ref={forwardRef} className={clsx(className, enabled && classes.Title)} {...rest} />
+  return <BoxWithFallback as="h1" ref={forwardRef} className={clsx(className, classes.Title)} {...rest} />
 })
 Title.displayName = 'Dialog.Title'
 
-const StyledSubtitle = toggleStyledComponent(
-  CSS_MODULES_FEATURE_FLAG,
-  'h2',
-  styled.h2<SxProp>`
-    font-size: ${get('fontSizes.0')};
-    color: ${get('colors.fg.muted')};
-    margin: 0; /* override default margin */
-    margin-top: ${get('space.1')};
-    font-weight: normal;
-    ${sx};
-  `,
-)
 type StyledSubtitleProps = React.ComponentProps<'h2'> & SxProp
 
 const Subtitle = React.forwardRef<HTMLElement, StyledSubtitleProps>(function Subtitle(
   {className, ...rest},
   forwardRef,
 ) {
-  const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
-  return <StyledSubtitle ref={forwardRef} className={clsx(className, enabled && classes.Subtitle)} {...rest} />
+  return <BoxWithFallback as="h2" ref={forwardRef} className={clsx(className, classes.Subtitle)} {...rest} />
 })
 Subtitle.displayName = 'Dialog.Subtitle'
 
-const StyledBody = toggleStyledComponent(
-  CSS_MODULES_FEATURE_FLAG,
-  'div',
-  styled.div<SxProp>`
-    flex-grow: 1;
-    overflow: auto;
-    padding: ${get('space.3')};
-
-    ${sx};
-  `,
-)
 type StyledBodyProps = React.ComponentProps<'div'> & SxProp
 
 const Body = React.forwardRef<HTMLElement, StyledBodyProps>(function Body({className, ...rest}, forwardRef) {
-  const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
-  return <StyledBody ref={forwardRef} className={clsx(className, enabled && classes.Body)} {...rest} />
+  return <BoxWithFallback as="div" ref={forwardRef} className={clsx(className, classes.Body)} {...rest} />
 }) as PolymorphicForwardRefComponent<'div', StyledBodyProps>
 
 Body.displayName = 'Dialog.Body'
 
-const StyledFooter = toggleStyledComponent(
-  CSS_MODULES_FEATURE_FLAG,
-  'div',
-  styled.div<SxProp>`
-    padding: ${get('space.3')};
-    display: flex;
-    flex-flow: wrap;
-    justify-content: flex-end;
-    gap: ${get('space.2')};
-    z-index: 1;
-    flex-shrink: 0;
-    @media (max-height: 325px) {
-      flex-wrap: nowrap;
-      overflow-x: scroll;
-      flex-direction: row;
-      justify-content: unset;
-    }
-    ${sx};
-  `,
-)
 type StyledFooterProps = React.ComponentProps<'div'> & SxProp
 
 const Footer = React.forwardRef<HTMLElement, StyledFooterProps>(function Footer({className, ...rest}, forwardRef) {
-  const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
   return (
-    <StyledFooter
+    <BoxWithFallback
+      as="div"
       ref={forwardRef}
-      className={clsx(className, enabled && classes.Footer)}
-      // `data-component` is used for a `:has` selector for `styled-components`.
-      // This can be removed when we remove `styled-components`.
+      className={clsx(className, classes.Footer)}
       data-component="Dialog.Footer"
       {...rest}
     />
