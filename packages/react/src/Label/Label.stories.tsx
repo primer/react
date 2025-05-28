@@ -27,7 +27,7 @@ Playground.argTypes = {
       'done',
       'sponsors',
     ],
-    control: {type: 'inline-radio'},
+    control: {type: 'select'},
   },
   size: {
     options: ['small', 'large'],
