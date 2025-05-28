@@ -25,28 +25,28 @@ export default {
 
 export const AllDirections = () => (
   <Box sx={{padding: 5, display: 'flex', gap: '8px'}}>
-    <Tooltip direction="n" aria-label="Supplementary text">
+    <Tooltip direction="n" text="Supplementary text">
       <Button>North</Button>
     </Tooltip>
-    <Tooltip direction="s" aria-label="Supplementary text">
+    <Tooltip direction="s" text="Supplementary text">
       <Button>South</Button>
     </Tooltip>
-    <Tooltip direction="e" aria-label="Supplementary text">
+    <Tooltip direction="e" text="Supplementary text">
       <Button>East</Button>
     </Tooltip>
-    <Tooltip direction="w" aria-label="Supplementary text">
+    <Tooltip direction="w" text="Supplementary text">
       <Button>West</Button>
     </Tooltip>
-    <Tooltip direction="ne" aria-label="Supplementary text">
+    <Tooltip direction="ne" text="Supplementary text">
       <Button>North East</Button>
     </Tooltip>
-    <Tooltip direction="nw" aria-label="Supplementary text">
+    <Tooltip direction="nw" text="Supplementary text">
       <Button>North West</Button>
     </Tooltip>
-    <Tooltip direction="se" aria-label="Supplementary text">
+    <Tooltip direction="se" text="Supplementary text">
       <Button>Southeast</Button>
     </Tooltip>
-    <Tooltip direction="sw" aria-label="Supplementary text">
+    <Tooltip direction="sw" text="Supplementary text">
       <Button>Southwest</Button>
     </Tooltip>
   </Box>
@@ -54,7 +54,7 @@ export const AllDirections = () => (
 
 export const IconButtonTooltip = () => (
   <Box sx={{p: 5}}>
-    <Tooltip aria-label="Search">
+    <Tooltip text="Search">
       <IconButton icon={SearchIcon} aria-label="Search" />
     </Tooltip>
   </Box>

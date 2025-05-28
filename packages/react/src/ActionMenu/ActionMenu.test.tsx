@@ -44,7 +44,7 @@ function ExampleWithTooltip(): JSX.Element {
   return (
     <ThemeProvider theme={theme}>
       <BaseStyles>
-        <Tooltip aria-label="Additional context about the menu button" direction="s">
+        <Tooltip text="Additional context about the menu button" direction="s">
           <ActionMenu>
             <ActionMenu.Button>Toggle Menu</ActionMenu.Button>
             <ActionMenu.Overlay>
