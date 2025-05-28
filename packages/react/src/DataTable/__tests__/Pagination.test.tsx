@@ -400,7 +400,7 @@ describe('Table.Pagination', () => {
     expect(getCurrentPage()).toEqual(getPage(3))
 
     // Verify all pages are displayed (no truncation needed with only 7 pages)
-    const pageNumbers = getPages().map(p => p.textContent?.replace(/[a-z]|\s+/gi, ''))
+    const pageNumbers = getPages().map(p => p.textContent?.replace(/\D/g, ''))
     expect(pageNumbers).toEqual(['1', '2', '3', '4', '5', '6', '7'])
   })
 })
