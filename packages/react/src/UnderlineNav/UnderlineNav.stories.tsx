@@ -26,25 +26,24 @@ const meta: Meta<typeof UnderlineNav> = {
         type: 'boolean',
       },
     },
-    flush: {
-      control: {
-        type: 'boolean',
-      },
+    variant: {
+      control: 'radio',
+      options: ['full', 'flush'],
     },
   },
   args: {
     'aria-label': 'Repository',
     loadingCounters: false,
-    flush: false,
+    variant: 'full',
   },
 }
 
 export default meta
 
-export const Default: StoryFn<typeof UnderlineNav> = () => {
+export const Default: StoryFn<typeof UnderlineNav> = args => {
   const children = ['Code', 'Pull requests', 'Actions', 'Projects', 'Wiki']
   return (
-    <UnderlineNav aria-label="Repository">
+    <UnderlineNav aria-label="Repository" {...args}>
       {children.map((child: string, index: number) => (
         <UnderlineNavItem key={index} href="#" aria-current={index === 0 ? 'page' : undefined}>
           {child}
