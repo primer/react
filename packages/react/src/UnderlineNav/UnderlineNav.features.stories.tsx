@@ -145,3 +145,13 @@ export const CountersLoadingState = () => {
     </UnderlineNav>
   )
 }
+
+export const Full = () => {
+  return (
+    <UnderlineNav aria-label="Repository" variant="full">
+      <UnderlineNav.Item aria-current="page">Code</UnderlineNav.Item>
+      <UnderlineNav.Item>Issues</UnderlineNav.Item>
+      <UnderlineNav.Item>Pull Requests</UnderlineNav.Item>
+    </UnderlineNav>
+  )
+}

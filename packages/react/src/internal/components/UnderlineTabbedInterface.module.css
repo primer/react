@@ -10,7 +10,7 @@
   /* stylelint-disable-next-line primer/box-shadow */
   box-shadow: inset 0 -1px var(--borderColor-muted);
 
-  &:where([data-variant='full'], &[data-variant='full'] &) {
+  &:where([data-variant='inset'], &[data-variant='inset'] &) {
     /* stylelint-disable-next-line primer/spacing */
     padding-inline: var(--stack-padding-normal);
   }

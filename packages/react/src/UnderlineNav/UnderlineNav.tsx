@@ -35,9 +35,9 @@ export type UnderlineNavProps = {
   /**
    * There are cases where you may not want the horizontal padding on items,
    * and panels to make the tabs look horizontally aligned with the content above and below it.
-   * Seting this to `flush` will remove the horizontal padding on the items.
+   * Setting this to `full` will remove the horizontal padding on the items.
    */
-  variant?: 'flush' | 'full'
+  variant?: 'inset' | 'full'
 }
 // When page is loaded, we don't have ref for the more button as it is not on the DOM yet.
 // However, we need to calculate number of possible items when the more button present as well. So using the width of the more button as a constant.
@@ -147,7 +147,7 @@ export const UnderlineNav = forwardRef(
       'aria-label': ariaLabel,
       sx: sxProp = defaultSxProp,
       loadingCounters = false,
-      variant = 'full',
+      variant = 'inset',
       className,
       children,
     }: UnderlineNavProps,
