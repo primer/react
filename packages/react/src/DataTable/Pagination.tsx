@@ -209,7 +209,7 @@ export function Pagination({
 
   const model = useMemo(() => {
     return buildPaginationModel(pageCount, pageIndex + 1, !!showPages, 1, 2)
-  }, [pageCount, pageCount, pageIndex, showPages])
+  }, [pageCount, pageIndex, showPages])
 
   return (
     <LiveRegion>
