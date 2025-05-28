@@ -121,7 +121,7 @@ export const CommentsLoadingWithSuspense = () => {
       try {
         await dataPromise
         setLoadingStatus('fulfilled')
-      } catch (error) {
+      } catch (_error) {
         // Handle error if needed
       }
     }
