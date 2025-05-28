@@ -22,7 +22,7 @@
     "@vitejs/plugin-react": "^4.3.3",
     "@primer/react": "37.25.0",
     "eslint": "^8.56.0",
-    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-hooks": "^6.0.0-rc.1",
     "eslint-plugin-react-refresh": "^0.4.19",
     "styled-components": "5.x",
     "typescript": "^5.8.2",

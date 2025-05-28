@@ -49,7 +49,21 @@ const config: StorybookConfig = {
       },
     }
 
-    config.plugins = [...(config.plugins ?? []), react()]
+    config.plugins = [
+      ...(config.plugins ?? []),
+      react({
+        babel: {
+          plugins: [
+            [
+              'babel-plugin-react-compiler',
+              {
+                target: '18',
+              },
+            ],
+          ],
+        },
+      }),
+    ]
 
     return config
   },
