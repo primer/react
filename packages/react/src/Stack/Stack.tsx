@@ -69,7 +69,6 @@ type StackProps<As> = React.PropsWithChildren<{
   className?: string
 }>
 
-const StackBaseComponent = toggleSxComponent('div') as React.ComponentType<StackProps<React.ElementType>>
 const Stack = forwardRef(
   (
     {
