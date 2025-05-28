@@ -107,11 +107,11 @@ export const UnderlineItem = forwardRef(
     forwardedRef,
   ) => {
     return (
-      <BoxWithFallback 
-        ref={forwardedRef} 
-        as={as} 
-        sx={sxProp} 
-        className={clsx(classes.UnderlineItem, className)} 
+      <BoxWithFallback
+        ref={forwardedRef}
+        as={as}
+        sx={sxProp}
+        className={clsx(classes.UnderlineItem, className)}
         {...rest}
       >
         {iconsVisible && Icon && <span data-component="icon">{isElement(Icon) ? Icon : <Icon />}</span>}

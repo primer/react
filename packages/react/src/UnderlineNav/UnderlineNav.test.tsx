@@ -202,7 +202,7 @@ describe('UnderlineNav', () => {
     render(
       <UnderlineNav aria-label="Repository">
         <UnderlineNav.Item className="custom-class">Item 1</UnderlineNav.Item>
-      </UnderlineNav>
+      </UnderlineNav>,
     )
     const item = screen.getByRole('link', {name: 'Item 1'})
     expect(item.className).toContain('custom-class')
