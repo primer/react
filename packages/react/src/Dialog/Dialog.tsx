@@ -337,13 +337,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
             className={clsx(className, classes.Dialog)}
           >
             {header}
-            <ScrollableRegion
-              // `data-component` is used for a `:has` selector for `styled-components`.
-              // This can be removed when we remove `styled-components`.
-              data-component="Dialog.Body"
-              aria-labelledby={dialogLabelId}
-              className={classes.DialogOverflowWrapper}
-            >
+            <ScrollableRegion aria-labelledby={dialogLabelId} className={classes.DialogOverflowWrapper}>
               {body}
             </ScrollableRegion>
             {footer}
