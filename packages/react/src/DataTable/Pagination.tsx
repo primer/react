@@ -244,7 +244,7 @@ export function Pagination({
                   <Page
                     active={!!page.selected}
                     onClick={() => {
-                      selectPage(page.num)
+                      selectPage(page.num - 1)
                     }}
                   >
                     {page.num}
