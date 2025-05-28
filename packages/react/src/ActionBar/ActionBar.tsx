@@ -225,7 +225,8 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
                       return (
                         <ActionList.Item
                           key={menuItemChildren}
-                          onSelect={(event: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
+                          // eslint-disable-next-line primer-react/prefer-action-list-item-onselect
+                          onClick={(event: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
                             closeOverlay()
                             focusOnMoreMenuBtn()
                             typeof onClick === 'function' && onClick(event)
