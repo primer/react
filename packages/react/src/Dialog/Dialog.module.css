@@ -230,14 +230,14 @@ Add a border between the body and footer if:
   --can-scroll: 0;
 
   .DialogOverflowWrapper {
+    /* If the browser does not support the `animation-timeline` property, always show a border */
+    /* stylelint-disable-next-line primer/borders */
+    border-bottom: var(--borderWidth-default) solid var(--borderColor-default);
     animation: detect-scroll;
     animation-timeline: scroll(self);
 
-    /* If the browser does not support the `animation-timeline` property, always show a border */
-    border-bottom: var(--borderWidth-default) solid var(--borderColor-default);
-
     @supports (animation-timeline: scroll(self)) {
-      border-bottom: calc(1px * var(--can-scroll)) solid var(--borderColor-default);
+      border-bottom: calc(var(--borderWidth-thin) * var(--can-scroll)) solid var(--borderColor-default);
     }
   }
 }
