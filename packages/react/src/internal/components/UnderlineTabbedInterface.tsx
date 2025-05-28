@@ -101,12 +101,19 @@ export const UnderlineItem = forwardRef(
       iconsVisible,
       loadingCounters,
       sx: sxProp = defaultSxProp,
+      className,
       ...rest
     }: PropsWithChildren<UnderlineItemProps>,
     forwardedRef,
   ) => {
     return (
-      <BoxWithFallback ref={forwardedRef} as={as} sx={sxProp} className={classes.UnderlineItem} {...rest}>
+      <BoxWithFallback 
+        ref={forwardedRef} 
+        as={as} 
+        sx={sxProp} 
+        className={clsx(classes.UnderlineItem, className)} 
+        {...rest}
+      >
         {iconsVisible && Icon && <span data-component="icon">{isElement(Icon) ? Icon : <Icon />}</span>}
         {children && (
           <span data-component="text" data-content={children}>
