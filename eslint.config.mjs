@@ -90,7 +90,7 @@ const config = defineConfig([
       '@eslint-react/no-prop-types': 'off',
       '@eslint-react/no-unstable-context-value': 'off',
       '@eslint-react/no-unstable-default-props': 'error',
-      '@eslint-react/no-useless-forward-ref': 'off',
+      '@eslint-react/no-useless-forward-ref': 'error',
     },
   },
 
@@ -260,6 +260,7 @@ const config = defineConfig([
     files: ['**/*.test.{ts,tsx}'],
     rules: {
       '@eslint-react/no-unstable-default-props': 'off',
+      '@eslint-react/no-useless-forward-ref': 'off',
     },
   },
   // eslint-plugin-jest
@@ -304,6 +305,7 @@ const config = defineConfig([
   {
     files: ['**/*.types.test.{ts,tsx}'],
     rules: {
+      '@eslint-react/no-useless-forward-ref': 'off',
       // We often use assertions that are not used in type tests
       '@typescript-eslint/no-unused-vars': 'off',
     },
