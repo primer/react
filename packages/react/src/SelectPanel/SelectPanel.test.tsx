@@ -1072,9 +1072,41 @@ for (const useModernActionList of [false, true]) {
           return render(
             <FeatureFlags flags={flags}>
               <ThemeProvider>
-                <BasicSelectPanel {...props} />
+                <SingleSelectPanel {...props} />
               </ThemeProvider>
             </FeatureFlags>,
+          )
+        }
+
+        // Create a single-select version to test ResponsiveCloseButton behavior
+        function SingleSelectPanel(passthroughProps: Record<string, unknown>) {
+          const [selected, setSelected] = React.useState<SelectPanelProps['selected']>(undefined)
+          const [filter, setFilter] = React.useState('')
+          const [open, setOpen] = React.useState(false)
+
+          const onSelectedChange = (selected: SelectPanelProps['selected']) => {
+            setSelected(selected)
+          }
+
+          return (
+            <ThemeProvider>
+              <SelectPanel
+                title="test title"
+                subtitle="test subtitle"
+                items={items}
+                placeholder="Select an item"
+                placeholderText="Filter items"
+                selected={selected}
+                onSelectedChange={onSelectedChange}
+                filterValue={filter}
+                onFilterChange={value => {
+                  setFilter(value)
+                }}
+                open={open}
+                onOpenChange={open => setOpen(open)}
+                {...passthroughProps}
+              />
+            </ThemeProvider>
           )
         }
 
@@ -1089,13 +1121,12 @@ for (const useModernActionList of [false, true]) {
             {fullScreenOptOut: true},
           )
 
-          await user.click(screen.getByText('Select items'))
+          await user.click(screen.getByText('Select an item'))
 
-          // When fullScreenOptOut=true, the overlay should not use responsive fullscreen variant
-          const dialog = screen.getByRole('dialog')
-          expect(dialog).toBeInTheDocument()
-          // The key test is that the AnchoredOverlay's variant prop should be undefined
-          // when fullScreenOptOut is true, regardless of feature flag
+          // When fullScreenOptOut=true, the ResponsiveCloseButton should not be present
+          // even when the feature flag is enabled, indicating no fullscreen behavior
+          const responsiveCloseButton = screen.queryByRole('button', {name: 'Cancel and close'})
+          expect(responsiveCloseButton).not.toBeInTheDocument()
         })
 
         it('should use fullscreen behavior when fullScreenOptOut=false and feature flag is enabled', async () => {
@@ -1109,11 +1140,12 @@ for (const useModernActionList of [false, true]) {
             {fullScreenOptOut: false},
           )
 
-          await user.click(screen.getByText('Select items'))
+          await user.click(screen.getByText('Select an item'))
 
-          // When feature flag is true and fullScreenOptOut is false, should enable fullscreen behavior
-          const dialog = screen.getByRole('dialog')
-          expect(dialog).toBeInTheDocument()
+          // When feature flag is true and fullScreenOptOut is false, the ResponsiveCloseButton should be present
+          // indicating fullscreen behavior is active
+          const responsiveCloseButton = screen.getByRole('button', {name: 'Cancel and close'})
+          expect(responsiveCloseButton).toBeInTheDocument()
         })
 
         it('should default to feature flag value when fullScreenOptOut is undefined', async () => {
@@ -1125,10 +1157,12 @@ for (const useModernActionList of [false, true]) {
             primer_react_select_panel_fullscreen_on_narrow: false,
           })
 
-          await user.click(screen.getByText('Select items'))
+          await user.click(screen.getByText('Select an item'))
 
-          const dialog = screen.getByRole('dialog')
-          expect(dialog).toBeInTheDocument()
+          // When feature flag is false and fullScreenOptOut is undefined, 
+          // the ResponsiveCloseButton should not be present
+          const responsiveCloseButton = screen.queryByRole('button', {name: 'Cancel and close'})
+          expect(responsiveCloseButton).not.toBeInTheDocument()
         })
       })
     })
