@@ -3,6 +3,7 @@ import {fileURLToPath} from 'node:url'
 import {fixupConfigRules, fixupPluginRules} from '@eslint/compat'
 import {FlatCompat} from '@eslint/eslintrc'
 import js from '@eslint/js'
+import eslintReact from '@eslint-react/eslint-plugin'
 import {defineConfig, globalIgnores} from 'eslint/config'
 import githubPlugin from 'eslint-plugin-github'
 import jest from 'eslint-plugin-jest'
@@ -67,6 +68,31 @@ const config = defineConfig([
   prettierRecommended,
 
   tseslint.configs.recommended,
+  // @eslint-react/eslint-plugin
+  eslintReact.configs['recommended-typescript'],
+  {
+    rules: {
+      '@eslint-react/dom/no-dangerously-set-innerhtml': 'off',
+      '@eslint-react/dom/no-flush-sync': 'off',
+      '@eslint-react/dom/no-missing-button-type': 'off',
+      '@eslint-react/hooks-extra/no-direct-set-state-in-use-effect': 'off',
+      '@eslint-react/hooks-extra/no-unnecessary-use-prefix': 'off',
+      '@eslint-react/jsx-key-before-spread': 'off',
+      '@eslint-react/no-array-index-key': 'off',
+      '@eslint-react/no-children-count': 'off',
+      '@eslint-react/no-children-for-each': 'off',
+      '@eslint-react/no-children-map': 'off',
+      '@eslint-react/no-children-only': 'off',
+      '@eslint-react/no-children-to-array': 'off',
+      '@eslint-react/no-clone-element': 'off',
+      '@eslint-react/no-create-ref': 'off',
+      '@eslint-react/no-nested-component-definitions': 'off',
+      '@eslint-react/no-prop-types': 'off',
+      '@eslint-react/no-unstable-context-value': 'off',
+      '@eslint-react/no-unstable-default-props': 'off',
+      '@eslint-react/no-useless-forward-ref': 'off',
+    },
+  },
 
   {
     extends: fixupConfigRules(compat.extends('plugin:clsx/recommended', 'plugin:ssr-friendly/recommended')),
