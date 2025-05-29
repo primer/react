@@ -43,6 +43,7 @@ export interface FilteredActionListProps
   message?: React.ReactNode
   className?: string
   announcementsEnabled?: boolean
+  fullScreenOnNarrow?: boolean
 }
 
 const StyledHeader = styled.div`
@@ -67,6 +68,7 @@ export function FilteredActionList({
   message,
   className,
   announcementsEnabled = true,
+  fullScreenOnNarrow,
   ...listProps
 }: FilteredActionListProps): JSX.Element {
   const [filterValue, setInternalFilterValue] = useProvidedStateOrCreate(externalFilterValue, undefined, '')
@@ -224,6 +226,7 @@ export function FilteredActionList({
           aria-describedby={inputDescriptionTextId}
           loaderPosition={'leading'}
           loading={loading && !loadingType.appearsInBody}
+          className={fullScreenOnNarrow ? classes.FullScreenTextInput : ''}
           {...textInputProps}
         />
       </StyledHeader>

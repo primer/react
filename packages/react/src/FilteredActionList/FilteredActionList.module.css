@@ -4,3 +4,9 @@
   overflow: auto;
   flex-grow: 1;
 }
+
+.FullScreenTextInput {
+  @media screen and (--viewportRange-narrow) {
+    font-size: var(--text-title-size-small);
+  }
+}
