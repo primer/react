@@ -89,7 +89,7 @@ const config = defineConfig([
       '@eslint-react/no-nested-component-definitions': 'off',
       '@eslint-react/no-prop-types': 'off',
       '@eslint-react/no-unstable-context-value': 'off',
-      '@eslint-react/no-unstable-default-props': 'off',
+      '@eslint-react/no-unstable-default-props': 'error',
       '@eslint-react/no-useless-forward-ref': 'off',
     },
   },
@@ -256,6 +256,12 @@ const config = defineConfig([
   },
 
   // Tests
+  {
+    files: ['**/*.test.{ts,tsx}'],
+    rules: {
+      '@eslint-react/no-unstable-default-props': 'off',
+    },
+  },
   // eslint-plugin-jest
   {
     files: ['**/*.test.{ts,tsx}'],

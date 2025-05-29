@@ -140,7 +140,7 @@ function ItemWithSubNav({
   subNav,
   depth,
   defaultOpen,
-  style = {},
+  style,
   sx: sxProp = defaultSxProp,
 }: ItemWithSubNavProps) {
   const buttonId = useId()
