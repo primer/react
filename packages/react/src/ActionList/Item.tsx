@@ -340,7 +340,10 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
         slots.inlineDescription ? inlineDescriptionId : ''
       }`,
       'aria-describedby':
-        [slots.blockDescription ? blockDescriptionId : undefined, inactiveWarningId ?? undefined]
+        [
+          slots.blockDescription ? blockDescriptionId : enabled && slots.description ? blockDescriptionId : undefined,
+          inactiveWarningId ?? undefined,
+        ]
           .filter(String)
           .join(' ')
           .trim() || undefined,
