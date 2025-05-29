@@ -7,6 +7,9 @@
 
 .FullScreenTextInput {
   @media screen and (--viewportRange-narrow) {
-    font-size: var(--text-title-size-small);
+    /* Ensures inputs don't zoom on mobile iPhone but are body-font size on iPad */
+    @supports (-webkit-touch-callout: none) {
+      font-size: var(--text-title-size-small);
+    }
   }
 }
