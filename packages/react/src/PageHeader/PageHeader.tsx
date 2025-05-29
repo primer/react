@@ -53,7 +53,7 @@ const RootBaseComponent = toggleSxComponent('div') as React.ComponentType<
   React.PropsWithChildren<PageHeaderProps & React.RefAttributes<HTMLDivElement>>
 >
 const Root = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeaderProps>>(
-  ({children, className, sx = {}, as = 'div', 'aria-label': ariaLabel, role, hasBorder}, forwardedRef) => {
+  ({children, className, sx = defaultSxProp, as = 'div', 'aria-label': ariaLabel, role, hasBorder}, forwardedRef) => {
     const rootRef = useProvidedRefOrCreate<HTMLDivElement>(forwardedRef as React.RefObject<HTMLDivElement>)
 
     const isInteractive = (element: HTMLElement) => {

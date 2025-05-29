@@ -3,7 +3,7 @@ import {render, fireEvent} from '@testing-library/react'
 import {useMnemonics} from '../../hooks'
 
 const Fixture = ({
-  onSelect = () => null,
+  onSelect,
   hasInput = false,
   hasTextarea = false,
   refNotAttached = false,

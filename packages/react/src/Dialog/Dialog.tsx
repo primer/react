@@ -228,6 +228,8 @@ const defaultPosition = {
   regular: 'center',
 }
 
+const defaultFooterButtons: Array<DialogButtonProps> = []
+
 const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogProps>>((props, forwardedRef) => {
   const {
     title = 'Dialog',
@@ -239,7 +241,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
     role = 'dialog',
     width = 'xlarge',
     height = 'auto',
-    footerButtons = [],
+    footerButtons = defaultFooterButtons,
     position = defaultPosition,
     returnFocusRef,
     initialFocusRef,

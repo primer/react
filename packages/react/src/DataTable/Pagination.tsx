@@ -172,13 +172,17 @@ export type PaginationProps = Omit<React.ComponentPropsWithoutRef<'nav'>, 'onCha
  */
 const MAX_TRUNCATED_STEP_COUNT = 7
 
+const defaultShowPages = {
+  narrow: false,
+}
+
 export function Pagination({
   'aria-label': label,
   defaultPageIndex,
   id,
   onChange,
   pageSize = 25,
-  showPages = {narrow: false},
+  showPages = defaultShowPages,
   totalCount,
 }: PaginationProps) {
   const {
