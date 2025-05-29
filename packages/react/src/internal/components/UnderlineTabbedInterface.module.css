@@ -1,5 +1,7 @@
 .UnderlineWrapper {
   display: flex;
+  /* stylelint-disable-next-line primer/spacing */
+  padding-inline: var(--stack-padding-normal);
   justify-content: flex-start;
   align-items: center;
 
@@ -10,9 +12,9 @@
   /* stylelint-disable-next-line primer/box-shadow */
   box-shadow: inset 0 -1px var(--borderColor-muted);
 
-  &:where([data-variant='inset'], &[data-variant='inset'] &) {
+  &[data-variant='full'] {
     /* stylelint-disable-next-line primer/spacing */
-    padding-inline: var(--stack-padding-normal);
+    padding-inline: unset;
   }
 }
 
