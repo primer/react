@@ -67,6 +67,11 @@
   flex-grow: 1;
   justify-content: space-between;
 
+  /* Add bottom padding on mobile to prevent overlap with sticky footer */
+  @media screen and (--viewportRange-narrow) {
+    padding-bottom: var(--base-size-80); /* Footer min-height + padding + some buffer */
+  }
+
   ul {
     overflow-y: auto;
     flex-grow: 1;
@@ -144,6 +149,14 @@
   justify-content: space-between;
   align-items: center;
   flex-shrink: 0;
+
+  /* Fixed positioning on mobile to ensure footer remains visible when keyboard appears */
+  @media screen and (--viewportRange-narrow) {
+    position: sticky;
+    bottom: 0;
+    z-index: 1;
+    background-color: var(--overlay-bgColor);
+  }
 
   &:where([data-hide-primary-actions]) {
     padding: var(--base-size-8);

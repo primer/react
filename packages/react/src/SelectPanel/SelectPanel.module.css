@@ -78,11 +78,24 @@
   padding: var(--base-size-8);
   border-top: var(--borderWidth-thin) solid;
   border-top-color: var(--borderColor-default);
+
+  /* Fixed positioning on mobile to ensure footer remains visible when keyboard appears */
+  @media screen and (--viewportRange-narrow) {
+    position: sticky;
+    bottom: 0;
+    z-index: 1;
+    background-color: var(--overlay-bgColor);
+  }
 }
 
 .FilteredActionList {
   height: inherit;
   max-height: inherit;
+
+  /* Add bottom padding on mobile to prevent overlap with sticky footer */
+  @media screen and (--viewportRange-narrow) {
+    padding-bottom: var(--base-size-48); /* Approximate footer height + some buffer */
+  }
 }
 
 .Message {

@@ -3,4 +3,9 @@
   height: 100%;
   overflow: auto;
   flex-grow: 1;
+
+  /* Add bottom padding on mobile to prevent overlap with sticky footer in SelectPanel */
+  @media screen and (--viewportRange-narrow) {
+    padding-bottom: var(--base-size-48); /* Approximate footer height + some buffer */
+  }
 }
