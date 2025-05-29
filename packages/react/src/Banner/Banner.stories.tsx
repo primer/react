@@ -72,6 +72,10 @@ export const Playground: StoryObj<typeof Banner> = {
       control: 'text',
       defaultValue: 'Banner title',
     },
+    hideTitle: {
+      control: 'boolean',
+      defaultValue: false,
+    },
     description: {
       control: 'text',
     },

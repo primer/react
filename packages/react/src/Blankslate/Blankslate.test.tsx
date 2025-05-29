@@ -11,17 +11,17 @@ describe('Blankslate', () => {
 
   it('should render with border when border is true', () => {
     const {container} = render(<Blankslate border>Test content</Blankslate>)
-    expect(container.firstChild!.firstChild).toHaveAttribute('data-border', 'true')
+    expect(container.firstChild!.firstChild).toHaveAttribute('data-border', '')
   })
 
   it('should render with narrow style when narrow is true', () => {
     const {container} = render(<Blankslate narrow>Test content</Blankslate>)
-    expect(container.firstChild!.firstChild).toHaveAttribute('data-narrow', 'true')
+    expect(container.firstChild!.firstChild).toHaveAttribute('data-narrow', '')
   })
 
   it('should render with spacious style when spacious is true', () => {
     const {container} = render(<Blankslate spacious>Test content</Blankslate>)
-    expect(container.firstChild!.firstChild).toHaveAttribute('data-spacious', 'true')
+    expect(container.firstChild!.firstChild).toHaveAttribute('data-spacious', '')
   })
 
   describe('Blankslate.Visual', () => {
