@@ -26,7 +26,7 @@
       "id": "components-underlinenav-features--counters-loading-state"
     },
     {
-      "id": "components-underlinenav-features--full"
+      "id": "components-underlinenav-features--variant-flush"
     }
   ],
   "importPath": "@primer/react",
@@ -52,9 +52,9 @@
     },
     {
       "name": "variant",
-      "type": "'inset' | 'full'",
+      "type": "'inset' | 'flush'",
       "defaultValue": "'inset'",
-      "description": "`inset` children are offset horizontally from container edges. `full` children are flush horizontally with container edges"
+      "description": "`inset` children are offset horizontally from container edges. `flush` children are flush horizontally with container edges"
     },
     {
       "name": "sx",

@@ -12,7 +12,7 @@
   /* stylelint-disable-next-line primer/box-shadow */
   box-shadow: inset 0 -1px var(--borderColor-muted);
 
-  &[data-variant='full'] {
+  &[data-variant='flush'] {
     /* stylelint-disable-next-line primer/spacing */
     padding-inline: unset;
   }

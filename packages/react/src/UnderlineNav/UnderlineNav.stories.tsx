@@ -28,7 +28,7 @@ const meta: Meta<typeof UnderlineNav> = {
     },
     variant: {
       control: 'radio',
-      options: ['inset', 'full'],
+      options: ['inset', 'flush'],
     },
   },
   args: {

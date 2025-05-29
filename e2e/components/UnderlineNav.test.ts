@@ -169,19 +169,19 @@ test.describe('UnderlineNav', () => {
     }
   })
 
-  test.describe('Full', () => {
+  test.describe('Variant flush', () => {
     for (const theme of themes) {
       test.describe(theme, () => {
-        test('Variant full @vrt', async ({page}) => {
+        test('Variant flush @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-underlinenav-features--full',
+            id: 'components-underlinenav-features--variant-flush',
             globals: {
               colorScheme: theme,
             },
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`UnderlineNav.Full.${theme}.png`)
+          expect(await page.screenshot()).toMatchSnapshot(`UnderlineNav.VariantFlush.${theme}.png`)
         })
       })
     }
