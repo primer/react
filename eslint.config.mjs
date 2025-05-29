@@ -87,7 +87,7 @@ const config = defineConfig([
       '@eslint-react/no-clone-element': 'off',
       '@eslint-react/no-create-ref': 'off',
       '@eslint-react/no-nested-component-definitions': 'off',
-      '@eslint-react/no-prop-types': 'off',
+      '@eslint-react/no-prop-types': 'error',
       '@eslint-react/no-unstable-context-value': 'off',
       '@eslint-react/no-unstable-default-props': 'error',
       '@eslint-react/no-useless-forward-ref': 'error',
