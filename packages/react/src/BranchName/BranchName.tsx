@@ -20,7 +20,7 @@ function BranchName<As extends React.ElementType>(props: BranchNameProps<As>, re
   )
 }
 
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 type FixedForwardRef = <T, P = {}>(
   render: (props: P, ref: React.Ref<T>) => React.ReactNode,
 ) => (props: P & React.RefAttributes<T>) => React.ReactNode

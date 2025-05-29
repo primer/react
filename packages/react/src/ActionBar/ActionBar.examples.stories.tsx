@@ -212,7 +212,7 @@ export const ActionbarToggle = () => {
                   Quote reply
                 </ActionList.Item>
                 <ActionList.Divider />
-                <ActionList.Item onClick={() => setEditView(true)}>
+                <ActionList.Item onSelect={() => setEditView(true)}>
                   <ActionList.LeadingVisual>
                     <PencilIcon />
                   </ActionList.LeadingVisual>

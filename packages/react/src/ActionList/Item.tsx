@@ -121,7 +121,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     const onSelect = React.useCallback(
       (
         event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>,
-        // eslint-disable-next-line @typescript-eslint/ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         afterSelect?: Function,
       ) => {
         if (typeof onSelectUser === 'function') onSelectUser(event)
