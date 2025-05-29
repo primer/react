@@ -39,6 +39,7 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
       children,
       className,
       contrast,
+      defaultValue,
       disabled,
       placeholder,
       size,
@@ -67,7 +68,7 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
           aria-invalid={validationStatus === 'error' ? 'true' : 'false'}
           className={clsx(className, classes.Select, disabled && classes.Disabled)}
           data-hasplaceholder={Boolean(placeholder)}
-          defaultValue={placeholder ?? undefined}
+          defaultValue={defaultValue ?? placeholder ?? undefined}
         >
           {placeholder && (
             <option value="" disabled={required} hidden={required}>
