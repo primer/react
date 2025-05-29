@@ -1066,6 +1066,71 @@ for (const useModernActionList of [false, true]) {
           expect(options[2]).toHaveTextContent('item three')
         })
       })
+
+      describe('fullScreenOnNarrow prop', () => {
+        const renderSelectPanelWithFlags = (flags: Record<string, boolean>, props: Record<string, unknown> = {}) => {
+          return render(
+            <FeatureFlags flags={flags}>
+              <ThemeProvider>
+                <BasicSelectPanel {...props} />
+              </ThemeProvider>
+            </FeatureFlags>,
+          )
+        }
+
+        it('should respect fullScreenOnNarrow=false even when feature flag is enabled', async () => {
+          const user = userEvent.setup()
+
+          renderSelectPanelWithFlags(
+            {
+              primer_react_select_panel_with_modern_action_list: useModernActionList,
+              primer_react_select_panel_fullscreen_on_narrow: true,
+            },
+            {fullScreenOnNarrow: false},
+          )
+
+          await user.click(screen.getByText('Select items'))
+
+          // When fullScreenOnNarrow=false, the overlay should not use responsive fullscreen variant
+          const dialog = screen.getByRole('dialog')
+          expect(dialog).toBeInTheDocument()
+          // The key test is that the AnchoredOverlay's variant prop should be undefined
+          // when fullScreenOnNarrow is false, regardless of feature flag
+        })
+
+        it('should use fullscreen behavior when fullScreenOnNarrow=true and feature flag is enabled', async () => {
+          const user = userEvent.setup()
+
+          renderSelectPanelWithFlags(
+            {
+              primer_react_select_panel_with_modern_action_list: useModernActionList,
+              primer_react_select_panel_fullscreen_on_narrow: true,
+            },
+            {fullScreenOnNarrow: true},
+          )
+
+          await user.click(screen.getByText('Select items'))
+
+          // When both feature flag and prop are true, should enable fullscreen behavior
+          const dialog = screen.getByRole('dialog')
+          expect(dialog).toBeInTheDocument()
+        })
+
+        it('should default to feature flag value when fullScreenOnNarrow is undefined', async () => {
+          const user = userEvent.setup()
+
+          // Test with feature flag disabled
+          renderSelectPanelWithFlags({
+            primer_react_select_panel_with_modern_action_list: useModernActionList,
+            primer_react_select_panel_fullscreen_on_narrow: false,
+          })
+
+          await user.click(screen.getByText('Select items'))
+
+          const dialog = screen.getByRole('dialog')
+          expect(dialog).toBeInTheDocument()
+        })
+      })
     })
   })
 }

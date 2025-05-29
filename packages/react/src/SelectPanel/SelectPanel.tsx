@@ -101,6 +101,12 @@ interface SelectPanelBaseProps {
    */
   footer?: string | React.ReactElement
   showSelectedOptionsFirst?: boolean
+  /**
+   * Whether the SelectPanel should go fullscreen on narrow viewports.
+   * When `false`, the panel will maintain its anchored position regardless of viewport size.
+   * @default true when the primer_react_select_panel_fullscreen_on_narrow feature flag is enabled
+   */
+  fullScreenOnNarrow?: boolean
 }
 
 // onCancel is optional with variant=anchored, but required with variant=modal
@@ -172,6 +178,7 @@ function Panel({
   variant = 'anchored',
   secondaryAction,
   showSelectedOptionsFirst = true,
+  fullScreenOnNarrow,
   ...listProps
 }: SelectPanelProps): JSX.Element {
   const titleId = useId()
@@ -192,7 +199,8 @@ function Panel({
   const [prevOpen, setPrevOpen] = useState(open)
 
   const usingModernActionList = useFeatureFlag('primer_react_select_panel_with_modern_action_list')
-  const usingFullScreenOnNarrow = useFeatureFlag('primer_react_select_panel_fullscreen_on_narrow')
+  const featureFlagFullScreenOnNarrow = useFeatureFlag('primer_react_select_panel_fullscreen_on_narrow')
+  const usingFullScreenOnNarrow = fullScreenOnNarrow ?? featureFlagFullScreenOnNarrow
   const shouldOrderSelectedFirst =
     useFeatureFlag('primer_react_select_panel_order_selected_at_top') && showSelectedOptionsFirst
 
