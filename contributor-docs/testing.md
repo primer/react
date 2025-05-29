@@ -111,7 +111,8 @@ You can run these tests using Playwright locally or you can see the results of
 these tests on GitHub through the CI workflow.
 
 To get started locally, make sure to follow the [Prerequisites](#prerequisites)
-section to setup your machine. If you're looking for a quick overview of the commands
+section to setup your machine. You also need Storybook to be running locally
+before running any tests. If you're looking for a quick overview of the commands
 available, check out the table below.
 
 | Task                                                  | Command                                         |
