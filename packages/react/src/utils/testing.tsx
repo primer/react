@@ -231,7 +231,7 @@ export function behavesAsComponent({Component, toRender, options}: BehavesAsComp
 
   if (!options.skipDisplayName) {
     it('sets a valid displayName', () => {
-      expect(Component.displayName).toMatch(COMPONENT_DISPLAY_NAME_REGEX)
+      expect(Component.displayName ?? Component.name).toMatch(COMPONENT_DISPLAY_NAME_REGEX)
     })
   }
 

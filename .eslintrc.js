@@ -11,7 +11,7 @@ module.exports = {
     'plugin:react/recommended',
     'plugin:react/jsx-runtime',
     'plugin:jsx-a11y/recommended',
-    'plugin:react-hooks/recommended',
+    'plugin:react-hooks/recommended-legacy',
     'plugin:prettier/recommended',
     'plugin:github/recommended',
     'plugin:github/browser',
@@ -60,6 +60,7 @@ module.exports = {
     jest: true,
     node: true,
   },
+  plugins: ['react-compiler'],
   // rules which apply to JS, TS, etc.
   rules: {
     'no-shadow': 'off',
@@ -92,6 +93,7 @@ module.exports = {
     'github/role-supports-aria-props': 'off',
     'no-restricted-syntax': 'off',
     'primer-react/a11y-use-next-tooltip': 'off',
+    'react-compiler/react-compiler': 'error',
   },
   overrides: [
     // rules which apply only to JS
@@ -194,7 +196,9 @@ module.exports = {
     {
       files: ['**/*.stories.{ts,tsx}'],
       extends: ['plugin:storybook/recommended'],
-      rules: {},
+      rules: {
+        'react-compiler/react-compiler': 'off',
+      },
     },
 
     // e2e tests
