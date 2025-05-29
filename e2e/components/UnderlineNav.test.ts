@@ -169,6 +169,24 @@ test.describe('UnderlineNav', () => {
     }
   })
 
+  test.describe('Full', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('Variant full @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-underlinenav-features--full',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          // Default state
+          expect(await page.screenshot()).toMatchSnapshot(`UnderlineNav.Full.${theme}.png`)
+        })
+      })
+    }
+  })
+
   test.describe('UnderlineNav Interactions', () => {
     for (const theme of themes) {
       test.describe(theme, () => {
