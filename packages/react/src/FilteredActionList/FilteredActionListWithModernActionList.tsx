@@ -24,6 +24,7 @@ import classes from './FilteredActionList.module.css'
 import {isValidElementType} from 'react-is'
 import type {RenderItemFn} from '../deprecated/ActionList/List'
 import {useAnnouncements} from './useAnnouncements'
+import clsx from 'clsx'
 
 const menuScrollMargins: ScrollIntoViewOptions = {startMargin: 0, endMargin: 8}
 
@@ -226,7 +227,7 @@ export function FilteredActionList({
           aria-describedby={inputDescriptionTextId}
           loaderPosition={'leading'}
           loading={loading && !loadingType.appearsInBody}
-          className={fullScreenOnNarrow ? classes.FullScreenTextInput : ''}
+          className={clsx(textInputProps?.className, fullScreenOnNarrow && classes.FullScreenTextInput)}
           {...textInputProps}
         />
       </StyledHeader>
