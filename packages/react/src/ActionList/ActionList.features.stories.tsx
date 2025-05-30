@@ -442,6 +442,7 @@ export const InactiveMultiselect = () => {
       {/* menuitem because state is inactive */}
       <ActionList.Item role="menuitem" selected={false} inactiveText="Unavailable due to an outage">
         Inactive item
+        <ActionList.Description variant="block">Some description about the item</ActionList.Description>
       </ActionList.Item>
       <ActionList.Item
         role="menuitemcheckbox"

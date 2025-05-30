@@ -805,3 +805,51 @@ export const SingleSelectModal = () => {
     />
   )
 }
+
+type Items = ItemInput & {
+  inactiveText?: string
+}
+
+const itemsWithInactive: Items[] = [
+  ...items,
+  {
+    leadingVisual: getColorCircle('#00ff00'),
+    text: 'request',
+    id: 9,
+    inactiveText: 'Currently inactive due to an outage',
+    description: 'New feature or request',
+    descriptionVariant: 'block',
+  },
+]
+
+export const WithInactiveItems = () => {
+  const [selected, setSelected] = useState<ItemInput[]>(items.slice(1, 3))
+  const [filter, setFilter] = useState('')
+  const filteredItems = itemsWithInactive.filter(item => item.text?.toLowerCase().startsWith(filter.toLowerCase()))
+
+  const [open, setOpen] = useState(false)
+
+  return (
+    <FormControl>
+      <FormControl.Label>Labels</FormControl.Label>
+      <SelectPanel
+        title="Select labels"
+        placeholder="Select labels" // button text when no items are selected
+        subtitle="Use labels to organize issues and pull requests"
+        renderAnchor={({children, ...anchorProps}) => (
+          <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
+            {children}
+          </Button>
+        )}
+        open={open}
+        onOpenChange={setOpen}
+        items={filteredItems}
+        selected={selected}
+        onSelectedChange={setSelected}
+        onFilterChange={setFilter}
+        width="medium"
+        message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}
+      />
+    </FormControl>
+  )
+}
