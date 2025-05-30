@@ -328,17 +328,12 @@ describe('ActionList.Item', () => {
   })
 
   it('should add `aria-describedby` to items with a description', () => {
-    const featureFlag = {
-      primer_react_css_modules_ga: true,
-    }
     const {getByRole} = HTMLRender(
-      <FeatureFlags flags={featureFlag}>
-        <ActionList>
-          <ActionList.Item>
-            Item, <ActionList.Description variant="block">Description</ActionList.Description>
-          </ActionList.Item>
-        </ActionList>
-      </FeatureFlags>,
+      <ActionList>
+        <ActionList.Item>
+          Item, <ActionList.Description variant="block">Description</ActionList.Description>
+        </ActionList.Item>
+      </ActionList>,
     )
     const item = getByRole('button')
     expect(item).toHaveAttribute('aria-describedby')
@@ -347,17 +342,12 @@ describe('ActionList.Item', () => {
   })
 
   it('should add `aria-describedby` to items with a description when `role=listbox` is applied', () => {
-    const featureFlag = {
-      primer_react_css_modules_ga: true,
-    }
     const {getByRole} = HTMLRender(
-      <FeatureFlags flags={featureFlag}>
-        <ActionList role="listbox" selectionVariant="single">
-          <ActionList.Item>
-            Item, <ActionList.Description variant="block">Description</ActionList.Description>
-          </ActionList.Item>
-        </ActionList>
-      </FeatureFlags>,
+      <ActionList role="listbox" selectionVariant="single">
+        <ActionList.Item>
+          Item, <ActionList.Description variant="block">Description</ActionList.Description>
+        </ActionList.Item>
+      </ActionList>,
     )
     const item = getByRole('option')
     expect(item).toHaveAttribute('aria-describedby')
