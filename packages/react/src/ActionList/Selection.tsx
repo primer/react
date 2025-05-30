@@ -8,6 +8,7 @@ import Box from '../Box'
 import {useFeatureFlag} from '../FeatureFlags'
 import classes from './ActionList.module.css'
 import {actionListCssModulesFlag} from './featureflag'
+import Radio from '../Radio'
 
 type SelectionProps = Pick<ActionListItemProps, 'selected' | 'className'>
 export const Selection: React.FC<React.PropsWithChildren<SelectionProps>> = ({selected, className}) => {
@@ -32,6 +33,15 @@ export const Selection: React.FC<React.PropsWithChildren<SelectionProps>> = ({se
     } else {
       return null
     }
+  }
+
+  if (selectionVariant === 'radio') {
+    return (
+      <VisualContainer className={className} sx={enabled ? undefined : {marginRight: '8px'}}>
+        {/* This is just a way to get the visuals from Radio, but it should be ignored in terms of accessibility */}
+        <Radio value="unused" checked={selected} aria-hidden tabIndex={-1} />
+      </VisualContainer>
+    )
   }
 
   if (selectionVariant === 'single' || listRole === 'menu') {
@@ -120,7 +130,7 @@ export const Selection: React.FC<React.PropsWithChildren<SelectionProps>> = ({se
           },
           '@media (forced-colors: active)': {
             // Support for Windows high contrast https://sarahmhigley.com/writing/whcm-quick-tips
-            // background-color will be overriden but border-width is a workaround
+            // background-color will be overridden but border-width is a workaround
             borderWidth: selected ? '8px' : '1px',
           },
         }}

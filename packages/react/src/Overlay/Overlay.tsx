@@ -1,4 +1,3 @@
-import styled from 'styled-components'
 import type {ComponentPropsWithRef, ReactElement} from 'react'
 import React, {useEffect, useRef} from 'react'
 import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
@@ -8,17 +7,14 @@ import type {TouchOrMouseEvent} from '../hooks'
 import {useOverlay} from '../hooks'
 import Portal from '../Portal'
 import type {SxProp} from '../sx'
-import sx from '../sx'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import type {AnchorSide} from '@primer/behaviors'
 import {useTheme} from '../ThemeProvider'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {useFeatureFlag} from '../FeatureFlags'
-import {toggleStyledComponent} from '../internal/utils/toggleStyledComponent'
 import classes from './Overlay.module.css'
 import {clsx} from 'clsx'
-
-const CSS_MODULES_FLAG = 'primer_react_css_modules_ga'
+import {BoxWithFallback} from '../internal/components/BoxWithFallback'
 
 type StyledOverlayProps = {
   width?: keyof typeof widthMap
@@ -41,6 +37,7 @@ export const heightMap = {
   'fit-content': 'fit-content',
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const widthMap = {
   small: '256px',
   medium: '320px',
@@ -65,58 +62,6 @@ function getSlideAnimationStartingVector(anchorSide?: AnchorSide): {x: number; y
   return {x: 0, y: 0}
 }
 
-const StyledOverlay = toggleStyledComponent(
-  CSS_MODULES_FLAG,
-  'div',
-  styled.div<StyledOverlayProps>`
-    background-color: ${get('colors.canvas.overlay')};
-    box-shadow: ${get('shadows.overlay.shadow')};
-    position: absolute;
-    min-width: 192px;
-    max-width: ${props => props.maxWidth && widthMap[props.maxWidth]};
-    height: ${props => heightMap[props.height || 'auto']};
-    max-height: ${props => (props.maxHeight ? heightMap[props.maxHeight] : '100vh')};
-    width: ${props => widthMap[props.width || 'auto']};
-    border-radius: 12px;
-    overflow: ${props => (props.overflow ? props.overflow : 'hidden')};
-    animation: overlay-appear ${animationDuration}ms ${get('animation.easeOutCubic')};
-
-    @keyframes overlay-appear {
-      0% {
-        opacity: 0;
-      }
-      100% {
-        opacity: 1;
-      }
-    }
-    visibility: var(--styled-overlay-visibility);
-    :focus {
-      outline: none;
-    }
-
-    @media (forced-colors: active) {
-      /* Support for Windows high contrast https://sarahmhigley.com/writing/whcm-quick-tips */
-      outline: solid 1px transparent;
-    }
-
-    &[data-reflow-container='true'] {
-      max-width: calc(100vw - 2rem);
-    }
-
-    &:where([data-variant='fullscreen']) {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      margin: 0;
-      border-radius: unset;
-    }
-
-    ${sx};
-  `,
-)
-
 type BaseOverlayProps = {
   visibility?: 'visible' | 'hidden'
   'data-test-id'?: unknown
@@ -128,6 +73,7 @@ type BaseOverlayProps = {
   role?: AriaRole
   children?: React.ReactNode
   className?: string
+  responsiveVariant?: 'fullscreen' // we only support fullscreen today but we might add bottomsheet in the future
 }
 
 type OwnOverlayProps = Merge<StyledOverlayProps, BaseOverlayProps>
@@ -164,57 +110,31 @@ export const BaseOverlay = React.forwardRef<HTMLDivElement, OwnOverlayProps>(
     },
     forwardedRef,
   ): ReactElement => {
-    const cssModulesEnabled = useFeatureFlag(CSS_MODULES_FLAG)
-
-    if (cssModulesEnabled) {
-      return (
-        <StyledOverlay
-          {...rest}
-          ref={forwardedRef}
-          style={
-            {
-              left,
-              right,
-              top,
-              bottom,
-              position,
-              ...styleFromProps,
-            } as React.CSSProperties
-          }
-          {...{
-            [`data-width-${width}`]: '',
-            [`data-max-width-${maxWidth}`]: maxWidth ? '' : undefined,
-            [`data-height-${height}`]: '',
-            [`data-max-height-${maxHeight}`]: maxHeight ? '' : undefined,
-            [`data-visibility-${visibility}`]: '',
-          }}
-          className={clsx(className, classes.Overlay)}
-        />
-      )
-    } else {
-      return (
-        <StyledOverlay
-          height={height}
-          width={width}
-          maxHeight={maxHeight}
-          maxWidth={maxWidth}
-          {...rest}
-          ref={forwardedRef}
-          style={
-            {
-              left,
-              right,
-              top,
-              bottom,
-              position,
-              '--styled-overlay-visibility': visibility,
-              ...styleFromProps,
-            } as React.CSSProperties
-          }
-          className={className}
-        />
-      )
-    }
+    return (
+      <BoxWithFallback
+        as="div"
+        {...rest}
+        ref={forwardedRef}
+        style={
+          {
+            left,
+            right,
+            top,
+            bottom,
+            position,
+            ...styleFromProps,
+          } as React.CSSProperties
+        }
+        {...{
+          [`data-width-${width}`]: '',
+          [`data-max-width-${maxWidth}`]: maxWidth ? '' : undefined,
+          [`data-height-${height}`]: '',
+          [`data-max-height-${maxHeight}`]: maxHeight ? '' : undefined,
+          [`data-visibility-${visibility}`]: '',
+        }}
+        className={clsx(className, classes.Overlay)}
+      />
+    )
   },
 ) as PolymorphicForwardRefComponent<'div', OwnOverlayProps>
 
@@ -266,6 +186,7 @@ const Overlay = React.forwardRef<HTMLDivElement, internalOverlayProps>(
       role = 'none',
       visibility = 'visible',
       width = 'auto',
+      responsiveVariant,
       ...props
     },
     forwardedRef,
@@ -323,6 +244,7 @@ const Overlay = React.forwardRef<HTMLDivElement, internalOverlayProps>(
           right={right}
           height={height}
           visibility={visibility}
+          data-responsive={responsiveVariant}
           {...props}
         />
       </Portal>

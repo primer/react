@@ -1,9 +1,14 @@
-import React from 'react'
+import {page} from '@vitest/browser/context'
+import {beforeEach, describe, expect, it, vi} from 'vitest'
 import {Pagination} from '../Pagination'
 import {render, screen} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
 describe('Table.Pagination', () => {
+  beforeEach(async () => {
+    await page.viewport(1400, 728)
+  })
+
   it('should render a navigation landmark with an accessible name provided by `aria-label`', () => {
     render(<Pagination aria-label="Pagination" totalCount={100} />)
     expect(
@@ -36,7 +41,7 @@ describe('Table.Pagination', () => {
   })
 
   it('should warn if `defaultPageIndex` is not a valid `pageIndex`', () => {
-    const spy = jest.spyOn(console, 'warn').mockImplementation(() => {})
+    const spy = vi.spyOn(console, 'warn').mockImplementation(() => {})
     render(<Pagination aria-label="Pagination" defaultPageIndex={4} pageSize={25} totalCount={100} />)
     expect(spy).toHaveBeenCalledWith(
       'Warning:',
@@ -67,7 +72,7 @@ describe('Table.Pagination', () => {
 
     it('should not call `onChange` when a page or action is interacted with', async () => {
       const user = userEvent.setup()
-      const onChange = jest.fn()
+      const onChange = vi.fn()
 
       render(<Pagination aria-label="Test label" onChange={onChange} pageSize={25} totalCount={25} />)
 
@@ -86,7 +91,7 @@ describe('Table.Pagination', () => {
     })
 
     it('should rerender many pages correctly', async () => {
-      const onChange = jest.fn()
+      const onChange = vi.fn()
 
       const {rerender} = render(
         <Pagination aria-label="Test label" onChange={onChange} defaultPageIndex={0} pageSize={25} totalCount={25} />,
@@ -116,9 +121,17 @@ describe('Table.Pagination', () => {
       expect(getPageRange()).toEqual('1 through 25 of 50')
     })
 
+    it('should display two pages with correct range when totalCount is one plus pageSize', () => {
+      render(<Pagination aria-label="Test label" pageSize={25} totalCount={26} />)
+
+      expect(getPages()).toHaveLength(2)
+      expect(getCurrentPage()).toEqual(getPage(0))
+      expect(getPageRange()).toEqual('1 through 25 of 26')
+    })
+
     it('should call `onChange` when clicking on pages', async () => {
       const user = userEvent.setup()
-      const onChange = jest.fn()
+      const onChange = vi.fn()
 
       render(<Pagination aria-label="Test label" onChange={onChange} pageSize={25} totalCount={50} />)
 
@@ -137,7 +150,7 @@ describe('Table.Pagination', () => {
 
     it('should rerender pager with correct page highlighted when clicking on pages and defaultPageIndex set', async () => {
       const user = userEvent.setup()
-      const onChange = jest.fn()
+      const onChange = vi.fn()
 
       render(
         <Pagination aria-label="Test label" onChange={onChange} defaultPageIndex={3} pageSize={25} totalCount={200} />,
@@ -163,7 +176,7 @@ describe('Table.Pagination', () => {
 
     it('should call `onChange` when using the keyboard to interact with pages', async () => {
       const user = userEvent.setup()
-      const onChange = jest.fn()
+      const onChange = vi.fn()
 
       render(<Pagination aria-label="Test label" onChange={onChange} pageSize={25} totalCount={50} />)
 
@@ -194,7 +207,7 @@ describe('Table.Pagination', () => {
 
     it('should call `onChange` when clicking on previous or next', async () => {
       const user = userEvent.setup()
-      const onChange = jest.fn()
+      const onChange = vi.fn()
 
       render(<Pagination aria-label="Test label" onChange={onChange} pageSize={25} totalCount={50} />)
 
@@ -214,7 +227,7 @@ describe('Table.Pagination', () => {
 
     it('should rerender pager with correct page highlighted when clicking on previous or next and defaultPageIndex set', async () => {
       const user = userEvent.setup()
-      const onChange = jest.fn()
+      const onChange = vi.fn()
 
       render(
         <Pagination aria-label="Test label" onChange={onChange} defaultPageIndex={3} pageSize={25} totalCount={200} />,
@@ -239,7 +252,7 @@ describe('Table.Pagination', () => {
 
     it('should call `onChange` when using the keyboard to interact with previous or next', async () => {
       const user = userEvent.setup()
-      const onChange = jest.fn()
+      const onChange = vi.fn()
 
       render(<Pagination aria-label="Test label" onChange={onChange} pageSize={25} totalCount={50} />)
 
@@ -271,7 +284,7 @@ describe('Table.Pagination', () => {
     })
 
     it('should rerender many pages correctly', async () => {
-      const onChange = jest.fn()
+      const onChange = vi.fn()
 
       const {rerender} = render(
         <Pagination aria-label="Test label" onChange={onChange} defaultPageIndex={1} pageSize={25} totalCount={50} />,
@@ -337,7 +350,7 @@ describe('Table.Pagination', () => {
   })
 
   it('should rerender many pages correctly', async () => {
-    const onChange = jest.fn()
+    const onChange = vi.fn()
     const {rerender} = render(
       <Pagination aria-label="Test label" onChange={onChange} defaultPageIndex={1} pageSize={10} totalCount={1000} />,
     )
@@ -357,11 +370,38 @@ describe('Table.Pagination', () => {
   })
 
   it('when rendering 3 pages and the second page is selected we should render a page number not ...', async () => {
-    const onChange = jest.fn()
+    const onChange = vi.fn()
     render(<Pagination aria-label="Test label" onChange={onChange} defaultPageIndex={1} pageSize={2} totalCount={6} />)
     expect(getPageRange()).toEqual('3 through 4 of 6')
     expect(getCurrentPage()).toEqual(getPage(1))
     expect(getInvalidPages()).toHaveLength(0)
+  })
+
+  it('should display correct page range when navigating to page 4 with 100 items and page size of 15', async () => {
+    // When we have 100 items spread across pages of 15 items, and we go to page 4, we should get the proper page range
+    const user = userEvent.setup()
+    const onChange = vi.fn()
+
+    render(<Pagination aria-label="Test label" onChange={onChange} pageSize={15} totalCount={100} />)
+
+    // With 100 items and page size 15, we should have 7 pages total (pages 1-6 have 15 items each, page 7 has 10 items)
+    const pages = getPages()
+    expect(pages).toHaveLength(7)
+
+    // Navigate to page 4 (index 3)
+    await user.click(getPage(3))
+
+    expect(onChange).toHaveBeenCalledWith({
+      pageIndex: 3,
+    })
+
+    // Page 4 should show items 46-60
+    expect(getPageRange()).toEqual('46 through 60 of 100')
+    expect(getCurrentPage()).toEqual(getPage(3))
+
+    // Verify all pages are displayed (no truncation needed with only 7 pages)
+    const pageNumbers = getPages().map(p => p.textContent?.replace(/\D/g, ''))
+    expect(pageNumbers).toEqual(['1', '2', '3', '4', '5', '6', '7'])
   })
 })
 

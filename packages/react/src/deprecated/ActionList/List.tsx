@@ -62,12 +62,12 @@ export interface ListPropsBase {
    * - `"inset"` - `List` children are offset (vertically and horizontally) from `List`’s edges
    * - `"full"` - `List` children are flush (vertically and horizontally) with `List` edges
    */
-  variant?: 'inset' | 'full'
+  variant?: 'inset' | 'horizontal-inset' | 'full'
 
   /**
    *  For `Item`s which can be selected, whether `multiple` `Item`s or a `single` `Item` can be selected
    */
-  selectionVariant?: 'single' | 'multiple'
+  selectionVariant?: 'single' | 'multiple' | 'radio'
 
   /**
    * Whether to display a divider above each `Item` in this `List` when it does not follow a `Header` or `Divider`.

@@ -5,7 +5,6 @@ import React from 'react'
 import {IconButton, Button, LinkButton} from '../../Button'
 import type {ButtonProps} from '../../Button'
 import {behavesAsComponent} from '../../utils/testing'
-import {FeatureFlags} from '../../FeatureFlags'
 
 type StatefulLoadingButtonProps = {
   children?: React.ReactNode
@@ -28,40 +27,14 @@ const StatefulLoadingButton = (props: StatefulLoadingButtonProps) => {
 describe('IconButton', () => {
   it('should support `className` on the outermost element', () => {
     const Element = () => <IconButton className={'test-class-name'} icon={SearchIcon} aria-label="Search button" />
-    const FeatureFlagElement = () => {
-      return (
-        <FeatureFlags
-          flags={{
-            primer_react_css_modules_staff: true,
-            primer_react_css_modules_ga: true,
-          }}
-        >
-          <Element />
-        </FeatureFlags>
-      )
-    }
     expect(render(<Element />).container.firstChild).toHaveClass('test-class-name')
-    expect(render(<FeatureFlagElement />).container.firstChild).toHaveClass('test-class-name')
   })
 })
 
 describe('LinkButton', () => {
   it('should support `className` on the outermost element', () => {
     const Element = () => <LinkButton className={'test-class-name'} />
-    const FeatureFlagElement = () => {
-      return (
-        <FeatureFlags
-          flags={{
-            primer_react_css_modules_staff: true,
-            primer_react_css_modules_ga: true,
-          }}
-        >
-          <Element />
-        </FeatureFlags>
-      )
-    }
     expect(render(<Element />).container.firstChild).toHaveClass('test-class-name')
-    expect(render(<FeatureFlagElement />).container.firstChild).toHaveClass('test-class-name')
   })
 })
 
@@ -73,20 +46,7 @@ describe('Button', () => {
 
   it('should support `className` on the outermost element', () => {
     const Element = () => <Button className={'test-class-name'} />
-    const FeatureFlagElement = () => {
-      return (
-        <FeatureFlags
-          flags={{
-            primer_react_css_modules_staff: true,
-            primer_react_css_modules_ga: true,
-          }}
-        >
-          <Element />
-        </FeatureFlags>
-      )
-    }
     expect(render(<Element />).container.firstChild).toHaveClass('test-class-name')
-    expect(render(<FeatureFlagElement />).container.firstChild).toHaveClass('test-class-name')
   })
 
   it('renders a <button>', () => {
@@ -238,7 +198,7 @@ describe('Button', () => {
 
     fireEvent.click(buttonNode)
 
-    // not sure why, but we need to wait a tick for the the loading state to actually be set
+    // not sure why, but we need to wait a tick for the loading state to actually be set
     setTimeout(() => {
       expect(buttonNode).toHaveAccessibleDescription('Loading')
     }, 0)
@@ -259,7 +219,7 @@ describe('Button', () => {
 
     fireEvent.click(buttonNode)
 
-    // not sure why, but we need to wait a tick for the the loading state to actually be set
+    // not sure why, but we need to wait a tick for the loading state to actually be set
     setTimeout(() => {
       expect(buttonNode).toHaveAccessibleDescription('Action loading')
     }, 0)
@@ -291,7 +251,7 @@ describe('Button', () => {
 
     expect(buttonNode.getAttribute('aria-disabled')).not.toBe('true')
 
-    // not sure why, but we need to wait a tick for the the loading state to actually be set
+    // not sure why, but we need to wait a tick for the loading state to actually be set
     setTimeout(() => {
       expect(buttonNode.getAttribute('aria-disabled')).toBe('true')
     }, 0)

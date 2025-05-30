@@ -1,139 +1,17 @@
 import React, {Children, useEffect, useRef, useState, useMemo} from 'react'
 import type {SxProp} from '../sx'
-import sx from '../sx'
 import {useId, useProvidedRefOrCreate, useOnEscapePress, useIsMacOS} from '../hooks'
 import {invariant} from '../utils/invariant'
 import {warning} from '../utils/warning'
-import styled from 'styled-components'
-import {get} from '../constants'
 import {getAnchoredPosition} from '@primer/behaviors'
 import type {AnchorSide, AnchorAlignment} from '@primer/behaviors'
 import {isSupported, apply} from '@oddbird/popover-polyfill/fn'
-import {toggleStyledComponent} from '../internal/utils/toggleStyledComponent'
 import {clsx} from 'clsx'
 import classes from './Tooltip.module.css'
-import {useFeatureFlag} from '../FeatureFlags'
 import {getAccessibleKeybindingHintString, KeybindingHint, type KeybindingHintProps} from '../KeybindingHint'
 import VisuallyHidden from '../_VisuallyHidden'
 import useSafeTimeout from '../hooks/useSafeTimeout'
-
-const CSS_MODULE_FEATURE_FLAG = 'primer_react_css_modules_ga'
-
-const animationStyles = `
-  animation-name: tooltip-appear;
-  animation-duration: 0.1s;
-  animation-fill-mode: forwards;
-  animation-timing-function: ease-in;
-  animation-delay: 0s;
-`
-
-const StyledTooltip = toggleStyledComponent(
-  CSS_MODULE_FEATURE_FLAG,
-  'span',
-  styled.span`
-    /* Overriding the default popover styles */
-    display: none;
-    &[popover] {
-      position: absolute;
-      padding: 0.5em 0.75em;
-      width: max-content;
-      margin: auto;
-      clip: auto;
-      white-space: normal;
-      font: normal normal 11px/1.5 ${get('fonts.normal')};
-      -webkit-font-smoothing: subpixel-antialiased;
-      color: var(--tooltip-fgColor, ${get('colors.fg.onEmphasis')});
-      text-align: center;
-      word-wrap: break-word;
-      background: var(--tooltip-bgColor, ${get('colors.neutral.emphasisPlus')});
-      border-radius: ${get('radii.2')};
-      border: 0;
-      opacity: 0;
-      max-width: 250px;
-      inset: auto;
-      /* for scrollbar */
-      overflow: visible;
-    }
-    /* class name in chrome is :popover-open */
-    &[popover]:popover-open {
-      display: block;
-    }
-    /* class name in firefox and safari is \:popover-open */
-    &[popover].\\:popover-open {
-      display: block;
-    }
-
-    @media (forced-colors: active) {
-      outline: 1px solid transparent;
-    }
-
-    // This is needed to keep the tooltip open when the user leaves the trigger element to hover tooltip
-    &::after {
-      position: absolute;
-      display: block;
-      right: 0;
-      left: 0;
-      height: var(--overlay-offset, 0.25rem);
-      content: '';
-    }
-
-    /* South, East, Southeast, Southwest after */
-    &[data-direction='n']::after,
-    &[data-direction='ne']::after,
-    &[data-direction='nw']::after {
-      top: 100%;
-    }
-    &[data-direction='s']::after,
-    &[data-direction='se']::after,
-    &[data-direction='sw']::after {
-      bottom: 100%;
-    }
-
-    &[data-direction='w']::after {
-      position: absolute;
-      display: block;
-      height: 100%;
-      width: 8px;
-      content: '';
-      bottom: 0;
-      left: 100%;
-    }
-    /* East before and after */
-    &[data-direction='e']::after {
-      position: absolute;
-      display: block;
-      height: 100%;
-      width: 8px;
-      content: '';
-      bottom: 0;
-      right: 100%;
-      margin-left: -8px;
-    }
-
-    /* Animation definition */
-    @keyframes tooltip-appear {
-      from {
-        opacity: 0;
-      }
-      to {
-        opacity: 1;
-      }
-    }
-    /* Animation styles */
-    &:popover-open,
-    &:popover-open::before {
-      ${animationStyles}
-    }
-
-    /* Animation styles */
-    &.\\:popover-open,
-    &.\\:popover-open::before {
-      ${animationStyles}
-    }
-
-    ${sx};
-  `,
-)
+import {toggleSxComponent} from '../internal/utils/toggleSxComponent'
 
 export type TooltipDirection = 'nw' | 'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w'
 export type TooltipProps = React.PropsWithChildren<
@@ -203,6 +81,10 @@ const isInteractive = (element: HTMLElement) => {
 }
 export const TooltipContext = React.createContext<{tooltipId?: string}>({})
 
+const BaseComponent = toggleSxComponent('span') as React.ComponentType<
+  SxProp & React.HTMLAttributes<HTMLElement> & React.RefAttributes<HTMLSpanElement>
+>
+
 export const Tooltip = React.forwardRef(
   (
     {direction = 's', text, type = 'description', children, id, className, keybindingHint, ...rest}: TooltipProps,
@@ -212,7 +94,6 @@ export const Tooltip = React.forwardRef(
     const child = Children.only(children)
     const triggerRef = useProvidedRefOrCreate(forwardedRef as React.RefObject<HTMLElement>)
     const tooltipElRef = useRef<HTMLDivElement>(null)
-    const enabled = useFeatureFlag(CSS_MODULE_FEATURE_FLAG)
 
     const [calculatedDirection, setCalculatedDirection] = useState<TooltipDirection>(direction)
 
@@ -384,7 +265,7 @@ export const Tooltip = React.forwardRef(
                 // only show tooltip on :focus-visible, not on :focus
                 try {
                   if (!event.target.matches(':focus-visible')) return
-                } catch (error) {
+                } catch (_error) {
                   // jsdom (jest) does not support `:focus-visible` yet and would throw an error
                   // https://github.com/jsdom/jsdom/issues/3426
                 }
@@ -407,8 +288,8 @@ export const Tooltip = React.forwardRef(
                 child.props.onMouseLeave?.(event)
               },
             })}
-          <StyledTooltip
-            className={clsx(className, {[classes.Tooltip]: enabled})}
+          <BaseComponent
+            className={clsx(className, classes.Tooltip)}
             ref={tooltipElRef}
             data-direction={calculatedDirection}
             {...rest}
@@ -440,7 +321,7 @@ export const Tooltip = React.forwardRef(
             ) : (
               text
             )}
-          </StyledTooltip>
+          </BaseComponent>
         </>
       </TooltipContext.Provider>
     )

@@ -121,7 +121,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     const onSelect = React.useCallback(
       (
         event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>,
-        // eslint-disable-next-line @typescript-eslint/ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         afterSelect?: Function,
       ) => {
         if (typeof onSelectUser === 'function') onSelectUser(event)
@@ -141,8 +141,8 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       if (selectionVariant === 'single') inferredItemRole = 'menuitemradio'
       else if (selectionVariant === 'multiple') inferredItemRole = 'menuitemcheckbox'
       else inferredItemRole = 'menuitem'
-    } else if (container === 'SelectPanel' && listRole === 'listbox') {
-      if (selectionVariant !== undefined) inferredItemRole = 'option'
+    } else if (listRole === 'listbox') {
+      if (selectionVariant !== undefined && !role) inferredItemRole = 'option'
     }
 
     const itemRole = role || inferredItemRole
@@ -193,7 +193,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       paddingY: '6px', // custom value off the scale
       lineHeight: '16px',
       minHeight: 5,
-      marginX: listVariant === 'inset' ? 2 : 0,
+      marginX: listVariant === 'inset' || listVariant === 'horizontal-inset' ? 2 : 0,
       borderRadius: 2,
       transition: 'background 33.333ms linear',
       color: getVariantStyles(variant, disabled, inactive || loading).color,
@@ -217,7 +217,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       appearance: 'none',
       background: 'unset',
       border: 'unset',
-      width: listVariant === 'inset' ? 'calc(100% - 16px)' : '100%',
+      width: listVariant === 'inset' || listVariant === 'horizontal-inset' ? 'calc(100% - 16px)' : '100%',
       fontFamily: 'unset',
       textAlign: 'unset',
       marginY: 'unset',
@@ -293,7 +293,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
         if ([' ', 'Enter'].includes(event.key)) {
           if (event.key === ' ') {
             event.preventDefault() // prevent scrolling on Space
-            // immediately reset defaultPrevented once it's job is done
+            // immediately reset defaultPrevented once its job is done
             // so as to not disturb the functions that use that event after this
             event.defaultPrevented = false
           }
@@ -325,8 +325,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
 
     let focusable
 
-    // if item is disabled and is of type (menuitem*, option) it should remain focusable, if inactive, apply the same rules
-    if ((disabled && !inferredItemRole) || showInactiveIndicator) {
+    if (showInactiveIndicator) {
       focusable = true
     }
 
@@ -341,7 +340,10 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
         slots.inlineDescription ? inlineDescriptionId : ''
       }`,
       'aria-describedby':
-        [slots.blockDescription ? blockDescriptionId : undefined, inactiveWarningId ?? undefined]
+        [
+          slots.blockDescription ? blockDescriptionId : enabled && slots.description ? blockDescriptionId : undefined,
+          inactiveWarningId ?? undefined,
+        ]
           .filter(String)
           .join(' ')
           .trim() || undefined,

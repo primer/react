@@ -47,7 +47,6 @@ function SingleSelectListStory(): JSX.Element {
       {projects.map((project, index) => (
         <ActionList.Item
           key={index}
-          role="option"
           selected={index === selectedIndex}
           onSelect={() => setSelectedIndex(index)}
           disabled={project.disabled}
@@ -193,6 +192,7 @@ describe('ActionList.Item', () => {
     await userEvent.tab() // get focus on first element
     await userEvent.keyboard('{ArrowDown}')
     await userEvent.keyboard('{ArrowDown}')
+    await userEvent.keyboard('{ArrowDown}')
     expect(inactiveOption).toHaveFocus()
     expect(document.activeElement).toHaveAccessibleDescription(projects[3].inactiveText as string)
   })
@@ -220,6 +220,7 @@ describe('ActionList.Item', () => {
     await userEvent.keyboard('{ArrowDown}')
     await userEvent.keyboard('{ArrowDown}')
     await userEvent.keyboard('{ArrowDown}')
+    await userEvent.keyboard('{ArrowDown}')
     expect(inactiveOption).toHaveFocus()
     expect(document.activeElement).toHaveAccessibleDescription(projects[5].inactiveText as string)
   })
@@ -238,7 +239,6 @@ describe('ActionList.Item', () => {
   })
   it('should render ActionList.Item as button when feature flag is enabled', async () => {
     const featureFlag = {
-      primer_react_css_modules_staff: true,
       primer_react_css_modules_ga: true,
     }
     const {container} = HTMLRender(
@@ -260,7 +260,6 @@ describe('ActionList.Item', () => {
     const {container} = HTMLRender(
       <FeatureFlags
         flags={{
-          primer_react_css_modules_staff: false,
           primer_react_css_modules_ga: false,
         }}
       >
@@ -287,7 +286,6 @@ describe('ActionList.Item', () => {
       return (
         <FeatureFlags
           flags={{
-            primer_react_css_modules_staff: false,
             primer_react_css_modules_ga: false,
           }}
         >
@@ -380,7 +378,6 @@ describe('ActionList.Item', () => {
     const {getByRole} = HTMLRender(
       <FeatureFlags
         flags={{
-          primer_react_css_modules_staff: true,
           primer_react_css_modules_ga: true,
         }}
       >
@@ -399,7 +396,6 @@ describe('ActionList.Item', () => {
     const {getByRole} = HTMLRender(
       <FeatureFlags
         flags={{
-          primer_react_css_modules_staff: true,
           primer_react_css_modules_ga: true,
         }}
       >
@@ -424,5 +420,57 @@ describe('ActionList.Item', () => {
     const button = getByRole('button')
     expect(button.parentElement?.tagName).toBe('LI')
     expect(button.textContent).toBe('Item 5')
+  })
+
+  it('should add `role="option"` if `role="listbox"` and `selectionVariant` is present', async () => {
+    const {getAllByRole} = HTMLRender(
+      <ActionList role="listbox" selectionVariant="single">
+        <ActionList.Item>Item 1</ActionList.Item>
+        <ActionList.Item>Item 2</ActionList.Item>
+        <ActionList.Item>Item 3</ActionList.Item>
+        <ActionList.Item>Item 4</ActionList.Item>
+      </ActionList>,
+    )
+    const options = getAllByRole('option')
+    expect(options[0]).toBeInTheDocument()
+    expect(options).toHaveLength(4)
+  })
+
+  it('should add `aria-describedby` to items with a description', () => {
+    const featureFlag = {
+      primer_react_css_modules_ga: true,
+    }
+    const {getByRole} = HTMLRender(
+      <FeatureFlags flags={featureFlag}>
+        <ActionList>
+          <ActionList.Item>
+            Item, <ActionList.Description variant="block">Description</ActionList.Description>
+          </ActionList.Item>
+        </ActionList>
+      </FeatureFlags>,
+    )
+    const item = getByRole('button')
+    expect(item).toHaveAttribute('aria-describedby')
+    expect(item).toHaveTextContent('Item, Description')
+    expect(item).toHaveAccessibleDescription('Description')
+  })
+
+  it('should add `aria-describedby` to items with a description when `role=listbox` is applied', () => {
+    const featureFlag = {
+      primer_react_css_modules_ga: true,
+    }
+    const {getByRole} = HTMLRender(
+      <FeatureFlags flags={featureFlag}>
+        <ActionList role="listbox" selectionVariant="single">
+          <ActionList.Item>
+            Item, <ActionList.Description variant="block">Description</ActionList.Description>
+          </ActionList.Item>
+        </ActionList>
+      </FeatureFlags>,
+    )
+    const item = getByRole('option')
+    expect(item).toHaveAttribute('aria-describedby')
+    expect(item).toHaveTextContent('Item, Description')
+    expect(item).toHaveAccessibleDescription('Description')
   })
 })

@@ -55,25 +55,25 @@ export const WithVisualListHeading = () => (
     </ActionList.Heading>
     <ActionList.Group>
       <ActionList.GroupHeading as="h3">Repositories</ActionList.GroupHeading>
-      <ActionList.Item onClick={() => {}}>
+      <ActionList.Item onSelect={() => {}}>
         <ActionList.LeadingVisual>
           <FileDirectoryIcon />
         </ActionList.LeadingVisual>
         app/assets/modules
       </ActionList.Item>
-      <ActionList.Item onClick={() => {}}>
+      <ActionList.Item onSelect={() => {}}>
         <ActionList.LeadingVisual>
           <FileDirectoryIcon />
         </ActionList.LeadingVisual>
         src/react/components
       </ActionList.Item>
-      <ActionList.Item onClick={() => {}}>
+      <ActionList.Item onSelect={() => {}}>
         <ActionList.LeadingVisual>
           <FileDirectoryIcon />
         </ActionList.LeadingVisual>
         memex/shared-ui/components
       </ActionList.Item>
-      <ActionList.Item onClick={() => {}}>
+      <ActionList.Item onSelect={() => {}}>
         <ActionList.LeadingVisual>
           <FileDirectoryIcon />
         </ActionList.LeadingVisual>
@@ -83,19 +83,19 @@ export const WithVisualListHeading = () => (
 
     <ActionList.Group>
       <ActionList.GroupHeading as="h3">Advanced</ActionList.GroupHeading>
-      <ActionList.Item onClick={() => {}}>
+      <ActionList.Item onSelect={() => {}}>
         <ActionList.LeadingVisual>
           <PlusCircleIcon />
         </ActionList.LeadingVisual>
         Owner
       </ActionList.Item>
-      <ActionList.Item onClick={() => {}}>
+      <ActionList.Item onSelect={() => {}}>
         <ActionList.LeadingVisual>
           <PlusCircleIcon />
         </ActionList.LeadingVisual>
         Symbol
       </ActionList.Item>
-      <ActionList.Item onClick={() => {}}>
+      <ActionList.Item onSelect={() => {}}>
         <ActionList.LeadingVisual>
           <PlusCircleIcon />
         </ActionList.LeadingVisual>
@@ -329,7 +329,35 @@ export const MultiSelect = () => {
   )
 }
 
-export const ListBoxMultiSelect = () => {
+export const ListboxSingleSelect = () => {
+  const [selectedIndice, setSelectedIndice] = React.useState<number>(0)
+  const handleSelect = (index: number) => {
+    setSelectedIndice(index)
+  }
+
+  return (
+    <ActionList selectionVariant="single" role="listbox" aria-label="Projects">
+      {projects.map((project, index) => (
+        <ActionList.Item
+          key={index}
+          selected={selectedIndice === index}
+          aria-checked={selectedIndice === index}
+          onSelect={() => handleSelect(index)}
+          disabled={index === 3 ? true : undefined}
+          role="option"
+        >
+          <ActionList.LeadingVisual>
+            <TableIcon />
+          </ActionList.LeadingVisual>
+          {project.name}
+          <ActionList.Description variant="block">{project.scope}</ActionList.Description>
+        </ActionList.Item>
+      ))}
+    </ActionList>
+  )
+}
+
+export const ListboxMultiSelect = () => {
   const [selectedIndices, setSelectedIndices] = React.useState<number[]>([0])
   const handleSelect = (index: number) => {
     if (selectedIndices.includes(index)) {
@@ -339,7 +367,7 @@ export const ListBoxMultiSelect = () => {
     }
   }
   return (
-    <ActionList role="menu" selectionVariant="multiple" aria-label="Project">
+    <ActionList role="menu" selectionVariant="multiple" aria-label="Projects">
       {projects.map((project, index) => (
         <ActionList.Item
           key={index}

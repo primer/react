@@ -1,7 +1,8 @@
 import type {ScrollIntoViewOptions} from '@primer/behaviors'
 import {scrollIntoView, FocusKeys} from '@primer/behaviors'
 import type {KeyboardEventHandler} from 'react'
-import React, {useCallback, useEffect, useRef, useState} from 'react'
+import type React from 'react'
+import {useCallback, useEffect, useRef, useState} from 'react'
 import styled from 'styled-components'
 import Box from '../Box'
 import type {TextInputProps} from '../TextInput'
@@ -23,6 +24,7 @@ import classes from './FilteredActionList.module.css'
 import {isValidElementType} from 'react-is'
 import type {RenderItemFn} from '../deprecated/ActionList/List'
 import {useAnnouncements} from './useAnnouncements'
+import {clsx} from 'clsx'
 
 const menuScrollMargins: ScrollIntoViewOptions = {startMargin: 0, endMargin: 8}
 
@@ -42,6 +44,7 @@ export interface FilteredActionListProps
   message?: React.ReactNode
   className?: string
   announcementsEnabled?: boolean
+  fullScreenOnNarrow?: boolean
 }
 
 const StyledHeader = styled.div`
@@ -66,6 +69,7 @@ export function FilteredActionList({
   message,
   className,
   announcementsEnabled = true,
+  fullScreenOnNarrow,
   ...listProps
 }: FilteredActionListProps): JSX.Element {
   const [filterValue, setInternalFilterValue] = useProvidedStateOrCreate(externalFilterValue, undefined, '')
@@ -181,15 +185,15 @@ export function FilteredActionList({
                   <ActionList.GroupHeading variant={group.header?.variant ? group.header.variant : undefined}>
                     {group.header?.title ? group.header.title : `Group ${group.groupId}`}
                   </ActionList.GroupHeading>
-                  {getItemListForEachGroup(group.groupId).map((item, index) => {
-                    const key = item.key ?? item.id?.toString() ?? index.toString()
+                  {getItemListForEachGroup(group.groupId).map(({key: itemKey, ...item}, index) => {
+                    const key = itemKey ?? item.id?.toString() ?? index.toString()
                     return <MappedActionListItem key={key} {...item} renderItem={listProps.renderItem} />
                   })}
                 </ActionList.Group>
               )
             })
-          : items.map((item, index) => {
-              const key = item.key ?? item.id?.toString() ?? index.toString()
+          : items.map(({key: itemKey, ...item}, index) => {
+              const key = itemKey ?? item.id?.toString() ?? index.toString()
               return <MappedActionListItem key={key} {...item} renderItem={listProps.renderItem} />
             })}
       </ActionList>
@@ -223,6 +227,7 @@ export function FilteredActionList({
           aria-describedby={inputDescriptionTextId}
           loaderPosition={'leading'}
           loading={loading && !loadingType.appearsInBody}
+          className={clsx(textInputProps?.className, fullScreenOnNarrow && classes.FullScreenTextInput)}
           {...textInputProps}
         />
       </StyledHeader>

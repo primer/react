@@ -51,6 +51,7 @@ const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
       required,
       value,
       className,
+      'aria-hidden': ariaHidden = false,
       ...rest
     }: RadioProps,
     ref,
@@ -62,7 +63,7 @@ const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
     }
     const name = nameProp || radioGroupContext?.name
 
-    if (!name) {
+    if (!name && !ariaHidden) {
       // eslint-disable-next-line no-console
       console.warn(
         'A radio input must have a `name` attribute. Pass `name` as a prop directly to each Radio, or nest them in a `RadioGroup` component with a `name` prop',
@@ -84,6 +85,7 @@ const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
           required={required}
           onChange={handleOnChange}
           className={clsx(className, sharedClasses.Input, classes.Radio)}
+          aria-hidden={ariaHidden}
           {...rest}
         />
       )

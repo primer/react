@@ -1,5 +1,4 @@
 import {render as HTMLRender} from '@testing-library/react'
-import React from 'react'
 import theme from '../theme'
 import {ActionList} from '.'
 import {BaseStyles, ThemeProvider, ActionMenu} from '..'

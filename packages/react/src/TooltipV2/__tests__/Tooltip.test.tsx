@@ -1,14 +1,11 @@
-import React from 'react'
+import type React from 'react'
+import {describe, expect, it, vi} from 'vitest'
 import type {TooltipProps} from '../Tooltip'
 import {Tooltip} from '../Tooltip'
-import {checkStoriesForAxeViolations} from '../../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
 import theme from '../../theme'
 import {Button, IconButton, ActionMenu, ActionList, ThemeProvider, BaseStyles, ButtonGroup} from '../..'
 import {XIcon} from '@primer/octicons-react'
-import {setupMatchMedia} from '../../utils/test-helpers'
-
-setupMatchMedia()
 
 const TooltipComponent = (props: Omit<TooltipProps, 'text'> & {text?: string}) => (
   <Tooltip text="Tooltip text" {...props}>
@@ -34,8 +31,6 @@ function ExampleWithActionMenu(actionMenuTrigger: React.ReactElement): JSX.Eleme
 }
 
 describe('Tooltip', () => {
-  checkStoriesForAxeViolations('Tooltip.features', '../TooltipV2/')
-
   it('renders `data-direction="s"` by default', () => {
     const {getByText} = HTMLRender(<TooltipComponent />)
     expect(getByText('Tooltip text')).toHaveAttribute('data-direction', 's')
@@ -117,7 +112,7 @@ describe('Tooltip', () => {
     expect(triggerEL.getAttribute('aria-describedby')).toContain('custom-tooltip-id')
   })
   it('should throw an error if the trigger element is disabled', () => {
-    const spy = jest.spyOn(console, 'error').mockImplementation()
+    const spy = vi.spyOn(console, 'error').mockImplementation(() => {})
     expect(() => {
       HTMLRender(
         <Tooltip text="Tooltip text" direction="n">

@@ -510,21 +510,6 @@ const components = new Map([
     },
   ],
   [
-    'FilterList',
-    {
-      stories: [
-        {
-          id: 'components-filterlist--default',
-          name: 'Default',
-        },
-        {
-          id: 'components-filterlist--playground',
-          name: 'Playground',
-        },
-      ],
-    },
-  ],
-  [
     'Flash',
     {
       stories: [
@@ -1122,7 +1107,7 @@ const components = new Map([
           name: 'With External Anchor',
         },
         {
-          id: 'components-selectpanel-features--with-footer',
+          id: 'components-selectpanel-features--with-secondary-action',
           name: 'With Footer',
         },
         {
@@ -1396,17 +1381,6 @@ const components = new Map([
       stories: [
         {
           id: 'components-tabnav--default',
-          name: 'Default',
-        },
-      ],
-    },
-  ],
-  [
-    'TabPages',
-    {
-      stories: [
-        {
-          id: 'components-tabpages--default',
           name: 'Default',
         },
       ],

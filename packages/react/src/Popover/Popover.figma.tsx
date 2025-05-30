@@ -1,4 +1,3 @@
-import React from 'react'
 import {Heading, Popover, Text} from '../../src'
 import figma from '@figma/code-connect'
 

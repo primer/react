@@ -19,6 +19,7 @@ import {
   RocketIcon,
   WorkflowIcon,
 } from '@primer/octicons-react'
+import type {AnchorPosition, AnchorSide} from '@primer/behaviors'
 
 export default {
   title: 'Components/ActionMenu/Examples',
@@ -412,13 +413,13 @@ export const MultipleSections = () => {
         <ActionList>
           <ActionList.Group>
             <ActionList.GroupHeading>Raw file content</ActionList.GroupHeading>
-            <ActionList.Item onClick={() => alert('Workflows clicked')}>Download</ActionList.Item>
+            <ActionList.Item onSelect={() => alert('Workflows clicked')}>Download</ActionList.Item>
             <ActionList.Divider />
-            <ActionList.Item onClick={() => alert('Workflows clicked')}>Jump to line</ActionList.Item>
-            <ActionList.Item onClick={() => alert('Workflows clicked')}>Find in file</ActionList.Item>
+            <ActionList.Item onSelect={() => alert('Workflows clicked')}>Jump to line</ActionList.Item>
+            <ActionList.Item onSelect={() => alert('Workflows clicked')}>Find in file</ActionList.Item>
             <ActionList.Divider />
-            <ActionList.Item onClick={() => alert('Workflows clicked')}>Copy path</ActionList.Item>
-            <ActionList.Item onClick={() => alert('Workflows clicked')}>Copy permalink</ActionList.Item>
+            <ActionList.Item onSelect={() => alert('Workflows clicked')}>Copy path</ActionList.Item>
+            <ActionList.Item onSelect={() => alert('Workflows clicked')}>Copy permalink</ActionList.Item>
           </ActionList.Group>
           <ActionList.Divider />
           <ActionList.Group selectionVariant="multiple">
@@ -436,7 +437,7 @@ export const MultipleSections = () => {
           <ActionList.Divider />
           <ActionList.Group>
             <ActionList.GroupHeading>View options</ActionList.GroupHeading>
-            <ActionList.Item onClick={() => alert('Delete file')} variant="danger">
+            <ActionList.Item onSelect={() => alert('Delete file')} variant="danger">
               Delete file
             </ActionList.Item>
           </ActionList.Group>
@@ -577,3 +578,50 @@ export const OnlyInactiveItems = () => (
     </ActionMenu.Overlay>
   </ActionMenu>
 )
+
+export const DynamicAnchorSides = () => {
+  const [currentSide, setCurrentSide] = React.useState<AnchorSide>('outside-bottom')
+  const [updatedSide, setUpdatedSide] = React.useState<AnchorPosition>()
+
+  return (
+    <>
+      <div className="testCustomPositionMiddle">
+        <ActionMenu>
+          <ActionMenu.Button>Open menu</ActionMenu.Button>
+          <ActionMenu.Overlay
+            width="auto"
+            maxHeight="large"
+            side={currentSide}
+            onPositionChange={({position}) => {
+              setUpdatedSide(position)
+            }}
+          >
+            <ActionList>
+              <ActionList.Group>
+                <ActionList.GroupHeading>
+                  Inside {updatedSide?.anchorSide.includes('inside') ? '(current)' : null}
+                </ActionList.GroupHeading>
+                <ActionList.Item onSelect={() => setCurrentSide('inside-top')}>Inside-top</ActionList.Item>
+                <ActionList.Item onSelect={() => setCurrentSide('inside-bottom')}>Inside-bottom</ActionList.Item>
+                <ActionList.Item onSelect={() => setCurrentSide('inside-left')}>Inside-left</ActionList.Item>
+                <ActionList.Item onSelect={() => setCurrentSide('inside-right')}>Inside-right</ActionList.Item>
+                <ActionList.Item onSelect={() => setCurrentSide('inside-center')}>Inside-center</ActionList.Item>
+              </ActionList.Group>
+              <ActionList.Group>
+                <ActionList.GroupHeading>
+                  Outside {updatedSide?.anchorSide.includes('outside') ? '(current)' : null}
+                </ActionList.GroupHeading>
+                <ActionList.Item onSelect={() => setCurrentSide('outside-top')}>Outside-top</ActionList.Item>
+                <ActionList.Item onSelect={() => setCurrentSide('outside-bottom')}>Outside-bottom</ActionList.Item>
+                <ActionList.Item onSelect={() => setCurrentSide('outside-left')}>Outside-left</ActionList.Item>
+                <ActionList.Item onSelect={() => setCurrentSide('outside-right')}>Outside-right</ActionList.Item>
+              </ActionList.Group>
+            </ActionList>
+          </ActionMenu.Overlay>
+        </ActionMenu>
+
+        <span>Current Overlay Side: {currentSide}</span>
+      </div>
+    </>
+  )
+}

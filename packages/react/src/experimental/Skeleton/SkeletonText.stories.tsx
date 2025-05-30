@@ -1,4 +1,3 @@
-import React from 'react'
 import type {Meta, StoryFn} from '@storybook/react'
 import type {ComponentProps} from '../../utils/types'
 import {SkeletonText} from './SkeletonText'
@@ -19,12 +18,15 @@ Playground.args = {
 
 Playground.argTypes = {
   lines: {
-    type: 'number',
+    control: {type: 'range', min: 1, max: 10, step: 1},
   },
   maxWidth: {
     type: 'string',
   },
   size: {
-    type: 'string',
+    control: {
+      type: 'select',
+    },
+    options: ['bodySmall', 'bodyMedium', 'bodyLarge', 'titleSmall', 'titleMedium', 'titleLarge', 'display', 'subtitle'],
   },
 }

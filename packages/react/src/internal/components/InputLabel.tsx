@@ -1,8 +1,8 @@
 import {clsx} from 'clsx'
-import React from 'react'
+import type React from 'react'
 import {type SxProp} from '../../sx'
 import classes from './InputLabel.module.css'
-import {toggleSxComponent} from '../utils/toggleSxComponent'
+import {BoxWithFallback} from './BoxWithFallback'
 
 type BaseProps = SxProp & {
   disabled?: boolean
@@ -26,8 +26,6 @@ export type LegendOrSpanProps = BaseProps & {
 
 type Props = React.PropsWithChildren<LabelProps | LegendOrSpanProps>
 
-const Label = toggleSxComponent('label') as React.ComponentType<Props>
-
 function InputLabel({
   children,
   disabled,
@@ -44,7 +42,7 @@ function InputLabel({
 }: Props) {
   return (
     // @ts-ignore weird typing issue with union for `as` prop
-    <Label
+    <BoxWithFallback
       as={as}
       sx={sx}
       data-control-disabled={disabled ? '' : undefined}
@@ -62,7 +60,7 @@ function InputLabel({
       ) : (
         children
       )}
-    </Label>
+    </BoxWithFallback>
   )
 }
 

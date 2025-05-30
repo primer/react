@@ -1,5 +1,5 @@
 import {LogoGithubIcon, StopIcon} from '@primer/octicons-react'
-import React, {useRef} from 'react'
+import {useRef} from 'react'
 import {Button, IconButton} from '../../Button'
 
 export function shouldAcceptOnlyAChildProp() {

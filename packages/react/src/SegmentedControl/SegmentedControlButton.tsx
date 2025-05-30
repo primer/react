@@ -1,23 +1,13 @@
 import type {ButtonHTMLAttributes} from 'react'
-import React from 'react'
+import type React from 'react'
 import type {IconProps} from '@primer/octicons-react'
-import styled from 'styled-components'
-import Box from '../Box'
 import type {SxProp} from '../sx'
-import sx, {merge} from '../sx'
-import {
-  getSegmentedControlButtonStyles,
-  getSegmentedControlListItemStyles,
-  SEGMENTED_CONTROL_CSS_MODULES_FEATURE_FLAG,
-} from './getSegmentedControlStyles'
 import {defaultSxProp} from '../utils/defaultSxProp'
 import {isElement} from 'react-is'
-import getGlobalFocusStyles from '../internal/utils/getGlobalFocusStyles'
-import {useFeatureFlag} from '../FeatureFlags'
 
 import classes from './SegmentedControl.module.css'
 import {clsx} from 'clsx'
-import {toggleStyledComponent} from '../internal/utils/toggleStyledComponent'
+import {BoxWithFallback} from '../internal/components/BoxWithFallback'
 
 export type SegmentedControlButtonProps = {
   /** The visible label rendered in the button */
@@ -31,43 +21,35 @@ export type SegmentedControlButtonProps = {
 } & SxProp &
   ButtonHTMLAttributes<HTMLButtonElement | HTMLLIElement>
 
-const SegmentedControlButtonStyled = toggleStyledComponent(
-  SEGMENTED_CONTROL_CSS_MODULES_FEATURE_FLAG,
-  'button',
-  styled.button`
-    ${getGlobalFocusStyles('-1px')};
-    ${sx};
-  `,
-)
-
 const SegmentedControlButton: React.FC<React.PropsWithChildren<SegmentedControlButtonProps>> = ({
   children,
   leadingIcon: LeadingIcon,
   selected,
   sx: sxProp = defaultSxProp,
   className,
+  // Note: this value is read in the `SegmentedControl` component to determine which button is selected but we do not need to apply it to an underlying element
+  defaultSelected: _defaultSelected,
   ...rest
 }) => {
-  const enabled = useFeatureFlag(SEGMENTED_CONTROL_CSS_MODULES_FEATURE_FLAG)
-  const mergedSx = enabled ? sxProp : merge(getSegmentedControlListItemStyles(), sxProp as SxProp)
-
   return (
-    <Box as="li" sx={mergedSx} className={clsx(enabled && classes.Item)} data-selected={selected || undefined}>
-      <SegmentedControlButtonStyled
+    <BoxWithFallback as="li" sx={sxProp} className={clsx(classes.Item)} data-selected={selected ? '' : undefined}>
+      <BoxWithFallback
+        as="button"
         aria-current={selected}
-        sx={enabled ? undefined : getSegmentedControlButtonStyles({selected, children})}
-        className={clsx(enabled && classes.Button, className)}
+        className={clsx(classes.Button, className)}
         type="button"
         {...rest}
       >
-        <span className={clsx(enabled ? classes.Content : 'segmentedControl-content')}>
-          {LeadingIcon && <Box mr={1}>{isElement(LeadingIcon) ? LeadingIcon : <LeadingIcon />}</Box>}
-          <Box className={clsx(enabled ? classes.Text : 'segmentedControl-text')} data-text={children}>
+        <span className={clsx(classes.Content, 'segmentedControl-content')}>
+          {LeadingIcon && (
+            <div className={classes.LeadingIcon}>{isElement(LeadingIcon) ? LeadingIcon : <LeadingIcon />}</div>
+          )}
+          <div className={clsx(classes.Text, 'segmentedControl-text')} data-text={children}>
             {children}
-          </Box>
+          </div>
         </span>
-      </SegmentedControlButtonStyled>
-    </Box>
+      </BoxWithFallback>
+    </BoxWithFallback>
   )
 }
 
