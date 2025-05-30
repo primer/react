@@ -108,6 +108,35 @@ export const CustomOverlayProps = () => {
   )
 }
 
+export const FullScreen = () => {
+  const [open, setOpen] = React.useState(false)
+
+  return (
+    <Box sx={{display: 'flex', justifyContent: 'center'}}>
+      <ActionMenu open={open} onOpenChange={setOpen}>
+        <ActionMenu.Button>Menu</ActionMenu.Button>
+        <ActionMenu.Overlay
+          width="large"
+          align="center"
+          preventOverflow={false}
+          variant={{regular: 'anchored', narrow: 'fullscreen'}}
+        >
+          <ActionList>
+            <ActionList.Item>Option 1</ActionList.Item>
+            <ActionList.Item>Option 2</ActionList.Item>
+            <ActionList.Item>Option 2</ActionList.Item>
+            <ActionList.Item>Option 2</ActionList.Item>
+            <ActionList.Item>Option 2</ActionList.Item>
+            <ActionList.Item>Option 2</ActionList.Item>
+            <ActionList.Item>Option 2</ActionList.Item>
+            <ActionList.Item>Option 2</ActionList.Item>
+          </ActionList>
+        </ActionMenu.Overlay>
+      </ActionMenu>
+    </Box>
+  )
+}
+
 export const ControlledMenu = () => {
   const [actionFired, fireAction] = React.useState('')
   const onSelect = (name: string) => fireAction(name)
