@@ -1067,7 +1067,7 @@ for (const useModernActionList of [false, true]) {
         })
       })
 
-      describe('fullScreenOptOut prop', () => {
+      describe('disableFullscreenOnNarrow prop', () => {
         const renderSelectPanelWithFlags = (flags: Record<string, boolean>, props: Record<string, unknown> = {}) => {
           return render(
             <FeatureFlags flags={flags}>
@@ -1105,7 +1105,62 @@ for (const useModernActionList of [false, true]) {
           )
         }
 
-        it('should opt out of fullscreen when fullScreenOptOut=true even when feature flag is enabled', async () => {
+        it('should opt out of fullscreen when disableFullscreenOnNarrow=true even when feature flag is enabled', async () => {
+          const user = userEvent.setup()
+
+          renderSelectPanelWithFlags(
+            {
+              primer_react_select_panel_with_modern_action_list: useModernActionList,
+              primer_react_select_panel_fullscreen_on_narrow: true,
+            },
+            {disableFullscreenOnNarrow: true},
+          )
+
+          await user.click(screen.getByText('Select an item'))
+
+          // When disableFullscreenOnNarrow=true, the ResponsiveCloseButton should not be present
+          // even when the feature flag is enabled, indicating no fullscreen behavior
+          const responsiveCloseButton = screen.queryByRole('button', {name: 'Cancel and close'})
+          expect(responsiveCloseButton).not.toBeInTheDocument()
+        })
+
+        it('should use fullscreen behavior when disableFullscreenOnNarrow=false and feature flag is enabled', async () => {
+          const user = userEvent.setup()
+
+          renderSelectPanelWithFlags(
+            {
+              primer_react_select_panel_with_modern_action_list: useModernActionList,
+              primer_react_select_panel_fullscreen_on_narrow: true,
+            },
+            {disableFullscreenOnNarrow: false},
+          )
+
+          await user.click(screen.getByText('Select an item'))
+
+          // When feature flag is true and disableFullscreenOnNarrow is false, the ResponsiveCloseButton should be present
+          // indicating fullscreen behavior is active
+          const responsiveCloseButton = screen.getByRole('button', {name: 'Cancel and close'})
+          expect(responsiveCloseButton).toBeInTheDocument()
+        })
+
+        it('should default to feature flag value when disableFullscreenOnNarrow is undefined', async () => {
+          const user = userEvent.setup()
+
+          // Test with feature flag disabled
+          renderSelectPanelWithFlags({
+            primer_react_select_panel_with_modern_action_list: useModernActionList,
+            primer_react_select_panel_fullscreen_on_narrow: false,
+          })
+
+          await user.click(screen.getByText('Select an item'))
+
+          // When feature flag is false and disableFullscreenOnNarrow is undefined,
+          // the ResponsiveCloseButton should not be present
+          const responsiveCloseButton = screen.queryByRole('button', {name: 'Cancel and close'})
+          expect(responsiveCloseButton).not.toBeInTheDocument()
+        })
+
+        it('should support backward compatibility with fullScreenOptOut prop', async () => {
           const user = userEvent.setup()
 
           renderSelectPanelWithFlags(
@@ -1119,43 +1174,7 @@ for (const useModernActionList of [false, true]) {
           await user.click(screen.getByText('Select an item'))
 
           // When fullScreenOptOut=true, the ResponsiveCloseButton should not be present
-          // even when the feature flag is enabled, indicating no fullscreen behavior
-          const responsiveCloseButton = screen.queryByRole('button', {name: 'Cancel and close'})
-          expect(responsiveCloseButton).not.toBeInTheDocument()
-        })
-
-        it('should use fullscreen behavior when fullScreenOptOut=false and feature flag is enabled', async () => {
-          const user = userEvent.setup()
-
-          renderSelectPanelWithFlags(
-            {
-              primer_react_select_panel_with_modern_action_list: useModernActionList,
-              primer_react_select_panel_fullscreen_on_narrow: true,
-            },
-            {fullScreenOptOut: false},
-          )
-
-          await user.click(screen.getByText('Select an item'))
-
-          // When feature flag is true and fullScreenOptOut is false, the ResponsiveCloseButton should be present
-          // indicating fullscreen behavior is active
-          const responsiveCloseButton = screen.getByRole('button', {name: 'Cancel and close'})
-          expect(responsiveCloseButton).toBeInTheDocument()
-        })
-
-        it('should default to feature flag value when fullScreenOptOut is undefined', async () => {
-          const user = userEvent.setup()
-
-          // Test with feature flag disabled
-          renderSelectPanelWithFlags({
-            primer_react_select_panel_with_modern_action_list: useModernActionList,
-            primer_react_select_panel_fullscreen_on_narrow: false,
-          })
-
-          await user.click(screen.getByText('Select an item'))
-
-          // When feature flag is false and fullScreenOptOut is undefined,
-          // the ResponsiveCloseButton should not be present
+          // showing backward compatibility is maintained
           const responsiveCloseButton = screen.queryByRole('button', {name: 'Cancel and close'})
           expect(responsiveCloseButton).not.toBeInTheDocument()
         })
