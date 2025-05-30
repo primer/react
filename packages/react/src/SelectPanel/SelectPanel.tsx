@@ -179,7 +179,6 @@ function Panel({
   variant = 'anchored',
   secondaryAction,
   showSelectedOptionsFirst = true,
-  fullScreenOptOut,
   disableFullscreenOnNarrow,
   ...listProps
 }: SelectPanelProps): JSX.Element {
@@ -202,9 +201,8 @@ function Panel({
 
   const usingModernActionList = useFeatureFlag('primer_react_select_panel_with_modern_action_list')
   const featureFlagFullScreenOnNarrow = useFeatureFlag('primer_react_select_panel_fullscreen_on_narrow')
-  // Use disableFullscreenOnNarrow if provided, fall back to fullScreenOptOut for backward compatibility
-  const optOut = disableFullscreenOnNarrow !== undefined ? disableFullscreenOnNarrow : fullScreenOptOut
-  const usingFullScreenOnNarrow = optOut !== undefined ? !optOut : featureFlagFullScreenOnNarrow
+  const usingFullScreenOnNarrow =
+    disableFullscreenOnNarrow !== undefined ? !disableFullscreenOnNarrow : featureFlagFullScreenOnNarrow
   const shouldOrderSelectedFirst =
     useFeatureFlag('primer_react_select_panel_order_selected_at_top') && showSelectedOptionsFirst
 

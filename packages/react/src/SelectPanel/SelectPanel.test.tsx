@@ -1159,25 +1159,6 @@ for (const useModernActionList of [false, true]) {
           const responsiveCloseButton = screen.queryByRole('button', {name: 'Cancel and close'})
           expect(responsiveCloseButton).not.toBeInTheDocument()
         })
-
-        it('should support backward compatibility with fullScreenOptOut prop', async () => {
-          const user = userEvent.setup()
-
-          renderSelectPanelWithFlags(
-            {
-              primer_react_select_panel_with_modern_action_list: useModernActionList,
-              primer_react_select_panel_fullscreen_on_narrow: true,
-            },
-            {fullScreenOptOut: true},
-          )
-
-          await user.click(screen.getByText('Select an item'))
-
-          // When fullScreenOptOut=true, the ResponsiveCloseButton should not be present
-          // showing backward compatibility is maintained
-          const responsiveCloseButton = screen.queryByRole('button', {name: 'Cancel and close'})
-          expect(responsiveCloseButton).not.toBeInTheDocument()
-        })
       })
     })
   })
