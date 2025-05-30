@@ -198,7 +198,7 @@ describe('Button', () => {
 
     fireEvent.click(buttonNode)
 
-    // not sure why, but we need to wait a tick for the the loading state to actually be set
+    // not sure why, but we need to wait a tick for the loading state to actually be set
     setTimeout(() => {
       expect(buttonNode).toHaveAccessibleDescription('Loading')
     }, 0)
@@ -219,7 +219,7 @@ describe('Button', () => {
 
     fireEvent.click(buttonNode)
 
-    // not sure why, but we need to wait a tick for the the loading state to actually be set
+    // not sure why, but we need to wait a tick for the loading state to actually be set
     setTimeout(() => {
       expect(buttonNode).toHaveAccessibleDescription('Action loading')
     }, 0)
@@ -251,7 +251,7 @@ describe('Button', () => {
 
     expect(buttonNode.getAttribute('aria-disabled')).not.toBe('true')
 
-    // not sure why, but we need to wait a tick for the the loading state to actually be set
+    // not sure why, but we need to wait a tick for the loading state to actually be set
     setTimeout(() => {
       expect(buttonNode.getAttribute('aria-disabled')).toBe('true')
     }, 0)
