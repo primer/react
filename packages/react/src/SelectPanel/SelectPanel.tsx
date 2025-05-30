@@ -712,6 +712,7 @@ function Panel({
             // hack because the deprecated ActionList does not support this prop
             {...{
               message: getMessage(),
+              fullScreenOnNarrow: usingFullScreenOnNarrow,
             }}
             // inheriting height and maxHeight ensures that the FilteredActionList is never taller
             // than the Overlay (which would break scrolling the items)
