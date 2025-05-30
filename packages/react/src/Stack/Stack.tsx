@@ -118,31 +118,19 @@ type StackItemProps<As> = React.PropsWithChildren<{
   className?: string
 }>
 
-const StackItemBaseComponent = toggleSxComponent('div') as React.ComponentType<StackItemProps<React.ElementType>>
-const StackItem = forwardRef(
-  <As extends ElementType>(
-    {
-      as,
-      children,
-      grow,
-      className,
-      ...rest
-    }: StackItemProps<As> & React.ComponentPropsWithRef<ElementType extends As ? As : 'div'>,
-    forwardRef: React.Ref<As> | undefined,
-  ) => {
-    return (
-      <StackItemBaseComponent
-        as={as}
-        ref={forwardRef}
-        {...rest}
-        className={clsx(className, classes.StackItem)}
-        {...getResponsiveAttributes('grow', grow)}
-      >
-        {children}
-      </StackItemBaseComponent>
-    )
-  },
-) as PolymorphicForwardRefComponent<ElementType, StackProps<ElementType>>
+const StackItem = forwardRef(({as, children, grow, className, ...rest}, forwardedRef) => {
+  return (
+    <BoxWithFallback
+      as={as}
+      ref={forwardedRef}
+      {...rest}
+      className={clsx(className, classes.StackItem)}
+      {...getResponsiveAttributes('grow', grow)}
+    >
+      {children}
+    </BoxWithFallback>
+  )
+}) as PolymorphicForwardRefComponent<ElementType, StackProps<ElementType>>
 
 export {Stack, StackItem}
 export type {StackProps, StackItemProps}
