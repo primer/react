@@ -1080,13 +1080,8 @@ for (const useModernActionList of [false, true]) {
 
         // Create a single-select version to test ResponsiveCloseButton behavior
         function SingleSelectPanel(passthroughProps: Record<string, unknown>) {
-          const [selected, setSelected] = React.useState<SelectPanelProps['selected']>(undefined)
           const [filter, setFilter] = React.useState('')
           const [open, setOpen] = React.useState(false)
-
-          const onSelectedChange = (selected: SelectPanelProps['selected']) => {
-            setSelected(selected)
-          }
 
           return (
             <ThemeProvider>
@@ -1096,8 +1091,8 @@ for (const useModernActionList of [false, true]) {
                 items={items}
                 placeholder="Select an item"
                 placeholderText="Filter items"
-                selected={selected}
-                onSelectedChange={onSelectedChange}
+                selected={undefined}
+                onSelectedChange={() => {}}
                 filterValue={filter}
                 onFilterChange={value => {
                   setFilter(value)
@@ -1159,7 +1154,7 @@ for (const useModernActionList of [false, true]) {
 
           await user.click(screen.getByText('Select an item'))
 
-          // When feature flag is false and fullScreenOptOut is undefined, 
+          // When feature flag is false and fullScreenOptOut is undefined,
           // the ResponsiveCloseButton should not be present
           const responsiveCloseButton = screen.queryByRole('button', {name: 'Cancel and close'})
           expect(responsiveCloseButton).not.toBeInTheDocument()
