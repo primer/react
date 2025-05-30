@@ -24,7 +24,7 @@ import classes from './FilteredActionList.module.css'
 import {isValidElementType} from 'react-is'
 import type {RenderItemFn} from '../deprecated/ActionList/List'
 import {useAnnouncements} from './useAnnouncements'
-import clsx from 'clsx'
+import {clsx} from 'clsx'
 
 const menuScrollMargins: ScrollIntoViewOptions = {startMargin: 0, endMargin: 8}
 
