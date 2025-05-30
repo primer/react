@@ -134,7 +134,7 @@ const doesItemsIncludeItem = (items: ItemInput[], item: ItemInput) => {
   return items.some(i => areItemsEqual(i, item))
 }
 
-const defaultRendorAnchor: SelectPanelProps['renderAnchor'] = props => {
+const defaultRendorAnchor: NonNullable<SelectPanelProps['renderAnchor']> = props => {
   const {children, ...rest} = props
   return (
     <Button trailingAction={TriangleDownIcon} {...rest}>
