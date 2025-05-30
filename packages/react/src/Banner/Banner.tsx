@@ -157,7 +157,7 @@ export const Banner = React.forwardRef<HTMLElement, BannerProps>(function Banner
       </div>
       {dismissible ? (
         <IconButton
-          aria-label="Dismiss banner"
+          aria-label="Dismiss"
           onClick={onDismiss}
           className={classes.BannerDismiss}
           icon={XIcon}
