@@ -4,3 +4,12 @@
   overflow: auto;
   flex-grow: 1;
 }
+
+.FullScreenTextInput {
+  @media screen and (--viewportRange-narrow) {
+    /* Ensures inputs don't zoom on mobile iPhone but are body-font size on iPad */
+    @supports (-webkit-touch-callout: none) {
+      font-size: var(--text-title-size-small);
+    }
+  }
+}
