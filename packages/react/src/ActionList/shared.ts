@@ -53,6 +53,9 @@ export type ActionListItemProps = {
    */
   _PrivateItemWrapper?: React.FC<React.PropsWithChildren<MenuItemProps>>
   className?: string
+  groupId?: string
+  renderItem?: (item: React.FC<React.PropsWithChildren<MenuItemProps>>) => React.ReactNode
+  handleAddItem?: (item: React.FC<React.PropsWithChildren<MenuItemProps>>) => void
 } & SxProp
 
 type MenuItemProps = {
