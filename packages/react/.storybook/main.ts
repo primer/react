@@ -60,7 +60,7 @@ const config: StorybookConfig = {
     if (DEPLOY_ENV === 'development') {
       config.server = {
         ...config.server,
-        allowedHosts: ['locahost', 'host.docker.internal'],
+        allowedHosts: ['localhost', 'host.docker.internal'],
       }
     }
 
