@@ -1,4 +1,5 @@
 import {act, renderHook} from '@testing-library/react'
+import {test, expect} from 'vitest'
 import {useSyncedState} from '../useSyncedState'
 
 const renderUseSyncedState = (
