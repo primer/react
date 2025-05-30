@@ -1,29 +1,25 @@
-import styled from 'styled-components'
+import classes from './_VisuallyHidden.module.css'
+import {clsx} from 'clsx'
+import {BoxWithFallback} from './internal/components/BoxWithFallback'
 import type {SxProp} from './sx'
-import sx from './sx'
 
-interface Props {
+interface Props<As extends React.ElementType> {
   isVisible?: boolean
+  as?: As
 }
 
-const VisuallyHidden = styled.span<Props & SxProp>`
-  ${({isVisible = false}) => {
-    if (isVisible) {
-      return sx
-    }
-
-    return `
-        position: absolute;
-        width: 1px;
-        height: 1px;
-        padding: 0;
-        margin: -1px;
-        overflow: hidden;
-        clip: rect(0, 0, 0, 0);
-        white-space: nowrap;
-        border-width: 0;
-    `
-  }}
-`
+function VisuallyHidden<As extends React.ElementType>({
+  isVisible,
+  children,
+  as = 'span',
+  className,
+  ...rest
+}: Props & { as?: As } & React.ComponentPropsWithoutRef<ElementType extends As ? As : 'span'> & SxProp) {
+  return (
+    <BoxWithFallback as={as} className={clsx(className, {[classes.InternalVisuallyHidden]: !isVisible})} {...rest}>
+      {children}
+    </BoxWithFallback>
+  )
+}
 
 export default VisuallyHidden
