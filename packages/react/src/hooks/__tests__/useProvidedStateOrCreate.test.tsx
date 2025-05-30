@@ -1,5 +1,6 @@
-import {useProvidedStateOrCreate} from '../../hooks/useProvidedStateOrCreate'
 import {render} from '@testing-library/react'
+import {it, expect} from 'vitest'
+import {useProvidedStateOrCreate} from '../../hooks/useProvidedStateOrCreate'
 import {useState} from 'react'
 
 it('will use the provided state', () => {
@@ -10,7 +11,7 @@ it('will use the provided state', () => {
   }
 
   const doc = render(<Component />)
-  expect(doc.baseElement.textContent).toEqual('foo')
+  expect(doc.baseElement.textContent!.trim()).toEqual('foo')
 })
 
 it('will set state correctly when provided a set state method', () => {
@@ -22,7 +23,7 @@ it('will set state correctly when provided a set state method', () => {
   }
 
   const doc = render(<Component />)
-  expect(doc.baseElement.textContent).toEqual('baz')
+  expect(doc.baseElement.textContent!.trim()).toEqual('baz')
 })
 
 it('if not provided a state, will use an internal state', () => {
@@ -35,5 +36,5 @@ it('if not provided a state, will use an internal state', () => {
   }
 
   const doc = render(<Component />)
-  expect(doc.baseElement.textContent).toEqual('bar')
+  expect(doc.baseElement.textContent!.trim()).toEqual('bar')
 })

@@ -1,17 +1,8 @@
 import {act, render} from '@testing-library/react'
-import MatchMediaMock from 'jest-matchmedia-mock'
+import {expect, it} from 'vitest'
 import type {ResponsiveValue} from '../../hooks/useResponsiveValue'
-import {useResponsiveValue, viewportRanges} from '../../hooks/useResponsiveValue'
-
-let matchMedia: MatchMediaMock
-
-beforeAll(() => {
-  matchMedia = new MatchMediaMock()
-})
-
-afterEach(() => {
-  matchMedia.clear()
-})
+import {useResponsiveValue} from '../../hooks/useResponsiveValue'
+import {page} from '@vitest/browser/context'
 
 it('accepts non-responsive values', () => {
   const Component = () => {
@@ -24,15 +15,15 @@ it('accepts non-responsive values', () => {
   expect(getByText('test')).toBeInTheDocument()
 })
 
-it('returns narrow value when viewport is narrow', () => {
+it('returns narrow value when viewport is narrow', async () => {
   const Component = () => {
     const value = useResponsiveValue({narrow: false, regular: true} as ResponsiveValue<boolean>, true)
     return <div>{JSON.stringify(value)}</div>
   }
 
   // Set narrow viewport
-  act(() => {
-    matchMedia.useMediaQuery(viewportRanges.narrow)
+  await act(async () => {
+    await page.viewport(600, 600)
   })
 
   const {getByText} = render(<Component />)
@@ -40,7 +31,7 @@ it('returns narrow value when viewport is narrow', () => {
   expect(getByText('false')).toBeInTheDocument()
 })
 
-it('returns wide value when viewport is wide', () => {
+it('returns wide value when viewport is wide', async () => {
   const Component = () => {
     const value = useResponsiveValue(
       {narrow: 'narrowValue', regular: 'regularValue', wide: 'wideValue'} as ResponsiveValue<string>,
@@ -50,8 +41,8 @@ it('returns wide value when viewport is wide', () => {
   }
 
   // Set wide viewport
-  act(() => {
-    matchMedia.useMediaQuery(viewportRanges.wide)
+  await act(async () => {
+    await page.viewport(1400, 600)
   })
 
   const {getByText} = render(<Component />)
@@ -59,7 +50,7 @@ it('returns wide value when viewport is wide', () => {
   expect(getByText('wideValue')).toBeInTheDocument()
 })
 
-it('returns regular value when viewport is regular', () => {
+it('returns regular value when viewport is regular', async () => {
   const Component = () => {
     const value = useResponsiveValue(
       {narrow: 'narrowValue', regular: 'regularValue', wide: 'wideValue'} as ResponsiveValue<string>,
@@ -69,8 +60,8 @@ it('returns regular value when viewport is regular', () => {
   }
 
   // Set regular viewport
-  act(() => {
-    matchMedia.useMediaQuery(viewportRanges.regular)
+  await act(async () => {
+    await page.viewport(1000, 600)
   })
 
   const {getByText} = render(<Component />)
@@ -78,7 +69,7 @@ it('returns regular value when viewport is regular', () => {
   expect(getByText('regularValue')).toBeInTheDocument()
 })
 
-it('returns fallback when no value is defined for current viewport', () => {
+it('returns fallback when no value is defined for current viewport', async () => {
   const Component = () => {
     const value = useResponsiveValue(
       // Missing value for `regular` viewports
@@ -89,8 +80,8 @@ it('returns fallback when no value is defined for current viewport', () => {
   }
 
   // Set regular viewport
-  act(() => {
-    matchMedia.useMediaQuery(viewportRanges.regular)
+  await act(async () => {
+    await page.viewport(1000, 600)
   })
 
   const {getByText} = render(<Component />)

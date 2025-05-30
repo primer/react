@@ -1,8 +1,9 @@
-import {useOnEscapePress} from '../../hooks/useOnEscapePress'
 import {render, fireEvent} from '@testing-library/react'
+import {it, expect, vi} from 'vitest'
+import {useOnEscapePress} from '../../hooks/useOnEscapePress'
 
 it('should call function when user presses escape', () => {
-  const functionToCall = jest.fn()
+  const functionToCall = vi.fn()
   const Component = () => {
     useOnEscapePress(functionToCall)
     return <div>content</div>
