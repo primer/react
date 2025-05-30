@@ -4,7 +4,6 @@ import type {ResponsiveValue} from '../hooks/useResponsiveValue'
 import {getResponsiveAttributes} from '../internal/utils/getResponsiveAttributes'
 import classes from './Stack.module.css'
 import {clsx} from 'clsx'
-import {toggleSxComponent} from '../internal/utils/toggleSxComponent'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {BoxWithFallback} from '../internal/components/BoxWithFallback'
 
