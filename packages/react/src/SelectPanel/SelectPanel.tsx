@@ -201,8 +201,7 @@ function Panel({
 
   const usingModernActionList = useFeatureFlag('primer_react_select_panel_with_modern_action_list')
   const featureFlagFullScreenOnNarrow = useFeatureFlag('primer_react_select_panel_fullscreen_on_narrow')
-  const usingFullScreenOnNarrow =
-    disableFullscreenOnNarrow !== undefined ? !disableFullscreenOnNarrow : featureFlagFullScreenOnNarrow
+  const usingFullScreenOnNarrow = disableFullscreenOnNarrow ? false : featureFlagFullScreenOnNarrow
   const shouldOrderSelectedFirst =
     useFeatureFlag('primer_react_select_panel_order_selected_at_top') && showSelectedOptionsFirst
 
