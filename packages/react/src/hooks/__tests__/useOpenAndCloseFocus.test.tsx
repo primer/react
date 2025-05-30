@@ -1,6 +1,7 @@
-import {useRef, useState} from 'react'
 import {render, waitFor} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import {it, expect} from 'vitest'
+import {useRef, useState} from 'react'
 import {useOpenAndCloseFocus} from '../../hooks/useOpenAndCloseFocus'
 
 const Component = () => {
