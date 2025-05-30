@@ -37,16 +37,22 @@ const config: StorybookConfig = {
       __DEV__: JSON.stringify(true),
     }
 
-    config.css = {
-      ...config.css,
-      modules: {
-        ...config.css?.modules,
-        generateScopedName: 'prc-[folder]-[local]-[hash:base64:5]',
-      },
-      postcss: {
-        ...config.css?.postcss,
-        plugins: [postcssPresetPrimer()],
-      },
+    if (!config.css) {
+      config.css = {}
+    }
+
+    if (!config.css.modules) {
+      config.css.modules = {}
+    }
+
+    config.css.modules.generateScopedName = 'prc-[folder]-[local]-[hash:base64:5]'
+
+    if (!config.css.postcss) {
+      config.css.postcss = {}
+    }
+
+    if (typeof config.css.postcss !== 'string') {
+      config.css.postcss.plugins = [postcssPresetPrimer()]
     }
 
     config.plugins = [...(config.plugins ?? []), react()]
