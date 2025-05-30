@@ -76,6 +76,7 @@ const stories = glob
 
     return {
       name,
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
       story: require(filepath),
       type,
       relativeFilepath: path.relative(ROOT_DIRECTORY, filepath),

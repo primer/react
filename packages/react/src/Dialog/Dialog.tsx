@@ -168,12 +168,14 @@ export interface DialogHeaderProps extends DialogProps {
   dialogDescriptionId: string
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const heightMap = {
   small: '480px',
   large: '640px',
   auto: 'auto',
 } as const
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const widthMap = {
   small: '296px',
   medium: '320px',

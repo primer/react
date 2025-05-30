@@ -155,7 +155,7 @@ function ItemWithSubNav({
           aria-expanded={isOpen}
           aria-controls={subNavId}
           active={!isOpen && containsCurrentItem}
-          onClick={() => setIsOpen(open => !open)}
+          onSelect={() => setIsOpen(open => !open)}
           style={style}
           sx={sxProp}
         >
@@ -176,7 +176,7 @@ function ItemWithSubNav({
         aria-expanded={isOpen}
         aria-controls={subNavId}
         active={!isOpen && containsCurrentItem}
-        onClick={() => setIsOpen(open => !open)}
+        onSelect={() => setIsOpen(open => !open)}
         style={style}
       >
         {children}
@@ -385,7 +385,7 @@ export const GroupExpand = React.forwardRef<HTMLButtonElement, NavListGroupExpan
             as="button"
             aria-expanded="false"
             ref={forwardedRef}
-            onClick={() => {
+            onSelect={() => {
               flushSync(() => {
                 setCurrentPage(currentPage + 1)
               })

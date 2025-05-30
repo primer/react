@@ -719,7 +719,7 @@ export const FiltersBottomSheetTwoLevels: StoryFn = () => {
 FiltersBottomSheetTwoLevels.storyName = 'Filters w/ 2 levels (btm sheet on narrow)'
 
 //
-// TODO: uncomment this story if we decide we want to allow this pattern for seperate sets of filters
+// TODO: uncomment this story if we decide we want to allow this pattern for separate sets of filters
 //
 // export const ResponsiveNavCombo2: Story = () => {
 //   const [currentHash, setCurrentHash] = React.useState(window.location.hash)
