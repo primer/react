@@ -51,7 +51,7 @@ type LabelledBy = {
 type Labelled = Label | LabelledBy
 type TabListProps = Labelled & React.HTMLAttributes<HTMLElement>
 
-function TabList({'aria-label': label, 'aria-labelledby': labelledby, children}: TabListProps) {
+function TabList({'aria-label': label, 'aria-labelledby': labelledby, children, ...rest}: TabListProps) {
   const ref = useRef<React.ElementRef<'div'>>(null)
 
   function onKeyDown(event: React.KeyboardEvent) {
@@ -102,7 +102,7 @@ function TabList({'aria-label': label, 'aria-labelledby': labelledby, children}:
   }
 
   return (
-    <div ref={ref} aria-label={label} aria-labelledby={labelledby} role="tablist" onKeyDown={onKeyDown}>
+    <div {...rest} ref={ref} aria-label={label} aria-labelledby={labelledby} role="tablist" onKeyDown={onKeyDown}>
       {children}
     </div>
   )
@@ -186,7 +186,13 @@ function TabPanel({children, value, ...rest}: TabPanelProps) {
   const tabId = `${tabs.groupId}-tab-${value}`
 
   return (
-    <div {...rest} aria-labelledby={tabId} data-selected={tabs.selectedValue === value} id={id} role="tabpanel">
+    <div
+      {...rest}
+      aria-labelledby={tabId}
+      data-selected={tabs.selectedValue === value ? '' : undefined}
+      id={id}
+      role="tabpanel"
+    >
       {children}
     </div>
   )
