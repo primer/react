@@ -22,6 +22,7 @@ const REGION_ORDER = {
   footer: 4,
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const SPACING_MAP = {
   none: 0,
   condensed: 3,
@@ -57,6 +58,7 @@ export type PageLayoutProps = {
   style?: React.CSSProperties
 } & SxProp
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const containerWidths = {
   full: '100%',
   medium: '768px',
@@ -444,6 +446,7 @@ export type PageLayoutContentProps = {
 } & SxProp
 
 // TODO: Account for pane width when centering content
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const contentWidths = {
   full: '100%',
   medium: '768px',
@@ -562,11 +565,13 @@ export type PageLayoutPaneProps = {
   style?: React.CSSProperties
 } & SxProp
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const panePositions = {
   start: REGION_ORDER.paneStart,
   end: REGION_ORDER.paneEnd,
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const paneWidths = {
   small: ['100%', null, '240px', '256px'],
   medium: ['100%', null, '256px', '296px'],
@@ -640,7 +645,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
 
       try {
         storedWidth = localStorage.getItem(widthStorageKey)
-      } catch (error) {
+      } catch (_error) {
         storedWidth = null
       }
 
@@ -652,7 +657,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
 
       try {
         localStorage.setItem(widthStorageKey, width.toString())
-      } catch (error) {
+      } catch (_error) {
         // Ignore errors
       }
     }

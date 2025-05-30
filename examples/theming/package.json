@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "clean": "rimraf .next",
-    "build": "next build",
+    "build": "next build --no-lint",
     "develop": "next",
     "start": "next start",
     "type-check": "tsc --noEmit"

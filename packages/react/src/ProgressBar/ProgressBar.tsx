@@ -11,15 +11,9 @@ type ProgressProp = {
   bg?: string
 }
 
-const sizeMap = {
-  small: '5px',
-  large: '10px',
-  default: '8px',
-}
-
 type StyledProgressContainerProps = {
   inline?: boolean
-  barSize?: keyof typeof sizeMap
+  barSize?: 'small' | 'default' | 'large'
   animated?: boolean
 } & WidthProps &
   SxProp
