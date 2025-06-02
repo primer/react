@@ -141,17 +141,19 @@ const doesItemsIncludeItem = (items: ItemInput[], item: ItemInput) => {
   return items.some(i => areItemsEqual(i, item))
 }
 
+const defaultRendorAnchor: NonNullable<SelectPanelProps['renderAnchor']> = props => {
+  const {children, ...rest} = props
+  return (
+    <Button trailingAction={TriangleDownIcon} {...rest}>
+      {children}
+    </Button>
+  )
+}
+
 function Panel({
   open,
   onOpenChange,
-  renderAnchor = props => {
-    const {children, ...rest} = props
-    return (
-      <Button trailingAction={TriangleDownIcon} {...rest}>
-        {children}
-      </Button>
-    )
-  },
+  renderAnchor = defaultRendorAnchor,
   anchorRef: externalAnchorRef,
   placeholder,
   placeholderText = 'Filter items',
