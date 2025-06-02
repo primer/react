@@ -684,8 +684,13 @@ const TrailingAction: React.FC<TreeViewVisualProps> = props => {
         {props.label}
       </div>
       <div
-        className={clsx('PRIVATE_TreeView-item-leading-action', classes.TreeViewItemLeadingAction)}
+        className={clsx('PRIVATE_TreeView-item-trailing-action', classes.TreeViewItemTrailingAction)}
         aria-hidden={true}
+        onClick={event =>
+          // Prevent focus event from bubbling up to parent items
+          // This is needed to prevent the TreeView from interfering with trailing actions
+          event.stopPropagation()
+        }
       >
         {children}
       </div>

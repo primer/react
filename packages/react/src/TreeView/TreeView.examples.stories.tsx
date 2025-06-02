@@ -73,7 +73,7 @@ const ControlledDraggableItem: React.FC<{id: string; children: React.ReactNode}>
   )
 }
 
-export const Trailing: StoryFn = () => {
+export const TrailingActions: StoryFn = () => {
   return (
     <Box
       sx={{
@@ -118,6 +118,9 @@ const TrailingAction: React.FC<{id: string; children: React.ReactNode}> = ({id, 
             onDragStart={() => {
               setExpanded(false)
               // other drag logic to follow
+            }}
+            onClick={() => {
+              alert('Trailing action clicked')
             }}
           />
         </TreeView.TrailingAction>
