@@ -705,9 +705,9 @@ export const CustomisedNoResults: StoryObj<typeof SelectPanel> = {
 }
 
 export const WithOnCancel = () => {
-  const [intialSelection, setInitialSelection] = React.useState<ItemInput[]>(items.slice(1, 3))
+  const [initialSelection, setInitialSelection] = React.useState<ItemInput[]>(items.slice(1, 3))
 
-  const [selected, setSelected] = React.useState<ItemInput[]>(intialSelection)
+  const [selected, setSelected] = React.useState<ItemInput[]>(initialSelection)
   const [filter, setFilter] = React.useState('')
   const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
 
@@ -733,7 +733,7 @@ export const WithOnCancel = () => {
         items={filteredItems}
         selected={selected}
         onSelectedChange={setSelected}
-        onCancel={() => setSelected(intialSelection)}
+        onCancel={() => setSelected(initialSelection)}
         onFilterChange={setFilter}
         width="medium"
       />
@@ -742,9 +742,9 @@ export const WithOnCancel = () => {
 }
 
 export const MultiSelectModal = () => {
-  const [intialSelection, setInitialSelection] = React.useState<ItemInput[]>(items.slice(1, 3))
+  const [initialSelection, setInitialSelection] = React.useState<ItemInput[]>(items.slice(1, 3))
 
-  const [selected, setSelected] = React.useState<ItemInput[]>(intialSelection)
+  const [selected, setSelected] = React.useState<ItemInput[]>(initialSelection)
   const [filter, setFilter] = React.useState('')
   const [open, setOpen] = useState(false)
 
@@ -770,7 +770,7 @@ export const MultiSelectModal = () => {
       items={filteredItems}
       selected={selected}
       onSelectedChange={setSelected}
-      onCancel={() => setSelected(intialSelection)}
+      onCancel={() => setSelected(initialSelection)}
       onFilterChange={setFilter}
       width="medium"
     />

@@ -232,7 +232,7 @@
           "type": "string",
           "defaultValue": "",
           "required": true,
-          "description": "Acccessible name for the control."
+          "description": "Accessible name for the control."
         },
         {
           "name": "icon",
