@@ -1,24 +1,15 @@
 import type {ButtonHTMLAttributes} from 'react'
-import React from 'react'
+import type React from 'react'
 import type {IconProps} from '@primer/octicons-react'
-import styled from 'styled-components'
 import type {SxProp} from '../sx'
-import sx, {merge} from '../sx'
-import {
-  getSegmentedControlButtonStyles,
-  getSegmentedControlListItemStyles,
-  SEGMENTED_CONTROL_CSS_MODULES_FEATURE_FLAG,
-} from './getSegmentedControlStyles'
-import Box from '../Box'
 import {defaultSxProp} from '../utils/defaultSxProp'
 import {isElement} from 'react-is'
-import getGlobalFocusStyles from '../internal/utils/getGlobalFocusStyles'
 import {useFeatureFlag} from '../FeatureFlags'
 import type {TooltipDirection} from '../TooltipV2'
 import classes from './SegmentedControl.module.css'
 import {clsx} from 'clsx'
-import {toggleStyledComponent} from '../internal/utils/toggleStyledComponent'
 import {Tooltip} from '../TooltipV2'
+import {BoxWithFallback} from '../internal/components/BoxWithFallback'
 
 export type SegmentedControlIconButtonProps = {
   'aria-label': string
@@ -35,15 +26,6 @@ export type SegmentedControlIconButtonProps = {
 } & SxProp &
   ButtonHTMLAttributes<HTMLButtonElement | HTMLLIElement>
 
-const SegmentedControlIconButtonStyled = toggleStyledComponent(
-  SEGMENTED_CONTROL_CSS_MODULES_FEATURE_FLAG,
-  'button',
-  styled.button`
-    ${getGlobalFocusStyles('-1px')};
-    ${sx};
-  `,
-)
-
 export const SegmentedControlIconButton: React.FC<React.PropsWithChildren<SegmentedControlIconButtonProps>> = ({
   'aria-label': ariaLabel,
   icon: Icon,
@@ -54,24 +36,13 @@ export const SegmentedControlIconButton: React.FC<React.PropsWithChildren<Segmen
   tooltipDirection,
   ...rest
 }) => {
-  const enabled = useFeatureFlag(SEGMENTED_CONTROL_CSS_MODULES_FEATURE_FLAG)
-  const mergedSx = enabled
-    ? sxProp
-    : merge(
-        {
-          width: '32px', // TODO: use primitive `control.medium.size` when it is available
-          ...getSegmentedControlListItemStyles(),
-        },
-        sxProp as SxProp,
-      )
-
   const tooltipFlagEnabled = useFeatureFlag('primer_react_segmented_control_tooltip')
   if (tooltipFlagEnabled) {
     return (
-      <Box
+      <BoxWithFallback
         as="li"
-        sx={mergedSx}
-        className={clsx(enabled && classes.Item, className)}
+        sx={sxProp}
+        className={clsx(classes.Item, className)}
         data-selected={selected || undefined}
       >
         <Tooltip
@@ -79,42 +50,40 @@ export const SegmentedControlIconButton: React.FC<React.PropsWithChildren<Segmen
           text={description ? description : ariaLabel}
           direction={tooltipDirection}
         >
-          <SegmentedControlIconButtonStyled
+          <BoxWithFallback
+            as="button"
             aria-current={selected}
             // If description is provided, we will use the tooltip to describe the button, so we need to keep the aria-label to label the button.
             aria-label={description ? ariaLabel : undefined}
-            sx={enabled ? undefined : getSegmentedControlButtonStyles({selected})}
-            className={clsx(enabled && classes.Button, enabled && classes.IconButton)}
+            className={clsx(classes.Button, classes.IconButton)}
             {...rest}
           >
-            <span className={clsx(enabled ? classes.Content : 'segmentedControl-content')}>
+            <span className={clsx(classes.Content, 'segmentedControl-content')}>
               {isElement(Icon) ? Icon : <Icon />}
             </span>
-          </SegmentedControlIconButtonStyled>
+          </BoxWithFallback>
         </Tooltip>
-      </Box>
+      </BoxWithFallback>
     )
   } else {
     // This can be removed when primer_react_segmented_control_tooltip feature flag is GA-ed.
     return (
-      <Box
+      <BoxWithFallback
         as="li"
-        sx={mergedSx}
-        className={clsx(enabled && classes.Item, className)}
+        sx={sxProp}
+        className={clsx(classes.Item, className)}
         data-selected={selected || undefined}
       >
-        <SegmentedControlIconButtonStyled
+        <BoxWithFallback
+          as="button"
           aria-label={ariaLabel}
           aria-current={selected}
-          sx={enabled ? undefined : getSegmentedControlButtonStyles({selected})}
-          className={clsx(enabled && classes.Button, enabled && classes.IconButton)}
+          className={clsx(classes.Button, classes.IconButton)}
           {...rest}
         >
-          <span className={clsx(enabled ? classes.Content : 'segmentedControl-content')}>
-            {isElement(Icon) ? Icon : <Icon />}
-          </span>
-        </SegmentedControlIconButtonStyled>
-      </Box>
+          <span className={clsx(classes.Content, 'segmentedControl-content')}>{isElement(Icon) ? Icon : <Icon />}</span>
+        </BoxWithFallback>
+      </BoxWithFallback>
     )
   }
 }

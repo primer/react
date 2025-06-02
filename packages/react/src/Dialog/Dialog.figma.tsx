@@ -1,4 +1,3 @@
-import React from 'react'
 import {Dialog, type ResponsiveValue} from '../'
 import figma from '@figma/code-connect'
 

@@ -1,5 +1,6 @@
 import {announceFromElement} from '@primer/live-region-element'
-import React, {useEffect, useRef, useState, type ElementRef} from 'react'
+import type React from 'react'
+import {useEffect, useRef, useState, type ElementRef} from 'react'
 import Box from '../Box'
 import {useEffectOnce} from '../internal/hooks/useEffectOnce'
 import {useEffectCallback} from '../internal/hooks/useEffectCallback'

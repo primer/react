@@ -1,4 +1,4 @@
-import React, {useState, useCallback, useRef} from 'react'
+import {useState, useCallback, useRef} from 'react'
 import {Button, IconButton, Breadcrumbs, ActionMenu, ActionList} from '..'
 import {PageHeader} from '../PageHeader'
 import {Tooltip} from './Tooltip'
@@ -173,9 +173,8 @@ export const DialogTrigger = () => {
             {buttonType: 'primary', content: 'Proceed', onClick: openSecondDialog},
           ]}
         >
-          The icon button that triggers the dialog, takes the focus back when the dialog is closed however the the
-          tooltip is not shown again if the dialog is closed with a mouse. Because the tooltip is shown only on
-          focus-visible.
+          The icon button that triggers the dialog, takes the focus back when the dialog is closed however the tooltip
+          is not shown again if the dialog is closed with a mouse. Because the tooltip is shown only on focus-visible.
           {secondOpen && (
             <Dialog title="Inner dialog!" onClose={onSecondDialogClose} width="small">
               Hello world

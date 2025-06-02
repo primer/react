@@ -1,4 +1,3 @@
-import React from 'react'
 import {DataTable} from '../experimental'
 import figma from '@figma/code-connect'
 

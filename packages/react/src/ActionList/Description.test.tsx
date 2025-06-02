@@ -1,5 +1,4 @@
 import {render as HTMLRender} from '@testing-library/react'
-import React from 'react'
 import {ActionList} from '.'
 import {FeatureFlags} from '../FeatureFlags'
 
@@ -63,7 +62,6 @@ describe('ActionList.Description', () => {
       return (
         <FeatureFlags
           flags={{
-            primer_react_css_modules_staff: true,
             primer_react_css_modules_ga: true,
           }}
         >

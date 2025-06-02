@@ -112,12 +112,16 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     } = React.useContext(ListContext)
     const {selectionVariant: groupSelectionVariant} = React.useContext(GroupContext)
     const inactive = Boolean(inactiveText)
-    const showInactiveIndicator = inactive && container === undefined
+    // TODO change `menuContext` check to ```listRole !== undefined && ['menu', 'listbox'].includes(listRole)```
+    // once we have a better way to handle existing usage in dotcom that incorrectly use ActionList.TrailingAction
+    const menuContext = container === 'ActionMenu' || container === 'SelectPanel'
+    // TODO: when we change `menuContext` to check `listRole` instead of `container`
+    const showInactiveIndicator = inactive && !(listRole !== undefined && ['menu', 'listbox'].includes(listRole))
 
     const onSelect = React.useCallback(
       (
         event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>,
-        // eslint-disable-next-line @typescript-eslint/ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         afterSelect?: Function,
       ) => {
         if (typeof onSelectUser === 'function') onSelectUser(event)
@@ -137,15 +141,17 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       if (selectionVariant === 'single') inferredItemRole = 'menuitemradio'
       else if (selectionVariant === 'multiple') inferredItemRole = 'menuitemcheckbox'
       else inferredItemRole = 'menuitem'
-    } else if (container === 'SelectPanel' && listRole === 'listbox') {
-      if (selectionVariant !== undefined) inferredItemRole = 'option'
+    } else if (listRole === 'listbox') {
+      if (selectionVariant !== undefined && !role) inferredItemRole = 'option'
     }
 
     const itemRole = role || inferredItemRole
-    const menuContext = container === 'ActionMenu' || container === 'SelectPanel'
 
     if (slots.trailingAction) {
-      invariant(!menuContext, `ActionList.TrailingAction can not be used within a ${container}.`)
+      invariant(
+        !menuContext,
+        `ActionList.TrailingAction can not be used within a list with an ARIA role of "menu" or "listbox".`,
+      )
     }
 
     /** Infer the proper selection attribute based on the item's role */
@@ -187,7 +193,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       paddingY: '6px', // custom value off the scale
       lineHeight: '16px',
       minHeight: 5,
-      marginX: listVariant === 'inset' ? 2 : 0,
+      marginX: listVariant === 'inset' || listVariant === 'horizontal-inset' ? 2 : 0,
       borderRadius: 2,
       transition: 'background 33.333ms linear',
       color: getVariantStyles(variant, disabled, inactive || loading).color,
@@ -211,7 +217,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       appearance: 'none',
       background: 'unset',
       border: 'unset',
-      width: listVariant === 'inset' ? 'calc(100% - 16px)' : '100%',
+      width: listVariant === 'inset' || listVariant === 'horizontal-inset' ? 'calc(100% - 16px)' : '100%',
       fontFamily: 'unset',
       textAlign: 'unset',
       marginY: 'unset',
@@ -287,7 +293,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
         if ([' ', 'Enter'].includes(event.key)) {
           if (event.key === ' ') {
             event.preventDefault() // prevent scrolling on Space
-            // immediately reset defaultPrevented once it's job is done
+            // immediately reset defaultPrevented once its job is done
             // so as to not disturb the functions that use that event after this
             event.defaultPrevented = false
           }
@@ -319,8 +325,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
 
     let focusable
 
-    // if item is disabled and is of type (menuitem*, option) it should remain focusable, if inactive, apply the same rules
-    if ((disabled && !inferredItemRole) || showInactiveIndicator) {
+    if (showInactiveIndicator) {
       focusable = true
     }
 
@@ -335,7 +340,10 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
         slots.inlineDescription ? inlineDescriptionId : ''
       }`,
       'aria-describedby':
-        [slots.blockDescription ? blockDescriptionId : undefined, inactiveWarningId ?? undefined]
+        [
+          slots.blockDescription ? blockDescriptionId : enabled && slots.description ? blockDescriptionId : undefined,
+          inactiveWarningId ?? undefined,
+        ]
           .filter(String)
           .join(' ')
           .trim() || undefined,
@@ -405,7 +413,8 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
                     <span id={labelId} className={classes.ItemLabel}>
                       {childrenWithoutSlots}
                       {/* Loading message needs to be in here so it is read with the label */}
-                      {loading === true && <VisuallyHidden>Loading</VisuallyHidden>}
+                      {/* If the item is inactive, we do not simultaneously announce that it is loading */}
+                      {loading === true && !inactive && <VisuallyHidden>Loading</VisuallyHidden>}
                     </span>
                     {slots.description}
                   </ConditionalWrapper>
@@ -422,7 +431,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
                   {
                     // If the item is inactive, but it's not in an overlay (e.g. ActionMenu, SelectPanel),
                     // render the inactive warning message directly in the item.
-                    inactive && container ? (
+                    !showInactiveIndicator ? (
                       <span className={classes.InactiveWarning} id={inactiveWarningId}>
                         {inactiveText}
                       </span>
@@ -477,7 +486,8 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
                   <span id={labelId} className={classes.ItemLabel}>
                     {childrenWithoutSlots}
                     {/* Loading message needs to be in here so it is read with the label */}
-                    {loading === true && <VisuallyHidden>Loading</VisuallyHidden>}
+                    {/* If the item is inactive, we do not simultaneously announce that it is loading */}
+                    {loading === true && !inactive && <VisuallyHidden>Loading</VisuallyHidden>}
                   </span>
                   {slots.description}
                 </ConditionalWrapper>
@@ -494,7 +504,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
                 {
                   // If the item is inactive, but it's not in an overlay (e.g. ActionMenu, SelectPanel),
                   // render the inactive warning message directly in the item.
-                  inactive && container ? (
+                  !showInactiveIndicator ? (
                     <span className={classes.InactiveWarning} id={inactiveWarningId}>
                       {inactiveText}
                     </span>
@@ -567,7 +577,8 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
                   >
                     {childrenWithoutSlots}
                     {/* Loading message needs to be in here so it is read with the label */}
-                    {loading === true && <VisuallyHidden>Loading</VisuallyHidden>}
+                    {/* If the item is inactive, we do not simultaneously announce that it is loading */}
+                    {loading === true && !inactive && <VisuallyHidden>Loading</VisuallyHidden>}
                   </Box>
                   {slots.inlineDescription}
                 </ConditionalWrapper>
@@ -584,7 +595,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
               {
                 // If the item is inactive, but it's not in an overlay (e.g. ActionMenu, SelectPanel),
                 // render the inactive warning message directly in the item.
-                inactive && container ? (
+                !showInactiveIndicator ? (
                   <Box
                     as="span"
                     sx={{

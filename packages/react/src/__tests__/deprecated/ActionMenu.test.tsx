@@ -1,6 +1,5 @@
 import {render as HTMLRender, fireEvent} from '@testing-library/react'
 import axe from 'axe-core'
-import React from 'react'
 import theme from '../../theme'
 import {ActionMenu} from '../../deprecated'
 import {behavesAsComponent, checkExports} from '../../utils/testing'
@@ -63,6 +62,7 @@ describe('ActionMenu', () => {
     expect(portalRoot).toBeTruthy()
     const itemText = items
       .map((i: ItemProps) => {
+        // eslint-disable-next-line no-prototype-builtins
         if (i.hasOwnProperty('text')) {
           return i.text
         }

@@ -224,7 +224,7 @@ const primerThemes = [
 ]
 
 const defaultFeatureFlags = new Map(DefaultFeatureFlags.flags)
-const featureFlagEnvList = new Set(['PRIMER_REACT_CSS_MODULES_STAFF', 'PRIMER_REACT_CSS_MODULES_GA'])
+const featureFlagEnvList = new Set(['PRIMER_REACT_CSS_MODULES_GA'])
 
 for (const flag of featureFlagEnvList) {
   if (import.meta.env[`VITE_${flag}`] === '1') {
@@ -303,7 +303,7 @@ export const decorators = [
           <div {...wrapperProps}>
             <BaseStyles>
               {showSurroundingElements ? <a href="https://github.com/primer/react">Primer documentation</a> : ''}
-              <FeatureFlags flags={{primer_react_action_list_item_as_button: true}}>
+              <FeatureFlags>
                 <Story {...context} />
               </FeatureFlags>
               {showSurroundingElements ? <a href="https://github.com/primer/react">Primer documentation</a> : ''}

@@ -968,6 +968,198 @@ for (const useModernActionList of [false, true]) {
           ).toHaveAttribute('aria-selected', 'true')
         })
       })
+
+      describe('As Modal', () => {
+        it('selections render as radios when variant modal and single select', async () => {
+          const user = userEvent.setup()
+
+          renderWithFlag(
+            <BasicSelectPanel variant="modal" onCancel={() => {}} selected={undefined} />,
+            useModernActionList,
+          )
+
+          await user.click(screen.getByText('Select items'))
+
+          if (useModernActionList) {
+            expect(screen.getAllByRole('radio').length).toBe(items.length)
+          }
+
+          expect(screen.getByRole('button', {name: 'Save'})).toBeVisible()
+          expect(screen.getByRole('button', {name: 'Cancel'})).toBeVisible()
+        })
+        it('save and oncancel buttons are present when variant modal', async () => {
+          const user = userEvent.setup()
+
+          renderWithFlag(<BasicSelectPanel variant="modal" onCancel={() => {}} />, useModernActionList)
+
+          await user.click(screen.getByText('Select items'))
+
+          expect(screen.getByRole('button', {name: 'Save'})).toBeVisible()
+          expect(screen.getByRole('button', {name: 'Cancel'})).toBeVisible()
+        })
+      })
+
+      describe('sorting', () => {
+        const items = [
+          {
+            text: 'item one',
+            id: '3',
+          },
+          {
+            text: 'item two',
+            id: '1',
+            selected: true,
+          },
+          {
+            text: 'item three',
+            id: '2',
+          },
+        ]
+
+        it('should render selected items at the top by default when FF on', async () => {
+          const user = userEvent.setup()
+
+          renderWithFlag(
+            <FeatureFlags flags={{primer_react_select_panel_order_selected_at_top: true}}>
+              <BasicSelectPanel items={items} selected={[items[1]]} />
+            </FeatureFlags>,
+            useModernActionList,
+          )
+
+          await user.click(screen.getByText('item two')) // item two is selected so that's what the anchor text is
+
+          const options = screen.getAllByRole('option')
+          expect(options[0]).toHaveTextContent('item two') // item two is selected
+          expect(options[1]).toHaveTextContent('item one')
+          expect(options[2]).toHaveTextContent('item three')
+        })
+        it('should not render selected items at the top by default when FF off', async () => {
+          const user = userEvent.setup()
+
+          renderWithFlag(
+            <FeatureFlags flags={{primer_react_select_panel_order_selected_at_top: false}}>
+              <BasicSelectPanel items={items} selected={[items[1]]} />
+            </FeatureFlags>,
+            useModernActionList,
+          )
+
+          await user.click(screen.getByText('item two')) // item two is selected so that's what the anchor text is
+
+          const options = screen.getAllByRole('option')
+          expect(options[0]).toHaveTextContent('item one')
+          expect(options[1]).toHaveTextContent('item two') // item two is selected
+          expect(options[2]).toHaveTextContent('item three')
+        })
+        it('should not render selected items at the top when showSelectedOptionsFirst set to false', async () => {
+          const user = userEvent.setup()
+
+          renderWithFlag(
+            <BasicSelectPanel items={items} selected={[items[1]]} showSelectedOptionsFirst={false} />,
+            useModernActionList,
+          )
+
+          await user.click(screen.getByText('item two')) // item two is selected so that's what the anchor text is
+
+          const options = screen.getAllByRole('option')
+          expect(options[0]).toHaveTextContent('item one')
+          expect(options[1]).toHaveTextContent('item two') // item two is selected
+          expect(options[2]).toHaveTextContent('item three')
+        })
+      })
+
+      describe('disableFullscreenOnNarrow prop', () => {
+        const renderSelectPanelWithFlags = (flags: Record<string, boolean>, props: Record<string, unknown> = {}) => {
+          return render(
+            <FeatureFlags flags={flags}>
+              <ThemeProvider>
+                <SingleSelectPanel {...props} />
+              </ThemeProvider>
+            </FeatureFlags>,
+          )
+        }
+
+        // Create a single-select version to test ResponsiveCloseButton behavior
+        function SingleSelectPanel(passthroughProps: Record<string, unknown>) {
+          const [filter, setFilter] = React.useState('')
+          const [open, setOpen] = React.useState(false)
+
+          return (
+            <ThemeProvider>
+              <SelectPanel
+                title="test title"
+                subtitle="test subtitle"
+                items={items}
+                placeholder="Select an item"
+                placeholderText="Filter items"
+                selected={undefined}
+                onSelectedChange={() => {}}
+                filterValue={filter}
+                onFilterChange={value => {
+                  setFilter(value)
+                }}
+                open={open}
+                onOpenChange={open => setOpen(open)}
+                {...passthroughProps}
+              />
+            </ThemeProvider>
+          )
+        }
+
+        it('should opt out of fullscreen when disableFullscreenOnNarrow=true even when feature flag is enabled', async () => {
+          const user = userEvent.setup()
+
+          renderSelectPanelWithFlags(
+            {
+              primer_react_select_panel_with_modern_action_list: useModernActionList,
+              primer_react_select_panel_fullscreen_on_narrow: true,
+            },
+            {disableFullscreenOnNarrow: true},
+          )
+
+          await user.click(screen.getByText('Select an item'))
+
+          // When disableFullscreenOnNarrow=true, the ResponsiveCloseButton should not be present
+          // even when the feature flag is enabled, indicating no fullscreen behavior
+          const responsiveCloseButton = screen.queryByRole('button', {name: 'Cancel and close'})
+          expect(responsiveCloseButton).not.toBeInTheDocument()
+        })
+
+        it('should use fullscreen behavior when disableFullscreenOnNarrow=false and feature flag is enabled', async () => {
+          const user = userEvent.setup()
+
+          renderSelectPanelWithFlags(
+            {
+              primer_react_select_panel_with_modern_action_list: useModernActionList,
+              primer_react_select_panel_fullscreen_on_narrow: true,
+            },
+            {disableFullscreenOnNarrow: false},
+          )
+
+          await user.click(screen.getByText('Select an item'))
+
+          // When feature flag is true and disableFullscreenOnNarrow is false, the ResponsiveCloseButton should be present
+          // indicating fullscreen behavior is active
+          const responsiveCloseButton = screen.getByRole('button', {name: 'Cancel and close'})
+          expect(responsiveCloseButton).toBeInTheDocument()
+        })
+
+        it('should default to feature flag value when disableFullscreenOnNarrow is undefined', async () => {
+          const user = userEvent.setup()
+
+          // Test with feature flag disabled
+          renderSelectPanelWithFlags({
+            primer_react_select_panel_with_modern_action_list: useModernActionList,
+            primer_react_select_panel_fullscreen_on_narrow: false,
+          })
+
+          await user.click(screen.getByText('Select an item'))
+
+          // When feature flag is false and disableFullscreenOnNarrow is undefined,
+          // the ResponsiveCloseButton should not be present
+          const responsiveCloseButton = screen.queryByRole('button', {name: 'Cancel and close'})
+          expect(responsiveCloseButton).not.toBeInTheDocument()
+        })
+      })
     })
   })
 }

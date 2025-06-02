@@ -39,6 +39,7 @@ export interface ToggleSwitchProps extends Omit<React.HTMLAttributes<HTMLDivElem
    * **This should only be changed when the switch's alignment needs to be adjusted.** For example: It needs to be left-aligned because the label appears above it and the caption appears below it.
    */
   statusLabelPosition?: CellAlignment
+<<<<<<< HEAD
   /**
    * If the switch is in the loading state, this value controls the amount of delay in milliseconds before
    * the `loadingLabel` is announced to screen readers.
@@ -49,6 +50,10 @@ export interface ToggleSwitchProps extends Omit<React.HTMLAttributes<HTMLDivElem
    * This is primarily used for AT (screen readers) to convey what is currently loading.
    */
   loadingLabel?: string
+=======
+  /** type of button to account for behavior when added to a form*/
+  buttonType?: 'button' | 'submit' | 'reset'
+>>>>>>> main
 }
 
 const sizeVariants = variant({
@@ -245,6 +250,7 @@ const ToggleSwitch = React.forwardRef<HTMLButtonElement, React.PropsWithChildren
       checked,
       onChange,
       onClick,
+      buttonType = 'button',
       size = 'medium',
       statusLabelPosition = 'start',
       loadingLabelDelay = 2000,
@@ -324,6 +330,7 @@ const ToggleSwitch = React.forwardRef<HTMLButtonElement, React.PropsWithChildren
         </Text>
         <SwitchButton
           ref={ref}
+          type={buttonType}
           onClick={handleToggleClick}
           aria-labelledby={ariaLabelledby}
           aria-describedby={isLoadingLabelVisible || ariaDescribedby ? switchButtonDescribedBy : undefined}

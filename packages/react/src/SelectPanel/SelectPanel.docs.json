@@ -24,7 +24,10 @@
       "id": "components-selectpanel-features--with-external-anchor"
     },
     {
-      "id": "components-selectpanel-features--with-footer"
+      "id": "components-selectpanel-features--with-secondary-action-button"
+    },
+    {
+      "id": "components-selectpanel-features--with-secondary-action-link"
     },
     {
       "id": "components-selectpanel-features--with-groups"
@@ -130,7 +133,7 @@
     {
       "name": "onCancel",
       "type": "() => void",
-      "description": "(Narrow screens) Callback when the user hits cancel or close",
+      "description": "(Narrow screens and variant=modal) Callback when the user hits cancel or close",
       "defaultValue": ""
     },
     {
@@ -146,10 +149,17 @@
       "description": "See [TextInput props](/react/TextInput#props)."
     },
     {
+      "name": "variant",
+      "type": "'anchored' | 'modal'",
+      "description": "Anchored by default, SelectPanel can be opened as a modal",
+      "defaultValue": "'anchored'"
+    },
+    {
       "name": "footer",
       "type": "string | React.ReactElement",
       "defaultValue": "null",
-      "description": "Footer rendered at the end of the panel"
+      "description": "Please use `secondaryAction` instead.",
+      "deprecated": true
     },
     {
       "name": "message",
@@ -161,6 +171,24 @@
       "name": "notice",
       "type": "{text: string | React.ReactElement; variant: 'empty' | 'error' | 'warning';}",
       "description": "Optional notice to display on top of the panel"
+    },
+    {
+      "name": "secondaryAction",
+      "type": "React.ReactElement",
+      "defaultValue": "null",
+      "description": "Secondary action, it will be rendered in the footer of the panel. Use `SecondaryActionButton` or `SecondaryActionLink` for the action."
+    },
+    {
+      "name": "showSelectedOptionsFirst",
+      "type": "boolean",
+      "description": "Whether to display the selected items at the top of the list",
+      "default": "true"
+    },
+    {
+      "name": "disableFullscreenOnNarrow",
+      "type": "boolean",
+      "description": "Whether to disable fullscreen behavior on narrow viewports. When `true`, the panel will maintain its anchored position regardless of viewport size. When `false`, the panel will go fullscreen on narrow viewports (if feature flag is enabled).",
+      "defaultValue": "undefined (uses feature flag default)"
     }
   ],
   "subcomponents": []

@@ -1,9 +1,7 @@
 import {render as HTMLRender} from '@testing-library/react'
-import React from 'react'
 import theme from '../theme'
 import {ActionList} from '.'
 import {BaseStyles, ThemeProvider, ActionMenu} from '..'
-import {FeatureFlags} from '../FeatureFlags'
 import {behavesAsComponent} from '../utils/testing'
 
 describe('ActionList.Heading', () => {
@@ -62,28 +60,13 @@ describe('ActionList.Heading', () => {
   })
 
   it('should support a custom `className` on the outermost element', () => {
-    const Element = () => {
-      return (
-        <ActionList>
-          <ActionList.Heading as="h2" className="test-class-name">
-            Filter by
-          </ActionList.Heading>
-        </ActionList>
-      )
-    }
-    const FeatureFlagElement = () => {
-      return (
-        <FeatureFlags
-          flags={{
-            primer_react_css_modules_staff: true,
-            primer_react_css_modules_ga: true,
-          }}
-        >
-          <Element />
-        </FeatureFlags>
-      )
-    }
-    expect(HTMLRender(<FeatureFlagElement />).container.querySelector('h2')).toHaveClass('test-class-name')
-    expect(HTMLRender(<Element />).container.querySelector('h2')).toHaveClass('test-class-name')
+    const actionList = HTMLRender(
+      <ActionList>
+        <ActionList.Heading as="h2" className="test-class-name">
+          Filter by
+        </ActionList.Heading>
+      </ActionList>,
+    )
+    expect(actionList.container.querySelector('h2')).toHaveClass('test-class-name')
   })
 })

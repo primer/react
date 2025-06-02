@@ -18,7 +18,7 @@ import {
 import data from './mock-story-data'
 
 export default {
-  title: 'Experimental/Components/SelectPanel/Examples',
+  title: 'Deprecated/Components/SelectPanel/Examples',
   component: SelectPanel,
 }
 
@@ -298,8 +298,8 @@ const SuspendedActionList: React.FC<{query: string}> = ({query}) => {
   )
 }
 
-/* 
-  `data` is already pre-fetched with the issue 
+/*
+  `data` is already pre-fetched with the issue
   `users` are fetched async on search
 */
 const SearchableUserList: React.FC<{
@@ -347,8 +347,8 @@ const SearchableUserList: React.FC<{
   )
 }
 
-/* 
-  `data` is already pre-fetched with the issue 
+/*
+  `data` is already pre-fetched with the issue
   `users` are fetched async on search
 */
 export const AsyncSearchWithUseTransition = () => {
@@ -749,7 +749,7 @@ export const NestedSelection = () => {
       <h1>Nested selection</h1>
 
       <Flash variant="warning" sx={{mb: 2}}>
-        This story is not fully accesible, do not copy it without review!
+        This story is not fully accessible, do not copy it without review!
       </Flash>
 
       <Button
@@ -931,8 +931,8 @@ export const CreateNewRow = () => {
 
   const itemsToShow = query ? filteredLabels : data.labels.sort(sortingFn)
 
-  /* 
-    Controlled state + Create new label Dialog 
+  /*
+    Controlled state + Create new label Dialog
     We only have to do this until https://github.com/primer/react/pull/3840 is merged
   */
   const [panelOpen, setPanelOpen] = React.useState(false)

@@ -1,4 +1,3 @@
-import React from 'react'
 import type {Meta, StoryFn} from '@storybook/react'
 import {Button, IconButton, Breadcrumbs, Link, Text, StateLabel, BranchName, Box} from '..'
 import {UnderlineNav} from '../UnderlineNav'

@@ -1,21 +1,12 @@
+import {describe, expect, it, vi} from 'vitest'
 import React from 'react'
 import {render, waitFor} from '@testing-library/react'
 import ToggleSwitch from './'
-import {behavesAsComponent, checkExports, checkStoriesForAxeViolations} from '../utils/testing'
 import userEvent from '@testing-library/user-event'
 
 const SWITCH_LABEL_TEXT = 'Switch label'
 
 describe('ToggleSwitch', () => {
-  behavesAsComponent({
-    Component: ToggleSwitch,
-    options: {skipAs: true},
-  })
-
-  checkExports('ToggleSwitch', {
-    default: ToggleSwitch,
-  })
-
   it('renders a switch that is turned off', () => {
     const {getByLabelText} = render(
       <>
@@ -145,7 +136,7 @@ describe('ToggleSwitch', () => {
 
   it('calls onChange when the switch is toggled', async () => {
     const user = userEvent.setup()
-    const handleChange = jest.fn()
+    const handleChange = vi.fn()
     const ControlledSwitchComponent = ({handleSwitchChange}: {handleSwitchChange: (on: boolean) => void}) => {
       const [isOn, setIsOn] = React.useState(false)
 
@@ -183,7 +174,7 @@ describe('ToggleSwitch', () => {
   })
 
   it('supports a `ref` on the inner <button> element', () => {
-    const ref = jest.fn()
+    const ref = vi.fn()
 
     render(
       <>
@@ -210,5 +201,17 @@ describe('ToggleSwitch', () => {
     await waitFor(() => expect(toggleSwitch).toHaveTextContent('Loading'))
   })
 
-  checkStoriesForAxeViolations('ToggleSwitch.features', '../ToggleSwitch/')
+  it('displays a loading label', async () => {
+    const TEST_ID = 'a test id'
+
+    const {getByTestId} = render(
+      <>
+        <span id="label">label</span>
+        <ToggleSwitch data-testid={TEST_ID} aria-labelledby="label" loadingLabelDelay={0} loading />
+      </>,
+    )
+
+    const toggleSwitch = getByTestId(TEST_ID)
+    await waitFor(() => expect(toggleSwitch).toHaveTextContent('Loading'))
+  })
 })

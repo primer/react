@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import {useState} from 'react'
 import {CheckIcon, NumberIcon} from '@primer/octicons-react'
 import {Box, FormControl} from '..'
 import type {TextInputWithTokensProps} from '../TextInputWithTokens'

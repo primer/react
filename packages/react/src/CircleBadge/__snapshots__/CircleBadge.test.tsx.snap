@@ -1,0 +1,20 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`CircleBadge > respects the inline prop 1`] = `
+<div
+  class="sc-fUnMCh kvrJCk"
+/>
+`;
+
+exports[`CircleBadge > respects the variant prop 1`] = `
+<div
+  class="sc-fUnMCh fzXxSU"
+/>
+`;
+
+exports[`CircleBadge > uses the size prop to override the variant prop 1`] = `
+<div
+  class="sc-fUnMCh gxuYTk"
+  size="20"
+/>
+`;

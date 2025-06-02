@@ -1,4 +1,5 @@
-import React, {useCallback, useContext} from 'react'
+import type React from 'react'
+import {useCallback, useContext} from 'react'
 import {useAnchoredPosition} from '../hooks'
 import type {OverlayProps} from '../Overlay'
 import Overlay from '../Overlay'

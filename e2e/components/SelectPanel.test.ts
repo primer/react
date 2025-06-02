@@ -10,11 +10,13 @@ const scenarios = matrix({
     {id: 'components-selectpanel--default', name: 'Default'},
     {id: 'components-selectpanel-features--single-select', name: 'Single Select'},
     {id: 'components-selectpanel-features--with-external-anchor', name: 'External Anchor'},
-    {id: 'components-selectpanel-features--with-footer', name: 'With Footer'},
+    {id: 'components-selectpanel-features--with-secondary-action', name: 'With Footer'},
     {id: 'components-selectpanel-features--with-groups', name: 'With Groups'},
     {id: 'components-selectpanel-features--with-item-dividers', name: 'With Item Dividers'},
     {id: 'components-selectpanel-features--with-label-internally', name: 'With Label Internally'},
     {id: 'components-selectpanel-features--with-label-visually-hidden', name: 'With Label Visually Hidden'},
+    {id: 'components-selectpanel-features--multi-select-modal', name: 'Multi Select Modal'},
+    {id: 'components-selectpanel-features--single-select-modal', name: 'Single Select Modal'},
     {
       id: 'components-selectpanel-features--with-placeholder-for-search-input',
       name: 'With Placeholder for Search Input',
@@ -131,6 +133,31 @@ test.describe('SelectPanel', () => {
 
     expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
       `SelectPanel-Default-responsive-width-light-modern-action-list--true-full-screen-on-narrow--true.png`,
+    )
+  })
+
+  test(`Default @vrt with notice`, async ({page}) => {
+    await visit(page, {
+      id: 'components-selectpanel-features--with-notice',
+      globals: {
+        featureFlags: {
+          primer_react_select_panel_with_modern_action_list: true,
+        },
+      },
+    })
+
+    // Open select panel
+    const isPanelOpen = await page.isVisible('[role="listbox"]')
+    if (!isPanelOpen) {
+      await page.keyboard.press('Tab')
+      await page.keyboard.press('Tab')
+      await page.keyboard.press('Tab')
+      await page.keyboard.press('Tab')
+      await page.keyboard.press('Enter')
+    }
+
+    expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
+      `SelectPanel-features--with-notice-light-modern-action-list--true.png`,
     )
   })
 })

@@ -106,6 +106,12 @@
       "type": "string",
       "defaultValue": "'Loading'",
       "description": "The text that is announced to AT such as screen readers when the switch is in a loading state."
+    },
+    {
+      "name": "buttonType",
+      "type": "'button' | 'submit' | 'reset'",
+      "defaultValue": "'button'",
+      "description": "<div>As it’s part of form behavior, this controls whether the button is of type button, submit, or reset.</div>"
     }
   ],
   "subcomponents": []

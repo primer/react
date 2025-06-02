@@ -11,5 +11,9 @@
     "src/**/*.ts",
     "src/**/*.tsx",
     "script/**/*.ts",
+    "vitest.config.mts",
+    "config/**/*.ts",
+    ".storybook/**/*.ts",
+    ".storybook/**/*.tsx"
   ]
 }

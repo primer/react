@@ -17,6 +17,10 @@ function SimpleActionList(): JSX.Element {
       <ActionList.LinkItem href="//github.com" title="anchor" aria-keyshortcuts="d">
         Link Item
       </ActionList.LinkItem>
+      <ActionList.Item inactiveText="Unavailable due to an outage">Inactive item</ActionList.Item>
+      <ActionList.Item inactiveText="Unavailable due to an outage" loading>
+        Loading and inactive item
+      </ActionList.Item>
     </ActionList>
   )
 }
@@ -43,7 +47,6 @@ function SingleSelectListStory(): JSX.Element {
       {projects.map((project, index) => (
         <ActionList.Item
           key={index}
-          role="option"
           selected={index === selectedIndex}
           onSelect={() => setSelectedIndex(index)}
           disabled={project.disabled}
@@ -171,23 +174,55 @@ describe('ActionList.Item', () => {
     fireEvent.keyPress(option, {key: 'Enter', charCode: 13})
     expect(option).toBeInTheDocument()
   })
-  it('should focus the button around the leading visual when tabbing to an inactive item', async () => {
+  it('should focus the button around the alert icon when tabbing to an inactive item', async () => {
+    const component = HTMLRender(<SimpleActionList />)
+    const inactiveIndicatorButton = await waitFor(() => component.getByRole('button', {name: 'Inactive item'}))
+    await userEvent.tab()
+    await userEvent.tab()
+    await userEvent.tab()
+    await userEvent.tab()
+    await userEvent.tab()
+    await userEvent.tab() // focuses 6th element, which is inactive
+    expect(inactiveIndicatorButton).toHaveFocus()
+    expect(document.activeElement).toHaveAccessibleDescription('Unavailable due to an outage')
+  })
+  it('should focus the option or menu item when moving focus to an inactive item **in a listbox**', async () => {
     const component = HTMLRender(<SingleSelectListStory />)
-    const inactiveOptionButton = await waitFor(() => component.getByRole('button', {name: projects[3].inactiveText}))
+    const inactiveOption = await waitFor(() => component.getByRole('option', {name: projects[3].name}))
     await userEvent.tab() // get focus on first element
     await userEvent.keyboard('{ArrowDown}')
     await userEvent.keyboard('{ArrowDown}')
-    expect(inactiveOptionButton).toHaveFocus()
+    await userEvent.keyboard('{ArrowDown}')
+    expect(inactiveOption).toHaveFocus()
+    expect(document.activeElement).toHaveAccessibleDescription(projects[3].inactiveText as string)
   })
   it('should behave as inactive if both inactiveText and loading props are passed', async () => {
+    const component = HTMLRender(<SimpleActionList />)
+    const inactiveIndicatorButton = await waitFor(() =>
+      component.getByRole('button', {name: 'Loading and inactive item'}),
+    )
+    await userEvent.tab()
+    await userEvent.tab()
+    await userEvent.tab()
+    await userEvent.tab()
+    await userEvent.tab()
+    await userEvent.tab()
+    await userEvent.tab() // focuses 7th element, which is inactive AND has a loading prop
+    expect(inactiveIndicatorButton).toHaveFocus()
+    expect(document.activeElement).toHaveAccessibleDescription('Unavailable due to an outage')
+  })
+
+  it('should behave as inactive if both inactiveText and loading props are passed **in a listbox**', async () => {
     const component = HTMLRender(<SingleSelectListStory />)
-    const inactiveOptionButton = await waitFor(() => component.getByRole('button', {name: projects[5].inactiveText}))
+    const inactiveOption = await waitFor(() => component.getByRole('option', {name: projects[5].name}))
     await userEvent.tab() // get focus on first element
     await userEvent.keyboard('{ArrowDown}')
     await userEvent.keyboard('{ArrowDown}')
     await userEvent.keyboard('{ArrowDown}')
     await userEvent.keyboard('{ArrowDown}')
-    expect(inactiveOptionButton).toHaveFocus()
+    await userEvent.keyboard('{ArrowDown}')
+    expect(inactiveOption).toHaveFocus()
+    expect(document.activeElement).toHaveAccessibleDescription(projects[5].inactiveText as string)
   })
   it('should call onClick for a link item', async () => {
     const onClick = jest.fn()
@@ -204,7 +239,6 @@ describe('ActionList.Item', () => {
   })
   it('should render ActionList.Item as button when feature flag is enabled', async () => {
     const featureFlag = {
-      primer_react_css_modules_staff: true,
       primer_react_css_modules_ga: true,
     }
     const {container} = HTMLRender(
@@ -226,7 +260,6 @@ describe('ActionList.Item', () => {
     const {container} = HTMLRender(
       <FeatureFlags
         flags={{
-          primer_react_css_modules_staff: false,
           primer_react_css_modules_ga: false,
         }}
       >
@@ -253,7 +286,6 @@ describe('ActionList.Item', () => {
       return (
         <FeatureFlags
           flags={{
-            primer_react_css_modules_staff: false,
             primer_react_css_modules_ga: false,
           }}
         >
@@ -346,7 +378,6 @@ describe('ActionList.Item', () => {
     const {getByRole} = HTMLRender(
       <FeatureFlags
         flags={{
-          primer_react_css_modules_staff: true,
           primer_react_css_modules_ga: true,
         }}
       >
@@ -365,7 +396,6 @@ describe('ActionList.Item', () => {
     const {getByRole} = HTMLRender(
       <FeatureFlags
         flags={{
-          primer_react_css_modules_staff: true,
           primer_react_css_modules_ga: true,
         }}
       >
@@ -390,5 +420,57 @@ describe('ActionList.Item', () => {
     const button = getByRole('button')
     expect(button.parentElement?.tagName).toBe('LI')
     expect(button.textContent).toBe('Item 5')
+  })
+
+  it('should add `role="option"` if `role="listbox"` and `selectionVariant` is present', async () => {
+    const {getAllByRole} = HTMLRender(
+      <ActionList role="listbox" selectionVariant="single">
+        <ActionList.Item>Item 1</ActionList.Item>
+        <ActionList.Item>Item 2</ActionList.Item>
+        <ActionList.Item>Item 3</ActionList.Item>
+        <ActionList.Item>Item 4</ActionList.Item>
+      </ActionList>,
+    )
+    const options = getAllByRole('option')
+    expect(options[0]).toBeInTheDocument()
+    expect(options).toHaveLength(4)
+  })
+
+  it('should add `aria-describedby` to items with a description', () => {
+    const featureFlag = {
+      primer_react_css_modules_ga: true,
+    }
+    const {getByRole} = HTMLRender(
+      <FeatureFlags flags={featureFlag}>
+        <ActionList>
+          <ActionList.Item>
+            Item, <ActionList.Description variant="block">Description</ActionList.Description>
+          </ActionList.Item>
+        </ActionList>
+      </FeatureFlags>,
+    )
+    const item = getByRole('button')
+    expect(item).toHaveAttribute('aria-describedby')
+    expect(item).toHaveTextContent('Item, Description')
+    expect(item).toHaveAccessibleDescription('Description')
+  })
+
+  it('should add `aria-describedby` to items with a description when `role=listbox` is applied', () => {
+    const featureFlag = {
+      primer_react_css_modules_ga: true,
+    }
+    const {getByRole} = HTMLRender(
+      <FeatureFlags flags={featureFlag}>
+        <ActionList role="listbox" selectionVariant="single">
+          <ActionList.Item>
+            Item, <ActionList.Description variant="block">Description</ActionList.Description>
+          </ActionList.Item>
+        </ActionList>
+      </FeatureFlags>,
+    )
+    const item = getByRole('option')
+    expect(item).toHaveAttribute('aria-describedby')
+    expect(item).toHaveTextContent('Item, Description')
+    expect(item).toHaveAccessibleDescription('Description')
   })
 })

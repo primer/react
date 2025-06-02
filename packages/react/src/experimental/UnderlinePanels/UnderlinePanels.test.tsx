@@ -1,11 +1,9 @@
 // Most of the functionality is already tested in [@github/tab-container-element](https://github.com/github/tab-container-element)
 
-import React from 'react'
 import {render, screen} from '@testing-library/react'
 import UnderlinePanels from './UnderlinePanels'
 import {behavesAsComponent} from '../../utils/testing'
 import TabContainerElement from '@github/tab-container-element'
-import {FeatureFlags} from '../../FeatureFlags'
 
 TabContainerElement.prototype.selectTab = jest.fn()
 
@@ -168,19 +166,6 @@ describe('UnderlinePanels', () => {
         <UnderlinePanels.Panel>Panel 2</UnderlinePanels.Panel>
       </UnderlinePanels>
     )
-    const FeatureFlagElement = () => {
-      return (
-        <FeatureFlags
-          flags={{
-            primer_react_css_modules_staff: true,
-            primer_react_css_modules_ga: true,
-          }}
-        >
-          <Element />
-        </FeatureFlags>
-      )
-    }
     expect(render(<Element />).baseElement.firstChild?.firstChild?.firstChild).toHaveClass('test-class-name')
-    expect(render(<FeatureFlagElement />).baseElement.firstChild?.firstChild?.firstChild).toHaveClass('test-class-name')
   })
 })

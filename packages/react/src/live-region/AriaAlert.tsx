@@ -1,4 +1,5 @@
-import React, {type ElementType} from 'react'
+import type React from 'react'
+import {type ElementType} from 'react'
 import {Announce} from './Announce'
 import type {SxProp} from '../sx'
 

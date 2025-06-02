@@ -1,4 +1,3 @@
-import React from 'react'
 import type {ComponentProps} from '../../utils/types'
 import type {Meta, StoryFn} from '@storybook/react'
 import UnderlinePanels from './UnderlinePanels'

@@ -1,8 +1,8 @@
-import React from 'react'
 import Box from '../Box'
 import Spinner from '../Spinner'
 import {Stack} from '../Stack/Stack'
-import {SkeletonBox} from '../experimental/Skeleton/SkeletonBox'
+import {SkeletonBox} from '../experimental/Skeleton'
+import classes from './FilteredActionListLoaders.module.css'
 
 export class FilteredActionListLoadingType {
   public name: string
@@ -57,7 +57,7 @@ function LoadingSkeleton({rows = 10, ...props}: {rows: number}): JSX.Element {
         {Array.from({length: rows}, (_, i) => (
           <Stack key={i} direction="horizontal" gap="condensed" align="center">
             <SkeletonBox width="16px" height="16px" />
-            <SkeletonBox height="10px" width={`${Math.random() * 60 + 20}%`} sx={{borderRadius: '4px'}} />
+            <SkeletonBox height="10px" width={`${Math.random() * 60 + 20}%`} className={classes.LoadingSkeleton} />
           </Stack>
         ))}
       </Stack>

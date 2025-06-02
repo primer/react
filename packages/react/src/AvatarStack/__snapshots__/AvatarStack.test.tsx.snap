@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Avatar respects alignRight props 1`] = `
+<span
+  className="pc-AvatarStack--three-plus pc-AvatarStack--right AvatarStack"
+  data-align-right=""
+  data-avatar-count="3+"
+  data-responsive=""
+  style={
+    {
+      "--stackSize-narrow": "20px",
+      "--stackSize-regular": "20px",
+      "--stackSize-wide": "20px",
+    }
+  }
+>
+  <div
+    className="pc-AvatarStackBody AvatarStackBody"
+    tabIndex={0}
+  >
+     
+    <img
+      alt=""
+      className="pc-AvatarItem AvatarItem"
+      src="https://avatars.githubusercontent.com/primer"
+    />
+    <img
+      alt=""
+      className="pc-AvatarItem AvatarItem"
+      src="https://avatars.githubusercontent.com/github"
+    />
+    <img
+      alt=""
+      className="pc-AvatarItem AvatarItem"
+      src="https://avatars.githubusercontent.com/primer"
+    />
+    <img
+      alt=""
+      className="pc-AvatarItem AvatarItem"
+      src="https://avatars.githubusercontent.com/github"
+    />
+  </div>
+</span>
+`;
