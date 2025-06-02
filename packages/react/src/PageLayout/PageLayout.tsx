@@ -13,6 +13,7 @@ import {warning} from '../utils/warning'
 
 import classes from './PageLayout.module.css'
 import {BoxWithFallback} from '../internal/components/BoxWithFallback'
+import {defaultSxProp} from '../utils/defaultSxProp'
 
 const REGION_ORDER = {
   header: 0,
@@ -73,7 +74,7 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
   rowGap = 'normal',
   columnGap = 'normal',
   children,
-  sx = {},
+  sx = defaultSxProp,
   className,
   style,
   _slotsConfig: slotsConfig,
@@ -127,7 +128,7 @@ type DividerProps = {
 
 const HorizontalDivider: React.FC<React.PropsWithChildren<DividerProps>> = ({
   variant = 'none',
-  sx = {},
+  sx = defaultSxProp,
   className,
   position,
   style,
@@ -169,7 +170,7 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
   position,
   className,
   style,
-  sx = {},
+  sx = defaultSxProp,
 }) => {
   const [isDragging, setIsDragging] = React.useState(false)
   const [isKeyboardDrag, setIsKeyboardDrag] = React.useState(false)
@@ -366,7 +367,7 @@ const Header: React.FC<React.PropsWithChildren<PageLayoutHeaderProps>> = ({
   hidden = false,
   children,
   style,
-  sx = {},
+  sx = defaultSxProp,
   className,
 }) => {
   // Combine divider and dividerWhenNarrow for backwards compatibility
@@ -462,7 +463,7 @@ const Content: React.FC<React.PropsWithChildren<PageLayoutContentProps>> = ({
   padding = 'none',
   hidden = false,
   children,
-  sx = {},
+  sx = defaultSxProp,
   className,
   style,
 }) => {
@@ -601,7 +602,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
       hidden: responsiveHidden = false,
       children,
       id,
-      sx = {},
+      sx = defaultSxProp,
       className,
       style,
     },
@@ -813,7 +814,7 @@ const Footer: React.FC<React.PropsWithChildren<PageLayoutFooterProps>> = ({
   dividerWhenNarrow = 'inherit',
   hidden = false,
   children,
-  sx = {},
+  sx = defaultSxProp,
   className,
   style,
 }) => {

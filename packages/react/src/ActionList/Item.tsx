@@ -293,7 +293,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
         if ([' ', 'Enter'].includes(event.key)) {
           if (event.key === ' ') {
             event.preventDefault() // prevent scrolling on Space
-            // immediately reset defaultPrevented once it's job is done
+            // immediately reset defaultPrevented once its job is done
             // so as to not disturb the functions that use that event after this
             event.defaultPrevented = false
           }
@@ -340,7 +340,10 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
         slots.inlineDescription ? inlineDescriptionId : ''
       }`,
       'aria-describedby':
-        [slots.blockDescription ? blockDescriptionId : undefined, inactiveWarningId ?? undefined]
+        [
+          slots.blockDescription ? blockDescriptionId : enabled && slots.description ? blockDescriptionId : undefined,
+          inactiveWarningId ?? undefined,
+        ]
           .filter(String)
           .join(' ')
           .trim() || undefined,

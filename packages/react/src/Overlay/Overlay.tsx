@@ -102,7 +102,7 @@ export const BaseOverlay = React.forwardRef<HTMLDivElement, OwnOverlayProps>(
       right,
       bottom,
       position,
-      style: styleFromProps = {},
+      style: styleFromProps,
       className,
       maxHeight,
       maxWidth,

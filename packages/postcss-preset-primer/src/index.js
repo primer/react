@@ -114,7 +114,7 @@ const postcssPresetPrimer = () => {
 postcssPresetPrimer.postcss = true
 
 /**
- * Returns an array of the the directory and its ancestors
+ * Returns an array of the directory and its ancestors
  * @param {string} directory
  * @returns {Array<string>}
  */
