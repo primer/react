@@ -109,6 +109,11 @@ export type AnchoredOverlayProps = AnchoredOverlayBaseProps &
   (AnchoredOverlayPropsWithAnchor | AnchoredOverlayPropsWithoutAnchor) &
   Partial<Pick<PositionSettings, 'align' | 'side' | 'anchorOffset' | 'alignmentOffset'>>
 
+const defaultVariant = {
+  regular: 'anchored',
+  narrow: 'anchored',
+}
+
 /**
  * An `AnchoredOverlay` provides an anchor that will open a floating overlay positioned relative to the anchor.
  * The overlay can be opened and navigated using keyboard or mouse.
@@ -132,7 +137,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   anchorOffset,
   className,
   pinPosition,
-  variant = {regular: 'anchored', narrow: 'anchored'},
+  variant = defaultVariant,
   preventOverflow = true,
   onPositionChange,
 }) => {
