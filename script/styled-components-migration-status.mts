@@ -84,7 +84,21 @@ for (const {filepath, size} of notMigrated) {
 
 console.log(`## Migrated (${migrated.length})
 
-There are ${migrated.length} files that do not include styled-components in Primer React.`)
+There are ${migrated.length} files that do not include styled-components in Primer React.
+
+<details>
+<summary>All files</summary>
+
+| Filepath | Size (kB) |
+| :------- | :-------- |`)
+
+for (const {filepath, size} of notMigrated) {
+  const relativePath = path.relative(directory, filepath)
+  const link = `[\`${relativePath}\`](https://github.com/primer/react/blob/main/${relativePath})`
+  console.log(`| ${link} | ${round(size / 1024)}kB |`)
+}
+
+console.log(`\n</details>`)
 
 function round(value: number): number {
   return Math.round((value + Number.EPSILON) * 100) / 100
