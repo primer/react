@@ -1,4 +1,4 @@
-import type {StoryFn, Meta} from '@storybook/react'
+import type {StoryFn, Meta} from '@storybook/react-vite'
 import type {ActionListProps, ActionListGroupProps} from '.'
 import {ActionList} from '.'
 import {Item} from './Item'

@@ -14,18 +14,7 @@ const config: StorybookConfig = {
       ? ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)']
       : // Don't include dev stories in production
         ['../src/**/*.mdx', '../src/**/!(*.dev).stories.@(js|jsx|ts|tsx)'],
-  addons: [
-    {
-      name: '@storybook/addon-essentials',
-      options: {
-        backgrounds: false,
-      },
-    },
-    getAbsolutePath('@storybook/addon-storysource'),
-    getAbsolutePath('@storybook/addon-interactions'),
-    getAbsolutePath('@storybook/addon-a11y'),
-    getAbsolutePath('@storybook/addon-links'),
-  ],
+  addons: [getAbsolutePath('@storybook/addon-storysource'), getAbsolutePath('@storybook/addon-a11y')],
 
   framework: {
     name: '@storybook/react-vite',

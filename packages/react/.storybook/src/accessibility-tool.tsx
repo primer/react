@@ -1,7 +1,7 @@
 import React, {useCallback} from 'react'
-// eslint-disable-next-line import/named
+
 import {useGlobals} from '@storybook/manager-api'
-// eslint-disable-next-line import/named
+
 import {IconButton, Icons} from '@storybook/components'
 
 export const ADDON_ID = 'show-surrounding-links'

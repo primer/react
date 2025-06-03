@@ -1,4 +1,4 @@
-import type {Meta, StoryFn} from '@storybook/react'
+import type {Meta, StoryFn} from '@storybook/react-vite'
 import type {SegmentedControlIconButtonProps} from './SegmentedControlIconButton'
 import SegmentedControlIconButton from './SegmentedControlIconButton'
 import {SegmentedControl} from '.'

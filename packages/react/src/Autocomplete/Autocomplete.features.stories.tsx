@@ -1,6 +1,6 @@
 import type {ChangeEventHandler, RefObject} from 'react'
 import React, {useCallback, useEffect, useRef, useState} from 'react'
-import type {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react-vite'
 
 import {BaseStyles, Box, Stack, ThemeProvider, registerPortalRoot} from '..'
 import {Dialog} from '../DialogV1'
