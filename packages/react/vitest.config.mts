@@ -50,6 +50,9 @@ export default defineConfig({
       'src/Truncate/**/*.test.?(c|m)[jt]s?(x)',
       'src/UnderlineNav/**/*.test.?(c|m)[jt]s?(x)',
       'src/hooks/**/*.test.?(c|m)[jt]s?(x)',
+      'src/live-region/**/*.test.?(c|m)[jt]s?(x)',
+      'src/utils/__tests__/invariant.test.?(c|m)[jt]s?(x)',
+      'src/utils/__tests__/warning.test.?(c|m)[jt]s?(x)',
     ],
     setupFiles: ['config/vitest/setup.ts'],
     css: {
