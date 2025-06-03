@@ -1,8 +1,8 @@
-import {describe, expect, it, vi} from 'vitest'
+import {describe, expect, test, vi} from 'vitest'
 import {warning} from '../warning'
 
 describe('warning', () => {
-  it('emits a message to console.warn() when the condition is `true`', () => {
+  test('emits a message to console.warn() when the condition is `true`', () => {
     const spy = vi.spyOn(console, 'warn').mockImplementationOnce(() => {})
 
     warning(true, 'test')
@@ -12,7 +12,7 @@ describe('warning', () => {
     spy.mockRestore()
   })
 
-  it('does not emit a message to console.warn() when the condition is `false`', () => {
+  test('does not emit a message to console.warn() when the condition is `false`', () => {
     const spy = vi.spyOn(console, 'warn').mockImplementationOnce(() => {})
 
     warning(false, 'test')
@@ -21,7 +21,7 @@ describe('warning', () => {
     spy.mockRestore()
   })
 
-  it('formats arguments into warning string', () => {
+  test('formats arguments into warning string', () => {
     const spy = vi.spyOn(console, 'warn').mockImplementationOnce(() => {})
 
     warning(true, 'test %s %s %s', 1, 2, 3)
