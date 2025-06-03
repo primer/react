@@ -18,7 +18,7 @@ jobs:
         run: npm ci
       - name: Run migration script
         run: |
-          node --experimental-strip-types script/styled-components-migration.mts >> $GITHUB_STEP_SUMMARY
+          node --experimental-strip-types script/styled-components-migration-status.mts >> $GITHUB_STEP_SUMMARY
 
   vitest:
     runs-on: ubuntu-latest
