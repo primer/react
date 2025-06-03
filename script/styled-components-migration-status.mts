@@ -34,12 +34,12 @@ const matches = glob
 
 const migrated = matches.filter(({filepath}) => {
   const contents = fs.readFileSync(filepath, 'utf8')
-  return !contents.match(/styled-components/)
+  return !hasStyledComponents(contents)
 })
 
 const notMigrated = matches.filter(({filepath}) => {
   const contents = fs.readFileSync(filepath, 'utf8')
-  return contents.match(/styled-components/)
+  return hasStyledComponents(contents)
 })
 
 let totalSize = 0
@@ -88,4 +88,28 @@ There are ${migrated.length} files that do not include styled-components in Prim
 
 function round(value: number): number {
   return Math.round((value + Number.EPSILON) * 100) / 100
+}
+
+function hasStyledComponents(contents: string): boolean {
+  if (contents.match(/styled-components/)) {
+    return true
+  }
+
+  if (contents.match(/SxProp/)) {
+    return true
+  }
+
+  if (contents.match(/Box/)) {
+    return true
+  }
+
+  if (contents.match(/BoxWithFallback/)) {
+    return true
+  }
+
+  if (contents.match(/toggleSxComponent/)) {
+    return true
+  }
+
+  return false
 }
