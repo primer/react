@@ -15,6 +15,7 @@ module.exports = {
   setupFilesAfterEnv: ['<rootDir>/src/utils/test-matchers.tsx', '<rootDir>/src/utils/test-deprecations.tsx'],
   testMatch: ['<rootDir>/**/*.test.[jt]s?(x)', '!**/*.types.test.[jt]s?(x)'],
   modulePathIgnorePatterns: [
+    '<rootDir>/src/__tests__/exports.test.ts',
     '<rootDir>/src/ActionBar/',
     '<rootDir>/src/AnchoredOverlay/',
     '<rootDir>/src/Banner/',
