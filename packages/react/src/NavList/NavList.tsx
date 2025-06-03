@@ -280,7 +280,7 @@ TrailingAction.displayName = 'NavList.TrailingAction'
 // ----------------------------------------------------------------------------
 // NavList.Group
 
-export type NavListGroupProps = {
+export type NavListGroupProps = React.HTMLAttributes<HTMLLIElement> & {
   children: React.ReactNode
   title?: string
 } & SxProp
