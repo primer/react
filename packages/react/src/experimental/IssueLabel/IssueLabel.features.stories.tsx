@@ -1,5 +1,5 @@
 import {IssueLabel} from '../IssueLabel'
-import type {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react-vite'
 import {Stack} from '../../Stack'
 
 const meta = {

@@ -1,4 +1,4 @@
-import type {Meta, StoryFn} from '@storybook/react'
+import type {Meta, StoryFn} from '@storybook/react-vite'
 
 import {ThemeProvider, BaseStyles, Box, themeGet, useTheme} from '..'
 import type {ThemeProviderProps} from '../ThemeProvider'

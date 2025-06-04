@@ -1,4 +1,4 @@
-import type {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react-vite'
 import type {RadioProps} from '..'
 import {Box, FormControl, Radio} from '..'
 import type {FormControlArgs} from '../utils/form-story-helpers'

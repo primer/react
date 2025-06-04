@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import LabelGroup from './LabelGroup'
-import type {Meta, StoryFn} from '@storybook/react'
+import type {Meta, StoryFn} from '@storybook/react-vite'
 import Token from '../Token/Token'
 import Label from '../Label/Label'
 

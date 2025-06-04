@@ -1,5 +1,5 @@
 import type {ComponentProps} from '../../utils/types'
-import type {Meta, StoryFn} from '@storybook/react'
+import type {Meta, StoryFn} from '@storybook/react-vite'
 import UnderlinePanels from './UnderlinePanels'
 
 export default {

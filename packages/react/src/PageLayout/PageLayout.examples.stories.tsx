@@ -1,5 +1,5 @@
 import React from 'react'
-import type {Meta, StoryFn} from '@storybook/react'
+import type {Meta, StoryFn} from '@storybook/react-vite'
 import {PageLayout} from './PageLayout'
 import {Placeholder} from '../Placeholder'
 import {ActionList, Box, Breadcrumbs, Button, Flash, LinkButton, NavList} from '..'

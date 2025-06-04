@@ -1,4 +1,4 @@
-import type {Meta, StoryFn} from '@storybook/react'
+import type {Meta, StoryFn} from '@storybook/react-vite'
 import type {AvatarStackProps} from './AvatarStack'
 import AvatarStack from './AvatarStack'
 import Avatar from '../Avatar'
