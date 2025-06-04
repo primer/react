@@ -2,7 +2,6 @@ import React from 'react'
 import {useId} from '../hooks/useId'
 import type {SxProp} from '../sx'
 import {ListContext, type ActionListProps} from './shared'
-import type {AriaRole} from '../utils/types'
 import type {ActionListHeadingProps} from './Heading'
 import {useSlots} from '../hooks/useSlots'
 import {defaultSxProp} from '../utils/defaultSxProp'
@@ -45,7 +44,7 @@ const HeadingWrap: React.FC<HeadingWrapProps> = ({as = 'div', children, classNam
   return React.createElement(as, {...rest, className}, children)
 }
 
-export type ActionListGroupProps = {
+export type ActionListGroupProps = React.HTMLAttributes<HTMLLIElement> & {
   /**
    * Style variations. Usage is discretionary.
    *
@@ -61,18 +60,6 @@ export type ActionListGroupProps = {
    * Secondary text which provides additional information about a `Group`.
    */
   auxiliaryText?: string
-  /**
-   * The ARIA role describing the function of the list inside `Group` component. `listbox` or `menu` are a common values.
-   */
-  role?: AriaRole
-  /**
-   * Custom class name to apply to the `Group`.
-   */
-  className?: string
-  /**
-   * `aria-label` to set directly on the `role="group"` element. This is used to label the group.
-   */
-  'aria-label'?: string
 } & SxProp & {
     /**
      * Whether multiple Items or a single Item can be selected in the Group. Overrides value on ActionList root.

@@ -16,6 +16,7 @@ module.exports = {
   testMatch: ['<rootDir>/**/*.test.[jt]s?(x)', '!**/*.types.test.[jt]s?(x)'],
   modulePathIgnorePatterns: [
     '<rootDir>/src/ActionBar/',
+    '<rootDir>/src/ActionList/',
     '<rootDir>/src/AnchoredOverlay/',
     '<rootDir>/src/Banner/',
     '<rootDir>/src/Blankslate/',
@@ -27,6 +28,7 @@ module.exports = {
     '<rootDir>/src/CircleOcticon/',
     '<rootDir>/src/DataTable/',
     '<rootDir>/src/FeatureFlags/',
+    '<rootDir>/src/NavList/',
     '<rootDir>/src/ProgressBar/',
     '<rootDir>/src/Radio/',
     '<rootDir>/src/RadioGroup/',

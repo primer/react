@@ -1,25 +1,12 @@
+import {describe, it, expect, vi} from 'vitest'
 import {render as HTMLRender} from '@testing-library/react'
 import theme from '../theme'
 import {ActionList} from '.'
 import {BaseStyles, ThemeProvider, ActionMenu} from '..'
-import {FeatureFlags} from '../FeatureFlags'
-import {behavesAsComponent} from '../utils/testing'
 
 describe('ActionList.Group', () => {
-  behavesAsComponent({
-    Component: ActionList.Group,
-    options: {skipAs: true, skipSx: true},
-    toRender: () => <ActionList.Group />,
-  })
-
-  behavesAsComponent({
-    Component: ActionList.GroupHeading,
-    options: {skipAs: true, skipSx: true},
-    toRender: () => <ActionList.GroupHeading />,
-  })
-
   it('should throw an error when ActionList.GroupHeading has an `as` prop when it is used within ActionMenu context', async () => {
-    const spy = jest.spyOn(console, 'error').mockImplementation(() => jest.fn())
+    const spy = vi.spyOn(console, 'error').mockImplementation(() => vi.fn())
     expect(() =>
       HTMLRender(
         <ThemeProvider theme={theme}>
@@ -58,7 +45,7 @@ describe('ActionList.Group', () => {
     expect(heading).toHaveTextContent('Group Heading')
   })
   it('should throw an error if ActionList.GroupHeading is used without an `as` prop when no role is specified (for list role)', async () => {
-    const spy = jest.spyOn(console, 'error').mockImplementation(() => jest.fn())
+    const spy = vi.spyOn(console, 'error').mockImplementation(() => vi.fn())
     expect(() =>
       HTMLRender(
         <ActionList>
@@ -156,18 +143,6 @@ describe('ActionList.Group', () => {
         </ActionList>
       )
     }
-    const FeatureFlagElement = () => {
-      return (
-        <FeatureFlags
-          flags={{
-            primer_react_css_modules_ga: true,
-          }}
-        >
-          <Element />
-        </FeatureFlags>
-      )
-    }
-    expect(HTMLRender(<FeatureFlagElement />).container.querySelector('h2')).toHaveClass('test-class-name')
-    expect(HTMLRender(<FeatureFlagElement />).container.querySelector('h2')).toHaveClass('test-class-name')
+    expect(HTMLRender(<Element />).container.querySelector('h2')).toHaveClass('test-class-name')
   })
 })
