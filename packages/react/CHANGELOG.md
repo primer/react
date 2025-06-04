@@ -1,5 +1,29 @@
 # @primer/react
 
+## 37.26.0
+
+### Minor Changes
+
+- [#6138](https://github.com/primer/react/pull/6138) [`3325ad6`](https://github.com/primer/react/commit/3325ad6d6b4624f6318d064bef589c4e82c47deb) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - Add disableFullscreenOnNarrow prop to SelectPanel for opt-out of fullscreen behavior
+
+### Patch Changes
+
+- [#6113](https://github.com/primer/react/pull/6113) [`96c4b48`](https://github.com/primer/react/commit/96c4b488d6ba59640690102c40abfc289e1eb854) Thanks [@llastflowers](https://github.com/llastflowers)! - add new line of CSS to separate underline from hover event
+
+- [#6146](https://github.com/primer/react/pull/6146) [`6588cf2`](https://github.com/primer/react/commit/6588cf2a0379fa81f134562709e6b351ce190db3) Thanks [@TylerJDev](https://github.com/TylerJDev)! - ActionList: Ensures `aria-describedby` is applied to `ActionList.Item` when description is present
+
+- [#6111](https://github.com/primer/react/pull/6111) [`33b6bf1`](https://github.com/primer/react/commit/33b6bf19503d41efeff7654ca04873699a0f43c8) Thanks [@francinelucca](https://github.com/francinelucca)! - fix(Stack): correctly forward a Ref
+
+- [#6139](https://github.com/primer/react/pull/6139) [`091165f`](https://github.com/primer/react/commit/091165f1a3341372a8402177374e50e32ec34c71) Thanks [@francinelucca](https://github.com/francinelucca)! - fix(SelectPanel): update input fontSize to 16 on small viewports on iOS
+
+- [#6124](https://github.com/primer/react/pull/6124) [`ad5e73b`](https://github.com/primer/react/commit/ad5e73b8655e1a5673bac96b091a57d954643599) Thanks [@joshblack](https://github.com/joshblack)! - Update Select to correctly merge classes when className is provided
+
+- [#5897](https://github.com/primer/react/pull/5897) [`6df6cbf`](https://github.com/primer/react/commit/6df6cbf0a7a3db59f0c8b469b778ee91c0e74434) Thanks [@mperrotti](https://github.com/mperrotti)! - Updates Dialog to only show border between body and footer when the body scrolls.
+
+- [#6129](https://github.com/primer/react/pull/6129) [`1a15bac`](https://github.com/primer/react/commit/1a15bac413e56cd075a6a10f777b6350f938757b) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - UnderlineNav.Item accepts className prop without overriding existing styling
+
+- [#6125](https://github.com/primer/react/pull/6125) [`91b3c71`](https://github.com/primer/react/commit/91b3c7177e2e5a7d7a9b37d62680d0cf3f1a12f9) Thanks [@francinelucca](https://github.com/francinelucca)! - fix(DataTable): fix incorrect page numbers rendered bug
+
 ## 37.25.0
 
 ### Minor Changes
