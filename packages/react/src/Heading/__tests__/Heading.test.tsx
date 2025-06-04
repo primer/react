@@ -2,29 +2,7 @@ import {Heading} from '../..'
 import {render, behavesAsComponent, checkExports} from '../../utils/testing'
 import {render as HTMLRender, screen} from '@testing-library/react'
 import axe from 'axe-core'
-
-const theme = {
-  breakpoints: ['400px', '640px', '960px', '1280px'],
-  colors: {
-    green: ['#010', '#020', '#030', '#040', '#050', '#060'],
-  },
-  fontSizes: ['12px', '14px', '16px', '20px', '24px', '32px', '40px', '48px'],
-  fonts: {
-    normal: 'Helvetica,sans-serif',
-    mono: 'Consolas,monospace',
-  },
-  lineHeights: {
-    normal: 1.5,
-    condensed: 1.25,
-    condensedUltra: 1,
-  },
-  fontWeights: {
-    light: '300',
-    normal: '400',
-    semibold: '500',
-    bold: '600',
-  },
-}
+import {default as theme} from '../../theme'
 
 describe('Heading', () => {
   behavesAsComponent({Component: Heading})
@@ -49,25 +27,25 @@ describe('Heading', () => {
   })
 
   it('respects fontWeight', () => {
-    expect(render(<Heading sx={{fontWeight: 'bold'}} />, theme)).toHaveStyleRule('font-weight', theme.fontWeights.bold)
+    expect(render(<Heading sx={{fontWeight: 'bold'}} />, theme)).toHaveStyleRule('font-weight', String(theme.fontWeights.bold))
     expect(render(<Heading sx={{fontWeight: 'normal'}} />, theme)).toHaveStyleRule(
       'font-weight',
-      theme.fontWeights.normal,
+      String(theme.fontWeights.normal),
     )
     expect(render(<Heading sx={{fontWeight: 'semibold'}} />, theme)).toHaveStyleRule(
       'font-weight',
-      theme.fontWeights.semibold,
+      String(theme.fontWeights.semibold),
     )
     expect(render(<Heading sx={{fontWeight: 'light'}} />, theme)).toHaveStyleRule(
       'font-weight',
-      theme.fontWeights.light,
+      String(theme.fontWeights.light),
     )
   })
 
   it('respects lineHeight', () => {
-    expect(render(<Heading sx={{lineHeight: 'normal'}} />, theme)).toHaveStyleRule(
+    expect(render(<Heading sx={{lineHeight: 'default'}} />, theme)).toHaveStyleRule(
       'line-height',
-      String(theme.lineHeights.normal),
+      String(theme.lineHeights.default),
     )
     expect(render(<Heading sx={{lineHeight: 'condensed'}} />, theme)).toHaveStyleRule(
       'line-height',
@@ -80,7 +58,9 @@ describe('Heading', () => {
   })
 
   it('respects fontFamily="mono"', () => {
-    expect(render(<Heading sx={{fontFamily: 'mono'}} />, theme)).toHaveStyleRule('font-family', theme.fonts.mono)
+    // Normalize spaces around commas to match rendered CSS
+    const expectedFont = theme.fonts.mono.replace(/, /g, ',')
+    expect(render(<Heading sx={{fontFamily: 'mono'}} />, theme)).toHaveStyleRule('font-family', expectedFont)
   })
 
   it('renders fontSize', () => {
