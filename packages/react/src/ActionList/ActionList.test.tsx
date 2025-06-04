@@ -1,27 +1,24 @@
 import {render as HTMLRender} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import axe from 'axe-core'
-import theme from '../theme'
 import {ActionList} from '.'
 import {behavesAsComponent, checkExports} from '../utils/testing'
-import {BaseStyles, ThemeProvider} from '..'
+import {BaseStyles} from '..'
 
 function SimpleActionList(): JSX.Element {
   return (
-    <ThemeProvider theme={theme}>
-      <BaseStyles>
-        <ActionList>
-          <ActionList.Item>New file</ActionList.Item>
-          <ActionList.Divider />
-          <ActionList.Item>Copy link</ActionList.Item>
-          <ActionList.Item>Edit file</ActionList.Item>
-          <ActionList.Item variant="danger">Delete file</ActionList.Item>
-          <ActionList.LinkItem href="//github.com" title="anchor" aria-keyshortcuts="d">
-            Link Item
-          </ActionList.LinkItem>
-        </ActionList>
-      </BaseStyles>
-    </ThemeProvider>
+    <BaseStyles>
+      <ActionList>
+        <ActionList.Item>New file</ActionList.Item>
+        <ActionList.Divider />
+        <ActionList.Item>Copy link</ActionList.Item>
+        <ActionList.Item>Edit file</ActionList.Item>
+        <ActionList.Item variant="danger">Delete file</ActionList.Item>
+        <ActionList.LinkItem href="//github.com" title="anchor" aria-keyshortcuts="d">
+          Link Item
+        </ActionList.LinkItem>
+      </ActionList>
+    </BaseStyles>
   )
 }
 

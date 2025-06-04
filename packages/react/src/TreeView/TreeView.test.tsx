@@ -1,26 +1,17 @@
 import {fireEvent, render, act, waitFor} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React from 'react'
-import {ThemeProvider} from '../ThemeProvider'
 import type {SubTreeState} from './TreeView'
 import {TreeView} from './TreeView'
 
 jest.useFakeTimers()
-
-// TODO: Move this function into a shared location
-function renderWithTheme(
-  ui: Parameters<typeof render>[0],
-  options?: Parameters<typeof render>[1],
-): ReturnType<typeof render> {
-  return render(<ThemeProvider>{ui}</ThemeProvider>, options)
-}
 
 // Mock `scrollIntoView` because it's not implemented in JSDOM
 Element.prototype.scrollIntoView = jest.fn()
 
 describe('Markup', () => {
   it('uses tree role', () => {
-    const {queryByRole} = renderWithTheme(
+    const {queryByRole} = render(
       <TreeView aria-label="Test tree">
         <TreeView.Item id="item-1">Item 1</TreeView.Item>
         <TreeView.Item id="item-2">Item 2</TreeView.Item>
@@ -34,7 +25,7 @@ describe('Markup', () => {
   })
 
   it('uses treeitem role', () => {
-    const {queryAllByRole} = renderWithTheme(
+    const {queryAllByRole} = render(
       <TreeView aria-label="Test tree">
         <TreeView.Item id="item-1">Item 1</TreeView.Item>
         <TreeView.Item id="item-2">Item 2</TreeView.Item>
@@ -48,7 +39,7 @@ describe('Markup', () => {
   })
 
   it('uses treeitem aria label', () => {
-    const {queryAllByRole} = renderWithTheme(
+    const {queryAllByRole} = render(
       <>
         <TreeView>
           <TreeView.Item id="item-1" aria-label="Test tree item 1">
@@ -72,7 +63,7 @@ describe('Markup', () => {
   })
 
   it('hides subtrees by default', () => {
-    const {queryByRole} = renderWithTheme(
+    const {queryByRole} = render(
       <TreeView aria-label="Test tree">
         <TreeView.Item id="parent">
           Parent
@@ -91,7 +82,7 @@ describe('Markup', () => {
   })
 
   it('uses aria-current', () => {
-    const {getByRole} = renderWithTheme(
+    const {getByRole} = render(
       <TreeView aria-label="Test tree">
         <TreeView.Item id="item-1">Item 1</TreeView.Item>
         <TreeView.Item id="item-2" current>
@@ -107,7 +98,7 @@ describe('Markup', () => {
   })
 
   it('should be described by leading visuals', () => {
-    const {getByLabelText} = renderWithTheme(
+    const {getByLabelText} = render(
       <TreeView aria-label="Test tree">
         <TreeView.Item id="item-1">
           <TreeView.LeadingVisual label="leading">
@@ -131,7 +122,7 @@ describe('Markup', () => {
   })
 
   it('should be described by trailing visuals', () => {
-    const {getByLabelText} = renderWithTheme(
+    const {getByLabelText} = render(
       <TreeView aria-label="Test tree">
         <TreeView.Item id="item-1">
           Item 1
@@ -155,7 +146,7 @@ describe('Markup', () => {
   })
 
   it('should be described by leading and trailing visuals', () => {
-    const {getByLabelText} = renderWithTheme(
+    const {getByLabelText} = render(
       <TreeView aria-label="Test tree">
         <TreeView.Item id="item-1">
           <TreeView.LeadingVisual label="leading">
@@ -190,7 +181,7 @@ describe('Markup', () => {
   })
 
   it('should not have aria-describedby when no leading or trailing visual', () => {
-    const {getByLabelText} = renderWithTheme(
+    const {getByLabelText} = render(
       <TreeView aria-label="Test tree">
         <TreeView.Item id="item-1">Item 1</TreeView.Item>
         <TreeView.Item id="item-2">Item 2</TreeView.Item>
@@ -206,7 +197,7 @@ describe('Markup', () => {
     const user = userEvent.setup({
       advanceTimers: jest.advanceTimersByTime,
     })
-    const {getByLabelText, getByText} = renderWithTheme(
+    const {getByLabelText, getByText} = render(
       <TreeView aria-label="Test tree">
         <TreeView.Item id="item-1">
           Item 1
@@ -237,7 +228,7 @@ describe('Markup', () => {
   })
 
   it('should render with containIntrinsicSize', () => {
-    const {getByText} = renderWithTheme(
+    const {getByText} = render(
       <TreeView aria-label="Test tree">
         <TreeView.Item id="parent" containIntrinsicSize="2rem" defaultExpanded>
           Parent
@@ -260,7 +251,7 @@ describe('Markup', () => {
 
   it('should move focus to current treeitem by default', async () => {
     const user = userEvent.setup({delay: null})
-    const {getByRole} = renderWithTheme(
+    const {getByRole} = render(
       <div>
         <button type="button">Focusable element</button>
         <TreeView aria-label="Test tree">
@@ -288,7 +279,7 @@ describe('Markup', () => {
 
   it('should toggle when receiving focus from chevron click', async () => {
     const user = userEvent.setup({delay: null})
-    const {getByRole} = renderWithTheme(
+    const {getByRole} = render(
       <div>
         <button type="button">Focusable element</button>
         <TreeView aria-label="Test tree">
@@ -325,7 +316,7 @@ describe('Markup', () => {
 
   it("should move focus to first treeitem when focusing back in after clicking on a treeitem's secondary action", async () => {
     const user = userEvent.setup({delay: null})
-    const {getByRole, getByText} = renderWithTheme(
+    const {getByRole, getByText} = render(
       <div>
         <TreeView aria-label="Test tree">
           <TreeView.Item id="item-1">Item 1</TreeView.Item>
@@ -361,7 +352,7 @@ describe('Markup', () => {
 describe('Keyboard interactions', () => {
   describe('ArrowDown', () => {
     it('moves focus to the next visible treeitem', () => {
-      const {getByRole} = renderWithTheme(
+      const {getByRole} = render(
         <TreeView aria-label="Test tree">
           <TreeView.Item id="item-1" defaultExpanded>
             Item 1
@@ -418,7 +409,7 @@ describe('Keyboard interactions', () => {
 
   describe('ArrowUp', () => {
     it('moves focus to the previous visible treeitem', () => {
-      const {getByRole} = renderWithTheme(
+      const {getByRole} = render(
         <TreeView aria-label="Test tree">
           <TreeView.Item id="item-1" defaultExpanded>
             Item 1
@@ -484,7 +475,7 @@ describe('Keyboard interactions', () => {
 
   describe('ArrowLeft', () => {
     it('collapses an expanded item', () => {
-      const {getByRole, queryByRole} = renderWithTheme(
+      const {getByRole, queryByRole} = render(
         <TreeView aria-label="Test tree">
           <TreeView.Item id="parent" defaultExpanded>
             Parent
@@ -525,7 +516,7 @@ describe('Keyboard interactions', () => {
     })
 
     it('does nothing on a root-level collapsed item', () => {
-      const {getByRole} = renderWithTheme(
+      const {getByRole} = render(
         <TreeView aria-label="Test tree">
           <TreeView.Item id="parent">
             Parent
@@ -557,7 +548,7 @@ describe('Keyboard interactions', () => {
     })
 
     it('does nothing on a root-level end item', () => {
-      const {getByRole} = renderWithTheme(
+      const {getByRole} = render(
         <TreeView aria-label="Test tree">
           <TreeView.Item id="item">Item</TreeView.Item>
         </TreeView>,
@@ -578,7 +569,7 @@ describe('Keyboard interactions', () => {
     })
 
     it('moves focus to parent of end item', () => {
-      const {getByRole} = renderWithTheme(
+      const {getByRole} = render(
         <TreeView aria-label="Test tree">
           <TreeView.Item id="parent" defaultExpanded>
             Parent
@@ -613,7 +604,7 @@ describe('Keyboard interactions', () => {
     })
 
     it('moves focus to parent of collapsed item', () => {
-      const {getByRole} = renderWithTheme(
+      const {getByRole} = render(
         <TreeView aria-label="Test tree">
           <TreeView.Item id="parent" defaultExpanded>
             Parent
@@ -655,7 +646,7 @@ describe('Keyboard interactions', () => {
 
   describe('ArrowRight', () => {
     it('expands a collapsed item', () => {
-      const {getByRole} = renderWithTheme(
+      const {getByRole} = render(
         <TreeView aria-label="Test tree">
           <TreeView.Item id="parent">
             Parent
@@ -692,7 +683,7 @@ describe('Keyboard interactions', () => {
     })
 
     it('moves focus to first child of an expanded item', () => {
-      const {getByRole} = renderWithTheme(
+      const {getByRole} = render(
         <TreeView aria-label="Test tree">
           <TreeView.Item id="parent" defaultExpanded>
             Parent
@@ -726,7 +717,7 @@ describe('Keyboard interactions', () => {
     })
 
     it('does nothing on an end item', () => {
-      const {getByRole} = renderWithTheme(
+      const {getByRole} = render(
         <TreeView aria-label="Test tree">
           <TreeView.Item id="parent" defaultExpanded>
             Parent
@@ -762,7 +753,7 @@ describe('Keyboard interactions', () => {
 
   describe('Backspace', () => {
     it('should move focus to the parent item', () => {
-      const {getByRole} = renderWithTheme(
+      const {getByRole} = render(
         <TreeView aria-label="Test tree">
           <TreeView.Item id="parent" defaultExpanded>
             Parent
@@ -787,7 +778,7 @@ describe('Keyboard interactions', () => {
     })
 
     it('should not collapse an expanded item', () => {
-      const {getByRole, queryByRole} = renderWithTheme(
+      const {getByRole, queryByRole} = render(
         <TreeView aria-label="Test tree">
           <TreeView.Item id="parent" defaultExpanded>
             Parent
@@ -825,7 +816,7 @@ describe('Keyboard interactions', () => {
 
   describe('Home', () => {
     it('moves focus to first visible item', () => {
-      const {getByRole} = renderWithTheme(
+      const {getByRole} = render(
         <TreeView aria-label="Test tree">
           <TreeView.Item id="parent-1">
             Parent 1
@@ -872,7 +863,7 @@ describe('Keyboard interactions', () => {
 
   describe('End', () => {
     it('moves focus to last visible item', () => {
-      const {getByRole} = renderWithTheme(
+      const {getByRole} = render(
         <TreeView aria-label="Test tree">
           <TreeView.Item id="parent-1">
             Parent 1
@@ -925,7 +916,7 @@ describe('Keyboard interactions', () => {
   describe('Enter', () => {
     it('calls onSelect function if provided and checks if the item has been selected', () => {
       const onSelect = jest.fn()
-      const {getByRole} = renderWithTheme(
+      const {getByRole} = render(
         <TreeView aria-label="Test tree">
           <TreeView.Item id="parent-1" onSelect={onSelect}>
             Parent 1
@@ -976,7 +967,7 @@ describe('Keyboard interactions', () => {
     })
 
     it('toggles expanded state if no onSelect function is provided', () => {
-      const {getByRole, queryByRole} = renderWithTheme(
+      const {getByRole, queryByRole} = render(
         <TreeView aria-label="Test tree">
           <TreeView.Item id="parent">
             Parent
@@ -1021,7 +1012,7 @@ describe('Keyboard interactions', () => {
   describe('Space', () => {
     it('calls onSelect function if provided and checks if the item has been selected', () => {
       const onSelect = jest.fn()
-      const {getByRole} = renderWithTheme(
+      const {getByRole} = render(
         <TreeView aria-label="Test tree">
           <TreeView.Item id="parent-1" onSelect={onSelect}>
             Parent 1
@@ -1072,7 +1063,7 @@ describe('Keyboard interactions', () => {
     })
 
     it('toggles expanded state if no onSelect function is provided', () => {
-      const {getByRole, queryByRole} = renderWithTheme(
+      const {getByRole, queryByRole} = render(
         <TreeView aria-label="Test tree">
           <TreeView.Item id="parent">
             Parent
@@ -1116,7 +1107,7 @@ describe('Keyboard interactions', () => {
 
   describe('Typeahead', () => {
     it('moves focus to the next item that matches the typed character', () => {
-      const {getByRole} = renderWithTheme(
+      const {getByRole} = render(
         <TreeView aria-label="Test tree">
           <TreeView.Item id="apple">
             Apple
@@ -1149,7 +1140,7 @@ describe('Keyboard interactions', () => {
     })
 
     it('does nothing if no items match the typed character', () => {
-      const {getByRole} = renderWithTheme(
+      const {getByRole} = render(
         <TreeView aria-label="Test tree">
           <TreeView.Item id="apple">Apple</TreeView.Item>
           <TreeView.Item id="banana">Banana</TreeView.Item>
@@ -1176,7 +1167,7 @@ describe('Keyboard interactions', () => {
     })
 
     it('supports multiple typed characters', () => {
-      const {getByRole} = renderWithTheme(
+      const {getByRole} = render(
         <TreeView aria-label="Test tree">
           <TreeView.Item id="apple">Apple</TreeView.Item>
           <TreeView.Item id="banana">Banana</TreeView.Item>
@@ -1204,7 +1195,7 @@ describe('Keyboard interactions', () => {
     })
 
     it('prioritizes items following the current aria-activedescendant', () => {
-      const {getByRole} = renderWithTheme(
+      const {getByRole} = render(
         <TreeView aria-label="Test tree">
           <TreeView.Item id="cucumber">Cucumber</TreeView.Item>
           <TreeView.Item id="cherry" current>
@@ -1237,7 +1228,7 @@ describe('Keyboard interactions', () => {
     })
 
     it('wraps around to the beginning if no items match after the current aria-activedescendant', () => {
-      const {getByRole} = renderWithTheme(
+      const {getByRole} = render(
         <TreeView aria-label="Test tree">
           <TreeView.Item id="cucumber">Cucumber</TreeView.Item>
           <TreeView.Item id="cherry">Cherry</TreeView.Item>
@@ -1274,7 +1265,7 @@ describe('Keyboard interactions', () => {
 
 describe('State', () => {
   it('persists expanded state of nested items', () => {
-    const {getByRole} = renderWithTheme(
+    const {getByRole} = render(
       <TreeView aria-label="Test tree">
         <TreeView.Item id="item-1" defaultExpanded>
           Item 1
@@ -1341,7 +1332,7 @@ describe('State', () => {
       )
     }
 
-    const {getByRole} = renderWithTheme(<TestTree />)
+    const {getByRole} = render(<TestTree />)
 
     const parent = getByRole('treeitem', {name: 'Parent'})
     const child = getByRole('treeitem', {name: 'Child'})
@@ -1397,7 +1388,7 @@ describe('Asynchronous loading', () => {
         </div>
       )
     }
-    const {getByRole} = renderWithTheme(<TestTree />)
+    const {getByRole} = render(<TestTree />)
 
     const doneButton = getByRole('button', {name: 'Load'})
     const liveRegion = getByRole('status')
@@ -1444,7 +1435,7 @@ describe('Asynchronous loading', () => {
       )
     }
 
-    const {getByRole, findByRole} = renderWithTheme(<TestTree />)
+    const {getByRole, findByRole} = render(<TestTree />)
 
     const parentItem = getByRole('treeitem', {name: 'Parent'})
     const loadingItem = await findByRole('treeitem', {name: 'Loading...'})
@@ -1496,7 +1487,7 @@ describe('Asynchronous loading', () => {
       )
     }
 
-    const {getByRole} = renderWithTheme(<TestTree />)
+    const {getByRole} = render(<TestTree />)
 
     const dialog = getByRole('alertdialog')
     const parentItem = getByRole('treeitem', {name: 'Parent'})
@@ -1520,7 +1511,7 @@ describe('Asynchronous loading', () => {
   })
 
   it('ignores arrow keys when error dialog is open', async () => {
-    const {getByRole} = renderWithTheme(
+    const {getByRole} = render(
       <TreeView aria-label="Test tree">
         <TreeView.Item id="parent" defaultExpanded>
           Parent
@@ -1582,7 +1573,7 @@ describe('Asynchronous loading', () => {
         </TreeView>
       )
     }
-    const {getByLabelText, getByText} = renderWithTheme(<Example />)
+    const {getByLabelText, getByText} = render(<Example />)
     const user = userEvent.setup({
       advanceTimers: jest.advanceTimersByTime,
     })
@@ -1602,7 +1593,7 @@ describe('Asynchronous loading', () => {
   })
 
   it('should have `aria-expanded` when directory is empty', async () => {
-    const {getByRole} = renderWithTheme(
+    const {getByRole} = render(
       <TreeView aria-label="Files changed">
         <TreeView.Item id="src" defaultExpanded>
           <TreeView.LeadingVisual>
