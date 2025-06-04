@@ -1,6 +1,7 @@
 #!/bin/bash
 set -e
 
+npm run build -w @primer/dynamic-list-element
 cd packages/react
 
 # Add base url to be able to serve static files
