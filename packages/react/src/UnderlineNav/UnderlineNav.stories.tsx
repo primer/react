@@ -26,10 +26,17 @@ const meta: Meta<typeof UnderlineNav> = {
         type: 'boolean',
       },
     },
+    variant: {
+      control: {
+        type: 'radio',
+      },
+      options: ['default', 'no-horizontal-padding'],
+    },
   },
   args: {
     'aria-label': 'Repository',
     loadingCounters: false,
+    variant: 'default',
   },
 }
 
