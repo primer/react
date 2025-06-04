@@ -27,7 +27,10 @@ describe('Heading', () => {
   })
 
   it('respects fontWeight', () => {
-    expect(render(<Heading sx={{fontWeight: 'bold'}} />, theme)).toHaveStyleRule('font-weight', String(theme.fontWeights.bold))
+    expect(render(<Heading sx={{fontWeight: 'bold'}} />, theme)).toHaveStyleRule(
+      'font-weight',
+      String(theme.fontWeights.bold),
+    )
     expect(render(<Heading sx={{fontWeight: 'normal'}} />, theme)).toHaveStyleRule(
       'font-weight',
       String(theme.fontWeights.normal),
