@@ -2,7 +2,6 @@ import {Heading} from '../..'
 import {render, behavesAsComponent, checkExports} from '../../utils/testing'
 import {render as HTMLRender, screen} from '@testing-library/react'
 import axe from 'axe-core'
-import ThemeProvider from '../../ThemeProvider'
 
 const theme = {
   breakpoints: ['400px', '640px', '960px', '1280px'],
@@ -50,79 +49,43 @@ describe('Heading', () => {
   })
 
   it('respects fontWeight', () => {
-    expect(
-      render(
-        <ThemeProvider theme={theme}>
-          <Heading sx={{fontWeight: 'bold'}} />
-        </ThemeProvider>,
-      ),
-    ).toHaveStyleRule('font-weight', theme.fontWeights.bold)
-    expect(
-      render(
-        <ThemeProvider theme={theme}>
-          <Heading sx={{fontWeight: 'normal'}} />
-        </ThemeProvider>,
-      ),
-    ).toHaveStyleRule('font-weight', theme.fontWeights.normal)
-    expect(
-      render(
-        <ThemeProvider theme={theme}>
-          <Heading sx={{fontWeight: 'semibold'}} />
-        </ThemeProvider>,
-      ),
-    ).toHaveStyleRule('font-weight', theme.fontWeights.semibold)
-    expect(
-      render(
-        <ThemeProvider theme={theme}>
-          <Heading sx={{fontWeight: 'light'}} />
-        </ThemeProvider>,
-      ),
-    ).toHaveStyleRule('font-weight', theme.fontWeights.light)
+    expect(render(<Heading sx={{fontWeight: 'bold'}} />, theme)).toHaveStyleRule('font-weight', theme.fontWeights.bold)
+    expect(render(<Heading sx={{fontWeight: 'normal'}} />, theme)).toHaveStyleRule(
+      'font-weight',
+      theme.fontWeights.normal,
+    )
+    expect(render(<Heading sx={{fontWeight: 'semibold'}} />, theme)).toHaveStyleRule(
+      'font-weight',
+      theme.fontWeights.semibold,
+    )
+    expect(render(<Heading sx={{fontWeight: 'light'}} />, theme)).toHaveStyleRule(
+      'font-weight',
+      theme.fontWeights.light,
+    )
   })
 
   it('respects lineHeight', () => {
-    expect(
-      render(
-        <ThemeProvider theme={theme}>
-          <Heading sx={{lineHeight: 'normal'}} />
-        </ThemeProvider>,
-      ),
-    ).toHaveStyleRule('line-height', String(theme.lineHeights.normal))
-    expect(
-      render(
-        <ThemeProvider theme={theme}>
-          <Heading sx={{lineHeight: 'condensed'}} />
-        </ThemeProvider>,
-      ),
-    ).toHaveStyleRule('line-height', String(theme.lineHeights.condensed))
-    expect(
-      render(
-        <ThemeProvider theme={theme}>
-          <Heading sx={{lineHeight: 'condensedUltra'}} />
-        </ThemeProvider>,
-      ),
-    ).toHaveStyleRule('line-height', String(theme.lineHeights.condensedUltra))
+    expect(render(<Heading sx={{lineHeight: 'normal'}} />, theme)).toHaveStyleRule(
+      'line-height',
+      String(theme.lineHeights.normal),
+    )
+    expect(render(<Heading sx={{lineHeight: 'condensed'}} />, theme)).toHaveStyleRule(
+      'line-height',
+      String(theme.lineHeights.condensed),
+    )
+    expect(render(<Heading sx={{lineHeight: 'condensedUltra'}} />, theme)).toHaveStyleRule(
+      'line-height',
+      String(theme.lineHeights.condensedUltra),
+    )
   })
 
   it('respects fontFamily="mono"', () => {
-    expect(
-      render(
-        <ThemeProvider theme={theme}>
-          <Heading sx={{fontFamily: 'mono'}} />
-        </ThemeProvider>,
-      ),
-    ).toHaveStyleRule('font-family', theme.fonts.mono)
+    expect(render(<Heading sx={{fontFamily: 'mono'}} />, theme)).toHaveStyleRule('font-family', theme.fonts.mono)
   })
 
   it('renders fontSize', () => {
     for (const fontSize of theme.fontSizes) {
-      expect(
-        render(
-          <ThemeProvider theme={theme}>
-            <Heading sx={{fontSize}} />
-          </ThemeProvider>,
-        ),
-      ).toHaveStyleRule('font-size', `${fontSize}`)
+      expect(render(<Heading sx={{fontSize}} />, theme)).toHaveStyleRule('font-size', `${fontSize}`)
     }
   })
   it('logs a warning when trying to render invalid "as" prop', () => {
@@ -136,13 +99,7 @@ describe('Heading', () => {
   })
 
   it('respects the "fontStyle" prop', () => {
-    expect(
-      render(
-        <ThemeProvider theme={theme}>
-          <Heading sx={{fontStyle: 'italic'}} />
-        </ThemeProvider>,
-      ),
-    ).toHaveStyleRule('font-style', 'italic')
+    expect(render(<Heading sx={{fontStyle: 'italic'}} />, theme)).toHaveStyleRule('font-style', 'italic')
   })
 
   it('should only include css modules class', () => {
