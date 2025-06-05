@@ -435,4 +435,42 @@ describe('ActionList.Item', () => {
     expect(options[0]).toBeInTheDocument()
     expect(options).toHaveLength(4)
   })
+
+  it('should add `aria-describedby` to items with a description', () => {
+    const featureFlag = {
+      primer_react_css_modules_ga: true,
+    }
+    const {getByRole} = HTMLRender(
+      <FeatureFlags flags={featureFlag}>
+        <ActionList>
+          <ActionList.Item>
+            Item, <ActionList.Description variant="block">Description</ActionList.Description>
+          </ActionList.Item>
+        </ActionList>
+      </FeatureFlags>,
+    )
+    const item = getByRole('button')
+    expect(item).toHaveAttribute('aria-describedby')
+    expect(item).toHaveTextContent('Item, Description')
+    expect(item).toHaveAccessibleDescription('Description')
+  })
+
+  it('should add `aria-describedby` to items with a description when `role=listbox` is applied', () => {
+    const featureFlag = {
+      primer_react_css_modules_ga: true,
+    }
+    const {getByRole} = HTMLRender(
+      <FeatureFlags flags={featureFlag}>
+        <ActionList role="listbox" selectionVariant="single">
+          <ActionList.Item>
+            Item, <ActionList.Description variant="block">Description</ActionList.Description>
+          </ActionList.Item>
+        </ActionList>
+      </FeatureFlags>,
+    )
+    const item = getByRole('option')
+    expect(item).toHaveAttribute('aria-describedby')
+    expect(item).toHaveTextContent('Item, Description')
+    expect(item).toHaveAccessibleDescription('Description')
+  })
 })

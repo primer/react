@@ -47,6 +47,7 @@
     "@babel/eslint-parser": "7.27.1",
     "@changesets/changelog-github": "0.5.1",
     "@changesets/cli": "2.28.1",
+    "@eslint-react/eslint-plugin": "^1.50.0",
     "@eslint/compat": "^1.2.9",
     "@eslint/eslintrc": "^3.3.1",
     "@eslint/js": "^9.25.1",
@@ -108,6 +109,5 @@
       "webpack": false,
       "running": false
     }
-  ],
-  "packageManager": "npm@10.9.2+sha512.8ab88f10f224a0c614cb717a7f7c30499014f77134120e9c1f0211ea3cf3397592cbe483feb38e0c4b3be1c54e347292c76a1b5edb94a3289d5448484ab8ac81"
+  ]
 }
