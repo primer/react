@@ -130,7 +130,7 @@ export const Selection: React.FC<React.PropsWithChildren<SelectionProps>> = ({se
           },
           '@media (forced-colors: active)': {
             // Support for Windows high contrast https://sarahmhigley.com/writing/whcm-quick-tips
-            // background-color will be overriden but border-width is a workaround
+            // background-color will be overridden but border-width is a workaround
             borderWidth: selected ? '8px' : '1px',
           },
         }}

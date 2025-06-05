@@ -1,7 +1,8 @@
-import {useOnOutsideClick} from '../../hooks/useOnOutsideClick'
 import {render} from '@testing-library/react'
-import {useRef} from 'react'
 import userEvent from '@testing-library/user-event'
+import {useRef} from 'react'
+import {it, expect, vi} from 'vitest'
+import {useOnOutsideClick} from '../../hooks/useOnOutsideClick'
 
 type ComponentProps = {
   callback: () => void
@@ -25,7 +26,7 @@ const Component = ({callback}: ComponentProps) => {
 }
 it('should call function when user clicks outside container', async () => {
   const user = userEvent.setup()
-  const mockFunction = jest.fn()
+  const mockFunction = vi.fn()
   const {getByText} = render(<Component callback={mockFunction} />)
   await user.click(getByText('button'))
   expect(mockFunction).toHaveBeenCalledTimes(1)
@@ -33,7 +34,7 @@ it('should call function when user clicks outside container', async () => {
 
 it('should not call function when user right clicks', async () => {
   const user = userEvent.setup()
-  const mockFunction = jest.fn()
+  const mockFunction = vi.fn()
   const {getByText} = render(<Component callback={mockFunction} />)
   const button = getByText('button')
   await user.pointer([{target: button}, {keys: '[MouseRight]', target: button}])
@@ -42,7 +43,7 @@ it('should not call function when user right clicks', async () => {
 
 it('should not call function when clicking on ignored refs', async () => {
   const user = userEvent.setup()
-  const mockFunction = jest.fn()
+  const mockFunction = vi.fn()
   const {getByText} = render(<Component callback={mockFunction} />)
   await user.click(getByText('button two'))
   expect(mockFunction).toHaveBeenCalledTimes(0)
@@ -50,7 +51,7 @@ it('should not call function when clicking on ignored refs', async () => {
 
 it('should not call function when clicking inside container', async () => {
   const user = userEvent.setup()
-  const mockFunction = jest.fn()
+  const mockFunction = vi.fn()
   const {getByText} = render(<Component callback={mockFunction} />)
   await user.click(getByText('content'))
   expect(mockFunction).toHaveBeenCalledTimes(0)

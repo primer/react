@@ -168,12 +168,14 @@ export interface DialogHeaderProps extends DialogProps {
   dialogDescriptionId: string
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const heightMap = {
   small: '480px',
   large: '640px',
   auto: 'auto',
 } as const
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const widthMap = {
   small: '296px',
   medium: '320px',
@@ -226,6 +228,8 @@ const defaultPosition = {
   regular: 'center',
 }
 
+const defaultFooterButtons: Array<DialogButtonProps> = []
+
 const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogProps>>((props, forwardedRef) => {
   const {
     title = 'Dialog',
@@ -237,7 +241,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
     role = 'dialog',
     width = 'xlarge',
     height = 'auto',
-    footerButtons = [],
+    footerButtons = defaultFooterButtons,
     position = defaultPosition,
     returnFocusRef,
     initialFocusRef,

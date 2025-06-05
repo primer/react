@@ -140,7 +140,7 @@ function ItemWithSubNav({
   subNav,
   depth,
   defaultOpen,
-  style = {},
+  style,
   sx: sxProp = defaultSxProp,
 }: ItemWithSubNavProps) {
   const buttonId = useId()
@@ -172,7 +172,7 @@ function ItemWithSubNav({
             aria-expanded={isOpen}
             aria-controls={subNavId}
             active={!isOpen && containsCurrentItem}
-            onClick={() => setIsOpen(open => !open)}
+            onSelect={() => setIsOpen(open => !open)}
             style={style}
             sx={sxProp}
           >
@@ -193,7 +193,7 @@ function ItemWithSubNav({
           aria-expanded={isOpen}
           aria-controls={subNavId}
           active={!isOpen && containsCurrentItem}
-          onClick={() => setIsOpen(open => !open)}
+          onSelect={() => setIsOpen(open => !open)}
           style={style}
         >
           {children}
@@ -216,11 +216,11 @@ function ItemWithSubNav({
           aria-controls={subNavId}
           // When the subNav is closed, how should we indicated that the subNav contains the current item?
           active={!isOpen && containsCurrentItem}
-          onClick={() => setIsOpen(open => !open)}
+          onSelect={() => setIsOpen(open => !open)}
           sx={merge<SxProp['sx']>(
             {
               ...getSubnavStyles(depth),
-              fontWeight: containsCurrentItem ? 'bold' : null, // Parent item is bold if any of it's sub-items are current
+              fontWeight: containsCurrentItem ? 'bold' : null, // Parent item is bold if any of its sub-items are current
             },
             sxProp,
           )}
@@ -491,7 +491,7 @@ export const GroupExpand = React.forwardRef<HTMLButtonElement, NavListGroupExpan
               as="button"
               aria-expanded="false"
               ref={forwardedRef}
-              onClick={() => {
+              onSelect={() => {
                 flushSync(() => {
                   setCurrentPage(currentPage + 1)
                 })
@@ -517,7 +517,7 @@ export const GroupExpand = React.forwardRef<HTMLButtonElement, NavListGroupExpan
             as="button"
             aria-expanded="false"
             ref={forwardedRef}
-            onClick={() => {
+            onSelect={() => {
               flushSync(() => {
                 setCurrentPage(currentPage + 1)
               })
