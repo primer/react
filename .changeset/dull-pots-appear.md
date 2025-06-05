@@ -2,4 +2,4 @@
 "@primer/react": patch
 ---
 
-Llastflowers/5118/select panel unhide footer
+Update SelectPanel so that content isn't hidden behind mobile keyboard
