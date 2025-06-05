@@ -32,6 +32,7 @@ export const Item = forwardRef<HTMLSpanElement, ProgressBarItems>(
       'aria-valuenow': ariaValueNow,
       'aria-valuetext': ariaValueText,
       className,
+      style,
       ...rest
     },
     forwardRef,
@@ -48,7 +49,7 @@ export const Item = forwardRef<HTMLSpanElement, ProgressBarItems>(
 
     const progressBarWidth = '--progress-width'
     const progressBarBg = '--progress-bg'
-    const styles: {[key: string]: string} = {}
+    const styles: React.CSSProperties = {}
 
     const bgType = rest.bg && rest.bg.split('.')
     styles[progressBarWidth] = progress ? `${progress}%` : '0%'
@@ -63,7 +64,7 @@ export const Item = forwardRef<HTMLSpanElement, ProgressBarItems>(
         aria-label={ariaLabel}
         ref={forwardRef}
         progress={progress}
-        style={styles}
+        style={{...styles, ...style}}
         {...ariaAttributes}
       />
     )
