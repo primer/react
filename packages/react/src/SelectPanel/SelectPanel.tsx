@@ -172,7 +172,7 @@ function useKeyboardState(): KeyboardState {
       }
     }
     if (window.visualViewport) {
-      // Using visualViewport API as per MDN recommendation for virtual keyboard detection
+      // Using visualViewport to more reliably detect viewport changes across different browsers, which specifically requires these listeners
       // eslint-disable-next-line github/prefer-observers
       window.visualViewport.addEventListener('resize', handleViewportChange)
       // eslint-disable-next-line github/prefer-observers
