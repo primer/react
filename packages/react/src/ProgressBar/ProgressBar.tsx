@@ -49,7 +49,7 @@ export const Item = forwardRef<HTMLSpanElement, ProgressBarItems>(
 
     const progressBarWidth = '--progress-width'
     const progressBarBg = '--progress-bg'
-    const styles: React.CSSProperties = {}
+    const styles: {[key: string]: string} = {}
 
     const bgType = rest.bg && rest.bg.split('.')
     styles[progressBarWidth] = progress ? `${progress}%` : '0%'
