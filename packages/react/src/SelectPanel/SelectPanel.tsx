@@ -134,6 +134,53 @@ const doesItemsIncludeItem = (items: ItemInput[], item: ItemInput) => {
   return items.some(i => areItemsEqual(i, item))
 }
 
+interface KeyboardState {
+  height: number
+  isVisible: boolean
+}
+
+// caluculate keyboard visibility state by detecting starting viewport height and subtracting viewport height when keyboard is visible
+function useKeyboardState(): KeyboardState {
+  const [keyboardState, setKeyboardState] = useState<KeyboardState>({
+    height: 0,
+    isVisible: false,
+  })
+
+  const initialHeightRef = useRef(0)
+
+  useEffect(() => {
+    if (window.visualViewport) {
+      initialHeightRef.current = window.visualViewport.height
+    }
+
+    const handleViewportChange = () => {
+      if (window.visualViewport) {
+        const currentHeight = window.visualViewport.height
+        const keyboardHeight = Math.max(0, initialHeightRef.current - currentHeight)
+
+        setKeyboardState({
+          height: keyboardHeight,
+          isVisible: keyboardHeight > 10,
+        })
+      }
+    }
+
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener('resize', handleViewportChange)
+      window.visualViewport.addEventListener('scroll', handleViewportChange)
+    }
+
+    return () => {
+      if (window.visualViewport) {
+        window.visualViewport.removeEventListener('resize', handleViewportChange)
+        window.visualViewport.removeEventListener('scroll', handleViewportChange)
+      }
+    }
+  }, [])
+
+  return keyboardState
+}
+
 function Panel({
   open,
   onOpenChange,
@@ -190,6 +237,8 @@ function Panel({
   const [selectedOnSort, setSelectedOnSort] = useState<ItemInput[]>([])
   const [prevItems, setPrevItems] = useState<ItemInput[]>([])
   const [prevOpen, setPrevOpen] = useState(open)
+  const keyboardState = useKeyboardState()
+  const [availablePanelHeight, setAvailablePanelHeight] = useState<string | number>('auto')
 
   const usingModernActionList = useFeatureFlag('primer_react_select_panel_with_modern_action_list')
   const usingFullScreenOnNarrow = useFeatureFlag('primer_react_select_panel_fullscreen_on_narrow')
@@ -366,6 +415,18 @@ function Panel({
       }
     }
   }, [open, dataLoadedOnce, onFilterChange, filterValue, items, loadingManagedExternally, listContainerElement])
+
+  // Update available panel height based on caclulated keyboard height when keyboard is visible so no content is hidden behind it
+  useEffect(() => {
+    if (keyboardState.isVisible) {
+      if (window.visualViewport) {
+        const availableHeight = window.visualViewport.height
+        setAvailablePanelHeight(availableHeight)
+      }
+    } else {
+      setAvailablePanelHeight('auto')
+    }
+  }, [keyboardState.isVisible, keyboardState.height])
 
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
   const onOpen: AnchoredOverlayProps['onOpen'] = useCallback(
@@ -636,6 +697,13 @@ function Panel({
             '--max-height': overlayProps?.maxHeight ? heightMap[overlayProps.maxHeight] : heightMap['large'],
             /* override AnchoredOverlay position */
             transform: variant === 'modal' ? 'translate(-50%, -50%)' : undefined,
+            // set maxHeight based on calculated availablePanelHeight when keyboard is visible
+            ...(keyboardState.isVisible
+              ? {
+                  maxHeight:
+                    typeof availablePanelHeight === 'number' ? `${availablePanelHeight}px` : availablePanelHeight,
+                }
+              : {}),
           } as React.CSSProperties,
         }}
         focusTrapSettings={focusTrapSettings}
