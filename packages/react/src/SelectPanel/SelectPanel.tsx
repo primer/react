@@ -171,9 +171,11 @@ function useKeyboardState(): KeyboardState {
         })
       }
     }
-
     if (window.visualViewport) {
+      // Using visualViewport API as per MDN recommendation for virtual keyboard detection
+      // eslint-disable-next-line github/prefer-observers
       window.visualViewport.addEventListener('resize', handleViewportChange)
+      // eslint-disable-next-line github/prefer-observers
       window.visualViewport.addEventListener('scroll', handleViewportChange)
     }
 
