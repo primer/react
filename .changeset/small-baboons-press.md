@@ -2,4 +2,4 @@
 '@primer/react': minor
 ---
 
-fix(ProgressBar): passthrough style props
+fix(ProgressBar): pass-through style props
