@@ -1,9 +1,10 @@
-import React from 'react'
 import {render, fireEvent} from '@testing-library/react'
+import {describe, it, expect, vi} from 'vitest'
+import React from 'react'
 import {useMnemonics} from '../../hooks'
 
 const Fixture = ({
-  onSelect = () => null,
+  onSelect,
   hasInput = false,
   hasTextarea = false,
   refNotAttached = false,
@@ -120,7 +121,7 @@ describe('useTypeaheadFocus', () => {
   })
 
   it('Space: when user presses Space, it should select the option', () => {
-    const mockFunction = jest.fn()
+    const mockFunction = vi.fn()
     const {getByTestId, getByText} = render(<Fixture onSelect={mockFunction} />)
 
     const container = getByTestId('container')
@@ -133,8 +134,8 @@ describe('useTypeaheadFocus', () => {
   })
 
   it('Enter: when user is presses Enter, it should select the option', () => {
-    jest.useFakeTimers()
-    const mockFunction = jest.fn()
+    vi.useFakeTimers()
+    const mockFunction = vi.fn()
     const {getByTestId, getByText} = render(<Fixture onSelect={mockFunction} />)
 
     const container = getByTestId('container')

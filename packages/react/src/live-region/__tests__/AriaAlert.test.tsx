@@ -1,8 +1,9 @@
+import {describe, expect, it, beforeEach, afterEach} from 'vitest'
 import {render, screen} from '@testing-library/react'
 import React from 'react'
 import {AriaAlert} from '../AriaAlert'
 import {userEvent} from '@testing-library/user-event'
-import {getLiveRegion} from '../../utils/testing'
+import {getLiveRegion} from './test-helpers'
 
 describe('AriaAlert', () => {
   beforeEach(() => {
@@ -36,7 +37,7 @@ describe('AriaAlert', () => {
         test
       </AriaAlert>,
     )
-    expect(screen.getByTestId('container')).toHaveStyle('color: blue')
+    expect(screen.getByTestId('container')).toHaveStyle('color: rgb(0, 0, 255)')
   })
 
   it('should support customizing the container element with `as`', () => {

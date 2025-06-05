@@ -1,6 +1,7 @@
-import React from 'react'
 import {render, fireEvent, waitFor} from '@testing-library/react'
-import {useMenuInitialFocus} from '../../hooks'
+import {describe, it, expect} from 'vitest'
+import React from 'react'
+import {useMenuInitialFocus} from '../useMenuInitialFocus'
 
 const Component = () => {
   const [open, setOpen] = React.useState(false)
