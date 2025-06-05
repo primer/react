@@ -146,7 +146,7 @@ interface KeyboardState {
   isVisible: boolean
 }
 
-// caluculate keyboard visibility state by detecting starting viewport height and subtracting viewport height when keyboard is visible
+// calculate keyboard visibility state by detecting starting viewport height and subtracting viewport height when keyboard is visible
 function useKeyboardState(): KeyboardState {
   const [keyboardState, setKeyboardState] = useState<KeyboardState>({
     height: 0,
