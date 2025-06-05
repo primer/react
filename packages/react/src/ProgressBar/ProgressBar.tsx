@@ -32,6 +32,7 @@ export const Item = forwardRef<HTMLSpanElement, ProgressBarItems>(
       'aria-valuenow': ariaValueNow,
       'aria-valuetext': ariaValueText,
       className,
+      style,
       ...rest
     },
     forwardRef,
@@ -63,7 +64,7 @@ export const Item = forwardRef<HTMLSpanElement, ProgressBarItems>(
         aria-label={ariaLabel}
         ref={forwardRef}
         progress={progress}
-        style={styles}
+        style={{...styles, ...style}}
         {...ariaAttributes}
       />
     )
