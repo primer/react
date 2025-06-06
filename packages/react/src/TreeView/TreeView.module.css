@@ -25,6 +25,7 @@
 
       @media (forced-colors: active) {
         outline: 2px solid HighlightText;
+        /* stylelint-disable-next-line declaration-property-value-no-unknown */
         outline-offset: -2;
       }
     }
@@ -157,6 +158,7 @@
   }
 
   &:where([data-truncate-text='false']) .TreeViewItemContentText {
+    /* stylelint-disable-next-line declaration-property-value-keyword-no-deprecated */
     word-break: break-word;
   }
 
