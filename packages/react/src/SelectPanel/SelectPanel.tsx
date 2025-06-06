@@ -250,7 +250,7 @@ function Panel({
   const [prevItems, setPrevItems] = useState<ItemInput[]>([])
   const [prevOpen, setPrevOpen] = useState(open)
   const keyboardState = useKeyboardState()
-  const [availablePanelHeight, setAvailablePanelHeight] = useState<string | number>('auto')
+  const [availablePanelHeight, setAvailablePanelHeight] = useState<number | undefined>(undefined)
 
   const usingModernActionList = useFeatureFlag('primer_react_select_panel_with_modern_action_list')
   const featureFlagFullScreenOnNarrow = useFeatureFlag('primer_react_select_panel_fullscreen_on_narrow')
@@ -431,14 +431,7 @@ function Panel({
 
   // Update available panel height based on caclulated keyboard height when keyboard is visible so no content is hidden behind it
   useEffect(() => {
-    if (keyboardState.isVisible) {
-      if (window.visualViewport) {
-        const availableHeight = window.visualViewport.height
-        setAvailablePanelHeight(availableHeight)
-      }
-    } else {
-      setAvailablePanelHeight('auto')
-    }
+    setAvailablePanelHeight(keyboardState.isVisible ? window.visualViewport?.height : undefined)
   }, [keyboardState.isVisible, keyboardState.height])
 
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
@@ -713,8 +706,7 @@ function Panel({
             // set maxHeight based on calculated availablePanelHeight when keyboard is visible
             ...(keyboardState.isVisible
               ? {
-                  maxHeight:
-                    typeof availablePanelHeight === 'number' ? `${availablePanelHeight}px` : availablePanelHeight,
+                  maxHeight: availablePanelHeight !== undefined ? `${availablePanelHeight}px` : 'auto',
                 }
               : {}),
           } as React.CSSProperties,
