@@ -1,5 +1,4 @@
 import path from 'node:path'
-import commonjs from '@rollup/plugin-commonjs'
 import resolve from '@rollup/plugin-node-resolve'
 import babel from '@rollup/plugin-babel'
 import replace from '@rollup/plugin-replace'
@@ -100,9 +99,6 @@ const baseConfig = {
       ],
     }),
     resolve({
-      extensions,
-    }),
-    commonjs({
       extensions,
     }),
     importCSS({
@@ -221,7 +217,6 @@ export default [
     ...baseConfig,
     external: dependencies.map(createPackageRegex),
     output: {
-      interop: 'auto',
       dir: 'lib-esm',
       format: 'esm',
       preserveModules: true,
@@ -234,7 +229,6 @@ export default [
     ...baseConfig,
     external: dependencies.filter(name => !ESM_ONLY.has(name)).map(createPackageRegex),
     output: {
-      interop: 'auto',
       dir: 'lib',
       format: 'commonjs',
       preserveModules: true,
@@ -288,9 +282,6 @@ export default [
       resolve({
         extensions,
       }),
-      commonjs({
-        extensions,
-      }),
       // PostCSS plugins are defined in postcss.config.js
       postcss({
         extract: 'components.css',
@@ -303,7 +294,6 @@ export default [
       visualizer({sourcemap: true}),
     ],
     output: ['esm', 'umd'].map(format => ({
-      interop: 'auto',
       file: `dist/browser.${format}.js`,
       format,
       sourcemap: true,

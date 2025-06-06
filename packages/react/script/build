@@ -9,7 +9,7 @@ npm run clean
 npm run build:precompile-color-schemes
 
 # Bundle
-npx rollup -c
+npx rolldown --config rollup.config.mjs
 
 # Type check
 npx tsc --project tsconfig.build.json

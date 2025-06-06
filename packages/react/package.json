@@ -195,6 +195,7 @@
     "react-test-renderer": "18.3.1",
     "recast": "0.23.7",
     "rimraf": "5.0.5",
+    "rolldown": "^1.0.0-beta.12",
     "rollup": "4.41.1",
     "rollup-plugin-import-css": "^0.0.0",
     "rollup-plugin-postcss": "4.0.2",
