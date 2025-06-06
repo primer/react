@@ -203,6 +203,7 @@ function Panel({
   const initialHeightRef = useRef(0)
   const [isKeyboardVisible, setIsKeyboardVisible] = useState(false)
   const [availablePanelHeight, setAvailablePanelHeight] = useState<number | undefined>(undefined)
+  const KEYBOARD_VISIBILITY_THRESHOLD = 10
 
   const usingModernActionList = useFeatureFlag('primer_react_select_panel_with_modern_action_list')
   const featureFlagFullScreenOnNarrow = useFeatureFlag('primer_react_select_panel_fullscreen_on_narrow')
@@ -389,7 +390,7 @@ function Panel({
     const handleViewportChange = () => {
       if (window.visualViewport) {
         const currentHeight = window.visualViewport.height
-        const keyboardVisible = initialHeightRef.current - currentHeight > 10
+        const keyboardVisible = initialHeightRef.current - currentHeight > KEYBOARD_VISIBILITY_THRESHOLD
         setIsKeyboardVisible(keyboardVisible)
         setAvailablePanelHeight(keyboardVisible ? currentHeight : undefined)
       }
