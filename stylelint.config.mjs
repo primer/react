@@ -13,9 +13,6 @@ export default {
         message: '"%s" selector should be written in PascalCase or BEM format (e.g. block__element--modifier)',
       },
     ],
-    // Allow existing patterns that are used in the codebase
-    'declaration-property-value-keyword-no-deprecated': null,
-    'declaration-property-value-no-unknown': null,
   },
   overrides: [
     {
