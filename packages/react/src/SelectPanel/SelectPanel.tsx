@@ -409,6 +409,7 @@ function Panel({
         window.visualViewport.removeEventListener('resize', handleViewportChange)
         window.visualViewport.removeEventListener('scroll', handleViewportChange)
       }
+      handleViewportChange.cancel()
     }
   }, [])
 
