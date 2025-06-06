@@ -413,11 +413,6 @@ function Panel({
     }
   }, [])
 
-  // Update available panel height when keyboard is visible
-  useEffect(() => {
-    setAvailablePanelHeight(isKeyboardVisible ? window.visualViewport?.height : undefined)
-  }, [isKeyboardVisible])
-
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
   const onOpen: AnchoredOverlayProps['onOpen'] = useCallback(
     (gesture: Parameters<Exclude<AnchoredOverlayProps['onOpen'], undefined>>[0]) => onOpenChange(true, gesture),
