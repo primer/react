@@ -141,55 +141,6 @@ const doesItemsIncludeItem = (items: ItemInput[], item: ItemInput) => {
   return items.some(i => areItemsEqual(i, item))
 }
 
-interface KeyboardState {
-  height: number
-  isVisible: boolean
-}
-
-// calculate keyboard visibility state by detecting starting viewport height and subtracting viewport height when keyboard is visible
-function useKeyboardState(): KeyboardState {
-  const [keyboardState, setKeyboardState] = useState<KeyboardState>({
-    height: 0,
-    isVisible: false,
-  })
-
-  const initialHeightRef = useRef(0)
-
-  useEffect(() => {
-    if (window.visualViewport) {
-      initialHeightRef.current = window.visualViewport.height
-    }
-
-    const handleViewportChange = () => {
-      if (window.visualViewport) {
-        const currentHeight = window.visualViewport.height
-        const keyboardHeight = Math.max(0, initialHeightRef.current - currentHeight)
-
-        setKeyboardState({
-          height: keyboardHeight,
-          isVisible: keyboardHeight > 10,
-        })
-      }
-    }
-    if (window.visualViewport) {
-      // Using visualViewport to more reliably detect viewport changes across different browsers, which specifically requires these listeners
-      // eslint-disable-next-line github/prefer-observers
-      window.visualViewport.addEventListener('resize', handleViewportChange)
-      // eslint-disable-next-line github/prefer-observers
-      window.visualViewport.addEventListener('scroll', handleViewportChange)
-    }
-
-    return () => {
-      if (window.visualViewport) {
-        window.visualViewport.removeEventListener('resize', handleViewportChange)
-        window.visualViewport.removeEventListener('scroll', handleViewportChange)
-      }
-    }
-  }, [])
-
-  return keyboardState
-}
-
 const defaultRenderAnchor: NonNullable<SelectPanelProps['renderAnchor']> = props => {
   const {children, ...rest} = props
   return (
@@ -249,7 +200,8 @@ function Panel({
   const [selectedOnSort, setSelectedOnSort] = useState<ItemInput[]>([])
   const [prevItems, setPrevItems] = useState<ItemInput[]>([])
   const [prevOpen, setPrevOpen] = useState(open)
-  const keyboardState = useKeyboardState()
+  const initialHeightRef = useRef(0)
+  const [isKeyboardVisible, setIsKeyboardVisible] = useState(false)
   const [availablePanelHeight, setAvailablePanelHeight] = useState<number | undefined>(undefined)
 
   const usingModernActionList = useFeatureFlag('primer_react_select_panel_with_modern_action_list')
@@ -429,10 +381,40 @@ function Panel({
     }
   }, [open, dataLoadedOnce, onFilterChange, filterValue, items, loadingManagedExternally, listContainerElement])
 
-  // Update available panel height based on caclulated keyboard height when keyboard is visible so no content is hidden behind it
   useEffect(() => {
-    setAvailablePanelHeight(keyboardState.isVisible ? window.visualViewport?.height : undefined)
-  }, [keyboardState.isVisible, keyboardState.height])
+    if (window.visualViewport) {
+      initialHeightRef.current = window.visualViewport.height
+    }
+
+    const handleViewportChange = () => {
+      if (window.visualViewport) {
+        const currentHeight = window.visualViewport.height
+        const keyboardVisible = initialHeightRef.current - currentHeight > 10
+        setIsKeyboardVisible(keyboardVisible)
+        setAvailablePanelHeight(keyboardVisible ? currentHeight : undefined)
+      }
+    }
+
+    if (window.visualViewport) {
+      // Using visualViewport to more reliably detect viewport changes across different browsers, which specifically requires these listeners
+      // eslint-disable-next-line github/prefer-observers
+      window.visualViewport.addEventListener('resize', handleViewportChange)
+      // eslint-disable-next-line github/prefer-observers
+      window.visualViewport.addEventListener('scroll', handleViewportChange)
+    }
+
+    return () => {
+      if (window.visualViewport) {
+        window.visualViewport.removeEventListener('resize', handleViewportChange)
+        window.visualViewport.removeEventListener('scroll', handleViewportChange)
+      }
+    }
+  }, [])
+
+  // Update available panel height when keyboard is visible
+  useEffect(() => {
+    setAvailablePanelHeight(isKeyboardVisible ? window.visualViewport?.height : undefined)
+  }, [isKeyboardVisible])
 
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
   const onOpen: AnchoredOverlayProps['onOpen'] = useCallback(
@@ -704,7 +686,7 @@ function Panel({
             /* override AnchoredOverlay position */
             transform: variant === 'modal' ? 'translate(-50%, -50%)' : undefined,
             // set maxHeight based on calculated availablePanelHeight when keyboard is visible
-            ...(keyboardState.isVisible
+            ...(isKeyboardVisible
               ? {
                   maxHeight: availablePanelHeight !== undefined ? `${availablePanelHeight}px` : 'auto',
                 }
