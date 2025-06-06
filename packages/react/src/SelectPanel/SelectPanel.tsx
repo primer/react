@@ -387,14 +387,14 @@ function Panel({
       initialHeightRef.current = window.visualViewport.height
     }
 
-    const handleViewportChange = () => {
+    const handleViewportChange = debounce(() => {
       if (window.visualViewport) {
         const currentHeight = window.visualViewport.height
         const keyboardVisible = initialHeightRef.current - currentHeight > KEYBOARD_VISIBILITY_THRESHOLD
         setIsKeyboardVisible(keyboardVisible)
         setAvailablePanelHeight(keyboardVisible ? currentHeight : undefined)
       }
-    }
+    }, 100)
 
     if (window.visualViewport) {
       // Using visualViewport to more reliably detect viewport changes across different browsers, which specifically requires these listeners
