@@ -141,7 +141,7 @@ const doesItemsIncludeItem = (items: ItemInput[], item: ItemInput) => {
   return items.some(i => areItemsEqual(i, item))
 }
 
-const defaultRendorAnchor: NonNullable<SelectPanelProps['renderAnchor']> = props => {
+const defaultRenderAnchor: NonNullable<SelectPanelProps['renderAnchor']> = props => {
   const {children, ...rest} = props
   return (
     <Button trailingAction={TriangleDownIcon} {...rest}>
@@ -153,7 +153,7 @@ const defaultRendorAnchor: NonNullable<SelectPanelProps['renderAnchor']> = props
 function Panel({
   open,
   onOpenChange,
-  renderAnchor = defaultRendorAnchor,
+  renderAnchor = defaultRenderAnchor,
   anchorRef: externalAnchorRef,
   placeholder,
   placeholderText = 'Filter items',
@@ -200,6 +200,10 @@ function Panel({
   const [selectedOnSort, setSelectedOnSort] = useState<ItemInput[]>([])
   const [prevItems, setPrevItems] = useState<ItemInput[]>([])
   const [prevOpen, setPrevOpen] = useState(open)
+  const initialHeightRef = useRef(0)
+  const [isKeyboardVisible, setIsKeyboardVisible] = useState(false)
+  const [availablePanelHeight, setAvailablePanelHeight] = useState<number | undefined>(undefined)
+  const KEYBOARD_VISIBILITY_THRESHOLD = 10
 
   const usingModernActionList = useFeatureFlag('primer_react_select_panel_with_modern_action_list')
   const featureFlagFullScreenOnNarrow = useFeatureFlag('primer_react_select_panel_fullscreen_on_narrow')
@@ -377,6 +381,37 @@ function Panel({
       }
     }
   }, [open, dataLoadedOnce, onFilterChange, filterValue, items, loadingManagedExternally, listContainerElement])
+
+  useEffect(() => {
+    if (window.visualViewport) {
+      initialHeightRef.current = window.visualViewport.height
+    }
+
+    const handleViewportChange = debounce(() => {
+      if (window.visualViewport) {
+        const currentHeight = window.visualViewport.height
+        const keyboardVisible = initialHeightRef.current - currentHeight > KEYBOARD_VISIBILITY_THRESHOLD
+        setIsKeyboardVisible(keyboardVisible)
+        setAvailablePanelHeight(keyboardVisible ? currentHeight : undefined)
+      }
+    }, 100)
+
+    if (window.visualViewport) {
+      // Using visualViewport to more reliably detect viewport changes across different browsers, which specifically requires these listeners
+      // eslint-disable-next-line github/prefer-observers
+      window.visualViewport.addEventListener('resize', handleViewportChange)
+      // eslint-disable-next-line github/prefer-observers
+      window.visualViewport.addEventListener('scroll', handleViewportChange)
+    }
+
+    return () => {
+      if (window.visualViewport) {
+        window.visualViewport.removeEventListener('resize', handleViewportChange)
+        window.visualViewport.removeEventListener('scroll', handleViewportChange)
+      }
+      handleViewportChange.cancel()
+    }
+  }, [])
 
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
   const onOpen: AnchoredOverlayProps['onOpen'] = useCallback(
@@ -647,6 +682,12 @@ function Panel({
             '--max-height': overlayProps?.maxHeight ? heightMap[overlayProps.maxHeight] : heightMap['large'],
             /* override AnchoredOverlay position */
             transform: variant === 'modal' ? 'translate(-50%, -50%)' : undefined,
+            // set maxHeight based on calculated availablePanelHeight when keyboard is visible
+            ...(isKeyboardVisible
+              ? {
+                  maxHeight: availablePanelHeight !== undefined ? `${availablePanelHeight}px` : 'auto',
+                }
+              : {}),
           } as React.CSSProperties,
         }}
         focusTrapSettings={focusTrapSettings}
