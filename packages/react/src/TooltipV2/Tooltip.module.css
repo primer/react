@@ -26,10 +26,12 @@
     clip: auto;
     /* stylelint-disable-next-line primer/typography */
     font: normal normal 11px/1.5 var(--fontStack-system);
+    /* stylelint-disable-next-line primer/colors */
     color: var(--tooltip-fgColor);
     text-align: center;
     word-wrap: break-word;
     white-space: normal;
+    /* stylelint-disable-next-line primer/colors */
     background: var(--tooltip-bgColor);
     border: 0;
     border-radius: var(--borderRadius-medium);
