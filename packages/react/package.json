@@ -152,7 +152,6 @@
     "@types/node": "20.12.11",
     "@types/react": "18.3.11",
     "@types/react-dom": "18.3.0",
-    "@types/react-test-renderer": "18.3.0",
     "@types/semver": "7.7.0",
     "@types/styled-components": "^5.1.26",
     "@vitejs/plugin-react": "^4.3.3",
@@ -192,7 +191,6 @@
     "postcss-preset-primer": "^0.0.0",
     "react": "18.3.1",
     "react-dom": "18.3.1",
-    "react-test-renderer": "18.3.1",
     "recast": "0.23.7",
     "rimraf": "5.0.5",
     "rollup": "4.41.1",
@@ -210,6 +208,7 @@
     "unist-util-find": "3.0.0",
     "unist-util-find-before": "4.0.0",
     "unist-util-flat-filter": "2.0.0",
+    "universal-test-renderer": "^0.2.0",
     "yaml": "2.7.0"
   },
   "peerDependencies": {

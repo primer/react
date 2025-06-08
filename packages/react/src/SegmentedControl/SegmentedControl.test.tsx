@@ -6,7 +6,7 @@ import {behavesAsComponent, checkExports} from '../utils/testing'
 import {SegmentedControl} from '.' // TODO: update import when we move this to the global index
 import theme from '../theme'
 import {BaseStyles, ThemeProvider} from '..'
-import {act} from 'react-test-renderer'
+import {act} from '@testing-library/react'
 import {viewportRanges} from '../hooks/useResponsiveValue'
 import {FeatureFlags} from '../FeatureFlags'
 

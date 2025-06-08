@@ -3,7 +3,6 @@ import 'jest-styled-components'
 import {styleSheetSerializer} from 'jest-styled-components/serializer'
 import failOnConsole from 'jest-fail-on-console'
 import React from 'react'
-import type {ReactTestRendererJSON, ReactTestRendererNode} from 'react-test-renderer'
 import {getClasses, getComputedStyles, render} from './testing'
 import type axe from 'axe-core'
 
@@ -31,30 +30,34 @@ expect.extend({
   },
 
   toImplementSxBehavior(element) {
-    const mediaKey = '@media (max-width:123px)'
-    const sxPropValue = {
-      [mediaKey]: {
-        color: 'red.5',
-      },
+    const mediaKey = "@media (max-width:123px)";
+    const expectedColor = "rgb(255, 0, 0)";
+    const sxPropValue = { [mediaKey]: { color: "red" } };
+    const elem = React.cloneElement(element, { sx: sxPropValue });
+    const { container } = render(elem);
+
+    const originalMatchMedia = window.matchMedia
+    const matchMediaMock = jest.spyOn(window, "matchMedia").mockImplementation((query) => ({
+      matches: query === mediaKey,
+      media: query,
+      onchange: null,
+      addListener: jest.fn(),
+      removeListener: jest.fn(),
+      addEventListener: jest.fn(),
+      removeEventListener: jest.fn(),
+      dispatchEvent: jest.fn(),
+    }));
+
+    function checkStylesDeep(node: Element): boolean {
+      if (!(node instanceof HTMLElement)) return false
+      if ( expectedColor === window.getComputedStyle(node).color) return true
+	  return [...node.children].some((child) => checkStylesDeep(child as HTMLElement));
     }
 
-    const elem = React.cloneElement(element, {sx: sxPropValue})
-
-    function checkStylesDeep(rendered: ReactTestRendererJSON): boolean {
-      const className = rendered.props.className || rendered.props.class
-      const styles = getComputedStyles(className)
-      const mediaStyles = styles[mediaKey] as Record<string, string> | null
-      if (mediaStyles && mediaStyles.color) {
-        return true
-      } else if (rendered.children) {
-        return rendered.children.some((child: ReactTestRendererNode) => checkStylesDeep(child as ReactTestRendererJSON))
-      } else {
-        return false
-      }
-    }
-
+    const rootElement = container.firstChild as HTMLElement
+    matchMediaMock.mockRestore();
     return {
-      pass: checkStylesDeep(render(elem)),
+      pass: rootElement ? checkStylesDeep(rootElement) : false,
       message: () => 'sx prop values did not change styles of component nor of any sub-components',
     }
   },

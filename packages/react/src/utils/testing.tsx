@@ -1,6 +1,6 @@
 import React from 'react'
 import {promisify} from 'util'
-import renderer from 'react-test-renderer'
+import { createRoot } from 'universal-test-renderer'
 import {render as HTMLRender} from '@testing-library/react'
 import type {StoryFn} from '@storybook/react'
 import axe from 'axe-core'
@@ -40,18 +40,20 @@ declare global {
  * ```
  */
 export function render(component: React.ReactElement, theme = defaultTheme) {
-  return renderer
-    .create(<ThemeProvider theme={theme}>{component}</ThemeProvider>)
-    .toJSON() as renderer.ReactTestRendererJSON
+  const renderer = createRoot()
+  renderer.render(<ThemeProvider theme={theme}>{component}</ThemeProvider>)
+  return renderer.root?.toJSON()
 }
 
 /**
  * Render the component (a React.createElement() or JSX expression)
- * using react-test-renderer and return the root node
+ * using universal-test-renderer and return the root node
  * ```
  */
 export function renderRoot(component: React.ReactElement) {
-  return renderer.create(component).root
+  const renderer = createRoot();
+  renderer.render(component);
+  return renderer.root;
 }
 
 /**
