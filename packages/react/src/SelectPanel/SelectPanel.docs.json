@@ -189,6 +189,12 @@
       "type": "boolean",
       "description": "Whether to disable fullscreen behavior on narrow viewports. When `true`, the panel will maintain its anchored position regardless of viewport size. When `false`, the panel will go fullscreen on narrow viewports (if feature flag is enabled).",
       "defaultValue": "undefined (uses feature flag default)"
+    },
+    {
+      "name": "loading",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Whether the panel is in a loading state. When `true`, the panel will display a loading spinner. If `loading` is not provided, the panel will infer the loading state based on the contents of `items` available."
     }
   ],
   "subcomponents": []
