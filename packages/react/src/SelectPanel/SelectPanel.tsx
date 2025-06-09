@@ -108,6 +108,7 @@ interface SelectPanelBaseProps {
    * @default undefined (uses feature flag default)
    */
   disableFullscreenOnNarrow?: boolean
+  align?: AnchoredOverlayProps['align']
 }
 
 // onCancel is optional with variant=anchored, but required with variant=modal
@@ -182,6 +183,7 @@ function Panel({
   secondaryAction,
   showSelectedOptionsFirst = true,
   disableFullscreenOnNarrow,
+  align,
   ...listProps
 }: SelectPanelProps): JSX.Element {
   const titleId = useId()
@@ -627,6 +629,7 @@ function Panel({
       <AnchoredOverlay
         renderAnchor={renderMenuAnchor}
         anchorRef={anchorRef}
+        align={align}
         open={open}
         onOpen={onOpen}
         onClose={onClose}
