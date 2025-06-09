@@ -201,6 +201,7 @@ function Panel({
   const [prevItems, setPrevItems] = useState<ItemInput[]>([])
   const [prevOpen, setPrevOpen] = useState(open)
   const initialHeightRef = useRef(0)
+  const initialScaleRef = useRef(1)
   const [isKeyboardVisible, setIsKeyboardVisible] = useState(false)
   const [availablePanelHeight, setAvailablePanelHeight] = useState<number | undefined>(undefined)
   const KEYBOARD_VISIBILITY_THRESHOLD = 10
@@ -385,14 +386,19 @@ function Panel({
   useEffect(() => {
     if (window.visualViewport) {
       initialHeightRef.current = window.visualViewport.height
+      initialScaleRef.current = window.visualViewport.scale
     }
 
     const handleViewportChange = debounce(() => {
       if (window.visualViewport) {
-        const currentHeight = window.visualViewport.height
-        const keyboardVisible = initialHeightRef.current - currentHeight > KEYBOARD_VISIBILITY_THRESHOLD
-        setIsKeyboardVisible(keyboardVisible)
-        setAvailablePanelHeight(keyboardVisible ? currentHeight : undefined)
+        const currentScale = window.visualViewport.scale
+        const isZooming = currentScale !== initialScaleRef.current
+        if (!isZooming) {
+          const currentHeight = window.visualViewport.height
+          const keyboardVisible = initialHeightRef.current - currentHeight > KEYBOARD_VISIBILITY_THRESHOLD
+          setIsKeyboardVisible(keyboardVisible)
+          setAvailablePanelHeight(keyboardVisible ? currentHeight : undefined)
+        }
       }
     }, 100)
 
