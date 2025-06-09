@@ -108,7 +108,6 @@ interface SelectPanelBaseProps {
    * @default undefined (uses feature flag default)
    */
   disableFullscreenOnNarrow?: boolean
-  align?: AnchoredOverlayProps['align']
 }
 
 // onCancel is optional with variant=anchored, but required with variant=modal
@@ -116,7 +115,7 @@ type SelectPanelVariantProps = {variant?: 'anchored'; onCancel?: () => void} | {
 
 export type SelectPanelProps = SelectPanelBaseProps &
   Omit<FilteredActionListProps, 'selectionVariant' | 'variant'> &
-  Pick<AnchoredOverlayProps, 'open' | 'height' | 'width'> &
+  Pick<AnchoredOverlayProps, 'open' | 'height' | 'width' | 'align'> &
   AnchoredOverlayWrapperAnchorProps &
   (SelectPanelSingleSelection | SelectPanelMultiSelection) &
   SelectPanelVariantProps
