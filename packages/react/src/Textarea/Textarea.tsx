@@ -92,7 +92,6 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
             minHeight: minHeight,
             maxHeight: maxHeight,
           }}
-          {...(rest as TextareaHTMLAttributes<HTMLTextAreaElement>)}
           {...rest}
         />
       </TextInputBaseWrapper>
