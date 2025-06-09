@@ -384,10 +384,12 @@ function Panel({
   }, [open, dataLoadedOnce, onFilterChange, filterValue, items, loadingManagedExternally, listContainerElement])
 
   useEffect(() => {
-    if (window.visualViewport) {
-      initialHeightRef.current = window.visualViewport.height
-      initialScaleRef.current = window.visualViewport.scale
+    if (!window.visualViewport || !open) {
+      return
     }
+
+    initialHeightRef.current = window.visualViewport.height
+    initialScaleRef.current = window.visualViewport.scale
 
     const handleViewportChange = debounce(() => {
       if (window.visualViewport) {
@@ -417,7 +419,7 @@ function Panel({
       }
       handleViewportChange.cancel()
     }
-  }, [])
+  }, [open])
 
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
   const onOpen: AnchoredOverlayProps['onOpen'] = useCallback(
