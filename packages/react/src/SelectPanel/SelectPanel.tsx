@@ -404,6 +404,8 @@ function Panel({
       }
     }, 100)
 
+    // keeping this check to satisfy typescript but need eslint to ignore redundancy rule
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     if (window.visualViewport) {
       // Using visualViewport to more reliably detect viewport changes across different browsers, which specifically requires these listeners
       // eslint-disable-next-line github/prefer-observers
