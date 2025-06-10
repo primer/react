@@ -13,9 +13,11 @@ import {useId} from '../hooks/useId'
 import type {MandateProps} from '../utils/types'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {Tooltip} from '../TooltipV2/Tooltip'
+import styles from './ActionMenu.module.css'
+import {useResponsiveValue} from '../hooks/useResponsiveValue'
 
 export type MenuCloseHandler = (
-  gesture: 'anchor-click' | 'click-outside' | 'escape' | 'tab' | 'item-select' | 'arrow-left',
+  gesture: 'anchor-click' | 'click-outside' | 'escape' | 'tab' | 'item-select' | 'arrow-left' | 'close',
 ) => void
 
 export type MenuContextProps = Pick<
@@ -79,10 +81,13 @@ const Menu: React.FC<React.PropsWithChildren<ActionMenuProps>> = ({
 
   const [combinedOpenState, setCombinedOpenState] = useProvidedStateOrCreate(open, onOpenChange, false)
   const onOpen = React.useCallback(() => setCombinedOpenState(true), [setCombinedOpenState])
+  const isNarrow = useResponsiveValue({narrow: true}, false)
   const onClose: MenuCloseHandler = React.useCallback(
     gesture => {
+      if (isNarrow && open && gesture == 'tab') {
+        return
+      }
       setCombinedOpenState(false)
-
       // Close the parent stack when an item is selected or the user tabs out of the menu entirely
       switch (gesture) {
         case 'tab':
@@ -90,7 +95,7 @@ const Menu: React.FC<React.PropsWithChildren<ActionMenuProps>> = ({
           parentMenuContext.onClose?.(gesture)
       }
     },
-    [setCombinedOpenState, parentMenuContext],
+    [setCombinedOpenState, parentMenuContext, open, isNarrow],
   )
 
   const menuButtonChild = React.Children.toArray(children).find(
@@ -259,6 +264,10 @@ const Overlay: React.FC<React.PropsWithChildren<MenuOverlayProps>> = ({
 
   const containerRef = React.useRef<HTMLDivElement>(null)
   useMenuKeyboardNavigation(open, onClose, containerRef, anchorRef, isSubmenu)
+  const isNarrow = useResponsiveValue({narrow: true}, false)
+  const responsiveVariant = useResponsiveValue(variant, {regular: 'anchored', narrow: 'anchored'})
+
+  const isNarrowFullscreen = !!isNarrow && variant.narrow === 'fullscreen'
 
   // If the menu anchor is an icon button, we need to label the menu by tooltip that also labelled the anchor.
   const [anchorAriaLabelledby, setAnchorAriaLabelledby] = useState<null | string>(null)
@@ -284,11 +293,11 @@ const Overlay: React.FC<React.PropsWithChildren<MenuOverlayProps>> = ({
       align={align}
       side={side ?? (isSubmenu ? 'outside-right' : 'outside-bottom')}
       overlayProps={overlayProps}
-      focusZoneSettings={{focusOutBehavior: 'wrap'}}
+      focusZoneSettings={isNarrowFullscreen ? {disabled: true} : {focusOutBehavior: 'wrap'}}
       onPositionChange={onPositionChange}
       variant={variant}
     >
-      <div ref={containerRef}>
+      <div ref={containerRef} className={styles.ActionMenuContainer} data-variant={responsiveVariant}>
         <ActionListContainerContext.Provider
           value={{
             container: 'ActionMenu',
@@ -297,7 +306,7 @@ const Overlay: React.FC<React.PropsWithChildren<MenuOverlayProps>> = ({
             listLabelledBy: ariaLabelledby || anchorAriaLabelledby || anchorId,
             selectionAttribute: 'aria-checked', // Should this be here?
             afterSelect: () => onClose?.('item-select'),
-            enableFocusZone: false, // AnchoredOverlay takes care of focus zone
+            enableFocusZone: isNarrowFullscreen, // AnchoredOverlay takes care of focus zone. We only want to enable this if menu is narrow fullscreen.
           }}
         >
           {children}

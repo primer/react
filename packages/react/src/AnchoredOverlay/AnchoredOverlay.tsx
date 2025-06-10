@@ -10,6 +10,9 @@ import {useAnchoredPosition, useProvidedRefOrCreate, useRenderForcingRef} from '
 import {useId} from '../hooks/useId'
 import type {AnchorPosition, PositionSettings} from '@primer/behaviors'
 import {useResponsiveValue, type ResponsiveValue} from '../hooks/useResponsiveValue'
+import {IconButton} from '../Button'
+import {XIcon} from '@primer/octicons-react'
+import classes from './AnchoredOverlay.module.css'
 
 interface AnchoredOverlayPropsWithAnchor {
   /**
@@ -65,7 +68,7 @@ interface AnchoredOverlayBaseProps extends Pick<OverlayProps, 'height' | 'width'
   /**
    * A callback which is called whenever the overlay is currently open and a "close gesture" is detected.
    */
-  onClose?: (gesture: 'anchor-click' | 'click-outside' | 'escape') => unknown
+  onClose?: (gesture: 'anchor-click' | 'click-outside' | 'escape' | 'close') => unknown
 
   /**
    * Props to be spread on the internal `Overlay` component.
@@ -204,6 +207,8 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
 
   const currentResponsiveVariant = useResponsiveValue(variant, 'anchored')
 
+  const showXIcon = onClose && variant.narrow === 'fullscreen'
+
   return (
     <>
       {renderAnchor &&
@@ -236,6 +241,21 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
           preventOverflow={preventOverflow}
           {...overlayProps}
         >
+          {showXIcon ? (
+            <div className={classes.ResponsiveCloseButtonContainer}>
+              <IconButton
+                type="button"
+                variant="invisible"
+                icon={XIcon}
+                aria-label="Cancel and close"
+                className={classes.ResponsiveCloseButton}
+                onClick={() => {
+                  onClose?.('close')
+                }}
+              />
+            </div>
+          ) : null}
+
           {children}
         </Overlay>
       ) : null}

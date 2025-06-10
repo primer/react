@@ -125,15 +125,7 @@
 }
 
 .ResponsiveCloseButton {
-  display: none;
-
-  @media screen and (--viewportRange-narrow) {
     display: inline-grid;
-  }
-
-  &:where([data-variant='modal'] &) {
-    display: inline-grid;
-  }
 }
 
 .ResponsiveFooter {

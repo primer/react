@@ -373,12 +373,19 @@ function Panel({
     [onOpenChange],
   )
   const onClose = useCallback(
-    (gesture: Parameters<Exclude<AnchoredOverlayProps['onClose'], undefined>>[0] | 'selection' | 'escape') => {
+    (
+      gesture: Parameters<Exclude<AnchoredOverlayProps['onClose'], undefined>>[0] | 'selection' | 'escape' | 'close',
+    ) => {
       // Clicking outside should cancel the selection only on modals
       if (variant === 'modal' && gesture === 'click-outside') {
         onCancel?.()
       }
-      onOpenChange(false, gesture)
+      if (gesture === 'close') {
+        onCancel?.()
+        onCancelRequested()
+      } else {
+        onOpenChange(false, gesture)
+      }
     },
     [onOpenChange, variant, onCancel],
   )
@@ -564,10 +571,6 @@ function Panel({
     }
   }
 
-  // because of instant selection, canceling on single select is the same as closing the panel, no onCancel needed
-  const showXCloseIcon =
-    variant === 'modal' || ((onCancel !== undefined || !isMultiSelectVariant(selected)) && usingFullScreenOnNarrow)
-
   // We add permanent save and cancel buttons on:
   // - modals
   const showPermanentCancelSaveButtons = variant === 'modal'
@@ -659,7 +662,7 @@ function Panel({
                 </div>
               ) : null}
             </div>
-            {showXCloseIcon ? (
+            {variant === 'modal' ? (
               <IconButton
                 type="button"
                 variant="invisible"
