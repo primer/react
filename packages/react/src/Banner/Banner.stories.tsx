@@ -63,8 +63,7 @@ export const Playground: StoryObj<typeof Banner> = {
   },
   args: {
     title: 'Banner title',
-    description:
-      'GitHub users are now required to en able two-factor authentication as an additional security measure.',
+    description: 'GitHub users are now required to enable two-factor authentication as an additional security measure.',
     variant: 'info',
   },
   argTypes: {

@@ -48,7 +48,7 @@
 
 .BannerContainer {
   font-size: var(--text-body-size-medium);
-  align-items: start;
+  align-items: center;
   line-height: var(--text-body-lineHeight-medium);
   row-gap: var(--base-size-4);
   column-gap: var(--base-size-4);
