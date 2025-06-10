@@ -1,6 +1,7 @@
+import {render} from '@testing-library/react'
+import {it, expect, vi} from 'vitest'
 import React from 'react'
 import {useAnchoredPosition} from '../../hooks/useAnchoredPosition'
-import {render} from '@testing-library/react'
 
 const Component = ({callback}: {callback: (hookReturnValue: ReturnType<typeof useAnchoredPosition>) => void}) => {
   const floatingElementRef = React.useRef<HTMLDivElement>(null)
@@ -18,7 +19,7 @@ const Component = ({callback}: {callback: (hookReturnValue: ReturnType<typeof us
 }
 
 it('should should return a position', () => {
-  const cb = jest.fn()
+  const cb = vi.fn()
   render(<Component callback={cb} />)
   expect(cb).toHaveBeenCalledTimes(2)
   expect(cb.mock.calls[1][0]['position']).toMatchInlineSnapshot(`

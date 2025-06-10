@@ -250,7 +250,7 @@ const CurrentPathContext = React.createContext<{
   setCurrentPath: () => {},
 })
 
-const intialTree: TreeItem[] = Array.from({length: 5}).map((_, i) => ({
+const initialTree: TreeItem[] = Array.from({length: 5}).map((_, i) => ({
   data: {
     name: `Item ${i}`,
     expanded: false,
@@ -272,7 +272,7 @@ const intialTree: TreeItem[] = Array.from({length: 5}).map((_, i) => ({
 
 export const Controlled: StoryFn = () => {
   const [currentPath, setCurrentPath] = React.useState<string[]>(['src', 'Avatar.tsx'])
-  const [tree, setTree] = React.useState<TreeItem[]>(intialTree)
+  const [tree, setTree] = React.useState<TreeItem[]>(initialTree)
 
   return (
     <Box sx={{display: 'grid', gap: 3}}>
