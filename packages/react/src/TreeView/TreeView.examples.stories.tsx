@@ -1,9 +1,10 @@
-import {BookIcon, GrabberIcon} from '@primer/octicons-react'
+import {GearIcon, GrabberIcon} from '@primer/octicons-react'
 import type {Meta, StoryFn} from '@storybook/react'
 import React from 'react'
 import Box from '../Box'
 import {TreeView} from './TreeView'
 import {IconButton} from '../Button'
+import {Dialog} from '../Dialog/Dialog'
 
 const meta: Meta = {
   title: 'Components/TreeView/Examples',
@@ -75,19 +76,9 @@ const ControlledDraggableItem: React.FC<{id: string; children: React.ReactNode}>
 
 export const TrailingActions: StoryFn = () => {
   return (
-    <Box
-      sx={{
-        // using Box for css, this could be in a css file as well
-        '.treeview-item': {
-          '.treeview-leading-action': {visibility: 'hidden'},
-          '&:hover, &:focus': {
-            '.treeview-leading-action': {visibility: 'visible'},
-          },
-        },
-      }}
-    >
+    <Box>
       <TreeView aria-label="Issues">
-        <TrailingAction id="item-1">Item 1</TrailingAction>
+        <TreeView.Item id="item-1">Item 1</TreeView.Item>
         <TrailingAction id="item-2">
           Item 2
           <TreeView.SubTree>
@@ -95,7 +86,7 @@ export const TrailingActions: StoryFn = () => {
             <TreeView.Item id="item-2-sub-task-2">sub task 2</TreeView.Item>
           </TreeView.SubTree>
         </TrailingAction>
-        <TrailingAction id="item-3">Item 3</TrailingAction>
+        <TreeView.Item id="item-3">Item 3</TreeView.Item>
       </TreeView>
     </Box>
   )
@@ -103,16 +94,17 @@ export const TrailingActions: StoryFn = () => {
 
 const TrailingAction: React.FC<{id: string; children: React.ReactNode}> = ({id, children}) => {
   const [expanded, setExpanded] = React.useState(false)
+  const [dialogOpen, setDialogOpen] = React.useState(false)
 
   return (
     <>
       <TreeView.Item id={id} className="treeview-item" expanded={expanded} onExpandedChange={setExpanded}>
         {children}
-        <TreeView.TrailingAction>
+        <TreeView.TrailingAction visible>
           <IconButton
-            icon={BookIcon}
+            icon={GearIcon}
             variant="invisible"
-            aria-label="Reorder item"
+            aria-label="Item settings"
             className="treeview-leading-action"
             draggable="true"
             onDragStart={() => {
@@ -120,11 +112,17 @@ const TrailingAction: React.FC<{id: string; children: React.ReactNode}> = ({id, 
               // other drag logic to follow
             }}
             onClick={() => {
-              alert('Trailing action clicked')
+              setDialogOpen(true)
             }}
           />
         </TreeView.TrailingAction>
       </TreeView.Item>
+
+      {dialogOpen ? (
+        <Dialog title="My Dialog" onClose={() => setDialogOpen(false)}>
+          Dialog that opens when the trailing action is clicked.
+        </Dialog>
+      ) : null}
     </>
   )
 }

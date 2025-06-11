@@ -280,6 +280,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
           className={clsx('PRIVATE_TreeView-item', className, classes.TreeViewItem)}
           ref={ref as React.ForwardedRef<HTMLLIElement>}
           tabIndex={0}
+          data-another="123"
           id={itemId}
           role="treeitem"
           aria-label={ariaLabel}
@@ -675,7 +676,15 @@ LeadingAction.displayName = 'TreeView.LeadingAction'
 // ----------------------------------------------------------------------------
 // TreeView.TrailingAction
 
-const TrailingAction: React.FC<TreeViewVisualProps> = props => {
+export type TreeViewTrailingAction = {
+  children: React.ReactNode | ((props: {isExpanded: boolean}) => React.ReactNode)
+  // Provide an accessible name for the visual. This should provide information
+  // about what the visual indicates or represents
+  label?: string
+  visible?: boolean
+}
+
+const TrailingAction: React.FC<TreeViewTrailingAction> = props => {
   const {isExpanded} = React.useContext(ItemContext)
   const children = typeof props.children === 'function' ? props.children({isExpanded}) : props.children
   return (
@@ -691,6 +700,7 @@ const TrailingAction: React.FC<TreeViewVisualProps> = props => {
           // This is needed to prevent the TreeView from interfering with trailing actions
           event.stopPropagation()
         }
+        onKeyDown={event => event.stopPropagation()}
       >
         {children}
       </div>
