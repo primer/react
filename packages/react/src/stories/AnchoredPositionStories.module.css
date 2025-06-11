@@ -1,6 +1,6 @@
 .Float {
   position: absolute;
-  border: 1px solid var(--fgColor-default);
+  border: var(--borderWidth-thin) solid var(--borderColor-default);
   border-radius: var(--borderRadius-medium);
   background-color: var(--bgColor-attention-muted);
   display: flex;
@@ -13,7 +13,7 @@
 
 .Anchor {
   position: absolute;
-  border: 1px solid var(--fgColor-default);
+  border: var(--borderWidth-thin) solid var(--borderColor-default);
   border-radius: var(--borderRadius-medium);
   background-color: var(--bgColor-accent-muted);
   display: flex;
@@ -29,7 +29,7 @@
   padding: var(--base-size-16);
   position: relative;
   overflow: hidden;
-  border-right: 1px solid var(--borderColor-default);
+  border-right: var(--borderWidth-thin) solid var(--borderColor-default);
 }
 
 .Main {

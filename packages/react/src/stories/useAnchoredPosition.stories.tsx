@@ -231,7 +231,7 @@ const Nav = ({children, ...props}: React.ComponentPropsWithoutRef<'nav'>) => (
   </nav>
 )
 
-const Main = ({children, ...props}: React.ComponentPropsWithoutRef<'main'>) => (
+const Main = ({children, ...props}: React.ComponentPropsWithRef<'main'>) => (
   <main className={classes.Main} {...props}>
     {children}
   </main>
