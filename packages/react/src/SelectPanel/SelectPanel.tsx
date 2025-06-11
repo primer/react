@@ -115,7 +115,7 @@ type SelectPanelVariantProps = {variant?: 'anchored'; onCancel?: () => void} | {
 
 export type SelectPanelProps = SelectPanelBaseProps &
   Omit<FilteredActionListProps, 'selectionVariant' | 'variant'> &
-  Pick<AnchoredOverlayProps, 'open' | 'height' | 'width'> &
+  Pick<AnchoredOverlayProps, 'open' | 'height' | 'width' | 'side' | 'onPositionChange'> &
   AnchoredOverlayWrapperAnchorProps &
   (SelectPanelSingleSelection | SelectPanelMultiSelection) &
   SelectPanelVariantProps
@@ -182,6 +182,8 @@ function Panel({
   secondaryAction,
   showSelectedOptionsFirst = true,
   disableFullscreenOnNarrow,
+  side,
+  onPositionChange,
   ...listProps
 }: SelectPanelProps): JSX.Element {
   const titleId = useId()
@@ -657,6 +659,8 @@ function Panel({
         variant={usingFullScreenOnNarrow ? {regular: 'anchored', narrow: 'fullscreen'} : undefined}
         pinPosition={!height}
         className={classes.Overlay}
+        side={side}
+        onPositionChange={onPositionChange}
       >
         <div className={classes.Wrapper} data-variant={variant}>
           <div className={classes.Header}>
