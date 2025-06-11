@@ -384,7 +384,7 @@ function Panel({
   }, [open, dataLoadedOnce, onFilterChange, filterValue, items, loadingManagedExternally, listContainerElement])
 
   useEffect(() => {
-    if (!window.visualViewport || !open) {
+    if (!window.visualViewport || !open || !isNarrowScreenSize) {
       return
     }
 
@@ -421,7 +421,7 @@ function Panel({
       }
       handleViewportChange.cancel()
     }
-  }, [open])
+  }, [open, isNarrowScreenSize])
 
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
   const onOpen: AnchoredOverlayProps['onOpen'] = useCallback(
