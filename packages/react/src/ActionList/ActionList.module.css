@@ -540,6 +540,7 @@ default block */
 
   & .ItemLabel {
     font-weight: var(--base-text-weight-semibold);
+    /* stylelint-disable-next-line declaration-property-value-keyword-no-deprecated */
     word-break: break-word;
   }
 
@@ -607,6 +608,7 @@ span wrapping svg or text */
   line-height: 20px; /* temporary until we fix line-height rounding in primitives */
   color: var(--fgColor-default);
   grid-area: label;
+  /* stylelint-disable-next-line declaration-property-value-keyword-no-deprecated */
   word-break: break-word;
 }
 
