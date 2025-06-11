@@ -190,7 +190,9 @@
     grid-template-columns: auto auto;
   }
 
-  .BannerActionsContainer[data-primary-action='trailing'] :where([data-variant='link']):only-child {
+  :where(.Banner):not([data-dismissible])
+    :where(.BannerActionsContainer[data-primary-action='trailing'])
+    :where([data-variant='link']:only-child) {
     padding-inline: 0 var(--base-size-12);
   }
 
