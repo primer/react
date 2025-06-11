@@ -48,7 +48,7 @@
 
 .BannerContainer {
   font-size: var(--text-body-size-medium);
-  align-items: center;
+  align-items: start;
   line-height: var(--text-body-lineHeight-medium);
   row-gap: var(--base-size-4);
   column-gap: var(--base-size-4);
@@ -132,6 +132,7 @@
   display: flex;
   column-gap: var(--base-size-12);
   align-items: center;
+  margin-block: var(--base-size-2);
 }
 
 .BannerActions :where([data-primary-action='trailing']) {
