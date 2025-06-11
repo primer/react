@@ -32,6 +32,16 @@ export const Default = () => {
   )
 }
 
+export const NoHorizontalPadding = () => {
+  return (
+    <UnderlineNav aria-label="Repository" variant="no-horizontal-padding">
+      <UnderlineNav.Item aria-current="page">Code</UnderlineNav.Item>
+      <UnderlineNav.Item>Issues</UnderlineNav.Item>
+      <UnderlineNav.Item>Pull Requests</UnderlineNav.Item>
+    </UnderlineNav>
+  )
+}
+
 export const WithIcons = () => {
   return (
     <UnderlineNav aria-label="Repository with icons">
