@@ -121,6 +121,10 @@
   margin-inline-start: var(--base-size-4);
 }
 
+:where(.Banner):has(.BannerActions) .BannerDismiss {
+  margin-block: var(--base-size-2);
+}
+
 .BannerDismiss svg {
   /* stylelint-disable-next-line primer/colors */
   color: var(--banner-icon-fgColor);
