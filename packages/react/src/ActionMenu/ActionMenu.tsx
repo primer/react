@@ -14,7 +14,7 @@ import type {MandateProps} from '../utils/types'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {Tooltip} from '../TooltipV2/Tooltip'
 import styles from './ActionMenu.module.css'
-import {useResponsiveValue} from '../hooks/useResponsiveValue'
+import {useResponsiveValue, type ResponsiveValue} from '../hooks/useResponsiveValue'
 
 export type MenuCloseHandler = (
   gesture: 'anchor-click' | 'click-outside' | 'escape' | 'tab' | 'item-select' | 'arrow-left' | 'close',
@@ -84,7 +84,7 @@ const Menu: React.FC<React.PropsWithChildren<ActionMenuProps>> = ({
   const isNarrow = useResponsiveValue({narrow: true}, false)
   const onClose: MenuCloseHandler = React.useCallback(
     gesture => {
-      if (isNarrow && open && gesture == 'tab') {
+      if (isNarrow && open && gesture === 'tab') {
         return
       }
       setCombinedOpenState(false)
@@ -233,6 +233,11 @@ const MenuButton = React.forwardRef(({...props}, anchorRef) => {
   )
 }) as PolymorphicForwardRefComponent<'button', ActionMenuButtonProps>
 
+const defaultVariant: ResponsiveValue<'anchored', 'anchored' | 'fullscreen'> = {
+  regular: 'anchored',
+  narrow: 'anchored',
+}
+
 type MenuOverlayProps = Partial<OverlayProps> &
   Pick<AnchoredOverlayProps, 'align' | 'side' | 'variant'> & {
     /**
@@ -247,7 +252,7 @@ const Overlay: React.FC<React.PropsWithChildren<MenuOverlayProps>> = ({
   side,
   onPositionChange,
   'aria-labelledby': ariaLabelledby,
-  variant = {regular: 'anchored', narrow: 'anchored'},
+  variant = defaultVariant,
   ...overlayProps
 }) => {
   // we typecast anchorRef as required instead of optional

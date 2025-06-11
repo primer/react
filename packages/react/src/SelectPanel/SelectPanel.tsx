@@ -383,6 +383,11 @@ function Panel({
     (gesture: Parameters<Exclude<AnchoredOverlayProps['onOpen'], undefined>>[0]) => onOpenChange(true, gesture),
     [onOpenChange],
   )
+
+  const onCancelRequested = useCallback(() => {
+    onOpenChange(false, 'cancel')
+  }, [onOpenChange])
+
   const onClose = useCallback(
     (
       gesture: Parameters<Exclude<AnchoredOverlayProps['onClose'], undefined>>[0] | 'selection' | 'escape' | 'close',
@@ -398,12 +403,8 @@ function Panel({
         onOpenChange(false, gesture)
       }
     },
-    [onOpenChange, variant, onCancel],
+    [onOpenChange, variant, onCancel, onCancelRequested],
   )
-
-  const onCancelRequested = useCallback(() => {
-    onOpenChange(false, 'cancel')
-  }, [onOpenChange])
 
   const renderMenuAnchor = useMemo(() => {
     if (renderAnchor === null) {
