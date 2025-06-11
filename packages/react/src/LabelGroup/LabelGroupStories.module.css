@@ -1,9 +1,7 @@
-@layer primer.stories.label-group {
-  .ResizableContainer {
-    outline: 1px solid black;
-    overflow: auto;
-    padding: 0.25rem;
-    resize: horizontal;
-    width: 600px;
-  }
+.ResizableContainer {
+  outline: 1px solid black;
+  overflow: auto;
+  padding: 0.25rem;
+  resize: horizontal;
+  width: 600px;
 }

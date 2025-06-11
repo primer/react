@@ -18,7 +18,6 @@ import {Label, ThemeProvider} from '../..'
 import {ActionList as _ActionList} from '../../deprecated/ActionList'
 import {Header} from '../../deprecated/ActionList/Header'
 import BaseStyles from '../../BaseStyles'
-import Box from '../../Box'
 import {ReactRouterLikeLink} from '../../__tests__/mocks/ReactRouterLink'
 import classes from './ActionListStories.module.css'
 
@@ -172,9 +171,9 @@ export function ComplexListInsetVariantStory(): JSX.Element {
                 <ActionList.Item
                   {...props}
                   leadingVisual={() => (
-                    <Box className={classes.StyledDivWithWhiteFill}>
+                    <div className={classes.StyledDivWithWhiteFill}>
                       {LeadingVisual && <LeadingVisual></LeadingVisual>}
-                    </Box>
+                    </div>
                   )}
                 />
               ),
@@ -246,9 +245,9 @@ export function ComplexListFullVariantStory(): JSX.Element {
                 <ActionList.Item
                   {...props}
                   leadingVisual={() => (
-                    <Box className={classes.StyledDivWithWhiteFill}>
+                    <div className={classes.StyledDivWithWhiteFill}>
                       {LeadingVisual && <LeadingVisual></LeadingVisual>}
-                    </Box>
+                    </div>
                   )}
                 />
               ),

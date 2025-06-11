@@ -1,21 +1,19 @@
-@layer primer.stories.action-list {
-  .ErsatzOverlay {
-    border-radius: 12px;
-    box-shadow:
-      0 1px 3px rgba(0, 0, 0, 0.12),
-      0 8px 24px rgba(149, 157, 165, 0.2);
-    overflow: hidden;
-  }
+.ErsatzOverlay {
+  border-radius: 12px;
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.12),
+    0 8px 24px rgba(149, 157, 165, 0.2);
+  overflow: hidden;
+}
 
-  .ErsatzOverlay[data-max-width] {
-    max-width: var(--ersatz-overlay-max-width);
-  }
+.ErsatzOverlay[data-max-width] {
+  max-width: var(--ersatz-overlay-max-width);
+}
 
-  .StyledDiv {
-    /* Empty base class - styles will be applied via sx prop */
-  }
+.StyledDiv {
+  /* Empty base class - styles will be applied via sx prop */
+}
 
-  .StyledDivWithWhiteFill > svg {
-    fill: white;
-  }
+.StyledDivWithWhiteFill > svg {
+  fill: white;
 }

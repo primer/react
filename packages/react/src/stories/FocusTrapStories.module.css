@@ -1,10 +1,8 @@
-@layer primer.stories.focus-trap {
-  .MarginButton {
-    margin: var(--base-size-8) 0;
-  }
+.MarginButton {
+  margin: var(--base-size-8) 0;
+}
 
-  /* Helper styles for focus trap visual aids */
-  .HelperGlobalStyling {
-    /* These styles need to be applied globally for the demo */
-  }
+/* Helper styles for focus trap visual aids */
+.HelperGlobalStyling {
+  /* These styles need to be applied globally for the demo */
 }
