@@ -1,4 +1,4 @@
-import type {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react-vite'
 import AvatarPair from './AvatarPair'
 import Avatar from '../Avatar'
 

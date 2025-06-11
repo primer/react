@@ -1,4 +1,4 @@
-import type {Meta, StoryFn} from '@storybook/react'
+import type {Meta, StoryFn} from '@storybook/react-vite'
 import CircleBadge from './CircleBadge'
 import {ZapIcon} from '@primer/octicons-react'
 

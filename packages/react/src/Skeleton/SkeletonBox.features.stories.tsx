@@ -1,5 +1,5 @@
 import {type ComponentProps} from 'react'
-import type {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react-vite'
 import {SkeletonBox} from './SkeletonBox'
 
 export default {

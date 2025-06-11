@@ -1,4 +1,4 @@
-import type {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react-vite'
 import TabNav from './TabNav'
 import type {ComponentProps} from '../utils/types'
 

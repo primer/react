@@ -1,4 +1,4 @@
-import type {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react-vite'
 import type {TextareaProps} from '..'
 import {Box, FormControl, Textarea} from '..'
 import {DEFAULT_TEXTAREA_COLS, DEFAULT_TEXTAREA_RESIZE, DEFAULT_TEXTAREA_ROWS} from '../Textarea'

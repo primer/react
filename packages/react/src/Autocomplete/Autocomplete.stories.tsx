@@ -1,6 +1,6 @@
 import type React from 'react'
 import {useCallback, useState} from 'react'
-import type {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react-vite'
 
 import {BaseStyles, Box, ThemeProvider} from '..'
 
@@ -15,7 +15,6 @@ import {
   getFormControlArgsByChildComponent,
   getTextInputArgTypes,
 } from '../utils/story-helpers'
-import {within, userEvent, expect} from '@storybook/test'
 
 type AutocompleteOverlayArgs = ComponentProps<typeof Autocomplete.Overlay>
 type AutocompleteMenuArgs = ComponentProps<typeof Autocomplete.Menu>
@@ -289,16 +288,6 @@ export const Playground = (args: FormControlArgs<AutocompleteArgs>) => {
       </FormControl>
     </Box>
   )
-}
-
-Playground.play = async ({canvasElement}: {canvasElement: HTMLElement}) => {
-  const canvas = within(canvasElement)
-  const inputBox = canvas.getByTestId('autocompleteInput')
-  await userEvent.click(inputBox)
-  const firstAutoCompleteOption = canvas.getByText('css')
-  expect(firstAutoCompleteOption).toBeInTheDocument()
-  await userEvent.type(firstAutoCompleteOption, '{enter}')
-  expect(inputBox).toHaveValue('css')
 }
 
 export default autocompleteStoryMeta

@@ -1,8 +1,8 @@
-import type {Meta, StoryObj} from '@storybook/react'
+import type {Meta, StoryObj} from '@storybook/react-vite'
 import Link from '../Link'
 import {Banner} from '../Banner'
 import {PageLayout} from '../PageLayout'
-import {action} from '@storybook/addon-actions'
+import {action} from 'storybook/actions'
 
 const meta = {
   title: 'Experimental/Components/Banner',

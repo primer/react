@@ -1,5 +1,5 @@
-import type {Meta} from '@storybook/react'
-import {action} from '@storybook/addon-actions'
+import type {Meta} from '@storybook/react-vite'
+import {action} from 'storybook/actions'
 import {get} from '../constants'
 import {BaseStyles, ThemeProvider} from '..'
 import Box from '../Box'
