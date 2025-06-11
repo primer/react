@@ -49,6 +49,9 @@ module.exports = {
     '<rootDir>/src/Truncate/',
     '<rootDir>/src/UnderlineNav/',
     '<rootDir>/src/hooks/',
+    '<rootDir>/src/live-region/',
+    '<rootDir>/src/utils/__tests__/invariant.test.ts',
+    '<rootDir>/src/utils/__tests__/warning.test.ts',
   ],
   transformIgnorePatterns: ['node_modules/(?!@github/[a-z-]+-element|@lit-labs/react|@oddbird/popover-polyfill)'],
 }
