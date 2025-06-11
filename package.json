@@ -58,10 +58,10 @@
     "@mdx-js/react": "1.6.22",
     "@playwright/test": "^1.51.0",
     "@prettier/sync": "0.5.5",
-    "@primer/stylelint-config": "13.1.1",
+    "@primer/stylelint-config": "13.3.0",
     "@size-limit/preset-big-lib": "11.2.0",
     "@types/jest": "29.5.14",
-    "@vitest/browser": "^3.1.2",
+    "@vitest/browser": "^3.2.0",
     "eslint": "^9.25.1",
     "eslint-import-resolver-typescript": "3.7.0",
     "eslint-plugin-clsx": "^0.0.10",
@@ -85,11 +85,11 @@
     "prettier": "3.4.2",
     "rimraf": "5.0.5",
     "size-limit": "11.2.0",
-    "stylelint": "16.9.0",
+    "stylelint": "16.20.0",
     "typed-css-modules": "0.9.1",
     "typescript": "^5.8.2",
     "typescript-eslint": "^8.33.0",
-    "vitest": "^3.1.2"
+    "vitest": "^3.2.0"
   },
   "optionalDependencies": {
     "@rollup/rollup-linux-x64-gnu": "^4.41.1"
