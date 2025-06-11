@@ -1,0 +1,5 @@
+@layer primer.stories.focus-zone {
+  .MarginButton {
+    margin: var(--base-size-8);
+  }
+}
