@@ -190,6 +190,10 @@
     grid-template-columns: auto auto;
   }
 
+  .BannerActionsContainer[data-primary-action='trailing'] :where([data-variant='link']):only-child {
+    padding-inline: 0 var(--base-size-12);
+  }
+
   .BannerActions [data-primary-action='trailing'] {
     display: flex;
     min-height: var(--base-size-32, 2rem);
