@@ -526,6 +526,7 @@
   grid-template-areas: 'label trailingVisual trailingAction';
   grid-template-columns: minmax(0, auto) min-content min-content;
   align-items: start;
+  column-gap: var(--control-medium-gap);
 }
 
 /* place children on grid */
