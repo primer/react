@@ -1,5 +1,5 @@
 .ResponsiveCloseButtonContainer {
-  position: relative
+  position: relative;
 }
 
 .ResponsiveCloseButton {
@@ -12,4 +12,3 @@
     display: inline-grid;
   }
 }
-
