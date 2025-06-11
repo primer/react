@@ -1,6 +1,7 @@
 import {existsSync} from 'node:fs'
 import fs from 'node:fs/promises'
 import path from 'node:path'
+import {beforeAll, describe, expect, it} from 'vitest'
 // eslint-disable-next-line import/no-namespace
 import * as parser from '@babel/parser'
 import {traverse} from '@babel/core'
