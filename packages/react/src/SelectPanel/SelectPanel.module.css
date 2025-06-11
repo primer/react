@@ -132,7 +132,6 @@
   display: none;
   align-items: center;
   padding: var(--base-size-8);
-  gap: var(--stack-gap-condensed);
   justify-content: center;
 
   &:where([data-display-footer='always']) {

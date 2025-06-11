@@ -10,7 +10,7 @@ exports[`TextInputWithTokens > renders a leadingVisual and trailingVisual 1`] = 
 
     <div>
       <span
-        class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_1sbpc_149 _TextInputBaseWrapper_1sbpc_1"
+        class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_12w30_150 _TextInputBaseWrapper_12w30_1"
         data-leading-visual="true"
         data-size="medium"
         data-trailing-visual="true"
@@ -437,7 +437,7 @@ exports[`TextInputWithTokens > renders a leadingVisual and trailingVisual 1`] = 
   </body>,
   "container": <div>
     <span
-      class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_1sbpc_149 _TextInputBaseWrapper_1sbpc_1"
+      class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_12w30_150 _TextInputBaseWrapper_12w30_1"
       data-leading-visual="true"
       data-size="medium"
       data-trailing-visual="true"
@@ -925,7 +925,7 @@ exports[`TextInputWithTokens > renders a truncated set of tokens 1`] = `
 
     <div>
       <span
-        class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_1sbpc_149 _TextInputBaseWrapper_1sbpc_1"
+        class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_12w30_150 _TextInputBaseWrapper_12w30_1"
         data-size="medium"
       >
         <div
@@ -1046,7 +1046,7 @@ exports[`TextInputWithTokens > renders a truncated set of tokens 1`] = `
   </body>,
   "container": <div>
     <span
-      class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_1sbpc_149 _TextInputBaseWrapper_1sbpc_1"
+      class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_12w30_150 _TextInputBaseWrapper_12w30_1"
       data-size="medium"
     >
       <div
@@ -1228,7 +1228,7 @@ exports[`TextInputWithTokens > renders as block layout 1`] = `
 
     <div>
       <span
-        class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_1sbpc_149 _TextInputBaseWrapper_1sbpc_1"
+        class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_12w30_150 _TextInputBaseWrapper_12w30_1"
         data-block="true"
         data-size="medium"
       >
@@ -1252,7 +1252,7 @@ exports[`TextInputWithTokens > renders as block layout 1`] = `
   </body>,
   "container": <div>
     <span
-      class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_1sbpc_149 _TextInputBaseWrapper_1sbpc_1"
+      class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_12w30_150 _TextInputBaseWrapper_12w30_1"
       data-block="true"
       data-size="medium"
     >
@@ -1337,7 +1337,7 @@ exports[`TextInputWithTokens > renders at a maximum height when specified 1`] = 
 
     <div>
       <span
-        class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_1sbpc_149 _TextInputBaseWrapper_1sbpc_1"
+        class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_12w30_150 _TextInputBaseWrapper_12w30_1"
         data-size="medium"
         data-token-wrapping="true"
         style="max-height: 20px;"
@@ -1722,7 +1722,7 @@ exports[`TextInputWithTokens > renders at a maximum height when specified 1`] = 
   </body>,
   "container": <div>
     <span
-      class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_1sbpc_149 _TextInputBaseWrapper_1sbpc_1"
+      class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_12w30_150 _TextInputBaseWrapper_12w30_1"
       data-size="medium"
       data-token-wrapping="true"
       style="max-height: 20px;"
@@ -2168,7 +2168,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 1`] = `
 
     <div>
       <span
-        class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_1sbpc_149 _TextInputBaseWrapper_1sbpc_1"
+        class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_12w30_150 _TextInputBaseWrapper_12w30_1"
         data-size="small"
       >
         <div
@@ -2551,7 +2551,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 1`] = `
   </body>,
   "container": <div>
     <span
-      class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_1sbpc_149 _TextInputBaseWrapper_1sbpc_1"
+      class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_12w30_150 _TextInputBaseWrapper_12w30_1"
       data-size="small"
     >
       <div
@@ -2995,7 +2995,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 2`] = `
 
     <div>
       <span
-        class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_1sbpc_149 _TextInputBaseWrapper_1sbpc_1"
+        class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_12w30_150 _TextInputBaseWrapper_12w30_1"
         data-size="small"
       >
         <div
@@ -3377,7 +3377,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 2`] = `
     </div>
     <div>
       <span
-        class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_1sbpc_149 _TextInputBaseWrapper_1sbpc_1"
+        class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_12w30_150 _TextInputBaseWrapper_12w30_1"
         data-size="small"
       >
         <div
@@ -3760,7 +3760,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 2`] = `
   </body>,
   "container": <div>
     <span
-      class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_1sbpc_149 _TextInputBaseWrapper_1sbpc_1"
+      class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_12w30_150 _TextInputBaseWrapper_12w30_1"
       data-size="small"
     >
       <div
@@ -4204,7 +4204,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 3`] = `
 
     <div>
       <span
-        class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_1sbpc_149 _TextInputBaseWrapper_1sbpc_1"
+        class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_12w30_150 _TextInputBaseWrapper_12w30_1"
         data-size="small"
       >
         <div
@@ -4586,7 +4586,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 3`] = `
     </div>
     <div>
       <span
-        class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_1sbpc_149 _TextInputBaseWrapper_1sbpc_1"
+        class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_12w30_150 _TextInputBaseWrapper_12w30_1"
         data-size="small"
       >
         <div
@@ -4968,7 +4968,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 3`] = `
     </div>
     <div>
       <span
-        class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_1sbpc_149 _TextInputBaseWrapper_1sbpc_1"
+        class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_12w30_150 _TextInputBaseWrapper_12w30_1"
         data-size="medium"
       >
         <div
@@ -5351,7 +5351,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 3`] = `
   </body>,
   "container": <div>
     <span
-      class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_1sbpc_149 _TextInputBaseWrapper_1sbpc_1"
+      class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_12w30_150 _TextInputBaseWrapper_12w30_1"
       data-size="medium"
     >
       <div
@@ -5795,7 +5795,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
 
     <div>
       <span
-        class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_1sbpc_149 _TextInputBaseWrapper_1sbpc_1"
+        class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_12w30_150 _TextInputBaseWrapper_12w30_1"
         data-size="small"
       >
         <div
@@ -6177,7 +6177,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
     </div>
     <div>
       <span
-        class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_1sbpc_149 _TextInputBaseWrapper_1sbpc_1"
+        class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_12w30_150 _TextInputBaseWrapper_12w30_1"
         data-size="small"
       >
         <div
@@ -6559,7 +6559,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
     </div>
     <div>
       <span
-        class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_1sbpc_149 _TextInputBaseWrapper_1sbpc_1"
+        class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_12w30_150 _TextInputBaseWrapper_12w30_1"
         data-size="medium"
       >
         <div
@@ -6941,7 +6941,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
     </div>
     <div>
       <span
-        class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_1sbpc_149 _TextInputBaseWrapper_1sbpc_1"
+        class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_12w30_150 _TextInputBaseWrapper_12w30_1"
         data-size="medium"
       >
         <div
@@ -7324,7 +7324,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
   </body>,
   "container": <div>
     <span
-      class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_1sbpc_149 _TextInputBaseWrapper_1sbpc_1"
+      class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_12w30_150 _TextInputBaseWrapper_12w30_1"
       data-size="medium"
     >
       <div
@@ -7768,7 +7768,7 @@ exports[`TextInputWithTokens > renders tokens on a single line when specified 1`
 
     <div>
       <span
-        class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_1sbpc_149 _TextInputBaseWrapper_1sbpc_1"
+        class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_12w30_150 _TextInputBaseWrapper_12w30_1"
         data-size="medium"
         data-token-wrapping="true"
       >
@@ -8152,7 +8152,7 @@ exports[`TextInputWithTokens > renders tokens on a single line when specified 1`
   </body>,
   "container": <div>
     <span
-      class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_1sbpc_149 _TextInputBaseWrapper_1sbpc_1"
+      class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_12w30_150 _TextInputBaseWrapper_12w30_1"
       data-size="medium"
       data-token-wrapping="true"
     >
@@ -8597,7 +8597,7 @@ exports[`TextInputWithTokens > renders tokens without a remove button when speci
 
     <div>
       <span
-        class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_1sbpc_149 _TextInputBaseWrapper_1sbpc_1"
+        class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_12w30_150 _TextInputBaseWrapper_12w30_1"
         data-size="medium"
       >
         <div
@@ -8788,7 +8788,7 @@ exports[`TextInputWithTokens > renders tokens without a remove button when speci
   </body>,
   "container": <div>
     <span
-      class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_1sbpc_149 _TextInputBaseWrapper_1sbpc_1"
+      class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_12w30_150 _TextInputBaseWrapper_12w30_1"
       data-size="medium"
     >
       <div
@@ -9040,7 +9040,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
 
     <div>
       <span
-        class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_1sbpc_149 _TextInputBaseWrapper_1sbpc_1"
+        class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_12w30_150 _TextInputBaseWrapper_12w30_1"
         data-size="medium"
         data-trailing-visual="true"
       >
@@ -9458,7 +9458,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_1sbpc_149 _TextInputBaseWrapper_1sbpc_1"
+        class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_12w30_150 _TextInputBaseWrapper_12w30_1"
         data-leading-visual="true"
         data-size="medium"
       >
@@ -9913,7 +9913,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_1sbpc_149 _TextInputBaseWrapper_1sbpc_1"
+        class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_12w30_150 _TextInputBaseWrapper_12w30_1"
         data-size="medium"
         data-trailing-visual="true"
       >
@@ -10331,7 +10331,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_1sbpc_149 _TextInputBaseWrapper_1sbpc_1"
+        class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_12w30_150 _TextInputBaseWrapper_12w30_1"
         data-leading-visual="true"
         data-size="medium"
       >
@@ -10806,7 +10806,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_1sbpc_149 _TextInputBaseWrapper_1sbpc_1"
+        class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_12w30_150 _TextInputBaseWrapper_12w30_1"
         data-leading-visual="true"
         data-size="medium"
       >
@@ -11281,7 +11281,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_1sbpc_149 _TextInputBaseWrapper_1sbpc_1"
+        class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_12w30_150 _TextInputBaseWrapper_12w30_1"
         data-leading-visual="true"
         data-size="medium"
         data-trailing-visual="true"
@@ -11757,7 +11757,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_1sbpc_149 _TextInputBaseWrapper_1sbpc_1"
+        class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_12w30_150 _TextInputBaseWrapper_12w30_1"
         data-size="medium"
         data-trailing-visual="true"
       >
@@ -12195,7 +12195,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_1sbpc_149 _TextInputBaseWrapper_1sbpc_1"
+        class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_12w30_150 _TextInputBaseWrapper_12w30_1"
         data-leading-visual="true"
         data-size="medium"
         data-trailing-visual="true"
@@ -12671,7 +12671,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_1sbpc_149 _TextInputBaseWrapper_1sbpc_1"
+        class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_12w30_150 _TextInputBaseWrapper_12w30_1"
         data-size="medium"
         data-trailing-visual="true"
       >
@@ -13109,7 +13109,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_1sbpc_149 _TextInputBaseWrapper_1sbpc_1"
+        class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_12w30_150 _TextInputBaseWrapper_12w30_1"
         data-leading-visual="true"
         data-size="small"
         data-trailing-visual="true"
@@ -13605,7 +13605,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_1sbpc_149 _TextInputBaseWrapper_1sbpc_1"
+        class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_12w30_150 _TextInputBaseWrapper_12w30_1"
         data-leading-visual="true"
         data-size="medium"
         data-trailing-visual="true"
@@ -14101,7 +14101,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_1sbpc_149 _TextInputBaseWrapper_1sbpc_1"
+        class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_12w30_150 _TextInputBaseWrapper_12w30_1"
         data-leading-visual="true"
         data-size="medium"
         data-trailing-visual="true"
@@ -14600,7 +14600,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
   </body>,
   "container": <div>
     <span
-      class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_1sbpc_149 _TextInputBaseWrapper_1sbpc_1"
+      class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_12w30_150 _TextInputBaseWrapper_12w30_1"
       data-size="medium"
       data-trailing-visual="true"
     >
@@ -15018,7 +15018,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
       </span>
     </span>
     <span
-      class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_1sbpc_149 _TextInputBaseWrapper_1sbpc_1"
+      class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_12w30_150 _TextInputBaseWrapper_12w30_1"
       data-leading-visual="true"
       data-size="medium"
     >
@@ -15473,7 +15473,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
       </span>
     </span>
     <span
-      class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_1sbpc_149 _TextInputBaseWrapper_1sbpc_1"
+      class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_12w30_150 _TextInputBaseWrapper_12w30_1"
       data-size="medium"
       data-trailing-visual="true"
     >
@@ -15891,7 +15891,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
       </span>
     </span>
     <span
-      class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_1sbpc_149 _TextInputBaseWrapper_1sbpc_1"
+      class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_12w30_150 _TextInputBaseWrapper_12w30_1"
       data-leading-visual="true"
       data-size="medium"
     >
@@ -16366,7 +16366,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
       </span>
     </span>
     <span
-      class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_1sbpc_149 _TextInputBaseWrapper_1sbpc_1"
+      class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_12w30_150 _TextInputBaseWrapper_12w30_1"
       data-leading-visual="true"
       data-size="medium"
     >
@@ -16841,7 +16841,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
       </span>
     </span>
     <span
-      class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_1sbpc_149 _TextInputBaseWrapper_1sbpc_1"
+      class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_12w30_150 _TextInputBaseWrapper_12w30_1"
       data-leading-visual="true"
       data-size="medium"
       data-trailing-visual="true"
@@ -17317,7 +17317,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
       </span>
     </span>
     <span
-      class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_1sbpc_149 _TextInputBaseWrapper_1sbpc_1"
+      class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_12w30_150 _TextInputBaseWrapper_12w30_1"
       data-size="medium"
       data-trailing-visual="true"
     >
@@ -17755,7 +17755,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
       </span>
     </span>
     <span
-      class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_1sbpc_149 _TextInputBaseWrapper_1sbpc_1"
+      class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_12w30_150 _TextInputBaseWrapper_12w30_1"
       data-leading-visual="true"
       data-size="medium"
       data-trailing-visual="true"
@@ -18231,7 +18231,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
       </span>
     </span>
     <span
-      class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_1sbpc_149 _TextInputBaseWrapper_1sbpc_1"
+      class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_12w30_150 _TextInputBaseWrapper_12w30_1"
       data-size="medium"
       data-trailing-visual="true"
     >
@@ -18669,7 +18669,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
       </span>
     </span>
     <span
-      class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_1sbpc_149 _TextInputBaseWrapper_1sbpc_1"
+      class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_12w30_150 _TextInputBaseWrapper_12w30_1"
       data-leading-visual="true"
       data-size="small"
       data-trailing-visual="true"
@@ -19165,7 +19165,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
       </span>
     </span>
     <span
-      class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_1sbpc_149 _TextInputBaseWrapper_1sbpc_1"
+      class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_12w30_150 _TextInputBaseWrapper_12w30_1"
       data-leading-visual="true"
       data-size="medium"
       data-trailing-visual="true"
@@ -19661,7 +19661,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
       </span>
     </span>
     <span
-      class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_1sbpc_149 _TextInputBaseWrapper_1sbpc_1"
+      class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_12w30_150 _TextInputBaseWrapper_12w30_1"
       data-leading-visual="true"
       data-size="medium"
       data-trailing-visual="true"
@@ -20221,7 +20221,7 @@ exports[`TextInputWithTokens > renders with tokens 1`] = `
 
     <div>
       <span
-        class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_1sbpc_149 _TextInputBaseWrapper_1sbpc_1"
+        class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_12w30_150 _TextInputBaseWrapper_12w30_1"
         data-size="medium"
       >
         <div
@@ -20604,7 +20604,7 @@ exports[`TextInputWithTokens > renders with tokens 1`] = `
   </body>,
   "container": <div>
     <span
-      class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_1sbpc_149 _TextInputBaseWrapper_1sbpc_1"
+      class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_12w30_150 _TextInputBaseWrapper_12w30_1"
       data-size="medium"
     >
       <div
@@ -21048,7 +21048,7 @@ exports[`TextInputWithTokens > renders with tokens using a custom token componen
 
     <div>
       <span
-        class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_1sbpc_149 _TextInputBaseWrapper_1sbpc_1"
+        class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_12w30_150 _TextInputBaseWrapper_12w30_1"
         data-size="medium"
       >
         <div
@@ -21391,7 +21391,7 @@ exports[`TextInputWithTokens > renders with tokens using a custom token componen
   </body>,
   "container": <div>
     <span
-      class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_1sbpc_149 _TextInputBaseWrapper_1sbpc_1"
+      class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_12w30_150 _TextInputBaseWrapper_12w30_1"
       data-size="medium"
     >
       <div
@@ -21795,7 +21795,7 @@ exports[`TextInputWithTokens > renders without tokens 1`] = `
 
     <div>
       <span
-        class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_1sbpc_149 _TextInputBaseWrapper_1sbpc_1"
+        class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_12w30_150 _TextInputBaseWrapper_12w30_1"
         data-size="medium"
       >
         <div
@@ -21818,7 +21818,7 @@ exports[`TextInputWithTokens > renders without tokens 1`] = `
   </body>,
   "container": <div>
     <span
-      class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_1sbpc_149 _TextInputBaseWrapper_1sbpc_1"
+      class="_TextInputWrapper_1ef6o_1 _TextInputWrapper_12w30_150 _TextInputBaseWrapper_12w30_1"
       data-size="medium"
     >
       <div
