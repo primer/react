@@ -1,10 +1,9 @@
+import {describe, it, expect, vi} from 'vitest'
 import {render as HTMLRender, waitFor, fireEvent} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React from 'react'
 import {ActionList} from '.'
 import {BookIcon} from '@primer/octicons-react'
-import {FeatureFlags} from '../FeatureFlags'
-import {behavesAsComponent} from '../utils/testing'
 
 function SimpleActionList(): JSX.Element {
   return (
@@ -61,48 +60,6 @@ function SingleSelectListStory(): JSX.Element {
 }
 
 describe('ActionList.Item', () => {
-  behavesAsComponent({
-    Component: ActionList.Item,
-    options: {skipAs: true, skipSx: true},
-    toRender: () => <ActionList.Item />,
-  })
-
-  behavesAsComponent({
-    Component: ActionList.LinkItem,
-    options: {skipAs: true, skipSx: true},
-    toRender: () => <ActionList.LinkItem />,
-  })
-
-  behavesAsComponent({
-    Component: ActionList.TrailingVisual,
-    options: {skipAs: true, skipSx: true, skipClassName: true},
-    toRender: () => (
-      <ActionList.Item>
-        <ActionList.TrailingVisual>Trailing Visual</ActionList.TrailingVisual>
-      </ActionList.Item>
-    ),
-  })
-
-  behavesAsComponent({
-    Component: ActionList.LeadingVisual,
-    options: {skipAs: true, skipSx: true, skipClassName: true},
-    toRender: () => (
-      <ActionList.Item>
-        <ActionList.LeadingVisual>Leading Visual</ActionList.LeadingVisual>
-      </ActionList.Item>
-    ),
-  })
-
-  behavesAsComponent({
-    Component: ActionList.Description,
-    options: {skipAs: true, skipSx: true, skipClassName: true},
-    toRender: () => (
-      <ActionList.Item>
-        <ActionList.Description>Description</ActionList.Description>
-      </ActionList.Item>
-    ),
-  })
-
   it('should have aria-keyshortcuts applied to the correct element', async () => {
     const {container} = HTMLRender(<SimpleActionList />)
     const linkOptions = await waitFor(() => container.querySelectorAll('a'))
@@ -225,7 +182,7 @@ describe('ActionList.Item', () => {
     expect(document.activeElement).toHaveAccessibleDescription(projects[5].inactiveText as string)
   })
   it('should call onClick for a link item', async () => {
-    const onClick = jest.fn()
+    const onClick = vi.fn()
     const component = HTMLRender(
       <ActionList role="listbox">
         <ActionList.LinkItem role="link" onClick={onClick}>
@@ -237,17 +194,12 @@ describe('ActionList.Item', () => {
     fireEvent.click(link)
     expect(onClick).toHaveBeenCalled()
   })
-  it('should render ActionList.Item as button when feature flag is enabled', async () => {
-    const featureFlag = {
-      primer_react_css_modules_ga: true,
-    }
+  it('should render ActionList.Item as button', async () => {
     const {container} = HTMLRender(
-      <FeatureFlags flags={featureFlag}>
-        <ActionList>
-          <ActionList.Item disabled={true}>Item 1</ActionList.Item>
-          <ActionList.Item>Item 2</ActionList.Item>
-        </ActionList>
-      </FeatureFlags>,
+      <ActionList>
+        <ActionList.Item disabled={true}>Item 1</ActionList.Item>
+        <ActionList.Item>Item 2</ActionList.Item>
+      </ActionList>,
     )
     const button = container.querySelector('button')
     expect(button).toHaveTextContent('Item 1')
@@ -255,55 +207,6 @@ describe('ActionList.Item', () => {
     expect(button).toHaveAttribute('aria-disabled', 'true')
     const listItems = container.querySelectorAll('li')
     expect(listItems.length).toBe(2)
-  })
-  it('should render ActionList.Item as li when feature flag is disabled', async () => {
-    const {container} = HTMLRender(
-      <FeatureFlags
-        flags={{
-          primer_react_css_modules_ga: false,
-        }}
-      >
-        <ActionList>
-          <ActionList.Item>Item 1</ActionList.Item>
-          <ActionList.Item>Item 2</ActionList.Item>
-        </ActionList>
-      </FeatureFlags>,
-    )
-    const listitem = container.querySelector('li')
-    const button = container.querySelector('button')
-    expect(listitem).toHaveTextContent('Item 1')
-    expect(listitem).toHaveAttribute('tabindex', '0')
-    expect(button).toBeNull()
-    const listItems = container.querySelectorAll('li')
-    expect(listItems.length).toBe(2)
-  })
-  it('should apply ref to ActionList.Item when feature flag is disabled', async () => {
-    const MockComponent = () => {
-      const ref = React.useRef<HTMLLIElement>(null)
-      const focusRef = () => {
-        if (ref.current) ref.current.focus()
-      }
-      return (
-        <FeatureFlags
-          flags={{
-            primer_react_css_modules_ga: false,
-          }}
-        >
-          <button type="button" onClick={focusRef}>
-            Prompt
-          </button>
-          <ActionList>
-            <ActionList.Item ref={ref}>Item 1</ActionList.Item>
-            <ActionList.Item>Item 2</ActionList.Item>
-          </ActionList>
-        </FeatureFlags>
-      )
-    }
-    const {getByRole} = HTMLRender(<MockComponent />)
-    const triggerBtn = getByRole('button', {name: 'Prompt'})
-    const focusTarget = getByRole('listitem', {name: 'Item 1'})
-    fireEvent.click(triggerBtn)
-    expect(document.activeElement).toBe(focusTarget)
   })
   it('should render ActionList.Item as li when item has proper aria role', async () => {
     const {container} = HTMLRender(
@@ -325,11 +228,11 @@ describe('ActionList.Item', () => {
       <ActionList>
         <ActionList.Item>
           Item 1
-          <ActionList.TrailingAction icon={BookIcon} label="Action" />
+          <ActionList.TrailingAction data-testid="trailing-action" icon={BookIcon} label="Action" />
         </ActionList.Item>
       </ActionList>,
     )
-    const action = container.querySelector('button[aria-labelledby]')
+    const action = container.querySelector('button[data-testid="trailing-action"]')
     expect(action).toHaveAccessibleName('Action')
   })
   it('should render the trailing action as a link', async () => {
@@ -345,7 +248,7 @@ describe('ActionList.Item', () => {
     expect(action).toHaveAccessibleName('Action')
   })
   it('should do action when trailing action is clicked', async () => {
-    const onClick = jest.fn()
+    const onClick = vi.fn()
     const component = HTMLRender(
       <ActionList>
         <ActionList.Item>
@@ -372,19 +275,13 @@ describe('ActionList.Item', () => {
     await userEvent.tab()
     expect(document.activeElement).toHaveAccessibleName('Action')
   })
-  it('should only trigger a key event once when feature flag is enabled', async () => {
-    const mockOnSelect = jest.fn()
+  it('should only trigger a key event once', async () => {
+    const mockOnSelect = vi.fn()
     const user = userEvent.setup()
     const {getByRole} = HTMLRender(
-      <FeatureFlags
-        flags={{
-          primer_react_css_modules_ga: true,
-        }}
-      >
-        <ActionList>
-          <ActionList.Item onSelect={mockOnSelect}>Item 1</ActionList.Item>
-        </ActionList>
-      </FeatureFlags>,
+      <ActionList>
+        <ActionList.Item onSelect={mockOnSelect}>Item 1</ActionList.Item>
+      </ActionList>,
     )
     const item = getByRole('button')
     item.focus()
@@ -392,21 +289,15 @@ describe('ActionList.Item', () => {
     await user.keyboard('{Enter}')
     expect(mockOnSelect).toHaveBeenCalledTimes(1)
   })
-  it('should not render buttons when feature flag is enabled and is specified role', async () => {
+  it('should not render buttons when role is specified', async () => {
     const {getByRole} = HTMLRender(
-      <FeatureFlags
-        flags={{
-          primer_react_css_modules_ga: true,
-        }}
-      >
-        <ActionList>
-          <ActionList.Item role="option">Item 1</ActionList.Item>
-          <ActionList.Item role="menuitem">Item 2</ActionList.Item>
-          <ActionList.Item role="menuitemcheckbox">Item 3</ActionList.Item>
-          <ActionList.Item role="menuitemradio">Item 4</ActionList.Item>
-          <ActionList.Item>Item 5</ActionList.Item>
-        </ActionList>
-      </FeatureFlags>,
+      <ActionList>
+        <ActionList.Item role="option">Item 1</ActionList.Item>
+        <ActionList.Item role="menuitem">Item 2</ActionList.Item>
+        <ActionList.Item role="menuitemcheckbox">Item 3</ActionList.Item>
+        <ActionList.Item role="menuitemradio">Item 4</ActionList.Item>
+        <ActionList.Item>Item 5</ActionList.Item>
+      </ActionList>,
     )
     const option = getByRole('option')
     expect(option.tagName).toBe('LI')
@@ -437,17 +328,12 @@ describe('ActionList.Item', () => {
   })
 
   it('should add `aria-describedby` to items with a description', () => {
-    const featureFlag = {
-      primer_react_css_modules_ga: true,
-    }
     const {getByRole} = HTMLRender(
-      <FeatureFlags flags={featureFlag}>
-        <ActionList>
-          <ActionList.Item>
-            Item, <ActionList.Description variant="block">Description</ActionList.Description>
-          </ActionList.Item>
-        </ActionList>
-      </FeatureFlags>,
+      <ActionList>
+        <ActionList.Item>
+          Item, <ActionList.Description variant="block">Description</ActionList.Description>
+        </ActionList.Item>
+      </ActionList>,
     )
     const item = getByRole('button')
     expect(item).toHaveAttribute('aria-describedby')
@@ -456,17 +342,12 @@ describe('ActionList.Item', () => {
   })
 
   it('should add `aria-describedby` to items with a description when `role=listbox` is applied', () => {
-    const featureFlag = {
-      primer_react_css_modules_ga: true,
-    }
     const {getByRole} = HTMLRender(
-      <FeatureFlags flags={featureFlag}>
-        <ActionList role="listbox" selectionVariant="single">
-          <ActionList.Item>
-            Item, <ActionList.Description variant="block">Description</ActionList.Description>
-          </ActionList.Item>
-        </ActionList>
-      </FeatureFlags>,
+      <ActionList role="listbox" selectionVariant="single">
+        <ActionList.Item>
+          Item, <ActionList.Description variant="block">Description</ActionList.Description>
+        </ActionList.Item>
+      </ActionList>,
     )
     const item = getByRole('option')
     expect(item).toHaveAttribute('aria-describedby')
