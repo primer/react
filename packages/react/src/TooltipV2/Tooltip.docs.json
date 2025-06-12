@@ -51,7 +51,7 @@
       "name": "type",
       "type": "'label' | 'description'",
       "defaultValue": "description",
-      "description": "The type of tooltip. `label` is used for labelling the element that triggers tooltip. `description` is used for describing or adding a suplementary information to the element that triggers the tooltip."
+      "description": "The type of tooltip. `label` is used for labelling the element that triggers tooltip. `description` is used for describing or adding a supplementary information to the element that triggers the tooltip."
     },
     {
       "name": "keybindingHint",
