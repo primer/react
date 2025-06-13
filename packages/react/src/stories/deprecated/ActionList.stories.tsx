@@ -13,7 +13,6 @@ import {
 } from '@primer/octicons-react'
 import type {Meta} from '@storybook/react'
 import React, {forwardRef} from 'react'
-import {clsx} from 'clsx'
 import {Label, ThemeProvider} from '../..'
 import {ActionList as _ActionList} from '../../deprecated/ActionList'
 import {Header} from '../../deprecated/ActionList/Header'
@@ -47,7 +46,7 @@ export default meta
 
 const ErsatzOverlay = ({maxWidth, children, ...props}: {maxWidth?: string; children: React.ReactNode}) => (
   <div
-    className={clsx(classes.ErsatzOverlay, maxWidth && classes.ErsatzOverlay)}
+    className={classes.ErsatzOverlay}
     style={maxWidth ? ({'--ersatz-overlay-max-width': maxWidth} as React.CSSProperties) : undefined}
     data-max-width={maxWidth ? '' : undefined}
     {...props}
