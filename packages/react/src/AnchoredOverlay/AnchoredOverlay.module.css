@@ -1,0 +1,14 @@
+.ResponsiveCloseButtonContainer {
+  position: relative;
+}
+
+.ResponsiveCloseButton {
+  position: absolute;
+  top: var(--base-size-8);
+  right: var(--base-size-8);
+  display: none;
+
+  @media screen and (--viewportRange-narrow) {
+    display: inline-grid;
+  }
+}
