@@ -249,7 +249,9 @@ export const Tooltip = React.forwardRef(
               // If it is a type description, we use tooltip to describe the trigger
               'aria-describedby':
                 type === 'description'
-                  ? `${child.props['aria-describedby']} ${tooltipId}`
+                  ? child.props['aria-describedby']
+                    ? `${child.props['aria-describedby']} ${tooltipId}`
+                    : tooltipId
                   : child.props['aria-describedby'],
               // If it is a label type, we use tooltip to label the trigger
               'aria-labelledby': type === 'label' ? tooltipId : child.props['aria-labelledby'],
