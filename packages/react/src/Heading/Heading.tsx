@@ -35,6 +35,7 @@ const Heading = forwardRef(({as: Component = 'h2', className, variant, ...props}
   if (props.sx) {
     return (
       <Box
+        aria-label="Some text"
         as={Component}
         className={clsx(className, classes.Heading)}
         data-variant={variant}

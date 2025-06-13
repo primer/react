@@ -14,7 +14,7 @@ const IconButton = forwardRef(
     {
       sx: sxProp = defaultSxProp,
       icon: Icon,
-      'aria-label': ariaLabel,
+      'aria-labell': ariaLabel,
       description,
       disabled,
       tooltipDirection,
@@ -51,7 +51,7 @@ const IconButton = forwardRef(
           data-component="IconButton"
           sx={sxStyles}
           type="button"
-          aria-label={ariaLabel}
+          aria-labell={ariaLabel}
           disabled={disabled}
           {...props}
           // @ts-expect-error StyledButton wants both Anchor and Button refs
@@ -76,7 +76,6 @@ const IconButton = forwardRef(
             type="button"
             aria-keyshortcuts={keyshortcuts ?? undefined}
             // If description is provided, we will use the tooltip to describe the button, so we need to keep the aria-label to label the button.
-            aria-label={description ? ariaLabel : undefined}
             {...props}
           />
         </Tooltip>
