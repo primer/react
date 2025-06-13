@@ -55,5 +55,5 @@ module.exports = {
     '<rootDir>/src/utils/__tests__/invariant.test.ts',
     '<rootDir>/src/utils/__tests__/warning.test.ts',
   ],
-  transformIgnorePatterns: ['node_modules/(?!@github/[a-z-]+-element|@lit-labs/react|@oddbird/popover-polyfill)'],
+  transformIgnorePatterns: ['node_modules/(?!@github/[a-z-]+-element|@oddbird/popover-polyfill)'],
 }
