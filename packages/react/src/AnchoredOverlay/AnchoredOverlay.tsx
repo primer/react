@@ -252,7 +252,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
                 type="button"
                 variant="invisible"
                 icon={XIcon}
-                aria-label="Cancel and close"
+                aria-label="Close"
                 className={classes.ResponsiveCloseButton}
                 onClick={() => {
                   onClose('close')
