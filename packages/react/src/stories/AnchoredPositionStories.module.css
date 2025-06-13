@@ -1,0 +1,42 @@
+.Float {
+  position: absolute;
+  border: var(--borderWidth-thin) solid var(--borderColor-default);
+  border-radius: var(--borderRadius-medium);
+  background-color: var(--bgColor-attention-muted);
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  font-size: var(--text-body-size-medium);
+  font-weight: var(--base-text-weight-semibold);
+  padding: var(--base-size-16);
+}
+
+.Anchor {
+  position: absolute;
+  border: var(--borderWidth-thin) solid var(--borderColor-default);
+  border-radius: var(--borderRadius-medium);
+  background-color: var(--bgColor-accent-muted);
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  font-size: var(--text-body-size-medium);
+  font-weight: var(--base-text-weight-semibold);
+  padding: var(--base-size-16);
+}
+
+.Nav {
+  width: 300px;
+  padding: var(--base-size-16);
+  position: relative;
+  overflow: hidden;
+  border-right: var(--borderWidth-thin) solid var(--borderColor-default);
+}
+
+.Main {
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}

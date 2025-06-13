@@ -1,8 +1,7 @@
 import type {Meta, StoryFn} from '@storybook/react'
 
-import {ThemeProvider, BaseStyles, Box, themeGet, useTheme} from '..'
+import {ThemeProvider, BaseStyles, Box, useTheme} from '..'
 import type {ThemeProviderProps} from '../ThemeProvider'
-import {createGlobalStyle} from 'styled-components'
 
 export default {
   title: 'Behaviors/ThemeProvider',
@@ -17,11 +16,15 @@ export default {
   },
 } as Meta
 
-const GlobalStyle = createGlobalStyle`
-    body {
-        background-color: ${themeGet('colors.bg.canvas')};
-    }
-`
+const GlobalStyle = () => (
+  <style>
+    {`
+      body {
+        background-color: var(--bgColor-default);
+      }
+    `}
+  </style>
+)
 
 function ActiveColorScheme() {
   const {colorScheme} = useTheme()
