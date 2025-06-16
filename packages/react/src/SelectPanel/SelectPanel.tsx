@@ -675,6 +675,11 @@ function Panel({
 
   const showXCloseIcon = (onCancel !== undefined || !isMultiSelectVariant(selected)) && usingFullScreenOnNarrow
 
+  const currentResponsiveVariant = useResponsiveValue(
+    usingFullScreenOnNarrow ? {regular: 'anchored', narrow: 'fullscreen'} : undefined,
+    'anchored',
+  )
+
   return (
     <>
       <AnchoredOverlay
@@ -721,7 +726,7 @@ function Panel({
         closeButtonProps={{'aria-label': 'Cancel and close'}}
       >
         <div className={classes.Wrapper} data-variant={variant}>
-          <div className={classes.Header} data-selection={isMultiSelectVariant(selected) ? 'multi' : 'single'}>
+          <div className={classes.Header} data-variant={currentResponsiveVariant}>
             <div>
               <Heading as="h1" id={titleId} className={classes.Title}>
                 {title}

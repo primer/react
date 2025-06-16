@@ -13,6 +13,7 @@ import {useResponsiveValue, type ResponsiveValue} from '../hooks/useResponsiveVa
 import {IconButton, type IconButtonProps} from '../Button'
 import {XIcon} from '@primer/octicons-react'
 import classes from './AnchoredOverlay.module.css'
+import clsx from 'clsx'
 
 interface AnchoredOverlayPropsWithAnchor {
   /**
@@ -270,7 +271,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
                 {...(XButtonAriaLabelledBy
                   ? {'aria-labelledby': XButtonAriaLabelledBy, 'aria-label': undefined}
                   : {'aria-label': XButtonAriaLabel ?? 'Close', 'aria-labelledby': undefined})}
-                className={classes.ResponsiveCloseButton}
+                className={clsx(classes.ResponsiveCloseButton, closeButtonProps.className)}
                 onClick={() => {
                   onClose('close')
                 }}
