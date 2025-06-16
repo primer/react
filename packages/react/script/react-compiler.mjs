@@ -1,7 +1,8 @@
 import path from 'node:path'
 import glob from 'fast-glob'
+import {fileURLToPath} from 'node:url'
 
-const PACKAGE_DIR = path.resolve(import.meta.dirname, '..')
+const PACKAGE_DIR = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const files = glob
   .sync('src/**/*.{ts,tsx}', {
     cwd: PACKAGE_DIR,
