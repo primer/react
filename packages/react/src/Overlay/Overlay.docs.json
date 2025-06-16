@@ -4,9 +4,15 @@
   "status": "alpha",
   "a11yReviewed": false,
   "stories": [
-    {"id": "private-components-overlay--default"},
-    {"id": "private-components-overlay-features--dialog-overlay"},
-    {"id": "private-components-overlay-features--positioned-overlays"}
+    {
+      "id": "private-components-overlay--default"
+    },
+    {
+      "id": "private-components-overlay-features--dialog-overlay"
+    },
+    {
+      "id": "private-components-overlay-features--positioned-overlays"
+    }
   ],
   "importPath": "@primer/react",
   "props": [
@@ -142,7 +148,8 @@
     },
     {
       "name": "sx",
-      "type": "SystemStyleObject"
+      "type": "SystemStyleObject",
+      "deprecated": true
     },
     {
       "name": "responsiveVariant",
