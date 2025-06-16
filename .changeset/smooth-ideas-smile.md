@@ -1,5 +1,5 @@
 ---
-'@primer/react': minor
+'@primer/react': patch
 ---
 
 Adds notice announcements to SelectPanel
