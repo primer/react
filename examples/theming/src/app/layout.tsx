@@ -16,7 +16,7 @@ export default async function RootLayout({children}: {children: React.ReactNode}
   return (
     // Note: the focus-visible polyfill adds additional attributes to `html`
     // that cause hydration mismatch errors
-    (<html
+    <html
       lang="en"
       suppressHydrationWarning
       data-color-mode={colorMode}
@@ -30,8 +30,8 @@ export default async function RootLayout({children}: {children: React.ReactNode}
           </ThemeProvider>
         </StyledComponentsRegistry>
       </body>
-    </html>)
-  );
+    </html>
+  )
 }
 
 function getColorMode(preference?: string): 'light' | 'dark' | 'auto' {
