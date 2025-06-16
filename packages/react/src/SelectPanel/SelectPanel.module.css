@@ -17,6 +17,10 @@
   padding-top: var(--base-size-8);
   padding-right: var(--base-size-8);
   padding-left: var(--base-size-8);
+
+  &:where([data-selection="single"]){
+    padding-bottom: var(--base-size-12);
+  }
 }
 
 .Title {

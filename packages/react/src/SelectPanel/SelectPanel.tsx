@@ -673,6 +673,8 @@ function Panel({
 
   const stretchSaveButton = showResponsiveSaveAndCloseButton && secondaryAction === undefined ? 'only-small' : 'never'
 
+  const showXCloseIcon = (onCancel !== undefined || !isMultiSelectVariant(selected)) && usingFullScreenOnNarrow
+
   return (
     <>
       <AnchoredOverlay
@@ -715,9 +717,11 @@ function Panel({
         variant={usingFullScreenOnNarrow ? {regular: 'anchored', narrow: 'fullscreen'} : undefined}
         pinPosition={!height}
         className={classes.Overlay}
+        displayCloseButton={showXCloseIcon}
+        closeButtonProps={{'aria-label': 'Cancel and close'}}
       >
         <div className={classes.Wrapper} data-variant={variant}>
-          <div className={classes.Header}>
+          <div className={classes.Header} data-selection={isMultiSelectVariant(selected) ? 'multi' : 'single'}>
             <div>
               <Heading as="h1" id={titleId} className={classes.Title}>
                 {title}
