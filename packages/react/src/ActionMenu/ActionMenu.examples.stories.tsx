@@ -270,7 +270,9 @@ export const ContextMenu = () => {
       setOpen(true)
     }
 
+    // eslint-disable-next-line react-compiler/react-compiler
     const [open, setOpen] = React.useState(false)
+    // eslint-disable-next-line react-compiler/react-compiler
     const triggerRef = React.useRef<HTMLButtonElement>(null)
 
     return (

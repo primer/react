@@ -253,6 +253,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
   const autoFocusedFooterButtonRef = useRef<HTMLButtonElement>(null)
   for (const footerButton of footerButtons) {
     if (footerButton.autoFocus) {
+      // eslint-disable-next-line react-compiler/react-compiler
       footerButton.ref = autoFocusedFooterButtonRef
     }
   }
