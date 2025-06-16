@@ -13,7 +13,7 @@ import {useResponsiveValue, type ResponsiveValue} from '../hooks/useResponsiveVa
 import {IconButton, type IconButtonProps} from '../Button'
 import {XIcon} from '@primer/octicons-react'
 import classes from './AnchoredOverlay.module.css'
-import clsx from 'clsx'
+import {clsx} from 'clsx'
 
 interface AnchoredOverlayPropsWithAnchor {
   /**
