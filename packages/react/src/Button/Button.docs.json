@@ -137,7 +137,6 @@
       "type": "string",
       "description": "The content to announce to screen readers when loading. This requires `loading` prop to be true"
     },
-
     {
       "name": "ref",
       "type": "React.RefObject<HTMLButtonElement>"
@@ -149,7 +148,8 @@
     },
     {
       "name": "sx",
-      "type": "SystemStyleObject"
+      "type": "SystemStyleObject",
+      "deprecated": true
     },
     {
       "name": "trailingIcon",
