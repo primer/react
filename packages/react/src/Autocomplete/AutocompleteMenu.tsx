@@ -288,6 +288,7 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
       },
       activeDescendantFocus: inputRef,
       onActiveDescendantChanged: (current, _previous, directlyActivated) => {
+        // eslint-disable-next-line react-compiler/react-compiler
         activeDescendantRef.current = current || null
         if (current) {
           const selectedItem = allItemsToRenderRef.current.find(item => {
