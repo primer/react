@@ -2,6 +2,7 @@ import type {Meta, StoryFn} from '@storybook/react'
 
 import {ThemeProvider, BaseStyles, Box, useTheme} from '..'
 import type {ThemeProviderProps} from '../ThemeProvider'
+import './ThemeProviderStories.module.css'
 
 export default {
   title: 'Behaviors/ThemeProvider',
@@ -16,16 +17,6 @@ export default {
   },
 } as Meta
 
-const GlobalStyle = () => (
-  <style>
-    {`
-      body {
-        background-color: var(--bgColor-default);
-      }
-    `}
-  </style>
-)
-
 function ActiveColorScheme() {
   const {colorScheme} = useTheme()
   return <span>Active color scheme: {colorScheme}</span>
@@ -34,7 +25,6 @@ function ActiveColorScheme() {
 export const Default: StoryFn<ThemeProviderProps> = args => {
   return (
     <ThemeProvider {...args}>
-      <GlobalStyle />
       <BaseStyles>
         <ActiveColorScheme />
       </BaseStyles>
@@ -90,7 +80,6 @@ function InverseMode() {
 export const Nested: StoryFn<ThemeProviderProps> = args => {
   return (
     <ThemeProvider {...args}>
-      <GlobalStyle />
       <BaseStyles>
         <ActiveColorScheme />
         <NightMode />
