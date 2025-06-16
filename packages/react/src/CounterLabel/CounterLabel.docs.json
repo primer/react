@@ -30,7 +30,8 @@
     },
     {
       "name": "sx",
-      "type": "BetterSystemStyleObject"
+      "type": "BetterSystemStyleObject",
+      "deprecated": true
     }
   ],
   "subcomponents": []

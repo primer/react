@@ -121,6 +121,10 @@
   margin-inline-start: var(--base-size-4);
 }
 
+:where(.Banner):has(.BannerActions) .BannerDismiss {
+  margin-block: var(--base-size-2);
+}
+
 .BannerDismiss svg {
   /* stylelint-disable-next-line primer/colors */
   color: var(--banner-icon-fgColor);
@@ -132,6 +136,7 @@
   display: flex;
   column-gap: var(--base-size-12);
   align-items: center;
+  margin-block: var(--base-size-2);
 }
 
 .BannerActions :where([data-primary-action='trailing']) {
@@ -187,6 +192,12 @@
   .BannerContainer {
     display: grid;
     grid-template-columns: auto auto;
+  }
+
+  :where(.Banner):not([data-dismissible])
+    :where(.BannerActionsContainer[data-primary-action='trailing'])
+    :where([data-variant='link']:only-child) {
+    padding-inline: 0 var(--base-size-12);
   }
 
   .BannerActions [data-primary-action='trailing'] {
