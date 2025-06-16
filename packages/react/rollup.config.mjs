@@ -9,7 +9,7 @@ import {importCSS} from 'rollup-plugin-import-css'
 import postcss from 'rollup-plugin-postcss'
 import postcssPresetPrimer from 'postcss-preset-primer'
 import MagicString from 'magic-string'
-import {isSupported} from './script/react-compiler.js'
+import {isSupported} from './script/react-compiler.mjs'
 import packageJson from './package.json' with {type: 'json'}
 
 const input = new Set([
