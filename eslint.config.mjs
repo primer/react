@@ -9,6 +9,7 @@ import githubPlugin from 'eslint-plugin-github'
 import jest from 'eslint-plugin-jest'
 import storybook from 'eslint-plugin-storybook'
 import react from 'eslint-plugin-react'
+import reactCompiler from 'eslint-plugin-react-compiler'
 import reactHooks from 'eslint-plugin-react-hooks'
 import playwright from 'eslint-plugin-playwright'
 import prettierRecommended from 'eslint-plugin-prettier/recommended'
@@ -59,6 +60,7 @@ const config = defineConfig([
 
   react.configs.flat.recommended,
   react.configs.flat['jsx-runtime'],
+  reactCompiler.configs.recommended,
   reactHooks.configs['recommended-latest'],
 
   github.browser,
