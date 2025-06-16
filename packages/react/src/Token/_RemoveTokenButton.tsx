@@ -27,6 +27,7 @@ const RemoveTokenButton = ({
   as: _as,
   ...rest
 }: React.PropsWithChildren<RemoveTokenButtonProps & {as?: React.ElementType}>) => {
+  // eslint-disable-next-line react-compiler/react-compiler
   delete rest.children
   return (
     <BoxWithFallback

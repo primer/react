@@ -24,7 +24,8 @@
   "props": [
     {
       "name": "sx",
-      "type": "SystemStyleObject"
+      "type": "SystemStyleObject",
+      "deprecated": true
     },
     {
       "name": "ref",

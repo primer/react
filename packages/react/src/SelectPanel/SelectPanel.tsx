@@ -351,6 +351,7 @@ function Panel({
     }
 
     // Only fire this effect if items have changed
+    // eslint-disable-next-line react-compiler/react-compiler
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [items])
 
