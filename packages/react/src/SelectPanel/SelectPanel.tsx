@@ -732,7 +732,8 @@ function Panel({
                 </div>
               ) : null}
             </div>
-            {variant === 'modal' ? (
+            {/* AnchoredOverlay displays the close button on narrow screens */}
+            {variant === 'modal' && !isNarrowScreenSize ? (
               <IconButton
                 type="button"
                 variant="invisible"
