@@ -47,8 +47,8 @@ export default meta
 const ErsatzOverlay = ({maxWidth, children, ...props}: {maxWidth?: string; children: React.ReactNode}) => (
   <div
     className={classes.ErsatzOverlay}
-    style={maxWidth ? ({'--ersatz-overlay-max-width': maxWidth} as React.CSSProperties) : undefined}
-    data-max-width={maxWidth ? '' : undefined}
+    style={{'--ersatz-overlay-max-width': maxWidth || 'none'} as React.CSSProperties}
+    data-max-width=""
     {...props}
   >
     {children}
