@@ -37,9 +37,8 @@ describe('Avatar', () => {
       />,
     )
 
-    expect(screen.getByTestId('avatar')).toHaveStyle({
-      background: 'black',
-      ['--avatarSize-regular']: '20px',
-    })
+    const avatar = screen.getByTestId('avatar')
+    expect(avatar).toHaveStyle('background: rgb(0, 0, 0)')
+    expect(avatar.style.getPropertyValue('--avatarSize-regular')).toBe('20px')
   })
 })

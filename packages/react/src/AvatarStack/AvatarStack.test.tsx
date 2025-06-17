@@ -56,6 +56,6 @@ describe('AvatarStack', () => {
         <img src="https://avatars.githubusercontent.com/github" alt="" />
       </AvatarStack>,
     )
-    expect(container.firstChild).toHaveStyle('background-color: red')
+    expect(container.firstChild).toHaveStyle('background-color: rgb(255, 0, 0)')
   })
 })
