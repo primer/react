@@ -1,22 +1,22 @@
 import {render, screen, waitFor} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import 'jest-styled-components'
+import {describe, expect, it, vi} from 'vitest'
 import React from 'react'
 import {Text, ThemeProvider, useColorSchemeVar, useTheme} from '..'
 
 // window.matchMedia() is not implemented by JSDOM so we have to create a mock:
-// https://jestjs.io/docs/manual-mocks#mocking-methods-which-are-not-implemented-in-jsdom
+// https://vijs.io/docs/manual-mocks#mocking-methods-which-are-not-implemented-in-jsdom
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
-  value: jest.fn().mockImplementation(query => ({
+  value: vi.fn().mockImplementation(query => ({
     matches: false,
     media: query,
     onchange: null,
-    addListener: jest.fn(), // deprecated
-    removeListener: jest.fn(), // deprecated
-    addEventListener: jest.fn(),
-    removeEventListener: jest.fn(),
-    dispatchEvent: jest.fn(),
+    addListener: vi.fn(), // deprecated
+    removeListener: vi.fn(), // deprecated
+    addEventListener: vi.fn(),
+    removeEventListener: vi.fn(),
+    dispatchEvent: vi.fn(),
   })),
 })
 
@@ -59,8 +59,8 @@ it('respects theme prop', () => {
     </ThemeProvider>,
   )
 
-  expect(screen.getByText('Hello')).toHaveStyleRule('color', '#f00')
-  expect(screen.getByText('Hello')).toHaveStyleRule('margin-bottom', '0.25rem')
+  expect(screen.getByText('Hello')).toHaveStyle('color: #f00')
+  expect(screen.getByText('Hello')).toHaveStyle('margin-bottom: 4px')
 })
 
 it('has default theme', () => {
@@ -84,7 +84,7 @@ it('inherits theme from parent', () => {
     </ThemeProvider>,
   )
 
-  expect(screen.getByText('Hello')).toHaveStyleRule('color', 'black')
+  expect(screen.getByText('Hello')).toHaveStyle('color: rgb(0, 0, 0)')
 })
 
 it('defaults to light color scheme', () => {
@@ -94,7 +94,7 @@ it('defaults to light color scheme', () => {
     </ThemeProvider>,
   )
 
-  expect(screen.getByText('Hello')).toHaveStyleRule('color', 'black')
+  expect(screen.getByText('Hello')).toHaveStyle('color: rgb(0, 0, 0)')
 })
 
 it('defaults to dark color scheme in night mode', () => {
@@ -104,11 +104,11 @@ it('defaults to dark color scheme in night mode', () => {
     </ThemeProvider>,
   )
 
-  expect(screen.getByText('Hello')).toHaveStyleRule('color', 'white')
+  expect(screen.getByText('Hello')).toHaveStyle('color: rgb(255, 255, 255)')
 })
 
 it('defaults to first color scheme when passed an invalid color scheme name', () => {
-  const spy = jest.spyOn(console, 'error').mockImplementationOnce(() => {})
+  const spy = vi.spyOn(console, 'error').mockImplementationOnce(() => {})
 
   render(
     <ThemeProvider theme={exampleTheme} dayScheme="foo">
@@ -117,7 +117,7 @@ it('defaults to first color scheme when passed an invalid color scheme name', ()
   )
 
   expect(spy).toHaveBeenCalledWith('`foo` scheme not defined in `theme.colorSchemes`')
-  expect(screen.getByText('Hello')).toHaveStyleRule('color', 'black')
+  expect(screen.getByText('Hello')).toHaveStyle('color: rgb(0, 0, 0)')
 
   spy.mockRestore()
 })
@@ -129,7 +129,7 @@ it('respects nightScheme prop', () => {
     </ThemeProvider>,
   )
 
-  expect(screen.getByText('Hello')).toHaveStyleRule('color', 'gray')
+  expect(screen.getByText('Hello')).toHaveStyle('color: rgb(128, 128, 128)')
 })
 
 it('respects nightScheme prop with colorMode="dark"', () => {
@@ -139,7 +139,7 @@ it('respects nightScheme prop with colorMode="dark"', () => {
     </ThemeProvider>,
   )
 
-  expect(screen.getByText('Hello')).toHaveStyleRule('color', 'gray')
+  expect(screen.getByText('Hello')).toHaveStyle('color: rgb(128, 128, 128)')
 })
 
 it('respects dayScheme prop', () => {
@@ -149,7 +149,7 @@ it('respects dayScheme prop', () => {
     </ThemeProvider>,
   )
 
-  expect(screen.getByText('Hello')).toHaveStyleRule('color', 'white')
+  expect(screen.getByText('Hello')).toHaveStyle('color: rgb(255, 255, 255)')
 })
 
 it('respects dayScheme prop with colorMode="light"', () => {
@@ -159,7 +159,7 @@ it('respects dayScheme prop with colorMode="light"', () => {
     </ThemeProvider>,
   )
 
-  expect(screen.getByText('Hello')).toHaveStyleRule('color', 'white')
+  expect(screen.getByText('Hello')).toHaveStyle('color: rgb(255, 255, 255)')
 })
 
 it('works in auto mode', () => {
@@ -169,19 +169,19 @@ it('works in auto mode', () => {
     </ThemeProvider>,
   )
 
-  expect(screen.getByText('Hello')).toHaveStyleRule('color', 'black')
+  expect(screen.getByText('Hello')).toHaveStyle('color: rgb(0, 0, 0)')
 })
 
 it('works in auto mode (dark)', () => {
-  const matchMediaSpy = jest.spyOn(window, 'matchMedia').mockImplementation(query => ({
+  const matchMediaSpy = vi.spyOn(window, 'matchMedia').mockImplementation(query => ({
     matches: true, // enable dark mode
     media: query,
     onchange: null,
-    addListener: jest.fn(), // deprecated
-    removeListener: jest.fn(), // deprecated
-    addEventListener: jest.fn(),
-    removeEventListener: jest.fn(),
-    dispatchEvent: jest.fn(),
+    addListener: vi.fn(), // deprecated
+    removeListener: vi.fn(), // deprecated
+    addEventListener: vi.fn(),
+    removeEventListener: vi.fn(),
+    dispatchEvent: vi.fn(),
   }))
 
   render(
@@ -190,7 +190,7 @@ it('works in auto mode (dark)', () => {
     </ThemeProvider>,
   )
 
-  expect(screen.getByText('Hello')).toHaveStyleRule('color', 'white')
+  expect(screen.getByText('Hello')).toHaveStyle('color: rgb(255, 255, 255)')
 
   matchMediaSpy.mockRestore()
 })
@@ -213,13 +213,13 @@ it('updates when colorMode prop changes', async () => {
   render(<App />)
 
   // starts in day mode (light scheme)
-  expect(screen.getByText('day')).toHaveStyleRule('color', 'black')
+  expect(screen.getByText('day')).toHaveStyle('color: rgb(0, 0, 0)')
 
   await user.click(screen.getByRole('button'))
 
   await waitFor(() =>
     // clicking the toggle button enables night mode (dark scheme)
-    expect(screen.getByText('night')).toHaveStyleRule('color', 'white'),
+    expect(screen.getByText('night')).toHaveStyle('color: rgb(255, 255, 255)'),
   )
 })
 
@@ -241,13 +241,13 @@ it('updates when dayScheme prop changes', async () => {
   render(<App />)
 
   // starts in day mode (light scheme)
-  expect(screen.getByText('light')).toHaveStyleRule('color', 'black')
+  expect(screen.getByText('light')).toHaveStyle('color: rgb(0, 0, 0)')
 
   await user.click(screen.getByRole('button'))
 
   await waitFor(() =>
     // clicking the toggle sets the day scheme to dark_dimmed
-    expect(screen.getByText('dark_dimmed')).toHaveStyleRule('color', 'gray'),
+    expect(screen.getByText('dark_dimmed')).toHaveStyle('color: rgb(128, 128, 128)'),
   )
 })
 
@@ -269,13 +269,13 @@ it('updates when nightScheme prop changes', async () => {
   render(<App />)
 
   // starts in night mode (dark scheme)
-  expect(screen.getByText('dark')).toHaveStyleRule('color', 'white')
+  expect(screen.getByText('dark')).toHaveStyle('color: rgb(255, 255, 255)')
 
   await user.click(screen.getByRole('button'))
 
   await waitFor(() =>
     // clicking the toggle button sets the night scheme to dark_dimmed
-    expect(screen.getByText('dark_dimmed')).toHaveStyleRule('color', 'gray'),
+    expect(screen.getByText('dark_dimmed')).toHaveStyle('color: rgb(128, 128, 128)'),
   )
 })
 
@@ -298,11 +298,11 @@ it('inherits colorMode from parent', async () => {
 
   render(<App />)
 
-  expect(screen.getByText('day')).toHaveStyleRule('color', 'black')
+  expect(screen.getByText('day')).toHaveStyle('color: rgb(0, 0, 0)')
 
   await user.click(screen.getByRole('button'))
 
-  await waitFor(() => expect(screen.getByText('night')).toHaveStyleRule('color', 'white'))
+  await waitFor(() => expect(screen.getByText('night')).toHaveStyle('color: rgb(255, 255, 255)'))
 })
 
 it('inherits dayScheme from parent', async () => {
@@ -324,11 +324,11 @@ it('inherits dayScheme from parent', async () => {
 
   render(<App />)
 
-  expect(screen.getByText('light')).toHaveStyleRule('color', 'black')
+  expect(screen.getByText('light')).toHaveStyle('color: rgb(0, 0, 0)')
 
   await user.click(screen.getByRole('button'))
 
-  await waitFor(() => expect(screen.getByText('dark_dimmed')).toHaveStyleRule('color', 'gray'))
+  await waitFor(() => expect(screen.getByText('dark_dimmed')).toHaveStyle('color: rgb(128, 128, 128)'))
 })
 
 it('inherits nightScheme from parent', async () => {
@@ -350,11 +350,11 @@ it('inherits nightScheme from parent', async () => {
 
   render(<App />)
 
-  expect(screen.getByText('dark')).toHaveStyleRule('color', 'white')
+  expect(screen.getByText('dark')).toHaveStyle('color: rgb(255, 255, 255)')
 
   await user.click(screen.getByRole('button'))
 
-  await waitFor(() => expect(screen.getByText('dark_dimmed')).toHaveStyleRule('color', 'gray'))
+  await waitFor(() => expect(screen.getByText('dark_dimmed')).toHaveStyle('color: rgb(128, 128, 128)'))
 })
 
 describe('setColorMode', () => {
@@ -378,12 +378,12 @@ describe('setColorMode', () => {
     )
 
     // starts in day mode (light scheme)
-    expect(screen.getByText('Hello')).toHaveStyleRule('color', 'black')
+    expect(screen.getByText('Hello')).toHaveStyle('color: rgb(0, 0, 0)')
 
     await user.click(screen.getByRole('button'))
 
     // clicking the toggle button enables night mode (dark scheme)
-    expect(screen.getByText('Hello')).toHaveStyleRule('color', 'white')
+    expect(screen.getByText('Hello')).toHaveStyle('color: rgb(255, 255, 255)')
   })
 })
 
@@ -408,12 +408,12 @@ describe('setDayScheme', () => {
     )
 
     // starts in day mode (light scheme)
-    expect(screen.getByText('Hello')).toHaveStyleRule('color', 'black')
+    expect(screen.getByText('Hello')).toHaveStyle('color: rgb(0, 0, 0)')
 
     await user.click(screen.getByRole('button'))
 
     // clicking the toggle button sets day scheme to dark
-    expect(screen.getByText('Hello')).toHaveStyleRule('color', 'white')
+    expect(screen.getByText('Hello')).toHaveStyle('color: rgb(255, 255, 255)')
   })
 })
 
@@ -438,12 +438,12 @@ describe('setNightScheme', () => {
     )
 
     // starts in night mode (dark scheme)
-    expect(screen.getByText('Hello')).toHaveStyleRule('color', 'white')
+    expect(screen.getByText('Hello')).toHaveStyle('color: rgb(255, 255, 255)')
 
     await user.click(screen.getByRole('button'))
 
     // clicking the toggle button sets night scheme to dark_dimmed
-    expect(screen.getByText('Hello')).toHaveStyleRule('color', 'gray')
+    expect(screen.getByText('Hello')).toHaveStyle('color: rgb(128, 128, 128)')
   })
 })
 
@@ -480,11 +480,11 @@ describe('useColorSchemeVar', () => {
       </ThemeProvider>,
     )
 
-    expect(screen.getByText('Hello')).toHaveStyleRule('background-color', 'red')
+    expect(screen.getByText('Hello')).toHaveStyle('background-color: rgb(255, 0, 0)')
 
     await user.click(screen.getByRole('button'))
 
-    expect(screen.getByText('Hello')).toHaveStyleRule('background-color', 'green')
+    expect(screen.getByText('Hello')).toHaveStyle('background-color: rgb(0, 128, 0)')
   })
 
   it('supports fallback value', async () => {
@@ -512,11 +512,11 @@ describe('useColorSchemeVar', () => {
       </ThemeProvider>,
     )
 
-    expect(screen.getByText('Hello')).toHaveStyleRule('background-color', 'red')
+    expect(screen.getByText('Hello')).toHaveStyle('background-color: rgb(255, 0, 0)')
 
     await user.click(screen.getByRole('button'))
 
-    expect(screen.getByText('Hello')).toHaveStyleRule('background-color', 'blue')
+    expect(screen.getByText('Hello')).toHaveStyle('background-color: rgb(0, 0, 255)')
   })
 })
 
@@ -569,7 +569,7 @@ describe('useTheme().resolvedColorScheme', () => {
   })
 
   it('is the value of the fallback colorScheme applied when attempting to apply an invalid colorScheme', () => {
-    const spy = jest.spyOn(console, 'error').mockImplementationOnce(() => {})
+    const spy = vi.spyOn(console, 'error').mockImplementationOnce(() => {})
     const Component = () => {
       const {resolvedColorScheme} = useTheme()
 
@@ -616,7 +616,7 @@ describe('useTheme().resolvedColorScheme', () => {
     })
 
     it('is the value of the fallback colorScheme applied when attempting to apply an invalid colorScheme', () => {
-      const spy = jest.spyOn(console, 'error').mockImplementation(() => {})
+      const spy = vi.spyOn(console, 'error').mockImplementation(() => {})
 
       const Component = () => {
         const {resolvedColorScheme} = useTheme()
