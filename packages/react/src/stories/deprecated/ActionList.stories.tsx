@@ -13,13 +13,12 @@ import {
 } from '@primer/octicons-react'
 import type {Meta} from '@storybook/react'
 import React, {forwardRef} from 'react'
-import styled from 'styled-components'
 import {Label, ThemeProvider} from '../..'
 import {ActionList as _ActionList} from '../../deprecated/ActionList'
 import {Header} from '../../deprecated/ActionList/Header'
 import BaseStyles from '../../BaseStyles'
-import sx from '../../sx'
 import {ReactRouterLikeLink} from '../../__tests__/mocks/ReactRouterLink'
+import classes from './ActionListStories.module.css'
 
 const ActionList = Object.assign(_ActionList, {
   Header,
@@ -45,14 +44,16 @@ const meta: Meta = {
 }
 export default meta
 
-const ErsatzOverlay = styled.div<{maxWidth?: string}>`
-  border-radius: 12px;
-  box-shadow:
-    0 1px 3px rgba(0, 0, 0, 0.12),
-    0 8px 24px rgba(149, 157, 165, 0.2);
-  overflow: hidden;
-  max-width: ${({maxWidth}) => maxWidth || 'none'};
-`
+const ErsatzOverlay = ({maxWidth, children, ...props}: {maxWidth?: string; children: React.ReactNode}) => (
+  <div
+    className={classes.ErsatzOverlay}
+    style={maxWidth ? ({'--ersatz-overlay-max-width': maxWidth} as React.CSSProperties) : undefined}
+    data-max-width={maxWidth ? '' : undefined}
+    {...props}
+  >
+    {children}
+  </div>
+)
 
 export function ActionsStory(): JSX.Element {
   return (
@@ -152,9 +153,6 @@ export function MultiSelectListStory(): JSX.Element {
 MultiSelectListStory.storyName = 'Multi Select'
 
 export function ComplexListInsetVariantStory(): JSX.Element {
-  const StyledDiv = styled.div`
-    ${sx}
-  `
   return (
     <>
       <h1>Complex List</h1>
@@ -172,9 +170,9 @@ export function ComplexListInsetVariantStory(): JSX.Element {
                 <ActionList.Item
                   {...props}
                   leadingVisual={() => (
-                    <StyledDiv sx={{'&>svg': {fill: 'white'}}}>
+                    <div className={classes.StyledDivWithWhiteFill}>
                       {LeadingVisual && <LeadingVisual></LeadingVisual>}
-                    </StyledDiv>
+                    </div>
                   )}
                 />
               ),
@@ -228,9 +226,6 @@ export function ComplexListInsetVariantStory(): JSX.Element {
 ComplexListInsetVariantStory.storyName = 'Complex List — Inset Variant'
 
 export function ComplexListFullVariantStory(): JSX.Element {
-  const StyledDiv = styled.div`
-    ${sx}
-  `
   return (
     <>
       <h1>Complex List</h1>
@@ -249,9 +244,9 @@ export function ComplexListFullVariantStory(): JSX.Element {
                 <ActionList.Item
                   {...props}
                   leadingVisual={() => (
-                    <StyledDiv sx={{'&>svg': {fill: 'white'}}}>
+                    <div className={classes.StyledDivWithWhiteFill}>
                       {LeadingVisual && <LeadingVisual></LeadingVisual>}
-                    </StyledDiv>
+                    </div>
                   )}
                 />
               ),
