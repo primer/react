@@ -19,7 +19,8 @@
   padding-left: var(--base-size-8);
 
   &:where([data-variant='fullscreen']) {
-    padding-bottom: var(--base-size-12);
+    min-height: 40px;
+    flex-shrink: 0;
   }
 }
 
