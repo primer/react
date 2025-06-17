@@ -145,3 +145,13 @@ export const CountersLoadingState = () => {
     </UnderlineNav>
   )
 }
+
+export const VariantFlush = () => {
+  return (
+    <UnderlineNav aria-label="Repository" variant="flush">
+      <UnderlineNav.Item aria-current="page">Code</UnderlineNav.Item>
+      <UnderlineNav.Item>Issues</UnderlineNav.Item>
+      <UnderlineNav.Item>Pull Requests</UnderlineNav.Item>
+    </UnderlineNav>
+  )
+}
