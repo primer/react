@@ -1,19 +1,18 @@
 import path from 'node:path'
 import fs from 'node:fs'
-import {files, notMigrated as notMigratedFiles} from '../packages/react/script/react-compiler.mjs'
+import {files as compilerFiles, notMigrated as notMigratedFiles} from '../packages/react/script/react-compiler.mjs'
 
 const directory = path.resolve(import.meta.dirname, '..')
-const migrated = files
-  .filter(filepath => {
-    return notMigratedFiles.indexOf(filepath) === -1
-  })
-  .map(filepath => {
-    const stats = fs.statSync(filepath)
-    return {
-      filepath,
-      size: stats.size,
-    }
-  })
+const files = compilerFiles.map(filepath => {
+  const stats = fs.statSync(filepath)
+  return {
+    filepath,
+    size: stats.size,
+  }
+})
+const migrated = files.filter(({filepath}) => {
+  return notMigratedFiles.indexOf(filepath) === -1
+})
 const notMigrated = notMigratedFiles.map(filepath => {
   const stats = fs.statSync(filepath)
   return {
@@ -24,9 +23,8 @@ const notMigrated = notMigratedFiles.map(filepath => {
 
 let totalSize = 0
 
-for (const filepath of files) {
-  const stats = fs.statSync(filepath)
-  totalSize += stats.size
+for (const {size} of files) {
+  totalSize += size
 }
 
 let migratedSize = 0
@@ -65,6 +63,9 @@ for (const {filepath, size} of notMigrated) {
 
 console.log(`## Migrated (${migrated.length})
 
+<details>
+<summary>View migrated files</summary>
+
 | Filepath | Size (kB) |
 | :------- | :-------- |`)
 
@@ -73,6 +74,8 @@ for (const {filepath, size} of migrated) {
   const link = `[\`${relativePath}\`](https://github.com/primer/react/blob/main/${relativePath})`
   console.log(`| ${link} | ${round(size / 1024)}kB |`)
 }
+
+console.log(`\n</details>`)
 
 function round(value: number): number {
   return Math.round((value + Number.EPSILON) * 100) / 100
