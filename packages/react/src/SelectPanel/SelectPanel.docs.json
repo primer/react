@@ -195,6 +195,12 @@
       "type": "boolean",
       "defaultValue": "false",
       "description": "Whether the panel is in a loading state. When `true`, the panel will display a loading spinner. If `loading` is not provided, the panel will infer the loading state based on the contents of `items` available."
+    },
+    {
+      "name": "align",
+      "type": "'start' | 'end' | 'center'",
+      "defaultValue": "'start'",
+      "description": "Determines the alignment of the panel relative to the anchor. Defaults to 'start' which aligns the left edge of the panel with the left edge of the anchor."
     }
   ],
   "subcomponents": []

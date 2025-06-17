@@ -92,7 +92,7 @@ There are ${migrated.length} files that do not include styled-components in Prim
 | Filepath | Size (kB) |
 | :------- | :-------- |`)
 
-for (const {filepath, size} of notMigrated) {
+for (const {filepath, size} of migrated) {
   const relativePath = path.relative(directory, filepath)
   const link = `[\`${relativePath}\`](https://github.com/primer/react/blob/main/${relativePath})`
   console.log(`| ${link} | ${round(size / 1024)}kB |`)

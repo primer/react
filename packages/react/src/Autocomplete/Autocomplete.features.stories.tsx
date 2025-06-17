@@ -472,7 +472,9 @@ export const CustomOverlayMenuAnchor = () => {
             flexGrow: 1,
             flexShrink: 0,
             flexBasis: '25%',
-            border: '1px solid black',
+            borderColor: 'var(--control-borderColor-rest)',
+            borderStyle: 'solid',
+            borderWidth: '1',
             padding: '1em',
           }}
         >
@@ -481,11 +483,9 @@ export const CustomOverlayMenuAnchor = () => {
               id="autocompleteInput"
               aria-describedby="autocompleteCaption autocompleteValidation"
               sx={{
-                border: '0',
                 padding: '0',
                 boxShadow: 'none',
                 ':focus-within': {
-                  border: '0',
                   boxShadow: 'none',
                 },
               }}
