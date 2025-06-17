@@ -32,13 +32,13 @@ describe('Avatar', () => {
         data-testid="avatar"
         src="primer.png"
         style={{
-          background: 'black',
+          backgroundColor: 'black',
         }}
       />,
     )
 
     const avatar = screen.getByTestId('avatar')
-    expect(avatar).toHaveStyle('background: rgb(0, 0, 0)')
+    expect(avatar).toHaveStyle('background-color: rgb(0, 0, 0)')
     expect(avatar.style.getPropertyValue('--avatarSize-regular')).toBe('20px')
   })
 })
