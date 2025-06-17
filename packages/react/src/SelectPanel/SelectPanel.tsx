@@ -757,7 +757,7 @@ function Panel({
             ) : null}
           </div>
           {notice && (
-            <div ref={noticeRef} aria-live="polite" data-variant={notice.variant} className={classes.Notice}>
+            <div ref={noticeRef} data-variant={notice.variant} className={classes.Notice}>
               {iconForNoticeVariant[notice.variant]}
               <div>{notice.text}</div>
             </div>
