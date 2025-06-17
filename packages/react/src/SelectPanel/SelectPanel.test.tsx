@@ -656,6 +656,56 @@ for (const useModernActionList of [false, true]) {
           jest.useRealTimers()
         })
 
+        it('should announce notice text', async () => {
+          jest.useFakeTimers()
+          const user = userEvent.setup({
+            advanceTimers: jest.advanceTimersByTime,
+          })
+
+          function SelectPanelWithNotice() {
+            const [selected, setSelected] = React.useState<SelectPanelProps['items']>([])
+            const [filter, setFilter] = React.useState('')
+            const [open, setOpen] = React.useState(false)
+
+            const onSelectedChange = (selected: SelectPanelProps['items']) => {
+              setSelected(selected)
+            }
+
+            return (
+              <ThemeProvider>
+                <SelectPanel
+                  title="test title"
+                  subtitle="test subtitle"
+                  items={items}
+                  placeholder="Select items"
+                  placeholderText="Filter items"
+                  selected={selected}
+                  onSelectedChange={onSelectedChange}
+                  filterValue={filter}
+                  onFilterChange={value => {
+                    setFilter(value)
+                  }}
+                  open={open}
+                  onOpenChange={isOpen => {
+                    setOpen(isOpen)
+                  }}
+                  notice={{
+                    text: 'This is a notice',
+                    variant: 'warning',
+                  }}
+                />
+              </ThemeProvider>
+            )
+          }
+
+          renderWithFlag(<SelectPanelWithNotice />, useModernActionList)
+
+          await user.click(screen.getByText('Select items'))
+          expect(screen.getByLabelText('Filter items')).toHaveFocus()
+
+          expect(getLiveRegion().getMessage('polite')?.trim()).toContain('This is a notice')
+        })
+
         it('should announce filtered results', async () => {
           jest.useFakeTimers()
           const user = userEvent.setup({
