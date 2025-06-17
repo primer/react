@@ -20,7 +20,7 @@ import useSafeTimeout from '../hooks/useSafeTimeout'
 import type {FilteredActionListLoadingType} from '../FilteredActionList/FilteredActionListLoaders'
 import {FilteredActionListLoadingTypes} from '../FilteredActionList/FilteredActionListLoaders'
 import {useFeatureFlag} from '../FeatureFlags'
-import {announce} from '@primer/live-region-element'
+import {announce, announceFromElement} from '@primer/live-region-element'
 import classes from './SelectPanel.module.css'
 import {clsx} from 'clsx'
 import {heightMap} from '../Overlay/Overlay'
@@ -203,6 +203,7 @@ function Panel({
   const [prevOpen, setPrevOpen] = useState(open)
   const initialHeightRef = useRef(0)
   const initialScaleRef = useRef(1)
+  const noticeRef = useRef<HTMLDivElement>(null)
   const [isKeyboardVisible, setIsKeyboardVisible] = useState(false)
   const [availablePanelHeight, setAvailablePanelHeight] = useState<number | undefined>(undefined)
   const KEYBOARD_VISIBILITY_THRESHOLD = 10
@@ -424,6 +425,23 @@ function Panel({
       handleViewportChange.cancel()
     }
   }, [open, isNarrowScreenSize])
+
+  useEffect(() => {
+    const announceNotice = async () => {
+      if (!noticeRef.current) return
+      const liveRegion = document.querySelector('live-region')
+
+      liveRegion?.clear()
+
+      await announceFromElement(noticeRef.current, {
+        from: liveRegion ? liveRegion : undefined,
+      })
+    }
+
+    if (open && notice) {
+      announceNotice()
+    }
+  }, [notice, open])
 
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
   const onOpen: AnchoredOverlayProps['onOpen'] = useCallback(
@@ -753,7 +771,7 @@ function Panel({
             ) : null}
           </div>
           {notice && (
-            <div aria-live="polite" data-variant={notice.variant} className={classes.Notice}>
+            <div ref={noticeRef} data-variant={notice.variant} className={classes.Notice}>
               {iconForNoticeVariant[notice.variant]}
               <div>{notice.text}</div>
             </div>
