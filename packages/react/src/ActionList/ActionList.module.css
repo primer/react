@@ -440,6 +440,12 @@
   visibility: hidden;
 }
 
+[data-width-auto] {
+  .ActionListContent {
+    grid-template-columns: min-content min-content min-content minmax(max-content, auto);
+  }
+}
+
 /* button or a tag */
 
 /* [ [spacer] [leadingAction] [leadingVisual] [content] ] */
@@ -526,6 +532,12 @@
   grid-template-areas: 'label trailingVisual trailingAction';
   grid-template-columns: minmax(0, auto) min-content min-content;
   align-items: start;
+}
+
+[data-width-auto] {
+  .ActionListSubContent {
+    grid-template-columns: minmax(max-content, auto) min-content min-content;
+  }
 }
 
 /* place children on grid */

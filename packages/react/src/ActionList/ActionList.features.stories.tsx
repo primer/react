@@ -29,8 +29,10 @@ import {
   GitPullRequestIcon,
   IssueOpenedIcon,
   ProjectIcon,
+  HeartFillIcon,
 } from '@primer/octicons-react'
 import {FeatureFlags} from '../FeatureFlags'
+import {Button} from '../Button'
 
 export default {
   title: 'Components/ActionList/Features',
@@ -895,3 +897,33 @@ export const FullVariant = () => (
     <ActionList.Item variant="danger">Delete file</ActionList.Item>
   </ActionList>
 )
+
+export const OverlayWrapping = () => {
+  const [open, setOpen] = React.useState(false)
+  return (
+    <AnchoredOverlay
+      open
+      renderAnchor={props => (
+        <Button type="button" {...props}>
+          Overlay
+        </Button>
+      )}
+    >
+      <ActionList role="menu">
+        <ActionList.Item role="menuitem">thisisalongemailaddress@longemail.com</ActionList.Item>
+        <ActionList.Item role="menuitem">
+          thisisalongemailaddress@longemail.com
+          <ActionList.TrailingVisual>
+            <HeartFillIcon />
+          </ActionList.TrailingVisual>
+        </ActionList.Item>
+        <ActionList.Item role="menuitem">
+          thisisalongemailaddress@longemail.com
+          <ActionList.LeadingVisual>
+            <HeartFillIcon />
+          </ActionList.LeadingVisual>
+        </ActionList.Item>
+      </ActionList>
+    </AnchoredOverlay>
+  )
+}
