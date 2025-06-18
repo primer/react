@@ -526,7 +526,12 @@
   grid-template-areas: 'label trailingVisual trailingAction';
   grid-template-columns: minmax(0, auto) min-content min-content;
   align-items: start;
-  column-gap: var(--control-medium-gap);
+
+  /* column-gap persists with empty grid-areas, margin applies only when children exist */
+  & > :not(:last-child) {
+    /* stylelint-disable-next-line primer/spacing */
+    margin-right: var(--control-medium-gap);
+  }
 }
 
 /* place children on grid */
