@@ -255,7 +255,7 @@
   /* Default Variant */
 
   &:where([data-variant='default']) {
-    color: var(--button-default-fgColor-rest);
+    color: var(--button-outline-fgColor-rest);
     background-color: var(--button-default-bgColor-rest);
     box-shadow: var(--button-default-shadow-resting);
 
