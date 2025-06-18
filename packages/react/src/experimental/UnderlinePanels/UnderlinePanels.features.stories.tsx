@@ -1,4 +1,4 @@
-import type {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react-vite'
 import {INITIAL_VIEWPORTS} from '@storybook/addon-viewport'
 import UnderlinePanels from './UnderlinePanels'
 import type {ComponentProps} from '../../utils/types'

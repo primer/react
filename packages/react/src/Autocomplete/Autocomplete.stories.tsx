@@ -1,6 +1,6 @@
 import type React from 'react'
 import {useCallback, useState} from 'react'
-import type {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react-vite'
 
 import {BaseStyles, Box, ThemeProvider} from '..'
 
