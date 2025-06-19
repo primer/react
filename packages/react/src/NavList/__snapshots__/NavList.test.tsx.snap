@@ -4,99 +4,90 @@ exports[`NavList > renders a simple list 1`] = `
 <div>
   <nav>
     <ul
-      class="_ActionList_1hxfk_3"
+      class="_ActionList_1pvw7_3"
       data-dividers="false"
       data-variant="inset"
     >
       <li
-        class="_ActionListItem_1hxfk_20"
+        class="_ActionListItem_1pvw7_20"
         data-active="true"
       >
         <a
           aria-current="page"
           aria-labelledby=":r2:--label  "
-          class="_ActionListContent_1hxfk_282 _Link_u1kmx_1"
+          class="_ActionListContent_1pvw7_282 _Link_u1kmx_1"
           href="/"
           id=":r2:"
           style="--subitem-depth: 0;"
           tabindex="0"
         >
           <span
-            class="_Spacer_1hxfk_297"
+            class="_Spacer_1pvw7_297"
           />
           <span
-            class="_ActionListSubContent_1hxfk_31"
+            class="_ActionListSubContent_1pvw7_31"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              class="_ItemLabel_1hxfk_188"
+              class="_ItemLabel_1pvw7_188"
               id=":r2:--label"
             >
               Home
             </span>
-            <span
-              class="_InactiveWarning_1hxfk_236"
-            />
           </span>
         </a>
       </li>
       <li
-        class="_ActionListItem_1hxfk_20"
+        class="_ActionListItem_1pvw7_20"
       >
         <a
           aria-labelledby=":r3:--label  "
-          class="_ActionListContent_1hxfk_282 _Link_u1kmx_1"
+          class="_ActionListContent_1pvw7_282 _Link_u1kmx_1"
           href="/about"
           id=":r3:"
           style="--subitem-depth: 0;"
           tabindex="0"
         >
           <span
-            class="_Spacer_1hxfk_297"
+            class="_Spacer_1pvw7_297"
           />
           <span
-            class="_ActionListSubContent_1hxfk_31"
+            class="_ActionListSubContent_1pvw7_31"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              class="_ItemLabel_1hxfk_188"
+              class="_ItemLabel_1pvw7_188"
               id=":r3:--label"
             >
               About
             </span>
-            <span
-              class="_InactiveWarning_1hxfk_236"
-            />
           </span>
         </a>
       </li>
       <li
-        class="_ActionListItem_1hxfk_20"
+        class="_ActionListItem_1pvw7_20"
       >
         <a
           aria-labelledby=":r4:--label  "
-          class="_ActionListContent_1hxfk_282 _Link_u1kmx_1"
+          class="_ActionListContent_1pvw7_282 _Link_u1kmx_1"
           href="/contact"
           id=":r4:"
           style="--subitem-depth: 0;"
           tabindex="0"
         >
           <span
-            class="_Spacer_1hxfk_297"
+            class="_Spacer_1pvw7_297"
           />
           <span
-            class="_ActionListSubContent_1hxfk_31"
+            class="_ActionListSubContent_1pvw7_31"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              class="_ItemLabel_1hxfk_188"
+              class="_ItemLabel_1pvw7_188"
               id=":r4:--label"
             >
               Contact
             </span>
-            <span
-              class="_InactiveWarning_1hxfk_236"
-            />
           </span>
         </a>
       </li>
@@ -109,13 +100,13 @@ exports[`NavList > renders with groups 1`] = `
 <div>
   <nav>
     <ul
-      class="_ActionList_1hxfk_3"
+      class="_ActionList_1pvw7_3"
       data-dividers="false"
       data-variant="inset"
     >
       <li
         aria-hidden="true"
-        class="_Divider_1hxfk_73"
+        class="_Divider_1pvw7_73"
         data-component="ActionList.Divider"
       />
       <li
@@ -139,34 +130,31 @@ exports[`NavList > renders with groups 1`] = `
           class="_GroupList_1rejt_18"
         >
           <li
-            class="_ActionListItem_1hxfk_20"
+            class="_ActionListItem_1pvw7_20"
             data-active="true"
           >
             <a
               aria-current="page"
               aria-labelledby=":r8:--label  "
-              class="_ActionListContent_1hxfk_282 _Link_u1kmx_1"
+              class="_ActionListContent_1pvw7_282 _Link_u1kmx_1"
               href="/getting-started"
               id=":r8:"
               style="--subitem-depth: 0;"
               tabindex="0"
             >
               <span
-                class="_Spacer_1hxfk_297"
+                class="_Spacer_1pvw7_297"
               />
               <span
-                class="_ActionListSubContent_1hxfk_31"
+                class="_ActionListSubContent_1pvw7_31"
                 data-component="ActionList.Item--DividerContainer"
               >
                 <span
-                  class="_ItemLabel_1hxfk_188"
+                  class="_ItemLabel_1pvw7_188"
                   id=":r8:--label"
                 >
                   Getting started
                 </span>
-                <span
-                  class="_InactiveWarning_1hxfk_236"
-                />
               </span>
             </a>
           </li>
@@ -174,7 +162,7 @@ exports[`NavList > renders with groups 1`] = `
       </li>
       <li
         aria-hidden="true"
-        class="_Divider_1hxfk_73"
+        class="_Divider_1pvw7_73"
         data-component="ActionList.Divider"
       />
       <li
@@ -198,32 +186,29 @@ exports[`NavList > renders with groups 1`] = `
           class="_GroupList_1rejt_18"
         >
           <li
-            class="_ActionListItem_1hxfk_20"
+            class="_ActionListItem_1pvw7_20"
           >
             <a
               aria-labelledby=":ra:--label  "
-              class="_ActionListContent_1hxfk_282 _Link_u1kmx_1"
+              class="_ActionListContent_1pvw7_282 _Link_u1kmx_1"
               href="/Avatar"
               id=":ra:"
               style="--subitem-depth: 0;"
               tabindex="0"
             >
               <span
-                class="_Spacer_1hxfk_297"
+                class="_Spacer_1pvw7_297"
               />
               <span
-                class="_ActionListSubContent_1hxfk_31"
+                class="_ActionListSubContent_1pvw7_31"
                 data-component="ActionList.Item--DividerContainer"
               >
                 <span
-                  class="_ItemLabel_1hxfk_188"
+                  class="_ItemLabel_1pvw7_188"
                   id=":ra:--label"
                 >
                   Avatar
                 </span>
-                <span
-                  class="_InactiveWarning_1hxfk_236"
-                />
               </span>
             </a>
           </li>
@@ -238,44 +223,44 @@ exports[`NavList.Item with NavList.SubNav > does not have active styles if SubNa
 <div>
   <nav>
     <ul
-      class="_ActionList_1hxfk_3"
+      class="_ActionList_1pvw7_3"
       data-dividers="false"
       data-variant="inset"
     >
       <li
-        class="_ActionListItem_1hxfk_20"
+        class="_ActionListItem_1pvw7_20"
         data-has-subitem="true"
       >
         <button
           aria-controls=":r27:"
           aria-expanded="true"
           aria-labelledby=":r26:--label :r26:--trailing-visual "
-          class="_ActionListContent_1hxfk_282"
+          class="_ActionListContent_1pvw7_282"
           id=":r26:"
           style="--subitem-depth: 0;"
           tabindex="0"
           type="button"
         >
           <span
-            class="_Spacer_1hxfk_297"
+            class="_Spacer_1pvw7_297"
           />
           <span
-            class="_ActionListSubContent_1hxfk_31"
+            class="_ActionListSubContent_1pvw7_31"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              class="_ItemLabel_1hxfk_188"
+              class="_ItemLabel_1pvw7_188"
               id=":r26:--label"
             >
               Item
             </span>
             <span
-              class="_TrailingVisual_1hxfk_158 _VisualWrap_1hxfk_616"
+              class="_TrailingVisual_1pvw7_158 _VisualWrap_1pvw7_621"
               id=":r26:--trailing-visual"
             >
               <svg
                 aria-hidden="true"
-                class="octicon octicon-chevron-down _ExpandIcon_1hxfk_484"
+                class="octicon octicon-chevron-down _ExpandIcon_1pvw7_484"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -290,45 +275,39 @@ exports[`NavList.Item with NavList.SubNav > does not have active styles if SubNa
                 />
               </svg>
             </span>
-            <span
-              class="_InactiveWarning_1hxfk_236"
-            />
           </span>
         </button>
         <ul
           aria-labelledby=":r26:"
-          class="_SubGroup_1hxfk_494"
+          class="_SubGroup_1pvw7_494"
           id=":r27:"
         >
           <li
-            class="_ActionListItem_1hxfk_20"
+            class="_ActionListItem_1pvw7_20"
             data-active="true"
           >
             <a
               aria-current="page"
               aria-labelledby=":r29:--label  "
-              class="_ActionListContent_1hxfk_282 _Link_u1kmx_1"
+              class="_ActionListContent_1pvw7_282 _Link_u1kmx_1"
               href="#"
               id=":r29:"
               style="--subitem-depth: 1;"
               tabindex="0"
             >
               <span
-                class="_Spacer_1hxfk_297"
+                class="_Spacer_1pvw7_297"
               />
               <span
-                class="_ActionListSubContent_1hxfk_31"
+                class="_ActionListSubContent_1pvw7_31"
                 data-component="ActionList.Item--DividerContainer"
               >
                 <span
-                  class="_ItemLabel_1hxfk_188"
+                  class="_ItemLabel_1pvw7_188"
                   id=":r29:--label"
                 >
                   Sub Item
                 </span>
-                <span
-                  class="_InactiveWarning_1hxfk_236"
-                />
               </span>
             </a>
           </li>
@@ -343,12 +322,12 @@ exports[`NavList.Item with NavList.SubNav > has active styles if SubNav contains
 <div>
   <nav>
     <ul
-      class="_ActionList_1hxfk_3"
+      class="_ActionList_1pvw7_3"
       data-dividers="false"
       data-variant="inset"
     >
       <li
-        class="_ActionListItem_1hxfk_20"
+        class="_ActionListItem_1pvw7_20"
         data-active="true"
         data-has-subitem="true"
       >
@@ -356,32 +335,32 @@ exports[`NavList.Item with NavList.SubNav > has active styles if SubNav contains
           aria-controls=":r21:"
           aria-expanded="false"
           aria-labelledby=":r20:--label :r20:--trailing-visual "
-          class="_ActionListContent_1hxfk_282"
+          class="_ActionListContent_1pvw7_282"
           id=":r20:"
           style="--subitem-depth: 0;"
           tabindex="0"
           type="button"
         >
           <span
-            class="_Spacer_1hxfk_297"
+            class="_Spacer_1pvw7_297"
           />
           <span
-            class="_ActionListSubContent_1hxfk_31"
+            class="_ActionListSubContent_1pvw7_31"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              class="_ItemLabel_1hxfk_188"
+              class="_ItemLabel_1pvw7_188"
               id=":r20:--label"
             >
               Item
             </span>
             <span
-              class="_TrailingVisual_1hxfk_158 _VisualWrap_1hxfk_616"
+              class="_TrailingVisual_1pvw7_158 _VisualWrap_1pvw7_621"
               id=":r20:--trailing-visual"
             >
               <svg
                 aria-hidden="true"
-                class="octicon octicon-chevron-down _ExpandIcon_1hxfk_484"
+                class="octicon octicon-chevron-down _ExpandIcon_1pvw7_484"
                 display="inline-block"
                 fill="currentColor"
                 focusable="false"
@@ -396,45 +375,39 @@ exports[`NavList.Item with NavList.SubNav > has active styles if SubNav contains
                 />
               </svg>
             </span>
-            <span
-              class="_InactiveWarning_1hxfk_236"
-            />
           </span>
         </button>
         <ul
           aria-labelledby=":r20:"
-          class="_SubGroup_1hxfk_494"
+          class="_SubGroup_1pvw7_494"
           id=":r21:"
         >
           <li
-            class="_ActionListItem_1hxfk_20"
+            class="_ActionListItem_1pvw7_20"
             data-active="true"
           >
             <a
               aria-current="page"
               aria-labelledby=":r23:--label  "
-              class="_ActionListContent_1hxfk_282 _Link_u1kmx_1"
+              class="_ActionListContent_1pvw7_282 _Link_u1kmx_1"
               href="#"
               id=":r23:"
               style="--subitem-depth: 1;"
               tabindex="0"
             >
               <span
-                class="_Spacer_1hxfk_297"
+                class="_Spacer_1pvw7_297"
               />
               <span
-                class="_ActionListSubContent_1hxfk_31"
+                class="_ActionListSubContent_1pvw7_31"
                 data-component="ActionList.Item--DividerContainer"
               >
                 <span
-                  class="_ItemLabel_1hxfk_188"
+                  class="_ItemLabel_1pvw7_188"
                   id=":r23:--label"
                 >
                   Sub Item
                 </span>
-                <span
-                  class="_InactiveWarning_1hxfk_236"
-                />
               </span>
             </a>
           </li>
