@@ -1,5 +1,5 @@
 import React, {useCallback, useRef, useState} from 'react'
-import type {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react-vite'
 import {Box, BaseStyles, Flash, theme, ThemeProvider} from '..'
 import {Button} from '../Button'
 import Link from '../Link'

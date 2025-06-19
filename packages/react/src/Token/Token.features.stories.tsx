@@ -1,4 +1,4 @@
-import type {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react-vite'
 import {action} from '@storybook/addon-actions'
 import {get} from '../constants'
 import {BaseStyles, ThemeProvider} from '..'

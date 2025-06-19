@@ -1,7 +1,7 @@
 import {Banner} from '../Banner'
 import {action} from '@storybook/addon-actions'
 import Link from '../Link'
-import type {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react-vite'
 import {AriaAlert, AriaStatus} from '../live-region'
 import FormControl from '../FormControl'
 import RadioGroup from '../RadioGroup'

@@ -1,5 +1,5 @@
 import React from 'react'
-import type {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react-vite'
 import {Button} from '.'
 import {DownloadIcon} from '@primer/octicons-react'
 import {Banner} from '../experimental'

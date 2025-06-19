@@ -1,4 +1,4 @@
-import type {Meta, StoryFn} from '@storybook/react'
+import type {Meta, StoryFn} from '@storybook/react-vite'
 import {action} from '@storybook/addon-actions'
 import Token from './Token'
 import {GitBranchIcon} from '@primer/octicons-react'

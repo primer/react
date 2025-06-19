@@ -1,5 +1,5 @@
 import {GrabberIcon} from '@primer/octicons-react'
-import type {Meta, StoryFn} from '@storybook/react'
+import type {Meta, StoryFn} from '@storybook/react-vite'
 import React from 'react'
 import Box from '../Box'
 import {TreeView} from './TreeView'

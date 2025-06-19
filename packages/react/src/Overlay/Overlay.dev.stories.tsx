@@ -1,5 +1,5 @@
 import {useRef, useState} from 'react'
-import type {Args, Meta} from '@storybook/react'
+import type {Args, Meta} from '@storybook/react-vite'
 import Text from '../Text'
 import {Button, IconButton} from '../Button'
 import Overlay from './Overlay'

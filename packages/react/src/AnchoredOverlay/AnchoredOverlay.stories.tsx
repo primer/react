@@ -1,5 +1,5 @@
 import {useState} from 'react'
-import type {Args, Meta} from '@storybook/react'
+import type {Args, Meta} from '@storybook/react-vite'
 import {LocationIcon, RepoIcon} from '@primer/octicons-react'
 
 import {Avatar, Link, Text} from '..'
