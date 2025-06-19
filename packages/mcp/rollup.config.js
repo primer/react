@@ -15,7 +15,7 @@ const external = [
 })
 
 const config = defineConfig({
-  input: ['./src/index.ts', './src/transports/stdio.ts'],
+  input: ['./src/transports/stdio.ts'],
   external,
   plugins: [
     nodeResolve(),

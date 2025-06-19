@@ -12,12 +12,9 @@ const server = new McpServer({
 
 const turndownService = new TurndownService()
 
-server.tool('init', 'Create a new project using Primer React', async () => {
-  return {
-    content: [],
-  }
-})
-
+// -----------------------------------------------------------------------------
+// Components
+// -----------------------------------------------------------------------------
 server.tool('get_components', 'List all of the components available from Primer React', async () => {
   const components = listComponents().map(component => {
     return `- ${component.name}`
@@ -85,7 +82,13 @@ server.tool(
     const text = turndownService.turndown(source)
 
     return {
-      content: [],
+      content: [
+        {
+          type: 'text',
+          text: `Here is the documentation for the \`${name}\` component from the @primer/react package:
+${text}`,
+        },
+      ],
     }
   },
 )
@@ -151,6 +154,9 @@ ${text}`,
   },
 )
 
+// -----------------------------------------------------------------------------
+// Patterns
+// -----------------------------------------------------------------------------
 server.tool('list_patterns', 'List all of the patterns available from Primer React', async () => {
   const patterns = listPatterns().map(pattern => {
     return `- ${pattern.name}`
@@ -224,19 +230,6 @@ server.tool(
 ${text}`,
         },
       ],
-    }
-  },
-)
-
-server.tool(
-  'get_pattern',
-  'Get a specific pattern by name',
-  {
-    name: z.string().describe('The name of the pattern to retrieve'),
-  },
-  async ({name}) => {
-    return {
-      content: [],
     }
   },
 )
