@@ -138,4 +138,16 @@ describe('Textarea', () => {
     rerender(<Textarea validationStatus="error" />)
     expect(textareaElement).toHaveAttribute('aria-invalid', 'true')
   })
+
+  it('renders textarea with minHeight and maxHeight styles', () => {
+    const minHeight = 100
+    const maxHeight = 200
+    render(<Textarea minHeight={minHeight} maxHeight={maxHeight} />)
+
+    const textareaElement = screen.getByRole('textbox') as HTMLTextAreaElement
+    const style = window.getComputedStyle(textareaElement)
+
+    expect(style.minHeight).toBe(`${minHeight}px`)
+    expect(style.maxHeight).toBe(`${maxHeight}px`)
+  })
 })
