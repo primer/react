@@ -55,25 +55,25 @@ export const WithVisualListHeading = () => (
     </ActionList.Heading>
     <ActionList.Group>
       <ActionList.GroupHeading as="h3">Repositories</ActionList.GroupHeading>
-      <ActionList.Item onClick={() => {}}>
+      <ActionList.Item onSelect={() => {}}>
         <ActionList.LeadingVisual>
           <FileDirectoryIcon />
         </ActionList.LeadingVisual>
         app/assets/modules
       </ActionList.Item>
-      <ActionList.Item onClick={() => {}}>
+      <ActionList.Item onSelect={() => {}}>
         <ActionList.LeadingVisual>
           <FileDirectoryIcon />
         </ActionList.LeadingVisual>
         src/react/components
       </ActionList.Item>
-      <ActionList.Item onClick={() => {}}>
+      <ActionList.Item onSelect={() => {}}>
         <ActionList.LeadingVisual>
           <FileDirectoryIcon />
         </ActionList.LeadingVisual>
         memex/shared-ui/components
       </ActionList.Item>
-      <ActionList.Item onClick={() => {}}>
+      <ActionList.Item onSelect={() => {}}>
         <ActionList.LeadingVisual>
           <FileDirectoryIcon />
         </ActionList.LeadingVisual>
@@ -83,19 +83,19 @@ export const WithVisualListHeading = () => (
 
     <ActionList.Group>
       <ActionList.GroupHeading as="h3">Advanced</ActionList.GroupHeading>
-      <ActionList.Item onClick={() => {}}>
+      <ActionList.Item onSelect={() => {}}>
         <ActionList.LeadingVisual>
           <PlusCircleIcon />
         </ActionList.LeadingVisual>
         Owner
       </ActionList.Item>
-      <ActionList.Item onClick={() => {}}>
+      <ActionList.Item onSelect={() => {}}>
         <ActionList.LeadingVisual>
           <PlusCircleIcon />
         </ActionList.LeadingVisual>
         Symbol
       </ActionList.Item>
-      <ActionList.Item onClick={() => {}}>
+      <ActionList.Item onSelect={() => {}}>
         <ActionList.LeadingVisual>
           <PlusCircleIcon />
         </ActionList.LeadingVisual>
@@ -662,8 +662,10 @@ export const ChildWithSideEffects = () => {
   const [selected, setSelected] = React.useState(true)
 
   const SideEffectDescription = () => {
+    // eslint-disable-next-line react-compiler/react-compiler
     const [seconds, setSeconds] = React.useState(0)
 
+    // eslint-disable-next-line react-compiler/react-compiler
     React.useEffect(() => {
       const fn = () => setSeconds(s => s + 1)
       const interval = window.setInterval(fn, 1000)

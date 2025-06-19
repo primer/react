@@ -124,6 +124,7 @@ const Panel: React.FC<SelectPanelProps> = ({
 
   const contents = React.Children.map(props.children, child => {
     if (React.isValidElement(child) && child.type === SelectPanelButton) {
+      // eslint-disable-next-line react-compiler/react-compiler
       Anchor = React.cloneElement(child, {
         // @ts-ignore TODO
         ref: anchorRef,
@@ -210,7 +211,7 @@ const Panel: React.FC<SelectPanelProps> = ({
   // tl;dr: react takes over autofocus instead of letting the browser handle it,
   // but not for dialogs, so we have to do it
   React.useEffect(
-    function intialFocus() {
+    function initialFocus() {
       if (internalOpen) {
         const searchInput = document.querySelector('dialog[open] input') as HTMLInputElement | undefined
         if (searchInput) searchInput.focus()

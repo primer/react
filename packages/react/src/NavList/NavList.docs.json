@@ -29,7 +29,8 @@
     },
     {
       "name": "sx",
-      "type": "SystemStyleObject"
+      "type": "SystemStyleObject",
+      "deprecated": true
     }
   ],
   "subcomponents": [
@@ -70,7 +71,8 @@
         },
         {
           "name": "sx",
-          "type": "SystemStyleObject"
+          "type": "SystemStyleObject",
+          "deprecated": true
         }
       ],
       "passthrough": {
@@ -83,7 +85,8 @@
       "props": [
         {
           "name": "sx",
-          "type": "SystemStyleObject"
+          "type": "SystemStyleObject",
+          "deprecated": true
         },
         {
           "name": "ref",
@@ -96,7 +99,8 @@
       "props": [
         {
           "name": "sx",
-          "type": "SystemStyleObject"
+          "type": "SystemStyleObject",
+          "deprecated": true
         },
         {
           "name": "ref",
@@ -109,7 +113,8 @@
       "props": [
         {
           "name": "sx",
-          "type": "SystemStyleObject"
+          "type": "SystemStyleObject",
+          "deprecated": true
         },
         {
           "name": "ref",
@@ -134,7 +139,8 @@
         },
         {
           "name": "sx",
-          "type": "SystemStyleObject"
+          "type": "SystemStyleObject",
+          "deprecated": true
         },
         {
           "name": "ref",
@@ -168,7 +174,8 @@
         },
         {
           "name": "sx",
-          "type": "SystemStyleObject"
+          "type": "SystemStyleObject",
+          "deprecated": true
         },
         {
           "name": "ref",
@@ -181,7 +188,8 @@
       "props": [
         {
           "name": "sx",
-          "type": "SystemStyleObject"
+          "type": "SystemStyleObject",
+          "deprecated": true
         },
         {
           "name": "ref",
@@ -204,7 +212,7 @@
           "type": "string",
           "defaultValue": "",
           "required": true,
-          "description": "Acccessible name for the control."
+          "description": "Accessible name for the control."
         },
         {
           "name": "icon",
@@ -228,7 +236,7 @@
           "type": "string",
           "defaultValue": "",
           "required": true,
-          "description": "Acccessible name for the control."
+          "description": "Accessible name for the control."
         },
         {
           "name": "pages",

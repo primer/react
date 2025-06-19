@@ -37,6 +37,7 @@ export const heightMap = {
   'fit-content': 'fit-content',
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const widthMap = {
   small: '256px',
   medium: '320px',
@@ -101,7 +102,7 @@ export const BaseOverlay = React.forwardRef<HTMLDivElement, OwnOverlayProps>(
       right,
       bottom,
       position,
-      style: styleFromProps = {},
+      style: styleFromProps,
       className,
       maxHeight,
       maxWidth,

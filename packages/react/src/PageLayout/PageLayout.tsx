@@ -13,6 +13,7 @@ import {warning} from '../utils/warning'
 
 import classes from './PageLayout.module.css'
 import {BoxWithFallback} from '../internal/components/BoxWithFallback'
+import {defaultSxProp} from '../utils/defaultSxProp'
 
 const REGION_ORDER = {
   header: 0,
@@ -22,6 +23,7 @@ const REGION_ORDER = {
   footer: 4,
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const SPACING_MAP = {
   none: 0,
   condensed: 3,
@@ -57,6 +59,7 @@ export type PageLayoutProps = {
   style?: React.CSSProperties
 } & SxProp
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const containerWidths = {
   full: '100%',
   medium: '768px',
@@ -71,7 +74,7 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
   rowGap = 'normal',
   columnGap = 'normal',
   children,
-  sx = {},
+  sx = defaultSxProp,
   className,
   style,
   _slotsConfig: slotsConfig,
@@ -125,7 +128,7 @@ type DividerProps = {
 
 const HorizontalDivider: React.FC<React.PropsWithChildren<DividerProps>> = ({
   variant = 'none',
-  sx = {},
+  sx = defaultSxProp,
   className,
   position,
   style,
@@ -167,7 +170,7 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
   position,
   className,
   style,
-  sx = {},
+  sx = defaultSxProp,
 }) => {
   const [isDragging, setIsDragging] = React.useState(false)
   const [isKeyboardDrag, setIsKeyboardDrag] = React.useState(false)
@@ -364,7 +367,7 @@ const Header: React.FC<React.PropsWithChildren<PageLayoutHeaderProps>> = ({
   hidden = false,
   children,
   style,
-  sx = {},
+  sx = defaultSxProp,
   className,
 }) => {
   // Combine divider and dividerWhenNarrow for backwards compatibility
@@ -444,6 +447,7 @@ export type PageLayoutContentProps = {
 } & SxProp
 
 // TODO: Account for pane width when centering content
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const contentWidths = {
   full: '100%',
   medium: '768px',
@@ -459,7 +463,7 @@ const Content: React.FC<React.PropsWithChildren<PageLayoutContentProps>> = ({
   padding = 'none',
   hidden = false,
   children,
-  sx = {},
+  sx = defaultSxProp,
   className,
   style,
 }) => {
@@ -562,11 +566,13 @@ export type PageLayoutPaneProps = {
   style?: React.CSSProperties
 } & SxProp
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const panePositions = {
   start: REGION_ORDER.paneStart,
   end: REGION_ORDER.paneEnd,
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const paneWidths = {
   small: ['100%', null, '240px', '256px'],
   medium: ['100%', null, '256px', '296px'],
@@ -596,7 +602,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
       hidden: responsiveHidden = false,
       children,
       id,
-      sx = {},
+      sx = defaultSxProp,
       className,
       style,
     },
@@ -640,7 +646,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
 
       try {
         storedWidth = localStorage.getItem(widthStorageKey)
-      } catch (error) {
+      } catch (_error) {
         storedWidth = null
       }
 
@@ -652,7 +658,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
 
       try {
         localStorage.setItem(widthStorageKey, width.toString())
-      } catch (error) {
+      } catch (_error) {
         // Ignore errors
       }
     }
@@ -808,7 +814,7 @@ const Footer: React.FC<React.PropsWithChildren<PageLayoutFooterProps>> = ({
   dividerWhenNarrow = 'inherit',
   hidden = false,
   children,
-  sx = {},
+  sx = defaultSxProp,
   className,
   style,
 }) => {

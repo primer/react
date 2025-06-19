@@ -39,7 +39,8 @@
     },
     {
       "name": "sx",
-      "type": "SystemStyleObject"
+      "type": "SystemStyleObject",
+      "deprecated": true
     }
   ],
   "subcomponents": [
@@ -109,7 +110,8 @@
         },
         {
           "name": "sx",
-          "type": "SystemStyleObject"
+          "type": "SystemStyleObject",
+          "deprecated": true
         }
       ]
     },
@@ -139,7 +141,8 @@
         },
         {
           "name": "sx",
-          "type": "SystemStyleObject"
+          "type": "SystemStyleObject",
+          "deprecated": true
         }
       ]
     },
@@ -177,7 +180,8 @@
         },
         {
           "name": "sx",
-          "type": "SystemStyleObject"
+          "type": "SystemStyleObject",
+          "deprecated": true
         }
       ],
       "passthrough": {
@@ -197,7 +201,8 @@
         },
         {
           "name": "sx",
-          "type": "SystemStyleObject"
+          "type": "SystemStyleObject",
+          "deprecated": true
         }
       ]
     },
@@ -213,7 +218,8 @@
         },
         {
           "name": "sx",
-          "type": "SystemStyleObject"
+          "type": "SystemStyleObject",
+          "deprecated": true
         }
       ]
     },
@@ -232,7 +238,7 @@
           "type": "string",
           "defaultValue": "",
           "required": true,
-          "description": "Acccessible name for the control."
+          "description": "Accessible name for the control."
         },
         {
           "name": "icon",
@@ -266,7 +272,8 @@
         },
         {
           "name": "sx",
-          "type": "SystemStyleObject"
+          "type": "SystemStyleObject",
+          "deprecated": true
         },
         {
           "name": "className",
@@ -275,10 +282,10 @@
           "description": "CSS string"
         },
         {
-         "name": "truncate",
-         "type": "boolean",
-         "defaultValue": "false",
-          "description": "Whether the inline description should truncate the text on overflow." 
+          "name": "truncate",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Whether the inline description should truncate the text on overflow."
         }
       ]
     },
@@ -321,7 +328,8 @@
         },
         {
           "name": "sx",
-          "type": "SystemStyleObject"
+          "type": "SystemStyleObject",
+          "deprecated": true
         }
       ]
     },
@@ -368,7 +376,8 @@
         },
         {
           "name": "sx",
-          "type": "SystemStyleObject"
+          "type": "SystemStyleObject",
+          "deprecated": true
         }
       ]
     },
@@ -378,7 +387,8 @@
       "props": [
         {
           "name": "sx",
-          "type": "SystemStyleObject"
+          "type": "SystemStyleObject",
+          "deprecated": true
         }
       ]
     }
