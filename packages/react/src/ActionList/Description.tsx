@@ -20,6 +20,11 @@ export type ActionListDescriptionProps = {
    * Whether the inline description should truncate the text on overflow.
    */
   truncate?: boolean
+  /**
+   * The title attribute for the truncated text tooltip.
+   * If not provided and children is a string, it will be set automatically.
+   */
+  title?: string
 } & SxProp
 
 export const Description: React.FC<React.PropsWithChildren<ActionListDescriptionProps>> = ({
@@ -27,9 +32,11 @@ export const Description: React.FC<React.PropsWithChildren<ActionListDescription
   sx = defaultSxProp,
   className,
   truncate,
+  title,
   ...props
 }) => {
   const {blockDescriptionId, inlineDescriptionId} = React.useContext(ItemContext)
+  const effectiveTitle = title || (typeof props.children === 'string' ? props.children : undefined)
 
   if (variant === 'block' || !truncate) {
     return (
@@ -49,7 +56,7 @@ export const Description: React.FC<React.PropsWithChildren<ActionListDescription
         id={inlineDescriptionId}
         className={clsx(className, classes.Description)}
         sx={sx}
-        title={props.children as string}
+        title={effectiveTitle}
         inline={true}
         maxWidth="100%"
         data-component="ActionList.Description"
