@@ -4,10 +4,6 @@
   "private": true,
   "type": "module",
   "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "default": "./dist/index.js"
-    },
     "./transports/stdio": {
       "types": "./dist/transports/stdio.d.ts",
       "default": "./dist/stdio.js"

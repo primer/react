@@ -1,4 +1,5 @@
 import {McpServer} from '@modelcontextprotocol/sdk/server/mcp.js'
+// eslint-disable-next-line import/no-namespace
 import * as cheerio from 'cheerio'
 import {z} from 'zod'
 import TurndownService from 'turndown'
@@ -58,6 +59,7 @@ server.tool(
     const url = new URL(`/product/components/${match.id}`, 'https://primer.style')
     const response = await fetch(url)
     if (!response.ok) {
+      // eslint-disable-next-line no-console
       console.error(`Failed to fetch ${url}: ${response.statusText}`)
       return {
         content: [],
@@ -118,6 +120,7 @@ server.tool(
     const url = new URL(`/product/components/${match.id}`, 'https://primer.style')
     const response = await fetch(url)
     if (!response.ok) {
+      // eslint-disable-next-line no-console
       console.error(`Failed to fetch ${url}: ${response.statusText}`)
       return {
         content: [],
@@ -198,6 +201,7 @@ server.tool(
     const url = new URL(`/product/ui-patterns/${match.id}`, 'https://primer.style')
     const response = await fetch(url)
     if (!response.ok) {
+      // eslint-disable-next-line no-console
       console.error(`Failed to fetch ${url}: ${response.statusText}`)
       return {
         content: [],
