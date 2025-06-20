@@ -1,7 +1,6 @@
 import {fireEvent, render, act, waitFor} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React from 'react'
-import {ThemeProvider} from '../ThemeProvider'
 import type {SubTreeState} from './TreeView'
 import {TreeView} from './TreeView'
 
@@ -12,7 +11,7 @@ function renderWithTheme(
   ui: Parameters<typeof render>[0],
   options?: Parameters<typeof render>[1],
 ): ReturnType<typeof render> {
-  return render(<ThemeProvider>{ui}</ThemeProvider>, options)
+  return render(ui, options)
 }
 
 // Mock `scrollIntoView` because it's not implemented in JSDOM

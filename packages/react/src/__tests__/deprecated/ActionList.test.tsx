@@ -1,25 +1,22 @@
 import {render as HTMLRender} from '@testing-library/react'
 import axe from 'axe-core'
-import theme from '../../theme'
 import {ActionList} from '../../deprecated/ActionList'
 import {behavesAsComponent, checkExports} from '../../utils/testing'
-import {BaseStyles, ThemeProvider} from '../..'
+import {BaseStyles} from '../..'
 
 function SimpleActionList(): JSX.Element {
   return (
-    <ThemeProvider theme={theme}>
-      <BaseStyles>
-        <ActionList
-          items={[
-            {text: 'New file'},
-            ActionList.Divider,
-            {text: 'Copy link'},
-            {text: 'Edit file'},
-            {text: 'Delete file', variant: 'danger'},
-          ]}
-        />
-      </BaseStyles>
-    </ThemeProvider>
+    <BaseStyles>
+      <ActionList
+        items={[
+          {text: 'New file'},
+          ActionList.Divider,
+          {text: 'Copy link'},
+          {text: 'Edit file'},
+          {text: 'Delete file', variant: 'danger'},
+        ]}
+      />
+    </BaseStyles>
   )
 }
 
