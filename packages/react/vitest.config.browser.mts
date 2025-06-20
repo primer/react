@@ -33,6 +33,7 @@ export default defineConfig({
       'src/DataTable/**/*.test.?(c|m)[jt]s?(x)',
       'src/FeatureFlags/**/*.test.?(c|m)[jt]s?(x)',
       'src/FormControl/__tests__/FormControl.Validation.test.tsx',
+      'src/InlineMessage/**/*.test.?(c|m)[jt]s?(x)',
       'src/NavList/**/*.test.?(c|m)[jt]s?(x)',
       'src/Pagehead/**/*.test.?(c|m)[jt]s?(x)',
       'src/ProgressBar/**/*.test.?(c|m)[jt]s?(x)',

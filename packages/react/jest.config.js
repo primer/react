@@ -30,6 +30,7 @@ module.exports = {
     '<rootDir>/src/DataTable/',
     '<rootDir>/src/FeatureFlags/',
     '<rootDir>/src/FormControl/__tests__/FormControl.Validation.test.tsx',
+    '<rootDir>/src/InlineMessage/',
     '<rootDir>/src/NavList/',
     '<rootDir>/src/Octicon/',
     '<rootDir>/src/Pagehead/',
