@@ -3,6 +3,7 @@ import path from 'node:path'
 import react from '@vitejs/plugin-react'
 import postcssPresetPrimer from 'postcss-preset-primer'
 import type {StorybookConfig} from '@storybook/react-vite'
+import {isSupported} from '../script/react-compiler.mjs'
 
 const require = createRequire(import.meta.url)
 
@@ -55,7 +56,22 @@ const config: StorybookConfig = {
       config.css.postcss.plugins = [postcssPresetPrimer()]
     }
 
-    config.plugins = [...(config.plugins ?? []), react()]
+    config.plugins = [
+      ...(config.plugins ?? []),
+      react({
+        babel: {
+          plugins: [
+            [
+              'babel-plugin-react-compiler',
+              {
+                sources: (filepath: string) => isSupported(filepath),
+                target: '18',
+              },
+            ],
+          ],
+        },
+      }),
+    ]
 
     if (DEPLOY_ENV === 'development') {
       config.server = {
