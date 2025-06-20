@@ -1,6 +1,5 @@
 import {describe, it, expect, vi} from 'vitest'
 import {render as HTMLRender} from '@testing-library/react'
-import theme from '../theme'
 import {ActionList} from '.'
 import {BaseStyles, ActionMenu} from '..'
 
