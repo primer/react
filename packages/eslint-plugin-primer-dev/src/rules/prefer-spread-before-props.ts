@@ -4,6 +4,9 @@ export const rule: Rule.RuleModule = {
   meta: {
     type: 'problem',
     fixable: 'code',
+    messages: {
+      spreadBeforeProps: 'Spread attributes must be placed before other props',
+    },
   },
   create(context) {
     return {
@@ -18,7 +21,7 @@ export const rule: Rule.RuleModule = {
         if (index !== 0) {
           context.report({
             node,
-            message: 'Spread attributes should be placed before other props',
+            messageId: 'spreadBeforeProps',
             fix(fixer) {
               const {sourceCode} = context
               const attributes = node.attributes.slice()
