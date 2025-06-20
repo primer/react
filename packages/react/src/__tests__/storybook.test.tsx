@@ -79,7 +79,6 @@ const stories = await Promise.all(
 
       return {
         name,
-        // eslint-disable-next-line @typescript-eslint/no-require-imports
         story: await import(filepath),
         type,
         relativeFilepath: path.relative(ROOT_DIRECTORY, filepath),
