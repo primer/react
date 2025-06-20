@@ -29,6 +29,7 @@ module.exports = {
     '<rootDir>/src/CircleOcticon/',
     '<rootDir>/src/DataTable/',
     '<rootDir>/src/FeatureFlags/',
+    '<rootDir>/src/Flash/',
     '<rootDir>/src/FormControl/__tests__/FormControl.Validation.test.tsx',
     '<rootDir>/src/InlineMessage/',
     '<rootDir>/src/NavList/',
