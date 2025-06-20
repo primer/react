@@ -1,4 +1,4 @@
-import type {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react-vite'
 import Spinner from './Spinner'
 import {Box} from '..'
 import {AriaStatus} from '../live-region'

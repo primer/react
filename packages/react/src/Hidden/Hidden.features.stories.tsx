@@ -1,4 +1,4 @@
-import type {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react-vite'
 import {Hidden} from './Hidden'
 import {Box, Button} from '..'
 

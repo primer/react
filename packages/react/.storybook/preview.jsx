@@ -27,9 +27,11 @@ const preview = {
       root: '#html-addon-root',
       removeEmptyComments: true,
     },
+
     controls: {
       hideNoControlsWarning: true,
     },
+
     options: {
       storySort: (a, b) => {
         const defaultOrder = [
@@ -203,10 +205,15 @@ const preview = {
         return compare(getHierarchy(a), getHierarchy(b))
       },
     },
+
     viewport: {
       viewports: {
         ...storybookViewports,
       },
+    },
+
+    docs: {
+      codePanel: true,
     },
   },
 }

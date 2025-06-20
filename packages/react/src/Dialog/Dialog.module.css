@@ -231,7 +231,6 @@ Add a border between the body and footer if:
 
   .DialogOverflowWrapper {
     /* If the browser does not support the `animation-timeline` property, always show a border */
-    /* stylelint-disable-next-line primer/borders */
     border-bottom: var(--borderWidth-default) solid var(--borderColor-default);
     animation: detect-scroll;
     animation-timeline: scroll(self);

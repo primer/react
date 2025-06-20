@@ -1,6 +1,6 @@
 import {CopilotIcon, GitPullRequestIcon} from '@primer/octicons-react'
-import {action} from '@storybook/addon-actions'
-import type {Meta} from '@storybook/react'
+import {action} from 'storybook/actions'
+import type {Meta} from '@storybook/react-vite'
 import {Banner} from '../Banner'
 import Link from '../Link'
 

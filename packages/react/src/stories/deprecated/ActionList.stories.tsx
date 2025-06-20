@@ -11,7 +11,7 @@ import {
   ArrowRightIcon,
   ArrowLeftIcon,
 } from '@primer/octicons-react'
-import type {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react-vite'
 import React, {forwardRef} from 'react'
 import {Label, ThemeProvider} from '../..'
 import {ActionList as _ActionList} from '../../deprecated/ActionList'

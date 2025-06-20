@@ -14,23 +14,18 @@ const config: StorybookConfig = {
       ? ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)']
       : // Don't include dev stories in production
         ['../src/**/*.mdx', '../src/**/!(*.dev).stories.@(js|jsx|ts|tsx)'],
+
   addons: [
-    {
-      name: '@storybook/addon-essentials',
-      options: {
-        backgrounds: false,
-      },
-    },
-    getAbsolutePath('@storybook/addon-storysource'),
-    getAbsolutePath('@storybook/addon-interactions'),
     getAbsolutePath('@storybook/addon-a11y'),
     getAbsolutePath('@storybook/addon-links'),
+    getAbsolutePath('@storybook/addon-docs'),
   ],
 
   framework: {
-    name: '@storybook/react-vite',
+    name: getAbsolutePath('@storybook/react-vite'),
     options: {},
   },
+
   async viteFinal(config) {
     config.define = {
       ...config.define,
@@ -65,6 +60,10 @@ const config: StorybookConfig = {
     }
 
     return config
+  },
+
+  features: {
+    backgrounds: false,
   },
 }
 

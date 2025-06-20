@@ -1,5 +1,5 @@
 import {Avatar, Box, CounterLabel, Heading, Label, SideNav, Text} from '../..'
-import type {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react-vite'
 import type {ComponentProps} from '../../utils/types'
 import Octicon from '../../Octicon'
 import {DotIcon, MailIcon, PersonIcon, SmileyIcon, ZapIcon} from '@primer/octicons-react'
