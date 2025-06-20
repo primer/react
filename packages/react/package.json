@@ -132,6 +132,7 @@
     "@storybook/addon-a11y": "^9.0.12",
     "@storybook/addon-docs": "^9.0.12",
     "@storybook/addon-links": "^9.0.12",
+    "@storybook/csf": "^0.1.13",
     "@storybook/icons": "^1.4.0",
     "@storybook/react-vite": "^9.0.12",
     "@storybook/source-loader": "^8.4.7",
