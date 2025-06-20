@@ -1,4 +1,4 @@
-import type {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react-vite'
 import {FormControl, Box} from '..'
 import Select from './Select'
 import type {SelectProps} from './Select'

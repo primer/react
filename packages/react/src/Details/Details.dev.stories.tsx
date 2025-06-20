@@ -1,4 +1,4 @@
-import type {StoryFn, Meta} from '@storybook/react'
+import type {StoryFn, Meta} from '@storybook/react-vite'
 import Details from './Details'
 import {Button} from '../Button'
 import useDetails from '../hooks/useDetails'

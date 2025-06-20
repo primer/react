@@ -20,7 +20,7 @@ import {
   ThreeBarsIcon,
   PeopleIcon,
 } from '@primer/octicons-react'
-import type {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react-vite'
 import {UnderlineNav} from './index'
 import {Avatar, Button, Box, Heading, Link, Text, StateLabel, BranchName} from '..'
 import Octicon from '../Octicon'
