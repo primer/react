@@ -205,7 +205,7 @@ describe('ActionList', () => {
     const descriptions = container.querySelectorAll('[data-component="ActionList.Description"]')
 
     expect(descriptions[0]).toHaveAttribute('title', 'Simple string description')
-    expect(descriptions[1]).not.toHaveAttribute('title')
+    expect(descriptions[1]).toHaveAttribute('title', '')
     expect(descriptions[2]).toHaveAttribute('title', 'Custom title')
     expect(descriptions[3]).not.toHaveAttribute('title')
   })
