@@ -68,6 +68,9 @@ export default defineConfig({
       'src/live-region/**/*.test.?(c|m)[jt]s?(x)',
       'src/utils/__tests__/invariant.test.?(c|m)[jt]s?(x)',
       'src/utils/__tests__/warning.test.?(c|m)[jt]s?(x)',
+      'src/Octicon/**/*.test.?(c|m)[jt]s?(x)',
+      'src/Pagination/**/*.test.?(c|m)[jt]s?(x)',
+      // 'src/deprecated/UnderlineNav/**/*.test.?(c|m)[jt]s?(x)',
     ],
     setupFiles: ['config/vitest/setup.ts'],
     css: {
