@@ -8,6 +8,7 @@ import {defineConfig, globalIgnores} from 'eslint/config'
 import githubPlugin from 'eslint-plugin-github'
 import jest from 'eslint-plugin-jest'
 import storybook from 'eslint-plugin-storybook'
+import primerDev from 'eslint-plugin-primer-dev'
 import react from 'eslint-plugin-react'
 import reactCompiler from 'eslint-plugin-react-compiler'
 import reactHooks from 'eslint-plugin-react-hooks'
@@ -118,6 +119,7 @@ const config = defineConfig([
       'primer-react/prefer-action-list-item-onselect': 'error',
     },
   },
+  primerDev.configs.recommended,
 
   {
     languageOptions: {
