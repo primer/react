@@ -20,6 +20,7 @@ module.exports = {
     '<rootDir>/src/AnchoredOverlay/',
     '<rootDir>/src/Banner/',
     '<rootDir>/src/Blankslate/',
+    '<rootDir>/src/Box/',
     '<rootDir>/src/BranchName/',
     '<rootDir>/src/Breadcrumbs/',
     '<rootDir>/src/ButtonGroup/',

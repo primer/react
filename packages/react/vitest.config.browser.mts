@@ -23,6 +23,7 @@ export default defineConfig({
       'src/AnchoredOverlay/**/*.test.?(c|m)[jt]s?(x)',
       'src/Banner/**/*.test.?(c|m)[jt]s?(x)',
       'src/Blankslate/**/*.test.?(c|m)[jt]s?(x)',
+      'src/Box/**/*.test.?(c|m)[jt]s?(x)',
       'src/BranchName/**/*.test.?(c|m)[jt]s?(x)',
       'src/Breadcrumbs/**/*.test.?(c|m)[jt]s?(x)',
       'src/ButtonGroup/**/*.test.?(c|m)[jt]s?(x)',
