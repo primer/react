@@ -25,6 +25,7 @@ describe('prefer-spread-before-props', () => {
       invalid: [
         {
           code: '<ExampleComponent foo {...props} />',
+          output: '<ExampleComponent {...props} foo />',
           errors: [
             {
               message: 'Spread attributes should be placed before other props',
