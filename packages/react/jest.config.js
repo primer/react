@@ -67,8 +67,8 @@ module.exports = {
     '<rootDir>/src/experimental/Skeleton',
     '<rootDir>/src/hooks/',
     '<rootDir>/src/live-region/',
-    '<rootDir>/src/utils/__tests__/invariant.test.ts',
-    '<rootDir>/src/utils/__tests__/warning.test.ts',
+    '<rootDir>/src/utils/',
+    '<rootDir>/src/internal/utils/',
   ],
   transformIgnorePatterns: ['node_modules/(?!@github/[a-z-]+-element|@lit-labs/react|@oddbird/popover-polyfill)'],
 }
