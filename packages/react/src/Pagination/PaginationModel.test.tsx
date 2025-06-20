@@ -1,4 +1,5 @@
-import {buildPaginationModel} from '../../Pagination/model'
+import {describe, expect, it} from 'vitest'
+import {buildPaginationModel} from './model'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function first(array: Array<any>, count = 1) {

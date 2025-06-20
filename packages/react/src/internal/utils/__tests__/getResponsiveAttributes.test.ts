@@ -1,3 +1,4 @@
+import {describe, expect, test} from 'vitest'
 import {getResponsiveAttributes} from '../getResponsiveAttributes'
 
 describe('getResponsiveAttributes', () => {
