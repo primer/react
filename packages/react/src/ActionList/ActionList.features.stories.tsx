@@ -591,6 +591,21 @@ export const TextWrapAndTruncation = () => (
         <ActionList.LeadingVisual>
           <ArrowRightIcon />
         </ActionList.LeadingVisual>
+        Description with truncation and complex children
+        <ActionList.Description
+          title="This is a long description with bold and italic text that should truncate"
+          truncate
+        >
+          With <strong>bold</strong> and <em>italic</em> text, and it should truncate if it is too long
+        </ActionList.Description>
+        <ActionList.TrailingVisual>
+          <ArrowLeftIcon />
+        </ActionList.TrailingVisual>
+      </ActionList.Item>
+      <ActionList.Item>
+        <ActionList.LeadingVisual>
+          <ArrowRightIcon />
+        </ActionList.LeadingVisual>
         Inline Description
         <ActionList.Description>This description wraps because it is inline without truncation</ActionList.Description>
         <ActionList.TrailingVisual>
