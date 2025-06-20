@@ -36,7 +36,7 @@ export const Description: React.FC<React.PropsWithChildren<ActionListDescription
   ...props
 }) => {
   const {blockDescriptionId, inlineDescriptionId} = React.useContext(ItemContext)
-  const effectiveTitle = title || (typeof props.children === 'string' ? props.children : undefined)
+  const effectiveTitle = title || (typeof props.children === 'string' ? props.children : '')
 
   if (variant === 'block' || !truncate) {
     return (
