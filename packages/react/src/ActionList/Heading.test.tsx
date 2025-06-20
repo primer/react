@@ -1,7 +1,8 @@
 import {describe, it, expect, vi} from 'vitest'
 import {render as HTMLRender} from '@testing-library/react'
+import theme from '../theme'
 import {ActionList} from '.'
-import {BaseStyles, ActionMenu} from '..'
+import {BaseStyles, ThemeProvider, ActionMenu} from '..'
 
 describe('ActionList.Heading', () => {
   it('should render the ActionList.Heading component as a heading with the given heading level', async () => {
@@ -31,17 +32,19 @@ describe('ActionList.Heading', () => {
     const spy = vi.spyOn(console, 'error').mockImplementation(() => vi.fn())
     expect(() =>
       HTMLRender(
-        <BaseStyles>
-          <ActionMenu open={true}>
-            <ActionMenu.Button>Trigger</ActionMenu.Button>
-            <ActionMenu.Overlay>
-              <ActionList>
-                <ActionList.Heading as="h1">Heading</ActionList.Heading>
-                <ActionList.Item>Item</ActionList.Item>
-              </ActionList>
-            </ActionMenu.Overlay>
-          </ActionMenu>
-        </BaseStyles>,
+        <ThemeProvider theme={theme}>
+          <BaseStyles>
+            <ActionMenu open={true}>
+              <ActionMenu.Button>Trigger</ActionMenu.Button>
+              <ActionMenu.Overlay>
+                <ActionList>
+                  <ActionList.Heading as="h1">Heading</ActionList.Heading>
+                  <ActionList.Item>Item</ActionList.Item>
+                </ActionList>
+              </ActionMenu.Overlay>
+            </ActionMenu>
+          </BaseStyles>
+        </ThemeProvider>,
       ),
     ).toThrow(
       "ActionList.Heading shouldn't be used within an ActionMenu container. Menus are labelled by the menu button's name.",
