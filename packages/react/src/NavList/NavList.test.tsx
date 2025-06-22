@@ -183,7 +183,7 @@ describe('NavList.Item with NavList.SubNav', () => {
     expect(subNav).toBeNull()
   })
 
-  it('toggles visiblility of SubNav when clicked', () => {
+  it('toggles visibility of SubNav when clicked', () => {
     const {getByRole, queryByRole} = render(<NavListWithSubNav />)
     const itemWithSubNav = getByRole('button', {name: 'Item 2'})
 
