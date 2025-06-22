@@ -303,7 +303,7 @@ describe('NavList.Item with NavList.SubNav', () => {
     expect(consoleSpy).toHaveBeenCalled()
   })
 
-  it('is compatiable with React-Router-like link components', () => {
+  it('is compatible with React-Router-like link components', () => {
     function NavLink({href, children}: {href: string; children: React.ReactNode}) {
       // In a real app, you'd check if the href matches the url of the current page. For testing purposes, we'll use the text of the link to determine if it's current
       const isCurrent = children === 'Current'
