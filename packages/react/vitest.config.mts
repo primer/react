@@ -1,8 +1,23 @@
-import {defineConfig} from 'vitest/config'
 import react from '@vitejs/plugin-react'
+import {defineConfig} from 'vitest/config'
+import {isSupported} from './script/react-compiler.mjs'
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react({
+      babel: {
+        plugins: [
+          [
+            'babel-plugin-react-compiler',
+            {
+              sources: (filepath: string) => isSupported(filepath),
+              target: '18',
+            },
+          ],
+        ],
+      },
+    }),
+  ],
   define: {
     __DEV__: true,
   },
@@ -12,4 +27,3 @@ export default defineConfig({
     environment: 'node',
   },
 })
-
