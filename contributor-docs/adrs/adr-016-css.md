@@ -9,7 +9,7 @@
 
 ## Context
 
-Reasons for change: Performance, utilise css variables
+Reasons for change: Performance, utilize css variables
 
 The main reason for changing our styling architecture is to remove performance issues for applications:
 
