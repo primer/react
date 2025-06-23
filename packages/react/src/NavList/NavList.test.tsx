@@ -4,7 +4,7 @@ import React from 'react'
 import {ThemeProvider} from '..'
 import {NavList} from './NavList'
 import {FeatureFlags} from '../FeatureFlags'
-import {ReactRouterLikeLink} from '../__tests__/mocks/ReactRouterLink'
+import {ReactRouterLikeLink} from '../Pagination/mocks/ReactRouterLink'
 
 type NextJSLinkProps = {href: string; children: React.ReactNode}
 
@@ -183,7 +183,7 @@ describe('NavList.Item with NavList.SubNav', () => {
     expect(subNav).toBeNull()
   })
 
-  it('toggles visiblility of SubNav when clicked', () => {
+  it('toggles visibility of SubNav when clicked', () => {
     const {getByRole, queryByRole} = render(<NavListWithSubNav />)
     const itemWithSubNav = getByRole('button', {name: 'Item 2'})
 
@@ -303,7 +303,7 @@ describe('NavList.Item with NavList.SubNav', () => {
     expect(consoleSpy).toHaveBeenCalled()
   })
 
-  it('is compatiable with React-Router-like link components', () => {
+  it('is compatible with React-Router-like link components', () => {
     function NavLink({href, children}: {href: string; children: React.ReactNode}) {
       // In a real app, you'd check if the href matches the url of the current page. For testing purposes, we'll use the text of the link to determine if it's current
       const isCurrent = children === 'Current'

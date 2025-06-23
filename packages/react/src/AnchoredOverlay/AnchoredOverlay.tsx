@@ -10,6 +10,10 @@ import {useAnchoredPosition, useProvidedRefOrCreate, useRenderForcingRef} from '
 import {useId} from '../hooks/useId'
 import type {AnchorPosition, PositionSettings} from '@primer/behaviors'
 import {useResponsiveValue, type ResponsiveValue} from '../hooks/useResponsiveValue'
+import {IconButton, type IconButtonProps} from '../Button'
+import {XIcon} from '@primer/octicons-react'
+import classes from './AnchoredOverlay.module.css'
+import {clsx} from 'clsx'
 
 interface AnchoredOverlayPropsWithAnchor {
   /**
@@ -65,7 +69,7 @@ interface AnchoredOverlayBaseProps extends Pick<OverlayProps, 'height' | 'width'
   /**
    * A callback which is called whenever the overlay is currently open and a "close gesture" is detected.
    */
-  onClose?: (gesture: 'anchor-click' | 'click-outside' | 'escape') => unknown
+  onClose?: (gesture: 'anchor-click' | 'click-outside' | 'escape' | 'close') => unknown
 
   /**
    * Props to be spread on the internal `Overlay` component.
@@ -103,6 +107,14 @@ interface AnchoredOverlayBaseProps extends Pick<OverlayProps, 'height' | 'width'
    * An override to the internal position that will be used to position the overlay.
    */
   onPositionChange?: ({position}: {position: AnchorPosition}) => void
+  /**
+   * Optional prop to display a close button in the overlay.
+   */
+  displayCloseButton?: boolean
+  /**
+   * Props to be spread on the close button in the overlay.
+   */
+  closeButtonProps?: Partial<IconButtonProps>
 }
 
 export type AnchoredOverlayProps = AnchoredOverlayBaseProps &
@@ -113,6 +125,8 @@ const defaultVariant = {
   regular: 'anchored',
   narrow: 'anchored',
 }
+
+const defaultCloseButtonProps: Partial<IconButtonProps> = {}
 
 /**
  * An `AnchoredOverlay` provides an anchor that will open a floating overlay positioned relative to the anchor.
@@ -140,6 +154,8 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   variant = defaultVariant,
   preventOverflow = true,
   onPositionChange,
+  displayCloseButton = true,
+  closeButtonProps = defaultCloseButtonProps,
 }) => {
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
   const [overlayRef, updateOverlayRef] = useRenderForcingRef<HTMLDivElement>()
@@ -209,6 +225,10 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
 
   const currentResponsiveVariant = useResponsiveValue(variant, 'anchored')
 
+  const showXIcon = onClose && variant.narrow === 'fullscreen' && displayCloseButton
+  const XButtonAriaLabelledBy = closeButtonProps['aria-labelledby']
+  const XButtonAriaLabel = closeButtonProps['aria-label']
+
   return (
     <>
       {renderAnchor &&
@@ -241,6 +261,24 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
           preventOverflow={preventOverflow}
           {...overlayProps}
         >
+          {showXIcon ? (
+            <div className={classes.ResponsiveCloseButtonContainer}>
+              <IconButton
+                {...(closeButtonProps as IconButtonProps)}
+                type="button"
+                variant="invisible"
+                icon={XIcon}
+                {...(XButtonAriaLabelledBy
+                  ? {'aria-labelledby': XButtonAriaLabelledBy, 'aria-label': undefined}
+                  : {'aria-label': XButtonAriaLabel ?? 'Close', 'aria-labelledby': undefined})}
+                className={clsx(classes.ResponsiveCloseButton, closeButtonProps.className)}
+                onClick={() => {
+                  onClose('close')
+                }}
+              />
+            </div>
+          ) : null}
+
           {children}
         </Overlay>
       ) : null}
