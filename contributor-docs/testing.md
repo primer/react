@@ -29,7 +29,7 @@
 
 We aim to follow the behavioral testing paradigm as our testing strategy where we focus on testing the interface of the component with the given input and expected output rather than implementation details. This approach helps us think of the possible ways of how an end-user would interact with, or use, the component therefore help us cover both happy and unhappy paths.
 
-As we heavily rely on the behavioral testing paradigm to test our components, the traditional percentage-base testing coverage is not always helpful for us to use as a metric. To measure the level of our testing coverage or in other words, the definition of "Tested" for us is more like a checklist than a number. Below are some examples that can be used as a starting point to help measure the test coverage:
+As we heavily rely on the behavioral testing paradigm to test our components, the traditional percentage-based testing coverage is not always helpful for us to use as a metric. To measure the level of our testing coverage or in other words, the definition of "Tested" for us is more like a checklist than a number. Below are some examples that can be used as a starting point to help measure the test coverage:
 
 - Variants of the component (I.e. default, primary, success, error)
 - The states of the component (I.e. open/closed, selected, disabled)
