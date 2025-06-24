@@ -186,12 +186,6 @@ describe('ActionList', () => {
         </ActionList.Item>
         <ActionList.Item>
           Option 3
-          <ActionList.Description truncate title="Custom title">
-            <span>Complex</span> content
-          </ActionList.Description>
-        </ActionList.Item>
-        <ActionList.Item>
-          Option 4
           <ActionList.Description>
             <span>Non-truncated</span> content
           </ActionList.Description>
@@ -202,8 +196,7 @@ describe('ActionList', () => {
     const descriptions = container.querySelectorAll('[data-component="ActionList.Description"]')
 
     expect(descriptions[0]).toHaveAttribute('title', 'Simple string description')
-    expect(descriptions[1]).toHaveAttribute('title', '')
-    expect(descriptions[2]).toHaveAttribute('title', 'Custom title')
-    expect(descriptions[3]).not.toHaveAttribute('title')
+    expect(descriptions[1]).toHaveAttribute('title', 'Complex content')
+    expect(descriptions[2]).not.toHaveAttribute('title')
   })
 })

@@ -7,42 +7,20 @@ import {defaultSxProp} from '../utils/defaultSxProp'
 import {BoxWithFallback} from '../internal/components/BoxWithFallback'
 import {clsx} from 'clsx'
 
-type DescriptionVariantTypes =
-  | {
-      /**
-       * Secondary text style variations.
-       *
-       * - `"block"` - Secondary text is positioned below primary text.
-       */
-      variant: 'block'
-      /**
-       * Whether the inline description should truncate the text on overflow.
-       */
-      truncate?: boolean
-      title?: never
-    }
-  | {
-      /**
-       * Secondary text style variations.
-       *
-       * - `"inline"` - Secondary text is positioned beside primary text.
-       */
-      variant?: 'inline'
-      /**
-       * Whether the inline description should truncate the text on overflow.
-       */
-      truncate?: boolean
-      /**
-       * The title attribute for the truncated text tooltip.
-       * If not provided and children is a string, it will be set automatically.
-       *
-       * `title` should be used sparingly, as it may be inaccessible to some users.
-       */
-      title?: string
-    }
+export type ActionListDescriptionProps = {
+  /**
+   * Secondary text style variations.
+   *
+   * - `"inline"` - Secondary text is positioned beside primary text.
+   * - `"block"` - Secondary text is positioned below primary text.
+   */
+  variant?: 'inline' | 'block'
 
-export type ActionListDescriptionProps = DescriptionVariantTypes & {
   className?: string
+  /**
+   * Whether the inline description should truncate the text on overflow.
+   */
+  truncate?: boolean
 } & SxProp
 
 export const Description: React.FC<React.PropsWithChildren<ActionListDescriptionProps>> = ({
@@ -50,11 +28,21 @@ export const Description: React.FC<React.PropsWithChildren<ActionListDescription
   sx = defaultSxProp,
   className,
   truncate,
-  title,
   ...props
 }) => {
   const {blockDescriptionId, inlineDescriptionId} = React.useContext(ItemContext)
-  const effectiveTitle = title || (typeof props.children === 'string' ? props.children : '')
+  const containerRef = React.useRef<HTMLDivElement>(null)
+  const [computedTitle, setComputedTitle] = React.useState<string>('')
+
+  // Extract text content from rendered DOM for tooltip
+  React.useEffect(() => {
+    if (truncate && containerRef.current) {
+      const textContent = containerRef.current.textContent || ''
+      setComputedTitle(textContent)
+    }
+  }, [truncate, props.children])
+
+  const effectiveTitle = typeof props.children === 'string' ? props.children : computedTitle
 
   if (variant === 'block' || !truncate) {
     return (
@@ -71,6 +59,7 @@ export const Description: React.FC<React.PropsWithChildren<ActionListDescription
   } else {
     return (
       <Truncate
+        ref={containerRef}
         id={inlineDescriptionId}
         className={clsx(className, classes.Description)}
         sx={sx}

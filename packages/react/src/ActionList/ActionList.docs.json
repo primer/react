@@ -286,12 +286,6 @@
           "type": "boolean",
           "defaultValue": "false",
           "description": "Whether the inline description should truncate the text on overflow."
-        },
-        {
-          "name": "title",
-          "type": "string",
-          "defaultValue": "",
-          "description": "Text to show in a tooltip when the description is truncated."
         }
       ]
     },

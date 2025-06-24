@@ -592,10 +592,7 @@ export const TextWrapAndTruncation = () => (
           <ArrowRightIcon />
         </ActionList.LeadingVisual>
         Description with truncation and complex children
-        <ActionList.Description
-          title="This is a long description with bold and italic text that should truncate"
-          truncate
-        >
+        <ActionList.Description truncate>
           With <strong>bold</strong> and <em>italic</em> text, and it should truncate if it is too long
         </ActionList.Description>
         <ActionList.TrailingVisual>
