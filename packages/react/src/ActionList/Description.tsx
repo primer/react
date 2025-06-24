@@ -15,23 +15,10 @@ type DescriptionVariantTypes =
        * - `"block"` - Secondary text is positioned below primary text.
        */
       variant: 'block'
-      title?: never
       /**
        * Whether the inline description should truncate the text on overflow.
        */
       truncate?: boolean
-    }
-  | {
-      /**
-       * Secondary text style variations.
-       *
-       * - `"inline"` - Secondary text is positioned beside primary text.
-       */
-      variant?: 'inline'
-      /**
-       * Whether the inline description should truncate the text on overflow.
-       */
-      truncate?: false
       title?: never
     }
   | {
@@ -44,7 +31,7 @@ type DescriptionVariantTypes =
       /**
        * Whether the inline description should truncate the text on overflow.
        */
-      truncate: true
+      truncate?: boolean
       /**
        * The title attribute for the truncated text tooltip.
        * If not provided and children is a string, it will be set automatically.
