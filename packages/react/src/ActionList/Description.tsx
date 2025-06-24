@@ -31,7 +31,7 @@ type DescriptionVariantTypes =
       /**
        * Whether the inline description should truncate the text on overflow.
        */
-      truncate?: false 
+      truncate?: false
       title?: never
     }
   | {
