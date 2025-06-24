@@ -1,43 +1,130 @@
-import {render as HTMLRender} from '@testing-library/react'
-import axe from 'axe-core'
-import {Box} from '..'
+import {render, screen} from '@testing-library/react'
+import {describe, expect, it} from 'vitest'
+import Box from '../Box'
 import theme from '../theme'
-import {behavesAsComponent, checkExports, render} from '../utils/testing'
+
+const breakpoints = [
+  null,
+  'screen and (min-width: 544px)',
+  'screen and (min-width: 768px)',
+  'screen and (min-width: 1012px)',
+] as const
 
 describe('Box', () => {
-  behavesAsComponent({Component: Box})
-
-  checkExports('Box', {
-    default: Box,
-  })
-
   it('should support `className` on the outermost element', () => {
     const Element = () => <Box className={'test-class-name'} />
-    expect(HTMLRender(<Element />).container.firstChild).toHaveClass('test-class-name')
+    expect(render(<Element />).container.firstChild).toHaveClass('test-class-name')
   })
 
-  it('should have no axe violations', async () => {
-    const {container} = HTMLRender(<Box />)
-    const results = await axe.run(container)
-    expect(results).toHaveNoViolations()
+  it('should support margin', () => {
+    render(<Box data-testid="box" m={1} theme={theme} />)
+    const box = screen.getByTestId('box')
+    expect(getCSSRuleForClass(getClassName(box.className)).style.margin).toBe(theme.space[1])
   })
 
-  it('renders margin', () => {
-    expect(render(<Box m={1} theme={theme} />)).toMatchSnapshot()
-    expect(render(<Box m={[0, 1, 2, 3]} theme={theme} />)).toMatchSnapshot()
-    expect(render(<Box m={[1, 1, 1, 3]} theme={theme} />)).toMatchSnapshot()
+  it('should support responsive margin', () => {
+    const m = [0, 1, 2, 3]
+
+    render(<Box data-testid="box" m={[0, 1, 2, 3]} theme={theme} />)
+
+    const box = screen.getByTestId('box')
+    const className = getClassName(box.className)
+
+    for (let i = 0; i < m.length; i++) {
+      let themeValue = theme.space[m[i]]
+      if (themeValue === '0') {
+        themeValue = '0px'
+      }
+
+      if (i === 0) {
+        const cssRule = getCSSRuleForClass(className)
+        expect(cssRule.style.margin).toBe(themeValue)
+      } else {
+        const cssRule = getCSSRuleForClass(className, breakpoints[i]!)
+        expect(cssRule.style.margin).toBe(themeValue)
+      }
+    }
   })
 
-  it('renders padding', () => {
-    expect(render(<Box p={1} theme={theme} />)).toMatchSnapshot()
-    expect(render(<Box p={[0, 1, 2, 3]} theme={theme} />)).toMatchSnapshot()
-    expect(render(<Box p={[1, 1, 1, 3]} theme={theme} />)).toMatchSnapshot()
+  it('should support padding', () => {
+    render(<Box data-testid="box" p={1} theme={theme} />)
+    const box = screen.getByTestId('box')
+    expect(getCSSRuleForClass(getClassName(box.className)).style.padding).toBe(theme.space[1])
   })
 
-  it('respects display', () => {
-    expect(render(<Box display="inline" />)).toMatchSnapshot()
-    expect(render(<Box display="inline-block" />)).toMatchSnapshot()
-    expect(render(<Box display="none" />)).toMatchSnapshot()
-    expect(render(<Box display={['none', 'none', 'block']} theme={theme} />)).toMatchSnapshot()
+  it('should support responsive padding', () => {
+    const p = [0, 1, 2, 3]
+
+    render(<Box data-testid="box" p={[0, 1, 2, 3]} theme={theme} />)
+
+    const box = screen.getByTestId('box')
+    const className = getClassName(box.className)
+
+    for (let i = 0; i < p.length; i++) {
+      let themeValue = theme.space[p[i]]
+      if (themeValue === '0') {
+        themeValue = '0px'
+      }
+
+      if (i === 0) {
+        const cssRule = getCSSRuleForClass(className)
+        expect(cssRule.style.padding).toBe(themeValue)
+      } else {
+        const cssRule = getCSSRuleForClass(className, breakpoints[i]!)
+        expect(cssRule.style.padding).toBe(themeValue)
+      }
+    }
+  })
+
+  it('should support display', () => {
+    render(<Box data-testid="box" display="inline" theme={theme} />)
+    const box = screen.getByTestId('box')
+    expect(getCSSRuleForClass(getClassName(box.className)).style.display).toBe('inline')
+  })
+
+  it('should support responsive display', () => {
+    const display = ['none', 'inline', 'inline-block', 'block']
+    render(<Box data-testid="box" display={display} theme={theme} />)
+    const box = screen.getByTestId('box')
+    const className = getClassName(box.className)
+    for (let i = 0; i < display.length; i++) {
+      if (i === 0) {
+        const cssRule = getCSSRuleForClass(className)
+        expect(cssRule.style.display).toBe(display[i])
+      } else {
+        const cssRule = getCSSRuleForClass(className, breakpoints[i]!)
+        expect(cssRule.style.display).toBe(display[i])
+      }
+    }
   })
 })
+
+function getClassName(className: string): string {
+  // styled-components with `Box` seems to generate two classes: `sx-<hash>` and
+  // `<hash>`. We are looking for the second class which seems to be the one the
+  // styles are applied to in CSS.
+  const classes = className.split(' ')
+  return classes[1]
+}
+
+function getCSSRuleForClass(className: string, mediaText?: string): CSSStyleRule {
+  for (const sheet of document.styleSheets) {
+    for (const rule of sheet.cssRules) {
+      if (mediaText) {
+        if (rule instanceof CSSMediaRule && rule.media.mediaText === mediaText) {
+          for (const innerRule of rule.cssRules) {
+            if (innerRule instanceof CSSStyleRule && innerRule.selectorText === `.${className}`) {
+              return innerRule
+            }
+          }
+        }
+      } else if (rule instanceof CSSStyleRule) {
+        if (rule.selectorText === `.${className}`) {
+          return rule
+        }
+      }
+    }
+  }
+
+  throw new Error(`CSS rule for class "${className}" not found`)
+}

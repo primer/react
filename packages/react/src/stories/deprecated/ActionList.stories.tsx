@@ -17,7 +17,7 @@ import {Label, ThemeProvider} from '../..'
 import {ActionList as _ActionList} from '../../deprecated/ActionList'
 import {Header} from '../../deprecated/ActionList/Header'
 import BaseStyles from '../../BaseStyles'
-import {ReactRouterLikeLink} from '../../__tests__/mocks/ReactRouterLink'
+import {ReactRouterLikeLink} from '../../Pagination/mocks/ReactRouterLink'
 import classes from './ActionListStories.module.css'
 
 const ActionList = Object.assign(_ActionList, {
