@@ -7,24 +7,44 @@ import {defaultSxProp} from '../utils/defaultSxProp'
 import {BoxWithFallback} from '../internal/components/BoxWithFallback'
 import {clsx} from 'clsx'
 
-export type ActionListDescriptionProps = {
-  /**
-   * Secondary text style variations.
-   *
-   * - `"inline"` - Secondary text is positioned beside primary text.
-   * - `"block"` - Secondary text is positioned below primary text.
-   */
-  variant?: 'inline' | 'block'
+type DescriptionVariantTypes =
+  | {
+      /**
+       * Secondary text style variations.
+       *
+       * - `"block"` - Secondary text is positioned below primary text.
+       */
+      variant: 'block'
+      title?: never
+      /**
+       * Whether the inline description should truncate the text on overflow.
+       */
+      truncate?: boolean
+    }
+  | {
+      /**
+       * Secondary text style variations.
+       *
+       * - `"inline"` - Secondary text is positioned beside primary text.
+       */
+      variant?: 'inline'
+      truncate: false
+      title?: never
+    }
+  | {
+      variant?: 'inline'
+      truncate?: true
+      /**
+       * The title attribute for the truncated text tooltip.
+       * If not provided and children is a string, it will be set automatically.
+       *
+       * `title` should be used sparingly, as it may be inaccessible to some users.
+       */
+      title?: string
+    }
+
+export type ActionListDescriptionProps = DescriptionVariantTypes & {
   className?: string
-  /**
-   * Whether the inline description should truncate the text on overflow.
-   */
-  truncate?: boolean
-  /**
-   * The title attribute for the truncated text tooltip.
-   * If not provided and children is a string, it will be set automatically.
-   */
-  title?: string
 } & SxProp
 
 export const Description: React.FC<React.PropsWithChildren<ActionListDescriptionProps>> = ({
