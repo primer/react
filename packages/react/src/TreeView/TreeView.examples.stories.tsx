@@ -78,6 +78,7 @@ export const TrailingActions: StoryFn = () => {
   return (
     <Box>
       <h2>Trailing Actions: Example with direct focus</h2>
+      <p>Press (Command + Shift + U) to focus the trailing action button</p>
       <TreeView aria-label="Issues">
         <TreeView.Item id="item-1">Item 1</TreeView.Item>
         <TrailingAction id="item-2">
@@ -90,10 +91,11 @@ export const TrailingActions: StoryFn = () => {
         <TreeView.Item id="item-3">Item 3</TreeView.Item>
       </TreeView>
 
-      <h2>Trailing Actions: 2</h2>
+      <h2>Trailing Actions: Example with dialog</h2>
+      <p> Press (Command + Shift + U) to interact with the trailing action</p>
       <TreeView aria-label="Issues">
         <TreeView.Item id="item-1">Item 1</TreeView.Item>
-        <TrailingAction id="item-2">
+        <TrailingAction id="item-2" dialogOnOpen={true}>
           Item 2
           <TreeView.SubTree>
             <TreeView.Item id="item-2-sub-task-1">sub task 1</TreeView.Item>
@@ -106,14 +108,19 @@ export const TrailingActions: StoryFn = () => {
   )
 }
 
-const TrailingAction: React.FC<{id: string; children: React.ReactNode}> = ({id, children}) => {
+const TrailingAction: React.FC<{id: string; children: React.ReactNode; dialogOnOpen?: boolean}> = ({
+  id,
+  dialogOnOpen,
+  children,
+}) => {
   const [expanded, setExpanded] = React.useState(false)
   const [dialogOpen, setDialogOpen] = React.useState(false)
 
   const btnRef = React.useRef<HTMLButtonElement>(null)
 
   const mockKeyboardShortcut = (event: React.KeyboardEvent) => {
-    btnRef.current?.focus()
+    if (!dialogOnOpen) btnRef.current?.focus()
+    if (dialogOnOpen) setDialogOpen(true)
   }
 
   return (
