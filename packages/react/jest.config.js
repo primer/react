@@ -54,6 +54,7 @@ module.exports = {
     '<rootDir>/src/ToggleSwitch/',
     '<rootDir>/src/Tooltip/',
     '<rootDir>/src/TooltipV2/',
+    '<rootDir>/src/TreeView/',
     '<rootDir>/src/Truncate/',
     '<rootDir>/src/UnderlineNav/',
     '<rootDir>/src/__tests__/BaseStyles.test.tsx',
@@ -73,7 +74,6 @@ module.exports = {
     '<rootDir>/src/internal/utils/',
     '<rootDir>/src/live-region/',
     '<rootDir>/src/utils/',
-    '<rootDir>/src/TreeView/',
   ],
   transformIgnorePatterns: ['node_modules/(?!@github/[a-z-]+-element|@lit-labs/react|@oddbird/popover-polyfill)'],
 }
