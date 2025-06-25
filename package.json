@@ -62,6 +62,7 @@
     "@size-limit/preset-big-lib": "11.2.0",
     "@types/jest": "29.5.14",
     "@vitest/browser": "^3.2.0",
+    "@vitest/eslint-plugin": "^1.2.7",
     "eslint": "^9.25.1",
     "eslint-import-resolver-typescript": "3.7.0",
     "eslint-plugin-clsx": "^0.0.10",
