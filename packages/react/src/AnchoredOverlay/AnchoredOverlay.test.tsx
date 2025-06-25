@@ -1,6 +1,6 @@
 import {act, useCallback, useState} from 'react'
 import {describe, expect, it, vi} from 'vitest'
-import {render, fireEvent} from '@testing-library/react'
+import {render} from '@testing-library/react'
 import {userEvent} from '@vitest/browser/context'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import {Button} from '../Button'
@@ -133,9 +133,7 @@ describe('AnchoredOverlay', () => {
 
   it('should call onPositionChange when provided', async () => {
     const mockPositionChangeCallback = vi.fn(({position}: {position: AnchorPosition}) => position)
-    const anchoredOverlay = render(
-      <AnchoredOverlayTestComponent initiallyOpen={true} onPositionChange={mockPositionChangeCallback} />,
-    )
+    render(<AnchoredOverlayTestComponent initiallyOpen={true} onPositionChange={mockPositionChangeCallback} />)
 
     await act(async () => {
       await userEvent.keyboard('{Escape}')

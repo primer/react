@@ -1461,7 +1461,7 @@ describe('Asynchronous loading', () => {
       )
     }
 
-    const {getByRole, findByRole} = renderWithTheme(<TestTree />)
+    const {getByRole} = renderWithTheme(<TestTree />)
 
     const parentItem = getByRole('treeitem', {name: 'Parent'})
     const loadingItem = getByRole('treeitem', {name: 'Loading...'})

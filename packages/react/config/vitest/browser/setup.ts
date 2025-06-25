@@ -1,3 +1,5 @@
+/* eslint-disable ssr-friendly/no-dom-globals-in-module-scope */
+
 import '@primer/primitives/dist/css/base/motion/motion.css'
 import '@primer/primitives/dist/css/base/size/size.css'
 import '@primer/primitives/dist/css/base/typography/typography.css'
