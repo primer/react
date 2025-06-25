@@ -1,0 +1,12 @@
+{
+  "name": "eslint-plugin-primer-dev",
+  "type": "module",
+  "version": "0.0.0",
+  "exports": "./src/index.ts",
+  "peerDependencies": {
+    "eslint": "9.x"
+  },
+  "devDependencies": {
+    "eslint": "^9.29.0"
+  }
+}
