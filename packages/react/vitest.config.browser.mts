@@ -1,10 +1,20 @@
-import {defineConfig} from 'vitest/config'
 import react from '@vitejs/plugin-react'
+import {defineConfig} from 'vitest/config'
+import postcssPresetPrimer from 'postcss-preset-primer'
 
 export default defineConfig({
+  css: {
+    modules: {
+      generateScopedName: 'prc-[folder]-[local]-[hash:base64:5]',
+    },
+    postcss: {
+      plugins: [postcssPresetPrimer()],
+    },
+  },
   plugins: [react()],
   define: {
     __DEV__: true,
+    'process.env.CI': JSON.stringify(process.env.CI),
   },
   test: {
     name: '@primer/react',
@@ -73,8 +83,9 @@ export default defineConfig({
       'src/internal/utils/**/*.test.?(c|m)[jt]s?(x)',
       'src/live-region/**/*.test.?(c|m)[jt]s?(x)',
       'src/utils/**/*.test.?(c|m)[jt]s?(x)',
+      'src/TreeView/**/*.test.?(c|m)[jt]s?(x)',
     ],
-    setupFiles: ['config/vitest/setup.ts'],
+    setupFiles: ['config/vitest/setup.ts', 'config/vitest/browser/setup.ts'],
     css: {
       include: [/.+/],
     },
