@@ -1,8 +1,7 @@
 import React, {useCallback} from 'react'
-// eslint-disable-next-line import/named
-import {useGlobals} from '@storybook/manager-api'
-// eslint-disable-next-line import/named
-import {IconButton, Icons} from '@storybook/components'
+import {useGlobals} from 'storybook/manager-api'
+import {IconButton} from 'storybook/internal/components'
+import {AccessibilityAltIcon} from '@storybook/icons'
 
 export const ADDON_ID = 'show-surrounding-links'
 export const TOOL_ID = `${ADDON_ID}/tool`
@@ -31,7 +30,7 @@ export const Tool = () => {
       // eslint-disable-next-line ssr-friendly/no-dom-globals-in-react-fc
       aria-pressed={showSurroundingElements ?? window.localStorage.getItem('showSurroundingElements') === 'true'}
     >
-      <Icons icon="accessibilityalt" />
+      <AccessibilityAltIcon />
     </IconButton>
   )
 }
