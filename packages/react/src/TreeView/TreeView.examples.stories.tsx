@@ -77,6 +77,20 @@ const ControlledDraggableItem: React.FC<{id: string; children: React.ReactNode}>
 export const TrailingActions: StoryFn = () => {
   return (
     <Box>
+      <h2>Trailing Actions: Example with direct focus</h2>
+      <TreeView aria-label="Issues">
+        <TreeView.Item id="item-1">Item 1</TreeView.Item>
+        <TrailingAction id="item-2">
+          Item 2
+          <TreeView.SubTree>
+            <TreeView.Item id="item-2-sub-task-1">sub task 1</TreeView.Item>
+            <TreeView.Item id="item-2-sub-task-2">sub task 2</TreeView.Item>
+          </TreeView.SubTree>
+        </TrailingAction>
+        <TreeView.Item id="item-3">Item 3</TreeView.Item>
+      </TreeView>
+
+      <h2>Trailing Actions: 2</h2>
       <TreeView aria-label="Issues">
         <TreeView.Item id="item-1">Item 1</TreeView.Item>
         <TrailingAction id="item-2">
@@ -96,9 +110,21 @@ const TrailingAction: React.FC<{id: string; children: React.ReactNode}> = ({id, 
   const [expanded, setExpanded] = React.useState(false)
   const [dialogOpen, setDialogOpen] = React.useState(false)
 
+  const btnRef = React.useRef<HTMLButtonElement>(null)
+
+  const mockKeyboardShortcut = (event: React.KeyboardEvent) => {
+    btnRef.current?.focus()
+  }
+
   return (
     <>
-      <TreeView.Item id={id} className="treeview-item" expanded={expanded} onExpandedChange={setExpanded}>
+      <TreeView.Item
+        id={id}
+        className="treeview-item"
+        expanded={expanded}
+        onExpandedChange={setExpanded}
+        onKeyDown={mockKeyboardShortcut}
+      >
         {children}
         <TreeView.TrailingAction visible>
           <IconButton
@@ -114,6 +140,7 @@ const TrailingAction: React.FC<{id: string; children: React.ReactNode}> = ({id, 
             onClick={() => {
               setDialogOpen(true)
             }}
+            ref={btnRef}
           />
         </TreeView.TrailingAction>
       </TreeView.Item>

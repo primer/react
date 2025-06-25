@@ -162,6 +162,7 @@ export type TreeViewItemProps = {
   expanded?: boolean | null
   onExpandedChange?: (expanded: boolean) => void
   onSelect?: (event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => void
+  onKeyDown?: (event: React.KeyboardEvent<HTMLElement>) => void
   className?: string
 }
 
@@ -179,6 +180,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
       className,
       'aria-label': ariaLabel,
       'aria-labelledby': ariaLabelledby,
+      onKeyDown,
     },
     ref,
   ) => {
@@ -252,6 +254,11 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
             event.stopPropagation()
             setIsExpandedWithCache(false)
             break
+          case 'u':
+            if (!event.metaKey || !event.shiftKey || !onKeyDown) return
+            // If the user presses `Shift + Meta + U`
+            onKeyDown(event)
+            break
         }
       },
       [onSelect, setIsExpandedWithCache, toggle],
@@ -280,7 +287,6 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
           className={clsx('PRIVATE_TreeView-item', className, classes.TreeViewItem)}
           ref={ref as React.ForwardedRef<HTMLLIElement>}
           tabIndex={0}
-          data-another="123"
           id={itemId}
           role="treeitem"
           aria-label={ariaLabel}
