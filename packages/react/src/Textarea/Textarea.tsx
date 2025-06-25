@@ -42,6 +42,10 @@ export type TextareaProps = {
    * The maximum height of the Textarea
    */
   maxHeight?: number
+  /**
+   * CSS styles to apply to the Textarea
+   */
+  style?: React.CSSProperties
 } & TextareaHTMLAttributes<HTMLTextAreaElement> &
   SxProp
 
@@ -65,6 +69,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
       className,
       minHeight,
       maxHeight,
+      style,
       ...rest
     }: TextareaProps,
     ref,
@@ -89,8 +94,9 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
           cols={cols}
           className={classes.TextArea}
           style={{
-            minHeight: minHeight,
-            maxHeight: maxHeight,
+            minHeight,
+            maxHeight,
+            ...style,
           }}
           {...rest}
         />
