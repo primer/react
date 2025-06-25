@@ -1,5 +1,5 @@
 import React from 'react'
-import type {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react-vite'
 import {ActionList} from '.'
 import {Item} from './Item'
 import {LinkItem} from './LinkItem'

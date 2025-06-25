@@ -1,4 +1,4 @@
-import type {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react-vite'
 import {BaseStyles, ThemeProvider, Button} from '..'
 import Box from '../Box'
 import Link from '../Link'

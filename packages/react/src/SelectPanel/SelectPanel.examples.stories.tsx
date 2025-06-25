@@ -1,6 +1,6 @@
 import React, {useState, useMemo} from 'react'
 import Box from '../Box'
-import type {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react-vite'
 import {Button} from '../Button'
 import type {ItemInput} from '../deprecated/ActionList/List'
 import {SelectPanel} from './SelectPanel'

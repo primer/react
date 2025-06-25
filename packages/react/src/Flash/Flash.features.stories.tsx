@@ -1,4 +1,4 @@
-import type {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react-vite'
 import Flash from './Flash'
 import Octicon from '../Octicon'
 import {AlertIcon, CheckCircleIcon, InfoIcon, XIcon} from '@primer/octicons-react'

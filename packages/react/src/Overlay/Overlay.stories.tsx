@@ -1,5 +1,5 @@
 import {useState, useRef, type ComponentProps} from 'react'
-import type {Args, Meta} from '@storybook/react'
+import type {Args, Meta} from '@storybook/react-vite'
 import {XIcon} from '@primer/octicons-react'
 import {Button, Text, useFocusTrap, Box, IconButton} from '..'
 import Overlay from '../Overlay'
