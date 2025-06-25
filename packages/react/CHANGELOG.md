@@ -1,5 +1,55 @@
 # @primer/react
 
+## 37.27.0
+
+### Minor Changes
+
+- [#6116](https://github.com/primer/react/pull/6116) [`4cca0e9`](https://github.com/primer/react/commit/4cca0e9394281134a5bd558c24a50a16d48f4a5b) Thanks [@TylerJDev](https://github.com/TylerJDev)! - ActionList: Add new prop `disableFocusZone` to disable the default focus zone provided
+
+- [#6090](https://github.com/primer/react/pull/6090) [`7bbdcab`](https://github.com/primer/react/commit/7bbdcabef99a10055788ff0dbfca5cef2628acbb) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove the CSS modules feature flag from the ActionList and related components
+
+- [#6183](https://github.com/primer/react/pull/6183) [`a5f7928`](https://github.com/primer/react/commit/a5f792882af0220b8a16e7ef17545c206d67cb00) Thanks [@TylerJDev](https://github.com/TylerJDev)! - SelectPanel: Add `align` prop to `SelectPanel` which determines the alignment of the panel relative to the anchor
+
+- [#6169](https://github.com/primer/react/pull/6169) [`15f942d`](https://github.com/primer/react/commit/15f942df38dfd938112cb69dbd22a98aa4028b21) Thanks [@hussam-i-am](https://github.com/hussam-i-am)! - fix(ProgressBar): pass-through style props
+
+### Patch Changes
+
+- [#6190](https://github.com/primer/react/pull/6190) [`613a362`](https://github.com/primer/react/commit/613a362e59dce28b7d771f668e0150a20d9076c0) Thanks [@llastflowers](https://github.com/llastflowers)! - fix Banner spacing / vertical alignment issue
+
+- [#6170](https://github.com/primer/react/pull/6170) [`e4f0fc6`](https://github.com/primer/react/commit/e4f0fc6b1eba68ab703119cee479000a97c88e0d) Thanks [@llastflowers](https://github.com/llastflowers)! - Update SelectPanel so that content isn't hidden behind mobile keyboard
+
+- [#5829](https://github.com/primer/react/pull/5829) [`72ae1e2`](https://github.com/primer/react/commit/72ae1e2caebadbdf87deda1f80b16cc99b2e2b4c) Thanks [@maraisr](https://github.com/maraisr)! - feat(UnderlineNav): Now supports variant 'inset' and 'flush' that allow for contextual horizontally aligned spacing
+
+- [#6108](https://github.com/primer/react/pull/6108) [`df60cb0`](https://github.com/primer/react/commit/df60cb0e1b6e9a586be5b804176e42a1b2af9170) Thanks [@francinelucca](https://github.com/francinelucca)! - chore(ActionMenu): Add fullscreen sample story and variant prop
+
+- [#6210](https://github.com/primer/react/pull/6210) [`a8b871b`](https://github.com/primer/react/commit/a8b871b0c5b24e39ea7258b06159e6e11d8e753f) Thanks [@kelsey-myers](https://github.com/kelsey-myers)! - Adds notice announcements to SelectPanel
+
+- [#6200](https://github.com/primer/react/pull/6200) [`2317ca8`](https://github.com/primer/react/commit/2317ca8ebf7cf87bbc7f3da6b91d0a3912ea33f2) Thanks [@owenniblock](https://github.com/owenniblock)! - Fixes issue with Tooltip description id overriding existing description ids
+
+## 37.26.0
+
+### Minor Changes
+
+- [#6138](https://github.com/primer/react/pull/6138) [`3325ad6`](https://github.com/primer/react/commit/3325ad6d6b4624f6318d064bef589c4e82c47deb) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - Add disableFullscreenOnNarrow prop to SelectPanel for opt-out of fullscreen behavior
+
+### Patch Changes
+
+- [#6113](https://github.com/primer/react/pull/6113) [`96c4b48`](https://github.com/primer/react/commit/96c4b488d6ba59640690102c40abfc289e1eb854) Thanks [@llastflowers](https://github.com/llastflowers)! - add new line of CSS to separate underline from hover event
+
+- [#6146](https://github.com/primer/react/pull/6146) [`6588cf2`](https://github.com/primer/react/commit/6588cf2a0379fa81f134562709e6b351ce190db3) Thanks [@TylerJDev](https://github.com/TylerJDev)! - ActionList: Ensures `aria-describedby` is applied to `ActionList.Item` when description is present
+
+- [#6111](https://github.com/primer/react/pull/6111) [`33b6bf1`](https://github.com/primer/react/commit/33b6bf19503d41efeff7654ca04873699a0f43c8) Thanks [@francinelucca](https://github.com/francinelucca)! - fix(Stack): correctly forward a Ref
+
+- [#6139](https://github.com/primer/react/pull/6139) [`091165f`](https://github.com/primer/react/commit/091165f1a3341372a8402177374e50e32ec34c71) Thanks [@francinelucca](https://github.com/francinelucca)! - fix(SelectPanel): update input fontSize to 16 on small viewports on iOS
+
+- [#6124](https://github.com/primer/react/pull/6124) [`ad5e73b`](https://github.com/primer/react/commit/ad5e73b8655e1a5673bac96b091a57d954643599) Thanks [@joshblack](https://github.com/joshblack)! - Update Select to correctly merge classes when className is provided
+
+- [#5897](https://github.com/primer/react/pull/5897) [`6df6cbf`](https://github.com/primer/react/commit/6df6cbf0a7a3db59f0c8b469b778ee91c0e74434) Thanks [@mperrotti](https://github.com/mperrotti)! - Updates Dialog to only show border between body and footer when the body scrolls.
+
+- [#6129](https://github.com/primer/react/pull/6129) [`1a15bac`](https://github.com/primer/react/commit/1a15bac413e56cd075a6a10f777b6350f938757b) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - UnderlineNav.Item accepts className prop without overriding existing styling
+
+- [#6125](https://github.com/primer/react/pull/6125) [`91b3c71`](https://github.com/primer/react/commit/91b3c7177e2e5a7d7a9b37d62680d0cf3f1a12f9) Thanks [@francinelucca](https://github.com/francinelucca)! - fix(DataTable): fix incorrect page numbers rendered bug
+
 ## 37.25.0
 
 ### Minor Changes

@@ -169,6 +169,24 @@ test.describe('UnderlineNav', () => {
     }
   })
 
+  test.describe('Variant flush', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('Variant flush @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-underlinenav-features--variant-flush',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          // Default state
+          expect(await page.screenshot()).toMatchSnapshot(`UnderlineNav.VariantFlush.${theme}.png`)
+        })
+      })
+    }
+  })
+
   test.describe('UnderlineNav Interactions', () => {
     for (const theme of themes) {
       test.describe(theme, () => {

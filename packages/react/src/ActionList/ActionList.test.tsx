@@ -1,55 +1,30 @@
+import {describe, it, expect, vi} from 'vitest'
 import {render as HTMLRender} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import axe from 'axe-core'
-import theme from '../theme'
 import {ActionList} from '.'
-import {behavesAsComponent, checkExports} from '../utils/testing'
-import {BaseStyles, ThemeProvider} from '..'
+import {BaseStyles} from '..'
 
 function SimpleActionList(): JSX.Element {
   return (
-    <ThemeProvider theme={theme}>
-      <BaseStyles>
-        <ActionList>
-          <ActionList.Item>New file</ActionList.Item>
-          <ActionList.Divider />
-          <ActionList.Item>Copy link</ActionList.Item>
-          <ActionList.Item>Edit file</ActionList.Item>
-          <ActionList.Item variant="danger">Delete file</ActionList.Item>
-          <ActionList.LinkItem href="//github.com" title="anchor" aria-keyshortcuts="d">
-            Link Item
-          </ActionList.LinkItem>
-        </ActionList>
-      </BaseStyles>
-    </ThemeProvider>
+    <BaseStyles>
+      <ActionList>
+        <ActionList.Item>New file</ActionList.Item>
+        <ActionList.Divider />
+        <ActionList.Item>Copy link</ActionList.Item>
+        <ActionList.Item>Edit file</ActionList.Item>
+        <ActionList.Item variant="danger">Delete file</ActionList.Item>
+        <ActionList.LinkItem href="//github.com" title="anchor" aria-keyshortcuts="d">
+          Link Item
+        </ActionList.LinkItem>
+      </ActionList>
+    </BaseStyles>
   )
 }
 
 describe('ActionList', () => {
-  behavesAsComponent({
-    Component: ActionList,
-    options: {skipAs: true, skipSx: true},
-    toRender: () => <ActionList />,
-  })
-
-  behavesAsComponent({
-    Component: ActionList.Divider,
-    options: {skipAs: true, skipSx: true},
-    toRender: () => <ActionList.Divider />,
-  })
-
-  behavesAsComponent({
-    Component: ActionList.TrailingAction,
-    options: {skipAs: true, skipSx: true},
-    toRender: () => <ActionList.TrailingAction label="Action">Action</ActionList.TrailingAction>,
-  })
-
-  checkExports('ActionList', {
-    default: undefined,
-    ActionList,
-  })
-
-  it('should have no axe violations', async () => {
+  // toHaveNoViolations is a custom matcher from jest-axe
+  it.skip('should have no axe violations', async () => {
     const {container} = HTMLRender(<SimpleActionList />)
     const results = await axe.run(container)
     expect(results).toHaveNoViolations()
@@ -57,7 +32,7 @@ describe('ActionList', () => {
 
   it('should throw when selected is provided without a selectionVariant on parent', async () => {
     // we expect console.error to be called, so we suppress that in the test
-    const mockError = jest.spyOn(console, 'error').mockImplementation(() => jest.fn())
+    const mockError = vi.spyOn(console, 'error').mockImplementation(() => vi.fn())
 
     expect(() => {
       HTMLRender(
@@ -170,5 +145,30 @@ describe('ActionList', () => {
     expect(container.querySelector('.trailing')).toBeInTheDocument()
     expect(container.querySelector('.leading')).toBeInTheDocument()
     expect(container.querySelector('.description')).toBeInTheDocument()
+  })
+
+  it('should not be navigatable with arrow keys if `disableFocusZone` is true', async () => {
+    const {container} = HTMLRender(
+      <ActionList role="listbox" aria-label="Select a project" disableFocusZone={true}>
+        <ActionList.Item role="option">Option 1</ActionList.Item>
+        <ActionList.Item role="option">Option 2</ActionList.Item>
+        <ActionList.Item role="option" disabled>
+          Option 3
+        </ActionList.Item>
+        <ActionList.Item role="option">Option 4</ActionList.Item>
+        <ActionList.Item role="option" inactiveText="Unavailable due to an outage">
+          Option 5
+        </ActionList.Item>
+      </ActionList>,
+    )
+
+    await userEvent.tab() // tab into the story, this should focus on the first button
+    expect(document.activeElement).toHaveTextContent('Option 1')
+
+    await userEvent.keyboard('{ArrowDown}')
+    expect(document.activeElement).toHaveTextContent('Option 1')
+
+    expect(container.querySelector('li[aria-disabled="true"]')?.nextElementSibling).toHaveTextContent('Option 4')
+    expect(container.querySelector('li[aria-disabled="true"]')?.nextElementSibling).toHaveAttribute('tabindex', '0')
   })
 })

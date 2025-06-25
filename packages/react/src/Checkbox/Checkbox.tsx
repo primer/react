@@ -81,6 +81,7 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
 
     useLayoutEffect(() => {
       if (checkboxRef.current) {
+        // eslint-disable-next-line react-compiler/react-compiler
         checkboxRef.current.indeterminate = indeterminate || false
       }
     }, [indeterminate, checked, checkboxRef])

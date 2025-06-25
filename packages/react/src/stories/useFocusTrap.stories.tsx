@@ -1,10 +1,9 @@
 import React, {useCallback, useEffect} from 'react'
 import type {Meta} from '@storybook/react'
-import styled, {createGlobalStyle} from 'styled-components'
 
 import {BaseStyles, Box, Button, Flash, Text, ThemeProvider} from '..'
 import {useFocusTrap} from '../hooks/useFocusTrap'
-import {themeGet} from '@styled-system/theme-get'
+import classes from './FocusTrapStories.module.css'
 
 export default {
   title: 'Hooks/useFocusTrap',
@@ -21,23 +20,28 @@ export default {
   ],
 } as Meta
 
-// NOTE: the below styles are solely intended as a visual aid for
-// this Storybook story, but they're not recommended for a real site!
-const HelperGlobalStyling = createGlobalStyle`
-  *:focus {
-    outline: 2px solid ${themeGet('colors.auto.blue.3')} !important;
-  }
-  [data-focus-trap='active'] {
-    background-color: ${themeGet('colors.auto.green.2')}
-  }
-  [data-focus-trap='suspended'] {
-    background-color: ${themeGet('colors.auto.yellow.2')}
-  }
-`
+// Helper styles for visual aid in this story
+const HelperGlobalStyling = () => (
+  <style>
+    {`
+      *:focus {
+        outline: 2px solid var(--bgColor-accent-emphasis) !important;
+      }
+      [data-focus-trap='active'] {
+        background-color: var(--bgColor-success-muted);
+      }
+      [data-focus-trap='suspended'] {
+        background-color: var(--bgColor-attention-muted);
+      }
+    `}
+  </style>
+)
 
-const MarginButton = styled(Button)`
-  margin: ${themeGet('space.1')} 0;
-`
+const MarginButton = ({children, ...props}: React.ComponentProps<typeof Button>) => (
+  <Button className={classes.MarginButton} {...props}>
+    {children}
+  </Button>
+)
 
 export const FocusTrap = () => {
   const [trapEnabled, setTrapEnabled] = React.useState(false)

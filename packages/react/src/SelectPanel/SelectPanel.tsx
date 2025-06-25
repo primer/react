@@ -20,7 +20,7 @@ import useSafeTimeout from '../hooks/useSafeTimeout'
 import type {FilteredActionListLoadingType} from '../FilteredActionList/FilteredActionListLoaders'
 import {FilteredActionListLoadingTypes} from '../FilteredActionList/FilteredActionListLoaders'
 import {useFeatureFlag} from '../FeatureFlags'
-import {announce} from '@primer/live-region-element'
+import {announce, announceFromElement} from '@primer/live-region-element'
 import classes from './SelectPanel.module.css'
 import {clsx} from 'clsx'
 import {heightMap} from '../Overlay/Overlay'
@@ -115,7 +115,7 @@ type SelectPanelVariantProps = {variant?: 'anchored'; onCancel?: () => void} | {
 
 export type SelectPanelProps = SelectPanelBaseProps &
   Omit<FilteredActionListProps, 'selectionVariant' | 'variant'> &
-  Pick<AnchoredOverlayProps, 'open' | 'height' | 'width'> &
+  Pick<AnchoredOverlayProps, 'open' | 'height' | 'width' | 'align'> &
   AnchoredOverlayWrapperAnchorProps &
   (SelectPanelSingleSelection | SelectPanelMultiSelection) &
   SelectPanelVariantProps
@@ -141,7 +141,7 @@ const doesItemsIncludeItem = (items: ItemInput[], item: ItemInput) => {
   return items.some(i => areItemsEqual(i, item))
 }
 
-const defaultRendorAnchor: NonNullable<SelectPanelProps['renderAnchor']> = props => {
+const defaultRenderAnchor: NonNullable<SelectPanelProps['renderAnchor']> = props => {
   const {children, ...rest} = props
   return (
     <Button trailingAction={TriangleDownIcon} {...rest}>
@@ -153,7 +153,7 @@ const defaultRendorAnchor: NonNullable<SelectPanelProps['renderAnchor']> = props
 function Panel({
   open,
   onOpenChange,
-  renderAnchor = defaultRendorAnchor,
+  renderAnchor = defaultRenderAnchor,
   anchorRef: externalAnchorRef,
   placeholder,
   placeholderText = 'Filter items',
@@ -182,6 +182,7 @@ function Panel({
   secondaryAction,
   showSelectedOptionsFirst = true,
   disableFullscreenOnNarrow,
+  align,
   ...listProps
 }: SelectPanelProps): JSX.Element {
   const titleId = useId()
@@ -200,6 +201,12 @@ function Panel({
   const [selectedOnSort, setSelectedOnSort] = useState<ItemInput[]>([])
   const [prevItems, setPrevItems] = useState<ItemInput[]>([])
   const [prevOpen, setPrevOpen] = useState(open)
+  const initialHeightRef = useRef(0)
+  const initialScaleRef = useRef(1)
+  const noticeRef = useRef<HTMLDivElement>(null)
+  const [isKeyboardVisible, setIsKeyboardVisible] = useState(false)
+  const [availablePanelHeight, setAvailablePanelHeight] = useState<number | undefined>(undefined)
+  const KEYBOARD_VISIBILITY_THRESHOLD = 10
 
   const usingModernActionList = useFeatureFlag('primer_react_select_panel_with_modern_action_list')
   const featureFlagFullScreenOnNarrow = useFeatureFlag('primer_react_select_panel_fullscreen_on_narrow')
@@ -345,6 +352,7 @@ function Panel({
     }
 
     // Only fire this effect if items have changed
+    // eslint-disable-next-line react-compiler/react-compiler
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [items])
 
@@ -378,25 +386,90 @@ function Panel({
     }
   }, [open, dataLoadedOnce, onFilterChange, filterValue, items, loadingManagedExternally, listContainerElement])
 
+  useEffect(() => {
+    if (!window.visualViewport || !open || !isNarrowScreenSize) {
+      return
+    }
+
+    initialHeightRef.current = window.visualViewport.height
+    initialScaleRef.current = window.visualViewport.scale
+
+    const handleViewportChange = debounce(() => {
+      if (window.visualViewport) {
+        const currentScale = window.visualViewport.scale
+        const isZooming = currentScale !== initialScaleRef.current
+        if (!isZooming) {
+          const currentHeight = window.visualViewport.height
+          const keyboardVisible = initialHeightRef.current - currentHeight > KEYBOARD_VISIBILITY_THRESHOLD
+          setIsKeyboardVisible(keyboardVisible)
+          setAvailablePanelHeight(keyboardVisible ? currentHeight : undefined)
+        }
+      }
+    }, 100)
+
+    // keeping this check to satisfy typescript but need eslint to ignore redundancy rule
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    if (window.visualViewport) {
+      // Using visualViewport to more reliably detect viewport changes across different browsers, which specifically requires these listeners
+      // eslint-disable-next-line github/prefer-observers
+      window.visualViewport.addEventListener('resize', handleViewportChange)
+      // eslint-disable-next-line github/prefer-observers
+      window.visualViewport.addEventListener('scroll', handleViewportChange)
+    }
+
+    return () => {
+      if (window.visualViewport) {
+        window.visualViewport.removeEventListener('resize', handleViewportChange)
+        window.visualViewport.removeEventListener('scroll', handleViewportChange)
+      }
+      handleViewportChange.cancel()
+    }
+  }, [open, isNarrowScreenSize])
+
+  useEffect(() => {
+    const announceNotice = async () => {
+      if (!noticeRef.current) return
+      const liveRegion = document.querySelector('live-region')
+
+      liveRegion?.clear()
+
+      await announceFromElement(noticeRef.current, {
+        from: liveRegion ? liveRegion : undefined,
+      })
+    }
+
+    if (open && notice) {
+      announceNotice()
+    }
+  }, [notice, open])
+
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
   const onOpen: AnchoredOverlayProps['onOpen'] = useCallback(
     (gesture: Parameters<Exclude<AnchoredOverlayProps['onOpen'], undefined>>[0]) => onOpenChange(true, gesture),
     [onOpenChange],
   )
-  const onClose = useCallback(
-    (gesture: Parameters<Exclude<AnchoredOverlayProps['onClose'], undefined>>[0] | 'selection' | 'escape') => {
-      // Clicking outside should cancel the selection only on modals
-      if (variant === 'modal' && gesture === 'click-outside') {
-        onCancel?.()
-      }
-      onOpenChange(false, gesture)
-    },
-    [onOpenChange, variant, onCancel],
-  )
 
   const onCancelRequested = useCallback(() => {
     onOpenChange(false, 'cancel')
   }, [onOpenChange])
+
+  const onClose = useCallback(
+    (
+      gesture: Parameters<Exclude<AnchoredOverlayProps['onClose'], undefined>>[0] | 'selection' | 'escape' | 'close',
+    ) => {
+      // Clicking outside should cancel the selection only on modals
+      if (variant === 'modal' && gesture === 'click-outside') {
+        onCancel?.()
+      }
+      if (gesture === 'close') {
+        onCancel?.()
+        onCancelRequested()
+      } else {
+        onOpenChange(false, gesture)
+      }
+    },
+    [onOpenChange, variant, onCancel, onCancelRequested],
+  )
 
   const renderMenuAnchor = useMemo(() => {
     if (renderAnchor === null) {
@@ -575,10 +648,6 @@ function Panel({
     }
   }
 
-  // because of instant selection, canceling on single select is the same as closing the panel, no onCancel needed
-  const showXCloseIcon =
-    variant === 'modal' || ((onCancel !== undefined || !isMultiSelectVariant(selected)) && usingFullScreenOnNarrow)
-
   // We add permanent save and cancel buttons on:
   // - modals
   const showPermanentCancelSaveButtons = variant === 'modal'
@@ -622,11 +691,19 @@ function Panel({
 
   const stretchSaveButton = showResponsiveSaveAndCloseButton && secondaryAction === undefined ? 'only-small' : 'never'
 
+  const showXCloseIcon = (onCancel !== undefined || !isMultiSelectVariant(selected)) && usingFullScreenOnNarrow
+
+  const currentResponsiveVariant = useResponsiveValue(
+    usingFullScreenOnNarrow ? {regular: 'anchored', narrow: 'fullscreen'} : undefined,
+    'anchored',
+  )
+
   return (
     <>
       <AnchoredOverlay
         renderAnchor={renderMenuAnchor}
         anchorRef={anchorRef}
+        align={align}
         open={open}
         onOpen={onOpen}
         onClose={onClose}
@@ -647,6 +724,12 @@ function Panel({
             '--max-height': overlayProps?.maxHeight ? heightMap[overlayProps.maxHeight] : heightMap['large'],
             /* override AnchoredOverlay position */
             transform: variant === 'modal' ? 'translate(-50%, -50%)' : undefined,
+            // set maxHeight based on calculated availablePanelHeight when keyboard is visible
+            ...(isKeyboardVisible
+              ? {
+                  maxHeight: availablePanelHeight !== undefined ? `${availablePanelHeight}px` : 'auto',
+                }
+              : {}),
           } as React.CSSProperties,
         }}
         focusTrapSettings={focusTrapSettings}
@@ -657,9 +740,11 @@ function Panel({
         variant={usingFullScreenOnNarrow ? {regular: 'anchored', narrow: 'fullscreen'} : undefined}
         pinPosition={!height}
         className={classes.Overlay}
+        displayCloseButton={showXCloseIcon}
+        closeButtonProps={{'aria-label': 'Cancel and close'}}
       >
         <div className={classes.Wrapper} data-variant={variant}>
-          <div className={classes.Header}>
+          <div className={classes.Header} data-variant={currentResponsiveVariant}>
             <div>
               <Heading as="h1" id={titleId} className={classes.Title}>
                 {title}
@@ -670,7 +755,8 @@ function Panel({
                 </div>
               ) : null}
             </div>
-            {showXCloseIcon ? (
+            {/* AnchoredOverlay displays the close button on narrow screens */}
+            {variant === 'modal' && !isNarrowScreenSize ? (
               <IconButton
                 type="button"
                 variant="invisible"
@@ -685,7 +771,7 @@ function Panel({
             ) : null}
           </div>
           {notice && (
-            <div aria-live="polite" data-variant={notice.variant} className={classes.Notice}>
+            <div ref={noticeRef} data-variant={notice.variant} className={classes.Notice}>
               {iconForNoticeVariant[notice.variant]}
               <div>{notice.text}</div>
             </div>

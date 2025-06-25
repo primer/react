@@ -1,4 +1,5 @@
 import {render, screen} from '@testing-library/react'
+import {describe, expect, it, test} from 'vitest'
 import {InlineMessage} from '../InlineMessage'
 
 describe('InlineMessage', () => {
