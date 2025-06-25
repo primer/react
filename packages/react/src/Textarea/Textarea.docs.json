@@ -101,7 +101,7 @@
     {
       "name": "minHeight",
       "type": "number",
-      "description": "The minimum height of the textarea",
+      "description": "The minimum height of the textarea"
     },
     {
       "name": "maxHeight",
