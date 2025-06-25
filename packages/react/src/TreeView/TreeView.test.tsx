@@ -321,9 +321,12 @@ describe('Markup', () => {
 
     // Move focus to tree
     const item1 = getByRole('treeitem', {name: /Item 1/})
-    const toggle = item1.querySelector('.PRIVATE_TreeView-item-toggle')
+    const toggle = item1.querySelector('.PRIVATE_TreeView-item-toggle') as HTMLElement
     await act(async () => {
-      await user.click(toggle!)
+      // Note: calling `.click()` directly here since the userEvent.click()
+      // warns about it not being a known focusable element. This should be a
+      // valid pattern based on our TreeView guidelines.
+      toggle.click()
     })
 
     // Focus should be on current treeitem
@@ -1490,6 +1493,8 @@ describe('Asynchronous loading', () => {
   })
 
   it('moves focus to parent item after closing error dialog', async () => {
+    vi.useFakeTimers()
+
     function TestTree() {
       const [error, setError] = React.useState('Test error')
 
@@ -1527,15 +1532,20 @@ describe('Asynchronous loading', () => {
     })
 
     // Press esc to close error dialog
-    fireEvent.keyDown(document.activeElement || document.body, {key: 'Escape'})
+    await act(async () => {
+      await userEvent.keyboard('{Escape}')
+    })
 
     // Dialog should not be visible
     expect(dialog).not.toBeVisible()
 
-    await vi.waitFor(() => {
-      // Parent item should be focused
-      expect(parentItem).toHaveFocus()
+    // console.log(vi.getTimerCount())
+    act(() => {
+      vi.runAllTimers()
     })
+
+    // Parent item should be focused
+    expect(parentItem).toHaveFocus()
   })
 
   it('ignores arrow keys when error dialog is open', async () => {
