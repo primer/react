@@ -73,6 +73,9 @@ export default defineConfig({
       'src/internal/utils/**/*.test.?(c|m)[jt]s?(x)',
       'src/live-region/**/*.test.?(c|m)[jt]s?(x)',
       'src/utils/**/*.test.?(c|m)[jt]s?(x)',
+
+      'src/Header/**/*.test.?(c|m)[jt]s?(x)',
+      'src/Hidden/**/*.test.?(c|m)[jt]s?(x)',
     ],
     setupFiles: ['config/vitest/setup.ts'],
     css: {
