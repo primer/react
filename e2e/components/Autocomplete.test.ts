@@ -58,6 +58,7 @@ const stories: Array<{title: string; id: string; setup: (page: Page) => Promise<
       await page.keyboard.press('Tab')
       await page.keyboard.press('Enter')
       await expect(page.getByRole('dialog')).toBeVisible()
+      await page.getByText('Default label').waitFor()
       await page.keyboard.press('Tab')
       await page.keyboard.press('D')
     },
