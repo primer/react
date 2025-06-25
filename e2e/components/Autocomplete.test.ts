@@ -2,7 +2,7 @@ import {test, expect, type Page} from '@playwright/test'
 import {visit} from '../test-helpers/storybook'
 import {themes} from '../test-helpers/themes'
 
-const stories: Array<{title: string; id: string; setup: (page: Page) => void}> = [
+const stories: Array<{title: string; id: string; setup: (page: Page) => Promise<void>}> = [
   {
     title: 'Default',
     id: 'components-autocomplete--default',
@@ -118,7 +118,7 @@ test.describe('Autocomplete', () => {
               },
             })
 
-            story.setup(page)
+            await story.setup(page)
 
             await expect(page).toHaveScreenshot(`Autocomplete.${story.title}.${theme}.png`, {animations: 'disabled'})
           })
@@ -131,7 +131,7 @@ test.describe('Autocomplete', () => {
               },
             })
 
-            story.setup(page)
+            await story.setup(page)
 
             await expect(page).toHaveNoViolations({
               rules: {
