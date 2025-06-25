@@ -162,6 +162,7 @@ export type TreeViewItemProps = {
   expanded?: boolean | null
   onExpandedChange?: (expanded: boolean) => void
   onSelect?: (event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => void
+  onKeyDown?: (event: React.KeyboardEvent<HTMLElement>) => void
   className?: string
 }
 
@@ -179,6 +180,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
       className,
       'aria-label': ariaLabel,
       'aria-labelledby': ariaLabelledby,
+      onKeyDown,
     },
     ref,
   ) => {
@@ -186,6 +188,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
       leadingAction: LeadingAction,
       leadingVisual: LeadingVisual,
       trailingVisual: TrailingVisual,
+      trailingAction: TrailingAction,
     })
     const {expandedStateCache} = React.useContext(RootContext)
     const labelId = useId()
@@ -250,6 +253,11 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
             event.preventDefault()
             event.stopPropagation()
             setIsExpandedWithCache(false)
+            break
+          case 'u':
+            if (!event.metaKey || !event.shiftKey || !onKeyDown) return
+            // If the user presses `Shift + Meta + U`
+            onKeyDown(event)
             break
         }
       },
@@ -364,6 +372,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
               </span>
               {slots.trailingVisual}
             </div>
+            {slots.trailingAction}
           </div>
           {subTree}
         </li>
@@ -671,6 +680,42 @@ const LeadingAction: React.FC<TreeViewVisualProps> = props => {
 
 LeadingAction.displayName = 'TreeView.LeadingAction'
 // ----------------------------------------------------------------------------
+// TreeView.TrailingAction
+
+export type TreeViewTrailingAction = {
+  children: React.ReactNode | ((props: {isExpanded: boolean}) => React.ReactNode)
+  // Provide an accessible name for the visual. This should provide information
+  // about what the visual indicates or represents
+  label?: string
+  visible?: boolean
+}
+
+const TrailingAction: React.FC<TreeViewTrailingAction> = props => {
+  const {isExpanded} = React.useContext(ItemContext)
+  const children = typeof props.children === 'function' ? props.children({isExpanded}) : props.children
+  return (
+    <>
+      <div className={clsx('PRIVATE_VisuallyHidden', classes.TreeViewVisuallyHidden)} aria-hidden={true}>
+        {props.label}
+      </div>
+      <div
+        className={clsx('PRIVATE_TreeView-item-trailing-action', classes.TreeViewItemTrailingAction)}
+        aria-hidden={true}
+        onClick={event =>
+          // Prevent focus event from bubbling up to parent items
+          // This is needed to prevent the TreeView from interfering with trailing actions
+          event.stopPropagation()
+        }
+        onKeyDown={event => event.stopPropagation()}
+      >
+        {children}
+      </div>
+    </>
+  )
+}
+
+TrailingAction.displayName = 'TreeView.TrailingAction'
+// ----------------------------------------------------------------------------
 // TreeView.DirectoryIcon
 
 const DirectoryIcon = () => {
@@ -739,6 +784,7 @@ export const TreeView = Object.assign(Root, {
   Item,
   SubTree,
   LeadingAction,
+  TrailingAction,
   LeadingVisual,
   TrailingVisual,
   DirectoryIcon,

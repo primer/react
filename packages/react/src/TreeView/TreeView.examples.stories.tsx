@@ -1,9 +1,10 @@
-import {GrabberIcon} from '@primer/octicons-react'
+import {GearIcon, GrabberIcon} from '@primer/octicons-react'
 import type {Meta, StoryFn} from '@storybook/react'
 import React from 'react'
 import Box from '../Box'
 import {TreeView} from './TreeView'
 import {IconButton} from '../Button'
+import {Dialog} from '../Dialog/Dialog'
 
 const meta: Meta = {
   title: 'Components/TreeView/Examples',
@@ -69,6 +70,93 @@ const ControlledDraggableItem: React.FC<{id: string; children: React.ReactNode}>
         </TreeView.LeadingAction>
         {children}
       </TreeView.Item>
+    </>
+  )
+}
+
+export const TrailingActions: StoryFn = () => {
+  return (
+    <Box>
+      <h2>Trailing Actions: Example with direct focus</h2>
+      <p>Press (Command + Shift + U) to focus the trailing action button</p>
+      <TreeView aria-label="Issues">
+        <TreeView.Item id="item-1">Item 1</TreeView.Item>
+        <TrailingAction id="item-2">
+          Item 2
+          <TreeView.SubTree>
+            <TreeView.Item id="item-2-sub-task-1">sub task 1</TreeView.Item>
+            <TreeView.Item id="item-2-sub-task-2">sub task 2</TreeView.Item>
+          </TreeView.SubTree>
+        </TrailingAction>
+        <TreeView.Item id="item-3">Item 3</TreeView.Item>
+      </TreeView>
+
+      <h2>Trailing Actions: Example with dialog</h2>
+      <p> Press (Command + Shift + U) to interact with the trailing action</p>
+      <TreeView aria-label="Issues">
+        <TreeView.Item id="item-1">Item 1</TreeView.Item>
+        <TrailingAction id="item-2" dialogOnOpen={true}>
+          Item 2
+          <TreeView.SubTree>
+            <TreeView.Item id="item-2-sub-task-1">sub task 1</TreeView.Item>
+            <TreeView.Item id="item-2-sub-task-2">sub task 2</TreeView.Item>
+          </TreeView.SubTree>
+        </TrailingAction>
+        <TreeView.Item id="item-3">Item 3</TreeView.Item>
+      </TreeView>
+    </Box>
+  )
+}
+
+const TrailingAction: React.FC<{id: string; children: React.ReactNode; dialogOnOpen?: boolean}> = ({
+  id,
+  dialogOnOpen,
+  children,
+}) => {
+  const [expanded, setExpanded] = React.useState(false)
+  const [dialogOpen, setDialogOpen] = React.useState(false)
+
+  const btnRef = React.useRef<HTMLButtonElement>(null)
+
+  const mockKeyboardShortcut = (event: React.KeyboardEvent) => {
+    if (!dialogOnOpen) btnRef.current?.focus()
+    if (dialogOnOpen) setDialogOpen(true)
+  }
+
+  return (
+    <>
+      <TreeView.Item
+        id={id}
+        className="treeview-item"
+        expanded={expanded}
+        onExpandedChange={setExpanded}
+        onKeyDown={mockKeyboardShortcut}
+      >
+        {children}
+        <TreeView.TrailingAction visible>
+          <IconButton
+            icon={GearIcon}
+            variant="invisible"
+            aria-label="Item settings"
+            className="treeview-leading-action"
+            draggable="true"
+            onDragStart={() => {
+              setExpanded(false)
+              // other drag logic to follow
+            }}
+            onClick={() => {
+              setDialogOpen(true)
+            }}
+            ref={btnRef}
+          />
+        </TreeView.TrailingAction>
+      </TreeView.Item>
+
+      {dialogOpen ? (
+        <Dialog title="My Dialog" onClose={() => setDialogOpen(false)}>
+          Dialog that opens when the trailing action is clicked.
+        </Dialog>
+      ) : null}
     </>
   )
 }
