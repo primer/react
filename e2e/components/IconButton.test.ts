@@ -51,6 +51,7 @@ const stories = [
     id: 'components-iconbutton-features--keybinding-hint-on-description',
     async setup(page: Page) {
       await page.keyboard.press('Tab') // focus on icon button
+      await page.getByText(/You have unread notifications/).waitFor({state: 'visible'})
     },
   },
   {
