@@ -1,4 +1,4 @@
-import type {StoryFn, Meta} from '@storybook/react'
+import type {StoryFn, Meta} from '@storybook/react-vite'
 import UnderlineNav from './UnderlineNav'
 import {Button} from '../../Button'
 

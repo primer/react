@@ -1,6 +1,6 @@
 import type React from 'react'
 import {useState} from 'react'
-import type {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react-vite'
 import {Box, FormControl} from '..'
 import type {TextInputProps} from '../TextInput'
 import TextInput from '../TextInput'

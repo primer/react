@@ -1,7 +1,7 @@
 import React from 'react'
 import ToggleSwitch from './ToggleSwitch'
 import {Box, Text} from '..'
-import {action} from '@storybook/addon-actions'
+import {action} from 'storybook/actions'
 import ToggleSwitchStoryWrapper from './ToggleSwitchStoryWrapper'
 
 export default {

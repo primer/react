@@ -1,4 +1,4 @@
-import type {Meta, StoryFn} from '@storybook/react'
+import type {Meta, StoryFn} from '@storybook/react-vite'
 import type {ComponentProps} from '../utils/types'
 import Timeline from './Timeline'
 import Octicon from '../Octicon'

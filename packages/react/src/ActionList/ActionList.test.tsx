@@ -174,4 +174,32 @@ describe('ActionList', () => {
     expect(container.querySelector('li[aria-disabled="true"]')?.nextElementSibling).toHaveTextContent('Option 4')
     expect(container.querySelector('li[aria-disabled="true"]')?.nextElementSibling).toHaveAttribute('tabindex', '0')
   })
+
+  it('sets title correctly for Description component', () => {
+    const {container} = HTMLRender(
+      <ActionList>
+        <ActionList.Item>
+          Option 1<ActionList.Description truncate>Simple string description</ActionList.Description>
+        </ActionList.Item>
+        <ActionList.Item>
+          Option 2
+          <ActionList.Description truncate>
+            <span>Complex</span> content
+          </ActionList.Description>
+        </ActionList.Item>
+        <ActionList.Item>
+          Option 3
+          <ActionList.Description>
+            <span>Non-truncated</span> content
+          </ActionList.Description>
+        </ActionList.Item>
+      </ActionList>,
+    )
+
+    const descriptions = container.querySelectorAll('[data-component="ActionList.Description"]')
+
+    expect(descriptions[0]).toHaveAttribute('title', 'Simple string description')
+    expect(descriptions[1]).toHaveAttribute('title', 'Complex content')
+    expect(descriptions[2]).not.toHaveAttribute('title')
+  })
 })
