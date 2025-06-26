@@ -30,21 +30,24 @@ describe('ActionList', () => {
     expect(results).toHaveNoViolations()
   })
 
-  it('should throw when selected is provided without a selectionVariant on parent', async () => {
-    // we expect console.error to be called, so we suppress that in the test
-    const mockError = vi.spyOn(console, 'error').mockImplementation(() => vi.fn())
+  it('should warn when selected is provided without a selectionVariant on parent', async () => {
+    // we expect console.warn to be called, so we spy on that in the test
+    const spy = vi.spyOn(console, 'warn').mockImplementation(() => vi.fn())
 
-    expect(() => {
-      HTMLRender(
-        <ActionList showDividers role="listbox" aria-label="Select a project">
-          <ActionList.Item role="option" selected={true}>
-            Primer React
-          </ActionList.Item>
-        </ActionList>,
-      )
-    }).toThrow('For Item to be selected, ActionList or ActionList.Group needs to have a selectionVariant defined')
+    HTMLRender(
+      <ActionList showDividers role="listbox" aria-label="Select a project">
+        <ActionList.Item role="option" selected={true}>
+          Primer React
+        </ActionList.Item>
+      </ActionList>,
+    )
 
-    mockError.mockRestore()
+    expect(spy).toHaveBeenCalledWith(
+      'Warning:',
+      'For Item to be selected, ActionList or ActionList.Group should have a selectionVariant defined.',
+    )
+
+    spy.mockRestore()
   })
 
   it('should be navigatable with arrow keys for certain roles', async () => {
