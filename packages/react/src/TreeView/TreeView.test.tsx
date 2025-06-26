@@ -209,31 +209,39 @@ describe('Markup', () => {
   })
 
   it('should include `aria-expanded` when a SubTree contains content', async () => {
-    // const user = userEvent.setup()
-    // const {getByLabelText, getByText} = renderWithTheme(
-    // <TreeView aria-label="Test tree">
-    // <TreeView.Item id="item-1">
-    // Item 1
-    // <TreeView.SubTree>
-    // <TreeView.Item id="item-1-a">Item 1.a</TreeView.Item>
-    // <TreeView.Item id="item-1-b">Item 1.b</TreeView.Item>
-    // <TreeView.Item id="item-1-c">Item 1.c</TreeView.Item>
-    // </TreeView.SubTree>
-    // </TreeView.Item>
-    // <TreeView.Item id="item-2">
-    // Item 2
-    // <TreeView.SubTree />
-    // </TreeView.Item>
-    // </TreeView>,
-    // )
-    // let treeitem = getByLabelText(/Item 1/)
-    // expect(treeitem).toHaveAttribute('aria-expanded', 'false')
-    // await user.click(getByText(/Item 1/))
-    // expect(treeitem).toHaveAttribute('aria-expanded', 'true')
-    // treeitem = getByLabelText(/Item 2/)
-    // expect(treeitem).not.toHaveAttribute('aria-expanded')
-    // await user.click(getByText(/Item 2/))
-    // expect(treeitem).toHaveAttribute('aria-expanded', 'true')
+    const user = userEvent.setup()
+    const {getByLabelText, getByText} = renderWithTheme(
+      <TreeView aria-label="Test tree">
+        <TreeView.Item id="item-1">
+          Item 1
+          <TreeView.SubTree>
+            <TreeView.Item id="item-1-a">Item 1.a</TreeView.Item>
+            <TreeView.Item id="item-1-b">Item 1.b</TreeView.Item>
+            <TreeView.Item id="item-1-c">Item 1.c</TreeView.Item>
+          </TreeView.SubTree>
+        </TreeView.Item>
+        <TreeView.Item id="item-2">
+          Item 2
+          <TreeView.SubTree />
+        </TreeView.Item>
+      </TreeView>,
+    )
+
+    let treeitem = getByLabelText(/Item 1/)
+    expect(treeitem).toHaveAttribute('aria-expanded', 'false')
+
+    await act(async () => {
+      await user.click(getByText(/Item 1/))
+    })
+    expect(treeitem).toHaveAttribute('aria-expanded', 'true')
+
+    treeitem = getByLabelText(/Item 2/)
+    expect(treeitem).not.toHaveAttribute('aria-expanded')
+
+    await act(async () => {
+      await user.click(getByText(/Item 2/))
+    })
+    expect(treeitem).toHaveAttribute('aria-expanded', 'true')
   })
 
   it('should render with containIntrinsicSize', () => {
