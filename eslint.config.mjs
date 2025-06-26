@@ -4,6 +4,7 @@ import {fixupConfigRules, fixupPluginRules} from '@eslint/compat'
 import {FlatCompat} from '@eslint/eslintrc'
 import js from '@eslint/js'
 import eslintReact from '@eslint-react/eslint-plugin'
+import vitest from '@vitest/eslint-plugin'
 import {defineConfig, globalIgnores} from 'eslint/config'
 import githubPlugin from 'eslint-plugin-github'
 import jest from 'eslint-plugin-jest'
@@ -282,6 +283,28 @@ const config = defineConfig([
       'jest/expect-expect': 'off',
       'jest/no-conditional-expect': 'off',
       'jest/no-disabled-tests': 'off',
+    },
+  },
+
+  // eslint-plugin-vitest
+  {
+    files: ['**/*.test.{ts,tsx}'],
+    ignores: ['**/e2e/**'],
+    plugins: {
+      vitest,
+    },
+    rules: {
+      ...vitest.configs.recommended.rules,
+    },
+    settings: {
+      vitest: {
+        typecheck: true,
+      },
+    },
+    languageOptions: {
+      globals: {
+        ...vitest.environments.env.globals,
+      },
     },
   },
 
