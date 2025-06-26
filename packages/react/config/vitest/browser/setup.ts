@@ -1,5 +1,3 @@
-/* eslint-disable ssr-friendly/no-dom-globals-in-module-scope */
-
 import '@primer/primitives/dist/css/base/motion/motion.css'
 import '@primer/primitives/dist/css/base/size/size.css'
 import '@primer/primitives/dist/css/base/typography/typography.css'
@@ -33,6 +31,9 @@ beforeEach(() => {
 // @see https://react.dev/reference/react/act#error-the-current-testing-environment-is-not-configured-to-support-act
 globalThis.IS_REACT_ACT_ENVIRONMENT = true
 
+// eslint-disable-next-line ssr-friendly/no-dom-globals-in-module-scope
 document.documentElement.setAttribute('data-color-mode', 'auto')
+// eslint-disable-next-line ssr-friendly/no-dom-globals-in-module-scope
 document.documentElement.setAttribute('data-light-theme', 'light')
+// eslint-disable-next-line ssr-friendly/no-dom-globals-in-module-scope
 document.documentElement.setAttribute('data-dark-theme', 'dark')
