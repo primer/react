@@ -77,6 +77,7 @@ export default defineConfig({
       'src/Header/**/*.test.?(c|m)[jt]s?(x)',
       'src/Hidden/**/*.test.?(c|m)[jt]s?(x)',
       'src/Avatar/**/*.test.?(c|m)[jt]s?(x)',
+      'src/Label/**/*.test.?(c|m)[jt]s?(x)',
     ],
     setupFiles: ['config/vitest/setup.ts'],
     css: {

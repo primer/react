@@ -77,6 +77,7 @@ module.exports = {
     '<rootDir>/src/Header/',
     '<rootDir>/src/Hidden/',
     '<rootDir>/src/Avatar/',
+    '<rootDir>/src/Label/',
   ],
   transformIgnorePatterns: ['node_modules/(?!@github/[a-z-]+-element|@lit-labs/react|@oddbird/popover-polyfill)'],
 }
