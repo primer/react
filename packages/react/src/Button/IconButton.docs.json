@@ -107,7 +107,7 @@
       "name": "tooltipDirection",
       "type": "'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w' | 'nw'",
       "defaultValue": "'s'",
-      "description": "The direction of the tooltip. ",
+      "description": "The direction of the tooltip.",
       "required": false
     },
     {
