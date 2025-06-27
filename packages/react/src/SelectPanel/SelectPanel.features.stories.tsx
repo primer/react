@@ -853,3 +853,38 @@ export const WithInactiveItems = () => {
     </FormControl>
   )
 }
+
+const itemsWithDisabled: Items[] = items.slice()
+itemsWithDisabled[4].disabled = true
+
+export const WithDisabledItems = () => {
+  const [selected, setSelected] = useState<ItemInput[]>(itemsWithDisabled.slice(1, 3))
+  const [filter, setFilter] = useState('')
+  const filteredItems = itemsWithDisabled.filter(item => item.text?.toLowerCase().startsWith(filter.toLowerCase()))
+
+  const [open, setOpen] = useState(false)
+
+  return (
+    <FormControl>
+      <FormControl.Label>Labels</FormControl.Label>
+      <SelectPanel
+        title="Select labels"
+        placeholder="Select labels" // button text when no items are selected
+        subtitle="Use labels to organize issues and pull requests"
+        renderAnchor={({children, ...anchorProps}) => (
+          <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
+            {children}
+          </Button>
+        )}
+        open={open}
+        onOpenChange={setOpen}
+        items={filteredItems}
+        selected={selected}
+        onSelectedChange={setSelected}
+        onFilterChange={setFilter}
+        width="medium"
+        message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}
+      />
+    </FormControl>
+  )
+}
