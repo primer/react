@@ -340,6 +340,21 @@
         }
       }
     }
+
+    &:where([data-active]),
+    &:where([data-is-active-descendant]) {
+      background: transparent;
+
+      /* provides a visual indication of the current item for Windows high-contrast mode */
+      outline: 2px solid var(--control-transparent-bgColor-selected);
+
+      /* gray accent line */
+      &::after {
+        @mixin activeIndicatorLine;
+        /* stylelint-disable-next-line primer/colors */
+        background: var(--fgColor-muted);
+      }
+    }
   }
 
   /* Make sure that the first visible item isn't a divider */
