@@ -70,7 +70,7 @@ test.describe('SelectPanel', () => {
         await page.keyboard.press('Tab')
         await page.keyboard.press('Enter')
       }
-      expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`SelectPanel.${name}.${theme}${flag}.png`)
+      await expect(page).toHaveScreenshot(`SelectPanel.${name}.${theme}${flag}.png`)
     })
 
     test(`${name} axe @aat ${theme} ${flag}`, async ({page}) => {
@@ -100,15 +100,11 @@ test.describe('SelectPanel', () => {
 
     // windows high contrast mode: light
     await page.emulateMedia({forcedColors: 'active', colorScheme: 'light'})
-    expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
-      `SelectPanel-Default-forced-colors-light-modern-action-list--true.png`,
-    )
+    await expect(page).toHaveScreenshot(`SelectPanel-Default-forced-colors-light-modern-action-list--true.png`)
 
     // windows high contrast mode: dark
     await page.emulateMedia({forcedColors: 'active', colorScheme: 'dark'})
-    expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
-      `SelectPanel-Default-forced-colors-dark-modern-action-list--true.png`,
-    )
+    await expect(page).toHaveScreenshot(`SelectPanel-Default-forced-colors-dark-modern-action-list--true.png`)
   })
 
   test(`Default @vrt responsive width .modern-action-list--true .fullscreen-on-narrow--true`, async ({page}) => {
@@ -131,7 +127,7 @@ test.describe('SelectPanel', () => {
       await page.keyboard.press('Enter')
     }
 
-    expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
+    await expect(page).toHaveScreenshot(
       `SelectPanel-Default-responsive-width-light-modern-action-list--true-full-screen-on-narrow--true.png`,
     )
   })
@@ -156,8 +152,6 @@ test.describe('SelectPanel', () => {
       await page.keyboard.press('Enter')
     }
 
-    expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
-      `SelectPanel-features--with-notice-light-modern-action-list--true.png`,
-    )
+    await expect(page).toHaveScreenshot(`SelectPanel-features--with-notice-light-modern-action-list--true.png`)
   })
 })
