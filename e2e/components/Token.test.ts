@@ -67,7 +67,7 @@ test.describe('Token', () => {
             })
 
             // Default state
-            expect(await page.screenshot()).toMatchSnapshot(`Token.Default.${story.title}.${theme}.png`)
+            await expect(page).toHaveScreenshot(`Token.Default.${story.title}.${theme}.png`)
           })
         })
       }

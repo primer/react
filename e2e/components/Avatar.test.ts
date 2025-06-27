@@ -2,76 +2,43 @@ import {test, expect} from '@playwright/test'
 import {visit} from '../test-helpers/storybook'
 import {themes} from '../test-helpers/themes'
 
+const stories = [
+  {
+    title: 'Default',
+    id: 'components-avatar--default',
+  },
+  {
+    title: 'Size',
+    id: 'components-avatar-features--size',
+  },
+  {
+    title: 'Size Responsive',
+    id: 'components-avatar-features--size-responsive',
+  },
+  {
+    title: 'Square',
+    id: 'components-avatar-features--square',
+  },
+] as const
+
 test.describe('Avatar', () => {
-  test.describe('Default', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-avatar--default',
-            globals: {
-              colorScheme: theme,
-            },
+  for (const story of stories) {
+    test.describe(story.title, () => {
+      for (const theme of themes) {
+        test.describe(theme, () => {
+          test('default @vrt', async ({page}) => {
+            await visit(page, {
+              id: story.id,
+              globals: {
+                colorScheme: theme,
+              },
+            })
+
+            // Default state
+            await expect(page).toHaveScreenshot(`Avatar.${story.title}.${theme}.png`)
           })
-
-          // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`Avatar.Default.${theme}.png`)
         })
-      })
-    }
-  })
-
-  test.describe('Size', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-avatar-features--size',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`Avatar.Size.${theme}.png`)
-        })
-      })
-    }
-  })
-
-  test.describe('Size Responsive', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-avatar-features--size-responsive',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`Avatar.Size Responsive.${theme}.png`)
-        })
-      })
-    }
-  })
-
-  test.describe('Square', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-avatar-features--square',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`Avatar.Square.${theme}.png`)
-        })
-      })
-    }
-  })
+      }
+    })
+  }
 })

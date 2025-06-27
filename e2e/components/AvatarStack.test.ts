@@ -62,7 +62,7 @@ test.describe('AvatarStack', () => {
               },
             })
 
-            expect(await page.screenshot()).toMatchSnapshot(`AvatarStack.${story.title}.${theme}.png`)
+            await expect(page).toHaveScreenshot(`AvatarStack.${story.title}.${theme}.png`)
           })
 
           test('@aat', async ({page}) => {

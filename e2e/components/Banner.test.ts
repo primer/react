@@ -86,7 +86,7 @@ test.describe('Banner', () => {
             })
 
             // Default state
-            expect(await page.screenshot()).toMatchSnapshot(`Banner.${story.title}.${theme}.png`)
+            await expect(page).toHaveScreenshot(`Banner.${story.title}.${theme}.png`)
           })
         })
       }
@@ -103,7 +103,7 @@ test.describe('Banner', () => {
               width,
               height: 667,
             })
-            expect(await page.screenshot()).toMatchSnapshot(`Banner.${story.title}.${name}.png`)
+            await expect(page).toHaveScreenshot(`Banner.${story.title}.${name}.png`)
           })
         }
       }

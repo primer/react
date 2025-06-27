@@ -34,12 +34,12 @@ test.describe('BranchName', () => {
             })
 
             // Default state
-            expect(await page.screenshot()).toMatchSnapshot(`BranchName.${story.title}.${theme}.png`)
+            await expect(page).toHaveScreenshot(`BranchName.${story.title}.${theme}.png`)
 
             // Focus state
             if (story.focus) {
               await page.keyboard.press('Tab')
-              expect(await page.screenshot()).toMatchSnapshot(`BranchName.${story.title}.${theme}.focus.png`)
+              await expect(page).toHaveScreenshot(`BranchName.${story.title}.${theme}.focus.png`)
             }
           })
         })

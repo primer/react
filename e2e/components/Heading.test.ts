@@ -29,7 +29,7 @@ test.describe('Heading', () => {
         })
 
         // Default state
-        expect(await page.screenshot()).toMatchSnapshot(`Heading.${story.title}.png`)
+        await expect(page).toHaveScreenshot(`Heading.${story.title}.png`)
       })
     })
   }
