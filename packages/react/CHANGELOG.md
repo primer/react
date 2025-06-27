@@ -1,5 +1,17 @@
 # @primer/react
 
+## 37.28.0
+
+### Minor Changes
+
+- [#6211](https://github.com/primer/react/pull/6211) [`c99d42e`](https://github.com/primer/react/commit/c99d42e04e0f773ce4a43a98459393ac2780ab13) Thanks [@joshblack](https://github.com/joshblack)! - Add partial support for React Compiler to components
+
+### Patch Changes
+
+- [#6223](https://github.com/primer/react/pull/6223) [`4d85c34`](https://github.com/primer/react/commit/4d85c342e89aee344e2b87dba4dd13e59d5d3e4c) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - Fix ActionList.Description title attribute for non-string children with truncate
+
+- [#6235](https://github.com/primer/react/pull/6235) [`5446544`](https://github.com/primer/react/commit/5446544dee32f9d2a24d24bd5f3fe01846d5cf37) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - Prevent ActionList crash when selected prop is true without selectionVariant.
+
 ## 37.27.0
 
 ### Minor Changes
