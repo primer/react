@@ -2,7 +2,7 @@ import {test, expect} from '@playwright/test'
 import {visit} from '../test-helpers/storybook'
 import {themes} from '../test-helpers/themes'
 
-const stories: Array<{title: string; id: string; disableAnimations?: boolean}> = [
+const stories = [
   {
     title: 'Default',
     id: 'components-toggleswitch--default',
@@ -30,7 +30,6 @@ const stories: Array<{title: string; id: string; disableAnimations?: boolean}> =
   {
     title: 'Loading',
     id: 'components-toggleswitch-features--loading',
-    disableAnimations: true,
   },
   {
     title: 'Small',
@@ -40,7 +39,7 @@ const stories: Array<{title: string; id: string; disableAnimations?: boolean}> =
     title: 'With Caption',
     id: 'components-toggleswitch-features--with-caption',
   },
-]
+] as const
 
 test.describe('ToggleSwitch', () => {
   for (const story of stories) {
@@ -55,12 +54,7 @@ test.describe('ToggleSwitch', () => {
               },
             })
 
-            // Default state
-            if (story.disableAnimations) {
-              await expect(page).toHaveScreenshot(`ToggleSwitch.${story.title}.${theme}.png`, {animations: 'disabled'})
-            } else {
-              await expect(page).toHaveScreenshot(`ToggleSwitch.${story.title}.${theme}.png`)
-            }
+            await expect(page).toHaveScreenshot(`ToggleSwitch.${story.title}.${theme}.png`)
           })
         })
       }
