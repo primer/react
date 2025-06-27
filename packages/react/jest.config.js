@@ -54,6 +54,7 @@ module.exports = {
     '<rootDir>/src/ToggleSwitch/',
     '<rootDir>/src/Tooltip/',
     '<rootDir>/src/TooltipV2/',
+    '<rootDir>/src/TreeView/',
     '<rootDir>/src/Truncate/',
     '<rootDir>/src/UnderlineNav/',
     '<rootDir>/src/__tests__/BaseStyles.test.tsx',
