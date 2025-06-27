@@ -100,9 +100,7 @@ test.describe('SegmentedControl', () => {
               await page.keyboard.press('Tab')
               await page.keyboard.press('Enter')
               await page.keyboard.press('Shift+Tab')
-              await expect(page).toHaveScreenshot(
-                `SegmentedControl.${story.title}.${theme}.middle.selected.focus.png`,
-              )
+              await expect(page).toHaveScreenshot(`SegmentedControl.${story.title}.${theme}.middle.selected.focus.png`)
             }
           })
         })

@@ -2,7 +2,7 @@ import {test, expect} from '@playwright/test'
 import {visit} from '../test-helpers/storybook'
 import {themes} from '../test-helpers/themes'
 
-const stories = [
+const stories: Array<{title: string; id: string; disableAnimations?: boolean}> = [
   {
     title: 'Default',
     id: 'components-toggleswitch--default',
@@ -40,7 +40,7 @@ const stories = [
     title: 'With Caption',
     id: 'components-toggleswitch-features--with-caption',
   },
-] as const
+]
 
 test.describe('ToggleSwitch', () => {
   for (const story of stories) {
