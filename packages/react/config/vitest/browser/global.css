@@ -1,3 +1,5 @@
+/* stylelint-disable selector-pseudo-class-no-unknown */
+
 @import '@primer/primitives/dist/css/base/motion/motion.css';
 @import '@primer/primitives/dist/css/base/size/size.css';
 @import '@primer/primitives/dist/css/base/typography/typography.css';
@@ -23,6 +25,10 @@
 }
 
 body {
+  color: var(--fgColor-default);
+  background-color: var(--bgColor-default);
+  font-family: var(--fontStack-system);
+  line-height: var(--text-body-lineHeight-large);
   margin: 0;
 }
 
@@ -52,6 +58,7 @@ table {
 }
 
 [role='button']:focus:not(:focus-visible):not(:global(.focus-visible)),
+/* stylelint-disable-next-line selector-max-specificity */
 [role='tabpanel'][tabindex='0']:focus:not(:focus-visible):not(:global(.focus-visible)),
 button:focus:not(:focus-visible):not(:global(.focus-visible)),
 summary:focus:not(:focus-visible):not(:global(.focus-visible)),
@@ -63,11 +70,4 @@ a:focus:not(:focus-visible):not(:global(.focus-visible)) {
 [tabindex='0']:focus:not(:focus-visible):not(:global(.focus-visible)),
 details-dialog:focus:not(:focus-visible):not(:global(.focus-visible)) {
   outline: none;
-}
-
-body {
-  color: var(--fgColor-default);
-  background-color: var(--bgColor-default);
-  font-family: var(--fontStack-system);
-  line-height: 1.5;
 }

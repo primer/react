@@ -3,3 +3,4 @@ docs/public/**/*.css
 **/lib/**/*.css
 **/dist/**/*.css
 **/.next/**/*.css
+**/storybook-static/**
