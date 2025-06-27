@@ -854,10 +854,12 @@ export const WithInactiveItems = () => {
   )
 }
 
-const itemsWithDisabled: Items[] = items.slice()
-itemsWithDisabled[4].disabled = true
-
 export const WithDisabledItems = () => {
+  const itemsWithDisabled = items.map<Items>((item: Items, index: number) => ({
+    ...item,
+    disabled: index === 4 ? true : item.disabled,
+  }))
+
   const [selected, setSelected] = useState<ItemInput[]>(itemsWithDisabled.slice(1, 3))
   const [filter, setFilter] = useState('')
   const filteredItems = itemsWithDisabled.filter(item => item.text?.toLowerCase().startsWith(filter.toLowerCase()))
