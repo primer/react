@@ -34,9 +34,6 @@ exports[`NavList > renders a simple list 1`] = `
             >
               Home
             </span>
-            <span
-              class="prc-ActionList-InactiveWarning--0rPr"
-            />
           </span>
         </a>
       </li>
@@ -64,9 +61,6 @@ exports[`NavList > renders a simple list 1`] = `
             >
               About
             </span>
-            <span
-              class="prc-ActionList-InactiveWarning--0rPr"
-            />
           </span>
         </a>
       </li>
@@ -94,9 +88,6 @@ exports[`NavList > renders a simple list 1`] = `
             >
               Contact
             </span>
-            <span
-              class="prc-ActionList-InactiveWarning--0rPr"
-            />
           </span>
         </a>
       </li>
@@ -164,9 +155,6 @@ exports[`NavList > renders with groups 1`] = `
                 >
                   Getting started
                 </span>
-                <span
-                  class="prc-ActionList-InactiveWarning--0rPr"
-                />
               </span>
             </a>
           </li>
@@ -221,9 +209,6 @@ exports[`NavList > renders with groups 1`] = `
                 >
                   Avatar
                 </span>
-                <span
-                  class="prc-ActionList-InactiveWarning--0rPr"
-                />
               </span>
             </a>
           </li>
@@ -290,9 +275,6 @@ exports[`NavList.Item with NavList.SubNav > does not have active styles if SubNa
                 />
               </svg>
             </span>
-            <span
-              class="prc-ActionList-InactiveWarning--0rPr"
-            />
           </span>
         </button>
         <ul
@@ -326,9 +308,6 @@ exports[`NavList.Item with NavList.SubNav > does not have active styles if SubNa
                 >
                   Sub Item
                 </span>
-                <span
-                  class="prc-ActionList-InactiveWarning--0rPr"
-                />
               </span>
             </a>
           </li>
@@ -396,9 +375,6 @@ exports[`NavList.Item with NavList.SubNav > has active styles if SubNav contains
                 />
               </svg>
             </span>
-            <span
-              class="prc-ActionList-InactiveWarning--0rPr"
-            />
           </span>
         </button>
         <ul
@@ -432,9 +408,6 @@ exports[`NavList.Item with NavList.SubNav > has active styles if SubNav contains
                 >
                   Sub Item
                 </span>
-                <span
-                  class="prc-ActionList-InactiveWarning--0rPr"
-                />
               </span>
             </a>
           </li>

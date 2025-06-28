@@ -291,7 +291,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
               {
                 // If the item is inactive, but it's not in an overlay (e.g. ActionMenu, SelectPanel),
                 // render the inactive warning message directly in the item.
-                !showInactiveIndicator ? (
+                !showInactiveIndicator && inactiveText ? (
                   <span className={classes.InactiveWarning} id={inactiveWarningId}>
                     {inactiveText}
                   </span>
