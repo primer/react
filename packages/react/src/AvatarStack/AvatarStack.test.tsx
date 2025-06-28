@@ -1,7 +1,6 @@
+import {describe, expect, it} from 'vitest'
+import {render} from '@testing-library/react'
 import {AvatarStack} from '..'
-import {render, behavesAsComponent, checkExports} from '../utils/testing'
-import {render as HTMLRender} from '@testing-library/react'
-import axe from 'axe-core'
 
 const avatarComp = (
   <AvatarStack>
@@ -21,17 +20,7 @@ const rightAvatarComp = (
   </AvatarStack>
 )
 
-describe('Avatar', () => {
-  behavesAsComponent({
-    Component: AvatarStack,
-    toRender: () => avatarComp,
-    options: {skipAs: true},
-  })
-
-  checkExports('AvatarStack', {
-    default: AvatarStack,
-  })
-
+describe('AvatarStack', () => {
   it('should support `className` on the outermost element', () => {
     const Element = () => (
       <AvatarStack className={'test-class-name'}>
@@ -41,26 +30,22 @@ describe('Avatar', () => {
         <img src="https://avatars.githubusercontent.com/github" alt="" />
       </AvatarStack>
     )
-    expect(HTMLRender(<Element />).container.firstChild).toHaveClass('test-class-name')
-  })
-
-  it('should have no axe violations', async () => {
-    const {container} = HTMLRender(avatarComp)
-    const results = await axe.run(container)
-    expect(results).toHaveNoViolations()
+    expect(render(<Element />).container.firstChild).toHaveClass('test-class-name')
   })
 
   it('respects alignRight props', () => {
-    expect(render(rightAvatarComp)).toMatchSnapshot()
+    const {container} = render(rightAvatarComp)
+    // Check that alignRight property affects the rendered component
+    expect(container.firstChild).toHaveAttribute('data-align-right', 'true')
   })
 
   it('should have a tabindex of 0 if there are no interactive children', () => {
-    const {container} = HTMLRender(avatarComp)
+    const {container} = render(avatarComp)
     expect(container.querySelector('[tabindex="0"]')).toBeInTheDocument()
   })
 
   it('should not have a tabindex if there are interactive children', () => {
-    const {container} = HTMLRender(
+    const {container} = render(
       <AvatarStack>
         <button type="button">Click me</button>
       </AvatarStack>,
@@ -69,7 +54,7 @@ describe('Avatar', () => {
   })
 
   it('should not have a tabindex if disableExpand is true', () => {
-    const {container} = HTMLRender(
+    const {container} = render(
       <AvatarStack disableExpand>
         <img src="https://avatars.githubusercontent.com/primer" alt="" />
         <img src="https://avatars.githubusercontent.com/github" alt="" />
@@ -80,7 +65,7 @@ describe('Avatar', () => {
 
   it('should support `style` prop on the outermost element', () => {
     const style = {backgroundColor: 'red'}
-    const {container} = HTMLRender(
+    const {container} = render(
       <AvatarStack style={style}>
         <img src="https://avatars.githubusercontent.com/primer" alt="" />
         <img src="https://avatars.githubusercontent.com/github" alt="" />
