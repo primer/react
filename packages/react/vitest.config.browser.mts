@@ -1,10 +1,20 @@
-import {defineConfig} from 'vitest/config'
 import react from '@vitejs/plugin-react'
+import {defineConfig} from 'vitest/config'
+import postcssPresetPrimer from 'postcss-preset-primer'
 
 export default defineConfig({
+  css: {
+    modules: {
+      generateScopedName: 'prc-[folder]-[local]-[hash:base64:5]',
+    },
+    postcss: {
+      plugins: [postcssPresetPrimer()],
+    },
+  },
   plugins: [react()],
   define: {
     __DEV__: true,
+    'process.env.CI': JSON.stringify(process.env.CI),
   },
   test: {
     name: '@primer/react',
@@ -23,6 +33,7 @@ export default defineConfig({
       'src/AnchoredOverlay/**/*.test.?(c|m)[jt]s?(x)',
       'src/Banner/**/*.test.?(c|m)[jt]s?(x)',
       'src/Blankslate/**/*.test.?(c|m)[jt]s?(x)',
+      'src/Box/**/*.test.?(c|m)[jt]s?(x)',
       'src/BranchName/**/*.test.?(c|m)[jt]s?(x)',
       'src/Breadcrumbs/**/*.test.?(c|m)[jt]s?(x)',
       'src/ButtonGroup/**/*.test.?(c|m)[jt]s?(x)',
@@ -31,9 +42,13 @@ export default defineConfig({
       'src/CircleOcticon/**/*.test.?(c|m)[jt]s?(x)',
       'src/DataTable/**/*.test.?(c|m)[jt]s?(x)',
       'src/FeatureFlags/**/*.test.?(c|m)[jt]s?(x)',
+      'src/Flash/**/*.test.?(c|m)[jt]s?(x)',
       'src/FormControl/__tests__/FormControl.Validation.test.tsx',
+      'src/InlineMessage/**/*.test.?(c|m)[jt]s?(x)',
       'src/NavList/**/*.test.?(c|m)[jt]s?(x)',
+      'src/Octicon/**/*.test.?(c|m)[jt]s?(x)',
       'src/Pagehead/**/*.test.?(c|m)[jt]s?(x)',
+      'src/Pagination/**/*.test.?(c|m)[jt]s?(x)',
       'src/ProgressBar/**/*.test.?(c|m)[jt]s?(x)',
       'src/Radio/**/*.test.?(c|m)[jt]s?(x)',
       'src/RadioGroup/**/*.test.?(c|m)[jt]s?(x)',
@@ -52,24 +67,25 @@ export default defineConfig({
       'src/ToggleSwitch/**/*.test.?(c|m)[jt]s?(x)',
       'src/Tooltip/**/*.test.?(c|m)[jt]s?(x)',
       'src/TooltipV2/**/*.test.?(c|m)[jt]s?(x)',
+      'src/TreeView/**/*.test.?(c|m)[jt]s?(x)',
       'src/Truncate/**/*.test.?(c|m)[jt]s?(x)',
       'src/UnderlineNav/**/*.test.?(c|m)[jt]s?(x)',
       'src/__tests__/BaseStyles.test.tsx',
       'src/__tests__/Caret.test.tsx',
       'src/__tests__/CheckboxOrRadioGroup.test.tsx',
-      'src/__tests__/filterObject.test.ts',
       'src/__tests__/SideNav.test.tsx',
       'src/__tests__/SubNavLink.test.tsx',
+      'src/__tests__/ThemeProvider.test.tsx',
+      'src/__tests__/filterObject.test.ts',
       'src/__tests__/theme.test.ts',
       'src/__tests__/themeGet.test.ts',
-      'src/__tests__/ThemeProvider.test.tsx',
       'src/experimental/Skeleton/**/*.test.?(c|m)[jt]s?(x)',
       'src/hooks/**/*.test.?(c|m)[jt]s?(x)',
+      'src/internal/utils/**/*.test.?(c|m)[jt]s?(x)',
       'src/live-region/**/*.test.?(c|m)[jt]s?(x)',
-      'src/utils/__tests__/invariant.test.?(c|m)[jt]s?(x)',
-      'src/utils/__tests__/warning.test.?(c|m)[jt]s?(x)',
+      'src/utils/**/*.test.?(c|m)[jt]s?(x)',
     ],
-    setupFiles: ['config/vitest/setup.ts'],
+    setupFiles: ['config/vitest/setup.ts', 'config/vitest/browser/setup.ts'],
     css: {
       include: [/.+/],
     },

@@ -6,6 +6,7 @@ import {type ActionListProps, type ActionListItemProps, ListContext} from './sha
 import {VisualContainer} from './Visuals'
 import classes from './ActionList.module.css'
 import Radio from '../Radio'
+import {warning} from '../utils/warning'
 
 type SelectionProps = Pick<ActionListItemProps, 'selected' | 'className'>
 export const Selection: React.FC<React.PropsWithChildren<SelectionProps>> = ({selected, className}) => {
@@ -20,14 +21,11 @@ export const Selection: React.FC<React.PropsWithChildren<SelectionProps>> = ({se
 
   if (!selectionVariant) {
     // if selectionVariant is not set on List, but Item is selected
-    // fail loudly instead of silently ignoring
+    // warn in development
     if (selected) {
-      throw new Error(
-        'For Item to be selected, ActionList or ActionList.Group needs to have a selectionVariant defined',
-      )
-    } else {
-      return null
+      warning(true, 'For Item to be selected, ActionList or ActionList.Group should have a selectionVariant defined.')
     }
+    return null
   }
 
   if (selectionVariant === 'radio') {

@@ -1,4 +1,4 @@
-import type {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react-vite'
 import {IconButton, Breadcrumbs, Text, Link, Button, Box, Label, UnderlineNav} from '..'
 import {
   PencilIcon,

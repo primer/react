@@ -1,5 +1,5 @@
 import React from 'react'
-import type {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react-vite'
 import {ActionList} from '.'
 import {Item} from './Item'
 import {LinkItem} from './LinkItem'
@@ -582,6 +582,18 @@ export const TextWrapAndTruncation = () => (
         Inline Description
         <ActionList.Description truncate>
           This description gets truncated because it is inline with truncation
+        </ActionList.Description>
+        <ActionList.TrailingVisual>
+          <ArrowLeftIcon />
+        </ActionList.TrailingVisual>
+      </ActionList.Item>
+      <ActionList.Item>
+        <ActionList.LeadingVisual>
+          <ArrowRightIcon />
+        </ActionList.LeadingVisual>
+        Description with truncation and complex children
+        <ActionList.Description truncate>
+          With <strong>bold</strong> and <em>italic</em> text, and it should truncate if it is too long
         </ActionList.Description>
         <ActionList.TrailingVisual>
           <ArrowLeftIcon />
