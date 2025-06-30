@@ -42,7 +42,7 @@
   height: 24px;
   padding-right: var(--base-size-8);
   padding-left: var(--base-size-8);
-  font-size: var(--text-body-size-small);
+  font-size: var(--text-body-size-medium);
   /* stylelint-disable-next-line primer/typography */
   line-height: 24px;
 }
