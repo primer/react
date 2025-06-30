@@ -13,3 +13,11 @@ export function shouldNotAcceptInvalidAsProp() {
   // @ts-expect-error as prop should not be accepted
   return <Heading as="p" />
 }
+
+export function shouldAcceptValidAsProp() {
+  return (
+    <Heading as="h1" variant="large">
+      Test
+    </Heading>
+  )
+}
