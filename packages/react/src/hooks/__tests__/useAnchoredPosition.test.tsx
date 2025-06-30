@@ -1,4 +1,4 @@
-import {render} from '@testing-library/react'
+import {render, waitFor} from '@testing-library/react'
 import {it, expect, vi} from 'vitest'
 import React from 'react'
 import {useAnchoredPosition} from '../../hooks/useAnchoredPosition'
@@ -18,11 +18,13 @@ const Component = ({callback}: {callback: (hookReturnValue: ReturnType<typeof us
   )
 }
 
-it('should should return a position', () => {
+it('should should return a position', async () => {
   const cb = vi.fn()
   render(<Component callback={cb} />)
-  expect(cb).toHaveBeenCalledTimes(2)
-  expect(cb.mock.calls[1][0]['position']).toMatchInlineSnapshot(`
+
+  await waitFor(() => {
+    expect(cb).toHaveBeenCalledTimes(2)
+    expect(cb.mock.calls[1][0]['position']).toMatchInlineSnapshot(`
     {
       "anchorAlign": "start",
       "anchorSide": "outside-bottom",
@@ -30,4 +32,5 @@ it('should should return a position', () => {
       "top": 4,
     }
   `)
+  })
 })
