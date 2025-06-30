@@ -44,4 +44,5 @@ if (__DEV__) {
   Truncate.displayName = 'Truncate'
 }
 
+export type {TruncateProps}
 export default Truncate
