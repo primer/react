@@ -661,7 +661,7 @@ span wrapping svg or text */
   /* Preserve width consistency when loading state is active for text buttons only */
   &[data-loading='true']:has([data-component='buttonContent']) {
     /* Double the left padding to compensate for missing right padding */
-    padding: 0 0 0 calc(var(--control-medium-paddingInline-normal, 0.75rem) * 2);
+    padding: 0 0 0 calc(var(--base-size-12) * 2);
 
     /* Position spinner at the end to align with IconButton */
     & [data-component='loadingSpinner'] {
