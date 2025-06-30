@@ -9,20 +9,22 @@ type ElementProps =
   | {
       as?: 'button'
       href?: never
+      /**
+       * Specify whether the action is in a loading state.
+       * Only available for button elements.
+       */
+      loading?: boolean
     }
   | {
       as: 'a'
       href: string
+      loading?: never
     }
 
 export type ActionListTrailingActionProps = ElementProps & {
   icon?: React.ElementType
   label: string
   className?: string
-  /**
-   * Specify whether the action is in a loading state
-   */
-  loading?: boolean
 }
 
 export const TrailingAction = forwardRef(
@@ -38,6 +40,7 @@ export const TrailingAction = forwardRef(
             tooltipDirection="w"
             href={href}
             loading={loading}
+            data-loading={Boolean(loading)}
             // @ts-expect-error StyledButton wants both Anchor and Button refs
             ref={forwardedRef}
             className={classes.TrailingActionButton}
@@ -50,6 +53,7 @@ export const TrailingAction = forwardRef(
             as={as}
             href={href}
             loading={loading}
+            data-loading={Boolean(loading)}
             ref={forwardedRef}
             className={classes.TrailingActionButton}
             {...props}
