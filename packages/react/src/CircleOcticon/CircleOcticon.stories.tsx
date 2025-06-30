@@ -1,4 +1,4 @@
-import type {Meta, StoryFn} from '@storybook/react'
+import type {Meta, StoryFn} from '@storybook/react-vite'
 import CircleOcticon from './CircleOcticon'
 import type {CircleOcticonProps} from './CircleOcticon'
 import {CheckIcon} from '@primer/octicons-react'

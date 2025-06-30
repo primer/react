@@ -1,5 +1,5 @@
 import React from 'react'
-import type {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react-vite'
 import {ActionList} from '.'
 import {Item} from './Item'
 import {LinkItem} from './LinkItem'
@@ -591,6 +591,18 @@ export const TextWrapAndTruncation = () => (
         <ActionList.LeadingVisual>
           <ArrowRightIcon />
         </ActionList.LeadingVisual>
+        Description with truncation and complex children
+        <ActionList.Description truncate>
+          With <strong>bold</strong> and <em>italic</em> text, and it should truncate if it is too long
+        </ActionList.Description>
+        <ActionList.TrailingVisual>
+          <ArrowLeftIcon />
+        </ActionList.TrailingVisual>
+      </ActionList.Item>
+      <ActionList.Item>
+        <ActionList.LeadingVisual>
+          <ArrowRightIcon />
+        </ActionList.LeadingVisual>
         Inline Description
         <ActionList.Description>This description wraps because it is inline without truncation</ActionList.Description>
         <ActionList.TrailingVisual>
@@ -662,8 +674,10 @@ export const ChildWithSideEffects = () => {
   const [selected, setSelected] = React.useState(true)
 
   const SideEffectDescription = () => {
+    // eslint-disable-next-line react-compiler/react-compiler
     const [seconds, setSeconds] = React.useState(0)
 
+    // eslint-disable-next-line react-compiler/react-compiler
     React.useEffect(() => {
       const fn = () => setSeconds(s => s + 1)
       const interval = window.setInterval(fn, 1000)

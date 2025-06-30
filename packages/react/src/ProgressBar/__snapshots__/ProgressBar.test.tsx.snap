@@ -10,7 +10,7 @@ exports[`ProgressBar > respects the "progress" prop 1`] = `
 
     <div>
       <span
-        class="_ProgressBarContainer_1bos7_27"
+        class="prc-ProgressBar-ProgressBarContainer-VJMc2"
         data-progress-bar-size="default"
         data-progress-display="block"
       >
@@ -19,7 +19,7 @@ exports[`ProgressBar > respects the "progress" prop 1`] = `
           aria-valuemax="100"
           aria-valuemin="0"
           aria-valuenow="80"
-          class="sc-aXZVg lfjCwU _ProgressBarItem_1bos7_11"
+          class="sc-aXZVg lfjCwU prc-ProgressBar-ProgressBarItem-NPfsV"
           role="progressbar"
           style="--progress-width: 80%; --progress-bg: var(--bgColor-success-emphasis);"
         />
@@ -28,7 +28,7 @@ exports[`ProgressBar > respects the "progress" prop 1`] = `
   </body>,
   "container": <div>
     <span
-      class="_ProgressBarContainer_1bos7_27"
+      class="prc-ProgressBar-ProgressBarContainer-VJMc2"
       data-progress-bar-size="default"
       data-progress-display="block"
     >
@@ -37,7 +37,7 @@ exports[`ProgressBar > respects the "progress" prop 1`] = `
         aria-valuemax="100"
         aria-valuemin="0"
         aria-valuenow="80"
-        class="sc-aXZVg lfjCwU _ProgressBarItem_1bos7_11"
+        class="sc-aXZVg lfjCwU prc-ProgressBar-ProgressBarItem-NPfsV"
         role="progressbar"
         style="--progress-width: 80%; --progress-bg: var(--bgColor-success-emphasis);"
       />

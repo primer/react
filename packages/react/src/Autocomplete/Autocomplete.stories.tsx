@@ -1,6 +1,6 @@
 import type React from 'react'
 import {useCallback, useState} from 'react'
-import type {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react-vite'
 
 import {BaseStyles, Box, ThemeProvider} from '..'
 
@@ -15,7 +15,7 @@ import {
   getFormControlArgsByChildComponent,
   getTextInputArgTypes,
 } from '../utils/story-helpers'
-import {within, userEvent, expect} from '@storybook/test'
+import {within, userEvent, expect} from 'storybook/test'
 
 type AutocompleteOverlayArgs = ComponentProps<typeof Autocomplete.Overlay>
 type AutocompleteMenuArgs = ComponentProps<typeof Autocomplete.Menu>

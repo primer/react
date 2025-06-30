@@ -48,7 +48,7 @@
       "name": "id",
       "type": "string",
       "defaultValue": "a generated string",
-      "description": "<span> The unique identifier for this input group. Used to associate the label, validation text, and caption text. <br /> You may want a custom ID to make it easier to select elements in integration tests. </span>"
+      "description": "The unique identifier for this input group. Used to associate the label, validation text, and caption text.\nYou may want a custom ID to make it easier to select elements in integration tests."
     },
     {
       "name": "onChange",
@@ -64,7 +64,8 @@
     },
     {
       "name": "sx",
-      "type": "SystemStyleObject"
+      "type": "SystemStyleObject",
+      "deprecated": true
     }
   ],
   "subcomponents": [
@@ -79,7 +80,8 @@
         },
         {
           "name": "sx",
-          "type": "SystemStyleObject"
+          "type": "SystemStyleObject",
+          "deprecated": true
         }
       ]
     },
@@ -94,7 +96,8 @@
         },
         {
           "name": "sx",
-          "type": "SystemStyleObject"
+          "type": "SystemStyleObject",
+          "deprecated": true
         }
       ]
     },
@@ -116,7 +119,8 @@
         },
         {
           "name": "sx",
-          "type": "SystemStyleObject"
+          "type": "SystemStyleObject",
+          "deprecated": true
         }
       ]
     }

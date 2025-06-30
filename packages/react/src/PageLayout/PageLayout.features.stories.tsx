@@ -1,4 +1,4 @@
-import type {Meta, StoryFn} from '@storybook/react'
+import type {Meta, StoryFn} from '@storybook/react-vite'
 import {PageLayout} from './PageLayout'
 import {Placeholder} from '../Placeholder'
 import {Box, BranchName, Heading, Link, StateLabel, Text} from '..'

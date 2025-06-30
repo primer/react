@@ -1,4 +1,4 @@
-import type {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react-vite'
 import React, {forwardRef} from 'react'
 import {
   TypographyIcon,
@@ -19,7 +19,7 @@ import Text from '../Text'
 import FormControl from '../FormControl'
 import {AriaStatus} from '../live-region'
 import {VisuallyHidden} from '../VisuallyHidden'
-import {ReactRouterLikeLink} from '../__tests__/mocks/ReactRouterLink'
+import {ReactRouterLikeLink} from '../Pagination/mocks/ReactRouterLink'
 
 const meta: Meta = {
   title: 'Components/ActionList/Examples',

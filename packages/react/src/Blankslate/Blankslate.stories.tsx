@@ -1,5 +1,5 @@
 import {BookIcon} from '@primer/octicons-react'
-import type {Meta, StoryFn} from '@storybook/react'
+import type {Meta, StoryFn} from '@storybook/react-vite'
 import {Blankslate} from '../Blankslate'
 import type {ComponentProps} from '../utils/types'
 
