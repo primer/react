@@ -285,20 +285,11 @@ export type NavListGroupProps = React.HTMLAttributes<HTMLLIElement> & {
   title?: string
 } & SxProp
 
-const defaultSx = {}
-const Group: React.FC<NavListGroupProps> = ({title, children, sx: sxProp = defaultSx, ...props}) => {
-  if (sxProp !== defaultSx) {
-    return (
-      <Box sx={sxProp} as="li" data-component="ActionList.Group">
-        {title ? <ActionList.GroupHeading>{title}</ActionList.GroupHeading> : null}
-        {children}
-      </Box>
-    )
-  }
+function Group({title, children, sx, ...rest}: NavListGroupProps) {
   return (
     <>
       <ActionList.Divider />
-      <ActionList.Group {...props}>
+      <BoxWithFallback as={ActionList.Group} {...rest} sx={sx}>
         {/* Setting up the default value for the heading level. TODO: API update to give flexibility to NavList.Group title's heading level */}
         {title ? (
           <ActionList.GroupHeading as="h3" data-component="ActionList.GroupHeading">
@@ -306,10 +297,11 @@ const Group: React.FC<NavListGroupProps> = ({title, children, sx: sxProp = defau
           </ActionList.GroupHeading>
         ) : null}
         {children}
-      </ActionList.Group>
+      </BoxWithFallback>
     </>
   )
 }
+
 // ----------------------------------------------------------------------------
 // NavList.GroupExpand
 
