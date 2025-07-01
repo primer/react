@@ -188,7 +188,7 @@ export const TrailingVisualGap = () => (
 
 export const ItemLabelStylesWithMixedDescriptions = () => (
   <Stack align="start">
-    <Stack.Item style={{border: 'solid 1px var(--borderColor-default', padding: '1rem'}}>
+    <Stack.Item style={{border: 'solid 1px var(--borderColor-default)', padding: '1rem'}}>
       <ActionList>
         <ActionList.Heading as="h2" size="small">
           Some items have inline description
@@ -208,7 +208,7 @@ export const ItemLabelStylesWithMixedDescriptions = () => (
         </ActionList.Item>
       </ActionList>
     </Stack.Item>
-    <Stack.Item style={{border: 'solid 1px var(--borderColor-default', padding: '1rem'}}>
+    <Stack.Item style={{border: 'solid 1px var(--borderColor-default)', padding: '1rem'}}>
       <ActionList>
         <ActionList.Heading as="h2" size="small">
           Some items have block description
@@ -228,7 +228,7 @@ export const ItemLabelStylesWithMixedDescriptions = () => (
         </ActionList.Item>
       </ActionList>
     </Stack.Item>
-    <Stack.Item style={{border: 'solid 1px var(--borderColor-default', padding: '1rem'}}>
+    <Stack.Item style={{border: 'solid 1px var(--borderColor-default)', padding: '1rem'}}>
       <ActionList>
         <ActionList.Heading as="h2" size="small">
           Some items have inline description inside a group
@@ -254,7 +254,7 @@ export const ItemLabelStylesWithMixedDescriptions = () => (
         </ActionList.Group>
       </ActionList>
     </Stack.Item>
-    <Stack.Item style={{border: 'solid 1px var(--borderColor-default', padding: '1rem'}}>
+    <Stack.Item style={{border: 'solid 1px var(--borderColor-default)', padding: '1rem'}}>
       <ActionList>
         <ActionList.Heading as="h2" size="small">
           No items have descriptions
@@ -263,7 +263,7 @@ export const ItemLabelStylesWithMixedDescriptions = () => (
         <ActionList.Item>Item with no description</ActionList.Item>
       </ActionList>
     </Stack.Item>
-    <Stack.Item style={{border: 'solid 1px var(--borderColor-default', padding: '1rem'}}>
+    <Stack.Item style={{border: 'solid 1px var(--borderColor-default)', padding: '1rem'}}>
       <ActionList>
         <ActionList.Heading as="h2" size="small">
           All items have descriptions
