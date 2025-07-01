@@ -2,40 +2,35 @@ import {test, expect} from '@playwright/test'
 import {visit} from '../test-helpers/storybook'
 import {themes} from '../test-helpers/themes'
 
+const stories = [
+  {
+    title: 'Default',
+    id: 'components-circleocticon--default',
+  },
+  {
+    title: 'Playground',
+    id: 'components-circleocticon--playground',
+  },
+] as const
+
 test.describe('CircleOcticon', () => {
-  test.describe('Default', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-circleocticon--default',
-            globals: {
-              colorScheme: theme,
-            },
+  for (const story of stories) {
+    test.describe(story.title, () => {
+      for (const theme of themes) {
+        test.describe(theme, () => {
+          test('default @vrt', async ({page}) => {
+            await visit(page, {
+              id: story.id,
+              globals: {
+                colorScheme: theme,
+              },
+            })
+
+            // Default state
+            await expect(page).toHaveScreenshot(`CircleOcticon.${story.title}.${theme}.png`)
           })
-
-          // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`CircleOcticon.Default.${theme}.png`)
         })
-      })
-    }
-  })
-
-  test.describe('Playground', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-circleocticon--playground',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`CircleOcticon.Playground.${theme}.png`)
-        })
-      })
-    }
-  })
+      }
+    })
+  }
 })
