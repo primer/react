@@ -114,7 +114,7 @@
     }
   }
 
-  &:not(:has([aria-disabled], [disabled]), [aria-disabled='true'], [data-has-subitem='true']) {
+  &:not(:has([aria-disabled], [disabled]), [data-has-subitem='true']) {
     @media (hover: hover) {
       &:hover,
       &:active {
