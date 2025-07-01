@@ -69,6 +69,7 @@ module.exports = {
     '<rootDir>/src/__tests__/theme.test.ts',
     '<rootDir>/src/__tests__/themeGet.test.ts',
     '<rootDir>/src/__tests__/useSafeTimeout.test.ts',
+    '<rootDir>/src/experimental/IssueLabel',
     '<rootDir>/src/experimental/Skeleton',
     '<rootDir>/src/hooks/',
     '<rootDir>/src/internal/utils/',

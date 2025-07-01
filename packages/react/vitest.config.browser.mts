@@ -79,6 +79,7 @@ export default defineConfig({
       'src/__tests__/filterObject.test.ts',
       'src/__tests__/theme.test.ts',
       'src/__tests__/themeGet.test.ts',
+      'src/experimental/IssueLabel/**/*.test.?(c|m)[jt]s?(x)',
       'src/experimental/Skeleton/**/*.test.?(c|m)[jt]s?(x)',
       'src/hooks/**/*.test.?(c|m)[jt]s?(x)',
       'src/internal/utils/**/*.test.?(c|m)[jt]s?(x)',
