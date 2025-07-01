@@ -8,6 +8,7 @@ import {Divider} from './Divider'
 import {Description} from './Description'
 import Avatar from '../Avatar'
 import {FileDirectoryIcon, HeartFillIcon} from '@primer/octicons-react'
+import {Stack} from '../Stack'
 
 export default {
   title: 'Components/ActionList/Dev',
@@ -167,4 +168,115 @@ export const VisualCustomClassname = () => (
       </ActionList.TrailingVisual>
     </ActionList.Item>
   </ActionList>
+)
+
+export const TrailingVisualGap = () => (
+  <div style={{width: '300px'}}>
+    <ActionList>
+      <ActionList.Item>
+        This story tests the gap between the label and trailing visual.
+        <ActionList.LeadingVisual>
+          <FileDirectoryIcon />
+        </ActionList.LeadingVisual>
+        <ActionList.TrailingVisual>
+          <HeartFillIcon />
+        </ActionList.TrailingVisual>
+      </ActionList.Item>
+    </ActionList>
+  </div>
+)
+
+export const ItemLabelStylesWithMixedDescriptions = () => (
+  <Stack align="start">
+    <Stack.Item style={{border: 'solid 1px var(--borderColor-default', padding: '1rem'}}>
+      <ActionList>
+        <ActionList.Heading as="h2" size="small">
+          Some items have inline description
+        </ActionList.Heading>
+        <ActionList.Item>
+          Item with inline description
+          <ActionList.Description>Inline description</ActionList.Description>
+        </ActionList.Item>
+        <ActionList.Item>
+          Item with inline description
+          <ActionList.Description>Inline description</ActionList.Description>
+        </ActionList.Item>
+        <ActionList.Item>Item with no description</ActionList.Item>
+        <ActionList.Item>
+          Item with inline description
+          <ActionList.Description>Inline description</ActionList.Description>
+        </ActionList.Item>
+      </ActionList>
+    </Stack.Item>
+    <Stack.Item style={{border: 'solid 1px var(--borderColor-default', padding: '1rem'}}>
+      <ActionList>
+        <ActionList.Heading as="h2" size="small">
+          Some items have block description
+        </ActionList.Heading>
+        <ActionList.Item>
+          Item with inline description
+          <ActionList.Description variant="block">Block description</ActionList.Description>
+        </ActionList.Item>
+        <ActionList.Item>
+          Item with inline description
+          <ActionList.Description variant="block">Block description</ActionList.Description>
+        </ActionList.Item>
+        <ActionList.Item>Item with no description</ActionList.Item>
+        <ActionList.Item>
+          Item with inline description
+          <ActionList.Description variant="block">Block description</ActionList.Description>
+        </ActionList.Item>
+      </ActionList>
+    </Stack.Item>
+    <Stack.Item style={{border: 'solid 1px var(--borderColor-default', padding: '1rem'}}>
+      <ActionList>
+        <ActionList.Heading as="h2" size="small">
+          Some items have inline description inside a group
+        </ActionList.Heading>
+        <ActionList.Item>
+          Item with inline description
+          <ActionList.Description>Inline description</ActionList.Description>
+        </ActionList.Item>
+        <ActionList.Item>
+          Item with inline description
+          <ActionList.Description>Inline description</ActionList.Description>
+        </ActionList.Item>
+        <ActionList.Item>Item with no description</ActionList.Item>
+        <ActionList.Group>
+          <ActionList.GroupHeading as="h3">This is a group</ActionList.GroupHeading>
+          <ActionList.Item>
+            Item with inline description
+            <ActionList.Description>Inline description</ActionList.Description>
+          </ActionList.Item>
+          <ActionList.Item>Item with no description</ActionList.Item>
+          <ActionList.Item>Item with no description</ActionList.Item>
+          <ActionList.Item>Item with no description</ActionList.Item>
+        </ActionList.Group>
+      </ActionList>
+    </Stack.Item>
+    <Stack.Item style={{border: 'solid 1px var(--borderColor-default', padding: '1rem'}}>
+      <ActionList>
+        <ActionList.Heading as="h2" size="small">
+          No items have descriptions
+        </ActionList.Heading>
+        <ActionList.Item>Item with no description</ActionList.Item>
+        <ActionList.Item>Item with no description</ActionList.Item>
+      </ActionList>
+    </Stack.Item>
+    <Stack.Item style={{border: 'solid 1px var(--borderColor-default', padding: '1rem'}}>
+      <ActionList>
+        <ActionList.Heading as="h2" size="small">
+          All items have descriptions
+        </ActionList.Heading>
+        <ActionList.Item>
+          Item with inline description
+          <ActionList.Description>Inline description</ActionList.Description>
+        </ActionList.Item>
+        <ActionList.Item>
+          Item with inline description
+          <ActionList.Description>Inline description</ActionList.Description>
+        </ActionList.Item>
+      </ActionList>
+    </Stack.Item>
+  </Stack>
 )
