@@ -47,7 +47,7 @@ test.describe('TextInputWithTokens', () => {
             })
 
             // Default state
-            expect(await page.screenshot()).toMatchSnapshot(`TextInputWithTokens.${story.title}.${theme}.png`)
+            await expect(page).toHaveScreenshot(`TextInputWithTokens.${story.title}.${theme}.png`)
           })
         })
       }

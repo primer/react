@@ -31,7 +31,7 @@ test.describe('Popover', () => {
             })
 
             // Default state
-            expect(await page.screenshot()).toMatchSnapshot(`Popover.${story.title}.${theme}.png`)
+            await expect(page).toHaveScreenshot(`Popover.${story.title}.${theme}.png`)
           })
         })
       }
