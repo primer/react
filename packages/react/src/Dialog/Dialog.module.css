@@ -232,6 +232,7 @@
 body:has(.Dialog.DisableScroll) {
   /* stylelint-disable-next-line primer/spacing */
   padding-right: var(--dialog-scrollgutter) !important;
+  overflow: hidden !important;
 }
 
 .DialogOverflowWrapper {
