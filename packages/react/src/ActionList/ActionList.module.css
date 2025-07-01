@@ -628,7 +628,7 @@ default block */
   /* remove after FF ships */
   /* stylelint-disable-next-line primer/typography */
   line-height: 16px;
-  color: var(--fgColor-default);
+  color: var(--fgColor-muted);
 }
 
 /* helper for grid alignment with multi-line content
