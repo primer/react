@@ -256,7 +256,7 @@
           "name": "loading",
           "type": "boolean",
           "defaultValue": "false",
-          "description": "Whether the TrailingAction is in a loading state. When true, the TrailingAction will render a spinner instead of an icon."
+          "description": "Whether the TrailingAction is in a loading state. When true, the TrailingAction will render a spinner instead of an icon. Only available when `as` is 'button'."
         }
       ]
     },

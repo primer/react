@@ -301,8 +301,8 @@
 
   /* disabled */
 
-  /* When the entire item is disabled, everything should appear disabled */
-  &[aria-disabled='true'] {
+  &[aria-disabled='true'],
+  &:has([aria-disabled='true'], [disabled]) {
     & .ActionListContent * {
       color: var(--control-fgColor-disabled);
     }
@@ -342,9 +342,8 @@
     }
   }
 
-  /* When only child elements are disabled (e.g., loading TrailingAction), 
-     keep labels and descriptions accessible */
-  &:has([aria-disabled='true'], [disabled]):not([aria-disabled='true']) {
+  /* When TrailingAction is in loading state, keep labels and descriptions accessible */
+  &:has(.TrailingAction [data-loading='true']):not([aria-disabled='true']) {
     /* Ensure labels and descriptions maintain accessibility contrast */
     & .ItemLabel {
       color: var(--fgColor-default);
