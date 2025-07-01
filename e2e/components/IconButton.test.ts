@@ -51,6 +51,9 @@ const stories = [
     id: 'components-iconbutton-features--keybinding-hint-on-description',
     async setup(page: Page) {
       await page.keyboard.press('Tab') // focus on icon button
+      await page.getByText('You have unread notifications').waitFor({
+        state: 'visible',
+      })
     },
   },
   {
@@ -77,7 +80,9 @@ test.describe('IconButton', () => {
             }
 
             // Default state
-            await expect(page).toHaveScreenshot(`IconButton.${story.title}.${theme}.png`)
+            await expect(page).toHaveScreenshot(`IconButton.${story.title}.${theme}.png`, {
+              animations: 'disabled',
+            })
           })
         })
       }

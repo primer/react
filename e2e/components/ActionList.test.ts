@@ -2,11 +2,7 @@ import {test, expect} from '@playwright/test'
 import {visit} from '../test-helpers/storybook'
 import {themes} from '../test-helpers/themes'
 
-const stories: Array<{
-  title: string
-  id: string
-  disableAnimations?: boolean
-}> = [
+const stories = [
   {
     title: 'Default',
     id: 'components-actionlist--default',
@@ -105,15 +101,15 @@ const stories: Array<{
     id: 'components-actionlist-features--full-variant',
   },
   {
-    title: 'Group Heading With Classname',
+    title: 'Group Heading with Classname',
     id: 'components-actionlist-dev--group-heading-custom-classname',
   },
   {
-    title: 'Heading With Classname',
+    title: 'Heading with Classname',
     id: 'components-actionlist-dev--heading-custom-classname',
   },
   {
-    title: 'Visuals With Classnames',
+    title: 'Visuals with Classnames',
     id: 'components-actionlist-dev--visual-custom-classname',
   },
   {
@@ -134,19 +130,16 @@ test.describe('ActionList', () => {
   for (const story of stories) {
     test.describe(story.title, () => {
       for (const theme of themes) {
-        test.describe(theme, () => {
-          test('default @vrt', async ({page}) => {
-            await visit(page, {
-              id: story.id,
-              globals: {
-                colorScheme: theme,
-              },
-            })
-
-            // Default state
-            const screenshotOptions = story.disableAnimations ? {animations: 'disabled' as const} : undefined
-            expect(await page.screenshot(screenshotOptions)).toMatchSnapshot(`ActionList.${story.title}.${theme}.png`)
+        test(`default @vrt ${theme}`, async ({page}) => {
+          await visit(page, {
+            id: story.id,
+            globals: {
+              colorScheme: theme,
+            },
           })
+
+          // Default state
+          await expect(page).toHaveScreenshot(`ActionList.${story.title}.${theme}.png`)
         })
       }
     })
