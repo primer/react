@@ -288,6 +288,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
   )
 
   React.useEffect(() => {
+    document.body.style.setProperty('--dialog-scrollgutter', `${window.innerWidth - document.body.clientWidth}px`)
     const bodyOverflowStyle = document.body.style.overflow || ''
     // If the body is already set to overflow: hidden, it likely means
     // that there is already a modal open. In that case, we should bail
@@ -339,7 +340,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
             data-width={width}
             data-height={height}
             sx={sx}
-            className={clsx(className, classes.Dialog)}
+            className={clsx(className, classes.Dialog, classes.DisableScroll)}
           >
             {header}
             <ScrollableRegion aria-labelledby={dialogLabelId} className={classes.DialogOverflowWrapper}>
