@@ -388,6 +388,29 @@ const components = new Map([
     },
   ],
   [
+    'ConfirmationDialog',
+    {
+      stories: [
+        {
+          id: 'components-confirmationdialog--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-confirmationdialog--playground',
+          name: 'Playground',
+        },
+        {
+          id: 'components-confirmationdialog-features--shorthand-hook',
+          name: 'Shorthand Hook',
+        },
+        {
+          id: 'components-confirmationdialog-features--shorthand-hook-from-action-menu',
+          name: 'Shorthand Hook From Action Menu',
+        },
+      ],
+    },
+  ],
+  [
     'CounterLabel',
     {
       stories: [
