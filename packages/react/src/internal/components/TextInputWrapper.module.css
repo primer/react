@@ -44,7 +44,9 @@
   }
 
   &:where([data-contrast]) {
-    background-color: var(--bgColor-inset);
+    /* this variable is available behind a feature flag in gh/gh */
+    /* stylelint-disable-next-line primer/colors */
+    background-color: var(--control-bgColor-contrast, var(--bgColor-inset));
   }
 
   &:where([data-disabled]) {

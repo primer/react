@@ -31,7 +31,7 @@ test.describe('CounterLabel', () => {
             })
 
             // Default state
-            expect(await page.screenshot()).toMatchSnapshot(`CounterLabel.${story.title}.${theme}.png`)
+            await expect(page).toHaveScreenshot(`CounterLabel.${story.title}.${theme}.png`)
           })
         })
       }
