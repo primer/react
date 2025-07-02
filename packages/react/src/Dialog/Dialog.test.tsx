@@ -95,7 +95,8 @@ describe('Dialog', () => {
 
     expect(onClose).not.toHaveBeenCalled()
 
-    await user.keyboard('{Escape}')
+    await user.keyboard('{Escape}') // escape once to remove focus from the close button
+    await user.keyboard('{Escape}') // escape again to trigger the onClose
 
     expect(onClose).toHaveBeenCalledWith('escape')
   })
