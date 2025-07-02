@@ -84,6 +84,7 @@
   align-items: center;
   color: var(--fgColor-muted);
   font-size: var(--text-body-size-medium);
+  /* stylelint-disable-next-line primer/typography */
   line-height: calc(20 / 14);
   user-select: none;
   padding: var(--base-size-8);
@@ -101,6 +102,7 @@
   align-items: center;
   justify-content: center;
   font-size: var(--text-body-size-medium);
+  /* stylelint-disable-next-line primer/typography */
   line-height: calc(20 / 14);
   user-select: none;
   border-radius: var(--borderRadius-medium);
@@ -122,6 +124,7 @@
 .TablePaginationPage[data-active='true']:focus-visible {
   outline: 2px solid var(--bgColor-accent-emphasis);
   outline-offset: -2px;
+  /* stylelint-disable-next-line primer/box-shadow */
   box-shadow: inset 0 0 0 3px var(--fgColor-onEmphasis);
 }
 
