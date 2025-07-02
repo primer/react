@@ -187,116 +187,116 @@ export const TrailingVisualGap = () => (
 )
 
 export const ItemLabelStylesWithMixedDescriptions = () => (
-  <Stack align="start">
-    <Stack.Item style={{border: 'solid 1px var(--borderColor-default)', padding: '1rem'}}>
-      <ActionList>
-        <ActionList.Heading as="h2" size="small">
-          Some items have inline description
-        </ActionList.Heading>
-        <ActionList.Item>
-          Item with inline description
-          <ActionList.Description>Inline description</ActionList.Description>
-        </ActionList.Item>
-        <ActionList.Item>
-          Item with inline description
-          <ActionList.Description>Inline description</ActionList.Description>
-        </ActionList.Item>
-        <ActionList.Item>Item with no description</ActionList.Item>
-        <ActionList.Item>
-          Item with inline description
-          <ActionList.Description>Inline description</ActionList.Description>
-        </ActionList.Item>
-      </ActionList>
-    </Stack.Item>
-    <Stack.Item style={{border: 'solid 1px var(--borderColor-default)', padding: '1rem'}}>
-      <ActionList>
-        <ActionList.Heading as="h2" size="small">
-          Some items have block description
-        </ActionList.Heading>
-        <ActionList.Item>
-          Item with inline description
-          <ActionList.Description variant="block">Block description</ActionList.Description>
-        </ActionList.Item>
-        <ActionList.Item>
-          Item with inline description
-          <ActionList.Description variant="block">Block description</ActionList.Description>
-        </ActionList.Item>
-        <ActionList.Item>Item with no description</ActionList.Item>
-        <ActionList.Item>
-          Item with inline description
-          <ActionList.Description variant="block">Block description</ActionList.Description>
-        </ActionList.Item>
-      </ActionList>
-    </Stack.Item>
-    <Stack.Item style={{border: 'solid 1px var(--borderColor-default)', padding: '1rem'}}>
-      <ActionList>
-        <ActionList.Heading as="h2" size="small">
-          Some items have inline description inside a group
-        </ActionList.Heading>
-        <ActionList.Item>
-          Item with inline description
-          <ActionList.Description>Inline description</ActionList.Description>
-        </ActionList.Item>
-        <ActionList.Item>
-          Item with inline description
-          <ActionList.Description>Inline description</ActionList.Description>
-        </ActionList.Item>
-        <ActionList.Item>Item with no description</ActionList.Item>
-        <ActionList.Group>
-          <ActionList.GroupHeading as="h3">This is a group</ActionList.GroupHeading>
+  <Stack>
+    <Stack align="start" direction="horizontal">
+      <Stack.Item style={{border: 'solid 1px var(--borderColor-default)', padding: '1rem'}}>
+        <ActionList>
+          <ActionList.Heading as="h2" size="small">
+            Some items have inline description
+          </ActionList.Heading>
+          <ActionList.Item>
+            Item with inline description
+            <ActionList.Description>Inline description</ActionList.Description>
+          </ActionList.Item>
           <ActionList.Item>
             Item with inline description
             <ActionList.Description>Inline description</ActionList.Description>
           </ActionList.Item>
           <ActionList.Item>Item with no description</ActionList.Item>
+          <ActionList.Item>
+            Item with inline description
+            <ActionList.Description>Inline description</ActionList.Description>
+          </ActionList.Item>
+        </ActionList>
+      </Stack.Item>
+      <Stack.Item style={{border: 'solid 1px var(--borderColor-default)', padding: '1rem'}}>
+        <ActionList>
+          <ActionList.Heading as="h2" size="small">
+            Some items have block description
+          </ActionList.Heading>
+          <ActionList.Item>
+            Item with inline description
+            <ActionList.Description variant="block">Block description</ActionList.Description>
+          </ActionList.Item>
+          <ActionList.Item>
+            Item with inline description
+            <ActionList.Description variant="block">Block description</ActionList.Description>
+          </ActionList.Item>
+          <ActionList.Item>Item with no description</ActionList.Item>
+          <ActionList.Item>
+            Item with inline description
+            <ActionList.Description variant="block">Block description</ActionList.Description>
+          </ActionList.Item>
+        </ActionList>
+      </Stack.Item>
+    </Stack>
+    <Stack align="start" direction="horizontal">
+      <Stack.Item style={{border: 'solid 1px var(--borderColor-default)', padding: '1rem'}}>
+        <ActionList>
+          <ActionList.Heading as="h2" size="small">
+            Some items have inline description inside a group
+          </ActionList.Heading>
+          <ActionList.Item>
+            Item with inline description
+            <ActionList.Description>Inline description</ActionList.Description>
+          </ActionList.Item>
+          <ActionList.Item>Item with no description</ActionList.Item>
+          <ActionList.Group>
+            <ActionList.GroupHeading as="h3">This is a group</ActionList.GroupHeading>
+            <ActionList.Item>
+              Item with inline description
+              <ActionList.Description>Inline description</ActionList.Description>
+            </ActionList.Item>
+            <ActionList.Item>Item with no description</ActionList.Item>
+          </ActionList.Group>
+        </ActionList>
+      </Stack.Item>
+      <Stack.Item style={{border: 'solid 1px var(--borderColor-default)', padding: '1rem'}}>
+        <ActionList>
+          <ActionList.Heading as="h2" size="small">
+            Some link items have block description
+          </ActionList.Heading>
+          <ActionList.LinkItem>
+            Item with inline description
+            <ActionList.Description variant="block">Block description</ActionList.Description>
+          </ActionList.LinkItem>
+          <ActionList.LinkItem>
+            Item with inline description
+            <ActionList.Description variant="block">Block description</ActionList.Description>
+          </ActionList.LinkItem>
+          <ActionList.LinkItem>Item with no description</ActionList.LinkItem>
+          <ActionList.LinkItem>
+            Item with inline description
+            <ActionList.Description variant="block">Block description</ActionList.Description>
+          </ActionList.LinkItem>
+        </ActionList>
+      </Stack.Item>
+    </Stack>
+    <Stack align="start" direction="horizontal">
+      <Stack.Item style={{border: 'solid 1px var(--borderColor-default)', padding: '1rem'}}>
+        <ActionList>
+          <ActionList.Heading as="h2" size="small">
+            All items have descriptions
+          </ActionList.Heading>
+          <ActionList.Item>
+            Item with inline description
+            <ActionList.Description>Inline description</ActionList.Description>
+          </ActionList.Item>
+          <ActionList.Item>
+            Item with inline description
+            <ActionList.Description>Inline description</ActionList.Description>
+          </ActionList.Item>
+        </ActionList>
+      </Stack.Item>
+      <Stack.Item style={{border: 'solid 1px var(--borderColor-default)', padding: '1rem'}}>
+        <ActionList>
+          <ActionList.Heading as="h2" size="small">
+            No items have descriptions
+          </ActionList.Heading>
           <ActionList.Item>Item with no description</ActionList.Item>
           <ActionList.Item>Item with no description</ActionList.Item>
-        </ActionList.Group>
-      </ActionList>
-    </Stack.Item>
-    <Stack.Item style={{border: 'solid 1px var(--borderColor-default)', padding: '1rem'}}>
-      <ActionList>
-        <ActionList.Heading as="h2" size="small">
-          No items have descriptions
-        </ActionList.Heading>
-        <ActionList.Item>Item with no description</ActionList.Item>
-        <ActionList.Item>Item with no description</ActionList.Item>
-      </ActionList>
-    </Stack.Item>
-    <Stack.Item style={{border: 'solid 1px var(--borderColor-default)', padding: '1rem'}}>
-      <ActionList>
-        <ActionList.Heading as="h2" size="small">
-          All items have descriptions
-        </ActionList.Heading>
-        <ActionList.Item>
-          Item with inline description
-          <ActionList.Description>Inline description</ActionList.Description>
-        </ActionList.Item>
-        <ActionList.Item>
-          Item with inline description
-          <ActionList.Description>Inline description</ActionList.Description>
-        </ActionList.Item>
-      </ActionList>
-    </Stack.Item>
-    <Stack.Item style={{border: 'solid 1px var(--borderColor-default)', padding: '1rem'}}>
-      <ActionList>
-        <ActionList.Heading as="h2" size="small">
-          Some link items have block description
-        </ActionList.Heading>
-        <ActionList.LinkItem>
-          Item with inline description
-          <ActionList.Description variant="block">Block description</ActionList.Description>
-        </ActionList.LinkItem>
-        <ActionList.LinkItem>
-          Item with inline description
-          <ActionList.Description variant="block">Block description</ActionList.Description>
-        </ActionList.LinkItem>
-        <ActionList.LinkItem>Item with no description</ActionList.LinkItem>
-        <ActionList.LinkItem>
-          Item with inline description
-          <ActionList.Description variant="block">Block description</ActionList.Description>
-        </ActionList.LinkItem>
-      </ActionList>
-    </Stack.Item>
+        </ActionList>
+      </Stack.Item>
+    </Stack>
   </Stack>
 )
