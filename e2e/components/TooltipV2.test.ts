@@ -14,6 +14,7 @@ const stories = [
   {
     title: 'Calculated Direction',
     id: 'components-tooltipv2-features--calculated-direction',
+    disableAnimations: true,
   },
   {
     title: 'Icon Button With Description',
