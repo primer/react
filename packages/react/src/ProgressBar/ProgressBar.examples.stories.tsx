@@ -19,7 +19,7 @@ export const WithVisibleTextValue = () => {
 export const MultipleSegments = () => {
   return (
     <>
-      <ProgressBar aria-valuenow={50}>
+      <ProgressBar progress={50}>
         <ProgressBar.Item
           progress={30}
           style={{backgroundColor: 'var(--bgColor-success-emphasis)'}}
