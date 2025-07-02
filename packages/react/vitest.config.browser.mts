@@ -41,6 +41,7 @@ export default defineConfig({
       'src/CircleBadge/**/*.test.?(c|m)[jt]s?(x)',
       'src/CircleOcticon/**/*.test.?(c|m)[jt]s?(x)',
       'src/DataTable/**/*.test.?(c|m)[jt]s?(x)',
+      'src/Dialog/**/*.test.?(c|m)[jt]s?(x)',
       'src/FeatureFlags/**/*.test.?(c|m)[jt]s?(x)',
       'src/Flash/**/*.test.?(c|m)[jt]s?(x)',
       'src/FormControl/__tests__/FormControl.Validation.test.tsx',
