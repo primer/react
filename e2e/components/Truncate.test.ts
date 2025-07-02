@@ -39,7 +39,9 @@ test.describe('Truncate', () => {
             })
 
             // Default state
-            await expect(page).toHaveScreenshot(`Truncate.${story.title}.${theme}.png`)
+            await expect(page).toHaveScreenshot(`Truncate.${story.title}.${theme}.png`, {
+              animations: 'disabled',
+            })
           })
         })
       }

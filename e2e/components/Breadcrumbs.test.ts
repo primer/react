@@ -23,15 +23,21 @@ test.describe('Breadcrumbs', () => {
             })
 
             // Default state
-            await expect(page).toHaveScreenshot(`Breadcrumbs.${story.title}.${theme}.png`)
+            await expect(page).toHaveScreenshot(`Breadcrumbs.${story.title}.${theme}.png`, {
+              animations: 'disabled',
+            })
 
             // Hover state
             await page.getByRole('link', {name: 'Home'}).hover()
-            await expect(page).toHaveScreenshot(`Breadcrumbs.${story.title}.${theme}.hover.png`)
+            await expect(page).toHaveScreenshot(`Breadcrumbs.${story.title}.${theme}.hover.png`, {
+              animations: 'disabled',
+            })
 
             // Focus state
             await page.keyboard.press('Tab')
-            await expect(page).toHaveScreenshot(`Breadcrumbs.${story.title}.${theme}.focus.png`)
+            await expect(page).toHaveScreenshot(`Breadcrumbs.${story.title}.${theme}.focus.png`, {
+              animations: 'disabled',
+            })
           })
         })
       }

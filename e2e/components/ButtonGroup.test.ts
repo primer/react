@@ -43,7 +43,9 @@ test.describe('ButtonGroup', () => {
             })
 
             // Default state
-            await expect(page).toHaveScreenshot(`ButtonGroup.${story.title}.${theme}.png`)
+            await expect(page).toHaveScreenshot(`ButtonGroup.${story.title}.${theme}.png`, {
+              animations: 'disabled',
+            })
           })
         })
       }

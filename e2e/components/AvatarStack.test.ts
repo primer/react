@@ -62,7 +62,9 @@ test.describe('AvatarStack', () => {
               },
             })
 
-            await expect(page).toHaveScreenshot(`AvatarStack.${story.title}.${theme}.png`)
+            await expect(page).toHaveScreenshot(`AvatarStack.${story.title}.${theme}.png`, {
+              animations: 'disabled',
+            })
           })
 
           test('@aat', async ({page}) => {

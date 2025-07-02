@@ -31,7 +31,9 @@ test.describe('CounterLabel', () => {
             })
 
             // Default state
-            await expect(page).toHaveScreenshot(`CounterLabel.${story.title}.${theme}.png`)
+            await expect(page).toHaveScreenshot(`CounterLabel.${story.title}.${theme}.png`, {
+              animations: 'disabled',
+            })
           })
         })
       }

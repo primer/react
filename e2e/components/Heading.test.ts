@@ -29,7 +29,9 @@ test.describe('Heading', () => {
         })
 
         // Default state
-        await expect(page).toHaveScreenshot(`Heading.${story.title}.png`)
+        await expect(page).toHaveScreenshot(`Heading.${story.title}.png`, {
+          animations: 'disabled',
+        })
       })
     })
   }

@@ -31,7 +31,9 @@ test.describe('Popover', () => {
             })
 
             // Default state
-            await expect(page).toHaveScreenshot(`Popover.${story.title}.${theme}.png`)
+            await expect(page).toHaveScreenshot(`Popover.${story.title}.${theme}.png`, {
+              animations: 'disabled',
+            })
           })
         })
       }

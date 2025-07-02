@@ -35,15 +35,21 @@ test.describe('Link', () => {
             })
 
             // Default state
-            await expect(page).toHaveScreenshot(`Link.${story.title}.${theme}.png`)
+            await expect(page).toHaveScreenshot(`Link.${story.title}.${theme}.png`, {
+              animations: 'disabled',
+            })
 
             // Hover state
             await page.getByRole('link').hover()
-            await expect(page).toHaveScreenshot(`Link.${story.title}.${theme}.hover.png`)
+            await expect(page).toHaveScreenshot(`Link.${story.title}.${theme}.hover.png`, {
+              animations: 'disabled',
+            })
 
             // Focus state
             await page.keyboard.press('Tab')
-            await expect(page).toHaveScreenshot(`Link.${story.title}.${theme}.focus.png`)
+            await expect(page).toHaveScreenshot(`Link.${story.title}.${theme}.focus.png`, {
+              animations: 'disabled',
+            })
           })
         })
       }
@@ -62,7 +68,9 @@ test.describe('Link', () => {
           })
 
           // Default state
-          await expect(page).toHaveScreenshot(`Link.Dev Inline.${theme}.png`)
+          await expect(page).toHaveScreenshot(`Link.Dev Inline.${theme}.png`, {
+            animations: 'disabled',
+          })
         })
       })
     }

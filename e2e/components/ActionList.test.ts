@@ -126,7 +126,9 @@ test.describe('ActionList', () => {
           })
 
           // Default state
-          await expect(page).toHaveScreenshot(`ActionList.${story.title}.${theme}.png`)
+          await expect(page).toHaveScreenshot(`ActionList.${story.title}.${theme}.png`, {
+            animations: 'disabled',
+          })
         })
       }
     })

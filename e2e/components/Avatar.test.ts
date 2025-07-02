@@ -35,7 +35,9 @@ test.describe('Avatar', () => {
             })
 
             // Default state
-            await expect(page).toHaveScreenshot(`Avatar.${story.title}.${theme}.png`)
+            await expect(page).toHaveScreenshot(`Avatar.${story.title}.${theme}.png`, {
+              animations: 'disabled',
+            })
           })
         })
       }

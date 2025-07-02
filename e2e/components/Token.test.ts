@@ -67,7 +67,9 @@ test.describe('Token', () => {
             })
 
             // Default state
-            await expect(page).toHaveScreenshot(`Token.Default.${story.title}.${theme}.png`)
+            await expect(page).toHaveScreenshot(`Token.Default.${story.title}.${theme}.png`, {
+              animations: 'disabled',
+            })
           })
         })
       }

@@ -27,7 +27,9 @@ test.describe('Octicon', () => {
             })
 
             // Default state
-            await expect(page).toHaveScreenshot(`Octicon.${story.title}.${theme}.png`)
+            await expect(page).toHaveScreenshot(`Octicon.${story.title}.${theme}.png`, {
+              animations: 'disabled',
+            })
           })
         })
       }

@@ -35,7 +35,9 @@ test.describe('Radio', () => {
             })
 
             // Default state
-            await expect(page).toHaveScreenshot(`Radio.${story.title}.${theme}.png`)
+            await expect(page).toHaveScreenshot(`Radio.${story.title}.${theme}.png`, {
+              animations: 'disabled',
+            })
           })
         })
       }
@@ -57,7 +59,9 @@ test.describe('Radio', () => {
           })
 
           // Default state
-          await expect(page).toHaveScreenshot(`Radio.Checked.${theme}.png`)
+          await expect(page).toHaveScreenshot(`Radio.Checked.${theme}.png`, {
+            animations: 'disabled',
+          })
         })
       })
     }

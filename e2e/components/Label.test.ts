@@ -71,7 +71,9 @@ test.describe('Label', () => {
             })
 
             // Default state
-            await expect(page).toHaveScreenshot(`Label.${story.title}.${theme}.png`)
+            await expect(page).toHaveScreenshot(`Label.${story.title}.${theme}.png`, {
+              animations: 'disabled',
+            })
           })
         })
       }

@@ -27,7 +27,9 @@ test.describe('CircleBadge', () => {
             })
 
             // Default state
-            await expect(page).toHaveScreenshot(`CircleBadge.${story.title}.${theme}.png`)
+            await expect(page).toHaveScreenshot(`CircleBadge.${story.title}.${theme}.png`, {
+              animations: 'disabled',
+            })
           })
         })
       }

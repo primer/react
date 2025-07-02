@@ -67,7 +67,9 @@ test.describe('StateLabel', () => {
             })
 
             // Default state
-            await expect(page).toHaveScreenshot(`StateLabel.${story.title}.${theme}.png`)
+            await expect(page).toHaveScreenshot(`StateLabel.${story.title}.${theme}.png`, {
+              animations: 'disabled',
+            })
           })
         })
       }

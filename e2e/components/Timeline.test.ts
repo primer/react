@@ -39,7 +39,9 @@ test.describe('Timeline', () => {
             })
 
             // Default state
-            await expect(page).toHaveScreenshot(`Timeline.${story.title}.${theme}.png`)
+            await expect(page).toHaveScreenshot(`Timeline.${story.title}.${theme}.png`, {
+              animations: 'disabled',
+            })
           })
         })
       }
@@ -57,7 +59,9 @@ test.describe('Timeline', () => {
           })
 
           // Default state
-          await expect(page).toHaveScreenshot(`Timeline.With Inline Links.${theme}.png`)
+          await expect(page).toHaveScreenshot(`Timeline.With Inline Links.${theme}.png`, {
+            animations: 'disabled',
+          })
 
           // Hover state
           await page
@@ -65,11 +69,15 @@ test.describe('Timeline', () => {
               name: 'Monalisa',
             })
             .hover()
-          await expect(page).toHaveScreenshot(`Timeline.With Inline Links.${theme}.hover.png`)
+          await expect(page).toHaveScreenshot(`Timeline.With Inline Links.${theme}.hover.png`, {
+            animations: 'disabled',
+          })
 
           // Focus state
           await page.keyboard.press('Tab')
-          await expect(page).toHaveScreenshot(`Timeline.With Inline Links.${theme}.focus.png`)
+          await expect(page).toHaveScreenshot(`Timeline.With Inline Links.${theme}.focus.png`, {
+            animations: 'disabled',
+          })
         })
       })
     }

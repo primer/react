@@ -88,7 +88,9 @@ test.describe('PageLayout', () => {
           })
 
           // Default state
-          await expect(page).toHaveScreenshot(`PageLayout.StickyPane.${theme}.png`)
+          await expect(page).toHaveScreenshot(`PageLayout.StickyPane.${theme}.png`, {
+            animations: 'disabled',
+          })
 
           const content = page.getByTestId('content3')
           await content.scrollIntoViewIfNeeded()
@@ -113,7 +115,9 @@ test.describe('PageLayout', () => {
           })
 
           // Default state
-          await expect(page).toHaveScreenshot(`PageLayout.NonStickyPane.${theme}.png`)
+          await expect(page).toHaveScreenshot(`PageLayout.NonStickyPane.${theme}.png`, {
+            animations: 'disabled',
+          })
 
           const content3 = page.getByTestId('content3')
           await content3.scrollIntoViewIfNeeded()
@@ -140,7 +144,9 @@ test.describe('PageLayout', () => {
           })
 
           // Default state
-          await expect(page).toHaveScreenshot(`PageLayout.Custom Sticky Header.${theme}.png`)
+          await expect(page).toHaveScreenshot(`PageLayout.Custom Sticky Header.${theme}.png`, {
+            animations: 'disabled',
+          })
 
           const content = page.getByTestId('content3')
           await content.scrollIntoViewIfNeeded()

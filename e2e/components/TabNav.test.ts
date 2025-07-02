@@ -23,7 +23,9 @@ test.describe('TabNav', () => {
             })
 
             // Default state
-            await expect(page).toHaveScreenshot(`TabNav.${story.title}.${theme}.png`)
+            await expect(page).toHaveScreenshot(`TabNav.${story.title}.${theme}.png`, {
+              animations: 'disabled',
+            })
           })
         })
       }

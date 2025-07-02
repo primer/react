@@ -39,7 +39,9 @@ test.describe('Flash', () => {
             })
 
             // Default state
-            await expect(page).toHaveScreenshot(`Flash.${story.title}.${theme}.png`)
+            await expect(page).toHaveScreenshot(`Flash.${story.title}.${theme}.png`, {
+              animations: 'disabled',
+            })
           })
         })
       }

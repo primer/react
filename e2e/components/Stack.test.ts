@@ -20,7 +20,9 @@ test.describe('Stack', () => {
         id: 'components-stack--playground',
         args: scenario,
       })
-      await expect(page).toHaveScreenshot(`Stack.${id}.png`)
+      await expect(page).toHaveScreenshot(`Stack.${id}.png`, {
+        animations: 'disabled',
+      })
     })
   }
 })

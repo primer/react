@@ -28,19 +28,25 @@ test.describe('Hidden', () => {
             await page
               .getByText('The below content is visible when the viewport is regular or wide but hidden when narrow:')
               .waitFor()
-            await expect(page).toHaveScreenshot(`Hidden.${story.title}.medium.${theme}.png`)
+            await expect(page).toHaveScreenshot(`Hidden.${story.title}.medium.${theme}.png`, {
+              animations: 'disabled',
+            })
             // Wide size viewport
             await page.setViewportSize({width: viewports['primer.breakpoint.lg'], height: 768})
             await page
               .getByText('The below content is visible when the viewport is regular or wide but hidden when narrow:')
               .waitFor()
-            await expect(page).toHaveScreenshot(`Hidden.${story.title}.wide.${theme}.png`)
+            await expect(page).toHaveScreenshot(`Hidden.${story.title}.wide.${theme}.png`, {
+              animations: 'disabled',
+            })
             // Narrow size viewport
             await page.setViewportSize({width: viewports['primer.breakpoint.xs'], height: 768})
             await page
               .getByText('The below content is visible when the viewport is regular or wide but hidden when narrow:')
               .waitFor()
-            await expect(page).toHaveScreenshot(`Hidden.${story.title}.narrow.${theme}.png`)
+            await expect(page).toHaveScreenshot(`Hidden.${story.title}.narrow.${theme}.png`, {
+              animations: 'disabled',
+            })
           })
         })
       }

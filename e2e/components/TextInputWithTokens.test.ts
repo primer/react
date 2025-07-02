@@ -47,7 +47,9 @@ test.describe('TextInputWithTokens', () => {
             })
 
             // Default state
-            await expect(page).toHaveScreenshot(`TextInputWithTokens.${story.title}.${theme}.png`)
+            await expect(page).toHaveScreenshot(`TextInputWithTokens.${story.title}.${theme}.png`, {
+              animations: 'disabled',
+            })
           })
         })
       }

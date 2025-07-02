@@ -50,7 +50,9 @@ test.describe('UnderlinePanels', () => {
               },
             })
 
-            await expect(page).toHaveScreenshot(`UnderlinePanels.${story.title}.${theme}.png`)
+            await expect(page).toHaveScreenshot(`UnderlinePanels.${story.title}.${theme}.png`, {
+              animations: 'disabled',
+            })
           })
         })
       }

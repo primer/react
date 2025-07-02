@@ -61,7 +61,9 @@ test.describe('Overlay ', () => {
               },
             })
 
-            await expect(page).toHaveScreenshot(`Overlay.${story.title}.${theme}.png`, {animations: 'disabled'})
+            await expect(page).toHaveScreenshot(`Overlay.${story.title}.${theme}.png`, {
+              animations: 'disabled',
+            })
           })
 
           test('axe @aat', async ({page}) => {

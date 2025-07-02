@@ -27,7 +27,9 @@ test.describe('CircleOcticon', () => {
             })
 
             // Default state
-            await expect(page).toHaveScreenshot(`CircleOcticon.${story.title}.${theme}.png`)
+            await expect(page).toHaveScreenshot(`CircleOcticon.${story.title}.${theme}.png`, {
+              animations: 'disabled',
+            })
           })
         })
       }

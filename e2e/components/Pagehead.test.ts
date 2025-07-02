@@ -23,7 +23,9 @@ test.describe('Pagehead', () => {
             })
 
             // Default state
-            await expect(page).toHaveScreenshot(`Pagehead.${story.title}.${theme}.png`)
+            await expect(page).toHaveScreenshot(`Pagehead.${story.title}.${theme}.png`, {
+              animations: 'disabled',
+            })
           })
         })
       }

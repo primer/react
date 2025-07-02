@@ -89,18 +89,27 @@ test.describe('SegmentedControl', () => {
             }
 
             // Default state
-            await expect(page).toHaveScreenshot(`SegmentedControl.${story.title}.${theme}.png`)
+            await expect(page).toHaveScreenshot(`SegmentedControl.${story.title}.${theme}.png`, {
+              animations: 'disabled',
+            })
 
             if (story.title === 'Default') {
               // Focus state
               await page.keyboard.press('Tab')
-              await expect(page).toHaveScreenshot(`SegmentedControl.${story.title}.${theme}.focus.png`)
+              await expect(page).toHaveScreenshot(`SegmentedControl.${story.title}.${theme}.focus.png`, {
+                animations: 'disabled',
+              })
 
               // Middle Button Focus state
               await page.keyboard.press('Tab')
               await page.keyboard.press('Enter')
               await page.keyboard.press('Shift+Tab')
-              await expect(page).toHaveScreenshot(`SegmentedControl.${story.title}.${theme}.middle.selected.focus.png`)
+              await expect(page).toHaveScreenshot(
+                `SegmentedControl.${story.title}.${theme}.middle.selected.focus.png`,
+                {
+                  animations: 'disabled',
+                },
+              )
             }
           })
         })

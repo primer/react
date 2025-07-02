@@ -63,7 +63,9 @@ test.describe('LinkButton', () => {
             })
 
             // Default state
-            await expect(page).toHaveScreenshot(`LinkButton.${story.title}.${theme}.png`)
+            await expect(page).toHaveScreenshot(`LinkButton.${story.title}.${theme}.png`, {
+              animations: 'disabled',
+            })
           })
         })
       }

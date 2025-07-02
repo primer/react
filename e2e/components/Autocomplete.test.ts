@@ -121,7 +121,9 @@ test.describe('Autocomplete', () => {
 
             await story.setup(page)
 
-            await expect(page).toHaveScreenshot(`Autocomplete.${story.title}.${theme}.png`, {animations: 'disabled'})
+            await expect(page).toHaveScreenshot(`Autocomplete.${story.title}.${theme}.png`, {
+              animations: 'disabled',
+            })
           })
 
           test('@aat', async ({page}) => {

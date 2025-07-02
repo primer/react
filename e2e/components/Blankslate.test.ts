@@ -62,7 +62,9 @@ test.describe('Blankslate', () => {
             })
 
             // Default state
-            await expect(page).toHaveScreenshot(`Blankslate.${story.title}.${theme}.png`)
+            await expect(page).toHaveScreenshot(`Blankslate.${story.title}.${theme}.png`, {
+              animations: 'disabled',
+            })
           })
         })
       }
@@ -79,7 +81,9 @@ test.describe('Blankslate', () => {
               width,
               height: 667,
             })
-            await expect(page).toHaveScreenshot(`Blankslate.${story.title}.${name}.png`)
+            await expect(page).toHaveScreenshot(`Blankslate.${story.title}.${name}.png`, {
+              animations: 'disabled',
+            })
           })
         }
       }
@@ -97,7 +101,9 @@ test.describe('Blankslate', () => {
         })
 
         // Default state
-        await expect(page).toHaveScreenshot(`Blankslate.${id}.png`)
+        await expect(page).toHaveScreenshot(`Blankslate.${id}.png`, {
+          animations: 'disabled',
+        })
       })
     })
   }

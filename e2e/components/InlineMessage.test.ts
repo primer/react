@@ -37,7 +37,9 @@ test.describe('InlineMessage', () => {
             })
 
             // Default state
-            await expect(page).toHaveScreenshot(`InlineMessage.${story.title}.${theme}.png`)
+            await expect(page).toHaveScreenshot(`InlineMessage.${story.title}.${theme}.png`, {
+              animations: 'disabled',
+            })
           })
         })
       }
@@ -61,7 +63,9 @@ test.describe('InlineMessage', () => {
             await page.setViewportSize({width: 400, height: 200})
 
             // Default state
-            await expect(page).toHaveScreenshot(`InlineMessage.${id}.${theme}.png`)
+            await expect(page).toHaveScreenshot(`InlineMessage.${id}.${theme}.png`, {
+              animations: 'disabled',
+            })
           })
         })
       }

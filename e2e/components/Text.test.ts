@@ -47,7 +47,9 @@ test.describe('Text', () => {
         })
 
         // Default state
-        await expect(page).toHaveScreenshot(`Text.${story.title}.png`)
+        await expect(page).toHaveScreenshot(`Text.${story.title}.png`, {
+          animations: 'disabled',
+        })
       })
     })
   }
