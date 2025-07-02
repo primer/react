@@ -33,9 +33,6 @@
 
   > label {
     font-weight: var(--base-text-weight-normal);
-    &:where([data-disabled]) {
-      color: var(--control-fgColor-disabled);
-    }
   }
 }
 
