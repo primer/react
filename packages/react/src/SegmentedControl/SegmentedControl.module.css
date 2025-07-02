@@ -159,7 +159,6 @@
   border-radius: calc(var(--segmented-control-outer-radius) - var(--segmented-control-button-bg-inset) / 2);
   align-items: center;
   justify-content: center;
-  background-color: lightpink;
 }
 
 .Button[aria-current='true'] {
