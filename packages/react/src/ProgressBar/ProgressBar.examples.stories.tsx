@@ -1,7 +1,5 @@
 import type {Meta} from '@storybook/react-vite'
 import {ProgressBar, Stack} from '..'
-import React, {useEffect} from 'react'
-import {announce} from '@primer/live-region-element'
 import {DotFillIcon} from '@primer/octicons-react'
 
 export default {
