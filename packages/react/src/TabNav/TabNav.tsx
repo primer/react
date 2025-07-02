@@ -72,6 +72,7 @@ export type TabNavLinkProps = React.DetailedHTMLProps<React.HTMLAttributes<HTMLA
   href?: string
   className?: string
   as?: React.ElementType | 'a' | 'button' | 'div'
+  disabled?: boolean
 } & SxProp
 
 /**
