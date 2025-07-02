@@ -38,7 +38,6 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
       block,
       children,
       className,
-      contrast,
       defaultValue,
       disabled,
       placeholder,
@@ -53,7 +52,6 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
     return (
       <TextInputWrapper
         block={block}
-        contrast={contrast}
         disabled={disabled}
         size={size}
         validationStatus={validationStatus}
