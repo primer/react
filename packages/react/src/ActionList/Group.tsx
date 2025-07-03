@@ -4,7 +4,6 @@ import type {SxProp} from '../sx'
 import {ListContext, type ActionListProps} from './shared'
 import type {ActionListHeadingProps} from './Heading'
 import {useSlots} from '../hooks/useSlots'
-import {defaultSxProp} from '../utils/defaultSxProp'
 import {invariant} from '../utils/invariant'
 import {clsx} from 'clsx'
 import classes from './ActionList.module.css'
@@ -22,13 +21,12 @@ const Heading: React.FC<HeadingProps & React.HTMLAttributes<HTMLHeadingElement>>
   as: Component = 'h3',
   className,
   children,
-  sx = defaultSxProp,
   id,
   ...rest
 }) => {
   return (
     // Box is temporary to support lingering sx usage
-    <BoxWithFallback as={Component} className={className} sx={sx} id={id} {...rest}>
+    <BoxWithFallback as={Component} className={className} id={id} {...rest}>
       {children}
     </BoxWithFallback>
   )
@@ -81,7 +79,6 @@ export const Group: React.FC<React.PropsWithChildren<ActionListGroupProps>> = ({
   role,
   className,
   'aria-label': ariaLabel,
-  sx = defaultSxProp,
   ...props
 }) => {
   const id = useId()
@@ -108,7 +105,6 @@ export const Group: React.FC<React.PropsWithChildren<ActionListGroupProps>> = ({
       as="li"
       className={clsx(className, groupClasses.Group)}
       role={listRole ? 'none' : undefined}
-      sx={sx}
       {...props}
     >
       <GroupContext.Provider value={{selectionVariant, groupHeadingId}}>
@@ -160,7 +156,7 @@ export const GroupHeading: React.FC<React.PropsWithChildren<ActionListGroupHeadi
   auxiliaryText,
   children,
   className,
-  sx = defaultSxProp,
+  sx,
   headingWrapElement = 'div',
   ...props
 }) => {
