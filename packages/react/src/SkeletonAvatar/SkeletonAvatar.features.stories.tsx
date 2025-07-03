@@ -4,7 +4,7 @@ import {SkeletonAvatar} from './SkeletonAvatar'
 import {AvatarStack, AvatarPair} from '../../'
 
 export default {
-  title: 'Experimental/Components/Skeleton/SkeletonAvatar/Features',
+  title: 'Components/Skeleton/SkeletonAvatar/Features',
   component: SkeletonAvatar,
 } as Meta<ComponentProps<typeof SkeletonAvatar>>
 

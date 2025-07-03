@@ -1,5 +1,5 @@
+import {describe, expect, it} from 'vitest'
 import {render} from '@testing-library/react'
-import React from 'react'
 import {SkeletonText} from '../SkeletonText'
 
 describe('SkeletonText', () => {
@@ -8,11 +8,25 @@ describe('SkeletonText', () => {
     expect(container.firstChild).toHaveClass('test-class-name')
   })
 
-  it.todo('should support spreading extra props on the outermost element')
+  it('should support spreading extra props on the outermost element', () => {
+    const {container} = render(<SkeletonText data-testid="skeleton-text" />)
+    expect(container.firstChild).toHaveAttribute('data-testid', 'skeleton-text')
+  })
 
-  it.todo('size')
+  it('should render with the correct size', () => {
+    const {container} = render(<SkeletonText size="display" />)
+    expect(container.firstChild).toHaveAttribute('data-text-skeleton-size', 'display')
+  })
 
-  it.todo('lines')
+  it('should render the correct number of lines', () => {
+    const {container} = render(<SkeletonText lines={3} />)
+    // Assuming each line is rendered as a child element (e.g., <span> or <div>)
+    // Adjust the selector as needed based on implementation
+    expect(container.firstChild?.childNodes.length).toBe(3)
+  })
 
-  it.todo('maxWidth')
+  it('should apply maxWidth style', () => {
+    const {container} = render(<SkeletonText maxWidth="200px" />)
+    expect(container.firstChild).toHaveStyle({maxWidth: '200px'})
+  })
 })

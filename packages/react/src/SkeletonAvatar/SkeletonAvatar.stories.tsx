@@ -5,7 +5,7 @@ import {parseSizeFromArgs} from '../Avatar/storyHelpers'
 import {DEFAULT_AVATAR_SIZE} from '../Avatar/Avatar'
 
 export default {
-  title: 'Experimental/Components/Skeleton/SkeletonAvatar',
+  title: 'Components/Skeleton/SkeletonAvatar',
   component: SkeletonAvatar,
 } as Meta<ComponentProps<typeof SkeletonAvatar>>
 

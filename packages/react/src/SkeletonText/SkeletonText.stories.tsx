@@ -3,7 +3,7 @@ import type {ComponentProps} from '../utils/types'
 import {SkeletonText} from './SkeletonText'
 
 export default {
-  title: 'Experimental/Components/Skeleton/SkeletonText',
+  title: 'Components/Skeleton/SkeletonText',
   component: SkeletonText,
 } as Meta<ComponentProps<typeof SkeletonText>>
 
