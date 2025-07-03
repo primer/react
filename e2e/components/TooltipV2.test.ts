@@ -1,6 +1,7 @@
-import {test, expect} from '@playwright/test'
+import {test, expect, type Page} from '@playwright/test'
 import {visit} from '../test-helpers/storybook'
 import {themes} from '../test-helpers/themes'
+import {waitForAllAnimations} from '../test-helpers/waitForAnimations'
 
 const stories = [
   {
@@ -50,6 +51,7 @@ test.describe('TooltipV2', () => {
 
             // Default state
             await page.keyboard.press('Tab')
+            await waitForAllAnimations(page)
             await expect(page).toHaveScreenshot(`TooltipV2.${story.title}.${theme}.png`, {
               animations: 'disabled',
             })
