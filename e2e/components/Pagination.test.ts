@@ -35,7 +35,7 @@ test.describe('Pagination', () => {
             })
 
             // Default state
-            expect(await page.screenshot()).toMatchSnapshot(`Pagehead.${story.title}.${theme}.png`)
+            await expect(page).toHaveScreenshot(`Pagehead.${story.title}.${theme}.png`)
           })
         })
       }

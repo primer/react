@@ -251,6 +251,12 @@
           "name": "href",
           "type": "string",
           "description": "href when the TrailingAction is rendered as a link."
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Whether the TrailingAction is in a loading state. When true, the TrailingAction will render a spinner instead of an icon. Only available when `as` is 'button'."
         }
       ]
     },
