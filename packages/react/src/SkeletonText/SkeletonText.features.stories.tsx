@@ -1,9 +1,9 @@
 import type {Meta} from '@storybook/react-vite'
-import type {ComponentProps} from '../../utils/types'
+import type {ComponentProps} from '../utils/types'
 import {SkeletonText} from './SkeletonText'
 
 export default {
-  title: 'Experimental/Components/Skeleton/SkeletonText/Features',
+  title: 'Components/Skeleton/SkeletonText/Features',
   component: SkeletonText,
 } as Meta<ComponentProps<typeof SkeletonText>>
 

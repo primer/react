@@ -1,11 +1,11 @@
 import type {Meta, StoryFn} from '@storybook/react-vite'
-import type {ComponentProps} from '../../utils/types'
+import type {ComponentProps} from '../utils/types'
 import {SkeletonAvatar, type SkeletonAvatarProps} from './SkeletonAvatar'
-import {parseSizeFromArgs} from '../../Avatar/storyHelpers'
-import {DEFAULT_AVATAR_SIZE} from '../../Avatar/Avatar'
+import {parseSizeFromArgs} from '../Avatar/storyHelpers'
+import {DEFAULT_AVATAR_SIZE} from '../Avatar/Avatar'
 
 export default {
-  title: 'Experimental/Components/Skeleton/SkeletonAvatar',
+  title: 'Components/Skeleton/SkeletonAvatar',
   component: SkeletonAvatar,
 } as Meta<ComponentProps<typeof SkeletonAvatar>>
 

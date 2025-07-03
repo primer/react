@@ -1,14 +1,14 @@
 import React, {Suspense} from 'react'
 import type {Meta} from '@storybook/react-vite'
-import type {ComponentProps} from '../../utils/types'
-import {SkeletonText} from './SkeletonText'
+import type {ComponentProps} from '../utils/types'
+import {SkeletonText} from '../SkeletonText'
 import {Avatar, Box, Button, IconButton, Text} from '../../'
-import {SkeletonAvatar} from './SkeletonAvatar'
-import {VisuallyHidden} from '../../VisuallyHidden'
+import {SkeletonAvatar} from '../SkeletonAvatar'
+import {VisuallyHidden} from '../VisuallyHidden'
 import {KebabHorizontalIcon} from '@primer/octicons-react'
 
 export default {
-  title: 'Experimental/Components/Skeleton/Examples',
+  title: 'Components/Skeleton/Examples',
 } as Meta<ComponentProps<typeof SkeletonText>>
 
 const COMMENT_LIST_LENGTH = 3

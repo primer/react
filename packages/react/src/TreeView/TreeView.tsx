@@ -18,8 +18,8 @@ import {useSlots} from '../hooks/useSlots'
 import {getAccessibleName} from './shared'
 import {getFirstChildElement, useRovingTabIndex} from './useRovingTabIndex'
 import {useTypeahead} from './useTypeahead'
-import {SkeletonAvatar} from '../experimental/Skeleton/SkeletonAvatar'
-import {SkeletonText} from '../experimental/Skeleton/SkeletonText'
+import {SkeletonAvatar} from '../SkeletonAvatar'
+import {SkeletonText} from '../SkeletonText'
 
 // ----------------------------------------------------------------------------
 // Context
