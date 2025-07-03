@@ -5,5 +5,5 @@ export async function waitForAllAnimations(page: Page) {
     .locator(`#storybook-root`)
     .evaluate(element => Promise.all(element.getAnimations({subtree: true}).map(animation => animation.finished)))
 
-  await page.waitForTimeout(50)
+  await page.waitForTimeout(250)
 }
