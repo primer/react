@@ -1,5 +1,5 @@
-import {describe, expect, it} from 'vitest'
 import {render} from '@testing-library/react'
+import {describe, expect, it} from 'vitest'
 import {SkeletonAvatar} from '../SkeletonAvatar'
 import {DEFAULT_AVATAR_SIZE} from '../Avatar/Avatar'
 
