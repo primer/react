@@ -289,7 +289,7 @@ function Group({title, children, sx, ...rest}: NavListGroupProps) {
   return (
     <>
       <ActionList.Divider />
-      <BoxWithFallback as={ActionList.Group} {...rest} sx={sx}>
+      <ActionList.Group {...rest} sx={sx}>
         {/* Setting up the default value for the heading level. TODO: API update to give flexibility to NavList.Group title's heading level */}
         {title ? (
           <ActionList.GroupHeading as="h3" data-component="ActionList.GroupHeading">
@@ -297,7 +297,7 @@ function Group({title, children, sx, ...rest}: NavListGroupProps) {
           </ActionList.GroupHeading>
         ) : null}
         {children}
-      </BoxWithFallback>
+      </ActionList.Group>
     </>
   )
 }
