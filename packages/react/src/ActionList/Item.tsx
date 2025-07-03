@@ -250,6 +250,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
           data-active={active ? true : undefined}
           data-inactive={inactiveText ? true : undefined}
           data-has-subitem={slots.subItem ? true : undefined}
+          data-has-description={slots.description ? true : false}
           className={clsx(classes.ActionListItem, className)}
         >
           <ItemWrapper {...wrapperProps} className={classes.ActionListContent}>
