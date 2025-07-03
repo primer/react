@@ -1,4 +1,4 @@
-import type {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react-vite'
 import {BaseStyles, ThemeProvider, Button} from '..'
 import Box from '../Box'
 import Link from '../Link'
@@ -32,7 +32,7 @@ export const Default = () => (
         description={
           <div data-a11y-link-underlines="true">
             There are plans to deprecate this component in a future release. We recommend using{' '}
-            <Link inline={true} href="/?path=/story/components-tooltipv2--default">
+            <Link inline={true} href="/react/storybook/?path=/story/components-tooltipv2--default">
               Tooltip
             </Link>{' '}
             instead.

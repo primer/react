@@ -32,7 +32,7 @@
       "name": "relative",
       "type": "boolean",
       "defaultValue": "false",
-      "description": "Set to true to render the popover using relative positioning. "
+      "description": "Set to true to render the popover using relative positioning."
     },
     {
       "name": "sx",
