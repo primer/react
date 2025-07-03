@@ -7,7 +7,7 @@ import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../uti
 import classes from './Select.module.css'
 
 export type SelectProps = Omit<
-  Omit<React.ComponentProps<'select'>, 'size'> & Omit<StyledWrapperProps, 'variant'>,
+  Omit<React.ComponentProps<'select'>, 'size'> & Omit<StyledWrapperProps, 'variant' | 'contrast'>,
   'multiple' | 'hasLeadingVisual' | 'hasTrailingVisual' | 'as'
 > & {
   placeholder?: string
