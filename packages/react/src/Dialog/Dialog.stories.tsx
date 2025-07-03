@@ -1,5 +1,5 @@
-import React, {useState, useRef, useCallback} from 'react'
-import type {Meta} from '@storybook/react'
+import {useState, useRef, useCallback} from 'react'
+import type {Meta} from '@storybook/react-vite'
 import {Button, Text} from '..'
 import type {DialogProps} from './Dialog'
 import {Dialog} from './Dialog'

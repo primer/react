@@ -1,6 +1,5 @@
 import {GrabberIcon, IssueClosedIcon, IssueOpenedIcon} from '@primer/octicons-react'
-import type {Meta, StoryFn} from '@storybook/react'
-import React from 'react'
+import type {Meta, StoryFn} from '@storybook/react-vite'
 import Box from '../Box'
 import Link from '../Link'
 import {Banner} from '../Banner'

@@ -14,10 +14,36 @@ updates:
       - 'dependencies'
       - 'skip changeset'
     groups:
+      babel:
+        patterns:
+          - '@babel/*'
+          - 'babel-plugin-*'
+      eslint:
+        patterns:
+          - '@eslint/*'
+          - 'eslint'
+          - 'eslint-plugin-*'
+      react:
+        patterns:
+          - 'react'
+          - 'react-dom'
+          - 'react-is'
+          - '@types/react'
+          - '@types/react-dom'
+          - '@types/react-is'
+      rollup:
+        patterns:
+          - '@rollup/*'
+          - 'rollup'
+          - 'rollup-plugin-*'
       storybook:
         patterns:
           - '@storybook/*'
           - 'storybook'
+      vitest:
+        patterns:
+          - '@vitest/*'
+          - 'vitest'
 
   - package-ecosystem: 'github-actions'
     directory: '/'

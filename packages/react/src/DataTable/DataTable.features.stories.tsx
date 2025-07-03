@@ -7,8 +7,8 @@ import {
   RepoIcon,
   TrashIcon,
 } from '@primer/octicons-react'
-import {action} from '@storybook/addon-actions'
-import type {Meta} from '@storybook/react'
+import {action} from 'storybook/actions'
+import type {Meta} from '@storybook/react-vite'
 import React from 'react'
 import {ActionList} from '../ActionList'
 import {ActionMenu} from '../ActionMenu'
@@ -1445,6 +1445,69 @@ export const WithRightAlignedColumns = () => {
     </Table.Container>
   )
 }
+
+export const WithSortEvents = () => (
+  <Table.Container>
+    <Table.Title as="h2" id="repositories">
+      Repositories
+    </Table.Title>
+    <Table.Subtitle as="p" id="repositories-subtitle">
+      Click any sortable header and watch the Actions panel.
+    </Table.Subtitle>
+
+    <DataTable
+      aria-labelledby="repositories"
+      aria-describedby="repositories-subtitle"
+      data={data}
+      onToggleSort={(columnId, direction) => action('onToggleSort')({columnId, direction})}
+      columns={[
+        {
+          header: 'Repository',
+          field: 'name',
+          rowHeader: true,
+          sortBy: 'alphanumeric',
+        },
+        {
+          header: 'Type',
+          field: 'type',
+          renderCell: row => <Label>{uppercase(row.type)}</Label>,
+        },
+        {
+          header: 'Updated',
+          field: 'updatedAt',
+          sortBy: 'datetime',
+          renderCell: row => <RelativeTime date={new Date(row.updatedAt)} />,
+        },
+        {
+          header: 'Dependabot',
+          field: 'securityFeatures.dependabot',
+          renderCell: row =>
+            row.securityFeatures.dependabot.length ? (
+              <LabelGroup>
+                {row.securityFeatures.dependabot.map(feature => (
+                  <Label key={feature}>{uppercase(feature)}</Label>
+                ))}
+              </LabelGroup>
+            ) : null,
+        },
+        {
+          header: 'Code scanning',
+          field: 'securityFeatures.codeScanning',
+          renderCell: row =>
+            row.securityFeatures.codeScanning.length ? (
+              <LabelGroup>
+                {row.securityFeatures.codeScanning.map(feature => (
+                  <Label key={feature}>{uppercase(feature)}</Label>
+                ))}
+              </LabelGroup>
+            ) : null,
+        },
+      ]}
+      initialSortColumn="updatedAt"
+      initialSortDirection="DESC"
+    />
+  </Table.Container>
+)
 
 export const WithPagination = () => {
   const pageSize = 10

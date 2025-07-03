@@ -1,5 +1,4 @@
-import React from 'react'
-import type {Meta, StoryFn} from '@storybook/react'
+import type {Meta, StoryFn} from '@storybook/react-vite'
 import type {AvatarProps} from './Avatar'
 import Avatar, {DEFAULT_AVATAR_SIZE} from './Avatar'
 import {parseSizeFromArgs} from './storyHelpers'

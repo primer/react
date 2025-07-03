@@ -1,5 +1,4 @@
-import React from 'react'
-import type {Meta, StoryFn} from '@storybook/react'
+import type {Meta, StoryFn} from '@storybook/react-vite'
 import Heading from '../Heading'
 import Popover from './Popover'
 import Text from '../Text'

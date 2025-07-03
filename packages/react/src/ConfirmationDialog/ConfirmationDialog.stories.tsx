@@ -1,5 +1,5 @@
-import React, {useCallback, useRef, useState} from 'react'
-import type {Meta} from '@storybook/react'
+import {useCallback, useRef, useState} from 'react'
+import type {Meta} from '@storybook/react-vite'
 import {BaseStyles, Button, ThemeProvider} from '..'
 import {ConfirmationDialog} from './ConfirmationDialog'
 

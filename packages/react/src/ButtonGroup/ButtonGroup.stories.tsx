@@ -1,5 +1,4 @@
-import React from 'react'
-import type {StoryFn, Meta} from '@storybook/react'
+import type {StoryFn, Meta} from '@storybook/react-vite'
 import ButtonGroup from './ButtonGroup'
 import type {ButtonProps} from '../Button'
 import {Button} from '../Button'

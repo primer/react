@@ -1,5 +1,4 @@
-import React from 'react'
-import type {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react-vite'
 import {Button, IconButton, Box} from '..'
 import Label from '../Label'
 import {GitBranchIcon, PencilIcon, SidebarExpandIcon} from '@primer/octicons-react'

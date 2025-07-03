@@ -1,4 +1,3 @@
-import React from 'react'
 import Box from '../Box'
 import Spinner from '../Spinner'
 import {Stack} from '../Stack/Stack'

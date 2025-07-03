@@ -1,5 +1,4 @@
-import React from 'react'
-import type {Meta, StoryFn} from '@storybook/react'
+import type {Meta, StoryFn} from '@storybook/react-vite'
 import FilteredSearch from './FilteredSearch'
 import {ActionList} from '../../ActionList'
 import {ActionMenu} from '../../ActionMenu'

@@ -4,9 +4,15 @@
   "status": "alpha",
   "a11yReviewed": false,
   "stories": [
-    {"id": "private-components-overlay--default"},
-    {"id": "private-components-overlay-features--dialog-overlay"},
-    {"id": "private-components-overlay-features--positioned-overlays"}
+    {
+      "id": "private-components-overlay--default"
+    },
+    {
+      "id": "private-components-overlay-features--dialog-overlay"
+    },
+    {
+      "id": "private-components-overlay-features--positioned-overlays"
+    }
   ],
   "importPath": "@primer/react",
   "props": [
@@ -124,7 +130,7 @@
       "name": "preventOverflow",
       "type": "boolean",
       "defaultValue": "true",
-      "description": "Determines if the Overlay width should be adjusted responsively if `width` is set to either `auto`, `medium` or lower and there is not enough space to display the Overlay. \nIf `preventOverflow` is set to `false`, the Overlay will be displayed at the maximum width that fits within the viewport."
+      "description": "Determines if the Overlay width should be adjusted responsively if `width` is set to either `auto`, `medium` or lower and there is not enough space to display the Overlay.\nIf `preventOverflow` is set to `false`, the Overlay will be displayed at the maximum width that fits within the viewport."
     },
     {
       "name": "role",
@@ -142,7 +148,8 @@
     },
     {
       "name": "sx",
-      "type": "SystemStyleObject"
+      "type": "SystemStyleObject",
+      "deprecated": true
     },
     {
       "name": "responsiveVariant",

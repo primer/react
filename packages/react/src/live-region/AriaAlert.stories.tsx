@@ -1,5 +1,5 @@
-import type {StoryObj} from '@storybook/react'
-import React, {useEffect, useState} from 'react'
+import type {StoryObj} from '@storybook/react-vite'
+import {useEffect, useState} from 'react'
 import {AriaAlert} from './AriaAlert'
 
 export default {

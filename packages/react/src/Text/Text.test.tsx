@@ -1,4 +1,3 @@
-import React from 'react'
 import {Text} from '..'
 import theme from '../theme'
 import {px, render, renderStyles, behavesAsComponent, checkExports} from '../utils/testing'
@@ -63,7 +62,6 @@ describe('Text', () => {
   })
 
   it('respects fontFamily="mono"', () => {
-    // styled-components removes the whitespace between font-family values
     const mono = theme.fonts.mono.replace(/, /g, ',')
     expect(render(<Text fontFamily="mono" />)).toHaveStyleRule('font-family', mono)
   })

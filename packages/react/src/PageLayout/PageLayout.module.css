@@ -55,7 +55,6 @@ body[data-page-layout-dragging='true'] * {
   --spacing-column: 0;
   --spacing-divider: 0;
   --offset-header: 0;
-  --sticky-pane-height: 0;
   --pane-width: 0;
   --pane-min-width: 0;
   --pane-max-width: 0;
@@ -250,7 +249,7 @@ body[data-page-layout-dragging='true'] * {
       position: sticky;
       /* stylelint-disable-next-line primer/spacing */
       top: var(--offset-header);
-      max-height: var(--sticky-pane-height);
+      max-height: 100vh;
     }
 
     &:where([data-position='end']) {

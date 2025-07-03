@@ -1,10 +1,18 @@
 const defines = require('./babel-defines')
+const {isSupported} = require('./script/react-compiler.mjs')
 
 function replacementPlugin(env) {
   return ['babel-plugin-transform-replace-expressions', {replace: defines[env]}]
 }
 
 const sharedPlugins = [
+  [
+    'babel-plugin-react-compiler',
+    {
+      target: '18',
+      sources: isSupported,
+    },
+  ],
   'macros',
   'dev-expression',
   'add-react-displayname',
@@ -14,7 +22,16 @@ const sharedPlugins = [
 ]
 
 function makePresets(moduleValue) {
-  return ['@babel/preset-typescript', ['@babel/preset-react', {modules: moduleValue}]]
+  return [
+    '@babel/preset-typescript',
+    [
+      '@babel/preset-react',
+      {
+        modules: moduleValue,
+        runtime: 'automatic',
+      },
+    ],
+  ]
 }
 
 module.exports = {

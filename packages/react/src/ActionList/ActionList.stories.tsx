@@ -1,5 +1,4 @@
-import React from 'react'
-import type {StoryFn, Meta} from '@storybook/react'
+import type {StoryFn, Meta} from '@storybook/react-vite'
 import type {ActionListProps, ActionListGroupProps} from '.'
 import {ActionList} from '.'
 import {Item} from './Item'
@@ -45,7 +44,7 @@ Playground.argTypes = {
     control: {
       type: 'radio',
     },
-    options: ['inset', 'full'],
+    options: ['inset', 'horizontal-inset', 'full'],
   },
   selectionVariant: {
     control: {
@@ -288,6 +287,9 @@ GroupPlayground.argTypes = {
     type: 'string',
   },
   title: {
+    type: 'string',
+  },
+  'aria-label': {
     type: 'string',
   },
   auxiliaryText: {

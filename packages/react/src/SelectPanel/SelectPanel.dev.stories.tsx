@@ -1,6 +1,7 @@
 import {TriangleDownIcon} from '@primer/octicons-react'
-import type {Meta} from '@storybook/react'
-import React, {useState} from 'react'
+import type {Meta} from '@storybook/react-vite'
+import type React from 'react'
+import {useState} from 'react'
 
 import Box from '../Box'
 import {Button} from '../Button'
@@ -8,7 +9,8 @@ import {SelectPanel} from '.'
 import type {ItemInput} from '../deprecated/ActionList/List'
 import FormControl from '../FormControl'
 import Text from '../Text'
-import {MultiSelectModal, SingleSelect, SingleSelectModal, WithOnCancel} from './SelectPanel.features.stories'
+import Select from '../Select/Select'
+import type {SelectPanelSecondaryAction} from './SelectPanel'
 
 const meta: Meta<typeof SelectPanel> = {
   title: 'Components/SelectPanel/Dev',
@@ -190,7 +192,144 @@ export const WithSxAndCSS = () => {
   )
 }
 
+const simpleItems = [
+  {leadingVisual: getColorCircle('#a2eeef'), text: 'enhancement', id: 1},
+  {leadingVisual: getColorCircle('#d73a4a'), text: 'bug', id: 2},
+  {leadingVisual: getColorCircle('#0cf478'), text: 'good first issue', id: 3},
+  {leadingVisual: getColorCircle('#ffd78e'), text: 'design', id: 4},
+  {leadingVisual: getColorCircle('#ff0000'), text: 'blocker', id: 5},
+  {leadingVisual: getColorCircle('#a4f287'), text: 'backend', id: 6},
+  {leadingVisual: getColorCircle('#8dc6fc'), text: 'frontend', id: 7},
+]
+
+// onCancel is optional with variant=anchored, but required with variant=modal
+type ParamProps =
+  | {variant: 'anchored'; onCancel?: () => void; secondaryAction?: SelectPanelSecondaryAction}
+  | {variant: 'modal'; onCancel: () => void; secondaryAction?: SelectPanelSecondaryAction}
+
+const SingleSelectParams = ({variant, onCancel, secondaryAction}: ParamProps) => {
+  const [selected, setSelected] = useState<ItemInput | undefined>(simpleItems[0])
+  const [filter, setFilter] = useState('')
+  const filteredItems = simpleItems.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
+  const [open, setOpen] = useState(false)
+
+  // Only the variant prop changes but Typescript doesn't easily understand that
+  return variant === 'anchored' ? (
+    <SelectPanel
+      renderAnchor={({children, ...anchorProps}) => (
+        <Button trailingAction={TriangleDownIcon} {...anchorProps}>
+          {children ?? 'Select Labels'}
+        </Button>
+      )}
+      placeholder="Select labels"
+      open={open}
+      onOpenChange={setOpen}
+      items={filteredItems}
+      selected={selected}
+      onSelectedChange={setSelected}
+      onFilterChange={setFilter}
+      width="medium"
+      message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}
+      onCancel={onCancel}
+      secondaryAction={secondaryAction}
+    />
+  ) : (
+    <SelectPanel
+      renderAnchor={({children, ...anchorProps}) => (
+        <Button trailingAction={TriangleDownIcon} {...anchorProps}>
+          {children ?? 'Select Labels'}
+        </Button>
+      )}
+      placeholder="Select labels"
+      open={open}
+      onOpenChange={setOpen}
+      items={filteredItems}
+      selected={selected}
+      onSelectedChange={setSelected}
+      onFilterChange={setFilter}
+      width="medium"
+      message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}
+      onCancel={onCancel}
+      secondaryAction={secondaryAction}
+      variant="modal"
+    />
+  )
+}
+
+const MultiSelectParams = ({variant, onCancel, secondaryAction}: ParamProps) => {
+  const [selected, setSelected] = useState<ItemInput[]>(simpleItems.slice(1, 3))
+  const [filter, setFilter] = useState('')
+  const filteredItems = simpleItems.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
+  const [open, setOpen] = useState(false)
+
+  // Only the variant prop changes but Typescript doesn't easily understand that
+  return variant === 'anchored' ? (
+    <SelectPanel
+      title="Select labels"
+      placeholder="Select labels"
+      subtitle="Use labels to organize issues and pull requests"
+      renderAnchor={({children, ...anchorProps}) => (
+        <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
+          {children}
+        </Button>
+      )}
+      open={open}
+      onOpenChange={setOpen}
+      items={filteredItems}
+      selected={selected}
+      onSelectedChange={setSelected}
+      onFilterChange={setFilter}
+      width="medium"
+      message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}
+      onCancel={onCancel}
+      secondaryAction={secondaryAction}
+    />
+  ) : (
+    <SelectPanel
+      title="Select labels"
+      placeholder="Select labels"
+      subtitle="Use labels to organize issues and pull requests"
+      renderAnchor={({children, ...anchorProps}) => (
+        <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
+          {children}
+        </Button>
+      )}
+      open={open}
+      onOpenChange={setOpen}
+      items={filteredItems}
+      selected={selected}
+      onSelectedChange={setSelected}
+      onFilterChange={setFilter}
+      width="medium"
+      message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}
+      variant="modal"
+      onCancel={onCancel}
+      secondaryAction={secondaryAction}
+    />
+  )
+}
+
 export const AllVariants = () => {
+  const modes: {
+    title: string
+    component: React.FunctionComponent<ParamProps>
+    variant: 'anchored' | 'modal'
+  }[] = [
+    {title: 'Single Select Panel', component: SingleSelectParams, variant: 'anchored'},
+    {title: 'Single Select Modal', component: SingleSelectParams, variant: 'modal'},
+    {title: 'Multi Select Panel', component: MultiSelectParams, variant: 'anchored'},
+    {title: 'Multi Select Modal', component: MultiSelectParams, variant: 'modal'},
+  ]
+
+  const [secondaryAction, setSecondaryAction] = useState('button')
+
+  const secondaryActionElement =
+    secondaryAction === 'button' ? (
+      <SelectPanel.SecondaryActionButton>Edit labels</SelectPanel.SecondaryActionButton>
+    ) : (
+      <SelectPanel.SecondaryActionLink href="#">Edit labels</SelectPanel.SecondaryActionLink>
+    )
+
   return (
     <>
       <Text fontSize={3} fontWeight="bold">
@@ -199,35 +338,71 @@ export const AllVariants = () => {
       <br />
       <Text>
         Test the different interactions below to see how the SelectPanel behaves in different selection and anchoring
-        modes. The size of the screen also affects how the user interacts with the SelectPanel.
+        modes.
       </Text>
       <br />
-      <br />
-
-      <Text fontWeight="bold">Single Select Panel</Text>
-      <br />
-      <Text>This panel allows selecting a single item from the list.</Text>
-      <SingleSelect />
-      <br />
-
-      <Text fontWeight="bold">Single Select Modal</Text>
-      <br />
-      <Text>This modal allows selecting a single item with a modal interface.</Text>
-      <SingleSelectModal />
-      <br />
-
-      <Text fontWeight="bold">Multi Select Panel</Text>
-      <br />
-      <Text>This panel allows selecting multiple items from the list.</Text>
-      <WithOnCancel />
-      <br />
-
-      <Text fontWeight="bold">Multi Select Modal</Text>
       <Text>
-        <br />
-        This modal allows selecting multiple items with a modal interface.
+        The size of the screen also affects how the user interacts with the SelectPanel, so please do test on smaller
+        screens.
       </Text>
-      <MultiSelectModal />
+      <br />
+      <Text>Also please consider any feature flags that might affect the component.</Text>
+      <br />
+      <br />
+
+      <Text fontSize={2} fontWeight="bold">
+        Extra controls:
+      </Text>
+      <FormControl>
+        <FormControl.Label>secondaryAction</FormControl.Label>
+        <Select value={secondaryAction} onChange={e => setSecondaryAction(e.target.value)}>
+          <Select.Option value="button">Button</Select.Option>
+          <Select.Option value="link">Link</Select.Option>
+        </Select>
+      </FormControl>
+      <br />
+      <br />
+
+      <table border={1} cellPadding="32">
+        <thead>
+          <tr>
+            <th>Variant</th>
+            <th>
+              With <code>onCancel</code>
+            </th>
+            <th>
+              With <code>onCancel</code> and <code>secondaryAction</code>
+            </th>
+            <th>
+              No <code>onCancel</code>
+            </th>
+            <th>
+              No <code>onCancel</code> and <code>secondaryAction</code>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {modes.map(({title, component: Component, variant}) => (
+            <tr key={title}>
+              <th>{title}</th>
+              <td>
+                <Component onCancel={() => {}} variant={variant} />
+              </td>
+              <td>
+                <Component onCancel={() => {}} secondaryAction={secondaryActionElement} variant={variant} />
+              </td>
+              <td>{variant === 'anchored' ? <Component variant={variant} /> : 'Not supported'}</td>
+              <td>
+                {variant === 'anchored' ? (
+                  <Component secondaryAction={secondaryActionElement} variant={variant} />
+                ) : (
+                  'Not supported'
+                )}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </>
   )
 }

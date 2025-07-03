@@ -1,4 +1,3 @@
-import React from 'react'
 import ActionBar from '.'
 import {
   BoldIcon,
@@ -12,7 +11,7 @@ import {
   ListOrderedIcon,
   TasklistIcon,
 } from '@primer/octicons-react'
-import type {Meta, StoryObj} from '@storybook/react'
+import type {Meta, StoryObj} from '@storybook/react-vite'
 
 const meta: Meta<typeof ActionBar> = {
   title: 'Experimental/Components/ActionBar',

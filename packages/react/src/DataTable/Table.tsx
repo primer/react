@@ -150,14 +150,17 @@ function TableSortHeader({align, children, direction, onToggleSort, ...rest}: Ta
       >
         {children}
         {direction === SortDirection.NONE || direction === SortDirection.ASC ? (
-          <SortAscIcon
-            className={clsx(
-              'TableSortIcon',
-              'TableSortIcon--ascending',
-              classes.TableSortIcon,
-              classes['TableSortIcon--ascending'],
-            )}
-          />
+          <>
+            <SortAscIcon
+              className={clsx(
+                'TableSortIcon',
+                'TableSortIcon--ascending',
+                classes.TableSortIcon,
+                classes['TableSortIcon--ascending'],
+              )}
+            />
+            {direction === SortDirection.NONE ? <VisuallyHidden>sort ascending</VisuallyHidden> : null}
+          </>
         ) : null}
         {direction === SortDirection.DESC ? (
           <SortDescIcon
@@ -233,9 +236,9 @@ function TableCellPlaceholder({children}: TableCellPlaceholderProps) {
 // ----------------------------------------------------------------------------
 export type TableContainerProps = React.PropsWithChildren<SxProp & React.HTMLAttributes<HTMLDivElement>>
 
-function TableContainer({children, sx: sxProp = defaultSxProp}: TableContainerProps) {
+function TableContainer({children, className, sx: sxProp = defaultSxProp, ...rest}: TableContainerProps) {
   return (
-    <BoxWithFallback className={clsx(classes.TableContainer)} sx={sxProp}>
+    <BoxWithFallback {...rest} className={clsx(className, classes.TableContainer)} sx={sxProp}>
       {children}
     </BoxWithFallback>
   )

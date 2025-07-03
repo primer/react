@@ -1,5 +1,5 @@
 import {EyeIcon, TriangleDownIcon, HeartIcon, DownloadIcon, CommentIcon} from '@primer/octicons-react'
-import React, {useState} from 'react'
+import {useState} from 'react'
 import {Button} from '.'
 import {Stack} from '../Stack/Stack'
 import {announce} from '@primer/live-region-element'
@@ -205,7 +205,7 @@ export const LabelWrap = () => {
 }
 
 export const InactiveButtonWithTooltip = () => (
-  <Tooltip text="Action unavailable: an error occured while loading respository permissions" direction="n">
+  <Tooltip text="Action unavailable: an error occurred while loading respository permissions" direction="n">
     <Button inactive>Review changes</Button>
   </Tooltip>
 )

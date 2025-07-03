@@ -1,6 +1,5 @@
 import Link from '../Link'
-import type {Meta} from '@storybook/react'
-import React from 'react'
+import type {Meta} from '@storybook/react-vite'
 import type {ComponentProps} from '../utils/types'
 
 export default {

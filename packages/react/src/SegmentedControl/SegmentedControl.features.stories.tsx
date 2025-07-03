@@ -1,5 +1,5 @@
-import React, {useState} from 'react'
-import type {Meta} from '@storybook/react'
+import {useState} from 'react'
+import type {Meta} from '@storybook/react-vite'
 import {SegmentedControl} from '.'
 import {EyeIcon, FileCodeIcon, PeopleIcon} from '@primer/octicons-react'
 import {Box, Text} from '..'

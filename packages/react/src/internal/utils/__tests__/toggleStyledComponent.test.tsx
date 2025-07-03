@@ -1,5 +1,5 @@
-import React from 'react'
 import {render} from '@testing-library/react'
+import {describe, expect, test} from 'vitest'
 import {FeatureFlags} from '../../../FeatureFlags'
 import {toggleStyledComponent} from '../toggleStyledComponent'
 import styled from 'styled-components'
@@ -58,7 +58,7 @@ describe('toggleStyledComponent', () => {
     )
 
     expect(container.firstChild).toBeInstanceOf(HTMLButtonElement)
-    expect(container.firstChild).toHaveStyle('color: red')
+    expect(container.firstChild).toHaveStyle('color: rgb(255, 0, 0)')
   })
 
   test('renders styled component when flag is disabled', () => {

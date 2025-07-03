@@ -1,5 +1,5 @@
-import React, {useEffect, useRef, useState} from 'react'
-import type {Args, Meta} from '@storybook/react'
+import {useEffect, useRef, useState} from 'react'
+import type {Args, Meta} from '@storybook/react-vite'
 import {FocusKeys} from '@primer/behaviors'
 
 import {Avatar, Box, Link, Text} from '..'

@@ -1,5 +1,4 @@
-import React from 'react'
-import type {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react-vite'
 import type {CheckboxProps} from '..'
 import {Box, Checkbox} from '..'
 import FormControl from '../FormControl'

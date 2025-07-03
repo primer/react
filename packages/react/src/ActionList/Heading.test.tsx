@@ -1,17 +1,10 @@
+import {describe, it, expect, vi} from 'vitest'
 import {render as HTMLRender} from '@testing-library/react'
-import React from 'react'
 import theme from '../theme'
 import {ActionList} from '.'
 import {BaseStyles, ThemeProvider, ActionMenu} from '..'
-import {behavesAsComponent} from '../utils/testing'
 
 describe('ActionList.Heading', () => {
-  behavesAsComponent({
-    Component: ActionList.Heading,
-    options: {skipAs: true, skipSx: true},
-    toRender: () => <ActionList.Heading as="h1" />,
-  })
-
   it('should render the ActionList.Heading component as a heading with the given heading level', async () => {
     const container = HTMLRender(
       <ActionList>
@@ -36,7 +29,7 @@ describe('ActionList.Heading', () => {
   })
 
   it('should throw an error when ActionList.Heading is used within ActionMenu context', async () => {
-    const spy = jest.spyOn(console, 'error').mockImplementation(() => jest.fn())
+    const spy = vi.spyOn(console, 'error').mockImplementation(() => vi.fn())
     expect(() =>
       HTMLRender(
         <ThemeProvider theme={theme}>

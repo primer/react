@@ -1,5 +1,4 @@
-import type {StoryObj} from '@storybook/react'
-import React from 'react'
+import type {StoryObj} from '@storybook/react-vite'
 import {AriaAlert} from './AriaAlert'
 import {VisuallyHidden} from '../VisuallyHidden'
 

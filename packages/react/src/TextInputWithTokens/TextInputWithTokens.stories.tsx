@@ -1,5 +1,6 @@
-import React, {useCallback, useState} from 'react'
-import type {Meta} from '@storybook/react'
+import type React from 'react'
+import {useCallback, useState} from 'react'
+import type {Meta} from '@storybook/react-vite'
 import {Box, FormControl} from '..'
 import type {TextInputWithTokensProps} from '../TextInputWithTokens'
 import TextInputWithTokens from '../TextInputWithTokens'

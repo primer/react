@@ -1,5 +1,6 @@
-import React from 'react'
 import {render} from '@testing-library/react'
+import type React from 'react'
+import {describe, expect, test} from 'vitest'
 import {toggleSxComponent} from '../toggleSxComponent'
 
 const customSx = {color: 'red', p: 2}
@@ -16,7 +17,7 @@ describe('toggleSxComponent', () => {
     const {container} = render(<TestComponent as="button" sx={customSx} />)
 
     expect(container.firstChild).toBeInstanceOf(HTMLButtonElement)
-    expect(container.firstChild).toHaveStyle('color: red')
+    expect(container.firstChild).toHaveStyle('color: rgb(255, 0, 0)')
   })
 
   test('swaps out component if `sx` is not the default', () => {
@@ -32,7 +33,7 @@ describe('toggleSxComponent', () => {
     const {container} = render(<TestComponent as="button" sx={customSx} data-foo="bar" />)
 
     expect(container.firstChild).toBeInstanceOf(HTMLButtonElement)
-    expect(container.firstChild).toHaveStyle('color: red')
+    expect(container.firstChild).toHaveStyle('color: rgb(255, 0, 0)')
     expect(container.firstChild).toHaveAttribute('data-foo', 'bar')
   })
 })

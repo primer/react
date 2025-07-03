@@ -459,7 +459,7 @@ const colors = {
     subtle: 'var(--bgColor-neutral-muted, var(--color-neutral-subtle, rgba(99,110,123,0.1)))',
   },
   accent: {
-    fg: 'var(--fgColor-acccent, var(--color-accent-fg, #539bf5))',
+    fg: 'var(--fgColor-accent, var(--color-accent-fg, #539bf5))',
     emphasis: 'var(--bgColor-accent-emphasis, var(--color-accent-emphasis, #316dca))',
     muted: 'var(--borderColor-accent-muted, var(--color-accent-muted, rgba(65,132,228,0.4)))',
     subtle: 'var(--bgColor-accent-muted, var(--color-accent-subtle, rgba(65,132,228,0.1)))',

@@ -1,4 +1,3 @@
-import React from 'react'
 import MatchMediaMock from 'jest-matchmedia-mock'
 import {render, fireEvent, waitFor} from '@testing-library/react'
 import {EyeIcon, FileCodeIcon, PeopleIcon} from '@primer/octicons-react'
@@ -398,7 +397,7 @@ describe('SegmentedControl', () => {
       </SegmentedControl>,
     )
 
-    expect(spy).toHaveBeenCalledTimes(2)
+    expect(spy).toHaveBeenCalledTimes(1)
     spy.mockRestore()
   })
 

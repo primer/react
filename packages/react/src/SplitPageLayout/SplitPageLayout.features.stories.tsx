@@ -1,5 +1,4 @@
-import React from 'react'
-import type {StoryFn, Meta} from '@storybook/react'
+import type {StoryFn, Meta} from '@storybook/react-vite'
 
 import {Box, Button, Heading, Text} from '..'
 import {NavList} from '../NavList'

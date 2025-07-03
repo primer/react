@@ -1,6 +1,5 @@
 // Most of the functionality is already tested in [@github/tab-container-element](https://github.com/github/tab-container-element)
 
-import React from 'react'
 import {render, screen} from '@testing-library/react'
 import UnderlinePanels from './UnderlinePanels'
 import {behavesAsComponent} from '../../utils/testing'
@@ -27,10 +26,6 @@ describe('UnderlinePanels', () => {
   behavesAsComponent({Component: UnderlinePanels, options: {skipAs: true}})
 
   behavesAsComponent({Component: UnderlinePanels.Tab})
-
-  it('renders without errors', () => {
-    render(<UnderlinePanelsMockComponent aria-label="Select a tab" />)
-  })
 
   it('renders with a custom ID', () => {
     render(<UnderlinePanelsMockComponent aria-label="Select a tab" id="custom-id" />)
@@ -106,9 +101,7 @@ describe('UnderlinePanels', () => {
 
     expect(onSelect).toHaveBeenCalled()
   })
-  it('throws an error when the neither aria-label nor aria-labelledby are passed', () => {
-    render(<UnderlinePanelsMockComponent />)
-  })
+
   it('throws an error when the number of tabs does not match the number of panels', () => {
     const spy = jest.spyOn(console, 'error').mockImplementation()
     expect(() => {
@@ -125,6 +118,7 @@ describe('UnderlinePanels', () => {
     expect(spy).toHaveBeenCalled()
     spy.mockRestore()
   })
+
   it('throws an error when the number of panels does not match the number of tabs', () => {
     const spy = jest.spyOn(console, 'error').mockImplementation()
     expect(() => {

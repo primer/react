@@ -1,5 +1,5 @@
-import React, {useState, useRef} from 'react'
-import type {Meta} from '@storybook/react'
+import {useState, useRef} from 'react'
+import type {Meta} from '@storybook/react-vite'
 import {Button} from '../Button'
 import {Box, Text} from '..'
 import {Banner} from '../Banner'

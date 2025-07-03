@@ -1,6 +1,7 @@
 import type {SxProp} from '../sx'
 import {clsx} from 'clsx'
-import React, {type HTMLAttributes} from 'react'
+import type React from 'react'
+import {type HTMLAttributes} from 'react'
 import classes from './VisuallyHidden.module.css'
 import {defaultSxProp} from '../utils/defaultSxProp'
 import Box from '../Box'

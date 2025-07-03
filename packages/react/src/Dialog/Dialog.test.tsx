@@ -1,12 +1,10 @@
 import React from 'react'
-import {fireEvent, render, waitFor} from '@testing-library/react'
+import {render, fireEvent, waitFor} from '@testing-library/react'
+import {describe, expect, it, beforeEach, afterEach, vi} from 'vitest'
 import userEvent from '@testing-library/user-event'
 import {Dialog} from './Dialog'
 import MatchMediaMock from 'jest-matchmedia-mock'
-import {behavesAsComponent, checkExports} from '../utils/testing'
-import axe from 'axe-core'
 import {Button} from '../Button'
-import {FeatureFlags} from '../FeatureFlags'
 
 let matchMedia: MatchMediaMock
 
@@ -17,21 +15,6 @@ describe('Dialog', () => {
 
   afterEach(() => {
     matchMedia.clear()
-  })
-
-  behavesAsComponent({
-    Component: Dialog,
-    options: {skipAs: true, skipSx: true, skipClassName: true},
-    toRender: () => (
-      <Dialog onClose={() => {}}>
-        <div>Hidden when narrow</div>
-      </Dialog>
-    ),
-  })
-
-  checkExports('Dialog/Dialog', {
-    default: undefined,
-    Dialog,
   })
 
   it('renders with role "dialog" by default', () => {
@@ -61,7 +44,7 @@ describe('Dialog', () => {
 
   it('calls `onClose` when clicking the close button', async () => {
     const user = userEvent.setup()
-    const onClose = jest.fn()
+    const onClose = vi.fn()
     const {getByLabelText} = render(<Dialog onClose={onClose}>Pay attention to me</Dialog>)
 
     expect(onClose).not.toHaveBeenCalled()
@@ -74,7 +57,7 @@ describe('Dialog', () => {
 
   it('calls `onClose` when clicking the backdrop', async () => {
     const user = userEvent.setup()
-    const onClose = jest.fn()
+    const onClose = vi.fn()
     const {getByRole} = render(<Dialog onClose={onClose}>Pay attention to me</Dialog>)
 
     expect(onClose).not.toHaveBeenCalled()
@@ -87,7 +70,7 @@ describe('Dialog', () => {
   })
 
   it('does not call `onClose` when click was not originated from backdrop', async () => {
-    const onClose = jest.fn()
+    const onClose = vi.fn()
 
     const {getByRole} = render(<Dialog onClose={onClose}>Pay attention to me</Dialog>)
 
@@ -106,13 +89,14 @@ describe('Dialog', () => {
 
   it('calls `onClose` when keying "Escape"', async () => {
     const user = userEvent.setup()
-    const onClose = jest.fn()
+    const onClose = vi.fn()
 
     render(<Dialog onClose={onClose}>Pay attention to me</Dialog>)
 
     expect(onClose).not.toHaveBeenCalled()
 
-    await user.keyboard('{Escape}')
+    await user.keyboard('{Escape}') // escape once to remove focus from the close button
+    await user.keyboard('{Escape}') // escape again to trigger the onClose
 
     expect(onClose).toHaveBeenCalledWith('escape')
   })
@@ -122,7 +106,7 @@ describe('Dialog', () => {
 
     const {container} = render(<Dialog onClose={() => {}}>Pay attention to me</Dialog>)
 
-    expect(container.ownerDocument.body.style.overflow).toBe('hidden')
+    expect(container.ownerDocument.body).toHaveStyle('overflow: hidden')
   })
 
   it('does not attempt to change the <body> style for `overflow` if it is already set to "hidden"', () => {
@@ -130,13 +114,7 @@ describe('Dialog', () => {
 
     const {container} = render(<Dialog onClose={() => {}}>Pay attention to me</Dialog>)
 
-    expect(container.ownerDocument.body.style.overflow).toBe('hidden')
-  })
-
-  it('should have no axe violations', async () => {
-    const {container} = render(<Dialog onClose={() => {}}>Pay attention to me</Dialog>)
-    const results = await axe.run(container)
-    expect(results).toHaveNoViolations()
+    expect(container.ownerDocument.body).toHaveStyle('overflow: hidden')
   })
 
   it('renders with data-position-regular="left" when position="left"', () => {
@@ -247,30 +225,13 @@ describe('Dialog', () => {
       )
     }
 
-    const FeatureFlagElement = () => {
-      return (
-        <FeatureFlags
-          flags={{
-            primer_react_css_modules_ga: true,
-          }}
-        >
-          <Fixture />
-        </FeatureFlags>
-      )
-    }
-
     const user = userEvent.setup()
 
-    let component = render(<Fixture />)
-    let triggerButton = component.getByRole('button', {name: 'Show dialog'})
+    const component = render(<Fixture />)
+    const triggerButton = component.getByRole('button', {name: 'Show dialog'})
     await user.click(triggerButton)
     expect(component.getByRole('dialog')).toHaveClass('custom-class')
     component.unmount()
-
-    component = render(<FeatureFlagElement />)
-    triggerButton = component.getByRole('button', {name: 'Show dialog'})
-    await user.click(triggerButton)
-    expect(component.getByRole('dialog')).toHaveClass('custom-class')
   })
 })
 

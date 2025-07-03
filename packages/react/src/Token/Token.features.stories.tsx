@@ -1,6 +1,5 @@
-import React from 'react'
-import type {Meta} from '@storybook/react'
-import {action} from '@storybook/addon-actions'
+import type {Meta} from '@storybook/react-vite'
+import {action} from 'storybook/actions'
 import {get} from '../constants'
 import {BaseStyles, ThemeProvider} from '..'
 import Box from '../Box'
@@ -43,7 +42,7 @@ export const TokenWithLeadingVisual = () => {
   return <Token text="token" leadingVisual={GitBranchIcon} />
 }
 
-export const TokenWithOnRemoveFn = () => {
+export const TokenWithOnRemoveFn = ({...args}) => {
   return (
     <Box
       display="flex"
@@ -52,19 +51,31 @@ export const TokenWithOnRemoveFn = () => {
         gap: get('space.2'),
       }}
     >
-      <Token text="token" onRemove={action('remove me')} />
+      <Token text="token" onRemove={action('remove me')} {...args} />
       <Token
         as="a"
         href="/?path=/story/components-token-features--issue-label-token-custom-colors"
         onRemove={action('remove me')}
         text="Link"
+        {...args}
       />
-      <Token as="button" onClick={action('clicked')} onRemove={action('remove me')} text="Button" />
+      <Token as="button" onClick={action('clicked')} onRemove={action('remove me')} text="Button" {...args} />
     </Box>
   )
 }
 
 TokenWithOnRemoveFn.storyName = 'Token with onRemove fn'
+TokenWithOnRemoveFn.args = {
+  size: 'medium',
+}
+TokenWithOnRemoveFn.argTypes = {
+  size: {
+    control: {
+      type: 'radio',
+    },
+    options: ['small', 'medium', 'large', 'xlarge'],
+  },
+}
 
 export const DefaultIssueLabelToken = () => {
   return <IssueLabelToken text="good first issue" />
@@ -116,6 +127,7 @@ export const IssueLabelTokenWithOnRemoveFn = () => {
 IssueLabelTokenWithOnRemoveFn.storyName = 'IssueLabelToken with onRemove fn'
 
 export const SmallToken = () => <Token text="token" size="small" />
+export const MediumlToken = () => <Token text="token" size="medium" />
 export const LargeToken = () => <Token text="token" size="xlarge" />
 export const XLargeToken = () => <Token text="token" size="xlarge" />
 

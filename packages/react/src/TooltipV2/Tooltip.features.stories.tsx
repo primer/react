@@ -1,5 +1,4 @@
-import React from 'react'
-import {IconButton, Button, Box, Link, ActionMenu, ActionList} from '..'
+import {IconButton, Button, Box, Link, ActionMenu, ActionList, VisuallyHidden} from '..'
 import Octicon from '../Octicon'
 import {Tooltip} from './Tooltip'
 import {SearchIcon, BookIcon, CheckIcon, TriangleDownIcon, GitBranchIcon, InfoIcon} from '@primer/octicons-react'
@@ -33,6 +32,16 @@ export const DescriptionType = () => (
     <Tooltip text="Supplementary text" direction="n">
       <Button>Save</Button>
     </Tooltip>
+  </Box>
+)
+
+// As a supplementary description for a button
+export const DescriptionTypeWithExternalDescription = () => (
+  <Box sx={{p: 5}}>
+    <Tooltip text="Supplementary text" direction="n">
+      <Button aria-describedby="external-description">Save</Button>
+    </Tooltip>
+    <VisuallyHidden id="external-description">External description</VisuallyHidden>
   </Box>
 )
 

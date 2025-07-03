@@ -92,13 +92,13 @@ We are slowly moving away from using `Jest` snapshots as a way to test visual ch
 
 ### As A Part Of Unit Tests
 
-We write our unit tests from a user perspective rather than focusing on implementation details. Simulating events to test user interactions is a core part of our testing practise.
+We write our unit tests from a user perspective rather than focusing on implementation details. Simulating events to test user interactions is a core part of our testing practice.
 
 We write user interaction tests leveraging [@testing-library/react](https://testing-library.com/docs/react-testing-library/intro/)’s [userEvent](<[userEvent](https://testing-library.com/docs/user-event/intro/)>) testing helper.
 
 ### Storybook Interaction Tests
 
-We use [Storybook interactions tests](https://storybook.js.org/docs/react/writing-tests/interaction-testing) to simulate and test some complex user interactions. They are particularly useful for cases where writing unit tests are not practical due to the limitation of the mock browser functionalities of JSDOM. For example testing out a component's overflow behaviour whose responsiveness is managed by its own dynamic width.
+We use [Storybook interactions tests](https://storybook.js.org/docs/react/writing-tests/interaction-testing) to simulate and test some complex user interactions. They are particularly useful for cases where writing unit tests is not practical due to the limitation of the mock browser functionalities of JSDOM. For example testing out a component's overflow behaviour whose responsiveness is managed by its own dynamic width.
 
 Storybook tests are authored within the components's source directory with the file name of `interactions.stories.tsx`
 
@@ -111,7 +111,8 @@ You can run these tests using Playwright locally or you can see the results of
 these tests on GitHub through the CI workflow.
 
 To get started locally, make sure to follow the [Prerequisites](#prerequisites)
-section to setup your machine. If you're looking for a quick overview of the commands
+section to setup your machine. You also need Storybook to be running locally
+before running any tests. If you're looking for a quick overview of the commands
 available, check out the table below.
 
 | Task                                                  | Command                                         |

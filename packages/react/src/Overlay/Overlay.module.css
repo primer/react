@@ -163,7 +163,9 @@
       top: 0;
       left: 0;
       width: 100vw;
+      max-width: none;
       height: 100vh;
+      max-height: none;
       margin: 0;
       border-radius: unset;
     }

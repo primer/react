@@ -1,5 +1,4 @@
-import React from 'react'
-import type {StoryFn, Meta} from '@storybook/react'
+import type {StoryFn, Meta} from '@storybook/react-vite'
 import PointerBox from './PointerBox'
 import type {ComponentProps} from '../utils/types'
 

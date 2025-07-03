@@ -1,12 +1,12 @@
-import React, {useState} from 'react'
-import type {Args, Meta} from '@storybook/react'
+import {useState} from 'react'
+import type {Args, Meta} from '@storybook/react-vite'
 import {LocationIcon, RepoIcon} from '@primer/octicons-react'
 
 import {Avatar, Link, Text} from '..'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import {Button} from '../Button'
 import Octicon from '../Octicon'
-import {action} from '@storybook/addon-actions'
+import {action} from 'storybook/actions'
 import {Stack} from '../Stack/Stack'
 
 export default {
