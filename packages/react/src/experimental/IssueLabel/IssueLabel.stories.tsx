@@ -8,12 +8,12 @@ const meta = {
 
 export default meta
 
-export const Default = () => <IssueLabel text="Issue label" />
+export const Default = () => <IssueLabel>Issue label</IssueLabel>
 
 export const Playground: StoryObj<typeof IssueLabel> = {
   render: args => <IssueLabel {...args} />,
   args: {
-    text: 'Issue label',
+    children: 'Issue label',
     as: 'span',
   },
   argTypes: {
@@ -44,9 +44,6 @@ export const Playground: StoryObj<typeof IssueLabel> = {
         'brown',
         'auburn',
       ],
-    },
-    text: {
-      control: 'text',
     },
     as: {
       control: 'inline-radio',
