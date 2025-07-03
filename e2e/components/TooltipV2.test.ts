@@ -1,7 +1,6 @@
 import {test, expect} from '@playwright/test'
 import {visit} from '../test-helpers/storybook'
 import {themes} from '../test-helpers/themes'
-import {waitForAllAnimations} from '../test-helpers/waitForAnimations'
 
 const stories = [
   {
