@@ -101,14 +101,14 @@ test.describe('SelectPanel', () => {
 
     // windows high contrast mode: light
     await page.emulateMedia({forcedColors: 'active', colorScheme: 'light'})
-    await waitForAllAnimations(page)
+    await waitForAllAnimations(page, false)
     expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
       `SelectPanel-Default-forced-colors-light-modern-action-list--true.png`,
     )
 
     // windows high contrast mode: dark
     await page.emulateMedia({forcedColors: 'active', colorScheme: 'dark'})
-    await waitForAllAnimations(page)
+    await waitForAllAnimations(page, false)
     expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
       `SelectPanel-Default-forced-colors-dark-modern-action-list--true.png`,
     )
