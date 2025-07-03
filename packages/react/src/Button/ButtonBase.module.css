@@ -503,7 +503,8 @@
   /* Inactive */
 
   &:where([data-inactive]),
-  &:where([data-inactive]):hover {
+  &:where([data-inactive]):hover,
+  &:where([data-inactive]):active {
     color: var(--button-inactive-fgColor);
     cursor: auto;
     background-color: var(--button-inactive-bgColor);
