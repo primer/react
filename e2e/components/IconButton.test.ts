@@ -46,6 +46,9 @@ const stories = [
     disableAnimations: true,
     async setup(page: Page) {
       await page.keyboard.press('Tab') // focus on icon button
+      await page.waitForSelector('[popover="auto"]')
+      // eslint-disable-next-line playwright/no-standalone-expect
+      await expect(page.locator('[popover="auto"]').first()).toHaveCSS('opacity', '1')
     },
   },
   {
@@ -56,6 +59,8 @@ const stories = [
       await page.getByText('You have unread notifications').waitFor({
         state: 'visible',
       })
+      // eslint-disable-next-line playwright/no-standalone-expect
+      await expect(page.locator('[popover="auto"]').first()).toHaveCSS('opacity', '1')
     },
   },
   {
@@ -80,8 +85,6 @@ test.describe('IconButton', () => {
             if ('setup' in story) {
               await story.setup(page)
             }
-
-            await waitForAllAnimations(page)
 
             // Default state
             await expect(page).toHaveScreenshot(`IconButton.${story.title}.${theme}.png`, {
