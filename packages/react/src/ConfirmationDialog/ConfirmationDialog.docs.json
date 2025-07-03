@@ -4,20 +4,6 @@
   "name": "ConfirmationDialog",
   "status": "alpha",
   "a11yReviewed": false,
-  "stories": [
-    {
-      "id": "components-confirmationdialog--default"
-    },
-    {
-      "id": "components-confirmationdialog--playground"
-    },
-    {
-      "id": "components-confirmationdialog-features--shorthand-hook"
-    },
-    {
-      "id": "components-confirmationdialog-features--shorthand-hook-from-action-menu"
-    }
-  ],
   "importPath": "@primer/react",
   "props": [
     {
