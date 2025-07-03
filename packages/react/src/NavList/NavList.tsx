@@ -282,11 +282,12 @@ TrailingAction.displayName = 'NavList.TrailingAction'
 
 export type NavListGroupProps = React.HTMLAttributes<HTMLLIElement> & {
   children: React.ReactNode
+  hideDivider?: boolean
   title?: string
 } & SxProp
 
 const defaultSx = {}
-const Group: React.FC<NavListGroupProps> = ({title, children, sx: sxProp = defaultSx, ...props}) => {
+const Group: React.FC<NavListGroupProps> = ({hideDivider, title, children, sx: sxProp = defaultSx, ...props}) => {
   if (sxProp !== defaultSx) {
     return (
       <Box sx={sxProp} as="li" data-component="ActionList.Group">
@@ -297,7 +298,7 @@ const Group: React.FC<NavListGroupProps> = ({title, children, sx: sxProp = defau
   }
   return (
     <>
-      <ActionList.Divider />
+      {hideDivider ? null : <ActionList.Divider />}
       <ActionList.Group {...props}>
         {/* Setting up the default value for the heading level. TODO: API update to give flexibility to NavList.Group title's heading level */}
         {title ? (
