@@ -23,7 +23,6 @@ import {useFeatureFlag} from '../FeatureFlags'
 import {announce, announceFromElement} from '@primer/live-region-element'
 import classes from './SelectPanel.module.css'
 import {clsx} from 'clsx'
-import {heightMap} from '../Overlay/Overlay'
 import {debounce} from '@github/mini-throttle'
 import {useResponsiveValue} from '../hooks/useResponsiveValue'
 import type {ButtonProps, LinkButtonProps} from '../Button/types'
@@ -721,7 +720,6 @@ function Panel({
               }
             : {}),
           style: {
-            '--max-height': overlayProps?.maxHeight ? heightMap[overlayProps.maxHeight] : heightMap['large'],
             /* override AnchoredOverlay position */
             transform: variant === 'modal' ? 'translate(-50%, -50%)' : undefined,
             // set maxHeight based on calculated availablePanelHeight when keyboard is visible
