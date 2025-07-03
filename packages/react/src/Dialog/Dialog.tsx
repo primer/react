@@ -293,7 +293,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
     dialogRef.current?.classList.add(classes.DisableScroll)
     // and set a CSS variable to the scrollbar width so that the dialog can
     // account for the scrollbar width when calculating its width.
-    document.body.style.setProperty('--dialog-scrollgutter', `${scrollbarWidth}px`)
+    document.body.style.setProperty('--prc-dialog-scrollgutter', `${scrollbarWidth}px`)
   }, [])
 
   const header = (renderHeader ?? DefaultHeader)(defaultedProps)
