@@ -51,6 +51,8 @@ test.describe('TooltipV2', () => {
 
             // Default state
             await page.keyboard.press('Tab')
+            await page.getByRole('tooltip').waitFor({state: 'visible'})
+
             await waitForAllAnimations(page)
             await expect(page).toHaveScreenshot(`TooltipV2.${story.title}.${theme}.png`, {
               animations: 'disabled',
