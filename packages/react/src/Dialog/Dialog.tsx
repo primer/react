@@ -288,19 +288,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
   )
 
   React.useEffect(() => {
-    const bodyOverflowStyle = document.body.style.overflow || ''
-    // If the body is already set to overflow: hidden, it likely means
-    // that there is already a modal open. In that case, we should bail
-    // so we don't re-enable scroll after the second dialog is closed.
-    if (bodyOverflowStyle === 'hidden') {
-      return
-    }
-
-    document.body.style.overflow = 'hidden'
-
-    return () => {
-      document.body.style.overflow = bodyOverflowStyle
-    }
+    document.body.style.setProperty('--dialog-scrollgutter', `${window.innerWidth - document.body.clientWidth}px`)
   }, [])
 
   const header = (renderHeader ?? DefaultHeader)(defaultedProps)
@@ -339,7 +327,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
             data-width={width}
             data-height={height}
             sx={sx}
-            className={clsx(className, classes.Dialog)}
+            className={clsx(className, classes.Dialog, classes.DisableScroll)}
           >
             {header}
             <ScrollableRegion aria-labelledby={dialogLabelId} className={classes.DialogOverflowWrapper}>

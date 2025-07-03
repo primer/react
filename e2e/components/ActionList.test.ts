@@ -34,6 +34,7 @@ const stories = [
   {
     title: 'Multi Select',
     id: 'components-actionlist-features--multi-select',
+    disableAnimations: true,
   },
   {
     title: 'Simple List',
@@ -62,18 +63,22 @@ const stories = [
   {
     title: 'Disabled Selected Multiselect',
     id: 'components-actionlist-features--disabled-selected-multiselect',
+    disableAnimations: true,
   },
   {
     title: 'Inactive Item',
     id: 'components-actionlist-features--inactive-item',
+    disableAnimations: true,
   },
   {
     title: 'Inactive Multiselect',
     id: 'components-actionlist-features--inactive-multiselect',
+    disableAnimations: true,
   },
   {
     title: 'Loading Item',
     id: 'components-actionlist-features--loading-item',
+    disableAnimations: true,
   },
   {
     title: 'Group With Filled Title',
@@ -110,6 +115,14 @@ const stories = [
   {
     title: 'Link Item Options',
     id: 'components-actionlist-examples--list-link-item',
+  },
+  {
+    title: 'Item Label Styles With Mixed Descriptions',
+    id: 'components-actionlist-dev--item-label-styles-with-mixed-descriptions',
+  },
+  {
+    title: 'Trailing Visual Gap',
+    id: 'components-actionlist-dev--trailing-visual-gap',
   },
 ] as const
 

@@ -42,6 +42,7 @@ const stories = [
   {
     title: 'Keybinding Hint',
     id: 'components-iconbutton-features--keybinding-hint',
+    disableAnimations: true,
     async setup(page: Page) {
       await page.keyboard.press('Tab') // focus on icon button
     },
