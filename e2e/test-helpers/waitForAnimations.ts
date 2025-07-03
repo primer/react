@@ -1,7 +1,9 @@
 import type {Page} from '@playwright/test'
 
-export function waitForAllAnimations(page: Page) {
-  return page
+export async function waitForAllAnimations(page: Page) {
+  await page
     .locator(`#storybook-root`)
     .evaluate(element => Promise.all(element.getAnimations({subtree: true}).map(animation => animation.finished)))
+
+  await page.waitForTimeout(50)
 }
