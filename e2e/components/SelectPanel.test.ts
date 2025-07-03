@@ -100,6 +100,7 @@ test.describe('SelectPanel', () => {
 
     // windows high contrast mode: light
     await page.emulateMedia({forcedColors: 'active', colorScheme: 'light'})
+    await page.getByRole('listbox').waitFor({state: 'visible'})
     expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
       `SelectPanel-Default-forced-colors-light-modern-action-list--true.png`,
     )
