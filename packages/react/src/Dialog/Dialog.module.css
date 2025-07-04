@@ -1,11 +1,11 @@
-/* The --dialog-scrollgutter property is used only on the body element to
+/* The --prc-dialog-scrollgutter property is used only on the body element to
  * simulate scrollbar-gutter:stable. This property is not and should not
  * be used elsewhere in the DOM. There is a performance penalty to
  * setting inherited properties which can cause a large style recalc to
  * occur, so it benefits us to prevent inheritance for this property.
  * See https://web.dev/blog/at-property-performance
  */
-@property --dialog-scrollgutter {
+@property --prc-dialog-scrollgutter {
   initial-value: 0;
   inherits: false;
   syntax: '<length>';
@@ -231,7 +231,7 @@
 
 body:has(.Dialog.DisableScroll) {
   /* stylelint-disable-next-line primer/spacing */
-  padding-right: var(--dialog-scrollgutter) !important;
+  padding-right: var(--prc-dialog-scrollgutter) !important;
   overflow: hidden !important;
 }
 
