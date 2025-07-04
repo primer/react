@@ -131,6 +131,7 @@ export const BaseOverlay = React.forwardRef<HTMLDivElement, OwnOverlayProps>(
           [`data-height-${height}`]: '',
           [`data-max-height-${maxHeight}`]: maxHeight ? '' : undefined,
           [`data-visibility-${visibility}`]: '',
+          [`data-overflow-${rest.overflow}`]: rest.overflow ? '' : undefined,
         }}
         className={clsx(className, classes.Overlay)}
       />
