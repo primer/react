@@ -1,5 +1,4 @@
 import {test, expect} from '@playwright/test'
-import {waitFor} from '@testing-library/react'
 import {visit} from '../test-helpers/storybook'
 import {themes} from '../test-helpers/themes'
 
@@ -47,9 +46,7 @@ test.describe('TooltipV2', () => {
             await page.keyboard.press('Tab')
             await page.waitForSelector('[popover="auto"]')
             await expect(page.locator('[popover="auto"]').first()).toHaveCSS('opacity', '1')
-            await waitFor(async () => {
-              await expect(page).toHaveScreenshot(`TooltipV2.${story.title}.${theme}.png`)
-            })
+            await expect(page).toHaveScreenshot(`TooltipV2.${story.title}.${theme}.png`)
           })
         })
       }
