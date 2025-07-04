@@ -100,13 +100,19 @@ test.describe('SelectPanel', () => {
 
     // windows high contrast mode: light
     await page.emulateMedia({forcedColors: 'active', colorScheme: 'light'})
-    expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
+    await page.getByRole('listbox').waitFor({state: 'visible'})
+    await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(255, 255, 255)')
+
+    expect(await page.screenshot()).toMatchSnapshot(
       `SelectPanel-Default-forced-colors-light-modern-action-list--true.png`,
     )
 
     // windows high contrast mode: dark
     await page.emulateMedia({forcedColors: 'active', colorScheme: 'dark'})
-    expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
+    await page.getByRole('listbox').waitFor({state: 'visible'})
+    await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(0, 0, 0)')
+
+    expect(await page.screenshot()).toMatchSnapshot(
       `SelectPanel-Default-forced-colors-dark-modern-action-list--true.png`,
     )
   })
