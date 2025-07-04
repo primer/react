@@ -177,7 +177,7 @@
   }
 
   &:where([data-leading-visual]) {
-    padding-left: var(--base-size-12);
+    padding-left: var(--base-size-8);
   }
 
   &:where([data-trailing-visual]:not([data-trailing-action])) {
@@ -191,6 +191,6 @@
 
   &:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
   &:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
-    padding-right: var(--base-size-12);
+    padding-right: var(--base-size-8);
   }
 }
