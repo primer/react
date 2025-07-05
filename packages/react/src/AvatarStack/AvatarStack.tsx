@@ -5,7 +5,6 @@ import type {AvatarProps} from '../Avatar/Avatar'
 import {DEFAULT_AVATAR_SIZE} from '../Avatar/Avatar'
 import type {ResponsiveValue} from '../hooks/useResponsiveValue'
 import {isResponsiveValue} from '../hooks/useResponsiveValue'
-import {defaultSxProp} from '../utils/defaultSxProp'
 import type {WidthOnlyViewportRangeKeys} from '../utils/types/ViewportRangeKeys'
 import classes from './AvatarStack.module.css'
 import {hasInteractiveNodes} from '../internal/utils/hasInteractiveNodes'
@@ -58,15 +57,7 @@ const AvatarStackBody = ({
   )
 }
 
-const AvatarStack = ({
-  children,
-  alignRight,
-  disableExpand,
-  size,
-  className,
-  style,
-  sx: sxProp = defaultSxProp,
-}: AvatarStackProps) => {
+const AvatarStack = ({children, alignRight, disableExpand, size, className, style, sx: sxProp}: AvatarStackProps) => {
   const [hasInteractiveChildren, setHasInteractiveChildren] = useState<boolean | undefined>(false)
   const stackContainer = useRef<HTMLDivElement>(null)
 

@@ -6,41 +6,28 @@ import {ItemContext} from './shared'
 import {Tooltip, type TooltipProps} from '../TooltipV2'
 import {clsx} from 'clsx'
 import classes from './ActionList.module.css'
-import {defaultSxProp} from '../utils/defaultSxProp'
 import {BoxWithFallback} from '../internal/components/BoxWithFallback'
 
 export type VisualProps = SxProp & React.HTMLAttributes<HTMLSpanElement>
 
-export const VisualContainer: React.FC<React.PropsWithChildren<VisualProps>> = ({
-  sx = defaultSxProp,
-  className,
-  ...props
-}) => {
-  return <BoxWithFallback as="span" className={clsx(className, classes.VisualWrap)} sx={sx} {...props} />
+export const VisualContainer: React.FC<React.PropsWithChildren<VisualProps>> = ({className, ...props}) => {
+  return <BoxWithFallback as="span" className={clsx(className, classes.VisualWrap)} {...props} />
 }
 
 export type ActionListLeadingVisualProps = VisualProps
-export const LeadingVisual: React.FC<React.PropsWithChildren<VisualProps>> = ({
-  sx = defaultSxProp,
-  className,
-  ...props
-}) => {
+export const LeadingVisual: React.FC<React.PropsWithChildren<VisualProps>> = ({className, ...props}) => {
   return (
-    <VisualContainer className={clsx(className, classes.LeadingVisual)} sx={sx} {...props}>
+    <VisualContainer className={clsx(className, classes.LeadingVisual)} {...props}>
       {props.children}
     </VisualContainer>
   )
 }
 
 export type ActionListTrailingVisualProps = VisualProps
-export const TrailingVisual: React.FC<React.PropsWithChildren<VisualProps>> = ({
-  sx = defaultSxProp,
-  className,
-  ...props
-}) => {
+export const TrailingVisual: React.FC<React.PropsWithChildren<VisualProps>> = ({className, ...props}) => {
   const {trailingVisualId} = React.useContext(ItemContext)
   return (
-    <VisualContainer className={clsx(className, classes.TrailingVisual)} sx={sx} id={trailingVisualId} {...props}>
+    <VisualContainer className={clsx(className, classes.TrailingVisual)} id={trailingVisualId} {...props}>
       {props.children}
     </VisualContainer>
   )

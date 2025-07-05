@@ -3,7 +3,6 @@ import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../uti
 import Link from '../Link'
 import {Item} from './Item'
 import type {ActionListItemProps} from './shared'
-import {defaultSxProp} from '../utils/defaultSxProp'
 
 // adopted from React.AnchorHTMLAttributes
 type LinkProps = {
@@ -27,7 +26,7 @@ export type ActionListLinkItemProps = Pick<
   LinkProps
 
 export const LinkItem = React.forwardRef(
-  ({sx = defaultSxProp, active, inactiveText, variant, as: Component, className, ...props}, forwardedRef) => {
+  ({sx, active, inactiveText, variant, as: Component, className, ...props}, forwardedRef) => {
     return (
       <Item
         className={className}
