@@ -171,13 +171,13 @@ const UnderlinePanels: FC<UnderlinePanelsProps> = ({
   }
 
   return (
-    <TabContainerComponent>
+    <TabContainerComponent className={className}>
       <UnderlineWrapper
         ref={wrapperRef}
         slot="tablist-wrapper"
         data-icons-visible={iconsVisible}
         sx={sxProp}
-        className={clsx(className, classes.StyledUnderlineWrapper)}
+        className={classes.StyledUnderlineWrapper}
         {...props}
       >
         <UnderlineItemList ref={listRef} aria-label={ariaLabel} aria-labelledby={ariaLabelledBy} role="tablist">
