@@ -18,6 +18,8 @@ module.exports = {
     '<rootDir>/src/ActionBar/',
     '<rootDir>/src/ActionList/',
     '<rootDir>/src/AnchoredOverlay/',
+    '<rootDir>/src/Avatar/',
+    '<rootDir>/src/AvatarStack/',
     '<rootDir>/src/Banner/',
     '<rootDir>/src/Blankslate/',
     '<rootDir>/src/Box/',
