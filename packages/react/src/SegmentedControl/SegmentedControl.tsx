@@ -10,7 +10,6 @@ import type {SxProp} from '../sx'
 import type {ResponsiveValue} from '../hooks/useResponsiveValue'
 import {useResponsiveValue} from '../hooks/useResponsiveValue'
 import type {WidthOnlyViewportRangeKeys} from '../utils/types/ViewportRangeKeys'
-import {defaultSxProp} from '../utils/defaultSxProp'
 import {isElement} from 'react-is'
 
 import classes from './SegmentedControl.module.css'
@@ -40,7 +39,7 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
   fullWidth,
   onChange,
   size,
-  sx: sxProp = defaultSxProp,
+  sx: sxProp,
   variant = 'default',
   className,
   ...rest

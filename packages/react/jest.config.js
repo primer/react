@@ -28,6 +28,7 @@ module.exports = {
     '<rootDir>/src/CircleBadge/',
     '<rootDir>/src/CircleOcticon/',
     '<rootDir>/src/DataTable/',
+    '<rootDir>/src/Dialog/',
     '<rootDir>/src/FeatureFlags/',
     '<rootDir>/src/Flash/',
     '<rootDir>/src/FormControl/__tests__/FormControl.Validation.test.tsx',
