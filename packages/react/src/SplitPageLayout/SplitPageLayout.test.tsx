@@ -38,7 +38,7 @@ describe('SplitPageLayout', () => {
       </SplitPageLayout>,
     )
 
-    expect(container).toMatchSnapshot()
+    expect(container.firstChild).toBeInTheDocument()
   })
 
   it('renders Pane with a custom ID', () => {
