@@ -33,6 +33,7 @@ module.exports = {
     '<rootDir>/src/Flash/',
     '<rootDir>/src/FormControl/__tests__/FormControl.Validation.test.tsx',
     '<rootDir>/src/InlineMessage/',
+    '<rootDir>/src/Label/',
     '<rootDir>/src/NavList/',
     '<rootDir>/src/Octicon/',
     '<rootDir>/src/Pagehead/',
