@@ -191,6 +191,6 @@
 
   &:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
   &:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
-    padding-right: var(--base-size-8);
+    padding-right: var(--base-size-12);
   }
 }
