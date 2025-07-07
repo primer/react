@@ -5,8 +5,7 @@ import {RadioGroupContext} from '../RadioGroup/RadioGroup'
 import {clsx} from 'clsx'
 import sharedClasses from '../Checkbox/shared.module.css'
 import classes from './Radio.module.css'
-import {defaultSxProp} from '../utils/defaultSxProp'
-import Box from '../Box'
+import {BoxWithFallback} from '../internal/components/BoxWithFallback'
 
 export type RadioProps = {
   /**
@@ -47,7 +46,6 @@ const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
       disabled,
       name: nameProp,
       onChange,
-      sx: sxProp = defaultSxProp,
       required,
       value,
       className,
@@ -70,29 +68,9 @@ const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
       )
     }
 
-    if (sxProp !== defaultSxProp) {
-      return (
-        <Box
-          as="input"
-          sx={sxProp}
-          type="radio"
-          value={value}
-          name={name}
-          ref={ref}
-          disabled={disabled}
-          checked={checked}
-          aria-checked={checked ? 'true' : 'false'}
-          required={required}
-          onChange={handleOnChange}
-          className={clsx(className, sharedClasses.Input, classes.Radio)}
-          aria-hidden={ariaHidden}
-          {...rest}
-        />
-      )
-    }
-
     return (
-      <input
+      <BoxWithFallback
+        as="input"
         type="radio"
         value={value}
         name={name}

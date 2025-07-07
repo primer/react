@@ -2,7 +2,6 @@ import type {ButtonHTMLAttributes} from 'react'
 import type React from 'react'
 import type {IconProps} from '@primer/octicons-react'
 import type {SxProp} from '../sx'
-import {defaultSxProp} from '../utils/defaultSxProp'
 import {isElement} from 'react-is'
 import {useFeatureFlag} from '../FeatureFlags'
 import type {TooltipDirection} from '../TooltipV2'
@@ -30,7 +29,7 @@ export const SegmentedControlIconButton: React.FC<React.PropsWithChildren<Segmen
   'aria-label': ariaLabel,
   icon: Icon,
   selected,
-  sx: sxProp = defaultSxProp,
+  sx: sxProp,
   className,
   description,
   tooltipDirection,
