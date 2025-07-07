@@ -177,11 +177,11 @@
   }
 
   &:where([data-leading-visual]) {
-    padding-left: var(--base-size-12);
+    padding-left: var(--base-size-8);
   }
 
   &:where([data-trailing-visual]:not([data-trailing-action])) {
-    padding-right: var(--base-size-12);
+    padding-right: var(--base-size-8);
   }
 
   &:where(:not([data-leading-visual])) > input,
