@@ -29,6 +29,7 @@ export default defineConfig({
       'src/deprecated/UnderlineNav/UnderlineNavLink.test.tsx',
       'src/__tests__/deprecated/FilteredSearch.test.tsx',
       'src/__tests__/deprecated/ActionList.test.tsx',
+      'src/experimental/SelectPanel2/__tests__/SelectPanelLoading.test.tsx',
     ],
     environment: 'jsdom',
     setupFiles: ['./config/vitest/setup.ts', './config/vitest/browser/setup.ts'],
