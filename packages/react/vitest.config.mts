@@ -23,8 +23,16 @@ export default defineConfig({
   },
   test: {
     name: '@primer/react (node)',
-    include: ['src/__tests__/exports.test.ts', 'src/__tests__/storybook.test.tsx'],
-    environment: 'node',
-    setupFiles: ['./config/vitest/setup.ts'],
+    include: [
+      'src/__tests__/exports.test.ts',
+      'src/__tests__/storybook.test.tsx',
+      'src/deprecated/UnderlineNav/UnderlineNavLink.test.tsx',
+      'src/experimental/SelectPanel2/__tests__/SelectPanelLoading.test.tsx',
+      'src/__tests__/deprecated/FilteredSearch.test.tsx',
+      'src/__tests__/deprecated/ActionList.test.tsx',
+      'src/SplitPageLayout/SplitPageLayout.test.tsx',
+    ],
+    environment: 'jsdom',
+    setupFiles: ['./config/vitest/setup.ts', './config/vitest/browser/setup.ts'],
   },
 })

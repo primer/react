@@ -1,17 +1,31 @@
+import {describe, expect, it, vi, beforeAll, afterEach} from 'vitest'
 import {render} from '@testing-library/react'
-import MatchMediaMock from 'jest-matchmedia-mock'
 import 'react-intersection-observer/test-utils'
 import {SplitPageLayout} from '../SplitPageLayout/SplitPageLayout'
 
-let matchMedia: MatchMediaMock
+function mockMatchMedia({defaultMatch = false} = {}) {
+  Object.defineProperty(window, 'matchMedia', {
+    writable: true,
+    value: vi.fn().mockImplementation(query => ({
+      matches: defaultMatch,
+      media: query,
+      onchange: null,
+      addListener: vi.fn(), // deprecated
+      removeListener: vi.fn(), // deprecated
+      addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
+      dispatchEvent: vi.fn(),
+    })),
+  })
+}
 
 describe('SplitPageLayout', () => {
   beforeAll(() => {
-    matchMedia = new MatchMediaMock()
+    mockMatchMedia()
   })
 
   afterEach(() => {
-    matchMedia.clear()
+    vi.clearAllMocks()
   })
 
   it('renders default layout', () => {

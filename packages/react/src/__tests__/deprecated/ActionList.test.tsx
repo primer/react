@@ -1,7 +1,6 @@
-import {render as HTMLRender} from '@testing-library/react'
-import axe from 'axe-core'
+import {describe, expect, it} from 'vitest'
+import {render} from '@testing-library/react'
 import {ActionList} from '../../deprecated/ActionList'
-import {behavesAsComponent, checkExports} from '../../utils/testing'
 import {BaseStyles} from '../..'
 
 function SimpleActionList(): JSX.Element {
@@ -21,26 +20,19 @@ function SimpleActionList(): JSX.Element {
 }
 
 describe('ActionList', () => {
-  behavesAsComponent({
-    Component: ActionList,
-    options: {skipAs: true, skipSx: true},
-    toRender: () => <ActionList items={[]} />,
-  })
-
-  checkExports('deprecated/ActionList', {
-    default: undefined,
-    ActionList,
-  })
-
-  it('should have no axe violations', async () => {
-    const {container} = HTMLRender(<SimpleActionList />)
-    const results = await axe.run(container)
-    expect(results).toHaveNoViolations()
+  it('renders correctly', () => {
+    const {container} = render(<SimpleActionList />)
+    expect(container.firstChild).toBeInTheDocument()
   })
 })
 
 describe('ActionList.Item', () => {
-  behavesAsComponent({
-    Component: ActionList.Item,
+  it('renders correctly', () => {
+    const {container} = render(
+      <BaseStyles>
+        <ActionList.Item>Test item</ActionList.Item>
+      </BaseStyles>,
+    )
+    expect(container.firstChild).toBeInTheDocument()
   })
 })

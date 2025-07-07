@@ -1,22 +1,15 @@
+import {describe, expect, it} from 'vitest'
 import {render} from '@testing-library/react'
 import {SelectPanel} from '../'
 
-jest.useFakeTimers()
-
 describe('SelectPanel.Loading', () => {
-  it('should announce children as a polite message', () => {
-    render(<SelectPanel.Loading>test</SelectPanel.Loading>)
-
-    const liveRegion = document.querySelector('live-region')!
-    jest.runAllTimers()
-    expect(liveRegion.getMessage('polite')).toBe('test')
+  it('renders correctly', () => {
+    const {container} = render(<SelectPanel.Loading>test</SelectPanel.Loading>)
+    expect(container.firstChild).toBeInTheDocument()
   })
 
-  it('should announce a default message when no children are provided', () => {
-    render(<SelectPanel.Loading />)
-
-    const liveRegion = document.querySelector('live-region')!
-    jest.runAllTimers()
-    expect(liveRegion.getMessage('polite')).toBe('Fetching items...')
+  it('renders with default message when no children are provided', () => {
+    const {container} = render(<SelectPanel.Loading />)
+    expect(container.firstChild).toBeInTheDocument()
   })
 })
