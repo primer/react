@@ -93,7 +93,6 @@
 .Message {
   display: flex;
   height: 100%;
-  min-height: min(calc(var(--max-height) - 150px), 324px); /* maxHeight of dialog - (header & footer) */
   padding: var(--base-size-24);
   text-align: center;
   flex-direction: column;
