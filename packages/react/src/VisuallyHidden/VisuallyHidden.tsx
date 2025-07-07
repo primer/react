@@ -17,7 +17,7 @@ import {BoxWithFallback} from '../internal/components/BoxWithFallback'
  */
 export const VisuallyHidden = ({className, children, ...rest}: VisuallyHiddenProps) => {
   return (
-    <BoxWithFallback as={'span'} className={clsx(className, classes.VisuallyHidden)} {...rest}>
+    <BoxWithFallback as="span" className={clsx(className, classes.VisuallyHidden)} {...rest}>
       {children}
     </BoxWithFallback>
   )

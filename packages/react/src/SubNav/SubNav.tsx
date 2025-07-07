@@ -22,7 +22,7 @@ const SubNav = React.forwardRef<HTMLElement, StyledSubNavProps>(function SubNav(
 ) {
   return (
     <BoxWithFallback
-      as={'nav'}
+      as="nav"
       ref={forwardRef}
       className={clsx(className, 'SubNav', styles.SubNav)}
       aria-label={label}

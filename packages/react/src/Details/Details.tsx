@@ -40,7 +40,7 @@ const Root = React.forwardRef<HTMLDetailsElement, DetailsProps>(
     }, [])
 
     return (
-      <BoxWithFallback as={'details'} className={clsx(className, classes.Details)} {...rest} ref={ref}>
+      <BoxWithFallback as="details" className={clsx(className, classes.Details)} {...rest} ref={ref}>
         {/* Include default summary if summary is not provided */}
         {!hasSummary && <Details.Summary data-default-summary>{'See Details'}</Details.Summary>}
         {children}
