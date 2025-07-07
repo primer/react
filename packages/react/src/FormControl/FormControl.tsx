@@ -191,9 +191,6 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
           <Box
             ref={ref}
             data-has-label={!isLabelHidden ? '' : undefined}
-            display="flex"
-            flexDirection="column"
-            alignItems="flex-start"
             sx={sx}
             className={clsx(className, classes.ControlVerticalLayout)}
           >
