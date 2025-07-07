@@ -44,6 +44,8 @@ module.exports = {
     '<rootDir>/src/ScrollableRegion/',
     '<rootDir>/src/Select/',
     '<rootDir>/src/Skeleton/',
+    '<rootDir>/src/SkeletonText/',
+    '<rootDir>/src/SkeletonAvatar/',
     '<rootDir>/src/Spinner/',
     '<rootDir>/src/Stack/',
     '<rootDir>/src/StateLabel/',
