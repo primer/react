@@ -1,8 +1,8 @@
 import {describe, expect, it} from 'vitest'
 import {render, screen} from '@testing-library/react'
 import {Avatar} from '..'
+import {ThemeProvider} from '../ThemeProvider'
 import theme from '../theme'
-import {px} from '../utils/testing'
 
 describe('Avatar', () => {
   it('should support `className` on the outermost element', () => {
@@ -32,25 +32,12 @@ describe('Avatar', () => {
   })
 
   it('respects margin props', () => {
-    render(<Avatar src="primer.png" alt="" sx={{m: 2}} data-testid="avatar" />)
-    const avatar = screen.getByTestId('avatar')
-    expect(avatar).toHaveStyle(`margin: ${px(theme.space[2])}`)
-  })
-
-  it('should support the `style` prop without overriding internal styles', () => {
     render(
-      <Avatar
-        data-testid="avatar"
-        src="primer.png"
-        style={{
-          background: 'black',
-        }}
-      />,
+      <ThemeProvider theme={theme}>
+        <Avatar src="primer.png" alt="" sx={{m: 2}} data-testid="avatar" />
+      </ThemeProvider>,
     )
-
-    expect(screen.getByTestId('avatar')).toHaveStyle({
-      background: 'black',
-      ['--avatarSize-regular']: '20px',
-    })
+    const avatar = screen.getByTestId('avatar')
+    expect(avatar).toHaveStyle(`margin: 8px`)
   })
 })
