@@ -3,7 +3,6 @@ import Truncate from '../Truncate'
 import type {SxProp} from '../sx'
 import {ItemContext} from './shared'
 import classes from './ActionList.module.css'
-import {defaultSxProp} from '../utils/defaultSxProp'
 import {BoxWithFallback} from '../internal/components/BoxWithFallback'
 import {clsx} from 'clsx'
 
@@ -25,7 +24,7 @@ export type ActionListDescriptionProps = {
 
 export const Description: React.FC<React.PropsWithChildren<ActionListDescriptionProps>> = ({
   variant = 'inline',
-  sx = defaultSxProp,
+  sx,
   className,
   truncate,
   ...props
