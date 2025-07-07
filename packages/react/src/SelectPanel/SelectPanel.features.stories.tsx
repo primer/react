@@ -1,5 +1,5 @@
 import React, {useState, useRef} from 'react'
-import type {Meta, StoryObj} from '@storybook/react'
+import type {Meta, StoryObj} from '@storybook/react-vite'
 import Box from '../Box'
 import {Button} from '../Button'
 import type {ItemInput, GroupedListProps} from '../deprecated/ActionList/List'
@@ -182,6 +182,37 @@ export const MultiSelect = () => {
   const [selected, setSelected] = useState<ItemInput[]>(items.slice(1, 3))
   const [filter, setFilter] = useState('')
   const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
+  const [open, setOpen] = useState(false)
+
+  return (
+    <FormControl>
+      <FormControl.Label>Labels</FormControl.Label>
+      <SelectPanel
+        title="Select labels"
+        placeholder="Select labels"
+        subtitle="Use labels to organize issues and pull requests"
+        renderAnchor={({children, ...anchorProps}) => (
+          <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
+            {children}
+          </Button>
+        )}
+        open={open}
+        onOpenChange={setOpen}
+        items={filteredItems}
+        selected={selected}
+        onSelectedChange={setSelected}
+        onFilterChange={setFilter}
+        width="medium"
+        message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}
+      />
+    </FormControl>
+  )
+}
+
+export const WithDisabledItem = () => {
+  const [selected, setSelected] = useState<ItemInput[]>(items.slice(1, 3))
+  const [filter, setFilter] = useState('')
+  const filteredItems = items.map((item, index) => (index === 3 ? {...item, disabled: true} : item))
   const [open, setOpen] = useState(false)
 
   return (
@@ -705,9 +736,9 @@ export const CustomisedNoResults: StoryObj<typeof SelectPanel> = {
 }
 
 export const WithOnCancel = () => {
-  const [intialSelection, setInitialSelection] = React.useState<ItemInput[]>(items.slice(1, 3))
+  const [initialSelection, setInitialSelection] = React.useState<ItemInput[]>(items.slice(1, 3))
 
-  const [selected, setSelected] = React.useState<ItemInput[]>(intialSelection)
+  const [selected, setSelected] = React.useState<ItemInput[]>(initialSelection)
   const [filter, setFilter] = React.useState('')
   const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
 
@@ -733,7 +764,7 @@ export const WithOnCancel = () => {
         items={filteredItems}
         selected={selected}
         onSelectedChange={setSelected}
-        onCancel={() => setSelected(intialSelection)}
+        onCancel={() => setSelected(initialSelection)}
         onFilterChange={setFilter}
         width="medium"
       />
@@ -742,9 +773,9 @@ export const WithOnCancel = () => {
 }
 
 export const MultiSelectModal = () => {
-  const [intialSelection, setInitialSelection] = React.useState<ItemInput[]>(items.slice(1, 3))
+  const [initialSelection, setInitialSelection] = React.useState<ItemInput[]>(items.slice(1, 3))
 
-  const [selected, setSelected] = React.useState<ItemInput[]>(intialSelection)
+  const [selected, setSelected] = React.useState<ItemInput[]>(initialSelection)
   const [filter, setFilter] = React.useState('')
   const [open, setOpen] = useState(false)
 
@@ -770,7 +801,7 @@ export const MultiSelectModal = () => {
       items={filteredItems}
       selected={selected}
       onSelectedChange={setSelected}
-      onCancel={() => setSelected(intialSelection)}
+      onCancel={() => setSelected(initialSelection)}
       onFilterChange={setFilter}
       width="medium"
     />
@@ -803,5 +834,53 @@ export const SingleSelectModal = () => {
       onFilterChange={setFilter}
       width="medium"
     />
+  )
+}
+
+type Items = ItemInput & {
+  inactiveText?: string
+}
+
+const itemsWithInactive: Items[] = [
+  ...items,
+  {
+    leadingVisual: getColorCircle('#00ff00'),
+    text: 'request',
+    id: 9,
+    inactiveText: 'Currently inactive due to an outage',
+    description: 'New feature or request',
+    descriptionVariant: 'block',
+  },
+]
+
+export const WithInactiveItems = () => {
+  const [selected, setSelected] = useState<ItemInput[]>(items.slice(1, 3))
+  const [filter, setFilter] = useState('')
+  const filteredItems = itemsWithInactive.filter(item => item.text?.toLowerCase().startsWith(filter.toLowerCase()))
+
+  const [open, setOpen] = useState(false)
+
+  return (
+    <FormControl>
+      <FormControl.Label>Labels</FormControl.Label>
+      <SelectPanel
+        title="Select labels"
+        placeholder="Select labels" // button text when no items are selected
+        subtitle="Use labels to organize issues and pull requests"
+        renderAnchor={({children, ...anchorProps}) => (
+          <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
+            {children}
+          </Button>
+        )}
+        open={open}
+        onOpenChange={setOpen}
+        items={filteredItems}
+        selected={selected}
+        onSelectedChange={setSelected}
+        onFilterChange={setFilter}
+        width="medium"
+        message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}
+      />
+    </FormControl>
   )
 }

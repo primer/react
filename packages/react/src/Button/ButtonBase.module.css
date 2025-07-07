@@ -193,6 +193,7 @@
     }
 
     & .Label {
+      /* stylelint-disable-next-line declaration-property-value-keyword-no-deprecated */
       word-break: break-word;
       white-space: unset;
     }
@@ -241,6 +242,14 @@
         visibility: hidden;
       }
     }
+  }
+
+  /* Styles for the spinner element displayed when the Button is in a loading state.
+   * Ensures the spinner is centered within its container. */
+  .LoadingSpinner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   /* Default Variant */

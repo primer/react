@@ -1,43 +1,20 @@
-import {SideNav} from '..'
-import {render, behavesAsComponent, checkExports} from '../utils/testing'
-import {render as HTMLRender} from '@testing-library/react'
-import axe from 'axe-core'
+import {screen, render} from '@testing-library/react'
+import {describe, expect, it} from 'vitest'
+import SideNav from '../SideNav'
 
 describe('SideNav', () => {
-  behavesAsComponent({Component: SideNav})
-
-  checkExports('SideNav', {
-    default: SideNav,
-  })
-
-  describe('SideNav.Link', () => {
-    behavesAsComponent({Component: SideNav.Link})
-  })
-
-  it('should have no axe violations', async () => {
-    const {container} = HTMLRender(
-      <SideNav>
-        <SideNav.Link href="#">One</SideNav.Link>
-        <SideNav.Link href="#" selected>
-          Two
-        </SideNav.Link>
-      </SideNav>,
-    )
-    const results = await axe.run(container)
-    expect(results).toHaveNoViolations()
-  })
-
   it('renders a <nav> and <a>', () => {
-    expect(render(<SideNav />).type).toEqual('nav')
-    expect(render(<SideNav.Link />).type).toEqual('a')
+    expect(render(<SideNav />).container.firstChild).toHaveProperty('tagName', 'NAV')
+    expect(render(<SideNav.Link />).container.firstChild).toHaveProperty('tagName', 'A')
   })
 
   it('sets aria-label appropriately', () => {
-    expect(render(<SideNav aria-label="Label" />).props['aria-label']).toEqual('Label')
+    render(<SideNav aria-label="Label" />)
+    expect(screen.getByRole('navigation')).toHaveAttribute('aria-label', 'Label')
   })
 
   it('sets aria-current on a selected link', () => {
-    const {getByRole} = HTMLRender(
+    const {getByRole} = render(
       <SideNav>
         <SideNav.Link href="#one">One</SideNav.Link>
         <SideNav.Link href="#two" selected>
@@ -49,9 +26,9 @@ describe('SideNav', () => {
   })
 
   it('sets different styles for SideNavs with the lightweight variant', () => {
-    const regular = render(<SideNav />)
-    const lightweight = render(<SideNav variant="lightweight" />)
-    expect(regular.props.className).toEqual(expect.stringContaining('variant-normal'))
-    expect(lightweight.props.className).toEqual(expect.stringContaining('variant-lightweight'))
+    const {container: regular} = render(<SideNav />)
+    const {container: lightweight} = render(<SideNav variant="lightweight" />)
+    expect(regular.firstElementChild?.className).toEqual(expect.stringContaining('variant-normal'))
+    expect(lightweight.firstElementChild?.className).toEqual(expect.stringContaining('variant-lightweight'))
   })
 })

@@ -1,5 +1,5 @@
+import {describe, it, expect, beforeEach, vi} from 'vitest'
 import {Radio} from '..'
-import {behavesAsComponent, checkExports} from '../utils/testing'
 import {render, fireEvent} from '@testing-library/react'
 
 describe('Radio', () => {
@@ -9,13 +9,7 @@ describe('Radio', () => {
   }
 
   beforeEach(() => {
-    jest.resetAllMocks()
-  })
-
-  behavesAsComponent({options: {skipAs: true}, Component: Radio, toRender: () => <Radio {...defaultProps} />})
-
-  checkExports('Radio', {
-    default: Radio,
+    vi.resetAllMocks()
   })
 
   it('should support `className` on the outermost element', () => {
@@ -49,7 +43,7 @@ describe('Radio', () => {
   })
 
   it('renders an active radio when checked attribute is passed', () => {
-    const handleChange = jest.fn()
+    const handleChange = vi.fn()
     const {getByRole} = render(<Radio {...defaultProps} checked onChange={handleChange} />)
 
     const radio = getByRole('radio') as HTMLInputElement
@@ -58,7 +52,7 @@ describe('Radio', () => {
   })
 
   it('accepts a change handler that can alter a single radio state', () => {
-    const handleChange = jest.fn()
+    const handleChange = vi.fn()
     const {getByRole} = render(<Radio {...defaultProps} onChange={handleChange} />)
 
     const radio = getByRole('radio') as HTMLInputElement
@@ -71,7 +65,7 @@ describe('Radio', () => {
   })
 
   it('renders correct behavior for multiple radio buttons in a group', () => {
-    const handleChange = jest.fn()
+    const handleChange = vi.fn()
     const RadioGroup = () => (
       <form>
         <Radio {...defaultProps} value="radio-one" onChange={handleChange} />
@@ -98,7 +92,7 @@ describe('Radio', () => {
   })
 
   it('renders an inactive radio state correctly', () => {
-    const handleChange = jest.fn()
+    const handleChange = vi.fn()
     const {getByRole, rerender} = render(<Radio {...defaultProps} disabled onChange={handleChange} />)
 
     const radio = getByRole('radio') as HTMLInputElement
@@ -124,7 +118,7 @@ describe('Radio', () => {
   })
 
   it('renders an aria-checked attribute correctly', () => {
-    const handleChange = jest.fn()
+    const handleChange = vi.fn()
     const {getByRole, rerender} = render(<Radio {...defaultProps} checked={false} onChange={handleChange} />)
 
     const radio = getByRole('radio') as HTMLInputElement

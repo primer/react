@@ -1,5 +1,5 @@
 import React from 'react'
-import {ThemeProvider, ActionList, FormControl} from '../../'
+import {ActionList, FormControl} from '../../'
 import type {RenderResult} from '@testing-library/react'
 import {render} from '@testing-library/react'
 import type {UserEvent} from '@testing-library/user-event'
@@ -37,25 +37,23 @@ const Fixture = ({onSubmit, onCancel}: Pick<SelectPanelProps, 'onSubmit' | 'onCa
   const itemsToShow = data.labels
 
   return (
-    <ThemeProvider>
-      <SelectPanel title="Select labels" onSubmit={onSubmit} onCancel={onCancel}>
-        <SelectPanel.Button>Assign label</SelectPanel.Button>
+    <SelectPanel title="Select labels" onSubmit={onSubmit} onCancel={onCancel}>
+      <SelectPanel.Button>Assign label</SelectPanel.Button>
 
-        <ActionList>
-          {itemsToShow.map(label => (
-            <ActionList.Item
-              key={label.id}
-              onSelect={() => onLabelSelect(label.id)}
-              selected={selectedLabelIds.includes(label.id)}
-            >
-              {label.name}
-              <ActionList.Description variant="block">{label.description}</ActionList.Description>
-            </ActionList.Item>
-          ))}
-        </ActionList>
-        <SelectPanel.Footer />
-      </SelectPanel>
-    </ThemeProvider>
+      <ActionList>
+        {itemsToShow.map(label => (
+          <ActionList.Item
+            key={label.id}
+            onSelect={() => onLabelSelect(label.id)}
+            selected={selectedLabelIds.includes(label.id)}
+          >
+            {label.name}
+            <ActionList.Description variant="block">{label.description}</ActionList.Description>
+          </ActionList.Item>
+        ))}
+      </ActionList>
+      <SelectPanel.Footer />
+    </SelectPanel>
   )
 }
 

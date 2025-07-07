@@ -1,4 +1,4 @@
-import type {Meta, StoryFn} from '@storybook/react'
+import type {Meta, StoryFn} from '@storybook/react-vite'
 import {MarkGithubIcon} from '@primer/octicons-react'
 
 import Header from './Header'

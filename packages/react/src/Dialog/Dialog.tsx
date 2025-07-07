@@ -168,12 +168,14 @@ export interface DialogHeaderProps extends DialogProps {
   dialogDescriptionId: string
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const heightMap = {
   small: '480px',
   large: '640px',
   auto: 'auto',
 } as const
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const widthMap = {
   small: '296px',
   medium: '320px',
@@ -226,6 +228,8 @@ const defaultPosition = {
   regular: 'center',
 }
 
+const defaultFooterButtons: Array<DialogButtonProps> = []
+
 const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogProps>>((props, forwardedRef) => {
   const {
     title = 'Dialog',
@@ -237,7 +241,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
     role = 'dialog',
     width = 'xlarge',
     height = 'auto',
-    footerButtons = [],
+    footerButtons = defaultFooterButtons,
     position = defaultPosition,
     returnFocusRef,
     initialFocusRef,
@@ -249,6 +253,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
   const autoFocusedFooterButtonRef = useRef<HTMLButtonElement>(null)
   for (const footerButton of footerButtons) {
     if (footerButton.autoFocus) {
+      // eslint-disable-next-line react-compiler/react-compiler
       footerButton.ref = autoFocusedFooterButtonRef
     }
   }
@@ -283,19 +288,12 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
   )
 
   React.useEffect(() => {
-    const bodyOverflowStyle = document.body.style.overflow || ''
-    // If the body is already set to overflow: hidden, it likely means
-    // that there is already a modal open. In that case, we should bail
-    // so we don't re-enable scroll after the second dialog is closed.
-    if (bodyOverflowStyle === 'hidden') {
-      return
-    }
-
-    document.body.style.overflow = 'hidden'
-
-    return () => {
-      document.body.style.overflow = bodyOverflowStyle
-    }
+    const scrollbarWidth = window.innerWidth - document.body.clientWidth
+    // If the dialog is rendered, we add a class to the dialog element to disable
+    dialogRef.current?.classList.add(classes.DisableScroll)
+    // and set a CSS variable to the scrollbar width so that the dialog can
+    // account for the scrollbar width when calculating its width.
+    document.body.style.setProperty('--prc-dialog-scrollgutter', `${scrollbarWidth}px`)
   }, [])
 
   const header = (renderHeader ?? DefaultHeader)(defaultedProps)

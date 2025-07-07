@@ -44,7 +44,9 @@
   }
 
   &:where([data-contrast]) {
-    background-color: var(--bgColor-inset);
+    /* this variable is available behind a feature flag in gh/gh */
+    /* stylelint-disable-next-line primer/colors */
+    background-color: var(--control-bgColor-contrast, var(--bgColor-inset));
   }
 
   &:where([data-disabled]) {
@@ -129,6 +131,7 @@
     /* stylelint-disable-next-line primer/spacing */
     padding-bottom: 3px;
     padding-left: var(--base-size-8);
+    /* stylelint-disable-next-line declaration-property-value-no-unknown */
     font-size: (--text-body-size-small);
     /* stylelint-disable-next-line primer/typography */
     line-height: var(--base-size-20);

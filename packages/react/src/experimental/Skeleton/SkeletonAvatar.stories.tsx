@@ -1,4 +1,4 @@
-import type {Meta, StoryFn} from '@storybook/react'
+import type {Meta, StoryFn} from '@storybook/react-vite'
 import type {ComponentProps} from '../../utils/types'
 import {SkeletonAvatar, type SkeletonAvatarProps} from './SkeletonAvatar'
 import {parseSizeFromArgs} from '../../Avatar/storyHelpers'
@@ -24,6 +24,7 @@ export const Playground: StoryFn<Args> = args => {
 
 Playground.args = {
   size: DEFAULT_AVATAR_SIZE,
+  square: false,
 }
 
 Playground.argTypes = {

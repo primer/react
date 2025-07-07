@@ -247,7 +247,21 @@ export const Tooltip = React.forwardRef(
             React.cloneElement(child as React.ReactElement<TriggerPropsType>, {
               ref: triggerRef,
               // If it is a type description, we use tooltip to describe the trigger
-              'aria-describedby': type === 'description' ? tooltipId : child.props['aria-describedby'],
+              'aria-describedby': (() => {
+                // If tooltip is not a description type, keep the original aria-describedby
+                if (type !== 'description') {
+                  return child.props['aria-describedby']
+                }
+
+                // If tooltip is a description type, append our tooltipId
+                const existingDescribedBy = child.props['aria-describedby']
+                if (existingDescribedBy) {
+                  return `${existingDescribedBy} ${tooltipId}`
+                }
+
+                // If no existing aria-describedby, use our tooltipId
+                return tooltipId
+              })(),
               // If it is a label type, we use tooltip to label the trigger
               'aria-labelledby': type === 'label' ? tooltipId : child.props['aria-labelledby'],
               onBlur: (event: React.FocusEvent) => {
@@ -265,7 +279,7 @@ export const Tooltip = React.forwardRef(
                 // only show tooltip on :focus-visible, not on :focus
                 try {
                   if (!event.target.matches(':focus-visible')) return
-                } catch (error) {
+                } catch (_error) {
                   // jsdom (jest) does not support `:focus-visible` yet and would throw an error
                   // https://github.com/jsdom/jsdom/issues/3426
                 }

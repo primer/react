@@ -1,5 +1,5 @@
 import type React from 'react'
-import {useState, useCallback} from 'react'
+import {useState, useCallback, useRef} from 'react'
 import {Text, Button} from '..'
 import type {DialogProps, DialogWidth, DialogHeight} from './Dialog'
 import {Dialog} from './Dialog'
@@ -192,4 +192,43 @@ export const WithSxAndCss = ({width, height, subtitle}: DialogStoryProps) => {
       )}
     </>
   )
+}
+
+export const WithScrollBody = () => {
+  const [isOpen, setIsOpen] = useState(false)
+  const buttonRef = useRef<HTMLButtonElement>(null)
+  const onDialogClose = useCallback(() => setIsOpen(false), [])
+  return (
+    <>
+      <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
+        Show dialog
+      </Button>
+      {lipsum}
+      {lipsum}
+      {lipsum}
+      {lipsum}
+      {lipsum}
+      {lipsum}
+      {lipsum}
+      {lipsum}
+      {lipsum}
+      {lipsum}
+      {lipsum}
+      {isOpen && (
+        <Dialog
+          title="My Dialog"
+          onClose={onDialogClose}
+          footerButtons={[
+            {buttonType: 'danger', content: 'Delete the universe', onClick: onDialogClose},
+            {buttonType: 'primary', content: 'Proceed', onClick: onDialogClose},
+          ]}
+        >
+          {lipsum}
+        </Dialog>
+      )}
+    </>
+  )
+}
+WithScrollBody.parameters = {
+  layout: 'fullscreen',
 }

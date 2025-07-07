@@ -1,4 +1,4 @@
-import type {Meta, StoryFn} from '@storybook/react'
+import type {Meta, StoryFn} from '@storybook/react-vite'
 import type {ComponentProps} from '../utils/types'
 import Label from './Label'
 
@@ -27,7 +27,7 @@ Playground.argTypes = {
       'done',
       'sponsors',
     ],
-    control: {type: 'inline-radio'},
+    control: {type: 'select'},
   },
   size: {
     options: ['small', 'large'],

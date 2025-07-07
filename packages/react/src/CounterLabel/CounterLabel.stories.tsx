@@ -1,4 +1,4 @@
-import type {StoryFn, Meta, StoryObj} from '@storybook/react'
+import type {StoryFn, Meta, StoryObj} from '@storybook/react-vite'
 import CounterLabel from './CounterLabel'
 
 export default {
