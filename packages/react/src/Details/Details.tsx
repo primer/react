@@ -51,6 +51,14 @@ const Root = React.forwardRef<HTMLDetailsElement, DetailsProps>(
 
 Root.displayName = 'Details'
 
+export type SummaryProps<As extends React.ElementType> = {
+  /**
+   * HTML element to render summary as.
+   */
+  as?: As
+  children?: React.ReactNode
+} & React.ComponentPropsWithoutRef<React.ElementType extends As ? As : 'summary'>
+
 function Summary<As extends React.ElementType>({as, children, ...props}: SummaryProps<As>) {
   const Component = as ?? 'summary'
   return (
