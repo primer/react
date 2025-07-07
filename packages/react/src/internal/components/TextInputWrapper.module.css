@@ -186,7 +186,7 @@
 
   &:where(:not([data-leading-visual])) > input,
   &:where(:not([data-leading-visual])) > select {
-    padding-left: var(--base-size-8);
+    padding-left: var(--base-size-12);
   }
 
   &:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
