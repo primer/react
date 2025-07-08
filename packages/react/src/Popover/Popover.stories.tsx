@@ -33,8 +33,8 @@ Playground.args = {
   caret: 'top',
   open: true,
   relative: true,
-  width: 'auto',
-  height: 'auto',
+  width: 'small',
+  height: 'fit-content',
 }
 
 Playground.argTypes = {

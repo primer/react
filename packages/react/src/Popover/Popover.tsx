@@ -54,7 +54,7 @@ Popover.displayName = 'Popover'
 
 export type PopoverContentProps = {
   className?: string
-  width?: 'small' | 'large' | 'medium' | 'auto' | 'xlarge'
+  width?: 'small' | 'large' | 'medium' | 'auto' | 'xlarge' | 'xxlarge'
   height?: 'xsmall' | 'small' | 'large' | 'medium' | 'auto' | 'xlarge' | 'fit-content'
   overflow?: 'auto' | 'hidden' | 'scroll' | 'visible'
 } & StyledPopoverProps &
