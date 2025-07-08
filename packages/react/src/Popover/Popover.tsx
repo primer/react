@@ -54,11 +54,32 @@ const Popover = React.forwardRef<HTMLDivElement, PopoverProps>(function Popover(
 })
 Popover.displayName = 'Popover'
 
-export type PopoverContentProps = {className?: string} & StyledPopoverProps & HTMLProps<HTMLDivElement>
+export type PopoverContentProps = {
+  className?: string
+  width?: 'small' | 'large' | 'medium' | 'auto' | 'xlarge'
+  height?: 'xsmall' | 'small' | 'large' | 'medium' | 'auto' | 'xlarge' | 'fit-content'
+  overflow?: 'auto' | 'hidden' | 'scroll' | 'visible'
+} & StyledPopoverProps &
+  HTMLProps<HTMLDivElement>
 
 const PopoverContentBaseComponent = toggleSxComponent('div') as React.ComponentType<PopoverContentProps>
-const PopoverContent: React.FC<React.PropsWithChildren<PopoverContentProps>> = ({className, ...props}) => {
-  return <PopoverContentBaseComponent {...props} className={clsx(className, classes.PopoverContent)} />
+const PopoverContent: React.FC<React.PropsWithChildren<PopoverContentProps>> = ({
+  className,
+  width = 'small',
+  height = 'fit-content',
+  ...props
+}) => {
+  return (
+    <PopoverContentBaseComponent
+      {...{
+        [`data-width-${width}`]: '',
+        [`data-height-${height}`]: '',
+        [`data-overflow-${props.overflow || 'auto'}`]: '',
+      }}
+      {...props}
+      className={clsx(className, classes.PopoverContent)}
+    />
+  )
 }
 
 PopoverContent.displayName = 'Popover.Content'
