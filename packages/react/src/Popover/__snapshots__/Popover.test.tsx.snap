@@ -8,6 +8,9 @@ exports[`Popover renders correctly for a caret position of bottom 1`] = `
 >
   <div
     className="PopoverContent"
+    data-height-fit-content=""
+    data-overflow-auto=""
+    data-width-small=""
   >
     Hello!
   </div>
@@ -22,6 +25,9 @@ exports[`Popover renders correctly for a caret position of bottom-left 1`] = `
 >
   <div
     className="PopoverContent"
+    data-height-fit-content=""
+    data-overflow-auto=""
+    data-width-small=""
   >
     Hello!
   </div>
@@ -36,6 +42,9 @@ exports[`Popover renders correctly for a caret position of bottom-right 1`] = `
 >
   <div
     className="PopoverContent"
+    data-height-fit-content=""
+    data-overflow-auto=""
+    data-width-small=""
   >
     Hello!
   </div>
@@ -50,6 +59,9 @@ exports[`Popover renders correctly for a caret position of left 1`] = `
 >
   <div
     className="PopoverContent"
+    data-height-fit-content=""
+    data-overflow-auto=""
+    data-width-small=""
   >
     Hello!
   </div>
@@ -64,6 +76,9 @@ exports[`Popover renders correctly for a caret position of left-bottom 1`] = `
 >
   <div
     className="PopoverContent"
+    data-height-fit-content=""
+    data-overflow-auto=""
+    data-width-small=""
   >
     Hello!
   </div>
@@ -78,6 +93,9 @@ exports[`Popover renders correctly for a caret position of left-top 1`] = `
 >
   <div
     className="PopoverContent"
+    data-height-fit-content=""
+    data-overflow-auto=""
+    data-width-small=""
   >
     Hello!
   </div>
@@ -92,6 +110,9 @@ exports[`Popover renders correctly for a caret position of right 1`] = `
 >
   <div
     className="PopoverContent"
+    data-height-fit-content=""
+    data-overflow-auto=""
+    data-width-small=""
   >
     Hello!
   </div>
@@ -106,6 +127,9 @@ exports[`Popover renders correctly for a caret position of right-bottom 1`] = `
 >
   <div
     className="PopoverContent"
+    data-height-fit-content=""
+    data-overflow-auto=""
+    data-width-small=""
   >
     Hello!
   </div>
@@ -120,6 +144,9 @@ exports[`Popover renders correctly for a caret position of right-top 1`] = `
 >
   <div
     className="PopoverContent"
+    data-height-fit-content=""
+    data-overflow-auto=""
+    data-width-small=""
   >
     Hello!
   </div>
@@ -134,6 +161,9 @@ exports[`Popover renders correctly for a caret position of top 1`] = `
 >
   <div
     className="PopoverContent"
+    data-height-fit-content=""
+    data-overflow-auto=""
+    data-width-small=""
   >
     Hello!
   </div>
@@ -148,6 +178,9 @@ exports[`Popover renders correctly for a caret position of top-left 1`] = `
 >
   <div
     className="PopoverContent"
+    data-height-fit-content=""
+    data-overflow-auto=""
+    data-width-small=""
   >
     Hello!
   </div>
@@ -162,6 +195,9 @@ exports[`Popover renders correctly for a caret position of top-right 1`] = `
 >
   <div
     className="PopoverContent"
+    data-height-fit-content=""
+    data-overflow-auto=""
+    data-width-small=""
   >
     Hello!
   </div>
