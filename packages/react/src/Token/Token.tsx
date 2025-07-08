@@ -2,7 +2,6 @@ import type {MouseEventHandler} from 'react'
 import type React from 'react'
 import {forwardRef} from 'react'
 import {type SxProp} from '../sx'
-import {defaultSxProp} from '../utils/defaultSxProp'
 import type {TokenBaseProps} from './TokenBase'
 import TokenBase, {defaultTokenSize, isTokenInteractive} from './TokenBase'
 import RemoveTokenButton from './_RemoveTokenButton'
@@ -45,7 +44,6 @@ const Token = forwardRef((props, forwardedRef) => {
     hideRemoveButton,
     href,
     onClick,
-    sx: sxProp = defaultSxProp,
     className,
     style,
     ...rest
@@ -68,7 +66,6 @@ const Token = forwardRef((props, forwardedRef) => {
       className={clsx(className, classes.Token)}
       text={text}
       size={size}
-      sx={sxProp}
       data-is-selected={props.isSelected}
       data-is-remove-btn={!(hideRemoveButton || !onRemove)}
       {...(!hasMultipleActionTargets ? interactiveTokenProps : {})}
