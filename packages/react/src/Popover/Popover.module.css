@@ -227,7 +227,7 @@
   &:where([data-width-auto]) {
     width: auto;
   }
-  
+
   &:where([data-height-xsmall]) {
     height: 192px;
   }
@@ -235,7 +235,7 @@
     height: 256px;
   }
   &:where([data-height-medium]) {
-    height: 320px;    
+    height: 320px;
   }
   &:where([data-height-large]) {
     height: 432px;
