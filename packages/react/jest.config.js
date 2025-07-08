@@ -31,7 +31,7 @@ module.exports = {
     '<rootDir>/src/Dialog/',
     '<rootDir>/src/FeatureFlags/',
     '<rootDir>/src/Flash/',
-    '<rootDir>/src/FormControl/__tests__/FormControl.Validation.test.tsx',
+    '<rootDir>/src/FormControl/',
     '<rootDir>/src/InlineMessage/',
     '<rootDir>/src/NavList/',
     '<rootDir>/src/Octicon/',
