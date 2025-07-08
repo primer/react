@@ -18,6 +18,7 @@ module.exports = {
     '<rootDir>/src/ActionBar/',
     '<rootDir>/src/ActionList/',
     '<rootDir>/src/AnchoredOverlay/',
+    '<rootDir>/src/Autocomplete/',
     '<rootDir>/src/Banner/',
     '<rootDir>/src/Blankslate/',
     '<rootDir>/src/Box/',

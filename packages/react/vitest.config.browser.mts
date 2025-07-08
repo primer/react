@@ -31,6 +31,7 @@ export default defineConfig({
       'src/ActionBar/**/*.test.?(c|m)[jt]s?(x)',
       'src/ActionList/**/*.test.?(c|m)[jt]s?(x)',
       'src/AnchoredOverlay/**/*.test.?(c|m)[jt]s?(x)',
+      'src/Autocomplete/**/*.test.?(c|m)[jt]s?(x)',
       'src/Banner/**/*.test.?(c|m)[jt]s?(x)',
       'src/Blankslate/**/*.test.?(c|m)[jt]s?(x)',
       'src/Box/**/*.test.?(c|m)[jt]s?(x)',
