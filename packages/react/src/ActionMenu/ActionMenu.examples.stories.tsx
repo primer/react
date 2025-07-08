@@ -108,6 +108,35 @@ export const CustomOverlayProps = () => {
   )
 }
 
+export const FullScreen = () => {
+  const [open, setOpen] = React.useState(false)
+
+  return (
+    <Box sx={{display: 'flex', justifyContent: 'center'}}>
+      <ActionMenu open={open} onOpenChange={setOpen}>
+        <ActionMenu.Button>Menu</ActionMenu.Button>
+        <ActionMenu.Overlay
+          width="large"
+          align="center"
+          preventOverflow={false}
+          variant={{regular: 'anchored', narrow: 'fullscreen'}}
+        >
+          <ActionList>
+            <ActionList.Item>Option 1</ActionList.Item>
+            <ActionList.Item>Option 2</ActionList.Item>
+            <ActionList.Item>Option 2</ActionList.Item>
+            <ActionList.Item>Option 2</ActionList.Item>
+            <ActionList.Item>Option 2</ActionList.Item>
+            <ActionList.Item>Option 2</ActionList.Item>
+            <ActionList.Item>Option 2</ActionList.Item>
+            <ActionList.Item>Option 2</ActionList.Item>
+          </ActionList>
+        </ActionMenu.Overlay>
+      </ActionMenu>
+    </Box>
+  )
+}
+
 export const ControlledMenu = () => {
   const [actionFired, fireAction] = React.useState('')
   const onSelect = (name: string) => fireAction(name)
@@ -241,7 +270,9 @@ export const ContextMenu = () => {
       setOpen(true)
     }
 
+    // eslint-disable-next-line react-compiler/react-compiler
     const [open, setOpen] = React.useState(false)
+    // eslint-disable-next-line react-compiler/react-compiler
     const triggerRef = React.useRef<HTMLButtonElement>(null)
 
     return (
@@ -413,13 +444,13 @@ export const MultipleSections = () => {
         <ActionList>
           <ActionList.Group>
             <ActionList.GroupHeading>Raw file content</ActionList.GroupHeading>
-            <ActionList.Item onClick={() => alert('Workflows clicked')}>Download</ActionList.Item>
+            <ActionList.Item onSelect={() => alert('Workflows clicked')}>Download</ActionList.Item>
             <ActionList.Divider />
-            <ActionList.Item onClick={() => alert('Workflows clicked')}>Jump to line</ActionList.Item>
-            <ActionList.Item onClick={() => alert('Workflows clicked')}>Find in file</ActionList.Item>
+            <ActionList.Item onSelect={() => alert('Workflows clicked')}>Jump to line</ActionList.Item>
+            <ActionList.Item onSelect={() => alert('Workflows clicked')}>Find in file</ActionList.Item>
             <ActionList.Divider />
-            <ActionList.Item onClick={() => alert('Workflows clicked')}>Copy path</ActionList.Item>
-            <ActionList.Item onClick={() => alert('Workflows clicked')}>Copy permalink</ActionList.Item>
+            <ActionList.Item onSelect={() => alert('Workflows clicked')}>Copy path</ActionList.Item>
+            <ActionList.Item onSelect={() => alert('Workflows clicked')}>Copy permalink</ActionList.Item>
           </ActionList.Group>
           <ActionList.Divider />
           <ActionList.Group selectionVariant="multiple">
@@ -437,7 +468,7 @@ export const MultipleSections = () => {
           <ActionList.Divider />
           <ActionList.Group>
             <ActionList.GroupHeading>View options</ActionList.GroupHeading>
-            <ActionList.Item onClick={() => alert('Delete file')} variant="danger">
+            <ActionList.Item onSelect={() => alert('Delete file')} variant="danger">
               Delete file
             </ActionList.Item>
           </ActionList.Group>

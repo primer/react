@@ -4,13 +4,13 @@
   "private": true,
   "scripts": {
     "clean": "rimraf .next",
-    "build": "next build",
+    "build": "next build --no-lint",
     "develop": "next",
     "start": "next start",
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@primer/react": "37.24.0",
+    "@primer/react": "37.27.0",
     "next": "^15.2.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

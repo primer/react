@@ -1,4 +1,5 @@
 import {render} from '@testing-library/react'
+import {afterEach, describe, expect, it, vi} from 'vitest'
 import {act} from 'react'
 import ReactDOM from 'react-dom/server'
 import {useMedia, MatchMedia} from '../useMedia'
@@ -10,19 +11,19 @@ function mockMatchMedia({defaultMatch = false} = {}) {
 
   Object.defineProperty(window, 'matchMedia', {
     writable: true,
-    value: jest.fn().mockImplementation(query => ({
+    value: vi.fn().mockImplementation(query => ({
       matches: defaultMatch,
       media: query,
       onchange: null,
-      addListener: jest.fn(), // deprecated
-      removeListener: jest.fn(), // deprecated
+      addListener: vi.fn(), // deprecated
+      removeListener: vi.fn(), // deprecated
       addEventListener: (_type: string, listener: MediaQueryEventListener) => {
         listeners.add(listener)
       },
       removeEventListener: (_type: string, listener: MediaQueryEventListener) => {
         listeners.delete(listener)
       },
-      dispatchEvent: jest.fn(),
+      dispatchEvent: vi.fn(),
     })),
   })
 

@@ -81,8 +81,8 @@ Our example from earlier would now look like:
 
 Using a CSS layer in this way allows us to author our CSS without having to
 consider whether or not to use `:where()`. This is due to the nature of CSS
-layers where if two layers are targetting the same element, the last layer
-targetting that element will take precedence.
+layers where if two layers are targeting the same element, the last layer
+targeting that element will take precedence.
 
 Since we are moving our CSS into a CSS layer, this means that later layers (in
 particularly the anonymous layer) will take precedence when two rules are

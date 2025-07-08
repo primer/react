@@ -66,6 +66,7 @@ const ButtonBase = forwardRef(
        * this is safe, and ensures the entire effect is kept out of prod builds
        * shaving precious bytes from the output, and avoiding mounting a noop effect
        */
+      // eslint-disable-next-line react-compiler/react-compiler
       // eslint-disable-next-line react-hooks/rules-of-hooks
       React.useEffect(() => {
         if (
@@ -83,7 +84,7 @@ const ButtonBase = forwardRef(
     if (sxProp !== defaultSxProp) {
       return (
         <ConditionalWrapper
-          // If anything is passsed to `loading`, we need the wrapper:
+          // If anything is passed to `loading`, we need the wrapper:
           // If we just checked for `loading` as a boolean, the wrapper wouldn't be rendered
           // when `loading` is `false`.
           // Then, the component re-renders in a way that the button will lose focus when switching between loading states.
@@ -206,7 +207,7 @@ const ButtonBase = forwardRef(
     }
     return (
       <ConditionalWrapper
-        // If anything is passsed to `loading`, we need the wrapper:
+        // If anything is passed to `loading`, we need the wrapper:
         // If we just checked for `loading` as a boolean, the wrapper wouldn't be rendered
         // when `loading` is `false`.
         // Then, the component re-renders in a way that the button will lose focus when switching between loading states.

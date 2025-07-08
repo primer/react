@@ -1,5 +1,5 @@
 import React, {Suspense} from 'react'
-import type {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react-vite'
 import type {ComponentProps} from '../../utils/types'
 import {SkeletonText} from './SkeletonText'
 import {Avatar, Box, Button, IconButton, Text} from '../../'
@@ -121,7 +121,7 @@ export const CommentsLoadingWithSuspense = () => {
       try {
         await dataPromise
         setLoadingStatus('fulfilled')
-      } catch (error) {
+      } catch (_error) {
         // Handle error if needed
       }
     }

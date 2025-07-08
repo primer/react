@@ -337,7 +337,7 @@ ensures that callbacks are always called with the latest value.
 
 When authoring components, there may be situations where you want a class name
 to only be applied if a condition is met. In these situations, prefer using the
-`clsx` library to conditionall apply class names.
+`clsx` library to conditional apply class names.
 
 <table>
 <thead><tr><th>Unpreferred</th><th>Preferred</th></tr></thead>

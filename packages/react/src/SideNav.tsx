@@ -6,7 +6,6 @@ import {type PropsWithChildren} from 'react'
 import {clsx} from 'clsx'
 import type {SxProp} from './sx'
 import classes from './SideNav.module.css'
-import {defaultSxProp} from './utils/defaultSxProp'
 import {BoxWithFallback} from './internal/components/BoxWithFallback'
 
 type SideNavBaseProps = {
@@ -25,7 +24,7 @@ function SideNav({
   bordered,
   children,
   'aria-label': ariaLabel,
-  sx: sxProp = defaultSxProp,
+  sx: sxProp,
 }: SideNavBaseProps) {
   const variantClassName = variant === 'lightweight' ? 'lightweight' : 'normal'
   const newClassName = clsx(

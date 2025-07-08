@@ -197,6 +197,17 @@ describe('UnderlineNav', () => {
     expect(screen.getByLabelText('Page two icon')).toBeInTheDocument()
     expect(screen.getByLabelText('Page three icon')).toBeInTheDocument()
   })
+
+  it('adds className prop to item classes', () => {
+    render(
+      <UnderlineNav aria-label="Repository">
+        <UnderlineNav.Item className="custom-class">Item 1</UnderlineNav.Item>
+      </UnderlineNav>,
+    )
+    const item = screen.getByRole('link', {name: 'Item 1'})
+    expect(item).toHaveClass('custom-class')
+    expect(item.className).toContain('UnderlineItem')
+  })
 })
 
 describe('Keyboard Navigation', () => {

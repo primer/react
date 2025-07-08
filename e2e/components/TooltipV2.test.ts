@@ -14,6 +14,7 @@ const stories = [
   {
     title: 'Calculated Direction',
     id: 'components-tooltipv2-features--calculated-direction',
+    disableAnimations: true,
   },
   {
     title: 'Icon Button With Description',
@@ -44,9 +45,9 @@ test.describe('TooltipV2', () => {
 
             // Default state
             await page.keyboard.press('Tab')
-            expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
-              `TooltipV2.${story.title}.${theme}.png`,
-            )
+            await expect(page).toHaveScreenshot(`TooltipV2.${story.title}.${theme}.png`, {
+              animations: 'disabled',
+            })
           })
         })
       }

@@ -4,9 +4,8 @@ import React from 'react'
 import type {ComponentProps} from '../utils/types'
 
 import styles from './SubNav.module.css'
-import {defaultSxProp} from '../utils/defaultSxProp'
 import type {SxProp} from '../sx'
-import Box from '../Box'
+import {BoxWithFallback} from '../internal/components/BoxWithFallback'
 
 type StyledSubNavProps = React.ComponentProps<'nav'> & {
   actions?: React.ReactNode
@@ -18,29 +17,20 @@ type StyledSubNavLinksProps = React.ComponentProps<'div'> & SxProp
 type StyledSubNavLinkProps = React.ComponentProps<'a'> & {to?: To; selected?: boolean} & SxProp
 
 const SubNav = React.forwardRef<HTMLElement, StyledSubNavProps>(function SubNav(
-  {actions, className, children, label, sx: sxProp = defaultSxProp, ...rest},
+  {actions, className, children, label, ...rest},
   forwardRef,
 ) {
-  if (sxProp !== defaultSxProp) {
-    return (
-      <Box
-        as="nav"
-        ref={forwardRef}
-        sx={sxProp}
-        className={clsx(className, 'SubNav', styles.SubNav)}
-        aria-label={label}
-        {...rest}
-      >
-        <div className={clsx('SubNav-body', styles.Body)}>{children}</div>
-        {actions && <div className={clsx('SubNav-actions', styles.Actions)}>{actions}</div>}
-      </Box>
-    )
-  }
   return (
-    <nav ref={forwardRef} className={clsx(className, 'SubNav', styles.SubNav)} aria-label={label} {...rest}>
+    <BoxWithFallback
+      as="nav"
+      ref={forwardRef}
+      className={clsx(className, 'SubNav', styles.SubNav)}
+      aria-label={label}
+      {...rest}
+    >
       <div className={clsx('SubNav-body', styles.Body)}>{children}</div>
       {actions && <div className={clsx('SubNav-actions', styles.Actions)}>{actions}</div>}
-    </nav>
+    </BoxWithFallback>
   )
 })
 SubNav.displayName = 'SubNav'
@@ -48,18 +38,11 @@ SubNav.displayName = 'SubNav'
 // SubNav.Links
 
 const SubNavLinks = React.forwardRef<HTMLDivElement, StyledSubNavLinksProps>(
-  ({children, className, sx: sxProp = defaultSxProp, ...rest}, forwardRef) => {
-    if (sxProp !== defaultSxProp) {
-      return (
-        <Box as="div" ref={forwardRef} sx={sxProp} className={clsx(className, styles.Links)} {...rest}>
-          {children}
-        </Box>
-      )
-    }
+  ({children, className, ...rest}, forwardRef) => {
     return (
-      <div ref={forwardRef} className={clsx(className, styles.Links)} {...rest}>
+      <BoxWithFallback ref={forwardRef} className={clsx(className, styles.Links)} {...rest}>
         {children}
-      </div>
+      </BoxWithFallback>
     )
   },
 )
@@ -68,25 +51,10 @@ SubNavLinks.displayName = 'SubNav.Links'
 // SubNav.Link
 
 const SubNavLink = React.forwardRef<HTMLAnchorElement, StyledSubNavLinkProps>(
-  ({children, className, sx: sxProp = defaultSxProp, ...rest}, forwardRef) => {
-    if (sxProp !== defaultSxProp) {
-      return (
-        <Box
-          as="a"
-          ref={forwardRef}
-          sx={sxProp}
-          className={clsx(className, styles.Link)}
-          data-selected={rest.selected}
-          aria-current={rest.selected}
-          {...rest}
-        >
-          {children}
-        </Box>
-      )
-    }
-
+  ({children, className, ...rest}, forwardRef) => {
     return (
-      <a
+      <BoxWithFallback
+        as="a"
         ref={forwardRef}
         className={clsx(className, styles.Link)}
         data-selected={rest.selected}
@@ -94,7 +62,7 @@ const SubNavLink = React.forwardRef<HTMLAnchorElement, StyledSubNavLinkProps>(
         {...rest}
       >
         {children}
-      </a>
+      </BoxWithFallback>
     )
   },
 )
