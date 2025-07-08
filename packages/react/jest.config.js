@@ -44,6 +44,7 @@ module.exports = {
     '<rootDir>/src/RadioGroup/',
     '<rootDir>/src/RelativeTime/',
     '<rootDir>/src/ScrollableRegion/',
+    '<rootDir>/src/SegmentedControl/',
     '<rootDir>/src/Select/',
     '<rootDir>/src/Skeleton/',
     '<rootDir>/src/Spinner/',
