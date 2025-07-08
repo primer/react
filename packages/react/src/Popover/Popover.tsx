@@ -52,11 +52,30 @@ const Popover = React.forwardRef<HTMLDivElement, PopoverProps>(function Popover(
 })
 Popover.displayName = 'Popover'
 
-export type PopoverContentProps = {className?: string; as?: React.ElementType} & StyledPopoverProps &
+export type PopoverContentProps = {
+  className?: string
+  width?: 'small' | 'large' | 'medium' | 'auto' | 'xlarge'
+  height?: 'xsmall' | 'small' | 'large' | 'medium' | 'auto' | 'xlarge' | 'fit-content'
+  overflow?: 'auto' | 'hidden' | 'scroll' | 'visible'
+} & StyledPopoverProps &
   HTMLProps<HTMLDivElement>
 
-const PopoverContent: React.FC<React.PropsWithChildren<PopoverContentProps>> = ({className, ...props}) => {
-  return <BoxWithFallback {...props} className={clsx(className, classes.PopoverContent)} />
+const PopoverContent: React.FC<React.PropsWithChildren<PopoverContentProps>> = ({
+  className,
+  width = 'small',
+  height = 'fit-content',
+  overflow = 'auto',
+  ...props
+}) => {
+  return (
+    <BoxWithFallback
+      {...props}
+      data-width={width}
+      data-height={height}
+      data-overflow={overflow}
+      className={clsx(className, classes.PopoverContent)}
+    />
+  )
 }
 
 PopoverContent.displayName = 'Popover.Content'
