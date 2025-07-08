@@ -49,6 +49,7 @@ export default defineConfig({
       'src/InlineMessage/**/*.test.?(c|m)[jt]s?(x)',
       'src/NavList/**/*.test.?(c|m)[jt]s?(x)',
       'src/Octicon/**/*.test.?(c|m)[jt]s?(x)',
+      'src/Overlay/**/*.test.?(c|m)[jt]s?(x)',
       'src/Pagehead/**/*.test.?(c|m)[jt]s?(x)',
       'src/Pagination/**/*.test.?(c|m)[jt]s?(x)',
       'src/ProgressBar/**/*.test.?(c|m)[jt]s?(x)',

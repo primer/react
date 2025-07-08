@@ -36,6 +36,7 @@ module.exports = {
     '<rootDir>/src/InlineMessage/',
     '<rootDir>/src/NavList/',
     '<rootDir>/src/Octicon/',
+    '<rootDir>/src/Overlay/',
     '<rootDir>/src/Pagehead/',
     '<rootDir>/src/Pagination/',
     '<rootDir>/src/ProgressBar/',
