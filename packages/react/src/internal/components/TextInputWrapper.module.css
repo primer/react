@@ -189,6 +189,14 @@
     padding-left: var(--base-size-12);
   }
 
+  &:where(:not([data-leading-visual])[data-trailing-visual]),
+  &:where(:not([data-leading-visual])[data-trailing-action]) {
+    > input,
+    > select {
+      padding-left: var(--base-size-8);
+    }
+  }
+
   &:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
   &:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
     padding-right: var(--base-size-12);
