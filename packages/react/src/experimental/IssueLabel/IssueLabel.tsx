@@ -29,9 +29,9 @@ type LabelColorVariant =
 
 type IssueLabelProps<As extends React.ElementType> = {
   as?: As
+  className?: string
   fillColor?: Hex
   variant?: LabelColorVariant
-  className?: string
 } & React.ComponentPropsWithoutRef<React.ElementType extends As ? 'span' : As>
 
 function IssueLabel<As extends React.ElementType>(props: IssueLabelProps<As>) {
@@ -44,11 +44,13 @@ function IssueLabel<As extends React.ElementType>(props: IssueLabelProps<As>) {
     dark: '#0d1117',
   }
 
-  let BaseComponent = 'span'
-  if ('href' in rest) {
-    BaseComponent = 'a'
-  } else if (onClick) {
-    BaseComponent = 'button'
+  let BaseComponent = as ?? 'span'
+  if (!as) {
+    if ('href' in rest) {
+      BaseComponent = 'a'
+    } else if (onClick) {
+      BaseComponent = 'button'
+    }
   }
 
   return (

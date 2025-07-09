@@ -1,6 +1,7 @@
 import {IssueLabel} from '../IssueLabel'
 import type {Meta} from '@storybook/react-vite'
 import {Stack} from '../../Stack'
+import {action} from 'storybook/internal/actions'
 
 const meta = {
   title: 'Experimental/Components/IssueLabel/Features',
@@ -47,9 +48,10 @@ export const VariantBrown = () => <IssueLabel variant="brown">Issue label</Issue
 
 export const VariantAuburn = () => <IssueLabel variant="auburn">Issue label</IssueLabel>
 
-export const HexColor = (args: {fillColor: `#${string}`}) => (
-  <IssueLabel fillColor={args.fillColor}>Issue label</IssueLabel>
-)
+export const HexColor = (args: {fillColor: `#${string}`}) => {
+  return <IssueLabel fillColor={args.fillColor}>Issue label</IssueLabel>
+}
+
 HexColor.args = {
   fillColor: '#59B200',
 }
@@ -67,9 +69,7 @@ HexColor.argTypes = {
 
 export const AsLink = () => <IssueLabel href="/">Issue label</IssueLabel>
 
-export const AsButton = () => <IssueLabel as="button">Issue label</IssueLabel>
-
-export const OnClick = () => <IssueLabel onClick={() => alert('clicked')}>Issue label</IssueLabel>
+export const AsButton = () => <IssueLabel onClick={action('onClick')}>Issue label</IssueLabel>
 
 export const GroupOfLabels = () => (
   <Stack direction="horizontal" gap="condensed" wrap="wrap">
