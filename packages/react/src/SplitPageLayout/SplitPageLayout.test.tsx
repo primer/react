@@ -1,19 +1,9 @@
+import {describe, it, expect, vi} from 'vitest'
 import {render} from '@testing-library/react'
-import MatchMediaMock from 'jest-matchmedia-mock'
 import 'react-intersection-observer/test-utils'
 import {SplitPageLayout} from '../SplitPageLayout/SplitPageLayout'
 
-let matchMedia: MatchMediaMock
-
 describe('SplitPageLayout', () => {
-  beforeAll(() => {
-    matchMedia = new MatchMediaMock()
-  })
-
-  afterEach(() => {
-    matchMedia.clear()
-  })
-
   it('renders default layout', () => {
     const {container} = render(
       <SplitPageLayout>

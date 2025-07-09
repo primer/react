@@ -58,6 +58,7 @@ export default defineConfig({
       'src/Select/**/*.test.?(c|m)[jt]s?(x)',
       'src/Skeleton/**/*.test.?(c|m)[jt]s?(x)',
       'src/Spinner/**/*.test.?(c|m)[jt]s?(x)',
+      'src/SplitPageLayout/**/*.test.?(c|m)[jt]s?(x)',
       'src/Stack/**/*.test.?(c|m)[jt]s?(x)',
       'src/StateLabel/**/*.test.?(c|m)[jt]s?(x)',
       'src/SubNav/**/*.test.?(c|m)[jt]s?(x)',
