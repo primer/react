@@ -73,4 +73,14 @@ details-dialog:focus:not(:focus-visible):not(:global(.focus-visible)) {
       color-scheme: dark;
     }
   }
+
+  /* Global link styles */
+  a {
+    color: var(--fgColor-accent, var(--color-accent-fg));
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }
