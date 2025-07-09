@@ -49,6 +49,7 @@ export default defineConfig({
       'src/NavList/**/*.test.?(c|m)[jt]s?(x)',
       'src/Octicon/**/*.test.?(c|m)[jt]s?(x)',
       'src/Pagehead/**/*.test.?(c|m)[jt]s?(x)',
+      'src/PageLayout/**/*.test.?(c|m)[jt]s?(x)',
       'src/Pagination/**/*.test.?(c|m)[jt]s?(x)',
       'src/ProgressBar/**/*.test.?(c|m)[jt]s?(x)',
       'src/Radio/**/*.test.?(c|m)[jt]s?(x)',
