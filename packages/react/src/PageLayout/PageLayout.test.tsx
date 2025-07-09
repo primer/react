@@ -5,7 +5,6 @@ import 'react-intersection-observer/test-utils'
 import {viewportRanges} from '../hooks/useResponsiveValue'
 import {PageLayout} from './PageLayout'
 import {Placeholder} from '../Placeholder'
-import {client} from '@figma/code-connect'
 
 describe('PageLayout', async () => {
   await page.viewport(1280, 800)
@@ -163,7 +162,6 @@ describe('PageLayout', async () => {
       const placeholder = await screen.findByText('Pane')
       const pane = placeholder.parentNode
       const initialWidth = (pane as HTMLElement).style.getPropertyValue('--pane-width')
-      console.log('initialWidth', initialWidth)
       const divider = await screen.findByRole('slider')
 
       // Moving divider should resize pane.
@@ -174,7 +172,6 @@ describe('PageLayout', async () => {
       fireEvent.keyDown(divider, {key: 'ArrowRight'})
 
       const finalWidth = (pane as HTMLElement).style.getPropertyValue('--pane-width')
-      console.log('finalWidth', finalWidth)
       expect(finalWidth).not.toEqual(initialWidth)
     })
   })
