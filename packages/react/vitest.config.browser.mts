@@ -46,6 +46,7 @@ export default defineConfig({
       'src/Flash/**/*.test.?(c|m)[jt]s?(x)',
       'src/FormControl/__tests__/FormControl.Validation.test.tsx',
       'src/InlineMessage/**/*.test.?(c|m)[jt]s?(x)',
+      'src/Label/**/*.test.?(c|m)[jt]s?(x)',
       'src/NavList/**/*.test.?(c|m)[jt]s?(x)',
       'src/Octicon/**/*.test.?(c|m)[jt]s?(x)',
       'src/Pagehead/**/*.test.?(c|m)[jt]s?(x)',
