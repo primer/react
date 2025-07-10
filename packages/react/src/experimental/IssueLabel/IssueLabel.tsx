@@ -27,14 +27,21 @@ type LabelColorVariant =
   | 'brown'
   | 'auburn'
 
-type IssueLabelProps<As extends React.ElementType> = {
-  as?: As
+type BaseProps = {
   className?: string
   fillColor?: Hex
   variant?: LabelColorVariant
-} & React.ComponentPropsWithoutRef<React.ElementType extends As ? 'span' : As>
+}
+type ButtonProps = React.ComponentPropsWithoutRef<'button'>
+type LinkProps = React.ComponentPropsWithoutRef<'a'>
 
-function IssueLabel<As extends React.ElementType>(props: IssueLabelProps<As>) {
+type IssueLabelProps<As extends React.ElementType> =
+  | ({as?: As} & BaseProps & Omit<React.ComponentPropsWithoutRef<As>, keyof BaseProps>)
+  | ({as?: never; href?: never; onClick?: never} & BaseProps & React.ComponentPropsWithoutRef<'span'>)
+  | ({as?: never; href: LinkProps['href']; onClick?: LinkProps['onClick']} & BaseProps & LinkProps)
+  | ({as?: never; href?: never; onClick: ButtonProps['onClick']} & BaseProps & ButtonProps)
+
+function IssueLabel<As extends React.ElementType = 'span'>(props: IssueLabelProps<As>) {
   const {as, children, className, fillColor, onClick, style, variant = 'gray', ...rest} = props
   const {resolvedColorScheme} = useTheme()
   const mode = resolvedColorScheme?.startsWith('dark') ? 'dark' : 'light'
