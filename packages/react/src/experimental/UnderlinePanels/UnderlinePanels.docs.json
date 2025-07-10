@@ -48,6 +48,13 @@
       "description": "Tabs (UnderlinePanels.Tab) and panels (UnderlinePanels.Panel) to render"
     },
     {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": "Custom className. Is applied to the custom element, [tab-container](https://github.com/github/tab-container-element)",
+      "defaultValue": ""
+    },
+    {
       "name": "id",
       "type": "string",
       "defaultValue": "",

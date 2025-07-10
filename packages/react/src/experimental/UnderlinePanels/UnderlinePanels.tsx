@@ -48,7 +48,7 @@ export type UnderlinePanelsProps = {
    */
   loadingCounters?: boolean
   /**
-   * Class name for custom styling
+   * Class name for custom styling. Is applied to the custom element, [tab-container](https://github.com/github/tab-container-element)
    */
   className?: string
 } & SxProp

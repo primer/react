@@ -161,6 +161,6 @@ describe('UnderlinePanels', () => {
         <UnderlinePanels.Panel>Panel 2</UnderlinePanels.Panel>
       </UnderlinePanels>
     )
-    expect(render(<Element />).baseElement.firstChild?.firstChild?.firstChild).toHaveClass('test-class-name')
+    expect(render(<Element />).baseElement.firstChild?.firstChild).toHaveClass('test-class-name')
   })
 })
