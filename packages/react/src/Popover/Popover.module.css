@@ -242,12 +242,10 @@
   }
 
   &:where([data-height='large']) {
-    /* stylelint-disable-next-line primer/responsive-widths */
     height: 432px;
   }
 
   &:where([data-height='xlarge']) {
-    /* stylelint-disable-next-line primer/responsive-widths */
     height: 600px;
   }
 
