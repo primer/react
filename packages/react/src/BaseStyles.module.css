@@ -75,7 +75,7 @@ details-dialog:focus:not(:focus-visible):not(:global(.focus-visible)) {
   }
 
   /* Global link styles - exclude Primer components */
-  a:not([class*='prc-']) {
+  a:not([class*='prc-']):not([class*='PRC-']) {
     color: var(--fgColor-accent, var(--color-accent-fg));
     text-decoration: none;
 
