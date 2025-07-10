@@ -642,20 +642,7 @@ exports[`TextInput renders trailingVisual 4`] = `
 
 exports[`TextInput renders with a loading indicator 1`] = `
 [
-  .c0 {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  -webkit-clip: rect(0,0,0,0);
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border-width: 0;
-}
-
-<span
+  <span
     aria-busy={true}
     className="TextInput-wrapper TextInputWrapper TextInputBaseWrapper"
     data-trailing-visual={true}
@@ -670,7 +657,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
       type="text"
     />
     <span
-      className="c0"
+      className="InternalVisuallyHidden"
       id=":r2o:"
     >
       Loading
@@ -714,20 +701,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
       </div>
     </span>
   </span>,
-  .c0 {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  -webkit-clip: rect(0,0,0,0);
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border-width: 0;
-}
-
-<span
+  <span
     aria-busy={true}
     className="TextInput-wrapper TextInputWrapper TextInputBaseWrapper"
     data-leading-visual={true}
@@ -780,7 +754,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
       type="text"
     />
     <span
-      className="c0"
+      className="InternalVisuallyHidden"
       id=":r2s:"
     >
       Loading
@@ -824,20 +798,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
       </div>
     </span>
   </span>,
-  .c0 {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  -webkit-clip: rect(0,0,0,0);
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border-width: 0;
-}
-
-<span
+  <span
     aria-busy={true}
     className="TextInput-wrapper TextInputWrapper TextInputBaseWrapper"
     data-trailing-visual={true}
@@ -852,7 +813,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
       type="text"
     />
     <span
-      className="c0"
+      className="InternalVisuallyHidden"
       id=":r31:"
     >
       Loading
@@ -896,20 +857,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
       </div>
     </span>
   </span>,
-  .c0 {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  -webkit-clip: rect(0,0,0,0);
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border-width: 0;
-}
-
-<span
+  <span
     aria-busy={true}
     className="TextInput-wrapper TextInputWrapper TextInputBaseWrapper"
     data-leading-visual={true}
@@ -986,7 +934,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
       type="text"
     />
     <span
-      className="c0"
+      className="InternalVisuallyHidden"
       id=":r35:"
     >
       Loading
@@ -1030,20 +978,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
       </div>
     </span>
   </span>,
-  .c0 {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  -webkit-clip: rect(0,0,0,0);
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border-width: 0;
-}
-
-<span
+  <span
     aria-busy={true}
     className="TextInput-wrapper TextInputWrapper TextInputBaseWrapper"
     data-leading-visual={true}
@@ -1120,7 +1055,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
       type="text"
     />
     <span
-      className="c0"
+      className="InternalVisuallyHidden"
       id=":r3a:"
     >
       Loading
@@ -1164,20 +1099,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
       </div>
     </span>
   </span>,
-  .c0 {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  -webkit-clip: rect(0,0,0,0);
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border-width: 0;
-}
-
-<span
+  <span
     aria-busy={true}
     className="TextInput-wrapper TextInputWrapper TextInputBaseWrapper"
     data-leading-visual={true}
@@ -1255,7 +1177,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
       type="text"
     />
     <span
-      className="c0"
+      className="InternalVisuallyHidden"
       id=":r3f:"
     >
       Loading
@@ -1299,20 +1221,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
       </div>
     </span>
   </span>,
-  .c0 {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  -webkit-clip: rect(0,0,0,0);
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border-width: 0;
-}
-
-<span
+  <span
     aria-busy={true}
     className="TextInput-wrapper TextInputWrapper TextInputBaseWrapper"
     data-trailing-visual={true}
@@ -1327,7 +1236,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
       type="text"
     />
     <span
-      className="c0"
+      className="InternalVisuallyHidden"
       id=":r3k:"
     >
       Loading
@@ -1395,20 +1304,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
       </div>
     </span>
   </span>,
-  .c0 {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  -webkit-clip: rect(0,0,0,0);
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border-width: 0;
-}
-
-<span
+  <span
     aria-busy={true}
     className="TextInput-wrapper TextInputWrapper TextInputBaseWrapper"
     data-leading-visual={true}
@@ -1462,7 +1358,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
       type="text"
     />
     <span
-      className="c0"
+      className="InternalVisuallyHidden"
       id=":r3o:"
     >
       Loading
@@ -1530,20 +1426,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
       </div>
     </span>
   </span>,
-  .c0 {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  -webkit-clip: rect(0,0,0,0);
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border-width: 0;
-}
-
-<span
+  <span
     aria-busy={true}
     className="TextInput-wrapper TextInputWrapper TextInputBaseWrapper"
     data-trailing-visual={true}
@@ -1558,7 +1441,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
       type="text"
     />
     <span
-      className="c0"
+      className="InternalVisuallyHidden"
       id=":r3t:"
     >
       Loading
@@ -1626,20 +1509,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
       </div>
     </span>
   </span>,
-  .c0 {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  -webkit-clip: rect(0,0,0,0);
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border-width: 0;
-}
-
-<span
+  <span
     aria-busy={true}
     className="TextInput-wrapper TextInputWrapper TextInputBaseWrapper"
     data-leading-visual={true}
@@ -1718,7 +1588,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
       type="text"
     />
     <span
-      className="c0"
+      className="InternalVisuallyHidden"
       id=":r41:"
     >
       Loading
@@ -1786,20 +1656,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
       </div>
     </span>
   </span>,
-  .c0 {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  -webkit-clip: rect(0,0,0,0);
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border-width: 0;
-}
-
-<span
+  <span
     aria-busy={true}
     className="TextInput-wrapper TextInputWrapper TextInputBaseWrapper"
     data-leading-visual={true}
@@ -1877,7 +1734,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
       type="text"
     />
     <span
-      className="c0"
+      className="InternalVisuallyHidden"
       id=":r46:"
     >
       Loading
@@ -1945,20 +1802,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
       </div>
     </span>
   </span>,
-  .c0 {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  -webkit-clip: rect(0,0,0,0);
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border-width: 0;
-}
-
-<span
+  <span
     aria-busy={true}
     className="TextInput-wrapper TextInputWrapper TextInputBaseWrapper"
     data-leading-visual={true}
@@ -2037,7 +1881,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
       type="text"
     />
     <span
-      className="c0"
+      className="InternalVisuallyHidden"
       id=":r4b:"
     >
       Loading
