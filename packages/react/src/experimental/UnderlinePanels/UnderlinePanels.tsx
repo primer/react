@@ -24,7 +24,6 @@ import {type SxProp} from '../../sx'
 import {useResizeObserver, type ResizeObserverEntry} from '../../hooks/useResizeObserver'
 import useIsomorphicLayoutEffect from '../../utils/useIsomorphicLayoutEffect'
 import classes from './UnderlinePanels.module.css'
-import {clsx} from 'clsx'
 import {BoxWithFallback} from '../../internal/components/BoxWithFallback'
 
 export type UnderlinePanelsProps = {
@@ -175,7 +174,7 @@ const UnderlinePanels: FC<UnderlinePanelsProps> = ({
         ref={wrapperRef}
         slot="tablist-wrapper"
         data-icons-visible={iconsVisible}
-        className={clsx(className, classes.StyledUnderlineWrapper)}
+        className={classes.StyledUnderlineWrapper}
         {...props}
       >
         <UnderlineItemList ref={listRef} aria-label={ariaLabel} aria-labelledby={ariaLabelledBy} role="tablist">
