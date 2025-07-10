@@ -2,7 +2,6 @@ import type {ButtonHTMLAttributes} from 'react'
 import type React from 'react'
 import type {IconProps} from '@primer/octicons-react'
 import type {SxProp} from '../sx'
-import {defaultSxProp} from '../utils/defaultSxProp'
 import {isElement} from 'react-is'
 
 import classes from './SegmentedControl.module.css'
@@ -25,7 +24,7 @@ const SegmentedControlButton: React.FC<React.PropsWithChildren<SegmentedControlB
   children,
   leadingIcon: LeadingIcon,
   selected,
-  sx: sxProp = defaultSxProp,
+  sx: sxProp,
   className,
   // Note: this value is read in the `SegmentedControl` component to determine which button is selected but we do not need to apply it to an underlying element
   defaultSelected: _defaultSelected,
