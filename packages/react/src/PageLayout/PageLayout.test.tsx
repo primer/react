@@ -1,21 +1,13 @@
+import {describe, it, expect, vi} from 'vitest'
+import {page} from '@vitest/browser/context'
 import {act, fireEvent, render, screen} from '@testing-library/react'
-import MatchMediaMock from 'jest-matchmedia-mock'
 import 'react-intersection-observer/test-utils'
 import {viewportRanges} from '../hooks/useResponsiveValue'
 import {PageLayout} from './PageLayout'
 import {Placeholder} from '../Placeholder'
 
-let matchMedia: MatchMediaMock
-
-describe('PageLayout', () => {
-  beforeAll(() => {
-    matchMedia = new MatchMediaMock()
-  })
-
-  afterEach(() => {
-    matchMedia.clear()
-  })
-
+describe('PageLayout', async () => {
+  await page.viewport(1280, 800)
   it('renders default layout', () => {
     const {container} = render(
       <PageLayout>
@@ -72,7 +64,7 @@ describe('PageLayout', () => {
   it.skip('can hide pane when narrow', () => {
     // Set narrow viewport
     act(() => {
-      matchMedia.useMediaQuery(viewportRanges.narrow)
+      window.matchMedia(viewportRanges.narrow)
     })
 
     const {getByText} = render(
@@ -91,7 +83,7 @@ describe('PageLayout', () => {
   it.skip('shows all subcomponents by default', () => {
     // Set regular viewport
     act(() => {
-      matchMedia.useMediaQuery(viewportRanges.regular)
+      matchMedia(viewportRanges.regular)
     })
 
     const {getByText} = render(
@@ -144,7 +136,7 @@ describe('PageLayout', () => {
 
   describe('PageLayout.Pane', () => {
     it('should support a ref on the element wrapping the contents of Pane', () => {
-      const ref = jest.fn()
+      const ref = vi.fn()
       render(
         <PageLayout>
           <PageLayout.Pane ref={ref}>
@@ -170,12 +162,15 @@ describe('PageLayout', () => {
       const placeholder = await screen.findByText('Pane')
       const pane = placeholder.parentNode
       const initialWidth = (pane as HTMLElement).style.getPropertyValue('--pane-width')
-
       const divider = await screen.findByRole('slider')
+
       // Moving divider should resize pane.
-      fireEvent.mouseDown(divider)
-      fireEvent.mouseMove(divider)
-      fireEvent.mouseUp(divider)
+      fireEvent.focus(divider)
+      //move it right 3 times
+      fireEvent.keyDown(divider, {key: 'ArrowRight'})
+      fireEvent.keyDown(divider, {key: 'ArrowRight'})
+      fireEvent.keyDown(divider, {key: 'ArrowRight'})
+
       const finalWidth = (pane as HTMLElement).style.getPropertyValue('--pane-width')
       expect(finalWidth).not.toEqual(initialWidth)
     })

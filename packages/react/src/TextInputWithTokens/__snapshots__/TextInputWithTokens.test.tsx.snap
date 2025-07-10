@@ -65,7 +65,7 @@ exports[`TextInputWithTokens > renders a leadingVisual and trailingVisual 1`] = 
             >
               zero
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -110,7 +110,7 @@ exports[`TextInputWithTokens > renders a leadingVisual and trailingVisual 1`] = 
             >
               one
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -155,7 +155,7 @@ exports[`TextInputWithTokens > renders a leadingVisual and trailingVisual 1`] = 
             >
               two
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -200,7 +200,7 @@ exports[`TextInputWithTokens > renders a leadingVisual and trailingVisual 1`] = 
             >
               three
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -245,7 +245,7 @@ exports[`TextInputWithTokens > renders a leadingVisual and trailingVisual 1`] = 
             >
               four
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -290,7 +290,7 @@ exports[`TextInputWithTokens > renders a leadingVisual and trailingVisual 1`] = 
             >
               five
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -335,7 +335,7 @@ exports[`TextInputWithTokens > renders a leadingVisual and trailingVisual 1`] = 
             >
               six
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -380,7 +380,7 @@ exports[`TextInputWithTokens > renders a leadingVisual and trailingVisual 1`] = 
             >
               seven
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -492,7 +492,7 @@ exports[`TextInputWithTokens > renders a leadingVisual and trailingVisual 1`] = 
           >
             zero
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -537,7 +537,7 @@ exports[`TextInputWithTokens > renders a leadingVisual and trailingVisual 1`] = 
           >
             one
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -582,7 +582,7 @@ exports[`TextInputWithTokens > renders a leadingVisual and trailingVisual 1`] = 
           >
             two
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -627,7 +627,7 @@ exports[`TextInputWithTokens > renders a leadingVisual and trailingVisual 1`] = 
           >
             three
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -672,7 +672,7 @@ exports[`TextInputWithTokens > renders a leadingVisual and trailingVisual 1`] = 
           >
             four
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -717,7 +717,7 @@ exports[`TextInputWithTokens > renders a leadingVisual and trailingVisual 1`] = 
           >
             five
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -762,7 +762,7 @@ exports[`TextInputWithTokens > renders a leadingVisual and trailingVisual 1`] = 
           >
             six
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -807,7 +807,7 @@ exports[`TextInputWithTokens > renders a leadingVisual and trailingVisual 1`] = 
           >
             seven
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -957,7 +957,7 @@ exports[`TextInputWithTokens > renders a truncated set of tokens 1`] = `
             >
               zero
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -1002,7 +1002,7 @@ exports[`TextInputWithTokens > renders a truncated set of tokens 1`] = `
             >
               one
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -1078,7 +1078,7 @@ exports[`TextInputWithTokens > renders a truncated set of tokens 1`] = `
           >
             zero
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -1123,7 +1123,7 @@ exports[`TextInputWithTokens > renders a truncated set of tokens 1`] = `
           >
             one
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -1371,7 +1371,7 @@ exports[`TextInputWithTokens > renders at a maximum height when specified 1`] = 
             >
               zero
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -1416,7 +1416,7 @@ exports[`TextInputWithTokens > renders at a maximum height when specified 1`] = 
             >
               one
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -1461,7 +1461,7 @@ exports[`TextInputWithTokens > renders at a maximum height when specified 1`] = 
             >
               two
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -1506,7 +1506,7 @@ exports[`TextInputWithTokens > renders at a maximum height when specified 1`] = 
             >
               three
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -1551,7 +1551,7 @@ exports[`TextInputWithTokens > renders at a maximum height when specified 1`] = 
             >
               four
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -1596,7 +1596,7 @@ exports[`TextInputWithTokens > renders at a maximum height when specified 1`] = 
             >
               five
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -1641,7 +1641,7 @@ exports[`TextInputWithTokens > renders at a maximum height when specified 1`] = 
             >
               six
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -1686,7 +1686,7 @@ exports[`TextInputWithTokens > renders at a maximum height when specified 1`] = 
             >
               seven
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -1756,7 +1756,7 @@ exports[`TextInputWithTokens > renders at a maximum height when specified 1`] = 
           >
             zero
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -1801,7 +1801,7 @@ exports[`TextInputWithTokens > renders at a maximum height when specified 1`] = 
           >
             one
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -1846,7 +1846,7 @@ exports[`TextInputWithTokens > renders at a maximum height when specified 1`] = 
           >
             two
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -1891,7 +1891,7 @@ exports[`TextInputWithTokens > renders at a maximum height when specified 1`] = 
           >
             three
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -1936,7 +1936,7 @@ exports[`TextInputWithTokens > renders at a maximum height when specified 1`] = 
           >
             four
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -1981,7 +1981,7 @@ exports[`TextInputWithTokens > renders at a maximum height when specified 1`] = 
           >
             five
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -2026,7 +2026,7 @@ exports[`TextInputWithTokens > renders at a maximum height when specified 1`] = 
           >
             six
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -2071,7 +2071,7 @@ exports[`TextInputWithTokens > renders at a maximum height when specified 1`] = 
           >
             seven
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -2200,7 +2200,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 1`] = `
             >
               zero
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -2245,7 +2245,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 1`] = `
             >
               one
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -2290,7 +2290,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 1`] = `
             >
               two
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -2335,7 +2335,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 1`] = `
             >
               three
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -2380,7 +2380,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 1`] = `
             >
               four
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -2425,7 +2425,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 1`] = `
             >
               five
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -2470,7 +2470,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 1`] = `
             >
               six
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -2515,7 +2515,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 1`] = `
             >
               seven
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -2583,7 +2583,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 1`] = `
           >
             zero
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -2628,7 +2628,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 1`] = `
           >
             one
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -2673,7 +2673,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 1`] = `
           >
             two
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -2718,7 +2718,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 1`] = `
           >
             three
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -2763,7 +2763,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 1`] = `
           >
             four
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -2808,7 +2808,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 1`] = `
           >
             five
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -2853,7 +2853,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 1`] = `
           >
             six
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -2898,7 +2898,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 1`] = `
           >
             seven
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -3027,7 +3027,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 2`] = `
             >
               zero
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -3072,7 +3072,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 2`] = `
             >
               one
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -3117,7 +3117,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 2`] = `
             >
               two
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -3162,7 +3162,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 2`] = `
             >
               three
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -3207,7 +3207,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 2`] = `
             >
               four
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -3252,7 +3252,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 2`] = `
             >
               five
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -3297,7 +3297,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 2`] = `
             >
               six
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -3342,7 +3342,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 2`] = `
             >
               seven
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -3409,7 +3409,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 2`] = `
             >
               zero
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -3454,7 +3454,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 2`] = `
             >
               one
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -3499,7 +3499,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 2`] = `
             >
               two
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -3544,7 +3544,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 2`] = `
             >
               three
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -3589,7 +3589,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 2`] = `
             >
               four
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -3634,7 +3634,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 2`] = `
             >
               five
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -3679,7 +3679,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 2`] = `
             >
               six
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -3724,7 +3724,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 2`] = `
             >
               seven
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -3792,7 +3792,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 2`] = `
           >
             zero
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -3837,7 +3837,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 2`] = `
           >
             one
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -3882,7 +3882,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 2`] = `
           >
             two
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -3927,7 +3927,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 2`] = `
           >
             three
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -3972,7 +3972,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 2`] = `
           >
             four
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -4017,7 +4017,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 2`] = `
           >
             five
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -4062,7 +4062,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 2`] = `
           >
             six
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -4107,7 +4107,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 2`] = `
           >
             seven
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -4236,7 +4236,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 3`] = `
             >
               zero
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -4281,7 +4281,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 3`] = `
             >
               one
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -4326,7 +4326,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 3`] = `
             >
               two
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -4371,7 +4371,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 3`] = `
             >
               three
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -4416,7 +4416,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 3`] = `
             >
               four
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -4461,7 +4461,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 3`] = `
             >
               five
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -4506,7 +4506,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 3`] = `
             >
               six
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -4551,7 +4551,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 3`] = `
             >
               seven
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -4618,7 +4618,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 3`] = `
             >
               zero
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -4663,7 +4663,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 3`] = `
             >
               one
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -4708,7 +4708,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 3`] = `
             >
               two
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -4753,7 +4753,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 3`] = `
             >
               three
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -4798,7 +4798,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 3`] = `
             >
               four
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -4843,7 +4843,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 3`] = `
             >
               five
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -4888,7 +4888,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 3`] = `
             >
               six
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -4933,7 +4933,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 3`] = `
             >
               seven
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -5000,7 +5000,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 3`] = `
             >
               zero
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -5045,7 +5045,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 3`] = `
             >
               one
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -5090,7 +5090,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 3`] = `
             >
               two
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -5135,7 +5135,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 3`] = `
             >
               three
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -5180,7 +5180,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 3`] = `
             >
               four
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -5225,7 +5225,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 3`] = `
             >
               five
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -5270,7 +5270,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 3`] = `
             >
               six
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -5315,7 +5315,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 3`] = `
             >
               seven
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -5383,7 +5383,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 3`] = `
           >
             zero
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -5428,7 +5428,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 3`] = `
           >
             one
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -5473,7 +5473,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 3`] = `
           >
             two
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -5518,7 +5518,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 3`] = `
           >
             three
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -5563,7 +5563,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 3`] = `
           >
             four
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -5608,7 +5608,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 3`] = `
           >
             five
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -5653,7 +5653,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 3`] = `
           >
             six
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -5698,7 +5698,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 3`] = `
           >
             seven
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -5827,7 +5827,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
             >
               zero
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -5872,7 +5872,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
             >
               one
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -5917,7 +5917,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
             >
               two
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -5962,7 +5962,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
             >
               three
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -6007,7 +6007,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
             >
               four
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -6052,7 +6052,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
             >
               five
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -6097,7 +6097,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
             >
               six
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -6142,7 +6142,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
             >
               seven
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -6209,7 +6209,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
             >
               zero
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -6254,7 +6254,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
             >
               one
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -6299,7 +6299,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
             >
               two
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -6344,7 +6344,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
             >
               three
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -6389,7 +6389,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
             >
               four
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -6434,7 +6434,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
             >
               five
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -6479,7 +6479,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
             >
               six
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -6524,7 +6524,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
             >
               seven
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -6591,7 +6591,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
             >
               zero
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -6636,7 +6636,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
             >
               one
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -6681,7 +6681,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
             >
               two
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -6726,7 +6726,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
             >
               three
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -6771,7 +6771,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
             >
               four
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -6816,7 +6816,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
             >
               five
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -6861,7 +6861,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
             >
               six
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -6906,7 +6906,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
             >
               seven
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -6973,7 +6973,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
             >
               zero
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -7018,7 +7018,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
             >
               one
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -7063,7 +7063,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
             >
               two
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -7108,7 +7108,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
             >
               three
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -7153,7 +7153,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
             >
               four
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -7198,7 +7198,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
             >
               five
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -7243,7 +7243,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
             >
               six
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -7288,7 +7288,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
             >
               seven
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -7356,7 +7356,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
           >
             zero
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -7401,7 +7401,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
           >
             one
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -7446,7 +7446,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
           >
             two
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -7491,7 +7491,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
           >
             three
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -7536,7 +7536,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
           >
             four
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -7581,7 +7581,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
           >
             five
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -7626,7 +7626,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
           >
             six
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -7671,7 +7671,7 @@ exports[`TextInputWithTokens > renders tokens at the specified sizes 4`] = `
           >
             seven
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -7801,7 +7801,7 @@ exports[`TextInputWithTokens > renders tokens on a single line when specified 1`
             >
               zero
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -7846,7 +7846,7 @@ exports[`TextInputWithTokens > renders tokens on a single line when specified 1`
             >
               one
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -7891,7 +7891,7 @@ exports[`TextInputWithTokens > renders tokens on a single line when specified 1`
             >
               two
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -7936,7 +7936,7 @@ exports[`TextInputWithTokens > renders tokens on a single line when specified 1`
             >
               three
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -7981,7 +7981,7 @@ exports[`TextInputWithTokens > renders tokens on a single line when specified 1`
             >
               four
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -8026,7 +8026,7 @@ exports[`TextInputWithTokens > renders tokens on a single line when specified 1`
             >
               five
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -8071,7 +8071,7 @@ exports[`TextInputWithTokens > renders tokens on a single line when specified 1`
             >
               six
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -8116,7 +8116,7 @@ exports[`TextInputWithTokens > renders tokens on a single line when specified 1`
             >
               seven
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -8185,7 +8185,7 @@ exports[`TextInputWithTokens > renders tokens on a single line when specified 1`
           >
             zero
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -8230,7 +8230,7 @@ exports[`TextInputWithTokens > renders tokens on a single line when specified 1`
           >
             one
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -8275,7 +8275,7 @@ exports[`TextInputWithTokens > renders tokens on a single line when specified 1`
           >
             two
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -8320,7 +8320,7 @@ exports[`TextInputWithTokens > renders tokens on a single line when specified 1`
           >
             three
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -8365,7 +8365,7 @@ exports[`TextInputWithTokens > renders tokens on a single line when specified 1`
           >
             four
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -8410,7 +8410,7 @@ exports[`TextInputWithTokens > renders tokens on a single line when specified 1`
           >
             five
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -8455,7 +8455,7 @@ exports[`TextInputWithTokens > renders tokens on a single line when specified 1`
           >
             six
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -8500,7 +8500,7 @@ exports[`TextInputWithTokens > renders tokens on a single line when specified 1`
           >
             seven
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -8629,7 +8629,7 @@ exports[`TextInputWithTokens > renders tokens without a remove button when speci
             >
               zero
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -8650,7 +8650,7 @@ exports[`TextInputWithTokens > renders tokens without a remove button when speci
             >
               one
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -8671,7 +8671,7 @@ exports[`TextInputWithTokens > renders tokens without a remove button when speci
             >
               two
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -8692,7 +8692,7 @@ exports[`TextInputWithTokens > renders tokens without a remove button when speci
             >
               three
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -8713,7 +8713,7 @@ exports[`TextInputWithTokens > renders tokens without a remove button when speci
             >
               four
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -8734,7 +8734,7 @@ exports[`TextInputWithTokens > renders tokens without a remove button when speci
             >
               five
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -8755,7 +8755,7 @@ exports[`TextInputWithTokens > renders tokens without a remove button when speci
             >
               six
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -8776,7 +8776,7 @@ exports[`TextInputWithTokens > renders tokens without a remove button when speci
             >
               seven
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -8820,7 +8820,7 @@ exports[`TextInputWithTokens > renders tokens without a remove button when speci
           >
             zero
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -8841,7 +8841,7 @@ exports[`TextInputWithTokens > renders tokens without a remove button when speci
           >
             one
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -8862,7 +8862,7 @@ exports[`TextInputWithTokens > renders tokens without a remove button when speci
           >
             two
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -8883,7 +8883,7 @@ exports[`TextInputWithTokens > renders tokens without a remove button when speci
           >
             three
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -8904,7 +8904,7 @@ exports[`TextInputWithTokens > renders tokens without a remove button when speci
           >
             four
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -8925,7 +8925,7 @@ exports[`TextInputWithTokens > renders tokens without a remove button when speci
           >
             five
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -8946,7 +8946,7 @@ exports[`TextInputWithTokens > renders tokens without a remove button when speci
           >
             six
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -8967,7 +8967,7 @@ exports[`TextInputWithTokens > renders tokens without a remove button when speci
           >
             seven
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -9073,7 +9073,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               zero
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -9118,7 +9118,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               one
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -9163,7 +9163,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               two
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -9208,7 +9208,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               three
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -9253,7 +9253,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               four
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -9298,7 +9298,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               five
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -9343,7 +9343,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               six
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -9388,7 +9388,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               seven
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -9528,7 +9528,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               zero
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -9573,7 +9573,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               one
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -9618,7 +9618,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               two
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -9663,7 +9663,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               three
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -9708,7 +9708,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               four
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -9753,7 +9753,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               five
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -9798,7 +9798,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               six
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -9843,7 +9843,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               seven
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -9946,7 +9946,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               zero
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -9991,7 +9991,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               one
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -10036,7 +10036,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               two
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -10081,7 +10081,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               three
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -10126,7 +10126,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               four
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -10171,7 +10171,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               five
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -10216,7 +10216,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               six
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -10261,7 +10261,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               seven
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -10421,7 +10421,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               zero
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -10466,7 +10466,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               one
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -10511,7 +10511,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               two
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -10556,7 +10556,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               three
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -10601,7 +10601,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               four
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -10646,7 +10646,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               five
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -10691,7 +10691,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               six
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -10736,7 +10736,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               seven
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -10896,7 +10896,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               zero
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -10941,7 +10941,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               one
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -10986,7 +10986,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               two
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -11031,7 +11031,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               three
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -11076,7 +11076,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               four
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -11121,7 +11121,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               five
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -11166,7 +11166,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               six
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -11211,7 +11211,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               seven
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -11372,7 +11372,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               zero
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -11417,7 +11417,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               one
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -11462,7 +11462,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               two
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -11507,7 +11507,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               three
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -11552,7 +11552,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               four
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -11597,7 +11597,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               five
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -11642,7 +11642,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               six
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -11687,7 +11687,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               seven
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -11790,7 +11790,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               zero
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -11835,7 +11835,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               one
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -11880,7 +11880,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               two
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -11925,7 +11925,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               three
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -11970,7 +11970,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               four
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -12015,7 +12015,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               five
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -12060,7 +12060,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               six
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -12105,7 +12105,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               seven
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -12266,7 +12266,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               zero
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -12311,7 +12311,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               one
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -12356,7 +12356,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               two
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -12401,7 +12401,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               three
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -12446,7 +12446,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               four
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -12491,7 +12491,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               five
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -12536,7 +12536,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               six
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -12581,7 +12581,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               seven
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -12704,7 +12704,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               zero
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -12749,7 +12749,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               one
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -12794,7 +12794,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               two
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -12839,7 +12839,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               three
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -12884,7 +12884,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               four
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -12929,7 +12929,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               five
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -12974,7 +12974,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               six
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -13019,7 +13019,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               seven
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -13200,7 +13200,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               zero
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -13245,7 +13245,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               one
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -13290,7 +13290,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               two
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -13335,7 +13335,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               three
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -13380,7 +13380,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               four
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -13425,7 +13425,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               five
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -13470,7 +13470,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               six
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -13515,7 +13515,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               seven
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -13696,7 +13696,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               zero
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -13741,7 +13741,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               one
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -13786,7 +13786,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               two
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -13831,7 +13831,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               three
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -13876,7 +13876,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               four
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -13921,7 +13921,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               five
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -13966,7 +13966,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               six
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -14011,7 +14011,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               seven
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -14192,7 +14192,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               zero
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -14237,7 +14237,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               one
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -14282,7 +14282,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               two
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -14327,7 +14327,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               three
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -14372,7 +14372,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               four
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -14417,7 +14417,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               five
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -14462,7 +14462,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               six
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -14507,7 +14507,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
             >
               seven
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -14633,7 +14633,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             zero
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -14678,7 +14678,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             one
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -14723,7 +14723,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             two
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -14768,7 +14768,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             three
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -14813,7 +14813,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             four
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -14858,7 +14858,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             five
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -14903,7 +14903,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             six
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -14948,7 +14948,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             seven
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -15088,7 +15088,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             zero
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -15133,7 +15133,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             one
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -15178,7 +15178,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             two
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -15223,7 +15223,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             three
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -15268,7 +15268,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             four
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -15313,7 +15313,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             five
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -15358,7 +15358,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             six
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -15403,7 +15403,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             seven
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -15506,7 +15506,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             zero
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -15551,7 +15551,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             one
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -15596,7 +15596,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             two
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -15641,7 +15641,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             three
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -15686,7 +15686,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             four
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -15731,7 +15731,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             five
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -15776,7 +15776,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             six
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -15821,7 +15821,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             seven
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -15981,7 +15981,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             zero
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -16026,7 +16026,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             one
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -16071,7 +16071,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             two
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -16116,7 +16116,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             three
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -16161,7 +16161,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             four
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -16206,7 +16206,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             five
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -16251,7 +16251,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             six
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -16296,7 +16296,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             seven
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -16456,7 +16456,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             zero
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -16501,7 +16501,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             one
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -16546,7 +16546,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             two
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -16591,7 +16591,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             three
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -16636,7 +16636,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             four
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -16681,7 +16681,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             five
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -16726,7 +16726,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             six
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -16771,7 +16771,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             seven
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -16932,7 +16932,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             zero
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -16977,7 +16977,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             one
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -17022,7 +17022,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             two
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -17067,7 +17067,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             three
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -17112,7 +17112,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             four
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -17157,7 +17157,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             five
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -17202,7 +17202,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             six
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -17247,7 +17247,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             seven
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -17350,7 +17350,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             zero
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -17395,7 +17395,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             one
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -17440,7 +17440,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             two
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -17485,7 +17485,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             three
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -17530,7 +17530,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             four
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -17575,7 +17575,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             five
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -17620,7 +17620,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             six
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -17665,7 +17665,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             seven
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -17826,7 +17826,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             zero
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -17871,7 +17871,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             one
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -17916,7 +17916,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             two
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -17961,7 +17961,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             three
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -18006,7 +18006,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             four
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -18051,7 +18051,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             five
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -18096,7 +18096,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             six
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -18141,7 +18141,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             seven
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -18264,7 +18264,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             zero
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -18309,7 +18309,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             one
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -18354,7 +18354,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             two
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -18399,7 +18399,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             three
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -18444,7 +18444,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             four
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -18489,7 +18489,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             five
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -18534,7 +18534,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             six
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -18579,7 +18579,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             seven
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -18760,7 +18760,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             zero
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -18805,7 +18805,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             one
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -18850,7 +18850,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             two
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -18895,7 +18895,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             three
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -18940,7 +18940,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             four
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -18985,7 +18985,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             five
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -19030,7 +19030,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             six
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -19075,7 +19075,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             seven
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -19256,7 +19256,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             zero
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -19301,7 +19301,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             one
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -19346,7 +19346,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             two
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -19391,7 +19391,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             three
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -19436,7 +19436,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             four
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -19481,7 +19481,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             five
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -19526,7 +19526,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             six
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -19571,7 +19571,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             seven
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -19752,7 +19752,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             zero
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -19797,7 +19797,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             one
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -19842,7 +19842,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             two
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -19887,7 +19887,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             three
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -19932,7 +19932,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             four
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -19977,7 +19977,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             five
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -20022,7 +20022,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             six
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -20067,7 +20067,7 @@ exports[`TextInputWithTokens > renders with a loading indicator 1`] = `
           >
             seven
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -20253,7 +20253,7 @@ exports[`TextInputWithTokens > renders with tokens 1`] = `
             >
               zero
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -20298,7 +20298,7 @@ exports[`TextInputWithTokens > renders with tokens 1`] = `
             >
               one
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -20343,7 +20343,7 @@ exports[`TextInputWithTokens > renders with tokens 1`] = `
             >
               two
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -20388,7 +20388,7 @@ exports[`TextInputWithTokens > renders with tokens 1`] = `
             >
               three
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -20433,7 +20433,7 @@ exports[`TextInputWithTokens > renders with tokens 1`] = `
             >
               four
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -20478,7 +20478,7 @@ exports[`TextInputWithTokens > renders with tokens 1`] = `
             >
               five
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -20523,7 +20523,7 @@ exports[`TextInputWithTokens > renders with tokens 1`] = `
             >
               six
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -20568,7 +20568,7 @@ exports[`TextInputWithTokens > renders with tokens 1`] = `
             >
               seven
               <span
-                class="sc-gEvEer jFikVR"
+                class="prc-src-InternalVisuallyHidden-4enpf"
               >
                  (press backspace or delete to remove)
               </span>
@@ -20636,7 +20636,7 @@ exports[`TextInputWithTokens > renders with tokens 1`] = `
           >
             zero
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -20681,7 +20681,7 @@ exports[`TextInputWithTokens > renders with tokens 1`] = `
           >
             one
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -20726,7 +20726,7 @@ exports[`TextInputWithTokens > renders with tokens 1`] = `
           >
             two
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -20771,7 +20771,7 @@ exports[`TextInputWithTokens > renders with tokens 1`] = `
           >
             three
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -20816,7 +20816,7 @@ exports[`TextInputWithTokens > renders with tokens 1`] = `
           >
             four
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -20861,7 +20861,7 @@ exports[`TextInputWithTokens > renders with tokens 1`] = `
           >
             five
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -20906,7 +20906,7 @@ exports[`TextInputWithTokens > renders with tokens 1`] = `
           >
             six
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
@@ -20951,7 +20951,7 @@ exports[`TextInputWithTokens > renders with tokens 1`] = `
           >
             seven
             <span
-              class="sc-gEvEer jFikVR"
+              class="prc-src-InternalVisuallyHidden-4enpf"
             >
                (press backspace or delete to remove)
             </span>
