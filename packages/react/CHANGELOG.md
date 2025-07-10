@@ -1,5 +1,45 @@
 # @primer/react
 
+## 37.28.0
+
+### Minor Changes
+
+- [#6239](https://github.com/primer/react/pull/6239) [`ccd5bab`](https://github.com/primer/react/commit/ccd5bab27506c504941acd535487fca4b456d447) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - Add loading support to ActionList.TrailingAction component.
+
+- [#6211](https://github.com/primer/react/pull/6211) [`c99d42e`](https://github.com/primer/react/commit/c99d42e04e0f773ce4a43a98459393ac2780ab13) Thanks [@joshblack](https://github.com/joshblack)! - Add partial support for React Compiler to components
+
+- [#6257](https://github.com/primer/react/pull/6257) [`2fe33bf`](https://github.com/primer/react/commit/2fe33bfa1dcb45d8a0aec0cad74abd99acce2194) Thanks [@joshblack](https://github.com/joshblack)! - Update Truncate to use CSS Modules
+
+- [#6176](https://github.com/primer/react/pull/6176) [`507da36`](https://github.com/primer/react/commit/507da36838d5721bd33c48eb89ae36bd33a56920) Thanks [@jonrohan](https://github.com/jonrohan)! - Migrate the TabNav component to use CSS modules
+
+### Patch Changes
+
+- [#6256](https://github.com/primer/react/pull/6256) [`0318b4b`](https://github.com/primer/react/commit/0318b4bfde5920a3542ef278f00e1ef646ed8af4) Thanks [@langermank](https://github.com/langermank)! - Fix PageHeader context bar `font-weight`
+
+- [#6223](https://github.com/primer/react/pull/6223) [`4d85c34`](https://github.com/primer/react/commit/4d85c342e89aee344e2b87dba4dd13e59d5d3e4c) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - Fix ActionList.Description title attribute for non-string children with truncate
+
+- [#6266](https://github.com/primer/react/pull/6266) [`ac5a9c1`](https://github.com/primer/react/commit/ac5a9c13da8f93e964f9a7f1281809979972bbaa) Thanks [@jonrohan](https://github.com/jonrohan)! - Bug fix: Fixing issue where page shifts when Dialog is open
+
+- [#6270](https://github.com/primer/react/pull/6270) [`b2a44c3`](https://github.com/primer/react/commit/b2a44c3e69749e06e6fb89cc5221effdf5724edd) Thanks [@langermank](https://github.com/langermank)! - Add CSS variable to `contrast` `TextInput`
+
+- [#6267](https://github.com/primer/react/pull/6267) [`196fbf5`](https://github.com/primer/react/commit/196fbf5497c0afb24bdd328fd9aa0eb1d299a202) Thanks [@lukasoppermann](https://github.com/lukasoppermann)! - Fixed position of leadingVisual
+
+- [#6295](https://github.com/primer/react/pull/6295) [`12468d8`](https://github.com/primer/react/commit/12468d860dbba68409afb46a69e7fa0453f6c971) Thanks [@francinelucca](https://github.com/francinelucca)! - chore(FormControl): remove sx props
+
+- [#6259](https://github.com/primer/react/pull/6259) [`ad6a52c`](https://github.com/primer/react/commit/ad6a52caa5aad2b3e47f39d5e3cb0cb7b13364d5) Thanks [@TylerJDev](https://github.com/TylerJDev)! - SelectPanel: Adds focus indicator to disabled items
+
+- [#6284](https://github.com/primer/react/pull/6284) [`ff6bf5c`](https://github.com/primer/react/commit/ff6bf5cbe1b012b87b5b35af45b3e08b32d1df22) Thanks [@pksjce](https://github.com/pksjce)! - Fix the disappearance of overflow property in the Overlay component
+
+- [#6275](https://github.com/primer/react/pull/6275) [`c50d530`](https://github.com/primer/react/commit/c50d5307596ad6b354bf27d5b0a3398a55416bb7) Thanks [@langermank](https://github.com/langermank)! - Set `color` on SegmentedControl icons
+
+- [#6177](https://github.com/primer/react/pull/6177) [`5e1ed83`](https://github.com/primer/react/commit/5e1ed83af8464296287f132a4b5584b257c4b37e) Thanks [@langermank](https://github.com/langermank)! - Add gap between ActionList label and `trailingVisual`
+
+- [#6278](https://github.com/primer/react/pull/6278) [`29facae`](https://github.com/primer/react/commit/29facaed800cd858c2db91e071c5814630a1e735) Thanks [@jonrohan](https://github.com/jonrohan)! - chore: Refactor components to use BoxWithFallback instead of custom Box if statements and remove defaultSxProp references
+
+- [#6225](https://github.com/primer/react/pull/6225) [`669c338`](https://github.com/primer/react/commit/669c338e1a14622603fc44dced42aea23833a2e4) Thanks [@KirankumarAmbati](https://github.com/KirankumarAmbati)! - fix: remove min height calc logic for SelectPanel
+
+- [#6235](https://github.com/primer/react/pull/6235) [`5446544`](https://github.com/primer/react/commit/5446544dee32f9d2a24d24bd5f3fe01846d5cf37) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - Prevent ActionList crash when selected prop is true without selectionVariant.
+
 ## 37.27.0
 
 ### Minor Changes
