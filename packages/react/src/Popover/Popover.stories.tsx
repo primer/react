@@ -71,13 +71,13 @@ Playground.argTypes = {
     control: {
       type: 'radio',
     },
-    options: ['small', 'medium', 'large', 'auto', 'xlarge'],
+    options: ['xsmall', 'small', 'medium', 'large', 'auto', 'xlarge'],
   },
   height: {
     control: {
       type: 'radio',
     },
-    options: ['xsmall', 'small', 'medium', 'large', 'auto', 'xlarge', 'fit-content'],
+    options: ['small', 'medium', 'large', 'auto', 'xlarge', 'fit-content'],
   },
   overflow: {
     control: {

@@ -54,8 +54,8 @@ Popover.displayName = 'Popover'
 
 export type PopoverContentProps = {
   className?: string
-  width?: 'small' | 'large' | 'medium' | 'auto' | 'xlarge' | 'xxlarge'
-  height?: 'xsmall' | 'small' | 'large' | 'medium' | 'auto' | 'xlarge' | 'fit-content'
+  width?: 'xsmall' | 'small' | 'large' | 'medium' | 'auto' | 'xlarge'
+  height?: 'small' | 'large' | 'medium' | 'auto' | 'xlarge' | 'fit-content'
   overflow?: 'auto' | 'hidden' | 'scroll' | 'visible'
 } & StyledPopoverProps &
   HTMLProps<HTMLDivElement>
@@ -69,11 +69,11 @@ const PopoverContent: React.FC<React.PropsWithChildren<PopoverContentProps>> = (
 }) => {
   return (
     <BoxWithFallback
-      {...props}
       data-width={width}
       data-height={height}
       data-overflow={overflow}
       className={clsx(className, classes.PopoverContent)}
+      {...props}
     />
   )
 }
