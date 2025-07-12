@@ -8,7 +8,6 @@ import theme from '../theme'
 import {BaseStyles, ThemeProvider} from '..'
 import {act} from 'react-test-renderer'
 import {viewportRanges} from '../hooks/useResponsiveValue'
-import {FeatureFlags} from '../FeatureFlags'
 
 const segmentData = [
   {
@@ -182,19 +181,13 @@ describe('SegmentedControl', () => {
     }
   })
 
-  it('renders icon button with tooltip as label when feature flag is enabled', () => {
+  it('renders icon button with tooltip as label', () => {
     const {getByRole, getByText} = render(
-      <FeatureFlags
-        flags={{
-          primer_react_segmented_control_tooltip: true,
-        }}
-      >
-        <SegmentedControl aria-label="File view">
-          {segmentData.map(({label, icon}) => (
-            <SegmentedControl.IconButton icon={icon} aria-label={label} key={label} />
-          ))}
-        </SegmentedControl>
-      </FeatureFlags>,
+      <SegmentedControl aria-label="File view">
+        {segmentData.map(({label, icon}) => (
+          <SegmentedControl.IconButton icon={icon} aria-label={label} key={label} />
+        ))}
+      </SegmentedControl>
     )
 
     for (const datum of segmentData) {
@@ -205,19 +198,13 @@ describe('SegmentedControl', () => {
     }
   })
 
-  it('renders icon button with tooltip description when feature flag is enabled', () => {
+  it('renders icon button with tooltip description', () => {
     const {getByRole, getByText} = render(
-      <FeatureFlags
-        flags={{
-          primer_react_segmented_control_tooltip: true,
-        }}
-      >
-        <SegmentedControl aria-label="File view">
-          {segmentData.map(({label, icon, description}) => (
-            <SegmentedControl.IconButton icon={icon} aria-label={label} description={description} key={label} />
-          ))}
-        </SegmentedControl>
-      </FeatureFlags>,
+      <SegmentedControl aria-label="File view">
+        {segmentData.map(({label, icon, description}) => (
+          <SegmentedControl.IconButton icon={icon} aria-label={label} description={description} key={label} />
+        ))}
+      </SegmentedControl>
     )
 
     for (const datum of segmentData) {
