@@ -1,5 +1,21 @@
 # @primer/react
 
+## 37.29.0
+
+### Minor Changes
+
+- [#6273](https://github.com/primer/react/pull/6273) [`0cb9a5d`](https://github.com/primer/react/commit/0cb9a5d40093aeccd9c846858d4d5dc413ee78bf) Thanks [@jonrohan](https://github.com/jonrohan)! - chore(DataTable.Pagination): Convert DataTable.Pagination to CSS modules
+
+- [#6083](https://github.com/primer/react/pull/6083) [`26232b3`](https://github.com/primer/react/commit/26232b3f488864403ff8b69a278f8024ae52c05f) Thanks [@jonrohan](https://github.com/jonrohan)! - Convert `_VisuallyHidden` internal component to CSS modules
+
+### Patch Changes
+
+- [#6277](https://github.com/primer/react/pull/6277) [`b384225`](https://github.com/primer/react/commit/b384225cc6c0b4b784f53c472cf358863b6bf504) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - Fix Button styles while dragging inactive variants
+
+- [#6302](https://github.com/primer/react/pull/6302) [`4c9aa4b`](https://github.com/primer/react/commit/4c9aa4b555767de56da4f5d19f61fe1593805f2b) Thanks [@llastflowers](https://github.com/llastflowers)! - Change padding in TextInput before leading visual and after trailing visual from 12px to 8px.
+
+- [#5960](https://github.com/primer/react/pull/5960) [`e88782a`](https://github.com/primer/react/commit/e88782a40cc244a7672e6094e926fac2bdc09b18) Thanks [@joshblack](https://github.com/joshblack)! - Advances remaining Skeleton components to 'alpha' status
+
 ## 37.28.1
 
 ### Patch Changes
