@@ -28,6 +28,7 @@
 
   &:focus {
     text-decoration: none;
+
     @mixin focusOutline -6px;
   }
 
