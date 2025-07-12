@@ -121,9 +121,5 @@ function hasStyledComponents(contents: string): boolean {
     return true
   }
 
-  if (contents.match(/toggleSxComponent/)) {
-    return true
-  }
-
   return false
 }

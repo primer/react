@@ -3,7 +3,7 @@ import type {SxProp} from '../sx'
 import classes from './Popover.module.css'
 import type {HTMLProps} from 'react'
 import React from 'react'
-import {toggleSxComponent} from '../internal/utils/toggleSxComponent'
+import {BoxWithFallback} from '../internal/components/BoxWithFallback'
 
 type CaretPosition =
   | 'top'
@@ -31,18 +31,16 @@ type StyledPopoverProps = {
 export type PopoverProps = {
   /** Class name for custom styling */
   className?: string
+  as?: React.ElementType
 } & StyledPopoverProps &
   HTMLProps<HTMLDivElement>
 
-const PopoverBaseComponent = toggleSxComponent('div') as React.ComponentType<
-  PopoverProps & React.RefAttributes<HTMLDivElement>
->
 const Popover = React.forwardRef<HTMLDivElement, PopoverProps>(function Popover(
   {className, caret = 'top', open, relative, ...props},
   forwardRef,
 ) {
   return (
-    <PopoverBaseComponent
+    <BoxWithFallback
       {...props}
       ref={forwardRef}
       data-open={open ? '' : undefined}
@@ -54,11 +52,11 @@ const Popover = React.forwardRef<HTMLDivElement, PopoverProps>(function Popover(
 })
 Popover.displayName = 'Popover'
 
-export type PopoverContentProps = {className?: string} & StyledPopoverProps & HTMLProps<HTMLDivElement>
+export type PopoverContentProps = {className?: string; as?: React.ElementType} & StyledPopoverProps &
+  HTMLProps<HTMLDivElement>
 
-const PopoverContentBaseComponent = toggleSxComponent('div') as React.ComponentType<PopoverContentProps>
 const PopoverContent: React.FC<React.PropsWithChildren<PopoverContentProps>> = ({className, ...props}) => {
-  return <PopoverContentBaseComponent {...props} className={clsx(className, classes.PopoverContent)} />
+  return <BoxWithFallback {...props} className={clsx(className, classes.PopoverContent)} />
 }
 
 PopoverContent.displayName = 'Popover.Content'
