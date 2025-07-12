@@ -1,5 +1,11 @@
 # @primer/react
 
+## 37.28.1
+
+### Patch Changes
+
+- [`1d3aba0`](https://github.com/primer/react/commit/1d3aba0b1f93a880cc274e53d025ea2287b9fcd9) Thanks [@jonrohan](https://github.com/jonrohan)! - Fixing an issue where hovering the TabNav will give the tabs outlines.
+
 ## 37.28.0
 
 ### Minor Changes
