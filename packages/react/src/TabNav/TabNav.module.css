@@ -21,11 +21,13 @@
   border: var(--borderWidth-thin) solid transparent;
   border-bottom: 0;
 
-  &:hover,
-  &:focus {
+  &:hover {
     color: var(--fgColor-default);
     text-decoration: none;
+  }
 
+  &:focus {
+    text-decoration: none;
     @mixin focusOutline -6px;
   }
 
