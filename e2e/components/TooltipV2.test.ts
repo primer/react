@@ -49,7 +49,7 @@ test.describe('TooltipV2', () => {
             await expect(page.locator('[popover="auto"]').first()).toHaveCSS('opacity', '1')
 
             await expect(page).toHaveScreenshot(`TooltipV2.${story.title}.${theme}.png`, {
-              animations: 'disabled',
+              animations: 'allow',
             })
           })
         })
