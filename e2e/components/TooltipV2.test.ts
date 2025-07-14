@@ -49,8 +49,9 @@ test.describe('TooltipV2', () => {
             const elementHandle = await page.locator('[popover="auto"]').first().elementHandle()
             await elementHandle?.waitForElementState('stable')
             await expect(page).toHaveScreenshot(`TooltipV2.${story.title}.${theme}.png`, {
-              animations: 'allow',
               caret: 'initial',
+              fullPage: true,
+              animations: 'disabled',
             })
           })
         })
