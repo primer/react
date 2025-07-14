@@ -215,17 +215,14 @@
   }
 
   &:where([data-width='medium']) {
-    /* stylelint-disable-next-line primer/responsive-widths */
     width: var(--overlay-width-medium);
   }
 
   &:where([data-width='large']) {
-    /* stylelint-disable-next-line primer/responsive-widths */
     width: var(--overlay-width-large);
   }
 
   &:where([data-width='xlarge']) {
-    /* stylelint-disable-next-line primer/responsive-widths */
     width: var(--overlay-width-xlarge);
   }
 
