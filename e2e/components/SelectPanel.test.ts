@@ -62,7 +62,7 @@ test.describe('SelectPanel', () => {
       featureFlags: {primer_react_select_panel_with_modern_action_list: scenario.modernActionList},
     }
 
-    if (!scenario.story.visual !== false) {
+    if (scenario.story.visual !== false) {
       test(`${name} @vrt ${theme} ${flag}`, async ({page}) => {
         await visit(page, {id: scenario.story.id, globals})
 
