@@ -46,8 +46,8 @@ test.describe('TooltipV2', () => {
             // Default state
             await page.keyboard.press('Tab')
             await page.waitForSelector('[popover="auto"]')
-            await expect(page.locator('[popover="auto"]').first()).toHaveCSS('opacity', '1')
-
+            const elementHandle = await page.locator('[popover="auto"]').first().elementHandle()
+            await elementHandle?.waitForElementState('stable')
             await expect(page).toHaveScreenshot(`TooltipV2.${story.title}.${theme}.png`, {
               animations: 'allow',
               caret: 'initial',

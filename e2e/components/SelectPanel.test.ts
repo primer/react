@@ -72,7 +72,7 @@ test.describe('SelectPanel', () => {
           await page.keyboard.press('Tab')
           await page.keyboard.press('Enter')
         }
-        expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
+        expect(await page.screenshot({animations: 'disabled', caret: 'initial'})).toMatchSnapshot(
           `SelectPanel.${name}.${theme}${flag}.png`,
         )
       })
