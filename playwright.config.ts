@@ -20,8 +20,6 @@ export default defineConfig({
   retries: process.env.CI ? 2 : 0,
   use: {
     screenshot: 'only-on-failure',
-    video: 'retain-on-failure',
-    trace: 'on-first-retry',
     viewport: {
       // Large breakpoint
       // @see https://primer.style/primitives/spacing#breakpoints

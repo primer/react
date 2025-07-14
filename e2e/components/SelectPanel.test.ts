@@ -65,6 +65,7 @@ test.describe('SelectPanel', () => {
     if (scenario.story.visual !== false) {
       test(`${name} @vrt ${theme} ${flag}`, async ({page}) => {
         await visit(page, {id: scenario.story.id, globals})
+        await page.emulateMedia({reducedMotion: 'reduce'})
 
         // Open select panel
         const isPanelOpen = await page.isVisible('[role="listbox"]')
