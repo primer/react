@@ -47,8 +47,7 @@ test.describe('TooltipV2', () => {
             await page.keyboard.press('Tab')
             await page.waitForSelector('[popover="auto"]')
             await expect(page.locator('[popover="auto"]').first()).toHaveCSS('opacity', '1')
-            // eslint-disable-next-line playwright/no-wait-for-timeout
-            await page.waitForTimeout(250) // Wait for tooltip to animate in
+
             await expect(page).toHaveScreenshot(`TooltipV2.${story.title}.${theme}.png`, {
               animations: 'disabled',
             })
