@@ -1,12 +1,12 @@
 /* Animation definition */
 @keyframes tooltip-appear {
-  from {
+  /* from {
     opacity: 0;
   }
 
   to {
     opacity: 1;
-  }
+  } */
 }
 
 .Tooltip {
@@ -33,7 +33,7 @@
     background: var(--tooltip-bgColor);
     border: 0;
     border-radius: var(--borderRadius-medium);
-    opacity: 0;
+    opacity: 1;
     -webkit-font-smoothing: subpixel-antialiased;
     inset: auto;
   }
