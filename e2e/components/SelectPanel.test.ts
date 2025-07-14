@@ -109,7 +109,7 @@ test.describe('SelectPanel', () => {
     await page.getByRole('listbox').waitFor({state: 'visible'})
     await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(255, 255, 255)')
 
-    expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
+    expect(await page.screenshot({animations: 'disabled', caret: 'hide'})).toMatchSnapshot(
       `SelectPanel-Default-forced-colors-light-modern-action-list--true.png`,
     )
 
@@ -118,7 +118,7 @@ test.describe('SelectPanel', () => {
     await page.getByRole('listbox').waitFor({state: 'visible'})
     await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(0, 0, 0)')
 
-    expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
+    expect(await page.screenshot({animations: 'disabled', caret: 'hide'})).toMatchSnapshot(
       `SelectPanel-Default-forced-colors-dark-modern-action-list--true.png`,
     )
   })
