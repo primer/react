@@ -107,6 +107,7 @@ interface SelectPanelBaseProps {
    * @default undefined (uses feature flag default)
    */
   disableFullscreenOnNarrow?: boolean
+  showSelectAll?: boolean
 }
 
 // onCancel is optional with variant=anchored, but required with variant=modal
@@ -182,6 +183,7 @@ function Panel({
   showSelectedOptionsFirst = true,
   disableFullscreenOnNarrow,
   align,
+  showSelectAll = false,
   ...listProps
 }: SelectPanelProps): JSX.Element {
   const titleId = useId()
@@ -792,6 +794,7 @@ function Panel({
             textInputProps={extendedTextInputProps}
             loading={loading || isLoading}
             loadingType={loadingType()}
+            showSelectAll={showSelectAll}
             // hack because the deprecated ActionList does not support this prop
             {...{
               message: getMessage(),

@@ -13,3 +13,22 @@
     }
   }
 }
+
+.SelectAllContainer {
+  display: flex;
+  align-items: center;
+  padding-block: var(--base-size-12);
+  padding-inline: var(--base-size-16);
+  background: var(--bgColor-muted);
+  border-bottom: var(--borderWidth-thin) solid var(--borderColor-default);
+}
+
+.SelectAllCheckbox {
+  margin-right: var(--base-size-8);
+  margin-top: 0;
+}
+
+.SelectAllLabel {
+  font-size: var(--text-body-size-medium);
+  color: var(--fgColor-muted);
+}

@@ -20,6 +20,7 @@ import type {SxProp} from '../sx'
 import type {FilteredActionListLoadingType} from './FilteredActionListLoaders'
 import {FilteredActionListLoadingTypes, FilteredActionListBodyLoader} from './FilteredActionListLoaders'
 import classes from './FilteredActionList.module.css'
+import Checkbox from '../Checkbox'
 
 import {isValidElementType} from 'react-is'
 import type {RenderItemFn} from '../deprecated/ActionList/List'
@@ -45,6 +46,7 @@ export interface FilteredActionListProps
   className?: string
   announcementsEnabled?: boolean
   fullScreenOnNarrow?: boolean
+  showSelectAll?: boolean
 }
 
 const StyledHeader = styled.div`
@@ -70,9 +72,12 @@ export function FilteredActionList({
   className,
   announcementsEnabled = true,
   fullScreenOnNarrow,
+  showSelectAll = false,
   ...listProps
 }: FilteredActionListProps): JSX.Element {
   const [filterValue, setInternalFilterValue] = useProvidedStateOrCreate(externalFilterValue, undefined, '')
+  const [selectAllChecked, setSelectAllChecked] = useState(false)
+  const [selectAllIndeterminate, setSelectAllIndeterminate] = useState(false)
   const onInputChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const value = e.target.value
@@ -232,6 +237,20 @@ export function FilteredActionList({
         />
       </StyledHeader>
       <VisuallyHidden id={inputDescriptionTextId}>Items will be filtered as you type</VisuallyHidden>
+      {showSelectAll && (
+        <div className={classes.SelectAllContainer}>
+          <Checkbox
+            id="select-all-checkbox"
+            className={classes.SelectAllCheckbox}
+            checked={selectAllChecked}
+            indeterminate={selectAllIndeterminate}
+            onChange={e => setSelectAllChecked(e.target.checked)}
+          />
+          <label className={classes.SelectAllLabel} htmlFor="select-all-checkbox">
+            Select all
+          </label>
+        </div>
+      )}
       <div ref={scrollContainerRef} className={classes.Container}>
         {getBodyContent()}
       </div>
