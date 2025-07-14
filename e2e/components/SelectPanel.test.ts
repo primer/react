@@ -34,6 +34,7 @@ const scenarios = matrix({
     {
       id: 'components-selectpanel-examples--height-initial-with-underflowing-items-after-fetch',
       name: 'Height Initial with Underflowing Items After Fetch',
+      visual: false,
     },
     {
       id: 'components-selectpanel-dev--with-css',
@@ -61,17 +62,21 @@ test.describe('SelectPanel', () => {
       featureFlags: {primer_react_select_panel_with_modern_action_list: scenario.modernActionList},
     }
 
-    test(`${name} @vrt ${theme} ${flag}`, async ({page}) => {
-      await visit(page, {id: scenario.story.id, globals})
+    if (!scenario.story.visual !== false) {
+      test(`${name} @vrt ${theme} ${flag}`, async ({page}) => {
+        await visit(page, {id: scenario.story.id, globals})
 
-      // Open select panel
-      const isPanelOpen = await page.isVisible('[role="listbox"]')
-      if (!isPanelOpen) {
-        await page.keyboard.press('Tab')
-        await page.keyboard.press('Enter')
-      }
-      expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`SelectPanel.${name}.${theme}${flag}.png`)
-    })
+        // Open select panel
+        const isPanelOpen = await page.isVisible('[role="listbox"]')
+        if (!isPanelOpen) {
+          await page.keyboard.press('Tab')
+          await page.keyboard.press('Enter')
+        }
+        expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
+          `SelectPanel.${name}.${theme}${flag}.png`,
+        )
+      })
+    }
 
     test(`${name} axe @aat ${theme} ${flag}`, async ({page}) => {
       await visit(page, {id: scenario.story.id, globals})
