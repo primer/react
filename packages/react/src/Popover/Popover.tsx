@@ -54,6 +54,7 @@ Popover.displayName = 'Popover'
 
 export type PopoverContentProps = {
   className?: string
+  as?: React.ElementType
   width?: 'xsmall' | 'small' | 'large' | 'medium' | 'auto' | 'xlarge'
   height?: 'small' | 'large' | 'medium' | 'auto' | 'xlarge' | 'fit-content'
   overflow?: 'auto' | 'hidden' | 'scroll' | 'visible'
