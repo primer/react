@@ -296,6 +296,11 @@
   flex: 0 1 auto;
   min-inline-size: 0;
 
+  &[data-shrink='false'],
+  &[data-shrink-narrow='false'] {
+    flex-shrink: 0;
+  }
+
   &[data-grow='true'],
   &[data-grow-narrow='true'] {
     flex-grow: 1;
@@ -309,6 +314,14 @@
     &[data-grow-regular='false'] {
       flex-grow: 0;
     }
+
+    &[data-shrink-regular='true'] {
+      flex-shrink: 1;
+    }
+
+    &[data-shrink-regular='false'] {
+      flex-shrink: 0;
+    }
   }
 
   @media (--viewportRange-wide) {
@@ -318,6 +331,14 @@
 
     &[data-grow-wide='false'] {
       flex-grow: 0;
+    }
+
+    &[data-shrink-wide='true'] {
+      flex-shrink: 1;
+    }
+
+    &[data-shrink-wide='false'] {
+      flex-shrink: 0;
     }
   }
 }
