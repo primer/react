@@ -8,11 +8,10 @@ import type {Column, CellAlignment} from './column'
 import type {UniqueRow} from './row'
 import {SortDirection} from './sorting'
 import {useTableLayout} from './useTable'
-import {SkeletonText} from '../experimental/Skeleton/SkeletonText'
+import {SkeletonText} from '../SkeletonText'
 import {ScrollableRegion} from '../ScrollableRegion'
 import {Button} from '../internal/components/ButtonReset'
 import classes from './Table.module.css'
-import {defaultSxProp} from '../utils/defaultSxProp'
 import {BoxWithFallback} from '../internal/components/BoxWithFallback'
 
 // ----------------------------------------------------------------------------
@@ -236,9 +235,9 @@ function TableCellPlaceholder({children}: TableCellPlaceholderProps) {
 // ----------------------------------------------------------------------------
 export type TableContainerProps = React.PropsWithChildren<SxProp & React.HTMLAttributes<HTMLDivElement>>
 
-function TableContainer({children, className, sx: sxProp = defaultSxProp, ...rest}: TableContainerProps) {
+function TableContainer({children, className, ...rest}: TableContainerProps) {
   return (
-    <BoxWithFallback {...rest} className={clsx(className, classes.TableContainer)} sx={sxProp}>
+    <BoxWithFallback {...rest} className={clsx(className, classes.TableContainer)}>
       {children}
     </BoxWithFallback>
   )
