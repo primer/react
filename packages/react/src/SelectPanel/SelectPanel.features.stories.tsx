@@ -886,7 +886,7 @@ export const WithInactiveItems = () => {
 }
 
 export const WithSelectAll = () => {
-  const [selected, setSelected] = useState<ItemInput[]>(items.slice(1, 3))
+  const [selected, setSelected] = useState<ItemInput[]>([])
   const [filter, setFilter] = useState('')
   const filteredItems = items.filter(item => item.text?.toLowerCase().startsWith(filter.toLowerCase()))
 
