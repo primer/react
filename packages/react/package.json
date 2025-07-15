@@ -49,7 +49,7 @@
     "build:precompile-color-schemes": "tsx script/precompile-color-schemes.ts",
     "storybook": "storybook",
     "type-check": "tsc --noEmit",
-    "type-css-modules": "tcm -p **/packages/react/src/**/*.module.css"
+    "type-css-modules": "tcm -p src/**/*.module.css"
   },
   "repository": "primer/react",
   "keywords": [
