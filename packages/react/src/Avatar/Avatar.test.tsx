@@ -53,10 +53,10 @@ describe('Avatar', () => {
     )
 
     const avatar = screen.getByTestId('avatar')
-    
+
     // Test that both the custom CSS property and the style prop are applied
     expect(avatar).toHaveStyle('--avatarSize-regular: 20px')
-    
+
     // Check that style attribute contains both the custom property and the background
     const styleAttr = avatar.getAttribute('style') || ''
     expect(styleAttr).toContain('--avatarSize-regular: 20px')
