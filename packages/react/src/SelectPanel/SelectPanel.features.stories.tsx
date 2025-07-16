@@ -173,6 +173,7 @@ export const SingleSelect = () => {
         onFilterChange={setFilter}
         width="medium"
         message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}
+        subtitle={'Use labels to organize issues and pull requests'}
       />
     </FormControl>
   )
