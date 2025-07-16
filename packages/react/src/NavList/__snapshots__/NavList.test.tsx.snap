@@ -11,6 +11,7 @@ exports[`NavList > renders a simple list 1`] = `
       <li
         class="prc-ActionList-ActionListItem-jXerx"
         data-active="true"
+        data-has-description="false"
       >
         <a
           aria-current="page"
@@ -39,6 +40,7 @@ exports[`NavList > renders a simple list 1`] = `
       </li>
       <li
         class="prc-ActionList-ActionListItem-jXerx"
+        data-has-description="false"
       >
         <a
           aria-labelledby=":r2:--label  "
@@ -66,6 +68,7 @@ exports[`NavList > renders a simple list 1`] = `
       </li>
       <li
         class="prc-ActionList-ActionListItem-jXerx"
+        data-has-description="false"
       >
         <a
           aria-labelledby=":r3:--label  "
@@ -132,6 +135,7 @@ exports[`NavList > renders with groups 1`] = `
           <li
             class="prc-ActionList-ActionListItem-jXerx"
             data-active="true"
+            data-has-description="false"
           >
             <a
               aria-current="page"
@@ -187,6 +191,7 @@ exports[`NavList > renders with groups 1`] = `
         >
           <li
             class="prc-ActionList-ActionListItem-jXerx"
+            data-has-description="false"
           >
             <a
               aria-labelledby=":r8:--label  "
@@ -229,6 +234,7 @@ exports[`NavList.Item with NavList.SubNav > does not have active styles if SubNa
     >
       <li
         class="prc-ActionList-ActionListItem-jXerx"
+        data-has-description="false"
         data-has-subitem="true"
       >
         <button
@@ -285,6 +291,7 @@ exports[`NavList.Item with NavList.SubNav > does not have active styles if SubNa
           <li
             class="prc-ActionList-ActionListItem-jXerx"
             data-active="true"
+            data-has-description="false"
           >
             <a
               aria-current="page"
@@ -329,6 +336,7 @@ exports[`NavList.Item with NavList.SubNav > has active styles if SubNav contains
       <li
         class="prc-ActionList-ActionListItem-jXerx"
         data-active="true"
+        data-has-description="false"
         data-has-subitem="true"
       >
         <button
@@ -385,6 +393,7 @@ exports[`NavList.Item with NavList.SubNav > has active styles if SubNav contains
           <li
             class="prc-ActionList-ActionListItem-jXerx"
             data-active="true"
+            data-has-description="false"
           >
             <a
               aria-current="page"
