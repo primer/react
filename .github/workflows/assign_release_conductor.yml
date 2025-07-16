@@ -29,6 +29,7 @@ jobs:
         env:
           RELEASE_CONDUCTOR: ${{ steps.pagerduty.outputs.user }}
           PR_NUMBER: ${{ github.event.inputs.pull-request || github.event.pull_request.number }}
+          GH_TOKEN: ${{ github.token }}
         run: |
           # Get current assignees as comma-separated list
           # Here, `tr` is used to replace newlines with commas and `sed` is used to remove the trailing comma
