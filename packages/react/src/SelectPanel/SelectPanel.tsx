@@ -547,10 +547,11 @@ function Panel({
 
   const itemsToRender = useMemo(() => {
     return items
-      .map(item => {
+      .map((item, index) => {
         return {
           ...item,
           role: 'option',
+          id: item.id || `select-panel-item-${index}`,
           selected: 'selected' in item && item.selected === undefined ? undefined : isItemCurrentlySelected(item),
           onAction: (itemFromAction, event) => {
             item.onAction?.(itemFromAction, event)
@@ -860,7 +861,7 @@ function Panel({
             sx={sx}
             className={clsx(className, classes.FilteredActionList)}
             // needed to explicitly enable announcements for deprecated FilteredActionList, we can remove when we fully remove the deprecated version
-            announcementsEnabled
+            announcementsEnabled={usingModernActionList}
           />
           {footer ? (
             <div className={classes.Footer}>{footer}</div>
