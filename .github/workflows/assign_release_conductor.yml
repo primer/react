@@ -32,32 +32,44 @@ jobs:
         run: |
           # Get current assignees as comma-separated list
           # Here, `tr` is used to replace newlines with commas and `sed` is used to remove the trailing comma
-          current_assignees=$(gh pr view $PR_NUMBER --json assignees --jq '.assignees[].login' | tr '\n' ',' | sed 's/,$//')
+          current_assignees=$(gh pr view $PR_NUMBER --json assignees --jq '.assignees[].login' | tr '\n' ',' | sed 's/^,//; s/,$//')
+
+          echo "Current assignees: $current_assignees"
 
           if [[ -n "$current_assignees" && "$current_assignees" != "$RELEASE_CONDUCTOR" ]]; then
             # Get assignees to remove (all except RELEASE_CONDUCTOR)
-            assignees_to_remove=$(echo "$current_assignees" | tr ',' '\n' | grep -v "^$RELEASE_CONDUCTOR$" | tr '\n' ',' | sed 's/,$//')
+            assignees_to_remove=$(echo "$current_assignees" | tr ',' '\n' | grep -v "^$RELEASE_CONDUCTOR$" | tr '\n' ',' | sed 's/^,//; s/,$//')
+
+            echo "Assignees to remove: $assignees_to_remove"
 
             if [[ -n "$assignees_to_remove" ]]; then
                 gh pr edit $PR_NUMBER --remove-assignee "$assignees_to_remove"
             fi
-            
+
+            echo "Adding $RELEASE_CONDUCTOR as assignee"
+
             # Ensure RELEASE_CONDUCTOR is assigned
             gh pr edit $PR_NUMBER  --add-assignee "$RELEASE_CONDUCTOR"
           fi
 
           # Get current reviewers as comma-separated list
-          current_reviewers=$(gh pr view --json reviewRequests --jq '.reviewRequests[].login' | tr '\n' ',' | sed 's/,$//')
+          current_reviewers=$(gh pr view $PR_NUMBER --json reviewRequests --jq '.reviewRequests[].login' | tr '\n' ',' | sed 's/^,//; s/,$//')
+
+          echo "Current reviewers: $current_reviewers"
 
           # Remove all reviewers except RELEASE_CONDUCTOR
           if [[ -n "$current_reviewers" && "$current_reviewers" != "$RELEASE_CONDUCTOR" ]]; then
               # Get reviewers to remove (all except RELEASE_CONDUCTOR)
-              reviewers_to_remove=$(echo "$current_reviewers" | tr ',' '\n' | grep -v "^$RELEASE_CONDUCTOR$" | tr '\n' ',' | sed 's/,$//')
-              
+              reviewers_to_remove=$(echo "$current_reviewers" | tr ',' '\n' | grep -v "^$RELEASE_CONDUCTOR$" | tr '\n' ',' | sed 's/^,//; s/,$//')
+
+              echo "Reviewers to remove: $reviewers_to_remove"
+
               if [[ -n "$reviewers_to_remove" ]]; then
-                  gh pr edit --remove-reviewer "$reviewers_to_remove"
+                  gh pr edit $PR_NUMBER --remove-reviewer "$reviewers_to_remove"
               fi
-              
+
+              echo "Adding $RELEASE_CONDUCTOR as reviewer"
+
               # Ensure RELEASE_CONDUCTOR is a reviewer
-              gh pr edit --add-reviewer "$RELEASE_CONDUCTOR"
+              gh pr edit $PR_NUMBER --add-reviewer "$RELEASE_CONDUCTOR"
           fi
