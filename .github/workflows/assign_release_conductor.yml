@@ -25,78 +25,39 @@ jobs:
           schedule-id: 'P3IIVC4'
           token: ${{ secrets.PAGERDUTY_API_KEY_SID }}
       - run: echo ${{ steps.pagerduty.outputs.user }} is release conductor
-      - name: Add user as assignee and reviewer
-        uses: actions/github-script@5c56fde4671bc2d3592fb0f2c5b5bab9ddae03b1
+      - name: Update assignees on Pull Request
         env:
-          PR_NUMBER: ${{ github.event.inputs.pull-request || github.event.pull_request.number }}
           RELEASE_CONDUCTOR: ${{ steps.pagerduty.outputs.user }}
-          PREV_RELEASE_CONDUCTOR: ${{ steps.pagerduty.outputs.previous-schedule-user }}
-        with:
-          script: |
-            const { PR_NUMBER, RELEASE_CONDUCTOR, PREV_RELEASE_CONDUCTOR } = process.env;
+          PR_NUMBER: ${{ github.event.inputs.pull-request || github.event.pull_request.number }}
+        run: |
+          # Get current assignees as comma-separated list
+          # Here, `tr` is used to replace newlines with commas and `sed` is used to remove the trailing comma
+          current_assignees=$(gh pr view $PR_NUMBER --json assignees --jq '.assignees[].login' | tr '\n' ',' | sed 's/,$//')
 
-            const { data: pull } = await github.rest.pulls.get({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              pull_number: PR_NUMBER,
-            });
+          if [[ -n "$current_assignees" && "$current_assignees" != "$RELEASE_CONDUCTOR" ]]; then
+            # Get assignees to remove (all except RELEASE_CONDUCTOR)
+            assignees_to_remove=$(echo "$current_assignees" | tr ',' '\n' | grep -v "^$RELEASE_CONDUCTOR$" | tr '\n' ',' | sed 's/,$//')
 
-            // If the previous release conductor was added as an assignee, remove them
-            const hasPreviousAssignee = pull.assignees.find((assignee) => {
-              return assignee.login === PREV_RELEASE_CONDUCTOR;
-            });
+            if [[ -n "$assignees_to_remove" ]]; then
+                gh pr edit $PR_NUMBER --remove-assignee "$assignees_to_remove"
+            fi
+            
+            # Ensure RELEASE_CONDUCTOR is assigned
+            gh pr edit $PR_NUMBER  --add-assignee "$RELEASE_CONDUCTOR"
+          fi
 
-            if (hasPreviousAssignee) {
-              await github.rest.issues.removeAssignees({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: PR_NUMBER,
-                assignees: [PREV_RELEASE_CONDUCTOR],
-              });
-            }
+          # Get current reviewers as comma-separated list
+          current_reviewers=$(gh pr view --json reviewRequests --jq '.reviewRequests[].login' | tr '\n' ',' | sed 's/,$//')
 
-            // If the previous release conductor was added as a reviewer, remove them
-            const { data: requestedReviewers } = await github.rest.pulls.listRequestedReviewers({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              pull_number: PR_NUMBER,
-            });
-            const hasPreviousReviewer = requestedReviewers.users.find((user) => {
-              return user.login === PREV_RELEASE_CONDUCTOR;
-            });
-
-            // Add the current release conductor as an assignee if they are not currently assigned
-            const hasAssignee = pull.assignees.find((assignee) => {
-              return assignee.login === RELEASE_CONDUCTOR;
-            });
-            if (!hasAssignee) {
-              await github.rest.issues.addAssignees({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: PR_NUMBER,
-                assignees: [RELEASE_CONDUCTOR]
-              })
-            }
-
-            // Request the current release conductor as a reviewer if they are not currently requested
-            const hasReviewer = requestedReviewers.users.find((user) => {
-              return user.login === RELEASE_CONDUCTOR;
-            });
-
-            if (!hasReviewer) {
-              await github.rest.pulls.requestReviewers({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                pull_number: PR_NUMBER,
-                reviewers: [RELEASE_CONDUCTOR]
-              })
-            }
-
-            if (hasPreviousReviewer) {
-              await github.rest.pulls.removeRequestedReviewers({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                pull_number: PR_NUMBER,
-                reviewers: [PREV_RELEASE_CONDUCTOR],
-              });
-            }
+          # Remove all reviewers except RELEASE_CONDUCTOR
+          if [[ -n "$current_reviewers" && "$current_reviewers" != "$RELEASE_CONDUCTOR" ]]; then
+              # Get reviewers to remove (all except RELEASE_CONDUCTOR)
+              reviewers_to_remove=$(echo "$current_reviewers" | tr ',' '\n' | grep -v "^$RELEASE_CONDUCTOR$" | tr '\n' ',' | sed 's/,$//')
+              
+              if [[ -n "$reviewers_to_remove" ]]; then
+                  gh pr edit --remove-reviewer "$reviewers_to_remove"
+              fi
+              
+              # Ensure RELEASE_CONDUCTOR is a reviewer
+              gh pr edit --add-reviewer "$RELEASE_CONDUCTOR"
+          fi
