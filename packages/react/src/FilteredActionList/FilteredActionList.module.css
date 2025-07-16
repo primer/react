@@ -24,8 +24,7 @@
 }
 
 .SelectAllCheckbox {
-  margin-right: var(--base-size-8);
-  margin-top: 0;
+  margin: var(--base-size-4) var(--base-size-8) var(--base-size-4) 0;
 }
 
 .SelectAllLabel {
