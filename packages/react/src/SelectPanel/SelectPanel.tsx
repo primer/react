@@ -304,6 +304,21 @@ function Panel({
     ],
   )
 
+  const handleSelectAllChange = useCallback(
+    (checked: boolean) => {
+      if (!isMultiSelectVariant(selected)) return
+
+      const multiSelectOnChange = onSelectedChange as SelectPanelMultiSelection['onSelectedChange']
+
+      if (checked) {
+        multiSelectOnChange([...items])
+      } else {
+        multiSelectOnChange([])
+      }
+    },
+    [items, onSelectedChange, selected],
+  )
+
   // disable body scroll when the panel is open on narrow screens
   useEffect(() => {
     if (open && isNarrowScreenSize && usingFullScreenOnNarrow) {
@@ -619,6 +634,22 @@ function Panel({
     }
   }, [inputLabel, textInputProps])
 
+  const selectAllState = useMemo(() => {
+    if (!isMultiSelectVariant(selected) || items.length === 0) {
+      return {checked: false, indeterminate: false}
+    }
+
+    if (selected.length === 0) {
+      return {checked: false, indeterminate: false}
+    }
+
+    if (selected.length === items.length && items.every(item => selected.some(s => areItemsEqual(s, item)))) {
+      return {checked: true, indeterminate: false}
+    }
+
+    return {checked: false, indeterminate: true}
+  }, [selected, items])
+
   const loadingType = (): FilteredActionListLoadingType => {
     if (dataLoadedOnce) {
       return FilteredActionListLoadingTypes.input
@@ -795,6 +826,9 @@ function Panel({
             loading={loading || isLoading}
             loadingType={loadingType()}
             showSelectAll={showSelectAll}
+            selectAllChecked={selectAllState.checked}
+            selectAllIndeterminate={selectAllState.indeterminate}
+            onSelectAllChange={handleSelectAllChange}
             // hack because the deprecated ActionList does not support this prop
             {...{
               message: getMessage(),

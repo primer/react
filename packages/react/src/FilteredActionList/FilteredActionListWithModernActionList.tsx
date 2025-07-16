@@ -47,6 +47,10 @@ export interface FilteredActionListProps
   announcementsEnabled?: boolean
   fullScreenOnNarrow?: boolean
   showSelectAll?: boolean
+  selectAllChecked?: boolean
+  selectAllIndeterminate?: boolean
+  onSelectAllChange?: (checked: boolean) => void
+  selectAllLabel?: string
 }
 
 const StyledHeader = styled.div`
@@ -73,11 +77,13 @@ export function FilteredActionList({
   announcementsEnabled = true,
   fullScreenOnNarrow,
   showSelectAll = false,
+  selectAllChecked = false,
+  selectAllIndeterminate = false,
+  onSelectAllChange,
+  selectAllLabel,
   ...listProps
 }: FilteredActionListProps): JSX.Element {
   const [filterValue, setInternalFilterValue] = useProvidedStateOrCreate(externalFilterValue, undefined, '')
-  const [selectAllChecked, setSelectAllChecked] = useState(false)
-  const [selectAllIndeterminate, setSelectAllIndeterminate] = useState(false)
   const onInputChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const value = e.target.value
@@ -93,6 +99,7 @@ export function FilteredActionList({
   const activeDescendantRef = useRef<HTMLElement>()
   const listId = useId()
   const inputDescriptionTextId = useId()
+  const selectAllLabelText = selectAllLabel || (selectAllChecked ? 'Deselect all' : 'Select all')
   const onInputKeyPress: KeyboardEventHandler = useCallback(
     event => {
       if (event.key === 'Enter' && activeDescendantRef.current) {
@@ -154,6 +161,15 @@ export function FilteredActionList({
 
   useAnnouncements(items, {current: listContainerElement}, inputRef, announcementsEnabled, loading)
   useScrollFlash(scrollContainerRef)
+
+  const handleSelectAllChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      if (onSelectAllChange) {
+        onSelectAllChange(e.target.checked)
+      }
+    },
+    [onSelectAllChange],
+  )
 
   function getItemListForEachGroup(groupId: string) {
     const itemsInGroup = []
@@ -244,10 +260,10 @@ export function FilteredActionList({
             className={classes.SelectAllCheckbox}
             checked={selectAllChecked}
             indeterminate={selectAllIndeterminate}
-            onChange={e => setSelectAllChecked(e.target.checked)}
+            onChange={handleSelectAllChange}
           />
           <label className={classes.SelectAllLabel} htmlFor="select-all-checkbox">
-            Select all
+            {selectAllLabelText}
           </label>
         </div>
       )}
