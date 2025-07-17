@@ -8,4 +8,9 @@ export const themes = [
   'dark_high_contrast',
   'dark_colorblind',
   'dark_tritanopia',
+  'light_colorblind_high_contrast',
+  'light_tritanopia_high_contrast',
+  'dark_dimmed_high_contrast',
+  'dark_colorblind_high_contrast',
+  'dark_tritanopia_high_contrast',
 ]
