@@ -314,7 +314,7 @@ function Panel({
         multiSelectOnChange([])
       }
     },
-    [items, onSelectedChange, selected],
+    [items, onSelectedChange],
   )
 
   // disable body scroll when the panel is open on narrow screens
