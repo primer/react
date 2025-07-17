@@ -34,6 +34,23 @@
   /* styling specific to the modal variant */
 }
 
+/*
+ * Align SelectPanel header text with AnchoredOverlay close button
+ * 
+ * Only applies to anchor variant in narrow viewports. When the feature flag 
+ * `primer_react_select_panel_fullscreen_on_narrow` is enabled, we align the 
+ * title with the close button position (similar to modal variant approach).
+ *
+ * TODO: Remove this workaround after the feature flag is gone. We should 
+ * pick one way to render the close button instead of having two different 
+ * implementations.
+ */
+.Wrapper[data-variant='anchored'] .Title {
+  @media screen and (--viewportRange-narrow) {
+    margin-top: var(--base-size-8);
+  }
+}
+
 .Subtitle {
   margin-left: var(--base-size-8);
   font-size: var(--text-body-size-small);
@@ -221,21 +238,4 @@
   position: absolute;
   inset: 0;
   background-color: var(--overlay-backdrop-bgColor);
-}
-
-/*
- * Align AnchoredOverlay close button with SelectPanel header text
- * 
- * Only applies to anchor variant (not modal). When the feature flag 
- * `primer_react_select_panel_fullscreen_on_narrow` is enabled, the close 
- * button gets rendered by AnchoredOverlay and needs this alignment fix.
- *
- * TODO: Remove this workaround after the feature flag is gone. We should 
- * pick one way to render the close button instead of having two different 
- * implementations.
- */
-.Overlay:has(.Wrapper:not([data-variant='modal'])) [class*='ResponsiveCloseButton'] {
-  @media screen and (--viewportRange-narrow) {
-    top: var(--base-size-2);
-  }
 }
