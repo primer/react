@@ -1293,7 +1293,7 @@ for (const useModernActionList of [false, true]) {
           // First select all
           await user.click(screen.getByRole('checkbox', {name: 'Select all'}))
 
-          // Then deselect all - use "Deselect all" here instead of "Select all"
+          // Then deselect all
           await user.click(screen.getByRole('checkbox', {name: 'Deselect all'}))
 
           // All options should now be deselected
@@ -1334,8 +1334,7 @@ for (const useModernActionList of [false, true]) {
             }
           }
 
-          // Check that Select All is checked
-          // Changed from 'Select all' to 'Deselect all' since the label changes when all items are selected
+          // Check that Deselect All is checked
           expect(screen.getByRole('checkbox', {name: 'Deselect all'})).toBeChecked()
         })
 

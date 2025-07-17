@@ -306,8 +306,6 @@ function Panel({
 
   const handleSelectAllChange = useCallback(
     (checked: boolean) => {
-      if (!isMultiSelectVariant(selected)) return
-
       const multiSelectOnChange = onSelectedChange as SelectPanelMultiSelection['onSelectedChange']
 
       if (checked) {
@@ -635,6 +633,7 @@ function Panel({
   }, [inputLabel, textInputProps])
 
   const selectAllState = useMemo(() => {
+    // type safety check even though this will not execute if not multi-select
     if (!isMultiSelectVariant(selected) || items.length === 0) {
       return {checked: false, indeterminate: false}
     }
@@ -825,7 +824,7 @@ function Panel({
             textInputProps={extendedTextInputProps}
             loading={loading || isLoading}
             loadingType={loadingType()}
-            showSelectAll={showSelectAll}
+            showSelectAll={showSelectAll && isMultiSelectVariant(selected)}
             selectAllChecked={selectAllState.checked}
             selectAllIndeterminate={selectAllState.indeterminate}
             onSelectAllChange={handleSelectAllChange}
