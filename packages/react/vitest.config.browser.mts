@@ -81,6 +81,7 @@ export default defineConfig({
       'src/TreeView/**/*.test.?(c|m)[jt]s?(x)',
       'src/Truncate/**/*.test.?(c|m)[jt]s?(x)',
       'src/UnderlineNav/**/*.test.?(c|m)[jt]s?(x)',
+      'src/deprecated/UnderlineNav/**/*.test.?(c|m)[jt]s?(x)',
       'src/__tests__/BaseStyles.test.tsx',
       'src/__tests__/Caret.test.tsx',
       'src/__tests__/CheckboxOrRadioGroup.test.tsx',
