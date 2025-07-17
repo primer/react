@@ -149,7 +149,7 @@ export const HeightInitialWithUnderflowingItemsAfterFetch = () => {
         placeholder="Select labels" // button text when no items are selected
         open={open}
         onOpenChange={onOpenChange}
-        loading={filteredItems.length === 0 && !filter}
+        loading={fetchedItems.length === 0}
         items={filteredItems}
         selected={selected}
         onSelectedChange={setSelected}

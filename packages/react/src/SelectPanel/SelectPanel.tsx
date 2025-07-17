@@ -790,7 +790,7 @@ function Panel({
             selectionVariant={isSingleSelectModal ? 'radio' : isMultiSelectVariant(selected) ? 'multiple' : 'single'}
             items={itemsToRender}
             textInputProps={extendedTextInputProps}
-            loading={loading || isLoading}
+            loading={loading || (isLoading && !message)}
             loadingType={loadingType()}
             // hack because the deprecated ActionList does not support this prop
             {...{
