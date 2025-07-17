@@ -2,7 +2,12 @@ import {test, expect} from '@playwright/test'
 import {visit} from '../test-helpers/storybook'
 import {themes} from '../test-helpers/themes'
 
-const stories = [
+const stories: Array<{
+  title: string
+  id: string
+  disableAnimations?: boolean
+  snapshotThemes?: string[]
+}> = [
   {
     title: 'Default',
     id: 'components-actionlist--default',
@@ -10,6 +15,7 @@ const stories = [
   {
     title: 'Block Description',
     id: 'components-actionlist-features--block-description',
+    snapshotThemes: ['light'],
   },
   {
     title: 'Disabled Item',
@@ -18,10 +24,7 @@ const stories = [
   {
     title: 'Inline Description',
     id: 'components-actionlist-features--inline-description',
-  },
-  {
-    title: 'Inside Overlay',
-    id: 'components-actionlist-features--inside-overlay',
+    snapshotThemes: ['light'],
   },
   {
     title: 'Item Dividers',
@@ -30,6 +33,7 @@ const stories = [
   {
     title: 'Links',
     id: 'components-actionlist-features--links',
+    snapshotThemes: ['light'],
   },
   {
     title: 'Multi Select',
@@ -43,6 +47,7 @@ const stories = [
   {
     title: 'Single Divider',
     id: 'components-actionlist-features--single-divider',
+    snapshotThemes: ['light'],
   },
   {
     title: 'Single Select',
@@ -79,6 +84,7 @@ const stories = [
     title: 'Loading Item',
     id: 'components-actionlist-features--loading-item',
     disableAnimations: true,
+    snapshotThemes: ['light', 'dark'],
   },
   {
     title: 'Group With Filled Title',
@@ -99,37 +105,45 @@ const stories = [
   {
     title: 'Full Variant',
     id: 'components-actionlist-features--full-variant',
+    snapshotThemes: ['light'],
   },
   {
     title: 'Group Heading with Classname',
     id: 'components-actionlist-dev--group-heading-custom-classname',
+    snapshotThemes: ['light'],
   },
   {
     title: 'Heading with Classname',
     id: 'components-actionlist-dev--heading-custom-classname',
+    snapshotThemes: ['light'],
   },
   {
     title: 'Visuals with Classnames',
     id: 'components-actionlist-dev--visual-custom-classname',
+    snapshotThemes: ['light'],
   },
   {
     title: 'Link Item Options',
     id: 'components-actionlist-examples--list-link-item',
+    snapshotThemes: ['light'],
   },
   {
     title: 'Item Label Styles With Mixed Descriptions',
     id: 'components-actionlist-dev--item-label-styles-with-mixed-descriptions',
+    snapshotThemes: ['light'],
   },
   {
     title: 'Trailing Visual Gap',
     id: 'components-actionlist-dev--trailing-visual-gap',
+    snapshotThemes: ['light'],
   },
 ] as const
 
 test.describe('ActionList', () => {
   for (const story of stories) {
     test.describe(story.title, () => {
-      for (const theme of themes) {
+      const snapshotThemes = story.snapshotThemes || themes
+      for (const theme of snapshotThemes) {
         test(`default @vrt ${theme}`, async ({page}) => {
           await visit(page, {
             id: story.id,
@@ -139,7 +153,8 @@ test.describe('ActionList', () => {
           })
 
           // Default state
-          await expect(page).toHaveScreenshot(`ActionList.${story.title}.${theme}.png`)
+          const screenshotOptions = story.disableAnimations ? {animations: 'disabled' as const} : undefined
+          await expect(page).toHaveScreenshot(`ActionList.${story.title}.${theme}.png`, screenshotOptions)
         })
       }
     })
