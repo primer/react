@@ -80,11 +80,11 @@ module.exports = {
     '<rootDir>/src/__tests__/theme.test.ts',
     '<rootDir>/src/__tests__/themeGet.test.ts',
     '<rootDir>/src/__tests__/useSafeTimeout.test.ts',
+    '<rootDir>/src/deprecated/',
     '<rootDir>/src/hooks/',
     '<rootDir>/src/internal/utils/',
     '<rootDir>/src/live-region/',
     '<rootDir>/src/utils/',
-    'src/deprecated/UnderlineNav/',
   ],
   transformIgnorePatterns: ['node_modules/(?!@github/[a-z-]+-element|@lit-labs/react|@oddbird/popover-polyfill)'],
 }
