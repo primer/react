@@ -162,11 +162,11 @@ export function FilteredActionList({
   }
 
   function getBodyContent() {
-    if (message) {
-      return message
-    }
     if (loading && scrollContainerRef.current && loadingType.appearsInBody) {
       return <FilteredActionListBodyLoader loadingType={loadingType} height={scrollContainerRef.current.clientHeight} />
+    }
+    if (message) {
+      return message
     }
 
     return (
