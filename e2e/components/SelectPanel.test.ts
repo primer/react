@@ -21,6 +21,7 @@ const scenarios = matrix({
       id: 'components-selectpanel-features--with-placeholder-for-search-input',
       name: 'With Placeholder for Search Input',
     },
+    {id: 'components-selectpanel-features--with-select-all', name: 'With Select All'},
     {id: 'components-selectpanel-examples--above-tall-body', name: 'Above Tall Body'},
     {id: 'components-selectpanel-examples--height-variations-and-scroll', name: 'Height Variations and Scroll'},
     {
