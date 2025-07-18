@@ -23,7 +23,7 @@ test.describe('TabNav', () => {
             })
 
             // Default state
-            expect(await page.screenshot()).toMatchSnapshot(`TabNav.${story.title}.${theme}.png`)
+            await expect(page).toHaveScreenshot(`TabNav.${story.title}.${theme}.png`)
           })
         })
       }

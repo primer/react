@@ -2,7 +2,7 @@ import {test, expect, type Page} from '@playwright/test'
 import {visit} from '../test-helpers/storybook'
 import {themes} from '../test-helpers/themes'
 
-const variants = [
+const stories = [
   {
     title: 'Default',
     id: 'experimental-components-issuelabel--default',
@@ -108,7 +108,7 @@ const variants = [
 ] as const
 
 test.describe('IssueLabel', () => {
-  for (const story of variants) {
+  for (const story of stories) {
     test.describe(story.title, () => {
       for (const theme of themes) {
         test.describe(theme, () => {

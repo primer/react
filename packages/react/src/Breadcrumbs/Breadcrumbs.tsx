@@ -5,7 +5,7 @@ import type {SxProp} from '../sx'
 import type {ComponentProps} from '../utils/types'
 import classes from './Breadcrumbs.module.css'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
-import {toggleSxComponent} from '../internal/utils/toggleSxComponent'
+import {BoxWithFallback} from '../internal/components/BoxWithFallback'
 
 const SELECTED_CLASS = 'selected'
 
@@ -19,13 +19,12 @@ const BreadcrumbsList = ({children}: React.PropsWithChildren) => {
   return <ol className={classes.BreadcrumbsList}>{children}</ol>
 }
 
-const BreadcrumbsBaseComponent = toggleSxComponent('nav') as React.ComponentType<BreadcrumbsProps>
 function Breadcrumbs({className, children, sx: sxProp}: BreadcrumbsProps) {
   const wrappedChildren = React.Children.map(children, child => <li className={classes.ItemWrapper}>{child}</li>)
   return (
-    <BreadcrumbsBaseComponent className={clsx(className, classes.BreadcrumbsBase)} aria-label="Breadcrumbs" sx={sxProp}>
+    <BoxWithFallback as="nav" className={clsx(className, classes.BreadcrumbsBase)} aria-label="Breadcrumbs" sx={sxProp}>
       <BreadcrumbsList>{wrappedChildren}</BreadcrumbsList>
-    </BreadcrumbsBaseComponent>
+    </BoxWithFallback>
   )
 }
 
@@ -37,10 +36,10 @@ type StyledBreadcrumbsItemProps = {
   React.HTMLAttributes<HTMLAnchorElement> &
   React.ComponentPropsWithRef<'a'>
 
-const BreadcrumbsItemBaseComponent = toggleSxComponent('a') as React.ComponentType<StyledBreadcrumbsItemProps>
 const BreadcrumbsItem = React.forwardRef(({selected, className, ...rest}, ref) => {
   return (
-    <BreadcrumbsItemBaseComponent
+    <BoxWithFallback
+      as="a"
       className={clsx(className, classes.Item, {
         [SELECTED_CLASS]: selected,
         [classes.ItemSelected]: selected,
