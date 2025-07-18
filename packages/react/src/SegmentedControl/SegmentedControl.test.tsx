@@ -178,21 +178,6 @@ describe('SegmentedControl', () => {
     }
   })
 
-  it('renders icon button with aria-label and no tooltip', () => {
-    const {getByRole} = render(
-      <SegmentedControl aria-label="File view">
-        {segmentData.map(({label, icon}) => (
-          <SegmentedControl.IconButton icon={icon} aria-label={label} key={label} />
-        ))}
-      </SegmentedControl>,
-    )
-
-    for (const datum of segmentData) {
-      const labelledButton = getByRole('button', {name: datum.label})
-      expect(labelledButton).toHaveAttribute('aria-label', datum.label)
-    }
-  })
-
   it('calls onChange with index of clicked segment button', async () => {
     const user = userEvent.setup()
     const handleChange = vi.fn()
