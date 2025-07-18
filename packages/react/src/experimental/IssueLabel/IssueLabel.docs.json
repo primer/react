@@ -9,12 +9,12 @@
     {
       "name": "as",
       "type": "React.ElementType",
-      "defaultValue": "'span'"
+      "description": "The HTML element or React component to render as the root element"
     },
     {
       "name": "className",
       "type": "string",
-      "description": "Class name for custom styling."
+      "description": "Class name for custom styling"
     },
     {
       "name": "fillColor",
