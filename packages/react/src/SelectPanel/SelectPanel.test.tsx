@@ -469,12 +469,12 @@ describe('SelectPanel', () => {
 
     const filteredItems = items.filter(item => item.text?.includes(filter))
 
-    function getMessage(): SelectPanelProps['message'] | undefined {
+    function getMessage() {
       if (filteredItems.length === 0 && !filter) {
-        return emptyMessage as SelectPanelProps['message']
+        return emptyMessage
       }
       if (filteredItems.length === 0 && filter) {
-        return noResultsMessage(filter) as SelectPanelProps['message']
+        return noResultsMessage(filter)
       }
       return undefined
     }

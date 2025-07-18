@@ -113,7 +113,7 @@ interface SelectPanelBaseProps {
 type SelectPanelVariantProps = {variant?: 'anchored'; onCancel?: () => void} | {variant: 'modal'; onCancel: () => void}
 
 export type SelectPanelProps = SelectPanelBaseProps &
-  Omit<FilteredActionListProps, 'selectionVariant' | 'variant'> &
+  Omit<FilteredActionListProps, 'selectionVariant' | 'variant' | 'message'> &
   Pick<AnchoredOverlayProps, 'open' | 'height' | 'width' | 'align'> &
   AnchoredOverlayWrapperAnchorProps &
   (SelectPanelSingleSelection | SelectPanelMultiSelection) &
