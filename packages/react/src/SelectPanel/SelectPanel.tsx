@@ -306,15 +306,25 @@ function Panel({
 
   const handleSelectAllChange = useCallback(
     (checked: boolean) => {
+      // Exit early if not in multi-select mode
+      if (!isMultiSelectVariant(selected)) {
+        return
+      }
+
       const multiSelectOnChange = onSelectedChange as SelectPanelMultiSelection['onSelectedChange']
+      const selectedArray = selected as ItemInput[]
+
+      const selectedItemsNotInFilteredView = selectedArray.filter(
+        (selectedItem: ItemInput) => !items.some(item => areItemsEqual(item, selectedItem)),
+      )
 
       if (checked) {
-        multiSelectOnChange([...items])
+        multiSelectOnChange([...selectedItemsNotInFilteredView, ...items])
       } else {
-        multiSelectOnChange([])
+        multiSelectOnChange(selectedItemsNotInFilteredView)
       }
     },
-    [items, onSelectedChange],
+    [items, onSelectedChange, selected],
   )
 
   // disable body scroll when the panel is open on narrow screens
@@ -638,11 +648,15 @@ function Panel({
       return {checked: false, indeterminate: false}
     }
 
-    if (selected.length === 0) {
+    const selectedArray = selected as ItemInput[]
+
+    const selectedVisibleItemCount = items.filter(item => selectedArray.some(s => areItemsEqual(s, item))).length
+
+    if (selectedVisibleItemCount === 0) {
       return {checked: false, indeterminate: false}
     }
 
-    if (selected.length === items.length && items.every(item => selected.some(s => areItemsEqual(s, item)))) {
+    if (selectedVisibleItemCount === items.length) {
       return {checked: true, indeterminate: false}
     }
 
