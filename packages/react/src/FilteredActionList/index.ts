@@ -1,3 +1,3 @@
-export {FilteredActionList} from './FilteredActionListWithModernActionList'
+export {FilteredActionList} from './FilteredActionList'
 
-export type {FilteredActionListProps} from './FilteredActionListWithModernActionList'
+export type {FilteredActionListProps} from './FilteredActionList'
