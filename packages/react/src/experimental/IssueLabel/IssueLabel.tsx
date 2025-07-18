@@ -117,4 +117,4 @@ function IssueLabel<As extends React.ElementType>({
 }
 
 export {IssueLabel}
-export type {Hex, IssueLabelProps}
+export type {IssueLabelProps}
