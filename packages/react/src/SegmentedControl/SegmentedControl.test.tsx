@@ -149,7 +149,7 @@ describe('SegmentedControl', () => {
         {segmentData.map(({label, icon}) => (
           <SegmentedControl.IconButton icon={icon} aria-label={label} key={label} />
         ))}
-      </SegmentedControl>
+      </SegmentedControl>,
     )
 
     for (const datum of segmentData) {
@@ -166,7 +166,7 @@ describe('SegmentedControl', () => {
         {segmentData.map(({label, icon, description}) => (
           <SegmentedControl.IconButton icon={icon} aria-label={label} description={description} key={label} />
         ))}
-      </SegmentedControl>
+      </SegmentedControl>,
     )
 
     for (const datum of segmentData) {

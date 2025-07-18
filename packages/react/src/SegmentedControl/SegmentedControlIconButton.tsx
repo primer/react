@@ -54,9 +54,7 @@ export const SegmentedControlIconButton: React.FC<React.PropsWithChildren<Segmen
           className={clsx(classes.Button, classes.IconButton)}
           {...rest}
         >
-          <span className={clsx(classes.Content, 'segmentedControl-content')}>
-            {isElement(Icon) ? Icon : <Icon />}
-          </span>
+          <span className={clsx(classes.Content, 'segmentedControl-content')}>{isElement(Icon) ? Icon : <Icon />}</span>
         </BoxWithFallback>
       </Tooltip>
     </BoxWithFallback>
