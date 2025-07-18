@@ -13,7 +13,7 @@ describe('IssueLabel', () => {
     expect(container.firstChild).toHaveProperty('tagName', 'BUTTON')
   })
 
-  it('should default to a `a` when `href` is provided', () => {
+  it('should default to an `a` when `href` is provided', () => {
     const {container} = render(<IssueLabel href="https://example.com">Label</IssueLabel>)
     expect(container.firstChild).toHaveProperty('tagName', 'A')
   })
