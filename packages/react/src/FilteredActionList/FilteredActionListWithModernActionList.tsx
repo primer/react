@@ -50,7 +50,6 @@ export interface FilteredActionListProps
   selectAllChecked?: boolean
   selectAllIndeterminate?: boolean
   onSelectAllChange?: (checked: boolean) => void
-  selectAllLabel?: string
 }
 
 const StyledHeader = styled.div`
@@ -80,7 +79,6 @@ export function FilteredActionList({
   selectAllChecked = false,
   selectAllIndeterminate = false,
   onSelectAllChange,
-  selectAllLabel,
   ...listProps
 }: FilteredActionListProps): JSX.Element {
   const [filterValue, setInternalFilterValue] = useProvidedStateOrCreate(externalFilterValue, undefined, '')
@@ -99,7 +97,7 @@ export function FilteredActionList({
   const activeDescendantRef = useRef<HTMLElement>()
   const listId = useId()
   const inputDescriptionTextId = useId()
-  const selectAllLabelText = selectAllLabel || (selectAllChecked ? 'Deselect all' : 'Select all')
+  const selectAllLabelText = selectAllChecked ? 'Deselect all' : 'Select all'
   const onInputKeyPress: KeyboardEventHandler = useCallback(
     event => {
       if (event.key === 'Enter' && activeDescendantRef.current) {
