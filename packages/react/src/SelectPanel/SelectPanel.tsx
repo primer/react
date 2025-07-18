@@ -107,6 +107,7 @@ interface SelectPanelBaseProps {
    * @default undefined (uses feature flag default)
    */
   disableFullscreenOnNarrow?: boolean
+  showSelectAll?: boolean
 }
 
 // onCancel is optional with variant=anchored, but required with variant=modal
@@ -182,6 +183,7 @@ function Panel({
   showSelectedOptionsFirst = true,
   disableFullscreenOnNarrow,
   align,
+  showSelectAll = false,
   ...listProps
 }: SelectPanelProps): JSX.Element {
   const titleId = useId()
@@ -300,6 +302,29 @@ function Panel({
       items.length,
       resetSort,
     ],
+  )
+
+  const handleSelectAllChange = useCallback(
+    (checked: boolean) => {
+      // Exit early if not in multi-select mode
+      if (!isMultiSelectVariant(selected)) {
+        return
+      }
+
+      const multiSelectOnChange = onSelectedChange as SelectPanelMultiSelection['onSelectedChange']
+      const selectedArray = selected as ItemInput[]
+
+      const selectedItemsNotInFilteredView = selectedArray.filter(
+        (selectedItem: ItemInput) => !items.some(item => areItemsEqual(item, selectedItem)),
+      )
+
+      if (checked) {
+        multiSelectOnChange([...selectedItemsNotInFilteredView, ...items])
+      } else {
+        multiSelectOnChange(selectedItemsNotInFilteredView)
+      }
+    },
+    [items, onSelectedChange, selected],
   )
 
   // disable body scroll when the panel is open on narrow screens
@@ -617,6 +642,27 @@ function Panel({
     }
   }, [inputLabel, textInputProps])
 
+  const selectAllState = useMemo(() => {
+    // type safety check even though this will not execute if not multi-select
+    if (!isMultiSelectVariant(selected) || items.length === 0) {
+      return {checked: false, indeterminate: false}
+    }
+
+    const selectedArray = selected as ItemInput[]
+
+    const selectedVisibleItemCount = items.filter(item => selectedArray.some(s => areItemsEqual(s, item))).length
+
+    if (selectedVisibleItemCount === 0) {
+      return {checked: false, indeterminate: false}
+    }
+
+    if (selectedVisibleItemCount === items.length) {
+      return {checked: true, indeterminate: false}
+    }
+
+    return {checked: false, indeterminate: true}
+  }, [selected, items])
+
   const loadingType = (): FilteredActionListLoadingType => {
     if (dataLoadedOnce) {
       return FilteredActionListLoadingTypes.input
@@ -792,6 +838,10 @@ function Panel({
             textInputProps={extendedTextInputProps}
             loading={loading || isLoading}
             loadingType={loadingType()}
+            showSelectAll={showSelectAll && isMultiSelectVariant(selected)}
+            selectAllChecked={selectAllState.checked}
+            selectAllIndeterminate={selectAllState.indeterminate}
+            onSelectAllChange={handleSelectAllChange}
             // hack because the deprecated ActionList does not support this prop
             {...{
               message: getMessage(),

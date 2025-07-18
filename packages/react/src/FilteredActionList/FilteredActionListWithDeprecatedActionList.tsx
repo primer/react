@@ -24,6 +24,8 @@ import {
 } from './FilteredActionListLoaders'
 import {announce} from '@primer/live-region-element'
 import {debounce} from '@github/mini-throttle'
+import classes from './FilteredActionList.module.css'
+import Checkbox from '../Checkbox'
 
 const menuScrollMargins: ScrollIntoViewOptions = {startMargin: 0, endMargin: 8}
 
@@ -42,6 +44,10 @@ export interface FilteredActionListProps
   inputRef?: React.RefObject<HTMLInputElement>
   className?: string
   announcementsEnabled?: boolean
+  showSelectAll?: boolean
+  selectAllChecked?: boolean
+  selectAllIndeterminate?: boolean
+  onSelectAllChange?: (checked: boolean) => void
 }
 
 const StyledHeader = styled.div`
@@ -125,6 +131,10 @@ export function FilteredActionList({
   sx,
   className,
   announcementsEnabled = false,
+  showSelectAll = false,
+  selectAllChecked = false,
+  selectAllIndeterminate = false,
+  onSelectAllChange,
   ...listProps
 }: FilteredActionListProps): JSX.Element {
   const [filterValue, setInternalFilterValue] = useProvidedStateOrCreate(externalFilterValue, undefined, '')
@@ -144,6 +154,7 @@ export function FilteredActionList({
   const activeDescendantRef = useRef<HTMLElement>()
   const listId = useId()
   const inputDescriptionTextId = useId()
+  const selectAllLabelText = selectAllChecked ? 'Deselect all' : 'Select all'
   const onInputKeyPress: KeyboardEventHandler = useCallback(
     event => {
       if (event.key === 'Enter' && activeDescendantRef.current) {
@@ -219,6 +230,15 @@ export function FilteredActionList({
 
   useScrollFlash(scrollContainerRef)
 
+  const handleSelectAllChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      if (onSelectAllChange) {
+        onSelectAllChange(e.target.checked)
+      }
+    },
+    [onSelectAllChange],
+  )
+
   return (
     <Box
       display="flex"
@@ -249,6 +269,20 @@ export function FilteredActionList({
         />
       </StyledHeader>
       <VisuallyHidden id={inputDescriptionTextId}>Items will be filtered as you type</VisuallyHidden>
+      {showSelectAll && (
+        <div className={classes.SelectAllContainer}>
+          <Checkbox
+            id="select-all-checkbox"
+            className={classes.SelectAllCheckbox}
+            checked={selectAllChecked}
+            indeterminate={selectAllIndeterminate}
+            onChange={handleSelectAllChange}
+          />
+          <label className={classes.SelectAllLabel} htmlFor="select-all-checkbox">
+            {selectAllLabelText}
+          </label>
+        </div>
+      )}
       <Box ref={scrollContainerRef} overflow="auto" flexGrow={1}>
         {loading && scrollContainerRef.current && loadingType.appearsInBody ? (
           <FilteredActionListBodyLoader loadingType={loadingType} height={scrollContainerRef.current.clientHeight} />
