@@ -28,5 +28,16 @@
       "description": "Color variant for the background and text color"
     }
   ],
-  "subcomponents": []
+  "subcomponents": [],
+  "stories": [
+    {
+      "id": "experimental-components-issuelabel--default"
+    },
+    {
+      "id": "experimental-components-issuelabel-features--group-of-labels"
+    },
+    {
+      "id": "experimental-components-issuelabel-features--hex-color"
+    }
+  ]
 }

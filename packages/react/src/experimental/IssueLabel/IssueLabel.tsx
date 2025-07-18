@@ -59,9 +59,9 @@ type IssueLabelAsProps<As extends React.ElementType> = {
 
 type IssueLabelProps<As extends React.ElementType> = SpanProps | LinkProps | ButtonProps | IssueLabelAsProps<As>
 
-function IssueLabel<As extends React.ElementType>(props: SpanProps): React.ReactNode
-function IssueLabel<As extends React.ElementType>(props: LinkProps): React.ReactNode
-function IssueLabel<As extends React.ElementType>(props: ButtonProps): React.ReactNode
+function IssueLabel(props: SpanProps): React.ReactNode
+function IssueLabel(props: LinkProps): React.ReactNode
+function IssueLabel(props: ButtonProps): React.ReactNode
 function IssueLabel<As extends React.ElementType>(props: IssueLabelAsProps<As>): React.ReactNode
 function IssueLabel<As extends React.ElementType>({
   children,
@@ -103,7 +103,7 @@ function IssueLabel<As extends React.ElementType>({
 
   if ('onClick' in props) {
     return (
-      <button {...props} {...sharedProps}>
+      <button type="button" {...props} {...sharedProps}>
         {children}
       </button>
     )
