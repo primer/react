@@ -126,11 +126,11 @@ test.describe('IssueLabel', () => {
             })
 
             // Default state
-            await expect(page).toHaveScreenshot(`IssueLabel.${story.title}.${theme}.png`)
+            await expect(page.locator('body')).toHaveScreenshot(`IssueLabel.${story.title}.${theme}.png`)
 
             if ('interact' in story) {
               await story.interact(page)
-              await expect(page).toHaveScreenshot(`IssueLabel.interactions.${story.title}.${theme}.png`)
+              await expect(page.locator('body')).toHaveScreenshot(`IssueLabel.interactions.${story.title}.${theme}.png`)
             }
           })
         })

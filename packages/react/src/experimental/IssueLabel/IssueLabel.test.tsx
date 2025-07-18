@@ -3,24 +3,24 @@ import {render, screen} from '@testing-library/react'
 import {IssueLabel} from '../IssueLabel'
 
 describe('IssueLabel', () => {
+  it('should default to a `span`', () => {
+    const {container} = render(<IssueLabel>Label</IssueLabel>)
+    expect(container.firstChild).toHaveProperty('tagName', 'SPAN')
+  })
+
   it('should default to a `button` when `onClick` is provided', () => {
     const {container} = render(<IssueLabel onClick={() => {}}>Label</IssueLabel>)
     expect(container.firstChild).toHaveProperty('tagName', 'BUTTON')
   })
 
-  it('should default to a `span` when no `as` prop is provided', () => {
-    const {container} = render(<IssueLabel>Label</IssueLabel>)
-    expect(container.firstChild).toHaveProperty('tagName', 'SPAN')
+  it('should default to a `a` when `href` is provided', () => {
+    const {container} = render(<IssueLabel href="https://example.com">Label</IssueLabel>)
+    expect(container.firstChild).toHaveProperty('tagName', 'A')
   })
 
   it('should render as a custom element when `as` prop is provided', () => {
     const {container} = render(<IssueLabel as="div">Label</IssueLabel>)
     expect(container.firstChild).toHaveProperty('tagName', 'DIV')
-  })
-
-  it('should render as a link when `href` is provided', () => {
-    const {container} = render(<IssueLabel href="https://example.com">Label</IssueLabel>)
-    expect(container.firstChild).toHaveProperty('tagName', 'A')
   })
 
   it('should accept a custom `fillColor` for dynamic colors', () => {
