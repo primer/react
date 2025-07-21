@@ -88,15 +88,6 @@ export const Default = () => {
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         width="medium"
-        message={
-          filteredItems.length === 0
-            ? {
-                variant: 'empty',
-                title: `No language found for \`${filter}\``,
-                body: 'Adjust your search term to find other languages',
-              }
-            : undefined
-        }
       />
     </FormControl>
   )
