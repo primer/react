@@ -1,5 +1,3 @@
-import {FocusKeys} from '@primer/behaviors'
-import type {KeyboardEventHandler} from 'react'
 import type React from 'react'
 import {useCallback, useEffect, useRef, useState} from 'react'
 import styled from 'styled-components'
@@ -147,6 +145,51 @@ export function FilteredActionList({
       }
     }
   }, [items, inputRef, selectedItems])
+
+  // Focus management for active indicator line
+  useEffect(() => {
+    const list = listRef.current
+    if (!list) return
+
+    const updateActiveIndicator = () => {
+      // Clear any existing active indicators
+      const activeItems = list.querySelectorAll(`.${classes.ActiveItem}`)
+      activeItems.forEach(item => {
+        item.classList.remove(classes.ActiveItem)
+      })
+
+      if (inputRef.current && document.activeElement === inputRef.current) {
+        // When input is focused, mark the first item as active
+        const firstItem = list.querySelector('[role="option"]') as HTMLElement | null
+        if (firstItem) {
+          firstItem.classList.add(classes.ActiveItem)
+        }
+      } else if (list.contains(document.activeElement)) {
+        // When an item in the list is focused, mark it as active
+        const focusedItem = document.activeElement as HTMLElement
+        if (focusedItem.getAttribute('role') === 'option') {
+          focusedItem.classList.add(classes.ActiveItem)
+        }
+      }
+    }
+
+    // Initial update
+    updateActiveIndicator()
+
+    // Listen for focus changes within the container
+    const handleFocusIn = (event: FocusEvent) => {
+      if (event.target === inputRef.current || list.contains(event.target as Node)) {
+        updateActiveIndicator()
+      }
+    }
+
+    // Attach focus listeners to the document to catch all focus changes
+    document.addEventListener('focusin', handleFocusIn)
+
+    return () => {
+      document.removeEventListener('focusin', handleFocusIn)
+    }
+  }, [items]) // Re-run when items change to ensure first item is properly marked
 
   useEffect(() => {
     setEnableAnnouncements(announcementsEnabled)

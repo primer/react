@@ -5,6 +5,10 @@
   flex-grow: 1;
 }
 
+.ActiveItem::after {
+  @mixin activeIndicatorLine;
+}
+
 .FullScreenTextInput {
   @media screen and (--viewportRange-narrow) {
     /* Ensures inputs don't zoom on mobile iPhone but are body-font size on iPad */
