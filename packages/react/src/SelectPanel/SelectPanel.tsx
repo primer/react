@@ -57,7 +57,7 @@ async function announceLoading() {
 }
 
 const announceNoItems = debounce((message?: string) => {
-  announceText(message ?? EMPTY_MESSAGE.title, LONG_DELAY_MS)
+  announceText(message ?? `${EMPTY_MESSAGE.title}. ${EMPTY_MESSAGE.description}`, LONG_DELAY_MS)
 }, 250)
 
 interface SelectPanelSingleSelection {
@@ -232,12 +232,12 @@ function Panel({
   const onListContainerRefChanged: FilteredActionListProps['onListContainerRefChanged'] = useCallback(
     (node: HTMLElement | null) => {
       setListContainerElement(node)
-      if (!node && needsNoItemsAnnouncement) {
+      if (!node && needsNoItemsAnnouncement && !usingModernActionList) {
         announceNoItems()
         setNeedsNoItemsAnnouncement(false)
       }
     },
-    [needsNoItemsAnnouncement],
+    [needsNoItemsAnnouncement, usingModernActionList],
   )
 
   const onInputRefChanged = useCallback(
@@ -329,7 +329,7 @@ function Panel({
     if (open) {
       if (items.length === 0 && !(isLoading || loading)) {
         // we need to wait for the listContainerElement to disappear before announcing no items, otherwise it will be interrupted
-        if (!listContainerElement || !usingModernActionList) {
+        if (!listContainerElement && !usingModernActionList) {
           announceNoItems(message?.title)
         } else {
           setNeedsNoItemsAnnouncement(true)
@@ -799,7 +799,10 @@ function Panel({
             // hack because the deprecated ActionList does not support this prop
             {...{
               message: getMessage(),
-              messageTitle: message?.title || EMPTY_MESSAGE.title,
+              messageText: {
+                title: message?.title || EMPTY_MESSAGE.title,
+                description: message?.body || EMPTY_MESSAGE.description,
+              },
               fullScreenOnNarrow: usingFullScreenOnNarrow,
             }}
             // inheriting height and maxHeight ensures that the FilteredActionList is never taller
