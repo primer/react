@@ -3,7 +3,7 @@ import Box from '../Box'
 import type {Meta} from '@storybook/react-vite'
 import {Button} from '../Button'
 import type {ItemInput} from '../deprecated/ActionList/List'
-import {SelectPanel} from './SelectPanel'
+import {SelectPanel} from './'
 import type {OverlayProps} from '../Overlay'
 import {TriangleDownIcon} from '@primer/octicons-react'
 import {ActionList} from '../deprecated/ActionList'
@@ -62,10 +62,15 @@ export const HeightInitialWithOverflowingItemsStory = () => {
 
   return (
     <FormControl>
-      <FormControl.Label>Labels</FormControl.Label>
+      <FormControl.Label id="height-overflow-label">Labels</FormControl.Label>
       <SelectPanel
+        id="height-overflow"
         renderAnchor={({children, ...anchorProps}) => (
-          <Button trailingAction={TriangleDownIcon} {...anchorProps}>
+          <Button
+            aria-labelledby="height-overflow height-overflow-label"
+            trailingAction={TriangleDownIcon}
+            {...anchorProps}
+          >
             {children}
           </Button>
         )}
@@ -94,10 +99,15 @@ export const HeightInitialWithUnderflowingItemsStory = () => {
 
   return (
     <FormControl>
-      <FormControl.Label>Labels</FormControl.Label>
+      <FormControl.Label id="height-underflow-label">Labels</FormControl.Label>
       <SelectPanel
+        id="height-underflow"
         renderAnchor={({children, ...anchorProps}) => (
-          <Button trailingAction={TriangleDownIcon} {...anchorProps}>
+          <Button
+            aria-labelledby="height-underflow height-underflow-label"
+            trailingAction={TriangleDownIcon}
+            {...anchorProps}
+          >
             {children}
           </Button>
         )}
@@ -139,10 +149,15 @@ export const HeightInitialWithUnderflowingItemsAfterFetch = () => {
 
   return (
     <FormControl>
-      <FormControl.Label>Labels</FormControl.Label>
+      <FormControl.Label id="height-after-fetch-label">Labels</FormControl.Label>
       <SelectPanel
+        id="height-after-fetch"
         renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
-          <Button trailingAction={TriangleDownIcon} aria-labelledby={` ${ariaLabelledBy}`} {...anchorProps}>
+          <Button
+            trailingAction={TriangleDownIcon}
+            aria-labelledby={`height-after-fetch height-after-fetch-label ${ariaLabelledBy || ''}`}
+            {...anchorProps}
+          >
             {children}
           </Button>
         )}
@@ -171,10 +186,15 @@ export const AboveTallBody = () => {
   const [open, setOpen] = useState(false)
   return (
     <FormControl>
-      <FormControl.Label>Labels</FormControl.Label>
+      <FormControl.Label id="above-tall-body-label">Labels</FormControl.Label>
       <SelectPanel
+        id="above-tall-body"
         renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
-          <Button trailingAction={TriangleDownIcon} aria-labelledby={` ${ariaLabelledBy}`} {...anchorProps}>
+          <Button
+            trailingAction={TriangleDownIcon}
+            aria-labelledby={`above-tall-body above-tall-body-label ${ariaLabelledBy || ''}`}
+            {...anchorProps}
+          >
             {children}
           </Button>
         )}
@@ -222,10 +242,15 @@ export const HeightVariationsAndScroll = () => {
   return (
     <>
       <FormControl>
-        <FormControl.Label>With height:medium</FormControl.Label>
+        <FormControl.Label id="height-variation-medium-label">With height:medium</FormControl.Label>
         <SelectPanel
+          id="height-variation-medium"
           renderAnchor={({children, ...anchorProps}) => (
-            <Button trailingAction={TriangleDownIcon} {...anchorProps}>
+            <Button
+              aria-labelledby="height-variation-medium-label height-variation-medium"
+              trailingAction={TriangleDownIcon}
+              {...anchorProps}
+            >
               {children ?? 'Select Labels'}
             </Button>
           )}
@@ -243,10 +268,15 @@ export const HeightVariationsAndScroll = () => {
       </FormControl>
       <br />
       <FormControl>
-        <FormControl.Label>With height:auto, maxheight:medium</FormControl.Label>
+        <FormControl.Label id="height-variation-maxheight-label">With height:auto, maxheight:medium</FormControl.Label>
         <SelectPanel
+          id="height-variation-maxheight"
           renderAnchor={({children, ...anchorProps}) => (
-            <Button trailingAction={TriangleDownIcon} {...anchorProps}>
+            <Button
+              aria-labelledby="height-variation-maxheight-label height-variation-maxheight"
+              trailingAction={TriangleDownIcon}
+              {...anchorProps}
+            >
               {children ?? 'Select Labels'}
             </Button>
           )}
@@ -284,11 +314,19 @@ export const CustomItemRenderer = () => {
 
   return (
     <FormControl>
-      <FormControl.Label>Long string with truncation (not reviewed for accessibility)</FormControl.Label>
+      <FormControl.Label id="custom-item-renderer-label">
+        Long string with truncation (not reviewed for accessibility)
+      </FormControl.Label>
       <SelectPanel
+        id="custom-item-renderer"
         title="Select files"
         renderAnchor={anchorProps => (
-          <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
+          <Button
+            aria-labelledby="custom-item-renderer-label"
+            trailingAction={TriangleDownIcon}
+            {...anchorProps}
+            aria-haspopup="dialog"
+          >
             Select files
           </Button>
         )}
@@ -351,9 +389,19 @@ export const ItemsInScope = () => {
   const [open, setOpen] = useState(false)
   return (
     <FormControl>
-      <FormControl.Label>Items in component scope</FormControl.Label>
+      <FormControl.Label id="component-scope-label">Items in component scope</FormControl.Label>
       <SelectPanel
+        id="component-scope"
         title="Select labels"
+        renderAnchor={({children, ...anchorProps}) => (
+          <Button
+            aria-labelledby="component-scope component-scope-label"
+            trailingAction={TriangleDownIcon}
+            {...anchorProps}
+          >
+            {children}
+          </Button>
+        )}
         placeholder="Select labels" // button text when no items are selected
         open={open}
         onOpenChange={setOpen}

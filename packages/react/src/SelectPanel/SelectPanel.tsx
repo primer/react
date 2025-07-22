@@ -26,7 +26,6 @@ import {clsx} from 'clsx'
 import {debounce} from '@github/mini-throttle'
 import {useResponsiveValue} from '../hooks/useResponsiveValue'
 import type {ButtonProps, LinkButtonProps} from '../Button/types'
-import {useFormControlContext} from '../FormControl/_FormControlContext'
 
 // we add a delay so that it does not interrupt default screen reader announcement and queues after it
 const SHORT_DELAY_MS = 500
@@ -225,9 +224,6 @@ function Panel({
   const [intermediateSelected, setIntermediateSelected] = useState<ItemInput | undefined>(
     isSingleSelectModal ? selected : undefined,
   )
-
-  const {id: labelId} = useFormControlContext()
-  const anchorId = useId()
 
   // Reset the intermediate selected item when the panel is open/closed
   useEffect(() => {
@@ -490,9 +486,6 @@ function Panel({
       return renderAnchor({
         ...props,
         children: selectedItems.length ? selectedItems.map(item => item.text).join(', ') : placeholder,
-        'aria-labelledby': labelId
-          ? `${labelId} ${props['aria-labelledby'] || props.id || anchorId}`.trim()
-          : undefined,
       })
     }
   }, [placeholder, renderAnchor, selected])
