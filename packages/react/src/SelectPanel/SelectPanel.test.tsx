@@ -765,9 +765,7 @@ for (const useModernActionList of [false, true]) {
 
           jest.runAllTimers()
           await waitFor(async () => {
-            expect(getLiveRegion().getMessage('polite')).toBe(
-              "You haven't created any items yet. Please add or create new items to populate the list.",
-            )
+            expect(getLiveRegion().getMessage('polite')).toBe('No items available. ')
           })
           jest.useRealTimers()
         })
@@ -849,8 +847,7 @@ for (const useModernActionList of [false, true]) {
           expect(screen.getAllByRole('option')).toHaveLength(3)
 
           await user.type(document.activeElement!, 'something')
-          expect(screen.getByText("You haven't created any items yet")).toBeVisible()
-          expect(screen.getByText('Please add or create new items to populate the list.')).toBeVisible()
+          expect(screen.getByText('No items available')).toBeVisible()
         })
 
         it('should display the default empty state message when there is no item after the initial load (No custom message is provided)', async () => {
@@ -860,8 +857,7 @@ for (const useModernActionList of [false, true]) {
 
           await waitFor(async () => {
             await user.click(screen.getByText('Select items'))
-            expect(screen.getByText("You haven't created any items yet")).toBeVisible()
-            expect(screen.getByText('Please add or create new items to populate the list.')).toBeVisible()
+            expect(screen.getByText('No items available')).toBeVisible()
           })
         })
         it('should display the custom empty state message when there is no matching item after filtering', async () => {
