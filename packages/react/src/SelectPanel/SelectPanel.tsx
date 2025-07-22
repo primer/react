@@ -1,4 +1,12 @@
-import {AlertIcon, InfoIcon, SearchIcon, StopIcon, TriangleDownIcon, XIcon} from '@primer/octicons-react'
+import {
+  AlertIcon,
+  InfoIcon,
+  SearchIcon,
+  StopIcon,
+  TriangleDownIcon,
+  XIcon,
+  type IconProps,
+} from '@primer/octicons-react'
 import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react'
 import type {AnchoredOverlayProps} from '../AnchoredOverlay'
 import {AnchoredOverlay} from '../AnchoredOverlay'
@@ -94,6 +102,8 @@ interface SelectPanelBaseProps {
     title: string
     body: string | React.ReactElement
     variant: 'empty' | 'error' | 'warning'
+    icon?: React.ComponentType<IconProps>
+    action?: React.ReactElement
   }
   /**
    * @deprecated Use `secondaryAction` instead.
@@ -640,7 +650,7 @@ function Panel({
       return DefaultEmptyMessage
     } else if (message) {
       return (
-        <SelectPanelMessage title={message.title} variant={message.variant}>
+        <SelectPanelMessage title={message.title} variant={message.variant} icon={message.icon} action={message.action}>
           {message.body}
         </SelectPanelMessage>
       )

@@ -454,7 +454,11 @@ for (const useModernActionList of [false, true]) {
         )
       }
 
-      const SelectPanelWithCustomMessages: React.FC<{items: SelectPanelProps['items']}> = ({items}) => {
+      const SelectPanelWithCustomMessages: React.FC<{
+        items: SelectPanelProps['items']
+        withAction?: boolean
+        onAction?: () => void
+      }> = ({items, withAction = false, onAction}) => {
         const [selected, setSelected] = React.useState<SelectPanelProps['items']>([])
         const [filter, setFilter] = React.useState('')
         const [open, setOpen] = React.useState(false)
@@ -463,14 +467,21 @@ for (const useModernActionList of [false, true]) {
           setSelected(selected)
         }
 
-        const emptyMessage: {variant: 'empty'; title: string; body: string} = {
-          variant: 'empty',
+        const emptyMessage = {
+          variant: 'empty' as const,
           title: "You haven't created any projects yet",
           body: 'Start your first project to organise your issues',
+          ...(withAction && {
+            action: (
+              <button onClick={onAction} data-testid="create-project-action">
+                Create new project
+              </button>
+            ),
+          }),
         }
 
-        const noResultsMessage = (filter: string): {variant: 'empty'; title: string; body: string} => ({
-          variant: 'empty',
+        const noResultsMessage = (filter: string) => ({
+          variant: 'empty' as const,
           title: `No language found for ${filter}`,
           body: 'Adjust your search term to find other languages',
         })
@@ -850,7 +861,34 @@ for (const useModernActionList of [false, true]) {
             expect(screen.getByText('Start your first project to organise your issues')).toBeVisible()
           })
         })
+
+        it('should display action button in custom empty state message', async () => {
+          const handleAction = jest.fn()
+          const user = userEvent.setup()
+
+          renderWithFlag(
+            <SelectPanelWithCustomMessages items={[]} withAction={true} onAction={handleAction} />,
+            useModernActionList,
+          )
+
+          await waitFor(async () => {
+            await user.click(screen.getByText('Select items'))
+            expect(screen.getByText("You haven't created any projects yet")).toBeVisible()
+            expect(screen.getByText('Start your first project to organise your issues')).toBeVisible()
+
+            // Check that action button is visible
+            const actionButton = screen.getByTestId('create-project-action')
+            expect(actionButton).toBeVisible()
+            expect(actionButton).toHaveTextContent('Create new project')
+          })
+
+          // Test that action button is clickable
+          const actionButton = screen.getByTestId('create-project-action')
+          await user.click(actionButton)
+          expect(handleAction).toHaveBeenCalledTimes(1)
+        })
       })
+
       describe('with footer', () => {
         function SelectPanelWithFooter() {
           const [selected, setSelected] = React.useState<SelectPanelProps['items']>([])
