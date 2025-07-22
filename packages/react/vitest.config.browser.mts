@@ -43,6 +43,7 @@ export default defineConfig({
       'src/CheckboxGroup/**/*.test.?(c|m)[jt]s?(x)',
       'src/CircleBadge/**/*.test.?(c|m)[jt]s?(x)',
       'src/CircleOcticon/**/*.test.?(c|m)[jt]s?(x)',
+      'src/CounterLabel/**/*.test.?(c|m)[jt]s?(x)',
       'src/DataTable/**/*.test.?(c|m)[jt]s?(x)',
       'src/Details/**/*.test.?(c|m)[jt]s?(x)',
       'src/Dialog/**/*.test.?(c|m)[jt]s?(x)',

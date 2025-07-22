@@ -30,6 +30,7 @@ module.exports = {
     '<rootDir>/src/CheckboxGroup/',
     '<rootDir>/src/CircleBadge/',
     '<rootDir>/src/CircleOcticon/',
+    '<rootDir>/src/CounterLabel/',
     '<rootDir>/src/DataTable/',
     '<rootDir>/src/Details/',
     '<rootDir>/src/Dialog/',
