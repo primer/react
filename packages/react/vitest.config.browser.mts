@@ -78,6 +78,7 @@ export default defineConfig({
       'src/Textarea/**/*.test.?(c|m)[jt]s?(x)',
       'src/Timeline/**/*.test.?(c|m)[jt]s?(x)',
       'src/ToggleSwitch/**/*.test.?(c|m)[jt]s?(x)',
+      'src/Token/**/*.test.?(c|m)[jt]s?(x)',
       'src/Tooltip/**/*.test.?(c|m)[jt]s?(x)',
       'src/TooltipV2/**/*.test.?(c|m)[jt]s?(x)',
       'src/TreeView/**/*.test.?(c|m)[jt]s?(x)',

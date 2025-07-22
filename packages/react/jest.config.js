@@ -65,6 +65,7 @@ module.exports = {
     '<rootDir>/src/Textarea/',
     '<rootDir>/src/Timeline/',
     '<rootDir>/src/ToggleSwitch/',
+    '<rootDir>/src/Token/',
     '<rootDir>/src/Tooltip/',
     '<rootDir>/src/TooltipV2/',
     '<rootDir>/src/TreeView/',
