@@ -986,7 +986,9 @@ export const OverlayWrapping = () => {
         )}
       >
         <ActionList role="menu">
-          <ActionList.Item role="menuitem">Small text hsifhsehf eofjsoeifjsehoifh</ActionList.Item>
+          <ActionList.Item role="menuitem">
+            Small text fadafdf sefaf sefsfsaefasdf sefasf fafdfdrf fdfd dfdfgdfdfg fdfgdgdfg gdgdgdg dgdgdfg{' '}
+          </ActionList.Item>
           {/* <ActionList.Item role="menuitem">
             thisisalongemailaddress@longemail.com
             <ActionList.TrailingVisual>

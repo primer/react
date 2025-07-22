@@ -485,7 +485,8 @@
   -webkit-tap-highlight-color: transparent;
   grid-template-rows: min-content;
   grid-template-areas: 'spacer leadingAction leadingVisual content';
-  grid-template-columns: min-content min-content min-content 1fr;
+  grid-template-columns: min-content min-content min-content minmax(0, auto);
+  /* grid-template-columns: min-content min-content min-content 1fr; */
   align-items: start;
 
   /* column-gap persists with empty grid-areas, margin applies only when children exist */
@@ -545,8 +546,8 @@
   width: 100%;
   grid-template-rows: min-content;
   grid-template-areas: 'label trailingVisual trailingAction';
-  /* grid-template-columns: minmax(0, auto) min-content min-content; */
-  grid-template-columns: 1fr min-content min-content;
+  grid-template-columns: minmax(0, auto) min-content min-content;
+  /* grid-template-columns: 1fr min-content min-content; */
   align-items: start;
 
   /* column-gap persists with empty grid-areas, margin applies only when children exist */
@@ -601,7 +602,7 @@ default block */
     font-weight: var(--base-text-weight-semibold);
     /* stylelint-disable-next-line declaration-property-value-keyword-no-deprecated */
     /* word-break: break-word; */
-    /* overflow-wrap: anywhere; */
+    overflow-wrap: anywhere;
   }
 
   /* inline */
@@ -614,7 +615,6 @@ default block */
 
     & .ItemLabel {
       word-break: normal;
-      /* overflow-wrap: anywhere; */
     }
 
     &:has([data-truncate='true']) {

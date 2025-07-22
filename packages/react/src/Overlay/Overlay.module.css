@@ -18,6 +18,8 @@
   background-color: var(--overlay-bgColor);
   border-radius: var(--borderRadius-large);
   box-shadow: var(--shadow-floating-small);
+  /* This property is added to help with situations where position: absolute leads to text wrapping since the element has no intrinsic width. */
+  /* width: max-content; */
 
   &:focus {
     outline: none;
