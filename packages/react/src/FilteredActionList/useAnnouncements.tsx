@@ -43,7 +43,7 @@ export const useAnnouncements = (
   inputRef: React.RefObject<HTMLInputElement>,
   enabled: boolean = true,
   loading: boolean = false,
-  message: {title: string; description: string},
+  message?: {title: string; description: string},
 ) => {
   const liveRegion = document.querySelector('live-region')
 
@@ -93,7 +93,7 @@ export const useAnnouncements = (
       liveRegion?.clear() // clear previous announcements
 
       if (items.length === 0 && !loading) {
-        announce(`${message.title}. ${message.description}`, {delayMs})
+        announce(`${message?.title}. ${message?.description}`, {delayMs})
         return
       }
 

@@ -801,7 +801,10 @@ function Panel({
               message: getMessage(),
               messageText: {
                 title: message?.title || EMPTY_MESSAGE.title,
-                description: message?.body || EMPTY_MESSAGE.description,
+                description:
+                  typeof message?.body === 'string'
+                    ? message.body
+                    : EMPTY_MESSAGE.description || EMPTY_MESSAGE.description,
               },
               fullScreenOnNarrow: usingFullScreenOnNarrow,
             }}
