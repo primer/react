@@ -46,9 +46,6 @@ export interface FilteredActionListProps
   className?: string
   announcementsEnabled?: boolean
   fullScreenOnNarrow?: boolean
-  showSelectAll?: boolean
-  selectAllChecked?: boolean
-  selectAllIndeterminate?: boolean
   onSelectAllChange?: (checked: boolean) => void
 }
 
@@ -75,9 +72,6 @@ export function FilteredActionList({
   className,
   announcementsEnabled = true,
   fullScreenOnNarrow,
-  showSelectAll = false,
-  selectAllChecked = false,
-  selectAllIndeterminate = false,
   onSelectAllChange,
   ...listProps
 }: FilteredActionListProps): JSX.Element {
@@ -97,6 +91,10 @@ export function FilteredActionList({
   const activeDescendantRef = useRef<HTMLElement>()
   const listId = useId()
   const inputDescriptionTextId = useId()
+
+  const selectAllChecked = items.length > 0 && items.every(item => item.selected)
+  const selectAllIndeterminate = !selectAllChecked && items.some(item => item.selected)
+
   const selectAllLabelText = selectAllChecked ? 'Deselect all' : 'Select all'
   const onInputKeyPress: KeyboardEventHandler = useCallback(
     event => {
@@ -251,7 +249,7 @@ export function FilteredActionList({
         />
       </StyledHeader>
       <VisuallyHidden id={inputDescriptionTextId}>Items will be filtered as you type</VisuallyHidden>
-      {showSelectAll && (
+      {onSelectAllChange !== undefined && (
         <div className={classes.SelectAllContainer}>
           <Checkbox
             id="select-all-checkbox"

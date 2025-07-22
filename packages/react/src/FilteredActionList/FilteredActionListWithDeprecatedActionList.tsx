@@ -44,9 +44,6 @@ export interface FilteredActionListProps
   inputRef?: React.RefObject<HTMLInputElement>
   className?: string
   announcementsEnabled?: boolean
-  showSelectAll?: boolean
-  selectAllChecked?: boolean
-  selectAllIndeterminate?: boolean
   onSelectAllChange?: (checked: boolean) => void
 }
 
@@ -131,9 +128,6 @@ export function FilteredActionList({
   sx,
   className,
   announcementsEnabled = false,
-  showSelectAll = false,
-  selectAllChecked = false,
-  selectAllIndeterminate = false,
   onSelectAllChange,
   ...listProps
 }: FilteredActionListProps): JSX.Element {
@@ -146,6 +140,9 @@ export function FilteredActionList({
     },
     [onFilterChange, setInternalFilterValue],
   )
+
+  const selectAllChecked = items.length > 0 && items.every(item => item.selected)
+  const selectAllIndeterminate = !selectAllChecked && items.some(item => item.selected)
 
   const scrollContainerRef = useRef<HTMLDivElement>(null)
   const [listContainerElement, setListContainerElement] = useState<HTMLDivElement | null>(null)
@@ -269,7 +266,7 @@ export function FilteredActionList({
         />
       </StyledHeader>
       <VisuallyHidden id={inputDescriptionTextId}>Items will be filtered as you type</VisuallyHidden>
-      {showSelectAll && (
+      {onSelectAllChange !== undefined && (
         <div className={classes.SelectAllContainer}>
           <Checkbox
             id="select-all-checkbox"

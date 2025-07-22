@@ -838,10 +838,7 @@ function Panel({
             textInputProps={extendedTextInputProps}
             loading={loading || isLoading}
             loadingType={loadingType()}
-            showSelectAll={showSelectAll && isMultiSelectVariant(selected)}
-            selectAllChecked={selectAllState.checked}
-            selectAllIndeterminate={selectAllState.indeterminate}
-            onSelectAllChange={handleSelectAllChange}
+            onSelectAllChange={showSelectAll ? handleSelectAllChange : undefined}
             // hack because the deprecated ActionList does not support this prop
             {...{
               message: getMessage(),
