@@ -24,8 +24,7 @@
     /* for scrollbar */
     overflow: visible;
     clip: auto;
-    /* stylelint-disable-next-line primer/typography */
-    font: normal normal 11px/1.5 var(--fontStack-system);
+    font: var(--text-body-shorthand-small);
     color: var(--tooltip-fgColor);
     text-align: center;
     word-wrap: break-word;
