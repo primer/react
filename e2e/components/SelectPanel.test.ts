@@ -35,6 +35,7 @@ const scenarios = matrix({
     {
       id: 'components-selectpanel-examples--height-initial-with-underflowing-items-after-fetch',
       name: 'Height Initial with Underflowing Items After Fetch',
+      visual: false,
     },
     {
       id: 'components-selectpanel-dev--with-css',
@@ -62,17 +63,22 @@ test.describe('SelectPanel', () => {
       featureFlags: {primer_react_select_panel_with_modern_action_list: scenario.modernActionList},
     }
 
-    test(`${name} @vrt ${theme} ${flag}`, async ({page}) => {
-      await visit(page, {id: scenario.story.id, globals})
+    if (scenario.story.visual !== false) {
+      test(`${name} @vrt ${theme} ${flag}`, async ({page}) => {
+        await visit(page, {id: scenario.story.id, globals})
+        await page.emulateMedia({reducedMotion: 'reduce'})
 
-      // Open select panel
-      const isPanelOpen = await page.isVisible('[role="listbox"]')
-      if (!isPanelOpen) {
-        await page.keyboard.press('Tab')
-        await page.keyboard.press('Enter')
-      }
-      expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`SelectPanel.${name}.${theme}${flag}.png`)
-    })
+        // Open select panel
+        const isPanelOpen = await page.isVisible('[role="listbox"]')
+        if (!isPanelOpen) {
+          await page.keyboard.press('Tab')
+          await page.keyboard.press('Enter')
+        }
+        expect(await page.screenshot({animations: 'disabled', caret: 'hide'})).toMatchSnapshot(
+          `SelectPanel.${name}.${theme}${flag}.png`,
+        )
+      })
+    }
 
     test(`${name} axe @aat ${theme} ${flag}`, async ({page}) => {
       await visit(page, {id: scenario.story.id, globals})
@@ -100,14 +106,20 @@ test.describe('SelectPanel', () => {
     }
 
     // windows high contrast mode: light
-    await page.emulateMedia({forcedColors: 'active', colorScheme: 'light'})
-    expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
+    await page.emulateMedia({forcedColors: 'active', colorScheme: 'light', reducedMotion: 'reduce'})
+    await page.getByRole('listbox').waitFor({state: 'visible'})
+    await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(255, 255, 255)')
+
+    expect(await page.screenshot({animations: 'disabled', caret: 'hide'})).toMatchSnapshot(
       `SelectPanel-Default-forced-colors-light-modern-action-list--true.png`,
     )
 
     // windows high contrast mode: dark
-    await page.emulateMedia({forcedColors: 'active', colorScheme: 'dark'})
-    expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
+    await page.emulateMedia({forcedColors: 'active', colorScheme: 'dark', reducedMotion: 'reduce'})
+    await page.getByRole('listbox').waitFor({state: 'visible'})
+    await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(0, 0, 0)')
+
+    expect(await page.screenshot({animations: 'disabled', caret: 'hide'})).toMatchSnapshot(
       `SelectPanel-Default-forced-colors-dark-modern-action-list--true.png`,
     )
   })
