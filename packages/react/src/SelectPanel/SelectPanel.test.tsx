@@ -473,7 +473,7 @@ for (const useModernActionList of [false, true]) {
           body: 'Start your first project to organise your issues',
           ...(withAction && {
             action: (
-              <button onClick={onAction} data-testid="create-project-action">
+              <button type="button" onClick={onAction} data-testid="create-project-action">
                 Create new project
               </button>
             ),

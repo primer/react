@@ -946,7 +946,7 @@ export const WithMessage = () => {
         <FormControl>
           <FormControl.Label>Message variant</FormControl.Label>
           <SegmentedControl aria-label="Message variant" onChange={setMessageVariant}>
-            <SegmentedControl.Button defaultSelected aria-label="default message">
+            <SegmentedControl.Button defaultSelected aria-label="Default message">
               Default message
             </SegmentedControl.Button>
             <SegmentedControl.Button aria-label="Empty" leadingIcon={SearchIcon}>
