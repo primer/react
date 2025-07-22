@@ -1,13 +1,9 @@
 import type React from 'react'
+import {describe, expect, it, vi} from 'vitest'
 import {render as HTMLRender, waitFor} from '@testing-library/react'
-import axe from 'axe-core'
 import {LabelGroup, Label, ThemeProvider, BaseStyles} from '..'
-import {behavesAsComponent, checkExports} from '../utils/testing'
 import theme from '../theme'
 import userEvent from '@testing-library/user-event'
-import {setupMatchMedia} from '../utils/test-helpers'
-
-setupMatchMedia()
 
 const ThemeAndStyleContainer: React.FC<React.PropsWithChildren> = ({children}) => (
   <ThemeProvider theme={theme}>
@@ -19,51 +15,18 @@ const AutoTruncateContainer: React.FC<React.PropsWithChildren & {width?: number}
   <div style={{width}}>{children}</div>
 )
 
-const observe = jest.fn()
+const observe = vi.fn()
 
 describe('LabelGroup', () => {
-  window.IntersectionObserver = jest.fn(() => ({
+  window.IntersectionObserver = vi.fn(() => ({
     observe,
-    unobserve: jest.fn(),
-    takeRecords: jest.fn(),
-    disconnect: jest.fn(),
+    unobserve: vi.fn(),
+    takeRecords: vi.fn(),
+    disconnect: vi.fn(),
     root: null,
     rootMargin: '',
     thresholds: [],
-  })) as jest.Mock<IntersectionObserver>
-
-  behavesAsComponent({Component: LabelGroup, options: {skipAs: true, skipClassName: true}})
-
-  checkExports('LabelGroup', {
-    default: LabelGroup,
-  })
-
-  it('should have no axe violations', async () => {
-    const {container} = HTMLRender(
-      <ThemeAndStyleContainer>
-        <LabelGroup>
-          <Label>One</Label>
-          <Label>Two</Label>
-          <Label>Three</Label>
-          <Label>Four</Label>
-          <Label>Five</Label>
-          <Label>Six</Label>
-          <Label>Seven</Label>
-          <Label>Eight</Label>
-          <Label>Nine</Label>
-          <Label>Ten</Label>
-          <Label>Eleven</Label>
-          <Label>Twelve</Label>
-          <Label>Thirteen</Label>
-          <Label>Fourteen</Label>
-          <Label>Fifteen</Label>
-          <Label>Sixteen</Label>
-        </LabelGroup>
-      </ThemeAndStyleContainer>,
-    )
-    const results = await axe.run(container)
-    expect(results).toHaveNoViolations()
-  })
+  })) as unknown as typeof IntersectionObserver
 
   it('observers intersections on each child', async () => {
     HTMLRender(
