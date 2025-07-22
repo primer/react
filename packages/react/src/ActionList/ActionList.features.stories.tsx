@@ -901,29 +901,56 @@ export const FullVariant = () => (
 export const OverlayWrapping = () => {
   const [open, setOpen] = React.useState(false)
   return (
-    <AnchoredOverlay
-      open
-      renderAnchor={props => (
-        <Button type="button" {...props}>
-          Overlay
-        </Button>
-      )}
-    >
-      <ActionList role="menu">
-        <ActionList.Item role="menuitem">thisisalongemailaddress@longemail.com</ActionList.Item>
-        <ActionList.Item role="menuitem">
-          thisisalongemailaddress@longemail.com
-          <ActionList.TrailingVisual>
-            <HeartFillIcon />
-          </ActionList.TrailingVisual>
-        </ActionList.Item>
-        <ActionList.Item role="menuitem">
-          thisisalongemailaddress@longemail.com
-          <ActionList.LeadingVisual>
-            <HeartFillIcon />
-          </ActionList.LeadingVisual>
-        </ActionList.Item>
-      </ActionList>
-    </AnchoredOverlay>
+    <>
+      <div style={{width: '300px', border: 'solid 1px gray'}}>
+        <ActionList>
+          <ActionList.Item>thisisalongemailaddress@longemail.com</ActionList.Item>
+          <ActionList.Item>
+            thisisalongemailaddress@longemail.com
+            <ActionList.TrailingVisual>
+              <HeartFillIcon />
+            </ActionList.TrailingVisual>
+          </ActionList.Item>
+          <ActionList.Item>
+            thisisalongemailaddress@longemail.com
+            <ActionList.LeadingVisual>
+              <HeartFillIcon />
+            </ActionList.LeadingVisual>
+          </ActionList.Item>
+          <ActionList.Item>This is a long item title long long long oh wow</ActionList.Item>
+          <ActionList.Item>
+            This is a long item title long long long oh wow
+            <ActionList.TrailingVisual>
+              <HeartFillIcon />
+            </ActionList.TrailingVisual>
+          </ActionList.Item>
+        </ActionList>
+      </div>
+
+      <AnchoredOverlay
+        open
+        renderAnchor={props => (
+          <Button type="button" {...props}>
+            Overlay
+          </Button>
+        )}
+      >
+        <ActionList role="menu">
+          <ActionList.Item role="menuitem">Small text hsifhsehf eofjsoeifjsehoifh</ActionList.Item>
+          {/* <ActionList.Item role="menuitem">
+            thisisalongemailaddress@longemail.com
+            <ActionList.TrailingVisual>
+              <HeartFillIcon />
+            </ActionList.TrailingVisual>
+          </ActionList.Item> */}
+          {/* <ActionList.Item role="menuitem">
+            thisisalongemailaddress@longemail.com
+            <ActionList.LeadingVisual>
+              <HeartFillIcon />
+            </ActionList.LeadingVisual>
+          </ActionList.Item> */}
+        </ActionList>
+      </AnchoredOverlay>
+    </>
   )
 }

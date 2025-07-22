@@ -440,11 +440,11 @@
   visibility: hidden;
 }
 
-[data-width-auto] {
+/* [data-width-auto] {
   .ActionListContent {
     grid-template-columns: min-content min-content min-content minmax(max-content, auto);
   }
-}
+} */
 
 /* button or a tag */
 
@@ -530,15 +530,16 @@
   width: 100%;
   grid-template-rows: min-content;
   grid-template-areas: 'label trailingVisual trailingAction';
-  grid-template-columns: minmax(0, auto) min-content min-content;
+  /* grid-template-columns: minmax(0, auto) min-content min-content; */
+  grid-template-columns: 1fr min-content min-content;
   align-items: start;
 }
 
-[data-width-auto] {
+/* [data-width-auto] {
   .ActionListSubContent {
     grid-template-columns: minmax(max-content, auto) min-content min-content;
   }
-}
+} */
 
 /* place children on grid */
 
@@ -578,7 +579,8 @@ default block */
   & .ItemLabel {
     font-weight: var(--base-text-weight-semibold);
     /* stylelint-disable-next-line declaration-property-value-keyword-no-deprecated */
-    word-break: break-word;
+    /* word-break: break-word; */
+    /* overflow-wrap: anywhere; */
   }
 
   /* inline */
@@ -591,6 +593,7 @@ default block */
 
     & .ItemLabel {
       word-break: normal;
+      /* overflow-wrap: anywhere; */
     }
 
     &:has([data-truncate='true']) {
@@ -646,7 +649,13 @@ span wrapping svg or text */
   color: var(--fgColor-default);
   grid-area: label;
   /* stylelint-disable-next-line declaration-property-value-keyword-no-deprecated */
-  word-break: break-word;
+  /* word-break: break-word; */
+  /* overflow-wrap: anywhere; */
+  hyphens: auto;
+  /* text-wrap-mode: nowrap; */
+  /* overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap; */
 }
 
 .SubGroup {
