@@ -52,7 +52,6 @@ export default defineConfig({
       'src/FormControl/**/*.test.?(c|m)[jt]s?(x)',
       'src/InlineMessage/**/*.test.?(c|m)[jt]s?(x)',
       'src/Label/**/*.test.?(c|m)[jt]s?(x)',
-      'src/LabelGroup/**/*.test.?(c|m)[jt]s?(x)',
       'src/NavList/**/*.test.?(c|m)[jt]s?(x)',
       'src/Octicon/**/*.test.?(c|m)[jt]s?(x)',
       'src/Overlay/**/*.test.?(c|m)[jt]s?(x)',

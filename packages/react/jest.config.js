@@ -39,7 +39,6 @@ module.exports = {
     '<rootDir>/src/FormControl/',
     '<rootDir>/src/InlineMessage/',
     '<rootDir>/src/Label/',
-    '<rootDir>/src/LabelGroup/',
     '<rootDir>/src/NavList/',
     '<rootDir>/src/Octicon/',
     '<rootDir>/src/Overlay/',
