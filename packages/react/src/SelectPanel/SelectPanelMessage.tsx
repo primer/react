@@ -15,6 +15,12 @@ export type SelectPanelMessageProps = {
    * When not provided, uses NoEntryIcon for empty states and AlertIcon for error/warning states.
    */
   icon?: React.ComponentType<IconProps>
+  /**
+   * Custom action element to display below the message body.
+   * This can be used to render interactive elements like buttons or links.
+   * Ensure the action element is accessible by providing appropriate ARIA attributes
+   * and making it keyboard-navigable.
+   */
   action?: React.ReactElement
 }
 
