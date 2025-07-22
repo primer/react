@@ -470,7 +470,7 @@
   -webkit-tap-highlight-color: transparent;
   grid-template-rows: min-content;
   grid-template-areas: 'spacer leadingAction leadingVisual content';
-  grid-template-columns: min-content min-content min-content minmax(0, auto);
+  grid-template-columns: min-content min-content min-content 1fr;
   align-items: start;
 
   /* column-gap persists with empty grid-areas, margin applies only when children exist */
