@@ -1,9 +1,9 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`Hidden renders \`when\` prop as expected 1`] = `
+exports[`Hidden > renders \`when\` prop as expected 1`] = `
 <div>
   <div
-    class="Hidden"
+    class="prc-Hidden-Hidden-Iaszc"
     style="--hiddenDisplay-narrow: none;"
   >
     <div>
