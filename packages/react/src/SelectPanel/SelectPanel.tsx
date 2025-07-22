@@ -642,27 +642,6 @@ function Panel({
     }
   }, [inputLabel, textInputProps])
 
-  const selectAllState = useMemo(() => {
-    // type safety check even though this will not execute if not multi-select
-    if (!isMultiSelectVariant(selected) || items.length === 0) {
-      return {checked: false, indeterminate: false}
-    }
-
-    const selectedArray = selected as ItemInput[]
-
-    const selectedVisibleItemCount = items.filter(item => selectedArray.some(s => areItemsEqual(s, item))).length
-
-    if (selectedVisibleItemCount === 0) {
-      return {checked: false, indeterminate: false}
-    }
-
-    if (selectedVisibleItemCount === items.length) {
-      return {checked: true, indeterminate: false}
-    }
-
-    return {checked: false, indeterminate: true}
-  }, [selected, items])
-
   const loadingType = (): FilteredActionListLoadingType => {
     if (dataLoadedOnce) {
       return FilteredActionListLoadingTypes.input
