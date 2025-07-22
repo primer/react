@@ -45,6 +45,8 @@ module.exports = {
     '<rootDir>/src/PageLayout/',
     '<rootDir>/src/Pagehead/',
     '<rootDir>/src/Pagination/',
+    '<rootDir>/src/PointerBox/',
+    '<rootDir>/src/Portal/',
     '<rootDir>/src/ProgressBar/',
     '<rootDir>/src/Radio/',
     '<rootDir>/src/RadioGroup/',
