@@ -116,8 +116,6 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
       )
     }
 
-    console.log(childrenWithoutSlots, 'childrenWithoutSlots')
-
     const isLabelHidden = slots.label?.props.visuallyHidden
     const InputChildren = (
       <>
