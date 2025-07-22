@@ -2,7 +2,7 @@ import {test, expect} from '@playwright/test'
 import {visit} from '../test-helpers/storybook'
 import {themes} from '../test-helpers/themes'
 
-const variants = [
+const stories = [
   {
     title: 'Default',
     id: 'experimental-components-issuelabel--default',
@@ -102,7 +102,7 @@ const variants = [
 ] as const
 
 test.describe('IssueLabel', () => {
-  for (const story of variants) {
+  for (const story of stories) {
     test.describe(story.title, () => {
       for (const theme of themes) {
         test.describe(theme, () => {
@@ -120,7 +120,7 @@ test.describe('IssueLabel', () => {
             })
 
             // Default state
-            expect(await page.screenshot()).toMatchSnapshot(`IssueLabel.${story.title}.${theme}.png`)
+            await expect(page).toHaveScreenshot(`IssueLabel.${story.title}.${theme}.png`)
           })
         })
       }

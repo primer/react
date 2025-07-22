@@ -3,7 +3,6 @@ import React from 'react'
 import type {SxProp} from '../sx'
 import type {ResponsiveValue} from '../hooks/useResponsiveValue'
 import {isResponsiveValue} from '../hooks/useResponsiveValue'
-import {defaultSxProp} from '../utils/defaultSxProp'
 import {BoxWithFallback} from '../internal/components/BoxWithFallback'
 import classes from './Avatar.module.css'
 
@@ -24,7 +23,7 @@ export type AvatarProps = {
   React.ComponentPropsWithoutRef<'img'>
 
 const Avatar = React.forwardRef<HTMLImageElement, AvatarProps>(function Avatar(
-  {alt = '', size = DEFAULT_AVATAR_SIZE, square = false, sx: sxProp = defaultSxProp, className, style, ...rest},
+  {alt = '', size = DEFAULT_AVATAR_SIZE, square = false, sx: sxProp, className, style, ...rest},
   ref,
 ) {
   const isResponsive = isResponsiveValue(size)

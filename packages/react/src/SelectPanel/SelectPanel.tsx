@@ -23,7 +23,6 @@ import {useFeatureFlag} from '../FeatureFlags'
 import {announce, announceFromElement} from '@primer/live-region-element'
 import classes from './SelectPanel.module.css'
 import {clsx} from 'clsx'
-import {heightMap} from '../Overlay/Overlay'
 import {debounce} from '@github/mini-throttle'
 import {useResponsiveValue} from '../hooks/useResponsiveValue'
 import type {ButtonProps, LinkButtonProps} from '../Button/types'
@@ -448,20 +447,28 @@ function Panel({
     (gesture: Parameters<Exclude<AnchoredOverlayProps['onOpen'], undefined>>[0]) => onOpenChange(true, gesture),
     [onOpenChange],
   )
-  const onClose = useCallback(
-    (gesture: Parameters<Exclude<AnchoredOverlayProps['onClose'], undefined>>[0] | 'selection' | 'escape') => {
-      // Clicking outside should cancel the selection only on modals
-      if (variant === 'modal' && gesture === 'click-outside') {
-        onCancel?.()
-      }
-      onOpenChange(false, gesture)
-    },
-    [onOpenChange, variant, onCancel],
-  )
 
   const onCancelRequested = useCallback(() => {
     onOpenChange(false, 'cancel')
   }, [onOpenChange])
+
+  const onClose = useCallback(
+    (
+      gesture: Parameters<Exclude<AnchoredOverlayProps['onClose'], undefined>>[0] | 'selection' | 'escape' | 'close',
+    ) => {
+      // Clicking outside should cancel the selection only on modals
+      if (variant === 'modal' && gesture === 'click-outside') {
+        onCancel?.()
+      }
+      if (gesture === 'close') {
+        onCancel?.()
+        onCancelRequested()
+      } else {
+        onOpenChange(false, gesture)
+      }
+    },
+    [onOpenChange, variant, onCancel, onCancelRequested],
+  )
 
   const renderMenuAnchor = useMemo(() => {
     if (renderAnchor === null) {
@@ -640,10 +647,6 @@ function Panel({
     }
   }
 
-  // because of instant selection, canceling on single select is the same as closing the panel, no onCancel needed
-  const showXCloseIcon =
-    variant === 'modal' || ((onCancel !== undefined || !isMultiSelectVariant(selected)) && usingFullScreenOnNarrow)
-
   // We add permanent save and cancel buttons on:
   // - modals
   const showPermanentCancelSaveButtons = variant === 'modal'
@@ -687,6 +690,13 @@ function Panel({
 
   const stretchSaveButton = showResponsiveSaveAndCloseButton && secondaryAction === undefined ? 'only-small' : 'never'
 
+  const showXCloseIcon = (onCancel !== undefined || !isMultiSelectVariant(selected)) && usingFullScreenOnNarrow
+
+  const currentResponsiveVariant = useResponsiveValue(
+    usingFullScreenOnNarrow ? {regular: 'anchored', narrow: 'fullscreen'} : undefined,
+    'anchored',
+  )
+
   return (
     <>
       <AnchoredOverlay
@@ -710,7 +720,6 @@ function Panel({
               }
             : {}),
           style: {
-            '--max-height': overlayProps?.maxHeight ? heightMap[overlayProps.maxHeight] : heightMap['large'],
             /* override AnchoredOverlay position */
             transform: variant === 'modal' ? 'translate(-50%, -50%)' : undefined,
             // set maxHeight based on calculated availablePanelHeight when keyboard is visible
@@ -729,9 +738,11 @@ function Panel({
         variant={usingFullScreenOnNarrow ? {regular: 'anchored', narrow: 'fullscreen'} : undefined}
         pinPosition={!height}
         className={classes.Overlay}
+        displayCloseButton={showXCloseIcon}
+        closeButtonProps={{'aria-label': 'Cancel and close'}}
       >
         <div className={classes.Wrapper} data-variant={variant}>
-          <div className={classes.Header}>
+          <div className={classes.Header} data-variant={currentResponsiveVariant}>
             <div>
               <Heading as="h1" id={titleId} className={classes.Title}>
                 {title}
@@ -742,7 +753,8 @@ function Panel({
                 </div>
               ) : null}
             </div>
-            {showXCloseIcon ? (
+            {/* AnchoredOverlay displays the close button on narrow screens */}
+            {variant === 'modal' && !isNarrowScreenSize ? (
               <IconButton
                 type="button"
                 variant="invisible"
@@ -778,7 +790,7 @@ function Panel({
             selectionVariant={isSingleSelectModal ? 'radio' : isMultiSelectVariant(selected) ? 'multiple' : 'single'}
             items={itemsToRender}
             textInputProps={extendedTextInputProps}
-            loading={loading || isLoading}
+            loading={loading || (isLoading && !message)}
             loadingType={loadingType()}
             // hack because the deprecated ActionList does not support this prop
             {...{

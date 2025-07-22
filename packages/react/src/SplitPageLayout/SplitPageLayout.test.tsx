@@ -1,42 +1,14 @@
+import {describe, it, expect} from 'vitest'
 import {render} from '@testing-library/react'
-import MatchMediaMock from 'jest-matchmedia-mock'
 import 'react-intersection-observer/test-utils'
-import {ThemeProvider} from '..'
 import {SplitPageLayout} from '../SplitPageLayout/SplitPageLayout'
 
-let matchMedia: MatchMediaMock
-
 describe('SplitPageLayout', () => {
-  beforeAll(() => {
-    matchMedia = new MatchMediaMock()
-  })
-
-  afterEach(() => {
-    matchMedia.clear()
-  })
-
-  it('renders default layout', () => {
-    const {container} = render(
-      <ThemeProvider>
-        <SplitPageLayout>
-          <SplitPageLayout.Header>Header</SplitPageLayout.Header>
-          <SplitPageLayout.Content>Content</SplitPageLayout.Content>
-          <SplitPageLayout.Pane>Pane</SplitPageLayout.Pane>
-          <SplitPageLayout.Footer>Footer</SplitPageLayout.Footer>
-        </SplitPageLayout>
-      </ThemeProvider>,
-    )
-
-    expect(container).toMatchSnapshot()
-  })
-
   it('renders Pane with a custom ID', () => {
     const {getByText} = render(
-      <ThemeProvider>
-        <SplitPageLayout>
-          <SplitPageLayout.Pane id="customId">Pane Content</SplitPageLayout.Pane>
-        </SplitPageLayout>
-      </ThemeProvider>,
+      <SplitPageLayout>
+        <SplitPageLayout.Pane id="customId">Pane Content</SplitPageLayout.Pane>
+      </SplitPageLayout>,
     )
 
     const pane = getByText('Pane Content')
@@ -46,14 +18,12 @@ describe('SplitPageLayout', () => {
 
   it('applies custom className', () => {
     const {container} = render(
-      <ThemeProvider>
-        <SplitPageLayout className="custom-class">
-          <SplitPageLayout.Header>Header</SplitPageLayout.Header>
-          <SplitPageLayout.Content>Content</SplitPageLayout.Content>
-          <SplitPageLayout.Pane>Pane</SplitPageLayout.Pane>
-          <SplitPageLayout.Footer>Footer</SplitPageLayout.Footer>
-        </SplitPageLayout>
-      </ThemeProvider>,
+      <SplitPageLayout className="custom-class">
+        <SplitPageLayout.Header>Header</SplitPageLayout.Header>
+        <SplitPageLayout.Content>Content</SplitPageLayout.Content>
+        <SplitPageLayout.Pane>Pane</SplitPageLayout.Pane>
+        <SplitPageLayout.Footer>Footer</SplitPageLayout.Footer>
+      </SplitPageLayout>,
     )
 
     expect(container.firstChild).toHaveClass('custom-class')

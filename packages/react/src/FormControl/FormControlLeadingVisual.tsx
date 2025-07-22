@@ -22,10 +22,12 @@ const StyledLeadingVisual = styled.div`
   --leadingVisual-size: ${get('fontSizes.2')};
 
   color: var(--fgColor-default);
-  margin-inline-start: ${get('space.2')};
+
+  display: flex;
+  align-items: center; /* Vertical alignment */
 
   &:where([data-control-disabled]) {
-    color: var(--fgColor-muted);
+    color: var(--control-fgColor-disabled);
   }
 
   & > * {

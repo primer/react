@@ -1,39 +1,23 @@
 import {clsx} from 'clsx'
 import React from 'react'
-import Box from '../Box'
 import type {SxProp} from '../sx'
 import classes from './Timeline.module.css'
-import {defaultSxProp} from '../utils/defaultSxProp'
+import {BoxWithFallback} from '../internal/components/BoxWithFallback'
 
 type StyledTimelineProps = {clipSidebar?: boolean; className?: string} & SxProp
 
 export type TimelineProps = StyledTimelineProps & React.ComponentPropsWithoutRef<'div'>
 
-const Timeline = React.forwardRef<HTMLDivElement, TimelineProps>(
-  ({clipSidebar, className, sx: sxProp = defaultSxProp, ...props}, forwardRef) => {
-    if (sxProp !== defaultSxProp) {
-      return (
-        <Box
-          as="div"
-          sx={sxProp}
-          {...props}
-          className={clsx(className, classes.Timeline)}
-          ref={forwardRef}
-          data-clip-sidebar={clipSidebar ? '' : undefined}
-        />
-      )
-    }
-
-    return (
-      <div
-        {...props}
-        className={clsx(className, classes.Timeline)}
-        ref={forwardRef}
-        data-clip-sidebar={clipSidebar ? '' : undefined}
-      />
-    )
-  },
-)
+const Timeline = React.forwardRef<HTMLDivElement, TimelineProps>(({clipSidebar, className, ...props}, forwardRef) => {
+  return (
+    <BoxWithFallback
+      {...props}
+      className={clsx(className, classes.Timeline)}
+      ref={forwardRef}
+      data-clip-sidebar={clipSidebar ? '' : undefined}
+    />
+  )
+})
 
 Timeline.displayName = 'Timeline'
 
@@ -47,21 +31,9 @@ export type TimelineItemsProps = StyledTimelineItemProps & SxProp & React.Compon
 export type TimelineItemProps = StyledTimelineItemProps & SxProp & React.ComponentPropsWithoutRef<'div'>
 
 const TimelineItem = React.forwardRef<HTMLDivElement, TimelineItemProps>(
-  ({condensed, className, sx: sxProp = defaultSxProp, ...props}, forwardRef) => {
-    if (sxProp !== defaultSxProp) {
-      return (
-        <Box
-          as="div"
-          {...props}
-          className={clsx(className, 'Timeline-Item', classes.TimelineItem)}
-          ref={forwardRef}
-          data-condensed={condensed ? '' : undefined}
-          sx={sxProp}
-        />
-      )
-    }
+  ({condensed, className, ...props}, forwardRef) => {
     return (
-      <div
+      <BoxWithFallback
         {...props}
         className={clsx(className, 'Timeline-Item', classes.TimelineItem)}
         ref={forwardRef}
@@ -76,17 +48,10 @@ TimelineItem.displayName = 'TimelineItem'
 export type TimelineBadgeProps = {children?: React.ReactNode; className?: string} & SxProp &
   React.ComponentPropsWithoutRef<'div'>
 
-const TimelineBadge = ({sx: sxProp = defaultSxProp, className, ...props}: TimelineBadgeProps) => {
-  if (sxProp !== defaultSxProp) {
-    return (
-      <div className={classes.TimelineBadgeWrapper}>
-        <Box {...props} sx={sxProp} className={clsx(className, classes.TimelineBadge)} />
-      </div>
-    )
-  }
+const TimelineBadge = ({className, ...props}: TimelineBadgeProps) => {
   return (
     <div className={classes.TimelineBadgeWrapper}>
-      <div {...props} className={clsx(className, classes.TimelineBadge)} />
+      <BoxWithFallback {...props} className={clsx(className, classes.TimelineBadge)} />
     </div>
   )
 }
@@ -99,14 +64,9 @@ export type TimelineBodyProps = {
 } & SxProp &
   React.ComponentPropsWithoutRef<'div'>
 
-const TimelineBody = React.forwardRef<HTMLDivElement, TimelineBodyProps>(
-  ({className, sx: sxProp = defaultSxProp, ...props}, forwardRef) => {
-    if (sxProp !== defaultSxProp) {
-      return <Box as="div" {...props} className={clsx(className, classes.TimelineBody)} ref={forwardRef} sx={sxProp} />
-    }
-    return <div {...props} className={clsx(className, classes.TimelineBody)} ref={forwardRef} />
-  },
-)
+const TimelineBody = React.forwardRef<HTMLDivElement, TimelineBodyProps>(({className, ...props}, forwardRef) => {
+  return <BoxWithFallback {...props} className={clsx(className, classes.TimelineBody)} ref={forwardRef} />
+})
 
 TimelineBody.displayName = 'TimelineBody'
 
@@ -116,14 +76,9 @@ export type TimelineBreakProps = {
 } & SxProp &
   React.ComponentPropsWithoutRef<'div'>
 
-const TimelineBreak = React.forwardRef<HTMLDivElement, TimelineBreakProps>(
-  ({className, sx: sxProp = defaultSxProp, ...props}, forwardRef) => {
-    if (sxProp !== defaultSxProp) {
-      return <Box as="div" {...props} className={clsx(className, classes.TimelineBreak)} ref={forwardRef} sx={sxProp} />
-    }
-    return <div {...props} className={clsx(className, classes.TimelineBreak)} ref={forwardRef} />
-  },
-)
+const TimelineBreak = React.forwardRef<HTMLDivElement, TimelineBreakProps>(({className, ...props}, forwardRef) => {
+  return <BoxWithFallback {...props} className={clsx(className, classes.TimelineBreak)} ref={forwardRef} />
+})
 
 TimelineBreak.displayName = 'TimelineBreak'
 

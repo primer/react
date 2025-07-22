@@ -1,6 +1,6 @@
 import React, {useState, useMemo} from 'react'
 import Box from '../Box'
-import type {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react-vite'
 import {Button} from '../Button'
 import type {ItemInput} from '../deprecated/ActionList/List'
 import {SelectPanel} from './SelectPanel'
@@ -149,7 +149,7 @@ export const HeightInitialWithUnderflowingItemsAfterFetch = () => {
         placeholder="Select labels" // button text when no items are selected
         open={open}
         onOpenChange={onOpenChange}
-        loading={filteredItems.length === 0 && !filter}
+        loading={fetchedItems.length === 0}
         items={filteredItems}
         selected={selected}
         onSelectedChange={setSelected}

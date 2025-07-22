@@ -2,7 +2,6 @@ import React from 'react'
 
 import {useId} from '../hooks/useId'
 import {useSlots} from '../hooks/useSlots'
-import {defaultSxProp} from '../utils/defaultSxProp'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {ActionListContainerContext} from './ActionListContainerContext'
 import {Description} from './Description'
@@ -54,7 +53,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       selected = undefined,
       active = false,
       onSelect: onSelectUser,
-      sx: sxProp = defaultSxProp,
+      sx: sxProp,
       id,
       role,
       loading,
@@ -291,7 +290,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
               {
                 // If the item is inactive, but it's not in an overlay (e.g. ActionMenu, SelectPanel),
                 // render the inactive warning message directly in the item.
-                !showInactiveIndicator ? (
+                !showInactiveIndicator && inactiveText ? (
                   <span className={classes.InactiveWarning} id={inactiveWarningId}>
                     {inactiveText}
                   </span>

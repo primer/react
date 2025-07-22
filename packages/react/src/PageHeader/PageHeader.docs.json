@@ -62,7 +62,7 @@
       "name": "hidden",
       "type": "| boolean | { narrow?: boolean regular?: boolean wide?: boolean }",
       "defaultValue": "false",
-      "description": "Whether the content is hidden.\n The component can be hidden for all viewport widths, or specified viewport widths.\n Some children have a default value for this prop:\n - `PageHeader.ContextArea`, `PageHeader.ContextAreaActions`, `PageHeader.ContextBar`, and `PageHeader.ParentLink` are hidden on regular and wide viewports by default.\n - - `PageHeader.LeadingAction`, and `PageHeader.TrailingAction` are hidden on narrow viewports by default."
+      "description": "Whether the content is hidden.\nThe component can be hidden for all viewport widths, or specified viewport widths.\nSome children have a default value for this prop:\n\n- `PageHeader.ContextArea`, `PageHeader.ContextAreaActions`, `PageHeader.ContextBar`, and `PageHeader.ParentLink` are hidden on regular and wide viewports by default.\n- - `PageHeader.LeadingAction`, and `PageHeader.TrailingAction` are hidden on narrow viewports by default."
     },
     {
       "name": "role",
@@ -205,7 +205,7 @@
           "name": "variant",
           "type": "| 'subtitle' | 'medium' | 'large' | { narrow?: | 'subtitle' | 'medium' | 'large' regular?: | 'subtitle' | 'medium' | 'large' wide?: | 'subtitle' | 'medium' | 'large' }",
           "defaultValue": "medium",
-          "description": "Default title (medium) is the most common page title size. Use for static titles in most situations. \nLarge variant should be used for user-generated content such as issues, pull requests, or discussions. \nSubtitle variant can be used when a PageHeader.Title is already present in the page, such as in a SplitPageLayout."
+          "description": "Default title (medium) is the most common page title size. Use for static titles in most situations.\nLarge variant should be used for user-generated content such as issues, pull requests, or discussions.\nSubtitle variant can be used when a PageHeader.Title is already present in the page, such as in a SplitPageLayout."
         },
         {
           "name": "sx",

@@ -39,7 +39,7 @@ test.describe('Timeline', () => {
             })
 
             // Default state
-            expect(await page.screenshot()).toMatchSnapshot(`Timeline.${story.title}.${theme}.png`)
+            await expect(page).toHaveScreenshot(`Timeline.${story.title}.${theme}.png`)
           })
         })
       }
@@ -57,7 +57,7 @@ test.describe('Timeline', () => {
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`Timeline.With Inline Links.${theme}.png`)
+          await expect(page).toHaveScreenshot(`Timeline.With Inline Links.${theme}.png`)
 
           // Hover state
           await page
@@ -65,11 +65,11 @@ test.describe('Timeline', () => {
               name: 'Monalisa',
             })
             .hover()
-          expect(await page.screenshot()).toMatchSnapshot(`Timeline.With Inline Links.${theme}.hover.png`)
+          await expect(page).toHaveScreenshot(`Timeline.With Inline Links.${theme}.hover.png`)
 
           // Focus state
           await page.keyboard.press('Tab')
-          expect(await page.screenshot()).toMatchSnapshot(`Timeline.With Inline Links.${theme}.focus.png`)
+          await expect(page).toHaveScreenshot(`Timeline.With Inline Links.${theme}.focus.png`)
         })
       })
     }
