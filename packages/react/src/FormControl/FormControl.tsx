@@ -75,6 +75,7 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
     const isChoiceInput =
       React.isValidElement(InputComponent) && (InputComponent.type === Checkbox || InputComponent.type === Radio)
     const isRadioInput = React.isValidElement(InputComponent) && InputComponent.type === Radio
+    const isSelectPanel = React.isValidElement(InputComponent) && InputComponent.type === SelectPanel
 
     if (InputComponent) {
       warning(
@@ -114,6 +115,8 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
         'A leading visual is only rendered for a checkbox or radio form control. If you want to render a leading visual inside of your input, check if your input supports a leading visual.',
       )
     }
+
+    console.log(childrenWithoutSlots, 'childrenWithoutSlots')
 
     const isLabelHidden = slots.label?.props.visuallyHidden
     const InputChildren = (
@@ -165,6 +168,7 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
           id,
           required,
           validationMessageId,
+          isReferenced: !isSelectPanel,
         }}
       >
         {isChoiceInput || layout === 'horizontal' ? (

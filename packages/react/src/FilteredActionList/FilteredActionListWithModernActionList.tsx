@@ -42,7 +42,7 @@ export interface FilteredActionListProps
   textInputProps?: Partial<Omit<TextInputProps, 'onChange'>>
   inputRef?: React.RefObject<HTMLInputElement>
   message?: React.ReactNode
-  messageTitle?: string
+  messageTitle: string
   className?: string
   announcementsEnabled?: boolean
   fullScreenOnNarrow?: boolean
