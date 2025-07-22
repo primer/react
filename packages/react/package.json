@@ -1,6 +1,6 @@
 {
   "name": "@primer/react",
-  "version": "37.28.1",
+  "version": "37.29.0",
   "description": "An implementation of GitHub's Primer Design System using React",
   "main": "lib/index.js",
   "module": "lib-esm/index.js",
@@ -131,12 +131,12 @@
     "@rollup/plugin-terser": "0.4.4",
     "@rollup/plugin-typescript": "12.1.2",
     "@rollup/plugin-virtual": "3.0.2",
-    "@storybook/addon-a11y": "^9.0.12",
-    "@storybook/addon-docs": "^9.0.12",
-    "@storybook/addon-links": "^9.0.12",
+    "@storybook/addon-a11y": "^9.0.17",
+    "@storybook/addon-docs": "^9.0.17",
+    "@storybook/addon-links": "^9.0.17",
     "@storybook/csf": "^0.1.13",
     "@storybook/icons": "^1.4.0",
-    "@storybook/react-vite": "^9.0.12",
+    "@storybook/react-vite": "^9.0.17",
     "@storybook/source-loader": "^8.4.7",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.4.5",
@@ -201,7 +201,7 @@
     "rollup-plugin-postcss": "4.0.2",
     "rollup-plugin-visualizer": "6.0.0",
     "semver": "7.7.1",
-    "storybook": "^9.0.12",
+    "storybook": "^9.0.17",
     "styled-components": "5.3.11",
     "terser": "5.36.0",
     "ts-toolbelt": "9.6.0",
@@ -235,4 +235,3 @@
     }
   }
 }
-
