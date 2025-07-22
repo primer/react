@@ -21,8 +21,6 @@ export const useAnnouncements = (
   listContainerRef: React.RefObject<HTMLUListElement>,
   inputRef: React.RefObject<HTMLInputElement>,
   enabled: boolean = true,
-  loading: boolean = false,
-  message?: {title: string; description: string},
 ) => {
   const liveRegion = document.querySelector('live-region')
 

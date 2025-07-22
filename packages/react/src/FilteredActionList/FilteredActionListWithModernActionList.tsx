@@ -85,7 +85,7 @@ export function FilteredActionList({
   )
 
   const [enableAnnouncements, setEnableAnnouncements] = useState(false)
-  const [selectedItems, setSelectedItems] = useState<(string | number | undefined)[]>([])
+  const [selectedItems] = useState<(string | number | undefined)[]>([])
 
   const scrollContainerRef = useRef<HTMLDivElement>(null)
   const inputRef = useProvidedRefOrCreate<HTMLInputElement>(providedInputRef)
@@ -154,9 +154,9 @@ export function FilteredActionList({
     const updateActiveIndicator = () => {
       // Clear any existing active indicators
       const activeItems = list.querySelectorAll(`.${classes.ActiveItem}`)
-      activeItems.forEach(item => {
+      for (const item of activeItems) {
         item.classList.remove(classes.ActiveItem)
-      })
+      }
 
       if (inputRef.current && document.activeElement === inputRef.current) {
         // When input is focused, mark the first item as active
@@ -189,7 +189,7 @@ export function FilteredActionList({
     return () => {
       document.removeEventListener('focusin', handleFocusIn)
     }
-  }, [items]) // Re-run when items change to ensure first item is properly marked
+  }, [items, inputRef]) // Re-run when items change to ensure first item is properly marked
 
   useEffect(() => {
     setEnableAnnouncements(announcementsEnabled)

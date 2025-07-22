@@ -395,7 +395,7 @@ for (const useModernActionList of [false, true]) {
           )
         })
 
-        it('should support navigating through items with PageDown and PageUp', async () => {
+        it('should support navigating through items with PageDown and PageUp (modern ActionList)', async () => {
           if (!useModernActionList) return // this feature is only enabled with feature flag on
 
           const user = userEvent.setup()
@@ -705,10 +705,11 @@ for (const useModernActionList of [false, true]) {
           jest.runAllTimers()
           // we wait because announcement is intentionally updated after a timeout to not interrupt user input
           await waitFor(async () => {
+            // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
             if (useModernActionList) {
-              expect(getLiveRegion().getMessage('polite')?.trim()).toEqual('3 items.')
+              expect(getLiveRegion().getMessage('polite')!.trim()).toEqual('3 items available, 0 selected.')
             } else {
-              expect(getLiveRegion().getMessage('polite')?.trim()).toEqual(
+              expect(getLiveRegion().getMessage('polite')!.trim()).toEqual(
                 'List updated, Focused item: item one, not selected, 1 of 3',
               )
             }
@@ -763,7 +764,7 @@ for (const useModernActionList of [false, true]) {
           await user.click(screen.getByText('Select items'))
           expect(screen.getByLabelText('Filter items')).toHaveFocus()
 
-          expect(getLiveRegion().getMessage('polite')?.trim()).toContain('This is a notice')
+          expect(getLiveRegion().getMessage('polite')!.trim()).toContain('This is a notice')
         })
 
         it('should announce filtered results', async () => {
@@ -779,10 +780,11 @@ for (const useModernActionList of [false, true]) {
           jest.runAllTimers()
           await waitFor(
             async () => {
+              // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
               if (useModernActionList) {
-                expect(getLiveRegion().getMessage('polite')?.trim()).toEqual('3 items.')
+                expect(getLiveRegion().getMessage('polite')!.trim()).toEqual('3 items available, 0 selected.')
               } else {
-                expect(getLiveRegion().getMessage('polite')?.trim()).toEqual(
+                expect(getLiveRegion().getMessage('polite')!.trim()).toEqual(
                   'List updated, Focused item: item one, not selected, 1 of 3',
                 )
               }
@@ -796,8 +798,9 @@ for (const useModernActionList of [false, true]) {
           jest.runAllTimers()
           await waitFor(
             async () => {
+              // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
               if (useModernActionList) {
-                expect(getLiveRegion().getMessage('polite')).toBe('2 items.')
+                expect(getLiveRegion().getMessage('polite')).toBe('2 items available, 0 selected.')
               } else {
                 expect(getLiveRegion().getMessage('polite')).toBe(
                   'List updated, Focused item: item one, not selected, 1 of 2',
@@ -812,10 +815,11 @@ for (const useModernActionList of [false, true]) {
 
           jest.runAllTimers()
           await waitFor(async () => {
+            // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
             if (useModernActionList) {
-              expect(getLiveRegion().getMessage('polite')?.trim()).toBe('1 items.')
+              expect(getLiveRegion().getMessage('polite')!.trim()).toBe('1 item available, 0 selected.')
             } else {
-              expect(getLiveRegion().getMessage('polite')?.trim()).toBe(
+              expect(getLiveRegion().getMessage('polite')!.trim()).toBe(
                 'List updated, Focused item: item one, not selected, 1 of 1',
               )
             }
