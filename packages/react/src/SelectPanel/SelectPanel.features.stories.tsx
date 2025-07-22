@@ -679,14 +679,17 @@ export const CustomisedNoResults: StoryObj<typeof SelectPanel> = {
     const [open, setOpen] = useState(false)
     const filterTimerId = useRef<number | null>(null)
     const {safeSetTimeout, safeClearTimeout} = useSafeTimeout()
+    const [loading, setLoading] = useState(false)
     const onFilterChange = (value: string) => {
       setFilterValue(value)
       if (filterTimerId.current) {
         safeClearTimeout(filterTimerId.current)
       }
+      setLoading(true)
 
       filterTimerId.current = safeSetTimeout(() => {
         setFilteredItems(items.filter(item => item.text.toLowerCase().startsWith(value.toLowerCase())))
+        setLoading(false)
       }, 2000) as unknown as number
     }
 
@@ -713,6 +716,7 @@ export const CustomisedNoResults: StoryObj<typeof SelectPanel> = {
         onFilterChange={onFilterChange}
         showItemDividers={true}
         initialLoadingType={initialLoadingType}
+        loading={loading}
         height={height}
         overlayProps={{maxHeight: height === 'auto' || height === 'initial' ? 'xlarge' : height}}
         message={filteredItems.length === 0 ? NoResultsMessage(filterValue) : undefined}
