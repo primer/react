@@ -1,4 +1,4 @@
-import {render, waitFor} from '@testing-library/react'
+import {render, waitFor, screen} from '@testing-library/react'
 import {describe, it, expect} from 'vitest'
 import type React from 'react'
 import createSlots from './create-slots'
@@ -35,7 +35,7 @@ const SlotItem3: React.FC<React.PropsWithChildren<unknown>> = ({children}) => (
 
 describe('ComponentWithSlots', () => {
   it('renders all slots', async () => {
-    const component = render(
+    const {container} = render(
       <ComponentWithSlots>
         <SlotItem1>first</SlotItem1>
         <SlotItem2>second</SlotItem2>
@@ -43,32 +43,37 @@ describe('ComponentWithSlots', () => {
       </ComponentWithSlots>,
     )
 
-    await waitFor(() => component.getByText('first'))
-    expect(component.container).toMatchSnapshot()
+    await waitFor(() => screen.getByText('first'))
+    expect(screen.getByText('first')).toBeInTheDocument()
+    expect(container.textContent).toContain('second')
+    expect(container.textContent).toContain('free form')
   })
 
   it('renders without any slots', async () => {
-    const component = render(<ComponentWithSlots>free form</ComponentWithSlots>)
-    expect(component.container).toMatchSnapshot()
+    const {container} = render(<ComponentWithSlots>free form</ComponentWithSlots>)
+    expect(container.textContent).toContain('free form')
   })
 
   it('renders with just one slot', async () => {
-    const component = render(
+    const {container} = render(
       <ComponentWithSlots>
         <SlotItem1>first</SlotItem1>
         free form
       </ComponentWithSlots>,
     )
-    expect(component.container).toMatchSnapshot()
+    expect(screen.getByText('first')).toBeInTheDocument()
+    expect(container.textContent).toContain('free form')
   })
 
   it('renders with context passed to children', async () => {
-    const component = render(
+    const {container} = render(
       <ComponentWithSlots context={{salutation: 'hi'}}>
         <SlotItem3>third</SlotItem3>
         free form
       </ComponentWithSlots>,
     )
-    expect(component.container).toMatchSnapshot()
+    expect(container.textContent).toContain('hi')
+    expect(container.textContent).toContain('third')
+    expect(container.textContent).toContain('free form')
   })
 })

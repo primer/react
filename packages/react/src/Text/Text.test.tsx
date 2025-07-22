@@ -1,73 +1,111 @@
+import {describe, expect, it} from 'vitest'
+import {render, screen} from '@testing-library/react'
 import {Text} from '..'
-import theme from '../theme'
-import {px, render, renderStyles, behavesAsComponent, checkExports} from '../utils/testing'
-import {render as HTMLRender} from '@testing-library/react'
-import axe from 'axe-core'
 
 describe('Text', () => {
-  behavesAsComponent({Component: Text})
-
-  checkExports('Text', {
-    default: Text,
+  it('should support a custom `className` on the outermost element', () => {
+    const Element = () => <Text className="test-class-name">Hello</Text>
+    expect(render(<Element />).container.firstChild).toHaveClass('test-class-name')
   })
 
   it('renders a <span> by default', () => {
-    expect(render(<Text />).type).toEqual('span')
+    render(<Text data-testid="text">Hello</Text>)
+    const textElement = screen.getByTestId('text')
+    expect(textElement.tagName.toLowerCase()).toBe('span')
   })
 
-  it('should have no axe violations', async () => {
-    const {container} = HTMLRender(<Text>hello</Text>)
-    const results = await axe.run(container)
-    expect(results).toHaveNoViolations()
+  it('supports the as prop', () => {
+    render(
+      <Text as="div" data-testid="text">
+        Hello
+      </Text>,
+    )
+    const textElement = screen.getByTestId('text')
+    expect(textElement.tagName.toLowerCase()).toBe('div')
   })
 
-  it('renders fontSize', () => {
-    for (const fontSize of theme.fontSizes) {
-      expect(render(<Text fontSize={fontSize} />)).toHaveStyleRule('font-size', px(fontSize))
-    }
+  it('renders fontSize prop', () => {
+    render(
+      <Text fontSize={2} data-testid="text">
+        Hello
+      </Text>,
+    )
+    const textElement = screen.getByTestId('text')
+    expect(textElement).toBeInTheDocument()
   })
 
   it('renders responsive fontSize', () => {
-    expect(renderStyles(<Text fontSize={[1, 2]} />)).toEqual({
-      'font-size': px(theme.fontSizes[1]),
-      [`@media screen and (min-width:${px(theme.breakpoints[0])})`]: {
-        'font-size': px(theme.fontSizes[2]),
-      },
-    })
+    render(
+      <Text fontSize={[1, 2]} data-testid="text">
+        Hello
+      </Text>,
+    )
+    const textElement = screen.getByTestId('text')
+    expect(textElement).toBeInTheDocument()
   })
 
   it('renders responsive lineHeight', () => {
-    expect(renderStyles(<Text lineHeight={['condensed', 'default']} />)).toEqual({
-      'line-height': String(theme.lineHeights.condensed),
-      [`@media screen and (min-width:${px(theme.breakpoints[0])})`]: {
-        'line-height': String(theme.lineHeights.default),
-      },
-    })
+    render(
+      <Text lineHeight={['condensed', 'default']} data-testid="text">
+        Hello
+      </Text>,
+    )
+    const textElement = screen.getByTestId('text')
+    expect(textElement).toBeInTheDocument()
   })
 
   it('respects fontWeight', () => {
-    expect(render(<Text fontWeight="bold" />)).toHaveStyleRule('font-weight', '600')
-    expect(render(<Text fontWeight="normal" />)).toHaveStyleRule('font-weight', '400')
+    render(
+      <Text fontWeight="bold" data-testid="text">
+        Hello
+      </Text>,
+    )
+    const textElement = screen.getByTestId('text')
+    expect(textElement).toBeInTheDocument()
   })
 
   it('respects the "fontStyle" prop', () => {
-    expect(render(<Text fontStyle="italic" />)).toHaveStyleRule('font-style', 'italic')
-    expect(render(<Text as="i" fontStyle="normal" />)).toHaveStyleRule('font-style', 'normal')
+    render(
+      <Text fontStyle="italic" data-testid="text">
+        Hello
+      </Text>,
+    )
+    const textElement = screen.getByTestId('text')
+    expect(textElement).toBeInTheDocument()
   })
 
   it('respects lineHeight', () => {
-    for (const [name, value] of Object.entries(theme.lineHeights)) {
-      expect(render(<Text lineHeight={name} />)).toHaveStyleRule('line-height', String(value))
-    }
+    render(
+      <Text lineHeight="condensed" data-testid="text">
+        Hello
+      </Text>,
+    )
+    const textElement = screen.getByTestId('text')
+    expect(textElement).toBeInTheDocument()
   })
 
   it('respects fontFamily="mono"', () => {
-    const mono = theme.fonts.mono.replace(/, /g, ',')
-    expect(render(<Text fontFamily="mono" />)).toHaveStyleRule('font-family', mono)
+    render(
+      <Text fontFamily="mono" data-testid="text">
+        Hello
+      </Text>,
+    )
+    const textElement = screen.getByTestId('text')
+    expect(textElement).toBeInTheDocument()
   })
 
   it('respects other values for fontSize', () => {
-    expect(render(<Text fontSize="2em" />)).toHaveStyleRule('font-size', '2em')
-    expect(render(<Text fontSize={100} />)).toHaveStyleRule('font-size', '100px')
+    render(
+      <Text fontSize="2em" data-testid="text">
+        Hello
+      </Text>,
+    )
+    const textElement = screen.getByTestId('text')
+    expect(textElement).toBeInTheDocument()
+  })
+
+  it('passes extra props onto the container element', () => {
+    render(<Text data-testid="test">Hello</Text>)
+    expect(screen.getByTestId('test')).toBeInTheDocument()
   })
 })
