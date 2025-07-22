@@ -31,6 +31,7 @@ module.exports = {
     '<rootDir>/src/CircleBadge/',
     '<rootDir>/src/CircleOcticon/',
     '<rootDir>/src/DataTable/',
+    '<rootDir>/src/Details/',
     '<rootDir>/src/Dialog/',
     '<rootDir>/src/FeatureFlags/',
     '<rootDir>/src/Flash/',

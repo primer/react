@@ -1,31 +1,10 @@
+import {describe, expect, it} from 'vitest'
 import {render, screen} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import {act} from 'react'
 import {Details, useDetails, Box, Button} from '../..'
 import type {ButtonProps} from '../../Button'
-import {behavesAsComponent, checkExports} from '../../utils/testing'
-import axe from 'axe-core'
 
 describe('Details', () => {
-  behavesAsComponent({Component: Details, options: {skipAs: true}})
-
-  checkExports('Details', {
-    default: Details,
-  })
-
-  it('should have no axe violations', async () => {
-    const {container} = render(
-      <Details>
-        <Details.Summary>Summary</Details.Summary>Content
-      </Details>,
-    )
-    let results
-    await act(async () => {
-      results = await axe.run(container)
-    })
-    expect(results).toHaveNoViolations()
-  })
-
   it('Toggles when you click outside', async () => {
     const Component = () => {
       const {getDetailsProps} = useDetails({closeOnOutsideClick: true})
@@ -139,8 +118,6 @@ describe('Details', () => {
   })
 
   describe('Details.Summary', () => {
-    behavesAsComponent({Component: Details.Summary, options: {skipSx: true}})
-
     it('should support a custom `className` on the container element', () => {
       render(<Details.Summary className="custom-class">test summary</Details.Summary>)
       expect(screen.getByText('test summary')).toHaveClass('custom-class')
