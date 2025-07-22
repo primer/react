@@ -30,14 +30,10 @@ import type {ButtonProps, LinkButtonProps} from '../Button/types'
 // we add a delay so that it does not interrupt default screen reader announcement and queues after it
 const SHORT_DELAY_MS = 500
 const LONG_DELAY_MS = 1000
-const EMPTY_MESSAGE = {
-  title: 'You haven’t created any items yet',
-  description: 'Please add or create new items to populate the list.',
-}
 
 const DefaultEmptyMessage = (
-  <SelectPanelMessage variant="empty" title={EMPTY_MESSAGE.title} key="empty-message">
-    {EMPTY_MESSAGE.description}
+  <SelectPanelMessage variant="empty" title="You haven't created any items yet" key="empty-message">
+    Please add or create new items to populate the list.
   </SelectPanelMessage>
 )
 
@@ -57,7 +53,7 @@ async function announceLoading() {
 }
 
 const announceNoItems = debounce((message?: string) => {
-  announceText(message ?? EMPTY_MESSAGE.title, LONG_DELAY_MS)
+  announceText(message ?? 'No matching items.', LONG_DELAY_MS)
 }, 250)
 
 interface SelectPanelSingleSelection {
@@ -146,7 +142,6 @@ const doesItemsIncludeItem = (items: ItemInput[], item: ItemInput) => {
 
 const defaultRenderAnchor: NonNullable<SelectPanelProps['renderAnchor']> = props => {
   const {children, ...rest} = props
-
   return (
     <Button trailingAction={TriangleDownIcon} {...rest}>
       {children}
@@ -800,7 +795,6 @@ function Panel({
             // hack because the deprecated ActionList does not support this prop
             {...{
               message: getMessage(),
-              messageTitle: message?.title || EMPTY_MESSAGE.title,
               fullScreenOnNarrow: usingFullScreenOnNarrow,
             }}
             // inheriting height and maxHeight ensures that the FilteredActionList is never taller

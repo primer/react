@@ -18,17 +18,7 @@ const FormControlLabel: React.FC<
   React.PropsWithChildren<{htmlFor?: string} & React.ComponentProps<typeof InputLabel> & Props>
 > = ({as, children, htmlFor, id, visuallyHidden, requiredIndicator = true, requiredText, sx, className, ...props}) => {
   const {disabled, id: formControlId, required, isReferenced} = useFormControlContext()
-  console.log('FormControlLabel', {
-    as,
-    htmlFor,
-    id,
-    visuallyHidden,
-    requiredIndicator,
-    requiredText,
-    sx,
-    className,
-    props,
-  })
+
   /**
    * Ensure we can pass through props correctly, since legend/span accept no defined 'htmlFor'
    */

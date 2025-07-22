@@ -42,7 +42,6 @@ export interface FilteredActionListProps
   textInputProps?: Partial<Omit<TextInputProps, 'onChange'>>
   inputRef?: React.RefObject<HTMLInputElement>
   message?: React.ReactNode
-  messageTitle: string
   className?: string
   announcementsEnabled?: boolean
   fullScreenOnNarrow?: boolean
@@ -68,7 +67,6 @@ export function FilteredActionList({
   groupMetadata,
   showItemDividers,
   message,
-  messageTitle,
   className,
   announcementsEnabled = true,
   fullScreenOnNarrow,
@@ -149,7 +147,7 @@ export function FilteredActionList({
     }
   }, [items])
 
-  useAnnouncements(items, {current: listContainerElement}, inputRef, announcementsEnabled, loading, messageTitle)
+  useAnnouncements(items, {current: listContainerElement}, inputRef, announcementsEnabled, loading)
   useScrollFlash(scrollContainerRef)
 
   function getItemListForEachGroup(groupId: string) {
