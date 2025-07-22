@@ -48,6 +48,7 @@ export default defineConfig({
       'src/FeatureFlags/**/*.test.?(c|m)[jt]s?(x)',
       'src/Flash/**/*.test.?(c|m)[jt]s?(x)',
       'src/FormControl/**/*.test.?(c|m)[jt]s?(x)',
+      'src/Header/**/*.test.?(c|m)[jt]s?(x)',
       'src/InlineMessage/**/*.test.?(c|m)[jt]s?(x)',
       'src/Label/**/*.test.?(c|m)[jt]s?(x)',
       'src/Link/**/*.test.?(c|m)[jt]s?(x)',

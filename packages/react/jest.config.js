@@ -35,6 +35,7 @@ module.exports = {
     '<rootDir>/src/FeatureFlags/',
     '<rootDir>/src/Flash/',
     '<rootDir>/src/FormControl/',
+    '<rootDir>/src/Header/',
     '<rootDir>/src/InlineMessage/',
     '<rootDir>/src/Label/',
     '<rootDir>/src/Link/',
