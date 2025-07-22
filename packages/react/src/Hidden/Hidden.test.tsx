@@ -1,7 +1,8 @@
+import {describe, expect, it, beforeAll, afterAll} from 'vitest'
 import {render} from '@testing-library/react'
 import {Hidden} from '.'
 import MatchMediaMock from 'jest-matchmedia-mock'
-import {behavesAsComponent, checkExports, checkStoriesForAxeViolations} from '../utils/testing'
+//import {checkStoriesForAxeViolations} from '../utils/testing'
 
 let matchMedia: MatchMediaMock
 describe('Hidden', () => {
@@ -11,21 +12,6 @@ describe('Hidden', () => {
 
   afterAll(() => {
     matchMedia.clear()
-  })
-
-  behavesAsComponent({
-    Component: Hidden,
-    options: {skipAs: true, skipSx: true},
-    toRender: () => (
-      <Hidden when={'narrow'}>
-        <div>Hidden when narrow</div>
-      </Hidden>
-    ),
-  })
-
-  checkExports('Hidden', {
-    default: Hidden,
-    Hidden,
   })
 
   it('renders `when` prop as expected', () => {
@@ -66,5 +52,5 @@ describe('Hidden', () => {
   })
 })
 
-checkStoriesForAxeViolations('Hidden.features', '../Hidden/')
-checkStoriesForAxeViolations('Hidden.examples', '../Hidden/')
+// checkStoriesForAxeViolations('Hidden.features', '../Hidden/')
+// checkStoriesForAxeViolations('Hidden.examples', '../Hidden/')

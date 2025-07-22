@@ -36,6 +36,7 @@ module.exports = {
     '<rootDir>/src/Flash/',
     '<rootDir>/src/FormControl/',
     '<rootDir>/src/Header/',
+    '<rootDir>/src/Hidden/',
     '<rootDir>/src/InlineMessage/',
     '<rootDir>/src/Label/',
     '<rootDir>/src/Link/',
