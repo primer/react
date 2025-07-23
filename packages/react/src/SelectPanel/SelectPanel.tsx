@@ -117,6 +117,7 @@ interface SelectPanelBaseProps {
    * @default undefined (uses feature flag default)
    */
   disableFullscreenOnNarrow?: boolean
+  showSelectAll?: boolean
 }
 
 // onCancel is optional with variant=anchored, but required with variant=modal
@@ -192,6 +193,7 @@ function Panel({
   showSelectedOptionsFirst = true,
   disableFullscreenOnNarrow,
   align,
+  showSelectAll = false,
   ...listProps
 }: SelectPanelProps): JSX.Element {
   const titleId = useId()
@@ -310,6 +312,29 @@ function Panel({
       items.length,
       resetSort,
     ],
+  )
+
+  const handleSelectAllChange = useCallback(
+    (checked: boolean) => {
+      // Exit early if not in multi-select mode
+      if (!isMultiSelectVariant(selected)) {
+        return
+      }
+
+      const multiSelectOnChange = onSelectedChange as SelectPanelMultiSelection['onSelectedChange']
+      const selectedArray = selected as ItemInput[]
+
+      const selectedItemsNotInFilteredView = selectedArray.filter(
+        (selectedItem: ItemInput) => !items.some(item => areItemsEqual(item, selectedItem)),
+      )
+
+      if (checked) {
+        multiSelectOnChange([...selectedItemsNotInFilteredView, ...items])
+      } else {
+        multiSelectOnChange(selectedItemsNotInFilteredView)
+      }
+    },
+    [items, onSelectedChange, selected],
   )
 
   // disable body scroll when the panel is open on narrow screens
@@ -802,6 +827,7 @@ function Panel({
             textInputProps={extendedTextInputProps}
             loading={loading || (isLoading && !message)}
             loadingType={loadingType()}
+            onSelectAllChange={showSelectAll ? handleSelectAllChange : undefined}
             // hack because the deprecated ActionList does not support this prop
             {...{
               message: getMessage(),

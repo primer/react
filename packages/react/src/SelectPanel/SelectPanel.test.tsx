@@ -1248,6 +1248,217 @@ for (const useModernActionList of [false, true]) {
           expect(responsiveCloseButton).not.toBeInTheDocument()
         })
       })
+
+      describe('Select all', () => {
+        function SelectAllSelectPanel({showSelectAll = true}: {showSelectAll?: boolean} = {}) {
+          const [selected, setSelected] = React.useState<SelectPanelProps['items']>([])
+          const [filter, setFilter] = React.useState('')
+          const [open, setOpen] = React.useState(false)
+
+          const onSelectedChange = (selected: SelectPanelProps['items']) => {
+            setSelected(selected)
+          }
+
+          return (
+            <ThemeProvider>
+              <SelectPanel
+                title="test title"
+                subtitle="test subtitle"
+                items={items}
+                placeholder="Select items"
+                placeholderText="Filter items"
+                selected={selected}
+                onSelectedChange={onSelectedChange}
+                filterValue={filter}
+                onFilterChange={value => {
+                  setFilter(value)
+                }}
+                open={open}
+                onOpenChange={isOpen => {
+                  setOpen(isOpen)
+                }}
+                showSelectAll={showSelectAll}
+              />
+            </ThemeProvider>
+          )
+        }
+
+        it('should render a Select All checkbox when showSelectAll is true', async () => {
+          const user = userEvent.setup()
+
+          renderWithFlag(<SelectAllSelectPanel />, useModernActionList)
+
+          await user.click(screen.getByText('Select items'))
+
+          expect(screen.getByText('Select all')).toBeInTheDocument()
+          expect(screen.getByRole('checkbox', {name: 'Select all'})).toBeInTheDocument()
+          expect(screen.getByRole('checkbox', {name: 'Select all'})).not.toBeChecked()
+        })
+
+        it('should not render a Select All checkbox when showSelectAll is false', async () => {
+          const user = userEvent.setup()
+
+          renderWithFlag(<SelectAllSelectPanel showSelectAll={false} />, useModernActionList)
+
+          await user.click(screen.getByText('Select items'))
+
+          expect(screen.queryByText('Select all')).not.toBeInTheDocument()
+          expect(screen.queryByRole('checkbox', {name: 'Select all'})).not.toBeInTheDocument()
+        })
+
+        it('should select all items when the Select All checkbox is clicked', async () => {
+          const user = userEvent.setup()
+
+          renderWithFlag(<SelectAllSelectPanel />, useModernActionList)
+
+          await user.click(screen.getByText('Select items'))
+
+          await user.click(screen.getByRole('checkbox', {name: 'Select all'}))
+
+          // All options should now be selected
+          for (const item of items) {
+            expect(screen.getByRole('option', {name: item.text})).toHaveAttribute('aria-selected', 'true')
+          }
+        })
+
+        it('should deselect all items when the Deselect All checkbox is clicked', async () => {
+          const user = userEvent.setup()
+
+          renderWithFlag(<SelectAllSelectPanel />, useModernActionList)
+
+          await user.click(screen.getByText('Select items'))
+
+          // First select all
+          await user.click(screen.getByRole('checkbox', {name: 'Select all'}))
+
+          // Then deselect all
+          await user.click(screen.getByRole('checkbox', {name: 'Deselect all'}))
+
+          // All options should now be deselected
+          for (const item of items) {
+            if (item.text) {
+              expect(screen.getByRole('option', {name: item.text})).toHaveAttribute('aria-selected', 'false')
+            }
+          }
+        })
+
+        it('should update Select All checkbox to indeterminate state when some items (but not all) are selected', async () => {
+          const user = userEvent.setup()
+
+          renderWithFlag(<SelectAllSelectPanel />, useModernActionList)
+
+          await user.click(screen.getByText('Select items'))
+
+          // Select only one item
+          await user.click(screen.getByText('item one'))
+
+          // Check that Select All is in indeterminate state
+          const selectAllCheckbox = screen.getByRole('checkbox', {name: 'Select all'})
+          expect(selectAllCheckbox).not.toBeChecked()
+          expect(selectAllCheckbox).toHaveProperty('indeterminate', true)
+        })
+
+        it('should update Select All checkbox to checked when all items are selected manually', async () => {
+          const user = userEvent.setup()
+
+          renderWithFlag(<SelectAllSelectPanel />, useModernActionList)
+
+          await user.click(screen.getByText('Select items'))
+
+          // Select all items individually
+          for (const item of items) {
+            if (item.text) {
+              await user.click(screen.getByText(item.text))
+            }
+          }
+
+          // Check that Deselect All is checked
+          expect(screen.getByRole('checkbox', {name: 'Deselect all'})).toBeChecked()
+        })
+
+        it('should update Select All checkbox label to "Deselect all" when all items are selected', async () => {
+          const user = userEvent.setup()
+
+          renderWithFlag(<SelectAllSelectPanel />, useModernActionList)
+
+          await user.click(screen.getByText('Select items'))
+
+          // Select all items
+          await user.click(screen.getByRole('checkbox', {name: 'Select all'}))
+
+          // Check that the label has changed to "Deselect all"
+          expect(screen.getByText('Deselect all')).toBeInTheDocument()
+          expect(screen.getByRole('checkbox', {name: 'Deselect all'})).toBeInTheDocument()
+        })
+
+        it('should apply Select All only to filtered items and maintain selection state when filters are cleared', async () => {
+          const user = userEvent.setup()
+
+          function FilterableSelectAllPanel() {
+            const [selected, setSelected] = React.useState<SelectPanelProps['items']>([])
+            const [filter, setFilter] = React.useState('')
+            const [open, setOpen] = React.useState(false)
+
+            const onSelectedChange = (selected: SelectPanelProps['items']) => {
+              setSelected(selected)
+            }
+
+            return (
+              <ThemeProvider>
+                <SelectPanel
+                  title="test title"
+                  subtitle="test subtitle"
+                  items={items.filter(item => item.text?.includes(filter))}
+                  placeholder="Select items"
+                  placeholderText="Filter items"
+                  selected={selected}
+                  onSelectedChange={onSelectedChange}
+                  filterValue={filter}
+                  onFilterChange={value => {
+                    setFilter(value)
+                  }}
+                  open={open}
+                  onOpenChange={isOpen => {
+                    setOpen(isOpen)
+                  }}
+                  showSelectAll={true}
+                />
+              </ThemeProvider>
+            )
+          }
+
+          renderWithFlag(<FilterableSelectAllPanel />, useModernActionList)
+
+          await user.click(screen.getByText('Select items'))
+
+          // Filter to only show "item one"
+          await user.type(screen.getByLabelText('Filter items'), 'one')
+
+          // Only "item one" should be visible
+          expect(screen.getAllByRole('option')).toHaveLength(1)
+          expect(screen.getByText('item one')).toBeInTheDocument()
+
+          // Select all (which is just the one visible item)
+          await user.click(screen.getByRole('checkbox', {name: 'Select all'}))
+
+          // The visible item should be selected
+          expect(screen.getByRole('option', {name: 'item one'})).toHaveAttribute('aria-selected', 'true')
+
+          // Clear the filter
+          await user.clear(screen.getByLabelText('Filter items'))
+
+          // Now all items should be visible, but only "item one" should be selected
+          expect(screen.getAllByRole('option')).toHaveLength(3)
+          expect(screen.getByRole('option', {name: 'item one'})).toHaveAttribute('aria-selected', 'true')
+          expect(screen.getByRole('option', {name: 'item two'})).toHaveAttribute('aria-selected', 'false')
+          expect(screen.getByRole('option', {name: 'item three'})).toHaveAttribute('aria-selected', 'false')
+
+          // Select All checkbox should be in indeterminate state
+          const selectAllCheckbox = screen.getByRole('checkbox', {name: 'Select all'})
+          expect(selectAllCheckbox).not.toBeChecked()
+          expect(selectAllCheckbox).toHaveProperty('indeterminate', true)
+        })
+      })
     })
   })
 }
