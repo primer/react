@@ -765,7 +765,9 @@ for (const useModernActionList of [false, true]) {
 
           jest.runAllTimers()
           await waitFor(async () => {
-            expect(getLiveRegion().getMessage('polite')).toBe('No matching items.')
+            expect(getLiveRegion().getMessage('polite')).toBe(
+              "You haven't created any items yet. Please add or create new items to populate the list.",
+            )
           })
           jest.useRealTimers()
         })
