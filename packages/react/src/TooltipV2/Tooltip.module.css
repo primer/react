@@ -17,8 +17,7 @@
     position: absolute;
     width: max-content;
     max-width: 250px;
-    /* stylelint-disable-next-line primer/spacing */
-    padding: 0.5em 0.75em;
+    padding: var(--overlay-paddingBlock-condensed) var(--overlay-padding-condensed);
     margin: auto;
 
     /* for scrollbar */
@@ -34,6 +33,7 @@
     border-radius: var(--borderRadius-medium);
     -webkit-font-smoothing: subpixel-antialiased;
     inset: auto;
+    text-wrap: balance;
   }
 
   /* class name in chrome is :popover-open */
@@ -122,8 +122,5 @@
 }
 
 .KeybindingHintContainer.HasTextBefore {
-  /* Offset negative on the right right to make right spacing look like top and bottom spacing, only for keybinding hints and only when there is text */
-  /* stylelint-disable-next-line primer/spacing */
-  margin-right: -0.125em;
   margin-left: var(--base-size-6);
 }
