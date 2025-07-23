@@ -31,8 +31,8 @@ import type {ButtonProps, LinkButtonProps} from '../Button/types'
 const SHORT_DELAY_MS = 500
 const LONG_DELAY_MS = 1000
 const EMPTY_MESSAGE = {
-  title: "You haven't created any items yet",
-  description: 'Please add or create new items to populate the list.',
+  title: 'No items available',
+  description: '',
 }
 
 const DefaultEmptyMessage = (
