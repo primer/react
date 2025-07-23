@@ -6,7 +6,7 @@ import {useCallback, useEffect, useRef} from 'react'
 import type {FilteredActionListProps} from './FilteredActionListEntry'
 
 // we add a delay so that it does not interrupt default screen reader announcement and queues after it
-const delayMs = 500
+const delayMs = 1000
 
 const useFirstRender = () => {
   const firstRender = useRef(true)
@@ -20,15 +20,17 @@ export const useAnnouncements = (
   items: FilteredActionListProps['items'],
   listContainerRef: React.RefObject<HTMLUListElement>,
   inputRef: React.RefObject<HTMLInputElement>,
+  emptyMessage: string | undefined = undefined,
   enabled: boolean = true,
 ) => {
   const liveRegion = document.querySelector('live-region')
 
   // Notify user of the number of items available
   const selectedItems = items.filter(item => item.selected).length
-  const announcementText = items.length
-    ? `${items.length} item${items.length > 1 ? 's' : ''} available, ${selectedItems} selected.`
-    : 'No matching items.'
+  const announcementText =
+    items.length > 0
+      ? `${items.length} item${items.length > 1 ? 's' : ''} available, ${selectedItems} selected.`
+      : emptyMessage || 'No matching items.'
 
   const announce = useCallback(
     (...args: Parameters<typeof liveRegionAnnounce>): ReturnType<typeof liveRegionAnnounce> | undefined => {

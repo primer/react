@@ -1,4 +1,4 @@
-import type React from 'react'
+import React from 'react'
 import {useCallback, useEffect, useRef, useState} from 'react'
 import styled from 'styled-components'
 import Box from '../Box'
@@ -257,8 +257,8 @@ export function FilteredActionList({
       </ActionListContainerContext.Provider>
     )
   }
-
-  useAnnouncements(items, listRef, inputRef, enableAnnouncements)
+  const emptyMessage = React.isValidElement(message) ? message.props?.title : undefined
+  useAnnouncements(items, listRef, inputRef, emptyMessage, enableAnnouncements)
   return (
     <Box
       display="flex"

@@ -53,7 +53,6 @@ async function announceText(text: string, delayMs = SHORT_DELAY_MS) {
   const liveRegion = document.querySelector('live-region')
 
   liveRegion?.clear() // clear previous announcements
-
   await announce(text, {
     delayMs,
     from: liveRegion ? liveRegion : undefined, // announce will create a liveRegion if it doesn't find one
