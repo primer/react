@@ -1,7 +1,7 @@
 import type React from 'react'
 import Text from '../Text'
 import Octicon from '../Octicon'
-import {AlertIcon, NoEntryIcon, type IconProps} from '@primer/octicons-react'
+import {AlertIcon, type IconProps} from '@primer/octicons-react'
 import classes from './SelectPanel.module.css'
 import {clsx} from 'clsx'
 
