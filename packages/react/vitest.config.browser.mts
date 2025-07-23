@@ -92,6 +92,7 @@ export default defineConfig({
       'src/__tests__/theme.test.ts',
       'src/__tests__/themeGet.test.ts',
       'src/deprecated/**/*.test.?(c|m)[jt]s?(x)',
+      'src/experimental/IssueLabel/**/*.test.?(c|m)[jt]s?(x)',
       'src/hooks/**/*.test.?(c|m)[jt]s?(x)',
       'src/internal/utils/**/*.test.?(c|m)[jt]s?(x)',
       'src/live-region/**/*.test.?(c|m)[jt]s?(x)',

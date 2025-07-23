@@ -82,6 +82,7 @@ module.exports = {
     '<rootDir>/src/__tests__/themeGet.test.ts',
     '<rootDir>/src/__tests__/useSafeTimeout.test.ts',
     '<rootDir>/src/deprecated/',
+    '<rootDir>/src/experimental/IssueLabel',
     '<rootDir>/src/hooks/',
     '<rootDir>/src/internal/utils/',
     '<rootDir>/src/live-region/',
