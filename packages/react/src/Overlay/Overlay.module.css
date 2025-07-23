@@ -9,7 +9,7 @@
 }
 
 .Overlay {
-  position: fixed;
+  position: absolute;
   max-width: calc(100vw - 2rem);
   width: auto;
   min-width: 192px;
