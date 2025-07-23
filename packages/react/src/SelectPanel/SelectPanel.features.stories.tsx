@@ -578,6 +578,7 @@ export const AsyncFetch: StoryObj<SelectPanelProps> = {
         setFilteredItems(items.filter(item => item.text.toLowerCase().startsWith(query.toLowerCase())))
         setLoading(false)
       }, 2000) as unknown as number
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const onOpenChange = (value: boolean) => {
@@ -709,6 +710,7 @@ export const CustomisedNoResults: StoryObj<typeof SelectPanel> = {
         setFilteredItems(items.filter(item => item.text.toLowerCase().startsWith(filterValue.toLowerCase())))
         setLoading(false)
       }, 2000) as unknown as number
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return (
