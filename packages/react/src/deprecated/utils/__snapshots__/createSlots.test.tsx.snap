@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`ComponentWithSlots renders all slots 1`] = `
+exports[`ComponentWithSlots > renders all slots 1`] = `
 <div>
   <div>
     first
@@ -14,7 +14,7 @@ exports[`ComponentWithSlots renders all slots 1`] = `
 </div>
 `;
 
-exports[`ComponentWithSlots renders with context passed to children 1`] = `
+exports[`ComponentWithSlots > renders with context passed to children 1`] = `
 <div>
   <div>
     <span>
@@ -29,7 +29,7 @@ exports[`ComponentWithSlots renders with context passed to children 1`] = `
 </div>
 `;
 
-exports[`ComponentWithSlots renders with just one slot 1`] = `
+exports[`ComponentWithSlots > renders with just one slot 1`] = `
 <div>
   <div>
     first
@@ -42,7 +42,7 @@ exports[`ComponentWithSlots renders with just one slot 1`] = `
 </div>
 `;
 
-exports[`ComponentWithSlots renders without any slots 1`] = `
+exports[`ComponentWithSlots > renders without any slots 1`] = `
 <div>
   <div>
     <span>
