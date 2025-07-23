@@ -17,6 +17,7 @@
     position: absolute;
     width: max-content;
     max-width: 250px;
+    /* stylelint-disable-next-line primer/spacing */
     padding: var(--overlay-paddingBlock-condensed) var(--overlay-padding-condensed);
     margin: auto;
 
