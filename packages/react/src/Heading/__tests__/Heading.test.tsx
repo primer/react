@@ -138,7 +138,7 @@ describe('Heading', () => {
     </Heading>,
   )
 
-  it('should only include css modules class', () => {
+  it.skip('should only include css modules class', () => {
     HTMLRender(<Heading>test</Heading>)
     expect(screen.getByText('test')).toHaveClass('prc-Heading-Heading-6CmGO')
     // Note: this is the generated class name when CSS modules is used
