@@ -3,7 +3,6 @@ import {render, screen, fireEvent} from '@testing-library/react'
 import {describe, it, expect, vi} from 'vitest'
 import React from 'react'
 import {IconButton, Button, LinkButton} from '../../Button'
-import type {ButtonProps} from '../../Button'
 
 type StatefulLoadingButtonProps = {
   children?: React.ReactNode
@@ -11,8 +10,6 @@ type StatefulLoadingButtonProps = {
   ['aria-describedby']?: string
   loadingAnnouncement?: string
 }
-
-const TestButton = (props: ButtonProps) => <Button id="test-button" {...props} />
 
 const StatefulLoadingButton = (props: StatefulLoadingButtonProps) => {
   const [isLoading, setIsLoading] = React.useState(false)
