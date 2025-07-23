@@ -416,11 +416,7 @@ export const WithNotice = () => {
     <Stack align="start">
       <FormControl>
         <FormControl.Label id="notice-variant-label">Notice variant</FormControl.Label>
-        <SegmentedControl
-          aria-label="Notice variant"
-          aria-labelledby="notice-variant-label"
-          onChange={setNoticeVariant}
-        >
+        <SegmentedControl aria-label="Notice variant" onChange={setNoticeVariant}>
           <SegmentedControl.Button defaultSelected aria-label={'Info'} leadingIcon={InfoIcon}>
             Info notice
           </SegmentedControl.Button>
