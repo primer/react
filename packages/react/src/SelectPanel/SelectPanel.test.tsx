@@ -751,7 +751,7 @@ for (const useModernActionList of [false, true]) {
           jest.useRealTimers()
         })
 
-        it('should announce when no results are available', async () => {
+        it('should announce default empty message when no results are available (no custom message is provided)', async () => {
           jest.useFakeTimers()
           const user = userEvent.setup({
             advanceTimers: jest.advanceTimersByTime,
@@ -768,6 +768,58 @@ for (const useModernActionList of [false, true]) {
             expect(getLiveRegion().getMessage('polite')).toBe(
               "You haven't created any items yet. Please add or create new items to populate the list.",
             )
+          })
+          jest.useRealTimers()
+        })
+
+        it('should announce custom empty message when no results are available', async () => {
+          jest.useFakeTimers()
+          const user = userEvent.setup({
+            advanceTimers: jest.advanceTimersByTime,
+          })
+
+          function SelectPanelWithCustomEmptyMessage() {
+            const [filter, setFilter] = React.useState('')
+            const [open, setOpen] = React.useState(false)
+
+            return (
+              <ThemeProvider>
+                <SelectPanel
+                  title="test title"
+                  subtitle="test subtitle"
+                  placeholder="Select items"
+                  placeholderText="Filter items"
+                  open={open}
+                  items={[]}
+                  onFilterChange={value => {
+                    setFilter(value)
+                  }}
+                  filterValue={filter}
+                  selected={[]}
+                  onSelectedChange={() => {}}
+                  onOpenChange={isOpen => {
+                    setOpen(isOpen)
+                  }}
+                  message={{
+                    title: 'Nothing found',
+                    body: `There's nothing here.`,
+                    variant: 'empty',
+                  }}
+                />
+              </ThemeProvider>
+            )
+          }
+
+          renderWithFlag(<SelectPanelWithCustomEmptyMessage />, useModernActionList)
+
+          await user.click(screen.getByText('Select items'))
+
+          await user.type(document.activeElement!, 'zero')
+          expect(screen.queryByRole('option')).toBeNull()
+
+          jest.runAllTimers()
+          await waitFor(async () => {
+            expect(getLiveRegion().getMessage('polite')).toBe(`Nothing found. There's nothing here.`)
           })
           jest.useRealTimers()
         })
