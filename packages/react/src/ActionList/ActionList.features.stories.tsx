@@ -945,3 +945,59 @@ export const FullVariant = () => (
     <ActionList.Item variant="danger">Delete file</ActionList.Item>
   </ActionList>
 )
+
+export const OverlayWrapping = () => {
+  return (
+    <>
+      <div style={{width: '300px', border: 'solid 1px gray'}}>
+        <ActionList>
+          <ActionList.Item>thisisalongemailaddress@longemail.com</ActionList.Item>
+          <ActionList.Item>
+            thisisalongemailaddress@longemail.com
+            <ActionList.TrailingVisual>
+              <ArrowRightIcon />
+            </ActionList.TrailingVisual>
+          </ActionList.Item>
+          <ActionList.Item>
+            thisisalongemailaddress@longemail.com
+            <ActionList.LeadingVisual>
+              <ArrowRightIcon />
+            </ActionList.LeadingVisual>
+          </ActionList.Item>
+          <ActionList.Item>This is a long item title long long long oh wow</ActionList.Item>
+          <ActionList.Item>
+            This is a long item title long long long oh wow
+            <ActionList.TrailingVisual>
+              <ArrowRightIcon />
+            </ActionList.TrailingVisual>
+          </ActionList.Item>
+        </ActionList>
+      </div>
+
+      <AnchoredOverlay
+        open
+        renderAnchor={props => (
+          <button type="button" {...props}>
+            Overlay
+          </button>
+        )}
+      >
+        <ActionList role="menu">
+          <ActionList.Item role="menuitem">Small text</ActionList.Item>
+          {/* <ActionList.Item role="menuitem">
+            thisisalongemailaddress@longemail.com
+            <ActionList.TrailingVisual>
+              <HeartFillIcon />
+            </ActionList.TrailingVisual>
+          </ActionList.Item> */}
+          {/* <ActionList.Item role="menuitem">
+            thisisalongemailaddress@longemail.com
+            <ActionList.LeadingVisual>
+              <HeartFillIcon />
+            </ActionList.LeadingVisual>
+          </ActionList.Item> */}
+        </ActionList>
+      </AnchoredOverlay>
+    </>
+  )
+}
