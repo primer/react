@@ -1,6 +1,6 @@
 import {act, useCallback, useState} from 'react'
 import {describe, expect, it, vi} from 'vitest'
-import {render, render as HTMLRender} from \'@testing-library/react\'
+import {render} from '@testing-library/react'
 import {userEvent} from '@vitest/browser/context'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import {Button} from '../Button'

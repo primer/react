@@ -29,7 +29,7 @@ describe('NavList', () => {
         <NavList.Item href="/contact">Contact</NavList.Item>
       </NavList>,
     )
-    
+
     // Verify the navigation structure
     expect(getByRole('link', {name: 'Home'})).toHaveAttribute('aria-current', 'page')
     expect(getByRole('link', {name: 'About'})).toBeInTheDocument()
@@ -49,7 +49,7 @@ describe('NavList', () => {
         </NavList.Group>
       </NavList>,
     )
-    
+
     // Verify group titles and structure
     expect(getByText('Overview')).toBeInTheDocument()
     expect(getByText('Components')).toBeInTheDocument()

@@ -60,7 +60,7 @@ describe('Popover', () => {
       )
 
       const {container} = HTMLRender(render(element))
-    expect(container.firstChild).toBeInTheDocument()
+      expect(container.firstChild).toBeInTheDocument()
     })
   }
 

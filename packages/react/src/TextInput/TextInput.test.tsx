@@ -4,7 +4,7 @@ import {render as HTMLRender, fireEvent, screen} from '@testing-library/react'
 import axe from 'axe-core'
 import React from 'react'
 import {TextInput} from '..'
-import {render, behavesAsComponent, checkExports} from '../utils/testing'
+import {behavesAsComponent, checkExports} from '../utils/testing'
 
 describe('TextInput', () => {
   behavesAsComponent({Component: TextInput, options: {skipAs: true}})
@@ -34,7 +34,7 @@ describe('TextInput', () => {
 
   it('renders small', () => {
     const {getByRole} = HTMLRender(<TextInput name="zipcode" size="small" />)
-    expect(getByRole("textbox")).toHaveAttribute("name", "zipcode")
+    expect(getByRole('textbox')).toHaveAttribute('name', 'zipcode')
   })
 
   it('renders large', () => {
@@ -86,13 +86,17 @@ describe('TextInput', () => {
 
   it('renders leadingVisual', () => {
     // Test with icon component
-    const {container: container1} = HTMLRender(<TextInput name="search" placeholder={'Search'} leadingVisual={SearchIcon} />)
+    const {container: container1} = HTMLRender(
+      <TextInput name="search" placeholder={'Search'} leadingVisual={SearchIcon} />,
+    )
     expect(container1.querySelector('[data-component="leadingVisual"]')).toBeInTheDocument()
-    
+
     // Test with icon element
-    const {container: container2} = HTMLRender(<TextInput name="search" placeholder={'Search'} leadingVisual={<SearchIcon />} />)
+    const {container: container2} = HTMLRender(
+      <TextInput name="search" placeholder={'Search'} leadingVisual={<SearchIcon />} />,
+    )
     expect(container2.querySelector('[data-component="leadingVisual"]')).toBeInTheDocument()
-    
+
     // Test with custom memo component
     const {container: container3} = HTMLRender(
       <TextInput
@@ -104,7 +108,7 @@ describe('TextInput', () => {
       />,
     )
     expect(container3.querySelector('[data-component="leadingVisual"]')).toBeInTheDocument()
-    
+
     // Test with forwardRef component
     const {container: container4} = HTMLRender(
       <TextInput
@@ -120,13 +124,17 @@ describe('TextInput', () => {
 
   it('renders trailingVisual', () => {
     // Test with icon component
-    const {container: container1} = HTMLRender(<TextInput name="search" placeholder={'Search'} trailingVisual={SearchIcon} />)
+    const {container: container1} = HTMLRender(
+      <TextInput name="search" placeholder={'Search'} trailingVisual={SearchIcon} />,
+    )
     expect(container1.querySelector('[data-component="trailingVisual"]')).toBeInTheDocument()
-    
+
     // Test with icon element
-    const {container: container2} = HTMLRender(<TextInput name="search" placeholder={'Search'} trailingVisual={<SearchIcon />} />)
+    const {container: container2} = HTMLRender(
+      <TextInput name="search" placeholder={'Search'} trailingVisual={<SearchIcon />} />,
+    )
     expect(container2.querySelector('[data-component="trailingVisual"]')).toBeInTheDocument()
-    
+
     // Test with memo component
     const {container: container3} = HTMLRender(
       <TextInput
@@ -138,7 +146,7 @@ describe('TextInput', () => {
       />,
     )
     expect(container3.querySelector('[data-component="trailingVisual"]')).toBeInTheDocument()
-    
+
     // Test with forwardRef component
     const {container: container4} = HTMLRender(
       <TextInput
@@ -214,14 +222,14 @@ describe('TextInput', () => {
     // Test basic loading indicator
     const {container: container1} = HTMLRender(<TextInput loading />)
     expect(container1.querySelector('[data-component="Spinner"]')).toBeInTheDocument()
-    
+
     // Test loading with different positions
     const {container: container2} = HTMLRender(<TextInput loading loaderPosition="leading" />)
     expect(container2.querySelector('[data-component="Spinner"]')).toBeInTheDocument()
-    
+
     const {container: container3} = HTMLRender(<TextInput loading loaderPosition="trailing" />)
     expect(container3.querySelector('[data-component="Spinner"]')).toBeInTheDocument()
-    
+
     // Test loading with visuals
     const {container: container4} = HTMLRender(<TextInput loading leadingVisual={SearchIcon} />)
     expect(container4.querySelector('[data-component="Spinner"]')).toBeInTheDocument()

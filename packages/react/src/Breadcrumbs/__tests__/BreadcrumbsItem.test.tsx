@@ -9,7 +9,7 @@ describe('Breadcrumbs.Item', () => {
   })
 
   it('respects the "selected" prop', () => {
-    const {container} = HTMLRender(<Breadcrumbs.Item selected />)
+    HTMLRender(<Breadcrumbs.Item selected />)
     expect(true).toBe(true) // Snapshot test replaced
   })
 })

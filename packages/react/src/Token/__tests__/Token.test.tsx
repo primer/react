@@ -110,13 +110,15 @@ describe('Token components', () => {
     it('renders default fill color', () => {
       const onRemoveMock = jest.fn()
       const {container} = HTMLRender(render(<IssueLabelToken text="token" onRemove={onRemoveMock} />))
-    expect(container.firstChild).toBeInTheDocument()
+      expect(container.firstChild).toBeInTheDocument()
     })
 
     it('renders custom fill color', () => {
       const onRemoveMock = jest.fn()
-      const {container} = HTMLRender(render(<IssueLabelToken text="token" fillColor="#0366d6" onRemove={onRemoveMock} />))
-    expect(container.firstChild).toBeInTheDocument()
+      const {container} = HTMLRender(
+        render(<IssueLabelToken text="token" fillColor="#0366d6" onRemove={onRemoveMock} />),
+      )
+      expect(container.firstChild).toBeInTheDocument()
     })
   })
 

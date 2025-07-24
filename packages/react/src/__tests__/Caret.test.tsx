@@ -12,15 +12,15 @@ describe('Caret', () => {
   it('renders cardinal directions', () => {
     for (const location of ['top', 'right', 'bottom', 'left']) {
       const {container} = HTMLRender(render(<Caret location={location as CaretProps['location']} />))
-    expect(container.firstChild).toBeInTheDocument()
+      expect(container.firstChild).toBeInTheDocument()
     }
     for (const location of ['top-left', 'top-right', 'bottom-left', 'bottom-right']) {
       const {container} = HTMLRender(render(<Caret location={location as CaretProps['location']} />))
-    expect(container.firstChild).toBeInTheDocument()
+      expect(container.firstChild).toBeInTheDocument()
     }
     for (const location of ['left-top', 'left-bottom', 'right-top', 'right-bottom']) {
       const {container} = HTMLRender(render(<Caret location={location as CaretProps['location']} />))
-    expect(container.firstChild).toBeInTheDocument()
+      expect(container.firstChild).toBeInTheDocument()
     }
   })
 })

@@ -24,7 +24,7 @@ describe('@primer/react', () => {
       }
       return exportInfo.identifier
     })
-    
+
     // Basic check that we have exports
     expect(exportNames.length).toBeGreaterThan(0)
     // Check that major components are exported
@@ -42,7 +42,7 @@ describe('@primer/react/experimental', () => {
       }
       return exportInfo.identifier
     })
-    
+
     // Basic check that we have experimental exports
     expect(exportNames.length).toBeGreaterThan(0)
     // Check that we have experimental components
@@ -59,7 +59,7 @@ describe('@primer/react/deprecated', () => {
       }
       return exportInfo.identifier
     })
-    
+
     // Basic check that we have deprecated exports
     expect(exportNames.length).toBeGreaterThan(0)
     // These are deprecated components so just check they exist

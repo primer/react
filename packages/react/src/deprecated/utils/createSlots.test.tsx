@@ -48,12 +48,12 @@ describe('ComponentWithSlots', () => {
   })
 
   it('renders without any slots', async () => {
-    const component = render(<ComponentWithSlots>free form</ComponentWithSlots>)
+    render(<ComponentWithSlots>free form</ComponentWithSlots>)
     expect(true).toBe(true) // Snapshot test replaced
   })
 
   it('renders with just one slot', async () => {
-    const component = render(
+    render(
       <ComponentWithSlots>
         <SlotItem1>first</SlotItem1>
         free form
@@ -63,7 +63,7 @@ describe('ComponentWithSlots', () => {
   })
 
   it('renders with context passed to children', async () => {
-    const component = render(
+    render(
       <ComponentWithSlots context={{salutation: 'hi'}}>
         <SlotItem3>third</SlotItem3>
         free form

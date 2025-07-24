@@ -7,17 +7,17 @@ const imgInput = <img alt="Example" src="primer.jpg" />
 
 describe('CircleBadge', () => {
   it('respects the inline prop', () => {
-    const {container} = HTMLRender(<CircleBadge inline />)
+    HTMLRender(<CircleBadge inline />)
     expect(true).toBe(true) // Snapshot test replaced
   })
 
   it('respects the variant prop', () => {
-    const {container} = HTMLRender(<CircleBadge variant="large" />)
+    HTMLRender(<CircleBadge variant="large" />)
     expect(true).toBe(true) // Snapshot test replaced
   })
 
   it('uses the size prop to override the variant prop', () => {
-    const {container} = HTMLRender(<CircleBadge variant="large" size={20} />)
+    HTMLRender(<CircleBadge variant="large" size={20} />)
     expect(true).toBe(true) // Snapshot test replaced
   })
 

@@ -1,4 +1,4 @@
-import {render, render as HTMLRender} from \'@testing-library/react\'
+import {render} from '@testing-library/react'
 import {describe, it, expect} from 'vitest'
 import {Hidden} from '../Hidden'
 

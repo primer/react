@@ -1,6 +1,6 @@
 import {describe, it, expect, vi} from 'vitest'
 import {page} from '@vitest/browser/context'
-import {act, fireEvent, render, screen, render as HTMLRender} from \'@testing-library/react\'
+import {act, fireEvent, render, screen} from '@testing-library/react'
 import 'react-intersection-observer/test-utils'
 import {viewportRanges} from '../hooks/useResponsiveValue'
 import {PageLayout} from './PageLayout'

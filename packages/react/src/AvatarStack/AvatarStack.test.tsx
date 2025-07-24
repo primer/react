@@ -1,5 +1,5 @@
 import {describe, expect, it} from 'vitest'
-import {render, render as HTMLRender} from \'@testing-library/react\'
+import {render} from '@testing-library/react'
 import {AvatarStack} from '..'
 
 const avatarComp = (
