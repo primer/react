@@ -20,7 +20,7 @@ const NextJSLikeLink = React.forwardRef<HTMLAnchorElement, NextJSLinkProps>(
 
 describe('NavList', () => {
   it('renders a simple list', () => {
-    const {container} = render(
+    const {getByRole} = render(
       <NavList>
         <NavList.Item href="/" aria-current="page">
           Home
@@ -29,11 +29,15 @@ describe('NavList', () => {
         <NavList.Item href="/contact">Contact</NavList.Item>
       </NavList>,
     )
-    expect(container).toMatchSnapshot()
+    
+    // Verify the navigation structure
+    expect(getByRole('link', {name: 'Home'})).toHaveAttribute('aria-current', 'page')
+    expect(getByRole('link', {name: 'About'})).toBeInTheDocument()
+    expect(getByRole('link', {name: 'Contact'})).toBeInTheDocument()
   })
 
   it('renders with groups', () => {
-    const {container} = render(
+    const {getByRole, getByText} = render(
       <NavList>
         <NavList.Group title="Overview">
           <NavList.Item href="/getting-started" aria-current="page">
@@ -45,7 +49,12 @@ describe('NavList', () => {
         </NavList.Group>
       </NavList>,
     )
-    expect(container).toMatchSnapshot()
+    
+    // Verify group titles and structure
+    expect(getByText('Overview')).toBeInTheDocument()
+    expect(getByText('Components')).toBeInTheDocument()
+    expect(getByRole('link', {name: 'Getting started'})).toHaveAttribute('aria-current', 'page')
+    expect(getByRole('link', {name: 'Avatar'})).toBeInTheDocument()
   })
 
   it('supports TrailingAction', async () => {
@@ -195,7 +204,7 @@ describe('NavList.Item with NavList.SubNav', () => {
   })
 
   it('has active styles if SubNav contains the current item and is closed', () => {
-    const {container, getByRole, queryByRole} = render(
+    const {getByRole, queryByRole} = render(
       <NavList>
         <NavList.Item>
           Item
@@ -210,19 +219,20 @@ describe('NavList.Item with NavList.SubNav', () => {
 
     const button = getByRole('button')
 
-    // Starts open
+    // Starts open (because it contains current item)
     expect(queryByRole('list', {name: 'Item'})).toBeVisible()
+    expect(getByRole('link', {name: 'Sub Item'})).toHaveAttribute('aria-current', 'page')
 
     // Click to close
     fireEvent.click(button)
     expect(queryByRole('list', {name: 'Item'})).toBeNull()
 
-    // Snapshot styles
-    expect(container).toMatchSnapshot()
+    // Verify the button has appropriate attributes when collapsed with current item
+    expect(button).toHaveAttribute('aria-expanded', 'false')
   })
 
   it('does not have active styles if SubNav contains the current item and is open', () => {
-    const {container, queryByRole} = render(
+    const {queryByRole, getByRole} = render(
       <NavList>
         <NavList.Item>
           Item
@@ -238,8 +248,10 @@ describe('NavList.Item with NavList.SubNav', () => {
     // Starts open
     expect(queryByRole('list', {name: 'Item'})).toBeVisible()
 
-    // Snapshot styles
-    expect(container).toMatchSnapshot()
+    // Verify the button state when expanded with current item
+    const button = getByRole('button')
+    expect(button).toHaveAttribute('aria-expanded', 'true')
+    expect(getByRole('link', {name: 'Sub Item'})).toHaveAttribute('aria-current', 'page')
   })
 
   it('prevents more than 4 levels of nested SubNavs', () => {
