@@ -40,7 +40,7 @@ describe('Popover', () => {
   it('renders both elements as a <div>', () => {
     const {container: popoverContainer} = render(<Popover />)
     const {container: contentContainer} = render(<Popover.Content />)
-    expect(popoverContainer.firstChild?.tagName).toEqual('DIV')
-    expect(contentContainer.firstChild?.tagName).toEqual('DIV')
+    expect((popoverContainer.firstChild as Element).tagName).toEqual('DIV')
+    expect((contentContainer.firstChild as Element).tagName).toEqual('DIV')
   })
 })

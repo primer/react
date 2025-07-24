@@ -25,8 +25,8 @@ describe('Header', () => {
   it('renders a <header> and <a>', () => {
     const {container: headerContainer} = render(<Header />)
     const {container: linkContainer} = render(<Header.Link />)
-    expect(headerContainer.firstChild?.tagName).toEqual('HEADER')
-    expect(linkContainer.firstChild?.tagName).toEqual('A')
+    expect((headerContainer.firstChild as Element).tagName).toEqual('HEADER')
+    expect((linkContainer.firstChild as Element).tagName).toEqual('A')
   })
 
   it('sets aria-label appropriately', () => {

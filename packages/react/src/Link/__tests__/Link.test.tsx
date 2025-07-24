@@ -25,7 +25,7 @@ describe('Link', () => {
 
   it('applies button styles when rendering a button element', () => {
     const {container} = render(<Link as="button" />)
-    expect(container.firstChild?.tagName).toBe('BUTTON')
+    expect((container.firstChild as Element).tagName).toBe('BUTTON')
   })
 
   it('respects the "muted" prop', () => {
