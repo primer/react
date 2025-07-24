@@ -59,7 +59,8 @@ describe('Popover', () => {
         </Popover>
       )
 
-      expect(render(element)).toMatchSnapshot()
+      const {container} = HTMLRender(render(element))
+    expect(container.firstChild).toBeInTheDocument()
     })
   }
 

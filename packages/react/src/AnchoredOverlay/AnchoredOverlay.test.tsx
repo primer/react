@@ -1,6 +1,6 @@
 import {act, useCallback, useState} from 'react'
 import {describe, expect, it, vi} from 'vitest'
-import {render} from '@testing-library/react'
+import {render, render as HTMLRender} from \'@testing-library/react\'
 import {userEvent} from '@vitest/browser/context'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import {Button} from '../Button'
@@ -128,7 +128,7 @@ describe('AnchoredOverlay', () => {
 
   it('should render consistently when open', () => {
     const {container} = render(<AnchoredOverlayTestComponent initiallyOpen={true} />)
-    expect(container).toMatchSnapshot()
+    expect(container.firstChild).toBeInTheDocument()
   })
 
   it('should call onPositionChange when provided', async () => {

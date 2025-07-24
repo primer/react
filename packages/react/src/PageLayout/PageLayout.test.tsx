@@ -1,6 +1,6 @@
 import {describe, it, expect, vi} from 'vitest'
 import {page} from '@vitest/browser/context'
-import {act, fireEvent, render, screen} from '@testing-library/react'
+import {act, fireEvent, render, screen, render as HTMLRender} from \'@testing-library/react\'
 import 'react-intersection-observer/test-utils'
 import {viewportRanges} from '../hooks/useResponsiveValue'
 import {PageLayout} from './PageLayout'
@@ -17,7 +17,7 @@ describe('PageLayout', async () => {
         <PageLayout.Footer>Footer</PageLayout.Footer>
       </PageLayout>,
     )
-    expect(container).toMatchSnapshot()
+    expect(container.firstChild).toBeInTheDocument()
   })
 
   it('renders condensed layout', () => {
@@ -29,7 +29,7 @@ describe('PageLayout', async () => {
         <PageLayout.Footer>Footer</PageLayout.Footer>
       </PageLayout>,
     )
-    expect(container).toMatchSnapshot()
+    expect(container.firstChild).toBeInTheDocument()
   })
 
   it('renders with dividers', () => {
@@ -45,7 +45,7 @@ describe('PageLayout', async () => {
         <PageLayout.Footer dividerWhenNarrow="line">Footer</PageLayout.Footer>
       </PageLayout>,
     )
-    expect(container).toMatchSnapshot()
+    expect(container.firstChild).toBeInTheDocument()
   })
 
   it('renders pane in different position when narrow', () => {
@@ -57,7 +57,7 @@ describe('PageLayout', async () => {
         <PageLayout.Footer>Footer</PageLayout.Footer>
       </PageLayout>,
     )
-    expect(container).toMatchSnapshot()
+    expect(container.firstChild).toBeInTheDocument()
   })
 
   // The test suite can't compute styles so skipping

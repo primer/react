@@ -1,5 +1,5 @@
 import {describe, expect, it} from 'vitest'
-import {render} from '@testing-library/react'
+import {render, render as HTMLRender} from \'@testing-library/react\'
 import {AvatarStack} from '..'
 
 const avatarComp = (
@@ -35,7 +35,8 @@ describe('AvatarStack', () => {
 
   it('respects alignRight props', () => {
     const {container} = render(rightAvatarComp)
-    expect(container.firstChild).toMatchSnapshot()
+    expect(container.firstChild).toBeInTheDocument()
+    expect(container.firstChild).toHaveAttribute('data-align-right', 'true')
   })
 
   it('should have a tabindex of 0 if there are no interactive children', () => {

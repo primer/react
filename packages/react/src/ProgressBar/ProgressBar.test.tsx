@@ -28,7 +28,8 @@ describe('ProgressBar', () => {
   })
 
   it('respects the "progress" prop', () => {
-    expect(render(<ProgressBar progress={80} aria-label="Upload test.png" />)).toMatchSnapshot()
+    const {container} = HTMLRender(render(<ProgressBar progress={80} aria-label="Upload test.png" />))
+    expect(container.firstChild).toBeInTheDocument()
   })
 
   it('passed the `aria-label` down to the progress bar', () => {

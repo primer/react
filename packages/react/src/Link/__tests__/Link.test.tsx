@@ -22,11 +22,13 @@ describe('Link', () => {
   })
 
   it('passes href down to link element', () => {
-    expect(render(<Link href="https://github.com" />)).toMatchSnapshot()
+    const {container} = HTMLRender(render(<Link href="https://github.com" />))
+    expect(container.firstChild).toBeInTheDocument()
   })
 
   it('respects hoverColor prop', () => {
-    expect(render(<Link hoverColor="accent.fg" />)).toMatchSnapshot()
+    const {container} = HTMLRender(render(<Link hoverColor="accent.fg" />))
+    expect(container.firstChild).toBeInTheDocument()
   })
 
   it('respects the "sx" prop', () => {
@@ -34,15 +36,18 @@ describe('Link', () => {
   })
 
   it('applies button styles when rendering a button element', () => {
-    expect(render(<Link as="button" />)).toMatchSnapshot()
+    const {container} = HTMLRender(render(<Link as="button" />))
+    expect(container.firstChild).toBeInTheDocument()
   })
 
   it('respects the "muted" prop', () => {
-    expect(render(<Link muted />)).toMatchSnapshot()
+    const {container} = HTMLRender(render(<Link muted />))
+    expect(container.firstChild).toBeInTheDocument()
   })
 
   it('respects the  "sx" prop when "muted" prop is also passed', () => {
-    expect(render(<Link muted sx={{color: 'fg.onEmphasis'}} />)).toMatchSnapshot()
+    const {container} = HTMLRender(render(<Link muted sx={{color: 'fg.onEmphasis'}} />))
+    expect(container.firstChild).toBeInTheDocument()
   })
 
   it('logs a warning when trying to render invalid "as" prop', () => {

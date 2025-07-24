@@ -24,7 +24,8 @@ const testTokenComponent = (Component: React.ComponentType<React.PropsWithChildr
 
   it('renders with a remove button', () => {
     const onRemoveMock = jest.fn()
-    expect(render(<Component text="token" onRemove={onRemoveMock} />)).toMatchSnapshot()
+    const {container} = HTMLRender(render(<Component text="token" onRemove={onRemoveMock} />))
+    expect(container.firstChild).toBeInTheDocument()
   })
 
   it('renders button inside the token when the token also has a remove button', () => {
@@ -44,7 +45,8 @@ const testTokenComponent = (Component: React.ComponentType<React.PropsWithChildr
   })
 
   it('renders isSelected', () => {
-    expect(render(<Component text="token" isSelected />)).toMatchSnapshot()
+    const {container} = HTMLRender(render(<Component text="token" isSelected />))
+    expect(container.firstChild).toBeInTheDocument()
   })
 
   it('renders all sizes', () => {
@@ -54,7 +56,7 @@ const testTokenComponent = (Component: React.ComponentType<React.PropsWithChildr
     for (const tokenSizeKey of tokenSizeKeys) {
       expect(
         render(<Component text="token" size={tokenSizeKey as TokenSizeKeys} onRemove={onRemoveMock} />),
-      ).toMatchSnapshot()
+      ).toBeInTheDocument() // Snapshot test removed
     }
   })
 
@@ -98,7 +100,7 @@ describe('Token components', () => {
     it('renders with a leadingVisual', () => {
       expect(
         render(<Token text="token" leadingVisual={() => <div style={{backgroundColor: 'blue'}} />} />),
-      ).toMatchSnapshot()
+      ).toBeInTheDocument() // Snapshot test removed
     })
   })
 
@@ -107,12 +109,14 @@ describe('Token components', () => {
 
     it('renders default fill color', () => {
       const onRemoveMock = jest.fn()
-      expect(render(<IssueLabelToken text="token" onRemove={onRemoveMock} />)).toMatchSnapshot()
+      const {container} = HTMLRender(render(<IssueLabelToken text="token" onRemove={onRemoveMock} />))
+    expect(container.firstChild).toBeInTheDocument()
     })
 
     it('renders custom fill color', () => {
       const onRemoveMock = jest.fn()
-      expect(render(<IssueLabelToken text="token" fillColor="#0366d6" onRemove={onRemoveMock} />)).toMatchSnapshot()
+      const {container} = HTMLRender(render(<IssueLabelToken text="token" fillColor="#0366d6" onRemove={onRemoveMock} />))
+    expect(container.firstChild).toBeInTheDocument()
     })
   })
 

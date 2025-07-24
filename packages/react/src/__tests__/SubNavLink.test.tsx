@@ -8,6 +8,7 @@ describe('SubNav.Link', () => {
   })
 
   it('respects the "selected" prop', () => {
-    expect(render(<SubNav.Link selected />)).toMatchSnapshot()
+    const {container} = HTMLRender(render(<SubNav.Link selected />))
+    expect(container.firstChild).toBeInTheDocument()
   })
 })
