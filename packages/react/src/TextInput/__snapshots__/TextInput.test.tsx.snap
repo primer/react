@@ -1,281 +1,101 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`TextInput > renders 1`] = `
-<span
-  aria-busy="false"
-  class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
->
-  <input
-    class="prc-components-Input-sKHcw"
-    data-component="input"
-    name="zipcode"
-    type="text"
-  />
-</span>
+<div>
+  <span
+    aria-busy="false"
+    class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
+  >
+    <input
+      class="prc-components-Input-sKHcw"
+      data-component="input"
+      name="zipcode"
+      type="text"
+    />
+  </span>
+</div>
 `;
 
 exports[`TextInput > renders block 1`] = `
-<span
-  aria-busy="false"
-  class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
-  data-block="true"
->
-  <input
-    class="prc-components-Input-sKHcw"
-    data-component="input"
-    name="zipcode"
-    type="text"
-  />
-</span>
+<div>
+  <span
+    aria-busy="false"
+    class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
+    data-block="true"
+  >
+    <input
+      class="prc-components-Input-sKHcw"
+      data-component="input"
+      name="zipcode"
+      type="text"
+    />
+  </span>
+</div>
 `;
 
 exports[`TextInput > renders contrast 1`] = `
-<span
-  aria-busy="false"
-  class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
-  data-contrast="true"
->
-  <input
-    class="prc-components-Input-sKHcw"
-    data-component="input"
-    name="zipcode"
-    type="text"
-  />
-</span>
+<div>
+  <span
+    aria-busy="false"
+    class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
+    data-contrast="true"
+  >
+    <input
+      class="prc-components-Input-sKHcw"
+      data-component="input"
+      name="zipcode"
+      type="text"
+    />
+  </span>
+</div>
 `;
 
 exports[`TextInput > renders error 1`] = `
-<span
-  aria-busy="false"
-  class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
-  data-validation="error"
->
-  <input
-    aria-invalid="true"
-    class="prc-components-Input-sKHcw"
-    data-component="input"
-    name="zipcode"
-    type="text"
-  />
-</span>
+<div>
+  <span
+    aria-busy="false"
+    class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
+    data-validation="error"
+  >
+    <input
+      aria-invalid="true"
+      class="prc-components-Input-sKHcw"
+      data-component="input"
+      name="zipcode"
+      type="text"
+    />
+  </span>
+</div>
 `;
 
 exports[`TextInput > renders large 1`] = `
-<span
-  aria-busy="false"
-  class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
-  data-size="large"
->
-  <input
-    class="prc-components-Input-sKHcw"
-    data-component="input"
-    name="zipcode"
-    type="text"
-  />
-</span>
+<div>
+  <span
+    aria-busy="false"
+    class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
+    data-size="large"
+  >
+    <input
+      class="prc-components-Input-sKHcw"
+      data-component="input"
+      name="zipcode"
+      type="text"
+    />
+  </span>
+</div>
 `;
 
 exports[`TextInput > renders leadingVisual 1`] = `
-<span
-  aria-busy="false"
-  class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
-  data-leading-visual="true"
->
+<div>
   <span
-    aria-hidden="true"
-    class="TextInput-icon"
-    id=":ru:"
+    aria-busy="false"
+    class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
+    data-leading-visual="true"
   >
-    <svg
+    <span
       aria-hidden="true"
-      class="octicon octicon-search"
-      display="inline-block"
-      fill="currentColor"
-      focusable="false"
-      height="16"
-      overflow="visible"
-      style="vertical-align: text-bottom;"
-      viewBox="0 0 16 16"
-      width="16"
-    >
-      <path
-        d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
-      />
-    </svg>
-  </span>
-  <input
-    aria-describedby=":ru:"
-    class="prc-components-Input-sKHcw"
-    data-component="input"
-    name="search"
-    placeholder="Search"
-    type="text"
-  />
-</span>
-`;
-
-exports[`TextInput > renders leadingVisual 2`] = `
-<span
-  aria-busy="false"
-  class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
-  data-leading-visual="true"
->
-  <span
-    aria-hidden="true"
-    class="TextInput-icon"
-    id=":r11:"
-  >
-    <svg
-      aria-hidden="true"
-      class="octicon octicon-search"
-      display="inline-block"
-      fill="currentColor"
-      focusable="false"
-      height="16"
-      overflow="visible"
-      style="vertical-align: text-bottom;"
-      viewBox="0 0 16 16"
-      width="16"
-    >
-      <path
-        d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
-      />
-    </svg>
-  </span>
-  <input
-    aria-describedby=":r11:"
-    class="prc-components-Input-sKHcw"
-    data-component="input"
-    name="search"
-    placeholder="Search"
-    type="text"
-  />
-</span>
-`;
-
-exports[`TextInput > renders leadingVisual 3`] = `
-<span
-  aria-busy="false"
-  class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
-  data-leading-visual="true"
->
-  <span
-    aria-hidden="true"
-    class="TextInput-icon"
-    id=":r14:"
-  >
-    <div>
-      Trailing
-    </div>
-  </span>
-  <input
-    aria-describedby=":r14:"
-    class="prc-components-Input-sKHcw"
-    data-component="input"
-    name="search"
-    placeholder="Search"
-    type="text"
-  />
-</span>
-`;
-
-exports[`TextInput > renders leadingVisual 4`] = `
-<span
-  aria-busy="false"
-  class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
-  data-leading-visual="true"
->
-  <span
-    aria-hidden="true"
-    class="TextInput-icon"
-    id=":r17:"
-  >
-    <div>
-      Trailing
-    </div>
-  </span>
-  <input
-    aria-describedby=":r17:"
-    class="prc-components-Input-sKHcw"
-    data-component="input"
-    name="search"
-    placeholder="Search"
-    type="text"
-  />
-</span>
-`;
-
-exports[`TextInput > renders monospace 1`] = `
-<span
-  aria-busy="false"
-  class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
-  data-monospace="true"
->
-  <input
-    class="prc-components-Input-sKHcw"
-    data-component="input"
-    name="zipcode"
-    type="text"
-  />
-</span>
-`;
-
-exports[`TextInput > renders placeholder 1`] = `
-<span
-  aria-busy="false"
-  class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
->
-  <input
-    class="prc-components-Input-sKHcw"
-    data-component="input"
-    name="zipcode"
-    placeholder="560076"
-    type="text"
-  />
-</span>
-`;
-
-exports[`TextInput > renders small 1`] = `
-<span
-  aria-busy="false"
-  class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
-  data-size="small"
->
-  <input
-    class="prc-components-Input-sKHcw"
-    data-component="input"
-    name="zipcode"
-    type="text"
-  />
-</span>
-`;
-
-exports[`TextInput > renders trailingAction icon button 1`] = `
-<span
-  aria-busy="false"
-  class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
-  data-trailing-action="true"
->
-  <input
-    class="prc-components-Input-sKHcw"
-    data-component="input"
-    name="search"
-    placeholder="Search"
-    type="text"
-  />
-  <span
-    class="TextInput-action prc-components-TextInputAction-tmsle"
-  >
-    <button
-      aria-describedby=":r23:-loading-announcement"
-      aria-labelledby=":r22:"
-      class="sc-aXZVg prc-Button-ButtonBase-Eb8-K prc-components-Invisible-6q42n prc-Button-IconButton-GE6m6"
-      data-component="IconButton"
-      data-loading="false"
-      data-no-visuals="true"
-      data-size="small"
-      data-variant="invisible"
-      type="button"
+      class="TextInput-icon"
+      id=":ru:"
     >
       <svg
         aria-hidden="true"
@@ -293,240 +113,692 @@ exports[`TextInput > renders trailingAction icon button 1`] = `
           d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
         />
       </svg>
-    </button>
+    </span>
+    <input
+      aria-describedby=":ru:"
+      class="prc-components-Input-sKHcw"
+      data-component="input"
+      name="search"
+      placeholder="Search"
+      type="text"
+    />
+  </span>
+</div>
+`;
+
+exports[`TextInput > renders leadingVisual 2`] = `
+<div>
+  <span
+    aria-busy="false"
+    class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
+    data-leading-visual="true"
+  >
     <span
       aria-hidden="true"
-      class="prc-TooltipV2-Tooltip-jugyt"
-      data-direction="s"
-      id=":r22:"
-      popover="auto"
+      class="TextInput-icon"
+      id=":r11:"
     >
-      Icon label
+      <svg
+        aria-hidden="true"
+        class="octicon octicon-search"
+        display="inline-block"
+        fill="currentColor"
+        focusable="false"
+        height="16"
+        overflow="visible"
+        style="vertical-align: text-bottom;"
+        viewBox="0 0 16 16"
+        width="16"
+      >
+        <path
+          d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
+        />
+      </svg>
+    </span>
+    <input
+      aria-describedby=":r11:"
+      class="prc-components-Input-sKHcw"
+      data-component="input"
+      name="search"
+      placeholder="Search"
+      type="text"
+    />
+  </span>
+</div>
+`;
+
+exports[`TextInput > renders leadingVisual 3`] = `
+<div>
+  <span
+    aria-busy="false"
+    class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
+    data-leading-visual="true"
+  >
+    <span
+      aria-hidden="true"
+      class="TextInput-icon"
+      id=":r14:"
+    >
+      <div>
+        Trailing
+      </div>
+    </span>
+    <input
+      aria-describedby=":r14:"
+      class="prc-components-Input-sKHcw"
+      data-component="input"
+      name="search"
+      placeholder="Search"
+      type="text"
+    />
+  </span>
+</div>
+`;
+
+exports[`TextInput > renders leadingVisual 4`] = `
+<div>
+  <span
+    aria-busy="false"
+    class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
+    data-leading-visual="true"
+  >
+    <span
+      aria-hidden="true"
+      class="TextInput-icon"
+      id=":r17:"
+    >
+      <div>
+        Trailing
+      </div>
+    </span>
+    <input
+      aria-describedby=":r17:"
+      class="prc-components-Input-sKHcw"
+      data-component="input"
+      name="search"
+      placeholder="Search"
+      type="text"
+    />
+  </span>
+</div>
+`;
+
+exports[`TextInput > renders monospace 1`] = `
+<div>
+  <span
+    aria-busy="false"
+    class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
+    data-monospace="true"
+  >
+    <input
+      class="prc-components-Input-sKHcw"
+      data-component="input"
+      name="zipcode"
+      type="text"
+    />
+  </span>
+</div>
+`;
+
+exports[`TextInput > renders placeholder 1`] = `
+<div>
+  <span
+    aria-busy="false"
+    class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
+  >
+    <input
+      class="prc-components-Input-sKHcw"
+      data-component="input"
+      name="zipcode"
+      placeholder="560076"
+      type="text"
+    />
+  </span>
+</div>
+`;
+
+exports[`TextInput > renders small 1`] = `
+<div>
+  <span
+    aria-busy="false"
+    class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
+    data-size="small"
+  >
+    <input
+      class="prc-components-Input-sKHcw"
+      data-component="input"
+      name="zipcode"
+      type="text"
+    />
+  </span>
+</div>
+`;
+
+exports[`TextInput > renders trailingAction icon button 1`] = `
+<div>
+  <span
+    aria-busy="false"
+    class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
+    data-trailing-action="true"
+  >
+    <input
+      class="prc-components-Input-sKHcw"
+      data-component="input"
+      name="search"
+      placeholder="Search"
+      type="text"
+    />
+    <span
+      class="TextInput-action prc-components-TextInputAction-tmsle"
+    >
+      <button
+        aria-describedby=":r23:-loading-announcement"
+        aria-labelledby=":r22:"
+        class="sc-aXZVg prc-Button-ButtonBase-Eb8-K prc-components-Invisible-6q42n prc-Button-IconButton-GE6m6"
+        data-component="IconButton"
+        data-loading="false"
+        data-no-visuals="true"
+        data-size="small"
+        data-variant="invisible"
+        type="button"
+      >
+        <svg
+          aria-hidden="true"
+          class="octicon octicon-search"
+          display="inline-block"
+          fill="currentColor"
+          focusable="false"
+          height="16"
+          overflow="visible"
+          style="vertical-align: text-bottom;"
+          viewBox="0 0 16 16"
+          width="16"
+        >
+          <path
+            d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
+          />
+        </svg>
+      </button>
+      <span
+        aria-hidden="true"
+        class="prc-TooltipV2-Tooltip-jugyt"
+        data-direction="s"
+        id=":r22:"
+        popover="auto"
+      >
+        Icon label
+      </span>
     </span>
   </span>
-</span>
+</div>
 `;
 
 exports[`TextInput > renders trailingAction text button 1`] = `
-<span
-  aria-busy="false"
-  class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
-  data-trailing-action="true"
->
-  <input
-    class="prc-components-Input-sKHcw"
-    data-component="input"
-    name="search"
-    placeholder="Search"
-    type="text"
-  />
+<div>
   <span
-    class="TextInput-action prc-components-TextInputAction-tmsle"
+    aria-busy="false"
+    class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
+    data-trailing-action="true"
   >
-    <button
-      aria-describedby=":r1p:-loading-announcement"
-      class="sc-aXZVg prc-Button-ButtonBase-Eb8-K prc-components-Invisible-6q42n"
-      data-loading="false"
-      data-no-visuals="true"
-      data-size="medium"
-      data-variant="invisible"
-      type="button"
+    <input
+      class="prc-components-Input-sKHcw"
+      data-component="input"
+      name="search"
+      placeholder="Search"
+      type="text"
+    />
+    <span
+      class="TextInput-action prc-components-TextInputAction-tmsle"
     >
-      <span
-        class="sc-aXZVg jjaNhq prc-Button-ButtonContent-KZ5Bz"
-        data-component="buttonContent"
+      <button
+        aria-describedby=":r1p:-loading-announcement"
+        class="sc-aXZVg prc-Button-ButtonBase-Eb8-K prc-components-Invisible-6q42n"
+        data-loading="false"
+        data-no-visuals="true"
+        data-size="medium"
+        data-variant="invisible"
+        type="button"
       >
         <span
-          class="prc-Button-Label-B1e2-"
-          data-component="text"
+          class="sc-aXZVg jjaNhq prc-Button-ButtonContent-KZ5Bz"
+          data-component="buttonContent"
         >
-          Clear
+          <span
+            class="prc-Button-Label-B1e2-"
+            data-component="text"
+          >
+            Clear
+          </span>
         </span>
-      </span>
-    </button>
+      </button>
+    </span>
   </span>
-</span>
+</div>
 `;
 
 exports[`TextInput > renders trailingAction text button with a tooltip 1`] = `
-<span
-  aria-busy="false"
-  class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
-  data-trailing-action="true"
->
-  <input
-    class="prc-components-Input-sKHcw"
-    data-component="input"
-    name="search"
-    placeholder="Search"
-    type="text"
-  />
+<div>
   <span
-    class="TextInput-action prc-components-TextInputAction-tmsle"
+    aria-busy="false"
+    class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
+    data-trailing-action="true"
   >
-    <button
-      aria-describedby=":r1u:-loading-announcement :r1t:"
-      class="sc-aXZVg prc-Button-ButtonBase-Eb8-K prc-components-Invisible-6q42n"
-      data-loading="false"
-      data-no-visuals="true"
-      data-size="medium"
-      data-variant="invisible"
-      type="button"
+    <input
+      class="prc-components-Input-sKHcw"
+      data-component="input"
+      name="search"
+      placeholder="Search"
+      type="text"
+    />
+    <span
+      class="TextInput-action prc-components-TextInputAction-tmsle"
     >
-      <span
-        class="sc-aXZVg jjaNhq prc-Button-ButtonContent-KZ5Bz"
-        data-component="buttonContent"
+      <button
+        aria-describedby=":r1u:-loading-announcement :r1t:"
+        class="sc-aXZVg prc-Button-ButtonBase-Eb8-K prc-components-Invisible-6q42n"
+        data-loading="false"
+        data-no-visuals="true"
+        data-size="medium"
+        data-variant="invisible"
+        type="button"
       >
         <span
-          class="prc-Button-Label-B1e2-"
-          data-component="text"
+          class="sc-aXZVg jjaNhq prc-Button-ButtonContent-KZ5Bz"
+          data-component="buttonContent"
         >
-          Clear
+          <span
+            class="prc-Button-Label-B1e2-"
+            data-component="text"
+          >
+            Clear
+          </span>
         </span>
+      </button>
+      <span
+        aria-hidden="true"
+        class="prc-components-ConditionalTooltip-QBYW3 prc-TooltipV2-Tooltip-jugyt"
+        data-direction="s"
+        id=":r1t:"
+        popover="auto"
+        role="tooltip"
+      >
+        Clear input
       </span>
-    </button>
-    <span
-      aria-hidden="true"
-      class="prc-components-ConditionalTooltip-QBYW3 prc-TooltipV2-Tooltip-jugyt"
-      data-direction="s"
-      id=":r1t:"
-      popover="auto"
-      role="tooltip"
-    >
-      Clear input
     </span>
   </span>
-</span>
+</div>
 `;
 
 exports[`TextInput > renders trailingVisual 1`] = `
-<span
-  aria-busy="false"
-  class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
-  data-trailing-visual="true"
->
-  <input
-    aria-describedby=":r1b:"
-    class="prc-components-Input-sKHcw"
-    data-component="input"
-    name="search"
-    placeholder="Search"
-    type="text"
-  />
-  <span
-    aria-hidden="true"
-    class="TextInput-icon"
-    id=":r1b:"
-  >
-    <svg
-      aria-hidden="true"
-      class="octicon octicon-search"
-      display="inline-block"
-      fill="currentColor"
-      focusable="false"
-      height="16"
-      overflow="visible"
-      style="vertical-align: text-bottom;"
-      viewBox="0 0 16 16"
-      width="16"
+{
+  "asFragment": [Function],
+  "baseElement": <body>
+    
+  
+
+
+    <div>
+      <span
+        aria-busy="false"
+        class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
+        data-trailing-visual="true"
+      >
+        <input
+          aria-describedby=":r1b:"
+          class="prc-components-Input-sKHcw"
+          data-component="input"
+          name="search"
+          placeholder="Search"
+          type="text"
+        />
+        <span
+          aria-hidden="true"
+          class="TextInput-icon"
+          id=":r1b:"
+        >
+          <svg
+            aria-hidden="true"
+            class="octicon octicon-search"
+            display="inline-block"
+            fill="currentColor"
+            focusable="false"
+            height="16"
+            overflow="visible"
+            style="vertical-align: text-bottom;"
+            viewBox="0 0 16 16"
+            width="16"
+          >
+            <path
+              d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
+            />
+          </svg>
+        </span>
+      </span>
+    </div>
+  </body>,
+  "container": <div>
+    <span
+      aria-busy="false"
+      class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
+      data-trailing-visual="true"
     >
-      <path
-        d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
+      <input
+        aria-describedby=":r1b:"
+        class="prc-components-Input-sKHcw"
+        data-component="input"
+        name="search"
+        placeholder="Search"
+        type="text"
       />
-    </svg>
-  </span>
-</span>
+      <span
+        aria-hidden="true"
+        class="TextInput-icon"
+        id=":r1b:"
+      >
+        <svg
+          aria-hidden="true"
+          class="octicon octicon-search"
+          display="inline-block"
+          fill="currentColor"
+          focusable="false"
+          height="16"
+          overflow="visible"
+          style="vertical-align: text-bottom;"
+          viewBox="0 0 16 16"
+          width="16"
+        >
+          <path
+            d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
+          />
+        </svg>
+      </span>
+    </span>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
 `;
 
 exports[`TextInput > renders trailingVisual 2`] = `
-<span
-  aria-busy="false"
-  class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
-  data-trailing-visual="true"
->
-  <input
-    aria-describedby=":r1e:"
-    class="prc-components-Input-sKHcw"
-    data-component="input"
-    name="search"
-    placeholder="Search"
-    type="text"
-  />
-  <span
-    aria-hidden="true"
-    class="TextInput-icon"
-    id=":r1e:"
-  >
-    <svg
-      aria-hidden="true"
-      class="octicon octicon-search"
-      display="inline-block"
-      fill="currentColor"
-      focusable="false"
-      height="16"
-      overflow="visible"
-      style="vertical-align: text-bottom;"
-      viewBox="0 0 16 16"
-      width="16"
+{
+  "asFragment": [Function],
+  "baseElement": <body>
+    
+  
+
+
+    <div>
+      <span
+        aria-busy="false"
+        class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
+        data-trailing-visual="true"
+      >
+        <input
+          aria-describedby=":r1b:"
+          class="prc-components-Input-sKHcw"
+          data-component="input"
+          name="search"
+          placeholder="Search"
+          type="text"
+        />
+        <span
+          aria-hidden="true"
+          class="TextInput-icon"
+          id=":r1b:"
+        >
+          <svg
+            aria-hidden="true"
+            class="octicon octicon-search"
+            display="inline-block"
+            fill="currentColor"
+            focusable="false"
+            height="16"
+            overflow="visible"
+            style="vertical-align: text-bottom;"
+            viewBox="0 0 16 16"
+            width="16"
+          >
+            <path
+              d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
+            />
+          </svg>
+        </span>
+      </span>
+    </div>
+    <div>
+      <span
+        aria-busy="false"
+        class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
+        data-trailing-visual="true"
+      >
+        <input
+          aria-describedby=":r1e:"
+          class="prc-components-Input-sKHcw"
+          data-component="input"
+          name="search"
+          placeholder="Search"
+          type="text"
+        />
+        <span
+          aria-hidden="true"
+          class="TextInput-icon"
+          id=":r1e:"
+        >
+          <svg
+            aria-hidden="true"
+            class="octicon octicon-search"
+            display="inline-block"
+            fill="currentColor"
+            focusable="false"
+            height="16"
+            overflow="visible"
+            style="vertical-align: text-bottom;"
+            viewBox="0 0 16 16"
+            width="16"
+          >
+            <path
+              d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
+            />
+          </svg>
+        </span>
+      </span>
+    </div>
+  </body>,
+  "container": <div>
+    <span
+      aria-busy="false"
+      class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
+      data-trailing-visual="true"
     >
-      <path
-        d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
+      <input
+        aria-describedby=":r1e:"
+        class="prc-components-Input-sKHcw"
+        data-component="input"
+        name="search"
+        placeholder="Search"
+        type="text"
       />
-    </svg>
-  </span>
-</span>
+      <span
+        aria-hidden="true"
+        class="TextInput-icon"
+        id=":r1e:"
+      >
+        <svg
+          aria-hidden="true"
+          class="octicon octicon-search"
+          display="inline-block"
+          fill="currentColor"
+          focusable="false"
+          height="16"
+          overflow="visible"
+          style="vertical-align: text-bottom;"
+          viewBox="0 0 16 16"
+          width="16"
+        >
+          <path
+            d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
+          />
+        </svg>
+      </span>
+    </span>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
 `;
 
 exports[`TextInput > renders trailingVisual 3`] = `
-<span
-  aria-busy="false"
-  class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
-  data-trailing-visual="true"
->
-  <input
-    aria-describedby=":r1h:"
-    class="prc-components-Input-sKHcw"
-    data-component="input"
-    name="search"
-    placeholder="Search"
-    type="text"
-  />
+<div>
   <span
-    aria-hidden="true"
-    class="TextInput-icon"
-    id=":r1h:"
+    aria-busy="false"
+    class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
+    data-trailing-visual="true"
   >
-    <div>
-      Trailing
-    </div>
+    <input
+      aria-describedby=":r1h:"
+      class="prc-components-Input-sKHcw"
+      data-component="input"
+      name="search"
+      placeholder="Search"
+      type="text"
+    />
+    <span
+      aria-hidden="true"
+      class="TextInput-icon"
+      id=":r1h:"
+    >
+      <div>
+        Trailing
+      </div>
+    </span>
   </span>
-</span>
+</div>
 `;
 
 exports[`TextInput > renders trailingVisual 4`] = `
-<span
-  aria-busy="false"
-  class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
-  data-trailing-visual="true"
->
-  <input
-    aria-describedby=":r1k:"
-    class="prc-components-Input-sKHcw"
-    data-component="input"
-    name="search"
-    placeholder="Search"
-    type="text"
-  />
+<div>
   <span
-    aria-hidden="true"
-    class="TextInput-icon"
-    id=":r1k:"
+    aria-busy="false"
+    class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
+    data-trailing-visual="true"
   >
-    <div>
-      Trailing
-    </div>
+    <input
+      aria-describedby=":r1k:"
+      class="prc-components-Input-sKHcw"
+      data-component="input"
+      name="search"
+      placeholder="Search"
+      type="text"
+    />
+    <span
+      aria-hidden="true"
+      class="TextInput-icon"
+      id=":r1k:"
+    >
+      <div>
+        Trailing
+      </div>
+    </span>
   </span>
-</span>
+</div>
 `;
 
 exports[`TextInput > renders with a loading indicator 1`] = `
@@ -1758,15 +2030,17 @@ exports[`TextInput > renders with a loading indicator 1`] = `
 `;
 
 exports[`TextInput > should render a password input 1`] = `
-<span
-  aria-busy="false"
-  class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
->
-  <input
-    class="prc-components-Input-sKHcw"
-    data-component="input"
-    name="password"
-    type="password"
-  />
-</span>
+<div>
+  <span
+    aria-busy="false"
+    class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
+  >
+    <input
+      class="prc-components-Input-sKHcw"
+      data-component="input"
+      name="password"
+      type="password"
+    />
+  </span>
+</div>
 `;

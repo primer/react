@@ -8,27 +8,28 @@ import {TextInput} from '..'
 describe('TextInput', () => {
   it('should support `className` on the outermost element', () => {
     const Element = () => <TextInput className={'test-class-name'} />
-    expect(render(<Element />).container.firstChild).toHaveClass('test-class-name')
+    const {container} = render(<Element />)
+    expect(container.firstChild).toHaveClass('test-class-name')
   })
 
   it('renders', () => {
-    expect(render(<TextInput name="zipcode" />).container.firstChild).toMatchSnapshot()
+    expect(render(<TextInput name="zipcode" />).container).toMatchSnapshot()
   })
 
   it('renders small', () => {
-    expect(render(<TextInput name="zipcode" size="small" />).container.firstChild).toMatchSnapshot()
+    expect(render(<TextInput name="zipcode" size="small" />).container).toMatchSnapshot()
   })
 
   it('renders large', () => {
-    expect(render(<TextInput name="zipcode" size="large" />).container.firstChild).toMatchSnapshot()
+    expect(render(<TextInput name="zipcode" size="large" />).container).toMatchSnapshot()
   })
 
   it('renders block', () => {
-    expect(render(<TextInput name="zipcode" block />).container.firstChild).toMatchSnapshot()
+    expect(render(<TextInput name="zipcode" block />).container).toMatchSnapshot()
   })
 
   it('renders error', () => {
-    expect(render(<TextInput name="zipcode" validationStatus="error" />).container.firstChild).toMatchSnapshot()
+    expect(render(<TextInput name="zipcode" validationStatus="error" />).container).toMatchSnapshot()
   })
 
   it('renders sets aria-invalid="true" on error', () => {
@@ -37,23 +38,23 @@ describe('TextInput', () => {
   })
 
   it('renders contrast', () => {
-    expect(render(<TextInput name="zipcode" contrast />).container.firstChild).toMatchSnapshot()
+    expect(render(<TextInput name="zipcode" contrast />).container).toMatchSnapshot()
   })
 
   it('renders monospace', () => {
-    expect(render(<TextInput name="zipcode" monospace />).container.firstChild).toMatchSnapshot()
+    expect(render(<TextInput name="zipcode" monospace />).container).toMatchSnapshot()
   })
 
   it('renders placeholder', () => {
-    expect(render(<TextInput name="zipcode" placeholder={'560076'} />).container.firstChild).toMatchSnapshot()
+    expect(render(<TextInput name="zipcode" placeholder={'560076'} />).container).toMatchSnapshot()
   })
 
   it('renders leadingVisual', () => {
     expect(
-      render(<TextInput name="search" placeholder={'Search'} leadingVisual={SearchIcon} />).container.firstChild,
+      render(<TextInput name="search" placeholder={'Search'} leadingVisual={SearchIcon} />).container,
     ).toMatchSnapshot()
     expect(
-      render(<TextInput name="search" placeholder={'Search'} leadingVisual={<SearchIcon />} />).container.firstChild,
+      render(<TextInput name="search" placeholder={'Search'} leadingVisual={<SearchIcon />} />).container,
     ).toMatchSnapshot()
     expect(
       render(
@@ -64,7 +65,7 @@ describe('TextInput', () => {
             <div>Trailing</div>
           ))}
         />,
-      ).container.firstChild,
+      ).container,
     ).toMatchSnapshot()
     expect(
       render(
@@ -75,16 +76,16 @@ describe('TextInput', () => {
             <div>Trailing</div>
           ))}
         />,
-      ).container.firstChild,
+      ).container,
     ).toMatchSnapshot()
   })
 
   it('renders trailingVisual', () => {
     expect(
-      render(<TextInput name="search" placeholder={'Search'} trailingVisual={SearchIcon} />).container.firstChild,
+      render(<TextInput name="search" placeholder={'Search'} trailingVisual={SearchIcon} />),
     ).toMatchSnapshot()
     expect(
-      render(<TextInput name="search" placeholder={'Search'} trailingVisual={<SearchIcon />} />).container.firstChild,
+      render(<TextInput name="search" placeholder={'Search'} trailingVisual={<SearchIcon />} />),
     ).toMatchSnapshot()
     expect(
       render(
@@ -95,7 +96,7 @@ describe('TextInput', () => {
             <div>Trailing</div>
           ))}
         />,
-      ).container.firstChild,
+      ).container,
     ).toMatchSnapshot()
     expect(
       render(
@@ -106,7 +107,7 @@ describe('TextInput', () => {
             <div>Trailing</div>
           ))}
         />,
-      ).container.firstChild,
+      ).container,
     ).toMatchSnapshot()
   })
 
@@ -119,7 +120,7 @@ describe('TextInput', () => {
           placeholder={'Search'}
           trailingAction={<TextInput.Action onClick={handleAction}>Clear</TextInput.Action>}
         />,
-      ).container.firstChild,
+      ).container,
     ).toMatchSnapshot()
   })
 
@@ -136,7 +137,7 @@ describe('TextInput', () => {
             </TextInput.Action>
           }
         />,
-      ).container.firstChild,
+      ).container,
     ).toMatchSnapshot()
   })
 
@@ -149,7 +150,7 @@ describe('TextInput', () => {
           placeholder={'Search'}
           trailingAction={<TextInput.Action onClick={handleAction} icon={SearchIcon} aria-label="Icon label" />}
         />,
-      ).container.firstChild,
+      ).container,
     ).toMatchSnapshot()
   })
 
@@ -228,7 +229,7 @@ describe('TextInput', () => {
   })
 
   it('should render a password input', () => {
-    expect(render(<TextInput name="password" type="password" />).container.firstChild).toMatchSnapshot()
+    expect(render(<TextInput name="password" type="password" />).container).toMatchSnapshot()
   })
 
   it('should not override prop aria-invalid', () => {
