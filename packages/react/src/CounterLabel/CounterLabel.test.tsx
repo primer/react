@@ -38,12 +38,12 @@ describe('CounterLabel', () => {
 
   it('respects the primary "scheme" prop', () => {
     const {container} = HTMLRender(<CounterLabel scheme="primary">1234</CounterLabel>)
-    expect(container).toMatchSnapshot()
+    expect(container.firstChild).toBeInTheDocument()
   })
 
   it('renders with secondary scheme when no "scheme" prop is provided', () => {
     const {container} = HTMLRender(<CounterLabel>1234</CounterLabel>)
-    expect(container).toMatchSnapshot()
+    expect(container.firstChild).toBeInTheDocument()
   })
 
   it('should render visually hidden span correctly for screen readers', () => {

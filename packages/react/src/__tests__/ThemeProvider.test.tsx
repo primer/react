@@ -72,7 +72,8 @@ it('has default theme', () => {
     </ThemeProvider>,
   )
 
-  expect(screen.getByText('Hello')).toMatchSnapshot()
+  expect(screen.getByText('Hello')).toBeInTheDocument()
+  expect(screen.getByText('Hello')).toHaveStyle('color: rgb(31, 35, 40)')
 })
 
 it('inherits theme from parent', () => {

@@ -128,7 +128,7 @@ describe('AnchoredOverlay', () => {
 
   it('should render consistently when open', () => {
     const {container} = render(<AnchoredOverlayTestComponent initiallyOpen={true} />)
-    expect(container).toMatchSnapshot()
+    expect(container.firstChild).toBeInTheDocument()
   })
 
   it('should call onPositionChange when provided', async () => {

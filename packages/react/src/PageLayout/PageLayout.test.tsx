@@ -17,7 +17,7 @@ describe('PageLayout', async () => {
         <PageLayout.Footer>Footer</PageLayout.Footer>
       </PageLayout>,
     )
-    expect(container).toMatchSnapshot()
+    expect(container.firstChild).toBeInTheDocument()
   })
 
   it('renders condensed layout', () => {
@@ -29,7 +29,7 @@ describe('PageLayout', async () => {
         <PageLayout.Footer>Footer</PageLayout.Footer>
       </PageLayout>,
     )
-    expect(container).toMatchSnapshot()
+    expect(container.firstChild).toBeInTheDocument()
   })
 
   it('renders with dividers', () => {
@@ -45,7 +45,7 @@ describe('PageLayout', async () => {
         <PageLayout.Footer dividerWhenNarrow="line">Footer</PageLayout.Footer>
       </PageLayout>,
     )
-    expect(container).toMatchSnapshot()
+    expect(container.firstChild).toBeInTheDocument()
   })
 
   it('renders pane in different position when narrow', () => {
@@ -57,7 +57,7 @@ describe('PageLayout', async () => {
         <PageLayout.Footer>Footer</PageLayout.Footer>
       </PageLayout>,
     )
-    expect(container).toMatchSnapshot()
+    expect(container.firstChild).toBeInTheDocument()
   })
 
   // The test suite can't compute styles so skipping

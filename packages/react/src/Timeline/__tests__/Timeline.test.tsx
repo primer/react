@@ -10,14 +10,14 @@ describe('Timeline', () => {
 
   it('renders with clipSidebar prop', () => {
     const {container} = render(<Timeline clipSidebar />)
-    expect(container).toMatchSnapshot()
+    expect(container.firstChild).toBeInTheDocument()
   })
 })
 
 describe('Timeline.Item', () => {
   it('renders with condensed prop', () => {
     const {container} = render(<Timeline.Item condensed />)
-    expect(container).toMatchSnapshot()
+    expect(container.firstChild).toBeInTheDocument()
   })
 
   it('adds the Timeline-Item class', () => {

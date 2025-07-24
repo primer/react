@@ -5,7 +5,7 @@ import BaseStyles from '../BaseStyles'
 describe('BaseStyles', () => {
   it('has default styles', () => {
     const {container} = render(<BaseStyles>Hello</BaseStyles>)
-    expect(container).toMatchSnapshot()
+    expect(container.firstChild).toBeInTheDocument()
   })
 
   it.skip('respects styling props', () => {

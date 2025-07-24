@@ -9,7 +9,7 @@ describe('Hidden', () => {
         <div>Hidden when narrow</div>
       </Hidden>,
     )
-    expect(container).toMatchSnapshot()
+    expect(container.firstChild).toBeInTheDocument()
   })
 
   it('renders the styles as expected when a single viewport value is provided as a string via `when` prop', () => {

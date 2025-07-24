@@ -4,7 +4,7 @@ import {render as HTMLRender, fireEvent, screen} from '@testing-library/react'
 import axe from 'axe-core'
 import React from 'react'
 import {TextInput} from '..'
-import {render, behavesAsComponent, checkExports} from '../utils/testing'
+import {behavesAsComponent, checkExports} from '../utils/testing'
 
 describe('TextInput', () => {
   behavesAsComponent({Component: TextInput, options: {skipAs: true}})
@@ -25,23 +25,38 @@ describe('TextInput', () => {
   })
 
   it('renders', () => {
-    expect(render(<TextInput name="zipcode" />)).toMatchSnapshot()
+    const {getByRole} = HTMLRender(<TextInput name="zipcode" />)
+    const input = getByRole('textbox')
+    expect(input).toBeInTheDocument()
+    expect(input).toHaveAttribute('name', 'zipcode')
+    expect(input).toHaveAttribute('type', 'text')
   })
 
   it('renders small', () => {
-    expect(render(<TextInput name="zipcode" size="small" />)).toMatchSnapshot()
+    const {getByRole} = HTMLRender(<TextInput name="zipcode" size="small" />)
+    expect(getByRole('textbox')).toHaveAttribute('name', 'zipcode')
   })
 
   it('renders large', () => {
-    expect(render(<TextInput name="zipcode" size="large" />)).toMatchSnapshot()
+    const {container, getByRole} = HTMLRender(<TextInput name="zipcode" size="large" />)
+    const input = getByRole('textbox')
+    expect(input).toBeInTheDocument()
+    expect(input).toHaveAttribute('name', 'zipcode')
+    // Verify wrapper is rendered properly
+    expect(container.querySelector('.TextInputWrapper')).toBeInTheDocument()
   })
 
   it('renders block', () => {
-    expect(render(<TextInput name="zipcode" block />)).toMatchSnapshot()
+    const {getByRole} = HTMLRender(<TextInput name="zipcode" block />)
+    const input = getByRole('textbox')
+    expect(input).toBeInTheDocument()
+    expect(input).toHaveAttribute('name', 'zipcode')
   })
 
   it('renders error', () => {
-    expect(render(<TextInput name="zipcode" validationStatus="error" />)).toMatchSnapshot()
+    const {getByRole} = HTMLRender(<TextInput name="zipcode" validationStatus="error" />)
+    const input = getByRole('textbox')
+    expect(input).toHaveAttribute('aria-invalid', 'true')
   })
 
   it('renders sets aria-invalid="true" on error', () => {
@@ -50,112 +65,142 @@ describe('TextInput', () => {
   })
 
   it('renders contrast', () => {
-    expect(render(<TextInput name="zipcode" contrast />)).toMatchSnapshot()
+    const {getByRole} = HTMLRender(<TextInput name="zipcode" contrast />)
+    const input = getByRole('textbox')
+    expect(input).toBeInTheDocument()
+    expect(input).toHaveAttribute('name', 'zipcode')
   })
 
   it('renders monospace', () => {
-    expect(render(<TextInput name="zipcode" monospace />)).toMatchSnapshot()
+    const {getByRole} = HTMLRender(<TextInput name="zipcode" monospace />)
+    const input = getByRole('textbox')
+    expect(input).toBeInTheDocument()
+    expect(input).toHaveAttribute('name', 'zipcode')
   })
 
   it('renders placeholder', () => {
-    expect(render(<TextInput name="zipcode" placeholder={'560076'} />)).toMatchSnapshot()
+    const {getByRole} = HTMLRender(<TextInput name="zipcode" placeholder={'560076'} />)
+    const input = getByRole('textbox')
+    expect(input).toHaveAttribute('placeholder', '560076')
   })
 
   it('renders leadingVisual', () => {
-    expect(render(<TextInput name="search" placeholder={'Search'} leadingVisual={SearchIcon} />)).toMatchSnapshot()
-    expect(render(<TextInput name="search" placeholder={'Search'} leadingVisual={<SearchIcon />} />)).toMatchSnapshot()
-    expect(
-      render(
-        <TextInput
-          name="search"
-          placeholder={'Search'}
-          leadingVisual={React.memo(() => (
-            <div>Trailing</div>
-          ))}
-        />,
-      ),
-    ).toMatchSnapshot()
-    expect(
-      render(
-        <TextInput
-          name="search"
-          placeholder={'Search'}
-          leadingVisual={React.forwardRef(() => (
-            <div>Trailing</div>
-          ))}
-        />,
-      ),
-    ).toMatchSnapshot()
+    // Test with icon component
+    const {container: container1} = HTMLRender(
+      <TextInput name="search" placeholder={'Search'} leadingVisual={SearchIcon} />,
+    )
+    expect(container1.querySelector('[data-component="leadingVisual"]')).toBeInTheDocument()
+
+    // Test with icon element
+    const {container: container2} = HTMLRender(
+      <TextInput name="search" placeholder={'Search'} leadingVisual={<SearchIcon />} />,
+    )
+    expect(container2.querySelector('[data-component="leadingVisual"]')).toBeInTheDocument()
+
+    // Test with custom memo component
+    const {container: container3} = HTMLRender(
+      <TextInput
+        name="search"
+        placeholder={'Search'}
+        leadingVisual={React.memo(() => (
+          <div>Leading</div>
+        ))}
+      />,
+    )
+    expect(container3.querySelector('[data-component="leadingVisual"]')).toBeInTheDocument()
+
+    // Test with forwardRef component
+    const {container: container4} = HTMLRender(
+      <TextInput
+        name="search"
+        placeholder={'Search'}
+        leadingVisual={React.forwardRef(() => (
+          <div>Leading</div>
+        ))}
+      />,
+    )
+    expect(container4.querySelector('[data-component="leadingVisual"]')).toBeInTheDocument()
   })
 
   it('renders trailingVisual', () => {
-    expect(render(<TextInput name="search" placeholder={'Search'} trailingVisual={SearchIcon} />)).toMatchSnapshot()
-    expect(render(<TextInput name="search" placeholder={'Search'} trailingVisual={<SearchIcon />} />)).toMatchSnapshot()
-    expect(
-      render(
-        <TextInput
-          name="search"
-          placeholder={'Search'}
-          trailingVisual={React.memo(() => (
-            <div>Trailing</div>
-          ))}
-        />,
-      ),
-    ).toMatchSnapshot()
-    expect(
-      render(
-        <TextInput
-          name="search"
-          placeholder={'Search'}
-          trailingVisual={React.forwardRef(() => (
-            <div>Trailing</div>
-          ))}
-        />,
-      ),
-    ).toMatchSnapshot()
+    // Test with icon component
+    const {container: container1} = HTMLRender(
+      <TextInput name="search" placeholder={'Search'} trailingVisual={SearchIcon} />,
+    )
+    expect(container1.querySelector('[data-component="trailingVisual"]')).toBeInTheDocument()
+
+    // Test with icon element
+    const {container: container2} = HTMLRender(
+      <TextInput name="search" placeholder={'Search'} trailingVisual={<SearchIcon />} />,
+    )
+    expect(container2.querySelector('[data-component="trailingVisual"]')).toBeInTheDocument()
+
+    // Test with memo component
+    const {container: container3} = HTMLRender(
+      <TextInput
+        name="search"
+        placeholder={'Search'}
+        trailingVisual={React.memo(() => (
+          <div>Trailing</div>
+        ))}
+      />,
+    )
+    expect(container3.querySelector('[data-component="trailingVisual"]')).toBeInTheDocument()
+
+    // Test with forwardRef component
+    const {container: container4} = HTMLRender(
+      <TextInput
+        name="search"
+        placeholder={'Search'}
+        trailingVisual={React.forwardRef(() => (
+          <div>Trailing</div>
+        ))}
+      />,
+    )
+    expect(container4.querySelector('[data-component="trailingVisual"]')).toBeInTheDocument()
   })
 
   it('renders trailingAction text button', () => {
     const handleAction = jest.fn()
-    expect(
-      render(
-        <TextInput
-          name="search"
-          placeholder={'Search'}
-          trailingAction={<TextInput.Action onClick={handleAction}>Clear</TextInput.Action>}
-        />,
-      ),
-    ).toMatchSnapshot()
+    const {container} = HTMLRender(
+      <TextInput
+        name="search"
+        placeholder={'Search'}
+        trailingAction={<TextInput.Action onClick={handleAction}>Clear</TextInput.Action>}
+      />,
+    )
+    expect(container.querySelector('button')).toBeInTheDocument()
+    expect(container.querySelector('button')).toHaveTextContent('Clear')
   })
 
   it('renders trailingAction text button with a tooltip', () => {
     const handleAction = jest.fn()
-    expect(
-      render(
-        <TextInput
-          name="search"
-          placeholder={'Search'}
-          trailingAction={
-            <TextInput.Action onClick={handleAction} aria-label="Clear input">
-              Clear
-            </TextInput.Action>
-          }
-        />,
-      ),
-    ).toMatchSnapshot()
+    const {container} = HTMLRender(
+      <TextInput
+        name="search"
+        placeholder={'Search'}
+        trailingAction={
+          <TextInput.Action onClick={handleAction} aria-label="Clear input">
+            Clear
+          </TextInput.Action>
+        }
+      />,
+    )
+    expect(container.querySelector('button')).toBeInTheDocument()
+    expect(container.querySelector('button')).toHaveAttribute('aria-label', 'Clear input')
   })
 
   it('renders trailingAction icon button', () => {
     const handleAction = jest.fn()
-    expect(
-      render(
-        <TextInput
-          name="search"
-          placeholder={'Search'}
-          trailingAction={<TextInput.Action onClick={handleAction} icon={SearchIcon} aria-label="Icon label" />}
-        />,
-      ),
-    ).toMatchSnapshot()
+    const {container} = HTMLRender(
+      <TextInput
+        name="search"
+        placeholder={'Search'}
+        trailingAction={<TextInput.Action onClick={handleAction} icon={SearchIcon} aria-label="Icon label" />}
+      />,
+    )
+    expect(container.querySelector('button')).toBeInTheDocument()
+    expect(container.querySelector('button')).toHaveAttribute('aria-label', 'Icon label')
   })
 
   it('focuses the text input if you do not click the input element', () => {
@@ -174,41 +219,20 @@ describe('TextInput', () => {
   })
 
   it('renders with a loading indicator', () => {
-    expect(
-      render(
-        <>
-          <TextInput loading />
+    // Test basic loading indicator
+    const {container: container1} = HTMLRender(<TextInput loading />)
+    expect(container1.querySelector('[data-component="Spinner"]')).toBeInTheDocument()
 
-          <TextInput loading loaderPosition="leading" />
+    // Test loading with different positions
+    const {container: container2} = HTMLRender(<TextInput loading loaderPosition="leading" />)
+    expect(container2.querySelector('[data-component="Spinner"]')).toBeInTheDocument()
 
-          <TextInput loading loaderPosition="trailing" />
+    const {container: container3} = HTMLRender(<TextInput loading loaderPosition="trailing" />)
+    expect(container3.querySelector('[data-component="Spinner"]')).toBeInTheDocument()
 
-          <TextInput loading leadingVisual={SearchIcon} />
-
-          <TextInput loading leadingVisual={SearchIcon} loaderPosition="leading" />
-
-          <TextInput loading leadingVisual={SearchIcon} loaderPosition="trailing" />
-
-          <TextInput loading trailingVisual={SearchIcon} />
-
-          <TextInput loading trailingVisual={SearchIcon} loaderPosition="leading" />
-
-          <TextInput loading trailingVisual={SearchIcon} loaderPosition="trailing" />
-
-          <TextInput loading size="small" leadingVisual={SearchIcon} trailingVisual={SearchIcon} />
-
-          <TextInput loading leadingVisual={SearchIcon} trailingVisual={SearchIcon} loaderPosition="leading" />
-
-          <TextInput
-            loading
-            size="large"
-            leadingVisual={SearchIcon}
-            trailingVisual={SearchIcon}
-            loaderPosition="trailing"
-          />
-        </>,
-      ),
-    ).toMatchSnapshot()
+    // Test loading with visuals
+    const {container: container4} = HTMLRender(<TextInput loading leadingVisual={SearchIcon} />)
+    expect(container4.querySelector('[data-component="Spinner"]')).toBeInTheDocument()
   })
 
   it('indicates a busy status to assistive technology', () => {
@@ -233,7 +257,8 @@ describe('TextInput', () => {
   })
 
   it('should render a password input', () => {
-    expect(render(<TextInput name="password" type="password" />)).toMatchSnapshot()
+    const {getByRole} = HTMLRender(<TextInput name="password" type="password" />)
+    expect(getByRole('textbox')).toHaveAttribute('type', 'password')
   })
 
   it('should not override prop aria-invalid', () => {

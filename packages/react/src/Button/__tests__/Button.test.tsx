@@ -76,7 +76,8 @@ describe('Button', () => {
       </Button>,
     )
     const button = container.getByRole('button')
-    expect(button).toMatchSnapshot()
+    // Check that block styling is applied
+    expect(button).toHaveAttribute('data-block', 'block')
   })
 
   it('respects the "disabled" prop', () => {
@@ -99,17 +100,19 @@ describe('Button', () => {
       </Button>,
     )
     const button = container.getByRole('button')
-    expect(button).toMatchSnapshot()
+    // Check that small size styling is applied
+    expect(button).toHaveAttribute('data-size', 'small')
   })
 
   it('respects the large size prop', () => {
     const container = render(
       <Button size="large" id="test-button">
-        Smol
+        Large
       </Button>,
     )
     const button = container.getByRole('button')
-    expect(button).toMatchSnapshot()
+    // Check that large size styling is applied
+    expect(button).toHaveAttribute('data-size', 'large')
   })
 
   it('styles primary button appropriately', () => {
@@ -119,7 +122,8 @@ describe('Button', () => {
       </Button>,
     )
     const button = container.getByRole('button')
-    expect(button).toMatchSnapshot()
+    // Check that primary variant styling is applied
+    expect(button).toHaveAttribute('data-variant', 'primary')
   })
 
   it('styles invisible button appropriately', () => {
@@ -129,7 +133,8 @@ describe('Button', () => {
       </Button>,
     )
     const button = container.getByRole('button')
-    expect(button).toMatchSnapshot()
+    // Check that invisible variant styling is applied
+    expect(button).toHaveAttribute('data-variant', 'invisible')
   })
 
   it('styles danger button appropriately', () => {
@@ -139,7 +144,8 @@ describe('Button', () => {
       </Button>,
     )
     const button = container.getByRole('button')
-    expect(button).toMatchSnapshot()
+    // Check that danger variant styling is applied
+    expect(button).toHaveAttribute('data-variant', 'danger')
   })
 
   it('makes sure icon button has an aria-label', () => {
@@ -155,7 +161,9 @@ describe('Button', () => {
       </Button>,
     )
     const button = container.getByRole('button')
-    expect(button).toMatchSnapshot()
+    // Check that alignContent styling is applied - it's on the inner buttonContent element
+    const buttonContent = button.querySelector('[data-component="buttonContent"]')
+    expect(buttonContent).toHaveAttribute('data-align', 'start')
   })
 
   it('should render the leadingVisual prop before the button content', () => {

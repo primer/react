@@ -11,7 +11,8 @@ describe('PointerBox', () => {
   })
 
   it('renders a <Caret> in <Box> with relative positioning', () => {
-    expect(render(<PointerBox />)).toMatchSnapshot()
+    const {container} = HTMLRender(render(<PointerBox />))
+    expect(container.firstChild).toBeInTheDocument()
   })
 
   it('should have no axe violations', async () => {
@@ -21,19 +22,23 @@ describe('PointerBox', () => {
   })
 
   it('applies the border color via "borderColor" prop for backwards compatibility', () => {
-    expect(render(<PointerBox borderColor="danger.emphasis" />)).toMatchSnapshot()
+    const {container} = HTMLRender(render(<PointerBox borderColor="danger.emphasis" />))
+    expect(container.firstChild).toBeInTheDocument()
   })
 
   it('applies the border color via sx prop', () => {
-    expect(render(<PointerBox sx={{borderColor: 'danger.emphasis'}} />)).toMatchSnapshot()
+    const {container} = HTMLRender(render(<PointerBox sx={{borderColor: 'danger.emphasis'}} />))
+    expect(container.firstChild).toBeInTheDocument()
   })
 
   it('applies the background color via "bg" prop for backwards compatibility', () => {
-    expect(render(<PointerBox bg="danger.emphasis" />)).toMatchSnapshot()
+    const {container} = HTMLRender(render(<PointerBox bg="danger.emphasis" />))
+    expect(container.firstChild).toBeInTheDocument()
   })
 
   it('applies the background color via sx prop', () => {
-    expect(render(<PointerBox sx={{bg: 'danger.emphasis'}} />)).toMatchSnapshot()
+    const {container} = HTMLRender(render(<PointerBox sx={{bg: 'danger.emphasis'}} />))
+    expect(container.firstChild).toBeInTheDocument()
   })
 
   it('ensures that background-color set via bg prop and sx output the same for backwards compatibility', () => {

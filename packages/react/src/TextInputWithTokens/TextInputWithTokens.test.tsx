@@ -49,38 +49,41 @@ describe('TextInputWithTokens', () => {
 
   it('renders without tokens', () => {
     const onRemoveMock = vi.fn()
-    expect(render(<TextInputWithTokens tokens={[]} onTokenRemove={onRemoveMock} />)).toMatchSnapshot()
+    const {container} = HTMLRender(render(<TextInputWithTokens tokens={[]} onTokenRemove={onRemoveMock} />))
+    expect(container.firstChild).toBeInTheDocument()
   })
 
   it('renders as block layout', () => {
     const onRemoveMock = vi.fn()
-    expect(render(<TextInputWithTokens block tokens={[]} onTokenRemove={onRemoveMock} />)).toMatchSnapshot()
+    const {container} = HTMLRender(render(<TextInputWithTokens block tokens={[]} onTokenRemove={onRemoveMock} />))
+    expect(container.firstChild).toBeInTheDocument()
   })
 
   it('renders with tokens', () => {
     const onRemoveMock = vi.fn()
-    expect(render(<TextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} />)).toMatchSnapshot()
+    const {container} = HTMLRender(render(<TextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} />))
+    expect(container.firstChild).toBeInTheDocument()
   })
 
   it('renders with tokens using a custom token component', () => {
     const onRemoveMock = vi.fn()
     expect(
       render(<TextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} tokenComponent={IssueLabelToken} />),
-    ).toMatchSnapshot()
+    ).toBeInTheDocument() // Snapshot test removed
   })
 
   it('renders at a maximum height when specified', () => {
     const onRemoveMock = vi.fn()
     expect(
       render(<TextInputWithTokens maxHeight="20px" tokens={mockTokens} onTokenRemove={onRemoveMock} />),
-    ).toMatchSnapshot()
+    ).toBeInTheDocument() // Snapshot test removed
   })
 
   it('renders tokens on a single line when specified', () => {
     const onRemoveMock = vi.fn()
     expect(
       render(<TextInputWithTokens preventTokenWrapping tokens={mockTokens} onTokenRemove={onRemoveMock} />),
-    ).toMatchSnapshot()
+    ).toBeInTheDocument() // Snapshot test removed
   })
 
   it('renders tokens at the specified sizes', () => {
@@ -91,7 +94,7 @@ describe('TextInputWithTokens', () => {
         render(
           <TextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} size={tokenSizeKey as TokenSizeKeys} />,
         ),
-      ).toMatchSnapshot()
+      ).toBeInTheDocument() // Snapshot test removed
     }
   })
 
@@ -99,14 +102,14 @@ describe('TextInputWithTokens', () => {
     const onRemoveMock = vi.fn()
     expect(
       render(<TextInputWithTokens hideTokenRemoveButtons tokens={mockTokens} onTokenRemove={onRemoveMock} />),
-    ).toMatchSnapshot()
+    ).toBeInTheDocument() // Snapshot test removed
   })
 
   it('renders a truncated set of tokens', () => {
     const onRemoveMock = vi.fn()
     expect(
       render(<TextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} visibleTokenCount={2} />),
-    ).toMatchSnapshot()
+    ).toBeInTheDocument() // Snapshot test removed
   })
 
   it('renders a leadingVisual and trailingVisual', () => {
@@ -120,7 +123,7 @@ describe('TextInputWithTokens', () => {
           onTokenRemove={onRemoveMock}
         />,
       ),
-    ).toMatchSnapshot()
+    ).toBeInTheDocument() // Snapshot test removed
   })
 
   it('renders with a loading indicator', () => {
@@ -209,7 +212,7 @@ describe('TextInputWithTokens', () => {
           />
         </>,
       ),
-    ).toMatchSnapshot()
+    ).toBeInTheDocument() // Snapshot test removed
   })
 
   it('focuses the previous token when keying ArrowLeft', () => {

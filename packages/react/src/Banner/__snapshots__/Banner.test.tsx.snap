@@ -1,3 +1,0 @@
-// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
-
-exports[`Banner > should throw an error if no title is provided 1`] = `[Error: Expected a title to be provided to the <Banner> component with the \`title\` prop or through \`<Banner.Title>\` but no title was found]`;
