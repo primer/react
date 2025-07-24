@@ -1,24 +1,32 @@
 import {CircleBadge} from '..'
 import {CheckIcon} from '@primer/octicons-react'
 import {render as HTMLRender} from '@testing-library/react'
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from '@jest/globals'
 
 const imgInput = <img alt="Example" src="primer.jpg" />
 
 describe('CircleBadge', () => {
   it('respects the inline prop', () => {
-    HTMLRender(<CircleBadge inline />)
-    expect(true).toBe(true) // Snapshot test replaced
+    const {container} = HTMLRender(<CircleBadge inline />)
+    const badge = container.firstChild as HTMLElement
+    const computedStyle = window.getComputedStyle(badge)
+    expect(computedStyle.display).toBe('inline-flex')
   })
 
   it('respects the variant prop', () => {
-    HTMLRender(<CircleBadge variant="large" />)
-    expect(true).toBe(true) // Snapshot test replaced
+    const {container} = HTMLRender(<CircleBadge variant="large" />)
+    const badge = container.firstChild as HTMLElement
+    const computedStyle = window.getComputedStyle(badge)
+    expect(computedStyle.width).toBe('128px') // large variant should be 128px
+    expect(computedStyle.height).toBe('128px')
   })
 
   it('uses the size prop to override the variant prop', () => {
-    HTMLRender(<CircleBadge variant="large" size={20} />)
-    expect(true).toBe(true) // Snapshot test replaced
+    const {container} = HTMLRender(<CircleBadge variant="large" size={20} />)
+    const badge = container.firstChild as HTMLElement
+    const computedStyle = window.getComputedStyle(badge)
+    expect(computedStyle.width).toBe('20px') // size prop should override variant
+    expect(computedStyle.height).toBe('20px')
   })
 
   it('applies title', () => {
@@ -42,7 +50,9 @@ describe('CircleBadge', () => {
   describe('CircleBadge.Icon', () => {
     it('renders an icon', () => {
       const {container} = HTMLRender(<CircleBadge.Icon icon={CheckIcon} />)
-      expect(container.firstChild).toBeInTheDocument()
+      const svg = container.querySelector('svg')
+      expect(svg).toBeInTheDocument()
+      expect(svg).toHaveClass('octicon-check')
     })
   })
 })

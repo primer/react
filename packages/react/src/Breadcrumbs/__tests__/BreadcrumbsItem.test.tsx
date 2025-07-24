@@ -1,6 +1,6 @@
 import {render as HTMLRender} from '@testing-library/react'
 import Breadcrumbs from '../'
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from '@jest/globals'
 
 describe('Breadcrumbs.Item', () => {
   it('renders an <a> by default', () => {
@@ -9,7 +9,9 @@ describe('Breadcrumbs.Item', () => {
   })
 
   it('respects the "selected" prop', () => {
-    HTMLRender(<Breadcrumbs.Item selected />)
-    expect(true).toBe(true) // Snapshot test replaced
+    const {getByRole} = HTMLRender(<Breadcrumbs.Item selected />)
+    const item = getByRole('link')
+    expect(item).toHaveAttribute('aria-current', 'page')
+    expect(item).toHaveClass('selected')
   })
 })

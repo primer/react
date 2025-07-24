@@ -1,5 +1,5 @@
 import {render, waitFor} from '@testing-library/react'
-import {describe, it, expect} from 'vitest'
+import {describe, it, expect} from '@jest/globals'
 import type React from 'react'
 import createSlots from './create-slots'
 
@@ -44,31 +44,35 @@ describe('ComponentWithSlots', () => {
     )
 
     await waitFor(() => component.getByText('first'))
-    expect(true).toBe(true) // Snapshot test replaced
+    expect(component.getByText('first')).toBeInTheDocument()
+    expect(component.getByText('second')).toBeInTheDocument()
+    expect(component.getByText('free form')).toBeInTheDocument()
   })
 
   it('renders without any slots', async () => {
-    render(<ComponentWithSlots>free form</ComponentWithSlots>)
-    expect(true).toBe(true) // Snapshot test replaced
+    const component = render(<ComponentWithSlots>free form</ComponentWithSlots>)
+    expect(component.getByText('free form')).toBeInTheDocument()
   })
 
   it('renders with just one slot', async () => {
-    render(
+    const component = render(
       <ComponentWithSlots>
         <SlotItem1>first</SlotItem1>
         free form
       </ComponentWithSlots>,
     )
-    expect(true).toBe(true) // Snapshot test replaced
+    expect(component.getByText('first')).toBeInTheDocument()
+    expect(component.getByText('free form')).toBeInTheDocument()
   })
 
   it('renders with context passed to children', async () => {
-    render(
+    const component = render(
       <ComponentWithSlots context={{salutation: 'hi'}}>
         <SlotItem3>third</SlotItem3>
         free form
       </ComponentWithSlots>,
     )
-    expect(true).toBe(true) // Snapshot test replaced
+    expect(component.getByText('hi third')).toBeInTheDocument()
+    expect(component.getByText('free form')).toBeInTheDocument()
   })
 })

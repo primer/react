@@ -22,13 +22,13 @@ describe('Link', () => {
   })
 
   it('passes href down to link element', () => {
-    const {container} = HTMLRender(render(<Link href="https://github.com" />))
-    expect(container.firstChild).toBeInTheDocument()
+    const {getByRole} = HTMLRender(<Link href="https://github.com" />)
+    expect(getByRole('link')).toHaveAttribute('href', 'https://github.com')
   })
 
   it('respects hoverColor prop', () => {
-    const {container} = HTMLRender(render(<Link hoverColor="accent.fg" />))
-    expect(container.firstChild).toBeInTheDocument()
+    const {getByRole} = HTMLRender(<Link hoverColor="accent.fg" />)
+    expect(getByRole('link')).toHaveAttribute('data-hover-color', 'accent.fg')
   })
 
   it('respects the "sx" prop', () => {
@@ -36,18 +36,23 @@ describe('Link', () => {
   })
 
   it('applies button styles when rendering a button element', () => {
-    const {container} = HTMLRender(render(<Link as="button" />))
-    expect(container.firstChild).toBeInTheDocument()
+    const {getByRole} = HTMLRender(<Link as="button" />)
+    const button = getByRole('button')
+    expect(button).toBeInTheDocument()
+    expect(button.tagName).toBe('BUTTON')
   })
 
   it('respects the "muted" prop', () => {
-    const {container} = HTMLRender(render(<Link muted />))
-    expect(container.firstChild).toBeInTheDocument()
+    const {getByRole} = HTMLRender(<Link muted />)
+    expect(getByRole('link')).toHaveAttribute('data-muted', 'true')
   })
 
   it('respects the  "sx" prop when "muted" prop is also passed', () => {
-    const {container} = HTMLRender(render(<Link muted sx={{color: 'fg.onEmphasis'}} />))
-    expect(container.firstChild).toBeInTheDocument()
+    const {getByRole} = HTMLRender(<Link muted sx={{color: 'fg.onEmphasis'}} />)
+    const link = getByRole('link')
+    expect(link).toHaveAttribute('data-muted', 'true')
+    // When sx prop is used, it renders using Box component
+    expect(link).toBeInTheDocument()
   })
 
   it('logs a warning when trying to render invalid "as" prop', () => {

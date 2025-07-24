@@ -1,11 +1,12 @@
 import {render} from '@testing-library/react'
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from '@jest/globals'
 import BaseStyles from '../BaseStyles'
 
 describe('BaseStyles', () => {
   it('has default styles', () => {
-    const {container} = render(<BaseStyles>Hello</BaseStyles>)
-    expect(container.firstChild).toBeInTheDocument()
+    const {container, getByText} = render(<BaseStyles>Hello</BaseStyles>)
+    expect(getByText('Hello')).toBeInTheDocument()
+    expect(container.firstChild).toHaveStyle({}) // BaseStyles component renders without errors
   })
 
   it.skip('respects styling props', () => {
