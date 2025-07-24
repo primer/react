@@ -39,6 +39,7 @@ module.exports = {
     '<rootDir>/src/FormControl/',
     '<rootDir>/src/InlineMessage/',
     '<rootDir>/src/Hidden/',
+    '<rootDir>/src/KeybindingHint/',
     '<rootDir>/src/Label/',
     '<rootDir>/src/NavList/',
     '<rootDir>/src/Octicon/',
