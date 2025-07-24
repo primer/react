@@ -81,12 +81,8 @@ describe('TextInput', () => {
   })
 
   it('renders trailingVisual', () => {
-    expect(
-      render(<TextInput name="search" placeholder={'Search'} trailingVisual={SearchIcon} />),
-    ).toMatchSnapshot()
-    expect(
-      render(<TextInput name="search" placeholder={'Search'} trailingVisual={<SearchIcon />} />),
-    ).toMatchSnapshot()
+    expect(render(<TextInput name="search" placeholder={'Search'} trailingVisual={SearchIcon} />)).toMatchSnapshot()
+    expect(render(<TextInput name="search" placeholder={'Search'} trailingVisual={<SearchIcon />} />)).toMatchSnapshot()
     expect(
       render(
         <TextInput

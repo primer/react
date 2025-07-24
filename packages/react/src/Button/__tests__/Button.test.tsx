@@ -183,7 +183,7 @@ describe('Button', () => {
 
     // Wait for the loading state to be set
     await new Promise(resolve => setTimeout(resolve, 10))
-    
+
     // Check that the loading announcement element is present
     const loadingAnnouncement = document.getElementById(`${buttonId}-loading-announcement`)
     expect(loadingAnnouncement).toBeInTheDocument()
@@ -205,7 +205,7 @@ describe('Button', () => {
 
     // Wait for the loading state to be set
     await new Promise(resolve => setTimeout(resolve, 10))
-    
+
     // Check that the loading announcement element is present with custom text
     const loadingAnnouncement = document.getElementById(`${buttonId}-loading-announcement`)
     expect(loadingAnnouncement).toBeInTheDocument()
@@ -242,7 +242,7 @@ describe('Button', () => {
 
     // Wait for the loading state to be set
     await new Promise(resolve => setTimeout(resolve, 10))
-    
+
     expect(buttonNode.getAttribute('aria-disabled')).toBe('true')
   })
 

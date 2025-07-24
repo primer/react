@@ -47,7 +47,11 @@ describe('Text', () => {
   })
 
   it('respects fontStyle normal', () => {
-    const {container} = render(<Text as="i" fontStyle="normal">Not italic</Text>)
+    const {container} = render(
+      <Text as="i" fontStyle="normal">
+        Not italic
+      </Text>,
+    )
     const textElement = container.firstChild as HTMLElement
     expect(getComputedStyle(textElement).fontStyle).toBe('normal')
   })
@@ -74,21 +78,21 @@ describe('Text', () => {
   it('applies theme fontSize values', () => {
     // Test different fontSize values from the theme
     const fontSizes = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-    fontSizes.forEach(size => {
+    for (const size of fontSizes) {
       const {container} = render(<Text fontSize={size}>Text</Text>)
       const textElement = container.firstChild as HTMLElement
       expect(textElement).toBeInTheDocument()
-    })
+    }
   })
 
   it('applies theme lineHeight values', () => {
     // Test different lineHeight values
     const lineHeights = ['condensed', 'condensedUltra', 'default']
-    lineHeights.forEach(lineHeight => {
+    for (const lineHeight of lineHeights) {
       const {container} = render(<Text lineHeight={lineHeight}>Text</Text>)
       const textElement = container.firstChild as HTMLElement
       expect(textElement).toBeInTheDocument()
-    })
+    }
   })
 
   it('supports responsive fontSize arrays', () => {
