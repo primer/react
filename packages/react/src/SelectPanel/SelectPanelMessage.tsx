@@ -12,7 +12,7 @@ export type SelectPanelMessageProps = {
   className?: string
   /**
    * Custom icon to display above the title.
-   * When not provided, uses NoEntryIcon for empty states and AlertIcon for error/warning states.
+   * When not provided, uses AlertIcon for error/warning states and no icon for empty state.
    */
   icon?: React.ComponentType<IconProps>
   /**
