@@ -20,6 +20,7 @@ import type {SxProp} from '../sx'
 import type {FilteredActionListLoadingType} from './FilteredActionListLoaders'
 import {FilteredActionListLoadingTypes, FilteredActionListBodyLoader} from './FilteredActionListLoaders'
 import classes from './FilteredActionList.module.css'
+import Checkbox from '../Checkbox'
 
 import {isValidElementType} from 'react-is'
 import type {RenderItemFn} from '../deprecated/ActionList/List'
@@ -42,9 +43,14 @@ export interface FilteredActionListProps
   textInputProps?: Partial<Omit<TextInputProps, 'onChange'>>
   inputRef?: React.RefObject<HTMLInputElement>
   message?: React.ReactNode
+  messageText?: {
+    title: string
+    description: string
+  }
   className?: string
   announcementsEnabled?: boolean
   fullScreenOnNarrow?: boolean
+  onSelectAllChange?: (checked: boolean) => void
 }
 
 const StyledHeader = styled.div`
@@ -67,9 +73,11 @@ export function FilteredActionList({
   groupMetadata,
   showItemDividers,
   message,
+  messageText,
   className,
   announcementsEnabled = true,
   fullScreenOnNarrow,
+  onSelectAllChange,
   ...listProps
 }: FilteredActionListProps): JSX.Element {
   const [filterValue, setInternalFilterValue] = useProvidedStateOrCreate(externalFilterValue, undefined, '')
@@ -88,6 +96,11 @@ export function FilteredActionList({
   const activeDescendantRef = useRef<HTMLElement>()
   const listId = useId()
   const inputDescriptionTextId = useId()
+
+  const selectAllChecked = items.length > 0 && items.every(item => item.selected)
+  const selectAllIndeterminate = !selectAllChecked && items.some(item => item.selected)
+
+  const selectAllLabelText = selectAllChecked ? 'Deselect all' : 'Select all'
   const onInputKeyPress: KeyboardEventHandler = useCallback(
     event => {
       if (event.key === 'Enter' && activeDescendantRef.current) {
@@ -147,8 +160,17 @@ export function FilteredActionList({
     }
   }, [items])
 
-  useAnnouncements(items, {current: listContainerElement}, inputRef, announcementsEnabled, loading)
+  useAnnouncements(items, {current: listContainerElement}, inputRef, announcementsEnabled, loading, messageText)
   useScrollFlash(scrollContainerRef)
+
+  const handleSelectAllChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      if (onSelectAllChange) {
+        onSelectAllChange(e.target.checked)
+      }
+    },
+    [onSelectAllChange],
+  )
 
   function getItemListForEachGroup(groupId: string) {
     const itemsInGroup = []
@@ -232,6 +254,20 @@ export function FilteredActionList({
         />
       </StyledHeader>
       <VisuallyHidden id={inputDescriptionTextId}>Items will be filtered as you type</VisuallyHidden>
+      {onSelectAllChange !== undefined && (
+        <div className={classes.SelectAllContainer}>
+          <Checkbox
+            id="select-all-checkbox"
+            className={classes.SelectAllCheckbox}
+            checked={selectAllChecked}
+            indeterminate={selectAllIndeterminate}
+            onChange={handleSelectAllChange}
+          />
+          <label className={classes.SelectAllLabel} htmlFor="select-all-checkbox">
+            {selectAllLabelText}
+          </label>
+        </div>
+      )}
       <div ref={scrollContainerRef} className={classes.Container}>
         {getBodyContent()}
       </div>

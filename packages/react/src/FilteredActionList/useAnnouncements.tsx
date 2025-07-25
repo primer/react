@@ -43,6 +43,7 @@ export const useAnnouncements = (
   inputRef: React.RefObject<HTMLInputElement>,
   enabled: boolean = true,
   loading: boolean = false,
+  message?: {title: string; description: string},
 ) => {
   const liveRegion = document.querySelector('live-region')
 
@@ -92,7 +93,7 @@ export const useAnnouncements = (
       liveRegion?.clear() // clear previous announcements
 
       if (items.length === 0 && !loading) {
-        announce('No matching items.', {delayMs})
+        announce(`${message?.title}. ${message?.description}`, {delayMs})
         return
       }
 
@@ -115,6 +116,6 @@ export const useAnnouncements = (
         })
       })
     },
-    [announce, isFirstRender, items, listContainerRef, liveRegion, loading],
+    [announce, isFirstRender, items, listContainerRef, liveRegion, loading, message],
   )
 }

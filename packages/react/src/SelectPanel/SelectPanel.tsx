@@ -1,4 +1,12 @@
-import {AlertIcon, InfoIcon, SearchIcon, StopIcon, TriangleDownIcon, XIcon} from '@primer/octicons-react'
+import {
+  AlertIcon,
+  InfoIcon,
+  SearchIcon,
+  StopIcon,
+  TriangleDownIcon,
+  XIcon,
+  type IconProps,
+} from '@primer/octicons-react'
 import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react'
 import type {AnchoredOverlayProps} from '../AnchoredOverlay'
 import {AnchoredOverlay} from '../AnchoredOverlay'
@@ -30,10 +38,14 @@ import type {ButtonProps, LinkButtonProps} from '../Button/types'
 // we add a delay so that it does not interrupt default screen reader announcement and queues after it
 const SHORT_DELAY_MS = 500
 const LONG_DELAY_MS = 1000
+const EMPTY_MESSAGE = {
+  title: 'No items available',
+  description: '',
+}
 
 const DefaultEmptyMessage = (
-  <SelectPanelMessage variant="empty" title="You haven't created any items yet" key="empty-message">
-    Please add or create new items to populate the list.
+  <SelectPanelMessage variant="empty" title={EMPTY_MESSAGE.title} key="empty-message">
+    {EMPTY_MESSAGE.description}
   </SelectPanelMessage>
 )
 
@@ -53,7 +65,7 @@ async function announceLoading() {
 }
 
 const announceNoItems = debounce((message?: string) => {
-  announceText(message ?? 'No matching items.', LONG_DELAY_MS)
+  announceText(message ?? `${EMPTY_MESSAGE.title}. ${EMPTY_MESSAGE.description}`, LONG_DELAY_MS)
 }, 250)
 
 interface SelectPanelSingleSelection {
@@ -94,6 +106,8 @@ interface SelectPanelBaseProps {
     title: string
     body: string | React.ReactElement
     variant: 'empty' | 'error' | 'warning'
+    icon?: React.ComponentType<IconProps>
+    action?: React.ReactElement
   }
   /**
    * @deprecated Use `secondaryAction` instead.
@@ -107,6 +121,7 @@ interface SelectPanelBaseProps {
    * @default undefined (uses feature flag default)
    */
   disableFullscreenOnNarrow?: boolean
+  showSelectAll?: boolean
 }
 
 // onCancel is optional with variant=anchored, but required with variant=modal
@@ -182,6 +197,7 @@ function Panel({
   showSelectedOptionsFirst = true,
   disableFullscreenOnNarrow,
   align,
+  showSelectAll = false,
   ...listProps
 }: SelectPanelProps): JSX.Element {
   const titleId = useId()
@@ -207,7 +223,6 @@ function Panel({
   const [availablePanelHeight, setAvailablePanelHeight] = useState<number | undefined>(undefined)
   const KEYBOARD_VISIBILITY_THRESHOLD = 10
 
-  const usingModernActionList = useFeatureFlag('primer_react_select_panel_with_modern_action_list')
   const featureFlagFullScreenOnNarrow = useFeatureFlag('primer_react_select_panel_fullscreen_on_narrow')
   const usingFullScreenOnNarrow = disableFullscreenOnNarrow ? false : featureFlagFullScreenOnNarrow
   const shouldOrderSelectedFirst =
@@ -229,7 +244,6 @@ function Panel({
     (node: HTMLElement | null) => {
       setListContainerElement(node)
       if (!node && needsNoItemsAnnouncement) {
-        announceNoItems()
         setNeedsNoItemsAnnouncement(false)
       }
     },
@@ -302,6 +316,29 @@ function Panel({
     ],
   )
 
+  const handleSelectAllChange = useCallback(
+    (checked: boolean) => {
+      // Exit early if not in multi-select mode
+      if (!isMultiSelectVariant(selected)) {
+        return
+      }
+
+      const multiSelectOnChange = onSelectedChange as SelectPanelMultiSelection['onSelectedChange']
+      const selectedArray = selected as ItemInput[]
+
+      const selectedItemsNotInFilteredView = selectedArray.filter(
+        (selectedItem: ItemInput) => !items.some(item => areItemsEqual(item, selectedItem)),
+      )
+
+      if (checked) {
+        multiSelectOnChange([...selectedItemsNotInFilteredView, ...items])
+      } else {
+        multiSelectOnChange(selectedItemsNotInFilteredView)
+      }
+    },
+    [items, onSelectedChange, selected],
+  )
+
   // disable body scroll when the panel is open on narrow screens
   useEffect(() => {
     if (open && isNarrowScreenSize && usingFullScreenOnNarrow) {
@@ -325,11 +362,7 @@ function Panel({
     if (open) {
       if (items.length === 0 && !(isLoading || loading)) {
         // we need to wait for the listContainerElement to disappear before announcing no items, otherwise it will be interrupted
-        if (!listContainerElement || !usingModernActionList) {
-          announceNoItems(message?.title)
-        } else {
-          setNeedsNoItemsAnnouncement(true)
-        }
+        setNeedsNoItemsAnnouncement(true)
       }
     }
 
@@ -640,7 +673,7 @@ function Panel({
       return DefaultEmptyMessage
     } else if (message) {
       return (
-        <SelectPanelMessage title={message.title} variant={message.variant}>
+        <SelectPanelMessage title={message.title} variant={message.variant} icon={message.icon} action={message.action}>
           {message.body}
         </SelectPanelMessage>
       )
@@ -690,6 +723,17 @@ function Panel({
 
   const stretchSaveButton = showResponsiveSaveAndCloseButton && secondaryAction === undefined ? 'only-small' : 'never'
 
+  /*
+   * SelectPanel uses two close button implementations for different use cases:
+   *
+   * 1. AnchoredOverlay close button - Enabled on narrow screens (showXCloseIcon logic)
+   *
+   * 2. SelectPanel modal close button - Used for modal variant on wider screens
+   *    (variant === 'modal' && !isNarrowScreenSize logic below)
+   *
+   * The dual approach handles different responsive behaviors: AnchoredOverlay manages
+   * close functionality for narrow fullscreen, while SelectPanel handles modal close on desktop.
+   */
   const showXCloseIcon = (onCancel !== undefined || !isMultiSelectVariant(selected)) && usingFullScreenOnNarrow
 
   const currentResponsiveVariant = useResponsiveValue(
@@ -790,10 +834,18 @@ function Panel({
             selectionVariant={isSingleSelectModal ? 'radio' : isMultiSelectVariant(selected) ? 'multiple' : 'single'}
             items={itemsToRender}
             textInputProps={extendedTextInputProps}
-            loading={loading || isLoading}
+            loading={loading || (isLoading && !message)}
             loadingType={loadingType()}
+            onSelectAllChange={showSelectAll ? handleSelectAllChange : undefined}
             // hack because the deprecated ActionList does not support this prop
             message={getMessage()}
+            messageText={{
+              title: message?.title || EMPTY_MESSAGE.title,
+              description:
+                typeof message?.body === 'string'
+                  ? message.body
+                  : EMPTY_MESSAGE.description || EMPTY_MESSAGE.description,
+            }}
             fullScreenOnNarrow={usingFullScreenOnNarrow}
             // inheriting height and maxHeight ensures that the FilteredActionList is never taller
             // than the Overlay (which would break scrolling the items)

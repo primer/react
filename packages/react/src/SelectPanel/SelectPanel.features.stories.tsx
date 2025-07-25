@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react'
+import React, {useState, useRef, useEffect} from 'react'
 import type {Meta, StoryObj} from '@storybook/react-vite'
 import Box from '../Box'
 import {Button} from '../Button'
@@ -11,12 +11,15 @@ import {
   GearIcon,
   InfoIcon,
   NoteIcon,
+  PlusIcon,
   ProjectIcon,
   SearchIcon,
   StopIcon,
+  TagIcon,
   TriangleDownIcon,
   TypographyIcon,
   VersionsIcon,
+  type IconProps,
 } from '@primer/octicons-react'
 import useSafeTimeout from '../hooks/useSafeTimeout'
 import ToggleSwitch from '../ToggleSwitch'
@@ -24,6 +27,7 @@ import Text from '../Text'
 import FormControl from '../FormControl'
 import {SegmentedControl} from '../SegmentedControl'
 import {Stack} from '../Stack'
+import {FeatureFlags} from '../FeatureFlags'
 
 const meta: Meta<typeof SelectPanel> = {
   title: 'Components/SelectPanel/Features',
@@ -92,13 +96,19 @@ export const WithItemDividers = () => {
 
   return (
     <FormControl>
-      <FormControl.Label>Labels</FormControl.Label>
+      <FormControl.Label id="item-dividers-label">Labels</FormControl.Label>
       <SelectPanel
+        id="item-dividers"
         title="Select labels"
         placeholder="Select labels" // button text when no items are selected
         subtitle="Use labels to organize issues and pull requests"
         renderAnchor={({children, ...anchorProps}) => (
-          <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
+          <Button
+            aria-labelledby="item-dividers item-dividers-label"
+            trailingAction={TriangleDownIcon}
+            {...anchorProps}
+            aria-haspopup="dialog"
+          >
             {children}
           </Button>
         )}
@@ -125,13 +135,19 @@ export const WithPlaceholderForSearchInput = () => {
 
   return (
     <FormControl>
-      <FormControl.Label>Labels</FormControl.Label>
+      <FormControl.Label id="placeholder-search-label">Labels</FormControl.Label>
       <SelectPanel
+        id="placeholder-search"
         title="Select labels"
         placeholder="Select labels" // button text when no items are selected
         subtitle="Use labels to organize issues and pull requests"
         renderAnchor={({children, ...anchorProps}) => (
-          <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
+          <Button
+            aria-labelledby="placeholder-search placeholder-search-label"
+            trailingAction={TriangleDownIcon}
+            {...anchorProps}
+            aria-haspopup="dialog"
+          >
             {children}
           </Button>
         )}
@@ -157,10 +173,15 @@ export const SingleSelect = () => {
 
   return (
     <FormControl>
-      <FormControl.Label>Label</FormControl.Label>
+      <FormControl.Label id="single-select-label">Label</FormControl.Label>
       <SelectPanel
+        id="single-select"
         renderAnchor={({children, ...anchorProps}) => (
-          <Button trailingAction={TriangleDownIcon} {...anchorProps}>
+          <Button
+            aria-labelledby="single-select single-select-label"
+            trailingAction={TriangleDownIcon}
+            {...anchorProps}
+          >
             {children ?? 'Select Labels'}
           </Button>
         )}
@@ -186,13 +207,19 @@ export const MultiSelect = () => {
 
   return (
     <FormControl>
-      <FormControl.Label>Labels</FormControl.Label>
+      <FormControl.Label id="multi-select-label">Labels</FormControl.Label>
       <SelectPanel
+        id="multi-select"
         title="Select labels"
         placeholder="Select labels"
         subtitle="Use labels to organize issues and pull requests"
         renderAnchor={({children, ...anchorProps}) => (
-          <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
+          <Button
+            aria-labelledby="multi-select multi-select-label"
+            trailingAction={TriangleDownIcon}
+            {...anchorProps}
+            aria-haspopup="dialog"
+          >
             {children}
           </Button>
         )}
@@ -217,13 +244,19 @@ export const WithDisabledItem = () => {
 
   return (
     <FormControl>
-      <FormControl.Label>Labels</FormControl.Label>
+      <FormControl.Label id="disabled-item-label">Labels</FormControl.Label>
       <SelectPanel
+        id="disabled-item"
         title="Select labels"
         placeholder="Select labels"
         subtitle="Use labels to organize issues and pull requests"
         renderAnchor={({children, ...anchorProps}) => (
-          <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
+          <Button
+            aria-labelledby="disabled-item disabled-item-label"
+            trailingAction={TriangleDownIcon}
+            {...anchorProps}
+            aria-haspopup="dialog"
+          >
             {children}
           </Button>
         )}
@@ -250,11 +283,19 @@ export const WithExternalAnchor = () => {
 
   return (
     <FormControl>
-      <FormControl.Label>Labels</FormControl.Label>
-      <Button trailingAction={TriangleDownIcon} ref={buttonRef} onClick={() => setOpen(!open)}>
+      <FormControl.Label id="custom-anchor-ref-label">Labels</FormControl.Label>
+      <Button
+        trailingAction={TriangleDownIcon}
+        ref={buttonRef}
+        onClick={() => setOpen(!open)}
+        aria-labelledby={
+          buttonRef.current?.id ? `${buttonRef.current.id} custom-anchor-ref-label` : 'custom-anchor-ref-label'
+        }
+      >
         {selected.map(selectedItem => selectedItem.text).join(', ') || 'Select labels'}
       </Button>
       <SelectPanel
+        id="custom-anchor-ref"
         renderAnchor={null}
         anchorRef={buttonRef}
         open={open}
@@ -278,10 +319,15 @@ export const WithSecondaryActionButton = () => {
 
   return (
     <FormControl>
-      <FormControl.Label>Labels</FormControl.Label>
+      <FormControl.Label id="secondary-action-label">Labels</FormControl.Label>
       <SelectPanel
+        id="secondary-action"
         renderAnchor={({children, ...anchorProps}) => (
-          <Button trailingAction={TriangleDownIcon} {...anchorProps}>
+          <Button
+            aria-labelledby="secondary-action secondary-action-label"
+            trailingAction={TriangleDownIcon}
+            {...anchorProps}
+          >
             {children}
           </Button>
         )}
@@ -309,10 +355,15 @@ export const WithSecondaryActionLink = () => {
 
   return (
     <FormControl>
-      <FormControl.Label>Labels</FormControl.Label>
+      <FormControl.Label id="secondary-action-link-label">Labels</FormControl.Label>
       <SelectPanel
+        id="secondary-action-link"
         renderAnchor={({children, ...anchorProps}) => (
-          <Button trailingAction={TriangleDownIcon} {...anchorProps}>
+          <Button
+            aria-labelledby="secondary-action-link secondary-action-link-label"
+            trailingAction={TriangleDownIcon}
+            {...anchorProps}
+          >
             {children}
           </Button>
         )}
@@ -368,7 +419,7 @@ export const WithNotice = () => {
   return (
     <Stack align="start">
       <FormControl>
-        <FormControl.Label>Notice variant</FormControl.Label>
+        <FormControl.Label id="notice-variant-label">Notice variant</FormControl.Label>
         <SegmentedControl aria-label="Notice variant" onChange={setNoticeVariant}>
           <SegmentedControl.Button defaultSelected aria-label={'Info'} leadingIcon={InfoIcon}>
             Info notice
@@ -382,10 +433,15 @@ export const WithNotice = () => {
         </SegmentedControl>
       </FormControl>
       <FormControl>
-        <FormControl.Label>SelectPanel with notice</FormControl.Label>
+        <FormControl.Label id="notice-example-label">SelectPanel with notice</FormControl.Label>
         <SelectPanel
+          id="notice-example"
           renderAnchor={({children, ...anchorProps}) => (
-            <Button trailingAction={TriangleDownIcon} {...anchorProps}>
+            <Button
+              aria-labelledby="notice-example notice-example-label"
+              trailingAction={TriangleDownIcon}
+              {...anchorProps}
+            >
               {children}
             </Button>
           )}
@@ -459,12 +515,17 @@ export const WithGroups = () => {
 
   return (
     <FormControl>
-      <FormControl.Label>Options</FormControl.Label>
+      <FormControl.Label id="groups-example-label">Options</FormControl.Label>
       <SelectPanel
+        id="groups-example"
         title="Attach files and symbols"
         subtitle="Choose which files and symbols you want to chat about. Use fewer references for more accurate responses."
         renderAnchor={({children, ...anchorProps}) => (
-          <Button trailingAction={TriangleDownIcon} {...anchorProps}>
+          <Button
+            aria-labelledby="groups-example groups-example-label"
+            trailingAction={TriangleDownIcon}
+            {...anchorProps}
+          >
             {children}
           </Button>
         )}
@@ -557,6 +618,7 @@ export const AsyncFetch: StoryObj<SelectPanelProps> = {
     const [open, setOpen] = useState(false)
     const filterTimerId = useRef<number | null>(null)
     const {safeSetTimeout, safeClearTimeout} = useSafeTimeout()
+    const [loading, setLoading] = useState(true)
     const [query, setQuery] = useState('')
 
     const fetchItems = (query: string) => {
@@ -565,10 +627,20 @@ export const AsyncFetch: StoryObj<SelectPanelProps> = {
         setQuery(query)
       }
 
+      setLoading(true)
       filterTimerId.current = safeSetTimeout(() => {
         setFilteredItems(items.filter(item => item.text.toLowerCase().startsWith(query.toLowerCase())))
+        setLoading(false)
       }, 2000) as unknown as number
     }
+
+    useEffect(() => {
+      filterTimerId.current = safeSetTimeout(() => {
+        setFilteredItems(items.filter(item => item.text.toLowerCase().startsWith(query.toLowerCase())))
+        setLoading(false)
+      }, 2000) as unknown as number
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     const onOpenChange = (value: boolean) => {
       setOpen(value)
@@ -600,6 +672,7 @@ export const AsyncFetch: StoryObj<SelectPanelProps> = {
         height={height}
         initialLoadingType={initialLoadingType}
         width="medium"
+        loading={loading}
         message={filteredItems.length === 0 ? NoResultsMessage(query) : undefined}
       />
     )
@@ -679,16 +752,27 @@ export const CustomisedNoResults: StoryObj<typeof SelectPanel> = {
     const [open, setOpen] = useState(false)
     const filterTimerId = useRef<number | null>(null)
     const {safeSetTimeout, safeClearTimeout} = useSafeTimeout()
+    const [loading, setLoading] = useState(true)
     const onFilterChange = (value: string) => {
       setFilterValue(value)
       if (filterTimerId.current) {
         safeClearTimeout(filterTimerId.current)
       }
 
+      setLoading(true)
       filterTimerId.current = safeSetTimeout(() => {
         setFilteredItems(items.filter(item => item.text.toLowerCase().startsWith(value.toLowerCase())))
+        setLoading(false)
       }, 2000) as unknown as number
     }
+
+    useEffect(() => {
+      filterTimerId.current = safeSetTimeout(() => {
+        setFilteredItems(items.filter(item => item.text.toLowerCase().startsWith(filterValue.toLowerCase())))
+        setLoading(false)
+      }, 2000) as unknown as number
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     return (
       <SelectPanel
@@ -713,6 +797,7 @@ export const CustomisedNoResults: StoryObj<typeof SelectPanel> = {
         onFilterChange={onFilterChange}
         showItemDividers={true}
         initialLoadingType={initialLoadingType}
+        loading={loading}
         height={height}
         overlayProps={{maxHeight: height === 'auto' || height === 'initial' ? 'xlarge' : height}}
         message={filteredItems.length === 0 ? NoResultsMessage(filterValue) : undefined}
@@ -880,6 +965,142 @@ export const WithInactiveItems = () => {
         onFilterChange={setFilter}
         width="medium"
         message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}
+      />
+    </FormControl>
+  )
+}
+
+export const WithMessage = () => {
+  const [selected, setSelected] = useState<ItemInput[]>([])
+  const [filter, setFilter] = useState('')
+  const [open, setOpen] = useState(false)
+  const [messageVariant, setMessageVariant] = useState(0)
+
+  const messageVariants: Array<
+    | undefined
+    | {
+        title: string
+        body: string | React.ReactElement
+        variant: 'empty' | 'error' | 'warning'
+        icon?: React.ComponentType<IconProps>
+        action?: React.ReactElement
+      }
+  > = [
+    undefined, // Default message
+    {
+      variant: 'empty',
+      title: 'No labels found',
+      body: 'Try adjusting your search or create a new label',
+      icon: TagIcon,
+      action: (
+        <Button variant="default" size="small" leadingVisual={PlusIcon} onClick={() => {}}>
+          Create new label
+        </Button>
+      ),
+    },
+    {
+      variant: 'error',
+      title: 'Failed to load labels',
+      body: (
+        <>
+          Check your network connection and try again or <Link href="/support">contact support</Link>
+        </>
+      ),
+    },
+    {
+      variant: 'warning',
+      title: 'Some labels may be outdated',
+      body: 'Consider refreshing to get the latest data',
+    },
+  ]
+
+  const itemsToShow = messageVariant === 0 ? items.slice(0, 3) : []
+  const filteredItems = itemsToShow.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
+
+  useEffect(() => {
+    setFilter('')
+  }, [messageVariant])
+
+  return (
+    <Stack align="start">
+      <FormControl>
+        <FormControl.Label>Message variant</FormControl.Label>
+        <SegmentedControl aria-label="Message variant" onChange={setMessageVariant}>
+          <SegmentedControl.Button defaultSelected aria-label="Default message">
+            Default message
+          </SegmentedControl.Button>
+          <SegmentedControl.Button aria-label="Empty" leadingIcon={SearchIcon}>
+            Empty
+          </SegmentedControl.Button>
+          <SegmentedControl.Button aria-label="Error" leadingIcon={StopIcon}>
+            Error
+          </SegmentedControl.Button>
+          <SegmentedControl.Button aria-label="Warning" leadingIcon={AlertIcon}>
+            Warning
+          </SegmentedControl.Button>
+        </SegmentedControl>
+      </FormControl>
+      <FormControl>
+        <FormControl.Label>SelectPanel with message</FormControl.Label>
+        <SelectPanel
+          renderAnchor={({children, ...anchorProps}) => (
+            <Button trailingAction={TriangleDownIcon} {...anchorProps}>
+              {children}
+            </Button>
+          )}
+          placeholder="Select labels"
+          open={open}
+          onOpenChange={setOpen}
+          items={filteredItems}
+          selected={selected}
+          onSelectedChange={setSelected}
+          onFilterChange={setFilter}
+          overlayProps={{width: 'small', height: 'medium'}}
+          width="medium"
+          message={messageVariants[messageVariant]}
+          filterValue={filter}
+        />
+      </FormControl>
+    </Stack>
+  )
+}
+
+export const WithSelectAll = () => {
+  const [selected, setSelected] = useState<ItemInput[]>([])
+  const [filter, setFilter] = useState('')
+  const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
+
+  const [open, setOpen] = useState(false)
+
+  return (
+    <FormControl>
+      <FormControl.Label>Labels</FormControl.Label>
+      <SelectPanel
+        title="Select labels"
+        placeholder="Select labels" // button text when no items are selected
+        subtitle="Use labels to organize issues and pull requests"
+        renderAnchor={({children, ...anchorProps}) => (
+          <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
+            {children}
+          </Button>
+        )}
+        open={open}
+        onOpenChange={setOpen}
+        items={filteredItems}
+        selected={selected}
+        onSelectedChange={setSelected}
+        onFilterChange={setFilter}
+        width="medium"
+        showSelectAll={true}
+        message={
+          filteredItems.length === 0
+            ? {
+                variant: 'empty',
+                title: `No language found for \`${filter}\``,
+                body: 'Adjust your search term to find other languages',
+              }
+            : undefined
+        }
       />
     </FormControl>
   )

@@ -71,13 +71,19 @@ export const Default = () => {
 
   return (
     <FormControl>
-      <FormControl.Label>Labels</FormControl.Label>
+      <FormControl.Label id="default-example-label">Labels</FormControl.Label>
       <SelectPanel
+        id="default-example"
         title="Select labels"
         placeholder="Select labels" // button text when no items are selected
         subtitle="Use labels to organize issues and pull requests"
         renderAnchor={({children, ...anchorProps}) => (
-          <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
+          <Button
+            aria-labelledby="default-example default-example-label"
+            trailingAction={TriangleDownIcon}
+            {...anchorProps}
+            aria-haspopup="dialog"
+          >
             {children}
           </Button>
         )}
@@ -92,8 +98,8 @@ export const Default = () => {
           filteredItems.length === 0
             ? {
                 variant: 'empty',
-                title: `No language found for \`${filter}\``,
-                body: 'Adjust your search term to find other languages',
+                title: 'No items available',
+                body: '',
               }
             : undefined
         }

@@ -14,10 +14,6 @@ import {setupMatchMedia} from '../utils/test-helpers'
 
 setupMatchMedia()
 
-const renderWithFlag = (children: React.ReactNode) => {
-  return render(children)
-}
-
 const items: SelectPanelProps['items'] = [
   {
     text: 'item one',
@@ -67,7 +63,7 @@ global.Element.prototype.scrollTo = jest.fn()
 
 describe('SelectPanel', () => {
   it('should render an anchor to open the select panel using `placeholder`', () => {
-    renderWithFlag(<BasicSelectPanel />)
+    render(<BasicSelectPanel />)
 
     expect(screen.getByText('Select items')).toBeInTheDocument()
 
@@ -81,7 +77,7 @@ describe('SelectPanel', () => {
   it('should open the select panel when activating the trigger', async () => {
     const user = userEvent.setup()
 
-    renderWithFlag(<BasicSelectPanel />)
+    render(<BasicSelectPanel />)
 
     await user.click(screen.getByText('Select items'))
 
@@ -101,7 +97,7 @@ describe('SelectPanel', () => {
   it('should close the select panel when pressing Escape', async () => {
     const user = userEvent.setup()
 
-    renderWithFlag(<BasicSelectPanel />)
+    render(<BasicSelectPanel />)
 
     await user.click(screen.getByText('Select items'))
     await user.keyboard('{Escape}')
@@ -113,7 +109,7 @@ describe('SelectPanel', () => {
   it('should close the select panel when clicking outside of the select panel', async () => {
     const user = userEvent.setup()
 
-    renderWithFlag(
+    render(
       <>
         <button type="button">outer button</button>
         <BasicSelectPanel />
@@ -129,7 +125,7 @@ describe('SelectPanel', () => {
   it('should open a dialog that is labelled by `title` and described by `subtitle`', async () => {
     const user = userEvent.setup()
 
-    renderWithFlag(<BasicSelectPanel />)
+    render(<BasicSelectPanel />)
 
     await user.click(screen.getByText('Select items'))
 
@@ -180,7 +176,7 @@ describe('SelectPanel', () => {
 
     const user = userEvent.setup()
 
-    renderWithFlag(<SelectPanelOpenChange />)
+    render(<SelectPanelOpenChange />)
 
     // Open by click
     await user.click(screen.getByText('Select items'))
@@ -207,7 +203,7 @@ describe('SelectPanel', () => {
   it('should label the list by title unless a aria-label is explicitly passed', async () => {
     const user = userEvent.setup()
 
-    renderWithFlag(<BasicSelectPanel />)
+    render(<BasicSelectPanel />)
     await user.click(screen.getByText('Select items'))
     expect(screen.getByRole('listbox', {name: 'test title'})).toBeInTheDocument()
   })
@@ -215,7 +211,7 @@ describe('SelectPanel', () => {
   it('should label the list by aria-label when explicitly passed', async () => {
     const user = userEvent.setup()
 
-    renderWithFlag(<BasicSelectPanel aria-label="Custom label" />)
+    render(<BasicSelectPanel aria-label="Custom label" />)
     await user.click(screen.getByText('Select items'))
     expect(screen.getByRole('listbox', {name: 'Custom label'})).toBeInTheDocument()
   })
@@ -225,7 +221,7 @@ describe('SelectPanel', () => {
 
     // This panel contains another focusable thing (the IconButton) that should not receive focus
     // when the panel opens.
-    renderWithFlag(
+    render(
       <ThemeProvider>
         <SelectPanel
           onOpenChange={() => {}}
@@ -254,7 +250,7 @@ describe('SelectPanel', () => {
     it('should select an active option when activated', async () => {
       const user = userEvent.setup()
 
-      renderWithFlag(<BasicSelectPanel />)
+      render(<BasicSelectPanel />)
 
       await user.click(screen.getByText('Select items'))
 
@@ -290,7 +286,7 @@ describe('SelectPanel', () => {
     it('should support navigating through items with ArrowUp and ArrowDown', async () => {
       const user = userEvent.setup()
 
-      renderWithFlag(<BasicSelectPanel />)
+      render(<BasicSelectPanel />)
 
       await user.click(screen.getByText('Select items'))
 
@@ -342,7 +338,7 @@ describe('SelectPanel', () => {
     it('should support navigating through items with PageDown and PageUp', async () => {
       const user = userEvent.setup()
 
-      renderWithFlag(<BasicSelectPanel />)
+      render(<BasicSelectPanel />)
 
       await user.click(screen.getByText('Select items'))
 
@@ -399,7 +395,7 @@ describe('SelectPanel', () => {
         )
       }
 
-      renderWithFlag(<Fixture />)
+      render(<Fixture />)
 
       await user.click(screen.getByText('Select items'))
 
@@ -446,7 +442,11 @@ describe('SelectPanel', () => {
     )
   }
 
-  const SelectPanelWithCustomMessages: React.FC<{items: SelectPanelProps['items']}> = ({items}) => {
+  const SelectPanelWithCustomMessages: React.FC<{
+    items: SelectPanelProps['items']
+    withAction?: boolean
+    onAction?: () => void
+  }> = ({items, withAction = false, onAction}) => {
     const [selected, setSelected] = React.useState<SelectPanelProps['items']>([])
     const [filter, setFilter] = React.useState('')
     const [open, setOpen] = React.useState(false)
@@ -455,14 +455,21 @@ describe('SelectPanel', () => {
       setSelected(selected)
     }
 
-    const emptyMessage: {variant: 'empty'; title: string; body: string} = {
-      variant: 'empty',
+    const emptyMessage = {
+      variant: 'empty' as const,
       title: "You haven't created any projects yet",
       body: 'Start your first project to organise your issues',
+      ...(withAction && {
+        action: (
+          <button type="button" onClick={onAction} data-testid="create-project-action">
+            Create new project
+          </button>
+        ),
+      }),
     }
 
-    const noResultsMessage = (filter: string): {variant: 'empty'; title: string; body: string} => ({
-      variant: 'empty',
+    const noResultsMessage = (filter: string) => ({
+      variant: 'empty' as const,
       title: `No language found for ${filter}`,
       body: 'Adjust your search term to find other languages',
     })
@@ -541,7 +548,7 @@ describe('SelectPanel', () => {
     it('should filter the list of items when the user types into the input', async () => {
       const user = userEvent.setup()
 
-      renderWithFlag(<FilterableSelectPanel />)
+      render(<FilterableSelectPanel />)
 
       await user.click(screen.getByText('Select items'))
 
@@ -590,7 +597,7 @@ describe('SelectPanel', () => {
     it('displays a loading spinner on first open', async () => {
       const user = userEvent.setup()
 
-      renderWithFlag(<LoadingSelectPanel />)
+      render(<LoadingSelectPanel />)
 
       await user.click(screen.getByText('Select items'))
 
@@ -600,7 +607,7 @@ describe('SelectPanel', () => {
     it('displays a loading skeleton on first open', async () => {
       const user = userEvent.setup()
 
-      renderWithFlag(<LoadingSelectPanel initialLoadingType="skeleton" />)
+      render(<LoadingSelectPanel initialLoadingType="skeleton" />)
 
       await user.click(screen.getByText('Select items'))
 
@@ -610,7 +617,7 @@ describe('SelectPanel', () => {
     it('displays a loading spinner in the text input if items are already loaded', async () => {
       const user = userEvent.setup()
 
-      renderWithFlag(<LoadingSelectPanel items={items} />)
+      render(<LoadingSelectPanel items={items} />)
 
       await user.click(screen.getByText('Select items'))
 
@@ -630,7 +637,7 @@ describe('SelectPanel', () => {
       const user = userEvent.setup({
         advanceTimers: jest.advanceTimersByTime,
       })
-      renderWithFlag(<FilterableSelectPanel />)
+      render(<FilterableSelectPanel />)
 
       await user.click(screen.getByText('Select items'))
       expect(screen.getByLabelText('Filter items')).toHaveFocus()
@@ -687,7 +694,7 @@ describe('SelectPanel', () => {
         )
       }
 
-      renderWithFlag(<SelectPanelWithNotice />)
+      render(<SelectPanelWithNotice />)
 
       await user.click(screen.getByText('Select items'))
       expect(screen.getByLabelText('Filter items')).toHaveFocus()
@@ -700,7 +707,7 @@ describe('SelectPanel', () => {
       const user = userEvent.setup({
         advanceTimers: jest.advanceTimersByTime,
       })
-      renderWithFlag(<FilterableSelectPanel />)
+      render(<FilterableSelectPanel />)
 
       await user.click(screen.getByText('Select items'))
       expect(screen.getByLabelText('Filter items')).toHaveFocus()
@@ -740,12 +747,12 @@ describe('SelectPanel', () => {
       jest.useRealTimers()
     })
 
-    it('should announce when no results are available', async () => {
+    it('should announce default empty message when no results are available (no custom message is provided)', async () => {
       jest.useFakeTimers()
       const user = userEvent.setup({
         advanceTimers: jest.advanceTimersByTime,
       })
-      renderWithFlag(<FilterableSelectPanel />)
+      render(<FilterableSelectPanel />)
 
       await user.click(screen.getByText('Select items'))
 
@@ -754,7 +761,59 @@ describe('SelectPanel', () => {
 
       jest.runAllTimers()
       await waitFor(async () => {
-        expect(getLiveRegion().getMessage('polite')).toBe('No matching items.')
+        expect(getLiveRegion().getMessage('polite')).toBe('No items available. ')
+      })
+      jest.useRealTimers()
+    })
+
+    it('should announce custom empty message when no results are available', async () => {
+      jest.useFakeTimers()
+      const user = userEvent.setup({
+        advanceTimers: jest.advanceTimersByTime,
+      })
+
+      function SelectPanelWithCustomEmptyMessage() {
+        const [filter, setFilter] = React.useState('')
+        const [open, setOpen] = React.useState(false)
+
+        return (
+          <ThemeProvider>
+            <SelectPanel
+              title="test title"
+              subtitle="test subtitle"
+              placeholder="Select items"
+              placeholderText="Filter items"
+              open={open}
+              items={[]}
+              onFilterChange={value => {
+                setFilter(value)
+              }}
+              filterValue={filter}
+              selected={[]}
+              onSelectedChange={() => {}}
+              onOpenChange={isOpen => {
+                setOpen(isOpen)
+              }}
+              message={{
+                title: 'Nothing found',
+                body: `There's nothing here.`,
+                variant: 'empty',
+              }}
+            />
+          </ThemeProvider>
+        )
+      }
+
+      render(<SelectPanelWithCustomEmptyMessage />)
+
+      await user.click(screen.getByText('Select items'))
+
+      await user.type(document.activeElement!, 'zero')
+      expect(screen.queryByRole('option')).toBeNull()
+
+      jest.runAllTimers()
+      await waitFor(async () => {
+        expect(getLiveRegion().getMessage('polite')).toBe(`Nothing found. There's nothing here.`)
       })
       jest.useRealTimers()
     })
@@ -762,7 +821,7 @@ describe('SelectPanel', () => {
     it('should accept a className to style the component', async () => {
       const user = userEvent.setup()
 
-      renderWithFlag(<BasicSelectPanel className="test-class" />)
+      render(<BasicSelectPanel className="test-class" />)
 
       await user.click(screen.getByText('Select items'))
 
@@ -774,32 +833,30 @@ describe('SelectPanel', () => {
     it('should display the default empty state message when there is no matching item after filtering (No custom message is provided)', async () => {
       const user = userEvent.setup()
 
-      renderWithFlag(<FilterableSelectPanel />)
+      render(<FilterableSelectPanel />)
 
       await user.click(screen.getByText('Select items'))
 
       expect(screen.getAllByRole('option')).toHaveLength(3)
 
       await user.type(document.activeElement!, 'something')
-      expect(screen.getByText("You haven't created any items yet")).toBeVisible()
-      expect(screen.getByText('Please add or create new items to populate the list.')).toBeVisible()
+      expect(screen.getByText('No items available')).toBeVisible()
     })
 
     it('should display the default empty state message when there is no item after the initial load (No custom message is provided)', async () => {
       const user = userEvent.setup()
 
-      renderWithFlag(<NoItemAvailableSelectPanel />)
+      render(<NoItemAvailableSelectPanel />)
 
       await waitFor(async () => {
         await user.click(screen.getByText('Select items'))
-        expect(screen.getByText("You haven't created any items yet")).toBeVisible()
-        expect(screen.getByText('Please add or create new items to populate the list.')).toBeVisible()
+        expect(screen.getByText('No items available')).toBeVisible()
       })
     })
     it('should display the custom empty state message when there is no matching item after filtering', async () => {
       const user = userEvent.setup()
 
-      renderWithFlag(
+      render(
         <SelectPanelWithCustomMessages
           items={[
             {
@@ -827,7 +884,7 @@ describe('SelectPanel', () => {
     it('should display the custom empty state message when there is no item after the initial load', async () => {
       const user = userEvent.setup()
 
-      renderWithFlag(<SelectPanelWithCustomMessages items={[]} />)
+      render(<SelectPanelWithCustomMessages items={[]} />)
 
       await waitFor(async () => {
         await user.click(screen.getByText('Select items'))
@@ -835,7 +892,31 @@ describe('SelectPanel', () => {
         expect(screen.getByText('Start your first project to organise your issues')).toBeVisible()
       })
     })
+
+    it('should display action button in custom empty state message', async () => {
+      const handleAction = jest.fn()
+      const user = userEvent.setup()
+
+      render(<SelectPanelWithCustomMessages items={[]} withAction={true} onAction={handleAction} />)
+
+      await waitFor(async () => {
+        await user.click(screen.getByText('Select items'))
+        expect(screen.getByText("You haven't created any projects yet")).toBeVisible()
+        expect(screen.getByText('Start your first project to organise your issues')).toBeVisible()
+
+        // Check that action button is visible
+        const actionButton = screen.getByTestId('create-project-action')
+        expect(actionButton).toBeVisible()
+        expect(actionButton).toHaveTextContent('Create new project')
+      })
+
+      // Test that action button is clickable
+      const actionButton = screen.getByTestId('create-project-action')
+      await user.click(actionButton)
+      expect(handleAction).toHaveBeenCalledTimes(1)
+    })
   })
+
   describe('with footer', () => {
     function SelectPanelWithFooter() {
       const [selected, setSelected] = React.useState<SelectPanelProps['items']>([])
@@ -873,7 +954,7 @@ describe('SelectPanel', () => {
     it('should render the provided `footer` at the bottom of the dialog', async () => {
       const user = userEvent.setup()
 
-      renderWithFlag(<SelectPanelWithFooter />)
+      render(<SelectPanelWithFooter />)
 
       await user.click(screen.getByText('Select items'))
       expect(screen.getByText('test footer')).toBeVisible()
@@ -950,7 +1031,7 @@ describe('SelectPanel', () => {
     it('should render groups with items', async () => {
       const user = userEvent.setup()
 
-      renderWithFlag(<SelectPanelWithGroups />)
+      render(<SelectPanelWithGroups />)
 
       await user.click(screen.getByText('Select items'))
       const listbox = screen.getByRole('listbox')
@@ -969,7 +1050,7 @@ describe('SelectPanel', () => {
     it('should select items within groups', async () => {
       const user = userEvent.setup()
 
-      renderWithFlag(<SelectPanelWithGroups />)
+      render(<SelectPanelWithGroups />)
 
       await user.click(screen.getByText('Select items'))
 
@@ -1001,7 +1082,7 @@ describe('SelectPanel', () => {
     it('selections render as radios when variant modal and single select', async () => {
       const user = userEvent.setup()
 
-      renderWithFlag(<BasicSelectPanel variant="modal" onCancel={() => {}} selected={undefined} />)
+      render(<BasicSelectPanel variant="modal" onCancel={() => {}} selected={undefined} />)
 
       await user.click(screen.getByText('Select items'))
 
@@ -1013,7 +1094,7 @@ describe('SelectPanel', () => {
     it('save and oncancel buttons are present when variant modal', async () => {
       const user = userEvent.setup()
 
-      renderWithFlag(<BasicSelectPanel variant="modal" onCancel={() => {}} />)
+      render(<BasicSelectPanel variant="modal" onCancel={() => {}} />)
 
       await user.click(screen.getByText('Select items'))
 
@@ -1042,7 +1123,7 @@ describe('SelectPanel', () => {
     it('should render selected items at the top by default when FF on', async () => {
       const user = userEvent.setup()
 
-      renderWithFlag(
+      render(
         <FeatureFlags flags={{primer_react_select_panel_order_selected_at_top: true}}>
           <BasicSelectPanel items={items} selected={[items[1]]} />
         </FeatureFlags>,
@@ -1058,7 +1139,7 @@ describe('SelectPanel', () => {
     it('should not render selected items at the top by default when FF off', async () => {
       const user = userEvent.setup()
 
-      renderWithFlag(
+      render(
         <FeatureFlags flags={{primer_react_select_panel_order_selected_at_top: false}}>
           <BasicSelectPanel items={items} selected={[items[1]]} />
         </FeatureFlags>,
@@ -1074,7 +1155,7 @@ describe('SelectPanel', () => {
     it('should not render selected items at the top when showSelectedOptionsFirst set to false', async () => {
       const user = userEvent.setup()
 
-      renderWithFlag(<BasicSelectPanel items={items} selected={[items[1]]} showSelectedOptionsFirst={false} />)
+      render(<BasicSelectPanel items={items} selected={[items[1]]} showSelectedOptionsFirst={false} />)
 
       await user.click(screen.getByText('item two')) // item two is selected so that's what the anchor text is
 
@@ -1173,6 +1254,217 @@ describe('SelectPanel', () => {
       // the ResponsiveCloseButton should not be present
       const responsiveCloseButton = screen.queryByRole('button', {name: 'Cancel and close'})
       expect(responsiveCloseButton).not.toBeInTheDocument()
+    })
+  })
+
+  describe('Select all', () => {
+    function SelectAllSelectPanel({showSelectAll = true}: {showSelectAll?: boolean} = {}) {
+      const [selected, setSelected] = React.useState<SelectPanelProps['items']>([])
+      const [filter, setFilter] = React.useState('')
+      const [open, setOpen] = React.useState(false)
+
+      const onSelectedChange = (selected: SelectPanelProps['items']) => {
+        setSelected(selected)
+      }
+
+      return (
+        <ThemeProvider>
+          <SelectPanel
+            title="test title"
+            subtitle="test subtitle"
+            items={items}
+            placeholder="Select items"
+            placeholderText="Filter items"
+            selected={selected}
+            onSelectedChange={onSelectedChange}
+            filterValue={filter}
+            onFilterChange={value => {
+              setFilter(value)
+            }}
+            open={open}
+            onOpenChange={isOpen => {
+              setOpen(isOpen)
+            }}
+            showSelectAll={showSelectAll}
+          />
+        </ThemeProvider>
+      )
+    }
+
+    it('should render a Select All checkbox when showSelectAll is true', async () => {
+      const user = userEvent.setup()
+
+      render(<SelectAllSelectPanel />)
+
+      await user.click(screen.getByText('Select items'))
+
+      expect(screen.getByText('Select all')).toBeInTheDocument()
+      expect(screen.getByRole('checkbox', {name: 'Select all'})).toBeInTheDocument()
+      expect(screen.getByRole('checkbox', {name: 'Select all'})).not.toBeChecked()
+    })
+
+    it('should not render a Select All checkbox when showSelectAll is false', async () => {
+      const user = userEvent.setup()
+
+      render(<SelectAllSelectPanel showSelectAll={false} />)
+
+      await user.click(screen.getByText('Select items'))
+
+      expect(screen.queryByText('Select all')).not.toBeInTheDocument()
+      expect(screen.queryByRole('checkbox', {name: 'Select all'})).not.toBeInTheDocument()
+    })
+
+    it('should select all items when the Select All checkbox is clicked', async () => {
+      const user = userEvent.setup()
+
+      render(<SelectAllSelectPanel />)
+
+      await user.click(screen.getByText('Select items'))
+
+      await user.click(screen.getByRole('checkbox', {name: 'Select all'}))
+
+      // All options should now be selected
+      for (const item of items) {
+        expect(screen.getByRole('option', {name: item.text})).toHaveAttribute('aria-selected', 'true')
+      }
+    })
+
+    it('should deselect all items when the Deselect All checkbox is clicked', async () => {
+      const user = userEvent.setup()
+
+      render(<SelectAllSelectPanel />)
+
+      await user.click(screen.getByText('Select items'))
+
+      // First select all
+      await user.click(screen.getByRole('checkbox', {name: 'Select all'}))
+
+      // Then deselect all
+      await user.click(screen.getByRole('checkbox', {name: 'Deselect all'}))
+
+      // All options should now be deselected
+      for (const item of items) {
+        if (item.text) {
+          expect(screen.getByRole('option', {name: item.text})).toHaveAttribute('aria-selected', 'false')
+        }
+      }
+    })
+
+    it('should update Select All checkbox to indeterminate state when some items (but not all) are selected', async () => {
+      const user = userEvent.setup()
+
+      render(<SelectAllSelectPanel />)
+
+      await user.click(screen.getByText('Select items'))
+
+      // Select only one item
+      await user.click(screen.getByText('item one'))
+
+      // Check that Select All is in indeterminate state
+      const selectAllCheckbox = screen.getByRole('checkbox', {name: 'Select all'})
+      expect(selectAllCheckbox).not.toBeChecked()
+      expect(selectAllCheckbox).toHaveProperty('indeterminate', true)
+    })
+
+    it('should update Select All checkbox to checked when all items are selected manually', async () => {
+      const user = userEvent.setup()
+
+      render(<SelectAllSelectPanel />)
+
+      await user.click(screen.getByText('Select items'))
+
+      // Select all items individually
+      for (const item of items) {
+        if (item.text) {
+          await user.click(screen.getByText(item.text))
+        }
+      }
+
+      // Check that Deselect All is checked
+      expect(screen.getByRole('checkbox', {name: 'Deselect all'})).toBeChecked()
+    })
+
+    it('should update Select All checkbox label to "Deselect all" when all items are selected', async () => {
+      const user = userEvent.setup()
+
+      render(<SelectAllSelectPanel />)
+
+      await user.click(screen.getByText('Select items'))
+
+      // Select all items
+      await user.click(screen.getByRole('checkbox', {name: 'Select all'}))
+
+      // Check that the label has changed to "Deselect all"
+      expect(screen.getByText('Deselect all')).toBeInTheDocument()
+      expect(screen.getByRole('checkbox', {name: 'Deselect all'})).toBeInTheDocument()
+    })
+
+    it('should apply Select All only to filtered items and maintain selection state when filters are cleared', async () => {
+      const user = userEvent.setup()
+
+      function FilterableSelectAllPanel() {
+        const [selected, setSelected] = React.useState<SelectPanelProps['items']>([])
+        const [filter, setFilter] = React.useState('')
+        const [open, setOpen] = React.useState(false)
+
+        const onSelectedChange = (selected: SelectPanelProps['items']) => {
+          setSelected(selected)
+        }
+
+        return (
+          <ThemeProvider>
+            <SelectPanel
+              title="test title"
+              subtitle="test subtitle"
+              items={items.filter(item => item.text?.includes(filter))}
+              placeholder="Select items"
+              placeholderText="Filter items"
+              selected={selected}
+              onSelectedChange={onSelectedChange}
+              filterValue={filter}
+              onFilterChange={value => {
+                setFilter(value)
+              }}
+              open={open}
+              onOpenChange={isOpen => {
+                setOpen(isOpen)
+              }}
+              showSelectAll={true}
+            />
+          </ThemeProvider>
+        )
+      }
+
+      render(<FilterableSelectAllPanel />)
+
+      await user.click(screen.getByText('Select items'))
+
+      // Filter to only show "item one"
+      await user.type(screen.getByLabelText('Filter items'), 'one')
+
+      // Only "item one" should be visible
+      expect(screen.getAllByRole('option')).toHaveLength(1)
+      expect(screen.getByText('item one')).toBeInTheDocument()
+
+      // Select all (which is just the one visible item)
+      await user.click(screen.getByRole('checkbox', {name: 'Select all'}))
+
+      // The visible item should be selected
+      expect(screen.getByRole('option', {name: 'item one'})).toHaveAttribute('aria-selected', 'true')
+
+      // Clear the filter
+      await user.clear(screen.getByLabelText('Filter items'))
+
+      // Now all items should be visible, but only "item one" should be selected
+      expect(screen.getAllByRole('option')).toHaveLength(3)
+      expect(screen.getByRole('option', {name: 'item one'})).toHaveAttribute('aria-selected', 'true')
+      expect(screen.getByRole('option', {name: 'item two'})).toHaveAttribute('aria-selected', 'false')
+      expect(screen.getByRole('option', {name: 'item three'})).toHaveAttribute('aria-selected', 'false')
+
+      // Select All checkbox should be in indeterminate state
+      const selectAllCheckbox = screen.getByRole('checkbox', {name: 'Select all'})
+      expect(selectAllCheckbox).not.toBeChecked()
+      expect(selectAllCheckbox).toHaveProperty('indeterminate', true)
     })
   })
 })

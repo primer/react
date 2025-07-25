@@ -30,7 +30,20 @@
 }
 
 .Wrapper[data-variant='modal'] .Title {
-  margin-top: var(--base-size-8); /* styling specific to the modal variant */
+  margin-top: var(--base-size-8);
+  /* styling specific to the modal variant */
+}
+
+/*
+ * Align SelectPanel header text with AnchoredOverlay close button
+ * 
+ * Ensures the title properly aligns with the close button position
+ * in anchor variant on narrow viewports.
+ */
+.Wrapper[data-variant='anchored'] .Title {
+  @media screen and (--viewportRange-narrow) {
+    margin-top: var(--base-size-8);
+  }
 }
 
 .Subtitle {
@@ -126,6 +139,10 @@
   &:where([data-variant='error']) {
     color: var(--fgColor-danger);
   }
+}
+
+.MessageAction {
+  margin-top: var(--base-size-8);
 }
 
 .ResponsiveCloseButton {
