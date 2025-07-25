@@ -61,6 +61,12 @@
           "description": "`danger` indicates that the item is destructive."
         },
         {
+          "name": "size",
+          "type": "'medium' | 'large'",
+          "defaultValue": "'medium'",
+          "description": "The block size of the ActionList items."
+        },
+        {
           "name": "onSelect",
           "type": "(event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => void",
           "defaultValue": "",

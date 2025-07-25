@@ -500,6 +500,13 @@
     cursor: pointer;
   }
 
+  /* large */
+
+  &[data-size='large'] {
+    /* stylelint-disable-next-line primer/spacing */
+    padding-block: var(--control-large-paddingBlock);
+  }
+
   /* collapsible item [aria-expanded] */
 
   &[aria-expanded='true'] {

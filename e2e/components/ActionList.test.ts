@@ -124,6 +124,10 @@ const stories = [
     title: 'Trailing Visual Gap',
     id: 'components-actionlist-dev--trailing-visual-gap',
   },
+  {
+    title: 'Large Item',
+    id: 'components-actionlist-features--large-item',
+  },
 ] as const
 
 test.describe('ActionList', () => {

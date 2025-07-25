@@ -27,6 +27,7 @@ export type ActionListItemProps = {
    * - `"danger"` - A destructive action `Item`.
    */
   variant?: 'default' | 'danger'
+  size?: 'medium' | 'large'
   /**
    * Items that are disabled can not be clicked, selected, or navigated through.
    */
@@ -69,7 +70,7 @@ type MenuItemProps = {
   className?: string
 }
 
-export type ItemContext = Pick<ActionListItemProps, 'variant' | 'disabled'> & {
+export type ItemContext = Pick<ActionListItemProps, 'variant' | 'disabled' | 'size'> & {
   inlineDescriptionId?: string
   blockDescriptionId?: string
   trailingVisualId?: string
