@@ -53,7 +53,6 @@ async function announceText(text: string, delayMs = SHORT_DELAY_MS) {
   const liveRegion = document.querySelector('live-region')
 
   liveRegion?.clear() // clear previous announcements
-
   await announce(text, {
     delayMs,
     from: liveRegion ? liveRegion : undefined, // announce will create a liveRegion if it doesn't find one
@@ -547,10 +546,11 @@ function Panel({
 
   const itemsToRender = useMemo(() => {
     return items
-      .map(item => {
+      .map((item, index) => {
         return {
           ...item,
           role: 'option',
+          id: item.id || `select-panel-item-${index}`,
           selected: 'selected' in item && item.selected === undefined ? undefined : isItemCurrentlySelected(item),
           onAction: (itemFromAction, event) => {
             item.onAction?.(itemFromAction, event)
@@ -860,7 +860,7 @@ function Panel({
             sx={sx}
             className={clsx(className, classes.FilteredActionList)}
             // needed to explicitly enable announcements for deprecated FilteredActionList, we can remove when we fully remove the deprecated version
-            announcementsEnabled
+            announcementsEnabled={usingModernActionList}
           />
           {footer ? (
             <div className={classes.Footer}>{footer}</div>

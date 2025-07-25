@@ -28,6 +28,7 @@ export const List = React.forwardRef<HTMLUListElement, ActionListProps>(
       listLabelledBy,
       selectionVariant: containerSelectionVariant, // TODO: Remove after DropdownMenu2 deprecation
       enableFocusZone: enableFocusZoneFromContainer,
+      container,
     } = React.useContext(ActionListContainerContext)
 
     const ariaLabelledBy = slots.heading ? (slots.heading.props.id ?? headingId) : listLabelledBy
@@ -42,7 +43,8 @@ export const List = React.forwardRef<HTMLUListElement, ActionListProps>(
       disabled: !enableFocusZone,
       containerRef: listRef,
       bindKeys: FocusKeys.ArrowVertical | FocusKeys.HomeAndEnd | FocusKeys.PageUpDown,
-      focusOutBehavior: listRole === 'menu' ? 'wrap' : undefined,
+      focusOutBehavior:
+        listRole === 'menu' || container === 'SelectPanel' || container === 'FilteredActionList' ? 'wrap' : undefined,
     })
 
     return (

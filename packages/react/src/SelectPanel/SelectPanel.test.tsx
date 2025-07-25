@@ -253,6 +253,10 @@ for (const useModernActionList of [false, true]) {
         )
 
         await user.click(screen.getByText('Select items'))
+
+        if (useModernActionList) {
+          expect(document.activeElement!).toHaveAttribute('role', 'combobox')
+        }
         expect(screen.getByLabelText('Filter items')).toHaveFocus()
       })
 
@@ -294,10 +298,56 @@ for (const useModernActionList of [false, true]) {
         })
 
         it('should support navigating through items with ArrowUp and ArrowDown', async () => {
+          if (!useModernActionList) return // this feature is only enabled with feature flag on
           const user = userEvent.setup()
 
           renderWithFlag(<BasicSelectPanel />, useModernActionList)
 
+          await user.click(screen.getByText('Select items'))
+          expect(document.activeElement!).toHaveAttribute('role', 'combobox')
+        })
+
+        it('should support navigating through items with PageDown and PageUp', async () => {
+          if (!useModernActionList) return // this feature is only enabled with feature flag on
+
+          const user = userEvent.setup()
+
+          renderWithFlag(<BasicSelectPanel />, useModernActionList)
+
+          await user.click(screen.getByText('Select items'))
+
+          expect(document.activeElement!).toHaveAttribute('role', 'combobox')
+
+          await user.keyboard('{ArrowDown}')
+          expect(document.activeElement!).toHaveAccessibleName('item one')
+
+          await user.keyboard('{ArrowDown}')
+          expect(document.activeElement!).toHaveAccessibleName('item two')
+
+          await user.keyboard('{ArrowDown}')
+          expect(document.activeElement!).toHaveAccessibleName('item three')
+
+          // At end of list, should wrap to the beginning
+          await user.keyboard('{ArrowDown}')
+          expect(document.activeElement!).toHaveAccessibleName('item one')
+
+          // At beginning of list, ArrowUp should wrap to the end
+          await user.keyboard('{ArrowUp}')
+          expect(document.activeElement!).toHaveAccessibleName('item three')
+
+          await user.keyboard('{ArrowUp}')
+          expect(document.activeElement!).toHaveAccessibleName('item two')
+
+          await user.keyboard('{ArrowUp}')
+          expect(document.activeElement!).toHaveAccessibleName('item one')
+        })
+
+        it('should support navigating through items with ArrowUp and ArrowDown using `aria-activedescendant`', async () => {
+          if (useModernActionList) return // this feature is only enabled with feature flag on
+
+          const user = userEvent.setup()
+
+          renderWithFlag(<BasicSelectPanel />, useModernActionList)
           await user.click(screen.getByText('Select items'))
 
           // First item by default should be the active element
@@ -345,7 +395,7 @@ for (const useModernActionList of [false, true]) {
           )
         })
 
-        it('should support navigating through items with PageDown and PageUp', async () => {
+        it('should support navigating through items with PageDown and PageUp (modern ActionList)', async () => {
           if (!useModernActionList) return // this feature is only enabled with feature flag on
 
           const user = userEvent.setup()
@@ -355,23 +405,18 @@ for (const useModernActionList of [false, true]) {
           await user.click(screen.getByText('Select items'))
 
           // First item by default should be the active element
-          expect(document.activeElement!).toHaveAttribute(
-            'aria-activedescendant',
-            screen.getByRole('option', {name: 'item one'}).id,
-          )
+          expect(document.activeElement!).toHaveAttribute('role', 'combobox')
+
+          await user.type(document.activeElement!, '{ArrowDown}')
+
+          expect(document.activeElement!).toHaveAttribute('role', 'option')
 
           await user.type(document.activeElement!, '{PageDown}')
 
-          expect(document.activeElement!).toHaveAttribute(
-            'aria-activedescendant',
-            screen.getByRole('option', {name: 'item three'}).id,
-          )
+          expect(document.activeElement!).toHaveAccessibleName('item three')
 
           await user.type(document.activeElement!, '{PageUp}')
-          expect(document.activeElement!).toHaveAttribute(
-            'aria-activedescendant',
-            screen.getByRole('option', {name: 'item one'}).id,
-          )
+          expect(document.activeElement!).toHaveAccessibleName('item one')
         })
 
         it('should select an item (by item.id) even when items are defined in the component', async () => {
@@ -660,9 +705,14 @@ for (const useModernActionList of [false, true]) {
           jest.runAllTimers()
           // we wait because announcement is intentionally updated after a timeout to not interrupt user input
           await waitFor(async () => {
-            expect(getLiveRegion().getMessage('polite')?.trim()).toEqual(
-              'List updated, Focused item: item one, not selected, 1 of 3',
-            )
+            // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+            if (useModernActionList) {
+              expect(getLiveRegion().getMessage('polite')!.trim()).toEqual('3 items available, 0 selected.')
+            } else {
+              expect(getLiveRegion().getMessage('polite')!.trim()).toEqual(
+                'List updated, Focused item: item one, not selected, 1 of 3',
+              )
+            }
           })
           jest.useRealTimers()
         })
@@ -714,7 +764,7 @@ for (const useModernActionList of [false, true]) {
           await user.click(screen.getByText('Select items'))
           expect(screen.getByLabelText('Filter items')).toHaveFocus()
 
-          expect(getLiveRegion().getMessage('polite')?.trim()).toContain('This is a notice')
+          expect(getLiveRegion().getMessage('polite')!.trim()).toContain('This is a notice')
         })
 
         it('should announce filtered results', async () => {
@@ -730,9 +780,14 @@ for (const useModernActionList of [false, true]) {
           jest.runAllTimers()
           await waitFor(
             async () => {
-              expect(getLiveRegion().getMessage('polite')?.trim()).toEqual(
-                'List updated, Focused item: item one, not selected, 1 of 3',
-              )
+              // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+              if (useModernActionList) {
+                expect(getLiveRegion().getMessage('polite')!.trim()).toEqual('3 items available, 0 selected.')
+              } else {
+                expect(getLiveRegion().getMessage('polite')!.trim()).toEqual(
+                  'List updated, Focused item: item one, not selected, 1 of 3',
+                )
+              }
             },
             {timeout: 3000}, // increased timeout because we don't want the test to compare with previous announcement
           )
@@ -743,9 +798,14 @@ for (const useModernActionList of [false, true]) {
           jest.runAllTimers()
           await waitFor(
             async () => {
-              expect(getLiveRegion().getMessage('polite')).toBe(
-                'List updated, Focused item: item one, not selected, 1 of 2',
-              )
+              // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+              if (useModernActionList) {
+                expect(getLiveRegion().getMessage('polite')).toBe('2 items available, 0 selected.')
+              } else {
+                expect(getLiveRegion().getMessage('polite')).toBe(
+                  'List updated, Focused item: item one, not selected, 1 of 2',
+                )
+              }
             },
             {timeout: 3000}, // increased timeout because we don't want the test to compare with previous announcement
           )
@@ -755,9 +815,14 @@ for (const useModernActionList of [false, true]) {
 
           jest.runAllTimers()
           await waitFor(async () => {
-            expect(getLiveRegion().getMessage('polite')?.trim()).toBe(
-              'List updated, Focused item: item one, not selected, 1 of 1',
-            )
+            // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+            if (useModernActionList) {
+              expect(getLiveRegion().getMessage('polite')!.trim()).toBe('1 item available, 0 selected.')
+            } else {
+              expect(getLiveRegion().getMessage('polite')!.trim()).toBe(
+                'List updated, Focused item: item one, not selected, 1 of 1',
+              )
+            }
           })
           jest.useRealTimers()
         })
