@@ -63,6 +63,16 @@
       "description": "This will be the Button description."
     },
     {
+      "name": "as",
+      "type": "React.ElementType",
+      "defaultValue": "'button'"
+    },
+    {
+      "name": "href",
+      "type": "string",
+      "description": "**May only be used when `as` is set to 'a'**.\n The URL the button links to. If `as` is set to 'a', this prop is required."
+    },
+    {
       "name": "variant",
       "type": "'default' | 'primary' | 'danger' | 'invisible' | 'link'",
       "defaultValue": "",
