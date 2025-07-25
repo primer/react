@@ -60,6 +60,7 @@ export default defineConfig({
       'src/PageLayout/**/*.test.?(c|m)[jt]s?(x)',
       'src/Pagehead/**/*.test.?(c|m)[jt]s?(x)',
       'src/Pagination/**/*.test.?(c|m)[jt]s?(x)',
+      'src/Portal/**/*.test.?(c|m)[jt]s?(x)',
       'src/ProgressBar/**/*.test.?(c|m)[jt]s?(x)',
       'src/Radio/**/*.test.?(c|m)[jt]s?(x)',
       'src/RadioGroup/**/*.test.?(c|m)[jt]s?(x)',
