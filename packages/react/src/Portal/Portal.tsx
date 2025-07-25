@@ -30,6 +30,7 @@ function ensureDefaultPortal() {
       defaultPortalContainer.style.position = 'absolute'
       defaultPortalContainer.style.top = '0'
       defaultPortalContainer.style.left = '0'
+      defaultPortalContainer.style.width = '100%'
       const suitablePortalRoot = document.querySelector('[data-portal-root]')
       if (suitablePortalRoot) {
         suitablePortalRoot.appendChild(defaultPortalContainer)

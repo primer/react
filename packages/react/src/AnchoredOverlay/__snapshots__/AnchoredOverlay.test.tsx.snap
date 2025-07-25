@@ -37,7 +37,7 @@ exports[`AnchoredOverlay > should render consistently when open 1`] = `
     </button>
     <div
       id="__primerPortalRoot__"
-      style="position: absolute; top: 0px; left: 0px;"
+      style="position: absolute; top: 0px; left: 0px; width: 100%;"
     >
       <div
         style="position: relative; z-index: 1;"
