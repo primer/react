@@ -719,6 +719,17 @@ function Panel({
 
   const stretchSaveButton = showResponsiveSaveAndCloseButton && secondaryAction === undefined ? 'only-small' : 'never'
 
+  /*
+   * SelectPanel uses two close button implementations for different use cases:
+   *
+   * 1. AnchoredOverlay close button - Enabled on narrow screens (showXCloseIcon logic)
+   *
+   * 2. SelectPanel modal close button - Used for modal variant on wider screens
+   *    (variant === 'modal' && !isNarrowScreenSize logic below)
+   *
+   * The dual approach handles different responsive behaviors: AnchoredOverlay manages
+   * close functionality for narrow fullscreen, while SelectPanel handles modal close on desktop.
+   */
   const showXCloseIcon = (onCancel !== undefined || !isMultiSelectVariant(selected)) && usingFullScreenOnNarrow
 
   const currentResponsiveVariant = useResponsiveValue(
