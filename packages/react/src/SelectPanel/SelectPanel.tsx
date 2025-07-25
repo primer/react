@@ -30,10 +30,14 @@ import type {ButtonProps, LinkButtonProps} from '../Button/types'
 // we add a delay so that it does not interrupt default screen reader announcement and queues after it
 const SHORT_DELAY_MS = 500
 const LONG_DELAY_MS = 1000
+const EMPTY_MESSAGE = {
+  title: 'No items available',
+  description: '',
+}
 
 const DefaultEmptyMessage = (
-  <SelectPanelMessage variant="empty" title="You haven't created any items yet" key="empty-message">
-    Please add or create new items to populate the list.
+  <SelectPanelMessage variant="empty" title={EMPTY_MESSAGE.title} key="empty-message">
+    {EMPTY_MESSAGE.description}
   </SelectPanelMessage>
 )
 
@@ -53,7 +57,7 @@ async function announceLoading() {
 }
 
 const announceNoItems = debounce((message?: string) => {
-  announceText(message ?? 'No matching items.', LONG_DELAY_MS)
+  announceText(message ?? `${EMPTY_MESSAGE.title}. ${EMPTY_MESSAGE.description}`, LONG_DELAY_MS)
 }, 250)
 
 interface SelectPanelSingleSelection {
@@ -107,6 +111,7 @@ interface SelectPanelBaseProps {
    * @default undefined (uses feature flag default)
    */
   disableFullscreenOnNarrow?: boolean
+  showSelectAll?: boolean
 }
 
 // onCancel is optional with variant=anchored, but required with variant=modal
@@ -182,6 +187,7 @@ function Panel({
   showSelectedOptionsFirst = true,
   disableFullscreenOnNarrow,
   align,
+  showSelectAll = false,
   ...listProps
 }: SelectPanelProps): JSX.Element {
   const titleId = useId()
@@ -229,11 +235,11 @@ function Panel({
     (node: HTMLElement | null) => {
       setListContainerElement(node)
       if (!node && needsNoItemsAnnouncement) {
-        announceNoItems()
+        if (!usingModernActionList) announceNoItems()
         setNeedsNoItemsAnnouncement(false)
       }
     },
-    [needsNoItemsAnnouncement],
+    [needsNoItemsAnnouncement, usingModernActionList],
   )
 
   const onInputRefChanged = useCallback(
@@ -302,6 +308,29 @@ function Panel({
     ],
   )
 
+  const handleSelectAllChange = useCallback(
+    (checked: boolean) => {
+      // Exit early if not in multi-select mode
+      if (!isMultiSelectVariant(selected)) {
+        return
+      }
+
+      const multiSelectOnChange = onSelectedChange as SelectPanelMultiSelection['onSelectedChange']
+      const selectedArray = selected as ItemInput[]
+
+      const selectedItemsNotInFilteredView = selectedArray.filter(
+        (selectedItem: ItemInput) => !items.some(item => areItemsEqual(item, selectedItem)),
+      )
+
+      if (checked) {
+        multiSelectOnChange([...selectedItemsNotInFilteredView, ...items])
+      } else {
+        multiSelectOnChange(selectedItemsNotInFilteredView)
+      }
+    },
+    [items, onSelectedChange, selected],
+  )
+
   // disable body scroll when the panel is open on narrow screens
   useEffect(() => {
     if (open && isNarrowScreenSize && usingFullScreenOnNarrow) {
@@ -325,7 +354,7 @@ function Panel({
     if (open) {
       if (items.length === 0 && !(isLoading || loading)) {
         // we need to wait for the listContainerElement to disappear before announcing no items, otherwise it will be interrupted
-        if (!listContainerElement || !usingModernActionList) {
+        if (!listContainerElement && !usingModernActionList) {
           announceNoItems(message?.title)
         } else {
           setNeedsNoItemsAnnouncement(true)
@@ -792,9 +821,17 @@ function Panel({
             textInputProps={extendedTextInputProps}
             loading={loading || (isLoading && !message)}
             loadingType={loadingType()}
+            onSelectAllChange={showSelectAll ? handleSelectAllChange : undefined}
             // hack because the deprecated ActionList does not support this prop
             {...{
               message: getMessage(),
+              messageText: {
+                title: message?.title || EMPTY_MESSAGE.title,
+                description:
+                  typeof message?.body === 'string'
+                    ? message.body
+                    : EMPTY_MESSAGE.description || EMPTY_MESSAGE.description,
+              },
               fullScreenOnNarrow: usingFullScreenOnNarrow,
             }}
             // inheriting height and maxHeight ensures that the FilteredActionList is never taller

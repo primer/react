@@ -81,9 +81,9 @@ test.describe('IconButton', () => {
             }
 
             // Default state
-            await expect(page).toHaveScreenshot(`IconButton.${story.title}.${theme}.png`, {
-              animations: 'disabled',
-            })
+            expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
+              `IconButton.${story.title}.${theme}.png`,
+            )
           })
         })
       }
