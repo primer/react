@@ -105,7 +105,7 @@ export default defineConfig({
       'src/__tests__/deprecated/FilteredSearch.test.tsx',
       'src/deprecated/UnderlineNav/UnderlineNavLink.test.tsx',
       'src/deprecated/**/*.test.?(c|m)[jt]s?(x)',
-      'src/experimental/SelectPanel2/__tests__/SelectPanelLoading.test.tsx',
+      'src/experimental/SelectPanel2/**/*.test.?(c|m)[jt]s?(x)',
       'src/hooks/**/*.test.?(c|m)[jt]s?(x)',
       'src/internal/utils/**/*.test.?(c|m)[jt]s?(x)',
       'src/live-region/**/*.test.?(c|m)[jt]s?(x)',
