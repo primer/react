@@ -64,10 +64,6 @@ async function announceLoading() {
   await announceText('Loading.')
 }
 
-const announceNoItems = debounce((message?: string) => {
-  announceText(message ?? `${EMPTY_MESSAGE.title}. ${EMPTY_MESSAGE.description}`, LONG_DELAY_MS)
-}, 250)
-
 interface SelectPanelSingleSelection {
   selected: ItemInput | undefined
   onSelectedChange: (selected: ItemInput | undefined) => void

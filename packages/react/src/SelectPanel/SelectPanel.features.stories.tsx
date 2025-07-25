@@ -27,7 +27,6 @@ import Text from '../Text'
 import FormControl from '../FormControl'
 import {SegmentedControl} from '../SegmentedControl'
 import {Stack} from '../Stack'
-import {FeatureFlags} from '../FeatureFlags'
 
 const meta: Meta<typeof SelectPanel> = {
   title: 'Components/SelectPanel/Features',
