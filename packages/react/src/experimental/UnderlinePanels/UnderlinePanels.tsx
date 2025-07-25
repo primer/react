@@ -24,7 +24,6 @@ import {type SxProp} from '../../sx'
 import {useResizeObserver, type ResizeObserverEntry} from '../../hooks/useResizeObserver'
 import useIsomorphicLayoutEffect from '../../utils/useIsomorphicLayoutEffect'
 import classes from './UnderlinePanels.module.css'
-import {clsx} from 'clsx'
 import {BoxWithFallback} from '../../internal/components/BoxWithFallback'
 
 export type UnderlinePanelsProps = {
@@ -49,7 +48,7 @@ export type UnderlinePanelsProps = {
    */
   loadingCounters?: boolean
   /**
-   * Class name for custom styling
+   * Class name for custom styling. Is applied to the custom element, [tab-container](https://github.com/github/tab-container-element)
    */
   className?: string
 } & SxProp
@@ -170,12 +169,12 @@ const UnderlinePanels: FC<UnderlinePanelsProps> = ({
   }
 
   return (
-    <TabContainerComponent>
+    <TabContainerComponent className={className}>
       <UnderlineWrapper
         ref={wrapperRef}
         slot="tablist-wrapper"
         data-icons-visible={iconsVisible}
-        className={clsx(className, classes.StyledUnderlineWrapper)}
+        className={classes.StyledUnderlineWrapper}
         {...props}
       >
         <UnderlineItemList ref={listRef} aria-label={ariaLabel} aria-labelledby={ariaLabelledBy} role="tablist">
