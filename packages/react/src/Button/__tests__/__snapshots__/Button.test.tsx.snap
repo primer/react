@@ -1,9 +1,9 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`Button respects block prop 1`] = `
+exports[`Button > respects block prop 1`] = `
 <button
   aria-describedby="test-button-loading-announcement"
-  class="ButtonBase"
+  class="prc-Button-ButtonBase-Eb8-K"
   data-block="block"
   data-loading="false"
   data-no-visuals="true"
@@ -13,12 +13,12 @@ exports[`Button respects block prop 1`] = `
   type="button"
 >
   <span
-    class="ButtonContent"
+    class="prc-Button-ButtonContent-KZ5Bz"
     data-align="center"
     data-component="buttonContent"
   >
     <span
-      class="Label"
+      class="prc-Button-Label-B1e2-"
       data-component="text"
     >
       Block
@@ -27,10 +27,10 @@ exports[`Button respects block prop 1`] = `
 </button>
 `;
 
-exports[`Button respects the alignContent prop 1`] = `
+exports[`Button > respects the alignContent prop 1`] = `
 <button
   aria-describedby="test-button-loading-announcement"
-  class="ButtonBase"
+  class="prc-Button-ButtonBase-Eb8-K"
   data-loading="false"
   data-no-visuals="true"
   data-size="medium"
@@ -39,12 +39,12 @@ exports[`Button respects the alignContent prop 1`] = `
   type="button"
 >
   <span
-    class="ButtonContent"
+    class="prc-Button-ButtonContent-KZ5Bz"
     data-align="start"
     data-component="buttonContent"
   >
     <span
-      class="Label"
+      class="prc-Button-Label-B1e2-"
       data-component="text"
     >
       Align start
@@ -53,10 +53,10 @@ exports[`Button respects the alignContent prop 1`] = `
 </button>
 `;
 
-exports[`Button respects the large size prop 1`] = `
+exports[`Button > respects the large size prop 1`] = `
 <button
   aria-describedby="test-button-loading-announcement"
-  class="ButtonBase"
+  class="prc-Button-ButtonBase-Eb8-K"
   data-loading="false"
   data-no-visuals="true"
   data-size="large"
@@ -65,12 +65,12 @@ exports[`Button respects the large size prop 1`] = `
   type="button"
 >
   <span
-    class="ButtonContent"
+    class="prc-Button-ButtonContent-KZ5Bz"
     data-align="center"
     data-component="buttonContent"
   >
     <span
-      class="Label"
+      class="prc-Button-Label-B1e2-"
       data-component="text"
     >
       Smol
@@ -79,10 +79,10 @@ exports[`Button respects the large size prop 1`] = `
 </button>
 `;
 
-exports[`Button respects the small size prop 1`] = `
+exports[`Button > respects the small size prop 1`] = `
 <button
   aria-describedby="test-button-loading-announcement"
-  class="ButtonBase"
+  class="prc-Button-ButtonBase-Eb8-K"
   data-loading="false"
   data-no-visuals="true"
   data-size="small"
@@ -91,12 +91,12 @@ exports[`Button respects the small size prop 1`] = `
   type="button"
 >
   <span
-    class="ButtonContent"
+    class="prc-Button-ButtonContent-KZ5Bz"
     data-align="center"
     data-component="buttonContent"
   >
     <span
-      class="Label"
+      class="prc-Button-Label-B1e2-"
       data-component="text"
     >
       Smol
@@ -105,10 +105,10 @@ exports[`Button respects the small size prop 1`] = `
 </button>
 `;
 
-exports[`Button styles danger button appropriately 1`] = `
+exports[`Button > styles danger button appropriately 1`] = `
 <button
   aria-describedby="test-button-loading-announcement"
-  class="ButtonBase"
+  class="prc-Button-ButtonBase-Eb8-K"
   data-loading="false"
   data-no-visuals="true"
   data-size="medium"
@@ -117,12 +117,12 @@ exports[`Button styles danger button appropriately 1`] = `
   type="button"
 >
   <span
-    class="ButtonContent"
+    class="prc-Button-ButtonContent-KZ5Bz"
     data-align="center"
     data-component="buttonContent"
   >
     <span
-      class="Label"
+      class="prc-Button-Label-B1e2-"
       data-component="text"
     >
       Danger
@@ -131,10 +131,10 @@ exports[`Button styles danger button appropriately 1`] = `
 </button>
 `;
 
-exports[`Button styles invisible button appropriately 1`] = `
+exports[`Button > styles invisible button appropriately 1`] = `
 <button
   aria-describedby="test-button-loading-announcement"
-  class="ButtonBase"
+  class="prc-Button-ButtonBase-Eb8-K"
   data-loading="false"
   data-no-visuals="true"
   data-size="medium"
@@ -143,12 +143,12 @@ exports[`Button styles invisible button appropriately 1`] = `
   type="button"
 >
   <span
-    class="ButtonContent"
+    class="prc-Button-ButtonContent-KZ5Bz"
     data-align="center"
     data-component="buttonContent"
   >
     <span
-      class="Label"
+      class="prc-Button-Label-B1e2-"
       data-component="text"
     >
       Invisible
@@ -157,10 +157,10 @@ exports[`Button styles invisible button appropriately 1`] = `
 </button>
 `;
 
-exports[`Button styles primary button appropriately 1`] = `
+exports[`Button > styles primary button appropriately 1`] = `
 <button
   aria-describedby="test-button-loading-announcement"
-  class="ButtonBase"
+  class="prc-Button-ButtonBase-Eb8-K"
   data-loading="false"
   data-no-visuals="true"
   data-size="medium"
@@ -169,12 +169,12 @@ exports[`Button styles primary button appropriately 1`] = `
   type="button"
 >
   <span
-    class="ButtonContent"
+    class="prc-Button-ButtonContent-KZ5Bz"
     data-align="center"
     data-component="buttonContent"
   >
     <span
-      class="Label"
+      class="prc-Button-Label-B1e2-"
       data-component="text"
     >
       Primary
