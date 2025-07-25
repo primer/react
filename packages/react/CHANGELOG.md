@@ -1,5 +1,17 @@
 # @primer/react
 
+## 37.30.0
+
+### Minor Changes
+
+- [#6350](https://github.com/primer/react/pull/6350) [`8731f43`](https://github.com/primer/react/commit/8731f439e5982cdb085f87612bb8d1cd72d61da9) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - Adds `icon` and `action` props to `SelectPanelMessage` to improve UX and accessibility.
+
+### Patch Changes
+
+- [#6349](https://github.com/primer/react/pull/6349) [`b831e20`](https://github.com/primer/react/commit/b831e207f9d18740d106e94fc1afe516d06f9e56) Thanks [@langermank](https://github.com/langermank)! - Align `font` with PVC for Tooltip
+
+- [#6363](https://github.com/primer/react/pull/6363) [`5731f62`](https://github.com/primer/react/commit/5731f62bfb09b492b05d76f3d1c77c703581acf0) Thanks [@TylerJDev](https://github.com/TylerJDev)! - SelectPanel: Remove `FormControl.Label` link with SelectPanel
+
 ## 37.29.1
 
 ### Patch Changes
