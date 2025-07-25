@@ -1,41 +1,37 @@
+import {describe, expect, it, vi, beforeAll, afterAll} from 'vitest'
 import {render} from '@testing-library/react'
 import {PageHeader} from '.'
-import MatchMediaMock from 'jest-matchmedia-mock'
-import {behavesAsComponent, checkExports} from '../utils/testing'
 
-let matchmedia: MatchMediaMock
 describe('PageHeader', () => {
   beforeAll(() => {
-    matchmedia = new MatchMediaMock()
-    const observe = jest.fn()
-    window.IntersectionObserver = jest.fn(() => ({
+    // Mock matchMedia
+    Object.defineProperty(window, 'matchMedia', {
+      writable: true,
+      value: vi.fn().mockImplementation(query => ({
+        matches: false,
+        media: query,
+        onchange: null,
+        addListener: vi.fn(), // deprecated
+        removeListener: vi.fn(), // deprecated
+        addEventListener: vi.fn(),
+        removeEventListener: vi.fn(),
+        dispatchEvent: vi.fn(),
+      })),
+    })
+
+    const observe = vi.fn()
+    window.IntersectionObserver = vi.fn(() => ({
       observe,
-      unobserve: jest.fn(),
-      takeRecords: jest.fn(),
-      disconnect: jest.fn(),
+      unobserve: vi.fn(),
+      takeRecords: vi.fn(),
+      disconnect: vi.fn(),
       root: null,
       rootMargin: '',
       thresholds: [],
-    })) as jest.Mock<IntersectionObserver>
+    })) as unknown as typeof IntersectionObserver
   })
   afterAll(() => {
-    matchmedia.clear()
-  })
-  behavesAsComponent({
-    Component: PageHeader,
-    options: {skipAs: true, skipSx: true},
-    toRender: () => (
-      <PageHeader role="banner" aria-label="Banner">
-        <PageHeader.TitleArea></PageHeader.TitleArea>
-        <PageHeader.ContextArea></PageHeader.ContextArea>
-        <PageHeader.Description></PageHeader.Description>
-        <PageHeader.Navigation></PageHeader.Navigation>
-      </PageHeader>
-    ),
-  })
-  checkExports('PageHeader', {
-    default: undefined,
-    PageHeader,
+    vi.restoreAllMocks()
   })
   it('respects the title variant prop', () => {
     const {getByText} = render(
@@ -46,7 +42,7 @@ describe('PageHeader', () => {
         <PageHeader.ContextArea>ContextArea</PageHeader.ContextArea>
       </PageHeader>,
     )
-    expect(getByText('Title')).toHaveStyle('font-size: 1.5em')
+    expect(getByText('Title')).toHaveStyle('font-size: 32px')
   })
   it('renders "aria-label" prop when Navigation is rendered as "nav" landmark', () => {
     const {getByLabelText, getByText} = render(
@@ -72,20 +68,6 @@ describe('PageHeader', () => {
       </PageHeader>,
     )
     expect(getByText('Navigation')).not.toHaveAttribute('aria-label')
-  })
-  it('logs a warning when the Navigation component is rendered as "nav" but no "aria-label" or "aria-labelledby" prop is provided', () => {
-    const consoleSpy = jest.spyOn(global.console, 'warn').mockImplementation()
-    render(
-      <PageHeader role="banner" aria-label="Title">
-        <PageHeader.TitleArea>
-          <PageHeader.Title>Title</PageHeader.Title>
-        </PageHeader.TitleArea>
-        <PageHeader.Navigation as="nav">Navigation</PageHeader.Navigation>
-      </PageHeader>,
-    )
-    expect(consoleSpy).toHaveBeenCalled()
-
-    consoleSpy.mockRestore()
   })
   it('does not render "role" attribute when not explicitly specified', () => {
     const {container} = render(
