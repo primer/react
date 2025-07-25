@@ -1,5 +1,4 @@
-import React from 'react'
-import {useCallback, useEffect, useRef, useState} from 'react'
+import React, {useCallback, useEffect, useRef, useState, type KeyboardEventHandler} from 'react'
 import styled from 'styled-components'
 import Box from '../Box'
 import type {TextInputProps} from '../TextInput'
@@ -98,7 +97,7 @@ export function FilteredActionList({
 
   const selectAllLabelText = selectAllChecked ? 'Deselect all' : 'Select all'
   const onInputKeyPress: KeyboardEventHandler = useCallback(
-    event => {
+    (event: React.KeyboardEvent<HTMLInputElement>) => {
       if (event.key === 'ArrowDown') {
         if (listRef.current) {
           const firstSelectedItem = listRef.current.querySelector('[role="option"]') as HTMLElement | undefined
@@ -257,8 +256,7 @@ export function FilteredActionList({
       </ActionListContainerContext.Provider>
     )
   }
-  const emptyMessage = React.isValidElement(message) ? message.props?.title : undefined
-  useAnnouncements(items, listRef, inputRef, emptyMessage, enableAnnouncements)
+  useAnnouncements(items, listRef, inputRef, enableAnnouncements, messageText)
   return (
     <Box
       display="flex"
