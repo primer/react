@@ -89,7 +89,7 @@ module.exports = {
     '<rootDir>/src/__tests__/deprecated/ActionList.test.tsx',
     '<rootDir>/src/__tests__/deprecated/FilteredSearch.test.tsx',
     '<rootDir>/src/deprecated/UnderlineNav/UnderlineNavLink.test.tsx',
-    '<rootDir>/src/experimental/SelectPanel2/__tests__/SelectPanelLoading.test.tsx',
+    '<rootDir>/src/experimental/SelectPanel2/',
     '<rootDir>/src/deprecated/',
     '<rootDir>/src/hooks/',
     '<rootDir>/src/internal/utils/',
