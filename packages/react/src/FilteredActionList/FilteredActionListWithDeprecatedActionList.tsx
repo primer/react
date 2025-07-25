@@ -44,6 +44,10 @@ export interface FilteredActionListProps
   inputRef?: React.RefObject<HTMLInputElement>
   className?: string
   announcementsEnabled?: boolean
+  messageText?: {
+    title: string
+    description: string
+  }
   onSelectAllChange?: (checked: boolean) => void
 }
 

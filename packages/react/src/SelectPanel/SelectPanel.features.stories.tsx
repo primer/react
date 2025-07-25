@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react'
+import React, {useState, useRef, useEffect} from 'react'
 import type {Meta, StoryObj} from '@storybook/react-vite'
 import Box from '../Box'
 import {Button} from '../Button'
@@ -614,6 +614,7 @@ export const AsyncFetch: StoryObj<SelectPanelProps> = {
     const [open, setOpen] = useState(false)
     const filterTimerId = useRef<number | null>(null)
     const {safeSetTimeout, safeClearTimeout} = useSafeTimeout()
+    const [loading, setLoading] = useState(true)
     const [query, setQuery] = useState('')
 
     const fetchItems = (query: string) => {
@@ -622,10 +623,20 @@ export const AsyncFetch: StoryObj<SelectPanelProps> = {
         setQuery(query)
       }
 
+      setLoading(true)
       filterTimerId.current = safeSetTimeout(() => {
         setFilteredItems(items.filter(item => item.text.toLowerCase().startsWith(query.toLowerCase())))
+        setLoading(false)
       }, 2000) as unknown as number
     }
+
+    useEffect(() => {
+      filterTimerId.current = safeSetTimeout(() => {
+        setFilteredItems(items.filter(item => item.text.toLowerCase().startsWith(query.toLowerCase())))
+        setLoading(false)
+      }, 2000) as unknown as number
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     const onOpenChange = (value: boolean) => {
       setOpen(value)
@@ -657,6 +668,7 @@ export const AsyncFetch: StoryObj<SelectPanelProps> = {
         height={height}
         initialLoadingType={initialLoadingType}
         width="medium"
+        loading={loading}
         message={filteredItems.length === 0 ? NoResultsMessage(query) : undefined}
       />
     )
@@ -736,19 +748,27 @@ export const CustomisedNoResults: StoryObj<typeof SelectPanel> = {
     const [open, setOpen] = useState(false)
     const filterTimerId = useRef<number | null>(null)
     const {safeSetTimeout, safeClearTimeout} = useSafeTimeout()
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(true)
     const onFilterChange = (value: string) => {
       setFilterValue(value)
       if (filterTimerId.current) {
         safeClearTimeout(filterTimerId.current)
       }
-      setLoading(true)
 
+      setLoading(true)
       filterTimerId.current = safeSetTimeout(() => {
         setFilteredItems(items.filter(item => item.text.toLowerCase().startsWith(value.toLowerCase())))
         setLoading(false)
       }, 2000) as unknown as number
     }
+
+    useEffect(() => {
+      filterTimerId.current = safeSetTimeout(() => {
+        setFilteredItems(items.filter(item => item.text.toLowerCase().startsWith(filterValue.toLowerCase())))
+        setLoading(false)
+      }, 2000) as unknown as number
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     return (
       <SelectPanel
