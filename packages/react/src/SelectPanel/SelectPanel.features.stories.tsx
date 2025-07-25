@@ -11,12 +11,15 @@ import {
   GearIcon,
   InfoIcon,
   NoteIcon,
+  PlusIcon,
   ProjectIcon,
   SearchIcon,
   StopIcon,
+  TagIcon,
   TriangleDownIcon,
   TypographyIcon,
   VersionsIcon,
+  type IconProps,
 } from '@primer/octicons-react'
 import useSafeTimeout from '../hooks/useSafeTimeout'
 import ToggleSwitch from '../ToggleSwitch'
@@ -24,6 +27,7 @@ import Text from '../Text'
 import FormControl from '../FormControl'
 import {SegmentedControl} from '../SegmentedControl'
 import {Stack} from '../Stack'
+import {FeatureFlags} from '../FeatureFlags'
 
 const meta: Meta<typeof SelectPanel> = {
   title: 'Components/SelectPanel/Features',
@@ -906,6 +910,103 @@ export const WithInactiveItems = () => {
         message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}
       />
     </FormControl>
+  )
+}
+
+export const WithMessage = () => {
+  const [selected, setSelected] = useState<ItemInput[]>([])
+  const [filter, setFilter] = useState('')
+  const [open, setOpen] = useState(false)
+  const [messageVariant, setMessageVariant] = useState(0)
+
+  const messageVariants: Array<
+    | undefined
+    | {
+        title: string
+        body: string | React.ReactElement
+        variant: 'empty' | 'error' | 'warning'
+        icon?: React.ComponentType<IconProps>
+        action?: React.ReactElement
+      }
+  > = [
+    undefined, // Default message
+    {
+      variant: 'empty',
+      title: 'No labels found',
+      body: 'Try adjusting your search or create a new label',
+      icon: TagIcon,
+      action: (
+        <Button variant="default" size="small" leadingVisual={PlusIcon} onClick={() => {}}>
+          Create new label
+        </Button>
+      ),
+    },
+    {
+      variant: 'error',
+      title: 'Failed to load labels',
+      body: (
+        <>
+          Check your network connection and try again or <Link href="/support">contact support</Link>
+        </>
+      ),
+    },
+    {
+      variant: 'warning',
+      title: 'Some labels may be outdated',
+      body: 'Consider refreshing to get the latest data',
+    },
+  ]
+
+  const itemsToShow = messageVariant === 0 ? items.slice(0, 3) : []
+  const filteredItems = itemsToShow.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
+
+  useEffect(() => {
+    setFilter('')
+  }, [messageVariant])
+
+  return (
+    <FeatureFlags flags={{primer_react_select_panel_with_modern_action_list: true}}>
+      <Stack align="start">
+        <FormControl>
+          <FormControl.Label>Message variant</FormControl.Label>
+          <SegmentedControl aria-label="Message variant" onChange={setMessageVariant}>
+            <SegmentedControl.Button defaultSelected aria-label="Default message">
+              Default message
+            </SegmentedControl.Button>
+            <SegmentedControl.Button aria-label="Empty" leadingIcon={SearchIcon}>
+              Empty
+            </SegmentedControl.Button>
+            <SegmentedControl.Button aria-label="Error" leadingIcon={StopIcon}>
+              Error
+            </SegmentedControl.Button>
+            <SegmentedControl.Button aria-label="Warning" leadingIcon={AlertIcon}>
+              Warning
+            </SegmentedControl.Button>
+          </SegmentedControl>
+        </FormControl>
+        <FormControl>
+          <FormControl.Label>SelectPanel with message</FormControl.Label>
+          <SelectPanel
+            renderAnchor={({children, ...anchorProps}) => (
+              <Button trailingAction={TriangleDownIcon} {...anchorProps}>
+                {children}
+              </Button>
+            )}
+            placeholder="Select labels"
+            open={open}
+            onOpenChange={setOpen}
+            items={filteredItems}
+            selected={selected}
+            onSelectedChange={setSelected}
+            onFilterChange={setFilter}
+            overlayProps={{width: 'small', height: 'medium'}}
+            width="medium"
+            message={messageVariants[messageVariant]}
+            filterValue={filter}
+          />
+        </FormControl>
+      </Stack>
+    </FeatureFlags>
   )
 }
 

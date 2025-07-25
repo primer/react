@@ -141,6 +141,10 @@
   }
 }
 
+.MessageAction {
+  margin-top: var(--base-size-8);
+}
+
 .ResponsiveCloseButton {
   display: inline-grid;
 }
