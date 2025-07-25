@@ -20,8 +20,8 @@ export const useAnnouncements = (
   items: FilteredActionListProps['items'],
   listContainerRef: React.RefObject<HTMLUListElement>,
   inputRef: React.RefObject<HTMLInputElement>,
-  emptyMessage: string | undefined = undefined,
   enabled: boolean = true,
+  message?: {title?: string; description?: string},
 ) => {
   const liveRegion = document.querySelector('live-region')
 
@@ -30,7 +30,7 @@ export const useAnnouncements = (
   const announcementText =
     items.length > 0
       ? `${items.length} item${items.length > 1 ? 's' : ''} available, ${selectedItems} selected.`
-      : emptyMessage || 'No matching items.'
+      : `${message?.title}. ${message?.description}` || 'No matching items.'
 
   const announce = useCallback(
     (...args: Parameters<typeof liveRegionAnnounce>): ReturnType<typeof liveRegionAnnounce> | undefined => {
