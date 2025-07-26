@@ -16,7 +16,7 @@ import {FilteredActionList} from '../FilteredActionList'
 import Heading from '../Heading'
 import type {OverlayProps} from '../Overlay'
 import type {TextInputProps} from '../TextInput'
-import type {ItemProps, ItemInput} from './types'
+import type {ItemProps, ItemInput} from './'
 import {SelectPanelMessage} from './SelectPanelMessage'
 
 import {Button, IconButton, LinkButton} from '../Button'
