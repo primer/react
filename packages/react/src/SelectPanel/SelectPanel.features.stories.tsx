@@ -95,19 +95,13 @@ export const WithItemDividers = () => {
 
   return (
     <FormControl>
-      <FormControl.Label id="item-dividers-label">Labels</FormControl.Label>
+      <FormControl.Label>Labels</FormControl.Label>
       <SelectPanel
-        id="item-dividers"
         title="Select labels"
         placeholder="Select labels" // button text when no items are selected
         subtitle="Use labels to organize issues and pull requests"
         renderAnchor={({children, ...anchorProps}) => (
-          <Button
-            aria-labelledby="item-dividers item-dividers-label"
-            trailingAction={TriangleDownIcon}
-            {...anchorProps}
-            aria-haspopup="dialog"
-          >
+          <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
             {children}
           </Button>
         )}
@@ -134,19 +128,13 @@ export const WithPlaceholderForSearchInput = () => {
 
   return (
     <FormControl>
-      <FormControl.Label id="placeholder-search-label">Labels</FormControl.Label>
+      <FormControl.Label>Labels</FormControl.Label>
       <SelectPanel
-        id="placeholder-search"
         title="Select labels"
         placeholder="Select labels" // button text when no items are selected
         subtitle="Use labels to organize issues and pull requests"
         renderAnchor={({children, ...anchorProps}) => (
-          <Button
-            aria-labelledby="placeholder-search placeholder-search-label"
-            trailingAction={TriangleDownIcon}
-            {...anchorProps}
-            aria-haspopup="dialog"
-          >
+          <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
             {children}
           </Button>
         )}
@@ -172,15 +160,10 @@ export const SingleSelect = () => {
 
   return (
     <FormControl>
-      <FormControl.Label id="single-select-label">Label</FormControl.Label>
+      <FormControl.Label>Label</FormControl.Label>
       <SelectPanel
-        id="single-select"
         renderAnchor={({children, ...anchorProps}) => (
-          <Button
-            aria-labelledby="single-select single-select-label"
-            trailingAction={TriangleDownIcon}
-            {...anchorProps}
-          >
+          <Button trailingAction={TriangleDownIcon} {...anchorProps}>
             {children ?? 'Select Labels'}
           </Button>
         )}
@@ -206,19 +189,13 @@ export const MultiSelect = () => {
 
   return (
     <FormControl>
-      <FormControl.Label id="multi-select-label">Labels</FormControl.Label>
+      <FormControl.Label>Labels</FormControl.Label>
       <SelectPanel
-        id="multi-select"
         title="Select labels"
         placeholder="Select labels"
         subtitle="Use labels to organize issues and pull requests"
         renderAnchor={({children, ...anchorProps}) => (
-          <Button
-            aria-labelledby="multi-select multi-select-label"
-            trailingAction={TriangleDownIcon}
-            {...anchorProps}
-            aria-haspopup="dialog"
-          >
+          <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
             {children}
           </Button>
         )}
@@ -243,19 +220,13 @@ export const WithDisabledItem = () => {
 
   return (
     <FormControl>
-      <FormControl.Label id="disabled-item-label">Labels</FormControl.Label>
+      <FormControl.Label>Labels</FormControl.Label>
       <SelectPanel
-        id="disabled-item"
         title="Select labels"
         placeholder="Select labels"
         subtitle="Use labels to organize issues and pull requests"
         renderAnchor={({children, ...anchorProps}) => (
-          <Button
-            aria-labelledby="disabled-item disabled-item-label"
-            trailingAction={TriangleDownIcon}
-            {...anchorProps}
-            aria-haspopup="dialog"
-          >
+          <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
             {children}
           </Button>
         )}
@@ -282,19 +253,11 @@ export const WithExternalAnchor = () => {
 
   return (
     <FormControl>
-      <FormControl.Label id="custom-anchor-ref-label">Labels</FormControl.Label>
-      <Button
-        trailingAction={TriangleDownIcon}
-        ref={buttonRef}
-        onClick={() => setOpen(!open)}
-        aria-labelledby={
-          buttonRef.current?.id ? `${buttonRef.current.id} custom-anchor-ref-label` : 'custom-anchor-ref-label'
-        }
-      >
+      <FormControl.Label>Labels</FormControl.Label>
+      <Button trailingAction={TriangleDownIcon} ref={buttonRef} onClick={() => setOpen(!open)}>
         {selected.map(selectedItem => selectedItem.text).join(', ') || 'Select labels'}
       </Button>
       <SelectPanel
-        id="custom-anchor-ref"
         renderAnchor={null}
         anchorRef={buttonRef}
         open={open}
@@ -318,15 +281,10 @@ export const WithSecondaryActionButton = () => {
 
   return (
     <FormControl>
-      <FormControl.Label id="secondary-action-label">Labels</FormControl.Label>
+      <FormControl.Label>Labels</FormControl.Label>
       <SelectPanel
-        id="secondary-action"
         renderAnchor={({children, ...anchorProps}) => (
-          <Button
-            aria-labelledby="secondary-action secondary-action-label"
-            trailingAction={TriangleDownIcon}
-            {...anchorProps}
-          >
+          <Button trailingAction={TriangleDownIcon} {...anchorProps}>
             {children}
           </Button>
         )}
@@ -354,15 +312,10 @@ export const WithSecondaryActionLink = () => {
 
   return (
     <FormControl>
-      <FormControl.Label id="secondary-action-link-label">Labels</FormControl.Label>
+      <FormControl.Label>Labels</FormControl.Label>
       <SelectPanel
-        id="secondary-action-link"
         renderAnchor={({children, ...anchorProps}) => (
-          <Button
-            aria-labelledby="secondary-action-link secondary-action-link-label"
-            trailingAction={TriangleDownIcon}
-            {...anchorProps}
-          >
+          <Button trailingAction={TriangleDownIcon} {...anchorProps}>
             {children}
           </Button>
         )}
@@ -418,7 +371,7 @@ export const WithNotice = () => {
   return (
     <Stack align="start">
       <FormControl>
-        <FormControl.Label id="notice-variant-label">Notice variant</FormControl.Label>
+        <FormControl.Label>Notice variant</FormControl.Label>
         <SegmentedControl aria-label="Notice variant" onChange={setNoticeVariant}>
           <SegmentedControl.Button defaultSelected aria-label={'Info'} leadingIcon={InfoIcon}>
             Info notice
@@ -432,15 +385,10 @@ export const WithNotice = () => {
         </SegmentedControl>
       </FormControl>
       <FormControl>
-        <FormControl.Label id="notice-example-label">SelectPanel with notice</FormControl.Label>
+        <FormControl.Label>SelectPanel with notice</FormControl.Label>
         <SelectPanel
-          id="notice-example"
           renderAnchor={({children, ...anchorProps}) => (
-            <Button
-              aria-labelledby="notice-example notice-example-label"
-              trailingAction={TriangleDownIcon}
-              {...anchorProps}
-            >
+            <Button trailingAction={TriangleDownIcon} {...anchorProps}>
               {children}
             </Button>
           )}
@@ -514,17 +462,12 @@ export const WithGroups = () => {
 
   return (
     <FormControl>
-      <FormControl.Label id="groups-example-label">Options</FormControl.Label>
+      <FormControl.Label>Options</FormControl.Label>
       <SelectPanel
-        id="groups-example"
         title="Attach files and symbols"
         subtitle="Choose which files and symbols you want to chat about. Use fewer references for more accurate responses."
         renderAnchor={({children, ...anchorProps}) => (
-          <Button
-            aria-labelledby="groups-example groups-example-label"
-            trailingAction={TriangleDownIcon}
-            {...anchorProps}
-          >
+          <Button trailingAction={TriangleDownIcon} {...anchorProps}>
             {children}
           </Button>
         )}
