@@ -5,11 +5,6 @@ import type {FormControlProps} from './FormControl'
 interface FormControlContext extends Pick<FormControlProps, 'disabled' | 'id' | 'required'> {
   captionId?: string
   validationMessageId?: string
-  /**
-   * Determines whether the label is referenced by a form control.
-   * This is used to determine whether the `htmlFor` attribute should be set on the label.
-   */
-  isReferenced?: boolean
   validationStatus?: FormValidationStatus
 }
 
