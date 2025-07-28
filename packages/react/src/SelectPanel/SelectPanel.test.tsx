@@ -454,7 +454,11 @@ for (const useModernActionList of [false, true]) {
         )
       }
 
-      const SelectPanelWithCustomMessages: React.FC<{items: SelectPanelProps['items']}> = ({items}) => {
+      const SelectPanelWithCustomMessages: React.FC<{
+        items: SelectPanelProps['items']
+        withAction?: boolean
+        onAction?: () => void
+      }> = ({items, withAction = false, onAction}) => {
         const [selected, setSelected] = React.useState<SelectPanelProps['items']>([])
         const [filter, setFilter] = React.useState('')
         const [open, setOpen] = React.useState(false)
@@ -463,14 +467,21 @@ for (const useModernActionList of [false, true]) {
           setSelected(selected)
         }
 
-        const emptyMessage: {variant: 'empty'; title: string; body: string} = {
-          variant: 'empty',
+        const emptyMessage = {
+          variant: 'empty' as const,
           title: "You haven't created any projects yet",
           body: 'Start your first project to organise your issues',
+          ...(withAction && {
+            action: (
+              <button type="button" onClick={onAction} data-testid="create-project-action">
+                Create new project
+              </button>
+            ),
+          }),
         }
 
-        const noResultsMessage = (filter: string): {variant: 'empty'; title: string; body: string} => ({
-          variant: 'empty',
+        const noResultsMessage = (filter: string) => ({
+          variant: 'empty' as const,
           title: `No language found for ${filter}`,
           body: 'Adjust your search term to find other languages',
         })
@@ -751,7 +762,7 @@ for (const useModernActionList of [false, true]) {
           jest.useRealTimers()
         })
 
-        it('should announce when no results are available', async () => {
+        it('should announce default empty message when no results are available (no custom message is provided)', async () => {
           jest.useFakeTimers()
           const user = userEvent.setup({
             advanceTimers: jest.advanceTimersByTime,
@@ -765,7 +776,59 @@ for (const useModernActionList of [false, true]) {
 
           jest.runAllTimers()
           await waitFor(async () => {
-            expect(getLiveRegion().getMessage('polite')).toBe('No matching items.')
+            expect(getLiveRegion().getMessage('polite')).toBe('No items available. ')
+          })
+          jest.useRealTimers()
+        })
+
+        it('should announce custom empty message when no results are available', async () => {
+          jest.useFakeTimers()
+          const user = userEvent.setup({
+            advanceTimers: jest.advanceTimersByTime,
+          })
+
+          function SelectPanelWithCustomEmptyMessage() {
+            const [filter, setFilter] = React.useState('')
+            const [open, setOpen] = React.useState(false)
+
+            return (
+              <ThemeProvider>
+                <SelectPanel
+                  title="test title"
+                  subtitle="test subtitle"
+                  placeholder="Select items"
+                  placeholderText="Filter items"
+                  open={open}
+                  items={[]}
+                  onFilterChange={value => {
+                    setFilter(value)
+                  }}
+                  filterValue={filter}
+                  selected={[]}
+                  onSelectedChange={() => {}}
+                  onOpenChange={isOpen => {
+                    setOpen(isOpen)
+                  }}
+                  message={{
+                    title: 'Nothing found',
+                    body: `There's nothing here.`,
+                    variant: 'empty',
+                  }}
+                />
+              </ThemeProvider>
+            )
+          }
+
+          renderWithFlag(<SelectPanelWithCustomEmptyMessage />, useModernActionList)
+
+          await user.click(screen.getByText('Select items'))
+
+          await user.type(document.activeElement!, 'zero')
+          expect(screen.queryByRole('option')).toBeNull()
+
+          jest.runAllTimers()
+          await waitFor(async () => {
+            expect(getLiveRegion().getMessage('polite')).toBe(`Nothing found. There's nothing here.`)
           })
           jest.useRealTimers()
         })
@@ -795,8 +858,7 @@ for (const useModernActionList of [false, true]) {
           expect(screen.getAllByRole('option')).toHaveLength(3)
 
           await user.type(document.activeElement!, 'something')
-          expect(screen.getByText("You haven't created any items yet")).toBeVisible()
-          expect(screen.getByText('Please add or create new items to populate the list.')).toBeVisible()
+          expect(screen.getByText('No items available')).toBeVisible()
         })
 
         it('should display the default empty state message when there is no item after the initial load (No custom message is provided)', async () => {
@@ -806,8 +868,7 @@ for (const useModernActionList of [false, true]) {
 
           await waitFor(async () => {
             await user.click(screen.getByText('Select items'))
-            expect(screen.getByText("You haven't created any items yet")).toBeVisible()
-            expect(screen.getByText('Please add or create new items to populate the list.')).toBeVisible()
+            expect(screen.getByText('No items available')).toBeVisible()
           })
         })
         it('should display the custom empty state message when there is no matching item after filtering', async () => {
@@ -850,7 +911,34 @@ for (const useModernActionList of [false, true]) {
             expect(screen.getByText('Start your first project to organise your issues')).toBeVisible()
           })
         })
+
+        it('should display action button in custom empty state message', async () => {
+          const handleAction = jest.fn()
+          const user = userEvent.setup()
+
+          renderWithFlag(
+            <SelectPanelWithCustomMessages items={[]} withAction={true} onAction={handleAction} />,
+            useModernActionList,
+          )
+
+          await waitFor(async () => {
+            await user.click(screen.getByText('Select items'))
+            expect(screen.getByText("You haven't created any projects yet")).toBeVisible()
+            expect(screen.getByText('Start your first project to organise your issues')).toBeVisible()
+
+            // Check that action button is visible
+            const actionButton = screen.getByTestId('create-project-action')
+            expect(actionButton).toBeVisible()
+            expect(actionButton).toHaveTextContent('Create new project')
+          })
+
+          // Test that action button is clickable
+          const actionButton = screen.getByTestId('create-project-action')
+          await user.click(actionButton)
+          expect(handleAction).toHaveBeenCalledTimes(1)
+        })
       })
+
       describe('with footer', () => {
         function SelectPanelWithFooter() {
           const [selected, setSelected] = React.useState<SelectPanelProps['items']>([])
@@ -1208,6 +1296,217 @@ for (const useModernActionList of [false, true]) {
           // the ResponsiveCloseButton should not be present
           const responsiveCloseButton = screen.queryByRole('button', {name: 'Cancel and close'})
           expect(responsiveCloseButton).not.toBeInTheDocument()
+        })
+      })
+
+      describe('Select all', () => {
+        function SelectAllSelectPanel({showSelectAll = true}: {showSelectAll?: boolean} = {}) {
+          const [selected, setSelected] = React.useState<SelectPanelProps['items']>([])
+          const [filter, setFilter] = React.useState('')
+          const [open, setOpen] = React.useState(false)
+
+          const onSelectedChange = (selected: SelectPanelProps['items']) => {
+            setSelected(selected)
+          }
+
+          return (
+            <ThemeProvider>
+              <SelectPanel
+                title="test title"
+                subtitle="test subtitle"
+                items={items}
+                placeholder="Select items"
+                placeholderText="Filter items"
+                selected={selected}
+                onSelectedChange={onSelectedChange}
+                filterValue={filter}
+                onFilterChange={value => {
+                  setFilter(value)
+                }}
+                open={open}
+                onOpenChange={isOpen => {
+                  setOpen(isOpen)
+                }}
+                showSelectAll={showSelectAll}
+              />
+            </ThemeProvider>
+          )
+        }
+
+        it('should render a Select All checkbox when showSelectAll is true', async () => {
+          const user = userEvent.setup()
+
+          renderWithFlag(<SelectAllSelectPanel />, useModernActionList)
+
+          await user.click(screen.getByText('Select items'))
+
+          expect(screen.getByText('Select all')).toBeInTheDocument()
+          expect(screen.getByRole('checkbox', {name: 'Select all'})).toBeInTheDocument()
+          expect(screen.getByRole('checkbox', {name: 'Select all'})).not.toBeChecked()
+        })
+
+        it('should not render a Select All checkbox when showSelectAll is false', async () => {
+          const user = userEvent.setup()
+
+          renderWithFlag(<SelectAllSelectPanel showSelectAll={false} />, useModernActionList)
+
+          await user.click(screen.getByText('Select items'))
+
+          expect(screen.queryByText('Select all')).not.toBeInTheDocument()
+          expect(screen.queryByRole('checkbox', {name: 'Select all'})).not.toBeInTheDocument()
+        })
+
+        it('should select all items when the Select All checkbox is clicked', async () => {
+          const user = userEvent.setup()
+
+          renderWithFlag(<SelectAllSelectPanel />, useModernActionList)
+
+          await user.click(screen.getByText('Select items'))
+
+          await user.click(screen.getByRole('checkbox', {name: 'Select all'}))
+
+          // All options should now be selected
+          for (const item of items) {
+            expect(screen.getByRole('option', {name: item.text})).toHaveAttribute('aria-selected', 'true')
+          }
+        })
+
+        it('should deselect all items when the Deselect All checkbox is clicked', async () => {
+          const user = userEvent.setup()
+
+          renderWithFlag(<SelectAllSelectPanel />, useModernActionList)
+
+          await user.click(screen.getByText('Select items'))
+
+          // First select all
+          await user.click(screen.getByRole('checkbox', {name: 'Select all'}))
+
+          // Then deselect all
+          await user.click(screen.getByRole('checkbox', {name: 'Deselect all'}))
+
+          // All options should now be deselected
+          for (const item of items) {
+            if (item.text) {
+              expect(screen.getByRole('option', {name: item.text})).toHaveAttribute('aria-selected', 'false')
+            }
+          }
+        })
+
+        it('should update Select All checkbox to indeterminate state when some items (but not all) are selected', async () => {
+          const user = userEvent.setup()
+
+          renderWithFlag(<SelectAllSelectPanel />, useModernActionList)
+
+          await user.click(screen.getByText('Select items'))
+
+          // Select only one item
+          await user.click(screen.getByText('item one'))
+
+          // Check that Select All is in indeterminate state
+          const selectAllCheckbox = screen.getByRole('checkbox', {name: 'Select all'})
+          expect(selectAllCheckbox).not.toBeChecked()
+          expect(selectAllCheckbox).toHaveProperty('indeterminate', true)
+        })
+
+        it('should update Select All checkbox to checked when all items are selected manually', async () => {
+          const user = userEvent.setup()
+
+          renderWithFlag(<SelectAllSelectPanel />, useModernActionList)
+
+          await user.click(screen.getByText('Select items'))
+
+          // Select all items individually
+          for (const item of items) {
+            if (item.text) {
+              await user.click(screen.getByText(item.text))
+            }
+          }
+
+          // Check that Deselect All is checked
+          expect(screen.getByRole('checkbox', {name: 'Deselect all'})).toBeChecked()
+        })
+
+        it('should update Select All checkbox label to "Deselect all" when all items are selected', async () => {
+          const user = userEvent.setup()
+
+          renderWithFlag(<SelectAllSelectPanel />, useModernActionList)
+
+          await user.click(screen.getByText('Select items'))
+
+          // Select all items
+          await user.click(screen.getByRole('checkbox', {name: 'Select all'}))
+
+          // Check that the label has changed to "Deselect all"
+          expect(screen.getByText('Deselect all')).toBeInTheDocument()
+          expect(screen.getByRole('checkbox', {name: 'Deselect all'})).toBeInTheDocument()
+        })
+
+        it('should apply Select All only to filtered items and maintain selection state when filters are cleared', async () => {
+          const user = userEvent.setup()
+
+          function FilterableSelectAllPanel() {
+            const [selected, setSelected] = React.useState<SelectPanelProps['items']>([])
+            const [filter, setFilter] = React.useState('')
+            const [open, setOpen] = React.useState(false)
+
+            const onSelectedChange = (selected: SelectPanelProps['items']) => {
+              setSelected(selected)
+            }
+
+            return (
+              <ThemeProvider>
+                <SelectPanel
+                  title="test title"
+                  subtitle="test subtitle"
+                  items={items.filter(item => item.text?.includes(filter))}
+                  placeholder="Select items"
+                  placeholderText="Filter items"
+                  selected={selected}
+                  onSelectedChange={onSelectedChange}
+                  filterValue={filter}
+                  onFilterChange={value => {
+                    setFilter(value)
+                  }}
+                  open={open}
+                  onOpenChange={isOpen => {
+                    setOpen(isOpen)
+                  }}
+                  showSelectAll={true}
+                />
+              </ThemeProvider>
+            )
+          }
+
+          renderWithFlag(<FilterableSelectAllPanel />, useModernActionList)
+
+          await user.click(screen.getByText('Select items'))
+
+          // Filter to only show "item one"
+          await user.type(screen.getByLabelText('Filter items'), 'one')
+
+          // Only "item one" should be visible
+          expect(screen.getAllByRole('option')).toHaveLength(1)
+          expect(screen.getByText('item one')).toBeInTheDocument()
+
+          // Select all (which is just the one visible item)
+          await user.click(screen.getByRole('checkbox', {name: 'Select all'}))
+
+          // The visible item should be selected
+          expect(screen.getByRole('option', {name: 'item one'})).toHaveAttribute('aria-selected', 'true')
+
+          // Clear the filter
+          await user.clear(screen.getByLabelText('Filter items'))
+
+          // Now all items should be visible, but only "item one" should be selected
+          expect(screen.getAllByRole('option')).toHaveLength(3)
+          expect(screen.getByRole('option', {name: 'item one'})).toHaveAttribute('aria-selected', 'true')
+          expect(screen.getByRole('option', {name: 'item two'})).toHaveAttribute('aria-selected', 'false')
+          expect(screen.getByRole('option', {name: 'item three'})).toHaveAttribute('aria-selected', 'false')
+
+          // Select All checkbox should be in indeterminate state
+          const selectAllCheckbox = screen.getByRole('checkbox', {name: 'Select all'})
+          expect(selectAllCheckbox).not.toBeChecked()
+          expect(selectAllCheckbox).toHaveProperty('indeterminate', true)
         })
       })
     })
