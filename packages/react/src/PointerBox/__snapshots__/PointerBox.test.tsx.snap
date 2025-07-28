@@ -1,247 +1,370 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`PointerBox applies the background color via "bg" prop for backwards compatibility 1`] = `
-.c0 {
-  background-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
-  border-width: 1px;
-  border-style: solid;
-  border-color: var(--borderColor-default,var(--color-border-default,#d0d7de));
-  border-radius: 6px;
-  --custom-bg: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
-  background-image: linear-gradient(var(--custom-bg),var(--custom-bg)),linear-gradient(var(--bgColor-default,var(--color-canvas-default,#ffffff)),var(--bgColor-default,var(--color-canvas-default,#ffffff)));
-  position: relative;
-}
+exports[`PointerBox > applies the border color via "borderColor" prop for backwards compatibility 1`] = `
+{
+  "asFragment": [Function],
+  "baseElement": <body>
+    
+  
 
-<div
-  className="c0"
->
-  <svg
-    height={16}
-    role="presentation"
-    style={
-      {
-        "left": "50%",
-        "marginLeft": -8,
-        "pointerEvents": "none",
-        "position": "absolute",
-        "top": "100%",
-      }
-    }
-    width={16}
-  >
-    <g
-      transform="translate(8,0)"
+
+    <div>
+      <div
+        class="sc-aXZVg YeCCZ"
+      >
+        <svg
+          height="16"
+          role="presentation"
+          style="pointer-events: none; position: absolute; top: 100%; left: 50%; margin-left: -8px;"
+          width="16"
+        >
+          <g
+            transform="translate(8,0)"
+          >
+            <path
+              d="M-8,0L0,8L8,0L-8,0Z"
+            />
+            <path
+              d="M-8,0L0,8L8,0L-8,0Z"
+              fill="canvas.default"
+            />
+            <path
+              d="M-8,0L0,8L8,0"
+              fill="none"
+              stroke="danger.emphasis"
+              stroke-width="1px"
+            />
+          </g>
+        </svg>
+      </div>
+    </div>
+  </body>,
+  "container": <div>
+    <div
+      class="sc-aXZVg YeCCZ"
     >
-      <path
-        d="M-8,0L0,8L8,0L-8,0Z"
-        fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
-      />
-      <path
-        d="M-8,0L0,8L8,0L-8,0Z"
-        fill="var(--borderColor-danger-emphasis, var(--color-danger-emphasis, #cf222e))"
-      />
-      <path
-        d="M-8,0L0,8L8,0"
-        fill="none"
-        stroke="var(--borderColor-default, var(--color-border-default, #d0d7de))"
-        strokeWidth="1px"
-      />
-    </g>
-  </svg>
-</div>
+      <svg
+        height="16"
+        role="presentation"
+        style="pointer-events: none; position: absolute; top: 100%; left: 50%; margin-left: -8px;"
+        width="16"
+      >
+        <g
+          transform="translate(8,0)"
+        >
+          <path
+            d="M-8,0L0,8L8,0L-8,0Z"
+          />
+          <path
+            d="M-8,0L0,8L8,0L-8,0Z"
+            fill="canvas.default"
+          />
+          <path
+            d="M-8,0L0,8L8,0"
+            fill="none"
+            stroke="danger.emphasis"
+            stroke-width="1px"
+          />
+        </g>
+      </svg>
+    </div>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
 `;
 
-exports[`PointerBox applies the background color via sx prop 1`] = `
-.c0 {
-  border-width: 1px;
-  border-style: solid;
-  border-color: var(--borderColor-default,var(--color-border-default,#d0d7de));
-  border-radius: 6px;
-  --custom-bg: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
-  background-image: linear-gradient(var(--custom-bg),var(--custom-bg)),linear-gradient(var(--bgColor-default,var(--color-canvas-default,#ffffff)),var(--bgColor-default,var(--color-canvas-default,#ffffff)));
-  position: relative;
-}
+exports[`PointerBox > applies the border color via sx prop 1`] = `
+{
+  "asFragment": [Function],
+  "baseElement": <body>
+    
+  
 
-<div
-  className="c0"
->
-  <svg
-    height={16}
-    role="presentation"
-    style={
-      {
-        "left": "50%",
-        "marginLeft": -8,
-        "pointerEvents": "none",
-        "position": "absolute",
-        "top": "100%",
-      }
-    }
-    width={16}
-  >
-    <g
-      transform="translate(8,0)"
+
+    <div>
+      <div
+        class="sc-aXZVg cyucsp"
+      >
+        <svg
+          height="16"
+          role="presentation"
+          style="pointer-events: none; position: absolute; top: 100%; left: 50%; margin-left: -8px;"
+          width="16"
+        >
+          <g
+            transform="translate(8,0)"
+          >
+            <path
+              d="M-8,0L0,8L8,0L-8,0Z"
+            />
+            <path
+              d="M-8,0L0,8L8,0L-8,0Z"
+              fill="canvas.default"
+            />
+            <path
+              d="M-8,0L0,8L8,0"
+              fill="none"
+              stroke="danger.emphasis"
+              stroke-width="1px"
+            />
+          </g>
+        </svg>
+      </div>
+    </div>
+  </body>,
+  "container": <div>
+    <div
+      class="sc-aXZVg cyucsp"
     >
-      <path
-        d="M-8,0L0,8L8,0L-8,0Z"
-        fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
-      />
-      <path
-        d="M-8,0L0,8L8,0L-8,0Z"
-        fill="var(--borderColor-danger-emphasis, var(--color-danger-emphasis, #cf222e))"
-      />
-      <path
-        d="M-8,0L0,8L8,0"
-        fill="none"
-        stroke="var(--borderColor-default, var(--color-border-default, #d0d7de))"
-        strokeWidth="1px"
-      />
-    </g>
-  </svg>
-</div>
+      <svg
+        height="16"
+        role="presentation"
+        style="pointer-events: none; position: absolute; top: 100%; left: 50%; margin-left: -8px;"
+        width="16"
+      >
+        <g
+          transform="translate(8,0)"
+        >
+          <path
+            d="M-8,0L0,8L8,0L-8,0Z"
+          />
+          <path
+            d="M-8,0L0,8L8,0L-8,0Z"
+            fill="canvas.default"
+          />
+          <path
+            d="M-8,0L0,8L8,0"
+            fill="none"
+            stroke="danger.emphasis"
+            stroke-width="1px"
+          />
+        </g>
+      </svg>
+    </div>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
 `;
 
-exports[`PointerBox applies the border color via "borderColor" prop for backwards compatibility 1`] = `
-.c0 {
-  border-width: 1px;
-  border-style: solid;
-  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
-  border-radius: 6px;
-  position: relative;
-}
+exports[`PointerBox > renders a <Caret> in <Box> with relative positioning 1`] = `
+{
+  "asFragment": [Function],
+  "baseElement": <body>
+    
+  
 
-<div
-  className="c0"
->
-  <svg
-    height={16}
-    role="presentation"
-    style={
-      {
-        "left": "50%",
-        "marginLeft": -8,
-        "pointerEvents": "none",
-        "position": "absolute",
-        "top": "100%",
-      }
-    }
-    width={16}
-  >
-    <g
-      transform="translate(8,0)"
+
+    <div>
+      <div
+        class="sc-aXZVg bKGaRl"
+      >
+        <svg
+          height="16"
+          role="presentation"
+          style="pointer-events: none; position: absolute; top: 100%; left: 50%; margin-left: -8px;"
+          width="16"
+        >
+          <g
+            transform="translate(8,0)"
+          >
+            <path
+              d="M-8,0L0,8L8,0L-8,0Z"
+            />
+            <path
+              d="M-8,0L0,8L8,0L-8,0Z"
+              fill="canvas.default"
+            />
+            <path
+              d="M-8,0L0,8L8,0"
+              fill="none"
+              stroke="border.default"
+              stroke-width="1px"
+            />
+          </g>
+        </svg>
+      </div>
+    </div>
+  </body>,
+  "container": <div>
+    <div
+      class="sc-aXZVg bKGaRl"
     >
-      <path
-        d="M-8,0L0,8L8,0L-8,0Z"
-        fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
-      />
-      <path
-        d="M-8,0L0,8L8,0L-8,0Z"
-        fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
-      />
-      <path
-        d="M-8,0L0,8L8,0"
-        fill="none"
-        stroke="var(--borderColor-danger-emphasis, var(--color-danger-emphasis, #cf222e))"
-        strokeWidth="1px"
-      />
-    </g>
-  </svg>
-</div>
-`;
-
-exports[`PointerBox applies the border color via sx prop 1`] = `
-.c0 {
-  border-width: 1px;
-  border-style: solid;
-  border-color: var(--borderColor-default,var(--color-border-default,#d0d7de));
-  border-radius: 6px;
-  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
-  position: relative;
+      <svg
+        height="16"
+        role="presentation"
+        style="pointer-events: none; position: absolute; top: 100%; left: 50%; margin-left: -8px;"
+        width="16"
+      >
+        <g
+          transform="translate(8,0)"
+        >
+          <path
+            d="M-8,0L0,8L8,0L-8,0Z"
+          />
+          <path
+            d="M-8,0L0,8L8,0L-8,0Z"
+            fill="canvas.default"
+          />
+          <path
+            d="M-8,0L0,8L8,0"
+            fill="none"
+            stroke="border.default"
+            stroke-width="1px"
+          />
+        </g>
+      </svg>
+    </div>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
 }
-
-<div
-  className="c0"
->
-  <svg
-    height={16}
-    role="presentation"
-    style={
-      {
-        "left": "50%",
-        "marginLeft": -8,
-        "pointerEvents": "none",
-        "position": "absolute",
-        "top": "100%",
-      }
-    }
-    width={16}
-  >
-    <g
-      transform="translate(8,0)"
-    >
-      <path
-        d="M-8,0L0,8L8,0L-8,0Z"
-        fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
-      />
-      <path
-        d="M-8,0L0,8L8,0L-8,0Z"
-        fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
-      />
-      <path
-        d="M-8,0L0,8L8,0"
-        fill="none"
-        stroke="var(--borderColor-danger-emphasis, var(--color-danger-emphasis, #cf222e))"
-        strokeWidth="1px"
-      />
-    </g>
-  </svg>
-</div>
-`;
-
-exports[`PointerBox renders a <Caret> in <Box> with relative positioning 1`] = `
-.c0 {
-  border-width: 1px;
-  border-style: solid;
-  border-color: var(--borderColor-default,var(--color-border-default,#d0d7de));
-  border-radius: 6px;
-  position: relative;
-}
-
-<div
-  className="c0"
->
-  <svg
-    height={16}
-    role="presentation"
-    style={
-      {
-        "left": "50%",
-        "marginLeft": -8,
-        "pointerEvents": "none",
-        "position": "absolute",
-        "top": "100%",
-      }
-    }
-    width={16}
-  >
-    <g
-      transform="translate(8,0)"
-    >
-      <path
-        d="M-8,0L0,8L8,0L-8,0Z"
-        fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
-      />
-      <path
-        d="M-8,0L0,8L8,0L-8,0Z"
-        fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
-      />
-      <path
-        d="M-8,0L0,8L8,0"
-        fill="none"
-        stroke="var(--borderColor-default, var(--color-border-default, #d0d7de))"
-        strokeWidth="1px"
-      />
-    </g>
-  </svg>
-</div>
 `;
