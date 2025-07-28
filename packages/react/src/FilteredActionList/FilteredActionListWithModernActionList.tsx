@@ -27,7 +27,7 @@ import {useFeatureFlag} from '../FeatureFlags'
 import {useFocusZone} from '../hooks/useFocusZone'
 import {scrollIntoView, FocusKeys} from '@primer/behaviors'
 
-const menuScrollMargins: ScrollIntoViewOptions = {startMargin: 0, endMargin: 8}
+const menuScrollMargins = {startMargin: 0, endMargin: 8}
 export interface FilteredActionListProps
   extends Partial<Omit<GroupedListProps, keyof ListPropsBase>>,
     ListPropsBase,
