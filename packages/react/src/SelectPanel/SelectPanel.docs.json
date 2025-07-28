@@ -163,7 +163,7 @@
     },
     {
       "name": "message",
-      "type": "{title: string | React.ReactElement; variant: 'empty' | 'error' | 'warning';  body: React.ReactNode;}",
+      "type": "{title: string | React.ReactElement; variant: 'empty' | 'error' | 'warning';  body: React.ReactNode; icon?:React.ComponentType<IconProps>;action?: React.ReactElement;}",
       "defaultValue": "A default empty message is provided if this option is not configured. Supply a custom empty message to override the default.",
       "description": "Message to display in the panel in case of error or empty results"
     },
