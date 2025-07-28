@@ -1,5 +1,5 @@
 import React from 'react'
-import {render as HTMLRender, fireEvent, act, render} from '@testing-library/react'
+import {render, fireEvent, act} from '@testing-library/react'
 import {describe, expect, it, vi, beforeEach, afterEach} from 'vitest'
 import type {TokenSizeKeys} from '../Token/TokenBase'
 import {tokenSizes} from '../Token/TokenBase'
@@ -44,7 +44,7 @@ describe('TextInputWithTokens', () => {
   it('should support `className` on the outermost element', () => {
     const onRemoveMock = vi.fn()
     const Element = () => <TextInputWithTokens className={'test-class-name'} tokens={[]} onTokenRemove={onRemoveMock} />
-    expect(HTMLRender(<Element />).container.firstChild).toHaveClass('test-class-name')
+    expect(render(<Element />).container.firstChild).toHaveClass('test-class-name')
   })
 
   it('renders without tokens', () => {
@@ -214,7 +214,7 @@ describe('TextInputWithTokens', () => {
 
   it('focuses the previous token when keying ArrowLeft', () => {
     const onRemoveMock = vi.fn()
-    const {getByLabelText, getByText} = HTMLRender(
+    const {getByLabelText, getByText} = render(
       <LabelledTextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} />,
     )
     const inputNode = getByLabelText('Tokens')
@@ -233,7 +233,7 @@ describe('TextInputWithTokens', () => {
 
   it('focuses the next token when keying ArrowRight', () => {
     const onRemoveMock = vi.fn()
-    const {getByText} = HTMLRender(<TextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} />)
+    const {getByText} = render(<TextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} />)
     const tokenNode = getByText(mockTokens[4].text)
 
     expect(onRemoveMock).not.toHaveBeenCalled()
@@ -246,7 +246,7 @@ describe('TextInputWithTokens', () => {
 
   it('focuses the input when keying ArrowLeft on the first token', () => {
     const onRemoveMock = vi.fn()
-    const {getByLabelText, getByText} = HTMLRender(
+    const {getByLabelText, getByText} = render(
       <LabelledTextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} />,
     )
     const inputNode = getByLabelText('Tokens')
@@ -261,7 +261,7 @@ describe('TextInputWithTokens', () => {
 
   it('focuses the input when keying ArrowRight on the last token', () => {
     const onRemoveMock = vi.fn()
-    const {getByLabelText, getByText} = HTMLRender(
+    const {getByLabelText, getByText} = render(
       <LabelledTextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} />,
     )
     const inputNode = getByLabelText('Tokens')
@@ -276,7 +276,7 @@ describe('TextInputWithTokens', () => {
 
   it('focuses the input when keying Escape when focused on a token', () => {
     const onRemoveMock = vi.fn()
-    const {getByLabelText, getByText} = HTMLRender(
+    const {getByLabelText, getByText} = render(
       <LabelledTextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} />,
     )
     const inputNode = getByLabelText('Tokens')
@@ -294,7 +294,7 @@ describe('TextInputWithTokens', () => {
 
   it('does not focus the input when clicking a token', () => {
     const onRemoveMock = vi.fn()
-    const {getByLabelText, getByText} = HTMLRender(
+    const {getByLabelText, getByText} = render(
       <LabelledTextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} visibleTokenCount={2} />,
     )
     const inputNode = getByLabelText('Tokens')
@@ -307,7 +307,7 @@ describe('TextInputWithTokens', () => {
 
   it('focuses the input when clicking somewhere in the component besides the tokens', () => {
     const onRemoveMock = vi.fn()
-    const {getByLabelText, getByText} = HTMLRender(
+    const {getByLabelText, getByText} = render(
       <LabelledTextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} visibleTokenCount={2} />,
     )
     const inputNode = getByLabelText('Tokens')
@@ -321,7 +321,7 @@ describe('TextInputWithTokens', () => {
   it('shows all tokens when the input is focused and hides them when it is blurred (when visibleTokenCount is set)', () => {
     const onRemoveMock = vi.fn()
     const visibleTokenCount = 2
-    const {getByLabelText, getByText} = HTMLRender(
+    const {getByLabelText, getByText} = render(
       <>
         <LabelledTextInputWithTokens
           tokens={mockTokens}
@@ -375,7 +375,7 @@ describe('TextInputWithTokens', () => {
   it('does not hide tokens when blurring the input to focus within the component (when visibleTokenCount is set)', () => {
     const onRemoveMock = vi.fn()
     const visibleTokenCount = 2
-    const {getByLabelText, getByText} = HTMLRender(
+    const {getByLabelText, getByText} = render(
       <>
         <LabelledTextInputWithTokens
           tokens={mockTokens}
@@ -405,7 +405,7 @@ describe('TextInputWithTokens', () => {
 
   it('focuses the first token when keying ArrowRight in the input', () => {
     const onRemoveMock = vi.fn()
-    const {getByLabelText, getByText} = HTMLRender(
+    const {getByLabelText, getByText} = render(
       <LabelledTextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} />,
     )
     const inputNode = getByLabelText('Tokens')
@@ -422,9 +422,7 @@ describe('TextInputWithTokens', () => {
 
   it('calls onTokenRemove on the last token when keying Backspace in an empty input', () => {
     const onRemoveMock = vi.fn()
-    const {getByLabelText} = HTMLRender(
-      <LabelledTextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} />,
-    )
+    const {getByLabelText} = render(<LabelledTextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} />)
     const inputNode = getByLabelText('Tokens')
     const lastTokenIndex = mockTokens.length - 1
 
@@ -437,7 +435,7 @@ describe('TextInputWithTokens', () => {
 
   it("sets the input text to the last token's text when keying Backspace in an empty input", () => {
     const onRemoveMock = vi.fn()
-    const {getByDisplayValue, getByLabelText} = HTMLRender(
+    const {getByDisplayValue, getByLabelText} = render(
       <LabelledTextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} />,
     )
     const inputNode = getByLabelText('Tokens')
@@ -453,7 +451,7 @@ describe('TextInputWithTokens', () => {
 
   it('does not call onTokenRemove on the last token when keying Backspace in an input that has a value', () => {
     const onRemoveMock = vi.fn()
-    const {getByLabelText} = HTMLRender(
+    const {getByLabelText} = render(
       <LabelledTextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} defaultValue="test" />,
     )
     const inputNode = getByLabelText('Tokens')
@@ -465,7 +463,7 @@ describe('TextInputWithTokens', () => {
 
   it('calls onTokenRemove on the focused token when keying Backspace and moves focus to the next token', () => {
     const onRemoveMock = vi.fn()
-    const {getByText} = HTMLRender(<TextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} />)
+    const {getByText} = render(<TextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} />)
     const tokenNode = getByText(mockTokens[4].text)
 
     expect(onRemoveMock).not.toHaveBeenCalled()
@@ -493,7 +491,7 @@ describe('TextInputWithTokens', () => {
       )
     }
 
-    const {getByText} = HTMLRender(<TestComponent />)
+    const {getByText} = render(<TestComponent />)
     const tokenNode = getByText(mockTokens[0].text)
 
     fireEvent.focus(tokenNode)
@@ -523,7 +521,7 @@ describe('TextInputWithTokens', () => {
       )
     }
 
-    const {getByText, getByLabelText} = HTMLRender(<TestComponent />)
+    const {getByText, getByLabelText} = render(<TestComponent />)
     const tokenNode = getByText(mockTokens[0].text)
     const inputNode = getByLabelText('Tokens')
 
@@ -540,7 +538,7 @@ describe('TextInputWithTokens', () => {
   it('calls onKeyDown', () => {
     const onRemoveMock = vi.fn()
     const onKeyDownMock = vi.fn()
-    const {getByLabelText} = HTMLRender(
+    const {getByLabelText} = render(
       <LabelledTextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} onKeyDown={onKeyDownMock} />,
     )
     const inputNode = getByLabelText('Tokens')
