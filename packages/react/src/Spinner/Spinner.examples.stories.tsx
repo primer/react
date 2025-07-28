@@ -78,12 +78,12 @@ export const FullLifecycleVisibleLoadingText = () => {
   }
 
   return (
-    <div className={classes.loadingExample}>
-      <Button onClick={initiateLoading} className={classes.loadButton}>
+    <div className={classes.LoadingExample}>
+      <Button onClick={initiateLoading} className={classes.LoadButton}>
         Load content
       </Button>
       {state !== 'done' && (
-        <div className={classes.loadingIndicator}>
+        <div className={classes.LoadingIndicator}>
           {state === 'loading' && <Spinner size="small" srText={null} />}
           <AriaStatus>{state === 'loading' ? 'Content is loading...' : ''}</AriaStatus>
         </div>
