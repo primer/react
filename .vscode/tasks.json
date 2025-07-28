@@ -2,12 +2,72 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "Generate e2e tests",
-      "command": "node",
+      "label": "Run e2e tests",
+      "command": "bash",
       "type": "shell",
       "args": [
-        "script/generate-e2e-tests.js"
+        "-c",
+        "if ! docker --version >/dev/null 2>&1; then echo \"Docker is required for this script to run. Install Docker Desktop from https://www.docker.com/products/docker-desktop/\"; exit 1; elif ! docker info >/dev/null 2>&1; then echo \"Docker installed but not running. Starting Docker Desktop...\"; open -a Docker && echo \"Waiting for Docker to start...\" && while ! docker info >/dev/null 2>&1; do sleep 2; done && echo \"Docker is now running\"; fi; echo \"Building Storybook...\"; cd packages/react && npm run build:storybook && cd ../.. && ./script/test-e2e"
       ],
+      "group": "test",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "new"
+      },
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Run e2e tests (specific file)",
+      "command": "bash",
+      "type": "shell",
+      "args": [
+        "-c",
+        "COMPONENT=\"${input:componentName}\"; if [[ \"$COMPONENT\" == *.test.ts ]]; then TEST_FILE=\"$COMPONENT\"; else TEST_FILE=\"e2e/components/$COMPONENT.test.ts\"; fi; if ! docker --version >/dev/null 2>&1; then echo \"Docker is required for this script to run. Install Docker Desktop from https://www.docker.com/products/docker-desktop/\"; exit 1; elif ! docker info >/dev/null 2>&1; then echo \"Docker installed but not running. Starting Docker Desktop...\"; open -a Docker && echo \"Waiting for Docker to start...\" && while ! docker info >/dev/null 2>&1; do sleep 2; done && echo \"Docker is now running\"; fi; ./script/test-e2e \"$TEST_FILE\""
+      ],
+      "group": "test",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "new"
+      },
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Update e2e snapshots (specific file)",
+      "command": "bash",
+      "type": "shell",
+      "args": [
+        "-c",
+        "COMPONENT=\"${input:componentName}\"; if [[ \"$COMPONENT\" == *.test.ts ]]; then TEST_FILE=\"$COMPONENT\"; else TEST_FILE=\"e2e/components/$COMPONENT.test.ts\"; fi; if ! docker --version >/dev/null 2>&1; then echo \"Docker is required for this script to run. Install Docker Desktop from https://www.docker.com/products/docker-desktop/\"; exit 1; elif ! docker info >/dev/null 2>&1; then echo \"Docker installed but not running. Starting Docker Desktop...\"; open -a Docker && echo \"Waiting for Docker to start...\" && while ! docker info >/dev/null 2>&1; do sleep 2; done && echo \"Docker is now running\"; fi; ./script/test-e2e \"$TEST_FILE --update-snapshots\""
+      ],
+      "group": "test",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "new"
+      },
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": []
+    },
+  ],
+  "inputs": [
+    {
+      "id": "componentName",
+      "description": "Component name (e.g., ActionList) or full test file path",
+      "default": "ActionList",
+      "type": "promptString"
     }
   ]
 }
