@@ -1,0 +1,16 @@
+.loadingExample {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 0.5em;
+}
+
+.loadingIndicator {
+  align-items: center;
+  display: flex;
+  gap: 0.25rem;
+}
+
+.loadButton {
+  margin-bottom: 1em;
+}
