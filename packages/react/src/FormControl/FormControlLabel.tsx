@@ -17,7 +17,7 @@ export type Props = {
 const FormControlLabel: React.FC<
   React.PropsWithChildren<{htmlFor?: string} & React.ComponentProps<typeof InputLabel> & Props>
 > = ({as, children, htmlFor, id, visuallyHidden, requiredIndicator = true, requiredText, sx, className, ...props}) => {
-  const {disabled, id: formControlId, required, isReferenced} = useFormControlContext()
+  const {disabled, id: formControlId, required} = useFormControlContext()
 
   /**
    * Ensure we can pass through props correctly, since legend/span accept no defined 'htmlFor'
@@ -41,7 +41,7 @@ const FormControlLabel: React.FC<
           id,
           className,
           visuallyHidden,
-          htmlFor: isReferenced ? htmlFor || formControlId : undefined,
+          htmlFor: htmlFor || formControlId,
           required,
           requiredText,
           requiredIndicator,
