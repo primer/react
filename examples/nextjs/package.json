@@ -12,8 +12,8 @@
   "dependencies": {
     "@primer/react": "37.29.1",
     "next": "^15.2.3",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
     "styled-components": "5.x",
     "typescript": "^5.8.2"
   },
