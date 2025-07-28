@@ -145,50 +145,40 @@ export function FilteredActionList({
     }
   }, [items, inputRef, selectedItems])
 
-  // Focus management for active indicator line
+  // Add data-input-focused attribute to first list item when input is focused
   useEffect(() => {
     const list = listRef.current
     if (!list) return
 
-    const updateActiveIndicator = () => {
-      // Clear any existing active indicators
-      const activeItems = list.querySelectorAll(`.${classes.ActiveItem}`)
-      for (const item of activeItems) {
-        item.classList.remove(classes.ActiveItem)
-      }
-
-      if (inputRef.current && document.activeElement === inputRef.current) {
-        // When input is focused, mark the first item as active
-        const firstItem = list.querySelector('[role="option"]') as HTMLElement | null
-        if (firstItem) {
-          firstItem.classList.add(classes.ActiveItem)
-        }
-      } else if (list.contains(document.activeElement)) {
-        // When an item in the list is focused, mark it as active
-        const focusedItem = document.activeElement as HTMLElement
-        if (focusedItem.getAttribute('role') === 'option') {
-          focusedItem.classList.add(classes.ActiveItem)
+    const updateInputFocusedAttribute = () => {
+      const isInputFocused = inputRef.current && document.activeElement === inputRef.current
+      const firstItem = list.querySelector('[role="option"]')
+      
+      if (firstItem) {
+        if (isInputFocused) {
+          firstItem.setAttribute('data-input-focused', 'true')
+        } else {
+          firstItem.removeAttribute('data-input-focused')
         }
       }
     }
 
     // Initial update
-    updateActiveIndicator()
+    updateInputFocusedAttribute()
 
-    // Listen for focus changes within the container
+    // Listen for focus changes
     const handleFocusIn = (event: FocusEvent) => {
       if (event.target === inputRef.current || list.contains(event.target as Node)) {
-        updateActiveIndicator()
+        updateInputFocusedAttribute()
       }
     }
 
-    // Attach focus listeners to the document to catch all focus changes
     document.addEventListener('focusin', handleFocusIn)
 
     return () => {
       document.removeEventListener('focusin', handleFocusIn)
     }
-  }, [items, inputRef]) // Re-run when items change to ensure first item is properly marked
+  }, [items, inputRef]) // Re-run when items change to update attributes
 
   useEffect(() => {
     setEnableAnnouncements(announcementsEnabled)
