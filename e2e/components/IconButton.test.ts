@@ -50,6 +50,7 @@ const stories = [
   {
     title: 'Keybinding Hint on Description',
     id: 'components-iconbutton-features--keybinding-hint-on-description',
+    disableAnimations: true,
     async setup(page: Page) {
       await page.keyboard.press('Tab') // focus on icon button
       await page.getByText('You have unread notifications').waitFor({
@@ -81,9 +82,9 @@ test.describe('IconButton', () => {
             }
 
             // Default state
-            await expect(page).toHaveScreenshot(`IconButton.${story.title}.${theme}.png`, {
-              animations: 'disabled',
-            })
+            expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
+              `IconButton.${story.title}.${theme}.png`,
+            )
           })
         })
       }

@@ -1,4 +1,12 @@
-import {AlertIcon, InfoIcon, SearchIcon, StopIcon, TriangleDownIcon, XIcon} from '@primer/octicons-react'
+import {
+  AlertIcon,
+  InfoIcon,
+  SearchIcon,
+  StopIcon,
+  TriangleDownIcon,
+  XIcon,
+  type IconProps,
+} from '@primer/octicons-react'
 import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react'
 import type {AnchoredOverlayProps} from '../AnchoredOverlay'
 import {AnchoredOverlay} from '../AnchoredOverlay'
@@ -31,8 +39,8 @@ import type {ButtonProps, LinkButtonProps} from '../Button/types'
 const SHORT_DELAY_MS = 500
 const LONG_DELAY_MS = 1000
 const EMPTY_MESSAGE = {
-  title: "You haven't created any items yet",
-  description: 'Please add or create new items to populate the list.',
+  title: 'No items available',
+  description: '',
 }
 
 const DefaultEmptyMessage = (
@@ -98,6 +106,8 @@ interface SelectPanelBaseProps {
     title: string
     body: string | React.ReactElement
     variant: 'empty' | 'error' | 'warning'
+    icon?: React.ComponentType<IconProps>
+    action?: React.ReactElement
   }
   /**
    * @deprecated Use `secondaryAction` instead.
@@ -669,7 +679,7 @@ function Panel({
       return DefaultEmptyMessage
     } else if (message) {
       return (
-        <SelectPanelMessage title={message.title} variant={message.variant}>
+        <SelectPanelMessage title={message.title} variant={message.variant} icon={message.icon} action={message.action}>
           {message.body}
         </SelectPanelMessage>
       )
@@ -719,6 +729,17 @@ function Panel({
 
   const stretchSaveButton = showResponsiveSaveAndCloseButton && secondaryAction === undefined ? 'only-small' : 'never'
 
+  /*
+   * SelectPanel uses two close button implementations for different use cases:
+   *
+   * 1. AnchoredOverlay close button - Enabled on narrow screens (showXCloseIcon logic)
+   *
+   * 2. SelectPanel modal close button - Used for modal variant on wider screens
+   *    (variant === 'modal' && !isNarrowScreenSize logic below)
+   *
+   * The dual approach handles different responsive behaviors: AnchoredOverlay manages
+   * close functionality for narrow fullscreen, while SelectPanel handles modal close on desktop.
+   */
   const showXCloseIcon = (onCancel !== undefined || !isMultiSelectVariant(selected)) && usingFullScreenOnNarrow
 
   const currentResponsiveVariant = useResponsiveValue(
