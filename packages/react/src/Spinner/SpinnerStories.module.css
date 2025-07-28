@@ -2,15 +2,15 @@
   display: flex;
   align-items: flex-start;
   flex-direction: column;
-  gap: 0.5em;
+  gap: var(--base-size-8);
 }
 
 .LoadingIndicator {
   align-items: center;
   display: flex;
-  gap: 0.25rem;
+  gap: var(--base-size-4);
 }
 
 .LoadButton {
-  margin-bottom: 1em;
+  margin-bottom: var(--base-size-16);
 }
