@@ -1,4 +1,5 @@
-import React, {useCallback, useEffect, useRef, useState, type KeyboardEventHandler} from 'react'
+import {useCallback, useEffect, useRef, useState, type KeyboardEventHandler} from 'react'
+import type React from 'react'
 import styled from 'styled-components'
 import Box from '../Box'
 import type {TextInputProps} from '../TextInput'
@@ -22,7 +23,11 @@ import {isValidElementType} from 'react-is'
 import type {RenderItemFn} from '../deprecated/ActionList/List'
 import {useAnnouncements} from './useAnnouncements'
 import {clsx} from 'clsx'
+import {useFeatureFlag} from '../FeatureFlags'
+import {useFocusZone} from '../hooks/useFocusZone'
+import {scrollIntoView, FocusKeys} from '@primer/behaviors'
 
+const menuScrollMargins: ScrollIntoViewOptions = {startMargin: 0, endMargin: 8}
 export interface FilteredActionListProps
   extends Partial<Omit<GroupedListProps, keyof ListPropsBase>>,
     ListPropsBase,
@@ -35,6 +40,7 @@ export interface FilteredActionListProps
   onInputRefChanged?: (ref: React.RefObject<HTMLInputElement>) => void
   textInputProps?: Partial<Omit<TextInputProps, 'onChange'>>
   inputRef?: React.RefObject<HTMLInputElement>
+  onListContainerRefChanged?: (ref: HTMLElement | null) => void
   message?: React.ReactNode
   messageText?: {
     title: string
@@ -58,6 +64,7 @@ export function FilteredActionList({
   loadingType = FilteredActionListLoadingTypes.bodySpinner,
   onFilterChange,
   onInputRefChanged,
+  onListContainerRefChanged,
   items,
   textInputProps,
   inputRef: providedInputRef,
@@ -73,6 +80,7 @@ export function FilteredActionList({
   onSelectAllChange,
   ...listProps
 }: FilteredActionListProps): JSX.Element {
+  const usingRemoveActiveDescendant = useFeatureFlag('primer_react_select_panel_remove_active_descendant')
   const [filterValue, setInternalFilterValue] = useProvidedStateOrCreate(externalFilterValue, undefined, '')
   const onInputChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -84,46 +92,106 @@ export function FilteredActionList({
   )
 
   const [enableAnnouncements, setEnableAnnouncements] = useState(false)
-  const [selectedItems] = useState<(string | number | undefined)[]>([])
+  const [selectedItems, setSelectedItems] = useState<(string | number | undefined)[]>([])
 
+  const inputAndListContainerRef = useRef<HTMLDivElement>(null)
   const scrollContainerRef = useRef<HTMLDivElement>(null)
   const inputRef = useProvidedRefOrCreate<HTMLInputElement>(providedInputRef)
   const listRef = useRef<HTMLUListElement>(null)
   const listId = useId()
   const inputDescriptionTextId = useId()
 
+  /* TODO remove with use usingRemoveActiveDescendant */
+  const [listContainerElement, setListContainerElement] = useState<HTMLUListElement | null>(null)
+  const activeDescendantRef = useRef<HTMLElement>()
+  /* TODO remove with use usingRemoveActiveDescendant */
+
   const selectAllChecked = items.length > 0 && items.every(item => item.selected)
   const selectAllIndeterminate = !selectAllChecked && items.some(item => item.selected)
 
   const selectAllLabelText = selectAllChecked ? 'Deselect all' : 'Select all'
+
   const onInputKeyPress: KeyboardEventHandler = useCallback(
     (event: React.KeyboardEvent<HTMLInputElement>) => {
-      if (event.key === 'ArrowDown') {
-        if (listRef.current) {
-          const firstSelectedItem = listRef.current.querySelector('[role="option"]') as HTMLElement | undefined
-          firstSelectedItem?.focus()
+      if (usingRemoveActiveDescendant) {
+        // New functionality
+        if (event.key === 'ArrowDown') {
+          if (listRef.current) {
+            const firstSelectedItem = listRef.current.querySelector('[role="option"]') as HTMLElement | undefined
+            firstSelectedItem?.focus()
 
-          event.preventDefault()
-        }
-      } else if (event.key === 'Enter') {
-        let firstItem
-        // If there are groups, it's not guaranteed that the first item is the actual first item in the first -
-        // as groups are rendered in the order of the groupId provided
-        if (groupMetadata) {
-          const firstGroup = groupMetadata[0].groupId
-          firstItem = items.filter(item => item.groupId === firstGroup)[0]
-        } else {
-          firstItem = items[0]
-        }
+            event.preventDefault()
+          }
+        } else if (event.key === 'Enter') {
+          let firstItem
+          // If there are groups, it's not guaranteed that the first item is the actual first item in the first -
+          // as groups are rendered in the order of the groupId provided
+          if (groupMetadata) {
+            const firstGroup = groupMetadata[0].groupId
+            firstItem = items.filter(item => item.groupId === firstGroup)[0]
+          } else {
+            firstItem = items[0]
+          }
 
-        if (firstItem.onAction) {
-          firstItem.onAction(firstItem, event)
+          if (firstItem.onAction) {
+            firstItem.onAction(firstItem, event)
+            event.preventDefault()
+          }
+        }
+      } else {
+        if (event.key === 'Enter' && activeDescendantRef.current) {
           event.preventDefault()
+          event.nativeEvent.stopImmediatePropagation()
+
+          // Forward Enter key press to active descendant so that item gets activated
+          const activeDescendantEvent = new KeyboardEvent(event.type, event.nativeEvent)
+          activeDescendantRef.current.dispatchEvent(activeDescendantEvent)
         }
       }
+      // When usingRemoveActiveDescendant is true, we don't handle these keys
+      // This allows for different keyboard navigation behavior
     },
-    [items, groupMetadata],
+    [items, groupMetadata, activeDescendantRef, usingRemoveActiveDescendant],
   )
+
+  // TODO remove with useRemoveActiveDescendant
+
+  const listContainerRefCallback = useCallback(
+    (node: HTMLUListElement | null) => {
+      setListContainerElement(node)
+      onListContainerRefChanged?.(node)
+    },
+    [onListContainerRefChanged],
+  )
+
+  // Only use focus zone when the new feature flag is disabled (old behavior)
+  useFocusZone(
+    !usingRemoveActiveDescendant
+      ? {
+          containerRef: {current: listContainerElement},
+          bindKeys: FocusKeys.ArrowVertical | FocusKeys.PageUpDown,
+          focusOutBehavior: 'wrap',
+          focusableElementFilter: element => {
+            return !(element instanceof HTMLInputElement)
+          },
+          activeDescendantFocus: inputRef,
+          onActiveDescendantChanged: (current, previous, directlyActivated) => {
+            activeDescendantRef.current = current
+
+            if (current && scrollContainerRef.current && directlyActivated) {
+              scrollIntoView(current, scrollContainerRef.current, menuScrollMargins)
+            }
+          },
+        }
+      : undefined,
+    [
+      // List container isn't in the DOM while loading.  Need to re-bind focus zone when it changes.
+      listContainerElement,
+      usingRemoveActiveDescendant,
+    ],
+  )
+
+  // TODO remove with useRemoveActiveDescendant
 
   useEffect(() => {
     onInputRefChanged?.(inputRef)
@@ -135,6 +203,7 @@ export function FilteredActionList({
     } else {
       const itemIds = items.filter(item => item.selected).map(item => item.id)
       const removedItem = selectedItems.find(item => !itemIds.includes(item))
+
       if (removedItem && document.activeElement !== inputRef.current) {
         const list = listRef.current
         if (list) {
@@ -145,40 +214,57 @@ export function FilteredActionList({
     }
   }, [items, inputRef, selectedItems])
 
-  // Add data-input-focused attribute to first list item when input is focused
   useEffect(() => {
-    const list = listRef.current
-    if (!list) return
+    const selectedItemIds = items.filter(item => item.selected).map(item => item.id)
+    setSelectedItems(selectedItemIds)
+  }, [items])
 
-    const updateInputFocusedAttribute = () => {
-      const isInputFocused = inputRef.current && document.activeElement === inputRef.current
-      const firstItem = list.querySelector('[role="option"]')
-      
-      if (firstItem) {
-        if (isInputFocused) {
-          firstItem.setAttribute('data-input-focused', 'true')
-        } else {
-          firstItem.removeAttribute('data-input-focused')
+  useEffect(() => {
+    if (usingRemoveActiveDescendant) {
+      const inputAndListContainerElement = inputAndListContainerRef.current
+      if (!inputAndListContainerElement) return
+      const list = listRef.current
+      if (!list) return
+
+      const updateActiveIndicator = () => {
+        // Clear any existing active indicators
+        const activeItems = list.querySelectorAll(`.${classes.ActiveItem}`)
+        for (const item of activeItems) {
+          item.classList.remove(classes.ActiveItem)
+        }
+
+        if (inputRef.current && document.activeElement === inputRef.current) {
+          // When input is focused, mark the first item as active
+          const firstItem = list.querySelector('[role="option"]') as HTMLElement | null
+          if (firstItem) {
+            firstItem.classList.add(classes.ActiveItem)
+          }
+        } else if (list.contains(document.activeElement)) {
+          // When an item in the list is focused, mark it as active
+          const focusedItem = document.activeElement as HTMLElement
+          if (focusedItem.getAttribute('role') === 'option') {
+            focusedItem.classList.add(classes.ActiveItem)
+          }
         }
       }
-    }
 
-    // Initial update
-    updateInputFocusedAttribute()
+      // Initial update
+      updateActiveIndicator()
 
-    // Listen for focus changes
-    const handleFocusIn = (event: FocusEvent) => {
-      if (event.target === inputRef.current || list.contains(event.target as Node)) {
-        updateInputFocusedAttribute()
+      // Listen for focus changes within the container
+      const handleFocusIn = (event: FocusEvent) => {
+        if (event.target === inputRef.current || list.contains(event.target as Node)) {
+          updateActiveIndicator()
+        }
+      }
+
+      inputAndListContainerElement.addEventListener('focusin', handleFocusIn)
+
+      return () => {
+        inputAndListContainerElement.removeEventListener('focusin', handleFocusIn)
       }
     }
-
-    document.addEventListener('focusin', handleFocusIn)
-
-    return () => {
-      document.removeEventListener('focusin', handleFocusIn)
-    }
-  }, [items, inputRef]) // Re-run when items change to update attributes
+  }, [items, inputRef, listContainerElement, usingRemoveActiveDescendant]) // Re-run when items change to update active indicators
 
   useEffect(() => {
     setEnableAnnouncements(announcementsEnabled)
@@ -223,7 +309,13 @@ export function FilteredActionList({
           enableFocusZone: true,
         }}
       >
-        <ActionList ref={listRef} showDividers={showItemDividers} {...listProps} id={listId} sx={{flexGrow: 1}}>
+        <ActionList
+          ref={usingRemoveActiveDescendant ? listRef : listContainerRefCallback}
+          showDividers={showItemDividers}
+          {...listProps}
+          id={listId}
+          sx={{flexGrow: 1}}
+        >
           {groupMetadata?.length
             ? groupMetadata.map((group, index) => {
                 return (
@@ -246,9 +338,10 @@ export function FilteredActionList({
       </ActionListContainerContext.Provider>
     )
   }
-  useAnnouncements(items, listRef, inputRef, enableAnnouncements, messageText)
+  useAnnouncements(items, listRef, inputRef, enableAnnouncements, loading, messageText)
   return (
     <Box
+      ref={inputAndListContainerRef}
       display="flex"
       flexDirection="column"
       overflow="hidden"

@@ -5,6 +5,10 @@
   flex-grow: 1;
 }
 
+.ActiveItem::after {
+  @mixin activeIndicatorLine;
+}
+
 /* Base case: focused item gets the active indicator */
 :global([role='option']:focus)::after {
   @mixin activeIndicatorLine;
