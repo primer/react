@@ -254,8 +254,6 @@ export function FilteredActionList({
       return message
     }
 
-    console.log(listProps)
-
     const actionListContent = (
       <ActionList
         ref={usingRemoveActiveDescendant ? listRef : listContainerRefCallback}
