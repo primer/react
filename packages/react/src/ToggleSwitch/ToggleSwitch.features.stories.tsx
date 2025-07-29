@@ -2,7 +2,7 @@ import React from 'react'
 import ToggleSwitch from './ToggleSwitch'
 import {action} from 'storybook/actions'
 import ToggleSwitchStoryWrapper from './ToggleSwitchStoryWrapper'
-import clsx from 'clsx'
+import {clsx} from 'clsx'
 import styles from './ToggleSwitch.features.stories.module.css'
 
 export default {
