@@ -1,7 +1,3 @@
-import type {ScrollIntoViewOptions} from '@primer/behaviors'
-import {scrollIntoView, FocusKeys} from '@primer/behaviors'
-import type {KeyboardEventHandler} from 'react'
-import type React from 'react'
 import {useCallback, useEffect, useRef, useState} from 'react'
 import styled from 'styled-components'
 import Box from '../Box'
@@ -10,7 +6,6 @@ import TextInput from '../TextInput'
 import {get} from '../constants'
 import {ActionList} from '../ActionList'
 import type {GroupedListProps, ListPropsBase, ItemInput} from '../SelectPanel/types'
-import {useFocusZone} from '../hooks/useFocusZone'
 import {useId} from '../hooks/useId'
 import {useProvidedRefOrCreate} from '../hooks/useProvidedRefOrCreate'
 import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
@@ -28,7 +23,12 @@ import type {RenderItemFn} from '../deprecated/ActionList/List'
 import {useAnnouncements} from './useAnnouncements'
 import {clsx} from 'clsx'
 import {useFeatureFlag} from '../FeatureFlags'
+import {useFocusZone} from '../hooks/useFocusZone'
+import type {ScrollIntoViewOptions} from '@primer/behaviors'
+import {scrollIntoView, FocusKeys} from '@primer/behaviors'
+import type {KeyboardEventHandler} from 'react'
 
+import type React from 'react'
 const menuScrollMargins: ScrollIntoViewOptions = {startMargin: 0, endMargin: 8}
 
 export interface FilteredActionListProps
@@ -40,10 +40,10 @@ export interface FilteredActionListProps
   placeholderText?: string
   filterValue?: string
   onFilterChange: (value: string, e: React.ChangeEvent<HTMLInputElement>) => void
-  onListContainerRefChanged?: (ref: HTMLElement | null) => void
   onInputRefChanged?: (ref: React.RefObject<HTMLInputElement>) => void
   textInputProps?: Partial<Omit<TextInputProps, 'onChange'>>
   inputRef?: React.RefObject<HTMLInputElement>
+  onListContainerRefChanged?: (ref: HTMLElement | null) => void
   message?: React.ReactNode
   messageText?: {
     title: string
@@ -66,8 +66,8 @@ export function FilteredActionList({
   filterValue: externalFilterValue,
   loadingType = FilteredActionListLoadingTypes.bodySpinner,
   onFilterChange,
-  onListContainerRefChanged,
   onInputRefChanged,
+  onListContainerRefChanged,
   items,
   textInputProps,
   inputRef: providedInputRef,
@@ -83,7 +83,6 @@ export function FilteredActionList({
   onSelectAllChange,
   ...listProps
 }: FilteredActionListProps): JSX.Element {
-  const usingRemoveActiveDescendant = useFeatureFlag('primer_react_select_panel_remove_active_descendant')
   const [filterValue, setInternalFilterValue] = useProvidedStateOrCreate(externalFilterValue, undefined, '')
   const onInputChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -96,15 +95,16 @@ export function FilteredActionList({
 
   const [enableAnnouncements, setEnableAnnouncements] = useState(false)
   const [selectedItems, setSelectedItems] = useState<(string | number | undefined)[]>([])
-
   const inputAndListContainerRef = useRef<HTMLDivElement>(null)
+  const listRef = useRef<HTMLUListElement>(null)
+
   const scrollContainerRef = useRef<HTMLDivElement>(null)
   const inputRef = useProvidedRefOrCreate<HTMLInputElement>(providedInputRef)
-  const listRef = useRef<HTMLUListElement>(null)
-  /* BEGIN TODO remove with use usingRemoveActiveDescendant */
+
+  const usingRemoveActiveDescendant = useFeatureFlag('primer_react_select_panel_remove_active_descendant')
   const [listContainerElement, setListContainerElement] = useState<HTMLUListElement | null>(null)
   const activeDescendantRef = useRef<HTMLElement>()
-  /* END TODO remove with use usingRemoveActiveDescendant */
+
   const listId = useId()
   const inputDescriptionTextId = useId()
   const [isInputFocused, setIsInputFocused] = useState(false)
@@ -150,14 +150,11 @@ export function FilteredActionList({
           activeDescendantRef.current.dispatchEvent(activeDescendantEvent)
         }
       }
-      // When usingRemoveActiveDescendant is true, we don't handle these keys
-      // This allows for different keyboard navigation behavior
     },
     [items, groupMetadata, activeDescendantRef, usingRemoveActiveDescendant],
   )
 
-  // TODO remove with useRemoveActiveDescendant
-
+  // BEGIN: Todo remove when we remove usingRemoveActiveDescendant
   const listContainerRefCallback = useCallback(
     (node: HTMLUListElement | null) => {
       setListContainerElement(node)
@@ -165,8 +162,10 @@ export function FilteredActionList({
     },
     [onListContainerRefChanged],
   )
-
-  // Only use focus zone when the new feature flag is disabled (old behavior)
+  useEffect(() => {
+    onInputRefChanged?.(inputRef)
+  }, [inputRef, onInputRefChanged])
+  //END: Todo remove when we remove usingRemoveActiveDescendant
 
   useFocusZone(
     !usingRemoveActiveDescendant
@@ -187,35 +186,34 @@ export function FilteredActionList({
           },
         }
       : undefined,
-    [
-      // List container isn't in the DOM while loading.  Need to re-bind focus zone when it changes.
-      listContainerElement,
-      usingRemoveActiveDescendant,
-    ],
+    [listContainerElement, usingRemoveActiveDescendant],
   )
 
-  // TODO remove with useRemoveActiveDescendant
-
   useEffect(() => {
-    onInputRefChanged?.(inputRef)
-  }, [inputRef, onInputRefChanged])
+    if (usingRemoveActiveDescendant) {
+      if (items.length === 0) {
+        inputRef.current?.focus()
+      } else {
+        const itemIds = items.filter(item => item.selected).map(item => item.id)
+        const removedItem = selectedItems.find(item => !itemIds.includes(item))
 
-  useEffect(() => {
-    if (items.length === 0) {
-      inputRef.current?.focus()
-    } else {
-      const itemIds = items.filter(item => item.selected).map(item => item.id)
-      const removedItem = selectedItems.find(item => !itemIds.includes(item))
-
-      if (removedItem && document.activeElement !== inputRef.current) {
-        const list = listRef.current
-        if (list) {
-          const firstSelectedItem = list.querySelector('[role="option"]') as HTMLElement
-          firstSelectedItem.focus()
+        if (removedItem && document.activeElement !== inputRef.current) {
+          const list = listRef.current
+          if (list) {
+            const firstSelectedItem = list.querySelector('[role="option"]') as HTMLElement
+            firstSelectedItem.focus()
+          }
         }
       }
+    } else {
+      if (activeDescendantRef.current && scrollContainerRef.current) {
+        scrollIntoView(activeDescendantRef.current, scrollContainerRef.current, {
+          ...menuScrollMargins,
+          behavior: 'auto',
+        })
+      }
     }
-  }, [items, inputRef, selectedItems])
+  }, [items, inputRef, selectedItems, usingRemoveActiveDescendant])
 
   useEffect(() => {
     const selectedItemIds = items.filter(item => item.selected).map(item => item.id)
@@ -245,8 +243,8 @@ export function FilteredActionList({
   }, [items, inputRef, listContainerElement, usingRemoveActiveDescendant]) // Re-run when items change to update active indicators
 
   useEffect(() => {
-    setEnableAnnouncements(announcementsEnabled)
-  }, [announcementsEnabled])
+    if (usingRemoveActiveDescendant) setEnableAnnouncements(announcementsEnabled)
+  }, [announcementsEnabled, usingRemoveActiveDescendant])
   useScrollFlash(scrollContainerRef)
 
   const handleSelectAllChange = useCallback(
@@ -277,62 +275,71 @@ export function FilteredActionList({
       return message
     }
 
-    return (
-      <ActionListContainerContext.Provider
-        value={{
-          container: 'FilteredActionList',
-          listRole: 'listbox',
-          selectionAttribute: 'aria-selected',
-          selectionVariant,
-          enableFocusZone: true,
-        }}
+    const actionListContent = (
+      <ActionList
+        ref={usingRemoveActiveDescendant ? listRef : listContainerRefCallback}
+        showDividers={showItemDividers}
+        {...listProps}
+        id={listId}
+        sx={{flexGrow: 1}}
       >
-        <ActionList
-          ref={usingRemoveActiveDescendant ? listRef : listContainerRefCallback}
-          showDividers={showItemDividers}
-          {...listProps}
-          id={listId}
-          sx={{flexGrow: 1}}
-        >
-          {groupMetadata?.length
-            ? groupMetadata.map((group, index) => {
-                return (
-                  <ActionList.Group key={index}>
-                    <ActionList.GroupHeading variant={group.header?.variant ? group.header.variant : undefined}>
-                      {group.header?.title ? group.header.title : `Group ${group.groupId}`}
-                    </ActionList.GroupHeading>
-                    {getItemListForEachGroup(group.groupId).map(({key: itemKey, ...item}, itemIndex) => {
-                      const key = itemKey ?? item.id?.toString() ?? itemIndex.toString()
-                      return (
-                        <MappedActionListItem
-                          key={key}
-                          {...item}
-                          className={clsx(classes.ActionListItem, 'className' in item ? item.className : undefined)}
-                          renderItem={listProps.renderItem}
-                          data-input-focused={isInputFocused ? '' : undefined}
-                          data-first-child={index === 0 && itemIndex === 0 ? '' : undefined}
-                        />
-                      )
-                    })}
-                  </ActionList.Group>
-                )
-              })
-            : items.map(({key: itemKey, ...item}, index) => {
-                const key = itemKey ?? item.id?.toString() ?? index.toString()
-                return (
-                  <MappedActionListItem
-                    key={key}
-                    {...item}
-                    className={clsx(classes.ActionListItem, 'className' in item ? item.className : undefined)}
-                    data-input-focused={isInputFocused ? '' : undefined}
-                    data-first-child={index === 0 ? '' : undefined}
-                    renderItem={listProps.renderItem}
-                  />
-                )
-              })}
-        </ActionList>
-      </ActionListContainerContext.Provider>
+        {groupMetadata?.length
+          ? groupMetadata.map((group, index) => {
+              return (
+                <ActionList.Group key={index}>
+                  <ActionList.GroupHeading variant={group.header?.variant ? group.header.variant : undefined}>
+                    {group.header?.title ? group.header.title : `Group ${group.groupId}`}
+                  </ActionList.GroupHeading>
+                  {getItemListForEachGroup(group.groupId).map(({key: itemKey, ...item}, itemIndex) => {
+                    const key = itemKey ?? item.id?.toString() ?? itemIndex.toString()
+                    return (
+                      <MappedActionListItem
+                        key={key}
+                        {...item}
+                        className={clsx(classes.ActionListItem, 'className' in item ? item.className : undefined)}
+                        renderItem={listProps.renderItem}
+                        data-input-focused={isInputFocused ? '' : undefined}
+                        data-first-child={index === 0 && itemIndex === 0 ? '' : undefined}
+                      />
+                    )
+                  })}
+                </ActionList.Group>
+              )
+            })
+          : items.map(({key: itemKey, ...item}, index) => {
+              const key = itemKey ?? item.id?.toString() ?? index.toString()
+              return (
+                <MappedActionListItem
+                  key={key}
+                  {...item}
+                  className={clsx(classes.ActionListItem, 'className' in item ? item.className : undefined)}
+                  data-input-focused={isInputFocused ? '' : undefined}
+                  data-first-child={index === 0 ? '' : undefined}
+                  renderItem={listProps.renderItem}
+                />
+              )
+            })}
+      </ActionList>
     )
+
+    // Use ActionListContainerContext.Provider only for the old behavior (when feature flag is disabled)
+    if (usingRemoveActiveDescendant) {
+      return (
+        <ActionListContainerContext.Provider
+          value={{
+            container: 'FilteredActionList',
+            listRole: 'listbox',
+            selectionAttribute: 'aria-selected',
+            selectionVariant,
+            enableFocusZone: true,
+          }}
+        >
+          {actionListContent}
+        </ActionListContainerContext.Provider>
+      )
+    } else {
+      return actionListContent
+    }
   }
   useAnnouncements(items, listRef, inputRef, enableAnnouncements, loading, messageText)
   return (
@@ -353,6 +360,7 @@ export function FilteredActionList({
           color="fg.default"
           value={filterValue}
           onChange={onInputChange}
+          onKeyPress={onInputKeyPress}
           onKeyDown={onInputKeyPress}
           placeholder={placeholderText}
           role="combobox"

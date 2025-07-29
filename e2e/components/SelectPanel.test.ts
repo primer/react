@@ -60,7 +60,10 @@ test.describe('SelectPanel', () => {
 
     const globals = {
       colorScheme: scenario.theme,
-      featureFlags: {primer_react_select_panel_with_modern_action_list: scenario.modernActionList},
+      featureFlags: {
+        primer_react_select_panel_with_modern_action_list: scenario.modernActionList,
+        primer_react_select_panel_remove_active_descendant: false,
+      },
     }
 
     if (scenario.story.visual !== false) {
