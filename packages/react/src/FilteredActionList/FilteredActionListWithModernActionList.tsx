@@ -167,30 +167,32 @@ export function FilteredActionList({
   )
 
   // Only use focus zone when the new feature flag is disabled (old behavior)
-  !usingRemoveActiveDescendant &&
-    useFocusZone(
-      {
-        containerRef: {current: listContainerElement},
-        bindKeys: FocusKeys.ArrowVertical | FocusKeys.PageUpDown,
-        focusOutBehavior: 'wrap',
-        focusableElementFilter: element => {
-          return !(element instanceof HTMLInputElement)
-        },
-        activeDescendantFocus: inputRef,
-        onActiveDescendantChanged: (current, previous, directlyActivated) => {
-          activeDescendantRef.current = current
 
-          if (current && scrollContainerRef.current && directlyActivated) {
-            scrollIntoView(current, scrollContainerRef.current, menuScrollMargins)
-          }
-        },
-      },
-      [
-        // List container isn't in the DOM while loading.  Need to re-bind focus zone when it changes.
-        listContainerElement,
-        usingRemoveActiveDescendant,
-      ],
-    )
+  useFocusZone(
+    !usingRemoveActiveDescendant
+      ? {
+          containerRef: {current: listContainerElement},
+          bindKeys: FocusKeys.ArrowVertical | FocusKeys.PageUpDown,
+          focusOutBehavior: 'wrap',
+          focusableElementFilter: element => {
+            return !(element instanceof HTMLInputElement)
+          },
+          activeDescendantFocus: inputRef,
+          onActiveDescendantChanged: (current, previous, directlyActivated) => {
+            activeDescendantRef.current = current
+
+            if (current && scrollContainerRef.current && directlyActivated) {
+              scrollIntoView(current, scrollContainerRef.current, menuScrollMargins)
+            }
+          },
+        }
+      : undefined,
+    [
+      // List container isn't in the DOM while loading.  Need to re-bind focus zone when it changes.
+      listContainerElement,
+      usingRemoveActiveDescendant,
+    ],
+  )
 
   // TODO remove with useRemoveActiveDescendant
 
