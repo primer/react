@@ -14,6 +14,12 @@
   display: block;
 }
 
+.ToggleLabel__large {
+  font-weight: var(--base-text-weight-semibold);
+  font-size: var(--text-title-size-small);
+  display: block;
+}
+
 .SwitchLabel {
   font-weight: var(--base-text-weight-light);
   font-size: var(--text-title-size-small);

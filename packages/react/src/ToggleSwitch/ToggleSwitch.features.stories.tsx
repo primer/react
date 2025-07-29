@@ -2,6 +2,7 @@ import React from 'react'
 import ToggleSwitch from './ToggleSwitch'
 import {action} from 'storybook/actions'
 import ToggleSwitchStoryWrapper from './ToggleSwitchStoryWrapper'
+import clsx from 'clsx'
 import styles from './ToggleSwitch.features.stories.module.css'
 
 export default {
@@ -20,7 +21,7 @@ export const Small = () => (
 export const WithCaption = () => (
   <div className={styles.Row}>
     <div className={styles.ColGrow}>
-      <span className={styles.SwitchLabel} id="switchLabel">
+      <span className={styles.ToggleLabel__large} id="switchLabel">
         Notifications
       </span>
       <span className={styles.SwitchCaption} id="switchCaption">
@@ -90,7 +91,7 @@ export const Controlled = () => {
   return (
     <>
       <div className={styles.Row} style={{maxWidth: '300px'}}>
-        <span className={styles.SwitchLabel} id="switchLabel">
+        <span className={clsx(styles.ColGrow, styles.ToggleLabel__large)} id="switchLabel">
           Notifications
         </span>
         <ToggleSwitch onClick={onClick} onChange={handleSwitchChange} checked={isOn} aria-labelledby="switchLabel" />
