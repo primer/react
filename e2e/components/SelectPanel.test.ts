@@ -62,7 +62,6 @@ test.describe('SelectPanel', () => {
       colorScheme: scenario.theme,
       featureFlags: {
         primer_react_select_panel_with_modern_action_list: scenario.modernActionList,
-        primer_react_select_panel_remove_active_descendant: false,
       },
     }
 

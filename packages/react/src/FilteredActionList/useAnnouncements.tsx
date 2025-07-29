@@ -97,7 +97,7 @@ export const useAnnouncements = (
       inputElement?.addEventListener('focus', focusHandler)
       return () => inputElement?.removeEventListener('focus', focusHandler)
     },
-    [listContainerRef, inputRef, items, liveRegion, announce, usingRemoveActiveDescendant],
+    [listContainerRef, inputRef, items, liveRegion, announce, usingRemoveActiveDescendant, selectedItems],
   )
 
   const isFirstRender = useFirstRender()
@@ -150,6 +150,7 @@ export const useAnnouncements = (
       message?.title,
       message?.description,
       loading,
+      selectedItems,
     ],
   )
 }

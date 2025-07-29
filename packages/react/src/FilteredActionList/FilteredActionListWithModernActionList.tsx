@@ -1,3 +1,7 @@
+import type {ScrollIntoViewOptions} from '@primer/behaviors'
+import {scrollIntoView, FocusKeys} from '@primer/behaviors'
+import type {KeyboardEventHandler} from 'react'
+import type React from 'react'
 import {useCallback, useEffect, useRef, useState} from 'react'
 import styled from 'styled-components'
 import Box from '../Box'
@@ -6,10 +10,10 @@ import TextInput from '../TextInput'
 import {get} from '../constants'
 import {ActionList} from '../ActionList'
 import type {GroupedListProps, ListPropsBase, ItemInput} from '../SelectPanel/types'
+import {useFocusZone} from '../hooks/useFocusZone'
 import {useId} from '../hooks/useId'
 import {useProvidedRefOrCreate} from '../hooks/useProvidedRefOrCreate'
 import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
-import useScrollFlash from '../hooks/useScrollFlash'
 import {VisuallyHidden} from '../VisuallyHidden'
 import type {SxProp} from '../sx'
 import type {FilteredActionListLoadingType} from './FilteredActionListLoaders'
@@ -23,12 +27,7 @@ import type {RenderItemFn} from '../deprecated/ActionList/List'
 import {useAnnouncements} from './useAnnouncements'
 import {clsx} from 'clsx'
 import {useFeatureFlag} from '../FeatureFlags'
-import {useFocusZone} from '../hooks/useFocusZone'
-import type {ScrollIntoViewOptions} from '@primer/behaviors'
-import {scrollIntoView, FocusKeys} from '@primer/behaviors'
-import type {KeyboardEventHandler} from 'react'
 
-import type React from 'react'
 const menuScrollMargins: ScrollIntoViewOptions = {startMargin: 0, endMargin: 8}
 
 export interface FilteredActionListProps
@@ -40,10 +39,10 @@ export interface FilteredActionListProps
   placeholderText?: string
   filterValue?: string
   onFilterChange: (value: string, e: React.ChangeEvent<HTMLInputElement>) => void
+  onListContainerRefChanged?: (ref: HTMLElement | null) => void
   onInputRefChanged?: (ref: React.RefObject<HTMLInputElement>) => void
   textInputProps?: Partial<Omit<TextInputProps, 'onChange'>>
   inputRef?: React.RefObject<HTMLInputElement>
-  onListContainerRefChanged?: (ref: HTMLElement | null) => void
   message?: React.ReactNode
   messageText?: {
     title: string
@@ -66,8 +65,8 @@ export function FilteredActionList({
   filterValue: externalFilterValue,
   loadingType = FilteredActionListLoadingTypes.bodySpinner,
   onFilterChange,
-  onInputRefChanged,
   onListContainerRefChanged,
+  onInputRefChanged,
   items,
   textInputProps,
   inputRef: providedInputRef,
@@ -220,6 +219,15 @@ export function FilteredActionList({
     }
   }, [items, inputRef, listContainerElement, usingRemoveActiveDescendant]) // Re-run when items change to update active indicators
 
+  useAnnouncements(
+    items,
+    usingRemoveActiveDescendant ? listRef : {current: listContainerElement},
+    inputRef,
+    announcementsEnabled,
+    loading,
+    messageText,
+  )
+
   const handleSelectAllChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       if (onSelectAllChange) {
@@ -315,14 +323,7 @@ export function FilteredActionList({
       return actionListContent
     }
   }
-  useAnnouncements(
-    items,
-    usingRemoveActiveDescendant ? listRef : {current: listContainerElement},
-    inputRef,
-    announcementsEnabled,
-    loading,
-    messageText,
-  )
+
   return (
     <Box
       ref={inputAndListContainerRef}
