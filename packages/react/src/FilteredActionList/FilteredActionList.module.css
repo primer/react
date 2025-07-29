@@ -6,17 +6,16 @@
 }
 
 .ActionListItem:focus {
-   &::after {
-  @mixin activeIndicatorLine;
+  &::after {
+    @mixin activeIndicatorLine;
   }
 }
 
 .ActionListItem:where([data-input-focused]):where([data-first-child]) {
-   &::after {
-  @mixin activeIndicatorLine;
+  &::after {
+    @mixin activeIndicatorLine;
   }
 }
-
 
 .FullScreenTextInput {
   @media screen and (--viewportRange-narrow) {
