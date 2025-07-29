@@ -197,7 +197,7 @@ export function FilteredActionList({
         behavior: 'auto',
       })
     }
-  }, [items, inputRef, usingRemoveActiveDescendant])
+  }, [items, inputRef])
 
   useEffect(() => {
     if (usingRemoveActiveDescendant) {
@@ -254,10 +254,13 @@ export function FilteredActionList({
       return message
     }
 
+    console.log(listProps)
+
     const actionListContent = (
       <ActionList
         ref={usingRemoveActiveDescendant ? listRef : listContainerRefCallback}
         showDividers={showItemDividers}
+        selectionVariant={selectionVariant}
         {...listProps}
         id={listId}
         sx={{flexGrow: 1}}
@@ -274,11 +277,11 @@ export function FilteredActionList({
                     return (
                       <MappedActionListItem
                         key={key}
-                        {...item}
                         className={clsx(classes.ActionListItem, 'className' in item ? item.className : undefined)}
-                        renderItem={listProps.renderItem}
                         data-input-focused={isInputFocused ? '' : undefined}
                         data-first-child={index === 0 && itemIndex === 0 ? '' : undefined}
+                        {...item}
+                        renderItem={listProps.renderItem}
                       />
                     )
                   })}
@@ -290,10 +293,10 @@ export function FilteredActionList({
               return (
                 <MappedActionListItem
                   key={key}
-                  {...item}
                   className={clsx(classes.ActionListItem, 'className' in item ? item.className : undefined)}
                   data-input-focused={isInputFocused ? '' : undefined}
                   data-first-child={index === 0 ? '' : undefined}
+                  {...item}
                   renderItem={listProps.renderItem}
                 />
               )
