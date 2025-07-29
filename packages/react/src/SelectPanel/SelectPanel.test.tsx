@@ -776,9 +776,13 @@ for (const usingRemoveActiveDescendant of [false, true]) {
         jest.runAllTimers()
         await waitFor(
           async () => {
-            expect(getLiveRegion().getMessage('polite')?.trim()).toEqual(
-              'List updated, Focused item: item one, not selected, 1 of 3',
-            )
+            if (usingRemoveActiveDescendant) {
+              expect(getLiveRegion().getMessage('polite')!.trim()).toEqual('3 items available, 0 selected.')
+            } else {
+              expect(getLiveRegion().getMessage('polite')!.trim()).toEqual(
+                'List updated, Focused item: item one, not selected, 1 of 3',
+              )
+            }
           },
           {timeout: 3000}, // increased timeout because we don't want the test to compare with previous announcement
         )
@@ -789,9 +793,13 @@ for (const usingRemoveActiveDescendant of [false, true]) {
         jest.runAllTimers()
         await waitFor(
           async () => {
-            expect(getLiveRegion().getMessage('polite')).toBe(
-              'List updated, Focused item: item one, not selected, 1 of 2',
-            )
+            if (usingRemoveActiveDescendant) {
+              expect(getLiveRegion().getMessage('polite')).toBe('2 items available, 0 selected.')
+            } else {
+              expect(getLiveRegion().getMessage('polite')).toBe(
+                'List updated, Focused item: item one, not selected, 1 of 2',
+              )
+            }
           },
           {timeout: 3000}, // increased timeout because we don't want the test to compare with previous announcement
         )
@@ -801,9 +809,13 @@ for (const usingRemoveActiveDescendant of [false, true]) {
 
         jest.runAllTimers()
         await waitFor(async () => {
-          expect(getLiveRegion().getMessage('polite')?.trim()).toBe(
-            'List updated, Focused item: item one, not selected, 1 of 1',
-          )
+          if (usingRemoveActiveDescendant) {
+            expect(getLiveRegion().getMessage('polite')!.trim()).toBe('1 item available, 0 selected.')
+          } else {
+            expect(getLiveRegion().getMessage('polite')?.trim()).toBe(
+              'List updated, Focused item: item one, not selected, 1 of 1',
+            )
+          }
         })
         jest.useRealTimers()
       })
