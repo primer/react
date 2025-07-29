@@ -94,7 +94,6 @@ export function FilteredActionList({
   )
 
   const [enableAnnouncements, setEnableAnnouncements] = useState(false)
-  const [selectedItems, setSelectedItems] = useState<(string | number | undefined)[]>([])
   const inputAndListContainerRef = useRef<HTMLDivElement>(null)
   const listRef = useRef<HTMLUListElement>(null)
 
@@ -192,35 +191,13 @@ export function FilteredActionList({
   )
 
   useEffect(() => {
-    if (usingRemoveActiveDescendant) {
-      if (items.length === 0) {
-        inputRef.current?.focus()
-      } else {
-        const itemIds = items.filter(item => item.selected).map(item => item.id)
-        const removedItem = selectedItems.find(item => !itemIds.includes(item))
-
-        if (removedItem && document.activeElement !== inputRef.current) {
-          const list = listRef.current
-          if (list) {
-            const firstSelectedItem = list.querySelector('[role="option"]') as HTMLElement
-            firstSelectedItem.focus()
-          }
-        }
-      }
-    } else {
-      if (activeDescendantRef.current && scrollContainerRef.current) {
-        scrollIntoView(activeDescendantRef.current, scrollContainerRef.current, {
-          ...menuScrollMargins,
-          behavior: 'auto',
-        })
-      }
+    if (activeDescendantRef.current && scrollContainerRef.current) {
+      scrollIntoView(activeDescendantRef.current, scrollContainerRef.current, {
+        ...menuScrollMargins,
+        behavior: 'auto',
+      })
     }
-  }, [items, inputRef, selectedItems, usingRemoveActiveDescendant])
-
-  useEffect(() => {
-    const selectedItemIds = items.filter(item => item.selected).map(item => item.id)
-    setSelectedItems(selectedItemIds)
-  }, [items])
+  }, [items, inputRef, usingRemoveActiveDescendant])
 
   useEffect(() => {
     if (usingRemoveActiveDescendant) {
