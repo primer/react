@@ -1,3 +1,5 @@
+import type {ScrollIntoViewOptions} from '@primer/behaviors'
+import {scrollIntoView, FocusKeys} from '@primer/behaviors'
 import {useCallback, useEffect, useRef, useState, type KeyboardEventHandler} from 'react'
 import type React from 'react'
 import styled from 'styled-components'
@@ -7,6 +9,7 @@ import TextInput from '../TextInput'
 import {get} from '../constants'
 import {ActionList} from '../ActionList'
 import type {GroupedListProps, ListPropsBase, ItemInput} from '../SelectPanel/types'
+import {useFocusZone} from '../hooks/useFocusZone'
 import {useId} from '../hooks/useId'
 import {useProvidedRefOrCreate} from '../hooks/useProvidedRefOrCreate'
 import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
@@ -24,10 +27,8 @@ import type {RenderItemFn} from '../deprecated/ActionList/List'
 import {useAnnouncements} from './useAnnouncements'
 import {clsx} from 'clsx'
 import {useFeatureFlag} from '../FeatureFlags'
-import {useFocusZone} from '../hooks/useFocusZone'
-import {scrollIntoView, FocusKeys} from '@primer/behaviors'
 
-const menuScrollMargins = {startMargin: 0, endMargin: 8}
+const menuScrollMargins: ScrollIntoViewOptions = {startMargin: 0, endMargin: 8}
 export interface FilteredActionListProps
   extends Partial<Omit<GroupedListProps, keyof ListPropsBase>>,
     ListPropsBase,
@@ -37,10 +38,10 @@ export interface FilteredActionListProps
   placeholderText?: string
   filterValue?: string
   onFilterChange: (value: string, e: React.ChangeEvent<HTMLInputElement>) => void
+  onListContainerRefChanged?: (ref: HTMLElement | null) => void
   onInputRefChanged?: (ref: React.RefObject<HTMLInputElement>) => void
   textInputProps?: Partial<Omit<TextInputProps, 'onChange'>>
   inputRef?: React.RefObject<HTMLInputElement>
-  onListContainerRefChanged?: (ref: HTMLElement | null) => void
   message?: React.ReactNode
   messageText?: {
     title: string
@@ -63,8 +64,8 @@ export function FilteredActionList({
   filterValue: externalFilterValue,
   loadingType = FilteredActionListLoadingTypes.bodySpinner,
   onFilterChange,
-  onInputRefChanged,
   onListContainerRefChanged,
+  onInputRefChanged,
   items,
   textInputProps,
   inputRef: providedInputRef,
@@ -166,31 +167,30 @@ export function FilteredActionList({
   )
 
   // Only use focus zone when the new feature flag is disabled (old behavior)
-  useFocusZone(
-    !usingRemoveActiveDescendant
-      ? {
-          containerRef: {current: listContainerElement},
-          bindKeys: FocusKeys.ArrowVertical | FocusKeys.PageUpDown,
-          focusOutBehavior: 'wrap',
-          focusableElementFilter: element => {
-            return !(element instanceof HTMLInputElement)
-          },
-          activeDescendantFocus: inputRef,
-          onActiveDescendantChanged: (current, previous, directlyActivated) => {
-            activeDescendantRef.current = current
+  !usingRemoveActiveDescendant &&
+    useFocusZone(
+      {
+        containerRef: {current: listContainerElement},
+        bindKeys: FocusKeys.ArrowVertical | FocusKeys.PageUpDown,
+        focusOutBehavior: 'wrap',
+        focusableElementFilter: element => {
+          return !(element instanceof HTMLInputElement)
+        },
+        activeDescendantFocus: inputRef,
+        onActiveDescendantChanged: (current, previous, directlyActivated) => {
+          activeDescendantRef.current = current
 
-            if (current && scrollContainerRef.current && directlyActivated) {
-              scrollIntoView(current, scrollContainerRef.current, menuScrollMargins)
-            }
-          },
-        }
-      : undefined,
-    [
-      // List container isn't in the DOM while loading.  Need to re-bind focus zone when it changes.
-      listContainerElement,
-      usingRemoveActiveDescendant,
-    ],
-  )
+          if (current && scrollContainerRef.current && directlyActivated) {
+            scrollIntoView(current, scrollContainerRef.current, menuScrollMargins)
+          }
+        },
+      },
+      [
+        // List container isn't in the DOM while loading.  Need to re-bind focus zone when it changes.
+        listContainerElement,
+        usingRemoveActiveDescendant,
+      ],
+    )
 
   // TODO remove with useRemoveActiveDescendant
 
