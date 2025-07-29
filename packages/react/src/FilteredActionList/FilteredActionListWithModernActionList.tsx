@@ -315,7 +315,14 @@ export function FilteredActionList({
       return actionListContent
     }
   }
-  useAnnouncements(items, listRef, inputRef, announcementsEnabled, loading, messageText)
+  useAnnouncements(
+    items,
+    usingRemoveActiveDescendant ? listRef : {current: listContainerElement},
+    inputRef,
+    announcementsEnabled,
+    loading,
+    messageText,
+  )
   return (
     <Box
       ref={inputAndListContainerRef}

@@ -701,15 +701,18 @@ for (const usingRemoveActiveDescendant of [false, true]) {
 
         jest.runAllTimers()
         // we wait because announcement is intentionally updated after a timeout to not interrupt user input
-        await waitFor(async () => {
-          if (usingRemoveActiveDescendant) {
-            expect(getLiveRegion().getMessage('polite')!.trim()).toEqual('3 items available, 0 selected.')
-          } else {
-            expect(getLiveRegion().getMessage('polite')!.trim()).toEqual(
-              'List updated, Focused item: item one, not selected, 1 of 3',
-            )
-          }
-        })
+        await waitFor(
+          async () => {
+            if (usingRemoveActiveDescendant) {
+              expect(getLiveRegion().getMessage('polite')!.trim()).toEqual('3 items available, 0 selected.')
+            } else {
+              expect(getLiveRegion().getMessage('polite')!.trim()).toEqual(
+                'List updated, Focused item: item one, not selected, 1 of 3',
+              )
+            }
+          },
+          {timeout: 3000},
+        )
         jest.useRealTimers()
       })
 
