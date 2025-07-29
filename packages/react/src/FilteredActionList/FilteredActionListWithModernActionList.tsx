@@ -113,45 +113,47 @@ export function FilteredActionList({
   const selectAllIndeterminate = !selectAllChecked && items.some(item => item.selected)
 
   const selectAllLabelText = selectAllChecked ? 'Deselect all' : 'Select all'
-  const onInputKeyPress: KeyboardEventHandler = useCallback(
+  const onInputKeyDown = useCallback(
     (event: React.KeyboardEvent<HTMLInputElement>) => {
-      if (usingRemoveActiveDescendant) {
-        // New functionality
-        if (event.key === 'ArrowDown') {
-          if (listRef.current) {
-            const firstSelectedItem = listRef.current.querySelector('[role="option"]') as HTMLElement | undefined
-            firstSelectedItem?.focus()
+      if (event.key === 'ArrowDown') {
+        if (listRef.current) {
+          const firstSelectedItem = listRef.current.querySelector('[role="option"]') as HTMLElement | undefined
+          firstSelectedItem?.focus()
 
-            event.preventDefault()
-          }
-        } else if (event.key === 'Enter') {
-          let firstItem
-          // If there are groups, it's not guaranteed that the first item is the actual first item in the first -
-          // as groups are rendered in the order of the groupId provided
-          if (groupMetadata) {
-            const firstGroup = groupMetadata[0].groupId
-            firstItem = items.filter(item => item.groupId === firstGroup)[0]
-          } else {
-            firstItem = items[0]
-          }
-
-          if (firstItem.onAction) {
-            firstItem.onAction(firstItem, event)
-            event.preventDefault()
-          }
-        }
-      } else {
-        if (event.key === 'Enter' && activeDescendantRef.current) {
           event.preventDefault()
-          event.nativeEvent.stopImmediatePropagation()
+        }
+      } else if (event.key === 'Enter') {
+        let firstItem
+        // If there are groups, it's not guaranteed that the first item is the actual first item in the first -
+        // as groups are rendered in the order of the groupId provided
+        if (groupMetadata) {
+          const firstGroup = groupMetadata[0].groupId
+          firstItem = items.filter(item => item.groupId === firstGroup)[0]
+        } else {
+          firstItem = items[0]
+        }
 
-          // Forward Enter key press to active descendant so that item gets activated
-          const activeDescendantEvent = new KeyboardEvent(event.type, event.nativeEvent)
-          activeDescendantRef.current.dispatchEvent(activeDescendantEvent)
+        if (firstItem.onAction) {
+          firstItem.onAction(firstItem, event)
+          event.preventDefault()
         }
       }
     },
-    [items, groupMetadata, activeDescendantRef, usingRemoveActiveDescendant],
+    [items, groupMetadata],
+  )
+
+  const onInputKeyPress: KeyboardEventHandler = useCallback(
+    (event: React.KeyboardEvent<HTMLInputElement>) => {
+      if (event.key === 'Enter' && activeDescendantRef.current) {
+        event.preventDefault()
+        event.nativeEvent.stopImmediatePropagation()
+
+        // Forward Enter key press to active descendant so that item gets activated
+        const activeDescendantEvent = new KeyboardEvent(event.type, event.nativeEvent)
+        activeDescendantRef.current.dispatchEvent(activeDescendantEvent)
+      }
+    },
+    [activeDescendantRef],
   )
 
   // BEGIN: Todo remove when we remove usingRemoveActiveDescendant
@@ -361,7 +363,7 @@ export function FilteredActionList({
           value={filterValue}
           onChange={onInputChange}
           onKeyPress={onInputKeyPress}
-          onKeyDown={onInputKeyPress}
+          onKeyDown={usingRemoveActiveDescendant ? onInputKeyDown : () => {}}
           placeholder={placeholderText}
           role="combobox"
           aria-expanded="true"
