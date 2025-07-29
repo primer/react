@@ -46,17 +46,13 @@ export const useAnnouncements = (
   inputRef: React.RefObject<HTMLInputElement>,
   enabled: boolean = true,
   loading: boolean = false,
-  message?: {title?: string; description?: string},
+  message?: {title: string; description: string},
 ) => {
   const usingRemoveActiveDescendant = useFeatureFlag('primer_react_select_panel_remove_active_descendant')
   const liveRegion = document.querySelector('live-region')
 
   // Notify user of the number of items available
   const selectedItems = items.filter(item => item.selected).length
-  const announcementText =
-    items.length > 0
-      ? `${items.length} item${items.length > 1 ? 's' : ''} available, ${selectedItems} selected.`
-      : `${message?.title}. ${message?.description}`
 
   const announce = useCallback(
     (...args: Parameters<typeof liveRegionAnnounce>): ReturnType<typeof liveRegionAnnounce> | undefined => {
@@ -71,6 +67,7 @@ export const useAnnouncements = (
     function announceInitialFocus() {
       const focusHandler = () => {
         if (usingRemoveActiveDescendant) {
+          const announcementText = `${items.length} item${items.length > 1 ? 's' : ''} available, ${selectedItems} selected.`
           announce(announcementText, {
             delayMs,
             from: liveRegion ? liveRegion : undefined, // announce will create a liveRegion if it doesn't find one
@@ -100,7 +97,7 @@ export const useAnnouncements = (
       inputElement?.addEventListener('focus', focusHandler)
       return () => inputElement?.removeEventListener('focus', focusHandler)
     },
-    [listContainerRef, inputRef, items, liveRegion, announce, announcementText, usingRemoveActiveDescendant],
+    [listContainerRef, inputRef, items, liveRegion, announce, usingRemoveActiveDescendant],
   )
 
   const isFirstRender = useFirstRender()
@@ -110,17 +107,19 @@ export const useAnnouncements = (
 
       liveRegion?.clear() // clear previous announcements
 
+      if (items.length === 0 && !loading) {
+        announce(`${message?.title}. ${message?.description}`, {delayMs})
+        return
+      }
+
       if (usingRemoveActiveDescendant) {
+        const announcementText = `${items.length} item${items.length > 1 ? 's' : ''} available, ${selectedItems} selected.`
+
         announce(announcementText, {
           delayMs,
           from: liveRegion ? liveRegion : undefined,
         })
       } else {
-        if (items.length === 0 && !loading) {
-          announce(`${message?.title}. ${message?.description}`, {delayMs})
-          return
-        }
-
         // give @primer/behaviors a moment to update active-descendant
         window.requestAnimationFrame(() => {
           const activeItem = getItemWithActiveDescendant(listContainerRef, items)
@@ -147,7 +146,6 @@ export const useAnnouncements = (
       items,
       listContainerRef,
       liveRegion,
-      announcementText,
       usingRemoveActiveDescendant,
       message?.title,
       message?.description,
