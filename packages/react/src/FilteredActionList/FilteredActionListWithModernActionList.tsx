@@ -100,6 +100,7 @@ export function FilteredActionList({
   const listRef = useRef<HTMLUListElement>(null)
   const listId = useId()
   const inputDescriptionTextId = useId()
+  const [isInputFocused, setIsInputFocused] = useState(false)
 
   /* TODO remove with use usingRemoveActiveDescendant */
   const [listContainerElement, setListContainerElement] = useState<HTMLUListElement | null>(null)
@@ -226,35 +227,10 @@ export function FilteredActionList({
       const list = listRef.current
       if (!list) return
 
-      const updateActiveIndicator = () => {
-        // Clear any existing active indicators
-        const activeItems = list.querySelectorAll(`.${classes.ActiveItem}`)
-        for (const item of activeItems) {
-          item.classList.remove(classes.ActiveItem)
-        }
-
-        if (inputRef.current && document.activeElement === inputRef.current) {
-          // When input is focused, mark the first item as active
-          const firstItem = list.querySelector('[role="option"]') as HTMLElement | null
-          if (firstItem) {
-            firstItem.classList.add(classes.ActiveItem)
-          }
-        } else if (list.contains(document.activeElement)) {
-          // When an item in the list is focused, mark it as active
-          const focusedItem = document.activeElement as HTMLElement
-          if (focusedItem.getAttribute('role') === 'option') {
-            focusedItem.classList.add(classes.ActiveItem)
-          }
-        }
-      }
-
-      // Initial update
-      updateActiveIndicator()
-
       // Listen for focus changes within the container
       const handleFocusIn = (event: FocusEvent) => {
         if (event.target === inputRef.current || list.contains(event.target as Node)) {
-          updateActiveIndicator()
+          setIsInputFocused(inputRef.current && inputRef.current === document.activeElement ? true : false)
         }
       }
 
@@ -323,16 +299,34 @@ export function FilteredActionList({
                     <ActionList.GroupHeading variant={group.header?.variant ? group.header.variant : undefined}>
                       {group.header?.title ? group.header.title : `Group ${group.groupId}`}
                     </ActionList.GroupHeading>
-                    {getItemListForEachGroup(group.groupId).map(({key: itemKey, ...item}, index) => {
-                      const key = itemKey ?? item.id?.toString() ?? index.toString()
-                      return <MappedActionListItem key={key} {...item} renderItem={listProps.renderItem} />
+                    {getItemListForEachGroup(group.groupId).map(({key: itemKey, ...item}, itemIndex) => {
+                      const key = itemKey ?? item.id?.toString() ?? itemIndex.toString()
+                      return (
+                        <MappedActionListItem
+                          key={key}
+                          {...item}
+                          className={clsx(classes.ActionListItem, 'className' in item ? item.className : undefined)}
+                          renderItem={listProps.renderItem}
+                          data-input-focused={isInputFocused ? '' : undefined}
+                          data-first-child={index === 0 && itemIndex === 0 ? '' : undefined}
+                        />
+                      )
                     })}
                   </ActionList.Group>
                 )
               })
             : items.map(({key: itemKey, ...item}, index) => {
                 const key = itemKey ?? item.id?.toString() ?? index.toString()
-                return <MappedActionListItem key={key} {...item} renderItem={listProps.renderItem} />
+                return (
+                  <MappedActionListItem
+                    key={key}
+                    {...item}
+                    className={clsx(classes.ActionListItem, 'className' in item ? item.className : undefined)}
+                    data-input-focused={isInputFocused ? '' : undefined}
+                    data-first-child={index === 0 ? '' : undefined}
+                    renderItem={listProps.renderItem}
+                  />
+                )
               })}
         </ActionList>
       </ActionListContainerContext.Provider>

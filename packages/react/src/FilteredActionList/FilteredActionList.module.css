@@ -5,19 +5,18 @@
   flex-grow: 1;
 }
 
-.ActiveItem::after {
+.ActionListItem:focus {
+   &::after {
   @mixin activeIndicatorLine;
+  }
 }
 
-/* Base case: focused item gets the active indicator */
-:global([role='option']:focus)::after {
+.ActionListItem:where([data-input-focused]):where([data-first-child]) {
+   &::after {
   @mixin activeIndicatorLine;
+  }
 }
 
-/* Input focused case: first item with data-input-focused gets the active indicator */
-:global([role='option']:first-child[data-input-focused])::after {
-  @mixin activeIndicatorLine;
-}
 
 .FullScreenTextInput {
   @media screen and (--viewportRange-narrow) {
