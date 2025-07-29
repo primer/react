@@ -407,6 +407,23 @@ function Panel({
     }
   }, [inputRef, open])
 
+  // Manage loading announcements when loadingManagedExternally
+  useEffect(() => {
+    if (loadingManagedExternally) {
+      if (isLoading) {
+        // Delay the announcement a bit, just in case the loading is quick
+        loadingDelayTimeoutId.current = safeSetTimeout(() => {
+          announceLoading()
+        }, LONG_DELAY_MS)
+      } else {
+        // If loading is done, we can clear the loading announcement
+        if (loadingDelayTimeoutId.current) {
+          safeClearTimeout(loadingDelayTimeoutId.current)
+        }
+      }
+    }
+  }, [isLoading, loadingManagedExternally, safeSetTimeout, safeClearTimeout])
+
   // Populate panel with items on first open
   useEffect(() => {
     if (loadingManagedExternally) return
