@@ -7,10 +7,9 @@
 
 .ActionListItem:focus {
   background: var(--control-transparent-bgColor-selected);
-  
+
   &::after {
     @mixin activeIndicatorLine;
-
   }
 }
 
