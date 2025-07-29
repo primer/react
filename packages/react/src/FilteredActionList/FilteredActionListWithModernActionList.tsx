@@ -1,7 +1,8 @@
 import type {ScrollIntoViewOptions} from '@primer/behaviors'
 import {scrollIntoView, FocusKeys} from '@primer/behaviors'
-import {useCallback, useEffect, useRef, useState, type KeyboardEventHandler} from 'react'
+import type {KeyboardEventHandler} from 'react'
 import type React from 'react'
+import {useCallback, useEffect, useRef, useState} from 'react'
 import styled from 'styled-components'
 import Box from '../Box'
 import type {TextInputProps} from '../TextInput'
@@ -29,6 +30,7 @@ import {clsx} from 'clsx'
 import {useFeatureFlag} from '../FeatureFlags'
 
 const menuScrollMargins: ScrollIntoViewOptions = {startMargin: 0, endMargin: 8}
+
 export interface FilteredActionListProps
   extends Partial<Omit<GroupedListProps, keyof ListPropsBase>>,
     ListPropsBase,
@@ -99,20 +101,18 @@ export function FilteredActionList({
   const scrollContainerRef = useRef<HTMLDivElement>(null)
   const inputRef = useProvidedRefOrCreate<HTMLInputElement>(providedInputRef)
   const listRef = useRef<HTMLUListElement>(null)
+  /* BEGIN TODO remove with use usingRemoveActiveDescendant */
+  const [listContainerElement, setListContainerElement] = useState<HTMLUListElement | null>(null)
+  const activeDescendantRef = useRef<HTMLElement>()
+  /* END TODO remove with use usingRemoveActiveDescendant */
   const listId = useId()
   const inputDescriptionTextId = useId()
   const [isInputFocused, setIsInputFocused] = useState(false)
-
-  /* TODO remove with use usingRemoveActiveDescendant */
-  const [listContainerElement, setListContainerElement] = useState<HTMLUListElement | null>(null)
-  const activeDescendantRef = useRef<HTMLElement>()
-  /* TODO remove with use usingRemoveActiveDescendant */
 
   const selectAllChecked = items.length > 0 && items.every(item => item.selected)
   const selectAllIndeterminate = !selectAllChecked && items.some(item => item.selected)
 
   const selectAllLabelText = selectAllChecked ? 'Deselect all' : 'Select all'
-
   const onInputKeyPress: KeyboardEventHandler = useCallback(
     (event: React.KeyboardEvent<HTMLInputElement>) => {
       if (usingRemoveActiveDescendant) {
