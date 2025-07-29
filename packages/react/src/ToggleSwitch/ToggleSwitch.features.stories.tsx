@@ -21,7 +21,7 @@ export const Small = () => (
 export const WithCaption = () => (
   <div className={styles.Row}>
     <div className={styles.ColGrow}>
-      <span className={styles.ToggleLabel__large} id="switchLabel">
+      <span className={styles.SwitchLabel} id="switchLabel">
         Notifications
       </span>
       <span className={styles.SwitchCaption} id="switchCaption">
@@ -91,7 +91,7 @@ export const Controlled = () => {
   return (
     <>
       <div className={styles.Row} style={{maxWidth: '300px'}}>
-        <span className={clsx(styles.ColGrow, styles.ToggleLabel__large)} id="switchLabel">
+        <span className={clsx(styles.ColGrow, styles.SwitchLabel)} id="switchLabel">
           Notifications
         </span>
         <ToggleSwitch onClick={onClick} onChange={handleSwitchChange} checked={isOn} aria-labelledby="switchLabel" />
