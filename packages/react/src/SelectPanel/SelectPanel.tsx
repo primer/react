@@ -228,7 +228,6 @@ function Panel({
   const usingFullScreenOnNarrow = disableFullscreenOnNarrow ? false : featureFlagFullScreenOnNarrow
   const shouldOrderSelectedFirst =
     useFeatureFlag('primer_react_select_panel_order_selected_at_top') && showSelectedOptionsFirst
-  const usingRemoveActiveDescendant = useFeatureFlag('primer_react_select_panel_remove_active_descendant')
 
   // Single select modals work differently, they have an intermediate state where the user has selected an item but
   // has not yet confirmed the selection. This is the only time the user can cancel the selection.
@@ -548,11 +547,11 @@ function Panel({
 
   const itemsToRender = useMemo(() => {
     return items
-      .map((item, index) => {
+      .map(item => {
         return {
           ...item,
           role: 'option',
-          id: item.id || `select-panel-item-${index}`,
+          id: item.id,
           selected: 'selected' in item && item.selected === undefined ? undefined : isItemCurrentlySelected(item),
           onAction: (itemFromAction, event) => {
             item.onAction?.(itemFromAction, event)
@@ -862,7 +861,7 @@ function Panel({
             sx={sx}
             className={clsx(className, classes.FilteredActionList)}
             // needed to explicitly enable announcements for deprecated FilteredActionList, we can remove when we fully remove the deprecated version
-            announcementsEnabled={usingRemoveActiveDescendant}
+            announcementsEnabled
           />
           {footer ? (
             <div className={classes.Footer}>{footer}</div>

@@ -6,12 +6,17 @@
 }
 
 .ActionListItem:focus {
+  background: var(--control-transparent-bgColor-selected);
+  
   &::after {
     @mixin activeIndicatorLine;
+
   }
 }
 
 .ActionListItem:where([data-input-focused]):where([data-first-child]) {
+  background: var(--control-transparent-bgColor-selected);
+
   &::after {
     @mixin activeIndicatorLine;
   }

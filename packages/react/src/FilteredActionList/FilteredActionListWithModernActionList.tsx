@@ -93,7 +93,6 @@ export function FilteredActionList({
     [onFilterChange, setInternalFilterValue],
   )
 
-  const [enableAnnouncements, setEnableAnnouncements] = useState(false)
   const inputAndListContainerRef = useRef<HTMLDivElement>(null)
   const listRef = useRef<HTMLUListElement>(null)
 
@@ -221,11 +220,6 @@ export function FilteredActionList({
     }
   }, [items, inputRef, listContainerElement, usingRemoveActiveDescendant]) // Re-run when items change to update active indicators
 
-  useEffect(() => {
-    if (usingRemoveActiveDescendant) setEnableAnnouncements(announcementsEnabled)
-  }, [announcementsEnabled, usingRemoveActiveDescendant])
-  useScrollFlash(scrollContainerRef)
-
   const handleSelectAllChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       if (onSelectAllChange) {
@@ -321,7 +315,7 @@ export function FilteredActionList({
       return actionListContent
     }
   }
-  useAnnouncements(items, listRef, inputRef, enableAnnouncements, loading, messageText)
+  useAnnouncements(items, listRef, inputRef, announcementsEnabled, loading, messageText)
   return (
     <Box
       ref={inputAndListContainerRef}
