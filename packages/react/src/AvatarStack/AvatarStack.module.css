@@ -1,8 +1,8 @@
 /* stylelint-disable selector-max-specificity */
 .AvatarStack {
   --avatar-border-width: 1px;
-  --overlap-size: calc(var(--avatar-stack-size) * 0.55);
-  --overlap-size-avatar-three-plus: calc(var(--avatar-stack-size) * 0.85);
+  --overlap-size: calc(var(--avatar-stack-size) * 0.50);
+  --overlap-size-avatar-three-plus: calc(var(--avatar-stack-size) * 0.75);
   --mask-size: calc(100% + (var(--avatar-border-width) * 2));
   --mask-start: -1;
   --opacity-step: 15%;
@@ -47,12 +47,10 @@
     /*
     MIN-WIDTH CALC FORMULA EXPLAINED:
     avatar size ➡️ var(--avatar-stack-size)
-    plus the visible part of the 2nd avatar ➡️ var(--avatar-stack-size) - var(--overlap-size)
-    plus the visible part of the 3rd avatar ➡️ var(--avatar-stack-size) - var(--overlap-size-avatar-three-plus)
+    plus the visible part of the 2nd avatar & 3rd avatar ➡️ var(--avatar-stack-size) - var(--overlap-size-avatar-three-plus) * 2
     */
     min-width: calc(
-      var(--avatar-stack-size) + (var(--avatar-stack-size) - var(--overlap-size)) +
-        (var(--avatar-stack-size) - var(--overlap-size-avatar-three-plus))
+      var(--avatar-stack-size) + (var(--avatar-stack-size) - var(--overlap-size-avatar-three-plus)) * 2
     );
   }
 
@@ -60,13 +58,13 @@
     /*
     MIN-WIDTH CALC FORMULA EXPLAINED:
     avatar size ➡️ var(--avatar-stack-size)
-    plus the visible part of the 2nd avatar ➡️ var(--avatar-stack-size) - var(--overlap-size)
-    plus the visible part of the 3rd AND 4th avatar ➡️ (var(--avatar-stack-size) - var(--overlap-size-avatar-three-plus)) * 2
+    plus the visible part of the 2nd to 4th avatars ➡️ var(--avatar-stack-size) - var(--overlap-size-avatar-three-plus) * 3
     */
     min-width: calc(
-      var(--avatar-stack-size) + (var(--avatar-stack-size) - var(--overlap-size)) +
-        (var(--avatar-stack-size) - var(--overlap-size-avatar-three-plus)) * 2
+      var(--avatar-stack-size) + (var(--avatar-stack-size) - var(--overlap-size-avatar-three-plus)) * 3
     );
+
+    --overlap-size: var(--overlap-size-avatar-three-plus);
   }
 
   &:where([data-align-right]) {
@@ -133,23 +131,6 @@
     /* HACK: This padding fixes a weird rendering bug where a tiiiiny outline is visible at the edges of the element */
     /* stylelint-disable-next-line primer/spacing */
     padding: 0.1px;
-  }
-
-  &:nth-child(n + 3) {
-    --overlap-size: var(--overlap-size-avatar-three-plus);
-
-    /* stylelint-disable-next-line alpha-value-notation */
-    opacity: calc(100% - 2 * var(--opacity-step));
-  }
-
-  &:nth-child(n + 4) {
-    /* stylelint-disable-next-line alpha-value-notation */
-    opacity: calc(100% - 3 * var(--opacity-step));
-  }
-
-  &:nth-child(n + 5) {
-    /* stylelint-disable-next-line alpha-value-notation */
-    opacity: calc(100% - 4 * var(--opacity-step));
   }
 
   &:nth-child(n + 6) {
