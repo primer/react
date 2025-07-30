@@ -121,8 +121,6 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       else inferredItemRole = 'menuitem'
     } else if (listRole === 'listbox') {
       if (selectionVariant !== undefined && !role) inferredItemRole = 'option'
-    } else if (container && ['SelectPanel', 'FilteredActionList'].includes(container)) {
-      if (selectionVariant !== undefined && !role) inferredItemRole = 'option'
     }
 
     const itemRole = role || inferredItemRole
