@@ -16,7 +16,7 @@ import {FilteredActionList} from '../FilteredActionList'
 import Heading from '../Heading'
 import type {OverlayProps} from '../Overlay'
 import type {TextInputProps} from '../TextInput'
-import type {ItemProps, ItemInput} from './types'
+import type {ItemProps, ItemInput} from './'
 import {SelectPanelMessage} from './SelectPanelMessage'
 
 import {Button, IconButton, LinkButton} from '../Button'
@@ -63,10 +63,6 @@ async function announceText(text: string, delayMs = SHORT_DELAY_MS) {
 async function announceLoading() {
   await announceText('Loading.')
 }
-
-const announceNoItems = debounce((message?: string) => {
-  announceText(message ?? `${EMPTY_MESSAGE.title}. ${EMPTY_MESSAGE.description}`, LONG_DELAY_MS)
-}, 250)
 
 interface SelectPanelSingleSelection {
   selected: ItemInput | undefined
@@ -128,7 +124,7 @@ interface SelectPanelBaseProps {
 type SelectPanelVariantProps = {variant?: 'anchored'; onCancel?: () => void} | {variant: 'modal'; onCancel: () => void}
 
 export type SelectPanelProps = SelectPanelBaseProps &
-  Omit<FilteredActionListProps, 'selectionVariant' | 'variant'> &
+  Omit<FilteredActionListProps, 'selectionVariant' | 'variant' | 'message'> &
   Pick<AnchoredOverlayProps, 'open' | 'height' | 'width' | 'align'> &
   AnchoredOverlayWrapperAnchorProps &
   (SelectPanelSingleSelection | SelectPanelMultiSelection) &
@@ -223,7 +219,6 @@ function Panel({
   const [availablePanelHeight, setAvailablePanelHeight] = useState<number | undefined>(undefined)
   const KEYBOARD_VISIBILITY_THRESHOLD = 10
 
-  const usingModernActionList = useFeatureFlag('primer_react_select_panel_with_modern_action_list')
   const featureFlagFullScreenOnNarrow = useFeatureFlag('primer_react_select_panel_fullscreen_on_narrow')
   const usingFullScreenOnNarrow = disableFullscreenOnNarrow ? false : featureFlagFullScreenOnNarrow
   const shouldOrderSelectedFirst =
@@ -245,11 +240,10 @@ function Panel({
     (node: HTMLElement | null) => {
       setListContainerElement(node)
       if (!node && needsNoItemsAnnouncement) {
-        if (!usingModernActionList) announceNoItems()
         setNeedsNoItemsAnnouncement(false)
       }
     },
-    [needsNoItemsAnnouncement, usingModernActionList],
+    [needsNoItemsAnnouncement],
   )
 
   const onInputRefChanged = useCallback(
@@ -364,11 +358,7 @@ function Panel({
     if (open) {
       if (items.length === 0 && !(isLoading || loading)) {
         // we need to wait for the listContainerElement to disappear before announcing no items, otherwise it will be interrupted
-        if (!listContainerElement && !usingModernActionList) {
-          announceNoItems(message?.title)
-        } else {
-          setNeedsNoItemsAnnouncement(true)
-        }
+        setNeedsNoItemsAnnouncement(true)
       }
     }
 
@@ -861,17 +851,15 @@ function Panel({
             loadingType={loadingType()}
             onSelectAllChange={showSelectAll ? handleSelectAllChange : undefined}
             // hack because the deprecated ActionList does not support this prop
-            {...{
-              message: getMessage(),
-              messageText: {
-                title: message?.title || EMPTY_MESSAGE.title,
-                description:
-                  typeof message?.body === 'string'
-                    ? message.body
-                    : EMPTY_MESSAGE.description || EMPTY_MESSAGE.description,
-              },
-              fullScreenOnNarrow: usingFullScreenOnNarrow,
+            message={getMessage()}
+            messageText={{
+              title: message?.title || EMPTY_MESSAGE.title,
+              description:
+                typeof message?.body === 'string'
+                  ? message.body
+                  : EMPTY_MESSAGE.description || EMPTY_MESSAGE.description,
             }}
+            fullScreenOnNarrow={usingFullScreenOnNarrow}
             // inheriting height and maxHeight ensures that the FilteredActionList is never taller
             // than the Overlay (which would break scrolling the items)
             sx={sx}

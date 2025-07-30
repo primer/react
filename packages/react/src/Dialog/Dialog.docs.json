@@ -3,7 +3,7 @@
   "docsId": "dialog",
   "name": "Dialog",
   "status": "alpha",
-  "a11yReviewed": false,
+  "a11yReviewed": "2025-01-08",
   "stories": [
     {
       "id": "components-dialog--default"
