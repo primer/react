@@ -112,7 +112,7 @@ export function FilteredActionList({
   const selectAllLabelText = selectAllChecked ? 'Deselect all' : 'Select all'
   const onInputKeyDown = useCallback(
     (event: React.KeyboardEvent<HTMLInputElement>) => {
-      if (event.key === 'ArrowDown') {
+      if (event.key === 'ArrowDown' || event.key === 'PageDown') {
         if (listRef.current) {
           const firstSelectedItem = listRef.current.querySelector('[role="option"]') as HTMLElement | undefined
           firstSelectedItem?.focus()
@@ -120,23 +120,14 @@ export function FilteredActionList({
           event.preventDefault()
         }
       } else if (event.key === 'Enter') {
-        let firstItem
-        // If there are groups, it's not guaranteed that the first item is the actual first item in the first -
-        // as groups are rendered in the order of the groupId provided
-        if (groupMetadata) {
-          const firstGroup = groupMetadata[0].groupId
-          firstItem = items.filter(item => item.groupId === firstGroup)[0]
-        } else {
-          firstItem = items[0]
-        }
-
+        const firstItem = items[0]
         if (firstItem.onAction) {
           firstItem.onAction(firstItem, event)
           event.preventDefault()
         }
       }
     },
-    [items, groupMetadata],
+    [items],
   )
 
   const onInputKeyPress: KeyboardEventHandler = useCallback(
@@ -255,7 +246,7 @@ export function FilteredActionList({
     if (message) {
       return message
     }
-
+    let allItemIndex = -1 // to keep track of the index of items across all groups
     const actionListContent = (
       <ActionList
         ref={usingRemoveActiveDescendant ? listRef : listContainerRefCallback}
@@ -274,12 +265,13 @@ export function FilteredActionList({
                   </ActionList.GroupHeading>
                   {getItemListForEachGroup(group.groupId).map(({key: itemKey, ...item}, itemIndex) => {
                     const key = itemKey ?? item.id?.toString() ?? itemIndex.toString()
+                    allItemIndex += 1
                     return (
                       <MappedActionListItem
                         key={key}
                         className={clsx(classes.ActionListItem, 'className' in item ? item.className : undefined)}
                         data-input-focused={isInputFocused ? '' : undefined}
-                        data-first-child={index === 0 && itemIndex === 0 ? '' : undefined}
+                        data-first-child={allItemIndex === 0 && itemIndex === 0 ? '' : undefined}
                         {...item}
                         renderItem={listProps.renderItem}
                       />
