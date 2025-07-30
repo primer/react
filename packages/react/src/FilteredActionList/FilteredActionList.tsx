@@ -109,6 +109,21 @@ export function FilteredActionList({
   const selectAllIndeterminate = !selectAllChecked && items.some(item => item.selected)
 
   const selectAllLabelText = selectAllChecked ? 'Deselect all' : 'Select all'
+
+  const getItemListForEachGroup = useCallback(
+    (groupId: string) => {
+      const itemsInGroup = []
+      for (const item of items) {
+        // Look up the group associated with the current item.
+        if (item.groupId === groupId) {
+          itemsInGroup.push(item)
+        }
+      }
+      return itemsInGroup
+    },
+    [items],
+  )
+
   const onInputKeyDown = useCallback(
     (event: React.KeyboardEvent<HTMLInputElement>) => {
       if (event.key === 'ArrowDown' || event.key === 'PageDown') {
@@ -144,7 +159,7 @@ export function FilteredActionList({
         }
       }
     },
-    [items, groupMetadata],
+    [items, groupMetadata, getItemListForEachGroup],
   )
 
   const onInputKeyPress: KeyboardEventHandler = useCallback(
@@ -244,17 +259,6 @@ export function FilteredActionList({
     },
     [onSelectAllChange],
   )
-
-  function getItemListForEachGroup(groupId: string) {
-    const itemsInGroup = []
-    for (const item of items) {
-      // Look up the group associated with the current item.
-      if (item.groupId === groupId) {
-        itemsInGroup.push(item)
-      }
-    }
-    return itemsInGroup
-  }
 
   function getBodyContent() {
     if (loading && scrollContainerRef.current && loadingType.appearsInBody) {
