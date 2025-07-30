@@ -9,7 +9,7 @@ import type {TextInputProps} from '../TextInput'
 import TextInput from '../TextInput'
 import {get} from '../constants'
 import {ActionList} from '../ActionList'
-import type {GroupedListProps, ListPropsBase, ItemInput} from '../SelectPanel/types'
+import type {GroupedListProps, ListPropsBase, ItemInput, RenderItemFn} from './'
 import {useFocusZone} from '../hooks/useFocusZone'
 import {useId} from '../hooks/useId'
 import {useProvidedRefOrCreate} from '../hooks/useProvidedRefOrCreate'
@@ -23,7 +23,6 @@ import classes from './FilteredActionList.module.css'
 import Checkbox from '../Checkbox'
 
 import {isValidElementType} from 'react-is'
-import type {RenderItemFn} from '../deprecated/ActionList/List'
 import {useAnnouncements} from './useAnnouncements'
 import {clsx} from 'clsx'
 
@@ -37,12 +36,16 @@ export interface FilteredActionListProps
   loadingType?: FilteredActionListLoadingType
   placeholderText?: string
   filterValue?: string
-  onFilterChange: (value: string, e: React.ChangeEvent<HTMLInputElement>) => void
+  onFilterChange: (value: string, e: React.ChangeEvent<HTMLInputElement> | null) => void
   onListContainerRefChanged?: (ref: HTMLElement | null) => void
   onInputRefChanged?: (ref: React.RefObject<HTMLInputElement>) => void
   textInputProps?: Partial<Omit<TextInputProps, 'onChange'>>
   inputRef?: React.RefObject<HTMLInputElement>
   message?: React.ReactNode
+  messageText?: {
+    title: string
+    description: string
+  }
   className?: string
   announcementsEnabled?: boolean
   fullScreenOnNarrow?: boolean
@@ -69,6 +72,7 @@ export function FilteredActionList({
   groupMetadata,
   showItemDividers,
   message,
+  messageText,
   className,
   announcementsEnabled = true,
   fullScreenOnNarrow,
@@ -155,7 +159,7 @@ export function FilteredActionList({
     }
   }, [items])
 
-  useAnnouncements(items, {current: listContainerElement}, inputRef, announcementsEnabled, loading)
+  useAnnouncements(items, {current: listContainerElement}, inputRef, announcementsEnabled, loading, messageText)
   useScrollFlash(scrollContainerRef)
 
   const handleSelectAllChange = useCallback(

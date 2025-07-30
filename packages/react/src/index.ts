@@ -141,7 +141,12 @@ export {SegmentedControl} from './SegmentedControl'
 export {default as Select} from './Select'
 export type {SelectProps} from './Select'
 export {SelectPanel} from './SelectPanel'
-export type {SelectPanelProps} from './SelectPanel'
+export type {
+  SelectPanelProps,
+  ItemProps as SelectPanelItemProps,
+  GroupedListProps as SelectPanelGroupedListProps,
+  ItemInput as SelectPanelItemInput,
+} from './SelectPanel'
 export {default as SideNav} from './SideNav'
 export type {SideNavProps, SideNavLinkProps} from './SideNav'
 export {default as Spinner} from './Spinner'

@@ -85,6 +85,13 @@
   & .Divider:first-child {
     display: none;
   }
+
+  /* if a list has a mix of items with and without descriptions, reset the label font-weight to normal */
+  &:has([data-has-description='true']):has([data-has-description='false']) {
+    & .ItemLabel {
+      font-weight: var(--base-text-weight-normal);
+    }
+  }
 }
 
 /* ActionListItem is a li that handles visual state, while ActionListItemContent controls actual state via button or link */
@@ -491,6 +498,13 @@
   &:hover {
     text-decoration: none;
     cursor: pointer;
+  }
+
+  /* large */
+
+  &[data-size='large'] {
+    /* stylelint-disable-next-line primer/spacing */
+    padding-block: var(--control-large-paddingBlock);
   }
 
   /* collapsible item [aria-expanded] */

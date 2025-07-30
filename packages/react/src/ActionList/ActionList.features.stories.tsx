@@ -945,3 +945,17 @@ export const FullVariant = () => (
     <ActionList.Item variant="danger">Delete file</ActionList.Item>
   </ActionList>
 )
+
+export const LargeItem = () => (
+  <ActionList>
+    <ActionList.Item size="large">Large item</ActionList.Item>
+    <ActionList.Item size="large">
+      Large item
+      <ActionList.Description>With inline description</ActionList.Description>
+    </ActionList.Item>
+    <ActionList.Item size="large">
+      Large item
+      <ActionList.Description variant="block">With block description</ActionList.Description>
+    </ActionList.Item>
+  </ActionList>
+)

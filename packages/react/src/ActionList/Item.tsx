@@ -48,6 +48,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
   (
     {
       variant = 'default',
+      size = 'medium',
       disabled = false,
       inactiveText,
       selected = undefined,
@@ -233,6 +234,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       <ItemContext.Provider
         value={{
           variant,
+          size,
           disabled,
           inactive: Boolean(inactiveText),
           inlineDescriptionId,
@@ -249,9 +251,10 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
           data-active={active ? true : undefined}
           data-inactive={inactiveText ? true : undefined}
           data-has-subitem={slots.subItem ? true : undefined}
+          data-has-description={slots.description ? true : false}
           className={clsx(classes.ActionListItem, className)}
         >
-          <ItemWrapper {...wrapperProps} className={classes.ActionListContent}>
+          <ItemWrapper {...wrapperProps} className={classes.ActionListContent} data-size={size}>
             <span className={classes.Spacer} />
             <Selection selected={selected} className={classes.LeadingAction} />
             <VisualOrIndicator

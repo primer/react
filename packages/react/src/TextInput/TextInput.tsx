@@ -39,19 +39,21 @@ export type TextInputNonPassthroughProps = {
    * A visual that renders inside the input after the typing area
    */
   trailingAction?: React.ReactElement<React.HTMLProps<HTMLButtonElement>>
-} & Pick<
-  StyledWrapperProps,
-  | 'block'
-  | 'contrast'
-  | 'disabled'
-  | 'monospace'
-  | 'sx'
-  | 'width'
-  | 'maxWidth'
-  | 'minWidth'
-  | 'variant'
-  | 'size'
-  | 'validationStatus'
+} & Partial<
+  Pick<
+    StyledWrapperProps,
+    | 'block'
+    | 'contrast'
+    | 'disabled'
+    | 'monospace'
+    | 'sx'
+    | 'width'
+    | 'maxWidth'
+    | 'minWidth'
+    | 'variant'
+    | 'size'
+    | 'validationStatus'
+  >
 >
 
 export type TextInputProps = Merge<React.ComponentPropsWithoutRef<'input'>, TextInputNonPassthroughProps>
