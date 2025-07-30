@@ -9,7 +9,7 @@ import type {TextInputProps} from '../TextInput'
 import TextInput from '../TextInput'
 import {get} from '../constants'
 import {ActionList} from '../ActionList'
-import type {GroupedListProps, ListPropsBase, ItemInput} from '../SelectPanel/types'
+import type {GroupedListProps, ListPropsBase, ItemInput, RenderItemFn} from './'
 import {useFocusZone} from '../hooks/useFocusZone'
 import {useId} from '../hooks/useId'
 import {useProvidedRefOrCreate} from '../hooks/useProvidedRefOrCreate'
@@ -23,7 +23,6 @@ import Checkbox from '../Checkbox'
 
 import {ActionListContainerContext} from '../ActionList/ActionListContainerContext'
 import {isValidElementType} from 'react-is'
-import type {RenderItemFn} from '../deprecated/ActionList/List'
 import {useAnnouncements} from './useAnnouncements'
 import {clsx} from 'clsx'
 import {useFeatureFlag} from '../FeatureFlags'
@@ -38,7 +37,7 @@ export interface FilteredActionListProps
   loadingType?: FilteredActionListLoadingType
   placeholderText?: string
   filterValue?: string
-  onFilterChange: (value: string, e: React.ChangeEvent<HTMLInputElement>) => void
+  onFilterChange: (value: string, e: React.ChangeEvent<HTMLInputElement> | null) => void
   onListContainerRefChanged?: (ref: HTMLElement | null) => void
   onInputRefChanged?: (ref: React.RefObject<HTMLInputElement>) => void
   textInputProps?: Partial<Omit<TextInputProps, 'onChange'>>

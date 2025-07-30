@@ -3,7 +3,7 @@
 
 import {announce as liveRegionAnnounce} from '@primer/live-region-element'
 import {useCallback, useEffect, useRef} from 'react'
-import type {FilteredActionListProps} from './FilteredActionListEntry'
+import type {FilteredActionListProps} from './index'
 import type {ItemInput} from '../deprecated/ActionList/List'
 import {useFeatureFlag} from '../FeatureFlags'
 
