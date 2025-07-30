@@ -120,14 +120,32 @@ export function FilteredActionList({
           event.preventDefault()
         }
       } else if (event.key === 'Enter') {
-        const firstItem = items[0]
+        let firstItem
+        // If there are groups, it's not guaranteed that the first item is the actual first item in the first -
+        // as groups are rendered in the order of the groupId provided
+        if (groupMetadata) {
+          let firstGroupIndex = 0
+
+          for (let i = 0; i < groupMetadata.length; i++) {
+            if (getItemListForEachGroup(groupMetadata[i].groupId).length > 0) {
+              break
+            } else {
+              firstGroupIndex++
+            }
+          }
+
+          const firstGroup = groupMetadata[firstGroupIndex].groupId
+          firstItem = items.filter(item => item.groupId === firstGroup)[0]
+        } else {
+          firstItem = items[0]
+        }
         if (firstItem.onAction) {
           firstItem.onAction(firstItem, event)
           event.preventDefault()
         }
       }
     },
-    [items],
+    [items, groupMetadata],
   )
 
   const onInputKeyPress: KeyboardEventHandler = useCallback(
@@ -246,7 +264,7 @@ export function FilteredActionList({
     if (message) {
       return message
     }
-    let allItemIndex = -1 // to keep track of the index of items across all groups
+    let firstGroupIndex = 0
     const actionListContent = (
       <ActionList
         ref={usingRemoveActiveDescendant ? listRef : listContainerRefCallback}
@@ -258,6 +276,9 @@ export function FilteredActionList({
       >
         {groupMetadata?.length
           ? groupMetadata.map((group, index) => {
+              if (index === firstGroupIndex && getItemListForEachGroup(group.groupId).length === 0) {
+                firstGroupIndex++ // Increment firstGroupIndex if the first group has no items
+              }
               return (
                 <ActionList.Group key={index}>
                   <ActionList.GroupHeading variant={group.header?.variant ? group.header.variant : undefined}>
@@ -265,13 +286,12 @@ export function FilteredActionList({
                   </ActionList.GroupHeading>
                   {getItemListForEachGroup(group.groupId).map(({key: itemKey, ...item}, itemIndex) => {
                     const key = itemKey ?? item.id?.toString() ?? itemIndex.toString()
-                    allItemIndex += 1
                     return (
                       <MappedActionListItem
                         key={key}
                         className={clsx(classes.ActionListItem, 'className' in item ? item.className : undefined)}
                         data-input-focused={isInputFocused ? '' : undefined}
-                        data-first-child={allItemIndex === 0 && itemIndex === 0 ? '' : undefined}
+                        data-first-child={index === firstGroupIndex && itemIndex === 0 ? '' : undefined}
                         {...item}
                         renderItem={listProps.renderItem}
                       />
