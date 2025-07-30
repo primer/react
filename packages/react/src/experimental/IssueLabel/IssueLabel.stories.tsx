@@ -8,54 +8,50 @@ const meta = {
 
 export default meta
 
-export const Default = () => <IssueLabel>Issue label</IssueLabel>
+export const Default = () => <IssueLabel text="Issue label" />
 
 export const Playground: StoryObj<typeof IssueLabel> = {
   render: args => <IssueLabel {...args} />,
   args: {
-    children: 'Issue label',
+    text: 'Issue label',
+    as: 'span',
   },
   argTypes: {
     fillColor: {
       hex: undefined,
-      control: {
-        type: 'color',
-        presetColors: ['black', 'blue', 'brown', 'green', 'orange', 'red', 'salmon', 'white'],
-      },
+      control: {type: 'color', presetColors: ['red', 'green', 'blue', 'brown', 'black', 'white', 'salmon', 'orange']},
     },
     variant: {
-      control: {
-        type: 'select',
-      },
+      control: {type: 'select'},
       options: [
-        'auburn',
-        'blue',
-        'brown',
-        'coral',
-        'cyan',
-        'gray',
-        'green',
-        'indigo',
-        'lemon',
-        'lime',
-        'olive',
-        'orange',
-        'pine',
         'pink',
         'plum',
         'purple',
-        'red',
+        'indigo',
+        'blue',
+        'cyan',
         'teal',
+        'pine',
+        'green',
+        'lime',
+        'olive',
+        'lemon',
         'yellow',
+        'orange',
+        'red',
+        'coral',
+        'gray',
+        'brown',
+        'auburn',
       ],
+    },
+    text: {
+      control: 'text',
     },
     as: {
       control: 'inline-radio',
-      options: ['button', 'a'],
-      if: {
-        arg: 'href',
-        exists: false,
-      },
+      options: ['span', 'button', 'a'],
+      if: {arg: 'href', exists: false},
     },
   },
 }
