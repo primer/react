@@ -76,21 +76,7 @@ const ControlledDraggableItem: React.FC<{id: string; children: React.ReactNode}>
 
 export const TrailingActions: StoryFn = () => {
   return (
-    <Box>
-      <h2>Trailing Actions: Example with direct focus</h2>
-      <p>Press (Command + Shift + U) to focus the trailing action button</p>
-      <TreeView aria-label="Issues">
-        <TreeView.Item id="item-1">Item 1</TreeView.Item>
-        <TrailingAction id="item-2">
-          Item 2
-          <TreeView.SubTree>
-            <TreeView.Item id="item-2-sub-task-1">sub task 1</TreeView.Item>
-            <TreeView.Item id="item-2-sub-task-2">sub task 2</TreeView.Item>
-          </TreeView.SubTree>
-        </TrailingAction>
-        <TreeView.Item id="item-3">Item 3</TreeView.Item>
-      </TreeView>
-
+    <div>
       <h2>Trailing Actions: Example with dialog</h2>
       <p> Press (Command + Shift + U) to interact with the trailing action</p>
       <TreeView aria-label="Issues">
@@ -104,7 +90,7 @@ export const TrailingActions: StoryFn = () => {
         </TrailingAction>
         <TreeView.Item id="item-3">Item 3</TreeView.Item>
       </TreeView>
-    </Box>
+    </div>
   )
 }
 

@@ -255,8 +255,8 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
             setIsExpandedWithCache(false)
             break
           case 'u':
-            if (!event.metaKey || !event.shiftKey || !onKeyDown) return
             // If the user presses `Shift + Meta + U`
+            if (!event.metaKey || !event.shiftKey || !onKeyDown) return
             onKeyDown(event)
             break
         }
@@ -684,8 +684,6 @@ LeadingAction.displayName = 'TreeView.LeadingAction'
 
 export type TreeViewTrailingAction = {
   children: React.ReactNode | ((props: {isExpanded: boolean}) => React.ReactNode)
-  // Provide an accessible name for the visual. This should provide information
-  // about what the visual indicates or represents
   label?: string
   visible?: boolean
 }
@@ -707,6 +705,7 @@ const TrailingAction: React.FC<TreeViewTrailingAction> = props => {
           event.stopPropagation()
         }
         onKeyDown={event => event.stopPropagation()}
+        aria-labelledby=""
       >
         {children}
       </div>
