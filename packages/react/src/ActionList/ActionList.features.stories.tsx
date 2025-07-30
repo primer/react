@@ -30,7 +30,7 @@ import {
   ProjectIcon,
 } from '@primer/octicons-react'
 import {FeatureFlags} from '../FeatureFlags'
-import styles from './ActionList.features.stories.module.css'
+import classes from './ActionList.features.stories.module.css'
 
 export default {
   title: 'Components/ActionList/Features',
@@ -107,7 +107,7 @@ export const WithVisualListHeading = () => (
 
 export const WithCustomHeading = () => (
   <>
-    <Heading as="h1" id="list-heading" className={styles.HeadingLarge}>
+    <Heading as="h1" id="list-heading" className={classes.HeadingLarge}>
       Details
     </Heading>
     <ActionList aria-labelledby="list-heading">
@@ -510,7 +510,7 @@ export const LoadingItem = () => {
 
 export const Links = () => (
   <ActionList>
-    <ActionList.Heading as="h1" className={styles.HeadingSmall}>
+    <ActionList.Heading as="h1" className={classes.HeadingSmall}>
       Details
     </ActionList.Heading>
     <ActionList.LinkItem href="https://github.com/primer/react#readme">
@@ -561,7 +561,7 @@ export const CustomItemChildren = () => (
 )
 
 export const TextWrapAndTruncation = () => (
-  <div className={styles.BoxWithMaxWidth}>
+  <div className={classes.BoxWithMaxWidth}>
     <ActionList showDividers>
       <ActionList.Item>
         <ActionList.LeadingVisual>
