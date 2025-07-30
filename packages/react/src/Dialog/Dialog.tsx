@@ -288,7 +288,12 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
   )
 
   React.useEffect(() => {
-    document.body.style.setProperty('--dialog-scrollgutter', `${window.innerWidth - document.body.clientWidth}px`)
+    const scrollbarWidth = window.innerWidth - document.body.clientWidth
+    // If the dialog is rendered, we add a class to the dialog element to disable
+    dialogRef.current?.classList.add(classes.DisableScroll)
+    // and set a CSS variable to the scrollbar width so that the dialog can
+    // account for the scrollbar width when calculating its width.
+    document.body.style.setProperty('--prc-dialog-scrollgutter', `${scrollbarWidth}px`)
   }, [])
 
   const header = (renderHeader ?? DefaultHeader)(defaultedProps)
@@ -327,7 +332,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
             data-width={width}
             data-height={height}
             sx={sx}
-            className={clsx(className, classes.Dialog, classes.DisableScroll)}
+            className={clsx(className, classes.Dialog)}
           >
             {header}
             <ScrollableRegion aria-labelledby={dialogLabelId} className={classes.DialogOverflowWrapper}>

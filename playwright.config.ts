@@ -30,6 +30,7 @@ export default defineConfig({
   expect: {
     toHaveScreenshot: {
       animations: 'disabled',
+      caret: 'hide',
     },
   },
   reporter: [

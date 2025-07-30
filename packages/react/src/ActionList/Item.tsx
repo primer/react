@@ -2,7 +2,6 @@ import React from 'react'
 
 import {useId} from '../hooks/useId'
 import {useSlots} from '../hooks/useSlots'
-import {defaultSxProp} from '../utils/defaultSxProp'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {ActionListContainerContext} from './ActionListContainerContext'
 import {Description} from './Description'
@@ -49,12 +48,13 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
   (
     {
       variant = 'default',
+      size = 'medium',
       disabled = false,
       inactiveText,
       selected = undefined,
       active = false,
       onSelect: onSelectUser,
-      sx: sxProp = defaultSxProp,
+      sx: sxProp,
       id,
       role,
       loading,
@@ -234,6 +234,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       <ItemContext.Provider
         value={{
           variant,
+          size,
           disabled,
           inactive: Boolean(inactiveText),
           inlineDescriptionId,
@@ -250,9 +251,10 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
           data-active={active ? true : undefined}
           data-inactive={inactiveText ? true : undefined}
           data-has-subitem={slots.subItem ? true : undefined}
+          data-has-description={slots.description ? true : false}
           className={clsx(classes.ActionListItem, className)}
         >
-          <ItemWrapper {...wrapperProps} className={classes.ActionListContent}>
+          <ItemWrapper {...wrapperProps} className={classes.ActionListContent} data-size={size}>
             <span className={classes.Spacer} />
             <Selection selected={selected} className={classes.LeadingAction} />
             <VisualOrIndicator

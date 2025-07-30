@@ -1,11 +1,11 @@
 import type React from 'react'
-import styled from 'styled-components'
-import sx, {type SxProp} from '../sx'
+import {type SxProp} from '../sx'
 import {VisuallyHidden} from '../VisuallyHidden'
 import type {HTMLDataAttributes} from '../internal/internal-types'
 import {useId} from '../hooks'
 import classes from './Spinner.module.css'
 import {clsx} from 'clsx'
+import {BoxWithFallback} from '../internal/components/BoxWithFallback'
 
 const sizeMap = {
   small: '16px',
@@ -74,16 +74,8 @@ function Spinner({
   )
 }
 
-const StyledBaseSpinner = styled.div`
-  ${sx}
-`
-
-function StyledSpinner({sx, className, ...props}: SpinnerProps) {
-  if (sx) {
-    return <StyledBaseSpinner sx={sx} as={Spinner} className={clsx(className, classes.SpinnerAnimation)} {...props} />
-  }
-
-  return <Spinner className={clsx(className, classes.SpinnerAnimation)} {...props} />
+function StyledSpinner({className, ...props}: SpinnerProps) {
+  return <BoxWithFallback as={Spinner} className={clsx(className, classes.SpinnerAnimation)} {...props} />
 }
 
 StyledSpinner.displayName = 'Spinner'

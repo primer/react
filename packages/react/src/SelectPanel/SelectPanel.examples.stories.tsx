@@ -149,7 +149,7 @@ export const HeightInitialWithUnderflowingItemsAfterFetch = () => {
         placeholder="Select labels" // button text when no items are selected
         open={open}
         onOpenChange={onOpenChange}
-        loading={filteredItems.length === 0 && !filter}
+        loading={fetchedItems.length === 0}
         items={filteredItems}
         selected={selected}
         onSelectedChange={setSelected}
@@ -463,5 +463,36 @@ export const SelectPanelRepositionInsideDialog = () => {
         />
       </Stack>
     </Dialog>
+  )
+}
+
+export const WithDefaultMessage = () => {
+  const [selected, setSelected] = useState<ItemInput[]>(items.slice(1, 3))
+  const [filter, setFilter] = useState('')
+  const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
+
+  const [open, setOpen] = useState(false)
+
+  return (
+    <FormControl>
+      <FormControl.Label>Labels</FormControl.Label>
+      <SelectPanel
+        title="Select labels"
+        placeholder="Select labels" // button text when no items are selected
+        subtitle="Use labels to organize issues and pull requests"
+        renderAnchor={({children, ...anchorProps}) => (
+          <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
+            {children}
+          </Button>
+        )}
+        open={open}
+        onOpenChange={setOpen}
+        items={filteredItems}
+        selected={selected}
+        onSelectedChange={setSelected}
+        onFilterChange={setFilter}
+        width="medium"
+      />
+    </FormControl>
   )
 }
