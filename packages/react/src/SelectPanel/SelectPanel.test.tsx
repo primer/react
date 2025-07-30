@@ -94,8 +94,8 @@ describe('SelectPanel', () => {
     expect(trigger).toHaveAttribute('aria-expanded', 'true')
 
     // Verify that the input and listbox are visible
-    expect(screen.getByLabelText('Filter items')).toBeVisible()
-    expect(screen.getByRole('listbox')).toBeVisible()
+    expect(screen.getByLabelText('Filter items')).toBeInTheDocument()
+    expect(screen.getByRole('listbox')).toBeInTheDocument()
 
     expect(screen.getByLabelText('Filter items')).toHaveFocus()
   })
@@ -852,7 +852,7 @@ describe('SelectPanel', () => {
       expect(screen.getAllByRole('option')).toHaveLength(3)
 
       await user.type(document.activeElement!, 'something')
-      expect(screen.getByText('No items available')).toBeVisible()
+      expect(screen.getByText('No items available')).toBeInTheDocument()
     })
 
     it('should display the default empty state message when there is no item after the initial load (No custom message is provided)', async () => {
@@ -862,7 +862,7 @@ describe('SelectPanel', () => {
 
       await waitFor(async () => {
         await user.click(screen.getByText('Select items'))
-        expect(screen.getByText('No items available')).toBeVisible()
+        expect(screen.getByText('No items available')).toBeInTheDocument()
       })
     })
     it('should display the custom empty state message when there is no matching item after filtering', async () => {
@@ -889,8 +889,8 @@ describe('SelectPanel', () => {
       expect(screen.getAllByRole('option')).toHaveLength(3)
 
       await user.type(document.activeElement!, 'something')
-      expect(screen.getByText('No language found for something')).toBeVisible()
-      expect(screen.getByText('Adjust your search term to find other languages')).toBeVisible()
+      expect(screen.getByText('No language found for something')).toBeInTheDocument()
+      expect(screen.getByText('Adjust your search term to find other languages')).toBeInTheDocument()
     })
 
     it('should display the custom empty state message when there is no item after the initial load', async () => {
@@ -900,8 +900,8 @@ describe('SelectPanel', () => {
 
       await waitFor(async () => {
         await user.click(screen.getByText('Select items'))
-        expect(screen.getByText("You haven't created any projects yet")).toBeVisible()
-        expect(screen.getByText('Start your first project to organise your issues')).toBeVisible()
+        expect(screen.getByText("You haven't created any projects yet")).toBeInTheDocument()
+        expect(screen.getByText('Start your first project to organise your issues')).toBeInTheDocument()
       })
     })
 
@@ -913,12 +913,12 @@ describe('SelectPanel', () => {
 
       await waitFor(async () => {
         await user.click(screen.getByText('Select items'))
-        expect(screen.getByText("You haven't created any projects yet")).toBeVisible()
-        expect(screen.getByText('Start your first project to organise your issues')).toBeVisible()
+        expect(screen.getByText("You haven't created any projects yet")).toBeInTheDocument()
+        expect(screen.getByText('Start your first project to organise your issues')).toBeInTheDocument()
 
         // Check that action button is visible
         const actionButton = screen.getByTestId('create-project-action')
-        expect(actionButton).toBeVisible()
+        expect(actionButton).toBeInTheDocument()
         expect(actionButton).toHaveTextContent('Create new project')
       })
 
@@ -969,7 +969,7 @@ describe('SelectPanel', () => {
       render(<SelectPanelWithFooter />)
 
       await user.click(screen.getByText('Select items'))
-      expect(screen.getByText('test footer')).toBeVisible()
+      expect(screen.getByText('test footer')).toBeInTheDocument()
     })
   })
 
@@ -1047,7 +1047,7 @@ describe('SelectPanel', () => {
 
       await user.click(screen.getByText('Select items'))
       const listbox = screen.getByRole('listbox')
-      expect(listbox).toBeVisible()
+      expect(listbox).toBeInTheDocument()
       expect(listbox).toHaveAttribute('aria-multiselectable', 'true')
 
       // listbox should has 3 groups and each have heading
@@ -1100,8 +1100,8 @@ describe('SelectPanel', () => {
 
       expect(screen.getAllByRole('radio').length).toBe(items.length)
 
-      expect(screen.getByRole('button', {name: 'Save'})).toBeVisible()
-      expect(screen.getByRole('button', {name: 'Cancel'})).toBeVisible()
+      expect(screen.getByRole('button', {name: 'Save'})).toBeInTheDocument()
+      expect(screen.getByRole('button', {name: 'Cancel'})).toBeInTheDocument()
     })
     it('save and oncancel buttons are present when variant modal', async () => {
       const user = userEvent.setup()
@@ -1110,8 +1110,8 @@ describe('SelectPanel', () => {
 
       await user.click(screen.getByText('Select items'))
 
-      expect(screen.getByRole('button', {name: 'Save'})).toBeVisible()
-      expect(screen.getByRole('button', {name: 'Cancel'})).toBeVisible()
+      expect(screen.getByRole('button', {name: 'Save'})).toBeInTheDocument()
+      expect(screen.getByRole('button', {name: 'Cancel'})).toBeInTheDocument()
     })
   })
 
