@@ -646,9 +646,7 @@ describe('SelectPanel', () => {
     })
 
     // TODO: Timer-based tests need special handling in vitest browser mode
-    // This test was working in Jest but times out in vitest
-    /*
-    it('should announce initially focused item', async () => {
+    it.skip('should announce initially focused item', async () => {
       vi.useFakeTimers()
       const user = userEvent.setup({
         advanceTimers: vi.advanceTimersByTime,
@@ -665,10 +663,8 @@ describe('SelectPanel', () => {
       )
       vi.restoreAllMocks()
     })
-    */
 
-    /*
-    it('should announce notice text', async () => {
+    it.skip('should announce notice text', async () => {
       vi.useFakeTimers()
       const user = userEvent.setup({
         advanceTimers: vi.advanceTimersByTime,
@@ -717,10 +713,8 @@ describe('SelectPanel', () => {
 
       expect(getLiveRegion().getMessage('polite')?.trim()).toContain('This is a notice')
     })
-    */
 
-    /*
-    it('should announce filtered results', async () => {
+    it.skip('should announce filtered results', async () => {
       vi.useFakeTimers()
       const user = userEvent.setup({
         advanceTimers: vi.advanceTimersByTime,
@@ -764,10 +758,8 @@ describe('SelectPanel', () => {
       })
       vi.useRealTimers()
     })
-    */
 
-    /*
-    it('should announce default empty message when no results are available (no custom message is provided)', async () => {
+    it.skip('should announce default empty message when no results are available (no custom message is provided)', async () => {
       vi.useFakeTimers()
       const user = userEvent.setup({
         advanceTimers: vi.advanceTimersByTime,
@@ -785,10 +777,8 @@ describe('SelectPanel', () => {
       })
       vi.useRealTimers()
     })
-    */
 
-    /*
-    it('should announce custom empty message when no results are available', async () => {
+    it.skip('should announce custom empty message when no results are available', async () => {
       vi.useFakeTimers()
       const user = userEvent.setup({
         advanceTimers: vi.advanceTimersByTime,
@@ -839,7 +829,6 @@ describe('SelectPanel', () => {
       })
       vi.useRealTimers()
     })
-    */
 
     it('should accept a className to style the component', async () => {
       const user = userEvent.setup()
