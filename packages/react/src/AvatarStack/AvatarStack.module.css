@@ -1,7 +1,7 @@
 /* stylelint-disable selector-max-specificity */
 .AvatarStack {
   --avatar-border-width: 1px;
-  --overlap-size: calc(var(--avatar-stack-size) * 0.50);
+  --overlap-size: calc(var(--avatar-stack-size) * 0.5);
   --overlap-size-avatar-three-plus: calc(var(--avatar-stack-size) * 0.75);
   --mask-size: calc(100% + (var(--avatar-border-width) * 2));
   --mask-start: -1;
@@ -49,9 +49,7 @@
     avatar size ➡️ var(--avatar-stack-size)
     plus the visible part of the 2nd avatar & 3rd avatar ➡️ var(--avatar-stack-size) - var(--overlap-size-avatar-three-plus) * 2
     */
-    min-width: calc(
-      var(--avatar-stack-size) + (var(--avatar-stack-size) - var(--overlap-size-avatar-three-plus)) * 2
-    );
+    min-width: calc(var(--avatar-stack-size) + (var(--avatar-stack-size) - var(--overlap-size-avatar-three-plus)) * 2);
   }
 
   &:where([data-avatar-count='3+']) {
@@ -60,9 +58,7 @@
     avatar size ➡️ var(--avatar-stack-size)
     plus the visible part of the 2nd to 4th avatars ➡️ var(--avatar-stack-size) - var(--overlap-size-avatar-three-plus) * 3
     */
-    min-width: calc(
-      var(--avatar-stack-size) + (var(--avatar-stack-size) - var(--overlap-size-avatar-three-plus)) * 3
-    );
+    min-width: calc(var(--avatar-stack-size) + (var(--avatar-stack-size) - var(--overlap-size-avatar-three-plus)) * 3);
 
     --overlap-size: var(--overlap-size-avatar-three-plus);
   }
