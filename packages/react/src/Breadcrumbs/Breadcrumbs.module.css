@@ -9,6 +9,14 @@
   margin-bottom: 0;
 }
 
+.BreadcrumbsList[data-overflow] {
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+}
+
 .ItemWrapper {
   display: inline-block;
   font-size: var(--text-body-size-medium);
