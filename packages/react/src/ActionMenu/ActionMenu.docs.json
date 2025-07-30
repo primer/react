@@ -1,7 +1,7 @@
 {
   "id": "action_menu",
   "name": "ActionMenu",
-  "status": "alpha",
+  "status": "beta",
   "a11yReviewed": "2025-01-08",
   "stories": [
     {
