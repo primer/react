@@ -1,8 +1,8 @@
 {
   "id": "action_menu",
   "name": "ActionMenu",
-  "status": "beta",
-  "a11yReviewed": false,
+  "status": "alpha",
+  "a11yReviewed": "2025-01-08",
   "stories": [
     {
       "id": "components-actionmenu--default"

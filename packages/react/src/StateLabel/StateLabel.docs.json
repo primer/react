@@ -2,7 +2,7 @@
   "id": "state_label",
   "name": "StateLabel",
   "status": "alpha",
-  "a11yReviewed": false,
+  "a11yReviewed": "2025-01-08",
   "stories": [
     {
       "id": "components-statelabel--default"
