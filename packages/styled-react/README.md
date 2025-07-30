@@ -1,6 +1,6 @@
 # @primer/styled-react
 
-> A deprecated package for working with Primer and styled-components
+> A temporary package that bridges the gap between Primer React and styled-components
 
 ## Getting started
 
@@ -12,6 +12,17 @@ npm install -S @primer/styled-react
 ```
 
 ## Usage
+
+This is an interim package designed to make it easy to interop between Primer
+and existing styled-components usage. Over time, this component will stop
+receiving updates.
+
+Each component that is imported from `@primer/styled-react` is a wrapper around
+the corresponding component in `@primer/react`. The notable difference is that
+these components support the `sx` prop and styled system props.
+
+By default, each component is deprecated. The intent is to transition code over
+to an alternative styling solution, such as CSS Modules.
 
 ## 📖 Documentation
 
