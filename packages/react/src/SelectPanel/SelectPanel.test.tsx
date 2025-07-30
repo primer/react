@@ -645,30 +645,26 @@ describe('SelectPanel', () => {
       expect(screen.getByRole('combobox').hasAttribute('aria-describedby')).toBeTruthy()
     })
 
-    // TODO: Timer-based tests need special handling in vitest browser mode
-    it.skip('should announce initially focused item', async () => {
-      vi.useFakeTimers()
-      const user = userEvent.setup({
-        advanceTimers: vi.advanceTimersByTime,
-      })
+    it('should announce initially focused item', async () => {
+      const user = userEvent.setup()
       render(<FilterableSelectPanel />)
 
       await user.click(screen.getByText('Select items'))
       expect(screen.getByLabelText('Filter items')).toHaveFocus()
 
-      vi.runAllTimers()
       // we wait because announcement is intentionally updated after a timeout to not interrupt user input
-      expect(getLiveRegion().getMessage('polite')?.trim()).toEqual(
-        'List updated, Focused item: item one, not selected, 1 of 3',
+      await waitFor(
+        () => {
+          expect(getLiveRegion().getMessage('polite')?.trim()).toEqual(
+            'List updated, Focused item: item one, not selected, 1 of 3',
+          )
+        },
+        {timeout: 3000},
       )
-      vi.restoreAllMocks()
     })
 
-    it.skip('should announce notice text', async () => {
-      vi.useFakeTimers()
-      const user = userEvent.setup({
-        advanceTimers: vi.advanceTimersByTime,
-      })
+    it('should announce notice text', async () => {
+      const user = userEvent.setup()
 
       function SelectPanelWithNotice() {
         const [selected, setSelected] = React.useState<SelectPanelProps['items']>([])
@@ -711,20 +707,21 @@ describe('SelectPanel', () => {
       await user.click(screen.getByText('Select items'))
       expect(screen.getByLabelText('Filter items')).toHaveFocus()
 
-      expect(getLiveRegion().getMessage('polite')?.trim()).toContain('This is a notice')
+      await waitFor(
+        () => {
+          expect(getLiveRegion().getMessage('polite')?.trim()).toContain('This is a notice')
+        },
+        {timeout: 3000},
+      )
     })
 
-    it.skip('should announce filtered results', async () => {
-      vi.useFakeTimers()
-      const user = userEvent.setup({
-        advanceTimers: vi.advanceTimersByTime,
-      })
+    it('should announce filtered results', async () => {
+      const user = userEvent.setup()
       render(<FilterableSelectPanel />)
 
       await user.click(screen.getByText('Select items'))
       expect(screen.getByLabelText('Filter items')).toHaveFocus()
 
-      vi.runAllTimers()
       await waitFor(
         async () => {
           expect(getLiveRegion().getMessage('polite')?.trim()).toEqual(
@@ -737,7 +734,6 @@ describe('SelectPanel', () => {
       await user.type(document.activeElement!, 'o')
       expect(screen.getAllByRole('option')).toHaveLength(2)
 
-      vi.runAllTimers()
       await waitFor(
         async () => {
           expect(getLiveRegion().getMessage('polite')).toBe(
@@ -750,20 +746,15 @@ describe('SelectPanel', () => {
       await user.type(document.activeElement!, 'ne') // now: one
       expect(screen.getAllByRole('option')).toHaveLength(1)
 
-      vi.runAllTimers()
       await waitFor(async () => {
         expect(getLiveRegion().getMessage('polite')?.trim()).toBe(
           'List updated, Focused item: item one, not selected, 1 of 1',
         )
       })
-      vi.useRealTimers()
     })
 
-    it.skip('should announce default empty message when no results are available (no custom message is provided)', async () => {
-      vi.useFakeTimers()
-      const user = userEvent.setup({
-        advanceTimers: vi.advanceTimersByTime,
-      })
+    it('should announce default empty message when no results are available (no custom message is provided)', async () => {
+      const user = userEvent.setup()
       render(<FilterableSelectPanel />)
 
       await user.click(screen.getByText('Select items'))
@@ -771,18 +762,13 @@ describe('SelectPanel', () => {
       await user.type(document.activeElement!, 'zero')
       expect(screen.queryByRole('option')).toBeNull()
 
-      vi.runAllTimers()
       await waitFor(async () => {
         expect(getLiveRegion().getMessage('polite')).toBe('No items available. ')
       })
-      vi.useRealTimers()
     })
 
-    it.skip('should announce custom empty message when no results are available', async () => {
-      vi.useFakeTimers()
-      const user = userEvent.setup({
-        advanceTimers: vi.advanceTimersByTime,
-      })
+    it('should announce custom empty message when no results are available', async () => {
+      const user = userEvent.setup()
 
       function SelectPanelWithCustomEmptyMessage() {
         const [filter, setFilter] = React.useState('')
@@ -823,11 +809,9 @@ describe('SelectPanel', () => {
       await user.type(document.activeElement!, 'zero')
       expect(screen.queryByRole('option')).toBeNull()
 
-      vi.runAllTimers()
       await waitFor(async () => {
         expect(getLiveRegion().getMessage('polite')).toBe(`Nothing found. There's nothing here.`)
       })
-      vi.useRealTimers()
     })
 
     it('should accept a className to style the component', async () => {
