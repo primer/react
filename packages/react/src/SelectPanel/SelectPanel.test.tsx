@@ -18,7 +18,6 @@ const renderWithFlag = (children: React.ReactNode, flag: boolean) => {
   return render(
     <FeatureFlags
       flags={{
-        primer_react_select_panel_with_modern_action_list: true,
         primer_react_select_panel_remove_active_descendant: flag,
       }}
     >
