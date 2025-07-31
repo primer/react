@@ -274,6 +274,7 @@ export function FilteredActionList({
         showDividers={showItemDividers}
         selectionVariant={selectionVariant}
         {...listProps}
+        role="listbox"
         id={listId}
         sx={{flexGrow: 1}}
       >
