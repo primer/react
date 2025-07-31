@@ -385,7 +385,7 @@ for (const usingRemoveActiveDescendant of [false, true]) {
         await user.click(screen.getByText('Select items'))
 
         if (usingRemoveActiveDescendant) {
-          await user.type(document.activeElement!, '{PageDown}')
+          await user.type(document.activeElement!, '{ArrowDown}')
 
           expect(document.activeElement!).toHaveAccessibleName('item one')
 

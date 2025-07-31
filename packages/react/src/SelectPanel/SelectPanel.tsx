@@ -865,8 +865,6 @@ function Panel({
             // than the Overlay (which would break scrolling the items)
             sx={sx}
             className={clsx(className, classes.FilteredActionList)}
-            // needed to explicitly enable announcements for deprecated FilteredActionList, we can remove when we fully remove the deprecated version
-            announcementsEnabled
           />
           {footer ? (
             <div className={classes.Footer}>{footer}</div>

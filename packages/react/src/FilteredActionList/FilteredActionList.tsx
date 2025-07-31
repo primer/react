@@ -127,7 +127,7 @@ export function FilteredActionList({
 
   const onInputKeyDown = useCallback(
     (event: React.KeyboardEvent<HTMLInputElement>) => {
-      if (event.key === 'ArrowDown' || event.key === 'PageDown') {
+      if (event.key === 'ArrowDown') {
         if (listRef.current) {
           const firstSelectedItem = listRef.current.querySelector('[role="option"]') as HTMLElement | undefined
           firstSelectedItem?.focus()
