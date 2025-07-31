@@ -23,6 +23,7 @@ export default defineConfig({
     babel({
       presets: ['@babel/preset-typescript'],
       extensions: ['.ts', '.tsx'],
+      babelHelpers: 'bundled',
     }),
   ],
   output: {
