@@ -31,13 +31,13 @@
   },
   "typings": "dist/index.d.ts",
   "sideEffects": [
-    "lib-esm/**/*.css",
+    "dist/**/*.css",
     "src/**/test-helpers.tsx",
-    "lib-esm/**/test-helpers.js"
+    "dist/**/test-helpers.js"
   ],
   "scripts": {
     "build": "./script/build",
-    "clean": "rimraf dist lib lib-esm css",
+    "clean": "rimraf dist",
     "start": "concurrently npm:start:*",
     "start:storybook": "STORYBOOK=true storybook dev -p 6006",
     "build:storybook": "storybook build",
