@@ -2,7 +2,7 @@
   "id": "toggle_switch",
   "name": "ToggleSwitch",
   "status": "alpha",
-  "a11yReviewed": false,
+  "a11yReviewed": "2025-01-08",
   "stories": [
     {
       "id": "components-toggleswitch--default"

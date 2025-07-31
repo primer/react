@@ -100,6 +100,7 @@ module.exports = {
     '<rootDir>/src/deprecated/UnderlineNav/UnderlineNavLink.test.tsx',
     '<rootDir>/src/experimental/SelectPanel2/',
     '<rootDir>/src/deprecated/',
+    '<rootDir>/src/experimental/IssueLabel',
     '<rootDir>/src/hooks/',
     '<rootDir>/src/internal/utils/',
     '<rootDir>/src/live-region/',
