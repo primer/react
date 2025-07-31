@@ -1,4 +1,4 @@
-const defines = require('./babel-defines')
+const defines = require('./babel-defines.cjs')
 const {isSupported} = require('./script/react-compiler.mjs')
 
 function replacementPlugin(env) {
