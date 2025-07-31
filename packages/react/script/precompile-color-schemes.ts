@@ -2,6 +2,9 @@ import fs from 'fs'
 import path from 'path'
 import {colors} from '../src/legacy-theme/ts/colors'
 import {partitionColors, omitScale} from '../src/utils/theme'
+import {fileURLToPath} from 'url'
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 const colorSchemes = Object.entries(colors).reduce((acc, [name, variables]) => {
   const {colors, shadows} = partitionColors(variables)

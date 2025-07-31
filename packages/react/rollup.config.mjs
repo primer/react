@@ -37,15 +37,6 @@ function getEntrypointsFromInput(input) {
 }
 
 const extensions = ['.js', '.jsx', '.ts', '.tsx']
-const ESM_ONLY = new Set([
-  '@github/combobox-nav',
-  '@github/markdown-toolbar-element',
-  '@github/paste-markdown',
-  '@github/relative-time-element',
-  '@github/tab-container-element',
-  '@lit-labs/react',
-  '@oddbird/popover-polyfill',
-])
 const dependencies = [
   ...Object.keys(packageJson.peerDependencies ?? {}),
   ...Object.keys(packageJson.dependencies ?? {}),
@@ -230,97 +221,10 @@ export default [
     external: dependencies.map(createPackageRegex),
     output: {
       interop: 'auto',
-      dir: 'lib-esm',
+      dir: 'dist',
       format: 'esm',
       preserveModules: true,
       preserveModulesRoot: 'src',
     },
-  },
-
-  // CommonJS
-  {
-    ...baseConfig,
-    external: dependencies.filter(name => !ESM_ONLY.has(name)).map(createPackageRegex),
-    output: {
-      interop: 'auto',
-      dir: 'lib',
-      format: 'commonjs',
-      preserveModules: true,
-      preserveModulesRoot: 'src',
-      exports: 'auto',
-    },
-  },
-
-  // Bundles
-  {
-    ...baseConfig,
-    input: 'src/index.ts',
-    external: ['styled-components', 'react', 'react-dom'],
-    plugins: [
-      replace({
-        'process.env.NODE_ENV': JSON.stringify('production'),
-        preventAssignment: true,
-      }),
-      babel({
-        extensions,
-        exclude: /node_modules/,
-        babelHelpers: 'inline',
-        babelrc: false,
-        configFile: false,
-        presets: [
-          '@babel/preset-typescript',
-          [
-            '@babel/preset-react',
-            {
-              modules: false,
-            },
-          ],
-        ],
-        plugins: [
-          'macros',
-          'add-react-displayname',
-          'dev-expression',
-          'babel-plugin-styled-components',
-          '@babel/plugin-proposal-nullish-coalescing-operator',
-          '@babel/plugin-proposal-optional-chaining',
-          [
-            'babel-plugin-transform-replace-expressions',
-            {
-              replace: {
-                __DEV__: "process.env.NODE_ENV !== 'production'",
-              },
-            },
-          ],
-        ],
-      }),
-      resolve({
-        extensions,
-      }),
-      commonjs({
-        extensions,
-      }),
-      // PostCSS plugins are defined in postcss.config.js
-      postcss({
-        extract: 'components.css',
-        autoModules: false,
-        modules: {
-          generateScopedName: 'prc_[local]_[hash:base64:5]',
-        },
-      }),
-      terser(),
-      visualizer({sourcemap: true}),
-    ],
-    output: ['esm', 'umd'].map(format => ({
-      interop: 'auto',
-      file: `dist/browser.${format}.js`,
-      format,
-      sourcemap: true,
-      name: 'primer',
-      globals: {
-        react: 'React',
-        'react-dom': 'ReactDOM',
-        'styled-components': 'styled',
-      },
-    })),
   },
 ]
