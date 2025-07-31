@@ -119,17 +119,12 @@ const TrailingAction: React.FC<{id: string; children: React.ReactNode; dialogOnO
         onKeyDown={mockKeyboardShortcut}
       >
         {children}
-        <TreeView.TrailingAction visible>
+        <TreeView.TrailingAction>
           <IconButton
             icon={GearIcon}
             variant="invisible"
             aria-label="Item settings"
-            className="treeview-leading-action"
-            draggable="true"
-            onDragStart={() => {
-              setExpanded(false)
-              // other drag logic to follow
-            }}
+            className="treeview-trailing-action"
             onClick={() => {
               setDialogOpen(true)
             }}

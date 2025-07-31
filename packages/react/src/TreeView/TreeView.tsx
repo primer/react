@@ -44,6 +44,7 @@ const ItemContext = React.createContext<{
   setIsExpanded: (isExpanded: boolean) => void
   leadingVisualId: string
   trailingVisualId: string
+  trailingActionId: string
 }>({
   itemId: '',
   level: 1,
@@ -53,6 +54,7 @@ const ItemContext = React.createContext<{
   setIsExpanded: () => {},
   leadingVisualId: '',
   trailingVisualId: '',
+  trailingActionId: '',
 })
 
 // ----------------------------------------------------------------------------
@@ -194,6 +196,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
     const labelId = useId()
     const leadingVisualId = useId()
     const trailingVisualId = useId()
+    const trailingActionId = useId()
 
     const [isExpanded, setIsExpanded] = useControllableState({
       name: itemId,
@@ -280,6 +283,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
           setIsExpanded: setIsExpandedWithCache,
           leadingVisualId,
           trailingVisualId,
+          trailingActionId,
         }}
       >
         {/* @ts-ignore Box doesn't have type support for `ref` used in combination with `as` */}
@@ -289,8 +293,14 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
           tabIndex={0}
           id={itemId}
           role="treeitem"
-          aria-label={ariaLabel}
-          aria-labelledby={ariaLabel ? undefined : ariaLabelledby || labelId}
+          aria-label={
+            slots.trailingAction
+              ? ariaLabel
+                ? `${ariaLabel}. Press Command, Shift, U for more actions.`
+                : undefined
+              : ariaLabel
+          }
+          aria-labelledby={`${ariaLabel ? '' : ariaLabelledby || labelId} ${slots.trailingAction && !ariaLabel ? trailingActionId : ''}`}
           aria-describedby={ariaDescribedByIds.length ? ariaDescribedByIds.join(' ') : undefined}
           aria-level={level}
           aria-expanded={(isSubTreeEmpty && (!isExpanded || !hasSubTree)) || expanded === null ? undefined : isExpanded}
@@ -689,12 +699,15 @@ export type TreeViewTrailingAction = {
 }
 
 const TrailingAction: React.FC<TreeViewTrailingAction> = props => {
-  const {isExpanded} = React.useContext(ItemContext)
+  const {isExpanded, trailingActionId} = React.useContext(ItemContext)
   const children = typeof props.children === 'function' ? props.children({isExpanded}) : props.children
   return (
     <>
       <div className={clsx('PRIVATE_VisuallyHidden', classes.TreeViewVisuallyHidden)} aria-hidden={true}>
         {props.label}
+      </div>
+      <div id={trailingActionId} className={clsx('PRIVATE_VisuallyHidden', classes.TreeViewVisuallyHidden)}>
+        ; Press Command, Shift, U for more actions.
       </div>
       <div
         className={clsx('PRIVATE_TreeView-item-trailing-action', classes.TreeViewItemTrailingAction)}

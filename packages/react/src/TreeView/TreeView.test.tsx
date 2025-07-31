@@ -4,6 +4,8 @@ import React from 'react'
 import {ThemeProvider} from '../ThemeProvider'
 import type {SubTreeState} from './TreeView'
 import {TreeView} from './TreeView'
+import {IconButton} from '../Button'
+import {GearIcon} from '@primer/octicons-react'
 
 jest.useFakeTimers()
 
@@ -1639,6 +1641,95 @@ describe('Asynchronous loading', () => {
     // Empty child should have `aria-expanded` when opened
     expect(getByRole('treeitem', {name: 'empty child'})).toHaveAttribute('aria-expanded')
   })
+})
+
+it('should render `TrailingAction`', async () => {
+  const {getByRole} = renderWithTheme(
+    <TreeView aria-label="Files changed">
+      <TreeView.Item id="src" defaultExpanded>
+        <TreeView.LeadingVisual>
+          <TreeView.DirectoryIcon />
+        </TreeView.LeadingVisual>
+        Parent
+        <TreeView.TrailingAction>
+          <IconButton
+            icon={GearIcon}
+            variant="invisible"
+            aria-label="Item settings"
+            className="treeview-leading-action"
+          />
+        </TreeView.TrailingAction>
+        <TreeView.SubTree>
+          <TreeView.Item id="src/Avatar.tsx">child</TreeView.Item>
+          <TreeView.Item id="src/Button.tsx" current>
+            child current
+          </TreeView.Item>
+          <TreeView.Item id="src/Box.tsx">
+            empty child
+            <TreeView.SubTree />
+          </TreeView.Item>
+        </TreeView.SubTree>
+      </TreeView.Item>
+    </TreeView>,
+  )
+
+  expect(getByRole('button', {name: 'Item settings', hidden: true})).toBeInTheDocument()
+})
+
+it('should have keyboard shortcut command as part of accessible name when using `TrailingAction`', () => {
+  const {getByRole} = renderWithTheme(
+    <TreeView aria-label="Files changed">
+      <TreeView.Item id="src" defaultExpanded>
+        <TreeView.LeadingVisual>
+          <TreeView.DirectoryIcon />
+        </TreeView.LeadingVisual>
+        Parent
+        <TreeView.TrailingAction>
+          <IconButton
+            icon={GearIcon}
+            variant="invisible"
+            aria-label="Item settings"
+            className="treeview-leading-action"
+          />
+        </TreeView.TrailingAction>
+        <TreeView.SubTree>
+          <TreeView.Item id="src/Avatar.tsx">child</TreeView.Item>
+          <TreeView.Item id="src/Button.tsx" current>
+            child current
+          </TreeView.Item>
+          <TreeView.Item id="src/Box.tsx">
+            empty child
+            <TreeView.SubTree />
+          </TreeView.Item>
+        </TreeView.SubTree>
+      </TreeView.Item>
+    </TreeView>,
+  )
+
+  expect(getByRole('treeitem', {name: 'Parent ; Press Command, Shift, U for more actions.'})).toBeInTheDocument()
+})
+
+it('should have keyboard shortcut command as part of accessible name when using `TrailingAction` and `aria-label`', () => {
+  const {getByRole} = renderWithTheme(
+    <TreeView aria-label="Files changed">
+      <TreeView.Item id="src" aria-label="Parent" defaultExpanded>
+        <TreeView.LeadingVisual>
+          <TreeView.DirectoryIcon />
+        </TreeView.LeadingVisual>
+        Parent
+        <TreeView.TrailingAction>
+          <IconButton
+            icon={GearIcon}
+            variant="invisible"
+            aria-label="Item settings"
+            className="treeview-leading-action"
+          />
+        </TreeView.TrailingAction>
+      </TreeView.Item>
+    </TreeView>,
+  )
+
+  expect(getByRole('treeitem', {name: 'Parent. Press Command, Shift, U for more actions.'})).toBeInTheDocument()
 })
 
 describe('CSS Module Migration', () => {
