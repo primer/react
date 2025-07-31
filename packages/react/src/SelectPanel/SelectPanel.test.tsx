@@ -1168,7 +1168,7 @@ for (const usingRemoveActiveDescendant of [false, true]) {
 
         await user.click(screen.getByText('Select items'))
 
-        expect(screen.getAllByRole('radio').length).toBe(items.length)
+        expect(screen.getAllByRole('radio', {hidden: true}).length).toBe(items.length)
 
         expect(screen.getByRole('button', {name: 'Save'})).toBeVisible()
         expect(screen.getByRole('button', {name: 'Cancel'})).toBeVisible()
