@@ -51,7 +51,9 @@ jobs:
       - name: Lint markdown
         run: npm run lint:md
       - name: Lint package setup for npm
-        run: npm run --if-present --workspaces lint:publish
+        run: |
+          npm run build
+          npm run --if-present --workspaces lint:publish
 
   test:
     runs-on: ubuntu-latest
@@ -143,4 +145,4 @@ jobs:
       - name: Build
         run: npm run build
       - name: Get export sizes
-        run: node packages/react/script/get-export-sizes.js
+        run: node packages/react/script/get-export-sizes.cjs
