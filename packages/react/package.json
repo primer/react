@@ -24,7 +24,7 @@
     },
     "./test-helpers": {
       "types": "./dist/utils/test-helpers.d.ts",
-      "require": "./dist/test-helpers.js"
+      "default": "./dist/test-helpers.js"
     },
     "./generated/components.json": "./generated/components.json",
     "./generated/hooks.json": "./generated/hooks.json"
