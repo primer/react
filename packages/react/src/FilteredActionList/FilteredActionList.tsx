@@ -244,10 +244,10 @@ export function FilteredActionList({
   }, [items, inputRef, listContainerElement, usingRemoveActiveDescendant]) // Re-run when items change to update active indicators
 
   useEffect(() => {
-    if (!loading) {
+    if (usingRemoveActiveDescendant && !loading) {
       setIsInputFocused(inputRef.current && inputRef.current === document.activeElement ? true : false)
     }
-  }, [loading, inputRef])
+  }, [loading, inputRef, usingRemoveActiveDescendant])
 
   useAnnouncements(
     items,
