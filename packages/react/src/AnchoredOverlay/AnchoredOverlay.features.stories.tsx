@@ -11,7 +11,7 @@ import {Playground} from './AnchoredOverlay.stories'
 import {LocationIcon, RepoIcon} from '@primer/octicons-react'
 import {Stack} from '../Stack/Stack'
 import classes from './AnchoredOverlay.features.stories.module.css'
-import clsx from 'clsx'
+import {clsx} from 'clsx'
 
 export default {
   title: 'Components/AnchoredOverlay/Features',
