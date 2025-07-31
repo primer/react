@@ -2,7 +2,7 @@
   "id": "action_list",
   "name": "ActionList",
   "status": "beta",
-  "a11yReviewed": false,
+  "a11yReviewed": "2025-01-08",
   "stories": [],
   "importPath": "@primer/react",
   "props": [
@@ -59,6 +59,12 @@
           "type": "'default' | 'danger'",
           "defaultValue": "'default'",
           "description": "`danger` indicates that the item is destructive."
+        },
+        {
+          "name": "size",
+          "type": "'medium' | 'large'",
+          "defaultValue": "'medium'",
+          "description": "The block size of the ActionList items."
         },
         {
           "name": "onSelect",
