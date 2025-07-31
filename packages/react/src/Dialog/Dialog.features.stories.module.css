@@ -1,0 +1,45 @@
+/* CSS Module for Dialog features stories - replaces styled-components usage */
+
+/* Custom header background */
+.CustomHeaderBg {
+  background-color: var(--bgColor-accent-muted);
+}
+
+/* Text with small font size and no top margin */
+.SmallText {
+  font-size: var(--text-body-size-small);
+  margin-block-start: 0;
+}
+
+/* Layout containers */
+.FlexColumn {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base-size-16); /* gap: 4 * 4px = 16px */
+}
+
+.FlexColumnGap1 {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base-size-4); /* gap: 1 * 4px = 4px */
+}
+
+.FlexRowSpaceBetween {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Dialog Body with danger background */
+.DangerBodyBg {
+  background-color: var(--bgColor-danger-muted);
+}
+
+/* Dialog Footer with attention background */
+.AttentionFooterBg {
+  background-color: var(--bgColor-attention-muted);
+}
+
+/* Generic expandable content container */
+.ExpandContent {
+  /* No specific styles needed for the basic Box usage */
+}
