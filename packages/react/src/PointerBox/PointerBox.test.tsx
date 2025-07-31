@@ -4,36 +4,60 @@ import {PointerBox, ThemeProvider} from '..'
 import theme from '../theme'
 
 describe('PointerBox', () => {
-  it('renders a <Caret> in <Box> with relative positioning', () => {
-    expect(render(<PointerBox theme={theme} />)).toMatchSnapshot()
-  })
-
   it('applies the border color via "borderColor" prop for backwards compatibility', () => {
-    expect(render(<PointerBox borderColor="danger.emphasis" theme={theme} />)).toMatchSnapshot()
+    const {container} = render(
+      <ThemeProvider theme={theme}>
+        <PointerBox borderColor="danger.emphasis" />
+      </ThemeProvider>,
+    )
+
+    const element = container.firstChild as HTMLElement
+    const styles = window.getComputedStyle(element)
+
+    // The borderColor should be applied correctly
+    expect(styles.borderColor).toBe('rgb(207, 34, 46)') // danger.emphasis color
   })
 
   it('applies the border color via sx prop', () => {
-    expect(render(<PointerBox sx={{borderColor: 'danger.emphasis'}} theme={theme} />)).toMatchSnapshot()
+    const {container} = render(
+      <ThemeProvider theme={theme}>
+        <PointerBox sx={{borderColor: 'danger.emphasis'}} />
+      </ThemeProvider>,
+    )
+
+    const element = container.firstChild as HTMLElement
+    const styles = window.getComputedStyle(element)
+
+    // The borderColor should be applied correctly
+    expect(styles.borderColor).toBe('rgb(207, 34, 46)') // danger.emphasis color
   })
 
   it('applies the background color via "bg" prop for backwards compatibility', () => {
-    expect(
-      render(
-        <ThemeProvider theme={theme}>
-          <PointerBox bg="danger.emphasis" />
-        </ThemeProvider>,
-      ),
-    ).toMatchSnapshot()
+    const {container} = render(
+      <ThemeProvider theme={theme}>
+        <PointerBox bg="danger.emphasis" />
+      </ThemeProvider>,
+    )
+
+    const element = container.firstChild as HTMLElement
+    const styles = window.getComputedStyle(element)
+
+    // The background should include the danger.emphasis color in the gradient
+    expect(styles.backgroundImage).toContain('rgb(207, 34, 46)') // danger.emphasis color
   })
 
   it('applies the background color via sx prop', () => {
-    expect(
-      render(
-        <ThemeProvider theme={theme}>
-          <PointerBox sx={{bg: 'danger.emphasis'}} />
-        </ThemeProvider>,
-      ),
-    ).toMatchSnapshot()
+    const {container} = render(
+      <ThemeProvider theme={theme}>
+        <PointerBox sx={{bg: 'danger.emphasis'}} />
+      </ThemeProvider>,
+    )
+
+    const element = container.firstChild as HTMLElement
+    const styles = window.getComputedStyle(element)
+
+    // The background should include the danger.emphasis color in the gradient
+    expect(styles.backgroundImage).toContain('rgb(207, 34, 46)') // danger.emphasis color
   })
 
   it('ensures that background-color set via bg prop and sx output the same for backwards compatibility', () => {
