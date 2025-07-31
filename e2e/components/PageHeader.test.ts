@@ -2,7 +2,7 @@ import {test, expect} from '@playwright/test'
 import {visit} from '../test-helpers/storybook'
 import {themes} from '../test-helpers/themes'
 
-// TODO: remove the color contrast rule once the constract issue is fixed
+// TODO: remove the color contrast rule once the construct issue is fixed
 test.describe('PageHeader', () => {
   test.describe('Files Page', () => {
     for (const theme of themes) {

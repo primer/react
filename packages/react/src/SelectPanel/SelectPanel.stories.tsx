@@ -1,5 +1,5 @@
 import {TriangleDownIcon} from '@primer/octicons-react'
-import type {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react-vite'
 import {useState} from 'react'
 
 import Box from '../Box'
@@ -92,8 +92,8 @@ export const Default = () => {
           filteredItems.length === 0
             ? {
                 variant: 'empty',
-                title: `No language found for \`${filter}\``,
-                body: 'Adjust your search term to find other languages',
+                title: 'No items available',
+                body: '',
               }
             : undefined
         }

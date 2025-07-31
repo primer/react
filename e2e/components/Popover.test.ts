@@ -15,6 +15,10 @@ const stories = [
     title: 'SX Props',
     id: 'components-popover-dev--sx-props',
   },
+  {
+    title: 'Popover Overflow',
+    id: 'components-popover-dev--popover-overflow',
+  },
 ] as const
 
 test.describe('Popover', () => {
@@ -31,7 +35,7 @@ test.describe('Popover', () => {
             })
 
             // Default state
-            expect(await page.screenshot()).toMatchSnapshot(`Popover.${story.title}.${theme}.png`)
+            await expect(page).toHaveScreenshot(`Popover.${story.title}.${theme}.png`)
           })
         })
       }

@@ -1,4 +1,4 @@
-import type {Meta, StoryFn} from '@storybook/react'
+import type {Meta, StoryFn} from '@storybook/react-vite'
 import React from 'react'
 import {PageLayout} from '../PageLayout'
 import {NavList} from './NavList'
@@ -21,7 +21,7 @@ import {
 } from '@primer/octicons-react'
 import Octicon from '../Octicon'
 import VisuallyHidden from '../_VisuallyHidden'
-import {ReactRouterLikeLink} from '../__tests__/mocks/ReactRouterLink'
+import {ReactRouterLikeLink} from '../Pagination/mocks/ReactRouterLink'
 
 const meta: Meta = {
   title: 'Components/NavList',

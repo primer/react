@@ -11,11 +11,11 @@ concurrency:
 
 jobs:
   aat-runner:
-    runs-on: ubuntu-latest-16-cores
+    runs-on: aat-runner
     strategy:
       fail-fast: false
       matrix:
-        shard: [1, 2, 3, 4]
+        shard: [1, 2, 3, 4, 5, 6, 7, 8]
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
       - name: Use Node.js 20.x
@@ -37,7 +37,7 @@ jobs:
           echo "pid=$pid" >> $GITHUB_OUTPUT
           sleep 5
       - name: Run AAT
-        uses: docker://mcr.microsoft.com/playwright:v1.52.0-jammy
+        uses: docker://mcr.microsoft.com/playwright:v1.53.2-jammy
         env:
           STORYBOOK_URL: 'http://172.17.0.1:6006'
         with:

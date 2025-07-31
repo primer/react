@@ -1,5 +1,5 @@
 import React from 'react'
-import type {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react-vite'
 import ActionBar from '.'
 import Text from '../Text'
 import {
@@ -212,7 +212,7 @@ export const ActionbarToggle = () => {
                   Quote reply
                 </ActionList.Item>
                 <ActionList.Divider />
-                <ActionList.Item onClick={() => setEditView(true)}>
+                <ActionList.Item onSelect={() => setEditView(true)}>
                   <ActionList.LeadingVisual>
                     <PencilIcon />
                   </ActionList.LeadingVisual>

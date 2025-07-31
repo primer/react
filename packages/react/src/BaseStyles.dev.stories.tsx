@@ -1,5 +1,5 @@
 import {BaseStyles} from '.'
-import type {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react-vite'
 import type {ComponentProps} from './utils/types'
 
 export default {

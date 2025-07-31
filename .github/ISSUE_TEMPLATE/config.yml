@@ -1,5 +1,5 @@
 contact_links:
-  - name: Propose an idea for a new component
+  - name: (GitHub staff only) Propose an idea for a new component
     url: https://github.com/github/primer/discussions/categories/design-patterns
     about: If you'd like to propose a new Primer pattern, big or small, let's talk! The best way to get started, especially if your proposal is in its early stages, is to open a pattern proposal (GitHub staff only).
   - name: Request a new pattern

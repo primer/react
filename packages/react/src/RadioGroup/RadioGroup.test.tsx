@@ -1,45 +1,17 @@
+import {describe, it, expect, beforeAll, afterAll, vi} from 'vitest'
 import {render} from '@testing-library/react'
 import {RadioGroup, FormControl, Radio} from '..'
-import {behavesAsComponent, checkExports} from '../utils/testing'
 import userEvent from '@testing-library/user-event'
-import {RadioGroupContext} from '../RadioGroup'
 
 describe('RadioGroup', () => {
-  const mockWarningFn = jest.fn()
+  const mockWarningFn = vi.fn()
 
   beforeAll(() => {
-    jest.spyOn(global.console, 'warn').mockImplementation(mockWarningFn)
+    vi.spyOn(console, 'warn').mockImplementation(mockWarningFn)
   })
 
   afterAll(() => {
-    jest.clearAllMocks()
-  })
-
-  behavesAsComponent({
-    Component: RadioGroup,
-    options: {skipAs: true, skipSx: true},
-    toRender: () => (
-      <RadioGroup name="choices">
-        <RadioGroup.Label>Choices</RadioGroup.Label>
-        <FormControl>
-          <Radio value="one" />
-          <FormControl.Label>Choice one</FormControl.Label>
-        </FormControl>
-        <FormControl>
-          <Radio value="two" />
-          <FormControl.Label>Choice two</FormControl.Label>
-        </FormControl>
-        <FormControl>
-          <Radio value="three" />
-          <FormControl.Label>Choice three</FormControl.Label>
-        </FormControl>
-      </RadioGroup>
-    ),
-  })
-
-  checkExports('RadioGroup', {
-    default: RadioGroup,
-    RadioGroupContext,
+    vi.clearAllMocks()
   })
 
   it('renders a disabled group of inputs', () => {
@@ -95,8 +67,8 @@ describe('RadioGroup', () => {
 
   it('calls onChange handlers passed to RadioGroup and Radio', async () => {
     const user = userEvent.setup()
-    const handleParentChange = jest.fn()
-    const handleRadioChange = jest.fn()
+    const handleParentChange = vi.fn()
+    const handleRadioChange = vi.fn()
     const {getByLabelText} = render(
       <RadioGroup name="choices" onChange={handleParentChange}>
         <RadioGroup.Label>Choices</RadioGroup.Label>
@@ -125,7 +97,7 @@ describe('RadioGroup', () => {
 
   it('calls onChange handler on RadioGroup with selected value', async () => {
     const user = userEvent.setup()
-    const handleParentChange = jest.fn()
+    const handleParentChange = vi.fn()
     const {getByLabelText} = render(
       <RadioGroup name="choices" onChange={handleParentChange}>
         <RadioGroup.Label>Choices</RadioGroup.Label>

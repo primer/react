@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`@primer/react should not update exports without a semver change 1`] = `
+exports[`@primer/react > should not update exports without a semver change 1`] = `
 [
   "ActionBar",
   "type ActionBarProps",
@@ -136,6 +136,9 @@ exports[`@primer/react should not update exports without a semver change 1`] = `
   "SegmentedControl",
   "Select",
   "SelectPanel",
+  "type SelectPanelGroupedListProps",
+  "type SelectPanelItemInput",
+  "type SelectPanelItemProps",
   "type SelectPanelProps",
   "type SelectProps",
   "SideNav",
@@ -219,7 +222,7 @@ exports[`@primer/react should not update exports without a semver change 1`] = `
 ]
 `;
 
-exports[`@primer/react/deprecated should not update exports without a semver change 1`] = `
+exports[`@primer/react/deprecated > should not update exports without a semver change 1`] = `
 [
   "ActionList",
   "type ActionListGroupedListProps",
@@ -249,7 +252,7 @@ exports[`@primer/react/deprecated should not update exports without a semver cha
 ]
 `;
 
-exports[`@primer/react/experimental should not update exports without a semver change 1`] = `
+exports[`@primer/react/experimental > should not update exports without a semver change 1`] = `
 [
   "ActionBar",
   "type ActionBarProps",
@@ -314,8 +317,11 @@ exports[`@primer/react/experimental should not update exports without a semver c
   "type SelectPanelProps",
   "type SelectPanelSecondaryActionProps",
   "SkeletonAvatar",
+  "type SkeletonAvatarProps",
   "SkeletonBox",
+  "type SkeletonBoxProps",
   "SkeletonText",
+  "type SkeletonTextProps",
   "type SlotConfig",
   "Stack",
   "type StackItemProps",

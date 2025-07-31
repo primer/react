@@ -1,5 +1,5 @@
 import {TriangleDownIcon} from '@primer/octicons-react'
-import type {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react-vite'
 import type React from 'react'
 import {useState} from 'react'
 

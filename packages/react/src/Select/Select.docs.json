@@ -2,7 +2,7 @@
   "id": "select",
   "name": "Select",
   "status": "alpha",
-  "a11yReviewed": true,
+  "a11yReviewed": "2025-01-08",
   "stories": [
     {
       "id": "components-select--default"
@@ -59,7 +59,7 @@
       "name": "placeholder",
       "type": "string",
       "defaultValue": "",
-      "description": "Placeholder text to show when no option is selected. <br /> This option is hidden from the dropdown menu when the 'required' prop is set"
+      "description": "Placeholder text to show when no option is selected.\nThis option is hidden from the dropdown menu when the 'required' prop is set"
     },
     {
       "name": "size",

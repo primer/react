@@ -7,4 +7,4 @@ npm run clean:all
 npm install
 
 # Build packages
-npm build
+npm run build

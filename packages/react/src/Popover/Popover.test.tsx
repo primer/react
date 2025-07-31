@@ -1,39 +1,12 @@
+import {describe, expect, it} from 'vitest'
+import {render} from '@testing-library/react'
 import type {PopoverProps} from '../Popover'
 import Popover from '../Popover'
-import {render, behavesAsComponent, checkExports} from '../utils/testing'
-import {render as HTMLRender} from '@testing-library/react'
-import axe from 'axe-core'
-
-const comp = (
-  <Popover caret="top" open>
-    <Popover.Content>Hello!</Popover.Content>
-  </Popover>
-)
 
 describe('Popover', () => {
-  behavesAsComponent({Component: Popover, toRender: () => comp})
-
-  checkExports('Popover', {
-    default: Popover,
-  })
-
-  describe('Popover.Content', () => {
-    behavesAsComponent({Component: Popover.Content, toRender: () => comp})
-  })
-
   it('should support `className` on the outermost element', () => {
     const Element = () => <Popover className={'test-class-name'}></Popover>
-    expect(HTMLRender(<Element />).container.firstChild).toHaveClass('test-class-name')
-  })
-
-  it('should have no axe violations', async () => {
-    const {container} = HTMLRender(
-      <Popover caret="top" open>
-        <Popover.Content>Hello!</Popover.Content>
-      </Popover>,
-    )
-    const results = await axe.run(container)
-    expect(results).toHaveNoViolations()
+    expect(render(<Element />).container.firstChild).toHaveClass('test-class-name')
   })
 
   const CARET_POSITIONS: PopoverProps['caret'][] = [
@@ -59,12 +32,15 @@ describe('Popover', () => {
         </Popover>
       )
 
-      expect(render(element)).toMatchSnapshot()
+      const {container} = render(element)
+      expect(container.firstChild).toHaveAttribute('data-caret', pos)
     })
   }
 
   it('renders both elements as a <div>', () => {
-    expect(render(<Popover />).type).toEqual('div')
-    expect(render(<Popover.Content />).type).toEqual('div')
+    const {container: popoverContainer} = render(<Popover />)
+    const {container: contentContainer} = render(<Popover.Content />)
+    expect((popoverContainer.firstChild as Element).tagName).toEqual('DIV')
+    expect((contentContainer.firstChild as Element).tagName).toEqual('DIV')
   })
 })

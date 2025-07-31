@@ -9,10 +9,16 @@ type ElementProps =
   | {
       as?: 'button'
       href?: never
+      /**
+       * Specify whether the action is in a loading state.
+       * Only available for button elements.
+       */
+      loading?: boolean
     }
   | {
       as: 'a'
       href: string
+      loading?: never
     }
 
 export type ActionListTrailingActionProps = ElementProps & {
@@ -22,7 +28,7 @@ export type ActionListTrailingActionProps = ElementProps & {
 }
 
 export const TrailingAction = forwardRef(
-  ({as = 'button', icon, label, href = null, className, ...props}, forwardedRef) => {
+  ({as = 'button', icon, label, href = null, className, loading, ...props}, forwardedRef) => {
     return (
       <span className={clsx(className, classes.TrailingAction)}>
         {icon ? (
@@ -33,6 +39,8 @@ export const TrailingAction = forwardRef(
             variant="invisible"
             tooltipDirection="w"
             href={href}
+            loading={loading}
+            data-loading={Boolean(loading)}
             // @ts-expect-error StyledButton wants both Anchor and Button refs
             ref={forwardedRef}
             className={classes.TrailingActionButton}
@@ -44,6 +52,8 @@ export const TrailingAction = forwardRef(
             variant="invisible"
             as={as}
             href={href}
+            loading={loading}
+            data-loading={Boolean(loading)}
             ref={forwardedRef}
             className={classes.TrailingActionButton}
             {...props}

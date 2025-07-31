@@ -44,7 +44,9 @@
   }
 
   &:where([data-contrast]) {
-    background-color: var(--bgColor-inset);
+    /* this variable is available behind a feature flag in gh/gh */
+    /* stylelint-disable-next-line primer/colors */
+    background-color: var(--control-bgColor-contrast, var(--bgColor-inset));
   }
 
   &:where([data-disabled]) {
@@ -129,6 +131,7 @@
     /* stylelint-disable-next-line primer/spacing */
     padding-bottom: 3px;
     padding-left: var(--base-size-8);
+    /* stylelint-disable-next-line declaration-property-value-no-unknown */
     font-size: (--text-body-size-small);
     /* stylelint-disable-next-line primer/typography */
     line-height: var(--base-size-20);
@@ -173,21 +176,46 @@
     flex-shrink: 0;
   }
 
+  /* With leading visual */
+  &:where([data-leading-visual]) {
+    padding-left: var(--base-size-8);
+  }
+
+  /* With trailing visual */
+  &:where([data-trailing-visual]:not([data-trailing-action])) {
+    padding-right: var(--base-size-8);
+  }
+
+  /* Only trailing visual */
+  &:where(:not([data-leading-visual])[data-trailing-visual]),
+  &:where(:not([data-leading-visual])[data-trailing-action]) {
+    > input,
+    > select {
+      padding-left: var(--base-size-8);
+    }
+  }
+
+  /* Only leading visual */
+  &:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+  &:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+    padding-right: var(--base-size-8);
+  }
+
+  /* No visuals at all */
+  &:where(:not([data-leading-visual]):not([data-trailing-visual]):not([data-trailing-action])) > input,
+  &:where(:not([data-leading-visual]):not([data-trailing-visual]):not([data-trailing-action])) > select {
+    padding-left: var(--base-size-12);
+    padding-right: var(--base-size-12);
+  }
+}
+
+/* Large size input */
+.TextInputWrapper:where([data-size='large']) {
   &:where([data-leading-visual]) {
     padding-left: var(--base-size-12);
   }
 
   &:where([data-trailing-visual]:not([data-trailing-action])) {
-    padding-right: var(--base-size-12);
-  }
-
-  &:where(:not([data-leading-visual])) > input,
-  &:where(:not([data-leading-visual])) > select {
-    padding-left: var(--base-size-12);
-  }
-
-  &:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
-  &:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
     padding-right: var(--base-size-12);
   }
 }

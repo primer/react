@@ -50,7 +50,7 @@ test.describe('UnderlinePanels', () => {
               },
             })
 
-            expect(await page.screenshot()).toMatchSnapshot(`UnderlinePanels.${story.title}.${theme}.png`)
+            await expect(page).toHaveScreenshot(`UnderlinePanels.${story.title}.${theme}.png`)
           })
         })
       }

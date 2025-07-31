@@ -1,437 +1,100 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`NavList renders a simple list 1`] = `
-.c2 {
-  padding-left: 8px;
-  padding-right: 8px;
-  padding-top: 6px;
-  padding-bottom: 6px;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  border-radius: 6px;
-  color: inherit;
-  font-size: 14px;
-}
-
-.c2:hover {
-  color: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.c3 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  min-width: 0;
-}
-
-.c4 {
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  font-weight: 600;
-  word-break: break-word;
-  line-height: 20px;
-}
-
-.c5 {
-  font-size: 12px;
-  line-height: 16px;
-  color: var(--fgColor-attention,var(--color-attention-fg,#9a6700));
-}
-
-.c7 {
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  font-weight: 400;
-  word-break: break-word;
-  line-height: 20px;
-}
-
-.c1 {
-  position: relative;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  padding-left: 0;
-  padding-right: 0;
-  font-size: 14px;
-  padding-top: 0;
-  padding-bottom: 0;
-  line-height: 16px;
-  min-height: 5px;
-  margin-left: 8px;
-  margin-right: 8px;
-  border-radius: 6px;
-  -webkit-transition: background 33.333ms linear;
-  transition: background 33.333ms linear;
-  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
-  cursor: pointer;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  background: unset;
-  border: unset;
-  width: calc(100% - 16px);
-  font-family: unset;
-  text-align: unset;
-  margin-top: unset;
-  margin-bottom: unset;
-  font-weight: 600;
-  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
-}
-
-.c1[data-loading] {
-  cursor: default;
-}
-
-.c1[aria-disabled],
-.c1[data-inactive] {
-  cursor: not-allowed;
-}
-
-.c1[aria-disabled] [data-component="ActionList.Checkbox"],
-.c1[data-inactive] [data-component="ActionList.Checkbox"] {
-  cursor: not-allowed;
-  background-color: var(--control-bgColor-disabled,rgba(175,184,193,0.2));
-  border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
-}
-
-.c1[aria-disabled] [data-component="ActionList.Selection"],
-.c1[data-inactive] [data-component="ActionList.Selection"] {
-  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
-}
-
-.c1 [data-component="ActionList.Item--DividerContainer"] {
-  position: relative;
-}
-
-.c1 [data-component="ActionList.Item--DividerContainer"]::before {
-  content: " ";
-  display: block;
-  position: absolute;
-  width: 100%;
-  top: -7px;
-  border: 0 solid;
-  border-top-width: 0;
-  border-color: var(--divider-color,transparent);
-}
-
-.c1:not(:first-of-type) {
-  --divider-color: var(--borderColor-muted,var(--color-action-list-item-inline-divider,rgba(208,215,222,0.48)));
-}
-
-[data-component="ActionList.Divider"] + .c0 {
-  --divider-color: transparent !important;
-}
-
-.c1:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]),
-.c1[data-focus-visible-added]:not([aria-disabled]):not([data-inactive]) {
-  --divider-color: transparent;
-}
-
-.c1:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c0,
-.c1[data-focus-visible-added] + li {
-  --divider-color: transparent;
-}
-
-.c1::after {
-  position: absolute;
-  top: calc(50% - 12px);
-  left: -8px;
-  width: 4px;
-  height: 24px;
-  content: "";
-  background-color: var(--borderColor-accent-emphasis);
-  border-radius: 6px;
-}
-
-.c1[data-is-active-descendant] {
-  font-weight: 400;
-  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
-}
-
-.c1[data-is-active-descendant]::after {
-  position: absolute;
-  top: calc(50% - 12px);
-  left: -8px;
-  width: 4px;
-  height: 24px;
-  content: "";
-  background-color: var(--borderColor-accent-emphasis);
-  border-radius: 6px;
-}
-
-.c6 {
-  position: relative;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  padding-left: 0;
-  padding-right: 0;
-  font-size: 14px;
-  padding-top: 0;
-  padding-bottom: 0;
-  line-height: 16px;
-  min-height: 5px;
-  margin-left: 8px;
-  margin-right: 8px;
-  border-radius: 6px;
-  -webkit-transition: background 33.333ms linear;
-  transition: background 33.333ms linear;
-  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
-  cursor: pointer;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  background: unset;
-  border: unset;
-  width: calc(100% - 16px);
-  font-family: unset;
-  text-align: unset;
-  margin-top: unset;
-  margin-bottom: unset;
-}
-
-.c6[data-loading] {
-  cursor: default;
-}
-
-.c6[aria-disabled],
-.c6[data-inactive] {
-  cursor: not-allowed;
-}
-
-.c6[aria-disabled] [data-component="ActionList.Checkbox"],
-.c6[data-inactive] [data-component="ActionList.Checkbox"] {
-  cursor: not-allowed;
-  background-color: var(--control-bgColor-disabled,rgba(175,184,193,0.2));
-  border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
-}
-
-.c6[aria-disabled] [data-component="ActionList.Selection"],
-.c6[data-inactive] [data-component="ActionList.Selection"] {
-  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
-}
-
-.c6 [data-component="ActionList.Item--DividerContainer"] {
-  position: relative;
-}
-
-.c6 [data-component="ActionList.Item--DividerContainer"]::before {
-  content: " ";
-  display: block;
-  position: absolute;
-  width: 100%;
-  top: -7px;
-  border: 0 solid;
-  border-top-width: 0;
-  border-color: var(--divider-color,transparent);
-}
-
-.c6:not(:first-of-type) {
-  --divider-color: var(--borderColor-muted,var(--color-action-list-item-inline-divider,rgba(208,215,222,0.48)));
-}
-
-[data-component="ActionList.Divider"] + .c0 {
-  --divider-color: transparent !important;
-}
-
-.c6:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]),
-.c6[data-focus-visible-added]:not([aria-disabled]):not([data-inactive]) {
-  --divider-color: transparent;
-}
-
-.c6:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c0,
-.c6[data-focus-visible-added] + li {
-  --divider-color: transparent;
-}
-
-.c6[data-is-active-descendant] {
-  font-weight: 400;
-  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
-}
-
-.c6[data-is-active-descendant]::after {
-  position: absolute;
-  top: calc(50% - 12px);
-  left: -8px;
-  width: 4px;
-  height: 24px;
-  content: "";
-  background-color: var(--borderColor-accent-emphasis);
-  border-radius: 6px;
-}
-
-@media (forced-colors:active) {
-  .c1:focus,
-  .c1:focus-visible,
-  .c1 > a.focus-visible,
-  .c1[data-is-active-descendant] {
-    outline: solid 1px transparent !important;
-  }
-}
-
-@media (hover:hover) and (pointer:fine) {
-  .c1:hover:not([aria-disabled]):not([data-inactive]) {
-    background-color: var(--control-transparent-bgColor-hover,var(--color-action-list-item-default-hover-bg,rgba(208,215,222,0.32)));
-    color: var(--fgColor-default,var(--color-fg-default,#1F2328));
-    box-shadow: inset 0 0 0 max(1px,0.0625rem) var(--control-transparent-borderColor-active,var(--color-action-list-item-default-active-border,transparent));
-  }
-
-  .c1:focus-visible,
-  .c1 > a.focus-visible,
-  .c1:focus.focus-visible {
-    outline: none;
-    border: 2 solid;
-    box-shadow: 0 0 0 2px var(--focus-outlineColor);
-  }
-
-  .c1:active:not([aria-disabled]):not([data-inactive]) {
-    background-color: var(--control-transparent-bgColor-active,var(--color-action-list-item-default-active-bg,rgba(208,215,222,0.48)));
-    color: var(--fgColor-default,var(--color-fg-default,#1F2328));
-  }
-}
-
-@media (forced-colors:active) {
-  .c6:focus,
-  .c6:focus-visible,
-  .c6 > a.focus-visible,
-  .c6[data-is-active-descendant] {
-    outline: solid 1px transparent !important;
-  }
-}
-
-@media (hover:hover) and (pointer:fine) {
-  .c6:hover:not([aria-disabled]):not([data-inactive]) {
-    background-color: var(--control-transparent-bgColor-hover,var(--color-action-list-item-default-hover-bg,rgba(208,215,222,0.32)));
-    color: var(--fgColor-default,var(--color-fg-default,#1F2328));
-    box-shadow: inset 0 0 0 max(1px,0.0625rem) var(--control-transparent-borderColor-active,var(--color-action-list-item-default-active-border,transparent));
-  }
-
-  .c6:focus-visible,
-  .c6 > a.focus-visible,
-  .c6:focus.focus-visible {
-    outline: none;
-    border: 2 solid;
-    box-shadow: 0 0 0 2px var(--focus-outlineColor);
-  }
-
-  .c6:active:not([aria-disabled]):not([data-inactive]) {
-    background-color: var(--control-transparent-bgColor-active,var(--color-action-list-item-default-active-bg,rgba(208,215,222,0.48)));
-    color: var(--fgColor-default,var(--color-fg-default,#1F2328));
-  }
-}
-
+exports[`NavList > renders a simple list 1`] = `
 <div>
-  <nav
-    class=""
-  >
+  <nav>
     <ul
-      class="ActionList"
+      class="prc-ActionList-ActionList--dkHj"
       data-dividers="false"
       data-variant="inset"
     >
       <li
-        class="c0 c1"
+        class="prc-ActionList-ActionListItem-jXerx"
+        data-active="true"
+        data-has-description="false"
       >
         <a
           aria-current="page"
-          aria-labelledby=":r2:--label  "
-          class="c2 Link"
+          aria-labelledby=":r1:--label  "
+          class="prc-ActionList-ActionListContent-Q8eQr prc-Link-Link-O33ci"
+          data-size="medium"
           href="/"
+          id=":r1:"
+          style="--subitem-depth: 0;"
+          tabindex="0"
+        >
+          <span
+            class="prc-ActionList-Spacer-vgXtU"
+          />
+          <span
+            class="prc-ActionList-ActionListSubContent-Zcjdz"
+            data-component="ActionList.Item--DividerContainer"
+          >
+            <span
+              class="prc-ActionList-ItemLabel-hYyH7"
+              id=":r1:--label"
+            >
+              Home
+            </span>
+          </span>
+        </a>
+      </li>
+      <li
+        class="prc-ActionList-ActionListItem-jXerx"
+        data-has-description="false"
+      >
+        <a
+          aria-labelledby=":r2:--label  "
+          class="prc-ActionList-ActionListContent-Q8eQr prc-Link-Link-O33ci"
+          data-size="medium"
+          href="/about"
           id=":r2:"
           style="--subitem-depth: 0;"
           tabindex="0"
         >
-          <div
-            class="c3"
+          <span
+            class="prc-ActionList-Spacer-vgXtU"
+          />
+          <span
+            class="prc-ActionList-ActionListSubContent-Zcjdz"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              class="c4"
+              class="prc-ActionList-ItemLabel-hYyH7"
               id=":r2:--label"
             >
-              Home
+              About
             </span>
-            <span
-              class="c5"
-            />
-          </div>
+          </span>
         </a>
       </li>
       <li
-        class="c0 c6"
+        class="prc-ActionList-ActionListItem-jXerx"
+        data-has-description="false"
       >
         <a
           aria-labelledby=":r3:--label  "
-          class="c2 Link"
-          href="/about"
+          class="prc-ActionList-ActionListContent-Q8eQr prc-Link-Link-O33ci"
+          data-size="medium"
+          href="/contact"
           id=":r3:"
           style="--subitem-depth: 0;"
           tabindex="0"
         >
-          <div
-            class="c3"
+          <span
+            class="prc-ActionList-Spacer-vgXtU"
+          />
+          <span
+            class="prc-ActionList-ActionListSubContent-Zcjdz"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              class="c7"
+              class="prc-ActionList-ItemLabel-hYyH7"
               id=":r3:--label"
-            >
-              About
-            </span>
-            <span
-              class="c5"
-            />
-          </div>
-        </a>
-      </li>
-      <li
-        class="c0 c6"
-      >
-        <a
-          aria-labelledby=":r4:--label  "
-          class="c2 Link"
-          href="/contact"
-          id=":r4:"
-          style="--subitem-depth: 0;"
-          tabindex="0"
-        >
-          <div
-            class="c3"
-            data-component="ActionList.Item--DividerContainer"
-          >
-            <span
-              class="c7"
-              id=":r4:--label"
             >
               Contact
             </span>
-            <span
-              class="c5"
-            />
-          </div>
+          </span>
         </a>
       </li>
     </ul>
@@ -439,471 +102,124 @@ exports[`NavList renders a simple list 1`] = `
 </div>
 `;
 
-exports[`NavList renders with groups 1`] = `
-.c0:first-child {
-  display: none;
-}
-
-.c1:has([data-component="GroupHeadingWrap"] + ul > [data-component="GroupHeadingWrap"]) > [data-component="GroupHeadingWrap"] {
-  display: none;
-}
-
-.c4 {
-  padding-left: 8px;
-  padding-right: 8px;
-  padding-top: 6px;
-  padding-bottom: 6px;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  border-radius: 6px;
-  color: inherit;
-  font-size: 14px;
-}
-
-.c4:hover {
-  color: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.c5 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  min-width: 0;
-}
-
-.c6 {
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  font-weight: 600;
-  word-break: break-word;
-  line-height: 20px;
-}
-
-.c7 {
-  font-size: 12px;
-  line-height: 16px;
-  color: var(--fgColor-attention,var(--color-attention-fg,#9a6700));
-}
-
-.c9 {
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  font-weight: 400;
-  word-break: break-word;
-  line-height: 20px;
-}
-
-.c3 {
-  position: relative;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  padding-left: 0;
-  padding-right: 0;
-  font-size: 14px;
-  padding-top: 0;
-  padding-bottom: 0;
-  line-height: 16px;
-  min-height: 5px;
-  margin-left: 8px;
-  margin-right: 8px;
-  border-radius: 6px;
-  -webkit-transition: background 33.333ms linear;
-  transition: background 33.333ms linear;
-  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
-  cursor: pointer;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  background: unset;
-  border: unset;
-  width: calc(100% - 16px);
-  font-family: unset;
-  text-align: unset;
-  margin-top: unset;
-  margin-bottom: unset;
-  font-weight: 600;
-  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
-}
-
-.c3[data-loading] {
-  cursor: default;
-}
-
-.c3[aria-disabled],
-.c3[data-inactive] {
-  cursor: not-allowed;
-}
-
-.c3[aria-disabled] [data-component="ActionList.Checkbox"],
-.c3[data-inactive] [data-component="ActionList.Checkbox"] {
-  cursor: not-allowed;
-  background-color: var(--control-bgColor-disabled,rgba(175,184,193,0.2));
-  border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
-}
-
-.c3[aria-disabled] [data-component="ActionList.Selection"],
-.c3[data-inactive] [data-component="ActionList.Selection"] {
-  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
-}
-
-.c3 [data-component="ActionList.Item--DividerContainer"] {
-  position: relative;
-}
-
-.c3 [data-component="ActionList.Item--DividerContainer"]::before {
-  content: " ";
-  display: block;
-  position: absolute;
-  width: 100%;
-  top: -7px;
-  border: 0 solid;
-  border-top-width: 0;
-  border-color: var(--divider-color,transparent);
-}
-
-.c3:not(:first-of-type) {
-  --divider-color: var(--borderColor-muted,var(--color-action-list-item-inline-divider,rgba(208,215,222,0.48)));
-}
-
-[data-component="ActionList.Divider"] + .c2 {
-  --divider-color: transparent !important;
-}
-
-.c3:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]),
-.c3[data-focus-visible-added]:not([aria-disabled]):not([data-inactive]) {
-  --divider-color: transparent;
-}
-
-.c3:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c2,
-.c3[data-focus-visible-added] + li {
-  --divider-color: transparent;
-}
-
-.c3::after {
-  position: absolute;
-  top: calc(50% - 12px);
-  left: -8px;
-  width: 4px;
-  height: 24px;
-  content: "";
-  background-color: var(--borderColor-accent-emphasis);
-  border-radius: 6px;
-}
-
-.c3[data-is-active-descendant] {
-  font-weight: 400;
-  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
-}
-
-.c3[data-is-active-descendant]::after {
-  position: absolute;
-  top: calc(50% - 12px);
-  left: -8px;
-  width: 4px;
-  height: 24px;
-  content: "";
-  background-color: var(--borderColor-accent-emphasis);
-  border-radius: 6px;
-}
-
-.c8 {
-  position: relative;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  padding-left: 0;
-  padding-right: 0;
-  font-size: 14px;
-  padding-top: 0;
-  padding-bottom: 0;
-  line-height: 16px;
-  min-height: 5px;
-  margin-left: 8px;
-  margin-right: 8px;
-  border-radius: 6px;
-  -webkit-transition: background 33.333ms linear;
-  transition: background 33.333ms linear;
-  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
-  cursor: pointer;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  background: unset;
-  border: unset;
-  width: calc(100% - 16px);
-  font-family: unset;
-  text-align: unset;
-  margin-top: unset;
-  margin-bottom: unset;
-}
-
-.c8[data-loading] {
-  cursor: default;
-}
-
-.c8[aria-disabled],
-.c8[data-inactive] {
-  cursor: not-allowed;
-}
-
-.c8[aria-disabled] [data-component="ActionList.Checkbox"],
-.c8[data-inactive] [data-component="ActionList.Checkbox"] {
-  cursor: not-allowed;
-  background-color: var(--control-bgColor-disabled,rgba(175,184,193,0.2));
-  border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
-}
-
-.c8[aria-disabled] [data-component="ActionList.Selection"],
-.c8[data-inactive] [data-component="ActionList.Selection"] {
-  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
-}
-
-.c8 [data-component="ActionList.Item--DividerContainer"] {
-  position: relative;
-}
-
-.c8 [data-component="ActionList.Item--DividerContainer"]::before {
-  content: " ";
-  display: block;
-  position: absolute;
-  width: 100%;
-  top: -7px;
-  border: 0 solid;
-  border-top-width: 0;
-  border-color: var(--divider-color,transparent);
-}
-
-.c8:not(:first-of-type) {
-  --divider-color: var(--borderColor-muted,var(--color-action-list-item-inline-divider,rgba(208,215,222,0.48)));
-}
-
-[data-component="ActionList.Divider"] + .c2 {
-  --divider-color: transparent !important;
-}
-
-.c8:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]),
-.c8[data-focus-visible-added]:not([aria-disabled]):not([data-inactive]) {
-  --divider-color: transparent;
-}
-
-.c8:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c2,
-.c8[data-focus-visible-added] + li {
-  --divider-color: transparent;
-}
-
-.c8[data-is-active-descendant] {
-  font-weight: 400;
-  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
-}
-
-.c8[data-is-active-descendant]::after {
-  position: absolute;
-  top: calc(50% - 12px);
-  left: -8px;
-  width: 4px;
-  height: 24px;
-  content: "";
-  background-color: var(--borderColor-accent-emphasis);
-  border-radius: 6px;
-}
-
-@media (forced-colors:active) {
-  .c3:focus,
-  .c3:focus-visible,
-  .c3 > a.focus-visible,
-  .c3[data-is-active-descendant] {
-    outline: solid 1px transparent !important;
-  }
-}
-
-@media (hover:hover) and (pointer:fine) {
-  .c3:hover:not([aria-disabled]):not([data-inactive]) {
-    background-color: var(--control-transparent-bgColor-hover,var(--color-action-list-item-default-hover-bg,rgba(208,215,222,0.32)));
-    color: var(--fgColor-default,var(--color-fg-default,#1F2328));
-    box-shadow: inset 0 0 0 max(1px,0.0625rem) var(--control-transparent-borderColor-active,var(--color-action-list-item-default-active-border,transparent));
-  }
-
-  .c3:focus-visible,
-  .c3 > a.focus-visible,
-  .c3:focus.focus-visible {
-    outline: none;
-    border: 2 solid;
-    box-shadow: 0 0 0 2px var(--focus-outlineColor);
-  }
-
-  .c3:active:not([aria-disabled]):not([data-inactive]) {
-    background-color: var(--control-transparent-bgColor-active,var(--color-action-list-item-default-active-bg,rgba(208,215,222,0.48)));
-    color: var(--fgColor-default,var(--color-fg-default,#1F2328));
-  }
-}
-
-@media (forced-colors:active) {
-  .c8:focus,
-  .c8:focus-visible,
-  .c8 > a.focus-visible,
-  .c8[data-is-active-descendant] {
-    outline: solid 1px transparent !important;
-  }
-}
-
-@media (hover:hover) and (pointer:fine) {
-  .c8:hover:not([aria-disabled]):not([data-inactive]) {
-    background-color: var(--control-transparent-bgColor-hover,var(--color-action-list-item-default-hover-bg,rgba(208,215,222,0.32)));
-    color: var(--fgColor-default,var(--color-fg-default,#1F2328));
-    box-shadow: inset 0 0 0 max(1px,0.0625rem) var(--control-transparent-borderColor-active,var(--color-action-list-item-default-active-border,transparent));
-  }
-
-  .c8:focus-visible,
-  .c8 > a.focus-visible,
-  .c8:focus.focus-visible {
-    outline: none;
-    border: 2 solid;
-    box-shadow: 0 0 0 2px var(--focus-outlineColor);
-  }
-
-  .c8:active:not([aria-disabled]):not([data-inactive]) {
-    background-color: var(--control-transparent-bgColor-active,var(--color-action-list-item-default-active-bg,rgba(208,215,222,0.48)));
-    color: var(--fgColor-default,var(--color-fg-default,#1F2328));
-  }
-}
-
+exports[`NavList > renders with groups 1`] = `
 <div>
-  <nav
-    class=""
-  >
+  <nav>
     <ul
-      class="ActionList"
+      class="prc-ActionList-ActionList--dkHj"
       data-dividers="false"
       data-variant="inset"
     >
       <li
         aria-hidden="true"
-        class="c0 Divider"
+        class="prc-ActionList-Divider-eZxO8"
         data-component="ActionList.Divider"
       />
       <li
-        class="c1 Group"
+        class="prc-ActionList-Group-42hnW"
       >
         <div
-          class="GroupHeadingWrap"
+          class="prc-ActionList-GroupHeadingWrap-CL7FP"
           data-component="GroupHeadingWrap"
           data-variant="subtle"
         >
           <h3
-            class="GroupHeading"
+            class="prc-ActionList-GroupHeading-w2osB"
             data-component="ActionList.GroupHeading"
-            id=":r7:"
+            id=":r5:"
           >
             Overview
           </h3>
         </div>
         <ul
-          aria-labelledby=":r7:"
-          class="GroupList"
+          aria-labelledby=":r5:"
+          class="prc-ActionList-GroupList-kpPZc"
         >
           <li
-            class="c2 c3"
+            class="prc-ActionList-ActionListItem-jXerx"
+            data-active="true"
+            data-has-description="false"
           >
             <a
               aria-current="page"
-              aria-labelledby=":r8:--label  "
-              class="c4 Link"
+              aria-labelledby=":r6:--label  "
+              class="prc-ActionList-ActionListContent-Q8eQr prc-Link-Link-O33ci"
+              data-size="medium"
               href="/getting-started"
-              id=":r8:"
+              id=":r6:"
               style="--subitem-depth: 0;"
               tabindex="0"
             >
-              <div
-                class="c5"
+              <span
+                class="prc-ActionList-Spacer-vgXtU"
+              />
+              <span
+                class="prc-ActionList-ActionListSubContent-Zcjdz"
                 data-component="ActionList.Item--DividerContainer"
               >
                 <span
-                  class="c6"
-                  id=":r8:--label"
+                  class="prc-ActionList-ItemLabel-hYyH7"
+                  id=":r6:--label"
                 >
                   Getting started
                 </span>
-                <span
-                  class="c7"
-                />
-              </div>
+              </span>
             </a>
           </li>
         </ul>
       </li>
       <li
         aria-hidden="true"
-        class="c0 Divider"
+        class="prc-ActionList-Divider-eZxO8"
         data-component="ActionList.Divider"
       />
       <li
-        class="c1 Group"
+        class="prc-ActionList-Group-42hnW"
       >
         <div
-          class="GroupHeadingWrap"
+          class="prc-ActionList-GroupHeadingWrap-CL7FP"
           data-component="GroupHeadingWrap"
           data-variant="subtle"
         >
           <h3
-            class="GroupHeading"
+            class="prc-ActionList-GroupHeading-w2osB"
             data-component="ActionList.GroupHeading"
-            id=":r9:"
+            id=":r7:"
           >
             Components
           </h3>
         </div>
         <ul
-          aria-labelledby=":r9:"
-          class="GroupList"
+          aria-labelledby=":r7:"
+          class="prc-ActionList-GroupList-kpPZc"
         >
           <li
-            class="c2 c8"
+            class="prc-ActionList-ActionListItem-jXerx"
+            data-has-description="false"
           >
             <a
-              aria-labelledby=":ra:--label  "
-              class="c4 Link"
+              aria-labelledby=":r8:--label  "
+              class="prc-ActionList-ActionListContent-Q8eQr prc-Link-Link-O33ci"
+              data-size="medium"
               href="/Avatar"
-              id=":ra:"
+              id=":r8:"
               style="--subitem-depth: 0;"
               tabindex="0"
             >
-              <div
-                class="c5"
+              <span
+                class="prc-ActionList-Spacer-vgXtU"
+              />
+              <span
+                class="prc-ActionList-ActionListSubContent-Zcjdz"
                 data-component="ActionList.Item--DividerContainer"
               >
                 <span
-                  class="c9"
-                  id=":ra:--label"
+                  class="prc-ActionList-ItemLabel-hYyH7"
+                  id=":r8:--label"
                 >
                   Avatar
                 </span>
-                <span
-                  class="c7"
-                />
-              </div>
+              </span>
             </a>
           </li>
         </ul>
@@ -913,1041 +229,207 @@ exports[`NavList renders with groups 1`] = `
 </div>
 `;
 
-exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav contains the current item and is open 1`] = `
-.c1 {
-  list-style: none;
-}
-
-.c4 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  min-width: 0;
-}
-
-.c5 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-}
-
-.c6 {
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  font-weight: 400;
-  word-break: break-word;
-  line-height: 20px;
-}
-
-.c7 {
-  height: 20px;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-  margin-left: 8px;
-  font-weight: initial;
-  display: grid;
-  -webkit-align-content: center;
-  -ms-flex-line-pack: center;
-  align-content: center;
-}
-
-[data-variant="danger"]:hover .c0,
-[data-variant="danger"]:active .c7 {
-  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
-}
-
-.c9 {
-  font-size: 12px;
-  line-height: 16px;
-  color: var(--fgColor-attention,var(--color-attention-fg,#9a6700));
-}
-
-.c12 {
-  padding-left: 16px;
-  padding-right: 8px;
-  padding-top: 6px;
-  padding-bottom: 6px;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  border-radius: 6px;
-  color: inherit;
-  font-size: 12px;
-  font-weight: 400;
-}
-
-.c12:hover {
-  color: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.c13 {
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  font-weight: 600;
-  word-break: break-word;
-  line-height: 20px;
-}
-
-.c10 {
-  padding: 0;
-  margin: 0;
-  display: block;
-}
-
-[data-component="ActionList.Divider"] + .c2 {
-  --divider-color: transparent !important;
-}
-
-.c14:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c2,
-.c14[data-focus-visible-added] + li {
-  --divider-color: transparent;
-}
-
-.c11 {
-  position: relative;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  padding-left: 0;
-  padding-right: 0;
-  font-size: 14px;
-  padding-top: 0;
-  padding-bottom: 0;
-  line-height: 16px;
-  min-height: 5px;
-  margin-left: 8px;
-  margin-right: 8px;
-  border-radius: 6px;
-  -webkit-transition: background 33.333ms linear;
-  transition: background 33.333ms linear;
-  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
-  cursor: pointer;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  background: unset;
-  border: unset;
-  width: calc(100% - 16px);
-  font-family: unset;
-  text-align: unset;
-  margin-top: unset;
-  margin-bottom: unset;
-  font-weight: 600;
-  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
-}
-
-.c11[data-loading] {
-  cursor: default;
-}
-
-.c11[aria-disabled],
-.c11[data-inactive] {
-  cursor: not-allowed;
-}
-
-.c11[aria-disabled] [data-component="ActionList.Checkbox"],
-.c11[data-inactive] [data-component="ActionList.Checkbox"] {
-  cursor: not-allowed;
-  background-color: var(--control-bgColor-disabled,rgba(175,184,193,0.2));
-  border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
-}
-
-.c11[aria-disabled] [data-component="ActionList.Selection"],
-.c11[data-inactive] [data-component="ActionList.Selection"] {
-  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
-}
-
-.c11 [data-component="ActionList.Item--DividerContainer"] {
-  position: relative;
-}
-
-.c11 [data-component="ActionList.Item--DividerContainer"]::before {
-  content: " ";
-  display: block;
-  position: absolute;
-  width: 100%;
-  top: -7px;
-  border: 0 solid;
-  border-top-width: 0;
-  border-color: var(--divider-color,transparent);
-}
-
-.c11:not(:first-of-type) {
-  --divider-color: var(--borderColor-muted,var(--color-action-list-item-inline-divider,rgba(208,215,222,0.48)));
-}
-
-[data-component="ActionList.Divider"] + .c2 {
-  --divider-color: transparent !important;
-}
-
-.c11:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]),
-.c11[data-focus-visible-added]:not([aria-disabled]):not([data-inactive]) {
-  --divider-color: transparent;
-}
-
-.c11:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c2,
-.c11[data-focus-visible-added] + li {
-  --divider-color: transparent;
-}
-
-.c11::after {
-  position: absolute;
-  top: calc(50% - 12px);
-  left: -8px;
-  width: 4px;
-  height: 24px;
-  content: "";
-  background-color: var(--borderColor-accent-emphasis);
-  border-radius: 6px;
-}
-
-.c11[data-is-active-descendant] {
-  font-weight: 400;
-  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
-}
-
-.c11[data-is-active-descendant]::after {
-  position: absolute;
-  top: calc(50% - 12px);
-  left: -8px;
-  width: 4px;
-  height: 24px;
-  content: "";
-  background-color: var(--borderColor-accent-emphasis);
-  border-radius: 6px;
-}
-
-.c3 {
-  position: relative;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  padding-left: 8px;
-  padding-right: 8px;
-  font-size: 14px;
-  padding-top: 6px;
-  padding-bottom: 6px;
-  line-height: 16px;
-  min-height: 5px;
-  margin-left: 8px;
-  margin-right: 8px;
-  border-radius: 6px;
-  -webkit-transition: background 33.333ms linear;
-  transition: background 33.333ms linear;
-  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
-  cursor: pointer;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  background: unset;
-  border: unset;
-  width: calc(100% - 16px);
-  font-family: unset;
-  text-align: unset;
-  margin-top: unset;
-  margin-bottom: unset;
-  font-weight: 600;
-}
-
-.c3[data-loading] {
-  cursor: default;
-}
-
-.c3[aria-disabled],
-.c3[data-inactive] {
-  cursor: not-allowed;
-}
-
-.c3[aria-disabled] [data-component="ActionList.Checkbox"],
-.c3[data-inactive] [data-component="ActionList.Checkbox"] {
-  cursor: not-allowed;
-  background-color: var(--control-bgColor-disabled,rgba(175,184,193,0.2));
-  border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
-}
-
-.c3[aria-disabled] [data-component="ActionList.Selection"],
-.c3[data-inactive] [data-component="ActionList.Selection"] {
-  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
-}
-
-.c3 [data-component="ActionList.Item--DividerContainer"] {
-  position: relative;
-}
-
-.c3 [data-component="ActionList.Item--DividerContainer"]::before {
-  content: " ";
-  display: block;
-  position: absolute;
-  width: 100%;
-  top: -7px;
-  border: 0 solid;
-  border-top-width: 0;
-  border-color: var(--divider-color,transparent);
-}
-
-.c3:not(:first-of-type) {
-  --divider-color: var(--borderColor-muted,var(--color-action-list-item-inline-divider,rgba(208,215,222,0.48)));
-}
-
-[data-component="ActionList.Divider"] + .c2 {
-  --divider-color: transparent !important;
-}
-
-.c3:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]),
-.c3[data-focus-visible-added]:not([aria-disabled]):not([data-inactive]) {
-  --divider-color: transparent;
-}
-
-.c3:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c2,
-.c3[data-focus-visible-added] + li {
-  --divider-color: transparent;
-}
-
-.c3[data-is-active-descendant] {
-  font-weight: 400;
-  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
-}
-
-.c3[data-is-active-descendant]::after {
-  position: absolute;
-  top: calc(50% - 12px);
-  left: -8px;
-  width: 4px;
-  height: 24px;
-  content: "";
-  background-color: var(--borderColor-accent-emphasis);
-  border-radius: 6px;
-}
-
-.c8 {
-  -webkit-transform: rotate(180deg);
-  -ms-transform: rotate(180deg);
-  transform: rotate(180deg);
-}
-
-@media (forced-colors:active) {
-
-}
-
-@media (hover:hover) and (pointer:fine) {
-
-}
-
-@media (forced-colors:active) {
-  .c11:focus,
-  .c11:focus-visible,
-  .c11 > a.focus-visible,
-  .c11[data-is-active-descendant] {
-    outline: solid 1px transparent !important;
-  }
-}
-
-@media (hover:hover) and (pointer:fine) {
-  .c11:hover:not([aria-disabled]):not([data-inactive]) {
-    background-color: var(--control-transparent-bgColor-hover,var(--color-action-list-item-default-hover-bg,rgba(208,215,222,0.32)));
-    color: var(--fgColor-default,var(--color-fg-default,#1F2328));
-    box-shadow: inset 0 0 0 max(1px,0.0625rem) var(--control-transparent-borderColor-active,var(--color-action-list-item-default-active-border,transparent));
-  }
-
-  .c11:focus-visible,
-  .c11 > a.focus-visible,
-  .c11:focus.focus-visible {
-    outline: none;
-    border: 2 solid;
-    box-shadow: 0 0 0 2px var(--focus-outlineColor);
-  }
-
-  .c11:active:not([aria-disabled]):not([data-inactive]) {
-    background-color: var(--control-transparent-bgColor-active,var(--color-action-list-item-default-active-bg,rgba(208,215,222,0.48)));
-    color: var(--fgColor-default,var(--color-fg-default,#1F2328));
-  }
-}
-
-@media (forced-colors:active) {
-  .c3:focus,
-  .c3:focus-visible,
-  .c3 > a.focus-visible,
-  .c3[data-is-active-descendant] {
-    outline: solid 1px transparent !important;
-  }
-}
-
-@media (hover:hover) and (pointer:fine) {
-  .c3:hover:not([aria-disabled]):not([data-inactive]) {
-    background-color: var(--control-transparent-bgColor-hover,var(--color-action-list-item-default-hover-bg,rgba(208,215,222,0.32)));
-    color: var(--fgColor-default,var(--color-fg-default,#1F2328));
-    box-shadow: inset 0 0 0 max(1px,0.0625rem) var(--control-transparent-borderColor-active,var(--color-action-list-item-default-active-border,transparent));
-  }
-
-  .c3:focus-visible,
-  .c3 > a.focus-visible,
-  .c3:focus.focus-visible {
-    outline: none;
-    border: 2 solid;
-    box-shadow: 0 0 0 2px var(--focus-outlineColor);
-  }
-
-  .c3:active:not([aria-disabled]):not([data-inactive]) {
-    background-color: var(--control-transparent-bgColor-active,var(--color-action-list-item-default-active-bg,rgba(208,215,222,0.48)));
-    color: var(--fgColor-default,var(--color-fg-default,#1F2328));
-  }
-}
-
+exports[`NavList.Item with NavList.SubNav > does not have active styles if SubNav contains the current item and is open 1`] = `
 <div>
-  <nav
-    class=""
-  >
+  <nav>
     <ul
-      class="ActionList"
+      class="prc-ActionList-ActionList--dkHj"
       data-dividers="false"
       data-variant="inset"
     >
       <li
-        aria-labelledby=":r26:"
-        class="c0 c1"
+        class="prc-ActionList-ActionListItem-jXerx"
+        data-has-description="false"
+        data-has-subitem="true"
       >
         <button
-          aria-controls=":r27:"
+          aria-controls=":r23:"
           aria-expanded="true"
-          aria-labelledby=":r26:--label :r26:--trailing-visual "
-          class="c2 c3"
-          id=":r26:"
+          aria-labelledby=":r22:--label :r22:--trailing-visual "
+          class="prc-ActionList-ActionListContent-Q8eQr"
+          data-size="medium"
+          id=":r22:"
+          style="--subitem-depth: 0;"
           tabindex="0"
+          type="button"
         >
-          <div
-            class="c0 c4"
+          <span
+            class="prc-ActionList-Spacer-vgXtU"
+          />
+          <span
+            class="prc-ActionList-ActionListSubContent-Zcjdz"
             data-component="ActionList.Item--DividerContainer"
           >
-            <div
-              class="c0 c5"
-            >
-              <span
-                class="c0 c6"
-                id=":r26:--label"
-              >
-                Item
-              </span>
-              <span
-                class="c0 c7"
-                id=":r26:--trailing-visual"
-              >
-                <svg
-                  aria-hidden="true"
-                  class="octicon octicon-chevron-down c8"
-                  display="inline-block"
-                  fill="currentColor"
-                  focusable="false"
-                  height="16"
-                  overflow="visible"
-                  style="vertical-align: text-bottom;"
-                  viewBox="0 0 16 16"
-                  width="16"
-                >
-                  <path
-                    d="M12.78 5.22a.749.749 0 0 1 0 1.06l-4.25 4.25a.749.749 0 0 1-1.06 0L3.22 6.28a.749.749 0 1 1 1.06-1.06L8 8.939l3.72-3.719a.749.749 0 0 1 1.06 0Z"
-                  />
-                </svg>
-              </span>
-            </div>
             <span
-              class="c0 c9"
-            />
-          </div>
-        </button>
-        <div>
-          <ul
-            aria-labelledby=":r26:"
-            class="c0 c10"
-            id=":r27:"
-          >
-            <li
-              class="c2 c11"
+              class="prc-ActionList-ItemLabel-hYyH7"
+              id=":r22:--label"
             >
-              <a
-                aria-current="page"
-                aria-labelledby=":r29:--label  "
-                class="c0 c12 Link"
-                href="#"
-                id=":r29:"
-                style="--subitem-depth: 1;"
-                tabindex="0"
+              Item
+            </span>
+            <span
+              class="prc-ActionList-TrailingVisual-8LMjP prc-ActionList-VisualWrap-MGVnU"
+              id=":r22:--trailing-visual"
+            >
+              <svg
+                aria-hidden="true"
+                class="octicon octicon-chevron-down prc-ActionList-ExpandIcon-6JuzS"
+                display="inline-block"
+                fill="currentColor"
+                focusable="false"
+                height="16"
+                overflow="visible"
+                style="vertical-align: text-bottom;"
+                viewBox="0 0 16 16"
+                width="16"
               >
-                <div
-                  class="c0 c4"
-                  data-component="ActionList.Item--DividerContainer"
+                <path
+                  d="M12.78 5.22a.749.749 0 0 1 0 1.06l-4.25 4.25a.749.749 0 0 1-1.06 0L3.22 6.28a.749.749 0 1 1 1.06-1.06L8 8.939l3.72-3.719a.749.749 0 0 1 1.06 0Z"
+                />
+              </svg>
+            </span>
+          </span>
+        </button>
+        <ul
+          aria-labelledby=":r22:"
+          class="prc-ActionList-SubGroup-4pVPh"
+          id=":r23:"
+        >
+          <li
+            class="prc-ActionList-ActionListItem-jXerx"
+            data-active="true"
+            data-has-description="false"
+          >
+            <a
+              aria-current="page"
+              aria-labelledby=":r25:--label  "
+              class="prc-ActionList-ActionListContent-Q8eQr prc-Link-Link-O33ci"
+              data-size="medium"
+              href="#"
+              id=":r25:"
+              style="--subitem-depth: 1;"
+              tabindex="0"
+            >
+              <span
+                class="prc-ActionList-Spacer-vgXtU"
+              />
+              <span
+                class="prc-ActionList-ActionListSubContent-Zcjdz"
+                data-component="ActionList.Item--DividerContainer"
+              >
+                <span
+                  class="prc-ActionList-ItemLabel-hYyH7"
+                  id=":r25:--label"
                 >
-                  <span
-                    class="c0 c13"
-                    id=":r29:--label"
-                  >
-                    Sub Item
-                  </span>
-                  <span
-                    class="c0 c9"
-                  />
-                </div>
-              </a>
-            </li>
-          </ul>
-        </div>
+                  Sub Item
+                </span>
+              </span>
+            </a>
+          </li>
+        </ul>
       </li>
     </ul>
   </nav>
 </div>
 `;
 
-exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains the current item and is closed 1`] = `
-.c1 {
-  list-style: none;
-}
-
-.c4 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  min-width: 0;
-}
-
-.c5 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-}
-
-.c7 {
-  height: 20px;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-  margin-left: 8px;
-  font-weight: initial;
-  display: grid;
-  -webkit-align-content: center;
-  -ms-flex-line-pack: center;
-  align-content: center;
-}
-
-[data-variant="danger"]:hover .c0,
-[data-variant="danger"]:active .c7 {
-  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
-}
-
-.c9 {
-  font-size: 12px;
-  line-height: 16px;
-  color: var(--fgColor-attention,var(--color-attention-fg,#9a6700));
-}
-
-.c10 {
-  padding: 0;
-  margin: 0;
-  display: none;
-}
-
-.c12 {
-  padding-left: 16px;
-  padding-right: 8px;
-  padding-top: 6px;
-  padding-bottom: 6px;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  border-radius: 6px;
-  color: inherit;
-  font-size: 12px;
-  font-weight: 400;
-}
-
-.c12:hover {
-  color: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.c6 {
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  font-weight: 600;
-  word-break: break-word;
-  line-height: 20px;
-}
-
-[data-component="ActionList.Divider"] + .c2 {
-  --divider-color: transparent !important;
-}
-
-.c13:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c2,
-.c13[data-focus-visible-added] + li {
-  --divider-color: transparent;
-}
-
-.c11 {
-  position: relative;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  padding-left: 0;
-  padding-right: 0;
-  font-size: 14px;
-  padding-top: 0;
-  padding-bottom: 0;
-  line-height: 16px;
-  min-height: 5px;
-  margin-left: 8px;
-  margin-right: 8px;
-  border-radius: 6px;
-  -webkit-transition: background 33.333ms linear;
-  transition: background 33.333ms linear;
-  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
-  cursor: pointer;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  background: unset;
-  border: unset;
-  width: calc(100% - 16px);
-  font-family: unset;
-  text-align: unset;
-  margin-top: unset;
-  margin-bottom: unset;
-  font-weight: 600;
-  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
-}
-
-.c11[data-loading] {
-  cursor: default;
-}
-
-.c11[aria-disabled],
-.c11[data-inactive] {
-  cursor: not-allowed;
-}
-
-.c11[aria-disabled] [data-component="ActionList.Checkbox"],
-.c11[data-inactive] [data-component="ActionList.Checkbox"] {
-  cursor: not-allowed;
-  background-color: var(--control-bgColor-disabled,rgba(175,184,193,0.2));
-  border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
-}
-
-.c11[aria-disabled] [data-component="ActionList.Selection"],
-.c11[data-inactive] [data-component="ActionList.Selection"] {
-  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
-}
-
-.c11 [data-component="ActionList.Item--DividerContainer"] {
-  position: relative;
-}
-
-.c11 [data-component="ActionList.Item--DividerContainer"]::before {
-  content: " ";
-  display: block;
-  position: absolute;
-  width: 100%;
-  top: -7px;
-  border: 0 solid;
-  border-top-width: 0;
-  border-color: var(--divider-color,transparent);
-}
-
-.c11:not(:first-of-type) {
-  --divider-color: var(--borderColor-muted,var(--color-action-list-item-inline-divider,rgba(208,215,222,0.48)));
-}
-
-[data-component="ActionList.Divider"] + .c2 {
-  --divider-color: transparent !important;
-}
-
-.c11:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]),
-.c11[data-focus-visible-added]:not([aria-disabled]):not([data-inactive]) {
-  --divider-color: transparent;
-}
-
-.c11:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c2,
-.c11[data-focus-visible-added] + li {
-  --divider-color: transparent;
-}
-
-.c11::after {
-  position: absolute;
-  top: calc(50% - 12px);
-  left: -8px;
-  width: 4px;
-  height: 24px;
-  content: "";
-  background-color: var(--borderColor-accent-emphasis);
-  border-radius: 6px;
-}
-
-.c11[data-is-active-descendant] {
-  font-weight: 400;
-  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
-}
-
-.c11[data-is-active-descendant]::after {
-  position: absolute;
-  top: calc(50% - 12px);
-  left: -8px;
-  width: 4px;
-  height: 24px;
-  content: "";
-  background-color: var(--borderColor-accent-emphasis);
-  border-radius: 6px;
-}
-
-[data-component="ActionList.Divider"] + .c2 {
-  --divider-color: transparent !important;
-}
-
-.c14:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c2,
-.c14[data-focus-visible-added] + li {
-  --divider-color: transparent;
-}
-
-.c3 {
-  position: relative;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  padding-left: 8px;
-  padding-right: 8px;
-  font-size: 14px;
-  padding-top: 6px;
-  padding-bottom: 6px;
-  line-height: 16px;
-  min-height: 5px;
-  margin-left: 8px;
-  margin-right: 8px;
-  border-radius: 6px;
-  -webkit-transition: background 33.333ms linear;
-  transition: background 33.333ms linear;
-  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
-  cursor: pointer;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  background: unset;
-  border: unset;
-  width: calc(100% - 16px);
-  font-family: unset;
-  text-align: unset;
-  margin-top: unset;
-  margin-bottom: unset;
-  font-weight: 600;
-  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
-}
-
-.c3[data-loading] {
-  cursor: default;
-}
-
-.c3[aria-disabled],
-.c3[data-inactive] {
-  cursor: not-allowed;
-}
-
-.c3[aria-disabled] [data-component="ActionList.Checkbox"],
-.c3[data-inactive] [data-component="ActionList.Checkbox"] {
-  cursor: not-allowed;
-  background-color: var(--control-bgColor-disabled,rgba(175,184,193,0.2));
-  border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
-}
-
-.c3[aria-disabled] [data-component="ActionList.Selection"],
-.c3[data-inactive] [data-component="ActionList.Selection"] {
-  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
-}
-
-.c3 [data-component="ActionList.Item--DividerContainer"] {
-  position: relative;
-}
-
-.c3 [data-component="ActionList.Item--DividerContainer"]::before {
-  content: " ";
-  display: block;
-  position: absolute;
-  width: 100%;
-  top: -7px;
-  border: 0 solid;
-  border-top-width: 0;
-  border-color: var(--divider-color,transparent);
-}
-
-.c3:not(:first-of-type) {
-  --divider-color: var(--borderColor-muted,var(--color-action-list-item-inline-divider,rgba(208,215,222,0.48)));
-}
-
-[data-component="ActionList.Divider"] + .c2 {
-  --divider-color: transparent !important;
-}
-
-.c3:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]),
-.c3[data-focus-visible-added]:not([aria-disabled]):not([data-inactive]) {
-  --divider-color: transparent;
-}
-
-.c3:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c2,
-.c3[data-focus-visible-added] + li {
-  --divider-color: transparent;
-}
-
-.c3::after {
-  position: absolute;
-  top: calc(50% - 12px);
-  left: -8px;
-  width: 4px;
-  height: 24px;
-  content: "";
-  background-color: var(--borderColor-accent-emphasis);
-  border-radius: 6px;
-}
-
-.c3[data-is-active-descendant] {
-  font-weight: 400;
-  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
-}
-
-.c3[data-is-active-descendant]::after {
-  position: absolute;
-  top: calc(50% - 12px);
-  left: -8px;
-  width: 4px;
-  height: 24px;
-  content: "";
-  background-color: var(--borderColor-accent-emphasis);
-  border-radius: 6px;
-}
-
-.c8 {
-  -webkit-transform: rotate(0deg);
-  -ms-transform: rotate(0deg);
-  transform: rotate(0deg);
-}
-
-@media (forced-colors:active) {
-
-}
-
-@media (hover:hover) and (pointer:fine) {
-
-}
-
-@media (forced-colors:active) {
-  .c11:focus,
-  .c11:focus-visible,
-  .c11 > a.focus-visible,
-  .c11[data-is-active-descendant] {
-    outline: solid 1px transparent !important;
-  }
-}
-
-@media (hover:hover) and (pointer:fine) {
-  .c11:hover:not([aria-disabled]):not([data-inactive]) {
-    background-color: var(--control-transparent-bgColor-hover,var(--color-action-list-item-default-hover-bg,rgba(208,215,222,0.32)));
-    color: var(--fgColor-default,var(--color-fg-default,#1F2328));
-    box-shadow: inset 0 0 0 max(1px,0.0625rem) var(--control-transparent-borderColor-active,var(--color-action-list-item-default-active-border,transparent));
-  }
-
-  .c11:focus-visible,
-  .c11 > a.focus-visible,
-  .c11:focus.focus-visible {
-    outline: none;
-    border: 2 solid;
-    box-shadow: 0 0 0 2px var(--focus-outlineColor);
-  }
-
-  .c11:active:not([aria-disabled]):not([data-inactive]) {
-    background-color: var(--control-transparent-bgColor-active,var(--color-action-list-item-default-active-bg,rgba(208,215,222,0.48)));
-    color: var(--fgColor-default,var(--color-fg-default,#1F2328));
-  }
-}
-
-@media (forced-colors:active) {
-
-}
-
-@media (hover:hover) and (pointer:fine) {
-
-}
-
-@media (forced-colors:active) {
-  .c3:focus,
-  .c3:focus-visible,
-  .c3 > a.focus-visible,
-  .c3[data-is-active-descendant] {
-    outline: solid 1px transparent !important;
-  }
-}
-
-@media (hover:hover) and (pointer:fine) {
-  .c3:hover:not([aria-disabled]):not([data-inactive]) {
-    background-color: var(--control-transparent-bgColor-hover,var(--color-action-list-item-default-hover-bg,rgba(208,215,222,0.32)));
-    color: var(--fgColor-default,var(--color-fg-default,#1F2328));
-    box-shadow: inset 0 0 0 max(1px,0.0625rem) var(--control-transparent-borderColor-active,var(--color-action-list-item-default-active-border,transparent));
-  }
-
-  .c3:focus-visible,
-  .c3 > a.focus-visible,
-  .c3:focus.focus-visible {
-    outline: none;
-    border: 2 solid;
-    box-shadow: 0 0 0 2px var(--focus-outlineColor);
-  }
-
-  .c3:active:not([aria-disabled]):not([data-inactive]) {
-    background-color: var(--control-transparent-bgColor-active,var(--color-action-list-item-default-active-bg,rgba(208,215,222,0.48)));
-    color: var(--fgColor-default,var(--color-fg-default,#1F2328));
-  }
-}
-
+exports[`NavList.Item with NavList.SubNav > has active styles if SubNav contains the current item and is closed 1`] = `
 <div>
-  <nav
-    class=""
-  >
+  <nav>
     <ul
-      class="ActionList"
+      class="prc-ActionList-ActionList--dkHj"
       data-dividers="false"
       data-variant="inset"
     >
       <li
-        aria-labelledby=":r20:"
-        class="c0 c1"
+        class="prc-ActionList-ActionListItem-jXerx"
+        data-active="true"
+        data-has-description="false"
+        data-has-subitem="true"
       >
         <button
-          aria-controls=":r21:"
+          aria-controls=":r1u:"
           aria-expanded="false"
-          aria-labelledby=":r20:--label :r20:--trailing-visual "
-          class="c2 c3"
-          id=":r20:"
+          aria-labelledby=":r1t:--label :r1t:--trailing-visual "
+          class="prc-ActionList-ActionListContent-Q8eQr"
+          data-size="medium"
+          id=":r1t:"
+          style="--subitem-depth: 0;"
           tabindex="0"
+          type="button"
         >
-          <div
-            class="c0 c4"
+          <span
+            class="prc-ActionList-Spacer-vgXtU"
+          />
+          <span
+            class="prc-ActionList-ActionListSubContent-Zcjdz"
             data-component="ActionList.Item--DividerContainer"
           >
-            <div
-              class="c0 c5"
-            >
-              <span
-                class="c0 c6"
-                id=":r20:--label"
-              >
-                Item
-              </span>
-              <span
-                class="c0 c7"
-                id=":r20:--trailing-visual"
-              >
-                <svg
-                  aria-hidden="true"
-                  class="octicon octicon-chevron-down c8"
-                  display="inline-block"
-                  fill="currentColor"
-                  focusable="false"
-                  height="16"
-                  overflow="visible"
-                  style="vertical-align: text-bottom;"
-                  viewBox="0 0 16 16"
-                  width="16"
-                >
-                  <path
-                    d="M12.78 5.22a.749.749 0 0 1 0 1.06l-4.25 4.25a.749.749 0 0 1-1.06 0L3.22 6.28a.749.749 0 1 1 1.06-1.06L8 8.939l3.72-3.719a.749.749 0 0 1 1.06 0Z"
-                  />
-                </svg>
-              </span>
-            </div>
             <span
-              class="c0 c9"
-            />
-          </div>
-        </button>
-        <div>
-          <ul
-            aria-labelledby=":r20:"
-            class="c0 c10"
-            id=":r21:"
-          >
-            <li
-              class="c2 c11"
+              class="prc-ActionList-ItemLabel-hYyH7"
+              id=":r1t:--label"
             >
-              <a
-                aria-current="page"
-                aria-labelledby=":r23:--label  "
-                class="c0 c12 Link"
-                href="#"
-                id=":r23:"
-                style="--subitem-depth: 1;"
-                tabindex="0"
+              Item
+            </span>
+            <span
+              class="prc-ActionList-TrailingVisual-8LMjP prc-ActionList-VisualWrap-MGVnU"
+              id=":r1t:--trailing-visual"
+            >
+              <svg
+                aria-hidden="true"
+                class="octicon octicon-chevron-down prc-ActionList-ExpandIcon-6JuzS"
+                display="inline-block"
+                fill="currentColor"
+                focusable="false"
+                height="16"
+                overflow="visible"
+                style="vertical-align: text-bottom;"
+                viewBox="0 0 16 16"
+                width="16"
               >
-                <div
-                  class="c0 c4"
-                  data-component="ActionList.Item--DividerContainer"
+                <path
+                  d="M12.78 5.22a.749.749 0 0 1 0 1.06l-4.25 4.25a.749.749 0 0 1-1.06 0L3.22 6.28a.749.749 0 1 1 1.06-1.06L8 8.939l3.72-3.719a.749.749 0 0 1 1.06 0Z"
+                />
+              </svg>
+            </span>
+          </span>
+        </button>
+        <ul
+          aria-labelledby=":r1t:"
+          class="prc-ActionList-SubGroup-4pVPh"
+          id=":r1u:"
+        >
+          <li
+            class="prc-ActionList-ActionListItem-jXerx"
+            data-active="true"
+            data-has-description="false"
+          >
+            <a
+              aria-current="page"
+              aria-labelledby=":r20:--label  "
+              class="prc-ActionList-ActionListContent-Q8eQr prc-Link-Link-O33ci"
+              data-size="medium"
+              href="#"
+              id=":r20:"
+              style="--subitem-depth: 1;"
+              tabindex="0"
+            >
+              <span
+                class="prc-ActionList-Spacer-vgXtU"
+              />
+              <span
+                class="prc-ActionList-ActionListSubContent-Zcjdz"
+                data-component="ActionList.Item--DividerContainer"
+              >
+                <span
+                  class="prc-ActionList-ItemLabel-hYyH7"
+                  id=":r20:--label"
                 >
-                  <span
-                    class="c0 c6"
-                    id=":r23:--label"
-                  >
-                    Sub Item
-                  </span>
-                  <span
-                    class="c0 c9"
-                  />
-                </div>
-              </a>
-            </li>
-          </ul>
-        </div>
+                  Sub Item
+                </span>
+              </span>
+            </a>
+          </li>
+        </ul>
       </li>
     </ul>
   </nav>

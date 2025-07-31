@@ -1,3 +1,4 @@
+import {describe, expect, it} from 'vitest'
 import Portal, {registerPortalRoot} from '../Portal/index'
 
 import {render} from '@testing-library/react'

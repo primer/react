@@ -8,11 +8,10 @@ import type {Column, CellAlignment} from './column'
 import type {UniqueRow} from './row'
 import {SortDirection} from './sorting'
 import {useTableLayout} from './useTable'
-import {SkeletonText} from '../experimental/Skeleton/SkeletonText'
+import {SkeletonText} from '../SkeletonText'
 import {ScrollableRegion} from '../ScrollableRegion'
 import {Button} from '../internal/components/ButtonReset'
 import classes from './Table.module.css'
-import {defaultSxProp} from '../utils/defaultSxProp'
 import {BoxWithFallback} from '../internal/components/BoxWithFallback'
 
 // ----------------------------------------------------------------------------
@@ -150,14 +149,17 @@ function TableSortHeader({align, children, direction, onToggleSort, ...rest}: Ta
       >
         {children}
         {direction === SortDirection.NONE || direction === SortDirection.ASC ? (
-          <SortAscIcon
-            className={clsx(
-              'TableSortIcon',
-              'TableSortIcon--ascending',
-              classes.TableSortIcon,
-              classes['TableSortIcon--ascending'],
-            )}
-          />
+          <>
+            <SortAscIcon
+              className={clsx(
+                'TableSortIcon',
+                'TableSortIcon--ascending',
+                classes.TableSortIcon,
+                classes['TableSortIcon--ascending'],
+              )}
+            />
+            {direction === SortDirection.NONE ? <VisuallyHidden>sort ascending</VisuallyHidden> : null}
+          </>
         ) : null}
         {direction === SortDirection.DESC ? (
           <SortDescIcon
@@ -233,9 +235,9 @@ function TableCellPlaceholder({children}: TableCellPlaceholderProps) {
 // ----------------------------------------------------------------------------
 export type TableContainerProps = React.PropsWithChildren<SxProp & React.HTMLAttributes<HTMLDivElement>>
 
-function TableContainer({children, className, sx: sxProp = defaultSxProp, ...rest}: TableContainerProps) {
+function TableContainer({children, className, ...rest}: TableContainerProps) {
   return (
-    <BoxWithFallback {...rest} className={clsx(className, classes.TableContainer)} sx={sxProp}>
+    <BoxWithFallback {...rest} className={clsx(className, classes.TableContainer)}>
       {children}
     </BoxWithFallback>
   )

@@ -1,7 +1,6 @@
 import React from 'react'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {ActionListContainerContext} from './ActionListContainerContext'
-import {defaultSxProp} from '../utils/defaultSxProp'
 import {useSlots} from '../hooks/useSlots'
 import {Heading} from './Heading'
 import {useId} from '../hooks/useId'
@@ -14,7 +13,7 @@ import {BoxWithFallback} from '../internal/components/BoxWithFallback'
 
 export const List = React.forwardRef<HTMLUListElement, ActionListProps>(
   (
-    {variant = 'inset', selectionVariant, showDividers = false, role, sx: sxProp = defaultSxProp, className, ...props},
+    {variant = 'inset', selectionVariant, showDividers = false, role, disableFocusZone = false, className, ...props},
     forwardedRef,
   ): JSX.Element => {
     const [slots, childrenWithoutSlots] = useSlots(props.children, {
@@ -37,7 +36,7 @@ export const List = React.forwardRef<HTMLUListElement, ActionListProps>(
 
     let enableFocusZone = false
     if (enableFocusZoneFromContainer !== undefined) enableFocusZone = enableFocusZoneFromContainer
-    else if (listRole) enableFocusZone = ['menu', 'menubar', 'listbox'].includes(listRole)
+    else if (listRole && !disableFocusZone) enableFocusZone = ['menu', 'menubar', 'listbox'].includes(listRole)
 
     useFocusZone({
       disabled: !enableFocusZone,
@@ -59,7 +58,6 @@ export const List = React.forwardRef<HTMLUListElement, ActionListProps>(
         {slots.heading}
         <BoxWithFallback
           as="ul"
-          sx={sxProp}
           className={clsx(classes.ActionList, className)}
           role={listRole}
           aria-labelledby={ariaLabelledBy}

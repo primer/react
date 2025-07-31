@@ -1,24 +1,30 @@
-import {fireEvent, render, act, waitFor} from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
+import {fireEvent, render, act} from '@testing-library/react'
+import {userEvent} from '@vitest/browser/context'
+import {beforeEach, afterEach, describe, it, expect, vi} from 'vitest'
 import React from 'react'
-import {ThemeProvider} from '../ThemeProvider'
 import type {SubTreeState} from './TreeView'
 import {TreeView} from './TreeView'
 import {IconButton} from '../Button'
 import {GearIcon} from '@primer/octicons-react'
-
-jest.useFakeTimers()
 
 // TODO: Move this function into a shared location
 function renderWithTheme(
   ui: Parameters<typeof render>[0],
   options?: Parameters<typeof render>[1],
 ): ReturnType<typeof render> {
-  return render(<ThemeProvider>{ui}</ThemeProvider>, options)
+  return render(ui, options)
 }
 
 // Mock `scrollIntoView` because it's not implemented in JSDOM
-Element.prototype.scrollIntoView = jest.fn()
+Element.prototype.scrollIntoView = vi.fn()
+
+beforeEach(() => {
+  vi.useFakeTimers()
+})
+
+afterEach(() => {
+  vi.useRealTimers()
+})
 
 describe('Markup', () => {
   it('uses tree role', () => {
@@ -205,9 +211,7 @@ describe('Markup', () => {
   })
 
   it('should include `aria-expanded` when a SubTree contains content', async () => {
-    const user = userEvent.setup({
-      advanceTimers: jest.advanceTimersByTime,
-    })
+    const user = userEvent.setup()
     const {getByLabelText, getByText} = renderWithTheme(
       <TreeView aria-label="Test tree">
         <TreeView.Item id="item-1">
@@ -228,13 +232,17 @@ describe('Markup', () => {
     let treeitem = getByLabelText(/Item 1/)
     expect(treeitem).toHaveAttribute('aria-expanded', 'false')
 
-    await user.click(getByText(/Item 1/))
+    await act(async () => {
+      await user.click(getByText(/Item 1/))
+    })
     expect(treeitem).toHaveAttribute('aria-expanded', 'true')
 
     treeitem = getByLabelText(/Item 2/)
     expect(treeitem).not.toHaveAttribute('aria-expanded')
 
-    await user.click(getByText(/Item 2/))
+    await act(async () => {
+      await user.click(getByText(/Item 2/))
+    })
     expect(treeitem).toHaveAttribute('aria-expanded', 'true')
   })
 
@@ -261,7 +269,7 @@ describe('Markup', () => {
   })
 
   it('should move focus to current treeitem by default', async () => {
-    const user = userEvent.setup({delay: null})
+    const user = userEvent.setup()
     const {getByRole} = renderWithTheme(
       <div>
         <button type="button">Focusable element</button>
@@ -277,11 +285,15 @@ describe('Markup', () => {
 
     // Focus button
     const button = getByRole('button', {name: /Focusable element/})
-    await user.click(button)
+    await act(async () => {
+      await user.click(button)
+    })
     expect(button).toHaveFocus()
 
     // Move focus to tree
-    await user.tab()
+    await act(async () => {
+      await user.tab()
+    })
 
     // Focus should be on current treeitem
     const item2 = getByRole('treeitem', {name: /Item 2/})
@@ -289,7 +301,7 @@ describe('Markup', () => {
   })
 
   it('should toggle when receiving focus from chevron click', async () => {
-    const user = userEvent.setup({delay: null})
+    const user = userEvent.setup()
     const {getByRole} = renderWithTheme(
       <div>
         <button type="button">Focusable element</button>
@@ -312,13 +324,20 @@ describe('Markup', () => {
 
     // Focus button
     const button = getByRole('button', {name: /Focusable element/})
-    await user.click(button)
+    await act(async () => {
+      await user.click(button)
+    })
     expect(button).toHaveFocus()
 
     // Move focus to tree
     const item1 = getByRole('treeitem', {name: /Item 1/})
-    const toggle = item1.querySelector('.PRIVATE_TreeView-item-toggle')
-    await user.click(toggle!)
+    const toggle = item1.querySelector('.PRIVATE_TreeView-item-toggle') as HTMLElement
+    await act(async () => {
+      // Note: calling `.click()` directly here since the userEvent.click()
+      // warns about it not being a known focusable element. This should be a
+      // valid pattern based on our TreeView guidelines.
+      toggle.click()
+    })
 
     // Focus should be on current treeitem
     const subItem1 = getByRole('treeitem', {name: /SubItem 1/})
@@ -326,7 +345,7 @@ describe('Markup', () => {
   })
 
   it("should move focus to first treeitem when focusing back in after clicking on a treeitem's secondary action", async () => {
-    const user = userEvent.setup({delay: null})
+    const user = userEvent.setup()
     const {getByRole, getByText} = renderWithTheme(
       <div>
         <TreeView aria-label="Test tree">
@@ -345,16 +364,22 @@ describe('Markup', () => {
 
     // Click on treeitem's secondary action
     const item2Button = getByText(/Link in Item 2/i)
-    await user.click(item2Button)
+    await act(async () => {
+      await user.click(item2Button)
+    })
     expect(item2Button).toHaveFocus()
 
     // Move focus to button outside of TreeView
-    await user.tab()
+    await act(async () => {
+      await user.tab()
+    })
     const outerButton = getByRole('button', {name: /Focusable element/})
     expect(outerButton).toHaveFocus()
 
     // Move focus into TreeView. Focus should be on first treeitem
-    await user.tab({shift: true})
+    await act(async () => {
+      await user.tab({shift: true})
+    })
     const item1 = getByRole('treeitem', {name: /Item 1/})
     expect(item1).toHaveFocus()
   })
@@ -926,7 +951,7 @@ describe('Keyboard interactions', () => {
 
   describe('Enter', () => {
     it('calls onSelect function if provided and checks if the item has been selected', () => {
-      const onSelect = jest.fn()
+      const onSelect = vi.fn()
       const {getByRole} = renderWithTheme(
         <TreeView aria-label="Test tree">
           <TreeView.Item id="parent-1" onSelect={onSelect}>
@@ -1022,7 +1047,7 @@ describe('Keyboard interactions', () => {
 
   describe('Space', () => {
     it('calls onSelect function if provided and checks if the item has been selected', () => {
-      const onSelect = jest.fn()
+      const onSelect = vi.fn()
       const {getByRole} = renderWithTheme(
         <TreeView aria-label="Test tree">
           <TreeView.Item id="parent-1" onSelect={onSelect}>
@@ -1416,7 +1441,7 @@ describe('Asynchronous loading', () => {
     fireEvent.click(doneButton)
 
     act(() => {
-      jest.runAllTimers()
+      vi.runAllTimers()
     })
 
     // Live region should be updated
@@ -1446,10 +1471,10 @@ describe('Asynchronous loading', () => {
       )
     }
 
-    const {getByRole, findByRole} = renderWithTheme(<TestTree />)
+    const {getByRole} = renderWithTheme(<TestTree />)
 
     const parentItem = getByRole('treeitem', {name: 'Parent'})
-    const loadingItem = await findByRole('treeitem', {name: 'Loading...'})
+    const loadingItem = getByRole('treeitem', {name: 'Loading...'})
 
     act(() => {
       // Focus first item
@@ -1462,11 +1487,15 @@ describe('Asynchronous loading', () => {
     // Loading item should be focused
     expect(loadingItem).toHaveFocus()
 
+    act(() => {
+      vi.runAllTimers()
+    })
+
     // Wait for async loading to complete
-    const firstChild = await findByRole('treeitem', {name: 'Child 1'})
+    const firstChild = getByRole('treeitem', {name: 'Child 1'})
 
     act(() => {
-      jest.runAllTimers()
+      vi.runAllTimers()
     })
 
     // First child should be focused
@@ -1474,6 +1503,8 @@ describe('Asynchronous loading', () => {
   })
 
   it('moves focus to parent item after closing error dialog', async () => {
+    vi.useFakeTimers()
+
     function TestTree() {
       const [error, setError] = React.useState('Test error')
 
@@ -1499,7 +1530,6 @@ describe('Asynchronous loading', () => {
     }
 
     const {getByRole} = renderWithTheme(<TestTree />)
-
     const dialog = getByRole('alertdialog')
     const parentItem = getByRole('treeitem', {name: 'Parent'})
 
@@ -1507,18 +1537,25 @@ describe('Asynchronous loading', () => {
     expect(parentItem).not.toHaveFocus()
 
     // Dialog should be visible
-    expect(dialog).toBeVisible()
+    await vi.waitFor(() => {
+      expect(dialog).toBeVisible()
+    })
 
     // Press esc to close error dialog
-    fireEvent.keyDown(document.activeElement || document.body, {key: 'Escape'})
+    await act(async () => {
+      await userEvent.keyboard('{Escape}')
+    })
 
     // Dialog should not be visible
     expect(dialog).not.toBeVisible()
 
-    await waitFor(() => {
-      // Parent item should be focused
-      expect(parentItem).toHaveFocus()
+    // console.log(vi.getTimerCount())
+    act(() => {
+      vi.runAllTimers()
     })
+
+    // Parent item should be focused
+    expect(parentItem).toHaveFocus()
   })
 
   it('ignores arrow keys when error dialog is open', async () => {
@@ -1585,18 +1622,18 @@ describe('Asynchronous loading', () => {
       )
     }
     const {getByLabelText, getByText} = renderWithTheme(<Example />)
-    const user = userEvent.setup({
-      advanceTimers: jest.advanceTimersByTime,
-    })
+    const user = userEvent.setup()
 
     const treeitem = getByLabelText('Item 1')
     expect(treeitem).toHaveAttribute('aria-expanded', 'false')
-    await user.click(getByText('Item 1'))
+    await act(async () => {
+      await user.click(getByText('Item 1'))
+    })
 
     expect(treeitem).toHaveAttribute('aria-expanded', 'true')
 
     act(() => {
-      jest.runAllTimers()
+      vi.runAllTimers()
     })
 
     expect(treeitem).toHaveAttribute('aria-expanded', 'true')

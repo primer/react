@@ -2,7 +2,7 @@
   "id": "data_table",
   "name": "DataTable",
   "status": "alpha",
-  "a11yReviewed": true,
+  "a11yReviewed": "2025-01-08",
   "stories": [
     {
       "id": "experimental-components-datatable--default"
@@ -382,7 +382,7 @@
         {
           "name": "field",
           "type": "ObjectPaths<Data>",
-          "description": "Optionally provide a field to render for this column. This may be the key of the object or a string that accesses nested objects through `.`. For example: `field: a.b.c` \n Alternatively, you may provide a `renderCell` for this column to render the field in a row"
+          "description": "Optionally provide a field to render for this column. This may be the key of the object or a string that accesses nested objects through `.`. For example: `field: a.b.c`\nAlternatively, you may provide a `renderCell` for this column to render the field in a row"
         },
         {
           "name": "header",
@@ -419,7 +419,7 @@
           "name": "width",
           "defaultValue": "'grow'",
           "type": "'grow' | 'growCollapse' | 'auto' | React.CSSProperties['width']",
-          "description": " Controls the width of the column.\n - 'grow': Stretch to fill available space, and min width is the width of the widest cell in the column\n - 'growCollapse': Stretch to fill available space or shrink to fit in the available space. Allows the column to shrink smaller than the cell content's width.\n - 'auto': The column is the width of it’s widest cell. Not intended for use with columns who’s content length varies a lot because a layout shift will occur when the content changes \n - explicit width: Will be exactly that width and will not grow or shrink to fill the parent"
+          "description": "Controls the width of the column.\n\n- 'grow': Stretch to fill available space, and min width is the width of the widest cell in the column\n- 'growCollapse': Stretch to fill available space or shrink to fit in the available space. Allows the column to shrink smaller than the cell content's width.\n- 'auto': The column is the width of it’s widest cell. Not intended for use with columns who’s content length varies a lot because a layout shift will occur when the content changes\n- explicit width: Will be exactly that width and will not grow or shrink to fill the parent"
         }
       ]
     }

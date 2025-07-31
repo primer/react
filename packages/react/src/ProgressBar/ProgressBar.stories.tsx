@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react'
-import type {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react-vite'
 import {ProgressBar, type ProgressBarProps} from '..'
 
 const sectionColorsDefault = [

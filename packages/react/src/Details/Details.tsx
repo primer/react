@@ -3,11 +3,10 @@ import type {SxProp} from '../sx'
 import {clsx} from 'clsx'
 import classes from './Details.module.css'
 import {useMergedRefs} from '../internal/hooks/useMergedRefs'
-import {defaultSxProp} from '../utils/defaultSxProp'
-import Box from '../Box'
+import {BoxWithFallback} from '../internal/components/BoxWithFallback'
 
 const Root = React.forwardRef<HTMLDetailsElement, DetailsProps>(
-  ({className, children, sx: sxProp = defaultSxProp, ...rest}, forwardRef): ReactElement => {
+  ({className, children, ...rest}, forwardRef): ReactElement => {
     const detailsRef = React.useRef<HTMLDetailsElement>(null)
     const ref = useMergedRefs(forwardRef, detailsRef)
     const [hasSummary, setHasSummary] = useState(false)
@@ -40,22 +39,12 @@ const Root = React.forwardRef<HTMLDetailsElement, DetailsProps>(
       }
     }, [])
 
-    if (sxProp !== defaultSxProp) {
-      return (
-        <Box as={'details'} className={clsx(className, classes.Details)} {...rest} sx={sxProp} ref={ref}>
-          {/* Include default summary if summary is not provided */}
-          {!hasSummary && <Details.Summary data-default-summary>{'See Details'}</Details.Summary>}
-          {children}
-        </Box>
-      )
-    }
-
     return (
-      <details className={clsx(className, classes.Details)} {...rest} ref={ref}>
+      <BoxWithFallback as="details" className={clsx(className, classes.Details)} {...rest} ref={ref}>
         {/* Include default summary if summary is not provided */}
         {!hasSummary && <Details.Summary data-default-summary>{'See Details'}</Details.Summary>}
         {children}
-      </details>
+      </BoxWithFallback>
     )
   },
 )

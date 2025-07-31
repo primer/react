@@ -1,12 +1,11 @@
 import React from 'react'
-import type {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react-vite'
 import {BaseStyles, Box, ThemeProvider} from '..'
 import {useAnchoredPosition} from '../hooks'
-import styled from 'styled-components'
-import {get} from '../constants'
 import type {AnchorSide} from '@primer/behaviors'
 import Portal, {registerPortalRoot} from '../Portal'
 import {Button} from '../Button'
+import classes from './AnchoredPositionStories.module.css'
 
 export default {
   title: 'Hooks/useAnchoredPosition',
@@ -65,30 +64,17 @@ export default {
   },
 } as Meta
 
-const Float = styled(Box)`
-  position: absolute;
-  border: 1px solid ${get('colors.black')};
-  border-radius: ${get('radii.2')};
-  background-color: ${get('colors.orange.3')};
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  font-size: ${get('fontSizes.3')};
-  font-weight: ${get('fontWeights.bold')};
-  padding: ${get('space.3')};
-`
-const Anchor = styled(Box)`
-  position: absolute;
-  border: 1px solid ${get('colors.black')};
-  border-radius: ${get('radii.2')};
-  background-color: ${get('colors.blue.3')};
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  font-size: ${get('fontSizes.3')};
-  font-weight: ${get('fontWeights.bold')};
-  padding: ${get('space.3')};
-`
+const Float = ({children, ...props}: React.ComponentProps<typeof Box>) => (
+  <Box className={classes.Float} {...props}>
+    {children}
+  </Box>
+)
+
+const Anchor = ({children, ...props}: React.ComponentProps<typeof Box>) => (
+  <Box className={classes.Anchor} {...props}>
+    {children}
+  </Box>
+)
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const UseAnchoredPosition = (args: any) => {
@@ -239,21 +225,17 @@ export const ComplexAncestry = () => {
   )
 }
 
-const Nav = styled('nav')`
-  width: 300px;
-  padding: ${get('space.3')};
-  position: relative;
-  overflow: hidden;
-  border-right: 1px solid ${get('colors.border.gray')};
-`
-const Main = styled('main')`
-  display: flex;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-`
+const Nav = ({children, ...props}: React.ComponentPropsWithoutRef<'nav'>) => (
+  <nav className={classes.Nav} {...props}>
+    {children}
+  </nav>
+)
+
+const Main = ({children, ...props}: React.ComponentPropsWithRef<'main'>) => (
+  <main className={classes.Main} {...props}>
+    {children}
+  </main>
+)
 
 /*
 

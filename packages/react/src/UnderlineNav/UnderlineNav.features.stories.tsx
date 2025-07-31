@@ -12,9 +12,9 @@ import {
   ShieldLockIcon,
   GearIcon,
 } from '@primer/octicons-react'
-import type {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react-vite'
 import {UnderlineNav} from './index'
-import {INITIAL_VIEWPORTS} from '@storybook/addon-viewport'
+import {INITIAL_VIEWPORTS} from 'storybook/viewport'
 
 const meta = {
   title: 'Components/UnderlineNav/Features',
@@ -142,6 +142,16 @@ export const CountersLoadingState = () => {
           {item.navigation}
         </UnderlineNav.Item>
       ))}
+    </UnderlineNav>
+  )
+}
+
+export const VariantFlush = () => {
+  return (
+    <UnderlineNav aria-label="Repository" variant="flush">
+      <UnderlineNav.Item aria-current="page">Code</UnderlineNav.Item>
+      <UnderlineNav.Item>Issues</UnderlineNav.Item>
+      <UnderlineNav.Item>Pull Requests</UnderlineNav.Item>
     </UnderlineNav>
   )
 }

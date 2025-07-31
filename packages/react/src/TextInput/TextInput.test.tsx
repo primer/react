@@ -1,69 +1,61 @@
 import {SearchIcon} from '@primer/octicons-react'
 import userEvent from '@testing-library/user-event'
-import {render as HTMLRender, fireEvent, screen} from '@testing-library/react'
-import axe from 'axe-core'
+import {render, fireEvent, screen} from '@testing-library/react'
+import {describe, it, expect, vi} from 'vitest'
 import React from 'react'
 import {TextInput} from '..'
-import {render, behavesAsComponent, checkExports} from '../utils/testing'
 
 describe('TextInput', () => {
-  behavesAsComponent({Component: TextInput, options: {skipAs: true}})
-
-  checkExports('TextInput', {
-    default: TextInput,
-  })
-
   it('should support `className` on the outermost element', () => {
     const Element = () => <TextInput className={'test-class-name'} />
-    expect(HTMLRender(<Element />).container.firstChild).toHaveClass('test-class-name')
-  })
-
-  it.skip('should have no axe violations', async () => {
-    const {container} = HTMLRender(<TextInput aria-label="Zipcode" name="zipcode" variant="small" />)
-    const results = await axe.run(container)
-    expect(results).toHaveNoViolations()
+    const {container} = render(<Element />)
+    expect(container.firstChild).toHaveClass('test-class-name')
   })
 
   it('renders', () => {
-    expect(render(<TextInput name="zipcode" />)).toMatchSnapshot()
+    expect(render(<TextInput name="zipcode" />).container).toMatchSnapshot()
   })
 
   it('renders small', () => {
-    expect(render(<TextInput name="zipcode" size="small" />)).toMatchSnapshot()
+    expect(render(<TextInput name="zipcode" size="small" />).container).toMatchSnapshot()
   })
 
   it('renders large', () => {
-    expect(render(<TextInput name="zipcode" size="large" />)).toMatchSnapshot()
+    expect(render(<TextInput name="zipcode" size="large" />).container).toMatchSnapshot()
   })
 
   it('renders block', () => {
-    expect(render(<TextInput name="zipcode" block />)).toMatchSnapshot()
+    expect(render(<TextInput name="zipcode" block />).container).toMatchSnapshot()
   })
 
   it('renders error', () => {
-    expect(render(<TextInput name="zipcode" validationStatus="error" />)).toMatchSnapshot()
+    expect(render(<TextInput name="zipcode" validationStatus="error" />).container).toMatchSnapshot()
   })
 
   it('renders sets aria-invalid="true" on error', () => {
-    HTMLRender(<TextInput name="zipcode" validationStatus="error" data-testid="zipcodeInput" />)
+    render(<TextInput name="zipcode" validationStatus="error" data-testid="zipcodeInput" />)
     expect(screen.getByTestId('zipcodeInput')).toHaveAttribute('aria-invalid', 'true')
   })
 
   it('renders contrast', () => {
-    expect(render(<TextInput name="zipcode" contrast />)).toMatchSnapshot()
+    expect(render(<TextInput name="zipcode" contrast />).container).toMatchSnapshot()
   })
 
   it('renders monospace', () => {
-    expect(render(<TextInput name="zipcode" monospace />)).toMatchSnapshot()
+    expect(render(<TextInput name="zipcode" monospace />).container).toMatchSnapshot()
   })
 
   it('renders placeholder', () => {
-    expect(render(<TextInput name="zipcode" placeholder={'560076'} />)).toMatchSnapshot()
+    expect(render(<TextInput name="zipcode" placeholder={'560076'} />).container).toMatchSnapshot()
   })
 
   it('renders leadingVisual', () => {
-    expect(render(<TextInput name="search" placeholder={'Search'} leadingVisual={SearchIcon} />)).toMatchSnapshot()
-    expect(render(<TextInput name="search" placeholder={'Search'} leadingVisual={<SearchIcon />} />)).toMatchSnapshot()
+    expect(
+      render(<TextInput name="search" placeholder={'Search'} leadingVisual={SearchIcon} />).container,
+    ).toMatchSnapshot()
+    expect(
+      render(<TextInput name="search" placeholder={'Search'} leadingVisual={<SearchIcon />} />).container,
+    ).toMatchSnapshot()
     expect(
       render(
         <TextInput
@@ -73,7 +65,7 @@ describe('TextInput', () => {
             <div>Trailing</div>
           ))}
         />,
-      ),
+      ).container,
     ).toMatchSnapshot()
     expect(
       render(
@@ -84,7 +76,7 @@ describe('TextInput', () => {
             <div>Trailing</div>
           ))}
         />,
-      ),
+      ).container,
     ).toMatchSnapshot()
   })
 
@@ -100,7 +92,7 @@ describe('TextInput', () => {
             <div>Trailing</div>
           ))}
         />,
-      ),
+      ).container,
     ).toMatchSnapshot()
     expect(
       render(
@@ -111,12 +103,12 @@ describe('TextInput', () => {
             <div>Trailing</div>
           ))}
         />,
-      ),
+      ).container,
     ).toMatchSnapshot()
   })
 
   it('renders trailingAction text button', () => {
-    const handleAction = jest.fn()
+    const handleAction = vi.fn()
     expect(
       render(
         <TextInput
@@ -124,12 +116,12 @@ describe('TextInput', () => {
           placeholder={'Search'}
           trailingAction={<TextInput.Action onClick={handleAction}>Clear</TextInput.Action>}
         />,
-      ),
+      ).container,
     ).toMatchSnapshot()
   })
 
   it('renders trailingAction text button with a tooltip', () => {
-    const handleAction = jest.fn()
+    const handleAction = vi.fn()
     expect(
       render(
         <TextInput
@@ -141,12 +133,12 @@ describe('TextInput', () => {
             </TextInput.Action>
           }
         />,
-      ),
+      ).container,
     ).toMatchSnapshot()
   })
 
   it('renders trailingAction icon button', () => {
-    const handleAction = jest.fn()
+    const handleAction = vi.fn()
     expect(
       render(
         <TextInput
@@ -154,12 +146,12 @@ describe('TextInput', () => {
           placeholder={'Search'}
           trailingAction={<TextInput.Action onClick={handleAction} icon={SearchIcon} aria-label="Icon label" />}
         />,
-      ),
+      ).container,
     ).toMatchSnapshot()
   })
 
   it('focuses the text input if you do not click the input element', () => {
-    const {container, getByLabelText} = HTMLRender(
+    const {container, getByLabelText} = render(
       <>
         <label htmlFor="testInput">Search</label>
         <TextInput id="testInput" name="search" placeholder={'Search'} trailingVisual={SearchIcon} />
@@ -207,12 +199,12 @@ describe('TextInput', () => {
             loaderPosition="trailing"
           />
         </>,
-      ),
+      ).container,
     ).toMatchSnapshot()
   })
 
   it('indicates a busy status to assistive technology', () => {
-    const {container} = HTMLRender(
+    const {container} = render(
       <>
         <label htmlFor="loadingInput">Search</label>
         <TextInput loading id="loadingInput" />
@@ -224,8 +216,8 @@ describe('TextInput', () => {
 
   it('should call onChange prop with input value', async () => {
     const user = userEvent.setup()
-    const onChange = jest.fn()
-    const {getByRole} = HTMLRender(<TextInput onChange={onChange} value="" />)
+    const onChange = vi.fn()
+    const {getByRole} = render(<TextInput onChange={onChange} value="" />)
 
     await user.type(getByRole('textbox'), 'test')
 
@@ -233,24 +225,24 @@ describe('TextInput', () => {
   })
 
   it('should render a password input', () => {
-    expect(render(<TextInput name="password" type="password" />)).toMatchSnapshot()
+    expect(render(<TextInput name="password" type="password" />).container).toMatchSnapshot()
   })
 
   it('should not override prop aria-invalid', () => {
-    const onChange = jest.fn()
-    const {getByRole} = HTMLRender(<TextInput onChange={onChange} aria-invalid="true" value="" />)
+    const onChange = vi.fn()
+    const {getByRole} = render(<TextInput onChange={onChange} aria-invalid="true" value="" />)
     expect(getByRole('textbox')).toHaveAttribute('aria-invalid', 'true')
   })
 
   it('should include the leadingVisual as part of the input accessible description', () => {
-    const {getByRole} = HTMLRender(<TextInput leadingVisual="Search" />)
+    const {getByRole} = render(<TextInput leadingVisual="Search" />)
     expect(getByRole('textbox')).toHaveAccessibleDescription('Search')
   })
 
   it('should include the leadingVisual icon as part of the input accessible description', () => {
     const Icon = () => <SearchIcon aria-label="Search" />
 
-    const {getByRole} = HTMLRender(<TextInput leadingVisual={Icon} />)
+    const {getByRole} = render(<TextInput leadingVisual={Icon} />)
     const icon = getByRole('img', {hidden: true})
 
     expect(getByRole('textbox')).toHaveAttribute('aria-describedby', icon.parentElement?.id)
@@ -258,14 +250,14 @@ describe('TextInput', () => {
   })
 
   it('should include the trailingVisual as part of the input accessible description', () => {
-    const {getByRole} = HTMLRender(<TextInput trailingVisual="Search" />)
+    const {getByRole} = render(<TextInput trailingVisual="Search" />)
     expect(getByRole('textbox')).toHaveAccessibleDescription('Search')
   })
 
   it('should include the trailingVisual icon as part of the input accessible description', () => {
     const Icon = () => <SearchIcon aria-label="Search" />
 
-    const {getByRole} = HTMLRender(<TextInput trailingVisual={Icon} />)
+    const {getByRole} = render(<TextInput trailingVisual={Icon} />)
     const icon = getByRole('img', {hidden: true})
 
     expect(getByRole('textbox')).toHaveAttribute('aria-describedby', icon.parentElement?.id)
@@ -273,12 +265,12 @@ describe('TextInput', () => {
   })
 
   it('should include both the leadingVisual and trailingVisual as part of the input accessible description', () => {
-    const {getByRole} = HTMLRender(<TextInput leadingVisual="$" trailingVisual="Currency" />)
+    const {getByRole} = render(<TextInput leadingVisual="$" trailingVisual="Currency" />)
     expect(getByRole('textbox')).toHaveAccessibleDescription('$ Currency')
   })
 
   it('should keep the passed aria-describedby value', () => {
-    const {getByRole} = HTMLRender(
+    const {getByRole} = render(
       <>
         <span id="passedValue">value</span>
         <TextInput leadingVisual="leading" trailingVisual="trailing" aria-describedby="passedValue" />
@@ -289,24 +281,24 @@ describe('TextInput', () => {
   })
 
   it('should include the loading indicator as part of the input accessible description', () => {
-    const {getByRole} = HTMLRender(<TextInput loading />)
+    const {getByRole} = render(<TextInput loading />)
     expect(getByRole('textbox')).toHaveAccessibleDescription('Loading')
   })
 
   it('should include the leadingVisual and loading indicator as part of the input accessible description', () => {
-    const {getByRole} = HTMLRender(
+    const {getByRole} = render(
       <TextInput loading loaderText="Loading search items" loaderPosition="trailing" leadingVisual="Search" />,
     )
     expect(getByRole('textbox')).toHaveAccessibleDescription('Search Loading search items')
   })
 
   it('should include the trailingVisual and loading indicator as part of the input accessible description', () => {
-    const {getByRole} = HTMLRender(<TextInput loading loaderPosition="leading" trailingVisual="Search" />)
+    const {getByRole} = render(<TextInput loading loaderPosition="leading" trailingVisual="Search" />)
     expect(getByRole('textbox')).toHaveAccessibleDescription('Search Loading')
   })
 
   it('should not have an aria-describedby if there is no leadingVisual, trailingVisual, or loading indicator', () => {
-    const {getByRole} = HTMLRender(<TextInput />)
+    const {getByRole} = render(<TextInput />)
     expect(getByRole('textbox')).not.toHaveAttribute('aria-describedby')
   })
 })

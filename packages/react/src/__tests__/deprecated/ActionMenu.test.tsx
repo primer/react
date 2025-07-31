@@ -62,6 +62,7 @@ describe('ActionMenu', () => {
     expect(portalRoot).toBeTruthy()
     const itemText = items
       .map((i: ItemProps) => {
+        // eslint-disable-next-line no-prototype-builtins
         if (i.hasOwnProperty('text')) {
           return i.text
         }

@@ -1,4 +1,4 @@
-import type {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react-vite'
 import {Button, Link, Text, StateLabel, BranchName, Box} from '..'
 import {ArrowRightIcon} from '@primer/octicons-react'
 
@@ -64,8 +64,14 @@ export const PullRequestPage = () => (
             <Link href="#" muted sx={{fontWeight: 'bold'}}>
               broccolinisoup
             </Link>{' '}
-            wants to merge 3 commits into <BranchName href="#">main</BranchName> from{' '}
-            <BranchName href="#">broccolinisoup/add-hidden-component</BranchName>
+            wants to merge 3 commits into
+            <BranchName href="#" style={{textDecoration: 'underline'}}>
+              main
+            </BranchName>
+            from
+            <BranchName href="#" style={{textDecoration: 'underline'}}>
+              broccolinisoup/add-hidden-component
+            </BranchName>
           </Text>
         </Hidden>
         <Hidden when={['regular', 'wide']}>

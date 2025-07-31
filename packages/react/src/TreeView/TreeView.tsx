@@ -18,8 +18,8 @@ import {useSlots} from '../hooks/useSlots'
 import {getAccessibleName} from './shared'
 import {getFirstChildElement, useRovingTabIndex} from './useRovingTabIndex'
 import {useTypeahead} from './useTypeahead'
-import {SkeletonAvatar} from '../experimental/Skeleton/SkeletonAvatar'
-import {SkeletonText} from '../experimental/Skeleton/SkeletonText'
+import {SkeletonAvatar} from '../SkeletonAvatar'
+import {SkeletonText} from '../SkeletonText'
 
 // ----------------------------------------------------------------------------
 // Context
@@ -200,7 +200,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
 
     const [isExpanded, setIsExpanded] = useControllableState({
       name: itemId,
-      // If the item was previously mounted, it's expanded state might be cached.
+      // If the item was previously mounted, its expanded state might be cached.
       // We check the cache first, and then fall back to the defaultExpanded prop.
       // If defaultExpanded is not provided, we default to false unless the item
       // is the current item, in which case we default to true.
@@ -352,7 +352,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
               // https://github.com/github/primer/blob/main/apis/tree-view-api.md#the-expandcollapse-chevron-toggle
               // This has specific advice that the chevron be available only to pointer event.
               // If they take up a button role, they become unnecessary and numerous tab stops.
-              // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
+
               <div
                 className={clsx(
                   'PRIVATE_TreeView-item-toggle',
@@ -753,7 +753,6 @@ export type TreeViewErrorDialogProps = {
 const ErrorDialog: React.FC<TreeViewErrorDialogProps> = ({title = 'Error', children, onRetry, onDismiss}) => {
   const {itemId, setIsExpanded} = React.useContext(ItemContext)
   return (
-    // eslint-disable-next-line jsx-a11y/no-static-element-interactions
     <div
       onKeyDown={event => {
         if (['Backspace', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Enter'].includes(event.key)) {

@@ -3,8 +3,7 @@ import {clsx} from 'clsx'
 import type React from 'react'
 import classes from './InlineMessage.module.css'
 import type {SxProp} from '../sx'
-import {defaultSxProp} from '../utils/defaultSxProp'
-import Box from '../Box'
+import {BoxWithFallback} from '../internal/components/BoxWithFallback'
 type MessageVariant = 'critical' | 'success' | 'unavailable' | 'warning'
 
 export type InlineMessageProps = React.ComponentPropsWithoutRef<'div'> &
@@ -41,34 +40,18 @@ const variantToSmallIcon = (variant: MessageVariant): React.ReactNode => {
   return icons[variant]
 }
 
-export function InlineMessage({
-  children,
-  className,
-  size = 'medium',
-  variant,
-  sx: sxProp = defaultSxProp,
-  ...rest
-}: InlineMessageProps) {
+export function InlineMessage({children, className, size = 'medium', variant, ...rest}: InlineMessageProps) {
   const icon = size === 'small' ? variantToSmallIcon(variant) : variantToIcon(variant)
 
-  if (sxProp !== defaultSxProp) {
-    return (
-      <Box
-        sx={sxProp}
-        className={clsx(className, classes.InlineMessage)}
-        {...rest}
-        data-size={size}
-        data-variant={variant}
-      >
-        {icon}
-        {children}
-      </Box>
-    )
-  }
   return (
-    <div className={clsx(className, classes.InlineMessage)} {...rest} data-size={size} data-variant={variant}>
+    <BoxWithFallback
+      className={clsx(className, classes.InlineMessage)}
+      {...rest}
+      data-size={size}
+      data-variant={variant}
+    >
       {icon}
       {children}
-    </div>
+    </BoxWithFallback>
   )
 }

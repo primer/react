@@ -1,5 +1,5 @@
 import React from 'react'
-import {ActionMenu, ActionList, Box} from '../'
+import {ActionMenu, ActionList} from '../'
 import {
   WorkflowIcon,
   ArchiveIcon,
@@ -10,6 +10,7 @@ import {
   BookIcon,
   SparkleFillIcon,
 } from '@primer/octicons-react'
+import classes from './ActionMenu.features.stories.module.css'
 
 export default {
   title: 'Components/ActionMenu/Features',
@@ -86,7 +87,7 @@ export const SingleSelect = () => {
   return (
     <ActionMenu>
       <ActionMenu.Button>
-        <Box sx={{color: 'fg.muted', display: 'inline-block'}}>Options:</Box> {selectedType.name}
+        <span className={classes.MutedText}>Options:</span> {selectedType.name}
       </ActionMenu.Button>
       <ActionMenu.Overlay width="auto">
         <ActionList selectionVariant="single">

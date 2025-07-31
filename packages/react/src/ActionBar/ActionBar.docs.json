@@ -2,7 +2,7 @@
   "id": "actionbar",
   "name": "ActionBar",
   "status": "alpha",
-  "a11yReviewed": true,
+  "a11yReviewed": "2025-01-08",
   "stories": [
     {
       "id": "experimental-components-actionbar--default"

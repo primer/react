@@ -1,6 +1,5 @@
 import React, {forwardRef, useRef, type HTMLAttributes} from 'react'
 import {IconButton} from '../Button'
-import Box from '../Box'
 import useDialog from '../hooks/useDialog'
 import type {SxProp} from '../sx'
 import type {ComponentProps} from '../utils/types'
@@ -92,10 +91,6 @@ const Dialog = forwardRef<HTMLDivElement, InternalDialogProps>(
     ) : null
   },
 )
-
-DialogHeader.propTypes = {
-  ...Box.propTypes,
-}
 
 DialogHeader.displayName = 'Dialog.Header'
 Dialog.displayName = 'Dialog'

@@ -2,7 +2,7 @@
   "id": "blankslate",
   "name": "Blankslate",
   "status": "draft",
-  "a11yReviewed": false,
+  "a11yReviewed": "2025-01-08",
   "stories": [
     {
       "id": "experimental-components-blankslate--default"
@@ -51,6 +51,12 @@
       "type": "string",
       "description": "Class name(s) for custom styling.",
       "defaultValue": ""
+    },
+    {
+      "name": "size",
+      "type": "'small' | 'medium' | 'large'",
+      "description": "The size of the componeont",
+      "defaultValue": "'medium'"
     }
   ],
   "subcomponents": [

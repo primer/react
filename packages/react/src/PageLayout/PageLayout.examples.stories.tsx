@@ -1,5 +1,5 @@
 import React from 'react'
-import type {Meta, StoryFn} from '@storybook/react'
+import type {Meta, StoryFn} from '@storybook/react-vite'
 import {PageLayout} from './PageLayout'
 import {Placeholder} from '../Placeholder'
 import {ActionList, Box, Breadcrumbs, Button, Flash, LinkButton, NavList} from '..'
@@ -719,7 +719,7 @@ export const FiltersBottomSheetTwoLevels: StoryFn = () => {
 FiltersBottomSheetTwoLevels.storyName = 'Filters w/ 2 levels (btm sheet on narrow)'
 
 //
-// TODO: uncomment this story if we decide we want to allow this pattern for seperate sets of filters
+// TODO: uncomment this story if we decide we want to allow this pattern for separate sets of filters
 //
 // export const ResponsiveNavCombo2: Story = () => {
 //   const [currentHash, setCurrentHash] = React.useState(window.location.hash)

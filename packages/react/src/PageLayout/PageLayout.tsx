@@ -10,7 +10,6 @@ import type {SxProp} from '../sx'
 import {canUseDOM} from '../utils/environment'
 import {useOverflow} from '../hooks/useOverflow'
 import {warning} from '../utils/warning'
-import {useStickyPaneHeight} from './useStickyPaneHeight'
 
 import classes from './PageLayout.module.css'
 import {BoxWithFallback} from '../internal/components/BoxWithFallback'
@@ -23,6 +22,7 @@ const REGION_ORDER = {
   footer: 4,
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const SPACING_MAP = {
   none: 0,
   condensed: 3,
@@ -34,10 +34,6 @@ const PageLayoutContext = React.createContext<{
   rowGap: keyof typeof SPACING_MAP
   columnGap: keyof typeof SPACING_MAP
   paneRef: React.RefObject<HTMLDivElement>
-  enableStickyPane?: (top: number | string) => void
-  disableStickyPane?: () => void
-  contentTopRef?: (node?: Element | null | undefined) => void
-  contentBottomRef?: (node?: Element | null | undefined) => void
 }>({
   padding: 'normal',
   rowGap: 'normal',
@@ -62,6 +58,7 @@ export type PageLayoutProps = {
   style?: React.CSSProperties
 } & SxProp
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const containerWidths = {
   full: '100%',
   medium: '768px',
@@ -76,14 +73,11 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
   rowGap = 'normal',
   columnGap = 'normal',
   children,
-  sx = {},
+  sx,
   className,
   style,
   _slotsConfig: slotsConfig,
 }) => {
-  const {rootRef, enableStickyPane, disableStickyPane, contentTopRef, contentBottomRef, stickyPaneHeight} =
-    useStickyPaneHeight()
-
   const paneRef = useRef<HTMLDivElement>(null)
 
   const [slots, rest] = useSlots(children, slotsConfig ?? {header: Header, footer: Footer})
@@ -93,21 +87,15 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
       padding,
       rowGap,
       columnGap,
-      enableStickyPane,
-      disableStickyPane,
-      contentTopRef,
-      contentBottomRef,
       paneRef,
     }
-  }, [padding, rowGap, columnGap, enableStickyPane, disableStickyPane, contentTopRef, contentBottomRef, paneRef])
+  }, [padding, rowGap, columnGap, paneRef])
 
   return (
     <PageLayoutContext.Provider value={memoizedContextValue}>
       <BoxWithFallback
-        ref={rootRef}
         style={
           {
-            '--sticky-pane-height': stickyPaneHeight,
             '--spacing': `var(--spacing-${padding})`,
             ...style,
           } as React.CSSProperties
@@ -139,7 +127,7 @@ type DividerProps = {
 
 const HorizontalDivider: React.FC<React.PropsWithChildren<DividerProps>> = ({
   variant = 'none',
-  sx = {},
+  sx,
   className,
   position,
   style,
@@ -181,7 +169,7 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
   position,
   className,
   style,
-  sx = {},
+  sx,
 }) => {
   const [isDragging, setIsDragging] = React.useState(false)
   const [isKeyboardDrag, setIsKeyboardDrag] = React.useState(false)
@@ -378,7 +366,7 @@ const Header: React.FC<React.PropsWithChildren<PageLayoutHeaderProps>> = ({
   hidden = false,
   children,
   style,
-  sx = {},
+  sx,
   className,
 }) => {
   // Combine divider and dividerWhenNarrow for backwards compatibility
@@ -458,6 +446,7 @@ export type PageLayoutContentProps = {
 } & SxProp
 
 // TODO: Account for pane width when centering content
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const contentWidths = {
   full: '100%',
   medium: '768px',
@@ -473,12 +462,11 @@ const Content: React.FC<React.PropsWithChildren<PageLayoutContentProps>> = ({
   padding = 'none',
   hidden = false,
   children,
-  sx = {},
+  sx,
   className,
   style,
 }) => {
   const isHidden = useResponsiveValue(hidden, false)
-  const {contentTopRef, contentBottomRef} = React.useContext(PageLayoutContext)
 
   return (
     <BoxWithFallback
@@ -490,9 +478,6 @@ const Content: React.FC<React.PropsWithChildren<PageLayoutContentProps>> = ({
       className={clsx(classes.ContentWrapper, className)}
       data-is-hidden={isHidden}
     >
-      {/* Track the top of the content region so we can calculate the height of the pane region */}
-      <div ref={contentTopRef} />
-
       <div
         className={classes.Content}
         data-width={width}
@@ -504,9 +489,6 @@ const Content: React.FC<React.PropsWithChildren<PageLayoutContentProps>> = ({
       >
         {children}
       </div>
-
-      {/* Track the bottom of the content region so we can calculate the height of the pane region */}
-      <div ref={contentBottomRef} />
     </BoxWithFallback>
   )
 }
@@ -583,11 +565,13 @@ export type PageLayoutPaneProps = {
   style?: React.CSSProperties
 } & SxProp
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const panePositions = {
   start: REGION_ORDER.paneStart,
   end: REGION_ORDER.paneEnd,
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const paneWidths = {
   small: ['100%', null, '240px', '256px'],
   medium: ['100%', null, '256px', '296px'],
@@ -617,7 +601,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
       hidden: responsiveHidden = false,
       children,
       id,
-      sx = {},
+      sx,
       className,
       style,
     },
@@ -641,15 +625,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
 
     const isHidden = useResponsiveValue(responsiveHidden, false)
 
-    const {rowGap, columnGap, enableStickyPane, disableStickyPane, paneRef} = React.useContext(PageLayoutContext)
-
-    React.useEffect(() => {
-      if (sticky) {
-        enableStickyPane?.(offsetHeader)
-      } else {
-        disableStickyPane?.()
-      }
-    }, [sticky, enableStickyPane, disableStickyPane, offsetHeader])
+    const {rowGap, columnGap, paneRef} = React.useContext(PageLayoutContext)
 
     const getDefaultPaneWidth = (width: PaneWidth | CustomWidthOptions): number => {
       if (isPaneWidth(width)) {
@@ -669,7 +645,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
 
       try {
         storedWidth = localStorage.getItem(widthStorageKey)
-      } catch (error) {
+      } catch (_error) {
         storedWidth = null
       }
 
@@ -681,7 +657,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
 
       try {
         localStorage.setItem(widthStorageKey, width.toString())
-      } catch (error) {
+      } catch (_error) {
         // Ignore errors
       }
     }
@@ -837,7 +813,7 @@ const Footer: React.FC<React.PropsWithChildren<PageLayoutFooterProps>> = ({
   dividerWhenNarrow = 'inherit',
   hidden = false,
   children,
-  sx = {},
+  sx,
   className,
   style,
 }) => {

@@ -11,14 +11,15 @@ export type SkeletonBoxProps = {
   width?: CSSProperties['width']
   /** The className of the skeleton box */
   className?: string
-} & HTMLProps<HTMLDivElement>
+} & HTMLProps<HTMLElement>
 
-export const SkeletonBox = React.forwardRef<HTMLDivElement, SkeletonBoxProps>(function SkeletonBox(
+export const SkeletonBox = React.forwardRef<HTMLElement, SkeletonBoxProps>(function SkeletonBox(
   {height, width, className, style, ...props},
   ref,
 ) {
   return (
     <div
+      ref={ref as React.RefObject<HTMLDivElement>}
       className={clsx(className, classes.SkeletonBox)}
       style={merge(
         style as CSSProperties,
@@ -28,7 +29,6 @@ export const SkeletonBox = React.forwardRef<HTMLDivElement, SkeletonBoxProps>(fu
         } as CSSProperties,
       )}
       {...props}
-      ref={ref}
     />
   )
 })

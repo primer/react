@@ -5,6 +5,7 @@ on:
       - 'main'
       - 'next-major'
       - 'changeset-release/**'
+  workflow_dispatch:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}

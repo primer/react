@@ -1,7 +1,7 @@
 import React, {type HTMLProps} from 'react'
 import type {AvatarProps} from '../Avatar'
 import Avatar from '../Avatar'
-import {SkeletonAvatar} from '../experimental/Skeleton/SkeletonAvatar'
+import {SkeletonAvatar} from '../SkeletonAvatar'
 import classes from './AvatarPair.module.css'
 import {clsx} from 'clsx'
 

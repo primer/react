@@ -1,7 +1,7 @@
 import Box from '../Box'
 import Spinner from '../Spinner'
 import {Stack} from '../Stack/Stack'
-import {SkeletonBox} from '../experimental/Skeleton'
+import {SkeletonBox} from '../Skeleton/SkeletonBox'
 import classes from './FilteredActionListLoaders.module.css'
 
 export class FilteredActionListLoadingType {

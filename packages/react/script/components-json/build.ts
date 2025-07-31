@@ -10,6 +10,9 @@ import glob from 'fast-glob'
 import fs from 'fs'
 import keyBy from 'lodash.keyby'
 import prettier from '@prettier/sync'
+import chalk from 'chalk'
+import type {LintError} from 'markdownlint'
+import {lint as mdLint} from 'markdownlint/sync'
 import componentSchema from './component.schema.json'
 import outputSchema from './output.schema.json'
 
@@ -36,6 +39,46 @@ type Component = {
 }
 
 const ajv = new Ajv()
+
+function formatMDError(lintError: LintError): string {
+  let range = ''
+
+  if (lintError.errorRange.length) {
+    range = `:${lintError.errorRange[0]}-${lintError.errorRange[0] + lintError.errorRange[1]}`
+  }
+
+  const prefix = chalk.gray(`${lintError.lineNumber}${range}`)
+  return `${prefix} - ${chalk.yellow(lintError.ruleDescription)}: ${lintError.errorDetail}`
+}
+
+ajv.addFormat('markdown', {
+  type: 'string',
+  validate: (value: string) => {
+    const lintResult = mdLint({
+      config: {
+        'first-line-h1': false,
+        'single-trailing-newline': false,
+        'line-length': false,
+      },
+      strings: {
+        md: value,
+      },
+    })
+
+    if (lintResult.md.length > 0) {
+      // eslint-disable-next-line no-console
+      console.error(`${chalk.red('Markdown linting errors for text: ')}"${value}"\n`)
+      for (const error of lintResult.md) {
+        // eslint-disable-next-line no-console
+        console.error(`  ${formatMDError(error)}\n`)
+      }
+
+      return false
+    }
+
+    return true
+  },
+})
 
 // Get all JSON files matching `src/**/*.docs.json`
 const docsFiles = glob.sync('src/**/*.docs.json')

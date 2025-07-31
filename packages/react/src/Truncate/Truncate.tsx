@@ -1,41 +1,48 @@
 import React from 'react'
-import styled from 'styled-components'
+import {clsx} from 'clsx'
 import type {MaxWidthProps} from 'styled-system'
-import {maxWidth} from 'styled-system'
 import type {SxProp} from '../sx'
-import sx from '../sx'
-import type {ComponentProps} from '../utils/types'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
+import {BoxWithFallback} from '../internal/components/BoxWithFallback'
+import classes from './Truncate.module.css'
 
-type StyledTruncateProps = {
+type TruncateProps = React.HTMLAttributes<HTMLElement> & {
   title: string
   inline?: boolean
   expandable?: boolean
 } & MaxWidthProps &
   SxProp
 
-const StyledTruncate = styled.div<StyledTruncateProps>`
-  display: ${props => (props.inline ? 'inline-block' : 'inherit')};
-  overflow: hidden;
-  text-overflow: ellipsis;
-  vertical-align: ${props => (props.inline ? 'top' : 'initial')};
-  white-space: nowrap;
-  ${maxWidth}
-  ${props => (props.expandable ? `&:hover { max-width: 10000px; }` : '')}
-  ${sx};
-`
-
-export type TruncateProps = ComponentProps<typeof StyledTruncate>
-
 const Truncate = React.forwardRef(function Truncate(
-  {as, expandable = false, inline = false, maxWidth = 125, ...rest},
+  {as, children, className, title, inline, expandable, maxWidth = 125, style, sx, ...rest},
   ref,
 ) {
-  return <StyledTruncate ref={ref} as={as} expandable={expandable} inline={inline} maxWidth={maxWidth} {...rest} />
+  return (
+    <BoxWithFallback
+      {...rest}
+      ref={ref}
+      as={as}
+      className={clsx(className, classes.Truncate)}
+      data-expandable={expandable}
+      data-inline={inline}
+      title={title}
+      style={
+        {
+          ...style,
+          [`--truncate-max-width`]:
+            typeof maxWidth === 'number' ? `${maxWidth}px` : typeof maxWidth === 'string' ? maxWidth : undefined,
+        } as React.CSSProperties
+      }
+      sx={sx}
+    >
+      {children}
+    </BoxWithFallback>
+  )
 }) as PolymorphicForwardRefComponent<'div', TruncateProps>
 
 if (__DEV__) {
   Truncate.displayName = 'Truncate'
 }
 
+export type {TruncateProps}
 export default Truncate

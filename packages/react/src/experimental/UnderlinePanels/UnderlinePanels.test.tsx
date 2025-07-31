@@ -27,10 +27,6 @@ describe('UnderlinePanels', () => {
 
   behavesAsComponent({Component: UnderlinePanels.Tab})
 
-  it('renders without errors', () => {
-    render(<UnderlinePanelsMockComponent aria-label="Select a tab" />)
-  })
-
   it('renders with a custom ID', () => {
     render(<UnderlinePanelsMockComponent aria-label="Select a tab" id="custom-id" />)
 
@@ -105,9 +101,7 @@ describe('UnderlinePanels', () => {
 
     expect(onSelect).toHaveBeenCalled()
   })
-  it('throws an error when the neither aria-label nor aria-labelledby are passed', () => {
-    render(<UnderlinePanelsMockComponent />)
-  })
+
   it('throws an error when the number of tabs does not match the number of panels', () => {
     const spy = jest.spyOn(console, 'error').mockImplementation()
     expect(() => {
@@ -124,6 +118,7 @@ describe('UnderlinePanels', () => {
     expect(spy).toHaveBeenCalled()
     spy.mockRestore()
   })
+
   it('throws an error when the number of panels does not match the number of tabs', () => {
     const spy = jest.spyOn(console, 'error').mockImplementation()
     expect(() => {

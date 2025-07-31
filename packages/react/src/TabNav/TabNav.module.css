@@ -1,0 +1,42 @@
+.TabNavTabList {
+  display: flex;
+  /* stylelint-disable-next-line primer/spacing */
+  margin-bottom: -1px;
+  overflow: auto;
+}
+
+.TabNavNav {
+  margin-top: 0;
+  border-bottom: var(--borderWidth-thin) solid var(--borderColor-default);
+}
+
+.TabNavLink {
+  padding: var(--base-size-8) var(--base-size-12);
+  font-size: var(--text-body-size-medium);
+  /* stylelint-disable-next-line primer/typography */
+  line-height: 20px;
+  color: var(--fgColor-default);
+  text-decoration: none;
+  background-color: transparent;
+  border: var(--borderWidth-thin) solid transparent;
+  border-bottom: 0;
+
+  &:hover {
+    color: var(--fgColor-default);
+    text-decoration: none;
+  }
+
+  &:focus {
+    text-decoration: none;
+
+    @mixin focusOutline -6px;
+  }
+
+  &.Selected {
+    color: var(--fgColor-default);
+    background-color: var(--bgColor-default);
+    border-color: var(--borderColor-default);
+    border-top-left-radius: var(--borderRadius-medium);
+    border-top-right-radius: var(--borderRadius-medium);
+  }
+}

@@ -34,7 +34,20 @@ const ArrowIndicator: React.FC<{className?: string}> = ({className}) => {
 
 const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
   (
-    {block, children, contrast, disabled, placeholder, size, required, validationStatus, sx, ...rest}: SelectProps,
+    {
+      block,
+      children,
+      className,
+      contrast,
+      defaultValue,
+      disabled,
+      placeholder,
+      size,
+      required,
+      validationStatus,
+      sx,
+      ...rest
+    }: SelectProps,
     ref,
   ) => {
     return (
@@ -48,14 +61,14 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
         sx={sx}
       >
         <select
+          {...rest}
           ref={ref}
           required={required}
           disabled={disabled}
           aria-invalid={validationStatus === 'error' ? 'true' : 'false'}
+          className={clsx(className, classes.Select, disabled && classes.Disabled)}
           data-hasplaceholder={Boolean(placeholder)}
-          defaultValue={placeholder ?? undefined}
-          className={clsx(classes.Select, disabled && classes.Disabled)}
-          {...rest}
+          defaultValue={defaultValue ?? placeholder ?? undefined}
         >
           {placeholder && (
             <option value="" disabled={required} hidden={required}>
