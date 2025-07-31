@@ -333,7 +333,7 @@ export const OverlayPropsOverrides = () => {
         role: 'dialog',
         'aria-modal': true,
         'aria-label': 'User Card Overlay',
-        className: clsx(classes.Overlay, classes.OverlayAutoScroll),
+        className: classes.Overlay,
       }}
       focusZoneSettings={{disabled: true}}
       preventOverflow={false}
