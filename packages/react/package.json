@@ -60,7 +60,6 @@
   ],
   "files": [
     "dist",
-    "css",
     "generated",
     "CHANGELOG.md"
   ],
