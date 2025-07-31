@@ -34,7 +34,6 @@ jobs:
         run: npm ci
       - name: Build storybook
         run: npx turbo build:storybook
-        working-directory: packages/react
       - name: Run storybook
         id: storybook
         working-directory: packages/react
