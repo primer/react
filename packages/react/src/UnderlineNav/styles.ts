@@ -53,11 +53,20 @@ export const baseMenuStyles: BetterSystemStyleObject = {
  *
  * @param containerRef The Menu List Container Reference.
  * @param listRef The Underline Nav Container Reference.
+ * @param enableAnchoredPositionViewportFix Feature flag for viewport fix.
  * @description This calculates the position of the menu
  */
-export const menuStyles = (containerRef: Element | null, listRef: Element | null): BetterSystemStyleObject => {
+export const menuStyles = (
+  containerRef: Element | null,
+  listRef: Element | null,
+  enableAnchoredPositionViewportFix = false,
+): BetterSystemStyleObject => {
   if (containerRef && listRef) {
-    const {left} = getAnchoredPosition(containerRef, listRef, {align: 'start', side: 'outside-bottom'})
+    const {left} = getAnchoredPosition(containerRef, listRef, {
+      align: 'start',
+      side: 'outside-bottom',
+      enableAnchoredPositionViewportFix,
+    } as any)
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const {right, ...rest} = baseMenuStyles
     return {...rest, left}

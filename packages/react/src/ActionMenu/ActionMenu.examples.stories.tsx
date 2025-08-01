@@ -656,3 +656,102 @@ export const DynamicAnchorSides = () => {
     </>
   )
 }
+
+export const AnchorPositionScrollBug = () => {
+  return (
+    <>
+      {/* First Box: 70% of page height */}
+      <Box
+        sx={{
+          height: '70vh',
+          backgroundColor: 'canvas.subtle',
+          p: 3,
+          border: '1px solid',
+          borderColor: 'border.default',
+        }}
+      >
+        <h2>First section (70% of page height)</h2>
+        <p>
+          This section takes up 70% of the page height. You need to scroll down to see the ActionMenu demonstration
+          below.
+        </p>
+        <p>
+          This story demonstrates the anchor positioning bug described in{' '}
+          <a href="https://github.com/github/primer/issues/5358" target="_blank" rel="noopener noreferrer">
+            github/primer#5358
+          </a>
+        </p>
+        <p>The bug occurs when the menu is rendered out of view due to not accounting for the scroll position.</p>
+      </Box>
+
+      {/* Second Box: substantial space forcing scroll */}
+      <Box
+        sx={{
+          height: '100vh',
+          backgroundColor: 'canvas.default',
+          p: 3,
+          border: '1px solid',
+          borderColor: 'border.default',
+          position: 'relative',
+        }}
+      >
+        <h2>Second section (forces scrolling)</h2>
+        <p>This section is 100vh tall, which forces the user to scroll to see content at the bottom.</p>
+
+        {/* ActionMenu positioned in the middle/bottom of this section */}
+        <Box sx={{position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)'}}>
+          <p>ActionMenu positioned in middle of this section (at bottom of page after scrolling):</p>
+          <ActionMenu>
+            <ActionMenu.Button>Open menu to see positioning bug</ActionMenu.Button>
+            <ActionMenu.Overlay width="medium">
+              <ActionList>
+                <ActionList.Item onSelect={() => alert('Copy link clicked')}>
+                  Copy link
+                  <ActionList.TrailingVisual>⌘C</ActionList.TrailingVisual>
+                </ActionList.Item>
+                <ActionList.Item onSelect={() => alert('Quote reply clicked')}>
+                  Quote reply
+                  <ActionList.TrailingVisual>⌘Q</ActionList.TrailingVisual>
+                </ActionList.Item>
+                <ActionList.Item onSelect={() => alert('Edit comment clicked')}>
+                  Edit comment
+                  <ActionList.TrailingVisual>⌘E</ActionList.TrailingVisual>
+                </ActionList.Item>
+                <ActionList.Divider />
+                <ActionList.Item variant="danger" onSelect={() => alert('Delete file clicked')}>
+                  Delete file
+                  <ActionList.TrailingVisual>⌘D</ActionList.TrailingVisual>
+                </ActionList.Item>
+              </ActionList>
+            </ActionMenu.Overlay>
+          </ActionMenu>
+          <p>
+            <strong>Expected behavior:</strong> Menu should appear near the button
+          </p>
+          <p>
+            <strong>Bug:</strong> Menu may render out of view because getAnchoredPosition doesn't account for scroll
+            position
+          </p>
+        </Box>
+      </Box>
+
+      {/* Additional content to ensure scrolling */}
+      <Box
+        sx={{
+          height: '50vh',
+          backgroundColor: 'canvas.subtle',
+          p: 3,
+          border: '1px solid',
+          borderColor: 'border.default',
+        }}
+      >
+        <h2>Additional content</h2>
+        <p>This section provides additional content to ensure the page requires scrolling.</p>
+        <p>
+          When the enableAnchoredPositionViewportFix feature flag is implemented, the positioning bug should be
+          resolved.
+        </p>
+      </Box>
+    </>
+  )
+}
