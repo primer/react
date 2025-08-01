@@ -1,0 +1,58 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`@primer/styled-react exports 1`] = `
+[
+  "ActionList",
+  "ActionMenu",
+  "Box",
+  "BranchName",
+  "Breadcrumbs",
+  "Button",
+  "CheckboxGroup",
+  "CircleBadge",
+  "CircleOcticon",
+  "CounterLabel",
+  "Dialog",
+  "Flash",
+  "FormControl",
+  "Header",
+  "Heading",
+  "IconButton",
+  "Label",
+  "Link",
+  "LinkButton",
+  "NavList",
+  "Overlay",
+  "PageHeader",
+  "PageLayout",
+  "Popover",
+  "ProgressBar",
+  "RelativeTime",
+  "SegmentedControl",
+  "Spinner",
+  "StateLabel",
+  "Text",
+  "TextInput",
+  "Textarea",
+  "Timeline",
+  "ToggleSwitch",
+  "Token",
+  "Tooltip",
+  "Truncate",
+  "UnderlineNav",
+]
+`;
+
+exports[`@primer/styled-react/deprecated exports 1`] = `
+[
+  "UnderlineNav",
+  "TabNav",
+  "Octicon",
+]
+`;
+
+exports[`@primer/styled-react/experimental exports 1`] = `
+[
+  "Tooltip",
+]
+`;
