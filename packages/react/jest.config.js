@@ -17,6 +17,7 @@ module.exports = {
   modulePathIgnorePatterns: [
     '<rootDir>/src/ActionBar/',
     '<rootDir>/src/ActionList/',
+    '<rootDir>/src/ActionMenu/',
     '<rootDir>/src/AnchoredOverlay/',
     '<rootDir>/src/Autocomplete/',
     '<rootDir>/src/Avatar/',
