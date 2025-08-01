@@ -91,7 +91,7 @@ export const Tooltip = React.forwardRef(
     const child = Children.only(children)
     const triggerRef = useProvidedRefOrCreate(forwardedRef as React.RefObject<HTMLElement>)
     const tooltipElRef = useRef<HTMLDivElement>(null)
-    const enableAnchoredPositionViewportFix = useFeatureFlag('enableAnchoredPositionViewportFix')
+    const enableAnchoredPositionViewportFix = useFeatureFlag('primer_react_anchored_position_viewport_fix')
 
     const [calculatedDirection, setCalculatedDirection] = useState<TooltipDirection>(direction)
 

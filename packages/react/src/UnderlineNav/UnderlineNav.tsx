@@ -161,7 +161,7 @@ export const UnderlineNav = forwardRef(
     const moreMenuBtnRef = useRef<HTMLButtonElement>(null)
     const containerRef = React.useRef<HTMLUListElement>(null)
     const disclosureWidgetId = useId()
-    const enableAnchoredPositionViewportFix = useFeatureFlag('enableAnchoredPositionViewportFix')
+    const enableAnchoredPositionViewportFix = useFeatureFlag('primer_react_anchored_position_viewport_fix')
 
     const {theme} = useTheme()
     const [isWidgetOpen, setIsWidgetOpen] = useState(false)

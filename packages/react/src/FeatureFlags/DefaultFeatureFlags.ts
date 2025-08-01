@@ -7,5 +7,5 @@ export const DefaultFeatureFlags = FeatureFlagScope.create({
   primer_react_select_panel_fullscreen_on_narrow: false,
   primer_react_select_panel_order_selected_at_top: false,
   primer_react_select_panel_remove_active_descendant: false,
-  enableAnchoredPositionViewportFix: false,
+  primer_react_anchored_position_viewport_fix: false,
 })
