@@ -4,8 +4,6 @@ import {Checkbox} from '..'
 import FormControl from '../FormControl'
 import type {FormControlArgs} from '../utils/form-story-helpers'
 import {formControlArgTypesWithoutValidation, getFormControlArgsByChildComponent} from '../utils/form-story-helpers'
-import {clsx} from 'clsx'
-import classes from './Checkbox.stories.module.css'
 
 const excludedControlKeys = ['required', 'value', 'validationStatus', 'sx']
 
