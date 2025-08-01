@@ -15,7 +15,17 @@ export const SizeLarge = () => <ProgressBar progress="66" barSize="large" aria-l
 
 export const Inline = () => <ProgressBar inline progress="66" style={{width: '100px'}} aria-label="Upload test.png" />
 
-export const Color = () => <ProgressBar progress="66" bg="done.emphasis" aria-label="Upload test.png" />
+export const AllColors = () => (
+  <ProgressBar aria-label="Upload test.png">
+    <ProgressBar.Item progress={20} aria-label="Photo Usage" bg="accent.emphasis" />
+    <ProgressBar.Item progress={15} aria-label="Application Usage" bg="danger.emphasis" />
+    <ProgressBar.Item progress={12} aria-label="Music Usage" bg="severe.emphasis" />
+    <ProgressBar.Item progress={11} aria-label="Music Usage" bg="done.emphasis" />
+    <ProgressBar.Item progress={8} aria-label="Music Usage" bg="sponsors.emphasis" />
+    <ProgressBar.Item progress={7} aria-label="Music Usage" bg="neutral.emphasis" />
+    <ProgressBar.Item progress={7} aria-label="Music Usage" bg="attention.emphasis" />
+  </ProgressBar>
+)
 
 export const MultipleItems = () => (
   <ProgressBar>
