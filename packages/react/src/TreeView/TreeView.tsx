@@ -301,7 +301,11 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
                 : undefined
               : ariaLabel
           }
-          aria-labelledby={`${ariaLabel ? '' : ariaLabelledby || labelId} ${slots.trailingAction && !ariaLabel ? trailingActionId : ''}`}
+          aria-labelledby={
+            ariaLabel
+              ? undefined
+              : `${ariaLabelledby || labelId} ${slots.trailingAction ? trailingActionId : ''}`.trim()
+          }
           aria-describedby={ariaDescribedByIds.length ? ariaDescribedByIds.join(' ') : undefined}
           aria-level={level}
           aria-expanded={(isSubTreeEmpty && (!isExpanded || !hasSubTree)) || expanded === null ? undefined : isExpanded}
