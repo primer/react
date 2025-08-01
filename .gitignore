@@ -41,8 +41,14 @@ blob-report
 # ESLint
 .eslintcache
 
+# Stylelint
+.stylelintcache
+
 # CSS modules type definitions
 *.module.css.d.ts
 
 # Vitest
 **/__screenshots__/**
+
+# Turbo
+.turbo
