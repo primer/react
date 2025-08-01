@@ -72,6 +72,7 @@ export type TreeViewProps = {
 
 /* Size of toggle icon in pixels. */
 const TOGGLE_ICON_SIZE = 12
+const TRAILING_ACTION_SHORTCUT_TEXT = 'Press Command, Shift, U for more actions.'
 
 const Root: React.FC<TreeViewProps> = ({
   'aria-label': ariaLabel,
@@ -264,7 +265,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
             break
         }
       },
-      [onSelect, setIsExpandedWithCache, toggle],
+      [onSelect, setIsExpandedWithCache, toggle, onKeyDown],
     )
 
     const ariaDescribedByIds = [
@@ -296,7 +297,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
           aria-label={
             slots.trailingAction
               ? ariaLabel
-                ? `${ariaLabel}. Press Command, Shift, U for more actions.`
+                ? `${ariaLabel}. ${TRAILING_ACTION_SHORTCUT_TEXT}`
                 : undefined
               : ariaLabel
           }
@@ -707,7 +708,7 @@ const TrailingAction: React.FC<TreeViewTrailingAction> = props => {
         {props.label}
       </div>
       <div id={trailingActionId} className={clsx('PRIVATE_VisuallyHidden', classes.TreeViewVisuallyHidden)}>
-        ; Press Command, Shift, U for more actions.
+        ; {TRAILING_ACTION_SHORTCUT_TEXT}
       </div>
       <div
         className={clsx('PRIVATE_TreeView-item-trailing-action', classes.TreeViewItemTrailingAction)}
@@ -718,7 +719,6 @@ const TrailingAction: React.FC<TreeViewTrailingAction> = props => {
           event.stopPropagation()
         }
         onKeyDown={event => event.stopPropagation()}
-        aria-labelledby=""
       >
         {children}
       </div>

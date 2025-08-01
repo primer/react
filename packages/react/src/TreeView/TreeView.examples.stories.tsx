@@ -104,7 +104,7 @@ const TrailingAction: React.FC<{id: string; children: React.ReactNode; dialogOnO
 
   const btnRef = React.useRef<HTMLButtonElement>(null)
 
-  const mockKeyboardShortcut = (event: React.KeyboardEvent) => {
+  const openActionDialog = () => {
     if (!dialogOnOpen) btnRef.current?.focus()
     if (dialogOnOpen) setDialogOpen(true)
   }
@@ -116,7 +116,7 @@ const TrailingAction: React.FC<{id: string; children: React.ReactNode; dialogOnO
         className="treeview-item"
         expanded={expanded}
         onExpandedChange={setExpanded}
-        onKeyDown={mockKeyboardShortcut}
+        onKeyDown={openActionDialog}
       >
         {children}
         <TreeView.TrailingAction>
@@ -129,6 +129,8 @@ const TrailingAction: React.FC<{id: string; children: React.ReactNode; dialogOnO
               setDialogOpen(true)
             }}
             ref={btnRef}
+            tabIndex={-1}
+            aria-hidden={true}
           />
         </TreeView.TrailingAction>
       </TreeView.Item>
