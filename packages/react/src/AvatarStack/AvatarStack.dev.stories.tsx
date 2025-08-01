@@ -8,20 +8,6 @@ export default {
   component: AvatarStack,
 } as Meta<typeof AvatarStack>
 
-export const SxProp = () => (
-  <AvatarStack
-    alignRight
-    sx={{
-      backgroundColor: 'red',
-    }}
-  >
-    <Avatar alt="Primer logo" src="https://avatars.githubusercontent.com/primer" />
-    <Avatar alt="GitHub logo" src="https://avatars.githubusercontent.com/github" />
-    <Avatar alt="Atom logo" src="https://avatars.githubusercontent.com/atom" />
-    <Avatar alt="GitHub Desktop logo" src="https://avatars.githubusercontent.com/desktop" />
-  </AvatarStack>
-)
-
 export const WithLinkWrappers = () => (
   <AvatarStack>
     <Link aria-label="Primer is assigned" href="#" className="pc-AvatarItem" data-hovercard-url="/primer">
