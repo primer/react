@@ -76,10 +76,6 @@ const stories = [
     id: 'components-button-dev--invisible-variants',
   },
   {
-    title: 'Dev Sx Prop',
-    id: 'components-button-dev--test-sx-prop',
-  },
-  {
     title: 'Aria Expanded Buttons',
     id: 'components-button-features--expanded-button',
   },
