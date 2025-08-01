@@ -1,0 +1,60 @@
+.HeaderAndLayout {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: var(--base-size-24);
+  width: 100%;
+}
+
+.ScrollingRegion {
+  position: absolute;
+  inset: 96px 24px 24px;
+  overflow: scroll;
+  /* stylelint-disable-next-line color-named */
+  background-color: powderblue;
+}
+
+.PortalRootRegion {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.FlexColFill {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.PlaygroundCell {
+  margin: var(--base-size-8);
+}
+
+.Overlay {
+  min-width: 320px;
+}
+
+.UserName {
+  font-weight: var(--base-text-weight-medium, 500);
+  color: var(--fgColor-default);
+}
+
+.UserMeta {
+  color: var(--fgColor-muted);
+  margin-left: var(--base-size-4);
+}
+
+.Bio {
+  font-size: var(--text-body-size-medium);
+  line-height: var(--text-body-lineHeight-medium);
+}
+
+.MetaMuted {
+  font-size: var(--text-body-size-small);
+  line-height: var(--text-body-lineHeight-small);
+  color: var(--fgColor-muted);
+  margin-left: var(--base-size-4);
+}
