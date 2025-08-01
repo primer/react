@@ -6,7 +6,7 @@ import type {AriaRole} from '../utils/types'
 type ContextProps = {
   container?: string
   listRole?: AriaRole
-  selectionVariant?: 'single' | 'multiple'
+  selectionVariant?: 'single' | 'multiple' | 'radio'
   selectionAttribute?: 'aria-selected' | 'aria-checked'
   listLabelledBy?: string
   // This can be any function, we don't know anything about the arguments
