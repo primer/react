@@ -10,15 +10,8 @@ import type {InitialLoadingType} from './SelectPanel'
 import {IconButton} from '../Button'
 import {ArrowLeftIcon} from '@primer/octicons-react'
 import Box from '../Box'
-import type {LiveRegionElement} from '@primer/live-region-element'
+import {getLiveRegion} from '../live-region/__tests__/test-helpers'
 
-function getLiveRegion(): LiveRegionElement {
-  const liveRegion = document.querySelector('live-region')
-  if (liveRegion) {
-    return liveRegion as LiveRegionElement
-  }
-  throw new Error('No live-region found')
-}
 
 const items: SelectPanelProps['items'] = [
   {
@@ -566,17 +559,6 @@ describe('SelectPanel', () => {
   })
 
   describe('screen reader announcements', () => {
-    beforeEach(() => {
-      const liveRegion = document.createElement('live-region')
-      document.body.appendChild(liveRegion)
-    })
-
-    afterEach(() => {
-      // Reset the live-region after each test so that we do not have overlapping
-      // messages from previous tests
-      const liveRegion = getLiveRegion()
-      document.body.removeChild(liveRegion)
-    })
 
     function LoadingSelectPanel({
       initialLoadingType = 'spinner',
