@@ -120,6 +120,7 @@ export const Tooltip = React.forwardRef(
             side: directionToPosition[direction].side,
             align: directionToPosition[direction].align,
             enableAnchoredPositionViewportFix,
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
           } as any
           const {top, left, anchorAlign, anchorSide} = getAnchoredPosition(tooltip, trigger, settings)
           // This is required to make sure the popover is positioned correctly i.e. when there is not enough space on the specified direction, we set a new direction to position the ::after

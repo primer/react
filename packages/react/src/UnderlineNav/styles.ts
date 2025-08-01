@@ -66,6 +66,7 @@ export const menuStyles = (
       align: 'start',
       side: 'outside-bottom',
       enableAnchoredPositionViewportFix,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } as any)
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const {right, ...rest} = baseMenuStyles

@@ -729,8 +729,8 @@ export const AnchorPositionScrollBug = () => {
             <strong>Expected behavior:</strong> Menu should appear near the button
           </p>
           <p>
-            <strong>Bug:</strong> Menu may render out of view because getAnchoredPosition doesn't account for scroll
-            position
+            <strong>Bug:</strong> Menu may render out of view because getAnchoredPosition doesn&apos;t account for
+            scroll position
           </p>
         </Box>
       </Box>

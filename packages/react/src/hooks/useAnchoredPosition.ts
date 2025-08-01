@@ -70,6 +70,7 @@ export function useAnchoredPosition(
         const settingsWithFeatureFlag = {
           ...settings,
           enableAnchoredPositionViewportFix,
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } as any
         const newPosition = getAnchoredPosition(
           floatingElementRef.current,
