@@ -27,10 +27,6 @@ describe('ProgressBar', () => {
     expect(container.firstChild).toHaveAttribute('data-progress-display', 'inline')
   })
 
-  it('respects the "progress" prop', () => {
-    expect(render(<ProgressBar progress={80} aria-label="Upload test.png" />)).toMatchSnapshot()
-  })
-
   it('passed the `aria-label` down to the progress bar', () => {
     const {getByRole, getByLabelText} = render(<ProgressBar progress={80} aria-label="Upload test.png" />)
     expect(getByRole('progressbar')).toHaveAttribute('aria-label', 'Upload test.png')
@@ -75,5 +71,77 @@ describe('ProgressBar', () => {
     const {getByRole} = render(<ProgressBar progress={0} aria-valuenow={0} aria-label="Upload text.png" />)
 
     expect(getByRole('progressbar')).toHaveAttribute('aria-valuenow', '0')
+  })
+
+  describe('bg prop', () => {
+    it('applies default success bg color when no bg prop is provided', () => {
+      const {getByRole} = render(<ProgressBar progress={50} aria-label="Upload test.png" />)
+      const progressBar = getByRole('progressbar') as HTMLElement
+
+      expect(progressBar.style.getPropertyValue('--progress-bg')).toBe('var(--progressBar-bgColor-success)')
+    })
+
+    it('applies custom bg color when bg prop is provided', () => {
+      const {getByRole} = render(<ProgressBar progress={50} bg="danger.emphasis" aria-label="Upload test.png" />)
+      const progressBar = getByRole('progressbar') as HTMLElement
+
+      expect(progressBar.style.getPropertyValue('--progress-bg')).toBe('var(--progressBar-bgColor-danger)')
+    })
+
+    it('handles different color variants correctly', () => {
+      const colorVariants = [
+        {input: 'danger.emphasis', expected: 'var(--progressBar-bgColor-danger)'},
+        {input: 'severe.emphasis', expected: 'var(--progressBar-bgColor-severe)'},
+        {input: 'sponsor.emphasis', expected: 'var(--progressBar-bgColor-sponsor)'},
+        {input: 'done.emphasis', expected: 'var(--progressBar-bgColor-done)'},
+        {input: 'accent.emphasis', expected: 'var(--progressBar-bgColor-accent)'},
+        {input: 'success.emphasis', expected: 'var(--progressBar-bgColor-success)'},
+        {input: 'neutral.emphasis', expected: 'var(--progressBar-bgColor-neutral)'},
+        {input: 'attention.emphasis', expected: 'var(--progressBar-bgColor-attention)'},
+      ]
+
+      for (const {input, expected} of colorVariants) {
+        const {getByRole, unmount} = render(<ProgressBar progress={50} bg={input} aria-label="Upload test.png" />)
+        const progressBar = getByRole('progressbar') as HTMLElement
+
+        expect(progressBar.style.getPropertyValue('--progress-bg')).toBe(expected)
+
+        // Clean up after each test to avoid multiple elements
+        unmount()
+      }
+    })
+
+    it('applies bg color to ProgressBar.Item when used in multi-item setup', () => {
+      const {container} = render(
+        <ProgressBar aria-label="Upload test.png">
+          <ProgressBar.Item progress={30} bg="danger.emphasis" aria-label="Danger item" />
+          <ProgressBar.Item progress={20} bg="success.emphasis" aria-label="Success item" />
+        </ProgressBar>,
+      )
+
+      const progressBars = container.querySelectorAll('[role="progressbar"]')
+
+      expect((progressBars[0] as HTMLElement).style.getPropertyValue('--progress-bg')).toBe(
+        'var(--progressBar-bgColor-danger)',
+      )
+      expect((progressBars[1] as HTMLElement).style.getPropertyValue('--progress-bg')).toBe(
+        'var(--progressBar-bgColor-success)',
+      )
+    })
+
+    it('handles bg values without emphasis gracefully', () => {
+      const {getByRole} = render(<ProgressBar progress={50} bg="danger" aria-label="Upload test.png" />)
+      const progressBar = getByRole('progressbar') as HTMLElement
+
+      expect(progressBar.style.getPropertyValue('--progress-bg')).toBe('var(--progressBar-bgColor-danger)')
+    })
+
+    it('preserves progress width regardless of bg color', () => {
+      const {getByRole} = render(<ProgressBar progress={75} bg="danger.emphasis" aria-label="Upload test.png" />)
+      const progressBar = getByRole('progressbar') as HTMLElement
+
+      expect(progressBar.style.getPropertyValue('--progress-width')).toBe('75%')
+      expect(progressBar.style.getPropertyValue('--progress-bg')).toBe('var(--progressBar-bgColor-danger)')
+    })
   })
 })
