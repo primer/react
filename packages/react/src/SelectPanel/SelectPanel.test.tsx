@@ -1,4 +1,5 @@
 import {render, screen, waitFor} from '@testing-library/react'
+import {describe, expect, it, vi, beforeEach} from 'vitest'
 import React from 'react'
 import {SelectPanel, type SelectPanelProps} from '../SelectPanel'
 import type {ItemInput, GroupedListProps} from '../deprecated/ActionList/List'
@@ -6,13 +7,18 @@ import {userEvent} from '@testing-library/user-event'
 import ThemeProvider from '../ThemeProvider'
 import {FeatureFlags} from '../FeatureFlags'
 import type {InitialLoadingType} from './SelectPanel'
-import {getLiveRegion} from '../utils/testing'
 import {IconButton} from '../Button'
 import {ArrowLeftIcon} from '@primer/octicons-react'
 import Box from '../Box'
-import {setupMatchMedia} from '../utils/test-helpers'
+import type {LiveRegionElement} from '@primer/live-region-element'
 
-setupMatchMedia()
+function getLiveRegion(): LiveRegionElement {
+  const liveRegion = document.querySelector('live-region')
+  if (liveRegion) {
+    return liveRegion as LiveRegionElement
+  }
+  throw new Error('No live-region found')
+}
 
 const renderWithFlag = (children: React.ReactNode, flag: boolean) => {
   return render(
@@ -71,7 +77,7 @@ function BasicSelectPanel(passthroughProps: Record<string, unknown>) {
   )
 }
 
-global.Element.prototype.scrollTo = jest.fn()
+globalThis.Element.prototype.scrollTo = vi.fn()
 
 for (const usingRemoveActiveDescendant of [false, true]) {
   describe('SelectPanel', () => {
@@ -152,7 +158,7 @@ for (const usingRemoveActiveDescendant of [false, true]) {
     })
 
     it('should call `onOpenChange` when opening and closing the dialog', async () => {
-      const onOpenChange = jest.fn()
+      const onOpenChange = vi.fn()
 
       function SelectPanelOpenChange() {
         const [selected, setSelected] = React.useState<SelectPanelProps['items']>([])
@@ -689,16 +695,16 @@ for (const usingRemoveActiveDescendant of [false, true]) {
       })
 
       it('should announce initially focused item', async () => {
-        jest.useFakeTimers()
+        vi.useFakeTimers()
         const user = userEvent.setup({
-          advanceTimers: jest.advanceTimersByTime,
+          advanceTimers: vi.advanceTimersByTime,
         })
         renderWithFlag(<FilterableSelectPanel />, usingRemoveActiveDescendant)
 
         await user.click(screen.getByText('Select items'))
         expect(screen.getByLabelText('Filter items')).toHaveFocus()
 
-        jest.runAllTimers()
+        vi.runAllTimers()
         // we wait because announcement is intentionally updated after a timeout to not interrupt user input
         await waitFor(
           async () => {
@@ -712,13 +718,13 @@ for (const usingRemoveActiveDescendant of [false, true]) {
           },
           {timeout: 3000},
         )
-        jest.useRealTimers()
+        vi.useRealTimers()
       })
 
       it('should announce notice text', async () => {
-        jest.useFakeTimers()
+        vi.useFakeTimers()
         const user = userEvent.setup({
-          advanceTimers: jest.advanceTimersByTime,
+          advanceTimers: vi.advanceTimersByTime,
         })
 
         function SelectPanelWithNotice() {
@@ -766,16 +772,16 @@ for (const usingRemoveActiveDescendant of [false, true]) {
       })
 
       it('should announce filtered results', async () => {
-        jest.useFakeTimers()
+        vi.useFakeTimers()
         const user = userEvent.setup({
-          advanceTimers: jest.advanceTimersByTime,
+          advanceTimers: vi.advanceTimersByTime,
         })
         renderWithFlag(<FilterableSelectPanel />, usingRemoveActiveDescendant)
 
         await user.click(screen.getByText('Select items'))
         expect(screen.getByLabelText('Filter items')).toHaveFocus()
 
-        jest.runAllTimers()
+        vi.runAllTimers()
         await waitFor(
           async () => {
             if (usingRemoveActiveDescendant) {
@@ -792,7 +798,7 @@ for (const usingRemoveActiveDescendant of [false, true]) {
         await user.type(document.activeElement!, 'o')
         expect(screen.getAllByRole('option')).toHaveLength(2)
 
-        jest.runAllTimers()
+        vi.runAllTimers()
         await waitFor(
           async () => {
             if (usingRemoveActiveDescendant) {
@@ -809,7 +815,7 @@ for (const usingRemoveActiveDescendant of [false, true]) {
         await user.type(document.activeElement!, 'ne') // now: one
         expect(screen.getAllByRole('option')).toHaveLength(1)
 
-        jest.runAllTimers()
+        vi.runAllTimers()
         await waitFor(async () => {
           if (usingRemoveActiveDescendant) {
             expect(getLiveRegion().getMessage('polite')!.trim()).toBe('1 item available, 0 selected.')
@@ -819,13 +825,13 @@ for (const usingRemoveActiveDescendant of [false, true]) {
             )
           }
         })
-        jest.useRealTimers()
+        vi.useRealTimers()
       })
 
       it('should announce default empty message when no results are available (no custom message is provided)', async () => {
-        jest.useFakeTimers()
+        vi.useFakeTimers()
         const user = userEvent.setup({
-          advanceTimers: jest.advanceTimersByTime,
+          advanceTimers: vi.advanceTimersByTime,
         })
         renderWithFlag(<FilterableSelectPanel />, usingRemoveActiveDescendant)
 
@@ -834,17 +840,17 @@ for (const usingRemoveActiveDescendant of [false, true]) {
         await user.type(document.activeElement!, 'zero')
         expect(screen.queryByRole('option')).toBeNull()
 
-        jest.runAllTimers()
+        vi.runAllTimers()
         await waitFor(async () => {
           expect(getLiveRegion().getMessage('polite')).toBe('No items available. ')
         })
-        jest.useRealTimers()
+        vi.useRealTimers()
       })
 
       it('should announce custom empty message when no results are available', async () => {
-        jest.useFakeTimers()
+        vi.useFakeTimers()
         const user = userEvent.setup({
-          advanceTimers: jest.advanceTimersByTime,
+          advanceTimers: vi.advanceTimersByTime,
         })
 
         function SelectPanelWithCustomEmptyMessage() {
@@ -886,11 +892,11 @@ for (const usingRemoveActiveDescendant of [false, true]) {
         await user.type(document.activeElement!, 'zero')
         expect(screen.queryByRole('option')).toBeNull()
 
-        jest.runAllTimers()
+        vi.runAllTimers()
         await waitFor(async () => {
           expect(getLiveRegion().getMessage('polite')).toBe(`Nothing found. There's nothing here.`)
         })
-        jest.useRealTimers()
+        vi.useRealTimers()
       })
 
       it('should accept a className to style the component', async () => {
@@ -970,7 +976,7 @@ for (const usingRemoveActiveDescendant of [false, true]) {
       })
 
       it('should display action button in custom empty state message', async () => {
-        const handleAction = jest.fn()
+        const handleAction = vi.fn()
         const user = userEvent.setup()
 
         renderWithFlag(
