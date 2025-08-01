@@ -1,0 +1,58 @@
+.LastKeyPressed {
+  position: absolute;
+  right: var(--base-size-32);
+  top: var(--base-size-8);
+}
+
+.StoryPadding {
+  padding-top: var(--base-size-32);
+}
+
+.FormPadding {
+  padding: var(--base-size-16);
+}
+
+.AnchorContainer {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+  flex-shrink: 0;
+  flex-basis: 25%;
+  border-color: var(--control-borderColor-rest);
+  border-style: solid;
+  border-width: var(--borderWidth-default);
+  padding: var(--base-size-16);
+}
+
+.AnchorInput {
+  padding: 0;
+  box-shadow: none;
+}
+
+.OverlayFlexCol {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.OverlayInputBar {
+  border-width: 0;
+  border-bottom-width: var(--borderWidth-default);
+  border-color: var(--borderColor-default);
+  border-style: solid;
+}
+
+.OverlayInput {
+  display: flex;
+  border: 0;
+  padding-left: var(--base-size-16);
+  padding-right: var(--base-size-16);
+  padding-top: var(--base-size-4);
+  padding-bottom: var(--base-size-4);
+  box-shadow: none;
+}
+
+.OverlayScroll {
+  overflow: auto;
+  flex-grow: 1;
+}
