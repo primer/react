@@ -111,6 +111,7 @@ export default defineConfig({
       'src/deprecated/**/*.test.?(c|m)[jt]s?(x)',
       'src/experimental/IssueLabel/**/*.test.?(c|m)[jt]s?(x)',
       'src/experimental/SelectPanel2/**/*.test.?(c|m)[jt]s?(x)',
+      'src/experimental/UnderlinePanels/**/*.test.?(c|m)[jt]s?(x)',
       'src/hooks/**/*.test.?(c|m)[jt]s?(x)',
       'src/internal/utils/**/*.test.?(c|m)[jt]s?(x)',
       'src/live-region/**/*.test.?(c|m)[jt]s?(x)',

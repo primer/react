@@ -99,6 +99,7 @@ module.exports = {
     '<rootDir>/src/__tests__/deprecated/FilteredSearch.test.tsx',
     '<rootDir>/src/deprecated/UnderlineNav/UnderlineNavLink.test.tsx',
     '<rootDir>/src/experimental/SelectPanel2/',
+    '<rootDir>/src/experimental/UnderlinePanels/',
     '<rootDir>/src/deprecated/',
     '<rootDir>/src/experimental/IssueLabel',
     '<rootDir>/src/hooks/',
