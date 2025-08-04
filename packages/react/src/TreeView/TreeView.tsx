@@ -186,6 +186,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
       leadingAction: LeadingAction,
       leadingVisual: LeadingVisual,
       trailingVisual: TrailingVisual,
+      trailingAction: TrailingAction,
     })
     const {expandedStateCache} = React.useContext(RootContext)
     const labelId = useId()
@@ -364,6 +365,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
               </span>
               {slots.trailingVisual}
             </div>
+            {slots.trailingAction}
           </div>
           {subTree}
         </li>
@@ -671,6 +673,28 @@ const LeadingAction: React.FC<TreeViewVisualProps> = props => {
 
 LeadingAction.displayName = 'TreeView.LeadingAction'
 // ----------------------------------------------------------------------------
+// TreeView.TrailingAction
+
+const TrailingAction: React.FC<TreeViewVisualProps> = props => {
+  const {isExpanded} = React.useContext(ItemContext)
+  const children = typeof props.children === 'function' ? props.children({isExpanded}) : props.children
+  return (
+    <>
+      <div className={clsx('PRIVATE_VisuallyHidden', classes.TreeViewVisuallyHidden)} aria-hidden={true}>
+        {props.label}
+      </div>
+      <div
+        className={clsx('PRIVATE_TreeView-item-leading-action', classes.TreeViewItemLeadingAction)}
+        aria-hidden={true}
+      >
+        {children}
+      </div>
+    </>
+  )
+}
+
+TrailingAction.displayName = 'TreeView.TrailingAction'
+// ----------------------------------------------------------------------------
 // TreeView.DirectoryIcon
 
 const DirectoryIcon = () => {
@@ -739,6 +763,7 @@ export const TreeView = Object.assign(Root, {
   Item,
   SubTree,
   LeadingAction,
+  TrailingAction,
   LeadingVisual,
   TrailingVisual,
   DirectoryIcon,

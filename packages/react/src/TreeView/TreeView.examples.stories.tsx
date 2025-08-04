@@ -1,5 +1,5 @@
-import {GrabberIcon} from '@primer/octicons-react'
-import type {Meta, StoryFn} from '@storybook/react-vite'
+import {BookIcon, GrabberIcon} from '@primer/octicons-react'
+import type {StoryFn, Meta} from '@storybook/react-vite'
 import React from 'react'
 import Box from '../Box'
 import {TreeView} from './TreeView'
@@ -68,6 +68,59 @@ const ControlledDraggableItem: React.FC<{id: string; children: React.ReactNode}>
           />
         </TreeView.LeadingAction>
         {children}
+      </TreeView.Item>
+    </>
+  )
+}
+
+export const Trailing: StoryFn = () => {
+  return (
+    <Box
+      sx={{
+        // using Box for css, this could be in a css file as well
+        '.treeview-item': {
+          '.treeview-leading-action': {visibility: 'hidden'},
+          '&:hover, &:focus': {
+            '.treeview-leading-action': {visibility: 'visible'},
+          },
+        },
+      }}
+    >
+      <TreeView aria-label="Issues">
+        <TrailingAction id="item-1">Item 1</TrailingAction>
+        <TrailingAction id="item-2">
+          Item 2
+          <TreeView.SubTree>
+            <TreeView.Item id="item-2-sub-task-1">sub task 1</TreeView.Item>
+            <TreeView.Item id="item-2-sub-task-2">sub task 2</TreeView.Item>
+          </TreeView.SubTree>
+        </TrailingAction>
+        <TrailingAction id="item-3">Item 3</TrailingAction>
+      </TreeView>
+    </Box>
+  )
+}
+
+const TrailingAction: React.FC<{id: string; children: React.ReactNode}> = ({id, children}) => {
+  const [expanded, setExpanded] = React.useState(false)
+
+  return (
+    <>
+      <TreeView.Item id={id} className="treeview-item" expanded={expanded} onExpandedChange={setExpanded}>
+        {children}
+        <TreeView.TrailingAction>
+          <IconButton
+            icon={BookIcon}
+            variant="invisible"
+            aria-label="Reorder item"
+            className="treeview-leading-action"
+            draggable="true"
+            onDragStart={() => {
+              setExpanded(false)
+              // other drag logic to follow
+            }}
+          />
+        </TreeView.TrailingAction>
       </TreeView.Item>
     </>
   )
