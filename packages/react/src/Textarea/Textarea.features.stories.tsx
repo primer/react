@@ -104,3 +104,21 @@ export const CustomResizeBehavior = () => (
     </FormControl>
   </Stack>
 )
+
+export const MinimumHeight = () => (
+  <Box as="form">
+    <FormControl>
+      <FormControl.Label>Default label</FormControl.Label>
+      <Textarea rows={1} minHeight={100} />
+    </FormControl>
+  </Box>
+)
+
+export const MaximumHeight = () => (
+  <Box as="form">
+    <FormControl>
+      <FormControl.Label>Default label</FormControl.Label>
+      <Textarea rows={20} maxHeight={200} />
+    </FormControl>
+  </Box>
+)
