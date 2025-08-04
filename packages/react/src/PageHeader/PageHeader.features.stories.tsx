@@ -156,7 +156,7 @@ export const WithCustomNavigation = () => (
         <PageHeader.Title>Pull request title</PageHeader.Title>
       </PageHeader.TitleArea>
       <PageHeader.Navigation as="nav" aria-label="Item list">
-        <ul className={classes.CustomNavigationList} role="list">
+        <ul className={classes.CustomNavigationList}>
           <li>
             <Link href="https://github.com/primer/react" aria-current="page">
               Item 1
