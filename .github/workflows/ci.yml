@@ -121,7 +121,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Build
-        run: npm run build
+        run: npx turbo build
 
   build-components-json:
     runs-on: ubuntu-latest
