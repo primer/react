@@ -195,6 +195,7 @@ export const WithParentLinkAndActionsOfContextArea = () => (
       </PageHeader.TitleArea>
       <PageHeader.ContextArea>
         <PageHeader.ParentLink href="http://github.com">Parent Link</PageHeader.ParentLink>
+
         <PageHeader.ContextAreaActions>
           <Button size="small" trailingAction={TriangleDownIcon}>
             Add File

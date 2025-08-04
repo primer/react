@@ -320,6 +320,7 @@ export const WithPageLayout = () => {
                 </ActionMenu.Overlay>
               </ActionMenu>
             </Hidden>
+
             <Hidden when={['narrow']}>
               <div className={classes.ControlStack}>
                 <Button>Edit</Button>
