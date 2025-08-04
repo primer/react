@@ -67,6 +67,7 @@ module.exports = {
     '<rootDir>/src/ScrollableRegion/',
     '<rootDir>/src/SegmentedControl/',
     '<rootDir>/src/Select/',
+    '<rootDir>/src/SelectPanel/',
     '<rootDir>/src/Skeleton/',
     '<rootDir>/src/SkeletonAvatar/',
     '<rootDir>/src/SkeletonText/',
