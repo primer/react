@@ -4,5 +4,6 @@
     "outDir": "./dist",
     "declaration": true,
     "emitDeclarationOnly": true
-  }
+  },
+  "exclude": ["vitest.config.ts"]
 }
