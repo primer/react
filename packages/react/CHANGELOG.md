@@ -1,5 +1,23 @@
 # @primer/react
 
+## 37.30.0
+
+### Minor Changes
+
+- [#6350](https://github.com/primer/react/pull/6350) [`8731f43`](https://github.com/primer/react/commit/8731f439e5982cdb085f87612bb8d1cd72d61da9) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - Adds `icon` and `action` props to `SelectPanelMessage` to improve UX and accessibility.
+
+- [#6378](https://github.com/primer/react/pull/6378) [`3f68aa7`](https://github.com/primer/react/commit/3f68aa7ca2af4e458d0bd4faa3dcc6b2f2c48d08) Thanks [@langermank](https://github.com/langermank)! - Add `size` prop to `ActionList.Item`
+
+### Patch Changes
+
+- [#6339](https://github.com/primer/react/pull/6339) [`3d19045`](https://github.com/primer/react/commit/3d19045484946d751e50e9ce8d09ac2cab28efee) Thanks [@francinelucca](https://github.com/francinelucca)! - chore(FilteredActionList): remove modern action list FF
+
+- [#6349](https://github.com/primer/react/pull/6349) [`b831e20`](https://github.com/primer/react/commit/b831e207f9d18740d106e94fc1afe516d06f9e56) Thanks [@langermank](https://github.com/langermank)! - Align `font` with PVC for Tooltip
+
+- [#6341](https://github.com/primer/react/pull/6341) [`744102b`](https://github.com/primer/react/commit/744102b05275077116c4c31392f6ebe5d5af89f0) Thanks [@ompharate](https://github.com/ompharate)! - Update TextInput TypeScript types to make shared props optional
+
+- [#6404](https://github.com/primer/react/pull/6404) [`c6bda10`](https://github.com/primer/react/commit/c6bda108fc2e118ad2ee3fb90b7b95eab7e2eb4a) Thanks [@hectahertz](https://github.com/hectahertz)! - SelectPanel announces loading prop changes
+
 ## 37.29.1
 
 ### Patch Changes

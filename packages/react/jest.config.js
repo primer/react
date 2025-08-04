@@ -17,6 +17,7 @@ module.exports = {
   modulePathIgnorePatterns: [
     '<rootDir>/src/ActionBar/',
     '<rootDir>/src/ActionList/',
+    '<rootDir>/src/ActionMenu/',
     '<rootDir>/src/AnchoredOverlay/',
     '<rootDir>/src/Autocomplete/',
     '<rootDir>/src/Avatar/',
@@ -104,6 +105,7 @@ module.exports = {
     '<rootDir>/src/deprecated/UnderlineNav/UnderlineNavLink.test.tsx',
     '<rootDir>/src/experimental/SelectPanel2/',
     '<rootDir>/src/deprecated/',
+    '<rootDir>/src/experimental/IssueLabel',
     '<rootDir>/src/hooks/',
     '<rootDir>/src/internal/utils/',
     '<rootDir>/src/live-region/',

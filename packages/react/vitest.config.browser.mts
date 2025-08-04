@@ -30,6 +30,7 @@ export default defineConfig({
     include: [
       'src/ActionBar/**/*.test.?(c|m)[jt]s?(x)',
       'src/ActionList/**/*.test.?(c|m)[jt]s?(x)',
+      'src/ActionMenu/**/*.test.?(c|m)[jt]s?(x)',
       'src/AnchoredOverlay/**/*.test.?(c|m)[jt]s?(x)',
       'src/Autocomplete/**/*.test.?(c|m)[jt]s?(x)',
       'src/Avatar/**/*.test.?(c|m)[jt]s?(x)',
@@ -113,6 +114,7 @@ export default defineConfig({
       'src/__tests__/deprecated/FilteredSearch.test.tsx',
       'src/deprecated/UnderlineNav/UnderlineNavLink.test.tsx',
       'src/deprecated/**/*.test.?(c|m)[jt]s?(x)',
+      'src/experimental/IssueLabel/**/*.test.?(c|m)[jt]s?(x)',
       'src/experimental/SelectPanel2/**/*.test.?(c|m)[jt]s?(x)',
       'src/hooks/**/*.test.?(c|m)[jt]s?(x)',
       'src/internal/utils/**/*.test.?(c|m)[jt]s?(x)',

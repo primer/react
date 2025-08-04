@@ -7,7 +7,6 @@ import {Group} from './Group'
 import {Divider} from './Divider'
 import {Description} from './Description'
 import Avatar from '../Avatar'
-import Box from '../Box'
 import Label from '../Label'
 import Heading from '../Heading'
 import {AnchoredOverlay} from '../AnchoredOverlay'
@@ -31,6 +30,7 @@ import {
   ProjectIcon,
 } from '@primer/octicons-react'
 import {FeatureFlags} from '../FeatureFlags'
+import classes from './ActionList.features.stories.module.css'
 
 export default {
   title: 'Components/ActionList/Features',
@@ -107,7 +107,7 @@ export const WithVisualListHeading = () => (
 
 export const WithCustomHeading = () => (
   <>
-    <Heading as="h1" id="list-heading" sx={{fontSize: 3, marginX: 3}}>
+    <Heading as="h1" id="list-heading" className={classes.HeadingLarge}>
       Details
     </Heading>
     <ActionList aria-labelledby="list-heading">
@@ -510,7 +510,7 @@ export const LoadingItem = () => {
 
 export const Links = () => (
   <ActionList>
-    <ActionList.Heading as="h1" sx={{fontSize: 1}}>
+    <ActionList.Heading as="h1" className={classes.HeadingSmall}>
       Details
     </ActionList.Heading>
     <ActionList.LinkItem href="https://github.com/primer/react#readme">
@@ -561,7 +561,7 @@ export const CustomItemChildren = () => (
 )
 
 export const TextWrapAndTruncation = () => (
-  <Box maxWidth="300px">
+  <div className={classes.BoxWithMaxWidth}>
     <ActionList showDividers>
       <ActionList.Item>
         <ActionList.LeadingVisual>
@@ -628,7 +628,7 @@ export const TextWrapAndTruncation = () => (
         </ActionList.TrailingVisual>
       </ActionList.Item>
     </ActionList>
-  </Box>
+  </div>
 )
 
 const teams = [
@@ -943,5 +943,19 @@ export const FullVariant = () => (
     <ActionList.Item>Edit comment</ActionList.Item>
     <ActionList.Divider />
     <ActionList.Item variant="danger">Delete file</ActionList.Item>
+  </ActionList>
+)
+
+export const LargeItem = () => (
+  <ActionList>
+    <ActionList.Item size="large">Large item</ActionList.Item>
+    <ActionList.Item size="large">
+      Large item
+      <ActionList.Description>With inline description</ActionList.Description>
+    </ActionList.Item>
+    <ActionList.Item size="large">
+      Large item
+      <ActionList.Description variant="block">With block description</ActionList.Description>
+    </ActionList.Item>
   </ActionList>
 )
