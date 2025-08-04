@@ -1,0 +1,9 @@
+.ButtonContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.TurnGreenButton {
+  margin-bottom: var(--base-size-8);
+}
