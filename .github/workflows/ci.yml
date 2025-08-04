@@ -72,12 +72,10 @@ jobs:
         run: npm ci
       - name: Build
         run: npm run build
-      - name: Test
-        run: npm run test -- --coverage
       - name: Run tests defined in vitest
         uses: docker://mcr.microsoft.com/playwright:v1.53.2-jammy
         with:
-          args: npx vitest
+          args: npm test
 
   type-check:
     runs-on: ubuntu-latest
