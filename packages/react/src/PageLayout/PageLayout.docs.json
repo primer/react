@@ -2,7 +2,7 @@
   "id": "page_layout",
   "name": "PageLayout",
   "status": "alpha",
-  "a11yReviewed": true,
+  "a11yReviewed": "2025-01-08",
   "stories": [
     {
       "id": "components-pagelayout--default"

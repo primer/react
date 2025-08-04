@@ -5,6 +5,22 @@
   flex-grow: 1;
 }
 
+.ActionListItem:focus {
+  background: var(--control-transparent-bgColor-selected);
+
+  &::after {
+    @mixin activeIndicatorLine;
+  }
+}
+
+.ActionListItem:where([data-input-focused]):where([data-first-child]) {
+  background: var(--control-transparent-bgColor-selected);
+
+  &::after {
+    @mixin activeIndicatorLine;
+  }
+}
+
 .FullScreenTextInput {
   @media screen and (--viewportRange-narrow) {
     /* Ensures inputs don't zoom on mobile iPhone but are body-font size on iPad */
