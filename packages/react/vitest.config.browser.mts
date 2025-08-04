@@ -25,6 +25,7 @@ export default defineConfig({
       '**/lib/**',
       '**/generated/**',
       '**/*.figma.tsx',
+      '**/*.types.test.ts',
       '**/*.types.test.tsx',
       'src/__tests__/exports.test.ts',
       'src/__tests__/storybook.test.tsx',
