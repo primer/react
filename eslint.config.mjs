@@ -7,7 +7,6 @@ import eslintReact from '@eslint-react/eslint-plugin'
 import vitest from '@vitest/eslint-plugin'
 import {defineConfig, globalIgnores} from 'eslint/config'
 import githubPlugin from 'eslint-plugin-github'
-import jest from 'eslint-plugin-jest'
 import storybook from 'eslint-plugin-storybook'
 import react from 'eslint-plugin-react'
 import reactCompiler from 'eslint-plugin-react-compiler'
@@ -132,7 +131,6 @@ const config = defineConfig([
       globals: {
         ...globals.browser,
         ...globals.commonjs,
-        ...globals.jest,
         ...globals.node,
         __DEV__: 'readonly',
       },
@@ -264,25 +262,6 @@ const config = defineConfig([
     rules: {
       '@eslint-react/no-unstable-default-props': 'off',
       '@eslint-react/no-useless-forward-ref': 'off',
-    },
-  },
-  // eslint-plugin-jest
-  {
-    files: ['**/*.test.{ts,tsx}'],
-    ignores: ['**/e2e/**'],
-    plugins: {
-      jest,
-      ['testing-library']: testingLibrary,
-    },
-    languageOptions: {
-      globals: jest.environments.globals.globals,
-    },
-    ...jest.configs['flat/recommended'],
-    rules: {
-      ...jest.configs['flat/recommended'].rules,
-      'jest/expect-expect': 'off',
-      'jest/no-conditional-expect': 'off',
-      'jest/no-disabled-tests': 'off',
     },
   },
 
