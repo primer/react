@@ -1,4 +1,4 @@
-import {GrabberIcon, GearIcon} from '@primer/octicons-react'
+import {GrabberIcon, GearIcon, IssueClosedIcon, GitPullRequestIcon} from '@primer/octicons-react'
 import type {StoryFn, Meta} from '@storybook/react-vite'
 import React from 'react'
 import Box from '../Box'
@@ -88,7 +88,18 @@ export const TrailingActions: StoryFn = () => {
             <TreeView.Item id="item-2-sub-task-2">sub task 2</TreeView.Item>
           </TreeView.SubTree>
         </TrailingAction>
-        <TreeView.Item id="item-3">Item 3</TreeView.Item>
+        <TreeView.Item
+          id="item-3"
+          secondaryActions={[
+            {
+              label: 'Pull Requests',
+              onClick: () => alert('Pull Requests clicked'),
+              icon: GitPullRequestIcon,
+            },
+          ]}
+        >
+          Item 3
+        </TreeView.Item>
       </TreeView>
     </div>
   )
@@ -117,34 +128,12 @@ const TrailingAction: React.FC<{id: string; children: React.ReactNode; dialogOnO
         expanded={expanded}
         onExpandedChange={setExpanded}
         onKeyDown={openActionDialog}
+        secondaryActions={[
+          {label: 'Item settings', onClick: openActionDialog, icon: GearIcon},
+          {label: 'Issues', onClick: openActionDialog, icon: IssueClosedIcon},
+        ]}
       >
         {children}
-        <TreeView.TrailingAction>
-          <IconButton
-            icon={GearIcon}
-            variant="invisible"
-            aria-label="Item settings"
-            className="treeview-trailing-action"
-            onClick={() => {
-              setDialogOpen(true)
-            }}
-            ref={btnRef}
-            tabIndex={-1}
-            aria-hidden={true}
-          />
-          <IconButton
-            icon={GearIcon}
-            variant="invisible"
-            aria-label="Item settings"
-            className="treeview-trailing-action"
-            onClick={() => {
-              setDialogOpen(true)
-            }}
-            ref={btnRef}
-            tabIndex={-1}
-            aria-hidden={true}
-          />
-        </TreeView.TrailingAction>
       </TreeView.Item>
 
       {dialogOpen ? (

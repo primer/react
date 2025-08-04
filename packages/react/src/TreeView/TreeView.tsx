@@ -3,6 +3,7 @@ import {
   ChevronRightIcon,
   FileDirectoryFillIcon,
   FileDirectoryOpenFillIcon,
+  type Icon,
 } from '@primer/octicons-react'
 import {clsx} from 'clsx'
 import React, {useCallback, useEffect} from 'react'
@@ -21,6 +22,8 @@ import {useTypeahead} from './useTypeahead'
 import {SkeletonAvatar} from '../SkeletonAvatar'
 import {SkeletonText} from '../SkeletonText'
 import {Dialog} from '../experimental'
+import {IconButton} from '../Button'
+import {ActionList} from '../ActionList'
 
 // ----------------------------------------------------------------------------
 // Context
@@ -69,6 +72,12 @@ export type TreeViewProps = {
   truncate?: boolean
   className?: string
   style?: React.CSSProperties
+}
+
+export type TreeViewSecondaryActions = {
+  label: string
+  onClick: () => void
+  icon: Icon
 }
 
 /* Size of toggle icon in pixels. */
@@ -168,6 +177,7 @@ export type TreeViewItemProps = {
   onSelect?: (event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => void
   onKeyDown?: (event: React.KeyboardEvent<HTMLElement>) => void
   className?: string
+  secondaryActions?: TreeViewSecondaryActions[]
 }
 
 const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
@@ -185,6 +195,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
       'aria-label': ariaLabel,
       'aria-labelledby': ariaLabelledby,
       onKeyDown,
+      secondaryActions,
     },
     ref,
   ) => {
@@ -213,6 +224,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
     const {level} = React.useContext(ItemContext)
     const {hasSubTree, subTree, childrenWithoutSubTree} = useSubTree(rest)
     const [isSubTreeEmpty, setIsSubTreeEmpty] = React.useState(!hasSubTree)
+    const [actionCommandPressed, setActionCommandPressed] = React.useState(false)
     const [isFocused, setIsFocused] = React.useState(false)
 
     // Set the expanded state and cache it
@@ -260,13 +272,23 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
             setIsExpandedWithCache(false)
             break
           case 'u':
+            if (!secondaryActions) return
             // If the user presses `Shift + Meta + U`
-            if (!event.metaKey || !event.shiftKey || !onKeyDown) return
-            onKeyDown(event)
+            if (!event.metaKey || !event.shiftKey) return
+            if (secondaryActions.length > 1) {
+              // If there are multiple secondary actions, open the action dialog
+              // as this allows users to select the action they want to interact with.
+              setActionCommandPressed(true)
+            } else {
+              // If there is only one secondary action, trigger it directly
+              const action = secondaryActions[0].onClick
+              action()
+            }
+
             break
         }
       },
-      [onSelect, setIsExpandedWithCache, toggle, onKeyDown],
+      [onSelect, setIsExpandedWithCache, toggle, secondaryActions],
     )
 
     const ariaDescribedByIds = [
@@ -326,6 +348,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
           }}
           onBlur={() => setIsFocused(false)}
           onClick={event => {
+            if (actionCommandPressed) return
             if (onSelect) {
               onSelect(event)
             } else {
@@ -388,7 +411,14 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
               </span>
               {slots.trailingVisual}
             </div>
-            {slots.trailingAction}
+            {secondaryActions ? (
+              <>
+                <TrailingAction items={secondaryActions} />
+                {actionCommandPressed ? (
+                  <ActionDialog items={secondaryActions} onClose={() => setActionCommandPressed(false)} />
+                ) : null}
+              </>
+            ) : null}
           </div>
           {subTree}
         </li>
@@ -699,19 +729,15 @@ LeadingAction.displayName = 'TreeView.LeadingAction'
 // TreeView.TrailingAction
 
 export type TreeViewTrailingAction = {
-  children: React.ReactNode | ((props: {isExpanded: boolean}) => React.ReactNode)
-  label?: string
-  visible?: boolean
+  items: TreeViewSecondaryActions[]
 }
 
 const TrailingAction: React.FC<TreeViewTrailingAction> = props => {
-  const {isExpanded, trailingActionId} = React.useContext(ItemContext)
-  const children = typeof props.children === 'function' ? props.children({isExpanded}) : props.children
+  const {trailingActionId} = React.useContext(ItemContext)
+  const {items} = props
+
   return (
     <>
-      <div className={clsx('PRIVATE_VisuallyHidden', classes.TreeViewVisuallyHidden)} aria-hidden={true}>
-        {props.label}
-      </div>
       <div id={trailingActionId} className={clsx('PRIVATE_VisuallyHidden', classes.TreeViewVisuallyHidden)}>
         ; {TRAILING_ACTION_SHORTCUT_TEXT}
       </div>
@@ -725,7 +751,18 @@ const TrailingAction: React.FC<TreeViewTrailingAction> = props => {
         }
         onKeyDown={event => event.stopPropagation()}
       >
-        {children}
+        {items.map(({label, onClick, icon}, index) => (
+          <IconButton
+            icon={icon}
+            variant="invisible"
+            aria-label={label}
+            className="treeview-trailing-action"
+            onClick={onClick}
+            tabIndex={-1}
+            aria-hidden={true}
+            key={index}
+          />
+        ))}
       </div>
     </>
   )
@@ -736,14 +773,12 @@ TrailingAction.displayName = 'TreeView.TrailingAction'
 // TreeView.ActionDialog
 
 export type TreeViewActionDialogProps = {
-  children: React.ReactNode
-  title?: string
-  onRetry?: () => void
-  onDismiss?: () => void
+  items: TreeViewSecondaryActions[]
+  onClose?: () => void
 }
 
-const ActionDialog: React.FC<TreeViewErrorDialogProps> = ({title = 'Error', children, onRetry, onDismiss}) => {
-  const {itemId, setIsExpanded} = React.useContext(ItemContext)
+const ActionDialog: React.FC<TreeViewActionDialogProps> = ({items, onClose}) => {
+  const {itemId} = React.useContext(ItemContext)
   return (
     <div
       onKeyDown={event => {
@@ -754,7 +789,31 @@ const ActionDialog: React.FC<TreeViewErrorDialogProps> = ({title = 'Error', chil
         }
       }}
     >
-      <Dialog>{children}</Dialog>
+      <Dialog
+        title="Supplemental actions"
+        onClose={() => {
+          if (onClose) {
+            onClose()
+          }
+
+          // Focus parent item after the dialog is closed
+          setTimeout(() => {
+            const parentElement = document.getElementById(itemId)
+            parentElement?.focus()
+          })
+        }}
+      >
+        <ActionList>
+          {items.map(({label, onClick, icon: Icon}, index) => (
+            <ActionList.Item key={index} onSelect={onClick}>
+              <ActionList.LeadingVisual>
+                <Icon />
+              </ActionList.LeadingVisual>
+              {label}
+            </ActionList.Item>
+          ))}
+        </ActionList>
+      </Dialog>
     </div>
   )
 }
