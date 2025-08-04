@@ -748,8 +748,8 @@ export const AnchorPositionScrollBug = () => {
         <h2>Additional content</h2>
         <p>This section provides additional content to ensure the page requires scrolling.</p>
         <p>
-          When the primer_react_anchored_position_viewport_fix feature flag is implemented, the positioning bug should
-          be resolved.
+          This story helps demonstrate the positioning issue that occurs when ActionMenu overlays are rendered near the
+          bottom of a scrolled page.
         </p>
       </Box>
     </>

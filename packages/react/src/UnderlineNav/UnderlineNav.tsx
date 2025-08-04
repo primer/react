@@ -7,7 +7,6 @@ import {UnderlineNavContext} from './UnderlineNavContext'
 import type {ResizeObserverEntry} from '../hooks/useResizeObserver'
 import {useResizeObserver} from '../hooks/useResizeObserver'
 import {useTheme} from '../ThemeProvider'
-import {useFeatureFlag} from '../FeatureFlags'
 import type {ChildWidthArray, ResponsiveProps, ChildSize} from './types'
 import VisuallyHidden from '../_VisuallyHidden'
 import {moreBtnStyles, getDividerStyle, menuStyles, menuItemStyles, baseMenuStyles, baseMenuMinWidth} from './styles'
@@ -161,7 +160,6 @@ export const UnderlineNav = forwardRef(
     const moreMenuBtnRef = useRef<HTMLButtonElement>(null)
     const containerRef = React.useRef<HTMLUListElement>(null)
     const disclosureWidgetId = useId()
-    const enableAnchoredPositionViewportFix = useFeatureFlag('primer_react_anchored_position_viewport_fix')
 
     const {theme} = useTheme()
     const [isWidgetOpen, setIsWidgetOpen] = useState(false)
@@ -358,7 +356,7 @@ export const UnderlineNav = forwardRef(
                   sx={
                     listRef.current?.clientWidth && listRef.current.clientWidth >= baseMenuMinWidth
                       ? baseMenuStyles
-                      : menuStyles(containerRef.current, listRef.current, enableAnchoredPositionViewportFix)
+                      : menuStyles(containerRef.current, listRef.current)
                   }
                   style={{display: isWidgetOpen ? 'block' : 'none'}}
                 >

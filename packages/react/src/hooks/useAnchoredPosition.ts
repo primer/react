@@ -4,14 +4,12 @@ import type {AnchorPosition, PositionSettings} from '@primer/behaviors'
 import {useProvidedRefOrCreate} from './useProvidedRefOrCreate'
 import {useResizeObserver} from './useResizeObserver'
 import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
-import {useFeatureFlag} from '../FeatureFlags'
 
 export interface AnchoredPositionHookSettings extends Partial<PositionSettings> {
   floatingElementRef?: React.RefObject<Element>
   anchorElementRef?: React.RefObject<Element>
   pinPosition?: boolean
   onPositionChange?: (position: AnchorPosition | undefined) => void
-  enableAnchoredPositionViewportFix?: boolean
 }
 
 /**
@@ -37,8 +35,6 @@ export function useAnchoredPosition(
   const [position, setPosition] = React.useState<AnchorPosition | undefined>(undefined)
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, setPrevHeight] = React.useState<number | undefined>(undefined)
-  const globalFeatureFlagEnabled = useFeatureFlag('primer_react_anchored_position_viewport_fix')
-  const enableAnchoredPositionViewportFix = settings?.enableAnchoredPositionViewportFix ?? globalFeatureFlagEnabled
 
   const topPositionChanged = (prevPosition: AnchorPosition | undefined, newPosition: AnchorPosition) => {
     return (
@@ -67,11 +63,7 @@ export function useAnchoredPosition(
   const updatePosition = React.useCallback(
     () => {
       if (floatingElementRef.current instanceof Element && anchorElementRef.current instanceof Element) {
-        const newPosition = getAnchoredPosition(floatingElementRef.current, anchorElementRef.current, {
-          ...settings,
-          enableAnchoredPositionViewportFix,
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        } as any)
+        const newPosition = getAnchoredPosition(floatingElementRef.current, anchorElementRef.current, settings)
         setPosition(prev => {
           if (settings?.pinPosition && topPositionChanged(prev, newPosition)) {
             const anchorTop = anchorElementRef.current?.getBoundingClientRect().top ?? 0

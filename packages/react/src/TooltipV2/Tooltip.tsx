@@ -1,7 +1,6 @@
 import React, {Children, useEffect, useRef, useState, useMemo} from 'react'
 import type {SxProp} from '../sx'
 import {useId, useProvidedRefOrCreate, useOnEscapePress, useIsMacOS} from '../hooks'
-import {useFeatureFlag} from '../FeatureFlags'
 import {invariant} from '../utils/invariant'
 import {warning} from '../utils/warning'
 import {getAnchoredPosition} from '@primer/behaviors'
@@ -91,7 +90,6 @@ export const Tooltip = React.forwardRef(
     const child = Children.only(children)
     const triggerRef = useProvidedRefOrCreate(forwardedRef as React.RefObject<HTMLElement>)
     const tooltipElRef = useRef<HTMLDivElement>(null)
-    const enableAnchoredPositionViewportFix = useFeatureFlag('primer_react_anchored_position_viewport_fix')
 
     const [calculatedDirection, setCalculatedDirection] = useState<TooltipDirection>(direction)
 
@@ -119,9 +117,7 @@ export const Tooltip = React.forwardRef(
           const settings = {
             side: directionToPosition[direction].side,
             align: directionToPosition[direction].align,
-            enableAnchoredPositionViewportFix,
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          } as any
+          }
           const {top, left, anchorAlign, anchorSide} = getAnchoredPosition(tooltip, trigger, settings)
           // This is required to make sure the popover is positioned correctly i.e. when there is not enough space on the specified direction, we set a new direction to position the ::after
           const calculatedDirection = positionToDirection[`${anchorSide}-${anchorAlign}` as string]
