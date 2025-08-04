@@ -99,7 +99,7 @@ describe('UnderlinePanels', () => {
   })
 
   it('throws an error when the number of tabs does not match the number of panels', () => {
-    const spy = vi.spyOn(console, 'error').mockImplementation()
+    const spy = vi.spyOn(console, 'error').mockImplementation(() => {})
     expect(() => {
       render(
         <UnderlinePanels aria-label="Select a tab">
@@ -116,7 +116,7 @@ describe('UnderlinePanels', () => {
   })
 
   it('throws an error when the number of panels does not match the number of tabs', () => {
-    const spy = vi.spyOn(console, 'error').mockImplementation()
+    const spy = vi.spyOn(console, 'error').mockImplementation(() => {})
     expect(() => {
       render(
         <UnderlinePanels aria-label="Select a tab">
@@ -132,7 +132,7 @@ describe('UnderlinePanels', () => {
     spy.mockRestore()
   })
   it('throws an error when there are multiple items that have aria-selected', () => {
-    const spy = vi.spyOn(console, 'error').mockImplementation()
+    const spy = vi.spyOn(console, 'error').mockImplementation(() => {})
     expect(() => {
       render(
         <UnderlinePanels aria-label="Select a tab">
