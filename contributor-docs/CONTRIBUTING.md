@@ -68,7 +68,7 @@ Navigate to http://localhost:6006/ to see Primer react components in your browse
 
 - [React](https://reactjs.org/)
 - [TypeScript](https://www.typescriptlang.org/)
-- [Jest](https://jestjs.io/)
+- [Vitest](https://vitest.dev/)
 - [Storybook](https://storybook.js.org/)
 - [Prettier](https://prettier.io/)
 - [ESLint](https://eslint.org/)

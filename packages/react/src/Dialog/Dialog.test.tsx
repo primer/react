@@ -1,22 +1,11 @@
 import React from 'react'
 import {render, fireEvent, waitFor} from '@testing-library/react'
-import {describe, expect, it, beforeEach, afterEach, vi} from 'vitest'
+import {describe, expect, it, vi} from 'vitest'
 import userEvent from '@testing-library/user-event'
 import {Dialog} from './Dialog'
-import MatchMediaMock from 'jest-matchmedia-mock'
 import {Button} from '../Button'
 
-let matchMedia: MatchMediaMock
-
 describe('Dialog', () => {
-  beforeEach(() => {
-    matchMedia = new MatchMediaMock()
-  })
-
-  afterEach(() => {
-    matchMedia.clear()
-  })
-
   it('renders with role "dialog" by default', () => {
     const {getByRole} = render(<Dialog onClose={() => {}}>Pay attention to me</Dialog>)
 
