@@ -17,6 +17,7 @@ global.CSS = {
   }),
 }
 
+// @ts-expect-error this is a fallback used for Jest
 global.TextEncoder = TextEncoder
 
 /**
