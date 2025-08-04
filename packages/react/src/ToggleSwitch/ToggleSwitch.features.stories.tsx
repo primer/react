@@ -79,6 +79,7 @@ export const LoadingWithDelay = (args: LoadingWithDelayProps) => {
 
   const [isLoading, setIsLoading] = useState(false)
   const [timeoutId, setTimeoutId] = useState<number | null>(null)
+  const [toggleState, setToggleState] = useState(false)
 
   const {safeSetTimeout, safeClearTimeout} = useSafeTimeout()
 
@@ -95,15 +96,16 @@ export const LoadingWithDelay = (args: LoadingWithDelayProps) => {
 
   return (
     <ToggleSwitchStoryWrapper>
-      <span id="toggle" style={{fontWeight: 'bold', fontSize: 1}}>
-        Save changes
+      <span id="toggle" style={{fontWeight: 'bold', fontSize: 'var(--base-size-14)'}}>
+        Enable feature
       </span>
       <ToggleSwitch
         loading={isLoading}
-        loadingLabel="Saving file changes"
+        loadingLabel={`${toggleState ? 'Enabling' : 'Disabling'} feature`}
         loadingLabelDelay={loadingLabelDelay}
         aria-labelledby="toggle"
         onClick={handleToggleClick}
+        onChange={(on: boolean) => setToggleState(on)}
       />
     </ToggleSwitchStoryWrapper>
   )

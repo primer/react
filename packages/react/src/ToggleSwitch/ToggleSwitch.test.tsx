@@ -200,18 +200,4 @@ describe('ToggleSwitch', () => {
     const toggleSwitch = getByTestId(TEST_ID)
     await waitFor(() => expect(toggleSwitch).toHaveTextContent('Loading'))
   })
-
-  it('displays a loading label', async () => {
-    const TEST_ID = 'a test id'
-
-    const {getByTestId} = render(
-      <>
-        <span id="label">label</span>
-        <ToggleSwitch data-testid={TEST_ID} aria-labelledby="label" loadingLabelDelay={0} loading />
-      </>,
-    )
-
-    const toggleSwitch = getByTestId(TEST_ID)
-    await waitFor(() => expect(toggleSwitch).toHaveTextContent('Loading'))
-  })
 })
