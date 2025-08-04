@@ -1,8 +1,8 @@
-import type {Meta, StoryObj} from '@storybook/react'
+import type {Meta, StoryObj} from '@storybook/react-vite'
 import Link from '../Link'
 import {Banner} from '../Banner'
 import {PageLayout} from '../PageLayout'
-import {action} from '@storybook/addon-actions'
+import {action} from 'storybook/actions'
 
 const meta = {
   title: 'Experimental/Components/Banner',
@@ -63,8 +63,7 @@ export const Playground: StoryObj<typeof Banner> = {
   },
   args: {
     title: 'Banner title',
-    description:
-      'GitHub users are now required to en able two-factor authentication as an additional security measure.',
+    description: 'GitHub users are now required to enable two-factor authentication as an additional security measure.',
     variant: 'info',
   },
   argTypes: {

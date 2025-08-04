@@ -124,6 +124,7 @@ const Panel: React.FC<SelectPanelProps> = ({
 
   const contents = React.Children.map(props.children, child => {
     if (React.isValidElement(child) && child.type === SelectPanelButton) {
+      // eslint-disable-next-line react-compiler/react-compiler
       Anchor = React.cloneElement(child, {
         // @ts-ignore TODO
         ref: anchorRef,

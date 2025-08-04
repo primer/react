@@ -1,10 +1,10 @@
 import React, {useState} from 'react'
-import type {ToggleSwitchProps} from './ToggleSwitch'
+import {useSafeTimeout} from '..'
 import ToggleSwitch from './ToggleSwitch'
-import {Box, Text, useSafeTimeout} from '..'
-import {action} from '@storybook/addon-actions'
+import {action} from 'storybook/actions'
 import ToggleSwitchStoryWrapper from './ToggleSwitchStoryWrapper'
-import type {StoryFn} from '@storybook/react'
+import {clsx} from 'clsx'
+import styles from './ToggleSwitch.features.stories.module.css'
 
 export default {
   title: 'Components/ToggleSwitch/Features',
@@ -12,68 +12,69 @@ export default {
 
 export const Small = () => (
   <ToggleSwitchStoryWrapper>
-    <Text id="toggle" fontWeight={'bold'} fontSize={1}>
+    <span id="toggle" className={styles.ToggleLabel}>
       Toggle label
-    </Text>
+    </span>
     <ToggleSwitch size="small" aria-labelledby="toggle" />
   </ToggleSwitchStoryWrapper>
 )
 
 export const WithCaption = () => (
-  <Box display="flex" alignItems={'start'}>
-    <Box flexGrow={1}>
-      <Text fontSize={2} fontWeight="bold" id="switchLabel" display="block">
+  <div className={styles.Row}>
+    <div className={styles.ColGrow}>
+      <span className={styles.SwitchLabel} id="switchLabel">
         Notifications
-      </Text>
-      <Text color="fg.subtle" fontSize={1} id="switchCaption" display="block">
+      </span>
+      <span className={styles.SwitchCaption} id="switchCaption">
         Notifications will be delivered via email and the GitHub notification center
-      </Text>
-    </Box>
+      </span>
+    </div>
     <ToggleSwitch aria-labelledby="switchLabel" aria-describedby="switchCaption" />
-  </Box>
+  </div>
 )
 
 export const Disabled = () => (
   <ToggleSwitchStoryWrapper>
-    <Text id="toggle" fontWeight={'bold'} fontSize={1}>
+    <span id="toggle" className={styles.ToggleLabel}>
       Toggle label
-    </Text>
+    </span>
     <ToggleSwitch disabled aria-labelledby="toggle" />
   </ToggleSwitchStoryWrapper>
 )
 
 export const Checked = () => (
   <ToggleSwitchStoryWrapper>
-    <Text id="toggle" fontWeight={'bold'} fontSize={1}>
+    <span id="toggle" className={styles.ToggleLabel}>
       Toggle label
-    </Text>
+    </span>
     <ToggleSwitch checked aria-labelledby="toggle" />
   </ToggleSwitchStoryWrapper>
 )
 
 export const CheckedDisabled = () => (
   <ToggleSwitchStoryWrapper>
-    <Text id="toggle" fontWeight={'bold'} fontSize={1}>
+    <span id="toggle" className={styles.ToggleLabel}>
       Toggle label
-    </Text>
+    </span>
     <ToggleSwitch checked disabled aria-labelledby="toggle" />
   </ToggleSwitchStoryWrapper>
 )
 
 export const Loading = () => (
   <ToggleSwitchStoryWrapper>
-    <Text id="toggle" fontWeight={'bold'} fontSize={1}>
+    <span id="toggle" className={styles.ToggleLabel}>
       Toggle label
-    </Text>
+    </span>
     <ToggleSwitch loading aria-labelledby="toggle" />
   </ToggleSwitchStoryWrapper>
 )
 
 type LoadingWithDelayProps = {
   loadingDelay: number
+  loadingLabelDelay: number
 }
 
-export const LoadingWithDelay: StoryFn<ToggleSwitchProps & LoadingWithDelayProps> = args => {
+export const LoadingWithDelay = (args: LoadingWithDelayProps) => {
   const {loadingDelay, loadingLabelDelay} = args
 
   const [isLoading, setIsLoading] = useState(false)
@@ -94,9 +95,9 @@ export const LoadingWithDelay: StoryFn<ToggleSwitchProps & LoadingWithDelayProps
 
   return (
     <ToggleSwitchStoryWrapper>
-      <Text id="toggle" fontWeight={'bold'} fontSize={1}>
+      <span id="toggle" style={{fontWeight: 'bold', fontSize: 1}}>
         Save changes
-      </Text>
+      </span>
       <ToggleSwitch
         loading={isLoading}
         loadingLabel="Saving file changes"
@@ -127,9 +128,9 @@ LoadingWithDelay.argTypes = {
 
 export const LabelEnd = () => (
   <ToggleSwitchStoryWrapper>
-    <Text id="toggle" fontWeight={'bold'} fontSize={1}>
+    <span id="toggle" className={styles.ToggleLabel}>
       Toggle label
-    </Text>
+    </span>
     <ToggleSwitch statusLabelPosition="end" aria-labelledby="toggle" />
   </ToggleSwitchStoryWrapper>
 )
@@ -147,12 +148,12 @@ export const Controlled = () => {
 
   return (
     <>
-      <Box display="flex" maxWidth="300px">
-        <Box flexGrow={1} fontSize={2} fontWeight="bold" id="switchLabel">
+      <div className={styles.Row} style={{maxWidth: '300px'}}>
+        <span className={clsx(styles.ColGrow, styles.SwitchLabel)} id="switchLabel">
           Notifications
-        </Box>
+        </span>
         <ToggleSwitch onClick={onClick} onChange={handleSwitchChange} checked={isOn} aria-labelledby="switchLabel" />
-      </Box>
+      </div>
       <p>The switch is {isOn ? 'on' : 'off'}</p>
     </>
   )

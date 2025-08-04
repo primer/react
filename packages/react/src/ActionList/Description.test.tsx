@@ -1,6 +1,6 @@
+import {expect, it, describe} from 'vitest'
 import {render as HTMLRender} from '@testing-library/react'
 import {ActionList} from '.'
-import {FeatureFlags} from '../FeatureFlags'
 
 describe('ActionList.Description', () => {
   it('should render the description as inline without truncation by default', () => {
@@ -14,9 +14,9 @@ describe('ActionList.Description', () => {
 
     const description = getByText('Item 1 description')
     expect(description.tagName).toBe('SPAN')
-    expect(description).toHaveStyleRule('flex-basis', 'auto')
-    expect(description).not.toHaveStyleRule('overflow', 'ellipsis')
-    expect(description).not.toHaveStyleRule('white-space', 'nowrap')
+    expect(description).toHaveStyle('flex-basis: auto')
+    expect(description).not.toHaveStyle('overflow: ellipsis')
+    expect(description).not.toHaveStyle('white-space: nowrap')
   })
   it('should render the description as `Truncate` when truncate is true', () => {
     const {getByText} = HTMLRender(
@@ -30,10 +30,10 @@ describe('ActionList.Description', () => {
     const description = getByText('Item 1 description')
     expect(description.tagName).toBe('DIV')
     expect(description).toHaveAttribute('title', 'Item 1 description')
-    expect(description).toHaveStyleRule('flex-basis', '0')
-    expect(description).toHaveStyleRule('text-overflow', 'ellipsis')
-    expect(description).toHaveStyleRule('overflow', 'hidden')
-    expect(description).toHaveStyleRule('white-space', 'nowrap')
+    expect(description).toHaveStyle('flex-basis: auto')
+    expect(description).toHaveStyle('text-overflow: ellipsis')
+    expect(description).toHaveStyle('overflow: hidden')
+    expect(description).toHaveStyle('white-space: nowrap')
   })
   it('should render the description in a new line when variant is block', () => {
     const {getByText} = HTMLRender(
@@ -46,7 +46,10 @@ describe('ActionList.Description', () => {
 
     const description = getByText('Item 1 description')
     expect(description.tagName).toBe('SPAN')
-    expect(description.parentElement).toHaveAttribute('data-component', 'ActionList.Item--DividerContainer')
+    expect(description.parentElement?.parentElement).toHaveAttribute(
+      'data-component',
+      'ActionList.Item--DividerContainer',
+    )
   })
   it('should support a custom `className`', () => {
     const Element = () => {
@@ -58,20 +61,6 @@ describe('ActionList.Description', () => {
         </ActionList>
       )
     }
-    const FeatureFlagElement = () => {
-      return (
-        <FeatureFlags
-          flags={{
-            primer_react_css_modules_ga: true,
-          }}
-        >
-          <Element />
-        </FeatureFlags>
-      )
-    }
-    expect(
-      HTMLRender(<FeatureFlagElement />).container.querySelector('span[data-component="ActionList.Description"]'),
-    ).toHaveClass('test-class-name')
     expect(
       HTMLRender(<Element />).container.querySelector('span[data-component="ActionList.Description"]'),
     ).toHaveClass('test-class-name')

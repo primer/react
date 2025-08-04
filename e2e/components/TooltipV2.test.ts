@@ -6,10 +6,12 @@ const stories = [
   {
     title: 'Default',
     id: 'components-tooltipv2--default',
+    disableAnimations: true,
   },
   {
     title: 'Anchor Has Margin',
     id: 'components-tooltipv2-features--anchor-has-margin',
+    disableAnimations: true,
   },
   {
     title: 'Calculated Direction',
@@ -18,14 +20,17 @@ const stories = [
   {
     title: 'Icon Button With Description',
     id: 'components-tooltipv2-features--icon-button-with-description',
+    disableAnimations: true,
   },
   {
     title: 'Label Type',
     id: 'components-tooltipv2-features--label-type',
+    disableAnimations: true,
   },
   {
     title: 'Dev SX Props',
     id: 'components-tooltipv2-dev--default',
+    disableAnimations: true,
   },
 ] as const
 
@@ -44,9 +49,8 @@ test.describe('TooltipV2', () => {
 
             // Default state
             await page.keyboard.press('Tab')
-            expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
-              `TooltipV2.${story.title}.${theme}.png`,
-            )
+            await page.emulateMedia({reducedMotion: 'reduce'})
+            await expect(page).toHaveScreenshot(`TooltipV2.${story.title}.${theme}.png`)
           })
         })
       }

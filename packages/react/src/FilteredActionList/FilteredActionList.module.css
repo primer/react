@@ -5,6 +5,22 @@
   flex-grow: 1;
 }
 
+.ActionListItem:focus {
+  background: var(--control-transparent-bgColor-selected);
+
+  &::after {
+    @mixin activeIndicatorLine;
+  }
+}
+
+.ActionListItem:where([data-input-focused]):where([data-first-child]) {
+  background: var(--control-transparent-bgColor-selected);
+
+  &::after {
+    @mixin activeIndicatorLine;
+  }
+}
+
 .FullScreenTextInput {
   @media screen and (--viewportRange-narrow) {
     /* Ensures inputs don't zoom on mobile iPhone but are body-font size on iPad */
@@ -12,4 +28,24 @@
       font-size: var(--text-title-size-small);
     }
   }
+}
+
+.SelectAllContainer {
+  display: flex;
+  align-items: center;
+  padding-block: var(--base-size-4);
+  padding-inline: var(--base-size-16);
+  background: var(--bgColor-muted);
+  border-bottom: var(--borderWidth-thin) solid var(--borderColor-default);
+}
+
+.SelectAllCheckbox {
+  /* -1px hack to offset 1px border-bottom causing uneven alignment */
+  /* stylelint-disable-next-line primer/spacing */
+  margin: var(--base-size-4) var(--base-size-8) calc(var(--base-size-4) - 1px) 0;
+}
+
+.SelectAllLabel {
+  font-size: var(--text-body-size-medium);
+  color: var(--fgColor-muted);
 }

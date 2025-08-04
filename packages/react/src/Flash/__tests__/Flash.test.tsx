@@ -1,5 +1,6 @@
-import Flash from '..'
 import {render, screen} from '@testing-library/react'
+import {describe, expect, it} from 'vitest'
+import Flash from '../Flash'
 
 describe('Flash', () => {
   it('should support the `full` prop', () => {

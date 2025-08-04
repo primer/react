@@ -11,7 +11,7 @@ import classes from './Tooltip.module.css'
 import {getAccessibleKeybindingHintString, KeybindingHint, type KeybindingHintProps} from '../KeybindingHint'
 import VisuallyHidden from '../_VisuallyHidden'
 import useSafeTimeout from '../hooks/useSafeTimeout'
-import {toggleSxComponent} from '../internal/utils/toggleSxComponent'
+import {BoxWithFallback} from '../internal/components/BoxWithFallback'
 
 export type TooltipDirection = 'nw' | 'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w'
 export type TooltipProps = React.PropsWithChildren<
@@ -80,10 +80,6 @@ const isInteractive = (element: HTMLElement) => {
   )
 }
 export const TooltipContext = React.createContext<{tooltipId?: string}>({})
-
-const BaseComponent = toggleSxComponent('span') as React.ComponentType<
-  SxProp & React.HTMLAttributes<HTMLElement> & React.RefAttributes<HTMLSpanElement>
->
 
 export const Tooltip = React.forwardRef(
   (
@@ -247,7 +243,21 @@ export const Tooltip = React.forwardRef(
             React.cloneElement(child as React.ReactElement<TriggerPropsType>, {
               ref: triggerRef,
               // If it is a type description, we use tooltip to describe the trigger
-              'aria-describedby': type === 'description' ? tooltipId : child.props['aria-describedby'],
+              'aria-describedby': (() => {
+                // If tooltip is not a description type, keep the original aria-describedby
+                if (type !== 'description') {
+                  return child.props['aria-describedby']
+                }
+
+                // If tooltip is a description type, append our tooltipId
+                const existingDescribedBy = child.props['aria-describedby']
+                if (existingDescribedBy) {
+                  return `${existingDescribedBy} ${tooltipId}`
+                }
+
+                // If no existing aria-describedby, use our tooltipId
+                return tooltipId
+              })(),
               // If it is a label type, we use tooltip to label the trigger
               'aria-labelledby': type === 'label' ? tooltipId : child.props['aria-labelledby'],
               onBlur: (event: React.FocusEvent) => {
@@ -288,7 +298,8 @@ export const Tooltip = React.forwardRef(
                 child.props.onMouseLeave?.(event)
               },
             })}
-          <BaseComponent
+          <BoxWithFallback
+            as="span"
             className={clsx(className, classes.Tooltip)}
             ref={tooltipElRef}
             data-direction={calculatedDirection}
@@ -321,7 +332,7 @@ export const Tooltip = React.forwardRef(
             ) : (
               text
             )}
-          </BaseComponent>
+          </BoxWithFallback>
         </>
       </TooltipContext.Provider>
     )

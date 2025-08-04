@@ -27,6 +27,7 @@ export type ActionListItemProps = {
    * - `"danger"` - A destructive action `Item`.
    */
   variant?: 'default' | 'danger'
+  size?: 'medium' | 'large'
   /**
    * Items that are disabled can not be clicked, selected, or navigated through.
    */
@@ -53,6 +54,9 @@ export type ActionListItemProps = {
    */
   _PrivateItemWrapper?: React.FC<React.PropsWithChildren<MenuItemProps>>
   className?: string
+  groupId?: string
+  renderItem?: (item: React.FC<React.PropsWithChildren<MenuItemProps>>) => React.ReactNode
+  handleAddItem?: (item: React.FC<React.PropsWithChildren<MenuItemProps>>) => void
 } & SxProp
 
 type MenuItemProps = {
@@ -66,7 +70,7 @@ type MenuItemProps = {
   className?: string
 }
 
-export type ItemContext = Pick<ActionListItemProps, 'variant' | 'disabled'> & {
+export type ItemContext = Pick<ActionListItemProps, 'variant' | 'disabled' | 'size'> & {
   inlineDescriptionId?: string
   blockDescriptionId?: string
   trailingVisualId?: string
@@ -133,6 +137,10 @@ export type ActionListProps = React.PropsWithChildren<{
    * The ARIA role describing the function of `List` component. `listbox` or `menu` are a common values.
    */
   role?: AriaRole
+  /**
+   * Disables the focus zone for the list if applicable. Focus zone is enabled by default for `menu` and `listbox` roles, or components such as `ActionMenu` and `SelectPanel`.
+   */
+  disableFocusZone?: boolean
   className?: string
 }> &
   SxProp

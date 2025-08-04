@@ -2,7 +2,7 @@
   "id": "toggle_switch",
   "name": "ToggleSwitch",
   "status": "alpha",
-  "a11yReviewed": false,
+  "a11yReviewed": "2025-01-08",
   "stories": [
     {
       "id": "components-toggleswitch--default"
@@ -93,7 +93,7 @@
       "name": "statusLabelPosition",
       "type": "'start' | 'end'",
       "defaultValue": "'start'",
-      "description": "<div>Whether the \"on\" and \"off\" labels should appear before or after the switch.</div> <div> <Text fontWeight=\"bold\">This should only be changed when the switch's alignment needs to be adjusted.</Text> For example: It needs to be left-aligned because the label appears above it and the caption appears below it. </div>"
+      "description": "Whether the \"on\" and \"off\" labels should appear before or after the switch.\n\n**This should only be changed when the switch's alignment needs to be adjusted.** For example: It needs to be left-aligned because the label appears above it and the caption appears below it."
     },
     {
       "name": "loadingLabelDelay",
@@ -111,7 +111,7 @@
       "name": "buttonType",
       "type": "'button' | 'submit' | 'reset'",
       "defaultValue": "'button'",
-      "description": "<div>As it’s part of form behavior, this controls whether the button is of type button, submit, or reset.</div>"
+      "description": "As it’s part of form behavior, this controls whether the button is of type `button`, `submit`, or `reset`."
     }
   ],
   "subcomponents": []

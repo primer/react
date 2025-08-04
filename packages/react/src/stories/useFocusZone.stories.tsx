@@ -1,14 +1,13 @@
 import React, {useCallback, useRef, useState} from 'react'
-import type {Meta} from '@storybook/react'
-import styled from 'styled-components'
+import type {Meta} from '@storybook/react-vite'
 import {Box, BaseStyles, Flash, theme, ThemeProvider} from '..'
 import {Button} from '../Button'
 import Link from '../Link'
 import {FocusKeys} from '@primer/behaviors'
 import type {Direction} from '@primer/behaviors'
-import {themeGet} from '@styled-system/theme-get'
 import {useFocusZone} from '../hooks/useFocusZone'
 import {useTheme} from '../ThemeProvider'
+import classes from './FocusZoneStories.module.css'
 
 export default {
   title: 'Hooks/useFocusZone',
@@ -25,9 +24,11 @@ export default {
   ],
 } as Meta
 
-const MarginButton = styled(Button)`
-  margin: ${themeGet('space.1')};
-`
+const MarginButton = ({children, ...props}: React.ComponentProps<typeof Button>) => (
+  <Button className={classes.MarginButton} {...props}>
+    {children}
+  </Button>
+)
 
 export const BasicFocusZone = () => {
   // Display each key press in the top-right corner of the page as a visual aid

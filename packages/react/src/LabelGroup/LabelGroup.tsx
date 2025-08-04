@@ -256,7 +256,7 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
     }
 
     if (visibleChildCount === 'auto') {
-      // Instatiates the IntersectionObserver to track when children fit in the container.
+      // Instantiates the IntersectionObserver to track when children fit in the container.
       const observer = new IntersectionObserver(
         (entries: IntersectionObserverEntry[]) => {
           const updatedEntries: Record<string, boolean> = {}

@@ -2,7 +2,7 @@
   "id": "page_layout",
   "name": "PageLayout",
   "status": "alpha",
-  "a11yReviewed": true,
+  "a11yReviewed": "2025-01-08",
   "stories": [
     {
       "id": "components-pagelayout--default"
@@ -60,7 +60,8 @@
     },
     {
       "name": "sx",
-      "type": "SystemStyleObject"
+      "type": "SystemStyleObject",
+      "deprecated": true
     }
   ],
   "subcomponents": [
@@ -106,7 +107,8 @@
         },
         {
           "name": "sx",
-          "type": "SystemStyleObject"
+          "type": "SystemStyleObject",
+          "deprecated": true
         }
       ]
     },
@@ -145,7 +147,8 @@
         },
         {
           "name": "sx",
-          "type": "SystemStyleObject"
+          "type": "SystemStyleObject",
+          "deprecated": true
         }
       ]
     },
@@ -231,7 +234,8 @@
         },
         {
           "name": "sx",
-          "type": "SystemStyleObject"
+          "type": "SystemStyleObject",
+          "deprecated": true
         },
         {
           "name": "ref",
@@ -281,7 +285,8 @@
         },
         {
           "name": "sx",
-          "type": "SystemStyleObject"
+          "type": "SystemStyleObject",
+          "deprecated": true
         }
       ]
     }

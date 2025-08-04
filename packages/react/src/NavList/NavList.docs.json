@@ -2,7 +2,7 @@
   "id": "nav_list",
   "name": "NavList",
   "status": "alpha",
-  "a11yReviewed": false,
+  "a11yReviewed": "2025-01-08",
   "stories": [],
   "importPath": "@primer/react",
   "props": [
@@ -29,7 +29,8 @@
     },
     {
       "name": "sx",
-      "type": "SystemStyleObject"
+      "type": "SystemStyleObject",
+      "deprecated": true
     }
   ],
   "subcomponents": [
@@ -70,7 +71,8 @@
         },
         {
           "name": "sx",
-          "type": "SystemStyleObject"
+          "type": "SystemStyleObject",
+          "deprecated": true
         }
       ],
       "passthrough": {
@@ -83,7 +85,8 @@
       "props": [
         {
           "name": "sx",
-          "type": "SystemStyleObject"
+          "type": "SystemStyleObject",
+          "deprecated": true
         },
         {
           "name": "ref",
@@ -96,7 +99,8 @@
       "props": [
         {
           "name": "sx",
-          "type": "SystemStyleObject"
+          "type": "SystemStyleObject",
+          "deprecated": true
         },
         {
           "name": "ref",
@@ -109,7 +113,8 @@
       "props": [
         {
           "name": "sx",
-          "type": "SystemStyleObject"
+          "type": "SystemStyleObject",
+          "deprecated": true
         },
         {
           "name": "ref",
@@ -130,11 +135,12 @@
         {
           "name": "title",
           "type": "string",
-          "description": "The text that gets rendered as the group's heading. Alternatively, you can pass the `NavList.GroupHeading` component as a child of `NavList.Group`.\n If both `title` and `NavList.GroupHeading` are passed, `NavList.GroupHeading` will be rendered as the heading."
+          "description": "The text that gets rendered as the group's heading. Alternatively, you can pass the `NavList.GroupHeading` component as a child of `NavList.Group`.\nIf both `title` and `NavList.GroupHeading` are passed, `NavList.GroupHeading` will be rendered as the heading."
         },
         {
           "name": "sx",
-          "type": "SystemStyleObject"
+          "type": "SystemStyleObject",
+          "deprecated": true
         },
         {
           "name": "ref",
@@ -168,7 +174,8 @@
         },
         {
           "name": "sx",
-          "type": "SystemStyleObject"
+          "type": "SystemStyleObject",
+          "deprecated": true
         },
         {
           "name": "ref",
@@ -181,7 +188,8 @@
       "props": [
         {
           "name": "sx",
-          "type": "SystemStyleObject"
+          "type": "SystemStyleObject",
+          "deprecated": true
         },
         {
           "name": "ref",

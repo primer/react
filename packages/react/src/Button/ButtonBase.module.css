@@ -193,6 +193,7 @@
     }
 
     & .Label {
+      /* stylelint-disable-next-line declaration-property-value-keyword-no-deprecated */
       word-break: break-word;
       white-space: unset;
     }
@@ -502,7 +503,8 @@
   /* Inactive */
 
   &:where([data-inactive]),
-  &:where([data-inactive]):hover {
+  &:where([data-inactive]):hover,
+  &:where([data-inactive]):active {
     color: var(--button-inactive-fgColor);
     cursor: auto;
     background-color: var(--button-inactive-bgColor);

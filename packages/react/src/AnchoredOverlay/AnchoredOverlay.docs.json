@@ -2,7 +2,7 @@
   "id": "anchored_overlay",
   "name": "AnchoredOverlay",
   "status": "alpha",
-  "a11yReviewed": false,
+  "a11yReviewed": "2025-01-08",
   "stories": [
     {
       "id": "components-anchoredoverlay--default"
@@ -161,6 +161,20 @@
       "required": false,
       "description": "Optional prop to set variant for narrow screen sizes",
       "defaultValue": "{ regular: 'anchored', narrow: 'anchored' }"
+    },
+    {
+      "name": "displayCloseButton",
+      "type": "boolean",
+      "required": false,
+      "description": "If true, a close button will be displayed in the top right corner of the overlay when on fullscreen mode.",
+      "defaultValue": "true"
+    },
+    {
+      "name": "closeButtonProps",
+      "type": "Partial<ButtonProps>",
+      "required": false,
+      "description": "Props to be spread on the close button in fullscreen mode.",
+      "defaultValue": "{}"
     }
   ]
 }

@@ -2,7 +2,7 @@
   "id": "action_list",
   "name": "ActionList",
   "status": "beta",
-  "a11yReviewed": false,
+  "a11yReviewed": "2025-01-08",
   "stories": [],
   "importPath": "@primer/react",
   "props": [
@@ -39,7 +39,8 @@
     },
     {
       "name": "sx",
-      "type": "SystemStyleObject"
+      "type": "SystemStyleObject",
+      "deprecated": true
     }
   ],
   "subcomponents": [
@@ -58,6 +59,12 @@
           "type": "'default' | 'danger'",
           "defaultValue": "'default'",
           "description": "`danger` indicates that the item is destructive."
+        },
+        {
+          "name": "size",
+          "type": "'medium' | 'large'",
+          "defaultValue": "'medium'",
+          "description": "The block size of the ActionList items."
         },
         {
           "name": "onSelect",
@@ -87,7 +94,7 @@
           "name": "inactiveText",
           "type": "string",
           "defaultValue": "",
-          "description": "Text describing why the item is inactive. This may be used when an item's usual functionality is unavailable due to a system error such as a database outage. \nIf there is a leading visual, the alert icon will replace the leading visual. \n If there is a trailing visual, it will replace the trailing visual.\n If there is no visual passed, it will be shown in the trailing visual slot to preserve left alignment of item content. \nText will appear in a tooltip triggered by the alert icon in ActionList items, but text will appear below the description or title on ActionMenu items."
+          "description": "Text describing why the item is inactive. This may be used when an item's usual functionality is unavailable due to a system error such as a database outage.\nIf there is a leading visual, the alert icon will replace the leading visual.\nIf there is a trailing visual, it will replace the trailing visual.\nIf there is no visual passed, it will be shown in the trailing visual slot to preserve left alignment of item content.\nText will appear in a tooltip triggered by the alert icon in ActionList items, but text will appear below the description or title on ActionMenu items."
         },
         {
           "name": "loading",
@@ -109,7 +116,8 @@
         },
         {
           "name": "sx",
-          "type": "SystemStyleObject"
+          "type": "SystemStyleObject",
+          "deprecated": true
         }
       ]
     },
@@ -139,7 +147,8 @@
         },
         {
           "name": "sx",
-          "type": "SystemStyleObject"
+          "type": "SystemStyleObject",
+          "deprecated": true
         }
       ]
     },
@@ -177,7 +186,8 @@
         },
         {
           "name": "sx",
-          "type": "SystemStyleObject"
+          "type": "SystemStyleObject",
+          "deprecated": true
         }
       ],
       "passthrough": {
@@ -197,7 +207,8 @@
         },
         {
           "name": "sx",
-          "type": "SystemStyleObject"
+          "type": "SystemStyleObject",
+          "deprecated": true
         }
       ]
     },
@@ -213,7 +224,8 @@
         },
         {
           "name": "sx",
-          "type": "SystemStyleObject"
+          "type": "SystemStyleObject",
+          "deprecated": true
         }
       ]
     },
@@ -245,6 +257,12 @@
           "name": "href",
           "type": "string",
           "description": "href when the TrailingAction is rendered as a link."
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Whether the TrailingAction is in a loading state. When true, the TrailingAction will render a spinner instead of an icon. Only available when `as` is 'button'."
         }
       ]
     },
@@ -266,7 +284,8 @@
         },
         {
           "name": "sx",
-          "type": "SystemStyleObject"
+          "type": "SystemStyleObject",
+          "deprecated": true
         },
         {
           "name": "className",
@@ -275,10 +294,10 @@
           "description": "CSS string"
         },
         {
-         "name": "truncate",
-         "type": "boolean",
-         "defaultValue": "false",
-          "description": "Whether the inline description should truncate the text on overflow." 
+          "name": "truncate",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Whether the inline description should truncate the text on overflow."
         }
       ]
     },
@@ -321,7 +340,8 @@
         },
         {
           "name": "sx",
-          "type": "SystemStyleObject"
+          "type": "SystemStyleObject",
+          "deprecated": true
         }
       ]
     },
@@ -368,7 +388,8 @@
         },
         {
           "name": "sx",
-          "type": "SystemStyleObject"
+          "type": "SystemStyleObject",
+          "deprecated": true
         }
       ]
     },
@@ -378,7 +399,8 @@
       "props": [
         {
           "name": "sx",
-          "type": "SystemStyleObject"
+          "type": "SystemStyleObject",
+          "deprecated": true
         }
       ]
     }
