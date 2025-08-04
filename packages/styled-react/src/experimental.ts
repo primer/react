@@ -1,1 +1,1 @@
-export {Tooltip} from '@primer/react/experimental'
+export {Dialog} from '@primer/react/experimental'

@@ -1,1 +1,1 @@
-export {UnderlineNav, TabNav, Octicon} from '@primer/react/deprecated'
+export {Octicon} from '@primer/react/deprecated'
