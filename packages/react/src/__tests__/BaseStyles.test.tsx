@@ -16,7 +16,11 @@ describe('BaseStyles', () => {
     }
 
     const {container} = render(<BaseStyles {...styles}>Hello</BaseStyles>)
-    expect(container.children[0]).toHaveStyle({color: '#f00', 'font-family': 'Arial', 'line-height': '3.5'})
+    expect(container.children[0]).toHaveStyle({
+      color: '#f00',
+      'font-family': 'Arial',
+      'line-height': '3.5',
+    } as Partial<CSSStyleDeclaration>)
   })
 
   it('respects system props', () => {
@@ -29,7 +33,7 @@ describe('BaseStyles', () => {
     expect(container.children[0]).toHaveStyle({
       display: 'contents',
       'margin-right': '8px',
-    })
+    } as Partial<CSSStyleDeclaration>)
   })
 
   it('accepts className and style props', () => {
