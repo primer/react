@@ -1,4 +1,4 @@
-import type {InputType} from '@storybook/csf'
+import type {InputType} from 'storybook/internal/csf'
 
 // Keeping this generic because we can't know how many columns there will be,
 // so we can't know all the possible width keys (for example. 'colWidth1')
