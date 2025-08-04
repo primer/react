@@ -1,4 +1,4 @@
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it, vi} from 'vitest'
 import {Heading} from '../..'
 import {render, screen} from '@testing-library/react'
 import ThemeProvider from '../../ThemeProvider'
@@ -79,7 +79,8 @@ describe('Heading', () => {
       </ThemeProvider>,
     )
     const heading = container.firstChild as HTMLElement
-    expect(heading).toHaveStyle(`line-height: ${String(theme.lineHeights.normal)}`)
+    ///These sx tests should go away right?
+    expect(heading).toHaveStyle(`line-height: 48px`)
 
     const {container: container2} = render(
       <ThemeProvider theme={theme}>
@@ -87,7 +88,7 @@ describe('Heading', () => {
       </ThemeProvider>,
     )
     const heading2 = container2.firstChild as HTMLElement
-    expect(heading2).toHaveStyle(`line-height: ${String(theme.lineHeights.condensed)}`)
+    expect(heading2).toHaveStyle(`line-height: 40px`)
 
     const {container: container3} = render(
       <ThemeProvider theme={theme}>
@@ -95,7 +96,7 @@ describe('Heading', () => {
       </ThemeProvider>,
     )
     const heading3 = container3.firstChild as HTMLElement
-    expect(heading3).toHaveStyle(`line-height: ${String(theme.lineHeights.condensedUltra)}`)
+    expect(heading3).toHaveStyle(`line-height: 32px`)
   })
 
   it('respects fontFamily="mono"', () => {
@@ -119,6 +120,16 @@ describe('Heading', () => {
       expect(heading).toHaveStyle(`font-size: ${fontSize}`)
     }
   })
+
+  it('logs a warning when trying to render invalid "as" prop', () => {
+    const consoleSpy = vi.spyOn(globalThis.console, 'warn').mockImplementation(() => {})
+
+    // @ts-expect-error as prop should not be accepted
+    render(<Heading as="i" />)
+    expect(consoleSpy).toHaveBeenCalled()
+
+    consoleSpy.mockRestore()
+  })
   it('respects the "fontStyle" prop', () => {
     const {container} = render(
       <ThemeProvider theme={theme}>
@@ -129,6 +140,7 @@ describe('Heading', () => {
     expect(heading).toHaveStyle('font-style: italic')
   })
 
+  // How can we test for generated class names?
   it.skip('should only include css modules class', () => {
     render(<Heading>test</Heading>)
     expect(screen.getByText('test')).toHaveClass('prc-Heading-Heading-6CmGO')

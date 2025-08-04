@@ -92,17 +92,9 @@ const DialogWithCustomFocusRefAndReturnFocusRef = () => {
 }
 
 describe('Dialog', () => {
-  describe('Dialog.Header', () => {
-    it('should support `className` on the Dialog.Header element', () => {
-      const Element = () => (
-        <Dialog isOpen className={'test-class-name'}>
-          <Dialog.Header className={'header-class-name'}>Title</Dialog.Header>
-        </Dialog>
-      )
-      const result = HTMLRender(<Element />)
-      const header = result.container.querySelector('.header-class-name')
-      expect(header).toHaveClass('header-class-name')
-    })
+  it('should support `className` on the Dialog element', () => {
+    const Element = () => <Dialog isOpen className={'test-class-name'} />
+    expect(HTMLRender(<Element />).container.children[1]).toHaveClass('test-class-name')
   })
 
   it('Toggles when you click close button', async () => {
