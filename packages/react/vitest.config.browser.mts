@@ -75,7 +75,6 @@ export default defineConfig({
       'src/ScrollableRegion/**/*.test.?(c|m)[jt]s?(x)',
       'src/SegmentedControl/**/*.test.?(c|m)[jt]s?(x)',
       'src/Select/**/*.test.?(c|m)[jt]s?(x)',
-      'src/SelectPanel/**/*.test.?(c|m)[jt]s?(x)',
       'src/Skeleton/**/*.test.?(c|m)[jt]s?(x)',
       'src/SkeletonAvatar/**/*.test.?(c|m)[jt]s?(x)',
       'src/SkeletonText/**/*.test.?(c|m)[jt]s?(x)',
