@@ -220,8 +220,8 @@ describe('Overlay', () => {
     const overlay = container.getByRole('dialog')
 
     expect(innerOverlay).toBeInTheDocument()
-    expect(overlay).toHaveStyle({position: 'fixed', right: 0})
-    expect(overlay).not.toHaveStyle({left: 0})
+    expect(overlay).toHaveStyle({position: 'fixed', right: '0'})
+    expect(overlay).not.toHaveStyle({left: '0'})
 
     spy.mockRestore()
   })
@@ -250,7 +250,7 @@ describe('Overlay', () => {
     const overlay = container.getByRole('dialog')
 
     expect(innerOverlay).toBeInTheDocument()
-    expect(overlay).toHaveStyle({left: 0, position: 'absolute'})
+    expect(overlay).toHaveStyle({left: '0', position: 'absolute'})
 
     spy.mockRestore()
   })

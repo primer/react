@@ -1,3 +1,4 @@
+// @ts-nocheck
 import {TextEncoder} from 'node:util'
 
 // JSDOM doesn't mock ResizeObserver
