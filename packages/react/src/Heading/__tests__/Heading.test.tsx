@@ -45,7 +45,7 @@ describe('Heading', () => {
       </ThemeProvider>,
     )
     const heading = container.firstChild as HTMLElement
-    expect(heading).toHaveStyle('font-weight: 600')
+    expect(heading).toHaveStyle(`font-weight: ${theme.fontWeights.bold}`)
 
     const {container: container2} = render(
       <ThemeProvider theme={theme}>
@@ -53,7 +53,7 @@ describe('Heading', () => {
       </ThemeProvider>,
     )
     const heading2 = container2.firstChild as HTMLElement
-    expect(heading2).toHaveStyle('font-weight: 400')
+    expect(heading2).toHaveStyle(`font-weight: ${theme.fontWeights.normal}`)
 
     const {container: container3} = render(
       <ThemeProvider theme={theme}>
@@ -61,7 +61,7 @@ describe('Heading', () => {
       </ThemeProvider>,
     )
     const heading3 = container3.firstChild as HTMLElement
-    expect(heading3).toHaveStyle('font-weight: 500')
+    expect(heading3).toHaveStyle(`font-weight: ${theme.fontWeights.semibold}`)
 
     const {container: container4} = render(
       <ThemeProvider theme={theme}>
@@ -69,7 +69,7 @@ describe('Heading', () => {
       </ThemeProvider>,
     )
     const heading4 = container4.firstChild as HTMLElement
-    expect(heading4).toHaveStyle('font-weight: 300')
+    expect(heading4).toHaveStyle(`font-weight: ${theme.fontWeights.light}`)
   })
 
   it('respects lineHeight', () => {
@@ -79,7 +79,7 @@ describe('Heading', () => {
       </ThemeProvider>,
     )
     const heading = container.firstChild as HTMLElement
-    expect(heading).toHaveStyle('line-height: 48px')
+    expect(heading).toHaveStyle(`line-height: ${String(theme.lineHeights.normal)}`)
 
     const {container: container2} = render(
       <ThemeProvider theme={theme}>
@@ -87,7 +87,7 @@ describe('Heading', () => {
       </ThemeProvider>,
     )
     const heading2 = container2.firstChild as HTMLElement
-    expect(heading2).toHaveStyle('line-height: 40px')
+    expect(heading2).toHaveStyle(`line-height: ${String(theme.lineHeights.condensed)}`)
 
     const {container: container3} = render(
       <ThemeProvider theme={theme}>
@@ -95,7 +95,7 @@ describe('Heading', () => {
       </ThemeProvider>,
     )
     const heading3 = container3.firstChild as HTMLElement
-    expect(heading3).toHaveStyle('line-height: 32px')
+    expect(heading3).toHaveStyle(`line-height: ${String(theme.lineHeights.condensedUltra)}`)
   })
 
   it('respects fontFamily="mono"', () => {
@@ -105,7 +105,7 @@ describe('Heading', () => {
       </ThemeProvider>,
     )
     const heading = container.firstChild as HTMLElement
-    expect(heading).toHaveStyle('font-family: Consolas,monospace')
+    expect(heading).toHaveStyle(`font-family: ${theme.fonts.mono}`)
   })
 
   it('renders fontSize', () => {
