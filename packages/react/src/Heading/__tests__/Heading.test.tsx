@@ -129,7 +129,6 @@ describe('Heading', () => {
     expect(heading).toHaveStyle('font-style: italic')
   })
 
-
   it.skip('should only include css modules class', () => {
     render(<Heading>test</Heading>)
     expect(screen.getByText('test')).toHaveClass('prc-Heading-Heading-6CmGO')

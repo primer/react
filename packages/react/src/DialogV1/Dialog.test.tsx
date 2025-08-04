@@ -105,8 +105,6 @@ describe('Dialog', () => {
     })
   })
 
-
-
   it('Toggles when you click close button', async () => {
     const {getByLabelText, getByTestId, queryByTestId} = HTMLRender(<Component />)
 
