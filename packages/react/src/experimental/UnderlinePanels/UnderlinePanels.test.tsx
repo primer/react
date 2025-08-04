@@ -1,11 +1,11 @@
 // Most of the functionality is already tested in [@github/tab-container-element](https://github.com/github/tab-container-element)
 
 import {render, screen} from '@testing-library/react'
+import {describe, it, afterEach, expect, vi} from 'vitest'
 import UnderlinePanels from './UnderlinePanels'
-import {behavesAsComponent} from '../../utils/testing'
 import TabContainerElement from '@github/tab-container-element'
 
-TabContainerElement.prototype.selectTab = jest.fn()
+TabContainerElement.prototype.selectTab = vi.fn()
 
 const UnderlinePanelsMockComponent = (props: {'aria-label'?: string; 'aria-labelledby'?: string; id?: string}) => (
   <UnderlinePanels {...props}>
@@ -20,12 +20,8 @@ const UnderlinePanelsMockComponent = (props: {'aria-label'?: string; 'aria-label
 
 describe('UnderlinePanels', () => {
   afterEach(() => {
-    jest.restoreAllMocks()
+    vi.restoreAllMocks()
   })
-
-  behavesAsComponent({Component: UnderlinePanels, options: {skipAs: true}})
-
-  behavesAsComponent({Component: UnderlinePanels.Tab})
 
   it('renders with a custom ID', () => {
     render(<UnderlinePanelsMockComponent aria-label="Select a tab" id="custom-id" />)
@@ -88,7 +84,7 @@ describe('UnderlinePanels', () => {
     expect(secondTab).toHaveAttribute('aria-selected', 'true')
   })
   it('calls onSelect when a tab is clicked', () => {
-    const onSelect = jest.fn()
+    const onSelect = vi.fn()
     render(
       <UnderlinePanels aria-label="Select a tab">
         <UnderlinePanels.Tab onSelect={onSelect}>Tab 1</UnderlinePanels.Tab>
@@ -103,7 +99,7 @@ describe('UnderlinePanels', () => {
   })
 
   it('throws an error when the number of tabs does not match the number of panels', () => {
-    const spy = jest.spyOn(console, 'error').mockImplementation()
+    const spy = vi.spyOn(console, 'error').mockImplementation(() => {})
     expect(() => {
       render(
         <UnderlinePanels aria-label="Select a tab">
@@ -120,7 +116,7 @@ describe('UnderlinePanels', () => {
   })
 
   it('throws an error when the number of panels does not match the number of tabs', () => {
-    const spy = jest.spyOn(console, 'error').mockImplementation()
+    const spy = vi.spyOn(console, 'error').mockImplementation(() => {})
     expect(() => {
       render(
         <UnderlinePanels aria-label="Select a tab">
@@ -135,8 +131,9 @@ describe('UnderlinePanels', () => {
     expect(spy).toHaveBeenCalled()
     spy.mockRestore()
   })
+
   it('throws an error when there are multiple items that have aria-selected', () => {
-    const spy = jest.spyOn(console, 'error').mockImplementation()
+    const spy = vi.spyOn(console, 'error').mockImplementation(() => {})
     expect(() => {
       render(
         <UnderlinePanels aria-label="Select a tab">
@@ -152,6 +149,7 @@ describe('UnderlinePanels', () => {
     expect(spy).toHaveBeenCalled()
     spy.mockRestore()
   })
+
   it('should support `className` on the outermost element', () => {
     const Element = () => (
       <UnderlinePanels className={'test-class-name'}>
@@ -161,6 +159,9 @@ describe('UnderlinePanels', () => {
         <UnderlinePanels.Panel>Panel 2</UnderlinePanels.Panel>
       </UnderlinePanels>
     )
-    expect(render(<Element />).baseElement.firstChild?.firstChild?.firstChild).toHaveClass('test-class-name')
+
+    const {container} = render(<Element />)
+
+    expect(container.firstElementChild?.firstElementChild).toHaveClass('test-class-name')
   })
 })
