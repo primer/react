@@ -7,18 +7,10 @@ import {userEvent} from '@testing-library/user-event'
 import ThemeProvider from '../ThemeProvider'
 import {FeatureFlags} from '../FeatureFlags'
 import type {InitialLoadingType} from './SelectPanel'
+import {getLiveRegion} from '../utils/testing'
 import {IconButton} from '../Button'
 import {ArrowLeftIcon} from '@primer/octicons-react'
 import Box from '../Box'
-import type {LiveRegionElement} from '@primer/live-region-element'
-
-function getLiveRegion(): LiveRegionElement {
-  const liveRegion = document.querySelector('live-region')
-  if (liveRegion) {
-    return liveRegion as LiveRegionElement
-  }
-  throw new Error('No live-region found')
-}
 
 const renderWithFlag = (children: React.ReactNode, flag: boolean) => {
   return render(
