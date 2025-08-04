@@ -6,16 +6,21 @@ import Box from '../Box'
 import Spinner from '../Spinner'
 import Text from '../Text'
 import {get} from '../constants'
-import {useProvidedStateOrCreate} from '../hooks'
+import {useProvidedStateOrCreate, useId} from '../hooks'
 import type {BetterSystemStyleObject, SxProp} from '../sx'
 import sx from '../sx'
 import getGlobalFocusStyles from '../internal/utils/getGlobalFocusStyles'
+import VisuallyHidden from '../_VisuallyHidden'
 import type {CellAlignment} from '../DataTable/column'
+import {AriaStatus} from '../live-region'
+import useSafeTimeout from '../hooks/useSafeTimeout'
 
 const TRANSITION_DURATION = '80ms'
 const EASE_OUT_QUAD_CURVE = 'cubic-bezier(0.5, 1, 0.89, 1)'
 
 export interface ToggleSwitchProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'>, SxProp {
+  /** The id of the DOM node that labels the switch */
+  ['aria-labelledby']: string
   /** Uncontrolled - whether the switch is turned on */
   defaultChecked?: boolean
   /** Whether the switch is ready for user input */
@@ -34,6 +39,16 @@ export interface ToggleSwitchProps extends Omit<React.HTMLAttributes<HTMLDivElem
    * **This should only be changed when the switch's alignment needs to be adjusted.** For example: It needs to be left-aligned because the label appears above it and the caption appears below it.
    */
   statusLabelPosition?: CellAlignment
+  /**
+   * If the switch is in the loading state, this value controls the amount of delay in milliseconds before
+   * the `loadingLabel` is announced to screen readers.
+   * @default 2000
+   */
+  loadingLabelDelay?: number
+  /** The text to describe what is loading. It should be descriptive and not verbose.
+   * This is primarily used for AT (screen readers) to convey what is currently loading.
+   */
+  loadingLabel?: string
   /** type of button to account for behavior when added to a form*/
   buttonType?: 'button' | 'submit' | 'reset'
 }
@@ -122,7 +137,7 @@ const SwitchButton = styled.button<SwitchButtonProps>`
     }
   }
 
-  &:hover:not(:disabled),
+  &:hover:not(:disabled):not([aria-disabled='true']),
   &:focus:focus-visible {
     background-color: ${get('colors.switchTrack.hoverBg')};
   }
@@ -133,8 +148,12 @@ const SwitchButton = styled.button<SwitchButtonProps>`
   }
 
   ${props => {
-    if (props.disabled) {
+    if (props['aria-disabled']) {
       return css`
+        @media (forced-colors: active) {
+          border-color: GrayText;
+        }
+
         background-color: ${get('colors.switchTrack.disabledBg')};
         border-color: transparent;
         cursor: not-allowed;
@@ -147,7 +166,7 @@ const SwitchButton = styled.button<SwitchButtonProps>`
         background-color: ${get('colors.switchTrack.checked.bg')};
         border-color: var(--control-checked-borderColor-rest, transparent);
 
-        &:hover:not(:disabled),
+        &:hover:not(:disabled):not([aria-disabled='true']),
         &:focus:focus-visible {
           background-color: ${get('colors.switchTrack.checked.hoverBg')};
         }
@@ -172,11 +191,12 @@ const SwitchButton = styled.button<SwitchButtonProps>`
   ${sx}
   ${sizeVariants}
 `
-const ToggleKnob = styled.div<{checked?: boolean; disabled?: boolean}>`
+const ToggleKnob = styled.div<{checked?: boolean; 'aria-disabled': React.AriaAttributes['aria-disabled']}>`
   background-color: ${get('colors.switchKnob.bg')};
   border-width: 1px;
   border-style: solid;
-  border-color: ${props => (props.disabled ? get('colors.switchTrack.disabledBg') : get('colors.switchKnob.border'))};
+  border-color: ${props =>
+    props['aria-disabled'] ? get('colors.switchTrack.disabledBg') : get('colors.switchKnob.border')};
   border-radius: calc(${get('radii.2')} - 1px); /* -1px to account for 1px border around the control */
   width: 50%;
   position: absolute;
@@ -193,8 +213,12 @@ const ToggleKnob = styled.div<{checked?: boolean; disabled?: boolean}>`
   }
 
   ${props => {
-    if (props.disabled) {
+    if (props['aria-disabled']) {
       return css`
+        @media (forced-colors: active) {
+          color: GrayText;
+        }
+
         border-color: ${get('colors.switchTrack.disabledBg')};
       `
     }
@@ -226,27 +250,50 @@ const ToggleSwitch = React.forwardRef<HTMLButtonElement, React.PropsWithChildren
       buttonType = 'button',
       size = 'medium',
       statusLabelPosition = 'start',
+      loadingLabelDelay = 2000,
+      loadingLabel = 'Loading',
       sx: sxProp,
       ...rest
     } = props
     const isControlled = typeof checked !== 'undefined'
     const [isOn, setIsOn] = useProvidedStateOrCreate<boolean>(checked, onChange, Boolean(defaultChecked))
     const acceptsInteraction = !disabled && !loading
+
+    const [isLoadingLabelVisible, setIsLoadingLabelVisible] = React.useState(false)
+    const loadingLabelId = useId('loadingLabel')
+
+    const {safeSetTimeout} = useSafeTimeout()
+
     const handleToggleClick: MouseEventHandler = useCallback(
       e => {
+        if (disabled || loading) return
+
         if (!isControlled) {
           setIsOn(!isOn)
         }
         onClick && onClick(e)
       },
-      [onClick, isControlled, isOn, setIsOn],
+      [disabled, isControlled, loading, onClick, setIsOn, isOn],
     )
 
     useEffect(() => {
-      if (onChange && isControlled) {
+      if (onChange && isControlled && !disabled) {
         onChange(Boolean(checked))
       }
-    }, [onChange, checked, isControlled, buttonType])
+    }, [onChange, checked, isControlled, disabled])
+
+    useEffect(() => {
+      if (!loading && isLoadingLabelVisible) {
+        setIsLoadingLabelVisible(false)
+      } else if (loading && !isLoadingLabelVisible) {
+        safeSetTimeout(() => {
+          setIsLoadingLabelVisible(true)
+        }, loadingLabelDelay)
+      }
+    }, [loading, isLoadingLabelVisible, loadingLabelDelay, safeSetTimeout])
+
+    let switchButtonDescribedBy = loadingLabelId
+    if (ariaDescribedby) switchButtonDescribedBy = `${switchButtonDescribedBy} ${ariaDescribedby}`
 
     return (
       <Box
@@ -256,13 +303,19 @@ const ToggleSwitch = React.forwardRef<HTMLButtonElement, React.PropsWithChildren
         sx={sxProp}
         {...rest}
       >
-        {loading ? <Spinner size="small" /> : null}
+        <VisuallyHidden>
+          <AriaStatus announceOnShow id={loadingLabelId}>
+            {isLoadingLabelVisible && loadingLabel}
+          </AriaStatus>
+        </VisuallyHidden>
+
+        {loading ? <Spinner size="small" srText={null} /> : null}
         <Text
           color={acceptsInteraction ? 'fg.default' : 'fg.muted'}
           fontSize={size === 'small' ? 0 : 1}
           mx={2}
           aria-hidden="true"
-          sx={{position: 'relative', cursor: 'pointer'}}
+          sx={{position: 'relative', cursor: acceptsInteraction ? 'pointer' : 'not-allowed'}}
           onClick={handleToggleClick}
         >
           <Box textAlign="right" sx={isOn ? null : hiddenTextStyles}>
@@ -277,11 +330,11 @@ const ToggleSwitch = React.forwardRef<HTMLButtonElement, React.PropsWithChildren
           type={buttonType}
           onClick={handleToggleClick}
           aria-labelledby={ariaLabelledby}
-          aria-describedby={ariaDescribedby}
+          aria-describedby={isLoadingLabelVisible || ariaDescribedby ? switchButtonDescribedBy : undefined}
           aria-pressed={isOn}
           checked={isOn}
           size={size}
-          disabled={!acceptsInteraction}
+          aria-disabled={!acceptsInteraction}
         >
           <Box aria-hidden="true" display="flex" alignItems="center" width="100%" height="100%" overflow="hidden">
             <Box
@@ -313,7 +366,7 @@ const ToggleSwitch = React.forwardRef<HTMLButtonElement, React.PropsWithChildren
               <CircleIcon size={size} />
             </Box>
           </Box>
-          <ToggleKnob aria-hidden="true" disabled={!acceptsInteraction} checked={isOn} />
+          <ToggleKnob aria-hidden="true" aria-disabled={!acceptsInteraction} checked={isOn} />
         </SwitchButton>
       </Box>
     )

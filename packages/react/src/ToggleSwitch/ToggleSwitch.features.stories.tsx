@@ -1,4 +1,5 @@
-import React from 'react'
+import React, {useState} from 'react'
+import {useSafeTimeout} from '..'
 import ToggleSwitch from './ToggleSwitch'
 import {action} from 'storybook/actions'
 import ToggleSwitchStoryWrapper from './ToggleSwitchStoryWrapper'
@@ -67,6 +68,65 @@ export const Loading = () => (
     <ToggleSwitch loading aria-labelledby="toggle" />
   </ToggleSwitchStoryWrapper>
 )
+
+type LoadingWithDelayProps = {
+  loadingDelay: number
+  loadingLabelDelay: number
+}
+
+export const LoadingWithDelay = (args: LoadingWithDelayProps) => {
+  const {loadingDelay, loadingLabelDelay} = args
+
+  const [isLoading, setIsLoading] = useState(false)
+  const [timeoutId, setTimeoutId] = useState<number | null>(null)
+  const [toggleState, setToggleState] = useState(false)
+
+  const {safeSetTimeout, safeClearTimeout} = useSafeTimeout()
+
+  const handleToggleClick = () => {
+    setIsLoading(true)
+
+    if (timeoutId) {
+      safeClearTimeout(timeoutId)
+      setTimeoutId(null)
+    }
+
+    setTimeoutId(safeSetTimeout(() => setIsLoading(false), loadingDelay) as unknown as number)
+  }
+
+  return (
+    <ToggleSwitchStoryWrapper>
+      <span id="toggle" style={{fontWeight: 'bold', fontSize: 'var(--base-size-14)'}}>
+        Enable feature
+      </span>
+      <ToggleSwitch
+        loading={isLoading}
+        loadingLabel={`${toggleState ? 'Enabling' : 'Disabling'} feature`}
+        loadingLabelDelay={loadingLabelDelay}
+        aria-labelledby="toggle"
+        onClick={handleToggleClick}
+        onChange={(on: boolean) => setToggleState(on)}
+      />
+    </ToggleSwitchStoryWrapper>
+  )
+}
+
+LoadingWithDelay.args = {
+  loadingDelay: 5000,
+  loadingLabelDelay: 2000,
+}
+LoadingWithDelay.argTypes = {
+  loadingDelay: {
+    control: {
+      type: 'number',
+    },
+  },
+  loadingLabelDelay: {
+    control: {
+      type: 'number',
+    },
+  },
+}
 
 export const LabelEnd = () => (
   <ToggleSwitchStoryWrapper>
