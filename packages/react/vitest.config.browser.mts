@@ -70,6 +70,7 @@ export default defineConfig({
       'src/PageLayout/**/*.test.?(c|m)[jt]s?(x)',
       'src/Pagehead/**/*.test.?(c|m)[jt]s?(x)',
       'src/Pagination/**/*.test.?(c|m)[jt]s?(x)',
+      'src/PointerBox/**/*.test.?(c|m)[jt]s?(x)',
       'src/Popover/**/*.test.?(c|m)[jt]s?(x)',
       'src/Portal/**/*.test.?(c|m)[jt]s?(x)',
       'src/ProgressBar/**/*.test.?(c|m)[jt]s?(x)',
