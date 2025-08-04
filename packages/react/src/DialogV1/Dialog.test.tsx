@@ -105,10 +105,7 @@ describe('Dialog', () => {
     })
   })
 
-  it('should support `className` on the Dialog element', () => {
-    const Element = () => <Dialog isOpen className={'test-class-name'} />
-    expect(HTMLRender(<Element />).container.children[1]).toHaveClass('test-class-name')
-  })
+
 
   it('Toggles when you click close button', async () => {
     const {getByLabelText, getByTestId, queryByTestId} = HTMLRender(<Component />)

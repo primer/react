@@ -1,6 +1,6 @@
 import {describe, expect, it} from 'vitest'
 import {Heading} from '../..'
-import {render as HTMLRender, screen} from '@testing-library/react'
+import {render, screen} from '@testing-library/react'
 import ThemeProvider from '../../ThemeProvider'
 
 const theme = {
@@ -29,17 +29,17 @@ const theme = {
 describe('Heading', () => {
   it('should support `className` on the outermost element', () => {
     const Element = () => <Heading className={'test-class-name'} />
-    expect(HTMLRender(<Element />).container.firstChild).toHaveClass('test-class-name')
+    expect(render(<Element />).container.firstChild).toHaveClass('test-class-name')
   })
 
   it('renders <h2> by default', () => {
-    const {container} = HTMLRender(<Heading />)
+    const {container} = render(<Heading />)
     const heading = container.firstChild as HTMLElement
     expect(heading.tagName).toBe('H2')
   })
 
   it('respects fontWeight', () => {
-    const {container} = HTMLRender(
+    const {container} = render(
       <ThemeProvider theme={theme}>
         <Heading sx={{fontWeight: 'bold'}} />
       </ThemeProvider>,
@@ -47,7 +47,7 @@ describe('Heading', () => {
     const heading = container.firstChild as HTMLElement
     expect(heading).toHaveStyle('font-weight: 600')
 
-    const {container: container2} = HTMLRender(
+    const {container: container2} = render(
       <ThemeProvider theme={theme}>
         <Heading sx={{fontWeight: 'normal'}} />
       </ThemeProvider>,
@@ -55,7 +55,7 @@ describe('Heading', () => {
     const heading2 = container2.firstChild as HTMLElement
     expect(heading2).toHaveStyle('font-weight: 400')
 
-    const {container: container3} = HTMLRender(
+    const {container: container3} = render(
       <ThemeProvider theme={theme}>
         <Heading sx={{fontWeight: 'semibold'}} />
       </ThemeProvider>,
@@ -63,7 +63,7 @@ describe('Heading', () => {
     const heading3 = container3.firstChild as HTMLElement
     expect(heading3).toHaveStyle('font-weight: 500')
 
-    const {container: container4} = HTMLRender(
+    const {container: container4} = render(
       <ThemeProvider theme={theme}>
         <Heading sx={{fontWeight: 'light'}} />
       </ThemeProvider>,
@@ -73,7 +73,7 @@ describe('Heading', () => {
   })
 
   it('respects lineHeight', () => {
-    const {container} = HTMLRender(
+    const {container} = render(
       <ThemeProvider theme={theme}>
         <Heading sx={{lineHeight: 'normal'}} />
       </ThemeProvider>,
@@ -81,7 +81,7 @@ describe('Heading', () => {
     const heading = container.firstChild as HTMLElement
     expect(heading).toHaveStyle('line-height: 48px')
 
-    const {container: container2} = HTMLRender(
+    const {container: container2} = render(
       <ThemeProvider theme={theme}>
         <Heading sx={{lineHeight: 'condensed'}} />
       </ThemeProvider>,
@@ -89,7 +89,7 @@ describe('Heading', () => {
     const heading2 = container2.firstChild as HTMLElement
     expect(heading2).toHaveStyle('line-height: 40px')
 
-    const {container: container3} = HTMLRender(
+    const {container: container3} = render(
       <ThemeProvider theme={theme}>
         <Heading sx={{lineHeight: 'condensedUltra'}} />
       </ThemeProvider>,
@@ -99,7 +99,7 @@ describe('Heading', () => {
   })
 
   it('respects fontFamily="mono"', () => {
-    const {container} = HTMLRender(
+    const {container} = render(
       <ThemeProvider theme={theme}>
         <Heading sx={{fontFamily: 'mono'}} />
       </ThemeProvider>,
@@ -110,7 +110,7 @@ describe('Heading', () => {
 
   it('renders fontSize', () => {
     for (const fontSize of theme.fontSizes) {
-      const {container} = HTMLRender(
+      const {container} = render(
         <ThemeProvider theme={theme}>
           <Heading sx={{fontSize}} />
         </ThemeProvider>,
@@ -120,7 +120,7 @@ describe('Heading', () => {
     }
   })
   it('respects the "fontStyle" prop', () => {
-    const {container} = HTMLRender(
+    const {container} = render(
       <ThemeProvider theme={theme}>
         <Heading sx={{fontStyle: 'italic'}} />
       </ThemeProvider>,
@@ -128,18 +128,10 @@ describe('Heading', () => {
     const heading = container.firstChild as HTMLElement
     expect(heading).toHaveStyle('font-style: italic')
   })
-  HTMLRender(
-    <Heading
-      sx={{
-        fontWeight: '900',
-      }}
-    >
-      test
-    </Heading>,
-  )
+
 
   it.skip('should only include css modules class', () => {
-    HTMLRender(<Heading>test</Heading>)
+    render(<Heading>test</Heading>)
     expect(screen.getByText('test')).toHaveClass('prc-Heading-Heading-6CmGO')
     // Note: this is the generated class name when CSS modules is used
     // for this component
@@ -147,7 +139,7 @@ describe('Heading', () => {
   })
 
   it('should support overrides with sx if provided', () => {
-    HTMLRender(
+    render(
       <Heading
         sx={{
           fontWeight: '900',

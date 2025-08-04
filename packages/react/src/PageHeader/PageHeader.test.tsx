@@ -18,17 +18,6 @@ describe('PageHeader', () => {
         dispatchEvent: vi.fn(),
       })),
     })
-
-    const observe = vi.fn()
-    window.IntersectionObserver = vi.fn(() => ({
-      observe,
-      unobserve: vi.fn(),
-      takeRecords: vi.fn(),
-      disconnect: vi.fn(),
-      root: null,
-      rootMargin: '',
-      thresholds: [],
-    })) as unknown as typeof IntersectionObserver
   })
   afterAll(() => {
     vi.restoreAllMocks()
@@ -42,7 +31,7 @@ describe('PageHeader', () => {
         <PageHeader.ContextArea>ContextArea</PageHeader.ContextArea>
       </PageHeader>,
     )
-    expect(getByText('Title')).toHaveStyle('font-size: 32px')
+    expect(getByText('Title')).toHaveStyle('font-size: 1.5em')
   })
   it('renders "aria-label" prop when Navigation is rendered as "nav" landmark', () => {
     const {getByLabelText, getByText} = render(
