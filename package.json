@@ -28,7 +28,6 @@
     "test": "vitest",
     "test:type-check": "tsc --noEmit",
     "test:update": "npm run test -- -u",
-    "test:watch": "npm run test -- --watch",
     "type-check": "tsc --noEmit && turbo type-check",
     "release": "npm run build && changeset publish",
     "reset": "script/reset",
