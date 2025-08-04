@@ -94,7 +94,7 @@ for (const usingRemoveActiveDescendant of [false, true]) {
       expect(trigger).toHaveAttribute('aria-expanded', 'false')
     })
 
-    it.only('should open the select panel when activating the trigger', async () => {
+    it('should open the select panel when activating the trigger', async () => {
       const user = userEvent.setup()
 
       renderWithFlag(<BasicSelectPanel />, usingRemoveActiveDescendant)
