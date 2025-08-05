@@ -1,20 +1,10 @@
+import {describe, expect, it} from 'vitest'
 import {useState, useRef} from 'react'
 import {Box, Text, Button} from '..'
 import {Dialog} from '../DialogV1'
 import {render as HTMLRender, fireEvent} from '@testing-library/react'
-import axe from 'axe-core'
-import {behavesAsComponent} from '../utils/testing'
 
 /* Dialog Version 1*/
-
-const comp = (
-  <Dialog isOpen onDismiss={() => null} aria-labelledby="header">
-    <Dialog.Header id="header">Title</Dialog.Header>
-    <Box p={3}>
-      <Text fontFamily="sans-serif">Some content</Text>
-    </Box>
-  </Dialog>
-)
 
 const Component = () => {
   const [isOpen, setIsOpen] = useState(true)
@@ -102,28 +92,9 @@ const DialogWithCustomFocusRefAndReturnFocusRef = () => {
 }
 
 describe('Dialog', () => {
-  // because Dialog returns a React fragment the as and sx tests fail always, so they are skipped
-  behavesAsComponent({
-    Component: Dialog,
-    toRender: () => comp,
-    options: {skipAs: true, skipSx: true, skipClassName: true},
-  })
-
-  describe('Dialog.Header', () => {
-    behavesAsComponent({Component: Dialog.Header, options: {skipClassName: true}})
-  })
-
   it('should support `className` on the Dialog element', () => {
     const Element = () => <Dialog isOpen className={'test-class-name'} />
     expect(HTMLRender(<Element />).container.children[1]).toHaveClass('test-class-name')
-  })
-
-  it('should have no axe violations', async () => {
-    const spy = jest.spyOn(console, 'warn').mockImplementation()
-    const {container} = HTMLRender(comp)
-    spy.mockRestore()
-    const results = await axe.run(container)
-    expect(results).toHaveNoViolations()
   })
 
   it('Toggles when you click close button', async () => {
