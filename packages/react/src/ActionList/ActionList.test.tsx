@@ -1,35 +1,9 @@
 import {describe, it, expect, vi} from 'vitest'
 import {render as HTMLRender} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import axe from 'axe-core'
 import {ActionList} from '.'
-import {BaseStyles} from '..'
-
-function SimpleActionList(): JSX.Element {
-  return (
-    <BaseStyles>
-      <ActionList>
-        <ActionList.Item>New file</ActionList.Item>
-        <ActionList.Divider />
-        <ActionList.Item>Copy link</ActionList.Item>
-        <ActionList.Item>Edit file</ActionList.Item>
-        <ActionList.Item variant="danger">Delete file</ActionList.Item>
-        <ActionList.LinkItem href="//github.com" title="anchor" aria-keyshortcuts="d">
-          Link Item
-        </ActionList.LinkItem>
-      </ActionList>
-    </BaseStyles>
-  )
-}
 
 describe('ActionList', () => {
-  // toHaveNoViolations is a custom matcher from jest-axe
-  it.skip('should have no axe violations', async () => {
-    const {container} = HTMLRender(<SimpleActionList />)
-    const results = await axe.run(container)
-    expect(results).toHaveNoViolations()
-  })
-
   it('should warn when selected is provided without a selectionVariant on parent', async () => {
     // we expect console.warn to be called, so we spy on that in the test
     const spy = vi.spyOn(console, 'warn').mockImplementation(() => vi.fn())
