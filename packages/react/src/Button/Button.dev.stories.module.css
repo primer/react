@@ -1,0 +1,5 @@
+.FlexRow {
+  display: flex;
+  flex-direction: row;
+  gap: var(--base-size-16);
+}
