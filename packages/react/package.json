@@ -37,7 +37,7 @@
   ],
   "scripts": {
     "build": "./script/build",
-    "clean": "rimraf dist",
+    "clean": "rimraf dist generated",
     "start": "concurrently npm:start:*",
     "start:storybook": "STORYBOOK=true storybook dev -p 6006",
     "build:storybook": "storybook build",
@@ -221,4 +221,3 @@
     }
   }
 }
-
