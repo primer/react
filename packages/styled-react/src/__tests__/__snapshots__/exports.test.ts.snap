@@ -18,6 +18,7 @@ exports[`@primer/styled-react exports 1`] = `
   "Text",
   "TextInput",
   "Truncate",
+  "sx",
 ]
 `;
 

@@ -2,6 +2,7 @@ export {
   ActionList,
   ActionMenu,
   Box,
+  type BoxProps,
   Breadcrumbs,
   Button,
   Flash,
@@ -15,4 +16,9 @@ export {
   Text,
   TextInput,
   Truncate,
+
+  // Utilities for working with the `sx` prop
+  sx,
+  type SxProp,
+  type BetterSystemStyleObject,
 } from '@primer/react'
