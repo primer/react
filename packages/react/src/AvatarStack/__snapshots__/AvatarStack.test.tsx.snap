@@ -2,10 +2,12 @@
 
 exports[`AvatarStack > respects alignRight props 1`] = `
 <span
-  class="pc-AvatarStack--three-plus pc-AvatarStack--right prc-AvatarStack-AvatarStack-LcJ4R"
+  class="pc-AvatarStack--variant pc-AvatarStack--shape pc-AvatarStack--three-plus pc-AvatarStack--right prc-AvatarStack-AvatarStack-LcJ4R"
   data-align-right=""
   data-avatar-count="3+"
   data-responsive=""
+  data-shape="circle"
+  data-variant="cascade"
   style="--stackSize-narrow: 20px; --stackSize-regular: 20px; --stackSize-wide: 20px;"
 >
   <div

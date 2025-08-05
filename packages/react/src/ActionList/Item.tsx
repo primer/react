@@ -92,7 +92,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     const inactive = Boolean(inactiveText)
     // TODO change `menuContext` check to ```listRole !== undefined && ['menu', 'listbox'].includes(listRole)```
     // once we have a better way to handle existing usage in dotcom that incorrectly use ActionList.TrailingAction
-    const menuContext = container === 'ActionMenu' || container === 'SelectPanel'
+    const menuContext = container === 'ActionMenu' || container === 'SelectPanel' || container === 'FilteredActionList'
     // TODO: when we change `menuContext` to check `listRole` instead of `container`
     const showInactiveIndicator = inactive && !(listRole !== undefined && ['menu', 'listbox'].includes(listRole))
 
