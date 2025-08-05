@@ -44,12 +44,12 @@
 
   &:where([data-avatar-count='1'][data-shape='square']) .AvatarItem {
     /* stylelint-disable-next-line primer/box-shadow */
-    box-shadow: 1px 0 rgba(0, 0, 0);
+    box-shadow: 1px 0 rgba(0, 0, 0, 1);
   }
 
   &:where([data-avatar-count='1'][data-shape='square'][data-align-right]) .AvatarItem {
     /* stylelint-disable-next-line primer/box-shadow */
-    box-shadow: -1px 0 rgba(0, 0, 0);
+    box-shadow: -1px 0 rgba(0, 0, 0, 1);
   }
 
   &:where([data-avatar-count='2']) {
@@ -145,12 +145,12 @@
 
   .AvatarStack:where([data-shape='square']) &:is(img) {
     /* stylelint-disable-next-line primer/box-shadow */
-    box-shadow: 1px 0 rgba(255, 255, 255);
+    box-shadow: 1px 0 rgba(255, 255, 255, 1);
   }
 
   .AvatarStack:where([data-shape='square'][data-align-right]) &:is(img) {
     /* stylelint-disable-next-line primer/box-shadow */
-    box-shadow: -1px 0 rgba(255, 255, 255);
+    box-shadow: -1px 0 rgba(255, 255, 255, 1);
   }
 
   &:first-child {
