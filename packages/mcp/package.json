@@ -1,9 +1,11 @@
 {
   "name": "@primer/mcp",
-  "version": "0.0.0",
-  "private": true,
+  "description": "An MCP server that connects AI tools to the Primer Design System",
+  "version": "0.0.1",
   "type": "module",
-  "bin": "./dist/stdio.js",
+  "bin": {
+    "mcp": "dist/stdio.js"
+  },
   "exports": {
     "./transports/stdio": {
       "types": "./dist/transports/stdio.d.ts",
