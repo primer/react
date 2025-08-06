@@ -634,8 +634,10 @@ const tokens: Array<Token> = [
 
 function serialize(token: Token): string {
   if (typeof token === 'string') {
+    // eslint-disable-next-line github/unescaped-html-literal
     return `<token name="${token}"></token>`
   }
+  // eslint-disable-next-line github/unescaped-html-literal
   return `<token-category name="${token.category}">\n${token.tokens.map(serialize).join('\n')}\n</token-category>`
 }
 
