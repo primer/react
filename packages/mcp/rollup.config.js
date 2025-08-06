@@ -20,6 +20,9 @@ const config = defineConfig({
   plugins: [
     nodeResolve(),
     commonjs(),
+    typescript({
+      tsconfig: './tsconfig.build.json',
+    }),
     babel({
       extensions: ['.js', '.cjs', '.mjs', '.ts', '.tsx'],
       presets: [
@@ -35,9 +38,6 @@ const config = defineConfig({
       ],
       plugins: ['@babel/plugin-transform-runtime'],
       babelHelpers: 'runtime',
-    }),
-    typescript({
-      tsconfig: './tsconfig.build.json',
     }),
     json(),
   ],

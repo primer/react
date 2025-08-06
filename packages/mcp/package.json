@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
+  "bin": "./dist/stdio.js",
   "exports": {
     "./transports/stdio": {
       "types": "./dist/transports/stdio.d.ts",
