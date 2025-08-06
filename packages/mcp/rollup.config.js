@@ -45,6 +45,7 @@ const config = defineConfig({
     dir: 'dist',
     format: 'esm',
     importAttributesKey: 'with',
+    banner: '#!/usr/bin/env node',
   },
 })
 
