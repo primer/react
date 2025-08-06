@@ -9,7 +9,6 @@ import {
   getFormControlArgsByChildComponent,
   inputWrapperArgTypes,
 } from '../utils/form-story-helpers'
-import classes from './Select.stories.module.css'
 
 export default {
   title: 'Components/Select',
