@@ -149,6 +149,144 @@ ${text}`,
   },
 )
 
+server.tool(
+  'get_component_usage_guidelines',
+  'Get usage information for how to use a component from Primer',
+  {
+    name: z.string().describe('The name of the component to retrieve'),
+  },
+  async ({name}) => {
+    const components = listComponents()
+    const match = components.find(component => {
+      return component.name === name
+    })
+    if (!match) {
+      return {
+        content: [
+          {
+            type: 'text',
+            text: `There is no component named \`${name}\` in the @primer/react package. For a full list of components, use the \`get_components\` tool.`,
+          },
+        ],
+      }
+    }
+
+    const url = new URL(`/product/components/${match.id}/guidelines`, 'https://primer.style')
+    const response = await fetch(url)
+    if (!response.ok) {
+      if ((response.status >= 400 && response.status < 500) || (response.status >= 300 && response.status < 400)) {
+        return {
+          content: [
+            {
+              type: 'text',
+              text: `There are no accessibility guidelines for the \`${name}\` component in the @primer/react package.`,
+            },
+          ],
+        }
+      }
+
+      throw new Error(`Failed to fetch ${url}: ${response.statusText}`)
+    }
+
+    const html = await response.text()
+    if (!html) {
+      return {
+        content: [],
+      }
+    }
+
+    const $ = cheerio.load(html)
+    const source = $('main').html()
+    if (!source) {
+      return {
+        content: [],
+      }
+    }
+
+    const text = turndownService.turndown(source)
+
+    return {
+      content: [
+        {
+          type: 'text',
+          text: `Here are the usage guidelines for the \`${name}\` component from the @primer/react package:
+
+${text}`,
+        },
+      ],
+    }
+  },
+)
+
+server.tool(
+  'get_component_accessibility_guidelines',
+  'Get accessibility information for how to use a component from Primer React',
+  {
+    name: z.string().describe('The name of the component to retrieve'),
+  },
+  async ({name}) => {
+    const components = listComponents()
+    const match = components.find(component => {
+      return component.name === name
+    })
+    if (!match) {
+      return {
+        content: [
+          {
+            type: 'text',
+            text: `There is no component named \`${name}\` in the @primer/react package. For a full list of components, use the \`get_components\` tool.`,
+          },
+        ],
+      }
+    }
+
+    const url = new URL(`/product/components/${match.id}/accessibility`, 'https://primer.style')
+    const response = await fetch(url)
+    if (!response.ok) {
+      if ((response.status >= 400 && response.status < 500) || (response.status >= 300 && response.status < 400)) {
+        return {
+          content: [
+            {
+              type: 'text',
+              text: `There are no accessibility guidelines for the \`${name}\` component in the @primer/react package.`,
+            },
+          ],
+        }
+      }
+
+      throw new Error(`Failed to fetch ${url}: ${response.statusText}`)
+    }
+
+    const html = await response.text()
+    if (!html) {
+      return {
+        content: [],
+      }
+    }
+
+    const $ = cheerio.load(html)
+    const source = $('main').html()
+    if (!source) {
+      return {
+        content: [],
+      }
+    }
+
+    const text = turndownService.turndown(source)
+
+    return {
+      content: [
+        {
+          type: 'text',
+          text: `Here are the accessibility guidelines for the \`${name}\` component from the @primer/react package:
+
+${text}`,
+        },
+      ],
+    }
+  },
+)
+
 // -----------------------------------------------------------------------------
 // Patterns
 // -----------------------------------------------------------------------------
