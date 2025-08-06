@@ -1,26 +1,26 @@
 /* CSS Module for SelectPanel examples stories */
 
-.colorCircle {
+.ColorCircle {
   width: 14px;
   height: 14px;
-  border-radius: 10px;
+  border-radius: var(--borderRadius-full);
   margin: auto;
-  border-width: 1px;
+  border-width: var(--borderWidth-thin);
   border-style: solid;
 }
 
-.customActionListItem {
-  margin-left: 8px;
-  margin-right: 8px;
+.CustomActionListItem {
+  margin-left: var(--base-size-8);
+  margin-right: var(--base-size-8);
 }
 
-.customActionListItem[data-is-active-descendant='activated-directly'] {
+.CustomActionListItem[data-is-active-descendant='activated-directly'] {
   background-color: transparent;
   outline: 2px solid var(--focus-outlineColor, var(--color-accent-emphasis));
   outline-offset: -2px;
 }
 
-.truncatedText {
+.TruncatedText {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;

@@ -30,7 +30,7 @@ function getColorCircle(color: string) {
   return function () {
     return (
       <div
-        className={styles.colorCircle}
+        className={styles.ColorCircle}
         style={{
           backgroundColor: color,
           borderColor: color,
@@ -297,9 +297,9 @@ export const CustomItemRenderer = () => {
         onFilterChange={setFilter}
         overlayProps={{width: 'medium'}}
         renderItem={item => (
-          <ActionList.Item {...item} text={undefined} className={styles.customActionListItem}>
+          <ActionList.Item {...item} text={undefined} className={styles.CustomActionListItem}>
             {' '}
-            <div className={styles.truncatedText}>{item.text}</div>
+            <div className={styles.TruncatedText}>{item.text}</div>
           </ActionList.Item>
         )}
         message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}
