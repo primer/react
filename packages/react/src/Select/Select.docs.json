@@ -2,7 +2,7 @@
   "id": "select",
   "name": "Select",
   "status": "alpha",
-  "a11yReviewed": true,
+  "a11yReviewed": "2025-01-08",
   "stories": [
     {
       "id": "components-select--default"

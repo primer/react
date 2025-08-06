@@ -1,11 +1,12 @@
 import type React from 'react'
 import {useState, useCallback} from 'react'
 import type {Meta} from '@storybook/react-vite'
-import {Box, useTheme} from '..'
+import {useTheme} from '..'
 import {Button} from '../Button'
 import {ActionMenu} from '../ActionMenu'
 import {ActionList} from '../ActionList'
 import {ConfirmationDialog, useConfirm} from './ConfirmationDialog'
+import classes from './ConfirmationDialog.features.stories.module.css'
 
 export default {
   title: 'Components/ConfirmationDialog/Features',
@@ -28,20 +29,20 @@ export const ShorthandHook = () => {
     [confirm, theme],
   )
   return (
-    <Box display="flex" flexDirection="column" alignItems="flex-start">
-      <Button onClick={onButtonClick} sx={{mb: 2}}>
+    <div className={classes.ButtonContainer}>
+      <Button onClick={onButtonClick} className={classes.TurnGreenButton}>
         Turn me green!
       </Button>
-      <Button onClick={onButtonClick} sx={{mb: 2}}>
+      <Button onClick={onButtonClick} className={classes.TurnGreenButton}>
         Turn me green!
       </Button>
-      <Button onClick={onButtonClick} sx={{mb: 2}}>
+      <Button onClick={onButtonClick} className={classes.TurnGreenButton}>
         Turn me green!
       </Button>
-      <Button onClick={onButtonClick} sx={{mb: 2}}>
+      <Button onClick={onButtonClick} className={classes.TurnGreenButton}>
         Turn me green!
       </Button>
-    </Box>
+    </div>
   )
 }
 
@@ -55,16 +56,15 @@ export const ShorthandHookFromActionMenu = () => {
   }, [confirm])
 
   return (
-    <Box display="flex" flexDirection="column" alignItems="flex-start">
+    <div className={classes.ButtonContainer}>
       <ActionMenu>
         <ActionMenu.Button>{text}</ActionMenu.Button>
-
         <ActionMenu.Overlay>
           <ActionList>
             <ActionList.Item onSelect={onButtonClick}>Do a trick!</ActionList.Item>
           </ActionList>
         </ActionMenu.Overlay>
       </ActionMenu>
-    </Box>
+    </div>
   )
 }

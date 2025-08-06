@@ -2,7 +2,7 @@
   "id": "split_page_layout",
   "name": "SplitPageLayout",
   "status": "alpha",
-  "a11yReviewed": true,
+  "a11yReviewed": "2025-01-08",
   "stories": [
     {
       "id": "components-splitpagelayout--default"

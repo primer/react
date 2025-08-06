@@ -9,6 +9,7 @@ import {Description} from './Description'
 import Avatar from '../Avatar'
 import {FileDirectoryIcon, HeartFillIcon} from '@primer/octicons-react'
 import {Stack} from '../Stack'
+import {AnchoredOverlay} from '../AnchoredOverlay'
 
 export default {
   title: 'Components/ActionList/Dev',
@@ -300,3 +301,77 @@ export const ItemLabelStylesWithMixedDescriptions = () => (
     </Stack>
   </Stack>
 )
+
+export const OverlayWrapping = () => {
+  return (
+    <div style={{display: 'flex', flexDirection: 'column', gap: '100px'}}>
+      <div style={{width: '300px', border: 'solid 1px gray'}}>
+        <ActionList>
+          <ActionList.Item>thisisalongemailaddress@longemail.com</ActionList.Item>
+          <ActionList.Item>
+            thisisalongemailaddress@longemail.com
+            <ActionList.TrailingVisual>
+              <HeartFillIcon />
+            </ActionList.TrailingVisual>
+          </ActionList.Item>
+          <ActionList.Item>
+            thisisalongemailaddress@longemail.com
+            <ActionList.LeadingVisual>
+              <HeartFillIcon />
+            </ActionList.LeadingVisual>
+          </ActionList.Item>
+          <ActionList.Item>This is a long item title long long long oh wow</ActionList.Item>
+          <ActionList.Item>
+            This is a long item title long long long oh wow
+            <ActionList.TrailingVisual>
+              <HeartFillIcon />
+            </ActionList.TrailingVisual>
+          </ActionList.Item>
+        </ActionList>
+      </div>
+
+      <div>
+        <AnchoredOverlay
+          open
+          renderAnchor={props => (
+            <button type="button" {...props}>
+              Overlay
+            </button>
+          )}
+        >
+          <ActionList role="menu">
+            <ActionList.Item role="menuitem">This menu should grow a bit</ActionList.Item>
+          </ActionList>
+        </AnchoredOverlay>
+      </div>
+
+      <div>
+        <AnchoredOverlay
+          open
+          width="small"
+          renderAnchor={props => (
+            <button type="button" {...props}>
+              Overlay
+            </button>
+          )}
+        >
+          <ActionList role="menu">
+            <ActionList.Item role="menuitem">This menu should wrap because it has a small size</ActionList.Item>
+            {/* <ActionList.Item role="menuitem">
+            thisisalongemailaddress@longemail.com
+            <ActionList.TrailingVisual>
+              <HeartFillIcon />
+            </ActionList.TrailingVisual>
+          </ActionList.Item> */}
+            {/* <ActionList.Item role="menuitem">
+            thisisalongemailaddress@longemail.com
+            <ActionList.LeadingVisual>
+              <HeartFillIcon />
+            </ActionList.LeadingVisual>
+          </ActionList.Item> */}
+          </ActionList>
+        </AnchoredOverlay>
+      </div>
+    </div>
+  )
+}

@@ -1,0 +1,19 @@
+.PaddingContainer {
+  padding: var(--base-size-16);
+}
+
+.DescriptionText {
+  font-size: var(--text-body-size-medium);
+  color: var(--fgColor-muted);
+}
+
+.BoldLink {
+  font-weight: var(--base-text-weight-semibold);
+}
+
+.CustomNavigationList {
+  display: flex;
+  gap: var(--base-size-8);
+  list-style: none;
+  padding: 0 var(--base-size-16);
+}

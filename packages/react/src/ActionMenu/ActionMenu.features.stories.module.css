@@ -1,0 +1,4 @@
+.MutedText {
+  color: var(--fgColor-muted);
+  display: inline-block;
+}
