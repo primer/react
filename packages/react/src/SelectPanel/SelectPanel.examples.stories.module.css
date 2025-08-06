@@ -1,0 +1,27 @@
+/* CSS Module for SelectPanel examples stories */
+
+.colorCircle {
+  width: 14px;
+  height: 14px;
+  border-radius: 10px;
+  margin: auto;
+  border-width: 1px;
+  border-style: solid;
+}
+
+.customActionListItem {
+  margin-left: 8px;
+  margin-right: 8px;
+}
+
+.customActionListItem[data-is-active-descendant='activated-directly'] {
+  background-color: transparent;
+  outline: 2px solid var(--focus-outlineColor, var(--color-accent-emphasis));
+  outline-offset: -2px;
+}
+
+.truncatedText {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
