@@ -1,5 +1,5 @@
 import type {Meta} from '@storybook/react-vite'
-import {FormControl, Box} from '..'
+import {FormControl} from '..'
 import Select from './Select'
 import type {SelectProps} from './Select'
 import type {FormControlArgs} from '../utils/form-story-helpers'
@@ -9,6 +9,7 @@ import {
   getFormControlArgsByChildComponent,
   inputWrapperArgTypes,
 } from '../utils/form-story-helpers'
+import classes from './Select.stories.module.css'
 
 export default {
   title: 'Components/Select',
@@ -24,7 +25,7 @@ export const Playground = (args: FormControlArgs<SelectProps>) => {
   const {parentArgs, labelArgs, captionArgs, validationArgs} = getFormControlArgsByChildComponent(args)
 
   return (
-    <Box as="form">
+    <form>
       <FormControl {...parentArgs}>
         <FormControl.Label {...labelArgs} />
         <Select {...args}>
@@ -40,7 +41,7 @@ export const Playground = (args: FormControlArgs<SelectProps>) => {
           <FormControl.Validation {...validationArgs} variant={validationArgs.variant} />
         )}
       </FormControl>
-    </Box>
+    </form>
   )
 }
 Playground.args = {
@@ -52,7 +53,7 @@ Playground.argTypes = {
 }
 
 export const Default = () => (
-  <Box as="form">
+  <form>
     <FormControl>
       <FormControl.Label>Default label</FormControl.Label>
       <Select>
@@ -64,5 +65,5 @@ export const Default = () => (
         <Select.Option value="six">Choice six</Select.Option>
       </Select>
     </FormControl>
-  </Box>
+  </form>
 )
