@@ -17,15 +17,15 @@ import {
   UnderlineItem,
   type UnderlineItemProps,
 } from '../../internal/components/UnderlineTabbedInterface'
-import Box, {type BoxProps} from '../../Box'
+import {type BoxProps} from '../../Box'
 import {useId} from '../../hooks'
 import {invariant} from '../../utils/invariant'
 import {type SxProp} from '../../sx'
-import {defaultSxProp} from '../../utils/defaultSxProp'
 import {useResizeObserver, type ResizeObserverEntry} from '../../hooks/useResizeObserver'
 import useIsomorphicLayoutEffect from '../../utils/useIsomorphicLayoutEffect'
 import classes from './UnderlinePanels.module.css'
 import {clsx} from 'clsx'
+import {BoxWithFallback} from '../../internal/components/BoxWithFallback'
 
 export type UnderlinePanelsProps = {
   /**
@@ -83,7 +83,6 @@ const UnderlinePanels: FC<UnderlinePanelsProps> = ({
   'aria-labelledby': ariaLabelledBy,
   children,
   loadingCounters,
-  sx: sxProp = defaultSxProp,
   className,
   ...props
 }) => {
@@ -176,7 +175,6 @@ const UnderlinePanels: FC<UnderlinePanelsProps> = ({
         ref={wrapperRef}
         slot="tablist-wrapper"
         data-icons-visible={iconsVisible}
-        sx={sxProp}
         className={clsx(className, classes.StyledUnderlineWrapper)}
         {...props}
       >
@@ -189,7 +187,7 @@ const UnderlinePanels: FC<UnderlinePanelsProps> = ({
   )
 }
 
-const Tab: FC<TabProps> = ({'aria-selected': ariaSelected, sx: sxProp = defaultSxProp, onSelect, ...props}) => {
+const Tab: FC<TabProps> = ({'aria-selected': ariaSelected, onSelect, ...props}) => {
   const clickHandler = React.useCallback(
     (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
       if (!event.defaultPrevented && typeof onSelect === 'function') {
@@ -213,7 +211,6 @@ const Tab: FC<TabProps> = ({'aria-selected': ariaSelected, sx: sxProp = defaultS
       role="tab"
       tabIndex={ariaSelected ? 0 : -1}
       aria-selected={ariaSelected}
-      sx={sxProp}
       type="button"
       onClick={clickHandler}
       onKeyDown={keyDownHandler}
@@ -225,7 +222,7 @@ const Tab: FC<TabProps> = ({'aria-selected': ariaSelected, sx: sxProp = defaultS
 Tab.displayName = 'UnderlinePanels.Tab'
 
 const Panel: FC<PanelProps> = props => {
-  return <Box as="div" role="tabpanel" {...props} />
+  return <BoxWithFallback as="div" role="tabpanel" {...props} />
 }
 
 Panel.displayName = 'UnderlinePanels.Panel'

@@ -2,7 +2,7 @@
   "id": "underline_nav",
   "name": "UnderlineNav",
   "status": "beta",
-  "a11yReviewed": true,
+  "a11yReviewed": "2025-01-08",
   "stories": [
     {
       "id": "components-underlinenav--default"

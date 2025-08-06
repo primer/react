@@ -27,9 +27,11 @@ const preview = {
       root: '#html-addon-root',
       removeEmptyComments: true,
     },
+
     controls: {
       hideNoControlsWarning: true,
     },
+
     options: {
       storySort: (a, b) => {
         const defaultOrder = [
@@ -203,10 +205,15 @@ const preview = {
         return compare(getHierarchy(a), getHierarchy(b))
       },
     },
+
     viewport: {
       viewports: {
         ...storybookViewports,
       },
+    },
+
+    docs: {
+      codePanel: true,
     },
   },
 }
@@ -224,7 +231,7 @@ const primerThemes = [
 ]
 
 const defaultFeatureFlags = new Map(DefaultFeatureFlags.flags)
-const featureFlagEnvList = new Set(['PRIMER_REACT_CSS_MODULES_GA'])
+const featureFlagEnvList = new Set([])
 
 for (const flag of featureFlagEnvList) {
   if (import.meta.env[`VITE_${flag}`] === '1') {

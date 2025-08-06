@@ -34,6 +34,18 @@ export type TextareaProps = {
    * The className to apply to the wrapper element
    */
   className?: string
+  /**
+   * The minimum height of the Textarea
+   */
+  minHeight?: number
+  /**
+   * The maximum height of the Textarea
+   */
+  maxHeight?: number
+  /**
+   * CSS styles to apply to the Textarea
+   */
+  style?: React.CSSProperties
 } & TextareaHTMLAttributes<HTMLTextAreaElement> &
   SxProp
 
@@ -55,6 +67,9 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
       block,
       contrast,
       className,
+      minHeight,
+      maxHeight,
+      style,
       ...rest
     }: TextareaProps,
     ref,
@@ -78,6 +93,11 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
           rows={rows}
           cols={cols}
           className={classes.TextArea}
+          style={{
+            minHeight,
+            maxHeight,
+            ...style,
+          }}
           {...rest}
         />
       </TextInputBaseWrapper>

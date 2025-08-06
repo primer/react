@@ -1,42 +1,38 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`Avatar respects alignRight props 1`] = `
+exports[`AvatarStack > respects alignRight props 1`] = `
 <span
-  className="pc-AvatarStack--three-plus pc-AvatarStack--right AvatarStack"
+  class="pc-AvatarStack--variant pc-AvatarStack--shape pc-AvatarStack--three-plus pc-AvatarStack--right prc-AvatarStack-AvatarStack-LcJ4R"
   data-align-right=""
   data-avatar-count="3+"
   data-responsive=""
-  style={
-    {
-      "--stackSize-narrow": "20px",
-      "--stackSize-regular": "20px",
-      "--stackSize-wide": "20px",
-    }
-  }
+  data-shape="circle"
+  data-variant="cascade"
+  style="--stackSize-narrow: 20px; --stackSize-regular: 20px; --stackSize-wide: 20px;"
 >
   <div
-    className="pc-AvatarStackBody AvatarStackBody"
-    tabIndex={0}
+    class="pc-AvatarStackBody prc-AvatarStack-AvatarStackBody-LVwsN"
+    tabindex="0"
   >
      
     <img
       alt=""
-      className="pc-AvatarItem AvatarItem"
+      class="pc-AvatarItem prc-AvatarStack-AvatarItem-ZlFbL"
       src="https://avatars.githubusercontent.com/primer"
     />
     <img
       alt=""
-      className="pc-AvatarItem AvatarItem"
+      class="pc-AvatarItem prc-AvatarStack-AvatarItem-ZlFbL"
       src="https://avatars.githubusercontent.com/github"
     />
     <img
       alt=""
-      className="pc-AvatarItem AvatarItem"
+      class="pc-AvatarItem prc-AvatarStack-AvatarItem-ZlFbL"
       src="https://avatars.githubusercontent.com/primer"
     />
     <img
       alt=""
-      className="pc-AvatarItem AvatarItem"
+      class="pc-AvatarItem prc-AvatarStack-AvatarItem-ZlFbL"
       src="https://avatars.githubusercontent.com/github"
     />
   </div>

@@ -114,10 +114,17 @@ type StackItemProps<As> = React.PropsWithChildren<{
    * @default false
    */
   grow?: boolean | ResponsiveValue<boolean>
+
+  /**
+   * Allow item to keep size or expand to fill the available space
+   * @default true
+   */
+  shrink?: boolean | ResponsiveValue<boolean>
+
   className?: string
 }>
 
-const StackItem = forwardRef(({as, children, grow, className, ...rest}, forwardedRef) => {
+const StackItem = forwardRef(({as, children, grow, shrink, className, ...rest}, forwardedRef) => {
   return (
     <BoxWithFallback
       as={as}
@@ -125,6 +132,7 @@ const StackItem = forwardRef(({as, children, grow, className, ...rest}, forwarde
       {...rest}
       className={clsx(className, classes.StackItem)}
       {...getResponsiveAttributes('grow', grow)}
+      {...getResponsiveAttributes('shrink', shrink)}
     >
       {children}
     </BoxWithFallback>

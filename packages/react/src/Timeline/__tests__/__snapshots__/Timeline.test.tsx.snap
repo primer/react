@@ -3,7 +3,7 @@
 exports[`Timeline > renders with clipSidebar prop 1`] = `
 <div>
   <div
-    class="_Timeline_5d0zw_1"
+    class="prc-Timeline-Timeline-T476g"
     data-clip-sidebar=""
   />
 </div>
@@ -12,7 +12,7 @@ exports[`Timeline > renders with clipSidebar prop 1`] = `
 exports[`Timeline.Item > renders with condensed prop 1`] = `
 <div>
   <div
-    class="Timeline-Item _TimelineItem_5d0zw_6"
+    class="Timeline-Item prc-Timeline-TimelineItem-yUFAS"
     data-condensed=""
   />
 </div>

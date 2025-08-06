@@ -1,12 +1,23 @@
 {
   "$id": "component.schema.json",
   "type": "object",
-  "required": ["id", "name", "status", "a11yReviewed", "stories", "importPath", "props"],
+  "required": [
+    "id",
+    "name",
+    "status",
+    "a11yReviewed",
+    "stories",
+    "importPath",
+    "props"
+  ],
   "additionalProperties": false,
   "definitions": {
     "prop": {
       "type": "object",
-      "required": ["name", "type"],
+      "required": [
+        "name",
+        "type"
+      ],
       "properties": {
         "name": {
           "type": "string",
@@ -30,14 +41,18 @@
         },
         "description": {
           "type": "string",
-          "description": "A concise description of the prop."
+          "description": "A concise description of the prop.",
+          "format": "markdown"
         }
       }
     },
     "passthrough": {
       "type": "object",
       "description": "Indicate that the component passes through any additional props to an underlying element.",
-      "required": ["element", "url"],
+      "required": [
+        "element",
+        "url"
+      ],
       "additionalProperties": false,
       "properties": {
         "element": {
@@ -63,14 +78,20 @@
     "status": {
       "type": "string",
       "description": "The status of the component.",
-      "enum": ["draft", "alpha", "beta", "stable", "deprecated"]
+      "enum": [
+        "draft",
+        "alpha",
+        "beta",
+        "stable",
+        "deprecated"
+      ]
     },
     "docsId": {
       "type": "string",
       "description": "A unique identifier to group components that have multiple versions i.e. Tooltip and Tooltip v2."
     },
     "a11yReviewed": {
-      "type": "boolean",
+      "type": ["boolean", "string"],
       "description": "Indicate whether the component has been reviewed by the Accessibility team."
     },
     "importPath": {
@@ -81,13 +102,14 @@
       "type": "string",
       "description": "Link to the component source on GitHub"
     },
-
     "stories": {
       "type": "array",
       "description": "An array of Storybook story IDs to embed in the docs.",
       "items": {
         "type": "object",
-        "required": ["id"],
+        "required": [
+          "id"
+        ],
         "additionalProperties": false,
         "properties": {
           "id": {
@@ -116,7 +138,10 @@
       "description": "Information about the subcomponents.",
       "items": {
         "type": "object",
-        "required": ["name", "props"],
+        "required": [
+          "name",
+          "props"
+        ],
         "properties": {
           "name": {
             "type": "string",

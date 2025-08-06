@@ -1,6 +1,7 @@
-import type {Meta, StoryObj} from '@storybook/react'
+import type {Meta, StoryObj} from '@storybook/react-vite'
 import {Stack} from '../Stack'
 import type {ResponsiveValue} from '../hooks/useResponsiveValue'
+import type {InputType} from 'storybook/internal/csf'
 
 type Story = StoryObj<typeof Stack>
 
@@ -468,58 +469,42 @@ export const Playground: Story = {
   },
 }
 
+function createArgMetaData(category: string): InputType {
+  return {
+    control: {
+      type: 'boolean',
+    },
+    table: {
+      category,
+      defaultValue: {
+        summary: 'true',
+      },
+    },
+  }
+}
+
 export const StackItemPlayground: Story = {
   args: {
     grow: true,
     growNarrow: true,
     growRegular: true,
     growWide: true,
+
+    shrink: true,
+    shrinkNarrow: true,
+    shrinkRegular: true,
+    shrinkWide: true,
   },
   argTypes: {
-    grow: {
-      control: {
-        type: 'boolean',
-      },
-      table: {
-        category: 'Properties',
-        defaultValue: {
-          summary: 'true',
-        },
-      },
-    },
-    growNarrow: {
-      control: {
-        type: 'boolean',
-      },
-      table: {
-        category: 'Narrow properties',
-        defaultValue: {
-          summary: 'true',
-        },
-      },
-    },
-    growRegular: {
-      control: {
-        type: 'boolean',
-      },
-      table: {
-        category: 'Regular properties',
-        defaultValue: {
-          summary: 'true',
-        },
-      },
-    },
-    growWide: {
-      control: {
-        type: 'boolean',
-      },
-      table: {
-        category: 'Wide properties',
-        defaultValue: {
-          summary: 'true',
-        },
-      },
-    },
+    grow: createArgMetaData('Properties'),
+    growNarrow: createArgMetaData('Narrow properties'),
+    growRegular: createArgMetaData('Regular properties'),
+    growWide: createArgMetaData('Wide properties'),
+
+    shrink: createArgMetaData('Properties'),
+    shrinkNarrow: createArgMetaData('Narrow properties'),
+    shrinkRegular: createArgMetaData('Regular properties'),
+    shrinkWide: createArgMetaData('Wide properties'),
   },
   render: args => {
     return (
@@ -529,6 +514,11 @@ export const StackItemPlayground: Story = {
             narrow: args.growNarrow,
             regular: args.growRegular,
             wide: args.growWide,
+          })}
+          shrink={getControlValues(args.shrink, {
+            narrow: args.shrinkNarrow,
+            regular: args.shrinkRegular,
+            wide: args.shrinkWide,
           })}
         >
           <div

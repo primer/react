@@ -5,17 +5,17 @@ import type {AvatarProps} from '../Avatar/Avatar'
 import {DEFAULT_AVATAR_SIZE} from '../Avatar/Avatar'
 import type {ResponsiveValue} from '../hooks/useResponsiveValue'
 import {isResponsiveValue} from '../hooks/useResponsiveValue'
-import {defaultSxProp} from '../utils/defaultSxProp'
 import type {WidthOnlyViewportRangeKeys} from '../utils/types/ViewportRangeKeys'
 import classes from './AvatarStack.module.css'
 import {hasInteractiveNodes} from '../internal/utils/hasInteractiveNodes'
 import {BoxWithFallback} from '../internal/components/BoxWithFallback'
 
-const transformChildren = (children: React.ReactNode) => {
+const transformChildren = (children: React.ReactNode, shape: AvatarStackProps['shape']) => {
   return React.Children.map(children, child => {
     if (!React.isValidElement(child)) return child
     return React.cloneElement(child, {
       ...child.props,
+      square: shape === 'square' ? true : undefined,
       className: clsx(child.props.className, 'pc-AvatarItem', classes.AvatarItem),
     })
   })
@@ -24,6 +24,8 @@ const transformChildren = (children: React.ReactNode) => {
 export type AvatarStackProps = {
   alignRight?: boolean
   disableExpand?: boolean
+  variant?: 'cascade' | 'stack'
+  shape?: 'circle' | 'square'
   size?: number | ResponsiveValue<number>
   className?: string
   children: React.ReactNode
@@ -60,12 +62,14 @@ const AvatarStackBody = ({
 
 const AvatarStack = ({
   children,
+  variant = 'cascade',
+  shape = 'circle',
   alignRight,
   disableExpand,
   size,
   className,
   style,
-  sx: sxProp = defaultSxProp,
+  sx: sxProp,
 }: AvatarStackProps) => {
   const [hasInteractiveChildren, setHasInteractiveChildren] = useState<boolean | undefined>(false)
   const stackContainer = useRef<HTMLDivElement>(null)
@@ -158,11 +162,15 @@ const AvatarStack = ({
   return (
     <BoxWithFallback
       as="span"
+      data-variant={variant}
+      data-shape={shape}
       data-avatar-count={count > 3 ? '3+' : count}
       data-align-right={alignRight ? '' : undefined}
       data-responsive={!size || isResponsiveValue(size) ? '' : undefined}
       className={clsx(
         {
+          'pc-AvatarStack--variant': variant,
+          'pc-AvatarStack--shape': shape,
           'pc-AvatarStack--two': count === 2,
           'pc-AvatarStack--three': count === 3,
           'pc-AvatarStack--three-plus': count > 3,
@@ -180,7 +188,7 @@ const AvatarStack = ({
         stackContainer={stackContainer}
       >
         {' '}
-        {transformChildren(children)}
+        {transformChildren(children, shape)}
       </AvatarStackBody>
     </BoxWithFallback>
   )

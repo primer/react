@@ -1,4 +1,4 @@
-import type {StoryFn, Meta} from '@storybook/react'
+import type {StoryFn, Meta} from '@storybook/react-vite'
 import type {ActionListProps, ActionListGroupProps} from '.'
 import {ActionList} from '.'
 import {Item} from './Item'
@@ -128,6 +128,12 @@ ItemPlayground.argTypes = {
     control: 'radio',
     options: ['default', 'danger'],
   },
+  size: {
+    control: {
+      type: 'radio',
+    },
+    options: ['medium', 'large'],
+  },
   role: {
     type: 'string',
   },
@@ -166,6 +172,7 @@ ItemPlayground.args = {
   disabled: false,
   inactiveText: '',
   variant: 'default',
+  size: 'medium',
   id: 'item-1',
   leadingVisual: null,
   loading: false,

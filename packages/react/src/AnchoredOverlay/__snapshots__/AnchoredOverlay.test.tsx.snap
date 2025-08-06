@@ -3,7 +3,7 @@
 exports[`AnchoredOverlay > should render consistently when open 1`] = `
 <div>
   <div
-    class="_BaseStyles_1n09d_56"
+    class="prc-src-BaseStyles-9LBd2"
     data-color-mode="light"
     data-dark-theme="dark"
     data-light-theme="light"
@@ -13,7 +13,7 @@ exports[`AnchoredOverlay > should render consistently when open 1`] = `
       aria-describedby=":rd:-loading-announcement"
       aria-expanded="true"
       aria-haspopup="true"
-      class="_ButtonBase_1h0a3_2"
+      class="prc-Button-ButtonBase-Eb8-K"
       data-loading="false"
       data-no-visuals="true"
       data-size="medium"
@@ -23,12 +23,12 @@ exports[`AnchoredOverlay > should render consistently when open 1`] = `
       type="button"
     >
       <span
-        class="_ButtonContent_1h0a3_101"
+        class="prc-Button-ButtonContent-KZ5Bz"
         data-align="center"
         data-component="buttonContent"
       >
         <span
-          class="_Label_1h0a3_128"
+          class="prc-Button-Label-B1e2-"
           data-component="text"
         >
           Anchor Button
@@ -37,20 +37,20 @@ exports[`AnchoredOverlay > should render consistently when open 1`] = `
     </button>
     <div
       id="__primerPortalRoot__"
-      style="position: absolute; top: 0px; left: 0px;"
+      style="position: absolute; top: 0px; left: 0px; width: 100%;"
     >
       <div
         style="position: relative; z-index: 1;"
       >
         <div
-          class="_Overlay_1a2ug_11"
+          class="prc-Overlay-Overlay-ViJgm"
           data-focus-trap="active"
           data-height-auto=""
           data-variant="anchored"
           data-visibility-visible=""
           data-width-auto=""
           role="none"
-          style="left: 0px; top: 26.8438px;"
+          style="left: 0px; top: 36px;"
         >
           <span
             aria-hidden="true"

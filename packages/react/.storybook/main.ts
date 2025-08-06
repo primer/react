@@ -3,6 +3,7 @@ import path from 'node:path'
 import react from '@vitejs/plugin-react'
 import postcssPresetPrimer from 'postcss-preset-primer'
 import type {StorybookConfig} from '@storybook/react-vite'
+import {isSupported} from '../script/react-compiler.mjs'
 
 const require = createRequire(import.meta.url)
 
@@ -14,23 +15,20 @@ const config: StorybookConfig = {
       ? ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)']
       : // Don't include dev stories in production
         ['../src/**/*.mdx', '../src/**/!(*.dev).stories.@(js|jsx|ts|tsx)'],
+
   addons: [
-    {
-      name: '@storybook/addon-essentials',
-      options: {
-        backgrounds: false,
-      },
-    },
-    getAbsolutePath('@storybook/addon-storysource'),
-    getAbsolutePath('@storybook/addon-interactions'),
     getAbsolutePath('@storybook/addon-a11y'),
     getAbsolutePath('@storybook/addon-links'),
+    getAbsolutePath('@storybook/addon-docs'),
   ],
 
   framework: {
-    name: '@storybook/react-vite',
-    options: {},
+    name: getAbsolutePath('@storybook/react-vite'),
+    options: {
+      strictMode: true,
+    },
   },
+
   async viteFinal(config) {
     config.define = {
       ...config.define,
@@ -55,7 +53,22 @@ const config: StorybookConfig = {
       config.css.postcss.plugins = [postcssPresetPrimer()]
     }
 
-    config.plugins = [...(config.plugins ?? []), react()]
+    config.plugins = [
+      ...(config.plugins ?? []),
+      react({
+        babel: {
+          plugins: [
+            [
+              'babel-plugin-react-compiler',
+              {
+                sources: (filepath: string) => isSupported(filepath),
+                target: '18',
+              },
+            ],
+          ],
+        },
+      }),
+    ]
 
     if (DEPLOY_ENV === 'development') {
       config.server = {
@@ -65,6 +78,10 @@ const config: StorybookConfig = {
     }
 
     return config
+  },
+
+  features: {
+    backgrounds: false,
   },
 }
 
