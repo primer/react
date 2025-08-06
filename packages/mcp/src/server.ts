@@ -175,7 +175,7 @@ server.tool(
     name: z.string().describe('The name of the pattern to retrieve'),
   },
   async ({name}) => {
-    const patterns = listComponents()
+    const patterns = listPatterns()
     const match = patterns.find(pattern => {
       return pattern.name === name
     })
