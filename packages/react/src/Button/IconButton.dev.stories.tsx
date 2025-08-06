@@ -1,34 +1,44 @@
 import {BoldIcon, ChevronDownIcon} from '@primer/octicons-react'
 import {IconButton} from '.'
-import Box from '../Box'
 import {Stack} from '../Stack'
+import classes from './IconButton.dev.stories.module.css'
 
 export default {
   title: 'Components/IconButton/Dev',
 }
 
 export const CustomSize = () => (
-  <IconButton aria-label="Expand" variant="primary" size="small" icon={ChevronDownIcon} sx={{width: 24, height: 24}} />
+  <IconButton
+    aria-label="Expand"
+    variant="primary"
+    size="small"
+    icon={ChevronDownIcon}
+    className={classes.CustomSize}
+  />
 )
 
-export const CustomSizeWithMedia = () => {
-  return (
-    <IconButton
-      aria-label="Expand"
-      variant="primary"
-      size="small"
-      icon={ChevronDownIcon}
-      sx={{'@media (min-width: 123px)': {width: 24, height: 24}}}
-    />
-  )
-}
+export const CustomSizeWithMedia = () => (
+  <IconButton
+    aria-label="Expand"
+    variant="primary"
+    size="small"
+    icon={ChevronDownIcon}
+    className={classes.CustomSizeWithMedia}
+  />
+)
 
 export const CustomIconColor = () => (
-  <IconButton aria-label="Expand" variant="invisible" size="small" icon={ChevronDownIcon} sx={{color: 'red'}} />
+  <IconButton
+    aria-label="Expand"
+    variant="invisible"
+    size="small"
+    icon={ChevronDownIcon}
+    className={classes.CustomIconColor}
+  />
 )
 
 export const CustomSizeWithStyleProp = () => (
-  <Box sx={{border: '1px solid', borderColor: 'border.default', display: 'inline-block'}}>
+  <span className={classes.BoxBorder}>
     <IconButton
       icon={BoldIcon}
       aria-label="Bold"
@@ -36,7 +46,7 @@ export const CustomSizeWithStyleProp = () => (
       variant="invisible"
       style={{width: '20px', height: '28px'}}
     />
-  </Box>
+  </span>
 )
 
 export const IconButtonWithinFlexContainer = () => (
