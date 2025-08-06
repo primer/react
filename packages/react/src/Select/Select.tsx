@@ -11,6 +11,7 @@ export type SelectProps = Omit<
   'multiple' | 'hasLeadingVisual' | 'hasTrailingVisual' | 'as'
 > & {
   placeholder?: string
+  wrapperClassName?: string
 }
 
 const ArrowIndicatorSVG: React.FC<React.PropsWithChildren<{className?: string}>> = ({className}) => {
@@ -46,6 +47,7 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
       required,
       validationStatus,
       sx,
+      wrapperClassName,
       ...rest
     }: SelectProps,
     ref,
@@ -57,7 +59,7 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
         disabled={disabled}
         size={size}
         validationStatus={validationStatus}
-        className={classes.TextInputWrapper}
+        className={clsx(classes.TextInputWrapper, wrapperClassName)}
         sx={sx}
       >
         <select
