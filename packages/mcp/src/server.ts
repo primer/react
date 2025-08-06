@@ -116,7 +116,7 @@ server.tool(
     const url = new URL(`/product/components/${match.id}`, 'https://primer.style')
     const response = await fetch(url)
     if (!response.ok) {
-      throw new Error(`Failed to fetch ${url}: ${url} - ${response.statusText}`)
+      throw new Error(`Failed to fetch ${url}: ${response.statusText}`)
     }
 
     const html = await response.text()
