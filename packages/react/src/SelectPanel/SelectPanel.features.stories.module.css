@@ -1,0 +1,14 @@
+.ColorCircle {
+  display: block;
+  width: 14px;
+  height: 14px;
+  border-radius: var(--borderRadius-large);
+  margin: auto;
+  border: var(--borderWidth-default) solid;
+  box-sizing: border-box;
+}
+
+.MutedText {
+  color: var(--fgColor-muted);
+  display: inline-block;
+}
