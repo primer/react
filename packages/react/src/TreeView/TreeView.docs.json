@@ -110,6 +110,11 @@
           "description": "The controlled expanded state of item. Must be used in conjunction with onExpandedChange."
         },
         {
+          "name": "secondaryActions",
+          "type": "TreeViewSecondaryActions[]",
+          "description": "An array of secondary actions to render in as a trailing action. Each action should have a 'label', 'icon', and 'onClick' handler."
+        },
+        {
           "name": "containIntrinsicSize",
           "type": "string",
           "description": "The size of this item's contents. Passing this will set 'content-visiblity: auto' on the content container, delaying rendering until the item is in the viewport."
