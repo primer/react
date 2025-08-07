@@ -1,27 +1,16 @@
 import React from 'react'
 import {SelectPanel} from './SelectPanel'
-import {
-  ActionList,
-  Avatar,
-  Box,
-  Button,
-  Link,
-  SegmentedControl,
-  Text,
-  ToggleSwitch,
-  useResponsiveValue,
-} from '../../index'
+import {ActionList, Avatar, Button, Link, SegmentedControl, ToggleSwitch, useResponsiveValue} from '../../index'
 import {TagIcon, GearIcon, ArrowBothIcon} from '@primer/octicons-react'
 import data from './mock-story-data'
+import classes from './SelectPanel.features.stories.module.css'
 
 export default {
   title: 'Deprecated/Components/SelectPanel/Features',
   component: SelectPanel,
 }
 
-const getCircle = (color: string) => (
-  <Box sx={{width: 14, height: 14, borderRadius: '100%'}} style={{backgroundColor: `#${color}`}} />
-)
+const getCircle = (color: string) => <div className={classes.Circle} style={{backgroundColor: `#${color}`}} />
 
 export const InstantSelectionVariant = () => {
   const [selectedTag, setSelectedTag] = React.useState<string>()
@@ -123,11 +112,7 @@ export const WithWarning = () => {
         onCancel={onCancel}
         onClearSelection={onClearSelection}
       >
-        <SelectPanel.Button
-          variant="invisible"
-          trailingAction={GearIcon}
-          sx={{width: '200px', '[data-component=buttonContent]': {justifyContent: 'start'}}}
-        >
+        <SelectPanel.Button variant="invisible" trailingAction={GearIcon} className={classes.ButtonCustom}>
           Assignees
         </SelectPanel.Button>
         <SelectPanel.Header>
@@ -238,45 +223,41 @@ export const WithErrors = () => {
     <>
       <h1>SelectPanel with Errors</h1>
 
-      <Box sx={{display: 'flex', maxWidth: 600, marginBottom: 2}}>
-        <Box sx={{flexGrow: 1}}>
-          <Text sx={{fontSize: 2, fontWeight: 'bold', display: 'block'}} id="switch-label">
+      <div className={classes.SwitchContainer}>
+        <div className={classes.SwitchContent}>
+          <span className={classes.SwitchLabel} id="switch-label">
             Break search API
-          </Text>
-          <Text sx={{fontSize: 1, color: 'fg.subtle'}} id="switch-caption">
+          </span>
+          <span className={classes.SwitchCaption} id="switch-caption">
             Turn on to show error message while searching
-          </Text>
-        </Box>
+          </span>
+        </div>
         <ToggleSwitch
           defaultChecked={true}
           onChange={enabled => setSearchBroken(enabled)}
           aria-labelledby="switch-label"
           aria-describedby="switch-caption"
         />
-      </Box>
-      <Box sx={{display: 'flex', marginBottom: 5, maxWidth: 600}}>
-        <Box sx={{flexGrow: 1}}>
-          <Text id="break-issues-label" sx={{fontSize: 2, fontWeight: 'bold', display: 'block'}}>
+      </div>
+      <div className={classes.SwitchContainerLast}>
+        <div className={classes.SwitchContent}>
+          <span id="break-issues-label" className={classes.SwitchLabel}>
             Break issues API
-          </Text>
-          <Text id="break-issues-caption" sx={{fontSize: 1, color: 'fg.subtle'}}>
+          </span>
+          <span id="break-issues-caption" className={classes.SwitchCaption}>
             Turn on to break everything and show big error in panel
-          </Text>
-        </Box>
+          </span>
+        </div>
         <ToggleSwitch
           defaultChecked={true}
           onChange={enabled => setIssuesBroken(enabled)}
           aria-labelledby="break-issues-label"
           aria-describedby="break-issues-caption"
         />
-      </Box>
+      </div>
 
       <SelectPanel title="Set assignees" onSubmit={onSubmit} onCancel={onCancel} onClearSelection={onClearSelection}>
-        <SelectPanel.Button
-          variant="invisible"
-          trailingAction={GearIcon}
-          sx={{width: '200px', '[data-component=buttonContent]': {justifyContent: 'start'}}}
-        >
+        <SelectPanel.Button variant="invisible" trailingAction={GearIcon} className={classes.ButtonCustom}>
           Assignees
         </SelectPanel.Button>
         <SelectPanel.Header>
@@ -526,11 +507,7 @@ export const ResponsiveVariants = () => {
       {Controls}
 
       <SelectPanel title="Set assignees" variant={variant} onSubmit={onSubmit} onClearSelection={onClearSelection}>
-        <SelectPanel.Button
-          variant="invisible"
-          trailingAction={GearIcon}
-          sx={{width: '200px', '[data-component=buttonContent]': {justifyContent: 'start'}}}
-        >
+        <SelectPanel.Button variant="invisible" trailingAction={GearIcon} className={classes.ButtonCustom}>
           Assignees
         </SelectPanel.Button>
         <SelectPanel.Header>
@@ -574,16 +551,16 @@ const useResponsiveControlsForStory = () => {
   const isNarrow = useResponsiveValue({narrow: true}, false)
 
   const Controls = (
-    <Box sx={{display: 'flex', flexDirection: 'column', gap: 2, marginBottom: 4, maxWidth: 480, fontSize: 1}}>
-      <Box sx={{display: 'flex', minHeight: 42}}>
-        <Box sx={{flexGrow: 1}}>
-          <Text sx={{display: 'block'}}>Regular variant</Text>
+    <div className={classes.ResponsiveControls}>
+      <div className={classes.ControlRow}>
+        <div className={classes.ControlContent}>
+          <span className={classes.ControlLabel}>Regular variant</span>
           {isNarrow ? (
-            <Text sx={{color: 'attention.fg'}}>
+            <span className={classes.AttentionText}>
               <ArrowBothIcon size={16} /> Resize screen to see regular variant
-            </Text>
+            </span>
           ) : null}
-        </Box>
+        </div>
         <SegmentedControl aria-label="Regular variant" size="small">
           <SegmentedControl.Button
             selected={variant.regular === 'anchored'}
@@ -598,16 +575,16 @@ const useResponsiveControlsForStory = () => {
             Modal
           </SegmentedControl.Button>
         </SegmentedControl>
-      </Box>
-      <Box sx={{display: 'flex', minHeight: 42}}>
-        <Box sx={{flexGrow: 1}}>
-          <Text sx={{display: 'block'}}>Narrow variant</Text>
+      </div>
+      <div className={classes.ControlRow}>
+        <div className={classes.ControlContent}>
+          <span className={classes.ControlLabel}>Narrow variant</span>
           {isNarrow ? null : (
-            <Text sx={{color: 'attention.fg'}}>
+            <span className={classes.AttentionText}>
               <ArrowBothIcon size={16} /> Resize screen to see narrow variant
-            </Text>
+            </span>
           )}
-        </Box>
+        </div>
         <SegmentedControl aria-label="Narrow variant" size="small">
           <SegmentedControl.Button
             selected={variant.narrow === 'full-screen'}
@@ -622,8 +599,8 @@ const useResponsiveControlsForStory = () => {
             Bottom sheet
           </SegmentedControl.Button>
         </SegmentedControl>
-      </Box>
-    </Box>
+      </div>
+    </div>
   )
 
   return {variant, Controls}
