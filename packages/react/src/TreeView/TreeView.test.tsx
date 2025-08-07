@@ -4,7 +4,6 @@ import {beforeEach, afterEach, describe, it, expect, vi} from 'vitest'
 import React from 'react'
 import type {SubTreeState} from './TreeView'
 import {TreeView} from './TreeView'
-import {IconButton} from '../Button'
 import {GearIcon} from '@primer/octicons-react'
 
 // TODO: Move this function into a shared location
