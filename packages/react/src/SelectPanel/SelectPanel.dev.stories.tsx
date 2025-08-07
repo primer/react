@@ -2,6 +2,7 @@ import {TriangleDownIcon} from '@primer/octicons-react'
 import type {Meta} from '@storybook/react-vite'
 import type React from 'react'
 import {useState} from 'react'
+import {clsx} from 'clsx'
 
 import {Button} from '../Button'
 import {SelectPanel} from '.'
@@ -178,7 +179,7 @@ export const WithSxAndCSS = () => {
         selected={selected}
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
-        className={`${classes.TimesNewRomanFont} testCustomClassnameMono`}
+        className={clsx(classes.TimesNewRomanFont, 'testCustomClassnameMono')}
         message={selectedItemsSortedFirst.length === 0 ? NoResultsMessage(filter) : undefined}
       />
     </FormControl>
