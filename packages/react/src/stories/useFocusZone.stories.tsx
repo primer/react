@@ -46,36 +46,26 @@ export const BasicFocusZone = () => {
 
   return (
     <>
-      <Box display="flex" flexDirection="column" alignItems="flex-start" onKeyDownCapture={reportKey}>
-        <Box position="absolute" right={5} top={2}>
-          Last key pressed: {lastKey}
-        </Box>
-        <Button variant={fzEnabled ? 'danger' : 'primary'} onClick={toggleFz} sx={{mb: 3}}>
+      <div className={classes.FlexColumnContainer} onKeyDownCapture={reportKey}>
+        <div className={classes.AbsoluteTopRight}>Last key pressed: {lastKey}</div>
+        <Button variant={fzEnabled ? 'danger' : 'primary'} onClick={toggleFz} className={classes.MarginBottom3}>
           {fzEnabled ? 'Disable' : 'Enable'} Focus Zone
         </Button>
         <MarginButton>Apple</MarginButton>
         <MarginButton>Banana</MarginButton>
         <MarginButton>Cantaloupe</MarginButton>
-        <Box
-          borderColor="gray.5"
-          ref={containerRef as React.RefObject<HTMLDivElement>}
-          m={4}
-          p={4}
-          borderWidth="1px"
-          borderStyle="solid"
-          borderRadius={2}
-        >
+        <div className={classes.BorderedContainer} ref={containerRef as React.RefObject<HTMLDivElement>}>
           <strong>Use Up Arrow, Down Arrow, Home, and End to move focus within this box.</strong>
-          <Box display="flex" flexDirection="column" alignItems="flex-start">
+          <div className={classes.FlexColumnContainer}>
             <MarginButton>Durian</MarginButton>
             <MarginButton>Elderberry</MarginButton>
             <MarginButton>Fig</MarginButton>
-          </Box>
-        </Box>
+          </div>
+        </div>
         <MarginButton>Kiwi</MarginButton>
         <MarginButton>Lemon</MarginButton>
         <MarginButton>Mango</MarginButton>
-      </Box>
+      </div>
     </>
   )
 }
@@ -98,53 +88,35 @@ export const FocusOutBehavior = () => {
 
   return (
     <>
-      <Box display="flex" flexDirection="column" alignItems="flex-start" onKeyDownCapture={reportKey}>
-        <Box position="absolute" right={5} top={2}>
-          Last key pressed: {lastKey}
-        </Box>
+      <div className={classes.FlexColumnContainer} onKeyDownCapture={reportKey}>
+        <div className={classes.AbsoluteTopRight}>Last key pressed: {lastKey}</div>
         <MarginButton>Apple</MarginButton>
         <MarginButton>Banana</MarginButton>
         <MarginButton>Cantaloupe</MarginButton>
-        <Box
-          borderColor="gray.5"
-          ref={containerRef1 as React.RefObject<HTMLDivElement>}
-          m={4}
-          p={4}
-          borderWidth="1px"
-          borderStyle="solid"
-          borderRadius={2}
-        >
+        <div className={classes.BorderedContainer} ref={containerRef1 as React.RefObject<HTMLDivElement>}>
           <strong>
             Use Left Arrow, Right Arrow, Home, and End to move focus within this box. Focus stops at the ends.
           </strong>
 
-          <Box display="flex" flexDirection="row" alignItems="flex-start">
+          <div className={classes.FlexRowContainer}>
             <MarginButton>Durian</MarginButton>
             <MarginButton>Elderberry</MarginButton>
             <MarginButton>Fig</MarginButton>
-          </Box>
-        </Box>
-        <Box
-          borderColor="gray.5"
-          ref={containerRef2 as React.RefObject<HTMLDivElement>}
-          m={4}
-          p={4}
-          borderWidth="1px"
-          borderStyle="solid"
-          borderRadius={2}
-        >
+          </div>
+        </div>
+        <div className={classes.BorderedContainer} ref={containerRef2 as React.RefObject<HTMLDivElement>}>
           <strong>Use Left Arrow, Right Arrow, Home, and End to move focus within this box. Focus is circular.</strong>
 
-          <Box display="flex" flexDirection="row" alignItems="flex-start">
+          <div className={classes.FlexRowContainer}>
             <MarginButton>Grapefruit</MarginButton>
             <MarginButton>Honeydew</MarginButton>
             <MarginButton>Jackfruit</MarginButton>
-          </Box>
-        </Box>
+          </div>
+        </div>
         <MarginButton>Kiwi</MarginButton>
         <MarginButton>Lemon</MarginButton>
         <MarginButton>Mango</MarginButton>
-      </Box>
+      </div>
     </>
   )
 }
@@ -215,20 +187,13 @@ export const CustomFocusMovement = () => {
 
   return (
     <>
-      <Box display="flex" flexDirection="column" alignItems="flex-start" onKeyDownCapture={reportKey}>
-        <Box position="absolute" right={5} top={2}>
-          Last key pressed: {lastKey}
-        </Box>
+      <div className={classes.FlexColumnContainer} onKeyDownCapture={reportKey}>
+        <div className={classes.AbsoluteTopRight}>Last key pressed: {lastKey}</div>
         <MarginButton>Apple</MarginButton>
 
-        <Box borderColor="gray.5" m={4} p={4} borderWidth="1px" borderStyle="solid" borderRadius={2}>
+        <div className={classes.BorderedGridContainer}>
           <strong>Use arrow keys to move focus within this box.</strong>
-          <Box
-            display="grid"
-            ref={containerRef as React.RefObject<HTMLDivElement>}
-            gridTemplateRows="1fr 1fr 1fr"
-            gridTemplateColumns="1fr 1fr 1fr"
-          >
+          <div className={classes.GridContainer} ref={containerRef as React.RefObject<HTMLDivElement>}>
             <MarginButton>Banana</MarginButton>
             <MarginButton>Cantaloupe</MarginButton>
             <MarginButton>Durian</MarginButton>
@@ -238,11 +203,11 @@ export const CustomFocusMovement = () => {
             <MarginButton>Honeydew</MarginButton>
             <MarginButton>Jackfruit</MarginButton>
             <MarginButton>Kiwi</MarginButton>
-          </Box>
-        </Box>
+          </div>
+        </div>
         <MarginButton>Lemon</MarginButton>
         <MarginButton>Mango</MarginButton>
-      </Box>
+      </div>
     </>
   )
 }
