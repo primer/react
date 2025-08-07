@@ -33,7 +33,7 @@
   border-color: var(--borderColor-default);
   margin: var(--base-size-16); /* 4 * 4px */
   padding: var(--base-size-16); /* 4 * 4px */
-  border-width: 1px;
+  border-width: var(--borderWidth-thin);
   border-style: solid;
   border-radius: var(--borderRadius-medium); /* 2 * 2px */
 }
@@ -50,7 +50,7 @@
   border-color: var(--borderColor-default);
   margin: var(--base-size-16); /* 4 * 4px */
   padding: var(--base-size-16); /* 4 * 4px */
-  border-width: 1px;
+  border-width: var(--borderWidth-thin);
   border-style: solid;
   border-radius: var(--borderRadius-medium); /* 2 * 2px */
 }
