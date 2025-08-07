@@ -1683,19 +1683,15 @@ describe('Asynchronous loading', () => {
 it('should render `TrailingAction`', async () => {
   const {getByRole} = renderWithTheme(
     <TreeView aria-label="Files changed">
-      <TreeView.Item id="src" defaultExpanded>
+      <TreeView.Item
+        id="src"
+        defaultExpanded
+        secondaryActions={[{icon: GearIcon, label: 'Item settings', onClick: () => {}}]}
+      >
         <TreeView.LeadingVisual>
           <TreeView.DirectoryIcon />
         </TreeView.LeadingVisual>
         Parent
-        <TreeView.TrailingAction>
-          <IconButton
-            icon={GearIcon}
-            variant="invisible"
-            aria-label="Item settings"
-            className="treeview-leading-action"
-          />
-        </TreeView.TrailingAction>
         <TreeView.SubTree>
           <TreeView.Item id="src/Avatar.tsx">child</TreeView.Item>
           <TreeView.Item id="src/Button.tsx" current>
@@ -1710,25 +1706,21 @@ it('should render `TrailingAction`', async () => {
     </TreeView>,
   )
 
-  expect(getByRole('button', {name: 'Item settings', hidden: true})).toBeInTheDocument()
+  expect(getByRole('button', {hidden: true})).toHaveAttribute('aria-labelledby')
 })
 
 it('should have keyboard shortcut command as part of accessible name when using `TrailingAction`', () => {
   const {getByRole} = renderWithTheme(
     <TreeView aria-label="Files changed">
-      <TreeView.Item id="src" defaultExpanded>
+      <TreeView.Item
+        id="src"
+        defaultExpanded
+        secondaryActions={[{icon: GearIcon, label: 'Item settings', onClick: () => {}}]}
+      >
         <TreeView.LeadingVisual>
           <TreeView.DirectoryIcon />
         </TreeView.LeadingVisual>
         Parent
-        <TreeView.TrailingAction>
-          <IconButton
-            icon={GearIcon}
-            variant="invisible"
-            aria-label="Item settings"
-            className="treeview-leading-action"
-          />
-        </TreeView.TrailingAction>
         <TreeView.SubTree>
           <TreeView.Item id="src/Avatar.tsx">child</TreeView.Item>
           <TreeView.Item id="src/Button.tsx" current>
@@ -1749,19 +1741,16 @@ it('should have keyboard shortcut command as part of accessible name when using 
 it('should have keyboard shortcut command as part of accessible name when using `TrailingAction` and `aria-label`', () => {
   const {getByRole} = renderWithTheme(
     <TreeView aria-label="Files changed">
-      <TreeView.Item id="src" aria-label="Parent" defaultExpanded>
+      <TreeView.Item
+        id="src"
+        aria-label="Parent"
+        defaultExpanded
+        secondaryActions={[{icon: GearIcon, label: 'Item settings', onClick: () => {}}]}
+      >
         <TreeView.LeadingVisual>
           <TreeView.DirectoryIcon />
         </TreeView.LeadingVisual>
         Parent
-        <TreeView.TrailingAction>
-          <IconButton
-            icon={GearIcon}
-            variant="invisible"
-            aria-label="Item settings"
-            className="treeview-leading-action"
-          />
-        </TreeView.TrailingAction>
       </TreeView.Item>
     </TreeView>,
   )

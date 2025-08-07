@@ -202,7 +202,6 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
       leadingAction: LeadingAction,
       leadingVisual: LeadingVisual,
       trailingVisual: TrailingVisual,
-      trailingAction: TrailingAction,
     })
     const {expandedStateCache} = React.useContext(RootContext)
     const labelId = useId()
@@ -317,16 +316,10 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
           id={itemId}
           role="treeitem"
           aria-label={
-            slots.trailingAction
-              ? ariaLabel
-                ? `${ariaLabel}. ${TRAILING_ACTION_SHORTCUT_TEXT}`
-                : undefined
-              : ariaLabel
+            secondaryActions ? (ariaLabel ? `${ariaLabel}. ${TRAILING_ACTION_SHORTCUT_TEXT}` : undefined) : ariaLabel
           }
           aria-labelledby={
-            ariaLabel
-              ? undefined
-              : `${ariaLabelledby || labelId} ${slots.trailingAction ? trailingActionId : ''}`.trim()
+            ariaLabel ? undefined : `${ariaLabelledby || labelId} ${secondaryActions ? trailingActionId : ''}`.trim()
           }
           aria-describedby={ariaDescribedByIds.length ? ariaDescribedByIds.join(' ') : undefined}
           aria-level={level}
