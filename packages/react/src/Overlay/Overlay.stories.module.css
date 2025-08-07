@@ -1,0 +1,30 @@
+/* CSS Module for Overlay stories - replaces styled-components usage */
+
+.OverlayContainer {
+  /* Container for overlay anchor */
+}
+
+.FullHeightContent {
+  height: 100vh;
+  max-width: calc(-1rem + 100vw);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.CloseButtonOverlay {
+  position: absolute;
+  left: var(--base-size-4);
+  top: var(--base-size-4);
+}
+
+.ResponsiveWidth {
+  width: 280px;
+}
+
+/* Responsive breakpoint for larger screens */
+@media (min-width: 768px) {
+  .ResponsiveWidth {
+    width: 320px;
+  }
+}
