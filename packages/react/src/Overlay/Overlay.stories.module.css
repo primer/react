@@ -3,6 +3,7 @@
 .OverlayContainer {
   /* Container for overlay anchor */
 }
+
 .FullHeightContent {
   height: 100vh;
   max-width: calc(-1rem + 100vw);
@@ -21,8 +22,8 @@
   width: 350px;
 }
 
-/* Responsive breakpoint for larger screens */
-@media (min-width: 768px) {
+/* Responsive breakpoint for larger screens - matches theme breakpoint */
+@media (min-width: 544px) {
   .ResponsiveWidth {
     width: 500px;
   }
