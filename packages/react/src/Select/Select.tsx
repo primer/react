@@ -59,7 +59,7 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
         disabled={disabled}
         size={size}
         validationStatus={validationStatus}
-        className={clsx(classes.TextInputWrapper, wrapperClassName)}
+        className={clsx(classes.TextInputWrapper, className)}
         sx={sx}
       >
         <select
@@ -68,7 +68,7 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
           required={required}
           disabled={disabled}
           aria-invalid={validationStatus === 'error' ? 'true' : 'false'}
-          className={clsx(className, classes.Select, disabled && classes.Disabled)}
+          className={clsx(classes.Select, disabled && classes.Disabled)}
           data-hasplaceholder={Boolean(placeholder)}
           defaultValue={defaultValue ?? placeholder ?? undefined}
         >

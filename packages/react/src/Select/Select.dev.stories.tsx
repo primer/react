@@ -12,7 +12,7 @@ export const Default = () => (
   <form>
     <FormControl>
       <FormControl.Label>Default label</FormControl.Label>
-      <Select wrapperClassName={classes.DangerText}>
+      <Select className={classes.DangerText}>
         <Select.Option value="one">Choice one</Select.Option>
         <Select.Option value="two">Choice two</Select.Option>
         <Select.Option value="three">Choice three</Select.Option>

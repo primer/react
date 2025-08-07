@@ -165,7 +165,7 @@ export const WithCustomStyling = () => (
   <form>
     <FormControl>
       <FormControl.Label>Default label</FormControl.Label>
-      <Select wrapperClassName={classes.CustomSelect}>
+      <Select className={classes.CustomSelect}>
         <Select.Option value="one">Choice one</Select.Option>
         <Select.Option value="two">Choice two</Select.Option>
         <Select.Option value="three">Choice three</Select.Option>
