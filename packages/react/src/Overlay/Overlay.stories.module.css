@@ -18,12 +18,6 @@
 }
 
 .ResponsiveWidth {
-  width: 280px;
-}
-
-/* Responsive breakpoint for larger screens */
-@media (min-width: 768px) {
-  .ResponsiveWidth {
   width: 350px;
 }
 
