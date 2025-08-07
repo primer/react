@@ -1,12 +1,9 @@
 /* CSS Module for Overlay dev stories */
 
-.AnchorContainer {
-  /* Container for the anchor element */
-
 .OverlayCustom {
   left: 50%;
   margin-top: var(--base-size-8); /* mt: 2 equivalent */
-  color: var(--bgColor-danger-muted);
+  color: var(--fgColor-danger);
 }
 
 .OverlayContent {

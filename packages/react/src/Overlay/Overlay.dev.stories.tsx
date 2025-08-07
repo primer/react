@@ -33,7 +33,7 @@ export const SxProps = (args: Args) => {
     disabled: !isOpen,
   })
   return (
-    <div ref={anchorRef} className={classes.AnchorContainer}>
+    <div ref={anchorRef}>
       <Button
         ref={buttonRef}
         onClick={() => {
@@ -83,7 +83,7 @@ export const PreventFocusOnOpen = (args: Args) => {
   const containerRef = useRef<HTMLDivElement>(null)
 
   return (
-    <div ref={anchorRef} className={classes.AnchorContainer}>
+    <div ref={anchorRef}>
       <Button
         ref={openButtonRef}
         onClick={() => {
