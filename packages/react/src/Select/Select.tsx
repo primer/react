@@ -11,6 +11,7 @@ export type SelectProps = Omit<
   'multiple' | 'hasLeadingVisual' | 'hasTrailingVisual' | 'as'
 > & {
   placeholder?: string
+  'data-testid'?: string
 }
 
 const ArrowIndicatorSVG: React.FC<React.PropsWithChildren<{className?: string}>> = ({className}) => {
@@ -46,6 +47,7 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
       required,
       validationStatus,
       sx,
+      'data-testid': dataTestId,
       ...rest
     }: SelectProps,
     ref,
@@ -59,6 +61,7 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
         validationStatus={validationStatus}
         className={clsx(classes.TextInputWrapper, className)}
         sx={sx}
+        data-testid={dataTestId}
       >
         <select
           {...rest}
