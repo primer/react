@@ -1,0 +1,25 @@
+/* CSS Module for SelectPanel dev stories */
+
+.ColorCircle {
+  width: 14px;
+  height: 14px;
+  border-radius: var(--borderRadius-full);
+  margin: auto;
+  border-width: var(--borderWidth-thin);
+  border-style: solid;
+}
+
+.TitleText {
+  font-size: var(--text-title-size-medium);
+  font-weight: var(--base-text-weight-semibold);
+}
+
+.SubtitleText {
+  font-size: var(--text-body-size-medium);
+  font-weight: var(--base-text-weight-semibold);
+}
+
+.TimesNewRomanFont {
+  /* stylelint-disable-next-line primer/typography */
+  font-family: 'Times New Roman', serif;
+}

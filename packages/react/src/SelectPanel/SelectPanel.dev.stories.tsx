@@ -3,14 +3,13 @@ import type {Meta} from '@storybook/react-vite'
 import type React from 'react'
 import {useState} from 'react'
 
-import Box from '../Box'
 import {Button} from '../Button'
 import {SelectPanel} from '.'
 import type {ItemInput} from '../deprecated/ActionList/List'
 import FormControl from '../FormControl'
-import Text from '../Text'
 import Select from '../Select/Select'
 import type {SelectPanelSecondaryAction} from './SelectPanel'
+import classes from './SelectPanel.dev.stories.module.css'
 
 const meta: Meta<typeof SelectPanel> = {
   title: 'Components/SelectPanel/Dev',
@@ -30,16 +29,11 @@ const NoResultsMessage = (filter: string): {variant: 'empty'; title: string; bod
 function getColorCircle(color: string) {
   return function () {
     return (
-      <Box
-        sx={{
+      <div
+        className={classes.ColorCircle}
+        style={{
           backgroundColor: color,
           borderColor: color,
-          width: 14,
-          height: 14,
-          borderRadius: 10,
-          margin: 'auto',
-          borderWidth: '1px',
-          borderStyle: 'solid',
         }}
       />
     )
@@ -145,7 +139,7 @@ export const WithSx = () => {
         selected={selected}
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
-        sx={{fontFamily: 'Times New Roman'}}
+        className={classes.TimesNewRomanFont}
         message={selectedItemsSortedFirst.length === 0 ? NoResultsMessage(filter) : undefined}
       />
     </FormControl>
@@ -184,8 +178,7 @@ export const WithSxAndCSS = () => {
         selected={selected}
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
-        sx={{fontFamily: 'Times New Roman'}}
-        className="testCustomClassnameMono"
+        className={`${classes.TimesNewRomanFont} testCustomClassnameMono`}
         message={selectedItemsSortedFirst.length === 0 ? NoResultsMessage(filter) : undefined}
       />
     </FormControl>
@@ -332,27 +325,23 @@ export const AllVariants = () => {
 
   return (
     <>
-      <Text fontSize={3} fontWeight="bold">
-        Showcase of all the SelectPanel variants
-      </Text>
+      <h2 className={classes.TitleText}>Showcase of all the SelectPanel variants</h2>
       <br />
-      <Text>
+      <p>
         Test the different interactions below to see how the SelectPanel behaves in different selection and anchoring
         modes.
-      </Text>
+      </p>
       <br />
-      <Text>
+      <p>
         The size of the screen also affects how the user interacts with the SelectPanel, so please do test on smaller
         screens.
-      </Text>
+      </p>
       <br />
-      <Text>Also please consider any feature flags that might affect the component.</Text>
+      <p>Also please consider any feature flags that might affect the component.</p>
       <br />
       <br />
 
-      <Text fontSize={2} fontWeight="bold">
-        Extra controls:
-      </Text>
+      <h3 className={classes.SubtitleText}>Extra controls:</h3>
       <FormControl>
         <FormControl.Label>secondaryAction</FormControl.Label>
         <Select value={secondaryAction} onChange={e => setSecondaryAction(e.target.value)}>
