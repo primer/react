@@ -1,3 +1,4 @@
 .DevDefaultTextarea {
-  background-color: var(--bgColor-open-emphasis);
+  /* stylelint-disable-next-line color-named */
+  background-color: darkgreen;
 }
