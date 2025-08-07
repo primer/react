@@ -12,7 +12,7 @@ const components: Array<Component> = Object.entries(componentsMetadata.component
     id,
     name: component.name,
     importPath: component.importPath,
-    slug: id.replace('_', '-'),
+    slug: id.replaceAll('_', '-'),
   }
 })
 
