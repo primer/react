@@ -1,6 +1,6 @@
 import React from 'react'
 import {SelectPanel} from './SelectPanel'
-import {ActionList, ActionMenu, Avatar, Box, Button, Text, Flash, FormControl, TextInput} from '../../index'
+import {ActionList, ActionMenu, Avatar, Button, Flash, FormControl, TextInput} from '../../index'
 import Octicon from '../../Octicon'
 import {Dialog} from '../../experimental'
 import {
@@ -16,15 +16,14 @@ import {
   PlusCircleIcon,
 } from '@primer/octicons-react'
 import data from './mock-story-data'
+import styles from './SelectPanel.examples.stories.module.css'
 
 export default {
   title: 'Deprecated/Components/SelectPanel/Examples',
   component: SelectPanel,
 }
 
-const getCircle = (color: string) => (
-  <Box sx={{width: 14, height: 14, borderRadius: '100%'}} style={{backgroundColor: `#${color}`}} />
-)
+const getCircle = (color: string) => <span className={styles.Circle} style={{backgroundColor: `#${color}`}} />
 
 export const Minimal = () => {
   const initialSelectedLabels = data.issue.labelIds // mock initial state: has selected labels
@@ -145,11 +144,7 @@ export const WithGroups = () => {
         onCancel={onCancel}
         onClearSelection={onClearSelection}
       >
-        <SelectPanel.Button
-          variant="invisible"
-          trailingAction={GearIcon}
-          sx={{width: '200px', '[data-component=buttonContent]': {justifyContent: 'start'}}}
-        >
+        <SelectPanel.Button variant="invisible" trailingAction={GearIcon} className={styles.ButtonContentStart}>
           Reviewers
         </SelectPanel.Button>
         <SelectPanel.Header>
@@ -567,10 +562,12 @@ export const WithFilterButtons = () => {
         <SelectPanel.Header>
           <SelectPanel.SearchInput onChange={onSearchInputChange} />
 
-          <Box id="filters" sx={{display: 'flex', marginTop: 1}}>
+          <div id="filters" className={styles.FilterContainer}>
             <Button
               variant="invisible"
-              sx={{fontWeight: selectedFilter === 'branches' ? 'semibold' : 'normal', color: 'fg.default'}}
+              className={
+                selectedFilter === 'branches' ? styles.FilterButtonBranches : styles.FilterButtonBranchesNormal
+              }
               onClick={() => setSelectedFilter('branches')}
               count={20}
             >
@@ -578,13 +575,13 @@ export const WithFilterButtons = () => {
             </Button>
             <Button
               variant="invisible"
-              sx={{fontWeight: selectedFilter === 'tags' ? 'semibold' : 'normal', color: 'fg.default'}}
+              className={selectedFilter === 'tags' ? styles.FilterButtonTags : styles.FilterButtonTagsNormal}
               onClick={() => setSelectedFilter('tags')}
               count={8}
             >
               Tags
             </Button>
-          </Box>
+          </div>
         </SelectPanel.Header>
 
         {itemsToShow.length === 0 ? (
@@ -643,7 +640,7 @@ export const ShortSelectPanel = () => {
       </p>
       <SelectPanel title="Select notification channels" onSubmit={onSubmit} onCancel={onCancel}>
         <SelectPanel.Button>
-          <Text sx={{color: 'fg.muted'}}>Notify me:</Text>{' '}
+          <span className={styles.MutedText}>Notify me:</span>{' '}
           {Object.keys(channels)
             .filter(channel => channels[channel as keyof typeof channels])
             .join(', ') || 'Never'}
@@ -657,20 +654,15 @@ export const ShortSelectPanel = () => {
           <ActionList.Item selected={channels.Email} onSelect={() => toggleChannel('Email')}>
             Email
           </ActionList.Item>
-          <Box
+          <div
             role="none"
-            sx={{
-              transition: 'max-height 100ms ease-out, opacity 100ms ease-out',
-              opacity: channelsEnabled ? 1 : 0,
-              maxHeight: channelsEnabled ? '100px' : 0,
-              overflow: channelsEnabled ? 'visible' : 'hidden',
-            }}
+            className={`${styles.AnimatedContainer} ${channelsEnabled ? styles.AnimatedContainerVisible : styles.AnimatedContainerHidden}`}
           >
             <ActionList.Divider />
             <ActionList.Item selected={onlyFailures} onSelect={() => setOnlyFailures(!onlyFailures)}>
               Only notify for failed workflows
             </ActionList.Item>
-          </Box>
+          </div>
         </ActionList>
         <SelectPanel.Footer />
       </SelectPanel>
@@ -689,7 +681,7 @@ export const InsideSidebar = () => {
       <Button onClick={() => setSidebarOpen(true)}>Open sidebar</Button>
       {sidebarOpen && (
         <Dialog position="right" title="Sidebar" onClose={() => setSidebarOpen(false)}>
-          <Box p={3}>
+          <div className={styles.PaddingContainer}>
             <SelectPanel
               title="Choose a tag"
               selectionVariant="instant"
@@ -712,7 +704,7 @@ export const InsideSidebar = () => {
                 ))}
               </ActionList>
             </SelectPanel>
-          </Box>
+          </div>
         </Dialog>
       )}
     </>
@@ -731,8 +723,8 @@ export const NestedSelection = () => {
 
   /* Second level: Pull request selection */
   const iconMap = {
-    open: <Octicon icon={GitPullRequestIcon} sx={{color: 'open.emphasis'}} />,
-    merged: <Octicon icon={GitMergeIcon} sx={{color: 'done.emphasis'}} />,
+    open: <Octicon icon={GitPullRequestIcon} className={styles.IconOpen} />,
+    merged: <Octicon icon={GitMergeIcon} className={styles.IconDone} />,
     draft: <Octicon icon={GitPullRequestDraftIcon} />,
   }
 
@@ -748,7 +740,7 @@ export const NestedSelection = () => {
     <>
       <h1>Nested selection</h1>
 
-      <Flash variant="warning" sx={{mb: 2}}>
+      <Flash variant="warning" className={styles.FlashMargin}>
         This story is not fully accessible, do not copy it without review!
       </Flash>
 
@@ -757,7 +749,7 @@ export const NestedSelection = () => {
         onClick={() => setPanelToShow('repos')}
         variant="invisible"
         trailingAction={GearIcon}
-        sx={{width: '200px', '[data-component=buttonContent]': {justifyContent: 'start'}}}
+        className={styles.ButtonContentStart}
       >
         Development
       </Button>
@@ -794,7 +786,7 @@ export const NestedSelection = () => {
               key={repo.name}
               selected={selectedRepo === `${repo.org}/${repo.name}`}
               onSelect={() => setSelectedRepo(`${repo.org}/${repo.name}`)}
-              sx={{'[data-component="ActionList.Selection"]': {display: 'none'}}}
+              className={styles.HideSelection}
             >
               <ActionList.LeadingVisual>
                 <Avatar src={`https://github.com/${repo.org}.png`} />
@@ -977,7 +969,7 @@ export const CreateNewRow = () => {
 
         {itemsToShow.length === 0 ? (
           <SelectPanel.Message variant="empty" title={`No labels found for "${query}"`}>
-            <Text>Select the button below to create this label</Text>
+            <span>Select the button below to create this label</span>
             <Button onClick={openCreateLabelDialog}>Create &quot;{query}&quot;</Button>
           </SelectPanel.Message>
         ) : (
@@ -991,10 +983,7 @@ export const CreateNewRow = () => {
                   data-id={label.id}
                 >
                   <ActionList.LeadingVisual>
-                    <Box
-                      sx={{width: 14, height: 14, borderRadius: '100%'}}
-                      style={{backgroundColor: `#${label.color}`}}
-                    />
+                    <span className={styles.Circle} style={{backgroundColor: `#${label.color}`}} />
                   </ActionList.LeadingVisual>
                   {label.name}
                   <ActionList.Description variant="block">{label.description}</ActionList.Description>
@@ -1002,18 +991,18 @@ export const CreateNewRow = () => {
               ))}
             </ActionList>
             {query && (
-              <Box sx={{padding: 2, borderTop: '1px solid', borderColor: 'border.default', flexShrink: 0}}>
+              <div className={styles.CreateLabelContainer}>
                 <Button
                   variant="invisible"
                   leadingVisual={PlusCircleIcon}
                   block
                   alignContent="start"
-                  sx={{'[data-component=text]': {fontWeight: 'normal'}}}
+                  className={styles.CreateLabelButton}
                   onClick={openCreateLabelDialog}
                 >
                   Create new label &quot;{query}&quot;...
                 </Button>
-              </Box>
+              </div>
             )}
           </>
         )}
@@ -1071,15 +1060,15 @@ const CreateNewLabelDialog = ({
         {type: 'submit', buttonType: 'primary', content: 'Save', onClick: () => formSubmitRef.current?.click()},
       ]}
     >
-      <Flash sx={{marginBottom: 2}} variant="warning">
+      <Flash className={styles.FormControlMargin} variant="warning">
         Note this Dialog is not accessible. Do not copy this.
       </Flash>
       <form onSubmit={onSubmit}>
-        <FormControl sx={{marginBottom: 2}}>
+        <FormControl className={styles.FormControlMargin}>
           <FormControl.Label>Name</FormControl.Label>
           <TextInput name="name" block defaultValue={initialValue} autoFocus />
         </FormControl>
-        <FormControl sx={{marginBottom: 2}}>
+        <FormControl className={styles.FormControlMargin}>
           <FormControl.Label>Color</FormControl.Label>
           <TextInput name="color" block defaultValue="fae17d" leadingVisual="#" />
         </FormControl>

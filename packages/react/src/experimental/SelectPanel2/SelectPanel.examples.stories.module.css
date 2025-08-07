@@ -1,0 +1,106 @@
+/* CSS Module for SelectPanel examples stories */
+
+/* Circle component styling */
+.Circle {
+  width: 14px;
+  height: 14px;
+  border-radius: 100%;
+}
+
+/* Button content alignment */
+.ButtonContentStart {
+  width: 200px;
+}
+
+.ButtonContentStart [data-component='buttonContent'] {
+  justify-content: start;
+}
+
+/* Filter container */
+.FilterContainer {
+  display: flex;
+  margin-top: var(--base-size-4);
+}
+
+/* Filter button styles */
+.FilterButtonBranches {
+  font-weight: var(--base-text-weight-semibold, 600);
+  color: var(--fgColor-default);
+}
+
+.FilterButtonBranchesNormal {
+  font-weight: var(--base-text-weight-normal, 400);
+  color: var(--fgColor-default);
+}
+
+.FilterButtonTags {
+  font-weight: var(--base-text-weight-semibold, 600);
+  color: var(--fgColor-default);
+}
+
+.FilterButtonTagsNormal {
+  font-weight: var(--base-text-weight-normal, 400);
+  color: var(--fgColor-default);
+}
+
+/* Muted text */
+.MutedText {
+  color: var(--fgColor-muted);
+}
+
+/* Animated container */
+.AnimatedContainer {
+  transition: max-height 100ms ease-out, opacity 100ms ease-out;
+}
+
+.AnimatedContainerVisible {
+  opacity: 1;
+  max-height: 100px;
+  overflow: visible;
+}
+
+.AnimatedContainerHidden {
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+}
+
+/* Icon colors */
+.IconOpen {
+  color: var(--fgColor-open);
+}
+
+.IconDone {
+  color: var(--fgColor-done);
+}
+
+/* ActionList selection hidden */
+.HideSelection [data-component='ActionList.Selection'] {
+  display: none;
+}
+
+/* Flash margin */
+.FlashMargin {
+  margin-bottom: var(--base-size-8);
+}
+
+/* Create label button container */
+.CreateLabelContainer {
+  padding: var(--base-size-8);
+  border-top: var(--borderWidth-thin) solid var(--borderColor-default);
+  flex-shrink: 0;
+}
+
+.CreateLabelButton [data-component='text'] {
+  font-weight: var(--base-text-weight-normal, 400);
+}
+
+/* Form control margins */
+.FormControlMargin {
+  margin-bottom: var(--base-size-8);
+}
+
+/* Padding container */
+.PaddingContainer {
+  padding: var(--base-size-12);
+}
