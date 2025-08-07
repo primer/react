@@ -3,6 +3,7 @@ import {
   ChevronRightIcon,
   FileDirectoryFillIcon,
   FileDirectoryOpenFillIcon,
+  type Icon,
 } from '@primer/octicons-react'
 import {clsx} from 'clsx'
 import React, {useCallback, useEffect} from 'react'
@@ -20,6 +21,9 @@ import {getFirstChildElement, useRovingTabIndex} from './useRovingTabIndex'
 import {useTypeahead} from './useTypeahead'
 import {SkeletonAvatar} from '../SkeletonAvatar'
 import {SkeletonText} from '../SkeletonText'
+import {Dialog} from '../Dialog/Dialog'
+import {IconButton} from '../Button'
+import {ActionList} from '../ActionList'
 
 // ----------------------------------------------------------------------------
 // Context
@@ -44,6 +48,7 @@ const ItemContext = React.createContext<{
   setIsExpanded: (isExpanded: boolean) => void
   leadingVisualId: string
   trailingVisualId: string
+  trailingActionId: string
 }>({
   itemId: '',
   level: 1,
@@ -53,6 +58,7 @@ const ItemContext = React.createContext<{
   setIsExpanded: () => {},
   leadingVisualId: '',
   trailingVisualId: '',
+  trailingActionId: '',
 })
 
 // ----------------------------------------------------------------------------
@@ -68,8 +74,15 @@ export type TreeViewProps = {
   style?: React.CSSProperties
 }
 
+export type TreeViewSecondaryActions = {
+  label: string
+  onClick: () => void
+  icon: Icon
+}
+
 /* Size of toggle icon in pixels. */
 const TOGGLE_ICON_SIZE = 12
+const TRAILING_ACTION_SHORTCUT_TEXT = 'Press Command, Shift, U for more actions.'
 
 const Root: React.FC<TreeViewProps> = ({
   'aria-label': ariaLabel,
@@ -162,7 +175,9 @@ export type TreeViewItemProps = {
   expanded?: boolean | null
   onExpandedChange?: (expanded: boolean) => void
   onSelect?: (event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => void
+  onKeyDown?: (event: React.KeyboardEvent<HTMLElement>) => void
   className?: string
+  secondaryActions?: TreeViewSecondaryActions[]
 }
 
 const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
@@ -179,6 +194,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
       className,
       'aria-label': ariaLabel,
       'aria-labelledby': ariaLabelledby,
+      secondaryActions,
     },
     ref,
   ) => {
@@ -191,6 +207,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
     const labelId = useId()
     const leadingVisualId = useId()
     const trailingVisualId = useId()
+    const trailingActionId = useId()
 
     const [isExpanded, setIsExpanded] = useControllableState({
       name: itemId,
@@ -205,6 +222,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
     const {level} = React.useContext(ItemContext)
     const {hasSubTree, subTree, childrenWithoutSubTree} = useSubTree(rest)
     const [isSubTreeEmpty, setIsSubTreeEmpty] = React.useState(!hasSubTree)
+    const [actionCommandPressed, setActionCommandPressed] = React.useState(false)
     const [isFocused, setIsFocused] = React.useState(false)
 
     // Set the expanded state and cache it
@@ -251,9 +269,24 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
             event.stopPropagation()
             setIsExpandedWithCache(false)
             break
+          case 'u':
+            if (!secondaryActions) return
+            // If the user presses `Shift + Meta + U`
+            if (!event.metaKey || !event.shiftKey) return
+            if (secondaryActions.length > 1) {
+              // If there are multiple secondary actions, open the action dialog
+              // as this allows users to select the action they want to interact with.
+              setActionCommandPressed(true)
+            } else {
+              // If there is only one secondary action, trigger it directly
+              const action = secondaryActions[0].onClick
+              action()
+            }
+
+            break
         }
       },
-      [onSelect, setIsExpandedWithCache, toggle],
+      [onSelect, setIsExpandedWithCache, toggle, secondaryActions],
     )
 
     const ariaDescribedByIds = [
@@ -272,6 +305,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
           setIsExpanded: setIsExpandedWithCache,
           leadingVisualId,
           trailingVisualId,
+          trailingActionId,
         }}
       >
         {/* @ts-ignore Box doesn't have type support for `ref` used in combination with `as` */}
@@ -281,8 +315,12 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
           tabIndex={0}
           id={itemId}
           role="treeitem"
-          aria-label={ariaLabel}
-          aria-labelledby={ariaLabel ? undefined : ariaLabelledby || labelId}
+          aria-label={
+            secondaryActions ? (ariaLabel ? `${ariaLabel}. ${TRAILING_ACTION_SHORTCUT_TEXT}` : undefined) : ariaLabel
+          }
+          aria-labelledby={
+            ariaLabel ? undefined : `${ariaLabelledby || labelId} ${secondaryActions ? trailingActionId : ''}`.trim()
+          }
           aria-describedby={ariaDescribedByIds.length ? ariaDescribedByIds.join(' ') : undefined}
           aria-level={level}
           aria-expanded={(isSubTreeEmpty && (!isExpanded || !hasSubTree)) || expanded === null ? undefined : isExpanded}
@@ -302,6 +340,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
           }}
           onBlur={() => setIsFocused(false)}
           onClick={event => {
+            if (actionCommandPressed) return
             if (onSelect) {
               onSelect(event)
             } else {
@@ -364,6 +403,14 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
               </span>
               {slots.trailingVisual}
             </div>
+            {secondaryActions ? (
+              <>
+                <TrailingAction items={secondaryActions} />
+                {actionCommandPressed ? (
+                  <ActionDialog items={secondaryActions} onClose={() => setActionCommandPressed(false)} />
+                ) : null}
+              </>
+            ) : null}
           </div>
           {subTree}
         </li>
@@ -670,6 +717,101 @@ const LeadingAction: React.FC<TreeViewVisualProps> = props => {
 }
 
 LeadingAction.displayName = 'TreeView.LeadingAction'
+// ----------------------------------------------------------------------------
+// TreeView.TrailingAction
+
+export type TreeViewTrailingAction = {
+  items: TreeViewSecondaryActions[]
+}
+
+const TrailingAction: React.FC<TreeViewTrailingAction> = props => {
+  const {trailingActionId} = React.useContext(ItemContext)
+  const {items} = props
+
+  return (
+    <>
+      <div id={trailingActionId} className={clsx('PRIVATE_VisuallyHidden', classes.TreeViewVisuallyHidden)}>
+        ; {TRAILING_ACTION_SHORTCUT_TEXT}
+      </div>
+      <div
+        className={clsx('PRIVATE_TreeView-item-trailing-action', classes.TreeViewItemTrailingAction)}
+        aria-hidden={true}
+        onClick={event =>
+          // Prevent focus event from bubbling up to parent items
+          // This is needed to prevent the TreeView from interfering with trailing actions
+          event.stopPropagation()
+        }
+        onKeyDown={event => event.stopPropagation()}
+      >
+        {items.map(({label, onClick, icon}, index) => (
+          <IconButton
+            icon={icon}
+            variant="invisible"
+            aria-label={label}
+            className="treeview-trailing-action"
+            onClick={onClick}
+            tabIndex={-1}
+            aria-hidden={true}
+            key={index}
+          />
+        ))}
+      </div>
+    </>
+  )
+}
+
+TrailingAction.displayName = 'TreeView.TrailingAction'
+// ----------------------------------------------------------------------------
+// TreeView.ActionDialog
+
+export type TreeViewActionDialogProps = {
+  items: TreeViewSecondaryActions[]
+  onClose?: () => void
+}
+
+const ActionDialog: React.FC<TreeViewActionDialogProps> = ({items, onClose}) => {
+  const {itemId} = React.useContext(ItemContext)
+  return (
+    <div
+      onKeyDown={event => {
+        if (['Backspace', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Enter'].includes(event.key)) {
+          // Prevent keyboard events from bubbling up to the TreeView
+          // and interfering with keyboard navigation
+          event.stopPropagation()
+        }
+      }}
+    >
+      <Dialog
+        title="Supplemental actions"
+        onClose={() => {
+          if (onClose) {
+            onClose()
+          }
+
+          // Focus parent item after the dialog is closed
+          setTimeout(() => {
+            const parentElement = document.getElementById(itemId)
+            parentElement?.focus()
+          })
+        }}
+      >
+        <ActionList>
+          {items.map(({label, onClick, icon: Icon}, index) => (
+            <ActionList.Item key={index} onSelect={onClick}>
+              <ActionList.LeadingVisual>
+                <Icon />
+              </ActionList.LeadingVisual>
+              {label}
+            </ActionList.Item>
+          ))}
+        </ActionList>
+      </Dialog>
+    </div>
+  )
+}
+
+ActionDialog.displayName = 'TreeView.ActionDialog'
+
 // ----------------------------------------------------------------------------
 // TreeView.DirectoryIcon
 
