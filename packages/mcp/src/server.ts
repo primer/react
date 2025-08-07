@@ -43,7 +43,7 @@ server.tool(
   async ({name}) => {
     const components = listComponents()
     const match = components.find(component => {
-      return component.name === name
+      return component.name === name || component.name.toLowerCase() === name.toLowerCase()
     })
     if (!match) {
       return {
@@ -56,7 +56,7 @@ server.tool(
       }
     }
 
-    const url = new URL(`/product/components/${match.id}`, 'https://primer.style')
+    const url = new URL(`/product/components/${match.slug}`, 'https://primer.style')
     const response = await fetch(url)
     if (!response.ok) {
       throw new Error(`Failed to fetch ${url}: ${response.statusText}`)
