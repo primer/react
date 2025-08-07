@@ -7,7 +7,7 @@
 .OverlayCustom {
   left: 50%;
   margin-top: var(--base-size-8); /* mt: 2 equivalent */
-  color: var(--fgColor-danger);
+  color: var(--bgColor-danger-muted);
 }
 
 .OverlayContent {
