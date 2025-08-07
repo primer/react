@@ -4,6 +4,7 @@ type Component = {
   id: string
   name: string
   importPath: string
+  slug: string
 }
 
 const components: Array<Component> = Object.entries(componentsMetadata.components).map(([id, component]) => {
@@ -11,6 +12,7 @@ const components: Array<Component> = Object.entries(componentsMetadata.component
     id,
     name: component.name,
     importPath: component.importPath,
+    slug: id.replaceAll('_', '-'),
   }
 })
 
