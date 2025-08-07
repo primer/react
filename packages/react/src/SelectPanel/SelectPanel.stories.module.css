@@ -1,0 +1,8 @@
+.ColorCircle {
+  width: 14px;
+  height: 14px;
+  border-radius: var(--borderRadius-full, 50%);
+  margin: auto;
+  border-width: var(--borderWidth-thin);
+  border-style: solid;
+}
