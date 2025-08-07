@@ -1,0 +1,9 @@
+.LastKeyIndicator {
+  position: absolute;
+  right: var(--base-size-32);
+  top: var(--base-size-8);
+}
+
+.StoryContainer {
+  padding-top: var(--base-size-32);
+}
