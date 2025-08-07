@@ -3,7 +3,6 @@
 .OverlayContainer {
   /* Container for overlay anchor */
 }
-
 .FullHeightContent {
   height: 100vh;
   max-width: calc(-1rem + 100vw);
