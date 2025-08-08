@@ -566,7 +566,7 @@ export const WithFilterButtons = () => {
             <Button
               variant="invisible"
               className={
-                selectedFilter === 'branches' ? styles.FilterButtonBranches : styles.FilterButtonBranchesNormal
+                selectedFilter === 'branches' ? styles.FilterButtonBranchesBold : styles.FilterButtonBranchesNormal
               }
               onClick={() => setSelectedFilter('branches')}
               count={20}

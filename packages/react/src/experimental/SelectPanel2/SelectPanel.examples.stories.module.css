@@ -23,7 +23,7 @@
 }
 
 /* Filter button styles */
-.FilterButtonBranches {
+.FilterButtonBranchesBold {
   font-weight: var(--base-text-weight-semibold, 600);
   color: var(--fgColor-default);
 }
