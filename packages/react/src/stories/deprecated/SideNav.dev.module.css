@@ -1,0 +1,17 @@
+.ContainerBox {
+  border: var(--borderWidth-default) solid var(--borderColor-default);
+  border-radius: var(--borderRadius-medium);
+  padding: var(--base-size-16);
+  background-color: var(--bgColor-muted);
+  max-width: 360px;
+}
+
+.MenuHeader {
+  border-style: solid;
+  border-color: var(--borderColor-default);
+  border-width: 0;
+  border-bottom-width: var(--borderWidth-default);
+  border-radius: 0;
+  margin-bottom: var(--base-size-8);
+  padding-bottom: var(--base-size-4);
+}

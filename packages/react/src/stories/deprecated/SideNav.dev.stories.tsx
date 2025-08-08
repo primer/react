@@ -1,8 +1,10 @@
-import {Avatar, Box, CounterLabel, Heading, Label, SideNav, Text} from '../..'
+import {Avatar, CounterLabel, Heading, Label, SideNav, Text} from '../..'
 import type {Meta} from '@storybook/react-vite'
 import type {ComponentProps} from '../../utils/types'
 import Octicon from '../../Octicon'
 import {DotIcon, MailIcon, PersonIcon, SmileyIcon, ZapIcon} from '@primer/octicons-react'
+
+import styles from './SideNav.dev.module.css'
 
 export default {
   title: 'Deprecated/Components/SideNav/Dev',
@@ -59,28 +61,12 @@ export const FullVariant = () => (
 )
 
 export const LightweightVariant = () => (
-  <Box
-    borderWidth="1px"
-    borderStyle="solid"
-    borderColor="border.default"
-    borderRadius={2}
-    p={3}
-    backgroundColor="canvas.subtle"
-    maxWidth={360}
-  >
-    <Box
-      borderStyle="solid"
-      borderColor="border.default"
-      borderWidth={0}
-      borderBottomWidth={1}
-      borderRadius={0}
-      mb={2}
-      pb={1}
-    >
+  <div className={styles.ContainerBox}>
+    <div className={styles.MenuHeader}>
       <Heading as="h2" color="fg.muted">
         Menu
       </Heading>
-    </Box>
+    </div>
     <SideNav variant="lightweight">
       <SideNav.Link href="#url">
         <Text>Account</Text>
@@ -95,7 +81,7 @@ export const LightweightVariant = () => (
         <Text>Notifications</Text>
       </SideNav.Link>
     </SideNav>
-  </Box>
+  </div>
 )
 
 export const LightweightNestedVariant = () => (
