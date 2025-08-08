@@ -191,7 +191,7 @@ export const CustomFocusMovement = () => {
         <div className={classes.AbsoluteTopRight}>Last key pressed: {lastKey}</div>
         <MarginButton>Apple</MarginButton>
 
-        <div className={classes.BorderedGridContainer}>
+        <div className={classes.BorderedContainer}>
           <strong>Use arrow keys to move focus within this box.</strong>
           <div className={classes.GridContainer} ref={containerRef as React.RefObject<HTMLDivElement>}>
             <MarginButton>Banana</MarginButton>
