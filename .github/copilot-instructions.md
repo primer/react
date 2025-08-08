@@ -92,14 +92,6 @@ ComponentName/
 └── __snapshots__/        // Test snapshots (being migrated to VRT)
 ```
 
-**Key Components Locations:**
-
-- Form components: `FormControl/`, `TextInput/`, `Checkbox/`, `Radio/`, etc.
-- Navigation: `NavList/`, `UnderlineNav/`, `TabNav/`, `Breadcrumbs/`
-- Data display: `DataTable/`, `Timeline/`, `Label/`, `StateLabel/`
-- Overlays: `Dialog/`, `Popover/`, `Tooltip/`, `SelectPanel/`
-- Layout: `Box/`, `Stack/`, `PageLayout/`, `SplitPageLayout/`
-
 **Common File Patterns:**
 
 - `*.module.css` -- CSS Modules for component styling
