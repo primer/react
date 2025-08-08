@@ -1,3 +1,4 @@
+import {clsx} from 'clsx'
 import React from 'react'
 import {SelectPanel} from './SelectPanel'
 import {ActionList, ActionMenu, Avatar, Button, Flash, FormControl, TextInput} from '../../index'
@@ -656,7 +657,10 @@ export const ShortSelectPanel = () => {
           </ActionList.Item>
           <div
             role="none"
-            className={`${styles.AnimatedContainer} ${channelsEnabled ? styles.AnimatedContainerVisible : styles.AnimatedContainerHidden}`}
+            className={clsx(
+              styles.AnimatedContainer,
+              channelsEnabled ? styles.AnimatedContainerVisible : styles.AnimatedContainerHidden,
+            )}
           >
             <ActionList.Divider />
             <ActionList.Item selected={onlyFailures} onSelect={() => setOnlyFailures(!onlyFailures)}>
