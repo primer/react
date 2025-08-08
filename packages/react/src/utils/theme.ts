@@ -3,8 +3,13 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
 
-import isEmpty from 'lodash.isempty'
-import isObject from 'lodash.isobject'
+function isObject(obj: unknown): obj is Object {
+  return typeof obj === 'object' && obj !== null
+}
+
+function isEmpty(obj: unknown): boolean {
+  return [Object, Array].includes((obj || {}).constructor) && !Object.entries((obj || {})).length;
+}
 
 function fontStack(fonts) {
   return fonts.map(font => (font.includes(' ') ? `"${font}"` : font)).join(', ')
