@@ -1,0 +1,41 @@
+.TimelineWithMarginLeft {
+  margin-left: var(--base-size-16);
+}
+
+.TimelineItemWithPadding {
+  padding-top: var(--base-size-8);
+  padding-bottom: var(--base-size-4);
+}
+
+.TimelineBadgeCanvas {
+  background-color: var(--bgColor-default);
+}
+
+.TimelineBadgeDanger {
+  background-color: var(--bgColor-danger-emphasis);
+}
+
+.TimelineBadgeAccent {
+  margin-top: var(--base-size-8);
+  background-color: var(--bgColor-accent-emphasis);
+}
+
+.TimelineBodySubtle {
+  color: var(--fgColor-muted);
+  font-size: var(--text-body-size-medium);
+  width: 100%;
+  padding-right: var(--base-size-20);
+  display: flex;
+  flex-direction: column;
+}
+
+.TimelineBodyDefault {
+  color: var(--fgColor-default);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.TimelineBreakThick {
+  border-width: var(--borderWidth-thick);
+}
