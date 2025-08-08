@@ -2,7 +2,7 @@
 
 .OverlayCustom {
   left: 50%;
-  margin-top: var(--base-size-8); /* mt: 2 equivalent */
+  margin-top: var(--base-size-8);
   color: var(--fgColor-danger);
 }
 
@@ -41,13 +41,13 @@
 
 .ButtonGroup {
   display: flex;
-  margin-top: var(--base-size-8); /* mt: 2 equivalent */
+  margin-top: var(--base-size-8);
 }
 
 .ButtonRight {
-  margin-right: var(--base-size-4); /* marginRight: 1 equivalent */
+  margin-right: var(--base-size-4);
 }
 
 .ButtonLeft {
-  margin-left: var(--base-size-4); /* marginLeft: 1 equivalent */
+  margin-left: var(--base-size-4);
 }
