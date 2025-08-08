@@ -104,7 +104,6 @@
     "hsluv": "1.0.1",
     "lodash.isempty": "^4.4.0",
     "lodash.isobject": "^3.0.2",
-    "react-compiler-runtime": "^19.1.0-rc.2",
     "react-intersection-observer": "^9.16.0",
     "styled-system": "^5.1.5",
     "type-check": "0.4.0"
@@ -232,4 +231,3 @@
     }
   }
 }
-
