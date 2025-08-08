@@ -173,6 +173,9 @@
 @container banner (max-width: 500px) {
   .BannerContainer {
     display: grid;
+  }
+
+  .BannerContainer:has(.BannerActionsContainer) {
     grid-template-rows: auto auto;
   }
 
