@@ -1,5 +1,3 @@
-/* CSS Module for Overlay dev stories */
-
 .OverlayCustom {
   left: 50%;
   margin-top: var(--base-size-8);
@@ -15,7 +13,6 @@
 }
 
 .ResponsiveWidth {
-  /* Responsive width container - using specific widths to maintain story behavior */
   /* stylelint-disable-next-line primer/responsive-widths */
   width: 350px;
 }
