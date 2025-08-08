@@ -21,7 +21,7 @@ The primary workspace is `packages/react` which contains the `@primer/react` pac
 
 **Bootstrap and build the repository:**
 
-- Dependencies: Node.js v22.17+ (check with `node --version`), npm 10.9+ (check with `npm --version`)
+- Dependencies: Node.js (check with `node --version`), npm (check with `npm --version`)
 - `npm install` -- installs dependencies. ~5 seconds with cache, ~2 minutes for clean install. Set timeout to 180+ seconds.
 - `npm run build` -- builds all packages. NEVER CANCEL. Takes 90 seconds without turbo cache, ~1 second with cache. Set timeout to 120+ minutes.
 - `npx turbo build` -- builds all packages including example applications. Takes ~33 seconds.
@@ -47,7 +47,7 @@ The primary workspace is `packages/react` which contains the `@primer/react` pac
 
 **Linting and formatting:**
 
-- `npm run lint` -- lints JavaScript/TypeScript/Markdown. Takes 73 seconds. **NOTE**: Currently has 3 import errors in styled-react package (known issue).
+- `npm run lint` -- lints JavaScript/TypeScript/Markdown. Takes 73 seconds.
 - `npm run lint:fix` -- auto-fixes linting issues where possible
 - `npm run lint:css` -- lints CSS files using Stylelint. Takes 6 seconds.
 - `npm run lint:css:fix` -- auto-fixes CSS linting issues
@@ -121,8 +121,8 @@ For agents working on this repository for the first time:
 
 ```bash
 # 1. Check prerequisites
-node --version  # Should be v22.17+
-npm --version   # Should be 10.9+
+node --version
+npm --version
 
 # 2. Install and build (NEVER CANCEL - takes ~2-3 minutes total)
 npm install     # ~5 seconds (or ~2 minutes clean)
@@ -134,7 +134,7 @@ npm start       # Starts Storybook on http://localhost:6006
 # 4. Run tests and checks
 npm test                # ~75 seconds - unit tests
 npm run type-check      # ~42 seconds - TypeScript validation
-npm run lint            # ~73 seconds - code linting (has 3 known errors)
+npm run lint            # ~73 seconds - code linting
 npm run format:diff     # ~2 seconds - format checking
 
 # 5. Before committing
@@ -143,11 +143,6 @@ npm run lint:fix        # Auto-fix linting issues
 ```
 
 ## Known Issues and Workarounds
-
-**Current Known Issues:**
-
-- `npm run lint` shows 3 import errors in `packages/styled-react/src/index.ts` (BoxProps, SxProp, BetterSystemStyleObject not found in '@primer/react'). These are expected during the styled-components migration and can be ignored.
-- VRT/AVT tests may timeout if Storybook is not properly running on localhost:6006
 
 **Timing Expectations:**
 
