@@ -23,7 +23,7 @@ The primary workspace is `packages/react` which contains the `@primer/react` pac
 
 - Dependencies: Node.js (check with `node --version`), npm (check with `npm --version`)
 - `npm install` -- installs dependencies. ~5 seconds with cache, ~2 minutes for clean install. Set timeout to 180+ seconds.
-- `npm run build` -- builds all packages. NEVER CANCEL. Takes 90 seconds without turbo cache, ~1 second with cache. Set timeout to 180+ seconds.
+- `npm run build` -- builds all packages. NEVER CANCEL. Takes 90 seconds without turbo cache, ~1 second with cache. Set timeout to 120+ minutes.
 - `npx turbo build` -- builds all packages including example applications. Takes ~33 seconds.
 
 **Run tests:**
