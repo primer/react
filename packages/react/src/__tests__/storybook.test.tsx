@@ -2,7 +2,6 @@ import fs from 'node:fs'
 import path from 'node:path'
 import {describe, expect, test} from 'vitest'
 import glob from 'fast-glob'
-import groupBy from 'lodash.groupby'
 
 const ROOT_DIRECTORY = path.resolve(__dirname, '..', '..')
 
@@ -87,7 +86,7 @@ const stories = await Promise.all(
 )
 
 const components = Object.entries(
-  groupBy(stories, ({name}) => {
+  Object.groupBy(stories, ({name}) => {
     return name
   }),
 )

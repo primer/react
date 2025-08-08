@@ -1,9 +1,17 @@
 import glob from 'fast-glob'
 import fs from 'fs'
-import keyBy from 'lodash.keyby'
 import hookSchema from '../hooks-json/hook.schema.json'
 import outputSchema from './output.schema.json'
 import Ajv from 'ajv'
+
+const _keyBy = (array: Array<any>, key: string) => (array || []).reduce((r, x) => ({ ...r, [key ? x[key] : x]: x }), {})
+
+const keyBy = (collection: Object, key: string) => {
+  const c = collection || {};
+  return Array.isArray(c)
+  ? _keyBy(c, key)
+  : _keyBy(Object.values(c), key);
+}
 
 // Only includes fields we use in this script
 type Hook = {

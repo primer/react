@@ -8,13 +8,21 @@ import Ajv from 'ajv'
 import {pascalCase, kebabCase} from 'change-case'
 import glob from 'fast-glob'
 import fs from 'fs'
-import keyBy from 'lodash.keyby'
 import prettier from '@prettier/sync'
 import chalk from 'chalk'
 import type {LintError} from 'markdownlint'
 import {lint as mdLint} from 'markdownlint/sync'
 import componentSchema from './component.schema.json'
 import outputSchema from './output.schema.json'
+
+const _keyBy = (array: Array<any>, key: string) => (array || []).reduce((r, x) => ({ ...r, [key ? x[key] : x]: x }), {})
+
+const keyBy = (collection: Object, key: string) => {
+  const c = collection || {};
+  return Array.isArray(c)
+  ? _keyBy(c, key)
+  : _keyBy(Object.values(c), key);
+}
 
 const args = parseArgs({
   options: {
