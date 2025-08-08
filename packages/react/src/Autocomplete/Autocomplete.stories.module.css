@@ -1,0 +1,13 @@
+.KeyPressLabel {
+  position: absolute;
+  right: var(--base-size-32);
+  top: var(--base-size-8);
+}
+
+.StoryContent {
+  padding-top: var(--base-size-32);
+}
+
+.DefaultForm {
+  padding: var(--base-size-16);
+}
