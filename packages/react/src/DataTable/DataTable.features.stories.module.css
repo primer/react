@@ -1,5 +1,5 @@
 .RepositoryHeader {
   display: flex;
   align-items: center;
-  gap: var(--base-size-4); /* 0.25rem equivalent to sx={{gap: 1}} */
+  gap: var(--base-size-4);
 }
