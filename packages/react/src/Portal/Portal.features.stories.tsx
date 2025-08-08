@@ -1,7 +1,7 @@
 import React from 'react'
 import type {Meta} from '@storybook/react-vite'
-import Box from '../Box'
 import {Portal, registerPortalRoot} from './Portal'
+import classes from './Portal.features.stories.module.css'
 
 export default {
   title: 'Behaviors/Portal/Features',
@@ -11,13 +11,13 @@ export default {
 export const CustomPortalRootById = () => (
   <>
     Root position
-    <Box bg="red.2" p={3} id="__primerPortalRoot__">
+    <div className={classes.RedContainer} id="__primerPortalRoot__">
       Outer container
-      <Box bg="green.2" p={3}>
+      <div className={classes.GreenContainer}>
         Inner container
         <Portal>Portaled content rendered at the outer container.</Portal>
-      </Box>
-    </Box>
+      </div>
+    </div>
   </>
 )
 
@@ -33,17 +33,17 @@ export const CustomPortalRootByRegistration: React.FC<React.PropsWithChildren<Re
   return (
     <>
       Root position
-      <Box bg="red.2" p={3} ref={outerContainerRef}>
+      <div className={classes.RedContainer} ref={outerContainerRef}>
         {mounted ? (
           <>
             Outer container
-            <Box bg="green.2" p={3}>
+            <div className={classes.GreenContainer}>
               Inner container
               <Portal>Portaled content rendered at the outer container.</Portal>
-            </Box>
+            </div>
           </>
         ) : null}
-      </Box>
+      </div>
     </>
   )
 }
@@ -62,9 +62,9 @@ export const MultiplePortalRoots: React.FC<React.PropsWithChildren<Record<string
   return (
     <>
       Root position
-      <Box bg="red.2" p={3} ref={outerContainerRef}>
+      <div className={classes.RedContainer} ref={outerContainerRef}>
         Outer container
-        <Box bg="green.2" p={3} ref={innerContainerRef}>
+        <div className={classes.GreenContainer} ref={innerContainerRef}>
           {mounted ? (
             <>
               <Portal containerName="outer">Portaled content rendered at the outer container.</Portal>
@@ -75,8 +75,8 @@ export const MultiplePortalRoots: React.FC<React.PropsWithChildren<Record<string
             </>
           ) : null}
           Inner container
-        </Box>
-      </Box>
+        </div>
+      </div>
     </>
   )
 }
