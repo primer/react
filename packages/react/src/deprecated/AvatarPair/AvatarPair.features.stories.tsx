@@ -1,6 +1,6 @@
 import type {Meta} from '@storybook/react-vite'
 import AvatarPair from './AvatarPair'
-import Avatar from '../Avatar'
+import Avatar from '../../Avatar'
 
 export default {
   title: 'Components/AvatarPair/Features',
