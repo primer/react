@@ -1,6 +1,6 @@
 /* TooltipV2.dev.stories.module.css */
 .PaddedContainer {
-  padding: var(--base-size-48);
+  padding: var(--base-size-40);
 }
 
 .Popover[popover] {
