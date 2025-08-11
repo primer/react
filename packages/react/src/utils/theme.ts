@@ -34,10 +34,7 @@ function filterObject(obj, predicate) {
       const result = filterObject(value, predicate)
 
       // Don't include empty objects or arrays
-      if (
-        (Array.isArray(result) && result.length !== 0) ||
-        Object.entries(result).length !== 0
-      ) {
+      if (Object.entries(result).length !== 0) {
         acc[key] = result
       }
     } else if (predicate(value)) {
