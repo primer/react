@@ -3,9 +3,6 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
 
-import isEmpty from 'lodash.isempty'
-import isObject from 'lodash.isobject'
-
 function fontStack(fonts) {
   return fonts.map(font => (font.includes(' ') ? `"${font}"` : font)).join(', ')
 }
@@ -33,11 +30,14 @@ function filterObject(obj, predicate) {
   }
 
   return Object.entries(obj).reduce((acc, [key, value]) => {
-    if (isObject(value)) {
+    if (value !== null && typeof value === 'object') {
       const result = filterObject(value, predicate)
 
       // Don't include empty objects or arrays
-      if (!isEmpty(result)) {
+      if (
+        (Array.isArray(result) && result.length !== 0) ||
+        Object.entries(result).length !== 0
+      ) {
         acc[key] = result
       }
     } else if (predicate(value)) {

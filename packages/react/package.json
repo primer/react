@@ -102,8 +102,6 @@
     "focus-visible": "^5.2.1",
     "history": "^5.0.0",
     "hsluv": "1.0.1",
-    "lodash.isempty": "^4.4.0",
-    "lodash.isobject": "^3.0.2",
     "react-compiler-runtime": "^19.1.0-rc.2",
     "react-intersection-observer": "^9.16.0",
     "styled-system": "^5.1.5",
@@ -140,8 +138,6 @@
     "@testing-library/react-hooks": "^8.0.1",
     "@testing-library/user-event": "^14.5.2",
     "@types/lodash.groupby": "4.6.9",
-    "@types/lodash.isempty": "4.4.9",
-    "@types/lodash.isobject": "3.0.9",
     "@types/lodash.keyby": "4.6.9",
     "@types/node": "20.12.11",
     "@types/react": "18.3.11",
@@ -232,4 +228,3 @@
     }
   }
 }
-
