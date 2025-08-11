@@ -17,6 +17,8 @@ export type SegmentedControlButtonProps = {
   defaultSelected?: boolean
   /** The leading icon comes before item label */
   leadingIcon?: React.FunctionComponent<React.PropsWithChildren<IconProps>> | React.ReactElement
+  /** Applies `aria-disabled` to the button. This will disable certain functionality, such as `onClick` events. */
+  disabled?: boolean
 } & SxProp &
   ButtonHTMLAttributes<HTMLButtonElement | HTMLLIElement>
 
@@ -26,6 +28,7 @@ const SegmentedControlButton: React.FC<React.PropsWithChildren<SegmentedControlB
   selected,
   sx: sxProp,
   className,
+  disabled,
   // Note: this value is read in the `SegmentedControl` component to determine which button is selected but we do not need to apply it to an underlying element
   defaultSelected: _defaultSelected,
   ...rest
@@ -35,6 +38,7 @@ const SegmentedControlButton: React.FC<React.PropsWithChildren<SegmentedControlB
       <BoxWithFallback
         as="button"
         aria-current={selected}
+        aria-disabled={disabled}
         className={clsx(classes.Button, className)}
         type="button"
         {...rest}
