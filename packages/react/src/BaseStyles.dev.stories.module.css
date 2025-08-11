@@ -1,0 +1,30 @@
+/* Story-specific styles for BaseStyles dev stories */
+
+.WithSxProps {
+  /* stylelint-disable-next-line color-named */
+  color: red;
+  /* stylelint-disable-next-line color-named */
+  background-color: blue;
+  /* stylelint-disable-next-line primer/typography, font-family-no-missing-generic-family-keyword */
+  font-family: Arial;
+  /* stylelint-disable-next-line primer/typography */
+  line-height: 1.5;
+}
+
+.WithSystemProps {
+  /* stylelint-disable-next-line color-named */
+  color: red;
+  /* stylelint-disable-next-line color-named */
+  background-color: blue;
+  /* stylelint-disable-next-line primer/typography, font-family-no-missing-generic-family-keyword */
+  font-family: Arial;
+  /* stylelint-disable-next-line primer/typography */
+  font-size: 14px;
+  /* stylelint-disable-next-line primer/typography */
+  line-height: 1.5;
+  display: flex;
+}
+
+.WithStyleProps {
+  /* Style prop styles are applied inline, no classes needed */
+}

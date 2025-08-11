@@ -1,6 +1,8 @@
 import {BaseStyles} from '.'
 import type {Meta} from '@storybook/react-vite'
 import type {ComponentProps} from './utils/types'
+import {clsx} from 'clsx'
+import classes from './BaseStyles.dev.stories.module.css'
 
 export default {
   title: 'Behaviors/BaseStyles/Dev',
@@ -9,27 +11,12 @@ export default {
 
 export const Default = () => 'Hello'
 
-export const WithSxProps = () => (
-  <BaseStyles
-    sx={{
-      color: 'red',
-      backgroundColor: 'blue',
-      fontFamily: 'Arial',
-      lineHeight: '1.5',
-    }}
-  >
-    Hello
-  </BaseStyles>
-)
+export const WithSxProps = () => <div className={clsx(classes.WithSxProps)}>Hello</div>
 
-export const WithSystemProps = () => (
-  <BaseStyles color="red" backgroundColor="blue" fontFamily="Arial" fontSize="14px" lineHeight="1.5" display="flex">
-    Hello
-  </BaseStyles>
-)
+export const WithSystemProps = () => <div className={clsx(classes.WithSystemProps)}>Hello</div>
 
 export const WithStyleProps = () => (
-  <BaseStyles
+  <div
     style={{
       color: 'red',
       backgroundColor: 'blue',
@@ -38,5 +25,5 @@ export const WithStyleProps = () => (
     }}
   >
     Hello
-  </BaseStyles>
+  </div>
 )
