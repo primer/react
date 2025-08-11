@@ -1,33 +1,28 @@
 import type {Meta} from '@storybook/react-vite'
 import Box from './Box'
+import classes from './Box.features.stories.module.css'
 
 export default {
   title: 'Deprecated/Components/Box/Features',
   component: Box,
 } as Meta<typeof Box>
 
-export const Border = () => (
-  <Box sx={{borderWidth: 1, borderStyle: 'solid', borderColor: 'border.default', p: 3}}>Box with border</Box>
-)
+export const Border = () => <div className={classes.Border}>Box with border</div>
 
-export const BorderBottom = () => (
-  <Box sx={{borderBottomWidth: 1, borderBottomStyle: 'solid', borderColor: 'border.default', p: 3}}>
-    Box with bottom border
-  </Box>
-)
+export const BorderBottom = () => <div className={classes.BorderBottom}>Box with bottom border</div>
 
 export const Flexbox = () => (
-  <Box sx={{display: 'flex'}}>
-    <Box sx={{p: 3, borderWidth: 1, borderStyle: 'solid', borderColor: 'border.default'}}>1</Box>
-    <Box sx={{flexGrow: 1, p: 3, borderWidth: 1, borderStyle: 'solid', borderColor: 'border.default'}}>2</Box>
-    <Box sx={{p: 3, borderWidth: 1, borderStyle: 'solid', borderColor: 'border.default'}}>3</Box>
-  </Box>
+  <div className={classes.FlexContainer}>
+    <div className={classes.FlexItem}>1</div>
+    <div className={classes.FlexItemGrow}>2</div>
+    <div className={classes.FlexItem}>3</div>
+  </div>
 )
 
 export const Grid = () => (
-  <Box sx={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 3}}>
-    <Box sx={{p: 3, borderWidth: 1, borderStyle: 'solid', borderColor: 'border.default'}}>1</Box>
-    <Box sx={{p: 3, borderWidth: 1, borderStyle: 'solid', borderColor: 'border.default'}}>2</Box>
-    <Box sx={{p: 3, borderWidth: 1, borderStyle: 'solid', borderColor: 'border.default'}}>3</Box>
-  </Box>
+  <div className={classes.GridContainer}>
+    <div className={classes.GridItem}>1</div>
+    <div className={classes.GridItem}>2</div>
+    <div className={classes.GridItem}>3</div>
+  </div>
 )
