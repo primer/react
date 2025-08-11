@@ -9,6 +9,12 @@
   margin-bottom: 0;
 }
 
+/* Prevent wrapping when using menu overflow */
+[data-overflow='menu'] .BreadcrumbsList {
+  white-space: nowrap;
+  overflow: hidden;
+}
+
 .ItemWrapper {
   display: inline-block;
   font-size: var(--text-body-size-medium);
