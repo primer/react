@@ -1734,7 +1734,7 @@ it('should have keyboard shortcut command as part of accessible name when using 
     </TreeView>,
   )
 
-  expect(getByRole('treeitem', {name: 'Parent ; Press Command, Shift, U for more actions.'})).toBeInTheDocument()
+  expect(getByRole('treeitem', {name: 'Parent ; Press (control shift u) for more actions.'})).toBeInTheDocument()
 })
 
 it('should have keyboard shortcut command as part of accessible name when using `TrailingAction` and `aria-label`', () => {
@@ -1754,7 +1754,7 @@ it('should have keyboard shortcut command as part of accessible name when using 
     </TreeView>,
   )
 
-  expect(getByRole('treeitem', {name: 'Parent. Press Command, Shift, U for more actions.'})).toBeInTheDocument()
+  expect(getByRole('treeitem', {name: 'Parent. Press (control shift u) for more actions.'})).toBeInTheDocument()
 })
 
 describe('CSS Module Migration', () => {
