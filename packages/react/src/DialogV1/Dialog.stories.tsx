@@ -1,9 +1,11 @@
 import {useState, useRef} from 'react'
 import type {Meta} from '@storybook/react-vite'
 import {Button} from '../Button'
-import {Box, Text} from '..'
+import {Text} from '..'
 import {Banner} from '../Banner'
 import {default as Dialog} from './Dialog'
+import {clsx} from 'clsx'
+import classes from './Dialog.stories.module.css'
 
 /* Dialog Version 1*/
 
@@ -17,13 +19,13 @@ export const Default = () => {
   const returnFocusRef = useRef(null)
   return (
     <div>
-      <Box sx={{mb: 3}}>
+      <div className={clsx(classes.BannerContainer)}>
         <Banner
           title="This component is deprecated"
           description="We recommend using Dialog instead."
           variant="warning"
         />
-      </Box>
+      </div>
       <Button data-testid="trigger-button" ref={returnFocusRef} onClick={() => setIsOpen(true)}>
         Show Dialog
       </Button>
@@ -35,9 +37,9 @@ export const Default = () => {
       >
         <div data-testid="inner">
           <Dialog.Header id="header">Title</Dialog.Header>
-          <Box p={3}>
+          <div className={clsx(classes.ContentContainer)}>
             <Text>Some content</Text>
-          </Box>
+          </div>
         </div>
       </Dialog>
     </div>
