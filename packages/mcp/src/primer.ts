@@ -1,9 +1,11 @@
 import componentsMetadata from '@primer/react/generated/components.json' with {type: 'json'}
+import octicons from '@primer/octicons/build/data.json' with {type: 'json'}
 
 type Component = {
   id: string
   name: string
   importPath: string
+  slug: string
 }
 
 const components: Array<Component> = Object.entries(componentsMetadata.components).map(([id, component]) => {
@@ -11,6 +13,7 @@ const components: Array<Component> = Object.entries(componentsMetadata.component
     id,
     name: component.name,
     importPath: component.importPath,
+    slug: id.replaceAll('_', '-'),
   }
 })
 
@@ -70,4 +73,22 @@ function listPatterns(): Array<Pattern> {
   return patterns
 }
 
-export {listComponents, listPatterns}
+type Icon = {
+  name: string
+  keywords: Array<string>
+  heights: Array<string>
+}
+
+const icons: Array<Icon> = Object.values(octicons).map(icon => {
+  return {
+    name: icon.name,
+    keywords: icon.keywords,
+    heights: Object.keys(icon.heights),
+  }
+})
+
+function listIcons(): Array<Icon> {
+  return icons
+}
+
+export {listComponents, listPatterns, listIcons}
