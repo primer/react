@@ -23,7 +23,7 @@ body:
     id: reproduce
     attributes:
       label: Steps to reproduce
-      description: 'How do we reproduce the error you described above? Feel free to use the `@primer/react` template on [CodeSandbox](https://codesandbox.io/s/primer-react-qyyepc) to get started'
+      description: 'How do we reproduce the error you described above? Feel free to use the `@primer/react` template on [CodeSandbox](https://codesandbox.io/p/sandbox/github/primer/react/tree/main/examples/codesandbox) to get started'
       placeholder: |
         1. Go to '...'
         2. Click on '....'

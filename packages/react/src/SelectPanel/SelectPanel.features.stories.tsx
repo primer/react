@@ -1,6 +1,5 @@
 import React, {useState, useRef, useEffect} from 'react'
 import type {Meta, StoryObj} from '@storybook/react-vite'
-import Box from '../Box'
 import {Button} from '../Button'
 import type {ItemInput, GroupedListProps} from '../deprecated/ActionList/List'
 import Link from '../Link'
@@ -27,7 +26,7 @@ import Text from '../Text'
 import FormControl from '../FormControl'
 import {SegmentedControl} from '../SegmentedControl'
 import {Stack} from '../Stack'
-import {FeatureFlags} from '../FeatureFlags'
+import classes from './SelectPanel.features.stories.module.css'
 
 const meta: Meta<typeof SelectPanel> = {
   title: 'Components/SelectPanel/Features',
@@ -63,15 +62,12 @@ const ErrorMessage: {variant: 'error'; title: string; body: string} = {
 function getColorCircle(color: string) {
   return function () {
     return (
-      <Box
-        bg={color}
-        borderColor={color}
-        width={14}
-        height={14}
-        borderRadius={10}
-        margin="auto"
-        borderWidth="1px"
-        borderStyle="solid"
+      <div
+        className={classes.ColorCircle}
+        style={{
+          backgroundColor: color,
+          borderColor: color,
+        }}
       />
     )
   }
@@ -531,15 +527,7 @@ export const WithLabelInternally = () => {
     <SelectPanel
       renderAnchor={({children, ...anchorProps}) => (
         <Button {...anchorProps} trailingAction={TriangleDownIcon} aria-haspopup="dialog">
-          <Box
-            sx={{
-              color: 'var(--fgColor-muted)',
-              display: 'inline-block',
-            }}
-          >
-            Choices:
-          </Box>{' '}
-          {children || 'None selected'}
+          <span className={classes.MutedText}>Choices:</span> {children || 'None selected'}
         </Button>
       )}
       open={open}
@@ -965,48 +953,46 @@ export const WithMessage = () => {
   }, [messageVariant])
 
   return (
-    <FeatureFlags flags={{primer_react_select_panel_with_modern_action_list: true}}>
-      <Stack align="start">
-        <FormControl>
-          <FormControl.Label>Message variant</FormControl.Label>
-          <SegmentedControl aria-label="Message variant" onChange={setMessageVariant}>
-            <SegmentedControl.Button defaultSelected aria-label="Default message">
-              Default message
-            </SegmentedControl.Button>
-            <SegmentedControl.Button aria-label="Empty" leadingIcon={SearchIcon}>
-              Empty
-            </SegmentedControl.Button>
-            <SegmentedControl.Button aria-label="Error" leadingIcon={StopIcon}>
-              Error
-            </SegmentedControl.Button>
-            <SegmentedControl.Button aria-label="Warning" leadingIcon={AlertIcon}>
-              Warning
-            </SegmentedControl.Button>
-          </SegmentedControl>
-        </FormControl>
-        <FormControl>
-          <FormControl.Label>SelectPanel with message</FormControl.Label>
-          <SelectPanel
-            renderAnchor={({children, ...anchorProps}) => (
-              <Button trailingAction={TriangleDownIcon} {...anchorProps}>
-                {children}
-              </Button>
-            )}
-            placeholder="Select labels"
-            open={open}
-            onOpenChange={setOpen}
-            items={filteredItems}
-            selected={selected}
-            onSelectedChange={setSelected}
-            onFilterChange={setFilter}
-            overlayProps={{width: 'small', height: 'medium'}}
-            width="medium"
-            message={messageVariants[messageVariant]}
-            filterValue={filter}
-          />
-        </FormControl>
-      </Stack>
-    </FeatureFlags>
+    <Stack align="start">
+      <FormControl>
+        <FormControl.Label>Message variant</FormControl.Label>
+        <SegmentedControl aria-label="Message variant" onChange={setMessageVariant}>
+          <SegmentedControl.Button defaultSelected aria-label="Default message">
+            Default message
+          </SegmentedControl.Button>
+          <SegmentedControl.Button aria-label="Empty" leadingIcon={SearchIcon}>
+            Empty
+          </SegmentedControl.Button>
+          <SegmentedControl.Button aria-label="Error" leadingIcon={StopIcon}>
+            Error
+          </SegmentedControl.Button>
+          <SegmentedControl.Button aria-label="Warning" leadingIcon={AlertIcon}>
+            Warning
+          </SegmentedControl.Button>
+        </SegmentedControl>
+      </FormControl>
+      <FormControl>
+        <FormControl.Label>SelectPanel with message</FormControl.Label>
+        <SelectPanel
+          renderAnchor={({children, ...anchorProps}) => (
+            <Button trailingAction={TriangleDownIcon} {...anchorProps}>
+              {children}
+            </Button>
+          )}
+          placeholder="Select labels"
+          open={open}
+          onOpenChange={setOpen}
+          items={filteredItems}
+          selected={selected}
+          onSelectedChange={setSelected}
+          onFilterChange={setFilter}
+          overlayProps={{width: 'small', height: 'medium'}}
+          width="medium"
+          message={messageVariants[messageVariant]}
+          filterValue={filter}
+        />
+      </FormControl>
+    </Stack>
   )
 }
 

@@ -72,10 +72,11 @@ export {default as Autocomplete} from './Autocomplete'
 export type {AutocompleteMenuProps, AutocompleteInputProps, AutocompleteOverlayProps} from './Autocomplete'
 export {default as Avatar} from './Avatar'
 export type {AvatarProps} from './Avatar'
-export {default as AvatarPair} from './AvatarPair'
-export type {AvatarPairProps} from './AvatarPair'
 export {default as AvatarStack} from './AvatarStack'
 export type {AvatarStackProps} from './AvatarStack'
+// AvatarPair is deprecated. Use Avatar component instead. See https://github.com/github/primer/issues/5533
+export {default as AvatarPair} from './deprecated/AvatarPair'
+export type {AvatarPairProps} from './deprecated/AvatarPair'
 export {default as BranchName} from './BranchName'
 export type {BranchNameProps} from './BranchName'
 export {default as Breadcrumbs, Breadcrumb} from './Breadcrumbs'
@@ -141,7 +142,12 @@ export {SegmentedControl} from './SegmentedControl'
 export {default as Select} from './Select'
 export type {SelectProps} from './Select'
 export {SelectPanel} from './SelectPanel'
-export type {SelectPanelProps} from './SelectPanel'
+export type {
+  SelectPanelProps,
+  ItemProps as SelectPanelItemProps,
+  GroupedListProps as SelectPanelGroupedListProps,
+  ItemInput as SelectPanelItemInput,
+} from './SelectPanel'
 export {default as SideNav} from './SideNav'
 export type {SideNavProps, SideNavLinkProps} from './SideNav'
 export {default as Spinner} from './Spinner'

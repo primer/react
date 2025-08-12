@@ -1,0 +1,27 @@
+.Row {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--base-size-16);
+}
+
+.ColGrow {
+  flex-grow: 1;
+}
+
+.ToggleLabel {
+  font-weight: var(--base-text-weight-semibold);
+  font-size: var(--text-body-size-medium);
+  display: block;
+}
+
+.SwitchLabel {
+  font-weight: var(--base-text-weight-semibold);
+  font-size: var(--text-title-size-small);
+  display: block;
+}
+
+.SwitchCaption {
+  color: var(--fgColor-muted);
+  font-size: var(--text-body-size-medium);
+  display: block;
+}

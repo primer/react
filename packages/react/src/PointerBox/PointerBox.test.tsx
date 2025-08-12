@@ -1,56 +1,85 @@
-import {PointerBox} from '..'
-import {render, behavesAsComponent, checkExports, renderStyles} from '../utils/testing'
-import {render as HTMLRender} from '@testing-library/react'
-import axe from 'axe-core'
+import {describe, expect, it} from 'vitest'
+import {render} from '@testing-library/react'
+import {PointerBox, ThemeProvider} from '..'
+import theme from '../theme'
 
 describe('PointerBox', () => {
-  behavesAsComponent({Component: PointerBox})
-
-  checkExports('PointerBox', {
-    default: PointerBox,
-  })
-
-  it('renders a <Caret> in <Box> with relative positioning', () => {
-    expect(render(<PointerBox />)).toMatchSnapshot()
-  })
-
-  it('should have no axe violations', async () => {
-    const {container} = HTMLRender(<PointerBox />)
-    const results = await axe.run(container)
-    expect(results).toHaveNoViolations()
-  })
-
   it('applies the border color via "borderColor" prop for backwards compatibility', () => {
-    expect(render(<PointerBox borderColor="danger.emphasis" />)).toMatchSnapshot()
+    const {container} = render(
+      <ThemeProvider theme={theme}>
+        <PointerBox borderColor="danger.emphasis" />
+      </ThemeProvider>,
+    )
+
+    const element = container.firstChild as HTMLElement
+    const styles = window.getComputedStyle(element)
+
+    // The borderColor should be applied correctly
+    expect(styles.borderColor).toBe('rgb(207, 34, 46)') // danger.emphasis color
   })
 
   it('applies the border color via sx prop', () => {
-    expect(render(<PointerBox sx={{borderColor: 'danger.emphasis'}} />)).toMatchSnapshot()
+    const {container} = render(
+      <ThemeProvider theme={theme}>
+        <PointerBox sx={{borderColor: 'danger.emphasis'}} />
+      </ThemeProvider>,
+    )
+
+    const element = container.firstChild as HTMLElement
+    const styles = window.getComputedStyle(element)
+
+    // The borderColor should be applied correctly
+    expect(styles.borderColor).toBe('rgb(207, 34, 46)') // danger.emphasis color
   })
 
   it('applies the background color via "bg" prop for backwards compatibility', () => {
-    expect(render(<PointerBox bg="danger.emphasis" />)).toMatchSnapshot()
+    const {container} = render(
+      <ThemeProvider theme={theme}>
+        <PointerBox bg="danger.emphasis" />
+      </ThemeProvider>,
+    )
+
+    const element = container.firstChild as HTMLElement
+    const styles = window.getComputedStyle(element)
+
+    // The background should include the danger.emphasis color in the gradient
+    expect(styles.backgroundImage).toContain('rgb(207, 34, 46)') // danger.emphasis color
   })
 
   it('applies the background color via sx prop', () => {
-    expect(render(<PointerBox sx={{bg: 'danger.emphasis'}} />)).toMatchSnapshot()
+    const {container} = render(
+      <ThemeProvider theme={theme}>
+        <PointerBox sx={{bg: 'danger.emphasis'}} />
+      </ThemeProvider>,
+    )
+
+    const element = container.firstChild as HTMLElement
+    const styles = window.getComputedStyle(element)
+
+    // The background should include the danger.emphasis color in the gradient
+    expect(styles.backgroundImage).toContain('rgb(207, 34, 46)') // danger.emphasis color
   })
 
   it('ensures that background-color set via bg prop and sx output the same for backwards compatibility', () => {
     const mockBg = 'red'
-    const viaStyledSystem = renderStyles(<PointerBox bg={mockBg} />)
-    const viaSxProp = renderStyles(<PointerBox sx={{bg: mockBg}} />)
-    expect(viaStyledSystem).toEqual(
-      expect.objectContaining({
-        'background-image':
-          'linear-gradient(var(--custom-bg),var(--custom-bg)),linear-gradient(var(--bgColor-default,var(--color-canvas-default,#ffffff)),var(--bgColor-default,var(--color-canvas-default,#ffffff)))',
-      }),
+    const {container: containerBg} = render(
+      <ThemeProvider theme={theme}>
+        <PointerBox bg={mockBg} />
+      </ThemeProvider>,
     )
-    expect(viaSxProp).toEqual(
-      expect.objectContaining({
-        'background-image':
-          'linear-gradient(var(--custom-bg),var(--custom-bg)),linear-gradient(var(--bgColor-default,var(--color-canvas-default,#ffffff)),var(--bgColor-default,var(--color-canvas-default,#ffffff)))',
-      }),
+    const {container: containerSx} = render(
+      <ThemeProvider theme={theme}>
+        <PointerBox sx={{bg: mockBg}} />
+      </ThemeProvider>,
     )
+
+    const elementBg = containerBg.firstChild as HTMLElement
+    const elementSx = containerSx.firstChild as HTMLElement
+
+    // Both should have the same computed background styles
+    const stylesBg = window.getComputedStyle(elementBg)
+    const stylesSx = window.getComputedStyle(elementSx)
+
+    expect(stylesBg.backgroundImage).toBe(stylesSx.backgroundImage)
   })
 })

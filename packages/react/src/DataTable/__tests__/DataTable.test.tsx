@@ -1096,7 +1096,7 @@ describe('DataTable', () => {
 
       expect(screen.getByRole('table')).toHaveStyle({
         '--grid-template-columns': 'minmax(max-content, 1fr)',
-      })
+      } as Partial<CSSStyleDeclaration>)
     })
   })
 
