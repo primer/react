@@ -232,6 +232,8 @@ exports[`@primer/react/deprecated > should not update exports without a semver c
   "type ActionListProps",
   "ActionMenu",
   "type ActionMenuProps",
+  "AvatarPair",
+  "type AvatarPairProps",
   "Dialog",
   "type DialogHeaderProps",
   "type DialogProps",
