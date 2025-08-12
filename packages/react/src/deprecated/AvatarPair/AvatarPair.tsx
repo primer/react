@@ -1,12 +1,18 @@
 import React, {type HTMLProps} from 'react'
-import type {AvatarProps} from '../Avatar'
-import Avatar from '../Avatar'
-import {SkeletonAvatar} from '../SkeletonAvatar'
+import type {AvatarProps} from '../../Avatar'
+import Avatar from '../../Avatar'
+import {SkeletonAvatar} from '../../SkeletonAvatar'
 import classes from './AvatarPair.module.css'
 import {clsx} from 'clsx'
 
+/**
+ * @deprecated AvatarPair is deprecated. Please see https://github.com/github/primer/issues/5533 for migration guidance.
+ */
 export type AvatarPairProps = HTMLProps<HTMLDivElement>
 
+/**
+ * @deprecated AvatarPair is deprecated. Please see https://github.com/github/primer/issues/5533 for migration guidance.
+ */
 const AvatarPair = ({children, className, ...rest}: AvatarPairProps) => {
   const avatars = React.Children.map(children, (child, i) => {
     if (!React.isValidElement(child)) {
