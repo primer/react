@@ -1,5 +1,4 @@
 import React, {useState, useMemo} from 'react'
-import Box from '../Box'
 import type {Meta} from '@storybook/react-vite'
 import {Button} from '../Button'
 import type {ItemInput} from '../deprecated/ActionList/List'
@@ -10,6 +9,7 @@ import {ActionList} from '../deprecated/ActionList'
 import FormControl from '../FormControl'
 import {Stack} from '../Stack'
 import {Dialog} from '../experimental'
+import styles from './SelectPanel.examples.stories.module.css'
 
 const meta: Meta<typeof SelectPanel> = {
   title: 'Components/SelectPanel/Examples',
@@ -29,15 +29,12 @@ const NoResultsMessage = (filter: string): {variant: 'empty'; title: string; bod
 function getColorCircle(color: string) {
   return function () {
     return (
-      <Box
-        bg={color}
-        borderColor={color}
-        width={14}
-        height={14}
-        borderRadius={10}
-        margin="auto"
-        borderWidth="1px"
-        borderStyle="solid"
+      <div
+        className={styles.ColorCircle}
+        style={{
+          backgroundColor: color,
+          borderColor: color,
+        }}
       />
     )
   }
@@ -300,28 +297,9 @@ export const CustomItemRenderer = () => {
         onFilterChange={setFilter}
         overlayProps={{width: 'medium'}}
         renderItem={item => (
-          <ActionList.Item
-            {...item}
-            text={undefined}
-            sx={{
-              mx: 2,
-              '&[data-is-active-descendant="activated-directly"]': {
-                backgroundColor: 'transparent',
-                outline: '2px solid var(--focus-outlineColor, var(--color-accent-emphasis))',
-                outlineOffset: '-2px',
-              },
-            }}
-          >
+          <ActionList.Item {...item} text={undefined} className={styles.CustomActionListItem}>
             {' '}
-            <Box
-              sx={{
-                overflow: 'hidden',
-                whiteSpace: 'nowrap',
-                textOverflow: 'ellipsis',
-              }}
-            >
-              {item.text}
-            </Box>
+            <div className={styles.TruncatedText}>{item.text}</div>
           </ActionList.Item>
         )}
         message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}

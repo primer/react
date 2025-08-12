@@ -1,0 +1,32 @@
+.PaddedContainer {
+  padding: var(--base-size-32);
+}
+
+.MarginLeftButton {
+  margin-left: var(--base-size-16);
+}
+
+.LabelLink {
+  margin-left: var(--base-size-4);
+  color: var(--fgColor-muted);
+}
+
+.LabelIcon {
+  color: var(--fgColor-muted);
+}
+
+.AllDirectionsRow {
+  padding: var(--base-size-32);
+  display: flex;
+  gap: var(--base-size-8);
+}
+
+.ActionMenuRow {
+  display: flex;
+  padding: var(--base-size-32);
+  gap: var(--base-size-8);
+}
+
+.KeybindingHintContainer {
+  padding: var(--base-size-40);
+}
