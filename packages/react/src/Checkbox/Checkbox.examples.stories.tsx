@@ -1,6 +1,6 @@
 import type React from 'react'
 import {useRef, useState} from 'react'
-import {Checkbox} from '..'
+import Checkbox from '../Checkbox'
 import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 import {action} from 'storybook/actions'
 import FormControl from '../FormControl'
