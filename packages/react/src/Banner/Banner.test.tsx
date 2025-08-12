@@ -6,7 +6,7 @@ import {Banner} from '../Banner'
 describe('Banner', () => {
   it('should render as a region element', () => {
     render(<Banner title="test" />)
-    expect(screen.getByRole('region', {name: 'Information'})).toBeInTheDocument()
+    expect(screen.getByRole('region', {name: 'test'})).toBeInTheDocument()
     expect(screen.getByRole('heading', {name: 'test'})).toBeInTheDocument()
   })
 
@@ -15,39 +15,84 @@ describe('Banner', () => {
     expect(render(<Element />).container.firstChild).toHaveClass('test-class-name')
   })
 
-  it('should label the landmark element with the corresponding variant label text', () => {
+  it('should label the landmark element with the title content by default', () => {
     render(<Banner title="test" />)
-    expect(screen.getByRole('region')).toEqual(screen.getByLabelText('Information'))
+    expect(screen.getByRole('region')).toHaveAccessibleName('test')
+    expect(screen.getByRole('region')).toHaveAttribute('aria-labelledby')
+    expect(screen.getByRole('region')).not.toHaveAttribute('aria-label')
   })
 
-  it('should label the landmark element with the label for the critical variant', () => {
+  it('should label the landmark element with the title content for the critical variant', () => {
     render(<Banner title="test" variant="critical" />)
-    expect(screen.getByRole('region')).toEqual(screen.getByLabelText('Critical'))
+    expect(screen.getByRole('region')).toHaveAccessibleName('test')
+    expect(screen.getByRole('region')).toHaveAttribute('aria-labelledby')
   })
 
-  it('should label the landmark element with the label for the info variant', () => {
+  it('should label the landmark element with the title content for the info variant', () => {
     render(<Banner title="test" variant="info" />)
-    expect(screen.getByRole('region')).toEqual(screen.getByLabelText('Information'))
+    expect(screen.getByRole('region')).toHaveAccessibleName('test')
+    expect(screen.getByRole('region')).toHaveAttribute('aria-labelledby')
   })
 
-  it('should label the landmark element with the label for the success variant', () => {
+  it('should label the landmark element with the title content for the success variant', () => {
     render(<Banner title="test" variant="success" />)
-    expect(screen.getByRole('region')).toEqual(screen.getByLabelText('Success'))
+    expect(screen.getByRole('region')).toHaveAccessibleName('test')
+    expect(screen.getByRole('region')).toHaveAttribute('aria-labelledby')
   })
 
-  it('should label the landmark element with the label for the upsell variant', () => {
+  it('should label the landmark element with the title content for the upsell variant', () => {
     render(<Banner title="test" variant="upsell" />)
-    expect(screen.getByRole('region')).toEqual(screen.getByLabelText('Recommendation'))
+    expect(screen.getByRole('region')).toHaveAccessibleName('test')
+    expect(screen.getByRole('region')).toHaveAttribute('aria-labelledby')
   })
 
-  it('should label the landmark element with the label for the warning variant', () => {
+  it('should label the landmark element with the title content for the warning variant', () => {
     render(<Banner title="test" variant="warning" />)
-    expect(screen.getByRole('region')).toEqual(screen.getByLabelText('Warning'))
+    expect(screen.getByRole('region')).toHaveAccessibleName('test')
+    expect(screen.getByRole('region')).toHaveAttribute('aria-labelledby')
   })
 
   it('should support the `aria-label` prop to override the default label for the landmark', () => {
     render(<Banner aria-label="Test" title="test" variant="warning" />)
     expect(screen.getByRole('region')).toHaveAttribute('aria-label', 'Test')
+    expect(screen.getByRole('region')).not.toHaveAttribute('aria-labelledby')
+  })
+
+  it('should support the `aria-labelledby` prop to override the default labeling for the landmark', () => {
+    render(
+      <>
+        <h2 id="custom-title">Custom Title</h2>
+        <Banner aria-labelledby="custom-title" title="test" variant="warning" />
+      </>,
+    )
+    expect(screen.getByRole('region')).toHaveAttribute('aria-labelledby', 'custom-title')
+    expect(screen.getByRole('region')).not.toHaveAttribute('aria-label')
+    expect(screen.getByRole('region')).toHaveAccessibleName('Custom Title')
+  })
+
+  it('should default to using aria-labelledby pointing to the title when no explicit labeling is provided', () => {
+    render(<Banner title="test" variant="warning" />)
+    expect(screen.getByRole('region')).toHaveAttribute('aria-labelledby')
+    expect(screen.getByRole('region')).not.toHaveAttribute('aria-label')
+    expect(screen.getByRole('region')).toHaveAccessibleName('test')
+  })
+
+  it('should use aria-labelledby pointing to Banner.Title when used as children', () => {
+    render(
+      <Banner variant="info">
+        <Banner.Title>Custom Banner Title</Banner.Title>
+      </Banner>,
+    )
+    expect(screen.getByRole('region')).toHaveAttribute('aria-labelledby')
+    expect(screen.getByRole('region')).not.toHaveAttribute('aria-label')
+    expect(screen.getByRole('region')).toHaveAccessibleName('Custom Banner Title')
+  })
+
+  it('should use aria-label when explicitly provided (even if empty)', () => {
+    render(<Banner aria-label="" title="test" variant="warning" />)
+    const section = document.querySelector('section')
+    expect(section).toHaveAttribute('aria-label', '')
+    expect(section).not.toHaveAttribute('aria-labelledby')
   })
 
   it('should default the title to a h2', () => {
@@ -67,7 +112,7 @@ describe('Banner', () => {
   it('should rendering a description with the `description` prop', () => {
     render(<Banner title="test" description="test-description" />)
     expect(screen.getByText('test-description')).toBeInTheDocument()
-    expect(screen.getByRole('region', {name: 'Information'})).toContainElement(screen.getByText('test-description'))
+    expect(screen.getByRole('region', {name: 'test'})).toContainElement(screen.getByText('test-description'))
   })
 
   it('should support a primary action', async () => {

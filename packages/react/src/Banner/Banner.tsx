@@ -4,6 +4,7 @@ import {AlertIcon, InfoIcon, StopIcon, CheckCircleIcon, XIcon} from '@primer/oct
 import {Button, IconButton, type ButtonProps} from '../Button'
 import {VisuallyHidden} from '../VisuallyHidden'
 import {useMergedRefs} from '../internal/hooks/useMergedRefs'
+import {useId} from '../hooks'
 import classes from './Banner.module.css'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 
@@ -15,6 +16,12 @@ export type BannerProps = React.ComponentPropsWithoutRef<'section'> & {
    * landmark region
    */
   'aria-label'?: string
+
+  /**
+   * Provide an optional labelledby to override the default labelledby for the Banner
+   * landmark region
+   */
+  'aria-labelledby'?: string
 
   /**
    * Provide an optional className to add to the outermost element rendered by
@@ -82,9 +89,16 @@ const labels: Record<BannerVariant, string> = {
   warning: 'Warning',
 }
 
+const BannerContext = React.createContext<{
+  titleId?: string
+}>({
+  titleId: undefined,
+})
+
 export const Banner = React.forwardRef<HTMLElement, BannerProps>(function Banner(
   {
     'aria-label': label,
+    'aria-labelledby': labelledby,
     children,
     className,
     description,
@@ -103,7 +117,13 @@ export const Banner = React.forwardRef<HTMLElement, BannerProps>(function Banner
   const hasActions = primaryAction || secondaryAction
   const bannerRef = React.useRef<HTMLElement>(null)
   const ref = useMergedRefs(forwardRef, bannerRef)
+  const titleId = useId()
   const supportsCustomIcon = variant === 'info' || variant === 'upsell'
+
+  // Determine what should be used for the landmark labeling
+  const shouldUseLabelledBy = label === undefined && !labelledby
+  const finalLabelledBy = labelledby || (shouldUseLabelledBy ? titleId : undefined)
+  const finalLabel = label !== undefined ? label : !finalLabelledBy ? labels[variant] : undefined
 
   if (__DEV__) {
     // This hook is called consistently depending on the environment
@@ -129,43 +149,46 @@ export const Banner = React.forwardRef<HTMLElement, BannerProps>(function Banner
   }
 
   return (
-    <section
-      {...rest}
-      aria-label={label ?? labels[variant]}
-      className={clsx(className, classes.Banner)}
-      data-dismissible={onDismiss ? '' : undefined}
-      data-title-hidden={hideTitle ? '' : undefined}
-      data-variant={variant}
-      tabIndex={-1}
-      ref={ref}
-    >
-      <div className={classes.BannerIcon}>{icon && supportsCustomIcon ? icon : iconForVariant[variant]}</div>
-      <div className={classes.BannerContainer}>
-        <div className={classes.BannerContent}>
-          {title ? (
-            hideTitle ? (
-              <VisuallyHidden>
-                <BannerTitle>{title}</BannerTitle>
-              </VisuallyHidden>
-            ) : (
-              <BannerTitle>{title}</BannerTitle>
-            )
-          ) : null}
-          {description ? <BannerDescription>{description}</BannerDescription> : null}
-          {children}
+    <BannerContext.Provider value={{titleId: shouldUseLabelledBy && !title ? titleId : undefined}}>
+      <section
+        {...rest}
+        aria-label={finalLabel}
+        aria-labelledby={finalLabelledBy}
+        className={clsx(className, classes.Banner)}
+        data-dismissible={onDismiss ? '' : undefined}
+        data-title-hidden={hideTitle ? '' : undefined}
+        data-variant={variant}
+        tabIndex={-1}
+        ref={ref}
+      >
+        <div className={classes.BannerIcon}>{icon && supportsCustomIcon ? icon : iconForVariant[variant]}</div>
+        <div className={classes.BannerContainer}>
+          <div className={classes.BannerContent}>
+            {title ? (
+              hideTitle ? (
+                <VisuallyHidden>
+                  <BannerTitle id={shouldUseLabelledBy ? titleId : undefined}>{title}</BannerTitle>
+                </VisuallyHidden>
+              ) : (
+                <BannerTitle id={shouldUseLabelledBy ? titleId : undefined}>{title}</BannerTitle>
+              )
+            ) : null}
+            {description ? <BannerDescription>{description}</BannerDescription> : null}
+            {children}
+          </div>
+          {hasActions ? <BannerActions primaryAction={primaryAction} secondaryAction={secondaryAction} /> : null}
         </div>
-        {hasActions ? <BannerActions primaryAction={primaryAction} secondaryAction={secondaryAction} /> : null}
-      </div>
-      {dismissible ? (
-        <IconButton
-          aria-label="Dismiss banner"
-          onClick={onDismiss}
-          className={classes.BannerDismiss}
-          icon={XIcon}
-          variant="invisible"
-        />
-      ) : null}
-    </section>
+        {dismissible ? (
+          <IconButton
+            aria-label="Dismiss banner"
+            onClick={onDismiss}
+            className={classes.BannerDismiss}
+            icon={XIcon}
+            variant="invisible"
+          />
+        ) : null}
+      </section>
+    </BannerContext.Provider>
   )
 })
 
@@ -177,9 +200,12 @@ export type BannerTitleProps<As extends HeadingElement> = {
 } & React.ComponentPropsWithoutRef<As extends 'h2' ? 'h2' : As>
 
 export function BannerTitle<As extends HeadingElement>(props: BannerTitleProps<As>) {
-  const {as: Heading = 'h2', className, children, ...rest} = props
+  const {as: Heading = 'h2', className, children, id, ...rest} = props
+  const context = React.useContext(BannerContext)
+  const finalId = id || context.titleId
+
   return (
-    <Heading {...rest} className={clsx(className, classes.BannerTitle)} data-banner-title="">
+    <Heading {...rest} id={finalId} className={clsx(className, classes.BannerTitle)} data-banner-title="">
       {children}
     </Heading>
   )
