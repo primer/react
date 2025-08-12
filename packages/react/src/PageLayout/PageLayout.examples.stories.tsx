@@ -2,9 +2,10 @@ import React from 'react'
 import type {Meta, StoryFn} from '@storybook/react-vite'
 import {PageLayout} from './PageLayout'
 import {Placeholder} from '../Placeholder'
-import {ActionList, Box, Breadcrumbs, Button, Flash, LinkButton, NavList} from '..'
+import {ActionList, Breadcrumbs, Button, Flash, LinkButton, NavList} from '..'
 import {ArrowLeftIcon, FilterIcon} from '@primer/octicons-react'
 import {Dialog} from '../experimental'
+import classes from './PageLayout.examples.stories.module.css'
 
 export default {
   title: 'Components/PageLayout/Examples',
@@ -32,14 +33,7 @@ export const ParentDetail: StoryFn = () => {
 
   return (
     <>
-      <Flash
-        sx={{
-          display: 'none',
-          '@media screen and (min-width: 768px)': {
-            display: 'block',
-          },
-        }}
-      >
+      <Flash className={classes.ResponsiveFlash}>
         Resize your browser window to see the responsive behavior of the parent-detail pattern.
       </Flash>
       <PageLayout containerWidth="full">
@@ -135,14 +129,7 @@ export const ParentDetailBreadcrumb: StoryFn = () => {
 
   return (
     <>
-      <Flash
-        sx={{
-          display: 'none',
-          '@media screen and (min-width: 768px)': {
-            display: 'block',
-          },
-        }}
-      >
+      <Flash className={classes.ResponsiveFlash}>
         Resize your browser window to see the responsive behavior of the parent-detail pattern.
       </Flash>
       <PageLayout containerWidth="full">
@@ -153,7 +140,7 @@ export const ParentDetailBreadcrumb: StoryFn = () => {
             wide: true,
           }}
         >
-          <Box display="flex" alignItems="center" justifyContent="space-between">
+          <div className={classes.BreadcrumbHeaderRow}>
             <Breadcrumbs>
               <Breadcrumbs.Item href="#index">Pages</Breadcrumbs.Item>
               <Breadcrumbs.Item
@@ -167,7 +154,7 @@ export const ParentDetailBreadcrumb: StoryFn = () => {
             {!currentHash || currentHash === '#index' || currentHash === '#fruits' ? (
               <LinkButton href="#new-fruit">New fruit</LinkButton>
             ) : null}
-          </Box>
+          </div>
         </PageLayout.Header>
         <PageLayout.Pane
           position="start"
@@ -238,14 +225,7 @@ export const FilterBottomSheet: StoryFn = () => {
 
   return (
     <>
-      <Flash
-        sx={{
-          display: 'none',
-          '@media screen and (min-width: 768px)': {
-            display: 'block',
-          },
-        }}
-      >
+      <Flash className={classes.ResponsiveFlash}>
         Resize your browser window to see the responsive behavior of the filter sidebar pattern.
       </Flash>
 
@@ -328,14 +308,7 @@ export const FilterActionMenu: StoryFn = () => {
 
   return (
     <>
-      <Flash
-        sx={{
-          display: 'none',
-          '@media screen and (min-width: 768px)': {
-            display: 'block',
-          },
-        }}
-      >
+      <Flash className={classes.ResponsiveFlash}>
         Resize your browser window to see the responsive behavior of the filter sidebar pattern.
       </Flash>
 
@@ -551,14 +524,7 @@ export const FiltersBottomSheetTwoLevels: StoryFn = () => {
 
   return (
     <>
-      <Flash
-        sx={{
-          display: 'none',
-          '@media screen and (min-width: 768px)': {
-            display: 'block',
-          },
-        }}
-      >
+      <Flash className={classes.ResponsiveFlash}>
         Resize your browser window to see the responsive behavior of the filter sidebar pattern.
       </Flash>
 
@@ -655,14 +621,7 @@ export const FiltersBottomSheetTwoLevels: StoryFn = () => {
               Animals
             </NavList.Item>
           </NavList>
-          <Box
-            sx={{
-              display: 'none',
-              '@media (min-width: 768px)': {
-                display: 'block',
-              },
-            }}
-          >
+          <div className={classes.ResponsiveBox}>
             <ActionList>
               <ActionList.Group selectionVariant="single">
                 <ActionList.GroupHeading as="h4">Filters</ActionList.GroupHeading>
@@ -692,7 +651,7 @@ export const FiltersBottomSheetTwoLevels: StoryFn = () => {
                 </ActionList.Item>
               </ActionList.Group>
             </ActionList>
-          </Box>
+          </div>
         </PageLayout.Pane>
         <PageLayout.Content
           hidden={{
@@ -1057,14 +1016,7 @@ export const ParentDetailPlusFilters: StoryFn = () => {
 
   return (
     <>
-      <Flash
-        sx={{
-          display: 'none',
-          '@media screen and (min-width: 768px)': {
-            display: 'block',
-          },
-        }}
-      >
+      <Flash className={classes.ResponsiveFlash}>
         Resize your browser window to see the responsive behavior of the sidebar patterns.
       </Flash>
 
@@ -1076,7 +1028,7 @@ export const ParentDetailPlusFilters: StoryFn = () => {
             wide: true,
           }}
         >
-          <Box sx={{display: 'flex', justifyContent: 'space-between'}}>
+          <div className={classes.HeaderRow}>
             <LinkButton href={generateHref('#index')} leadingVisual={ArrowLeftIcon} variant="invisible">
               Categories
             </LinkButton>
@@ -1114,7 +1066,7 @@ export const ParentDetailPlusFilters: StoryFn = () => {
                 </ActionList>
               </Dialog>
             )}
-          </Box>
+          </div>
         </PageLayout.Header>
         <PageLayout.Pane
           position="start"
@@ -1147,14 +1099,7 @@ export const ParentDetailPlusFilters: StoryFn = () => {
               Animals
             </NavList.Item>
           </NavList>
-          <Box
-            sx={{
-              display: 'none',
-              '@media (min-width: 768px)': {
-                display: 'block',
-              },
-            }}
-          >
+          <div className={classes.ResponsiveBox}>
             <ActionList>
               <ActionList.Group selectionVariant="single">
                 <ActionList.GroupHeading as="h4">Filters</ActionList.GroupHeading>
@@ -1184,7 +1129,7 @@ export const ParentDetailPlusFilters: StoryFn = () => {
                 </ActionList.Item>
               </ActionList.Group>
             </ActionList>
-          </Box>
+          </div>
         </PageLayout.Pane>
         <PageLayout.Content
           hidden={{

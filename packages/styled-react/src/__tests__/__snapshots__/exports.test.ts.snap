@@ -1,0 +1,35 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`@primer/styled-react exports 1`] = `
+[
+  "ActionList",
+  "ActionMenu",
+  "Box",
+  "Breadcrumbs",
+  "Button",
+  "Flash",
+  "FormControl",
+  "Heading",
+  "IconButton",
+  "Label",
+  "Link",
+  "LinkButton",
+  "PageLayout",
+  "Text",
+  "TextInput",
+  "Truncate",
+  "sx",
+]
+`;
+
+exports[`@primer/styled-react/deprecated exports 1`] = `
+[
+  "Octicon",
+]
+`;
+
+exports[`@primer/styled-react/experimental exports 1`] = `
+[
+  "Dialog",
+]
+`;
