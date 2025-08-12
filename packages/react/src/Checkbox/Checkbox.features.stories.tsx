@@ -1,4 +1,4 @@
-import {Checkbox} from '..'
+import Checkbox from '../Checkbox'
 import FormControl from '../FormControl'
 import {MarkGithubIcon} from '@primer/octicons-react'
 
