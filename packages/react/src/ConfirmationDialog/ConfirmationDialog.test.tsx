@@ -243,9 +243,9 @@ describe('ConfirmationDialog', () => {
       )
 
       const confirmButton = getByRole('button', {name: 'Delete'})
-      
+
       fireEvent.click(confirmButton)
-      
+
       // onClose should not be called when button is loading
       expect(mockOnClose).not.toHaveBeenCalled()
     })
@@ -256,7 +256,7 @@ describe('ConfirmationDialog', () => {
       fireEvent.click(getByText('Show dialog'))
 
       const confirmButton = getByRole('button', {name: 'Delete'})
-      
+
       // Check for loading spinner (Spinner component renders with specific class)
       const spinner = container.querySelector('[data-component="loadingSpinner"]')
       expect(spinner).toBeInTheDocument()
@@ -269,7 +269,7 @@ describe('ConfirmationDialog', () => {
       fireEvent.click(getByText('Show dialog'))
 
       const cancelButton = getByRole('button', {name: 'Cancel'})
-      
+
       // Check for loading spinner in cancel button
       const spinner = container.querySelector('[data-component="loadingSpinner"]')
       expect(spinner).toBeInTheDocument()
@@ -282,7 +282,7 @@ describe('ConfirmationDialog', () => {
       fireEvent.click(getByText('Show dialog'))
 
       const cancelButton = getByRole('button', {name: 'Cancel'})
-      
+
       // When confirm button is loading and dangerous, focus should be on cancel button
       expect(cancelButton).toEqual(document.activeElement)
     })
