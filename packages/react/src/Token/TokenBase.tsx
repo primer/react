@@ -79,7 +79,7 @@ const TokenBase = React.forwardRef<HTMLButtonElement | HTMLAnchorElement | HTMLS
           }
         }}
         className={clsx(classes.TokenBase, className)}
-        data-cursor-is-interactive={isTokenInteractive(rest)}
+        data-cursor-is-interactive={isTokenInteractive({as, ...rest})}
         data-size={size}
         id={id?.toString()}
         {...rest}
