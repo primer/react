@@ -13,11 +13,7 @@ const stories = [
     id: 'components-skeleton-skeletonavatar-features--in-a-stack',
     disableAnimations: true,
   },
-  {
-    title: 'SkeletonAvatar In An Avatar Pair',
-    id: 'components-skeleton-skeletonavatar-features--in-an-avatar-pair',
-    disableAnimations: true,
-  },
+
   {
     title: 'SkeletonAvatar Size',
     id: 'components-skeleton-skeletonavatar-features--size',
