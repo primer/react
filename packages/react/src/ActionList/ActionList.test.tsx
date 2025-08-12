@@ -176,4 +176,23 @@ describe('ActionList', () => {
     expect(descriptions[1]).toHaveAttribute('title', 'Complex content')
     expect(descriptions[2]).not.toHaveAttribute('title')
   })
+
+  it('should support size prop on LinkItem', () => {
+    const {container} = HTMLRender(
+      <ActionList>
+        <ActionList.LinkItem href="//github.com" size="large">
+          Large Link Item
+        </ActionList.LinkItem>
+        <ActionList.LinkItem href="//github.com" size="medium">
+          Medium Link Item
+        </ActionList.LinkItem>
+        <ActionList.LinkItem href="//github.com">Default Link Item</ActionList.LinkItem>
+      </ActionList>,
+    )
+
+    const linkElements = container.querySelectorAll('a')
+    expect(linkElements[0]).toHaveAttribute('data-size', 'large')
+    expect(linkElements[1]).toHaveAttribute('data-size', 'medium')
+    expect(linkElements[2]).toHaveAttribute('data-size', 'medium') // default should be medium
+  })
 })

@@ -1,0 +1,105 @@
+.HeaderStack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base-size-16);
+}
+
+.TitleHeading {
+  font-weight: var(--base-text-weight-normal);
+}
+
+.TitleSubdued {
+  color: var(--fgColor-muted);
+  font-weight: var(--base-text-weight-light);
+}
+
+.StatusRow {
+  display: flex;
+  gap: var(--base-size-8);
+  align-items: center;
+}
+
+.StatusMeta {
+  font-size: var(--text-body-size-medium);
+  color: var(--fgColor-muted);
+}
+
+.BoldMetaLink {
+  font-weight: var(--base-text-weight-semibold);
+}
+
+.ContentBox {
+  border: var(--borderWidth-default) solid var(--borderColor-default);
+  border-radius: var(--borderRadius-medium);
+  height: 200px;
+}
+
+.ScrollBox {
+  max-width: 100%;
+  overflow-x: auto;
+  border: var(--borderWidth-default) solid var(--borderColor-default);
+  white-space: nowrap;
+  margin-top: var(--base-size-16);
+  padding: var(--base-size-16);
+  border-radius: var(--borderRadius-medium);
+}
+
+.PaneStack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base-size-16);
+}
+
+.PaneSectionHeading {
+  font-size: var(--text-body-size-small);
+  font-weight: var(--base-text-weight-semibold);
+  display: block;
+  color: var(--fgColor-muted);
+}
+
+.PaneMetaText {
+  font-size: var(--text-body-size-small, 12px);
+  color: var(--fgColor-muted);
+  /* stylelint-disable-next-line primer/typography */
+  line-height: 1.25;
+}
+
+.PaneSeparator {
+  width: 100%;
+  height: 1px;
+  /* stylelint-disable-next-line primer/colors */
+  background-color: var(--borderColor-default);
+}
+
+.ContentGrid {
+  display: grid;
+  gap: var(--base-size-16);
+}
+
+.Paragraph {
+  margin: 0;
+}
+
+.NestedScrollContainer {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  height: 100vh;
+}
+
+.OverflowAuto {
+  overflow: auto;
+}
+
+.StickyHeader {
+  position: sticky;
+  top: 0;
+  display: grid;
+  place-items: center;
+  background-color: var(--bgColor-muted);
+  border-bottom: var(--borderWidth-default) solid var(--borderColor-default);
+  z-index: 100;
+}
+
+.PaneHeading {
+  font-size: var(--text-title-size-medium);
+}
