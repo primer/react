@@ -54,7 +54,8 @@ export const Item = forwardRef<HTMLSpanElement, ProgressBarItems>(
 
     const bgType = bg && bg.split('.')
     styles[progressBarWidth] = progress ? `${progress}%` : '0%'
-    styles[progressBarBg] = (bgType && `var(--bgColor-${bgType[0]}-${bgType[1]})`) || 'var(--bgColor-success-emphasis)'
+    styles[progressBarBg] =
+      (bgType && `var(--bgColor-${bgType[0]}-${bgType[1] || 'emphasis'})`) || 'var(--bgColor-success-emphasis)'
 
     return (
       <BoxWithFallback

@@ -78,26 +78,26 @@ describe('ProgressBar', () => {
       const {getByRole} = render(<ProgressBar progress={50} aria-label="Upload test.png" />)
       const progressBar = getByRole('progressbar') as HTMLElement
 
-      expect(progressBar.style.getPropertyValue('--progress-bg')).toBe('var(--progressBar-bgColor-success)')
+      expect(progressBar.style.getPropertyValue('--progress-bg')).toBe('var(--bgColor-success-emphasis)')
     })
 
     it('applies custom bg color when bg prop is provided', () => {
       const {getByRole} = render(<ProgressBar progress={50} bg="danger.emphasis" aria-label="Upload test.png" />)
       const progressBar = getByRole('progressbar') as HTMLElement
 
-      expect(progressBar.style.getPropertyValue('--progress-bg')).toBe('var(--progressBar-bgColor-danger)')
+      expect(progressBar.style.getPropertyValue('--progress-bg')).toBe('var(--bgColor-danger-emphasis)')
     })
 
     it('handles different color variants correctly', () => {
       const colorVariants = [
-        {input: 'danger.emphasis', expected: 'var(--progressBar-bgColor-danger)'},
-        {input: 'severe.emphasis', expected: 'var(--progressBar-bgColor-severe)'},
-        {input: 'sponsor.emphasis', expected: 'var(--progressBar-bgColor-sponsor)'},
-        {input: 'done.emphasis', expected: 'var(--progressBar-bgColor-done)'},
-        {input: 'accent.emphasis', expected: 'var(--progressBar-bgColor-accent)'},
-        {input: 'success.emphasis', expected: 'var(--progressBar-bgColor-success)'},
-        {input: 'neutral.emphasis', expected: 'var(--progressBar-bgColor-neutral)'},
-        {input: 'attention.emphasis', expected: 'var(--progressBar-bgColor-attention)'},
+        {input: 'danger.emphasis', expected: 'var(--bgColor-danger-emphasis)'},
+        {input: 'severe.emphasis', expected: 'var(--bgColor-severe-emphasis)'},
+        {input: 'sponsor.emphasis', expected: 'var(--bgColor-sponsor-emphasis)'},
+        {input: 'done.emphasis', expected: 'var(--bgColor-done-emphasis)'},
+        {input: 'accent.emphasis', expected: 'var(--bgColor-accent-emphasis)'},
+        {input: 'success.emphasis', expected: 'var(--bgColor-success-emphasis)'},
+        {input: 'neutral.emphasis', expected: 'var(--bgColor-neutral-emphasis)'},
+        {input: 'attention.emphasis', expected: 'var(--bgColor-attention-emphasis)'},
       ]
 
       for (const {input, expected} of colorVariants) {
@@ -122,10 +122,10 @@ describe('ProgressBar', () => {
       const progressBars = container.querySelectorAll('[role="progressbar"]')
 
       expect((progressBars[0] as HTMLElement).style.getPropertyValue('--progress-bg')).toBe(
-        'var(--progressBar-bgColor-danger)',
+        'var(--bgColor-danger-emphasis)',
       )
       expect((progressBars[1] as HTMLElement).style.getPropertyValue('--progress-bg')).toBe(
-        'var(--progressBar-bgColor-success)',
+        'var(--bgColor-success-emphasis)',
       )
     })
 
@@ -133,7 +133,7 @@ describe('ProgressBar', () => {
       const {getByRole} = render(<ProgressBar progress={50} bg="danger" aria-label="Upload test.png" />)
       const progressBar = getByRole('progressbar') as HTMLElement
 
-      expect(progressBar.style.getPropertyValue('--progress-bg')).toBe('var(--progressBar-bgColor-danger)')
+      expect(progressBar.style.getPropertyValue('--progress-bg')).toBe('var(--bgColor-danger-emphasis)')
     })
 
     it('preserves progress width regardless of bg color', () => {
@@ -141,7 +141,7 @@ describe('ProgressBar', () => {
       const progressBar = getByRole('progressbar') as HTMLElement
 
       expect(progressBar.style.getPropertyValue('--progress-width')).toBe('75%')
-      expect(progressBar.style.getPropertyValue('--progress-bg')).toBe('var(--progressBar-bgColor-danger)')
+      expect(progressBar.style.getPropertyValue('--progress-bg')).toBe('var(--bgColor-danger-emphasis)')
     })
   })
 })
