@@ -19,12 +19,14 @@
 }
 
 .ResponsiveWidth {
+  /* stylelint-disable-next-line primer/responsive-widths */
   width: 350px;
 }
 
-/* Responsive breakpoint for larger screens - matches theme breakpoint */
-@media (min-width: 544px) {
+/* Responsive breakpoint for larger screens */
+@media (min-width: 768px) {
   .ResponsiveWidth {
+    /* stylelint-disable-next-line primer/responsive-widths */
     width: 500px;
   }
 }
