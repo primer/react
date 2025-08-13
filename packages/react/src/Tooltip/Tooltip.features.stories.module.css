@@ -1,0 +1,9 @@
+.AllDirectionsRow {
+  padding: var(--base-size-32);
+  display: flex;
+  gap: var(--base-size-8);
+}
+
+.PaddedContainer {
+  padding: var(--base-size-32);
+}

@@ -1,8 +1,8 @@
 import type {Meta} from '@storybook/react-vite'
 import {BaseStyles, ThemeProvider, IconButton, Button} from '..'
-import Box from '../Box'
 import Tooltip from './Tooltip'
 import {SearchIcon} from '@primer/octicons-react'
+import classes from './Tooltip.features.stories.module.css'
 
 /* Tooltip v1 */
 
@@ -24,7 +24,7 @@ export default {
 } as Meta
 
 export const AllDirections = () => (
-  <Box sx={{padding: 5, display: 'flex', gap: '8px'}}>
+  <div className={classes.AllDirectionsRow}>
     <Tooltip direction="n" aria-label="Supplementary text">
       <Button>North</Button>
     </Tooltip>
@@ -49,13 +49,13 @@ export const AllDirections = () => (
     <Tooltip direction="sw" aria-label="Supplementary text">
       <Button>Southwest</Button>
     </Tooltip>
-  </Box>
+  </div>
 )
 
 export const IconButtonTooltip = () => (
-  <Box sx={{p: 5}}>
+  <div className={classes.PaddedContainer}>
     <Tooltip aria-label="Search">
       <IconButton icon={SearchIcon} aria-label="Search" />
     </Tooltip>
-  </Box>
+  </div>
 )
