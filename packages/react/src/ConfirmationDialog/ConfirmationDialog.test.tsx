@@ -251,27 +251,27 @@ describe('ConfirmationDialog', () => {
     })
 
     it('shows loading spinner in confirm button when loading', async () => {
-      const {getByText, getByRole, container} = render(<LoadingStates confirmButtonLoading={true} />)
+      const {getByText, getByRole} = render(<LoadingStates confirmButtonLoading={true} />)
 
       fireEvent.click(getByText('Show dialog'))
 
       const confirmButton = getByRole('button', {name: 'Delete'})
 
-      // Check for loading spinner (Spinner component renders with specific class)
-      const spinner = container.querySelector('[data-component="loadingSpinner"]')
+      // Check for loading spinner (Spinner component renders as an SVG)
+      const spinner = confirmButton.querySelector('svg')
       expect(spinner).toBeInTheDocument()
       expect(confirmButton.contains(spinner)).toBe(true)
     })
 
     it('shows loading spinner in cancel button when loading', async () => {
-      const {getByText, getByRole, container} = render(<LoadingStates cancelButtonLoading={true} />)
+      const {getByText, getByRole} = render(<LoadingStates cancelButtonLoading={true} />)
 
       fireEvent.click(getByText('Show dialog'))
 
       const cancelButton = getByRole('button', {name: 'Cancel'})
 
       // Check for loading spinner in cancel button
-      const spinner = container.querySelector('[data-component="loadingSpinner"]')
+      const spinner = cancelButton.querySelector('svg')
       expect(spinner).toBeInTheDocument()
       expect(cancelButton.contains(spinner)).toBe(true)
     })
