@@ -1,6 +1,6 @@
 import {clsx} from 'clsx'
 import type {To} from 'history'
-import React, {useState, useRef, useCallback, useEffect} from 'react'
+import React, {useState, useRef, useCallback, useEffect, useMemo} from 'react'
 import type {SxProp} from '../sx'
 import type {ComponentProps} from '../utils/types'
 import classes from './Breadcrumbs.module.css'
@@ -37,7 +37,6 @@ const BreadcrumbsMenuItem = React.forwardRef<HTMLButtonElement, BreadcrumbsMenuI
         <ActionMenu.Button
           ref={ref}
           aria-label={ariaLabel || `${items.length} more breadcrumb items`}
-          aria-haspopup="menu"
           aria-expanded="false"
           variant="invisible"
           size="small"
@@ -74,6 +73,10 @@ const BreadcrumbsMenuItem = React.forwardRef<HTMLButtonElement, BreadcrumbsMenuI
 
 BreadcrumbsMenuItem.displayName = 'Breadcrumbs.MenuItem'
 
+const getValidChildren = (children: React.ReactNode) => {
+  return React.Children.toArray(children).filter(child => React.isValidElement(child)) as React.ReactElement[]
+}
+
 function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap', hideRoot = true}: BreadcrumbsProps) {
   const containerRef = useRef<HTMLElement>(null)
   const [containerWidth, setContainerWidth] = useState<number>(0)
@@ -82,9 +85,7 @@ function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap', hideRo
   const [itemWidths, setItemWidths] = useState<number[]>([])
   const [effectiveHideRoot, setEffectiveHideRoot] = useState<boolean>(hideRoot)
 
-  const childArray = React.Children.toArray(children).filter(child =>
-    React.isValidElement(child),
-  ) as React.ReactElement[]
+  const childArray = useMemo(() => getValidChildren(children), [children])
 
   useEffect(() => {
     if (visibleItems.length === 0 && childArray.length > 0) {
