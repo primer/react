@@ -101,114 +101,116 @@ function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap', hideRo
   useResizeObserver(handleResize, containerRef)
 
   useEffect(() => {
-    if (overflow === 'wrap') {
-      setVisibleItems(childArray)
-      setMenuItems([])
-      setEffectiveHideRoot(hideRoot)
-      return
-    }
-
-    // For 'menu' overflow mode
-    // Helper function to calculate visible items and menu items with progressive hiding
-    const calculateOverflow = (availableWidth: number) => {
-      const listElement = containerRef.current?.querySelector('ol')
-      if (listElement && listElement.children.length > 0 && itemWidths.length === 0) {
-        const widths = Array.from(listElement.children).map(child => (child as HTMLElement).offsetWidth)
-        setItemWidths(widths)
-      }
-      const MENU_BUTTON_WIDTH = 50 // Approximate width of "..." button
-
-      // Helper function to calculate total width of visible items
-      const calculateVisibleItemsWidth = (items: React.ReactElement[]) => {
-        return items
-          .map((item, index) => {
-            return itemWidths[index]
-          })
-          .reduce((sum, width) => sum + width, 0)
+    if (childArray.length > 0) {
+      if (overflow === 'wrap') {
+        setVisibleItems(childArray)
+        setMenuItems([])
+        setEffectiveHideRoot(hideRoot)
+        return
       }
 
-      let currentVisibleItems = [...childArray]
-      let currentMenuItems: React.ReactElement[] = []
+      // For 'menu' overflow mode
+      // Helper function to calculate visible items and menu items with progressive hiding
+      const calculateOverflow = (availableWidth: number) => {
+        const listElement = containerRef.current?.querySelector('ol')
+        if (listElement && listElement.children.length > 0 && itemWidths.length === 0) {
+          const widths = Array.from(listElement.children).map(child => (child as HTMLElement).offsetWidth)
+          setItemWidths(widths)
+        }
+        const MENU_BUTTON_WIDTH = 50 // Approximate width of "..." button
 
-      // If more than 5 items, start by reducing to 5 visible items (including menu)
-      if (childArray.length > 5) {
-        // Target: 4 visible items + 1 menu = 5 total
-        const itemsToHide = childArray.slice(0, childArray.length - 4)
-        currentMenuItems = itemsToHide
-        currentVisibleItems = childArray.slice(childArray.length - 4)
-      }
-
-      // Now check if current visible items fit in available width
-      if (availableWidth > 0) {
-        let visibleItemsWidthTotal = calculateVisibleItemsWidth(currentVisibleItems)
-
-        // Add menu button width if we have hidden items
-        if (currentMenuItems.length > 0) {
-          visibleItemsWidthTotal += MENU_BUTTON_WIDTH
+        // Helper function to calculate total width of visible items
+        const calculateVisibleItemsWidth = (items: React.ReactElement[]) => {
+          return items
+            .map((item, index) => {
+              return itemWidths[index]
+            })
+            .reduce((sum, width) => sum + width, 0)
         }
 
-        // Progressive hiding: keep moving items to menu until they fit
-        let effectiveHideRoot = hideRoot
-        while (visibleItemsWidthTotal > availableWidth && currentVisibleItems.length > 1) {
-          // Determine which item to hide based on hideRoot setting
-          let itemToHide: React.ReactElement
+        let currentVisibleItems = [...childArray]
+        let currentMenuItems: React.ReactElement[] = []
 
-          if (effectiveHideRoot) {
-            // Hide from start when hideRoot is true
-            itemToHide = currentVisibleItems[0]
-            currentVisibleItems = currentVisibleItems.slice(1)
-          } else {
-            // Try to hide second item (keep root and leaf) when hideRoot is false
-            itemToHide = currentVisibleItems[1]
-            currentVisibleItems = [currentVisibleItems[0], ...currentVisibleItems.slice(2)]
-          }
+        // If more than 5 items, start by reducing to 5 visible items (including menu)
+        if (childArray.length > 5) {
+          // Target: 4 visible items + 1 menu = 5 total
+          const itemsToHide = childArray.slice(0, childArray.length - 4)
+          currentMenuItems = itemsToHide
+          currentVisibleItems = childArray.slice(childArray.length - 4)
+        }
 
-          currentMenuItems = [itemToHide, ...currentMenuItems]
+        // Now check if current visible items fit in available width
+        if (availableWidth > 0) {
+          let visibleItemsWidthTotal = calculateVisibleItemsWidth(currentVisibleItems)
 
-          // Recalculate width
-          visibleItemsWidthTotal = calculateVisibleItemsWidth(currentVisibleItems)
-
-          // Add menu button width
+          // Add menu button width if we have hidden items
           if (currentMenuItems.length > 0) {
             visibleItemsWidthTotal += MENU_BUTTON_WIDTH
           }
 
-          // If hideRoot is false but we still don't fit with root + menu + leaf,
-          // fallback to hideRoot=true behavior (menu + leaf only)
-          if (
-            !hideRoot &&
-            !effectiveHideRoot &&
-            currentVisibleItems.length === 2 &&
-            visibleItemsWidthTotal > availableWidth
-          ) {
-            effectiveHideRoot = true
-            // Move the root item to menu as well
-            const rootItem = currentVisibleItems[0]
-            currentVisibleItems = currentVisibleItems.slice(1)
-            currentMenuItems = [rootItem, ...currentMenuItems]
+          // Progressive hiding: keep moving items to menu until they fit
+          let effectiveHideRoot = hideRoot
+          while (visibleItemsWidthTotal > availableWidth && currentVisibleItems.length > 1) {
+            // Determine which item to hide based on hideRoot setting
+            let itemToHide: React.ReactElement
 
-            // Recalculate width one more time
+            if (effectiveHideRoot) {
+              // Hide from start when hideRoot is true
+              itemToHide = currentVisibleItems[0]
+              currentVisibleItems = currentVisibleItems.slice(1)
+            } else {
+              // Try to hide second item (keep root and leaf) when hideRoot is false
+              itemToHide = currentVisibleItems[1]
+              currentVisibleItems = [currentVisibleItems[0], ...currentVisibleItems.slice(2)]
+            }
+
+            currentMenuItems = [itemToHide, ...currentMenuItems]
+
+            // Recalculate width
             visibleItemsWidthTotal = calculateVisibleItemsWidth(currentVisibleItems)
 
+            // Add menu button width
             if (currentMenuItems.length > 0) {
               visibleItemsWidthTotal += MENU_BUTTON_WIDTH
             }
+
+            // If hideRoot is false but we still don't fit with root + menu + leaf,
+            // fallback to hideRoot=true behavior (menu + leaf only)
+            if (
+              !hideRoot &&
+              !effectiveHideRoot &&
+              currentVisibleItems.length === 2 &&
+              visibleItemsWidthTotal > availableWidth
+            ) {
+              effectiveHideRoot = true
+              // Move the root item to menu as well
+              const rootItem = currentVisibleItems[0]
+              currentVisibleItems = currentVisibleItems.slice(1)
+              currentMenuItems = [rootItem, ...currentMenuItems]
+
+              // Recalculate width one more time
+              visibleItemsWidthTotal = calculateVisibleItemsWidth(currentVisibleItems)
+
+              if (currentMenuItems.length > 0) {
+                visibleItemsWidthTotal += MENU_BUTTON_WIDTH
+              }
+            }
           }
+        }
+
+        return {
+          visibleItems: currentVisibleItems,
+          menuItems: currentMenuItems,
+          effectiveHideRoot,
         }
       }
 
-      return {
-        visibleItems: currentVisibleItems,
-        menuItems: currentMenuItems,
-        effectiveHideRoot,
-      }
+      // Apply the overflow calculation
+      const result = calculateOverflow(containerWidth)
+      setVisibleItems(result.visibleItems)
+      setMenuItems(result.menuItems)
+      setEffectiveHideRoot(result.effectiveHideRoot)
     }
-
-    // Apply the overflow calculation
-    const result = calculateOverflow(containerWidth)
-    setVisibleItems(result.visibleItems)
-    setMenuItems(result.menuItems)
-    setEffectiveHideRoot(result.effectiveHideRoot)
   }, [childArray, overflow, containerWidth, hideRoot, itemWidths, effectiveHideRoot])
 
   // Determine final children to render
