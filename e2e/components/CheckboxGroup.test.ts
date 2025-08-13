@@ -23,10 +23,6 @@ const stories = [
     title: 'Visually Hidden Label',
     id: 'components-checkboxgroup-features--visually-hidden-label',
   },
-  {
-    title: 'SX Props',
-    id: 'components-checkboxgroup-dev--sx-props',
-  },
 ] as const
 
 test.describe('CheckboxGroup', () => {
