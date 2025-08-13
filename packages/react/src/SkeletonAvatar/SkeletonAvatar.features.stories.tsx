@@ -2,7 +2,6 @@ import type {Meta} from '@storybook/react-vite'
 import type {ComponentProps} from '../utils/types'
 import {SkeletonAvatar} from './SkeletonAvatar'
 import AvatarStack from '../AvatarStack'
-import AvatarPair from '../AvatarPair'
 
 export default {
   title: 'Components/Skeleton/SkeletonAvatar/Features',
@@ -50,11 +49,4 @@ export const InAStack = () => (
     <SkeletonAvatar />
     <SkeletonAvatar />
   </AvatarStack>
-)
-
-export const InAnAvatarPair = () => (
-  <AvatarPair>
-    <SkeletonAvatar />
-    <SkeletonAvatar />
-  </AvatarPair>
 )

@@ -184,25 +184,7 @@ const components = new Map([
       ],
     },
   ],
-  [
-    'AvatarPair',
-    {
-      stories: [
-        {
-          id: 'components-avatarpair--default',
-          name: 'Default',
-        },
-        {
-          id: 'components-avatarpair-features--parent-circle',
-          name: 'Parent Circle',
-        },
-        {
-          id: 'components-avatarpair-features--parent-square',
-          name: 'Parent Square',
-        },
-      ],
-    },
-  ],
+
   [
     'BranchName',
     {
