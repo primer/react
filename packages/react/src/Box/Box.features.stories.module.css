@@ -1,0 +1,35 @@
+.Border {
+  border: var(--borderWidth-thin) solid var(--borderColor-default);
+  padding: var(--base-size-16);
+}
+
+.BorderBottom {
+  border-bottom: var(--borderWidth-thin) solid var(--borderColor-default);
+  padding: var(--base-size-16);
+}
+
+.FlexContainer {
+  display: flex;
+}
+
+.FlexItem {
+  padding: var(--base-size-16);
+  border: var(--borderWidth-thin) solid var(--borderColor-default);
+}
+
+.FlexItemGrow {
+  padding: var(--base-size-16);
+  border: var(--borderWidth-thin) solid var(--borderColor-default);
+  flex-grow: 1;
+}
+
+.GridContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--base-size-16);
+}
+
+.GridItem {
+  padding: var(--base-size-16);
+  border: var(--borderWidth-thin) solid var(--borderColor-default);
+}
