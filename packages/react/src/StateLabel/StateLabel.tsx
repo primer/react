@@ -10,6 +10,7 @@ import {
   QuestionIcon,
   GitMergeQueueIcon,
   AlertIcon,
+  EyeClosedIcon,
 } from '@primer/octicons-react'
 import styled from 'styled-components'
 import {variant} from 'styled-system'
@@ -32,6 +33,7 @@ const octiconMap = {
   unavailable: AlertIcon,
   open: null,
   closed: null,
+  pullUnlisted: EyeClosedIcon, // TODO verify with design this is the correct icon
 }
 
 const labelMap: Record<keyof typeof octiconMap, 'Issue' | 'Issue, not planned' | 'Pull request' | ''> = {
@@ -47,6 +49,7 @@ const labelMap: Record<keyof typeof octiconMap, 'Issue' | 'Issue, not planned' |
   unavailable: '',
   open: '',
   closed: '',
+  pullUnlisted: 'Pull request',
 }
 
 const colorVariants = variant({
@@ -111,6 +114,12 @@ const colorVariants = variant({
       backgroundColor: 'done.emphasis',
       color: 'fg.onEmphasis',
       boxShadow: 'var(--boxShadow-thin, inset 0 0 0 1px) var(--borderColor-done-emphasis, transparent)',
+    },
+    //TODO: confirming styling
+    pullUnlisted: {
+      backgroundColor: 'neutral.emphasis',
+      color: 'fg.onEmphasis',
+      boxShadow: 'var(--boxShadow-thin, inset 0 0 0 1px) var(--borderColor-neutral-emphasis, transparent)',
     },
   },
 })
