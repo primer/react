@@ -345,7 +345,6 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
           }}
           onBlur={() => setIsFocused(false)}
           onClick={event => {
-            if (actionCommandPressed) return
             if (onSelect) {
               onSelect(event)
             } else {
@@ -731,7 +730,7 @@ export type TreeViewTrailingAction = {
 }
 
 const TrailingAction: React.FC<TreeViewTrailingAction> = props => {
-  const {trailingActionId} = React.useContext(ItemContext)
+  const {trailingActionId, itemId} = React.useContext(ItemContext)
   const {items, shortcutText} = props
 
   return (
@@ -759,6 +758,13 @@ const TrailingAction: React.FC<TreeViewTrailingAction> = props => {
             tabIndex={-1}
             aria-hidden={true}
             key={index}
+            onKeyDown={() => {
+              // hack to send focus back to the tree item after the action is triggered via click
+              // this is needed because the trailing action shouldn't be focused, as it does not interact well with
+              // the focus management of TreeView
+              const parentElement = document.getElementById(itemId)
+              parentElement?.focus()
+            }}
           />
         ))}
       </div>
@@ -779,6 +785,11 @@ const ActionDialog: React.FC<TreeViewActionDialogProps> = ({items, onClose}) => 
   const {itemId} = React.useContext(ItemContext)
   return (
     <div
+      onClick={event => {
+        // Prevent click events from bubbling up to the TreeView
+        // and interfering with keyboard navigation
+        event.stopPropagation()
+      }}
       onKeyDown={event => {
         if (['Backspace', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Enter'].includes(event.key)) {
           // Prevent keyboard events from bubbling up to the TreeView
