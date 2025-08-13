@@ -36,9 +36,9 @@ export const OverflowMenu = () => (
     <Breadcrumbs.Item href="#">Home</Breadcrumbs.Item>
     <Breadcrumbs.Item href="#">Products</Breadcrumbs.Item>
     <Breadcrumbs.Item href="#">Category</Breadcrumbs.Item>
-    <Breadcrumbs.Item href="#">Subcategory</Breadcrumbs.Item>
-    <Breadcrumbs.Item href="#">Item</Breadcrumbs.Item>
-    <Breadcrumbs.Item href="#">Details</Breadcrumbs.Item>
+    <Breadcrumbs.Item href="#">SubcategorySubcategorySubcategorySubcategory</Breadcrumbs.Item>
+    <Breadcrumbs.Item href="#">ItemItemItemItemItemItemItem</Breadcrumbs.Item>
+    <Breadcrumbs.Item href="#">DetailsDetailsDetailsDetailsDetailsDetailsDetails</Breadcrumbs.Item>
     <Breadcrumbs.Item href="#" selected>
       Current Page
     </Breadcrumbs.Item>
@@ -60,7 +60,7 @@ export const OverflowMenuShowRoot = () => (
 )
 
 export const OverflowMenuNarrowContainer = () => (
-  <div style={{width: '200px', border: '1px solid #ccc', padding: '8px'}}>
+  <div style={{width: '350px', border: '1px solid #ccc', padding: '8px'}}>
     <Breadcrumbs overflow="menu">
       <Breadcrumbs.Item href="#">Home</Breadcrumbs.Item>
       <Breadcrumbs.Item href="#">Products</Breadcrumbs.Item>

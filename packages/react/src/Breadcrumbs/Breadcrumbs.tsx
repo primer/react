@@ -40,6 +40,7 @@ const BreadcrumbsMenuItem = React.forwardRef<HTMLButtonElement, BreadcrumbsMenuI
           aria-haspopup="menu"
           aria-expanded="false"
           variant="invisible"
+          size="small"
           trailingAction={null}
           style={{display: 'inline-flex'}}
           {...rest}
@@ -80,13 +81,11 @@ function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap', hideRo
   const [menuItems, setMenuItems] = useState<React.ReactElement[]>([])
   const [itemWidths, setItemWidths] = useState<number[]>([])
   const [effectiveHideRoot, setEffectiveHideRoot] = useState<boolean>(hideRoot)
-  const previousWidthsRef = useRef<string>('')
 
   const childArray = React.Children.toArray(children).filter(child =>
     React.isValidElement(child),
   ) as React.ReactElement[]
 
-  // Initialize visible items to show all items initially for measurement
   useEffect(() => {
     if (visibleItems.length === 0 && childArray.length > 0) {
       setVisibleItems(childArray)
@@ -101,26 +100,6 @@ function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap', hideRo
 
   useResizeObserver(handleResize, containerRef)
 
-  // Calculate item widths from rendered items using parent container
-  useEffect(() => {
-    if (containerRef.current && overflow === 'menu') {
-      const listElement = containerRef.current.querySelector('ol')
-      if (listElement && listElement.children.length > 0) {
-        // Only measure widths when all original items are visible (no overflow menu yet)
-        if (listElement.children.length === childArray.length) {
-          const widths = Array.from(listElement.children).map(child => (child as HTMLElement).offsetWidth)
-          const widthsString = JSON.stringify(widths)
-          // Only update if widths have actually changed to prevent infinite loops
-          if (widthsString !== previousWidthsRef.current) {
-            previousWidthsRef.current = widthsString
-            setItemWidths(widths)
-          }
-        }
-      }
-    }
-  }, [childArray, overflow, visibleItems])
-
-  // Calculate which items are visible vs in menu
   useEffect(() => {
     if (overflow === 'wrap') {
       setVisibleItems(childArray)
@@ -132,7 +111,21 @@ function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap', hideRo
     // For 'menu' overflow mode
     // Helper function to calculate visible items and menu items with progressive hiding
     const calculateOverflow = (availableWidth: number) => {
+      const listElement = containerRef.current?.querySelector('ol')
+      if (listElement && listElement.children.length > 0 && itemWidths.length === 0) {
+        const widths = Array.from(listElement.children).map(child => (child as HTMLElement).offsetWidth)
+        setItemWidths(widths)
+      }
       const MENU_BUTTON_WIDTH = 50 // Approximate width of "..." button
+
+      // Helper function to calculate total width of visible items
+      const calculateVisibleItemsWidth = (items: React.ReactElement[]) => {
+        return items
+          .map((item, index) => {
+            return itemWidths[index]
+          })
+          .reduce((sum, width) => sum + width, 0)
+      }
 
       let currentVisibleItems = [...childArray]
       let currentMenuItems: React.ReactElement[] = []
@@ -146,13 +139,8 @@ function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap', hideRo
       }
 
       // Now check if current visible items fit in available width
-      if (availableWidth > 0 && itemWidths.length === childArray.length) {
-        let visibleItemsWidthTotal = currentVisibleItems
-          .map(item => {
-            const index = childArray.findIndex(child => child.key === item.key)
-            return index !== -1 ? itemWidths[index] : 0
-          })
-          .reduce((sum, width) => sum + width, 0)
+      if (availableWidth > 0) {
+        let visibleItemsWidthTotal = calculateVisibleItemsWidth(currentVisibleItems)
 
         // Add menu button width if we have hidden items
         if (currentMenuItems.length > 0) {
@@ -161,7 +149,6 @@ function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap', hideRo
 
         // Progressive hiding: keep moving items to menu until they fit
         let effectiveHideRoot = hideRoot
-
         while (visibleItemsWidthTotal > availableWidth && currentVisibleItems.length > 1) {
           // Determine which item to hide based on hideRoot setting
           let itemToHide: React.ReactElement
@@ -179,12 +166,7 @@ function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap', hideRo
           currentMenuItems = [itemToHide, ...currentMenuItems]
 
           // Recalculate width
-          visibleItemsWidthTotal = currentVisibleItems
-            .map(item => {
-              const index = childArray.findIndex(child => child.key === item.key)
-              return index !== -1 ? itemWidths[index] : 0
-            })
-            .reduce((sum, width) => sum + width, 0)
+          visibleItemsWidthTotal = calculateVisibleItemsWidth(currentVisibleItems)
 
           // Add menu button width
           if (currentMenuItems.length > 0) {
@@ -206,23 +188,12 @@ function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap', hideRo
             currentMenuItems = [rootItem, ...currentMenuItems]
 
             // Recalculate width one more time
-            visibleItemsWidthTotal = currentVisibleItems
-              .map(item => {
-                const index = childArray.findIndex(child => child.key === item.key)
-                return index !== -1 ? itemWidths[index] : 0
-              })
-              .reduce((sum, width) => sum + width, 0)
+            visibleItemsWidthTotal = calculateVisibleItemsWidth(currentVisibleItems)
 
             if (currentMenuItems.length > 0) {
               visibleItemsWidthTotal += MENU_BUTTON_WIDTH
             }
           }
-        }
-
-        // Final check: if even the leaf breadcrumb + menu doesn't fit, just show them anyway
-        // The CSS will handle truncation of the leaf breadcrumb
-        if (visibleItemsWidthTotal > availableWidth && currentVisibleItems.length === 1) {
-          // Keep the current configuration - CSS will handle truncation
         }
       }
 
