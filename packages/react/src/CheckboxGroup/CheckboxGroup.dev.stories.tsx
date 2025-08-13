@@ -1,37 +1,17 @@
 import type {Meta} from '@storybook/react-vite'
 import {Checkbox, CheckboxGroup, FormControl} from '..'
+import styles from './CheckboxGroup.dev.module.css'
 
 export default {
   title: 'Components/CheckboxGroup/Dev',
   component: CheckboxGroup,
-  parameters: {controls: {exclude: ['aria-labelledby', 'id', 'onChange', 'sx']}},
+  parameters: {controls: {exclude: ['aria-labelledby', 'id', 'onChange']}},
 } as Meta
 
-export const SxProps = () => (
-  <CheckboxGroup
-    sx={{
-      color: 'var(--fgColor-default, var(--color-fg-default))',
-      my: '15px',
-    }}
-  >
-    <CheckboxGroup.Caption
-      sx={{
-        color: 'fg.muted',
-        fontSize: 0,
-        fontWeight: 400,
-      }}
-    >
-      Caption
-    </CheckboxGroup.Caption>
-    <CheckboxGroup.Label
-      sx={{
-        color: 'var(--fgColor-default, var(--color-fg-default))',
-        fontSize: ['14px'],
-        fontWeight: 600,
-      }}
-    >
-      Choices
-    </CheckboxGroup.Label>
+export const WithCss = () => (
+  <CheckboxGroup className={styles.CheckboxGroupDev}>
+    <CheckboxGroup.Caption className={styles.CaptionDev}>Caption</CheckboxGroup.Caption>
+    <CheckboxGroup.Label className={styles.LabelDev}>Choices</CheckboxGroup.Label>
     <FormControl required>
       <Checkbox value="one" defaultChecked />
       <FormControl.Label>Choice one</FormControl.Label>

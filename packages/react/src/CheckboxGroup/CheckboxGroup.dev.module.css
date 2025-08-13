@@ -1,0 +1,17 @@
+.CheckboxGroupDev {
+  color: var(--fgColor-default, var(--color-fg-default));
+  margin-top: var(--base-size-16);
+  margin-bottom: var(--base-size-16);
+}
+
+.CaptionDev {
+  color: var(--fgColor-muted);
+  font-size: var(--text-caption-size-small);
+  font-weight: var(--text-caption-weight-small);
+}
+
+.LabelDev {
+  color: var(--fgColor-default, var(--color-fg-default));
+  font-size: var(--text-body-size-medium);
+  font-weight: var(--text-title-weight-medium);
+}
