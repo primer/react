@@ -172,6 +172,12 @@ function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap', hideRo
             eHideRoot = hideRoot
           }
         }
+
+        return {
+          visibleItems: currentVisibleItems,
+          menuItems: currentMenuItems,
+          effectiveHideRoot,
+        }
       }
       return {
         visibleItems: [...currentVisibleItems],
