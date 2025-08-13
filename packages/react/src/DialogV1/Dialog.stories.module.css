@@ -1,0 +1,7 @@
+.BannerContainer {
+  margin-bottom: var(--base-size-24);
+}
+
+.ContentContainer {
+  padding: var(--base-size-24);
+}
