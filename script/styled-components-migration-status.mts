@@ -32,30 +32,53 @@ const matches = glob
     return b.size - a.size
   })
 
-const migrated = matches.filter(({filepath}) => {
+// Uses `Box`
+// Uses `BoxWithFallback`
+// Uses sx (`SxProp` or `sx`)
+// Uses styled
+
+const box = matches.filter(({filepath}) => {
   const contents = fs.readFileSync(filepath, 'utf8')
-  return !hasStyledComponents(contents)
+  return contents.match(/Box(?!WithFallback)/)
 })
+const boxSize = box.reduce((acc, {size}) => acc + size, 0)
 
-const notMigrated = matches.filter(({filepath}) => {
+const boxWithFallback = matches.filter(({filepath}) => {
   const contents = fs.readFileSync(filepath, 'utf8')
-  return hasStyledComponents(contents)
+  return contents.match(/BoxWithFallback/)
 })
+const boxWithFallbackSize = boxWithFallback.reduce((acc, {size}) => acc + size, 0)
 
-let totalSize = 0
+const sx = matches.filter(({filepath}) => {
+  const contents = fs.readFileSync(filepath, 'utf8')
+  return contents.match(/SxProp/) || contents.match(/sx=/)
+})
+const sxSize = sx.reduce((acc, {size}) => acc + size, 0)
 
-for (const {size} of matches) {
-  totalSize += size
-}
+const styled = matches.filter(({filepath}) => {
+  const contents = fs.readFileSync(filepath, 'utf8')
+  return contents.match(/styled\./) || contents.match(/styled\(/)
+})
+const styledSize = styled.reduce((acc, {size}) => acc + size, 0)
 
+const totalCount = matches.length
+const totalSize = matches.reduce((acc, {size}) => acc + size, 0)
+
+const notMigrated = new Set([...box, ...boxWithFallback, ...sx, ...styled].map(match => match.filepath))
+const migrated = new Set()
+let notMigratedSize = 0
 let migratedSize = 0
 
-for (const {size} of migrated) {
-  migratedSize += size
+for (const match of matches) {
+  if (!notMigrated.has(match.filepath)) {
+    migrated.add(match.filepath)
+    migratedSize += match.size
+  } else {
+    notMigratedSize += match.size
+  }
 }
 
-console.log(`
-# styled-components Migration
+console.log(`# styled-components Migration
 
 This report tracks our status migrating files from styled-components to CSS Modules.
 
@@ -63,63 +86,93 @@ This report tracks our status migrating files from styled-components to CSS Modu
 
 **Status by file count**
 
-![Status by file count](https://geps.dev/progress/${Math.floor((migrated.length / matches.length) * 100)})
+![Status by file count](https://geps.dev/progress/${Math.floor((migrated.size / matches.length) * 100)})
 
 **Status by file size**
 
 ![Status by file size](https://geps.dev/progress/${Math.floor((migratedSize / totalSize) * 100)})
-`)
 
-console.log(`
-## Not Migrated (${notMigrated.length})
+## Box
 
-| Filepath | Size (kB) |
-| :------- | :-------- |`)
+**Status by file count**
 
-for (const {filepath, size} of notMigrated) {
-  const relativePath = path.relative(directory, filepath)
-  const link = `[\`${relativePath}\`](https://github.com/primer/react/blob/main/${relativePath})`
-  console.log(`| ${link} | ${round(size / 1024)}kB |`)
-}
+![Status by file count](https://geps.dev/progress/${Math.floor(((matches.length - box.length) / matches.length) * 100)})
 
-console.log(`## Migrated (${migrated.length})
+**Status by file size**
 
-There are ${migrated.length} files that do not include styled-components in Primer React.
+![Status by file size](https://geps.dev/progress/${Math.floor(((totalSize - boxSize) / totalSize) * 100)})
 
 <details>
-<summary>All files</summary>
+<summary>Files</summary>
 
-| Filepath | Size (kB) |
-| :------- | :-------- |`)
+${getTable(box)}
+</details>
 
-for (const {filepath, size} of migrated) {
-  const relativePath = path.relative(directory, filepath)
-  const link = `[\`${relativePath}\`](https://github.com/primer/react/blob/main/${relativePath})`
-  console.log(`| ${link} | ${round(size / 1024)}kB |`)
+## BoxWithFallback
+
+**Status by file count**
+
+![Status by file count](https://geps.dev/progress/${Math.floor(((matches.length - boxWithFallback.length) / matches.length) * 100)})
+
+**Status by file size**
+
+![Status by file size](https://geps.dev/progress/${Math.floor(((totalSize - boxWithFallbackSize) / totalSize) * 100)})
+
+<details>
+<summary>Files</summary>
+
+${getTable(boxWithFallback)}
+</details>
+
+## sx
+
+**Status by file count**
+
+![Status by file count](https://geps.dev/progress/${Math.floor(((matches.length - sx.length) / matches.length) * 100)})
+
+**Status by file size**
+
+![Status by file size](https://geps.dev/progress/${Math.floor(((totalSize - sxSize) / totalSize) * 100)})
+
+<details>
+<summary>Files</summary>
+
+${getTable(sx)}
+</details>
+
+## styled
+
+**Status by file count**
+
+![Status by file count](https://geps.dev/progress/${Math.floor(((matches.length - styled.length) / matches.length) * 100)})
+
+**Status by file size**
+
+![Status by file size](https://geps.dev/progress/${Math.floor(((totalSize - styledSize) / totalSize) * 100)})
+
+<details>
+<summary>Files</summary>
+
+${getTable(styled)}
+</details>
+`)
+
+function getTable(collection: Array<{filepath: string; size: number}>): string {
+  const rows = collection.sort((a, b) => b.size - a.size)
+  let output = ''
+
+  output += '| Filepath | Size (kB) |\n'
+  output += '| :------- | :-------- |\n'
+
+  for (const {filepath, size} of rows) {
+    const relativePath = path.relative(directory, filepath)
+    const link = `[\`${relativePath}\`](https://github.com/primer/react/blob/main/${relativePath})`
+    output += `| ${link} | ${round(size / 1024)}kB |\n`
+  }
+
+  return output
 }
-
-console.log(`\n</details>`)
 
 function round(value: number): number {
   return Math.round((value + Number.EPSILON) * 100) / 100
-}
-
-function hasStyledComponents(contents: string): boolean {
-  if (contents.match(/styled-components/)) {
-    return true
-  }
-
-  if (contents.match(/SxProp/)) {
-    return true
-  }
-
-  if (contents.match(/Box/)) {
-    return true
-  }
-
-  if (contents.match(/BoxWithFallback/)) {
-    return true
-  }
-
-  return false
 }
