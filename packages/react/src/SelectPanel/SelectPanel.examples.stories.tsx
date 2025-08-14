@@ -1,14 +1,16 @@
-import React, {useState, useMemo} from 'react'
+import React, {useState, useMemo, useRef} from 'react'
 import type {Meta} from '@storybook/react-vite'
 import {Button} from '../Button'
 import type {ItemInput} from '../deprecated/ActionList/List'
 import {SelectPanel} from './SelectPanel'
 import type {OverlayProps} from '../Overlay'
+import {ActionList} from '../ActionList'
 import {TriangleDownIcon} from '@primer/octicons-react'
-import {ActionList} from '../deprecated/ActionList'
 import FormControl from '../FormControl'
 import {Stack} from '../Stack'
 import {Dialog} from '../experimental'
+import {Dialog as DialogV1} from '../deprecated'
+import {ActionMenu} from '../ActionMenu'
 import styles from './SelectPanel.examples.stories.module.css'
 
 const meta: Meta<typeof SelectPanel> = {
@@ -441,6 +443,84 @@ export const SelectPanelRepositionInsideDialog = () => {
         />
       </Stack>
     </Dialog>
+  )
+}
+
+export const SelectPanelInsideDialogV1 = () => {
+  const [selected, setSelected] = React.useState<ItemInput[]>([items[0], items[1]])
+  const [open, setOpen] = useState(false)
+  const [filter, setFilter] = React.useState('')
+  const [filteredItems, setFilteredItems] = React.useState<typeof items>([])
+
+  const [loading, setLoading] = useState(true)
+
+  React.useEffect(() => {
+    if (!open) setLoading(true)
+    window.setTimeout(() => {
+      if (open) {
+        setFilteredItems(items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase())))
+        setLoading(false)
+      }
+    }, 2000)
+    // eslint-disable-next-line react-compiler/react-compiler
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open])
+
+  React.useEffect(() => {
+    if (!loading) {
+      setFilteredItems(items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase())))
+    }
+    // eslint-disable-next-line react-compiler/react-compiler
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filter])
+
+  const [isOpen, setIsOpen] = useState(false)
+  const setCancel = () => {}
+  const returnFocusRef = useRef(null)
+
+  return (
+    <div>
+      <ActionMenu>
+        <ActionMenu.Button>Open menu</ActionMenu.Button>
+        <ActionMenu.Overlay width="medium">
+          <ActionList>
+            <ActionList.Item ref={returnFocusRef} onSelect={() => setIsOpen(true)}>
+              Show Dialog
+            </ActionList.Item>
+          </ActionList>
+        </ActionMenu.Overlay>
+      </ActionMenu>
+      <DialogV1
+        returnFocusRef={returnFocusRef}
+        isOpen={isOpen}
+        onDismiss={() => setIsOpen(false)}
+        aria-labelledby="header"
+      >
+        <div data-testid="inner">
+          <DialogV1.Header id="header">Title</DialogV1.Header>
+          <Stack
+            direction="vertical"
+            justify="space-between"
+            style={{height: 'calc(100vh - 500px)', width: 'fit-content'}}
+          >
+            <SelectPanel
+              loading={loading}
+              title="Select labels"
+              placeholderText="Filter Labels"
+              open={open}
+              onOpenChange={setOpen}
+              onCancel={setCancel}
+              items={filteredItems}
+              selected={selected}
+              onSelectedChange={setSelected}
+              onFilterChange={setFilter}
+              overlayProps={{anchorSide: 'outside-top'}}
+              message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}
+            />
+          </Stack>
+        </div>
+      </DialogV1>
+    </div>
   )
 }
 
