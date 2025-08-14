@@ -32,11 +32,6 @@ const matches = glob
     return b.size - a.size
   })
 
-// Uses `Box`
-// Uses `BoxWithFallback`
-// Uses sx (`SxProp` or `sx`)
-// Uses styled
-
 const box = matches.filter(({filepath}) => {
   const contents = fs.readFileSync(filepath, 'utf8')
   return contents.match(/Box(?!WithFallback)/)
