@@ -264,14 +264,14 @@ describe('Footer button loading states', () => {
   })
 
   it('shows loading spinner in button when loading', () => {
-    const {getByRole, container} = render(
+    const {getByRole, baseElement} = render(
       <Dialog onClose={() => {}} footerButtons={[{buttonType: 'primary', content: 'Processing...', loading: true}]}>
         Dialog content
       </Dialog>,
     )
 
     const button = getByRole('button', {name: 'Processing...'})
-    const spinner = container.querySelector('[data-component="loadingSpinner"]')
+    const spinner = baseElement.querySelector('[data-component="loadingSpinner"]') as HTMLElement
 
     expect(spinner).toBeInTheDocument()
     expect(button.contains(spinner)).toBe(true)
