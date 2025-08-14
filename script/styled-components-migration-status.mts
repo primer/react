@@ -16,8 +16,6 @@ const matches = glob
       '**/lib-esm/**',
       '**/storybook-static/**',
       '**/.next/**',
-      '**/*.test.{ts,tsx}',
-      '**/*.types.test.{ts,tsx}',
       '**/*.module.css.d.ts',
       '**/*.figma.tsx',
     ],
