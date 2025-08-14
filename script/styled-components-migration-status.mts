@@ -125,7 +125,7 @@ const styledSystemSize = styledSystem.reduce((acc, {size}) => acc + size, 0)
 const totalCount = matches.length
 const totalSize = matches.reduce((acc, {size}) => acc + size, 0)
 
-const notMigrated = new Set([...box, ...boxWithFallback, ...sx, ...styledComponents].map(match => match.filepath))
+const notMigrated = new Set([...box, ...boxWithFallback, ...sx, ...styledComponents, ...styledSystem].map(match => match.filepath))
 const migrated = new Set()
 let notMigratedSize = 0
 let migratedSize = 0
