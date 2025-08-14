@@ -1,6 +1,7 @@
 import React from 'react'
 import {useOverflow} from '../hooks/useOverflow'
 import classes from './ScrollableRegion.module.css'
+import {clsx} from 'clsx'
 
 type Labelled =
   | {
@@ -17,6 +18,7 @@ type ScrollableRegionProps = React.ComponentPropsWithoutRef<'div'> & Labelled
 function ScrollableRegion({
   'aria-label': label,
   'aria-labelledby': labelledby,
+  className,
   children,
   ...rest
 }: ScrollableRegionProps) {
@@ -32,7 +34,7 @@ function ScrollableRegion({
     : {}
 
   return (
-    <div {...rest} {...regionProps} ref={ref} className={classes.ScrollableRegion}>
+    <div {...rest} {...regionProps} ref={ref} className={clsx(className, classes.ScrollableRegion)}>
       {children}
     </div>
   )
