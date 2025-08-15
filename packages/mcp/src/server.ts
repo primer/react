@@ -3,7 +3,7 @@ import {McpServer} from '@modelcontextprotocol/sdk/server/mcp.js'
 import * as cheerio from 'cheerio'
 import {z} from 'zod'
 import TurndownService from 'turndown'
-import {listComponents, listPatterns} from './primer'
+import {listComponents, listPatterns, listIcons} from './primer'
 import packageJson from '../package.json' with {type: 'json'}
 
 const server = new McpServer({
@@ -14,9 +14,58 @@ const server = new McpServer({
 const turndownService = new TurndownService()
 
 // -----------------------------------------------------------------------------
+// Project setup
+// -----------------------------------------------------------------------------
+server.tool('init', 'Setup or create a project that includes Primer React', async () => {
+  const url = new URL(`/product/getting-started/react`, 'https://primer.style')
+  const response = await fetch(url)
+  if (!response.ok) {
+    throw new Error(`Failed to fetch ${url}: ${response.statusText}`)
+  }
+
+  const html = await response.text()
+  if (!html) {
+    return {
+      content: [],
+    }
+  }
+
+  const $ = cheerio.load(html)
+  const source = $('main').html()
+  if (!source) {
+    return {
+      content: [],
+    }
+  }
+
+  const text = turndownService.turndown(source)
+
+  return {
+    content: [
+      {
+        type: 'text',
+        text: `The getting started documentation for Primer React is included below. It's important that the project:
+
+- Is using a tool like Vite, Next.js, etc that supports TypeScript and React. If the project does not have support for that, generate an appropriate project scaffold
+- Installs the latest version of \`@primer/react\` from \`npm\`
+- Correctly adds the \`ThemeProvider\` and \`BaseStyles\` components to the root of the application
+- Includes an import to a theme from \`@primer/primitives\`
+- If the project wants to use icons, also install the \`@primer/octicons-react\` from \`npm\`
+- Add appropriate agent instructions (like for copilot) to the project to prefer using components, tokens, icons, and more from Primer packages
+
+---
+
+${text}
+`,
+      },
+    ],
+  }
+})
+
+// -----------------------------------------------------------------------------
 // Components
 // -----------------------------------------------------------------------------
-server.tool('get_components', 'List all of the components available from Primer React', async () => {
+server.tool('list_components', 'List all of the components available from Primer React', async () => {
   const components = listComponents().map(component => {
     return `- ${component.name}`
   })
@@ -772,10 +821,8 @@ const tokens: Array<Token> = [
 
 function serialize(token: Token): string {
   if (typeof token === 'string') {
-    // eslint-disable-next-line github/unescaped-html-literal
     return `<token name="${token}"></token>`
   }
-  // eslint-disable-next-line github/unescaped-html-literal
   return `<token-category name="${token.category}">\n${token.tokens.map(serialize).join('\n')}\n</token-category>`
 }
 
@@ -871,5 +918,91 @@ server.tool('get_typography_usage', 'Get the guidelines for how to apply typogra
     ],
   }
 })
+
+// -----------------------------------------------------------------------------
+// Icons
+// -----------------------------------------------------------------------------
+server.tool('list_icons', 'List all of the icons (octicons) available from Primer Octicons React', async () => {
+  const icons = listIcons().map(icon => {
+    const keywords = icon.keywords.map(keyword => {
+      return `<keyword>${keyword}</keyword>`
+    })
+    const sizes = icon.heights.map(height => {
+      return `<size value="${height}"></size>`
+    })
+    return [`<icon name="${icon.name}">`, ...keywords, ...sizes, `</icon>`].join('\n')
+  })
+
+  return {
+    content: [
+      {
+        type: 'text',
+        text: `The following icons are available in the @primer/octicons-react package in TypeScript projects:
+
+${icons.join('\n')}
+
+You can use the \`get_icon\` tool to get more information about a specific icon. You can use these components from the @primer/octicons-react package.`,
+      },
+    ],
+  }
+})
+
+server.tool(
+  'get_icon',
+  'Get a specific icon (octicon) by name from Primer',
+  {
+    name: z.string().describe('The name of the icon to retrieve'),
+    size: z.string().optional().describe('The size of the icon to retrieve, e.g. "16"').default('16'),
+  },
+  async ({name, size}) => {
+    const icons = listIcons()
+    const match = icons.find(icon => {
+      return icon.name === name || icon.name.toLowerCase() === name.toLowerCase()
+    })
+    if (!match) {
+      return {
+        content: [
+          {
+            type: 'text',
+            text: `There is no icon named \`${name}\` in the @primer/octicons-react package. For a full list of icons, use the \`get_icon\` tool.`,
+          },
+        ],
+      }
+    }
+
+    const url = new URL(`/octicons/icon/${match.name}-${size}`, 'https://primer.style')
+    const response = await fetch(url)
+    if (!response.ok) {
+      throw new Error(`Failed to fetch ${url}: ${response.statusText}`)
+    }
+
+    const html = await response.text()
+    if (!html) {
+      return {
+        content: [],
+      }
+    }
+
+    const $ = cheerio.load(html)
+    const source = $('main').html()
+    if (!source) {
+      return {
+        content: [],
+      }
+    }
+
+    const text = turndownService.turndown(source)
+
+    return {
+      content: [
+        {
+          type: 'text',
+          text: `Here is the documentation for the \`${name}\` icon at size: \`${size}\`:
+${text}`,
+        },
+      ],
+    }
+  },
+)
 
 export {server}
