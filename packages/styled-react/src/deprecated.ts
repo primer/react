@@ -1,12 +1,1 @@
-export {
-  ActionList,
-  ActionMenu,
-  AvatarPair,
-  Dialog,
-  FilteredSearch,
-  Octicon,
-  Pagehead,
-  TabNav,
-  Tooltip,
-  UnderlineNav,
-} from '@primer/react/deprecated'
+export {Dialog, Octicon, TabNav, Tooltip} from '@primer/react/deprecated'
