@@ -729,7 +729,7 @@ export type TreeViewTrailingAction = {
   shortcutText: string
 }
 
-const TrailingAction: React.FC<TreeViewTrailingAction> = props => {
+const TrailingAction = (props: TreeViewTrailingAction) => {
   const {trailingActionId, itemId} = React.useContext(ItemContext)
   const {items, shortcutText} = props
 
@@ -739,7 +739,7 @@ const TrailingAction: React.FC<TreeViewTrailingAction> = props => {
         ; {shortcutText}
       </div>
       <div
-        className={clsx('PRIVATE_TreeView-item-trailing-action', classes.TreeViewItemTrailingAction)}
+        className={classes.TreeViewItemTrailingAction}
         aria-hidden={true}
         onClick={event =>
           // Prevent focus event from bubbling up to parent items
@@ -753,7 +753,7 @@ const TrailingAction: React.FC<TreeViewTrailingAction> = props => {
             icon={icon}
             variant="invisible"
             aria-label={label}
-            className="treeview-trailing-action"
+            className={classes.TreeViewItemTrailingActionButton}
             onClick={onClick}
             tabIndex={-1}
             aria-hidden={true}

@@ -186,10 +186,10 @@
     display: flex;
     color: var(--fgColor-muted);
     grid-area: trailingAction;
+  }
 
-    & > button {
-      flex-shrink: 1;
-    }
+  .TreeViewItemTrailingActionButton {
+    flex-shrink: 1;
   }
 
   .TreeViewItemLevelLine {

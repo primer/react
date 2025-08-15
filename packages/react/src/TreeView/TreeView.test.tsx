@@ -1,4 +1,4 @@
-import {fireEvent, render, act} from '@testing-library/react'
+import {fireEvent, render, act, screen} from '@testing-library/react'
 import {userEvent} from '@vitest/browser/context'
 import {beforeEach, afterEach, describe, it, expect, vi} from 'vitest'
 import React from 'react'
@@ -1680,7 +1680,7 @@ describe('Asynchronous loading', () => {
 })
 
 it('should render `TrailingAction`', async () => {
-  const {getByRole} = renderWithTheme(
+  render(
     <TreeView aria-label="Files changed">
       <TreeView.Item
         id="src"
@@ -1705,11 +1705,11 @@ it('should render `TrailingAction`', async () => {
     </TreeView>,
   )
 
-  expect(getByRole('button', {hidden: true})).toHaveAttribute('aria-labelledby')
+  expect(screen.getByRole('button', {hidden: true})).toHaveAttribute('aria-labelledby')
 })
 
 it('should have keyboard shortcut command as part of accessible name when using `TrailingAction`', () => {
-  const {getByRole} = renderWithTheme(
+  render(
     <TreeView aria-label="Files changed">
       <TreeView.Item
         id="src"
@@ -1734,11 +1734,11 @@ it('should have keyboard shortcut command as part of accessible name when using 
     </TreeView>,
   )
 
-  expect(getByRole('treeitem', {name: 'Parent ; Press (control shift u) for more actions.'})).toBeInTheDocument()
+  expect(screen.getByRole('treeitem', {name: 'Parent ; Press (control shift u) for more actions.'})).toBeInTheDocument()
 })
 
 it('should have keyboard shortcut command as part of accessible name when using `TrailingAction` and `aria-label`', () => {
-  const {getByRole} = renderWithTheme(
+  render(
     <TreeView aria-label="Files changed">
       <TreeView.Item
         id="src"
@@ -1754,7 +1754,7 @@ it('should have keyboard shortcut command as part of accessible name when using 
     </TreeView>,
   )
 
-  expect(getByRole('treeitem', {name: 'Parent. Press (control shift u) for more actions.'})).toBeInTheDocument()
+  expect(screen.getByRole('treeitem', {name: 'Parent. Press (control shift u) for more actions.'})).toBeInTheDocument()
 })
 
 describe('CSS Module Migration', () => {
