@@ -210,8 +210,8 @@ function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap', hideRo
   // Determine final children to render
   const finalChildren = React.useMemo(() => {
     if (overflow === 'wrap' || menuItems.length === 0) {
-      return visibleItems.map(child => (
-        <li className={classes.ItemWrapper} key={child.key}>
+      return visibleItems.map((child, index) => (
+        <li className={classes.ItemWrapper} key={index}>
           {child}
         </li>
       ))
@@ -249,7 +249,7 @@ function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap', hideRo
       ref={containerRef}
       data-overflow={overflow}
     >
-      <BreadcrumbsList>{finalChildren}</BreadcrumbsList>
+      <BreadcrumbsList>{finalChildren.length > 0 ? finalChildren : children}</BreadcrumbsList>
     </BoxWithFallback>
   )
 }
