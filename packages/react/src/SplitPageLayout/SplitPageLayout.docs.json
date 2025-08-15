@@ -14,9 +14,8 @@
   "importPath": "@primer/react",
   "props": [
     {
-      "name": "sx",
-      "type": "SystemStyleObject",
-      "deprecated": true
+      "name": "className",
+      "type": "string"
     }
   ],
   "subcomponents": [
@@ -52,11 +51,6 @@
           "type": "| boolean | { narrow?: boolean regular?: boolean wide?: boolean }",
           "defaultValue": "false",
           "description": "Whether the header is hidden."
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject",
-          "deprecated": true
         }
       ]
     },
@@ -92,11 +86,6 @@
           "type": "| boolean | { narrow?: boolean regular?: boolean wide?: boolean }",
           "defaultValue": "false",
           "description": "Whether the content is hidden."
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject",
-          "deprecated": true
         }
       ]
     },
@@ -172,11 +161,6 @@
           "type": "'end' | 'start' | {narrow?: 'end' | 'start', narrow?: 'end' | 'start', wide?: 'end' | 'start'}",
           "description": "Which side of the page the pane should be on. Can be changed for different viewport widths.",
           "defaultValue": "start"
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject",
-          "deprecated": true
         }
       ]
     },
@@ -212,11 +196,6 @@
           "type": "| boolean | { narrow?: boolean regular?: boolean wide?: boolean }",
           "defaultValue": "false",
           "description": "Whether the footer is hidden."
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject",
-          "deprecated": true
         }
       ]
     }

@@ -1,5 +1,4 @@
 import type React from 'react'
-import type {SxProp} from '..'
 import type {
   PageLayoutContentProps,
   PageLayoutFooterProps,
@@ -11,7 +10,7 @@ import {PageLayout} from '../PageLayout'
 // ----------------------------------------------------------------------------
 // SplitPageLayout
 
-export type SplitPageLayoutProps = SxProp & {className?: string}
+export type SplitPageLayoutProps = {className?: string}
 
 export const Root: React.FC<React.PropsWithChildren<SplitPageLayoutProps>> = props => {
   return (
