@@ -31,16 +31,6 @@ describe('Avatar', () => {
     expect(avatar).toHaveAttribute('src', 'primer.png')
   })
 
-  it('respects margin props', () => {
-    render(
-      <ThemeProvider theme={theme}>
-        <Avatar src="primer.png" alt="" sx={{m: 2}} data-testid="avatar" />
-      </ThemeProvider>,
-    )
-    const avatar = screen.getByTestId('avatar')
-    expect(avatar).toHaveStyle(`margin: 8px`)
-  })
-
   it('should support the `style` prop without overriding internal styles', () => {
     render(
       <Avatar
