@@ -8,8 +8,11 @@ import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../uti
 import {BoxWithFallback} from '../internal/components/BoxWithFallback'
 import {ActionMenu} from '../ActionMenu'
 import {ActionList} from '../ActionList'
+import {IconButton} from '../Button/IconButton'
+import {KebabHorizontalIcon} from '@primer/octicons-react'
 import {useResizeObserver} from '../hooks/useResizeObserver'
 import type {ResizeObserverEntry} from '../hooks/useResizeObserver'
+import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 
 const SELECTED_CLASS = 'selected'
 
@@ -34,18 +37,18 @@ const BreadcrumbsMenuItem = React.forwardRef<HTMLButtonElement, BreadcrumbsMenuI
   ({items, 'aria-label': ariaLabel, ...rest}, ref) => {
     return (
       <ActionMenu>
-        <ActionMenu.Button
-          ref={ref}
-          aria-label={ariaLabel || `${items.length} more breadcrumb items`}
-          aria-expanded="false"
-          variant="invisible"
-          size="small"
-          trailingAction={null}
-          style={{display: 'inline-flex'}}
-          {...rest}
-        >
-          …
-        </ActionMenu.Button>
+        <ActionMenu.Anchor>
+          <IconButton
+            ref={ref}
+            aria-label={ariaLabel || `${items.length} more breadcrumb items`}
+            aria-expanded="false"
+            variant="invisible"
+            size="small"
+            icon={KebabHorizontalIcon}
+            className={classes.MenuButton}
+            {...rest}
+          />
+        </ActionMenu.Anchor>
         <ActionMenu.Overlay width="auto">
           <ActionList role="menu">
             {items.map((item, index) => {
@@ -87,7 +90,7 @@ function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap', hideRo
 
   const childArray = useMemo(() => getValidChildren(children), [children])
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (visibleItems.length === 0 && childArray.length > 0) {
       setVisibleItems(childArray)
     }
@@ -249,7 +252,7 @@ function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap', hideRo
       ref={containerRef}
       data-overflow={overflow}
     >
-      <BreadcrumbsList>{finalChildren.length > 0 ? finalChildren : children}</BreadcrumbsList>
+      <BreadcrumbsList>{finalChildren}</BreadcrumbsList>
     </BoxWithFallback>
   )
 }
