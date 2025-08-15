@@ -281,7 +281,7 @@ function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap', hideRo
       ref={containerRef}
       data-overflow={overflow}
     >
-      <BreadcrumbsList>{finalChildren}</BreadcrumbsList>
+      <BreadcrumbsList>{finalChildren.length > 0 ? finalChildren : children}</BreadcrumbsList>
     </BoxWithFallback>
   )
 }
