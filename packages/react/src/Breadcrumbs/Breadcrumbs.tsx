@@ -104,7 +104,7 @@ function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap', hideRo
 
   useResizeObserver(handleResize, containerRef)
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (childArray.length > 0) {
       if (overflow === 'wrap') {
         setVisibleItems(childArray)
