@@ -1,6 +1,6 @@
 import {clsx} from 'clsx'
 import type {To} from 'history'
-import React, {useState, useRef, useCallback, useMemo} from 'react'
+import React, {useState, useRef, useCallback, useEffect, useMemo} from 'react'
 import type {SxProp} from '../sx'
 import type {ComponentProps} from '../utils/types'
 import classes from './Breadcrumbs.module.css'
@@ -12,7 +12,6 @@ import {IconButton} from '../Button/IconButton'
 import {KebabHorizontalIcon} from '@primer/octicons-react'
 import {useResizeObserver} from '../hooks/useResizeObserver'
 import type {ResizeObserverEntry} from '../hooks/useResizeObserver'
-import useIsomorphicLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 
 const SELECTED_CLASS = 'selected'
 
@@ -92,8 +91,12 @@ function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap', hideRo
   const [visibleItems, setVisibleItems] = useState<React.ReactElement[]>(() => childArray)
   const [menuItems, setMenuItems] = useState<React.ReactElement[]>([])
 
+  // SSR friendly
+  if (typeof window !== 'undefined') {
+    overflow = 'wrap'
+  }
   // Sync visibleItems when childArray changes (for when children prop updates)
-  useIsomorphicLayoutEffect(() => {
+  useEffect(() => {
     if (overflow === 'wrap') {
       setVisibleItems(childArray)
       setMenuItems([])
@@ -108,7 +111,7 @@ function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap', hideRo
 
   useResizeObserver(handleResize, containerRef)
 
-  useIsomorphicLayoutEffect(() => {
+  useEffect(() => {
     if (childArray.length > 0) {
       if (overflow === 'wrap') {
         setVisibleItems(childArray)
