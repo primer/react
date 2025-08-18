@@ -171,7 +171,7 @@ export type {
   TimelineBreakProps,
   TimelineItemsProps,
 } from './Timeline'
-export {default as Token, IssueLabelToken, AvatarToken} from './Token'
+export {default as Token, IssueLabelToken} from './Token'
 export type {TokenProps, IssueLabelTokenProps} from './Token'
 export {Tooltip} from './TooltipV2'
 export type {TooltipProps} from './TooltipV2'

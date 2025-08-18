@@ -1,6 +1,5 @@
 import type React from 'react'
 import Token from '../Token'
-import AvatarToken from '../AvatarToken'
 import IssueLabelToken from '../IssueLabelToken'
 import {CheckIcon} from '@primer/octicons-react'
 
@@ -111,7 +110,6 @@ export function acceptsASubsetOfDomProps() {
 export function specialTokenExtensionsAcceptTheirSpecificProps() {
   return (
     <>
-      <AvatarToken text="Token test" avatarSrc="https://github.com" />
       <IssueLabelToken text="Token test" fillColor="red" />
     </>
   )
@@ -120,11 +118,6 @@ export function specialTokenExtensionsAcceptTheirSpecificProps() {
 export function specialTokenExtensionsDoNotAcceptOtherProps() {
   return (
     <>
-      <AvatarToken
-        text="Token test"
-        // @ts-expect-error fillColor is not a valid prop for AvatarToken
-        fillColor="red"
-      />
       <IssueLabelToken
         text="Token test"
         // @ts-expect-error avatarSrc is not a valid prop for IssueLabelToken
