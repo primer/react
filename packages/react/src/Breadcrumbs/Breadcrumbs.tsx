@@ -1,6 +1,6 @@
 import {clsx} from 'clsx'
 import type {To} from 'history'
-import React, {useState, useRef, useCallback, useEffect, useMemo} from 'react'
+import React, {useState, useRef, useCallback, useMemo} from 'react'
 import type {SxProp} from '../sx'
 import type {ComponentProps} from '../utils/types'
 import classes from './Breadcrumbs.module.css'
@@ -12,7 +12,7 @@ import {IconButton} from '../Button/IconButton'
 import {KebabHorizontalIcon} from '@primer/octicons-react'
 import {useResizeObserver} from '../hooks/useResizeObserver'
 import type {ResizeObserverEntry} from '../hooks/useResizeObserver'
-import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
+import useIsomorphicLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 
 const SELECTED_CLASS = 'selected'
 
@@ -83,18 +83,22 @@ const getValidChildren = (children: React.ReactNode) => {
 function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap', hideRoot = true}: BreadcrumbsProps) {
   const containerRef = useRef<HTMLElement>(null)
   const [containerWidth, setContainerWidth] = useState<number>(0)
-  const [visibleItems, setVisibleItems] = useState<React.ReactElement[]>([])
-  const [menuItems, setMenuItems] = useState<React.ReactElement[]>([])
   const [itemWidths, setItemWidths] = useState<number[]>([])
   const [effectiveHideRoot, setEffectiveHideRoot] = useState<boolean>(hideRoot)
 
   const childArray = useMemo(() => getValidChildren(children), [children])
 
-  useLayoutEffect(() => {
-    if (visibleItems.length === 0 && childArray.length > 0) {
+  // Initialize visibleItems based on childArray for SSR compatibility
+  const [visibleItems, setVisibleItems] = useState<React.ReactElement[]>(() => childArray)
+  const [menuItems, setMenuItems] = useState<React.ReactElement[]>([])
+
+  // Sync visibleItems when childArray changes (for when children prop updates)
+  useIsomorphicLayoutEffect(() => {
+    if (overflow === 'wrap') {
       setVisibleItems(childArray)
+      setMenuItems([])
     }
-  }, [childArray, visibleItems.length])
+  }, [childArray, overflow])
 
   const handleResize = useCallback((entries: ResizeObserverEntry[]) => {
     if (entries[0]) {
@@ -104,7 +108,7 @@ function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap', hideRo
 
   useResizeObserver(handleResize, containerRef)
 
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     if (childArray.length > 0) {
       if (overflow === 'wrap') {
         setVisibleItems(childArray)
