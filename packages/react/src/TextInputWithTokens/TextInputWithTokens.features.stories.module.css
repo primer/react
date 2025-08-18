@@ -1,0 +1,19 @@
+.Grid {
+  display: grid;
+  gap: var(--base-size-16);
+}
+
+.MaxWidth {
+  max-width: 300px;
+}
+
+.Unstyled {
+  border: 0;
+  padding: 0;
+  box-shadow: none;
+}
+
+.Unstyled:focus-within {
+  border: 0;
+  box-shadow: none;
+}

@@ -1,6 +1,5 @@
 import React, {useState, useRef, useEffect} from 'react'
 import type {Meta, StoryObj} from '@storybook/react-vite'
-import Box from '../Box'
 import {Button} from '../Button'
 import type {ItemInput, GroupedListProps} from '../deprecated/ActionList/List'
 import Link from '../Link'
@@ -27,6 +26,7 @@ import Text from '../Text'
 import FormControl from '../FormControl'
 import {SegmentedControl} from '../SegmentedControl'
 import {Stack} from '../Stack'
+import classes from './SelectPanel.features.stories.module.css'
 
 const meta: Meta<typeof SelectPanel> = {
   title: 'Components/SelectPanel/Features',
@@ -62,15 +62,12 @@ const ErrorMessage: {variant: 'error'; title: string; body: string} = {
 function getColorCircle(color: string) {
   return function () {
     return (
-      <Box
-        bg={color}
-        borderColor={color}
-        width={14}
-        height={14}
-        borderRadius={10}
-        margin="auto"
-        borderWidth="1px"
-        borderStyle="solid"
+      <div
+        className={classes.ColorCircle}
+        style={{
+          backgroundColor: color,
+          borderColor: color,
+        }}
       />
     )
   }
@@ -530,15 +527,7 @@ export const WithLabelInternally = () => {
     <SelectPanel
       renderAnchor={({children, ...anchorProps}) => (
         <Button {...anchorProps} trailingAction={TriangleDownIcon} aria-haspopup="dialog">
-          <Box
-            sx={{
-              color: 'var(--fgColor-muted)',
-              display: 'inline-block',
-            }}
-          >
-            Choices:
-          </Box>{' '}
-          {children || 'None selected'}
+          <span className={classes.MutedText}>Choices:</span> {children || 'None selected'}
         </Button>
       )}
       open={open}

@@ -18,9 +18,6 @@
     },
     {
       "id": "components-skeleton-skeletonavatar-features--in-a-stack"
-    },
-    {
-      "id": "components-skeleton-skeletonavatar-features--in-an-avatar-pair"
     }
   ],
   "importPath": "@primer/react/experimental",

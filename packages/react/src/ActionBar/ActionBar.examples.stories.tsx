@@ -18,10 +18,11 @@ import {
   ReplyIcon,
   ThreeBarsIcon,
 } from '@primer/octicons-react'
-import {Box, Button, Avatar, ActionMenu, IconButton, ActionList, Textarea} from '..'
+import {Button, Avatar, ActionMenu, IconButton, ActionList, Textarea} from '..'
 import {Dialog} from '../DialogV1'
 import {Divider} from '../deprecated/ActionList/Divider'
 import mockData from '../experimental/SelectPanel2/mock-story-data'
+import classes from './ActionBar.examples.stories.module.css'
 
 export default {
   title: 'Experimental/Components/ActionBar/Examples',
@@ -72,33 +73,9 @@ export const CommentBox = (props: CommentBoxProps) => {
   const buttonRef = React.useRef(null)
   const toolBarLabel = `${ariaLabel ? ariaLabel : 'Comment box'} toolbar`
   return (
-    <Box
-      sx={{
-        maxWidth: 800,
-        display: 'flex',
-        flexDirection: 'column',
-        width: '100%',
-        borderColor: 'border.default',
-        borderWidth: 1,
-        borderStyle: 'solid',
-        borderRadius: 2,
-        minInlineSize: 'auto',
-        bg: 'canvas.default',
-        color: 'fg.default',
-      }}
-    >
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'row',
-          backgroundColor: 'canvas.subtle',
-          borderTopLeftRadius: 2,
-          borderTopRightRadius: 2,
-          justifyContent: 'space-between',
-        }}
-        as="header"
-      >
-        <Box sx={{width: '50%'}}>
+    <div className={classes.CommentBoxContainer}>
+      <header className={classes.CommentBoxHeader}>
+        <div className={classes.CommentBoxHeaderLeft}>
           <ActionBar aria-label={toolBarLabel}>
             <ActionBar.IconButton icon={HeadingIcon} aria-label="Heading"></ActionBar.IconButton>
             <ActionBar.IconButton icon={BoldIcon} aria-label="Bold"></ActionBar.IconButton>
@@ -117,16 +94,16 @@ export const CommentBox = (props: CommentBoxProps) => {
               aria-label="Saved Replies"
             ></ActionBar.IconButton>
           </ActionBar>
-        </Box>
-      </Box>
+        </div>
+      </header>
       <Textarea value={value} onChange={e => setValue(e.target.value)} id="markdowninput" aria-label="Markdown value" />
       <Dialog aria-labelledby="header" returnFocusRef={buttonRef} isOpen={isOpen} onDismiss={() => setIsOpen(false)}>
         <Dialog.Header id="header">Select a reply</Dialog.Header>
-        <Box p={3}>Show saved replies</Box>
+        <div className={classes.DialogContent}>Show saved replies</div>
         <Divider />
         <Button variant="invisible">Create your own saved reply</Button>
       </Dialog>
-    </Box>
+    </div>
   )
 }
 
@@ -135,7 +112,7 @@ export const ActionBarWithMenuTrigger = () => {
   const buttonRef = React.useRef(null)
 
   return (
-    <Box>
+    <div>
       <ActionBar aria-label="Toolbar">
         <ActionBar.IconButton icon={BoldIcon} aria-label="Bold"></ActionBar.IconButton>
         <ActionBar.IconButton icon={ItalicIcon} aria-label="Italic"></ActionBar.IconButton>
@@ -150,49 +127,30 @@ export const ActionBarWithMenuTrigger = () => {
 
       <Dialog aria-labelledby="header" returnFocusRef={buttonRef} isOpen={isOpen} onDismiss={() => setIsOpen(false)}>
         <Dialog.Header id="header">Select a reply</Dialog.Header>
-        <Box p={3}>Show saved replies</Box>
+        <div className={classes.DialogContent}>Show saved replies</div>
         <Divider />
         <Button variant="invisible">Create your own saved reply</Button>
       </Dialog>
-    </Box>
+    </div>
   )
 }
 
 export const ActionbarToggle = () => {
-  const descriptionStyles = {
-    borderWidth: 1,
-    borderStyle: 'solid',
-    borderColor: 'border.default',
-    p: 3,
-  }
-  const topSectionStyles = {
-    bg: 'canvas.subtle',
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    borderBottomWidth: 1,
-    borderStyle: 'solid',
-    borderColor: 'border.default',
-    p: 3,
-  }
-  const bottomSectionStyles = {
-    p: 3,
-  }
   const loginName = mockData.collaborators[1].login
   const [showEditView, setEditView] = React.useState(false)
   const [description /*, setDescription*/] = React.useState('')
   const anchorRef = React.useRef(null)
   return (
-    <Box sx={descriptionStyles}>
-      <Box sx={topSectionStyles}>
-        <Box>
+    <div className={classes.ActionBarToggleContainer}>
+      <div className={classes.ActionBarToggleTop}>
+        <div>
           <Avatar src={`https://github.com/${loginName}.png`} size={30} />
-          <Text as="strong" sx={{marginLeft: 2, marginRight: 2}}>
+          <Text as="strong" className={classes.ActionBarToggleUser}>
             {loginName}
           </Text>
           <Text>opened this issue 2 hours ago</Text>
-        </Box>
-        <Box>
+        </div>
+        <div>
           <ActionMenu>
             <ActionMenu.Anchor ref={anchorRef}>
               <IconButton icon={ThreeBarsIcon} aria-label="Open Menu" />
@@ -221,13 +179,13 @@ export const ActionbarToggle = () => {
               </ActionList>
             </ActionMenu.Overlay>
           </ActionMenu>
-        </Box>
-      </Box>
-      <Box sx={bottomSectionStyles}>
+        </div>
+      </div>
+      <div className={classes.ActionBarToggleBottom}>
         {showEditView ? (
-          <Box>
+          <div>
             <CommentBox aria-label="Comment box" />
-            <Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', p: 2, gap: 2}}>
+            <div className={classes.ActionBarToggleButtons}>
               <Button
                 variant="primary"
                 onClick={() => {
@@ -239,13 +197,13 @@ export const ActionbarToggle = () => {
               <Button variant="danger" onClick={() => setEditView(false)}>
                 Cancel
               </Button>
-            </Box>
-          </Box>
+            </div>
+          </div>
         ) : (
-          <Box>{description ? description : 'No description Provided'}</Box>
+          <div>{description ? description : 'No description Provided'}</div>
         )}
-      </Box>
-    </Box>
+      </div>
+    </div>
   )
 }
 
@@ -253,12 +211,12 @@ export const MultipleActionBars = () => {
   const [showFirstCommentBox, setShowFirstCommentBox] = React.useState(false)
   const [showSecondCommentBox, setShowSecondCommentBox] = React.useState(false)
   return (
-    <Box>
-      <Box sx={{p: 3}}>
+    <div>
+      <div className={classes.MultipleActionBarsSection}>
         {showFirstCommentBox ? (
-          <Box>
+          <div>
             <CommentBox aria-label="First Comment Box" />
-            <Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', p: 2, gap: 2}}>
+            <div className={classes.ActionBarToggleButtons}>
               <Button
                 variant="primary"
                 onClick={() => {
@@ -270,17 +228,17 @@ export const MultipleActionBars = () => {
               <Button variant="danger" onClick={() => setShowFirstCommentBox(false)}>
                 Cancel
               </Button>
-            </Box>
-          </Box>
+            </div>
+          </div>
         ) : (
           <Button onClick={() => setShowFirstCommentBox(true)}>Show first commentBox</Button>
         )}
-      </Box>
-      <Box sx={{p: 3}}>
+      </div>
+      <div className={classes.MultipleActionBarsSection}>
         {showSecondCommentBox ? (
-          <Box>
+          <div>
             <CommentBox aria-label="Second Comment Box" />
-            <Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', p: 2, gap: 2}}>
+            <div className={classes.ActionBarToggleButtons}>
               <Button
                 variant="primary"
                 onClick={() => {
@@ -292,12 +250,12 @@ export const MultipleActionBars = () => {
               <Button variant="danger" onClick={() => setShowSecondCommentBox(false)}>
                 Cancel
               </Button>
-            </Box>
-          </Box>
+            </div>
+          </div>
         ) : (
           <Button onClick={() => setShowSecondCommentBox(true)}>Show second commentBox</Button>
         )}
-      </Box>
-    </Box>
+      </div>
+    </div>
   )
 }

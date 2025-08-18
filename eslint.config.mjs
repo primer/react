@@ -358,6 +358,16 @@ const config = defineConfig([
 
   // Storybook stories
   ...storybook.configs['flat/recommended'],
+
+  // packages/mcp
+  {
+    files: ['packages/mcp/src/**/*.{ts,tsx}'],
+    rules: {
+      // We emit structured XML in the MCP server which is incorrectly being
+      // flagged as HTML
+      'github/unescaped-html-literal': 'off',
+    },
+  },
 ])
 
 export default tseslint.config(config)

@@ -241,3 +241,98 @@ it('automatically focuses the element that is specified as initialFocusRef', () 
 
   expect(getByRole('link')).toHaveFocus()
 })
+
+describe('Footer button loading states', () => {
+  it('applies loading state to footer buttons', () => {
+    const {getByRole} = render(
+      <Dialog
+        onClose={() => {}}
+        footerButtons={[
+          {buttonType: 'primary', content: 'Submit', loading: true},
+          {buttonType: 'default', content: 'Cancel', loading: false},
+        ]}
+      >
+        Dialog content
+      </Dialog>,
+    )
+
+    const submitButton = getByRole('button', {name: 'Submit'})
+    const cancelButton = getByRole('button', {name: 'Cancel'})
+
+    expect(submitButton).toHaveAttribute('data-loading', 'true')
+    expect(cancelButton).not.toHaveAttribute('data-loading', 'true')
+  })
+
+  it('shows loading spinner in button when loading', () => {
+    const {getByRole, baseElement} = render(
+      <Dialog onClose={() => {}} footerButtons={[{buttonType: 'primary', content: 'Processing...', loading: true}]}>
+        Dialog content
+      </Dialog>,
+    )
+
+    const button = getByRole('button', {name: 'Processing...'})
+    const spinner = baseElement.querySelector('[data-component="loadingSpinner"]') as HTMLElement
+
+    expect(spinner).toBeInTheDocument()
+    expect(button.contains(spinner)).toBe(true)
+  })
+
+  it('disables button clicks when loading', async () => {
+    const mockOnClick = vi.fn()
+    const {getByRole} = render(
+      <Dialog
+        onClose={() => {}}
+        footerButtons={[{buttonType: 'primary', content: 'Submit', loading: true, onClick: mockOnClick}]}
+      >
+        Dialog content
+      </Dialog>,
+    )
+
+    const button = getByRole('button', {name: 'Submit'})
+
+    fireEvent.click(button)
+
+    expect(mockOnClick).not.toHaveBeenCalled()
+  })
+
+  it('maintains focus management when button is loading', async () => {
+    const {getByRole} = render(
+      <Dialog
+        onClose={() => {}}
+        footerButtons={[
+          {buttonType: 'default', content: 'Cancel', autoFocus: true},
+          {buttonType: 'primary', content: 'Submit', loading: true},
+        ]}
+      >
+        Dialog content
+      </Dialog>,
+    )
+
+    const cancelButton = getByRole('button', {name: 'Cancel'})
+
+    await waitFor(() => expect(cancelButton).toHaveFocus())
+  })
+
+  it('handles multiple loading buttons correctly', () => {
+    const {getByRole} = render(
+      <Dialog
+        onClose={() => {}}
+        footerButtons={[
+          {buttonType: 'default', content: 'Save Draft', loading: true},
+          {buttonType: 'primary', content: 'Publish', loading: true},
+          {buttonType: 'danger', content: 'Delete', loading: false},
+        ]}
+      >
+        Dialog content
+      </Dialog>,
+    )
+
+    const saveDraftButton = getByRole('button', {name: 'Save Draft'})
+    const publishButton = getByRole('button', {name: 'Publish'})
+    const deleteButton = getByRole('button', {name: 'Delete'})
+
+    expect(saveDraftButton).toHaveAttribute('data-loading', 'true')
+    expect(publishButton).toHaveAttribute('data-loading', 'true')
+    expect(deleteButton).not.toHaveAttribute('data-loading', 'true')
+  })
+})

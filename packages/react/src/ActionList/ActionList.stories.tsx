@@ -227,6 +227,7 @@ LinkItemPlayground.args = {
   disabled: false,
   id: 'item-1',
   variant: 'default',
+  size: 'medium',
   inactiveText: '',
   leadingVisual: null,
   loading: false,
@@ -241,6 +242,12 @@ LinkItemPlayground.argTypes = {
   variant: {
     control: 'radio',
     options: ['default', 'danger'],
+  },
+  size: {
+    control: {
+      type: 'radio',
+    },
+    options: ['medium', 'large'],
   },
   role: {
     type: 'string',
