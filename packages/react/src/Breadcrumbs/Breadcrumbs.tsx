@@ -1,6 +1,6 @@
 import {clsx} from 'clsx'
 import type {To} from 'history'
-import React, {useState, useRef, useCallback, useEffect, useMemo} from 'react'
+import React, {useState, useRef, useCallback, useMemo, useEffect} from 'react'
 import type {SxProp} from '../sx'
 import type {ComponentProps} from '../utils/types'
 import classes from './Breadcrumbs.module.css'
