@@ -1,3 +1,9 @@
+import {Label as PrimerLabel} from '@primer/react'
+import {createStyledComponent} from './utils/createStyledComponent'
+
+const Label = /*#__PURE__*/ createStyledComponent(PrimerLabel)
+
+export {Label}
 export {
   ActionList,
   ActionMenu,
@@ -9,7 +15,6 @@ export {
   FormControl,
   Heading,
   IconButton,
-  Label,
   Link,
   LinkButton,
   PageLayout,
