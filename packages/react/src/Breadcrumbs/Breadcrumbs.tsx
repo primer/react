@@ -172,11 +172,6 @@ function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap', hideRo
             eHideRoot = hideRoot
           }
         }
-        return {
-          visibleItems: currentVisibleItems,
-          menuItems: currentMenuItems,
-          effectiveHideRoot: eHideRoot,
-        }
       }
       return {
         visibleItems: [...currentVisibleItems],
@@ -225,7 +220,7 @@ function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap', hideRo
 
   // Determine final children to render
   const finalChildren = React.useMemo(() => {
-    if (overflow === 'wrap' || menuItems.length === 0) {
+    if (effectiveOverflow === 'wrap' || menuItems.length === 0) {
       return visibleItems.map((child, index) => (
         <li className={classes.BreadcrumbsItem} key={`visible + ${index}`}>
           {child}
@@ -270,7 +265,7 @@ function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap', hideRo
       // Show: [root breadcrumb, overflow menu, leaf breadcrumb]
       return [rootElement, menuElement, ...visibleElements]
     }
-  }, [overflow, menuItems, effectiveHideRoot, visibleItems, rootItem])
+  }, [menuItems, effectiveHideRoot, visibleItems, rootItem])
 
   return (
     <BoxWithFallback
