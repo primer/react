@@ -1,3 +1,9 @@
+import {ToggleSwitch as PrimerToggleSwitch} from '@primer/react'
+import {createStyledComponent} from './utils/createStyledComponent'
+
+const ToggleSwitch = /*#__PURE__*/ createStyledComponent(PrimerToggleSwitch)
+export {ToggleSwitch}
+
 export {
   ActionList,
   ActionMenu,
