@@ -4,3 +4,4 @@ docs/public/**/*.css
 **/dist/**/*.css
 **/.next/**/*.css
 **/storybook-static/**
+**/packages/mcp/src/__tests__/**
