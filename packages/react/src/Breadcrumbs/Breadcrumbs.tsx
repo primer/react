@@ -83,7 +83,6 @@ function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap', hideRo
   const containerRef = useRef<HTMLElement>(null)
   const [effectiveHideRoot, setEffectiveHideRoot] = useState<boolean>(hideRoot)
   let effectiveOverflow = 'wrap'
-
   const childArray = useMemo(() => getValidChildren(children), [children])
 
   const rootItem = childArray[0]
@@ -94,7 +93,6 @@ function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap', hideRo
   const [menuItems, setMenuItems] = useState<React.ReactElement[]>([])
   const [rootItemWidth, setRootItemWidth] = useState<number>(0)
 
-  // SSR friendly
   if (typeof window !== 'undefined') {
     effectiveOverflow = overflow
   }
@@ -184,6 +182,18 @@ function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap', hideRo
   )
 
   useResizeObserver(handleResize, containerRef)
+
+  // Initial overflow calculation for testing and >5 items
+  useEffect(() => {
+    if (overflow === 'menu' && childArray.length > 5) {
+      // Get actual container width from DOM or use default
+      const containerWidth = containerRef.current?.offsetWidth || 800
+      const result = calculateOverflow(containerWidth)
+      setVisibleItems(result.visibleItems)
+      setMenuItems(result.menuItems)
+      setEffectiveHideRoot(result.effectiveHideRoot)
+    }
+  }, [overflow, childArray.length, calculateOverflow])
 
   // Determine final children to render
   const finalChildren = React.useMemo(() => {
