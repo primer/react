@@ -1,6 +1,7 @@
 export {
   ActionList,
   ActionMenu,
+  BranchName,
   Box,
   type BoxProps,
   Breadcrumbs,
