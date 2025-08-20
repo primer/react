@@ -5,7 +5,6 @@ exports[`@primer/styled-react exports 1`] = `
   "ActionList",
   "ActionMenu",
   "Box",
-  "BranchName",
   "Breadcrumbs",
   "Button",
   "Flash",
