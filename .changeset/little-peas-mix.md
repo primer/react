@@ -3,4 +3,4 @@
 ---
 
 BREAKING CHANGE: remove AvatarToken
-BREAKING CHANGE: remove Caret component
+BREAKING CHANGE: make Caret component internal only
