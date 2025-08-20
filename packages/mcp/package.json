@@ -26,7 +26,7 @@
   "scripts": {
     "clean": "rimraf dist",
     "build": "rollup -c",
-    "test": "tsx src/__tests__/evalWithOpenAI.test.ts",
+    "test": "tsx src/__tests__/embeddingTest/evalWithOpenAI.test.ts",
     "type-check": "tsc --noEmit",
     "watch": "rollup -c -w"
   },
