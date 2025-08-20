@@ -61,11 +61,11 @@ export class PrimerMcpClient {
 }
 
 const mcp = await PrimerMcpClient.getInstance()
+const openai = new OpenAI({apiKey: process.env.OPEN_AI_KEY})
 
-export async function runMcpOpenAiWithPrompt(prompt: string) {
+async function runMcpOpenAiWithPrompt(prompt: string) {
   /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
   const {tools} = await mcp.listTools()
-  const openai = new OpenAI({apiKey: process.env.OPEN_AI_KEY})
   const toolUsage: Record<string, number> = {}
   let aiResponse: string | null = null
 
@@ -138,12 +138,30 @@ export async function runMcpOpenAiWithPrompt(prompt: string) {
   }
 }
 
-const concurrencyCount = 3
+// Function to calculate cosine similarity
+function cosineSimilarity(a: number[], b: number[]): number {
+  const dotProduct = a.reduce((sum, ai, i) => sum + ai * b[i], 0)
+  const magA = Math.sqrt(a.reduce((sum, ai) => sum + ai * ai, 0))
+  const magB = Math.sqrt(b.reduce((sum, bi) => sum + bi * bi, 0))
+  return dotProduct / (magA * magB)
+}
 
-const getToolUsageStats = async (prompt: string) => {
-  const runs = await Promise.all(Array.from({length: concurrencyCount}, () => runMcpOpenAiWithPrompt(prompt)))
+// Function to get embedding for a text
+async function getEmbedding(text: string): Promise<number[]> {
+  const response = await openai.embeddings.create({
+    model: 'text-embedding-ada-002', // Or your preferred embedding model
+    input: text,
+  })
+  return response.data[0].embedding
+}
 
-  console.log(`Ran ${concurrencyCount} concurrent runs with the prompt: "${prompt}"`)
+const CONCURRENCY_COUNT = 3
+const SIMILARITY_THRESHOLD = 0.8 // Adjust this threshold as needed
+
+const getStats = async (prompt: string, expectedOutput: string) => {
+  const runs = await Promise.all(Array.from({length: CONCURRENCY_COUNT}, () => runMcpOpenAiWithPrompt(prompt)))
+
+  console.log(`Ran ${CONCURRENCY_COUNT} concurrent runs with the prompt: "${prompt}"`)
   console.log(runs)
 
   const {tools} = await mcp.listTools()
@@ -163,46 +181,37 @@ const getToolUsageStats = async (prompt: string) => {
   }
 
   const totalRuns = runs.length
-  console.log(toolCounts)
-  return Object.entries(toolCounts).map(([tool, count]) => {
+
+  // Compare output
+  const expected = await getEmbedding(expectedOutput)
+
+  // Calculate cosine similarity for each run's embedding against the expected embedding
+  const similarities = await Promise.all(
+    runs.map(async run => {
+      const actual = await getEmbedding(run.aiResponse ?? '')
+      return cosineSimilarity(actual, expected)
+    }),
+  )
+
+  const avgSimilarity = similarities.reduce((sum, score) => sum + score, 0) / similarities.length
+  console.log('Average similarity:', avgSimilarity)
+
+  const toolUsagePercentages = Object.entries(toolCounts).map(([tool, count]) => {
     const percent = ((count / totalRuns) * 100).toFixed(2)
-    // return record string
     return {[tool]: `${percent}%`}
   })
+
+  return {
+    meetsSimilarityThreshold: avgSimilarity >= SIMILARITY_THRESHOLD,
+    toolUsagePercentages,
+  }
 }
 
-const prompt = `Only output code. Create a Primer Button to be used to press cancel in a confirmation dialog.`
+const prompt = `Only output code. Create a Primer Button that will be used to confirm deleting content.`
+const expectedOutput = `<Button variant="danger">Cancel</Button>`
 
-// const promompt = 'What is the best way to fix this Primer Component which is causing an Axe scanning violation `<Link href={labelLink} muted><CircleOcticon icon={CalendarIcon} size={32} /></Link>`?';
-
-// const prompt = `An accessibility scan flagged buttons must have discernible text. Here's the code in question:
-//   import {ActionList} from '@primer/react'
-//    <ActionList.Item aria-disabled="true">
-//     <div
-//       className="position-absolute height-full width-full top-0 left-0 d-flex flex-justify-center flex-items-center border rounded-2"
-//       style={{backgroundColor: 'var(--brand-color-canvas-default)', color: 'var(--brand-color-success-fg)'}}
-//     >
-//       {props.children}
-//     </div>
-//   </ActionList.Item>
-//   Please provide code snippets to fix this issue.`;
-
-const stats = await getToolUsageStats(prompt)
+const stats = await getStats(prompt, expectedOutput)
 
 console.log(stats)
 
-// Test that the aiResponse contains a button with variant danger
-// if (!aiResponse?.includes('Button') || !aiResponse.includes('variant="danger"')) {
-//   console.log('AI response does not contain a Primer Button with variant danger')
-// }
-
-// This type of testing would need to run concurrently and each test would need to run multiple times to gather meaningful data.
-// This is because the AI's responses can be non-deterministic, and a single run might not capture the full range of behaviors.
-// I think we would likely want to gather the frequency of specific tool usage and output patterns to better understand the AI's behavior.
-// Playing around with testing ideas...
-// - We can test how often specific tools are used in response to certain prompts
-//   - We would likely need to measure by the frequency (or percent) instead of pass / fail
-// - We can test specific output
-//   - this might be more brittle
-//   - would require setting a passing threshold
 await mcp.teardown()
