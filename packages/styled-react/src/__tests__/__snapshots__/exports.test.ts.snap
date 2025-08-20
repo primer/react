@@ -2,6 +2,7 @@
 
 exports[`@primer/styled-react exports 1`] = `
 [
+  "Truncate",
   "ActionList",
   "ActionMenu",
   "Box",
@@ -17,7 +18,6 @@ exports[`@primer/styled-react exports 1`] = `
   "PageLayout",
   "Text",
   "TextInput",
-  "Truncate",
   "sx",
 ]
 `;

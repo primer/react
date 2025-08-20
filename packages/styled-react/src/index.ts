@@ -1,3 +1,9 @@
+import {Truncate as PrimerTruncate} from '@primer/react'
+import {createStyledComponent} from './utils/createStyledComponent'
+
+const Truncate: ReturnType<typeof createStyledComponent> = /*#__PURE__*/ createStyledComponent(PrimerTruncate)
+export {Truncate}
+
 export {
   ActionList,
   ActionMenu,
@@ -15,7 +21,6 @@ export {
   PageLayout,
   Text,
   TextInput,
-  Truncate,
 
   // Utilities for working with the `sx` prop
   sx,
