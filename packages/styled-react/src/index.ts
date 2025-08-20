@@ -1,7 +1,6 @@
 export {
   ActionList,
   ActionMenu,
-  AnchoredOverlay,
   Box,
   type BoxProps,
   Breadcrumbs,
