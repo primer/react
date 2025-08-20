@@ -54,7 +54,7 @@
 }
 
 .IconBox[data-type='on'] {
-  color: var(--control-checked-fgColor-rest, var(--color-switch-track-checked-fg, --fgColor-white));
+  color: var(--control-checked-fgColor-rest, var(--color-switch-track-checked-fg, var(--fgColor-onEmphasis)));
   transform: translateX(0);
 }
 
@@ -62,13 +62,15 @@
   transform: translateX(-100%);
 }
 
-.IconBox[data-type='on'] [data-disabled='true'] {
-  color: var(--control-checked-fgColor-disabled, var(--color-switch-track-checked-disabled-fg, --fgColor-white));
+.IconBox[data-type='on'][data-disabled='true'] {
+  color: var(
+    --control-checked-fgColor-disabled,
+    var(--color-switch-track-checked-disabled-fg, var(--fgColor-onEmphasis))
+  );
 }
 
 .IconBox[data-type='off'] {
-  /* stylelint-disable-next-line primer/colors */
-  color: var(--controlTrack-fgColor-rest, var(--color-switch-track-fg, #656d76));
+  color: var(--controlTrack-fgColor-rest, var(--color-switch-track-fg, var(--fgColor-muted)));
   transform: translateX(100%);
 }
 
@@ -77,5 +79,5 @@
 }
 
 .IconBox[data-type='off'][data-disabled='true'] {
-  color: var(--controlTrack-fgColor-disabled, var(--color-switch-track-disabled-fg, --fgColor-white));
+  color: var(--controlTrack-fgColor-disabled, var(--color-switch-track-disabled-fg, var(--fgColor-onEmphasis)));
 }
