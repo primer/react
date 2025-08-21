@@ -12,17 +12,11 @@
   "props": [
     {
       "name": "aria-label",
-      "type": "string",
-      "required": false,
-      "description": "When provided, a label is added to the action bar",
-      "defaultValue": ""
+      "derive": true
     },
     {
       "name": "aria-labelledby",
-      "type": "string",
-      "required": false,
-      "description": "When provided, uses the element with that ID as the accessible name for the ActionBar",
-      "defaultValue": ""
+      "derive": true
     },
     {
       "name": "children",
@@ -33,17 +27,11 @@
     },
     {
       "name": "size",
-      "type": "'small' | 'large' | 'medium'",
-      "required": false,
-      "description": "Size of the action bar",
-      "defaultValue": ""
+      "derive": true
     },
     {
       "name": "flush",
-      "type": "boolean",
-      "required": false,
-      "description": "Allows ActionBar to be flush with the container",
-      "defaultValue": "false"
+      "derive": true
     },
     {
       "name": "className",
