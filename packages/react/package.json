@@ -1,6 +1,6 @@
 {
   "name": "@primer/react",
-  "version": "37.31.0",
+  "version": "38.0.0-rc.0",
   "description": "An implementation of GitHub's Primer Design System using React",
   "main": "lib/index.js",
   "module": "lib-esm/index.js",
@@ -82,8 +82,9 @@
     "npm": ">=7"
   },
   "dependencies": {
+    "@github/mini-throttle": "^2.1.1",
     "@github/relative-time-element": "^4.4.5",
-    "@github/tab-container-element": "4.8.2",
+    "@github/tab-container-element": "^4.8.2",
     "@lit-labs/react": "1.2.1",
     "@oddbird/popover-polyfill": "^0.5.2",
     "@primer/behaviors": "^1.8.0",
