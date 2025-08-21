@@ -72,9 +72,6 @@
 }
 
 .MenuButton {
-  display: inline-flex;
-  align-items: flex-end;
-  justify-content: center;
-  height: 0.75rem;
   color: var(--fgColor-link);
+  padding-top: 4px;
 }
