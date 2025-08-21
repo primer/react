@@ -8,6 +8,7 @@ import RadioGroup from '../RadioGroup'
 import Radio from '../Radio'
 import {Button} from '../Button'
 import React from 'react'
+import classes from './Banner.examples.stories.module.css'
 import {useFocus} from '../internal/hooks/useFocus'
 import {PageLayout} from '../PageLayout'
 
@@ -64,27 +65,28 @@ export const WithAnnouncement = () => {
         primaryAction={<Banner.PrimaryAction>Button</Banner.PrimaryAction>}
         secondaryAction={<Banner.SecondaryAction>Button</Banner.SecondaryAction>}
       />
-      <RadioGroup
-        sx={{marginTop: 4}}
-        name="options"
-        onChange={selected => {
-          setSelected(selected as Choice)
-        }}
-      >
-        <RadioGroup.Label>Choices</RadioGroup.Label>
-        <FormControl>
-          <Radio value="one" defaultChecked />
-          <FormControl.Label>Choice one</FormControl.Label>
-        </FormControl>
-        <FormControl>
-          <Radio value="two" />
-          <FormControl.Label>Choice two</FormControl.Label>
-        </FormControl>
-        <FormControl>
-          <Radio value="three" />
-          <FormControl.Label>Choice three</FormControl.Label>
-        </FormControl>
-      </RadioGroup>
+      <div className={classes.RadioGroupWithTopMargin}>
+        <RadioGroup
+          name="options"
+          onChange={selected => {
+            setSelected(selected as Choice)
+          }}
+        >
+          <RadioGroup.Label>Choices</RadioGroup.Label>
+          <FormControl>
+            <Radio value="one" defaultChecked />
+            <FormControl.Label>Choice one</FormControl.Label>
+          </FormControl>
+          <FormControl>
+            <Radio value="two" />
+            <FormControl.Label>Choice two</FormControl.Label>
+          </FormControl>
+          <FormControl>
+            <Radio value="three" />
+            <FormControl.Label>Choice three</FormControl.Label>
+          </FormControl>
+        </RadioGroup>
+      </div>
     </>
   )
 }
