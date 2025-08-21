@@ -499,7 +499,7 @@ export const RenderMoreOnScroll = () => {
   const subsetOfFiltereredItemsToRender = filteredItems.slice(0, renderSubset ? numberOfItemsInSubset : NUMBER_OF_ITEMS)
 
   useEffect(function loadMoreItemsOnScrollEnd() {
-    const scrollContainer = document.querySelector('#select-labels-panel--dialog [role="listbox"]')?.parentElement
+    const scrollContainer = document.querySelector('#select-labels-panel-dialog [role="listbox"]')?.parentElement
 
     const handler = (event: Event) => {
       const container = event.target as HTMLElement
@@ -566,7 +566,6 @@ export const RenderMoreOnScroll = () => {
       <FormControl>
         <FormControl.Label>Labels</FormControl.Label>
         <SelectPanel
-          id="select-labels-panel"
           title="Select labels"
           placeholder="Select labels"
           subtitle="Use labels to organize issues and pull requests"
@@ -584,6 +583,9 @@ export const RenderMoreOnScroll = () => {
           width="medium"
           height="large"
           message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}
+          overlayProps={{
+            id: 'select-labels-panel-dialog',
+          }}
         />
       </FormControl>
     </form>

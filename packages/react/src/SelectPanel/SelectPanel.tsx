@@ -765,7 +765,6 @@ function Panel({
         onOpen={onOpen}
         onClose={onClose}
         overlayProps={{
-          id: id ? `${id}--dialog` : undefined,
           role: 'dialog',
           'aria-labelledby': titleId,
           'aria-describedby': subtitle ? subtitleId : undefined,
