@@ -35,6 +35,9 @@
       "id": "components-statelabel-features--draft"
     },
     {
+      "id": "components-statelabel-features--unlisted"
+    },
+    {
       "id": "components-statelabel-features--unavailable"
     },
     {
@@ -56,7 +59,7 @@
     },
     {
       "name": "status",
-      "type": "'issueOpened' | 'issueClosed' | 'issueClosedNotPlanned' | 'pullOpened' | 'pullClosed' | 'pullMerged' | 'draft' | 'issueDraft' | 'unavailable' | 'open' | 'closed'",
+      "type": "'issueOpened' | 'issueClosed' | 'issueClosedNotPlanned' | 'pullOpened' | 'pullClosed' | 'pullMerged' | 'draft' | 'pullUnlisted' | 'issueDraft' | 'unavailable' | 'open' | 'closed'",
       "required": true
     },
     {

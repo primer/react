@@ -27,6 +27,7 @@ const octiconMap = {
   pullClosed: GitPullRequestClosedIcon,
   pullMerged: GitMergeIcon,
   draft: GitPullRequestDraftIcon,
+  pullUnlisted: GitPullRequestDraftIcon, // TODO: update with GitPullRequestUnlistedIcon once Octicon is updated
   issueDraft: IssueDraftIcon,
   pullQueued: GitMergeQueueIcon,
   unavailable: AlertIcon,
@@ -42,6 +43,7 @@ const labelMap: Record<keyof typeof octiconMap, 'Issue' | 'Issue, not planned' |
   pullClosed: 'Pull request',
   pullMerged: 'Pull request',
   draft: 'Pull request',
+  pullUnlisted: 'Pull request',
   issueDraft: 'Issue',
   pullQueued: 'Pull request',
   unavailable: '',
@@ -91,6 +93,11 @@ const colorVariants = variant({
       backgroundColor: 'neutral.emphasis',
       color: 'fg.onEmphasis',
       boxShadow: 'var(--boxShadow-thin, inset 0 0 0 1px) var(--borderColor-neutral-emphasis, transparent)',
+    },
+    pullUnlisted: {
+      backgroundColor: 'neutral.muted', // --bgColor-muted not available here?
+      color: 'fg.muted',
+      boxShadow: 'var(--boxShadow-thin, inset 0 0 0 1px) var(--borderColor-default, transparent)',
     },
     issueDraft: {
       backgroundColor: 'neutral.emphasis',
