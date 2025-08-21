@@ -3,8 +3,8 @@
   "type": "module",
   "version": "38.0.0-rc.0",
   "description": "An implementation of GitHub's Primer Design System using React",
-  "main": "dist/index.js",
-  "module": "dist/index.js",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
