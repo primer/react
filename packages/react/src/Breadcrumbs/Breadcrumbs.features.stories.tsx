@@ -38,14 +38,13 @@ export const OverflowMenu = () => (
 
 export const OverflowMenuShowRoot = () => (
   <Breadcrumbs overflow="menu" hideRoot={false}>
-    <Breadcrumbs.Item href="#">Home</Breadcrumbs.Item>
-    <Breadcrumbs.Item href="#">Products</Breadcrumbs.Item>
-    <Breadcrumbs.Item href="#">Category</Breadcrumbs.Item>
-    <Breadcrumbs.Item href="#">Subcategory</Breadcrumbs.Item>
-    <Breadcrumbs.Item href="#">Item</Breadcrumbs.Item>
-    <Breadcrumbs.Item href="#">Details</Breadcrumbs.Item>
+    <Breadcrumbs.Item href="#">github</Breadcrumbs.Item>
+    <Breadcrumbs.Item href="#">Teams</Breadcrumbs.Item>
+    <Breadcrumbs.Item href="#">Engineering</Breadcrumbs.Item>
+    <Breadcrumbs.Item href="#">core-productivity</Breadcrumbs.Item>
+    <Breadcrumbs.Item href="#">collaboration-workflows-flex</Breadcrumbs.Item>
     <Breadcrumbs.Item href="#" selected>
-      Current Page
+      global-navigation-reviewers
     </Breadcrumbs.Item>
   </Breadcrumbs>
 )

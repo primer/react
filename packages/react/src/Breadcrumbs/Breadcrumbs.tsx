@@ -81,8 +81,9 @@ const getValidChildren = (children: React.ReactNode) => {
 
 function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap', hideRoot = true}: BreadcrumbsProps) {
   const containerRef = useRef<HTMLElement>(null)
+  const menuButtonRef = useRef<HTMLButtonElement>(null)
   const [effectiveHideRoot, setEffectiveHideRoot] = useState<boolean>(hideRoot)
-  let effectiveOverflow = 'wrap'
+  //let effectiveOverflow = 'wrap'
   const childArray = useMemo(() => getValidChildren(children), [children])
 
   const rootItem = childArray[0]
@@ -93,9 +94,13 @@ function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap', hideRo
   const [menuItems, setMenuItems] = useState<React.ReactElement[]>([])
   const [rootItemWidth, setRootItemWidth] = useState<number>(0)
 
-  if (typeof window !== 'undefined') {
-    effectiveOverflow = overflow
-  }
+  // Menu button width with fallback
+  const MENU_BUTTON_FALLBACK_WIDTH = 32 // Design system small IconButton
+  const [menuButtonWidth, setMenuButtonWidth] = useState(MENU_BUTTON_FALLBACK_WIDTH)
+
+  // if (typeof window !== 'undefined') {
+  //   effectiveOverflow = overflow
+  // }
   const MIN_VISIBLE_ITEMS = !effectiveHideRoot ? 3 : 4
 
   useEffect(() => {
@@ -108,9 +113,19 @@ function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap', hideRo
     }
   }, [childArray.length])
 
+  // Measure actual menu button width when it exists
+  useEffect(() => {
+    if (menuButtonRef.current) {
+      const measuredWidth = menuButtonRef.current.offsetWidth
+      if (measuredWidth > 0) {
+        setMenuButtonWidth(measuredWidth)
+      }
+    }
+  }, [menuItems.length]) // Re-measure when menu button appears/disappears
+
   const calculateOverflow = useCallback(
     (availableWidth: number) => {
-      const MENU_BUTTON_WIDTH = 50 // Approximate width of "..." button
+      const MENU_BUTTON_WIDTH = menuButtonWidth // Use measured width with fallback
 
       const calculateVisibleItemsWidth = (w: number[]) => {
         const widths = w.reduce((sum, width) => sum + width + 16, 0)
@@ -165,7 +180,16 @@ function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap', hideRo
         effectiveHideRoot: eHideRoot,
       }
     },
-    [MIN_VISIBLE_ITEMS, childArray, childArrayWidths, effectiveHideRoot, hideRoot, overflow, rootItemWidth],
+    [
+      MIN_VISIBLE_ITEMS,
+      childArray,
+      childArrayWidths,
+      effectiveHideRoot,
+      hideRoot,
+      overflow,
+      rootItemWidth,
+      menuButtonWidth,
+    ],
   )
 
   const handleResize = useCallback(
@@ -197,9 +221,9 @@ function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap', hideRo
 
   // Determine final children to render
   const finalChildren = React.useMemo(() => {
-    if (effectiveOverflow === 'wrap' || menuItems.length === 0) {
+    if (overflow === 'wrap' || menuItems.length === 0) {
       return visibleItems.map((child, index) => (
-        <li className={classes.ItemWrapper} key={`visible + ${index}`}>
+        <li className={classes.BreadcrumbsItem} key={`visible + ${index}`}>
           {child}
         </li>
       ))
@@ -210,8 +234,9 @@ function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap', hideRo
       effectiveMenuItems = [...menuItems.slice(1)]
     }
     const menuElement = (
-      <li className={classes.ItemWrapper} key="breadcrumbs-menu">
+      <li className={classes.BreadcrumbsItem} key="breadcrumbs-menu">
         <BreadcrumbsMenuItem
+          ref={menuButtonRef}
           items={effectiveMenuItems}
           aria-label={`${effectiveMenuItems.length} more breadcrumb items`}
         />
@@ -219,13 +244,13 @@ function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap', hideRo
     )
 
     const visibleElements = visibleItems.map((child, index) => (
-      <li className={classes.ItemWrapper} key={`visible + ${index}`}>
+      <li className={classes.BreadcrumbsItem} key={`visible + ${index}`}>
         {child}
       </li>
     ))
 
     const rootElement = (
-      <li className={classes.ItemWrapper} key={`rootElement`}>
+      <li className={classes.BreadcrumbsItem} key={`rootElement`}>
         {rootItem}
       </li>
     )
@@ -238,7 +263,7 @@ function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap', hideRo
       // Show: [root breadcrumb, overflow menu, leaf breadcrumb]
       return [rootElement, menuElement, ...visibleElements]
     }
-  }, [effectiveOverflow, menuItems, visibleItems, rootItem, effectiveHideRoot])
+  }, [overflow, menuItems, effectiveHideRoot, visibleItems, rootItem])
 
   return (
     <BoxWithFallback
@@ -247,7 +272,7 @@ function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap', hideRo
       aria-label="Breadcrumbs"
       sx={sxProp}
       ref={containerRef}
-      data-overflow={effectiveOverflow}
+      data-overflow={overflow}
     >
       <BreadcrumbsList>{finalChildren}</BreadcrumbsList>
     </BoxWithFallback>
