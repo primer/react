@@ -42,6 +42,16 @@ export interface ConfirmationDialogProps {
   confirmButtonType?: 'normal' | 'primary' | 'danger'
 
   /**
+   * Whether the cancel button is in a loading state. Default: false.
+   */
+  cancelButtonLoading?: boolean
+
+  /**
+   * Whether the confirm button is in a loading state. Default: false.
+   */
+  confirmButtonLoading?: boolean
+
+  /**
    * Additional class names to apply to the dialog
    */
   className?: string
@@ -109,6 +119,8 @@ export const ConfirmationDialog: React.FC<React.PropsWithChildren<ConfirmationDi
     cancelButtonContent = 'Cancel',
     confirmButtonContent = 'OK',
     confirmButtonType = 'normal',
+    cancelButtonLoading = false,
+    confirmButtonLoading = false,
     children,
     className,
     width = 'medium',
@@ -126,12 +138,14 @@ export const ConfirmationDialog: React.FC<React.PropsWithChildren<ConfirmationDi
     content: cancelButtonContent,
     onClick: onCancelButtonClick,
     autoFocus: isConfirmationDangerous,
+    loading: cancelButtonLoading,
   }
   const confirmButton: DialogButtonProps = {
     content: confirmButtonContent,
     buttonType: confirmButtonType,
     onClick: onConfirmButtonClick,
     autoFocus: !isConfirmationDangerous,
+    loading: confirmButtonLoading,
   }
   const footerButtons = [cancelButton, confirmButton]
   return (
