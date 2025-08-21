@@ -269,7 +269,7 @@ ${text}`,
 
 server.tool(
   'get_component_accessibility_guidelines',
-  'Get accessibility information for how to use a component from Primer React',
+  'Get accessibility best practices for how to use a specific component from Primer React',
   {
     name: z.string().describe('The name of the component to retrieve'),
   },
