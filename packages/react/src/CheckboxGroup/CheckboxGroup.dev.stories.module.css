@@ -1,0 +1,11 @@
+.MutedCaption {
+  color: var(--fgColor-muted);
+  font-size: var(--text-body-size-small);
+  font-weight: 400;
+}
+
+.BoldLabel {
+  color: var(--fgColor-default, var(--color-fg-default));
+  font-size: 14px;
+  font-weight: 600;
+}
