@@ -1,5 +1,55 @@
 # @primer/react
 
+## 38.0.0-rc.0
+
+### Major Changes
+
+- [#6602](https://github.com/primer/react/pull/6602) [`d6d25dc`](https://github.com/primer/react/commit/d6d25dc9263119103138156158f74b408d300dd2) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove sx support from SubNav component
+
+### Minor Changes
+
+- [#6542](https://github.com/primer/react/pull/6542) [`f4ded58`](https://github.com/primer/react/commit/f4ded585c4f6188390cdc3243018fe63af310633) Thanks [@TylerJDev](https://github.com/TylerJDev)! - CircleOcticon: Deprecate component
+
+- [#6535](https://github.com/primer/react/pull/6535) [`e6c7614`](https://github.com/primer/react/commit/e6c7614d7aaa420ce8518ad54af62e6409fea9dd) Thanks [@hussam-i-am](https://github.com/hussam-i-am)! - fix(Label): Add missing ref for Label without sx prop
+
+- [#6468](https://github.com/primer/react/pull/6468) [`1f531cb`](https://github.com/primer/react/commit/1f531cb5c0fb87fc20ab8ce4321367d3f24ab734) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - Deprecate AvatarPair component - move to @primer/react/deprecated
+
+### Patch Changes
+
+- [#6592](https://github.com/primer/react/pull/6592) [`bdac258`](https://github.com/primer/react/commit/bdac258a6f610da974ef4b8c25ccef876946fc79) Thanks [@langermank](https://github.com/langermank)! - Add support for `loading` footer buttons in ConfirmationDialog
+
+- [#6509](https://github.com/primer/react/pull/6509) [`3b3cf52`](https://github.com/primer/react/commit/3b3cf52f267da4f44123032bf388dc5ff9f61cf8) Thanks [@joshblack](https://github.com/joshblack)! - Update layout for Banner to address extra spacing below description when no actions are included
+
+- [#6431](https://github.com/primer/react/pull/6431) [`0c21301`](https://github.com/primer/react/commit/0c21301ba0c7b1d0272258f8fe59026beab83c95) Thanks [@langermank](https://github.com/langermank)! - Add `border` and `background-color` tokens to `ProgressBar` CSS, which increases contrast for high contrast themes
+
+- [#6603](https://github.com/primer/react/pull/6603) [`f781f7f`](https://github.com/primer/react/commit/f781f7f5434be4c482a8f7819c73c258b93604ce) Thanks [@langermank](https://github.com/langermank)! - Only show focus outline for `Radio` if `focus-visible`
+
+- [#6604](https://github.com/primer/react/pull/6604) [`77a60e7`](https://github.com/primer/react/commit/77a60e7775987ee05b07cd8235ff4a26230b12e2) Thanks [@joshblack](https://github.com/joshblack)! - Add @github/mini-throttle as dependency to project to help with bundle output
+
+- [#6478](https://github.com/primer/react/pull/6478) [`77c8739`](https://github.com/primer/react/commit/77c873936b195915c3f364d01a5b1bb15b0ac1a0) Thanks [@llastflowers](https://github.com/llastflowers)! - Update Select component to correctly pass className to TextInputWraper for styling purposes
+
+- [#6429](https://github.com/primer/react/pull/6429) [`661eae0`](https://github.com/primer/react/commit/661eae0a28ee99228400e6c99a483af0523beeb8) Thanks [@devinmcinnis](https://github.com/devinmcinnis)! - Anchor elements render as interactive elements in TokenBase
+
+## 37.31.0
+
+### Minor Changes
+
+- [#6470](https://github.com/primer/react/pull/6470) [`e53228c`](https://github.com/primer/react/commit/e53228cca73e6ab09eb6e626f8747f01ff7241c9) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - Add `size` prop to ActionList.LinkItem component. The `size` prop accepts `'medium'` (default) or `'large'` values and provides the same styling options as ActionList.Item for consistent sizing across ActionList components.
+
+- [#6265](https://github.com/primer/react/pull/6265) [`829a933`](https://github.com/primer/react/commit/829a9332200247c6fc72a32c6f42dd0e51e7daf3) Thanks [@joshblack](https://github.com/joshblack)! - Update IssueLabel component types to support custom content through `children` and support the `as` prop
+
+- [#6420](https://github.com/primer/react/pull/6420) [`024b82a`](https://github.com/primer/react/commit/024b82a9dc545cc3a243d0fc910f0b05bfa67653) Thanks [@chanakyav](https://github.com/chanakyav)! - Adds `variant` and `shape` props to `AvatarStack` component. The `variant` prop will allow the component to render in a cascade view (by default) or a new stacked view which will evenly space the avatars and remove opacity. The `shape` prop will allow the avatars to be rendered as circles (by default) or squares.
+
+- [#4744](https://github.com/primer/react/pull/4744) [`3c9e322`](https://github.com/primer/react/commit/3c9e322c58b83dfb4773dfc309bc022842b51225) Thanks [@TylerJDev](https://github.com/TylerJDev)! - Address additional ToggleSwitch a11y feedback
+
+- [#6182](https://github.com/primer/react/pull/6182) [`9e49abd`](https://github.com/primer/react/commit/9e49abd7724add92fee605a3361e6b8719b680eb) Thanks [@TylerJDev](https://github.com/TylerJDev)! - Textarea: Adds `minHeight` and `maxHeight` as props
+
+### Patch Changes
+
+- [#6330](https://github.com/primer/react/pull/6330) [`fbdcac4`](https://github.com/primer/react/commit/fbdcac4709d919b6719dcb2a679b4684dfded419) Thanks [@francinelucca](https://github.com/francinelucca)! - feat(SelectPanel): remove aria activedescendant and add a roving tab index
+
+- [#6365](https://github.com/primer/react/pull/6365) [`ae4dd07`](https://github.com/primer/react/commit/ae4dd07046aa9c32e8f7f0e43c40446ce7c706a4) Thanks [@langermank](https://github.com/langermank)! - Add `width: 100%` to `Portal`
+
 ## 37.30.0
 
 ### Minor Changes
