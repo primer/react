@@ -1,3 +1,18 @@
 #!/bin/bash
 
+set -e
+
+# Bundle JavaScript
 npx rollup -c
+
+# Generate TypeScript declarations
+npx tsc --project tsconfig.build.json
+
+# Move declaration files to correct location for package exports
+mv dist/src/index.d.ts dist/index.d.ts
+mv dist/src/experimental.d.ts dist/experimental.d.ts
+mv dist/src/deprecated.d.ts dist/deprecated.d.ts
+
+# Clean up the nested src directory
+rm -rf dist/src
+rm -rf dist/config
