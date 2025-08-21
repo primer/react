@@ -1,8 +1,6 @@
 import {describe, expect, it} from 'vitest'
 import {render, screen} from '@testing-library/react'
-import {Avatar} from '..'
-import {ThemeProvider} from '../ThemeProvider'
-import theme from '../theme'
+import Avatar from '../Avatar'
 
 describe('Avatar', () => {
   it('should support `className` on the outermost element', () => {
