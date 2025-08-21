@@ -73,5 +73,13 @@
 
 .MenuButton {
   color: var(--fgColor-link);
-  padding-top: 4px;
+}
+
+.ItemSeparator {
+  color: var(--fgColor-muted);
+  display: flex;
+  align-self: center;
+  justify-content: center;
+  white-space: nowrap;
+  user-select: none;
 }
