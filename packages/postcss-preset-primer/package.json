@@ -14,7 +14,7 @@
   "dependencies": {
     "@csstools/postcss-global-data": "^2.1.1",
     "@github/browserslist-config": "^1.0.0",
-    "@primer/primitives": "10.x || 11.x",
+    "@primer/primitives": "0.0.0-20250805084643",
     "glob": "^11.0.0",
     "postcss-preset-env": "^10.1.3"
   },
