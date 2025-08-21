@@ -32,12 +32,8 @@ const stories = [
     id: 'components-progressbar-features--inline',
   },
   {
-    title: 'Color',
-    id: 'components-progressbar-features--color',
-  },
-  {
-    title: 'Dev SX Props',
-    id: 'components-progressbar-dev--default',
+    title: 'All Colors',
+    id: 'components-progressbar-features--all-colors',
   },
 ] as const
 
