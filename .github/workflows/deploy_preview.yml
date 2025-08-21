@@ -42,7 +42,7 @@ jobs:
         with:
           name: aat
           path: docs/public/aat
-      - uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa
+      - uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b
         with:
           name: github-pages
           path: docs/public
