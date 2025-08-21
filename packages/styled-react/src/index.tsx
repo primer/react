@@ -1,4 +1,4 @@
-import {Box, type BoxProps, Label as PrimerLabel, type LabelProps as PrimerLabelProps, type SxProp} from '@primer/react'
+import {Box, Label as PrimerLabel, type LabelProps as PrimerLabelProps, type SxProp} from '@primer/react'
 import {forwardRef} from 'react'
 import type {
   BackgroundProps,
@@ -27,6 +27,8 @@ type StyledProps = SxProp &
   ShadowProps
 
 const Label = forwardRef(function Label(props, ref) {
+  // @ts-expect-error there is an issue with polymorphic `as` with this
+  // component
   return <Box as={PrimerLabel} ref={ref} {...props} />
 }) as ForwardRefComponent<'span', PrimerLabelProps & Omit<StyledProps, keyof PrimerLabelProps>>
 
