@@ -13,9 +13,17 @@
 [data-overflow='menu'] .BreadcrumbsList {
   white-space: nowrap;
   overflow: hidden;
+  display: flex;
+  flex-direction: row;
 }
 
-.ItemWrapper {
+[data-overflow='menu'] .BreadcrumbsItem {
+  display: inline-grid;
+  grid-auto-flow: column;
+  align-items: center;
+}
+
+.BreadcrumbsItem {
   display: inline-block;
   font-size: var(--text-body-size-medium);
   white-space: nowrap;
@@ -25,7 +33,7 @@
     display: inline-block;
     height: 0.8em;
     /* stylelint-disable-next-line primer/spacing */
-    margin: 0 0.5em;
+    margin: 0.25em 0.5em 0 0.5em;
     font-size: var(--text-body-size-medium);
     content: '';
     /* stylelint-disable-next-line primer/borders, primer/colors */
@@ -66,9 +74,6 @@
 }
 
 .MenuButton {
-  display: inline-flex;
-  align-items: flex-end;
-  justify-content: center;
-  height: 0.75rem;
   color: var(--fgColor-link);
+  padding-top: 4px;
 }
