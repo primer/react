@@ -240,18 +240,21 @@ function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap', hideRo
           items={effectiveMenuItems}
           aria-label={`${effectiveMenuItems.length} more breadcrumb items`}
         />
+        <ItemSeparator />
       </li>
     )
 
     const visibleElements = visibleItems.map((child, index) => (
       <li className={classes.BreadcrumbsItem} key={`visible + ${index}`}>
         {child}
+        <ItemSeparator />
       </li>
     ))
 
     const rootElement = (
       <li className={classes.BreadcrumbsItem} key={`rootElement`}>
         {rootItem}
+        <ItemSeparator />
       </li>
     )
 
@@ -276,6 +279,16 @@ function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap', hideRo
     >
       <BreadcrumbsList>{finalChildren}</BreadcrumbsList>
     </BoxWithFallback>
+  )
+}
+
+const ItemSeparator = () => {
+  return (
+    <span className={classes.ItemSeparator}>
+      <svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M10.956 1.27994L6.06418 14.7201L5 14.7201L9.89181 1.27994L10.956 1.27994Z" fill="currentcolor" />
+      </svg>
+    </span>
   )
 }
 
