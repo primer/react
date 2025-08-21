@@ -43,7 +43,7 @@ jobs:
           echo "pid=$pid" >> $GITHUB_OUTPUT
           sleep 5
       - name: Run AAT
-        uses: docker://mcr.microsoft.com/playwright:v1.53.2-jammy
+        uses: docker://mcr.microsoft.com/playwright:v1.55.0-jammy
         env:
           STORYBOOK_URL: 'http://172.17.0.1:6006'
         with:

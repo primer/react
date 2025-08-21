@@ -73,7 +73,7 @@ jobs:
       - name: Build
         run: npm run build
       - name: Run tests defined in vitest
-        uses: docker://mcr.microsoft.com/playwright:v1.53.2-jammy
+        uses: docker://mcr.microsoft.com/playwright:v1.55.0-jammy
         with:
           args: npm test
 
