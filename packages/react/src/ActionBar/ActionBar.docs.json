@@ -12,10 +12,12 @@
   "props": [
     {
       "name": "aria-label",
+      "type": "string",
       "derive": true
     },
     {
       "name": "aria-labelledby",
+      "type": "string",
       "derive": true
     },
     {
@@ -27,6 +29,7 @@
     },
     {
       "name": "size",
+      "type": "'small' | 'large' | 'medium'",
       "derive": true
     },
     {
