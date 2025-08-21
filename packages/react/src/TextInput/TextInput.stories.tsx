@@ -1,7 +1,7 @@
 import type React from 'react'
 import {useState} from 'react'
 import type {Meta} from '@storybook/react-vite'
-import {Box, FormControl} from '..'
+import {FormControl} from '..'
 import type {TextInputProps} from '../TextInput'
 import TextInput from '../TextInput'
 import type {FormControlArgs} from '../utils/story-helpers'
@@ -12,6 +12,7 @@ import {
   getTextInputArgTypes,
   textInputExcludedControlKeys,
 } from '../utils/story-helpers'
+import classes from './TextInput.stories.module.css'
 
 export default {
   title: 'Components/TextInput',
@@ -28,7 +29,7 @@ export const Playground = (args: FormControlArgs<TextInputProps>) => {
   }
 
   return (
-    <Box as="form" maxWidth={200}>
+    <form className={classes.Container}>
       <FormControl {...parentArgs}>
         <FormControl.Label {...labelArgs} />
         <TextInput value={value} onChange={handleChange} {...args} />
@@ -37,7 +38,7 @@ export const Playground = (args: FormControlArgs<TextInputProps>) => {
           <FormControl.Validation {...validationArgs} variant={validationArgs.variant} />
         )}
       </FormControl>
-    </Box>
+    </form>
   )
 }
 Playground.args = {
@@ -56,10 +57,10 @@ Playground.argTypes = {
 }
 
 export const Default = () => (
-  <Box as="form">
+  <form>
     <FormControl>
       <FormControl.Label>Default label</FormControl.Label>
       <TextInput />
     </FormControl>
-  </Box>
+  </form>
 )
