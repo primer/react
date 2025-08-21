@@ -1,3 +1,9 @@
+.CheckboxGroup {
+  color: var(--fgColor-default, var(--color-fg-default));
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
 .MutedCaption {
   color: var(--fgColor-muted);
   font-size: var(--text-body-size-small);
