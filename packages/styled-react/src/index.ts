@@ -3,6 +3,7 @@ export {
   ActionMenu,
   Box,
   type BoxProps,
+  BranchName,
   Breadcrumbs,
   Button,
   Flash,
