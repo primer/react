@@ -65,28 +65,27 @@ export const WithAnnouncement = () => {
         primaryAction={<Banner.PrimaryAction>Button</Banner.PrimaryAction>}
         secondaryAction={<Banner.SecondaryAction>Button</Banner.SecondaryAction>}
       />
-      <div className={classes.RadioGroupWithTopMargin}>
-        <RadioGroup
-          name="options"
-          onChange={selected => {
-            setSelected(selected as Choice)
-          }}
-        >
-          <RadioGroup.Label>Choices</RadioGroup.Label>
-          <FormControl>
-            <Radio value="one" defaultChecked />
-            <FormControl.Label>Choice one</FormControl.Label>
-          </FormControl>
-          <FormControl>
-            <Radio value="two" />
-            <FormControl.Label>Choice two</FormControl.Label>
-          </FormControl>
-          <FormControl>
-            <Radio value="three" />
-            <FormControl.Label>Choice three</FormControl.Label>
-          </FormControl>
-        </RadioGroup>
-      </div>
+      <RadioGroup
+        name="options"
+        onChange={selected => {
+          setSelected(selected as Choice)
+        }}
+        className={classes.RadioGroupWithTopMargin}
+      >
+        <RadioGroup.Label>Choices</RadioGroup.Label>
+        <FormControl>
+          <Radio value="one" defaultChecked />
+          <FormControl.Label>Choice one</FormControl.Label>
+        </FormControl>
+        <FormControl>
+          <Radio value="two" />
+          <FormControl.Label>Choice two</FormControl.Label>
+        </FormControl>
+        <FormControl>
+          <Radio value="three" />
+          <FormControl.Label>Choice three</FormControl.Label>
+        </FormControl>
+      </RadioGroup>
     </>
   )
 }

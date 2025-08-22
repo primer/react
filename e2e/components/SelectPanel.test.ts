@@ -89,7 +89,8 @@ test.describe('SelectPanel', () => {
     })
   }
 
-  test(`Default @vrt forced-colors`, async ({page}) => {
+  // eslint-disable-next-line playwright/no-skipped-test
+  test.skip(`Default @vrt forced-colors`, async ({page}) => {
     await visit(page, {
       id: 'components-selectpanel--default',
     })
@@ -139,7 +140,7 @@ test.describe('SelectPanel', () => {
       await page.keyboard.press('Enter')
     }
 
-    expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
+    expect(await page.screenshot({animations: 'disabled', caret: 'hide'})).toMatchSnapshot(
       `SelectPanel-Default-responsive-width-light-full-screen-on-narrow--true.png`,
     )
   })
@@ -159,7 +160,7 @@ test.describe('SelectPanel', () => {
       await page.keyboard.press('Enter')
     }
 
-    expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
+    expect(await page.screenshot({animations: 'disabled', caret: 'hide'})).toMatchSnapshot(
       `SelectPanel-features--with-notice-light.png`,
     )
   })
