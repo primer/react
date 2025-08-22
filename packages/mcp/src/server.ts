@@ -4,7 +4,7 @@ import * as cheerio from 'cheerio'
 import {z} from 'zod'
 import TurndownService from 'turndown'
 import {listComponents, listPatterns, listIcons} from './primer'
-import {categories, tokens, serialize} from './primitives'
+import {tokens, serialize} from './primitives'
 import packageJson from '../package.json' with {type: 'json'}
 
 const server = new McpServer({
