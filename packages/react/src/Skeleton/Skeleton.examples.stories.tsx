@@ -2,10 +2,11 @@ import React, {Suspense} from 'react'
 import type {Meta} from '@storybook/react-vite'
 import type {ComponentProps} from '../utils/types'
 import {SkeletonText} from '../SkeletonText'
-import {Avatar, Box, Button, IconButton, Text} from '../'
+import {Avatar, Button, IconButton, Text} from '../'
 import {SkeletonAvatar} from '../SkeletonAvatar'
 import {VisuallyHidden} from '../VisuallyHidden'
 import {KebabHorizontalIcon} from '@primer/octicons-react'
+import classes from './Skeleton.examples.stories.module.css'
 
 export default {
   title: 'Components/Skeleton/Examples',
@@ -21,37 +22,10 @@ const mockData = {
   avatarSrc: 'https://avatars.githubusercontent.com/u/7143434?v=4',
 }
 
-const CommentCard = ({children}: {children: React.ReactNode}) => (
-  <Box
-    sx={{
-      borderWidth: '1px',
-      borderColor: 'border.default',
-      borderStyle: 'solid',
-      borderRadius: 2,
-      fontSize: 1,
-      lineHeight: 'default',
-      p: 3,
-    }}
-  >
-    {children}
-  </Box>
-)
+const CommentCard = ({children}: {children: React.ReactNode}) => <div className={classes.CommentCard}>{children}</div>
 
 const CommentCardHeading = ({children}: {children: React.ReactNode}) => (
-  <Box
-    className="CommentCardHeading"
-    sx={{
-      alignItems: 'center',
-      display: 'flex',
-      gap: 2,
-      mb: 3,
-      '.CommentCardHeading__text': {
-        flexGrow: 1,
-      },
-    }}
-  >
-    {children}
-  </Box>
+  <div className={classes.CommentCardHeading}>{children}</div>
 )
 
 export const CommentsLoading = () => {
@@ -69,7 +43,7 @@ export const CommentsLoading = () => {
       {loading ? <VisuallyHidden>Comments are loading</VisuallyHidden> : null}
       {/** when loading is completed, it should be announced by the screen-reader */}
       <VisuallyHidden aria-live="polite">{loadingFinished ? 'Comments are loaded' : null}</VisuallyHidden>
-      <Box sx={{'> * + *': {marginBlockStart: '1rem'}}}>
+      <div className={classes.CommentsSpacing}>
         <Button onClick={toggleLoadingState}>{loading ? 'Stop loading' : 'Start loading'}</Button>
         {Array.from({length: COMMENT_LIST_LENGTH}, (_, index) => (
           /* aria-busy is passed so the screenreader doesn't announce the skeleton state */
@@ -78,21 +52,14 @@ export const CommentsLoading = () => {
               {loading ? (
                 <>
                   <SkeletonAvatar size={32} />
-                  <SkeletonText maxWidth="80px" className="CommentCardHeading__text" />
+                  <SkeletonText maxWidth="80px" className={classes.CommentCardHeadingText} />
                 </>
               ) : (
                 <>
                   <Avatar src={mockData.avatarSrc} size={32} />
-                  <Box sx={{alignItems: 'center', display: 'flex', flexGrow: 1, gap: 1}}>
+                  <div className={classes.CommentCardUserMeta}>
                     <Text>{mockData.username}</Text>
-                    <Text
-                      sx={{
-                        color: 'fg.muted',
-                        flexGrow: 1,
-                      }}
-                    >
-                      {mockData.date}
-                    </Text>
+                    <Text className={classes.CommentCardDate}>{mockData.date}</Text>
                     {/* buttons and interactive elements should not be represented as skeleton items or shown in any way until they're ready to accept input */}
                     <IconButton
                       icon={KebabHorizontalIcon}
@@ -100,14 +67,14 @@ export const CommentsLoading = () => {
                       aria-label="Comment actions"
                       variant="invisible"
                     />
-                  </Box>
+                  </div>
                 </>
               )}
             </CommentCardHeading>
             {loading ? <SkeletonText lines={2} /> : <Text>{mockData.comment}</Text>}
           </CommentCard>
         ))}
-      </Box>
+      </div>
     </>
   )
 }
@@ -137,7 +104,7 @@ export const CommentsLoadingWithSuspense = () => {
       <VisuallyHidden aria-live="polite">{loadingStatus === 'fulfilled' ? 'Comments are loaded' : null}</VisuallyHidden>
 
       {/* aria-busy is passed so the screenreader doesn't announce the skeleton state */}
-      <Box sx={{'> * + *': {marginBlockStart: '1rem'}}} aria-busy={loadingStatus === 'pending'}>
+      <div className={classes.CommentsSpacing} aria-busy={loadingStatus === 'pending'}>
         {Array.from({length: COMMENT_LIST_LENGTH}, (_, index) => (
           <CommentCard key={index}>
             <Suspense
@@ -145,7 +112,7 @@ export const CommentsLoadingWithSuspense = () => {
                 <>
                   <CommentCardHeading>
                     <SkeletonAvatar size={32} />
-                    <SkeletonText maxWidth="80px" className="CommentCardHeading__text" />
+                    <SkeletonText maxWidth="80px" className={classes.CommentCardHeadingText} />
                   </CommentCardHeading>
                   <SkeletonText lines={2} />
                 </>
@@ -155,7 +122,7 @@ export const CommentsLoadingWithSuspense = () => {
             </Suspense>
           </CommentCard>
         ))}
-      </Box>
+      </div>
     </>
   )
 }
@@ -167,19 +134,12 @@ const SuspendedCommentCardContent = ({promise}: {promise: Promise<typeof mockDat
     <>
       <CommentCardHeading>
         <Avatar src={fetchedData.avatarSrc} size={32} />
-        <Box sx={{alignItems: 'center', display: 'flex', flexGrow: 1, gap: 1}}>
+        <div className={classes.CommentCardUserMeta}>
           <Text>{fetchedData.username}</Text>
-          <Text
-            sx={{
-              color: 'fg.muted',
-              flexGrow: 1,
-            }}
-          >
-            {fetchedData.date}
-          </Text>
+          <Text className={classes.CommentCardDate}>{fetchedData.date}</Text>
           {/* buttons and interactive elements should not be represented as skeleton items or shown in any way until they're ready to accept input */}
           <IconButton icon={KebabHorizontalIcon} size="small" aria-label="Comment actions" variant="invisible" />
-        </Box>
+        </div>
       </CommentCardHeading>
       <Text>{fetchedData.comment}</Text>
     </>
