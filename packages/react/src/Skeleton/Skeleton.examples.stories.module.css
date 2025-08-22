@@ -1,0 +1,34 @@
+.CommentCard {
+  border: var(--borderWidth-thin) solid var(--borderColor-default);
+  border-radius: var(--borderRadius-medium);
+  font-size: var(--text-body-size-medium);
+  line-height: var(--text-body-lineHeight-large);
+  padding: var(--base-size-16);
+}
+
+.CommentCardHeading {
+  display: flex;
+  align-items: center;
+  gap: var(--base-size-8);
+  margin-bottom: var(--base-size-16);
+}
+
+.CommentCardHeadingText {
+  flex-grow: 1;
+}
+
+.CommentCardUserMeta {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+  gap: var(--base-size-4);
+}
+
+.CommentCardDate {
+  color: var(--fgColor-muted);
+  flex-grow: 1;
+}
+
+.CommentsSpacing > * + * {
+  margin-block-start: var(--base-size-16);
+}
