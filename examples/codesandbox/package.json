@@ -19,7 +19,7 @@
     "@vitejs/plugin-react": "^4.3.3",
     "@primer/react": "38.0.0-rc.0",
     "styled-components": "5.x",
-    "typescript": "^5.8.2",
+    "typescript": "^5.9.2",
     "vite": "^6.3.5"
   }
 }
