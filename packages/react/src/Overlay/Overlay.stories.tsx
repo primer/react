@@ -227,7 +227,7 @@ export const Default = (args: Args) => {
     disabled: !isOpen,
   })
   return (
-    <div ref={anchorRef} className={classes.OverlayContainer}>
+    <div ref={anchorRef}>
       <Button
         ref={buttonRef}
         onClick={() => {
@@ -286,7 +286,7 @@ export const Playground = (args: Args) => {
     disabled: !isOpen,
   })
   return (
-    <div ref={anchorRef} className={classes.OverlayContainer}>
+    <div ref={anchorRef}>
       <Button
         ref={buttonRef}
         onClick={() => {
