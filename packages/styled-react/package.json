@@ -4,15 +4,15 @@
   "type": "module",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
+      "types": "./dist/src/index.d.ts",
       "default": "./dist/index.js"
     },
     "./deprecated": {
-      "types": "./dist/deprecated.d.ts",
+      "types": "./dist/src/deprecated.d.ts",
       "default": "./dist/deprecated.js"
     },
     "./experimental": {
-      "types": "./dist/experimental.d.ts",
+      "types": "./dist/src/experimental.d.ts",
       "default": "./dist/experimental.js"
     }
   },
