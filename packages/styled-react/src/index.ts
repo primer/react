@@ -1,3 +1,9 @@
+import {Avatar as PrimerAvatar} from '@primer/react'
+import {createStyledComponent} from './utils/createStyledComponent'
+
+const Avatar = /*#__PURE__*/ createStyledComponent(PrimerAvatar)
+
+export {Avatar}
 export {
   ActionList,
   ActionMenu,
