@@ -5,11 +5,11 @@ import {themes} from '../test-helpers/themes'
 const stories = [
   {
     title: 'Default',
-    id: 'components-circleocticon--default',
+    id: 'deprecated-components-circleocticon--default',
   },
   {
     title: 'Playground',
-    id: 'components-circleocticon--playground',
+    id: 'deprecated-components-circleocticon--playground',
   },
 ] as const
 
