@@ -419,7 +419,7 @@ ${text}`,
 // -----------------------------------------------------------------------------
 server.tool('list_tokens', 'List all of the design tokens available from Primer', async () => {
   let text =
-    'Below is a list of all designs tokens available from Primer. Tokens are used in CSS and CSS Modules. To refer to the CSS Custom Property for a design token, wrap it in var(--{name-of-token}). To learn how to use a specific token, use a corresponding usage tool for the category of the token. For example, if a token is a color token look for the get_color_usage tool. \n\n'
+    'Below is a list of all design tokens available from Primer. Tokens are used in CSS and CSS Modules. To refer to the CSS Custom Property for a design token, wrap it in var(--{name-of-token}). To learn how to use a specific token, use a corresponding usage tool for the category of the token. For example, if a token is a color token look for the get_color_usage tool. \n\n'
 
   text += serialize(tokens)
 
