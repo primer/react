@@ -15,7 +15,6 @@ export default meta
 
 export const RepositionAfterContentGrows = () => {
   const [open, setOpen] = useState(false)
-
   const [loading, setLoading] = useState(true)
 
   React.useEffect(() => {
@@ -36,7 +35,7 @@ export const RepositionAfterContentGrows = () => {
       </div>
       <AnchoredOverlay
         renderAnchor={props => (
-          <Button {...props} sx={{width: 'fit-content'}}>
+          <Button {...props} style={{width: 'fit-content'}}>
             Button
           </Button>
         )}
@@ -62,7 +61,6 @@ export const RepositionAfterContentGrows = () => {
 
 export const RepositionAfterContentGrowsWithinDialog = () => {
   const [open, setOpen] = useState(false)
-
   const [loading, setLoading] = useState(true)
 
   React.useEffect(() => {
@@ -84,7 +82,7 @@ export const RepositionAfterContentGrowsWithinDialog = () => {
         </div>
         <AnchoredOverlay
           renderAnchor={props => (
-            <Button {...props} sx={{width: 'fit-content'}}>
+            <Button {...props} style={{width: 'fit-content'}}>
               Button
             </Button>
           )}

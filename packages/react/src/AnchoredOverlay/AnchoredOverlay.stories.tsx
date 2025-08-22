@@ -53,7 +53,7 @@ export const Default = () => {
       onOpen={() => setOpen(true)}
       onClose={() => setOpen(false)}
       renderAnchor={props => <Button {...props}>Button</Button>}
-      overlayProps={{role: 'dialog', 'aria-modal': true, 'aria-label': 'User Card Overlay', sx: {minWidth: '320px'}}}
+      overlayProps={{role: 'dialog', 'aria-modal': true, 'aria-label': 'User Card Overlay', style: {minWidth: '320px'}}}
       focusZoneSettings={{disabled: true}}
       preventOverflow={false}
     >
@@ -84,7 +84,7 @@ export const Playground = (args: Args) => {
         role: 'dialog',
         'aria-modal': true,
         'aria-label': 'User Card Overlay',
-        sx: {minWidth: '320px'},
+        style: {minWidth: '320px'},
       }}
       side={args.side}
       focusZoneSettings={{disabled: true}}
