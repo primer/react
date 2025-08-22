@@ -556,11 +556,8 @@ export const RenderMoreOnScroll = () => {
         {timeTakenToOpen ? <Label>{timeTakenToOpen.toFixed(2)} ms</Label> : '(click "Select Labels" to open)'}
       </p>
       <p>
-        Known bugs:{' '}
-        <ul>
-          <li>Scroll resets to top when the items change</li>
-          <li>Passing id to SelectPanel breaks connection with label and throws a warning on the console</li>
-        </ul>
+        Known bug: Scroll resets to top when the items change. Works well with feature flag{' '}
+        <Label>primer_react_select_panel_remove_active_descendant</Label>
       </p>
 
       <FormControl>
