@@ -4,7 +4,6 @@ import type {KeyboardEventHandler} from 'react'
 import type React from 'react'
 import {useCallback, useEffect, useRef, useState} from 'react'
 import styled from 'styled-components'
-import Box from '../Box'
 import type {TextInputProps} from '../TextInput'
 import TextInput from '../TextInput'
 import {get} from '../constants'
@@ -27,6 +26,7 @@ import {isValidElementType} from 'react-is'
 import {useAnnouncements} from './useAnnouncements'
 import {clsx} from 'clsx'
 import {useFeatureFlag} from '../FeatureFlags'
+import {BoxWithFallback} from '../internal/components/BoxWithFallback'
 
 const menuScrollMargins: ScrollIntoViewOptions = {startMargin: 0, endMargin: 8}
 
@@ -349,13 +349,10 @@ export function FilteredActionList({
   }
 
   return (
-    <Box
+    <BoxWithFallback
       ref={inputAndListContainerRef}
-      display="flex"
-      flexDirection="column"
-      overflow="hidden"
       sx={sx}
-      className={className}
+      className={clsx(className, classes.Root)}
       data-testid="filtered-action-list"
     >
       <StyledHeader>
@@ -399,7 +396,7 @@ export function FilteredActionList({
       <div ref={scrollContainerRef} className={classes.Container}>
         {getBodyContent()}
       </div>
-    </Box>
+    </BoxWithFallback>
   )
 }
 
