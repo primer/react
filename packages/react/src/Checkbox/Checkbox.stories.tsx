@@ -5,7 +5,7 @@ import FormControl from '../FormControl'
 import type {FormControlArgs} from '../utils/form-story-helpers'
 import {formControlArgTypesWithoutValidation, getFormControlArgsByChildComponent} from '../utils/form-story-helpers'
 
-const excludedControlKeys = ['required', 'value', 'validationStatus', 'sx']
+const excludedControlKeys = ['required', 'value', 'validationStatus']
 
 export default {
   title: 'Components/Checkbox',
