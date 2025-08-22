@@ -60,7 +60,6 @@ const BreadcrumbsMenuItem = React.forwardRef<HTMLButtonElement, BreadcrumbsMenuI
                   href={href}
                   role="menuitem"
                   aria-current={selected ? 'page' : undefined}
-                  className={selected ? classes.ItemSelected : undefined}
                 >
                   {children}
                 </ActionList.LinkItem>
@@ -306,7 +305,6 @@ const BreadcrumbsItem = React.forwardRef(({selected, className, ...rest}, ref) =
       as="a"
       className={clsx(className, classes.Item, {
         [SELECTED_CLASS]: selected,
-        [classes.ItemSelected]: selected,
       })}
       aria-current={selected ? 'page' : undefined}
       ref={ref}

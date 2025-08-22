@@ -1,6 +1,7 @@
 .BreadcrumbsBase {
   display: flex;
   justify-content: space-between;
+  width: 100%;
 }
 
 .BreadcrumbsList {
@@ -43,19 +44,12 @@
   font-size: var(--text-body-size-medium);
   color: var(--fgColor-link);
   text-decoration: none;
+  padding-inline: var(--base-size-6);
+  padding-block: var(--base-size-4);
+  border-radius: var(--borderRadius-medium);
 
-  &:hover,
-  &:focus {
-    text-decoration: underline;
-  }
-}
-
-.ItemSelected {
-  color: var(--fgColor-default);
-  pointer-events: none;
-
-  &:focus {
-    text-decoration: none;
+  &:hover {
+    background: var(--control-transparent-bgColor-hover);
   }
 }
 
