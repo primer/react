@@ -50,6 +50,8 @@ jobs:
         run: npm run lint:css
       - name: Lint markdown
         run: npm run lint:md
+      - name: Lint npm packages
+        run: npx turbo lint:npm
 
   test:
     runs-on: ubuntu-latest
