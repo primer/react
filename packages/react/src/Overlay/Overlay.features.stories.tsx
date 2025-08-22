@@ -340,34 +340,32 @@ export const NestedOverlays = ({role, open}: Args) => {
           aria-label={role === 'dialog' ? 'Sample list' : undefined}
         >
           <div className={classes.NestedFormContainer}>
-            <div className={classes.NestedFormRow}>
-              <CheckboxGroup>
-                <CheckboxGroup.Label>Add to list</CheckboxGroup.Label>
-                <FormControl>
-                  <FormControl.Label>My stack</FormControl.Label>
-                  <FormControl.Caption id="custom-checkbox-one-caption">Personal repositories</FormControl.Caption>
-                  <Checkbox value="my-stack" />
-                </FormControl>
-                <FormControl>
-                  <FormControl.Label>Want to try</FormControl.Label>
-                  <FormControl.Caption id="custom-checkbox-one-caption">Testing new libraries</FormControl.Caption>
-                  <Checkbox value="wanna-try" />
-                </FormControl>
-              </CheckboxGroup>
-            </div>
-            <ActionList.Divider />
-            <Tooltip text="Allows you to add more lists">
-              <Button
-                variant="invisible"
-                ref={secondaryButtonRef}
-                className={classes.InvisibleButton}
-                leadingVisual={PlusIcon}
-                onClick={() => setCreateListOverlayOpen(!createListOverlayOpen)}
-              >
-                Create list
-              </Button>
-            </Tooltip>
+            <CheckboxGroup>
+              <CheckboxGroup.Label>Add to list</CheckboxGroup.Label>
+              <FormControl>
+                <FormControl.Label>My stack</FormControl.Label>
+                <FormControl.Caption id="custom-checkbox-one-caption">Personal repositories</FormControl.Caption>
+                <Checkbox value="my-stack" />
+              </FormControl>
+              <FormControl>
+                <FormControl.Label>Want to try</FormControl.Label>
+                <FormControl.Caption id="custom-checkbox-one-caption">Testing new libraries</FormControl.Caption>
+                <Checkbox value="wanna-try" />
+              </FormControl>
+            </CheckboxGroup>
           </div>
+          <ActionList.Divider />
+          <Tooltip text="Allows you to add more lists">
+            <Button
+              variant="invisible"
+              ref={secondaryButtonRef}
+              className={classes.InvisibleButton}
+              leadingVisual={PlusIcon}
+              onClick={() => setCreateListOverlayOpen(!createListOverlayOpen)}
+            >
+              Create list
+            </Button>
+          </Tooltip>
           {createListOverlayOpen && (
             <Overlay
               width="medium"

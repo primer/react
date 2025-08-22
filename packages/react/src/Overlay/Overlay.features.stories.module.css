@@ -51,14 +51,10 @@
 .NestedFormContainer {
   display: flex;
   flex-direction: column;
-  padding: var(--base-size-16);
-}
-
-.NestedFormRow {
-  padding-left: var(--base-size-24);
-  padding-right: var(--base-size-24);
-  padding-top: var(--base-size-16);
-  padding-bottom: var(--base-size-16);
+  padding-left: var(--base-size-16);
+  padding-right: var(--base-size-16);
+  padding-top: var(--base-size-8);
+  padding-bottom: var(--base-size-8);
 }
 
 .InvisibleButton {
