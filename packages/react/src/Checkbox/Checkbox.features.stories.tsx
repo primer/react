@@ -1,4 +1,4 @@
-import {Box, Checkbox} from '..'
+import Checkbox from '../Checkbox'
 import FormControl from '../FormControl'
 import {MarkGithubIcon} from '@primer/octicons-react'
 
@@ -8,7 +8,7 @@ export default {
 
 export const WithLeadingVisual = () => {
   return (
-    <Box as="form">
+    <form>
       <FormControl>
         <FormControl.LeadingVisual>
           <MarkGithubIcon />
@@ -16,38 +16,38 @@ export const WithLeadingVisual = () => {
         <Checkbox value="default" />
         <FormControl.Label>Default label</FormControl.Label>
       </FormControl>
-    </Box>
+    </form>
   )
 }
 
 export const Disabled = () => {
   return (
-    <Box as="form">
+    <form>
       <FormControl disabled>
         <Checkbox value="default" />
         <FormControl.Label>Default label</FormControl.Label>
       </FormControl>
-    </Box>
+    </form>
   )
 }
 
 export const WithCaption = () => {
   return (
-    <Box as="form">
+    <form>
       <FormControl>
         <Checkbox value="default" />
         <FormControl.Label>Default label</FormControl.Label>
         <FormControl.Caption>This is a caption</FormControl.Caption>
       </FormControl>
-    </Box>
+    </form>
   )
 }
 
 export const Indeterminate = () => (
-  <Box as="form">
+  <form>
     <FormControl>
       <Checkbox value="default" indeterminate />
       <FormControl.Label>Default label</FormControl.Label>
     </FormControl>
-  </Box>
+  </form>
 )

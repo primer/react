@@ -402,3 +402,146 @@ export const RetainsFocusTrapWithDynamicContent = () => {
     </>
   )
 }
+
+export const LoadingFooterButtons = () => {
+  const [isOpen, setIsOpen] = useState(true)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isDeleting, setIsDeleting] = useState(false)
+  const buttonRef = useRef<HTMLButtonElement>(null)
+
+  const onDialogClose = useCallback(() => {
+    setIsOpen(false)
+    setIsSubmitting(false)
+    setIsDeleting(false)
+  }, [])
+
+  const handleSubmit = useCallback(() => {
+    setIsSubmitting(true)
+    // Simulate async operation
+    setTimeout(() => {
+      setIsSubmitting(false)
+      setIsOpen(false)
+    }, 2000)
+  }, [])
+
+  const handleDelete = useCallback(() => {
+    setIsDeleting(true)
+    // Simulate async operation
+    setTimeout(() => {
+      setIsDeleting(false)
+      setIsOpen(false)
+    }, 3000)
+  }, [])
+
+  return (
+    <>
+      <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
+        Show Dialog
+      </Button>
+      {isOpen && (
+        <Dialog
+          title="Dialog title"
+          onClose={onDialogClose}
+          returnFocusRef={buttonRef}
+          footerButtons={[
+            {
+              buttonType: 'default',
+              content: 'Cancel',
+              onClick: onDialogClose,
+            },
+            {
+              buttonType: 'danger',
+              content: 'Delete Repository',
+              onClick: handleDelete,
+              loading: isDeleting,
+              autoFocus: false,
+            },
+            {
+              buttonType: 'primary',
+              content: 'Save & Delete',
+              onClick: handleSubmit,
+              loading: isSubmitting,
+              autoFocus: true,
+            },
+          ]}
+        >
+          <Text as="p">This is some text</Text>
+        </Dialog>
+      )}
+    </>
+  )
+}
+
+function LoadingCustomFooter({footerButtons}: React.PropsWithChildren<DialogProps>) {
+  return <Dialog.Footer>{footerButtons && <Dialog.Buttons buttons={footerButtons} />}</Dialog.Footer>
+}
+
+export const LoadingCustomFooterButtonsCould = () => {
+  const [isOpen, setIsOpen] = useState(true)
+  const [isProcessing, setIsProcessing] = useState(false)
+  const [isSaving, setIsSaving] = useState(false)
+  const buttonRef = useRef<HTMLButtonElement>(null)
+
+  const onDialogClose = useCallback(() => {
+    setIsOpen(false)
+    setIsProcessing(false)
+    setIsSaving(false)
+  }, [])
+
+  const handleProcess = useCallback(() => {
+    setIsProcessing(true)
+    // Simulate async operation
+    setTimeout(() => {
+      setIsProcessing(false)
+      setIsOpen(false)
+    }, 2500)
+  }, [])
+
+  const handleSave = useCallback(() => {
+    setIsSaving(true)
+    // Simulate async operation
+    setTimeout(() => {
+      setIsSaving(false)
+      setIsOpen(false)
+    }, 1500)
+  }, [])
+
+  return (
+    <>
+      <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
+        Show Dialog
+      </Button>
+      {isOpen && (
+        <Dialog
+          title="Process Data"
+          subtitle="Custom footer with loading states"
+          onClose={onDialogClose}
+          returnFocusRef={buttonRef}
+          renderFooter={LoadingCustomFooter}
+          footerButtons={[
+            {
+              buttonType: 'default',
+              content: 'Cancel',
+              onClick: onDialogClose,
+            },
+            {
+              buttonType: 'default',
+              content: 'Save Draft',
+              onClick: handleSave,
+              loading: isSaving,
+            },
+            {
+              buttonType: 'primary',
+              content: 'Process & Continue',
+              onClick: handleProcess,
+              loading: isProcessing,
+              autoFocus: true,
+            },
+          ]}
+        >
+          <Text as="p">This is some text</Text>
+        </Dialog>
+      )}
+    </>
+  )
+}

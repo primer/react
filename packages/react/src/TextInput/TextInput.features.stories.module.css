@@ -1,0 +1,7 @@
+.MarginBottom {
+  margin-bottom: var(--base-size-8);
+}
+
+.MarginBottomLarge {
+  margin-bottom: var(--base-size-32);
+}

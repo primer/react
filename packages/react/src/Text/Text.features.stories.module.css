@@ -1,0 +1,10 @@
+.PolymorphismContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.StyledText {
+  color: var(--fgColor-onEmphasis);
+  background-color: var(--bgColor-neutral-emphasis);
+  padding: var(--base-size-8);
+}

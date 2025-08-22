@@ -20,7 +20,7 @@ jobs:
       # If it's 0, we deploy.
       should_deploy: ${{ steps.changeset-count.outputs.change_count == 0 && steps.has-pages.outputs.pages == 1 }}
     steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8
 
       - id: changeset-count
         run: echo "::set-output name=change_count::$(ls .changeset/*.md | grep -v README | wc -l | xargs)"

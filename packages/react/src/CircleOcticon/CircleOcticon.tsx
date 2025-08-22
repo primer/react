@@ -9,6 +9,9 @@ export type CircleOcticonProps = {
   icon: React.ComponentType<React.PropsWithChildren<{size?: IconProps['size']}>>
 } & BoxProps
 
+/**
+ * @deprecated This component is deprecated. Replace component with specific icon imports from `@primer/octicons-react` and customized styling.)
+ */
 function CircleOcticon(props: CircleOcticonProps) {
   const {size = 32, as, icon: IconComponent, bg, 'aria-label': ariaLabel, ...rest} = props
   return (
