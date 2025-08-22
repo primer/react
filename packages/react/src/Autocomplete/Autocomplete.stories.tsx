@@ -19,7 +19,7 @@ type AutocompleteOverlayArgs = ComponentProps<typeof Autocomplete.Overlay>
 type AutocompleteMenuArgs = ComponentProps<typeof Autocomplete.Menu>
 type AutocompleteArgs = AutocompleteOverlayArgs & AutocompleteMenuArgs
 
-const excludedControlKeys = ['id', 'sx']
+const excludedControlKeys = ['id']
 
 const getArgsByChildComponent = ({
   // Autocomplete.Menu
