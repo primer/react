@@ -12,6 +12,7 @@ import {IconButton} from '../Button/IconButton'
 import {KebabHorizontalIcon} from '@primer/octicons-react'
 import {useResizeObserver} from '../hooks/useResizeObserver'
 import type {ResizeObserverEntry} from '../hooks/useResizeObserver'
+import Truncate from '../Truncate'
 
 const SELECTED_CLASS = 'selected'
 
@@ -300,7 +301,15 @@ type StyledBreadcrumbsItemProps = {
   React.HTMLAttributes<HTMLAnchorElement> &
   React.ComponentPropsWithRef<'a'>
 
-const BreadcrumbsItem = React.forwardRef(({selected, className, ...rest}, ref) => {
+const BreadcrumbsItem = React.forwardRef(({selected, className, children, ...rest}, ref) => {
+  // Convert children to string for title prop, fallback to empty string if not possible
+  const title =
+    typeof children === 'string'
+      ? children
+      : React.isValidElement(children) && typeof children.props?.children === 'string'
+        ? children.props.children
+        : ''
+
   return (
     <BoxWithFallback
       as="a"
@@ -311,7 +320,9 @@ const BreadcrumbsItem = React.forwardRef(({selected, className, ...rest}, ref) =
       aria-current={selected ? 'page' : undefined}
       ref={ref}
       {...rest}
-    />
+    >
+      <Truncate title={title}>{children}</Truncate>
+    </BoxWithFallback>
   )
 }) as PolymorphicForwardRefComponent<'a', StyledBreadcrumbsItemProps>
 
