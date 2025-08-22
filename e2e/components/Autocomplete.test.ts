@@ -96,14 +96,6 @@ const stories: Array<{title: string; id: string; setup: (page: Page) => Promise<
       await page.keyboard.press('D')
     },
   },
-  {
-    title: 'Sx Prop',
-    id: 'components-autocomplete-dev--sx-prop',
-    setup: async page => {
-      await page.keyboard.press('Tab')
-      await page.keyboard.press('D')
-    },
-  },
 ]
 
 test.describe('Autocomplete', () => {

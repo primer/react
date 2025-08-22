@@ -57,14 +57,6 @@ const stories: Array<{
     title: 'Dev: With Css',
     id: 'components-actionmenu-dev--with-css',
   },
-  {
-    title: 'Dev: With Sx',
-    id: 'components-actionmenu-dev--with-sx',
-  },
-  {
-    title: 'Dev: With Sx And Css',
-    id: 'components-actionmenu-dev--with-sx-and-css',
-  },
 ] as const
 
 test.describe('ActionMenu', () => {
