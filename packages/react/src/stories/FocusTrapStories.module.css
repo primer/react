@@ -3,3 +3,63 @@
 }
 
 /* Helper styles for focus trap visual aids */
+
+.FlexColumn {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.FlexRow {
+  display: flex;
+  flex-direction: row;
+}
+
+.TrapZone {
+  border-color: var(--borderColor-default);
+  margin: var(--base-size-16);
+  padding: var(--base-size-16);
+  border-width: var(--borderWidth-thin);
+  border-style: solid;
+  border-radius: var(--borderRadius-medium);
+}
+
+.FlashMessage {
+  margin-bottom: var(--base-size-12);
+}
+
+.LegendContainer {
+  padding: var(--base-size-8);
+  margin-bottom: var(--base-size-12);
+  border-width: var(--borderWidth-thin);
+  border-style: solid;
+  border-color: var(--borderColor-default);
+  border-radius: var(--borderRadius-medium);
+}
+
+.LegendBox {
+  width: 40px;
+  height: 22px;
+  margin-right: var(--base-size-8);
+  border-color: var(--borderColor-default);
+  border-width: var(--borderWidth-thin);
+  border-style: solid;
+  border-radius: var(--borderRadius-medium);
+}
+
+.LegendBoxSuspended {
+  background-color: var(--bgColor-attention-muted);
+}
+
+.LegendBoxActive {
+  background-color: var(--bgColor-success-muted);
+}
+
+.MultipleTrapZone {
+  border-color: var(--borderColor-default);
+  margin: var(--base-size-8);
+  padding: var(--base-size-8);
+  border-width: var(--borderWidth-thin);
+  border-style: solid;
+  border-radius: var(--borderRadius-medium);
+}
