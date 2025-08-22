@@ -9,6 +9,10 @@
       "dependsOn": [],
       "outputs": ["storybook-static/**"]
     },
+    "lint:npm": {
+      "dependsOn": ["^build", "build"],
+      "outputs": []
+    },
     "type-check": {
       "dependsOn": ["^build"],
       "outputs": []
