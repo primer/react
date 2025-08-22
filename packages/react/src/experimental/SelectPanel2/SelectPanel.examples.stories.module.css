@@ -50,7 +50,9 @@
 
 /* Animated container */
 .AnimatedContainer {
-  transition: max-height 100ms ease-out, opacity 100ms ease-out;
+  transition:
+    max-height 100ms ease-out,
+    opacity 100ms ease-out;
 }
 
 .AnimatedContainerVisible {
