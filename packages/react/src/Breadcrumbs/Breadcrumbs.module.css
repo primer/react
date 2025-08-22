@@ -51,6 +51,11 @@
   &:hover {
     background: var(--control-transparent-bgColor-hover);
   }
+  &:focus {
+    box-shadow: none;
+    outline: 2px solid var(--focus-outlineColor, var(--color-accent-fg));
+    outline-offset: -2px;
+  }
 }
 
 .MenuButton {
