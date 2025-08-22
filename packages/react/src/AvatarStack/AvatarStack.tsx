@@ -1,6 +1,5 @@
 import {clsx} from 'clsx'
 import React, {useEffect, useRef, useState} from 'react'
-import type {SxProp} from '../sx'
 import type {AvatarProps} from '../Avatar/Avatar'
 import {DEFAULT_AVATAR_SIZE} from '../Avatar/Avatar'
 import type {ResponsiveValue} from '../hooks/useResponsiveValue'
@@ -30,7 +29,7 @@ export type AvatarStackProps = {
   className?: string
   children: React.ReactNode
   style?: React.CSSProperties
-} & SxProp
+}
 
 const AvatarStackBody = ({
   disableExpand,
@@ -69,7 +68,6 @@ const AvatarStack = ({
   size,
   className,
   style,
-  sx: sxProp,
 }: AvatarStackProps) => {
   const [hasInteractiveChildren, setHasInteractiveChildren] = useState<boolean | undefined>(false)
   const stackContainer = useRef<HTMLDivElement>(null)
@@ -180,7 +178,6 @@ const AvatarStack = ({
         classes.AvatarStack,
       )}
       style={{...getResponsiveAvatarSizeStyles(), ...style}}
-      sx={sxProp}
     >
       <AvatarStackBody
         disableExpand={disableExpand}
