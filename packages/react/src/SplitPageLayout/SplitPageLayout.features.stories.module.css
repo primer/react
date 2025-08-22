@@ -1,0 +1,33 @@
+.SectionHeading {
+  /* stylelint-disable-next-line primer/typography */
+  font-size: var(--base-size-24);
+  font-weight: var(--base-text-weight-normal);
+  color: var(--fgColor-danger);
+  margin-bottom: var(--base-size-8);
+}
+
+.DeleteAccountContainer {
+  border: var(--borderWidth-default) solid var(--borderColor-danger-emphasis);
+  border-radius: var(--borderRadius-medium);
+  padding: var(--base-size-16);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--stack-gap-normal);
+}
+
+.DeleteAccountTextContainer {
+  display: grid;
+  gap: var(--base-size-4);
+}
+
+.DeleteAccountTitle {
+  font-size: var(--text-body-size-medium);
+  font-weight: var(--base-text-weight-semibold);
+  color: var(--fgColor-danger);
+}
+
+.DeleteAccountDescription {
+  font-size: var(--text-body-size-medium);
+  color: var(--fgColor-muted);
+}

@@ -1,1 +1,1 @@
-export {Octicon} from '@primer/react/deprecated'
+export {Dialog, Octicon, TabNav, Tooltip} from '@primer/react/deprecated'

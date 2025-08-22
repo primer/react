@@ -33,7 +33,7 @@ jobs:
       matrix:
         shard: [1, 2, 3, 4]
     steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8
       - name: Set up Node.js
         uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
         with:
@@ -52,7 +52,7 @@ jobs:
           echo "pid=$pid" >> $GITHUB_OUTPUT
           sleep 5
       - name: Run VRT
-        uses: docker://mcr.microsoft.com/playwright:v1.53.2-jammy
+        uses: docker://mcr.microsoft.com/playwright:v1.55.0-jammy
         env:
           STORYBOOK_URL: 'http://172.17.0.1:6006'
         with:
