@@ -1,5 +1,6 @@
 import type {Meta} from '@storybook/react-vite'
-import {Box, FormControl, Textarea} from '..'
+import {FormControl, Textarea} from '..'
+import classes from './Textarea.dev.stories.module.css'
 
 export default {
   title: 'Components/Textarea/Dev',
@@ -7,10 +8,10 @@ export default {
 } as Meta
 
 export const DevDefault = () => (
-  <Box as="form">
+  <form>
     <FormControl>
       <FormControl.Label>Default label</FormControl.Label>
-      <Textarea sx={{backgroundColor: 'darkgreen'}} style={{color: 'white'}} value="foo" />
+      <Textarea className={classes.DevDefaultTextarea} style={{color: 'white'}} value="foo" />
     </FormControl>
-  </Box>
+  </form>
 )
