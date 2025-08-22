@@ -8,11 +8,11 @@ import {
 } from '@primer/octicons-react'
 import type {Meta, StoryFn} from '@storybook/react-vite'
 import React from 'react'
-import Box from '../Box'
 import {Button, IconButton} from '../Button'
 import Octicon from '../Octicon'
 import type {SubTreeState} from './TreeView'
 import {TreeView} from './TreeView'
+import classes from './TreeView.features.stories.module.css'
 
 const meta: Meta = {
   title: 'Components/TreeView/Features',
@@ -21,9 +21,9 @@ const meta: Meta = {
     Story => {
       return (
         // Prevent TreeView from expanding to the full width of the screen
-        <Box sx={{maxWidth: 400}}>
+        <div className={classes.StorybookDecorator}>
           <Story />
-        </Box>
+        </div>
       )
     },
   ],
@@ -275,11 +275,11 @@ export const Controlled: StoryFn = () => {
   const [tree, setTree] = React.useState<TreeItem[]>(initialTree)
 
   return (
-    <Box sx={{display: 'grid', gap: 3}}>
-      <Box sx={{display: 'flex', gap: 2}}>
+    <div className={classes.ControlledContainer}>
+      <div className={classes.ButtonContainer}>
         <Button onClick={() => setTree(collapseAll)}>Collapse all</Button>
         <Button onClick={() => setTree(expandAll)}>Expand all</Button>
-      </Box>
+      </div>
       <nav aria-label="Files">
         <CurrentPathContext.Provider value={{currentPath, setCurrentPath}}>
           <TreeView aria-label="Files">
@@ -294,7 +294,7 @@ export const Controlled: StoryFn = () => {
           </TreeView>
         </CurrentPathContext.Provider>
       </nav>
-    </Box>
+    </div>
   )
 }
 
@@ -700,7 +700,7 @@ export const NestedTrees: StoryFn = () => {
 
 export const NestedScrollContainer: StoryFn = () => {
   return (
-    <Box sx={{maxHeight: '50vh', overflow: 'auto'}}>
+    <div className={classes.ScrollContainer}>
       <TreeView aria-label="Files">
         {Array.from({length: 100}).map((_, i) => (
           <TreeView.Item key={i} id={`directory-${i}`}>
@@ -726,7 +726,7 @@ export const NestedScrollContainer: StoryFn = () => {
           </TreeView.Item>
         ))}
       </TreeView>
-    </Box>
+    </div>
   )
 }
 

@@ -5,7 +5,6 @@ import {getResponsiveAttributes} from '../internal/utils/getResponsiveAttributes
 import classes from './Stack.module.css'
 import {clsx} from 'clsx'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
-import {BoxWithFallback} from '../internal/components/BoxWithFallback'
 
 type GapScale = 'none' | 'condensed' | 'normal' | 'spacious'
 type Gap = GapScale | ResponsiveValue<GapScale>
@@ -71,7 +70,7 @@ type StackProps<As> = React.PropsWithChildren<{
 const Stack = forwardRef(
   (
     {
-      as,
+      as: Component = 'div',
       children,
       align = 'stretch',
       direction = 'vertical',
@@ -85,8 +84,7 @@ const Stack = forwardRef(
     forwardedRef,
   ) => {
     return (
-      <BoxWithFallback
-        as={as}
+      <Component
         ref={forwardedRef}
         {...rest}
         className={clsx(className, classes.Stack)}
@@ -98,7 +96,7 @@ const Stack = forwardRef(
         {...getResponsiveAttributes('padding', padding)}
       >
         {children}
-      </BoxWithFallback>
+      </Component>
     )
   },
 ) as PolymorphicForwardRefComponent<ElementType, StackProps<ElementType>>
@@ -124,10 +122,9 @@ type StackItemProps<As> = React.PropsWithChildren<{
   className?: string
 }>
 
-const StackItem = forwardRef(({as, children, grow, shrink, className, ...rest}, forwardedRef) => {
+const StackItem = forwardRef(({as: Component = 'div', children, grow, shrink, className, ...rest}, forwardedRef) => {
   return (
-    <BoxWithFallback
-      as={as}
+    <Component
       ref={forwardedRef}
       {...rest}
       className={clsx(className, classes.StackItem)}
@@ -135,7 +132,7 @@ const StackItem = forwardRef(({as, children, grow, shrink, className, ...rest}, 
       {...getResponsiveAttributes('shrink', shrink)}
     >
       {children}
-    </BoxWithFallback>
+    </Component>
   )
 }) as PolymorphicForwardRefComponent<ElementType, StackProps<ElementType>>
 

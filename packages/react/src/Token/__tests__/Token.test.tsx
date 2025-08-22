@@ -67,6 +67,35 @@ const testTokenComponent = (Component: React.ComponentType<React.PropsWithChildr
 
     expect(domNode.parentElement).toHaveClass('testing-class')
   })
+
+  it('renders with correct data-cursor-is-interactive attribute for button element', () => {
+    const {getByText} = HTMLRender(<Component as="button" text="token" />)
+    const domNode = getByText('token')
+
+    expect(domNode.parentElement).toHaveAttribute('data-cursor-is-interactive', 'true')
+  })
+
+  it('renders with correct data-cursor-is-interactive attribute for anchor element', () => {
+    const {getByText} = HTMLRender(<Component as="a" text="token" />)
+    const domNode = getByText('token')
+
+    expect(domNode.parentElement).toHaveAttribute('data-cursor-is-interactive', 'true')
+  })
+
+  it('renders with correct data-cursor-is-interactive attribute for span with onClick', () => {
+    const onClick = vi.fn()
+    const {getByText} = HTMLRender(<Component text="token" onClick={onClick} />)
+    const domNode = getByText('token')
+
+    expect(domNode.parentElement).toHaveAttribute('data-cursor-is-interactive', 'true')
+  })
+
+  it('renders with correct data-cursor-is-interactive attribute for non-interactive span', () => {
+    const {getByText} = HTMLRender(<Component text="token" />)
+    const domNode = getByText('token')
+
+    expect(domNode.parentElement).toHaveAttribute('data-cursor-is-interactive', 'false')
+  })
 }
 
 describe('Token components', () => {

@@ -1,0 +1,19 @@
+.TokenRow {
+  display: flex;
+  align-items: start;
+  gap: var(--base-size-8);
+}
+
+.TokenColumn {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: var(--base-size-8);
+}
+
+.TokenWrapRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: start;
+  gap: var(--base-size-8);
+}

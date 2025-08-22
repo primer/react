@@ -22,8 +22,7 @@
     }
   }
 
-  &:focus,
-  &:focus-within {
+  &:focus-visible {
     @mixin focusOutline 2px;
   }
 

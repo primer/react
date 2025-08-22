@@ -1,5 +1,5 @@
 import React from 'react'
-import {Box, ActionMenu, ActionList, Button, IconButton, FormControl, TextInput} from '../'
+import {ActionMenu, ActionList, Button, IconButton, FormControl, TextInput} from '../'
 import {
   GearIcon,
   MilestoneIcon,
@@ -20,6 +20,7 @@ import {
   WorkflowIcon,
 } from '@primer/octicons-react'
 import type {AnchorPosition, AnchorSide} from '@primer/behaviors'
+import classes from './ActionMenu.examples.stories.module.css'
 
 export default {
   title: 'Components/ActionMenu/Examples',
@@ -37,8 +38,7 @@ export const GroupsAndDescriptions = () => {
   return (
     <ActionMenu open>
       <ActionMenu.Button variant="default">
-        <Box sx={{display: 'inline-block', color: 'fg.muted'}}>Milestone:</Box>{' '}
-        {selectedMilestone?.name || 'Make a selection'}
+        <span className={classes.Milestone}>Milestone:</span> {selectedMilestone?.name || 'Make a selection'}
       </ActionMenu.Button>
       <ActionMenu.Overlay width="medium">
         <ActionList selectionVariant="single" showDividers>
@@ -88,7 +88,7 @@ export const CustomOverlayProps = () => {
   const [open, setOpen] = React.useState(false)
 
   return (
-    <Box sx={{display: 'flex', justifyContent: 'center'}}>
+    <div className={classes.CenteredFlexContainer}>
       <ActionMenu open={open} onOpenChange={setOpen}>
         <ActionMenu.Button>Menu</ActionMenu.Button>
         <ActionMenu.Overlay width="large" align="center" preventOverflow={false}>
@@ -104,7 +104,7 @@ export const CustomOverlayProps = () => {
           </ActionList>
         </ActionMenu.Overlay>
       </ActionMenu>
-    </Box>
+    </div>
   )
 }
 
@@ -112,7 +112,7 @@ export const FullScreen = () => {
   const [open, setOpen] = React.useState(false)
 
   return (
-    <Box sx={{display: 'flex', justifyContent: 'center'}}>
+    <div className={classes.CenteredFlexContainer}>
       <ActionMenu open={open} onOpenChange={setOpen}>
         <ActionMenu.Button>Menu</ActionMenu.Button>
         <ActionMenu.Overlay
@@ -133,7 +133,7 @@ export const FullScreen = () => {
           </ActionList>
         </ActionMenu.Overlay>
       </ActionMenu>
-    </Box>
+    </div>
   )
 }
 
@@ -229,7 +229,7 @@ export const ShortcutMenu = () => {
        * we can pass an Anchor for the menu to "anchor to"
        */}
       <ActionMenu open={open} onOpenChange={setOpen}>
-        <ActionMenu.Button sx={{visibility: 'hidden'}}>Anchor</ActionMenu.Button>
+        <ActionMenu.Button className={classes.HiddenButton}>Anchor</ActionMenu.Button>
         <ActionMenu.Overlay
           ignoreClickRefs={[
             // Because the component is controlled from outside, but the anchor is still internal,
@@ -616,7 +616,7 @@ export const DynamicAnchorSides = () => {
 
   return (
     <>
-      <div className="testCustomPositionMiddle">
+      <div className={classes.CustomPositionMiddle}>
         <ActionMenu>
           <ActionMenu.Button>Open menu</ActionMenu.Button>
           <ActionMenu.Overlay

@@ -1,6 +1,6 @@
 import {useState} from 'react'
 import type {Meta} from '@storybook/react-vite'
-import {Box, Checkbox, FormControl, TextInput, TextInputWithTokens} from '..'
+import {Checkbox, FormControl, TextInput, TextInputWithTokens} from '..'
 import type {FormValidationStatus} from '../utils/types/FormValidationStatus'
 
 export default {
@@ -71,7 +71,7 @@ export const Playground = ({
   }
 
   return (
-    <Box>
+    <form>
       <FormControl disabled={disabled} required={required}>
         <FormControl.Label>Name</FormControl.Label>
         <TextInput />
@@ -91,6 +91,6 @@ export const Playground = ({
         <FormControl.Label>Default label</FormControl.Label>
         <TextInputWithTokens tokens={tokens} onTokenRemove={onTokenRemove} />
       </FormControl>
-    </Box>
+    </form>
   )
 }
