@@ -101,8 +101,8 @@ const sx = matches.filter(({importSpecifiers}) => {
     return (
       specifier.imported === 'sx' ||
       specifier.local === 'sx' ||
-      specifier.imported === 'SxProps' ||
-      specifier.local === 'SxProps'
+      specifier.imported === 'SxProp' ||
+      specifier.local === 'SxProp'
     )
   })
 })
@@ -125,7 +125,9 @@ const styledSystemSize = styledSystem.reduce((acc, {size}) => acc + size, 0)
 const totalCount = matches.length
 const totalSize = matches.reduce((acc, {size}) => acc + size, 0)
 
-const notMigrated = new Set([...box, ...boxWithFallback, ...sx, ...styledComponents, ...styledSystem].map(match => match.filepath))
+const notMigrated = new Set(
+  [...box, ...boxWithFallback, ...sx, ...styledComponents, ...styledSystem].map(match => match.filepath),
+)
 const migrated = new Set()
 let notMigratedSize = 0
 let migratedSize = 0
@@ -153,7 +155,7 @@ This report tracks our status migrating files from styled-components to CSS Modu
 
 ![Status by file size](https://geps.dev/progress/${Math.floor((migratedSize / totalSize) * 100)})
 
-## Box
+## Box (${box.length})
 
 **Status by file count**
 
@@ -169,7 +171,7 @@ This report tracks our status migrating files from styled-components to CSS Modu
 ${getTable(box)}
 </details>
 
-## BoxWithFallback
+## BoxWithFallback (${boxWithFallback.length})
 
 **Status by file count**
 
@@ -185,7 +187,7 @@ ${getTable(box)}
 ${getTable(boxWithFallback)}
 </details>
 
-## sx
+## sx (${sx.length})
 
 **Status by file count**
 
@@ -201,7 +203,7 @@ ${getTable(boxWithFallback)}
 ${getTable(sx)}
 </details>
 
-## styled-components
+## styled-components (${styledComponents.length})
 
 **Status by file count**
 
@@ -217,7 +219,7 @@ ${getTable(sx)}
 ${getTable(styledComponents)}
 </details>
 
-## styled-system
+## styled-system (${styledSystem.length})
 
 **Status by file count**
 
