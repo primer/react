@@ -42,8 +42,3 @@ export type {TabNavProps, TabNavLinkProps} from '../TabNav'
 export {default as Tooltip} from '../Tooltip/Tooltip'
 export type {TooltipProps} from '../Tooltip/Tooltip'
 // end of v37.0.0
-
-// Deprecated in v37.31.0 - https://github.com/github/primer/issues/5533
-export {default as AvatarPair} from './AvatarPair'
-export type {AvatarPairProps} from './AvatarPair'
-// end of v37.31.0
