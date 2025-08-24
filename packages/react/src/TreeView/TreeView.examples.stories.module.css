@@ -1,0 +1,14 @@
+.Container {
+  max-width: 400px;
+}
+
+/* stylelint-disable selector-class-pattern */
+.DraggableContainer .treeview-item .treeview-leading-action {
+  visibility: hidden;
+}
+
+.DraggableContainer .treeview-item:hover .treeview-leading-action,
+.DraggableContainer .treeview-item:focus .treeview-leading-action {
+  visibility: visible;
+}
+/* stylelint-enable selector-class-pattern */
