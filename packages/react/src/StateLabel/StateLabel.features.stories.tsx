@@ -27,6 +27,7 @@ export const Open = () => (
   </StateLabel>
 )
 export const Closed = () => <StateLabel status="closed">Closed</StateLabel>
+export const Unlisted = () => <StateLabel status="pullUnlisted">Unlisted</StateLabel>
 
 export const Small = () => (
   <StateLabel status="issueOpened" variant="small">
