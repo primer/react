@@ -49,7 +49,6 @@ export {
   TextInput,
   TextInputWithTokens,
   Timeline,
-  ToggleSwitch,
   Token,
   Tooltip,
   Truncate,
