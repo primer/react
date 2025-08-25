@@ -1,11 +1,11 @@
-.memexOverlayIssueTitleInput {
-  padding-block: 2px;
-  padding-inline: 7px;
+.MemexOverlayIssueTitleInput {
+  padding-block: var(--base-size-2);
+  padding-inline: var(--base-size-8);
   text-align: left;
   color: var(--fgColor-default);
 }
 
-.memexOverlayIssueTitleInput input {
+.MemexOverlayIssueTitleInput input {
   font-weight: var(--base-text-weight-semibold);
   font-size: var(--text-title-size-medium);
   padding-inline: 0;
