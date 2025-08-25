@@ -13,7 +13,6 @@ import {AriaStatus} from '../live-region'
 import useSafeTimeout from '../hooks/useSafeTimeout'
 import classes from './ToggleSwitch.module.css'
 
-// how to use this in css?
 const TRANSITION_DURATION = '80ms'
 const EASE_OUT_QUAD_CURVE = 'cubic-bezier(0.5, 1, 0.89, 1)'
 
