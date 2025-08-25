@@ -3,7 +3,6 @@ import type {Meta} from '@storybook/react-vite'
 import type React from 'react'
 import {useState} from 'react'
 
-import Box from '../Box'
 import {Button} from '../Button'
 import {SelectPanel} from '.'
 import type {ItemInput} from '../deprecated/ActionList/List'
@@ -11,6 +10,7 @@ import FormControl from '../FormControl'
 import Text from '../Text'
 import Select from '../Select/Select'
 import type {SelectPanelSecondaryAction} from './SelectPanel'
+import classes from './SelectPanel.stories.module.css'
 
 const meta: Meta<typeof SelectPanel> = {
   title: 'Components/SelectPanel/Dev',
@@ -30,16 +30,11 @@ const NoResultsMessage = (filter: string): {variant: 'empty'; title: string; bod
 function getColorCircle(color: string) {
   return function () {
     return (
-      <Box
-        sx={{
+      <div
+        className={classes.ColorCircle}
+        style={{
           backgroundColor: color,
           borderColor: color,
-          width: 14,
-          height: 14,
-          borderRadius: 10,
-          margin: 'auto',
-          borderWidth: '1px',
-          borderStyle: 'solid',
         }}
       />
     )
