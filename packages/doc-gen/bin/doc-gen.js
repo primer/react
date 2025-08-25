@@ -1,3 +1,8 @@
 #!/usr/bin/env node
 
-import '../dist/index.js'
+import {main} from '../dist/index.js'
+
+main().catch(e => {
+  console.error(e)
+  process.exit(1)
+})

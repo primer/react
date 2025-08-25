@@ -26,7 +26,9 @@
     "watch": "rollup -c -w"
   },
   "dependencies": {
-    "@babel/runtime": "^7.28.2"
+    "@babel/runtime": "^7.28.2",
+    "@types/signale": "^1.4.7",
+    "signale": "^1.4.0"
   },
   "devDependencies": {
     "@babel/core": "^7.27.1",
