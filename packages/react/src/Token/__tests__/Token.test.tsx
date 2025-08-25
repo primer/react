@@ -5,8 +5,7 @@ import type React from 'react'
 import Token from '../Token'
 import type {TokenSizeKeys} from '../TokenBase'
 import {tokenSizes} from '../TokenBase'
-import {IssueLabelToken, AvatarToken} from '..'
-import type {AvatarTokenProps} from '../AvatarToken'
+import {IssueLabelToken} from '..'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const testTokenComponent = (Component: React.ComponentType<React.PropsWithChildren<any>>) => {
@@ -124,14 +123,5 @@ describe('Token components', () => {
       const {container} = HTMLRender(<IssueLabelToken text="token" fillColor="#0366d6" onRemove={onRemoveMock} />)
       expect(container.firstChild).toBeInTheDocument()
     })
-  })
-
-  describe('AvatarToken', () => {
-    const AvatarTokenWithDefaultAvatar = ({
-      avatarSrc = 'https://avatars.githubusercontent.com/mperrotti',
-      ...rest
-    }: Omit<AvatarTokenProps, 'ref'>) => <AvatarToken avatarSrc={avatarSrc} {...rest} />
-
-    testTokenComponent(AvatarTokenWithDefaultAvatar)
   })
 })

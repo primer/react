@@ -1,7 +1,7 @@
 import React from 'react'
 import {ThemeContext} from 'styled-components'
 import {style} from 'styled-system'
-import type {Theme} from './ThemeProvider'
+import type {Theme} from '../../ThemeProvider'
 
 type Location =
   | 'top'

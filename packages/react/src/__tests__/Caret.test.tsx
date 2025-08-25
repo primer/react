@@ -1,7 +1,7 @@
 import {render} from '@testing-library/react'
 import {describe, expect, it} from 'vitest'
-import Caret from '../Caret'
-import type {CaretProps} from '../Caret'
+import Caret from '../internal/components/Caret'
+import type {CaretProps} from '../internal/components/Caret'
 
 describe('Caret', () => {
   it('renders <svg>', () => {
