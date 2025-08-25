@@ -1,107 +1,128 @@
 import fs from 'fs'
 import path from 'path'
-import ts from 'typescript'
+import type {DocsFile} from './types'
+import {parseTypeInfo, type TSParsedComponentInfo, type TSPropInfo} from './ts-utils'
 
-interface PropInfo {
-  required: boolean
-  type?: string
-  description?: string
-  defaultValue?: string
+interface PropCompareError {
+  name: string
+  missingInTS?: boolean
+  missingInDocs?: boolean
+  missingJSDoc?: boolean
+  mismatchedType?: boolean
+  mismatchedDefaultValue?: boolean
+  mismatchedRequired?: boolean
 }
 
-function getTypeInformationFromTS(program: ts.Program, componentPath: string, componentName: string) {
-  let sourceFile: ts.SourceFile | undefined
+function compareProps(docs: DocsFile, parsedTSInfo: TSParsedComponentInfo): Record<string, PropCompareError> {
+  const propResults: Record<string, PropCompareError> = {}
 
-  sourceFile = program.getSourceFile(path.join(componentPath, `${componentName}.tsx`))
-  if (!sourceFile) {
-    sourceFile = program.getSourceFile(path.join(componentPath, `index.ts`))
-  }
-  if (!sourceFile) {
-    sourceFile = program.getSourceFile(path.join(componentPath, `index.tsx`))
-  }
+  const allProps = new Set<string>([...docs.props.map(p => p.name), ...Object.keys(parsedTSInfo.props)])
 
-  if (!sourceFile) {
-    throw new Error(`Source file not found: ${componentPath}`)
-  }
+  for (const propName of allProps.keys()) {
+    const docProp = docs.props.find(p => p.name === propName)
+    const tsProp: TSPropInfo | undefined = parsedTSInfo.props[propName]
 
-  const checker = program.getTypeChecker()
-  const sourceFileSymbol = checker.getSymbolAtLocation(sourceFile)
-  if (!sourceFileSymbol) {
-    throw new Error(`Symbol not found for source file: ${componentPath}`)
-  }
+    const propSummary: PropCompareError = {
+      name: propName,
+      missingInTS: tsProp ? false : true,
+      missingInDocs: docProp ? false : true,
+      mismatchedType: docProp?.type && tsProp?.type && docProp.type !== tsProp.type ? true : false,
+      mismatchedRequired: (docProp?.required && !tsProp?.required) || (tsProp?.required && !docProp?.required),
+      mismatchedDefaultValue:
+        docProp?.defaultValue !== undefined && tsProp?.defaultValue !== undefined
+          ? docProp.defaultValue !== tsProp.defaultValue
+          : false,
+      missingJSDoc: docProp?.description && tsProp?.description === undefined ? true : false,
+    }
 
-  const exports = checker.getExportsOfModule(sourceFileSymbol)
-
-  const componentSymbol = exports.find(sym => sym.getName() === componentName)
-
-  if (!componentSymbol) {
-    throw new Error(`Component ${componentName} not found in file ${componentPath}`)
+    propResults[propName] = propSummary
   }
 
-  const type = checker.getTypeOfSymbolAtLocation(componentSymbol, componentSymbol.valueDeclaration!)
-  const propTypesSig = type.getCallSignatures()[0].getParameters()[0]
+  return propResults
+}
 
-  const propTypes = checker.getTypeOfSymbolAtLocation(propTypesSig, propTypesSig.valueDeclaration!)
-  const propSummary: Record<string, PropInfo | undefined> = {}
+function logVerboseComparison(
+  comparison: Record<string, PropCompareError>,
+  docs: DocsFile,
+  parsedTSInfo: TSParsedComponentInfo,
+) {
+  for (const [propName, result] of Object.entries(comparison)) {
+    const tsProp = parsedTSInfo.props[propName]
+    const docProp = docs.props.find(p => p.name === propName)
 
-  for (const prop of propTypes.getProperties()) {
-    const name = prop.getName()
+    console.log(`Prop: ${propName}`)
+    console.table([
+      {
+        Rule: 'Type',
+        TS: tsProp?.type,
+        Docs: docProp?.type,
+      },
+      {
+        Rule: 'Required',
+        TS: tsProp?.required,
+        Docs: docProp?.required,
+      },
+      {
+        Rule: 'Default Value',
+        TS: tsProp?.defaultValue,
+        Docs: docProp?.defaultValue,
+      },
+      {
+        Rule: 'Description',
+        TS: tsProp?.description,
+        Docs: docProp?.description,
+      },
+    ])
+    console.log('\n')
+  }
+}
 
-    const defaultValueJSDoc = prop.getJsDocTags().find(tag => tag.name === 'default')
-    const docComment = prop.getDocumentationComment(checker)
+export async function main() {
+  const [action, docsPath] = process.argv.slice(2)
+  const verbose = process.argv.includes('-v')
 
-    propSummary[name] = {
-      required: !(prop.flags & ts.SymbolFlags.Optional),
-      type: checker.typeToString(checker.getTypeOfSymbolAtLocation(prop, prop.valueDeclaration!)),
-      description: docComment.length > 0 ? ts.displayPartsToString(docComment) : undefined,
-      defaultValue: defaultValueJSDoc ? ts.displayPartsToString(defaultValueJSDoc.text) : undefined,
+  if (action !== 'update' && action !== 'validate') {
+    throw new Error(`Invalid action: ${action}. Expected 'update' or 'validate'.`)
+  }
+
+  let componentDocsFile = docsPath
+
+  if (fs.statSync(docsPath).isDirectory()) {
+    const foundDocsFile = fs.readdirSync(docsPath).find(f => f.endsWith('docs.json'))
+    if (foundDocsFile) {
+      componentDocsFile = path.join(docsPath, foundDocsFile)
     }
   }
 
-  return propSummary
-}
+  const fileContent = fs.readFileSync(componentDocsFile, 'utf-8')
+  const docs: DocsFile = JSON.parse(fileContent)
+  const componentEntry = path.dirname(componentDocsFile)
 
-function getTSProgram() {
-  const config = ts.readConfigFile('tsconfig.json', ts.sys.readFile)
-  const parsedConfig = ts.parseJsonConfigFileContent(config.config, ts.sys, process.cwd(), undefined, 'tsconfig.json')
-  const program = ts.createProgram({
-    rootNames: parsedConfig.fileNames,
-    options: parsedConfig.options,
-  })
+  const parsedTSInfo = await parseTypeInfo(componentEntry, docs.name)
 
-  return program
-}
+  // A few things that we want to check for here
+  // Do all of the props in the docs.json file match props that we have access to
+  // Are there any props in the source-code that have a mis-matched type or required prop
+  // Are any props missing their JSDoc tags for description or default value
 
-export function processDocsFile(filePath: string) {
-  const fileContent = fs.readFileSync(filePath, 'utf-8')
-  const docs = JSON.parse(fileContent)
+  // for the `validate` action, we just want to log and show an error
+  // for the `update` action we want to write the update to file
 
-  try {
-    const componentEntry = path.dirname(filePath)
+  const results = compareProps(docs, parsedTSInfo)
 
-    const program = getTSProgram()
-    const typeInfo = getTypeInformationFromTS(program, componentEntry, docs.name)
+  console.table(
+    Object.entries(results).map(([propName, error]) => ({
+      Prop: propName,
+      ['Missing in TS']: error.missingInTS ? 'x' : undefined,
+      ['Missing in Docs']: error.missingInDocs ? 'x' : undefined,
+      ['Wrong Types']: error.mismatchedType ? 'x' : undefined,
+      ['Wrong Required']: error.mismatchedRequired ? 'x' : undefined,
+      ['Wrong Default Value']: error.mismatchedDefaultValue ? 'x' : undefined,
+      ['Missing JSDoc']: error.missingJSDoc ? 'x' : undefined,
+    })),
+  )
 
-    // merge type info with the default file contents
-
-    docs.props = docs.props.map(({derive, ...defaultPropInfo}: {name: string; derive?: boolean}) => {
-      if (derive) {
-        const propEntry = typeInfo[defaultPropInfo.name]
-        if (!propEntry) {
-          throw new Error(`No type information found for prop '${defaultPropInfo.name}'`)
-        }
-
-        return {
-          ...defaultPropInfo,
-          ...propEntry,
-        }
-      }
-
-      return defaultPropInfo
-    })
-  } catch (e: any) {
-    console.error(`Error processing file ${filePath}:`, e.message)
+  if (verbose) {
+    logVerboseComparison(results, docs, parsedTSInfo)
   }
-
-  return docs
 }
