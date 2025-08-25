@@ -29,9 +29,8 @@ export class OpenAIClient {
       messages,
       tools,
       // eslint-disable-next-line camelcase
-      tool_choice: 'auto',
+      tool_choice: tools ? 'auto' : undefined,
     })
   }
-
   // Add more methods as needed!
 }
