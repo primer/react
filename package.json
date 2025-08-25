@@ -50,7 +50,7 @@
     "@eslint/eslintrc": "^3.3.1",
     "@eslint/js": "^9.34.0",
     "@github/axe-github": "0.7.0",
-    "@github/markdownlint-github": "^0.7.0",
+    "@github/markdownlint-github": "^0.8.0",
     "@github/mini-throttle": "2.1.1",
     "@github/prettier-config": "0.0.6",
     "@mdx-js/react": "1.6.22",
