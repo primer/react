@@ -27,7 +27,10 @@ export type MenuContextProps = Pick<
   onClose?: MenuCloseHandler
   isSubmenu?: boolean
 }
-const MenuContext = React.createContext<MenuContextProps>({renderAnchor: null, open: false})
+const MenuContext = React.createContext<MenuContextProps>({
+  renderAnchor: null,
+  open: false,
+})
 
 export type ActionMenuProps = {
   /**
@@ -36,14 +39,15 @@ export type ActionMenuProps = {
   children: React.ReactElement[] | React.ReactElement
 
   /**
-   * If defined, will control the open/closed state of the overlay. Must be used in conjunction with `onOpenChange`.
+   * If defined, will control the open/closed state of the overlay. Must be used in conjuction with `onOpenChange`.
+   * @default false
    */
   open?: boolean
 
   /**
-   * If defined, will control the open/closed state of the overlay. Must be used in conjunction with `open`.
+   * If defined, will control the open/closed state of the overlay. Must be used in conjuction with `open`.
    */
-  onOpenChange?: (s: boolean) => void
+  onOpenChange?: (open: boolean) => void
 } & Pick<AnchoredOverlayProps, 'anchorRef'>
 
 // anchorProps adds onClick and onKeyDown, so we need to merge them with buttonProps
@@ -123,7 +127,10 @@ const Menu: React.FC<React.PropsWithChildren<ActionMenuProps>> = ({
             anchorChildren,
             mergeAnchorHandlers({...anchorProps}, anchorChildren.props),
           )
-          return React.cloneElement(child, {children: triggerButton, ref: anchorRef})
+          return React.cloneElement(child, {
+            children: triggerButton,
+            ref: anchorRef,
+          })
         }
       }
       return null
@@ -140,8 +147,13 @@ const Menu: React.FC<React.PropsWithChildren<ActionMenuProps>> = ({
               tooltipTrigger,
               mergeAnchorHandlers({...anchorProps}, tooltipTrigger.props),
             )
-            const tooltip = React.cloneElement(anchorChildren, {children: tooltipTriggerEl})
-            return React.cloneElement(child, {children: tooltip, ref: anchorRef})
+            const tooltip = React.cloneElement(anchorChildren, {
+              children: tooltipTriggerEl,
+            })
+            return React.cloneElement(child, {
+              children: tooltip,
+              ref: anchorRef,
+            })
           }
         }
       } else {
@@ -174,7 +186,10 @@ const Menu: React.FC<React.PropsWithChildren<ActionMenuProps>> = ({
   )
 }
 
-export type ActionMenuAnchorProps = {children: React.ReactElement; id?: string} & React.HTMLAttributes<HTMLElement>
+export type ActionMenuAnchorProps = {
+  children: React.ReactElement
+  id?: string
+} & React.HTMLAttributes<HTMLElement>
 const Anchor = React.forwardRef<HTMLElement, ActionMenuAnchorProps>(({children: child, ...anchorProps}, anchorRef) => {
   const {onOpen, isSubmenu} = React.useContext(MenuContext)
 
@@ -271,7 +286,10 @@ const Overlay: React.FC<React.PropsWithChildren<MenuOverlayProps>> = ({
   const containerRef = React.useRef<HTMLDivElement>(null)
   useMenuKeyboardNavigation(open, onClose, containerRef, anchorRef, isSubmenu)
   const isNarrow = useResponsiveValue({narrow: true}, false)
-  const responsiveVariant = useResponsiveValue(variant, {regular: 'anchored', narrow: 'anchored'})
+  const responsiveVariant = useResponsiveValue(variant, {
+    regular: 'anchored',
+    narrow: 'anchored',
+  })
 
   const isNarrowFullscreen = !!isNarrow && variant.narrow === 'fullscreen'
 
@@ -323,4 +341,9 @@ const Overlay: React.FC<React.PropsWithChildren<MenuOverlayProps>> = ({
 }
 
 Menu.displayName = 'ActionMenu'
-export const ActionMenu = Object.assign(Menu, {Button: MenuButton, Anchor, Overlay, Divider})
+export const ActionMenu = Object.assign(Menu, {
+  Button: MenuButton,
+  Anchor,
+  Overlay,
+  Divider,
+})

@@ -1,7 +1,9 @@
 import fs from 'fs'
 import path from 'path'
 import type {DocsFile} from './types'
-import {parseTypeInfo, type TSParsedComponentInfo, type TSPropInfo} from './ts-utils'
+import {getTSProgram, parseTypeInfo, updateJSDocsForProp, type TSParsedComponentInfo, type TSPropInfo} from './ts-utils'
+import yargs from 'yargs'
+import {hideBin} from 'yargs/helpers'
 
 interface PropCompareError {
   name: string
@@ -29,9 +31,9 @@ function compareProps(docs: DocsFile, parsedTSInfo: TSParsedComponentInfo): Reco
       mismatchedType: docProp?.type && tsProp?.type && docProp.type !== tsProp.type ? true : false,
       mismatchedRequired: (docProp?.required && !tsProp?.required) || (tsProp?.required && !docProp?.required),
       mismatchedDefaultValue:
-        docProp?.defaultValue !== undefined && tsProp?.defaultValue !== undefined
-          ? docProp.defaultValue !== tsProp.defaultValue
-          : false,
+        docProp?.defaultValue !== undefined &&
+        docProp?.defaultValue !== '' &&
+        docProp?.defaultValue !== tsProp?.defaultValue,
       missingJSDoc: docProp?.description && tsProp?.description === undefined ? true : false,
     }
 
@@ -46,7 +48,7 @@ function logVerboseComparison(
   docs: DocsFile,
   parsedTSInfo: TSParsedComponentInfo,
 ) {
-  for (const [propName, result] of Object.entries(comparison)) {
+  for (const [propName, summary] of Object.entries(comparison)) {
     const tsProp = parsedTSInfo.props[propName]
     const docProp = docs.props.find(p => p.name === propName)
 
@@ -54,51 +56,65 @@ function logVerboseComparison(
     console.table([
       {
         Rule: 'Type',
+        Match: summary.mismatchedType ? '❌' : '✅',
         TS: tsProp?.type,
         Docs: docProp?.type,
       },
       {
         Rule: 'Required',
+        Match: summary.mismatchedRequired ? '❌' : '✅',
         TS: tsProp?.required,
         Docs: docProp?.required,
       },
       {
         Rule: 'Default Value',
+        Match: summary.mismatchedDefaultValue ? '❌' : '✅',
         TS: tsProp?.defaultValue,
         Docs: docProp?.defaultValue,
       },
       {
         Rule: 'Description',
+        Match: summary.missingJSDoc ? '❌' : '✅',
         TS: tsProp?.description,
         Docs: docProp?.description,
       },
     ])
-    console.log('\n')
   }
 }
 
 export async function main() {
-  const [action, docsPath] = process.argv.slice(2)
-  const verbose = process.argv.includes('-v')
+  const argv = await yargs(hideBin(process.argv))
+    .command('validate [path]', 'Validate the docs.json and TS prop-types for your Component match')
+    .option('verbose', {
+      alias: 'v',
+      type: 'boolean',
+    })
+    .help('h')
+    .alias('h', 'help')
+    .parse()
 
-  if (action !== 'update' && action !== 'validate') {
-    throw new Error(`Invalid action: ${action}. Expected 'update' or 'validate'.`)
+  const {verbose, fix, path: componentPath} = argv
+
+  if (!componentPath || typeof componentPath !== 'string') {
+    console.error('Error: Component path is required.')
+    process.exit(1)
   }
 
-  let componentDocsFile = docsPath
+  let componentDocsFile = componentPath
 
-  if (fs.statSync(docsPath).isDirectory()) {
-    const foundDocsFile = fs.readdirSync(docsPath).find(f => f.endsWith('docs.json'))
+  if (fs.statSync(componentPath).isDirectory()) {
+    const foundDocsFile = fs.readdirSync(componentPath).find(f => f.endsWith('docs.json'))
     if (foundDocsFile) {
-      componentDocsFile = path.join(docsPath, foundDocsFile)
+      componentDocsFile = path.join(componentPath, foundDocsFile)
     }
   }
 
   const fileContent = fs.readFileSync(componentDocsFile, 'utf-8')
   const docs: DocsFile = JSON.parse(fileContent)
   const componentEntry = path.dirname(componentDocsFile)
+  const program = getTSProgram()
 
-  const parsedTSInfo = await parseTypeInfo(componentEntry, docs.name)
+  const parsedTSInfo = await parseTypeInfo(componentEntry, docs.name, program)
 
   // A few things that we want to check for here
   // Do all of the props in the docs.json file match props that we have access to
@@ -113,16 +129,30 @@ export async function main() {
   console.table(
     Object.entries(results).map(([propName, error]) => ({
       Prop: propName,
-      ['Missing in TS']: error.missingInTS ? 'x' : undefined,
-      ['Missing in Docs']: error.missingInDocs ? 'x' : undefined,
-      ['Wrong Types']: error.mismatchedType ? 'x' : undefined,
-      ['Wrong Required']: error.mismatchedRequired ? 'x' : undefined,
-      ['Wrong Default Value']: error.mismatchedDefaultValue ? 'x' : undefined,
-      ['Missing JSDoc']: error.missingJSDoc ? 'x' : undefined,
+      ['Missing in TS']: error.missingInTS ? '❌' : undefined,
+      ['Missing in Docs']: error.missingInDocs ? '❌' : undefined,
+      ['Mismatched Types']: error.mismatchedType ? '❌' : undefined,
+      ['Mismatched Required']: error.mismatchedRequired ? '❌' : undefined,
+      ['Mismatched Default Value']: error.mismatchedDefaultValue ? '❌' : undefined,
+      ['Mismatched JSDoc']: error.missingJSDoc ? '❌' : undefined,
     })),
   )
 
   if (verbose) {
     logVerboseComparison(results, docs, parsedTSInfo)
+  }
+
+  if (fix) {
+    console.log(`Fixing descriptions for ${docs.name}`)
+
+    for (const [propName, summary] of Object.entries(results)) {
+      const tsProp = parsedTSInfo.props[propName]
+      const docProp = docs.props.find(p => p.name === propName)
+
+      if ((summary.missingJSDoc || summary.mismatchedDefaultValue) && tsProp && docProp) {
+        await updateJSDocsForProp(tsProp, docProp, path.resolve(componentEntry))
+        console.log(`Updated JSDoc for ${propName}`)
+      }
+    }
   }
 }
