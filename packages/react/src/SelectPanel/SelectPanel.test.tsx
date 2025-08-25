@@ -10,7 +10,7 @@ import type {InitialLoadingType} from './SelectPanel'
 import type {LiveRegionElement} from '@primer/live-region-element'
 import {IconButton} from '../Button'
 import {ArrowLeftIcon} from '@primer/octicons-react'
-import Box from '../Box'
+import classes from './SelectPanel.test.module.css'
 
 // Instead of importing from live-region/__tests__/test-helpers.ts, we define our own getLiveRegion function
 export function getLiveRegion(): LiveRegionElement {
@@ -255,10 +255,10 @@ for (const usingRemoveActiveDescendant of [false, true]) {
             placeholder="Select items"
             placeholderText="Filter items"
             title={
-              <Box sx={{display: 'flex', alignItems: 'center', gap: 1}}>
+              <div className={classes.Title}>
                 <IconButton icon={ArrowLeftIcon} aria-label="Back" />
                 <span>Title</span>
-              </Box>
+              </div>
             }
           />
         </ThemeProvider>,
