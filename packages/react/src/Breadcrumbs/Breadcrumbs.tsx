@@ -3,8 +3,8 @@ import type {To} from 'history'
 import React, {useState, useRef, useCallback, useMemo, useEffect} from 'react'
 import type {SxProp} from '../sx'
 import type {ComponentProps} from '../utils/types'
-import classes from './Breadcrumbs.module.css'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
+import classes from './Breadcrumbs.module.css'
 import {BoxWithFallback} from '../internal/components/BoxWithFallback'
 import {ActionMenu} from '../ActionMenu'
 import {ActionList} from '../ActionList'
@@ -12,6 +12,7 @@ import {IconButton} from '../Button/IconButton'
 import {KebabHorizontalIcon} from '@primer/octicons-react'
 import {useResizeObserver} from '../hooks/useResizeObserver'
 import type {ResizeObserverEntry} from '../hooks/useResizeObserver'
+import {useFeatureFlag} from '../FeatureFlags'
 
 const SELECTED_CLASS = 'selected'
 
@@ -23,8 +24,12 @@ export type BreadcrumbsProps = React.PropsWithChildren<
   } & SxProp
 >
 
-const BreadcrumbsList = ({children}: React.PropsWithChildren) => {
-  return <ol className={classes.BreadcrumbsList}>{children}</ol>
+const BreadcrumbsList = ({children, enableMenuOverflow}: React.PropsWithChildren<{enableMenuOverflow?: boolean}>) => {
+  return (
+    <ol className={clsx(classes.BreadcrumbsList, enableMenuOverflow && classes.BreadcrumbsListMenuOverflow)}>
+      {children}
+    </ol>
+  )
 }
 
 type BreadcrumbsMenuItemProps = {
@@ -79,17 +84,17 @@ const getValidChildren = (children: React.ReactNode) => {
 }
 
 function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap', hideRoot = true}: BreadcrumbsProps) {
+  const overflowMenuEnabled = useFeatureFlag('primer_react_breadcrumbs_overflow_menu')
+
   const containerRef = useRef<HTMLElement>(null)
   const menuButtonRef = useRef<HTMLButtonElement>(null)
   const [effectiveHideRoot, setEffectiveHideRoot] = useState<boolean>(hideRoot)
-  //let effectiveOverflow = 'wrap'
-  const childArray = useMemo(() => getValidChildren(children), [children])
 
+  const childArray = useMemo(() => getValidChildren(children), [children])
   const rootItem = childArray[0]
 
   const [visibleItems, setVisibleItems] = useState<React.ReactElement[]>(() => childArray)
   const [childArrayWidths, setChildArrayWidths] = useState<number[]>(() => [])
-
   const [menuItems, setMenuItems] = useState<React.ReactElement[]>([])
   const [rootItemWidth, setRootItemWidth] = useState<number>(0)
 
@@ -97,12 +102,17 @@ function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap', hideRo
   const MENU_BUTTON_FALLBACK_WIDTH = 32 // Design system small IconButton
   const [menuButtonWidth, setMenuButtonWidth] = useState(MENU_BUTTON_FALLBACK_WIDTH)
 
+  // Feature flag check: if overflow menu is disabled, always use wrap behavior
+  const effectiveOverflow = overflowMenuEnabled && overflow === 'menu' ? 'menu' : 'wrap'
+
   // if (typeof window !== 'undefined') {
   //   effectiveOverflow = overflow
   // }
   const MIN_VISIBLE_ITEMS = !effectiveHideRoot ? 3 : 4
 
   useEffect(() => {
+    if (!overflowMenuEnabled) return
+
     const listElement = containerRef.current?.querySelector('ol')
     if (listElement && listElement.children.length > 0) {
       const listElementArray = Array.from(listElement.children) as HTMLElement[]
@@ -110,20 +120,31 @@ function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap', hideRo
       setChildArrayWidths(widths)
       setRootItemWidth(listElementArray[0].offsetWidth)
     }
-  }, [childArray.length])
+  }, [childArray.length, overflowMenuEnabled])
 
   // Measure actual menu button width when it exists
   useEffect(() => {
+    if (!overflowMenuEnabled) return
+
     if (menuButtonRef.current) {
       const measuredWidth = menuButtonRef.current.offsetWidth
       if (measuredWidth > 0) {
         setMenuButtonWidth(measuredWidth)
       }
     }
-  }, [menuItems.length]) // Re-measure when menu button appears/disappears
+  }, [menuItems.length, overflowMenuEnabled]) // Re-measure when menu button appears/disappears
 
   const calculateOverflow = useCallback(
     (availableWidth: number) => {
+      // If feature flag is disabled, return original state
+      if (!overflowMenuEnabled) {
+        return {
+          visibleItems: [...childArray],
+          menuItems: [],
+          effectiveHideRoot: hideRoot,
+        }
+      }
+
       const MENU_BUTTON_WIDTH = menuButtonWidth // Use measured width with fallback
 
       const calculateVisibleItemsWidth = (w: number[]) => {
@@ -188,11 +209,14 @@ function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap', hideRo
       overflow,
       rootItemWidth,
       menuButtonWidth,
+      overflowMenuEnabled,
     ],
   )
 
   const handleResize = useCallback(
     (entries: ResizeObserverEntry[]) => {
+      if (!overflowMenuEnabled) return
+
       if (entries[0]) {
         const containerWidth = entries[0].contentRect.width
         const result = calculateOverflow(containerWidth)
@@ -201,13 +225,21 @@ function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap', hideRo
         setEffectiveHideRoot(result.effectiveHideRoot)
       }
     },
-    [calculateOverflow],
+    [calculateOverflow, overflowMenuEnabled],
   )
 
   useResizeObserver(handleResize, containerRef)
 
   // Initial overflow calculation for testing and >5 items
   useEffect(() => {
+    if (!overflowMenuEnabled) {
+      // Reset to default state when feature flag is disabled
+      setVisibleItems(childArray)
+      setMenuItems([])
+      setEffectiveHideRoot(hideRoot)
+      return
+    }
+
     if (overflow === 'menu' && childArray.length > 5) {
       // Get actual container width from DOM or use default
       const containerWidth = containerRef.current?.offsetWidth || 800
@@ -216,11 +248,11 @@ function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap', hideRo
       setMenuItems(result.menuItems)
       setEffectiveHideRoot(result.effectiveHideRoot)
     }
-  }, [overflow, childArray.length, calculateOverflow])
+  }, [overflow, childArray.length, calculateOverflow, overflowMenuEnabled, childArray, hideRoot])
 
   // Determine final children to render
   const finalChildren = React.useMemo(() => {
-    if (overflow === 'wrap' || menuItems.length === 0) {
+    if (effectiveOverflow === 'wrap' || menuItems.length === 0) {
       return visibleItems.map((child, index) => (
         <li className={classes.BreadcrumbsItem} key={`visible + ${index}`}>
           {child}
@@ -265,7 +297,7 @@ function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap', hideRo
       // Show: [root breadcrumb, overflow menu, leaf breadcrumb]
       return [rootElement, menuElement, ...visibleElements]
     }
-  }, [overflow, menuItems, effectiveHideRoot, visibleItems, rootItem])
+  }, [effectiveOverflow, menuItems, effectiveHideRoot, visibleItems, rootItem])
 
   return (
     <BoxWithFallback
@@ -274,9 +306,11 @@ function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap', hideRo
       aria-label="Breadcrumbs"
       sx={sxProp}
       ref={containerRef}
-      data-overflow={overflow}
+      data-overflow={effectiveOverflow}
     >
-      <BreadcrumbsList>{finalChildren}</BreadcrumbsList>
+      <BreadcrumbsList enableMenuOverflow={overflowMenuEnabled && effectiveOverflow === 'menu'}>
+        {finalChildren}
+      </BreadcrumbsList>
     </BoxWithFallback>
   )
 }

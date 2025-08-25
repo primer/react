@@ -4,11 +4,16 @@ import {render as HTMLRender, screen, waitFor} from '@testing-library/react'
 import {describe, expect, it, vi} from 'vitest'
 import userEvent from '@testing-library/user-event'
 import {ThemeProvider} from '../../ThemeProvider'
+import {FeatureFlags} from '../../FeatureFlags'
 import theme from '../../theme'
 
-// Helper function to render with theme
-const renderWithTheme = (component: React.ReactElement) => {
-  return HTMLRender(<ThemeProvider theme={theme}>{component}</ThemeProvider>)
+// Helper function to render with theme and feature flags enabled
+const renderWithFeatureFlags = (component: React.ReactElement) => {
+  return HTMLRender(
+    <FeatureFlags flags={{primer_react_breadcrumbs_overflow_menu: true}}>
+      <ThemeProvider theme={theme}>{component}</ThemeProvider>
+    </FeatureFlags>,
+  )
 }
 
 // Mock ResizeObserver for tests
@@ -65,7 +70,7 @@ describe('Breadcrumbs', () => {
   })
 
   it('sets data-overflow attribute when overflow is menu', () => {
-    const {container} = renderWithTheme(
+    const {container} = renderWithFeatureFlags(
       <Breadcrumbs overflow="menu">
         <Breadcrumbs.Item href="/home">Home</Breadcrumbs.Item>
       </Breadcrumbs>,
@@ -116,7 +121,7 @@ describe('Breadcrumbs', () => {
   })
 
   it('shows overflow menu when more than 5 items in menu mode', () => {
-    renderWithTheme(
+    renderWithFeatureFlags(
       <Breadcrumbs overflow="menu">
         <Breadcrumbs.Item href="/1">Item 1</Breadcrumbs.Item>
         <Breadcrumbs.Item href="/2">Item 2</Breadcrumbs.Item>
@@ -141,7 +146,7 @@ describe('Breadcrumbs', () => {
     // This is more of an integration test - the exact behavior
     // depends on container width, so we just verify the prop is accepted
     expect(() => {
-      renderWithTheme(
+      renderWithFeatureFlags(
         <Breadcrumbs overflow="menu">
           <Breadcrumbs.Item href="/home">Home</Breadcrumbs.Item>
           <Breadcrumbs.Item href="/docs">Docs</Breadcrumbs.Item>
@@ -152,7 +157,7 @@ describe('Breadcrumbs', () => {
 
   it('accepts hideRoot prop set to false', () => {
     expect(() => {
-      renderWithTheme(
+      renderWithFeatureFlags(
         <Breadcrumbs overflow="menu" hideRoot={false}>
           <Breadcrumbs.Item href="/home">Home</Breadcrumbs.Item>
           <Breadcrumbs.Item href="/docs">Docs</Breadcrumbs.Item>
@@ -162,7 +167,7 @@ describe('Breadcrumbs', () => {
   })
 
   it('renders accessible overflow menu', () => {
-    renderWithTheme(
+    renderWithFeatureFlags(
       <Breadcrumbs overflow="menu">
         <Breadcrumbs.Item href="/1">Item 1</Breadcrumbs.Item>
         <Breadcrumbs.Item href="/2">Item 2</Breadcrumbs.Item>
@@ -191,7 +196,7 @@ describe('Breadcrumbs', () => {
     })
     globalThis.ResizeObserver = mockResizeObserver
 
-    renderWithTheme(
+    renderWithFeatureFlags(
       <Breadcrumbs overflow="menu">
         <Breadcrumbs.Item href="/1">Item 1</Breadcrumbs.Item>
         <Breadcrumbs.Item href="/2">Item 2</Breadcrumbs.Item>
@@ -250,7 +255,7 @@ describe('Breadcrumbs', () => {
 
     const user = userEvent.setup()
 
-    renderWithTheme(
+    renderWithFeatureFlags(
       <Breadcrumbs overflow="menu">
         <Breadcrumbs.Item href="/home">Home</Breadcrumbs.Item>
         <Breadcrumbs.Item href="/category">Category</Breadcrumbs.Item>
