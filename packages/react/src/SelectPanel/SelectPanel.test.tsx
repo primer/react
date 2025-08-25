@@ -1,8 +1,7 @@
 import {render, screen, waitFor} from '@testing-library/react'
 import {describe, expect, it, beforeEach, vi} from 'vitest'
 import React from 'react'
-import {SelectPanel, type SelectPanelProps} from '../SelectPanel'
-import type {ItemInput, GroupedListProps} from '../deprecated/ActionList/List'
+import {SelectPanel, type SelectPanelProps, type ItemInput, type GroupedListProps} from '../SelectPanel'
 import {userEvent} from '@testing-library/user-event'
 import ThemeProvider from '../ThemeProvider'
 import {FeatureFlags} from '../FeatureFlags'
@@ -34,15 +33,9 @@ const renderWithFlag = (children: React.ReactNode, flag: boolean) => {
 }
 
 const items: SelectPanelProps['items'] = [
-  {
-    text: 'item one',
-  },
-  {
-    text: 'item two',
-  },
-  {
-    text: 'item three',
-  },
+  {id: 'one', text: 'item one'},
+  {id: 'two', text: 'item two'},
+  {id: 'three', text: 'item three'},
 ]
 
 function BasicSelectPanel(passthroughProps: Record<string, unknown>) {
@@ -934,15 +927,9 @@ for (const usingRemoveActiveDescendant of [false, true]) {
         renderWithFlag(
           <SelectPanelWithCustomMessages
             items={[
-              {
-                text: 'item one',
-              },
-              {
-                text: 'item two',
-              },
-              {
-                text: 'item three',
-              },
+              {id: 'one', text: 'item one'},
+              {id: 'two', text: 'item two'},
+              {id: 'three', text: 'item three'},
             ]}
           />,
           usingRemoveActiveDescendant,
