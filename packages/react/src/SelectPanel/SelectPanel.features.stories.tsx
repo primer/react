@@ -1,9 +1,8 @@
 import React, {useState, useRef, useEffect} from 'react'
 import type {Meta, StoryObj} from '@storybook/react-vite'
 import {Button} from '../Button'
-import type {ItemInput, GroupedListProps} from '../deprecated/ActionList/List'
 import Link from '../Link'
-import {SelectPanel, type SelectPanelProps} from './SelectPanel'
+import {SelectPanel, type SelectPanelProps, type ItemInput, type GroupedListProps} from './SelectPanel'
 import {
   AlertIcon,
   FilterIcon,
