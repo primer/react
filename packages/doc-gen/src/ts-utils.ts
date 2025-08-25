@@ -1,6 +1,7 @@
 import ts from 'typescript'
 import fs from 'fs'
 import path from 'path'
+import prettier from 'prettier'
 import signale, {type DefaultMethods} from 'signale'
 import type {DocsPropInfo} from './types'
 
@@ -39,7 +40,7 @@ async function getFirstMatchingFile(componentPath: string, componentName: string
   return undefined
 }
 
-function getTSProgram() {
+export function getTSProgram() {
   const config = ts.readConfigFile('tsconfig.json', ts.sys.readFile)
   const parsedConfig = ts.parseJsonConfigFileContent(config.config, ts.sys, process.cwd(), undefined, 'tsconfig.json')
   const program = ts.createProgram({
@@ -47,7 +48,7 @@ function getTSProgram() {
     options: parsedConfig.options,
   })
 
-  return {program, checker: program.getTypeChecker()}
+  return program
 }
 
 function getComponentExport(
@@ -129,12 +130,22 @@ function getPropTypeForComponent(
         typeString = typeString.slice(0, -'| undefined'.length).trim()
       }
 
+      if (prop.getName() === 'children') {
+        typeString = 'React.ReactElement[]'
+      }
+
       props[prop.getName()] = {
         name: prop.getName(),
         type: typeString,
         propSymbol: prop,
         required: isRequired,
         source: propSource,
+        defaultValue: prop
+          .getJsDocTags()
+          .find(tag => tag.name === 'default')
+          ?.text?.map(t => t.text)
+          .join(' '),
+        description: ts.displayPartsToString(prop.getDocumentationComment(checker)),
       }
     }
   }
@@ -145,7 +156,7 @@ function getPropTypeForComponent(
 export async function parseTypeInfo(
   docsBasePath: string,
   componentName: string,
-  program: ts.Program = getTSProgram().program,
+  program: ts.Program = getTSProgram(),
 ): Promise<TSParsedComponentInfo> {
   const log = new Signale({scope: componentName})
   const componentFile = await getFirstMatchingFile(docsBasePath, componentName)
@@ -174,5 +185,65 @@ export async function parseTypeInfo(
     componentPath: docsBasePath,
     componentName,
     props: propsType,
+  }
+}
+
+export async function updateJSDocsForProp(tsPropInfo: TSPropInfo, docsProps: DocsPropInfo, componentSourceDir: string) {
+  const {propSymbol} = tsPropInfo
+
+  // Update the JSDoc comment to use the description & defaultValue from the docsProps.
+  // Everything else should be the same
+
+  const declarations = propSymbol.getDeclarations()
+  if (!declarations || declarations.length === 0) {
+    throw new Error(`No declarations found for prop ${propSymbol.getName()}`)
+  }
+
+  const declaration = declarations[0]
+  const sourceFile = declaration.getSourceFile()
+
+  if (!sourceFile.fileName.startsWith(componentSourceDir)) {
+    console.log(`Skipping prop ${propSymbol.getName()} from file ${sourceFile.fileName}`)
+    console.log(`Source Dir: ${componentSourceDir}`)
+    return
+  }
+
+  const text = sourceFile.getFullText()
+
+  // Find the JSDoc comment associated with the prop
+  const jsDoc = ts.getJSDocCommentsAndTags(declaration).find(ts.isJSDoc)
+
+  let newJsDocText = '/**\n'
+  if (docsProps.description) {
+    newJsDocText += ` * ${docsProps.description}\n`
+  }
+  if (docsProps.defaultValue !== undefined && docsProps.defaultValue !== '') {
+    if (tsPropInfo.type === 'boolean' || tsPropInfo.type === 'number') {
+      newJsDocText += ` * @default ${docsProps.defaultValue}\n`
+    } else {
+      newJsDocText += ` * @default "${docsProps.defaultValue}"\n`
+    }
+  }
+  newJsDocText += ' */'
+
+  let updatedText: string | undefined
+
+  if (jsDoc) {
+    // If a JSDoc comment exists, replace it
+    const start = jsDoc.getStart()
+    const end = jsDoc.getEnd()
+    updatedText = text.slice(0, start) + newJsDocText + text.slice(end)
+  } else {
+    // If no JSDoc comment exists, insert one before the declaration
+    const start = declaration.getStart()
+    updatedText = `${text.slice(0, start) + newJsDocText}\n${text.slice(start)}`
+  }
+
+  if (updatedText) {
+    // Run prettier on the file
+
+    const prettierConfig = await prettier.resolveConfig(sourceFile.fileName)
+    updatedText = await prettier.format(updatedText, {...prettierConfig, filepath: sourceFile.fileName})
+    await fs.promises.writeFile(sourceFile.fileName, updatedText, 'utf-8')
   }
 }
