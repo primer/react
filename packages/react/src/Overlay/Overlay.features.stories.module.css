@@ -1,0 +1,12 @@
+.memexOverlayIssueTitleInput {
+  padding-block: 2px;
+  padding-inline: 7px;
+  text-align: left;
+  color: var(--fgColor-default);
+}
+
+.memexOverlayIssueTitleInput input {
+  font-weight: var(--base-text-weight-semibold);
+  font-size: var(--text-title-size-medium);
+  padding-inline: 0;
+}

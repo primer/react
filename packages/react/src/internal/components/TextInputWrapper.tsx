@@ -1,6 +1,5 @@
 import React, {type ComponentProps} from 'react'
 import {type ResponsiveValue} from 'styled-system'
-import type {SxProp} from '../../sx'
 import type {FormValidationStatus} from '../../utils/types/FormValidationStatus'
 import {clsx} from 'clsx'
 
@@ -30,7 +29,7 @@ type StyledTextInputBaseWrapperProps = {
   minWidth?: string | number | ResponsiveValue<string | number>
   /** @deprecated Update `max-width` using CSS modules or style. */
   maxWidth?: string | number | ResponsiveValue<string | number>
-} & SxProp
+}
 
 type StyledTextInputWrapperProps = {
   hasLeadingVisual?: boolean
