@@ -11,7 +11,7 @@ import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react'
 import type {AnchoredOverlayProps} from '../AnchoredOverlay'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import type {AnchoredOverlayWrapperAnchorProps} from '../AnchoredOverlay/AnchoredOverlay'
-import type {FilteredActionListProps} from '../FilteredActionList'
+import type {FilteredActionListProps, GroupedListProps} from '../FilteredActionList'
 import {FilteredActionList} from '../FilteredActionList'
 import Heading from '../Heading'
 import type {OverlayProps} from '../Overlay'
@@ -953,3 +953,5 @@ export const SelectPanel = Object.assign(Panel, {
   SecondaryActionButton: SecondaryButton,
   SecondaryActionLink: SecondaryLink,
 })
+
+export type {ItemInput, GroupedListProps}
