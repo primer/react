@@ -384,7 +384,7 @@ export const UnderlineNav = forwardRef(
                         }}
                         {...menuItemProps}
                       >
-                        <span className={classes.menuItemContent}>
+                        <span className={classes.MenuItemContent}>
                           {menuItemChildren}
                           {loadingCounters ? (
                             <LoadingCounter />
