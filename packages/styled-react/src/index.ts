@@ -1,3 +1,9 @@
+import {Truncate as PrimerTruncate} from '@primer/react'
+import {createStyledComponent} from './utils/createStyledComponent'
+
+const Truncate: ReturnType<typeof createStyledComponent> = /*#__PURE__*/ createStyledComponent(PrimerTruncate)
+export {Truncate}
+
 export {
   ActionList,
   ActionMenu,
@@ -46,7 +52,6 @@ export {
   ToggleSwitch,
   Token,
   Tooltip,
-  Truncate,
   UnderlineNav,
 
   // styled-components components or types
