@@ -1,16 +1,8 @@
 import type React from 'react'
-import {Box} from '..'
+import classes from './ToggleSwitchStoryWrapper.module.css'
 
 const ToggleSwitchStoryWrapper: React.FC<React.PropsWithChildren> = ({children}) => (
-  <Box
-    display="grid"
-    gridTemplateColumns="max-content auto"
-    maxWidth="20rem"
-    alignItems="center"
-    justifyContent="space-between"
-  >
-    {children}
-  </Box>
+  <div className={classes.StoryWrapper}>{children}</div>
 )
 
 export default ToggleSwitchStoryWrapper

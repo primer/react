@@ -1,3 +1,9 @@
+import {ToggleSwitch as PrimerToggleSwitch} from '@primer/react'
+import {createStyledComponent} from './utils/createStyledComponent'
+
+const ToggleSwitch: ReturnType<typeof createStyledComponent> = /*#__PURE__*/ createStyledComponent(PrimerToggleSwitch)
+export {ToggleSwitch}
+
 export {
   ActionList,
   ActionMenu,
@@ -43,7 +49,6 @@ export {
   TextInput,
   TextInputWithTokens,
   Timeline,
-  ToggleSwitch,
   Token,
   Tooltip,
   Truncate,
