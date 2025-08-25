@@ -86,7 +86,7 @@ export interface FilteredActionListItemProps extends SxProp {
   /**
    * An id associated with this item.  Should be unique between items
    */
-  id?: number | string
+  id: number | string
 
   /**
    * Node to be included inside the item before the text.
