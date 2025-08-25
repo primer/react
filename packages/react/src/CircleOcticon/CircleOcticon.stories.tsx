@@ -6,7 +6,7 @@ import {CheckIcon} from '@primer/octicons-react'
 import * as Icons from '@primer/octicons-react'
 
 const meta: Meta<typeof CircleOcticon> = {
-  title: 'Components/CircleOcticon',
+  title: 'Deprecated/Components/CircleOcticon',
   component: CircleOcticon,
 }
 export default meta
