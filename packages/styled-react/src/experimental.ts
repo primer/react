@@ -1,1 +1,1 @@
-export {Dialog} from '@primer/react/experimental'
+export {Dialog, PageHeader, Table, Tooltip, UnderlinePanels} from '@primer/react/experimental'

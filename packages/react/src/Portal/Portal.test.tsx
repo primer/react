@@ -9,7 +9,7 @@ describe('Portal', () => {
     const {baseElement} = render(<Portal>123test123</Portal>)
     const generatedRoot = baseElement.querySelector('#__primerPortalRoot__')
     expect(generatedRoot).toBeInstanceOf(HTMLElement)
-    expect(generatedRoot?.textContent?.trim()).toEqual('123test123')
+    expect(generatedRoot?.textContent.trim()).toEqual('123test123')
     baseElement.innerHTML = ''
   })
 
@@ -32,7 +32,7 @@ describe('Portal', () => {
     expect(baseStylesRoot).toBeInstanceOf(HTMLElement)
     expect(baseStylesElement).toBeInstanceOf(HTMLElement)
     expect(generatedRoot).toBeInstanceOf(HTMLElement)
-    expect(generatedRoot?.textContent?.trim()).toEqual('123test123')
+    expect(generatedRoot?.textContent.trim()).toEqual('123test123')
 
     baseElement.innerHTML = ''
   })
@@ -49,7 +49,7 @@ describe('Portal', () => {
     const portalRoot = renderedRoot?.querySelector('#__primerPortalRoot__')
 
     expect(portalRoot).toBeInstanceOf(HTMLElement)
-    expect(portalRoot?.textContent?.trim()).toEqual('123test123')
+    expect(portalRoot?.textContent.trim()).toEqual('123test123')
 
     baseElement.innerHTML = ''
   })
@@ -64,7 +64,7 @@ describe('Portal', () => {
 
     const toRender = <Portal>123test123</Portal>
     ;({baseElement} = render(toRender))
-    expect(portalRoot?.textContent?.trim()).toEqual('123test123')
+    expect(portalRoot?.textContent.trim()).toEqual('123test123')
 
     baseElement.innerHTML = ''
   })
@@ -94,9 +94,9 @@ describe('Portal', () => {
     )
     ;({baseElement} = render(toRender))
     const generatedRoot = baseElement.querySelector('#__primerPortalRoot__')
-    expect(generatedRoot?.textContent?.trim()).toEqual('123test123')
-    expect(fancyPortalRoot1?.textContent?.trim()).toEqual('456test456')
-    expect(fancyPortalRoot2?.textContent?.trim()).toEqual('789test789')
+    expect(generatedRoot?.textContent.trim()).toEqual('123test123')
+    expect(fancyPortalRoot1?.textContent.trim()).toEqual('456test456')
+    expect(fancyPortalRoot2?.textContent.trim()).toEqual('789test789')
 
     baseElement.innerHTML = ''
   })
