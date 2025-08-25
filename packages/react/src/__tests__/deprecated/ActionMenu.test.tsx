@@ -47,7 +47,7 @@ describe('ActionMenu', () => {
         }
       })
       .join('')
-    expect(portalRoot?.textContent?.trim()).toEqual(itemText)
+    expect(portalRoot?.textContent.trim()).toEqual(itemText)
   })
 
   it('should dismiss the overlay on menuitem click', async () => {
