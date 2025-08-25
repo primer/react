@@ -490,7 +490,7 @@ export const MemexIssueOverlay = ({role, open}: Args) => {
                 }}
                 ref={inputRef}
                 block
-                className={classes.memexOverlayIssueTitleInput}
+                className={classes.MemexOverlayIssueTitleInput}
               />
             ) : (
               <Button
