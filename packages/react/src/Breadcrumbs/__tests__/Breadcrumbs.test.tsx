@@ -276,10 +276,10 @@ describe('Breadcrumbs', () => {
       expect(screen.getByRole('menuitem', {name: 'Home'})).toBeInTheDocument()
       expect(screen.getByRole('menuitem', {name: 'Category'})).toBeInTheDocument()
       expect(screen.getByRole('menuitem', {name: 'Subcategory'})).toBeInTheDocument()
+      expect(screen.getByRole('menuitem', {name: 'Product'})).toBeInTheDocument()
     })
 
     // Verify that the last 4 items are visible as regular breadcrumb items (not in menu)
-    expect(screen.getByRole('link', {name: 'Product'})).toBeInTheDocument()
     expect(screen.getByRole('link', {name: 'Details'})).toBeInTheDocument()
     expect(screen.getByRole('link', {name: 'Specifications'})).toBeInTheDocument()
     expect(screen.getByRole('link', {name: 'Reviews'})).toBeInTheDocument()
@@ -322,10 +322,10 @@ describe('Breadcrumbs', () => {
       expect(screen.getByRole('menuitem', {name: 'Home'})).toBeInTheDocument()
       expect(screen.getByRole('menuitem', {name: 'Category'})).toBeInTheDocument()
       expect(screen.getByRole('menuitem', {name: 'Subcategory'})).toBeInTheDocument()
+      expect(screen.getByRole('menuitem', {name: 'Product'})).toBeInTheDocument()
     })
 
     // Verify visible breadcrumb items are still accessible (last 4 items)
-    expect(screen.getByRole('link', {name: 'Product'})).toBeInTheDocument()
     expect(screen.getByRole('link', {name: 'Details'})).toBeInTheDocument()
     expect(screen.getByRole('link', {name: 'Specifications'})).toBeInTheDocument()
     expect(screen.getByRole('link', {name: 'Reviews'})).toBeInTheDocument()
