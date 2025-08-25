@@ -221,11 +221,7 @@ function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap', hideRo
   // Determine final children to render
   const finalChildren = React.useMemo(() => {
     if (overflow === 'wrap' || menuItems.length === 0) {
-      return visibleItems.map((child, index) => (
-        <li className={classes.BreadcrumbsItem} key={`visible + ${index}`}>
-          {child}
-        </li>
-      ))
+      return React.Children.map(children, child => <li className={classes.ItemWrapper}>{child}</li>)
     }
 
     let effectiveMenuItems = [...menuItems]
@@ -265,7 +261,7 @@ function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap', hideRo
       // Show: [root breadcrumb, overflow menu, leaf breadcrumb]
       return [rootElement, menuElement, ...visibleElements]
     }
-  }, [overflow, menuItems, effectiveHideRoot, visibleItems, rootItem])
+  }, [overflow, menuItems, effectiveHideRoot, visibleItems, rootItem, children])
 
   return (
     <BoxWithFallback
@@ -305,6 +301,7 @@ const BreadcrumbsItem = React.forwardRef(({selected, className, ...rest}, ref) =
       as="a"
       className={clsx(className, classes.Item, {
         [SELECTED_CLASS]: selected,
+        [classes.ItemSelected]: selected,
       })}
       aria-current={selected ? 'page' : undefined}
       ref={ref}

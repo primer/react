@@ -10,7 +10,6 @@
   margin-bottom: 0;
 }
 
-/* Prevent wrapping when using menu overflow */
 [data-overflow='menu'] .BreadcrumbsList {
   white-space: nowrap;
   overflow: hidden;
@@ -39,7 +38,7 @@
   }
 }
 
-.Item {
+[data-overflow='menu'] .Item {
   display: inline-block;
   font-size: var(--text-body-size-medium);
   color: var(--fgColor-link);
@@ -69,4 +68,54 @@
   justify-content: center;
   white-space: nowrap;
   user-select: none;
+}
+
+.ItemWrapper {
+  display: inline-block;
+  font-size: var(--text-body-size-medium);
+  white-space: nowrap;
+  list-style: none;
+
+  &::after {
+    display: inline-block;
+    height: 0.8em;
+    /* stylelint-disable-next-line primer/spacing */
+    margin: 0 0.5em;
+    font-size: var(--text-body-size-medium);
+    content: '';
+    /* stylelint-disable-next-line primer/borders, primer/colors */
+    border-right: 0.1em solid var(--fgColor-muted);
+    transform: rotate(15deg) translateY(0.0625em);
+  }
+
+  &:first-child {
+    margin-left: 0;
+  }
+
+  &:last-child {
+    &::after {
+      content: none;
+    }
+  }
+}
+
+.Item {
+  display: inline-block;
+  font-size: var(--text-body-size-medium);
+  color: var(--fgColor-link);
+  text-decoration: none;
+
+  &:hover,
+  &:focus {
+    text-decoration: underline;
+  }
+}
+
+.ItemSelected {
+  color: var(--fgColor-default);
+  pointer-events: none;
+
+  &:focus {
+    text-decoration: none;
+  }
 }
