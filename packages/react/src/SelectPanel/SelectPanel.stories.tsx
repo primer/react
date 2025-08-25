@@ -3,8 +3,7 @@ import type {Meta} from '@storybook/react-vite'
 import {useState} from 'react'
 
 import {Button} from '../Button'
-import {SelectPanel} from '../SelectPanel'
-import type {ItemInput} from '../deprecated/ActionList/List'
+import {SelectPanel, type ItemInput} from '../SelectPanel'
 import FormControl from '../FormControl'
 import classes from './SelectPanel.stories.module.css'
 
