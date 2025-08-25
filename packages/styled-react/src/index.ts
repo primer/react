@@ -1,3 +1,9 @@
+import {RadioGroup as PrimerRadioGroup} from '@primer/react'
+import {createStyledComponent} from './utils/createStyledComponent'
+
+const RadioGroup: ReturnType<typeof createStyledComponent> = /*#__PURE__*/ createStyledComponent(PrimerRadioGroup)
+export {RadioGroup}
+
 export {
   ActionList,
   ActionMenu,
@@ -28,7 +34,6 @@ export {
   PageLayout,
   Popover,
   ProgressBar,
-  RadioGroup,
   RelativeTime,
   SegmentedControl,
   Select,
