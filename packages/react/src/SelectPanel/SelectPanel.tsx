@@ -814,14 +814,15 @@ function Panel({
             ) : null}
           </div>
           {notice && (
-            <Banner
-              ref={noticeRef}
-              variant={notice.variant === 'error' ? 'critical' : notice.variant}
-              description={notice.text}
-              title="Notice"
-              hideTitle
-              className={classes.Notice}
-            />
+            <div ref={noticeRef}>
+              <Banner
+                variant={notice.variant === 'error' ? 'critical' : notice.variant}
+                description={notice.text}
+                title="Notice"
+                hideTitle
+                className={classes.Notice}
+              />
+            </div>
           )}
           <FilteredActionList
             filterValue={filterValue}
