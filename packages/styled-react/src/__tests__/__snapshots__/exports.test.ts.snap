@@ -3,6 +3,7 @@
 exports[`@primer/styled-react exports 1`] = `
 [
   "ToggleSwitch",
+  "Truncate",
   "ActionList",
   "ActionMenu",
   "Autocomplete",
@@ -49,7 +50,6 @@ exports[`@primer/styled-react exports 1`] = `
   "Timeline",
   "Token",
   "Tooltip",
-  "Truncate",
   "UnderlineNav",
   "Box",
   "sx",
