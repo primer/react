@@ -1,0 +1,8 @@
+.CircleOcticon {
+  overflow: hidden;
+  border-radius: 50%;
+  border: solid 0 var(--borderColor-default);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
