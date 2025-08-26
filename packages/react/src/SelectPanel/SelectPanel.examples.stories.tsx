@@ -1,11 +1,11 @@
 import React, {useState, useMemo} from 'react'
 import type {Meta} from '@storybook/react-vite'
 import {Button} from '../Button'
-import type {ItemInput} from '../deprecated/ActionList/List'
+import type {ItemInput} from '../FilteredActionList'
 import {SelectPanel} from './SelectPanel'
 import type {OverlayProps} from '../Overlay'
 import {TriangleDownIcon} from '@primer/octicons-react'
-import {ActionList} from '../deprecated/ActionList'
+import {ActionList} from '../ActionList'
 import FormControl from '../FormControl'
 import {Stack} from '../Stack'
 import {Dialog} from '../experimental'
@@ -297,8 +297,7 @@ export const CustomItemRenderer = () => {
         onFilterChange={setFilter}
         overlayProps={{width: 'medium'}}
         renderItem={item => (
-          <ActionList.Item {...item} text={undefined} className={styles.CustomActionListItem}>
-            {' '}
+          <ActionList.Item id={item.id?.toString()} className={styles.CustomActionListItem}>
             <div className={styles.TruncatedText}>{item.text}</div>
           </ActionList.Item>
         )}
