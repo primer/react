@@ -82,8 +82,6 @@ export type {BreadcrumbsProps, BreadcrumbsItemProps, BreadcrumbProps, Breadcrumb
 export {default as ButtonGroup} from './ButtonGroup'
 export type {ButtonGroupProps} from './ButtonGroup'
 export type {CircleBadgeProps, CircleBadgeIconProps} from './CircleBadge'
-export {default as CircleOcticon} from './CircleOcticon'
-export type {CircleOcticonProps} from './CircleOcticon'
 export {default as CheckboxGroup} from './CheckboxGroup'
 export {default as CircleBadge} from './CircleBadge'
 export {default as CounterLabel} from './CounterLabel'

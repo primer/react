@@ -53,8 +53,6 @@ exports[`@primer/react > should not update exports without a semver change 1`] =
   "CircleBadge",
   "type CircleBadgeIconProps",
   "type CircleBadgeProps",
-  "CircleOcticon",
-  "type CircleOcticonProps",
   "ConfirmationDialog",
   "type ConfirmationDialogProps",
   "CounterLabel",
