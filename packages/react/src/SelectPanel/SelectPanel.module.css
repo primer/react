@@ -52,6 +52,11 @@
   color: var(--fgColor-muted);
 }
 
+.FilterInputWrapper {
+  margin: var(--base-size-8);
+  width: auto;
+}
+
 .Notice {
   display: flex;
   padding-top: var(--base-size-12);
