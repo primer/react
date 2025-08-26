@@ -47,6 +47,40 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
           NPM_TOKEN: ${{ secrets.NPM_AUTH_TOKEN_SHARED }}
+      - name: Install glob package
+        run: npm install glob --no-package-lock
+      - name: Write workspace versions as JSON file
+        uses: actions/github-script@a3e7071a34d7e1f219a8a4de9a5e0a34d1ee1293
+        with:
+          script: |
+            const fs = require('node:fs');
+            const {globSync} = require('glob')
+
+            const packageJsonPaths = globSync('packages/**/package.json', { ignore: ['**/node_modules/**'] })
+            const output = {
+              packages: [],
+            };
+
+            for (const packageJsonPath of packageJsonPaths) {
+              const contents = fs.readFileSync(packageJsonPath, 'utf8');
+              const packageJson = JSON.parse(contents);
+              if (packageJson.private) {
+                continue;
+              }
+
+              const pkg = {
+                name: packageJson.name,
+                version: packageJson.version,
+              };
+              output.packages.push(pkg);
+            }
+
+            fs.writeFileSync('version.json', JSON.stringify(output, null, 2));
+      - name: Upload version file
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: version
+          path: version.json
 
   release-next-major:
     if: github.ref_name == 'next-major'
