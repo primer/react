@@ -298,7 +298,7 @@ export const CustomItemRenderer = () => {
         overlayProps={{width: 'medium'}}
         renderItem={item => (
           <ActionList.Item id={item.id?.toString()} className={styles.CustomActionListItem}>
-            <div className={styles.TruncatedText}>{item.text}</div>
+            <ActionList.Description truncate>{item.text}</ActionList.Description>
           </ActionList.Item>
         )}
         message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}
