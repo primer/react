@@ -1,5 +1,6 @@
 import type {Meta} from '@storybook/react-vite'
 import {Checkbox, CheckboxGroup, FormControl} from '..'
+import classes from './CheckboxGroup.dev.stories.module.css'
 
 export default {
   title: 'Components/CheckboxGroup/Dev',
@@ -8,30 +9,9 @@ export default {
 } as Meta
 
 export const SxProps = () => (
-  <CheckboxGroup
-    sx={{
-      color: 'var(--fgColor-default, var(--color-fg-default))',
-      my: '15px',
-    }}
-  >
-    <CheckboxGroup.Caption
-      sx={{
-        color: 'fg.muted',
-        fontSize: 0,
-        fontWeight: 400,
-      }}
-    >
-      Caption
-    </CheckboxGroup.Caption>
-    <CheckboxGroup.Label
-      sx={{
-        color: 'var(--fgColor-default, var(--color-fg-default))',
-        fontSize: ['14px'],
-        fontWeight: 600,
-      }}
-    >
-      Choices
-    </CheckboxGroup.Label>
+  <CheckboxGroup className={classes.CheckboxGroup}>
+    <CheckboxGroup.Caption className={classes.MutedCaption}>Caption</CheckboxGroup.Caption>
+    <CheckboxGroup.Label className={classes.BoldLabel}>Choices</CheckboxGroup.Label>
     <FormControl required>
       <Checkbox value="one" defaultChecked />
       <FormControl.Label>Choice one</FormControl.Label>
