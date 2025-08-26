@@ -368,6 +368,14 @@ const config = defineConfig([
       'github/unescaped-html-literal': 'off',
     },
   },
+
+  // next-env.d.ts files
+  {
+    files: ['**/next-env.d.ts'],
+    rules: {
+      '@typescript-eslint/triple-slash-reference': 'off',
+    },
+  },
 ])
 
 export default tseslint.config(config)
