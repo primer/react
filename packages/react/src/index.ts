@@ -74,9 +74,7 @@ export {default as Avatar} from './Avatar'
 export type {AvatarProps} from './Avatar'
 export {default as AvatarStack} from './AvatarStack'
 export type {AvatarStackProps} from './AvatarStack'
-// AvatarPair is deprecated. Use Avatar component instead. See https://github.com/github/primer/issues/5533
-export {default as AvatarPair} from './deprecated/AvatarPair'
-export type {AvatarPairProps} from './deprecated/AvatarPair'
+
 export {default as BranchName} from './BranchName'
 export type {BranchNameProps} from './BranchName'
 export {default as Breadcrumbs, Breadcrumb} from './Breadcrumbs'
