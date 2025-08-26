@@ -17,7 +17,7 @@
 }
 
 /* Light mode styles */
-.IssueLabel:where([data-in-color-mode='light'], [data-in-color-mode='auto']) {
+.IssueLabel:where([data-in-color-mode*='light'], [data-in-color-mode='auto']) {
   --lightness-threshold: 0.453;
   --border-threshold: 0.96;
   --border-alpha: max(0, min(calc((var(--perceived-lightness) - var(--border-threshold)) * 100), 1));
@@ -30,7 +30,7 @@
 }
 
 /* Dark mode styles */
-.IssueLabel:where([data-in-color-mode='dark']) {
+.IssueLabel:where([data-in-color-mode*='dark']) {
   --lightness-threshold: 0.6;
   --background-alpha: 0.18;
   --border-alpha: 0.3;
@@ -52,7 +52,7 @@
 
 /* Selected state */
 .IssueLabel:where(
-    [data-selected='true'][data-in-color-mode='light'],
+    [data-selected='true'][data-in-color-mode*='light'],
     [data-selected='true'][data-in-color-mode='auto']
   ) {
   /* stylelint-disable-next-line primer/colors */
@@ -77,7 +77,7 @@
 }
 
 .IssueLabel:where(
-    [data-selected='true'][data-in-color-mode='light'],
+    [data-selected='true'][data-in-color-mode*='light'],
     [data-selected='true'][data-in-color-mode='auto']
   )::after {
   /* stylelint-disable-next-line primer/box-shadow */
@@ -91,7 +91,7 @@
 
 /* Interactive hover states */
 .IssueLabel:where(
-    [data-cursor-is-interactive='true']:hover[data-in-color-mode='light'],
+    [data-cursor-is-interactive='true']:hover[data-in-color-mode*='light'],
     [data-cursor-is-interactive='true']:hover[data-in-color-mode='auto']
   ) {
   background-image: linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)),
