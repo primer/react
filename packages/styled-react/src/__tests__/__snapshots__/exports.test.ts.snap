@@ -12,7 +12,6 @@ exports[`@primer/styled-react exports 1`] = `
   "Button",
   "Checkbox",
   "CheckboxGroup",
-  "CircleBadge",
   "CircleOcticon",
   "CounterLabel",
   "Details",
