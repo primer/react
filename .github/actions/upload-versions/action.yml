@@ -8,6 +8,7 @@ runs:
       with:
         node-version: 22
     - name: Install glob package
+      shell: bash
       run: npm install glob --no-package-lock
     - name: Write workspace versions as JSON file
       uses: actions/github-script@a3e7071a34d7e1f219a8a4de9a5e0a34d1ee1293
