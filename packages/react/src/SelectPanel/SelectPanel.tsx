@@ -1,12 +1,4 @@
-import {
-  AlertIcon,
-  InfoIcon,
-  SearchIcon,
-  StopIcon,
-  TriangleDownIcon,
-  XIcon,
-  type IconProps,
-} from '@primer/octicons-react'
+import {SearchIcon, TriangleDownIcon, XIcon, type IconProps} from '@primer/octicons-react'
 import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react'
 import type {AnchoredOverlayProps} from '../AnchoredOverlay'
 import {AnchoredOverlay} from '../AnchoredOverlay'
