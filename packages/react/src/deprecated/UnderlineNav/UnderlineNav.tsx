@@ -3,15 +3,13 @@ import type {To} from 'history'
 import type React from 'react'
 import styled from 'styled-components'
 import {get} from '../../constants'
-import type {SxProp} from '../../sx'
-import sx from '../../sx'
 import type {ComponentProps} from '../../utils/types'
 import getGlobalFocusStyles from '../../internal/utils/getGlobalFocusStyles'
 
 const ITEM_CLASS = 'PRC-UnderlineNav-item'
 const SELECTED_CLASS = 'PRC-selected'
 
-const UnderlineNavBase = styled.nav<SxProp>`
+const UnderlineNavBase = styled.nav`
   display: flex;
   justify-content: space-between;
   border-bottom: 1px solid ${get('colors.border.muted')};
@@ -39,8 +37,6 @@ const UnderlineNavBase = styled.nav<SxProp>`
   .PRC-UnderlineNav-actions {
     align-self: center;
   }
-
-  ${sx};
 `
 
 export type UnderlineNavProps = {
@@ -68,7 +64,7 @@ function UnderlineNav({actions, className, align, children, full, label, theme, 
 type StyledUnderlineNavLinkProps = {
   to?: To
   selected?: boolean
-} & SxProp
+}
 
 const UnderlineNavLink = styled.a.attrs<StyledUnderlineNavLinkProps>(props => ({
   className: clsx(ITEM_CLASS, props.selected && SELECTED_CLASS, props.className),
@@ -104,8 +100,6 @@ const UnderlineNavLink = styled.a.attrs<StyledUnderlineNavLinkProps>(props => ({
   }
 
   ${getGlobalFocusStyles('-8px')};
-
-  ${sx};
 `
 
 UnderlineNavLink.displayName = 'UnderlineNav.Link'
