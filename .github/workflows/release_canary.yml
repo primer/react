@@ -69,7 +69,6 @@ jobs:
         with:
           script: |
             const fs = require('node:fs');
-            const glob = require('glob')
 
             const packageJsonPaths = glob.sync('packages/**/package.json', { ignore: ['**/node_modules/**'] })
             const output = {
