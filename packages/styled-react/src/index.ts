@@ -1,5 +1,4 @@
-import {Truncate as PrimerTruncate} from '@primer/react'
-import {ToggleSwitch as PrimerToggleSwitch} from '@primer/react'
+import {Truncate as PrimerTruncate, ToggleSwitch as PrimerToggleSwitch} from '@primer/react'
 import {createStyledComponent} from './utils/createStyledComponent'
 
 const Truncate: ReturnType<typeof createStyledComponent> = /*#__PURE__*/ createStyledComponent(PrimerTruncate)
