@@ -34,6 +34,7 @@ import {clsx} from 'clsx'
 import {debounce} from '@github/mini-throttle'
 import {useResponsiveValue} from '../hooks/useResponsiveValue'
 import type {ButtonProps, LinkButtonProps} from '../Button/types'
+import {Banner} from '../Banner'
 
 // we add a delay so that it does not interrupt default screen reader announcement and queues after it
 const SHORT_DELAY_MS = 500
@@ -676,12 +677,6 @@ function Panel({
     }
   }
 
-  const iconForNoticeVariant = {
-    info: <InfoIcon size={16} />,
-    warning: <AlertIcon size={16} />,
-    error: <StopIcon size={16} />,
-  }
-
   function getMessage() {
     if (items.length === 0 && !message) {
       return DefaultEmptyMessage
@@ -827,10 +822,14 @@ function Panel({
             ) : null}
           </div>
           {notice && (
-            <div ref={noticeRef} data-variant={notice.variant} className={classes.Notice}>
-              {iconForNoticeVariant[notice.variant]}
-              <div>{notice.text}</div>
-            </div>
+            <Banner
+              ref={noticeRef}
+              variant={notice.variant === 'error' ? 'critical' : notice.variant}
+              description={notice.text}
+              title="Notice"
+              hideTitle
+              className={classes.Notice}
+            />
           )}
           <FilteredActionList
             filterValue={filterValue}

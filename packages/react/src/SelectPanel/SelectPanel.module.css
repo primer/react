@@ -85,7 +85,7 @@
   border-color: var(--borderColor-attention-muted);
 }
 
-.Notice:where([data-variant='error']) {
+.Notice:where([data-variant='critical']) {
   color: var(--fgColor-danger);
   background-color: var(--bgColor-danger-muted);
   border-color: var(--borderColor-danger-muted);
