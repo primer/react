@@ -21,9 +21,11 @@
   --lightness-threshold: 0.453;
   --border-threshold: 0.96;
   --border-alpha: max(0, min(calc((var(--perceived-lightness) - var(--border-threshold)) * 100), 1));
-
+  /* stylelint-disable-next-line primer/colors */
   background: rgb(var(--label-r), var(--label-g), var(--label-b));
+  /* stylelint-disable-next-line primer/colors */
   color: hsl(0deg, 0%, calc(var(--lightness-switch) * 100%));
+  /* stylelint-disable-next-line primer/colors */
   border-color: hsla(var(--label-h), calc(var(--label-s) * 1%), calc((var(--label-l) - 25) * 1%), var(--border-alpha));
 }
 
@@ -34,14 +36,18 @@
   --border-alpha: 0.3;
   --lighten-by: calc(((var(--lightness-threshold) - var(--perceived-lightness)) * 100) * var(--lightness-switch));
 
+  /* stylelint-disable-next-line primer/colors */
   background: rgba(var(--label-r), var(--label-g), var(--label-b), var(--background-alpha));
+  /* stylelint-disable-next-line primer/colors */
   color: hsl(var(--label-h), calc(var(--label-s) * 1%), calc((var(--label-l) + var(--lighten-by)) * 1%));
+  /* stylelint-disable primer/colors */
   border-color: hsla(
     var(--label-h),
     calc(var(--label-s) * 1%),
     calc((var(--label-l) + var(--lighten-by)) * 1%),
     var(--border-alpha)
   );
+  /* stylelint-enable primer/colors */
 }
 
 /* Selected state */
@@ -49,6 +55,7 @@
     [data-selected='true'][data-in-color-mode='light'],
     [data-selected='true'][data-in-color-mode='auto']
   ) {
+  /* stylelint-disable-next-line primer/colors */
   background: hsl(var(--label-h), calc(var(--label-s) * 1%), calc((var(--label-l) - 5) * 1%));
 }
 
@@ -60,23 +67,25 @@
   content: '';
   position: absolute;
   z-index: 1;
-  top: -2px;
-  right: -2px;
-  bottom: -2px;
-  left: -2px;
+  top: calc(var(--base-size-2) * -1);
+  right: calc(var(--base-size-2) * -1);
+  bottom: calc(var(--base-size-2) * -1);
+  left: calc(var(--base-size-2) * -1);
   display: block;
   pointer-events: none;
-  border-radius: 999px;
+  border-radius: var(--borderRadius-full);
 }
 
 .IssueLabel:where(
     [data-selected='true'][data-in-color-mode='light'],
     [data-selected='true'][data-in-color-mode='auto']
   )::after {
+  /* stylelint-disable-next-line primer/box-shadow */
   box-shadow: 0 0 0 2px rgb(var(--label-r), var(--label-g), var(--label-b));
 }
 
 .IssueLabel:where([data-selected='true'][data-in-color-mode='dark'])::after {
+  /* stylelint-disable-next-line primer/box-shadow */
   box-shadow: 0 0 0 2px hsl(var(--label-h), calc(var(--label-s) * 1%), calc((var(--label-l) + var(--lighten-by)) * 1%));
 }
 
@@ -90,12 +99,13 @@
       rgb(var(--label-r), var(--label-g), var(--label-b)),
       rgb(var(--label-r), var(--label-g), var(--label-b))
     );
-  box-shadow: var(--shadow-medium);
+  box-shadow: var(--shadow-resting-medium);
 }
 
 .IssueLabel:where([data-cursor-is-interactive='true']:hover[data-in-color-mode='dark']) {
+  /* stylelint-disable-next-line primer/colors */
   background: hsla(var(--label-h), calc(var(--label-s) * 1%), calc(calc(var(--label-l) + 10) * 1%), 0.3);
-  box-shadow: var(--shadow-medium);
+  box-shadow: var(--shadow-resting-medium);
 }
 
 /* Remove button styling */
