@@ -208,7 +208,8 @@ export async function updateJSDocsForProp(tsPropInfo: TSPropInfo, docsProps: Doc
     return
   }
 
-  const text = sourceFile.getFullText()
+  // read this directly since other things may have updated it
+  const text = await fs.promises.readFile(sourceFile.fileName, 'utf-8')
 
   // Find the JSDoc comment associated with the prop
   const jsDoc = ts.getJSDocCommentsAndTags(declaration).find(ts.isJSDoc)
@@ -219,9 +220,9 @@ export async function updateJSDocsForProp(tsPropInfo: TSPropInfo, docsProps: Doc
   }
   if (docsProps.defaultValue !== undefined && docsProps.defaultValue !== '') {
     if (tsPropInfo.type === 'boolean' || tsPropInfo.type === 'number') {
-      newJsDocText += ` * @default ${docsProps.defaultValue}\n`
+      newJsDocText += ` *\n * @default ${docsProps.defaultValue}\n`
     } else {
-      newJsDocText += ` * @default "${docsProps.defaultValue}"\n`
+      newJsDocText += ` *\n * @default "${docsProps.defaultValue}"\n`
     }
   }
   newJsDocText += ' */'
@@ -238,6 +239,8 @@ export async function updateJSDocsForProp(tsPropInfo: TSPropInfo, docsProps: Doc
     const start = declaration.getStart()
     updatedText = `${text.slice(0, start) + newJsDocText}\n${text.slice(start)}`
   }
+
+  console.log(newJsDocText)
 
   if (updatedText) {
     // Run prettier on the file
