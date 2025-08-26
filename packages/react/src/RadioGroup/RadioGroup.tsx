@@ -7,7 +7,6 @@ import CheckboxOrRadioGroupCaption from '../internal/components/CheckboxOrRadioG
 import CheckboxOrRadioGroupLabel from '../internal/components/CheckboxOrRadioGroup/CheckboxOrRadioGroupLabel'
 import CheckboxOrRadioGroupValidation from '../internal/components/CheckboxOrRadioGroup/CheckboxOrRadioGroupValidation'
 import {useRenderForcingRef} from '../hooks'
-import type {SxProp} from '../sx'
 
 type RadioGroupProps = {
   /**
@@ -18,8 +17,7 @@ type RadioGroupProps = {
    * The name used to identify this group of radios
    */
   name: string
-} & CheckboxOrRadioGroupProps &
-  SxProp
+} & CheckboxOrRadioGroupProps
 
 export const RadioGroupContext = createContext<{
   disabled?: boolean

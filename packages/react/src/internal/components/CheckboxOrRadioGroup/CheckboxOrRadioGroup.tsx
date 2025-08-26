@@ -7,10 +7,8 @@ import CheckboxOrRadioGroupValidation from './CheckboxOrRadioGroupValidation'
 import CheckboxOrRadioGroupContext from './CheckboxOrRadioGroupContext'
 import VisuallyHidden from '../../../_VisuallyHidden'
 import {useSlots} from '../../../hooks/useSlots'
-import type {SxProp} from '../../../sx'
 import classes from './CheckboxOrRadioGroup.module.css'
 import {clsx} from 'clsx'
-import {BoxWithFallback} from '../BoxWithFallback'
 
 export type CheckboxOrRadioGroupProps = {
   /** Class name for custom styling */
@@ -32,7 +30,7 @@ export type CheckboxOrRadioGroupProps = {
    * If true, the user must make a selection before the owning form can be submitted
    */
   required?: boolean
-} & SxProp
+}
 
 const CheckboxOrRadioGroup: React.FC<React.PropsWithChildren<CheckboxOrRadioGroupProps>> = ({
   'aria-labelledby': ariaLabelledby,
@@ -41,7 +39,6 @@ const CheckboxOrRadioGroup: React.FC<React.PropsWithChildren<CheckboxOrRadioGrou
   id: idProp,
   required = false,
   className,
-  sx,
 }) => {
   const [slots, rest] = useSlots(children, {
     caption: CheckboxOrRadioGroupCaption,
@@ -80,24 +77,18 @@ const CheckboxOrRadioGroup: React.FC<React.PropsWithChildren<CheckboxOrRadioGrou
       }}
     >
       <div>
-        <BoxWithFallback
-          className={clsx(className, classes.GroupFieldset)}
-          data-validation={validationChild ? '' : undefined}
-          {...(labelChild
-            ? {
-                as: 'fieldset',
-                disabled,
-              }
-            : {})}
-          sx={sx}
-        >
-          {labelChild ? (
-            /*
+        {labelChild ? (
+          <fieldset
+            className={clsx(className, classes.GroupFieldset)}
+            data-validation={validationChild ? '' : undefined}
+            disabled={disabled}
+          >
+            {/*
                   Placing the caption text and validation text in the <legend> provides a better user
                   experience for more screenreaders.
 
                   Reference: https://blog.tenon.io/accessible-validation-of-checkbox-and-radiobutton-groups/
-                */
+                */}
             <legend className={classes.GroupLegend} data-legend-visible={isLegendVisible ? '' : undefined}>
               {slots.label}
               {slots.caption}
@@ -105,28 +96,29 @@ const CheckboxOrRadioGroup: React.FC<React.PropsWithChildren<CheckboxOrRadioGrou
                 <VisuallyHidden>{slots.validation.props.children}</VisuallyHidden>
               )}
             </legend>
-          ) : (
-            /*
+
+            <div className={classes.Body}>
+              {React.Children.toArray(rest).filter(child => React.isValidElement(child))}
+            </div>
+          </fieldset>
+        ) : (
+          <div className={clsx(className, classes.GroupFieldset)} data-validation={validationChild ? '' : undefined}>
+            {/*
                   If CheckboxOrRadioGroup.Label wasn't passed as a child, we don't render a <legend>
                   but we still want to render a caption
-                */
-            slots.caption
-          )}
+                */}
+            {slots.caption}
 
-          <div
-            className={classes.Body}
-            {...(!labelChild
-              ? {
-                  ['aria-labelledby']: ariaLabelledby,
-                  ['aria-describedby']: [validationMessageId, captionId].filter(Boolean).join(' '),
-                  as: 'div',
-                  role: 'group',
-                }
-              : {})}
-          >
-            {React.Children.toArray(rest).filter(child => React.isValidElement(child))}
+            <div
+              className={classes.Body}
+              aria-labelledby={ariaLabelledby}
+              aria-describedby={[validationMessageId, captionId].filter(Boolean).join(' ')}
+              role="group"
+            >
+              {React.Children.toArray(rest).filter(child => React.isValidElement(child))}
+            </div>
           </div>
-        </BoxWithFallback>
+        )}
         {validationChild && (
           <ValidationAnimationContainer
             // If we have CheckboxOrRadioGroup.Label as a child, we render a screenreader-accessible validation message in the <legend>
