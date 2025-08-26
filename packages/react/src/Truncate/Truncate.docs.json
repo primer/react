@@ -21,7 +21,7 @@
   "props": [
     {
       "name": "maxWidth",
-      "type": "number",
+      "type": "number | string | (number | string)[]",
       "defaultValue": "125",
       "description": "Sets the max-width of the text."
     },
@@ -41,11 +41,6 @@
       "name": "as",
       "type": "React.ElementType",
       "defaultValue": "'div'"
-    },
-    {
-      "name": "sx",
-      "type": "SystemStyleObject",
-      "deprecated": true
     }
   ],
   "subcomponents": []
