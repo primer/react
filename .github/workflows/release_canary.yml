@@ -64,13 +64,16 @@ jobs:
               description: package.version,
               target_url: `https://unpkg.com/${package.name}@${package.version}/`
             })
+      - name: Install glob package
+        run: npm install glob --no-package-lock
       - name: Write workspace versions as JSON file
         uses: actions/github-script@a3e7071a34d7e1f219a8a4de9a5e0a34d1ee1293
         with:
           script: |
             const fs = require('node:fs');
+            const {globSync} = require('glob')
 
-            const packageJsonPaths = glob.sync('packages/**/package.json', { ignore: ['**/node_modules/**'] })
+            const packageJsonPaths = globSync('packages/**/package.json', { ignore: ['**/node_modules/**'] })
             const output = {
               packages: [],
             };
