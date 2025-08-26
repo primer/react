@@ -34,7 +34,7 @@ function compareProps(docs: DocsFile, parsedTSInfo: TSParsedComponentInfo): Reco
         docProp?.defaultValue !== undefined &&
         docProp?.defaultValue !== '' &&
         docProp?.defaultValue !== tsProp?.defaultValue,
-      missingJSDoc: docProp?.description && tsProp?.description === undefined ? true : false,
+      missingJSDoc: docProp?.description && !tsProp?.description ? true : false,
     }
 
     propResults[propName] = propSummary
@@ -145,13 +145,35 @@ export async function main() {
   if (fix) {
     console.log(`Fixing descriptions for ${docs.name}`)
 
-    for (const [propName, summary] of Object.entries(results)) {
+    const groupedPropsBySourceFile = Object.entries(results).reduce<
+      Record<string, Array<{name: string; location: number}>>
+    >((acc, [propName]) => {
       const tsProp = parsedTSInfo.props[propName]
-      const docProp = docs.props.find(p => p.name === propName)
+      const sourceFile = tsProp.source?.fileName
 
-      if ((summary.missingJSDoc || summary.mismatchedDefaultValue) && tsProp && docProp) {
-        await updateJSDocsForProp(tsProp, docProp, path.resolve(componentEntry))
-        console.log(`Updated JSDoc for ${propName}`)
+      if (sourceFile) {
+        acc[sourceFile] = [
+          ...(acc[sourceFile] ?? []),
+          {
+            name: propName,
+            location: tsProp.propSymbol.valueDeclaration?.getStart() ?? 0,
+          },
+        ]
+      }
+
+      return acc
+    }, {})
+
+    for (const [_sourceFile, props] of Object.entries(groupedPropsBySourceFile)) {
+      for (const {name: propName} of props.sort((a, b) => b.location - a.location)) {
+        const tsProp = parsedTSInfo.props[propName]
+        const docProp = docs.props.find(p => p.name === propName)
+        const summary = results[propName]
+
+        if ((summary.missingJSDoc || summary.mismatchedDefaultValue) && tsProp && docProp) {
+          await updateJSDocsForProp(tsProp, docProp, path.resolve(componentEntry))
+          console.log(`Updated JSDoc for ${propName}`)
+        }
       }
     }
   }
