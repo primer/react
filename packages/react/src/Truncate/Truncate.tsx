@@ -7,7 +7,7 @@ type TruncateProps = React.HTMLAttributes<HTMLElement> & {
   title: string
   inline?: boolean
   expandable?: boolean
-  maxWidth?: number | string
+  maxWidth?: number | string | (number | string)[]
 }
 
 const Truncate = React.forwardRef(function Truncate(
