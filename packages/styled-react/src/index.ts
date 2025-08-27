@@ -1,7 +1,6 @@
-import {RadioGroup as PrimerRadioGroup, ToggleSwitch as PrimerToggleSwitch} from '@primer/react'
+import {ToggleSwitch as PrimerToggleSwitch} from '@primer/react'
 import {createStyledComponent} from './utils/createStyledComponent'
 
-const RadioGroup: ReturnType<typeof createStyledComponent> = /*#__PURE__*/ createStyledComponent(PrimerRadioGroup)
 const ToggleSwitch: ReturnType<typeof createStyledComponent> = /*#__PURE__*/ createStyledComponent(PrimerToggleSwitch)
 export {RadioGroup, ToggleSwitch}
 
@@ -35,6 +34,7 @@ export {
   PageLayout,
   Popover,
   ProgressBar,
+  RadioGroup,
   RelativeTime,
   SegmentedControl,
   Select,
