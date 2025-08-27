@@ -308,7 +308,7 @@ export default {
 } as Meta<typeof SplitPageLayout>
 
 const Template: StoryFn = args => (
-  <SplitPageLayout sx={args.sx}>
+  <SplitPageLayout>
     {args['Render header?'] ? (
       <SplitPageLayout.Header
         padding={args['Header.padding']}
