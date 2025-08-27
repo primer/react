@@ -61,6 +61,7 @@ export const Description: React.FC<React.PropsWithChildren<ActionListDescription
         ref={containerRef}
         id={inlineDescriptionId}
         className={clsx(className, classes.Description)}
+        sx={sx}
         title={effectiveTitle}
         inline={true}
         maxWidth="100%"

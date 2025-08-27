@@ -1,23 +1,27 @@
 import React from 'react'
 import {clsx} from 'clsx'
+import type {MaxWidthProps} from 'styled-system'
+import type {SxProp} from '../sx'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
+import {BoxWithFallback} from '../internal/components/BoxWithFallback'
 import classes from './Truncate.module.css'
 
 type TruncateProps = React.HTMLAttributes<HTMLElement> & {
   title: string
   inline?: boolean
   expandable?: boolean
-  maxWidth?: number | string | (number | string)[]
-}
+} & MaxWidthProps &
+  SxProp
 
 const Truncate = React.forwardRef(function Truncate(
-  {as: Component = 'div', children, className, title, inline, expandable, maxWidth = 125, style, ...rest},
+  {as, children, className, title, inline, expandable, maxWidth = 125, style, sx, ...rest},
   ref,
 ) {
   return (
-    <Component
+    <BoxWithFallback
       {...rest}
       ref={ref}
+      as={as}
       className={clsx(className, classes.Truncate)}
       data-expandable={expandable}
       data-inline={inline}
@@ -29,9 +33,10 @@ const Truncate = React.forwardRef(function Truncate(
             typeof maxWidth === 'number' ? `${maxWidth}px` : typeof maxWidth === 'string' ? maxWidth : undefined,
         } as React.CSSProperties
       }
+      sx={sx}
     >
       {children}
-    </Component>
+    </BoxWithFallback>
   )
 }) as PolymorphicForwardRefComponent<'div', TruncateProps>
 
