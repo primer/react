@@ -148,8 +148,7 @@
 .SwitchButton:where([data-checked='true']:not([data-disabled='true'])) {
   /* stylelint-disable-next-line primer/colors */
   background-color: var(--control-checked-bgColor-rest, var(--color-switch-track-checked-bg, #0969da));
-  /* stylelint-disable-next-line primer/colors */
-  border-color: var(--borderColor-control-checked, transparent);
+  border-color: var(--control-checked-borderColor-rest, transparent);
 }
 
 .SwitchButton:where([data-checked='true']:not([data-disabled='true']):hover),
