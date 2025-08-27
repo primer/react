@@ -1,7 +1,7 @@
 import {TriangleDownIcon} from '@primer/octicons-react'
 import type {Meta} from '@storybook/react-vite'
 import type React from 'react'
-import {useState} from 'react'
+import {useState, useEffect, useRef} from 'react'
 
 import Box from '../Box'
 import {Button} from '../Button'
@@ -403,6 +403,69 @@ export const AllVariants = () => {
           ))}
         </tbody>
       </table>
+    </>
+  )
+}
+
+const NUMBER_OF_ITEMS = 500
+const lotsOfItems = Array.from({length: NUMBER_OF_ITEMS}, (_, index) => {
+  return {
+    id: index,
+    text: `Item ${index}`,
+    description: `Description ${index}`,
+    leadingVisual: getColorCircle('#a2eeef'),
+  }
+})
+
+export const LotsOfItems = () => {
+  const [selected, setSelected] = useState<ItemInput[]>([])
+  const [filter, setFilter] = useState('')
+  const filteredItems = lotsOfItems.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
+  const [open, setOpen] = useState(false)
+  const timeBeforeOpen = useRef<number>()
+  const timeAfterOpen = useRef<number>()
+  const [timeTakenToOpen, setTimeTakenToOpen] = useState<number>()
+
+  const onOpenChange = () => {
+    timeBeforeOpen.current = performance.now()
+    setOpen(!open)
+  }
+
+  useEffect(() => {
+    if (open) {
+      timeAfterOpen.current = performance.now()
+      if (timeBeforeOpen.current) setTimeTakenToOpen(timeAfterOpen.current - timeBeforeOpen.current)
+    }
+  }, [open])
+
+  return (
+    <>
+      <p>
+        Time taken to render {NUMBER_OF_ITEMS} items: {timeTakenToOpen || '(click "Select Labels" to open)'}
+      </p>
+
+      <FormControl>
+        <FormControl.Label>Labels</FormControl.Label>
+        <SelectPanel
+          title="Select labels"
+          placeholder="Select labels"
+          subtitle="Use labels to organize issues and pull requests"
+          renderAnchor={({children, ...anchorProps}) => (
+            <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
+              {children}
+            </Button>
+          )}
+          open={open}
+          onOpenChange={onOpenChange}
+          items={filteredItems}
+          selected={selected}
+          onSelectedChange={setSelected}
+          onFilterChange={setFilter}
+          width="medium"
+          height="large"
+          message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}
+        />
+      </FormControl>
     </>
   )
 }
