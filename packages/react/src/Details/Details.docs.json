@@ -9,13 +9,7 @@
     }
   ],
   "importPath": "@primer/react",
-  "props": [
-    {
-      "name": "sx",
-      "type": "SystemStyleObject",
-      "deprecated": true
-    }
-  ],
+  "props": [],
   "subcomponents": [
     {
       "name": "Details.Summary",
@@ -30,11 +24,6 @@
         {
           "name": "children",
           "type": "React.ReactNode"
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject",
-          "deprecated": true
         }
       ]
     }
