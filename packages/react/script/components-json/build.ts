@@ -1,6 +1,7 @@
-import generate from '@babel/generator'
+// @ts-expect-error there seems to be a mismatch in the types for this package
+import {generate} from '@babel/generator'
 import {parse} from '@babel/parser'
-import traverse from '@babel/traverse'
+import {traverse} from '@babel/core'
 import type {ArrowFunctionExpression, Identifier, FunctionDeclaration} from '@babel/types'
 import path from 'node:path'
 import {parseArgs} from 'node:util'
