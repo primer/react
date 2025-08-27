@@ -1,12 +1,74 @@
 .BreadcrumbsBase {
   display: flex;
   justify-content: space-between;
+  width: 100%;
 }
 
 .BreadcrumbsList {
   padding-left: 0;
   margin-top: 0;
   margin-bottom: 0;
+}
+
+[data-overflow='menu'] .BreadcrumbsList {
+  white-space: nowrap;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+}
+
+.BreadcrumbsItem {
+  display: inline-grid;
+  grid-auto-flow: column;
+  align-items: center;
+  flex: 0 99999 auto;
+  min-width: auto;
+  font-size: var(--text-body-size-medium);
+  white-space: nowrap;
+  list-style: none;
+
+  &:first-child {
+    margin-left: 0;
+  }
+
+  &:last-child {
+    .ItemSeparator {
+      display: none;
+    }
+  }
+}
+
+[data-overflow='menu'] .Item {
+  display: inline-block;
+  font-size: var(--text-body-size-medium);
+  color: var(--fgColor-link);
+  text-decoration: none;
+  padding-inline: var(--base-size-6);
+  padding-block: var(--base-size-4);
+  border-radius: var(--borderRadius-medium);
+
+  &:hover {
+    background: var(--control-transparent-bgColor-hover);
+  }
+
+  &:focus {
+    box-shadow: none;
+    outline: 2px solid var(--focus-outlineColor, var(--color-accent-fg));
+    outline-offset: -2px;
+  }
+}
+
+.MenuButton {
+  color: var(--fgColor-link);
+}
+
+.ItemSeparator {
+  color: var(--fgColor-muted);
+  display: flex;
+  align-self: center;
+  justify-content: center;
+  white-space: nowrap;
+  user-select: none;
 }
 
 .ItemWrapper {
