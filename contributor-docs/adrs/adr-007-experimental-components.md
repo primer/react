@@ -2,9 +2,9 @@
 
 ## Status
 
-| Stage    | Status |
-| -------- | ------ |
-| Approved | ✅     |
+| Stage    | Status                                                                               |
+| -------- | ------------------------------------------------------------------------------------ |
+| Approved | ✅                                                                                   |
 | Adopted  | ❌ [Abandoned](https://github.com/github/primer/issues/2534#issuecomment-3227363552) |
 
 &nbsp;
