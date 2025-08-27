@@ -2,7 +2,7 @@ import {ToggleSwitch as PrimerToggleSwitch} from '@primer/react'
 import {createStyledComponent} from './utils/createStyledComponent'
 
 const ToggleSwitch: ReturnType<typeof createStyledComponent> = /*#__PURE__*/ createStyledComponent(PrimerToggleSwitch)
-export {RadioGroup, ToggleSwitch}
+export {ToggleSwitch}
 
 export {
   ActionList,
