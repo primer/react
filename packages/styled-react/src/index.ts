@@ -49,9 +49,9 @@ export {
   TextInput,
   TextInputWithTokens,
   Timeline,
-  Truncate,
   Token,
   Tooltip,
+  Truncate,
   UnderlineNav,
 
   // styled-components components or types
