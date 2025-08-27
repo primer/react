@@ -15,11 +15,6 @@
       "defaultValue": "32",
       "type": "number",
       "description": "Set the width and height of the icon in pixels."
-    },
-    {
-      "name": "sx",
-      "type": "SystemStyleObject",
-      "deprecated": true
     }
   ],
   "subcomponents": []
