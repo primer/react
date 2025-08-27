@@ -3,7 +3,6 @@ import type {Meta} from '@storybook/react-vite'
 import type React from 'react'
 import {useState, useEffect, useRef} from 'react'
 
-import Box from '../Box'
 import {Button} from '../Button'
 import {SelectPanel} from '.'
 import type {ItemInput} from '../deprecated/ActionList/List'
@@ -11,6 +10,7 @@ import FormControl from '../FormControl'
 import Text from '../Text'
 import Select from '../Select/Select'
 import type {SelectPanelSecondaryAction} from './SelectPanel'
+import classes from './SelectPanel.stories.module.css'
 
 const meta: Meta<typeof SelectPanel> = {
   title: 'Components/SelectPanel/Dev',
@@ -30,16 +30,11 @@ const NoResultsMessage = (filter: string): {variant: 'empty'; title: string; bod
 function getColorCircle(color: string) {
   return function () {
     return (
-      <Box
-        sx={{
+      <div
+        className={classes.ColorCircle}
+        style={{
           backgroundColor: color,
           borderColor: color,
-          width: 14,
-          height: 14,
-          borderRadius: 10,
-          margin: 'auto',
-          borderWidth: '1px',
-          borderStyle: 'solid',
         }}
       />
     )
@@ -106,85 +101,6 @@ export const WithCss = () => {
         selected={selected}
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
-        className="testCustomClassnameMono"
-        message={selectedItemsSortedFirst.length === 0 ? NoResultsMessage(filter) : undefined}
-      />
-    </FormControl>
-  )
-}
-
-export const WithSx = () => {
-  const [selected, setSelected] = useState<ItemInput[]>(items.slice(1, 3))
-  const [filter, setFilter] = useState('')
-  const filteredItems = items.filter(item => item.text?.toLowerCase().startsWith(filter.toLowerCase()))
-  // design guidelines say to sort selected items first
-  const selectedItemsSortedFirst = filteredItems.sort((a, b) => {
-    const aIsSelected = selected.some(selectedItem => selectedItem.text === a.text)
-    const bIsSelected = selected.some(selectedItem => selectedItem.text === b.text)
-    if (aIsSelected && !bIsSelected) return -1
-    if (!aIsSelected && bIsSelected) return 1
-    return 0
-  })
-  const [open, setOpen] = useState(false)
-
-  return (
-    <FormControl>
-      <FormControl.Label>Labels</FormControl.Label>
-      <SelectPanel
-        title="Select labels"
-        placeholder="Select labels" // button text when no items are selected
-        subtitle="Use labels to organize issues and pull requests"
-        renderAnchor={({children, ...anchorProps}) => (
-          <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
-            {children}
-          </Button>
-        )}
-        open={open}
-        onOpenChange={setOpen}
-        items={selectedItemsSortedFirst}
-        selected={selected}
-        onSelectedChange={setSelected}
-        onFilterChange={setFilter}
-        sx={{fontFamily: 'Times New Roman'}}
-        message={selectedItemsSortedFirst.length === 0 ? NoResultsMessage(filter) : undefined}
-      />
-    </FormControl>
-  )
-}
-
-export const WithSxAndCSS = () => {
-  const [selected, setSelected] = useState<ItemInput[]>(items.slice(1, 3))
-  const [filter, setFilter] = useState('')
-  const filteredItems = items.filter(item => item.text?.toLowerCase().startsWith(filter.toLowerCase()))
-  // design guidelines say to sort selected items first
-  const selectedItemsSortedFirst = filteredItems.sort((a, b) => {
-    const aIsSelected = selected.some(selectedItem => selectedItem.text === a.text)
-    const bIsSelected = selected.some(selectedItem => selectedItem.text === b.text)
-    if (aIsSelected && !bIsSelected) return -1
-    if (!aIsSelected && bIsSelected) return 1
-    return 0
-  })
-  const [open, setOpen] = useState(false)
-
-  return (
-    <FormControl>
-      <FormControl.Label>Labels</FormControl.Label>
-      <SelectPanel
-        title="Select labels"
-        placeholder="Select labels" // button text when no items are selected
-        subtitle="Use labels to organize issues and pull requests"
-        renderAnchor={({children, ...anchorProps}) => (
-          <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
-            {children}
-          </Button>
-        )}
-        open={open}
-        onOpenChange={setOpen}
-        items={selectedItemsSortedFirst}
-        selected={selected}
-        onSelectedChange={setSelected}
-        onFilterChange={setFilter}
-        sx={{fontFamily: 'Times New Roman'}}
         className="testCustomClassnameMono"
         message={selectedItemsSortedFirst.length === 0 ? NoResultsMessage(filter) : undefined}
       />
