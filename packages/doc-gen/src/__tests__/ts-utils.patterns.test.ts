@@ -1,0 +1,32 @@
+import path from 'path'
+import {describe, it, expect} from 'vitest'
+import {parseTypeInfo} from '../ts-utils'
+
+const FIXTURE_PATH = path.join(__dirname, 'fixtures')
+
+describe('getPropTypeForComponent/parseTypeInfo', () => {
+  it('extracts props for FunctionComponent', () => {
+    const info = parseTypeInfo(FIXTURE_PATH, 'FunctionComponent')
+    expect(info.props.foo).toMatchObject({name: 'foo', type: 'string', required: true})
+    expect(info.props.bar).toMatchObject({name: 'bar', type: 'number', required: false})
+    expect(info.props.baz).toMatchObject({name: 'baz', type: 'boolean', required: false})
+  })
+
+  it('extracts props for ArrowComponent', () => {
+    const info = parseTypeInfo(FIXTURE_PATH, 'ArrowComponent')
+    expect(info.props.alpha).toMatchObject({name: 'alpha', type: 'number', required: true})
+    expect(info.props.beta).toMatchObject({name: 'beta', type: 'string', required: false})
+  })
+
+  it('extracts props for DefaultExportComponent', () => {
+    const info = parseTypeInfo(FIXTURE_PATH, 'DefaultExportComponent')
+    expect(info.props.a).toMatchObject({name: 'a', type: 'string', required: true})
+    expect(info.props.b).toMatchObject({name: 'b', type: 'boolean', required: false})
+  })
+
+  it('extracts props for ArrowComponent w/ indirection', () => {
+    const info = parseTypeInfo(path.join(FIXTURE_PATH, 'exports'), 'ArrowComponent')
+    expect(info.props.alpha).toMatchObject({name: 'alpha', type: 'number', required: true})
+    expect(info.props.beta).toMatchObject({name: 'beta', type: 'string', required: false})
+  })
+})

@@ -18,19 +18,19 @@ export interface TSParsedComponentInfo {
   sourceFile: string
   componentPath: string
   componentName: string
-  props: Record<string, TSPropInfo>
+  props: Record<string, TSPropInfo | undefined>
 }
 
-async function getFirstMatchingFile(componentPath: string, componentName: string): Promise<string | undefined> {
+function getFirstMatchingFile(componentPath: string, componentName: string): string | undefined {
   const paths = [
-    path.join(componentPath, `${componentName}.tsx`),
     path.join(componentPath, `index.ts`),
     path.join(componentPath, `index.tsx`),
+    path.join(componentPath, `${componentName}.tsx`),
   ]
 
   for (const p of paths) {
     try {
-      await fs.promises.access(p, fs.constants.R_OK)
+      fs.accessSync(p, fs.constants.R_OK)
       return p
     } catch {
       // File does not exist or is not readable, continue to next path
@@ -40,9 +40,16 @@ async function getFirstMatchingFile(componentPath: string, componentName: string
   return undefined
 }
 
-export function getTSProgram() {
-  const config = ts.readConfigFile('tsconfig.json', ts.sys.readFile)
-  const parsedConfig = ts.parseJsonConfigFileContent(config.config, ts.sys, process.cwd(), undefined, 'tsconfig.json')
+export function getTSProgram(rootDir?: string) {
+  const configPath = ts.findConfigFile(rootDir ?? process.cwd(), ts.sys.fileExists)
+  const config = ts.readConfigFile(configPath ?? 'tsconfig.json', ts.sys.readFile)
+  const parsedConfig = ts.parseJsonConfigFileContent(
+    config.config,
+    ts.sys,
+    configPath ? path.dirname(configPath) : process.cwd(),
+    undefined,
+    'tsconfig.json',
+  )
   const program = ts.createProgram({
     rootNames: parsedConfig.fileNames,
     options: parsedConfig.options,
@@ -64,11 +71,15 @@ function getComponentExport(
     throw new Error(`No symbol found for source file ${sourceFile.fileName}`)
   }
 
+  const exports = checker.getExportsOfModule(sourceSymbol)
+
   const sourceExport =
-    sourceSymbol.exports?.get(componentName as ts.__String) ?? sourceSymbol.exports?.get('default' as ts.__String)
+    exports.find(s => s.escapedName === componentName) ?? exports.find(s => s.escapedName === 'default')
 
   if (!sourceExport) {
-    log.error(`Component ${componentName} not found in ${sourceFile.fileName}`)
+    log.error(
+      `Component ${componentName} not found in ${sourceFile.fileName}. Found exports: ${Array.from(exports.map(s => s.escapedName)).join(', ')}`,
+    )
     throw new Error(`Component ${componentName} not found in ${sourceFile.fileName}`)
   }
 
@@ -87,12 +98,19 @@ function getPropTypeForComponent(
     throw new Error(`No declarations found for component ${componentSymbol.getName()}`)
   }
 
-  const declaration = declarations[0]
+  let declaration = declarations[0]
 
-  if (!ts.isFunctionLike(declaration) && !ts.isVariableDeclaration(declaration)) {
-    throw new Error(
-      `Component ${componentSymbol.getName()} is not a function or variable declaration. Found type: ${ts.SyntaxKind[declaration.kind]}`,
-    )
+  if (ts.isExportAssignment(declaration)) {
+    // If the declaration is an export assignment, we need to find the symbol it exports
+    const exportSymbol = checker.getSymbolAtLocation(declaration.getChildren()[0])
+    if (!exportSymbol) {
+      throw new Error(`Unable to find export symbol for component ${componentSymbol.getName()}`)
+    }
+    const exportDeclarations = exportSymbol.getDeclarations()
+    if (!exportDeclarations || exportDeclarations.length === 0) {
+      throw new Error(`No declarations found for export symbol of component ${componentSymbol.getName()}`)
+    }
+    declaration = exportDeclarations[0]
   }
 
   const functionType = checker.getTypeAtLocation(
@@ -103,11 +121,11 @@ function getPropTypeForComponent(
   const callSignatures = functionType.getCallSignatures()
 
   for (const callSignature of callSignatures) {
-    // log.debug(`Call signature: ${checker.signatureToString(callSignature)}`)
+    log.debug(`Call signature: ${checker.signatureToString(callSignature)}`)
 
     const params = callSignature.getParameters()
 
-    // log.debug(params[0].valueDeclaration!.getFullText())
+    log.debug(params[0].valueDeclaration!.getFullText())
 
     const propTypesType = checker.getTypeOfSymbolAtLocation(params[0], declaration)
 
@@ -153,32 +171,36 @@ function getPropTypeForComponent(
   return props
 }
 
-export async function parseTypeInfo(
+export function parseTypeInfo(
   docsBasePath: string,
   componentName: string,
   program: ts.Program = getTSProgram(),
-): Promise<TSParsedComponentInfo> {
-  const log = new Signale({scope: componentName})
-  const componentFile = await getFirstMatchingFile(docsBasePath, componentName)
+): TSParsedComponentInfo {
+  const log = new Signale({
+    scope: componentName,
+    logLevel: process.env.DEBUG === '*' ? 'debug' : 'error',
+  })
+
+  log.debug(`Looking for first match in: ${docsBasePath}`)
+  const componentFile = getFirstMatchingFile(docsBasePath, componentName)
 
   if (!componentFile) {
-    // log.error(`No source file found for component ${componentName}`)
     throw new Error(`No source file found for component ${componentName}`)
   }
 
-  // log.debug(`Found source for ${componentName}: ${componentFile}`)
+  log.debug(`Found source for ${componentName}: ${componentFile}`)
 
   const sourceFile = program.getSourceFile(componentFile)
 
   if (!sourceFile) {
-    // log.error(`Unable to retrieve source file for ${componentName}`)
+    log.error(`Unable to retrieve source file for ${componentName}`)
     throw new Error(`Unable to retrieve source file for ${componentName}`)
   }
 
   const exportedComponent = getComponentExport(log, program, sourceFile, componentName)
   const propsType = getPropTypeForComponent(log, program, exportedComponent)
 
-  // log.debug(`Extracted props for ${componentName}: ${Object.keys(propsType).join(', ')}`)
+  log.debug(`Extracted props for ${componentName}: ${Object.keys(propsType).join(', ')}`)
 
   return {
     sourceFile: componentFile,
@@ -203,7 +225,9 @@ export async function updateJSDocsForProp(tsPropInfo: TSPropInfo, docsProps: Doc
   const sourceFile = declaration.getSourceFile()
 
   if (!sourceFile.fileName.startsWith(componentSourceDir)) {
+    // eslint-disable-next-line no-console
     console.log(`Skipping prop ${propSymbol.getName()} from file ${sourceFile.fileName}`)
+    // eslint-disable-next-line no-console
     console.log(`Source Dir: ${componentSourceDir}`)
     return
   }
@@ -240,6 +264,7 @@ export async function updateJSDocsForProp(tsPropInfo: TSPropInfo, docsProps: Doc
     updatedText = `${text.slice(0, start) + newJsDocText}\n${text.slice(start)}`
   }
 
+  // eslint-disable-next-line no-console
   console.log(newJsDocText)
 
   if (updatedText) {

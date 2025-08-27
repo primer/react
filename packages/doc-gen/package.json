@@ -23,7 +23,8 @@
     "clean": "rimraf dist",
     "build": "rollup -c",
     "type-check": "tsc --noEmit",
-    "watch": "rollup -c -w"
+    "watch": "rollup -c -w",
+    "test": "vitest --run"
   },
   "dependencies": {
     "@babel/runtime": "^7.28.2",
