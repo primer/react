@@ -10,6 +10,7 @@ import {Button} from '../Button'
 import React from 'react'
 import {useFocus} from '../internal/hooks/useFocus'
 import {PageLayout} from '../PageLayout'
+import classes from './Banner.examples.stories.module.css'
 
 const meta = {
   title: 'Experimental/Components/Banner/Examples',
@@ -65,11 +66,11 @@ export const WithAnnouncement = () => {
         secondaryAction={<Banner.SecondaryAction>Button</Banner.SecondaryAction>}
       />
       <RadioGroup
-        sx={{marginTop: 4}}
         name="options"
         onChange={selected => {
           setSelected(selected as Choice)
         }}
+        className={classes.RadioGroupWithTopMargin}
       >
         <RadioGroup.Label>Choices</RadioGroup.Label>
         <FormControl>
