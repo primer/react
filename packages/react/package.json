@@ -49,8 +49,7 @@
     "lint:npm": "publint --types",
     "storybook": "storybook",
     "type-check": "tsc --noEmit",
-    "type-css-modules": "tcm -p src/**/*.module.css",
-    "build:doc-gen": "doc-gen"
+    "type-css-modules": "tcm -p src/**/*.module.css"
   },
   "repository": "primer/react",
   "keywords": [

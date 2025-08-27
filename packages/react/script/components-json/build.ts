@@ -40,7 +40,9 @@ type Component = {
   source?: string
 }
 
-const ajv = new Ajv()
+const ajv = new Ajv({
+  allowUnionTypes: true,
+})
 
 function formatMDError(lintError: LintError): string {
   let range = ''
