@@ -1,17 +1,14 @@
 import type React from 'react'
 import {get} from '../constants'
-import type {SxProp} from '../sx'
 import {useFormControlContext} from './_FormControlContext'
 import styled from 'styled-components'
-import sx from '../sx'
 
-const FormControlLeadingVisual: React.FC<React.PropsWithChildren<SxProp>> = ({children, sx}) => {
+const FormControlLeadingVisual: React.FC<React.PropsWithChildren<{}>> = ({children}) => {
   const {disabled, captionId} = useFormControlContext()
   return (
     <StyledLeadingVisual
       data-control-disabled={disabled ? '' : undefined}
       data-has-caption={captionId ? '' : undefined}
-      sx={sx}
     >
       {children}
     </StyledLeadingVisual>
@@ -39,8 +36,6 @@ const StyledLeadingVisual = styled.div`
   &:where([data-has-caption]) {
     --leadingVisual-size: ${get('fontSizes.4')};
   }
-
-  ${sx}
 `
 
 export default FormControlLeadingVisual
