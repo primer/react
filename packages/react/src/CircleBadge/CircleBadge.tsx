@@ -1,8 +1,6 @@
 import styled from 'styled-components'
 import {get} from '../constants'
 import Octicon from '../Octicon'
-import type {SxProp} from '../sx'
-import sx from '../sx'
 import isNumeric from '../utils/isNumeric'
 import type {ComponentProps} from '../utils/types'
 
@@ -16,7 +14,7 @@ type StyledCircleBadgeProps = {
   inline?: boolean
   variant?: keyof typeof variantSizes
   size?: number
-} & SxProp
+}
 
 const sizeStyles = ({size, variant = 'medium'}: StyledCircleBadgeProps) => {
   const calc = isNumeric(size) ? size : variantSizes[variant]
@@ -34,7 +32,6 @@ const CircleBadge = styled.div<StyledCircleBadgeProps>`
   border-radius: 50%;
   box-shadow: ${get('shadows.shadow.medium')};
   ${sizeStyles};
-  ${sx};
 `
 
 const CircleBadgeIcon = styled(Octicon)`
