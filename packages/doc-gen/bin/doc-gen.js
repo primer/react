@@ -2,7 +2,7 @@
 
 import {main} from '../dist/index.js'
 
-main().catch(e => {
-  console.error(e)
+// eslint-disable-next-line github/no-then
+main().catch(() => {
   process.exit(1)
 })

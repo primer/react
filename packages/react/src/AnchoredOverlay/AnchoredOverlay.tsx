@@ -23,8 +23,8 @@ interface AnchoredOverlayPropsWithAnchor {
   renderAnchor: <T extends React.HTMLAttributes<HTMLElement>>(props: T) => JSX.Element
 
   /**
- * Useful for defining an external anchor
- */
+   * An override to the internal ref that will be spread on to the renderAnchor
+   */
   anchorRef?: React.RefObject<HTMLElement>
 
   /**
