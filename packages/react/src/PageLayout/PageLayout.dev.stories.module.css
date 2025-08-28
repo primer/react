@@ -1,0 +1,4 @@
+.PageLayout {
+  border: var(--borderWidth-default) solid red;
+  color: var(--fgColor-success);
+}
