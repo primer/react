@@ -8,6 +8,12 @@ const componentDocsFiles = glob.sync(path.join(rootDir, 'packages/react/src/**/*
 console.log('| Component Name | Passing Props (Count) | Passing Props | Broken Props (Count) | Broken Props |')
 console.log('|----------------|-----------------------|---------------|----------------------|--------------|')
 
+const componentSummary: Array<{
+  name: string,
+  brokenPropsCount: number,
+  passingPropsCount: number
+}> = []
+
 for (const componentDocFile of componentDocsFiles) {
   const {docs, propCompareResults} = compareTSDocsForComponent(componentDocFile)
 
@@ -29,6 +35,12 @@ for (const componentDocFile of componentDocsFiles) {
       passingProps.push(propName)
     }
   }
+
+  componentSummary.push({
+    name: docs.name,
+    passingPropsCount: passingProps.length,
+    brokenPropsCount: brokenProps.length,
+  })
 
   console.log(
     `| ${docs.name} | ${passingProps.length} | ${passingProps.join(', ')} | ${brokenProps.length} | ${brokenProps.join(', ')} |`,

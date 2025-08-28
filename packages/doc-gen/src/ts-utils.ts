@@ -19,6 +19,8 @@ export interface TSParsedComponentInfo {
   componentPath: string
   componentName: string
   props: Record<string, TSPropInfo | undefined>
+
+  subComponents?: Record<string, TSParsedComponentInfo>
 }
 
 function getFirstMatchingFile(componentPath: string, componentName: string): string | undefined {
@@ -86,39 +88,46 @@ function getComponentExport(
   return sourceExport
 }
 
-function getPropTypeForComponent(
+/**
+ * Given the symbol for a component, grab all the sub-component properties for it
+ */
+function getSubComponentsForSymbol(
   log: Logger,
   program: ts.Program,
   componentSymbol: ts.Symbol,
-): Record<string, TSPropInfo> {
+): Record<string, ts.Node> {
   const checker = program.getTypeChecker()
+  const componentNode = getComponentNodeForSymbol(checker, componentSymbol)
+  const componentType = checker.getTypeAtLocation(componentNode)
 
-  const declarations = componentSymbol.getDeclarations()
-  if (!declarations || declarations.length === 0) {
-    throw new Error(`No declarations found for component ${componentSymbol.getName()}`)
+  if (componentType.getProperties().length === 0) {
+    return {}
   }
 
-  let declaration = declarations[0]
+  return componentType.getProperties().reduce(
+    (acc, prop) => {
+      if (prop.valueDeclaration) {
+        const subCompType = checker.getTypeAtLocation(prop.valueDeclaration)
 
-  if (ts.isExportAssignment(declaration)) {
-    // If the declaration is an export assignment, we need to find the symbol it exports
-    const exportSymbol = checker.getSymbolAtLocation(declaration.getChildren()[0])
-    if (!exportSymbol) {
-      throw new Error(`Unable to find export symbol for component ${componentSymbol.getName()}`)
-    }
-    const exportDeclarations = exportSymbol.getDeclarations()
-    if (!exportDeclarations || exportDeclarations.length === 0) {
-      throw new Error(`No declarations found for export symbol of component ${componentSymbol.getName()}`)
-    }
-    declaration = exportDeclarations[0]
-  }
+        // Use the call-signature as a Proxy for this being a React component
+        // There might be a more reliable way, but this removes `defaultProps`, `displayName`, etc
+        if (subCompType.getCallSignatures().length > 0) {
+          acc[prop.getName()] = prop.valueDeclaration
+        }
+      }
 
-  const functionType = checker.getTypeAtLocation(
-    ts.isVariableDeclaration(declaration) ? declaration.initializer! : declaration,
+      return acc
+    },
+    {} as Record<string, ts.Node>,
   )
+}
+
+function getPropTypesForNode(log: Logger, checker: ts.TypeChecker, componentNode: ts.Node): Record<string, TSPropInfo> {
   const props: Record<string, TSPropInfo> = {}
 
-  const callSignatures = functionType.getCallSignatures()
+  const componentType = checker.getTypeAtLocation(componentNode)
+
+  const callSignatures = componentType.getCallSignatures()
 
   for (const callSignature of callSignatures) {
     log.debug(`Call signature: ${checker.signatureToString(callSignature)}`)
@@ -127,10 +136,10 @@ function getPropTypeForComponent(
 
     log.debug(params[0].valueDeclaration!.getFullText())
 
-    const propTypesType = checker.getTypeOfSymbolAtLocation(params[0], declaration)
+    const propTypesType = checker.getTypeOfSymbolAtLocation(params[0], componentNode)
 
     for (const prop of checker.getApparentType(propTypesType).getApparentProperties()) {
-      const propType = checker.getTypeOfSymbolAtLocation(prop, declaration)
+      const propType = checker.getTypeOfSymbolAtLocation(prop, componentNode)
 
       const propSource = prop.getDeclarations()?.[0]?.getSourceFile()
 
@@ -171,6 +180,50 @@ function getPropTypeForComponent(
   return props
 }
 
+/**
+ * Given a component node (the node that is exported at the root), resolve it to the _thing_ that it actually represents.
+ * i.e. Follow any redirects for exports, renaming, etc
+ */
+function getComponentNodeForSymbol(checker: ts.TypeChecker, componentSymbol: ts.Symbol): ts.Node {
+  const declarations = componentSymbol.getDeclarations()
+  if (!declarations || declarations.length === 0) {
+    throw new Error(`No declarations found for component ${componentSymbol.getName()}`)
+  }
+
+  let declaration = declarations[0]
+
+  if (ts.isExportAssignment(declaration)) {
+    // If the declaration is an export assignment, we need to find the symbol it exports
+    const exportSymbol = checker.getSymbolAtLocation(declaration.getChildren()[0])
+    if (!exportSymbol) {
+      throw new Error(`Unable to find export symbol for component ${componentSymbol.getName()}`)
+    }
+    const exportDeclarations = exportSymbol.getDeclarations()
+    if (!exportDeclarations || exportDeclarations.length === 0) {
+      throw new Error(`No declarations found for export symbol of component ${componentSymbol.getName()}`)
+    }
+    declaration = exportDeclarations[0]
+  }
+
+  if (ts.isVariableDeclaration(declaration)) {
+    return declaration.initializer!
+  }
+
+  return declaration
+}
+
+function getPropTypeForComponent(
+  log: Logger,
+  program: ts.Program,
+  componentSymbol: ts.Symbol,
+): Record<string, TSPropInfo> {
+  const checker = program.getTypeChecker()
+
+  const componentNode = getComponentNodeForSymbol(checker, componentSymbol)
+
+  return getPropTypesForNode(log, checker, componentNode)
+}
+
 export function parseTypeInfo(
   docsBasePath: string,
   componentName: string,
@@ -199,6 +252,7 @@ export function parseTypeInfo(
 
   const exportedComponent = getComponentExport(log, program, sourceFile, componentName)
   const propsType = getPropTypeForComponent(log, program, exportedComponent)
+  const subComponents = getSubComponentsForSymbol(log, program, exportedComponent)
 
   log.debug(`Extracted props for ${componentName}: ${Object.keys(propsType).join(', ')}`)
 
@@ -207,6 +261,20 @@ export function parseTypeInfo(
     componentPath: docsBasePath,
     componentName,
     props: propsType,
+    subComponents: Object.fromEntries(
+      Object.entries(subComponents).map(([name, node]) => {
+        const subComponentType = getPropTypesForNode(log, program.getTypeChecker(), node)
+        return [
+          name,
+          {
+            sourceFile: componentFile,
+            componentPath: docsBasePath,
+            componentName: [componentName, name].join('.'),
+            props: subComponentType,
+          },
+        ]
+      }),
+    ),
   }
 }
 
