@@ -2,9 +2,7 @@
 
 exports[`@primer/styled-react exports 1`] = `
 [
-  "RadioGroup",
   "ToggleSwitch",
-  "Truncate",
   "ActionList",
   "ActionMenu",
   "Autocomplete",
@@ -34,6 +32,7 @@ exports[`@primer/styled-react exports 1`] = `
   "PageLayout",
   "Popover",
   "ProgressBar",
+  "RadioGroup",
   "RelativeTime",
   "SegmentedControl",
   "Select",
@@ -50,6 +49,7 @@ exports[`@primer/styled-react exports 1`] = `
   "Timeline",
   "Token",
   "Tooltip",
+  "Truncate",
   "UnderlineNav",
   "Box",
   "sx",
