@@ -6,12 +6,15 @@ import type {ComponentProps} from '../utils/types'
 import classes from './Breadcrumbs.module.css'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {BoxWithFallback} from '../internal/components/BoxWithFallback'
-import {ActionMenu} from '../ActionMenu'
+import Details from '../Details'
 import {ActionList} from '../ActionList'
 import {IconButton} from '../Button/IconButton'
 import {KebabHorizontalIcon} from '@primer/octicons-react'
 import {useResizeObserver} from '../hooks/useResizeObserver'
 import type {ResizeObserverEntry} from '../hooks/useResizeObserver'
+import {useOnEscapePress} from '../hooks/useOnEscapePress'
+import {useOnOutsideClick} from '../hooks/useOnOutsideClick'
+import {getAnchoredPosition} from '@primer/behaviors'
 
 const SELECTED_CLASS = 'selected'
 
@@ -32,24 +35,83 @@ type BreadcrumbsMenuItemProps = {
   'aria-label'?: string
 }
 
-const BreadcrumbsMenuItem = React.forwardRef<HTMLButtonElement, BreadcrumbsMenuItemProps>(
-  ({items, 'aria-label': ariaLabel, ...rest}, ref) => {
+const BreadcrumbsMenuItem = React.forwardRef<HTMLDetailsElement, BreadcrumbsMenuItemProps>(
+  ({items, 'aria-label': ariaLabel, ...rest}, detailsRef) => {
+    const [isOpen, setIsOpen] = useState(false)
+    const [menuPosition, setMenuPosition] = useState<{top?: number; left?: number; right?: number}>({})
+
+    const handleSummaryClick = useCallback(
+      (event: React.MouseEvent) => {
+        // Prevent the button click from bubbling up and interfering with details toggle
+        event.preventDefault()
+        // Manually toggle the details element
+        if (detailsRef && 'current' in detailsRef && detailsRef.current) {
+          const newOpenState = !detailsRef.current.open
+          detailsRef.current.open = newOpenState
+          setIsOpen(newOpenState)
+        }
+      },
+      [detailsRef],
+    )
+
+    const closeOverlay = useCallback(() => {
+      if (detailsRef && 'current' in detailsRef && detailsRef.current) {
+        detailsRef.current.open = false
+        setIsOpen(false)
+      }
+    }, [detailsRef])
+
+    const focusOnMenuButton = useCallback(() => {
+      iconButtonRef.current?.focus()
+    }, [])
+
+    const iconButtonRef = useRef<HTMLButtonElement>(null)
+    const menuContainerRef = useRef<HTMLDivElement>(null)
+    const summaryRef = useRef<HTMLElement>(null)
+
+    // Calculate menu position when opening
+    useEffect(() => {
+      if (isOpen && summaryRef.current && menuContainerRef.current) {
+        const {top, left} = getAnchoredPosition(summaryRef.current, menuContainerRef.current, {
+          align: 'end',
+          side: 'outside-bottom',
+        })
+        setMenuPosition({top, left})
+      }
+    }, [isOpen])
+
+    useOnEscapePress(
+      (event: KeyboardEvent) => {
+        if (isOpen) {
+          event.preventDefault()
+          closeOverlay()
+          focusOnMenuButton()
+        }
+      },
+      [isOpen],
+    )
+
+    useOnOutsideClick({
+      onClickOutside: closeOverlay,
+      containerRef: menuContainerRef,
+      ignoreClickRefs: [iconButtonRef],
+    })
+
     return (
-      <ActionMenu>
-        <ActionMenu.Anchor>
+      <Details ref={detailsRef} className={classes.MenuDetails}>
+        <Details.Summary ref={summaryRef} className={classes.MenuSummary} tabIndex={-1}>
           <IconButton
-            ref={ref}
+            ref={iconButtonRef}
             aria-label={ariaLabel || `${items.length} more breadcrumb items`}
-            aria-expanded="false"
+            onClick={handleSummaryClick}
             variant="invisible"
             size="small"
             icon={KebabHorizontalIcon}
-            className={classes.MenuButton}
             {...rest}
           />
-        </ActionMenu.Anchor>
-        <ActionMenu.Overlay width="auto">
-          <ActionList role="menu">
+        </Details.Summary>
+        <div ref={menuContainerRef} className={classes.MenuOverlay} style={menuPosition}>
+          <ActionList>
             {items.map((item, index) => {
               const href = item.props.href
               const children = item.props.children
@@ -58,16 +120,16 @@ const BreadcrumbsMenuItem = React.forwardRef<HTMLButtonElement, BreadcrumbsMenuI
                 <ActionList.LinkItem
                   key={index}
                   href={href}
-                  role="menuitem"
                   aria-current={selected ? 'page' : undefined}
+                  className={classes.MenuItem}
                 >
                   {children}
                 </ActionList.LinkItem>
               )
             })}
           </ActionList>
-        </ActionMenu.Overlay>
-      </ActionMenu>
+        </div>
+      </Details>
     )
   },
 )
@@ -80,7 +142,7 @@ const getValidChildren = (children: React.ReactNode) => {
 
 function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap', hideRoot = true}: BreadcrumbsProps) {
   const containerRef = useRef<HTMLElement>(null)
-  const menuButtonRef = useRef<HTMLButtonElement>(null)
+  const menuButtonRef = useRef<HTMLDetailsElement>(null)
   const [effectiveHideRoot, setEffectiveHideRoot] = useState<boolean>(hideRoot)
   //let effectiveOverflow = 'wrap'
   const childArray = useMemo(() => getValidChildren(children), [children])
@@ -115,9 +177,14 @@ function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap', hideRo
   // Measure actual menu button width when it exists
   useEffect(() => {
     if (menuButtonRef.current) {
-      const measuredWidth = menuButtonRef.current.offsetWidth
-      if (measuredWidth > 0) {
-        setMenuButtonWidth(measuredWidth)
+      const iconButtonElement =
+        menuButtonRef.current.querySelector('button[data-component="IconButton"]') ||
+        menuButtonRef.current.querySelector('button')
+      if (iconButtonElement) {
+        const measuredWidth = (iconButtonElement as HTMLElement).offsetWidth
+        if (measuredWidth > 0) {
+          setMenuButtonWidth(measuredWidth)
+        }
       }
     }
   }, [menuItems.length]) // Re-measure when menu button appears/disappears
