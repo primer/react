@@ -16,15 +16,15 @@ export interface PropCompareError {
 }
 
 export function createComparisonSummary(
-  docs: AuthoredDocsFile,
+  docsProps: AuthoredDocsPropInfo[],
   parsedTSInfo: TSParsedComponentInfo,
 ): Record<string, PropCompareError> {
   const propResults: Record<string, PropCompareError> = {}
 
-  const allProps = new Set<string>([...docs.props.map(p => p.name), ...Object.keys(parsedTSInfo.props)])
+  const allProps = new Set<string>([...docsProps.map(p => p.name), ...Object.keys(parsedTSInfo.props)])
 
   for (const propName of allProps.keys()) {
-    const docProp = docs.props.find(p => p.name === propName)
+    const docProp = docsProps.find(p => p.name === propName)
     const tsProp: TSPropInfo | undefined = parsedTSInfo.props[propName]
 
     const propSummary: PropCompareError = {
@@ -59,7 +59,9 @@ function logVerboseComparison(
     const tsProp = parsedTSInfo.props[propName]
     const docProp = docs.props.find(p => p.name === propName)
 
+    // eslint-disable-next-line no-console
     console.log(`Prop: ${propName}`)
+    // eslint-disable-next-line no-console
     console.table([
       {
         Rule: 'Type',
@@ -118,7 +120,7 @@ export function processDocsFile(docsFilePath: string): DocsFile {
   const parsedTSInfo = parseTypeInfo(path.dirname(docsFilePath), authoredDocs.name)
 
   if (printAllSummary) {
-    const summary = createComparisonSummary(authoredDocs, parsedTSInfo)
+    const summary = createComparisonSummary(authoredDocs.props, parsedTSInfo)
     logPropComparison(summary)
   }
 
@@ -191,7 +193,7 @@ export function compareTSDocsForComponent(componentPath: string) {
 
   const parsedTSInfo = parseTypeInfo(componentEntry, docs.name, program)
 
-  const results = createComparisonSummary(docs, parsedTSInfo)
+  const results = createComparisonSummary(docs.props, parsedTSInfo)
 
   return {
     propCompareResults: results,
@@ -205,11 +207,16 @@ export function compareTSDocsForComponent(componentPath: string) {
 export async function main() {
   const argv = await yargs(hideBin(process.argv))
     .command('validate [path]', 'Validate the docs.json and TS prop-types for your Component match')
+    .positional('path', {
+      describe: 'Path to the component directory or docs.json file',
+      type: 'string',
+    })
     .option('verbose', {
       alias: 'v',
       type: 'boolean',
     })
     .help('h')
+    .strictCommands()
     .alias('h', 'help')
     .parse()
 
@@ -224,7 +231,18 @@ export async function main() {
   const {propCompareResults, parsedTSInfo, docs, componentDocsFile, componentDir} =
     compareTSDocsForComponent(componentPath)
 
+  // eslint-disable-next-line no-console
+  console.log(`${docs.name}`)
   logPropComparison(propCompareResults)
+
+  for (const subCompInfo of Object.values(parsedTSInfo.subComponents ?? {})) {
+    // eslint-disable-next-line no-console
+    console.log(`\n${subCompInfo.componentName}`)
+
+    const docsSubComp = docs.subcomponents?.find(sc => sc.name === subCompInfo.componentName)
+    const subCompCompareResults = createComparisonSummary(docsSubComp?.props ?? [], subCompInfo)
+    logPropComparison(subCompCompareResults)
+  }
 
   if (verbose) {
     logVerboseComparison(propCompareResults, docs, parsedTSInfo)

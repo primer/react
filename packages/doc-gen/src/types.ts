@@ -9,6 +9,7 @@ export interface DocsPropInfo {
 export interface DocsFile {
   name: string
   props: DocsPropInfo[]
+  subcomponents?: Array<DocsFile>
 }
 
 export interface AuthoredDocsFile extends DocsFile {

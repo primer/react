@@ -35,7 +35,7 @@ describe('compareProps', () => {
       },
     }
 
-    const comparison = createComparisonSummary(docs, parsedTSInfo)
+    const comparison = createComparisonSummary(docs.props, parsedTSInfo)
 
     expect(comparison).toEqual({
       testProp: {
@@ -69,7 +69,7 @@ describe('compareProps', () => {
       sourceFile: '../TestComponent.tsx',
       props: {},
     }
-    const comparison = createComparisonSummary(docs, parsedTSInfo)
+    const comparison = createComparisonSummary(docs.props, parsedTSInfo)
     expect(comparison).toEqual({
       onlyInDocs: expect.objectContaining({
         missingInTS: true,
@@ -98,7 +98,7 @@ describe('compareProps', () => {
         },
       },
     }
-    const comparison = createComparisonSummary(docs, parsedTSInfo)
+    const comparison = createComparisonSummary(docs.props, parsedTSInfo)
     expect(comparison).toEqual({
       onlyInTS: expect.objectContaining({
         missingInTS: false,
@@ -135,7 +135,7 @@ describe('compareProps', () => {
         },
       },
     }
-    const comparison = createComparisonSummary(docs, parsedTSInfo)
+    const comparison = createComparisonSummary(docs.props, parsedTSInfo)
     expect(comparison.foo.mismatchedType).toBe(true)
   })
 
@@ -167,7 +167,7 @@ describe('compareProps', () => {
         },
       },
     }
-    const comparison = createComparisonSummary(docs, parsedTSInfo)
+    const comparison = createComparisonSummary(docs.props, parsedTSInfo)
     expect(comparison.bar.mismatchedRequired).toBe(true)
   })
 
@@ -199,7 +199,7 @@ describe('compareProps', () => {
         },
       },
     }
-    const comparison = createComparisonSummary(docs, parsedTSInfo)
+    const comparison = createComparisonSummary(docs.props, parsedTSInfo)
     expect(comparison.baz.mismatchedDefaultValue).toBe(true)
   })
 
@@ -231,7 +231,7 @@ describe('compareProps', () => {
         },
       },
     }
-    const comparison = createComparisonSummary(docs, parsedTSInfo)
+    const comparison = createComparisonSummary(docs.props, parsedTSInfo)
     expect(comparison.qux.missingJSDoc).toBe(true)
   })
 })

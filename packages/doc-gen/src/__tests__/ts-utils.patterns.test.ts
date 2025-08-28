@@ -4,7 +4,7 @@ import {parseTypeInfo} from '../ts-utils'
 
 const FIXTURE_PATH = path.join(__dirname, 'fixtures')
 
-describe('getPropTypeForComponent/parseTypeInfo', () => {
+describe('getPropTypeForComponent', () => {
   it('extracts props for FunctionComponent', () => {
     const info = parseTypeInfo(FIXTURE_PATH, 'FunctionComponent')
     expect(info.props.foo).toMatchObject({name: 'foo', type: 'string', required: true})
@@ -28,5 +28,13 @@ describe('getPropTypeForComponent/parseTypeInfo', () => {
     const info = parseTypeInfo(path.join(FIXTURE_PATH, 'exports'), 'ArrowComponent')
     expect(info.props.alpha).toMatchObject({name: 'alpha', type: 'number', required: true})
     expect(info.props.beta).toMatchObject({name: 'beta', type: 'string', required: false})
+  })
+
+  it('extracts props for NestedComponent', () => {
+    const info = parseTypeInfo(FIXTURE_PATH, 'NestedComponent')
+    expect(info.props.bar).toMatchObject({name: 'bar', type: 'string', required: true})
+
+    expect(info.subComponents).toHaveProperty('SubComponent')
+    expect(info.subComponents?.SubComponent.props.foo).toMatchObject({name: 'foo', type: 'string', required: true})
   })
 })
