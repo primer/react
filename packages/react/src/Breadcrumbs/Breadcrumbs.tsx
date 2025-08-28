@@ -166,13 +166,13 @@ function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap', hideRo
 
   useEffect(() => {
     const listElement = containerRef.current?.querySelector('ol')
-    if (listElement && listElement.children.length > 0) {
+    if (listElement && listElement.children.length > 0 && listElement.children.length === childArray.length) {
       const listElementArray = Array.from(listElement.children) as HTMLElement[]
       const widths = listElementArray.map(child => child.offsetWidth)
       setChildArrayWidths(widths)
       setRootItemWidth(listElementArray[0].offsetWidth)
     }
-  }, [childArray.length])
+  }, [childArray])
 
   // Measure actual menu button width when it exists
   useEffect(() => {
@@ -187,7 +187,7 @@ function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap', hideRo
         }
       }
     }
-  }, [menuItems.length]) // Re-measure when menu button appears/disappears
+  }, [menuItems])
 
   const calculateOverflow = useCallback(
     (availableWidth: number) => {
@@ -263,12 +263,18 @@ function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap', hideRo
       if (entries[0]) {
         const containerWidth = entries[0].contentRect.width
         const result = calculateOverflow(containerWidth)
-        setVisibleItems(result.visibleItems)
-        setMenuItems(result.menuItems)
-        setEffectiveHideRoot(result.effectiveHideRoot)
+        if (
+          visibleItems.length !== result.visibleItems.length ||
+          menuItems.length !== result.menuItems.length ||
+          effectiveHideRoot !== result.effectiveHideRoot
+        ) {
+          setVisibleItems(result.visibleItems)
+          setMenuItems(result.menuItems)
+          setEffectiveHideRoot(result.effectiveHideRoot)
+        }
       }
     },
-    [calculateOverflow],
+    [calculateOverflow, effectiveHideRoot, menuItems, visibleItems],
   )
 
   useResizeObserver(handleResize, containerRef)
@@ -283,7 +289,7 @@ function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap', hideRo
       setMenuItems(result.menuItems)
       setEffectiveHideRoot(result.effectiveHideRoot)
     }
-  }, [overflow, childArray.length, calculateOverflow])
+  }, [overflow, childArray, calculateOverflow])
 
   // Determine final children to render
   const finalChildren = React.useMemo(() => {
