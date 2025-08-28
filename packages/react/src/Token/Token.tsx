@@ -1,7 +1,6 @@
 import type {MouseEventHandler} from 'react'
 import type React from 'react'
 import {forwardRef} from 'react'
-import {type SxProp} from '../sx'
 import type {TokenBaseProps} from './TokenBase'
 import TokenBase, {defaultTokenSize, isTokenInteractive} from './TokenBase'
 import RemoveTokenButton from './_RemoveTokenButton'
@@ -14,7 +13,7 @@ import {clsx} from 'clsx'
 
 // Omitting onResize and onResizeCapture because seems like React 18 types includes these menthod in the expansion but React 17 doesn't.
 // TODO: This is a temporary solution until we figure out why these methods are causing type errors.
-export interface TokenProps extends TokenBaseProps, SxProp {
+export interface TokenProps extends TokenBaseProps {
   /**
    * A component that renders before the token text
    */
