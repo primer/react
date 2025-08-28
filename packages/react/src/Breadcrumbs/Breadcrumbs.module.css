@@ -12,7 +12,6 @@
 
 [data-overflow='menu'] .BreadcrumbsList {
   white-space: nowrap;
-  overflow: hidden;
   display: flex;
   flex-direction: row;
 }
@@ -58,8 +57,41 @@
   }
 }
 
-.MenuButton {
-  color: var(--fgColor-link);
+.MenuSummary {
+  list-style: none;
+  display: inline-block;
+  outline: none;
+}
+
+.MenuSummary::-webkit-details-marker {
+  display: none;
+}
+
+.MenuDetails {
+  position: relative;
+  display: inline-block;
+}
+
+.MenuDetails summary {
+  list-style: none;
+  cursor: pointer;
+  outline: none;
+}
+
+.MenuDetails summary::-webkit-details-marker {
+  display: none;
+}
+
+.MenuOverlay {
+  position: absolute;
+  z-index: 1;
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.12),
+    0 1px 2px rgba(0, 0, 0, 0.24);
+  border-radius: 12px;
+  background-color: var(--overlay-bgColor);
+  list-style: none;
+  width: max-content;
 }
 
 .ItemSeparator {

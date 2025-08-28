@@ -2,6 +2,7 @@ import type {Meta} from '@storybook/react-vite'
 import type React from 'react'
 import type {ComponentProps} from '../utils/types'
 import Breadcrumbs from './Breadcrumbs'
+import TextInput from '../TextInput'
 
 export default {
   title: 'Components/Breadcrumbs/Features',
@@ -100,6 +101,30 @@ export const WrappedBreadcrumbItemsWithOverflow = () => (
     </DataAttributeWrapper>
     <Breadcrumbs.Item href="#" selected>
       Current Page
+    </Breadcrumbs.Item>
+  </Breadcrumbs>
+)
+
+export const WithEditableNameInput = () => (
+  <Breadcrumbs>
+    <Breadcrumbs.Item href="#">Home</Breadcrumbs.Item>
+    <Breadcrumbs.Item href="#">Documents</Breadcrumbs.Item>
+    <Breadcrumbs.Item href="#">Project Alpha</Breadcrumbs.Item>
+    <Breadcrumbs.Item>
+      <TextInput
+        defaultValue="Untitled Document"
+        size="small"
+        sx={{
+          minWidth: '120px',
+          maxWidth: '180px',
+          fontSize: 'inherit',
+          border: '1px dashed var(--borderColor-muted)',
+          '&:focus': {
+            border: '1px solid var(--borderColor-accent-emphasis)',
+          },
+        }}
+        aria-label="Edit document name"
+      />
     </Breadcrumbs.Item>
   </Breadcrumbs>
 )
