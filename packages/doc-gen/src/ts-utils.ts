@@ -134,7 +134,7 @@ function getPropTypesForNode(log: Logger, checker: ts.TypeChecker, componentNode
 
     const params = callSignature.getParameters()
 
-    if (params.length === 0) {
+    if (params.length === 0 || params[0].valueDeclaration === undefined) {
       continue
     }
 
