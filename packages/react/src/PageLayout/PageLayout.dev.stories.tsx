@@ -1,7 +1,8 @@
 import type {Meta, StoryFn} from '@storybook/react-vite'
 import {Placeholder} from '../Placeholder'
 import {PageLayout} from './PageLayout'
-import classes from './PageLayout.examples.stories.module.css'
+import {clsx} from 'clsx'
+import classes from './PageLayout.dev.stories.module.css'
 
 const meta: Meta = {
   title: 'Components/PageLayout/Dev',
@@ -347,7 +348,7 @@ export const Default: StoryFn = args => (
     padding={args.padding}
     rowGap={args.rowGap}
     columnGap={args.columnGap}
-    className={classes.PageLayout}
+    className={classes.PageLayoutRedBorder}
   >
     <PageLayout.Header
       padding={args['Header.padding']}
@@ -361,6 +362,7 @@ export const Default: StoryFn = args => (
         regular: args['Header.hidden.regular'],
         wide: args['Header.hidden.wide'],
       }}
+      className={classes.PageLayoutGreenText}
     >
       <Placeholder height={args['Header placeholder height']} label="Header" />
     </PageLayout.Header>
@@ -372,6 +374,7 @@ export const Default: StoryFn = args => (
         regular: args['Content.hidden.regular'],
         wide: args['Content.hidden.wide'],
       }}
+      className={classes.PageLayoutGreenText}
     >
       <Placeholder height={args['Content placeholder height']} label="Content" />
     </PageLayout.Content>
@@ -396,6 +399,7 @@ export const Default: StoryFn = args => (
         regular: args['Pane.hidden.regular'],
         wide: args['Pane.hidden.wide'],
       }}
+      className={classes.PageLayoutGreenText}
     >
       <Placeholder height={args['Pane placeholder height']} label="Pane" />
     </PageLayout.Pane>
@@ -411,6 +415,7 @@ export const Default: StoryFn = args => (
         regular: args['Footer.hidden.regular'],
         wide: args['Footer.hidden.wide'],
       }}
+      className={classes.PageLayoutGreenText}
     >
       <Placeholder height={args['Footer placeholder height']} label="Footer" />
     </PageLayout.Footer>
