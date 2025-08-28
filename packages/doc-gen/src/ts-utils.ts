@@ -134,6 +134,10 @@ function getPropTypesForNode(log: Logger, checker: ts.TypeChecker, componentNode
 
     const params = callSignature.getParameters()
 
+    if (params.length === 0) {
+      continue
+    }
+
     log.debug(params[0].valueDeclaration!.getFullText())
 
     const propTypesType = checker.getTypeOfSymbolAtLocation(params[0], componentNode)
