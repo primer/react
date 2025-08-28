@@ -1,4 +1,7 @@
-.PageLayout {
-  border: var(--borderWidth-default) solid red;
+.PageLayoutRedBorder {
+  border: var(--borderWidth-default) solid var(--borderColor-closed-emphasis);
+}
+
+.PageLayoutGreenText {
   color: var(--fgColor-success);
 }
