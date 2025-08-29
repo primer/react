@@ -1,0 +1,13 @@
+.BadgeWithDoneBackground {
+  background-color: var(--bgColor-done-emphasis);
+}
+
+.LinkWithBoldStyle {
+  font-weight: var(--base-text-weight-semibold);
+  color: var(--fgColor-default);
+  margin-right: var(--base-size-4);
+}
+
+.LinkWithBoldStyle:hover {
+  color: var(--fgColor-accent);
+}
