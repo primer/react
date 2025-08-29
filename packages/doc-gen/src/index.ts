@@ -201,6 +201,22 @@ export function compareTSDocsForComponent(componentPath: string) {
     docs,
     componentDocsFile,
     componentDir: componentEntry,
+    subComponents: docs.subcomponents
+      ?.map(subCompInfo => {
+        const parsedTS = Object.values(parsedTSInfo.subComponents ?? {}).find(
+          tsComp => tsComp.componentName === subCompInfo.name,
+        )
+
+        if (parsedTS) {
+          return {
+            componentName: subCompInfo.name,
+            parsedTSInfo: parsedTS,
+            docs: subCompInfo,
+            propCompareResults: createComparisonSummary(subCompInfo.props, parsedTS),
+          }
+        }
+      })
+      .filter(Boolean),
   }
 }
 
@@ -228,20 +244,21 @@ export async function main() {
     process.exit(1)
   }
 
-  const {propCompareResults, parsedTSInfo, docs, componentDocsFile, componentDir} =
+  const {propCompareResults, parsedTSInfo, docs, componentDocsFile, componentDir, subComponents} =
     compareTSDocsForComponent(componentPath)
 
   // eslint-disable-next-line no-console
   console.log(`${docs.name}`)
   logPropComparison(propCompareResults)
 
-  for (const subCompInfo of Object.values(parsedTSInfo.subComponents ?? {})) {
+  for (const subCompInfo of subComponents ?? []) {
+    if (!subCompInfo) {
+      continue
+    }
+
     // eslint-disable-next-line no-console
     console.log(`\n${subCompInfo.componentName}`)
-
-    const docsSubComp = docs.subcomponents?.find(sc => sc.name === subCompInfo.componentName)
-    const subCompCompareResults = createComparisonSummary(docsSubComp?.props ?? [], subCompInfo)
-    logPropComparison(subCompCompareResults)
+    logPropComparison(subCompInfo.propCompareResults)
   }
 
   if (verbose) {

@@ -5,17 +5,14 @@ import {compareTSDocsForComponent} from '@primer/doc-gen'
 const rootDir = path.resolve(import.meta.dirname, '..')
 const componentDocsFiles = glob.sync(path.join(rootDir, 'packages/react/src/**/*.docs.json'))
 
-console.log('| Component Name | Passing Props (Count) | Passing Props | Broken Props (Count) | Broken Props |')
-console.log('|----------------|-----------------------|---------------|----------------------|--------------|')
-
 const componentSummary: Array<{
-  name: string,
-  brokenPropsCount: number,
-  passingPropsCount: number
+  name: string
+  brokenProps: string[]
+  passingProps: string[]
 }> = []
 
 for (const componentDocFile of componentDocsFiles) {
-  const {docs, propCompareResults} = compareTSDocsForComponent(componentDocFile)
+  const {docs, propCompareResults, subComponents} = compareTSDocsForComponent(componentDocFile)
 
   const passingProps: string[] = []
   const brokenProps: string[] = []
@@ -38,11 +35,63 @@ for (const componentDocFile of componentDocsFiles) {
 
   componentSummary.push({
     name: docs.name,
-    passingPropsCount: passingProps.length,
-    brokenPropsCount: brokenProps.length,
+    passingProps,
+    brokenProps,
   })
 
-  console.log(
-    `| ${docs.name} | ${passingProps.length} | ${passingProps.join(', ')} | ${brokenProps.length} | ${brokenProps.join(', ')} |`,
-  )
+  for (const subCompInfo of subComponents ?? []) {
+    const subPassingProps: string[] = []
+    const brokenPassingProps: string[] = []
+
+    if (!subCompInfo) {
+      continue
+    }
+
+    for (const [propName, propResult] of Object.entries(subCompInfo?.propCompareResults ?? {})) {
+      if (
+        propResult.missingInDocs ||
+        propResult.missingInTS ||
+        propResult.mismatchedDefaultValue ||
+        propResult.mismatchedRequired ||
+        // Ignore for now since this is likely to cause some noise in the short-term
+        // propResult.mismatchedType ||
+        propResult.missingJSDoc
+      ) {
+        subPassingProps.push(propName)
+      } else {
+        brokenPassingProps.push(propName)
+      }
+    }
+
+    componentSummary.push({
+      name: subCompInfo.componentName,
+      passingProps,
+      brokenProps,
+    })
+  }
 }
+
+// eslint-disable-next-line no-console
+console.log(`
+
+## Component Documentation Status
+
+<details>
+  <summary>Detailed Component Summary</summary>
+
+| Component Name | Passing Props (Count) | Passing Props | Broken Props (Count) | Broken Props |
+|----------------|-----------------------|---------------|----------------------|--------------|
+${componentSummary
+  .map(
+    component =>
+      `| ${[
+        component.name,
+        component.passingProps.length,
+        component.passingProps.join(', '),
+        component.brokenProps.length,
+        component.brokenProps.join(', '),
+      ].join(' | ')} |`,
+  )
+  .join('\n')}
+</details>
+`)

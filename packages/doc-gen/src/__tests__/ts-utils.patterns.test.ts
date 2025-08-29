@@ -2,7 +2,8 @@ import path from 'path'
 import {describe, it, expect} from 'vitest'
 import {parseTypeInfo} from '../ts-utils'
 
-const FIXTURE_PATH = path.join(__dirname, 'fixtures')
+const directory = path.resolve(import.meta.dirname)
+const FIXTURE_PATH = path.join(directory, 'fixtures')
 
 describe('getPropTypeForComponent', () => {
   it('extracts props for FunctionComponent', () => {
@@ -36,5 +37,8 @@ describe('getPropTypeForComponent', () => {
 
     expect(info.subComponents).toHaveProperty('SubComponent')
     expect(info.subComponents?.SubComponent.props.foo).toMatchObject({name: 'foo', type: 'string', required: true})
+
+    expect(info.subComponents).toHaveProperty('SubComponent2')
+    expect(info.subComponents?.SubComponent2.props.baz).toMatchObject({name: 'baz', type: 'number', required: true})
   })
 })

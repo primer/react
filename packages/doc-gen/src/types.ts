@@ -2,6 +2,7 @@ export interface DocsPropInfo {
   name: string
   required: boolean
   type?: string
+  deprecated?: boolean
   description?: string
   defaultValue?: string
 }
