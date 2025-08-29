@@ -244,6 +244,20 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
       [isExpanded, setIsExpandedWithCache],
     )
 
+    const activateActionsDialog = React.useCallback(() => {
+      if (!secondaryActions) return
+
+      if (secondaryActions.length > 1) {
+        // If there are multiple secondary actions, open the action dialog
+        // as this allows users to select the action they want to interact with.
+        setActionCommandPressed(true)
+      } else {
+        // If there is only one secondary action, trigger it directly
+        const action = secondaryActions[0].onClick
+        action()
+      }
+    }, [secondaryActions])
+
     const handleKeyDown = React.useCallback(
       (event: React.KeyboardEvent<HTMLElement>) => {
         switch (event.key) {
@@ -272,23 +286,12 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
             break
           case 'U':
           case 'u':
-            if (!secondaryActions) return
             if (!(event.shiftKey && (event.metaKey || event.ctrlKey))) return
-
-            if (secondaryActions.length > 1) {
-              // If there are multiple secondary actions, open the action dialog
-              // as this allows users to select the action they want to interact with.
-              setActionCommandPressed(true)
-            } else {
-              // If there is only one secondary action, trigger it directly
-              const action = secondaryActions[0].onClick
-              action()
-            }
-
+            activateActionsDialog()
             break
         }
       },
-      [onSelect, setIsExpandedWithCache, toggle, secondaryActions],
+      [onSelect, setIsExpandedWithCache, toggle, activateActionsDialog],
     )
 
     const ariaDescribedByIds = [

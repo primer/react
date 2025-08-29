@@ -1734,7 +1734,7 @@ it('should have keyboard shortcut command as part of accessible name when using 
     </TreeView>,
   )
 
-  expect(screen.getByRole('treeitem', {name: 'Parent ; Press (control shift u) for more actions.'})).toBeInTheDocument()
+  expect(screen.getByRole('treeitem', {name: 'Parent ; Press (command shift u) for more actions.'})).toBeInTheDocument()
 })
 
 it('should have keyboard shortcut command as part of accessible name when using `TrailingAction` and `aria-label`', () => {
@@ -1754,7 +1754,48 @@ it('should have keyboard shortcut command as part of accessible name when using 
     </TreeView>,
   )
 
-  expect(screen.getByRole('treeitem', {name: 'Parent. Press (control shift u) for more actions.'})).toBeInTheDocument()
+  expect(screen.getByRole('treeitem', {name: 'Parent. Press (command shift u) for more actions.'})).toBeInTheDocument()
+})
+
+it('should activate the dialog for trailing action when keyboard shortcut is used', async () => {
+  userEvent.setup()
+  render(
+    <TreeView aria-label="Files changed">
+      <TreeView.Item
+        id="src"
+        defaultExpanded
+        secondaryActions={[
+          {icon: GearIcon, label: 'Item settings', onClick: () => {}},
+          {icon: GearIcon, label: 'Item settings', onClick: () => {}},
+        ]}
+      >
+        <TreeView.LeadingVisual>
+          <TreeView.DirectoryIcon />
+        </TreeView.LeadingVisual>
+        Parent
+        <TreeView.SubTree>
+          <TreeView.Item id="src/Avatar.tsx">child</TreeView.Item>
+          <TreeView.Item id="src/Button.tsx" current>
+            child current
+          </TreeView.Item>
+          <TreeView.Item id="src/Box.tsx">
+            empty child
+            <TreeView.SubTree />
+          </TreeView.Item>
+        </TreeView.SubTree>
+      </TreeView.Item>
+    </TreeView>,
+  )
+
+  const treeItem = screen.getByRole('treeitem', {name: 'Parent ; Press (command shift u) for more actions.'})
+  treeItem.focus()
+  expect(treeItem).toHaveFocus()
+
+  expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
+
+  fireEvent.keyDown(treeItem, {key: 'u', metaKey: true, shiftKey: true})
+
+  expect(screen.getByRole('dialog')).toBeInTheDocument()
 })
 
 describe('CSS Module Migration', () => {
