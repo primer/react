@@ -36,7 +36,8 @@ export type ActionMenuProps = {
   children: React.ReactElement[] | React.ReactElement
 
   /**
-   * If defined, will control the open/closed state of the overlay. Must be used in conjunction with `onOpenChange`.
+   * If defined, will control the open/closed state of the overlay. Must be used in conjuction with `onOpenChange`.
+   * @default false
    */
   open?: boolean
 
