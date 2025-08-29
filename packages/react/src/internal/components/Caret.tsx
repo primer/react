@@ -1,7 +1,5 @@
-import React from 'react'
-import {ThemeContext} from 'styled-components'
-import {style} from 'styled-system'
-import type {Theme} from '../../ThemeProvider'
+import type React from 'react'
+import classes from './Caret.module.css'
 
 type Location =
   | 'top'
@@ -47,32 +45,17 @@ function getPosition(edge: Alignment, align: Alignment | undefined, spacing: num
   }
 }
 
-const getBg = style({prop: 'bg', key: 'colors'})
-const getBorderColor = style({prop: 'borderColor', key: 'colors'})
-const getBorderWidth = style({prop: 'borderWidth', key: 'borderWidths', scale: [0, 1]})
-
 export type CaretProps = {
   bg?: string
   borderColor?: string
   borderWidth?: string | number
   size?: number
   location?: Location
-  theme?: Theme
 }
 
 function Caret(props: CaretProps) {
-  const theme = React.useContext(ThemeContext)
-  const propsWithTheme = {
-    ...props,
-    bg: props.bg || 'canvas.default',
-    borderColor: props.borderColor || 'border.default',
-    borderWidth: props.borderWidth || 1,
-    theme: props.theme ?? theme,
-  }
-  const {bg} = getBg(propsWithTheme)
-  const {borderColor} = getBorderColor(propsWithTheme)
-  const {borderWidth} = getBorderWidth(propsWithTheme)
-  const {size = 8, location = 'bottom'} = props
+  const {bg, borderColor, borderWidth, size = 8, location = 'bottom'} = props
+
   const [edge, align] = getEdgeAlign(location)
   const perp = perpendicularEdge[edge]
 
@@ -96,22 +79,25 @@ function Caret(props: CaretProps) {
 
   return (
     <svg
+      className={classes.Caret}
       width={size * 2}
       height={size * 2}
       style={{
-        pointerEvents: 'none',
-        position: 'absolute',
         ...getPosition(edge, align, size),
         // if align is set (top|right|bottom|left),
         // then we don't need an offset margin
         [`margin${perp}`]: align ? null : -size,
+        ...({
+          '--caret-bg': bg,
+          '--caret-border-color': borderColor,
+          '--caret-border-width': borderWidth,
+        } as React.CSSProperties),
       }}
       role="presentation"
     >
-      <g transform={transform}>
-        <path d={triangle} fill={theme?.colors.canvas.default} />
-        <path d={triangle} fill={bg} />
-        <path d={line} fill="none" stroke={borderColor} strokeWidth={borderWidth} />
+      <g className={classes.CaretGroup} transform={transform}>
+        <path d={triangle} className={classes.CaretTriangle} />
+        <path d={line} className={classes.CaretBorder} />
       </g>
     </svg>
   )
