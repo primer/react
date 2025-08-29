@@ -19,6 +19,7 @@ import {
   useFocusTrap,
 } from '..'
 import {Tooltip} from '../TooltipV2'
+import classes from './Overlay.stories.module.css'
 
 export default {
   title: 'Private/Components/Overlay/Features',
@@ -391,8 +392,13 @@ export const NestedOverlays = ({role, open}: Args) => {
                 <Text color="fg.muted" sx={{fontSize: 1, mb: 3}}>
                   Create a list to organize your starred repositories.
                 </Text>
-                <TextInput placeholder="Name this list" sx={{mb: 2}} />
-                <TextInput as="textarea" placeholder="Write a description" rows={3} sx={{mb: 2, textarea: {p: 2}}} />
+                <TextInput placeholder="Name this list" className={classes.TextInputWithMargin} />
+                <TextInput
+                  as="textarea"
+                  placeholder="Write a description"
+                  rows={3}
+                  className={classes.TextAreaWithMargin}
+                />
 
                 <Button variant="primary" onClick={() => setCreateListOverlayOpen(!createListOverlayOpen)}>
                   Create
@@ -486,14 +492,7 @@ export const MemexIssueOverlay = ({role, open}: Args) => {
                   }
                 }}
                 ref={inputRef}
-                sx={{
-                  width: '100%',
-                  py: '2px',
-                  px: '7px',
-                  textAlign: 'left',
-                  color: 'fg.default',
-                  input: {fontWeight: 'bold', fontSize: 4, px: 0},
-                }}
+                className={classes.EditingTextInput}
               />
             ) : (
               <Button
