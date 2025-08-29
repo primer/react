@@ -1,5 +1,5 @@
 import {clsx} from 'clsx'
-import type {StyledComponent} from 'styled-components'
+import {type StyledComponent} from 'styled-components'
 import React, {forwardRef} from 'react'
 import type {SystemCommonProps, SystemTypographyProps} from '../constants'
 import type {SxProp} from '../sx'
