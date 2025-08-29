@@ -9,13 +9,13 @@ export default {
 
 export const WithDisabledButtons = () => (
   <SegmentedControl aria-label="File view">
-    <SegmentedControl.Button defaultSelected aria-label={'Preview'} leadingIcon={EyeIcon} disabled={true}>
+    <SegmentedControl.Button defaultSelected aria-label={'Preview'} leadingIcon={EyeIcon} disabled>
       Preview
     </SegmentedControl.Button>
     <SegmentedControl.Button aria-label={'Raw'} leadingIcon={FileCodeIcon}>
       Raw
     </SegmentedControl.Button>
-    <SegmentedControl.Button aria-label={'Blame'} leadingIcon={PeopleIcon} disabled={true}>
+    <SegmentedControl.Button aria-label={'Blame'} leadingIcon={PeopleIcon} disabled>
       Blame
     </SegmentedControl.Button>
   </SegmentedControl>
