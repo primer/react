@@ -24,3 +24,29 @@
     width: 500px;
   }
 }
+
+.TextInputWithMargin {
+  margin-bottom: var(--base-size-8);
+}
+
+.TextAreaWithMargin {
+  margin-bottom: var(--base-size-8);
+}
+
+.TextAreaWithMargin textarea {
+  padding: var(--base-size-8);
+}
+
+.EditingTextInput {
+  width: 100%;
+  padding: 2px 7px;
+  text-align: left;
+  color: var(--fgColor-default);
+}
+
+.EditingTextInput input {
+  font-weight: var(--base-text-weight-bold);
+  font-size: var(--text-title-size-large);
+  padding-left: 0;
+  padding-right: 0;
+}
