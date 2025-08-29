@@ -140,7 +140,17 @@ const getValidChildren = (children: React.ReactNode) => {
 
 function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap', hideRoot = true}: BreadcrumbsProps) {
   const containerRef = useRef<HTMLElement>(null)
-  const menuButtonRef = useRef<HTMLDetailsElement>(null)
+
+  const measureMenuButton = useCallback((element: HTMLDetailsElement | null) => {
+    if (element) {
+      const iconButtonElement = element.querySelector('button[data-component="IconButton"]')
+      if (iconButtonElement) {
+        const measuredWidth = (iconButtonElement as HTMLElement).offsetWidth
+        setMenuButtonWidth(measuredWidth)
+      }
+    }
+  }, [])
+
   const [effectiveHideRoot, setEffectiveHideRoot] = useState<boolean>(hideRoot)
   const childArray = useMemo(() => getValidChildren(children), [children])
 
@@ -168,20 +178,6 @@ function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap', hideRo
       setRootItemWidth(listElementArray[0].offsetWidth)
     }
   }, [childArray])
-
-  useEffect(() => {
-    if (menuButtonRef.current) {
-      const iconButtonElement =
-        menuButtonRef.current.querySelector('button[data-component="IconButton"]') ||
-        menuButtonRef.current.querySelector('button')
-      if (iconButtonElement) {
-        const measuredWidth = (iconButtonElement as HTMLElement).offsetWidth
-        if (measuredWidth > 0) {
-          setMenuButtonWidth(measuredWidth)
-        }
-      }
-    }
-  }, [menuItems])
 
   const calculateOverflow = useCallback(
     (availableWidth: number) => {
@@ -281,7 +277,7 @@ function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap', hideRo
     const menuElement = (
       <li className={classes.BreadcrumbsItem} key="breadcrumbs-menu">
         <BreadcrumbsMenuItem
-          ref={menuButtonRef}
+          ref={measureMenuButton}
           items={effectiveMenuItems}
           aria-label={`${effectiveMenuItems.length} more breadcrumb items`}
         />
@@ -310,7 +306,7 @@ function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap', hideRo
       // Show: [root breadcrumb, overflow menu, leaf breadcrumb]
       return [rootElement, menuElement, ...visibleElements]
     }
-  }, [overflow, menuItems, effectiveHideRoot, visibleItems, rootItem, children])
+  }, [overflow, menuItems, effectiveHideRoot, visibleItems, rootItem, children, measureMenuButton])
 
   return (
     <BoxWithFallback
