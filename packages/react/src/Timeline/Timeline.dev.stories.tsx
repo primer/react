@@ -14,3 +14,14 @@ export default {
     'Timeline.Break': Timeline.Break,
   },
 } as Meta<ComponentProps<typeof Timeline>>
+
+export const Default = () => (
+  <Timeline>
+    <Timeline.Item>
+      <Timeline.Badge>
+        <Octicon icon={GitCommitIcon} aria-label="Commit" />
+      </Timeline.Badge>
+      <Timeline.Body>This is a message</Timeline.Body>
+    </Timeline.Item>
+  </Timeline>
+)
