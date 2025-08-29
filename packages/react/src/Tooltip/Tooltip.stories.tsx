@@ -1,9 +1,9 @@
 import type {Meta} from '@storybook/react-vite'
 import {BaseStyles, ThemeProvider, Button} from '..'
-import Box from '../Box'
 import Link from '../Link'
 import {Banner} from '../Banner'
 import Tooltip from './Tooltip'
+import classes from './Tooltip.stories.module.css'
 
 /* Tooltip v1 */
 
@@ -26,7 +26,7 @@ export default {
 
 export const Default = () => (
   <>
-    <Box sx={{mb: 3}}>
+    <div className={classes.BannerContainer}>
       <Banner
         title="Planned for deprecation"
         description={
@@ -40,11 +40,11 @@ export const Default = () => (
         }
         variant="warning"
       />
-    </Box>
-    <Box sx={{p: 5}}>
+    </div>
+    <div className={classes.PaddedContainer}>
       <Tooltip aria-label="Hello, Tooltip!">
         <Button>Hover me</Button>
       </Tooltip>
-    </Box>
+    </div>
   </>
 )
