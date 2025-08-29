@@ -142,7 +142,6 @@ function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap', hideRo
   const containerRef = useRef<HTMLElement>(null)
   const menuButtonRef = useRef<HTMLDetailsElement>(null)
   const [effectiveHideRoot, setEffectiveHideRoot] = useState<boolean>(hideRoot)
-  //let effectiveOverflow = 'wrap'
   const childArray = useMemo(() => getValidChildren(children), [children])
 
   const rootItem = childArray[0]
@@ -153,7 +152,6 @@ function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap', hideRo
   const [menuItems, setMenuItems] = useState<React.ReactElement[]>([])
   const [rootItemWidth, setRootItemWidth] = useState<number>(0)
 
-  // Menu button width with fallback
   const MENU_BUTTON_FALLBACK_WIDTH = 32 // Design system small IconButton
   const [menuButtonWidth, setMenuButtonWidth] = useState(MENU_BUTTON_FALLBACK_WIDTH)
 
@@ -204,7 +202,6 @@ function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap', hideRo
       if (availableWidth > 0 && currentVisibleItemWidths.length > 0) {
         let visibleItemsWidthTotal = calculateVisibleItemsWidth(currentVisibleItemWidths)
 
-        // Add menu button width if we have hidden items
         if (currentMenuItems.length > 0) {
           visibleItemsWidthTotal += MENU_BUTTON_WIDTH
         }
@@ -212,7 +209,6 @@ function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap', hideRo
           overflow === 'menu' &&
           (visibleItemsWidthTotal > availableWidth || currentVisibleItems.length > MIN_VISIBLE_ITEMS)
         ) {
-          // Remove the last visible item
           const itemToHide = currentVisibleItems.slice(0)[0]
           const itemToHideWidth = currentVisibleItemWidths.slice(0)[0]
           currentMenuItems = [...currentMenuItems, itemToHide]
@@ -222,13 +218,10 @@ function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap', hideRo
 
           visibleItemsWidthTotal = calculateVisibleItemsWidth(currentVisibleItemWidths)
 
-          // Add menu button width
           if (currentMenuItems.length > 0) {
             visibleItemsWidthTotal += MENU_BUTTON_WIDTH
           }
 
-          // If hideRoot is false but we still don't fit with root + menu + leaf,
-          // fallback to hideRoot=true behavior (menu + leaf only)
           if (currentVisibleItems.length === 1 && visibleItemsWidthTotal > availableWidth) {
             eHideRoot = true
             break
@@ -266,10 +259,8 @@ function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap', hideRo
 
   useResizeObserver(handleResize, containerRef)
 
-  // Initial overflow calculation for testing and >5 items
   useEffect(() => {
     if (overflow === 'menu' && childArray.length > 5 && menuItems.length === 0) {
-      // Get actual container width from DOM or use default
       const containerWidth = containerRef.current?.offsetWidth || 800
       const result = calculateOverflow(containerWidth)
       setVisibleItems(result.visibleItems)
@@ -278,7 +269,6 @@ function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap', hideRo
     }
   }, [overflow, childArray, calculateOverflow, menuItems.length])
 
-  // Determine final children to render
   const finalChildren = React.useMemo(() => {
     if (overflow === 'wrap' || menuItems.length === 0) {
       return React.Children.map(children, child => <li className={classes.ItemWrapper}>{child}</li>)
@@ -313,7 +303,6 @@ function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap', hideRo
       </li>
     )
 
-    // Position menu based on effective hideRoot setting and visible items
     if (effectiveHideRoot) {
       // Show: [overflow menu, leaf breadcrumb]
       return [menuElement, ...visibleElements]
