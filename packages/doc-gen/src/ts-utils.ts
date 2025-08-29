@@ -1,5 +1,5 @@
 import ts from 'typescript'
-import fs from 'fs'
+import fs from 'node:fs'
 import path from 'path'
 import prettier from 'prettier'
 import signale, {type DefaultMethods} from 'signale'
@@ -231,7 +231,7 @@ function getPropTypeForComponent(
 export function parseTypeInfo(
   docsBasePath: string,
   componentName: string,
-  program: ts.Program = getTSProgram(),
+  program: ts.Program = getTSProgram(docsBasePath),
 ): TSParsedComponentInfo {
   const log = new Signale({
     scope: componentName,
@@ -282,6 +282,31 @@ export function parseTypeInfo(
   }
 }
 
+export function generateJSDocString(tsPropInfo: TSPropInfo, docsProps: DocsPropInfo): string {
+  let newJsDocText = '/**\n'
+  if (docsProps.description) {
+    newJsDocText += ` * ${docsProps.description}\n`
+  }
+  if (docsProps.defaultValue !== undefined && docsProps.defaultValue !== '') {
+    if (tsPropInfo.type === 'boolean' || tsPropInfo.type === 'number') {
+      newJsDocText += ` *\n * @default ${docsProps.defaultValue}\n`
+    } else if (typeof docsProps.defaultValue === 'string') {
+      // Unwrap the default value in case it's wrapped in quotes
+      const unwrapped = docsProps.defaultValue.replace(/^"(.*)"$/, '$1').replace(/^'(.*)'$/, '$1')
+
+      newJsDocText += ` *\n * @default "${unwrapped}"\n`
+    }
+  }
+
+  if (docsProps.deprecated) {
+    newJsDocText += ` * @deprecated\n`
+  }
+
+  newJsDocText += ' */'
+
+  return newJsDocText
+}
+
 export async function updateJSDocsForProp(tsPropInfo: TSPropInfo, docsProps: DocsPropInfo, componentSourceDir: string) {
   const {propSymbol} = tsPropInfo
 
@@ -309,19 +334,7 @@ export async function updateJSDocsForProp(tsPropInfo: TSPropInfo, docsProps: Doc
 
   // Find the JSDoc comment associated with the prop
   const jsDoc = ts.getJSDocCommentsAndTags(declaration).find(ts.isJSDoc)
-
-  let newJsDocText = '/**\n'
-  if (docsProps.description) {
-    newJsDocText += ` * ${docsProps.description}\n`
-  }
-  if (docsProps.defaultValue !== undefined && docsProps.defaultValue !== '') {
-    if (tsPropInfo.type === 'boolean' || tsPropInfo.type === 'number') {
-      newJsDocText += ` *\n * @default ${docsProps.defaultValue}\n`
-    } else {
-      newJsDocText += ` *\n * @default "${docsProps.defaultValue}"\n`
-    }
-  }
-  newJsDocText += ' */'
+  const newJsDocText = generateJSDocString(tsPropInfo, docsProps)
 
   let updatedText: string | undefined
 
@@ -336,14 +349,11 @@ export async function updateJSDocsForProp(tsPropInfo: TSPropInfo, docsProps: Doc
     updatedText = `${text.slice(0, start) + newJsDocText}\n${text.slice(start)}`
   }
 
-  // eslint-disable-next-line no-console
-  console.log(newJsDocText)
-
   if (updatedText) {
     // Run prettier on the file
 
     const prettierConfig = await prettier.resolveConfig(sourceFile.fileName)
     updatedText = await prettier.format(updatedText, {...prettierConfig, filepath: sourceFile.fileName})
-    await fs.promises.writeFile(sourceFile.fileName, updatedText, 'utf-8')
+    fs.writeFileSync(sourceFile.fileName, updatedText, 'utf-8')
   }
 }
