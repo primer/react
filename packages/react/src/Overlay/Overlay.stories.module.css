@@ -39,14 +39,14 @@
 
 .EditingTextInput {
   width: 100%;
-  padding: 2px 7px;
+  padding: var(--base-size-2) var(--base-size-8);
   text-align: left;
   color: var(--fgColor-default);
 }
 
 .EditingTextInput input {
-  font-weight: var(--base-text-weight-bold);
-  font-size: var(--text-title-size-large);
+  font-weight: var(--base-text-weight-semibold);
+  font-size: var(--text-title-size-medium);
   padding-left: 0;
   padding-right: 0;
 }
