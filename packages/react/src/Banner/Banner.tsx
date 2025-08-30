@@ -15,6 +15,7 @@ export type BannerProps = React.ComponentPropsWithoutRef<'section'> & {
    * landmark region
    */
   'aria-label'?: string
+  'aria-labelledby'?: string
 
   /**
    * Provide an optional className to add to the outermost element rendered by
@@ -85,6 +86,7 @@ const labels: Record<BannerVariant, string> = {
 export const Banner = React.forwardRef<HTMLElement, BannerProps>(function Banner(
   {
     'aria-label': label,
+    'aria-labelledby': ariaLabelledby,
     children,
     className,
     description,
@@ -132,6 +134,7 @@ export const Banner = React.forwardRef<HTMLElement, BannerProps>(function Banner
     <section
       {...rest}
       aria-label={label ?? labels[variant]}
+      aria-labelledby={ariaLabelledby ?? title}
       className={clsx(className, classes.Banner)}
       data-dismissible={onDismiss ? '' : undefined}
       data-title-hidden={hideTitle ? '' : undefined}
