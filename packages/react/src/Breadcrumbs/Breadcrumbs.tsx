@@ -21,8 +21,7 @@ const SELECTED_CLASS = 'selected'
 export type BreadcrumbsProps = React.PropsWithChildren<
   {
     className?: string
-    overflow?: 'wrap' | 'menu'
-    hideRoot?: boolean
+    overflow?: 'wrap' | 'menu' | 'menu-with-root'
   } & SxProp
 >
 
@@ -137,7 +136,7 @@ const getValidChildren = (children: React.ReactNode) => {
   return React.Children.toArray(children).filter(child => React.isValidElement(child)) as React.ReactElement[]
 }
 
-function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap', hideRoot = true}: BreadcrumbsProps) {
+function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap'}: BreadcrumbsProps) {
   const overflowMenuEnabled = useFeatureFlag('primer_react_breadcrumbs_overflow_menu')
   const wrappedChildren = React.Children.map(children, child => <li className={classes.ItemWrapper}>{child}</li>)
   const containerRef = useRef<HTMLElement>(null)
@@ -152,6 +151,7 @@ function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap', hideRo
     }
   }, [])
 
+  const hideRoot = overflow === 'menu-with-root'
   const [effectiveHideRoot, setEffectiveHideRoot] = useState<boolean>(hideRoot)
   const childArray = useMemo(() => getValidChildren(children), [children])
 

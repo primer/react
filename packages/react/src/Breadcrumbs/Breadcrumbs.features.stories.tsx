@@ -28,9 +28,9 @@ export const OverflowMenu = () => (
     <Breadcrumbs.Item href="#">Home</Breadcrumbs.Item>
     <Breadcrumbs.Item href="#">Products</Breadcrumbs.Item>
     <Breadcrumbs.Item href="#">Category</Breadcrumbs.Item>
-    <Breadcrumbs.Item href="#">SubcategorySubcategorySubcategorySubcategory</Breadcrumbs.Item>
-    <Breadcrumbs.Item href="#">ItemItemItemItemItemItemItem</Breadcrumbs.Item>
-    <Breadcrumbs.Item href="#">DetailsDetailsDetailsDetailsDetailsDetailsDetails</Breadcrumbs.Item>
+    <Breadcrumbs.Item href="#">Subcategory</Breadcrumbs.Item>
+    <Breadcrumbs.Item href="#">Item</Breadcrumbs.Item>
+    <Breadcrumbs.Item href="#">Details</Breadcrumbs.Item>
     <Breadcrumbs.Item href="#" selected>
       Current Page
     </Breadcrumbs.Item>
@@ -38,7 +38,7 @@ export const OverflowMenu = () => (
 )
 
 export const OverflowMenuShowRoot = () => (
-  <Breadcrumbs overflow="menu" hideRoot={false}>
+  <Breadcrumbs overflow="menu-with-root">
     <Breadcrumbs.Item href="#">github</Breadcrumbs.Item>
     <Breadcrumbs.Item href="#">Teams</Breadcrumbs.Item>
     <Breadcrumbs.Item href="#">Engineering</Breadcrumbs.Item>
