@@ -199,7 +199,7 @@ export const DynamicChildren = () => {
         </Breadcrumbs>
       </div>
 
-      <div style={{marginTop: '16px', fontSize: '12px', color: '#666'}}>
+      <div style={{marginTop: '16px', fontSize: '12px'}}>
         Current items: {items.length} | Try adding/removing items to see how overflow behavior changes
       </div>
     </div>
