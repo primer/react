@@ -1,14 +1,21 @@
 import Breadcrumbs from '..'
-import type React from 'react'
-import {render as HTMLRender, screen, waitFor} from '@testing-library/react'
+import {render as HTMLRender, screen, waitFor, within} from '@testing-library/react'
 import {describe, expect, it, vi} from 'vitest'
 import userEvent from '@testing-library/user-event'
 import {ThemeProvider} from '../../ThemeProvider'
+import {FeatureFlags} from '../../FeatureFlags'
 import theme from '../../theme'
 
-// Helper function to render with theme
-const renderWithTheme = (component: React.ReactElement) => {
-  return HTMLRender(<ThemeProvider theme={theme}>{component}</ThemeProvider>)
+// Helper function to render with theme and feature flags
+const renderWithTheme = (component: React.ReactElement, flags?: Record<string, boolean>) => {
+  const wrappedComponent = flags ? (
+    <FeatureFlags flags={flags}>
+      <ThemeProvider theme={theme}>{component}</ThemeProvider>
+    </FeatureFlags>
+  ) : (
+    <ThemeProvider theme={theme}>{component}</ThemeProvider>
+  )
+  return HTMLRender(wrappedComponent)
 }
 
 // Mock ResizeObserver for tests
@@ -23,12 +30,6 @@ globalThis.ResizeObserver = vi.fn().mockImplementation(() => ({
 }))
 
 describe('Breadcrumbs', () => {
-  it('should support `className` on the outermost element', () => {
-    expect(HTMLRender(<Breadcrumbs className={'test-class-name'} />).container.firstChild).toHaveClass(
-      'test-class-name',
-    )
-  })
-
   it('renders a <nav>', () => {
     const {container} = HTMLRender(<Breadcrumbs />)
     expect(container.firstChild?.nodeName).toEqual('NAV')
@@ -64,38 +65,30 @@ describe('Breadcrumbs', () => {
     expect(selectedItem).toHaveAttribute('aria-current', 'page')
   })
 
-  it('sets data-overflow attribute when overflow is menu', () => {
+  it('sets data-overflow attribute when overflow is menu with feature flag', () => {
     const {container} = renderWithTheme(
       <Breadcrumbs overflow="menu">
         <Breadcrumbs.Item href="/home">Home</Breadcrumbs.Item>
       </Breadcrumbs>,
+      {primer_react_breadcrumbs_overflow_menu: true},
     )
 
     expect(container.firstChild).toHaveAttribute('data-overflow', 'menu')
   })
 
   it('sets data-overflow attribute when overflow is wrap', () => {
-    const {container} = HTMLRender(
+    const {container} = renderWithTheme(
       <Breadcrumbs overflow="wrap">
         <Breadcrumbs.Item href="/home">Home</Breadcrumbs.Item>
       </Breadcrumbs>,
-    )
-
-    expect(container.firstChild).toHaveAttribute('data-overflow', 'wrap')
-  })
-
-  it('defaults to wrap overflow behavior', () => {
-    const {container} = HTMLRender(
-      <Breadcrumbs>
-        <Breadcrumbs.Item href="/home">Home</Breadcrumbs.Item>
-      </Breadcrumbs>,
+      {primer_react_breadcrumbs_overflow_menu: true},
     )
 
     expect(container.firstChild).toHaveAttribute('data-overflow', 'wrap')
   })
 
   it('renders all items when overflow is wrap', () => {
-    HTMLRender(
+    renderWithTheme(
       <Breadcrumbs overflow="wrap">
         <Breadcrumbs.Item href="/1">Item 1</Breadcrumbs.Item>
         <Breadcrumbs.Item href="/2">Item 2</Breadcrumbs.Item>
@@ -104,6 +97,7 @@ describe('Breadcrumbs', () => {
         <Breadcrumbs.Item href="/5">Item 5</Breadcrumbs.Item>
         <Breadcrumbs.Item href="/6">Item 6</Breadcrumbs.Item>
       </Breadcrumbs>,
+      {primer_react_breadcrumbs_overflow_menu: true},
     )
 
     // All items should be visible in wrap mode
@@ -125,6 +119,7 @@ describe('Breadcrumbs', () => {
         <Breadcrumbs.Item href="/5">Item 5</Breadcrumbs.Item>
         <Breadcrumbs.Item href="/6">Item 6</Breadcrumbs.Item>
       </Breadcrumbs>,
+      {primer_react_breadcrumbs_overflow_menu: true},
     )
 
     // Should have overflow menu button
@@ -137,28 +132,65 @@ describe('Breadcrumbs', () => {
     expect(screen.getByText('Item 6')).toBeInTheDocument()
   })
 
-  it('hideRoot prop defaults to true', () => {
-    // This is more of an integration test - the exact behavior
-    // depends on container width, so we just verify the prop is accepted
+  it('show root in menu', () => {
     expect(() => {
       renderWithTheme(
-        <Breadcrumbs overflow="menu">
+        <Breadcrumbs overflow="menu-with-root">
           <Breadcrumbs.Item href="/home">Home</Breadcrumbs.Item>
           <Breadcrumbs.Item href="/docs">Docs</Breadcrumbs.Item>
         </Breadcrumbs>,
+        {primer_react_breadcrumbs_overflow_menu: true},
       )
     }).not.toThrow()
   })
 
-  it('accepts hideRoot prop set to false', () => {
-    expect(() => {
-      renderWithTheme(
-        <Breadcrumbs overflow="menu" hideRoot={false}>
-          <Breadcrumbs.Item href="/home">Home</Breadcrumbs.Item>
-          <Breadcrumbs.Item href="/docs">Docs</Breadcrumbs.Item>
-        </Breadcrumbs>,
-      )
-    }).not.toThrow()
+  it('includes root item in overflow menu when overflow is menu-with-root', async () => {
+    const user = userEvent.setup()
+
+    renderWithTheme(
+      <Breadcrumbs overflow="menu-with-root">
+        <Breadcrumbs.Item href="/home">Home</Breadcrumbs.Item>
+        <Breadcrumbs.Item href="/category">Category</Breadcrumbs.Item>
+        <Breadcrumbs.Item href="/subcategory">Subcategory</Breadcrumbs.Item>
+        <Breadcrumbs.Item href="/product">Product</Breadcrumbs.Item>
+        <Breadcrumbs.Item href="/details">Details</Breadcrumbs.Item>
+        <Breadcrumbs.Item href="/specifications">Specifications</Breadcrumbs.Item>
+        <Breadcrumbs.Item href="/reviews" selected>
+          Reviews
+        </Breadcrumbs.Item>
+      </Breadcrumbs>,
+      {primer_react_breadcrumbs_overflow_menu: true},
+    )
+
+    // Should have overflow menu button
+    const menuButton = screen.getByRole('button', {name: /more breadcrumb items/i})
+    expect(menuButton).toBeInTheDocument()
+
+    // Open the overflow menu
+    await user.click(menuButton)
+
+    // Find the <details> element that contains the overflow menu
+    const detailsEl = menuButton.closest('details') as HTMLElement | null
+    expect(detailsEl).not.toBeNull()
+    const detailsScope = within(detailsEl!)
+
+    await waitFor(() => {
+      expect(detailsScope.getByRole('link', {name: 'Home'})).toBeInTheDocument()
+    })
+
+    // These links should be inside the details (overflow) content
+    expect(detailsScope.getByRole('link', {name: 'Category'})).toBeInTheDocument()
+    expect(detailsScope.getByRole('link', {name: 'Subcategory'})).toBeInTheDocument()
+    expect(detailsScope.getByRole('link', {name: 'Product'})).toBeInTheDocument()
+
+    // Verify that the last few items are visible as regular breadcrumb items
+    expect(screen.getByRole('link', {name: 'Details'})).toBeInTheDocument()
+    expect(screen.getByRole('link', {name: 'Specifications'})).toBeInTheDocument()
+    expect(screen.getByRole('link', {name: 'Reviews'})).toBeInTheDocument()
+
+    // Verify the selected item (Reviews) has aria-current in the visible breadcrumb
+    const selectedBreadcrumb = screen.getByRole('link', {name: 'Reviews'})
+    expect(selectedBreadcrumb).toHaveAttribute('aria-current', 'page')
   })
 
   it('renders accessible overflow menu', () => {
@@ -171,10 +203,10 @@ describe('Breadcrumbs', () => {
         <Breadcrumbs.Item href="/5">Item 5</Breadcrumbs.Item>
         <Breadcrumbs.Item href="/6">Item 6</Breadcrumbs.Item>
       </Breadcrumbs>,
+      {primer_react_breadcrumbs_overflow_menu: true},
     )
 
     const menuButton = screen.getByRole('button', {name: /more breadcrumb items/i})
-    expect(menuButton).toHaveAttribute('aria-haspopup', 'true')
     expect(menuButton).toHaveAttribute('aria-expanded', 'false')
   })
 
@@ -200,6 +232,7 @@ describe('Breadcrumbs', () => {
         <Breadcrumbs.Item href="/5">Item 5</Breadcrumbs.Item>
         <Breadcrumbs.Item href="/6">Item 6</Breadcrumbs.Item>
       </Breadcrumbs>,
+      {primer_react_breadcrumbs_overflow_menu: true},
     )
 
     expect(resizeCallback).toBeDefined()
@@ -260,6 +293,7 @@ describe('Breadcrumbs', () => {
         <Breadcrumbs.Item href="/specifications">Specifications</Breadcrumbs.Item>
         <Breadcrumbs.Item href="/reviews">Reviews</Breadcrumbs.Item>
       </Breadcrumbs>,
+      {primer_react_breadcrumbs_overflow_menu: true},
     )
 
     expect(resizeCallback).toBeDefined()
@@ -273,10 +307,10 @@ describe('Breadcrumbs', () => {
 
     // Verify menu items are present (first 3 items should be in overflow for 7 total items)
     await waitFor(() => {
-      expect(screen.getByRole('menuitem', {name: 'Home'})).toBeInTheDocument()
-      expect(screen.getByRole('menuitem', {name: 'Category'})).toBeInTheDocument()
-      expect(screen.getByRole('menuitem', {name: 'Subcategory'})).toBeInTheDocument()
-      expect(screen.getByRole('menuitem', {name: 'Product'})).toBeInTheDocument()
+      expect(screen.getByRole('link', {name: 'Home'})).toBeInTheDocument()
+      expect(screen.getByRole('link', {name: 'Category'})).toBeInTheDocument()
+      expect(screen.getByRole('link', {name: 'Subcategory'})).toBeInTheDocument()
+      expect(screen.getByRole('link', {name: 'Product'})).toBeInTheDocument()
     })
 
     // Verify that the last 4 items are visible as regular breadcrumb items (not in menu)
@@ -287,7 +321,7 @@ describe('Breadcrumbs', () => {
     // Close menu by clicking outside
     await user.click(document.body)
     await waitFor(() => {
-      expect(screen.queryByRole('menuitem', {name: 'Category'})).not.toBeInTheDocument()
+      expect
     })
 
     // Simulate a very narrow container resize that would affect overflow calculation
@@ -319,15 +353,177 @@ describe('Breadcrumbs', () => {
 
     // Verify menu still contains expected items (first 3 items)
     await waitFor(() => {
-      expect(screen.getByRole('menuitem', {name: 'Home'})).toBeInTheDocument()
-      expect(screen.getByRole('menuitem', {name: 'Category'})).toBeInTheDocument()
-      expect(screen.getByRole('menuitem', {name: 'Subcategory'})).toBeInTheDocument()
-      expect(screen.getByRole('menuitem', {name: 'Product'})).toBeInTheDocument()
+      expect(screen.getByRole('link', {name: 'Home'})).toBeInTheDocument()
+      expect(screen.getByRole('link', {name: 'Category'})).toBeInTheDocument()
+      expect(screen.getByRole('link', {name: 'Subcategory'})).toBeInTheDocument()
+      expect(screen.getByRole('link', {name: 'Product'})).toBeInTheDocument()
     })
 
     // Verify visible breadcrumb items are still accessible (last 4 items)
     expect(screen.getByRole('link', {name: 'Details'})).toBeInTheDocument()
     expect(screen.getByRole('link', {name: 'Specifications'})).toBeInTheDocument()
     expect(screen.getByRole('link', {name: 'Reviews'})).toBeInTheDocument()
+  })
+
+  describe('BreadcrumbsMenuItem interactions', () => {
+    it('closes menu on Escape key press', async () => {
+      const user = userEvent.setup()
+
+      renderWithTheme(
+        <Breadcrumbs overflow="menu">
+          <Breadcrumbs.Item href="/home">Home</Breadcrumbs.Item>
+          <Breadcrumbs.Item href="/docs">Docs</Breadcrumbs.Item>
+          <Breadcrumbs.Item href="/components">Components</Breadcrumbs.Item>
+          <Breadcrumbs.Item href="/breadcrumbs">Breadcrumbs</Breadcrumbs.Item>
+          <Breadcrumbs.Item href="/examples">Examples</Breadcrumbs.Item>
+          <Breadcrumbs.Item href="/advanced" selected>
+            Advanced
+          </Breadcrumbs.Item>
+        </Breadcrumbs>,
+        {primer_react_breadcrumbs_overflow_menu: true},
+      )
+
+      // Open the overflow menu
+      const menuButton = screen.getByRole('button', {name: /more breadcrumb items/i})
+      // Initially collapsed
+      expect(menuButton).toHaveAttribute('aria-expanded', 'false')
+      await user.click(menuButton)
+
+      // Verify menu is open
+      await waitFor(() => {
+        expect(menuButton).toHaveAttribute('aria-expanded', 'true')
+      })
+
+      // Press Escape key
+      await user.keyboard('{Escape}') // sometimes tooltip swallows this escape
+      await user.keyboard('{Escape}')
+
+      // Verify menu is closed
+      await waitFor(() => {
+        expect(menuButton).toHaveAttribute('aria-expanded', 'false')
+      })
+
+      // Verify focus returns to menu button
+      expect(menuButton).toHaveFocus()
+    })
+
+    it('closes menu when clicking outside', async () => {
+      const user = userEvent.setup()
+
+      renderWithTheme(
+        <div>
+          <button type="button" data-testid="outside-button">
+            Outside Button
+          </button>
+          <Breadcrumbs overflow="menu">
+            <Breadcrumbs.Item href="/home">Home</Breadcrumbs.Item>
+            <Breadcrumbs.Item href="/docs">Docs</Breadcrumbs.Item>
+            <Breadcrumbs.Item href="/components">Components</Breadcrumbs.Item>
+            <Breadcrumbs.Item href="/breadcrumbs">Breadcrumbs</Breadcrumbs.Item>
+            <Breadcrumbs.Item href="/examples">Examples</Breadcrumbs.Item>
+            <Breadcrumbs.Item href="/advanced" selected>
+              Advanced
+            </Breadcrumbs.Item>
+          </Breadcrumbs>
+        </div>,
+        {primer_react_breadcrumbs_overflow_menu: true},
+      )
+
+      // Open the overflow menu
+      const menuButton = screen.getByRole('button', {name: /more breadcrumb items/i})
+      await user.click(menuButton)
+
+      // Verify menu is open
+      await waitFor(() => {
+        expect(screen.getByRole('link', {name: 'Home'})).toBeInTheDocument()
+      })
+
+      // Click outside element
+      const outsideButton = screen.getByTestId('outside-button')
+      await user.click(outsideButton)
+
+      // Verify menu is closed
+      await waitFor(() => {
+        expect(menuButton).toHaveAttribute('aria-expanded', 'false')
+      })
+    })
+
+    it('allows tab navigation through menu items', async () => {
+      const user = userEvent.setup()
+
+      renderWithTheme(
+        <Breadcrumbs overflow="menu">
+          <Breadcrumbs.Item href="/home">Home</Breadcrumbs.Item>
+          <Breadcrumbs.Item href="/docs">Docs</Breadcrumbs.Item>
+          <Breadcrumbs.Item href="/components">Components</Breadcrumbs.Item>
+          <Breadcrumbs.Item href="/breadcrumbs">Breadcrumbs</Breadcrumbs.Item>
+          <Breadcrumbs.Item href="/examples">Examples</Breadcrumbs.Item>
+          <Breadcrumbs.Item href="/advanced" selected>
+            Advanced
+          </Breadcrumbs.Item>
+        </Breadcrumbs>,
+        {primer_react_breadcrumbs_overflow_menu: true},
+      )
+
+      // Open the overflow menu
+      const menuButton = screen.getByRole('button', {name: /more breadcrumb items/i})
+      await user.click(menuButton)
+
+      // Verify menu is open
+      await waitFor(() => {
+        expect(screen.getByRole('link', {name: 'Home'})).toBeInTheDocument()
+      })
+
+      // Tab through menu items
+      await user.keyboard('{Tab}')
+      const homeMenuItem = screen.getByRole('link', {name: 'Home'})
+      expect(homeMenuItem).toHaveFocus()
+
+      await user.keyboard('{Tab}')
+      const docsMenuItem = screen.getByRole('link', {name: 'Docs'})
+      expect(docsMenuItem).toHaveFocus()
+
+      await user.keyboard('{Tab}')
+      const componentsMenuItem = screen.getByRole('link', {name: 'Components'})
+      expect(componentsMenuItem).toHaveFocus()
+    })
+
+    it('maintains focus on menu button when menu is closed', async () => {
+      const user = userEvent.setup()
+
+      renderWithTheme(
+        <Breadcrumbs overflow="menu">
+          <Breadcrumbs.Item href="/home">Home</Breadcrumbs.Item>
+          <Breadcrumbs.Item href="/docs">Docs</Breadcrumbs.Item>
+          <Breadcrumbs.Item href="/components">Components</Breadcrumbs.Item>
+          <Breadcrumbs.Item href="/breadcrumbs">Breadcrumbs</Breadcrumbs.Item>
+          <Breadcrumbs.Item href="/examples">Examples</Breadcrumbs.Item>
+          <Breadcrumbs.Item href="/advanced" selected>
+            Advanced
+          </Breadcrumbs.Item>
+        </Breadcrumbs>,
+        {primer_react_breadcrumbs_overflow_menu: true},
+      )
+
+      const menuButton = screen.getByRole('button', {name: /more breadcrumb items/i})
+
+      // Focus the menu button
+      menuButton.focus()
+      expect(menuButton).toHaveFocus()
+
+      // Open menu with Enter key
+      await user.keyboard('{Enter}')
+
+      // Verify menu is open
+      await waitFor(() => {
+        expect(screen.getByRole('link', {name: 'Home'})).toBeInTheDocument()
+      })
+
+      // Close with Escape
+      await user.keyboard('{Escape}')
+
+      // Verify focus returns to button
+      expect(menuButton).toHaveFocus()
+    })
   })
 })

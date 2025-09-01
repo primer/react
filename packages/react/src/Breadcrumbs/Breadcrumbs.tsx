@@ -98,6 +98,7 @@ const BreadcrumbsMenuItem = React.forwardRef<HTMLDetailsElement, BreadcrumbsMenu
           <IconButton
             ref={iconButtonRef}
             aria-label={ariaLabel || `${items.length} more breadcrumb items`}
+            aria-expanded={isOpen ? 'true' : 'false'}
             tooltipDirection="w"
             onClick={handleSummaryClick}
             variant="invisible"
@@ -151,7 +152,7 @@ function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap'}: Bread
     }
   }, [])
 
-  const hideRoot = overflow === 'menu-with-root'
+  const hideRoot = !(overflow === 'menu-with-root')
   const [effectiveHideRoot, setEffectiveHideRoot] = useState<boolean>(hideRoot)
   const childArray = useMemo(() => getValidChildren(children), [children])
 
@@ -208,7 +209,7 @@ function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap'}: Bread
           visibleItemsWidthTotal += MENU_BUTTON_WIDTH
         }
         while (
-          overflow === 'menu' &&
+          (overflow === 'menu' || overflow === 'menu-with-root') &&
           (visibleItemsWidthTotal > availableWidth || currentVisibleItems.length > MIN_VISIBLE_ITEMS)
         ) {
           const itemToHide = currentVisibleItems[0]
@@ -262,7 +263,12 @@ function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap'}: Bread
   useResizeObserver(handleResize, containerRef)
 
   useEffect(() => {
-    if (overflowMenuEnabled && overflow === 'menu' && childArray.length > 5 && menuItems.length === 0) {
+    if (
+      overflowMenuEnabled &&
+      (overflow === 'menu' || overflow === 'menu-with-root') &&
+      childArray.length > 5 &&
+      menuItems.length === 0
+    ) {
       const containerWidth = containerRef.current?.offsetWidth || 800
       const result = calculateOverflow(containerWidth)
       setVisibleItems(result.visibleItems)
@@ -278,6 +284,7 @@ function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap'}: Bread
       }
 
       let effectiveMenuItems = [...menuItems]
+      // In 'menu-with-root' mode, include the root item inside the menu even if it's visible in the breadcrumbs
       if (!effectiveHideRoot) {
         effectiveMenuItems = [...menuItems.slice(1)]
       }
@@ -328,7 +335,9 @@ function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap'}: Bread
       <BreadcrumbsList>{finalChildren}</BreadcrumbsList>
     </BoxWithFallback>
   ) : (
-    <BreadcrumbsList>{wrappedChildren}</BreadcrumbsList>
+    <BoxWithFallback as="nav" className={clsx(className, classes.BreadcrumbsBase)} aria-label="Breadcrumbs" sx={sxProp}>
+      <BreadcrumbsList>{wrappedChildren}</BreadcrumbsList>
+    </BoxWithFallback>
   )
 }
 

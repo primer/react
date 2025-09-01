@@ -10,7 +10,8 @@
   margin-bottom: 0;
 }
 
-[data-overflow='menu'] .BreadcrumbsList {
+[data-overflow='menu'] .BreadcrumbsList,
+[data-overflow='menu-with-root'] .BreadcrumbsList {
   white-space: nowrap;
   display: flex;
   flex-direction: row;
@@ -37,7 +38,8 @@
   }
 }
 
-[data-overflow='menu'] .Item {
+[data-overflow='menu'] .Item,
+[data-overflow='menu-with-root'] .Item {
   display: inline-block;
   font-size: var(--text-body-size-medium);
   color: var(--fgColor-link);
@@ -61,6 +63,7 @@
   list-style: none;
   display: inline-block;
   outline: none;
+  height: 0.5rem;
 }
 
 .MenuSummary::-webkit-details-marker {

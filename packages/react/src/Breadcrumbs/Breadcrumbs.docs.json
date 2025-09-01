@@ -25,17 +25,10 @@
     },
     {
       "name": "overflow",
-      "type": "'wrap' | 'menu'",
+      "type": "'wrap' | 'menu' | 'menu-with-root'",
       "required": false,
-      "description": "How to handle overflow when breadcrumbs don't fit in the container. 'wrap' allows items to wrap to new lines, 'menu' collapses items into an overflow menu.",
+      "description": "How to handle overflow when breadcrumbs don't fit in the container. 'wrap' allows items to wrap to new lines. 'menu' collapses items into an overflow menu. 'menu-with-root' also collapses items into an overflow menu but includes the root (first) breadcrumb in the menu so only the last items remain visible.",
       "defaultValue": "'wrap'"
-    },
-    {
-      "name": "hideRoot",
-      "type": "boolean",
-      "required": false,
-      "description": "When using overflow='menu', whether to prioritize hiding the root (first) item when space is limited. If false, the root item will be kept visible when possible.",
-      "defaultValue": "true"
     },
     {
       "name": "sx",
