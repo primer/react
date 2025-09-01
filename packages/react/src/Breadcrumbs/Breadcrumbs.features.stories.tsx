@@ -187,29 +187,9 @@ export const DynamicChildren = () => {
       </div>
 
       <div>
-        <h4 style={{margin: '0 0 8px 0'}}>Overflow: wrap (default)</h4>
-        <Breadcrumbs overflow="wrap">
-          {items.map((item, index) => (
-            <Breadcrumbs.Item key={item.id} href={item.href} selected={index === items.length - 1}>
-              {item.name}
-            </Breadcrumbs.Item>
-          ))}
-        </Breadcrumbs>
-      </div>
-
-      <div>
-        <h4 style={{margin: '16px 0 8px 0'}}>Overflow: menu</h4>
-        <Breadcrumbs overflow="menu">
-          {items.map((item, index) => (
-            <Breadcrumbs.Item key={item.id} href={item.href} selected={index === items.length - 1}>
-              {item.name}
-            </Breadcrumbs.Item>
-          ))}
-        </Breadcrumbs>
-      </div>
-
-      <div>
-        <h4 style={{margin: '16px 0 8px 0'}}>Overflow: menu</h4>
+        <h4 id="dynamic-breadcrumbs-heading" style={{margin: '0 0 8px 0'}}>
+          Dynamic breadcrumbs
+        </h4>
         <Breadcrumbs overflow="menu-with-root">
           {items.map((item, index) => (
             <Breadcrumbs.Item key={item.id} href={item.href} selected={index === items.length - 1}>
