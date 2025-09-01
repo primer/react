@@ -175,7 +175,7 @@ describe('Breadcrumbs', () => {
     const detailsScope = within(detailsEl!)
 
     await waitFor(() => {
-      expect(detailsScope.getByRole('link', {name: 'Home'})).toBeInTheDocument()
+      expect(screen.getByRole('link', {name: 'Home'})).toBeInTheDocument()
     })
 
     // These links should be inside the details (overflow) content
