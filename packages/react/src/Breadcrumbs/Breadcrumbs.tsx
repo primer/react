@@ -14,7 +14,6 @@ import {useResizeObserver} from '../hooks/useResizeObserver'
 import type {ResizeObserverEntry} from '../hooks/useResizeObserver'
 import {useOnEscapePress} from '../hooks/useOnEscapePress'
 import {useOnOutsideClick} from '../hooks/useOnOutsideClick'
-import {getAnchoredPosition} from '@primer/behaviors'
 
 const SELECTED_CLASS = 'selected'
 
@@ -36,16 +35,24 @@ type BreadcrumbsMenuItemProps = {
 }
 
 const BreadcrumbsMenuItem = React.forwardRef<HTMLDetailsElement, BreadcrumbsMenuItemProps>(
-  ({items, 'aria-label': ariaLabel, ...rest}, detailsRef) => {
+  ({items, 'aria-label': ariaLabel, ...rest}, menuRefCallback) => {
     const [isOpen, setIsOpen] = useState(false)
-    const [menuPosition, setMenuPosition] = useState<{top?: number; left?: number; right?: number}>({})
-
+    const detailsRef = useRef<HTMLDetailsElement | null>(null)
+    const detailsRefCallback = useCallback(
+      (element: HTMLDetailsElement | null) => {
+        detailsRef.current = element
+        if (typeof menuRefCallback === 'function') {
+          menuRefCallback(element)
+        }
+      },
+      [menuRefCallback],
+    )
     const handleSummaryClick = useCallback(
       (event: React.MouseEvent) => {
         // Prevent the button click from bubbling up and interfering with details toggle
         event.preventDefault()
         // Manually toggle the details element
-        if (detailsRef && 'current' in detailsRef && detailsRef.current) {
+        if (detailsRef.current) {
           const newOpenState = !detailsRef.current.open
           detailsRef.current.open = newOpenState
           setIsOpen(newOpenState)
@@ -55,7 +62,7 @@ const BreadcrumbsMenuItem = React.forwardRef<HTMLDetailsElement, BreadcrumbsMenu
     )
 
     const closeOverlay = useCallback(() => {
-      if (detailsRef && 'current' in detailsRef && detailsRef.current) {
+      if (detailsRef.current) {
         detailsRef.current.open = false
         setIsOpen(false)
       }
@@ -67,16 +74,6 @@ const BreadcrumbsMenuItem = React.forwardRef<HTMLDetailsElement, BreadcrumbsMenu
 
     const iconButtonRef = useRef<HTMLButtonElement>(null)
     const menuContainerRef = useRef<HTMLDivElement>(null)
-
-    useEffect(() => {
-      if (isOpen && iconButtonRef.current && menuContainerRef.current) {
-        const {top, left} = getAnchoredPosition(iconButtonRef.current, menuContainerRef.current, {
-          align: 'end',
-          side: 'outside-bottom',
-        })
-        setMenuPosition({top, left})
-      }
-    }, [isOpen])
 
     useOnEscapePress(
       (event: KeyboardEvent) => {
@@ -96,11 +93,12 @@ const BreadcrumbsMenuItem = React.forwardRef<HTMLDetailsElement, BreadcrumbsMenu
     })
 
     return (
-      <Details ref={detailsRef} className={classes.MenuDetails}>
+      <Details ref={detailsRefCallback} className={classes.MenuDetails}>
         <Details.Summary className={classes.MenuSummary} tabIndex={-1}>
           <IconButton
             ref={iconButtonRef}
             aria-label={ariaLabel || `${items.length} more breadcrumb items`}
+            tooltipDirection="w"
             onClick={handleSummaryClick}
             variant="invisible"
             size="small"
@@ -108,7 +106,7 @@ const BreadcrumbsMenuItem = React.forwardRef<HTMLDetailsElement, BreadcrumbsMenu
             {...rest}
           />
         </Details.Summary>
-        <div ref={menuContainerRef} className={classes.MenuOverlay} style={menuPosition}>
+        <div ref={menuContainerRef} className={classes.MenuOverlay}>
           <ActionList>
             {items.map((item, index) => {
               const href = item.props.href
@@ -205,12 +203,12 @@ function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap', hideRo
           overflow === 'menu' &&
           (visibleItemsWidthTotal > availableWidth || currentVisibleItems.length > MIN_VISIBLE_ITEMS)
         ) {
-          const itemToHide = currentVisibleItems.slice(0)[0]
-          const itemToHideWidth = currentVisibleItemWidths.slice(0)[0]
+          const itemToHide = currentVisibleItems[0]
+          const itemToHideWidth = currentVisibleItemWidths[0]
           currentMenuItems = [...currentMenuItems, itemToHide]
           currentMenuItemsWidths = [...currentMenuItemsWidths, itemToHideWidth]
-          currentVisibleItems = [...currentVisibleItems.slice(1)]
-          currentVisibleItemWidths = [...currentVisibleItemWidths.slice(1)]
+          currentVisibleItems = currentVisibleItems.slice(1)
+          currentVisibleItemWidths = currentVisibleItemWidths.slice(1)
 
           visibleItemsWidthTotal = calculateVisibleItemsWidth(currentVisibleItemWidths)
 
@@ -227,8 +225,8 @@ function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap', hideRo
         }
       }
       return {
-        visibleItems: [...currentVisibleItems],
-        menuItems: [...currentMenuItems],
+        visibleItems: currentVisibleItems,
+        menuItems: currentMenuItems,
         effectiveHideRoot: eHideRoot,
       }
     },
