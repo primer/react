@@ -14,6 +14,7 @@ import {useResizeObserver} from '../hooks/useResizeObserver'
 import type {ResizeObserverEntry} from '../hooks/useResizeObserver'
 import {useOnEscapePress} from '../hooks/useOnEscapePress'
 import {useOnOutsideClick} from '../hooks/useOnOutsideClick'
+import {useFeatureFlag} from '../FeatureFlags'
 
 const SELECTED_CLASS = 'selected'
 
@@ -137,6 +138,8 @@ const getValidChildren = (children: React.ReactNode) => {
 }
 
 function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap', hideRoot = true}: BreadcrumbsProps) {
+  const overflowMenuEnabled = useFeatureFlag('primer_react_breadcrumbs_overflow_menu')
+  const wrappedChildren = React.Children.map(children, child => <li className={classes.ItemWrapper}>{child}</li>)
   const containerRef = useRef<HTMLElement>(null)
 
   const measureMenuButton = useCallback((element: HTMLDetailsElement | null) => {
@@ -169,13 +172,18 @@ function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap', hideRo
 
   useEffect(() => {
     const listElement = containerRef.current?.querySelector('ol')
-    if (listElement && listElement.children.length > 0 && listElement.children.length === childArray.length) {
+    if (
+      overflowMenuEnabled &&
+      listElement &&
+      listElement.children.length > 0 &&
+      listElement.children.length === childArray.length
+    ) {
       const listElementArray = Array.from(listElement.children) as HTMLElement[]
       const widths = listElementArray.map(child => child.offsetWidth)
       setChildArrayWidths(widths)
       setRootItemWidth(listElementArray[0].offsetWidth)
     }
-  }, [childArray])
+  }, [childArray, overflowMenuEnabled])
 
   const calculateOverflow = useCallback(
     (availableWidth: number) => {
@@ -235,7 +243,7 @@ function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap', hideRo
 
   const handleResize = useCallback(
     (entries: ResizeObserverEntry[]) => {
-      if (entries[0]) {
+      if (overflowMenuEnabled && entries[0]) {
         const containerWidth = entries[0].contentRect.width
         const result = calculateOverflow(containerWidth)
         if (
@@ -248,65 +256,67 @@ function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap', hideRo
         }
       }
     },
-    [calculateOverflow, effectiveHideRoot, menuItems, visibleItems],
+    [calculateOverflow, effectiveHideRoot, menuItems.length, overflowMenuEnabled, visibleItems.length],
   )
 
   useResizeObserver(handleResize, containerRef)
 
   useEffect(() => {
-    if (overflow === 'menu' && childArray.length > 5 && menuItems.length === 0) {
+    if (overflowMenuEnabled && overflow === 'menu' && childArray.length > 5 && menuItems.length === 0) {
       const containerWidth = containerRef.current?.offsetWidth || 800
       const result = calculateOverflow(containerWidth)
       setVisibleItems(result.visibleItems)
       setMenuItems(result.menuItems)
       setEffectiveHideRoot(result.effectiveHideRoot)
     }
-  }, [overflow, childArray, calculateOverflow, menuItems.length])
+  }, [overflow, childArray, calculateOverflow, menuItems.length, overflowMenuEnabled])
 
   const finalChildren = React.useMemo(() => {
-    if (overflow === 'wrap' || menuItems.length === 0) {
-      return React.Children.map(children, child => <li className={classes.ItemWrapper}>{child}</li>)
+    if (overflowMenuEnabled) {
+      if (overflow === 'wrap' || menuItems.length === 0) {
+        return React.Children.map(children, child => <li className={classes.ItemWrapper}>{child}</li>)
+      }
+
+      let effectiveMenuItems = [...menuItems]
+      if (!effectiveHideRoot) {
+        effectiveMenuItems = [...menuItems.slice(1)]
+      }
+      const menuElement = (
+        <li className={classes.BreadcrumbsItem} key="breadcrumbs-menu">
+          <BreadcrumbsMenuItem
+            ref={measureMenuButton}
+            items={effectiveMenuItems}
+            aria-label={`${effectiveMenuItems.length} more breadcrumb items`}
+          />
+          <ItemSeparator />
+        </li>
+      )
+
+      const visibleElements = visibleItems.map((child, index) => (
+        <li className={classes.BreadcrumbsItem} key={`visible + ${index}`}>
+          {child}
+          <ItemSeparator />
+        </li>
+      ))
+
+      const rootElement = (
+        <li className={classes.BreadcrumbsItem} key={`rootElement`}>
+          {rootItem}
+          <ItemSeparator />
+        </li>
+      )
+
+      if (effectiveHideRoot) {
+        // Show: [overflow menu, leaf breadcrumb]
+        return [menuElement, ...visibleElements]
+      } else {
+        // Show: [root breadcrumb, overflow menu, leaf breadcrumb]
+        return [rootElement, menuElement, ...visibleElements]
+      }
     }
+  }, [overflowMenuEnabled, overflow, menuItems, effectiveHideRoot, measureMenuButton, visibleItems, rootItem, children])
 
-    let effectiveMenuItems = [...menuItems]
-    if (!effectiveHideRoot) {
-      effectiveMenuItems = [...menuItems.slice(1)]
-    }
-    const menuElement = (
-      <li className={classes.BreadcrumbsItem} key="breadcrumbs-menu">
-        <BreadcrumbsMenuItem
-          ref={measureMenuButton}
-          items={effectiveMenuItems}
-          aria-label={`${effectiveMenuItems.length} more breadcrumb items`}
-        />
-        <ItemSeparator />
-      </li>
-    )
-
-    const visibleElements = visibleItems.map((child, index) => (
-      <li className={classes.BreadcrumbsItem} key={`visible + ${index}`}>
-        {child}
-        <ItemSeparator />
-      </li>
-    ))
-
-    const rootElement = (
-      <li className={classes.BreadcrumbsItem} key={`rootElement`}>
-        {rootItem}
-        <ItemSeparator />
-      </li>
-    )
-
-    if (effectiveHideRoot) {
-      // Show: [overflow menu, leaf breadcrumb]
-      return [menuElement, ...visibleElements]
-    } else {
-      // Show: [root breadcrumb, overflow menu, leaf breadcrumb]
-      return [rootElement, menuElement, ...visibleElements]
-    }
-  }, [overflow, menuItems, effectiveHideRoot, visibleItems, rootItem, children, measureMenuButton])
-
-  return (
+  return overflowMenuEnabled ? (
     <BoxWithFallback
       as="nav"
       className={clsx(className, classes.BreadcrumbsBase)}
@@ -317,6 +327,8 @@ function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap', hideRo
     >
       <BreadcrumbsList>{finalChildren}</BreadcrumbsList>
     </BoxWithFallback>
+  ) : (
+    <BreadcrumbsList>{wrappedChildren}</BreadcrumbsList>
   )
 }
 
