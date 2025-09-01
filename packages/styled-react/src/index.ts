@@ -63,9 +63,9 @@ export {
 
   // theming depends on styled-components
   ThemeProvider,
-  merge
-  theme
-  themeGet
-  useColorSchemeVar
-  useTheme
+  merge,
+  theme,
+  themeGet,
+  useColorSchemeVar,
+  useTheme,
 } from '@primer/react'
