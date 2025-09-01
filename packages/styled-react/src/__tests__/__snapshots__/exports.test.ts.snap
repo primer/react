@@ -53,6 +53,12 @@ exports[`@primer/styled-react exports 1`] = `
   "UnderlineNav",
   "Box",
   "sx",
+  "ThemeProvider",
+  "merge",
+  "theme",
+  "themeGet",
+  "useColorSchemeVar",
+  "useTheme",
 ]
 `;
 
