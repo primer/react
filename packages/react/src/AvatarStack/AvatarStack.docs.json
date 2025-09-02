@@ -63,11 +63,6 @@
       "type": "string",
       "description": "Class name for custom styling.",
       "defaultValue": ""
-    },
-    {
-      "name": "sx",
-      "type": "SystemStyleObject",
-      "deprecated": true
     }
   ],
   "subcomponents": []
