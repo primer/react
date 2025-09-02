@@ -5,5 +5,5 @@
     "declaration": true,
     "emitDeclarationOnly": true
   },
-  "exclude": ["vitest.config.ts", "vitest.config.browser.ts", "**/__tests__/**", "**/config/**"]
+  "exclude": ["vitest.config.ts", "vitest.config.browser.ts", "config", "**/*.test.ts", "**/*.test.tsx"]
 }

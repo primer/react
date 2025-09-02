@@ -3,11 +3,11 @@
 exports[`StateLabel > renders children 1`] = `
 <div>
   <span
-    class="sc-gEvEer kMFJqD"
+    class="sc-gEvEer kZGRsh"
   >
     <svg
       aria-label="Issue"
-      class="octicon octicon-issue-opened sc-aXZVg iIIuCH"
+      class="octicon octicon-issue-opened sc-aXZVg fRzBGV prc-StateLabel-Icon-UdR1Y"
       display="inline-block"
       fill="currentColor"
       focusable="false"
@@ -33,11 +33,11 @@ exports[`StateLabel > renders children 1`] = `
 exports[`StateLabel > respects the status prop 1`] = `
 <div>
   <span
-    class="sc-gEvEer kMFJqD"
+    class="sc-gEvEer kZGRsh"
   >
     <svg
       aria-label="Issue"
-      class="octicon octicon-issue-opened sc-aXZVg iIIuCH"
+      class="octicon octicon-issue-opened sc-aXZVg fRzBGV prc-StateLabel-Icon-UdR1Y"
       display="inline-block"
       fill="currentColor"
       focusable="false"
@@ -62,11 +62,11 @@ exports[`StateLabel > respects the status prop 1`] = `
 exports[`StateLabel > respects the status prop 2`] = `
 <div>
   <span
-    class="sc-gEvEer bsjviD"
+    class="sc-gEvEer ccfZZ"
   >
     <svg
       aria-label="Issue"
-      class="octicon octicon-issue-closed sc-aXZVg iIIuCH"
+      class="octicon octicon-issue-closed sc-aXZVg fRzBGV prc-StateLabel-Icon-UdR1Y"
       display="inline-block"
       fill="currentColor"
       focusable="false"
@@ -91,11 +91,11 @@ exports[`StateLabel > respects the status prop 2`] = `
 exports[`StateLabel > respects the status prop 3`] = `
 <div>
   <span
-    class="sc-gEvEer fTounP"
+    class="sc-gEvEer cIcgsx"
   >
     <svg
       aria-label="Issue, not planned"
-      class="octicon octicon-skip sc-aXZVg iIIuCH"
+      class="octicon octicon-skip sc-aXZVg fRzBGV prc-StateLabel-Icon-UdR1Y"
       display="inline-block"
       fill="currentColor"
       focusable="false"
@@ -117,11 +117,11 @@ exports[`StateLabel > respects the status prop 3`] = `
 exports[`StateLabel > respects the status prop 4`] = `
 <div>
   <span
-    class="sc-gEvEer bsjviD"
+    class="sc-gEvEer ccfZZ"
   >
     <svg
       aria-label="Pull request"
-      class="octicon octicon-git-merge sc-aXZVg iIIuCH"
+      class="octicon octicon-git-merge sc-aXZVg fRzBGV prc-StateLabel-Icon-UdR1Y"
       display="inline-block"
       fill="currentColor"
       focusable="false"
@@ -143,11 +143,11 @@ exports[`StateLabel > respects the status prop 4`] = `
 exports[`StateLabel > respects the status prop 5`] = `
 <div>
   <span
-    class="sc-gEvEer kAzWGT"
+    class="sc-gEvEer dDPQZd"
   >
     <svg
       aria-label="Pull request"
-      class="octicon octicon-git-merge-queue sc-aXZVg iIIuCH"
+      class="octicon octicon-git-merge-queue sc-aXZVg fRzBGV prc-StateLabel-Icon-UdR1Y"
       display="inline-block"
       fill="currentColor"
       focusable="false"
@@ -169,11 +169,11 @@ exports[`StateLabel > respects the status prop 5`] = `
 exports[`StateLabel > respects the variant prop 1`] = `
 <div>
   <span
-    class="sc-gEvEer bDjmot"
+    class="sc-gEvEer lpakhT"
   >
     <svg
       aria-label="Issue"
-      class="octicon octicon-issue-opened sc-aXZVg iIIuCH"
+      class="octicon octicon-issue-opened sc-aXZVg fRzBGV prc-StateLabel-Icon-UdR1Y"
       display="inline-block"
       fill="currentColor"
       focusable="false"
@@ -198,11 +198,11 @@ exports[`StateLabel > respects the variant prop 1`] = `
 exports[`StateLabel > respects the variant prop 2`] = `
 <div>
   <span
-    class="sc-gEvEer kMFJqD"
+    class="sc-gEvEer kZGRsh"
   >
     <svg
       aria-label="Issue"
-      class="octicon octicon-issue-opened sc-aXZVg iIIuCH"
+      class="octicon octicon-issue-opened sc-aXZVg fRzBGV prc-StateLabel-Icon-UdR1Y"
       display="inline-block"
       fill="currentColor"
       focusable="false"

@@ -1,9 +1,7 @@
-import type {SxProp} from '../sx'
 import {clsx} from 'clsx'
 import type React from 'react'
 import {type HTMLAttributes} from 'react'
 import classes from './VisuallyHidden.module.css'
-import {BoxWithFallback} from '../internal/components/BoxWithFallback'
 
 /**
  * Provides a component that implements the "visually hidden" technique. This is
@@ -17,14 +15,14 @@ import {BoxWithFallback} from '../internal/components/BoxWithFallback'
  */
 export const VisuallyHidden = ({className, children, ...rest}: VisuallyHiddenProps) => {
   return (
-    <BoxWithFallback as="span" className={clsx(className, classes.VisuallyHidden)} {...rest}>
+    <span className={clsx(className, classes.VisuallyHidden)} {...rest}>
       {children}
-    </BoxWithFallback>
+    </span>
   )
 }
 
 export type VisuallyHiddenProps = React.PropsWithChildren<
   HTMLAttributes<HTMLSpanElement> & {
     className?: string
-  } & SxProp
+  }
 >
