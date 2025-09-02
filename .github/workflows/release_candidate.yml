@@ -68,3 +68,4 @@ jobs:
               description: package.version,
               target_url: `https://unpkg.com/${package.name}@${package.version}/`
             })
+      - uses: ./.github/actions/upload-versions

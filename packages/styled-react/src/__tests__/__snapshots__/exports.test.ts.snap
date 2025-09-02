@@ -2,6 +2,7 @@
 
 exports[`@primer/styled-react exports 1`] = `
 [
+  "ToggleSwitch",
   "ActionList",
   "ActionMenu",
   "Autocomplete",
@@ -12,7 +13,6 @@ exports[`@primer/styled-react exports 1`] = `
   "Checkbox",
   "CheckboxGroup",
   "CircleBadge",
-  "CircleOcticon",
   "CounterLabel",
   "Details",
   "Dialog",
@@ -46,7 +46,6 @@ exports[`@primer/styled-react exports 1`] = `
   "TextInput",
   "TextInputWithTokens",
   "Timeline",
-  "ToggleSwitch",
   "Token",
   "Tooltip",
   "Truncate",
