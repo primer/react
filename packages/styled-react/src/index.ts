@@ -15,7 +15,6 @@ export {
   Checkbox,
   CheckboxGroup,
   CircleBadge,
-  CircleOcticon,
   CounterLabel,
   Details,
   Dialog,
