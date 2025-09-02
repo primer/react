@@ -1,6 +1,6 @@
 import type React from 'react'
 import type {Meta} from '@storybook/react-vite'
-import {FormControl} from '..'
+import {Box, FormControl} from '..'
 import TextInput from '.'
 import {textInputExcludedControlKeys} from '../utils/story-helpers'
 
@@ -11,10 +11,28 @@ export default {
 } as Meta<React.ComponentProps<typeof TextInput>>
 
 export const WithCSS = () => (
-  <form>
+  <Box as="form">
     <FormControl>
       <FormControl.Label>Default label</FormControl.Label>
       <TextInput className="testCustomClassnameBorderColor" />
     </FormControl>
-  </form>
+  </Box>
+)
+
+export const WithSx = () => (
+  <Box as="form">
+    <FormControl>
+      <FormControl.Label>Default label</FormControl.Label>
+      <TextInput sx={{borderColor: 'red'}} />
+    </FormControl>
+  </Box>
+)
+
+export const WithSxAndCSS = () => (
+  <Box as="form">
+    <FormControl>
+      <FormControl.Label>Default label</FormControl.Label>
+      <TextInput sx={{borderColor: 'red'}} className="testCustomClassnameBorderColor" />
+    </FormControl>
+  </Box>
 )

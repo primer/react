@@ -24,29 +24,3 @@
     width: 500px;
   }
 }
-
-.TextInputWithMargin {
-  margin-bottom: var(--base-size-8);
-}
-
-.TextAreaWithMargin {
-  margin-bottom: var(--base-size-8);
-}
-
-.TextAreaWithMargin textarea {
-  padding: var(--base-size-8);
-}
-
-.EditingTextInput {
-  width: 100%;
-  padding: var(--base-size-2) var(--base-size-8);
-  text-align: left;
-  color: var(--fgColor-default);
-}
-
-.EditingTextInput input {
-  font-weight: var(--base-text-weight-semibold);
-  font-size: var(--text-title-size-medium);
-  padding-left: 0;
-  padding-right: 0;
-}
