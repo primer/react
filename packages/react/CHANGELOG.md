@@ -1,5 +1,54 @@
 # @primer/react
 
+## 38.0.0-rc.1
+
+### Major Changes
+
+- [#6627](https://github.com/primer/react/pull/6627) [`6111046`](https://github.com/primer/react/commit/61110467f759c6680797c56d72deb9f86bba4dcd) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - Update ToggleSwitch component to no longer support sx, add sx wrapper to @primer/styled-react.
+
+- [#6607](https://github.com/primer/react/pull/6607) [`133d5a5`](https://github.com/primer/react/commit/133d5a5e74b85811d2bb8b536836d5c16680efe1) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove sx prop support from the VisuallyHidden component
+
+- [#6622](https://github.com/primer/react/pull/6622) [`247b3f7`](https://github.com/primer/react/commit/247b3f75c49e16b883e8f0528a036fc62d274ee6) Thanks [@francinelucca](https://github.com/francinelucca)! - BREAKING CHANGE: remove AvatarToken
+  BREAKING CHANGE: make Caret component internal only
+
+- [#6595](https://github.com/primer/react/pull/6595) [`de5a4b7`](https://github.com/primer/react/commit/de5a4b7297a44d0dd1ad175ea8d740f570bc27e6) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - Remove AvatarPair component from codebase
+
+- [#6656](https://github.com/primer/react/pull/6656) [`3a778b9`](https://github.com/primer/react/commit/3a778b97b93a0fe2c54f585d668cd70d30c0ca56) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - Update StateLabel component to no longer support sx.
+
+- [#6610](https://github.com/primer/react/pull/6610) [`65fc87d`](https://github.com/primer/react/commit/65fc87dc35652c5b228fc7e22d7644645ede2c89) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove sx prop support from the Stack component
+
+- [#6613](https://github.com/primer/react/pull/6613) [`3ab94c5`](https://github.com/primer/react/commit/3ab94c5e8853855c8533c8403fd0d0203ab087d6) Thanks [@llastflowers](https://github.com/llastflowers)! - Update SplitPageLayout component to no longer support sx
+
+## 38.0.0-rc.0
+
+### Major Changes
+
+- [#6602](https://github.com/primer/react/pull/6602) [`d6d25dc`](https://github.com/primer/react/commit/d6d25dc9263119103138156158f74b408d300dd2) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove sx support from SubNav component
+
+### Minor Changes
+
+- [#6542](https://github.com/primer/react/pull/6542) [`f4ded58`](https://github.com/primer/react/commit/f4ded585c4f6188390cdc3243018fe63af310633) Thanks [@TylerJDev](https://github.com/TylerJDev)! - CircleOcticon: Deprecate component
+
+- [#6535](https://github.com/primer/react/pull/6535) [`e6c7614`](https://github.com/primer/react/commit/e6c7614d7aaa420ce8518ad54af62e6409fea9dd) Thanks [@hussam-i-am](https://github.com/hussam-i-am)! - fix(Label): Add missing ref for Label without sx prop
+
+- [#6468](https://github.com/primer/react/pull/6468) [`1f531cb`](https://github.com/primer/react/commit/1f531cb5c0fb87fc20ab8ce4321367d3f24ab734) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - Deprecate AvatarPair component - move to @primer/react/deprecated
+
+### Patch Changes
+
+- [#6592](https://github.com/primer/react/pull/6592) [`bdac258`](https://github.com/primer/react/commit/bdac258a6f610da974ef4b8c25ccef876946fc79) Thanks [@langermank](https://github.com/langermank)! - Add support for `loading` footer buttons in ConfirmationDialog
+
+- [#6509](https://github.com/primer/react/pull/6509) [`3b3cf52`](https://github.com/primer/react/commit/3b3cf52f267da4f44123032bf388dc5ff9f61cf8) Thanks [@joshblack](https://github.com/joshblack)! - Update layout for Banner to address extra spacing below description when no actions are included
+
+- [#6431](https://github.com/primer/react/pull/6431) [`0c21301`](https://github.com/primer/react/commit/0c21301ba0c7b1d0272258f8fe59026beab83c95) Thanks [@langermank](https://github.com/langermank)! - Add `border` and `background-color` tokens to `ProgressBar` CSS, which increases contrast for high contrast themes
+
+- [#6603](https://github.com/primer/react/pull/6603) [`f781f7f`](https://github.com/primer/react/commit/f781f7f5434be4c482a8f7819c73c258b93604ce) Thanks [@langermank](https://github.com/langermank)! - Only show focus outline for `Radio` if `focus-visible`
+
+- [#6604](https://github.com/primer/react/pull/6604) [`77a60e7`](https://github.com/primer/react/commit/77a60e7775987ee05b07cd8235ff4a26230b12e2) Thanks [@joshblack](https://github.com/joshblack)! - Add @github/mini-throttle as dependency to project to help with bundle output
+
+- [#6478](https://github.com/primer/react/pull/6478) [`77c8739`](https://github.com/primer/react/commit/77c873936b195915c3f364d01a5b1bb15b0ac1a0) Thanks [@llastflowers](https://github.com/llastflowers)! - Update Select component to correctly pass className to TextInputWraper for styling purposes
+
+- [#6429](https://github.com/primer/react/pull/6429) [`661eae0`](https://github.com/primer/react/commit/661eae0a28ee99228400e6c99a483af0523beeb8) Thanks [@devinmcinnis](https://github.com/devinmcinnis)! - Anchor elements render as interactive elements in TokenBase
+
 ## 37.31.0
 
 ### Minor Changes
