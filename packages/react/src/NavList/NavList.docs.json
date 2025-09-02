@@ -133,6 +133,12 @@
           "defaultValue": ""
         },
         {
+          "name": "hideDividier",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "When true, the divider between the group and the next item will not be rendered."
+        },
+        {
           "name": "title",
           "type": "string",
           "description": "The text that gets rendered as the group's heading. Alternatively, you can pass the `NavList.GroupHeading` component as a child of `NavList.Group`.\nIf both `title` and `NavList.GroupHeading` are passed, `NavList.GroupHeading` will be rendered as the heading."
@@ -265,3 +271,4 @@
     }
   ]
 }
+
