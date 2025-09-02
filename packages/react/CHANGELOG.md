@@ -1,5 +1,24 @@
 # @primer/react
 
+## 38.0.0-rc.1
+
+### Major Changes
+
+- [#6627](https://github.com/primer/react/pull/6627) [`6111046`](https://github.com/primer/react/commit/61110467f759c6680797c56d72deb9f86bba4dcd) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - Update ToggleSwitch component to no longer support sx, add sx wrapper to @primer/styled-react.
+
+- [#6607](https://github.com/primer/react/pull/6607) [`133d5a5`](https://github.com/primer/react/commit/133d5a5e74b85811d2bb8b536836d5c16680efe1) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove sx prop support from the VisuallyHidden component
+
+- [#6622](https://github.com/primer/react/pull/6622) [`247b3f7`](https://github.com/primer/react/commit/247b3f75c49e16b883e8f0528a036fc62d274ee6) Thanks [@francinelucca](https://github.com/francinelucca)! - BREAKING CHANGE: remove AvatarToken
+  BREAKING CHANGE: make Caret component internal only
+
+- [#6595](https://github.com/primer/react/pull/6595) [`de5a4b7`](https://github.com/primer/react/commit/de5a4b7297a44d0dd1ad175ea8d740f570bc27e6) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - Remove AvatarPair component from codebase
+
+- [#6656](https://github.com/primer/react/pull/6656) [`3a778b9`](https://github.com/primer/react/commit/3a778b97b93a0fe2c54f585d668cd70d30c0ca56) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - Update StateLabel component to no longer support sx.
+
+- [#6610](https://github.com/primer/react/pull/6610) [`65fc87d`](https://github.com/primer/react/commit/65fc87dc35652c5b228fc7e22d7644645ede2c89) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove sx prop support from the Stack component
+
+- [#6613](https://github.com/primer/react/pull/6613) [`3ab94c5`](https://github.com/primer/react/commit/3ab94c5e8853855c8533c8403fd0d0203ab087d6) Thanks [@llastflowers](https://github.com/llastflowers)! - Update SplitPageLayout component to no longer support sx
+
 ## 38.0.0-rc.0
 
 ### Major Changes
