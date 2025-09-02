@@ -205,7 +205,7 @@ export const LabelWrap = () => {
 }
 
 export const InactiveButtonWithTooltip = () => (
-  <Tooltip text="Action unavailable: an error occurred while loading respository permissions" direction="n">
+  <Tooltip text="Action unavailable: an error occurred while loading repository permissions" direction="n">
     <Button inactive>Review changes</Button>
   </Tooltip>
 )
