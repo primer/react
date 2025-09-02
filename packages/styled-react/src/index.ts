@@ -14,7 +14,6 @@ export {
   Button,
   Checkbox,
   CheckboxGroup,
-  CircleOcticon,
   CounterLabel,
   Details,
   Dialog,
