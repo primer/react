@@ -2,23 +2,21 @@ import type {MouseEventHandler} from 'react'
 import React, {useCallback, useEffect} from 'react'
 import styled, {css} from 'styled-components'
 import {variant} from 'styled-system'
-import Box from '../Box'
+import {clsx} from 'clsx'
 import Spinner from '../Spinner'
-import Text from '../Text'
 import {get} from '../constants'
 import {useProvidedStateOrCreate, useId} from '../hooks'
-import type {BetterSystemStyleObject, SxProp} from '../sx'
-import sx from '../sx'
 import getGlobalFocusStyles from '../internal/utils/getGlobalFocusStyles'
 import VisuallyHidden from '../_VisuallyHidden'
 import type {CellAlignment} from '../DataTable/column'
 import {AriaStatus} from '../live-region'
 import useSafeTimeout from '../hooks/useSafeTimeout'
+import classes from './ToggleSwitch.module.css'
 
 const TRANSITION_DURATION = '80ms'
 const EASE_OUT_QUAD_CURVE = 'cubic-bezier(0.5, 1, 0.89, 1)'
 
-export interface ToggleSwitchProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'>, SxProp {
+export interface ToggleSwitchProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> {
   /** The id of the DOM node that labels the switch */
   ['aria-labelledby']: string
   /** Uncontrolled - whether the switch is turned on */
@@ -67,7 +65,7 @@ type SwitchButtonProps = {
   disabled?: boolean
   checked?: boolean
   size?: ToggleSwitchProps['size']
-} & SxProp
+}
 
 type InnerIconProps = {size?: ToggleSwitchProps['size']}
 
@@ -188,7 +186,6 @@ const SwitchButton = styled.button<SwitchButtonProps>`
     }
   }}
 
-  ${sx}
   ${sizeVariants}
 `
 const ToggleKnob = styled.div<{checked?: boolean; 'aria-disabled': React.AriaAttributes['aria-disabled']}>`
@@ -231,11 +228,6 @@ const ToggleKnob = styled.div<{checked?: boolean; 'aria-disabled': React.AriaAtt
   }}
 `
 
-const hiddenTextStyles: BetterSystemStyleObject = {
-  visibility: 'hidden',
-  height: 0,
-}
-
 const ToggleSwitch = React.forwardRef<HTMLButtonElement, React.PropsWithChildren<ToggleSwitchProps>>(
   function ToggleSwitch(props, ref) {
     const {
@@ -252,7 +244,7 @@ const ToggleSwitch = React.forwardRef<HTMLButtonElement, React.PropsWithChildren
       statusLabelPosition = 'start',
       loadingLabelDelay = 2000,
       loadingLabel = 'Loading',
-      sx: sxProp,
+      className,
       ...rest
     } = props
     const isControlled = typeof checked !== 'undefined'
@@ -296,13 +288,7 @@ const ToggleSwitch = React.forwardRef<HTMLButtonElement, React.PropsWithChildren
     if (ariaDescribedby) switchButtonDescribedBy = `${switchButtonDescribedBy} ${ariaDescribedby}`
 
     return (
-      <Box
-        display="inline-flex"
-        alignItems="center"
-        flexDirection={statusLabelPosition === 'start' ? 'row' : 'row-reverse'}
-        sx={sxProp}
-        {...rest}
-      >
+      <div className={clsx(classes.ToggleSwitch, className)} data-status-label-position={statusLabelPosition} {...rest}>
         <VisuallyHidden>
           <AriaStatus announceOnShow id={loadingLabelId}>
             {isLoadingLabelVisible && loadingLabel}
@@ -310,21 +296,20 @@ const ToggleSwitch = React.forwardRef<HTMLButtonElement, React.PropsWithChildren
         </VisuallyHidden>
 
         {loading ? <Spinner size="small" srText={null} /> : null}
-        <Text
-          color={acceptsInteraction ? 'fg.default' : 'fg.muted'}
-          fontSize={size === 'small' ? 0 : 1}
-          mx={2}
+        <span
+          className={classes.StatusText}
+          data-size={size}
+          data-disabled={!acceptsInteraction}
           aria-hidden="true"
-          sx={{position: 'relative', cursor: acceptsInteraction ? 'pointer' : 'not-allowed'}}
           onClick={handleToggleClick}
         >
-          <Box textAlign="right" sx={isOn ? null : hiddenTextStyles}>
+          <div className={classes.StatusTextItem} data-hidden={!isOn}>
             On
-          </Box>
-          <Box textAlign="right" sx={isOn ? hiddenTextStyles : null}>
+          </div>
+          <div className={classes.StatusTextItem} data-hidden={isOn}>
             Off
-          </Box>
-        </Text>
+          </div>
+        </span>
         <SwitchButton
           ref={ref}
           type={buttonType}
@@ -336,39 +321,17 @@ const ToggleSwitch = React.forwardRef<HTMLButtonElement, React.PropsWithChildren
           size={size}
           aria-disabled={!acceptsInteraction}
         >
-          <Box aria-hidden="true" display="flex" alignItems="center" width="100%" height="100%" overflow="hidden">
-            <Box
-              flexGrow={1}
-              flexShrink={0}
-              flexBasis="50%"
-              color={acceptsInteraction ? 'switchTrack.checked.fg' : 'switchTrack.checked.disabledFg'}
-              lineHeight="0"
-              sx={{
-                transform: `translateX(${isOn ? '0' : '-100%'})`,
-                transitionProperty: 'transform',
-                transitionDuration: TRANSITION_DURATION,
-              }}
-            >
+          <div aria-hidden="true" className={classes.IconContainer}>
+            <div className={classes.IconBox} data-type="on" data-checked={isOn} data-disabled={!acceptsInteraction}>
               <LineIcon size={size} />
-            </Box>
-            <Box
-              flexGrow={1}
-              flexShrink={0}
-              flexBasis="50%"
-              color={acceptsInteraction ? 'switchTrack.fg' : 'switchTrack.disabledFg'}
-              lineHeight="0"
-              sx={{
-                transform: `translateX(${isOn ? '100%' : '0'})`,
-                transitionProperty: 'transform',
-                transitionDuration: TRANSITION_DURATION,
-              }}
-            >
+            </div>
+            <div className={classes.IconBox} data-type="off" data-checked={isOn} data-disabled={!acceptsInteraction}>
               <CircleIcon size={size} />
-            </Box>
-          </Box>
+            </div>
+          </div>
           <ToggleKnob aria-hidden="true" aria-disabled={!acceptsInteraction} checked={isOn} />
         </SwitchButton>
-      </Box>
+      </div>
     )
   },
 )
