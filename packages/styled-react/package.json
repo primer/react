@@ -1,6 +1,6 @@
 {
   "name": "@primer/styled-react",
-  "version": "1.0.0-rc.0",
+  "version": "1.0.0-rc.1",
   "type": "module",
   "exports": {
     ".": {
@@ -28,7 +28,7 @@
   },
   "devDependencies": {
     "@babel/preset-typescript": "^7.27.1",
-    "@primer/react": "^38.0.0-rc.0",
+    "@primer/react": "^38.0.0-rc.1",
     "@rollup/plugin-babel": "^6.0.4",
     "@types/react": "18.3.11",
     "@types/react-dom": "18.3.1",
@@ -43,7 +43,7 @@
     "typescript": "^5.9.2"
   },
   "peerDependencies": {
-    "@primer/react": "38.0.0-rc.0",
+    "@primer/react": "38.0.0-rc.1",
     "@types/react": "18.x || 19.x",
     "@types/react-dom": "18.x || 19.x",
     "@types/react-is": "18.x || 19.x",
