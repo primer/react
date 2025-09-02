@@ -40,14 +40,6 @@ const scenarios = matrix({
       id: 'components-selectpanel-dev--with-css',
       name: 'With Css',
     },
-    {
-      id: 'components-selectpanel-dev--with-sx',
-      name: 'With Sx',
-    },
-    {
-      id: 'components-selectpanel-dev--with-sx-and-css',
-      name: 'With Sx and Css',
-    },
   ],
 })
 

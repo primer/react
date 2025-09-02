@@ -15,9 +15,8 @@ import styled from 'styled-components'
 import {variant} from 'styled-system'
 import {get} from '../constants'
 import Octicon from '../Octicon'
-import type {SxProp} from '../sx'
-import sx from '../sx'
 import type {ComponentProps} from '../utils/types'
+import classes from './StateLabel.module.css'
 
 const octiconMap = {
   issueOpened: IssueOpenedIcon,
@@ -134,7 +133,7 @@ const sizeVariants = variant({
 type StyledStateLabelBaseProps = {
   variant?: 'small' | 'normal'
   status: keyof typeof octiconMap
-} & SxProp
+}
 
 const StateLabelBase = styled.span<StyledStateLabelBaseProps>`
   display: inline-flex;
@@ -146,7 +145,6 @@ const StateLabelBase = styled.span<StyledStateLabelBaseProps>`
   border-radius: ${get('radii.3')};
   ${colorVariants};
   ${sizeVariants};
-  ${sx};
 `
 
 export type StateLabelProps = ComponentProps<typeof StateLabelBase>
@@ -164,7 +162,7 @@ function StateLabel({children, status, variant: variantProp = 'normal', ...rest}
           // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
           icon={octiconMap[status] || QuestionIcon}
           aria-label={labelMap[status]}
-          sx={{mr: 1}}
+          className={classes.Icon}
         />
       )}
       {children}
