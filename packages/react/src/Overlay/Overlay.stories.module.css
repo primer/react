@@ -31,6 +31,9 @@
 
 .FormTextarea {
   margin-bottom: var(--base-size-8);
+}
+
+.FormTextarea textarea {
   padding: var(--base-size-8);
 }
 
@@ -38,8 +41,8 @@
   width: 100%;
   padding-top: var(--base-size-4);
   padding-bottom: var(--base-size-4);
-  padding-left: var(--controlStack-small-gap);
-  padding-right: var(--controlStack-small-gap);
+  padding-left: var(--base-size-2);
+  padding-right: var(--base-size-2);
   text-align: left;
   font-weight: var(--base-text-weight-semibold);
   font-size: var(--text-title-size-large);
