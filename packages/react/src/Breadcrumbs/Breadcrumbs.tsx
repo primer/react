@@ -9,6 +9,7 @@ import {BoxWithFallback} from '../internal/components/BoxWithFallback'
 import Details from '../Details'
 import {ActionList} from '../ActionList'
 import {IconButton} from '../Button/IconButton'
+import {Tooltip} from '../TooltipV2'
 import {KebabHorizontalIcon} from '@primer/octicons-react'
 import {useResizeObserver} from '../hooks/useResizeObserver'
 import type {ResizeObserverEntry} from '../hooks/useResizeObserver'
@@ -94,19 +95,19 @@ const BreadcrumbsMenuItem = React.forwardRef<HTMLDetailsElement, BreadcrumbsMenu
 
     return (
       <Details ref={detailsRefCallback} className={classes.MenuDetails}>
-        <Details.Summary className={classes.MenuSummary} tabIndex={-1}>
+        <Tooltip text={ariaLabel || `${items.length} more breadcrumb items`} direction={'e'}>
           <IconButton
+            as="summary"
             ref={iconButtonRef}
             aria-label={ariaLabel || `${items.length} more breadcrumb items`}
             aria-expanded={isOpen ? 'true' : 'false'}
-            tooltipDirection="w"
             onClick={handleSummaryClick}
             variant="invisible"
             size="small"
             icon={KebabHorizontalIcon}
             {...rest}
           />
-        </Details.Summary>
+        </Tooltip>
         <div ref={menuContainerRef} className={classes.MenuOverlay}>
           <ActionList>
             {items.map((item, index) => {

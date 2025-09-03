@@ -42,7 +42,7 @@
 [data-overflow='menu-with-root'] .Item {
   display: inline-block;
   font-size: var(--text-body-size-medium);
-  color: var(--fgColor-link);
+  color: var(--fgColor-default);
   text-decoration: none;
   padding-inline: var(--base-size-6);
   padding-block: var(--base-size-4);
@@ -50,24 +50,12 @@
 
   &:hover {
     background: var(--control-transparent-bgColor-hover);
+    text-decoration: none;
   }
 
   &:focus {
-    box-shadow: none;
-    outline: 2px solid var(--focus-outlineColor, var(--color-accent-fg));
-    outline-offset: -2px;
+    @mixin focusOutline;
   }
-}
-
-.MenuSummary {
-  list-style: none;
-  display: inline-block;
-  outline: none;
-  height: 0.5rem;
-}
-
-.MenuSummary::-webkit-details-marker {
-  display: none;
 }
 
 .MenuDetails {
@@ -75,24 +63,33 @@
   display: inline-block;
 }
 
-.MenuDetails summary {
+summary {
   list-style: none;
   cursor: pointer;
   outline: none;
 }
 
-.MenuDetails summary::-webkit-details-marker {
+summary::-webkit-details-marker {
   display: none;
 }
 
 .MenuOverlay {
   position: absolute;
   z-index: 1;
-  box-shadow: var(--shadow-resting-medium);
+  box-shadow: var(--shadow-resting-small);
   border-radius: var(--borderRadius-large);
   background-color: var(--overlay-bgColor);
   list-style: none;
-  width: max-content;
+  min-width: var(--overlay-width-xsmall);
+  max-height: 100vh;
+  max-width: var(--overlay-width-small);
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .MenuOverlay {
+    animation: overlay-appear 200ms cubic-bezier(0.33, 1, 0.68, 1);
+  }
 }
 
 .ItemSeparator {
@@ -107,7 +104,6 @@
 .ItemWrapper {
   display: inline-block;
   font-size: var(--text-body-size-medium);
-  white-space: nowrap;
   list-style: none;
 
   &::after {
