@@ -28,7 +28,7 @@ const sizeStyles = ({size, variant = 'medium'}: StyledCircleBadgeProps) => {
 
 /**
  * @deprecated This component is deprecated.
- * Replace component with specific icon imports from `@primer/octicons-react` and customized styling.)
+ * Replace component with specific icon imports from `@primer/octicons-react` and customized styling.
  */
 const CircleBadge = styled.div<StyledCircleBadgeProps>`
   display: ${({inline = false}) => (inline ? 'inline-flex' : 'flex')};
@@ -43,7 +43,7 @@ const CircleBadge = styled.div<StyledCircleBadgeProps>`
 
 /**
  * @deprecated This component is deprecated.
- * Replace component with specific icon imports from `@primer/octicons-react` and customized styling.)
+ * Replace component with specific icon imports from `@primer/octicons-react` and customized styling.
  */
 const CircleBadgeIcon = styled(Octicon)`
   height: auto;
