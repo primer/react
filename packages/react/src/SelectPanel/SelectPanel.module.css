@@ -238,3 +238,7 @@
   inset: 0;
   background-color: var(--overlay-backdrop-bgColor);
 }
+
+.TextInput {
+  margin: var(--base-size-8);
+}

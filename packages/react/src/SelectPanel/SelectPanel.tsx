@@ -656,7 +656,7 @@ function Panel({
 
   const extendedTextInputProps: Partial<TextInputProps> = useMemo(() => {
     return {
-      sx: {m: 2},
+      className: classes.TextInput,
       contrast: true,
       leadingVisual: SearchIcon,
       'aria-label': inputLabel,
