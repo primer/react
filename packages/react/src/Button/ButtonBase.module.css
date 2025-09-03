@@ -255,8 +255,8 @@
   /* Default Variant */
 
   &:where([data-variant='default']) {
-    color: var(--button-default-fgColor-rest);
-    background-color: var(--button-default-bgColor-rest);
+    color: var(--fgColor-done);
+    background-color: var(--bgColor-done-muted);
     box-shadow: var(--button-default-shadow-resting);
 
     &[aria-expanded='true'] {
@@ -294,8 +294,8 @@
   /* Primary variant */
 
   &:where([data-variant='primary']) {
-    color: var(--button-primary-fgColor-rest);
-    background-color: var(--button-primary-bgColor-rest);
+    color: var(--fgColor-done);
+    background-color: var(--bgColor-done-muted);
     border-color: var(--button-primary-borderColor-rest);
     box-shadow: var(--shadow-resting-small);
 
