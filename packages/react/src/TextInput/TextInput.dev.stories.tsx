@@ -11,28 +11,10 @@ export default {
 } as Meta<React.ComponentProps<typeof TextInput>>
 
 export const WithCSS = () => (
-  <Box as="form">
+  <form>
     <FormControl>
       <FormControl.Label>Default label</FormControl.Label>
       <TextInput className="testCustomClassnameBorderColor" />
     </FormControl>
-  </Box>
-)
-
-export const WithSx = () => (
-  <Box as="form">
-    <FormControl>
-      <FormControl.Label>Default label</FormControl.Label>
-      <TextInput sx={{borderColor: 'red'}} />
-    </FormControl>
-  </Box>
-)
-
-export const WithSxAndCSS = () => (
-  <Box as="form">
-    <FormControl>
-      <FormControl.Label>Default label</FormControl.Label>
-      <TextInput sx={{borderColor: 'red'}} className="testCustomClassnameBorderColor" />
-    </FormControl>
-  </Box>
+  </form>
 )

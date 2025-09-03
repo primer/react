@@ -24,3 +24,23 @@
     width: 500px;
   }
 }
+
+.FormInput {
+  margin-bottom: var(--base-size-8);
+}
+
+.FormTextarea {
+  margin-bottom: var(--base-size-8);
+  padding: var(--base-size-8);
+}
+
+.EditableTitle {
+  width: 100%;
+  padding-top: var(--base-size-4);
+  padding-bottom: var(--base-size-4);
+  padding-left: var(--controlStack-small-gap);
+  padding-right: var(--controlStack-small-gap);
+  text-align: left;
+  font-weight: var(--base-text-weight-semibold);
+  font-size: var(--text-title-size-large);
+}
