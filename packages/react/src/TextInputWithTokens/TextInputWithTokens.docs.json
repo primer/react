@@ -1,7 +1,7 @@
 {
   "id": "text_input_with_tokens",
   "name": "TextInputWithTokens",
-  "status": "alpha",
+  "status": "deprecated",
   "a11yReviewed": "2025-01-08",
   "stories": [
     {

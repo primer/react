@@ -42,3 +42,8 @@ export type {TabNavProps, TabNavLinkProps} from '../TabNav'
 export {default as Tooltip} from '../Tooltip/Tooltip'
 export type {TooltipProps} from '../Tooltip/Tooltip'
 // end of v37.0.0
+
+// Deprecated in v38.0.0
+export {default as TextInputWithTokens} from '../TextInputWithTokens'
+export type {TextInputWithTokensProps} from '../TextInputWithTokens'
+// end of v38.0.0
