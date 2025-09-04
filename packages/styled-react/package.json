@@ -1,23 +1,23 @@
 {
   "name": "@primer/styled-react",
   "version": "1.0.0-rc.1",
+  "type": "commonjs",
   "main": "lib/index.js",
-  "module": "lib-esm/index.js",
+  "module": "lib-esm/index.mjs",
   "exports": {
     ".": {
-      "import": "./lib-esm/index.js",
+      "import": "./lib-esm/index.mjs",
       "require": "./lib/index.js"
     },
     "./deprecated": {
-      "import": "./lib-esm/deprecated.js",
+      "import": "./lib-esm/deprecated.mjs",
       "require": "./lib/deprecated.js"
     },
     "./experimental": {
-      "import": "./lib-esm/experimental.js",
+      "import": "./lib-esm/experimental.mjs",
       "require": "./lib/experimental.js"
     }
   },
-  "typings": "lib/index.d.ts",
   "files": [
     "README.md",
     "lib",
