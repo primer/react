@@ -1,5 +1,5 @@
 import type {Meta} from '@storybook/react-vite'
-import {Button, Link, Text, StateLabel, BranchName, Box} from '..'
+import {Button, Link, Text, StateLabel, BranchName} from '..'
 import {ArrowRightIcon} from '@primer/octicons-react'
 
 import {PageHeader} from '../PageHeader'
@@ -20,7 +20,7 @@ const setViewportParamToNarrow = {
   },
 }
 export const Webhooks = () => (
-  <Box sx={{padding: 3}}>
+  <div style={{padding: 'var(--base-size-12)'}}>
     <PageHeader role="banner" aria-label="Webhooks">
       <PageHeader.ContextArea>
         <PageHeader.ParentLink href="http://github.com">Repository settings</PageHeader.ParentLink>
@@ -39,7 +39,7 @@ export const Webhooks = () => (
         </PageHeader.Actions>
       </PageHeader.TitleArea>
     </PageHeader>
-  </Box>
+  </div>
 )
 
 export const WebhooksOnNarrowViewport = () => {
@@ -49,7 +49,7 @@ export const WebhooksOnNarrowViewport = () => {
 WebhooksOnNarrowViewport.parameters = setViewportParamToNarrow
 
 export const PullRequestPage = () => (
-  <Box sx={{padding: 3}}>
+  <div style={{padding: 'var(--base-size-12)'}}>
     <PageHeader role="banner" aria-label="Add Hidden utility component">
       <PageHeader.ContextArea>
         <PageHeader.ParentLink href="http://github.com">Pull requests</PageHeader.ParentLink>
@@ -83,7 +83,7 @@ export const PullRequestPage = () => (
         </Hidden>
       </PageHeader.Description>
     </PageHeader>
-  </Box>
+  </div>
 )
 
 export const PullRequestPageOnNarrowViewport = () => {

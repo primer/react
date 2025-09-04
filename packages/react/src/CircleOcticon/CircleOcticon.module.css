@@ -1,0 +1,20 @@
+.CircleOcticon {
+  /* this is set in the component */
+  --circleOcticon-size: ;
+
+  overflow: hidden;
+  border: 0;
+  border-radius: var(--borderRadius-full);
+}
+
+.CircleOcticonInner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.CircleOcticon,
+.CircleOcticonInner {
+  width: var(--circleOcticon-size);
+  height: var(--circleOcticon-size);
+}
