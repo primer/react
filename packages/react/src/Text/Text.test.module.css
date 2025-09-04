@@ -1,0 +1,65 @@
+/* CSS classes for Text component tests */
+
+.boldText {
+  font-weight: 700;
+}
+
+.normalWeight {
+  font-weight: 400;
+}
+
+.italicText {
+  font-style: italic;
+}
+
+.normalStyle {
+  font-style: normal;
+}
+
+.monoFont {
+  font-family: 'SFMono-Regular', 'Consolas', 'Liberation Mono', 'Menlo', 'Courier', monospace;
+}
+
+.largeText {
+  font-size: 2em;
+}
+
+.extraLargeText {
+  font-size: 100px;
+}
+
+.smallFont {
+  font-size: 12px;
+}
+
+.mediumFont {
+  font-size: 16px;
+}
+
+.condensedLine {
+  line-height: 1.25;
+}
+
+.defaultLine {
+  line-height: 1.5;
+}
+
+.responsiveFont {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  .responsiveFont {
+    font-size: 16px;
+  }
+}
+
+.responsiveLine {
+  line-height: 1.25;
+}
+
+@media (min-width: 768px) {
+  .responsiveLine {
+    line-height: 1.5;
+  }
+}

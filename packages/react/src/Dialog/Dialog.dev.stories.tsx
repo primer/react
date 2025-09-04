@@ -3,6 +3,7 @@ import {useState, useCallback, useRef} from 'react'
 import {Text, Button} from '..'
 import type {DialogProps, DialogWidth, DialogHeight} from './Dialog'
 import {Dialog} from './Dialog'
+import classes from './Dialog.stories.module.css'
 
 /* Dialog Version 2 */
 
@@ -12,7 +13,7 @@ export default {
 
 const lipsum = (
   <>
-    <Text sx={{fontSize: 1, marginBlockStart: 0}} as="p">
+    <Text className={classes.SmallParagraphText} as="p">
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sollicitudin mauris maximus elit sagittis, nec
       lobortis ligula elementum. Nam iaculis, urna nec lobortis posuere, eros urna venenatis eros, vel accumsan turpis
       nunc vitae enim. Maecenas et lorem lectus. Vivamus iaculis tortor eget ante placerat, nec posuere nisl tincidunt.
@@ -22,7 +23,7 @@ const lipsum = (
       luctus tempus posuere.
     </Text>
 
-    <Text sx={{fontSize: 1, marginBlockStart: 0}} as="p">
+    <Text className={classes.SmallParagraphText} as="p">
       Curabitur scelerisque bibendum faucibus. Duis rhoncus nunc est, at pharetra eros tristique a. Nam sodales turpis
       lectus, quis faucibus felis fermentum in. Curabitur vel velit vel eros laoreet pharetra. Aenean in facilisis
       sapien, eu porttitor ex. Donec ultrices ac arcu ut lobortis. Pellentesque vitae rutrum orci. Etiam pretium et enim

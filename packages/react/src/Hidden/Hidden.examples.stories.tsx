@@ -4,6 +4,7 @@ import {ArrowRightIcon} from '@primer/octicons-react'
 
 import {PageHeader} from '../PageHeader'
 import {Hidden} from '.'
+import classes from './Hidden.examples.stories.module.css'
 
 export default {
   title: 'Experimental/Components/Hidden/Examples',
@@ -60,7 +61,7 @@ export const PullRequestPage = () => (
       <PageHeader.Description>
         <StateLabel status="pullOpened">Open</StateLabel>
         <Hidden when={['narrow']}>
-          <Text sx={{fontSize: 1, color: 'fg.muted'}}>
+          <Text className={classes.SmallMutedText}>
             <Link href="#" muted sx={{fontWeight: 'bold'}}>
               broccolinisoup
             </Link>{' '}
@@ -75,7 +76,7 @@ export const PullRequestPage = () => (
           </Text>
         </Hidden>
         <Hidden when={['regular', 'wide']}>
-          <Text sx={{fontSize: 1, color: 'fg.muted'}}>
+          <Text className={classes.SmallMutedText}>
             <BranchName href="#">main</BranchName>
             <ArrowRightIcon />
             <BranchName href="#">page-header-initial</BranchName>

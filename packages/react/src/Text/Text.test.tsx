@@ -1,6 +1,7 @@
 import {Text} from '..'
 import {render} from '@testing-library/react'
 import {describe, it, expect} from 'vitest'
+import testClasses from './Text.test.module.css'
 
 describe('Text', () => {
   it('renders a <span> by default', () => {
@@ -28,27 +29,27 @@ describe('Text', () => {
     expect(container.firstChild).toHaveAttribute('data-testid', 'text-element')
   })
 
-  it('respects fontWeight', () => {
-    const {container} = render(<Text fontWeight="bold">Bold text</Text>)
+  it('applies bold font weight with CSS class', () => {
+    const {container} = render(<Text className={testClasses.boldText}>Bold text</Text>)
     const textElement = container.firstChild as HTMLElement
     expect(getComputedStyle(textElement).fontWeight).toBe('700')
   })
 
-  it('respects fontWeight normal', () => {
-    const {container} = render(<Text fontWeight="normal">Normal text</Text>)
+  it('applies normal font weight with CSS class', () => {
+    const {container} = render(<Text className={testClasses.normalWeight}>Normal text</Text>)
     const textElement = container.firstChild as HTMLElement
     expect(getComputedStyle(textElement).fontWeight).toBe('400')
   })
 
-  it('respects the "fontStyle" prop', () => {
-    const {container} = render(<Text fontStyle="italic">Italic text</Text>)
+  it('applies italic font style with CSS class', () => {
+    const {container} = render(<Text className={testClasses.italicText}>Italic text</Text>)
     const textElement = container.firstChild as HTMLElement
     expect(getComputedStyle(textElement).fontStyle).toBe('italic')
   })
 
-  it('respects fontStyle normal', () => {
+  it('applies normal font style with CSS class', () => {
     const {container} = render(
-      <Text as="i" fontStyle="normal">
+      <Text as="i" className={testClasses.normalStyle}>
         Not italic
       </Text>,
     )
@@ -56,54 +57,58 @@ describe('Text', () => {
     expect(getComputedStyle(textElement).fontStyle).toBe('normal')
   })
 
-  it('respects fontFamily="mono"', () => {
-    const {container} = render(<Text fontFamily="mono">Monospace text</Text>)
+  it('applies monospace font family with CSS class', () => {
+    const {container} = render(<Text className={testClasses.monoFont}>Monospace text</Text>)
     const textElement = container.firstChild as HTMLElement
     const fontFamily = getComputedStyle(textElement).fontFamily
     expect(fontFamily).toContain('mono')
   })
 
-  it('respects other values for fontSize', () => {
-    const {container} = render(<Text fontSize="2em">Large text</Text>)
+  it('applies large font size with CSS class', () => {
+    const {container} = render(<Text className={testClasses.largeText}>Large text</Text>)
     const textElement = container.firstChild as HTMLElement
     expect(getComputedStyle(textElement).fontSize).toBe('32px')
   })
 
-  it('respects numeric fontSize values', () => {
-    const {container} = render(<Text fontSize={100}>Very large text</Text>)
+  it('applies extra large font size with CSS class', () => {
+    const {container} = render(<Text className={testClasses.extraLargeText}>Very large text</Text>)
     const textElement = container.firstChild as HTMLElement
     expect(getComputedStyle(textElement).fontSize).toBe('100px')
   })
 
-  it('applies theme fontSize values', () => {
-    // Test different fontSize values from the theme
-    const fontSizes = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-    for (const size of fontSizes) {
-      const {container} = render(<Text fontSize={size}>Text</Text>)
+  it('applies different font sizes with CSS classes', () => {
+    // Test different fontSize values using CSS classes
+    const fontSizeClasses = [testClasses.smallFont, testClasses.mediumFont]
+    for (const fontClass of fontSizeClasses) {
+      const {container} = render(<Text className={fontClass}>Text</Text>)
       const textElement = container.firstChild as HTMLElement
       expect(textElement).toBeInTheDocument()
+      expect(textElement).toHaveClass(fontClass)
     }
   })
 
-  it('applies theme lineHeight values', () => {
-    // Test different lineHeight values
-    const lineHeights = ['condensed', 'condensedUltra', 'default']
-    for (const lineHeight of lineHeights) {
-      const {container} = render(<Text lineHeight={lineHeight}>Text</Text>)
+  it('applies different line heights with CSS classes', () => {
+    // Test different lineHeight values using CSS classes
+    const lineHeightClasses = [testClasses.condensedLine, testClasses.defaultLine]
+    for (const lineClass of lineHeightClasses) {
+      const {container} = render(<Text className={lineClass}>Text</Text>)
       const textElement = container.firstChild as HTMLElement
       expect(textElement).toBeInTheDocument()
+      expect(textElement).toHaveClass(lineClass)
     }
   })
 
-  it('supports responsive fontSize arrays', () => {
-    const {container} = render(<Text fontSize={[1, 2]}>Responsive text</Text>)
+  it('supports responsive font size with CSS classes', () => {
+    const {container} = render(<Text className={testClasses.responsiveFont}>Responsive text</Text>)
     const textElement = container.firstChild as HTMLElement
     expect(textElement).toBeInTheDocument()
+    expect(textElement).toHaveClass(testClasses.responsiveFont)
   })
 
-  it('supports responsive lineHeight arrays', () => {
-    const {container} = render(<Text lineHeight={['condensed', 'default']}>Responsive text</Text>)
+  it('supports responsive line height with CSS classes', () => {
+    const {container} = render(<Text className={testClasses.responsiveLine}>Responsive text</Text>)
     const textElement = container.firstChild as HTMLElement
     expect(textElement).toBeInTheDocument()
+    expect(textElement).toHaveClass(testClasses.responsiveLine)
   })
 })

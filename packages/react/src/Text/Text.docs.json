@@ -41,12 +41,7 @@
       "name": "as",
       "defaultValue": "'span'",
       "type": "React.ElementType"
-    },
-    {
-      "name": "sx",
-      "type": "SystemStyleObject",
-      "deprecated": true
-    },
+    }, 
     {
       "name": "size",
       "type": "'large' | 'medium' | 'small'"
