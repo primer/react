@@ -19,9 +19,3 @@
   outline: 2px solid var(--focus-outlineColor, var(--color-accent-emphasis));
   outline-offset: -2px;
 }
-
-.TruncatedText {
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}

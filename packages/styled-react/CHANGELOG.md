@@ -1,5 +1,20 @@
 # @primer/styled-react
 
+## 1.0.0-rc.1
+
+### Minor Changes
+
+- [#6627](https://github.com/primer/react/pull/6627) [`6111046`](https://github.com/primer/react/commit/61110467f759c6680797c56d72deb9f86bba4dcd) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - Update ToggleSwitch component to no longer support sx, add sx wrapper to @primer/styled-react.
+
+- [#6612](https://github.com/primer/react/pull/6612) [`7ad9b81`](https://github.com/primer/react/commit/7ad9b81ac39252438761376cfe8d064294062ff0) Thanks [@joshblack](https://github.com/joshblack)! - Add all components from @primer/react as exports to package
+
+### Patch Changes
+
+- [#6649](https://github.com/primer/react/pull/6649) [`4e1c740`](https://github.com/primer/react/commit/4e1c7409eda128daf9e4f226553699dd0651c843) Thanks [@joshblack](https://github.com/joshblack)! - Update the types output for the `@primer/styled-react` package so that the paths resolve correctly
+
+- Updated dependencies [[`6111046`](https://github.com/primer/react/commit/61110467f759c6680797c56d72deb9f86bba4dcd), [`133d5a5`](https://github.com/primer/react/commit/133d5a5e74b85811d2bb8b536836d5c16680efe1), [`247b3f7`](https://github.com/primer/react/commit/247b3f75c49e16b883e8f0528a036fc62d274ee6), [`de5a4b7`](https://github.com/primer/react/commit/de5a4b7297a44d0dd1ad175ea8d740f570bc27e6), [`3a778b9`](https://github.com/primer/react/commit/3a778b97b93a0fe2c54f585d668cd70d30c0ca56), [`65fc87d`](https://github.com/primer/react/commit/65fc87dc35652c5b228fc7e22d7644645ede2c89), [`3ab94c5`](https://github.com/primer/react/commit/3ab94c5e8853855c8533c8403fd0d0203ab087d6)]:
+  - @primer/react@38.0.0-rc.1
+
 ## 1.0.0-rc.0
 
 ### Patch Changes

@@ -23,7 +23,7 @@
     "cssnano": "^7.0.7",
     "postcss": "^8.4.41",
     "postcss-custom-properties-fallback": "^1.0.2",
-    "postcss-mixins": "^11.0.1",
-    "typescript": "^5.8.2"
+    "postcss-mixins": "^12.1.2",
+    "typescript": "^5.9.2"
   }
 }

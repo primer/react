@@ -50,6 +50,8 @@ jobs:
         run: npm run lint:css
       - name: Lint markdown
         run: npm run lint:md
+      - name: Lint npm packages
+        run: npx turbo lint:npm
 
   test:
     runs-on: ubuntu-latest
@@ -73,7 +75,7 @@ jobs:
       - name: Build
         run: npm run build
       - name: Run tests defined in vitest
-        uses: docker://mcr.microsoft.com/playwright:v1.53.2-jammy
+        uses: docker://mcr.microsoft.com/playwright:v1.55.0-jammy
         with:
           args: npm test
 

@@ -1,17 +1,17 @@
 import {TriangleDownIcon} from '@primer/octicons-react'
 import type {Meta} from '@storybook/react-vite'
 import type React from 'react'
-import {useState} from 'react'
-import {clsx} from 'clsx'
+import {useState, useEffect, useRef} from 'react'
 
 import {Button} from '../Button'
 import {SelectPanel} from '.'
-import type {ItemInput} from '../deprecated/ActionList/List'
+import type {ItemInput} from '.'
 import FormControl from '../FormControl'
 import Select from '../Select/Select'
 import type {SelectPanelSecondaryAction} from './SelectPanel'
-import classes from './SelectPanel.dev.stories.module.css'
 
+import classes from './SelectPanel.dev.stories.module.css'
+        
 const meta: Meta<typeof SelectPanel> = {
   title: 'Components/SelectPanel/Dev',
   component: SelectPanel,
@@ -105,148 +105,6 @@ export const WithCss = () => {
         message={selectedItemsSortedFirst.length === 0 ? NoResultsMessage(filter) : undefined}
       />
     </FormControl>
-  )
-}
-
-export const WithSx = () => {
-  const [selected, setSelected] = useState<ItemInput[]>(items.slice(1, 3))
-  const [filter, setFilter] = useState('')
-  const filteredItems = items.filter(item => item.text?.toLowerCase().startsWith(filter.toLowerCase()))
-  // design guidelines say to sort selected items first
-  const selectedItemsSortedFirst = filteredItems.sort((a, b) => {
-    const aIsSelected = selected.some(selectedItem => selectedItem.text === a.text)
-    const bIsSelected = selected.some(selectedItem => selectedItem.text === b.text)
-    if (aIsSelected && !bIsSelected) return -1
-    if (!aIsSelected && bIsSelected) return 1
-    return 0
-  })
-  const [open, setOpen] = useState(false)
-
-  return (
-    <FormControl>
-      <FormControl.Label>Labels</FormControl.Label>
-      <SelectPanel
-        title="Select labels"
-        placeholder="Select labels" // button text when no items are selected
-        subtitle="Use labels to organize issues and pull requests"
-        renderAnchor={({children, ...anchorProps}) => (
-          <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
-            {children}
-          </Button>
-        )}
-        open={open}
-        onOpenChange={setOpen}
-        items={selectedItemsSortedFirst}
-        selected={selected}
-        onSelectedChange={setSelected}
-        onFilterChange={setFilter}
-        className={classes.TimesNewRomanFont}
-        message={selectedItemsSortedFirst.length === 0 ? NoResultsMessage(filter) : undefined}
-      />
-    </FormControl>
-  )
-}
-
-export const WithSxAndCSS = () => {
-  const [selected, setSelected] = useState<ItemInput[]>(items.slice(1, 3))
-  const [filter, setFilter] = useState('')
-  const filteredItems = items.filter(item => item.text?.toLowerCase().startsWith(filter.toLowerCase()))
-  // design guidelines say to sort selected items first
-  const selectedItemsSortedFirst = filteredItems.sort((a, b) => {
-    const aIsSelected = selected.some(selectedItem => selectedItem.text === a.text)
-    const bIsSelected = selected.some(selectedItem => selectedItem.text === b.text)
-    if (aIsSelected && !bIsSelected) return -1
-    if (!aIsSelected && bIsSelected) return 1
-    return 0
-  })
-  const [open, setOpen] = useState(false)
-
-  return (
-    <FormControl>
-      <FormControl.Label>Labels</FormControl.Label>
-      <SelectPanel
-        title="Select labels"
-        placeholder="Select labels" // button text when no items are selected
-        subtitle="Use labels to organize issues and pull requests"
-        renderAnchor={({children, ...anchorProps}) => (
-          <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
-            {children}
-          </Button>
-        )}
-        open={open}
-        onOpenChange={setOpen}
-        items={selectedItemsSortedFirst}
-        selected={selected}
-        onSelectedChange={setSelected}
-        onFilterChange={setFilter}
-        className={clsx(classes.TimesNewRomanFont, 'testCustomClassnameMono')}
-        message={selectedItemsSortedFirst.length === 0 ? NoResultsMessage(filter) : undefined}
-      />
-    </FormControl>
-  )
-}
-
-const simpleItems = [
-  {leadingVisual: getColorCircle('#a2eeef'), text: 'enhancement', id: 1},
-  {leadingVisual: getColorCircle('#d73a4a'), text: 'bug', id: 2},
-  {leadingVisual: getColorCircle('#0cf478'), text: 'good first issue', id: 3},
-  {leadingVisual: getColorCircle('#ffd78e'), text: 'design', id: 4},
-  {leadingVisual: getColorCircle('#ff0000'), text: 'blocker', id: 5},
-  {leadingVisual: getColorCircle('#a4f287'), text: 'backend', id: 6},
-  {leadingVisual: getColorCircle('#8dc6fc'), text: 'frontend', id: 7},
-]
-
-// onCancel is optional with variant=anchored, but required with variant=modal
-type ParamProps =
-  | {variant: 'anchored'; onCancel?: () => void; secondaryAction?: SelectPanelSecondaryAction}
-  | {variant: 'modal'; onCancel: () => void; secondaryAction?: SelectPanelSecondaryAction}
-
-const SingleSelectParams = ({variant, onCancel, secondaryAction}: ParamProps) => {
-  const [selected, setSelected] = useState<ItemInput | undefined>(simpleItems[0])
-  const [filter, setFilter] = useState('')
-  const filteredItems = simpleItems.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
-  const [open, setOpen] = useState(false)
-
-  // Only the variant prop changes but Typescript doesn't easily understand that
-  return variant === 'anchored' ? (
-    <SelectPanel
-      renderAnchor={({children, ...anchorProps}) => (
-        <Button trailingAction={TriangleDownIcon} {...anchorProps}>
-          {children ?? 'Select Labels'}
-        </Button>
-      )}
-      placeholder="Select labels"
-      open={open}
-      onOpenChange={setOpen}
-      items={filteredItems}
-      selected={selected}
-      onSelectedChange={setSelected}
-      onFilterChange={setFilter}
-      width="medium"
-      message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}
-      onCancel={onCancel}
-      secondaryAction={secondaryAction}
-    />
-  ) : (
-    <SelectPanel
-      renderAnchor={({children, ...anchorProps}) => (
-        <Button trailingAction={TriangleDownIcon} {...anchorProps}>
-          {children ?? 'Select Labels'}
-        </Button>
-      )}
-      placeholder="Select labels"
-      open={open}
-      onOpenChange={setOpen}
-      items={filteredItems}
-      selected={selected}
-      onSelectedChange={setSelected}
-      onFilterChange={setFilter}
-      width="medium"
-      message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}
-      onCancel={onCancel}
-      secondaryAction={secondaryAction}
-      variant="modal"
-    />
   )
 }
 
@@ -393,6 +251,69 @@ export const AllVariants = () => {
           ))}
         </tbody>
       </table>
+    </>
+  )
+}
+
+const NUMBER_OF_ITEMS = 500
+const lotsOfItems = Array.from({length: NUMBER_OF_ITEMS}, (_, index) => {
+  return {
+    id: index,
+    text: `Item ${index}`,
+    description: `Description ${index}`,
+    leadingVisual: getColorCircle('#a2eeef'),
+  }
+})
+
+export const LotsOfItems = () => {
+  const [selected, setSelected] = useState<ItemInput[]>([])
+  const [filter, setFilter] = useState('')
+  const filteredItems = lotsOfItems.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
+  const [open, setOpen] = useState(false)
+  const timeBeforeOpen = useRef<number>()
+  const timeAfterOpen = useRef<number>()
+  const [timeTakenToOpen, setTimeTakenToOpen] = useState<number>()
+
+  const onOpenChange = () => {
+    timeBeforeOpen.current = performance.now()
+    setOpen(!open)
+  }
+
+  useEffect(() => {
+    if (open) {
+      timeAfterOpen.current = performance.now()
+      if (timeBeforeOpen.current) setTimeTakenToOpen(timeAfterOpen.current - timeBeforeOpen.current)
+    }
+  }, [open])
+
+  return (
+    <>
+      <p>
+        Time taken to render {NUMBER_OF_ITEMS} items: {timeTakenToOpen || '(click "Select Labels" to open)'}
+      </p>
+
+      <FormControl>
+        <FormControl.Label>Labels</FormControl.Label>
+        <SelectPanel
+          title="Select labels"
+          placeholder="Select labels"
+          subtitle="Use labels to organize issues and pull requests"
+          renderAnchor={({children, ...anchorProps}) => (
+            <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
+              {children}
+            </Button>
+          )}
+          open={open}
+          onOpenChange={onOpenChange}
+          items={filteredItems}
+          selected={selected}
+          onSelectedChange={setSelected}
+          onFilterChange={setFilter}
+          width="medium"
+          height="large"
+          message={filteredItems.length === 0 ? NoResultsMessage(filter) : undefined}
+        />
+      </FormControl>
     </>
   )
 }
