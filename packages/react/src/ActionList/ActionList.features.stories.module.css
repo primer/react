@@ -1,0 +1,15 @@
+.BoxWithMaxWidth {
+  max-width: 300px;
+}
+
+.HeadingLarge {
+  font-size: var(--text-title-size-medium);
+  margin-left: var(--base-size-16);
+  margin-right: var(--base-size-16);
+}
+
+.HeadingSmall {
+  font-size: var(--text-body-size-medium);
+  margin-left: var(--base-size-16);
+  margin-right: var(--base-size-16);
+}

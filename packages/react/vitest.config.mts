@@ -25,6 +25,5 @@ export default defineConfig({
     name: '@primer/react (node)',
     include: ['src/__tests__/exports.test.ts', 'src/__tests__/storybook.test.tsx'],
     environment: 'node',
-    setupFiles: ['./config/vitest/setup.ts'],
   },
 })

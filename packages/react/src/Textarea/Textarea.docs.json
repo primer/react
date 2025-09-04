@@ -2,7 +2,7 @@
   "id": "textarea",
   "name": "Textarea",
   "status": "alpha",
-  "a11yReviewed": false,
+  "a11yReviewed": "2025-01-08",
   "stories": [
     {
       "id": "components-textarea--default"
@@ -97,6 +97,16 @@
       "name": "className",
       "type": "string | undefined",
       "description": "The className to apply to the wrapper element"
+    },
+    {
+      "name": "minHeight",
+      "type": "number",
+      "description": "The minimum height of the textarea"
+    },
+    {
+      "name": "maxHeight",
+      "type": "number",
+      "description": "The maximum height of the textarea"
     }
   ],
   "subcomponents": []

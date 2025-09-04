@@ -558,6 +558,7 @@ function Panel({
         return {
           ...item,
           role: 'option',
+          id: item.id,
           selected: 'selected' in item && item.selected === undefined ? undefined : isItemCurrentlySelected(item),
           onAction: (itemFromAction, event) => {
             item.onAction?.(itemFromAction, event)
@@ -864,8 +865,6 @@ function Panel({
             // than the Overlay (which would break scrolling the items)
             sx={sx}
             className={clsx(className, classes.FilteredActionList)}
-            // needed to explicitly enable announcements for deprecated FilteredActionList, we can remove when we fully remove the deprecated version
-            announcementsEnabled
           />
           {footer ? (
             <div className={classes.Footer}>{footer}</div>

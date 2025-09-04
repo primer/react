@@ -1,7 +1,7 @@
 import type {Meta, StoryObj} from '@storybook/react-vite'
 import {Stack} from '../Stack'
 import type {ResponsiveValue} from '../hooks/useResponsiveValue'
-import type {InputType} from '@storybook/csf'
+import type {InputType} from 'storybook/internal/csf'
 
 type Story = StoryObj<typeof Stack>
 

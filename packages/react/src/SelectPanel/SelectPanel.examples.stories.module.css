@@ -1,0 +1,21 @@
+/* CSS Module for SelectPanel examples stories */
+
+.ColorCircle {
+  width: 14px;
+  height: 14px;
+  border-radius: var(--borderRadius-full);
+  margin: auto;
+  border-width: var(--borderWidth-thin);
+  border-style: solid;
+}
+
+.CustomActionListItem {
+  margin-left: var(--base-size-8);
+  margin-right: var(--base-size-8);
+}
+
+.CustomActionListItem[data-is-active-descendant='activated-directly'] {
+  background-color: transparent;
+  outline: 2px solid var(--focus-outlineColor, var(--color-accent-emphasis));
+  outline-offset: -2px;
+}

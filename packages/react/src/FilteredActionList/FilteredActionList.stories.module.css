@@ -1,0 +1,14 @@
+.FilteredActionListContainer {
+  border: var(--borderWidth-thin) solid;
+  padding: var(--base-size-8);
+}
+
+.ColorCircle {
+  display: block;
+  width: 14px;
+  height: 14px;
+  border-radius: var(--borderRadius-large);
+  margin: auto;
+  border: var(--borderWidth-thin) solid;
+  box-sizing: border-box;
+}

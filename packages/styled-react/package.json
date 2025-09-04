@@ -1,0 +1,70 @@
+{
+  "name": "@primer/styled-react",
+  "version": "1.0.0-rc.1",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./deprecated": {
+      "types": "./dist/deprecated.d.ts",
+      "default": "./dist/deprecated.js"
+    },
+    "./experimental": {
+      "types": "./dist/experimental.d.ts",
+      "default": "./dist/experimental.js"
+    }
+  },
+  "files": [
+    "README.md",
+    "dist"
+  ],
+  "scripts": {
+    "build": "script/build",
+    "clean": "rimraf dist",
+    "lint:npm": "publint --types",
+    "type-check": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@babel/preset-typescript": "^7.27.1",
+    "@primer/react": "^38.0.0-rc.1",
+    "@rollup/plugin-babel": "^6.0.4",
+    "@types/react": "18.3.11",
+    "@types/react-dom": "18.3.1",
+    "@vitejs/plugin-react": "^4.3.3",
+    "publint": "^0.3.12",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "rimraf": "^6.0.1",
+    "rollup": "4.50.0",
+    "rollup-plugin-typescript2": "^0.36.0",
+    "styled-components": "5.3.11",
+    "typescript": "^5.9.2"
+  },
+  "peerDependencies": {
+    "@primer/react": "38.0.0-rc.1",
+    "@types/react": "18.x || 19.x",
+    "@types/react-dom": "18.x || 19.x",
+    "@types/react-is": "18.x || 19.x",
+    "@types/styled-components": "^5.1.11",
+    "react": "18.x || 19.x",
+    "react-dom": "18.x || 19.x",
+    "react-is": "18.x || 19.x",
+    "styled-components": "5.x"
+  },
+  "peerDependenciesMeta": {
+    "@types/react": {
+      "optional": true
+    },
+    "@types/react-dom": {
+      "optional": true
+    },
+    "@types/react-is": {
+      "optional": true
+    },
+    "@types/styled-components": {
+      "optional": true
+    }
+  }
+}

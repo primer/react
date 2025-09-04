@@ -1,5 +1,5 @@
 import {render, fireEvent} from '@testing-library/react'
-import {describe, it, expect} from 'vitest'
+import {describe, it, expect, vi} from 'vitest'
 import type React from 'react'
 import {useCallback, useRef, useState} from 'react'
 
@@ -96,6 +96,37 @@ const CustomProps = ({
   )
 }
 
+const LoadingStates = ({
+  confirmButtonLoading,
+  cancelButtonLoading,
+}: Pick<React.ComponentProps<typeof ConfirmationDialog>, 'confirmButtonLoading' | 'cancelButtonLoading'>) => {
+  const [isOpen, setIsOpen] = useState(false)
+  const buttonRef = useRef<HTMLButtonElement>(null)
+  const onDialogClose = useCallback(() => setIsOpen(false), [])
+  return (
+    <ThemeProvider theme={theme}>
+      <BaseStyles>
+        <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
+          Show dialog
+        </Button>
+        {isOpen && (
+          <ConfirmationDialog
+            title="Confirm"
+            onClose={onDialogClose}
+            cancelButtonContent="Cancel"
+            confirmButtonContent="Delete"
+            confirmButtonType="danger"
+            confirmButtonLoading={confirmButtonLoading}
+            cancelButtonLoading={cancelButtonLoading}
+          >
+            Are you sure you want to delete this?
+          </ConfirmationDialog>
+        )}
+      </BaseStyles>
+    </ThemeProvider>
+  )
+}
+
 describe('ConfirmationDialog', () => {
   it('focuses the primary action when opened and the confirmButtonType is not set', async () => {
     const {getByText, getByRole} = render(<Basic />)
@@ -154,5 +185,118 @@ describe('ConfirmationDialog', () => {
 
     const dialog = getByRole('alertdialog')
     expect(dialog.getAttribute('data-height')).toBe('small')
+  })
+
+  describe('loading states', () => {
+    it('applies loading state to confirm button when confirmButtonLoading is true', async () => {
+      const {getByText, getByRole} = render(<LoadingStates confirmButtonLoading={true} />)
+
+      fireEvent.click(getByText('Show dialog'))
+
+      const confirmButton = getByRole('button', {name: 'Delete'})
+      const cancelButton = getByRole('button', {name: 'Cancel'})
+
+      expect(confirmButton).toHaveAttribute('data-loading', 'true')
+      expect(cancelButton).not.toHaveAttribute('data-loading', 'true')
+    })
+
+    it('applies loading state to cancel button when cancelButtonLoading is true', async () => {
+      const {getByText, getByRole} = render(<LoadingStates cancelButtonLoading={true} />)
+
+      fireEvent.click(getByText('Show dialog'))
+
+      const confirmButton = getByRole('button', {name: 'Delete'})
+      const cancelButton = getByRole('button', {name: 'Cancel'})
+
+      expect(cancelButton).toHaveAttribute('data-loading', 'true')
+      expect(confirmButton).not.toHaveAttribute('data-loading', 'true')
+    })
+
+    it('applies loading state to both buttons when both loading props are true', async () => {
+      const {getByText, getByRole} = render(<LoadingStates confirmButtonLoading={true} cancelButtonLoading={true} />)
+
+      fireEvent.click(getByText('Show dialog'))
+
+      const confirmButton = getByRole('button', {name: 'Delete'})
+      const cancelButton = getByRole('button', {name: 'Cancel'})
+
+      expect(confirmButton).toHaveAttribute('data-loading', 'true')
+      expect(cancelButton).toHaveAttribute('data-loading', 'true')
+    })
+
+    it('disables button clicks when button is loading', async () => {
+      const mockOnClose = vi.fn()
+      const {getByRole} = render(
+        <ThemeProvider theme={theme}>
+          <BaseStyles>
+            <ConfirmationDialog
+              title="Confirm"
+              onClose={mockOnClose}
+              confirmButtonLoading={true}
+              confirmButtonContent="Delete"
+              cancelButtonContent="Cancel"
+            >
+              Test content
+            </ConfirmationDialog>
+          </BaseStyles>
+        </ThemeProvider>,
+      )
+
+      const confirmButton = getByRole('button', {name: 'Delete'})
+
+      fireEvent.click(confirmButton)
+
+      // onClose should not be called when button is loading
+      expect(mockOnClose).not.toHaveBeenCalled()
+    })
+
+    it('shows loading spinner in confirm button when loading', async () => {
+      const {getByText, getByRole} = render(<LoadingStates confirmButtonLoading={true} />)
+
+      fireEvent.click(getByText('Show dialog'))
+
+      const confirmButton = getByRole('button', {name: 'Delete'})
+
+      // Check for loading spinner (Spinner component renders as an SVG)
+      const spinner = confirmButton.querySelector('svg')
+      expect(spinner).toBeInTheDocument()
+      expect(confirmButton.contains(spinner)).toBe(true)
+    })
+
+    it('shows loading spinner in cancel button when loading', async () => {
+      const {getByText, getByRole} = render(<LoadingStates cancelButtonLoading={true} />)
+
+      fireEvent.click(getByText('Show dialog'))
+
+      const cancelButton = getByRole('button', {name: 'Cancel'})
+
+      // Check for loading spinner in cancel button
+      const spinner = cancelButton.querySelector('svg')
+      expect(spinner).toBeInTheDocument()
+      expect(cancelButton.contains(spinner)).toBe(true)
+    })
+
+    it('maintains proper focus management when confirm button is loading', async () => {
+      const {getByText, getByRole} = render(<LoadingStates confirmButtonLoading={true} />)
+
+      fireEvent.click(getByText('Show dialog'))
+
+      const cancelButton = getByRole('button', {name: 'Cancel'})
+
+      // When confirm button is loading and dangerous, focus should be on cancel button
+      expect(cancelButton).toEqual(document.activeElement)
+    })
+
+    it('does not apply loading state when loading props are false', async () => {
+      const {getByText, getByRole} = render(<LoadingStates confirmButtonLoading={false} cancelButtonLoading={false} />)
+
+      fireEvent.click(getByText('Show dialog'))
+
+      const confirmButton = getByRole('button', {name: 'Delete'})
+      const cancelButton = getByRole('button', {name: 'Cancel'})
+
+      expect(confirmButton).not.toHaveAttribute('data-loading', 'true')
+      expect(cancelButton).not.toHaveAttribute('data-loading', 'true')
+    })
   })
 })

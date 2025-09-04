@@ -1,0 +1,6 @@
+.ExternalLabel {
+  border-bottom: var(--borderWidth-thin) solid var(--borderColor-default);
+  padding-bottom: var(--base-size-8);
+  margin-bottom: var(--base-size-16);
+  font-size: var(--text-title-size-medium);
+}

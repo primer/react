@@ -2,7 +2,7 @@
   "id": "progress_bar",
   "name": "ProgressBar",
   "status": "alpha",
-  "a11yReviewed": false,
+  "a11yReviewed": "2025-01-08",
   "stories": [
     {
       "id": "components-progressbar--default"
@@ -26,7 +26,7 @@
       "id": "components-progressbar-features--inline"
     },
     {
-      "id": "components-progressbar-features--color"
+      "id": "components-progressbar-features--all-colors"
     },
     {
       "id": "components-progressbar-features--multiple-items"

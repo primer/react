@@ -2,7 +2,7 @@
   "id": "banner",
   "name": "Banner",
   "status": "alpha",
-  "a11yReviewed": true,
+  "a11yReviewed": "2025-01-08",
   "importPath": "@primer/react/experimental",
   "stories": [
     {

@@ -1,4 +1,5 @@
-import {Checkbox, CheckboxGroup, FormControl, Box} from '..'
+import {Checkbox, CheckboxGroup, FormControl} from '..'
+import classes from './CheckboxGroup.features.stories.module.css'
 
 export default {
   title: 'Components/CheckboxGroup/Features',
@@ -24,17 +25,9 @@ export const VisuallyHiddenLabel = () => (
 
 export const WithExternalLabel = () => (
   <>
-    <Box
-      id="choiceHeading"
-      borderBottomWidth="1px"
-      borderBottomStyle="solid"
-      borderBottomColor="border.default"
-      pb={2}
-      mb={3}
-      fontSize={3}
-    >
+    <div id="choiceHeading" className={classes.ExternalLabel}>
       External label
-    </Box>
+    </div>
     <CheckboxGroup aria-labelledby="choiceHeading">
       <FormControl>
         <Checkbox />

@@ -19,16 +19,11 @@
     "postcss-preset-env": "^10.1.3"
   },
   "devDependencies": {
-    "@babel/core": "^7.28.0",
-    "@babel/preset-env": "^7.28.0",
-    "@babel/preset-typescript": "^7.27.1",
     "@types/postcss-mixins": "9.0.5",
-    "babel-jest": "^29.7.0",
-    "babel-plugin-transform-import-meta": "^2.3.3",
     "cssnano": "^7.0.7",
     "postcss": "^8.4.41",
     "postcss-custom-properties-fallback": "^1.0.2",
-    "postcss-mixins": "^11.0.1",
-    "typescript": "^5.8.2"
+    "postcss-mixins": "^12.1.2",
+    "typescript": "^5.9.2"
   }
 }

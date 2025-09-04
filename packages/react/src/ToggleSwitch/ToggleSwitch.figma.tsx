@@ -21,7 +21,13 @@ figma.connect(
       }),
     },
     example: ({size, checked, labelposition, loading}) => (
-      <ToggleSwitch size={size} checked={checked} statusLabelPosition={labelposition} loading={loading} />
+      <ToggleSwitch
+        aria-labelledby=""
+        size={size}
+        checked={checked}
+        statusLabelPosition={labelposition}
+        loading={loading}
+      />
     ),
   },
 )

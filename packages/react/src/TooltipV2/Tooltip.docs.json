@@ -3,7 +3,7 @@
   "name": "Tooltip",
   "docsId": "tooltip",
   "status": "beta",
-  "a11yReviewed": true,
+  "a11yReviewed": "2025-01-08",
   "importPath": "@primer/react/next",
   "stories": [
     {

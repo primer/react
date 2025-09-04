@@ -2,7 +2,7 @@
   "id": "toggle_switch",
   "name": "ToggleSwitch",
   "status": "alpha",
-  "a11yReviewed": false,
+  "a11yReviewed": "2025-01-08",
   "stories": [
     {
       "id": "components-toggleswitch--default"
@@ -94,6 +94,18 @@
       "type": "'start' | 'end'",
       "defaultValue": "'start'",
       "description": "Whether the \"on\" and \"off\" labels should appear before or after the switch.\n\n**This should only be changed when the switch's alignment needs to be adjusted.** For example: It needs to be left-aligned because the label appears above it and the caption appears below it."
+    },
+    {
+      "name": "loadingLabelDelay",
+      "type": "number",
+      "defaultValue": "2000",
+      "description": "When the switch is in the loading state, this value controls the amount of delay in milliseconds before the word \"Loading\" is announced to screen readers."
+    },
+    {
+      "name": "loadingLabel",
+      "type": "string",
+      "defaultValue": "'Loading'",
+      "description": "The text that is announced to AT such as screen readers when the switch is in a loading state."
     },
     {
       "name": "buttonType",
