@@ -46,6 +46,7 @@ export {
   Text,
   Textarea,
   TextInput,
+  TextInputWithTokens,
   Timeline,
   Token,
   Tooltip,
