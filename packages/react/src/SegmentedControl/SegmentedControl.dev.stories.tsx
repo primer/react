@@ -13,10 +13,10 @@ export default {
   parameters: {controls: {exclude: excludedControlKeys}},
 } as Meta<typeof SegmentedControl>
 
-export const WithAriaDisabled = () => {
+export const WithDisabled = () => {
   const handleOnClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    const isAriaDisabled = event.currentTarget.getAttribute('aria-disabled') === 'true'
-    if (isAriaDisabled) {
+    const isDisabled = event.currentTarget.getAttribute('disabled') === 'true'
+    if (isDisabled) {
       return
     }
     alert('Button clicked!')
@@ -27,14 +27,14 @@ export const WithAriaDisabled = () => {
       <SegmentedControl.IconButton
         onClick={handleOnClick}
         aria-label={'Preview'}
-        aria-disabled={true}
+        disabled={true}
         icon={EyeIcon}
         className="testCustomClassnameColor"
       >
         Preview
       </SegmentedControl.IconButton>
       <SegmentedControl.IconButton
-        aria-disabled={true}
+        disabled={true}
         onClick={handleOnClick}
         aria-label={'Raw'}
         icon={FileCodeIcon}
@@ -43,7 +43,7 @@ export const WithAriaDisabled = () => {
         Raw
       </SegmentedControl.IconButton>
       <SegmentedControl.IconButton
-        aria-disabled={true}
+        disabled={true}
         onClick={handleOnClick}
         aria-label={'Blame'}
         icon={PeopleIcon}
