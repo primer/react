@@ -13,11 +13,11 @@ import {
   SelectPanel,
   Text,
   TextInput,
+  TextInputWithTokens,
   Textarea,
   ThemeProvider,
   theme,
 } from '..'
-import {TextInputWithTokens} from '../deprecated'
 import {MarkGithubIcon, TriangleDownIcon} from '@primer/octicons-react'
 import type {ItemInput} from '../SelectPanel'
 import {Stack} from '../Stack'
