@@ -18,7 +18,7 @@ However, there is still existing usage of styled-components downstream that is
 unlikely for us to be able to migrate. As a result, we would like to explore
 adding a supporting package to Primer React that will allow components to work
 with styled-components while providing the ability for us to remove it from
-`@primer/react` directly in favor of CSS Modules.
+`@primer/react` directly in favor of CSS Modules. This should encourage Primer React consumers to [fall into the "pit of success"](https://blog.codinghorror.com/falling-into-the-pit-of-success/) while allowing a reasonable migration period.
 
 ## Decision
 
