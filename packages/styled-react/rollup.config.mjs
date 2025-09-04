@@ -20,7 +20,6 @@ const baseConfig = {
     resolve({
       extensions: ['.ts', '.tsx', '.js', '.jsx'],
     }),
-    commonjs(),
     babel({
       presets: ['@babel/preset-typescript'],
       extensions: ['.ts', '.tsx'],
@@ -33,6 +32,7 @@ export default [
   // ESM
   {
     ...baseConfig,
+    plugins: [...baseConfig.plugins, commonjs()],
     output: {
       dir: 'lib-esm',
       format: 'esm',
@@ -46,12 +46,27 @@ export default [
   // CommonJS
   {
     ...baseConfig,
+    plugins: [
+      resolve({
+        extensions: ['.ts', '.tsx', '.js', '.jsx'],
+      }),
+      commonjs({
+        defaultIsModuleExports: 'auto',
+        transformMixedEsModules: true,
+      }),
+      babel({
+        presets: ['@babel/preset-typescript'],
+        extensions: ['.ts', '.tsx'],
+        babelHelpers: 'bundled',
+      }),
+    ],
     output: {
       dir: 'lib',
       format: 'commonjs',
       preserveModules: true,
       preserveModulesRoot: 'src',
       exports: 'auto',
+      interop: 'compat',
     },
   },
 ]
