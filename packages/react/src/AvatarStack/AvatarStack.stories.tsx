@@ -58,10 +58,4 @@ Playground.argTypes = {
       type: 'number',
     },
   },
-  sx: {
-    controls: false,
-    table: {
-      disable: true,
-    },
-  },
 }
