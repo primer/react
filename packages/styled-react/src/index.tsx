@@ -1,5 +1,7 @@
 import {
+  type BetterSystemStyleObject,
   Box,
+  type BoxProps,
   Label as PrimerLabel,
   type LabelProps as PrimerLabelProps,
   ToggleSwitch as PrimerToggleSwitch,
@@ -97,10 +99,7 @@ export {
 
   // styled-components components or types
   Box,
-  type BoxProps,
   sx,
-  type SxProp,
-  type BetterSystemStyleObject,
 
   // theming depends on styled-components
   ThemeProvider,
@@ -110,51 +109,4 @@ export {
   useColorSchemeVar,
   useTheme,
 } from '@primer/react'
-
-// import {
-// Box,
-// Label as PrimerLabel,
-// type LabelProps as PrimerLabelProps,
-// type SxProp,
-// ToggleSwitch as PrimerToggleSwitch,
-// type ToggleSwitchProps as PrimerToggleSwitchProps,
-// } from '@primer/react'
-
-// const ToggleSwitch = forwardRef(function ToggleSwitch(props, ref) {
-// // @ts-expect-error there is an issue with polymorphic `as` with this
-// // component
-// return <Box as={PrimerToggleSwitch} ref={ref} {...props} />
-// }) as ForwardRefComponent<'div', PrimerToggleSwitchProps & Omit<StyledProps, keyof PrimerToggleSwitchProps>>
-
-// export {Label, ToggleSwitch}
-// export {
-// ActionList,
-// ActionMenu,
-// Box,
-// type BoxProps,
-// Breadcrumbs,
-// Button,
-// Flash,
-// FormControl,
-// Heading,
-// IconButton,
-// Link,
-// LinkButton,
-// PageLayout,
-// Text,
-// TextInput,
-// Truncate,
-
-// // Utilities for working with the `sx` prop
-// sx,
-// type SxProp,
-// type BetterSystemStyleObject,
-
-// // theming depends on styled-components
-// ThemeProvider,
-// merge,
-// theme,
-// themeGet,
-// useColorSchemeVar,
-// useTheme,
-// } from '@primer/react'
+export type {BoxProps, SxProp, BetterSystemStyleObject}
