@@ -7,6 +7,7 @@ import {isElement} from 'react-is'
 import classes from './SegmentedControl.module.css'
 import {clsx} from 'clsx'
 import {BoxWithFallback} from '../internal/components/BoxWithFallback'
+import CounterLabel from '../CounterLabel'
 
 export type SegmentedControlButtonProps = {
   /** The visible label rendered in the button */
@@ -17,6 +18,8 @@ export type SegmentedControlButtonProps = {
   defaultSelected?: boolean
   /** The leading icon comes before item label */
   leadingIcon?: React.FunctionComponent<React.PropsWithChildren<IconProps>> | React.ReactElement
+  /** Optional counter to display on the right side of the button */
+  counter?: number | string
 } & SxProp &
   ButtonHTMLAttributes<HTMLButtonElement | HTMLLIElement>
 
@@ -28,6 +31,7 @@ const SegmentedControlButton: React.FC<React.PropsWithChildren<SegmentedControlB
   className,
   // Note: this value is read in the `SegmentedControl` component to determine which button is selected but we do not need to apply it to an underlying element
   defaultSelected: _defaultSelected,
+  counter,
   ...rest
 }) => {
   return (
@@ -46,6 +50,11 @@ const SegmentedControlButton: React.FC<React.PropsWithChildren<SegmentedControlB
           <div className={clsx(classes.Text, 'segmentedControl-text')} data-text={children}>
             {children}
           </div>
+          {counter !== undefined && (
+            <span data-component="counter">
+              <CounterLabel>{counter}</CounterLabel>
+            </span>
+          )}
         </span>
       </BoxWithFallback>
     </BoxWithFallback>
