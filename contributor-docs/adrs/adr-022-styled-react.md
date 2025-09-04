@@ -13,7 +13,7 @@
 
 <!-- Provide background information and the reasons for this decision. What are the business, technical, or other drivers that motivated this decision? -->
 
-We would like to remove support for styled-components from Primer React.
+We would like to remove support for styled-components from Primer React in order to [advance CSS Modules](https://github.com/primer/react/blob/main/contributor-docs/adrs/adr-016-css.md#decisions) as a performant styling architecture for the library.
 However, there is still existing usage of styled-components downstream that is
 unlikely for us to be able to migrate. As a result, we would like to explore
 adding a supporting package to Primer React that will allow components to work
