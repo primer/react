@@ -42,7 +42,7 @@ encourage migrating to using CSS Modules over `styled-components`.
 <!-- What are the consequences of this decision? Include both positive and negative outcomes. What trade-offs come with this decision? -->
 
 With this decision, we will end up publishing two packages from `primer/react`
-and associated workflows will need to be updated to accomodate this change. In
+and associated workflows will need to be updated to accommodate this change. In
 addition, we are expanding the scope of packages from Primer that teams may
 interact with. Finally, providing support in this way may lead to prolonged
 usage of `styled-components` since we are not forcing anyone to migrate to use
