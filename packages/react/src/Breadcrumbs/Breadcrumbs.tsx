@@ -98,6 +98,7 @@ const BreadcrumbsMenuItem = React.forwardRef<HTMLDetailsElement, BreadcrumbsMenu
         <Tooltip text={ariaLabel || `${items.length} more breadcrumb items`} direction={'e'}>
           <IconButton
             as="summary"
+            role="button"
             ref={iconButtonRef}
             aria-label={ariaLabel || `${items.length} more breadcrumb items`}
             aria-expanded={isOpen ? 'true' : 'false'}
