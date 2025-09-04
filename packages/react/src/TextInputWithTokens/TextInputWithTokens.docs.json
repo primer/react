@@ -5,34 +5,34 @@
   "a11yReviewed": "2025-01-08",
   "stories": [
     {
-      "id": "components-textinputwithtokens--default"
+      "id": "deprecated-components-textinputwithtokens--default"
     },
     {
-      "id": "components-textinputwithtokens-features--with-leading-visual"
+      "id": "deprecated-components-textinputwithtokens-features--with-leading-visual"
     },
     {
-      "id": "components-textinputwithtokens-features--with-trailing-visual"
+      "id": "deprecated-components-textinputwithtokens-features--with-trailing-visual"
     },
     {
-      "id": "components-textinputwithtokens-features--with-loading-indicator"
+      "id": "deprecated-components-textinputwithtokens-features--with-loading-indicator"
     },
     {
-      "id": "components-textinputwithtokens-features--using-issue-label-tokens"
+      "id": "deprecated-components-textinputwithtokens-features--using-issue-label-tokens"
     },
     {
-      "id": "components-textinputwithtokens-features--unstyled"
+      "id": "deprecated-components-textinputwithtokens-features--unstyled"
     },
     {
-      "id": "components-textinputwithtokens-features--prevent-tokens-from-wrapping"
+      "id": "deprecated-components-textinputwithtokens-features--prevent-tokens-from-wrapping"
     },
     {
-      "id": "components-textinputwithtokens-features--max-height"
+      "id": "deprecated-components-textinputwithtokens-features--max-height"
     },
     {
-      "id": "components-textinputwithtokens-features--size"
+      "id": "deprecated-components-textinputwithtokens-features--size"
     },
     {
-      "id": "components-textinputwithtokens-features--truncated"
+      "id": "deprecated-components-textinputwithtokens-features--truncated"
     }
   ],
   "importPath": "@primer/react",
