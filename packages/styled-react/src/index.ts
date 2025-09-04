@@ -1,25 +1,72 @@
+import {ToggleSwitch as PrimerToggleSwitch} from '@primer/react'
+import {createStyledComponent} from './utils/createStyledComponent'
+
+const ToggleSwitch: ReturnType<typeof createStyledComponent> = /*#__PURE__*/ createStyledComponent(PrimerToggleSwitch)
+export {ToggleSwitch}
+
 export {
   ActionList,
   ActionMenu,
+  Autocomplete,
+  Avatar,
   Box,
   type BoxProps,
   BranchName,
   Breadcrumbs,
   Button,
+  Checkbox,
+  CheckboxGroup,
+  CircleBadge,
+  CounterLabel,
+  Details,
+  Dialog,
   Flash,
   FormControl,
+  Header,
   Heading,
   IconButton,
   Label,
+  LabelGroup,
   Link,
   LinkButton,
+  NavList,
+  Overlay,
+  PageHeader,
   PageLayout,
+  Popover,
+  ProgressBar,
+  RadioGroup,
+  RelativeTime,
+  SegmentedControl,
+  Select,
+  SelectPanel,
+  SideNav,
+  Spinner,
+  Stack,
+  StateLabel,
+  SubNav,
   Text,
+  Textarea,
   TextInput,
+  TextInputWithTokens,
+  Timeline,
+  Token,
+  Tooltip,
   Truncate,
+  UnderlineNav,
 
-  // Utilities for working with the `sx` prop
+  // styled-components components or types
+  Box,
+  type BoxProps,
   sx,
   type SxProp,
   type BetterSystemStyleObject,
+
+  // theming depends on styled-components
+  ThemeProvider,
+  merge,
+  theme,
+  themeGet,
+  useColorSchemeVar,
+  useTheme,
 } from '@primer/react'

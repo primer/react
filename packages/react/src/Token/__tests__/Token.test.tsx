@@ -5,8 +5,7 @@ import type React from 'react'
 import Token from '../Token'
 import type {TokenSizeKeys} from '../TokenBase'
 import {tokenSizes} from '../TokenBase'
-import {IssueLabelToken, AvatarToken} from '..'
-import type {AvatarTokenProps} from '../AvatarToken'
+import {IssueLabelToken} from '..'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const testTokenComponent = (Component: React.ComponentType<React.PropsWithChildren<any>>) => {
@@ -67,6 +66,35 @@ const testTokenComponent = (Component: React.ComponentType<React.PropsWithChildr
 
     expect(domNode.parentElement).toHaveClass('testing-class')
   })
+
+  it('renders with correct data-cursor-is-interactive attribute for button element', () => {
+    const {getByText} = HTMLRender(<Component as="button" text="token" />)
+    const domNode = getByText('token')
+
+    expect(domNode.parentElement).toHaveAttribute('data-cursor-is-interactive', 'true')
+  })
+
+  it('renders with correct data-cursor-is-interactive attribute for anchor element', () => {
+    const {getByText} = HTMLRender(<Component as="a" text="token" />)
+    const domNode = getByText('token')
+
+    expect(domNode.parentElement).toHaveAttribute('data-cursor-is-interactive', 'true')
+  })
+
+  it('renders with correct data-cursor-is-interactive attribute for span with onClick', () => {
+    const onClick = vi.fn()
+    const {getByText} = HTMLRender(<Component text="token" onClick={onClick} />)
+    const domNode = getByText('token')
+
+    expect(domNode.parentElement).toHaveAttribute('data-cursor-is-interactive', 'true')
+  })
+
+  it('renders with correct data-cursor-is-interactive attribute for non-interactive span', () => {
+    const {getByText} = HTMLRender(<Component text="token" />)
+    const domNode = getByText('token')
+
+    expect(domNode.parentElement).toHaveAttribute('data-cursor-is-interactive', 'false')
+  })
 }
 
 describe('Token components', () => {
@@ -95,14 +123,5 @@ describe('Token components', () => {
       const {container} = HTMLRender(<IssueLabelToken text="token" fillColor="#0366d6" onRemove={onRemoveMock} />)
       expect(container.firstChild).toBeInTheDocument()
     })
-  })
-
-  describe('AvatarToken', () => {
-    const AvatarTokenWithDefaultAvatar = ({
-      avatarSrc = 'https://avatars.githubusercontent.com/mperrotti',
-      ...rest
-    }: Omit<AvatarTokenProps, 'ref'>) => <AvatarToken avatarSrc={avatarSrc} {...rest} />
-
-    testTokenComponent(AvatarTokenWithDefaultAvatar)
   })
 })

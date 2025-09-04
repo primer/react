@@ -1,11 +1,12 @@
 import {useState} from 'react'
 import {CheckIcon, NumberIcon} from '@primer/octicons-react'
-import {Box, FormControl} from '..'
+import {FormControl} from '..'
 import type {TextInputWithTokensProps} from '../TextInputWithTokens'
 import TextInputWithTokens from '../TextInputWithTokens'
 import IssueLabelToken from '../Token/IssueLabelToken'
 import type {FormControlArgs} from '../utils/story-helpers'
 import {formControlArgTypes, textInputExcludedControlKeys} from '../utils/story-helpers'
+import classes from './TextInputWithTokens.features.stories.module.css'
 
 const excludedControls = ['tokens', 'onTokenRemove', 'tokenComponent', ...textInputExcludedControlKeys]
 
@@ -61,7 +62,7 @@ export const WithLoadingIndicator = (args: FormControlArgs<TextInputWithTokensPr
   }
 
   return (
-    <Box display="grid" sx={{gap: 3}} as="form">
+    <form className={classes.Grid}>
       <FormControl>
         <FormControl.Label>No visual</FormControl.Label>
         <TextInputWithTokens {...args} tokens={tokens} onTokenRemove={onTokenRemove} />
@@ -82,7 +83,7 @@ export const WithLoadingIndicator = (args: FormControlArgs<TextInputWithTokensPr
           trailingVisual={CheckIcon}
         />
       </FormControl>
-    </Box>
+    </form>
   )
 }
 
@@ -106,12 +107,12 @@ export const UsingIssueLabelTokens = () => {
   }
 
   return (
-    <Box as="form">
+    <form>
       <FormControl>
         <FormControl.Label>Default label</FormControl.Label>
         <TextInputWithTokens tokenComponent={IssueLabelToken} tokens={tokens} onTokenRemove={onTokenRemove} />
       </FormControl>
-    </Box>
+    </form>
   )
 }
 
@@ -122,24 +123,12 @@ export const Unstyled = () => {
   }
 
   return (
-    <Box as="form">
+    <form>
       <FormControl>
         <FormControl.Label visuallyHidden>Default label</FormControl.Label>
-        <TextInputWithTokens
-          tokens={tokens}
-          onTokenRemove={onTokenRemove}
-          sx={{
-            border: '0',
-            padding: '0',
-            boxShadow: 'none',
-            ':focus-within': {
-              border: '0',
-              boxShadow: 'none',
-            },
-          }}
-        />
+        <TextInputWithTokens tokens={tokens} onTokenRemove={onTokenRemove} className={classes.Unstyled} />
       </FormControl>
-    </Box>
+    </form>
   )
 }
 
@@ -150,12 +139,12 @@ export const PreventTokensFromWrapping = () => {
   }
 
   return (
-    <Box as="form">
+    <form>
       <FormControl>
         <FormControl.Label>Default label</FormControl.Label>
         <TextInputWithTokens tokens={tokens} onTokenRemove={onTokenRemove} preventTokenWrapping />
       </FormControl>
-    </Box>
+    </form>
   )
 }
 
@@ -166,7 +155,7 @@ export const MaxHeight = () => {
   }
 
   return (
-    <Box sx={{maxWidth: '300px'}}>
+    <div className={classes.MaxWidth}>
       {/* Setting max-width to force tokens to wrap and demo `maxHeight` behavior */}
       <FormControl>
         <FormControl.Label>Default label</FormControl.Label>
@@ -177,7 +166,7 @@ export const MaxHeight = () => {
           block // `block` only needed to fill parent width without overflowing
         />
       </FormControl>
-    </Box>
+    </div>
   )
 }
 
@@ -188,12 +177,12 @@ export const Size = () => {
   }
 
   return (
-    <Box as="form">
+    <form>
       <FormControl>
         <FormControl.Label>Default label</FormControl.Label>
         <TextInputWithTokens tokens={tokens} onTokenRemove={onTokenRemove} size="small" />
       </FormControl>
-    </Box>
+    </form>
   )
 }
 
@@ -204,11 +193,11 @@ export const Truncated = () => {
   }
 
   return (
-    <Box as="form">
+    <form>
       <FormControl>
         <FormControl.Label>Default label</FormControl.Label>
         <TextInputWithTokens tokens={tokens} onTokenRemove={onTokenRemove} visibleTokenCount={5} />
       </FormControl>
-    </Box>
+    </form>
   )
 }
