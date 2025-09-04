@@ -17,14 +17,14 @@ import {
 } from '@primer/octicons-react'
 import data from './mock-story-data'
 
+import classes from './SelectPanel.stories.module.css'
+
+const getCircle = (color: string) => <div className={classes.Circle} style={{backgroundColor: `#${color}`}} />
+
 export default {
   title: 'Deprecated/Components/SelectPanel/Examples',
   component: SelectPanel,
 }
-
-const getCircle = (color: string) => (
-  <Box sx={{width: 14, height: 14, borderRadius: '100%'}} style={{backgroundColor: `#${color}`}} />
-)
 
 export const Minimal = () => {
   const initialSelectedLabels = data.issue.labelIds // mock initial state: has selected labels
@@ -990,12 +990,7 @@ export const CreateNewRow = () => {
                   selected={selectedLabelIds.includes(label.id)}
                   data-id={label.id}
                 >
-                  <ActionList.LeadingVisual>
-                    <Box
-                      sx={{width: 14, height: 14, borderRadius: '100%'}}
-                      style={{backgroundColor: `#${label.color}`}}
-                    />
-                  </ActionList.LeadingVisual>
+                  <ActionList.LeadingVisual>{getCircle(label.color)}</ActionList.LeadingVisual>
                   {label.name}
                   <ActionList.Description variant="block">{label.description}</ActionList.Description>
                 </ActionList.Item>

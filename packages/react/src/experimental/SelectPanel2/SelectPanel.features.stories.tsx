@@ -3,7 +3,7 @@ import {SelectPanel} from './SelectPanel'
 import {ActionList, Avatar, Button, Link, SegmentedControl, ToggleSwitch, useResponsiveValue} from '../../index'
 import {TagIcon, GearIcon, ArrowBothIcon} from '@primer/octicons-react'
 import data from './mock-story-data'
-import classes from './SelectPanel.features.stories.module.css'
+import classes from './SelectPanel.stories.module.css'
 
 export default {
   title: 'Deprecated/Components/SelectPanel/Features',

@@ -2,8 +2,12 @@ import React from 'react'
 import type {Meta, StoryFn} from '@storybook/react-vite'
 import type {SelectPanelProps} from './SelectPanel'
 import {SelectPanel} from './SelectPanel'
-import {ActionList, Box} from '../../index'
+import {ActionList} from '../../index'
 import data from './mock-story-data'
+
+import classes from './SelectPanel.stories.module.css'
+
+const getCircle = (color: string) => <div className={classes.Circle} style={{backgroundColor: `#${color}`}} />
 
 export default {
   title: 'Deprecated/Components/SelectPanel/Playground',
@@ -120,12 +124,7 @@ export const Playground: StoryFn = args => {
                 onSelect={() => onLabelSelect(label.id)}
                 selected={selectedLabelIds.includes(label.id)}
               >
-                <ActionList.LeadingVisual>
-                  <Box
-                    sx={{width: 14, height: 14, borderRadius: '100%'}}
-                    style={{backgroundColor: `#${label.color}`}}
-                  />
-                </ActionList.LeadingVisual>
+                <ActionList.LeadingVisual>{getCircle(label.color)}</ActionList.LeadingVisual>
                 {label.name}
                 <ActionList.Description variant="block">{label.description}</ActionList.Description>
               </ActionList.Item>
