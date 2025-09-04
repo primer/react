@@ -32,7 +32,7 @@ to provide compatibility with `styled-components` and the latest version of
 `@primer/react` without having to fully migrate from `sx`.
 
 This package will stay at a pre-1.0 version. Over time, we will remove
-components from `@primer/styled-react` when their `sx` usage goes to zero.
+components from `@primer/styled-react` when their `sx` usage across key GitHub repos goes to zero.
 
 This package and the components within will be deprecated by default to
 encourage migrating to using CSS Modules over `styled-components`.
