@@ -1,5 +1,5 @@
 ---
-"@primer/react": patch
+"@primer/react": minor
 ---
 
 Add counter to SegmentedControlButton
