@@ -66,7 +66,7 @@
     margin-right: -1px;
   }
 
-  [data-component='counter'] {
+  .Counter {
     margin-inline-start: var(--base-size-8);
     display: flex;
     align-items: center;

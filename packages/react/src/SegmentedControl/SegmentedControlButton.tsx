@@ -51,7 +51,7 @@ const SegmentedControlButton: React.FC<React.PropsWithChildren<SegmentedControlB
             {children}
           </div>
           {counter !== undefined && (
-            <span data-component="counter">
+            <span className={classes.Counter}>
               <CounterLabel>{counter}</CounterLabel>
             </span>
           )}
