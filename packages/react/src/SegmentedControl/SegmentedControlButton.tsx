@@ -19,6 +19,8 @@ export type SegmentedControlButtonProps = {
   leadingIcon?: React.FunctionComponent<React.PropsWithChildren<IconProps>> | React.ReactElement
   /** Applies `aria-disabled` to the button. This will disable certain functionality, such as `onClick` events. */
   disabled?: boolean
+  /** Applies `aria-disabled` to the button. This will disable certain functionality, such as `onClick` events. */
+  ariaDisabled?: boolean
 } & SxProp &
   ButtonHTMLAttributes<HTMLButtonElement | HTMLLIElement>
 
