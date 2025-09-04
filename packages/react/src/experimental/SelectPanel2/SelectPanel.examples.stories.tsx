@@ -1,6 +1,6 @@
 import React from 'react'
 import {SelectPanel} from './SelectPanel'
-import {ActionList, ActionMenu, Avatar, Box, Button, Text, Flash, FormControl, TextInput} from '../../index'
+import {ActionList, ActionMenu, Avatar, Button, Text, Flash, FormControl, TextInput} from '../../index'
 import Octicon from '../../Octicon'
 import {Dialog} from '../../experimental'
 import {
@@ -17,7 +17,7 @@ import {
 } from '@primer/octicons-react'
 import data from './mock-story-data'
 
-import classes from './SelectPanel.stories.module.css'
+import classes from './SelectPanel.examples.stories.module.css'
 
 const getCircle = (color: string) => <div className={classes.Circle} style={{backgroundColor: `#${color}`}} />
 
@@ -567,10 +567,10 @@ export const WithFilterButtons = () => {
         <SelectPanel.Header>
           <SelectPanel.SearchInput onChange={onSearchInputChange} />
 
-          <Box id="filters" sx={{display: 'flex', marginTop: 1}}>
+          <div id="filters" className={classes.Filters}>
             <Button
               variant="invisible"
-              sx={{fontWeight: selectedFilter === 'branches' ? 'semibold' : 'normal', color: 'fg.default'}}
+              className={selectedFilter === 'branches' ? `${classes.FilterButton} ${classes.FilterButtonSelected}` : classes.FilterButton}
               onClick={() => setSelectedFilter('branches')}
               count={20}
             >
@@ -578,13 +578,13 @@ export const WithFilterButtons = () => {
             </Button>
             <Button
               variant="invisible"
-              sx={{fontWeight: selectedFilter === 'tags' ? 'semibold' : 'normal', color: 'fg.default'}}
+              className={selectedFilter === 'tags' ? `${classes.FilterButton} ${classes.FilterButtonSelected}` : classes.FilterButton}
               onClick={() => setSelectedFilter('tags')}
               count={8}
             >
               Tags
             </Button>
-          </Box>
+          </div>
         </SelectPanel.Header>
 
         {itemsToShow.length === 0 ? (
@@ -643,7 +643,7 @@ export const ShortSelectPanel = () => {
       </p>
       <SelectPanel title="Select notification channels" onSubmit={onSubmit} onCancel={onCancel}>
         <SelectPanel.Button>
-          <Text sx={{color: 'fg.muted'}}>Notify me:</Text>{' '}
+          <span className={classes.TextMuted}>Notify me:</span>{' '}
           {Object.keys(channels)
             .filter(channel => channels[channel as keyof typeof channels])
             .join(', ') || 'Never'}
@@ -657,9 +657,9 @@ export const ShortSelectPanel = () => {
           <ActionList.Item selected={channels.Email} onSelect={() => toggleChannel('Email')}>
             Email
           </ActionList.Item>
-          <Box
+          <div
             role="none"
-            sx={{
+            style={{
               transition: 'max-height 100ms ease-out, opacity 100ms ease-out',
               opacity: channelsEnabled ? 1 : 0,
               maxHeight: channelsEnabled ? '100px' : 0,
@@ -670,7 +670,7 @@ export const ShortSelectPanel = () => {
             <ActionList.Item selected={onlyFailures} onSelect={() => setOnlyFailures(!onlyFailures)}>
               Only notify for failed workflows
             </ActionList.Item>
-          </Box>
+          </div>
         </ActionList>
         <SelectPanel.Footer />
       </SelectPanel>
@@ -689,7 +689,7 @@ export const InsideSidebar = () => {
       <Button onClick={() => setSidebarOpen(true)}>Open sidebar</Button>
       {sidebarOpen && (
         <Dialog position="right" title="Sidebar" onClose={() => setSidebarOpen(false)}>
-          <Box p={3}>
+          <div style={{padding: '24px'}}>
             <SelectPanel
               title="Choose a tag"
               selectionVariant="instant"
@@ -712,7 +712,7 @@ export const InsideSidebar = () => {
                 ))}
               </ActionList>
             </SelectPanel>
-          </Box>
+          </div>
         </Dialog>
       )}
     </>
@@ -997,18 +997,18 @@ export const CreateNewRow = () => {
               ))}
             </ActionList>
             {query && (
-              <Box sx={{padding: 2, borderTop: '1px solid', borderColor: 'border.default', flexShrink: 0}}>
+              <div className={classes.PanelFooter}>
                 <Button
                   variant="invisible"
                   leadingVisual={PlusCircleIcon}
                   block
                   alignContent="start"
-                  sx={{'[data-component=text]': {fontWeight: 'normal'}}}
+                  className={classes.PanelFooterText}
                   onClick={openCreateLabelDialog}
                 >
                   Create new label &quot;{query}&quot;...
                 </Button>
-              </Box>
+              </div>
             )}
           </>
         )}

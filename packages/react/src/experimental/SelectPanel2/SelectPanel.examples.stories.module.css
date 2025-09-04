@@ -1,0 +1,44 @@
+/* CSS Module for SelectPanel.examples.stories */
+
+
+.ButtonContentStart {
+  width: 200px;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.Filters {
+  display: flex;
+  margin-top: var(--base-size-8);
+}
+
+.FilterButton {
+  font-weight: var(--base-text-weight-normal);
+  color: var(--color-fg-default);
+}
+
+.FilterButtonSelected {
+  font-weight: var(--base-text-weight-semibold);
+}
+
+.TextMuted {
+  color: var(--color-fg-muted);
+}
+
+.FlashWarning {
+  margin-bottom: var(--base-size-16);
+}
+
+.SelectionHidden {
+  display: none;
+}
+
+.PanelFooter {
+  padding: var(--base-size-16);
+  border-top: var(--borderWidth-thin) solid var(--color-border-default);
+  flex-shrink: 0;
+}
+
+.PanelFooterText {
+  font-weight: var(--base-text-weight-normal);
+}
