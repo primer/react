@@ -2,6 +2,7 @@
 
 exports[`@primer/styled-react exports 1`] = `
 [
+  "Label",
   "ToggleSwitch",
   "ActionList",
   "ActionMenu",
@@ -21,7 +22,6 @@ exports[`@primer/styled-react exports 1`] = `
   "Header",
   "Heading",
   "IconButton",
-  "Label",
   "LabelGroup",
   "Link",
   "LinkButton",
