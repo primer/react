@@ -272,6 +272,7 @@ export const MultipleActionBars = () => {
 const CustomIconButton = (props: IconButtonProps) => {
   const ref = React.useRef<HTMLButtonElement>(null)
   // size supplied to the ActionBar, use if you want
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const {size: _size, setChildrenWidth} = useContext(ActionBarContext)
 
   useIsomorphicLayoutEffect(() => {
