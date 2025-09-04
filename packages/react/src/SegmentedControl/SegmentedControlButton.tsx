@@ -20,7 +20,7 @@ export type SegmentedControlButtonProps = {
   /** Applies `aria-disabled` to the button. This will disable certain functionality, such as `onClick` events. */
   disabled?: boolean
   /** Applies `aria-disabled` to the button. This will disable certain functionality, such as `onClick` events. */
-  ariaDisabled?: boolean
+  'aria-disabled'?: boolean
 } & SxProp &
   ButtonHTMLAttributes<HTMLButtonElement | HTMLLIElement>
 
