@@ -27,7 +27,7 @@ with styled-components while providing the ability for us to remove it from
 We will create a new package called `@primer/styled-react` to mirror the
 existing `@primer/styled-octicons` package. This package will re-export
 components from `@primer/react` that still have `sx` usage downstream in order
-to provide compatability with `styled-components` and the latest version of
+to provide compatibility with `styled-components` and the latest version of
 `@primer/react`. This package will allow teams to use the latest version of
 `@primer/react` without having to fully migrate from `sx`.
 
