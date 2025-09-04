@@ -1,8 +1,6 @@
 import {clsx} from 'clsx'
-import Box from '../Box'
 import classes from './Label.module.css'
 import React from 'react'
-import type {BetterSystemStyleObject, SxProp} from '../sx'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 
 export type LabelProps = {
