@@ -85,6 +85,7 @@ const labels: Record<BannerVariant, string> = {
 export const Banner = React.forwardRef<HTMLElement, BannerProps>(function Banner(
   {
     'aria-label': label,
+    'aria-labelledby': labelledBy,
     children,
     className,
     description,
@@ -131,7 +132,8 @@ export const Banner = React.forwardRef<HTMLElement, BannerProps>(function Banner
   return (
     <section
       {...rest}
-      aria-label={label ?? labels[variant]}
+      aria-labelledby={labelledBy}
+      aria-label={labelledBy ? undefined : (label ?? labels[variant])}
       className={clsx(className, classes.Banner)}
       data-dismissible={onDismiss ? '' : undefined}
       data-title-hidden={hideTitle ? '' : undefined}
