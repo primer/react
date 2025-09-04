@@ -1,0 +1,22 @@
+name: status-check
+on:
+  pull_request:
+    types: [labeled, synchronize]
+
+permissions:
+  pull-requests: write
+
+jobs:
+  github-ui:
+    runs-on: ubuntu-latest
+    if: "${{ contains(github.event.pull_request.labels.*.name, 'integration-tests: skipped manually') }}"
+    steps:
+      - name: Create passing status check when override label is present
+        run: |
+          gh api -X POST "/repos/primer/react/statuses/$SHA" \
+            -f state='success' \
+            -f context='github-ui/ci' \
+            -f description='Checked manually' }}' \
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SHA: ${{ github.event.pull_request.head.sha }}
