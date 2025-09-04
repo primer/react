@@ -52,7 +52,6 @@ const Avatar = React.forwardRef<HTMLImageElement, AvatarProps>(function Avatar(
             }
           : (cssSizeVars as React.CSSProperties)
       }
-      sx={sxProp}
       {...rest}
     />
   )
