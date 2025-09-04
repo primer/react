@@ -377,6 +377,14 @@ const config = defineConfig([
       '@typescript-eslint/triple-slash-reference': 'off',
     },
   },
+
+  // packages/styled-react overrides
+  {
+    files: ['packages/styled-react/**/*.{ts,tsx}'],
+    rules: {
+      'primer-react/no-unnecessary-components': 'off',
+    },
+  },
 ])
 
 export default tseslint.config(config)
