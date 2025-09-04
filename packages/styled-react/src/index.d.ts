@@ -1,5 +1,0 @@
-import { createStyledComponent } from './utils/createStyledComponent';
-declare const ToggleSwitch: ReturnType<typeof createStyledComponent>;
-export { ToggleSwitch };
-export { ActionList, ActionMenu, Autocomplete, Avatar, BranchName, Breadcrumbs, Button, Checkbox, CheckboxGroup, CircleBadge, CounterLabel, Details, Dialog, Flash, FormControl, Header, Heading, IconButton, Label, LabelGroup, Link, LinkButton, NavList, Overlay, PageHeader, PageLayout, Popover, ProgressBar, RadioGroup, RelativeTime, SegmentedControl, Select, SelectPanel, SideNav, Spinner, Stack, StateLabel, SubNav, Text, Textarea, TextInput, TextInputWithTokens, Timeline, Token, Tooltip, Truncate, UnderlineNav, Box, type BoxProps, sx, type SxProp, type BetterSystemStyleObject, ThemeProvider, merge, theme, themeGet, useColorSchemeVar, useTheme, } from '@primer/react';
-//# sourceMappingURL=index.d.ts.map
