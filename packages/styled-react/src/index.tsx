@@ -36,6 +36,7 @@ type StyledProps = SxProp &
 const ToggleSwitch = forwardRef(function ToggleSwitch(props, ref) {
   // @ts-expect-error there is an issue with polymorphic `as` with this
   // component
+  // eslint-disable-next-line primer-react/no-unnecessary-components
   return <Box as={PrimerToggleSwitch} ref={ref} {...props} />
 }) as ForwardRefComponent<'span', PrimerToggleSwitchProps & Omit<StyledProps, keyof PrimerToggleSwitchProps>>
 
