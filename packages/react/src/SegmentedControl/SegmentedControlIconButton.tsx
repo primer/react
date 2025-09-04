@@ -21,6 +21,10 @@ export type SegmentedControlIconButtonProps = {
   description?: string
   /** The direction for the tooltip.*/
   tooltipDirection?: TooltipDirection
+  /** Whether the button is disabled. */
+  disabled?: boolean
+  /** Whether the button is aria-disabled. */
+  'aria-disabled'?: boolean
 } & SxProp &
   ButtonHTMLAttributes<HTMLButtonElement | HTMLLIElement>
 
@@ -32,6 +36,8 @@ export const SegmentedControlIconButton: React.FC<React.PropsWithChildren<Segmen
   className,
   description,
   tooltipDirection,
+  disabled,
+  'aria-disabled': ariaDisabled,
   ...rest
 }) => {
   return (
@@ -52,6 +58,7 @@ export const SegmentedControlIconButton: React.FC<React.PropsWithChildren<Segmen
           // If description is provided, we will use the tooltip to describe the button, so we need to keep the aria-label to label the button.
           aria-label={description ? ariaLabel : undefined}
           className={clsx(classes.Button, classes.IconButton)}
+          aria-disabled={disabled || ariaDisabled || undefined}
           {...rest}
         >
           <span className={clsx(classes.Content, 'segmentedControl-content')}>{isElement(Icon) ? Icon : <Icon />}</span>
