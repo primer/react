@@ -4,6 +4,7 @@ import {useState} from 'react'
 import type {ComponentProps} from '../utils/types'
 import Breadcrumbs from './Breadcrumbs'
 import TextInput from '../TextInput'
+import {FeatureFlags} from '../FeatureFlags'
 
 export default {
   title: 'Components/Breadcrumbs/Features',
@@ -24,7 +25,23 @@ export const OverflowWrap = () => (
   </Breadcrumbs>
 )
 
-export const OverflowMenu = () => (
+export const OverflowMenuFeatureFlagEnabled = () => (
+  <FeatureFlags flags={{primer_react_breadcrumbs_overflow_menu: true}}>
+    <Breadcrumbs overflow="menu">
+      <Breadcrumbs.Item href="#">Home</Breadcrumbs.Item>
+      <Breadcrumbs.Item href="#">Products</Breadcrumbs.Item>
+      <Breadcrumbs.Item href="#">Category</Breadcrumbs.Item>
+      <Breadcrumbs.Item href="#">Subcategory</Breadcrumbs.Item>
+      <Breadcrumbs.Item href="#">Item</Breadcrumbs.Item>
+      <Breadcrumbs.Item href="#">Details</Breadcrumbs.Item>
+      <Breadcrumbs.Item href="#" selected>
+        Current Page
+      </Breadcrumbs.Item>
+    </Breadcrumbs>
+  </FeatureFlags>
+)
+
+export const OverflowMenuFeatureFlagDisabled = () => (
   <Breadcrumbs overflow="menu">
     <Breadcrumbs.Item href="#">Home</Breadcrumbs.Item>
     <Breadcrumbs.Item href="#">Products</Breadcrumbs.Item>
@@ -38,7 +55,7 @@ export const OverflowMenu = () => (
   </Breadcrumbs>
 )
 
-export const OverflowMenuShowRoot = () => (
+export const OverflowMenuShowRootFeatureFlagDisabled = () => (
   <Breadcrumbs overflow="menu-with-root">
     <Breadcrumbs.Item href="#">github</Breadcrumbs.Item>
     <Breadcrumbs.Item href="#">Teams</Breadcrumbs.Item>
@@ -51,59 +68,19 @@ export const OverflowMenuShowRoot = () => (
   </Breadcrumbs>
 )
 
-export const OverflowMenuNarrowContainer = () => (
-  <div style={{width: '350px', border: '1px solid #ccc', padding: '8px'}}>
-    <Breadcrumbs overflow="menu">
-      <Breadcrumbs.Item href="#">Home</Breadcrumbs.Item>
-      <Breadcrumbs.Item href="#">Products</Breadcrumbs.Item>
-      <Breadcrumbs.Item href="#">Category</Breadcrumbs.Item>
-      <Breadcrumbs.Item href="#">Subcategory</Breadcrumbs.Item>
+export const OverflowMenuShowRootFeatureFlagEnabled = () => (
+  <FeatureFlags flags={{primer_react_breadcrumbs_overflow_menu: true}}>
+    <Breadcrumbs overflow="menu-with-root">
+      <Breadcrumbs.Item href="#">github</Breadcrumbs.Item>
+      <Breadcrumbs.Item href="#">Teams</Breadcrumbs.Item>
+      <Breadcrumbs.Item href="#">Engineering</Breadcrumbs.Item>
+      <Breadcrumbs.Item href="#">core-productivity</Breadcrumbs.Item>
+      <Breadcrumbs.Item href="#">collaboration-workflows-flex</Breadcrumbs.Item>
       <Breadcrumbs.Item href="#" selected>
-        Current Page
+        global-navigation-reviewers
       </Breadcrumbs.Item>
     </Breadcrumbs>
-  </div>
-)
-
-// Wrapper components to test that BreadcrumbsItem works when wrapped
-const StyledWrapper = ({children}: {children: React.ReactNode}) => (
-  <span style={{padding: '2px', border: '1px dotted #999'}}>{children}</span>
-)
-
-const ConditionalWrapper = ({children, condition}: {children: React.ReactNode; condition: boolean}) => {
-  return condition ? <strong>{children}</strong> : <>{children}</>
-}
-
-const DataAttributeWrapper = ({children}: {children: React.ReactNode}) => (
-  <span data-testid="wrapper" className="custom-wrapper">
-    {children}
-  </span>
-)
-
-export const WrappedBreadcrumbItemsWithOverflow = () => (
-  <Breadcrumbs overflow="menu">
-    <StyledWrapper>
-      <Breadcrumbs.Item href="#">Wrapped Home</Breadcrumbs.Item>
-    </StyledWrapper>
-    <ConditionalWrapper condition={false}>
-      <Breadcrumbs.Item href="#">Products</Breadcrumbs.Item>
-    </ConditionalWrapper>
-    <DataAttributeWrapper>
-      <Breadcrumbs.Item href="#">Category</Breadcrumbs.Item>
-    </DataAttributeWrapper>
-    <StyledWrapper>
-      <Breadcrumbs.Item href="#">Subcategory</Breadcrumbs.Item>
-    </StyledWrapper>
-    <ConditionalWrapper condition={true}>
-      <Breadcrumbs.Item href="#">Item</Breadcrumbs.Item>
-    </ConditionalWrapper>
-    <DataAttributeWrapper>
-      <Breadcrumbs.Item href="#">Details</Breadcrumbs.Item>
-    </DataAttributeWrapper>
-    <Breadcrumbs.Item href="#" selected>
-      Current Page
-    </Breadcrumbs.Item>
-  </Breadcrumbs>
+  </FeatureFlags>
 )
 
 export const WithEditableNameInput = () => (
@@ -205,3 +182,33 @@ export const DynamicChildren = () => {
     </div>
   )
 }
+
+export const SpaciousVariantWithOverflowMenu = () => (
+  <FeatureFlags flags={{primer_react_breadcrumbs_overflow_menu: true}}>
+    <Breadcrumbs overflow="menu" variant="spacious">
+      <Breadcrumbs.Item href="#">Home</Breadcrumbs.Item>
+      <Breadcrumbs.Item href="#">Products</Breadcrumbs.Item>
+      <Breadcrumbs.Item href="#">Category</Breadcrumbs.Item>
+      <Breadcrumbs.Item href="#">Subcategory</Breadcrumbs.Item>
+      <Breadcrumbs.Item href="#">Item</Breadcrumbs.Item>
+      <Breadcrumbs.Item href="#">Details</Breadcrumbs.Item>
+      <Breadcrumbs.Item href="#" selected>
+        Current Page
+      </Breadcrumbs.Item>
+    </Breadcrumbs>
+  </FeatureFlags>
+)
+
+export const SpaciousVariantWithOverflowWrap = () => (
+  <Breadcrumbs variant="spacious">
+    <Breadcrumbs.Item href="#">Home</Breadcrumbs.Item>
+    <Breadcrumbs.Item href="#">Products</Breadcrumbs.Item>
+    <Breadcrumbs.Item href="#">Category</Breadcrumbs.Item>
+    <Breadcrumbs.Item href="#">Subcategory</Breadcrumbs.Item>
+    <Breadcrumbs.Item href="#">Item</Breadcrumbs.Item>
+    <Breadcrumbs.Item href="#">Details</Breadcrumbs.Item>
+    <Breadcrumbs.Item href="#" selected>
+      Current Page
+    </Breadcrumbs.Item>
+  </Breadcrumbs>
+)

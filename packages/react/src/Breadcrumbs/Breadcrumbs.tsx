@@ -23,6 +23,7 @@ export type BreadcrumbsProps = React.PropsWithChildren<
   {
     className?: string
     overflow?: 'wrap' | 'menu' | 'menu-with-root'
+    variant?: 'normal' | 'spacious'
   } & SxProp
 >
 
@@ -139,7 +140,7 @@ const getValidChildren = (children: React.ReactNode) => {
   return React.Children.toArray(children).filter(child => React.isValidElement(child)) as React.ReactElement[]
 }
 
-function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap'}: BreadcrumbsProps) {
+function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap', variant = 'normal'}: BreadcrumbsProps) {
   const overflowMenuEnabled = useFeatureFlag('primer_react_breadcrumbs_overflow_menu')
   const wrappedChildren = React.Children.map(children, child => <li className={classes.ItemWrapper}>{child}</li>)
   const containerRef = useRef<HTMLElement>(null)
@@ -333,11 +334,18 @@ function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap'}: Bread
       sx={sxProp}
       ref={containerRef}
       data-overflow={overflow}
+      data-variant={variant}
     >
       <BreadcrumbsList>{finalChildren}</BreadcrumbsList>
     </BoxWithFallback>
   ) : (
-    <BoxWithFallback as="nav" className={clsx(className, classes.BreadcrumbsBase)} aria-label="Breadcrumbs" sx={sxProp}>
+    <BoxWithFallback
+      as="nav"
+      className={clsx(className, classes.BreadcrumbsBase)}
+      aria-label="Breadcrumbs"
+      sx={sxProp}
+      data-variant={variant}
+    >
       <BreadcrumbsList>{wrappedChildren}</BreadcrumbsList>
     </BoxWithFallback>
   )
@@ -367,7 +375,6 @@ const BreadcrumbsItem = React.forwardRef(({selected, className, ...rest}, ref) =
       as="a"
       className={clsx(className, classes.Item, {
         [SELECTED_CLASS]: selected,
-        [classes.ItemSelected]: selected,
       })}
       aria-current={selected ? 'page' : undefined}
       ref={ref}
