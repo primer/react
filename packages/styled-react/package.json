@@ -1,28 +1,31 @@
 {
   "name": "@primer/styled-react",
   "version": "1.0.0-rc.1",
-  "type": "module",
+  "main": "lib/index.js",
+  "module": "lib-esm/index.js",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "default": "./dist/index.js"
+      "import": "./lib-esm/index.js",
+      "require": "./lib/index.js"
     },
     "./deprecated": {
-      "types": "./dist/deprecated.d.ts",
-      "default": "./dist/deprecated.js"
+      "import": "./lib-esm/deprecated.js",
+      "require": "./lib/deprecated.js"
     },
     "./experimental": {
-      "types": "./dist/experimental.d.ts",
-      "default": "./dist/experimental.js"
+      "import": "./lib-esm/experimental.js",
+      "require": "./lib/experimental.js"
     }
   },
+  "typings": "lib/index.d.ts",
   "files": [
     "README.md",
-    "dist"
+    "lib",
+    "lib-esm"
   ],
   "scripts": {
     "build": "script/build",
-    "clean": "rimraf dist",
+    "clean": "rimraf lib lib-esm",
     "lint:npm": "publint --types",
     "type-check": "tsc --noEmit"
   },
@@ -33,6 +36,7 @@
     "@types/react": "18.3.11",
     "@types/react-dom": "18.3.1",
     "@vitejs/plugin-react": "^4.3.3",
+    "copyfiles": "^2.4.1",
     "publint": "^0.3.12",
     "react": "18.3.1",
     "react-dom": "18.3.1",

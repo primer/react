@@ -13,7 +13,7 @@ function createPackageRegex(name) {
   return new RegExp(`^${name}(/.*)?`)
 }
 
-export default defineConfig({
+const baseConfig = {
   input: ['src/index.ts', 'src/experimental.ts', 'src/deprecated.ts'],
   external: dependencies.map(createPackageRegex),
   plugins: [
@@ -26,8 +26,29 @@ export default defineConfig({
       babelHelpers: 'bundled',
     }),
   ],
-  output: {
-    dir: 'dist',
-    format: 'esm',
+}
+
+export default [
+  // ESM
+  {
+    ...baseConfig,
+    output: {
+      dir: 'lib-esm',
+      format: 'esm',
+      preserveModules: true,
+      preserveModulesRoot: 'src',
+    },
   },
-})
+
+  // CommonJS
+  {
+    ...baseConfig,
+    output: {
+      dir: 'lib',
+      format: 'commonjs',
+      preserveModules: true,
+      preserveModulesRoot: 'src',
+      exports: 'auto',
+    },
+  },
+]

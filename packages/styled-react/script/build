@@ -1,3 +1,15 @@
 #!/bin/bash
 
+set -e
+
+# Clean up
+npm run clean
+
+# Bundle both ESM and CommonJS
 npx rollup -c
+
+# Type check and generate TypeScript declarations
+npx tsc --project tsconfig.build.json
+
+# Copy type declarations to lib-esm directory
+npx copyfiles -u 1 "./lib/**/*.d.ts" ./lib-esm

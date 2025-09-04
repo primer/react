@@ -1,8 +1,6 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "outDir": "./dist",
-    "declaration": true,
     "emitDeclarationOnly": true
   },
   "exclude": ["vitest.config.ts", "vitest.config.browser.ts", "config", "**/*.test.ts", "**/*.test.tsx"]
