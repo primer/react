@@ -1,5 +1,4 @@
 import babel from '@rollup/plugin-babel'
-import {defineConfig} from 'rollup'
 import typescript from 'rollup-plugin-typescript2'
 import packageJson from './package.json' with {type: 'json'}
 
