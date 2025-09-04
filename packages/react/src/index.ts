@@ -193,7 +193,7 @@ export type {VisuallyHiddenProps} from './VisuallyHidden'
 export {UnderlineNav} from './UnderlineNav'
 export type {UnderlineNavProps, UnderlineNavItemProps} from './UnderlineNav'
 
-export {ActionBar} from './ActionBar'
+export {ActionBar, ActionBarContext} from './ActionBar'
 export type {ActionBarProps} from './ActionBar'
 
 export {Stack} from './Stack'
