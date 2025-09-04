@@ -9,8 +9,6 @@ export {
   ActionMenu,
   Autocomplete,
   Avatar,
-  Box,
-  type BoxProps,
   BranchName,
   Breadcrumbs,
   Button,
