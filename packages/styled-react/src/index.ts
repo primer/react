@@ -59,4 +59,12 @@ export {
   sx,
   type SxProp,
   type BetterSystemStyleObject,
+
+  // theming depends on styled-components
+  ThemeProvider,
+  merge,
+  theme,
+  themeGet,
+  useColorSchemeVar,
+  useTheme,
 } from '@primer/react'
