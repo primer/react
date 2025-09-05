@@ -20,12 +20,6 @@ Playground.argTypes = {
   as: {
     type: 'string',
   },
-  sx: {
-    controls: false,
-    table: {
-      disable: true,
-    },
-  },
   ref: {
     controls: false,
     table: {
