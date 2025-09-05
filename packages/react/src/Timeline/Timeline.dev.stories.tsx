@@ -3,6 +3,8 @@ import type {ComponentProps} from '../utils/types'
 import Timeline from './Timeline'
 import Octicon from '../Octicon'
 import {GitCommitIcon} from '@primer/octicons-react'
+import {clsx} from 'clsx'
+import classes from './Timeline.dev.stories.module.css'
 
 export default {
   title: 'Components/Timeline/Dev',
@@ -16,73 +18,24 @@ export default {
 } as Meta<ComponentProps<typeof Timeline>>
 
 export const SxProps = () => (
-  <Timeline
-    sx={{
-      ml: 4,
-    }}
-    style={{border: '1px solid red'}}
-  >
-    <Timeline.Item
-      sx={{
-        pt: 2,
-        pb: 1,
-      }}
-      style={{border: '1px solid pink'}}
-    >
-      <Timeline.Badge
-        sx={{
-          backgroundColor: 'canvas.default',
-        }}
-      >
+  <Timeline className={classes.TimelineWithMarginLeft} style={{border: '1px solid red'}}>
+    <Timeline.Item className={classes.TimelineItemWithPadding} style={{border: '1px solid pink'}}>
+      <Timeline.Badge className={classes.TimelineBadgeCanvas}>
         <Octicon icon={GitCommitIcon} aria-label="Commit" />
       </Timeline.Badge>
-      <Timeline.Body
-        sx={{
-          color: 'fg.subtle',
-          fontSize: '14px',
-          width: '100%',
-          paddingRight: 5,
-          display: 'flex',
-          flexDirection: 'column',
-        }}
-        className="mt-0"
-        style={{border: '1px solid green'}}
-      >
+      <Timeline.Body className={clsx(classes.TimelineBodySubtle, 'mt-0')} style={{border: '1px solid green'}}>
         This is a message
       </Timeline.Body>
     </Timeline.Item>
     <Timeline.Item color="gray">
-      <Timeline.Badge
-        sx={{
-          bg: 'danger.emphasis',
-        }}
-      >
+      <Timeline.Badge className={classes.TimelineBadgeDanger}>
         <Octicon icon={GitCommitIcon} aria-label="Commit" />
       </Timeline.Badge>
-      <Timeline.Body
-        sx={{
-          color: 'fg.default',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-        }}
-      >
-        This is a message
-      </Timeline.Body>
+      <Timeline.Body className={classes.TimelineBodyDefault}>This is a message</Timeline.Body>
     </Timeline.Item>
-    <Timeline.Break
-      sx={{
-        borderWidth: '2px',
-      }}
-      style={{border: '1px solid gray'}}
-    />
+    <Timeline.Break className={classes.TimelineBreakThick} style={{border: '1px solid gray'}} />
     <Timeline.Item condensed={true}>
-      <Timeline.Badge
-        sx={{
-          mt: 2,
-          bg: 'accent.emphasis',
-        }}
-      >
+      <Timeline.Badge className={classes.TimelineBadgeAccent}>
         <Octicon icon={GitCommitIcon} aria-label="Commit" />
       </Timeline.Badge>
       <Timeline.Body>This is a message</Timeline.Body>
