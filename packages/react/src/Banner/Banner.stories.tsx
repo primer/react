@@ -5,7 +5,7 @@ import {PageLayout} from '../PageLayout'
 import {action} from 'storybook/actions'
 
 const meta = {
-  title: 'Components/Banner',
+  title: 'Experimental/Components/Banner',
   component: Banner,
 } satisfies Meta<typeof Banner>
 
