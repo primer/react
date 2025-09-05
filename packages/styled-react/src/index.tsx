@@ -3,9 +3,6 @@ import {
   Box,
   type BoxProps,
   type SxProp,
-  ProgressBar as PrimerProgressBar,
-  type ProgressBarProps as PrimerProgressBarProps,
-  type ProgressBarItemProps as PrimerProgressBarItemProps,
   StateLabel as PrimerStateLabel,
   type StateLabelProps as PrimerStateLabelProps,
   SubNav as PrimerSubNav,
@@ -40,22 +37,6 @@ type StyledProps = SxProp &
   PositionProps &
   ShadowProps
 
-type ProgressBarProps = PrimerProgressBarProps & SxProp
-
-const ProgressBarImpl = forwardRef<HTMLSpanElement, ProgressBarProps>(function ProgressBar(props, ref) {
-  return <Box as={PrimerProgressBar} ref={ref} {...props} />
-})
-
-type ProgressBarItemProps = PrimerProgressBarItemProps & SxProp
-
-const ProgressBarItem = forwardRef<HTMLSpanElement, ProgressBarItemProps>(function ProgressBarItem(props, ref) {
-  return <Box as={PrimerProgressBar.Item} ref={ref} {...props} />
-})
-
-const ProgressBar = Object.assign(ProgressBarImpl, {
-  Item: ProgressBarItem,
-})
-
 type StateLabelProps = PrimerStateLabelProps & SxProp
 
 const StateLabel = forwardRef<HTMLSpanElement, StateLabelProps>(function StateLabel(props, ref) {
@@ -84,7 +65,7 @@ const ToggleSwitch = forwardRef<HTMLButtonElement, ToggleSwitchProps>(function T
   return <Box as={PrimerToggleSwitch} ref={ref} {...props} />
 })
 
-export {ProgressBar, StateLabel, SubNav, ToggleSwitch}
+export {StateLabel, SubNav, ToggleSwitch}
 
 export {
   ActionList,
@@ -112,6 +93,7 @@ export {
   PageHeader,
   PageLayout,
   Popover,
+  ProgressBar,
   RadioGroup,
   RelativeTime,
   SegmentedControl,
