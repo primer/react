@@ -44,7 +44,6 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
       size,
       required,
       validationStatus,
-      sx,
       ...rest
     }: SelectProps,
     ref,
@@ -56,7 +55,6 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
         size={size}
         validationStatus={validationStatus}
         className={clsx(classes.TextInputWrapper, className)}
-        sx={sx}
       >
         <select
           {...rest}
