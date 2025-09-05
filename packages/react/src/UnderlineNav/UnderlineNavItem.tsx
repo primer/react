@@ -1,13 +1,11 @@
 import type {MutableRefObject, RefObject} from 'react'
 import React, {forwardRef, useRef, useContext} from 'react'
-import Box from '../Box'
-import type {SxProp} from '../sx'
 import type {IconProps} from '@primer/octicons-react'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {UnderlineNavContext} from './UnderlineNavContext'
 import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
-import {defaultSxProp} from '../utils/defaultSxProp'
 import {UnderlineItem} from '../internal/components/UnderlineTabbedInterface'
+import classes from './UnderlineNavItem.module.css'
 
 // adopted from React.AnchorHTMLAttributes
 export type LinkProps = {
@@ -47,22 +45,11 @@ export type UnderlineNavItemProps = {
    * Counter
    */
   counter?: number | string
-} & SxProp &
-  LinkProps
+} & LinkProps
 
 export const UnderlineNavItem = forwardRef(
   (
-    {
-      sx: sxProp = defaultSxProp,
-      as: Component = 'a',
-      href = '#',
-      children,
-      counter,
-      onSelect,
-      'aria-current': ariaCurrent,
-      icon: Icon,
-      ...props
-    },
+    {as: Component = 'a', href = '#', children, counter, onSelect, 'aria-current': ariaCurrent, icon: Icon, ...props},
     forwardedRef,
   ) => {
     const backupRef = useRef<HTMLElement>(null)
@@ -111,7 +98,7 @@ export const UnderlineNavItem = forwardRef(
     )
 
     return (
-      <Box as="li" sx={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+      <li className={classes.UnderlineNavItem}>
         <UnderlineItem
           ref={ref}
           as={Component}
@@ -123,12 +110,11 @@ export const UnderlineNavItem = forwardRef(
           icon={Icon}
           loadingCounters={loadingCounters}
           iconsVisible={iconsVisible}
-          sx={sxProp}
           {...props}
         >
           {children}
         </UnderlineItem>
-      </Box>
+      </li>
     )
   },
 ) as PolymorphicForwardRefComponent<'a', UnderlineNavItemProps>
