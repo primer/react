@@ -549,4 +549,5 @@ describe('Breadcrumbs', () => {
       )
       expect(container.firstChild).toHaveAttribute('data-variant', 'spacious')
     })
+  })
 })
