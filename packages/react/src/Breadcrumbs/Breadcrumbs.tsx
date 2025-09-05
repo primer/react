@@ -17,8 +17,6 @@ import {useOnEscapePress} from '../hooks/useOnEscapePress'
 import {useOnOutsideClick} from '../hooks/useOnOutsideClick'
 import {useFeatureFlag} from '../FeatureFlags'
 
-const SELECTED_CLASS = 'selected'
-
 export type BreadcrumbsProps = React.PropsWithChildren<
   {
     className?: string
@@ -370,18 +368,10 @@ type StyledBreadcrumbsItemProps = {
   React.ComponentPropsWithRef<'a'>
 
 const BreadcrumbsItem = React.forwardRef(({selected, className, ...rest}, ref) => {
-  const overflowMenuEnabled = useFeatureFlag('primer_react_breadcrumbs_overflow_menu')
   return (
     <BoxWithFallback
       as="a"
-      className={clsx(
-        className,
-        classes.Item,
-        {
-          [SELECTED_CLASS]: selected,
-        },
-        overflowMenuEnabled ? {} : {[classes.ItemSelected]: selected},
-      )}
+      className={clsx(className, classes.Item, selected && 'selected')}
       aria-current={selected ? 'page' : undefined}
       ref={ref}
       {...rest}
