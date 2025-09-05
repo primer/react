@@ -1,0 +1,9 @@
+.OnEmphasisWrapper {
+  background-color: var(--bgColor-black);
+  padding: var(--base-size-16);
+}
+
+.OnPrimaryWrapper {
+  background-color: var(--button-primary-bgColor-rest);
+  padding: var(--base-size-16);
+}
