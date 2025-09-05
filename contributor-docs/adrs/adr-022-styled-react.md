@@ -4,10 +4,10 @@
 
 ## Status
 
-| Stage          | State                                                                                     |
-| -------------- | ----------------------------------------------------------------------------------------- |
+| Stage          | State                                                                                                 |
+| -------------- | ----------------------------------------------------------------------------------------------------- |
 | Status         | Accepted ✅ <!-- Proposed ❓ OR Accepted ✅ OR Superseded by [LINK](https://) ⚠️ OR Deprecated ⛔ --> |
-| Implementation | Adopted ✅ <!-- Not planned ⛔ OR Adoption awaiting in [LINK](https://) ⏸️ OR Adopted ✅ -->         |
+| Implementation | Adopted ✅ <!-- Not planned ⛔ OR Adoption awaiting in [LINK](https://) ⏸️ OR Adopted ✅ -->          |
 
 ## Context
 
