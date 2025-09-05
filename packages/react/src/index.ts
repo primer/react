@@ -74,8 +74,6 @@ export {default as Avatar} from './Avatar'
 export type {AvatarProps} from './Avatar'
 export {default as AvatarStack} from './AvatarStack'
 export type {AvatarStackProps} from './AvatarStack'
-export {Banner} from './Banner'
-export type {BannerProps} from './Banner'
 
 export {default as BranchName} from './BranchName'
 export type {BranchNameProps} from './BranchName'
