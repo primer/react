@@ -522,4 +522,32 @@ describe('Breadcrumbs', () => {
       expect(menuButton).toHaveFocus()
     })
   })
+
+  describe('variant prop (feature flag on)', () => {
+    it('sets data-variant="normal" by default', () => {
+      const {container} = renderWithTheme(
+        <Breadcrumbs overflow="menu">
+          <Breadcrumbs.Item href="/home">Home</Breadcrumbs.Item>
+          <Breadcrumbs.Item href="/docs" selected>
+            Docs
+          </Breadcrumbs.Item>
+        </Breadcrumbs>,
+        {primer_react_breadcrumbs_overflow_menu: true},
+      )
+      expect(container.firstChild).toHaveAttribute('data-variant', 'normal')
+    })
+
+    it('sets data-variant="spacious" when variant prop provided', () => {
+      const {container} = renderWithTheme(
+        <Breadcrumbs overflow="menu" variant="spacious">
+          <Breadcrumbs.Item href="/home">Home</Breadcrumbs.Item>
+          <Breadcrumbs.Item href="/docs" selected>
+            Docs
+          </Breadcrumbs.Item>
+        </Breadcrumbs>,
+        {primer_react_breadcrumbs_overflow_menu: true},
+      )
+      expect(container.firstChild).toHaveAttribute('data-variant', 'spacious')
+    })
+  })
 })
