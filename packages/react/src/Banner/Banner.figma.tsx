@@ -1,4 +1,4 @@
-import {Banner} from '../../src/'
+import {Banner} from '../../src/experimental/'
 import figma from '@figma/code-connect'
 
 const componentProps = {
