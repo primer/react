@@ -259,6 +259,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
           anchorSide={position?.anchorSide}
           className={className}
           preventOverflow={preventOverflow}
+          overflow={currentResponsiveVariant === 'fullscreen' ? 'auto' : undefined}
           {...overlayProps}
         >
           {showXIcon ? (

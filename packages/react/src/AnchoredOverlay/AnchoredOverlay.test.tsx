@@ -149,4 +149,41 @@ describe('AnchoredOverlay', () => {
       },
     })
   })
+
+  it('should apply overflow auto to fullscreen overlays', () => {
+    const FullscreenOverlayTestComponent = () => {
+      const [open, setOpen] = useState(true)
+      return (
+        <ThemeProvider theme={theme}>
+          <BaseStyles>
+            <AnchoredOverlay
+              open={open}
+              onOpen={() => setOpen(true)}
+              onClose={() => setOpen(false)}
+              renderAnchor={props => <Button {...props}>Anchor Button</Button>}
+              variant={{
+                narrow: 'fullscreen',
+                regular: 'anchored',
+              }}
+            >
+              {/* Long content that requires scrolling */}
+              <div style={{height: '200vh', backgroundColor: 'blue'}}>
+                <div>Content that overflows</div>
+              </div>
+            </AnchoredOverlay>
+          </BaseStyles>
+        </ThemeProvider>
+      )
+    }
+
+    const {container} = render(<FullscreenOverlayTestComponent />)
+
+    // Find the overlay element
+    const overlay = container.querySelector('[data-responsive="fullscreen"]')
+    expect(overlay).toBeInTheDocument()
+
+    // Check that the overlay has overflow auto applied (either via CSS class or directly)
+    // For now, we'll check for the presence of the data attribute that would trigger CSS
+    expect(overlay).toHaveAttribute('data-overflow-auto', '')
+  })
 })
