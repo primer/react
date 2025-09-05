@@ -25,7 +25,7 @@ type ResponsiveProps = {
   menuItems: Array<React.ReactElement>
 }
 
-const ActionBarContext = React.createContext<{
+export const ActionBarContext = React.createContext<{
   size: Size
   setChildrenWidth: React.Dispatch<{text: string; width: number}>
 }>({size: 'medium', setChildrenWidth: () => null})
