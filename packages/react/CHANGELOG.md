@@ -1,5 +1,33 @@
 # @primer/react
 
+## 38.0.0-rc.2
+
+### Major Changes
+
+- [#6634](https://github.com/primer/react/pull/6634) [`d883432`](https://github.com/primer/react/commit/d883432010274cf87691a9affb0e012764b2cdae) Thanks [@TylerJDev](https://github.com/TylerJDev)! - CircleOcticon: Remove component `CircleOcticon`
+
+- [#6713](https://github.com/primer/react/pull/6713) [`7d7b797`](https://github.com/primer/react/commit/7d7b797b7696af8dd9533e501f62f3666982307d) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - Deprecate TextInputWithTokens component. The component has been moved to the deprecated entrypoint due to low usage and accessibility implications. Import from `@primer/react/deprecated` instead of `@primer/react`.
+
+- [#6272](https://github.com/primer/react/pull/6272) [`d74d73e`](https://github.com/primer/react/commit/d74d73e413a9941cdc74c6f5a2cf6b1be9e7e8db) Thanks [@llastflowers](https://github.com/llastflowers)! - remove unused `contrast` from Select component
+
+- [#6652](https://github.com/primer/react/pull/6652) [`c6d923f`](https://github.com/primer/react/commit/c6d923f93c0cb40453f1a9dab9209a9caeb87bce) Thanks [@llastflowers](https://github.com/llastflowers)! - Update AvatarStack component to no longer support sx
+
+- [#6706](https://github.com/primer/react/pull/6706) [`e3f26cc`](https://github.com/primer/react/commit/e3f26ccbcf40b38cea75f32970ddb23865d7b827) Thanks [@TylerJDev](https://github.com/TylerJDev)! - Deprecate CircleBadge component
+
+- [#6676](https://github.com/primer/react/pull/6676) [`ab5ffb0`](https://github.com/primer/react/commit/ab5ffb00d6e54224542ee60bcc23915b0bb65b15) Thanks [@mperrotti](https://github.com/mperrotti)! - Removes styled-system and related utilities from Caret.tsx, IssueLabelToken.tsx, StateLabel.tsx, ToggleSwitch.tsx, and deprecated/ActionList/List.tsx
+
+  Removes WidthProps from ProgressBar.tsx
+
+- [#6682](https://github.com/primer/react/pull/6682) [`5bbaae7`](https://github.com/primer/react/commit/5bbaae78f732df2470c1ea7933863ef8a3f9681c) Thanks [@llastflowers](https://github.com/llastflowers)! - Update LabelGroup component to no longer support sx
+
+- [#6680](https://github.com/primer/react/pull/6680) [`5c30443`](https://github.com/primer/react/commit/5c3044342cd2214bbd9d1d50a704d8789ca019d4) Thanks [@llastflowers](https://github.com/llastflowers)! - Update Details component to no longer support sx
+
+- [#6625](https://github.com/primer/react/pull/6625) [`65ae375`](https://github.com/primer/react/commit/65ae3757c1828bb5db5b5dd24d4ce743c679cf28) Thanks [@llastflowers](https://github.com/llastflowers)! - Update BranchName component to no longer support sx
+
+### Patch Changes
+
+- [#6701](https://github.com/primer/react/pull/6701) [`1aa7404`](https://github.com/primer/react/commit/1aa7404f4070244083b9b05394921cda4dfe31c6) Thanks [@pksjce](https://github.com/pksjce)! - Banner: Should prefer aria-labelled-by over aria-label
+
 ## 38.0.0-rc.1
 
 ### Major Changes
