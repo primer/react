@@ -78,12 +78,7 @@
       "type": "'small' | 'medium'",
       "description": "The size of the buttons",
       "defaultValue": ""
-    },
-    {
-      "name": "sx",
-      "type": "SystemStyleObject",
-      "deprecated": true
-    },
+    }, 
     {
       "name": "ref",
       "type": "React.RefObject<HTMLDivElement>"
@@ -110,12 +105,7 @@
           "type": "boolean",
           "defaultValue": "",
           "description": "Whether the segment is selected. This is used for uncontrolled SegmentedControls to pick one SegmentedControlButton that is selected on the initial render."
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject",
-          "deprecated": true
-        },
+        }, 
         {
           "name": "ref",
           "type": "React.RefObject<HTMLButtonElement>"
@@ -156,12 +146,7 @@
           "type": "boolean",
           "defaultValue": "",
           "description": "Whether the segment is selected. This is used for uncontrolled SegmentedControls to pick one SegmentedControlButton that is selected on the initial render."
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject",
-          "deprecated": true
-        },
+        }, 
         {
           "name": "ref",
           "type": "React.RefObject<HTMLButtonElement>"
