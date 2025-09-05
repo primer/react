@@ -154,6 +154,24 @@ body[data-page-layout-dragging='true'] * {
   }
 }
 
+/* DRAG HANDLE STYLES */
+.PageLayoutPaneDragHandle {
+  position: absolute;
+  inset: 0 -2px;
+  cursor: col-resize;
+  transition: background 0.2s;
+  background: transparent;
+}
+
+.PageLayoutPaneDragHandle:hover {
+  background: var(--bgColor-neutral-muted);
+}
+
+.PageLayoutPaneDragHandle.IsDragging,
+.PageLayoutPaneDragHandle.IsDragging:hover {
+  background: var(--bgColor-accent-emphasis);
+}
+
 .Header {
   width: 100%;
   /* stylelint-disable-next-line primer/spacing */
