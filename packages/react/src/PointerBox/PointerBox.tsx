@@ -2,8 +2,8 @@ import React from 'react'
 import {ThemeContext} from 'styled-components'
 import type {BoxProps} from '../Box'
 import Box from '../Box'
-import type {CaretProps} from '../Caret'
-import Caret from '../Caret'
+import type {CaretProps} from '../internal/components/Caret'
+import Caret from '../internal/components/Caret'
 import {get} from '../constants'
 import type {SxProp} from '../sx'
 
@@ -16,6 +16,10 @@ type MutatedSxProps = {
   }
 } & SxProp
 
+/**
+ * @deprecated PointerBox is deprecated and will be removed in a future major release.
+ * Consider using Overlay or Position + Box with a caret instead.
+ */
 export type PointerBoxProps = {
   caret?: CaretProps['location']
   bg?: CaretProps['bg']
@@ -24,6 +28,10 @@ export type PointerBoxProps = {
 } & BoxProps &
   MutatedSxProps
 
+/**
+ * @deprecated PointerBox is deprecated and will be removed in a future major release.
+ * Consider using Overlay or Position + Box with a caret instead.
+ */
 function PointerBox(props: PointerBoxProps) {
   // don't destructure these, just grab them
   const themeContext = React.useContext(ThemeContext)

@@ -33,7 +33,6 @@ const CircleBadge = styled.div<StyledCircleBadgeProps>`
   box-shadow: ${get('shadows.shadow.medium')};
   ${sizeStyles};
 `
-
 const CircleBadgeIcon = styled(Octicon)`
   height: auto;
   max-width: 60%;
@@ -43,5 +42,11 @@ const CircleBadgeIcon = styled(Octicon)`
 CircleBadgeIcon.displayName = 'CircleBadge.Icon'
 
 export type CircleBadgeProps = ComponentProps<typeof CircleBadge>
+
 export type CircleBadgeIconProps = ComponentProps<typeof CircleBadgeIcon>
+
+/**
+ * @deprecated This component is deprecated.
+ * Replace component with specific icon imports from `@primer/octicons-react` and customized styling.
+ */
 export default Object.assign(CircleBadge, {Icon: CircleBadgeIcon})
