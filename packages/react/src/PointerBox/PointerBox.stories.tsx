@@ -3,14 +3,7 @@ import PointerBox from './PointerBox'
 import type {ComponentProps} from '../utils/types'
 
 export default {
-  title: 'Deprecated/Components/PointerBox',
-  parameters: {
-    docs: {
-      description: {
-        component: 'PointerBox is deprecated and will be removed in a future major release. Consider using Overlay.',
-      },
-    },
-  },
+  title: 'Components/PointerBox',
 } as Meta<typeof PointerBox>
 
 export const Default = () => <PointerBox>Pointer box content</PointerBox>

@@ -12,7 +12,7 @@ import {useFocus} from '../internal/hooks/useFocus'
 import {PageLayout} from '../PageLayout'
 
 const meta = {
-  title: 'Components/Banner/Examples',
+  title: 'Experimental/Components/Banner/Examples',
   component: Banner,
 } satisfies Meta<typeof Banner>
 
