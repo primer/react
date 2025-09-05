@@ -7,13 +7,25 @@ import * as StyledReactDeprecated from '../deprecated'
 import * as StyledReactExperimental from '../experimental'
 
 test('@primer/styled-react exports', () => {
-  expect(Object.keys(StyledReact)).toMatchSnapshot()
+  expect(
+    Object.keys(StyledReact).sort((a, b) => {
+      return a.localeCompare(b)
+    }),
+  ).toMatchSnapshot()
 })
 
 test('@primer/styled-react/deprecated exports', () => {
-  expect(Object.keys(StyledReactDeprecated)).toMatchSnapshot()
+  expect(
+    Object.keys(StyledReactDeprecated).sort((a, b) => {
+      return a.localeCompare(b)
+    }),
+  ).toMatchSnapshot()
 })
 
 test('@primer/styled-react/experimental exports', () => {
-  expect(Object.keys(StyledReactExperimental)).toMatchSnapshot()
+  expect(
+    Object.keys(StyledReactExperimental).sort((a, b) => {
+      return a.localeCompare(b)
+    }),
+  ).toMatchSnapshot()
 })

@@ -14,14 +14,14 @@ function createPackageRegex(name) {
 }
 
 export default defineConfig({
-  input: ['src/index.ts', 'src/experimental.ts', 'src/deprecated.ts'],
+  input: ['src/index.tsx', 'src/experimental.tsx', 'src/deprecated.tsx'],
   external: dependencies.map(createPackageRegex),
   plugins: [
     typescript({
       tsconfig: 'tsconfig.build.json',
     }),
     babel({
-      presets: ['@babel/preset-typescript'],
+      presets: ['@babel/preset-typescript', '@babel/preset-react'],
       extensions: ['.ts', '.tsx'],
       babelHelpers: 'bundled',
     }),

@@ -1,6 +1,6 @@
 import {ProgressBar as Bar, Item} from './ProgressBar'
 
-export type {ProgressBarProps} from './ProgressBar'
+export type {ProgressBarProps, ProgressBarItemProps} from './ProgressBar'
 
 /**
  * Collection of ProgressBar related components.

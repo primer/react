@@ -72,135 +72,133 @@ const LineIcon: React.FC<React.PropsWithChildren<InnerIconProps>> = ({size}) => 
   </svg>
 )
 
-const ToggleSwitch = React.forwardRef<HTMLButtonElement, React.PropsWithChildren<ToggleSwitchProps>>(
-  function ToggleSwitch(props, ref) {
-    const {
-      'aria-labelledby': ariaLabelledby,
-      'aria-describedby': ariaDescribedby,
-      defaultChecked,
-      disabled,
-      loading,
-      checked,
-      onChange,
-      onClick,
-      buttonType = 'button',
-      size = 'medium',
-      statusLabelPosition = 'start',
-      loadingLabelDelay = 2000,
-      loadingLabel = 'Loading',
-      className,
-      ...rest
-    } = props
-    const isControlled = typeof checked !== 'undefined'
-    const [isOn, setIsOn] = useProvidedStateOrCreate<boolean>(checked, onChange, Boolean(defaultChecked))
-    const acceptsInteraction = !disabled && !loading
+const ToggleSwitch = React.forwardRef<HTMLButtonElement, ToggleSwitchProps>(function ToggleSwitch(props, ref) {
+  const {
+    'aria-labelledby': ariaLabelledby,
+    'aria-describedby': ariaDescribedby,
+    defaultChecked,
+    disabled,
+    loading,
+    checked,
+    onChange,
+    onClick,
+    buttonType = 'button',
+    size = 'medium',
+    statusLabelPosition = 'start',
+    loadingLabelDelay = 2000,
+    loadingLabel = 'Loading',
+    className,
+    ...rest
+  } = props
+  const isControlled = typeof checked !== 'undefined'
+  const [isOn, setIsOn] = useProvidedStateOrCreate<boolean>(checked, onChange, Boolean(defaultChecked))
+  const acceptsInteraction = !disabled && !loading
 
-    const [isLoadingLabelVisible, setIsLoadingLabelVisible] = React.useState(false)
-    const loadingLabelId = useId('loadingLabel')
+  const [isLoadingLabelVisible, setIsLoadingLabelVisible] = React.useState(false)
+  const loadingLabelId = useId('loadingLabel')
 
-    const {safeSetTimeout} = useSafeTimeout()
+  const {safeSetTimeout} = useSafeTimeout()
 
-    const handleToggleClick: MouseEventHandler = useCallback(
-      e => {
-        if (disabled || loading) return
+  const handleToggleClick: MouseEventHandler = useCallback(
+    e => {
+      if (disabled || loading) return
 
-        if (!isControlled) {
-          setIsOn(!isOn)
-        }
-        onClick && onClick(e)
-      },
-      [disabled, isControlled, loading, onClick, setIsOn, isOn],
-    )
-
-    useEffect(() => {
-      if (onChange && isControlled && !disabled) {
-        onChange(Boolean(checked))
+      if (!isControlled) {
+        setIsOn(!isOn)
       }
-    }, [onChange, checked, isControlled, disabled])
+      onClick && onClick(e)
+    },
+    [disabled, isControlled, loading, onClick, setIsOn, isOn],
+  )
 
-    useEffect(() => {
-      if (!loading && isLoadingLabelVisible) {
-        setIsLoadingLabelVisible(false)
-      } else if (loading && !isLoadingLabelVisible) {
-        safeSetTimeout(() => {
-          setIsLoadingLabelVisible(true)
-        }, loadingLabelDelay)
-      }
-    }, [loading, isLoadingLabelVisible, loadingLabelDelay, safeSetTimeout])
+  useEffect(() => {
+    if (onChange && isControlled && !disabled) {
+      onChange(Boolean(checked))
+    }
+  }, [onChange, checked, isControlled, disabled])
 
-    let switchButtonDescribedBy = loadingLabelId
-    if (ariaDescribedby) switchButtonDescribedBy = `${switchButtonDescribedBy} ${ariaDescribedby}`
+  useEffect(() => {
+    if (!loading && isLoadingLabelVisible) {
+      setIsLoadingLabelVisible(false)
+    } else if (loading && !isLoadingLabelVisible) {
+      safeSetTimeout(() => {
+        setIsLoadingLabelVisible(true)
+      }, loadingLabelDelay)
+    }
+  }, [loading, isLoadingLabelVisible, loadingLabelDelay, safeSetTimeout])
 
-    return (
-      <div className={clsx(classes.ToggleSwitch, className)} data-status-label-position={statusLabelPosition} {...rest}>
-        <VisuallyHidden>
-          <AriaStatus announceOnShow id={loadingLabelId}>
-            {isLoadingLabelVisible && loadingLabel}
-          </AriaStatus>
-        </VisuallyHidden>
+  let switchButtonDescribedBy = loadingLabelId
+  if (ariaDescribedby) switchButtonDescribedBy = `${switchButtonDescribedBy} ${ariaDescribedby}`
 
-        {loading ? (
-          <div className={classes.LoadingSpinner} data-status-label-position={statusLabelPosition}>
-            <Spinner size="small" srText={null} />
-          </div>
-        ) : null}
+  return (
+    <div className={clsx(classes.ToggleSwitch, className)} data-status-label-position={statusLabelPosition} {...rest}>
+      <VisuallyHidden>
+        <AriaStatus announceOnShow id={loadingLabelId}>
+          {isLoadingLabelVisible && loadingLabel}
+        </AriaStatus>
+      </VisuallyHidden>
 
-        <span
-          className={classes.StatusText}
-          data-size={size}
-          data-disabled={!acceptsInteraction}
-          aria-hidden="true"
-          onClick={handleToggleClick}
-        >
-          <span className={classes.StatusTextItem} data-hidden={!isOn}>
-            On
-          </span>
-          <span className={classes.StatusTextItem} data-hidden={isOn}>
-            Off
-          </span>
+      {loading ? (
+        <div className={classes.LoadingSpinner} data-status-label-position={statusLabelPosition}>
+          <Spinner size="small" srText={null} />
+        </div>
+      ) : null}
+
+      <span
+        className={classes.StatusText}
+        data-size={size}
+        data-disabled={!acceptsInteraction}
+        aria-hidden="true"
+        onClick={handleToggleClick}
+      >
+        <span className={classes.StatusTextItem} data-hidden={!isOn}>
+          On
         </span>
+        <span className={classes.StatusTextItem} data-hidden={isOn}>
+          Off
+        </span>
+      </span>
 
-        <button
-          ref={ref}
-          // eslint-disable-next-line react/button-has-type
-          type={buttonType}
-          className={classes.SwitchButton}
-          data-size={size}
-          data-checked={isOn}
-          data-disabled={!acceptsInteraction}
-          onClick={handleToggleClick}
-          aria-labelledby={ariaLabelledby}
-          aria-describedby={isLoadingLabelVisible || ariaDescribedby ? switchButtonDescribedBy : undefined}
-          aria-pressed={isOn}
-          aria-disabled={!acceptsInteraction}
-        >
-          <div className={classes.SwitchButtonContent} aria-hidden="true">
-            <div
-              className={`${classes.IconContainer} ${classes.LineIconContainer}`}
-              data-checked={isOn}
-              data-disabled={!acceptsInteraction}
-            >
-              <LineIcon size={size} />
-            </div>
-            <div
-              className={`${classes.IconContainer} ${classes.CircleIconContainer}`}
-              data-checked={isOn}
-              data-disabled={!acceptsInteraction}
-            >
-              <CircleIcon size={size} />
-            </div>
-          </div>
+      <button
+        ref={ref}
+        // eslint-disable-next-line react/button-has-type
+        type={buttonType}
+        className={classes.SwitchButton}
+        data-size={size}
+        data-checked={isOn}
+        data-disabled={!acceptsInteraction}
+        onClick={handleToggleClick}
+        aria-labelledby={ariaLabelledby}
+        aria-describedby={isLoadingLabelVisible || ariaDescribedby ? switchButtonDescribedBy : undefined}
+        aria-pressed={isOn}
+        aria-disabled={!acceptsInteraction}
+      >
+        <div className={classes.SwitchButtonContent} aria-hidden="true">
           <div
-            className={classes.ToggleKnob}
+            className={`${classes.IconContainer} ${classes.LineIconContainer}`}
             data-checked={isOn}
             data-disabled={!acceptsInteraction}
-            aria-hidden="true"
-          />
-        </button>
-      </div>
-    )
-  },
-)
+          >
+            <LineIcon size={size} />
+          </div>
+          <div
+            className={`${classes.IconContainer} ${classes.CircleIconContainer}`}
+            data-checked={isOn}
+            data-disabled={!acceptsInteraction}
+          >
+            <CircleIcon size={size} />
+          </div>
+        </div>
+        <div
+          className={classes.ToggleKnob}
+          data-checked={isOn}
+          data-disabled={!acceptsInteraction}
+          aria-hidden="true"
+        />
+      </button>
+    </div>
+  )
+})
 
 if (__DEV__) {
   ToggleSwitch.displayName = 'ToggleSwitch'
