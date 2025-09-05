@@ -339,7 +339,13 @@ function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap', varian
       <BreadcrumbsList>{finalChildren}</BreadcrumbsList>
     </BoxWithFallback>
   ) : (
-    <BoxWithFallback as="nav" className={clsx(className, classes.BreadcrumbsBase)} aria-label="Breadcrumbs" sx={sxProp}>
+    <BoxWithFallback
+      as="nav"
+      className={clsx(className, classes.BreadcrumbsBase)}
+      aria-label="Breadcrumbs"
+      sx={sxProp}
+      data-variant={variant}
+    >
       <BreadcrumbsList>{wrappedChildren}</BreadcrumbsList>
     </BoxWithFallback>
   )

@@ -59,21 +59,9 @@
 .Item {
   display: inline-block;
   font-size: var(--text-body-size-medium);
-  color: var(--fgColor-link);
-  text-decoration: none;
 
-  &:hover,
-  &:focus {
-    text-decoration: underline;
-  }
-}
-
-.ItemSelected {
-  color: var(--fgColor-default);
-  pointer-events: none;
-
-  &:focus {
-    text-decoration: none;
+  &:focus-visible {
+    @mixin focusOutline;
   }
 }
 
@@ -89,7 +77,6 @@
     }
 
     &:focus-visible {
-      @mixin focusOutline 1px;
       text-decoration: none;
     }
 
@@ -110,10 +97,6 @@
     &:hover {
       background: var(--control-transparent-bgColor-hover);
       text-decoration: none;
-    }
-
-    &:focus-visible {
-      @mixin focusOutline;
     }
 
     &[aria-current] {
@@ -153,6 +136,7 @@
     & summary {
       list-style: none;
       cursor: pointer;
+      outline: none;
 
       &::-webkit-details-marker {
         display: none;
