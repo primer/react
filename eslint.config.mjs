@@ -385,6 +385,14 @@ const config = defineConfig([
       'primer-react/no-unnecessary-components': 'off',
     },
   },
+  {
+    files: ['packages/styled-react/**/*.test.{ts,tsx}'],
+    rules: {
+      'github/a11y-aria-label-is-well-formatted': 'off',
+      'github/a11y-svg-has-accessible-name': 'off',
+      'primer-react/direct-slot-children': 'off',
+    },
+  },
 ])
 
 export default tseslint.config(config)

@@ -320,7 +320,11 @@ describe('@primer/react', () => {
   })
 
   test('RadioGroup supports `sx` prop', () => {
-    const {container} = render(<RadioGroup data-testid="component" name="test" sx={{background: 'red'}} />)
+    const {container} = render(
+      <RadioGroup data-testid="component" name="test" sx={{background: 'red'}}>
+        <RadioGroup.Label>test</RadioGroup.Label>
+      </RadioGroup>,
+    )
     expect(window.getComputedStyle(container.firstElementChild!.firstElementChild!).backgroundColor).toBe(
       'rgb(255, 0, 0)',
     )
@@ -381,7 +385,7 @@ describe('@primer/react', () => {
   })
 
   test('TextInput.Action supports `sx` prop', () => {
-    render(<TextInput.Action sx={{background: 'red'}} />)
+    render(<TextInput.Action aria-label="test" sx={{background: 'red'}} />)
     expect(window.getComputedStyle(screen.getByRole('button')).backgroundColor).toBe('rgb(255, 0, 0)')
   })
 
