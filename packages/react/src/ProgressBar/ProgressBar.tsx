@@ -1,6 +1,4 @@
 import React, {forwardRef} from 'react'
-import type {WidthProps} from 'styled-system'
-import type {SxProp} from '../sx'
 import {clsx} from 'clsx'
 import classes from './ProgressBar.module.css'
 import {BoxWithFallback} from '../internal/components/BoxWithFallback'
@@ -15,14 +13,12 @@ type StyledProgressContainerProps = {
   inline?: boolean
   barSize?: 'small' | 'default' | 'large'
   animated?: boolean
-} & WidthProps &
-  SxProp
+}
 
 export type ProgressBarItems = React.HTMLAttributes<HTMLSpanElement> & {
   'aria-label'?: string
   className?: string
-} & ProgressProp &
-  SxProp
+} & ProgressProp
 
 export const Item = forwardRef<HTMLSpanElement, ProgressBarItems>(
   (

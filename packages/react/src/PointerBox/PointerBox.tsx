@@ -16,6 +16,10 @@ type MutatedSxProps = {
   }
 } & SxProp
 
+/**
+ * @deprecated PointerBox is deprecated and will be removed in a future major release.
+ * Consider using Overlay or Position + Box with a caret instead.
+ */
 export type PointerBoxProps = {
   caret?: CaretProps['location']
   bg?: CaretProps['bg']
@@ -24,6 +28,10 @@ export type PointerBoxProps = {
 } & BoxProps &
   MutatedSxProps
 
+/**
+ * @deprecated PointerBox is deprecated and will be removed in a future major release.
+ * Consider using Overlay or Position + Box with a caret instead.
+ */
 function PointerBox(props: PointerBoxProps) {
   // don't destructure these, just grab them
   const themeContext = React.useContext(ThemeContext)

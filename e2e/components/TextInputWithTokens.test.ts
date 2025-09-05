@@ -4,31 +4,31 @@ import {themes} from '../test-helpers/themes'
 
 const stories = [
   {
-    id: 'components-textinputwithtokens--default',
+    id: 'deprecated-components-textinputwithtokens--default',
     title: 'Default',
   },
   {
-    id: 'components-textinputwithtokens-features--with-leading-visual',
+    id: 'deprecated-components-textinputwithtokens-features--with-leading-visual',
     title: 'With Leading Visual',
   },
   {
-    id: 'components-textinputwithtokens-features--with-trailing-visual',
+    id: 'deprecated-components-textinputwithtokens-features--with-trailing-visual',
     title: 'With Trailing Visual',
   },
   {
-    id: 'components-textinputwithtokens-features--max-height',
+    id: 'deprecated-components-textinputwithtokens-features--max-height',
     title: 'Max Height',
   },
   {
-    id: 'components-textinputwithtokens-features--prevent-tokens-from-wrapping',
+    id: 'deprecated-components-textinputwithtokens-features--prevent-tokens-from-wrapping',
     title: 'Prevent Tokens From Wrapping',
   },
   {
-    id: 'components-textinputwithtokens-features--size',
+    id: 'deprecated-components-textinputwithtokens-features--size',
     title: 'Size',
   },
   {
-    id: 'components-textinputwithtokens-features--truncated',
+    id: 'deprecated-components-textinputwithtokens-features--truncated',
     title: 'Truncated',
   },
 ] as const

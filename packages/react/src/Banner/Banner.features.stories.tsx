@@ -5,7 +5,7 @@ import {Banner} from '../Banner'
 import Link from '../Link'
 
 const meta = {
-  title: 'Experimental/Components/Banner/Features',
+  title: 'Components/Banner/Features',
   component: Banner,
 } satisfies Meta<typeof Banner>
 

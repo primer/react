@@ -225,42 +225,6 @@ describe('ActionMenu', () => {
     expect(component.getByLabelText('Clear Group by')).toHaveAttribute('role', 'menuitem')
   })
 
-  // TODO: Fix the focus trap from taking over focus control
-  // https://github.com/primer/react/issues/6434
-  it.skip('should keep focus on Button when menu is opened with click', async () => {
-    const component = HTMLRender(<Example />)
-    const button = component.getByRole('button')
-
-    const user = userEvent.setup()
-    await user.tab() // tab into the story, this should focus on the first button
-    expect(button).toEqual(document.activeElement) // trust, but verify
-
-    await user.click(button)
-    expect(component.queryByRole('menu')).toBeInTheDocument()
-    expect(document.activeElement).toEqual(button)
-  })
-
-  // TODO: Fix the focus trap from taking over focus control
-  // https://github.com/primer/react/issues/6434
-  it.skip('should select first element when ArrowDown is pressed after opening Menu with click', async () => {
-    const component = HTMLRender(<Example />)
-    const button = component.getByRole('button')
-
-    const user = userEvent.setup()
-    await act(async () => {
-      await user.click(button)
-    })
-
-    expect(component.queryByRole('menu')).toBeInTheDocument()
-
-    await act(async () => {
-      // assumes button is the active element at this point
-      await user.keyboard('{ArrowDown}')
-    })
-
-    expect(component.getAllByRole('menuitem')[0]).toEqual(document.activeElement)
-  })
-
   it('should be able to select an Item with aria-keyshortcuts after opening Menu with click', async () => {
     const component = HTMLRender(<Example />)
     const button = component.getByRole('button')

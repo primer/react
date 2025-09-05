@@ -5,7 +5,7 @@ import {useState, useEffect, useRef} from 'react'
 
 import {Button} from '../Button'
 import {SelectPanel} from '.'
-import type {ItemInput} from '../deprecated/ActionList/List'
+import type {ItemInput} from '.'
 import FormControl from '../FormControl'
 import Text from '../Text'
 import Select from '../Select/Select'
