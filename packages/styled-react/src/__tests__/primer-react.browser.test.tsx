@@ -8,7 +8,6 @@ import {
   Autocomplete,
   Avatar,
   Box,
-  BranchName,
   Breadcrumbs,
   Button,
   Checkbox,
@@ -114,11 +113,6 @@ describe('@primer/react', () => {
 
   test('Box supports `sx` prop', () => {
     render(<Box data-testid="component" sx={{background: 'red'}} />)
-    expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
-  })
-
-  test('BranchName supports `sx` prop', () => {
-    render(<BranchName data-testid="component" sx={{background: 'red'}} />)
     expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
   })
 

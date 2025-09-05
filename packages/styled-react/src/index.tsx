@@ -91,7 +91,6 @@ export {
   ActionMenu,
   Autocomplete,
   Avatar,
-  BranchName,
   Breadcrumbs,
   Button,
   Checkbox,
