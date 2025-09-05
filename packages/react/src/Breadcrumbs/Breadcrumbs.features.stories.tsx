@@ -2,7 +2,6 @@ import type {Meta} from '@storybook/react-vite'
 import type React from 'react'
 import type {ComponentProps} from '../utils/types'
 import Breadcrumbs from './Breadcrumbs'
-import TextInput from '../TextInput'
 
 export default {
   title: 'Components/Breadcrumbs/Features',
