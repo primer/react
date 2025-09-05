@@ -25,7 +25,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
         with:
-          node-version: 22
+          node-version-file: '.nvmrc'
           cache: 'npm'
       - name: Install dependencies
         run: npm ci
@@ -40,7 +40,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
         with:
-          node-version: 22
+          node-version-file: '.nvmrc'
           cache: 'npm'
       - name: Install dependencies
         run: npm ci
@@ -61,7 +61,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
         with:
-          node-version: 22
+          node-version-file: '.nvmrc'
           cache: 'npm'
       - name: Set up turbo cache
         uses: actions/cache@5a3ec84eff668545956fd18022155c47e93e2684
@@ -87,7 +87,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
         with:
-          node-version: 22
+          node-version-file: '.nvmrc'
           cache: 'npm'
       - name: Set up turbo cache
         uses: actions/cache@5a3ec84eff668545956fd18022155c47e93e2684
@@ -111,7 +111,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
         with:
-          node-version: 22
+          node-version-file: '.nvmrc'
           cache: 'npm'
       - name: Set up turbo cache
         uses: actions/cache@5a3ec84eff668545956fd18022155c47e93e2684
@@ -133,7 +133,7 @@ jobs:
       - name: Use Node.js 20.x
         uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
         with:
-          node-version: 22
+          node-version-file: '.nvmrc'
           cache: 'npm'
       - name: Set up turbo cache
         uses: actions/cache@5a3ec84eff668545956fd18022155c47e93e2684
@@ -162,7 +162,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
         with:
-          node-version: 22
+          node-version-file: '.nvmrc'
           cache: 'npm'
       - name: Set up turbo cache
         uses: actions/cache@5a3ec84eff668545956fd18022155c47e93e2684
