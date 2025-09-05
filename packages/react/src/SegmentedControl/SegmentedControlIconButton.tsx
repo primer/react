@@ -3,7 +3,6 @@ import type React from 'react'
 import type {IconProps} from '@primer/octicons-react'
 import type {SxProp} from '../sx'
 import {isElement} from 'react-is'
-import {useFeatureFlag} from '../FeatureFlags'
 import type {TooltipDirection} from '../TooltipV2'
 import classes from './SegmentedControl.module.css'
 import {clsx} from 'clsx'
@@ -22,6 +21,10 @@ export type SegmentedControlIconButtonProps = {
   description?: string
   /** The direction for the tooltip.*/
   tooltipDirection?: TooltipDirection
+  /** Whether the button is disabled. */
+  disabled?: boolean
+  /** Whether the button is aria-disabled. */
+  'aria-disabled'?: boolean
 } & SxProp &
   ButtonHTMLAttributes<HTMLButtonElement | HTMLLIElement>
 
@@ -33,58 +36,36 @@ export const SegmentedControlIconButton: React.FC<React.PropsWithChildren<Segmen
   className,
   description,
   tooltipDirection,
+  disabled,
+  'aria-disabled': ariaDisabled,
   ...rest
 }) => {
-  const tooltipFlagEnabled = useFeatureFlag('primer_react_segmented_control_tooltip')
-  if (tooltipFlagEnabled) {
-    return (
-      <BoxWithFallback
-        as="li"
-        sx={sxProp}
-        className={clsx(classes.Item, className)}
-        data-selected={selected || undefined}
-      >
-        <Tooltip
-          type={description ? undefined : 'label'}
-          text={description ? description : ariaLabel}
-          direction={tooltipDirection}
-        >
-          <BoxWithFallback
-            as="button"
-            aria-current={selected}
-            // If description is provided, we will use the tooltip to describe the button, so we need to keep the aria-label to label the button.
-            aria-label={description ? ariaLabel : undefined}
-            className={clsx(classes.Button, classes.IconButton)}
-            {...rest}
-          >
-            <span className={clsx(classes.Content, 'segmentedControl-content')}>
-              {isElement(Icon) ? Icon : <Icon />}
-            </span>
-          </BoxWithFallback>
-        </Tooltip>
-      </BoxWithFallback>
-    )
-  } else {
-    // This can be removed when primer_react_segmented_control_tooltip feature flag is GA-ed.
-    return (
-      <BoxWithFallback
-        as="li"
-        sx={sxProp}
-        className={clsx(classes.Item, className)}
-        data-selected={selected || undefined}
+  return (
+    <BoxWithFallback
+      as="li"
+      sx={sxProp}
+      className={clsx(classes.Item, className)}
+      data-selected={selected || undefined}
+    >
+      <Tooltip
+        type={description ? undefined : 'label'}
+        text={description ? description : ariaLabel}
+        direction={tooltipDirection}
       >
         <BoxWithFallback
           as="button"
-          aria-label={ariaLabel}
           aria-current={selected}
+          // If description is provided, we will use the tooltip to describe the button, so we need to keep the aria-label to label the button.
+          aria-label={description ? ariaLabel : undefined}
           className={clsx(classes.Button, classes.IconButton)}
+          aria-disabled={disabled || ariaDisabled || undefined}
           {...rest}
         >
           <span className={clsx(classes.Content, 'segmentedControl-content')}>{isElement(Icon) ? Icon : <Icon />}</span>
         </BoxWithFallback>
-      </BoxWithFallback>
-    )
-  }
+      </Tooltip>
+    </BoxWithFallback>
+  )
 }
 
 export default SegmentedControlIconButton
