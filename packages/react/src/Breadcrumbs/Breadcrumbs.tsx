@@ -339,13 +339,7 @@ function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap', varian
       <BreadcrumbsList>{finalChildren}</BreadcrumbsList>
     </BoxWithFallback>
   ) : (
-    <BoxWithFallback
-      as="nav"
-      className={clsx(className, classes.BreadcrumbsBase)}
-      aria-label="Breadcrumbs"
-      sx={sxProp}
-      data-variant={variant}
-    >
+    <BoxWithFallback as="nav" className={clsx(className, classes.BreadcrumbsBase)} aria-label="Breadcrumbs" sx={sxProp}>
       <BreadcrumbsList>{wrappedChildren}</BreadcrumbsList>
     </BoxWithFallback>
   )
@@ -370,12 +364,18 @@ type StyledBreadcrumbsItemProps = {
   React.ComponentPropsWithRef<'a'>
 
 const BreadcrumbsItem = React.forwardRef(({selected, className, ...rest}, ref) => {
+  const overflowMenuEnabled = useFeatureFlag('primer_react_breadcrumbs_overflow_menu')
   return (
     <BoxWithFallback
       as="a"
-      className={clsx(className, classes.Item, {
-        [SELECTED_CLASS]: selected,
-      })}
+      className={clsx(
+        className,
+        classes.Item,
+        {
+          [SELECTED_CLASS]: selected,
+        },
+        overflowMenuEnabled ? {} : {[classes.ItemSelected]: selected},
+      )}
       aria-current={selected ? 'page' : undefined}
       ref={ref}
       {...rest}
