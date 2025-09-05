@@ -4,6 +4,8 @@ This package mirrors components from `@primer/react` but optionally provides
 support for `sx` and `styled-system` props to a component. Only components
 that have downstream `sx` usage across GitHub are included in this package.
 
+## Overview
+
 There are several ways a component is added to this package:
 
 - A functional component
@@ -13,7 +15,7 @@ There are several ways a component is added to this package:
 The way we author the wrappers for these components will differ depending on
 what type the component is originally.
 
-**A functional component**
+### A functional component
 
 ```tsx
 import {
@@ -30,7 +32,7 @@ function ExampleComponent(props: ExampleComponentProps) {
 export {ExampleComponent}
 ```
 
-**A functional component with `forwardRef`**
+### A functional component with `forwardRef`
 
 ```tsx
 import {
@@ -51,7 +53,7 @@ export {ExampleComponent}
 It's important that this signature matches the original component exactly,
 including both the type of the `ref` and props.
 
-**A polymorphic functional component with `forwardRef`**
+### A polymorphic functional component with `forwardRef`
 
 ```tsx
 import {
