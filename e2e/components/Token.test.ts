@@ -39,18 +39,6 @@ const stories = [
     title: 'IssueLabelToken with onRemove fn',
     id: 'components-token-features--issue-label-token-with-on-remove-fn',
   },
-  {
-    title: 'AvatarToken Default',
-    id: 'components-avatartoken--default-token',
-  },
-  {
-    title: 'AvatarToken Interactive',
-    id: 'components-avatartoken--interactive',
-  },
-  {
-    title: 'AvatarToken On Remove Fn',
-    id: 'components-avatartoken--with-on-remove-fn',
-  },
 ]
 
 test.describe('Token', () => {

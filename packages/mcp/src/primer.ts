@@ -8,12 +8,32 @@ type Component = {
   slug: string
 }
 
+function idToSlug(id: string): string {
+  if (id === 'actionbar') {
+    return 'action-bar'
+  }
+
+  if (id === 'tooltip-v2') {
+    return 'tooltip'
+  }
+
+  if (id === 'dialog_v2') {
+    return 'dialog'
+  }
+
+  if (id.startsWith('skeleton')) {
+    return 'skeleton-loaders'
+  }
+
+  return id.replaceAll('_', '-')
+}
+
 const components: Array<Component> = Object.entries(componentsMetadata.components).map(([id, component]) => {
   return {
     id,
     name: component.name,
     importPath: component.importPath,
-    slug: id.replaceAll('_', '-'),
+    slug: idToSlug(id),
   }
 })
 
