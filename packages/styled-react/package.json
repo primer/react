@@ -27,6 +27,7 @@
     "type-check": "tsc --noEmit"
   },
   "devDependencies": {
+    "@babel/preset-react": "^7.27.1",
     "@babel/preset-typescript": "^7.27.1",
     "@primer/react": "^38.0.0-rc.1",
     "@rollup/plugin-babel": "^6.0.4",

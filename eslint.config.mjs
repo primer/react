@@ -12,6 +12,7 @@ import react from 'eslint-plugin-react'
 import reactCompiler from 'eslint-plugin-react-compiler'
 import reactHooks from 'eslint-plugin-react-hooks'
 import playwright from 'eslint-plugin-playwright'
+import importPlugin from 'eslint-plugin-import'
 import prettierRecommended from 'eslint-plugin-prettier/recommended'
 import primerReact from 'eslint-plugin-primer-react'
 import testingLibrary from 'eslint-plugin-testing-library'
@@ -42,6 +43,7 @@ const config = defineConfig([
     'contributor-docs/adrs/*',
     'examples/codesandbox/**/*',
     'packages/react/src/utils/polymorphic.ts',
+    'packages/styled-react/src/polymorphic.ts',
     '**/storybook-static',
     '**/CHANGELOG.md',
     '**/node_modules/**/*',
