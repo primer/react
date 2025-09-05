@@ -1,8 +1,8 @@
 import type {Meta, StoryFn} from '@storybook/react-vite'
 
-import {ThemeProvider, BaseStyles, Box, useTheme} from '..'
+import {ThemeProvider, BaseStyles, useTheme} from '..'
 import type {ThemeProviderProps} from '../ThemeProvider'
-import './ThemeProviderStories.module.css'
+import classes from './ThemeProviderStories.module.css'
 
 export default {
   title: 'Behaviors/ThemeProvider',
@@ -41,18 +41,9 @@ Default.args = {
 function NightMode() {
   return (
     <ThemeProvider colorMode="night">
-      <Box
-        my={3}
-        p={3}
-        color="fg.default"
-        bg="canvas.default"
-        borderWidth="1px"
-        borderStyle="solid"
-        borderColor="border.default"
-        borderRadius={2}
-      >
+      <div className={classes.ThemedContainer}>
         Always night mode (<ActiveColorScheme />)
-      </Box>
+      </div>
     </ThemeProvider>
   )
 }
@@ -61,18 +52,9 @@ function InverseMode() {
   const {resolvedColorMode} = useTheme()
   return (
     <ThemeProvider colorMode={resolvedColorMode === 'day' ? 'night' : 'day'}>
-      <Box
-        my={3}
-        p={3}
-        color="fg.default"
-        bg="canvas.default"
-        borderWidth="1px"
-        borderStyle="solid"
-        borderColor="border.default"
-        borderRadius={2}
-      >
+      <div className={classes.ThemedContainer}>
         Always inverse of parent mode (<ActiveColorScheme />)
-      </Box>
+      </div>
     </ThemeProvider>
   )
 }
@@ -93,10 +75,10 @@ const AutoContents = () => {
   const {colorMode, resolvedColorMode} = useTheme()
 
   return (
-    <Box sx={{padding: 10, backgroundColor: 'canvas.inset', color: 'fg.default'}}>
+    <div className={classes.AutoContainer}>
       colorMode: {colorMode} <br />
       resolvedColorMode: {resolvedColorMode} <br />
-    </Box>
+    </div>
   )
 }
 

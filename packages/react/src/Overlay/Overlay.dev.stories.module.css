@@ -1,0 +1,54 @@
+/* CSS module for Overlay dev stories layout and styling */
+
+.OverlayContent {
+  height: 100vh;
+  max-width: calc(-1rem + 100vw);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.CloseButton {
+  position: absolute;
+  left: var(--base-size-4);
+  top: var(--base-size-4);
+}
+
+.DialogContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ButtonContainer {
+  display: flex;
+  margin-top: var(--base-size-8);
+}
+
+.CancelButton {
+  margin-right: var(--base-size-4);
+}
+
+.ConfirmButton {
+  margin-left: var(--base-size-4);
+}
+
+.ResponsiveWidth {
+  width: 100%;
+  max-width: 300px;
+}
+
+@media (min-width: 768px) {
+  .ResponsiveWidth {
+    max-width: 100%;
+  }
+}
+
+/* Overlay custom styles */
+.CustomOverlay {
+  left: 50%;
+  margin-top: var(--base-size-8);
+  color: var(--fgColor-danger);
+  padding: var(--base-size-16);
+}

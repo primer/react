@@ -1,0 +1,34 @@
+.Visual {
+  display: grid;
+  padding-block: var(--base-size-8);
+  align-self: start;
+  grid-area: visual;
+}
+
+.Message {
+  font-size: var(--text-body-size-small);
+  line-height: var(--text-body-lineHeight-large);
+  padding: var(--base-size-6) var(--base-size-8);
+  align-self: center;
+  grid-area: message;
+}
+
+.Actions {
+  grid-area: actions;
+}
+
+.ActionsResponsive {
+  grid-area: actions;
+}
+
+@media screen and (max-width: 543.98px) {
+  .ActionsResponsive {
+    align-self: start;
+    margin: var(--base-size-8) 0 0 var(--base-size-8);
+  }
+}
+
+.Close {
+  grid-area: close;
+  margin-left: var(--base-size-8);
+}

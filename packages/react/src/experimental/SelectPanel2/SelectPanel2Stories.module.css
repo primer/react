@@ -1,0 +1,61 @@
+/* Shared styles for SelectPanel2 stories */
+
+.Circle {
+  width: 14px;
+  height: 14px;
+  border-radius: 100%;
+}
+
+.SwitchContainer {
+  display: flex;
+  max-width: 600px;
+  margin-bottom: var(--base-size-8);
+}
+
+.SwitchContainerLast {
+  display: flex;
+  margin-bottom: var(--base-size-20);
+  max-width: 600px;
+}
+
+.SwitchContent {
+  flex-grow: 1;
+}
+
+.SwitchLabel {
+  font-size: var(--text-body-size-large);
+  font-weight: var(--base-text-weight-semibold);
+  display: block;
+}
+
+.SwitchCaption {
+  font-size: var(--text-caption-size);
+  color: var(--fgColor-muted);
+}
+
+.ResponsiveControls {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base-size-8);
+  margin-bottom: var(--base-size-16);
+  max-width: 480px;
+  font-size: var(--text-caption-size);
+}
+
+.ControlRow {
+  display: flex;
+  min-height: 42px;
+}
+
+.ControlContent {
+  flex-grow: 1;
+}
+
+.ControlLabel {
+  display: block;
+}
+
+.FlexColumn {
+  display: flex;
+  flex-direction: column;
+}

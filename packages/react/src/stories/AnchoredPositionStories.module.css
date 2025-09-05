@@ -40,3 +40,69 @@
   right: 0;
   bottom: 0;
 }
+
+.Container {
+  position: relative;
+  margin: var(--base-size-8);
+}
+
+.FullSizeAnchor {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.ClippingContainer {
+  margin: var(--base-size-8);
+  padding: var(--base-size-8);
+  border: var(--borderWidth-thin) solid var(--borderColor-default);
+  background-color: var(--bgColor-accent-muted);
+  height: 440px;
+  overflow: auto;
+  position: relative;
+}
+
+.RelativeParent {
+  margin: var(--base-size-8);
+  padding: var(--base-size-8);
+  border: var(--borderWidth-thin) solid var(--borderColor-default);
+  background-color: var(--bgColor-attention-muted);
+  position: relative;
+}
+
+.StaticContainer {
+  margin: var(--base-size-8);
+  padding: var(--base-size-8);
+  border: var(--borderWidth-thin) solid var(--borderColor-default);
+  background-color: var(--bgColor-success-muted);
+  position: static;
+  overflow: hidden;
+}
+
+.TallContainer {
+  margin: var(--base-size-8);
+  padding: var(--base-size-8);
+  background-color: var(--bgColor-success-muted);
+  border: var(--borderWidth-thin) solid var(--borderColor-default);
+  height: 2000px;
+}
+
+.AnchorElement {
+  width: 200px;
+  background-color: var(--bgColor-severe-muted);
+  height: 60px;
+  border: var(--borderWidth-thin) solid var(--borderColor-default);
+  margin: var(--base-size-8);
+  padding: var(--base-size-8);
+}
+
+.ButtonContainer {
+  text-align: right;
+}
+
+.Body {
+  flex-grow: 1;
+  padding: var(--base-size-16);
+}

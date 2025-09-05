@@ -1,0 +1,11 @@
+.PortalContainer {
+  padding: var(--base-size-12);
+}
+
+.OuterContainer {
+  background-color: var(--bgColor-danger-muted);
+}
+
+.InnerContainer {
+  background-color: var(--bgColor-success-muted);
+}
