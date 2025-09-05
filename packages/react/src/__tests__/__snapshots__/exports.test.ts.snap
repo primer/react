@@ -118,6 +118,7 @@ exports[`@primer/react > should not update exports without a semver change 1`] =
   "Portal",
   "type PortalProps",
   "ProgressBar",
+  "type ProgressBarItemProps",
   "type ProgressBarProps",
   "Radio",
   "RadioGroup",

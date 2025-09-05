@@ -15,12 +15,12 @@ type StyledProgressContainerProps = {
   animated?: boolean
 }
 
-export type ProgressBarItems = React.HTMLAttributes<HTMLSpanElement> & {
+export type ProgressBarItemProps = React.HTMLAttributes<HTMLSpanElement> & {
   'aria-label'?: string
   className?: string
 } & ProgressProp
 
-export const Item = forwardRef<HTMLSpanElement, ProgressBarItems>(
+export const Item = forwardRef<HTMLSpanElement, ProgressBarItemProps>(
   (
     {
       progress,

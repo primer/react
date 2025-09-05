@@ -3,6 +3,14 @@ import {
   Box,
   type BoxProps,
   type SxProp,
+  ProgressBar as PrimerProgressBar,
+  type ProgressBarProps as PrimerProgressBarProps,
+  type ProgressBarItemProps as PrimerProgressBarItemProps,
+  StateLabel as PrimerStateLabel,
+  type StateLabelProps as PrimerStateLabelProps,
+  SubNav as PrimerSubNav,
+  type SubNavProps as PrimerSubNavProps,
+  type SubNavLinkProps as PrimerSubNavLinkProps,
   ToggleSwitch as PrimerToggleSwitch,
   type ToggleSwitchProps as PrimerToggleSwitchProps,
 } from '@primer/react'
@@ -19,7 +27,6 @@ import type {
   SpaceProps,
   TypographyProps,
 } from 'styled-system'
-import type {ForwardRefComponent} from './polymorphic'
 
 type StyledProps = SxProp &
   SpaceProps &
@@ -33,13 +40,51 @@ type StyledProps = SxProp &
   PositionProps &
   ShadowProps
 
-const ToggleSwitch = forwardRef(function ToggleSwitch(props, ref) {
-  // @ts-expect-error there is an issue with polymorphic `as` with this
-  // component
-  return <Box as={PrimerToggleSwitch} ref={ref} {...props} />
-}) as ForwardRefComponent<'span', PrimerToggleSwitchProps & Omit<StyledProps, keyof PrimerToggleSwitchProps>>
+type ProgressBarProps = PrimerProgressBarProps & SxProp
 
-export {ToggleSwitch}
+const ProgressBarImpl = forwardRef<HTMLSpanElement, ProgressBarProps>(function ProgressBar(props, ref) {
+  return <Box as={PrimerProgressBar} ref={ref} {...props} />
+})
+
+type ProgressBarItemProps = PrimerProgressBarItemProps & SxProp
+
+const ProgressBarItem = forwardRef<HTMLSpanElement, ProgressBarItemProps>(function ProgressBarItem(props, ref) {
+  return <Box as={PrimerProgressBar.Item} ref={ref} {...props} />
+})
+
+const ProgressBar = Object.assign(ProgressBarImpl, {
+  Item: ProgressBarItem,
+})
+
+type StateLabelProps = PrimerStateLabelProps & SxProp
+
+const StateLabel = forwardRef<HTMLSpanElement, StateLabelProps>(function StateLabel(props, ref) {
+  return <Box as={PrimerStateLabel} ref={ref} {...props} />
+})
+
+type SubNavProps = PrimerSubNavProps & SxProp
+
+const SubNavImpl = forwardRef<HTMLElement, SubNavProps>(function SubNav(props, ref) {
+  return <Box as={PrimerSubNav} ref={ref} {...props} />
+})
+
+type SubNavLinkProps = PrimerSubNavLinkProps & SxProp
+
+const SubNavLink = forwardRef<HTMLAnchorElement, SubNavLinkProps>(function SubNavLink(props, ref) {
+  return <Box as={PrimerSubNav.Link} ref={ref} {...props} />
+})
+
+const SubNav = Object.assign(SubNavImpl, {
+  Link: SubNavLink,
+})
+
+type ToggleSwitchProps = PrimerToggleSwitchProps & Omit<StyledProps, keyof PrimerToggleSwitchProps>
+
+const ToggleSwitch = forwardRef<HTMLButtonElement, ToggleSwitchProps>(function ToggleSwitch(props, ref) {
+  return <Box as={PrimerToggleSwitch} ref={ref} {...props} />
+})
+
+export {ProgressBar, StateLabel, SubNav, ToggleSwitch}
 
 export {
   ActionList,
@@ -61,7 +106,6 @@ export {
   Heading,
   IconButton,
   Label,
-  LabelGroup,
   Link,
   LinkButton,
   NavList,
@@ -69,21 +113,14 @@ export {
   PageHeader,
   PageLayout,
   Popover,
-  ProgressBar,
   RadioGroup,
   RelativeTime,
   SegmentedControl,
   Select,
-  SelectPanel,
-  SideNav,
   Spinner,
-  Stack,
-  StateLabel,
-  SubNav,
   Text,
   Textarea,
   TextInput,
-  TextInputWithTokens,
   Timeline,
   Token,
   Tooltip,

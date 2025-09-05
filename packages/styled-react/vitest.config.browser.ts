@@ -1,8 +1,20 @@
+import path from 'node:path'
 import react from '@vitejs/plugin-react'
 import {defineConfig} from 'vitest/config'
 
 export default defineConfig({
   plugins: [react()],
+  resolve: {
+    alias: {
+      '@primer/react': path.resolve(import.meta.dirname, '..', 'react', 'src', 'index.ts'),
+      '@primer/react/experimental': path.resolve(import.meta.dirname, '..', 'react', 'src', 'experimental', 'index.ts'),
+      '@primer/react/deprecated': path.resolve(import.meta.dirname, '..', 'react', 'src', 'deprecated', 'index.ts'),
+      '@primer/react/next': path.resolve(import.meta.dirname, '..', 'react', 'src', 'next', 'index.ts'),
+    },
+  },
+  define: {
+    __DEV__: true,
+  },
   test: {
     include: ['src/**/*.browser.test.?(c|m)[jt]s?(x)'],
     setupFiles: ['config/vitest/browser/setup.ts'],
