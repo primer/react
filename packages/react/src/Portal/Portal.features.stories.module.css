@@ -1,0 +1,9 @@
+.RedContainer {
+  background-color: var(--bgColor-attention-muted);
+  padding: var(--base-size-12);
+}
+
+.GreenContainer {
+  background-color: var(--bgColor-success-muted);
+  padding: var(--base-size-12);
+}
