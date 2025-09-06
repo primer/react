@@ -695,7 +695,7 @@ for (const usingRemoveActiveDescendant of [false, true]) {
         expect(screen.getByRole('combobox').hasAttribute('aria-describedby')).toBeTruthy()
       })
 
-      it.skip('should announce initially focused item', async () => {
+      it('should announce initially focused item', async () => {
         const user = userEvent.setup()
         renderWithFlag(<FilterableSelectPanel />, usingRemoveActiveDescendant)
 
