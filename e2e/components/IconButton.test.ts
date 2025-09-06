@@ -45,6 +45,9 @@ const stories = [
     disableAnimations: true,
     async setup(page: Page) {
       await page.keyboard.press('Tab') // focus on icon button
+      await page.getByText('Bold').waitFor({
+        state: 'visible',
+      })
     },
   },
   {
