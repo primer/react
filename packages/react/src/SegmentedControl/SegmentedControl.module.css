@@ -65,6 +65,12 @@
     /* stylelint-disable-next-line primer/spacing */
     margin-right: -1px;
   }
+
+  .Counter {
+    margin-inline-start: var(--base-size-8);
+    display: flex;
+    align-items: center;
+  }
 }
 
 .Button {

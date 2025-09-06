@@ -24,6 +24,20 @@ export const WithIcons = () => (
   </SegmentedControl>
 )
 
+export const WithCounterLabels = () => (
+  <SegmentedControl aria-label="Issues by label">
+    <SegmentedControl.Button defaultSelected aria-label="Feature" counter={5}>
+      Feature
+    </SegmentedControl.Button>
+    <SegmentedControl.Button aria-label="Bug" counter={3}>
+      Bug
+    </SegmentedControl.Button>
+    <SegmentedControl.Button aria-label="Good first issue" counter={10}>
+      Good first issue
+    </SegmentedControl.Button>
+  </SegmentedControl>
+)
+
 export const Controlled = () => {
   const [selectedIndex, setSelectedIndex] = useState(0)
   const handleChange = (i: number) => {
