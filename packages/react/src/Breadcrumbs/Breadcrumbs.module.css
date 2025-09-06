@@ -1,6 +1,7 @@
 .BreadcrumbsBase {
   display: flex;
   justify-content: space-between;
+  width: 100%;
 }
 
 .BreadcrumbsList {
@@ -9,10 +10,100 @@
   margin-bottom: 0;
 }
 
+[data-overflow='menu'] .BreadcrumbsList,
+[data-overflow='menu-with-root'] .BreadcrumbsList {
+  white-space: nowrap;
+  display: flex;
+  flex-direction: row;
+}
+
+.BreadcrumbsItem {
+  display: inline-grid;
+  grid-auto-flow: column;
+  align-items: center;
+  flex: 0 99999 auto;
+  min-width: auto;
+  font-size: var(--text-body-size-medium);
+  white-space: nowrap;
+  list-style: none;
+
+  &:first-child {
+    margin-left: 0;
+  }
+
+  &:last-child {
+    .ItemSeparator {
+      display: none;
+    }
+  }
+}
+
+[data-overflow='menu'] .Item,
+[data-overflow='menu-with-root'] .Item {
+  display: inline-block;
+  font-size: var(--text-body-size-medium);
+  color: var(--fgColor-default);
+  text-decoration: none;
+  padding-inline: var(--base-size-6);
+  padding-block: var(--base-size-4);
+  border-radius: var(--borderRadius-medium);
+
+  &:hover {
+    background: var(--control-transparent-bgColor-hover);
+    text-decoration: none;
+  }
+
+  &:focus {
+    @mixin focusOutline;
+  }
+}
+
+.MenuDetails {
+  position: relative;
+  display: inline-block;
+}
+
+summary {
+  list-style: none;
+  cursor: pointer;
+  outline: none;
+}
+
+summary::-webkit-details-marker {
+  display: none;
+}
+
+.MenuOverlay {
+  position: absolute;
+  z-index: 1;
+  box-shadow: var(--shadow-resting-small);
+  border-radius: var(--borderRadius-large);
+  background-color: var(--overlay-bgColor);
+  list-style: none;
+  min-width: var(--overlay-width-xsmall);
+  max-height: 100vh;
+  max-width: var(--overlay-width-small);
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .MenuOverlay {
+    animation: overlay-appear 200ms cubic-bezier(0.33, 1, 0.68, 1);
+  }
+}
+
+.ItemSeparator {
+  color: var(--fgColor-muted);
+  display: flex;
+  align-self: center;
+  justify-content: center;
+  white-space: nowrap;
+  user-select: none;
+}
+
 .ItemWrapper {
   display: inline-block;
   font-size: var(--text-body-size-medium);
-  white-space: nowrap;
   list-style: none;
 
   &::after {
