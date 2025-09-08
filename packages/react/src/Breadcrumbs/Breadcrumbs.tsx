@@ -16,11 +16,26 @@ import type {ResizeObserverEntry} from '../hooks/useResizeObserver'
 import {useOnEscapePress} from '../hooks/useOnEscapePress'
 import {useOnOutsideClick} from '../hooks/useOnOutsideClick'
 import {useFeatureFlag} from '../FeatureFlags'
+import {overflow} from 'styled-system'
 
 export type BreadcrumbsProps = React.PropsWithChildren<
   {
+    /**
+     * Optional class name for the breadcrumbs container.
+     */
     className?: string
+    /**
+     * Controls the overflow behavior of the breadcrumbs.
+     * By default all overflowing crumbs will "wrap" in the given space taking up extra height.
+     * In the "menu" option we'll see the overflowing crumbs as part of a menu like dropdown instead of the root breadcrumb.
+     * In "menu-with-root" we see that instead of the root, the menu button will take the place of the next breadcrumb.
+     */
     overflow?: 'wrap' | 'menu' | 'menu-with-root'
+    /**
+     * Controls the visual variant of the breadcrumbs.
+     * By default, the breadcrumbs will have a normal appearance.
+     * In the "spacious" option, the breadcrumbs will have increased padding and a more relaxed layout.
+     */
     variant?: 'normal' | 'spacious'
   } & SxProp
 >
