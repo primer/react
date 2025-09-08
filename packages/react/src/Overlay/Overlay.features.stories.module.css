@@ -27,8 +27,8 @@
 }
 
 .FormRow {
-  padding-left: var(--base-size-12);
-  padding-right: var(--base-size-12);
+  padding-left: var(--base-size-16);
+  padding-right: var(--base-size-16);
   display: flex;
   align-items: center;
   gap: var(--base-size-4);
@@ -49,10 +49,7 @@
 }
 
 .CheckboxContainer {
-  padding-left: var(--base-size-12);
-  padding-right: var(--base-size-12);
-  padding-top: var(--base-size-8);
-  padding-bottom: var(--base-size-8);
+  padding-left: var(--base-size-8) var(--base-size-16);
 }
 
 .CreateFormContent {
@@ -64,7 +61,8 @@
 .IssueEditorContainer {
   padding: var(--base-size-16);
   height: 100vh;
-  width: min(320px, 90vw);
+  /* stylelint-disable-next-line primer/responsive-widths */
+  width: 350px;
 }
 
 .IssueHeader {
@@ -89,13 +87,14 @@
 }
 
 .ResponsiveWidthContainer {
-  width: 100%;
-  max-width: 300px;
+  width: 300px;
+  max-width: 100%;
 }
 
 @media (min-width: 768px) {
   .ResponsiveWidthContainer {
-    max-width: 100%;
+    /* stylelint-disable-next-line primer/responsive-widths */
+    width: 500px;
   }
 }
 

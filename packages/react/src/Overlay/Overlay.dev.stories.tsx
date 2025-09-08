@@ -55,7 +55,11 @@ export const SxProps = (args: Args) => {
           aria-modal="true"
           aria-label="Sample overlay"
           ref={containerRef}
-          className={classes.CustomOverlay}
+          sx={{
+            left: '50%',
+            mt: 2,
+            color: 'var(--bgColor-danger-muted)',
+          }}
         >
           <div className={classes.OverlayContent}>
             <IconButton

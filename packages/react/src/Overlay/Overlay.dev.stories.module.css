@@ -35,20 +35,14 @@
 }
 
 .ResponsiveWidth {
-  width: 100%;
-  max-width: 300px;
+  max-width: 100%;
+  /* stylelint-disable-next-line primer/responsive-widths */
+  width: 350px;
 }
 
 @media (min-width: 768px) {
   .ResponsiveWidth {
-    max-width: 100%;
+    /* stylelint-disable-next-line primer/responsive-widths */
+    width: 500px;
   }
-}
-
-/* Overlay custom styles */
-.CustomOverlay {
-  left: 50%;
-  margin-top: var(--base-size-8);
-  color: var(--fgColor-danger);
-  padding: var(--base-size-16);
 }
