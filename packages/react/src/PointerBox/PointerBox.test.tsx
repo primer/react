@@ -1,7 +1,6 @@
 import {describe, expect, it} from 'vitest'
 import {render} from '@testing-library/react'
-import {ThemeProvider} from '..'
-import PointerBox from './PointerBox'
+import {PointerBox, ThemeProvider} from '..'
 import theme from '../theme'
 
 describe('PointerBox', () => {
