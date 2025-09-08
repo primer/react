@@ -1,6 +1,6 @@
 import React from 'react'
-import Box from '../Box'
 import {useOverflow} from '../hooks/useOverflow'
+import classes from './ScrollableRegion.module.css'
 
 type Labelled =
   | {
@@ -13,15 +13,6 @@ type Labelled =
     }
 
 type ScrollableRegionProps = React.ComponentPropsWithoutRef<'div'> & Labelled
-
-const defaultStyles = {
-  // When setting overflow, we also set `position: relative` to avoid
-  // `position: absolute` items breaking out of the container and causing
-  // scrollbars on the page. This can occur with common classes like `sr-only`
-  // and can cause difficult to track down layout issues
-  position: 'relative',
-  overflow: 'auto',
-}
 
 function ScrollableRegion({
   'aria-label': label,
@@ -41,9 +32,9 @@ function ScrollableRegion({
     : {}
 
   return (
-    <Box {...rest} {...regionProps} ref={ref} sx={defaultStyles}>
+    <div {...rest} {...regionProps} ref={ref} className={classes.ScrollableRegion}>
       {children}
-    </Box>
+    </div>
   )
 }
 

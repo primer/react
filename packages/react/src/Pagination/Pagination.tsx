@@ -1,11 +1,9 @@
 import React from 'react'
-import Box from '../Box'
 import {buildComponentData, buildPaginationModel, type PageDataProps} from './model'
 import type {ResponsiveValue} from '../hooks/useResponsiveValue'
 import {viewportRanges} from '../hooks/useResponsiveValue'
 import {clsx} from 'clsx'
 import classes from './Pagination.module.css'
-import {BoxWithFallback} from '../internal/components/BoxWithFallback'
 
 const getViewportRangesToHidePages = (showPages: PaginationProps['showPages']) => {
   if (showPages && typeof showPages !== 'boolean') {
@@ -33,7 +31,6 @@ export type PageProps = {
 } & Omit<PageDataProps['props'], 'as' | 'role'>
 
 type UsePaginationPagesParameters = {
-  theme?: Record<string, unknown> // set to theme type once /src/theme.js is converted
   pageCount: number
   currentPage: number
   onPageChange: (e: React.MouseEvent, n: number) => void
@@ -45,7 +42,6 @@ type UsePaginationPagesParameters = {
 }
 
 function usePaginationPages({
-  theme,
   pageCount,
   currentPage,
   onPageChange,
@@ -70,19 +66,18 @@ function usePaginationPages({
 
       return (
         // @ts-ignore giving me grief about children and "as" props
-        <BoxWithFallback as="a" key={key} theme={theme} className={clsx(classes.Page)} {...props}>
+        <a key={key} className={clsx(classes.Page)} {...props}>
           {content}
-        </BoxWithFallback>
+        </a>
       )
     })
-  }, [model, hrefBuilder, pageChange, renderPage, theme])
+  }, [model, hrefBuilder, pageChange, renderPage])
 
   return children
 }
 
 export type PaginationProps = {
   className?: string
-  theme?: Record<string, unknown>
   pageCount: number
   currentPage: number
   onPageChange?: (e: React.MouseEvent, n: number) => void
@@ -95,7 +90,6 @@ export type PaginationProps = {
 
 function Pagination({
   className,
-  theme: _theme,
   pageCount,
   currentPage,
   onPageChange = noop,
@@ -107,7 +101,6 @@ function Pagination({
   ...rest
 }: PaginationProps) {
   const pageElements = usePaginationPages({
-    theme: _theme,
     pageCount,
     currentPage,
     onPageChange,
@@ -119,20 +112,14 @@ function Pagination({
   })
 
   return (
-    <BoxWithFallback
-      as="nav"
-      className={clsx(classes.PaginationContainer, className)}
-      aria-label="Pagination"
-      {...rest}
-    >
-      <Box
-        display="inline-block"
+    <nav className={clsx(classes.PaginationContainer, className)} aria-label="Pagination" {...rest}>
+      <div
         className={classes.TablePaginationSteps}
         data-hidden-viewport-ranges={getViewportRangesToHidePages(showPages).join(' ')}
       >
         {pageElements}
-      </Box>
-    </BoxWithFallback>
+      </div>
+    </nav>
   )
 }
 
