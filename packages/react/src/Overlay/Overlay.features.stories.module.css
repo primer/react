@@ -105,7 +105,7 @@
 }
 
 .IssueContainer {
-  padding: var(--base-size-32);
+  padding: var(--base-size-16);
   height: 100vh;
   /* stylelint-disable-next-line primer/responsive-widths */
   width: 350px;
