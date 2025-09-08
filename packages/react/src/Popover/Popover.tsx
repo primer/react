@@ -1,9 +1,7 @@
 import {clsx} from 'clsx'
-import type {SxProp} from '../sx'
 import classes from './Popover.module.css'
 import type {HTMLProps} from 'react'
 import React from 'react'
-import {BoxWithFallback} from '../internal/components/BoxWithFallback'
 
 type CaretPosition =
   | 'top'
@@ -26,7 +24,7 @@ type StyledPopoverProps = {
   caret?: CaretPosition
   relative?: boolean
   open?: boolean
-} & SxProp
+}
 
 export type PopoverProps = {
   /** Class name for custom styling */
@@ -40,7 +38,7 @@ const Popover = React.forwardRef<HTMLDivElement, PopoverProps>(function Popover(
   forwardRef,
 ) {
   return (
-    <BoxWithFallback
+    <div
       {...props}
       ref={forwardRef}
       data-open={open ? '' : undefined}
@@ -58,8 +56,7 @@ export type PopoverContentProps = {
   width?: 'xsmall' | 'small' | 'large' | 'medium' | 'auto' | 'xlarge'
   height?: 'small' | 'large' | 'medium' | 'auto' | 'xlarge' | 'fit-content'
   overflow?: 'auto' | 'hidden' | 'scroll' | 'visible'
-} & StyledPopoverProps &
-  HTMLProps<HTMLDivElement>
+} & HTMLProps<HTMLDivElement>
 
 const PopoverContent: React.FC<React.PropsWithChildren<PopoverContentProps>> = ({
   className,
@@ -69,7 +66,7 @@ const PopoverContent: React.FC<React.PropsWithChildren<PopoverContentProps>> = (
   ...props
 }) => {
   return (
-    <BoxWithFallback
+    <div
       data-width={width}
       data-height={height}
       data-overflow={overflow}
