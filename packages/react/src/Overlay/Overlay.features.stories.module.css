@@ -51,8 +51,12 @@
 .NestedFormContainer {
   display: flex;
   flex-direction: column;
-  padding-left: var(--base-size-16);
-  padding-right: var(--base-size-16);
+  padding-block: 8px;
+}
+
+.InnerNestedFormContainer {
+  padding-left: var(--base-size-12);
+  padding-right: var(--base-size-12);
   padding-top: var(--base-size-8);
   padding-bottom: var(--base-size-8);
 }
@@ -145,7 +149,7 @@
 }
 
 .PositionedButtonSpacing {
-  margin-top: var(--base-size-16);
+  margin-top: var(--base-size-8);
 }
 
 .OverlayWidthResponsive {
