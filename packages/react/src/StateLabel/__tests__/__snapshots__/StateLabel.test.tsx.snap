@@ -3,7 +3,9 @@
 exports[`StateLabel > renders children 1`] = `
 <div>
   <span
-    class="sc-gEvEer kZGRsh"
+    class="prc-StateLabel-StateLabel-eEUJr"
+    data-status="issueOpened"
+    data-variant="normal"
   >
     <svg
       aria-label="Issue"
@@ -33,7 +35,9 @@ exports[`StateLabel > renders children 1`] = `
 exports[`StateLabel > respects the status prop 1`] = `
 <div>
   <span
-    class="sc-gEvEer kZGRsh"
+    class="prc-StateLabel-StateLabel-eEUJr"
+    data-status="issueOpened"
+    data-variant="normal"
   >
     <svg
       aria-label="Issue"
@@ -62,7 +66,9 @@ exports[`StateLabel > respects the status prop 1`] = `
 exports[`StateLabel > respects the status prop 2`] = `
 <div>
   <span
-    class="sc-gEvEer ccfZZ"
+    class="prc-StateLabel-StateLabel-eEUJr"
+    data-status="issueClosed"
+    data-variant="normal"
   >
     <svg
       aria-label="Issue"
@@ -91,7 +97,9 @@ exports[`StateLabel > respects the status prop 2`] = `
 exports[`StateLabel > respects the status prop 3`] = `
 <div>
   <span
-    class="sc-gEvEer cIcgsx"
+    class="prc-StateLabel-StateLabel-eEUJr"
+    data-status="issueClosedNotPlanned"
+    data-variant="normal"
   >
     <svg
       aria-label="Issue, not planned"
@@ -117,7 +125,9 @@ exports[`StateLabel > respects the status prop 3`] = `
 exports[`StateLabel > respects the status prop 4`] = `
 <div>
   <span
-    class="sc-gEvEer ccfZZ"
+    class="prc-StateLabel-StateLabel-eEUJr"
+    data-status="pullMerged"
+    data-variant="normal"
   >
     <svg
       aria-label="Pull request"
@@ -143,7 +153,9 @@ exports[`StateLabel > respects the status prop 4`] = `
 exports[`StateLabel > respects the status prop 5`] = `
 <div>
   <span
-    class="sc-gEvEer dDPQZd"
+    class="prc-StateLabel-StateLabel-eEUJr"
+    data-status="pullQueued"
+    data-variant="normal"
   >
     <svg
       aria-label="Pull request"
@@ -169,7 +181,9 @@ exports[`StateLabel > respects the status prop 5`] = `
 exports[`StateLabel > respects the variant prop 1`] = `
 <div>
   <span
-    class="sc-gEvEer lpakhT"
+    class="prc-StateLabel-StateLabel-eEUJr"
+    data-status="issueOpened"
+    data-variant="small"
   >
     <svg
       aria-label="Issue"
@@ -198,7 +212,9 @@ exports[`StateLabel > respects the variant prop 1`] = `
 exports[`StateLabel > respects the variant prop 2`] = `
 <div>
   <span
-    class="sc-gEvEer kZGRsh"
+    class="prc-StateLabel-StateLabel-eEUJr"
+    data-status="issueOpened"
+    data-variant="normal"
   >
     <svg
       aria-label="Issue"
