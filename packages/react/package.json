@@ -188,7 +188,7 @@
     "react-test-renderer": "18.3.1",
     "recast": "0.23.7",
     "rimraf": "5.0.5",
-    "rollup": "4.50.0",
+    "rollup": "4.50.1",
     "rollup-plugin-import-css": "^0.0.0",
     "rollup-plugin-postcss": "4.0.2",
     "rollup-plugin-visualizer": "6.0.3",
