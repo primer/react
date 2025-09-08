@@ -7,7 +7,7 @@
 .FlexColumn {
   display: flex;
   flex-direction: column;
-  padding: var(--base-size-16);
+  padding: var(--base-size-8);
 }
 
 .AbsoluteContainer {
@@ -25,15 +25,15 @@
 .FormContainer {
   display: flex;
   flex-direction: column;
-  padding: var(--base-size-16) 0;
+  padding: var(--base-size-8);
 }
 
 .FormRow {
-  padding-left: var(--base-size-24);
-  padding-right: var(--base-size-24);
+  padding-left: var(--base-size-16);
+  padding-right: var(--base-size-16);
   display: flex;
   align-items: center;
-  gap: var(--base-size-8);
+  gap: var(--base-size-4);
 }
 
 .ActionMenuButton {
@@ -43,9 +43,9 @@
 .FormActions {
   display: flex;
   justify-content: flex-end;
-  padding-left: var(--base-size-16);
-  padding-right: var(--base-size-16);
-  gap: var(--base-size-8);
+  padding-left: var(--base-size-8);
+  padding-right: var(--base-size-8);
+  gap: var(--base-size-4);
 }
 
 .NestedFormContainer {
@@ -114,12 +114,12 @@
 .IssueHeader {
   display: flex;
   align-items: center;
-  gap: var(--base-size-8);
-  margin-bottom: var(--base-size-16);
+  gap: var(--base-size-4);
+  margin-bottom: var(--base-size-8);
 }
 
 .IssueMetaText {
-  font-size: var(--text-body-size-small);
+  font-size: var(--text-body-size-medium);
 }
 
 .IssueTitleInput {
@@ -143,7 +143,7 @@
   width: 100%;
   font-size: var(--text-title-size-medium);
   color: var(--fgColor-default);
-  padding: var(--base-size-16);
+  padding: var(--base-size-8);
   text-align: left;
   border-radius: var(--borderRadius-small);
 }
