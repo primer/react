@@ -1,10 +1,14 @@
 {
   "id": "pointer_box",
   "name": "PointerBox",
-  "status": "deprecated",
+  "status": "alpha",
   "a11yReviewed": "2025-01-08",
-  "stories": [],
-  "importPath": "@primer/react/deprecated",
+  "stories": [
+    {
+      "id": "components-pointerbox--default"
+    }
+  ],
+  "importPath": "@primer/react",
   "props": [
     {
       "name": "bg",
