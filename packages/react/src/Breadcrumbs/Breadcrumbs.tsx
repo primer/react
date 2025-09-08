@@ -82,10 +82,7 @@ const BreadcrumbsMenuItem = React.forwardRef<HTMLDetailsElement, BreadcrumbsMenu
     }, [])
 
     const focusOnMenuButton = useCallback(() => {
-      // this menubutton ref doesnt seem to set current element.
-      // The first child of details is the summary element
-      detailsRef.current?.firstChild?.focus()
-      //menuButtonRef.current?.focus()
+      menuButtonRef.current?.focus()
     }, [])
 
     useOnEscapePress(
