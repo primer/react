@@ -1,0 +1,7 @@
+.PaddingContainer {
+  padding: var(--base-size-16);
+}
+
+.LargeTitle {
+  font-size: var(--text-display-size);
+}

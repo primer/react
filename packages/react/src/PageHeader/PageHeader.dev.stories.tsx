@@ -1,9 +1,9 @@
 import type {Meta} from '@storybook/react-vite'
-import {Button, IconButton, Box} from '..'
+import {Button, IconButton} from '..'
 import Label from '../Label'
 import {GitBranchIcon, PencilIcon, SidebarExpandIcon} from '@primer/octicons-react'
-
 import {PageHeader} from './PageHeader'
+import classes from './PageHeader.dev.stories.module.css'
 
 const meta: Meta<typeof PageHeader> = {
   title: 'Components/PageHeader/Dev',
@@ -16,7 +16,7 @@ const meta: Meta<typeof PageHeader> = {
 export default meta
 
 export const LargeVariantWithMultilineTitle = () => (
-  <Box sx={{padding: 3}}>
+  <div className={classes.PaddingContainer}>
     <PageHeader
       role="banner"
       aria-label="Title long title some extra loooong looong words here some extra loooong looong words here some extra loooong
@@ -44,55 +44,15 @@ export const LargeVariantWithMultilineTitle = () => (
         <Button variant="primary">Add Item</Button>
       </PageHeader.Actions>
     </PageHeader>
-  </Box>
+  </div>
 )
 
-export const ArrayTypeFontSizeOnTitle = () => (
-  <Box sx={{padding: 3}}>
+export const FontSizeOnTitle = () => (
+  <div className={classes.PaddingContainer}>
     <PageHeader role="banner" aria-label="Issue Title">
       <PageHeader.TitleArea>
-        <PageHeader.Title
-          sx={{
-            lineHeight: '1.25',
-            fontWeight: 'normal',
-            fontSize: ['26px', '26px', 'var(--text-title-size-large, 32px)', 'var(--text-title-size-large, 32px)'], // it doesn't support this format right now.
-          }}
-        >
-          Issue Title
-        </PageHeader.Title>
+        <PageHeader.Title className={classes.LargeTitle}>Issue Title</PageHeader.Title>
       </PageHeader.TitleArea>
     </PageHeader>
-  </Box>
-)
-
-export const ThemeBaseFontSizeOnTitle = () => (
-  <Box sx={{padding: 3}}>
-    <PageHeader role="banner" aria-label="Issue Title">
-      <PageHeader.TitleArea>
-        <PageHeader.Title
-          sx={{
-            fontSize: 8,
-          }}
-        >
-          Issue Title
-        </PageHeader.Title>
-      </PageHeader.TitleArea>
-    </PageHeader>
-  </Box>
-)
-
-export const StringTypeFontSizeOnTitle = () => (
-  <Box sx={{padding: 3}}>
-    <PageHeader role="banner" aria-label="Issue Title">
-      <PageHeader.TitleArea>
-        <PageHeader.Title
-          sx={{
-            fontSize: '56px',
-          }}
-        >
-          Issue Title
-        </PageHeader.Title>
-      </PageHeader.TitleArea>
-    </PageHeader>
-  </Box>
+  </div>
 )
