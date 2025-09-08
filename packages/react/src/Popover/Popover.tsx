@@ -29,7 +29,6 @@ type StyledPopoverProps = {
 export type PopoverProps = {
   /** Class name for custom styling */
   className?: string
-  as?: React.ElementType
 } & StyledPopoverProps &
   HTMLProps<HTMLDivElement>
 
@@ -52,7 +51,6 @@ Popover.displayName = 'Popover'
 
 export type PopoverContentProps = {
   className?: string
-  as?: React.ElementType
   width?: 'xsmall' | 'small' | 'large' | 'medium' | 'auto' | 'xlarge'
   height?: 'small' | 'large' | 'medium' | 'auto' | 'xlarge' | 'fit-content'
   overflow?: 'auto' | 'hidden' | 'scroll' | 'visible'

@@ -9,37 +9,10 @@ export default {
   component: Popover,
 } as Meta<typeof Popover>
 
-export const SxProps = () => (
-  <Popover
-    relative
-    open={true}
-    caret="top-right"
-    sx={{
-      left: '50%',
-      transform: 'translateX(-50%)',
-      mt: 2,
-      color: 'var(--bgColor-danger-muted)',
-    }}
-    style={{padding: '16px'}}
-  >
-    <Popover.Content
-      sx={{
-        minWidth: '260px',
-        width: '40%',
-      }}
-      style={{padding: '32px'}}
-    >
-      <Heading sx={{fontSize: 2}}>Popover heading</Heading>
-      <Text as="p">Message about popovers</Text>
-      <Button>Got it!</Button>
-    </Popover.Content>
-  </Popover>
-)
-
 export const PopoverOverflow = () => (
   <Popover relative open={true}>
     <Popover.Content height={'small'}>
-      <Heading style={{fontSize: 2}}>Popover heading</Heading>
+      <Heading style={{fontSize: 'var(--text-title-size-small)'}}>Popover heading</Heading>
       <Text as="p">Message about popovers</Text>
       <Text as="p">Message about popovers</Text>
       <Text as="p">Message about popovers</Text>

@@ -11,8 +11,8 @@ export default {
 
 export const Default = () => (
   <Popover relative open={true} caret="top">
-    <Popover.Content sx={{marginTop: 2}}>
-      <Heading sx={{fontSize: 2}}>Popover heading</Heading>
+    <Popover.Content style={{marginTop: 'var(--base-size-8)'}}>
+      <Heading style={{fontSize: 'var(--text-title-size-small)'}}>Popover heading</Heading>
       <Text as="p">Message about popovers</Text>
       <Button>Got it!</Button>
     </Popover.Content>
@@ -21,8 +21,13 @@ export const Default = () => (
 
 export const Playground: StoryFn<PopoverProps & PopoverContentProps> = args => (
   <Popover {...args}>
-    <Popover.Content sx={{marginTop: 2}} width={args.width || 'small'} height={args.height} overflow={args.overflow}>
-      <Heading sx={{fontSize: 2}}>Popover heading</Heading>
+    <Popover.Content
+      style={{marginTop: 'var(--base-size-8)'}}
+      width={args.width || 'small'}
+      height={args.height}
+      overflow={args.overflow}
+    >
+      <Heading style={{fontSize: 'var(--text-title-size-small)'}}>Popover heading</Heading>
       <Text as="p">Message about popovers</Text>
       <Button>Got it!</Button>
     </Popover.Content>
