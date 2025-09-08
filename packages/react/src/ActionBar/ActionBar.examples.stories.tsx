@@ -302,9 +302,9 @@ const CustomActionMenu = () => {
     }
   }, [ref, setChildrenWidth])
   return (
-    <ActionMenu>
+    <ActionMenu anchorRef={ref}>
       <ActionMenu.Anchor>
-        <IconButton icon={ChevronDownIcon} aria-label="Open menu" ref={ref} />
+        <IconButton icon={ChevronDownIcon} aria-label="Open menu" />
       </ActionMenu.Anchor>
       <ActionMenu.Overlay width="medium">
         <ActionList>
