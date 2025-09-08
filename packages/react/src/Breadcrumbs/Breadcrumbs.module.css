@@ -61,7 +61,7 @@
   font-size: var(--text-body-size-medium);
 
   &:focus-visible {
-    @mixin focusOutline;
+    @mixin focusOutline 1px;
   }
 }
 
@@ -136,7 +136,6 @@
     & summary {
       list-style: none;
       cursor: pointer;
-      outline: none;
 
       &::-webkit-details-marker {
         display: none;
