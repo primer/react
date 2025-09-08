@@ -1,8 +1,8 @@
 {
   "id": "circle_badge",
   "name": "CircleBadge",
-  "status": "alpha",
-  "a11yReviewed": false,
+  "status": "deprecated",
+  "a11yReviewed": "2025-01-08",
   "stories": [],
   "importPath": "@primer/react",
   "props": [

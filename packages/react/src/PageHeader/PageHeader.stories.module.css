@@ -1,0 +1,12 @@
+.PaddingContainer {
+  padding: var(--base-size-16);
+}
+
+.DescriptionText {
+  font-size: var(--text-body-size-medium);
+  color: var(--fgColor-muted);
+}
+
+.BoldLink {
+  font-weight: var(--base-text-weight-semibold);
+}

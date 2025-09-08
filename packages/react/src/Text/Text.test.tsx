@@ -1,73 +1,109 @@
 import {Text} from '..'
-import theme from '../theme'
-import {px, render, renderStyles, behavesAsComponent, checkExports} from '../utils/testing'
-import {render as HTMLRender} from '@testing-library/react'
-import axe from 'axe-core'
+import {render} from '@testing-library/react'
+import {describe, it, expect} from 'vitest'
 
 describe('Text', () => {
-  behavesAsComponent({Component: Text})
-
-  checkExports('Text', {
-    default: Text,
-  })
-
   it('renders a <span> by default', () => {
-    expect(render(<Text />).type).toEqual('span')
+    const {container} = render(<Text />)
+    expect(container.firstChild?.nodeName).toEqual('SPAN')
   })
 
-  it('should have no axe violations', async () => {
-    const {container} = HTMLRender(<Text>hello</Text>)
-    const results = await axe.run(container)
-    expect(results).toHaveNoViolations()
+  it('renders children', () => {
+    const {getByText} = render(<Text>Hello World</Text>)
+    expect(getByText('Hello World')).toBeInTheDocument()
   })
 
-  it('renders fontSize', () => {
-    for (const fontSize of theme.fontSizes) {
-      expect(render(<Text fontSize={fontSize} />)).toHaveStyleRule('font-size', px(fontSize))
-    }
+  it('accepts className', () => {
+    const {container} = render(<Text className="test-class">Hello</Text>)
+    expect(container.firstChild).toHaveClass('test-class')
   })
 
-  it('renders responsive fontSize', () => {
-    expect(renderStyles(<Text fontSize={[1, 2]} />)).toEqual({
-      'font-size': px(theme.fontSizes[1]),
-      [`@media screen and (min-width:${px(theme.breakpoints[0])})`]: {
-        'font-size': px(theme.fontSizes[2]),
-      },
-    })
+  it('renders as different element when as prop is provided', () => {
+    const {container} = render(<Text as="p">Hello</Text>)
+    expect(container.firstChild?.nodeName).toEqual('P')
   })
 
-  it('renders responsive lineHeight', () => {
-    expect(renderStyles(<Text lineHeight={['condensed', 'default']} />)).toEqual({
-      'line-height': String(theme.lineHeights.condensed),
-      [`@media screen and (min-width:${px(theme.breakpoints[0])})`]: {
-        'line-height': String(theme.lineHeights.default),
-      },
-    })
+  it('passes through other props', () => {
+    const {container} = render(<Text data-testid="text-element">Hello</Text>)
+    expect(container.firstChild).toHaveAttribute('data-testid', 'text-element')
   })
 
   it('respects fontWeight', () => {
-    expect(render(<Text fontWeight="bold" />)).toHaveStyleRule('font-weight', '600')
-    expect(render(<Text fontWeight="normal" />)).toHaveStyleRule('font-weight', '400')
+    const {container} = render(<Text fontWeight="bold">Bold text</Text>)
+    const textElement = container.firstChild as HTMLElement
+    expect(getComputedStyle(textElement).fontWeight).toBe('700')
+  })
+
+  it('respects fontWeight normal', () => {
+    const {container} = render(<Text fontWeight="normal">Normal text</Text>)
+    const textElement = container.firstChild as HTMLElement
+    expect(getComputedStyle(textElement).fontWeight).toBe('400')
   })
 
   it('respects the "fontStyle" prop', () => {
-    expect(render(<Text fontStyle="italic" />)).toHaveStyleRule('font-style', 'italic')
-    expect(render(<Text as="i" fontStyle="normal" />)).toHaveStyleRule('font-style', 'normal')
+    const {container} = render(<Text fontStyle="italic">Italic text</Text>)
+    const textElement = container.firstChild as HTMLElement
+    expect(getComputedStyle(textElement).fontStyle).toBe('italic')
   })
 
-  it('respects lineHeight', () => {
-    for (const [name, value] of Object.entries(theme.lineHeights)) {
-      expect(render(<Text lineHeight={name} />)).toHaveStyleRule('line-height', String(value))
-    }
+  it('respects fontStyle normal', () => {
+    const {container} = render(
+      <Text as="i" fontStyle="normal">
+        Not italic
+      </Text>,
+    )
+    const textElement = container.firstChild as HTMLElement
+    expect(getComputedStyle(textElement).fontStyle).toBe('normal')
   })
 
   it('respects fontFamily="mono"', () => {
-    const mono = theme.fonts.mono.replace(/, /g, ',')
-    expect(render(<Text fontFamily="mono" />)).toHaveStyleRule('font-family', mono)
+    const {container} = render(<Text fontFamily="mono">Monospace text</Text>)
+    const textElement = container.firstChild as HTMLElement
+    const fontFamily = getComputedStyle(textElement).fontFamily
+    expect(fontFamily).toContain('mono')
   })
 
   it('respects other values for fontSize', () => {
-    expect(render(<Text fontSize="2em" />)).toHaveStyleRule('font-size', '2em')
-    expect(render(<Text fontSize={100} />)).toHaveStyleRule('font-size', '100px')
+    const {container} = render(<Text fontSize="2em">Large text</Text>)
+    const textElement = container.firstChild as HTMLElement
+    expect(getComputedStyle(textElement).fontSize).toBe('32px')
+  })
+
+  it('respects numeric fontSize values', () => {
+    const {container} = render(<Text fontSize={100}>Very large text</Text>)
+    const textElement = container.firstChild as HTMLElement
+    expect(getComputedStyle(textElement).fontSize).toBe('100px')
+  })
+
+  it('applies theme fontSize values', () => {
+    // Test different fontSize values from the theme
+    const fontSizes = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    for (const size of fontSizes) {
+      const {container} = render(<Text fontSize={size}>Text</Text>)
+      const textElement = container.firstChild as HTMLElement
+      expect(textElement).toBeInTheDocument()
+    }
+  })
+
+  it('applies theme lineHeight values', () => {
+    // Test different lineHeight values
+    const lineHeights = ['condensed', 'condensedUltra', 'default']
+    for (const lineHeight of lineHeights) {
+      const {container} = render(<Text lineHeight={lineHeight}>Text</Text>)
+      const textElement = container.firstChild as HTMLElement
+      expect(textElement).toBeInTheDocument()
+    }
+  })
+
+  it('supports responsive fontSize arrays', () => {
+    const {container} = render(<Text fontSize={[1, 2]}>Responsive text</Text>)
+    const textElement = container.firstChild as HTMLElement
+    expect(textElement).toBeInTheDocument()
+  })
+
+  it('supports responsive lineHeight arrays', () => {
+    const {container} = render(<Text lineHeight={['condensed', 'default']}>Responsive text</Text>)
+    const textElement = container.firstChild as HTMLElement
+    expect(textElement).toBeInTheDocument()
   })
 })

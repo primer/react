@@ -2,7 +2,7 @@
   "id": "stack",
   "name": "Stack",
   "status": "alpha",
-  "a11yReviewed": false,
+  "a11yReviewed": "2025-01-08",
   "stories": [],
   "importPath": "@primer/react",
   "props": [
@@ -49,6 +49,11 @@
           "name": "grow",
           "type": "boolean | ResponsiveValue<boolean>",
           "description": "Allow item to keep size or expand to fill the available space."
+        },
+        {
+          "name": "shrink",
+          "type": "boolean | ResponsiveValue<boolean>",
+          "description": "Allow item to keep size or shrink to fit the available space."
         },
         {
           "name": "className",

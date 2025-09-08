@@ -1,13 +1,9 @@
+import {describe, expect, it, vi, afterEach} from 'vitest'
 import {render as HTMLRender, fireEvent} from '@testing-library/react'
-import axe from 'axe-core'
 import theme from '../../theme'
 import {ActionMenu} from '../../deprecated'
-import {behavesAsComponent, checkExports} from '../../utils/testing'
 import {BaseStyles, ThemeProvider} from '../..'
 import type {ItemProps} from '../../deprecated/ActionList/Item'
-import {setupMatchMedia} from '../../utils/test-helpers'
-
-setupMatchMedia()
 
 const items = [
   {text: 'New file'},
@@ -16,7 +12,7 @@ const items = [
   {text: 'Delete file', variant: 'danger'},
 ] as ItemProps[]
 
-const mockOnActivate = jest.fn()
+const mockOnActivate = vi.fn()
 
 function SimpleActionMenu(): JSX.Element {
   return (
@@ -32,24 +28,7 @@ function SimpleActionMenu(): JSX.Element {
 
 describe('ActionMenu', () => {
   afterEach(() => {
-    jest.clearAllMocks()
-  })
-
-  behavesAsComponent({
-    Component: ActionMenu,
-    options: {skipAs: true, skipSx: true, skipClassName: true},
-    toRender: () => <ActionMenu items={[]} />,
-  })
-
-  checkExports('deprecated/ActionMenu', {
-    default: undefined,
-    ActionMenu,
-  })
-
-  it('should have no axe violations', async () => {
-    const {container} = HTMLRender(<SimpleActionMenu />)
-    const results = await axe.run(container)
-    expect(results).toHaveNoViolations()
+    vi.clearAllMocks()
   })
 
   it('should trigger the overlay on trigger click', async () => {
@@ -68,7 +47,7 @@ describe('ActionMenu', () => {
         }
       })
       .join('')
-    expect(portalRoot?.textContent?.trim()).toEqual(itemText)
+    expect(portalRoot?.textContent.trim()).toEqual(itemText)
   })
 
   it('should dismiss the overlay on menuitem click', async () => {

@@ -11,12 +11,12 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8
 
       - name: Set up Node.js
-        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444
         with:
-          node-version: 22
+          node-version-file: '.nvmrc'
           cache: 'npm'
       - name: Install dependencies
         run: npm ci
@@ -66,7 +66,7 @@ jobs:
             core.setOutput('metrics', metrics.join('\n'))
 
       - name: Build count
-        uses: masci/datadog@6889e9d060f5368eeee51f8a3f06a52f65d04da3
+        uses: masci/datadog@f0cad7cba58a34e65535732564c9bf174ee89006
         with:
           api-key: ${{ secrets.datadog_api_key }}
           metrics: ${{ steps.file-counts.outputs.metrics }}

@@ -8,16 +8,6 @@ export default {
 
 export const Square = () => <Avatar square alt="primer" src="https://avatars.githubusercontent.com/primer" />
 
-export const SquareSxProp = () => (
-  <Avatar
-    square
-    sx={{border: '1px solid red'}}
-    size={40}
-    alt="primer"
-    src="https://avatars.githubusercontent.com/primer"
-  />
-)
-
 export const Size = () => (
   <div>
     <Avatar size={4} alt="mona" src="https://avatars.githubusercontent.com/u/7143434?v=4" />

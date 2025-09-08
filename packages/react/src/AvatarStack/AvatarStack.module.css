@@ -1,8 +1,6 @@
 /* stylelint-disable selector-max-specificity */
 .AvatarStack {
   --avatar-border-width: 1px;
-  --overlap-size: calc(var(--avatar-stack-size) * 0.55);
-  --overlap-size-avatar-three-plus: calc(var(--avatar-stack-size) * 0.85);
   --mask-size: calc(100% + (var(--avatar-border-width) * 2));
   --mask-start: -1;
   --opacity-step: 15%;
@@ -12,6 +10,16 @@
   min-width: var(--avatar-stack-size);
   height: var(--avatar-stack-size);
   isolation: isolate;
+
+  &:where([data-variant='cascade']) {
+    --overlap-size: calc(var(--avatar-stack-size) * 0.55);
+    --overlap-size-avatar-three-plus: calc(var(--avatar-stack-size) * 0.85);
+  }
+
+  &:where([data-variant='stack']) {
+    --overlap-size: calc(var(--avatar-stack-size) * 0.55);
+    --overlap-size-avatar-three-plus: calc(var(--avatar-stack-size) * 0.55);
+  }
 
   &:where([data-responsive]) {
     @media screen and (--viewportRange-narrow) {
@@ -27,11 +35,21 @@
     }
   }
 
-  &:where([data-avatar-count='1']) {
+  &:where([data-avatar-count='1'][data-shape='circle']) {
     .AvatarItem {
       /* stylelint-disable-next-line primer/box-shadow */
       box-shadow: 0 0 0 var(--avatar-border-width) var(--avatar-borderColor);
     }
+  }
+
+  &:where([data-avatar-count='1'][data-shape='square']) .AvatarItem {
+    /* stylelint-disable-next-line primer/box-shadow */
+    box-shadow: 1px 0 rgba(0, 0, 0, 1);
+  }
+
+  &:where([data-avatar-count='1'][data-shape='square'][data-align-right]) .AvatarItem {
+    /* stylelint-disable-next-line primer/box-shadow */
+    box-shadow: -1px 0 rgba(0, 0, 0, 1);
   }
 
   &:where([data-avatar-count='2']) {
@@ -43,7 +61,7 @@
     min-width: calc(var(--avatar-stack-size) + (var(--avatar-stack-size) - var(--overlap-size)));
   }
 
-  &:where([data-avatar-count='3']) {
+  &:where([data-avatar-count='3'][data-variant='cascade']) {
     /*
     MIN-WIDTH CALC FORMULA EXPLAINED:
     avatar size ➡️ var(--avatar-stack-size)
@@ -56,7 +74,16 @@
     );
   }
 
-  &:where([data-avatar-count='3+']) {
+  &:where([data-avatar-count='3'][data-variant='stack']) {
+    /*
+    MIN-WIDTH CALC FORMULA EXPLAINED:
+    avatar size ➡️ var(--avatar-stack-size)
+    plus the visible part of the 2nd avatar & 3rd avatar ➡️ var(--avatar-stack-size) - var(--overlap-size-avatar-three-plus) * 2
+    */
+    min-width: calc(var(--avatar-stack-size) + (var(--avatar-stack-size) - var(--overlap-size-avatar-three-plus)) * 2);
+  }
+
+  &:where([data-avatar-count='3+'][data-variant='cascade']) {
     /*
     MIN-WIDTH CALC FORMULA EXPLAINED:
     avatar size ➡️ var(--avatar-stack-size)
@@ -67,6 +94,17 @@
       var(--avatar-stack-size) + (var(--avatar-stack-size) - var(--overlap-size)) +
         (var(--avatar-stack-size) - var(--overlap-size-avatar-three-plus)) * 2
     );
+  }
+
+  &:where([data-avatar-count='3+'][data-variant='stack']) {
+    /*
+    MIN-WIDTH CALC FORMULA EXPLAINED:
+    avatar size ➡️ var(--avatar-stack-size)
+    plus the visible part of the 2nd to 4th avatars ➡️ var(--avatar-stack-size) - var(--overlap-size-avatar-three-plus) * 3
+    */
+    min-width: calc(var(--avatar-stack-size) + (var(--avatar-stack-size) - var(--overlap-size-avatar-three-plus)) * 3);
+
+    --overlap-size: var(--overlap-size-avatar-three-plus);
   }
 
   &:where([data-align-right]) {
@@ -100,9 +138,19 @@
     mask-position 0.2s ease-in-out,
     mask-size 0.2s ease-in-out;
 
-  &:is(img) {
+  .AvatarStack:where([data-shape='circle']) &:is(img) {
     /* stylelint-disable-next-line primer/box-shadow */
     box-shadow: 0 0 0 var(--avatar-border-width) transparent;
+  }
+
+  .AvatarStack:where([data-shape='square']) &:is(img) {
+    /* stylelint-disable-next-line primer/box-shadow */
+    box-shadow: 1px 0 rgba(255, 255, 255, 1);
+  }
+
+  .AvatarStack:where([data-shape='square'][data-align-right]) &:is(img) {
+    /* stylelint-disable-next-line primer/box-shadow */
+    box-shadow: -1px 0 rgba(255, 255, 255, 1);
   }
 
   &:first-child {
@@ -112,8 +160,6 @@
   &:nth-child(n + 2) {
     /* stylelint-disable-next-line primer/spacing */
     margin-inline-start: calc(var(--overlap-size) * -1);
-    /* stylelint-disable-next-line declaration-property-value-no-unknown */
-    mask-image: radial-gradient(at 50% 50%, rgb(0, 0, 0) 70%, rgba(0, 0, 0, 0) 71%), linear-gradient(rgb(0, 0, 0) 0 0);
     mask-repeat: no-repeat, no-repeat;
     mask-size:
       var(--mask-size) var(--mask-size),
@@ -135,21 +181,56 @@
     padding: 0.1px;
   }
 
-  &:nth-child(n + 3) {
+  /* Circular mask */
+  .AvatarStack:where([data-shape='circle']) &:nth-child(n + 2) {
+    /* stylelint-disable-next-line declaration-property-value-no-unknown */
+    mask-image: radial-gradient(at 50% 50%, rgb(0, 0, 0) 70%, rgba(0, 0, 0, 0) 71%), linear-gradient(rgb(0, 0, 0) 0 0);
+  }
+
+  /* Square mask */
+  .AvatarStack:where([data-shape='square']) &:nth-child(n + 2) {
+    /* stylelint-disable-next-line declaration-property-value-no-unknown */
+    mask-image: linear-gradient(at 50% 50%, rgb(0, 0, 0) 70%, rgba(0, 0, 0, 0) 71%), linear-gradient(rgb(0, 0, 0) 0 0);
+  }
+
+  /* Cascade variant override for nth-child(n + 3) */
+  .AvatarStack:where([data-variant='cascade']) &:nth-child(n + 3) {
     --overlap-size: var(--overlap-size-avatar-three-plus);
 
     /* stylelint-disable-next-line alpha-value-notation */
     opacity: calc(100% - 2 * var(--opacity-step));
   }
 
-  &:nth-child(n + 4) {
+  /* Cascade variant override for nth-child(n + 4) */
+  .AvatarStack:where([data-variant='cascade']) &:nth-child(n + 4) {
     /* stylelint-disable-next-line alpha-value-notation */
     opacity: calc(100% - 3 * var(--opacity-step));
   }
 
-  &:nth-child(n + 5) {
+  /* Cascade variant override for nth-child(n + 5) */
+  .AvatarStack:where([data-variant='cascade']) &:nth-child(n + 5) {
     /* stylelint-disable-next-line alpha-value-notation */
     opacity: calc(100% - 4 * var(--opacity-step));
+  }
+
+  .AvatarStack:where([data-shape='square']) &:nth-child(1) {
+    z-index: 5;
+  }
+
+  .AvatarStack:where([data-shape='square']) &:nth-child(2) {
+    z-index: 4;
+  }
+
+  .AvatarStack:where([data-shape='square']) &:nth-child(3) {
+    z-index: 3;
+  }
+
+  .AvatarStack:where([data-shape='square']) &:nth-child(4) {
+    z-index: 2;
+  }
+
+  .AvatarStack:where([data-shape='square']) &:nth-child(5) {
+    z-index: 1;
   }
 
   &:nth-child(n + 6) {

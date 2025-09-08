@@ -2,7 +2,7 @@
   "id": "skeleton_avatar",
   "name": "SkeletonAvatar",
   "status": "alpha",
-  "a11yReviewed": false,
+  "a11yReviewed": "2025-01-08",
   "stories": [
     {
       "id": "components-skeleton-skeletonavatar--default"
@@ -18,9 +18,6 @@
     },
     {
       "id": "components-skeleton-skeletonavatar-features--in-a-stack"
-    },
-    {
-      "id": "components-skeleton-skeletonavatar-features--in-an-avatar-pair"
     }
   ],
   "importPath": "@primer/react/experimental",

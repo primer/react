@@ -2,7 +2,7 @@
   "id": "legacy_underline_nav",
   "name": "UnderlineNav",
   "status": "deprecated",
-  "a11yReviewed": false,
+  "a11yReviewed": "2025-01-08",
   "stories": [],
   "importPath": "@primer/react/deprecated",
   "props": [
@@ -25,11 +25,6 @@
       "name": "aria-label",
       "type": "string",
       "description": "Used to set the `aria-label` on the top level `<nav>` element."
-    },
-    {
-      "name": "sx",
-      "type": "SystemStyleObject",
-      "deprecated": true
     }
   ],
   "subcomponents": [

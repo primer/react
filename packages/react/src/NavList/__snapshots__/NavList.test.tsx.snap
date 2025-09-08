@@ -11,11 +11,13 @@ exports[`NavList > renders a simple list 1`] = `
       <li
         class="prc-ActionList-ActionListItem-jXerx"
         data-active="true"
+        data-has-description="false"
       >
         <a
           aria-current="page"
           aria-labelledby=":r1:--label  "
           class="prc-ActionList-ActionListContent-Q8eQr prc-Link-Link-O33ci"
+          data-size="medium"
           href="/"
           id=":r1:"
           style="--subitem-depth: 0;"
@@ -39,10 +41,12 @@ exports[`NavList > renders a simple list 1`] = `
       </li>
       <li
         class="prc-ActionList-ActionListItem-jXerx"
+        data-has-description="false"
       >
         <a
           aria-labelledby=":r2:--label  "
           class="prc-ActionList-ActionListContent-Q8eQr prc-Link-Link-O33ci"
+          data-size="medium"
           href="/about"
           id=":r2:"
           style="--subitem-depth: 0;"
@@ -66,10 +70,12 @@ exports[`NavList > renders a simple list 1`] = `
       </li>
       <li
         class="prc-ActionList-ActionListItem-jXerx"
+        data-has-description="false"
       >
         <a
           aria-labelledby=":r3:--label  "
           class="prc-ActionList-ActionListContent-Q8eQr prc-Link-Link-O33ci"
+          data-size="medium"
           href="/contact"
           id=":r3:"
           style="--subitem-depth: 0;"
@@ -132,11 +138,13 @@ exports[`NavList > renders with groups 1`] = `
           <li
             class="prc-ActionList-ActionListItem-jXerx"
             data-active="true"
+            data-has-description="false"
           >
             <a
               aria-current="page"
               aria-labelledby=":r6:--label  "
               class="prc-ActionList-ActionListContent-Q8eQr prc-Link-Link-O33ci"
+              data-size="medium"
               href="/getting-started"
               id=":r6:"
               style="--subitem-depth: 0;"
@@ -187,10 +195,12 @@ exports[`NavList > renders with groups 1`] = `
         >
           <li
             class="prc-ActionList-ActionListItem-jXerx"
+            data-has-description="false"
           >
             <a
               aria-labelledby=":r8:--label  "
               class="prc-ActionList-ActionListContent-Q8eQr prc-Link-Link-O33ci"
+              data-size="medium"
               href="/Avatar"
               id=":r8:"
               style="--subitem-depth: 0;"
@@ -229,6 +239,7 @@ exports[`NavList.Item with NavList.SubNav > does not have active styles if SubNa
     >
       <li
         class="prc-ActionList-ActionListItem-jXerx"
+        data-has-description="false"
         data-has-subitem="true"
       >
         <button
@@ -236,6 +247,7 @@ exports[`NavList.Item with NavList.SubNav > does not have active styles if SubNa
           aria-expanded="true"
           aria-labelledby=":r22:--label :r22:--trailing-visual "
           class="prc-ActionList-ActionListContent-Q8eQr"
+          data-size="medium"
           id=":r22:"
           style="--subitem-depth: 0;"
           tabindex="0"
@@ -285,11 +297,13 @@ exports[`NavList.Item with NavList.SubNav > does not have active styles if SubNa
           <li
             class="prc-ActionList-ActionListItem-jXerx"
             data-active="true"
+            data-has-description="false"
           >
             <a
               aria-current="page"
               aria-labelledby=":r25:--label  "
               class="prc-ActionList-ActionListContent-Q8eQr prc-Link-Link-O33ci"
+              data-size="medium"
               href="#"
               id=":r25:"
               style="--subitem-depth: 1;"
@@ -329,6 +343,7 @@ exports[`NavList.Item with NavList.SubNav > has active styles if SubNav contains
       <li
         class="prc-ActionList-ActionListItem-jXerx"
         data-active="true"
+        data-has-description="false"
         data-has-subitem="true"
       >
         <button
@@ -336,6 +351,7 @@ exports[`NavList.Item with NavList.SubNav > has active styles if SubNav contains
           aria-expanded="false"
           aria-labelledby=":r1t:--label :r1t:--trailing-visual "
           class="prc-ActionList-ActionListContent-Q8eQr"
+          data-size="medium"
           id=":r1t:"
           style="--subitem-depth: 0;"
           tabindex="0"
@@ -385,11 +401,13 @@ exports[`NavList.Item with NavList.SubNav > has active styles if SubNav contains
           <li
             class="prc-ActionList-ActionListItem-jXerx"
             data-active="true"
+            data-has-description="false"
           >
             <a
               aria-current="page"
               aria-labelledby=":r20:--label  "
               class="prc-ActionList-ActionListContent-Q8eQr prc-Link-Link-O33ci"
+              data-size="medium"
               href="#"
               id=":r20:"
               style="--subitem-depth: 1;"

@@ -28,9 +28,11 @@
   display: flex;
   overflow: hidden;
   /* stylelint-disable-next-line primer/colors */
-  background-color: var(--borderColor-default);
+  background-color: var(--progressBar-track-bgColor);
   border-radius: var(--borderRadius-small);
   gap: 2px;
+  outline: solid 1px var(--progressBar-track-borderColor);
+  outline-offset: -1px;
 
   &:where([data-progress-display='inline']) {
     display: inline-flex;
@@ -46,5 +48,14 @@
 
   &:where([data-progress-bar-size='large']) {
     height: 10px;
+  }
+
+  /* Width support for containers */
+  &:where([data-width='auto']) {
+    width: auto;
+  }
+
+  &:where([data-width='full']) {
+    width: 100%;
   }
 }

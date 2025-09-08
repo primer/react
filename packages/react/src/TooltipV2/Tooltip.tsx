@@ -11,7 +11,7 @@ import classes from './Tooltip.module.css'
 import {getAccessibleKeybindingHintString, KeybindingHint, type KeybindingHintProps} from '../KeybindingHint'
 import VisuallyHidden from '../_VisuallyHidden'
 import useSafeTimeout from '../hooks/useSafeTimeout'
-import {toggleSxComponent} from '../internal/utils/toggleSxComponent'
+import {BoxWithFallback} from '../internal/components/BoxWithFallback'
 
 export type TooltipDirection = 'nw' | 'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w'
 export type TooltipProps = React.PropsWithChildren<
@@ -80,10 +80,6 @@ const isInteractive = (element: HTMLElement) => {
   )
 }
 export const TooltipContext = React.createContext<{tooltipId?: string}>({})
-
-const BaseComponent = toggleSxComponent('span') as React.ComponentType<
-  SxProp & React.HTMLAttributes<HTMLElement> & React.RefAttributes<HTMLSpanElement>
->
 
 export const Tooltip = React.forwardRef(
   (
@@ -302,7 +298,8 @@ export const Tooltip = React.forwardRef(
                 child.props.onMouseLeave?.(event)
               },
             })}
-          <BaseComponent
+          <BoxWithFallback
+            as="span"
             className={clsx(className, classes.Tooltip)}
             ref={tooltipElRef}
             data-direction={calculatedDirection}
@@ -335,7 +332,7 @@ export const Tooltip = React.forwardRef(
             ) : (
               text
             )}
-          </BaseComponent>
+          </BoxWithFallback>
         </>
       </TooltipContext.Provider>
     )

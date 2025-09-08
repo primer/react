@@ -15,6 +15,10 @@ const stories = [
     title: 'SX Props',
     id: 'components-popover-dev--sx-props',
   },
+  {
+    title: 'Popover Overflow',
+    id: 'components-popover-dev--popover-overflow',
+  },
 ] as const
 
 test.describe('Popover', () => {

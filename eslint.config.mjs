@@ -7,7 +7,6 @@ import eslintReact from '@eslint-react/eslint-plugin'
 import vitest from '@vitest/eslint-plugin'
 import {defineConfig, globalIgnores} from 'eslint/config'
 import githubPlugin from 'eslint-plugin-github'
-import jest from 'eslint-plugin-jest'
 import storybook from 'eslint-plugin-storybook'
 import react from 'eslint-plugin-react'
 import reactCompiler from 'eslint-plugin-react-compiler'
@@ -43,6 +42,7 @@ const config = defineConfig([
     'contributor-docs/adrs/*',
     'examples/codesandbox/**/*',
     'packages/react/src/utils/polymorphic.ts',
+    'packages/styled-react/src/polymorphic.d.ts',
     '**/storybook-static',
     '**/CHANGELOG.md',
     '**/node_modules/**/*',
@@ -132,7 +132,6 @@ const config = defineConfig([
       globals: {
         ...globals.browser,
         ...globals.commonjs,
-        ...globals.jest,
         ...globals.node,
         __DEV__: 'readonly',
       },
@@ -266,25 +265,6 @@ const config = defineConfig([
       '@eslint-react/no-useless-forward-ref': 'off',
     },
   },
-  // eslint-plugin-jest
-  {
-    files: ['**/*.test.{ts,tsx}'],
-    ignores: ['**/e2e/**'],
-    plugins: {
-      jest,
-      ['testing-library']: testingLibrary,
-    },
-    languageOptions: {
-      globals: jest.environments.globals.globals,
-    },
-    ...jest.configs['flat/recommended'],
-    rules: {
-      ...jest.configs['flat/recommended'].rules,
-      'jest/expect-expect': 'off',
-      'jest/no-conditional-expect': 'off',
-      'jest/no-disabled-tests': 'off',
-    },
-  },
 
   // eslint-plugin-vitest
   {
@@ -379,6 +359,40 @@ const config = defineConfig([
 
   // Storybook stories
   ...storybook.configs['flat/recommended'],
+
+  // packages/mcp
+  {
+    files: ['packages/mcp/src/**/*.{ts,tsx}'],
+    rules: {
+      // We emit structured XML in the MCP server which is incorrectly being
+      // flagged as HTML
+      'github/unescaped-html-literal': 'off',
+    },
+  },
+
+  // next-env.d.ts files
+  {
+    files: ['**/next-env.d.ts'],
+    rules: {
+      '@typescript-eslint/triple-slash-reference': 'off',
+    },
+  },
+
+  // packages/styled-react overrides
+  {
+    files: ['packages/styled-react/**/*.{ts,tsx}'],
+    rules: {
+      'primer-react/no-unnecessary-components': 'off',
+    },
+  },
+  {
+    files: ['packages/styled-react/**/*.test.{ts,tsx}'],
+    rules: {
+      'github/a11y-aria-label-is-well-formatted': 'off',
+      'github/a11y-svg-has-accessible-name': 'off',
+      'primer-react/direct-slot-children': 'off',
+    },
+  },
 ])
 
 export default tseslint.config(config)

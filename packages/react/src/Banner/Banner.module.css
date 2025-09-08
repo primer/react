@@ -75,7 +75,7 @@
   margin-block: var(--base-size-8);
 }
 
-.Banner[data-title-hidden] .BannerContent {
+.Banner[data-title-hidden]:not(:has(.BannerActions)) .BannerContent {
   margin-block: var(--base-size-6);
 }
 
@@ -108,7 +108,8 @@
   fill: var(--banner-icon-fgColor);
 }
 
-.Banner[data-title-hidden] .BannerIcon svg {
+/* stylelint-disable-next-line selector-max-specificity */
+.Banner[data-title-hidden]:not(:has(.BannerActions)) .BannerIcon svg {
   height: var(--base-size-16);
 }
 
@@ -172,6 +173,9 @@
 @container banner (max-width: 500px) {
   .BannerContainer {
     display: grid;
+  }
+
+  .BannerContainer:has(.BannerActionsContainer) {
     grid-template-rows: auto auto;
   }
 

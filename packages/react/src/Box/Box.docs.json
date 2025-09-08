@@ -2,7 +2,7 @@
   "id": "box",
   "name": "Box",
   "status": "deprecated",
-  "a11yReviewed": false,
+  "a11yReviewed": "2025-01-08",
   "stories": [],
   "importPath": "@primer/react",
   "props": [

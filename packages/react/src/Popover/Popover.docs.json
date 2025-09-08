@@ -2,7 +2,7 @@
   "id": "popover",
   "name": "Popover",
   "status": "alpha",
-  "a11yReviewed": false,
+  "a11yReviewed": "2025-01-08",
   "stories": [
     {
       "id": "components-popover--default"
@@ -54,6 +54,24 @@
           "name": "sx",
           "type": "SystemStyleObject",
           "deprecated": true
+        },
+        {
+          "name": "width",
+          "type": "| 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge' | 'auto'",
+          "defaultValue": "'small'",
+          "description": "Sets the width of the popover content."
+        },
+        {
+          "name": "height",
+          "type": "| 'small' | 'medium' | 'large' | 'xlarge' | 'fit-content' | 'auto'",
+          "defaultValue": "'fit-content'",
+          "description": "Sets the height of the popover content."
+        },
+        {
+          "name": "overflow",
+          "type": "| 'auto' | 'hidden' | 'scroll' | 'visible'",
+          "defaultValue": "'auto'",
+          "description": "Sets the overflow behavior of the popover content."
         }
       ]
     }

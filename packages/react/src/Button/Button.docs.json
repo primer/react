@@ -2,7 +2,7 @@
   "id": "button",
   "name": "Button",
   "status": "alpha",
-  "a11yReviewed": false,
+  "a11yReviewed": "2025-01-08",
   "stories": [
     {
       "id": "components-button--default"
@@ -94,6 +94,11 @@
       "name": "as",
       "type": "React.ElementType",
       "defaultValue": "'button'"
+    },
+    {
+      "name": "href",
+      "type": "string",
+      "description": "**May only be used when `as` is set to 'a'**.\n The URL the button links to. If `as` is set to 'a', this prop is required."
     },
     {
       "name": "block",

@@ -2,19 +2,19 @@
 
 exports[`CircleBadge > respects the inline prop 1`] = `
 <div
-  class="sc-gFqAkR SqWoH"
+  class="sc-gEvEer lNPvJ"
 />
 `;
 
 exports[`CircleBadge > respects the variant prop 1`] = `
 <div
-  class="sc-gFqAkR ebkeDz"
+  class="sc-gEvEer irZoQl"
 />
 `;
 
 exports[`CircleBadge > uses the size prop to override the variant prop 1`] = `
 <div
-  class="sc-gFqAkR kqQQpr"
+  class="sc-gEvEer ceBMXF"
   size="20"
 />
 `;

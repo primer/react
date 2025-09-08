@@ -1,0 +1,127 @@
+.PaddingContainer {
+  padding: var(--base-size-16);
+}
+
+.ControlStack {
+  display: flex;
+  gap: var(--controlStack-medium-gap-condensed);
+}
+
+.DescriptionText {
+  color: var(--fgColor-muted);
+  font-size: var(--text-body-size-medium, 14px);
+}
+
+.BoldLink {
+  font-weight: var(--base-text-weight-semibold);
+}
+
+.SubduedText {
+  color: var(--fgColor-muted);
+  font-weight: var(--base-text-weight-light);
+}
+
+.FileTitleArea {
+  display: flex;
+  align-items: center;
+}
+
+.FilePathText {
+  /* stylelint-disable-next-line primer/colors */
+  color: rgb(101, 109, 118);
+  font-size: var(--text-body-size-medium);
+  font-weight: var(--base-text-weight-normal);
+}
+
+.FileTitle {
+  font-size: var(--text-body-size-medium);
+  height: 21px;
+}
+
+.FileContentContainer {
+  border: var(--borderWidth-default) solid var(--borderColor-emphasis);
+  padding: var(--base-size-16);
+  margin: var(--base-size-16);
+}
+
+.LayoutContentBox {
+  border: var(--borderWidth-default) solid var(--borderColor-default);
+  border-radius: var(--borderRadius-medium);
+  height: 200px;
+}
+
+.PaneStack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base-size-16);
+}
+
+.PaneSectionHeading {
+  font-size: var(--text-body-size-small);
+  font-weight: var(--base-text-weight-semibold);
+  display: block;
+  color: var(--fgColor-muted);
+}
+
+.PaneSectionHeadingWithPadding {
+  font-size: var(--text-body-size-small, 12px);
+  font-weight: var(--base-text-weight-semibold);
+  display: block;
+  color: var(--fgColor-muted);
+  padding-bottom: var(--base-size-8);
+}
+
+.PaneMetaTextWithButton {
+  font-size: var(--text-body-size-small);
+  color: var(--fgColor-muted);
+  /* stylelint-disable-next-line primer/typography */
+  line-height: 1.25;
+  display: flex;
+  align-items: center;
+}
+
+.PaneMetaText {
+  font-size: var(--text-body-size-small);
+  color: var(--fgColor-muted);
+  /* stylelint-disable-next-line primer/typography */
+  line-height: 1.25;
+  display: flex;
+  align-items: center;
+  height: 26px;
+}
+
+.PaneMetaButton {
+  color: var(--fgColor-muted);
+}
+
+.PaneSeparator {
+  width: 100%;
+  height: 1px;
+  /* stylelint-disable-next-line primer/colors */
+  background-color: var(--borderColor-default);
+}
+
+.LabelBar {
+  gap: var(--base-size-8);
+  display: flex;
+}
+
+.LabelTokenStack {
+  display: flex;
+  align-items: center;
+  gap: var(--base-size-4);
+}
+
+.IssueMetaContent {
+  border: var(--borderWidth-default) solid var(--borderColor-default);
+  border-radius: var(--borderRadius-medium);
+  height: auto;
+  padding: var(--base-size-16);
+  padding-top: 0;
+}
+
+.IssueTimelineLink {
+  font-weight: var(--base-text-weight-semibold);
+  color: var(--fgColor-default);
+  margin-right: var(--base-size-4);
+}

@@ -1,4 +1,4 @@
-import {test, expect} from '@playwright/test'
+import {test, expect, type Page} from '@playwright/test'
 import {visit} from '../test-helpers/storybook'
 import {themes} from '../test-helpers/themes'
 
@@ -86,10 +86,16 @@ const stories = [
   {
     title: 'Button',
     id: 'experimental-components-issuelabel-features--as-button',
+    async interact(page: Page) {
+      await page.getByRole('button', {name: 'Issue label'}).hover()
+    },
   },
   {
     title: 'Link',
     id: 'experimental-components-issuelabel-features--as-link',
+    async interact(page: Page) {
+      await page.getByRole('link', {name: 'Issue label'}).hover()
+    },
   },
   {
     title: 'Group Of Labels',
@@ -120,7 +126,12 @@ test.describe('IssueLabel', () => {
             })
 
             // Default state
-            await expect(page).toHaveScreenshot(`IssueLabel.${story.title}.${theme}.png`)
+            await expect(page.locator('body')).toHaveScreenshot(`IssueLabel.${story.title}.${theme}.png`)
+
+            if ('interact' in story) {
+              await story.interact(page)
+              await expect(page.locator('body')).toHaveScreenshot(`IssueLabel.interactions.${story.title}.${theme}.png`)
+            }
           })
         })
       }

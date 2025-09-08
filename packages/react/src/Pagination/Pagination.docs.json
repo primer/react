@@ -2,7 +2,7 @@
   "id": "pagination",
   "name": "Pagination",
   "status": "alpha",
-  "a11yReviewed": false,
+  "a11yReviewed": "2025-01-08",
   "stories": [
     {
       "id": "components-pagination--default"
@@ -71,11 +71,6 @@
       "type": "function",
       "defaultValue": "(props: PageProps) => ReactNode",
       "description": "Provide a custom component or render prop to render each page link within the component."
-    },
-    {
-      "name": "sx",
-      "type": "SystemStyleObject",
-      "deprecated": true
     }
   ],
   "subcomponents": []

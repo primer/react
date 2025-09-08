@@ -23,6 +23,9 @@ type AnyReactComponent = React.ComponentType<React.PropsWithChildren<any>>
 
 // NOTE: if these props or their JSDoc comments are updated, be sure to also update
 // the prop table in docs/content/TextInputTokens.mdx
+/**
+ * @deprecated
+ */
 export type TextInputWithTokensProps<TokenComponentType extends AnyReactComponent = typeof Token> = {
   /**
    * The array of tokens to render
@@ -336,4 +339,7 @@ const TextInputWithTokens = React.forwardRef(TextInputWithTokensInnerComponent)
 
 TextInputWithTokens.displayName = 'TextInputWithTokens'
 
+/**
+ * @deprecated
+ */
 export default TextInputWithTokens

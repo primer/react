@@ -2,20 +2,14 @@
   "id": "details",
   "name": "Details",
   "status": "alpha",
-  "a11yReviewed": false,
+  "a11yReviewed": "2025-01-08",
   "stories": [
     {
       "id": "components-details--default"
     }
   ],
   "importPath": "@primer/react",
-  "props": [
-    {
-      "name": "sx",
-      "type": "SystemStyleObject",
-      "deprecated": true
-    }
-  ],
+  "props": [],
   "subcomponents": [
     {
       "name": "Details.Summary",
@@ -30,11 +24,6 @@
         {
           "name": "children",
           "type": "React.ReactNode"
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject",
-          "deprecated": true
         }
       ]
     }

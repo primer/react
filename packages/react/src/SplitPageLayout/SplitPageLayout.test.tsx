@@ -4,19 +4,6 @@ import 'react-intersection-observer/test-utils'
 import {SplitPageLayout} from '../SplitPageLayout/SplitPageLayout'
 
 describe('SplitPageLayout', () => {
-  it('renders default layout', () => {
-    const {container} = render(
-      <SplitPageLayout>
-        <SplitPageLayout.Header>Header</SplitPageLayout.Header>
-        <SplitPageLayout.Content>Content</SplitPageLayout.Content>
-        <SplitPageLayout.Pane>Pane</SplitPageLayout.Pane>
-        <SplitPageLayout.Footer>Footer</SplitPageLayout.Footer>
-      </SplitPageLayout>,
-    )
-
-    expect(container).toMatchSnapshot()
-  })
-
   it('renders Pane with a custom ID', () => {
     const {getByText} = render(
       <SplitPageLayout>

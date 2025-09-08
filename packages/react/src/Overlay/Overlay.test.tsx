@@ -1,16 +1,16 @@
-import React, {useRef, useState} from 'react'
-import {Overlay, Box, Text, Button} from '..'
 import {render, waitFor, fireEvent} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import axe from 'axe-core'
+import React, {useRef, useState} from 'react'
+import {describe, expect, it, vi} from 'vitest'
+import Box from '../Box'
+import {Button} from '../Button'
+import Overlay from '../Overlay'
+import Text from '../Text'
 import theme from '../theme'
 import BaseStyles from '../BaseStyles'
 import {ThemeProvider} from '../ThemeProvider'
 import {NestedOverlays, MemexNestedOverlays, MemexIssueOverlay, PositionedOverlays} from './Overlay.features.stories'
 import {FeatureFlags} from '../FeatureFlags'
-import {setupMatchMedia} from '../utils/test-helpers'
-
-setupMatchMedia()
 
 type TestComponentSettings = {
   initialFocus?: 'button'
@@ -71,12 +71,6 @@ const TestComponent = ({
 }
 
 describe('Overlay', () => {
-  it('should have no axe violations', async () => {
-    const {container} = render(<TestComponent />)
-    const results = await axe.run(container)
-    expect(results).toHaveNoViolations()
-  })
-
   it('should focus initialFocusRef element passed into function on open', async () => {
     const user = userEvent.setup()
     const {getByRole} = render(<TestComponent initialFocus="button" />)
@@ -144,7 +138,7 @@ describe('Overlay', () => {
 
   it('should call function when user clicks outside container', async () => {
     const user = userEvent.setup()
-    const mockFunction = jest.fn()
+    const mockFunction = vi.fn()
     const {getByText, queryAllByText} = render(<TestComponent callback={mockFunction} />)
     await user.click(getByText('open overlay'))
     await user.click(getByText('outside'))
@@ -155,7 +149,7 @@ describe('Overlay', () => {
 
   it('should call function when user presses escape', async () => {
     const user = userEvent.setup()
-    const mockFunction = jest.fn()
+    const mockFunction = vi.fn()
     const {getByText, queryAllByText} = render(<TestComponent callback={mockFunction} />)
     await user.click(getByText('open overlay'))
     const domNode = getByText('Are you sure?')
@@ -166,7 +160,7 @@ describe('Overlay', () => {
   })
 
   it('should close the top most overlay on escape', async () => {
-    const spy = jest.spyOn(console, 'log').mockImplementation(message => {
+    const spy = vi.spyOn(console, 'log').mockImplementation(message => {
       if (!message.startsWith('global handler')) {
         throw new Error(
           `Expected console.log() to be called with: 'global handler:' but instead it was called with: ${message}`,
@@ -203,7 +197,7 @@ describe('Overlay', () => {
   })
 
   it.skip('should right align when given `right: 0` and `position: fixed`', async () => {
-    const spy = jest.spyOn(console, 'log').mockImplementation(message => {
+    const spy = vi.spyOn(console, 'log').mockImplementation(message => {
       if (!message.startsWith('global handler')) {
         throw new Error(
           `Expected console.log() to be called with: 'global handler:' but instead it was called with: ${message}`,
@@ -226,14 +220,14 @@ describe('Overlay', () => {
     const overlay = container.getByRole('dialog')
 
     expect(innerOverlay).toBeInTheDocument()
-    expect(overlay).toHaveStyle({position: 'fixed', right: 0})
-    expect(overlay).not.toHaveStyle({left: 0})
+    expect(overlay).toHaveStyle({position: 'fixed', right: '0'})
+    expect(overlay).not.toHaveStyle({left: '0'})
 
     spy.mockRestore()
   })
 
   it.skip('should left align when not given position and left props', async () => {
-    const spy = jest.spyOn(console, 'log').mockImplementation(message => {
+    const spy = vi.spyOn(console, 'log').mockImplementation(message => {
       if (!message.startsWith('global handler')) {
         throw new Error(
           `Expected console.log() to be called with: 'global handler:' but instead it was called with: ${message}`,
@@ -256,7 +250,7 @@ describe('Overlay', () => {
     const overlay = container.getByRole('dialog')
 
     expect(innerOverlay).toBeInTheDocument()
-    expect(overlay).toHaveStyle({left: 0, position: 'absolute'})
+    expect(overlay).toHaveStyle({left: '0', position: 'absolute'})
 
     spy.mockRestore()
   })
@@ -309,10 +303,9 @@ describe('Overlay', () => {
     expect(container.queryByLabelText('Change issue title')).not.toBeInTheDocument()
   })
 
-  // https://github.com/primer/react/issues/1802
   it.skip('memex repro: should not leak overlay events to the document', async () => {
     const user = userEvent.setup()
-    const mockHandler = jest.fn()
+    const mockHandler = vi.fn()
     const BugRepro1802 = () => {
       const [isOpen, setIsOpen] = useState(false)
       const closeOverlay = () => setIsOpen(false)

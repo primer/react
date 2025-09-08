@@ -8,6 +8,9 @@ npm run clean
 # Generate color schemes
 npm run build:precompile-color-schemes
 
+# Generate types for CSS Modules
+npm run type-css-modules
+
 # Bundle
 npx rollup -c
 

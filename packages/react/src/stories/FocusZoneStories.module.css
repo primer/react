@@ -1,3 +1,55 @@
 .MarginButton {
   margin: var(--base-size-8);
 }
+
+.FlexColumnContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.FlexRowContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+.FlexRowCenterContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.AbsoluteTopRight {
+  position: absolute;
+  right: var(--base-size-20); /* 5 * 4px */
+  top: var(--base-size-8); /* 2 * 4px */
+}
+
+.BorderedContainer {
+  border-color: var(--borderColor-default);
+  margin: var(--base-size-16); /* 4 * 4px */
+  padding: var(--base-size-16); /* 4 * 4px */
+  border-width: var(--borderWidth-thin);
+  border-style: solid;
+  border-radius: var(--borderRadius-medium); /* 2 * 2px */
+}
+
+.GridContainer {
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.BorderedGridContainer {
+  border-color: var(--borderColor-default);
+  margin: var(--base-size-16); /* 4 * 4px */
+  padding: var(--base-size-16); /* 4 * 4px */
+  border-width: var(--borderWidth-thin);
+  border-style: solid;
+  border-radius: var(--borderRadius-medium); /* 2 * 2px */
+}
+
+.MarginBottom3 {
+  margin-bottom: var(--base-size-12); /* 3 * 4px */
+}
