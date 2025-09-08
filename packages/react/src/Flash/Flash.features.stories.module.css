@@ -6,7 +6,7 @@
 }
 
 .Message {
-  font-size: var(--text-body-size-small);
+  font-size: var(--text-body-size-medium);
   line-height: var(--text-body-lineHeight-large);
   padding: var(--base-size-6) var(--base-size-8);
   align-self: center;
