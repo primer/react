@@ -52,6 +52,8 @@ const BreadcrumbsMenuItem = React.forwardRef<HTMLDetailsElement, BreadcrumbsMenu
   ({items, 'aria-label': ariaLabel, ...rest}, menuRefCallback) => {
     const [isOpen, setIsOpen] = useState(false)
     const detailsRef = useRef<HTMLDetailsElement | null>(null)
+    const menuButtonRef = useRef<HTMLElement>(null)
+    const menuContainerRef = useRef<HTMLDivElement>(null)
     const detailsRefCallback = useCallback(
       (element: HTMLDetailsElement | null) => {
         detailsRef.current = element
@@ -80,11 +82,11 @@ const BreadcrumbsMenuItem = React.forwardRef<HTMLDetailsElement, BreadcrumbsMenu
     }, [])
 
     const focusOnMenuButton = useCallback(() => {
-      iconButtonRef.current?.focus()
+      // this menubutton ref doesnt seem to set current element.
+      // The first child of details is the summary element
+      detailsRef.current?.firstChild?.focus()
+      //menuButtonRef.current?.focus()
     }, [])
-
-    const iconButtonRef = useRef<HTMLButtonElement>(null)
-    const menuContainerRef = useRef<HTMLDivElement>(null)
 
     useOnEscapePress(
       (event: KeyboardEvent) => {
@@ -100,7 +102,7 @@ const BreadcrumbsMenuItem = React.forwardRef<HTMLDetailsElement, BreadcrumbsMenu
     useOnOutsideClick({
       onClickOutside: closeOverlay,
       containerRef: menuContainerRef,
-      ignoreClickRefs: [iconButtonRef],
+      ignoreClickRefs: [menuButtonRef],
     })
 
     return (
@@ -109,7 +111,7 @@ const BreadcrumbsMenuItem = React.forwardRef<HTMLDetailsElement, BreadcrumbsMenu
           <IconButton
             as="summary"
             role="button"
-            ref={iconButtonRef}
+            ref={menuButtonRef}
             aria-label={ariaLabel || `${items.length} more breadcrumb items`}
             aria-expanded={isOpen ? 'true' : 'false'}
             onClick={handleSummaryClick}
