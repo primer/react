@@ -14,7 +14,6 @@ import {
   CheckboxGroup,
   CircleBadge,
   CounterLabel,
-  Details,
   Dialog,
   Flash,
   FormControl,
@@ -150,11 +149,6 @@ describe('@primer/react', () => {
 
   test('CounterLabel supports `sx` prop', () => {
     render(<CounterLabel data-testid="component" sx={{background: 'red'}} />)
-    expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
-  })
-
-  test('Details supports `sx` prop', () => {
-    render(<Details data-testid="component" sx={{background: 'red'}} />)
     expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
   })
 
