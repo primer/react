@@ -47,26 +47,23 @@ const BreadcrumbsMenuItem = React.forwardRef<HTMLDetailsElement, BreadcrumbsMenu
       },
       [menuRefCallback],
     )
-    const handleSummaryClick = useCallback(
-      (event: React.MouseEvent) => {
-        // Prevent the button click from bubbling up and interfering with details toggle
-        event.preventDefault()
-        // Manually toggle the details element
-        if (detailsRef.current) {
-          const newOpenState = !detailsRef.current.open
-          detailsRef.current.open = newOpenState
-          setIsOpen(newOpenState)
-        }
-      },
-      [detailsRef],
-    )
+    const handleSummaryClick = useCallback((event: React.MouseEvent) => {
+      // Prevent the button click from bubbling up and interfering with details toggle
+      event.preventDefault()
+      // Manually toggle the details element
+      if (detailsRef.current) {
+        const newOpenState = !detailsRef.current.open
+        detailsRef.current.open = newOpenState
+        setIsOpen(newOpenState)
+      }
+    }, [])
 
     const closeOverlay = useCallback(() => {
       if (detailsRef.current) {
         detailsRef.current.open = false
         setIsOpen(false)
       }
-    }, [detailsRef])
+    }, [])
 
     const focusOnMenuButton = useCallback(() => {
       iconButtonRef.current?.focus()
