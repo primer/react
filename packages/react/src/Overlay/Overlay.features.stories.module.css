@@ -59,7 +59,7 @@
 }
 
 .IssueEditorContainer {
-  padding: var(--base-size-16);
+  padding: var(--base-size-24);
   height: 100vh;
   /* stylelint-disable-next-line primer/responsive-widths */
   width: 350px;
