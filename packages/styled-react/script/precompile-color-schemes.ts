@@ -1,7 +1,9 @@
 import fs from 'fs'
 import path from 'path'
 import {colors} from '../src/legacy-theme/ts/colors'
-import {partitionColors, omitScale} from '../src/utils/theme'
+import themeUtils from '../../react/src/utils/theme'
+
+const {partitionColors, omitScale} = themeUtils
 
 const colorSchemes = Object.entries(colors).reduce((acc, [name, variables]) => {
   const {colors, shadows} = partitionColors(variables)
@@ -25,4 +27,4 @@ const colors = ${JSON.stringify(colorSchemes, null, 2)}
 export const colorSchemes: Record<Scheme, SchemeValue> = colors as Record<Scheme, SchemeValue>
 `
 
-fs.writeFileSync(path.join(__dirname, '../src/legacy-theme/ts/color-schemes.ts'), colorSchemeFileContent)
+fs.writeFileSync(path.join(import.meta.dirname, '../src/legacy-theme/ts/color-schemes.ts'), colorSchemeFileContent)
