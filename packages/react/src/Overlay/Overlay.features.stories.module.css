@@ -51,7 +51,7 @@
 .NestedFormContainer {
   display: flex;
   flex-direction: column;
-  padding-block: 8px;
+  padding-block: var(--base-size-8);
 }
 
 .InnerNestedFormContainer {
