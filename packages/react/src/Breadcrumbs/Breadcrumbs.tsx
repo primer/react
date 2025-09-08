@@ -16,7 +16,6 @@ import type {ResizeObserverEntry} from '../hooks/useResizeObserver'
 import {useOnEscapePress} from '../hooks/useOnEscapePress'
 import {useOnOutsideClick} from '../hooks/useOnOutsideClick'
 import {useFeatureFlag} from '../FeatureFlags'
-import {overflow} from 'styled-system'
 
 export type BreadcrumbsProps = React.PropsWithChildren<
   {
