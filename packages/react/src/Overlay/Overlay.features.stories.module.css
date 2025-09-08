@@ -1,0 +1,181 @@
+/* CSS Module for Overlay feature stories */
+
+.ButtonPosition {
+  position: relative;
+}
+
+.FlexColumn {
+  display: flex;
+  flex-direction: column;
+  padding: var(--base-size-16);
+}
+
+.AbsoluteContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+.OverlayOffset {
+  top: var(--base-size-40);
+}
+
+.FormContainer {
+  display: flex;
+  flex-direction: column;
+  padding: var(--base-size-16) 0;
+}
+
+.FormRow {
+  padding-left: var(--base-size-24);
+  padding-right: var(--base-size-24);
+  display: flex;
+  align-items: center;
+  gap: var(--base-size-8);
+}
+
+.ActionMenuButton {
+  width: 200px;
+}
+
+.FormActions {
+  display: flex;
+  justify-content: flex-end;
+  padding-left: var(--base-size-16);
+  padding-right: var(--base-size-16);
+  gap: var(--base-size-8);
+}
+
+.NestedFormContainer {
+  display: flex;
+  flex-direction: column;
+  padding-left: var(--base-size-16);
+  padding-right: var(--base-size-16);
+  padding-top: var(--base-size-8);
+  padding-bottom: var(--base-size-8);
+}
+
+.InvisibleButton {
+  padding-left: var(--base-size-16);
+  padding-right: var(--base-size-16);
+  margin-left: var(--base-size-16);
+  margin-right: var(--base-size-16);
+  display: flex;
+}
+
+.CreateFormContainer {
+  display: flex;
+  flex-direction: column;
+  padding: var(--base-size-24);
+}
+
+.FormText {
+  color: var(--fgColor-muted);
+  font-size: var(--text-body-size-small);
+  margin-bottom: var(--base-size-24);
+}
+
+.FormInput {
+  margin-bottom: var(--base-size-16);
+}
+
+.FormTextarea {
+  margin-bottom: var(--base-size-16);
+}
+
+.FormTextarea textarea {
+  padding: var(--base-size-16);
+}
+
+.DraftLinkContainer {
+  display: block;
+  border: var(--borderWidth-thin) solid;
+  border-color: var(--borderColor-default);
+  padding: var(--base-size-16);
+}
+
+.DraftLinkContainer:hover {
+  background-color: var(--bgColor-muted);
+}
+
+.IssueContainer {
+  padding: var(--base-size-32);
+  height: 100vh;
+  /* stylelint-disable-next-line primer/responsive-widths */
+  width: 350px;
+}
+
+.IssueHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--base-size-8);
+  margin-bottom: var(--base-size-16);
+}
+
+.IssueMetaText {
+  font-size: var(--text-body-size-small);
+}
+
+.IssueTitleInput {
+  width: 100%;
+  padding-top: var(--base-size-2);
+  padding-bottom: var(--base-size-2);
+  padding-left: var(--base-size-8);
+  padding-right: var(--base-size-8);
+  text-align: left;
+  color: var(--fgColor-default);
+}
+
+.IssueTitleInput input {
+  font-weight: var(--base-text-weight-semibold);
+  font-size: var(--text-title-size-large);
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.IssueTitleButton {
+  width: 100%;
+  font-size: var(--text-title-size-medium);
+  color: var(--fgColor-default);
+  padding: var(--base-size-16);
+  text-align: left;
+  border-radius: var(--borderRadius-small);
+}
+
+.PositionedButtonSpacing {
+  margin-top: var(--base-size-16);
+}
+
+.OverlayWidthResponsive {
+  /* stylelint-disable-next-line primer/responsive-widths */
+  width: 350px;
+}
+
+@media (min-width: 768px) {
+  .OverlayWidthResponsive {
+    /* stylelint-disable-next-line primer/responsive-widths */
+    width: 500px;
+  }
+}
+
+.FullHeightCenter {
+  height: 100vh;
+  max-width: calc(-1rem + 100vw);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.CloseButtonLeft {
+  position: absolute;
+  left: var(--base-size-4);
+  top: var(--base-size-4);
+}
+
+.CloseButtonRight {
+  position: absolute;
+  right: var(--base-size-4);
+  top: var(--base-size-4);
+}
