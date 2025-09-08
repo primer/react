@@ -17,6 +17,7 @@ import {
   TasklistIcon,
   ReplyIcon,
   ThreeBarsIcon,
+  ChevronDownIcon,
 } from '@primer/octicons-react'
 import {
   Button,
@@ -285,18 +286,64 @@ const CustomIconButton = (props: IconButtonProps) => {
   return <IconButton {...props} ref={ref} />
 }
 
-export const WithCustomItems = () => (
-  <ActionBar aria-label="Toolbar">
-    <CustomIconButton icon={BoldIcon} aria-label="Bold" />
-    <CustomIconButton icon={ItalicIcon} aria-label="Italic" />
-    <CustomIconButton icon={CodeIcon} aria-label="Code" />
-    <CustomIconButton icon={LinkIcon} aria-label="Link" />
-    <ActionBar.Divider />
-    <ActionBar.IconButton icon={FileAddedIcon} aria-label="File Added"></ActionBar.IconButton>
-    <ActionBar.IconButton icon={SearchIcon} aria-label="Search"></ActionBar.IconButton>
-    <ActionBar.IconButton icon={QuoteIcon} aria-label="Insert Quote"></ActionBar.IconButton>
-    <ActionBar.IconButton icon={ListUnorderedIcon} aria-label="Unordered List"></ActionBar.IconButton>
-    <ActionBar.IconButton icon={ListOrderedIcon} aria-label="Ordered List"></ActionBar.IconButton>
-    <ActionBar.IconButton icon={TasklistIcon} aria-label="Task List"></ActionBar.IconButton>
-  </ActionBar>
-)
+const CustomActionMenu = () => {
+  const ref = React.useRef<HTMLButtonElement>(null)
+
+  // size supplied to the ActionBar, use if you want
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const {size: _size, setChildrenWidth} = useContext(ActionBarContext)
+
+  useIsomorphicLayoutEffect(() => {
+    const text = 'Open menu'
+    const domRect = (ref as MutableRefObject<HTMLElement>).current?.getBoundingClientRect()
+    // this function needs to be called for every custom item in order for the ActionBar to overflow correctly
+    if (domRect) {
+      setChildrenWidth({text, width: domRect.width})
+    }
+  }, [ref, setChildrenWidth])
+  return (
+    <ActionMenu>
+      <ActionMenu.Anchor>
+        <IconButton icon={ChevronDownIcon} aria-label="Open menu" ref={ref} />
+      </ActionMenu.Anchor>
+      <ActionMenu.Overlay width="medium">
+        <ActionList>
+          <ActionList.Item onSelect={() => alert('Copy link clicked')}>
+            Copy link
+            <ActionList.TrailingVisual>⌘C</ActionList.TrailingVisual>
+          </ActionList.Item>
+          <ActionList.Item onSelect={() => alert('Quote reply clicked')}>
+            Quote reply
+            <ActionList.TrailingVisual>⌘Q</ActionList.TrailingVisual>
+          </ActionList.Item>
+          <ActionList.Item onSelect={() => alert('Edit comment clicked')}>
+            Edit comment
+            <ActionList.TrailingVisual>⌘E</ActionList.TrailingVisual>
+          </ActionList.Item>
+          <ActionList.Divider />
+          <ActionList.Item variant="danger" onSelect={() => alert('Delete file clicked')}>
+            Delete file
+            <ActionList.TrailingVisual>⌘D</ActionList.TrailingVisual>
+          </ActionList.Item>
+        </ActionList>
+      </ActionMenu.Overlay>
+    </ActionMenu>
+  )
+}
+
+export const WithCustomItems = () => {
+  return (
+    <ActionBar aria-label="Toolbar">
+      <CustomIconButton icon={BoldIcon} aria-label="Bold" />
+      <CustomIconButton icon={CodeIcon} aria-label="Code" />
+      <ActionBar.Divider />
+      <ActionBar.IconButton icon={FileAddedIcon} aria-label="File Added"></ActionBar.IconButton>
+      <ActionBar.IconButton icon={TasklistIcon} aria-label="Task List"></ActionBar.IconButton>
+      <ActionBar.IconButton icon={SearchIcon} aria-label="Search"></ActionBar.IconButton>
+      <ActionBar.IconButton icon={QuoteIcon} aria-label="Insert Quote"></ActionBar.IconButton>
+      <ActionBar.IconButton icon={ListUnorderedIcon} aria-label="Unordered List"></ActionBar.IconButton>
+      <ActionBar.IconButton icon={ListOrderedIcon} aria-label="Ordered List"></ActionBar.IconButton>
+      <CustomActionMenu />
+    </ActionBar>
+  )
+}
