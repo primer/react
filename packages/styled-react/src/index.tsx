@@ -53,7 +53,7 @@ const SegmentedControlIconButton = (props: SegmentedControlIconButtonProps) => {
   return <Box as={PrimerSegmentedControl.IconButton} {...props} />
 }
 
-const SegmentedControlImpl = (props:SegmentedControlProps) => {
+const SegmentedControlImpl = (props: SegmentedControlProps) => {
   return <Box as={PrimerSegmentedControl} {...props} />
 }
 
@@ -61,7 +61,7 @@ const SegmentedControl = Object.assign(SegmentedControlImpl, {
   Button: SegmentedControlButton,
   IconButton: SegmentedControlIconButton,
 })
- 
+
 type StateLabelProps = PrimerStateLabelProps & SxProp
 
 const StateLabel = forwardRef<HTMLSpanElement, StateLabelProps>(function StateLabel(props, ref) {
