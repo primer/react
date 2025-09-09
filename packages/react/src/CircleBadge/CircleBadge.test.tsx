@@ -1,4 +1,4 @@
-import {CircleBadge} from '..'
+import CircleBadge from './CircleBadge'
 import {CheckIcon} from '@primer/octicons-react'
 import {render as HTMLRender} from '@testing-library/react'
 import {describe, expect, it} from 'vitest'

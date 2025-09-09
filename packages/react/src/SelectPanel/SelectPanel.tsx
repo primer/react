@@ -178,7 +178,6 @@ function Panel({
   footer,
   textInputProps,
   overlayProps,
-  sx,
   loading,
   initialLoadingType = 'spinner',
   className,
@@ -656,10 +655,10 @@ function Panel({
 
   const extendedTextInputProps: Partial<TextInputProps> = useMemo(() => {
     return {
+      className: classes.FilterInputWrapper,
       contrast: true,
       leadingVisual: SearchIcon,
       'aria-label': inputLabel,
-      className: classes.FilterInputWrapper,
       ...textInputProps,
     }
   }, [inputLabel, textInputProps])
@@ -861,9 +860,6 @@ function Panel({
                   : EMPTY_MESSAGE.description || EMPTY_MESSAGE.description,
             }}
             fullScreenOnNarrow={usingFullScreenOnNarrow}
-            // inheriting height and maxHeight ensures that the FilteredActionList is never taller
-            // than the Overlay (which would break scrolling the items)
-            sx={sx}
             className={clsx(className, classes.FilteredActionList)}
           />
           {footer ? (
