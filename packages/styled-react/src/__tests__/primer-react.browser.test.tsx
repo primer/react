@@ -157,6 +157,36 @@ describe('@primer/react', () => {
     expect(window.getComputedStyle(screen.getByRole('dialog')).backgroundColor).toBe('rgb(255, 0, 0)')
   })
 
+  test('Dialog.Header supports `sx` prop', () => {
+    render(
+      <Dialog
+        onClose={() => {}}
+        renderHeader={props => <Dialog.Header {...props} data-testid="component" sx={{background: 'red'}} />}
+      />,
+    )
+    expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
+  })
+
+  test('Dialog.Body supports `sx` prop', () => {
+    render(
+      <Dialog
+        onClose={() => {}}
+        renderBody={props => <Dialog.Body {...props} data-testid="component" sx={{background: 'red'}} />}
+      />,
+    )
+    expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
+  })
+
+  test('Dialog.Footer supports `sx` prop', () => {
+    render(
+      <Dialog
+        onClose={() => {}}
+        renderFooter={props => <Dialog.Footer {...props} data-testid="component" sx={{background: 'red'}} />}
+      />,
+    )
+    expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
+  })
+
   test('Flash supports `sx` prop', () => {
     render(<Flash data-testid="component" sx={{background: 'red'}} />)
     expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')

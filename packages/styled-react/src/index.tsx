@@ -2,7 +2,8 @@ import {
   type BetterSystemStyleObject,
   Box,
   type BoxProps,
-  type SxProp,
+  Dialog as PrimerDialog,
+  type DialogProps as PrimerDialogProps,
   StateLabel as PrimerStateLabel,
   type StateLabelProps as PrimerStateLabelProps,
   SubNav as PrimerSubNav,
@@ -24,6 +25,8 @@ import type {
   SpaceProps,
   TypographyProps,
 } from 'styled-system'
+import type {SxProp} from './sx'
+import {Dialog} from './components/Dialog'
 
 type StyledProps = SxProp &
   SpaceProps &
@@ -65,7 +68,7 @@ const ToggleSwitch = forwardRef<HTMLButtonElement, ToggleSwitchProps>(function T
   return <Box as={PrimerToggleSwitch} ref={ref} {...props} />
 })
 
-export {StateLabel, SubNav, ToggleSwitch}
+export {Dialog, StateLabel, SubNav, ToggleSwitch}
 
 export {
   ActionList,
@@ -79,7 +82,6 @@ export {
   CircleBadge,
   CounterLabel,
   Details,
-  Dialog,
   Flash,
   FormControl,
   Header,
