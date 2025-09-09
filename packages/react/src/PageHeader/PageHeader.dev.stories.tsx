@@ -1,7 +1,8 @@
 import type {Meta} from '@storybook/react-vite'
-import {Button, IconButton, Box} from '..'
+import {Button, IconButton} from '..'
 import Label from '../Label'
 import {GitBranchIcon, PencilIcon, SidebarExpandIcon} from '@primer/octicons-react'
+import classes from './PageHeader.dev.stories.module.css'
 
 import {PageHeader} from './PageHeader'
 
@@ -16,7 +17,7 @@ const meta: Meta<typeof PageHeader> = {
 export default meta
 
 export const LargeVariantWithMultilineTitle = () => (
-  <Box sx={{padding: 3}}>
+  <div className={classes.Container}>
     <PageHeader
       role="banner"
       aria-label="Title long title some extra loooong looong words here some extra loooong looong words here some extra loooong
@@ -44,11 +45,11 @@ export const LargeVariantWithMultilineTitle = () => (
         <Button variant="primary">Add Item</Button>
       </PageHeader.Actions>
     </PageHeader>
-  </Box>
+  </div>
 )
 
 export const ArrayTypeFontSizeOnTitle = () => (
-  <Box sx={{padding: 3}}>
+  <div className={classes.Container}>
     <PageHeader role="banner" aria-label="Issue Title">
       <PageHeader.TitleArea>
         <PageHeader.Title
@@ -62,11 +63,11 @@ export const ArrayTypeFontSizeOnTitle = () => (
         </PageHeader.Title>
       </PageHeader.TitleArea>
     </PageHeader>
-  </Box>
+  </div>
 )
 
 export const ThemeBaseFontSizeOnTitle = () => (
-  <Box sx={{padding: 3}}>
+  <div className={classes.Container}>
     <PageHeader role="banner" aria-label="Issue Title">
       <PageHeader.TitleArea>
         <PageHeader.Title
@@ -78,11 +79,11 @@ export const ThemeBaseFontSizeOnTitle = () => (
         </PageHeader.Title>
       </PageHeader.TitleArea>
     </PageHeader>
-  </Box>
+  </div>
 )
 
 export const StringTypeFontSizeOnTitle = () => (
-  <Box sx={{padding: 3}}>
+  <div className={classes.Container}>
     <PageHeader role="banner" aria-label="Issue Title">
       <PageHeader.TitleArea>
         <PageHeader.Title
@@ -94,5 +95,5 @@ export const StringTypeFontSizeOnTitle = () => (
         </PageHeader.Title>
       </PageHeader.TitleArea>
     </PageHeader>
-  </Box>
+  </div>
 )

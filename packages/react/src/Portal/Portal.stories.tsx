@@ -1,7 +1,7 @@
 import type {Meta} from '@storybook/react-vite'
-
-import {Box} from '..'
 import {Portal} from './Portal'
+import classes from './Portal.stories.module.css'
+import {clsx} from 'clsx'
 
 export default {
   title: 'Behaviors/Portal',
@@ -11,14 +11,14 @@ export default {
 export const Default = () => (
   <>
     Root position
-    <Box bg="red.2" p={3}>
+    <div className={clsx(classes.PortalContainer, classes.OuterContainer)}>
       Outer container
-      <Box bg="green.2" p={3}>
+      <div className={clsx(classes.PortalContainer, classes.InnerContainer)}>
         Inner container
         <Portal>
           Portaled content rendered at <code>&lt;BaseStyles&gt;</code> root.
         </Portal>
-      </Box>
-    </Box>
+      </div>
+    </div>
   </>
 )
