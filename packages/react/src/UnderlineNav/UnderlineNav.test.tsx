@@ -179,7 +179,7 @@ describe('UnderlineNav', () => {
 
     // THEN
     // We are expecting a left value back, that way we know the `getLeftAnchoredPosition` ran.
-    expect(results).toEqual(expect.objectContaining({left: 0}))
+    expect(results).toEqual(0)
   })
 
   it('should support icons passed in as an element', () => {

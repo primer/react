@@ -1,10 +1,16 @@
 import {announceFromElement} from '@primer/live-region-element'
 import type React from 'react'
-import {useEffect, useRef, useState, type ElementRef} from 'react'
+import {useEffect, useRef, useState} from 'react'
 import {useEffectOnce} from '../internal/hooks/useEffectOnce'
 import {useEffectCallback} from '../internal/hooks/useEffectCallback'
+import type {PolymorphicProps} from '../utils/modern-polymorphic'
 
-export type AnnounceProps = React.ComponentPropsWithoutRef<'div'> & {
+export type AnnounceProps<As extends React.ElementType = 'div'> = {
+  /**
+   * The element type to render as
+   * @default 'div'
+   */
+  as?: As
   /**
    * Specify if the content of the element should be announced when this
    * component is rendered and is not hidden
@@ -29,22 +35,24 @@ export type AnnounceProps = React.ComponentPropsWithoutRef<'div'> & {
    * @default 'polite'
    */
   politeness?: 'assertive' | 'polite'
-}
+} & PolymorphicProps<As, 'div'>
 
 /**
  * `Announce` is a component that will announce the text content of the
  * `children` passed in to screen readers using the given politeness level. It
  * will also announce any changes to the text content of `children`
  */
-export function Announce({
+export function Announce<As extends React.ElementType = 'div'>({
+  as,
   announceOnShow = true,
   children,
   delayMs,
   hidden = false,
   politeness = 'polite',
   ...rest
-}: AnnounceProps) {
-  const ref = useRef<ElementRef<'div'>>(null)
+}: AnnounceProps<As>) {
+  const Component = (as || 'div') as React.ElementType
+  const ref = useRef<HTMLElement>(null)
   const [previousAnnouncementText, setPreviousAnnouncementText] = useState<string | null>(null)
   const savedAnnouncement = useRef<ReturnType<typeof announceFromElement> | null>(null)
   const announce = useEffectCallback(() => {
@@ -126,9 +134,9 @@ export function Announce({
   }, [])
 
   return (
-    <div {...rest} ref={ref}>
+    <Component {...rest} ref={ref}>
       {children}
-    </div>
+    </Component>
   )
 }
 

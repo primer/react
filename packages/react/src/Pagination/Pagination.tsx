@@ -63,12 +63,13 @@ function usePaginationPages({
       if (renderPage && props.as !== 'span') {
         return renderPage({key, children: content, number: page.num, className: classes.Page, ...props})
       }
+      const Component = props.as || 'a'
 
       return (
         // @ts-ignore giving me grief about children and "as" props
-        <a key={key} className={clsx(classes.Page)} {...props}>
+        <Component key={key} className={clsx(classes.Page)} {...props}>
           {content}
-        </a>
+        </Component>
       )
     })
   }, [model, hrefBuilder, pageChange, renderPage])
