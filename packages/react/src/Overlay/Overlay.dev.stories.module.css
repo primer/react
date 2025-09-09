@@ -26,8 +26,10 @@
 
 .CloseButton {
   position: absolute;
-  left: var(--base-size-4);
-  top: var(--base-size-4);
+  /* stylelint-disable-next-line primer/spacing */
+  left: 5px;
+  /* stylelint-disable-next-line primer/spacing */
+  top: 5px;
 }
 
 .FlexColumn {
@@ -42,9 +44,9 @@
 }
 
 .ButtonRight {
-  margin-right: var(--base-size-4);
+  margin-right: 5px;
 }
 
 .ButtonLeft {
-  margin-left: var(--base-size-4);
+  margin-left: 5px;
 }
