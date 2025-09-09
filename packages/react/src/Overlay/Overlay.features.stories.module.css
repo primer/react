@@ -49,7 +49,7 @@
 }
 
 .CheckboxContainer {
-  padding-left: var(--base-size-8) var(--base-size-16);
+  padding: var(--base-size-8) var(--base-size-16);
 }
 
 .CreateFormContent {
