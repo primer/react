@@ -21,7 +21,6 @@ import {
 import {Button, Avatar, ActionMenu, IconButton, ActionList, Textarea} from '..'
 import {Dialog} from '../DialogV1'
 import {Divider} from '../deprecated/ActionList/Divider'
-import mockData from '../experimental/SelectPanel2/mock-story-data'
 import classes from './ActionBar.examples.stories.module.css'
 
 export default {
@@ -136,7 +135,7 @@ export const ActionBarWithMenuTrigger = () => {
 }
 
 export const ActionbarToggle = () => {
-  const loginName = mockData.collaborators[1].login
+  const loginName = 'francinelucca'
   const [showEditView, setEditView] = React.useState(false)
   const [description /*, setDescription*/] = React.useState('')
   const anchorRef = React.useRef(null)
