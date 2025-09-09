@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import {createPortal} from 'react-dom'
 import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 
@@ -43,6 +43,10 @@ function ensureDefaultPortal() {
   }
 }
 
+export const PortalContext = React.createContext<{
+  portalContainerName?: string
+}>({portalContainerName: DEFAULT_PORTAL_CONTAINER_NAME})
+
 export interface PortalProps {
   /**
    * Called when this portal is added to the DOM
@@ -80,7 +84,8 @@ export const Portal: React.FC<React.PropsWithChildren<PortalProps>> = ({
   const element = elementRef.current
 
   useLayoutEffect(() => {
-    let containerName = _containerName
+    const {portalContainerName} = useContext(PortalContext)
+    let containerName = _containerName ?? portalContainerName
     if (containerName === undefined) {
       containerName = DEFAULT_PORTAL_CONTAINER_NAME
       ensureDefaultPortal()
