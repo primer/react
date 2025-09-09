@@ -19,7 +19,7 @@ export type SegmentedControlButtonProps = {
   /** The leading icon comes before item label */
   leadingIcon?: React.FunctionComponent<React.PropsWithChildren<IconProps>> | React.ReactElement
   /** Optional counter to display on the right side of the button */
-  counter?: number | string
+  count?: number | string
 } & SxProp &
   ButtonHTMLAttributes<HTMLButtonElement | HTMLLIElement>
 
@@ -31,7 +31,7 @@ const SegmentedControlButton: React.FC<React.PropsWithChildren<SegmentedControlB
   className,
   // Note: this value is read in the `SegmentedControl` component to determine which button is selected but we do not need to apply it to an underlying element
   defaultSelected: _defaultSelected,
-  counter,
+  count,
   ...rest
 }) => {
   return (
@@ -50,9 +50,9 @@ const SegmentedControlButton: React.FC<React.PropsWithChildren<SegmentedControlB
           <div className={clsx(classes.Text, 'segmentedControl-text')} data-text={children}>
             {children}
           </div>
-          {counter !== undefined && (
+          {count !== undefined && (
             <span className={classes.Counter}>
-              <CounterLabel>{counter}</CounterLabel>
+              <CounterLabel>{count}</CounterLabel>
             </span>
           )}
         </span>

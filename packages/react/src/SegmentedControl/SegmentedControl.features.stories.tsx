@@ -26,13 +26,13 @@ export const WithIcons = () => (
 
 export const WithCounterLabels = () => (
   <SegmentedControl aria-label="Issues by label">
-    <SegmentedControl.Button defaultSelected aria-label="Feature" counter={5}>
+    <SegmentedControl.Button defaultSelected aria-label="Feature" count={5}>
       Feature
     </SegmentedControl.Button>
-    <SegmentedControl.Button aria-label="Bug" counter={3}>
+    <SegmentedControl.Button aria-label="Bug" count={3}>
       Bug
     </SegmentedControl.Button>
-    <SegmentedControl.Button aria-label="Good first issue" counter={10}>
+    <SegmentedControl.Button aria-label="Good first issue" count={10}>
       Good first issue
     </SegmentedControl.Button>
   </SegmentedControl>

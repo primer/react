@@ -2,4 +2,4 @@
 "@primer/react": minor
 ---
 
-Add counter to SegmentedControlButton
+Add count to SegmentedControlButton

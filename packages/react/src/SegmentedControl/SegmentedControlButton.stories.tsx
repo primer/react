@@ -43,7 +43,7 @@ Playground.argTypes = {
   defaultSelected: {
     type: 'boolean',
   },
-  counter: {
+  count: {
     type: 'number',
   },
 }
