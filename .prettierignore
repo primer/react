@@ -9,3 +9,4 @@ docs/.cache
 docs/public
 **/.next/**
 packages/react/src/legacy-theme/ts/color-schemes.ts
+packages/styled-react/src/theming/legacy-theme/ts/colors/color-schemes.ts
