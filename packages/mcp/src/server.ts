@@ -629,4 +629,49 @@ The following list of coding guidelines must be followed:
   },
 )
 
+// -----------------------------------------------------------------------------
+// Accessibility
+// -----------------------------------------------------------------------------
+server.tool(
+  'review_alt_text',
+  'Images MUST have meaningful and logical alt text',
+  {
+    surroundingText: z.string().describe('Text surrounding the image, relevant to the image.'),
+    alt: z.string().describe('The alt text of the image being evaluated'),
+    image: z
+      .union([
+        z.instanceof(File).describe('The image file being evaluated'),
+        z.string().url().describe('The URL of the image being evaluated'),
+      ])
+      .describe('The image file or URL being evaluated'),
+  },
+  async ({surroundingText, alt, image}) => {
+    // Call the LLM through MCP sampling
+    const response = await server.server.createMessage({
+      messages: [
+        {
+          role: 'user',
+          content: {
+            type: 'text',
+            text: `Does this alt text: '${alt}' meet accessibility guidelines and describe the ${image} accurately in context of this surrounding text: '${surroundingText}'?\n\n`,
+          },
+        },
+      ],
+      sampling: {temperature: 0.4},
+      maxTokens: 500,
+    })
+
+    return {
+      content: [
+        {
+          type: 'text',
+          text: response.content.type === 'text' ? response.content.text : 'Unable to generate summary',
+        },
+      ],
+      altTextEvaluation: response.content.text,
+      nextSteps: `if the evaluation was bad provide more meaninguful alt text.`,
+    }
+  },
+)
+
 export {server}
