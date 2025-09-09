@@ -9,7 +9,7 @@
 }
 
 .ProgressBarItem {
-  /* there are passed from the component */
+  /* these are passed from the component */
   --progress-width: ;
   --progress-bg: ;
 
