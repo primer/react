@@ -70,6 +70,7 @@ export const Portal: React.FC<React.PropsWithChildren<PortalProps>> = ({
   onMount,
   containerName: _containerName,
 }) => {
+  const {portalContainerName} = useContext(PortalContext)
   const elementRef = React.useRef<HTMLDivElement | null>(null)
   if (!elementRef.current) {
     const div = document.createElement('div')
@@ -84,9 +85,8 @@ export const Portal: React.FC<React.PropsWithChildren<PortalProps>> = ({
   const element = elementRef.current
 
   useLayoutEffect(() => {
-    const {portalContainerName} = useContext(PortalContext)
     let containerName = _containerName ?? portalContainerName
-    if (containerName === undefined) {
+    if (containerName === undefined || containerName === DEFAULT_PORTAL_CONTAINER_NAME) {
       containerName = DEFAULT_PORTAL_CONTAINER_NAME
       ensureDefaultPortal()
     }
@@ -94,7 +94,7 @@ export const Portal: React.FC<React.PropsWithChildren<PortalProps>> = ({
 
     if (!parentElement) {
       throw new Error(
-        `Portal container '${_containerName}' is not yet registered. Container must be registered with registerPortal before use.`,
+        `Portal container '${containerName}' is not yet registered. Container must be registered with registerPortal before use.`,
       )
     }
     parentElement.appendChild(element)
@@ -105,7 +105,7 @@ export const Portal: React.FC<React.PropsWithChildren<PortalProps>> = ({
     }
     // eslint-disable-next-line react-compiler/react-compiler
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [element])
+  }, [element, _containerName, portalContainerName])
 
   return createPortal(children, element)
 }
