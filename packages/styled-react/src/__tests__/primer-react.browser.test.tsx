@@ -334,7 +334,7 @@ describe('@primer/react', () => {
   })
 
   test('SegmentedControl.Button supports `sx` prop', () => {
-    const {container} = render(
+    render(
       <SegmentedControl.Button data-testid="component" sx={{background: 'red'}}>
         test
       </SegmentedControl.Button>,
