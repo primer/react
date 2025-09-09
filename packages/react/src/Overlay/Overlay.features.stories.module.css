@@ -25,7 +25,7 @@
 .FormContainer {
   display: flex;
   flex-direction: column;
-  padding: var(--base-size-8);
+  padding: var(--base-size-8) 0;
 }
 
 .FormRow {
@@ -55,8 +55,8 @@
 }
 
 .InnerNestedFormContainer {
-  padding-left: var(--base-size-12);
-  padding-right: var(--base-size-12);
+  padding-left: var(--base-size-16);
+  padding-right: var(--base-size-16);
   padding-top: var(--base-size-8);
   padding-bottom: var(--base-size-8);
 }
@@ -97,7 +97,7 @@
   display: block;
   border: var(--borderWidth-thin) solid;
   border-color: var(--borderColor-default);
-  padding: var(--base-size-16);
+  padding: var(--base-size-8);
 }
 
 .DraftLinkContainer:hover {
@@ -105,7 +105,7 @@
 }
 
 .IssueContainer {
-  padding: var(--base-size-16);
+  padding: var(--base-size-24);
   height: 100vh;
   /* stylelint-disable-next-line primer/responsive-widths */
   width: 350px;
@@ -174,12 +174,16 @@
 
 .CloseButtonLeft {
   position: absolute;
-  left: var(--base-size-4);
-  top: var(--base-size-4);
+    /* stylelint-disable-next-line primer/spacing */
+    left: 5px;
+    /* stylelint-disable-next-line primer/spacing */
+    top: 5px;
 }
 
 .CloseButtonRight {
   position: absolute;
-  right: var(--base-size-4);
-  top: var(--base-size-4);
+    /* stylelint-disable-next-line primer/spacing */
+    right: 5px;
+    /* stylelint-disable-next-line primer/spacing */
+    top: 5px;
 }
