@@ -10,6 +10,10 @@ import {
   type SubNavLinkProps as PrimerSubNavLinkProps,
   ToggleSwitch as PrimerToggleSwitch,
   type ToggleSwitchProps as PrimerToggleSwitchProps,
+  type SegmentedControlProps as PrimerSegmentedControlProps,
+  SegmentedControl as PrimerSegmentedControl,
+  type SegmentedControlButtonProps as PrimerSegmentedControlButtonProps,
+  type SegmentedControlIconButtonProps as PrimerSegmentedControlIconButtonProps,
 } from '@primer/react'
 import {forwardRef} from 'react'
 import type {
@@ -37,6 +41,27 @@ type StyledProps = SxProp &
   PositionProps &
   ShadowProps
 
+type SegmentedControlProps = PrimerSegmentedControlProps & SxProp
+type SegmentedControlButtonProps = PrimerSegmentedControlButtonProps & SxProp
+type SegmentedControlIconButtonProps = PrimerSegmentedControlIconButtonProps & SxProp
+
+const SegmentedControlButton = (props: SegmentedControlButtonProps) => {
+  return <Box as={PrimerSegmentedControl.Button} {...props} />
+}
+
+const SegmentedControlIconButton = (props: SegmentedControlIconButtonProps) => {
+  return <Box as={PrimerSegmentedControl.IconButton} {...props} />
+}
+
+const SegmentedControlImpl = (props:SegmentedControlProps) => {
+  return <Box as={PrimerSegmentedControl} {...props} />
+}
+
+const SegmentedControl = Object.assign(SegmentedControlImpl, {
+  Button: SegmentedControlButton,
+  IconButton: SegmentedControlIconButton,
+})
+ 
 type StateLabelProps = PrimerStateLabelProps & SxProp
 
 const StateLabel = forwardRef<HTMLSpanElement, StateLabelProps>(function StateLabel(props, ref) {
@@ -65,7 +90,7 @@ const ToggleSwitch = forwardRef<HTMLButtonElement, ToggleSwitchProps>(function T
   return <Box as={PrimerToggleSwitch} ref={ref} {...props} />
 })
 
-export {StateLabel, SubNav, ToggleSwitch}
+export {SegmentedControl, StateLabel, SubNav, ToggleSwitch}
 
 export {
   ActionList,
@@ -96,7 +121,6 @@ export {
   ProgressBar,
   RadioGroup,
   RelativeTime,
-  SegmentedControl,
   Select,
   Spinner,
   Text,

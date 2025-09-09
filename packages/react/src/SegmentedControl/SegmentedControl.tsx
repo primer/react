@@ -13,7 +13,7 @@ import {isElement} from 'react-is'
 import classes from './SegmentedControl.module.css'
 import {clsx} from 'clsx'
 
-type SegmentedControlProps = {
+export type SegmentedControlProps = {
   'aria-label'?: string
   'aria-labelledby'?: string
   'aria-describedby'?: string
