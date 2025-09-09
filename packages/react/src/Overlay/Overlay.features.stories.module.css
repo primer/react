@@ -174,16 +174,16 @@
 
 .CloseButtonLeft {
   position: absolute;
-    /* stylelint-disable-next-line primer/spacing */
-    left: 5px;
-    /* stylelint-disable-next-line primer/spacing */
-    top: 5px;
+  /* stylelint-disable-next-line primer/spacing */
+  left: 5px;
+  /* stylelint-disable-next-line primer/spacing */
+  top: 5px;
 }
 
 .CloseButtonRight {
   position: absolute;
-    /* stylelint-disable-next-line primer/spacing */
-    right: 5px;
-    /* stylelint-disable-next-line primer/spacing */
-    top: 5px;
+  /* stylelint-disable-next-line primer/spacing */
+  right: 5px;
+  /* stylelint-disable-next-line primer/spacing */
+  top: 5px;
 }
