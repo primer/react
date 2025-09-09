@@ -1,0 +1,50 @@
+.OverlayCustom {
+  left: 50%;
+  margin-top: var(--base-size-8);
+  color: var(--fgColor-danger);
+}
+
+.OverlayContent {
+  height: 100vh;
+  max-width: calc(-1rem + 100vw);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ResponsiveWidth {
+  /* stylelint-disable-next-line primer/responsive-widths */
+  width: 350px;
+}
+
+@media (min-width: 544px) {
+  .ResponsiveWidth {
+    /* stylelint-disable-next-line primer/responsive-widths */
+    width: 500px;
+  }
+}
+
+.CloseButton {
+  position: absolute;
+  left: var(--base-size-4);
+  top: var(--base-size-4);
+}
+
+.FlexColumn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ButtonGroup {
+  display: flex;
+  margin-top: var(--base-size-8);
+}
+
+.ButtonRight {
+  margin-right: var(--base-size-4);
+}
+
+.ButtonLeft {
+  margin-left: var(--base-size-4);
+}

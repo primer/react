@@ -4,8 +4,8 @@ import Text from '../Text'
 import {Button, IconButton} from '../Button'
 import Overlay from './Overlay'
 import {useFocusTrap} from '../hooks/useFocusTrap'
-import Box from '../Box'
 import {XIcon} from '@primer/octicons-react'
+import classes from './Overlay.dev.stories.module.css'
 
 export default {
   title: 'Private/Components/Overlay/Dev',
@@ -33,7 +33,7 @@ export const SxProps = (args: Args) => {
     disabled: !isOpen,
   })
   return (
-    <Box ref={anchorRef}>
+    <div ref={anchorRef}>
       <Button
         ref={buttonRef}
         onClick={() => {
@@ -55,38 +55,22 @@ export const SxProps = (args: Args) => {
           aria-modal="true"
           aria-label="Sample overlay"
           ref={containerRef}
-          sx={{
-            left: '50%',
-            mt: 2,
-            color: 'var(--bgColor-danger-muted)',
-          }}
+          className={classes.OverlayCustom}
           style={{padding: '16px'}}
         >
-          <Box
-            sx={{
-              height: '100vh',
-              maxWidth: 'calc(-1rem + 100vw)',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          >
+          <div className={classes.OverlayContent}>
             <IconButton
               aria-label="Close"
               onClick={closeOverlay}
               icon={XIcon}
               variant="invisible"
-              sx={{
-                position: 'absolute',
-                left: '5px',
-                top: '5px',
-              }}
+              className={classes.CloseButton}
             />
             <Text>Look! an overlay</Text>
-          </Box>
+          </div>
         </Overlay>
       ) : null}
-    </Box>
+    </div>
   )
 }
 
@@ -99,7 +83,7 @@ export const PreventFocusOnOpen = (args: Args) => {
   const containerRef = useRef<HTMLDivElement>(null)
 
   return (
-    <Box ref={anchorRef}>
+    <div ref={anchorRef}>
       <Button
         ref={openButtonRef}
         onClick={() => {
@@ -123,47 +107,31 @@ export const PreventFocusOnOpen = (args: Args) => {
           ref={containerRef}
           {...args}
         >
-          <Box
-            sx={{
-              width: ['350px', '500px'],
-            }}
-          >
-            <Box
-              sx={{
-                height: '100vh',
-                maxWidth: 'calc(-1rem + 100vw)',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
-            >
+          <div className={classes.ResponsiveWidth}>
+            <div className={classes.OverlayContent}>
               <IconButton
                 aria-label="Close"
                 onClick={closeOverlay}
                 icon={XIcon}
                 variant="invisible"
-                sx={{
-                  position: 'absolute',
-                  left: '5px',
-                  top: '5px',
-                }}
+                className={classes.CloseButton}
               />
-              <Box display="flex" flexDirection="column" alignItems="center">
+              <div className={classes.FlexColumn}>
                 <Text>Are you sure?</Text>
-                <Box display="flex" mt={2}>
-                  <Button variant="danger" onClick={closeOverlay} sx={{marginRight: 1}}>
+                <div className={classes.ButtonGroup}>
+                  <Button variant="danger" onClick={closeOverlay} className={classes.ButtonRight}>
                     Cancel
                   </Button>
-                  <Button onClick={closeOverlay} ref={confirmButtonRef} sx={{marginLeft: 1}}>
+                  <Button onClick={closeOverlay} ref={confirmButtonRef} className={classes.ButtonLeft}>
                     Confirm
                   </Button>
-                </Box>
-              </Box>
-            </Box>
-          </Box>
+                </div>
+              </div>
+            </div>
+          </div>
         </Overlay>
       ) : null}
-    </Box>
+    </div>
   )
 }
 PreventFocusOnOpen.args = {
