@@ -257,6 +257,8 @@ exports[`@primer/react/experimental > should not update exports without a semver
   "type AriaAlertProps",
   "AriaStatus",
   "type AriaStatusProps",
+  "Banner",
+  "type BannerProps",
   "Blankslate",
   "type BlankslateProps",
   "ButtonBase",
