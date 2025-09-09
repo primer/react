@@ -3,6 +3,8 @@ import {
   Box,
   type BoxProps,
   type SxProp,
+  Select as PrimerSelect,
+  type SelectProps as PrimerSelectProps,
   StateLabel as PrimerStateLabel,
   type StateLabelProps as PrimerStateLabelProps,
   SubNav as PrimerSubNav,
@@ -24,6 +26,7 @@ import type {
   SpaceProps,
   TypographyProps,
 } from 'styled-system'
+import type {ForwardRefComponent} from './polymorphic'
 
 type StyledProps = SxProp &
   SpaceProps &
@@ -36,6 +39,14 @@ type StyledProps = SxProp &
   BorderProps &
   PositionProps &
   ShadowProps
+
+type SelectProps = PrimerSelectProps & SxProp
+
+const Select = forwardRef(function Select(props, ref) {
+  // @ts-expect-error the types with Box don't seem to be matching up as
+  // intended
+  return <Box as={PrimerSelect} ref={ref} {...props} />
+}) as ForwardRefComponent<'select', SelectProps>
 
 type StateLabelProps = PrimerStateLabelProps & SxProp
 
@@ -65,7 +76,7 @@ const ToggleSwitch = forwardRef<HTMLButtonElement, ToggleSwitchProps>(function T
   return <Box as={PrimerToggleSwitch} ref={ref} {...props} />
 })
 
-export {StateLabel, SubNav, ToggleSwitch}
+export {Select, StateLabel, SubNav, ToggleSwitch}
 
 export {
   ActionList,
@@ -97,7 +108,6 @@ export {
   RadioGroup,
   RelativeTime,
   SegmentedControl,
-  Select,
   Spinner,
   Text,
   Textarea,
