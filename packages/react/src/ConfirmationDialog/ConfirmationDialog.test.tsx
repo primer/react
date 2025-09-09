@@ -5,7 +5,6 @@ import {useCallback, useRef, useState} from 'react'
 
 import {ActionMenu} from '../deprecated/ActionMenu'
 import BaseStyles from '../BaseStyles'
-import Box from '../Box'
 import {Button} from '../Button'
 import {ConfirmationDialog, useConfirm} from './ConfirmationDialog'
 import theme from '../theme'
