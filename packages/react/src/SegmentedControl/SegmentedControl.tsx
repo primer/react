@@ -201,6 +201,7 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
               <SegmentedControlIconButton
                 aria-label={childAriaLabel || childPropsChildren}
                 icon={leadingIcon}
+                // Width is now handled by CSS: 32px default, 100% when data-full-width is set on parent
                 className={classes.IconButton}
                 {...sharedChildProps}
                 {...restChildProps}

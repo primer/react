@@ -15,7 +15,7 @@ import {
   type SegmentedControlButtonProps as PrimerSegmentedControlButtonProps,
   type SegmentedControlIconButtonProps as PrimerSegmentedControlIconButtonProps,
 } from '@primer/react'
-import {forwardRef} from 'react'
+import {forwardRef, type PropsWithChildren} from 'react'
 import type {
   BackgroundProps,
   BorderProps,
@@ -41,9 +41,9 @@ type StyledProps = SxProp &
   PositionProps &
   ShadowProps
 
-type SegmentedControlProps = PrimerSegmentedControlProps & SxProp
-type SegmentedControlButtonProps = PrimerSegmentedControlButtonProps & SxProp
-type SegmentedControlIconButtonProps = PrimerSegmentedControlIconButtonProps & SxProp
+type SegmentedControlProps = PropsWithChildren<PrimerSegmentedControlProps> & SxProp
+type SegmentedControlButtonProps = PropsWithChildren<PrimerSegmentedControlButtonProps> & SxProp
+type SegmentedControlIconButtonProps = PropsWithChildren<PrimerSegmentedControlIconButtonProps> & SxProp
 
 const SegmentedControlButton = (props: SegmentedControlButtonProps) => {
   return <Box as={PrimerSegmentedControl.Button} {...props} />
