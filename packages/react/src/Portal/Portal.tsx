@@ -71,6 +71,7 @@ export const Portal: React.FC<React.PropsWithChildren<PortalProps>> = ({
   containerName: _containerName,
 }) => {
   const elementRef = React.useRef<HTMLDivElement | null>(null)
+  const {portalContainerName} = useContext(PortalContext)
   if (!elementRef.current) {
     const div = document.createElement('div')
     // Portaled content should get their own stacking context so they don't interfere
@@ -84,7 +85,6 @@ export const Portal: React.FC<React.PropsWithChildren<PortalProps>> = ({
   const element = elementRef.current
 
   useLayoutEffect(() => {
-    const {portalContainerName} = useContext(PortalContext)
     let containerName = _containerName ?? portalContainerName
     if (containerName === undefined) {
       containerName = DEFAULT_PORTAL_CONTAINER_NAME
