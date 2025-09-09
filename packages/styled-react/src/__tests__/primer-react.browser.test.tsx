@@ -343,12 +343,12 @@ describe('@primer/react', () => {
     expect(window.getComputedStyle(buttonElement).backgroundColor).toBe('rgb(255, 0, 0)')
   })
 
-    test('SegmentedControl.IconButton supports `sx` prop', () => {
+  test('SegmentedControl.IconButton supports `sx` prop', () => {
     const {container} = render(
-      <SegmentedControl.IconButton 
-        data-testid="component" 
-        sx={{background: 'red'}} 
-        aria-label="test" 
+      <SegmentedControl.IconButton
+        data-testid="component"
+        sx={{background: 'red'}}
+        aria-label="test"
         icon={() => <svg />}
       />,
     )
