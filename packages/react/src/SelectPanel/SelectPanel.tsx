@@ -820,6 +820,7 @@ function Panel({
                 title="Notice"
                 hideTitle
                 className={classes.Notice}
+                layout="compact"
               />
             </div>
           )}

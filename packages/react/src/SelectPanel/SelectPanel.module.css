@@ -56,7 +56,6 @@
   margin-top: var(--base-size-4);
   margin-right: var(--base-size-8);
   margin-left: var(--base-size-8);
-  padding: var(--base-size-4) !important;
 }
 
 .Notice a {
