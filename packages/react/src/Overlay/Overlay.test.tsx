@@ -2,7 +2,6 @@ import {render, waitFor, fireEvent} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React, {useRef, useState} from 'react'
 import {describe, expect, it, vi} from 'vitest'
-import Box from '../Box'
 import {Button} from '../Button'
 import Overlay from '../Overlay'
 import Text from '../Text'
@@ -37,7 +36,16 @@ const TestComponent = ({
   return (
     <ThemeProvider theme={theme}>
       <BaseStyles>
-        <Box position="absolute" top={0} left={0} bottom={0} right={0} ref={anchorRef}>
+        <div
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            bottom: 0,
+            right: 0,
+          }}
+          ref={anchorRef}
+        >
           <Button ref={openButtonRef} onClick={() => setIsOpen(!isOpen)}>
             open overlay
           </Button>
@@ -53,7 +61,13 @@ const TestComponent = ({
               preventFocusOnOpen={preventFocusOnOpen}
               role="dialog"
             >
-              <Box display="flex" flexDirection="column" p={2}>
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  padding: '8px',
+                }}
+              >
                 <Text>Are you sure?</Text>
                 <Button variant="danger" onClick={closeOverlay}>
                   Cancel
@@ -61,10 +75,10 @@ const TestComponent = ({
                 <Button onClick={closeOverlay} ref={confirmButtonRef}>
                   Confirm
                 </Button>
-              </Box>
+              </div>
             </Overlay>
           ) : null}
-        </Box>
+        </div>
       </BaseStyles>
     </ThemeProvider>
   )

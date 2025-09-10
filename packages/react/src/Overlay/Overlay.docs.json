@@ -64,7 +64,7 @@
     {
       "name": "maxHeight",
       "type": "| 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge'",
-      "defaultValue": "",
+      "defaultValue": "100vh",
       "description": "Sets the maximum height of the `Overlay`, pick from our set list of heights. `xsmall` corresponds to `192px`, `small` corresponds to `256px`, `medium` corresponds to `320px`, `large` corresponds to `432px`, `xlarge` corresponds to `600px`."
     },
     {
@@ -124,7 +124,7 @@
       "type": "'hidden' | 'scroll' | 'auto' | 'visible'",
       "required": false,
       "description": "",
-      "defaultValue": ""
+      "defaultValue": "hidden"
     },
     {
       "name": "preventOverflow",

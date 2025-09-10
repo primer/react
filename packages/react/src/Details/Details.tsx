@@ -1,9 +1,7 @@
 import React, {useEffect, useState, type ComponentPropsWithoutRef, type ReactElement} from 'react'
-import type {SxProp} from '../sx'
 import {clsx} from 'clsx'
 import classes from './Details.module.css'
 import {useMergedRefs} from '../internal/hooks/useMergedRefs'
-import {BoxWithFallback} from '../internal/components/BoxWithFallback'
 
 const Root = React.forwardRef<HTMLDetailsElement, DetailsProps>(
   ({className, children, ...rest}, forwardRef): ReactElement => {
@@ -40,11 +38,11 @@ const Root = React.forwardRef<HTMLDetailsElement, DetailsProps>(
     }, [])
 
     return (
-      <BoxWithFallback as="details" className={clsx(className, classes.Details)} {...rest} ref={ref}>
+      <details className={clsx(className, classes.Details)} {...rest} ref={ref}>
         {/* Include default summary if summary is not provided */}
         {!hasSummary && <Details.Summary data-default-summary>{'See Details'}</Details.Summary>}
         {children}
-      </BoxWithFallback>
+      </details>
     )
   },
 )
@@ -75,5 +73,5 @@ const Details = Object.assign(Root, {
   Summary,
 })
 
-export type DetailsProps = ComponentPropsWithoutRef<'details'> & SxProp
+export type DetailsProps = ComponentPropsWithoutRef<'details'>
 export default Details

@@ -1,6 +1,6 @@
 import {describe, expect, it} from 'vitest'
 import {useState, useRef} from 'react'
-import {Box, Text, Button} from '..'
+import {Text, Button} from '..'
 import {Dialog} from '../DialogV1'
 import {render as HTMLRender, fireEvent} from '@testing-library/react'
 
@@ -22,9 +22,9 @@ const Component = () => {
       >
         <div data-testid="inner">
           <Dialog.Header id="header">Title</Dialog.Header>
-          <Box p={3}>
+          <div style={{padding: 'var(--stack-gap-normal)'}}>
             <Text fontFamily="sans-serif">Some content</Text>
-          </Box>
+          </div>
         </div>
       </Dialog>
     </div>
@@ -36,9 +36,9 @@ const ClosedDialog = () => {
     <Dialog isOpen={false} onDismiss={() => null} aria-labelledby="header">
       <div data-testid="inner">
         <Dialog.Header id="header">Title</Dialog.Header>
-        <Box p={3}>
+        <div style={{padding: 'var(--stack-gap-normal)'}}>
           <Text fontFamily="sans-serif">Some content</Text>
-        </Box>
+        </div>
       </div>
     </Dialog>
   )
@@ -50,12 +50,12 @@ const DialogWithCustomFocusRef = () => {
     <Dialog isOpen initialFocusRef={buttonRef} onDismiss={() => null} aria-labelledby="header">
       <div data-testid="inner">
         <Dialog.Header id="header">Title</Dialog.Header>
-        <Box p={3}>
+        <div style={{padding: 'var(--stack-gap-normal)'}}>
           <Text fontFamily="sans-serif">Some content</Text>
           <button type="button" data-testid="inner-button" ref={buttonRef}>
             hi
           </button>
-        </Box>
+        </div>
       </div>
     </Dialog>
   )
@@ -79,12 +79,12 @@ const DialogWithCustomFocusRefAndReturnFocusRef = () => {
       >
         <div data-testid="inner">
           <Dialog.Header id="header">Title</Dialog.Header>
-          <Box p={3}>
+          <div style={{padding: 'var(--stack-gap-normal)'}}>
             <Text fontFamily="sans-serif">Some content</Text>
             <button type="button" data-testid="inner-button" ref={buttonRef}>
               hi
             </button>
-          </Box>
+          </div>
         </div>
       </Dialog>
     </div>

@@ -7,10 +7,6 @@ const stories: Array<{title: string; id: string}> = [
     title: 'Default',
     id: 'components-details--default',
   },
-  {
-    title: 'SX Prop Stress Test',
-    id: 'components-details-dev--sx-prop-stress-test',
-  },
 ]
 
 test.describe('Details', () => {

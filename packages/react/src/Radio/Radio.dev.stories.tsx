@@ -1,4 +1,4 @@
-import {Box, FormControl, Radio} from '..'
+import {FormControl, Radio} from '..'
 
 export default {
   title: 'Components/Radio/Dev',
@@ -7,11 +7,11 @@ export default {
 
 export const SxProp = () => {
   return (
-    <Box as="form">
+    <form>
       <FormControl>
         <Radio name="default-radio-name" value="default" sx={{backgroundColor: 'red'}} />
         <FormControl.Label>Label</FormControl.Label>
       </FormControl>
-    </Box>
+    </form>
   )
 }

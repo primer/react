@@ -43,6 +43,6 @@ export {default as Tooltip} from '../Tooltip/Tooltip'
 export type {TooltipProps} from '../Tooltip/Tooltip'
 // end of v37.0.0
 
-// Deprecated in vNext
+// Deprecated in v38.0.0
 export {default as PointerBox} from '../PointerBox'
 export type {PointerBoxProps} from '../PointerBox'

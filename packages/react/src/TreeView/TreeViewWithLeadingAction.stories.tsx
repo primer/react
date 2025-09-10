@@ -1,11 +1,11 @@
 import {GrabberIcon, IssueClosedIcon, IssueOpenedIcon} from '@primer/octicons-react'
 import type {Meta, StoryFn} from '@storybook/react-vite'
-import Box from '../Box'
 import Link from '../Link'
 import {Banner} from '../Banner'
 import {IconButton} from '../Button'
 import Octicon from '../Octicon'
 import {TreeView} from './TreeView'
+import classes from './TreeViewStories.module.css'
 
 const meta: Meta = {
   title: 'Private/Components/TreeViewWithLeadingAction',
@@ -13,9 +13,9 @@ const meta: Meta = {
   decorators: [
     Story => {
       return (
-        <Box sx={{maxWidth: 400}}>
+        <div className={classes.WidthContraintContainer}>
           <Story />
-        </Box>
+        </div>
       )
     },
   ],
@@ -23,7 +23,7 @@ const meta: Meta = {
 
 export const LeadingAction: StoryFn = () => {
   return (
-    <Box>
+    <div>
       <Banner
         title="High-risk feature"
         description={
@@ -80,7 +80,7 @@ export const LeadingAction: StoryFn = () => {
           Item 3
         </TreeView.Item>
       </TreeView>
-    </Box>
+    </div>
   )
 }
 
