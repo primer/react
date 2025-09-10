@@ -356,18 +356,18 @@ export const NestedOverlays = ({role, open}: Args) => {
               </CheckboxGroup>
             </div>
             <ActionList.Divider />
+            <Tooltip text="Allows you to add more lists">
+              <Button
+                variant="invisible"
+                ref={secondaryButtonRef}
+                className={classes.InvisibleButton}
+                leadingVisual={PlusIcon}
+                onClick={() => setCreateListOverlayOpen(!createListOverlayOpen)}
+              >
+                Create list
+              </Button>
+            </Tooltip>
           </div>
-          <Tooltip text="Allows you to add more lists">
-            <Button
-              variant="invisible"
-              ref={secondaryButtonRef}
-              className={classes.InvisibleButton}
-              leadingVisual={PlusIcon}
-              onClick={() => setCreateListOverlayOpen(!createListOverlayOpen)}
-            >
-              Create list
-            </Button>
-          </Tooltip>
           {createListOverlayOpen && (
             <Overlay
               width="medium"
