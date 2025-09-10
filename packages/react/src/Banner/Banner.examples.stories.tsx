@@ -13,7 +13,7 @@ import {PageLayout} from '../PageLayout'
 import classes from './Banner.examples.stories.module.css'
 
 const meta = {
-  title: 'Experimental/Components/Banner/Examples',
+  title: 'Components/Banner/Examples',
   component: Banner,
 } satisfies Meta<typeof Banner>
 
