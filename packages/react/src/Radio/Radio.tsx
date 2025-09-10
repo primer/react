@@ -4,7 +4,6 @@ import {RadioGroupContext} from '../RadioGroup/RadioGroup'
 import {clsx} from 'clsx'
 import sharedClasses from '../Checkbox/shared.module.css'
 import classes from './Radio.module.css'
-import {BoxWithFallback} from '../internal/components/BoxWithFallback'
 
 export type RadioProps = {
   /**
