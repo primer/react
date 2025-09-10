@@ -167,6 +167,7 @@ export type {
   TimelineBodyProps,
   TimelineBreakProps,
   TimelineItemsProps,
+  TimelineItemProps,
 } from './Timeline'
 export {default as Token, IssueLabelToken} from './Token'
 export type {TokenProps, IssueLabelTokenProps} from './Token'
