@@ -645,16 +645,17 @@ The following list of coding guidelines must be followed:
  **/
 server.tool(
   'review_alt_text',
-  'Images MUST have meaningful and logical alt text',
+  'Evaluates image alt text against accessibility best practices and context relevance.',
   {
     surroundingText: z.string().describe('Text surrounding the image, relevant to the image.'),
     alt: z.string().describe('The alt text of the image being evaluated'),
     image: z
       .union([
-        z.instanceof(File).describe('The image file being evaluated'),
-        z.string().url().describe('The URL of the image being evaluated'),
+        z.instanceof(File).describe('The image src file being evaluated'),
+        z.string().url().describe('The URL of the image src being evaluated'),
+        z.string().describe('The file path of the image src being evaluated'),
       ])
-      .describe('The image file or URL being evaluated'),
+      .describe('The image file, file path, or URL being evaluated'),
   },
   async ({surroundingText, alt, image}) => {
     // Call the LLM through MCP sampling
@@ -664,7 +665,7 @@ server.tool(
           role: 'user',
           content: {
             type: 'text',
-            text: `Does this alt text: '${alt}' meet accessibility guidelines and describe the ${image} accurately in context of this surrounding text: '${surroundingText}'?\n\n`,
+            text: `Does this alt text: '${alt}' meet accessibility guidelines and describe the image: ${image} accurately in context of this surrounding text: '${surroundingText}'?\n\n`,
           },
         },
       ],
@@ -680,7 +681,7 @@ server.tool(
         },
       ],
       altTextEvaluation: response.content.type === 'text' ? response.content.text : 'Unable to generate summary',
-      nextSteps: `if the evaluation was bad provide more meaningful alt text.`,
+      nextSteps: `If the evaluation indicates issues with the alt text, provide more meaningful alt text based on the feedback. DO NOT run this tool repeatedly on the same image - evaluations may vary slightly with each run.`,
     }
   },
 )
