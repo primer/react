@@ -6,6 +6,8 @@ import {
   StateLabel as PrimerStateLabel,
   type StateLabelProps as PrimerStateLabelProps,
   SubNav as PrimerSubNav,
+  type RelativeTimeProps as PrimerRelativeTimeProps,
+  RelativeTime as PrimerRelativeTime,
   type SubNavProps as PrimerSubNavProps,
   type SubNavLinkProps as PrimerSubNavLinkProps,
   ToggleSwitch as PrimerToggleSwitch,
@@ -37,6 +39,12 @@ type StyledProps = SxProp &
   PositionProps &
   ShadowProps
 
+type RelativeTimeProps = PrimerRelativeTimeProps & SxProp
+
+function RelativeTime(props: RelativeTimeProps) {
+  return <Box as={PrimerRelativeTime} {...props} />
+}
+
 type StateLabelProps = PrimerStateLabelProps & SxProp
 
 const StateLabel = forwardRef<HTMLSpanElement, StateLabelProps>(function StateLabel(props, ref) {
@@ -65,7 +73,7 @@ const ToggleSwitch = forwardRef<HTMLButtonElement, ToggleSwitchProps>(function T
   return <Box as={PrimerToggleSwitch} ref={ref} {...props} />
 })
 
-export {StateLabel, SubNav, ToggleSwitch}
+export {RelativeTime, StateLabel, SubNav, ToggleSwitch}
 
 export {
   ActionList,
@@ -95,7 +103,6 @@ export {
   Popover,
   ProgressBar,
   RadioGroup,
-  RelativeTime,
   SegmentedControl,
   Select,
   Spinner,
