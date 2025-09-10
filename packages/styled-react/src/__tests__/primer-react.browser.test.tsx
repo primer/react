@@ -407,7 +407,6 @@ describe('@primer/react', () => {
     expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
   })
 
-
   test('Token supports `sx` prop', () => {
     render(<Token data-testid="component" sx={{background: 'red'}} text="test" />)
     expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
