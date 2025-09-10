@@ -3,52 +3,52 @@
   "name": "Banner",
   "status": "alpha",
   "a11yReviewed": "2025-01-08",
-  "importPath": "@primer/react/experimental",
+  "importPath": "@primer/react",
   "stories": [
     {
-      "id": "experimental-components-banner--default"
+  "id": "components-banner--default"
     },
     {
-      "id": "experimental-components-banner-features--critical"
+  "id": "components-banner-features--critical"
     },
     {
-      "id": "experimental-components-banner-features--info"
+  "id": "components-banner-features--info"
     },
     {
-      "id": "experimental-components-banner-features--success"
+  "id": "components-banner-features--success"
     },
     {
-      "id": "experimental-components-banner-features--upsell"
+  "id": "components-banner-features--upsell"
     },
     {
-      "id": "experimental-components-banner-features--warning"
+  "id": "components-banner-features--warning"
     },
     {
-      "id": "experimental-components-banner-features--dismiss"
+  "id": "components-banner-features--dismiss"
     },
     {
-      "id": "experimental-components-banner-features--dismiss-with-actions"
+  "id": "components-banner-features--dismiss-with-actions"
     },
     {
-      "id": "experimental-components-banner-features--with-hidden-title"
+  "id": "components-banner-features--with-hidden-title"
     },
     {
-      "id": "experimental-components-banner-features--with-hidden-title-and-actions"
+  "id": "components-banner-features--with-hidden-title-and-actions"
     },
     {
-      "id": "experimental-components-banner-features--dismissible-with-hidden-title-and-actions"
+  "id": "components-banner-features--dismissible-with-hidden-title-and-actions"
     },
     {
-      "id": "experimental-components-banner-features--dismissible-with-hidden-title-and-secondary-action"
+  "id": "components-banner-features--dismissible-with-hidden-title-and-secondary-action"
     },
     {
-      "id": "experimental-components-banner-features--with-actions"
+  "id": "components-banner-features--with-actions"
     },
     {
-      "id": "experimental-components-banner-features--custom-icon"
+  "id": "components-banner-features--custom-icon"
     },
     {
-      "id": "experimental-components-banner-examples--with-announcement"
+  "id": "components-banner-examples--with-announcement"
     }
   ],
   "props": [
