@@ -18,6 +18,11 @@ describe('Link', () => {
     expect(container.firstChild).toHaveStyle('--fgColor-accent: #0969da')
   })
 
+  it('respects the "sx" prop', () => {
+    const {container} = render(<Link sx={{fontStyle: 'italic'}} />)
+    expect(container.firstChild).toHaveStyle('font-style: italic')
+  })
+
   it('applies button styles when rendering a button element', () => {
     const {container} = render(<Link as="button" />)
     expect((container.firstChild as Element).tagName).toBe('BUTTON')
@@ -26,6 +31,12 @@ describe('Link', () => {
   it('respects the "muted" prop', () => {
     const {container} = render(<Link muted />)
     expect(container.firstChild).toHaveAttribute('data-muted', 'true')
+  })
+
+  it('respects the "sx" prop when "muted" prop is also passed', () => {
+    const {container} = render(<Link muted sx={{color: 'fg.onEmphasis'}} />)
+    expect(container.firstChild).toHaveAttribute('data-muted', 'true')
+    expect(container.firstChild).toHaveStyle('color: rgb(89, 99, 110)')
   })
 
   it('logs a warning when trying to render invalid "as" prop', () => {

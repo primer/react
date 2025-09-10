@@ -2,6 +2,7 @@ import {
   type BetterSystemStyleObject,
   Box,
   type BoxProps,
+  type SxProp,
   StateLabel as PrimerStateLabel,
   type StateLabelProps as PrimerStateLabelProps,
   SubNav as PrimerSubNav,
@@ -9,12 +10,6 @@ import {
   type SubNavLinkProps as PrimerSubNavLinkProps,
   ToggleSwitch as PrimerToggleSwitch,
   type ToggleSwitchProps as PrimerToggleSwitchProps,
-  Link as PrimerLink,
-  type LinkProps as PrimerLinkProps,
-  Heading as PrimerHeading,
-  type HeadingProps as PrimerHeadingProps,
-  Checkbox as PrimerCheckbox,
-  type CheckboxProps as PrimerCheckboxProps,
 } from '@primer/react'
 import {forwardRef} from 'react'
 import type {
@@ -29,11 +24,6 @@ import type {
   SpaceProps,
   TypographyProps,
 } from 'styled-system'
-import {type SxProp} from './sx'
-import {PageHeader} from './components/PageHeader'
-import {PageLayout} from './components/PageLayout'
-import {NavList} from './components/NavList'
-import {UnderlineNav} from './components/UnderlineNav'
 
 type StyledProps = SxProp &
   SpaceProps &
@@ -75,25 +65,7 @@ const ToggleSwitch = forwardRef<HTMLButtonElement, ToggleSwitchProps>(function T
   return <Box as={PrimerToggleSwitch} ref={ref} {...props} />
 })
 
-type LinkProps = PrimerLinkProps & SxProp
-
-const Link = forwardRef<HTMLAnchorElement, LinkProps>(function Link(props, ref) {
-  return <Box as={PrimerLink} ref={ref} {...props} />
-})
-
-type HeadingProps = PrimerHeadingProps & SxProp
-
-const Heading = forwardRef<HTMLHeadingElement, HeadingProps>(function Heading(props, ref) {
-  return <Box as={PrimerHeading} ref={ref} {...props} />
-})
-
-type CheckboxProps = PrimerCheckboxProps & SxProp
-
-const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Checkbox(props, ref) {
-  return <Box as={PrimerCheckbox} ref={ref} {...props} />
-})
-
-export {Checkbox, Heading, Link, NavList, PageHeader, PageLayout, StateLabel, SubNav, ToggleSwitch, UnderlineNav}
+export {StateLabel, SubNav, ToggleSwitch}
 
 export {
   ActionList,
@@ -102,6 +74,7 @@ export {
   Avatar,
   Breadcrumbs,
   Button,
+  Checkbox,
   CheckboxGroup,
   CircleBadge,
   CounterLabel,
@@ -110,10 +83,15 @@ export {
   Flash,
   FormControl,
   Header,
+  Heading,
   IconButton,
   Label,
+  Link,
   LinkButton,
+  NavList,
   Overlay,
+  PageHeader,
+  PageLayout,
   Popover,
   ProgressBar,
   RadioGroup,
@@ -128,6 +106,7 @@ export {
   Token,
   Tooltip,
   Truncate,
+  UnderlineNav,
 
   // styled-components components or types
   Box,

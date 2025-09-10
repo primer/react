@@ -1,11 +1,13 @@
 import type {MutableRefObject, RefObject} from 'react'
 import React, {forwardRef, useRef, useContext} from 'react'
+import Box from '../Box'
+import type {SxProp} from '../sx'
 import type {IconProps} from '@primer/octicons-react'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {UnderlineNavContext} from './UnderlineNavContext'
 import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
+import {defaultSxProp} from '../utils/defaultSxProp'
 import {UnderlineItem} from '../internal/components/UnderlineTabbedInterface'
-import classes from './UnderlineNav.module.css'
 
 // adopted from React.AnchorHTMLAttributes
 export type LinkProps = {
@@ -45,11 +47,22 @@ export type UnderlineNavItemProps = {
    * Counter
    */
   counter?: number | string
-} & LinkProps
+} & SxProp &
+  LinkProps
 
 export const UnderlineNavItem = forwardRef(
   (
-    {as: Component = 'a', href = '#', children, counter, onSelect, 'aria-current': ariaCurrent, icon: Icon, ...props},
+    {
+      sx: sxProp = defaultSxProp,
+      as: Component = 'a',
+      href = '#',
+      children,
+      counter,
+      onSelect,
+      'aria-current': ariaCurrent,
+      icon: Icon,
+      ...props
+    },
     forwardedRef,
   ) => {
     const backupRef = useRef<HTMLElement>(null)
@@ -98,7 +111,7 @@ export const UnderlineNavItem = forwardRef(
     )
 
     return (
-      <li className={classes.NavListItem}>
+      <Box as="li" sx={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
         <UnderlineItem
           ref={ref}
           as={Component}
@@ -110,14 +123,14 @@ export const UnderlineNavItem = forwardRef(
           icon={Icon}
           loadingCounters={loadingCounters}
           iconsVisible={iconsVisible}
+          sx={sxProp}
           {...props}
         >
           {children}
         </UnderlineItem>
-      </li>
+      </Box>
     )
   },
-  // TODO: replace this with new way to handle polymorphic prop types from `packages/react/src/utils/modern-polymorphic.ts`
 ) as PolymorphicForwardRefComponent<'a', UnderlineNavItemProps>
 
 UnderlineNavItem.displayName = 'UnderlineNavItem'
