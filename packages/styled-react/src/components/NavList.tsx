@@ -5,10 +5,9 @@ import type {
   NavListSubNavProps as PrimerNavListSubNavProps,
   NavListDividerProps as PrimerNavListDividerProps,
   NavListGroupProps as PrimerNavListGroupProps,
-  NavListGroupHeadingProps as PrimerNavListGroupHeadingProps,
   SxProp,
 } from '@primer/react'
-import {forwardRef, type PropsWithChildren} from 'react'
+import {forwardRef, type ComponentProps, type PropsWithChildren} from 'react'
 
 type NavListProps = PropsWithChildren<PrimerNavListProps> & SxProp
 
@@ -44,29 +43,30 @@ const NavListGroup = forwardRef<HTMLLIElement, NavListGroupProps>(function NavLi
   return <Box as={PrimerNavList.Group} ref={ref} {...props} />
 })
 
-type NavListGroupHeadingProps = PropsWithChildren<PrimerNavListGroupHeadingProps> & SxProp
-
-// TODO: figure out how to handle `NavList.GroupHeading`'s `as` prop
-const NavListGroupHeading = forwardRef<HTMLDivElement, NavListGroupHeadingProps>(
-  function NavListGroupHeading(props, ref) {
-    return <Box as={PrimerNavList.GroupHeading} ref={ref} {...props} />
-  },
-)
-
-// TODO: figure out why we need a type assertion here and try to remove it
 const NavList = Object.assign(NavListImpl, {
   // Wrapped components that need sx support added back in
   Item: NavListItem,
   SubNav: NavListSubNav,
   Divider: NavListDivider,
   Group: NavListGroup,
-  GroupHeading: NavListGroupHeading,
 
   // Re-exporting others directly
-  LeadingVisual: PrimerNavList.LeadingVisual,
-  TrailingVisual: PrimerNavList.TrailingVisual,
-  TrailingAction: PrimerNavList.TrailingAction,
-  GroupExpand: PrimerNavList.GroupExpand,
+  // TODO: try to remove typecasts to work around "non-portable types" TS error
+  LeadingVisual: PrimerNavList.LeadingVisual as React.FC<
+    React.PropsWithChildren<ComponentProps<typeof PrimerNavList.LeadingVisual> & SxProp>
+  >,
+  TrailingVisual: PrimerNavList.TrailingVisual as React.FC<
+    React.PropsWithChildren<ComponentProps<typeof PrimerNavList.TrailingVisual> & SxProp>
+  >,
+  TrailingAction: PrimerNavList.TrailingAction as React.FC<
+    React.PropsWithChildren<ComponentProps<typeof PrimerNavList.TrailingAction> & SxProp>
+  >,
+  GroupHeading: PrimerNavList.GroupHeading as React.FC<
+    React.PropsWithChildren<ComponentProps<typeof PrimerNavList.GroupHeading> & SxProp>
+  >,
+  GroupExpand: PrimerNavList.GroupExpand as React.FC<
+    React.PropsWithChildren<ComponentProps<typeof PrimerNavList.GroupExpand> & SxProp>
+  >,
 })
 
 export {NavList}

@@ -2,7 +2,6 @@ import React from 'react'
 
 import {useId} from '../hooks/useId'
 import {useSlots} from '../hooks/useSlots'
-import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {ActionListContainerContext} from './ActionListContainerContext'
 import {Description} from './Description'
 import {GroupContext} from './Group'
@@ -28,23 +27,27 @@ export const SubItem: React.FC<ActionListSubItemProps> = ({children}) => {
 
 SubItem.displayName = 'ActionList.SubItem'
 
-const ButtonItemContainerNoBox = React.forwardRef(({children, style, ...props}, forwardedRef) => {
-  return (
-    <button type="button" ref={forwardedRef as React.Ref<HTMLButtonElement>} style={style} {...props}>
-      {children}
-    </button>
-  )
-}) as PolymorphicForwardRefComponent<React.ElementType, ActionListItemProps>
+const ButtonItemContainerNoBox = React.forwardRef<HTMLButtonElement, React.HTMLAttributes<HTMLButtonElement>>(
+  ({children, style, ...props}, forwardedRef) => {
+    return (
+      <button type="button" ref={forwardedRef as React.Ref<HTMLButtonElement>} style={style} {...props}>
+        {children}
+      </button>
+    )
+  },
+)
 
-const DivItemContainerNoBox = React.forwardRef(({children, ...props}, forwardedRef) => {
-  return (
-    <div ref={forwardedRef as React.Ref<HTMLDivElement>} {...props}>
-      {children}
-    </div>
-  )
-}) as PolymorphicForwardRefComponent<React.ElementType, ActionListItemProps>
+const DivItemContainerNoBox = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
+  ({children, ...props}, forwardedRef) => {
+    return (
+      <div ref={forwardedRef as React.Ref<HTMLDivElement>} {...props}>
+        {children}
+      </div>
+    )
+  },
+)
 
-export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
+export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps & React.HTMLAttributes<HTMLLIElement>>(
   (
     {
       variant = 'default',
@@ -254,7 +257,13 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
           data-has-description={slots.description ? true : false}
           className={clsx(classes.ActionListItem, className)}
         >
-          <ItemWrapper {...wrapperProps} className={classes.ActionListContent} data-size={size}>
+          <ItemWrapper
+            {...wrapperProps}
+            className={classes.ActionListContent}
+            data-size={size}
+            // @ts-ignore this can be a `button` or `li`, so the type of ref will be different
+            ref={forwardedRef}
+          >
             <span className={classes.Spacer} />
             <Selection selected={selected} className={classes.LeadingAction} />
             <VisualOrIndicator
@@ -307,6 +316,6 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       </ItemContext.Provider>
     )
   },
-) as PolymorphicForwardRefComponent<'li', ActionListItemProps>
+)
 
 Item.displayName = 'ActionList.Item'
