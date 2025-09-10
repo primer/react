@@ -18,7 +18,6 @@ const UnderlineNavItem = React.forwardRef<HTMLAnchorElement, UnderlineNavItemPro
   return <Box as={PrimerUnderlineNav.Item} ref={ref} {...props} />
 })
 
-// TODO: figure out why we need a type assertion here and try to remove it
 const UnderlineNav = Object.assign(UnderlineNavImpl, {
   Item: UnderlineNavItem,
 })

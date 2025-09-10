@@ -7,6 +7,7 @@ import type {IconProps} from '@primer/octicons-react'
 import CounterLabel from '../../CounterLabel'
 import {type SxProp} from '../../sx'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../../utils/polymorphic'
+import {type PolymorphicProps, fixedForwardRef} from '../../utils/modern-polymorphic'
 
 import classes from './UnderlineTabbedInterface.module.css'
 import {clsx} from 'clsx'
@@ -44,51 +45,45 @@ export const LoadingCounter = () => {
   return <span className={classes.LoadingCounter} />
 }
 
-export type UnderlineItemProps = {
-  as?: React.ElementType | 'a' | 'button'
+export type UnderlineItemProps<As extends React.ElementType = 'a'> = {
+  as?: As
   className?: string
   iconsVisible?: boolean
   loadingCounters?: boolean
   counter?: number | string
   icon?: FC<IconProps> | React.ReactElement
   id?: string
-  ref?: React.Ref<unknown>
-} & SxProp
+  children?: React.ReactNode
+} & SxProp &
+  PolymorphicProps<As, 'a'>
 
-export const UnderlineItem = forwardRef(
-  (
-    {
-      as = 'a',
-      children,
-      counter,
-      icon: Icon,
-      iconsVisible,
-      loadingCounters,
-      className,
-      ...rest
-    }: PropsWithChildren<UnderlineItemProps>,
-    forwardedRef,
-  ) => {
-    return (
-      <BoxWithFallback ref={forwardedRef} as={as} className={clsx(classes.UnderlineItem, className)} {...rest}>
-        {iconsVisible && Icon && <span data-component="icon">{isElement(Icon) ? Icon : <Icon />}</span>}
-        {children && (
-          <span data-component="text" data-content={children}>
-            {children}
+const UnwrappedUnderlineItem = <As extends React.ElementType = 'a'>(
+  props: UnderlineItemProps<As>,
+  forwardedRef: React.ForwardedRef<unknown>,
+) => {
+  const {as = 'a', children, counter, icon: Icon, iconsVisible, loadingCounters, className, ...rest} = props
+
+  return (
+    <BoxWithFallback ref={forwardedRef} as={as} className={clsx(classes.UnderlineItem, className)} {...rest}>
+      {iconsVisible && Icon && <span data-component="icon">{isElement(Icon) ? Icon : <Icon />}</span>}
+      {children && (
+        <span data-component="text" data-content={children}>
+          {children}
+        </span>
+      )}
+      {counter !== undefined ? (
+        loadingCounters ? (
+          <span data-component="counter">
+            <LoadingCounter />
           </span>
-        )}
-        {counter !== undefined ? (
-          loadingCounters ? (
-            <span data-component="counter">
-              <LoadingCounter />
-            </span>
-          ) : (
-            <span data-component="counter">
-              <CounterLabel>{counter}</CounterLabel>
-            </span>
-          )
-        ) : null}
-      </BoxWithFallback>
-    )
-  },
-) as PolymorphicForwardRefComponent<'a', UnderlineItemProps>
+        ) : (
+          <span data-component="counter">
+            <CounterLabel>{counter}</CounterLabel>
+          </span>
+        )
+      ) : null}
+    </BoxWithFallback>
+  )
+}
+
+export const UnderlineItem = fixedForwardRef(UnwrappedUnderlineItem)
