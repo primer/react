@@ -15,6 +15,8 @@ import {useFocusZone, FocusKeys} from '../hooks/useFocusZone'
 import styles from './ActionBar.module.css'
 import {clsx} from 'clsx'
 
+const ACTIONBAR_ITEM_GAP = 8
+
 type ChildSize = {
   text: string
   width: number
@@ -61,7 +63,7 @@ const calculatePossibleItems = (childWidthArray: ChildWidthArray, navWidth: numb
   let breakpoint = childWidthArray.length // assume all items will fit
   let sumsOfChildWidth = 0
   for (const [index, childWidth] of childWidthArray.entries()) {
-    sumsOfChildWidth = sumsOfChildWidth + childWidth.width // + GAP
+    sumsOfChildWidth = sumsOfChildWidth + childWidth.width + ACTIONBAR_ITEM_GAP
     if (sumsOfChildWidth > widthToFit) {
       breakpoint = index
       break
@@ -202,7 +204,7 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
   return (
     <ActionBarContext.Provider value={{size, setChildrenWidth}}>
       <div ref={navRef} className={clsx(className, styles.Nav)} data-flush={flush}>
-        <div ref={listRef} role="toolbar" className={styles.List}>
+        <div ref={listRef} role="toolbar" className={styles.List} style={{gap: `${ACTIONBAR_ITEM_GAP}px`}}>
           {listItems}
           {menuItems.length > 0 && (
             <ActionMenu>
