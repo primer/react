@@ -8,7 +8,7 @@ import CheckboxOrRadioGroupLabel from '../internal/components/CheckboxOrRadioGro
 import CheckboxOrRadioGroupValidation from '../internal/components/CheckboxOrRadioGroup/CheckboxOrRadioGroupValidation'
 import {useRenderForcingRef} from '../hooks'
 
-type RadioGroupProps = {
+export type RadioGroupProps = {
   /**
    * An onChange handler that gets called when the selection changes
    */
