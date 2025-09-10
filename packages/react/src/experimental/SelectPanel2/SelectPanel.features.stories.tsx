@@ -3,6 +3,7 @@ import {SelectPanel} from './SelectPanel'
 import {ActionList, Avatar, Button, Link, SegmentedControl, ToggleSwitch, useResponsiveValue} from '../../index'
 import {TagIcon, GearIcon, ArrowBothIcon} from '@primer/octicons-react'
 import data from './mock-story-data'
+import sharedClasses from './SelectPanel2Stories.module.css'
 import classes from './SelectPanel.features.stories.module.css'
 
 export default {
@@ -10,7 +11,7 @@ export default {
   component: SelectPanel,
 }
 
-const getCircle = (color: string) => <div className={classes.Circle} style={{backgroundColor: `#${color}`}} />
+const getCircle = (color: string) => <div className={sharedClasses.Circle} style={{backgroundColor: `#${color}`}} />
 
 export const InstantSelectionVariant = () => {
   const [selectedTag, setSelectedTag] = React.useState<string>()
@@ -223,12 +224,12 @@ export const WithErrors = () => {
     <>
       <h1>SelectPanel with Errors</h1>
 
-      <div className={classes.SwitchContainer}>
-        <div className={classes.SwitchContent}>
-          <span className={classes.SwitchLabel} id="switch-label">
+      <div className={sharedClasses.SwitchContainer}>
+        <div className={sharedClasses.SwitchContent}>
+          <span className={sharedClasses.SwitchLabel} id="switch-label">
             Break search API
           </span>
-          <span className={classes.SwitchCaption} id="switch-caption">
+          <span className={sharedClasses.SwitchCaption} id="switch-caption">
             Turn on to show error message while searching
           </span>
         </div>
@@ -239,12 +240,12 @@ export const WithErrors = () => {
           aria-describedby="switch-caption"
         />
       </div>
-      <div className={classes.SwitchContainerLast}>
-        <div className={classes.SwitchContent}>
-          <span id="break-issues-label" className={classes.SwitchLabel}>
+      <div className={sharedClasses.SwitchContainerLast}>
+        <div className={sharedClasses.SwitchContent}>
+          <span id="break-issues-label" className={sharedClasses.SwitchLabel}>
             Break issues API
           </span>
-          <span id="break-issues-caption" className={classes.SwitchCaption}>
+          <span id="break-issues-caption" className={sharedClasses.SwitchCaption}>
             Turn on to break everything and show big error in panel
           </span>
         </div>
@@ -551,10 +552,10 @@ const useResponsiveControlsForStory = () => {
   const isNarrow = useResponsiveValue({narrow: true}, false)
 
   const Controls = (
-    <div className={classes.ResponsiveControls}>
-      <div className={classes.ControlRow}>
-        <div className={classes.ControlContent}>
-          <span className={classes.ControlLabel}>Regular variant</span>
+    <div className={sharedClasses.ResponsiveControls}>
+      <div className={sharedClasses.ControlRow}>
+        <div className={sharedClasses.ControlContent}>
+          <span className={sharedClasses.ControlLabel}>Regular variant</span>
           {isNarrow ? (
             <span className={classes.AttentionText}>
               <ArrowBothIcon size={16} /> Resize screen to see regular variant
@@ -576,9 +577,9 @@ const useResponsiveControlsForStory = () => {
           </SegmentedControl.Button>
         </SegmentedControl>
       </div>
-      <div className={classes.ControlRow}>
-        <div className={classes.ControlContent}>
-          <span className={classes.ControlLabel}>Narrow variant</span>
+      <div className={sharedClasses.ControlRow}>
+        <div className={sharedClasses.ControlContent}>
+          <span className={sharedClasses.ControlLabel}>Narrow variant</span>
           {isNarrow ? null : (
             <span className={classes.AttentionText}>
               <ArrowBothIcon size={16} /> Resize screen to see narrow variant
