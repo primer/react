@@ -679,8 +679,8 @@ server.tool(
           text: response.content.type === 'text' ? response.content.text : 'Unable to generate summary',
         },
       ],
-      altTextEvaluation: response.content.text,
-      nextSteps: `if the evaluation was bad provide more meaninguful alt text.`,
+      altTextEvaluation: response.content.type === 'text' ? response.content.text : 'Unable to generate summary',
+      nextSteps: `if the evaluation was bad provide more meaningful alt text.`,
     }
   },
 )
