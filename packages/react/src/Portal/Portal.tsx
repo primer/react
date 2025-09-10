@@ -45,7 +45,7 @@ function ensureDefaultPortal() {
 
 export const PortalContext = React.createContext<{
   portalContainerName?: string
-}>({portalContainerName: DEFAULT_PORTAL_CONTAINER_NAME})
+}>({})
 
 export interface PortalProps {
   /**
