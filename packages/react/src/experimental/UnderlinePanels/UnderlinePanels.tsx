@@ -25,7 +25,6 @@ import {useResizeObserver, type ResizeObserverEntry} from '../../hooks/useResize
 import useIsomorphicLayoutEffect from '../../utils/useIsomorphicLayoutEffect'
 import classes from './UnderlinePanels.module.css'
 import {clsx} from 'clsx'
-import {BoxWithFallback} from '../../internal/components/BoxWithFallback'
 
 export type UnderlinePanelsProps = {
   /**
@@ -221,8 +220,12 @@ const Tab: FC<TabProps> = ({'aria-selected': ariaSelected, onSelect, ...props}) 
 
 Tab.displayName = 'UnderlinePanels.Tab'
 
-const Panel: FC<PanelProps> = props => {
-  return <BoxWithFallback as="div" role="tabpanel" {...props} />
+const Panel: FC<PanelProps> = ({children, ...rest}) => {
+  return (
+    <div role="tabpanel" {...rest}>
+      {children}
+    </div>
+  )
 }
 
 Panel.displayName = 'UnderlinePanels.Panel'
