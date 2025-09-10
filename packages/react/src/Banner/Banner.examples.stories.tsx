@@ -8,12 +8,11 @@ import RadioGroup from '../RadioGroup'
 import Radio from '../Radio'
 import {Button} from '../Button'
 import React from 'react'
-import classes from './Banner.examples.stories.module.css'
 import {useFocus} from '../internal/hooks/useFocus'
 import {PageLayout} from '../PageLayout'
 
 const meta = {
-  title: 'Experimental/Components/Banner/Examples',
+  title: 'Components/Banner/Examples',
   component: Banner,
 } satisfies Meta<typeof Banner>
 
@@ -66,11 +65,11 @@ export const WithAnnouncement = () => {
         secondaryAction={<Banner.SecondaryAction>Button</Banner.SecondaryAction>}
       />
       <RadioGroup
+        sx={{marginTop: 4}}
         name="options"
         onChange={selected => {
           setSelected(selected as Choice)
         }}
-        className={classes.RadioGroupWithTopMargin}
       >
         <RadioGroup.Label>Choices</RadioGroup.Label>
         <FormControl>

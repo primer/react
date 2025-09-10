@@ -5,11 +5,11 @@ import {themes} from '../test-helpers/themes'
 const stories = [
   {
     title: 'Default',
-    id: 'components-circlebadge--default',
+    id: 'deprecated-components-circlebadge--default',
   },
   {
     title: 'Playground',
-    id: 'components-circlebadge--playground',
+    id: 'deprecated-components-circlebadge--playground',
   },
 ] as const
 

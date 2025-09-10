@@ -1,3 +1,9 @@
+.Root {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
 .Container {
   display: flex;
   height: 100%;
