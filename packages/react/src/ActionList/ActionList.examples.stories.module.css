@@ -1,0 +1,26 @@
+.AllCombinationsContainer {
+  max-width: 300px;
+}
+
+.AsyncListSearch {
+  margin: var(--base-size-8);
+  margin-bottom: 0;
+  width: calc(100% - var(--base-size-16));
+}
+
+.AsyncListNoMatch {
+  display: block;
+  font-size: var(--text-body-size-medium);
+  margin: var(--base-size-8);
+}
+
+.AsyncListItems {
+  height: 208px;
+  overflow: auto;
+}
+
+.AsyncListSpinner {
+  display: flex;
+  justify-content: center;
+  padding-top: var(--base-size-8);
+}

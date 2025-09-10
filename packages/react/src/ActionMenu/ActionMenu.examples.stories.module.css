@@ -1,0 +1,21 @@
+.Milestone {
+  color: var(--fgColor-muted);
+  display: inline-block;
+}
+
+.CenteredFlexContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.HiddenButton {
+  visibility: hidden;
+}
+
+.CustomPositionMiddle {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 200px;
+}

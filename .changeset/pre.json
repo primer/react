@@ -1,0 +1,36 @@
+{
+  "mode": "pre",
+  "tag": "rc",
+  "initialVersions": {
+    "codesandbox": "0.0.0",
+    "example-nextjs": "0.0.0",
+    "example-theming": "0.0.0",
+    "@primer/mcp": "0.0.2",
+    "postcss-preset-primer": "0.0.0",
+    "@primer/react": "37.31.0",
+    "rollup-plugin-import-css": "0.0.0",
+    "@primer/styled-react": "0.1.0"
+  },
+  "changesets": [
+    "big-oranges-marry",
+    "bright-dolls-dance",
+    "bright-parents-flow",
+    "cold-teams-buy",
+    "five-squids-sin",
+    "gentle-rockets-go",
+    "icy-pianos-say",
+    "little-peas-mix",
+    "lovely-vans-burn",
+    "metal-lamps-appear",
+    "proud-chairs-study",
+    "salty-geese-own",
+    "soft-islands-warn",
+    "stale-wasps-smell",
+    "strong-falcons-design",
+    "three-hounds-refuse",
+    "tricky-eggs-cross",
+    "wet-crews-drum",
+    "young-dots-heal",
+    "young-timers-accept"
+  ]
+}

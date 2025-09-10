@@ -10,26 +10,22 @@ exports[`Caret > renders cardinal directions 1`] = `
 
     <div>
       <svg
+        class="prc-components-Caret-9H5L6"
         height="16"
         role="presentation"
-        style="pointer-events: none; position: absolute; bottom: 100%; left: 50%; margin-left: -8px;"
+        style="bottom: 100%; left: 50%; margin-left: -8px;"
         width="16"
       >
         <g
           transform="translate(8,16) rotate(180)"
         >
           <path
+            class="prc-components-CaretTriangle-HAwX3"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            d="M-8,0L0,8L8,0L-8,0Z"
-            fill="canvas.default"
-          />
-          <path
+            class="prc-components-CaretBorder-UWaaK"
             d="M-8,0L0,8L8,0"
-            fill="none"
-            stroke="border.default"
-            stroke-width="1"
           />
         </g>
       </svg>
@@ -37,26 +33,22 @@ exports[`Caret > renders cardinal directions 1`] = `
   </body>,
   "container": <div>
     <svg
+      class="prc-components-Caret-9H5L6"
       height="16"
       role="presentation"
-      style="pointer-events: none; position: absolute; bottom: 100%; left: 50%; margin-left: -8px;"
+      style="bottom: 100%; left: 50%; margin-left: -8px;"
       width="16"
     >
       <g
         transform="translate(8,16) rotate(180)"
       >
         <path
+          class="prc-components-CaretTriangle-HAwX3"
           d="M-8,0L0,8L8,0L-8,0Z"
         />
         <path
-          d="M-8,0L0,8L8,0L-8,0Z"
-          fill="canvas.default"
-        />
-        <path
+          class="prc-components-CaretBorder-UWaaK"
           d="M-8,0L0,8L8,0"
-          fill="none"
-          stroke="border.default"
-          stroke-width="1"
         />
       </g>
     </svg>
@@ -125,52 +117,44 @@ exports[`Caret > renders cardinal directions 2`] = `
 
     <div>
       <svg
+        class="prc-components-Caret-9H5L6"
         height="16"
         role="presentation"
-        style="pointer-events: none; position: absolute; bottom: 100%; left: 50%; margin-left: -8px;"
+        style="bottom: 100%; left: 50%; margin-left: -8px;"
         width="16"
       >
         <g
           transform="translate(8,16) rotate(180)"
         >
           <path
+            class="prc-components-CaretTriangle-HAwX3"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            d="M-8,0L0,8L8,0L-8,0Z"
-            fill="canvas.default"
-          />
-          <path
+            class="prc-components-CaretBorder-UWaaK"
             d="M-8,0L0,8L8,0"
-            fill="none"
-            stroke="border.default"
-            stroke-width="1"
           />
         </g>
       </svg>
     </div>
     <div>
       <svg
+        class="prc-components-Caret-9H5L6"
         height="16"
         role="presentation"
-        style="pointer-events: none; position: absolute; left: 100%; top: 50%; margin-top: -8px;"
+        style="left: 100%; top: 50%; margin-top: -8px;"
         width="16"
       >
         <g
           transform="translate(0,8) rotate(-90)"
         >
           <path
+            class="prc-components-CaretTriangle-HAwX3"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            d="M-8,0L0,8L8,0L-8,0Z"
-            fill="canvas.default"
-          />
-          <path
+            class="prc-components-CaretBorder-UWaaK"
             d="M-8,0L0,8L8,0"
-            fill="none"
-            stroke="border.default"
-            stroke-width="1"
           />
         </g>
       </svg>
@@ -178,26 +162,22 @@ exports[`Caret > renders cardinal directions 2`] = `
   </body>,
   "container": <div>
     <svg
+      class="prc-components-Caret-9H5L6"
       height="16"
       role="presentation"
-      style="pointer-events: none; position: absolute; left: 100%; top: 50%; margin-top: -8px;"
+      style="left: 100%; top: 50%; margin-top: -8px;"
       width="16"
     >
       <g
         transform="translate(0,8) rotate(-90)"
       >
         <path
+          class="prc-components-CaretTriangle-HAwX3"
           d="M-8,0L0,8L8,0L-8,0Z"
         />
         <path
-          d="M-8,0L0,8L8,0L-8,0Z"
-          fill="canvas.default"
-        />
-        <path
+          class="prc-components-CaretBorder-UWaaK"
           d="M-8,0L0,8L8,0"
-          fill="none"
-          stroke="border.default"
-          stroke-width="1"
         />
       </g>
     </svg>
@@ -266,78 +246,66 @@ exports[`Caret > renders cardinal directions 3`] = `
 
     <div>
       <svg
+        class="prc-components-Caret-9H5L6"
         height="16"
         role="presentation"
-        style="pointer-events: none; position: absolute; bottom: 100%; left: 50%; margin-left: -8px;"
+        style="bottom: 100%; left: 50%; margin-left: -8px;"
         width="16"
       >
         <g
           transform="translate(8,16) rotate(180)"
         >
           <path
+            class="prc-components-CaretTriangle-HAwX3"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            d="M-8,0L0,8L8,0L-8,0Z"
-            fill="canvas.default"
-          />
-          <path
+            class="prc-components-CaretBorder-UWaaK"
             d="M-8,0L0,8L8,0"
-            fill="none"
-            stroke="border.default"
-            stroke-width="1"
           />
         </g>
       </svg>
     </div>
     <div>
       <svg
+        class="prc-components-Caret-9H5L6"
         height="16"
         role="presentation"
-        style="pointer-events: none; position: absolute; left: 100%; top: 50%; margin-top: -8px;"
+        style="left: 100%; top: 50%; margin-top: -8px;"
         width="16"
       >
         <g
           transform="translate(0,8) rotate(-90)"
         >
           <path
+            class="prc-components-CaretTriangle-HAwX3"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            d="M-8,0L0,8L8,0L-8,0Z"
-            fill="canvas.default"
-          />
-          <path
+            class="prc-components-CaretBorder-UWaaK"
             d="M-8,0L0,8L8,0"
-            fill="none"
-            stroke="border.default"
-            stroke-width="1"
           />
         </g>
       </svg>
     </div>
     <div>
       <svg
+        class="prc-components-Caret-9H5L6"
         height="16"
         role="presentation"
-        style="pointer-events: none; position: absolute; top: 100%; left: 50%; margin-left: -8px;"
+        style="top: 100%; left: 50%; margin-left: -8px;"
         width="16"
       >
         <g
           transform="translate(8,0)"
         >
           <path
+            class="prc-components-CaretTriangle-HAwX3"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            d="M-8,0L0,8L8,0L-8,0Z"
-            fill="canvas.default"
-          />
-          <path
+            class="prc-components-CaretBorder-UWaaK"
             d="M-8,0L0,8L8,0"
-            fill="none"
-            stroke="border.default"
-            stroke-width="1"
           />
         </g>
       </svg>
@@ -345,26 +313,22 @@ exports[`Caret > renders cardinal directions 3`] = `
   </body>,
   "container": <div>
     <svg
+      class="prc-components-Caret-9H5L6"
       height="16"
       role="presentation"
-      style="pointer-events: none; position: absolute; top: 100%; left: 50%; margin-left: -8px;"
+      style="top: 100%; left: 50%; margin-left: -8px;"
       width="16"
     >
       <g
         transform="translate(8,0)"
       >
         <path
+          class="prc-components-CaretTriangle-HAwX3"
           d="M-8,0L0,8L8,0L-8,0Z"
         />
         <path
-          d="M-8,0L0,8L8,0L-8,0Z"
-          fill="canvas.default"
-        />
-        <path
+          class="prc-components-CaretBorder-UWaaK"
           d="M-8,0L0,8L8,0"
-          fill="none"
-          stroke="border.default"
-          stroke-width="1"
         />
       </g>
     </svg>
@@ -433,104 +397,88 @@ exports[`Caret > renders cardinal directions 4`] = `
 
     <div>
       <svg
+        class="prc-components-Caret-9H5L6"
         height="16"
         role="presentation"
-        style="pointer-events: none; position: absolute; bottom: 100%; left: 50%; margin-left: -8px;"
+        style="bottom: 100%; left: 50%; margin-left: -8px;"
         width="16"
       >
         <g
           transform="translate(8,16) rotate(180)"
         >
           <path
+            class="prc-components-CaretTriangle-HAwX3"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            d="M-8,0L0,8L8,0L-8,0Z"
-            fill="canvas.default"
-          />
-          <path
+            class="prc-components-CaretBorder-UWaaK"
             d="M-8,0L0,8L8,0"
-            fill="none"
-            stroke="border.default"
-            stroke-width="1"
           />
         </g>
       </svg>
     </div>
     <div>
       <svg
+        class="prc-components-Caret-9H5L6"
         height="16"
         role="presentation"
-        style="pointer-events: none; position: absolute; left: 100%; top: 50%; margin-top: -8px;"
+        style="left: 100%; top: 50%; margin-top: -8px;"
         width="16"
       >
         <g
           transform="translate(0,8) rotate(-90)"
         >
           <path
+            class="prc-components-CaretTriangle-HAwX3"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            d="M-8,0L0,8L8,0L-8,0Z"
-            fill="canvas.default"
-          />
-          <path
+            class="prc-components-CaretBorder-UWaaK"
             d="M-8,0L0,8L8,0"
-            fill="none"
-            stroke="border.default"
-            stroke-width="1"
           />
         </g>
       </svg>
     </div>
     <div>
       <svg
+        class="prc-components-Caret-9H5L6"
         height="16"
         role="presentation"
-        style="pointer-events: none; position: absolute; top: 100%; left: 50%; margin-left: -8px;"
+        style="top: 100%; left: 50%; margin-left: -8px;"
         width="16"
       >
         <g
           transform="translate(8,0)"
         >
           <path
+            class="prc-components-CaretTriangle-HAwX3"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            d="M-8,0L0,8L8,0L-8,0Z"
-            fill="canvas.default"
-          />
-          <path
+            class="prc-components-CaretBorder-UWaaK"
             d="M-8,0L0,8L8,0"
-            fill="none"
-            stroke="border.default"
-            stroke-width="1"
           />
         </g>
       </svg>
     </div>
     <div>
       <svg
+        class="prc-components-Caret-9H5L6"
         height="16"
         role="presentation"
-        style="pointer-events: none; position: absolute; right: 100%; top: 50%; margin-top: -8px;"
+        style="right: 100%; top: 50%; margin-top: -8px;"
         width="16"
       >
         <g
           transform="translate(16,8) rotate(90)"
         >
           <path
+            class="prc-components-CaretTriangle-HAwX3"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            d="M-8,0L0,8L8,0L-8,0Z"
-            fill="canvas.default"
-          />
-          <path
+            class="prc-components-CaretBorder-UWaaK"
             d="M-8,0L0,8L8,0"
-            fill="none"
-            stroke="border.default"
-            stroke-width="1"
           />
         </g>
       </svg>
@@ -538,26 +486,22 @@ exports[`Caret > renders cardinal directions 4`] = `
   </body>,
   "container": <div>
     <svg
+      class="prc-components-Caret-9H5L6"
       height="16"
       role="presentation"
-      style="pointer-events: none; position: absolute; right: 100%; top: 50%; margin-top: -8px;"
+      style="right: 100%; top: 50%; margin-top: -8px;"
       width="16"
     >
       <g
         transform="translate(16,8) rotate(90)"
       >
         <path
+          class="prc-components-CaretTriangle-HAwX3"
           d="M-8,0L0,8L8,0L-8,0Z"
         />
         <path
-          d="M-8,0L0,8L8,0L-8,0Z"
-          fill="canvas.default"
-        />
-        <path
+          class="prc-components-CaretBorder-UWaaK"
           d="M-8,0L0,8L8,0"
-          fill="none"
-          stroke="border.default"
-          stroke-width="1"
         />
       </g>
     </svg>
@@ -626,130 +570,110 @@ exports[`Caret > renders cardinal directions 5`] = `
 
     <div>
       <svg
+        class="prc-components-Caret-9H5L6"
         height="16"
         role="presentation"
-        style="pointer-events: none; position: absolute; bottom: 100%; left: 50%; margin-left: -8px;"
+        style="bottom: 100%; left: 50%; margin-left: -8px;"
         width="16"
       >
         <g
           transform="translate(8,16) rotate(180)"
         >
           <path
+            class="prc-components-CaretTriangle-HAwX3"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            d="M-8,0L0,8L8,0L-8,0Z"
-            fill="canvas.default"
-          />
-          <path
+            class="prc-components-CaretBorder-UWaaK"
             d="M-8,0L0,8L8,0"
-            fill="none"
-            stroke="border.default"
-            stroke-width="1"
           />
         </g>
       </svg>
     </div>
     <div>
       <svg
+        class="prc-components-Caret-9H5L6"
         height="16"
         role="presentation"
-        style="pointer-events: none; position: absolute; left: 100%; top: 50%; margin-top: -8px;"
+        style="left: 100%; top: 50%; margin-top: -8px;"
         width="16"
       >
         <g
           transform="translate(0,8) rotate(-90)"
         >
           <path
+            class="prc-components-CaretTriangle-HAwX3"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            d="M-8,0L0,8L8,0L-8,0Z"
-            fill="canvas.default"
-          />
-          <path
+            class="prc-components-CaretBorder-UWaaK"
             d="M-8,0L0,8L8,0"
-            fill="none"
-            stroke="border.default"
-            stroke-width="1"
           />
         </g>
       </svg>
     </div>
     <div>
       <svg
+        class="prc-components-Caret-9H5L6"
         height="16"
         role="presentation"
-        style="pointer-events: none; position: absolute; top: 100%; left: 50%; margin-left: -8px;"
+        style="top: 100%; left: 50%; margin-left: -8px;"
         width="16"
       >
         <g
           transform="translate(8,0)"
         >
           <path
+            class="prc-components-CaretTriangle-HAwX3"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            d="M-8,0L0,8L8,0L-8,0Z"
-            fill="canvas.default"
-          />
-          <path
+            class="prc-components-CaretBorder-UWaaK"
             d="M-8,0L0,8L8,0"
-            fill="none"
-            stroke="border.default"
-            stroke-width="1"
           />
         </g>
       </svg>
     </div>
     <div>
       <svg
+        class="prc-components-Caret-9H5L6"
         height="16"
         role="presentation"
-        style="pointer-events: none; position: absolute; right: 100%; top: 50%; margin-top: -8px;"
+        style="right: 100%; top: 50%; margin-top: -8px;"
         width="16"
       >
         <g
           transform="translate(16,8) rotate(90)"
         >
           <path
+            class="prc-components-CaretTriangle-HAwX3"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            d="M-8,0L0,8L8,0L-8,0Z"
-            fill="canvas.default"
-          />
-          <path
+            class="prc-components-CaretBorder-UWaaK"
             d="M-8,0L0,8L8,0"
-            fill="none"
-            stroke="border.default"
-            stroke-width="1"
           />
         </g>
       </svg>
     </div>
     <div>
       <svg
+        class="prc-components-Caret-9H5L6"
         height="16"
         role="presentation"
-        style="pointer-events: none; position: absolute; bottom: 100%; left: 8px;"
+        style="bottom: 100%; left: 8px;"
         width="16"
       >
         <g
           transform="translate(8,16) rotate(180)"
         >
           <path
+            class="prc-components-CaretTriangle-HAwX3"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            d="M-8,0L0,8L8,0L-8,0Z"
-            fill="canvas.default"
-          />
-          <path
+            class="prc-components-CaretBorder-UWaaK"
             d="M-8,0L0,8L8,0"
-            fill="none"
-            stroke="border.default"
-            stroke-width="1"
           />
         </g>
       </svg>
@@ -757,26 +681,22 @@ exports[`Caret > renders cardinal directions 5`] = `
   </body>,
   "container": <div>
     <svg
+      class="prc-components-Caret-9H5L6"
       height="16"
       role="presentation"
-      style="pointer-events: none; position: absolute; bottom: 100%; left: 8px;"
+      style="bottom: 100%; left: 8px;"
       width="16"
     >
       <g
         transform="translate(8,16) rotate(180)"
       >
         <path
+          class="prc-components-CaretTriangle-HAwX3"
           d="M-8,0L0,8L8,0L-8,0Z"
         />
         <path
-          d="M-8,0L0,8L8,0L-8,0Z"
-          fill="canvas.default"
-        />
-        <path
+          class="prc-components-CaretBorder-UWaaK"
           d="M-8,0L0,8L8,0"
-          fill="none"
-          stroke="border.default"
-          stroke-width="1"
         />
       </g>
     </svg>
@@ -845,156 +765,132 @@ exports[`Caret > renders cardinal directions 6`] = `
 
     <div>
       <svg
+        class="prc-components-Caret-9H5L6"
         height="16"
         role="presentation"
-        style="pointer-events: none; position: absolute; bottom: 100%; left: 50%; margin-left: -8px;"
+        style="bottom: 100%; left: 50%; margin-left: -8px;"
         width="16"
       >
         <g
           transform="translate(8,16) rotate(180)"
         >
           <path
+            class="prc-components-CaretTriangle-HAwX3"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            d="M-8,0L0,8L8,0L-8,0Z"
-            fill="canvas.default"
-          />
-          <path
+            class="prc-components-CaretBorder-UWaaK"
             d="M-8,0L0,8L8,0"
-            fill="none"
-            stroke="border.default"
-            stroke-width="1"
           />
         </g>
       </svg>
     </div>
     <div>
       <svg
+        class="prc-components-Caret-9H5L6"
         height="16"
         role="presentation"
-        style="pointer-events: none; position: absolute; left: 100%; top: 50%; margin-top: -8px;"
+        style="left: 100%; top: 50%; margin-top: -8px;"
         width="16"
       >
         <g
           transform="translate(0,8) rotate(-90)"
         >
           <path
+            class="prc-components-CaretTriangle-HAwX3"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            d="M-8,0L0,8L8,0L-8,0Z"
-            fill="canvas.default"
-          />
-          <path
+            class="prc-components-CaretBorder-UWaaK"
             d="M-8,0L0,8L8,0"
-            fill="none"
-            stroke="border.default"
-            stroke-width="1"
           />
         </g>
       </svg>
     </div>
     <div>
       <svg
+        class="prc-components-Caret-9H5L6"
         height="16"
         role="presentation"
-        style="pointer-events: none; position: absolute; top: 100%; left: 50%; margin-left: -8px;"
+        style="top: 100%; left: 50%; margin-left: -8px;"
         width="16"
       >
         <g
           transform="translate(8,0)"
         >
           <path
+            class="prc-components-CaretTriangle-HAwX3"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            d="M-8,0L0,8L8,0L-8,0Z"
-            fill="canvas.default"
-          />
-          <path
+            class="prc-components-CaretBorder-UWaaK"
             d="M-8,0L0,8L8,0"
-            fill="none"
-            stroke="border.default"
-            stroke-width="1"
           />
         </g>
       </svg>
     </div>
     <div>
       <svg
+        class="prc-components-Caret-9H5L6"
         height="16"
         role="presentation"
-        style="pointer-events: none; position: absolute; right: 100%; top: 50%; margin-top: -8px;"
+        style="right: 100%; top: 50%; margin-top: -8px;"
         width="16"
       >
         <g
           transform="translate(16,8) rotate(90)"
         >
           <path
+            class="prc-components-CaretTriangle-HAwX3"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            d="M-8,0L0,8L8,0L-8,0Z"
-            fill="canvas.default"
-          />
-          <path
+            class="prc-components-CaretBorder-UWaaK"
             d="M-8,0L0,8L8,0"
-            fill="none"
-            stroke="border.default"
-            stroke-width="1"
           />
         </g>
       </svg>
     </div>
     <div>
       <svg
+        class="prc-components-Caret-9H5L6"
         height="16"
         role="presentation"
-        style="pointer-events: none; position: absolute; bottom: 100%; left: 8px;"
+        style="bottom: 100%; left: 8px;"
         width="16"
       >
         <g
           transform="translate(8,16) rotate(180)"
         >
           <path
+            class="prc-components-CaretTriangle-HAwX3"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            d="M-8,0L0,8L8,0L-8,0Z"
-            fill="canvas.default"
-          />
-          <path
+            class="prc-components-CaretBorder-UWaaK"
             d="M-8,0L0,8L8,0"
-            fill="none"
-            stroke="border.default"
-            stroke-width="1"
           />
         </g>
       </svg>
     </div>
     <div>
       <svg
+        class="prc-components-Caret-9H5L6"
         height="16"
         role="presentation"
-        style="pointer-events: none; position: absolute; bottom: 100%; right: 8px;"
+        style="bottom: 100%; right: 8px;"
         width="16"
       >
         <g
           transform="translate(8,16) rotate(180)"
         >
           <path
+            class="prc-components-CaretTriangle-HAwX3"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            d="M-8,0L0,8L8,0L-8,0Z"
-            fill="canvas.default"
-          />
-          <path
+            class="prc-components-CaretBorder-UWaaK"
             d="M-8,0L0,8L8,0"
-            fill="none"
-            stroke="border.default"
-            stroke-width="1"
           />
         </g>
       </svg>
@@ -1002,26 +898,22 @@ exports[`Caret > renders cardinal directions 6`] = `
   </body>,
   "container": <div>
     <svg
+      class="prc-components-Caret-9H5L6"
       height="16"
       role="presentation"
-      style="pointer-events: none; position: absolute; bottom: 100%; right: 8px;"
+      style="bottom: 100%; right: 8px;"
       width="16"
     >
       <g
         transform="translate(8,16) rotate(180)"
       >
         <path
+          class="prc-components-CaretTriangle-HAwX3"
           d="M-8,0L0,8L8,0L-8,0Z"
         />
         <path
-          d="M-8,0L0,8L8,0L-8,0Z"
-          fill="canvas.default"
-        />
-        <path
+          class="prc-components-CaretBorder-UWaaK"
           d="M-8,0L0,8L8,0"
-          fill="none"
-          stroke="border.default"
-          stroke-width="1"
         />
       </g>
     </svg>
@@ -1090,182 +982,154 @@ exports[`Caret > renders cardinal directions 7`] = `
 
     <div>
       <svg
+        class="prc-components-Caret-9H5L6"
         height="16"
         role="presentation"
-        style="pointer-events: none; position: absolute; bottom: 100%; left: 50%; margin-left: -8px;"
+        style="bottom: 100%; left: 50%; margin-left: -8px;"
         width="16"
       >
         <g
           transform="translate(8,16) rotate(180)"
         >
           <path
+            class="prc-components-CaretTriangle-HAwX3"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            d="M-8,0L0,8L8,0L-8,0Z"
-            fill="canvas.default"
-          />
-          <path
+            class="prc-components-CaretBorder-UWaaK"
             d="M-8,0L0,8L8,0"
-            fill="none"
-            stroke="border.default"
-            stroke-width="1"
           />
         </g>
       </svg>
     </div>
     <div>
       <svg
+        class="prc-components-Caret-9H5L6"
         height="16"
         role="presentation"
-        style="pointer-events: none; position: absolute; left: 100%; top: 50%; margin-top: -8px;"
+        style="left: 100%; top: 50%; margin-top: -8px;"
         width="16"
       >
         <g
           transform="translate(0,8) rotate(-90)"
         >
           <path
+            class="prc-components-CaretTriangle-HAwX3"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            d="M-8,0L0,8L8,0L-8,0Z"
-            fill="canvas.default"
-          />
-          <path
+            class="prc-components-CaretBorder-UWaaK"
             d="M-8,0L0,8L8,0"
-            fill="none"
-            stroke="border.default"
-            stroke-width="1"
           />
         </g>
       </svg>
     </div>
     <div>
       <svg
+        class="prc-components-Caret-9H5L6"
         height="16"
         role="presentation"
-        style="pointer-events: none; position: absolute; top: 100%; left: 50%; margin-left: -8px;"
+        style="top: 100%; left: 50%; margin-left: -8px;"
         width="16"
       >
         <g
           transform="translate(8,0)"
         >
           <path
+            class="prc-components-CaretTriangle-HAwX3"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            d="M-8,0L0,8L8,0L-8,0Z"
-            fill="canvas.default"
-          />
-          <path
+            class="prc-components-CaretBorder-UWaaK"
             d="M-8,0L0,8L8,0"
-            fill="none"
-            stroke="border.default"
-            stroke-width="1"
           />
         </g>
       </svg>
     </div>
     <div>
       <svg
+        class="prc-components-Caret-9H5L6"
         height="16"
         role="presentation"
-        style="pointer-events: none; position: absolute; right: 100%; top: 50%; margin-top: -8px;"
+        style="right: 100%; top: 50%; margin-top: -8px;"
         width="16"
       >
         <g
           transform="translate(16,8) rotate(90)"
         >
           <path
+            class="prc-components-CaretTriangle-HAwX3"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            d="M-8,0L0,8L8,0L-8,0Z"
-            fill="canvas.default"
-          />
-          <path
+            class="prc-components-CaretBorder-UWaaK"
             d="M-8,0L0,8L8,0"
-            fill="none"
-            stroke="border.default"
-            stroke-width="1"
           />
         </g>
       </svg>
     </div>
     <div>
       <svg
+        class="prc-components-Caret-9H5L6"
         height="16"
         role="presentation"
-        style="pointer-events: none; position: absolute; bottom: 100%; left: 8px;"
+        style="bottom: 100%; left: 8px;"
         width="16"
       >
         <g
           transform="translate(8,16) rotate(180)"
         >
           <path
+            class="prc-components-CaretTriangle-HAwX3"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            d="M-8,0L0,8L8,0L-8,0Z"
-            fill="canvas.default"
-          />
-          <path
+            class="prc-components-CaretBorder-UWaaK"
             d="M-8,0L0,8L8,0"
-            fill="none"
-            stroke="border.default"
-            stroke-width="1"
           />
         </g>
       </svg>
     </div>
     <div>
       <svg
+        class="prc-components-Caret-9H5L6"
         height="16"
         role="presentation"
-        style="pointer-events: none; position: absolute; bottom: 100%; right: 8px;"
+        style="bottom: 100%; right: 8px;"
         width="16"
       >
         <g
           transform="translate(8,16) rotate(180)"
         >
           <path
+            class="prc-components-CaretTriangle-HAwX3"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            d="M-8,0L0,8L8,0L-8,0Z"
-            fill="canvas.default"
-          />
-          <path
+            class="prc-components-CaretBorder-UWaaK"
             d="M-8,0L0,8L8,0"
-            fill="none"
-            stroke="border.default"
-            stroke-width="1"
           />
         </g>
       </svg>
     </div>
     <div>
       <svg
+        class="prc-components-Caret-9H5L6"
         height="16"
         role="presentation"
-        style="pointer-events: none; position: absolute; top: 100%; left: 8px;"
+        style="top: 100%; left: 8px;"
         width="16"
       >
         <g
           transform="translate(8,0)"
         >
           <path
+            class="prc-components-CaretTriangle-HAwX3"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            d="M-8,0L0,8L8,0L-8,0Z"
-            fill="canvas.default"
-          />
-          <path
+            class="prc-components-CaretBorder-UWaaK"
             d="M-8,0L0,8L8,0"
-            fill="none"
-            stroke="border.default"
-            stroke-width="1"
           />
         </g>
       </svg>
@@ -1273,26 +1137,22 @@ exports[`Caret > renders cardinal directions 7`] = `
   </body>,
   "container": <div>
     <svg
+      class="prc-components-Caret-9H5L6"
       height="16"
       role="presentation"
-      style="pointer-events: none; position: absolute; top: 100%; left: 8px;"
+      style="top: 100%; left: 8px;"
       width="16"
     >
       <g
         transform="translate(8,0)"
       >
         <path
+          class="prc-components-CaretTriangle-HAwX3"
           d="M-8,0L0,8L8,0L-8,0Z"
         />
         <path
-          d="M-8,0L0,8L8,0L-8,0Z"
-          fill="canvas.default"
-        />
-        <path
+          class="prc-components-CaretBorder-UWaaK"
           d="M-8,0L0,8L8,0"
-          fill="none"
-          stroke="border.default"
-          stroke-width="1"
         />
       </g>
     </svg>
@@ -1361,208 +1221,176 @@ exports[`Caret > renders cardinal directions 8`] = `
 
     <div>
       <svg
+        class="prc-components-Caret-9H5L6"
         height="16"
         role="presentation"
-        style="pointer-events: none; position: absolute; bottom: 100%; left: 50%; margin-left: -8px;"
+        style="bottom: 100%; left: 50%; margin-left: -8px;"
         width="16"
       >
         <g
           transform="translate(8,16) rotate(180)"
         >
           <path
+            class="prc-components-CaretTriangle-HAwX3"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            d="M-8,0L0,8L8,0L-8,0Z"
-            fill="canvas.default"
-          />
-          <path
+            class="prc-components-CaretBorder-UWaaK"
             d="M-8,0L0,8L8,0"
-            fill="none"
-            stroke="border.default"
-            stroke-width="1"
           />
         </g>
       </svg>
     </div>
     <div>
       <svg
+        class="prc-components-Caret-9H5L6"
         height="16"
         role="presentation"
-        style="pointer-events: none; position: absolute; left: 100%; top: 50%; margin-top: -8px;"
+        style="left: 100%; top: 50%; margin-top: -8px;"
         width="16"
       >
         <g
           transform="translate(0,8) rotate(-90)"
         >
           <path
+            class="prc-components-CaretTriangle-HAwX3"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            d="M-8,0L0,8L8,0L-8,0Z"
-            fill="canvas.default"
-          />
-          <path
+            class="prc-components-CaretBorder-UWaaK"
             d="M-8,0L0,8L8,0"
-            fill="none"
-            stroke="border.default"
-            stroke-width="1"
           />
         </g>
       </svg>
     </div>
     <div>
       <svg
+        class="prc-components-Caret-9H5L6"
         height="16"
         role="presentation"
-        style="pointer-events: none; position: absolute; top: 100%; left: 50%; margin-left: -8px;"
+        style="top: 100%; left: 50%; margin-left: -8px;"
         width="16"
       >
         <g
           transform="translate(8,0)"
         >
           <path
+            class="prc-components-CaretTriangle-HAwX3"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            d="M-8,0L0,8L8,0L-8,0Z"
-            fill="canvas.default"
-          />
-          <path
+            class="prc-components-CaretBorder-UWaaK"
             d="M-8,0L0,8L8,0"
-            fill="none"
-            stroke="border.default"
-            stroke-width="1"
           />
         </g>
       </svg>
     </div>
     <div>
       <svg
+        class="prc-components-Caret-9H5L6"
         height="16"
         role="presentation"
-        style="pointer-events: none; position: absolute; right: 100%; top: 50%; margin-top: -8px;"
+        style="right: 100%; top: 50%; margin-top: -8px;"
         width="16"
       >
         <g
           transform="translate(16,8) rotate(90)"
         >
           <path
+            class="prc-components-CaretTriangle-HAwX3"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            d="M-8,0L0,8L8,0L-8,0Z"
-            fill="canvas.default"
-          />
-          <path
+            class="prc-components-CaretBorder-UWaaK"
             d="M-8,0L0,8L8,0"
-            fill="none"
-            stroke="border.default"
-            stroke-width="1"
           />
         </g>
       </svg>
     </div>
     <div>
       <svg
+        class="prc-components-Caret-9H5L6"
         height="16"
         role="presentation"
-        style="pointer-events: none; position: absolute; bottom: 100%; left: 8px;"
+        style="bottom: 100%; left: 8px;"
         width="16"
       >
         <g
           transform="translate(8,16) rotate(180)"
         >
           <path
+            class="prc-components-CaretTriangle-HAwX3"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            d="M-8,0L0,8L8,0L-8,0Z"
-            fill="canvas.default"
-          />
-          <path
+            class="prc-components-CaretBorder-UWaaK"
             d="M-8,0L0,8L8,0"
-            fill="none"
-            stroke="border.default"
-            stroke-width="1"
           />
         </g>
       </svg>
     </div>
     <div>
       <svg
+        class="prc-components-Caret-9H5L6"
         height="16"
         role="presentation"
-        style="pointer-events: none; position: absolute; bottom: 100%; right: 8px;"
+        style="bottom: 100%; right: 8px;"
         width="16"
       >
         <g
           transform="translate(8,16) rotate(180)"
         >
           <path
+            class="prc-components-CaretTriangle-HAwX3"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            d="M-8,0L0,8L8,0L-8,0Z"
-            fill="canvas.default"
-          />
-          <path
+            class="prc-components-CaretBorder-UWaaK"
             d="M-8,0L0,8L8,0"
-            fill="none"
-            stroke="border.default"
-            stroke-width="1"
           />
         </g>
       </svg>
     </div>
     <div>
       <svg
+        class="prc-components-Caret-9H5L6"
         height="16"
         role="presentation"
-        style="pointer-events: none; position: absolute; top: 100%; left: 8px;"
+        style="top: 100%; left: 8px;"
         width="16"
       >
         <g
           transform="translate(8,0)"
         >
           <path
+            class="prc-components-CaretTriangle-HAwX3"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            d="M-8,0L0,8L8,0L-8,0Z"
-            fill="canvas.default"
-          />
-          <path
+            class="prc-components-CaretBorder-UWaaK"
             d="M-8,0L0,8L8,0"
-            fill="none"
-            stroke="border.default"
-            stroke-width="1"
           />
         </g>
       </svg>
     </div>
     <div>
       <svg
+        class="prc-components-Caret-9H5L6"
         height="16"
         role="presentation"
-        style="pointer-events: none; position: absolute; top: 100%; right: 8px;"
+        style="top: 100%; right: 8px;"
         width="16"
       >
         <g
           transform="translate(8,0)"
         >
           <path
+            class="prc-components-CaretTriangle-HAwX3"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            d="M-8,0L0,8L8,0L-8,0Z"
-            fill="canvas.default"
-          />
-          <path
+            class="prc-components-CaretBorder-UWaaK"
             d="M-8,0L0,8L8,0"
-            fill="none"
-            stroke="border.default"
-            stroke-width="1"
           />
         </g>
       </svg>
@@ -1570,26 +1398,22 @@ exports[`Caret > renders cardinal directions 8`] = `
   </body>,
   "container": <div>
     <svg
+      class="prc-components-Caret-9H5L6"
       height="16"
       role="presentation"
-      style="pointer-events: none; position: absolute; top: 100%; right: 8px;"
+      style="top: 100%; right: 8px;"
       width="16"
     >
       <g
         transform="translate(8,0)"
       >
         <path
+          class="prc-components-CaretTriangle-HAwX3"
           d="M-8,0L0,8L8,0L-8,0Z"
         />
         <path
-          d="M-8,0L0,8L8,0L-8,0Z"
-          fill="canvas.default"
-        />
-        <path
+          class="prc-components-CaretBorder-UWaaK"
           d="M-8,0L0,8L8,0"
-          fill="none"
-          stroke="border.default"
-          stroke-width="1"
         />
       </g>
     </svg>
@@ -1658,234 +1482,198 @@ exports[`Caret > renders cardinal directions 9`] = `
 
     <div>
       <svg
+        class="prc-components-Caret-9H5L6"
         height="16"
         role="presentation"
-        style="pointer-events: none; position: absolute; bottom: 100%; left: 50%; margin-left: -8px;"
+        style="bottom: 100%; left: 50%; margin-left: -8px;"
         width="16"
       >
         <g
           transform="translate(8,16) rotate(180)"
         >
           <path
+            class="prc-components-CaretTriangle-HAwX3"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            d="M-8,0L0,8L8,0L-8,0Z"
-            fill="canvas.default"
-          />
-          <path
+            class="prc-components-CaretBorder-UWaaK"
             d="M-8,0L0,8L8,0"
-            fill="none"
-            stroke="border.default"
-            stroke-width="1"
           />
         </g>
       </svg>
     </div>
     <div>
       <svg
+        class="prc-components-Caret-9H5L6"
         height="16"
         role="presentation"
-        style="pointer-events: none; position: absolute; left: 100%; top: 50%; margin-top: -8px;"
+        style="left: 100%; top: 50%; margin-top: -8px;"
         width="16"
       >
         <g
           transform="translate(0,8) rotate(-90)"
         >
           <path
+            class="prc-components-CaretTriangle-HAwX3"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            d="M-8,0L0,8L8,0L-8,0Z"
-            fill="canvas.default"
-          />
-          <path
+            class="prc-components-CaretBorder-UWaaK"
             d="M-8,0L0,8L8,0"
-            fill="none"
-            stroke="border.default"
-            stroke-width="1"
           />
         </g>
       </svg>
     </div>
     <div>
       <svg
+        class="prc-components-Caret-9H5L6"
         height="16"
         role="presentation"
-        style="pointer-events: none; position: absolute; top: 100%; left: 50%; margin-left: -8px;"
+        style="top: 100%; left: 50%; margin-left: -8px;"
         width="16"
       >
         <g
           transform="translate(8,0)"
         >
           <path
+            class="prc-components-CaretTriangle-HAwX3"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            d="M-8,0L0,8L8,0L-8,0Z"
-            fill="canvas.default"
-          />
-          <path
+            class="prc-components-CaretBorder-UWaaK"
             d="M-8,0L0,8L8,0"
-            fill="none"
-            stroke="border.default"
-            stroke-width="1"
           />
         </g>
       </svg>
     </div>
     <div>
       <svg
+        class="prc-components-Caret-9H5L6"
         height="16"
         role="presentation"
-        style="pointer-events: none; position: absolute; right: 100%; top: 50%; margin-top: -8px;"
+        style="right: 100%; top: 50%; margin-top: -8px;"
         width="16"
       >
         <g
           transform="translate(16,8) rotate(90)"
         >
           <path
+            class="prc-components-CaretTriangle-HAwX3"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            d="M-8,0L0,8L8,0L-8,0Z"
-            fill="canvas.default"
-          />
-          <path
+            class="prc-components-CaretBorder-UWaaK"
             d="M-8,0L0,8L8,0"
-            fill="none"
-            stroke="border.default"
-            stroke-width="1"
           />
         </g>
       </svg>
     </div>
     <div>
       <svg
+        class="prc-components-Caret-9H5L6"
         height="16"
         role="presentation"
-        style="pointer-events: none; position: absolute; bottom: 100%; left: 8px;"
+        style="bottom: 100%; left: 8px;"
         width="16"
       >
         <g
           transform="translate(8,16) rotate(180)"
         >
           <path
+            class="prc-components-CaretTriangle-HAwX3"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            d="M-8,0L0,8L8,0L-8,0Z"
-            fill="canvas.default"
-          />
-          <path
+            class="prc-components-CaretBorder-UWaaK"
             d="M-8,0L0,8L8,0"
-            fill="none"
-            stroke="border.default"
-            stroke-width="1"
           />
         </g>
       </svg>
     </div>
     <div>
       <svg
+        class="prc-components-Caret-9H5L6"
         height="16"
         role="presentation"
-        style="pointer-events: none; position: absolute; bottom: 100%; right: 8px;"
+        style="bottom: 100%; right: 8px;"
         width="16"
       >
         <g
           transform="translate(8,16) rotate(180)"
         >
           <path
+            class="prc-components-CaretTriangle-HAwX3"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            d="M-8,0L0,8L8,0L-8,0Z"
-            fill="canvas.default"
-          />
-          <path
+            class="prc-components-CaretBorder-UWaaK"
             d="M-8,0L0,8L8,0"
-            fill="none"
-            stroke="border.default"
-            stroke-width="1"
           />
         </g>
       </svg>
     </div>
     <div>
       <svg
+        class="prc-components-Caret-9H5L6"
         height="16"
         role="presentation"
-        style="pointer-events: none; position: absolute; top: 100%; left: 8px;"
+        style="top: 100%; left: 8px;"
         width="16"
       >
         <g
           transform="translate(8,0)"
         >
           <path
+            class="prc-components-CaretTriangle-HAwX3"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            d="M-8,0L0,8L8,0L-8,0Z"
-            fill="canvas.default"
-          />
-          <path
+            class="prc-components-CaretBorder-UWaaK"
             d="M-8,0L0,8L8,0"
-            fill="none"
-            stroke="border.default"
-            stroke-width="1"
           />
         </g>
       </svg>
     </div>
     <div>
       <svg
+        class="prc-components-Caret-9H5L6"
         height="16"
         role="presentation"
-        style="pointer-events: none; position: absolute; top: 100%; right: 8px;"
+        style="top: 100%; right: 8px;"
         width="16"
       >
         <g
           transform="translate(8,0)"
         >
           <path
+            class="prc-components-CaretTriangle-HAwX3"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            d="M-8,0L0,8L8,0L-8,0Z"
-            fill="canvas.default"
-          />
-          <path
+            class="prc-components-CaretBorder-UWaaK"
             d="M-8,0L0,8L8,0"
-            fill="none"
-            stroke="border.default"
-            stroke-width="1"
           />
         </g>
       </svg>
     </div>
     <div>
       <svg
+        class="prc-components-Caret-9H5L6"
         height="16"
         role="presentation"
-        style="pointer-events: none; position: absolute; right: 100%; top: 8px;"
+        style="right: 100%; top: 8px;"
         width="16"
       >
         <g
           transform="translate(16,8) rotate(90)"
         >
           <path
+            class="prc-components-CaretTriangle-HAwX3"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            d="M-8,0L0,8L8,0L-8,0Z"
-            fill="canvas.default"
-          />
-          <path
+            class="prc-components-CaretBorder-UWaaK"
             d="M-8,0L0,8L8,0"
-            fill="none"
-            stroke="border.default"
-            stroke-width="1"
           />
         </g>
       </svg>
@@ -1893,26 +1681,22 @@ exports[`Caret > renders cardinal directions 9`] = `
   </body>,
   "container": <div>
     <svg
+      class="prc-components-Caret-9H5L6"
       height="16"
       role="presentation"
-      style="pointer-events: none; position: absolute; right: 100%; top: 8px;"
+      style="right: 100%; top: 8px;"
       width="16"
     >
       <g
         transform="translate(16,8) rotate(90)"
       >
         <path
+          class="prc-components-CaretTriangle-HAwX3"
           d="M-8,0L0,8L8,0L-8,0Z"
         />
         <path
-          d="M-8,0L0,8L8,0L-8,0Z"
-          fill="canvas.default"
-        />
-        <path
+          class="prc-components-CaretBorder-UWaaK"
           d="M-8,0L0,8L8,0"
-          fill="none"
-          stroke="border.default"
-          stroke-width="1"
         />
       </g>
     </svg>
@@ -1981,260 +1765,220 @@ exports[`Caret > renders cardinal directions 10`] = `
 
     <div>
       <svg
+        class="prc-components-Caret-9H5L6"
         height="16"
         role="presentation"
-        style="pointer-events: none; position: absolute; bottom: 100%; left: 50%; margin-left: -8px;"
+        style="bottom: 100%; left: 50%; margin-left: -8px;"
         width="16"
       >
         <g
           transform="translate(8,16) rotate(180)"
         >
           <path
+            class="prc-components-CaretTriangle-HAwX3"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            d="M-8,0L0,8L8,0L-8,0Z"
-            fill="canvas.default"
-          />
-          <path
+            class="prc-components-CaretBorder-UWaaK"
             d="M-8,0L0,8L8,0"
-            fill="none"
-            stroke="border.default"
-            stroke-width="1"
           />
         </g>
       </svg>
     </div>
     <div>
       <svg
+        class="prc-components-Caret-9H5L6"
         height="16"
         role="presentation"
-        style="pointer-events: none; position: absolute; left: 100%; top: 50%; margin-top: -8px;"
+        style="left: 100%; top: 50%; margin-top: -8px;"
         width="16"
       >
         <g
           transform="translate(0,8) rotate(-90)"
         >
           <path
+            class="prc-components-CaretTriangle-HAwX3"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            d="M-8,0L0,8L8,0L-8,0Z"
-            fill="canvas.default"
-          />
-          <path
+            class="prc-components-CaretBorder-UWaaK"
             d="M-8,0L0,8L8,0"
-            fill="none"
-            stroke="border.default"
-            stroke-width="1"
           />
         </g>
       </svg>
     </div>
     <div>
       <svg
+        class="prc-components-Caret-9H5L6"
         height="16"
         role="presentation"
-        style="pointer-events: none; position: absolute; top: 100%; left: 50%; margin-left: -8px;"
+        style="top: 100%; left: 50%; margin-left: -8px;"
         width="16"
       >
         <g
           transform="translate(8,0)"
         >
           <path
+            class="prc-components-CaretTriangle-HAwX3"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            d="M-8,0L0,8L8,0L-8,0Z"
-            fill="canvas.default"
-          />
-          <path
+            class="prc-components-CaretBorder-UWaaK"
             d="M-8,0L0,8L8,0"
-            fill="none"
-            stroke="border.default"
-            stroke-width="1"
           />
         </g>
       </svg>
     </div>
     <div>
       <svg
+        class="prc-components-Caret-9H5L6"
         height="16"
         role="presentation"
-        style="pointer-events: none; position: absolute; right: 100%; top: 50%; margin-top: -8px;"
+        style="right: 100%; top: 50%; margin-top: -8px;"
         width="16"
       >
         <g
           transform="translate(16,8) rotate(90)"
         >
           <path
+            class="prc-components-CaretTriangle-HAwX3"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            d="M-8,0L0,8L8,0L-8,0Z"
-            fill="canvas.default"
-          />
-          <path
+            class="prc-components-CaretBorder-UWaaK"
             d="M-8,0L0,8L8,0"
-            fill="none"
-            stroke="border.default"
-            stroke-width="1"
           />
         </g>
       </svg>
     </div>
     <div>
       <svg
+        class="prc-components-Caret-9H5L6"
         height="16"
         role="presentation"
-        style="pointer-events: none; position: absolute; bottom: 100%; left: 8px;"
+        style="bottom: 100%; left: 8px;"
         width="16"
       >
         <g
           transform="translate(8,16) rotate(180)"
         >
           <path
+            class="prc-components-CaretTriangle-HAwX3"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            d="M-8,0L0,8L8,0L-8,0Z"
-            fill="canvas.default"
-          />
-          <path
+            class="prc-components-CaretBorder-UWaaK"
             d="M-8,0L0,8L8,0"
-            fill="none"
-            stroke="border.default"
-            stroke-width="1"
           />
         </g>
       </svg>
     </div>
     <div>
       <svg
+        class="prc-components-Caret-9H5L6"
         height="16"
         role="presentation"
-        style="pointer-events: none; position: absolute; bottom: 100%; right: 8px;"
+        style="bottom: 100%; right: 8px;"
         width="16"
       >
         <g
           transform="translate(8,16) rotate(180)"
         >
           <path
+            class="prc-components-CaretTriangle-HAwX3"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            d="M-8,0L0,8L8,0L-8,0Z"
-            fill="canvas.default"
-          />
-          <path
+            class="prc-components-CaretBorder-UWaaK"
             d="M-8,0L0,8L8,0"
-            fill="none"
-            stroke="border.default"
-            stroke-width="1"
           />
         </g>
       </svg>
     </div>
     <div>
       <svg
+        class="prc-components-Caret-9H5L6"
         height="16"
         role="presentation"
-        style="pointer-events: none; position: absolute; top: 100%; left: 8px;"
+        style="top: 100%; left: 8px;"
         width="16"
       >
         <g
           transform="translate(8,0)"
         >
           <path
+            class="prc-components-CaretTriangle-HAwX3"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            d="M-8,0L0,8L8,0L-8,0Z"
-            fill="canvas.default"
-          />
-          <path
+            class="prc-components-CaretBorder-UWaaK"
             d="M-8,0L0,8L8,0"
-            fill="none"
-            stroke="border.default"
-            stroke-width="1"
           />
         </g>
       </svg>
     </div>
     <div>
       <svg
+        class="prc-components-Caret-9H5L6"
         height="16"
         role="presentation"
-        style="pointer-events: none; position: absolute; top: 100%; right: 8px;"
+        style="top: 100%; right: 8px;"
         width="16"
       >
         <g
           transform="translate(8,0)"
         >
           <path
+            class="prc-components-CaretTriangle-HAwX3"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            d="M-8,0L0,8L8,0L-8,0Z"
-            fill="canvas.default"
-          />
-          <path
+            class="prc-components-CaretBorder-UWaaK"
             d="M-8,0L0,8L8,0"
-            fill="none"
-            stroke="border.default"
-            stroke-width="1"
           />
         </g>
       </svg>
     </div>
     <div>
       <svg
+        class="prc-components-Caret-9H5L6"
         height="16"
         role="presentation"
-        style="pointer-events: none; position: absolute; right: 100%; top: 8px;"
+        style="right: 100%; top: 8px;"
         width="16"
       >
         <g
           transform="translate(16,8) rotate(90)"
         >
           <path
+            class="prc-components-CaretTriangle-HAwX3"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            d="M-8,0L0,8L8,0L-8,0Z"
-            fill="canvas.default"
-          />
-          <path
+            class="prc-components-CaretBorder-UWaaK"
             d="M-8,0L0,8L8,0"
-            fill="none"
-            stroke="border.default"
-            stroke-width="1"
           />
         </g>
       </svg>
     </div>
     <div>
       <svg
+        class="prc-components-Caret-9H5L6"
         height="16"
         role="presentation"
-        style="pointer-events: none; position: absolute; right: 100%; bottom: 8px;"
+        style="right: 100%; bottom: 8px;"
         width="16"
       >
         <g
           transform="translate(16,8) rotate(90)"
         >
           <path
+            class="prc-components-CaretTriangle-HAwX3"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            d="M-8,0L0,8L8,0L-8,0Z"
-            fill="canvas.default"
-          />
-          <path
+            class="prc-components-CaretBorder-UWaaK"
             d="M-8,0L0,8L8,0"
-            fill="none"
-            stroke="border.default"
-            stroke-width="1"
           />
         </g>
       </svg>
@@ -2242,26 +1986,22 @@ exports[`Caret > renders cardinal directions 10`] = `
   </body>,
   "container": <div>
     <svg
+      class="prc-components-Caret-9H5L6"
       height="16"
       role="presentation"
-      style="pointer-events: none; position: absolute; right: 100%; bottom: 8px;"
+      style="right: 100%; bottom: 8px;"
       width="16"
     >
       <g
         transform="translate(16,8) rotate(90)"
       >
         <path
+          class="prc-components-CaretTriangle-HAwX3"
           d="M-8,0L0,8L8,0L-8,0Z"
         />
         <path
-          d="M-8,0L0,8L8,0L-8,0Z"
-          fill="canvas.default"
-        />
-        <path
+          class="prc-components-CaretBorder-UWaaK"
           d="M-8,0L0,8L8,0"
-          fill="none"
-          stroke="border.default"
-          stroke-width="1"
         />
       </g>
     </svg>
@@ -2330,286 +2070,242 @@ exports[`Caret > renders cardinal directions 11`] = `
 
     <div>
       <svg
+        class="prc-components-Caret-9H5L6"
         height="16"
         role="presentation"
-        style="pointer-events: none; position: absolute; bottom: 100%; left: 50%; margin-left: -8px;"
+        style="bottom: 100%; left: 50%; margin-left: -8px;"
         width="16"
       >
         <g
           transform="translate(8,16) rotate(180)"
         >
           <path
+            class="prc-components-CaretTriangle-HAwX3"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            d="M-8,0L0,8L8,0L-8,0Z"
-            fill="canvas.default"
-          />
-          <path
+            class="prc-components-CaretBorder-UWaaK"
             d="M-8,0L0,8L8,0"
-            fill="none"
-            stroke="border.default"
-            stroke-width="1"
           />
         </g>
       </svg>
     </div>
     <div>
       <svg
+        class="prc-components-Caret-9H5L6"
         height="16"
         role="presentation"
-        style="pointer-events: none; position: absolute; left: 100%; top: 50%; margin-top: -8px;"
+        style="left: 100%; top: 50%; margin-top: -8px;"
         width="16"
       >
         <g
           transform="translate(0,8) rotate(-90)"
         >
           <path
+            class="prc-components-CaretTriangle-HAwX3"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            d="M-8,0L0,8L8,0L-8,0Z"
-            fill="canvas.default"
-          />
-          <path
+            class="prc-components-CaretBorder-UWaaK"
             d="M-8,0L0,8L8,0"
-            fill="none"
-            stroke="border.default"
-            stroke-width="1"
           />
         </g>
       </svg>
     </div>
     <div>
       <svg
+        class="prc-components-Caret-9H5L6"
         height="16"
         role="presentation"
-        style="pointer-events: none; position: absolute; top: 100%; left: 50%; margin-left: -8px;"
+        style="top: 100%; left: 50%; margin-left: -8px;"
         width="16"
       >
         <g
           transform="translate(8,0)"
         >
           <path
+            class="prc-components-CaretTriangle-HAwX3"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            d="M-8,0L0,8L8,0L-8,0Z"
-            fill="canvas.default"
-          />
-          <path
+            class="prc-components-CaretBorder-UWaaK"
             d="M-8,0L0,8L8,0"
-            fill="none"
-            stroke="border.default"
-            stroke-width="1"
           />
         </g>
       </svg>
     </div>
     <div>
       <svg
+        class="prc-components-Caret-9H5L6"
         height="16"
         role="presentation"
-        style="pointer-events: none; position: absolute; right: 100%; top: 50%; margin-top: -8px;"
+        style="right: 100%; top: 50%; margin-top: -8px;"
         width="16"
       >
         <g
           transform="translate(16,8) rotate(90)"
         >
           <path
+            class="prc-components-CaretTriangle-HAwX3"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            d="M-8,0L0,8L8,0L-8,0Z"
-            fill="canvas.default"
-          />
-          <path
+            class="prc-components-CaretBorder-UWaaK"
             d="M-8,0L0,8L8,0"
-            fill="none"
-            stroke="border.default"
-            stroke-width="1"
           />
         </g>
       </svg>
     </div>
     <div>
       <svg
+        class="prc-components-Caret-9H5L6"
         height="16"
         role="presentation"
-        style="pointer-events: none; position: absolute; bottom: 100%; left: 8px;"
+        style="bottom: 100%; left: 8px;"
         width="16"
       >
         <g
           transform="translate(8,16) rotate(180)"
         >
           <path
+            class="prc-components-CaretTriangle-HAwX3"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            d="M-8,0L0,8L8,0L-8,0Z"
-            fill="canvas.default"
-          />
-          <path
+            class="prc-components-CaretBorder-UWaaK"
             d="M-8,0L0,8L8,0"
-            fill="none"
-            stroke="border.default"
-            stroke-width="1"
           />
         </g>
       </svg>
     </div>
     <div>
       <svg
+        class="prc-components-Caret-9H5L6"
         height="16"
         role="presentation"
-        style="pointer-events: none; position: absolute; bottom: 100%; right: 8px;"
+        style="bottom: 100%; right: 8px;"
         width="16"
       >
         <g
           transform="translate(8,16) rotate(180)"
         >
           <path
+            class="prc-components-CaretTriangle-HAwX3"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            d="M-8,0L0,8L8,0L-8,0Z"
-            fill="canvas.default"
-          />
-          <path
+            class="prc-components-CaretBorder-UWaaK"
             d="M-8,0L0,8L8,0"
-            fill="none"
-            stroke="border.default"
-            stroke-width="1"
           />
         </g>
       </svg>
     </div>
     <div>
       <svg
+        class="prc-components-Caret-9H5L6"
         height="16"
         role="presentation"
-        style="pointer-events: none; position: absolute; top: 100%; left: 8px;"
+        style="top: 100%; left: 8px;"
         width="16"
       >
         <g
           transform="translate(8,0)"
         >
           <path
+            class="prc-components-CaretTriangle-HAwX3"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            d="M-8,0L0,8L8,0L-8,0Z"
-            fill="canvas.default"
-          />
-          <path
+            class="prc-components-CaretBorder-UWaaK"
             d="M-8,0L0,8L8,0"
-            fill="none"
-            stroke="border.default"
-            stroke-width="1"
           />
         </g>
       </svg>
     </div>
     <div>
       <svg
+        class="prc-components-Caret-9H5L6"
         height="16"
         role="presentation"
-        style="pointer-events: none; position: absolute; top: 100%; right: 8px;"
+        style="top: 100%; right: 8px;"
         width="16"
       >
         <g
           transform="translate(8,0)"
         >
           <path
+            class="prc-components-CaretTriangle-HAwX3"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            d="M-8,0L0,8L8,0L-8,0Z"
-            fill="canvas.default"
-          />
-          <path
+            class="prc-components-CaretBorder-UWaaK"
             d="M-8,0L0,8L8,0"
-            fill="none"
-            stroke="border.default"
-            stroke-width="1"
           />
         </g>
       </svg>
     </div>
     <div>
       <svg
+        class="prc-components-Caret-9H5L6"
         height="16"
         role="presentation"
-        style="pointer-events: none; position: absolute; right: 100%; top: 8px;"
+        style="right: 100%; top: 8px;"
         width="16"
       >
         <g
           transform="translate(16,8) rotate(90)"
         >
           <path
+            class="prc-components-CaretTriangle-HAwX3"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            d="M-8,0L0,8L8,0L-8,0Z"
-            fill="canvas.default"
-          />
-          <path
+            class="prc-components-CaretBorder-UWaaK"
             d="M-8,0L0,8L8,0"
-            fill="none"
-            stroke="border.default"
-            stroke-width="1"
           />
         </g>
       </svg>
     </div>
     <div>
       <svg
+        class="prc-components-Caret-9H5L6"
         height="16"
         role="presentation"
-        style="pointer-events: none; position: absolute; right: 100%; bottom: 8px;"
+        style="right: 100%; bottom: 8px;"
         width="16"
       >
         <g
           transform="translate(16,8) rotate(90)"
         >
           <path
+            class="prc-components-CaretTriangle-HAwX3"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            d="M-8,0L0,8L8,0L-8,0Z"
-            fill="canvas.default"
-          />
-          <path
+            class="prc-components-CaretBorder-UWaaK"
             d="M-8,0L0,8L8,0"
-            fill="none"
-            stroke="border.default"
-            stroke-width="1"
           />
         </g>
       </svg>
     </div>
     <div>
       <svg
+        class="prc-components-Caret-9H5L6"
         height="16"
         role="presentation"
-        style="pointer-events: none; position: absolute; left: 100%; top: 8px;"
+        style="left: 100%; top: 8px;"
         width="16"
       >
         <g
           transform="translate(0,8) rotate(-90)"
         >
           <path
+            class="prc-components-CaretTriangle-HAwX3"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            d="M-8,0L0,8L8,0L-8,0Z"
-            fill="canvas.default"
-          />
-          <path
+            class="prc-components-CaretBorder-UWaaK"
             d="M-8,0L0,8L8,0"
-            fill="none"
-            stroke="border.default"
-            stroke-width="1"
           />
         </g>
       </svg>
@@ -2617,26 +2313,22 @@ exports[`Caret > renders cardinal directions 11`] = `
   </body>,
   "container": <div>
     <svg
+      class="prc-components-Caret-9H5L6"
       height="16"
       role="presentation"
-      style="pointer-events: none; position: absolute; left: 100%; top: 8px;"
+      style="left: 100%; top: 8px;"
       width="16"
     >
       <g
         transform="translate(0,8) rotate(-90)"
       >
         <path
+          class="prc-components-CaretTriangle-HAwX3"
           d="M-8,0L0,8L8,0L-8,0Z"
         />
         <path
-          d="M-8,0L0,8L8,0L-8,0Z"
-          fill="canvas.default"
-        />
-        <path
+          class="prc-components-CaretBorder-UWaaK"
           d="M-8,0L0,8L8,0"
-          fill="none"
-          stroke="border.default"
-          stroke-width="1"
         />
       </g>
     </svg>
@@ -2705,312 +2397,264 @@ exports[`Caret > renders cardinal directions 12`] = `
 
     <div>
       <svg
+        class="prc-components-Caret-9H5L6"
         height="16"
         role="presentation"
-        style="pointer-events: none; position: absolute; bottom: 100%; left: 50%; margin-left: -8px;"
+        style="bottom: 100%; left: 50%; margin-left: -8px;"
         width="16"
       >
         <g
           transform="translate(8,16) rotate(180)"
         >
           <path
+            class="prc-components-CaretTriangle-HAwX3"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            d="M-8,0L0,8L8,0L-8,0Z"
-            fill="canvas.default"
-          />
-          <path
+            class="prc-components-CaretBorder-UWaaK"
             d="M-8,0L0,8L8,0"
-            fill="none"
-            stroke="border.default"
-            stroke-width="1"
           />
         </g>
       </svg>
     </div>
     <div>
       <svg
+        class="prc-components-Caret-9H5L6"
         height="16"
         role="presentation"
-        style="pointer-events: none; position: absolute; left: 100%; top: 50%; margin-top: -8px;"
+        style="left: 100%; top: 50%; margin-top: -8px;"
         width="16"
       >
         <g
           transform="translate(0,8) rotate(-90)"
         >
           <path
+            class="prc-components-CaretTriangle-HAwX3"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            d="M-8,0L0,8L8,0L-8,0Z"
-            fill="canvas.default"
-          />
-          <path
+            class="prc-components-CaretBorder-UWaaK"
             d="M-8,0L0,8L8,0"
-            fill="none"
-            stroke="border.default"
-            stroke-width="1"
           />
         </g>
       </svg>
     </div>
     <div>
       <svg
+        class="prc-components-Caret-9H5L6"
         height="16"
         role="presentation"
-        style="pointer-events: none; position: absolute; top: 100%; left: 50%; margin-left: -8px;"
+        style="top: 100%; left: 50%; margin-left: -8px;"
         width="16"
       >
         <g
           transform="translate(8,0)"
         >
           <path
+            class="prc-components-CaretTriangle-HAwX3"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            d="M-8,0L0,8L8,0L-8,0Z"
-            fill="canvas.default"
-          />
-          <path
+            class="prc-components-CaretBorder-UWaaK"
             d="M-8,0L0,8L8,0"
-            fill="none"
-            stroke="border.default"
-            stroke-width="1"
           />
         </g>
       </svg>
     </div>
     <div>
       <svg
+        class="prc-components-Caret-9H5L6"
         height="16"
         role="presentation"
-        style="pointer-events: none; position: absolute; right: 100%; top: 50%; margin-top: -8px;"
+        style="right: 100%; top: 50%; margin-top: -8px;"
         width="16"
       >
         <g
           transform="translate(16,8) rotate(90)"
         >
           <path
+            class="prc-components-CaretTriangle-HAwX3"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            d="M-8,0L0,8L8,0L-8,0Z"
-            fill="canvas.default"
-          />
-          <path
+            class="prc-components-CaretBorder-UWaaK"
             d="M-8,0L0,8L8,0"
-            fill="none"
-            stroke="border.default"
-            stroke-width="1"
           />
         </g>
       </svg>
     </div>
     <div>
       <svg
+        class="prc-components-Caret-9H5L6"
         height="16"
         role="presentation"
-        style="pointer-events: none; position: absolute; bottom: 100%; left: 8px;"
+        style="bottom: 100%; left: 8px;"
         width="16"
       >
         <g
           transform="translate(8,16) rotate(180)"
         >
           <path
+            class="prc-components-CaretTriangle-HAwX3"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            d="M-8,0L0,8L8,0L-8,0Z"
-            fill="canvas.default"
-          />
-          <path
+            class="prc-components-CaretBorder-UWaaK"
             d="M-8,0L0,8L8,0"
-            fill="none"
-            stroke="border.default"
-            stroke-width="1"
           />
         </g>
       </svg>
     </div>
     <div>
       <svg
+        class="prc-components-Caret-9H5L6"
         height="16"
         role="presentation"
-        style="pointer-events: none; position: absolute; bottom: 100%; right: 8px;"
+        style="bottom: 100%; right: 8px;"
         width="16"
       >
         <g
           transform="translate(8,16) rotate(180)"
         >
           <path
+            class="prc-components-CaretTriangle-HAwX3"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            d="M-8,0L0,8L8,0L-8,0Z"
-            fill="canvas.default"
-          />
-          <path
+            class="prc-components-CaretBorder-UWaaK"
             d="M-8,0L0,8L8,0"
-            fill="none"
-            stroke="border.default"
-            stroke-width="1"
           />
         </g>
       </svg>
     </div>
     <div>
       <svg
+        class="prc-components-Caret-9H5L6"
         height="16"
         role="presentation"
-        style="pointer-events: none; position: absolute; top: 100%; left: 8px;"
+        style="top: 100%; left: 8px;"
         width="16"
       >
         <g
           transform="translate(8,0)"
         >
           <path
+            class="prc-components-CaretTriangle-HAwX3"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            d="M-8,0L0,8L8,0L-8,0Z"
-            fill="canvas.default"
-          />
-          <path
+            class="prc-components-CaretBorder-UWaaK"
             d="M-8,0L0,8L8,0"
-            fill="none"
-            stroke="border.default"
-            stroke-width="1"
           />
         </g>
       </svg>
     </div>
     <div>
       <svg
+        class="prc-components-Caret-9H5L6"
         height="16"
         role="presentation"
-        style="pointer-events: none; position: absolute; top: 100%; right: 8px;"
+        style="top: 100%; right: 8px;"
         width="16"
       >
         <g
           transform="translate(8,0)"
         >
           <path
+            class="prc-components-CaretTriangle-HAwX3"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            d="M-8,0L0,8L8,0L-8,0Z"
-            fill="canvas.default"
-          />
-          <path
+            class="prc-components-CaretBorder-UWaaK"
             d="M-8,0L0,8L8,0"
-            fill="none"
-            stroke="border.default"
-            stroke-width="1"
           />
         </g>
       </svg>
     </div>
     <div>
       <svg
+        class="prc-components-Caret-9H5L6"
         height="16"
         role="presentation"
-        style="pointer-events: none; position: absolute; right: 100%; top: 8px;"
+        style="right: 100%; top: 8px;"
         width="16"
       >
         <g
           transform="translate(16,8) rotate(90)"
         >
           <path
+            class="prc-components-CaretTriangle-HAwX3"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            d="M-8,0L0,8L8,0L-8,0Z"
-            fill="canvas.default"
-          />
-          <path
+            class="prc-components-CaretBorder-UWaaK"
             d="M-8,0L0,8L8,0"
-            fill="none"
-            stroke="border.default"
-            stroke-width="1"
           />
         </g>
       </svg>
     </div>
     <div>
       <svg
+        class="prc-components-Caret-9H5L6"
         height="16"
         role="presentation"
-        style="pointer-events: none; position: absolute; right: 100%; bottom: 8px;"
+        style="right: 100%; bottom: 8px;"
         width="16"
       >
         <g
           transform="translate(16,8) rotate(90)"
         >
           <path
+            class="prc-components-CaretTriangle-HAwX3"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            d="M-8,0L0,8L8,0L-8,0Z"
-            fill="canvas.default"
-          />
-          <path
+            class="prc-components-CaretBorder-UWaaK"
             d="M-8,0L0,8L8,0"
-            fill="none"
-            stroke="border.default"
-            stroke-width="1"
           />
         </g>
       </svg>
     </div>
     <div>
       <svg
+        class="prc-components-Caret-9H5L6"
         height="16"
         role="presentation"
-        style="pointer-events: none; position: absolute; left: 100%; top: 8px;"
+        style="left: 100%; top: 8px;"
         width="16"
       >
         <g
           transform="translate(0,8) rotate(-90)"
         >
           <path
+            class="prc-components-CaretTriangle-HAwX3"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            d="M-8,0L0,8L8,0L-8,0Z"
-            fill="canvas.default"
-          />
-          <path
+            class="prc-components-CaretBorder-UWaaK"
             d="M-8,0L0,8L8,0"
-            fill="none"
-            stroke="border.default"
-            stroke-width="1"
           />
         </g>
       </svg>
     </div>
     <div>
       <svg
+        class="prc-components-Caret-9H5L6"
         height="16"
         role="presentation"
-        style="pointer-events: none; position: absolute; left: 100%; bottom: 8px;"
+        style="left: 100%; bottom: 8px;"
         width="16"
       >
         <g
           transform="translate(0,8) rotate(-90)"
         >
           <path
+            class="prc-components-CaretTriangle-HAwX3"
             d="M-8,0L0,8L8,0L-8,0Z"
           />
           <path
-            d="M-8,0L0,8L8,0L-8,0Z"
-            fill="canvas.default"
-          />
-          <path
+            class="prc-components-CaretBorder-UWaaK"
             d="M-8,0L0,8L8,0"
-            fill="none"
-            stroke="border.default"
-            stroke-width="1"
           />
         </g>
       </svg>
@@ -3018,26 +2662,22 @@ exports[`Caret > renders cardinal directions 12`] = `
   </body>,
   "container": <div>
     <svg
+      class="prc-components-Caret-9H5L6"
       height="16"
       role="presentation"
-      style="pointer-events: none; position: absolute; left: 100%; bottom: 8px;"
+      style="left: 100%; bottom: 8px;"
       width="16"
     >
       <g
         transform="translate(0,8) rotate(-90)"
       >
         <path
+          class="prc-components-CaretTriangle-HAwX3"
           d="M-8,0L0,8L8,0L-8,0Z"
         />
         <path
-          d="M-8,0L0,8L8,0L-8,0Z"
-          fill="canvas.default"
-        />
-        <path
+          class="prc-components-CaretBorder-UWaaK"
           d="M-8,0L0,8L8,0"
-          fill="none"
-          stroke="border.default"
-          stroke-width="1"
         />
       </g>
     </svg>

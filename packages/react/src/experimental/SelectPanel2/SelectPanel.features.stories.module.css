@@ -1,0 +1,11 @@
+.AttentionText {
+  color: var(--fgColor-attention);
+}
+
+.ButtonCustom {
+  width: 200px;
+}
+
+.ButtonCustom [data-component='buttonContent'] {
+  justify-content: start;
+}

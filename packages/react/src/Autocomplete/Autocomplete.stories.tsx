@@ -1,12 +1,9 @@
 import type React from 'react'
 import {useCallback, useState} from 'react'
 import type {Meta} from '@storybook/react-vite'
-
-import {BaseStyles, Box, ThemeProvider} from '..'
-
+import {BaseStyles, ThemeProvider} from '..'
 import Autocomplete from './Autocomplete'
 import FormControl from '../FormControl'
-
 import type {ComponentProps} from '../utils/types'
 import type {FormControlArgs} from '../utils/story-helpers'
 import {
@@ -16,12 +13,13 @@ import {
   getTextInputArgTypes,
 } from '../utils/story-helpers'
 import {within, userEvent, expect} from 'storybook/test'
+import classes from './Autocomplete.stories.module.css'
 
 type AutocompleteOverlayArgs = ComponentProps<typeof Autocomplete.Overlay>
 type AutocompleteMenuArgs = ComponentProps<typeof Autocomplete.Menu>
 type AutocompleteArgs = AutocompleteOverlayArgs & AutocompleteMenuArgs
 
-const excludedControlKeys = ['id', 'sx']
+const excludedControlKeys = ['id']
 
 const getArgsByChildComponent = ({
   // Autocomplete.Menu
@@ -116,14 +114,14 @@ const autocompleteStoryMeta: Meta = {
       return (
         <ThemeProvider>
           <BaseStyles>
-            <Box onKeyDownCapture={reportKey}>
-              <Box as="p" position="absolute" right={5} top={2} id="key-press-label">
+            <div onKeyDownCapture={reportKey}>
+              <p className={classes.KeyPressLabel} id="key-press-label">
                 Last key pressed: {lastKey}
-              </Box>
-              <Box paddingTop={5}>
+              </p>
+              <div className={classes.StoryContent}>
                 <Story />
-              </Box>
-            </Box>
+              </div>
+            </div>
           </BaseStyles>
         </ThemeProvider>
       )
@@ -232,7 +230,7 @@ const autocompleteStoryMeta: Meta = {
 
 export const Default = () => {
   return (
-    <Box as="form" sx={{p: 3}} onSubmit={event => event.preventDefault()}>
+    <form className={classes.DefaultForm} onSubmit={event => event.preventDefault()}>
       <FormControl>
         <FormControl.Label id="autocompleteLabel-default">Label</FormControl.Label>
         <Autocomplete>
@@ -242,7 +240,7 @@ export const Default = () => {
           </Autocomplete.Overlay>
         </Autocomplete>
       </FormControl>
-    </Box>
+    </form>
   )
 }
 
@@ -262,7 +260,7 @@ export const Playground = (args: FormControlArgs<AutocompleteArgs>) => {
   const autocompleteInput = {...inputArgs, ...textInputArgs}
   const formValidationId = 'validation-field'
   return (
-    <Box as="form" sx={{p: 3}} onSubmit={event => event.preventDefault()}>
+    <form className={classes.DefaultForm} onSubmit={event => event.preventDefault()}>
       <FormControl {...parentArgs}>
         <FormControl.Label id="autocompleteLabel" {...labelArgs} />
         <Autocomplete>
@@ -287,7 +285,7 @@ export const Playground = (args: FormControlArgs<AutocompleteArgs>) => {
           <FormControl.Validation id={formValidationId} {...validationArgs} variant={validationArgs.variant} />
         )}
       </FormControl>
-    </Box>
+    </form>
   )
 }
 
