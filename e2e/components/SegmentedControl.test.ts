@@ -68,6 +68,10 @@ const stories = [
     title: 'Dev: With Sx And Css',
     id: 'components-segmentedcontrol-dev--with-sx-and-css',
   },
+  {
+    title: 'Dev: Truncation',
+    id: 'components-segmentedcontrol-dev--in-narrow-container',
+  },
 ] as const
 
 test.describe('SegmentedControl', () => {
