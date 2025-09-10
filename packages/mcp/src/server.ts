@@ -632,6 +632,17 @@ The following list of coding guidelines must be followed:
 // -----------------------------------------------------------------------------
 // Accessibility
 // -----------------------------------------------------------------------------
+
+/**
+ * The `review_alt_text` tool is experimental and may be removed in future versions.
+ *
+ * The intent of this tool is to assist products like Copilot Code Review and Copilot Coding Agent
+ * in reviewing both user- and AI-generated alt text for images, ensuring compliance with accessibility guidelines.
+ * This tool is not intended to replace human-generated alt text; rather, it supports the review process
+ * by providing suggestions for improvement. It should be used alongside human review, not as a substitute.
+ *
+ *
+ **/
 server.tool(
   'review_alt_text',
   'Images MUST have meaningful and logical alt text',
