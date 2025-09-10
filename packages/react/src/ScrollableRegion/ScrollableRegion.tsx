@@ -1,4 +1,5 @@
 import React from 'react'
+import {clsx} from 'clsx'
 import {useOverflow} from '../hooks/useOverflow'
 import classes from './ScrollableRegion.module.css'
 
@@ -18,6 +19,7 @@ function ScrollableRegion({
   'aria-label': label,
   'aria-labelledby': labelledby,
   children,
+  className,
   ...rest
 }: ScrollableRegionProps) {
   const ref = React.useRef(null)
@@ -32,7 +34,7 @@ function ScrollableRegion({
     : {}
 
   return (
-    <div {...rest} {...regionProps} ref={ref} className={classes.ScrollableRegion}>
+    <div {...rest} {...regionProps} ref={ref} className={clsx(classes.ScrollableRegion, className)}>
       {children}
     </div>
   )
