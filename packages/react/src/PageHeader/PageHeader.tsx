@@ -146,18 +146,7 @@ export type ParentLinkProps = React.PropsWithChildren<ChildrenPropTypes & LinkPr
 
 // PageHeader.ParentLink : Only visible on narrow viewports by default to let users navigate up in the hierarchy.
 const ParentLink = React.forwardRef<HTMLAnchorElement, ParentLinkProps>(
-  (
-    {
-      children,
-      className,
-      sx: sxProp = defaultSxProp,
-      href,
-      'aria-label': ariaLabel,
-      as = 'a',
-      hidden = hiddenOnRegularAndWide,
-    },
-    ref,
-  ) => {
+  ({children, className, href, 'aria-label': ariaLabel, as = 'a', hidden = hiddenOnRegularAndWide}, ref) => {
     return (
       <>
         <Link
@@ -166,7 +155,6 @@ const ParentLink = React.forwardRef<HTMLAnchorElement, ParentLinkProps>(
           aria-label={ariaLabel}
           muted
           className={clsx(classes.ParentLink, className)}
-          sx={sxProp}
           {...getHiddenDataAttributes(hidden)}
           href={href}
         >
@@ -336,7 +324,6 @@ const Title: React.FC<React.PropsWithChildren<TitleProps>> = ({
       data-hidden={hidden}
       as={as}
       style={style}
-      sx={sxProp}
       {...getHiddenDataAttributes(hidden)}
     >
       {children}

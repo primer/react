@@ -1,18 +1,20 @@
 import {clsx} from 'clsx'
-import React, {forwardRef, useEffect} from 'react'
+import React, {useEffect} from 'react'
 import {useRefObjectAsForwardedRef} from '../hooks'
-import type {SxProp} from '../sx'
 import type {ComponentProps} from '../utils/types'
-import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import classes from './Heading.module.css'
-import Box from '../Box'
+import {type PolymorphicProps, fixedForwardRef} from '../utils/modern-polymorphic'
 
-type StyledHeadingProps = {
-  as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
-  variant?: 'large' | 'medium' | 'small'
-} & SxProp
+type HeadingElement = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
 
-const Heading = forwardRef(({as: Component = 'h2', className, variant, ...props}, forwardedRef) => {
+const UnwrappedHeading = <As extends HeadingElement = 'h2'>(
+  props: {
+    as?: As
+    variant?: 'large' | 'medium' | 'small'
+  } & PolymorphicProps<As, 'h2'>,
+  forwardedRef: React.ForwardedRef<unknown>,
+) => {
+  const {as: Component = 'h2', className, variant, ...restProps} = props
   const innerRef = React.useRef<HTMLHeadingElement>(null)
   useRefObjectAsForwardedRef(forwardedRef, innerRef)
 
@@ -33,22 +35,14 @@ const Heading = forwardRef(({as: Component = 'h2', className, variant, ...props}
     }, [innerRef])
   }
 
-  if (props.sx) {
-    return (
-      <Box
-        as={Component}
-        className={clsx(className, classes.Heading)}
-        data-variant={variant}
-        {...props}
-        // @ts-ignore temporary disable as we migrate to css modules, until we remove PolymorphicForwardRefComponent
-        ref={innerRef}
-      />
-    )
-  }
-  return <Component className={clsx(className, classes.Heading)} data-variant={variant} {...props} ref={innerRef} />
-}) as PolymorphicForwardRefComponent<'h2', StyledHeadingProps>
+  return <Component className={clsx(className, classes.Heading)} data-variant={variant} {...restProps} ref={innerRef} />
+}
 
-Heading.displayName = 'Heading'
+const Heading = fixedForwardRef(UnwrappedHeading)
+
+// We can't assign displayName to the result of fixedForwardRef directly,
+// so we assign it to the component and cast it to the expected type
+Object.assign(Heading, {displayName: 'Heading'})
 
 export type HeadingProps = ComponentProps<typeof Heading>
 export default Heading

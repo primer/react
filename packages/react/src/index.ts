@@ -117,6 +117,7 @@ export type {
   NavListLeadingVisualProps,
   NavListTrailingVisualProps,
   NavListDividerProps,
+  NavListGroupHeadingProps,
 } from './NavList'
 export {default as Overlay} from './Overlay'
 export type {OverlayProps} from './Overlay'
@@ -203,7 +204,7 @@ export {Stack} from './Stack'
 export type {StackProps, StackItemProps} from './Stack'
 
 export {PageHeader} from './PageHeader'
-export type {PageHeaderProps} from './PageHeader'
+export type {PageHeaderProps, ParentLinkProps, TitleProps} from './PageHeader'
 
 export {default as sx, merge} from './sx'
 export type {BetterCssProperties, BetterSystemStyleObject, SxProp} from './sx'
