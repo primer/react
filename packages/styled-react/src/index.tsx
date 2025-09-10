@@ -111,13 +111,13 @@ export {
   // styled-components components or types
   Box,
   sx,
-
-  // theming depends on styled-components
-  ThemeProvider,
-  merge,
-  theme,
-  themeGet,
-  useColorSchemeVar,
-  useTheme,
 } from '@primer/react'
+
 export type {BoxProps, SxProp, BetterSystemStyleObject}
+
+// theming depends on styled-components and styled-system
+export {default as theme} from './theming/theme'
+export {default as ThemeProvider, useTheme, useColorSchemeVar} from './theming/ThemeProvider'
+export type {ThemeProviderProps} from './theming/ThemeProvider'
+export {get as themeGet} from './theming/themeGet'
+export {default as merge} from 'deepmerge'
