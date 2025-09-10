@@ -15,6 +15,7 @@
   },
   "devDependencies": {
     "@types/react": "^18.3.11",
+    "@primer/styled-react": "1.0.0-rc.1",
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.3.3",
     "@primer/react": "38.0.0-rc.1",
