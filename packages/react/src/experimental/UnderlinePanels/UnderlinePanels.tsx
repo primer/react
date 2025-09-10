@@ -219,8 +219,12 @@ const Tab: FC<TabProps> = ({'aria-selected': ariaSelected, onSelect, ...props}) 
 
 Tab.displayName = 'UnderlinePanels.Tab'
 
-const Panel: FC<PanelProps> = () => {
-  return <div role="tabpanel" />
+const Panel: FC<PanelProps> = ({children, ...rest}) => {
+  return (
+    <div role="tabpanel" {...rest}>
+      {children}
+    </div>
+  )
 }
 
 Panel.displayName = 'UnderlinePanels.Panel'
