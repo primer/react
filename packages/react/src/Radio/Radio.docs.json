@@ -64,11 +64,6 @@
       "name": "as",
       "type": "React.ElementType",
       "defaultValue": "\"input\""
-    },
-    {
-      "name": "sx",
-      "type": "SystemStyleObject",
-      "deprecated": true
     }
   ],
   "subcomponents": []

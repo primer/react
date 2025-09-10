@@ -5,11 +5,11 @@ export default {
   component: Radio,
 }
 
-export const SxProp = () => {
+export const Default = () => {
   return (
     <form>
       <FormControl>
-        <Radio name="default-radio-name" value="default" sx={{backgroundColor: 'red'}} />
+        <Radio name="default-radio-name" value="default" />
         <FormControl.Label>Label</FormControl.Label>
       </FormControl>
     </form>
