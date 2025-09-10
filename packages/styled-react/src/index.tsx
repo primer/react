@@ -3,6 +3,8 @@ import {
   Box,
   type BoxProps,
   type SxProp,
+  Spinner as PrimerSpinner,
+  type SpinnerProps as PrimerSpinnerProps,
   StateLabel as PrimerStateLabel,
   type StateLabelProps as PrimerStateLabelProps,
   SubNav as PrimerSubNav,
@@ -37,6 +39,12 @@ type StyledProps = SxProp &
   PositionProps &
   ShadowProps
 
+type SpinnerProps = PrimerSpinnerProps & SxProp
+
+function Spinner(props: SpinnerProps) {
+  return <Box as={PrimerSpinner} {...props} />
+}
+
 type StateLabelProps = PrimerStateLabelProps & SxProp
 
 const StateLabel = forwardRef<HTMLSpanElement, StateLabelProps>(function StateLabel(props, ref) {
@@ -65,7 +73,7 @@ const ToggleSwitch = forwardRef<HTMLButtonElement, ToggleSwitchProps>(function T
   return <Box as={PrimerToggleSwitch} ref={ref} {...props} />
 })
 
-export {StateLabel, SubNav, ToggleSwitch}
+export {Spinner, StateLabel, SubNav, ToggleSwitch}
 
 export {
   ActionList,
@@ -98,7 +106,6 @@ export {
   RelativeTime,
   SegmentedControl,
   Select,
-  Spinner,
   Text,
   Textarea,
   TextInput,
