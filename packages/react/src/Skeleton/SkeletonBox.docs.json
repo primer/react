@@ -32,11 +32,6 @@
       "type": "string",
       "description": "The className of the skeleton box",
       "defaultValue": ""
-    },
-    {
-      "name": "sx",
-      "type": "SystemStyleObject",
-      "deprecated": true
     }
   ],
   "subcomponents": []
