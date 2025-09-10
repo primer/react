@@ -94,7 +94,7 @@ export const Portal: React.FC<React.PropsWithChildren<PortalProps>> = ({
 
     if (!parentElement) {
       throw new Error(
-        `Portal container '${containerName}' is not yet registered. Container must be registered with registerPortal before use.`,
+        `Portal container '${containerName}' is not yet registered. Container must be registered with registerPortalRoot before use.`,
       )
     }
     parentElement.appendChild(element)
