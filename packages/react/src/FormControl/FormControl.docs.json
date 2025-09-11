@@ -99,11 +99,6 @@
       "defaultValue": ""
     },
     {
-      "name": "sx",
-      "type": "SystemStyleObject",
-      "deprecated": true
-    },
-    {
       "name": "ref",
       "type": "React.RefObject<HTMLDivElement>"
     }
@@ -152,11 +147,6 @@
           "type": "string",
           "description": "Class name(s) for custom styling.",
           "defaultValue": ""
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject",
-          "deprecated": true
         }
       ]
     },
@@ -174,11 +164,6 @@
           "type": "React.ReactNode",
           "defaultValue": "",
           "description": "The content (usually just text) that is rendered to give contextual info about the field"
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject",
-          "deprecated": true
         }
       ]
     },
@@ -203,11 +188,6 @@
           "type": "string",
           "description": "May be used to override the ID assigned by FormControl's React Context",
           "defaultValue": ""
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject",
-          "deprecated": true
         }
       ]
     },
@@ -219,11 +199,6 @@
           "type": "React.ReactNode",
           "defaultValue": "",
           "description": "The visual to render before the choice input's label"
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject",
-          "deprecated": true
         }
       ]
     }
