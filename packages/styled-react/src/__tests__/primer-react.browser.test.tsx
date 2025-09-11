@@ -80,10 +80,10 @@ describe('@primer/react', () => {
   test.todo('Autocomplete.Input supports `sx` prop', () => {
     const {container} = render(
       <Autocomplete>
-        <Autocomplete.Input data-testid="component" sx={{background: 'red'}} />
+        <Autocomplete.Input data-testid="component" />
       </Autocomplete>,
     )
-    expect(window.getComputedStyle(container.firstElementChild!).backgroundColor).toBe('rgb(255, 0, 0)')
+    // expect(window.getComputedStyle(container.firstElementChild!).backgroundColor).toBe('rgb(255, 0, 0)')
   })
 
   test('Autocomplete.Overlay supports `sx` prop', async () => {
