@@ -100,7 +100,12 @@
     {
       "name": "variant",
       "type": "'critical' | 'info' | 'success' | 'upsell' | 'warning'",
-      "description": ""
+      "description": "Specify the type of the Banner"
+    },
+    {
+      "name": "layout",
+      "type": "'default' | 'compact'",
+      "description": "Specify the layout of the Banner. Compact layout will reduce the padding."
     }
   ],
   "subcomponents": [
