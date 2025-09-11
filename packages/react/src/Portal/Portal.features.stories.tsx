@@ -154,8 +154,8 @@ export const WithPortalContext = () => {
       <div
         style={{
           position: 'fixed',
-          top: '100px',
-          right: '10px',
+          bottom: '10px',
+          left: '10px',
           backgroundColor: '#fffbf0',
           padding: '10px',
           border: '2px solid #f66a0a',
