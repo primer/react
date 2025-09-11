@@ -1,5 +1,18 @@
 # @primer/styled-react
 
+## 1.0.0-rc.2
+
+### Patch Changes
+
+- [#6726](https://github.com/primer/react/pull/6726) [`50c230f`](https://github.com/primer/react/commit/50c230f01b7e4b7c4664a676381737f995bf644e) Thanks [@joshblack](https://github.com/joshblack)! - Refactor ToggleSwitch export type to match original type from @primer/react
+
+- [#6726](https://github.com/primer/react/pull/6726) [`50c230f`](https://github.com/primer/react/commit/50c230f01b7e4b7c4664a676381737f995bf644e) Thanks [@joshblack](https://github.com/joshblack)! - Remove several components that have no sx usage
+
+- [#6703](https://github.com/primer/react/pull/6703) [`f87899b`](https://github.com/primer/react/commit/f87899b766648ba6837af8efb8b6fdb44b79159a) Thanks [@siddharthkp](https://github.com/siddharthkp)! - Export theming utilities from styled-react
+
+- Updated dependencies [[`d883432`](https://github.com/primer/react/commit/d883432010274cf87691a9affb0e012764b2cdae), [`7d7b797`](https://github.com/primer/react/commit/7d7b797b7696af8dd9533e501f62f3666982307d), [`d74d73e`](https://github.com/primer/react/commit/d74d73e413a9941cdc74c6f5a2cf6b1be9e7e8db), [`c6d923f`](https://github.com/primer/react/commit/c6d923f93c0cb40453f1a9dab9209a9caeb87bce), [`50c230f`](https://github.com/primer/react/commit/50c230f01b7e4b7c4664a676381737f995bf644e), [`1aa7404`](https://github.com/primer/react/commit/1aa7404f4070244083b9b05394921cda4dfe31c6), [`e177d55`](https://github.com/primer/react/commit/e177d551730a30a0f3cddf97fb55ee1ca54c784a), [`6def61e`](https://github.com/primer/react/commit/6def61e2286df882b5f15e329c801acd5bd29595), [`0077b96`](https://github.com/primer/react/commit/0077b968f45fad50cb7abe52bd0cb442504279c2), [`2d01fc4`](https://github.com/primer/react/commit/2d01fc4116ea5bf77dcaae4674aa80930ebe4917), [`50c230f`](https://github.com/primer/react/commit/50c230f01b7e4b7c4664a676381737f995bf644e), [`e3f26cc`](https://github.com/primer/react/commit/e3f26ccbcf40b38cea75f32970ddb23865d7b827), [`ab5ffb0`](https://github.com/primer/react/commit/ab5ffb00d6e54224542ee60bcc23915b0bb65b15), [`45a52c1`](https://github.com/primer/react/commit/45a52c17cc72af52d123d7104b2d395cd2ca61c8), [`5bbaae7`](https://github.com/primer/react/commit/5bbaae78f732df2470c1ea7933863ef8a3f9681c), [`5c30443`](https://github.com/primer/react/commit/5c3044342cd2214bbd9d1d50a704d8789ca019d4), [`65ae375`](https://github.com/primer/react/commit/65ae3757c1828bb5db5b5dd24d4ce743c679cf28), [`c8f3879`](https://github.com/primer/react/commit/c8f3879b0ce184c785573bfccd84aef0b8ef54ef)]:
+  - @primer/react@38.0.0-rc.2
+
 ## 1.0.0-rc.1
 
 ### Minor Changes
