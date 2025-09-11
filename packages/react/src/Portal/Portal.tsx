@@ -43,9 +43,13 @@ function ensureDefaultPortal() {
   }
 }
 
+/**
+ * Provides the ability for component trees to override the portal root container for a sub-set of the experience. 
+ * The portal will prioritize the context value unless overridden by their own `containerName` prop, and fallback to the default root if neither are specified 
+ */
 export const PortalContext = React.createContext<{
   portalContainerName?: string
-}>({portalContainerName: DEFAULT_PORTAL_CONTAINER_NAME})
+}>({})
 
 export interface PortalProps {
   /**
@@ -70,8 +74,8 @@ export const Portal: React.FC<React.PropsWithChildren<PortalProps>> = ({
   onMount,
   containerName: _containerName,
 }) => {
-  const elementRef = React.useRef<HTMLDivElement | null>(null)
   const {portalContainerName} = useContext(PortalContext)
+  const elementRef = React.useRef<HTMLDivElement | null>(null)
   if (!elementRef.current) {
     const div = document.createElement('div')
     // Portaled content should get their own stacking context so they don't interfere
@@ -94,7 +98,7 @@ export const Portal: React.FC<React.PropsWithChildren<PortalProps>> = ({
 
     if (!parentElement) {
       throw new Error(
-        `Portal container '${_containerName}' is not yet registered. Container must be registered with registerPortal before use.`,
+        `Portal container '${containerName}' is not yet registered. Container must be registered with registerPortalRoot before use.`,
       )
     }
     parentElement.appendChild(element)
@@ -105,7 +109,7 @@ export const Portal: React.FC<React.PropsWithChildren<PortalProps>> = ({
     }
     // eslint-disable-next-line react-compiler/react-compiler
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [element])
+  }, [element, _containerName, portalContainerName])
 
   return createPortal(children, element)
 }
