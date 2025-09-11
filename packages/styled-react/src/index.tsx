@@ -8,10 +8,12 @@ import {
   SubNav as PrimerSubNav,
   type SubNavProps as PrimerSubNavProps,
   type SubNavLinkProps as PrimerSubNavLinkProps,
+  Textarea as PrimerTextarea,
+  type TextareaProps as PrimerTextareaProps,
   ToggleSwitch as PrimerToggleSwitch,
   type ToggleSwitchProps as PrimerToggleSwitchProps,
 } from '@primer/react'
-import {forwardRef} from 'react'
+import {forwardRef, type PropsWithChildren} from 'react'
 import type {
   BackgroundProps,
   BorderProps,
@@ -24,6 +26,9 @@ import type {
   SpaceProps,
   TypographyProps,
 } from 'styled-system'
+import {TextInput} from './components/TextInput'
+import {Select} from './components/Select'
+import {Autocomplete} from './components/Autocomplete'
 
 type StyledProps = SxProp &
   SpaceProps &
@@ -65,12 +70,21 @@ const ToggleSwitch = forwardRef<HTMLButtonElement, ToggleSwitchProps>(function T
   return <Box as={PrimerToggleSwitch} ref={ref} {...props} />
 })
 
-export {StateLabel, SubNav, ToggleSwitch}
+type TextareaProps = PropsWithChildren<PrimerTextareaProps> & SxProp
+
+// Type annotation needed because TextInput uses `FormValidationStatus` internal type
+const Textarea: React.ForwardRefExoticComponent<TextareaProps & React.RefAttributes<HTMLTextAreaElement>> = forwardRef<
+  HTMLTextAreaElement,
+  TextareaProps
+>(function Textarea(props, ref) {
+  return <Box as={PrimerTextarea} ref={ref} {...props} />
+})
+
+export {StateLabel, SubNav, Textarea, TextInput, ToggleSwitch, Select, Autocomplete}
 
 export {
   ActionList,
   ActionMenu,
-  Autocomplete,
   Avatar,
   Breadcrumbs,
   Button,
@@ -97,11 +111,8 @@ export {
   RadioGroup,
   RelativeTime,
   SegmentedControl,
-  Select,
   Spinner,
   Text,
-  Textarea,
-  TextInput,
   Timeline,
   Token,
   Tooltip,
