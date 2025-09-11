@@ -3,6 +3,12 @@ import {
   Box,
   type BoxProps,
   type SxProp,
+  type ButtonProps as PrimerButtonProps,
+  Button as PrimerButton,
+  type IconButtonProps as PrimerIconButtonProps,
+  IconButton as PrimerIconButton,
+  type LinkButtonProps as PrimerLinkButtonProps,
+  LinkButton as PrimerLinkButton,
   StateLabel as PrimerStateLabel,
   type StateLabelProps as PrimerStateLabelProps,
   SubNav as PrimerSubNav,
@@ -24,6 +30,7 @@ import type {
   SpaceProps,
   TypographyProps,
 } from 'styled-system'
+import type {ForwardRefComponent} from './polymorphic'
 
 type StyledProps = SxProp &
   SpaceProps &
@@ -36,6 +43,26 @@ type StyledProps = SxProp &
   BorderProps &
   PositionProps &
   ShadowProps
+
+type ButtonProps = PrimerButtonProps & SxProp
+
+const Button = forwardRef(function Button(props, ref) {
+  return <Box as={PrimerButton} ref={ref} {...props} />
+}) as ForwardRefComponent<'button', ButtonProps>
+
+type IconButtonProps = PrimerIconButtonProps & SxProp
+
+const IconButton = forwardRef(function IconButton(props, ref) {
+  // @ts-expect-error the `Box` component does not infer the types correctly
+  // here
+  return <Box as={PrimerIconButton} ref={ref} {...props} />
+}) as ForwardRefComponent<'button' | 'a', IconButtonProps>
+
+type LinkButtonProps = PrimerLinkButtonProps & SxProp
+
+const LinkButton = forwardRef(function LinkButton(props, ref) {
+  return <Box as={PrimerLinkButton} ref={ref} {...props} />
+}) as ForwardRefComponent<'button', LinkButtonProps>
 
 type StateLabelProps = PrimerStateLabelProps & SxProp
 
@@ -65,7 +92,7 @@ const ToggleSwitch = forwardRef<HTMLButtonElement, ToggleSwitchProps>(function T
   return <Box as={PrimerToggleSwitch} ref={ref} {...props} />
 })
 
-export {StateLabel, SubNav, ToggleSwitch}
+export {Button, IconButton, LinkButton, StateLabel, SubNav, ToggleSwitch}
 
 export {
   ActionList,
@@ -73,7 +100,6 @@ export {
   Autocomplete,
   Avatar,
   Breadcrumbs,
-  Button,
   Checkbox,
   CheckboxGroup,
   CircleBadge,
@@ -84,10 +110,8 @@ export {
   FormControl,
   Header,
   Heading,
-  IconButton,
   Label,
   Link,
-  LinkButton,
   NavList,
   Overlay,
   PageHeader,

@@ -11,7 +11,6 @@ export default {
     ref: {table: {disable: true}},
     theme: {table: {disable: true}},
     forwardedAs: {table: {disable: true}},
-    sx: {table: {disable: true}},
   },
 } as Meta<typeof ButtonGroup>
 
