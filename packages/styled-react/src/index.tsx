@@ -66,6 +66,7 @@ const ToggleSwitch = forwardRef<HTMLButtonElement, ToggleSwitchProps>(function T
 })
 
 export {StateLabel, SubNav, ToggleSwitch}
+export {ThemeProvider, type ThemeProviderProps, useTheme} from './components/ThemeProvider'
 
 export {
   ActionList,
@@ -113,11 +114,9 @@ export {
   sx,
 
   // theming depends on styled-components
-  ThemeProvider,
   merge,
   theme,
   themeGet,
   useColorSchemeVar,
-  useTheme,
 } from '@primer/react'
 export type {BoxProps, SxProp, BetterSystemStyleObject}
