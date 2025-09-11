@@ -745,7 +745,7 @@ export const NestedSelection = () => {
     <>
       <h1>Nested selection</h1>
 
-      <Flash variant="warning" sx={{mb: 2}}>
+      <Flash variant="warning" style={{marginBottom: '8px'}}>
         This story is not fully accessible, do not copy it without review!
       </Flash>
 
@@ -1065,7 +1065,7 @@ const CreateNewLabelDialog = ({
         {type: 'submit', buttonType: 'primary', content: 'Save', onClick: () => formSubmitRef.current?.click()},
       ]}
     >
-      <Flash sx={{marginBottom: 2}} variant="warning">
+      <Flash style={{marginBottom: '8px'}} variant="warning">
         Note this Dialog is not accessible. Do not copy this.
       </Flash>
       <form onSubmit={onSubmit}>
