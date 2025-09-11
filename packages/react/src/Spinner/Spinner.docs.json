@@ -45,11 +45,6 @@
     {
       "name": "data-*",
       "type": "string"
-    },
-    {
-      "name": "sx",
-      "type": "SystemStyleObject",
-      "deprecated": true
     }
   ],
   "subcomponents": []

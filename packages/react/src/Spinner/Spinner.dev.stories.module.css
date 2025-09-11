@@ -1,0 +1,3 @@
+.SpinnerBorder {
+  border: var(--borderWidth-thin) solid var(--borderColor-closed-emphasis);
+}
