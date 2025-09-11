@@ -1,14 +1,13 @@
 .SegmentedControl {
   display: inline-flex;
-
-  /* TODO: use primitive `control.{small|medium}.size` when it is available */
-  height: 32px;
+  height: var(--control-medium-size);
   padding: 0;
   margin: 0;
   font-size: var(--text-body-size-medium);
   background-color: var(--controlTrack-bgColor-rest);
   border: var(--borderWidth-thin) solid var(--controlTrack-borderColor-rest, transparent);
   border-radius: var(--borderRadius-medium);
+  max-width: 100%;
 
   &:where([data-full-width]) {
     display: flex;
@@ -16,8 +15,7 @@
   }
 
   &:where([data-size='small']) {
-    /* TODO: use primitive `control.{small|medium}.size` when it is available */
-    height: 28px;
+    height: var(--control-small-size);
     font-size: var(--text-body-size-small);
   }
 }
@@ -30,6 +28,7 @@
   /* stylelint-disable-next-line primer/spacing */
   margin-bottom: -1px;
   flex-grow: 1;
+  min-width: 0;
 
   &:not(:last-child) {
     /* stylelint-disable-next-line primer/spacing */
@@ -187,15 +186,22 @@
   }
 }
 
-.Text::after {
-  display: block;
-  height: 0;
+.Text {
+  flex: 1;
   overflow: hidden;
-  font-weight: var(--base-text-weight-semibold);
-  pointer-events: none;
-  visibility: hidden;
-  content: attr(data-text);
-  user-select: none;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  &::after {
+    display: block;
+    height: 0;
+    overflow: hidden;
+    font-weight: var(--base-text-weight-semibold);
+    pointer-events: none;
+    visibility: hidden;
+    content: attr(data-text);
+    user-select: none;
+  }
 }
 
 .LeadingIcon {

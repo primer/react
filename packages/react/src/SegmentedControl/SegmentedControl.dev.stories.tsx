@@ -75,3 +75,19 @@ export const WithSxAndCss = () => (
     </SegmentedControl.Button>
   </SegmentedControl>
 )
+
+export const InNarrowContainer = () => (
+  <div style={{width: '275px', border: '1px solid black', padding: '8px'}}>
+    <SegmentedControl aria-label="File view" fullWidth>
+      <SegmentedControl.Button defaultSelected aria-label={'Preview'} leadingIcon={EyeIcon}>
+        Preview
+      </SegmentedControl.Button>
+      <SegmentedControl.Button aria-label={'Raw'} leadingIcon={FileCodeIcon}>
+        Raw
+      </SegmentedControl.Button>
+      <SegmentedControl.Button aria-label={'Blame'} leadingIcon={PeopleIcon}>
+        Blame
+      </SegmentedControl.Button>
+    </SegmentedControl>
+  </div>
+)
