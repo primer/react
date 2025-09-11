@@ -1,3 +1,5 @@
+import type React from 'react'
+import {forwardRef, type PropsWithChildren} from 'react'
 import {
   type BetterSystemStyleObject,
   Box,
@@ -12,8 +14,11 @@ import {
   type TextareaProps as PrimerTextareaProps,
   ToggleSwitch as PrimerToggleSwitch,
   type ToggleSwitchProps as PrimerToggleSwitchProps,
+  type SegmentedControlProps as PrimerSegmentedControlProps,
+  SegmentedControl as PrimerSegmentedControl,
+  type SegmentedControlButtonProps as PrimerSegmentedControlButtonProps,
+  type SegmentedControlIconButtonProps as PrimerSegmentedControlIconButtonProps,
 } from '@primer/react'
-import {forwardRef, type PropsWithChildren} from 'react'
 import type {
   BackgroundProps,
   BorderProps,
@@ -41,6 +46,27 @@ type StyledProps = SxProp &
   BorderProps &
   PositionProps &
   ShadowProps
+
+type SegmentedControlProps = PropsWithChildren<PrimerSegmentedControlProps> & SxProp
+type SegmentedControlButtonProps = PropsWithChildren<PrimerSegmentedControlButtonProps> & SxProp
+type SegmentedControlIconButtonProps = PropsWithChildren<PrimerSegmentedControlIconButtonProps> & SxProp
+
+const SegmentedControlButton = (props: SegmentedControlButtonProps) => {
+  return <Box as={PrimerSegmentedControl.Button} {...props} />
+}
+
+const SegmentedControlIconButton = (props: SegmentedControlIconButtonProps) => {
+  return <Box as={PrimerSegmentedControl.IconButton} {...props} />
+}
+
+const SegmentedControlImpl = (props: SegmentedControlProps) => {
+  return <Box as={PrimerSegmentedControl} {...props} />
+}
+
+const SegmentedControl = Object.assign(SegmentedControlImpl, {
+  Button: SegmentedControlButton,
+  IconButton: SegmentedControlIconButton,
+})
 
 type StateLabelProps = PrimerStateLabelProps & SxProp
 
@@ -80,7 +106,7 @@ const Textarea: React.ForwardRefExoticComponent<TextareaProps & React.RefAttribu
   return <Box as={PrimerTextarea} ref={ref} {...props} />
 })
 
-export {Autocomplete, StateLabel, SubNav, Textarea, TextInput, Select, ToggleSwitch}
+export {Autocomplete, SegmentedControl, StateLabel, SubNav, Textarea, TextInput, Select, ToggleSwitch}
 
 export {
   ActionList,
@@ -110,7 +136,6 @@ export {
   ProgressBar,
   RadioGroup,
   RelativeTime,
-  SegmentedControl,
   Spinner,
   Text,
   Timeline,
