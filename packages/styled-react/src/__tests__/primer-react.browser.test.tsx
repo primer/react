@@ -28,7 +28,6 @@ import {
   PageHeader,
   PageLayout,
   Popover,
-  ProgressBar,
   RadioGroup,
   RelativeTime,
   SegmentedControl,
