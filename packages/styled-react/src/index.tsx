@@ -26,9 +26,9 @@ import type {
   SpaceProps,
   TypographyProps,
 } from 'styled-system'
-import {TextInput} from './components/TextInput'
-import {Select} from './components/Select'
 import {Autocomplete} from './components/Autocomplete'
+import {Select} from './components/Select'
+import {TextInput} from './components/TextInput'
 
 type StyledProps = SxProp &
   SpaceProps &
@@ -80,7 +80,7 @@ const Textarea: React.ForwardRefExoticComponent<TextareaProps & React.RefAttribu
   return <Box as={PrimerTextarea} ref={ref} {...props} />
 })
 
-export {StateLabel, SubNav, Textarea, TextInput, ToggleSwitch, Select, Autocomplete}
+export {Autocomplete, StateLabel, SubNav, Textarea, TextInput, Select, ToggleSwitch}
 
 export {
   ActionList,
