@@ -5,12 +5,10 @@ import {forwardRef, type FC, type PropsWithChildren} from 'react'
 import {isElement} from 'react-is'
 import type {IconProps} from '@primer/octicons-react'
 import CounterLabel from '../../CounterLabel'
-import {type SxProp} from '../../sx'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../../utils/polymorphic'
 
 import classes from './UnderlineTabbedInterface.module.css'
 import {clsx} from 'clsx'
-import {BoxWithFallback} from './BoxWithFallback'
 
 // The gap between the list items. It is a constant because the gap is used to calculate the possible number of items that can fit in the container.
 export const GAP = 8
@@ -19,15 +17,15 @@ type UnderlineWrapperProps = {
   slot?: string
   as?: React.ElementType
   className?: string
-  ref?: React.Ref<unknown>
-} & SxProp
+  ref?: React.Ref<HTMLDivElement>
+}
 
-export const UnderlineWrapper = forwardRef(
-  ({children, className, ...rest}: PropsWithChildren<UnderlineWrapperProps>, forwardedRef) => {
+export const UnderlineWrapper = forwardRef<HTMLDivElement, PropsWithChildren<UnderlineWrapperProps>>(
+  ({children, className, ...rest}, forwardedRef) => {
     return (
-      <BoxWithFallback className={clsx(classes.UnderlineWrapper, className)} ref={forwardedRef} {...rest}>
+      <div className={clsx(classes.UnderlineWrapper, className)} ref={forwardedRef} {...rest}>
         {children}
-      </BoxWithFallback>
+      </div>
     )
   },
 )
@@ -53,24 +51,12 @@ export type UnderlineItemProps = {
   icon?: FC<IconProps> | React.ReactElement
   id?: string
   ref?: React.Ref<unknown>
-} & SxProp
+}
 
-export const UnderlineItem = forwardRef(
-  (
-    {
-      as = 'a',
-      children,
-      counter,
-      icon: Icon,
-      iconsVisible,
-      loadingCounters,
-      className,
-      ...rest
-    }: PropsWithChildren<UnderlineItemProps>,
-    forwardedRef,
-  ) => {
+export const UnderlineItem = forwardRef<HTMLDivElement, PropsWithChildren<UnderlineItemProps>>(
+  ({as = 'a', children, counter, icon: Icon, iconsVisible, loadingCounters, className, ...rest}, forwardedRef) => {
     return (
-      <BoxWithFallback ref={forwardedRef} as={as} className={clsx(classes.UnderlineItem, className)} {...rest}>
+      <div ref={forwardedRef} as={as} className={clsx(classes.UnderlineItem, className)} {...rest}>
         {iconsVisible && Icon && <span data-component="icon">{isElement(Icon) ? Icon : <Icon />}</span>}
         {children && (
           <span data-component="text" data-content={children}>
@@ -88,7 +74,7 @@ export const UnderlineItem = forwardRef(
             </span>
           )
         ) : null}
-      </BoxWithFallback>
+      </div>
     )
   },
 ) as PolymorphicForwardRefComponent<'a', UnderlineItemProps>
