@@ -14,7 +14,7 @@ import {
   ToggleSwitch as PrimerToggleSwitch,
   type ToggleSwitchProps as PrimerToggleSwitchProps,
 } from '@primer/react'
-import {forwardRef} from 'react'
+import React, {forwardRef} from 'react'
 import type {
   BackgroundProps,
   BorderProps,
