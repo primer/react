@@ -3,6 +3,10 @@ import {
   Box,
   type BoxProps,
   type SxProp,
+  type HeaderProps as PrimerHeaderProps,
+  type HeaderItemProps as PrimerHeaderItemProps,
+  type HeaderLinkProps as PrimerHeaderLinkProps,
+  Header as PrimerHeader,
   StateLabel as PrimerStateLabel,
   type StateLabelProps as PrimerStateLabelProps,
   SubNav as PrimerSubNav,
@@ -24,6 +28,7 @@ import type {
   SpaceProps,
   TypographyProps,
 } from 'styled-system'
+import type {ForwardRefComponent} from './polymorphic'
 
 type StyledProps = SxProp &
   SpaceProps &
@@ -36,6 +41,27 @@ type StyledProps = SxProp &
   BorderProps &
   PositionProps &
   ShadowProps
+
+type HeaderProps = PrimerHeaderProps & SxProp
+
+const HeaderImpl = forwardRef(function Header(props, ref) {
+  return <Box as={PrimerHeader} ref={ref} {...props} />
+}) as ForwardRefComponent<'header', HeaderProps>
+
+type HeaderItemProps = PrimerHeaderItemProps & SxProp
+
+const HeaderItem = forwardRef<HTMLDivElement, HeaderItemProps>(function HeaderItem(props, ref) {
+  return <Box as={PrimerHeader.Item} ref={ref} {...props} />
+})
+
+const HeaderLink = forwardRef<HTMLAnchorElement, PrimerHeaderLinkProps>(function HeaderLink(props, ref) {
+  return <Box as={PrimerHeader.Link} ref={ref} {...props} />
+})
+
+const Header = Object.assign(HeaderImpl, {
+  Item: HeaderItem,
+  Link: HeaderLink,
+})
 
 type StateLabelProps = PrimerStateLabelProps & SxProp
 
@@ -65,7 +91,7 @@ const ToggleSwitch = forwardRef<HTMLButtonElement, ToggleSwitchProps>(function T
   return <Box as={PrimerToggleSwitch} ref={ref} {...props} />
 })
 
-export {StateLabel, SubNav, ToggleSwitch}
+export {Header, StateLabel, SubNav, ToggleSwitch}
 
 export {
   ActionList,
@@ -82,7 +108,6 @@ export {
   Dialog,
   Flash,
   FormControl,
-  Header,
   Heading,
   IconButton,
   Label,

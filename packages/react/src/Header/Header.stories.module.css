@@ -1,0 +1,11 @@
+.HeaderLink {
+  font-size: var(--base-size-16);
+}
+
+.AvatarContainer {
+  margin-right: 0;
+}
+
+.Icon {
+  margin-right: var(--base-size-8);
+}
