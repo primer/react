@@ -15,8 +15,12 @@ import {
   type HeadingProps as PrimerHeadingProps,
   Checkbox as PrimerCheckbox,
   type CheckboxProps as PrimerCheckboxProps,
+  type SegmentedControlProps as PrimerSegmentedControlProps,
+  SegmentedControl as PrimerSegmentedControl,
+  type SegmentedControlButtonProps as PrimerSegmentedControlButtonProps,
+  type SegmentedControlIconButtonProps as PrimerSegmentedControlIconButtonProps,
 } from '@primer/react'
-import {forwardRef} from 'react'
+import React, {forwardRef, type PropsWithChildren} from 'react'
 import type {
   BackgroundProps,
   BorderProps,
@@ -46,6 +50,27 @@ type StyledProps = SxProp &
   BorderProps &
   PositionProps &
   ShadowProps
+
+type SegmentedControlProps = PropsWithChildren<PrimerSegmentedControlProps> & SxProp
+type SegmentedControlButtonProps = PropsWithChildren<PrimerSegmentedControlButtonProps> & SxProp
+type SegmentedControlIconButtonProps = PropsWithChildren<PrimerSegmentedControlIconButtonProps> & SxProp
+
+const SegmentedControlButton = (props: SegmentedControlButtonProps) => {
+  return <Box as={PrimerSegmentedControl.Button} {...props} />
+}
+
+const SegmentedControlIconButton = (props: SegmentedControlIconButtonProps) => {
+  return <Box as={PrimerSegmentedControl.IconButton} {...props} />
+}
+
+const SegmentedControlImpl = (props: SegmentedControlProps) => {
+  return <Box as={PrimerSegmentedControl} {...props} />
+}
+
+const SegmentedControl = Object.assign(SegmentedControlImpl, {
+  Button: SegmentedControlButton,
+  IconButton: SegmentedControlIconButton,
+})
 
 type StateLabelProps = PrimerStateLabelProps & SxProp
 
@@ -93,7 +118,19 @@ const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Checkbox(p
   return <Box as={PrimerCheckbox} ref={ref} {...props} />
 })
 
-export {Checkbox, Heading, Link, NavList, PageHeader, PageLayout, StateLabel, SubNav, ToggleSwitch, UnderlineNav}
+export {
+  Checkbox,
+  Heading,
+  Link,
+  NavList,
+  PageHeader,
+  PageLayout,
+  SegmentedControl,
+  StateLabel,
+  SubNav,
+  ToggleSwitch,
+  UnderlineNav,
+}
 
 export {
   ActionList,
@@ -118,7 +155,6 @@ export {
   ProgressBar,
   RadioGroup,
   RelativeTime,
-  SegmentedControl,
   Select,
   Spinner,
   Text,
