@@ -75,6 +75,7 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
     const isChoiceInput =
       React.isValidElement(InputComponent) && (InputComponent.type === Checkbox || InputComponent.type === Radio)
     const isRadioInput = React.isValidElement(InputComponent) && InputComponent.type === Radio
+    const isSelectPanel = React.isValidElement(InputComponent) && InputComponent.type === SelectPanel
 
     if (InputComponent) {
       warning(
@@ -165,6 +166,7 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
           id,
           required,
           validationMessageId,
+          isReferenced: !isSelectPanel,
         }}
       >
         {isChoiceInput || layout === 'horizontal' ? (
