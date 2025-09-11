@@ -1,6 +1,8 @@
 import type {Meta, StoryFn} from '@storybook/react-vite'
 import {Placeholder} from '../Placeholder'
 import {PageLayout} from './PageLayout'
+import {clsx} from 'clsx'
+import classes from './PageLayout.dev.stories.module.css'
 
 const meta: Meta = {
   title: 'Components/PageLayout/Dev',
@@ -346,11 +348,10 @@ export const Default: StoryFn = args => (
     padding={args.padding}
     rowGap={args.rowGap}
     columnGap={args.columnGap}
-    sx={{border: '1px solid red'}}
+    className={classes.PageLayoutRedBorder}
   >
     <PageLayout.Header
       padding={args['Header.padding']}
-      sx={{color: 'var(--fgColor-success)'}}
       divider={{
         narrow: args['Header.divider.narrow'],
         regular: args['Header.divider.regular'],
@@ -361,11 +362,11 @@ export const Default: StoryFn = args => (
         regular: args['Header.hidden.regular'],
         wide: args['Header.hidden.wide'],
       }}
+      className={classes.PageLayoutGreenText}
     >
       <Placeholder height={args['Header placeholder height']} label="Header" />
     </PageLayout.Header>
     <PageLayout.Content
-      sx={{color: 'var(--fgColor-success)'}}
       width={args['Content.width']}
       padding={args['Content.padding']}
       hidden={{
@@ -373,11 +374,11 @@ export const Default: StoryFn = args => (
         regular: args['Content.hidden.regular'],
         wide: args['Content.hidden.wide'],
       }}
+      className={classes.PageLayoutGreenText}
     >
       <Placeholder height={args['Content placeholder height']} label="Content" />
     </PageLayout.Content>
     <PageLayout.Pane
-      sx={{color: 'var(--fgColor-success)'}}
       position={{
         narrow: args['Pane.position.narrow'],
         regular: args['Pane.position.regular'],
@@ -398,11 +399,11 @@ export const Default: StoryFn = args => (
         regular: args['Pane.hidden.regular'],
         wide: args['Pane.hidden.wide'],
       }}
+      className={classes.PageLayoutGreenText}
     >
       <Placeholder height={args['Pane placeholder height']} label="Pane" />
     </PageLayout.Pane>
     <PageLayout.Footer
-      sx={{color: 'var(--fgColor-success)'}}
       padding={args['Footer.padding']}
       divider={{
         narrow: args['Footer.divider.narrow'],
@@ -414,6 +415,7 @@ export const Default: StoryFn = args => (
         regular: args['Footer.hidden.regular'],
         wide: args['Footer.hidden.wide'],
       }}
+      className={classes.PageLayoutGreenText}
     >
       <Placeholder height={args['Footer placeholder height']} label="Footer" />
     </PageLayout.Footer>
