@@ -40,7 +40,7 @@ const PageLayoutPane = React.forwardRef<HTMLDivElement, PageLayoutPaneProps>((pr
   return <Wrapper as={PrimerPageLayout.Pane} ref={ref} {...props} />
 })
 
-type PageLayoutFooterProps = PropsWithChildren<PrimerPageLayoutFooterProps>
+type PageLayoutFooterProps = PropsWithChildren<PrimerPageLayoutFooterProps> & SxProp
 
 const PageLayoutFooter = React.forwardRef<HTMLDivElement, PageLayoutFooterProps>((props, ref) => {
   // @ts-expect-error - PrimerPageLayout.Footer is not recognized as a valid component type

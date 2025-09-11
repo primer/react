@@ -11,7 +11,7 @@ import type {AriaRole} from '../types/AriaRole'
 type PageHeaderProps = PropsWithChildren<
   // Needed to remove `role` and manually re-add because it's not exported from `@primer/react`.
   // This was causing a type inference error on the `Object.assign` export at the bottom.
-  Omit<PrimerPageHeaderProps, 'role'> & {role: AriaRole}
+  Omit<PrimerPageHeaderProps, 'role'> & {role?: AriaRole}
 > &
   SxProp
 
