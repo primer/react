@@ -1,8 +1,6 @@
 import React from 'react'
-import styled from 'styled-components'
 import type {EventName} from '@lit-labs/react'
 import {createComponent as create} from '@lit-labs/react'
-import sx from '../sx'
 
 type EventNames = Record<string, EventName | string>
 const rename = (str: string): string => str[0].toUpperCase() + str.slice(1).replace(/(-\w)/g, s => s[1].toUpperCase())
@@ -12,26 +10,16 @@ export const createComponent = <I extends HTMLElement, E extends EventNames = {}
   tagName: string,
   events: E | undefined = undefined,
 ) => {
-  const output = Object.assign(
-    Object.assign(
-      styled(
-        create<I, E>({
-          tagName,
-          elementClass,
-          react: React,
-          events,
-        }),
-      ),
-      {
-        displayName: rename(tagName),
-      },
-    )(sx),
-    {
-      displayName: rename(tagName),
-    },
-  )
+  const component = create<I, E>({
+    tagName,
+    elementClass,
+    react: React,
+    events,
+  })
 
-  return output
+  component.displayName = rename(tagName)
+
+  return component
 }
 
 export default createComponent
