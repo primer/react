@@ -8,6 +8,9 @@ import {
   SubNav as PrimerSubNav,
   type SubNavProps as PrimerSubNavProps,
   type SubNavLinkProps as PrimerSubNavLinkProps,
+  TextInput as PrimerTextInput,
+  type TextInputProps as PrimerTextInputProps,
+  type TextInputActionProps as PrimerTextInputActionProps,
   ToggleSwitch as PrimerToggleSwitch,
   type ToggleSwitchProps as PrimerToggleSwitchProps,
 } from '@primer/react'
@@ -59,13 +62,31 @@ const SubNav = Object.assign(SubNavImpl, {
   Link: SubNavLink,
 })
 
+type TextInputProps = PrimerTextInputProps & SxProp
+type TextInputActionProps = PrimerTextInputActionProps & SxProp
+
+const TextInputBase = forwardRef<HTMLInputElement, TextInputProps>(function TextInput(props, ref) {
+  // @ts-expect-error: Box as accepts the compound component
+  return <Box as={PrimerTextInput} ref={ref} {...props} />
+}) as React.ForwardRefExoticComponent<TextInputProps & React.RefAttributes<HTMLInputElement>>
+
+const TextInputAction = forwardRef<HTMLButtonElement, TextInputActionProps>(function TextInputAction(props, ref) {
+  return <Box as={PrimerTextInput.Action} ref={ref} {...props} />
+})
+
+const TextInput: typeof TextInputBase & {
+  Action: typeof TextInputAction
+} = Object.assign(TextInputBase, {
+  Action: TextInputAction,
+})
+
 type ToggleSwitchProps = PrimerToggleSwitchProps & Omit<StyledProps, keyof PrimerToggleSwitchProps>
 
 const ToggleSwitch = forwardRef<HTMLButtonElement, ToggleSwitchProps>(function ToggleSwitch(props, ref) {
   return <Box as={PrimerToggleSwitch} ref={ref} {...props} />
 })
 
-export {StateLabel, SubNav, ToggleSwitch}
+export {StateLabel, SubNav, TextInput, ToggleSwitch}
 
 export {
   ActionList,
@@ -101,7 +122,6 @@ export {
   Spinner,
   Text,
   Textarea,
-  TextInput,
   Timeline,
   Token,
   Tooltip,
