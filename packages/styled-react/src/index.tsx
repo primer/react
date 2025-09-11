@@ -93,7 +93,6 @@ export {
   PageHeader,
   PageLayout,
   Popover,
-  ProgressBar,
   RadioGroup,
   RelativeTime,
   SegmentedControl,
