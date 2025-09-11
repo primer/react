@@ -44,8 +44,8 @@ function ensureDefaultPortal() {
 }
 
 /**
- * Provides the ability for component trees to override the portal root container for a sub-set of the experience. 
- * The portal will prioritize the context value unless overridden by their own `containerName` prop, and fallback to the default root if neither are specified 
+ * Provides the ability for component trees to override the portal root container for a sub-set of the experience.
+ * The portal will prioritize the context value unless overridden by their own `containerName` prop, and fallback to the default root if neither are specified
  */
 export const PortalContext = React.createContext<{
   portalContainerName?: string
