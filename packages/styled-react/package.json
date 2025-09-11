@@ -24,7 +24,8 @@
     "build": "script/build",
     "clean": "rimraf dist",
     "lint:npm": "publint --types",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "browser-test": "vitest --config vitest.config.browser.ts src/__tests__/primer-react*.browser.test.tsx --run"
   },
   "devDependencies": {
     "@babel/preset-react": "^7.27.1",
@@ -34,6 +35,7 @@
     "@types/react": "18.3.11",
     "@types/react-dom": "18.3.1",
     "@vitejs/plugin-react": "^4.3.3",
+    "@vitest/ui": "^3.2.4",
     "publint": "^0.3.12",
     "react": "18.3.1",
     "react-dom": "18.3.1",

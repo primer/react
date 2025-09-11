@@ -402,13 +402,59 @@ describe('@primer/react', () => {
     expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
   })
 
-  test.todo('Tooltip supports `sx` prop', () => {
-    render(
+  test('Tooltip supports `sx` prop', () => {
+    const {container} = render(
       <Tooltip data-testid="component" sx={{background: 'red'}} text="test">
         <button type="button">test</button>
       </Tooltip>,
     )
-    expect(window.getComputedStyle(screen.getByRole('tooltip', {hidden: true})).backgroundColor).toBe('rgb(255, 0, 0)')
+    
+    // Debug: Print the entire DOM structure
+    console.log('=== FULL DOM STRUCTURE ===')
+    console.log(container.innerHTML)
+    
+    // Debug: Find all elements with role tooltip
+    const tooltipElements = screen.queryAllByRole('tooltip', {hidden: true})
+    console.log('=== TOOLTIP ELEMENTS FOUND ===')
+    console.log('Number of tooltip elements:', tooltipElements.length)
+    
+    tooltipElements.forEach((element, index) => {
+      console.log(`Tooltip ${index + 1}:`)
+      console.log('  Element:', element)
+      console.log('  HTML:', element.outerHTML)
+      console.log('  Computed styles:')
+      const styles = window.getComputedStyle(element)
+      console.log('    background:', styles.background)
+      console.log('    backgroundColor:', styles.backgroundColor)
+      console.log('    --tooltip-bgColor:', styles.getPropertyValue('--tooltip-bgColor'))
+      console.log('  All CSS custom properties:')
+      for (let i = 0; i < styles.length; i++) {
+        const prop = styles[i]
+        if (prop.startsWith('--')) {
+          console.log(`    ${prop}: ${styles.getPropertyValue(prop)}`)
+        }
+      }
+    })
+    
+    // Debug: Look for any elements with data-testid="component"
+    const testComponent = screen.queryByTestId('component')
+    if (testComponent) {
+      console.log('=== TEST COMPONENT ===')
+      console.log('Element:', testComponent)
+      console.log('HTML:', testComponent.outerHTML)
+      const styles = window.getComputedStyle(testComponent)
+      console.log('Computed styles:')
+      console.log('  background:', styles.background)
+      console.log('  backgroundColor:', styles.backgroundColor)
+    }
+    
+    // Debug: Look for button element
+    const button = screen.getByRole('button')
+    console.log('=== BUTTON ELEMENT ===')
+    console.log('Element:', button)
+    console.log('HTML:', button.outerHTML)
+    
+    expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
   })
 
   test('Truncate supports `sx` prop', () => {

@@ -10,6 +10,8 @@ import {
   type SubNavLinkProps as PrimerSubNavLinkProps,
   ToggleSwitch as PrimerToggleSwitch,
   type ToggleSwitchProps as PrimerToggleSwitchProps,
+  Tooltip as PrimerTooltip,
+  type TooltipProps as PrimerTooltipProps,
 } from '@primer/react'
 import {forwardRef} from 'react'
 import type {
@@ -65,7 +67,13 @@ const ToggleSwitch = forwardRef<HTMLButtonElement, ToggleSwitchProps>(function T
   return <Box as={PrimerToggleSwitch} ref={ref} {...props} />
 })
 
-export {StateLabel, SubNav, ToggleSwitch}
+type TooltipProps = PrimerTooltipProps & SxProp
+
+const Tooltip: React.ForwardRefExoticComponent<TooltipProps & React.RefAttributes<HTMLDivElement>> = forwardRef<HTMLDivElement, TooltipProps>(function Tooltip(props, ref) {
+  return <Box as={PrimerTooltip} ref={ref} {...props} />
+})
+
+export {StateLabel, SubNav, ToggleSwitch, Tooltip}
 
 export {
   ActionList,
@@ -104,7 +112,6 @@ export {
   TextInput,
   Timeline,
   Token,
-  Tooltip,
   Truncate,
   UnderlineNav,
 
