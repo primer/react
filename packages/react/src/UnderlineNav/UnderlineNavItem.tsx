@@ -40,7 +40,7 @@ export type UnderlineNavItemProps<As extends React.ElementType = 'a'> = {
   /**
    * Renders `UnderlineNav.Item` as given component i.e. react-router's Link
    **/
-  as?: 'a'
+  as?: As
   /**
    * Counter
    */
