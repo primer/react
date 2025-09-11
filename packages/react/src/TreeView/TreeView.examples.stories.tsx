@@ -1,9 +1,9 @@
 import {GrabberIcon} from '@primer/octicons-react'
 import type {Meta, StoryFn} from '@storybook/react-vite'
 import React from 'react'
-import Box from '../Box'
 import {TreeView} from './TreeView'
 import {IconButton} from '../Button'
+import classes from './TreeViewStories.module.css'
 
 const meta: Meta = {
   title: 'Components/TreeView/Examples',
@@ -12,9 +12,9 @@ const meta: Meta = {
     Story => {
       return (
         // Prevent TreeView from expanding to the full width of the screen
-        <Box sx={{maxWidth: 400}}>
+        <div className={classes.WidthContraintContainer}>
           <Story />
-        </Box>
+        </div>
       )
     },
   ],
@@ -22,17 +22,7 @@ const meta: Meta = {
 
 export const DraggableListItem: StoryFn = () => {
   return (
-    <Box
-      sx={{
-        // using Box for css, this could be in a css file as well
-        '.treeview-item': {
-          '.treeview-leading-action': {visibility: 'hidden'},
-          '&:hover, &:focus': {
-            '.treeview-leading-action': {visibility: 'visible'},
-          },
-        },
-      }}
-    >
+    <div className={classes.DraggableItemContainer}>
       <TreeView aria-label="Issues">
         <ControlledDraggableItem id="item-1">Item 1</ControlledDraggableItem>
         <ControlledDraggableItem id="item-2">
@@ -44,7 +34,7 @@ export const DraggableListItem: StoryFn = () => {
         </ControlledDraggableItem>
         <ControlledDraggableItem id="item-3">Item 3</ControlledDraggableItem>
       </TreeView>
-    </Box>
+    </div>
   )
 }
 
@@ -53,13 +43,13 @@ const ControlledDraggableItem: React.FC<{id: string; children: React.ReactNode}>
 
   return (
     <>
-      <TreeView.Item id={id} className="treeview-item" expanded={expanded} onExpandedChange={setExpanded}>
+      <TreeView.Item id={id} className={classes.TreeViewItem} expanded={expanded} onExpandedChange={setExpanded}>
         <TreeView.LeadingAction>
           <IconButton
             icon={GrabberIcon}
             variant="invisible"
             aria-label="Reorder item"
-            className="treeview-leading-action"
+            className={classes.TreeViewLeadingAction}
             draggable="true"
             onDragStart={() => {
               setExpanded(false)

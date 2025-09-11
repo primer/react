@@ -15,7 +15,7 @@ export default {
   component: Select,
   parameters: {
     controls: {
-      exclude: ['hasTrailingAction', 'monospace', 'isInputFocused', 'sx'],
+      exclude: ['hasTrailingAction', 'monospace', 'isInputFocused'],
     },
   },
 } as Meta

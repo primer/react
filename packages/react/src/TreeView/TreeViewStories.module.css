@@ -1,0 +1,12 @@
+.WidthContraintContainer {
+  max-width: 400px;
+}
+
+.TreeViewLeadingAction {
+  visibility: hidden;
+}
+
+.DraggableItemContainer .TreeViewItem:hover .TreeViewLeadingAction,
+.DraggableItemContainer .TreeViewItem:focus .TreeViewLeadingAction {
+  visibility: visible;
+}
