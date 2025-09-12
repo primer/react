@@ -21,7 +21,7 @@ export const Default = () => (
 
 export const Playground: StoryFn<PopoverProps & PopoverContentProps> = args => (
   <Popover {...args}>
-    <Popover.Content sx={{marginTop: 2}} width={args.width || 'small'} height={args.height} overflow={args.overflow}>
+    <Popover.Content sx={{marginTop: 2}} width={args.width || 'small'} height={args.height}>
       <Heading sx={{fontSize: 2}}>Popover heading</Heading>
       <Text as="p">Message about popovers</Text>
       <Button>Got it!</Button>
@@ -78,11 +78,5 @@ Playground.argTypes = {
       type: 'radio',
     },
     options: ['small', 'medium', 'large', 'auto', 'xlarge', 'fit-content'],
-  },
-  overflow: {
-    control: {
-      type: 'radio',
-    },
-    options: ['auto', 'hidden', 'scroll', 'visible'],
   },
 }
