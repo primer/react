@@ -5,6 +5,8 @@ import {
   Box,
   type BoxProps,
   type SxProp,
+  RadioGroup as PrimerRadioGroup,
+  type RadioGroupProps as PrimerRadioGroupProps,
   StateLabel as PrimerStateLabel,
   type StateLabelProps as PrimerStateLabelProps,
   SubNav as PrimerSubNav,
@@ -14,6 +16,8 @@ import {
   type TextareaProps as PrimerTextareaProps,
   ToggleSwitch as PrimerToggleSwitch,
   type ToggleSwitchProps as PrimerToggleSwitchProps,
+  Truncate as PrimerTruncate,
+  type TruncateProps as PrimerTruncateProps,
   type SegmentedControlProps as PrimerSegmentedControlProps,
   SegmentedControl as PrimerSegmentedControl,
   type SegmentedControlButtonProps as PrimerSegmentedControlButtonProps,
@@ -46,6 +50,12 @@ type StyledProps = SxProp &
   BorderProps &
   PositionProps &
   ShadowProps
+
+type RadioGroupProps = PropsWithChildren<PrimerRadioGroupProps> & SxProp
+
+const RadioGroup = (props: RadioGroupProps) => {
+  return <Box as={PrimerRadioGroup} {...props} />
+}
 
 type SegmentedControlProps = PropsWithChildren<PrimerSegmentedControlProps> & SxProp
 type SegmentedControlButtonProps = PropsWithChildren<PrimerSegmentedControlButtonProps> & SxProp
@@ -104,6 +114,12 @@ const Textarea: React.ForwardRefExoticComponent<TextareaProps & React.RefAttribu
   TextareaProps
 >(function Textarea(props, ref) {
   return <Box as={PrimerTextarea} ref={ref} {...props} />
+})
+
+type TruncateProps = PropsWithChildren<PrimerTruncateProps> & SxProp
+
+const Truncate = forwardRef<HTMLDivElement, TruncateProps>(function Truncate(props, ref) {
+  return <Box as={PrimerTruncate} ref={ref} {...props} />
 })
 
 export {Autocomplete, SegmentedControl, Select, StateLabel, SubNav, TextInput, Textarea, ToggleSwitch}
