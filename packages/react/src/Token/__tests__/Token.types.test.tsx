@@ -70,17 +70,6 @@ export function allowsOnResizeProps() {
   return <Token text="Token test" onResize={() => {}} onResizeCapture={() => {}} />
 }
 
-export function allowsSxProp() {
-  return (
-    <Token
-      text="Token test"
-      sx={{
-        backgroundColor: 'canvas.default',
-      }}
-    />
-  )
-}
-
 export function hasReasonableEventsForTargets() {
   const handleButtonClick: React.MouseEventHandler<HTMLButtonElement> = _event => {}
   const handleAnchorClick: React.MouseEventHandler<HTMLAnchorElement> = _event => {}

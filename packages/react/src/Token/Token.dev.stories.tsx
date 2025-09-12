@@ -6,4 +6,4 @@ export default {
   component: Token,
 } as Meta<typeof Token>
 
-export const DevDefault = () => <Token text="token" sx={{color: 'red'}} style={{border: '2px solid blue'}} />
+export const DevDefault = () => <Token text="token" style={{color: 'red', border: '2px solid blue'}} />
