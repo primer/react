@@ -1,6 +1,8 @@
 import type React from 'react'
 import {forwardRef, type PropsWithChildren} from 'react'
 import {
+  type AvatarProps as PrimerAvatarProps,
+  Avatar as PrimerAvatar
   type BetterSystemStyleObject,
   Box,
   type BoxProps,
@@ -46,6 +48,11 @@ type StyledProps = SxProp &
   BorderProps &
   PositionProps &
   ShadowProps
+
+type AvatarProps = PrimerAvatarProps & StyledProps
+const Avatar = forwardRef<HTMLImageElement, AvatarProps>(function Avatar(props, ref) {
+  return <Box as={PrimerAvatar} ref={ref} {...props} />
+})
 
 type SegmentedControlProps = PropsWithChildren<PrimerSegmentedControlProps> & SxProp
 type SegmentedControlButtonProps = PropsWithChildren<PrimerSegmentedControlButtonProps> & SxProp
@@ -106,12 +113,11 @@ const Textarea: React.ForwardRefExoticComponent<TextareaProps & React.RefAttribu
   return <Box as={PrimerTextarea} ref={ref} {...props} />
 })
 
-export {Autocomplete, SegmentedControl, Select, StateLabel, SubNav, TextInput, Textarea, ToggleSwitch}
+export {Autocomplete, Avatar, SegmentedControl, Select, StateLabel, SubNav, TextInput, Textarea, ToggleSwitch}
 
 export {
   ActionList,
   ActionMenu,
-  Avatar,
   Breadcrumbs,
   Button,
   Checkbox,
