@@ -11,11 +11,6 @@
       "type": "string",
       "defaultValue": "div",
       "description": "Sets the underlying HTML tag for the component"
-    },
-    {
-      "name": "sx",
-      "type": "SystemStyleObject",
-      "deprecated": true
     }
   ],
   "subcomponents": []
