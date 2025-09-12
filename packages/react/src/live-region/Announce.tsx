@@ -6,8 +6,8 @@ import {useEffectCallback} from '../internal/hooks/useEffectCallback'
 import type {PolymorphicProps} from '../utils/modern-polymorphic'
 
 export type AnnounceProps<As extends React.ElementType> = PolymorphicProps<
-  'div',
   As,
+  'div',
   {
     /**
      * Specify if the content of the element should be announced when this

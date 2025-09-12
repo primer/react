@@ -3,9 +3,9 @@ import {type ElementType} from 'react'
 import {Announce} from './Announce'
 import type {PolymorphicProps} from '../utils/modern-polymorphic'
 
-export type AriaStatusProps<As extends ElementType> = PolymorphicProps<
-  'div',
+export type AriaStatusProps<As extends ElementType = 'div'> = PolymorphicProps<
   As,
+  'div',
   {
     /**
      * Specify if the content of the element should be announced when this
@@ -27,14 +27,6 @@ export type AriaStatusProps<As extends ElementType> = PolymorphicProps<
   }
 >
 
-export function AriaStatus<As extends ElementType = 'div'>({
-  announceOnShow = false,
-  children,
-  ...rest
-}: AriaStatusProps<As>) {
-  return (
-    <Announce {...rest} announceOnShow={announceOnShow} politeness="polite">
-      {children}
-    </Announce>
-  )
+export function AriaStatus<As extends ElementType = 'div'>(props: AriaStatusProps<As>) {
+  return <Announce {...props} announceOnShow={props.announceOnShow ?? false} politeness="polite" />
 }
