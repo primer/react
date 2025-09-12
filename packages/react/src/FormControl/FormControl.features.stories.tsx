@@ -19,7 +19,7 @@ import {
   theme,
 } from '..'
 import {MarkGithubIcon, TriangleDownIcon} from '@primer/octicons-react'
-import type {ItemInput} from '../deprecated/ActionList/List'
+import type {ItemInput} from '../SelectPanel'
 import {Stack} from '../Stack'
 import classes from './FormControl.features.stories.module.css'
 

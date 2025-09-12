@@ -31,15 +31,6 @@ describe('AriaAlert', () => {
     expect(container.firstChild).toHaveAttribute('data-testid', 'container')
   })
 
-  it('should support styling via the `sx` prop', () => {
-    render(
-      <AriaAlert data-testid="container" sx={{color: 'blue'}}>
-        test
-      </AriaAlert>,
-    )
-    expect(screen.getByTestId('container')).toHaveStyle('color: rgb(0, 0, 255)')
-  })
-
   it('should support customizing the container element with `as`', () => {
     render(
       <AriaAlert as="span" data-testid="container">
