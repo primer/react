@@ -7,7 +7,6 @@ exports[`@primer/styled-react exports 1`] = `
   "Autocomplete",
   "Avatar",
   "Box",
-  "Breadcrumbs",
   "Button",
   "Checkbox",
   "CheckboxGroup",

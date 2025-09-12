@@ -112,7 +112,6 @@ export {
   ActionList,
   ActionMenu,
   Avatar,
-  Breadcrumbs,
   Button,
   Checkbox,
   CheckboxGroup,
