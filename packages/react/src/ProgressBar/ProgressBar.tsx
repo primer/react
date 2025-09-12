@@ -1,8 +1,6 @@
 import React, {forwardRef} from 'react'
-import type {SxProp} from '../sx'
 import {clsx} from 'clsx'
 import classes from './ProgressBar.module.css'
-import {BoxWithFallback} from '../internal/components/BoxWithFallback'
 
 type ProgressProp = {
   className?: string
@@ -14,13 +12,12 @@ type StyledProgressContainerProps = {
   inline?: boolean
   barSize?: 'small' | 'default' | 'large'
   animated?: boolean
-} & SxProp
+}
 
 export type ProgressBarItemProps = React.HTMLAttributes<HTMLSpanElement> & {
   'aria-label'?: string
   className?: string
-} & ProgressProp &
-  SxProp
+} & ProgressProp
 
 export const Item = forwardRef<HTMLSpanElement, ProgressBarItemProps>(
   (
@@ -56,14 +53,12 @@ export const Item = forwardRef<HTMLSpanElement, ProgressBarItemProps>(
       (bgType && `var(--bgColor-${bgType[0]}-${bgType[1] || 'emphasis'})`) || 'var(--bgColor-success-emphasis)'
 
     return (
-      <BoxWithFallback
-        as="span"
+      <span
         className={clsx(className, classes.ProgressBarItem)}
         {...rest}
         role="progressbar"
         aria-label={ariaLabel}
         ref={forwardRef}
-        progress={progress}
         style={{...styles, ...style}}
         {...ariaAttributes}
       />
@@ -105,8 +100,7 @@ export const ProgressBar = forwardRef<HTMLSpanElement, ProgressBarProps>(
     const validChildren = React.Children.toArray(children).length
 
     return (
-      <BoxWithFallback
-        as="span"
+      <span
         ref={forwardRef}
         className={clsx(className, classes.ProgressBarContainer)}
         data-progress-display={inline ? 'inline' : 'block'}
@@ -125,7 +119,7 @@ export const ProgressBar = forwardRef<HTMLSpanElement, ProgressBarProps>(
             bg={bg}
           />
         )}
-      </BoxWithFallback>
+      </span>
     )
   },
 )

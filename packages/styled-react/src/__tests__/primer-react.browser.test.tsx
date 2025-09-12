@@ -28,7 +28,6 @@ import {
   PageHeader,
   PageLayout,
   Popover,
-  ProgressBar,
   RadioGroup,
   RelativeTime,
   SegmentedControl,
@@ -294,16 +293,6 @@ describe('@primer/react', () => {
 
   test('Popover.Content supports `sx` prop', () => {
     const {container} = render(<Popover.Content data-testid="component" sx={{background: 'red'}} />)
-    expect(window.getComputedStyle(container.firstElementChild!).backgroundColor).toBe('rgb(255, 0, 0)')
-  })
-
-  test('ProgressBar supports `sx` prop', () => {
-    const {container} = render(<ProgressBar data-testid="component" sx={{background: 'red'}} />)
-    expect(window.getComputedStyle(container.firstElementChild!).backgroundColor).toBe('rgb(255, 0, 0)')
-  })
-
-  test('ProgressBar.Item supports `sx` prop', () => {
-    const {container} = render(<ProgressBar.Item data-testid="component" sx={{background: 'red'}} />)
     expect(window.getComputedStyle(container.firstElementChild!).backgroundColor).toBe('rgb(255, 0, 0)')
   })
 

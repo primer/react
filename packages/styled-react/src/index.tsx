@@ -133,7 +133,6 @@ export {
   PageHeader,
   PageLayout,
   Popover,
-  ProgressBar,
   RadioGroup,
   RelativeTime,
   Spinner,
