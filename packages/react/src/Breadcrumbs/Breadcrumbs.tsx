@@ -3,7 +3,6 @@ import type {To} from 'history'
 import React, {useState, useRef, useCallback, useEffect, useMemo} from 'react'
 import type {ComponentProps} from '../utils/types'
 import classes from './Breadcrumbs.module.css'
-import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import Details from '../Details'
 import {ActionList} from '../ActionList'
 import {IconButton} from '../Button/IconButton'
@@ -371,16 +370,18 @@ type StyledBreadcrumbsItemProps = {
 } & React.HTMLAttributes<HTMLAnchorElement> &
   React.ComponentPropsWithRef<'a'>
 
-const BreadcrumbsItem = React.forwardRef(({selected, className, ...rest}, ref) => {
-  return (
-    <a
-      className={clsx(className, classes.Item, selected && 'selected')}
-      aria-current={selected ? 'page' : undefined}
-      ref={ref}
-      {...rest}
-    />
-  )
-}) as PolymorphicForwardRefComponent<'a', StyledBreadcrumbsItemProps>
+const BreadcrumbsItem = React.forwardRef<HTMLAnchorElement, StyledBreadcrumbsItemProps>(
+  ({selected, className, ...rest}, ref) => {
+    return (
+      <a
+        className={clsx(className, classes.Item, selected && 'selected')}
+        aria-current={selected ? 'page' : undefined}
+        ref={ref}
+        {...rest}
+      />
+    )
+  },
+)
 
 Breadcrumbs.displayName = 'Breadcrumbs'
 
