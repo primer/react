@@ -33,7 +33,7 @@ import type {
 } from 'styled-system'
 import {Autocomplete} from './components/Autocomplete'
 import {Select} from './components/Select'
-import {TextInput} from './components/TextInput'
+import {TextInput, type TextInputProps} from './components/TextInput'
 
 type StyledProps = SxProp &
   SpaceProps &
@@ -155,4 +155,4 @@ export {
   useColorSchemeVar,
   useTheme,
 } from '@primer/react'
-export type {BoxProps, SxProp, BetterSystemStyleObject}
+export type {BoxProps, SxProp, BetterSystemStyleObject, TextInputProps}
