@@ -1,10 +1,8 @@
 import React, {useCallback, useEffect, useRef, useState, type SyntheticEvent} from 'react'
 import type {ButtonProps} from '../Button'
 import {Button, IconButton} from '../Button'
-import Box from '../Box'
 import {useOnEscapePress, useProvidedRefOrCreate} from '../hooks'
 import {useFocusTrap} from '../hooks/useFocusTrap'
-import type {SxProp} from '../sx'
 import {XIcon} from '@primer/octicons-react'
 import {useFocusZone} from '../hooks/useFocusZone'
 import {FocusKeys} from '@primer/behaviors'
@@ -17,7 +15,6 @@ import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../uti
 
 import classes from './Dialog.module.css'
 import {clsx} from 'clsx'
-import {BoxWithFallback} from '../internal/components/BoxWithFallback'
 
 /* Dialog Version 2 */
 
@@ -52,7 +49,7 @@ export type DialogButtonProps = Omit<ButtonProps, 'content'> & {
 /**
  * Props to customize the rendering of the Dialog.
  */
-export interface DialogProps extends SxProp {
+export interface DialogProps {
   /**
    * Title of the Dialog. Also serves as the aria-label for this Dialog.
    */
@@ -198,13 +195,13 @@ const DefaultHeader: React.FC<React.PropsWithChildren<DialogHeaderProps>> = ({
   }, [onClose])
   return (
     <Dialog.Header>
-      <Box display="flex">
-        <Box display="flex" px={2} py="6px" flexDirection="column" flexGrow={1}>
+      <div className={classes.HeaderInner}>
+        <div className={classes.HeaderContent}>
           <Dialog.Title id={dialogLabelId}>{title ?? 'Dialog'}</Dialog.Title>
           {subtitle && <Dialog.Subtitle id={dialogDescriptionId}>{subtitle}</Dialog.Subtitle>}
-        </Box>
+        </div>
         <Dialog.CloseButton onClose={onCloseClick} />
-      </Box>
+      </div>
     </Dialog.Header>
   )
 }
@@ -245,7 +242,6 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
     position = defaultPosition,
     returnFocusRef,
     initialFocusRef,
-    sx,
     className,
   } = props
   const dialogLabelId = useId()
@@ -311,8 +307,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
   return (
     <>
       <Portal>
-        <BoxWithFallback
-          as="div"
+        <div
           ref={backdropRef}
           className={classes.Backdrop}
           {...positionDataAttributes}
@@ -321,8 +316,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
             setLastMouseDownIsBackdrop(e.target === e.currentTarget)
           }}
         >
-          <BoxWithFallback
-            as="div"
+          <div
             ref={dialogRef}
             role={role}
             aria-labelledby={dialogLabelId}
@@ -331,7 +325,6 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
             {...positionDataAttributes}
             data-width={width}
             data-height={height}
-            sx={sx}
             className={clsx(className, classes.Dialog)}
           >
             {header}
@@ -339,50 +332,50 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
               {body}
             </ScrollableRegion>
             {footer}
-          </BoxWithFallback>
-        </BoxWithFallback>
+          </div>
+        </div>
       </Portal>
     </>
   )
 })
 _Dialog.displayName = 'Dialog'
 
-type StyledHeaderProps = React.ComponentProps<'div'> & SxProp
+type StyledHeaderProps = React.ComponentProps<'div'>
 
-const Header = React.forwardRef<HTMLElement, StyledHeaderProps>(function Header({className, ...rest}, forwardRef) {
-  return <BoxWithFallback as="div" ref={forwardRef} className={clsx(className, classes.Header)} {...rest} />
+const Header = React.forwardRef<HTMLDivElement, StyledHeaderProps>(function Header({className, ...rest}, forwardRef) {
+  return <div ref={forwardRef} className={clsx(className, classes.Header)} {...rest} />
 })
 Header.displayName = 'Dialog.Header'
 
-type StyledTitleProps = React.ComponentProps<'h1'> & SxProp
+type StyledTitleProps = React.ComponentProps<'h1'>
 
-const Title = React.forwardRef<HTMLElement, StyledTitleProps>(function Title({className, ...rest}, forwardRef) {
-  return <BoxWithFallback as="h1" ref={forwardRef} className={clsx(className, classes.Title)} {...rest} />
+const Title = React.forwardRef<HTMLHeadingElement, StyledTitleProps>(function Title({className, ...rest}, forwardRef) {
+  return <h1 ref={forwardRef} className={clsx(className, classes.Title)} {...rest} />
 })
 Title.displayName = 'Dialog.Title'
 
-type StyledSubtitleProps = React.ComponentProps<'h2'> & SxProp
+type StyledSubtitleProps = React.ComponentProps<'h2'>
 
-const Subtitle = React.forwardRef<HTMLElement, StyledSubtitleProps>(function Subtitle(
+const Subtitle = React.forwardRef<HTMLHeadingElement, StyledSubtitleProps>(function Subtitle(
   {className, ...rest},
   forwardRef,
 ) {
-  return <BoxWithFallback as="h2" ref={forwardRef} className={clsx(className, classes.Subtitle)} {...rest} />
+  return <h2 ref={forwardRef} className={clsx(className, classes.Subtitle)} {...rest} />
 })
 Subtitle.displayName = 'Dialog.Subtitle'
 
-type StyledBodyProps = React.ComponentProps<'div'> & SxProp
+type StyledBodyProps = React.ComponentProps<'div'>
 
-const Body = React.forwardRef<HTMLElement, StyledBodyProps>(function Body({className, ...rest}, forwardRef) {
-  return <BoxWithFallback as="div" ref={forwardRef} className={clsx(className, classes.Body)} {...rest} />
+const Body = React.forwardRef<HTMLDivElement, StyledBodyProps>(function Body({className, ...rest}, forwardRef) {
+  return <div ref={forwardRef} className={clsx(className, classes.Body)} {...rest} />
 }) as PolymorphicForwardRefComponent<'div', StyledBodyProps>
 
 Body.displayName = 'Dialog.Body'
 
-type StyledFooterProps = React.ComponentProps<'div'> & SxProp
+type StyledFooterProps = React.ComponentProps<'div'>
 
-const Footer = React.forwardRef<HTMLElement, StyledFooterProps>(function Footer({className, ...rest}, forwardRef) {
-  return <BoxWithFallback as="div" ref={forwardRef} className={clsx(className, classes.Footer)} {...rest} />
+const Footer = React.forwardRef<HTMLDivElement, StyledFooterProps>(function Footer({className, ...rest}, forwardRef) {
+  return <div ref={forwardRef} className={clsx(className, classes.Footer)} {...rest} />
 })
 Footer.displayName = 'Dialog.Footer'
 

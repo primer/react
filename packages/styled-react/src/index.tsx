@@ -4,7 +4,6 @@ import {
   type BetterSystemStyleObject,
   Box,
   type BoxProps,
-  type SxProp,
   StateLabel as PrimerStateLabel,
   type StateLabelProps as PrimerStateLabelProps,
   SubNav as PrimerSubNav,
@@ -31,6 +30,8 @@ import type {
   SpaceProps,
   TypographyProps,
 } from 'styled-system'
+import type {SxProp} from './sx'
+import {Dialog} from './components/Dialog'
 import {Autocomplete} from './components/Autocomplete'
 import {Select} from './components/Select'
 import {TextInput} from './components/TextInput'
@@ -106,7 +107,7 @@ const Textarea: React.ForwardRefExoticComponent<TextareaProps & React.RefAttribu
   return <Box as={PrimerTextarea} ref={ref} {...props} />
 })
 
-export {Autocomplete, SegmentedControl, Select, StateLabel, SubNav, TextInput, Textarea, ToggleSwitch}
+export {Autocomplete, Dialog, SegmentedControl, Select, StateLabel, SubNav, TextInput, Textarea, ToggleSwitch}
 
 export {
   ActionList,
@@ -119,7 +120,6 @@ export {
   CircleBadge,
   CounterLabel,
   Details,
-  Dialog,
   Flash,
   FormControl,
   Header,
