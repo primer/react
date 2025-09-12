@@ -2,13 +2,6 @@
 
 exports[`@primer/styled-react exports 1`] = `
 [
-<<<<<<< HEAD
-  "Label",
-  "ToggleSwitch",
-||||||| ab5ffb00d
-  "ToggleSwitch",
-=======
->>>>>>> 9d13904037541d8f4f68d5d833f632304cace06e
   "ActionList",
   "ActionMenu",
   "Autocomplete",
@@ -27,14 +20,7 @@ exports[`@primer/styled-react exports 1`] = `
   "Header",
   "Heading",
   "IconButton",
-<<<<<<< HEAD
-  "LabelGroup",
-||||||| ab5ffb00d
   "Label",
-  "LabelGroup",
-=======
-  "Label",
->>>>>>> 9d13904037541d8f4f68d5d833f632304cace06e
   "Link",
   "LinkButton",
   "merge",
