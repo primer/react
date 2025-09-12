@@ -18,21 +18,3 @@ export const WithCSS = () => (
     </FormControl>
   </form>
 )
-
-export const WithSx = () => (
-  <form>
-    <FormControl>
-      <FormControl.Label>Default label</FormControl.Label>
-      <TextInput sx={{borderColor: 'red'}} />
-    </FormControl>
-  </form>
-)
-
-export const WithSxAndCSS = () => (
-  <form>
-    <FormControl>
-      <FormControl.Label>Default label</FormControl.Label>
-      <TextInput sx={{borderColor: 'red'}} className="testCustomClassnameBorderColor" />
-    </FormControl>
-  </form>
-)
