@@ -101,49 +101,34 @@ export const WithPortalContext = () => {
         <p>This story demonstrates how to use PortalContext to control where Portal content is rendered.</p>
 
         {/* Default Portal */}
-        <div
-          className={clsx(classes.PortalContainer, classes.InnerContainer)}
-          style={{backgroundColor: '#f0f8ff', margin: '10px', padding: '10px'}}
-        >
+        <div className={clsx(classes.PortalContainer, classes.DefaultSection)}>
           <strong>Default Portal (no context):</strong>
           {mounted ? (
             <Portal>
-              <div style={{backgroundColor: '#e6f3ff', padding: '8px', border: '1px solid #0366d6'}}>
-                Content in default portal
-              </div>
+              <div className={classes.DefaultPortalContent}>Content in default portal</div>
             </Portal>
           ) : null}
         </div>
 
         {/* Portal with Context */}
-        <div
-          className={clsx(classes.PortalContainer, classes.InnerContainer)}
-          style={{backgroundColor: '#fff5f5', margin: '10px', padding: '10px'}}
-        >
+        <div className={clsx(classes.PortalContainer, classes.ContextSection)}>
           <strong>Portal with PortalContext:</strong>
           <PortalContext.Provider value={{portalContainerName: 'custom-portal'}}>
             {mounted ? (
               <Portal>
-                <div style={{backgroundColor: '#ffe6e6', padding: '8px', border: '1px solid #d73a49'}}>
-                  Content in custom portal (via PortalContext)
-                </div>
+                <div className={classes.ContextPortalContent}>Content in custom portal (via PortalContext)</div>
               </Portal>
             ) : null}
           </PortalContext.Provider>
         </div>
 
         {/* Override context with containerName prop */}
-        <div
-          className={clsx(classes.PortalContainer, classes.InnerContainer)}
-          style={{backgroundColor: '#f0fff4', margin: '10px', padding: '10px'}}
-        >
+        <div className={clsx(classes.PortalContainer, classes.OverrideSection)}>
           <strong>Context + containerName prop override:</strong>
           <PortalContext.Provider value={{portalContainerName: 'custom-portal'}}>
             {mounted ? (
               <Portal containerName="override-portal">
-                <div style={{backgroundColor: '#e6ffe6', padding: '8px', border: '1px solid #28a745'}}>
-                  Content overriding context with containerName prop
-                </div>
+                <div className={classes.OverridePortalContent}>Content overriding context with containerName prop</div>
               </Portal>
             ) : null}
           </PortalContext.Provider>
@@ -151,34 +136,12 @@ export const WithPortalContext = () => {
       </div>
 
       {/* Custom portal containers */}
-      <div
-        style={{
-          position: 'fixed',
-          bottom: '10px',
-          left: '10px',
-          backgroundColor: '#fffbf0',
-          padding: '10px',
-          border: '2px solid #f66a0a',
-          borderRadius: '4px',
-          maxWidth: '200px',
-        }}
-      >
+      <div className={classes.CustomPortalContainer}>
         <strong>Custom Portal Container:</strong>
         <div ref={customContainerRef} />
       </div>
 
-      <div
-        style={{
-          position: 'fixed',
-          bottom: '10px',
-          right: '10px',
-          backgroundColor: '#f0fff0',
-          padding: '10px',
-          border: '2px solid #28a745',
-          borderRadius: '4px',
-          maxWidth: '200px',
-        }}
-      >
+      <div className={classes.OverridePortalContainer}>
         <strong>Override Portal Container:</strong>
         <div ref={overrideContainerRef} />
       </div>
