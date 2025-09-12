@@ -37,15 +37,6 @@ describe('Announce', () => {
     expect(container.firstChild).toHaveAttribute('data-testid', 'container')
   })
 
-  it('should support styling via the `sx` prop', () => {
-    render(
-      <Announce data-testid="container" sx={{color: 'blue'}}>
-        test
-      </Announce>,
-    )
-    expect(screen.getByTestId('container')).toHaveStyle('color: rgb(0, 0, 255)')
-  })
-
   it('should support customizing the container element with `as`', () => {
     render(
       <Announce as="span" data-testid="container">
