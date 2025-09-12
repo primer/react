@@ -1,0 +1,13 @@
+.Placeholder {
+  /* these are set in the component */
+  --placeholder-width: ;
+  --placeholder-height: ;
+
+  width: var(--placeholder-width, 100%);
+  height: var(--placeholder-height);
+  display: grid;
+  place-items: center;
+  background-color: var(--bgColor-inset);
+  border-radius: var(--borderRadius-medium);
+  border: var(--borderWidth-thin) solid var(--borderColor-muted);
+}

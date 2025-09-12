@@ -78,10 +78,4 @@ Playground.argTypes = {
       disable: true,
     },
   },
-  theme: {
-    control: false,
-    table: {
-      disable: true,
-    },
-  },
 }

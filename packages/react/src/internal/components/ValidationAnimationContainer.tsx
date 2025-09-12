@@ -2,7 +2,6 @@ import type {HTMLProps} from 'react'
 import type React from 'react'
 import {useEffect, useState} from 'react'
 import styled, {keyframes, css} from 'styled-components'
-import Box from '../../Box'
 
 interface Props extends HTMLProps<HTMLDivElement> {
   show?: boolean
@@ -37,11 +36,11 @@ const ValidationAnimationContainer: React.FC<React.PropsWithChildren<Props>> = (
   }
 
   return shouldRender ? (
-    <Box height={show ? 'auto' : 0} overflow="hidden">
+    <div style={{height: show ? 'auto' : 0, overflow: 'hidden'}}>
       <AnimatedElement show={show} onAnimationEnd={onAnimationEnd}>
         {children}
       </AnimatedElement>
-    </Box>
+    </div>
   ) : null
 }
 

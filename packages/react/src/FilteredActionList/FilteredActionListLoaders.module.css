@@ -2,3 +2,18 @@
   /* stylelint-disable-next-line primer/borders */
   border-radius: 4px;
 }
+
+.SpinnerContainer {
+  padding: var(--base-size-12);
+  flex-grow: 1;
+  align-content: center;
+  text-align: center;
+  height: 100%;
+}
+
+.SkeletonContainer {
+  padding: var(--base-size-8);
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+}
