@@ -74,6 +74,8 @@ export {default as Avatar} from './Avatar'
 export type {AvatarProps} from './Avatar'
 export {default as AvatarStack} from './AvatarStack'
 export type {AvatarStackProps} from './AvatarStack'
+export {Banner} from './Banner'
+export type {BannerProps} from './Banner'
 
 export {default as BranchName} from './BranchName'
 export type {BranchNameProps} from './BranchName'
@@ -127,11 +129,16 @@ export type {PopoverProps, PopoverContentProps} from './Popover'
 export {default as Portal, registerPortalRoot} from './Portal'
 export type {PortalProps} from './Portal'
 export {ProgressBar} from './ProgressBar'
-export type {ProgressBarProps} from './ProgressBar'
+export type {ProgressBarProps, ProgressBarItemProps} from './ProgressBar'
 export {default as RadioGroup} from './RadioGroup'
 export type {RelativeTimeProps} from './RelativeTime'
 export {default as RelativeTime} from './RelativeTime'
 export {SegmentedControl} from './SegmentedControl'
+export type {
+  SegmentedControlProps,
+  SegmentedControlButtonProps,
+  SegmentedControlIconButtonProps,
+} from './SegmentedControl'
 // Curently there is a duplicate Select component at the root of the dir, so need to be explicit about exporting from the src/Select dir
 export {default as Select} from './Select'
 export type {SelectProps} from './Select'

@@ -2,13 +2,18 @@
 
 exports[`@primer/styled-react exports 1`] = `
 [
+<<<<<<< HEAD
   "Label",
   "ToggleSwitch",
+||||||| ab5ffb00d
+  "ToggleSwitch",
+=======
+>>>>>>> 9d13904037541d8f4f68d5d833f632304cace06e
   "ActionList",
   "ActionMenu",
   "Autocomplete",
   "Avatar",
-  "BranchName",
+  "Box",
   "Breadcrumbs",
   "Button",
   "Checkbox",
@@ -22,9 +27,17 @@ exports[`@primer/styled-react exports 1`] = `
   "Header",
   "Heading",
   "IconButton",
+<<<<<<< HEAD
   "LabelGroup",
+||||||| ab5ffb00d
+  "Label",
+  "LabelGroup",
+=======
+  "Label",
+>>>>>>> 9d13904037541d8f4f68d5d833f632304cace06e
   "Link",
   "LinkButton",
+  "merge",
   "NavList",
   "Overlay",
   "PageHeader",
@@ -35,27 +48,22 @@ exports[`@primer/styled-react exports 1`] = `
   "RelativeTime",
   "SegmentedControl",
   "Select",
-  "SelectPanel",
-  "SideNav",
   "Spinner",
-  "Stack",
   "StateLabel",
   "SubNav",
+  "sx",
   "Text",
   "Textarea",
   "TextInput",
-  "TextInputWithTokens",
+  "theme",
+  "themeGet",
+  "ThemeProvider",
   "Timeline",
+  "ToggleSwitch",
   "Token",
   "Tooltip",
   "Truncate",
   "UnderlineNav",
-  "Box",
-  "sx",
-  "ThemeProvider",
-  "merge",
-  "theme",
-  "themeGet",
   "useColorSchemeVar",
   "useTheme",
 ]

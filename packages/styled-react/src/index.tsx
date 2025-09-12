@@ -1,14 +1,26 @@
+import type React from 'react'
+import {forwardRef, type PropsWithChildren} from 'react'
 import {
   type BetterSystemStyleObject,
   Box,
   type BoxProps,
-  Label as PrimerLabel,
   type LabelProps as PrimerLabelProps,
+  Label as PrimerLabel,
+  type SxProp,
+  StateLabel as PrimerStateLabel,
+  type StateLabelProps as PrimerStateLabelProps,
+  SubNav as PrimerSubNav,
+  type SubNavProps as PrimerSubNavProps,
+  type SubNavLinkProps as PrimerSubNavLinkProps,
+  Textarea as PrimerTextarea,
+  type TextareaProps as PrimerTextareaProps,
   ToggleSwitch as PrimerToggleSwitch,
   type ToggleSwitchProps as PrimerToggleSwitchProps,
-  type SxProp,
+  type SegmentedControlProps as PrimerSegmentedControlProps,
+  SegmentedControl as PrimerSegmentedControl,
+  type SegmentedControlButtonProps as PrimerSegmentedControlButtonProps,
+  type SegmentedControlIconButtonProps as PrimerSegmentedControlIconButtonProps,
 } from '@primer/react'
-import {forwardRef} from 'react'
 import type {
   BackgroundProps,
   BorderProps,
@@ -21,6 +33,9 @@ import type {
   SpaceProps,
   TypographyProps,
 } from 'styled-system'
+import {Autocomplete} from './components/Autocomplete'
+import {Select} from './components/Select'
+import {TextInput} from './components/TextInput'
 import type {ForwardRefComponent} from './polymorphic'
 
 type StyledProps = SxProp &
@@ -35,26 +50,77 @@ type StyledProps = SxProp &
   PositionProps &
   ShadowProps
 
+type LabelProps = PrimerLabelProps & SxProp
+
 const Label = forwardRef(function Label(props, ref) {
-  // @ts-expect-error there is an issue with polymorphic `as` with this
-  // component
   return <Box as={PrimerLabel} ref={ref} {...props} />
-}) as ForwardRefComponent<'span', PrimerLabelProps & Omit<StyledProps, keyof PrimerLabelProps>>
+}) as ForwardRefComponent<'span', LabelProps>
 
-const ToggleSwitch = forwardRef(function ToggleSwitch(props, ref) {
-  // @ts-expect-error there is an issue with polymorphic `as` with this
-  // component
+type SegmentedControlProps = PropsWithChildren<PrimerSegmentedControlProps> & SxProp
+type SegmentedControlButtonProps = PropsWithChildren<PrimerSegmentedControlButtonProps> & SxProp
+type SegmentedControlIconButtonProps = PropsWithChildren<PrimerSegmentedControlIconButtonProps> & SxProp
+
+const SegmentedControlButton = (props: SegmentedControlButtonProps) => {
+  return <Box as={PrimerSegmentedControl.Button} {...props} />
+}
+
+const SegmentedControlIconButton = (props: SegmentedControlIconButtonProps) => {
+  return <Box as={PrimerSegmentedControl.IconButton} {...props} />
+}
+
+const SegmentedControlImpl = (props: SegmentedControlProps) => {
+  return <Box as={PrimerSegmentedControl} {...props} />
+}
+
+const SegmentedControl = Object.assign(SegmentedControlImpl, {
+  Button: SegmentedControlButton,
+  IconButton: SegmentedControlIconButton,
+})
+
+type StateLabelProps = PrimerStateLabelProps & SxProp
+
+const StateLabel = forwardRef<HTMLSpanElement, StateLabelProps>(function StateLabel(props, ref) {
+  return <Box as={PrimerStateLabel} ref={ref} {...props} />
+})
+
+type SubNavProps = PrimerSubNavProps & SxProp
+
+const SubNavImpl = forwardRef<HTMLElement, SubNavProps>(function SubNav(props, ref) {
+  return <Box as={PrimerSubNav} ref={ref} {...props} />
+})
+
+type SubNavLinkProps = PrimerSubNavLinkProps & SxProp
+
+const SubNavLink = forwardRef<HTMLAnchorElement, SubNavLinkProps>(function SubNavLink(props, ref) {
+  return <Box as={PrimerSubNav.Link} ref={ref} {...props} />
+})
+
+const SubNav = Object.assign(SubNavImpl, {
+  Link: SubNavLink,
+})
+
+type ToggleSwitchProps = PrimerToggleSwitchProps & Omit<StyledProps, keyof PrimerToggleSwitchProps>
+
+const ToggleSwitch = forwardRef<HTMLButtonElement, ToggleSwitchProps>(function ToggleSwitch(props, ref) {
   return <Box as={PrimerToggleSwitch} ref={ref} {...props} />
-}) as ForwardRefComponent<'span', PrimerToggleSwitchProps & Omit<StyledProps, keyof PrimerToggleSwitchProps>>
+})
 
-export {Label, ToggleSwitch}
+type TextareaProps = PropsWithChildren<PrimerTextareaProps> & SxProp
+
+// Type annotation needed because TextInput uses `FormValidationStatus` internal type
+const Textarea: React.ForwardRefExoticComponent<TextareaProps & React.RefAttributes<HTMLTextAreaElement>> = forwardRef<
+  HTMLTextAreaElement,
+  TextareaProps
+>(function Textarea(props, ref) {
+  return <Box as={PrimerTextarea} ref={ref} {...props} />
+})
+
+export {Autocomplete, Label, SegmentedControl, Select, StateLabel, SubNav, TextInput, Textarea, ToggleSwitch}
 
 export {
   ActionList,
   ActionMenu,
-  Autocomplete,
   Avatar,
-  BranchName,
   Breadcrumbs,
   Button,
   Checkbox,
@@ -68,7 +134,6 @@ export {
   Header,
   Heading,
   IconButton,
-  LabelGroup,
   Link,
   LinkButton,
   NavList,
@@ -79,18 +144,8 @@ export {
   ProgressBar,
   RadioGroup,
   RelativeTime,
-  SegmentedControl,
-  Select,
-  SelectPanel,
-  SideNav,
   Spinner,
-  Stack,
-  StateLabel,
-  SubNav,
   Text,
-  Textarea,
-  TextInput,
-  TextInputWithTokens,
   Timeline,
   Token,
   Tooltip,
