@@ -94,7 +94,6 @@ const baseConfig = {
         'macros',
         'add-react-displayname',
         'dev-expression',
-        'babel-plugin-styled-components',
         '@babel/plugin-proposal-nullish-coalescing-operator',
         '@babel/plugin-proposal-optional-chaining',
         [
@@ -255,7 +254,7 @@ export default [
   {
     ...baseConfig,
     input: 'src/index.ts',
-    external: ['styled-components', 'react', 'react-dom'],
+    external: ['react', 'react-dom'],
     plugins: [
       replace({
         'process.env.NODE_ENV': JSON.stringify('production'),
@@ -280,7 +279,6 @@ export default [
           'macros',
           'add-react-displayname',
           'dev-expression',
-          'babel-plugin-styled-components',
           '@babel/plugin-proposal-nullish-coalescing-operator',
           '@babel/plugin-proposal-optional-chaining',
           [
@@ -319,7 +317,6 @@ export default [
       globals: {
         react: 'React',
         'react-dom': 'ReactDOM',
-        'styled-components': 'styled',
       },
     })),
   },
