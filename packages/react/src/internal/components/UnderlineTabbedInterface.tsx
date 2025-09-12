@@ -45,17 +45,21 @@ export const LoadingCounter = () => {
   return <span className={classes.LoadingCounter} />
 }
 
-export type UnderlineItemProps<As extends React.ElementType = 'a'> = {
-  as?: As
-  className?: string
-  iconsVisible?: boolean
-  loadingCounters?: boolean
-  counter?: number | string
-  icon?: FC<IconProps> | React.ReactElement
-  id?: string
-  children?: React.ReactNode
-} & SxProp &
-  PolymorphicProps<As, 'a'>
+export type UnderlineItemProps<As extends React.ElementType = 'a'> = PolymorphicProps<
+  As,
+  'a',
+  {
+    as?: As
+    className?: string
+    iconsVisible?: boolean
+    loadingCounters?: boolean
+    counter?: number | string
+    icon?: FC<IconProps> | React.ReactElement
+    id?: string
+    children?: React.ReactNode
+  }
+> &
+  SxProp
 
 const UnwrappedUnderlineItem = <As extends React.ElementType = 'a'>(
   props: UnderlineItemProps<As>,

@@ -1,12 +1,12 @@
 import {clsx} from 'clsx'
-import React, {useEffect} from 'react'
-import type {ElementType, ForwardedRef} from 'react'
+import React, {useEffect, type ForwardedRef, type ElementRef} from 'react'
 import {useRefObjectAsForwardedRef} from '../hooks'
 import classes from './Link.module.css'
 import type {ComponentProps} from '../utils/types'
 import {type PolymorphicProps, fixedForwardRef} from '../utils/modern-polymorphic'
 
-type StyledLinkProps = {
+type StyledLinkProps<As extends React.ElementType = 'a'> = {
+  as?: As
   /** @deprecated use CSS modules to style hover color */
   hoverColor?: string
   muted?: boolean
@@ -16,15 +16,12 @@ type StyledLinkProps = {
   inline?: boolean
 }
 
-export const UnwrappedLink = <As extends ElementType>(
-  props: {
-    as?: As
-  } & StyledLinkProps &
-    PolymorphicProps<As, 'a'>,
+export const UnwrappedLink = <As extends React.ElementType = 'a'>(
+  props: PolymorphicProps<As, 'a', StyledLinkProps>,
   ref: ForwardedRef<unknown>,
 ) => {
   const {as: Component = 'a', className, inline, underline, hoverColor, ...restProps} = props
-  const innerRef = React.useRef<HTMLElement>(null)
+  const innerRef = React.useRef<ElementRef<As>>(null)
   useRefObjectAsForwardedRef(ref, innerRef)
 
   if (__DEV__) {
@@ -60,7 +57,8 @@ export const UnwrappedLink = <As extends ElementType>(
       data-underline={underline}
       data-hover-color={hoverColor}
       {...restProps}
-      ref={innerRef}
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      ref={innerRef as any}
     />
   )
 }

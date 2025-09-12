@@ -1,7 +1,7 @@
 import type React from 'react'
 import {type ElementType} from 'react'
 import {Announce} from './Announce'
-import type {PolymorphicProps} from '../utils/polymorphic2'
+import type {PolymorphicProps} from '../utils/modern-polymorphic'
 
 export type AriaStatusProps<As extends ElementType> = PolymorphicProps<
   'div',

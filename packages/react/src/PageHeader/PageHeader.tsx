@@ -49,7 +49,7 @@ export type PageHeaderProps = {
 } & SxProp
 
 function UnwrappedRoot<TAs extends React.ElementType = 'div'>(
-  props: React.PropsWithChildren<PageHeaderProps & PolymorphicProps<TAs, 'div'>>,
+  props: PolymorphicProps<TAs, 'div'> & PageHeaderProps,
   forwardedRef: React.ForwardedRef<unknown>,
 ) {
   const {
@@ -152,11 +152,12 @@ const ContextArea: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
     </BoxWithFallback>
   )
 }
-type LinkProps = Pick<
+type LinkProps<As extends React.ElementType = 'a'> = Pick<
   React.AnchorHTMLAttributes<HTMLAnchorElement> & BaseLinkProps,
   'download' | 'href' | 'hrefLang' | 'media' | 'ping' | 'rel' | 'target' | 'type' | 'referrerPolicy' | 'as'
 > & {
   'aria-label'?: React.AriaAttributes['aria-label']
+  as?: As
 }
 export type ParentLinkProps = React.PropsWithChildren<ChildrenPropTypes & LinkProps>
 
@@ -164,25 +165,17 @@ function UnwrappedParentLink<TAs extends React.ElementType = 'a'>(
   props: React.PropsWithChildren<ChildrenPropTypes & LinkProps & PolymorphicProps<TAs, 'a'>>,
   forwardedRef: React.ForwardedRef<unknown>,
 ) {
-  const {
-    children,
-    className,
-    href,
-    'aria-label': ariaLabel,
-    as = 'a',
-    hidden = hiddenOnRegularAndWide,
-    ...restProps
-  } = props
+  const {children, className, 'aria-label': ariaLabel, as = 'a', hidden = hiddenOnRegularAndWide, ...restProps} = props
+
   return (
     <>
       <Link
-        ref={forwardedRef}
+        ref={forwardedRef as React.RefObject<HTMLAnchorElement>}
         as={as}
         aria-label={ariaLabel}
         muted
         className={clsx(classes.ParentLink, className)}
         {...getHiddenDataAttributes(hidden)}
-        href={href}
         {...restProps}
       >
         <ArrowLeftIcon />

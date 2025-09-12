@@ -8,10 +8,14 @@ import {type PolymorphicProps, fixedForwardRef} from '../utils/modern-polymorphi
 type HeadingElement = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
 
 const UnwrappedHeading = <As extends HeadingElement = 'h2'>(
-  props: {
-    as?: As
-    variant?: 'large' | 'medium' | 'small'
-  } & PolymorphicProps<As, 'h2'>,
+  props: PolymorphicProps<
+    As,
+    'h2',
+    {
+      as?: As
+      variant?: 'large' | 'medium' | 'small'
+    }
+  >,
   forwardedRef: React.ForwardedRef<unknown>,
 ) => {
   const {as: Component = 'h2', className, variant, ...restProps} = props
