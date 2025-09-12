@@ -106,7 +106,7 @@ const Textarea: React.ForwardRefExoticComponent<TextareaProps & React.RefAttribu
   return <Box as={PrimerTextarea} ref={ref} {...props} />
 })
 
-export {Autocomplete, SegmentedControl, StateLabel, SubNav, Textarea, TextInput, Select, ToggleSwitch}
+export {Autocomplete, SegmentedControl, Select, StateLabel, SubNav, TextInput, Textarea, ToggleSwitch}
 
 export {
   ActionList,
