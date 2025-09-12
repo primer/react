@@ -14,7 +14,8 @@
     "./experimental": {
       "types": "./dist/experimental.d.ts",
       "default": "./dist/experimental.js"
-    }
+    },
+    "./components.json": "./dist/components.json"
   },
   "files": [
     "README.md",
