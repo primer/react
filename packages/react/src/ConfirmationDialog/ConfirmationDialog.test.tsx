@@ -5,11 +5,11 @@ import {useCallback, useRef, useState} from 'react'
 
 import {ActionMenu} from '../deprecated/ActionMenu'
 import BaseStyles from '../BaseStyles'
-import Box from '../Box'
 import {Button} from '../Button'
 import {ConfirmationDialog, useConfirm} from './ConfirmationDialog'
 import theme from '../theme'
 import {ThemeProvider} from '../ThemeProvider'
+import {Stack} from '../Stack'
 
 const Basic = ({confirmButtonType}: Pick<React.ComponentProps<typeof ConfirmationDialog>, 'confirmButtonType'>) => {
   const [isOpen, setIsOpen] = useState(false)
@@ -55,12 +55,12 @@ const ShorthandHookFromActionMenu = () => {
   return (
     <ThemeProvider theme={theme}>
       <BaseStyles>
-        <Box display="flex" flexDirection="column" alignItems="flex-start">
+        <Stack gap="none">
           <ActionMenu
             renderAnchor={props => <Button {...props}>{text}</Button>}
             items={[{text: 'Show dialog', onAction: onButtonClick}]}
           />
-        </Box>
+        </Stack>
       </BaseStyles>
     </ThemeProvider>
   )

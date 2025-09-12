@@ -1,0 +1,138 @@
+/* CSS module for Overlay features stories layout and styling */
+
+.DialogContent {
+  display: flex;
+  flex-direction: column;
+  padding: var(--base-size-8);
+}
+
+.FullscreenAnchor {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+.SelectOptionsContent {
+  display: flex;
+  flex-direction: column;
+  padding: var(--base-size-8);
+}
+
+.FormContainer {
+  display: flex;
+  flex-direction: column;
+  padding: var(--base-size-8) 0;
+}
+
+.FormRow {
+  padding-left: var(--base-size-16);
+  padding-right: var(--base-size-16);
+  display: flex;
+  align-items: center;
+  gap: var(--base-size-4);
+}
+
+.FormActions {
+  display: flex;
+  justify-content: flex-end;
+  padding-left: var(--base-size-8);
+  padding-right: var(--base-size-8);
+  gap: var(--base-size-4);
+}
+
+.NestedOverlayContent {
+  display: flex;
+  flex-direction: column;
+  padding: var(--base-size-8) 0;
+}
+
+.CheckboxContainer {
+  padding: var(--base-size-8) var(--base-size-16);
+}
+
+.CreateFormContent {
+  display: flex;
+  flex-direction: column;
+  padding: var(--base-size-12);
+}
+
+.TextInputWithMargin {
+  margin-bottom: var(--base-size-8);
+}
+
+.IssueTitleInput {
+  width: 100%;
+  padding: var(--base-size-2) var(--base-size-8);
+  text-align: left;
+  color: var(--fgColor-default);
+}
+
+.IssueTitleInput input {
+  font-weight: var(--base-text-weight-semibold);
+  font-size: var(--text-title-size-medium);
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.IssueEditorContainer {
+  padding: var(--base-size-24);
+  height: 100vh;
+  /* stylelint-disable-next-line primer/responsive-widths */
+  width: 350px;
+}
+
+.IssueHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--base-size-4);
+  margin-bottom: var(--base-size-8);
+}
+
+.OverlayContent {
+  display: flex;
+  flex-direction: column;
+  padding: var(--base-size-8);
+}
+
+.OverlayContentCentered {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: var(--base-size-8);
+}
+
+.ResponsiveWidthContainer {
+  width: 300px;
+  max-width: 100%;
+}
+
+@media (min-width: 768px) {
+  .ResponsiveWidthContainer {
+    /* stylelint-disable-next-line primer/responsive-widths */
+    width: 500px;
+  }
+}
+
+.OverlayFullHeight {
+  height: 100vh;
+  max-width: calc(-1rem + 100vw);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.CloseButtonLeft {
+  position: absolute;
+  left: var(--base-size-4);
+  top: var(--base-size-4);
+}
+
+.CloseButtonRight {
+  position: absolute;
+  right: var(--base-size-4);
+  top: var(--base-size-4);
+}

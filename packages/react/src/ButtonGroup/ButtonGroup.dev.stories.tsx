@@ -2,7 +2,7 @@ import type {Meta} from '@storybook/react-vite'
 import ButtonGroup from './ButtonGroup'
 import {Button, IconButton, LinkButton} from '../Button'
 import {CopilotIcon} from '@primer/octicons-react'
-import {Box, Tooltip, ThemeProvider, BaseStyles} from '..'
+import {Tooltip, ThemeProvider, BaseStyles} from '..'
 
 const meta: Meta<typeof ButtonGroup> = {
   title: 'Components/ButtonGroup/Dev',
@@ -13,7 +13,7 @@ const meta: Meta<typeof ButtonGroup> = {
       return (
         <ThemeProvider>
           <BaseStyles>
-            <Box padding={5}>{Story()}</Box>
+            <div style={{padding: 'var(--base-size-32)'}}>{Story()}</div>
           </BaseStyles>
         </ThemeProvider>
       )

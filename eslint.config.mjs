@@ -42,6 +42,7 @@ const config = defineConfig([
     'contributor-docs/adrs/*',
     'examples/codesandbox/**/*',
     'packages/react/src/utils/polymorphic.ts',
+    'packages/styled-react/src/polymorphic.d.ts',
     '**/storybook-static',
     '**/CHANGELOG.md',
     '**/node_modules/**/*',
@@ -366,6 +367,30 @@ const config = defineConfig([
       // We emit structured XML in the MCP server which is incorrectly being
       // flagged as HTML
       'github/unescaped-html-literal': 'off',
+    },
+  },
+
+  // next-env.d.ts files
+  {
+    files: ['**/next-env.d.ts'],
+    rules: {
+      '@typescript-eslint/triple-slash-reference': 'off',
+    },
+  },
+
+  // packages/styled-react overrides
+  {
+    files: ['packages/styled-react/**/*.{ts,tsx}'],
+    rules: {
+      'primer-react/no-unnecessary-components': 'off',
+    },
+  },
+  {
+    files: ['packages/styled-react/**/*.test.{ts,tsx}'],
+    rules: {
+      'github/a11y-aria-label-is-well-formatted': 'off',
+      'github/a11y-svg-has-accessible-name': 'off',
+      'primer-react/direct-slot-children': 'off',
     },
   },
 ])

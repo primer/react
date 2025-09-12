@@ -13,22 +13,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8
         with:
           # This makes Actions fetch all Git history so that Changesets can generate changelogs with the correct commits
           fetch-depth: 0
           persist-credentials: false
 
       - name: Set up Node
-        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444
         with:
-          node-version: 22
+          node-version-file: '.nvmrc'
           cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
 
-      - uses: actions/create-github-app-token@0f859bf9e69e887678d5bbfbee594437cb440ffe
+      - uses: actions/create-github-app-token@a8d616148505b5069dccd32f177bb87d7f39123b
         id: app-token
         with:
           app-id: ${{ vars.PRIMER_APP_ID_SHARED }}
@@ -47,6 +47,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
           NPM_TOKEN: ${{ secrets.NPM_AUTH_TOKEN_SHARED }}
+      - uses: ./.github/actions/upload-versions
 
   release-next-major:
     if: github.ref_name == 'next-major'
