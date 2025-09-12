@@ -13,6 +13,10 @@
     container: banner / inline-size;
   }
 
+  &[data-layout='compact'] {
+    padding: var(--base-size-4);
+  }
+
   &[data-variant='critical'] {
     --banner-bgColor: var(--bgColor-danger-muted);
     --banner-borderColor: var(--borderColor-danger-muted);
