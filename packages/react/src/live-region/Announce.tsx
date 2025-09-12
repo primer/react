@@ -1,58 +1,57 @@
 import {announceFromElement} from '@primer/live-region-element'
 import type React from 'react'
-import {useEffect, useRef, useState} from 'react'
+import {useEffect, useRef, useState, type ElementRef} from 'react'
 import {useEffectOnce} from '../internal/hooks/useEffectOnce'
 import {useEffectCallback} from '../internal/hooks/useEffectCallback'
-import type {PolymorphicProps} from '../utils/modern-polymorphic'
+import type {PolymorphicProps} from '../utils/polymorphic2'
 
-export type AnnounceProps<As extends React.ElementType = 'div'> = {
-  /**
-   * The element type to render as
-   * @default 'div'
-   */
-  as?: As
-  /**
-   * Specify if the content of the element should be announced when this
-   * component is rendered and is not hidden
-   * @default false
-   */
-  announceOnShow?: boolean
+export type AnnounceProps<As extends React.ElementType> = PolymorphicProps<
+  'div',
+  As,
+  {
+    /**
+     * Specify if the content of the element should be announced when this
+     * component is rendered and is not hidden
+     * @default false
+     */
+    announceOnShow?: boolean
 
-  /**
-   * Specify if the element is hidden
-   * @default false
-   */
-  hidden?: boolean
+    /**
+     * Specify if the element is hidden
+     * @default false
+     */
+    hidden?: boolean
 
-  /**
-   * Provide a delay in milliseconds before the announcement is made. This will
-   * only work with `polite` announcements
-   */
-  delayMs?: number
+    /**
+     * Provide a delay in milliseconds before the announcement is made. This will
+     * only work with `polite` announcements
+     */
+    delayMs?: number
 
-  /**
-   * The politeness level to use for the announcement
-   * @default 'polite'
-   */
-  politeness?: 'assertive' | 'polite'
-} & PolymorphicProps<As, 'div'>
+    /**
+     * The politeness level to use for the announcement
+     * @default 'polite'
+     */
+    politeness?: 'assertive' | 'polite'
+  }
+>
 
 /**
  * `Announce` is a component that will announce the text content of the
  * `children` passed in to screen readers using the given politeness level. It
  * will also announce any changes to the text content of `children`
  */
-export function Announce<As extends React.ElementType = 'div'>({
-  as,
-  announceOnShow = true,
-  children,
-  delayMs,
-  hidden = false,
-  politeness = 'polite',
-  ...rest
-}: AnnounceProps<As>) {
-  const Component = (as || 'div') as React.ElementType
-  const ref = useRef<HTMLElement>(null)
+export function Announce<As extends React.ElementType = 'div'>(props: AnnounceProps<As>) {
+  const {
+    as: BaseComponent = 'div',
+    announceOnShow = true,
+    children,
+    delayMs,
+    hidden = false,
+    politeness = 'polite',
+    ...rest
+  } = props
+  const ref = useRef<ElementRef<'div'>>(null)
   const [previousAnnouncementText, setPreviousAnnouncementText] = useState<string | null>(null)
   const savedAnnouncement = useRef<ReturnType<typeof announceFromElement> | null>(null)
   const announce = useEffectCallback(() => {
@@ -134,9 +133,9 @@ export function Announce<As extends React.ElementType = 'div'>({
   }, [])
 
   return (
-    <Component {...rest} ref={ref}>
+    <BaseComponent {...rest} ref={ref}>
       {children}
-    </Component>
+    </BaseComponent>
   )
 }
 
