@@ -14,7 +14,7 @@ type AsProp<As extends ElementType> = {
   as?: As
 }
 
-type PolymorphicProps<DefaultAs extends ElementType, As extends ElementType, Props = {}> = Props &
+type PolymorphicProps<DefaultAs extends ElementType, As extends ElementType, Props> = Props &
   AsProp<As> &
   (As extends React.ElementType
     ? Omit<React.ComponentPropsWithoutRef<As>, keyof Props>
