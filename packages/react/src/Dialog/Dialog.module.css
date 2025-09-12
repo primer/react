@@ -270,18 +270,6 @@ Add a border between the body and footer if:
   flex-shrink: 0;
 }
 
-.HeaderInner {
-  display: flex;
-}
-
-.HeaderContent {
-  display: flex;
-  padding-inline: var(--base-size-8);
-  padding-block: var(--base-size-6);
-  flex-direction: column;
-  flex-grow: 1;
-}
-
 .Title {
   margin: 0; /* override default margin */
   font-size: var(--text-body-size-medium);
