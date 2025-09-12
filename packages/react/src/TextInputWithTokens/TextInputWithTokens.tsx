@@ -23,6 +23,9 @@ type AnyReactComponent = React.ComponentType<React.PropsWithChildren<any>>
 
 // NOTE: if these props or their JSDoc comments are updated, be sure to also update
 // the prop table in docs/content/TextInputTokens.mdx
+/**
+ * @deprecated
+ */
 export type TextInputWithTokensProps<TokenComponentType extends AnyReactComponent = typeof Token> = {
   /**
    * The array of tokens to render
@@ -80,7 +83,6 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
     className,
     block,
     disabled,
-    sx: sxProp,
     tokens,
     onTokenRemove,
     tokenComponent: TokenComponent = Token,
@@ -88,9 +90,6 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
     size = 'xlarge',
     hideTokenRemoveButtons = false,
     maxHeight,
-    width: widthProp,
-    minWidth: minWidthProp,
-    maxWidth: maxWidthProp,
     validationStatus,
     variant: variantProp, // deprecated. use `size` instead
     visibleTokenCount,
@@ -259,9 +258,6 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
       disabled={disabled}
       hasLeadingVisual={Boolean(LeadingVisual || showLeadingLoadingIndicator)}
       hasTrailingVisual={Boolean(TrailingVisual || showTrailingLoadingIndicator)}
-      width={widthProp}
-      minWidth={minWidthProp}
-      maxWidth={maxWidthProp}
       size={inputSizeMap[size]}
       validationStatus={validationStatus}
       variant={variantProp} // deprecated. use `size` prop instead
@@ -269,7 +265,6 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
       data-token-wrapping={Boolean(preventTokenWrapping || maxHeight) || undefined}
       className={clsx(className, styles.TextInputWrapper)}
       style={maxHeight ? {maxHeight, ...style} : style}
-      sx={sxProp}
     >
       {IconComponent && !LeadingVisual && <IconComponent className="TextInput-icon" />}
       <TextInputInnerVisualSlot
@@ -336,4 +331,7 @@ const TextInputWithTokens = React.forwardRef(TextInputWithTokensInnerComponent)
 
 TextInputWithTokens.displayName = 'TextInputWithTokens'
 
+/**
+ * @deprecated
+ */
 export default TextInputWithTokens

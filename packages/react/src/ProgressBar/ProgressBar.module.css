@@ -9,6 +9,10 @@
 }
 
 .ProgressBarItem {
+  /* these are passed from the component */
+  --progress-width: ;
+  --progress-bg: ;
+
   width: var(--progress-width);
   /* stylelint-disable-next-line primer/colors */
   background-color: var(--progress-bg);
