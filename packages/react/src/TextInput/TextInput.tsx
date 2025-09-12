@@ -40,7 +40,10 @@ export type TextInputNonPassthroughProps = {
    */
   trailingAction?: React.ReactElement<React.HTMLProps<HTMLButtonElement>>
 } & Partial<
-  Pick<StyledWrapperProps, 'block' | 'contrast' | 'disabled' | 'monospace' | 'variant' | 'size' | 'validationStatus'>
+  Pick<
+    StyledWrapperProps,
+    'block' | 'contrast' | 'disabled' | 'monospace' | 'variant' | 'size' | 'sx' | 'validationStatus'
+  >
 >
 
 export type TextInputProps = Merge<React.ComponentPropsWithoutRef<'input'>, TextInputNonPassthroughProps>
@@ -67,6 +70,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
       onBlur,
       // start deprecated props
       variant: variantProp,
+      sx: sxProp,
       // end deprecated props
       type = 'text',
       required,
@@ -128,6 +132,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
         isInputFocused={isInputFocused}
         onClick={focusInput}
         aria-busy={Boolean(loading)}
+        sx={sxProp}
       >
         {IconComponent && <IconComponent className="TextInput-icon" />}
         <TextInputInnerVisualSlot
