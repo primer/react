@@ -4,7 +4,6 @@ import {
   type BetterSystemStyleObject,
   Box,
   type BoxProps,
-  type SxProp,
   StateLabel as PrimerStateLabel,
   type StateLabelProps as PrimerStateLabelProps,
   SubNav as PrimerSubNav,
@@ -14,6 +13,12 @@ import {
   type TextareaProps as PrimerTextareaProps,
   ToggleSwitch as PrimerToggleSwitch,
   type ToggleSwitchProps as PrimerToggleSwitchProps,
+  Link as PrimerLink,
+  type LinkProps as PrimerLinkProps,
+  Heading as PrimerHeading,
+  type HeadingProps as PrimerHeadingProps,
+  Checkbox as PrimerCheckbox,
+  type CheckboxProps as PrimerCheckboxProps,
   type SegmentedControlProps as PrimerSegmentedControlProps,
   SegmentedControl as PrimerSegmentedControl,
   type SegmentedControlButtonProps as PrimerSegmentedControlButtonProps,
@@ -31,6 +36,11 @@ import type {
   SpaceProps,
   TypographyProps,
 } from 'styled-system'
+import {type SxProp} from './sx'
+import {PageHeader} from './components/PageHeader'
+import {PageLayout} from './components/PageLayout'
+import {NavList} from './components/NavList'
+import {UnderlineNav} from './components/UnderlineNav'
 import {Autocomplete} from './components/Autocomplete'
 import {Select} from './components/Select'
 import {TextInput} from './components/TextInput'
@@ -96,6 +106,41 @@ const ToggleSwitch = forwardRef<HTMLButtonElement, ToggleSwitchProps>(function T
   return <Box as={PrimerToggleSwitch} ref={ref} {...props} />
 })
 
+type LinkProps = PrimerLinkProps & SxProp
+
+const Link = forwardRef<HTMLAnchorElement, LinkProps>(function Link(props, ref) {
+  return <Box as={PrimerLink} ref={ref} {...props} />
+})
+
+type HeadingProps = PrimerHeadingProps & SxProp
+
+const Heading = forwardRef<HTMLHeadingElement, HeadingProps>(function Heading(props, ref) {
+  return <Box as={PrimerHeading} ref={ref} {...props} />
+})
+
+type CheckboxProps = PrimerCheckboxProps & SxProp
+
+const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Checkbox(props, ref) {
+  return <Box as={PrimerCheckbox} ref={ref} {...props} />
+})
+
+export {
+  Autocomplete,
+  Checkbox,
+  Heading,
+  Link,
+  NavList,
+  PageHeader,
+  PageLayout,
+  SegmentedControl,
+  Select,
+  StateLabel,
+  SubNav,
+  Textarea,
+  TextInput,
+  ToggleSwitch,
+  UnderlineNav,
+}
 type TextareaProps = PropsWithChildren<PrimerTextareaProps> & SxProp
 
 // Type annotation needed because TextInput uses `FormValidationStatus` internal type
@@ -106,15 +151,12 @@ const Textarea: React.ForwardRefExoticComponent<TextareaProps & React.RefAttribu
   return <Box as={PrimerTextarea} ref={ref} {...props} />
 })
 
-export {Autocomplete, SegmentedControl, Select, StateLabel, SubNav, TextInput, Textarea, ToggleSwitch}
-
 export {
   ActionList,
   ActionMenu,
   Avatar,
   Breadcrumbs,
   Button,
-  Checkbox,
   CheckboxGroup,
   CircleBadge,
   CounterLabel,
@@ -123,15 +165,11 @@ export {
   Flash,
   FormControl,
   Header,
-  Heading,
   IconButton,
   Label,
-  Link,
   LinkButton,
-  NavList,
   Overlay,
-  PageHeader,
-  PageLayout,
+  Popover,
   ProgressBar,
   RadioGroup,
   RelativeTime,
@@ -141,7 +179,6 @@ export {
   Token,
   Tooltip,
   Truncate,
-  UnderlineNav,
 
   // styled-components components or types
   Box,

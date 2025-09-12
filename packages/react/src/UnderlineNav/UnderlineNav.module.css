@@ -1,0 +1,77 @@
+.Divider {
+  display: inline-block;
+  border-left: var(--borderWidth-thin) solid var(--borderColor-muted);
+  width: var(--borderWidth-thin);
+  margin-right: var(--base-size-4);
+  height: 24px; /* The height of the divider - reference from Figma */
+}
+
+.MoreButton {
+  /* Set margin 0 here because safari puts extra margin around the button,
+     rest is to reset style to make it look like a list element */
+  margin: 0;
+  border: 0;
+  font-weight: var(--base-text-weight-normal);
+  box-shadow: none;
+  padding-block: var(--base-size-4);
+  padding-inline: var(--base-size-8);
+}
+
+.MoreButton,
+.MoreButton:hover,
+.MoreButton[aria-expanded='true'] {
+  background: transparent;
+}
+
+.MoreButton[data-component='trailingVisual'] {
+  margin-left: 0;
+}
+
+.MoreMenuListItem {
+  display: flex;
+  align-items: center;
+  /* Hard-coded height is needed to make sure we don't have a layout shift when the more button is the only item in the nav. */
+  height: 45px;
+}
+
+.MenuContainer {
+  position: absolute;
+  z-index: 1;
+  top: 90%;
+  box-shadow:
+  /* TODO: replace custom shadow with Primer Primitives variable */
+  /* stylelint-disable-next-line primer/box-shadow */
+    rgba(0, 0, 0, 0.12) 0 1px 3px,
+    rgba(0, 0, 0, 0.24) 0 1px 2px;
+  border-radius: var(--borderRadius-large);
+  background-color: var(--bgColor-default);
+  list-style: none;
+  min-width: 192px; /* baseMenuMinWidth */
+  max-width: 640px;
+  right: 0;
+  display: block;
+}
+
+.MenuContainer[data-is-widget-open='false'] {
+  display: none;
+}
+
+.MenuItem {
+  text-decoration: none;
+}
+
+.MenuItem > span:first-child {
+  display: none;
+}
+
+.MenuItemContent {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.NavListItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

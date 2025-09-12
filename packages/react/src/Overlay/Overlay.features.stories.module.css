@@ -136,3 +136,14 @@
   right: var(--base-size-4);
   top: var(--base-size-4);
 }
+
+.IssueLink {
+  display: block;
+  border: var(--borderWidth-thin) solid var(--borderColor-default);
+  padding: var(--base-size-8);
+  transition: background 0.2s;
+}
+
+.IssueLink:hover {
+  background-color: var(--bgColor-muted);
+}

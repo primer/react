@@ -1,13 +1,12 @@
 import {clsx} from 'clsx'
-import React, {forwardRef, useEffect} from 'react'
+import React, {useEffect, type ForwardedRef, type ElementRef} from 'react'
 import {useRefObjectAsForwardedRef} from '../hooks'
-import type {SxProp} from '../sx'
 import classes from './Link.module.css'
-import Box from '../Box'
 import type {ComponentProps} from '../utils/types'
-import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
+import {type PolymorphicProps, fixedForwardRef} from '../utils/modern-polymorphic'
 
-type StyledLinkProps = {
+type StyledLinkProps<As extends React.ElementType = 'a'> = {
+  as?: As
   /** @deprecated use CSS modules to style hover color */
   hoverColor?: string
   muted?: boolean
@@ -15,11 +14,15 @@ type StyledLinkProps = {
   underline?: boolean
   // Link inside a text block
   inline?: boolean
-} & SxProp
+}
 
-const Link = forwardRef(({as: Component = 'a', className, inline, underline, hoverColor, ...props}, forwardedRef) => {
-  const innerRef = React.useRef<HTMLAnchorElement>(null)
-  useRefObjectAsForwardedRef(forwardedRef, innerRef)
+export const UnwrappedLink = <As extends React.ElementType = 'a'>(
+  props: PolymorphicProps<As, 'a', StyledLinkProps>,
+  ref: ForwardedRef<unknown>,
+) => {
+  const {as: Component = 'a', className, inline, underline, hoverColor, ...restProps} = props
+  const innerRef = React.useRef<ElementRef<As>>(null)
+  useRefObjectAsForwardedRef(ref, innerRef)
 
   if (__DEV__) {
     /**
@@ -46,37 +49,23 @@ const Link = forwardRef(({as: Component = 'a', className, inline, underline, hov
     }, [innerRef])
   }
 
-  if (props.sx) {
-    return (
-      <Box
-        as={Component}
-        className={clsx(className, classes.Link)}
-        data-muted={props.muted}
-        data-inline={inline}
-        data-underline={underline}
-        data-hover-color={hoverColor}
-        {...props}
-        // @ts-ignore shh
-        ref={innerRef}
-      />
-    )
-  }
-
   return (
     <Component
       className={clsx(className, classes.Link)}
-      data-muted={props.muted}
+      data-muted={restProps.muted}
       data-inline={inline}
       data-underline={underline}
       data-hover-color={hoverColor}
-      {...props}
-      // @ts-ignore shh
-      ref={innerRef}
+      {...restProps}
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      ref={innerRef as any}
     />
   )
-}) as PolymorphicForwardRefComponent<'a', StyledLinkProps>
+}
 
-Link.displayName = 'Link'
+const LinkComponent = fixedForwardRef(UnwrappedLink)
+
+const Link = Object.assign(LinkComponent, {displayName: 'Link'})
 
 export type LinkProps = ComponentProps<typeof Link>
 export default Link

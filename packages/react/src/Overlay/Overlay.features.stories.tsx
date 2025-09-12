@@ -429,15 +429,7 @@ export const MemexIssueOverlay = ({role, open}: Args) => {
           event.preventDefault()
           setOverlayOpen(true)
         }}
-        sx={{
-          display: 'block',
-          border: '1px solid',
-          borderColor: 'border.default',
-          p: 2,
-          ':hover': {
-            backgroundColor: 'canvas.subtle',
-          },
-        }}
+        className={classes.IssueLink}
       >
         <IssueDraftIcon /> {title}
       </Link>

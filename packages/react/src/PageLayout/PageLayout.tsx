@@ -1,18 +1,15 @@
 import React, {useRef} from 'react'
 import {clsx} from 'clsx'
-import Box from '../Box'
 import {useId} from '../hooks/useId'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import type {ResponsiveValue} from '../hooks/useResponsiveValue'
 import {isResponsiveValue, useResponsiveValue} from '../hooks/useResponsiveValue'
 import {useSlots} from '../hooks/useSlots'
-import type {SxProp} from '../sx'
 import {canUseDOM} from '../utils/environment'
 import {useOverflow} from '../hooks/useOverflow'
 import {warning} from '../utils/warning'
 
 import classes from './PageLayout.module.css'
-import {BoxWithFallback} from '../internal/components/BoxWithFallback'
 
 const REGION_ORDER = {
   header: 0,
@@ -56,7 +53,7 @@ export type PageLayoutProps = {
   _slotsConfig?: Record<'header' | 'footer', React.ElementType>
   className?: string
   style?: React.CSSProperties
-} & SxProp
+}
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const containerWidths = {
@@ -73,7 +70,6 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
   rowGap = 'normal',
   columnGap = 'normal',
   children,
-  sx,
   className,
   style,
   _slotsConfig: slotsConfig,
@@ -93,14 +89,13 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
 
   return (
     <PageLayoutContext.Provider value={memoizedContextValue}>
-      <BoxWithFallback
+      <div
         style={
           {
             '--spacing': `var(--spacing-${padding})`,
             ...style,
           } as React.CSSProperties
         }
-        sx={sx}
         className={clsx(classes.PageLayoutRoot, className)}
       >
         <div className={classes.PageLayoutWrapper} data-width={containerWidth}>
@@ -108,7 +103,7 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
           <div className={clsx(classes.PageLayoutContent)}>{rest}</div>
           {slots.footer}
         </div>
-      </BoxWithFallback>
+      </div>
     </PageLayoutContext.Provider>
   )
 }
@@ -123,11 +118,10 @@ type DividerProps = {
   className?: string
   style?: React.CSSProperties
   position?: keyof typeof panePositions
-} & SxProp
+}
 
 const HorizontalDivider: React.FC<React.PropsWithChildren<DividerProps>> = ({
   variant = 'none',
-  sx,
   className,
   position,
   style,
@@ -136,8 +130,7 @@ const HorizontalDivider: React.FC<React.PropsWithChildren<DividerProps>> = ({
   const responsiveVariant = useResponsiveValue(variant, 'none')
 
   return (
-    <BoxWithFallback
-      sx={sx}
+    <div
       className={clsx(classes.HorizontalDivider, className)}
       data-variant={responsiveVariant}
       data-position={position}
@@ -169,7 +162,6 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
   position,
   className,
   style,
-  sx,
 }) => {
   const [isDragging, setIsDragging] = React.useState(false)
   const [isKeyboardDrag, setIsKeyboardDrag] = React.useState(false)
@@ -268,8 +260,7 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
   }, [isDragging, isKeyboardDrag, currentWidth, minWidth, maxWidth])
 
   return (
-    <BoxWithFallback
-      sx={sx}
+    <div
       className={clsx(classes.VerticalDivider, className)}
       data-variant={responsiveVariant}
       data-position={position}
@@ -277,47 +268,37 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
     >
       {draggable ? (
         // Drag handle
-        <>
-          <Box
-            sx={{
-              position: 'absolute',
-              inset: '0 -2px',
-              cursor: 'col-resize',
-              bg: isDragging || isKeyboardDrag ? 'accent.fg' : 'transparent',
-              transitionDelay: '0.1s',
-              '&:hover': {
-                bg: isDragging || isKeyboardDrag ? 'accent.fg' : 'neutral.muted',
-              },
-            }}
-            role="slider"
-            aria-label="Draggable pane splitter"
-            aria-valuemin={minWidth}
-            aria-valuemax={maxWidth}
-            aria-valuenow={currentWidth}
-            aria-valuetext={`Pane width ${currentWidth} pixels`}
-            tabIndex={0}
-            onMouseDown={event => {
-              if (event.button === 0) {
-                setIsDragging(true)
-                onDragStart?.()
-              }
-            }}
-            onKeyDown={event => {
-              if (
-                event.key === 'ArrowLeft' ||
-                event.key === 'ArrowRight' ||
-                event.key === 'ArrowUp' ||
-                event.key === 'ArrowDown'
-              ) {
-                setIsKeyboardDrag(true)
-                onDragStart?.()
-              }
-            }}
-            onDoubleClick={onDoubleClick}
-          />
-        </>
+        <div
+          className={classes.DraggableHandle}
+          data-dragging={isDragging || isKeyboardDrag}
+          role="slider"
+          aria-label="Draggable pane splitter"
+          aria-valuemin={minWidth}
+          aria-valuemax={maxWidth}
+          aria-valuenow={currentWidth}
+          aria-valuetext={`Pane width ${currentWidth} pixels`}
+          tabIndex={0}
+          onMouseDown={(event: React.MouseEvent) => {
+            if (event.button === 0) {
+              setIsDragging(true)
+              onDragStart?.()
+            }
+          }}
+          onKeyDown={(event: React.KeyboardEvent) => {
+            if (
+              event.key === 'ArrowLeft' ||
+              event.key === 'ArrowRight' ||
+              event.key === 'ArrowUp' ||
+              event.key === 'ArrowDown'
+            ) {
+              setIsKeyboardDrag(true)
+              onDragStart?.()
+            }
+          }}
+          onDoubleClick={onDoubleClick}
+        />
       ) : null}
-    </BoxWithFallback>
+    </div>
   )
 }
 
@@ -355,7 +336,7 @@ export type PageLayoutHeaderProps = {
   hidden?: boolean | ResponsiveValue<boolean>
   className?: string
   style?: React.CSSProperties
-} & SxProp
+}
 
 const Header: React.FC<React.PropsWithChildren<PageLayoutHeaderProps>> = ({
   'aria-label': label,
@@ -366,7 +347,6 @@ const Header: React.FC<React.PropsWithChildren<PageLayoutHeaderProps>> = ({
   hidden = false,
   children,
   style,
-  sx,
   className,
 }) => {
   // Combine divider and dividerWhenNarrow for backwards compatibility
@@ -380,12 +360,10 @@ const Header: React.FC<React.PropsWithChildren<PageLayoutHeaderProps>> = ({
   const {rowGap} = React.useContext(PageLayoutContext)
 
   return (
-    <BoxWithFallback
-      as="header"
+    <header
       aria-label={label}
       aria-labelledby={labelledBy}
       hidden={isHidden}
-      sx={sx}
       className={clsx(classes.Header, className)}
       style={
         {
@@ -413,7 +391,7 @@ const Header: React.FC<React.PropsWithChildren<PageLayoutHeaderProps>> = ({
           } as React.CSSProperties
         }
       />
-    </BoxWithFallback>
+    </header>
   )
 }
 
@@ -443,7 +421,7 @@ export type PageLayoutContentProps = {
   hidden?: boolean | ResponsiveValue<boolean>
   className?: string
   style?: React.CSSProperties
-} & SxProp
+}
 
 // TODO: Account for pane width when centering content
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -462,19 +440,17 @@ const Content: React.FC<React.PropsWithChildren<PageLayoutContentProps>> = ({
   padding = 'none',
   hidden = false,
   children,
-  sx,
   className,
   style,
 }) => {
   const isHidden = useResponsiveValue(hidden, false)
+  const Component = as
 
   return (
-    <BoxWithFallback
-      as={as}
+    <Component
       aria-label={label}
       aria-labelledby={labelledBy}
       style={style}
-      sx={sx}
       className={clsx(classes.ContentWrapper, className)}
       data-is-hidden={isHidden}
     >
@@ -489,7 +465,7 @@ const Content: React.FC<React.PropsWithChildren<PageLayoutContentProps>> = ({
       >
         {children}
       </div>
-    </BoxWithFallback>
+    </Component>
   )
 }
 
@@ -563,7 +539,7 @@ export type PageLayoutPaneProps = {
   id?: string
   className?: string
   style?: React.CSSProperties
-} & SxProp
+}
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const panePositions = {
@@ -601,7 +577,6 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
       hidden: responsiveHidden = false,
       children,
       id,
-      sx,
       className,
       style,
     },
@@ -685,15 +660,16 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
     }
 
     return (
-      <BoxWithFallback
-        sx={sx}
+      <div
         className={clsx(classes.PaneWrapper, className)}
-        style={{
-          '--offset-header': typeof offsetHeader === 'number' ? `${offsetHeader}px` : offsetHeader,
-          '--spacing-row': `var(--spacing-${rowGap})`,
-          '--spacing-column': `var(--spacing-${columnGap})`,
-          ...style,
-        }}
+        style={
+          {
+            '--offset-header': typeof offsetHeader === 'number' ? `${offsetHeader}px` : offsetHeader,
+            '--spacing-row': `var(--spacing-${rowGap})`,
+            '--spacing-column': `var(--spacing-${columnGap})`,
+            ...style,
+          } as React.CSSProperties
+        }
         data-is-hidden={isHidden}
         data-position={position}
         data-sticky={sticky || undefined}
@@ -763,7 +739,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
             } as React.CSSProperties
           }
         />
-      </BoxWithFallback>
+      </div>
     )
   },
 )
@@ -803,7 +779,7 @@ export type PageLayoutFooterProps = {
   hidden?: boolean | ResponsiveValue<boolean>
   className?: string
   style?: React.CSSProperties
-} & SxProp
+}
 
 const Footer: React.FC<React.PropsWithChildren<PageLayoutFooterProps>> = ({
   'aria-label': label,
@@ -813,7 +789,6 @@ const Footer: React.FC<React.PropsWithChildren<PageLayoutFooterProps>> = ({
   dividerWhenNarrow = 'inherit',
   hidden = false,
   children,
-  sx,
   className,
   style,
 }) => {
@@ -828,13 +803,11 @@ const Footer: React.FC<React.PropsWithChildren<PageLayoutFooterProps>> = ({
   const {rowGap} = React.useContext(PageLayoutContext)
 
   return (
-    <BoxWithFallback
-      as="footer"
+    <footer
       aria-label={label}
       aria-labelledby={labelledBy}
       hidden={isHidden}
       className={clsx(classes.FooterWrapper, className)}
-      sx={sx}
       style={
         {
           '--spacing': `var(--spacing-${rowGap})`,
@@ -861,7 +834,7 @@ const Footer: React.FC<React.PropsWithChildren<PageLayoutFooterProps>> = ({
       >
         {children}
       </div>
-    </BoxWithFallback>
+    </footer>
   )
 }
 
