@@ -1,0 +1,14 @@
+.TimelineBadgeDone {
+  background-color: var(--bgColor-done-emphasis);
+}
+
+.InlineLink {
+  font-weight: var(--base-text-weight-semibold);
+  color: var(--fgColor-default);
+  margin-right: var(--base-size-4);
+  transition: color 0.2s;
+}
+
+.InlineLink:hover {
+  color: var(--fgColor-accent);
+}

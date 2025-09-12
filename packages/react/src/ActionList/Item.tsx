@@ -47,7 +47,10 @@ const DivItemContainerNoBox = React.forwardRef<HTMLDivElement, React.HTMLAttribu
   },
 )
 
-export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps & React.HTMLAttributes<HTMLLIElement>>(
+export const Item = React.forwardRef<
+  HTMLLIElement,
+  ActionListItemProps & Omit<React.HTMLAttributes<HTMLLIElement>, 'onSelect'>
+>(
   (
     {
       variant = 'default',

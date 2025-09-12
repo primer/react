@@ -1,0 +1,7 @@
+.DebugPageLayout {
+  border: var(--borderWidth-thin) solid var(--borderColor-danger-emphasis);
+}
+
+.SuccessColor {
+  color: var(--fgColor-success);
+}
