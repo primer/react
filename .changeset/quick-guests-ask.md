@@ -2,4 +2,4 @@
 '@primer/react': patch
 ---
 
-Remove support for sx from the SubNav, Text, Textarea stories and docs.
+Remove support for sx from the SubNav and Textarea stories and docs.
