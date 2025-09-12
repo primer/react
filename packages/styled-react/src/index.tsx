@@ -4,6 +4,8 @@ import {
   type BetterSystemStyleObject,
   Box,
   type BoxProps,
+  type LabelProps as PrimerLabelProps,
+  Label as PrimerLabel,
   type SxProp,
   StateLabel as PrimerStateLabel,
   type StateLabelProps as PrimerStateLabelProps,
@@ -34,6 +36,7 @@ import type {
 import {Autocomplete} from './components/Autocomplete'
 import {Select} from './components/Select'
 import {TextInput} from './components/TextInput'
+import type {ForwardRefComponent} from './polymorphic'
 
 type StyledProps = SxProp &
   SpaceProps &
@@ -46,6 +49,12 @@ type StyledProps = SxProp &
   BorderProps &
   PositionProps &
   ShadowProps
+
+type LabelProps = PrimerLabelProps & SxProp
+
+const Label = forwardRef(function Label(props, ref) {
+  return <Box as={PrimerLabel} ref={ref} {...props} />
+}) as ForwardRefComponent<'span', LabelProps>
 
 type SegmentedControlProps = PropsWithChildren<PrimerSegmentedControlProps> & SxProp
 type SegmentedControlButtonProps = PropsWithChildren<PrimerSegmentedControlButtonProps> & SxProp
@@ -106,7 +115,7 @@ const Textarea: React.ForwardRefExoticComponent<TextareaProps & React.RefAttribu
   return <Box as={PrimerTextarea} ref={ref} {...props} />
 })
 
-export {Autocomplete, SegmentedControl, Select, StateLabel, SubNav, TextInput, Textarea, ToggleSwitch}
+export {Autocomplete, Label, SegmentedControl, Select, StateLabel, SubNav, TextInput, Textarea, ToggleSwitch}
 
 export {
   ActionList,
@@ -125,7 +134,6 @@ export {
   Header,
   Heading,
   IconButton,
-  Label,
   Link,
   LinkButton,
   NavList,
