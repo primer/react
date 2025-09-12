@@ -64,6 +64,11 @@ export type BannerProps = React.ComponentPropsWithoutRef<'section'> & {
    * Specify the type of the Banner
    */
   variant?: BannerVariant
+
+  /**
+   * Specify the layout of the Banner. Compact layout will reduce the padding.
+   */
+  layout?: 'default' | 'compact'
 }
 
 const iconForVariant: Record<BannerVariant, React.ReactNode> = {
@@ -85,6 +90,7 @@ const labels: Record<BannerVariant, string> = {
 export const Banner = React.forwardRef<HTMLElement, BannerProps>(function Banner(
   {
     'aria-label': label,
+    'aria-labelledby': labelledBy,
     children,
     className,
     description,
@@ -131,13 +137,15 @@ export const Banner = React.forwardRef<HTMLElement, BannerProps>(function Banner
   return (
     <section
       {...rest}
-      aria-label={label ?? labels[variant]}
+      aria-labelledby={labelledBy}
+      aria-label={labelledBy ? undefined : (label ?? labels[variant])}
       className={clsx(className, classes.Banner)}
       data-dismissible={onDismiss ? '' : undefined}
       data-title-hidden={hideTitle ? '' : undefined}
       data-variant={variant}
       tabIndex={-1}
       ref={ref}
+      data-layout={rest.layout || 'default'}
     >
       <div className={classes.BannerIcon}>{icon && supportsCustomIcon ? icon : iconForVariant[variant]}</div>
       <div className={classes.BannerContainer}>
