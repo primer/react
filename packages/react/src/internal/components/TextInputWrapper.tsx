@@ -4,6 +4,7 @@ import {clsx} from 'clsx'
 
 import styles from './TextInputWrapper.module.css'
 import {BoxWithFallback} from './BoxWithFallback'
+import type {SxProp} from '../..'
 
 export type TextInputSizes = 'small' | 'medium' | 'large'
 
@@ -22,7 +23,7 @@ type StyledTextInputBaseWrapperProps = {
   style?: React.CSSProperties
   onClick?: React.MouseEventHandler
   children?: React.ReactNode
-}
+} & SxProp
 
 type StyledTextInputWrapperProps = {
   hasLeadingVisual?: boolean
