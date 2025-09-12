@@ -4,8 +4,8 @@ import {Announce} from './Announce'
 import type {PolymorphicProps} from '../utils/modern-polymorphic'
 
 export type AriaStatusProps<As extends ElementType> = PolymorphicProps<
-  'div',
   As,
+  'div',
   {
     /**
      * Specify if the content of the element should be announced when this
