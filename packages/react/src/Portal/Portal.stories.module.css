@@ -9,3 +9,65 @@
 .InnerContainer {
   background-color: var(--bgColor-success-muted);
 }
+
+/* Portal Context Story Styles */
+.DefaultSection {
+  background-color: var(--bgColor-accent-muted);
+  margin: var(--base-size-8);
+  padding: var(--base-size-8);
+}
+
+.ContextSection {
+  background-color: var(--bgColor-attention-muted);
+  margin: var(--base-size-8);
+  padding: var(--base-size-8);
+}
+
+.OverrideSection {
+  background-color: var(--bgColor-success-muted);
+  margin: var(--base-size-8);
+  padding: var(--base-size-8);
+}
+
+.DefaultPortalContent {
+  background-color: var(--bgColor-accent-emphasis);
+  padding: var(--base-size-4);
+  border: var(--borderWidth-thin) solid var(--borderColor-accent-emphasis);
+  color: var(--fgColor-onEmphasis);
+}
+
+.ContextPortalContent {
+  background-color: var(--bgColor-attention-emphasis);
+  padding: var(--base-size-4);
+  border: var(--borderWidth-thin) solid var(--borderColor-attention-emphasis);
+  color: var(--fgColor-onEmphasis);
+}
+
+.OverridePortalContent {
+  background-color: var(--bgColor-success-emphasis);
+  padding: var(--base-size-4);
+  border: var(--borderWidth-thin) solid var(--borderColor-success-emphasis);
+  color: var(--fgColor-onEmphasis);
+}
+
+.CustomPortalContainer {
+  position: fixed;
+  bottom: var(--base-size-8);
+  left: var(--base-size-8);
+  background-color: var(--bgColor-neutral-muted);
+  padding: var(--base-size-8);
+  border: var(--borderWidth-thick) solid var(--borderColor-attention-emphasis);
+  border-radius: var(--borderRadius-medium);
+  max-width: 200px;
+}
+
+.OverridePortalContainer {
+  position: fixed;
+  bottom: var(--base-size-8);
+  right: var(--base-size-8);
+  background-color: var(--bgColor-neutral-muted);
+  padding: var(--base-size-8);
+  border: var(--borderWidth-thick) solid var(--borderColor-success-emphasis);
+  border-radius: var(--borderRadius-medium);
+  max-width: 200px;
+}
