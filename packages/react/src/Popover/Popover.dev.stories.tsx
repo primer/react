@@ -35,19 +35,3 @@ export const SxProps = () => (
     </Popover.Content>
   </Popover>
 )
-
-export const PopoverOverflow = () => (
-  <Popover relative open={true}>
-    <Popover.Content height={'small'}>
-      <Heading style={{fontSize: 2}}>Popover heading</Heading>
-      <Text as="p">Message about popovers</Text>
-      <Text as="p">Message about popovers</Text>
-      <Text as="p">Message about popovers</Text>
-      <Text as="p">Message about popovers</Text>
-      <Text as="p">Message about popovers</Text>
-      <Text as="p">Message about popovers</Text>
-      <Text as="p">Message about popovers</Text>
-      <Button>Got it!</Button>
-    </Popover.Content>
-  </Popover>
-)
