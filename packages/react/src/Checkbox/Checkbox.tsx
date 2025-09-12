@@ -1,13 +1,11 @@
 import {clsx} from 'clsx'
 import {useProvidedRefOrCreate} from '../hooks'
 import React, {useContext, useEffect, type ChangeEventHandler, type InputHTMLAttributes, type ReactElement} from 'react'
-import {type SxProp} from '../sx'
 import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 import type {FormValidationStatus} from '../utils/types/FormValidationStatus'
 import {CheckboxGroupContext} from '../CheckboxGroup/CheckboxGroupContext'
 import classes from './Checkbox.module.css'
 import sharedClasses from './shared.module.css'
-import Box from '../Box'
 
 export type CheckboxProps = {
   /**
@@ -35,27 +33,14 @@ export type CheckboxProps = {
    * Used during form submission and to identify which checkbox inputs are selected
    */
   value?: string
-} & Exclude<InputHTMLAttributes<HTMLInputElement>, 'value'> &
-  SxProp
+} & Exclude<InputHTMLAttributes<HTMLInputElement>, 'value'>
 
 /**
  * An accessible, native checkbox component
  */
 const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
   (
-    {
-      checked,
-      className,
-      defaultChecked,
-      indeterminate,
-      disabled,
-      onChange,
-      sx: sxProp,
-      required,
-      validationStatus,
-      value,
-      ...rest
-    },
+    {checked, className, defaultChecked, indeterminate, disabled, onChange, required, validationStatus, value, ...rest},
     ref,
   ): ReactElement => {
     const checkboxRef = useProvidedRefOrCreate(ref as React.RefObject<HTMLInputElement>)
@@ -99,16 +84,6 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
       }
     })
 
-    if (sxProp) {
-      return (
-        <Box
-          as="input"
-          {...inputProps}
-          className={clsx(className, sharedClasses.Input, classes.Checkbox)}
-          sx={sxProp}
-        />
-      )
-    }
     return <input {...inputProps} className={clsx(className, sharedClasses.Input, classes.Checkbox)} />
   },
 )
