@@ -2,16 +2,14 @@ import {clsx} from 'clsx'
 import type {HTMLAttributes} from 'react'
 import type React from 'react'
 import {forwardRef} from 'react'
-import type {SxProp} from '../sx'
 import {VisuallyHidden} from '../VisuallyHidden'
 import classes from './CounterLabel.module.css'
-import {BoxWithFallback} from '../internal/components/BoxWithFallback'
 
 export type CounterLabelProps = React.PropsWithChildren<
   HTMLAttributes<HTMLSpanElement> & {
     scheme?: 'primary' | 'secondary'
     className?: string
-  } & SxProp
+  }
 >
 
 const CounterLabel = forwardRef<HTMLSpanElement, CounterLabelProps>(
@@ -26,9 +24,9 @@ const CounterLabel = forwardRef<HTMLSpanElement, CounterLabelProps>(
 
     return (
       <>
-        <BoxWithFallback as="span" {...counterProps} className={clsx(className, classes.CounterLabel)}>
+        <span {...counterProps} className={clsx(className, classes.CounterLabel)}>
           {children}
-        </BoxWithFallback>
+        </span>
         {label}
       </>
     )
