@@ -52,6 +52,11 @@
   color: var(--fgColor-muted);
 }
 
+.FilterInputWrapper {
+  margin: var(--base-size-8);
+  width: auto;
+}
+
 .Notice {
   margin-top: var(--base-size-4);
   margin-right: var(--base-size-8);
@@ -229,8 +234,4 @@
   position: absolute;
   inset: 0;
   background-color: var(--overlay-backdrop-bgColor);
-}
-
-.TextInput {
-  margin: var(--base-size-8);
 }

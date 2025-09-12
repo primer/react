@@ -1,7 +1,7 @@
 import {useState} from 'react'
 import Breadcrumbs from '.'
 import TextInput from '../TextInput'
-import classes from './Breadcrumbs.stories.module.css'
+import classes from './Breadcrumbs.dev.stories.module.css'
 
 export default {
   title: 'Components/Breadcrumbs/Dev',
@@ -147,7 +147,7 @@ export const WithEditableNameInput = () => (
       <TextInput
         defaultValue="Untitled Document"
         size="small"
-        className={classes.EditableInput}
+        className={classes.EditableTextInput}
         aria-label="Edit document name"
       />
     </Breadcrumbs.Item>
