@@ -2,14 +2,12 @@ import {clsx} from 'clsx'
 import React, {useMemo} from 'react'
 import styled from 'styled-components'
 import {get} from '../constants'
-import type {SxProp} from '../sx'
-import sx from '../sx'
 import type {ComponentProps} from '../utils/types'
 import {useId} from '../hooks'
 
 /* Tooltip v1 */
 
-const TooltipBase = styled.span<SxProp>`
+const TooltipBase = styled.span`
   position: relative;
   display: inline-block;
 
@@ -182,8 +180,6 @@ const TooltipBase = styled.span<SxProp>`
     left: 0;
     margin-left: 0;
   }
-
-  ${sx};
 `
 
 /**
