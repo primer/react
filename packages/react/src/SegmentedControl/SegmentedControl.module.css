@@ -118,6 +118,17 @@
     width: 0;
   }
 
+  &[aria-disabled='true']:not([aria-current="true"]) {
+    cursor: not-allowed;
+    color: var(--fgColor-disabled);
+    background-color: transparent;
+
+    & svg {
+      fill: var(--fgColor-disabled);
+      color: var(--fgColor-disabled);
+    }
+  }
+
   @media (pointer: coarse) {
     &::before {
       position: absolute;
