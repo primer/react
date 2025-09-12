@@ -11,6 +11,8 @@ type DistributiveOmit<T, TOmitted extends PropertyKey> = T extends unknown ? Omi
 /**
  * Fixed version of forwardRef that provides better type inference for polymorphic components
  */
+// TODO: figure out how to change this type so we can set displayName
+// like this: `ComponentName.displayName = 'DisplayName' instead of using workarounds
 type FixedForwardRef = <T, P extends Record<string, unknown> = Record<string, unknown>>(
   render: (props: P, ref: React.Ref<T>) => React.ReactNode,
 ) => (props: P & React.RefAttributes<T>) => React.ReactNode
@@ -24,7 +26,10 @@ export const fixedForwardRef = forwardRef as FixedForwardRef
  * Simplified polymorphic props type that handles the common pattern of
  * `DistributiveOmit<ComponentPropsWithRef<ElementType extends As ? DefaultElement : As>, 'as'>`
  */
-export type PolymorphicProps<TAs extends ElementType, TDefaultElement extends ElementType = 'div'> = DistributiveOmit<
-  ComponentPropsWithRef<ElementType extends TAs ? TDefaultElement : TAs>,
-  'as'
->
+export type PolymorphicProps<
+  TAs extends ElementType,
+  TDefaultElement extends ElementType = 'div',
+  Props extends Record<string, unknown> = Record<string, unknown>,
+> = DistributiveOmit<ComponentPropsWithRef<ElementType extends TAs ? TDefaultElement : TAs> & Props, 'as'> & {
+  as?: TAs
+}
