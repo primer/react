@@ -60,18 +60,9 @@ const PopoverContent: React.FC<React.PropsWithChildren<PopoverContentProps>> = (
   className,
   width = 'small',
   height = 'fit-content',
-  overflow = 'auto',
   ...props
 }) => {
-  return (
-    <div
-      data-width={width}
-      data-height={height}
-      data-overflow={overflow}
-      className={clsx(className, classes.PopoverContent)}
-      {...props}
-    />
-  )
+  return <div data-width={width} data-height={height} className={clsx(className, classes.PopoverContent)} {...props} />
 }
 
 PopoverContent.displayName = 'Popover.Content'

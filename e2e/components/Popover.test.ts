@@ -11,10 +11,6 @@ const stories = [
     title: 'Playground',
     id: 'components-popover--playground',
   },
-  {
-    title: 'Popover Overflow',
-    id: 'components-popover-dev--popover-overflow',
-  },
 ] as const
 
 test.describe('Popover', () => {

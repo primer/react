@@ -84,10 +84,4 @@ Playground.argTypes = {
     },
     options: ['small', 'medium', 'large', 'auto', 'xlarge', 'fit-content'],
   },
-  overflow: {
-    control: {
-      type: 'radio',
-    },
-    options: ['auto', 'hidden', 'scroll', 'visible'],
-  },
 }
