@@ -22,6 +22,7 @@ export default defineConfig({
     }),
     babel({
       presets: ['@babel/preset-typescript', '@babel/preset-react'],
+      plugins: ['babel-plugin-styled-components'],
       extensions: ['.ts', '.tsx'],
       babelHelpers: 'bundled',
     }),
