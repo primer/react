@@ -5,8 +5,6 @@ import {
   Box,
   type BoxProps,
   type SxProp,
-  Select as PrimerSelect,
-  type SelectProps as PrimerSelectProps,
   StateLabel as PrimerStateLabel,
   type StateLabelProps as PrimerStateLabelProps,
   SubNav as PrimerSubNav,
@@ -33,7 +31,6 @@ import type {
   SpaceProps,
   TypographyProps,
 } from 'styled-system'
-import type {ForwardRefComponent} from './polymorphic'
 import {Autocomplete} from './components/Autocomplete'
 import {Select} from './components/Select'
 import {TextInput} from './components/TextInput'
