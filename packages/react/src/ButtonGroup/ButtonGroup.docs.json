@@ -23,11 +23,6 @@
   "importPath": "@primer/react",
   "props": [
     {
-      "name": "sx",
-      "type": "SystemStyleObject",
-      "deprecated": true
-    },
-    {
       "name": "ref",
       "type": "React.RefObject<HTMLDivElement>"
     }
