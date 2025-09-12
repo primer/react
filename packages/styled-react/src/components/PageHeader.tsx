@@ -29,7 +29,8 @@ const PageHeaderParentLink = React.forwardRef<HTMLAnchorElement, PageHeaderParen
   return <Box as={PrimerPageHeader.ParentLink} ref={ref} {...props} />
 })
 
-const PageHeader = Object.assign(PrimerPageHeader as React.FC<PageHeaderProps>, {
+// weird typecast to get around mysterious TS error
+const PageHeader = Object.assign(PrimerPageHeader as unknown as React.FC<PageHeaderProps>, {
   // Wrapped components that need sx support added back in
   Title: PageHeaderTitle,
   ParentLink: PageHeaderParentLink,
