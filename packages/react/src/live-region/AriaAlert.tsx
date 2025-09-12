@@ -22,14 +22,6 @@ export type AriaAlertProps<As extends ElementType> = PolymorphicProps<
   }
 >
 
-export function AriaAlert<As extends ElementType = 'div'>({
-  announceOnShow = true,
-  children,
-  ...rest
-}: AriaAlertProps<As>) {
-  return (
-    <Announce {...rest} announceOnShow={announceOnShow} politeness="assertive">
-      {children}
-    </Announce>
-  )
+export function AriaAlert<As extends ElementType = 'div'>(props: AriaAlertProps<As>) {
+  return <Announce {...props} announceOnShow={props.announceOnShow ?? true} politeness="assertive" />
 }
