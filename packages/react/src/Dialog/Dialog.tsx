@@ -349,7 +349,6 @@ Header.displayName = 'Dialog.Header'
 
 type StyledTitleProps = React.ComponentProps<'h1'>
 
-// TODO: get rid of typecasting `forwardRef`
 const Title = React.forwardRef<HTMLHeadingElement, StyledTitleProps>(function Title({className, ...rest}, forwardRef) {
   return <h1 ref={forwardRef} className={clsx(className, classes.Title)} {...rest} />
 })
