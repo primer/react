@@ -1,5 +1,7 @@
 .DebugPageLayout {
-  border: var(--borderWidth-thin) solid var(--borderColor-danger-emphasis);
+  /* `red` is just used for debugging purposes. VRTs fail if changed. */
+  /* stylelint-disable-next-line color-named */
+  border: var(--borderWidth-thin) solid red;
 }
 
 .SuccessColor {
