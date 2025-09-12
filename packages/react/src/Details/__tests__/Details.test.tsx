@@ -1,7 +1,7 @@
 import {describe, expect, it} from 'vitest'
 import {render, screen} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import {Details, useDetails, Box, Button} from '../..'
+import {Details, useDetails, Button} from '../..'
 import type {ButtonProps} from '../../Button'
 
 describe('Details', () => {
@@ -68,9 +68,9 @@ describe('Details', () => {
       return (
         <Details {...getDetailsProps()}>
           <summary data-testid="summary">{open ? 'Open' : 'Closed'}</summary>
-          <Box>
+          <div>
             <Button variant="primary">test</Button>
-          </Box>
+          </div>
         </Details>
       )
     }
@@ -105,9 +105,7 @@ describe('Details', () => {
   it('Does not add default summary if supplied as different element', async () => {
     const {findByTestId, findByText} = render(
       <Details data-testid="details">
-        <Box as="summary" data-testid="summary">
-          custom summary
-        </Box>
+        <summary data-testid="summary">custom summary</summary>
         content
       </Details>,
     )

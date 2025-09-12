@@ -1,8 +1,7 @@
 import {render, screen, waitFor} from '@testing-library/react'
 import {describe, expect, it, beforeEach, vi} from 'vitest'
 import React from 'react'
-import {SelectPanel, type SelectPanelProps} from '../SelectPanel'
-import type {ItemInput, GroupedListProps} from '../deprecated/ActionList/List'
+import {SelectPanel, type SelectPanelProps, type ItemInput, type GroupedListProps} from '../SelectPanel'
 import {userEvent} from '@testing-library/user-event'
 import ThemeProvider from '../ThemeProvider'
 import {FeatureFlags} from '../FeatureFlags'
@@ -696,7 +695,7 @@ for (const usingRemoveActiveDescendant of [false, true]) {
         expect(screen.getByRole('combobox').hasAttribute('aria-describedby')).toBeTruthy()
       })
 
-      it.skip('should announce initially focused item', async () => {
+      it('should announce initially focused item', async () => {
         const user = userEvent.setup()
         renderWithFlag(<FilterableSelectPanel />, usingRemoveActiveDescendant)
 

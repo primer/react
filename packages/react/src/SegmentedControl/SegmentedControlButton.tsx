@@ -1,12 +1,10 @@
 import type {ButtonHTMLAttributes} from 'react'
 import type React from 'react'
 import type {IconProps} from '@primer/octicons-react'
-import type {SxProp} from '../sx'
 import {isElement} from 'react-is'
 
 import classes from './SegmentedControl.module.css'
 import {clsx} from 'clsx'
-import {BoxWithFallback} from '../internal/components/BoxWithFallback'
 
 export type SegmentedControlButtonProps = {
   /** The visible label rendered in the button */
@@ -21,14 +19,12 @@ export type SegmentedControlButtonProps = {
   disabled?: boolean
   /** Applies `aria-disabled` to the button. This will disable certain functionality, such as `onClick` events. */
   'aria-disabled'?: boolean
-} & SxProp &
-  ButtonHTMLAttributes<HTMLButtonElement | HTMLLIElement>
+} & ButtonHTMLAttributes<HTMLButtonElement | HTMLLIElement>
 
 const SegmentedControlButton: React.FC<React.PropsWithChildren<SegmentedControlButtonProps>> = ({
   children,
   leadingIcon: LeadingIcon,
   selected,
-  sx: sxProp,
   className,
   disabled,
   'aria-disabled': ariaDisabled,
@@ -37,9 +33,8 @@ const SegmentedControlButton: React.FC<React.PropsWithChildren<SegmentedControlB
   ...rest
 }) => {
   return (
-    <BoxWithFallback as="li" sx={sxProp} className={clsx(classes.Item)} data-selected={selected ? '' : undefined}>
-      <BoxWithFallback
-        as="button"
+    <li className={clsx(classes.Item)} data-selected={selected ? '' : undefined}>
+      <button
         aria-current={selected}
         aria-disabled={disabled || ariaDisabled || undefined}
         className={clsx(classes.Button, className)}
@@ -54,8 +49,8 @@ const SegmentedControlButton: React.FC<React.PropsWithChildren<SegmentedControlB
             {children}
           </div>
         </span>
-      </BoxWithFallback>
-    </BoxWithFallback>
+      </button>
+    </li>
   )
 }
 

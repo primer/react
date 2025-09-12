@@ -18,7 +18,7 @@ import classes from './TextInputWithTokens.stories.module.css'
 const excludedControls = ['tokens', 'onTokenRemove', 'tokenComponent', ...textInputExcludedControlKeys]
 
 export default {
-  title: 'Components/TextInputWithTokens',
+  title: 'Deprecated/Components/TextInputWithTokens',
   component: TextInputWithTokens,
   parameters: {controls: {exclude: excludedControls}},
 } as Meta
