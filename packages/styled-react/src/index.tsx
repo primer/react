@@ -1,3 +1,5 @@
+import type React from 'react'
+import {forwardRef, type PropsWithChildren} from 'react'
 import {
   type BetterSystemStyleObject,
   Box,
@@ -7,6 +9,8 @@ import {
   SubNav as PrimerSubNav,
   type SubNavProps as PrimerSubNavProps,
   type SubNavLinkProps as PrimerSubNavLinkProps,
+  Textarea as PrimerTextarea,
+  type TextareaProps as PrimerTextareaProps,
   ToggleSwitch as PrimerToggleSwitch,
   type ToggleSwitchProps as PrimerToggleSwitchProps,
   Link as PrimerLink,
@@ -20,7 +24,6 @@ import {
   type SegmentedControlButtonProps as PrimerSegmentedControlButtonProps,
   type SegmentedControlIconButtonProps as PrimerSegmentedControlIconButtonProps,
 } from '@primer/react'
-import React, {forwardRef, type PropsWithChildren} from 'react'
 import type {
   BackgroundProps,
   BorderProps,
@@ -38,6 +41,9 @@ import {PageHeader} from './components/PageHeader'
 import {PageLayout} from './components/PageLayout'
 import {NavList} from './components/NavList'
 import {UnderlineNav} from './components/UnderlineNav'
+import {Autocomplete} from './components/Autocomplete'
+import {Select} from './components/Select'
+import {TextInput} from './components/TextInput'
 
 type StyledProps = SxProp &
   SpaceProps &
@@ -119,6 +125,7 @@ const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Checkbox(p
 })
 
 export {
+  Autocomplete,
   Checkbox,
   Heading,
   Link,
@@ -126,16 +133,27 @@ export {
   PageHeader,
   PageLayout,
   SegmentedControl,
+  Select,
   StateLabel,
   SubNav,
+  Textarea,
+  TextInput,
   ToggleSwitch,
   UnderlineNav,
 }
+type TextareaProps = PropsWithChildren<PrimerTextareaProps> & SxProp
+
+// Type annotation needed because TextInput uses `FormValidationStatus` internal type
+const Textarea: React.ForwardRefExoticComponent<TextareaProps & React.RefAttributes<HTMLTextAreaElement>> = forwardRef<
+  HTMLTextAreaElement,
+  TextareaProps
+>(function Textarea(props, ref) {
+  return <Box as={PrimerTextarea} ref={ref} {...props} />
+})
 
 export {
   ActionList,
   ActionMenu,
-  Autocomplete,
   Avatar,
   Breadcrumbs,
   Button,
@@ -155,11 +173,8 @@ export {
   ProgressBar,
   RadioGroup,
   RelativeTime,
-  Select,
   Spinner,
   Text,
-  Textarea,
-  TextInput,
   Timeline,
   Token,
   Tooltip,
