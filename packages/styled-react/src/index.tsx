@@ -1,10 +1,6 @@
 import type React from 'react'
 import {forwardRef, type PropsWithChildren} from 'react'
 import {
-  type BetterSystemStyleObject,
-  Box,
-  type BoxProps,
-  type SxProp,
   StateLabel as PrimerStateLabel,
   type StateLabelProps as PrimerStateLabelProps,
   SubNav as PrimerSubNav,
@@ -32,8 +28,12 @@ import type {
   TypographyProps,
 } from 'styled-system'
 import {Autocomplete} from './components/Autocomplete'
+import Box from './components/Box'
+import type {BoxProps} from './components/Box'
 import {Select} from './components/Select'
 import {TextInput} from './components/TextInput'
+import sx from './sx'
+import type {BetterSystemStyleObject, SxProp} from './sx'
 
 type StyledProps = SxProp &
   SpaceProps &
@@ -106,8 +106,10 @@ const Textarea: React.ForwardRefExoticComponent<TextareaProps & React.RefAttribu
   return <Box as={PrimerTextarea} ref={ref} {...props} />
 })
 
-export {Autocomplete, SegmentedControl, Select, StateLabel, SubNav, TextInput, Textarea, ToggleSwitch}
+export {Autocomplete, Box, SegmentedControl, Select, StateLabel, SubNav, TextInput, Textarea, ToggleSwitch, sx}
+export type {BoxProps}
 
+export {get as themeGet} from './constants'
 export {
   ActionList,
   ActionMenu,
@@ -143,16 +145,11 @@ export {
   Truncate,
   UnderlineNav,
 
-  // styled-components components or types
-  Box,
-  sx,
-
   // theming depends on styled-components
   ThemeProvider,
   merge,
   theme,
-  themeGet,
   useColorSchemeVar,
   useTheme,
 } from '@primer/react'
-export type {BoxProps, SxProp, BetterSystemStyleObject}
+export type {SxProp, BetterSystemStyleObject}
