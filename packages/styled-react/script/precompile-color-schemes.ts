@@ -25,4 +25,4 @@ const colors = ${JSON.stringify(colorSchemes, null, 2)}
 export const colorSchemes: Record<Scheme, SchemeValue> = colors as Record<Scheme, SchemeValue>
 `
 
-fs.writeFileSync(path.join(__dirname, '../src/legacy-theme/ts/color-schemes.ts'), colorSchemeFileContent)
+fs.writeFileSync(path.join(import.meta.dirname, '../src/legacy-theme/ts/color-schemes.ts'), colorSchemeFileContent)
