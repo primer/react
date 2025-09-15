@@ -13,8 +13,8 @@ import {Stack} from '../Stack'
 
 const Basic = ({
   confirmButtonType,
-  initialFocusButton,
-}: Pick<React.ComponentProps<typeof ConfirmationDialog>, 'confirmButtonType' | 'initialFocusButton'>) => {
+  overrideButtonFocus,
+}: Pick<React.ComponentProps<typeof ConfirmationDialog>, 'confirmButtonType' | 'overrideButtonFocus'>) => {
   const [isOpen, setIsOpen] = useState(false)
   const buttonRef = useRef<HTMLButtonElement>(null)
   const onDialogClose = useCallback(() => setIsOpen(false), [])
@@ -31,7 +31,7 @@ const Basic = ({
             cancelButtonContent="Secondary"
             confirmButtonContent="Primary"
             confirmButtonType={confirmButtonType}
-            initialFocusButton={initialFocusButton}
+            overrideButtonFocus={overrideButtonFocus}
           >
             Lorem ipsum dolor sit Pippin good dog.
           </ConfirmationDialog>
@@ -192,7 +192,7 @@ describe('ConfirmationDialog', () => {
   })
 
   it('focuses the confirm button even when dangerous if initialButtonFocus is confirm', async () => {
-    const {getByText, getByRole} = render(<Basic confirmButtonType="danger" initialFocusButton="confirm" />)
+    const {getByText, getByRole} = render(<Basic confirmButtonType="danger" overrideButtonFocus="confirm" />)
 
     fireEvent.click(getByText('Show dialog'))
 

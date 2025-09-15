@@ -52,11 +52,11 @@ export interface ConfirmationDialogProps {
   confirmButtonLoading?: boolean
 
   /**
-   * The button that should be initially focused when the dialog is opened. By default, the confirm button
+   * Overrides the button that should be initially focused when the dialog is opened. By default, the confirm button
    * is focused initially unless it is a dangerous action, in which case the cancel button is focused. This should
    * rarely be overridden, in order to ensure that the user does not accidentally confirm a dangerous action.
    */
-  initialFocusButton?: 'cancel' | 'confirm'
+  overrideButtonFocus?: 'cancel' | 'confirm'
 
   /**
    * Additional class names to apply to the dialog
@@ -132,7 +132,7 @@ export const ConfirmationDialog: React.FC<React.PropsWithChildren<ConfirmationDi
     className,
     width = 'medium',
     height,
-    initialFocusButton,
+    overrideButtonFocus,
   } = props
 
   const onCancelButtonClick = useCallback(() => {
@@ -143,7 +143,7 @@ export const ConfirmationDialog: React.FC<React.PropsWithChildren<ConfirmationDi
   }, [onClose])
   const isConfirmationDangerous = confirmButtonType === 'danger'
   const buttonToFocus =
-    initialFocusButton !== undefined ? initialFocusButton : isConfirmationDangerous ? 'cancel' : 'confirm'
+    overrideButtonFocus !== undefined ? overrideButtonFocus : isConfirmationDangerous ? 'cancel' : 'confirm'
   const cancelButton: DialogButtonProps = {
     content: cancelButtonContent,
     onClick: onCancelButtonClick,
