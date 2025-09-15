@@ -52,11 +52,12 @@ const BreadcrumbsMenuItem = React.forwardRef<HTMLDetailsElement, BreadcrumbsMenu
   ({items, 'aria-label': ariaLabel, ...rest}, menuRefCallback) => {
     const [isOpen, setIsOpen] = useState(false)
     const detailsRef = useRef<HTMLDetailsElement | null>(null)
-    const menuButtonRef = useRef<HTMLElement>(null)
+    const menuButtonRef = useRef<HTMLButtonElement | null>(null)
     const menuContainerRef = useRef<HTMLDivElement>(null)
     const detailsRefCallback = useCallback(
       (element: HTMLDetailsElement | null) => {
         detailsRef.current = element
+        menuButtonRef.current = element?.firstChild as HTMLButtonElement | null
         if (typeof menuRefCallback === 'function') {
           menuRefCallback(element)
         }
@@ -108,7 +109,6 @@ const BreadcrumbsMenuItem = React.forwardRef<HTMLDetailsElement, BreadcrumbsMenu
           <IconButton
             as="summary"
             role="button"
-            ref={menuButtonRef}
             aria-label={ariaLabel || `${items.length} more breadcrumb items`}
             aria-expanded={isOpen ? 'true' : 'false'}
             onClick={handleSummaryClick}
