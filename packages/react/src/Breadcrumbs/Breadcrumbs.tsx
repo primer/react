@@ -57,7 +57,9 @@ const BreadcrumbsMenuItem = React.forwardRef<HTMLDetailsElement, BreadcrumbsMenu
     const detailsRefCallback = useCallback(
       (element: HTMLDetailsElement | null) => {
         detailsRef.current = element
-        menuButtonRef.current = element?.firstChild as HTMLButtonElement | null
+        menuButtonRef.current = element?.querySelector(
+          'summary:not([data-default-summary])',
+        ) as HTMLButtonElement | null
         if (typeof menuRefCallback === 'function') {
           menuRefCallback(element)
         }
