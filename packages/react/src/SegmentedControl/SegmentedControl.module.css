@@ -188,7 +188,7 @@
   }
 }
 
-.Button:not([aria-current='true']):not([aria-disabled='true']) {
+.Button:not([aria-current='true'], [aria-disabled='true']) {
   &:hover .Content {
     background-color: var(--controlTrack-bgColor-hover);
   }
