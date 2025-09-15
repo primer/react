@@ -5,6 +5,8 @@ import {
   Box,
   type BoxProps,
   type SxProp,
+  type CircleBadgeProps as PrimerCircleBadgeProps,
+  CircleBadge as PrimerCircleBadge,
   StateLabel as PrimerStateLabel,
   type StateLabelProps as PrimerStateLabelProps,
   SubNav as PrimerSubNav,
@@ -68,6 +70,12 @@ const SegmentedControl = Object.assign(SegmentedControlImpl, {
   IconButton: SegmentedControlIconButton,
 })
 
+type CircleBadgeProps = PrimerCircleBadgeProps & SxProp
+
+function CircleBadge(props: CircleBadgeProps) {
+  return <Box as={PrimerCircleBadge} {...props} />
+}
+
 type StateLabelProps = PrimerStateLabelProps & SxProp
 
 const StateLabel = forwardRef<HTMLSpanElement, StateLabelProps>(function StateLabel(props, ref) {
@@ -106,7 +114,7 @@ const Textarea: React.ForwardRefExoticComponent<TextareaProps & React.RefAttribu
   return <Box as={PrimerTextarea} ref={ref} {...props} />
 })
 
-export {Autocomplete, SegmentedControl, Select, StateLabel, SubNav, TextInput, Textarea, ToggleSwitch}
+export {Autocomplete, CircleBadge, SegmentedControl, Select, StateLabel, SubNav, TextInput, Textarea, ToggleSwitch}
 
 export {
   ActionList,
@@ -116,7 +124,6 @@ export {
   Button,
   Checkbox,
   CheckboxGroup,
-  CircleBadge,
   CounterLabel,
   Details,
   Dialog,
