@@ -19,7 +19,8 @@ import {
   type SegmentedControlButtonProps as PrimerSegmentedControlButtonProps,
   type SegmentedControlIconButtonProps as PrimerSegmentedControlIconButtonProps,
 } from '@primer/react'
-import React, {forwardRef, type PropsWithChildren} from 'react'
+import type React from 'react'
+import {forwardRef, type PropsWithChildren} from 'react'
 import type {
   BackgroundProps,
   BorderProps,
@@ -47,6 +48,10 @@ type StyledProps = SxProp &
 
 type RadioGroupProps = PropsWithChildren<PrimerRadioGroupProps> & SxProp
 
+const RadioGroupImpl = (props: RadioGroupProps) => {
+  return <Box as={PrimerRadioGroup} {...props} />
+}
+
 // Define local types based on the internal component props
 type CheckboxOrRadioGroupLabelProps = PropsWithChildren<
   {
@@ -54,32 +59,27 @@ type CheckboxOrRadioGroupLabelProps = PropsWithChildren<
     visuallyHidden?: boolean
   } & SxProp
 >
+const CheckboxOrRadioGroupLabel = (props: CheckboxOrRadioGroupLabelProps) => {
+  return <Box as={PrimerRadioGroup.Label} {...props} />
+}
+
 type CheckboxOrRadioGroupCaptionProps = PropsWithChildren<
   {
     className?: string
   } & SxProp
 >
-type CheckboxOrRadioGroupValidationProps = PropsWithChildren<
-  {
-    className?: string
-    variant?: 'error' | 'success'
-  } & SxProp
->
-
-const RadioGroupImpl = (props: RadioGroupProps) => {
-  return <Box as={PrimerRadioGroup} {...props} />
-}
-
-const CheckboxOrRadioGroupLabel = (props: CheckboxOrRadioGroupLabelProps) => {
-  return <Box as={PrimerRadioGroup.Label} {...props} />
-}
-
 const CheckboxOrRadioGroupCaption = (props: CheckboxOrRadioGroupCaptionProps) => {
   return <Box as={PrimerRadioGroup.Caption} {...props} />
 }
 
+type CheckboxOrRadioGroupValidationProps = PropsWithChildren<
+  {
+    className?: string
+    variant: 'error' | 'success'
+  } & SxProp
+>
 const CheckboxOrRadioGroupValidation = (props: CheckboxOrRadioGroupValidationProps) => {
-  return <Box as={PrimerRadioGroup.Validation as any} {...props} />
+  return <Box as={PrimerRadioGroup.Validation} {...props} />
 }
 
 const RadioGroup = Object.assign(RadioGroupImpl, {
@@ -140,7 +140,7 @@ const ToggleSwitch = forwardRef<HTMLButtonElement, ToggleSwitchProps>(function T
 type TruncateProps = PropsWithChildren<PrimerTruncateProps> & SxProp
 
 const Truncate = forwardRef<HTMLDivElement, TruncateProps>(function Truncate(props, ref) {
-  return <Box as={PrimerTruncate as any} ref={ref} {...props} />
+  return <Box as={PrimerTruncate as React.ElementType} ref={ref} {...props} />
 })
 
 export {RadioGroup, SegmentedControl, StateLabel, SubNav, ToggleSwitch, Truncate}
