@@ -2,8 +2,8 @@ import type {TextareaHTMLAttributes, ReactElement} from 'react'
 import React from 'react'
 import {TextInputBaseWrapper} from '../internal/components/TextInputWrapper'
 import type {FormValidationStatus} from '../utils/types/FormValidationStatus'
-import classes from './TextArea.module.css'
 import type {SxProp} from '../sx'
+import classes from './TextArea.module.css'
 
 export const DEFAULT_TEXTAREA_ROWS = 7
 export const DEFAULT_TEXTAREA_COLS = 30
@@ -58,6 +58,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
     {
       value,
       disabled,
+      sx: sxProp,
       required,
       validationStatus,
       rows = DEFAULT_TEXTAREA_ROWS,
@@ -69,19 +70,18 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
       minHeight,
       maxHeight,
       style,
-      sx: sxProp,
       ...rest
     }: TextareaProps,
     ref,
   ): ReactElement => {
     return (
       <TextInputBaseWrapper
+        sx={sxProp}
         validationStatus={validationStatus}
         disabled={disabled}
         block={block}
         contrast={contrast}
         className={className}
-        sx={sxProp}
       >
         <textarea
           value={value}

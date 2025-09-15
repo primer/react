@@ -42,7 +42,17 @@ export type TextInputNonPassthroughProps = {
 } & Partial<
   Pick<
     StyledWrapperProps,
-    'block' | 'contrast' | 'disabled' | 'monospace' | 'variant' | 'size' | 'sx' | 'validationStatus'
+    | 'block'
+    | 'contrast'
+    | 'disabled'
+    | 'monospace'
+    | 'sx'
+    | 'width'
+    | 'maxWidth'
+    | 'minWidth'
+    | 'variant'
+    | 'size'
+    | 'validationStatus'
   >
 >
 
@@ -65,12 +75,15 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
       loaderText = 'Loading',
       monospace,
       validationStatus,
+      sx: sxProp,
       size: sizeProp,
       onFocus,
       onBlur,
       // start deprecated props
+      width: widthProp,
+      minWidth: minWidthProp,
+      maxWidth: maxWidthProp,
       variant: variantProp,
-      sx: sxProp,
       // end deprecated props
       type = 'text',
       required,
@@ -124,7 +137,11 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
         contrast={contrast}
         disabled={disabled}
         monospace={monospace}
+        sx={sxProp}
         size={sizeProp}
+        width={widthProp}
+        minWidth={minWidthProp}
+        maxWidth={maxWidthProp}
         variant={variantProp}
         hasLeadingVisual={Boolean(LeadingVisual || showLeadingLoadingIndicator)}
         hasTrailingVisual={Boolean(TrailingVisual || showTrailingLoadingIndicator)}
@@ -132,7 +149,6 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
         isInputFocused={isInputFocused}
         onClick={focusInput}
         aria-busy={Boolean(loading)}
-        sx={sxProp}
       >
         {IconComponent && <IconComponent className="TextInput-icon" />}
         <TextInputInnerVisualSlot

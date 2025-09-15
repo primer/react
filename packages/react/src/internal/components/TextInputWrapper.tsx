@@ -1,10 +1,11 @@
 import React, {type ComponentProps} from 'react'
+import {type ResponsiveValue} from 'styled-system'
+import type {SxProp} from '../../sx'
 import type {FormValidationStatus} from '../../utils/types/FormValidationStatus'
 import {clsx} from 'clsx'
 
 import styles from './TextInputWrapper.module.css'
 import {BoxWithFallback} from './BoxWithFallback'
-import type {SxProp} from '../..'
 
 export type TextInputSizes = 'small' | 'medium' | 'large'
 
@@ -23,6 +24,12 @@ type StyledTextInputBaseWrapperProps = {
   style?: React.CSSProperties
   onClick?: React.MouseEventHandler
   children?: React.ReactNode
+  /** @deprecated Update `width` using CSS modules or style. */
+  width?: string | number | ResponsiveValue<string | number>
+  /** @deprecated Update `min-width` using CSS modules or style. */
+  minWidth?: string | number | ResponsiveValue<string | number>
+  /** @deprecated Update `max-width` using CSS modules or style. */
+  maxWidth?: string | number | ResponsiveValue<string | number>
 } & SxProp
 
 type StyledTextInputWrapperProps = {
@@ -34,6 +41,7 @@ export const TextInputBaseWrapper = React.forwardRef<HTMLElement, StyledTextInpu
   function TextInputBaseWrapper(
     {
       className,
+      style,
       variant,
       size,
       isInputFocused,
@@ -43,6 +51,9 @@ export const TextInputBaseWrapper = React.forwardRef<HTMLElement, StyledTextInpu
       contrast,
       monospace,
       block,
+      width,
+      minWidth,
+      maxWidth,
       ...restProps
     },
     forwardRef,
@@ -61,6 +72,11 @@ export const TextInputBaseWrapper = React.forwardRef<HTMLElement, StyledTextInpu
         data-trailing-action={hasTrailingAction || undefined}
         data-validation={validationStatus || undefined}
         data-variant={variant || undefined}
+        style={
+          typeof width === 'string' || typeof minWidth === 'string' || typeof maxWidth === 'string'
+            ? {width, maxWidth, minWidth, ...style}
+            : style
+        }
         {...restProps}
       />
     )

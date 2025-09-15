@@ -141,6 +141,27 @@
       "description": "(Use size) Creates a smaller or larger input than the default."
     },
     {
+      "name": "width",
+      "type": "string | number | Array<string | number>",
+      "defaultValue": "",
+      "deprecated": true,
+      "description": "(Use sx prop) Set the width of the input"
+    },
+    {
+      "name": "maxWidth",
+      "type": "string | number | Array<string | number>",
+      "defaultValue": "",
+      "deprecated": true,
+      "description": "(Use sx prop) Set the maximum width of the input"
+    },
+    {
+      "name": "minWidth",
+      "type": "string | number | Array<string | number>",
+      "defaultValue": "",
+      "deprecated": true,
+      "description": "(Use sx prop) Set the minimum width of the input"
+    },
+    {
       "name": "icon",
       "type": "React.ComponentType",
       "defaultValue": "",
