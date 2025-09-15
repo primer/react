@@ -219,6 +219,24 @@ test.describe('TextInput', () => {
     }
   })
 
+  test.describe('Dev: With Sx', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-textinput-dev--with-sx',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          // Default state
+          expect(await page.screenshot()).toMatchSnapshot(`TextInput.Dev.WithSx.${theme}.png`)
+        })
+      })
+    }
+  })
+
   test.describe('Dev: With CSS', () => {
     for (const theme of themes) {
       test.describe(theme, () => {
@@ -232,6 +250,24 @@ test.describe('TextInput', () => {
 
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`TextInput.Dev.WithCSS.${theme}.png`)
+        })
+      })
+    }
+  })
+
+  test.describe('Dev: With Sx and CSS', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-textinput-dev--with-sx-and-css',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          // Default state
+          expect(await page.screenshot()).toMatchSnapshot(`TextInput.Dev.WithSxAndCSS.${theme}.png`)
         })
       })
     }
