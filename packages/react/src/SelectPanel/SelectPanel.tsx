@@ -648,7 +648,7 @@ function Panel({
 
   const extendedTextInputProps: Partial<TextInputProps> = useMemo(() => {
     return {
-      className: classes.FilterInputWrapper,
+      className: classes.TextInput,
       contrast: true,
       leadingVisual: SearchIcon,
       'aria-label': inputLabel,

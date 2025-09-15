@@ -1,5 +1,3 @@
-import type React from 'react'
-import {forwardRef, type PropsWithChildren} from 'react'
 import {
   type BetterSystemStyleObject,
   Box,
@@ -16,8 +14,6 @@ import {
   type TimelineBadgeProps as PrimerTimelineBadgeProps,
   type TimelineBodyProps as PrimerTimelineBodyProps,
   type TimelineBreakProps as PrimerTimelineBreakProps,
-  Textarea as PrimerTextarea,
-  type TextareaProps as PrimerTextareaProps,
   ToggleSwitch as PrimerToggleSwitch,
   type ToggleSwitchProps as PrimerToggleSwitchProps,
   type SegmentedControlProps as PrimerSegmentedControlProps,
@@ -25,6 +21,7 @@ import {
   type SegmentedControlButtonProps as PrimerSegmentedControlButtonProps,
   type SegmentedControlIconButtonProps as PrimerSegmentedControlIconButtonProps,
 } from '@primer/react'
+import React, {forwardRef, type PropsWithChildren} from 'react'
 import type {
   BackgroundProps,
   BorderProps,
@@ -37,9 +34,6 @@ import type {
   SpaceProps,
   TypographyProps,
 } from 'styled-system'
-import {Autocomplete} from './components/Autocomplete'
-import {Select} from './components/Select'
-import {TextInput} from './components/TextInput'
 
 type StyledProps = SxProp &
   SpaceProps &
@@ -135,21 +129,12 @@ const ToggleSwitch = forwardRef<HTMLButtonElement, ToggleSwitchProps>(function T
   return <Box as={PrimerToggleSwitch} ref={ref} {...props} />
 })
 
-type TextareaProps = PropsWithChildren<PrimerTextareaProps> & SxProp
-
-// Type annotation needed because TextInput uses `FormValidationStatus` internal type
-const Textarea: React.ForwardRefExoticComponent<TextareaProps & React.RefAttributes<HTMLTextAreaElement>> = forwardRef<
-  HTMLTextAreaElement,
-  TextareaProps
->(function Textarea(props, ref) {
-  return <Box as={PrimerTextarea} ref={ref} {...props} />
-})
-
-export {Autocomplete, SegmentedControl, Select, StateLabel, SubNav, TextInput, Textarea, Timeline, ToggleSwitch}
+export {SegmentedControl, StateLabel, SubNav, Timeline, ToggleSwitch}
 
 export {
   ActionList,
   ActionMenu,
+  Autocomplete,
   Avatar,
   Breadcrumbs,
   Button,
@@ -174,8 +159,11 @@ export {
   ProgressBar,
   RadioGroup,
   RelativeTime,
+  Select,
   Spinner,
   Text,
+  Textarea,
+  TextInput,
   Token,
   Tooltip,
   Truncate,
