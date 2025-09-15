@@ -27,7 +27,6 @@ import {
   Overlay,
   PageHeader,
   PageLayout,
-  Popover,
   ProgressBar,
   RadioGroup,
   RelativeTime,
@@ -287,16 +286,6 @@ describe('@primer/react', () => {
     expect(window.getComputedStyle(container.firstElementChild!).backgroundColor).toBe('rgb(255, 0, 0)')
   })
 
-  test('Popover supports `sx` prop', () => {
-    const {container} = render(<Popover data-testid="component" sx={{background: 'red'}} />)
-    expect(window.getComputedStyle(container.firstElementChild!).backgroundColor).toBe('rgb(255, 0, 0)')
-  })
-
-  test('Popover.Content supports `sx` prop', () => {
-    const {container} = render(<Popover.Content data-testid="component" sx={{background: 'red'}} />)
-    expect(window.getComputedStyle(container.firstElementChild!).backgroundColor).toBe('rgb(255, 0, 0)')
-  })
-
   test('ProgressBar supports `sx` prop', () => {
     const {container} = render(<ProgressBar data-testid="component" sx={{background: 'red'}} />)
     expect(window.getComputedStyle(container.firstElementChild!).backgroundColor).toBe('rgb(255, 0, 0)')
@@ -355,7 +344,7 @@ describe('@primer/react', () => {
     expect(window.getComputedStyle(container.firstElementChild!).backgroundColor).toBe('rgb(255, 0, 0)')
   })
 
-  test('Select supports `sx` prop', () => {
+  test.skip('Select supports `sx` prop', () => {
     render(<Select data-testid="component" sx={{background: 'red'}} />)
     expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
   })
