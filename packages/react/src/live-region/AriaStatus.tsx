@@ -1,15 +1,12 @@
 import type React from 'react'
 import {type ElementType} from 'react'
 import {Announce} from './Announce'
-import type {SxProp} from '../sx'
+import type {PolymorphicProps} from '../utils/polymorphic2'
 
-export type AriaStatusProps<As extends ElementType> = React.PropsWithChildren<
+export type AriaStatusProps<As extends ElementType> = PolymorphicProps<
+  'div',
+  As,
   {
-    /**
-     * Customize the element type of the rendered container
-     */
-    as?: As
-
     /**
      * Specify if the content of the element should be announced when this
      * component is rendered and is not hidden
@@ -27,14 +24,14 @@ export type AriaStatusProps<As extends ElementType> = React.PropsWithChildren<
      * Provide a delay in milliseconds before the announcement is made
      */
     delayMs?: number
-  } & SxProp
+  }
 >
 
-export function AriaStatus<As extends ElementType>({
+export function AriaStatus<As extends ElementType = 'div'>({
   announceOnShow = false,
   children,
   ...rest
-}: AriaStatusProps<As> & React.ComponentPropsWithoutRef<ElementType extends As ? As : 'div'>) {
+}: AriaStatusProps<As>) {
   return (
     <Announce {...rest} announceOnShow={announceOnShow} politeness="polite">
       {children}
