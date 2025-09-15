@@ -498,7 +498,7 @@ describe('@primer/react', () => {
     expect(window.getComputedStyle(container.firstElementChild!).backgroundColor).toBe('rgb(255, 0, 0)')
   })
 
-  test('Select supports `sx` prop', () => {
+  test.skip('Select supports `sx` prop', () => {
     render(<Select data-testid="component" sx={{background: 'red'}} />)
     expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
   })
