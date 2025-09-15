@@ -188,12 +188,12 @@
   }
 }
 
-.Button:not([aria-current='true']) {
-  &:hover:not([aria-disabled='true']) .Content {
+.Button:not([aria-current='true']):not([aria-disabled='true']) {
+  &:hover .Content {
     background-color: var(--controlTrack-bgColor-hover);
   }
 
-  &:active:not([aria-disabled='true']) .Content {
+  &:active .Content {
     background-color: var(--controlTrack-bgColor-active);
   }
 }
