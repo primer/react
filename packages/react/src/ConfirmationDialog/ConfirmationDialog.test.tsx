@@ -5,13 +5,16 @@ import {useCallback, useRef, useState} from 'react'
 
 import {ActionMenu} from '../deprecated/ActionMenu'
 import BaseStyles from '../BaseStyles'
-import Box from '../Box'
 import {Button} from '../Button'
 import {ConfirmationDialog, useConfirm} from './ConfirmationDialog'
 import theme from '../theme'
 import {ThemeProvider} from '../ThemeProvider'
+import {Stack} from '../Stack'
 
-const Basic = ({confirmButtonType}: Pick<React.ComponentProps<typeof ConfirmationDialog>, 'confirmButtonType'>) => {
+const Basic = ({
+  confirmButtonType,
+  overrideButtonFocus,
+}: Pick<React.ComponentProps<typeof ConfirmationDialog>, 'confirmButtonType' | 'overrideButtonFocus'>) => {
   const [isOpen, setIsOpen] = useState(false)
   const buttonRef = useRef<HTMLButtonElement>(null)
   const onDialogClose = useCallback(() => setIsOpen(false), [])
@@ -28,6 +31,7 @@ const Basic = ({confirmButtonType}: Pick<React.ComponentProps<typeof Confirmatio
             cancelButtonContent="Secondary"
             confirmButtonContent="Primary"
             confirmButtonType={confirmButtonType}
+            overrideButtonFocus={overrideButtonFocus}
           >
             Lorem ipsum dolor sit Pippin good dog.
           </ConfirmationDialog>
@@ -55,12 +59,12 @@ const ShorthandHookFromActionMenu = () => {
   return (
     <ThemeProvider theme={theme}>
       <BaseStyles>
-        <Box display="flex" flexDirection="column" alignItems="flex-start">
+        <Stack gap="none">
           <ActionMenu
             renderAnchor={props => <Button {...props}>{text}</Button>}
             items={[{text: 'Show dialog', onAction: onButtonClick}]}
           />
-        </Box>
+        </Stack>
       </BaseStyles>
     </ThemeProvider>
   )
@@ -185,6 +189,15 @@ describe('ConfirmationDialog', () => {
 
     const dialog = getByRole('alertdialog')
     expect(dialog.getAttribute('data-height')).toBe('small')
+  })
+
+  it('focuses the confirm button even when dangerous if initialButtonFocus is confirm', async () => {
+    const {getByText, getByRole} = render(<Basic confirmButtonType="danger" overrideButtonFocus="confirm" />)
+
+    fireEvent.click(getByText('Show dialog'))
+
+    expect(getByRole('button', {name: 'Primary'})).toEqual(document.activeElement)
+    expect(getByRole('button', {name: 'Secondary'})).not.toEqual(document.activeElement)
   })
 
   describe('loading states', () => {

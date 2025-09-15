@@ -49,6 +49,10 @@ const stories = [
     id: 'components-segmentedcontrol-features--with-icons',
   },
   {
+    title: 'With Counter Labels',
+    id: 'components-segmentedcontrol-features--with-counter-labels',
+  },
+  {
     title: 'SegmentedControlButton Playground',
     id: 'components-segmentedcontrol-segmentedcontrol-button--playground',
   },
@@ -59,14 +63,6 @@ const stories = [
   {
     title: 'Dev: With Css',
     id: 'components-segmentedcontrol-dev--with-css',
-  },
-  {
-    title: 'Dev: With Sx',
-    id: 'components-segmentedcontrol-dev--with-sx',
-  },
-  {
-    title: 'Dev: With Sx And Css',
-    id: 'components-segmentedcontrol-dev--with-sx-and-css',
   },
 ] as const
 
