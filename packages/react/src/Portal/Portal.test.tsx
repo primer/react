@@ -1,8 +1,9 @@
 import {describe, expect, it} from 'vitest'
-import Portal, {registerPortalRoot} from '../Portal/index'
+import Portal, {registerPortalRoot, PortalContext} from '../Portal/index'
 
 import {render} from '@testing-library/react'
 import BaseStyles from '../BaseStyles'
+import React from 'react'
 
 describe('Portal', () => {
   it('renders a default portal into document.body (no BaseStyles present)', () => {
@@ -99,5 +100,87 @@ describe('Portal', () => {
     expect(fancyPortalRoot2?.textContent.trim()).toEqual('789test789')
 
     baseElement.innerHTML = ''
+  })
+
+  it('renders into custom portal when PortalContext is supplied with portalContainerName', () => {
+    // Create and register a custom portal root
+    const customPortalRoot = document.createElement('div')
+    customPortalRoot.id = 'customContextPortal'
+    document.body.appendChild(customPortalRoot)
+    registerPortalRoot(customPortalRoot, 'customContext')
+
+    const toRender = (
+      <PortalContext.Provider value={{portalContainerName: 'customContext'}}>
+        <Portal>context-portal-content</Portal>
+      </PortalContext.Provider>
+    )
+
+    render(toRender)
+
+    expect(customPortalRoot.textContent.trim()).toEqual('context-portal-content')
+
+    // Cleanup
+    document.body.removeChild(customPortalRoot)
+  })
+
+  it('renders into default portal when PortalContext does not specify portalContainerName', () => {
+    const toRender = (
+      <PortalContext.Provider value={{}}>
+        <Portal>default-portal-content</Portal>
+      </PortalContext.Provider>
+    )
+
+    const {baseElement} = render(toRender)
+    const generatedRoot = baseElement.querySelector('#__primerPortalRoot__')
+
+    expect(generatedRoot).toBeInstanceOf(HTMLElement)
+    expect(generatedRoot?.textContent.trim()).toEqual('default-portal-content')
+
+    baseElement.innerHTML = ''
+  })
+
+  it('renders into default portal when PortalContext portalContainerName is undefined', () => {
+    const toRender = (
+      <PortalContext.Provider value={{portalContainerName: undefined}}>
+        <Portal>undefined-context-content</Portal>
+      </PortalContext.Provider>
+    )
+
+    const {baseElement} = render(toRender)
+    const generatedRoot = baseElement.querySelector('#__primerPortalRoot__')
+
+    expect(generatedRoot).toBeInstanceOf(HTMLElement)
+    expect(generatedRoot?.textContent.trim()).toEqual('undefined-context-content')
+
+    baseElement.innerHTML = ''
+  })
+
+  it('containerName prop overrides PortalContext portalContainerName', () => {
+    // Create and register custom portal roots
+    const contextPortalRoot = document.createElement('div')
+    contextPortalRoot.id = 'contextPortal'
+    document.body.appendChild(contextPortalRoot)
+    registerPortalRoot(contextPortalRoot, 'contextPortal')
+
+    const propPortalRoot = document.createElement('div')
+    propPortalRoot.id = 'propPortal'
+    document.body.appendChild(propPortalRoot)
+    registerPortalRoot(propPortalRoot, 'propPortal')
+
+    const toRender = (
+      <PortalContext.Provider value={{portalContainerName: 'contextPortal'}}>
+        <Portal containerName="propPortal">prop-overrides-context</Portal>
+      </PortalContext.Provider>
+    )
+
+    render(toRender)
+
+    // Should render in the portal specified by the prop, not the context
+    expect(propPortalRoot.textContent.trim()).toEqual('prop-overrides-context')
+    expect(contextPortalRoot.textContent.trim()).toEqual('')
+
+    // Cleanup
+    document.body.removeChild(contextPortalRoot)
+    document.body.removeChild(propPortalRoot)
   })
 })

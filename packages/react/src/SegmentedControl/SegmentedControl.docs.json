@@ -80,11 +80,6 @@
       "defaultValue": ""
     },
     {
-      "name": "sx",
-      "type": "SystemStyleObject",
-      "deprecated": true
-    },
-    {
       "name": "ref",
       "type": "React.RefObject<HTMLDivElement>"
     }
@@ -116,11 +111,6 @@
           "type": "number | string",
           "defaultValue": "",
           "description": "The number to display in the counter label."
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject",
-          "deprecated": true
         },
         {
           "name": "ref",
@@ -162,11 +152,6 @@
           "type": "boolean",
           "defaultValue": "",
           "description": "Whether the segment is selected. This is used for uncontrolled SegmentedControls to pick one SegmentedControlButton that is selected on the initial render."
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject",
-          "deprecated": true
         },
         {
           "name": "ref",
