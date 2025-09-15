@@ -33,7 +33,7 @@ The documentation for `@primer/react` lives at [primer.style](https://primer.sty
 A machine-readable list of all exported components, utilities, and types is available at build time:
 
 ```javascript
-import componentsData from '@primer/styled-react/components.json'
+import componentsData from '@primer/styled-react/components.json' with {type: 'json'}
 
 console.log(componentsData.components) // Array of component names
 console.log(componentsData.utilities) // Array of utility names
