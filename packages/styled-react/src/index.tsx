@@ -14,8 +14,11 @@ import {
   SegmentedControl as PrimerSegmentedControl,
   type SegmentedControlButtonProps as PrimerSegmentedControlButtonProps,
   type SegmentedControlIconButtonProps as PrimerSegmentedControlIconButtonProps,
+  type TokenProps as PrimerTokenProps,
+  Token as PrimerToken,
 } from '@primer/react'
-import React, {forwardRef, type PropsWithChildren} from 'react'
+import {forwardRef, type PropsWithChildren} from 'react'
+import type React from 'react'
 import type {
   BackgroundProps,
   BorderProps,
@@ -90,7 +93,13 @@ const ToggleSwitch = forwardRef<HTMLButtonElement, ToggleSwitchProps>(function T
   return <Box as={PrimerToggleSwitch} ref={ref} {...props} />
 })
 
-export {SegmentedControl, StateLabel, SubNav, ToggleSwitch}
+type TokenProps = PrimerTokenProps & SxProp
+
+const Token = forwardRef<HTMLElement, TokenProps>(function Token(props, ref) {
+  return <Box as={PrimerToken as React.ElementType} ref={ref} {...props} />
+})
+
+export {SegmentedControl, StateLabel, SubNav, ToggleSwitch, Token}
 
 export {
   ActionList,
@@ -126,7 +135,6 @@ export {
   Textarea,
   TextInput,
   Timeline,
-  Token,
   Tooltip,
   Truncate,
   UnderlineNav,
