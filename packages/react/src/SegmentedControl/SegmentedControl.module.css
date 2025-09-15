@@ -189,11 +189,11 @@
 }
 
 .Button:not([aria-current='true']) {
-  &:hover .Content {
+  &:hover:not([aria-disabled='true']) .Content {
     background-color: var(--controlTrack-bgColor-hover);
   }
 
-  &:active .Content {
+  &:active:not([aria-disabled='true']) .Content {
     background-color: var(--controlTrack-bgColor-active);
   }
 }
