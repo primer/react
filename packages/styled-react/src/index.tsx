@@ -132,7 +132,6 @@ export {
   Overlay,
   PageHeader,
   PageLayout,
-  Popover,
   RadioGroup,
   RelativeTime,
   Spinner,

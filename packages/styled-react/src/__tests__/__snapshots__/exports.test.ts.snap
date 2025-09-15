@@ -28,7 +28,6 @@ exports[`@primer/styled-react exports 1`] = `
   "Overlay",
   "PageHeader",
   "PageLayout",
-  "Popover",
   "RadioGroup",
   "RelativeTime",
   "SegmentedControl",

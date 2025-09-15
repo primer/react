@@ -27,7 +27,6 @@ import {
   Overlay,
   PageHeader,
   PageLayout,
-  Popover,
   RadioGroup,
   RelativeTime,
   SegmentedControl,
@@ -283,16 +282,6 @@ describe('@primer/react', () => {
 
   test('PageLayout.Footer supports `sx` prop', () => {
     const {container} = render(<PageLayout.Footer data-testid="component" sx={{background: 'red'}} />)
-    expect(window.getComputedStyle(container.firstElementChild!).backgroundColor).toBe('rgb(255, 0, 0)')
-  })
-
-  test('Popover supports `sx` prop', () => {
-    const {container} = render(<Popover data-testid="component" sx={{background: 'red'}} />)
-    expect(window.getComputedStyle(container.firstElementChild!).backgroundColor).toBe('rgb(255, 0, 0)')
-  })
-
-  test('Popover.Content supports `sx` prop', () => {
-    const {container} = render(<Popover.Content data-testid="component" sx={{background: 'red'}} />)
     expect(window.getComputedStyle(container.firstElementChild!).backgroundColor).toBe('rgb(255, 0, 0)')
   })
 
