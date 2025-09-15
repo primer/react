@@ -1,0 +1,9 @@
+.EmphasisBackground {
+  background-color: var(--bgColor-black);
+  padding: var(--base-size-12);
+}
+
+.PrimaryBackground {
+  background-color: var(--button-primary-bgColor-rest);
+  padding: var(--base-size-12);
+}

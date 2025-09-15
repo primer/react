@@ -52,20 +52,15 @@
   color: var(--fgColor-muted);
 }
 
+.FilterInputWrapper {
+  margin: var(--base-size-8);
+  width: auto;
+}
+
 .Notice {
-  display: flex;
-  padding-top: var(--base-size-12);
-  padding-right: var(--base-size-16);
-  padding-bottom: var(--base-size-12);
-  padding-left: var(--base-size-16);
   margin-top: var(--base-size-4);
   margin-right: var(--base-size-8);
   margin-left: var(--base-size-8);
-  font-size: var(--text-body-size-small);
-  flex-direction: row;
-  border: var(--borderWidth-thin) solid;
-  gap: var(--base-size-8);
-  border-radius: var(--borderRadius-medium);
 }
 
 .Notice a {
@@ -85,7 +80,7 @@
   border-color: var(--borderColor-attention-muted);
 }
 
-.Notice:where([data-variant='error']) {
+.Notice:where([data-variant='critical']) {
   color: var(--fgColor-danger);
   background-color: var(--bgColor-danger-muted);
   border-color: var(--borderColor-danger-muted);
@@ -99,6 +94,8 @@
 }
 
 .FilteredActionList {
+  /* inheriting height and maxHeight ensures that the FilteredActionList is never taller
+     than the Overlay (which would break scrolling the items) */
   height: inherit;
   max-height: inherit;
 }
