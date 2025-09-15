@@ -118,7 +118,7 @@
     width: 0;
   }
 
-  &[aria-disabled='true']:not([aria-current="true"]) {
+  &[aria-disabled='true']:not([aria-current='true']) {
     cursor: not-allowed;
     color: var(--fgColor-disabled);
     background-color: transparent;
