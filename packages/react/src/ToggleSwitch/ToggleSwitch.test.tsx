@@ -31,6 +31,26 @@ describe('ToggleSwitch', () => {
     expect(toggleSwitch).toHaveAttribute('aria-pressed', 'true')
   })
 
+  it('uses custom On text', () => {
+    const {getByText} = render(
+      <>
+        <div id="switchLabel">{SWITCH_LABEL_TEXT}</div>
+        <ToggleSwitch buttonLabelOn="Engaged" aria-labelledby="switchLabel" defaultChecked />
+      </>,
+    )
+    expect(getByText('Engaged')).toBeInTheDocument()
+  })
+
+  it('uses custom Off text', () => {
+    const {getByText} = render(
+      <>
+        <div id="switchLabel">{SWITCH_LABEL_TEXT}</div>
+        <ToggleSwitch buttonLabelOff="Deactivated" aria-labelledby="switchLabel" />
+      </>,
+    )
+    expect(getByText('Deactivated')).toBeInTheDocument()
+  })
+
   it('renders a switch that is disabled', async () => {
     const user = userEvent.setup()
     const {getByLabelText} = render(

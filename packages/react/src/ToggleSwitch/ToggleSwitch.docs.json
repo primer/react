@@ -30,6 +30,9 @@
     },
     {
       "id": "components-toggleswitch-features--controlled"
+    },
+    {
+      "id": "components-toggleswitch-features--with-custom-labels"
     }
   ],
   "importPath": "@primer/react",
@@ -112,6 +115,18 @@
       "type": "'button' | 'submit' | 'reset'",
       "defaultValue": "'button'",
       "description": "As it’s part of form behavior, this controls whether the button is of type `button`, `submit`, or `reset`."
+    },
+    {
+      "name": "buttonLabelOn",
+      "type": "string",
+      "defaultValue": "'On'",
+      "description": "The text to display when the toggle switch is turned on."
+    },
+    {
+      "name": "buttonLabelOff",
+      "type": "string",
+      "defaultValue": "'Off'",
+      "description": "The text to display when the toggle switch is turned off."
     }
   ],
   "subcomponents": []
