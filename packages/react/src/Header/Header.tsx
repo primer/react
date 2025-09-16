@@ -9,7 +9,7 @@ export type HeaderItemProps = React.ComponentProps<'div'> & {full?: boolean}
 export type HeaderLinkProps = React.ComponentProps<'a'> & {to?: Location | Pathname; as?: React.ElementType}
 
 const Header = React.forwardRef<HTMLElement, HeaderProps>(function Header(
-  {as: BaseComponent = 'header', children, className, as = 'header', ...rest},
+  {as: BaseComponent = 'header', children, className, ...rest},
   forwardRef,
 ) {
   return (

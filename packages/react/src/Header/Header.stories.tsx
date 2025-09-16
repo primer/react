@@ -3,7 +3,6 @@ import {MarkGithubIcon} from '@primer/octicons-react'
 import Header from './Header'
 import Avatar from '../Avatar'
 import classes from './Header.stories.module.css'
-import Octicon from '../Octicon'
 
 export default {
   title: 'Components/Header',
