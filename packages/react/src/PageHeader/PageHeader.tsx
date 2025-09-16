@@ -313,30 +313,15 @@ const LeadingVisual: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
 
 export type TitleProps = {
   as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
-} & ChildrenPropTypes
+} & Omit<ChildrenPropTypes, 'sx'>
 
-const Title: React.FC<React.PropsWithChildren<TitleProps>> = ({
-  children,
-  className,
-  sx: sxProp = defaultSxProp,
-  hidden = false,
-  as = 'h2',
-}) => {
-  const style: CSSCustomProperties = {}
-  // @ts-ignore sxProp can have color attribute
-  const {fontSize, lineHeight, fontWeight} = sxProp
-  if (fontSize) style['--custom-font-size'] = fontSize
-  if (lineHeight) style['--custom-line-height'] = lineHeight
-  if (fontWeight) style['--custom-font-weight'] = fontWeight
-
+const Title: React.FC<React.PropsWithChildren<TitleProps>> = ({children, className, hidden = false, as = 'h2'}) => {
   return (
     <Heading
       className={clsx(classes.Title, className)}
       data-component="PH_Title"
       data-hidden={hidden}
       as={as}
-      style={style}
-      sx={sxProp}
       {...getHiddenDataAttributes(hidden)}
     >
       {children}
