@@ -16,9 +16,9 @@ import {
   type SegmentedControlIconButtonProps as PrimerSegmentedControlIconButtonProps,
   UnderlineNav as PrimerUnderlineNav,
   type UnderlineNavProps as PrimerUnderlineNavProps,
-  type UnderlineNavItemProps as PrimerUnderlineNavItemProps
+  type UnderlineNavItemProps as PrimerUnderlineNavItemProps,
 } from '@primer/react'
-import React, {forwardRef, type PropsWithChildren} from 'react'
+import React, {forwardRef, type ForwardRefExoticComponent, type PropsWithChildren, type RefAttributes} from 'react'
 import type {
   BackgroundProps,
   BorderProps,
@@ -100,14 +100,17 @@ const UnderlineNavImpl = forwardRef<HTMLElement, UnderlineNavProps>(function Und
   return <Box as={PrimerUnderlineNav} ref={ref} {...props} />
 })
 
-const UnderlineNavItem: React.ForwardRefExoticComponent<UnderlineNavItemProps & React.RefAttributes<HTMLLinkElement>> = forwardRef<HTMLLinkElement, UnderlineNavItemProps>(function UnderlineItem(props, ref){
+const UnderlineNavItem: ForwardRefExoticComponent<UnderlineNavItemProps & RefAttributes<HTMLLinkElement>> = forwardRef<
+  HTMLLinkElement,
+  UnderlineNavItemProps
+>(function UnderlineItem(props, ref) {
   return <Box as={PrimerUnderlineNav.Item} ref={ref} {...props} />
 })
 
 const UnderlineNav: typeof UnderlineNavImpl & {
   Item: typeof UnderlineNavItem
 } = Object.assign(UnderlineNavImpl, {
-  Item: UnderlineNavItem
+  Item: UnderlineNavItem,
 })
 
 export {SegmentedControl, StateLabel, SubNav, ToggleSwitch, UnderlineNav}
