@@ -14,8 +14,12 @@ import {
   type SubNavLinkProps as PrimerSubNavLinkProps,
   ToggleSwitch as PrimerToggleSwitch,
   type ToggleSwitchProps as PrimerToggleSwitchProps,
+  type SegmentedControlProps as PrimerSegmentedControlProps,
+  SegmentedControl as PrimerSegmentedControl,
+  type SegmentedControlButtonProps as PrimerSegmentedControlButtonProps,
+  type SegmentedControlIconButtonProps as PrimerSegmentedControlIconButtonProps,
 } from '@primer/react'
-import {forwardRef} from 'react'
+import {forwardRef, type PropsWithChildren} from 'react'
 import type {
   BackgroundProps,
   BorderProps,
@@ -28,7 +32,6 @@ import type {
   SpaceProps,
   TypographyProps,
 } from 'styled-system'
-import type {ForwardRefComponent} from './polymorphic'
 
 type StyledProps = SxProp &
   SpaceProps &
@@ -42,25 +45,25 @@ type StyledProps = SxProp &
   PositionProps &
   ShadowProps
 
-type HeaderProps = PrimerHeaderProps & SxProp
+type SegmentedControlProps = PropsWithChildren<PrimerSegmentedControlProps> & SxProp
+type SegmentedControlButtonProps = PropsWithChildren<PrimerSegmentedControlButtonProps> & SxProp
+type SegmentedControlIconButtonProps = PropsWithChildren<PrimerSegmentedControlIconButtonProps> & SxProp
 
-const HeaderImpl = forwardRef(function Header(props, ref) {
-  return <Box as={PrimerHeader} ref={ref} {...props} />
-}) as ForwardRefComponent<'header', HeaderProps>
+const SegmentedControlButton = (props: SegmentedControlButtonProps) => {
+  return <Box as={PrimerSegmentedControl.Button} {...props} />
+}
 
-type HeaderItemProps = PrimerHeaderItemProps & SxProp
+const SegmentedControlIconButton = (props: SegmentedControlIconButtonProps) => {
+  return <Box as={PrimerSegmentedControl.IconButton} {...props} />
+}
 
-const HeaderItem = forwardRef<HTMLDivElement, HeaderItemProps>(function HeaderItem(props, ref) {
-  return <Box as={PrimerHeader.Item} ref={ref} {...props} />
-})
+const SegmentedControlImpl = (props: SegmentedControlProps) => {
+  return <Box as={PrimerSegmentedControl} {...props} />
+}
 
-const HeaderLink = forwardRef<HTMLAnchorElement, PrimerHeaderLinkProps>(function HeaderLink(props, ref) {
-  return <Box as={PrimerHeader.Link} ref={ref} {...props} />
-})
-
-const Header = Object.assign(HeaderImpl, {
-  Item: HeaderItem,
-  Link: HeaderLink,
+const SegmentedControl = Object.assign(SegmentedControlImpl, {
+  Button: SegmentedControlButton,
+  IconButton: SegmentedControlIconButton,
 })
 
 type StateLabelProps = PrimerStateLabelProps & SxProp
@@ -91,7 +94,8 @@ const ToggleSwitch = forwardRef<HTMLButtonElement, ToggleSwitchProps>(function T
   return <Box as={PrimerToggleSwitch} ref={ref} {...props} />
 })
 
-export {Header, StateLabel, SubNav, ToggleSwitch}
+export {Header, type HeaderProps} from './components/Header'
+export {SegmentedControl, StateLabel, SubNav, ToggleSwitch}
 
 export {
   ActionList,
@@ -117,11 +121,9 @@ export {
   Overlay,
   PageHeader,
   PageLayout,
-  Popover,
   ProgressBar,
   RadioGroup,
   RelativeTime,
-  SegmentedControl,
   Select,
   Spinner,
   Text,
