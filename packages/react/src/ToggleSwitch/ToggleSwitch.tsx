@@ -42,9 +42,9 @@ export interface ToggleSwitchProps extends Omit<React.HTMLAttributes<HTMLDivElem
   loadingLabel?: string
   /** type of button to account for behavior when added to a form*/
   buttonType?: 'button' | 'submit' | 'reset'
-  /** Text to display when the toggle switch is in the 'on' position. Defaults to 'On'. */
+  /** Text to display when the toggle switch is in the 'on' position. Defaults to 'On'. Only customize this label if there is a more specific label for the context. For example, you might use 'Show' if the setting is 'Show images'. */
   buttonLabelOn?: string
-  /** Text to display when the toggle switch is in the 'off' position. Defaults to 'Off'. */
+  /** Text to display when the toggle switch is in the 'off' position. Defaults to 'Off'. Only customize this label if there is a more specific label for the context. For example, you might use 'Hide' if the setting is 'Show images'. */
   buttonLabelOff?: string
 }
 

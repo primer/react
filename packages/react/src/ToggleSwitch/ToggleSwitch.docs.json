@@ -120,13 +120,13 @@
       "name": "buttonLabelOn",
       "type": "string",
       "defaultValue": "'On'",
-      "description": "The text to display when the toggle switch is turned on."
+      "description": "The text to display when the toggle switch is turned on. Only customize this label if there is a more specific label for the context. For example, you might use 'Show' if the setting is 'Show images'."
     },
     {
       "name": "buttonLabelOff",
       "type": "string",
       "defaultValue": "'Off'",
-      "description": "The text to display when the toggle switch is turned off."
+      "description": "The text to display when the toggle switch is turned off. Only customize this label if there is a more specific label for the context. For example, you might use 'Hide' if the setting is 'Show images'."
     }
   ],
   "subcomponents": []
