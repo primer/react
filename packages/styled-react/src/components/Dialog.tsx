@@ -18,13 +18,16 @@ const DialogHeader = forwardRef<HTMLDivElement, DialogHeaderProps>(function Dial
   return <Box as={PrimerDialog.Header} ref={ref} {...props} />
 })
 
-const DialogBody = forwardRef<HTMLDivElement, DialogProps>(function DialogBody(props, ref) {
+type StyledBodyProps = React.ComponentProps<'div'>
+
+const DialogBody = forwardRef<HTMLDivElement, StyledBodyProps>(function DialogBody(props, ref) {
   // @ts-expect-error - PrimerDialog.Body is not recognized as a valid component type
   return <Box as={PrimerDialog.Body} ref={ref} {...props} />
 })
 
-const DialogFooter = forwardRef<HTMLDivElement, DialogProps>(function DialogFooter(props, ref) {
-  // @ts-expect-error - PrimerDialog.Footer is not recognized as a valid component type
+type StyledFooterProps = React.ComponentProps<'div'>
+
+const DialogFooter = forwardRef<HTMLDivElement, StyledFooterProps>(function DialogFooter(props, ref) {
   return <Box as={PrimerDialog.Footer} ref={ref} {...props} />
 })
 
