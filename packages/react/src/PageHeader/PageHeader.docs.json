@@ -274,11 +274,6 @@
           "description": "Whether the content is hidden."
         },
         {
-          "name": "sx",
-          "type": "SystemStyleObject",
-          "deprecated": true
-        },
-        {
           "name": "as",
           "type": "React.ElementType",
           "defaultValue": "\"h2\""
@@ -435,3 +430,4 @@
     }
   ]
 }
+
