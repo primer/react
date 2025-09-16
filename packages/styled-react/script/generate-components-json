@@ -1,133 +1,63 @@
 #!/usr/bin/env node
 
-import fs from 'fs/promises'
-import path from 'path'
-import {fileURLToPath} from 'url'
+import fs from 'node:fs/promises'
+import path from 'node:path'
+import babel from '@babel/core'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
-async function extractExportsFromFile(filePath) {
-  const content = await fs.readFile(filePath, 'utf-8')
-
-  // Extract named exports from export statements
-  const namedExports = []
-  const typeExports = []
-
-  // Extract regular exports (handle multi-line exports)
-  const exportRegex = /export\s*\{\s*([\s\S]*?)\s*\}/g
-  let match
-
-  while ((match = exportRegex.exec(content)) !== null) {
-    const exports = match[1]
-      .split(',')
-      .map(item => item.trim())
-      .map(item => {
-        // Remove comments and extra whitespace
-        return item.replace(/\/\/.*$/gm, '').trim()
-      })
-      .map(item => {
-        // Handle 'as' aliases - take the final name
-        const parts = item.split(/\s+as\s+/)
-        return parts[parts.length - 1].trim()
-      })
-      .filter(item => item && !item.startsWith('//'))
-
-    namedExports.push(...exports)
-  }
-
-  // Extract type exports (handle multi-line exports)
-  const typeExportRegex = /export\s+type\s*\{\s*([\s\S]*?)\s*\}/g
-  let typeMatch
-
-  while ((typeMatch = typeExportRegex.exec(content)) !== null) {
-    const exports = typeMatch[1]
-      .split(',')
-      .map(item => item.trim())
-      .map(item => {
-        // Remove comments and extra whitespace
-        return item.replace(/\/\/.*$/gm, '').trim()
-      })
-      .map(item => {
-        // Handle 'as' aliases - take the final name
-        const parts = item.split(/\s+as\s+/)
-        return parts[parts.length - 1].trim()
-      })
-      .filter(item => item && !item.startsWith('//'))
-
-    typeExports.push(...exports)
-  }
-
-  // Extract direct exports
-  const directExportRegex = /export\s+(?:const|let|var|function|class)\s+(\w+)/g
-  let directMatch
-
-  while ((directMatch = directExportRegex.exec(content)) !== null) {
-    namedExports.push(directMatch[1])
-  }
-
-  return {
-    regular: [...new Set(namedExports.filter(name => name && name.trim()))],
-    types: [...new Set(typeExports.filter(name => name && name.trim()))],
-  }
-}
-
-function categorizeExports(regularExports, typeExports) {
-  const components = []
-  const utilities = []
-  const types = [...typeExports] // All type exports go into types
-
-  // Known utility patterns
-  const utilityPatterns = ['merge', 'sx', 'theme', 'themeGet', 'useColorSchemeVar', 'useTheme']
-
-  regularExports.forEach(exportName => {
-    if (utilityPatterns.includes(exportName)) {
-      utilities.push(exportName)
-    } else {
-      components.push(exportName)
-    }
-  })
-
-  return {
-    components: components.sort(),
-    utilities: utilities.sort(),
-    types: types.sort(),
-  }
-}
-
+const PACKAGE_ROOT = path.resolve(__dirname, '..')
 async function generateComponentsJson() {
-  try {
-    const srcPath = path.join(__dirname, '..', 'src', 'index.tsx')
-    const distPath = path.join(__dirname, '..', 'dist')
-    const outputPath = path.join(distPath, 'components.json')
+  const components = new Set()
+  const types = new Set()
+  const utilities = new Set()
 
-    // Ensure dist directory exists
-    await fs.mkdir(distPath, {recursive: true})
+  const entrypoints = ['src/index.tsx', 'src/deprecated.tsx', 'src/experimental.tsx']
 
-    // Extract exports from the main index file
-    const exports = await extractExportsFromFile(srcPath)
-    const categorized = categorizeExports(exports.regular, exports.types)
-
-    const componentsData = {
-      ...categorized,
-      metadata: {
-        package: '@primer/styled-react',
-        description: 'Exported components and utilities from the Primer styled-react package',
-        totalComponents: categorized.components.length,
-        totalUtilities: categorized.utilities.length,
-        totalTypes: categorized.types.length,
-        generatedAt: new Date().toISOString().split('T')[0],
+  for (const entrypoint of entrypoints) {
+    const filename = path.join(PACKAGE_ROOT, entrypoint)
+    const contents = await fs.readFile(filename, 'utf8')
+    const ast = babel.parse(contents, {
+      sourceFileName: filename,
+      sourceType: 'module',
+      parserOpts: {
+        plugins: ['typescript', 'jsx'],
       },
-    }
+    })
 
-    await fs.writeFile(outputPath, JSON.stringify(componentsData, null, 2))
-    console.log(
-      `✅ Generated components.json with ${categorized.components.length} components, ${categorized.utilities.length} utilities, and ${categorized.types.length} types`,
-    )
-  } catch (error) {
-    console.error('❌ Error generating components.json:', error)
-    process.exit(1)
+    babel.traverse(ast, {
+      // export { XYZ }
+      // export type { XYZ }
+      ExportNamedDeclaration(path) {
+        for (const specifier of path.node.specifiers) {
+          const exported = specifier.exported.name
+          const exportKind = path.node.exportKind === 'type' ? 'type' : specifier.exportKind
+
+          if (exportKind === 'type') {
+            types.add(exported)
+          } else if (exported[0] === exported[0].toLowerCase()) {
+            utilities.add(exported)
+          } else {
+            components.add(exported)
+          }
+        }
+      },
+    })
   }
+
+  await fs.writeFile(
+    path.join(PACKAGE_ROOT, 'dist', 'components.json'),
+    JSON.stringify(
+      {
+        components: Array.from(components).sort((a, b) => a.localeCompare(b)),
+        types: Array.from(types).sort((a, b) => a.localeCompare(b)),
+        utilities: Array.from(utilities).sort((a, b) => a.localeCompare(b)),
+      },
+      null,
+      2,
+    ),
+  )
 }
 
 generateComponentsJson()

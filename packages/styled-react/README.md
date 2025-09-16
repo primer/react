@@ -38,7 +38,6 @@ import componentsData from '@primer/styled-react/components.json' with {type: 'j
 console.log(componentsData.components) // Array of component names
 console.log(componentsData.utilities) // Array of utility names
 console.log(componentsData.types) // Array of type names
-console.log(componentsData.metadata) // Package metadata
 ```
 
 This JSON file is automatically generated during the build process and includes:
@@ -46,7 +45,6 @@ This JSON file is automatically generated during the build process and includes:
 - `components`: All React components exported by the package
 - `utilities`: Theme utilities and helper functions
 - `types`: TypeScript type definitions
-- `metadata`: Package information and generation details
 
 ## 🙌 Contributing
 
