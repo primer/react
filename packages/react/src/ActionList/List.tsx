@@ -11,8 +11,12 @@ import {clsx} from 'clsx'
 import classes from './ActionList.module.css'
 import {BoxWithFallback} from '../internal/components/BoxWithFallback'
 
-const UnwrappedList = (props: ActionListProps, forwardedRef: React.ForwardedRef<HTMLUListElement>): JSX.Element => {
+const UnwrappedList = <As extends React.ElementType = 'ul'>(
+  props: ActionListProps<As>,
+  forwardedRef: React.Ref<unknown>,
+): JSX.Element => {
   const {
+    as: Component = 'ul',
     variant = 'inset',
     selectionVariant,
     showDividers = false,
@@ -64,7 +68,7 @@ const UnwrappedList = (props: ActionListProps, forwardedRef: React.ForwardedRef<
     >
       {slots.heading}
       <BoxWithFallback
-        as="ul"
+        as={Component}
         className={clsx(classes.ActionList, className)}
         role={listRole}
         aria-labelledby={ariaLabelledBy}
