@@ -2,4 +2,4 @@
 '@primer/styled-react': patch
 ---
 
-Export TooltipProps,TextInputProps,TokenProps.
+Export TooltipProps, TextInputProps, TokenProps.
