@@ -168,10 +168,7 @@ describe('@primer/react', () => {
 
   test('Dialog.Body supports `sx` prop', () => {
     render(
-      <Dialog
-        onClose={() => {}}
-        renderBody={props => <Dialog.Body {...props} data-testid="component" sx={{background: 'red'}} />}
-      />,
+      <Dialog onClose={() => {}} renderBody={() => <Dialog.Body data-testid="component" sx={{background: 'red'}} />} />,
     )
     expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
   })
@@ -180,7 +177,7 @@ describe('@primer/react', () => {
     render(
       <Dialog
         onClose={() => {}}
-        renderFooter={props => <Dialog.Footer {...props} data-testid="component" sx={{background: 'red'}} />}
+        renderFooter={() => <Dialog.Footer data-testid="component" sx={{background: 'red'}} />}
       />,
     )
     expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
