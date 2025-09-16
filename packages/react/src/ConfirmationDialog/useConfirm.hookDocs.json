@@ -46,6 +46,11 @@
           "type": "\"normal\" | \"primary\" | \"danger\"",
           "defaultValue": "normal",
           "description": "The type of button to use for the confirm button."
+        },
+        {
+          "name": "overrideButtonFocus",
+          "type": "'confirm' | 'cancel'",
+          "description": "The button that should be initially focused when the dialog is opened. By default, the initial button focus is the confirm button, unless the confirm button is dangerous, in which case the cancel button is focused. This prop should be used rarely, as it can allow dangerous actions to be taken accidentally."
         }
       ]
     }
