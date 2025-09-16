@@ -346,3 +346,40 @@ export const OverlayPropsOverrides = () => {
     </AnchoredOverlay>
   )
 }
+
+export const FullscreenVariant = () => {
+  const [open, setOpen] = useState(false)
+
+  return (
+    <AnchoredOverlay
+      open={open}
+      onOpen={() => setOpen(true)}
+      onClose={() => setOpen(false)}
+      renderAnchor={props => <Button {...props}>Open Fullscreen on Narrow</Button>}
+      variant={{narrow: 'fullscreen', regular: 'anchored'}}
+      overlayProps={{
+        role: 'dialog',
+        'aria-modal': true,
+        'aria-label': 'Fullscreen Overlay Demo',
+        className: classes.Overlay,
+      }}
+      focusZoneSettings={{disabled: true}}
+      preventOverflow={false}
+    >
+      <div className={classes.FlexColFill}>
+        <Stack gap="normal" style={{padding: '16px'}}>
+          <Heading>Fullscreen Overlay Demo</Heading>
+          <div>
+            This overlay will appear fullscreen on narrow viewports (less than 768px) and as a regular anchored overlay
+            on wider screens.
+          </div>
+          <div>
+            Try resizing your browser window to see the responsive behavior in action. The overlay includes a close
+            button when in fullscreen mode.
+          </div>
+          {hoverCard}
+        </Stack>
+      </div>
+    </AnchoredOverlay>
+  )
+}
