@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import fs from 'node:fs/promises'
+import {fileURLToPath} from 'node:url'
 import path from 'node:path'
 import babel from '@babel/core'
 
