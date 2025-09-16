@@ -1,4 +1,5 @@
 .Logo {
+  /* stylelint-disable-next-line primer/typography */
   font-size: var(--base-size-16);
 }
 
