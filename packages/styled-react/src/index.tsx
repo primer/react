@@ -17,7 +17,7 @@ import {
   type SegmentedControlButtonProps as PrimerSegmentedControlButtonProps,
   type SegmentedControlIconButtonProps as PrimerSegmentedControlIconButtonProps,
 } from '@primer/react'
-import React, {forwardRef, type PropsWithChildren} from 'react'
+import React, {forwardRef, type ForwardRefExoticComponent, type PropsWithChildren, type RefAttributes} from 'react'
 import type {
   BackgroundProps,
   BorderProps,
@@ -94,7 +94,7 @@ const ToggleSwitch = forwardRef<HTMLButtonElement, ToggleSwitchProps>(function T
 
 type TooltipProps = PrimerTooltipProps & SxProp
 
-const Tooltip: React.ForwardRefExoticComponent<TooltipProps & React.RefAttributes<HTMLDivElement>> = forwardRef<
+const Tooltip: ForwardRefExoticComponent<TooltipProps & RefAttributes<HTMLDivElement>> = forwardRef<
   HTMLDivElement,
   TooltipProps
 >(function Tooltip(props, ref) {
