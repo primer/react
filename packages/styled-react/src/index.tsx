@@ -90,6 +90,7 @@ const ToggleSwitch = forwardRef<HTMLButtonElement, ToggleSwitchProps>(function T
   return <Box as={PrimerToggleSwitch} ref={ref} {...props} />
 })
 
+export {Heading} from './components/Heading'
 export {SegmentedControl, StateLabel, SubNav, ToggleSwitch}
 
 export {
@@ -108,7 +109,6 @@ export {
   Flash,
   FormControl,
   Header,
-  Heading,
   IconButton,
   Label,
   Link,
