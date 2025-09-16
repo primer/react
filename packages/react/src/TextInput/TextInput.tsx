@@ -40,7 +40,20 @@ export type TextInputNonPassthroughProps = {
    */
   trailingAction?: React.ReactElement<React.HTMLProps<HTMLButtonElement>>
 } & Partial<
-  Pick<StyledWrapperProps, 'block' | 'contrast' | 'disabled' | 'monospace' | 'variant' | 'size' | 'validationStatus'>
+  Pick<
+    StyledWrapperProps,
+    | 'block'
+    | 'contrast'
+    | 'disabled'
+    | 'monospace'
+    | 'sx'
+    | 'width'
+    | 'maxWidth'
+    | 'minWidth'
+    | 'variant'
+    | 'size'
+    | 'validationStatus'
+  >
 >
 
 export type TextInputProps = Merge<React.ComponentPropsWithoutRef<'input'>, TextInputNonPassthroughProps>
@@ -62,10 +75,14 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
       loaderText = 'Loading',
       monospace,
       validationStatus,
+      sx: sxProp,
       size: sizeProp,
       onFocus,
       onBlur,
       // start deprecated props
+      width: widthProp,
+      minWidth: minWidthProp,
+      maxWidth: maxWidthProp,
       variant: variantProp,
       // end deprecated props
       type = 'text',
@@ -120,7 +137,11 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
         contrast={contrast}
         disabled={disabled}
         monospace={monospace}
+        sx={sxProp}
         size={sizeProp}
+        width={widthProp}
+        minWidth={minWidthProp}
+        maxWidth={maxWidthProp}
         variant={variantProp}
         hasLeadingVisual={Boolean(LeadingVisual || showLeadingLoadingIndicator)}
         hasTrailingVisual={Boolean(TrailingVisual || showTrailingLoadingIndicator)}
