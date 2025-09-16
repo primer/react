@@ -28,7 +28,6 @@ import type {
   TypographyProps,
 } from 'styled-system'
 import type {SxProp} from './sx'
-import {Dialog} from './components/Dialog'
 
 type StyledProps = SxProp &
   SpaceProps &
@@ -91,7 +90,8 @@ const ToggleSwitch = forwardRef<HTMLButtonElement, ToggleSwitchProps>(function T
   return <Box as={PrimerToggleSwitch} ref={ref} {...props} />
 })
 
-export {Dialog, SegmentedControl, StateLabel, SubNav, ToggleSwitch}
+export {Dialog, type DialogProps} from './components/Dialog'
+export {SegmentedControl, StateLabel, SubNav, ToggleSwitch}
 
 export {
   ActionList,
