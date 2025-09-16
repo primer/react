@@ -55,8 +55,9 @@ details-dialog:focus:not(:focus-visible):not(:global(.focus-visible)) {
 
 .BaseStyles {
   font-family: var(--BaseStyles-fontFamily, var(--fontStack-system));
+  font-size: var(--BaseStyles-fontSize);
   /* stylelint-disable-next-line primer/typography */
-  line-height: var(--BaseStyles-lineHeight, 1.5);
+  line-height: 1.5;
   /* stylelint-disable-next-line primer/colors */
   color: var(--BaseStyles-fgColor, var(--fgColor-default));
 

@@ -1,14 +1,10 @@
 import type React from 'react'
 import {type CSSProperties, type PropsWithChildren} from 'react'
 import {clsx} from 'clsx'
-import type {SystemCommonProps, SystemTypographyProps} from './constants'
 import {useTheme} from './ThemeProvider'
-import type {SxProp} from './sx'
-
 import classes from './BaseStyles.module.css'
 
 import 'focus-visible'
-import {BoxWithFallback} from './internal/components/BoxWithFallback'
 
 export type BaseStylesProps = PropsWithChildren & {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -16,15 +12,15 @@ export type BaseStylesProps = PropsWithChildren & {
   className?: string
   style?: CSSProperties
   color?: string // Fixes `color` ts-error
-} & SystemTypographyProps &
-  SystemCommonProps &
-  SxProp
+  fontFamily?: string
+  fontSize?: string
+}
 
 function BaseStyles({
   children,
   color,
   fontFamily,
-  lineHeight,
+  fontSize,
   className,
   as: Component = 'div',
   style,
@@ -36,12 +32,11 @@ function BaseStyles({
   const baseStyles = {
     ['--BaseStyles-fgColor']: color,
     ['--BaseStyles-fontFamily']: fontFamily,
-    ['--BaseStyles-lineHeight']: lineHeight,
+    ['--BaseStyles-fontSize']: fontSize,
   }
 
   return (
-    <BoxWithFallback
-      as={Component}
+    <Component
       className={newClassName}
       data-portal-root
       /**
@@ -59,7 +54,7 @@ function BaseStyles({
       {...rest}
     >
       {children}
-    </BoxWithFallback>
+    </Component>
   )
 }
 
