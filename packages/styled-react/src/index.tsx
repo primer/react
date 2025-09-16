@@ -12,8 +12,12 @@ import {
   type ToggleSwitchProps as PrimerToggleSwitchProps,
   Tooltip as PrimerTooltip,
   type TooltipProps as PrimerTooltipProps,
+  type SegmentedControlProps as PrimerSegmentedControlProps,
+  SegmentedControl as PrimerSegmentedControl,
+  type SegmentedControlButtonProps as PrimerSegmentedControlButtonProps,
+  type SegmentedControlIconButtonProps as PrimerSegmentedControlIconButtonProps,
 } from '@primer/react'
-import {forwardRef} from 'react'
+import React, {forwardRef, type PropsWithChildren} from 'react'
 import type {
   BackgroundProps,
   BorderProps,
@@ -38,6 +42,27 @@ type StyledProps = SxProp &
   BorderProps &
   PositionProps &
   ShadowProps
+
+type SegmentedControlProps = PropsWithChildren<PrimerSegmentedControlProps> & SxProp
+type SegmentedControlButtonProps = PropsWithChildren<PrimerSegmentedControlButtonProps> & SxProp
+type SegmentedControlIconButtonProps = PropsWithChildren<PrimerSegmentedControlIconButtonProps> & SxProp
+
+const SegmentedControlButton = (props: SegmentedControlButtonProps) => {
+  return <Box as={PrimerSegmentedControl.Button} {...props} />
+}
+
+const SegmentedControlIconButton = (props: SegmentedControlIconButtonProps) => {
+  return <Box as={PrimerSegmentedControl.IconButton} {...props} />
+}
+
+const SegmentedControlImpl = (props: SegmentedControlProps) => {
+  return <Box as={PrimerSegmentedControl} {...props} />
+}
+
+const SegmentedControl = Object.assign(SegmentedControlImpl, {
+  Button: SegmentedControlButton,
+  IconButton: SegmentedControlIconButton,
+})
 
 type StateLabelProps = PrimerStateLabelProps & SxProp
 
@@ -69,11 +94,14 @@ const ToggleSwitch = forwardRef<HTMLButtonElement, ToggleSwitchProps>(function T
 
 type TooltipProps = PrimerTooltipProps & SxProp
 
-const Tooltip: React.ForwardRefExoticComponent<TooltipProps & React.RefAttributes<HTMLDivElement>> = forwardRef<HTMLDivElement, TooltipProps>(function Tooltip(props, ref) {
+const Tooltip: React.ForwardRefExoticComponent<TooltipProps & React.RefAttributes<HTMLDivElement>> = forwardRef<
+  HTMLDivElement,
+  TooltipProps
+>(function Tooltip(props, ref) {
   return <Box as={PrimerTooltip} ref={ref} {...props} />
 })
 
-export {StateLabel, SubNav, ToggleSwitch, Tooltip}
+export {SegmentedControl, StateLabel, SubNav, ToggleSwitch, Tooltip}
 
 export {
   ActionList,
@@ -100,11 +128,9 @@ export {
   Overlay,
   PageHeader,
   PageLayout,
-  Popover,
   ProgressBar,
   RadioGroup,
   RelativeTime,
-  SegmentedControl,
   Select,
   Spinner,
   Text,
