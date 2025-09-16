@@ -17,8 +17,8 @@ import {
   type TokenProps as PrimerTokenProps,
   Token as PrimerToken,
 } from '@primer/react'
-import {forwardRef, type PropsWithChildren} from 'react'
-import type React from 'react'
+import React, {forwardRef, type PropsWithChildren} from 'react'
+import type {ForwardRefComponent} from './polymorphic'
 import type {
   BackgroundProps,
   BorderProps,
@@ -96,10 +96,12 @@ const ToggleSwitch = forwardRef<HTMLButtonElement, ToggleSwitchProps>(function T
 type TokenProps = PrimerTokenProps & SxProp
 
 const Token = forwardRef<HTMLElement, TokenProps>(function Token(props, ref) {
-  return <Box as={PrimerToken as React.ElementType} ref={ref} {...props} />
-})
+  // @ts-expect-error the polymorphic component type is not inferred
+  // correctly
+  return <Box as={PrimerToken} ref={ref} {...props} />
+}) as ForwardRefComponent<'a' | 'button' | 'span', TokenProps>
 
-export {SegmentedControl, StateLabel, SubNav, ToggleSwitch, Token}
+export {SegmentedControl, StateLabel, SubNav, ToggleSwitch, Token, type TokenProps}
 
 export {
   ActionList,
