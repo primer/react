@@ -10,6 +10,7 @@
     border-right: 0;
   }
 
+  /* stylelint-disable-next-line selector-class-pattern */
   & :global(.TextInput-wrapper) {
     border-radius: 0;
     border-top-right-radius: var(--borderRadius-medium);
