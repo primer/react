@@ -20,15 +20,15 @@ jobs:
           persist-credentials: false
 
       - name: Set up Node
-        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444
         with:
-          node-version: 22
+          node-version-file: '.nvmrc'
           cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
 
-      - uses: actions/create-github-app-token@a8d616148505b5069dccd32f177bb87d7f39123b
+      - uses: actions/create-github-app-token@67018539274d69449ef7c02e8e71183d1719ab42
         id: app-token
         with:
           app-id: ${{ vars.PRIMER_APP_ID_SHARED }}

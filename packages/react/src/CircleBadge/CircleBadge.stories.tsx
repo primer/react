@@ -3,7 +3,7 @@ import CircleBadge from './CircleBadge'
 import {ZapIcon} from '@primer/octicons-react'
 
 const meta: Meta<typeof CircleBadge> = {
-  title: 'Components/CircleBadge',
+  title: 'Deprecated/Components/CircleBadge',
   component: CircleBadge,
 }
 export default meta

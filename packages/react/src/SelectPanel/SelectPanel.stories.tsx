@@ -4,7 +4,7 @@ import {useState} from 'react'
 
 import {Button} from '../Button'
 import {SelectPanel} from '../SelectPanel'
-import type {ItemInput} from '../deprecated/ActionList/List'
+import type {ItemInput} from '../SelectPanel'
 import FormControl from '../FormControl'
 import classes from './SelectPanel.stories.module.css'
 
