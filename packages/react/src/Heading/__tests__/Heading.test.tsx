@@ -1,30 +1,6 @@
 import {describe, expect, it, vi} from 'vitest'
 import {Heading} from '../..'
 import {render, screen} from '@testing-library/react'
-import ThemeProvider from '../../ThemeProvider'
-
-const theme = {
-  breakpoints: ['400px', '640px', '960px', '1280px'],
-  colors: {
-    green: ['#010', '#020', '#030', '#040', '#050', '#060'],
-  },
-  fontSizes: ['12px', '14px', '16px', '20px', '24px', '32px', '40px', '48px'],
-  fonts: {
-    normal: 'Helvetica,sans-serif',
-    mono: 'Consolas,monospace',
-  },
-  lineHeights: {
-    normal: 1.5,
-    condensed: 1.25,
-    condensedUltra: 1,
-  },
-  fontWeights: {
-    light: '300',
-    normal: '400',
-    semibold: '500',
-    bold: '600',
-  },
-}
 
 describe('Heading', () => {
   it('should support `className` on the outermost element', () => {
