@@ -75,22 +75,7 @@ export const Full = () => (
 )
 
 export const WithIconAndAction = () => (
-  <Flash
-    style={{
-      display: 'grid',
-      gridTemplateColumns: 'min-content 1fr minmax(0, auto)',
-      gridTemplateRows: 'min-content',
-      gridTemplateAreas: `'visual message actions'`,
-      '@media screen and (max-width: 543.98px)': {
-        gridTemplateColumns: 'min-content 1fr',
-        gridTemplateRows: 'min-content min-content',
-        gridTemplateAreas: `
-        'visual message'
-        '.      actions'
-      `,
-      },
-    }}
-  >
+  <Flash className={classes.WithIconAndAction}>
     <div className={classes.Visual}>
       <InfoIcon aria-label="Info" />
     </div>

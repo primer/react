@@ -3,8 +3,6 @@ import {
   Box,
   type BoxProps,
   type SxProp,
-  type FlashProps as PrimerFlashProps,
-  Flash as PrimerFlash,
   StateLabel as PrimerStateLabel,
   type StateLabelProps as PrimerStateLabelProps,
   SubNav as PrimerSubNav,
@@ -26,7 +24,6 @@ import type {
   SpaceProps,
   TypographyProps,
 } from 'styled-system'
-import type {ForwardRefComponent} from './polymorphic'
 
 type StyledProps = SxProp &
   SpaceProps &
@@ -39,12 +36,6 @@ type StyledProps = SxProp &
   BorderProps &
   PositionProps &
   ShadowProps
-
-type FlashProps = PrimerFlashProps & SxProp
-
-const Flash = forwardRef(function Flash(props, ref) {
-  return <Box as={PrimerFlash} ref={ref} {...props} />
-}) as ForwardRefComponent<'div', FlashProps>
 
 type StateLabelProps = PrimerStateLabelProps & SxProp
 
@@ -74,7 +65,8 @@ const ToggleSwitch = forwardRef<HTMLButtonElement, ToggleSwitchProps>(function T
   return <Box as={PrimerToggleSwitch} ref={ref} {...props} />
 })
 
-export {Flash, StateLabel, SubNav, ToggleSwitch}
+export {Flash} from './components/Flash'
+export {StateLabel, SubNav, ToggleSwitch}
 
 export {
   ActionList,
