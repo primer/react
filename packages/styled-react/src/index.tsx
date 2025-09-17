@@ -36,7 +36,6 @@ import type {
 import {type SxProp} from './sx'
 import {PageHeader} from './components/PageHeader'
 import {PageLayout} from './components/PageLayout'
-import {NavList} from './components/NavList'
 import {UnderlineNav} from './components/UnderlineNav'
 
 type StyledProps = SxProp &
@@ -122,7 +121,6 @@ export {
   Checkbox,
   Heading,
   Link,
-  NavList,
   PageHeader,
   PageLayout,
   SegmentedControl,
@@ -150,6 +148,7 @@ export {
   IconButton,
   Label,
   LinkButton,
+  NavList,
   Overlay,
   Popover,
   ProgressBar,

@@ -1,8 +1,0 @@
-.GroupHeading > a {
-  color: var(--fgColor-default);
-  text-decoration: inherit;
-}
-
-.GroupHeading > a:hover {
-  text-decoration: underline;
-}
