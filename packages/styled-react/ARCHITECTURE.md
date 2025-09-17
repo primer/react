@@ -66,7 +66,7 @@ import {sx} from '../sx'
 
 type ExampleComponentProps = PrimerExampleComponentProps & SxProp
 
-const ExampleComponent: ForwardRefComponent<'div', ExampleComponentProps> = styled(ExampleComponent).withConfig({
+const ExampleComponent: ForwardRefComponent<'div', ExampleComponentProps> = styled(PrimerExampleComponent).withConfig({
   shouldForwardProp: prop => prop !== 'sx',
 })`
   ${sx}
