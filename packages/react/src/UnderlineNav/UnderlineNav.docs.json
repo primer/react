@@ -55,6 +55,11 @@
       "type": "'inset' | 'flush'",
       "defaultValue": "'inset'",
       "description": "`inset` children are offset horizontally from container edges. `flush` children are flush horizontally with container edges"
+    },
+    {
+      "name": "sx",
+      "type": "SystemStyleObject",
+      "deprecated": true
     }
   ],
   "subcomponents": [
@@ -95,6 +100,11 @@
           "name": "as",
           "type": "React.ElementType",
           "defaultValue": "\"a\""
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject",
+          "deprecated": true
         }
       ],
       "passthrough": {

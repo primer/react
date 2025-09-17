@@ -1,28 +1,33 @@
 import type {MutableRefObject, RefObject} from 'react'
 import React, {useRef, forwardRef, useCallback, useState, useEffect} from 'react'
-import {getAnchoredPosition} from '@primer/behaviors'
+import Box from '../Box'
+import type {SxProp} from '../sx'
+import sx from '../sx'
 import {UnderlineNavContext} from './UnderlineNavContext'
 import type {ResizeObserverEntry} from '../hooks/useResizeObserver'
 import {useResizeObserver} from '../hooks/useResizeObserver'
 import {useTheme} from '../ThemeProvider'
 import type {ChildWidthArray, ResponsiveProps, ChildSize} from './types'
 import VisuallyHidden from '../_VisuallyHidden'
+import {moreBtnStyles, getDividerStyle, menuStyles, menuItemStyles, baseMenuStyles, baseMenuMinWidth} from './styles'
 import {UnderlineItemList, UnderlineWrapper, LoadingCounter, GAP} from '../internal/components/UnderlineTabbedInterface'
+import styled from 'styled-components'
 import {Button} from '../Button'
 import {TriangleDownIcon} from '@primer/octicons-react'
 import {useOnEscapePress} from '../hooks/useOnEscapePress'
 import {useOnOutsideClick} from '../hooks/useOnOutsideClick'
 import {useId} from '../hooks/useId'
 import {ActionList} from '../ActionList'
+import {defaultSxProp} from '../utils/defaultSxProp'
 import CounterLabel from '../CounterLabel'
 import {invariant} from '../utils/invariant'
-import classes from './UnderlineNav.module.css'
 
 export type UnderlineNavProps = {
   children: React.ReactNode
   'aria-label'?: React.AriaAttributes['aria-label']
   as?: React.ElementType
   className?: string
+  sx?: SxProp['sx']
   /**
    * loading state for all counters. It displays loading animation for individual counters (UnderlineNav.Item) until all are resolved. It is needed to prevent multiple layout shift.
    */
@@ -37,7 +42,19 @@ export type UnderlineNavProps = {
 // When page is loaded, we don't have ref for the more button as it is not on the DOM yet.
 // However, we need to calculate number of possible items when the more button present as well. So using the width of the more button as a constant.
 export const MORE_BTN_WIDTH = 86
-export const BASE_MENU_MIN_WIDTH = 192
+// The height is needed to make sure we don't have a layout shift when the more button is the only item in the nav.
+const MORE_BTN_HEIGHT = 45
+
+// Needed this because passing a ref using HTMLULListElement to `Box` causes a type error
+export const NavigationList = styled.ul`
+  ${sx};
+`
+
+export const MoreMenuListItem = styled.li`
+  display: flex;
+  align-items: center;
+  height: ${MORE_BTN_HEIGHT}px;
+`
 
 const overflowEffect = (
   navWidth: number,
@@ -123,25 +140,12 @@ const calculatePossibleItems = (childWidthArray: ChildWidthArray, navWidth: numb
   return breakpoint
 }
 
-/**
- *
- * @param containerRef The Menu List Container Reference.
- * @param listRef The Underline Nav Container Reference.
- * @description This calculates the position of the menu
- *
- * Exported because it's used in unit tests.
- */
-export const getLeftAnchoredPosition = (containerRef: Element | null, listRef: Element | null): number => {
-  return containerRef && listRef
-    ? getAnchoredPosition(containerRef, listRef, {align: 'start', side: 'outside-bottom'}).left
-    : 0
-}
-
 export const UnderlineNav = forwardRef(
   (
     {
       as = 'nav',
       'aria-label': ariaLabel,
+      sx: sxProp = defaultSxProp,
       loadingCounters = false,
       variant = 'inset',
       className,
@@ -312,21 +316,28 @@ export const UnderlineNav = forwardRef(
         }}
       >
         {ariaLabel && <VisuallyHidden as="h2">{`${ariaLabel} navigation`}</VisuallyHidden>}
-        <UnderlineWrapper as={as} aria-label={ariaLabel} className={className} ref={navRef} data-variant={variant}>
+        <UnderlineWrapper
+          as={as}
+          aria-label={ariaLabel}
+          className={className}
+          ref={navRef}
+          sx={sxProp}
+          data-variant={variant}
+        >
           <UnderlineItemList ref={listRef} role="list">
             {listItems}
             {menuItems.length > 0 && (
-              <li className={classes.MoreMenuListItem} ref={moreMenuRef}>
-                {!onlyMenuVisible && <div className={classes.Divider}></div>}
+              <MoreMenuListItem ref={moreMenuRef}>
+                {!onlyMenuVisible && <Box sx={getDividerStyle(theme)}></Box>}
                 <Button
                   ref={moreMenuBtnRef}
-                  className={classes.MoreButton}
+                  sx={moreBtnStyles}
                   aria-controls={disclosureWidgetId}
                   aria-expanded={isWidgetOpen}
                   onClick={onAnchorClick}
                   trailingAction={TriangleDownIcon}
                 >
-                  <span className={classes.ButtonText}>
+                  <Box as="span">
                     {onlyMenuVisible ? (
                       <>
                         <VisuallyHidden as="span">{`${ariaLabel}`}&nbsp;</VisuallyHidden>Menu
@@ -336,20 +347,18 @@ export const UnderlineNav = forwardRef(
                         More<VisuallyHidden as="span">&nbsp;{`${ariaLabel} items`}</VisuallyHidden>
                       </>
                     )}
-                  </span>
+                  </Box>
                 </Button>
                 <ActionList
                   selectionVariant="single"
                   ref={containerRef}
                   id={disclosureWidgetId}
-                  className={classes.MenuContainer}
-                  data-is-widget-open={isWidgetOpen}
-                  style={{
-                    left:
-                      listRef.current?.clientWidth && listRef.current.clientWidth >= BASE_MENU_MIN_WIDTH
-                        ? undefined
-                        : getLeftAnchoredPosition(containerRef.current, listRef.current),
-                  }}
+                  sx={
+                    listRef.current?.clientWidth && listRef.current.clientWidth >= baseMenuMinWidth
+                      ? baseMenuStyles
+                      : menuStyles(containerRef.current, listRef.current)
+                  }
+                  style={{display: isWidgetOpen ? 'block' : 'none'}}
                 >
                   {menuItems.map((menuItem, index) => {
                     const {
@@ -376,7 +385,7 @@ export const UnderlineNav = forwardRef(
                     return (
                       <ActionList.LinkItem
                         key={menuItemChildren}
-                        className={classes.MenuItem}
+                        sx={menuItemStyles}
                         onClick={(
                           event: React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>,
                         ) => {
@@ -389,23 +398,23 @@ export const UnderlineNav = forwardRef(
                         }}
                         {...menuItemProps}
                       >
-                        <span className={classes.MenuItemContent}>
+                        <Box as="span" sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
                           {menuItemChildren}
                           {loadingCounters ? (
                             <LoadingCounter />
                           ) : (
                             counter !== undefined && (
-                              <span data-component="counter">
+                              <Box as="span" data-component="counter">
                                 <CounterLabel>{counter}</CounterLabel>
-                              </span>
+                              </Box>
                             )
                           )}
-                        </span>
+                        </Box>
                       </ActionList.LinkItem>
                     )
                   })}
                 </ActionList>
-              </li>
+              </MoreMenuListItem>
             )}
           </UnderlineItemList>
         </UnderlineWrapper>
