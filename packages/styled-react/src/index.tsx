@@ -16,7 +16,6 @@ import {
   type SegmentedControlIconButtonProps as PrimerSegmentedControlIconButtonProps,
   LinkButton as PrimerLinkButton,
   type LinkButtonProps as PrimerLinkButtonProps,
-  sx,
 } from '@primer/react'
 import React, {forwardRef, type PropsWithChildren} from 'react'
 import type {
@@ -99,7 +98,7 @@ const LinkButton = forwardRef<HTMLAnchorElement, LinkButtonProps>(function LinkB
   return <Box as={PrimerLinkButton} ref={ref} {...props} />
 })
 
-export {SegmentedControl, StateLabel, SubNav, ToggleSwitch}
+export {LinkButton, SegmentedControl, StateLabel, SubNav, ToggleSwitch}
 
 export {
   ActionList,
@@ -121,7 +120,6 @@ export {
   IconButton,
   Label,
   Link,
-  LinkButton,
   NavList,
   Overlay,
   PageHeader,
