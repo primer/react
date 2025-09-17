@@ -3,6 +3,8 @@ import {
   Box,
   type BoxProps,
   type SxProp,
+  CounterLabel as PrimerCounterLabel,
+  type CounterLabelProps as PrimerCounterLabelProps,
   StateLabel as PrimerStateLabel,
   type StateLabelProps as PrimerStateLabelProps,
   SubNav as PrimerSubNav,
@@ -62,6 +64,12 @@ const SegmentedControl = Object.assign(SegmentedControlImpl, {
   IconButton: SegmentedControlIconButton,
 })
 
+type CounterLabelProps = PrimerCounterLabelProps & SxProp
+
+const CounterLabel = forwardRef<HTMLSpanElement, CounterLabelProps>(function CounterLabel(props, ref) {
+  return <Box as={PrimerCounterLabel} ref={ref} {...props} />
+})
+
 type StateLabelProps = PrimerStateLabelProps & SxProp
 
 const StateLabel = forwardRef<HTMLSpanElement, StateLabelProps>(function StateLabel(props, ref) {
@@ -90,7 +98,7 @@ const ToggleSwitch = forwardRef<HTMLButtonElement, ToggleSwitchProps>(function T
   return <Box as={PrimerToggleSwitch} ref={ref} {...props} />
 })
 
-export {SegmentedControl, StateLabel, SubNav, ToggleSwitch}
+export {CounterLabel, SegmentedControl, StateLabel, SubNav, ToggleSwitch}
 
 export {
   ActionList,
@@ -102,7 +110,6 @@ export {
   Checkbox,
   CheckboxGroup,
   CircleBadge,
-  CounterLabel,
   Details,
   Dialog,
   Flash,
