@@ -2,16 +2,13 @@ import {clsx} from 'clsx'
 import type {To} from 'history'
 import React, {useRef, useState} from 'react'
 import {FocusKeys, useFocusZone} from '../hooks/useFocusZone'
-import type {SxProp} from '../sx'
-import type {ComponentProps} from '../utils/types'
 
 import styles from './TabNav.module.css'
-import {BoxWithFallback} from '../internal/components/BoxWithFallback'
 
 /**
  * @deprecated
  */
-export type TabNavProps = ComponentProps<typeof BoxWithFallback>
+export type TabNavProps = React.HTMLProps<HTMLDivElement>
 
 /**
  * @deprecated
@@ -53,13 +50,13 @@ function TabNav({children, 'aria-label': ariaLabel, ...rest}: TabNavProps) {
   )
 
   return (
-    <BoxWithFallback {...rest} ref={navRef as React.RefObject<HTMLDivElement>}>
+    <div {...rest} ref={navRef as React.RefObject<HTMLDivElement>}>
       <nav aria-label={ariaLabel} className={styles.TabNavNav}>
         <div role="tablist" className={styles.TabNavTabList}>
           {children}
         </div>
       </nav>
-    </BoxWithFallback>
+    </div>
   )
 }
 
@@ -73,18 +70,17 @@ export type TabNavLinkProps = React.DetailedHTMLProps<React.HTMLAttributes<HTMLA
   className?: string
   as?: React.ElementType | 'a' | 'button' | 'div'
   disabled?: boolean
-} & SxProp
+}
 
 /**
  * @deprecated
  */
 const TabNavLink = React.forwardRef<HTMLAnchorElement, TabNavLinkProps>(function TabNavLink(
-  {selected, className, as = 'a', ...rest}: TabNavLinkProps,
+  {selected, className, as: Component = 'a', ...rest}: TabNavLinkProps,
   ref,
 ) {
   return (
-    <BoxWithFallback
-      as={as}
+    <Component
       ref={ref}
       role="tab"
       tabIndex={-1}
