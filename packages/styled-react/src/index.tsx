@@ -97,7 +97,14 @@ const ToggleSwitch = forwardRef<HTMLButtonElement, ToggleSwitchProps>(function T
 })
 
 type UnderlineNavProps = PrimerUnderlineNavProps & SxProp
-type UnderlineNavItemProps = PrimerUnderlineNavItemProps & SxProp
+type UnderlineNavItemProps = PrimerUnderlineNavItemProps &
+  SxProp & {
+    /**
+     * Callback that will trigger both on click selection and keyboard selection.
+     * Overridden to provide better typing for polymorphic usage.
+     */
+    onSelect?: (event: React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>) => void
+  }
 
 const UnderlineNavImpl = forwardRef<HTMLElement, UnderlineNavProps>(function UnderlineNav(props, ref) {
   return <Box as={PrimerUnderlineNav} ref={ref} {...props} />
