@@ -365,8 +365,6 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
                   text,
                   leadingVisual: LeadingVisual,
                   trailingVisual: TrailingVisual,
-                  // @ts-expect-error this is defined in the items above but is
-                  // missing in TS
                   key,
                   ...itemProps
                 } = item

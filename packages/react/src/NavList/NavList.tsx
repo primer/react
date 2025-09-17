@@ -325,8 +325,6 @@ export const GroupExpand = React.forwardRef<HTMLButtonElement, NavListGroupExpan
           <ActionList.Item
             as="button"
             aria-expanded="false"
-            // @ts-expect-error unsure why this started to cause an error after ActionList.Item removed
-            // the legacy `as PolymorphicForwardRefComponent<'li', ActionListItemProps>`
             ref={forwardedRef}
             onSelect={() => {
               flushSync(() => {
