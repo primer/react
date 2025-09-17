@@ -14,6 +14,10 @@ import {
   SegmentedControl as PrimerSegmentedControl,
   type SegmentedControlButtonProps as PrimerSegmentedControlButtonProps,
   type SegmentedControlIconButtonProps as PrimerSegmentedControlIconButtonProps,
+  ThemeProvider as PRCThemeProvider,
+  type ThemeProviderProps,
+  useTheme,
+  theme as fallbackTheme,
 } from '@primer/react'
 import React, {forwardRef, type PropsWithChildren} from 'react'
 import type {
@@ -28,6 +32,7 @@ import type {
   SpaceProps,
   TypographyProps,
 } from 'styled-system'
+import {ThemeProvider as SCThemeProvider} from 'styled-components'
 
 type StyledProps = SxProp &
   SpaceProps &
@@ -90,6 +95,16 @@ const ToggleSwitch = forwardRef<HTMLButtonElement, ToggleSwitchProps>(function T
   return <Box as={PrimerToggleSwitch} ref={ref} {...props} />
 })
 
+export const ThemeProvider = (props: PropsWithChildren<ThemeProviderProps>) => {
+  const {children, ...rest} = props
+  const {theme} = useTheme()
+  return (
+    <PRCThemeProvider {...rest}>
+      <SCThemeProvider theme={theme || fallbackTheme}>{children}</SCThemeProvider>
+    </PRCThemeProvider>
+  )
+}
+
 export {SegmentedControl, StateLabel, SubNav, ToggleSwitch}
 
 export {
@@ -136,7 +151,6 @@ export {
   sx,
 
   // theming depends on styled-components
-  ThemeProvider,
   merge,
   theme,
   themeGet,
