@@ -366,6 +366,7 @@ export const FullscreenVariant = () => {
       }}
       focusZoneSettings={{disabled: true}}
       preventOverflow={false}
+      width='medium'
     >
       <div className={classes.FlexColFill}>
         <Stack gap="normal" style={{padding: '16px'}}>
