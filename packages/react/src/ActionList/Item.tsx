@@ -66,7 +66,6 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
     groupId: _groupId,
     renderItem: _renderItem,
     handleAddItem: _handleAddItem,
-    as,
     ...props
   }: ActionListItemProps<As>,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
