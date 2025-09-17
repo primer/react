@@ -49,7 +49,6 @@ export type UnderlineItemProps<As extends React.ElementType = 'a'> = Polymorphic
   As,
   'a',
   {
-    as?: As
     className?: string
     iconsVisible?: boolean
     loadingCounters?: boolean
@@ -66,7 +65,6 @@ const UnwrappedUnderlineItem = <As extends React.ElementType = 'a'>(
   forwardedRef: React.ForwardedRef<unknown>,
 ) => {
   const {as = 'a', children, counter, icon: Icon, iconsVisible, loadingCounters, className, ...rest} = props
-
   return (
     <BoxWithFallback ref={forwardedRef} as={as} className={clsx(classes.UnderlineItem, className)} {...rest}>
       {iconsVisible && Icon && <span data-component="icon">{isElement(Icon) ? Icon : <Icon />}</span>}
