@@ -3,66 +3,71 @@ import type {SxProp} from '../sx'
 import type {AriaRole} from '../utils/types'
 import type {PolymorphicProps} from '../utils/modern-polymorphic'
 
-export type ActionListItemProps = {
-  /**
-   * Primary content for an Item
-   */
-  children?: React.ReactNode
-  /**
-   * Callback that will trigger both on click selection and keyboard selection.
-   * This is not called for disabled or inactive items.
-   */
-  onSelect?: (event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => void
-  /**
-   * Is the `Item` is currently selected?
-   */
-  selected?: boolean
-  /**
-   * Indicate whether the item is active. There should never be more than one active item.
-   */
-  active?: boolean
-  /**
-   * Style variations associated with various `Item` types.
-   *
-   * - `"default"` - An action `Item`.
-   * - `"danger"` - A destructive action `Item`.
-   */
-  variant?: 'default' | 'danger'
-  size?: 'medium' | 'large'
-  /**
-   * Items that are disabled can not be clicked, selected, or navigated through.
-   */
-  disabled?: boolean
-  /**
-   * The ARIA role describing the function of `Item` component. `option` is a common value.
-   */
-  role?: AriaRole
-  /**
-   * id to attach to the root element of the Item
-   */
-  id?: string
-  /**
-   * Text describing why the item is inactive. This may be used when an item's usual functionality
-   * is unavailable due to a system error such as a database outage.
-   */
-  inactiveText?: string
-  /**
-   * Whether the item is loading
-   */
-  loading?: boolean
-  /**
-   * Private API for use internally only. Used by LinkItem to wrap contents in an anchor
-   */
-  _PrivateItemWrapper?: React.FC<React.PropsWithChildren<MenuItemProps>>
-  className?: string
-  groupId?: string
-  renderItem?: (item: React.FC<React.PropsWithChildren<MenuItemProps>>) => React.ReactNode
-  handleAddItem?: (item: React.FC<React.PropsWithChildren<MenuItemProps>>) => void
-  /**
-   * @deprecated `as` prop has no effect on `ActionList.Item`, only `ActionList.LinkItem`
-   */
-  as?: React.ElementType
-} & SxProp
+export type ActionListItemProps<As extends React.ElementType = 'li'> = PolymorphicProps<
+  As,
+  'li',
+  {
+    /**
+     * Primary content for an Item
+     */
+    children?: React.ReactNode
+    /**
+     * Callback that will trigger both on click selection and keyboard selection.
+     * This is not called for disabled or inactive items.
+     */
+    onSelect?: (event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => void
+    /**
+     * Is the `Item` is currently selected?
+     */
+    selected?: boolean
+    /**
+     * Indicate whether the item is active. There should never be more than one active item.
+     */
+    active?: boolean
+    /**
+     * Style variations associated with various `Item` types.
+     *
+     * - `"default"` - An action `Item`.
+     * - `"danger"` - A destructive action `Item`.
+     */
+    variant?: 'default' | 'danger'
+    size?: 'medium' | 'large'
+    /**
+     * Items that are disabled can not be clicked, selected, or navigated through.
+     */
+    disabled?: boolean
+    /**
+     * The ARIA role describing the function of `Item` component. `option` is a common value.
+     */
+    role?: AriaRole
+    /**
+     * id to attach to the root element of the Item
+     */
+    id?: string
+    /**
+     * Text describing why the item is inactive. This may be used when an item's usual functionality
+     * is unavailable due to a system error such as a database outage.
+     */
+    inactiveText?: string
+    /**
+     * Whether the item is loading
+     */
+    loading?: boolean
+    /**
+     * Private API for use internally only. Used by LinkItem to wrap contents in an anchor
+     */
+    _PrivateItemWrapper?: React.FC<React.PropsWithChildren<MenuItemProps>>
+    className?: string
+    groupId?: string
+    renderItem?: (item: React.FC<React.PropsWithChildren<MenuItemProps>>) => React.ReactNode
+    handleAddItem?: (item: React.FC<React.PropsWithChildren<MenuItemProps>>) => void
+    /**
+     * @deprecated `as` prop has no effect on `ActionList.Item`, only `ActionList.LinkItem`
+     */
+    as?: As
+  }
+> &
+  SxProp
 
 type MenuItemProps = {
   onClick?: (event: React.MouseEvent<HTMLElement>) => void
@@ -75,7 +80,7 @@ type MenuItemProps = {
   className?: string
 }
 
-export type ItemContext = Pick<ActionListItemProps, 'variant' | 'disabled' | 'size'> & {
+export type ItemContext = Pick<ActionListItemProps<React.ElementType>, 'variant' | 'disabled' | 'size'> & {
   inlineDescriptionId?: string
   blockDescriptionId?: string
   trailingVisualId?: string
@@ -85,8 +90,8 @@ export type ItemContext = Pick<ActionListItemProps, 'variant' | 'disabled' | 'si
 export const ItemContext = React.createContext<ItemContext>({})
 
 export const getVariantStyles = (
-  variant: ActionListItemProps['variant'],
-  disabled: ActionListItemProps['disabled'],
+  variant: ActionListItemProps<React.ElementType>['variant'],
+  disabled: ActionListItemProps<React.ElementType>['disabled'],
   inactive?: boolean,
 ) => {
   if (disabled) {
