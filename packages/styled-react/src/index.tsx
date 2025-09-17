@@ -28,6 +28,7 @@ import type {
   SpaceProps,
   TypographyProps,
 } from 'styled-system'
+import {PageHeader} from './components/PageHeader'
 
 type StyledProps = SxProp &
   SpaceProps &
@@ -90,7 +91,7 @@ const ToggleSwitch = forwardRef<HTMLButtonElement, ToggleSwitchProps>(function T
   return <Box as={PrimerToggleSwitch} ref={ref} {...props} />
 })
 
-export {SegmentedControl, StateLabel, SubNav, ToggleSwitch}
+export {PageHeader, SegmentedControl, StateLabel, SubNav, ToggleSwitch}
 
 export {
   ActionList,
@@ -115,7 +116,6 @@ export {
   LinkButton,
   NavList,
   Overlay,
-  PageHeader,
   PageLayout,
   ProgressBar,
   RadioGroup,
