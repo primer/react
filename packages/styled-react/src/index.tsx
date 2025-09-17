@@ -116,7 +116,7 @@ type UnderlineNavItemProps<TAs extends ElementType = 'a'> = PrimerUnderlineNavIt
     ) => void
   }
 
-const UnderlineNavItem: ForwardRefComponent<'a', UnderlineNavItemProps> = styled(
+const UnderlineNavItem: ForwardRefComponent<ElementType, UnderlineNavItemProps> = styled(
   PrimerUnderlineNav.Item,
 ).withConfig<UnderlineNavItemProps>({
   shouldForwardProp: prop => prop !== 'sx',
