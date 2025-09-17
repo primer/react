@@ -17,8 +17,9 @@ import {
   UnderlineNav as PrimerUnderlineNav,
   type UnderlineNavProps as PrimerUnderlineNavProps,
   type UnderlineNavItemProps as PrimerUnderlineNavItemProps,
+  sx,
 } from '@primer/react'
-import React, {forwardRef, type ForwardRefExoticComponent, type PropsWithChildren, type RefAttributes} from 'react'
+import React, {forwardRef, type PropsWithChildren} from 'react'
 import type {
   BackgroundProps,
   BorderProps,
@@ -31,6 +32,8 @@ import type {
   SpaceProps,
   TypographyProps,
 } from 'styled-system'
+import type {ForwardRefComponent} from './polymorphic'
+import styled from 'styled-components'
 
 type StyledProps = SxProp &
   SpaceProps &
@@ -100,16 +103,15 @@ const UnderlineNavImpl = forwardRef<HTMLElement, UnderlineNavProps>(function Und
   return <Box as={PrimerUnderlineNav} ref={ref} {...props} />
 })
 
-const UnderlineNavItem: ForwardRefExoticComponent<UnderlineNavItemProps & RefAttributes<HTMLLinkElement>> = forwardRef<
-  HTMLLinkElement,
-  UnderlineNavItemProps
->(function UnderlineItem(props, ref) {
-  return <Box as={PrimerUnderlineNav.Item} ref={ref} {...props} />
-})
+const UnderlineNavItem: ForwardRefComponent<'a', UnderlineNavItemProps> = styled(
+  PrimerUnderlineNav.Item,
+).withConfig<UnderlineNavItemProps>({
+  shouldForwardProp: prop => prop !== 'sx',
+})`
+  ${sx}
+`
 
-const UnderlineNav: typeof UnderlineNavImpl & {
-  Item: typeof UnderlineNavItem
-} = Object.assign(UnderlineNavImpl, {
+const UnderlineNav = Object.assign(UnderlineNavImpl, {
   Item: UnderlineNavItem,
 })
 
