@@ -36,7 +36,6 @@ import type {
 import {type SxProp} from './sx'
 import {PageHeader} from './components/PageHeader'
 import {PageLayout} from './components/PageLayout'
-import {UnderlineNav} from './components/UnderlineNav'
 
 type StyledProps = SxProp &
   SpaceProps &
@@ -117,18 +116,7 @@ const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Checkbox(p
   return <Box as={PrimerCheckbox} ref={ref} {...props} />
 })
 
-export {
-  Checkbox,
-  Heading,
-  Link,
-  PageHeader,
-  PageLayout,
-  SegmentedControl,
-  StateLabel,
-  SubNav,
-  ToggleSwitch,
-  UnderlineNav,
-}
+export {Checkbox, Heading, Link, PageHeader, PageLayout, SegmentedControl, StateLabel, SubNav, ToggleSwitch}
 
 export {
   ActionList,
@@ -163,6 +151,7 @@ export {
   Token,
   Tooltip,
   Truncate,
+  UnderlineNav,
 
   // styled-components components or types
   Box,
