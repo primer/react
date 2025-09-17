@@ -225,15 +225,10 @@ const LeadingAction: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
   className,
   hidden = hiddenOnNarrow,
 }) => {
-  const style: CSSCustomProperties = {}
-  // @ts-ignore sx has height attribute
-  const {height} = sxProp
-  if (height) style['--custom-height'] = height
   return (
     <div
       className={clsx(classes.LeadingAction, className)}
       data-component="PH_LeadingAction"
-      style={style}
       {...getHiddenDataAttributes(hidden)}
     >
       {children}
@@ -256,15 +251,10 @@ const Breadcrumbs: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({chil
 
 // PageHeader.LeadingVisual and PageHeader.TrailingVisual should remain visible on narrow viewports.
 const LeadingVisual: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({children, className, hidden = false}) => {
-  const style: CSSCustomProperties = {}
-  // @ts-ignore sx has height attribute
-  const {height} = sxProp
-  if (height) style['--custom-height'] = height
   return (
     <div
       className={clsx(classes.LeadingVisual, className)}
       data-component="PH_LeadingVisual"
-      style={style}
       {...getHiddenDataAttributes(hidden)}
     >
       {children}
@@ -277,20 +267,12 @@ export type TitleProps = {
 } & ChildrenPropTypes
 
 const Title: React.FC<React.PropsWithChildren<TitleProps>> = ({children, className, hidden = false, as = 'h2'}) => {
-  const style: CSSCustomProperties = {}
-  // @ts-ignore sxProp can have color attribute
-  const {fontSize, lineHeight, fontWeight} = sxProp
-  if (fontSize) style['--custom-font-size'] = fontSize
-  if (lineHeight) style['--custom-line-height'] = lineHeight
-  if (fontWeight) style['--custom-font-weight'] = fontWeight
-
   return (
     <Heading
       className={clsx(classes.Title, className)}
       data-component="PH_Title"
       data-hidden={hidden}
       as={as}
-      style={style}
       {...getHiddenDataAttributes(hidden)}
     >
       {children}
@@ -304,15 +286,10 @@ const TrailingVisual: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
   className,
   hidden = false,
 }) => {
-  const style: CSSCustomProperties = {}
-  // @ts-ignore sx has height attribute
-  const {height} = sxProp
-  if (height) style['--custom-height'] = height
   return (
     <div
       className={clsx(classes.TrailingVisual, className)}
       data-component="PH_TrailingVisual"
-      style={style}
       {...getHiddenDataAttributes(hidden)}
     >
       {children}
@@ -325,15 +302,10 @@ const TrailingAction: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
   className,
   hidden = hiddenOnNarrow,
 }) => {
-  const style: CSSCustomProperties = {}
-  // @ts-ignore sx has height attribute
-  const {height} = sxProp
-  if (height) style['--custom-height'] = height
   return (
     <div
       className={clsx(classes.TrailingAction, className)}
       data-component="PH_TrailingAction"
-      style={style}
       {...getHiddenDataAttributes(hidden)}
     >
       {children}
@@ -344,17 +316,8 @@ const TrailingAction: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
 export type ActionsProps = React.PropsWithChildren<ChildrenPropTypes>
 
 const Actions = ({children, className, hidden = false}: ActionsProps) => {
-  const style: CSSCustomProperties = {}
-  // @ts-ignore sx has height attribute
-  const {height} = sxProp
-  if (height) style['--custom-height'] = height
   return (
-    <div
-      className={clsx(classes.Actions, className)}
-      data-component="PH_Actions"
-      style={style}
-      {...getHiddenDataAttributes(hidden)}
-    >
+    <div className={clsx(classes.Actions, className)} data-component="PH_Actions" {...getHiddenDataAttributes(hidden)}>
       {children}
     </div>
   )

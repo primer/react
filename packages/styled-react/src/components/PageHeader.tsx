@@ -21,15 +21,46 @@ const PageHeaderImpl: ForwardRefComponent<'div', PageHeaderProps> = styled(
 
 type PageHeaderActionsProps = PrimerPageHeaderActionsProps & SxProp
 
-function PageHeaderActions(props: PageHeaderActionsProps) {
-  return <Box as={PrimerPageHeader.Actions} {...props} />
+function PageHeaderActions({sx, ...rest}: PageHeaderActionsProps) {
+  const style: CSSCustomProperties = {}
+  if (sx) {
+    // @ts-ignore sx has height attribute
+    const {height} = sx
+    if (height) {
+      style['--custom-height'] = height
+    }
+  }
+
+  // @ts-expect-error type mismatch between Box usage here and PrimerPageHeader.Actions
+  return <Box {...rest} as={PrimerPageHeader.Actions} style={style} sx={sx} />
 }
 
 type PageHeaderTitleProps = PrimerPageHeaderTitleProps & SxProp
 
-function PageHeaderTitle(props: PageHeaderTitleProps) {
+type CSSCustomProperties = {
+  [key: `--${string}`]: string | number
+}
+
+function PageHeaderTitle({sx, ...rest}: PageHeaderTitleProps) {
+  const style: CSSCustomProperties = {}
+  if (sx) {
+    // @ts-ignore sx can have color attribute
+    const {fontSize, lineHeight, fontWeight} = sx
+    if (fontSize) {
+      style['--custom-font-size'] = fontSize
+    }
+
+    if (lineHeight) {
+      style['--custom-line-height'] = lineHeight
+    }
+
+    if (fontWeight) {
+      style['--custom-font-weight'] = fontWeight
+    }
+  }
+
   // @ts-expect-error type mismatch between Box usage here and PrimerPageHeader.Title
-  return <Box as={PrimerPageHeader.Title} {...props} />
+  return <Box {...rest} as={PrimerPageHeader.Title} style={style} sx={sx} />
 }
 
 const PageHeader = Object.assign(PageHeaderImpl, {
