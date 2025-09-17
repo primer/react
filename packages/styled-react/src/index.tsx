@@ -19,7 +19,7 @@ import {
   type UnderlineNavItemProps as PrimerUnderlineNavItemProps,
   sx,
 } from '@primer/react'
-import React, {forwardRef, type PropsWithChildren, type MouseEvent, type KeyboardEvent} from 'react'
+import React, {forwardRef, type PropsWithChildren, type MouseEvent, type KeyboardEvent, type ElementType} from 'react'
 import type {
   BackgroundProps,
   BorderProps,
@@ -111,7 +111,7 @@ type UnderlineNavItemProps = PrimerUnderlineNavItemProps &
     onSelect?: (event: MouseEvent<HTMLElement> | KeyboardEvent<HTMLElement>) => void
   }
 
-const UnderlineNavItem: ForwardRefComponent<'a', UnderlineNavItemProps> = styled(
+const UnderlineNavItem: ForwardRefComponent<ElementType | 'a', UnderlineNavItemProps> = styled(
   PrimerUnderlineNav.Item,
 ).withConfig<UnderlineNavItemProps>({
   shouldForwardProp: prop => prop !== 'sx',
