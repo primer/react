@@ -362,11 +362,10 @@ export const FullscreenVariant = () => {
         'aria-modal': true,
         'aria-label': 'Fullscreen Overlay Demo',
         className: classes.Overlay,
-        overflow: 'auto',
       }}
       focusZoneSettings={{disabled: true}}
       preventOverflow={false}
-      width='medium'
+      width="medium"
     >
       <div className={classes.FlexColFill}>
         <Stack gap="normal" style={{padding: '16px'}}>
