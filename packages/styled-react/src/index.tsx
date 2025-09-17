@@ -28,6 +28,7 @@ import type {
   SpaceProps,
   TypographyProps,
 } from 'styled-system'
+import {UnderlineNav} from './components/UnderlineNav'
 
 type StyledProps = SxProp &
   SpaceProps &
@@ -90,7 +91,7 @@ const ToggleSwitch = forwardRef<HTMLButtonElement, ToggleSwitchProps>(function T
   return <Box as={PrimerToggleSwitch} ref={ref} {...props} />
 })
 
-export {SegmentedControl, StateLabel, SubNav, ToggleSwitch}
+export {SegmentedControl, StateLabel, SubNav, ToggleSwitch, UnderlineNav}
 
 export {
   ActionList,
@@ -129,7 +130,6 @@ export {
   Token,
   Tooltip,
   Truncate,
-  UnderlineNav,
 
   // styled-components components or types
   Box,
