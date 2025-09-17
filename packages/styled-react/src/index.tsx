@@ -18,6 +18,7 @@ import {
   SegmentedControl as PrimerSegmentedControl,
   type SegmentedControlButtonProps as PrimerSegmentedControlButtonProps,
   type SegmentedControlIconButtonProps as PrimerSegmentedControlIconButtonProps,
+  sx,
 } from '@primer/react'
 import React, {forwardRef, type PropsWithChildren} from 'react'
 import type {ForwardRefComponent} from './polymorphic'
@@ -33,6 +34,7 @@ import type {
   SpaceProps,
   TypographyProps,
 } from 'styled-system'
+import styled from 'styled-components'
 
 type StyledProps = SxProp &
   SpaceProps &
@@ -139,10 +141,11 @@ const ToggleSwitch = forwardRef<HTMLButtonElement, ToggleSwitchProps>(function T
 
 type TruncateProps = PropsWithChildren<PrimerTruncateProps> & SxProp
 
-const Truncate = forwardRef<HTMLDivElement, TruncateProps>(function Truncate(props, ref) {
-  // @ts-ignore - PrimerTruncate is polymorphic and functionally compatible with Box's as prop
-  return <Box as={PrimerTruncate} ref={ref} {...props} />
-}) as ForwardRefComponent<'div', TruncateProps>
+const Truncate: ForwardRefComponent<'div', TruncateProps> = styled(PrimerTruncate).withConfig<TruncateProps>({
+  shouldForwardProp: prop => prop !== 'sx',
+})`
+  ${sx}
+`
 
 export {RadioGroup, SegmentedControl, StateLabel, SubNav, ToggleSwitch, Truncate}
 
