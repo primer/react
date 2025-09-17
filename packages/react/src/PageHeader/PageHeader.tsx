@@ -7,7 +7,7 @@ import {ArrowLeftIcon} from '@primer/octicons-react'
 import type {LinkProps as BaseLinkProps} from '../Link'
 import Link from '../Link'
 
-import {fixedForwardRef, type PolymorphicProps} from '../utils/modern-polymorphic'
+import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {areAllValuesTheSame, haveRegularAndWideSameValue} from '../utils/getBreakpointDeclarations'
 import {warning} from '../utils/warning'
 import {useProvidedRefOrCreate} from '../hooks'
@@ -48,93 +48,77 @@ export type PageHeaderProps = {
   hasBorder?: boolean
 } & SxProp
 
-function UnwrappedRoot<TAs extends React.ElementType = 'div'>(
-  props: PolymorphicProps<TAs, 'div'> & PageHeaderProps,
-  forwardedRef: React.ForwardedRef<unknown>,
-) {
-  const {
-    children,
-    className,
-    sx = defaultSxProp,
-    as = 'div',
-    'aria-label': ariaLabel,
-    role,
-    hasBorder,
-    ...restProps
-  } = props
-  const rootRef = useProvidedRefOrCreate<HTMLDivElement>(forwardedRef as React.RefObject<HTMLDivElement>)
+const Root = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeaderProps>>(
+  ({children, className, sx = defaultSxProp, as = 'div', 'aria-label': ariaLabel, role, hasBorder}, forwardedRef) => {
+    const rootRef = useProvidedRefOrCreate<HTMLDivElement>(forwardedRef as React.RefObject<HTMLDivElement>)
 
-  const isInteractive = (element: HTMLElement) => {
-    return (
-      ['a', 'button'].some(selector => element.matches(selector)) ||
-      (element.hasAttribute('role') && element.getAttribute('role') === 'button') ||
-      (element.hasAttribute('link') && element.getAttribute('role') === 'link') ||
-      element.hasAttribute('tabindex')
-    )
-  }
-
-  useEffect(
-    function validateInteractiveElementsInTitle() {
-      if (!__DEV__) return
-
-      let hasContextArea = false
-      let hasLeadingAction = false
-
-      if (!rootRef.current || rootRef.current.children.length <= 0) return
-      const titleArea = Array.from(rootRef.current.children as HTMLCollection).find(child => {
-        return child instanceof HTMLElement && child.getAttribute('data-component') === 'TitleArea'
-      })
-
-      // It is very unlikely to have a PageHeader without a TitleArea, but we still want to make sure we don't break the page if that happens.
-      if (!titleArea) return
-
-      for (const child of React.Children.toArray(children)) {
-        if (React.isValidElement(child) && child.type === ContextArea) {
-          hasContextArea = true
-        }
-        if (React.isValidElement(child) && child.type === LeadingAction) {
-          hasLeadingAction = true
-        }
-      }
-      // Check if TitleArea has any interactive children or grandchildren.
-      const hasInteractiveContent = Array.from(titleArea.childNodes).some(child => {
-        return (
-          (child instanceof HTMLElement && isInteractive(child)) ||
-          Array.from(child.childNodes).some(child => {
-            return child instanceof HTMLElement && isInteractive(child)
-          })
-        )
-      })
-      // PageHeader.TitleArea is be the first element in the DOM even when it is not visually the first.
-      // Motivation behind this rule to make sure context area and leading action (if they exist) are always rendered after the title (a heading tag)
-      // so that screen reader users who are navigating via heading menu won't miss these actions.
-      warning(
-        hasInteractiveContent && (hasContextArea || hasLeadingAction),
-        'When PageHeader.ContextArea or PageHeader.LeadingAction is present, we recommended not to include any interactive items in the PageHeader.TitleArea to make sure the focus order is logical.',
+    const isInteractive = (element: HTMLElement) => {
+      return (
+        ['a', 'button'].some(selector => element.matches(selector)) ||
+        (element.hasAttribute('role') && element.getAttribute('role') === 'button') ||
+        (element.hasAttribute('link') && element.getAttribute('role') === 'link') ||
+        element.hasAttribute('tabindex')
       )
-    },
-    [children, rootRef],
-  )
+    }
 
-  return (
-    <BoxWithFallback
-      as={as}
-      ref={rootRef}
-      className={clsx(classes.PageHeader, className)}
-      data-has-border={hasBorder ? 'true' : undefined}
-      sx={sx}
-      aria-label={ariaLabel}
-      role={role}
-      {...restProps}
-    >
-      {children}
-    </BoxWithFallback>
-  )
-}
+    useEffect(
+      function validateInteractiveElementsInTitle() {
+        if (!__DEV__) return
 
-const Root = fixedForwardRef(UnwrappedRoot)
+        let hasContextArea = false
+        let hasLeadingAction = false
 
-Object.assign(Root, {displayName: 'PageHeader'})
+        if (!rootRef.current || rootRef.current.children.length <= 0) return
+        const titleArea = Array.from(rootRef.current.children as HTMLCollection).find(child => {
+          return child instanceof HTMLElement && child.getAttribute('data-component') === 'TitleArea'
+        })
+
+        // It is very unlikely to have a PageHeader without a TitleArea, but we still want to make sure we don't break the page if that happens.
+        if (!titleArea) return
+
+        for (const child of React.Children.toArray(children)) {
+          if (React.isValidElement(child) && child.type === ContextArea) {
+            hasContextArea = true
+          }
+          if (React.isValidElement(child) && child.type === LeadingAction) {
+            hasLeadingAction = true
+          }
+        }
+        // Check if TitleArea has any interactive children or grandchildren.
+        const hasInteractiveContent = Array.from(titleArea.childNodes).some(child => {
+          return (
+            (child instanceof HTMLElement && isInteractive(child)) ||
+            Array.from(child.childNodes).some(child => {
+              return child instanceof HTMLElement && isInteractive(child)
+            })
+          )
+        })
+        // PageHeader.TitleArea is be the first element in the DOM even when it is not visually the first.
+        // Motivation behind this rule to make sure context area and leading action (if they exist) are always rendered after the title (a heading tag)
+        // so that screen reader users who are navigating via heading menu won't miss these actions.
+        warning(
+          hasInteractiveContent && (hasContextArea || hasLeadingAction),
+          'When PageHeader.ContextArea or PageHeader.LeadingAction is present, we recommended not to include any interactive items in the PageHeader.TitleArea to make sure the focus order is logical.',
+        )
+      },
+      [children, rootRef],
+    )
+
+    return (
+      <BoxWithFallback
+        as={as}
+        ref={rootRef}
+        className={clsx(classes.PageHeader, className)}
+        data-has-border={hasBorder ? 'true' : undefined}
+        sx={sx}
+        aria-label={ariaLabel}
+        role={role}
+      >
+        {children}
+      </BoxWithFallback>
+    )
+  },
+) as PolymorphicForwardRefComponent<'div', PageHeaderProps>
 
 // PageHeader.ContextArea : Only visible on narrow viewports by default to provide user context of where they are at their journey. `hidden` prop available
 // to manage their custom visibility but consumers should be careful if they choose to hide this on narrow viewports.
@@ -152,42 +136,48 @@ const ContextArea: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
     </BoxWithFallback>
   )
 }
-type LinkProps<As extends React.ElementType = 'a'> = Pick<
+type LinkProps = Pick<
   React.AnchorHTMLAttributes<HTMLAnchorElement> & BaseLinkProps,
   'download' | 'href' | 'hrefLang' | 'media' | 'ping' | 'rel' | 'target' | 'type' | 'referrerPolicy' | 'as'
 > & {
   'aria-label'?: React.AriaAttributes['aria-label']
-  as?: As
 }
 export type ParentLinkProps = React.PropsWithChildren<ChildrenPropTypes & LinkProps>
 
-function UnwrappedParentLink<TAs extends React.ElementType = 'a'>(
-  props: React.PropsWithChildren<ChildrenPropTypes & LinkProps & PolymorphicProps<TAs, 'a'>>,
-  forwardedRef: React.ForwardedRef<unknown>,
-) {
-  const {children, className, 'aria-label': ariaLabel, as = 'a', hidden = hiddenOnRegularAndWide, ...restProps} = props
-
-  return (
-    <>
-      <Link
-        ref={forwardedRef as React.RefObject<HTMLAnchorElement>}
-        as={as}
-        aria-label={ariaLabel}
-        muted
-        className={clsx(classes.ParentLink, className)}
-        {...getHiddenDataAttributes(hidden)}
-        {...restProps}
-      >
-        <ArrowLeftIcon />
-        <div>{children}</div>
-      </Link>
-    </>
-  )
-}
-
-const ParentLink = fixedForwardRef(UnwrappedParentLink)
-
-Object.assign(ParentLink, {displayName: 'ParentLink'})
+// PageHeader.ParentLink : Only visible on narrow viewports by default to let users navigate up in the hierarchy.
+const ParentLink = React.forwardRef<HTMLAnchorElement, ParentLinkProps>(
+  (
+    {
+      children,
+      className,
+      sx: sxProp = defaultSxProp,
+      href,
+      'aria-label': ariaLabel,
+      as = 'a',
+      hidden = hiddenOnRegularAndWide,
+    },
+    ref,
+  ) => {
+    return (
+      <>
+        <Link
+          ref={ref}
+          as={as}
+          aria-label={ariaLabel}
+          muted
+          className={clsx(classes.ParentLink, className)}
+          sx={sxProp}
+          {...getHiddenDataAttributes(hidden)}
+          href={href}
+        >
+          <ArrowLeftIcon />
+          <div>{children}</div>
+        </Link>
+      </>
+    )
+  },
+) as PolymorphicForwardRefComponent<'a', ParentLinkProps>
+ParentLink.displayName = 'ParentLink'
 
 // ContextBar
 // Generic slot for any component above the title region. Use it for custom breadcrumbs and other navigation elements instead of ParentLink.
@@ -233,31 +223,25 @@ type TitleAreaProps = {
 // PageHeader.TitleArea Sub Components: PageHeader.LeadingVisual, PageHeader.Title, PageTitle.TrailingVisual
 // ---------------------------------------------------------------------
 
-function UnwrappedTitleArea<TAs extends React.ElementType = 'div'>(
-  props: React.PropsWithChildren<TitleAreaProps & PolymorphicProps<TAs, 'div'>>,
-  forwardedRef: React.ForwardedRef<unknown>,
-) {
-  const {children, className, sx: sxProp = defaultSxProp, hidden = false, variant = 'medium', ...restProps} = props
-  const titleAreaRef = useProvidedRefOrCreate<HTMLDivElement>(forwardedRef as React.RefObject<HTMLDivElement>)
-  const currentVariant = useResponsiveValue(variant, 'medium')
-  return (
-    <BoxWithFallback
-      className={clsx(classes.TitleArea, className)}
-      ref={titleAreaRef}
-      data-component="TitleArea"
-      data-size-variant={currentVariant}
-      sx={sxProp}
-      {...getHiddenDataAttributes(hidden)}
-      {...restProps}
-    >
-      {children}
-    </BoxWithFallback>
-  )
-}
-
-const TitleArea = fixedForwardRef(UnwrappedTitleArea)
-
-Object.assign(TitleArea, {displayName: 'PageHeader.TitleArea'})
+const TitleArea = React.forwardRef<HTMLDivElement, React.PropsWithChildren<TitleAreaProps>>(
+  ({children, className, sx: sxProp = defaultSxProp, hidden = false, variant = 'medium'}, forwardedRef) => {
+    const titleAreaRef = useProvidedRefOrCreate<HTMLDivElement>(forwardedRef as React.RefObject<HTMLDivElement>)
+    const currentVariant = useResponsiveValue(variant, 'medium')
+    return (
+      <BoxWithFallback
+        className={clsx(classes.TitleArea, className)}
+        ref={titleAreaRef}
+        data-component="TitleArea"
+        data-size-variant={currentVariant}
+        sx={sxProp}
+        {...getHiddenDataAttributes(hidden)}
+      >
+        {children}
+      </BoxWithFallback>
+    )
+  },
+) as PolymorphicForwardRefComponent<'div', TitleAreaProps>
+TitleArea.displayName = 'TitleArea'
 
 // PageHeader.LeadingAction and PageHeader.TrailingAction should only be visible on regular viewports.
 // So they come as hidden on narrow viewports by default and their visibility can be managed by their `hidden` prop.
@@ -352,6 +336,7 @@ const Title: React.FC<React.PropsWithChildren<TitleProps>> = ({
       data-hidden={hidden}
       as={as}
       style={style}
+      sx={sxProp}
       {...getHiddenDataAttributes(hidden)}
     >
       {children}
@@ -552,3 +537,5 @@ export const PageHeader = Object.assign(Root, {
   Description,
   Navigation,
 })
+
+PageHeader.displayName = 'PageHeader'

@@ -34,7 +34,6 @@ import type {
   TypographyProps,
 } from 'styled-system'
 import {type SxProp} from './sx'
-import {PageHeader} from './components/PageHeader'
 import {PageLayout} from './components/PageLayout'
 
 type StyledProps = SxProp &
@@ -116,7 +115,7 @@ const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Checkbox(p
   return <Box as={PrimerCheckbox} ref={ref} {...props} />
 })
 
-export {Checkbox, Heading, Link, PageHeader, PageLayout, SegmentedControl, StateLabel, SubNav, ToggleSwitch}
+export {Checkbox, Heading, Link, PageLayout, SegmentedControl, StateLabel, SubNav, ToggleSwitch}
 
 export {
   ActionList,
@@ -138,6 +137,7 @@ export {
   LinkButton,
   NavList,
   Overlay,
+  PageHeader,
   Popover,
   ProgressBar,
   RadioGroup,
