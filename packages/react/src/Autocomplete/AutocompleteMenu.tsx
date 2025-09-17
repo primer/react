@@ -6,7 +6,7 @@ import type {ScrollIntoViewOptions} from '@primer/behaviors'
 import type {ActionListItemProps} from '../ActionList'
 import {ActionList} from '../ActionList'
 import {useFocusZone} from '../hooks/useFocusZone'
-import type {ComponentProps, MandateProps, AriaRole} from '../utils/types'
+import type {ComponentProps, MandateProps} from '../utils/types'
 import Spinner from '../Spinner'
 import {useId} from '../hooks/useId'
 import {AutocompleteContext} from './AutocompleteContext'
@@ -365,25 +365,19 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
                   text,
                   leadingVisual: LeadingVisual,
                   trailingVisual: TrailingVisual,
+                  // @ts-expect-error this is defined in the items above but is
+                  // missing in TS
                   key,
-                  role,
                   ...itemProps
                 } = item
                 return (
-                  <ActionList.Item
-                    key={(key ?? id) as string | number}
-                    onSelect={() => onAction(item)}
-                    {...itemProps}
-                    id={id}
-                    data-id={id}
-                    role={role as AriaRole}
-                  >
+                  <ActionList.Item key={key ?? id} onSelect={() => onAction(item)} {...itemProps} id={id} data-id={id}>
                     {LeadingVisual && (
                       <ActionList.LeadingVisual>
                         {isElement(LeadingVisual) ? LeadingVisual : <LeadingVisual />}
                       </ActionList.LeadingVisual>
                     )}
-                    {(children ?? text) as React.ReactNode}
+                    {children ?? text}
                     {TrailingVisual && (
                       <ActionList.TrailingVisual>
                         {isElement(TrailingVisual) ? TrailingVisual : <TrailingVisual />}
