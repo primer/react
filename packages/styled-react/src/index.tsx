@@ -19,7 +19,7 @@ import {
   type UnderlineNavItemProps as PrimerUnderlineNavItemProps,
   sx,
 } from '@primer/react'
-import React, {forwardRef, type PropsWithChildren, type MouseEvent, type KeyboardEvent, type ElementType} from 'react'
+import React, {forwardRef, type PropsWithChildren, type MouseEvent, type KeyboardEvent} from 'react'
 import type {
   BackgroundProps,
   BorderProps,
@@ -102,25 +102,22 @@ const UnderlineNavImpl = forwardRef<HTMLElement, UnderlineNavProps>(function Und
   return <Box as={PrimerUnderlineNav} ref={ref} {...props} />
 })
 
-type UnderlineNavItemProps<TAs extends ElementType = 'a'> = PrimerUnderlineNavItemProps &
+type UnderlineNavItemProps = PrimerUnderlineNavItemProps &
   SxProp & {
-    as?: TAs
     /**
      * Callback that will trigger both on click selection and keyboard selection.
-     * Provides proper typing for polymorphic usage.
+     * Overridden to provide better typing for polymorphic usage.
      */
-    onSelect?: (
-      event:
-        | MouseEvent<TAs extends keyof HTMLElementTagNameMap ? HTMLElementTagNameMap[TAs] : HTMLElement>
-        | KeyboardEvent<TAs extends keyof HTMLElementTagNameMap ? HTMLElementTagNameMap[TAs] : HTMLElement>,
-    ) => void
+    onSelect?: (event: MouseEvent<HTMLElement> | KeyboardEvent<HTMLElement>) => void
   }
 
-const UnderlineNavItem = styled(PrimerUnderlineNav.Item).withConfig<UnderlineNavItemProps<ElementType>>({
+const UnderlineNavItem: ForwardRefComponent<'a', UnderlineNavItemProps> = styled(
+  PrimerUnderlineNav.Item,
+).withConfig<UnderlineNavItemProps>({
   shouldForwardProp: prop => prop !== 'sx',
 })`
   ${sx}
-` as ForwardRefComponent<ElementType, UnderlineNavItemProps>
+`
 
 const UnderlineNav = Object.assign(UnderlineNavImpl, {
   Item: UnderlineNavItem,
