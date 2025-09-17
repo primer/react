@@ -66,7 +66,7 @@ const SegmentedControl = Object.assign(SegmentedControlImpl, {
 
 type CheckboxProps = PrimerCheckboxProps & SxProp
 
-const Checkbox = forwardRef<HTMLSpanElement, CheckboxProps>(function Checkbox(props, ref) {
+const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Checkbox(props, ref) {
   return <Box as={PrimerCheckbox} ref={ref} {...props} />
 })
 
