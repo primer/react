@@ -117,7 +117,6 @@ export type {
   NavListLeadingVisualProps,
   NavListTrailingVisualProps,
   NavListDividerProps,
-  NavListGroupHeadingProps,
 } from './NavList'
 export {default as Overlay} from './Overlay'
 export type {OverlayProps} from './Overlay'
