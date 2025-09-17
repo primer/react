@@ -166,6 +166,7 @@ const ParentLink = React.forwardRef<HTMLAnchorElement, ParentLinkProps>(
           aria-label={ariaLabel}
           muted
           className={clsx(classes.ParentLink, className)}
+          // @ts-expect-error this is being handled in https://github.com/primer/react/pull/6873
           sx={sxProp}
           {...getHiddenDataAttributes(hidden)}
           href={href}
@@ -336,6 +337,7 @@ const Title: React.FC<React.PropsWithChildren<TitleProps>> = ({
       data-hidden={hidden}
       as={as}
       style={style}
+      // @ts-expect-error this is being handled in https://github.com/primer/react/pull/6873
       sx={sxProp}
       {...getHiddenDataAttributes(hidden)}
     >
