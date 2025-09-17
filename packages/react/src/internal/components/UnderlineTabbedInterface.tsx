@@ -1,7 +1,7 @@
 // Used for UnderlineNav and UnderlinePanels components
 
 import type React from 'react'
-import {forwardRef, type FC, type PropsWithChildren} from 'react'
+import {type ForwardedRef, forwardRef, type FC, type PropsWithChildren} from 'react'
 import {isElement} from 'react-is'
 import type {IconProps} from '@primer/octicons-react'
 import CounterLabel from '../../CounterLabel'
@@ -42,8 +42,8 @@ export const LoadingCounter = () => {
   return <span className={classes.LoadingCounter} />
 }
 
-export type UnderlineItemProps = {
-  as?: React.ElementType | 'a' | 'button'
+export type UnderlineItemProps<As extends React.ElementType> = {
+  as?: As | 'a' | 'button'
   className?: string
   iconsVisible?: boolean
   loadingCounters?: boolean
@@ -51,30 +51,30 @@ export type UnderlineItemProps = {
   icon?: FC<IconProps> | React.ReactElement
   id?: string
   ref?: React.Ref<unknown>
-}
+} & React.ComponentPropsWithoutRef<As extends 'a' ? 'a' : As extends 'button' ? 'button' : As>
 
-export const UnderlineItem = forwardRef<HTMLDivElement, PropsWithChildren<UnderlineItemProps>>(
-  ({as = 'a', children, counter, icon: Icon, iconsVisible, loadingCounters, className, ...rest}, forwardedRef) => {
-    return (
-      <div ref={forwardedRef} as={as} className={clsx(classes.UnderlineItem, className)} {...rest}>
-        {iconsVisible && Icon && <span data-component="icon">{isElement(Icon) ? Icon : <Icon />}</span>}
-        {children && (
-          <span data-component="text" data-content={children}>
-            {children}
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function UnderlineItem<As extends React.ElementType>(props: UnderlineItemProps<As>, ref: ForwardedRef<any>) {
+  const {as: Component = 'a', children, counter, icon: Icon, iconsVisible, loadingCounters, className, ...rest} = props
+  return (
+    <Component ref={ref} className={clsx(classes.UnderlineItem, className)} {...rest}>
+      {iconsVisible && Icon && <span data-component="icon">{isElement(Icon) ? Icon : <Icon />}</span>}
+      {children && (
+        <span data-component="text" data-content={children}>
+          {children}
+        </span>
+      )}
+      {counter !== undefined ? (
+        loadingCounters ? (
+          <span data-component="counter">
+            <LoadingCounter />
           </span>
-        )}
-        {counter !== undefined ? (
-          loadingCounters ? (
-            <span data-component="counter">
-              <LoadingCounter />
-            </span>
-          ) : (
-            <span data-component="counter">
-              <CounterLabel>{counter}</CounterLabel>
-            </span>
-          )
-        ) : null}
-      </div>
-    )
-  },
-) as PolymorphicForwardRefComponent<'a', UnderlineItemProps>
+        ) : (
+          <span data-component="counter">
+            <CounterLabel>{counter}</CounterLabel>
+          </span>
+        )
+      ) : null}
+    </Component>
+  )
+}
