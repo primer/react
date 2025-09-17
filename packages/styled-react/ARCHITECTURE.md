@@ -61,17 +61,19 @@ import {
   type ExampleComponentProps as PrimerExampleComponentProps,
 } from '@primer/react'
 import {forwardRef} from 'react'
-import {PolymorphicForwardRef as ForwardRefComponent} from '../polymorphic'
+import {ForwardRefComponent} from '../polymorphic'
+import {sx} from '../sx'
 
 type ExampleComponentProps = PrimerExampleComponentProps & SxProp
 
-const ExampleComponent = forwardRef(function ExampleComponent(props, ref) {
-  // @ts-expect-error the polymorphic component type is not inferred
-  // correctly
-  return <Box ref={ref} as={PrimerExampleComponent} {...props} />
-}) as ForwardRefComponent<'div', ExampleComponentProps>
+const ExampleComponent: ForwardRefComponent<'div', ExampleComponentProps> = styled(ExampleComponent).withConfig({
+  shouldForwardProp: prop => prop !== 'sx',
+})`
+  ${sx}
+`
 
 export {ExampleComponent}
+export type {ExampleComponentProps}
 ```
 
 ## Sub-components
