@@ -45,6 +45,7 @@ export type {InlineMessageProps} from '../InlineMessage'
 export {PageHeader} from '../PageHeader'
 export type {
   PageHeaderProps,
+  TitleProps,
   TitleProps as PageHeaderTitleProps,
   ActionsProps as PageHeaderActionsProps,
 } from '../PageHeader'
