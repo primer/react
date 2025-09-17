@@ -90,6 +90,12 @@ const ToggleSwitch = forwardRef<HTMLButtonElement, ToggleSwitchProps>(function T
   return <Box as={PrimerToggleSwitch} ref={ref} {...props} />
 })
 
+export {
+  PageHeader,
+  type PageHeaderProps,
+  type PageHeaderActionsProps,
+  type PageHeaderTitleProps,
+} from './components/PageHeader'
 export {SegmentedControl, StateLabel, SubNav, ToggleSwitch}
 
 export {
@@ -115,7 +121,6 @@ export {
   LinkButton,
   NavList,
   Overlay,
-  PageHeader,
   PageLayout,
   ProgressBar,
   RadioGroup,
