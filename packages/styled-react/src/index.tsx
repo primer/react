@@ -97,22 +97,26 @@ const ToggleSwitch = forwardRef<HTMLButtonElement, ToggleSwitchProps>(function T
 })
 
 type UnderlineNavProps = PrimerUnderlineNavProps & SxProp
-type UnderlineNavItemProps = PrimerUnderlineNavItemProps &
-  SxProp & {
-    /**
-     * Callback that will trigger both on click selection and keyboard selection.
-     * Overridden to provide better typing for polymorphic usage.
-     */
-    onSelect?: (
-      event: MouseEvent<HTMLAnchorElement | HTMLButtonElement> | KeyboardEvent<HTMLAnchorElement | HTMLButtonElement>,
-    ) => void
-  }
 
 const UnderlineNavImpl = forwardRef<HTMLElement, UnderlineNavProps>(function UnderlineNav(props, ref) {
   return <Box as={PrimerUnderlineNav} ref={ref} {...props} />
 })
 
-const UnderlineNavItem: ForwardRefComponent<ElementType | 'a', UnderlineNavItemProps> = styled(
+type UnderlineNavItemProps<TAs extends ElementType = 'a'> = PrimerUnderlineNavItemProps &
+  SxProp & {
+    as?: TAs
+    /**
+     * Callback that will trigger both on click selection and keyboard selection.
+     * Provides proper typing for polymorphic usage.
+     */
+    onSelect?: (
+      event:
+        | MouseEvent<TAs extends keyof HTMLElementTagNameMap ? HTMLElementTagNameMap[TAs] : HTMLElement>
+        | KeyboardEvent<TAs extends keyof HTMLElementTagNameMap ? HTMLElementTagNameMap[TAs] : HTMLElement>,
+    ) => void
+  }
+
+const UnderlineNavItem: ForwardRefComponent<'a', UnderlineNavItemProps> = styled(
   PrimerUnderlineNav.Item,
 ).withConfig<UnderlineNavItemProps>({
   shouldForwardProp: prop => prop !== 'sx',
