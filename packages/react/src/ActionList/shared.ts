@@ -3,10 +3,9 @@ import type {SxProp} from '../sx'
 import type {AriaRole} from '../utils/types'
 import type {PolymorphicProps} from '../utils/modern-polymorphic'
 
-export type ActionListItemProps<As extends React.ElementType = 'li'> = PolymorphicProps<
-  As,
-  'li',
-  {
+export type ActionListItemProps<As extends React.ElementType = 'li'> =
+  // need to omit `onSelect` from native HTML <li> attributes to avoid collision
+  Omit<PolymorphicProps<As, 'li'>, 'onSelect'> & {
     /**
      * Primary content for an Item
      */
@@ -65,9 +64,7 @@ export type ActionListItemProps<As extends React.ElementType = 'li'> = Polymorph
      * @deprecated `as` prop has no effect on `ActionList.Item`, only `ActionList.LinkItem`
      */
     as?: As
-  }
-> &
-  SxProp
+  } & SxProp
 
 type MenuItemProps = {
   onClick?: (event: React.MouseEvent<HTMLElement>) => void

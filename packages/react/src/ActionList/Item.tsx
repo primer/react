@@ -224,7 +224,8 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
 
   const containerProps = _PrivateItemWrapper
     ? {role: itemRole ? 'none' : undefined, ...props}
-    : (listSemantics && {...menuItemProps, ...props, ref: forwardedRef}) || {}
+    : // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+      (listSemantics && {...menuItemProps, ...props, ref: forwardedRef}) || {}
 
   const wrapperProps = _PrivateItemWrapper
     ? menuItemProps
