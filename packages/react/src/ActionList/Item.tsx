@@ -249,7 +249,7 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
     >
       <BoxWithFallback
         {...containerProps}
-        as={as || 'li'}
+        as="li"
         sx={sxProp}
         ref={listSemantics ? forwardedRef : null}
         data-variant={variant === 'danger' ? variant : undefined}
