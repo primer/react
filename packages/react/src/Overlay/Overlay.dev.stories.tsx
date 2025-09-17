@@ -21,62 +21,6 @@ export default {
   },
 } as Meta<typeof Overlay>
 
-export const SxProps = (args: Args) => {
-  const [isOpen, setIsOpen] = useState(false)
-  const buttonRef = useRef<HTMLButtonElement>(null)
-  const confirmButtonRef = useRef<HTMLButtonElement>(null)
-  const anchorRef = useRef<HTMLDivElement>(null)
-  const closeOverlay = () => setIsOpen(false)
-  const containerRef = useRef<HTMLDivElement>(null)
-  useFocusTrap({
-    containerRef,
-    disabled: !isOpen,
-  })
-  return (
-    <div ref={anchorRef}>
-      <Button
-        ref={buttonRef}
-        onClick={() => {
-          setIsOpen(!isOpen)
-        }}
-      >
-        Open overlay
-      </Button>
-      {isOpen || args.open ? (
-        <Overlay
-          initialFocusRef={confirmButtonRef}
-          returnFocusRef={buttonRef}
-          ignoreClickRefs={[buttonRef]}
-          onEscape={closeOverlay}
-          onClickOutside={closeOverlay}
-          width="large"
-          anchorSide="inside-right"
-          role="dialog"
-          aria-modal="true"
-          aria-label="Sample overlay"
-          ref={containerRef}
-          sx={{
-            left: '50%',
-            mt: 2,
-            color: 'var(--bgColor-danger-muted)',
-          }}
-        >
-          <div className={classes.OverlayContent}>
-            <IconButton
-              aria-label="Close"
-              onClick={closeOverlay}
-              icon={XIcon}
-              variant="invisible"
-              className={classes.CloseButton}
-            />
-            <Text>Look! an overlay</Text>
-          </div>
-        </Overlay>
-      ) : null}
-    </div>
-  )
-}
-
 export const PreventFocusOnOpen = (args: Args) => {
   const [isOpen, setIsOpen] = useState(false)
   const openButtonRef = useRef<HTMLButtonElement>(null)

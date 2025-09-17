@@ -14,6 +14,8 @@ import {
   SegmentedControl as PrimerSegmentedControl,
   type SegmentedControlButtonProps as PrimerSegmentedControlButtonProps,
   type SegmentedControlIconButtonProps as PrimerSegmentedControlIconButtonProps,
+  Overlay as PrimerBaseOverlay,
+  type OverlayProps as BaseOverlayProps,
 } from '@primer/react'
 import React, {forwardRef, type PropsWithChildren} from 'react'
 import type {
@@ -90,7 +92,11 @@ const ToggleSwitch = forwardRef<HTMLButtonElement, ToggleSwitchProps>(function T
   return <Box as={PrimerToggleSwitch} ref={ref} {...props} />
 })
 
-export {SegmentedControl, StateLabel, SubNav, ToggleSwitch}
+const BaseOverlay = forwardRef<HTMLDivElement, BaseOverlayProps & SxProp>(function BaseOverlay(props, ref) {
+  return <Box as={PrimerBaseOverlay} ref={ref} {...props} />
+})
+
+export {SegmentedControl, StateLabel, SubNav, ToggleSwitch, BaseOverlay}
 
 export {
   ActionList,
