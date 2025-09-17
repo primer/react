@@ -1,7 +1,6 @@
 import React, {useEffect} from 'react'
 import type {ResponsiveValue} from '../hooks/useResponsiveValue'
 import {isResponsiveValue, useResponsiveValue} from '../hooks/useResponsiveValue'
-import type {CSSCustomProperties} from '../sx'
 import Heading from '../Heading'
 import {ArrowLeftIcon} from '@primer/octicons-react'
 import type {LinkProps as BaseLinkProps} from '../Link'
