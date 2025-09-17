@@ -362,7 +362,6 @@ export const FullscreenVariant = () => {
         'aria-modal': true,
         'aria-label': 'Fullscreen Overlay Demo',
         className: classes.Overlay,
-        style: {maxWidth: '280px'},
         overflow: 'auto',
       }}
       focusZoneSettings={{disabled: true}}
