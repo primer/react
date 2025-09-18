@@ -1,22 +1,16 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import {ThemeProvider as SCThemeProvider} from 'styled-components'
-import defaultTheme from './theme'
-import deepmerge from 'deepmerge'
-import {useId} from './hooks'
-import {useSyncedState} from './hooks/useSyncedState'
+import {useId} from '../hooks/useId'
+import {useSyncedState} from '../hooks/useSyncedState'
 
 export const defaultColorMode = 'day'
 const defaultDayScheme = 'light'
 const defaultNightScheme = 'dark'
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type Theme = {[key: string]: any}
 type ColorMode = 'day' | 'night' | 'light' | 'dark'
 export type ColorModeWithAuto = ColorMode | 'auto'
 
 export type ThemeProviderProps = {
-  theme?: Theme
   colorMode?: ColorModeWithAuto
   dayScheme?: string
   nightScheme?: string
@@ -24,7 +18,6 @@ export type ThemeProviderProps = {
 }
 
 const ThemeContext = React.createContext<{
-  theme?: Theme
   colorScheme?: string
   colorMode?: ColorModeWithAuto
   resolvedColorMode?: ColorMode
@@ -53,15 +46,7 @@ const getServerHandoff = (id: string) => {
 
 export const ThemeProvider: React.FC<React.PropsWithChildren<ThemeProviderProps>> = ({children, ...props}) => {
   // Get fallback values from parent ThemeProvider (if exists)
-  const {
-    theme: fallbackTheme,
-    colorMode: fallbackColorMode,
-    dayScheme: fallbackDayScheme,
-    nightScheme: fallbackNightScheme,
-  } = useTheme()
-
-  // Initialize state
-  const theme = props.theme ?? fallbackTheme ?? defaultTheme
+  const {colorMode: fallbackColorMode, dayScheme: fallbackDayScheme, nightScheme: fallbackNightScheme} = useTheme()
 
   const uniqueDataId = useId()
   const {resolvedServerColorMode} = getServerHandoff(uniqueDataId)
@@ -73,10 +58,6 @@ export const ThemeProvider: React.FC<React.PropsWithChildren<ThemeProviderProps>
   const systemColorMode = useSystemColorMode()
   const resolvedColorMode = resolvedColorModePassthrough.current || resolveColorMode(colorMode, systemColorMode)
   const colorScheme = chooseColorScheme(resolvedColorMode, dayScheme, nightScheme)
-  const {resolvedTheme, resolvedColorScheme} = React.useMemo(
-    () => applyColorScheme(theme, colorScheme),
-    [theme, colorScheme],
-  )
 
   // this effect will only run on client
   React.useEffect(
@@ -108,11 +89,10 @@ export const ThemeProvider: React.FC<React.PropsWithChildren<ThemeProviderProps>
   return (
     <ThemeContext.Provider
       value={{
-        theme: resolvedTheme,
         colorScheme,
         colorMode,
         resolvedColorMode,
-        resolvedColorScheme,
+        resolvedColorScheme: colorScheme,
         dayScheme,
         nightScheme,
         setColorMode,
@@ -120,16 +100,14 @@ export const ThemeProvider: React.FC<React.PropsWithChildren<ThemeProviderProps>
         setNightScheme,
       }}
     >
-      <SCThemeProvider theme={resolvedTheme}>
-        {children}
-        {props.preventSSRMismatch ? (
-          <script
-            type="application/json"
-            id={`__PRIMER_DATA_${uniqueDataId}__`}
-            dangerouslySetInnerHTML={{__html: JSON.stringify({resolvedServerColorMode: resolvedColorMode})}}
-          />
-        ) : null}
-      </SCThemeProvider>
+      {children}
+      {props.preventSSRMismatch ? (
+        <script
+          type="application/json"
+          id={`__PRIMER_DATA_${uniqueDataId}__`}
+          dangerouslySetInnerHTML={{__html: JSON.stringify({resolvedServerColorMode: resolvedColorMode})}}
+        />
+      ) : null}
     </ThemeContext.Provider>
   )
 }
@@ -210,35 +188,6 @@ function chooseColorScheme(colorMode: ColorMode, dayScheme: string, nightScheme:
     case 'dark':
     case 'night':
       return nightScheme
-  }
-}
-
-function applyColorScheme(
-  theme: Theme,
-  colorScheme: string,
-): {resolvedTheme: Theme; resolvedColorScheme: string | undefined} {
-  if (!theme.colorSchemes) {
-    return {
-      resolvedTheme: theme,
-      resolvedColorScheme: undefined,
-    }
-  }
-
-  if (!theme.colorSchemes[colorScheme]) {
-    // eslint-disable-next-line no-console
-    console.error(`\`${colorScheme}\` scheme not defined in \`theme.colorSchemes\``)
-
-    // Apply the first defined color scheme
-    const defaultColorScheme = Object.keys(theme.colorSchemes)[0]
-    return {
-      resolvedTheme: deepmerge(theme, theme.colorSchemes[defaultColorScheme]),
-      resolvedColorScheme: defaultColorScheme,
-    }
-  }
-
-  return {
-    resolvedTheme: deepmerge(theme, theme.colorSchemes[colorScheme]),
-    resolvedColorScheme: colorScheme,
   }
 }
 

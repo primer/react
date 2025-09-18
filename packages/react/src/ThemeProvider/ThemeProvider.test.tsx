@@ -2,7 +2,8 @@ import {render, screen, waitFor} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {describe, expect, it, vi} from 'vitest'
 import React from 'react'
-import {Text, ThemeProvider, useColorSchemeVar, useTheme} from '..'
+import Text from '../Text'
+import {ThemeProvider, useColorSchemeVar, useTheme} from '../ThemeProvider'
 
 // window.matchMedia() is not implemented by JSDOM so we have to create a mock:
 // https://vijs.io/docs/manual-mocks#mocking-methods-which-are-not-implemented-in-jsdom
@@ -43,53 +44,9 @@ const exampleTheme = {
   },
 }
 
-it('respects theme prop', () => {
-  const theme = {
-    colors: {
-      text: '#f00',
-    },
-    space: ['0', '0.25rem'],
-  }
-
-  render(
-    <ThemeProvider theme={theme}>
-      <Text color="text" mb={1}>
-        Hello
-      </Text>
-    </ThemeProvider>,
-  )
-
-  expect(screen.getByText('Hello')).toHaveStyle('color: #f00')
-  expect(screen.getByText('Hello')).toHaveStyle('margin-bottom: 4px')
-})
-
-it('has default theme', () => {
-  render(
-    <ThemeProvider>
-      <Text color="fg.default" mb={1}>
-        Hello
-      </Text>
-    </ThemeProvider>,
-  )
-
-  expect(screen.getByText('Hello')).toMatchSnapshot()
-})
-
-it('inherits theme from parent', () => {
-  render(
-    <ThemeProvider theme={exampleTheme}>
-      <ThemeProvider>
-        <Text color="text">Hello</Text>
-      </ThemeProvider>
-    </ThemeProvider>,
-  )
-
-  expect(screen.getByText('Hello')).toHaveStyle('color: rgb(0, 0, 0)')
-})
-
 it('defaults to light color scheme', () => {
   render(
-    <ThemeProvider theme={exampleTheme}>
+    <ThemeProvider>
       <Text color="text">Hello</Text>
     </ThemeProvider>,
   )
@@ -99,7 +56,7 @@ it('defaults to light color scheme', () => {
 
 it('defaults to dark color scheme in night mode', () => {
   render(
-    <ThemeProvider theme={exampleTheme} colorMode="night">
+    <ThemeProvider colorMode="night">
       <Text color="text">Hello</Text>
     </ThemeProvider>,
   )
@@ -111,7 +68,7 @@ it('defaults to first color scheme when passed an invalid color scheme name', ()
   const spy = vi.spyOn(console, 'error').mockImplementationOnce(() => {})
 
   render(
-    <ThemeProvider theme={exampleTheme} dayScheme="foo">
+    <ThemeProvider dayScheme="foo">
       <Text color="text">Hello</Text>
     </ThemeProvider>,
   )
@@ -124,7 +81,7 @@ it('defaults to first color scheme when passed an invalid color scheme name', ()
 
 it('respects nightScheme prop', () => {
   render(
-    <ThemeProvider theme={exampleTheme} colorMode="night" nightScheme="dark_dimmed">
+    <ThemeProvider colorMode="night" nightScheme="dark_dimmed">
       <Text color="text">Hello</Text>
     </ThemeProvider>,
   )
@@ -134,7 +91,7 @@ it('respects nightScheme prop', () => {
 
 it('respects nightScheme prop with colorMode="dark"', () => {
   render(
-    <ThemeProvider theme={exampleTheme} colorMode="dark" nightScheme="dark_dimmed">
+    <ThemeProvider colorMode="dark" nightScheme="dark_dimmed">
       <Text color="text">Hello</Text>
     </ThemeProvider>,
   )
@@ -144,7 +101,7 @@ it('respects nightScheme prop with colorMode="dark"', () => {
 
 it('respects dayScheme prop', () => {
   render(
-    <ThemeProvider theme={exampleTheme} colorMode="day" dayScheme="dark" nightScheme="dark_dimmed">
+    <ThemeProvider colorMode="day" dayScheme="dark" nightScheme="dark_dimmed">
       <Text color="text">Hello</Text>
     </ThemeProvider>,
   )
@@ -154,7 +111,7 @@ it('respects dayScheme prop', () => {
 
 it('respects dayScheme prop with colorMode="light"', () => {
   render(
-    <ThemeProvider theme={exampleTheme} colorMode="light" dayScheme="dark" nightScheme="dark_dimmed">
+    <ThemeProvider colorMode="light" dayScheme="dark" nightScheme="dark_dimmed">
       <Text color="text">Hello</Text>
     </ThemeProvider>,
   )
@@ -164,7 +121,7 @@ it('respects dayScheme prop with colorMode="light"', () => {
 
 it('works in auto mode', () => {
   render(
-    <ThemeProvider theme={exampleTheme} colorMode="auto">
+    <ThemeProvider colorMode="auto">
       <Text color="text">Hello</Text>
     </ThemeProvider>,
   )
@@ -185,7 +142,7 @@ it('works in auto mode (dark)', () => {
   }))
 
   render(
-    <ThemeProvider theme={exampleTheme} colorMode="auto">
+    <ThemeProvider colorMode="auto">
       <Text color="text">Hello</Text>
     </ThemeProvider>,
   )
@@ -201,7 +158,7 @@ it('updates when colorMode prop changes', async () => {
   function App() {
     const [colorMode, setColorMode] = React.useState<'day' | 'night'>('day')
     return (
-      <ThemeProvider theme={exampleTheme} colorMode={colorMode}>
+      <ThemeProvider colorMode={colorMode}>
         <Text color="text">{colorMode}</Text>
         <button type="button" onClick={() => setColorMode(colorMode === 'day' ? 'night' : 'day')}>
           Toggle
@@ -229,7 +186,7 @@ it('updates when dayScheme prop changes', async () => {
   function App() {
     const [dayScheme, setDayScheme] = React.useState('light')
     return (
-      <ThemeProvider theme={exampleTheme} dayScheme={dayScheme}>
+      <ThemeProvider dayScheme={dayScheme}>
         <Text color="text">{dayScheme}</Text>
         <button type="button" onClick={() => setDayScheme(dayScheme === 'light' ? 'dark_dimmed' : 'light')}>
           Toggle
@@ -257,7 +214,7 @@ it('updates when nightScheme prop changes', async () => {
   function App() {
     const [nightScheme, setNightScheme] = React.useState('dark')
     return (
-      <ThemeProvider theme={exampleTheme} colorMode="night" nightScheme={nightScheme}>
+      <ThemeProvider colorMode="night" nightScheme={nightScheme}>
         <Text color="text">{nightScheme}</Text>
         <button type="button" onClick={() => setNightScheme(nightScheme === 'dark' ? 'dark_dimmed' : 'dark')}>
           Toggle
@@ -285,7 +242,7 @@ it('inherits colorMode from parent', async () => {
   function App() {
     const [colorMode, setcolorMode] = React.useState<'day' | 'night'>('day')
     return (
-      <ThemeProvider theme={exampleTheme} colorMode={colorMode}>
+      <ThemeProvider colorMode={colorMode}>
         <button type="button" onClick={() => setcolorMode(colorMode === 'day' ? 'night' : 'day')}>
           Toggle
         </button>
@@ -311,7 +268,7 @@ it('inherits dayScheme from parent', async () => {
   function App() {
     const [dayScheme, setDayScheme] = React.useState('light')
     return (
-      <ThemeProvider theme={exampleTheme} colorMode="night" dayScheme={dayScheme}>
+      <ThemeProvider colorMode="night" dayScheme={dayScheme}>
         <button type="button" onClick={() => setDayScheme(dayScheme === 'light' ? 'dark_dimmed' : 'light')}>
           Toggle
         </button>
@@ -337,7 +294,7 @@ it('inherits nightScheme from parent', async () => {
   function App() {
     const [nightScheme, setNightScheme] = React.useState('dark')
     return (
-      <ThemeProvider theme={exampleTheme} colorMode="day" nightScheme={nightScheme}>
+      <ThemeProvider colorMode="day" nightScheme={nightScheme}>
         <button type="button" onClick={() => setNightScheme(nightScheme === 'dark' ? 'dark_dimmed' : 'dark')}>
           Toggle
         </button>
@@ -371,7 +328,7 @@ describe('setColorMode', () => {
     }
 
     render(
-      <ThemeProvider theme={exampleTheme} colorMode="day">
+      <ThemeProvider colorMode="day">
         <Text color="text">Hello</Text>
         <ToggleMode />
       </ThemeProvider>,
@@ -401,7 +358,7 @@ describe('setDayScheme', () => {
     }
 
     render(
-      <ThemeProvider theme={exampleTheme} colorMode="day">
+      <ThemeProvider colorMode="day">
         <Text color="text">Hello</Text>
         <ToggleDayScheme />
       </ThemeProvider>,
@@ -431,7 +388,7 @@ describe('setNightScheme', () => {
     }
 
     render(
-      <ThemeProvider theme={exampleTheme} colorMode="night">
+      <ThemeProvider colorMode="night">
         <Text color="text">Hello</Text>
         <ToggleNightScheme />
       </ThemeProvider>,
@@ -474,7 +431,7 @@ describe('useColorSchemeVar', () => {
     }
 
     render(
-      <ThemeProvider theme={exampleTheme} nightScheme="dark_dimmed">
+      <ThemeProvider nightScheme="dark_dimmed">
         <CustomBg />
         <ToggleMode />
       </ThemeProvider>,
@@ -506,7 +463,7 @@ describe('useColorSchemeVar', () => {
     }
 
     render(
-      <ThemeProvider theme={exampleTheme}>
+      <ThemeProvider>
         <CustomBg />
         <ToggleMode />
       </ThemeProvider>,
@@ -533,22 +490,6 @@ describe('useTheme().resolvedColorScheme', () => {
     expect(screen.getByTestId('text').textContent).toEqual('')
   })
 
-  it('is undefined when the theme has no colorScheme object', () => {
-    const Component = () => {
-      const {resolvedColorScheme} = useTheme()
-
-      return <Text data-testid="text">{resolvedColorScheme}</Text>
-    }
-
-    render(
-      <ThemeProvider theme={{color: 'red'}}>
-        <Component />
-      </ThemeProvider>,
-    )
-
-    expect(screen.getByTestId('text').textContent).toEqual('')
-  })
-
   it('is the same as the applied colorScheme, when that colorScheme is in the theme', () => {
     const Component = () => {
       const {resolvedColorScheme} = useTheme()
@@ -559,7 +500,7 @@ describe('useTheme().resolvedColorScheme', () => {
     const schemeToApply = 'dark'
 
     render(
-      <ThemeProvider theme={exampleTheme} colorMode="day" dayScheme={schemeToApply}>
+      <ThemeProvider colorMode="day" dayScheme={schemeToApply}>
         <Component />
       </ThemeProvider>,
     )
@@ -578,7 +519,7 @@ describe('useTheme().resolvedColorScheme', () => {
 
     const schemeToApply = 'totally-invalid-colorscheme'
     render(
-      <ThemeProvider theme={exampleTheme} colorMode="day" dayScheme={schemeToApply}>
+      <ThemeProvider colorMode="day" dayScheme={schemeToApply}>
         <Component />
       </ThemeProvider>,
     )
@@ -604,7 +545,7 @@ describe('useTheme().resolvedColorScheme', () => {
       const schemeToApply = 'dark'
 
       render(
-        <ThemeProvider theme={exampleTheme} colorMode="day" dayScheme={schemeToApply}>
+        <ThemeProvider colorMode="day" dayScheme={schemeToApply}>
           <ThemeProvider>
             <Component />
           </ThemeProvider>
@@ -626,7 +567,7 @@ describe('useTheme().resolvedColorScheme', () => {
 
       const schemeToApply = 'totally-invalid-colorscheme'
       render(
-        <ThemeProvider theme={exampleTheme} colorMode="day" dayScheme={schemeToApply}>
+        <ThemeProvider colorMode="day" dayScheme={schemeToApply}>
           <ThemeProvider>
             <Component />
           </ThemeProvider>
