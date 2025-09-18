@@ -13,26 +13,25 @@ import {clsx} from 'clsx'
 // The gap between the list items. It is a constant because the gap is used to calculate the possible number of items that can fit in the container.
 export const GAP = 8
 
-type UnderlineWrapperProps = {
+type UnderlineWrapperProps<As extends React.ElementType> = {
   slot?: string
-  as?: React.ElementType
+  as?: As
   className?: string
   ref?: React.Ref<HTMLElement>
 }
 
-export const UnderlineWrapper = forwardRef<HTMLElement, PropsWithChildren<UnderlineWrapperProps>>(
-  ({children, className, ...rest}, forwardedRef) => {
-    return (
-      <div
-        className={clsx(classes.UnderlineWrapper, className)}
-        ref={forwardedRef as ForwardedRef<HTMLDivElement>}
-        {...rest}
-      >
-        {children}
-      </div>
-    )
-  },
-)
+export const UnderlineWrapper = forwardRef((props, ref) => {
+  const {children, className, as: Component = 'nav', ...rest} = props
+  return (
+    <Component
+      className={clsx(classes.UnderlineWrapper, className)}
+      ref={ref as ForwardedRef<HTMLDivElement>}
+      {...rest}
+    >
+      {children}
+    </Component>
+  )
+}) as PolymorphicForwardRefComponent<ElementType, UnderlineWrapperProps<ElementType>>
 
 export const UnderlineItemList = forwardRef(({children, ...rest}: PropsWithChildren, forwardedRef) => {
   return (
