@@ -60,6 +60,7 @@ function UnwrappedUnderlineNavItem<As extends React.ElementType = 'a'>(
   }: UnderlineNavItemProps<As>,
   forwardedRef: React.ForwardedRef<unknown>,
 ) {
+  const Component = as || 'a'
   const backupRef = useRef<HTMLElement>(null)
   const ref = (forwardedRef ?? backupRef) as RefObject<HTMLAnchorElement>
   const {setChildrenWidth, setNoIconChildrenWidth, loadingCounters, iconsVisible} = useContext(UnderlineNavContext)
@@ -108,9 +109,10 @@ function UnwrappedUnderlineNavItem<As extends React.ElementType = 'a'>(
   return (
     <li className={classes.NavListItem}>
       <UnderlineItem
-        // typecasting to get around a confusing mismatch between `as` props
-        // between UnderlineNavItem and UnderlineItem
-        as={as as React.ElementType}
+        ref={ref}
+        // can't figure out why it will only accept "a" here
+        // it accepts "button" just fine in UnderlinePanels.tsx
+        as={Component as 'a'}
         href={href}
         aria-current={ariaCurrent}
         onKeyDown={keyDownHandler}
@@ -119,7 +121,6 @@ function UnwrappedUnderlineNavItem<As extends React.ElementType = 'a'>(
         icon={Icon}
         loadingCounters={loadingCounters}
         iconsVisible={iconsVisible}
-        ref={ref}
         {...props}
       >
         {children}

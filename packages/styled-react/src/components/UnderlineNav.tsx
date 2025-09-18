@@ -1,4 +1,4 @@
-import React, {type PropsWithChildren} from 'react'
+import React, {type PropsWithChildren, type ComponentProps} from 'react'
 import {UnderlineNav as PrimerUnderlineNav, Box} from '@primer/react'
 import type {
   UnderlineNavProps as PrimerUnderlineNavProps,
@@ -19,7 +19,7 @@ const UnderlineNavItem = React.forwardRef<HTMLAnchorElement, UnderlineNavItemPro
 })
 
 const UnderlineNav = Object.assign(UnderlineNavImpl, {
-  Item: UnderlineNavItem,
+  Item: UnderlineNavItem as React.FC<React.PropsWithChildren<ComponentProps<typeof PrimerUnderlineNav.Item>> & SxProp>,
 })
 
 export {UnderlineNav}
