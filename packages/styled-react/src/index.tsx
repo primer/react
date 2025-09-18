@@ -19,7 +19,7 @@ import {
   type UnderlineNavItemProps as PrimerUnderlineNavItemProps,
   sx,
 } from '@primer/react'
-import React, {type PropsWithChildren, forwardRef, type RefAttributes, type ForwardRefExoticComponent} from 'react'
+import React, {type PropsWithChildren, forwardRef} from 'react'
 import type {
   BackgroundProps,
   BorderProps,
