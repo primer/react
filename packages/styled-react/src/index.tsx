@@ -33,6 +33,7 @@ import type {
   TypographyProps,
 } from 'styled-system'
 import styled from 'styled-components'
+import type {ForwardRefComponent} from './polymorphic'
 
 type StyledProps = SxProp &
   SpaceProps &
@@ -103,7 +104,7 @@ const UnderlineNavImpl = forwardRef<HTMLElement, UnderlineNavProps>(function Und
 
 type UnderlineNavItemProps = PrimerUnderlineNavItemProps & SxProp
 
-const UnderlineNavItem: ForwardRefExoticComponent<UnderlineNavItemProps & RefAttributes<HTMLElement>> = styled(
+const UnderlineNavItem: ForwardRefComponent<'a', UnderlineNavItemProps> = styled(
   PrimerUnderlineNav.Item,
 ).withConfig<UnderlineNavItemProps>({
   shouldForwardProp: prop => prop !== 'sx',
@@ -111,9 +112,15 @@ const UnderlineNavItem: ForwardRefExoticComponent<UnderlineNavItemProps & RefAtt
   ${sx}
 `
 
-const UnderlineNav: typeof UnderlineNavImpl & {
-  Item: typeof UnderlineNavItem
-} = Object.assign(UnderlineNavImpl, {
+// const UnderlineNavItem: ForwardRefExoticComponent<UnderlineNavItemProps & RefAttributes<HTMLElement>> = styled(
+//   PrimerUnderlineNav.Item,
+// ).withConfig<UnderlineNavItemProps>({
+//   shouldForwardProp: prop => prop !== 'sx',
+// })`
+//   ${sx}
+// `
+
+const UnderlineNav = Object.assign(UnderlineNavImpl, {
   Item: UnderlineNavItem,
 })
 

@@ -45,11 +45,6 @@ export type UnderlineNavItemProps = {
    * Counter
    */
   counter?: number | string
-  /**
-   * ID attribute for the element.
-   * Explicitly typed for TypeScript support (supported at runtime via {...props}).
-   */
-  id?: string
 } & LinkProps
 
 export const UnderlineNavItem = forwardRef(
