@@ -658,12 +658,14 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
     return (
       <div
         className={clsx(classes.PaneWrapper, className)}
-        style={{
-          '--offset-header': typeof offsetHeader === 'number' ? `${offsetHeader}px` : offsetHeader,
-          '--spacing-row': `var(--spacing-${rowGap})`,
-          '--spacing-column': `var(--spacing-${columnGap})`,
-          ...style,
-        }}
+        style={
+          {
+            '--offset-header': typeof offsetHeader === 'number' ? `${offsetHeader}px` : offsetHeader,
+            '--spacing-row': `var(--spacing-${rowGap})`,
+            '--spacing-column': `var(--spacing-${columnGap})`,
+            ...style,
+          } as React.CSSProperties
+        }
         data-is-hidden={isHidden}
         data-position={position}
         data-sticky={sticky || undefined}
