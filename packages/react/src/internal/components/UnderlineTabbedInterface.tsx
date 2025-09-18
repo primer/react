@@ -1,7 +1,7 @@
 // Used for UnderlineNav and UnderlinePanels components
 
-import type React from 'react'
-import {type ForwardedRef, forwardRef, type FC, type PropsWithChildren} from 'react'
+import React from 'react'
+import {forwardRef, type FC, type PropsWithChildren, type ElementType} from 'react'
 import {isElement} from 'react-is'
 import type {IconProps} from '@primer/octicons-react'
 import CounterLabel from '../../CounterLabel'
@@ -53,11 +53,10 @@ export type UnderlineItemProps<As extends React.ElementType> = {
   ref?: React.Ref<unknown>
 } & React.ComponentPropsWithoutRef<As extends 'a' ? 'a' : As extends 'button' ? 'button' : As>
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function UnderlineItem<As extends React.ElementType>(props: UnderlineItemProps<As>, ref: ForwardedRef<any>) {
+export const UnderlineItem = React.forwardRef((props, ref) => {
   const {as: Component = 'a', children, counter, icon: Icon, iconsVisible, loadingCounters, className, ...rest} = props
   return (
-    <Component ref={ref} className={clsx(classes.UnderlineItem, className)} {...rest}>
+    <Component {...rest} ref={ref} className={clsx(classes.UnderlineItem, className)}>
       {iconsVisible && Icon && <span data-component="icon">{isElement(Icon) ? Icon : <Icon />}</span>}
       {children && (
         <span data-component="text" data-content={children}>
@@ -77,4 +76,4 @@ export function UnderlineItem<As extends React.ElementType>(props: UnderlineItem
       ) : null}
     </Component>
   )
-}
+}) as PolymorphicForwardRefComponent<ElementType, UnderlineItemProps<ElementType>>
