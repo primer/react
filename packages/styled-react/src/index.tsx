@@ -19,7 +19,7 @@ import {
   type UnderlineNavItemProps as PrimerUnderlineNavItemProps,
   sx,
 } from '@primer/react'
-import React, {forwardRef, type PropsWithChildren, type MouseEvent, type KeyboardEvent, type ElementType} from 'react'
+import React, {type PropsWithChildren, forwardRef, type RefAttributes, type ForwardRefExoticComponent} from 'react'
 import type {
   BackgroundProps,
   BorderProps,
@@ -105,13 +105,12 @@ const UnderlineNavImpl = forwardRef<HTMLElement, UnderlineNavProps>(function Und
 type UnderlineNavItemProps = PrimerUnderlineNavItemProps &
   SxProp & {
     /**
-     * Callback that will trigger both on click selection and keyboard selection.
-     * Overridden to provide better typing for polymorphic usage.
+     * ID attribute for the element
      */
-    onSelect?: (event: MouseEvent<HTMLElement> | KeyboardEvent<HTMLElement>) => void
+    id?: string
   }
 
-const UnderlineNavItem: ForwardRefComponent<ElementType | 'a', UnderlineNavItemProps> = styled(
+const UnderlineNavItem: ForwardRefExoticComponent<UnderlineNavItemProps & RefAttributes<HTMLElement>> = styled(
   PrimerUnderlineNav.Item,
 ).withConfig<UnderlineNavItemProps>({
   shouldForwardProp: prop => prop !== 'sx',
@@ -119,11 +118,13 @@ const UnderlineNavItem: ForwardRefComponent<ElementType | 'a', UnderlineNavItemP
   ${sx}
 `
 
-const UnderlineNav = Object.assign(UnderlineNavImpl, {
+const UnderlineNav: typeof UnderlineNavImpl & {
+  Item: typeof UnderlineNavItem
+} = Object.assign(UnderlineNavImpl, {
   Item: UnderlineNavItem,
 })
 
-export {SegmentedControl, StateLabel, SubNav, ToggleSwitch, UnderlineNav}
+export {SegmentedControl, StateLabel, SubNav, ToggleSwitch, UnderlineNav, type ForwardRefComponent}
 
 export {
   ActionList,
