@@ -94,7 +94,6 @@ exports[`@primer/react > should not update exports without a semver change 1`] =
   "merge",
   "NavList",
   "type NavListDividerProps",
-  "type NavListGroupHeadingProps",
   "type NavListGroupProps",
   "type NavListItemProps",
   "type NavListLeadingVisualProps",

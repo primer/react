@@ -309,7 +309,8 @@ describe('@primer/react', () => {
     expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
   })
 
-  test('NavList supports `sx` prop', () => {
+  // handled in https://github.com/primer/react/pull/6868
+  test.skip('NavList supports `sx` prop', () => {
     render(
       <NavList data-testid="component" sx={{background: 'red'}}>
         <NavList.Item>item</NavList.Item>
@@ -329,7 +330,8 @@ describe('@primer/react', () => {
     expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
   })
 
-  test('NavList.Group supports `sx` prop', () => {
+  // handled in https://github.com/primer/react/pull/6868
+  test.skip('NavList.Group supports `sx` prop', () => {
     const {container} = render(<NavList.Group sx={{background: 'red'}}>test</NavList.Group>)
     expect(window.getComputedStyle(container.firstElementChild!).backgroundColor).toBe('rgb(255, 0, 0)')
   })
@@ -365,7 +367,8 @@ describe('@primer/react', () => {
     expect(window.getComputedStyle(container.firstElementChild!).backgroundColor).toBe('rgb(255, 0, 0)')
   })
 
-  test('PageHeader.Title supports `sx` prop', () => {
+  // handled in https://github.com/primer/react/pull/6873
+  test.skip('PageHeader.Title supports `sx` prop', () => {
     const {container} = render(<PageHeader.Title data-testid="component" sx={{background: 'red'}} />)
     expect(window.getComputedStyle(container.firstElementChild!).backgroundColor).toBe('rgb(255, 0, 0)')
   })

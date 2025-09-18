@@ -138,7 +138,6 @@ export {
   Overlay,
   PageHeader,
   PageLayout,
-  Popover,
   ProgressBar,
   RadioGroup,
   RelativeTime,
