@@ -2,7 +2,7 @@ import {Dialog as PrimerDialog} from '@primer/react'
 import type {DialogProps as PrimerDialogProps, DialogHeaderProps as PrimerDialogHeaderProps} from '@primer/react'
 import {Box} from './Box'
 import type {SxProp} from '../sx'
-import {forwardRef, type PropsWithChildren} from 'react'
+import {forwardRef, type ComponentPropsWithoutRef, type PropsWithChildren} from 'react'
 
 type DialogProps = PropsWithChildren<PrimerDialogProps> & SxProp
 
@@ -11,10 +11,9 @@ const DialogImpl = forwardRef<HTMLDivElement, DialogProps>(function Dialog(props
   return <Box as={PrimerDialog} ref={ref} {...props} />
 })
 
-type DialogHeaderProps = PropsWithChildren<PrimerDialogHeaderProps> & SxProp
+type DialogHeaderProps = ComponentPropsWithoutRef<'div'> & SxProp
 
 const DialogHeader = forwardRef<HTMLDivElement, DialogHeaderProps>(function DialogHeader(props, ref) {
-  // @ts-expect-error - PrimerDialog.Header is not recognized as a valid component type
   return <Box as={PrimerDialog.Header} ref={ref} {...props} />
 })
 
@@ -32,6 +31,7 @@ const DialogFooter = forwardRef<HTMLDivElement, StyledFooterProps>(function Dial
 })
 
 const Dialog = Object.assign(DialogImpl, {
+  Buttons: PrimerDialog.Buttons,
   Header: DialogHeader,
   Body: DialogBody,
   Footer: DialogFooter,
