@@ -4,8 +4,9 @@ import type {
   ParentLinkProps as PrimerParentLinkProps,
   TitleProps as PrimerTitleProps,
 } from '@primer/react'
+import styled from 'styled-components'
 import {PageHeader as PrimerPageHeader, Box} from '@primer/react'
-import type {SxProp} from '../sx'
+import {sx, type SxProp} from '../sx'
 import type {AriaRole} from '../types/AriaRole'
 
 type PageHeaderProps = PropsWithChildren<
@@ -17,11 +18,10 @@ type PageHeaderProps = PropsWithChildren<
 
 type PageHeaderTitleProps = PropsWithChildren<PrimerTitleProps> & SxProp
 
-// Create wrapped versions of components that need sx support
-const PageHeaderTitle = React.forwardRef<HTMLElement, PageHeaderTitleProps>((props, ref) => {
-  // @ts-expect-error - PrimerPageHeader.Title is not recognized as a valid component type
-  return <Box as={PrimerPageHeader.Title} ref={ref} {...props} />
-})
+// Using Box crashes Vite for some reason?
+const PageHeaderTitle = styled(PrimerPageHeader.Title)<PageHeaderTitleProps>`
+  ${sx}
+`
 
 type PageHeaderParentLinkProps = PropsWithChildren<PrimerParentLinkProps> & SxProp
 
