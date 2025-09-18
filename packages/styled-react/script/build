@@ -1,6 +1,3 @@
 #!/bin/bash
 
 npx rollup -c
-
-# Copy standalone .d.ts files to dist
-cp src/polymorphic.d.ts dist/
