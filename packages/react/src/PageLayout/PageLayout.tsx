@@ -19,6 +19,7 @@ const REGION_ORDER = {
   footer: 4,
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const SPACING_MAP = {
   none: 0,
   condensed: 3,
@@ -37,16 +38,23 @@ const PageLayoutContext = React.createContext<{
   paneRef: {current: null},
 })
 
+// ----------------------------------------------------------------------------
+// PageLayout
+
 export type PageLayoutProps = {
+  /** The maximum width of the page container */
   containerWidth?: keyof typeof containerWidths
+  /** The spacing between the outer edges of the page container and the viewport */
   padding?: keyof typeof SPACING_MAP
   rowGap?: keyof typeof SPACING_MAP
   columnGap?: keyof typeof SPACING_MAP
+  /** Private prop to allow SplitPageLayout to customize slot components */
   _slotsConfig?: Record<'header' | 'footer', React.ElementType>
   className?: string
   style?: React.CSSProperties
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const containerWidths = {
   full: '100%',
   medium: '768px',
@@ -54,6 +62,7 @@ const containerWidths = {
   xlarge: '1280px',
 }
 
+// TODO: refs
 const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
   containerWidth = 'xlarge',
   padding = 'normal',
@@ -65,6 +74,7 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
   _slotsConfig: slotsConfig,
 }) => {
   const paneRef = useRef<HTMLDivElement>(null)
+
   const [slots, rest] = useSlots(children, slotsConfig ?? {header: Header, footer: Footer})
 
   const memoizedContextValue = React.useMemo(() => {
@@ -80,10 +90,12 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
     <PageLayoutContext.Provider value={memoizedContextValue}>
       <div
         className={clsx(classes.PageLayoutRoot, className)}
-        style={{
-          '--spacing': `var(--spacing-${padding})`,
-          ...style,
-        }}
+        style={
+          {
+            '--spacing': `var(--spacing-${padding})`,
+            ...style,
+          } as React.CSSProperties
+        }
       >
         <div className={classes.PageLayoutWrapper} data-width={containerWidth}>
           {slots.header}
@@ -121,10 +133,12 @@ const HorizontalDivider: React.FC<React.PropsWithChildren<DividerProps>> = ({
       className={clsx(classes.HorizontalDivider, className)}
       data-variant={responsiveVariant}
       data-position={position}
-      style={{
-        '--spacing-divider': `var(--spacing-${padding})`,
-        ...style,
-      }}
+      style={
+        {
+          '--spacing': `var(--spacing-${padding})`,
+          ...style,
+        } as React.CSSProperties
+      }
     />
   )
 }
@@ -199,6 +213,7 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
 
     function handleKeyDrag(event: KeyboardEvent) {
       let delta = 0
+      // https://github.com/github/accessibility/issues/5101#issuecomment-1822870655
       if ((event.key === 'ArrowLeft' || event.key === 'ArrowDown') && currentWidth > minWidth) {
         delta = -3
       } else if ((event.key === 'ArrowRight' || event.key === 'ArrowUp') && currentWidth < maxWidth) {
@@ -216,7 +231,7 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
       stableOnDragEnd.current?.()
       event.preventDefault()
     }
-
+    // TODO: Support touch events
     if (isDragging || isKeyboardDrag) {
       window.addEventListener('mousemove', handleDrag)
       window.addEventListener('keydown', handleKeyDrag)
@@ -251,6 +266,7 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
       style={style}
     >
       {draggable ? (
+        // Drag handle
         <div
           className={clsx(classes.PageLayoutPaneDragHandle, {
             [classes.IsDragging]: isDragging || isKeyboardDrag,
@@ -290,10 +306,31 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
 // PageLayout.Header
 
 export type PageLayoutHeaderProps = {
+  /**
+   * A unique label for the rendered banner landmark
+   */
   'aria-label'?: React.AriaAttributes['aria-label']
+  /**
+   * An id to an element which uniquely labels the rendered banner landmark
+   */
   'aria-labelledby'?: React.AriaAttributes['aria-labelledby']
+
   padding?: keyof typeof SPACING_MAP
   divider?: 'none' | 'line' | ResponsiveValue<'none' | 'line', 'none' | 'line' | 'filled'>
+  /**
+   * @deprecated Use the `divider` prop with a responsive value instead.
+   *
+   * Before:
+   * ```
+   * divider="line"
+   * dividerWhenNarrow="filled"
+   * ```
+   *
+   * After:
+   * ```
+   * divider={{regular: 'line', narrow: 'filled'}}
+   * ```
+   */
   dividerWhenNarrow?: 'inherit' | 'none' | 'line' | 'filled'
   hidden?: boolean | ResponsiveValue<boolean>
   className?: string
@@ -310,6 +347,7 @@ const Header: React.FC<React.PropsWithChildren<PageLayoutHeaderProps>> = ({
   children,
   style,
   className,
+  // Combine divider and dividerWhenNarrow for backwards compatibility
 }) => {
   const dividerProp =
     !isResponsiveValue(divider) && dividerWhenNarrow !== 'inherit'
@@ -326,25 +364,31 @@ const Header: React.FC<React.PropsWithChildren<PageLayoutHeaderProps>> = ({
       aria-labelledby={labelledBy}
       hidden={isHidden}
       className={clsx(classes.Header, className)}
-      style={{
-        '--spacing': `var(--spacing-${rowGap})`,
-        ...style,
-      }}
+      style={
+        {
+          '--spacing': `var(--spacing-${rowGap})`,
+          ...style,
+        } as React.CSSProperties
+      }
     >
       <div
         className={classes.HeaderContent}
-        style={{
-          '--spacing': `var(--spacing-${padding})`,
-        }}
+        style={
+          {
+            '--spacing': `var(--spacing-${padding})`,
+          } as React.CSSProperties
+        }
       >
         {children}
       </div>
       <HorizontalDivider
         variant={dividerVariant}
         className={classes.HeaderHorizontalDivider}
-        style={{
-          '--spacing': `var(--spacing-${rowGap})`,
-        }}
+        style={
+          {
+            '--spacing': `var(--spacing-${rowGap})`,
+          } as React.CSSProperties
+        }
       />
     </header>
   )
@@ -356,8 +400,18 @@ Header.displayName = 'PageLayout.Header'
 // PageLayout.Content
 
 export type PageLayoutContentProps = {
+  /**
+   * Provide an optional element type for the outermost element rendered by the component.
+   * @default 'main'
+   */
   as?: React.ElementType
+  /**
+   * A unique label for the rendered main landmark
+   */
   'aria-label'?: React.AriaAttributes['aria-label']
+  /**
+   * An id to an element which uniquely labels the rendered main landmark
+   */
   'aria-labelledby'?: React.AriaAttributes['aria-labelledby']
   width?: keyof typeof contentWidths
   padding?: keyof typeof SPACING_MAP
@@ -366,6 +420,8 @@ export type PageLayoutContentProps = {
   style?: React.CSSProperties
 }
 
+// TODO: Account for pane width when centering content
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const contentWidths = {
   full: '100%',
   medium: '768px',
@@ -398,9 +454,11 @@ const Content: React.FC<React.PropsWithChildren<PageLayoutContentProps>> = ({
       <div
         className={classes.Content}
         data-width={width}
-        style={{
-          '--spacing': `var(--spacing-${padding})`,
-        }}
+        style={
+          {
+            '--spacing': `var(--spacing-${padding})`,
+          } as React.CSSProperties
+        }
       >
         {children}
       </div>
@@ -433,6 +491,20 @@ const isPaneWidth = (width: PaneWidth | CustomWidthOptions): width is PaneWidth 
 
 export type PageLayoutPaneProps = {
   position?: keyof typeof panePositions | ResponsiveValue<keyof typeof panePositions>
+  /**
+   * @deprecated Use the `position` prop with a responsive value instead.
+   *
+   * Before:
+   * ```
+   * position="start"
+   * positionWhenNarrow="end"
+   * ```
+   *
+   * After:
+   * ```
+   * position={{regular: 'start', narrow: 'end'}}
+   * ```
+   */
   positionWhenNarrow?: 'inherit' | keyof typeof panePositions
   'aria-labelledby'?: string
   'aria-label'?: string
@@ -442,6 +514,20 @@ export type PageLayoutPaneProps = {
   widthStorageKey?: string
   padding?: keyof typeof SPACING_MAP
   divider?: 'none' | 'line' | ResponsiveValue<'none' | 'line', 'none' | 'line' | 'filled'>
+  /**
+   * @deprecated Use the `divider` prop with a responsive value instead.
+   *
+   * Before:
+   * ```
+   * divider="line"
+   * dividerWhenNarrow="filled"
+   * ```
+   *
+   * After:
+   * ```
+   * divider={{regular: 'line', narrow: 'filled'}}
+   * ```
+   */
   dividerWhenNarrow?: 'inherit' | 'none' | 'line' | 'filled'
   sticky?: boolean
   offsetHeader?: string | number
@@ -451,11 +537,13 @@ export type PageLayoutPaneProps = {
   style?: React.CSSProperties
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const panePositions = {
   start: REGION_ORDER.paneStart,
   end: REGION_ORDER.paneEnd,
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const paneWidths = {
   small: ['100%', null, '240px', '256px'],
   medium: ['100%', null, '256px', '296px'],
@@ -490,6 +578,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
     },
     forwardRef,
   ) => {
+    // Combine position and positionWhenNarrow for backwards compatibility
     const positionProp =
       !isResponsiveValue(responsivePosition) && positionWhenNarrow !== 'inherit'
         ? {regular: responsivePosition, narrow: positionWhenNarrow}
@@ -497,6 +586,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
 
     const position = useResponsiveValue(positionProp, 'end')
 
+    // Combine divider and dividerWhenNarrow for backwards compatibility
     const dividerProp =
       !isResponsiveValue(responsiveDivider) && dividerWhenNarrow !== 'inherit'
         ? {regular: responsiveDivider, narrow: dividerWhenNarrow}
@@ -578,12 +668,15 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
         data-position={position}
         data-sticky={sticky || undefined}
       >
+        {/* Show a horizontal divider when viewport is narrow. Otherwise, show a vertical divider. */}
         <HorizontalDivider
           variant={{narrow: dividerVariant, regular: 'none'}}
           className={classes.PaneHorizontalDivider}
-          style={{
-            '--spacing': `var(--spacing-${rowGap})`,
-          }}
+          style={
+            {
+              '--spacing': `var(--spacing-${rowGap})`,
+            } as React.CSSProperties
+          }
           position={position}
         />
         <div
@@ -593,24 +686,29 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
           {...(id && {id: paneId})}
           className={classes.Pane}
           data-resizable={resizable || undefined}
-          style={{
-            '--spacing': `var(--spacing-${padding})`,
-            '--pane-min-width': isCustomWidthOptions(width) ? width.min : `${minWidth}px`,
-            '--pane-max-width': isCustomWidthOptions(width) ? width.max : `calc(100vw - var(--pane-max-width-diff))`,
-            '--pane-width-custom': isCustomWidthOptions(width) ? width.default : undefined,
-            '--pane-width-size': `var(--pane-width-${isPaneWidth(width) ? width : 'custom'})`,
-            '--pane-width': `${paneWidth}px`,
-          }}
+          style={
+            {
+              '--spacing': `var(--spacing-${padding})`,
+              '--pane-min-width': isCustomWidthOptions(width) ? width.min : `${minWidth}px`,
+              '--pane-max-width': isCustomWidthOptions(width) ? width.max : `calc(100vw - var(--pane-max-width-diff))`,
+              '--pane-width-custom': isCustomWidthOptions(width) ? width.default : undefined,
+              '--pane-width-size': `var(--pane-width-${isPaneWidth(width) ? width : 'custom'})`,
+              '--pane-width': `${paneWidth}px`,
+            } as React.CSSProperties
+          }
         >
           {children}
         </div>
         <VerticalDivider
           variant={{
             narrow: 'none',
+            // If pane is resizable, always show a vertical divider on regular viewports
             regular: resizable ? 'line' : dividerVariant,
           }}
+          // If pane is resizable, the divider should be draggable
           draggable={resizable}
           onDrag={(delta, isKeyboard = false) => {
+            // Get the number of pixels the divider was dragged
             let deltaWithDirection
             if (isKeyboard) {
               deltaWithDirection = delta
@@ -619,6 +717,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
             }
             updatePaneWidth(paneWidth + deltaWithDirection)
           }}
+          // Ensure `paneWidth` state and actual pane width are in sync when the drag ends
           onDragEnd={() => {
             const paneRect = paneRef.current?.getBoundingClientRect()
             if (!paneRect) return
@@ -627,9 +726,11 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
           position={position}
           onDoubleClick={() => updatePaneWidth(getDefaultPaneWidth(width))}
           className={classes.PaneVerticalDivider}
-          style={{
-            '--spacing': `var(--spacing-${columnGap})`,
-          }}
+          style={
+            {
+              '--spacing': `var(--spacing-${columnGap})`,
+            } as React.CSSProperties
+          }
         />
       </div>
     )
@@ -642,10 +743,31 @@ Pane.displayName = 'PageLayout.Pane'
 // PageLayout.Footer
 
 export type PageLayoutFooterProps = {
+  /**
+   * A unique label for the rendered contentinfo landmark
+   */
   'aria-label'?: React.AriaAttributes['aria-label']
+
+  /**
+   * An id to an element which uniquely labels the rendered contentinfo landmark
+   */
   'aria-labelledby'?: React.AriaAttributes['aria-labelledby']
   padding?: keyof typeof SPACING_MAP
   divider?: 'none' | 'line' | ResponsiveValue<'none' | 'line', 'none' | 'line' | 'filled'>
+  /**
+   * @deprecated Use the `divider` prop with a responsive value instead.
+   *
+   * Before:
+   * ```
+   * divider="line"
+   * dividerWhenNarrow="filled"
+   * ```
+   *
+   * After:
+   * ```
+   * divider={{regular: 'line', narrow: 'filled'}}
+   * ```
+   */
   dividerWhenNarrow?: 'inherit' | 'none' | 'line' | 'filled'
   hidden?: boolean | ResponsiveValue<boolean>
   className?: string
@@ -663,6 +785,7 @@ const Footer: React.FC<React.PropsWithChildren<PageLayoutFooterProps>> = ({
   className,
   style,
 }) => {
+  // Combine divider and dividerWhenNarrow for backwards compatibility
   const dividerProp =
     !isResponsiveValue(divider) && dividerWhenNarrow !== 'inherit'
       ? {regular: divider, narrow: dividerWhenNarrow}
@@ -678,23 +801,29 @@ const Footer: React.FC<React.PropsWithChildren<PageLayoutFooterProps>> = ({
       aria-labelledby={labelledBy}
       hidden={isHidden}
       className={clsx(classes.FooterWrapper, className)}
-      style={{
-        '--spacing': `var(--spacing-${rowGap})`,
-        ...style,
-      }}
+      style={
+        {
+          '--spacing': `var(--spacing-${rowGap})`,
+          ...style,
+        } as React.CSSProperties
+      }
     >
       <HorizontalDivider
         className={classes.FooterHorizontalDivider}
-        style={{
-          '--spacing': `var(--spacing-${rowGap})`,
-        }}
+        style={
+          {
+            '--spacing': `var(--spacing-${rowGap})`,
+          } as React.CSSProperties
+        }
         variant={dividerVariant}
       />
       <div
         className={classes.FooterContent}
-        style={{
-          '--spacing': `var(--spacing-${padding})`,
-        }}
+        style={
+          {
+            '--spacing': `var(--spacing-${padding})`,
+          } as React.CSSProperties
+        }
       >
         {children}
       </div>
