@@ -32,7 +32,6 @@ import type {
   SpaceProps,
   TypographyProps,
 } from 'styled-system'
-import type {ForwardRefComponent} from './polymorphic'
 import styled from 'styled-components'
 
 type StyledProps = SxProp &
@@ -124,7 +123,7 @@ const UnderlineNav: typeof UnderlineNavImpl & {
   Item: UnderlineNavItem,
 })
 
-export {SegmentedControl, StateLabel, SubNav, ToggleSwitch, UnderlineNav, type ForwardRefComponent}
+export {SegmentedControl, StateLabel, SubNav, ToggleSwitch, UnderlineNav}
 
 export {
   ActionList,
