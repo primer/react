@@ -1,7 +1,6 @@
 import type {Meta, StoryFn} from '@storybook/react-vite'
 import {Placeholder} from '../Placeholder'
 import {PageLayout} from './PageLayout'
-import {clsx} from 'clsx'
 import classes from './PageLayout.dev.stories.module.css'
 
 const meta: Meta = {
