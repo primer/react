@@ -1,7 +1,7 @@
 // Used for UnderlineNav and UnderlinePanels components
 
 import React from 'react'
-import {forwardRef, type FC, type PropsWithChildren, type ElementType} from 'react'
+import {type ForwardedRef, forwardRef, type FC, type PropsWithChildren, type ElementType} from 'react'
 import {isElement} from 'react-is'
 import type {IconProps} from '@primer/octicons-react'
 import CounterLabel from '../../CounterLabel'
@@ -17,13 +17,17 @@ type UnderlineWrapperProps = {
   slot?: string
   as?: React.ElementType
   className?: string
-  ref?: React.Ref<HTMLDivElement>
+  ref?: React.Ref<HTMLElement>
 }
 
-export const UnderlineWrapper = forwardRef<HTMLDivElement, PropsWithChildren<UnderlineWrapperProps>>(
+export const UnderlineWrapper = forwardRef<HTMLElement, PropsWithChildren<UnderlineWrapperProps>>(
   ({children, className, ...rest}, forwardedRef) => {
     return (
-      <div className={clsx(classes.UnderlineWrapper, className)} ref={forwardedRef} {...rest}>
+      <div
+        className={clsx(classes.UnderlineWrapper, className)}
+        ref={forwardedRef as ForwardedRef<HTMLDivElement>}
+        {...rest}
+      >
         {children}
       </div>
     )

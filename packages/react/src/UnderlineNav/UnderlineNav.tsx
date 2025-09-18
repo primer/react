@@ -1,4 +1,4 @@
-import type {MutableRefObject, RefObject} from 'react'
+import type {RefObject} from 'react'
 import React, {useRef, forwardRef, useCallback, useState, useEffect} from 'react'
 import Box from '../Box'
 import type {SxProp} from '../sx'
@@ -18,7 +18,6 @@ import {useOnEscapePress} from '../hooks/useOnEscapePress'
 import {useOnOutsideClick} from '../hooks/useOnOutsideClick'
 import {useId} from '../hooks/useId'
 import {ActionList} from '../ActionList'
-import {defaultSxProp} from '../utils/defaultSxProp'
 import CounterLabel from '../CounterLabel'
 import {invariant} from '../utils/invariant'
 
@@ -145,7 +144,6 @@ export const UnderlineNav = forwardRef(
     {
       as = 'nav',
       'aria-label': ariaLabel,
-      sx: sxProp = defaultSxProp,
       loadingCounters = false,
       variant = 'inset',
       className,
@@ -154,7 +152,7 @@ export const UnderlineNav = forwardRef(
     forwardedRef,
   ) => {
     const backupRef = useRef<HTMLElement>(null)
-    const navRef = (forwardedRef ?? backupRef) as MutableRefObject<HTMLElement>
+    const navRef = (forwardedRef ?? backupRef) as RefObject<HTMLElement>
     const listRef = useRef<HTMLUListElement>(null)
     const moreMenuRef = useRef<HTMLLIElement>(null)
     const moreMenuBtnRef = useRef<HTMLButtonElement>(null)
@@ -215,7 +213,7 @@ export const UnderlineNav = forwardRef(
       const widthToFitIntoList = getItemsWidth(prospectiveListItem.props.children)
       // Check if there is any empty space on the right side of the list
       const availableSpace =
-        navRef.current.getBoundingClientRect().width - (listRef.current?.getBoundingClientRect().width ?? 0)
+        (navRef.current?.getBoundingClientRect().width ?? 0) - (listRef.current?.getBoundingClientRect().width ?? 0)
 
       // Calculate how many items need to be pulled in to the menu to make room for the selected menu item
       // I.e. if we need to pull 2 items in (index 0 and index 1), breakpoint (index) will return 1.
@@ -316,14 +314,7 @@ export const UnderlineNav = forwardRef(
         }}
       >
         {ariaLabel && <VisuallyHidden as="h2">{`${ariaLabel} navigation`}</VisuallyHidden>}
-        <UnderlineWrapper
-          as={as}
-          aria-label={ariaLabel}
-          className={className}
-          ref={navRef}
-          sx={sxProp}
-          data-variant={variant}
-        >
+        <UnderlineWrapper as={as} aria-label={ariaLabel} className={className} ref={navRef} data-variant={variant}>
           <UnderlineItemList ref={listRef} role="list">
             {listItems}
             {menuItems.length > 0 && (
