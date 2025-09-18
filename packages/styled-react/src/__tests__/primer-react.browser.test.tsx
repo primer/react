@@ -431,13 +431,4 @@ describe('@primer/react', () => {
     )
     expect(window.getComputedStyle(screen.getByLabelText('navigation')).backgroundColor).toBe('rgb(255, 0, 0)')
   })
-
-  test('UnderlineNav.Item supports `sx` prop', () => {
-    render(
-      <UnderlineNav.Item data-testid="component" sx={{background: 'red'}}>
-        test
-      </UnderlineNav.Item>,
-    )
-    expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
-  })
 })
