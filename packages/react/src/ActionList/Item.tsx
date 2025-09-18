@@ -262,7 +262,7 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
           {...wrapperProps}
           className={classes.ActionListContent}
           data-size={size}
-          // @ts-ignore this can be a `button` or `li`, so the type of ref will be different
+          // @ts-expect-error: ItemWrapper is polymorphic and the ref type depends on the rendered element ('button' or 'li')
           ref={forwardedRef}
         >
           <span className={classes.Spacer} />
