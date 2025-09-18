@@ -112,14 +112,6 @@ const UnderlineNavItem: ForwardRefComponent<'a', UnderlineNavItemProps> = styled
   ${sx}
 `
 
-// const UnderlineNavItem: ForwardRefExoticComponent<UnderlineNavItemProps & RefAttributes<HTMLElement>> = styled(
-//   PrimerUnderlineNav.Item,
-// ).withConfig<UnderlineNavItemProps>({
-//   shouldForwardProp: prop => prop !== 'sx',
-// })`
-//   ${sx}
-// `
-
 const UnderlineNav = Object.assign(UnderlineNavImpl, {
   Item: UnderlineNavItem,
 })
