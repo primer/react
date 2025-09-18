@@ -142,7 +142,7 @@ function ItemWithSubNav({children, subNav, depth: _depth, defaultOpen, style}: I
         aria-expanded={isOpen}
         aria-controls={subNavId}
         active={!isOpen && containsCurrentItem}
-        onSelect={() => setIsOpen((open: boolean) => !open)}
+        onSelect={() => setIsOpen(open => !open)}
         style={style}
       >
         {children}
