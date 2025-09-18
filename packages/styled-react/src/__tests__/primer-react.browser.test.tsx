@@ -160,7 +160,7 @@ describe('@primer/react', () => {
     render(
       <Dialog
         onClose={() => {}}
-        renderHeader={props => <Dialog.Header {...props} data-testid="component" sx={{background: 'red'}} />}
+        renderHeader={() => <Dialog.Header data-testid="component" sx={{background: 'red'}} />}
       />,
     )
     expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')

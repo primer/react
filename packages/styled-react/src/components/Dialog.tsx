@@ -1,5 +1,5 @@
 import {Dialog as PrimerDialog} from '@primer/react'
-import type {DialogProps as PrimerDialogProps, DialogHeaderProps as PrimerDialogHeaderProps} from '@primer/react'
+import type {DialogProps as PrimerDialogProps} from '@primer/react'
 import {Box} from './Box'
 import type {SxProp} from '../sx'
 import {forwardRef, type ComponentPropsWithoutRef, type PropsWithChildren} from 'react'
