@@ -101,13 +101,7 @@ const UnderlineNavImpl = forwardRef<HTMLElement, UnderlineNavProps>(function Und
   return <Box as={PrimerUnderlineNav} ref={ref} {...props} />
 })
 
-type UnderlineNavItemProps = PrimerUnderlineNavItemProps &
-  SxProp & {
-    /**
-     * ID attribute for the element
-     */
-    id?: string
-  }
+type UnderlineNavItemProps = PrimerUnderlineNavItemProps & SxProp
 
 const UnderlineNavItem: ForwardRefExoticComponent<UnderlineNavItemProps & RefAttributes<HTMLElement>> = styled(
   PrimerUnderlineNav.Item,
