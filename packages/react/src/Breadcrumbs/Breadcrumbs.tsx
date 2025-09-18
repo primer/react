@@ -9,7 +9,6 @@ import {BoxWithFallback} from '../internal/components/BoxWithFallback'
 import Details from '../Details'
 import {ActionList} from '../ActionList'
 import {IconButton} from '../Button/IconButton'
-import {Tooltip} from '../TooltipV2'
 import {KebabHorizontalIcon} from '@primer/octicons-react'
 import {useResizeObserver} from '../hooks/useResizeObserver'
 import type {ResizeObserverEntry} from '../hooks/useResizeObserver'
@@ -57,9 +56,6 @@ const BreadcrumbsMenuItem = React.forwardRef<HTMLDetailsElement, BreadcrumbsMenu
     const detailsRefCallback = useCallback(
       (element: HTMLDetailsElement | null) => {
         detailsRef.current = element
-        menuButtonRef.current = element?.querySelector(
-          'summary:not([data-default-summary])',
-        ) as HTMLButtonElement | null
         if (typeof menuRefCallback === 'function') {
           menuRefCallback(element)
         }
@@ -107,19 +103,19 @@ const BreadcrumbsMenuItem = React.forwardRef<HTMLDetailsElement, BreadcrumbsMenu
 
     return (
       <Details ref={detailsRefCallback} className={classes.MenuDetails}>
-        <Tooltip text={ariaLabel || `${items.length} more breadcrumb items`} direction={'e'}>
-          <IconButton
-            as="summary"
-            role="button"
-            aria-label={ariaLabel || `${items.length} more breadcrumb items`}
-            aria-expanded={isOpen ? 'true' : 'false'}
-            onClick={handleSummaryClick}
-            variant="invisible"
-            size="small"
-            icon={KebabHorizontalIcon}
-            {...rest}
-          />
-        </Tooltip>
+        <IconButton
+          as="summary"
+          role="button"
+          ref={menuButtonRef}
+          aria-label={ariaLabel || `${items.length} more breadcrumb items`}
+          aria-expanded={isOpen ? 'true' : 'false'}
+          onClick={handleSummaryClick}
+          variant="invisible"
+          size="small"
+          icon={KebabHorizontalIcon}
+          tooltipDirection="e"
+          {...rest}
+        />
         <div ref={menuContainerRef} className={classes.MenuOverlay}>
           <ActionList>
             {items.map((item, index) => {
