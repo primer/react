@@ -1,6 +1,6 @@
 import {render, screen} from '@testing-library/react'
 import {describe, expect, test} from 'vitest'
-import {Dialog, PageHeader, Table, Tooltip, UnderlinePanels} from '../experimental'
+import {Dialog, PageHeader, Table, Tooltip} from '../experimental'
 
 describe('@primer/react/experimental', () => {
   test('Dialog supports `sx` prop', () => {
@@ -25,27 +25,5 @@ describe('@primer/react/experimental', () => {
       </Tooltip>,
     )
     expect(window.getComputedStyle(screen.getByRole('tooltip', {hidden: true})).backgroundColor).toBe('rgb(255, 0, 0)')
-  })
-
-  test('UnderlinePanels supports `sx` prop', () => {
-    render(
-      <UnderlinePanels data-testid="component" sx={{background: 'red'}}>
-        <UnderlinePanels.Tab>tab</UnderlinePanels.Tab>
-        <UnderlinePanels.Panel>panel</UnderlinePanels.Panel>
-      </UnderlinePanels>,
-    )
-    expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
-  })
-
-  test('UnderlinePanels.Panel supports `sx` prop', () => {
-    render(
-      <UnderlinePanels>
-        <UnderlinePanels.Tab>tab</UnderlinePanels.Tab>
-        <UnderlinePanels.Panel data-testid="component" sx={{background: 'red'}}>
-          panel
-        </UnderlinePanels.Panel>
-      </UnderlinePanels>,
-    )
-    expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
   })
 })
