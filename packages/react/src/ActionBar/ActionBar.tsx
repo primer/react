@@ -50,7 +50,7 @@ export type ActionBarProps = {
 
 export type ActionBarIconButtonProps = {disabled?: boolean} & IconButtonProps
 
-const MORE_BTN_WIDTH = 86
+const MORE_BTN_WIDTH = 32
 
 const getValidChildren = (children: React.ReactNode) => {
   return React.Children.toArray(children).filter(child => {
@@ -63,7 +63,7 @@ const calculatePossibleItems = (childWidthArray: ChildWidthArray, navWidth: numb
   let breakpoint = childWidthArray.length // assume all items will fit
   let sumsOfChildWidth = 0
   for (const [index, childWidth] of childWidthArray.entries()) {
-    sumsOfChildWidth = sumsOfChildWidth + childWidth.width + ACTIONBAR_ITEM_GAP
+    sumsOfChildWidth += index > 0 ? childWidth.width + ACTIONBAR_ITEM_GAP : childWidth.width
     if (sumsOfChildWidth > widthToFit) {
       breakpoint = index
       break
