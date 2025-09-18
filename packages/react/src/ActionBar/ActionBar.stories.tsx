@@ -22,7 +22,7 @@ type Story = StoryObj<typeof ActionBar>
 
 export const Playground: Story = {
   render: args => (
-    <ActionBar {...args}>
+    <ActionBar {...args} aria-label="Toolbar">
       <ActionBar.IconButton icon={BoldIcon} aria-label="Bold"></ActionBar.IconButton>
       <ActionBar.IconButton icon={ItalicIcon} aria-label="Italic"></ActionBar.IconButton>
       <ActionBar.Divider />

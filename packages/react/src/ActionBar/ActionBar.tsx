@@ -126,7 +126,14 @@ const overflowEffect = (
 }
 
 export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = props => {
-  const {size = 'medium', children, 'aria-label': ariaLabel, flush = false, className} = props
+  const {
+    size = 'medium',
+    children,
+    'aria-label': ariaLabel,
+    'aria-labelledby': ariaLabelledBy,
+    flush = false,
+    className,
+  } = props
   const [childWidthArray, setChildWidthArray] = useState<ChildWidthArray>([])
   const setChildrenWidth = useCallback((size: ChildSize) => {
     setChildWidthArray(arr => {
@@ -202,7 +209,13 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
   return (
     <ActionBarContext.Provider value={{size, setChildrenWidth}}>
       <div ref={navRef} className={clsx(className, styles.Nav)} data-flush={flush}>
-        <div ref={listRef} role="toolbar" className={styles.List}>
+        <div
+          ref={listRef}
+          role="toolbar"
+          className={styles.List}
+          aria-label={ariaLabel}
+          aria-labelledby={ariaLabelledBy}
+        >
           {listItems}
           {menuItems.length > 0 && (
             <ActionMenu>
@@ -219,7 +232,7 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
                         children: menuItemChildren,
                         onClick,
                         icon: Icon,
-                        'aria-label': ariaLabel,
+                        'aria-label': menuItemAriaLabel,
                         disabled,
                       } = menuItem.props
                       return (
@@ -238,7 +251,7 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
                               <Icon />
                             </ActionList.LeadingVisual>
                           ) : null}
-                          {ariaLabel}
+                          {menuItemAriaLabel}
                         </ActionList.Item>
                       )
                     }
