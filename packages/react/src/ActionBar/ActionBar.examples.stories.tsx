@@ -297,7 +297,6 @@ const CustomActionMenu = () => {
     const text = 'Open menu'
     const domRect = (ref as MutableRefObject<HTMLElement>).current.getBoundingClientRect()
     // this function needs to be called for every custom item in order for the ActionBar to overflow correctly
-    console.log('width', domRect.width)
 
     setChildrenWidth({text, width: domRect.width})
   }, [ref, setChildrenWidth])
