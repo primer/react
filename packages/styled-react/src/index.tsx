@@ -1,60 +1,57 @@
+export {ActionList} from '@primer/react'
+export {ActionMenu} from '@primer/react'
+export {Autocomplete} from '@primer/react'
+export {Avatar} from '@primer/react'
+export {Breadcrumbs} from '@primer/react'
 export {Box, type BoxProps} from './components/Box'
+export {Button} from '@primer/react'
+export {Checkbox} from '@primer/react'
+export {CheckboxGroup} from '@primer/react'
+export {CircleBadge} from '@primer/react'
+export {CounterLabel} from '@primer/react'
+export {Details} from '@primer/react'
+export {Dialog} from '@primer/react'
+export {Flash} from '@primer/react'
+export {FormControl} from '@primer/react'
+export {Header} from '@primer/react'
+export {Heading} from '@primer/react'
+export {IconButton} from '@primer/react'
+export {Label} from '@primer/react'
+export {Link} from '@primer/react'
+export {LinkButton} from '@primer/react'
+export {NavList} from '@primer/react'
+export {Overlay} from '@primer/react'
+export {PageHeader} from '@primer/react'
+export {PageLayout} from '@primer/react'
+export {ProgressBar} from '@primer/react'
+export {RadioGroup} from '@primer/react'
+export {RelativeTime} from '@primer/react'
 export {
   SegmentedControl,
   type SegmentedControlProps,
   type SegmentedControlButtonProps,
   type SegmentedControlIconButtonProps,
 } from './components/SegmentedControl'
-export {SubNav, type SubNavProps, type SubNavLinkProps} from './components/SubNav'
+export {Select} from '@primer/react'
+export {Spinner} from '@primer/react'
 export {StateLabel, type StateLabelProps} from './components/StateLabel'
+export {SubNav, type SubNavProps, type SubNavLinkProps} from './components/SubNav'
+export {Text} from '@primer/react'
+export {Textarea} from '@primer/react'
+export {TextInput} from '@primer/react'
+export {Timeline} from '@primer/react'
 export {ToggleSwitch, type ToggleSwitchProps} from './components/ToggleSwitch'
+export {Token} from '@primer/react'
+export {Tooltip} from '@primer/react'
+export {Truncate} from '@primer/react'
+export {UnderlineNav} from '@primer/react'
+
+// theming depends on styled-components
+export {ThemeProvider} from '@primer/react'
+export {merge} from '@primer/react'
+export {theme} from '@primer/react'
+export {themeGet} from '@primer/react'
+export {useColorSchemeVar} from '@primer/react'
+export {useTheme} from '@primer/react'
 export {sx, type SxProp} from './sx'
 export type {BetterSystemStyleObject} from './styled-props'
-
-export {
-  ActionList,
-  ActionMenu,
-  Autocomplete,
-  Avatar,
-  Breadcrumbs,
-  Button,
-  Checkbox,
-  CheckboxGroup,
-  CircleBadge,
-  CounterLabel,
-  Details,
-  Dialog,
-  Flash,
-  FormControl,
-  Header,
-  Heading,
-  IconButton,
-  Label,
-  Link,
-  LinkButton,
-  NavList,
-  Overlay,
-  PageHeader,
-  PageLayout,
-  ProgressBar,
-  RadioGroup,
-  RelativeTime,
-  Select,
-  Spinner,
-  Text,
-  Textarea,
-  TextInput,
-  Timeline,
-  Token,
-  Tooltip,
-  Truncate,
-  UnderlineNav,
-
-  // theming depends on styled-components
-  ThemeProvider,
-  merge,
-  theme,
-  themeGet,
-  useColorSchemeVar,
-  useTheme,
-} from '@primer/react'
