@@ -41,9 +41,6 @@ export const MORE_BTN_WIDTH = 86
 // The height is needed to make sure we don't have a layout shift when the more button is the only item in the nav.
 const MORE_BTN_HEIGHT = 45
 
-// Needed for typing the ref with HTMLULListElement
-export const NavigationList = styled.ul``
-
 export const MoreMenuListItem = styled.li`
   display: flex;
   align-items: center;
