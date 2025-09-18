@@ -5,21 +5,25 @@
  * @see https://github.com/radix-ui/primitives/blob/17ffcb7aaa42cbd36b3c210ba86d7d73d218e5be/packages/react/polymorphic/src/polymorphic.ts
  */
 
+// eslint-disable-next-line import/no-namespace, no-restricted-imports, @typescript-eslint/consistent-type-imports
 import * as React from 'react'
 
 /* -------------------------------------------------------------------------------------------------
  * Utility types
  * -----------------------------------------------------------------------------------------------*/
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 type Merge<P1 = {}, P2 = {}> = Omit<P1, keyof P2> & P2
 
 /**
  * Infers the OwnProps if E is a ForwardRefExoticComponentWithAs
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-empty-object-type
 type OwnProps<E> = E extends ForwardRefComponent<any, infer P> ? P : {}
 
 /**
  * Infers the JSX.IntrinsicElement if E is a ForwardRefExoticComponentWithAs
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type IntrinsicElement<E> = E extends ForwardRefComponent<infer I, any> ? I : never
 
 type ForwardRefExoticComponent<E, OwnProps> = React.ForwardRefExoticComponent<
@@ -32,6 +36,7 @@ type ForwardRefExoticComponent<E, OwnProps> = React.ForwardRefExoticComponent<
 
 interface ForwardRefComponent<
   IntrinsicElementString,
+  // eslint-disable-next-line @typescript-eslint/no-empty-object-type
   OwnProps = {},
   /**
    * Extends original type to ensure built in React types play nice
