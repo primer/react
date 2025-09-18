@@ -1,3 +1,19 @@
 :global(body) {
   background-color: var(--bgColor-default);
 }
+
+.ThemedContainer {
+  margin-top: var(--base-size-12);
+  margin-bottom: var(--base-size-12);
+  padding: var(--base-size-12);
+  color: var(--fgColor-default);
+  background-color: var(--bgColor-default);
+  border: var(--borderWidth-thin) solid var(--borderColor-default);
+  border-radius: var(--borderRadius-medium);
+}
+
+.AutoContainer {
+  padding: var(--base-size-40);
+  background-color: var(--bgColor-inset);
+  color: var(--fgColor-default);
+}
