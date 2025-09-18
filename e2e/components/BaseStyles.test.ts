@@ -12,10 +12,6 @@ const stories = [
     title: 'Dev With Style Props',
   },
   {
-    id: 'behaviors-basestyles-dev--with-sx-props',
-    title: 'Dev With Sx Props',
-  },
-  {
     id: 'behaviors-basestyles-dev--with-system-props',
     title: 'Dev With System Props',
   },
