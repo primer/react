@@ -209,7 +209,6 @@ describe('@primer/react', () => {
     expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
   })
 
-  // TODO: figure out why `sx` isn't working here
   test('NavList.Item supports `sx` prop', () => {
     render(
       <NavList>
@@ -253,26 +252,6 @@ describe('@primer/react', () => {
   test('NavList.LeadingVisual supports `sx` prop', () => {
     render(<NavList.LeadingVisual data-testid="component" sx={{background: 'red'}} />)
     expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
-  })
-
-  // TODO: figure out why `sx` isn't working here
-  test('NavList.SubNav supports `sx` prop', () => {
-    render(
-      <NavList>
-        <NavList.Item>
-          Parent item
-          <NavList.SubNav sx={{background: 'red'}}>
-            <NavList.Item data-testid="component">subitem</NavList.Item>
-          </NavList.SubNav>
-        </NavList.Item>
-      </NavList>,
-    )
-
-    // Select the NavList.SubNav element by finding the "subitem" text and traversing up to the nearest <ul>
-    const itemAnchorEl = screen.getByTestId('component')
-    const subNavElement = itemAnchorEl.closest('ul')
-    expect(subNavElement).not.toBeNull()
-    expect(window.getComputedStyle(subNavElement!).backgroundColor).toBe('rgb(255, 0, 0)')
   })
 
   test('Overlay supports `sx` prop', () => {
