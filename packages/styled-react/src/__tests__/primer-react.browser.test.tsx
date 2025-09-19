@@ -43,7 +43,6 @@ import {
   Token,
   Tooltip,
   Truncate,
-  UnderlineNav,
 } from '../'
 
 describe('@primer/react', () => {
@@ -421,14 +420,5 @@ describe('@primer/react', () => {
   test('Truncate supports `sx` prop', () => {
     render(<Truncate data-testid="component" sx={{background: 'red'}} title="test" />)
     expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
-  })
-
-  test('UnderlineNav supports `sx` prop', () => {
-    render(
-      <UnderlineNav aria-label="navigation" data-testid="component" sx={{background: 'red'}}>
-        <UnderlineNav.Item>test</UnderlineNav.Item>
-      </UnderlineNav>,
-    )
-    expect(window.getComputedStyle(screen.getByLabelText('navigation')).backgroundColor).toBe('rgb(255, 0, 0)')
   })
 })
