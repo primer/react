@@ -9,12 +9,6 @@ export default {
 
 export const Default = () => 'Hello'
 
-export const WithSystemProps = () => (
-  <BaseStyles color="red" backgroundColor="blue" fontFamily="Arial" fontSize="14px" lineHeight="1.5" display="flex">
-    Hello
-  </BaseStyles>
-)
-
 export const WithStyleProps = () => (
   <BaseStyles
     style={{
