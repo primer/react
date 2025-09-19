@@ -139,10 +139,10 @@ IconOnly.storyName = 'Icon only'
 export const AssociatedWithALabelAndCaption = () => (
   <div className={classes.LabelAndCaptionContainer}>
     <div className={classes.LabelAndCaption}>
-      <Text fontSize={2} fontWeight="bold" id="scLabel-vert" display="block">
+      <Text className={classes.TextLargeBold} id="scLabel-vert" display="block">
         File view
       </Text>
-      <Text color="fg.subtle" fontSize={1} id="scCaption-vert" display="block">
+      <Text color="fg.subtle" className={classes.TextSizeMedium} id="scCaption-vert" display="block">
         Change the way the file is viewed
       </Text>
     </div>

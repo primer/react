@@ -136,3 +136,7 @@
   right: var(--base-size-4);
   top: var(--base-size-4);
 }
+
+.MediumText {
+  font-size: var(--text-body-size-medium);
+}

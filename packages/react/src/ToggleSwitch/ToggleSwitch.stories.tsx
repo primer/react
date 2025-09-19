@@ -3,6 +3,7 @@ import type {ComponentProps} from '../utils/types'
 import ToggleSwitch from './ToggleSwitch'
 import {Text} from '..'
 import ToggleSwitchStoryWrapper from './ToggleSwitchStoryWrapper'
+import classes from './ToggleSwitch.stories.module.css'
 
 export default {
   title: 'Components/ToggleSwitch',
@@ -16,7 +17,7 @@ export default {
 
 export const Playground: StoryFn<typeof ToggleSwitch> = args => (
   <>
-    <Text id="toggle" fontWeight={'bold'} fontSize={2}>
+    <Text id="toggle" className={classes.TextLargeBold}>
       Toggle label
     </Text>
     <ToggleSwitch {...args} aria-labelledby="toggle" />
@@ -55,7 +56,7 @@ Playground.argTypes = {
 
 export const Default = () => (
   <>
-    <Text id="toggle" fontWeight="bold" fontSize={1}>
+    <Text id="toggle" className={classes.TextMediumBold}>
       Toggle label
     </Text>
     <ToggleSwitch aria-labelledby="toggle" />
