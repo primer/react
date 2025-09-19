@@ -9,6 +9,10 @@
 }
 
 .ProgressBarItem {
+  /* these are passed from the component */
+  --progress-width: ;
+  --progress-bg: ;
+
   width: var(--progress-width);
   /* stylelint-disable-next-line primer/colors */
   background-color: var(--progress-bg);
@@ -28,9 +32,11 @@
   display: flex;
   overflow: hidden;
   /* stylelint-disable-next-line primer/colors */
-  background-color: var(--borderColor-default);
+  background-color: var(--progressBar-track-bgColor);
   border-radius: var(--borderRadius-small);
   gap: 2px;
+  outline: solid 1px var(--progressBar-track-borderColor);
+  outline-offset: -1px;
 
   &:where([data-progress-display='inline']) {
     display: inline-flex;

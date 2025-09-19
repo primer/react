@@ -13,6 +13,10 @@
     container: banner / inline-size;
   }
 
+  &[data-layout='compact'] {
+    padding: var(--base-size-4);
+  }
+
   &[data-variant='critical'] {
     --banner-bgColor: var(--bgColor-danger-muted);
     --banner-borderColor: var(--borderColor-danger-muted);
@@ -173,6 +177,9 @@
 @container banner (max-width: 500px) {
   .BannerContainer {
     display: grid;
+  }
+
+  .BannerContainer:has(.BannerActionsContainer) {
     grid-template-rows: auto auto;
   }
 

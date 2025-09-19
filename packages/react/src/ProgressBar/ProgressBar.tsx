@@ -1,5 +1,4 @@
 import React, {forwardRef} from 'react'
-import type {WidthProps} from 'styled-system'
 import type {SxProp} from '../sx'
 import {clsx} from 'clsx'
 import classes from './ProgressBar.module.css'
@@ -15,16 +14,15 @@ type StyledProgressContainerProps = {
   inline?: boolean
   barSize?: 'small' | 'default' | 'large'
   animated?: boolean
-} & WidthProps &
-  SxProp
+} & SxProp
 
-export type ProgressBarItems = React.HTMLAttributes<HTMLSpanElement> & {
+export type ProgressBarItemProps = React.HTMLAttributes<HTMLSpanElement> & {
   'aria-label'?: string
   className?: string
 } & ProgressProp &
   SxProp
 
-export const Item = forwardRef<HTMLSpanElement, ProgressBarItems>(
+export const Item = forwardRef<HTMLSpanElement, ProgressBarItemProps>(
   (
     {
       progress,
@@ -33,6 +31,7 @@ export const Item = forwardRef<HTMLSpanElement, ProgressBarItems>(
       'aria-valuetext': ariaValueText,
       className,
       style,
+      bg,
       ...rest
     },
     forwardRef,
@@ -51,9 +50,10 @@ export const Item = forwardRef<HTMLSpanElement, ProgressBarItems>(
     const progressBarBg = '--progress-bg'
     const styles: {[key: string]: string} = {}
 
-    const bgType = rest.bg && rest.bg.split('.')
+    const bgType = bg && bg.split('.')
     styles[progressBarWidth] = progress ? `${progress}%` : '0%'
-    styles[progressBarBg] = (bgType && `var(--bgColor-${bgType[0]}-${bgType[1]})`) || 'var(--bgColor-success-emphasis)'
+    styles[progressBarBg] =
+      (bgType && `var(--bgColor-${bgType[0]}-${bgType[1] || 'emphasis'})`) || 'var(--bgColor-success-emphasis)'
 
     return (
       <BoxWithFallback

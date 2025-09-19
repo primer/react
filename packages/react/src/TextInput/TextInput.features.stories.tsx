@@ -1,37 +1,38 @@
 import type React from 'react'
 import {useState} from 'react'
-import {Box, FormControl, Heading, Stack} from '..'
+import {FormControl, Heading, Stack} from '..'
 import type {TextInputProps} from '../TextInput'
 import TextInput from '../TextInput'
 import {CalendarIcon, CheckIcon, XCircleFillIcon} from '@primer/octicons-react'
 import type {FormControlArgs} from '../utils/story-helpers'
 import {formControlArgTypes, textInputExcludedControlKeys} from '../utils/story-helpers'
+import classes from './TextInput.features.stories.module.css'
 
 export default {
   title: 'Components/TextInput/Features',
 }
 
 export const Disabled = () => (
-  <Box as="form">
+  <form>
     <FormControl>
       <FormControl.Label>Default label</FormControl.Label>
       <TextInput disabled />
     </FormControl>
-  </Box>
+  </form>
 )
 
 export const WithCaption = () => (
-  <Box as="form">
+  <form>
     <FormControl>
       <FormControl.Label>Default label</FormControl.Label>
       <FormControl.Caption>This is a caption</FormControl.Caption>
       <TextInput />
     </FormControl>
-  </Box>
+  </form>
 )
 
 export const VisuallyHiddenLabel = () => (
-  <Box as="form">
+  <form>
     <Heading as="h2" variant="small">
       Primer form title
     </Heading>
@@ -40,70 +41,70 @@ export const VisuallyHiddenLabel = () => (
       <TextInput />
       <FormControl.Caption>Label is visually hidden; the title describes the purpose visually</FormControl.Caption>
     </FormControl>
-  </Box>
+  </form>
 )
 
 export const Error = () => (
-  <Box as="form">
+  <form>
     <FormControl>
       <FormControl.Label>Default label</FormControl.Label>
       <TextInput />
       <FormControl.Validation variant="error">Something went wrong</FormControl.Validation>
     </FormControl>
-  </Box>
+  </form>
 )
 
 export const Success = () => (
-  <Box as="form">
+  <form>
     <FormControl>
       <FormControl.Label>Default label</FormControl.Label>
       <TextInput />
       <FormControl.Validation variant="success">Something went wrong</FormControl.Validation>
     </FormControl>
-  </Box>
+  </form>
 )
 
 export const Block = () => (
-  <Box as="form">
+  <form>
     <FormControl>
       <FormControl.Label>Default label</FormControl.Label>
       <TextInput block />
     </FormControl>
-  </Box>
+  </form>
 )
 
 export const Small = () => (
-  <Box as="form">
+  <form>
     <FormControl>
       <FormControl.Label>Default label</FormControl.Label>
       <TextInput size="small" />
     </FormControl>
-  </Box>
+  </form>
 )
 
 export const Large = () => (
-  <Box as="form">
+  <form>
     <FormControl>
       <FormControl.Label>Default label</FormControl.Label>
       <TextInput size="large" />
     </FormControl>
-  </Box>
+  </form>
 )
 
 export const Required = () => (
-  <Box as="form">
+  <form>
     <FormControl required>
       <FormControl.Label>Default label</FormControl.Label>
       <TextInput size="large" />
     </FormControl>
-  </Box>
+  </form>
 )
 
 export const WithLeadingVisual = () => {
   const Checkmark = () => <CheckIcon aria-label="Checkmark" />
 
   return (
-    <Box as="form">
+    <form>
       <FormControl>
         <FormControl.Label>Default label</FormControl.Label>
         <TextInput leadingVisual={Checkmark} />
@@ -112,7 +113,7 @@ export const WithLeadingVisual = () => {
         <FormControl.Label>Enter monies</FormControl.Label>
         <TextInput leadingVisual="$" />
       </FormControl>
-    </Box>
+    </form>
   )
 }
 
@@ -120,7 +121,7 @@ export const WithTrailingIcon = () => {
   const Checkmark = () => <CheckIcon aria-label="Checkmark" />
 
   return (
-    <Box>
+    <div>
       <FormControl>
         <FormControl.Label>Default label</FormControl.Label>
         <TextInput trailingVisual={Checkmark} />
@@ -129,7 +130,7 @@ export const WithTrailingIcon = () => {
         <FormControl.Label>Enter monies</FormControl.Label>
         <TextInput trailingVisual="minutes" placeholder="200" />
       </FormControl>
-    </Box>
+    </div>
   )
 }
 
@@ -140,7 +141,7 @@ export const WithTrailingAction = () => {
     setValue(event.target.value)
   }
   return (
-    <Box as="form">
+    <form>
       <FormControl>
         <FormControl.Label>Default label</FormControl.Label>
         <TextInput
@@ -155,7 +156,7 @@ export const WithTrailingAction = () => {
           }
         />
       </FormControl>
-    </Box>
+    </form>
   )
 }
 
@@ -166,7 +167,7 @@ export const WithTooltipDirection = () => {
     setValue(event.target.value)
   }
   return (
-    <Box as="form">
+    <form>
       <FormControl>
         <FormControl.Label>Default label</FormControl.Label>
         <TextInput
@@ -186,7 +187,7 @@ export const WithTooltipDirection = () => {
           }
         />
       </FormControl>
-    </Box>
+    </form>
   )
 }
 
@@ -194,81 +195,80 @@ const Calendar = () => <CalendarIcon aria-label="Calendar" />
 
 export const WithLoadingIndicator = (args: FormControlArgs<TextInputProps>) => {
   return (
-    <Box as="form">
+    <div>
       <h3>No visual</h3>
 
-      <Box mb={2}>
+      <div className={classes.MarginBottom}>
         <FormControl>
           <FormControl.Label>Default label</FormControl.Label>
           <TextInput value="auto" {...args} />
         </FormControl>
-      </Box>
-      <Box mb={2}>
+      </div>
+      <div className={classes.MarginBottom}>
         <FormControl>
           <FormControl.Label>Default label</FormControl.Label>
           <TextInput value="leading" {...args} loaderPosition="leading" />
         </FormControl>
-      </Box>
-      <Box mb={5}>
+      </div>
+      <div className={classes.MarginBottomLarge}>
         <FormControl>
-          <FormControl.Label>Default label</FormControl.Label>
           <FormControl.Label>Default label</FormControl.Label>
           <TextInput value="trailing" {...args} loaderPosition="trailing" />
         </FormControl>
-      </Box>
+      </div>
 
       <h3>Leading visual</h3>
 
-      <Box mb={2}>
+      <div className={classes.MarginBottom}>
         <FormControl>
           <FormControl.Label>Default label</FormControl.Label>
           <TextInput leadingVisual={Calendar} {...args} value="auto" />
         </FormControl>
-      </Box>
-      <Box mb={2}>
+      </div>
+      <div className={classes.MarginBottom}>
         <FormControl>
           <FormControl.Label>Default label</FormControl.Label>
           <TextInput leadingVisual={Calendar} {...args} loaderPosition="leading" value="leading" />
         </FormControl>
-      </Box>
-      <Box mb={5}>
+      </div>
+      <div className={classes.MarginBottomLarge}>
         <FormControl>
           <FormControl.Label>Default label</FormControl.Label>
           <TextInput leadingVisual={Calendar} {...args} loaderPosition="trailing" value="trailing" />
         </FormControl>
-      </Box>
+      </div>
 
       <h3>Trailing visual</h3>
       <FormControl>
-        <Box mb={2}>
+        <div className={classes.MarginBottom}>
           <FormControl>
             <FormControl.Label>Default label</FormControl.Label>
             <TextInput trailingVisual={Calendar} {...args} value="auto" />
           </FormControl>
-        </Box>
-        <Box mb={2}>
+        </div>
+        <div className={classes.MarginBottom}>
           <FormControl>
             <FormControl.Label>Default label</FormControl.Label>
             <TextInput trailingVisual={Calendar} {...args} loaderPosition="leading" value="leading" />
           </FormControl>
-        </Box>
-        <Box mb={5}>
+        </div>
+        <div className={classes.MarginBottomLarge}>
           <FormControl>
             <FormControl.Label>Default label</FormControl.Label>
             <TextInput trailingVisual={Calendar} {...args} loaderPosition="trailing" value="trailing" />
           </FormControl>
-        </Box>
+        </div>
       </FormControl>
 
       <h3>Both visuals</h3>
 
-      <Box mb={2}>
+      <div className={classes.MarginBottom}>
         <FormControl>
           <FormControl.Label>Default label</FormControl.Label>
           <TextInput size="small" leadingVisual={Calendar} trailingVisual={Calendar} {...args} value="auto" />
         </FormControl>
-      </Box>
-      <Box mb={2}>
+      </div>
+      <div className={classes.MarginBottom}>
         <FormControl>
           <FormControl.Label>Default label</FormControl.Label>
           <TextInput
@@ -279,8 +279,8 @@ export const WithLoadingIndicator = (args: FormControlArgs<TextInputProps>) => {
             value="leading"
           />
         </FormControl>
-      </Box>
-      <Box mb={2}>
+      </div>
+      <div className={classes.MarginBottom}>
         <FormControl>
           <FormControl.Label>Default label</FormControl.Label>
           <TextInput
@@ -292,8 +292,8 @@ export const WithLoadingIndicator = (args: FormControlArgs<TextInputProps>) => {
             value="trailing"
           />
         </FormControl>
-      </Box>
-    </Box>
+      </div>
+    </div>
   )
 }
 
@@ -307,7 +307,7 @@ WithLoadingIndicator.parameters = {
 }
 
 export const WithAutocompleteAttribute = () => (
-  <Box as="form">
+  <form>
     <FormControl>
       <FormControl.Label>First name</FormControl.Label>
       <TextInput autoComplete="given-name" />
@@ -316,5 +316,5 @@ export const WithAutocompleteAttribute = () => (
       <FormControl.Label>Last name</FormControl.Label>
       <TextInput autoComplete="family-name" />
     </FormControl>
-  </Box>
+  </form>
 )

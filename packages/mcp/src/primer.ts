@@ -1,4 +1,5 @@
 import componentsMetadata from '@primer/react/generated/components.json' with {type: 'json'}
+import octicons from '@primer/octicons/build/data.json' with {type: 'json'}
 
 type Component = {
   id: string
@@ -7,12 +8,32 @@ type Component = {
   slug: string
 }
 
+function idToSlug(id: string): string {
+  if (id === 'actionbar') {
+    return 'action-bar'
+  }
+
+  if (id === 'tooltip-v2') {
+    return 'tooltip'
+  }
+
+  if (id === 'dialog_v2') {
+    return 'dialog'
+  }
+
+  if (id.startsWith('skeleton')) {
+    return 'skeleton-loaders'
+  }
+
+  return id.replaceAll('_', '-')
+}
+
 const components: Array<Component> = Object.entries(componentsMetadata.components).map(([id, component]) => {
   return {
     id,
     name: component.name,
     importPath: component.importPath,
-    slug: id.replaceAll('_', '-'),
+    slug: idToSlug(id),
   }
 })
 
@@ -72,4 +93,22 @@ function listPatterns(): Array<Pattern> {
   return patterns
 }
 
-export {listComponents, listPatterns}
+type Icon = {
+  name: string
+  keywords: Array<string>
+  heights: Array<string>
+}
+
+const icons: Array<Icon> = Object.values(octicons).map(icon => {
+  return {
+    name: icon.name,
+    keywords: icon.keywords,
+    heights: Object.keys(icon.heights),
+  }
+})
+
+function listIcons(): Array<Icon> {
+  return icons
+}
+
+export {listComponents, listPatterns, listIcons}

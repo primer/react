@@ -15,8 +15,6 @@ const allowlist = [
   'Autocomplete',
   'Avatar',
   'AvatarStack',
-  'AvatarPair',
-  'Breadcrumbs',
   'BranchName',
   'Blankslate',
   'Box',

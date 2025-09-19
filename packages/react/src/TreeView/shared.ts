@@ -7,5 +7,5 @@ export function getAccessibleName(element: Element) {
 
   if (label) return label
   if (labelledby) return document.getElementById(labelledby)?.textContent ?? ''
-  return element.textContent ?? ''
+  return element.textContent
 }

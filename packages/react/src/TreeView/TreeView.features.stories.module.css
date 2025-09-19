@@ -1,0 +1,18 @@
+.StorybookDecorator {
+  max-width: 400px;
+}
+
+.ControlledContainer {
+  display: grid;
+  gap: var(--base-size-16);
+}
+
+.ButtonContainer {
+  display: flex;
+  gap: var(--base-size-8);
+}
+
+.ScrollContainer {
+  max-height: 50vh;
+  overflow: auto;
+}

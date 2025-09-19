@@ -1,8 +1,8 @@
 import {DiffAddedIcon, DiffModifiedIcon, FileIcon} from '@primer/octicons-react'
 import type {Meta, StoryFn} from '@storybook/react-vite'
-import Box from '../Box'
 import Octicon from '../Octicon'
 import {TreeView} from './TreeView'
+import classes from './TreeViewStories.module.css'
 
 const meta: Meta = {
   title: 'Components/TreeView',
@@ -10,9 +10,9 @@ const meta: Meta = {
   decorators: [
     Story => {
       return (
-        <Box sx={{maxWidth: 400}}>
+        <div className={classes.WidthContraintContainer}>
           <Story />
-        </Box>
+        </div>
       )
     },
   ],

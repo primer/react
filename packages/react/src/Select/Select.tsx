@@ -7,7 +7,7 @@ import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../uti
 import classes from './Select.module.css'
 
 export type SelectProps = Omit<
-  Omit<React.ComponentProps<'select'>, 'size'> & Omit<StyledWrapperProps, 'variant'>,
+  Omit<React.ComponentProps<'select'>, 'size'> & Omit<StyledWrapperProps, 'variant' | 'contrast'>,
   'multiple' | 'hasLeadingVisual' | 'hasTrailingVisual' | 'as'
 > & {
   placeholder?: string
@@ -38,14 +38,12 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
       block,
       children,
       className,
-      contrast,
       defaultValue,
       disabled,
       placeholder,
       size,
       required,
       validationStatus,
-      sx,
       ...rest
     }: SelectProps,
     ref,
@@ -53,12 +51,10 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
     return (
       <TextInputWrapper
         block={block}
-        contrast={contrast}
         disabled={disabled}
         size={size}
         validationStatus={validationStatus}
-        className={classes.TextInputWrapper}
-        sx={sx}
+        className={clsx(classes.TextInputWrapper, className)}
       >
         <select
           {...rest}
@@ -66,7 +62,7 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
           required={required}
           disabled={disabled}
           aria-invalid={validationStatus === 'error' ? 'true' : 'false'}
-          className={clsx(className, classes.Select, disabled && classes.Disabled)}
+          className={clsx(classes.Select, disabled && classes.Disabled)}
           data-hasplaceholder={Boolean(placeholder)}
           defaultValue={defaultValue ?? placeholder ?? undefined}
         >
