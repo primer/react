@@ -193,7 +193,7 @@ const Overlay = React.forwardRef<HTMLDivElement, internalOverlayProps>(
   ): ReactElement => {
     const overlayRef = useRef<HTMLDivElement>(null)
     useRefObjectAsForwardedRef(forwardedRef, overlayRef)
-    const slideAnimationDistance = 8 // hardcoded value for --base-size-2 or theme.space[2]
+    const slideAnimationDistance = parseInt(theme.space[2], 10)
     const slideAnimationEasing = theme.animation.easeOutCubic
 
     useOverlay({
