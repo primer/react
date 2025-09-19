@@ -59,3 +59,15 @@
     width: 100%;
   }
 }
+
+@media (forced-colors: active) {
+  :root {
+    --progress-bg: LinkText;
+    --progressBar-track-bgColor: CanvasText;
+  }
+
+  .ProgressBarContainer,
+  .ProgressBarItem {
+    forced-color-adjust: none;
+  }
+}
