@@ -258,9 +258,7 @@ export const MemexNestedOverlays = ({role, open}: Args) => {
         >
           <form onSubmit={() => setOverlayOpen(false)} className={classes.FormContainer} aria-label="Set Duration Form">
             <div className={classes.FormRow}>
-              <Text color="fg.muted" className={classes.MediumText}>
-                Duration:
-              </Text>
+              <Text className={classes.MediumText}>Duration:</Text>
               <TextInput defaultValue={2} aria-label="Duration" />
               <ActionMenu>
                 <ActionMenu.Button sx={{width: 200}} aria-label="Change duration unit">
@@ -384,7 +382,7 @@ export const NestedOverlays = ({role, open}: Args) => {
               ref={secondaryContainer}
             >
               <form className={classes.CreateFormContent} aria-label="Set Duration Form">
-                <Text color="fg.muted" className={classes.MediumText} mb={3}>
+                <Text className={classes.MediumTextWithMargin}>
                   Create a list to organize your starred repositories.
                 </Text>
                 <TextInput placeholder="Name this list" className={classes.TextInputWithMargin} />

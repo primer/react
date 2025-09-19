@@ -14,11 +14,12 @@
   flex-grow: 1;
 }
 
-.TextSizeMedium {
-  font-size: var(--text-body-size-medium);
-}
-
 .TextLargeBold {
   font-size: var(--text-body-size-large);
   font-weight: var(--base-text-weight-semibold);
+}
+
+.TextMediumSubtle {
+  font-size: var(--text-body-size-medium);
+  color: var(--fgColor-muted);
 }

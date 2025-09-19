@@ -643,7 +643,7 @@ export const ShortSelectPanel = () => {
       </p>
       <SelectPanel title="Select notification channels" onSubmit={onSubmit} onCancel={onCancel}>
         <SelectPanel.Button>
-          <Text color="fg.muted">Notify me:</Text>{' '}
+          <Text className={classes.TextMuted}>Notify me:</Text>{' '}
           {Object.keys(channels)
             .filter(channel => channels[channel as keyof typeof channels])
             .join(', ') || 'Never'}

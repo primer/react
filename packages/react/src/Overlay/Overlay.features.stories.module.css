@@ -139,4 +139,11 @@
 
 .MediumText {
   font-size: var(--text-body-size-medium);
+  color: var(--fgColor-muted);
+}
+
+.MediumTextWithMargin {
+  font-size: var(--text-body-size-medium);
+  color: var(--fgColor-muted);
+  margin-bottom: var(--base-size-12);
 }

@@ -142,7 +142,7 @@ export const AssociatedWithALabelAndCaption = () => (
       <Text className={classes.TextLargeBold} id="scLabel-vert" display="block">
         File view
       </Text>
-      <Text color="fg.subtle" className={classes.TextSizeMedium} id="scCaption-vert" display="block">
+      <Text className={classes.TextMediumSubtle} id="scCaption-vert" display="block">
         Change the way the file is viewed
       </Text>
     </div>
