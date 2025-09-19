@@ -1,7 +1,6 @@
 import type {ComponentPropsWithRef, ReactElement} from 'react'
 import React, {useEffect, useRef} from 'react'
 import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
-import {get} from '../constants'
 import type {AriaRole, Merge} from '../utils/types'
 import type {TouchOrMouseEvent} from '../hooks'
 import {useOverlay} from '../hooks'
@@ -9,12 +8,12 @@ import Portal from '../Portal'
 import type {SxProp} from '../sx'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import type {AnchorSide} from '@primer/behaviors'
-import {useTheme} from '../ThemeProvider'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {useFeatureFlag} from '../FeatureFlags'
 import classes from './Overlay.module.css'
 import {clsx} from 'clsx'
 import {BoxWithFallback} from '../internal/components/BoxWithFallback'
+import theme from '../theme'
 
 type StyledOverlayProps = {
   width?: keyof typeof widthMap
@@ -194,9 +193,8 @@ const Overlay = React.forwardRef<HTMLDivElement, internalOverlayProps>(
   ): ReactElement => {
     const overlayRef = useRef<HTMLDivElement>(null)
     useRefObjectAsForwardedRef(forwardedRef, overlayRef)
-    const {theme} = useTheme()
-    const slideAnimationDistance = parseInt(get('space.2')(theme).replace('px', ''))
-    const slideAnimationEasing = get('animation.easeOutCubic')(theme)
+    const slideAnimationDistance = 8 // hardcoded value for --base-size-2 or theme.space[2]
+    const slideAnimationEasing = theme.animation.easeOutCubic
 
     useOverlay({
       overlayRef,
