@@ -2,7 +2,6 @@
   display: inline-flex;
   border: var(--borderWidth-thin) solid;
   font-weight: var(--base-text-weight-normal);
-  font-family: var(--fontStack-monospace);
   gap: 0.5ch;
   box-shadow: none;
   vertical-align: baseline;
@@ -30,9 +29,9 @@
 
 .ChordSmall {
   border-radius: var(--borderRadius-small);
-  font-size: var(--text-caption-size);
+  font-size: 11px; /* stylelint-disable-line primer/typography */
   padding: var(--base-size-2);
-  line-height: var(--text-caption-lineHeight);
+  line-height: var(--base-size-8); /* stylelint-disable-line primer/typography */
   min-width: var(--base-size-16);
 }
 
@@ -40,6 +39,6 @@
   border-radius: var(--borderRadius-medium);
   font-size: var(--text-body-size-small, 0.75rem);
   padding: var(--base-size-4);
-  line-height: var(--text-body-lineHeight-small);
+  line-height: 10px; /* stylelint-disable-line primer/typography */
   min-width: var(--base-size-20);
 }
