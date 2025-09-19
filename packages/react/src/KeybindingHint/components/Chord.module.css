@@ -1,8 +1,8 @@
 .Chord {
   display: inline-flex;
-  border: 1px solid;
-  font-weight: normal;
-  font-family: normal;
+  border: var(--borderWidth-thin) solid;
+  font-weight: var(--base-text-weight-normal);
+  font-family: var(--fontStack-monospace);
   gap: 0.5ch;
   box-shadow: none;
   vertical-align: baseline;
@@ -29,17 +29,17 @@
 }
 
 .ChordSmall {
-  border-radius: var(--borderRadius-small, 3px);
-  font-size: 11px;
-  padding: 2px;
-  line-height: 8px;
+  border-radius: var(--borderRadius-small);
+  font-size: var(--text-caption-size);
+  padding: var(--base-size-2);
+  line-height: var(--text-caption-lineHeight);
   min-width: var(--base-size-16);
 }
 
 .ChordNormal:not(.ChordSmall) {
-  border-radius: var(--borderRadius-medium, 6px);
+  border-radius: var(--borderRadius-medium);
   font-size: var(--text-body-size-small, 0.75rem);
   padding: var(--base-size-4);
-  line-height: 10px;
+  line-height: var(--text-body-lineHeight-small);
   min-width: var(--base-size-20);
 }

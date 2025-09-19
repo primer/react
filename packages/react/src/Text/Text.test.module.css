@@ -1,65 +1,65 @@
 /* CSS classes for Text component tests */
 
-.boldText {
-  font-weight: 700;
+.BoldText {
+  font-weight: var(--base-text-weight-semibold);
 }
 
-.normalWeight {
-  font-weight: 400;
+.NormalWeight {
+  font-weight: var(--base-text-weight-normal);
 }
 
-.italicText {
+.ItalicText {
   font-style: italic;
 }
 
-.normalStyle {
+.NormalStyle {
   font-style: normal;
 }
 
-.monoFont {
-  font-family: 'SFMono-Regular', 'Consolas', 'Liberation Mono', 'Menlo', 'Courier', monospace;
+.MonoFont {
+  font-family: var(--fontStack-monospace);
 }
 
-.largeText {
-  font-size: 2em;
+.LargeText {
+  font-size: var(--text-title-size-large);
 }
 
-.extraLargeText {
-  font-size: 100px;
+.ExtraLargeText {
+  font-size: var(--text-title-size-large);
 }
 
-.smallFont {
-  font-size: 12px;
+.SmallFont {
+  font-size: var(--text-body-size-small);
 }
 
-.mediumFont {
-  font-size: 16px;
+.MediumFont {
+  font-size: var(--text-body-size-large);
 }
 
-.condensedLine {
-  line-height: 1.25;
+.CondensedLine {
+  line-height: var(--text-body-lineHeight-medium);
 }
 
-.defaultLine {
-  line-height: 1.5;
+.DefaultLine {
+  line-height: var(--text-body-lineHeight-large);
 }
 
-.responsiveFont {
-  font-size: 14px;
+.ResponsiveFont {
+  font-size: var(--text-body-size-medium);
 }
 
 @media (min-width: 768px) {
-  .responsiveFont {
-    font-size: 16px;
+  .ResponsiveFont {
+    font-size: var(--text-body-size-large);
   }
 }
 
-.responsiveLine {
-  line-height: 1.25;
+.ResponsiveLine {
+  line-height: var(--text-body-lineHeight-medium);
 }
 
 @media (min-width: 768px) {
-  .responsiveLine {
-    line-height: 1.5;
+  .ResponsiveLine {
+    line-height: var(--text-body-lineHeight-large);
   }
 }

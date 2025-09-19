@@ -30,26 +30,26 @@ describe('Text', () => {
   })
 
   it('applies bold font weight with CSS class', () => {
-    const {container} = render(<Text className={testClasses.boldText}>Bold text</Text>)
+    const {container} = render(<Text className={testClasses.BoldText}>Bold text</Text>)
     const textElement = container.firstChild as HTMLElement
     expect(getComputedStyle(textElement).fontWeight).toBe('700')
   })
 
   it('applies normal font weight with CSS class', () => {
-    const {container} = render(<Text className={testClasses.normalWeight}>Normal text</Text>)
+    const {container} = render(<Text className={testClasses.NormalWeight}>Normal text</Text>)
     const textElement = container.firstChild as HTMLElement
     expect(getComputedStyle(textElement).fontWeight).toBe('400')
   })
 
   it('applies italic font style with CSS class', () => {
-    const {container} = render(<Text className={testClasses.italicText}>Italic text</Text>)
+    const {container} = render(<Text className={testClasses.ItalicText}>Italic text</Text>)
     const textElement = container.firstChild as HTMLElement
     expect(getComputedStyle(textElement).fontStyle).toBe('italic')
   })
 
   it('applies normal font style with CSS class', () => {
     const {container} = render(
-      <Text as="i" className={testClasses.normalStyle}>
+      <Text as="i" className={testClasses.NormalStyle}>
         Not italic
       </Text>,
     )
@@ -58,27 +58,27 @@ describe('Text', () => {
   })
 
   it('applies monospace font family with CSS class', () => {
-    const {container} = render(<Text className={testClasses.monoFont}>Monospace text</Text>)
+    const {container} = render(<Text className={testClasses.MonoFont}>Monospace text</Text>)
     const textElement = container.firstChild as HTMLElement
     const fontFamily = getComputedStyle(textElement).fontFamily
     expect(fontFamily).toContain('mono')
   })
 
   it('applies large font size with CSS class', () => {
-    const {container} = render(<Text className={testClasses.largeText}>Large text</Text>)
+    const {container} = render(<Text className={testClasses.LargeText}>Large text</Text>)
     const textElement = container.firstChild as HTMLElement
     expect(getComputedStyle(textElement).fontSize).toBe('32px')
   })
 
   it('applies extra large font size with CSS class', () => {
-    const {container} = render(<Text className={testClasses.extraLargeText}>Very large text</Text>)
+    const {container} = render(<Text className={testClasses.ExtraLargeText}>Very large text</Text>)
     const textElement = container.firstChild as HTMLElement
     expect(getComputedStyle(textElement).fontSize).toBe('100px')
   })
 
   it('applies different font sizes with CSS classes', () => {
     // Test different fontSize values using CSS classes
-    const fontSizeClasses = [testClasses.smallFont, testClasses.mediumFont]
+    const fontSizeClasses = [testClasses.SmallFont, testClasses.MediumFont]
     for (const fontClass of fontSizeClasses) {
       const {container} = render(<Text className={fontClass}>Text</Text>)
       const textElement = container.firstChild as HTMLElement
@@ -89,7 +89,7 @@ describe('Text', () => {
 
   it('applies different line heights with CSS classes', () => {
     // Test different lineHeight values using CSS classes
-    const lineHeightClasses = [testClasses.condensedLine, testClasses.defaultLine]
+    const lineHeightClasses = [testClasses.CondensedLine, testClasses.DefaultLine]
     for (const lineClass of lineHeightClasses) {
       const {container} = render(<Text className={lineClass}>Text</Text>)
       const textElement = container.firstChild as HTMLElement
@@ -99,16 +99,16 @@ describe('Text', () => {
   })
 
   it('supports responsive font size with CSS classes', () => {
-    const {container} = render(<Text className={testClasses.responsiveFont}>Responsive text</Text>)
+    const {container} = render(<Text className={testClasses.ResponsiveFont}>Responsive text</Text>)
     const textElement = container.firstChild as HTMLElement
     expect(textElement).toBeInTheDocument()
-    expect(textElement).toHaveClass(testClasses.responsiveFont)
+    expect(textElement).toHaveClass(testClasses.ResponsiveFont)
   })
 
   it('supports responsive line height with CSS classes', () => {
-    const {container} = render(<Text className={testClasses.responsiveLine}>Responsive text</Text>)
+    const {container} = render(<Text className={testClasses.ResponsiveLine}>Responsive text</Text>)
     const textElement = container.firstChild as HTMLElement
     expect(textElement).toBeInTheDocument()
-    expect(textElement).toHaveClass(testClasses.responsiveLine)
+    expect(textElement).toHaveClass(testClasses.ResponsiveLine)
   })
 })
