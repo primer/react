@@ -14,8 +14,6 @@ import {
   SegmentedControl as PrimerSegmentedControl,
   type SegmentedControlButtonProps as PrimerSegmentedControlButtonProps,
   type SegmentedControlIconButtonProps as PrimerSegmentedControlIconButtonProps,
-  LinkButton as PrimerLinkButton,
-  type LinkButtonProps as PrimerLinkButtonProps,
 } from '@primer/react'
 import React, {forwardRef, type PropsWithChildren} from 'react'
 import type {
@@ -30,6 +28,7 @@ import type {
   SpaceProps,
   TypographyProps,
 } from 'styled-system'
+import {LinkButton, type LinkButtonProps} from './components/LinkButton'
 
 type StyledProps = SxProp &
   SpaceProps &
@@ -91,14 +90,8 @@ type ToggleSwitchProps = PrimerToggleSwitchProps & Omit<StyledProps, keyof Prime
 const ToggleSwitch = forwardRef<HTMLButtonElement, ToggleSwitchProps>(function ToggleSwitch(props, ref) {
   return <Box as={PrimerToggleSwitch} ref={ref} {...props} />
 })
-P
-type LinkButtonProps = PrimerLinkButtonProps & SxProp
 
-const LinkButton = forwardRef<HTMLAnchorElement, LinkButtonProps>(function LinkButton(props, ref) {
-  return <Box as={PrimerLinkButton} ref={ref} {...props} />
-})
-
-export {LinkButton, SegmentedControl, StateLabel, SubNav, ToggleSwitch}
+export {LinkButton, type LinkButtonProps, SegmentedControl, StateLabel, SubNav, ToggleSwitch}
 
 export {
   ActionList,
