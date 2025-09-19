@@ -92,6 +92,8 @@ const ToggleSwitch = forwardRef<HTMLButtonElement, ToggleSwitchProps>(function T
 
 export {SegmentedControl, StateLabel, SubNav, ToggleSwitch}
 
+export {Text} from './components/Text'
+
 export {
   ActionList,
   ActionMenu,
@@ -122,7 +124,6 @@ export {
   RelativeTime,
   Select,
   Spinner,
-  Text,
   Textarea,
   TextInput,
   Timeline,

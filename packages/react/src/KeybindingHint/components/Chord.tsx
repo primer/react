@@ -31,12 +31,6 @@ const splitChord = (chord: string) =>
     .map(k => k.toLowerCase())
     .sort(compareLowercaseKeys)
 
-const backgroundColors = {
-  normal: 'var(--bgColor-transparent)',
-  onEmphasis: 'var(--counter-bgColor-emphasis)',
-  onPrimary: 'var(--button-primary-bgColor-active)',
-}
-
 export const Chord = ({keys, format = 'condensed', variant = 'normal', size = 'normal'}: KeybindingHintProps) => (
   <Text
     className={clsx(classes.Chord, {
