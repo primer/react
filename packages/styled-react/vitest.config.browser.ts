@@ -3,7 +3,11 @@ import {defineConfig} from 'vitest/config'
 
 export default defineConfig({
   plugins: [react()],
+  define: {
+    __DEV__: true,
+  },
   test: {
+    name: '@primer/styled-react (browser)',
     include: ['src/**/*.browser.test.?(c|m)[jt]s?(x)'],
     setupFiles: ['config/vitest/browser/setup.ts'],
     browser: {

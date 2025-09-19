@@ -1,5 +1,5 @@
 import React, {useState, useRef, useCallback} from 'react'
-import {Box, TextInput, Text, Button, ActionList} from '..'
+import {Stack, TextInput, Text, Button, ActionList} from '..'
 import type {DialogProps, DialogWidth, DialogHeight} from './Dialog'
 import {Dialog} from './Dialog'
 import classes from './Dialog.stories.module.css'
@@ -70,11 +70,11 @@ function CustomHeader({
   }, [onClose])
   if (typeof title === 'string' && typeof subtitle === 'string') {
     return (
-      <Box bg="accent.subtle">
+      <div style={{backgroundColor: 'var(--bgColor-accent-muted)'}}>
         <h1 id={dialogLabelId}>{title.toUpperCase()}</h1>
         <h2 id={dialogDescriptionId}>{subtitle.toLowerCase()}</h2>
         <Dialog.CloseButton onClose={onCloseClick} />
-      </Box>
+      </div>
     )
   }
   return null
@@ -202,17 +202,17 @@ export const ReproMultistepDialogWithConditionalFooter = ({width, height}: Dialo
           ref={dialogRef}
         >
           {step === 1 ? (
-            <Box sx={{display: 'flex', flexDirection: 'column', gap: 4}}>
-              <Box sx={{display: 'flex', justifyContent: 'space-between'}}>
+            <Stack gap="spacious" direction="vertical">
+              <Stack direction="horizontal" justify="space-between">
                 Bug Report <Button onClick={() => setStep(2)}>Choose</Button>
-              </Box>
-              <Box sx={{display: 'flex', justifyContent: 'space-between'}}>
+              </Stack>
+              <Stack direction="horizontal" justify="space-between">
                 Feature request <Button onClick={() => setStep(2)}>Choose</Button>
-              </Box>
-            </Box>
+              </Stack>
+            </Stack>
           ) : (
             <div>
-              <Box sx={{display: 'flex', flexDirection: 'column', gap: 1}}>
+              <Stack gap="condensed" direction="vertical">
                 <label htmlFor="description">Description</label>
                 <TextInput
                   id="description"
@@ -220,7 +220,7 @@ export const ReproMultistepDialogWithConditionalFooter = ({width, height}: Dialo
                   value={inputText}
                   onChange={event => setInputText(event.target.value)}
                 />
-              </Box>
+              </Stack>
             </div>
           )}
         </Dialog>
@@ -387,11 +387,11 @@ export const RetainsFocusTrapWithDynamicContent = () => {
           </Button>
           <Button onClick={openSecondDialog}>Click me to open a new dialog</Button>
           {expandContent && (
-            <Box>
+            <Stack gap="normal" direction="vertical">
               {lipsum}
               <Button>Dialog Button Example 1</Button>
               <Button>Dialog Button Example 2</Button>
-            </Box>
+            </Stack>
           )}
           {secondOpen && (
             <Dialog title="Inner dialog!" onClose={onSecondDialogClose} width="small">
