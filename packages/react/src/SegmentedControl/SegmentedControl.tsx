@@ -176,7 +176,7 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
           selected: index === selectedIndex,
           style: {
             '--separator-color':
-              index === selectedIndex || index === selectedIndex - 1 ? 'transparent' : theme?.colors.border.default,
+              index === selectedIndex || index === selectedIndex - 1 ? 'transparent' : 'var(--borderColor-default)',
             ...child.props.style,
           },
         }
