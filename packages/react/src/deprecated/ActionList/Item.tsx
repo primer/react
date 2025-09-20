@@ -2,8 +2,6 @@ import {CheckIcon} from '@primer/octicons-react'
 import React, {useCallback} from 'react'
 import {isValidElementType} from 'react-is'
 import {get} from '../../constants'
-import type {SxProp} from '../../sx'
-import sx from '../../sx'
 import Truncate from '../../Truncate'
 import type {ItemInput} from './List'
 import styled from 'styled-components'
@@ -22,7 +20,7 @@ import type {AriaRole} from '../../utils/types'
 /**
  * Contract for props passed to the `Item` component.
  */
-export interface ItemProps extends SxProp {
+export interface ItemProps {
   /**
    * Primary text which names an `Item`.
    */
@@ -172,13 +170,11 @@ const MainContent = styled.div`
   flex-grow: 1;
 `
 
-const StyledItem = styled.div<
-  {
-    variant: ItemProps['variant']
-    showDivider: ItemProps['showDivider']
-    item?: ItemInput
-  } & SxProp
->`
+const StyledItem = styled.div<{
+  variant: ItemProps['variant']
+  showDivider: ItemProps['showDivider']
+  item?: ItemInput
+}>`
   /* 6px vertical padding + 20px line height = 32px total height
    *
    * TODO: When rem-based spacing on a 4px scale lands, replace
@@ -259,8 +255,6 @@ const StyledItem = styled.div<
   &:active {
     background: ${({variant, item}) => getItemVariant(variant, item?.disabled).focusBg};
   }
-
-  ${sx}
 `
 
 export const TextContainer = styled.span<{

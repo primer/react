@@ -15,7 +15,12 @@ import {
   type SegmentedControlButtonProps as PrimerSegmentedControlButtonProps,
   type SegmentedControlIconButtonProps as PrimerSegmentedControlIconButtonProps,
 } from '@primer/react'
-import React, {forwardRef, type PropsWithChildren} from 'react'
+import {
+  ActionList as PrimerDeprecatedActionList,
+  type ActionListProps as PrimerDeprecatedActionListProps,
+} from '@primer/react/deprecated'
+import type React from 'react'
+import {forwardRef, type PropsWithChildren} from 'react'
 import type {
   BackgroundProps,
   BorderProps,
@@ -90,10 +95,32 @@ const ToggleSwitch = forwardRef<HTMLButtonElement, ToggleSwitchProps>(function T
   return <Box as={PrimerToggleSwitch} ref={ref} {...props} />
 })
 
-export {SegmentedControl, StateLabel, SubNav, ToggleSwitch}
+type DeprecatedActionListProps = PrimerDeprecatedActionListProps & SxProp
+
+interface DeprecatedActionListType {
+  (props: DeprecatedActionListProps & React.RefAttributes<HTMLDivElement>): React.ReactElement | null
+  Group: typeof PrimerDeprecatedActionList.Group
+  Item: typeof PrimerDeprecatedActionList.Item
+  Divider: typeof PrimerDeprecatedActionList.Divider
+}
+
+/**
+ * @deprecated Use ActionList with composable API instead. See https://primer.style/react/ActionList for more details.
+ * This component is provided for backwards compatibility with sx prop support.
+ */
+const ActionListImpl = forwardRef<HTMLDivElement, DeprecatedActionListProps>(function ActionList(props, ref) {
+  return <Box as={PrimerDeprecatedActionList} ref={ref} {...props} />
+})
+
+const ActionList = Object.assign(ActionListImpl, {
+  Group: PrimerDeprecatedActionList.Group,
+  Item: PrimerDeprecatedActionList.Item,
+  Divider: PrimerDeprecatedActionList.Divider,
+}) as DeprecatedActionListType
+
+export {SegmentedControl, StateLabel, SubNav, ToggleSwitch, ActionList}
 
 export {
-  ActionList,
   ActionMenu,
   Autocomplete,
   Avatar,

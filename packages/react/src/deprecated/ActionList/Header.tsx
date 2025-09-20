@@ -1,13 +1,11 @@
 import type React from 'react'
 import styled, {css} from 'styled-components'
 import {get} from '../../constants'
-import type {SxProp} from '../../sx'
-import sx from '../../sx'
 
 /**
  * Contract for props passed to the `Header` component.
  */
-export interface HeaderProps extends React.ComponentPropsWithoutRef<'div'>, SxProp {
+export interface HeaderProps extends React.ComponentPropsWithoutRef<'div'> {
   /**
    * Style variations. Usage is discretionary.
    *
@@ -27,7 +25,7 @@ export interface HeaderProps extends React.ComponentPropsWithoutRef<'div'>, SxPr
   auxiliaryText?: string
 }
 
-export const StyledHeader = styled.div<{variant: HeaderProps['variant']} & SxProp>`
+export const StyledHeader = styled.div<{variant: HeaderProps['variant']}>`
    {
     /* 6px vertical padding + 20px line height = 32px total height
      *
@@ -52,8 +50,6 @@ export const StyledHeader = styled.div<{variant: HeaderProps['variant']} & SxPro
         margin-top: 0;
       }
     `}
-
-  ${sx}
 `
 
 /**

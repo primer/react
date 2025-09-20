@@ -1,14 +1,12 @@
 import type React from 'react'
 import styled from 'styled-components'
-import type {SxProp} from '../../sx'
-import sx from '../../sx'
 import type {HeaderProps} from './Header'
 import {Header} from './Header'
 
 /**
  * Contract for props passed to the `Group` component.
  */
-export interface GroupProps extends React.ComponentPropsWithoutRef<'div'>, SxProp {
+export interface GroupProps extends React.ComponentPropsWithoutRef<'div'> {
   /**
    * Props for a `Header` to render in the `Group`.
    */
@@ -30,9 +28,7 @@ export interface GroupProps extends React.ComponentPropsWithoutRef<'div'>, SxPro
   showItemDividers?: boolean
 }
 
-const StyledGroup = styled.div`
-  ${sx}
-`
+const StyledGroup = styled.div``
 
 /**
  * Collects related `Items` in an `ActionList`.

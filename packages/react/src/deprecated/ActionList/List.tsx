@@ -7,8 +7,15 @@ import type {ItemProps} from './Item'
 import {Item} from './Item'
 import {Divider} from './Divider'
 import {hasActiveDescendantAttribute} from '@primer/behaviors'
+import styled from 'styled-components'
 import type {Merge} from '../../utils/types/Merge'
-import {BoxWithFallback} from '../../internal/components/BoxWithFallback'
+
+const StyledList = styled.div`
+  &[${hasActiveDescendantAttribute}], &:focus-within {
+    --item-hover-bg-override: none;
+    --item-hover-divider-border-color-override: var(--borderColor-muted);
+  }
+`
 
 export type RenderItemFn = (props: ItemProps) => React.ReactElement
 
@@ -175,7 +182,7 @@ export const List = React.forwardRef<HTMLDivElement, ListProps>((props, forwarde
         selectionVariant={restProps.selectionVariant}
         {...itemProps}
         key={key}
-        sx={{...itemStyle, ...itemProps.sx}}
+        style={{...itemStyle}}
         item={item}
       />
     )
@@ -228,18 +235,12 @@ export const List = React.forwardRef<HTMLDivElement, ListProps>((props, forwarde
   }
 
   return (
-    <BoxWithFallback
+    <StyledList
       {...restProps}
       ref={forwardedRef}
       style={{
         ...listStyles,
         ...(style || {}),
-      }}
-      sx={{
-        [`&[${hasActiveDescendantAttribute}], &:focus-within`]: {
-          '--item-hover-bg-override': 'none',
-          '--item-hover-divider-border-color-override': 'var(--borderColor-muted)',
-        },
       }}
     >
       {groups.map(({header, ...groupProps}, index) => {
@@ -249,15 +250,15 @@ export const List = React.forwardRef<HTMLDivElement, ListProps>((props, forwarde
           <React.Fragment key={groupProps.groupId}>
             {shouldShowDivider ? <Divider key={`${groupProps.groupId}-divider`} /> : null}
             {renderGroup({
-              sx: {
+              style: {
                 ...(index === 0 && firstGroupStyle),
                 ...(index === groups.length - 1 && lastGroupStyle),
-                ...(index > 0 && !shouldShowDivider && {mt: 2}),
+                ...(index > 0 && !shouldShowDivider && {marginTop: 'var(--base-size-16, 16px)'}),
               },
               ...(header && {
                 header: {
                   ...header,
-                  sx: {...headerStyle, ...header.sx},
+                  style: {...headerStyle, ...header.style},
                 },
               }),
               ...groupProps,
@@ -265,7 +266,7 @@ export const List = React.forwardRef<HTMLDivElement, ListProps>((props, forwarde
           </React.Fragment>
         )
       })}
-    </BoxWithFallback>
+    </StyledList>
   )
 })
 

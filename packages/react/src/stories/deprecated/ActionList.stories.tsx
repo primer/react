@@ -176,8 +176,11 @@ export function ComplexListInsetVariantStory(): JSX.Element {
                   )}
                 />
               ),
-              renderGroup: ({sx: sxProps, ...props}) => (
-                <ActionList.Group {...props} sx={{...sxProps, backgroundColor: 'cornflowerblue', color: 'white'}} />
+              renderGroup: ({style: styleProps, ...props}) => (
+                <ActionList.Group
+                  {...props}
+                  style={{...styleProps, backgroundColor: 'cornflowerblue', color: 'white'}}
+                />
               ),
             },
           ]}
@@ -250,8 +253,11 @@ export function ComplexListFullVariantStory(): JSX.Element {
                   )}
                 />
               ),
-              renderGroup: ({sx: sxProps, ...props}) => (
-                <ActionList.Group {...props} sx={{...sxProps, backgroundColor: 'cornflowerblue', color: 'white'}} />
+              renderGroup: ({style: styleProps, ...props}) => (
+                <ActionList.Group
+                  {...props}
+                  style={{...styleProps, backgroundColor: 'cornflowerblue', color: 'white'}}
+                />
               ),
             },
           ]}
