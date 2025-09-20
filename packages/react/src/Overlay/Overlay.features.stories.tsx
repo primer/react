@@ -258,7 +258,7 @@ export const MemexNestedOverlays = ({role, open}: Args) => {
         >
           <form onSubmit={() => setOverlayOpen(false)} className={classes.FormContainer} aria-label="Set Duration Form">
             <div className={classes.FormRow}>
-              <Text className={classes.MediumText}>Duration:</Text>
+              <Text className={classes.MediumTextMuted}>Duration:</Text>
               <TextInput defaultValue={2} aria-label="Duration" />
               <ActionMenu>
                 <ActionMenu.Button sx={{width: 200}} aria-label="Change duration unit">

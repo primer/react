@@ -64,13 +64,6 @@ export type TextInputWithTokensProps<TokenComponentType extends AnyReactComponen
   visibleTokenCount?: number
 } & Omit<TextInputProps, 'size'>
 
-const overflowCountFontSizeMap: Record<TokenSizeKeys, number> = {
-  small: 0,
-  medium: 1,
-  large: 1,
-  xlarge: 2,
-}
-
 const overflowCountClassMap: Record<TokenSizeKeys, string> = {
   small: styles.OverflowCountSmall,
   medium: styles.OverflowCountMedium,

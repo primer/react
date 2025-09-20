@@ -137,9 +137,13 @@
   top: var(--base-size-4);
 }
 
-.MediumText {
+.MediumTextMuted {
   font-size: var(--text-body-size-medium);
   color: var(--fgColor-muted);
+}
+
+.MediumText {
+  font-size: var(--text-body-size-medium);
 }
 
 .MediumTextWithMargin {
