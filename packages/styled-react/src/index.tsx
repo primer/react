@@ -12,6 +12,8 @@ import {
   StateLabel as PrimerStateLabel,
   type StateLabelProps as PrimerStateLabelProps,
   SubNav as PrimerSubNav,
+  type RelativeTimeProps as PrimerRelativeTimeProps,
+  RelativeTime as PrimerRelativeTime,
   type SubNavProps as PrimerSubNavProps,
   type SubNavLinkProps as PrimerSubNavLinkProps,
   ToggleSwitch as PrimerToggleSwitch,
@@ -57,6 +59,13 @@ type StyledProps = SxProp &
   BorderProps &
   PositionProps &
   ShadowProps
+
+type RelativeTimeProps = PrimerRelativeTimeProps & SxProp
+
+function RelativeTime(props: RelativeTimeProps) {
+  // @ts-expect-error the types for Box are not correctly inferred here
+  return <Box as={PrimerRelativeTime} {...props} />
+}
 
 type RadioGroupProps = PropsWithChildren<PrimerRadioGroupProps> & SxProp
 
@@ -192,11 +201,12 @@ const UnderlineNav = Object.assign(UnderlineNavImpl, {
 export {Flash} from './components/Flash'
 
 export {
-  LinkButton,
-  type LinkButtonProps,
   Checkbox,
   CounterLabel,
+  LinkButton,
+  type LinkButtonProps,
   RadioGroup,
+  RelativeTime,
   SegmentedControl,
   StateLabel,
   SubNav,
@@ -227,7 +237,6 @@ export {
   PageHeader,
   PageLayout,
   ProgressBar,
-  RelativeTime,
   Select,
   Spinner,
   Text,
