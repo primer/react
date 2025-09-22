@@ -95,3 +95,9 @@ export const KeybindingHintOnDescription = () => (
 )
 
 export const KeybindingHint = () => <IconButton icon={BoldIcon} aria-label="Bold" keybindingHint="Mod+B" />
+
+export const DelayedTooltip = () => (
+  <Tooltip text="This is a tooltip with 600ms delay" delay={600}>
+    <IconButton icon={HeartIcon} aria-label="HeartIcon" />
+  </Tooltip>
+)
