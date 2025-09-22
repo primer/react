@@ -5,6 +5,8 @@ import {
   type SxProp,
   Checkbox as PrimerCheckbox,
   type CheckboxProps as PrimerCheckboxProps,
+  CounterLabel as PrimerCounterLabel,
+  type CounterLabelProps as PrimerCounterLabelProps,
   StateLabel as PrimerStateLabel,
   type StateLabelProps as PrimerStateLabelProps,
   SubNav as PrimerSubNav,
@@ -77,6 +79,12 @@ const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Checkbox(p
   return <Box as={PrimerCheckbox} ref={ref} {...props} />
 })
 
+type CounterLabelProps = PrimerCounterLabelProps & SxProp
+
+const CounterLabel = forwardRef<HTMLSpanElement, CounterLabelProps>(function CounterLabel(props, ref) {
+  return <Box as={PrimerCounterLabel} ref={ref} {...props} />
+})
+
 type StateLabelProps = PrimerStateLabelProps & SxProp
 
 const StateLabel = forwardRef<HTMLSpanElement, StateLabelProps>(function StateLabel(props, ref) {
@@ -125,7 +133,17 @@ const UnderlineNav = Object.assign(UnderlineNavImpl, {
   Item: UnderlineNavItem,
 })
 
-export {LinkButton, type LinkButtonProps, Checkbox, SegmentedControl, StateLabel, SubNav, ToggleSwitch, UnderlineNav}
+export {
+  LinkButton,
+  type LinkButtonProps,
+  Checkbox,
+  CounterLabel,
+  SegmentedControl,
+  StateLabel,
+  SubNav,
+  ToggleSwitch,
+  UnderlineNav,
+}
 
 export {
   ActionList,
@@ -136,7 +154,6 @@ export {
   Button,
   CheckboxGroup,
   CircleBadge,
-  CounterLabel,
   Details,
   Dialog,
   Flash,
