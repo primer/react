@@ -54,7 +54,7 @@ export const ButtonGroupSingleButton = () => (
 
 export const LinkButtonWithIconButtons = () => (
   <ButtonGroup>
-    <LinkButton size="small" sx={{color: 'deeppink'}} href="https://primer.style">
+    <LinkButton size="small" style={{color: 'deeppink'}} href="https://primer.style">
       Small link
     </LinkButton>
     <Button className="testCustomClassnameColor">Pink link</Button>

@@ -36,6 +36,7 @@ import type {
 } from 'styled-system'
 import styled from 'styled-components'
 import type {ForwardRefComponent} from './polymorphic'
+import {LinkButton, type LinkButtonProps} from './components/LinkButton'
 
 type StyledProps = SxProp &
   SpaceProps &
@@ -124,7 +125,7 @@ const UnderlineNav = Object.assign(UnderlineNavImpl, {
   Item: UnderlineNavItem,
 })
 
-export {Checkbox, SegmentedControl, StateLabel, SubNav, ToggleSwitch, UnderlineNav}
+export {LinkButton, type LinkButtonProps, Checkbox, SegmentedControl, StateLabel, SubNav, ToggleSwitch, UnderlineNav}
 
 export {
   ActionList,
@@ -145,7 +146,6 @@ export {
   IconButton,
   Label,
   Link,
-  LinkButton,
   NavList,
   Overlay,
   PageHeader,
