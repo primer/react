@@ -237,7 +237,6 @@ export {
   Overlay,
   PageHeader,
   PageLayout,
-  ProgressBar,
   Select,
   Spinner,
   Text,
