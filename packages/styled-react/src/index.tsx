@@ -143,11 +143,10 @@ export {
   sx,
 
   // theming depends on styled-components
-  ThemeProvider,
   merge,
   theme,
   themeGet,
   useColorSchemeVar,
-  useTheme,
 } from '@primer/react'
+export {ThemeProvider, useTheme} from './components/ThemeProvider'
 export type {BoxProps, SxProp, BetterSystemStyleObject}

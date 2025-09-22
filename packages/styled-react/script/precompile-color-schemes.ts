@@ -1,7 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 import {colors} from '../src/legacy-theme/ts/colors'
-import {partitionColors, omitScale} from '../src/utils/theme'
+import {partitionColors, omitScale} from '../../react/src/utils/theme'
 import {fileURLToPath} from 'url'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))

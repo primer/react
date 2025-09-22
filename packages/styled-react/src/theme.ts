@@ -1,6 +1,13 @@
-import type {KeyPaths} from './utils/types/KeyPaths'
-import {fontStack} from './utils/theme'
 import {colorSchemes} from './legacy-theme/ts/color-schemes'
+
+// Produces a union of dot-delimited keypaths to the string values in a nested object:
+type KeyPaths<O> = {
+  [K in keyof O]: K extends string ? (O[K] extends Record<string, unknown> ? `${K}.${KeyPaths<O[K]>}` : `${K}`) : never
+}[keyof O]
+
+function fontStack(fonts: Array<string>): string {
+  return fonts.map(font => (font.includes(' ') ? `"${font}"` : font)).join(', ')
+}
 
 const animation = {
   easeOutCubic: 'cubic-bezier(0.33, 1, 0.68, 1)',

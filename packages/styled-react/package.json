@@ -22,9 +22,13 @@
   ],
   "scripts": {
     "build": "script/build",
+    "build:precompile-color-schemes": "tsx script/precompile-color-schemes.ts",
     "clean": "rimraf dist",
     "lint:npm": "publint --types",
     "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "deepmerge": "^4.3.1"
   },
   "devDependencies": {
     "@babel/preset-react": "^7.27.1",
@@ -41,6 +45,7 @@
     "rollup": "4.50.1",
     "rollup-plugin-typescript2": "^0.36.0",
     "styled-components": "5.3.11",
+    "tsx": "4.20.3",
     "typescript": "^5.9.2"
   },
   "peerDependencies": {
