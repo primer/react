@@ -211,6 +211,7 @@ export type {
   PageHeaderProps,
   TitleProps as PageHeaderTitleProps,
   ActionsProps as PageHeaderActionsProps,
+  TitleAreaProps as PageHeaderTitleAreaProps,
 } from './PageHeader'
 
 export {default as sx, merge} from './sx'
