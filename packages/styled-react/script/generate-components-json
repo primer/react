@@ -1,0 +1,64 @@
+#!/usr/bin/env node
+
+import fs from 'node:fs/promises'
+import {fileURLToPath} from 'node:url'
+import path from 'node:path'
+import babel from '@babel/core'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
+
+const PACKAGE_ROOT = path.resolve(__dirname, '..')
+async function generateComponentsJson() {
+  const components = new Set()
+  const types = new Set()
+  const utilities = new Set()
+
+  const entrypoints = ['src/index.tsx', 'src/deprecated.tsx', 'src/experimental.tsx']
+
+  for (const entrypoint of entrypoints) {
+    const filename = path.join(PACKAGE_ROOT, entrypoint)
+    const contents = await fs.readFile(filename, 'utf8')
+    const ast = babel.parse(contents, {
+      sourceFileName: filename,
+      sourceType: 'module',
+      parserOpts: {
+        plugins: ['typescript', 'jsx'],
+      },
+    })
+
+    babel.traverse(ast, {
+      // export { XYZ }
+      // export type { XYZ }
+      ExportNamedDeclaration(path) {
+        for (const specifier of path.node.specifiers) {
+          const exported = specifier.exported.name
+          const exportKind = path.node.exportKind === 'type' ? 'type' : specifier.exportKind
+
+          if (exportKind === 'type') {
+            types.add(exported)
+          } else if (exported[0] === exported[0].toLowerCase()) {
+            utilities.add(exported)
+          } else {
+            components.add(exported)
+          }
+        }
+      },
+    })
+  }
+
+  await fs.writeFile(
+    path.join(PACKAGE_ROOT, 'dist', 'components.json'),
+    JSON.stringify(
+      {
+        components: Array.from(components).sort((a, b) => a.localeCompare(b)),
+        types: Array.from(types).sort((a, b) => a.localeCompare(b)),
+        utilities: Array.from(utilities).sort((a, b) => a.localeCompare(b)),
+      },
+      null,
+      2,
+    ),
+  )
+}
+
+generateComponentsJson()
