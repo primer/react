@@ -3,6 +3,8 @@ import {
   Box,
   type BoxProps,
   type SxProp,
+  Spinner as PrimerSpinner,
+  type SpinnerProps as PrimerSpinnerProps,
   RadioGroup as PrimerRadioGroup,
   type RadioGroupProps as PrimerRadioGroupProps,
   Checkbox as PrimerCheckbox,
@@ -65,6 +67,12 @@ type StyledProps = SxProp &
   BorderProps &
   PositionProps &
   ShadowProps
+
+type SpinnerProps = PrimerSpinnerProps & SxProp
+
+function Spinner(props: SpinnerProps) {
+  return <Box as={PrimerSpinner} {...props} />
+}
 
 type RelativeTimeProps = PrimerRelativeTimeProps & SxProp
 
@@ -256,6 +264,7 @@ export {
   RadioGroup,
   RelativeTime,
   SegmentedControl,
+  Spinner,
   StateLabel,
   SubNav,
   Timeline,
@@ -284,7 +293,6 @@ export {
   Overlay,
   PageLayout,
   Select,
-  Spinner,
   Text,
   Textarea,
   TextInput,
