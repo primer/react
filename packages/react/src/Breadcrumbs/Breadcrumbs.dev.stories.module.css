@@ -1,0 +1,10 @@
+.EditableTextInput {
+  min-width: 120px;
+  max-width: 180px;
+  font-size: inherit;
+  border: var(--borderWidth-thin) dashed var(--borderColor-muted);
+}
+
+.EditableTextInput:focus {
+  border: var(--borderWidth-thin) solid var(--borderColor-accent-emphasis);
+}

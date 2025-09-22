@@ -9,6 +9,10 @@
 }
 
 .ProgressBarItem {
+  /* these are passed from the component */
+  --progress-width: ;
+  --progress-bg: ;
+
   width: var(--progress-width);
   /* stylelint-disable-next-line primer/colors */
   background-color: var(--progress-bg);
@@ -49,13 +53,16 @@
   &:where([data-progress-bar-size='large']) {
     height: 10px;
   }
+}
 
-  /* Width support for containers */
-  &:where([data-width='auto']) {
-    width: auto;
+@media (forced-colors: active) {
+  :root {
+    --progress-bg: LinkText;
+    --progressBar-track-bgColor: CanvasText;
   }
 
-  &:where([data-width='full']) {
-    width: 100%;
+  .ProgressBarContainer,
+  .ProgressBarItem {
+    forced-color-adjust: none;
   }
 }
