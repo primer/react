@@ -170,6 +170,13 @@ const ToggleSwitch = forwardRef<HTMLButtonElement, ToggleSwitchProps>(function T
   return <Box as={PrimerToggleSwitch} ref={ref} {...props} />
 })
 
+export {
+  PageHeader,
+  type PageHeaderProps,
+  type PageHeaderActionsProps,
+  type PageHeaderTitleProps,
+} from './components/PageHeader'
+
 type TruncateProps = PropsWithChildren<PrimerTruncateProps> & SxProp
 
 const Truncate: ForwardRefComponent<'div', TruncateProps> = styled(PrimerTruncate).withConfig<TruncateProps>({
@@ -236,9 +243,7 @@ export {
   Link,
   NavList,
   Overlay,
-  PageHeader,
   PageLayout,
-  ProgressBar,
   Select,
   Spinner,
   Text,
