@@ -4,7 +4,7 @@ import Text from '../Text'
 import classes from './FormControlCaption.module.css'
 import {useFormControlContext} from './_FormControlContext'
 
-type FormControlCaptionProps = React.PropsWithChildren<{
+export type FormControlCaptionProps = React.PropsWithChildren<{
   id?: string
   className?: string
 }>

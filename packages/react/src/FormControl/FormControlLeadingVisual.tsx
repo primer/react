@@ -3,7 +3,7 @@ import {get} from '../constants'
 import {useFormControlContext} from './_FormControlContext'
 import styled from 'styled-components'
 
-const FormControlLeadingVisual: React.FC<React.PropsWithChildren<{}>> = ({children}) => {
+const FormControlLeadingVisual: React.FC<React.PropsWithChildren> = ({children}) => {
   const {disabled, captionId} = useFormControlContext()
   return (
     <StyledLeadingVisual

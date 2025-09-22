@@ -39,6 +39,7 @@ import type {
 import styled from 'styled-components'
 import type {ForwardRefComponent} from './polymorphic'
 import {LinkButton, type LinkButtonProps} from './components/LinkButton'
+import {FormControl, type FormControlProps} from './components/FormControl'
 
 type StyledProps = SxProp &
   SpaceProps &
@@ -134,6 +135,8 @@ const UnderlineNav = Object.assign(UnderlineNavImpl, {
 })
 
 export {
+  FormControl,
+  type FormControlProps,
   LinkButton,
   type LinkButtonProps,
   Checkbox,
@@ -157,7 +160,6 @@ export {
   Details,
   Dialog,
   Flash,
-  FormControl,
   Header,
   Heading,
   IconButton,
