@@ -70,11 +70,6 @@
       "description": "The ARIA role to assign to the top-level node of this component."
     },
     {
-      "name": "sx",
-      "type": "SystemStyleObject",
-      "deprecated": true
-    },
-    {
       "name": "as",
       "type": "React.ElementType",
       "defaultValue": "\"div\""
@@ -100,11 +95,6 @@
           "type": "| boolean | { narrow?: boolean regular?: boolean wide?: boolean }",
           "defaultValue": "false",
           "description": "Whether the content is hidden."
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject",
-          "deprecated": true
         }
       ]
     },
@@ -134,11 +124,6 @@
           "type": "| boolean | { narrow?: boolean regular?: boolean wide?: boolean }",
           "defaultValue": "`{ narrow: false regular: true wide: true }`",
           "description": "Whether the parent link is hidden."
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject",
-          "deprecated": true
         }
       ]
     },
@@ -156,11 +141,6 @@
           "type": "| boolean | { narrow?: boolean regular?: boolean wide?: boolean }",
           "defaultValue": "false",
           "description": "Whether the content is hidden."
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject",
-          "deprecated": true
         }
       ]
     },
@@ -178,11 +158,6 @@
           "type": "| boolean | { narrow?: boolean regular?: boolean wide?: boolean }",
           "defaultValue": "false",
           "description": "Whether the content is hidden."
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject",
-          "deprecated": true
         }
       ]
     },
@@ -206,11 +181,6 @@
           "type": "| 'subtitle' | 'medium' | 'large' | { narrow?: | 'subtitle' | 'medium' | 'large' regular?: | 'subtitle' | 'medium' | 'large' wide?: | 'subtitle' | 'medium' | 'large' }",
           "defaultValue": "medium",
           "description": "Default title (medium) is the most common page title size. Use for static titles in most situations.\nLarge variant should be used for user-generated content such as issues, pull requests, or discussions.\nSubtitle variant can be used when a PageHeader.Title is already present in the page, such as in a SplitPageLayout."
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject",
-          "deprecated": true
         }
       ]
     },
@@ -228,11 +198,6 @@
           "type": "| boolean | { narrow?: boolean regular?: boolean wide?: boolean }",
           "defaultValue": "false",
           "description": "Whether the content is hidden."
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject",
-          "deprecated": true
         }
       ]
     },
@@ -250,11 +215,6 @@
           "type": "| boolean | { narrow?: boolean regular?: boolean wide?: boolean }",
           "defaultValue": "false",
           "description": "Whether the content is hidden."
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject",
-          "deprecated": true
         }
       ]
     },
@@ -272,11 +232,6 @@
           "type": "| boolean | { narrow?: boolean regular?: boolean wide?: boolean }",
           "defaultValue": "false",
           "description": "Whether the content is hidden."
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject",
-          "deprecated": true
         },
         {
           "name": "as",
@@ -299,11 +254,6 @@
           "type": "| boolean | { narrow?: boolean regular?: boolean wide?: boolean }",
           "defaultValue": "false",
           "description": "Whether the content is hidden."
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject",
-          "deprecated": true
         }
       ]
     },
@@ -321,11 +271,6 @@
           "type": "| boolean | { narrow?: boolean regular?: boolean wide?: boolean }",
           "defaultValue": "false",
           "description": "Whether the content is hidden."
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject",
-          "deprecated": true
         }
       ]
     },
@@ -343,11 +288,6 @@
           "type": "| boolean | { narrow?: boolean regular?: boolean wide?: boolean }",
           "defaultValue": "false",
           "description": "Whether the content is hidden."
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject",
-          "deprecated": true
         }
       ]
     },
@@ -365,11 +305,6 @@
           "type": "| boolean | { narrow?: boolean regular?: boolean wide?: boolean }",
           "defaultValue": "false",
           "description": "Whether the content is hidden."
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject",
-          "deprecated": true
         }
       ]
     },
@@ -387,11 +322,6 @@
           "type": "| boolean | { narrow?: boolean regular?: boolean wide?: boolean }",
           "defaultValue": "false",
           "description": "Whether the content is hidden."
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject",
-          "deprecated": true
         }
       ]
     },
@@ -425,13 +355,9 @@
           "type": "| boolean | { narrow?: boolean regular?: boolean wide?: boolean }",
           "defaultValue": "false",
           "description": "Whether the content is hidden."
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject",
-          "deprecated": true
         }
       ]
     }
   ]
 }
+

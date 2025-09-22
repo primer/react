@@ -122,8 +122,6 @@ export {default as Overlay} from './Overlay'
 export type {OverlayProps} from './Overlay'
 export {default as Pagination} from './Pagination'
 export type {PaginationProps} from './Pagination'
-export {default as PointerBox} from './PointerBox'
-export type {PointerBoxProps} from './PointerBox'
 export {default as Popover} from './Popover'
 export type {PopoverProps, PopoverContentProps} from './Popover'
 export {default as Portal, registerPortalRoot, PortalContext} from './Portal'
@@ -131,6 +129,7 @@ export type {PortalProps} from './Portal'
 export {ProgressBar} from './ProgressBar'
 export type {ProgressBarProps, ProgressBarItemProps} from './ProgressBar'
 export {default as RadioGroup} from './RadioGroup'
+export type {RadioGroupProps} from './RadioGroup'
 export type {RelativeTimeProps} from './RelativeTime'
 export {default as RelativeTime} from './RelativeTime'
 export {SegmentedControl} from './SegmentedControl'
@@ -209,7 +208,11 @@ export {Stack} from './Stack'
 export type {StackProps, StackItemProps} from './Stack'
 
 export {PageHeader} from './PageHeader'
-export type {PageHeaderProps} from './PageHeader'
+export type {
+  PageHeaderProps,
+  TitleProps as PageHeaderTitleProps,
+  ActionsProps as PageHeaderActionsProps,
+} from './PageHeader'
 
 export {default as sx, merge} from './sx'
 export type {BetterCssProperties, BetterSystemStyleObject, SxProp} from './sx'
