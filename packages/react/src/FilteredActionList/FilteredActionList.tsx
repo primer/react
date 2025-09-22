@@ -15,7 +15,6 @@ import {useProvidedRefOrCreate} from '../hooks/useProvidedRefOrCreate'
 import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
 import useScrollFlash from '../hooks/useScrollFlash'
 import {VisuallyHidden} from '../VisuallyHidden'
-import type {SxProp} from '../sx'
 import type {FilteredActionListLoadingType} from './FilteredActionListLoaders'
 import {FilteredActionListLoadingTypes, FilteredActionListBodyLoader} from './FilteredActionListLoaders'
 import classes from './FilteredActionList.module.css'
@@ -26,14 +25,10 @@ import {isValidElementType} from 'react-is'
 import {useAnnouncements} from './useAnnouncements'
 import {clsx} from 'clsx'
 import {useFeatureFlag} from '../FeatureFlags'
-import {BoxWithFallback} from '../internal/components/BoxWithFallback'
 
 const menuScrollMargins: ScrollIntoViewOptions = {startMargin: 0, endMargin: 8}
 
-export interface FilteredActionListProps
-  extends Partial<Omit<GroupedListProps, keyof ListPropsBase>>,
-    ListPropsBase,
-    SxProp {
+export interface FilteredActionListProps extends Partial<Omit<GroupedListProps, keyof ListPropsBase>>, ListPropsBase {
   loading?: boolean
   loadingType?: FilteredActionListLoadingType
   placeholderText?: string
@@ -70,7 +65,6 @@ export function FilteredActionList({
   items,
   textInputProps,
   inputRef: providedInputRef,
-  sx,
   groupMetadata,
   showItemDividers,
   message,
@@ -284,7 +278,7 @@ export function FilteredActionList({
         {...listProps}
         role="listbox"
         id={listId}
-        sx={{flexGrow: 1}}
+        className={classes.ActionList}
       >
         {groupMetadata?.length
           ? groupMetadata.map((group, index) => {
@@ -349,12 +343,7 @@ export function FilteredActionList({
   }
 
   return (
-    <BoxWithFallback
-      ref={inputAndListContainerRef}
-      sx={sx}
-      className={clsx(className, classes.Root)}
-      data-testid="filtered-action-list"
-    >
+    <div ref={inputAndListContainerRef} className={clsx(className, classes.Root)} data-testid="filtered-action-list">
       <StyledHeader>
         <TextInput
           ref={inputRef}
@@ -396,7 +385,7 @@ export function FilteredActionList({
       <div ref={scrollContainerRef} className={classes.Container}>
         {getBodyContent()}
       </div>
-    </BoxWithFallback>
+    </div>
   )
 }
 
