@@ -51,7 +51,7 @@ Generic behaviors provide functionality that is not specific to any single compo
 
 ## Component behaviors
 
-Component behaviors specifically implement behaviors for components. Therefore, hooks that implement component behaviors should always return an object containing props objects to be spread across the elements that make up the component's JSX. While component behaviors do not necessarily have to be one-to-one, **a component may only use one component behavior**. Sometimes it makes sense to use the same component behavior on several components. For example: the Dialog, Popover, and PointerBox components may all use the `usePopover` component behavior.
+Component behaviors specifically implement behaviors for components. Therefore, hooks that implement component behaviors should always return an object containing props objects to be spread across the elements that make up the component's JSX. While component behaviors do not necessarily have to be one-to-one, **a component may only use one component behavior**. Sometimes it makes sense to use the same component behavior on several components. For example: the Dialog, and Popover components may all use the `usePopover` component behavior.
 
 ### Component behavior examples
 

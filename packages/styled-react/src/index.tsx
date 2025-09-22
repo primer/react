@@ -158,8 +158,10 @@ export {
   Text,
   Textarea,
   TextInput,
+  type TextInputProps,
   Timeline,
   Token,
+  type TokenProps,
   Tooltip,
   Truncate,
 
