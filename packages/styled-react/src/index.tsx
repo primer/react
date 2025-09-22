@@ -44,13 +44,15 @@ export {theme} from '@primer/react'
 export {themeGet} from '@primer/react'
 export {useColorSchemeVar} from '@primer/react'
 export {useTheme} from '@primer/react'
+export {type TextInputProps} from '@primer/react'
+export {type TokenProps} from '@primer/react'
+
 export {sx, type SxProp} from './sx'
+
 export type {BetterSystemStyleObject} from './styled-props'
 
 import {
-  type BetterSystemStyleObject,
   Box,
-  type BoxProps,
   type SxProp,
   RadioGroup as PrimerRadioGroup,
   type RadioGroupProps as PrimerRadioGroupProps,
@@ -78,6 +80,7 @@ import {
   type UnderlineNavItemProps as PrimerUnderlineNavItemProps,
   sx,
 } from '@primer/react'
+
 import React, {forwardRef, type PropsWithChildren} from 'react'
 import type {ForwardRefComponent} from './polymorphic'
 
@@ -259,5 +262,3 @@ export {Header, type HeaderProps} from './components/Header'
 export {Flash} from './components/Flash'
 
 export {Checkbox, CounterLabel, LinkButton, type LinkButtonProps, RadioGroup, RelativeTime, Truncate, UnderlineNav}
-
-export {type TextInputProps, type TokenProps} from '@primer/react'
