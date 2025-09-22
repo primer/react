@@ -3,11 +3,13 @@ import {
   type PageHeaderProps as PrimerPageHeaderProps,
   type PageHeaderTitleProps as PrimerPageHeaderTitleProps,
   type PageHeaderActionsProps as PrimerPageHeaderActionsProps,
+  type PageHeaderTitleAreaProps as PrimerPageHeaderTitleAreaProps,
 } from '@primer/react'
 import styled from 'styled-components'
 import {sx, type SxProp} from '../sx'
 import type {ForwardRefComponent} from '../polymorphic'
 import {Box} from './Box'
+import type {PropsWithChildren} from 'react'
 
 type PageHeaderProps = PrimerPageHeaderProps & SxProp
 
@@ -35,7 +37,7 @@ function PageHeaderActions({sx, ...rest}: PageHeaderActionsProps) {
   return <Box {...rest} as={PrimerPageHeader.Actions} style={style} sx={sx} />
 }
 
-type PageHeaderTitleProps = PrimerPageHeaderTitleProps & SxProp
+type PageHeaderTitleProps = PropsWithChildren<PrimerPageHeaderTitleProps> & SxProp
 
 type CSSCustomProperties = {
   [key: `--${string}`]: string | number
@@ -63,9 +65,22 @@ function PageHeaderTitle({sx, ...rest}: PageHeaderTitleProps) {
   return <Box {...rest} as={PrimerPageHeader.Title} style={style} sx={sx} />
 }
 
+type PageHeaderTitleAreaProps = PropsWithChildren<PrimerPageHeaderTitleAreaProps> & SxProp
+
+const PageHeaderTitleArea: ForwardRefComponent<'div', PageHeaderTitleAreaProps> = styled(
+  PrimerPageHeader.TitleArea,
+).withConfig<PageHeaderTitleAreaProps>({
+  shouldForwardProp: prop => prop !== 'sx',
+})`
+  ${sx}
+`
+
 const PageHeader = Object.assign(PageHeaderImpl, {
   Actions: PageHeaderActions,
   Title: PageHeaderTitle,
+  TitleArea: PageHeaderTitleArea,
+  ContextArea: PrimerPageHeader.ContextArea,
+  ContextAreaActions: PrimerPageHeader.ContextAreaActions,
 })
 
 export {PageHeader}
