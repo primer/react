@@ -63,7 +63,6 @@ type StyledProps = SxProp &
 type RelativeTimeProps = PrimerRelativeTimeProps & SxProp
 
 function RelativeTime(props: RelativeTimeProps) {
-  // @ts-expect-error the types for Box are not correctly inferred here
   return <Box as={PrimerRelativeTime} {...props} />
 }
 
