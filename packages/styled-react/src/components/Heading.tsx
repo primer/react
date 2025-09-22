@@ -1,14 +1,15 @@
 import {Heading as PrimerHeading} from '@primer/react'
-import type {HeadingProps as PrimerHeadingProps} from '@primer/react'
-import {forwardRef} from 'react'
-import {Box} from './Box'
+import {sx, type HeadingProps as PrimerHeadingProps} from '@primer/react'
 import type {ForwardRefComponent} from '../polymorphic'
 import type {SxProp} from '../sx'
+import styled from 'styled-components'
 
 type HeadingProps = PrimerHeadingProps & SxProp
 
-const Heading = forwardRef(function Heading(props, ref) {
-  return <Box ref={ref} as={PrimerHeading} {...props} />
-}) as ForwardRefComponent<'h2', HeadingProps>
+const Heading: ForwardRefComponent<'h2', HeadingProps> = styled(PrimerHeading).withConfig({
+  shouldForwardProp: prop => (prop as keyof HeadingProps) !== 'sx',
+})<HeadingProps>`
+  ${sx}
+`
 
 export {Heading, type HeadingProps}
