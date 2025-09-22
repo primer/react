@@ -9,7 +9,9 @@ import {type ForwardRefComponent} from '../polymorphic'
 
 type LinkButtonProps = PrimerLinkButtonProps & SxProp
 
-const LinkButton: ForwardRefComponent<'a', LinkButtonProps> = styled(PrimerLinkButton)<LinkButtonProps>`
+const LinkButton: ForwardRefComponent<'a', LinkButtonProps> = styled(PrimerLinkButton).withConfig({
+  shouldForwardProp: prop => (prop as keyof LinkButtonProps) !== 'sx',
+})<LinkButtonProps>`
   ${sx}
 `
 
