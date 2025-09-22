@@ -27,11 +27,6 @@
       "type": "string",
       "description": "Class name(s) for custom styling.",
       "defaultValue": ""
-    },
-    {
-      "name": "sx",
-      "type": "BetterSystemStyleObject",
-      "deprecated": true
     }
   ],
   "subcomponents": []

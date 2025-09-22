@@ -3,6 +3,10 @@ import {
   Box,
   type BoxProps,
   type SxProp,
+  Checkbox as PrimerCheckbox,
+  type CheckboxProps as PrimerCheckboxProps,
+  CounterLabel as PrimerCounterLabel,
+  type CounterLabelProps as PrimerCounterLabelProps,
   StateLabel as PrimerStateLabel,
   type StateLabelProps as PrimerStateLabelProps,
   SubNav as PrimerSubNav,
@@ -28,6 +32,7 @@ import type {
   SpaceProps,
   TypographyProps,
 } from 'styled-system'
+import {LinkButton, type LinkButtonProps} from './components/LinkButton'
 
 type StyledProps = SxProp &
   SpaceProps &
@@ -62,6 +67,18 @@ const SegmentedControl = Object.assign(SegmentedControlImpl, {
   IconButton: SegmentedControlIconButton,
 })
 
+type CheckboxProps = PrimerCheckboxProps & SxProp
+
+const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Checkbox(props, ref) {
+  return <Box as={PrimerCheckbox} ref={ref} {...props} />
+})
+
+type CounterLabelProps = PrimerCounterLabelProps & SxProp
+
+const CounterLabel = forwardRef<HTMLSpanElement, CounterLabelProps>(function CounterLabel(props, ref) {
+  return <Box as={PrimerCounterLabel} ref={ref} {...props} />
+})
+
 type StateLabelProps = PrimerStateLabelProps & SxProp
 
 const StateLabel = forwardRef<HTMLSpanElement, StateLabelProps>(function StateLabel(props, ref) {
@@ -88,10 +105,10 @@ type ToggleSwitchProps = PrimerToggleSwitchProps & Omit<StyledProps, keyof Prime
 
 const ToggleSwitch = forwardRef<HTMLButtonElement, ToggleSwitchProps>(function ToggleSwitch(props, ref) {
   return <Box as={PrimerToggleSwitch} ref={ref} {...props} />
-})
-
+})  
+        
 export {Flash} from './components/Flash'
-export {SegmentedControl, StateLabel, SubNav, ToggleSwitch}
+export {LinkButton, type LinkButtonProps, Checkbox, CounterLabel, SegmentedControl, StateLabel, SubNav, ToggleSwitch}
 
 export {
   ActionList,
@@ -100,10 +117,8 @@ export {
   Avatar,
   Breadcrumbs,
   Button,
-  Checkbox,
   CheckboxGroup,
   CircleBadge,
-  CounterLabel,
   Details,
   Dialog,
   FormControl,
@@ -112,7 +127,6 @@ export {
   IconButton,
   Label,
   Link,
-  LinkButton,
   NavList,
   Overlay,
   PageHeader,
@@ -125,8 +139,10 @@ export {
   Text,
   Textarea,
   TextInput,
+  type TextInputProps,
   Timeline,
   Token,
+  type TokenProps,
   Tooltip,
   Truncate,
   UnderlineNav,
