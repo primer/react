@@ -185,6 +185,7 @@ exports[`@primer/react > should not update exports without a semver change 1`] =
   "type TimelineBadgeProps",
   "type TimelineBodyProps",
   "type TimelineBreakProps",
+  "type TimelineItemProps",
   "type TimelineItemsProps",
   "type TimelineProps",
   "ToggleSwitch",
