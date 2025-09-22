@@ -20,7 +20,6 @@ const unsupported = new Set(
     'src/ConfirmationDialog/**/*.tsx',
     'src/Pagehead/**/*.tsx',
     'src/Pagination/**/*.tsx',
-    'src/PointerBox/**/*.tsx',
     'src/SelectPanel/**/*.tsx',
     'src/SideNav.tsx',
     'src/internal/components/CheckboxOrRadioGroup/**/*.tsx',
