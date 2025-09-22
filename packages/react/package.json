@@ -1,44 +1,43 @@
 {
   "name": "@primer/react",
-  "version": "38.0.0-rc.2",
+  "type": "module",
+  "version": "38.0.0-rc.3",
   "description": "An implementation of GitHub's Primer Design System using React",
-  "main": "lib/index.js",
-  "module": "lib-esm/index.js",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
   "exports": {
     ".": {
-      "import": "./lib-esm/index.js",
-      "require": "./lib/index.js"
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
     },
     "./experimental": {
-      "import": "./lib-esm/experimental/index.js",
-      "require": "./lib/experimental/index.js"
+      "types": "./dist/experimental/index.d.ts",
+      "default": "./dist/experimental/index.js"
     },
     "./deprecated": {
-      "import": "./lib-esm/deprecated/index.js",
-      "require": "./lib/deprecated/index.js"
+      "types": "./dist/deprecated/index.d.ts",
+      "default": "./dist/deprecated/index.js"
     },
     "./next": {
-      "import": "./lib-esm/next/index.js",
-      "require": "./lib/next/index.js"
+      "types": "./dist/next/index.d.ts",
+      "default": "./dist/next/index.js"
     },
     "./test-helpers": {
-      "import": "./lib-esm/test-helpers.js",
-      "require": "./lib/test-helpers.js"
+      "types": "./dist/utils/test-helpers.d.ts",
+      "default": "./dist/test-helpers.js"
     },
     "./generated/components.json": "./generated/components.json",
     "./generated/hooks.json": "./generated/hooks.json"
   },
-  "typings": "lib/index.d.ts",
+  "typings": "dist/index.d.ts",
   "sideEffects": [
-    "lib-esm/**/*.css",
-    "lib/**/*.css",
+    "dist/**/*.css",
     "src/**/test-helpers.tsx",
-    "lib-esm/**/test-helpers.js",
-    "lib/**/test-helpers.js"
+    "dist/**/test-helpers.js"
   ],
   "scripts": {
     "build": "./script/build",
-    "clean": "rimraf dist lib lib-esm css",
+    "clean": "rimraf dist generated",
     "start": "concurrently npm:start:*",
     "start:storybook": "STORYBOOK=true storybook dev -p 6006",
     "build:storybook": "storybook build",
@@ -47,6 +46,7 @@
     "build:components.json": "tsx script/components-json/build.ts",
     "build:hooks.json": "tsx script/hooks-json/build.ts",
     "build:precompile-color-schemes": "tsx script/precompile-color-schemes.ts",
+    "lint:npm": "publint --types",
     "storybook": "storybook",
     "type-check": "tsc --noEmit",
     "type-css-modules": "tcm -p src/**/*.module.css"
@@ -59,19 +59,7 @@
     "design-system"
   ],
   "files": [
-    "codemods",
     "dist",
-    "lib",
-    "lib/node_modules",
-    "lib-esm",
-    "css",
-    "index.d.ts",
-    "deprecated/package.json",
-    "experimental/package.json",
-    "!lib/__tests__",
-    "!lib/stories",
-    "!lib-esm/__tests__",
-    "!lib-esm/stories",
     "generated",
     "CHANGELOG.md"
   ],
@@ -87,7 +75,7 @@
     "@github/tab-container-element": "^4.8.2",
     "@lit-labs/react": "1.2.1",
     "@oddbird/popover-polyfill": "^0.5.2",
-    "@primer/behaviors": "^1.8.0",
+    "@primer/behaviors": "^1.8.2",
     "@primer/live-region-element": "^0.7.1",
     "@primer/octicons-react": "^19.13.0",
     "@primer/primitives": "10.x || 11.x",
@@ -182,6 +170,7 @@
     "micromark-extension-frontmatter": "2.0.0",
     "micromark-extension-mdxjs": "3.0.0",
     "postcss-preset-primer": "^0.0.0",
+    "publint": "^0.3.12",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "react-is": "18.3.1",
