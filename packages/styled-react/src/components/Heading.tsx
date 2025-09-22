@@ -1,7 +1,7 @@
 import {Heading as PrimerHeading} from '@primer/react'
-import {sx, type HeadingProps as PrimerHeadingProps} from '@primer/react'
+import {type HeadingProps as PrimerHeadingProps} from '@primer/react'
 import type {ForwardRefComponent} from '../polymorphic'
-import type {SxProp} from '../sx'
+import {sx, type SxProp} from '../sx'
 import styled from 'styled-components'
 
 type HeadingProps = PrimerHeadingProps & SxProp
