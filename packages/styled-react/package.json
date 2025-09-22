@@ -1,6 +1,6 @@
 {
   "name": "@primer/styled-react",
-  "version": "1.0.0-rc.2",
+  "version": "1.0.0-rc.3",
   "type": "module",
   "exports": {
     ".": {
@@ -14,7 +14,8 @@
     "./experimental": {
       "types": "./dist/experimental.d.ts",
       "default": "./dist/experimental.js"
-    }
+    },
+    "./components.json": "./dist/components.json"
   },
   "files": [
     "README.md",
@@ -29,7 +30,7 @@
   "devDependencies": {
     "@babel/preset-react": "^7.27.1",
     "@babel/preset-typescript": "^7.27.1",
-    "@primer/react": "^38.0.0-rc.2",
+    "@primer/react": "^38.0.0-rc.3",
     "@rollup/plugin-babel": "^6.0.4",
     "@types/react": "18.3.11",
     "@types/react-dom": "18.3.1",
@@ -45,7 +46,7 @@
     "typescript": "^5.9.2"
   },
   "peerDependencies": {
-    "@primer/react": "38.0.0-rc.2",
+    "@primer/react": "38.0.0-rc.3",
     "@types/react": "18.x || 19.x",
     "@types/react-dom": "18.x || 19.x",
     "@types/react-is": "18.x || 19.x",

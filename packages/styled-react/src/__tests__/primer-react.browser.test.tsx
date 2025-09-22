@@ -27,7 +27,6 @@ import {
   Overlay,
   PageHeader,
   PageLayout,
-  ProgressBar,
   RadioGroup,
   RelativeTime,
   SegmentedControl,
@@ -283,16 +282,6 @@ describe('@primer/react', () => {
 
   test('PageLayout.Footer supports `sx` prop', () => {
     const {container} = render(<PageLayout.Footer data-testid="component" sx={{background: 'red'}} />)
-    expect(window.getComputedStyle(container.firstElementChild!).backgroundColor).toBe('rgb(255, 0, 0)')
-  })
-
-  test('ProgressBar supports `sx` prop', () => {
-    const {container} = render(<ProgressBar data-testid="component" sx={{background: 'red'}} />)
-    expect(window.getComputedStyle(container.firstElementChild!).backgroundColor).toBe('rgb(255, 0, 0)')
-  })
-
-  test('ProgressBar.Item supports `sx` prop', () => {
-    const {container} = render(<ProgressBar.Item data-testid="component" sx={{background: 'red'}} />)
     expect(window.getComputedStyle(container.firstElementChild!).backgroundColor).toBe('rgb(255, 0, 0)')
   })
 

@@ -1,0 +1,12 @@
+.Logo {
+  /* stylelint-disable-next-line primer/typography */
+  font-size: var(--base-size-16);
+}
+
+.Icon {
+  margin-right: var(--base-size-8);
+}
+
+.LastItem {
+  margin-right: 0;
+}

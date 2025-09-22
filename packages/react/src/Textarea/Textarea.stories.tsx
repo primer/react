@@ -55,11 +55,6 @@ Playground.argTypes = {
   rows: {
     control: {type: 'number'},
   },
-  sx: {
-    table: {
-      disable: true,
-    },
-  },
   validationStatus: {
     options: ['error', 'success'],
     control: {type: 'radio'},
