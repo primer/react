@@ -189,6 +189,8 @@ const UnderlineNav = Object.assign(UnderlineNavImpl, {
   Item: UnderlineNavItem,
 })
 
+export {Flash} from './components/Flash'
+
 export {
   LinkButton,
   type LinkButtonProps,
@@ -214,7 +216,6 @@ export {
   CircleBadge,
   Details,
   Dialog,
-  Flash,
   FormControl,
   Header,
   Heading,
