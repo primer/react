@@ -18,8 +18,12 @@ import {
   SegmentedControl as PrimerSegmentedControl,
   type SegmentedControlButtonProps as PrimerSegmentedControlButtonProps,
   type SegmentedControlIconButtonProps as PrimerSegmentedControlIconButtonProps,
+  UnderlineNav as PrimerUnderlineNav,
+  type UnderlineNavProps as PrimerUnderlineNavProps,
+  type UnderlineNavItemProps as PrimerUnderlineNavItemProps,
+  sx,
 } from '@primer/react'
-import React, {forwardRef, type PropsWithChildren} from 'react'
+import React, {type PropsWithChildren, forwardRef} from 'react'
 import type {
   BackgroundProps,
   BorderProps,
@@ -32,6 +36,8 @@ import type {
   SpaceProps,
   TypographyProps,
 } from 'styled-system'
+import styled from 'styled-components'
+import type {ForwardRefComponent} from './polymorphic'
 import {LinkButton, type LinkButtonProps} from './components/LinkButton'
 
 type StyledProps = SxProp &
@@ -107,7 +113,37 @@ const ToggleSwitch = forwardRef<HTMLButtonElement, ToggleSwitchProps>(function T
   return <Box as={PrimerToggleSwitch} ref={ref} {...props} />
 })
 
-export {LinkButton, type LinkButtonProps, Checkbox, CounterLabel, SegmentedControl, StateLabel, SubNav, ToggleSwitch}
+type UnderlineNavProps = PrimerUnderlineNavProps & SxProp
+
+const UnderlineNavImpl = forwardRef<HTMLElement, UnderlineNavProps>(function UnderlineNav(props, ref) {
+  return <Box as={PrimerUnderlineNav} ref={ref} {...props} />
+})
+
+type UnderlineNavItemProps = PrimerUnderlineNavItemProps & SxProp
+
+const UnderlineNavItem: ForwardRefComponent<'a', UnderlineNavItemProps> = styled(
+  PrimerUnderlineNav.Item,
+).withConfig<UnderlineNavItemProps>({
+  shouldForwardProp: prop => prop !== 'sx',
+})`
+  ${sx}
+`
+
+const UnderlineNav = Object.assign(UnderlineNavImpl, {
+  Item: UnderlineNavItem,
+})
+
+export {
+  LinkButton,
+  type LinkButtonProps,
+  Checkbox,
+  CounterLabel,
+  SegmentedControl,
+  StateLabel,
+  SubNav,
+  ToggleSwitch,
+  UnderlineNav,
+}
 
 export {
   ActionList,
@@ -145,7 +181,6 @@ export {
   type TokenProps,
   Tooltip,
   Truncate,
-  UnderlineNav,
 
   // styled-components components or types
   Box,
