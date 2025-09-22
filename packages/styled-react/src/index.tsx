@@ -3,6 +3,8 @@ import {
   Box,
   type BoxProps,
   type SxProp,
+  RadioGroup as PrimerRadioGroup,
+  type RadioGroupProps as PrimerRadioGroupProps,
   Checkbox as PrimerCheckbox,
   type CheckboxProps as PrimerCheckboxProps,
   CounterLabel as PrimerCounterLabel,
@@ -14,6 +16,8 @@ import {
   type SubNavLinkProps as PrimerSubNavLinkProps,
   ToggleSwitch as PrimerToggleSwitch,
   type ToggleSwitchProps as PrimerToggleSwitchProps,
+  Truncate as PrimerTruncate,
+  type TruncateProps as PrimerTruncateProps,
   type SegmentedControlProps as PrimerSegmentedControlProps,
   SegmentedControl as PrimerSegmentedControl,
   type SegmentedControlButtonProps as PrimerSegmentedControlButtonProps,
@@ -23,7 +27,9 @@ import {
   type UnderlineNavItemProps as PrimerUnderlineNavItemProps,
   sx,
 } from '@primer/react'
-import React, {type PropsWithChildren, forwardRef} from 'react'
+import React, {forwardRef, type PropsWithChildren} from 'react'
+import type {ForwardRefComponent} from './polymorphic'
+
 import type {
   BackgroundProps,
   BorderProps,
@@ -37,7 +43,7 @@ import type {
   TypographyProps,
 } from 'styled-system'
 import styled from 'styled-components'
-import type {ForwardRefComponent} from './polymorphic'
+
 import {LinkButton, type LinkButtonProps} from './components/LinkButton'
 
 type StyledProps = SxProp &
@@ -51,6 +57,48 @@ type StyledProps = SxProp &
   BorderProps &
   PositionProps &
   ShadowProps
+
+type RadioGroupProps = PropsWithChildren<PrimerRadioGroupProps> & SxProp
+
+const RadioGroupImpl = (props: RadioGroupProps) => {
+  return <Box as={PrimerRadioGroup} {...props} />
+}
+
+// Define local types based on the internal component props
+type CheckboxOrRadioGroupLabelProps = PropsWithChildren<
+  {
+    className?: string
+    visuallyHidden?: boolean
+  } & SxProp
+>
+const CheckboxOrRadioGroupLabel = (props: CheckboxOrRadioGroupLabelProps) => {
+  return <Box as={PrimerRadioGroup.Label} {...props} />
+}
+
+type CheckboxOrRadioGroupCaptionProps = PropsWithChildren<
+  {
+    className?: string
+  } & SxProp
+>
+const CheckboxOrRadioGroupCaption = (props: CheckboxOrRadioGroupCaptionProps) => {
+  return <Box as={PrimerRadioGroup.Caption} {...props} />
+}
+
+type CheckboxOrRadioGroupValidationProps = PropsWithChildren<
+  {
+    className?: string
+    variant: 'error' | 'success'
+  } & SxProp
+>
+const CheckboxOrRadioGroupValidation = (props: CheckboxOrRadioGroupValidationProps) => {
+  return <Box as={PrimerRadioGroup.Validation} {...props} />
+}
+
+const RadioGroup = Object.assign(RadioGroupImpl, {
+  Label: CheckboxOrRadioGroupLabel,
+  Caption: CheckboxOrRadioGroupCaption,
+  Validation: CheckboxOrRadioGroupValidation,
+})
 
 type SegmentedControlProps = PropsWithChildren<PrimerSegmentedControlProps> & SxProp
 type SegmentedControlButtonProps = PropsWithChildren<PrimerSegmentedControlButtonProps> & SxProp
@@ -113,6 +161,14 @@ const ToggleSwitch = forwardRef<HTMLButtonElement, ToggleSwitchProps>(function T
   return <Box as={PrimerToggleSwitch} ref={ref} {...props} />
 })
 
+type TruncateProps = PropsWithChildren<PrimerTruncateProps> & SxProp
+
+const Truncate: ForwardRefComponent<'div', TruncateProps> = styled(PrimerTruncate).withConfig<TruncateProps>({
+  shouldForwardProp: prop => prop !== 'sx',
+})`
+  ${sx}
+`
+
 type UnderlineNavProps = PrimerUnderlineNavProps & SxProp
 
 const UnderlineNavImpl = forwardRef<HTMLElement, UnderlineNavProps>(function UnderlineNav(props, ref) {
@@ -138,10 +194,12 @@ export {
   type LinkButtonProps,
   Checkbox,
   CounterLabel,
+  RadioGroup,
   SegmentedControl,
   StateLabel,
   SubNav,
   ToggleSwitch,
+  Truncate,
   UnderlineNav,
 }
 
@@ -168,7 +226,6 @@ export {
   PageHeader,
   PageLayout,
   ProgressBar,
-  RadioGroup,
   RelativeTime,
   Select,
   Spinner,
@@ -180,8 +237,6 @@ export {
   Token,
   type TokenProps,
   Tooltip,
-  Truncate,
-
   // styled-components components or types
   Box,
   sx,
