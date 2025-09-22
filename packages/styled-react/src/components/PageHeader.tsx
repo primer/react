@@ -64,8 +64,20 @@ function PageHeaderTitle({sx, ...rest}: PageHeaderTitleProps) {
 }
 
 const PageHeader = Object.assign(PageHeaderImpl, {
-  Actions: PageHeaderActions,
+  ContextArea: PrimerPageHeader.ContextArea,
+  ParentLink: PrimerPageHeader.ParentLink,
+  ContextBar: PrimerPageHeader.ContextBar,
+  TitleArea: PrimerPageHeader.TitleArea,
+  ContextAreaActions: PrimerPageHeader.ContextAreaActions,
+  LeadingAction: PrimerPageHeader.LeadingAction,
+  Breadcrumbs: PrimerPageHeader.Breadcrumbs,
+  LeadingVisual: PrimerPageHeader.LeadingVisual,
   Title: PageHeaderTitle,
+  TrailingVisual: PrimerPageHeader.TrailingVisual,
+  TrailingAction: PrimerPageHeader.TrailingAction,
+  Actions: PageHeaderActions,
+  Description: PrimerPageHeader.Description,
+  Navigation: PrimerPageHeader.Navigation,
 })
 
 export {PageHeader}
