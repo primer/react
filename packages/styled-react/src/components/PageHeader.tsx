@@ -63,7 +63,22 @@ function PageHeaderTitle({sx, ...rest}: PageHeaderTitleProps) {
   return <Box {...rest} as={PrimerPageHeader.Title} style={style} sx={sx} />
 }
 
-const PageHeader = Object.assign(PageHeaderImpl, {
+const PageHeader: typeof PageHeaderImpl & {
+  ContextArea: typeof PrimerPageHeader.ContextArea
+  ParentLink: typeof PrimerPageHeader.ParentLink
+  ContextBar: typeof PrimerPageHeader.ContextBar
+  TitleArea: typeof PrimerPageHeader.TitleArea
+  ContextAreaActions: typeof PrimerPageHeader.ContextAreaActions
+  LeadingAction: typeof PrimerPageHeader.LeadingAction
+  Breadcrumbs: typeof PrimerPageHeader.Breadcrumbs
+  LeadingVisual: typeof PrimerPageHeader.LeadingVisual
+  Title: typeof PageHeaderTitle
+  TrailingVisual: typeof PrimerPageHeader.TrailingVisual
+  TrailingAction: typeof PrimerPageHeader.TrailingAction
+  Actions: typeof PageHeaderActions
+  Description: typeof PrimerPageHeader.Description
+  Navigation: typeof PrimerPageHeader.Navigation
+} = Object.assign(PageHeaderImpl, {
   ContextArea: PrimerPageHeader.ContextArea,
   ParentLink: PrimerPageHeader.ParentLink,
   ContextBar: PrimerPageHeader.ContextBar,
