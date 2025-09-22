@@ -342,6 +342,8 @@ export function FilteredActionList({
     }
   }
 
+  const {className: textInputClassName, ...restTextInputProps} = textInputProps || {}
+
   return (
     <div ref={inputAndListContainerRef} className={clsx(className, classes.Root)} data-testid="filtered-action-list">
       <StyledHeader>
@@ -363,8 +365,8 @@ export function FilteredActionList({
           aria-describedby={inputDescriptionTextId}
           loaderPosition={'leading'}
           loading={loading && !loadingType.appearsInBody}
-          className={clsx(textInputProps?.className, fullScreenOnNarrow && classes.FullScreenTextInput)}
-          {...textInputProps}
+          className={clsx(textInputClassName, {[classes.FullScreenTextInput]: fullScreenOnNarrow})}
+          {...restTextInputProps}
         />
       </StyledHeader>
       <VisuallyHidden id={inputDescriptionTextId}>Items will be filtered as you type</VisuallyHidden>
