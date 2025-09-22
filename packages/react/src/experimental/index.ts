@@ -39,7 +39,13 @@ export * from '../Dialog/Dialog'
 export {InlineMessage} from '../InlineMessage'
 export type {InlineMessageProps} from '../InlineMessage'
 
-export * from '../PageHeader'
+export {PageHeader} from '../PageHeader'
+export type {
+  PageHeaderProps,
+  TitleProps,
+  TitleProps as PageHeaderTitleProps,
+  ActionsProps as PageHeaderActionsProps,
+} from '../PageHeader'
 
 export * from '../Hidden'
 

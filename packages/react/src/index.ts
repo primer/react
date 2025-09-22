@@ -207,7 +207,11 @@ export {Stack} from './Stack'
 export type {StackProps, StackItemProps} from './Stack'
 
 export {PageHeader} from './PageHeader'
-export type {PageHeaderProps} from './PageHeader'
+export type {
+  PageHeaderProps,
+  TitleProps as PageHeaderTitleProps,
+  ActionsProps as PageHeaderActionsProps,
+} from './PageHeader'
 
 export {default as sx, merge} from './sx'
 export type {BetterCssProperties, BetterSystemStyleObject, SxProp} from './sx'
