@@ -1,5 +1,85 @@
 # @primer/react
 
+## 38.0.0-rc.3
+
+### Major Changes
+
+- [#6754](https://github.com/primer/react/pull/6754) [`4d080aa`](https://github.com/primer/react/commit/4d080aa4c8718d2f4ab42c841cf2c8d252cdd19f) Thanks [@TylerJDev](https://github.com/TylerJDev)! - Update Popover to no longer support sx
+
+- [#6666](https://github.com/primer/react/pull/6666) [`71382dc`](https://github.com/primer/react/commit/71382dc5c0726f46a9da7823a9543334b7d0fcca) Thanks [@mperrotti](https://github.com/mperrotti)! - Removes styled-system usage from TextInputWrapper and related components and Storybook stories.
+
+- [#6425](https://github.com/primer/react/pull/6425) [`e23d965`](https://github.com/primer/react/commit/e23d96524783863d92fc770a36c564b14098242b) Thanks [@joshblack](https://github.com/joshblack)! - Update @primer/react to only export ESM bundles
+
+- [#6806](https://github.com/primer/react/pull/6806) [`9d13904`](https://github.com/primer/react/commit/9d13904037541d8f4f68d5d833f632304cace06e) Thanks [@joshblack](https://github.com/joshblack)! - Remove the `sx` prop from `Announce`, `AriaAlert`, and `AriaStatus`
+
+- [#6741](https://github.com/primer/react/pull/6741) [`4896ef1`](https://github.com/primer/react/commit/4896ef1b541e47e5f6364c5eb0f7ab357594e456) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - Remove sx prop support from the SegmentedControl component.
+
+### Minor Changes
+
+- [#6815](https://github.com/primer/react/pull/6815) [`2024709`](https://github.com/primer/react/commit/2024709eca73533c74ee042cb1524e78e495fba2) Thanks [@francinelucca](https://github.com/francinelucca)! - chore: add PortalContext
+
+- [#6709](https://github.com/primer/react/pull/6709) [`78784b3`](https://github.com/primer/react/commit/78784b3127acb844ec8a60d4a36141addb75d43d) Thanks [@pksjce](https://github.com/pksjce)! - Remove overflow property from popover (It has no usage)
+
+- [#6721](https://github.com/primer/react/pull/6721) [`d6378c2`](https://github.com/primer/react/commit/d6378c246748403275ca17bc8aa7f713157ab1b7) Thanks [@cheshire137](https://github.com/cheshire137)! - Add count to SegmentedControlButton
+
+- [#6843](https://github.com/primer/react/pull/6843) [`f082c77`](https://github.com/primer/react/commit/f082c77768526d9f97566a793e80a386cc0bc699) Thanks [@camchenry](https://github.com/camchenry)! - Allow changing initially focused button in ConfirmationDialog
+
+### Patch Changes
+
+- [#6669](https://github.com/primer/react/pull/6669) [`627cc4b`](https://github.com/primer/react/commit/627cc4bc2663cc50a6b21cf6ec8b8e99b7b260bb) Thanks [@francinelucca](https://github.com/francinelucca)! - chore: use Banner instead of custom implementation for SelectPanel notice
+
+- [#6664](https://github.com/primer/react/pull/6664) [`2910207`](https://github.com/primer/react/commit/2910207766bf6d7168ce356f401d99d26538c496) Thanks [@pksjce](https://github.com/pksjce)! - Breadcrumbs : Add overflow menu for responsive behavior
+
+- [#6664](https://github.com/primer/react/pull/6664) [`2910207`](https://github.com/primer/react/commit/2910207766bf6d7168ce356f401d99d26538c496) Thanks [@pksjce](https://github.com/pksjce)! - Breadcrumb overflow styling
+
+- [#6846](https://github.com/primer/react/pull/6846) [`37ce4aa`](https://github.com/primer/react/commit/37ce4aaf2830fbe0423e0d7546dfdad6e21ac398) Thanks [@mperrotti](https://github.com/mperrotti)! - Adds `sx` prop back to TextInput
+
+## 38.0.0-rc.2
+
+### Major Changes
+
+- [#6634](https://github.com/primer/react/pull/6634) [`d883432`](https://github.com/primer/react/commit/d883432010274cf87691a9affb0e012764b2cdae) Thanks [@TylerJDev](https://github.com/TylerJDev)! - CircleOcticon: Remove component `CircleOcticon`
+
+- [#6713](https://github.com/primer/react/pull/6713) [`7d7b797`](https://github.com/primer/react/commit/7d7b797b7696af8dd9533e501f62f3666982307d) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - Deprecate TextInputWithTokens component. The component has been moved to the deprecated entrypoint due to low usage and accessibility implications. Import from `@primer/react/deprecated` instead of `@primer/react`.
+
+- [#6272](https://github.com/primer/react/pull/6272) [`d74d73e`](https://github.com/primer/react/commit/d74d73e413a9941cdc74c6f5a2cf6b1be9e7e8db) Thanks [@llastflowers](https://github.com/llastflowers)! - remove unused `contrast` from Select component
+
+- [#6652](https://github.com/primer/react/pull/6652) [`c6d923f`](https://github.com/primer/react/commit/c6d923f93c0cb40453f1a9dab9209a9caeb87bce) Thanks [@llastflowers](https://github.com/llastflowers)! - Update AvatarStack component to no longer support sx
+
+- [#6716](https://github.com/primer/react/pull/6716) [`e177d55`](https://github.com/primer/react/commit/e177d551730a30a0f3cddf97fb55ee1ca54c784a) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - Remove sx prop support from the SelectPanel component.
+
+- [#6737](https://github.com/primer/react/pull/6737) [`2d01fc4`](https://github.com/primer/react/commit/2d01fc4116ea5bf77dcaae4674aa80930ebe4917) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - Remove sx prop support from the Select component.
+
+- [#6706](https://github.com/primer/react/pull/6706) [`e3f26cc`](https://github.com/primer/react/commit/e3f26ccbcf40b38cea75f32970ddb23865d7b827) Thanks [@TylerJDev](https://github.com/TylerJDev)! - Deprecate CircleBadge component
+
+- [#6676](https://github.com/primer/react/pull/6676) [`ab5ffb0`](https://github.com/primer/react/commit/ab5ffb00d6e54224542ee60bcc23915b0bb65b15) Thanks [@mperrotti](https://github.com/mperrotti)! - Removes styled-system and related utilities from Caret.tsx, IssueLabelToken.tsx, StateLabel.tsx, ToggleSwitch.tsx, and deprecated/ActionList/List.tsx
+
+  Removes WidthProps from ProgressBar.tsx
+
+- [#6735](https://github.com/primer/react/pull/6735) [`45a52c1`](https://github.com/primer/react/commit/45a52c17cc72af52d123d7104b2d395cd2ca61c8) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - Update SideNav component to no longer support sx.
+
+- [#6682](https://github.com/primer/react/pull/6682) [`5bbaae7`](https://github.com/primer/react/commit/5bbaae78f732df2470c1ea7933863ef8a3f9681c) Thanks [@llastflowers](https://github.com/llastflowers)! - Update LabelGroup component to no longer support sx
+
+- [#6680](https://github.com/primer/react/pull/6680) [`5c30443`](https://github.com/primer/react/commit/5c3044342cd2214bbd9d1d50a704d8789ca019d4) Thanks [@llastflowers](https://github.com/llastflowers)! - Update Details component to no longer support sx
+
+- [#6625](https://github.com/primer/react/pull/6625) [`65ae375`](https://github.com/primer/react/commit/65ae3757c1828bb5db5b5dd24d4ce743c679cf28) Thanks [@llastflowers](https://github.com/llastflowers)! - Update BranchName component to no longer support sx
+
+### Minor Changes
+
+- [#6726](https://github.com/primer/react/pull/6726) [`50c230f`](https://github.com/primer/react/commit/50c230f01b7e4b7c4664a676381737f995bf644e) Thanks [@joshblack](https://github.com/joshblack)! - Add ProgressBarItemProps and ProgressBarItemProps type exports to @primer/react
+
+- [#6726](https://github.com/primer/react/pull/6726) [`50c230f`](https://github.com/primer/react/commit/50c230f01b7e4b7c4664a676381737f995bf644e) Thanks [@joshblack](https://github.com/joshblack)! - Add ToggleSwitchProps type to package exports
+
+### Patch Changes
+
+- [#6701](https://github.com/primer/react/pull/6701) [`1aa7404`](https://github.com/primer/react/commit/1aa7404f4070244083b9b05394921cda4dfe31c6) Thanks [@pksjce](https://github.com/pksjce)! - Banner: Should prefer aria-labelled-by over aria-label
+
+- [#6715](https://github.com/primer/react/pull/6715) [`6def61e`](https://github.com/primer/react/commit/6def61e2286df882b5f15e329c801acd5bd29595) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - Remove sx from the SkeletonBox component.
+
+- [#6750](https://github.com/primer/react/pull/6750) [`0077b96`](https://github.com/primer/react/commit/0077b968f45fad50cb7abe52bd0cb442504279c2) Thanks [@pksjce](https://github.com/pksjce)! - v38: Make sure Banner is exported from main and experimental
+
+- [#6751](https://github.com/primer/react/pull/6751) [`c8f3879`](https://github.com/primer/react/commit/c8f3879b0ce184c785573bfccd84aef0b8ef54ef) Thanks [@pksjce](https://github.com/pksjce)! - v38: Move pointerbox to deprecated still maintaining the main export
+
 ## 38.0.0-rc.1
 
 ### Major Changes

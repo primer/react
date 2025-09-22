@@ -58,6 +58,24 @@
   padding: var(--base-size-12);
 }
 
+.TextInputWithMargin {
+  margin-bottom: var(--base-size-8);
+}
+
+.IssueTitleInput {
+  width: 100%;
+  padding: var(--base-size-2) var(--base-size-8);
+  text-align: left;
+  color: var(--fgColor-default);
+}
+
+.IssueTitleInput input {
+  font-weight: var(--base-text-weight-semibold);
+  font-size: var(--text-title-size-medium);
+  padding-left: 0;
+  padding-right: 0;
+}
+
 .IssueEditorContainer {
   padding: var(--base-size-24);
   height: 100vh;
