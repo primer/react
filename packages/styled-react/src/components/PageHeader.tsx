@@ -81,6 +81,13 @@ const PageHeader = Object.assign(PageHeaderImpl, {
   TitleArea: PageHeaderTitleArea,
   ContextArea: PrimerPageHeader.ContextArea,
   ContextAreaActions: PrimerPageHeader.ContextAreaActions,
+  TrailingVisual: PrimerPageHeader.TrailingVisual,
+  Description: PrimerPageHeader.Description,
+  ContextBar: PrimerPageHeader.ContextBar,
+  LeadingAction: PrimerPageHeader.LeadingAction,
+  Breadcrumbs: PrimerPageHeader.Breadcrumbs,
+  LeadingVisual: PrimerPageHeader.LeadingVisual,
+  TrailingAction: PrimerPageHeader.TrailingAction,
 })
 
 export {PageHeader}
