@@ -1,0 +1,41 @@
+.MediavsColor {
+  :hover {
+    color: deepskyblue;
+  }
+  @media screen and (max-width: 768px) {
+    color: maroon;
+    background-color: #f6f8fa;
+  }
+  @media (min-width: 1440) {
+    color: firebrick;
+    background-color: #f6f8fa;
+  }
+}
+
+.MediumRed {
+  color: firebrick;
+  background-color: #f6f8fa;
+}
+
+.DoneFg {
+  color: var(--fgColor-done, var(--color-done-fg, #2da44e));
+}
+
+.SmallInvisibleSquare {
+  width: 32px;
+  height: 32px;
+  :focus {
+    outline: 0;
+  }
+  > span {
+    box-shadow: inset 0 0 0 2px deeppink;
+  }
+}
+
+.BlockWidthOverride {
+  width: 320px;
+}
+
+.LargeFontWatch {
+  font-size: 32px;
+}

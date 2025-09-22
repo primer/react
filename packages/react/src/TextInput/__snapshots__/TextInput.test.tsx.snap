@@ -294,12 +294,13 @@ exports[`TextInput > renders trailingAction icon button 1`] = `
       <button
         aria-describedby=":r23:-loading-announcement"
         aria-labelledby=":r22:"
-        class="sc-aXZVg prc-Button-ButtonBase-Eb8-K prc-components-Invisible-6q42n prc-Button-IconButton-GE6m6"
+        class="prc-Button-ButtonBase-Eb8-K prc-components-Invisible-6q42n prc-Button-IconButton-GE6m6"
         data-component="IconButton"
         data-loading="false"
         data-no-visuals="true"
         data-size="small"
         data-variant="invisible"
+        sx="[object Object]"
         type="button"
       >
         <svg
@@ -352,15 +353,17 @@ exports[`TextInput > renders trailingAction text button 1`] = `
     >
       <button
         aria-describedby=":r1p:-loading-announcement"
-        class="sc-aXZVg prc-Button-ButtonBase-Eb8-K prc-components-Invisible-6q42n"
+        class="prc-Button-ButtonBase-Eb8-K prc-components-Invisible-6q42n"
         data-loading="false"
         data-no-visuals="true"
         data-size="medium"
         data-variant="invisible"
+        sx="[object Object]"
         type="button"
       >
         <span
-          class="sc-aXZVg jjaNhq prc-Button-ButtonContent-KZ5Bz"
+          class="prc-Button-ButtonContent-KZ5Bz"
+          data-align="center"
           data-component="buttonContent"
         >
           <span
@@ -395,15 +398,17 @@ exports[`TextInput > renders trailingAction text button with a tooltip 1`] = `
     >
       <button
         aria-describedby=":r1u:-loading-announcement :r1t:"
-        class="sc-aXZVg prc-Button-ButtonBase-Eb8-K prc-components-Invisible-6q42n"
+        class="prc-Button-ButtonBase-Eb8-K prc-components-Invisible-6q42n"
         data-loading="false"
         data-no-visuals="true"
         data-size="medium"
         data-variant="invisible"
+        sx="[object Object]"
         type="button"
       >
         <span
-          class="sc-aXZVg jjaNhq prc-Button-ButtonContent-KZ5Bz"
+          class="prc-Button-ButtonContent-KZ5Bz"
+          data-align="center"
           data-component="buttonContent"
         >
           <span

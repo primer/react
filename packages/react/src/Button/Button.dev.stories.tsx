@@ -2,6 +2,7 @@ import {SearchIcon, TriangleDownIcon, EyeIcon, IssueClosedIcon, HeartFillIcon} f
 import {Button, IconButton} from '.'
 import {default as Text} from '../Text'
 import {Stack} from '../Stack'
+import classes from './Button.dev.stories.module.css'
 
 export default {
   title: 'Components/Button/Dev',
@@ -32,63 +33,27 @@ export const InvisibleVariants = () => {
   )
 }
 
-export const TestSxProp = () => {
+export const TestClassProp = () => {
   const count = 4
   return (
     <div style={{display: 'flex', flexDirection: 'row', gap: '1rem'}}>
-      <Button
-        size="medium"
-        sx={{
-          color: 'firebrick',
-          backgroundColor: '#F6F8FA',
-        }}
-      >
-        Medium Red
-      </Button>
-      <Button
-        size="small"
-        sx={{
-          ':hover': {
-            color: 'deepskyblue',
-          },
-          [`@media screen and (max-width: 768px)`]: {
-            color: 'maroon',
-            backgroundColor: '#F6F8FA',
-          },
-          '@media (min-width: 1440)': {
-            color: 'firebrick',
-            backgroundColor: '#F6F8FA',
-          },
-        }}
-      >
+      <Button size="medium">Medium Red</Button>
+      <Button size="small" className={classes.MediavsColor}>
         Red
       </Button>
-      <Button variant="invisible" sx={{color: 'firebrick', backgroundColor: '#F6F8FA'}}>
+      <Button variant="invisible" className={classes.MediumRed}>
         Invariant color overridden
       </Button>
-      <Button leadingVisual={IssueClosedIcon} sx={{color: 'done.fg'}}>
-        <Text sx={{color: 'fg.default'}}>Close issue</Text>
+      <Button leadingVisual={IssueClosedIcon} className={classes.DoneFg}>
+        <Text>Close issue</Text>
       </Button>
-      <Button
-        size="small"
-        variant="invisible"
-        sx={{
-          width: 32,
-          height: 32,
-          '&:focus': {
-            outline: 0,
-            '& > span': {
-              boxShadow: `inset 0 0 0 2px deeppink`,
-            },
-          },
-        }}
-      >
+      <Button size="small" variant="invisible" className={classes.SmallInvisibleSquare}>
         Custom size
       </Button>
-      <Button size="small" block variant="invisible" sx={{width: 320}}>
+      <Button size="small" block variant="invisible" className={classes.BlockWidthOverride}>
         Overridden Block
       </Button>
-      <Button sx={{fontSize: 32}} count={count}>
+      <Button className={classes.LargeFontWatch} count={count}>
         Watch
       </Button>
     </div>

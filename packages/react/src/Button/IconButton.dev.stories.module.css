@@ -3,8 +3,8 @@
   height: 24px;
 }
 
-@media (min-width: 123px) {
-  .CustomSizeWithMedia {
+.CustomSizeWithMedia {
+  @media (min-width: 800px) {
     width: 24px;
     height: 24px;
   }
