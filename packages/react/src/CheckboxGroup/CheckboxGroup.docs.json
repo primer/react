@@ -61,11 +61,6 @@
       "type": "boolean",
       "defaultValue": "false",
       "description": "If true, the user must make a selection before the owning form can be submitted"
-    },
-    {
-      "name": "sx",
-      "type": "SystemStyleObject",
-      "deprecated": true
     }
   ],
   "subcomponents": [
@@ -77,11 +72,6 @@
           "type": "boolean",
           "defaultValue": "false",
           "description": "If true, the fieldset legend will be visually hidden"
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject",
-          "deprecated": true
         }
       ]
     },
@@ -93,11 +83,6 @@
           "type": "React.ReactNode",
           "defaultValue": "",
           "description": "The caption content"
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject",
-          "deprecated": true
         }
       ]
     },
@@ -116,11 +101,6 @@
           "defaultValue": "",
           "required": true,
           "description": "Changes the visual style to match the validation status"
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject",
-          "deprecated": true
         }
       ]
     }
