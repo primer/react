@@ -236,8 +236,6 @@ export {
   PageHeader,
   PageLayout,
   ProgressBar,
-  RadioGroup,
-  RelativeTime,
   Select,
   Spinner,
   Text,
