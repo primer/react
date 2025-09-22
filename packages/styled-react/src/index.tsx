@@ -30,6 +30,7 @@ import type {
   SpaceProps,
   TypographyProps,
 } from 'styled-system'
+import {LinkButton, type LinkButtonProps} from './components/LinkButton'
 
 type StyledProps = SxProp &
   SpaceProps &
@@ -98,7 +99,7 @@ const ToggleSwitch = forwardRef<HTMLButtonElement, ToggleSwitchProps>(function T
   return <Box as={PrimerToggleSwitch} ref={ref} {...props} />
 })
 
-export {Checkbox, SegmentedControl, StateLabel, SubNav, ToggleSwitch}
+export {LinkButton, type LinkButtonProps, Checkbox, SegmentedControl, StateLabel, SubNav, ToggleSwitch}
 
 export {
   ActionList,
@@ -119,7 +120,6 @@ export {
   IconButton,
   Label,
   Link,
-  LinkButton,
   NavList,
   Overlay,
   PageHeader,
