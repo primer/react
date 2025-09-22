@@ -105,8 +105,8 @@ type ToggleSwitchProps = PrimerToggleSwitchProps & Omit<StyledProps, keyof Prime
 
 const ToggleSwitch = forwardRef<HTMLButtonElement, ToggleSwitchProps>(function ToggleSwitch(props, ref) {
   return <Box as={PrimerToggleSwitch} ref={ref} {...props} />
-})  
-        
+})
+
 export {Flash} from './components/Flash'
 export {LinkButton, type LinkButtonProps, Checkbox, CounterLabel, SegmentedControl, StateLabel, SubNav, ToggleSwitch}
 
