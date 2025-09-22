@@ -1,3 +1,7 @@
 #!/bin/bash
 
+# Build the package
 npx rollup -c
+
+# Generate components.json
+./script/generate-components-json

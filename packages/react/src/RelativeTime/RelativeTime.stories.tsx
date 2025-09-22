@@ -9,7 +9,7 @@ const meta: Meta = {
     controls: {
       // StoryBook infers from type info of the component which includes CE Lifecycle,
       // SX props, and methods we want to otherwise ignore
-      exclude: /^(getFormatted.*|datetime|sx|as|theme|forwardedAs|.*Callback|update)$/g,
+      exclude: /^(getFormatted.*|datetime|as|theme|forwardedAs|.*Callback|update)$/g,
     },
   },
 }

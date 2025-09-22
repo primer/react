@@ -89,11 +89,6 @@
       "defaultValue": "\"input\""
     },
     {
-      "name": "sx",
-      "type": "SystemStyleObject",
-      "deprecated": true
-    },
-    {
       "name": "className",
       "type": "string | undefined",
       "description": "The className to apply to the wrapper element"
