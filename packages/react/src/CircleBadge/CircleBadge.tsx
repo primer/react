@@ -3,7 +3,7 @@ import isNumeric from '../utils/isNumeric'
 import type {ComponentProps} from '../utils/types'
 
 import styles from './CircleBadge.module.css'
-import type {OcticonProps} from '@primer/octicons-react'
+import type {OcticonProps} from '../Octicon'
 
 const variantSizes = {
   small: 56,
