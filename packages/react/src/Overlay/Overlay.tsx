@@ -89,7 +89,7 @@ type OwnOverlayProps = Merge<StyledOverlayProps, BaseOverlayProps>
  * @param bottom Optional. Vertical bottom position of the overlay, relative to its closest positioned ancestor (often its `Portal`).
  * @param position Optional. Sets how an element is positioned in a document. Defaults to `absolute` positioning.
  */
-export const BaseOverlay = React.forwardRef<HTMLDivElement, OwnOverlayProps>(
+export const BaseOverlay = React.forwardRef(
   (
     {
       visibility,
@@ -104,12 +104,13 @@ export const BaseOverlay = React.forwardRef<HTMLDivElement, OwnOverlayProps>(
       className,
       maxHeight,
       maxWidth,
+      as: Component = 'div',
       ...rest
     },
     forwardedRef,
   ): ReactElement => {
     return (
-      <div
+      <Component
         {...rest}
         ref={forwardedRef}
         style={
