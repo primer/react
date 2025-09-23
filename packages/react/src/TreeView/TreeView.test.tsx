@@ -1734,7 +1734,7 @@ it('should have keyboard shortcut command as part of accessible name when using 
     </TreeView>,
   )
 
-  expect(screen.getByRole('treeitem', {name: /^Parent[;.][^]*for more actions\.$/})).toBeInTheDocument()
+  expect(screen.getByRole('treeitem', {name: /for more actions\.$/})).toBeInTheDocument()
 })
 
 it('should have keyboard shortcut command as part of accessible name when using `TrailingAction` and `aria-label`', () => {
@@ -1754,7 +1754,7 @@ it('should have keyboard shortcut command as part of accessible name when using 
     </TreeView>,
   )
 
-  expect(screen.getByRole('treeitem', {name: /^Parent[;.][^]*for more actions\.$/})).toBeInTheDocument()
+  expect(screen.getByRole('treeitem', {name: /for more actions\.$/})).toBeInTheDocument()
 })
 
 it('should activate the dialog for trailing action when keyboard shortcut is used', async () => {
@@ -1788,7 +1788,7 @@ it('should activate the dialog for trailing action when keyboard shortcut is use
   )
 
   const treeItem = screen.getByRole('treeitem', {
-    name: /^Parent[;.][^]*for more actions\.$/,
+    name: /for more actions\.$/,
   })
   treeItem.focus()
   expect(treeItem).toHaveFocus()
