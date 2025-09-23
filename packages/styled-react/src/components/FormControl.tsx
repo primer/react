@@ -14,13 +14,13 @@ const FormControlImpl = forwardRef<HTMLDivElement, FormControlProps>(function Fo
   return <Box ref={ref} as={PrimerFormControl} {...props} />
 })
 
-const FormControlCaption = function (props: FormControlCaptionProps) {
+const FormControlCaption = (props: FormControlCaptionProps) => {
   return <Box as={PrimerFormControl.Caption} {...props} />
 }
 
 type FormControlValidationProps = PropsWithChildren<PrimerFormControlValidationProps> & SxProp
 
-const FormControlValidation = function (props: FormControlValidationProps) {
+const FormControlValidation = (props: FormControlValidationProps) => {
   return <Box as={PrimerFormControl.Validation} {...props} />
 }
 
