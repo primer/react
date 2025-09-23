@@ -11,7 +11,7 @@ const variantSizes = {
   large: 128,
 }
 
-type CircleBadgeProps = {
+export type CircleBadgeProps = {
   inline?: boolean
   variant?: keyof typeof variantSizes
   size?: number
