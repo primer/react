@@ -16,7 +16,6 @@ import {invariant} from '../utils/invariant'
 import VisuallyHidden from '../_VisuallyHidden'
 import classes from './ActionList.module.css'
 import {clsx} from 'clsx'
-import {BoxWithFallback} from '../internal/components/BoxWithFallback'
 
 type ActionListSubItemProps = {
   children?: React.ReactNode
@@ -241,9 +240,8 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
           trailingVisualId,
         }}
       >
-        <BoxWithFallback
+        <li
           {...containerProps}
-          as="li"
           ref={listSemantics ? forwardedRef : null}
           data-variant={variant === 'danger' ? variant : undefined}
           data-active={active ? true : undefined}
@@ -301,7 +299,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
           </ItemWrapper>
           {!inactive && !loading && !menuContext && Boolean(slots.trailingAction) && slots.trailingAction}
           {slots.subItem}
-        </BoxWithFallback>
+        </li>
       </ItemContext.Provider>
     )
   },
