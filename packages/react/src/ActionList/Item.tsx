@@ -54,7 +54,6 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       selected = undefined,
       active = false,
       onSelect: onSelectUser,
-      sx: sxProp,
       id,
       role,
       loading,
@@ -245,7 +244,6 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
         <BoxWithFallback
           {...containerProps}
           as="li"
-          sx={sxProp}
           ref={listSemantics ? forwardedRef : null}
           data-variant={variant === 'danger' ? variant : undefined}
           data-active={active ? true : undefined}
