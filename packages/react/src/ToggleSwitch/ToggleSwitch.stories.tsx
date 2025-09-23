@@ -52,6 +52,16 @@ Playground.argTypes = {
     },
     options: ['small', 'medium'],
   },
+  buttonLabelOn: {
+    control: {
+      type: 'text',
+    },
+  },
+  buttonLabelOff: {
+    control: {
+      type: 'text',
+    },
+  },
 }
 
 export const Default = () => (

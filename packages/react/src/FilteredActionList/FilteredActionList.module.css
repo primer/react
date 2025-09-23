@@ -11,6 +11,10 @@
   flex-grow: 1;
 }
 
+.ActionList {
+  flex-grow: 1;
+}
+
 .ActionListItem:focus {
   background: var(--control-transparent-bgColor-selected);
 
