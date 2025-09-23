@@ -756,7 +756,7 @@ function Panel({
       if (hasModifier) return
 
       // skip if it's not a alphabet key
-      if (!isAlphabetKey(event as any)) return
+      if (!isAlphabetKey(event.nativeEvent as KeyboardEvent)) return
 
       // if this is a typeahead event, don't propagate outside of menu
       event.stopPropagation()
