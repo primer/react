@@ -2,7 +2,7 @@ import {
   Box,
   FormControl as PrimerFormControl,
   type FormControlProps as PrimerFormControlProps,
-  type FormControlCaptionProps,
+  type FormControlCaptionProps as PrimerFormControlCaptionProps,
   type FormControlValidationProps as PrimerFormControlValidationProps,
   type SxProp,
 } from '@primer/react'
@@ -14,6 +14,7 @@ const FormControlImpl = forwardRef<HTMLDivElement, FormControlProps>(function Fo
   return <Box ref={ref} as={PrimerFormControl} {...props} />
 })
 
+type FormControlCaptionProps = PropsWithChildren<PrimerFormControlCaptionProps> & SxProp
 const FormControlCaption = (props: FormControlCaptionProps) => {
   return <Box as={PrimerFormControl.Caption} {...props} />
 }
