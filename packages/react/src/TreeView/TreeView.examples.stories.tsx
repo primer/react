@@ -6,7 +6,6 @@ import {IconButton} from '../Button'
 import {Dialog} from '../Dialog/Dialog'
 import classes from './TreeViewStories.module.css'
 
-
 const meta: Meta = {
   title: 'Components/TreeView/Examples',
   component: TreeView,
