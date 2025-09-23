@@ -4,6 +4,7 @@ import type {ComponentProps} from '../utils/types'
 
 import styles from './CircleBadge.module.css'
 import type {OcticonProps} from '../Octicon'
+import {clsx} from 'clsx'
 
 const variantSizes = {
   small: 56,
@@ -16,6 +17,7 @@ export type CircleBadgeProps<As extends React.ElementType> = {
   variant?: keyof typeof variantSizes
   size?: number
   as?: As
+  className?: string
 } & React.ComponentPropsWithRef<React.ElementType extends As ? 'a' : As>
 
 const sizeStyles = ({size, variant = 'medium'}: CircleBadgeProps<React.ElementType>) => {
@@ -29,7 +31,7 @@ const sizeStyles = ({size, variant = 'medium'}: CircleBadgeProps<React.ElementTy
 const CircleBadge = <As extends React.ElementType>({as: Component = 'div', ...props}: CircleBadgeProps<As>) => (
   <Component
     {...props}
-    className={styles.CircleBadge}
+    className={clsx(styles.CircleBadge, props.className)}
     data-inline={props.inline ? '' : undefined}
     style={sizeStyles(props)}
   />

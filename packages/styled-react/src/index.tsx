@@ -58,6 +58,8 @@ import styled from 'styled-components'
 
 import {LinkButton, type LinkButtonProps} from './components/LinkButton'
 
+import {CircleBadge} from './components/CircleBadge'
+
 type StyledProps = SxProp &
   SpaceProps &
   ColorProps &
@@ -145,13 +147,6 @@ const SegmentedControl = Object.assign(SegmentedControlImpl, {
   Button: SegmentedControlButton,
   IconButton: SegmentedControlIconButton,
 })
-
-type CircleBadgeProps<As extends React.ElementType> = PrimerCircleBadgeProps<As> & SxProp
-
-function CircleBadge<As extends React.ElementType>(props: CircleBadgeProps<As>) {
-  // @ts-expect-error the types for Box are not correctly inferred here
-  return <Box as={PrimerCircleBadge} {...props} />
-}
 
 type CheckboxProps = PrimerCheckboxProps & SxProp
 
