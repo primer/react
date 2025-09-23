@@ -19,10 +19,6 @@ const stories = [
     title: 'Timeline Break',
     id: 'components-timeline-features--timeline-break',
   },
-  {
-    title: 'SX Props',
-    id: 'components-timeline-dev--sx-props',
-  },
 ] as const
 
 test.describe('Timeline', () => {

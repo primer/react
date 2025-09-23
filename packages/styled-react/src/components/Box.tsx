@@ -1,1 +1,1 @@
-export {Box} from '@primer/react'
+export {Box, type BoxProps} from '@primer/react'

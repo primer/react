@@ -1,1 +1,1 @@
-export type {SxProp} from '@primer/react'
+export {sx, type SxProp} from '@primer/react'
