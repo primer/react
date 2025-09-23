@@ -146,11 +146,12 @@ const SegmentedControl = Object.assign(SegmentedControlImpl, {
   IconButton: SegmentedControlIconButton,
 })
 
-type CircleBadgeProps = PrimerCircleBadgeProps & SxProp
+type CircleBadgeProps<As extends React.ElementType> = PrimerCircleBadgeProps<As> & SxProp
 
-function CircleBadge(props: CircleBadgeProps) {
+function CircleBadge<As extends React.ElementType>(props: CircleBadgeProps<As>) {
   return <Box as={PrimerCircleBadge} {...props} />
 }
+
 type CheckboxProps = PrimerCheckboxProps & SxProp
 
 const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Checkbox(props, ref) {
