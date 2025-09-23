@@ -64,9 +64,11 @@ export const Default = () => (
   </ActionBar>
 )
 
+const BoldButton = () => <ActionBar.IconButton icon={BoldIcon} aria-label="Bold"></ActionBar.IconButton>
+
 const FormattingButtons = () => (
   <>
-    <ActionBar.IconButton icon={BoldIcon} aria-label="Bold"></ActionBar.IconButton>
+    <BoldButton />
     <ActionBar.IconButton icon={ItalicIcon} aria-label="Italic"></ActionBar.IconButton>
     <ActionBar.IconButton icon={CodeIcon} aria-label="Code"></ActionBar.IconButton>
     <ActionBar.IconButton icon={LinkIcon} aria-label="Link"></ActionBar.IconButton>
