@@ -127,7 +127,14 @@ export interface GroupedListProps extends ListPropsBase {
    * A collection of `Item` props, plus associated group identifiers
    * and `Item`-level custom `Item` renderers.
    */
-  items: ((FilteredActionListItemProps | (Partial<FilteredActionListItemProps> & {renderItem: RenderItemFn})) & {
+  items: ((
+    | FilteredActionListItemProps
+    | (Partial<FilteredActionListItemProps> & {
+        // un-partial these fields because they are required
+        id: FilteredActionListItemProps['id']
+        renderItem: RenderItemFn
+      })
+  ) & {
     groupId: string
   })[]
 }
