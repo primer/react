@@ -297,6 +297,7 @@ export {
   PageLayout,
   Select,
   Text,
+  type TextProps,
   Textarea,
   TextInput,
   type TextInputProps,
