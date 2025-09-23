@@ -15,11 +15,13 @@
 }
 
 .TextLargeBold {
+  display: block;
   font-size: var(--text-body-size-large);
   font-weight: var(--base-text-weight-semibold);
 }
 
 .TextMediumSubtle {
+  display: block;
   font-size: var(--text-body-size-medium);
   color: var(--fgColor-muted);
 }

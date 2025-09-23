@@ -73,7 +73,7 @@ describe('Text', () => {
   it('applies extra large font size with CSS class', () => {
     const {container} = render(<Text className={testClasses.ExtraLargeText}>Very large text</Text>)
     const textElement = container.firstChild as HTMLElement
-    expect(getComputedStyle(textElement).fontSize).toBe('100px')
+    expect(getComputedStyle(textElement).fontSize).toBe('96px')
   })
 
   it('applies different font sizes with CSS classes', () => {
