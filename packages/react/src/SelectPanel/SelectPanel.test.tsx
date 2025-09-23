@@ -33,15 +33,9 @@ const renderWithFlag = (children: React.ReactNode, flag: boolean) => {
 }
 
 const items: SelectPanelProps['items'] = [
-  {
-    text: 'item one',
-  },
-  {
-    text: 'item two',
-  },
-  {
-    text: 'item three',
-  },
+  {id: 'one', text: 'item one'},
+  {id: 'two', text: 'item two'},
+  {id: 'three', text: 'item three'},
 ]
 
 function BasicSelectPanel(passthroughProps: Record<string, unknown>) {
@@ -933,15 +927,9 @@ for (const usingRemoveActiveDescendant of [false, true]) {
         renderWithFlag(
           <SelectPanelWithCustomMessages
             items={[
-              {
-                text: 'item one',
-              },
-              {
-                text: 'item two',
-              },
-              {
-                text: 'item three',
-              },
+              {id: 'one', text: 'item one'},
+              {id: 'two', text: 'item two'},
+              {id: 'three', text: 'item three'},
             ]}
           />,
           usingRemoveActiveDescendant,
@@ -1186,19 +1174,9 @@ for (const usingRemoveActiveDescendant of [false, true]) {
 
     describe('sorting', () => {
       const items = [
-        {
-          text: 'item one',
-          id: '3',
-        },
-        {
-          text: 'item two',
-          id: '1',
-          selected: true,
-        },
-        {
-          text: 'item three',
-          id: '2',
-        },
+        {text: 'item one', id: '3'},
+        {text: 'item two', id: '1', selected: true},
+        {text: 'item three', id: '2'},
       ]
 
       it('should render selected items at the top by default when FF on', async () => {
