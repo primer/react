@@ -3,8 +3,6 @@ import {
   Box,
   type BoxProps,
   type SxProp,
-  CircleBadge as PrimerCircleBadge,
-  type CircleBadgeProps as PrimerCircleBadgeProps,
   Spinner as PrimerSpinner,
   type SpinnerProps as PrimerSpinnerProps,
   RadioGroup as PrimerRadioGroup,
