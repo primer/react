@@ -1,7 +1,6 @@
 import React, {useEffect} from 'react'
 import type {ResponsiveValue} from '../hooks/useResponsiveValue'
 import {isResponsiveValue, useResponsiveValue} from '../hooks/useResponsiveValue'
-import type {SxProp, CSSCustomProperties} from '../sx'
 import Heading from '../Heading'
 import {ArrowLeftIcon} from '@primer/octicons-react'
 import type {LinkProps as BaseLinkProps} from '../Link'
@@ -15,14 +14,12 @@ import type {AriaRole} from '../utils/types'
 import {clsx} from 'clsx'
 
 import classes from './PageHeader.module.css'
-import {defaultSxProp} from '../utils/defaultSxProp'
-import {BoxWithFallback} from '../internal/components/BoxWithFallback'
 
 // Types that are shared between PageHeader children components
 export type ChildrenPropTypes = {
   className?: string
   hidden?: boolean | ResponsiveValue<boolean>
-} & SxProp
+}
 
 // Default state for the `visible` prop when a sub component is only visible on narrow viewport
 const hiddenOnRegularAndWide = {
@@ -46,10 +43,10 @@ export type PageHeaderProps = {
   className?: string
   role?: AriaRole
   hasBorder?: boolean
-} & SxProp
+}
 
 const Root = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeaderProps>>(
-  ({children, className, sx = defaultSxProp, as = 'div', 'aria-label': ariaLabel, role, hasBorder}, forwardedRef) => {
+  ({children, className, as: BaseComponent = 'div', 'aria-label': ariaLabel, role, hasBorder}, forwardedRef) => {
     const rootRef = useProvidedRefOrCreate<HTMLDivElement>(forwardedRef as React.RefObject<HTMLDivElement>)
 
     const isInteractive = (element: HTMLElement) => {
@@ -105,17 +102,15 @@ const Root = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeader
     )
 
     return (
-      <BoxWithFallback
-        as={as}
+      <BaseComponent
         ref={rootRef}
         className={clsx(classes.PageHeader, className)}
         data-has-border={hasBorder ? 'true' : undefined}
-        sx={sx}
         aria-label={ariaLabel}
         role={role}
       >
         {children}
-      </BoxWithFallback>
+      </BaseComponent>
     )
   },
 ) as PolymorphicForwardRefComponent<'div', PageHeaderProps>
@@ -128,12 +123,11 @@ const ContextArea: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
   children,
   className,
   hidden = hiddenOnRegularAndWide,
-  sx: sxProp = defaultSxProp,
 }) => {
   return (
-    <BoxWithFallback className={clsx(classes.ContextArea, className)} sx={sxProp} {...getHiddenDataAttributes(hidden)}>
+    <div className={clsx(classes.ContextArea, className)} {...getHiddenDataAttributes(hidden)}>
       {children}
-    </BoxWithFallback>
+    </div>
   )
 }
 type LinkProps = Pick<
@@ -146,18 +140,7 @@ export type ParentLinkProps = React.PropsWithChildren<ChildrenPropTypes & LinkPr
 
 // PageHeader.ParentLink : Only visible on narrow viewports by default to let users navigate up in the hierarchy.
 const ParentLink = React.forwardRef<HTMLAnchorElement, ParentLinkProps>(
-  (
-    {
-      children,
-      className,
-      sx: sxProp = defaultSxProp,
-      href,
-      'aria-label': ariaLabel,
-      as = 'a',
-      hidden = hiddenOnRegularAndWide,
-    },
-    ref,
-  ) => {
+  ({children, className, href, 'aria-label': ariaLabel, as = 'a', hidden = hiddenOnRegularAndWide}, ref) => {
     return (
       <>
         <Link
@@ -166,7 +149,6 @@ const ParentLink = React.forwardRef<HTMLAnchorElement, ParentLinkProps>(
           aria-label={ariaLabel}
           muted
           className={clsx(classes.ParentLink, className)}
-          sx={sxProp}
           {...getHiddenDataAttributes(hidden)}
           href={href}
         >
@@ -186,13 +168,12 @@ ParentLink.displayName = 'ParentLink'
 const ContextBar: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
   children,
   className,
-  sx: sxProp = defaultSxProp,
   hidden = hiddenOnRegularAndWide,
 }) => {
   return (
-    <BoxWithFallback className={clsx(classes.ContextBar, className)} sx={sxProp} {...getHiddenDataAttributes(hidden)}>
+    <div className={clsx(classes.ContextBar, className)} {...getHiddenDataAttributes(hidden)}>
       {children}
-    </BoxWithFallback>
+    </div>
   )
 }
 
@@ -201,22 +182,16 @@ const ContextBar: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
 const ContextAreaActions: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
   children,
   className,
-  sx: sxProp = defaultSxProp,
   hidden = hiddenOnRegularAndWide,
 }) => {
   return (
-    <BoxWithFallback
-      className={clsx(classes.ContextAreaActions, className)}
-      {...getHiddenDataAttributes(hidden)}
-      sx={sxProp}
-      {...getHiddenDataAttributes(hidden)}
-    >
+    <div className={clsx(classes.ContextAreaActions, className)} {...getHiddenDataAttributes(hidden)}>
       {children}
-    </BoxWithFallback>
+    </div>
   )
 }
 
-type TitleAreaProps = {
+export type TitleAreaProps = {
   variant?: 'subtitle' | 'medium' | 'large' | ResponsiveValue<'subtitle' | 'medium' | 'large'>
 } & ChildrenPropTypes
 // PageHeader.TitleArea: The main title area of the page. Visible on all viewports.
@@ -224,20 +199,19 @@ type TitleAreaProps = {
 // ---------------------------------------------------------------------
 
 const TitleArea = React.forwardRef<HTMLDivElement, React.PropsWithChildren<TitleAreaProps>>(
-  ({children, className, sx: sxProp = defaultSxProp, hidden = false, variant = 'medium'}, forwardedRef) => {
+  ({children, className, hidden = false, variant = 'medium'}, forwardedRef) => {
     const titleAreaRef = useProvidedRefOrCreate<HTMLDivElement>(forwardedRef as React.RefObject<HTMLDivElement>)
     const currentVariant = useResponsiveValue(variant, 'medium')
     return (
-      <BoxWithFallback
+      <div
         className={clsx(classes.TitleArea, className)}
         ref={titleAreaRef}
         data-component="TitleArea"
         data-size-variant={currentVariant}
-        sx={sxProp}
         {...getHiddenDataAttributes(hidden)}
       >
         {children}
-      </BoxWithFallback>
+      </div>
     )
   },
 ) as PolymorphicForwardRefComponent<'div', TitleAreaProps>
@@ -248,66 +222,42 @@ TitleArea.displayName = 'TitleArea'
 const LeadingAction: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
   children,
   className,
-  sx: sxProp = defaultSxProp,
   hidden = hiddenOnNarrow,
 }) => {
-  const style: CSSCustomProperties = {}
-  // @ts-ignore sx has height attribute
-  const {height} = sxProp
-  if (height) style['--custom-height'] = height
   return (
-    <BoxWithFallback
+    <div
       className={clsx(classes.LeadingAction, className)}
       data-component="PH_LeadingAction"
-      sx={sxProp}
-      style={style}
       {...getHiddenDataAttributes(hidden)}
     >
       {children}
-    </BoxWithFallback>
+    </div>
   )
 }
 
 // This is reserved for only breadcrumbs.
-const Breadcrumbs: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
-  children,
-  className,
-  sx: sxProp = defaultSxProp,
-  hidden = false,
-}) => {
+const Breadcrumbs: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({children, className, hidden = false}) => {
   return (
-    <BoxWithFallback
+    <div
       className={clsx(classes.Breadcrumbs, className)}
       data-component="PH_Breadcrumbs"
-      sx={sxProp}
       {...getHiddenDataAttributes(hidden)}
     >
       {children}
-    </BoxWithFallback>
+    </div>
   )
 }
 
 // PageHeader.LeadingVisual and PageHeader.TrailingVisual should remain visible on narrow viewports.
-const LeadingVisual: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
-  children,
-  className,
-  sx: sxProp = defaultSxProp,
-  hidden = false,
-}) => {
-  const style: CSSCustomProperties = {}
-  // @ts-ignore sx has height attribute
-  const {height} = sxProp
-  if (height) style['--custom-height'] = height
+const LeadingVisual: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({children, className, hidden = false}) => {
   return (
-    <BoxWithFallback
+    <div
       className={clsx(classes.LeadingVisual, className)}
       data-component="PH_LeadingVisual"
-      sx={sxProp}
-      style={style}
       {...getHiddenDataAttributes(hidden)}
     >
       {children}
-    </BoxWithFallback>
+    </div>
   )
 }
 
@@ -315,28 +265,13 @@ export type TitleProps = {
   as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
 } & ChildrenPropTypes
 
-const Title: React.FC<React.PropsWithChildren<TitleProps>> = ({
-  children,
-  className,
-  sx: sxProp = defaultSxProp,
-  hidden = false,
-  as = 'h2',
-}) => {
-  const style: CSSCustomProperties = {}
-  // @ts-ignore sxProp can have color attribute
-  const {fontSize, lineHeight, fontWeight} = sxProp
-  if (fontSize) style['--custom-font-size'] = fontSize
-  if (lineHeight) style['--custom-line-height'] = lineHeight
-  if (fontWeight) style['--custom-font-weight'] = fontWeight
-
+const Title: React.FC<React.PropsWithChildren<TitleProps>> = ({children, className, hidden = false, as = 'h2'}) => {
   return (
     <Heading
       className={clsx(classes.Title, className)}
       data-component="PH_Title"
       data-hidden={hidden}
       as={as}
-      style={style}
-      sx={sxProp}
       {...getHiddenDataAttributes(hidden)}
     >
       {children}
@@ -348,83 +283,51 @@ const Title: React.FC<React.PropsWithChildren<TitleProps>> = ({
 const TrailingVisual: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
   children,
   className,
-  sx: sxProp = defaultSxProp,
   hidden = false,
 }) => {
-  const style: CSSCustomProperties = {}
-  // @ts-ignore sx has height attribute
-  const {height} = sxProp
-  if (height) style['--custom-height'] = height
   return (
-    <BoxWithFallback
+    <div
       className={clsx(classes.TrailingVisual, className)}
       data-component="PH_TrailingVisual"
-      sx={sxProp}
-      style={style}
       {...getHiddenDataAttributes(hidden)}
     >
       {children}
-    </BoxWithFallback>
+    </div>
   )
 }
 
 const TrailingAction: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
   children,
   className,
-  sx: sxProp = defaultSxProp,
   hidden = hiddenOnNarrow,
 }) => {
-  const style: CSSCustomProperties = {}
-  // @ts-ignore sx has height attribute
-  const {height} = sxProp
-  if (height) style['--custom-height'] = height
   return (
-    <BoxWithFallback
+    <div
       className={clsx(classes.TrailingAction, className)}
       data-component="PH_TrailingAction"
-      sx={sxProp}
-      style={style}
       {...getHiddenDataAttributes(hidden)}
     >
       {children}
-    </BoxWithFallback>
+    </div>
   )
 }
 
-const Actions: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
-  children,
-  className,
-  sx: sxProp = defaultSxProp,
-  hidden = false,
-}) => {
-  const style: CSSCustomProperties = {}
-  // @ts-ignore sx has height attribute
-  const {height} = sxProp
-  if (height) style['--custom-height'] = height
+export type ActionsProps = React.PropsWithChildren<ChildrenPropTypes>
+
+const Actions = ({children, className, hidden = false}: ActionsProps) => {
   return (
-    <BoxWithFallback
-      className={clsx(classes.Actions, className)}
-      data-component="PH_Actions"
-      sx={sxProp}
-      style={style}
-      {...getHiddenDataAttributes(hidden)}
-    >
+    <div className={clsx(classes.Actions, className)} data-component="PH_Actions" {...getHiddenDataAttributes(hidden)}>
       {children}
-    </BoxWithFallback>
+    </div>
   )
 }
 
 // PageHeader.Description: The description area of the header. Visible on all viewports
-const Description: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
-  children,
-  className,
-  sx: sxProp = defaultSxProp,
-  hidden = false,
-}) => {
+const Description: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({children, className, hidden = false}) => {
   return (
-    <BoxWithFallback className={clsx(classes.Description, className)} sx={sxProp} {...getHiddenDataAttributes(hidden)}>
+    <div className={clsx(classes.Description, className)} {...getHiddenDataAttributes(hidden)}>
       {children}
-    </BoxWithFallback>
+    </div>
   )
 }
 
@@ -438,30 +341,27 @@ export type NavigationProps = {
 const Navigation: React.FC<React.PropsWithChildren<NavigationProps>> = ({
   children,
   className,
-  sx: sxProp = defaultSxProp,
   hidden = false,
-  as,
+  as: BaseComponent = 'div',
   'aria-label': ariaLabel,
   'aria-labelledby': ariaLabelledBy,
 }) => {
   warning(
-    as === 'nav' && !ariaLabel && !ariaLabelledBy,
+    BaseComponent === 'nav' && !ariaLabel && !ariaLabelledBy,
     'Use `aria-label` or `aria-labelledby` prop to provide an accessible label to the `nav` landmark for assistive technology',
   )
 
   return (
-    <BoxWithFallback
-      as={as}
+    <BaseComponent
       // Render `aria-label` and `aria-labelledby` only on `nav` elements
-      aria-label={as === 'nav' ? ariaLabel : undefined}
-      aria-labelledby={as === 'nav' ? ariaLabelledBy : undefined}
+      aria-label={BaseComponent === 'nav' ? ariaLabel : undefined}
+      aria-labelledby={BaseComponent === 'nav' ? ariaLabelledBy : undefined}
       className={clsx(classes.Navigation, className)}
       data-component="PH_Navigation"
-      sx={sxProp}
       {...getHiddenDataAttributes(hidden)}
     >
       {children}
-    </BoxWithFallback>
+    </BaseComponent>
   )
 }
 
