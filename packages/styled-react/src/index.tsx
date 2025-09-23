@@ -258,6 +258,10 @@ export {Flash} from './components/Flash'
 
 export {Overlay} from './components/Overlay'
 
+export {Autocomplete, type AutocompleteOverlayProps} from './components/Autocomplete'
+
+export {ActionMenu} from './components/ActionMenu'
+
 export {
   Checkbox,
   CounterLabel,
@@ -277,8 +281,6 @@ export {
 
 export {
   ActionList,
-  ActionMenu,
-  Autocomplete,
   Avatar,
   Breadcrumbs,
   Button,
