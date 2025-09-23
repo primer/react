@@ -11,13 +11,14 @@ const variantSizes = {
   large: 128,
 }
 
-export type CircleBadgeProps = {
+export type CircleBadgeProps<As extends React.ElementType> = {
   inline?: boolean
   variant?: keyof typeof variantSizes
   size?: number
-} & React.HTMLAttributes<HTMLDivElement>
+  as?: As
+} & React.ComponentPropsWithRef<React.ElementType extends As ? 'a' : As>
 
-const sizeStyles = ({size, variant = 'medium'}: CircleBadgeProps) => {
+const sizeStyles = ({size, variant = 'medium'}: CircleBadgeProps<React.ElementType>) => {
   const calc = isNumeric(size) ? size : variantSizes[variant]
   return {
     width: calc,
@@ -25,8 +26,8 @@ const sizeStyles = ({size, variant = 'medium'}: CircleBadgeProps) => {
   }
 }
 
-const CircleBadge = (props: CircleBadgeProps) => (
-  <div
+const CircleBadge = <As extends React.ElementType>({as: Component = 'div', ...props}: CircleBadgeProps<As>) => (
+  <Component
     {...props}
     className={styles.CircleBadge}
     data-inline={props.inline ? '' : undefined}
