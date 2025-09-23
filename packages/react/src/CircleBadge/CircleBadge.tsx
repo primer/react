@@ -1,8 +1,9 @@
-import styled from 'styled-components'
-import {get} from '../constants'
 import Octicon from '../Octicon'
 import isNumeric from '../utils/isNumeric'
 import type {ComponentProps} from '../utils/types'
+
+import styles from './CircleBadge.module.css'
+import type {OcticonProps} from '@primer/octicons-react'
 
 const variantSizes = {
   small: 56,
@@ -10,13 +11,14 @@ const variantSizes = {
   large: 128,
 }
 
-type StyledCircleBadgeProps = {
+type CircleBadgeProps = {
   inline?: boolean
   variant?: keyof typeof variantSizes
   size?: number
-}
+} & React.HTMLAttributes<HTMLDivElement>
 
-const sizeStyles = ({size, variant = 'medium'}: StyledCircleBadgeProps) => {
+const sizeStyles = ({size, variant = 'medium'}: CircleBadgeProps) => {
+  console.log(size, variant)
   const calc = isNumeric(size) ? size : variantSizes[variant]
   return {
     width: calc,
@@ -24,24 +26,18 @@ const sizeStyles = ({size, variant = 'medium'}: StyledCircleBadgeProps) => {
   }
 }
 
-const CircleBadge = styled.div<StyledCircleBadgeProps>`
-  display: ${({inline = false}) => (inline ? 'inline-flex' : 'flex')};
-  align-items: center;
-  justify-content: center;
-  background-color: ${get('colors.canvas.default')};
-  border-radius: 50%;
-  box-shadow: ${get('shadows.shadow.medium')};
-  ${sizeStyles};
-`
-const CircleBadgeIcon = styled(Octicon)`
-  height: auto;
-  max-width: 60%;
-  max-height: 55%;
-`
+const CircleBadge = (props: CircleBadgeProps) => (
+  <div
+    {...props}
+    className={styles.CircleBadge}
+    data-inline={props.inline ? '' : undefined}
+    style={sizeStyles(props)}
+  />
+)
+
+const CircleBadgeIcon = (props: OcticonProps) => <Octicon className={styles.CircleBadgeIcon} {...props} />
 
 CircleBadgeIcon.displayName = 'CircleBadge.Icon'
-
-export type CircleBadgeProps = ComponentProps<typeof CircleBadge>
 
 export type CircleBadgeIconProps = ComponentProps<typeof CircleBadgeIcon>
 
