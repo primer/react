@@ -18,7 +18,6 @@ type CircleBadgeProps = {
 } & React.HTMLAttributes<HTMLDivElement>
 
 const sizeStyles = ({size, variant = 'medium'}: CircleBadgeProps) => {
-  console.log(size, variant)
   const calc = isNumeric(size) ? size : variantSizes[variant]
   return {
     width: calc,
