@@ -147,11 +147,6 @@
       "defaultValue": ""
     },
     {
-      "name": "sx",
-      "type": "SystemStyleObject",
-      "deprecated": true
-    },
-    {
       "name": "responsiveVariant",
       "type": "'fullscreen'",
       "required": false,

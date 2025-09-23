@@ -256,6 +256,12 @@ export {Header, type HeaderProps} from './components/Header'
 
 export {Flash} from './components/Flash'
 
+export {Overlay} from './components/Overlay'
+
+export {Autocomplete, type AutocompleteOverlayProps} from './components/Autocomplete'
+
+export {ActionMenu} from './components/ActionMenu'
+
 export {
   Checkbox,
   CounterLabel,
@@ -275,8 +281,6 @@ export {
 
 export {
   ActionList,
-  ActionMenu,
-  Autocomplete,
   Avatar,
   Breadcrumbs,
   Button,
@@ -290,7 +294,6 @@ export {
   Label,
   Link,
   NavList,
-  Overlay,
   PageLayout,
   Select,
   Text,
