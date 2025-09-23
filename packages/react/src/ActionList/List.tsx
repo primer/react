@@ -9,7 +9,6 @@ import {useProvidedRefOrCreate} from '../hooks'
 import {FocusKeys, useFocusZone} from '../hooks/useFocusZone'
 import {clsx} from 'clsx'
 import classes from './ActionList.module.css'
-import {BoxWithFallback} from '../internal/components/BoxWithFallback'
 
 export const List = React.forwardRef<HTMLUListElement, ActionListProps>(
   (
@@ -58,8 +57,7 @@ export const List = React.forwardRef<HTMLUListElement, ActionListProps>(
         }}
       >
         {slots.heading}
-        <BoxWithFallback
-          as="ul"
+        <ul
           className={clsx(classes.ActionList, className)}
           role={listRole}
           aria-labelledby={ariaLabelledBy}
@@ -69,7 +67,7 @@ export const List = React.forwardRef<HTMLUListElement, ActionListProps>(
           {...props}
         >
           {childrenWithoutSlots}
-        </BoxWithFallback>
+        </ul>
       </ListContext.Provider>
     )
   },
