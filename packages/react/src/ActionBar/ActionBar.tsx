@@ -29,6 +29,10 @@ type ChildProps =
     }
   | {type: 'divider'; width: number}
 
+/**
+ * Registry of descendants to render in the list or menu. To preserve insertion order across updates, children are
+ * set to `null` when unregistered rather than fully dropped from the map.
+ */
 type ChildRegistry = ReadonlyMap<string, ChildProps | null>
 
 const ActionBarContext = React.createContext<{
@@ -246,9 +250,13 @@ export const ActionBarIconButton = forwardRef(
 
     const {size, registerChild, unregisterChild, isVisibleChild} = React.useContext(ActionBarContext)
 
+    // Storing the width in a ref ensures we don't forget about it when not visible
+    const widthRef = useRef<number>()
+
     useIsomorphicLayoutEffect(() => {
-      const domRect = ref.current?.getBoundingClientRect()
-      if (!domRect) return
+      const width = ref.current?.getBoundingClientRect().width
+      if (width) widthRef.current = width
+      if (!widthRef.current) return
 
       registerChild(id, {
         type: 'action',
@@ -256,7 +264,7 @@ export const ActionBarIconButton = forwardRef(
         icon: props.icon,
         disabled: !!disabled,
         onClick: onClick as MouseEventHandler,
-        width: domRect.width,
+        width: widthRef.current,
       })
 
       return () => unregisterChild(id)
@@ -289,11 +297,16 @@ export const VerticalDivider = () => {
   const ref = useRef<HTMLDivElement>(null)
   const id = useId()
   const {registerChild, unregisterChild, isVisibleChild} = React.useContext(ActionBarContext)
-  useIsomorphicLayoutEffect(() => {
-    const domRect = ref.current?.getBoundingClientRect()
-    if (!domRect) return
 
-    registerChild(id, {type: 'divider', width: domRect.width})
+  // Storing the width in a ref ensures we don't forget about it when not visible
+  const widthRef = useRef<number>()
+
+  useIsomorphicLayoutEffect(() => {
+    const width = ref.current?.getBoundingClientRect().width
+    if (width) widthRef.current = width
+    if (!widthRef.current) return
+
+    registerChild(id, {type: 'divider', width: widthRef.current})
 
     return () => unregisterChild(id)
   }, [registerChild, unregisterChild])
