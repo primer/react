@@ -10,4 +10,4 @@ const Text: ForwardRefExoticComponent<TextProps & RefAttributes<HTMLSpanElement>
   return <Box as={PrimerText} ref={ref} {...props} />
 })
 
-export {Text}
+export {Text, type TextProps}

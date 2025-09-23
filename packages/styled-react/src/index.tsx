@@ -273,7 +273,7 @@ export {
   UnderlineNav,
 }
 
-export {Text} from './components/Text'
+export {Text, type TextProps} from './components/Text'
 
 export {
   ActionList,
