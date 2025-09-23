@@ -24,7 +24,7 @@ const meta: Meta<typeof ButtonGroup> = {
 export default meta
 
 export const LinkAndButtonWithTooltip2 = () => (
-  <ButtonGroup sx={{pl: 2}}>
+  <ButtonGroup style={{paddingLeft: '8px'}}>
     <Tooltip text="Additional info about the link">
       <Button as="a" href="https://primer.style">
         Link
@@ -35,7 +35,7 @@ export const LinkAndButtonWithTooltip2 = () => (
 )
 
 export const ButtonAndLinkWithTooltip2 = () => (
-  <ButtonGroup sx={{pl: 2}}>
+  <ButtonGroup style={{paddingLeft: '8px'}}>
     <IconButton icon={CopilotIcon} aria-label="Open GitHub Copilot chat" />
     <Tooltip text="Additional info about the link">
       <Button as="a" href="https://primer.style">
@@ -54,19 +54,11 @@ export const ButtonGroupSingleButton = () => (
 
 export const LinkButtonWithIconButtons = () => (
   <ButtonGroup>
-    <LinkButton size="small" sx={{color: 'deeppink'}} href="https://primer.style">
+    <LinkButton size="small" style={{color: 'deeppink'}} href="https://primer.style">
       Small link
     </LinkButton>
     <Button className="testCustomClassnameColor">Pink link</Button>
     <IconButton icon={CopilotIcon} aria-label="Open GitHub Copilot chat" />
     <IconButton icon={CopilotIcon} aria-label="Open GitHub Copilot chat" />
-  </ButtonGroup>
-)
-
-export const SxProp = () => (
-  <ButtonGroup sx={{border: '1px solid red'}}>
-    <Button>Button 1</Button>
-    <Button>Button 2</Button>
-    <Button>Button 3</Button>
   </ButtonGroup>
 )
