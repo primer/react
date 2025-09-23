@@ -209,6 +209,8 @@ export {Header, type HeaderProps} from './components/Header'
 
 export {Flash} from './components/Flash'
 
+export {ButtonComponent as Button, type ButtonProps} from './components/Button'
+
 export {
   Checkbox,
   CounterLabel,
@@ -230,7 +232,6 @@ export {
   Autocomplete,
   Avatar,
   Breadcrumbs,
-  Button,
   CheckboxGroup,
   CircleBadge,
   Details,
