@@ -54,6 +54,8 @@ export type {BetterSystemStyleObject} from './styled-props'
 import {
   Box,
   type SxProp,
+  Spinner as PrimerSpinner,
+  type SpinnerProps as PrimerSpinnerProps,
   RadioGroup as PrimerRadioGroup,
   type RadioGroupProps as PrimerRadioGroupProps,
   Checkbox as PrimerCheckbox,
@@ -67,6 +69,12 @@ import {
   RelativeTime as PrimerRelativeTime,
   type SubNavProps as PrimerSubNavProps,
   type SubNavLinkProps as PrimerSubNavLinkProps,
+  Timeline as PrimerTimeline,
+  type TimelineProps as PrimerTimelineProps,
+  type TimelineItemProps as PrimerTimelineItemProps,
+  type TimelineBadgeProps as PrimerTimelineBadgeProps,
+  type TimelineBodyProps as PrimerTimelineBodyProps,
+  type TimelineBreakProps as PrimerTimelineBreakProps,
   ToggleSwitch as PrimerToggleSwitch,
   type ToggleSwitchProps as PrimerToggleSwitchProps,
   Truncate as PrimerTruncate,
@@ -111,6 +119,12 @@ type StyledProps = SxProp &
   BorderProps &
   PositionProps &
   ShadowProps
+
+type SpinnerProps = PrimerSpinnerProps & SxProp
+
+function Spinner(props: SpinnerProps) {
+  return <Box as={PrimerSpinner} {...props} />
+}
 
 type RelativeTimeProps = PrimerRelativeTimeProps & SxProp
 
@@ -214,6 +228,39 @@ const SubNavLink = forwardRef<HTMLAnchorElement, SubNavLinkProps>(function SubNa
 
 const SubNav = Object.assign(SubNavImpl, {
   Link: SubNavLink,
+})
+
+type TimelineProps = PrimerTimelineProps & SxProp
+type TimelineItemProps = PrimerTimelineItemProps & SxProp
+type TimelineBadgeProps = PrimerTimelineBadgeProps & SxProp
+type TimelineBodyProps = PrimerTimelineBodyProps & SxProp
+type TimelineBreakProps = PrimerTimelineBreakProps & SxProp
+
+const TimelineImpl = forwardRef<HTMLDivElement, TimelineProps>(function Timeline(props, ref) {
+  return <Box as={PrimerTimeline} ref={ref} {...props} />
+})
+
+const TimelineItem = forwardRef<HTMLDivElement, TimelineItemProps>(function TimelineItem(props, ref) {
+  return <Box as={PrimerTimeline.Item} ref={ref} {...props} />
+})
+
+function TimelineBadge(props: TimelineBadgeProps) {
+  return <Box as={PrimerTimeline.Badge} {...props} />
+}
+
+const TimelineBody = forwardRef<HTMLDivElement, TimelineBodyProps>(function TimelineBody(props, ref) {
+  return <Box as={PrimerTimeline.Body} ref={ref} {...props} />
+})
+
+const TimelineBreak = forwardRef<HTMLDivElement, TimelineBreakProps>(function TimelineBreak(props, ref) {
+  return <Box as={PrimerTimeline.Break} ref={ref} {...props} />
+})
+
+const Timeline = Object.assign(TimelineImpl, {
+  Item: TimelineItem,
+  Badge: TimelineBadge,
+  Body: TimelineBody,
+  Break: TimelineBreak,
 })
 
 type ToggleSwitchProps = PrimerToggleSwitchProps & Omit<StyledProps, keyof PrimerToggleSwitchProps>
