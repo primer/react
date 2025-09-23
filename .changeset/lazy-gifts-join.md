@@ -1,5 +1,5 @@
 ---
-"@primer/react": patch
+"@primer/react": major
 "@primer/styled-react": patch
 ---
 
