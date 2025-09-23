@@ -10,6 +10,7 @@ import {
 } from '@primer/react'
 import {forwardRef, type PropsWithChildren, type ComponentType} from 'react'
 import styled from 'styled-components'
+import type {ForwardRefComponent} from '../polymorphic'
 
 type FormControlProps = PrimerFormControlProps & SxProp
 
@@ -18,7 +19,6 @@ const FormControlImpl = forwardRef<HTMLDivElement, FormControlProps>(function Fo
 })
 
 type FormControlCaptionProps = PrimerFormControlCaptionProps & SxProp
-type FormControlLabelProps = PropsWithChildren<PrimerFormControlLabelProps> & SxProp
 type FormControlValidationProps = PropsWithChildren<PrimerFormControlValidationProps> & SxProp
 
 const FormControlCaption: ComponentType<FormControlCaptionProps> = styled(
@@ -29,23 +29,33 @@ const FormControlCaption: ComponentType<FormControlCaptionProps> = styled(
   ${sx}
 `
 
-const FormControlLeadingVisual: ComponentType<PropsWithChildren<{sx?: SxProp['sx']}>> = styled(
-  PrimerFormControl.LeadingVisual,
-).withConfig<{sx?: SxProp['sx']}>({
+const FormControlValidation = styled(PrimerFormControl.Validation).withConfig<FormControlValidationProps>({
   shouldForwardProp: prop => prop !== 'sx',
 })`
   ${sx}
 `
 
-const FormControlValidation: ComponentType<FormControlValidationProps> = styled(
-  PrimerFormControl.Validation,
-).withConfig<FormControlValidationProps>({
-  shouldForwardProp: prop => prop !== 'sx',
-})`
-  ${sx}
-`
+type BaseProps = SxProp & {
+  disabled?: boolean
+  required?: boolean
+  requiredText?: string
+  requiredIndicator?: boolean
+  visuallyHidden?: boolean
+  id?: string
+  className?: string
+}
 
-const FormControlLabel: ComponentType<FormControlLabelProps> = styled(
+export type LabelProps = BaseProps & {
+  htmlFor?: string
+  as?: 'label'
+}
+
+type InputLabelProps = PropsWithChildren<LabelProps>
+
+type FormControlLabelProps = PropsWithChildren<{htmlFor?: string} & InputLabelProps & PrimerFormControlLabelProps> &
+  SxProp
+
+const FormControlLabel: ForwardRefComponent<'label', FormControlLabelProps> = styled(
   PrimerFormControl.Label,
 ).withConfig<FormControlLabelProps>({
   shouldForwardProp: prop => prop !== 'sx',
@@ -53,16 +63,9 @@ const FormControlLabel: ComponentType<FormControlLabelProps> = styled(
   ${sx}
 `
 
-type FormControlType = typeof FormControlImpl & {
-  Caption: typeof FormControlCaption
-  LeadingVisual: typeof FormControlLeadingVisual
-  Validation: typeof FormControlValidation
-  Label: typeof FormControlLabel
-}
-
-const FormControl: FormControlType = Object.assign(FormControlImpl, {
+const FormControl = Object.assign(FormControlImpl, {
   Caption: FormControlCaption,
-  LeadingVisual: FormControlLeadingVisual,
+  LeadingVisual: PrimerFormControl.LeadingVisual,
   Validation: FormControlValidation,
   Label: FormControlLabel,
 })
