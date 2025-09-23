@@ -1,10 +1,10 @@
 .CircleBadge {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: var(--bgColor-default);
-    border-radius: 50%;
-    box-shadow: var(--shadow-resting-medium);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--bgColor-default);
+  border-radius: 50%;
+  box-shadow: var(--shadow-resting-medium);
 
   &:where([data-inline]) {
     display: inline-flex;
@@ -12,7 +12,7 @@
 }
 
 .CircleBadgeIcon {
-    height: auto;
-    max-height: 55%;
-    max-width: 60%;
+  height: auto;
+  max-height: 55%;
+  max-width: 60%;
 }
