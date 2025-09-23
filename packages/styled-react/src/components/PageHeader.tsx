@@ -3,11 +3,13 @@ import {
   type PageHeaderProps as PrimerPageHeaderProps,
   type PageHeaderTitleProps as PrimerPageHeaderTitleProps,
   type PageHeaderActionsProps as PrimerPageHeaderActionsProps,
+  type PageHeaderTitleAreaProps as PrimerPageHeaderTitleAreaProps,
 } from '@primer/react'
 import styled from 'styled-components'
 import {sx, type SxProp} from '../sx'
 import type {ForwardRefComponent} from '../polymorphic'
 import {Box} from './Box'
+import type {PropsWithChildren} from 'react'
 
 type PageHeaderProps = PrimerPageHeaderProps & SxProp
 
@@ -35,7 +37,7 @@ function PageHeaderActions({sx, ...rest}: PageHeaderActionsProps) {
   return <Box {...rest} as={PrimerPageHeader.Actions} style={style} sx={sx} />
 }
 
-type PageHeaderTitleProps = PrimerPageHeaderTitleProps & SxProp
+type PageHeaderTitleProps = PropsWithChildren<PrimerPageHeaderTitleProps> & SxProp
 
 type CSSCustomProperties = {
   [key: `--${string}`]: string | number
@@ -63,36 +65,29 @@ function PageHeaderTitle({sx, ...rest}: PageHeaderTitleProps) {
   return <Box {...rest} as={PrimerPageHeader.Title} style={style} sx={sx} />
 }
 
-const PageHeader: typeof PageHeaderImpl & {
-  ContextArea: typeof PrimerPageHeader.ContextArea
-  ParentLink: typeof PrimerPageHeader.ParentLink
-  ContextBar: typeof PrimerPageHeader.ContextBar
-  TitleArea: typeof PrimerPageHeader.TitleArea
-  ContextAreaActions: typeof PrimerPageHeader.ContextAreaActions
-  LeadingAction: typeof PrimerPageHeader.LeadingAction
-  Breadcrumbs: typeof PrimerPageHeader.Breadcrumbs
-  LeadingVisual: typeof PrimerPageHeader.LeadingVisual
-  Title: typeof PageHeaderTitle
-  TrailingVisual: typeof PrimerPageHeader.TrailingVisual
-  TrailingAction: typeof PrimerPageHeader.TrailingAction
-  Actions: typeof PageHeaderActions
-  Description: typeof PrimerPageHeader.Description
-  Navigation: typeof PrimerPageHeader.Navigation
-} = Object.assign(PageHeaderImpl, {
+type PageHeaderTitleAreaProps = PropsWithChildren<PrimerPageHeaderTitleAreaProps> & SxProp
+
+const PageHeaderTitleArea: ForwardRefComponent<'div', PageHeaderTitleAreaProps> = styled(
+  PrimerPageHeader.TitleArea,
+).withConfig<PageHeaderTitleAreaProps>({
+  shouldForwardProp: prop => prop !== 'sx',
+})`
+  ${sx}
+`
+
+const PageHeader = Object.assign(PageHeaderImpl, {
+  Actions: PageHeaderActions,
+  Title: PageHeaderTitle,
+  TitleArea: PageHeaderTitleArea,
   ContextArea: PrimerPageHeader.ContextArea,
-  ParentLink: PrimerPageHeader.ParentLink,
-  ContextBar: PrimerPageHeader.ContextBar,
-  TitleArea: PrimerPageHeader.TitleArea,
   ContextAreaActions: PrimerPageHeader.ContextAreaActions,
+  TrailingVisual: PrimerPageHeader.TrailingVisual,
+  Description: PrimerPageHeader.Description,
+  ContextBar: PrimerPageHeader.ContextBar,
   LeadingAction: PrimerPageHeader.LeadingAction,
   Breadcrumbs: PrimerPageHeader.Breadcrumbs,
   LeadingVisual: PrimerPageHeader.LeadingVisual,
-  Title: PageHeaderTitle,
-  TrailingVisual: PrimerPageHeader.TrailingVisual,
   TrailingAction: PrimerPageHeader.TrailingAction,
-  Actions: PageHeaderActions,
-  Description: PrimerPageHeader.Description,
-  Navigation: PrimerPageHeader.Navigation,
 })
 
 export {PageHeader}

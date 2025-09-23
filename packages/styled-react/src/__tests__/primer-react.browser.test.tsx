@@ -388,8 +388,18 @@ describe('@primer/react', () => {
     expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
   })
 
+  test('Timeline.Break supports `sx` prop', () => {
+    render(<Timeline.Break data-testid="component" sx={{background: 'red'}} />)
+    expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
+  })
+
   test('Timeline.Item supports `sx` prop', () => {
     render(<Timeline.Item data-testid="component" sx={{background: 'red'}} />)
+    expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
+  })
+
+  test('Timeline.Body supports `sx` prop', () => {
+    render(<Timeline.Body data-testid="component" sx={{background: 'red'}} />)
     expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
   })
 
