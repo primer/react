@@ -287,5 +287,5 @@
 }
 
 .PlaceholderText {
-  color: var(--fgColor-subtle);
+  color: var(--fgColor-muted);
 }

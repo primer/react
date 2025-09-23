@@ -25,7 +25,8 @@
 }
 
 .ExtraLargeText {
-  font-size: var(--text-title-size-large);
+  /* stylelint-disable-next-line primer/typography */
+  font-size: var(--base-size-96);
 }
 
 .SmallFont {

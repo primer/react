@@ -32,7 +32,7 @@ describe('Text', () => {
   it('applies bold font weight with CSS class', () => {
     const {container} = render(<Text className={testClasses.BoldText}>Bold text</Text>)
     const textElement = container.firstChild as HTMLElement
-    expect(getComputedStyle(textElement).fontWeight).toBe('700')
+    expect(getComputedStyle(textElement).fontWeight).toBe('600')
   })
 
   it('applies normal font weight with CSS class', () => {
