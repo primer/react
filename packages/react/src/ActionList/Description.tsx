@@ -1,6 +1,5 @@
 import React from 'react'
 import Truncate from '../Truncate'
-import type {SxProp} from '../sx'
 import {ItemContext} from './shared'
 import classes from './ActionList.module.css'
 import {BoxWithFallback} from '../internal/components/BoxWithFallback'
@@ -20,11 +19,10 @@ export type ActionListDescriptionProps = {
    * Whether the inline description should truncate the text on overflow.
    */
   truncate?: boolean
-} & SxProp
+}
 
 export const Description: React.FC<React.PropsWithChildren<ActionListDescriptionProps>> = ({
   variant = 'inline',
-  sx,
   className,
   truncate,
   ...props
@@ -47,7 +45,6 @@ export const Description: React.FC<React.PropsWithChildren<ActionListDescription
     return (
       <BoxWithFallback
         as="span"
-        sx={sx}
         id={variant === 'block' ? blockDescriptionId : inlineDescriptionId}
         className={clsx(className, classes.Description)}
         data-component="ActionList.Description"
