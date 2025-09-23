@@ -7,11 +7,13 @@ import {
 import styled from 'styled-components'
 import {type ForwardRefComponent} from '../polymorphic'
 
-type CircleBadgeProps = PrimerCircleBadgeProps & SxProp
+type CircleBadgeProps<As extends React.ElementType> = PrimerCircleBadgeProps<As> & SxProp
 
-const CircleBadge: ForwardRefComponent<'div', CircleBadgeProps> = styled(PrimerCircleBadge).withConfig({
-  shouldForwardProp: prop => (prop as keyof CircleBadgeProps) !== 'sx',
-})<CircleBadgeProps>`
+const CircleBadge: ForwardRefComponent<React.ElementType, CircleBadgeProps<React.ElementType>> = styled(
+  PrimerCircleBadge,
+).withConfig({
+  shouldForwardProp: prop => (prop as keyof CircleBadgeProps<React.ElementType>) !== 'sx',
+})<CircleBadgeProps<React.ElementType>>`
   ${sx}
 `
 
