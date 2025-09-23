@@ -9,7 +9,13 @@ export type RenderItemFn = (props: FilteredActionListItemProps) => React.ReactEl
 
 export type ItemInput =
   | Merge<React.ComponentPropsWithoutRef<'div'>, FilteredActionListItemProps>
-  | ((Partial<FilteredActionListItemProps> & {renderItem: RenderItemFn}) & {key?: Key})
+  | ((Partial<FilteredActionListItemProps> & {
+      // un-partial these fields because they are required
+      id: FilteredActionListItemProps['id']
+      renderItem: RenderItemFn
+    }) & {
+      key?: Key
+    })
 
 export interface FilteredActionListItemProps extends SxProp {
   /**
