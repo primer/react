@@ -149,6 +149,7 @@ const SegmentedControl = Object.assign(SegmentedControlImpl, {
 type CircleBadgeProps<As extends React.ElementType> = PrimerCircleBadgeProps<As> & SxProp
 
 function CircleBadge<As extends React.ElementType>(props: CircleBadgeProps<As>) {
+  // @ts-expect-error the types for Box are not correctly inferred here
   return <Box as={PrimerCircleBadge} {...props} />
 }
 
