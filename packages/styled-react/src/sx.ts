@@ -1,1 +1,1 @@
-export {sx, type SxProp} from '@primer/react'
+export {sx, type SxProp, type BetterSystemStyleObject, type CSSCustomProperties} from '@primer/react'
