@@ -3,7 +3,6 @@ import type {Args, Meta} from '@storybook/react-vite'
 import Text from '../Text'
 import {Button, IconButton} from '../Button'
 import Overlay from './Overlay'
-import {useFocusTrap} from '../hooks/useFocusTrap'
 import {XIcon} from '@primer/octicons-react'
 import classes from './Overlay.dev.stories.module.css'
 
