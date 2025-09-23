@@ -32,8 +32,6 @@ import {
   SegmentedControl as PrimerSegmentedControl,
   type SegmentedControlButtonProps as PrimerSegmentedControlButtonProps,
   type SegmentedControlIconButtonProps as PrimerSegmentedControlIconButtonProps,
-  Overlay as PrimerBaseOverlay,
-  type OverlayProps as BaseOverlayProps,
   UnderlineNav as PrimerUnderlineNav,
   type UnderlineNavProps as PrimerUnderlineNavProps,
   type UnderlineNavItemProps as PrimerUnderlineNavItemProps,
@@ -258,6 +256,8 @@ export {Header, type HeaderProps} from './components/Header'
 
 export {Flash} from './components/Flash'
 
+export {Overlay} from './components/Overlay'
+
 export {
   Checkbox,
   CounterLabel,
@@ -292,7 +292,6 @@ export {
   Label,
   Link,
   NavList,
-  Overlay,
   PageLayout,
   Select,
   Text,
