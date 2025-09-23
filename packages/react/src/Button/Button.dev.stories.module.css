@@ -1,35 +1,40 @@
 .MediavsColor {
-  :hover {
-    color: deepskyblue;
+  &:hover {
+    color: var(--fgColor-accent, var(--color-accent-fg));
   }
+
   @media screen and (max-width: 768px) {
-    color: maroon;
-    background-color: #f6f8fa;
+    color: var(--fgColor-attention, var(--color-attention-fg));
+    background-color: var(--bgColor-muted, var(--color-canvas-subtle));
   }
-  @media (min-width: 1440) {
-    color: firebrick;
-    background-color: #f6f8fa;
+
+  @media (min-width: 1440px) {
+    color: var(--fgColor-danger, var(--color-danger-fg));
+    background-color: var(--bgColor-muted, var(--color-canvas-subtle));
   }
 }
 
 .MediumRed {
-  color: firebrick;
-  background-color: #f6f8fa;
+  color: var(--fgColor-danger, var(--color-danger-fg));
+  background-color: var(--bgColor-muted, var(--color-canvas-subtle));
 }
 
 .DoneFg {
-  color: var(--fgColor-done, var(--color-done-fg, #2da44e));
+  color: var(--fgColor-done, var(--color-done-fg));
 }
 
 .SmallInvisibleSquare {
-  width: 32px;
-  height: 32px;
-  :focus {
-    outline: 0;
-  }
-  > span {
-    box-shadow: inset 0 0 0 2px deeppink;
-  }
+  width: var(--base-size-32, 32px);
+  height: var(--base-size-32, 32px);
+}
+
+.SmallInvisibleSquare:focus {
+  outline: 0;
+}
+
+.SmallInvisibleSquare:focus > span {
+  outline: 2px solid var(--focus-outlineColor, var(--borderColor-accent-emphasis));
+  outline-offset: 2px;
 }
 
 .BlockWidthOverride {
@@ -37,5 +42,5 @@
 }
 
 .LargeFontWatch {
-  font-size: 32px;
+  font-size: var(--text-title-size-large, 32px);
 }
