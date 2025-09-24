@@ -54,7 +54,7 @@ export const CondensedItems = () => (
 export const TimelineBreak = () => (
   <Timeline>
     <Timeline.Item>
-      <Timeline.Badge className={classes.TimelineBadgeDone}>
+      <Timeline.Badge className={classes.BadgeWithDoneBackground}>
         <Octicon icon={GitMergeIcon} color="fg.onEmphasis" aria-label="Merged" />
       </Timeline.Badge>
       <Timeline.Body>This is a message</Timeline.Body>
@@ -76,7 +76,7 @@ export const WithInlineLinks = () => (
         <Octicon icon={GitCommitIcon} aria-label="Commit" />
       </Timeline.Badge>
       <Timeline.Body>
-        <Link href="#" className={classes.InlineLink} muted>
+        <Link href="#" className={classes.LinkWithBoldStyle} muted>
           Monalisa
         </Link>
         enabled auto-merge (squash)

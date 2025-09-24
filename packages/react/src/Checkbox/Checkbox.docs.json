@@ -67,6 +67,11 @@
     {
       "name": "ref",
       "type": "React.RefObject<HTMLInputElement>"
+    },
+    {
+      "name": "as",
+      "type": "React.ElementType",
+      "defaultValue": "\"input\""
     }
   ],
   "subcomponents": []
