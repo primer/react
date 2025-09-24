@@ -23,19 +23,6 @@ describe('BaseStyles', () => {
     } as Partial<CSSStyleDeclaration>)
   })
 
-  it('respects system props', () => {
-    const {container} = render(
-      <BaseStyles display="contents" whiteSpace="pre-wrap" mr="2">
-        Hello
-      </BaseStyles>,
-    )
-
-    expect(container.children[0]).toHaveStyle({
-      display: 'contents',
-      'margin-right': '8px',
-    } as Partial<CSSStyleDeclaration>)
-  })
-
   it('accepts className and style props', () => {
     const styles = {
       style: {margin: '10px'},
