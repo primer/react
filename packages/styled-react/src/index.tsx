@@ -56,6 +56,8 @@ import styled from 'styled-components'
 
 import {LinkButton, type LinkButtonProps} from './components/LinkButton'
 
+import {CircleBadge} from './components/CircleBadge'
+
 type StyledProps = SxProp &
   SpaceProps &
   ColorProps &
@@ -258,6 +260,7 @@ export {Flash} from './components/Flash'
 
 export {
   Checkbox,
+  CircleBadge,
   CounterLabel,
   LinkButton,
   type LinkButtonProps,
@@ -281,7 +284,6 @@ export {
   Breadcrumbs,
   Button,
   CheckboxGroup,
-  CircleBadge,
   Details,
   Dialog,
   FormControl,
