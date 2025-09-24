@@ -5,18 +5,22 @@ import {Box} from './Box'
 type ButtonComponentProps = PrimerButtonProps & SxProp
 const ButtonComponent = ({sx, ...rest}: ButtonComponentProps) => {
   const {block, size = 'medium', leadingVisual, trailingVisual, trailingAction} = rest
-  let sxStyles = sx
+  let sxStyles: {[key: string]: BetterSystemStyleObject} = {}
   const style: CSSCustomProperties = {}
 
-  if (sx !== null && Object.keys(sx).length > 0) {
-    sxStyles = generateCustomSxProp({block, size, leadingVisual, trailingVisual, trailingAction}, sx)
+  if (sx !== null && Object.keys(sx || {}).length > 0) {
+    sxStyles = generateCustomSxProp(
+      {block, size, leadingVisual, trailingVisual, trailingAction},
+      sx as BetterSystemStyleObject,
+    )
 
     // @ts-ignore sx can have color attribute
     const {color} = sx
     if (color) style['--button-color'] = color
   }
 
-  return <Box as={PrimerButton} style={style} {...rest} />
+  // @ts-expect-error type mismatch between Box usage here and PrimerButton
+  return <Box {...rest} as={PrimerButton} style={style} sx={sxStyles} />
 }
 
 // This function is used to generate a custom cssSelector for the sxProp

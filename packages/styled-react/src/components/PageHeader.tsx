@@ -6,7 +6,7 @@ import {
   type PageHeaderTitleAreaProps as PrimerPageHeaderTitleAreaProps,
 } from '@primer/react'
 import styled from 'styled-components'
-import {sx, type SxProp} from '../sx'
+import {sx, type SxProp, type CSSCustomProperties} from '../sx'
 import type {ForwardRefComponent} from '../polymorphic'
 import {Box} from './Box'
 import type {PropsWithChildren} from 'react'
@@ -38,10 +38,6 @@ function PageHeaderActions({sx, ...rest}: PageHeaderActionsProps) {
 }
 
 type PageHeaderTitleProps = PropsWithChildren<PrimerPageHeaderTitleProps> & SxProp
-
-type CSSCustomProperties = {
-  [key: `--${string}`]: string | number
-}
 
 function PageHeaderTitle({sx, ...rest}: PageHeaderTitleProps) {
   const style: CSSCustomProperties = {}

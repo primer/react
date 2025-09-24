@@ -1,1 +1,4 @@
-export {sx, type SxProp, type BetterSystemStyleObject, type CSSCustomProperties} from '@primer/react'
+export {sx, type SxProp, type BetterSystemStyleObject} from '@primer/react'
+export type CSSCustomProperties = {
+  [key: `--${string}`]: string | number
+}
