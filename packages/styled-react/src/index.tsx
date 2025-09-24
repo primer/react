@@ -32,7 +32,7 @@ export {themeGet} from '@primer/react'
 export {useColorSchemeVar} from '@primer/react'
 export {useTheme} from '@primer/react'
 
-export {ActionMenu, type ActionMenuProps, type ActionMenuButtonProps} from './components/ActionMenu'
+export {ActionMenu, type ActionMenuProps} from './components/ActionMenu'
 export {ButtonComponent as Button, type ButtonComponentProps as ButtonProps} from './components/Button'
 export {Checkbox, type CheckboxProps} from './components/Checkbox'
 export {CounterLabel, type CounterLabelProps} from './components/CounterLabel'
