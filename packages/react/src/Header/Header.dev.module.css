@@ -11,3 +11,7 @@
 .HeaderDevLink {
   color: var(--color-prettylights-syntax-carriage-return-text);
 }
+
+.Icon {
+  margin-right: var(--base-size-8);
+}

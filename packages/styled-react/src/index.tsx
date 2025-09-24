@@ -252,6 +252,8 @@ const UnderlineNav = Object.assign(UnderlineNavImpl, {
   Item: UnderlineNavItem,
 })
 
+export {Heading} from './components/Heading'
+
 export {Header, type HeaderProps} from './components/Header'
 
 export {Flash} from './components/Flash'
@@ -285,7 +287,6 @@ export {
   Details,
   Dialog,
   FormControl,
-  Heading,
   IconButton,
   Label,
   Link,
