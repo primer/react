@@ -1,4 +1,5 @@
 import {
+  ActionMenu as PrimerActionMenu,
   type BetterSystemStyleObject,
   Box,
   type BoxProps,
@@ -37,7 +38,7 @@ import {
   type UnderlineNavItemProps as PrimerUnderlineNavItemProps,
   sx,
 } from '@primer/react'
-import React, {forwardRef, type PropsWithChildren} from 'react'
+import {forwardRef, type PropsWithChildren, type ComponentProps} from 'react'
 import type {ForwardRefComponent} from './polymorphic'
 
 import type {
@@ -145,6 +146,31 @@ const SegmentedControl = Object.assign(SegmentedControlImpl, {
   Button: SegmentedControlButton,
   IconButton: SegmentedControlIconButton,
 })
+
+type ActionMenuProps = ComponentProps<typeof PrimerActionMenu> & SxProp
+type ActionMenuButtonProps = ComponentProps<typeof PrimerActionMenu.Button> & SxProp
+
+const ActionMenuButton = forwardRef<HTMLButtonElement, ActionMenuButtonProps>(function ActionMenuButton(props, ref) {
+  return <Box as={PrimerActionMenu.Button} ref={ref} {...props} />
+})
+
+const ActionMenuImpl = (props: ActionMenuProps) => {
+  return <Box as={PrimerActionMenu} {...props} />
+}
+
+type ActionMenuComposite = ((props: ActionMenuProps) => JSX.Element) & {
+  Button: typeof ActionMenuButton
+  Anchor: typeof PrimerActionMenu.Anchor
+  Overlay: typeof PrimerActionMenu.Overlay
+  Divider: typeof PrimerActionMenu.Divider
+}
+
+const ActionMenu = Object.assign(ActionMenuImpl, {
+  Button: ActionMenuButton,
+  Anchor: PrimerActionMenu.Anchor,
+  Overlay: PrimerActionMenu.Overlay,
+  Divider: PrimerActionMenu.Divider,
+}) as ActionMenuComposite
 
 type CheckboxProps = PrimerCheckboxProps & SxProp
 
@@ -268,6 +294,9 @@ export {
   RadioGroup,
   RelativeTime,
   SegmentedControl,
+  ActionMenu,
+  type ActionMenuProps,
+  type ActionMenuButtonProps,
   Spinner,
   StateLabel,
   SubNav,
@@ -279,7 +308,6 @@ export {
 
 export {
   ActionList,
-  ActionMenu,
   Autocomplete,
   Avatar,
   Breadcrumbs,
@@ -296,12 +324,9 @@ export {
   PageLayout,
   Select,
   Text,
-  type TextProps,
   Textarea,
   TextInput,
-  type TextInputProps,
   Token,
-  type TokenProps,
   Tooltip,
   // styled-components components or types
   Box,
