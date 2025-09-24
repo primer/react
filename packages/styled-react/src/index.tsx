@@ -47,6 +47,7 @@ import type {
 import styled from 'styled-components'
 
 import {LinkButton, type LinkButtonProps} from './components/LinkButton'
+import {FormControl, type FormControlProps} from './components/FormControl'
 
 type StyledProps = SxProp &
   SpaceProps &
@@ -203,10 +204,12 @@ export {Header, type HeaderProps} from './components/Header'
 export {Flash} from './components/Flash'
 
 export {
-  Checkbox,
-  CounterLabel,
+  FormControl,
+  type FormControlProps,
   LinkButton,
   type LinkButtonProps,
+  Checkbox,
+  CounterLabel,
   RadioGroup,
   RelativeTime,
   SegmentedControl,
@@ -228,7 +231,6 @@ export {
   CircleBadge,
   Details,
   Dialog,
-  FormControl,
   Heading,
   IconButton,
   Label,
