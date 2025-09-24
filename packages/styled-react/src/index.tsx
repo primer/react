@@ -30,8 +30,6 @@ import {
   type LinkProps as PrimerLinkProps,
   Heading as PrimerHeading,
   type HeadingProps as PrimerHeadingProps,
-  Checkbox as PrimerCheckbox,
-  type CheckboxProps as PrimerCheckboxProps,
   Truncate as PrimerTruncate,
   type TruncateProps as PrimerTruncateProps,
   type SegmentedControlProps as PrimerSegmentedControlProps,
