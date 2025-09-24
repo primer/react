@@ -66,13 +66,15 @@
 .StateLabel:where([data-status='draft']) {
   background-color: var(--bgColor-draft-emphasis, var(--bgColor-neutral-emphasis));
   color: var(--fgColor-onEmphasis);
-  box-shadow: var(--boxShadow-thin, inset 0 0 0 1px) var(--borderColor-draft-emphasis, var(--borderColor-neutral-emphasis, transparent));
+  box-shadow: var(--boxShadow-thin, inset 0 0 0 1px)
+    var(--borderColor-draft-emphasis, var(--borderColor-neutral-emphasis, transparent));
 }
 
 .StateLabel:where([data-status='issueDraft']) {
   background-color: var(--bgColor-draft-emphasis, var(--bgColor-neutral-emphasis));
   color: var(--fgColor-onEmphasis);
-  box-shadow: var(--boxShadow-thin, inset 0 0 0 1px) var(--borderColor-draft-emphasis, var(--borderColor-neutral-emphasis, transparent));
+  box-shadow: var(--boxShadow-thin, inset 0 0 0 1px)
+    var(--borderColor-draft-emphasis, var(--borderColor-neutral-emphasis, transparent));
 }
 
 .StateLabel:where([data-status='unavailable']) {
