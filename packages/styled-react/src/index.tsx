@@ -1,4 +1,6 @@
 import {
+  ActionList as PrimerActionList,
+  type ActionListProps as PrimerActionListProps,
   type BetterSystemStyleObject,
   Box,
   type BoxProps,
@@ -67,6 +69,14 @@ type StyledProps = SxProp &
   BorderProps &
   PositionProps &
   ShadowProps
+
+type ActionListProps = PrimerActionListProps & SxProp
+
+const ActionList: ForwardRefComponent<'div', ActionListProps> = styled(PrimerActionList).withConfig<ActionListProps>({
+  shouldForwardProp: prop => prop !== 'sx',
+})`
+  ${sx}
+`
 
 type SpinnerProps = PrimerSpinnerProps & SxProp
 
@@ -257,6 +267,7 @@ export {Header, type HeaderProps} from './components/Header'
 export {Flash} from './components/Flash'
 
 export {
+  ActionList,
   Checkbox,
   CounterLabel,
   LinkButton,
@@ -274,7 +285,6 @@ export {
 }
 
 export {
-  ActionList,
   ActionMenu,
   Autocomplete,
   Avatar,
