@@ -1,7 +1,16 @@
 import {IconButton, Button, Link, ActionMenu, ActionList, VisuallyHidden} from '..'
 import Octicon from '../Octicon'
 import {Tooltip} from './Tooltip'
-import {SearchIcon, BookIcon, CheckIcon, TriangleDownIcon, GitBranchIcon, InfoIcon} from '@primer/octicons-react'
+import {
+  SearchIcon,
+  BookIcon,
+  CheckIcon,
+  TriangleDownIcon,
+  GitBranchIcon,
+  InfoIcon,
+  StarIcon,
+  HeartIcon,
+} from '@primer/octicons-react'
 import classes from './Tooltip.features.stories.module.css'
 
 export default {
@@ -202,3 +211,61 @@ export const WithDelay = () => (
     </Tooltip>
   </div>
 )
+
+export const OcticonPicker = {
+  args: {
+    delay: 300,
+  },
+  argTypes: {
+    delay: {
+      control: {
+        type: 'number',
+        min: 0,
+        max: 2000,
+        step: 50,
+      },
+      description: 'Delay in milliseconds before showing the tooltip',
+    },
+  },
+  render: ({delay}: {delay: number}) => {
+    const octicons = [
+      {icon: SearchIcon, name: 'Search'},
+      {icon: BookIcon, name: 'Book'},
+      {icon: CheckIcon, name: 'Check'},
+      {icon: StarIcon, name: 'Star'},
+      {icon: HeartIcon, name: 'Heart'},
+      {icon: SearchIcon, name: 'Search'},
+      {icon: BookIcon, name: 'Book'},
+      {icon: CheckIcon, name: 'Check'},
+      {icon: StarIcon, name: 'Star'},
+      {icon: HeartIcon, name: 'Heart'},
+      {icon: SearchIcon, name: 'Search'},
+      {icon: BookIcon, name: 'Book'},
+      {icon: CheckIcon, name: 'Check'},
+      {icon: StarIcon, name: 'Star'},
+      {icon: HeartIcon, name: 'Heart'},
+    ]
+
+    return (
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(5, 1fr)',
+          gap: '4px',
+          maxWidth: '200px',
+          padding: '16px',
+        }}
+      >
+        {octicons.map((octicon, index) => (
+          <Tooltip key={index} text={octicon.name} direction="n" delay={delay}>
+            <IconButton
+              aria-label={octicon.name}
+              onClick={() => console.log(`Selected ${octicon.name}`)}
+              icon={octicon.icon}
+            />
+          </Tooltip>
+        ))}
+      </div>
+    )
+  },
+}
