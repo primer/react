@@ -55,6 +55,8 @@ import type {
 import styled from 'styled-components'
 
 import {LinkButton, type LinkButtonProps} from './components/LinkButton'
+import {IconButton, type IconButtonProps} from './components/IconButton'
+export {ButtonComponent as Button, type ButtonComponentProps as ButtonProps} from './components/Button'
 
 type StyledProps = SxProp &
   SpaceProps &
@@ -256,13 +258,13 @@ export {Header, type HeaderProps} from './components/Header'
 
 export {Flash} from './components/Flash'
 
-export {ButtonComponent as Button, type ButtonComponentProps as ButtonProps} from './components/Button'
-
 export {
   Checkbox,
   CounterLabel,
   LinkButton,
   type LinkButtonProps,
+  IconButton,
+  type IconButtonProps,
   RadioGroup,
   RelativeTime,
   SegmentedControl,
@@ -287,7 +289,6 @@ export {
   Dialog,
   FormControl,
   Heading,
-  IconButton,
   Label,
   Link,
   NavList,
