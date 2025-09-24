@@ -1,4 +1,4 @@
-import {type TokenProps as PrimerTokenProps, type SxProp, Token as PrimerToken} from '@primer/react'
+import {Box, type TokenProps as PrimerTokenProps, type SxProp, Token as PrimerToken} from '@primer/react'
 import {forwardRef} from 'react'
 import type {ForwardRefComponent} from '../polymorphic'
 
