@@ -47,10 +47,10 @@ const FormControlLabel = (props: FormControlLabelProps) => {
 }
 
 const FormControl = Object.assign(FormControlImpl, {
-    Caption: FormControlCaption,
-    LeadingVisual: FormControlLeadingVisual,
-    Validation: FormControlValidation,
-    Label: FormControlLabel,
+  Caption: FormControlCaption,
+  LeadingVisual: FormControlLeadingVisual,
+  Validation: FormControlValidation,
+  Label: FormControlLabel,
 })
 
 export {FormControl}
