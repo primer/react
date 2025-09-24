@@ -64,6 +64,7 @@
 }
 
 .StateLabel:where([data-status='draft']) {
+  /* stylelint-disable-next-line primer/colors */
   background-color: var(--bgColor-draft-emphasis, var(--bgColor-neutral-emphasis));
   color: var(--fgColor-onEmphasis);
   box-shadow: var(--boxShadow-thin, inset 0 0 0 1px)
@@ -71,6 +72,7 @@
 }
 
 .StateLabel:where([data-status='issueDraft']) {
+  /* stylelint-disable-next-line primer/colors */
   background-color: var(--bgColor-draft-emphasis, var(--bgColor-neutral-emphasis));
   color: var(--fgColor-onEmphasis);
   box-shadow: var(--boxShadow-thin, inset 0 0 0 1px)
