@@ -7,27 +7,26 @@ import type {SxProp} from '../sx'
 // Derive prop types from the underlying Primer components and augment with SxProp
 export type ActionMenuProps = ComponentProps<typeof PrimerActionMenu> & SxProp
 export type ActionMenuButtonProps = ComponentProps<typeof PrimerActionMenu.Button> & SxProp
+export type ActionMenuOverlayProps = ComponentProps<typeof PrimerActionMenu.Overlay> & SxProp
 
 const ActionMenuButton = forwardRef<HTMLButtonElement, ActionMenuButtonProps>(function ActionMenuButton(props, ref) {
   return <Box as={PrimerActionMenu.Button} ref={ref} {...props} />
 })
 
-const ActionMenuImpl = (props: ActionMenuProps) => {
-  return <Box as={PrimerActionMenu} {...props} />
-}
+const ActionMenuImpl = (props: ActionMenuProps) => <Box as={PrimerActionMenu} {...props} />
+
+const ActionMenuOverlay = (props: ActionMenuOverlayProps) => <Box as={PrimerActionMenu.Overlay} {...props} />
 
 type ActionMenuComposite = ((props: ActionMenuProps) => JSX.Element) & {
   Button: typeof ActionMenuButton
   Anchor: typeof PrimerActionMenu.Anchor
-  Overlay: typeof PrimerActionMenu.Overlay
+  Overlay: typeof ActionMenuOverlay
   Divider: typeof PrimerActionMenu.Divider
 }
 
 export const ActionMenu: ActionMenuComposite = Object.assign(ActionMenuImpl, {
   Button: ActionMenuButton,
   Anchor: PrimerActionMenu.Anchor,
-  Overlay: PrimerActionMenu.Overlay,
+  Overlay: ActionMenuOverlay,
   Divider: PrimerActionMenu.Divider,
 })
-
-export {ActionMenuButton}
