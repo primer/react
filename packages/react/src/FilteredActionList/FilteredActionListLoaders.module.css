@@ -3,15 +3,15 @@
   border-radius: 4px;
 }
 
-.SpinnerContainer {
-  padding: var(--base-size-12);
+.LoadingSpinner {
+  padding: var(--base-size-16);
   flex-grow: 1;
   align-content: center;
   text-align: center;
   height: 100%;
 }
 
-.SkeletonContainer {
+.LoadingSkeletonContainer {
   padding: var(--base-size-8);
   display: flex;
   flex-grow: 1;
