@@ -1,13 +1,14 @@
-import {Box, type TokenProps as PrimerTokenProps, type SxProp, Token as PrimerToken} from '@primer/react'
-import {forwardRef} from 'react'
+import {type TokenProps as PrimerTokenProps, type SxProp, Token as PrimerToken} from '@primer/react'
+import {sx} from '../sx'
 import type {ForwardRefComponent} from '../polymorphic'
+import styled from 'styled-components'
 
 type TokenProps = PrimerTokenProps & SxProp
 
-const Token = forwardRef<HTMLElement, TokenProps>(function Token(props, ref) {
-  // @ts-expect-error the polymorphic component type is not inferred
-  // correctly
-  return <Box as={PrimerToken} ref={ref} {...props} />
-}) as ForwardRefComponent<'a' | 'button' | 'span', TokenProps>
+const Token: ForwardRefComponent<'a' | 'button' | 'span', TokenProps> = styled(PrimerToken).withConfig<TokenProps>({
+  shouldForwardProp: prop => prop !== 'sx',
+})`
+  ${sx}
+`
 
 export {Token, type TokenProps}
