@@ -25,17 +25,33 @@ const FormControlValidation = (props: FormControlValidationProps) => {
   return <Box as={PrimerFormControl.Validation} {...props} />
 }
 
-const FormControl = Object.assign(FormControlImpl, {
-  Caption: FormControlCaption,
-  LeadingVisual: PrimerFormControl.LeadingVisual,
-  Validation: FormControlValidation,
-  Label: PrimerFormControl.Label,
-}) as typeof FormControlImpl & {
-  Caption: typeof FormControlCaption
-  LeadingVisual: typeof PrimerFormControl.LeadingVisual
-  Validation: typeof FormControlValidation
-  Label: typeof PrimerFormControl.Label
+const FormControlLeadingVisual = (props: PropsWithChildren<SxProp>) => {
+  return <Box as={PrimerFormControl.LeadingVisual} {...props} />
 }
+
+// Define local type instead of using the complex imported type
+type FormControlLabelProps = PropsWithChildren<
+  {
+    htmlFor?: string
+    visuallyHidden?: boolean
+    requiredText?: string
+    requiredIndicator?: boolean
+    id?: string
+    className?: string
+    as?: 'label' | 'legend' | 'span'
+  } & SxProp
+>
+
+const FormControlLabel = (props: FormControlLabelProps) => {
+  return <Box as={PrimerFormControl.Label} {...props} />
+}
+
+const FormControl = Object.assign(FormControlImpl, {
+    Caption: FormControlCaption,
+    LeadingVisual: FormControlLeadingVisual,
+    Validation: FormControlValidation,
+    Label: FormControlLabel,
+})
 
 export {FormControl}
 export type {FormControlProps}
