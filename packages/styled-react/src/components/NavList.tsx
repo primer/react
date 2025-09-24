@@ -53,5 +53,4 @@ const NavList = Object.assign(NavListImpl, {
   >,
 })
 
-export {NavList}
-export type {NavListProps}
+export {NavList, type NavListProps}

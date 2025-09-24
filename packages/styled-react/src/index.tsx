@@ -14,7 +14,6 @@ export {Heading} from '@primer/react'
 export {IconButton} from '@primer/react'
 export {Label} from '@primer/react'
 export {Link} from '@primer/react'
-export {NavList} from '@primer/react'
 export {Overlay} from '@primer/react'
 export {PageLayout} from '@primer/react'
 export {ProgressBar} from '@primer/react'
@@ -40,6 +39,7 @@ export {CounterLabel, type CounterLabelProps} from './components/CounterLabel'
 export {Flash} from './components/Flash'
 export {Header, type HeaderProps} from './components/Header'
 export {LinkButton, type LinkButtonProps} from './components/LinkButton'
+export {NavList, type NavListProps} from './components/NavList'
 export {
   PageHeader,
   type PageHeaderProps,
