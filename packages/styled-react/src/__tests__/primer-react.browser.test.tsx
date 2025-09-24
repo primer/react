@@ -238,7 +238,7 @@ describe('@primer/react', () => {
     )
     const heading = container.firstChild as HTMLElement
     ///These sx tests should go away right?
-    expect(heading).toHaveStyle(`line-height: 48px`)
+    expect(heading).toHaveStyle(`line-height: 24px`)
 
     const {container: container2} = render(
       <ThemeProvider theme={theme}>
@@ -246,7 +246,7 @@ describe('@primer/react', () => {
       </ThemeProvider>,
     )
     const heading2 = container2.firstChild as HTMLElement
-    expect(heading2).toHaveStyle(`line-height: 40px`)
+    expect(heading2).toHaveStyle(`line-height: 20px`)
 
     const {container: container3} = render(
       <ThemeProvider theme={theme}>
@@ -254,7 +254,7 @@ describe('@primer/react', () => {
       </ThemeProvider>,
     )
     const heading3 = container3.firstChild as HTMLElement
-    expect(heading3).toHaveStyle(`line-height: 32px`)
+    expect(heading3).toHaveStyle(`line-height: 16px`)
   })
 
   test('Heading supports `fontFamily` in `sx` prop', () => {
