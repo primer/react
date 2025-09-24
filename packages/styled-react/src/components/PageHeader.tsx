@@ -75,7 +75,23 @@ const PageHeaderTitleArea: ForwardRefComponent<'div', PageHeaderTitleAreaProps> 
   ${sx}
 `
 
-const PageHeader = Object.assign(PageHeaderImpl, {
+type PageHeaderComponent = ForwardRefComponent<'div', PageHeaderProps> & {
+  Actions: typeof PageHeaderActions
+  ContextArea: typeof PrimerPageHeader.ContextArea
+  ParentLink: typeof PrimerPageHeader.ParentLink
+  ContextBar: typeof PrimerPageHeader.ContextBar
+  TitleArea: typeof PageHeaderTitleArea
+  ContextAreaActions: typeof PrimerPageHeader.ContextAreaActions
+  LeadingAction: typeof PrimerPageHeader.LeadingAction
+  Breadcrumbs: typeof PrimerPageHeader.Breadcrumbs
+  LeadingVisual: typeof PrimerPageHeader.LeadingVisual
+  Title: typeof PageHeaderTitle
+  TrailingVisual: typeof PrimerPageHeader.TrailingVisual
+  Description: typeof PrimerPageHeader.Description
+  TrailingAction: typeof PrimerPageHeader.TrailingAction
+}
+
+const PageHeader: PageHeaderComponent = Object.assign(PageHeaderImpl, {
   Actions: PageHeaderActions,
   ContextArea: PrimerPageHeader.ContextArea,
   ParentLink: PrimerPageHeader.ParentLink,
