@@ -63,7 +63,7 @@ describe('@primer/react', () => {
         <ActionMenu>
           <ActionMenu.Button>test</ActionMenu.Button>
           <ActionMenu.Overlay data-testid="component" sx={{background: 'red'}}>
-            test
+            test overlay
           </ActionMenu.Overlay>
         </ActionMenu>
       </ThemeProvider>,

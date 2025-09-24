@@ -9,13 +9,15 @@ export type ActionMenuProps = ComponentProps<typeof PrimerActionMenu> & SxProp
 export type ActionMenuButtonProps = ComponentProps<typeof PrimerActionMenu.Button> & SxProp
 export type ActionMenuOverlayProps = ComponentProps<typeof PrimerActionMenu.Overlay> & SxProp
 
-const ActionMenuButton = forwardRef<HTMLButtonElement, ActionMenuButtonProps>(function ActionMenuButton(props, ref) {
+const ActionMenuButton = forwardRef<HTMLButtonElement, ActionMenuButtonProps>((props, ref) => {
   return <Box as={PrimerActionMenu.Button} ref={ref} {...props} />
 })
 
 const ActionMenuImpl = (props: ActionMenuProps) => <Box as={PrimerActionMenu} {...props} />
 
-const ActionMenuOverlay = (props: ActionMenuOverlayProps) => <Box as={PrimerActionMenu.Overlay} {...props} />
+const ActionMenuOverlay = (props: ActionMenuOverlayProps) => {
+  return <Box as={PrimerActionMenu.Overlay} {...props} />
+}
 
 type ActionMenuComposite = ((props: ActionMenuProps) => JSX.Element) & {
   Button: typeof ActionMenuButton
