@@ -1,6 +1,6 @@
 import {IconButton, Button, Link, ActionMenu, ActionList, VisuallyHidden} from '..'
 import Octicon from '../Octicon'
-import {Tooltip} from './Tooltip'
+import {Tooltip, type TooltipDirection} from './Tooltip'
 import {
   SearchIcon,
   BookIcon,
@@ -226,8 +226,15 @@ export const OcticonPicker = {
       },
       description: 'Delay in milliseconds before showing the tooltip',
     },
+    direction: {
+      control: {
+        type: 'select',
+      },
+      options: ['nw', 'n', 'ne', 'e', 'se', 's', 'sw', 'w'],
+      description: 'Direction of the tooltip',
+    },
   },
-  render: ({delay}: {delay: number}) => {
+  render: ({delay, direction}: {delay: number; direction: TooltipDirection}) => {
     const octicons = [
       {icon: SearchIcon, name: 'Search'},
       {icon: BookIcon, name: 'Book'},
@@ -257,9 +264,10 @@ export const OcticonPicker = {
         }}
       >
         {octicons.map((octicon, index) => (
-          <Tooltip key={index} text={octicon.name} direction="n" delay={delay}>
+          <Tooltip key={index} text={octicon.name} direction={direction} delay={delay}>
             <IconButton
               aria-label={octicon.name}
+              // eslint-disable-next-line no-console
               onClick={() => console.log(`Selected ${octicon.name}`)}
               icon={octicon.icon}
             />
