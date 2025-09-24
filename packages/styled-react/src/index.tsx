@@ -256,7 +256,7 @@ export {Header, type HeaderProps} from './components/Header'
 
 export {Flash} from './components/Flash'
 
-export {ButtonComponent as Button, type ButtonProps} from './components/Button'
+export {ButtonComponent as Button, type ButtonComponentProps as ButtonProps} from './components/Button'
 
 export {
   Checkbox,

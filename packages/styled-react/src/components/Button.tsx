@@ -84,4 +84,4 @@ export function generateCustomSxProp(
 
 ButtonComponent.displayName = 'Button'
 
-export {ButtonComponent}
+export {ButtonComponent, ButtonComponentProps}
