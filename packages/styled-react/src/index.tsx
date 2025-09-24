@@ -2,6 +2,8 @@ import {
   type BetterSystemStyleObject,
   Box,
   type BoxProps,
+  type LabelProps as PrimerLabelProps,
+  Label as PrimerLabel,
   type SxProp,
   Spinner as PrimerSpinner,
   type SpinnerProps as PrimerSpinnerProps,
@@ -68,6 +70,11 @@ type StyledProps = SxProp &
   PositionProps &
   ShadowProps
 
+type LabelProps = PrimerLabelProps & SxProp
+
+const Label = forwardRef(function Label(props, ref) {
+  return <Box as={PrimerLabel} ref={ref} {...props} />
+}) as ForwardRefComponent<'span', LabelProps>
 type SpinnerProps = PrimerSpinnerProps & SxProp
 
 function Spinner(props: SpinnerProps) {
@@ -259,6 +266,7 @@ export {Flash} from './components/Flash'
 export {
   Checkbox,
   CounterLabel,
+  Label,
   LinkButton,
   type LinkButtonProps,
   RadioGroup,
@@ -287,7 +295,6 @@ export {
   FormControl,
   Heading,
   IconButton,
-  Label,
   Link,
   NavList,
   Overlay,
