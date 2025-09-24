@@ -31,4 +31,35 @@
 .Close {
   grid-area: close;
   margin-left: var(--base-size-8);
+
+  & svg {
+    margin: 0;
+    color: var(--fgColor-muted);
+  }
+}
+
+.WithIconAndAction {
+  display: grid;
+  grid-template-columns: min-content 1fr minmax(0, auto);
+  grid-template-rows: min-content;
+  grid-template-areas: 'visual message actions';
+
+  @media screen and (max-width: 543.98px) {
+    grid-template-columns: min-content 1fr;
+    grid-template-rows: min-content min-content;
+    grid-template-areas: 'visual message' '. actions';
+  }
+}
+
+.WithIconActionDismiss {
+  display: grid;
+  grid-template-columns: min-content 1fr minmax(0, auto);
+  grid-template-rows: min-content;
+  grid-template-areas: 'visual message actions close';
+
+  @media screen and (max-width: 543.98px) {
+    grid-template-columns: min-content 1fr;
+    grid-template-rows: min-content min-content;
+    grid-template-areas: 'visual message close' '. actions actions';
+  }
 }

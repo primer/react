@@ -1,6 +1,5 @@
 import type {Meta} from '@storybook/react-vite'
 import Flash from './Flash'
-import Octicon from '../Octicon'
 import {AlertIcon, CheckCircleIcon, InfoIcon, XIcon} from '@primer/octicons-react'
 import {Button, IconButton} from '../Button'
 import Link from '../Link'
@@ -14,14 +13,14 @@ export default {
 export const Success = () => (
   <Flash
     variant="success"
-    sx={{
+    style={{
       display: 'grid',
       gridTemplateColumns: 'min-content 1fr minmax(0, auto)',
       gridTemplateAreas: `'visual message actions'`,
     }}
   >
     <div className={classes.Visual}>
-      <Octicon icon={CheckCircleIcon} aria-label="Success" />
+      <CheckCircleIcon aria-label="Success" />
     </div>
     <div className={classes.Message}>Success</div>
   </Flash>
@@ -30,14 +29,14 @@ export const Success = () => (
 export const Danger = () => (
   <Flash
     variant="danger"
-    sx={{
+    style={{
       display: 'grid',
       gridTemplateColumns: 'min-content 1fr minmax(0, auto)',
       gridTemplateAreas: `'visual message actions'`,
     }}
   >
     <div className={classes.Visual}>
-      <Octicon icon={InfoIcon} aria-label="Danger" />
+      <InfoIcon aria-label="Danger" />
     </div>
     <div className={classes.Message}>Danger</div>
   </Flash>
@@ -46,14 +45,14 @@ export const Danger = () => (
 export const Warning = () => (
   <Flash
     variant="warning"
-    sx={{
+    style={{
       display: 'grid',
       gridTemplateColumns: 'min-content 1fr minmax(0, auto)',
       gridTemplateAreas: `'visual message actions'`,
     }}
   >
     <div className={classes.Visual}>
-      <Octicon icon={AlertIcon} aria-label="Warning" />
+      <AlertIcon aria-label="Warning" />
     </div>
     <div className={classes.Message}>Warning</div>
   </Flash>
@@ -62,38 +61,23 @@ export const Warning = () => (
 export const Full = () => (
   <Flash
     full
-    sx={{
+    style={{
       display: 'grid',
       gridTemplateColumns: 'min-content 1fr minmax(0, auto)',
       gridTemplateAreas: `'visual message actions'`,
     }}
   >
     <div className={classes.Visual}>
-      <Octicon icon={InfoIcon} aria-label="Info" />
+      <InfoIcon aria-label="Info" />
     </div>
     <div className={classes.Message}>Full</div>
   </Flash>
 )
 
 export const WithIconAndAction = () => (
-  <Flash
-    sx={{
-      display: 'grid',
-      gridTemplateColumns: 'min-content 1fr minmax(0, auto)',
-      gridTemplateRows: 'min-content',
-      gridTemplateAreas: `'visual message actions'`,
-      '@media screen and (max-width: 543.98px)': {
-        gridTemplateColumns: 'min-content 1fr',
-        gridTemplateRows: 'min-content min-content',
-        gridTemplateAreas: `
-        'visual message'
-        '.      actions'
-      `,
-      },
-    }}
-  >
+  <Flash className={classes.WithIconAndAction}>
     <div className={classes.Visual}>
-      <Octicon icon={InfoIcon} aria-label="Info" />
+      <InfoIcon aria-label="Info" />
     </div>
     <div className={classes.Message}>
       This is a flash message with an icon and an action.
@@ -106,24 +90,9 @@ export const WithIconAndAction = () => (
 )
 
 export const WithIconActionDismiss = () => (
-  <Flash
-    sx={{
-      display: 'grid',
-      gridTemplateColumns: 'min-content 1fr minmax(0, auto)',
-      gridTemplateRows: 'min-content',
-      gridTemplateAreas: `'visual message actions close'`,
-      '@media screen and (max-width: 543.98px)': {
-        gridTemplateColumns: 'min-content 1fr',
-        gridTemplateRows: 'min-content min-content',
-        gridTemplateAreas: `
-        'visual message close'
-        '.      actions actions'
-      `,
-      },
-    }}
-  >
+  <Flash className={classes.WithIconActionDismiss}>
     <div className={classes.Visual}>
-      <Octicon icon={InfoIcon} aria-label="Info" />
+      <InfoIcon aria-label="Info" />
     </div>
     <div className={classes.Message}>
       This is a flash message with an icon and an action.
@@ -133,7 +102,7 @@ export const WithIconActionDismiss = () => (
       <Button>Join waitlist</Button>
     </div>
     <div className={classes.Close}>
-      <IconButton variant="invisible" icon={XIcon} aria-label="Dismiss" sx={{svg: {margin: '0', color: 'fg.muted'}}} />
+      <IconButton variant="invisible" icon={XIcon} aria-label="Dismiss" />
     </div>
   </Flash>
 )

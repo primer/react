@@ -7,7 +7,7 @@ export const getDividerStyle = (theme?: Theme) => ({
   borderLeft: '1px solid',
   width: '1px',
   borderLeftColor: `${theme?.colors.border.muted}`,
-  marginRight: 1,
+  marginRight: '4px',
   height: '24px', // The height of the divider - reference from Figma
 })
 
