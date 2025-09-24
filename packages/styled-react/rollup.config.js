@@ -21,7 +21,8 @@ export default defineConfig({
       tsconfig: 'tsconfig.build.json',
     }),
     babel({
-      presets: ['@babel/preset-typescript', '@babel/preset-react'],
+      presets: ['@babel/preset-typescript', ['@babel/preset-react', {runtime: 'automatic'}]],
+      plugins: ['babel-plugin-styled-components'],
       extensions: ['.ts', '.tsx'],
       babelHelpers: 'bundled',
     }),
