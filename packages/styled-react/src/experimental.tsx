@@ -1,3 +1,7 @@
-export {Dialog} from './components/Dialog'
-
-export {PageHeader, Table, Tooltip, UnderlinePanels} from '@primer/react/experimental'
+export {
+  PageHeader,
+  type PageHeaderProps,
+  type PageHeaderActionsProps,
+  type PageHeaderTitleProps,
+} from './components/PageHeader'
+export {Dialog, Table, Tooltip, UnderlinePanels} from '@primer/react/experimental'

@@ -28,6 +28,24 @@ to an alternative styling solution, such as CSS Modules.
 
 The documentation for `@primer/react` lives at [primer.style](https://primer.style). There, you'll find detailed documentation on getting started, all of the components, our theme, our principles, and more.
 
+## Components List
+
+A machine-readable list of all exported components, utilities, and types is available at build time:
+
+```javascript
+import componentsData from '@primer/styled-react/components.json' with {type: 'json'}
+
+console.log(componentsData.components) // Array of component names
+console.log(componentsData.utilities) // Array of utility names
+console.log(componentsData.types) // Array of type names
+```
+
+This JSON file is automatically generated during the build process and includes:
+
+- `components`: All React components exported by the package
+- `utilities`: Theme utilities and helper functions
+- `types`: TypeScript type definitions
+
 ## 🙌 Contributing
 
 We love collaborating with folks inside and outside of GitHub and welcome contributions! If you're interested, check out our [contributing docs](contributor-docs/CONTRIBUTING.md) for more info on how to get started.
