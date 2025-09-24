@@ -1,7 +1,4 @@
 .TablePagination {
-  :hover {
-    color: red;
-  }
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -26,9 +23,6 @@
 
   .TablePaginationSteps[data-hidden-viewport-ranges*='narrow'] > *:last-child {
     margin-inline-start: 0;
-  }
-  :hover {
-    color: 'red';
   }
 }
 
