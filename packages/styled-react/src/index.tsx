@@ -223,9 +223,11 @@ const ToggleSwitch = forwardRef<HTMLButtonElement, ToggleSwitchProps>(function T
 
 type LinkProps = PrimerLinkProps & SxProp
 
-const Link = forwardRef<HTMLAnchorElement, LinkProps>(function Link(props, ref) {
-  return <Box as={PrimerLink} ref={ref} {...props} />
-})
+const Link = styled(PrimerLink).withConfig<LinkProps>({
+  shouldForwardProp: prop => prop !== 'sx',
+})`
+  ${sx}
+`
 
 type HeadingProps = PrimerHeadingProps & SxProp
 
@@ -277,6 +279,7 @@ export {
   CounterLabel,
   Heading,
   Link,
+  type LinkProps,
   LinkButton,
   type LinkButtonProps,
   RadioGroup,
