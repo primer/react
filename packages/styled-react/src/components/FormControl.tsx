@@ -41,5 +41,4 @@ const FormControl = Object.assign(FormControlImpl, {
   Label: typeof PrimerFormControl.Label
 }
 
-export {FormControl}
-export type {FormControlProps}
+export {FormControl, type FormControlProps}
