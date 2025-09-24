@@ -54,5 +54,4 @@ const PageLayout = Object.assign(PageLayoutImpl, {
   Footer: PageLayoutFooter,
 })
 
-export {PageLayout}
-export type {PageLayoutProps}
+export {PageLayout, type PageLayoutProps}

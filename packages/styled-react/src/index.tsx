@@ -16,7 +16,6 @@ export {Label} from '@primer/react'
 export {Link} from '@primer/react'
 export {NavList} from '@primer/react'
 export {Overlay} from '@primer/react'
-export {PageLayout} from '@primer/react'
 export {ProgressBar} from '@primer/react'
 export {Select} from '@primer/react'
 export {Text} from '@primer/react'
@@ -40,6 +39,7 @@ export {CounterLabel, type CounterLabelProps} from './components/CounterLabel'
 export {Flash} from './components/Flash'
 export {Header, type HeaderProps} from './components/Header'
 export {LinkButton, type LinkButtonProps} from './components/LinkButton'
+export {PageLayout, type PageLayoutProps} from './components/PageLayout'
 export {
   PageHeader,
   type PageHeaderProps,
