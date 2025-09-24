@@ -197,7 +197,7 @@ export const KeybindingHint = () => (
 
 export const WithDelay = () => (
   <div className={classes.PaddedContainer}>
-    <Tooltip text="Tooltip is delayed by 600ms" delay>
+    <Tooltip text="Tooltip is delayed by 600ms" delay={600}>
       <Button>With delay</Button>
     </Tooltip>
   </div>
