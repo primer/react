@@ -14,7 +14,7 @@ const TabNavImpl = forwardRef(function TabNavImpl(props, ref) {
 
 const TabNavLink = forwardRef(function TabNavLinkImpl(props, ref) {
   return <Box ref={ref} as={PrimerTabNav.Link} {...props} />
-}) as ForwardRefComponent<'div', TabNavLinkProps>
+}) as ForwardRefComponent<'a', TabNavLinkProps>
 
 const TabNav = Object.assign(TabNavImpl, {
   Link: TabNavLink,
