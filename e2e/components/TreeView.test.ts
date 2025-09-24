@@ -91,4 +91,21 @@ test.describe('TreeView', () => {
       })
     }
   })
+
+  test.describe('Trailing Action', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-treeview-examples--trailing-actions',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          expect(await page.screenshot()).toMatchSnapshot(`TreeView.Trailing Actions.${theme}.png`)
+        })
+      })
+    }
+  })
 })
