@@ -177,6 +177,7 @@ export type {
   TimelineBodyProps,
   TimelineBreakProps,
   TimelineItemsProps,
+  TimelineItemProps,
 } from './Timeline'
 export {default as Token, IssueLabelToken} from './Token'
 export type {TokenProps, IssueLabelTokenProps} from './Token'
@@ -213,7 +214,13 @@ export {Stack} from './Stack'
 export type {StackProps, StackItemProps} from './Stack'
 
 export {PageHeader} from './PageHeader'
-export type {PageHeaderProps} from './PageHeader'
+export type {
+  PageHeaderProps,
+  TitleProps as PageHeaderTitleProps,
+  ActionsProps as PageHeaderActionsProps,
+  TitleAreaProps as PageHeaderTitleAreaProps,
+  ChildrenPropTypes as PageHeaderChildrenPropTypes,
+} from './PageHeader'
 
 export {default as sx, merge} from './sx'
 export type {BetterCssProperties, BetterSystemStyleObject, SxProp} from './sx'
