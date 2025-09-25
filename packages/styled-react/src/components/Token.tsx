@@ -7,7 +7,10 @@ import type {PropsWithChildren} from 'react'
 type TokenProps = PropsWithChildren<PrimerTokenProps> & SxProp
 
 const Token: ForwardRefComponent<'a' | 'button' | 'span', TokenProps> = styled(PrimerToken).withConfig<TokenProps>({
-  shouldForwardProp: prop => prop !== 'sx',
+  shouldForwardProp: prop => {
+    console.log('Props passed', prop)
+    return prop !== 'sx'
+  },
 })`
   ${sx}
 `
