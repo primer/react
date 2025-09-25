@@ -2,6 +2,7 @@ import {clsx} from 'clsx'
 import type {To} from 'history'
 import React, {useRef, useState} from 'react'
 import {FocusKeys, useFocusZone} from '../hooks/useFocusZone'
+import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 
 import styles from './TabNav.module.css'
 
@@ -75,7 +76,7 @@ export type TabNavLinkProps = React.DetailedHTMLProps<React.HTMLAttributes<HTMLA
 /**
  * @deprecated
  */
-const TabNavLink = React.forwardRef<HTMLAnchorElement, TabNavLinkProps>(function TabNavLink(
+const TabNavLink = React.forwardRef(function TabNavLink(
   {selected, className, as: Component = 'a', ...rest}: TabNavLinkProps,
   ref,
 ) {
@@ -89,7 +90,7 @@ const TabNavLink = React.forwardRef<HTMLAnchorElement, TabNavLinkProps>(function
       {...rest}
     />
   )
-})
+}) as PolymorphicForwardRefComponent<'a', TabNavLinkProps>
 
 TabNavLink.displayName = 'TabNav.Link'
 
