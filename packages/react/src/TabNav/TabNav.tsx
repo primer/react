@@ -80,7 +80,6 @@ const TabNavLink = React.forwardRef(function TabNavLink(
   {selected, className, as: Component = 'a', ...rest}: TabNavLinkProps,
   ref,
 ) {
-  console.log('hi')
   return (
     <Component
       ref={ref}

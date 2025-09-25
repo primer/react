@@ -13,7 +13,7 @@ const StyledTabNav = styled(PrimerTabNav).withConfig({
   ${sx}
 `
 
-// @ts-ignore
+// @ts-ignore forwardedAs is valid here but I don't know how to fix the typescript error
 const TabNavImpl = ({as, ...props}: TabNavProps) => <StyledTabNav forwardedAs={as} {...props} />
 
 const StyledTabNavLink: ForwardRefComponent<'a', TabNavLinkProps> = styled(PrimerTabNav.Link).withConfig({
@@ -22,7 +22,7 @@ const StyledTabNavLink: ForwardRefComponent<'a', TabNavLinkProps> = styled(Prime
   ${sx}
 `
 
-// @ts-ignore
+// @ts-ignore forwardedAs is valid here but I don't know how to fix the typescript error
 const TabNavLink = ({as, ...props}: TabNavLinkProps) => <StyledTabNavLink forwardedAs={as} {...props} />
 
 const TabNav = Object.assign(TabNavImpl, {
