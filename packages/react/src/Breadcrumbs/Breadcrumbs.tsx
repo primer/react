@@ -12,6 +12,7 @@ import type {ResizeObserverEntry} from '../hooks/useResizeObserver'
 import {useOnEscapePress} from '../hooks/useOnEscapePress'
 import {useOnOutsideClick} from '../hooks/useOnOutsideClick'
 import {useFeatureFlag} from '../FeatureFlags'
+import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 
 export type BreadcrumbsProps = React.PropsWithChildren<{
   /**
@@ -379,7 +380,7 @@ const BreadcrumbsItem = React.forwardRef<HTMLAnchorElement, StyledBreadcrumbsIte
       />
     )
   },
-)
+) as PolymorphicForwardRefComponent<'a', StyledBreadcrumbsItemProps>
 
 Breadcrumbs.displayName = 'Breadcrumbs'
 
