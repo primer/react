@@ -4,4 +4,10 @@ export {
   type PageHeaderActionsProps,
   type PageHeaderTitleProps,
 } from './components/PageHeader'
-export {Dialog, Table, Tooltip, UnderlinePanels} from '@primer/react/experimental'
+export {
+  UnderlinePanels,
+  type UnderlinePanelsProps,
+  type UnderlinePanelsTabProps,
+  type UnderlinePanelsPanelProps,
+} from './components/UnderlinePanels'
+export {Dialog, Table, Tooltip} from '@primer/react/experimental'
