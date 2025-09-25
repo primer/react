@@ -30,7 +30,6 @@ const StyledUnderlinePanelsPanel = styled(PrimerUnderlinePanels.Panel).withConfi
 
 // @ts-ignore forwardedAs is valid here but I don't know how to fix the typescript error
 const UnderlinePanelsPanel = ({as, ...props}: UnderlinePanelsPanelProps) => {
-  console.log(props)
   return <StyledUnderlinePanelsPanel forwardedAs={as} {...props} />
 }
 
