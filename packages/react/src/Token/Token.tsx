@@ -57,7 +57,6 @@ const Token = forwardRef((props, forwardedRef) => {
     href,
     onClick,
   }
-  console.log('Token props', props)
   return (
     <TokenBase
       onRemove={onRemove}

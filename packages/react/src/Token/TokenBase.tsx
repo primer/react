@@ -75,25 +75,6 @@ const TokenBase = React.forwardRef<HTMLButtonElement | HTMLAnchorElement | HTMLS
     },
     forwardedRef,
   ) => {
-    console.log(
-      'TokenBase props',
-      'onRemove',
-      onRemove,
-      'onKeyDown',
-      onKeyDown,
-      'id',
-      id,
-      'className',
-      className,
-      'size',
-      size,
-      '_isSelected',
-      _isSelected,
-      {
-        ...rest,
-      },
-    )
-
     return (
       <Component
         onKeyDown={(event: KeyboardEvent<HTMLSpanElement & HTMLAnchorElement & HTMLButtonElement>) => {
