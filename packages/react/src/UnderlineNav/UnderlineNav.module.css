@@ -9,13 +9,13 @@
   margin: 0; /* reset Safari extra margin */
   border: 0;
   background: transparent;
-  font-weight: normal;
+  font-weight: var(--base-text-weight-normal);
   box-shadow: none;
-  padding-top: var(--base-size-4, 4px);
-  padding-bottom: var(--base-size-4, 4px);
-  padding-left: var(--base-size-8, 8px);
-  padding-right: var(--base-size-8, 8px);
-  & > span[data-component='trailingVisual'] {
+  padding-top: var(--base-size-4);
+  padding-bottom: var(--base-size-4);
+  padding-left: var(--base-size-8);
+  padding-right: var(--base-size-8);
+  & > [data-component='trailingVisual'] {
     margin-left: 0;
   }
 }
