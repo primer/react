@@ -1,15 +1,21 @@
 import {type TokenProps as PrimerTokenProps, type SxProp, Token as PrimerToken} from '@primer/react'
-import {sx} from '../sx'
-import type {ForwardRefComponent} from '../polymorphic'
-import styled from 'styled-components'
-import type {PropsWithChildren} from 'react'
+import {Box} from './Box'
+import {forwardRef, type PropsWithChildren} from 'react'
 
 type TokenProps = PropsWithChildren<PrimerTokenProps> & SxProp
 
-const Token: ForwardRefComponent<'a' | 'button' | 'span', TokenProps> = styled(PrimerToken).withConfig({
-  shouldForwardProp: (prop: keyof TokenProps) => prop !== 'sx',
-})<TokenProps>`
-  ${sx}
-`
+const Token = forwardRef<HTMLSpanElement | HTMLButtonElement | HTMLAnchorElement, TokenProps>(
+  function Token(props, ref) {
+    const {sx, ...restProps} = props
+    if (sx) {
+      return (
+        <Box sx={sx}>
+          <PrimerToken ref={ref} {...restProps} />
+        </Box>
+      )
+    }
+    return <PrimerToken ref={ref} {...restProps} />
+  },
+)
 
 export {Token, type TokenProps}
