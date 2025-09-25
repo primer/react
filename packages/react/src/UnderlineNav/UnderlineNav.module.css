@@ -15,6 +15,7 @@
   padding-bottom: var(--base-size-4);
   padding-left: var(--base-size-8);
   padding-right: var(--base-size-8);
+
   & > [data-component='trailingVisual'] {
     margin-left: 0;
   }
