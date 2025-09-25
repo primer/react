@@ -3,3 +3,19 @@
   align-items: center;
   justify-content: space-between;
 }
+
+/* More button styles migrated from styles.ts (was moreBtnStyles) */
+.MoreButton {
+  margin: 0; /* reset Safari extra margin */
+  border: 0;
+  background: transparent;
+  font-weight: normal;
+  box-shadow: none;
+  padding-top: var(--base-size-4, 4px);
+  padding-bottom: var(--base-size-4, 4px);
+  padding-left: var(--base-size-8, 8px);
+  padding-right: var(--base-size-8, 8px);
+  & > span[data-component='trailingVisual'] {
+    margin-left: 0;
+  }
+}

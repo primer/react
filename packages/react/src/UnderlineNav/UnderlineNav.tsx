@@ -6,7 +6,7 @@ import {useResizeObserver} from '../hooks/useResizeObserver'
 import {useTheme} from '../ThemeProvider'
 import type {ChildWidthArray, ResponsiveProps, ChildSize} from './types'
 import VisuallyHidden from '../_VisuallyHidden'
-import {moreBtnStyles, getDividerStyle, menuStyles, menuItemStyles, baseMenuStyles, baseMenuMinWidth} from './styles'
+import {getDividerStyle, menuStyles, menuItemStyles, baseMenuStyles, baseMenuMinWidth} from './styles'
 import {UnderlineItemList, UnderlineWrapper, LoadingCounter, GAP} from '../internal/components/UnderlineTabbedInterface'
 import styled from 'styled-components'
 import {Button} from '../Button'
@@ -314,7 +314,7 @@ export const UnderlineNav = forwardRef(
                 {!onlyMenuVisible && <div style={getDividerStyle(theme)}></div>}
                 <Button
                   ref={moreMenuBtnRef}
-                  sx={moreBtnStyles}
+                  className={classes.MoreButton}
                   aria-controls={disclosureWidgetId}
                   aria-expanded={isWidgetOpen}
                   onClick={onAnchorClick}
