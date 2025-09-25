@@ -80,6 +80,13 @@ const interactiveElements = [
   'textarea',
 ]
 
+// Map delay prop to actual time in ms
+const delayTimeMap = {
+  instant: 50,
+  medium: 400,
+  long: 1200,
+}
+
 const isInteractive = (element: HTMLElement) => {
   return (
     interactiveElements.some(selector => element.matches(selector)) ||
@@ -301,11 +308,6 @@ export const Tooltip = React.forwardRef(
                 child.props.onFocus?.(event)
               },
               onMouseOverCapture: (event: React.MouseEvent) => {
-                const delayTimeMap = {
-                  instant: 50,
-                  medium: 400,
-                  long: 1200,
-                }
                 const delayTime = delayTimeMap[delay] || 50
                 // We use a `capture` event to ensure this is called first before
                 // events that might cancel the opening timeout (like `onTouchEnd`)
