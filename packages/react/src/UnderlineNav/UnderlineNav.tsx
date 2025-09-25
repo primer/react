@@ -1,8 +1,5 @@
 import type {RefObject} from 'react'
 import React, {useRef, forwardRef, useCallback, useState, useEffect} from 'react'
-import Box from '../Box'
-import type {SxProp} from '../sx'
-import sx from '../sx'
 import {UnderlineNavContext} from './UnderlineNavContext'
 import type {ResizeObserverEntry} from '../hooks/useResizeObserver'
 import {useResizeObserver} from '../hooks/useResizeObserver'
@@ -20,13 +17,13 @@ import {useId} from '../hooks/useId'
 import {ActionList} from '../ActionList'
 import CounterLabel from '../CounterLabel'
 import {invariant} from '../utils/invariant'
+import classes from './UnderlineNav.module.css'
 
 export type UnderlineNavProps = {
   children: React.ReactNode
   'aria-label'?: React.AriaAttributes['aria-label']
   as?: React.ElementType
   className?: string
-  sx?: SxProp['sx']
   /**
    * loading state for all counters. It displays loading animation for individual counters (UnderlineNav.Item) until all are resolved. It is needed to prevent multiple layout shift.
    */
@@ -43,11 +40,6 @@ export type UnderlineNavProps = {
 export const MORE_BTN_WIDTH = 86
 // The height is needed to make sure we don't have a layout shift when the more button is the only item in the nav.
 const MORE_BTN_HEIGHT = 45
-
-// Needed this because passing a ref using HTMLULListElement to `Box` causes a type error
-export const NavigationList = styled.ul`
-  ${sx};
-`
 
 export const MoreMenuListItem = styled.li`
   display: flex;
@@ -319,7 +311,7 @@ export const UnderlineNav = forwardRef(
             {listItems}
             {menuItems.length > 0 && (
               <MoreMenuListItem ref={moreMenuRef}>
-                {!onlyMenuVisible && <Box sx={getDividerStyle(theme)}></Box>}
+                {!onlyMenuVisible && <div style={getDividerStyle(theme)}></div>}
                 <Button
                   ref={moreMenuBtnRef}
                   sx={moreBtnStyles}
@@ -328,7 +320,7 @@ export const UnderlineNav = forwardRef(
                   onClick={onAnchorClick}
                   trailingAction={TriangleDownIcon}
                 >
-                  <Box as="span">
+                  <span>
                     {onlyMenuVisible ? (
                       <>
                         <VisuallyHidden as="span">{`${ariaLabel}`}&nbsp;</VisuallyHidden>Menu
@@ -338,7 +330,7 @@ export const UnderlineNav = forwardRef(
                         More<VisuallyHidden as="span">&nbsp;{`${ariaLabel} items`}</VisuallyHidden>
                       </>
                     )}
-                  </Box>
+                  </span>
                 </Button>
                 <ActionList
                   selectionVariant="single"
@@ -389,18 +381,18 @@ export const UnderlineNav = forwardRef(
                         }}
                         {...menuItemProps}
                       >
-                        <Box as="span" sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
+                        <span className={classes.MenuItemContent}>
                           {menuItemChildren}
                           {loadingCounters ? (
                             <LoadingCounter />
                           ) : (
                             counter !== undefined && (
-                              <Box as="span" data-component="counter">
+                              <span data-component="counter">
                                 <CounterLabel>{counter}</CounterLabel>
-                              </Box>
+                              </span>
                             )
                           )}
-                        </Box>
+                        </span>
                       </ActionList.LinkItem>
                     )
                   })}
