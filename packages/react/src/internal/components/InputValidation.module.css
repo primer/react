@@ -20,8 +20,8 @@
 }
 
 .ValidationIcon {
-  align-items: center;
   display: flex;
+  margin-top: var(--base-size-2);
   margin-inline-end: var(--base-size-4);
   min-height: var(--inputValidation-iconSize);
 }
