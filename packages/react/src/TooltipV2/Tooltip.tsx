@@ -22,9 +22,11 @@ export type TooltipProps = React.PropsWithChildren<
     keybindingHint?: KeybindingHintProps['keys']
     /**
      * Delay in milliseconds before showing the tooltip
-     * @default 50
+     * @default instant 50ms
+     * medium 400ms
+     * long 1200ms
      */
-    delay?: number
+    delay?: 'instant' | 'medium' | 'long'
   } & SxProp
 > &
   React.HTMLAttributes<HTMLElement>
@@ -96,7 +98,7 @@ export const Tooltip = React.forwardRef(
       id,
       className,
       keybindingHint,
-      delay = 50,
+      delay = 'instant',
       ...rest
     }: TooltipProps,
     forwardedRef,
@@ -299,6 +301,12 @@ export const Tooltip = React.forwardRef(
                 child.props.onFocus?.(event)
               },
               onMouseOverCapture: (event: React.MouseEvent) => {
+                const delayTimeMap = {
+                  instant: 50,
+                  medium: 400,
+                  long: 1200,
+                }
+                const delayTime = delayTimeMap[delay] || 50
                 // We use a `capture` event to ensure this is called first before
                 // events that might cancel the opening timeout (like `onTouchEnd`)
                 // show tooltip after mouse has been hovering for the specified delay time
@@ -306,7 +314,7 @@ export const Tooltip = React.forwardRef(
                 openTimeoutRef.current = safeSetTimeout(() => {
                   openTooltip()
                   child.props.onMouseEnter?.(event)
-                }, delay)
+                }, delayTime)
               },
               onMouseLeave: (event: React.MouseEvent) => {
                 closeTooltip()

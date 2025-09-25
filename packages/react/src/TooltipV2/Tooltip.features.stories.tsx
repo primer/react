@@ -1,6 +1,6 @@
 import {IconButton, Button, Link, ActionMenu, ActionList, VisuallyHidden} from '..'
 import Octicon from '../Octicon'
-import {Tooltip, type TooltipDirection} from './Tooltip'
+import {Tooltip} from './Tooltip'
 import {
   SearchIcon,
   BookIcon,
@@ -8,7 +8,6 @@ import {
   TriangleDownIcon,
   GitBranchIcon,
   InfoIcon,
-  StarIcon,
   HeartIcon,
 } from '@primer/octicons-react'
 import classes from './Tooltip.features.stories.module.css'
@@ -204,76 +203,18 @@ export const KeybindingHint = () => (
   </div>
 )
 
-export const WithDelay = () => (
+export const WithMediumDelay = () => (
   <div className={classes.PaddedContainer}>
-    <Tooltip text="Tooltip is delayed by 600ms" delay={600}>
+    <Tooltip text="Tooltip is delayed by 600ms" delay="medium">
       <Button>With delay</Button>
     </Tooltip>
   </div>
 )
 
-export const OcticonPicker = {
-  args: {
-    delay: 300,
-  },
-  argTypes: {
-    delay: {
-      control: {
-        type: 'number',
-        min: 0,
-        max: 2000,
-        step: 50,
-      },
-      description: 'Delay in milliseconds before showing the tooltip',
-    },
-    direction: {
-      control: {
-        type: 'select',
-      },
-      options: ['nw', 'n', 'ne', 'e', 'se', 's', 'sw', 'w'],
-      description: 'Direction of the tooltip',
-    },
-  },
-  render: ({delay, direction}: {delay: number; direction: TooltipDirection}) => {
-    const octicons = [
-      {icon: SearchIcon, name: 'Search'},
-      {icon: BookIcon, name: 'Book'},
-      {icon: CheckIcon, name: 'Check'},
-      {icon: StarIcon, name: 'Star'},
-      {icon: HeartIcon, name: 'Heart'},
-      {icon: SearchIcon, name: 'Search'},
-      {icon: BookIcon, name: 'Book'},
-      {icon: CheckIcon, name: 'Check'},
-      {icon: StarIcon, name: 'Star'},
-      {icon: HeartIcon, name: 'Heart'},
-      {icon: SearchIcon, name: 'Search'},
-      {icon: BookIcon, name: 'Book'},
-      {icon: CheckIcon, name: 'Check'},
-      {icon: StarIcon, name: 'Star'},
-      {icon: HeartIcon, name: 'Heart'},
-    ]
-
-    return (
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(5, 1fr)',
-          gap: '4px',
-          maxWidth: '200px',
-          padding: '16px',
-        }}
-      >
-        {octicons.map((octicon, index) => (
-          <Tooltip key={index} text={octicon.name} direction={direction} delay={delay}>
-            <IconButton
-              aria-label={octicon.name}
-              // eslint-disable-next-line no-console
-              onClick={() => console.log(`Selected ${octicon.name}`)}
-              icon={octicon.icon}
-            />
-          </Tooltip>
-        ))}
-      </div>
-    )
-  },
-}
+export const WithLongDelay = () => (
+  <div className={classes.PaddedContainer}>
+    <Tooltip text="Tooltip is delayed by 1200ms" delay="long">
+      <IconButton icon={HeartIcon} variant="invisible" aria-label="Favorite" />
+    </Tooltip>
+  </div>
+)
