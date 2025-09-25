@@ -1,7 +1,7 @@
 import {TabNav as PrimerTabNav} from '@primer/react/deprecated'
 import type {TabNavProps as PrimerTabNavProps, TabNavLinkProps as PrimerTabNavLinkProps} from '@primer/react/deprecated'
 import {sx, type SxProp} from '../sx'
-import styled from 'styled-components'
+import styled, {type StyledComponent} from 'styled-components'
 import {type ForwardRefComponent} from '../polymorphic'
 
 type TabNavProps = PrimerTabNavProps & SxProp
@@ -19,7 +19,11 @@ const TabNavLink: ForwardRefComponent<'a', TabNavLinkProps> = styled(PrimerTabNa
   ${sx}
 `
 
-const TabNav = Object.assign(TabNavImpl, {
+type TabNavComponent = StyledComponent<typeof PrimerTabNav, any, TabNavProps, never> & {
+  Link: typeof TabNavLink
+}
+
+const TabNav: TabNavComponent = Object.assign(TabNavImpl, {
   Link: TabNavLink,
 })
 
