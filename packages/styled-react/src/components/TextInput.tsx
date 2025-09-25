@@ -7,7 +7,7 @@ import type {SxProp} from '../sx'
 export type TextInputProps = ComponentProps<typeof PrimerTextInput> & SxProp
 export type TextInputActionProps = ComponentProps<typeof PrimerTextInput.Action> & SxProp
 
-const TextInputImpl = (props: TextInputProps) => <Box as={PrimerTextInput} {...props} />
+const TextInputImpl = (props: TextInputProps) => <PrimerTextInput {...props} />
 
 const TextInputAction = forwardRef<HTMLButtonElement, TextInputActionProps>((props, ref) => {
   return <Box as={PrimerTextInput.Action} ref={ref} {...props} />
