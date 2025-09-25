@@ -75,9 +75,24 @@ const TokenBase = React.forwardRef<HTMLButtonElement | HTMLAnchorElement | HTMLS
     },
     forwardedRef,
   ) => {
-    console.log('TokenBase props', onRemove, onKeyDown, id, className, (size = defaultTokenSize), _isSelected, {
-      ...rest,
-    })
+    console.log(
+      'TokenBase props',
+      'onRemove',
+      onRemove,
+      'onKeyDown',
+      onKeyDown,
+      'id',
+      id,
+      'className',
+      className,
+      'size',
+      size,
+      '_isSelected',
+      _isSelected,
+      {
+        ...rest,
+      },
+    )
 
     return (
       <Component
