@@ -1,19 +1,14 @@
-import {
-    Box,
-      Tooltip as PrimerTooltip,
-  type TooltipProps as PrimerTooltipProps,
-  type SxProp,
-}from '@primer/react'
-import {sx } from '../sx'
-import type { ForwardRefComponent } from '../polymorphic'
-import styled from 'styled-components'
+import {Tooltip as PrimerTooltip, type TooltipProps as PrimerTooltipProps, type SxProp} from '@primer/react'
+import {Box} from './Box'
+import {forwardRef, type ForwardRefExoticComponent, type RefAttributes} from 'react'
 
 type TooltipProps = PrimerTooltipProps & SxProp
 
-const Tooltip = styled(PrimerTooltip).withConfig<TooltipProps>({
-  shouldForwardProp: prop => prop !== 'sx',
-})`
-  ${sx}
-`
+const Tooltip: ForwardRefExoticComponent<TooltipProps & RefAttributes<HTMLDivElement>> = forwardRef<
+  HTMLDivElement,
+  TooltipProps
+>(function Tooltip(props, ref) {
+  return <Box as={PrimerTooltip} ref={ref} {...props} />
+})
 
-export { Tooltip}
+export {Tooltip, type TooltipProps}
