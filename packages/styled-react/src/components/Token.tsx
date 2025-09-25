@@ -8,9 +8,22 @@ const Token = forwardRef<HTMLSpanElement | HTMLButtonElement | HTMLAnchorElement
   function Token(props, ref) {
     const {sx, ...restProps} = props
     if (sx) {
+      // Extract test props and other HTML props that should go on the wrapper
+      const {
+        'data-testid': dataTestId,
+        className,
+        style,
+        ...tokenProps
+      } = restProps as any
+      
       return (
-        <Box sx={sx}>
-          <PrimerToken ref={ref} {...restProps} />
+        <Box 
+          sx={sx} 
+          data-testid={dataTestId}
+          className={className}
+          style={style}
+        >
+          <PrimerToken ref={ref} {...tokenProps} />
         </Box>
       )
     }
