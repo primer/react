@@ -18,7 +18,7 @@ const TabNavLink: ForwardRefComponent<'a', TabNavLinkProps> = styled(PrimerTabNa
 })<TabNavLinkProps>`
   ${sx}
 `
-
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type TabNavComponent = StyledComponent<typeof PrimerTabNav, any, TabNavProps, never> & {
   Link: typeof TabNavLink
 }
