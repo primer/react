@@ -3,4 +3,4 @@
 '@primer/styled-react': minor
 ---
 
-Update RadioGroup and Truncate components to no longer support sx.
+Remove sx support from the Token component.  
