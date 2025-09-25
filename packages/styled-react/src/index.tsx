@@ -18,10 +18,9 @@ export {ProgressBar} from '@primer/react'
 export {Select} from '@primer/react'
 export {Text} from '@primer/react'
 export {Textarea} from '@primer/react'
-export {TextInput} from '@primer/react'
+export {TextInput, type TextInputProps, type TextInputActionProps} from './components/TextInput'
 export {Token} from '@primer/react'
 export {Tooltip} from '@primer/react'
-export {type TextInputProps} from '@primer/react'
 export {type TokenProps} from '@primer/react'
 
 // theming depends on styled-components
