@@ -19,7 +19,7 @@ export {Tooltip, type TooltipProps}
 
 type DeprecatedTooltipProps = PrimerDeprecatedTooltipProps & SxProp
 
-const DeprecatedTooltip = function (props: DeprecatedTooltipProps) {
+function DeprecatedTooltip(props: DeprecatedTooltipProps) {
   return <Box as={PrimerDeprecatedTooltip} {...props} />
 }
 export {DeprecatedTooltip, type DeprecatedTooltipProps}
