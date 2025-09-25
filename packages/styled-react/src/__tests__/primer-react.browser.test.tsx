@@ -8,6 +8,7 @@ import {
   Autocomplete,
   Avatar,
   Box,
+  Breadcrumbs,
   Button,
   Checkbox,
   CheckboxGroup,
@@ -109,6 +110,16 @@ describe('@primer/react', () => {
 
   test('Box supports `sx` prop', () => {
     render(<Box data-testid="component" sx={{background: 'red'}} />)
+    expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
+  })
+
+  test('Breadcrumbs supports `sx` prop', () => {
+    render(<Breadcrumbs sx={{background: 'red'}} />)
+    expect(window.getComputedStyle(screen.getByLabelText('Breadcrumbs')).backgroundColor).toBe('rgb(255, 0, 0)')
+  })
+
+  test('Breadcrumbs.Item supports `sx` prop', () => {
+    render(<Breadcrumbs.Item data-testid="component" sx={{background: 'red'}} />)
     expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
   })
 
