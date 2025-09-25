@@ -35,6 +35,6 @@ const Breadcrumbs = Object.assign(BreadcrumbsImpl, {Item: BreadcrumbsItem})
 /**
  * @deprecated Use the `Breadcrumbs` component instead (i.e. `<Breadcrumb>` → `<Breadcrumbs>`)
  */
-const Breadcrumb = Object.assign(Breadcrumbs, {Item: BreadcrumbsItem})
+const Breadcrumb = Breadcrumbs
 
 export {Breadcrumbs, Breadcrumb, type BreadcrumbsProps, type BreadcrumbsItemProps}
