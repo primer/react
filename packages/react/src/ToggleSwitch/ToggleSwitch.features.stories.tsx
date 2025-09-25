@@ -160,3 +160,12 @@ export const Controlled = () => {
     </>
   )
 }
+
+export const WithCustomLabels = () => (
+  <ToggleSwitchStoryWrapper>
+    <span id="toggle" className={styles.ToggleLabel}>
+      Toggle label
+    </span>
+    <ToggleSwitch buttonLabelOn="Active" buttonLabelOff="Inactive" aria-labelledby="toggle" />
+  </ToggleSwitchStoryWrapper>
+)
