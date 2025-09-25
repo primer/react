@@ -1,4 +1,8 @@
 import {Tooltip as PrimerTooltip, type TooltipProps as PrimerTooltipProps, type SxProp} from '@primer/react'
+import {
+  Tooltip as PrimerDeprecatedTooltip,
+  type TooltipProps as PrimerDeprecatedTooltipProps,
+} from '@primer/react/deprecated'
 import {Box} from './Box'
 import {forwardRef, type ForwardRefExoticComponent, type RefAttributes} from 'react'
 
@@ -12,3 +16,10 @@ const Tooltip: ForwardRefExoticComponent<TooltipProps & RefAttributes<HTMLDivEle
 })
 
 export {Tooltip, type TooltipProps}
+
+type DeprecatedTooltipProps = PrimerDeprecatedTooltipProps & SxProp
+
+const DeprecatedTooltip = function (props: DeprecatedTooltipProps) {
+  return <Box as={PrimerDeprecatedTooltip} {...props} />
+}
+export {DeprecatedTooltip, type DeprecatedTooltipProps}
