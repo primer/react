@@ -217,7 +217,6 @@ describe('@primer/react', () => {
   test('LinkButton supports `sx` prop', () => {
     render(<LinkButton as="a" data-testid="component" sx={{background: 'red'}} icon={<svg />} />)
     expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
-    console.log(screen.getByTestId('component'))
     expect(screen.getByTestId('component').hasAttribute('icon'))
   })
 
@@ -464,7 +463,6 @@ describe('@primer/react', () => {
         <UnderlineNav.Item>test</UnderlineNav.Item>
       </UnderlineNav>,
     )
-    console.log(screen.getByLabelText('navigation').attributes)
     expect(window.getComputedStyle(screen.getByLabelText('navigation')).backgroundColor).toBe('rgb(255, 0, 0)')
     expect(screen.getByLabelText('navigation')).toHaveAttribute('data-variant', 'inset')
   })
