@@ -152,11 +152,6 @@
       "defaultValue": "'medium'"
     },
     {
-      "name": "sx",
-      "type": "SystemStyleObject",
-      "deprecated": true
-    },
-    {
       "name": "trailingIcon",
       "type": "React.ComponentType<OcticonProps>",
       "description": "An icon to display after the button text.",

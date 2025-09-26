@@ -4,7 +4,6 @@ import type {IconProps} from '@primer/octicons-react'
 import {Button, IconButton} from '../../Button'
 import {Tooltip} from '../../TooltipV2'
 import type {ButtonProps} from '../../Button'
-import type {SxProp} from '../../sx'
 import {clsx} from 'clsx'
 
 import styles from './TextInputInnerAction.module.css'
@@ -26,7 +25,7 @@ type TextInputActionProps = Omit<
    * Determine's the styles on a button one of 'default' | 'primary' | 'invisible' | 'danger'
    */
   variant?: ButtonProps['variant']
-} & SxProp
+}
 
 const ConditionalTooltip: React.FC<
   React.PropsWithChildren<{
@@ -54,14 +53,13 @@ const TextInputAction = forwardRef<HTMLButtonElement, TextInputActionProps>(
       tooltipDirection,
       children,
       icon,
-      sx: sxProp,
       className,
       variant = 'invisible',
       ...rest
     },
     forwardedRef,
   ) => {
-    const styleProps = {className: clsx(variant === 'invisible' && styles.Invisible, className), sx: sxProp || {}}
+    const styleProps = {className: clsx(variant === 'invisible' && styles.Invisible, className)}
 
     if ((icon && !ariaLabel) || (!children && !ariaLabel)) {
       // eslint-disable-next-line no-console

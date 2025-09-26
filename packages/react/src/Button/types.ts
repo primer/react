@@ -1,15 +1,6 @@
 import type React from 'react'
-import styled from 'styled-components'
-import type {SxProp} from '../sx'
-import sx from '../sx'
-import getGlobalFocusStyles from '../internal/utils/getGlobalFocusStyles'
 import type {TooltipDirection} from '../TooltipV2'
 import type {IconProps} from '@primer/octicons-react'
-
-export const StyledButton = styled.button<SxProp>`
-  ${getGlobalFocusStyles('-2px')};
-  ${sx};
-`
 
 export type VariantType = 'default' | 'primary' | 'invisible' | 'danger' | 'link'
 
@@ -56,8 +47,7 @@ export type ButtonBaseProps = {
    * Whether the button label should wrap to multiple lines if it is longer than the button width
    */
   labelWrap?: boolean
-} & SxProp &
-  React.ButtonHTMLAttributes<HTMLButtonElement>
+} & React.ButtonHTMLAttributes<HTMLButtonElement>
 
 export type ButtonProps = {
   /**

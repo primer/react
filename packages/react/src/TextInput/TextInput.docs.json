@@ -215,11 +215,6 @@
           "name": "as",
           "type": "React.ElementType",
           "defaultValue": "\"button\""
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject",
-          "deprecated": true
         }
       ],
       "passthrough": {
