@@ -23,7 +23,6 @@ export {Text} from '@primer/react'
 export {Textarea} from '@primer/react'
 export {TextInput} from '@primer/react'
 export {Token} from '@primer/react'
-export {Tooltip} from '@primer/react'
 export {type TextInputProps} from '@primer/react'
 export {type TokenProps} from '@primer/react'
 
@@ -66,6 +65,7 @@ export {
   type TimelineBreakProps,
 } from './components/Timeline'
 export {ToggleSwitch, type ToggleSwitchProps} from './components/ToggleSwitch'
+export {Tooltip, type TooltipProps} from './components/Tooltip'
 export {Truncate, type TruncateProps} from './components/Truncate'
 export {UnderlineNav, type UnderlineNavProps, type UnderlineNavItemProps} from './components/UnderlineNav'
 
