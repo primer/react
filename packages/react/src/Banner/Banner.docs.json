@@ -33,7 +33,10 @@
   "id": "components-banner-features--with-hidden-title"
     },
     {
-  "id": "components-banner-features--with-hidden-title-and-actions"
+  "id": "components-banner-features--with-hidden-title-and-actions-short"
+    },
+    {
+  "id": "components-banner-features--with-hidden-title-and-actions-long"
     },
     {
   "id": "components-banner-features--dismissible-with-hidden-title-and-actions"
