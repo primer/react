@@ -193,6 +193,7 @@
   .BannerContainer {
     display: grid;
     grid-template-columns: auto auto;
+    column-gap: var(--base-size-6); 
   }
 
   :where(.Banner):not([data-dismissible])
