@@ -40,3 +40,23 @@
     flex-shrink: 0;
   }
 }
+
+.OverflowCountSmall {
+  color: var(--fgColor-muted);
+  font-size: var(--text-body-size-small);
+}
+
+.OverflowCountMedium {
+  color: var(--fgColor-muted);
+  font-size: var(--text-body-size-medium);
+}
+
+.OverflowCountLarge {
+  color: var(--fgColor-muted);
+  font-size: var(--text-body-size-medium);
+}
+
+.OverflowCountXLarge {
+  color: var(--fgColor-muted);
+  font-size: var(--text-body-size-large);
+}

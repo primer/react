@@ -248,9 +248,7 @@ export const AllVariants = () => {
 
   return (
     <>
-      <Text fontSize={3} fontWeight="bold">
-        Showcase of all the SelectPanel variants
-      </Text>
+      <Text className={classes.TextTitleMediumBold}>Showcase of all the SelectPanel variants</Text>
       <br />
       <Text>
         Test the different interactions below to see how the SelectPanel behaves in different selection and anchoring
@@ -266,9 +264,7 @@ export const AllVariants = () => {
       <br />
       <br />
 
-      <Text fontSize={2} fontWeight="bold">
-        Extra controls:
-      </Text>
+      <Text className={classes.TextLargeBold}>Extra controls:</Text>
       <FormControl>
         <FormControl.Label>secondaryAction</FormControl.Label>
         <Select value={secondaryAction} onChange={e => setSecondaryAction(e.target.value)}>

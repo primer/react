@@ -1033,9 +1033,7 @@ exports[`TextInputWithTokens > renders a truncated set of tokens 1`] = `
             </span>
           </span>
           <span
-            class="sc-aXZVg eKNwWh prc-Text-Text-jAl-N"
-            color="fg.muted"
-            font-size="2"
+            class="prc-TextInputWithTokens-OverflowCountXLarge-zydSJ prc-Text-Text-jAl-N"
           >
             +
             6
@@ -1154,9 +1152,7 @@ exports[`TextInputWithTokens > renders a truncated set of tokens 1`] = `
           </span>
         </span>
         <span
-          class="sc-aXZVg eKNwWh prc-Text-Text-jAl-N"
-          color="fg.muted"
-          font-size="2"
+          class="prc-TextInputWithTokens-OverflowCountXLarge-zydSJ prc-Text-Text-jAl-N"
         >
           +
           6

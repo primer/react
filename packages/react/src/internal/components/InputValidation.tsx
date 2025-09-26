@@ -21,7 +21,7 @@ const validationIconMap: Record<
   error: AlertFillIcon,
 }
 
-const InputValidation: React.FC<React.PropsWithChildren<Props>> = ({children, className, id, validationStatus, sx}) => {
+const InputValidation: React.FC<React.PropsWithChildren<Props>> = ({children, className, id, validationStatus}) => {
   const IconComponent = validationStatus ? validationIconMap[validationStatus] : undefined
 
   // TODO: use `text-caption-lineHeight` token as a custom property when it's available
@@ -31,7 +31,7 @@ const InputValidation: React.FC<React.PropsWithChildren<Props>> = ({children, cl
   const iconBoxMinHeight = iconSize * captionLineHeight
 
   return (
-    <Text className={clsx(className, classes.InputValidation)} data-validation-status={validationStatus} sx={sx}>
+    <Text className={clsx(className, classes.InputValidation)} data-validation-status={validationStatus}>
       {IconComponent ? (
         <span
           aria-hidden="true"

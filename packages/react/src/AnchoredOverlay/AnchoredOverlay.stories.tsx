@@ -8,6 +8,7 @@ import {Button} from '../Button'
 import Octicon from '../Octicon'
 import {action} from 'storybook/actions'
 import {Stack} from '../Stack/Stack'
+import classes from './AnchoredOverlay.stories.module.css'
 
 export default {
   title: 'Components/AnchoredOverlay',
@@ -22,7 +23,7 @@ const hoverCard = (
     </Stack>
     <Stack direction="horizontal" gap="none">
       <Text weight="medium">monalisa</Text>
-      <Text color={'var(--fgColor-muted)'} ml={1}>
+      <Text className={classes.TextMutedWithMargin}>
         <Link inline muted href="#">
           Monalisa Octocat
         </Link>
@@ -31,15 +32,11 @@ const hoverCard = (
     <Text size="medium">Former beach cat and champion swimmer. Now your friendly octapus with a normal face.</Text>
     <Stack direction="horizontal" gap="none">
       <Octicon color={'var(--fgColor-muted)'} icon={LocationIcon} />
-      <Text size="small" color={'var(--fgColor-muted)'} ml={1}>
-        Interwebs
-      </Text>
+      <Text className={classes.TextSmallMutedWithMargin}>Interwebs</Text>
     </Stack>
     <Stack direction="horizontal" gap="none">
       <Octicon color={'var(--fgColor-muted)'} icon={RepoIcon} />
-      <Text size="small" color={'var(--fgColor-muted)'} ml={1}>
-        Owns this repository
-      </Text>
+      <Text className={classes.TextSmallMutedWithMargin}>Owns this repository</Text>
     </Stack>
   </Stack>
 )

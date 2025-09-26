@@ -136,3 +136,18 @@
   right: var(--base-size-4);
   top: var(--base-size-4);
 }
+
+.MediumTextMuted {
+  font-size: var(--text-body-size-medium);
+  color: var(--fgColor-muted);
+}
+
+.MediumText {
+  font-size: var(--text-body-size-medium);
+}
+
+.MediumTextWithMargin {
+  font-size: var(--text-body-size-medium);
+  color: var(--fgColor-muted);
+  margin-bottom: var(--base-size-12);
+}

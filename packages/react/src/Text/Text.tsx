@@ -2,10 +2,8 @@ import {clsx} from 'clsx'
 import {type StyledComponent} from 'styled-components'
 import React, {forwardRef} from 'react'
 import type {SystemCommonProps, SystemTypographyProps} from '../constants'
-import type {SxProp} from '../sx'
 import {useRefObjectAsForwardedRef} from '../hooks'
 import classes from './Text.module.css'
-import {BoxWithFallback} from '../internal/components/BoxWithFallback'
 
 type StyledTextProps = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -14,7 +12,6 @@ type StyledTextProps = {
   weight?: 'light' | 'normal' | 'medium' | 'semibold'
 } & SystemTypographyProps &
   SystemCommonProps &
-  SxProp &
   React.HTMLAttributes<HTMLSpanElement>
 
 const Text = forwardRef(({as: Component = 'span', className, size, weight, ...props}, forwardedRef) => {
@@ -22,8 +19,7 @@ const Text = forwardRef(({as: Component = 'span', className, size, weight, ...pr
   useRefObjectAsForwardedRef(forwardedRef, innerRef)
 
   return (
-    <BoxWithFallback
-      as={Component}
+    <Component
       className={clsx(className, classes.Text)}
       data-size={size}
       data-weight={weight}

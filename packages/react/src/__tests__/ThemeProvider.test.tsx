@@ -2,7 +2,7 @@ import {render, screen, waitFor} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {describe, expect, it, vi} from 'vitest'
 import React from 'react'
-import {Text, ThemeProvider, useColorSchemeVar, useTheme} from '..'
+import {Box, ThemeProvider, useColorSchemeVar, useTheme} from '..'
 
 // window.matchMedia() is not implemented by JSDOM so we have to create a mock:
 // https://vijs.io/docs/manual-mocks#mocking-methods-which-are-not-implemented-in-jsdom
@@ -53,9 +53,9 @@ it('respects theme prop', () => {
 
   render(
     <ThemeProvider theme={theme}>
-      <Text color="text" mb={1}>
+      <Box color="text" mb={1}>
         Hello
-      </Text>
+      </Box>
     </ThemeProvider>,
   )
 
@@ -66,9 +66,9 @@ it('respects theme prop', () => {
 it('has default theme', () => {
   render(
     <ThemeProvider>
-      <Text color="fg.default" mb={1}>
+      <Box color="fg.default" mb={1}>
         Hello
-      </Text>
+      </Box>
     </ThemeProvider>,
   )
 
@@ -79,7 +79,7 @@ it('inherits theme from parent', () => {
   render(
     <ThemeProvider theme={exampleTheme}>
       <ThemeProvider>
-        <Text color="text">Hello</Text>
+        <Box color="text">Hello</Box>
       </ThemeProvider>
     </ThemeProvider>,
   )
@@ -90,7 +90,7 @@ it('inherits theme from parent', () => {
 it('defaults to light color scheme', () => {
   render(
     <ThemeProvider theme={exampleTheme}>
-      <Text color="text">Hello</Text>
+      <Box color="text">Hello</Box>
     </ThemeProvider>,
   )
 
@@ -100,7 +100,7 @@ it('defaults to light color scheme', () => {
 it('defaults to dark color scheme in night mode', () => {
   render(
     <ThemeProvider theme={exampleTheme} colorMode="night">
-      <Text color="text">Hello</Text>
+      <Box color="text">Hello</Box>
     </ThemeProvider>,
   )
 
@@ -112,7 +112,7 @@ it('defaults to first color scheme when passed an invalid color scheme name', ()
 
   render(
     <ThemeProvider theme={exampleTheme} dayScheme="foo">
-      <Text color="text">Hello</Text>
+      <Box color="text">Hello</Box>
     </ThemeProvider>,
   )
 
@@ -125,7 +125,7 @@ it('defaults to first color scheme when passed an invalid color scheme name', ()
 it('respects nightScheme prop', () => {
   render(
     <ThemeProvider theme={exampleTheme} colorMode="night" nightScheme="dark_dimmed">
-      <Text color="text">Hello</Text>
+      <Box color="text">Hello</Box>
     </ThemeProvider>,
   )
 
@@ -135,7 +135,7 @@ it('respects nightScheme prop', () => {
 it('respects nightScheme prop with colorMode="dark"', () => {
   render(
     <ThemeProvider theme={exampleTheme} colorMode="dark" nightScheme="dark_dimmed">
-      <Text color="text">Hello</Text>
+      <Box color="text">Hello</Box>
     </ThemeProvider>,
   )
 
@@ -145,7 +145,7 @@ it('respects nightScheme prop with colorMode="dark"', () => {
 it('respects dayScheme prop', () => {
   render(
     <ThemeProvider theme={exampleTheme} colorMode="day" dayScheme="dark" nightScheme="dark_dimmed">
-      <Text color="text">Hello</Text>
+      <Box color="text">Hello</Box>
     </ThemeProvider>,
   )
 
@@ -155,7 +155,7 @@ it('respects dayScheme prop', () => {
 it('respects dayScheme prop with colorMode="light"', () => {
   render(
     <ThemeProvider theme={exampleTheme} colorMode="light" dayScheme="dark" nightScheme="dark_dimmed">
-      <Text color="text">Hello</Text>
+      <Box color="text">Hello</Box>
     </ThemeProvider>,
   )
 
@@ -165,7 +165,7 @@ it('respects dayScheme prop with colorMode="light"', () => {
 it('works in auto mode', () => {
   render(
     <ThemeProvider theme={exampleTheme} colorMode="auto">
-      <Text color="text">Hello</Text>
+      <Box color="text">Hello</Box>
     </ThemeProvider>,
   )
 
@@ -186,7 +186,7 @@ it('works in auto mode (dark)', () => {
 
   render(
     <ThemeProvider theme={exampleTheme} colorMode="auto">
-      <Text color="text">Hello</Text>
+      <Box color="text">Hello</Box>
     </ThemeProvider>,
   )
 
@@ -202,7 +202,7 @@ it('updates when colorMode prop changes', async () => {
     const [colorMode, setColorMode] = React.useState<'day' | 'night'>('day')
     return (
       <ThemeProvider theme={exampleTheme} colorMode={colorMode}>
-        <Text color="text">{colorMode}</Text>
+        <Box color="text">{colorMode}</Box>
         <button type="button" onClick={() => setColorMode(colorMode === 'day' ? 'night' : 'day')}>
           Toggle
         </button>
@@ -230,7 +230,7 @@ it('updates when dayScheme prop changes', async () => {
     const [dayScheme, setDayScheme] = React.useState('light')
     return (
       <ThemeProvider theme={exampleTheme} dayScheme={dayScheme}>
-        <Text color="text">{dayScheme}</Text>
+        <Box color="text">{dayScheme}</Box>
         <button type="button" onClick={() => setDayScheme(dayScheme === 'light' ? 'dark_dimmed' : 'light')}>
           Toggle
         </button>
@@ -258,7 +258,7 @@ it('updates when nightScheme prop changes', async () => {
     const [nightScheme, setNightScheme] = React.useState('dark')
     return (
       <ThemeProvider theme={exampleTheme} colorMode="night" nightScheme={nightScheme}>
-        <Text color="text">{nightScheme}</Text>
+        <Box color="text">{nightScheme}</Box>
         <button type="button" onClick={() => setNightScheme(nightScheme === 'dark' ? 'dark_dimmed' : 'dark')}>
           Toggle
         </button>
@@ -290,7 +290,7 @@ it('inherits colorMode from parent', async () => {
           Toggle
         </button>
         <ThemeProvider>
-          <Text color="text">{colorMode}</Text>
+          <Box color="text">{colorMode}</Box>
         </ThemeProvider>
       </ThemeProvider>
     )
@@ -316,7 +316,7 @@ it('inherits dayScheme from parent', async () => {
           Toggle
         </button>
         <ThemeProvider colorMode="day">
-          <Text color="text">{dayScheme}</Text>
+          <Box color="text">{dayScheme}</Box>
         </ThemeProvider>
       </ThemeProvider>
     )
@@ -342,7 +342,7 @@ it('inherits nightScheme from parent', async () => {
           Toggle
         </button>
         <ThemeProvider colorMode="night">
-          <Text color="text">{nightScheme}</Text>
+          <Box color="text">{nightScheme}</Box>
         </ThemeProvider>
       </ThemeProvider>
     )
@@ -372,7 +372,7 @@ describe('setColorMode', () => {
 
     render(
       <ThemeProvider theme={exampleTheme} colorMode="day">
-        <Text color="text">Hello</Text>
+        <Box color="text">Hello</Box>
         <ToggleMode />
       </ThemeProvider>,
     )
@@ -402,7 +402,7 @@ describe('setDayScheme', () => {
 
     render(
       <ThemeProvider theme={exampleTheme} colorMode="day">
-        <Text color="text">Hello</Text>
+        <Box color="text">Hello</Box>
         <ToggleDayScheme />
       </ThemeProvider>,
     )
@@ -432,7 +432,7 @@ describe('setNightScheme', () => {
 
     render(
       <ThemeProvider theme={exampleTheme} colorMode="night">
-        <Text color="text">Hello</Text>
+        <Box color="text">Hello</Box>
         <ToggleNightScheme />
       </ThemeProvider>,
     )
@@ -470,7 +470,7 @@ describe('useColorSchemeVar', () => {
         'inherit',
       )
 
-      return <Text bg={customBg}>Hello</Text>
+      return <Box bg={customBg}>Hello</Box>
     }
 
     render(
@@ -502,7 +502,7 @@ describe('useColorSchemeVar', () => {
     function CustomBg() {
       const customBg = useColorSchemeVar({dark: 'blue'}, 'red')
 
-      return <Text bg={customBg}>Hello</Text>
+      return <Box bg={customBg}>Hello</Box>
     }
 
     render(
@@ -525,7 +525,7 @@ describe('useTheme().resolvedColorScheme', () => {
     const Component = () => {
       const {resolvedColorScheme} = useTheme()
 
-      return <Text data-testid="text">{resolvedColorScheme}</Text>
+      return <Box data-testid="text">{resolvedColorScheme}</Box>
     }
 
     render(<Component />)
@@ -537,7 +537,7 @@ describe('useTheme().resolvedColorScheme', () => {
     const Component = () => {
       const {resolvedColorScheme} = useTheme()
 
-      return <Text data-testid="text">{resolvedColorScheme}</Text>
+      return <Box data-testid="text">{resolvedColorScheme}</Box>
     }
 
     render(
@@ -553,7 +553,7 @@ describe('useTheme().resolvedColorScheme', () => {
     const Component = () => {
       const {resolvedColorScheme} = useTheme()
 
-      return <Text data-testid="text">{resolvedColorScheme}</Text>
+      return <Box data-testid="text">{resolvedColorScheme}</Box>
     }
 
     const schemeToApply = 'dark'
@@ -573,7 +573,7 @@ describe('useTheme().resolvedColorScheme', () => {
     const Component = () => {
       const {resolvedColorScheme} = useTheme()
 
-      return <Text data-testid="text">{resolvedColorScheme}</Text>
+      return <Box data-testid="text">{resolvedColorScheme}</Box>
     }
 
     const schemeToApply = 'totally-invalid-colorscheme'
@@ -598,7 +598,7 @@ describe('useTheme().resolvedColorScheme', () => {
       const Component = () => {
         const {resolvedColorScheme} = useTheme()
 
-        return <Text data-testid="text">{resolvedColorScheme}</Text>
+        return <Box data-testid="text">{resolvedColorScheme}</Box>
       }
 
       const schemeToApply = 'dark'
@@ -621,7 +621,7 @@ describe('useTheme().resolvedColorScheme', () => {
       const Component = () => {
         const {resolvedColorScheme} = useTheme()
 
-        return <Text data-testid="text">{resolvedColorScheme}</Text>
+        return <Box data-testid="text">{resolvedColorScheme}</Box>
       }
 
       const schemeToApply = 'totally-invalid-colorscheme'

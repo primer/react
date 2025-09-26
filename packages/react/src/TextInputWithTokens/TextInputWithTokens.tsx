@@ -64,11 +64,11 @@ export type TextInputWithTokensProps<TokenComponentType extends AnyReactComponen
   visibleTokenCount?: number
 } & Omit<TextInputProps, 'size'>
 
-const overflowCountFontSizeMap: Record<TokenSizeKeys, number> = {
-  small: 0,
-  medium: 1,
-  large: 1,
-  xlarge: 2,
+const overflowCountClassMap: Record<TokenSizeKeys, string> = {
+  small: styles.OverflowCountSmall,
+  medium: styles.OverflowCountMedium,
+  large: styles.OverflowCountLarge,
+  xlarge: styles.OverflowCountXLarge,
 }
 
 // using forwardRef is important so that other components (ex. Autocomplete) can use the ref
@@ -319,9 +319,7 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
           />
         ))}
         {tokensAreTruncated && tokens.length - visibleTokens.length ? (
-          <Text color="fg.muted" fontSize={overflowCountFontSizeMap[size]}>
-            +{tokens.length - visibleTokens.length}
-          </Text>
+          <Text className={overflowCountClassMap[size]}>+{tokens.length - visibleTokens.length}</Text>
         ) : null}
       </div>
       <TextInputInnerVisualSlot

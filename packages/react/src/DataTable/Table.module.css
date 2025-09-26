@@ -285,3 +285,7 @@
     grid-column: -1 /1;
   }
 }
+
+.PlaceholderText {
+  color: var(--fgColor-muted);
+}

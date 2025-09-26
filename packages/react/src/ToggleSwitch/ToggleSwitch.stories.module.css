@@ -1,0 +1,9 @@
+.TextMediumBold {
+  font-size: var(--text-body-size-medium);
+  font-weight: var(--base-text-weight-semibold);
+}
+
+.TextLargeBold {
+  font-size: var(--text-body-size-large);
+  font-weight: var(--base-text-weight-semibold);
+}
