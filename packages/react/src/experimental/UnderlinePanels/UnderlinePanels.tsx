@@ -101,7 +101,7 @@ const UnderlinePanels: FC<UnderlinePanelsProps> = ({
         isValidElement(child) &&
         (typeof child.type === 'function' || typeof child.type === 'object') &&
         'displayName' in child.type &&
-        (child.type as any).displayName === 'UnderlinePanels.Tab'
+        child.type.displayName === 'UnderlinePanels.Tab'
       ) {
         return cloneElement(child, {id: `${parentId}-tab-${tabIndex++}`, loadingCounters, iconsVisible})
       }
@@ -110,7 +110,7 @@ const UnderlinePanels: FC<UnderlinePanelsProps> = ({
         isValidElement(child) &&
         (typeof child.type === 'function' || typeof child.type === 'object') &&
         'displayName' in child.type &&
-        (child.type as any).displayName === 'UnderlinePanels.Panel'
+        child.type.displayName === 'UnderlinePanels.Panel'
       ) {
         const childPanel = child as React.ReactElement<PanelProps>
         return cloneElement(childPanel, {'aria-labelledby': `${parentId}-tab-${panelIndex++}`})
@@ -132,7 +132,7 @@ const UnderlinePanels: FC<UnderlinePanelsProps> = ({
         isValidElement(child) &&
         (typeof child.type === 'function' || typeof child.type === 'object') &&
         'displayName' in child.type &&
-        (child.type as any).displayName === 'UnderlinePanels.Panel'
+        child.type.displayName === 'UnderlinePanels.Panel'
       )
     })
 
