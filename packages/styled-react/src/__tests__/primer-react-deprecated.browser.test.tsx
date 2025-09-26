@@ -19,7 +19,8 @@ describe('@primer/react/deprecated', () => {
   })
 
   test('TabNav.Link supports `sx` prop', () => {
-    render(<TabNav.Link data-testid="component" sx={{background: 'red'}} />)
+    render(<TabNav.Link as="a" data-testid="component" sx={{background: 'red'}} />)
+    expect(screen.getByTestId('component')).toHaveAttribute('role', 'tab')
     expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
   })
 
