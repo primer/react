@@ -9,7 +9,8 @@ describe('@primer/react/experimental', () => {
   })
 
   test('PageHeader supports `sx` prop', () => {
-    const {container} = render(<PageHeader data-testid="component" sx={{background: 'red'}} />)
+    const {container} = render(<PageHeader as="div" data-testid="component" sx={{background: 'red'}} role="article" />)
+    expect(container.firstElementChild!).toHaveAttribute('role', 'article')
     expect(window.getComputedStyle(container.firstElementChild!).backgroundColor).toBe('rgb(255, 0, 0)')
   })
 
