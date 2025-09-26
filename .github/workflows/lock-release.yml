@@ -2,7 +2,7 @@ name: Toggle Release Lock
 
 on:
   release:
-    types: 
+    types:
       - released
       - prereleased
   workflow_dispatch:
