@@ -349,7 +349,6 @@ export const Default: StoryFn = args => (
     padding={args.padding}
     rowGap={args.rowGap}
     columnGap={args.columnGap}
-    sx={args.sx}
   >
     {args['Render header?'] ? (
       <PageLayout.Header
