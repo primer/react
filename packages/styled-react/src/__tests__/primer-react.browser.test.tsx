@@ -219,7 +219,6 @@ describe('@primer/react', () => {
     expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
     console.log(screen.getByTestId('component'))
     expect(screen.getByTestId('component').hasAttribute('icon'))
-  
   })
 
   test('NavList supports `sx` prop', () => {
