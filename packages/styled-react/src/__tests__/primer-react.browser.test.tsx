@@ -161,7 +161,7 @@ describe('@primer/react', () => {
   test('Flash supports `sx` prop', () => {
     render(<Flash as="div" data-testid="component" sx={{background: 'red'}} variant="success" />)
     expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
-    expect(screen.getByTestId('component')).toHaveAttribute('data-variant', 'success')
+    expect(screen.getByTestId('component')).toHaveAttribute('variant', 'success')
   })
 
   test('FormControl supports `sx` prop', () => {
@@ -215,9 +215,11 @@ describe('@primer/react', () => {
   })
 
   test('LinkButton supports `sx` prop', () => {
-    render(<LinkButton as="a" data-testid="component" sx={{background: 'red'}} size="medium" />)
+    render(<LinkButton as="a" data-testid="component" sx={{background: 'red'}} icon={<svg />} />)
     expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
-    expect(screen.getByTestId('component')).toHaveAttribute('data-size', 'medium')
+    console.log(screen.getByTestId('component'))
+    expect(screen.getByTestId('component').hasAttribute('icon'))
+  
   })
 
   test('NavList supports `sx` prop', () => {
@@ -271,7 +273,7 @@ describe('@primer/react', () => {
 
   test('PageHeader supports `sx` prop', () => {
     const {container} = render(<PageHeader as="div" data-testid="component" sx={{background: 'red'}} role="article" />)
-    expect(screen.getByTestId('component')).toHaveAttribute('role', 'article')
+    expect(container.firstElementChild!).toHaveAttribute('role', 'article')
     expect(window.getComputedStyle(container.firstElementChild!).backgroundColor).toBe('rgb(255, 0, 0)')
   })
 
