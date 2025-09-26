@@ -29,7 +29,7 @@ const PageHeaderImpl = React.forwardRef<HTMLDivElement, PageHeaderProps>(({as, .
 
 type PageHeaderActionsProps = PrimerPageHeaderActionsProps & SxProp
 
-function StyledPageHeaderActions({sx, ...rest}: PageHeaderActionsProps) {
+function PageHeaderActions({sx, ...rest}: PageHeaderActionsProps) {
   const style: CSSCustomProperties = {}
   if (sx) {
     // @ts-ignore sx has height attribute
@@ -42,9 +42,6 @@ function StyledPageHeaderActions({sx, ...rest}: PageHeaderActionsProps) {
   // @ts-expect-error type mismatch between Box usage here and PrimerPageHeader.Actions
   return <Box {...rest} as={PrimerPageHeader.Actions} style={style} sx={sx} />
 }
-
-// @ts-ignore forwardedAs is valid here but I don't know how to fix the typescript error
-const PageHeaderActions = ({as, ...props}: PageHeaderProps) => <StyledPageHeaderActions forwardedAs={as} {...props} />
 
 type PageHeaderTitleProps = PropsWithChildren<PrimerPageHeaderTitleProps> & SxProp
 
