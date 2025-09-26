@@ -80,7 +80,7 @@ jobs:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
       - name: Update all PRs that are toggled merge when ready
         run: |
-          PR_NUMBERS=$(gh pr list -L 100 -R primer/react --state open --json number,baseRefName,autoMergeRequest,mergeStateStatus,reviewDecision -q '.[] | select(.autoMergeRequest != null) | select(.baseRefName == "main") | select(.mergeStateStatus == "BEHIND") | select(.reviewDecision == "APPROVED") | .number')
+          PR_NUMBERS=$(gh pr list -L 100 -R primer/react --state open --json number,baseRefName,autoMergeRequest,reviewDecision -q '.[] | select(.autoMergeRequest != null) | select(.baseRefName == "main") | select(.reviewDecision == "APPROVED") | .number')
           if [ -n "$PR_NUMBERS" ]; then
             echo "Updating $PR_NUMBERS"
             echo "$PR_NUMBERS" | xargs -I {} gh pr update-branch -R primer/react {}
