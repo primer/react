@@ -6,7 +6,6 @@ import Link from '../Link'
 import {FocusKeys} from '@primer/behaviors'
 import type {Direction} from '@primer/behaviors'
 import {useFocusZone} from '../hooks/useFocusZone'
-import {useTheme} from '../ThemeProvider'
 import classes from './FocusZoneStories.module.css'
 
 export default {
@@ -482,7 +481,6 @@ export const ActiveDescendant = () => {
 
   const containerRef = useRef<HTMLElement>(null)
   const controllingElementRef = useRef<HTMLElement>(null)
-  const {theme: themeFromContext} = useTheme()
 
   useFocusZone({
     containerRef,
@@ -490,7 +488,7 @@ export const ActiveDescendant = () => {
     bindKeys: FocusKeys.ArrowVertical,
     onActiveDescendantChanged: (current, previous) => {
       if (current) {
-        current.style.outline = `2px solid ${themeFromContext?.colors.accent.fg}`
+        current.style.outline = `2px solid var(--fgColor-accent)`
       }
       if (previous) {
         previous.style.outline = ''

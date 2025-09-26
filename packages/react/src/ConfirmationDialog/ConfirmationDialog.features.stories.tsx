@@ -1,7 +1,6 @@
 import type React from 'react'
 import {useState, useCallback} from 'react'
 import type {Meta} from '@storybook/react-vite'
-import {useTheme} from '..'
 import {Button} from '../Button'
 import {ActionMenu} from '../ActionMenu'
 import {ActionList} from '../ActionList'
@@ -15,18 +14,17 @@ export default {
 
 export const ShorthandHook = () => {
   const confirm = useConfirm()
-  const {theme} = useTheme()
   const onButtonClick = useCallback(
     async (event: React.MouseEvent) => {
       if (
         (await confirm({title: 'Are you sure?', content: 'Do you really want to turn this button green?'})) &&
         event.target instanceof HTMLElement
       ) {
-        event.target.style.color = theme?.colors.success.fg ?? 'green'
+        event.target.style.color = 'var(--fgColor-success)'
         event.target.textContent = "I'm green!"
       }
     },
-    [confirm, theme],
+    [confirm],
   )
   return (
     <div className={classes.ButtonContainer}>

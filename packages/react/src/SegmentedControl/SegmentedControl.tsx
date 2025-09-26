@@ -5,7 +5,6 @@ import type {SegmentedControlIconButtonProps} from './SegmentedControlIconButton
 import SegmentedControlIconButton from './SegmentedControlIconButton'
 import {ActionList} from '../ActionList'
 import {ActionMenu} from '../ActionMenu'
-import {useTheme} from '../ThemeProvider'
 import type {ResponsiveValue} from '../hooks/useResponsiveValue'
 import {useResponsiveValue} from '../hooks/useResponsiveValue'
 import type {WidthOnlyViewportRangeKeys} from '../utils/types/ViewportRangeKeys'
@@ -40,7 +39,6 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
   ...rest
 }) => {
   const segmentedControlContainerRef = useRef<HTMLUListElement>(null)
-  const {theme} = useTheme()
   const isUncontrolled =
     onChange === undefined ||
     React.Children.toArray(children).some(
@@ -176,7 +174,7 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
           selected: index === selectedIndex,
           style: {
             '--separator-color':
-              index === selectedIndex || index === selectedIndex - 1 ? 'transparent' : theme?.colors.border.default,
+              index === selectedIndex || index === selectedIndex - 1 ? 'transparent' : 'var(--borderColor-default)',
             ...child.props.style,
           },
         }
