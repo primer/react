@@ -27,18 +27,6 @@ const stories = [
     title: 'Position sidesheet',
     id: 'components-dialog-features--side-sheet',
   },
-  {
-    title: 'Dev: With Css',
-    id: 'components-dialog-dev--with-css',
-  },
-  {
-    title: 'Dev: With Sx',
-    id: 'components-dialog-dev--with-sx',
-  },
-  {
-    title: 'Dev: With Sx And Css',
-    id: 'components-dialog-dev--with-sx-and-css',
-  },
 ] as const
 
 test.describe('Dialog', () => {
