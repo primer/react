@@ -80,11 +80,6 @@
       "name": "size",
       "type": "'small' | 'medium' | 'large' | 'xlarge'",
       "description": "Which size the token will be rendered at"
-    },
-    {
-      "name": "sx",
-      "type": "SystemStyleObject",
-      "deprecated": true
     }
   ],
   "subcomponents": [
@@ -131,11 +126,6 @@
           "name": "size",
           "type": "'small' | 'medium' | 'large' | 'xlarge'",
           "description": "Which size the token will be rendered at"
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject",
-          "deprecated": true
         }
       ]
     }
