@@ -1,3 +1,5 @@
+/* ConfirmationDialog.module.css */
+
 .ConfirmationHeader {
   display: flex;
   padding: var(--base-size-8);
@@ -22,10 +24,32 @@
 
 .ConfirmationFooter {
   display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: max-content;
-  grid-gap: var(--base-size-8);
-  align-items: end;
-  justify-content: end;
+  grid-auto-flow: column; /* Default: arrange items in columns */
+  grid-auto-columns: max-content; /* Default: size columns to content */
+  grid-gap: var(--base-size-8); /* Space between grid items */
+  align-items: end; /* Align items to the end of their grid area vertically */
+  justify-content: end; /* Align the grid content to the end of the container horizontally */
   padding: var(--base-size-4) var(--base-size-16) var(--base-size-16);
+}
+
+/* Add this media query block to handle smaller screens */
+@media (max-width: 600px) { /* Adjust '600px' to your desired breakpoint */
+  .ConfirmationFooter {
+    grid-auto-flow: row; /* NEW: Stack items vertically (each item takes its own row) */
+    grid-auto-columns: 1fr; /* NEW: Make each implicit column (now a row for the item) take full available width */
+    justify-content: stretch; /* NEW: Ensures grid items stretch horizontally to fill the container */
+    
+    /* If you want the "Confirm" (primary) button to appear at the bottom of the stack,
+       you might need to adjust the order. With `grid-auto-flow: row`, items appear
+       in the order they are in the HTML. For specific reordering, you'd typically need
+       Flexbox with `flex-direction: column-reverse` or more complex Grid layouts
+       with `grid-template-areas` or `order` properties on individual buttons,
+       which is beyond a simple "fix bug" scope. The default HTML order will be maintained. */
+  }
+
+  /* Target direct children of ConfirmationFooter (which are the buttons)
+     to ensure they fill their grid cell's width when stacked. */
+  .ConfirmationFooter > * {
+    width: 100%; /* NEW: Ensures the button element itself expands to fill its grid area */
+  }
 }
