@@ -1,5 +1,27 @@
 # @primer/react
 
+## 38.0.0-rc.5
+
+### Major Changes
+
+- [#6868](https://github.com/primer/react/pull/6868) [`2053cb3`](https://github.com/primer/react/commit/2053cb3f7ee15fe1e4c3cc9be3c09c82dd5aed93) Thanks [@mperrotti](https://github.com/mperrotti)! - Removes Box usage and sx prop from NavList and ActionList
+
+- [#6872](https://github.com/primer/react/pull/6872) [`4e797ef`](https://github.com/primer/react/commit/4e797ef27ea9ae8baf9bc99503136efa8cdd1b57) Thanks [@mperrotti](https://github.com/mperrotti)! - Removes sx prop from PageLayout and subcomponents
+
+- [#6825](https://github.com/primer/react/pull/6825) [`4196e0e`](https://github.com/primer/react/commit/4196e0eed6894d020a83b9f382f5cb6817f9a725) Thanks [@mperrotti](https://github.com/mperrotti)! - Removes `Box` component usage and `sx` prop from the `Link` component, Storybook stories, and a .figma.tsx file
+
+- [#6864](https://github.com/primer/react/pull/6864) [`b0abd78`](https://github.com/primer/react/commit/b0abd785713d9f95ca9d5e41394e00153176077d) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove support for `sx` from the `TabNav` component
+
+- [#6812](https://github.com/primer/react/pull/6812) [`0834e9e`](https://github.com/primer/react/commit/0834e9ebe910c363f413723a254e0f2bd947a4b6) Thanks [@joshblack](https://github.com/joshblack)! - Remove support for `sx` from the Dialog component and sub-components
+
+- [#6805](https://github.com/primer/react/pull/6805) [`0f075d1`](https://github.com/primer/react/commit/0f075d1a679f0733ad984eeb2a677989ceca8ad0) Thanks [@mperrotti](https://github.com/mperrotti)! - Removes usage of Box component from other components.
+
+### Patch Changes
+
+- [#6908](https://github.com/primer/react/pull/6908) [`af288e6`](https://github.com/primer/react/commit/af288e632c042c5e82aae6ee2bd5107e8be2b9ec) Thanks [@llastflowers](https://github.com/llastflowers)! - update FormControl ValidationIcon position
+
+- [#6905](https://github.com/primer/react/pull/6905) [`1cb348f`](https://github.com/primer/react/commit/1cb348f079dffcf10bdf422b1e14e0a29fa4662d) Thanks [@lukasoppermann](https://github.com/lukasoppermann)! - Replace StateLabel color with new draft token
+
 ## 38.0.0-rc.4
 
 ### Major Changes
