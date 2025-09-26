@@ -217,7 +217,8 @@ describe('@primer/react', () => {
   test('LinkButton supports `sx` prop', () => {
     render(<LinkButton as="a" data-testid="component" sx={{background: 'red'}} icon={<svg />} />)
     expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
-    expect(screen.getByTestId('component').hasAttribute('icon'))
+    const svgElement = screen.getByTestId('component').querySelector('svg')
+    expect(svgElement).toBeInTheDocument()
   })
 
   test('NavList supports `sx` prop', () => {
@@ -297,7 +298,7 @@ describe('@primer/react', () => {
 
   test('PageLayout.Content supports `sx` prop', () => {
     const {container} = render(
-      <PageLayout.Content as="div" data-testid="component" sx={{background: 'red'}} aria-labelledby="normal" />,
+      <PageLayout.Content as="section" data-testid="component" sx={{background: 'red'}} aria-labelledby="normal" />,
     )
 
     const outerElement = container.firstElementChild! as HTMLElement
