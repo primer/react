@@ -97,23 +97,44 @@ const UnderlinePanels: FC<UnderlinePanelsProps> = ({
     let panelIndex = 0
 
     const childrenWithProps = Children.map(children, child => {
-      if (isValidElement(child) && child.type === Tab) {
+      if (
+        isValidElement(child) &&
+        (typeof child.type === 'function' || typeof child.type === 'object') &&
+        'displayName' in child.type &&
+        (child.type as any).displayName === 'UnderlinePanels.Tab'
+      ) {
         return cloneElement(child, {id: `${parentId}-tab-${tabIndex++}`, loadingCounters, iconsVisible})
       }
 
-      if (isValidElement<PanelProps>(child) && child.type === Panel) {
-        return cloneElement(child, {'aria-labelledby': `${parentId}-tab-${panelIndex++}`})
+      if (
+        isValidElement(child) &&
+        (typeof child.type === 'function' || typeof child.type === 'object') &&
+        'displayName' in child.type &&
+        (child.type as any).displayName === 'UnderlinePanels.Panel'
+      ) {
+        const childPanel = child as React.ReactElement<PanelProps>
+        return cloneElement(childPanel, {'aria-labelledby': `${parentId}-tab-${panelIndex++}`})
       }
       return child
     })
 
     const newTabs = Children.toArray(childrenWithProps).filter(child => {
-      return isValidElement(child) && child.type === Tab
+      return (
+        isValidElement(child) &&
+        (typeof child.type === 'function' || typeof child.type === 'object') &&
+        'displayName' in child.type &&
+        child.type.displayName === 'UnderlinePanels.Tab'
+      )
     })
 
-    const newTabPanels = Children.toArray(childrenWithProps).filter(
-      child => isValidElement(child) && child.type === Panel,
-    )
+    const newTabPanels = Children.toArray(childrenWithProps).filter(child => {
+      return (
+        isValidElement(child) &&
+        (typeof child.type === 'function' || typeof child.type === 'object') &&
+        'displayName' in child.type &&
+        (child.type as any).displayName === 'UnderlinePanels.Panel'
+      )
+    })
 
     setTabs(newTabs)
     setTabPanels(newTabPanels)

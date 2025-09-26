@@ -20,6 +20,8 @@ const UnderlinePanelsImpl = ({as, ...props}: UnderlinePanelsProps) => (
   <StyledUnderlinePanels forwardedAs={as} {...props} />
 )
 
+UnderlinePanelsImpl.displayName = 'UnderlinePanels'
+
 type UnderlinePanelsPanelProps = PrimerUnderlinePanelsPanelProps & SxProp
 
 const StyledUnderlinePanelsPanel = styled(PrimerUnderlinePanels.Panel).withConfig<UnderlinePanelsPanelProps>({
@@ -33,6 +35,8 @@ const UnderlinePanelsPanel = ({as, ...props}: UnderlinePanelsPanelProps) => {
   return <StyledUnderlinePanelsPanel forwardedAs={as} {...props} />
 }
 
+UnderlinePanelsPanel.displayName = 'UnderlinePanels.Panel'
+
 type UnderlinePanelsTabProps = PrimerUnderlinePanelsTabProps & SxProp
 
 const StyledUnderlinePanelsTab = styled(PrimerUnderlinePanels.Tab).withConfig<UnderlinePanelsTabProps>({
@@ -44,6 +48,8 @@ const StyledUnderlinePanelsTab = styled(PrimerUnderlinePanels.Tab).withConfig<Un
 const UnderlinePanelsTab = ({as, ...props}: UnderlinePanelsTabProps) => (
   <StyledUnderlinePanelsTab forwardedAs={as} {...props} />
 )
+
+UnderlinePanelsTab.displayName = 'UnderlinePanels.Tab'
 
 const UnderlinePanels = Object.assign(UnderlinePanelsImpl, {
   Tab: UnderlinePanelsTab,
