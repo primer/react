@@ -56,3 +56,7 @@
   max-height: 0;
   overflow: hidden;
 }
+
+.FormControl {
+  margin-bottom: var(--base-size-8);
+}
