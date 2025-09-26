@@ -3,7 +3,17 @@ import {Button, IconButton, Breadcrumbs, ActionMenu, ActionList} from '..'
 import {PageHeader} from '../PageHeader'
 import {Tooltip} from './Tooltip'
 import {Dialog} from '../experimental'
-import {GitBranchIcon, KebabHorizontalIcon, TriangleDownIcon, CheckIcon, XIcon} from '@primer/octicons-react'
+import {
+  GitBranchIcon,
+  KebabHorizontalIcon,
+  TriangleDownIcon,
+  CheckIcon,
+  XIcon,
+  HeartIcon,
+  BookIcon,
+  StarIcon,
+  SearchIcon,
+} from '@primer/octicons-react'
 import {default as VisuallyHidden} from '../_VisuallyHidden'
 
 export default {
@@ -183,5 +193,43 @@ export const DialogTrigger = () => {
         </Dialog>
       )}
     </>
+  )
+}
+
+export const OcticonPicker = () => {
+  const octicons = [
+    {icon: SearchIcon, name: 'Search'},
+    {icon: BookIcon, name: 'Book'},
+    {icon: CheckIcon, name: 'Check'},
+    {icon: StarIcon, name: 'Star'},
+    {icon: HeartIcon, name: 'Heart'},
+    {icon: SearchIcon, name: 'Search'},
+    {icon: BookIcon, name: 'Book'},
+    {icon: CheckIcon, name: 'Check'},
+    {icon: StarIcon, name: 'Star'},
+    {icon: HeartIcon, name: 'Heart'},
+    {icon: SearchIcon, name: 'Search'},
+    {icon: BookIcon, name: 'Book'},
+    {icon: CheckIcon, name: 'Check'},
+    {icon: StarIcon, name: 'Star'},
+    {icon: HeartIcon, name: 'Heart'},
+  ]
+
+  return (
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(5, 1fr)',
+        gap: '4px',
+        maxWidth: '200px',
+        padding: '16px',
+      }}
+    >
+      {octicons.map((octicon, index) => (
+        <Tooltip key={index} text={octicon.name} direction="n" delay="medium" type="label">
+          <IconButton aria-label={octicon.name} icon={octicon.icon} />
+        </Tooltip>
+      ))}
+    </div>
   )
 }

@@ -20,6 +20,13 @@ export type TooltipProps = React.PropsWithChildren<
     text: string
     type?: 'label' | 'description'
     keybindingHint?: KeybindingHintProps['keys']
+    /**
+     * Delay in milliseconds before showing the tooltip
+     * @default short (50ms)
+     * medium (400ms)
+     * long (1200ms)
+     */
+    delay?: 'short' | 'medium' | 'long'
   } & SxProp
 > &
   React.HTMLAttributes<HTMLElement>
@@ -73,6 +80,14 @@ const interactiveElements = [
   'textarea',
 ]
 
+// Map delay prop to actual time in ms
+// For context on delay times, see https://github.com/github/primer/issues/3313#issuecomment-3336696699
+const delayTimeMap = {
+  short: 50,
+  medium: 400,
+  long: 1200,
+}
+
 const isInteractive = (element: HTMLElement) => {
   return (
     interactiveElements.some(selector => element.matches(selector)) ||
@@ -83,7 +98,17 @@ export const TooltipContext = React.createContext<{tooltipId?: string}>({})
 
 export const Tooltip = React.forwardRef(
   (
-    {direction = 's', text, type = 'description', children, id, className, keybindingHint, ...rest}: TooltipProps,
+    {
+      direction = 's',
+      text,
+      type = 'description',
+      children,
+      id,
+      className,
+      keybindingHint,
+      delay = 'short',
+      ...rest
+    }: TooltipProps,
     forwardedRef,
   ) => {
     const tooltipId = useId(id)
@@ -284,14 +309,15 @@ export const Tooltip = React.forwardRef(
                 child.props.onFocus?.(event)
               },
               onMouseOverCapture: (event: React.MouseEvent) => {
+                const delayTime = delayTimeMap[delay] || 50
                 // We use a `capture` event to ensure this is called first before
                 // events that might cancel the opening timeout (like `onTouchEnd`)
-                // show tooltip after mouse has been hovering for at least 50ms
+                // show tooltip after mouse has been hovering for the specified delay time
                 // (prevent showing tooltip when mouse is just passing through)
                 openTimeoutRef.current = safeSetTimeout(() => {
                   openTooltip()
                   child.props.onMouseEnter?.(event)
-                }, 50)
+                }, delayTime)
               },
               onMouseLeave: (event: React.MouseEvent) => {
                 closeTooltip()
