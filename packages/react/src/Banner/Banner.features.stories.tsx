@@ -162,7 +162,7 @@ export const WithHiddenTitle = () => {
   )
 }
 
-export const WithHiddenTitleAndActions = () => {
+export const WithHiddenTitleAndActionsLong = () => {
   return (
     <Banner
       title="Warning"
@@ -201,6 +201,18 @@ export const DismissibleWithHiddenTitleAndActions = () => {
       variant="warning"
       primaryAction={<Banner.PrimaryAction>Button</Banner.PrimaryAction>}
       secondaryAction={<Banner.SecondaryAction>Button</Banner.SecondaryAction>}
+    />
+  )
+}
+
+export const WithHiddenTitleAndActionsShort = () => {
+  return (
+    <Banner
+      title="Warning"
+      hideTitle
+      description={<>A short message that does not wrap.</>}
+      variant="warning"
+      primaryAction={<Banner.PrimaryAction>Button</Banner.PrimaryAction>}
     />
   )
 }

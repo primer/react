@@ -47,8 +47,8 @@ const stories: Array<{title: string; id: string; viewports?: Array<keyof typeof 
     id: 'components-banner-features--with-hidden-title',
   },
   {
-    title: 'WithHiddenTitleAndActions',
-    id: 'components-banner-features--with-hidden-title-and-actions',
+    title: 'WithHiddenTitleAndActionsLong',
+    id: 'components-banner-features--with-hidden-title-and-actions-long',
     viewports: ['primer.breakpoint.xs', 'primer.breakpoint.sm'],
   },
   {
@@ -68,6 +68,11 @@ const stories: Array<{title: string; id: string; viewports?: Array<keyof typeof 
   {
     title: 'Multiline',
     id: 'components-banner-examples--multiline',
+    viewports: ['primer.breakpoint.xs', 'primer.breakpoint.sm'],
+  },
+  {
+    title: 'WithHiddenTitleAndActionsShort',
+    id: 'components-banner-features--with-hidden-title-and-actions-short',
     viewports: ['primer.breakpoint.xs', 'primer.breakpoint.sm'],
   },
 ]

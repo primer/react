@@ -62,6 +62,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  align-items: flex-start;
 }
 
 .Banner[data-dismissible]:not([data-title-hidden='']) .BannerContainer {
@@ -75,18 +76,19 @@
 .BannerContent {
   display: grid;
   row-gap: var(--base-size-4);
-  grid-column-start: 1;
   margin-block: var(--base-size-8);
+  flex: 1 1 auto;
+  min-width: 0;
+  max-width: max-content;
 }
 
 .Banner[data-title-hidden]:not(:has(.BannerActions)) .BannerContent {
   margin-block: var(--base-size-6);
 }
 
-@media screen and (min-width: 544px) {
-  .BannerContent {
-    flex: 1 1 0%;
-  }
+.Banner :where(.BannerContainer) .BannerContent:has(.BannerTitle + *) {
+  max-width: none;
+  flex: 1 1 250px;
 }
 
 .BannerTitle {
@@ -142,10 +144,7 @@
   column-gap: var(--base-size-12);
   align-items: center;
   margin-block: var(--base-size-2);
-}
-
-.BannerActions :where([data-primary-action='trailing']) {
-  display: none;
+  flex-shrink: 0;
 }
 
 @media screen and (--viewportRange-regular) {
@@ -174,13 +173,15 @@
 
 /* Layout ------------------------------------------------------------------- */
 
-@container banner (max-width: 500px) {
-  .BannerContainer {
+@container banner (max-width: 499px) {
+  .BannerContainer:has(.BannerActionsContainer) {
     display: grid;
+    grid-template-rows: auto auto;
   }
 
-  .BannerContainer:has(.BannerActionsContainer) {
-    grid-template-rows: auto auto;
+  .BannerContainer:has(.BannerTitle):not(:has(.BannerTitle + *)):has(.BannerActionsContainer) {
+    display: flex;
+    flex-wrap: wrap;
   }
 
   .BannerActions {
@@ -196,10 +197,11 @@
   }
 }
 
-@container banner (min-width: 500px) {
+@container banner (min-width: 500.01px) {
   .BannerContainer {
     display: grid;
     grid-template-columns: auto auto;
+    column-gap: var(--base-size-6);
   }
 
   :where(.Banner):not([data-dismissible])
