@@ -22,11 +22,11 @@ export type TooltipProps = React.PropsWithChildren<
     keybindingHint?: KeybindingHintProps['keys']
     /**
      * Delay in milliseconds before showing the tooltip
-     * @default instant 50ms
-     * medium 400ms
-     * long 1200ms
+     * @default short (50ms)
+     * medium (400ms)
+     * long (1200ms)
      */
-    delay?: 'instant' | 'medium' | 'long'
+    delay?: 'short' | 'medium' | 'long'
   } & SxProp
 > &
   React.HTMLAttributes<HTMLElement>
@@ -81,8 +81,9 @@ const interactiveElements = [
 ]
 
 // Map delay prop to actual time in ms
+// For context on delay times, see https://github.com/github/primer/issues/3313#issuecomment-3336696699
 const delayTimeMap = {
-  instant: 50,
+  short: 50,
   medium: 400,
   long: 1200,
 }
@@ -105,7 +106,7 @@ export const Tooltip = React.forwardRef(
       id,
       className,
       keybindingHint,
-      delay = 'instant',
+      delay = 'short',
       ...rest
     }: TooltipProps,
     forwardedRef,
