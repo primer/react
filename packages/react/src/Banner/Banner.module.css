@@ -178,7 +178,7 @@
     display: grid;
     grid-template-rows: auto auto;
   }
-  
+
   .BannerContainer:has(.BannerTitle):not(:has(.BannerTitle + *)):has(.BannerActionsContainer) {
     display: flex;
     flex-wrap: wrap;
