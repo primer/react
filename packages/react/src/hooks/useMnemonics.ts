@@ -82,9 +82,9 @@ export const useMnemonics = (open: boolean, providedRef?: React.RefObject<HTMLEl
     [open, containerRef],
   )
 
-  const isAlphabetKey = (event: KeyboardEvent) => {
-    return event.key.length === 1 && /[a-z\d]/i.test(event.key)
-  }
-
   return {containerRef}
+}
+
+export const isAlphabetKey = (event: KeyboardEvent) => {
+  return event.key.length === 1 && /[a-z\d]/i.test(event.key)
 }
