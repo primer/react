@@ -147,12 +147,14 @@
   flex-shrink: 0;
 }
 
-.BannerActions :where([data-primary-action='trailing']) {
-  display: flex;
-}
+@media screen and (--viewportRange-regular) {
+  .BannerActions :where([data-primary-action='trailing']) {
+    display: flex;
+  }
 
-.BannerActions :where([data-primary-action='leading']) {
-  display: none;
+  .BannerActions :where([data-primary-action='leading']) {
+    display: none;
+  }
 }
 
 .Banner[data-dismissible]:not([data-title-hidden]) .BannerActions {
@@ -173,7 +175,13 @@
 
 @container banner (max-width: 500px) {
   .BannerContainer:has(.BannerActionsContainer) {
+    display: grid;
     grid-template-rows: auto auto;
+  }
+  
+  .BannerContainer:has(.BannerTitle):not(:has(.BannerTitle + *)):has(.BannerActionsContainer) {
+    display: flex;
+    flex-wrap: wrap;
   }
 
   .BannerActions {
@@ -189,7 +197,7 @@
   }
 }
 
-@container banner (min-width: 501px) {
+@container banner (min-width: 500.01px) {
   .BannerContainer {
     display: grid;
     grid-template-columns: auto auto;
