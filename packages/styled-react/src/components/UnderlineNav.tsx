@@ -19,7 +19,7 @@ export const UnderlineNavImpl = ({as, ...props}: UnderlineNavProps) => (
   <StyledUnderlineNav {...props} {...(as ? {forwardedAs: as} : {})} />
 )
 
-export type UnderlineNavItemProps = PrimerUnderlineNavItemProps & SxProp
+export type UnderlineNavItemProps = PrimerUnderlineNavItemProps & SxProp & React.HTMLAttributes<HTMLElement>
 
 const StyledUnderlineNavItem: ForwardRefComponent<'a', UnderlineNavItemProps> = styled(
   PrimerUnderlineNav.Item,
