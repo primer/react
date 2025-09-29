@@ -16,8 +16,7 @@ const StyledHeader = forwardRef(function Header(props, ref) {
   return <Box as={PrimerHeader} ref={ref} {...props} />
 }) as ForwardRefComponent<'header', HeaderProps>
 
-// @ts-ignore forwardedAs is valid here but I don't know how to fix the typescript error
-const HeaderImpl = ({as, ...props}: HeaderProps) => <StyledHeader forwardedAs={as} {...props} />
+const HeaderImpl = ({as, ...props}: HeaderProps) => <StyledHeader {...props} {...(as ? {forwardedAs: as} : {})} />
 
 type HeaderItemProps = PrimerHeaderItemProps & SxProp
 
@@ -29,8 +28,9 @@ const StyledHeaderLink = forwardRef<HTMLAnchorElement, PrimerHeaderLinkProps>(fu
   return <Box as={PrimerHeader.Link} ref={ref} {...props} />
 })
 
-// @ts-ignore forwardedAs is valid here but I don't know how to fix the typescript error
-const HeaderLink = ({as, ...props}: HeaderLinkProps) => <StyledHeaderLink forwardedAs={as} {...props} />
+const HeaderLink = ({as, ...props}: HeaderLinkProps) => (
+  <StyledHeaderLink {...props} {...(as ? {forwardedAs: as} : {})} />
+)
 
 const Header = Object.assign(HeaderImpl, {
   Item: HeaderItem,
