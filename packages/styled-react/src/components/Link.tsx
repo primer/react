@@ -9,6 +9,6 @@ const StyledLink = styled(PrimerLink).withConfig<LinkProps>({
 })`
   ${sx}
 `
-const Link = ({as, ...props}: LinkProps) => <Link {...props} {...(as ? {forwardedAs: as} : {})} />
+const Link = ({as, ...props}: LinkProps) => <StyledLink {...props} {...(as ? {forwardedAs: as} : {})} />
 
 export {Link, type LinkProps}
