@@ -1,0 +1,14 @@
+.OverlayContainer {
+  align-items: flex-start;
+  display: flex;
+}
+
+.OverlayInner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--base-size-4);
+}
+
+.CloseButton {
+  flex-shrink: 0;
+}

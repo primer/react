@@ -23,8 +23,7 @@ const StyledPageHeader: ForwardRefComponent<'div', PageHeaderProps> = styled(
 `
 
 const PageHeaderImpl = React.forwardRef<HTMLDivElement, PageHeaderProps>(({as, ...props}, ref) => (
-  // @ts-ignore forwardedAs is valid here but I don't know how to fix the typescript error
-  <StyledPageHeader forwardedAs={as} ref={ref} {...props} />
+  <StyledPageHeader {...props} {...(as ? {forwardedAs: as} : {})} ref={ref} />
 )) as ForwardRefComponent<'div', PageHeaderProps>
 
 type PageHeaderActionsProps = PrimerPageHeaderActionsProps & SxProp
@@ -71,8 +70,9 @@ function StyledPageHeaderTitle({sx, ...rest}: PageHeaderTitleProps) {
   return <Box {...rest} as={PrimerPageHeader.Title} style={style} sx={sx} />
 }
 
-// @ts-ignore forwardedAs is valid here but I don't know how to fix the typescript error
-const PageHeaderTitle = ({as, ...props}: PageHeaderTitleProps) => <StyledPageHeaderTitle forwardedAs={as} {...props} />
+const PageHeaderTitle = ({as, ...props}: PageHeaderTitleProps) => (
+  <StyledPageHeaderTitle {...props} {...(as ? {forwardedAs: as} : {})} />
+)
 
 type PageHeaderTitleAreaProps = PropsWithChildren<PrimerPageHeaderTitleAreaProps> & SxProp
 

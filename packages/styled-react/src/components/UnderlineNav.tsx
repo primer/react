@@ -16,8 +16,7 @@ const StyledUnderlineNav = forwardRef<HTMLElement, UnderlineNavProps>(function U
 })
 
 export const UnderlineNavImpl = ({as, ...props}: UnderlineNavProps) => (
-  // @ts-ignore forwardedAs is valid here but I don't know how to fix the typescript error
-  <StyledUnderlineNav forwardedAs={as} {...props} />
+  <StyledUnderlineNav {...props} {...(as ? {forwardedAs: as} : {})} />
 )
 
 export type UnderlineNavItemProps = PrimerUnderlineNavItemProps & SxProp
@@ -30,8 +29,7 @@ const StyledUnderlineNavItem: ForwardRefComponent<'a', UnderlineNavItemProps> = 
   ${sx}
 `
 export const UnderlineNavItem = ({as, ...props}: UnderlineNavItemProps) => (
-  // @ts-ignore forwardedAs is valid here but I don't know how to fix the typescript error
-  <StyledUnderlineNavItem forwardedAs={as} {...props} />
+  <StyledUnderlineNavItem {...props} {...(as ? {forwardedAs: as} : {})} />
 )
 
 export const UnderlineNav = Object.assign(UnderlineNavImpl, {
