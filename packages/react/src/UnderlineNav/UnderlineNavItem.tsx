@@ -45,7 +45,8 @@ export type UnderlineNavItemProps = {
    * Counter
    */
   counter?: number | string
-} & LinkProps
+} & LinkProps &
+  React.HTMLAttributes<HTMLElement>
 
 export const UnderlineNavItem = forwardRef(
   (
