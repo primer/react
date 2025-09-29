@@ -47,7 +47,7 @@ import {
 
 describe('@primer/react', () => {
   test('ActionList supports `sx` prop', () => {
-    render(<ActionList as="ul" data-testid="component" sx={{background: 'red'}} variant="inset" />)
+    render(<ActionList as="div" data-testid="component" sx={{background: 'red'}} variant="inset" />)
     expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
     expect(screen.getByTestId('component')).toHaveAttribute('data-variant', 'inset')
   })
