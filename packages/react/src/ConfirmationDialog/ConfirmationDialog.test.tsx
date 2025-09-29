@@ -11,7 +11,10 @@ import theme from '../theme'
 import {ThemeProvider} from '../ThemeProvider'
 import {Stack} from '../Stack'
 
-const Basic = ({confirmButtonType}: Pick<React.ComponentProps<typeof ConfirmationDialog>, 'confirmButtonType'>) => {
+const Basic = ({
+  confirmButtonType,
+  overrideButtonFocus,
+}: Pick<React.ComponentProps<typeof ConfirmationDialog>, 'confirmButtonType' | 'overrideButtonFocus'>) => {
   const [isOpen, setIsOpen] = useState(false)
   const buttonRef = useRef<HTMLButtonElement>(null)
   const onDialogClose = useCallback(() => setIsOpen(false), [])
@@ -28,6 +31,7 @@ const Basic = ({confirmButtonType}: Pick<React.ComponentProps<typeof Confirmatio
             cancelButtonContent="Secondary"
             confirmButtonContent="Primary"
             confirmButtonType={confirmButtonType}
+            overrideButtonFocus={overrideButtonFocus}
           >
             Lorem ipsum dolor sit Pippin good dog.
           </ConfirmationDialog>
@@ -185,6 +189,15 @@ describe('ConfirmationDialog', () => {
 
     const dialog = getByRole('alertdialog')
     expect(dialog.getAttribute('data-height')).toBe('small')
+  })
+
+  it('focuses the confirm button even when dangerous if initialButtonFocus is confirm', async () => {
+    const {getByText, getByRole} = render(<Basic confirmButtonType="danger" overrideButtonFocus="confirm" />)
+
+    fireEvent.click(getByText('Show dialog'))
+
+    expect(getByRole('button', {name: 'Primary'})).toEqual(document.activeElement)
+    expect(getByRole('button', {name: 'Secondary'})).not.toEqual(document.activeElement)
   })
 
   describe('loading states', () => {

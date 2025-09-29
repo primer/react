@@ -148,11 +148,6 @@
       "name": "as",
       "type": "React.ElementType",
       "defaultValue": "\"relative-time\""
-    },
-    {
-      "name": "sx",
-      "type": "SystemStyleObject",
-      "deprecated": true
     }
   ],
   "subcomponents": []
