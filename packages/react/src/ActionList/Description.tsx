@@ -2,7 +2,6 @@ import React from 'react'
 import Truncate from '../Truncate'
 import {ItemContext} from './shared'
 import classes from './ActionList.module.css'
-import {BoxWithFallback} from '../internal/components/BoxWithFallback'
 import {clsx} from 'clsx'
 
 export type ActionListDescriptionProps = {
@@ -43,14 +42,13 @@ export const Description: React.FC<React.PropsWithChildren<ActionListDescription
 
   if (variant === 'block' || !truncate) {
     return (
-      <BoxWithFallback
-        as="span"
+      <span
         id={variant === 'block' ? blockDescriptionId : inlineDescriptionId}
         className={clsx(className, classes.Description)}
         data-component="ActionList.Description"
       >
         {props.children}
-      </BoxWithFallback>
+      </span>
     )
   } else {
     return (
