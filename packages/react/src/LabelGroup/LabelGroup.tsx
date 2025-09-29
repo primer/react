@@ -7,6 +7,7 @@ import VisuallyHidden from '../_VisuallyHidden'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import {Button, IconButton} from '../Button'
 import {useTheme} from '../ThemeProvider'
+import classes from './LabelGroup.module.css'
 
 export type LabelGroupProps = {
   /** Customize the element type of the rendered container */
@@ -132,14 +133,14 @@ const OverlayToggle: React.FC<
       )}
       focusZoneSettings={{disabled: true}}
     >
-      <div style={{alignItems: 'flex-start', display: 'flex', width: overlayWidth, padding: `${overlayPaddingPx}px`}}>
-        <div style={{display: 'flex', flexWrap: 'wrap', gap: '4px'}}>{children}</div>
+      <div className={classes.OverlayContainer} style={{width: overlayWidth, padding: `${overlayPaddingPx}px`}}>
+        <div className={classes.OverlayInner}>{children}</div>
         <IconButton
           onClick={closeOverflowOverlay}
           icon={XIcon}
           aria-label="Close"
           variant="invisible"
-          style={{flexShrink: 0}}
+          className={classes.CloseButton}
         />
       </div>
     </AnchoredOverlay>

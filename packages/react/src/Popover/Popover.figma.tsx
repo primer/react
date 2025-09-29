@@ -24,7 +24,7 @@ figma.connect(Popover, 'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Prim
   example: ({caret, heading, body, action}) => (
     <Popover caret={caret}>
       <Popover.Content>
-        <Heading>{heading}</Heading>
+        <Heading style={{fontSize: 'var(--text-title-size-small)'}}>{heading}</Heading>
         <Text as="p">{body}</Text>
         {action}
       </Popover.Content>
