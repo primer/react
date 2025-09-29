@@ -39,10 +39,6 @@ const stories = [
     title: 'Positioned Overlays',
     id: 'private-components-overlay-features--positioned-overlays',
   },
-  {
-    title: 'SX Props',
-    id: 'private-components-overlay-dev--sx-props',
-  },
 ] as const
 
 test.describe('Overlay ', () => {
