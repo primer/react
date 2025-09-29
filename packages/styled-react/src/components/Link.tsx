@@ -4,9 +4,11 @@ import {sx, type SxProp} from '../sx'
 
 type LinkProps = PrimerLinkProps & SxProp
 
-const Link = styled(PrimerLink).withConfig<LinkProps>({
+const StyledLink = styled(PrimerLink).withConfig<LinkProps>({
   shouldForwardProp: prop => prop !== 'sx',
 })`
   ${sx}
 `
+const Link = ({as, ...props}: LinkProps) => <Link {...props} {...(as ? {forwardedAs: as} : {})} />
+
 export {Link, type LinkProps}
