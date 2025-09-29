@@ -1,3 +1,5 @@
+// TODO: merge https://github.com/primer/react/pull/6631 which removes `Box` usage
+
 import {clsx} from 'clsx'
 import classes from './Label.module.css'
 import React from 'react'

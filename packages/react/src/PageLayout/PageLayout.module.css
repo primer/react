@@ -325,3 +325,23 @@ body[data-page-layout-dragging='true'] * {
   /* stylelint-disable-next-line primer/spacing */
   padding: var(--spacing);
 }
+
+.DraggableHandle {
+  position: absolute;
+  inset: 0 -2px;
+  cursor: col-resize;
+  background-color: transparent;
+  transition-delay: 0.1s;
+}
+
+.DraggableHandle:hover {
+  background-color: var(--bgColor-neutral-muted);
+}
+
+.DraggableHandle[data-dragging='true'] {
+  background-color: var(--bgColor-accent-emphasis);
+}
+
+.DraggableHandle[data-dragging='true']:hover {
+  background-color: var(--bgColor-accent-emphasis);
+}
