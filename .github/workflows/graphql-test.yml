@@ -9,9 +9,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8
         with:
-          # This makes Actions fetch all Git history so that Changesets can generate changelogs with the correct commits
-          fetch-depth: 0
-
       - name: Test GraphQL Query
         run: |
           echo "Testing GraphQL query against GitHub API..."
