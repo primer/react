@@ -1,0 +1,80 @@
+name: Test GraphQL Queries
+on:
+  workflow_dispatch:
+
+jobs:
+  test-query:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test GraphQL Query
+        run: |
+          echo "Testing GraphQL query against GitHub API..."
+
+          # Test query to get repository information
+          QUERY='query {
+            repository(owner: "primer", name: "react") {
+              name
+              description
+              stargazerCount
+              forkCount
+              defaultBranchRef {
+                name
+              }
+              languages(first: 5) {
+                nodes {
+                  name
+                  color
+                }
+              }
+            }
+          }'
+
+          # Make the GraphQL API call with detailed error logging
+          echo "Making GraphQL API call..."
+          HTTP_STATUS=$(curl -w "%{http_code}" -s -X POST \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            -d "{\"query\": \"$(echo $QUERY | tr '\n' ' ' | sed 's/"/\\"/g')\"}" \
+            -o response.json \
+            https://api.github.com/graphql)
+
+          RESPONSE=$(cat response.json)
+
+          echo "HTTP Status Code: $HTTP_STATUS"
+          echo "Full GraphQL Response:"
+          echo "$RESPONSE" | jq '.' || echo "Raw response (invalid JSON): $RESPONSE"
+
+          # Check HTTP status first
+          if [ "$HTTP_STATUS" != "200" ]; then
+            echo "❌ HTTP request failed with status code: $HTTP_STATUS"
+            echo "Full response body:"
+            echo "$RESPONSE"
+            exit 1
+          fi
+
+          # Check if the response contains GraphQL errors
+          if echo "$RESPONSE" | jq -e '.errors' > /dev/null 2>&1; then
+            echo "❌ GraphQL query returned errors:"
+            echo "$RESPONSE" | jq '.errors'
+            echo "Full error details:"
+            echo "$RESPONSE" | jq '.errors[] | {message: .message, type: .type, path: .path, locations: .locations}' || true
+            exit 1
+          fi
+
+          # Check if the query was successful and has expected data
+          if echo "$RESPONSE" | jq -e '.data.repository.name' > /dev/null 2>&1; then
+            echo "✅ GraphQL query executed successfully!"
+            echo "Repository name: $(echo "$RESPONSE" | jq -r '.data.repository.name')"
+            echo "Stars: $(echo "$RESPONSE" | jq -r '.data.repository.stargazerCount')"
+            echo "Default branch: $(echo "$RESPONSE" | jq -r '.data.repository.defaultBranchRef.name')"
+          else
+            echo "❌ GraphQL query failed - no valid data returned"
+            echo "Expected data.repository.name but got:"
+            echo "$RESPONSE" | jq '.data // "No data field found"'
+            exit 1
+          fi
+
+          # Cleanup
+          rm -f response.json
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
