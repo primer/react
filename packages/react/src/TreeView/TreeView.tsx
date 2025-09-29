@@ -741,7 +741,7 @@ const TrailingAction = (props: TreeViewTrailingAction) => {
   return (
     <>
       <div id={trailingActionId} className={clsx('PRIVATE_VisuallyHidden', classes.TreeViewVisuallyHidden)}>
-        ; {shortcutText}
+        - {shortcutText}
       </div>
       <div
         className={classes.TreeViewItemTrailingAction}
