@@ -186,7 +186,7 @@ export const OverlayOnTopOfOverlay = ({anchorSide, role, open}: Args) => {
               onEscape={closeSecondaryOverlay}
               onClickOutside={closeSecondaryOverlay}
               width="small"
-              sx={{top: '40px'}}
+              style={{top: '40px'}}
               anchorSide={anchorSide}
               role={role}
               aria-modal={role === 'dialog' ? 'true' : undefined}
