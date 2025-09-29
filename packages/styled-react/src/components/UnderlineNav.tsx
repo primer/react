@@ -9,7 +9,7 @@ import {forwardRef} from 'react'
 import styled from 'styled-components'
 import {sx, type SxProp} from '../sx'
 
-export type UnderlineNavProps = PrimerUnderlineNavProps & SxProp & React.HTMLAttributes<HTMLElement>
+export type UnderlineNavProps = PrimerUnderlineNavProps & SxProp
 
 const StyledUnderlineNav = forwardRef<HTMLElement, UnderlineNavProps>(function UnderlineNav(props, ref) {
   return <Box as={PrimerUnderlineNav} ref={ref} {...props} />
@@ -19,7 +19,7 @@ export const UnderlineNavImpl = ({as, ...props}: UnderlineNavProps) => (
   <StyledUnderlineNav {...props} {...(as ? {forwardedAs: as} : {})} />
 )
 
-export type UnderlineNavItemProps = PrimerUnderlineNavItemProps & SxProp
+export type UnderlineNavItemProps = PrimerUnderlineNavItemProps & SxProp & React.HTMLAttributes<HTMLElement>
 
 const StyledUnderlineNavItem: ForwardRefComponent<'a', UnderlineNavItemProps> = styled(
   PrimerUnderlineNav.Item,
