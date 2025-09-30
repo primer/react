@@ -24,6 +24,7 @@ export type ActionListTrailingActionProps = ElementProps & {
   icon?: React.ElementType
   label: string
   className?: string
+  children?: React.ReactNode
 }
 
 const TrailingAction = fixedForwardRef(
