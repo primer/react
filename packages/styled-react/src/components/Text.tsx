@@ -1,5 +1,5 @@
-import {type SxProp, Text as PrimerText, type TextProps as PrimerTextProps} from '@primer/react'
-import {sx} from '../sx'
+import {Text as PrimerText, type TextProps as PrimerTextProps} from '@primer/react'
+import {sx, type SxProp} from '../sx'
 import styled from 'styled-components'
 import type React from 'react'
 
