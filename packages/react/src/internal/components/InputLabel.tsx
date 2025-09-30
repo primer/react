@@ -1,32 +1,26 @@
 import {clsx} from 'clsx'
 import type React from 'react'
-import {type SxProp} from '../../sx'
+import type {ElementType} from 'react'
 import classes from './InputLabel.module.css'
-import {BoxWithFallback} from './BoxWithFallback'
+import type {PolymorphicProps} from '../../utils/modern-polymorphic'
 
-type BaseProps = SxProp & {
-  disabled?: boolean
-  required?: boolean
-  requiredText?: string
-  requiredIndicator?: boolean
-  visuallyHidden?: boolean
-  id?: string
-  className?: string
-}
+type InputLabelProps<As extends ElementType = 'label'> = PolymorphicProps<
+  As,
+  'label',
+  {
+    disabled?: boolean
+    required?: boolean
+    requiredText?: string
+    requiredIndicator?: boolean
+    visuallyHidden?: boolean
+  }
+> &
+  React.PropsWithChildren
 
-export type LabelProps = BaseProps & {
-  htmlFor?: string
-  as?: 'label'
-}
+export type LabelProps = InputLabelProps<'label'>
+export type LegendOrSpanProps = InputLabelProps<'legend' | 'span'>
 
-export type LegendOrSpanProps = BaseProps & {
-  as: 'legend' | 'span'
-  htmlFor?: undefined
-}
-
-type Props = React.PropsWithChildren<LabelProps | LegendOrSpanProps>
-
-function InputLabel({
+function InputLabel<As extends ElementType = 'label'>({
   children,
   disabled,
   htmlFor,
@@ -35,16 +29,13 @@ function InputLabel({
   requiredText,
   requiredIndicator,
   visuallyHidden,
-  sx,
-  as = 'label',
+  as,
   className,
   ...props
-}: Props) {
+}: InputLabelProps<As>) {
+  const Component = as || 'label'
   return (
-    // @ts-ignore weird typing issue with union for `as` prop
-    <BoxWithFallback
-      as={as}
-      sx={sx}
+    <Component
       data-control-disabled={disabled ? '' : undefined}
       data-visually-hidden={visuallyHidden ? '' : undefined}
       htmlFor={htmlFor}
@@ -60,7 +51,7 @@ function InputLabel({
       ) : (
         children
       )}
-    </BoxWithFallback>
+    </Component>
   )
 }
 
