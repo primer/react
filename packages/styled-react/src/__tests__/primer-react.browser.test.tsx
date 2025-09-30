@@ -443,6 +443,7 @@ describe('@primer/react', () => {
   test('Text supports `sx` prop', () => {
     render(<Text as="span" data-testid="component" sx={{background: 'red'}} size="small" />)
     expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
+    console.log(screen.getByTestId('component'))
     expect(screen.getByTestId('component')).toHaveAttribute('data-size', 'small')
   })
 
