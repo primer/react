@@ -9,7 +9,7 @@ export {ProgressBar} from '@primer/react'
 export {Select} from '@primer/react'
 export {Textarea} from '@primer/react'
 export {TextInput} from '@primer/react'
-export {Tooltip} from '@primer/react'
+export {Tooltip, type TooltipProps} from '@primer/react'
 export {type TextInputProps} from '@primer/react'
 
 // theming depends on styled-components
