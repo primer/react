@@ -1,4 +1,9 @@
-import {Box, ActionMenu as PrimerActionMenu, type SxProp} from '@primer/react'
+import {
+  Box,
+  ActionMenu as PrimerActionMenu,
+  type SxProp,
+  type ActionMenuButtonProps as PrimerActionMenuButtonProps,
+} from '@primer/react'
 import {sx} from '../sx'
 import styled from 'styled-components'
 import {forwardRef, type ComponentProps} from 'react'
@@ -12,7 +17,7 @@ const ActionMenuOverlay: React.ComponentType<ActionMenuOverlayProps> = styled(Pr
   ${sx}
 `
 
-export type ActionMenuButtonProps = ComponentProps<typeof PrimerActionMenu.Button> & SxProp
+export type ActionMenuButtonProps = PrimerActionMenuButtonProps & SxProp
 
 const StyledActionMenuButton = forwardRef<HTMLButtonElement, ActionMenuButtonProps>((props, ref) => {
   return <Box as={PrimerActionMenu.Button} ref={ref} {...props} />
