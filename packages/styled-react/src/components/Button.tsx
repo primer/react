@@ -2,9 +2,12 @@ import {Button as PrimerButton, type ButtonProps as PrimerButtonProps} from '@pr
 import type {SxProp, CSSCustomProperties} from '../sx'
 import type {BetterSystemStyleObject} from '../styled-props'
 import {Box} from './Box'
+import {forwardRef} from 'react'
+import type {ForwardRefComponent} from '../polymorphic'
 
 type ButtonComponentProps = PrimerButtonProps & SxProp
-const ButtonComponent = ({sx, ...rest}: ButtonComponentProps) => {
+
+const StyledButtonComponent = forwardRef(({sx, ...rest}: ButtonComponentProps, ref) => {
   const {block, size = 'medium', leadingVisual, trailingVisual, trailingAction} = rest
   let sxStyles: {[key: string]: BetterSystemStyleObject} = {}
   const style: CSSCustomProperties = {}
@@ -20,9 +23,12 @@ const ButtonComponent = ({sx, ...rest}: ButtonComponentProps) => {
     if (color) style['--button-color'] = color
   }
 
-  // @ts-expect-error type mismatch between Box usage here and PrimerButton
-  return <Box {...rest} as={PrimerButton} style={style} sx={sxStyles} />
-}
+  return <Box as={PrimerButton} style={style} sx={sxStyles} ref={ref} {...rest} />
+})
+
+const ButtonComponent = forwardRef(({as, ...props}: ButtonComponentProps, ref) => (
+  <StyledButtonComponent forwardedAs={as} ref={ref} {...props} />
+)) as ForwardRefComponent<'button', ButtonComponentProps>
 
 // This function is used to generate a custom cssSelector for the sxProp
 
