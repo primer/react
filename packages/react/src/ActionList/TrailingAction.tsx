@@ -26,7 +26,6 @@ export type ActionListTrailingActionProps = ElementProps & {
   className?: string
 }
 
-// Minimal change: just swap to fixedForwardRef
 const TrailingAction = fixedForwardRef(
   ({as = 'button', icon, label, href = null, className, loading, ...props}, forwardedRef) => {
     return (
@@ -41,11 +40,13 @@ const TrailingAction = fixedForwardRef(
             href={href}
             loading={loading}
             data-loading={Boolean(loading)}
+            // @ts-expect-error StyledButton wants both Anchor and Button refs
             ref={forwardedRef}
             className={classes.TrailingActionButton}
             {...props}
           />
         ) : (
+          // @ts-expect-error shhh
           <Button
             variant="invisible"
             as={as}
@@ -62,7 +63,7 @@ const TrailingAction = fixedForwardRef(
       </span>
     )
   },
-) as React.ForwardRefExoticComponent<any>
+) as React.ForwardRefExoticComponent<ActionListTrailingActionProps & React.RefAttributes<unknown>>
 
 TrailingAction.displayName = 'ActionList.TrailingAction'
 
