@@ -315,6 +315,8 @@ export const Tooltip = React.forwardRef(
                 // show tooltip after mouse has been hovering for the specified delay time
                 // (prevent showing tooltip when mouse is just passing through)
                 openTimeoutRef.current = safeSetTimeout(() => {
+                  // if the mouse is already moved out, do not show the tooltip
+                  if (!openTimeoutRef.current) return
                   openTooltip()
                   child.props.onMouseEnter?.(event)
                 }, delayTime)
