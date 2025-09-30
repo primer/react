@@ -1,5 +1,5 @@
-import {Box} from '.'
 import type React from 'react'
+import classes from './Placeholder.module.css'
 
 /** Private component used to render placeholders in storybook and documentation examples  */
 export const Placeholder: React.FC<
@@ -11,20 +11,17 @@ export const Placeholder: React.FC<
   }>
 > = ({width, height, id, label}) => {
   return (
-    <Box
+    <div
       id={id}
-      sx={{
-        width: width ?? '100%',
-        height,
-        display: 'grid',
-        placeItems: 'center',
-        bg: 'canvas.inset',
-        borderRadius: 2,
-        border: '1px solid',
-        borderColor: 'border.subtle',
-      }}
+      className={classes.Placeholder}
+      style={
+        {
+          '--placeholder-width': typeof width === 'number' ? `${width}px` : width,
+          '--placeholder-height': typeof height === 'number' ? `${height}px` : height,
+        } as React.CSSProperties
+      }
     >
       {label}
-    </Box>
+    </div>
   )
 }

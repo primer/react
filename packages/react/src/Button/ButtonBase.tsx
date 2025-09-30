@@ -1,6 +1,8 @@
 import React, {forwardRef} from 'react'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
-import Box from '../Box'
+import styled from 'styled-components'
+import sx from '../sx'
+import type {SxProp} from '../sx'
 import type {ButtonProps} from './types'
 import {getAlignContentSize} from './styles'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
@@ -14,6 +16,12 @@ import {AriaStatus} from '../live-region'
 import {clsx} from 'clsx'
 import classes from './ButtonBase.module.css'
 import {isElement} from 'react-is'
+
+// TODO: remove this when we remove the `sx` prop from buttons
+// Styled span component for button content that can handle sx prop
+const BoxTemporaryWorkaround = styled.span<SxProp>`
+  ${sx};
+`
 
 const renderModuleVisual = (
   Visual: React.ElementType | React.ReactElement,
@@ -92,7 +100,7 @@ const ButtonBase = forwardRef(
           className={block ? classes.ConditionalWrapper : undefined}
           data-loading-wrapper
         >
-          <Box
+          <BoxTemporaryWorkaround
             as={Component}
             sx={sxProp}
             aria-disabled={loading ? true : undefined}
@@ -129,8 +137,7 @@ const ButtonBase = forwardRef(
               )
             ) : (
               <>
-                <Box
-                  as="span"
+                <BoxTemporaryWorkaround
                   data-component="buttonContent"
                   sx={getAlignContentSize(alignContent)}
                   className={classes.ButtonContent}
@@ -182,7 +189,7 @@ const ButtonBase = forwardRef(
                           )
                         : null
                   }
-                </Box>
+                </BoxTemporaryWorkaround>
                 {
                   /* If there is a trailing action, render it unless the button is in a loading state
                    and there is no leading or trailing visual to replace with a loading spinner. */
@@ -196,7 +203,7 @@ const ButtonBase = forwardRef(
                 }
               </>
             )}
-          </Box>
+          </BoxTemporaryWorkaround>
           {loading && (
             <VisuallyHidden>
               <AriaStatus id={loadingAnnouncementID}>{loadingAnnouncement}</AriaStatus>
