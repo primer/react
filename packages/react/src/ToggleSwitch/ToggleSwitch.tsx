@@ -42,6 +42,10 @@ export interface ToggleSwitchProps extends Omit<React.HTMLAttributes<HTMLDivElem
   loadingLabel?: string
   /** type of button to account for behavior when added to a form*/
   buttonType?: 'button' | 'submit' | 'reset'
+  /** Text to display when the toggle switch is in the 'on' position. Defaults to 'On'. Only customize this label if there is a more specific label for the context. For example, you might use 'Show' if the setting is 'Show images'. */
+  buttonLabelOn?: string
+  /** Text to display when the toggle switch is in the 'off' position. Defaults to 'Off'. Only customize this label if there is a more specific label for the context. For example, you might use 'Hide' if the setting is 'Show images'. */
+  buttonLabelOff?: string
 }
 
 type InnerIconProps = {size?: ToggleSwitchProps['size']}
@@ -88,6 +92,8 @@ const ToggleSwitch = React.forwardRef<HTMLButtonElement, ToggleSwitchProps>(func
     loadingLabelDelay = 2000,
     loadingLabel = 'Loading',
     className,
+    buttonLabelOn,
+    buttonLabelOff,
     ...rest
   } = props
   const isControlled = typeof checked !== 'undefined'
@@ -152,10 +158,10 @@ const ToggleSwitch = React.forwardRef<HTMLButtonElement, ToggleSwitchProps>(func
         onClick={handleToggleClick}
       >
         <span className={classes.StatusTextItem} data-hidden={!isOn}>
-          On
+          {buttonLabelOn ?? 'On'}
         </span>
         <span className={classes.StatusTextItem} data-hidden={isOn}>
-          Off
+          {buttonLabelOff ?? 'Off'}
         </span>
       </span>
 
