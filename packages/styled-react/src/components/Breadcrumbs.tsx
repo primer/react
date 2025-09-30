@@ -6,9 +6,10 @@ import type {
 import {sx, type SxProp} from '../sx'
 import styled from 'styled-components'
 import {type ForwardRefComponent} from '../polymorphic'
+import type React from 'react'
 
 type BreadcrumbsProps = PrimerBreadcrumbsProps & SxProp
-type BreadcrumbsItemProps = PrimerBreadcrumbsItemsProps & SxProp
+type BreadcrumbsItemProps<As extends React.ElementType = 'a'> = PrimerBreadcrumbsItemsProps<As> & SxProp
 
 const BreadcrumbsImpl = styled(PrimerBreadcrumbs).withConfig({
   shouldForwardProp: prop => (prop as keyof BreadcrumbsProps) !== 'sx',
