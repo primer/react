@@ -71,10 +71,30 @@ for (const componentDocFile of componentDocsFiles) {
   }
 }
 
+const {passingPropsCount, totalPropsCount, passingCompsCount} = componentSummary.reduce(
+  (acc, comp) => {
+    acc.passingPropsCount += comp.passingProps.length
+    acc.totalPropsCount += comp.passingProps.length + comp.brokenProps.length
+    if (comp.brokenProps.length === 0) {
+      acc.passingCompsCount += 1
+    }
+    return acc
+  },
+  {passingPropsCount: 0, totalPropsCount: 0, passingCompsCount: 0},
+)
+
 // eslint-disable-next-line no-console
 console.log(`
 
 ## Component Documentation Status
+
+**Status by component count**
+
+![Status by component count](https://geps.dev/progress/${Math.floor((passingCompsCount / componentSummary.length) * 100)})
+
+**Status by prop count**
+
+![Status by prop count](https://geps.dev/progress/${Math.floor((passingPropsCount / totalPropsCount) * 100)})
 
 <details>
   <summary>Detailed Component Summary</summary>
