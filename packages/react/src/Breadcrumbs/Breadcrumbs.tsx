@@ -370,9 +370,9 @@ type StyledBreadcrumbsItemProps<As extends React.ElementType> = {
   style?: React.CSSProperties
 } & DistributiveOmit<React.ComponentPropsWithRef<React.ElementType extends As ? 'a' : As>, 'as'>
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function BreadcrumbsItemComponent<As extends React.ElementType>(
   props: StyledBreadcrumbsItemProps<As>,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ref: ForwardedRef<any>,
 ) {
   const {as: Component = 'a', selected, className, ...rest} = props
