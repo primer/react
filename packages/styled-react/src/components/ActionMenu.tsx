@@ -1,4 +1,4 @@
-import {ActionMenu as PrimerActionMenu, type SxProp} from '@primer/react'
+import {Box, ActionMenu as PrimerActionMenu, type SxProp} from '@primer/react'
 import {sx} from '../sx'
 import styled from 'styled-components'
 import {forwardRef, type ComponentProps} from 'react'
