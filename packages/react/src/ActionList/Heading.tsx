@@ -1,6 +1,6 @@
-import React, {forwardRef} from 'react'
+import React from 'react'
+import {fixedForwardRef} from '../utils/modern-polymorphic'
 import {useRefObjectAsForwardedRef} from '../hooks'
-import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {default as HeadingComponent} from '../Heading'
 import {ListContext} from './shared'
 import VisuallyHidden from '../_VisuallyHidden'
@@ -16,9 +16,11 @@ export type ActionListHeadingProps = {
   size?: HeadingVariants
   visuallyHidden?: boolean
   className?: string
+  children?: React.ReactNode
+  id?: string
 }
 
-export const Heading = forwardRef(({as, size, children, visuallyHidden = false, className, ...props}, forwardedRef) => {
+const Heading = fixedForwardRef(({as, size, children, visuallyHidden = false, className, ...props}, forwardedRef) => {
   const innerRef = React.useRef<HTMLHeadingElement>(null)
   useRefObjectAsForwardedRef(forwardedRef, innerRef)
 
@@ -36,6 +38,7 @@ export const Heading = forwardRef(({as, size, children, visuallyHidden = false, 
       <HeadingComponent
         as={as}
         variant={size}
+        // @ts-expect-error
         ref={innerRef}
         // use custom id if it is provided. Otherwise, use the id from the context
         id={props.id ?? headingId}
@@ -47,6 +50,8 @@ export const Heading = forwardRef(({as, size, children, visuallyHidden = false, 
       </HeadingComponent>
     </VisuallyHidden>
   )
-}) as PolymorphicForwardRefComponent<HeadingLevels, ActionListHeadingProps>
+}) as React.ForwardRefExoticComponent<ActionListHeadingProps & React.RefAttributes<unknown>>
 
 Heading.displayName = 'ActionList.Heading'
+
+export {Heading}
