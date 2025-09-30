@@ -3,8 +3,8 @@ import type {SxProp} from '../sx'
 import {useId, useProvidedRefOrCreate, useOnEscapePress, useIsMacOS} from '../hooks'
 import {invariant} from '../utils/invariant'
 import {warning} from '../utils/warning'
-import {getAnchoredPosition} from '@primer/behaviors'
-import type {AnchorSide, AnchorAlignment} from '@primer/behaviors'
+// Replaced legacy positioning helper with Floating UI
+import {computePosition, offset, flip, shift, type Placement} from '@floating-ui/dom'
 import {isSupported, apply} from '@oddbird/popover-polyfill/fn'
 import {clsx} from 'clsx'
 import classes from './Tooltip.module.css'
@@ -39,28 +39,32 @@ type TriggerPropsType = Pick<
   ref?: React.RefObject<HTMLElement>
 }
 
-// map tooltip direction to anchoredPosition props
-const directionToPosition: Record<TooltipDirection, {side: AnchorSide; align: AnchorAlignment}> = {
-  nw: {side: 'outside-top', align: 'end'},
-  n: {side: 'outside-top', align: 'center'},
-  ne: {side: 'outside-top', align: 'start'},
-  e: {side: 'outside-right', align: 'center'},
-  se: {side: 'outside-bottom', align: 'start'},
-  s: {side: 'outside-bottom', align: 'center'},
-  sw: {side: 'outside-bottom', align: 'end'},
-  w: {side: 'outside-left', align: 'center'},
+// Map tooltip direction to Floating UI placement
+const directionToPlacement: Record<TooltipDirection, Placement> = {
+  nw: 'top-end',
+  n: 'top',
+  ne: 'top-start',
+  e: 'right',
+  se: 'bottom-start',
+  s: 'bottom',
+  sw: 'bottom-end',
+  w: 'left',
 }
 
-// map anchoredPosition props to tooltip direction
-const positionToDirection: Record<string, TooltipDirection> = {
-  'outside-top-end': 'nw',
-  'outside-top-center': 'n',
-  'outside-top-start': 'ne',
-  'outside-right-center': 'e',
-  'outside-bottom-start': 'se',
-  'outside-bottom-center': 's',
-  'outside-bottom-end': 'sw',
-  'outside-left-center': 'w',
+// Map final Floating UI placement back to our direction tokens
+const placementToDirection: Record<Placement, TooltipDirection> = {
+  'top-start': 'ne',
+  top: 'n',
+  'top-end': 'nw',
+  'right-start': 'e', // custom arrow orientation does not differentiate start/end horizontally for right
+  right: 'e',
+  'right-end': 'e',
+  'bottom-start': 'se',
+  bottom: 's',
+  'bottom-end': 'sw',
+  'left-start': 'w',
+  left: 'w',
+  'left-end': 'w',
 }
 
 // The list is from GitHub's custom-axe-rules https://github.com/github/github/blob/master/app/assets/modules/github/axe-custom-rules.ts#L3
@@ -99,41 +103,45 @@ export const Tooltip = React.forwardRef(
 
     const {safeSetTimeout, safeClearTimeout} = useSafeTimeout()
 
-    const openTooltip = () => {
+    const openTooltip = async () => {
+      if (
+        !tooltipElRef.current ||
+        !triggerRef.current ||
+        !tooltipElRef.current.hasAttribute('popover') ||
+        tooltipElRef.current.matches(':popover-open')
+      ) {
+        return
+      }
+      const tooltip = tooltipElRef.current
+      const trigger = triggerRef.current
       try {
-        if (
-          tooltipElRef.current &&
-          triggerRef.current &&
-          tooltipElRef.current.hasAttribute('popover') &&
-          !tooltipElRef.current.matches(':popover-open')
-        ) {
-          const tooltip = tooltipElRef.current
-          const trigger = triggerRef.current
-          tooltip.showPopover()
-          setIsPopoverOpen(true)
-          /*
-           * TOOLTIP POSITIONING
-           */
-          const settings = {
-            side: directionToPosition[direction].side,
-            align: directionToPosition[direction].align,
-          }
-          const {top, left, anchorAlign, anchorSide} = getAnchoredPosition(tooltip, trigger, settings)
-          // This is required to make sure the popover is positioned correctly i.e. when there is not enough space on the specified direction, we set a new direction to position the ::after
-          const calculatedDirection = positionToDirection[`${anchorSide}-${anchorAlign}` as string]
-          setCalculatedDirection(calculatedDirection)
-          tooltip.style.top = `${top}px`
-          tooltip.style.left = `${left}px`
+        tooltip.showPopover()
+        setIsPopoverOpen(true)
+        const placement = directionToPlacement[direction]
+        try {
+          const {
+            x,
+            y,
+            placement: finalPlacement,
+          } = await computePosition(trigger, tooltip, {
+            placement,
+            middleware: [offset(4), flip(), shift({padding: 4})],
+          })
+          tooltip.style.left = `${x}px`
+          tooltip.style.top = `${y}px`
+          const newDir = placementToDirection[finalPlacement as Placement]
+          if (newDir !== calculatedDirection) setCalculatedDirection(newDir)
+        } catch {
+          // positioning failed; ignore
         }
       } catch (error) {
         // older browsers don't support the :popover-open selector and will throw, even though we use a polyfill
-        // see https://github.com/github/issues/issues/12468
         if (
           error &&
           typeof error === 'object' &&
           'message' in error &&
-          typeof error.message === 'string' &&
-          error.message.includes('not a valid selector')
+          typeof (error as {message?: string}).message === 'string' &&
+          (error as {message: string}).message.includes('not a valid selector')
         ) {
           // fail silently
         } else {
