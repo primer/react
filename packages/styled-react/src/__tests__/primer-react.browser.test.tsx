@@ -119,8 +119,9 @@ describe('@primer/react', () => {
   })
 
   test('Breadcrumbs.Item supports `sx` prop', () => {
-    render(<Breadcrumbs.Item data-testid="component" sx={{background: 'red'}} />)
+    render(<Breadcrumbs.Item data-testid="component" sx={{background: 'red'}} href="#" />)
     expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
+    expect(window.getComputedStyle(screen.getByRole('link')).backgroundColor).toBe('rgb(255, 0, 0)')
   })
 
   test('Button supports `sx` prop', () => {

@@ -1,11 +1,7 @@
 import {clsx} from 'clsx'
 import type {To} from 'history'
-import React, {useState, useRef, useCallback, useEffect, useMemo} from 'react'
-import type {SxProp} from '../sx'
-import type {ComponentProps} from '../utils/types'
+import React, {useState, useRef, useCallback, useEffect, useMemo, type ForwardedRef} from 'react'
 import classes from './Breadcrumbs.module.css'
-import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
-import {BoxWithFallback} from '../internal/components/BoxWithFallback'
 import Details from '../Details'
 import {ActionList} from '../ActionList'
 import {IconButton} from '../Button/IconButton'
@@ -16,27 +12,29 @@ import {useOnEscapePress} from '../hooks/useOnEscapePress'
 import {useOnOutsideClick} from '../hooks/useOnOutsideClick'
 import {useFeatureFlag} from '../FeatureFlags'
 
-export type BreadcrumbsProps = React.PropsWithChildren<
-  {
-    /**
-     * Optional class name for the breadcrumbs container.
-     */
-    className?: string
-    /**
-     * Controls the overflow behavior of the breadcrumbs.
-     * By default all overflowing crumbs will "wrap" in the given space taking up extra height.
-     * In the "menu" option we'll see the overflowing crumbs as part of a menu like dropdown instead of the root breadcrumb.
-     * In "menu-with-root" we see that instead of the root, the menu button will take the place of the next breadcrumb.
-     */
-    overflow?: 'wrap' | 'menu' | 'menu-with-root'
-    /**
-     * Controls the visual variant of the breadcrumbs.
-     * By default, the breadcrumbs will have a normal appearance.
-     * In the "spacious" option, the breadcrumbs will have increased padding and a more relaxed layout.
-     */
-    variant?: 'normal' | 'spacious'
-  } & SxProp
->
+export type BreadcrumbsProps = React.PropsWithChildren<{
+  /**
+   * Optional class name for the breadcrumbs container.
+   */
+  className?: string
+  /**
+   * Controls the overflow behavior of the breadcrumbs.
+   * By default all overflowing crumbs will "wrap" in the given space taking up extra height.
+   * In the "menu" option we'll see the overflowing crumbs as part of a menu like dropdown instead of the root breadcrumb.
+   * In "menu-with-root" we see that instead of the root, the menu button will take the place of the next breadcrumb.
+   */
+  overflow?: 'wrap' | 'menu' | 'menu-with-root'
+  /**
+   * Controls the visual variant of the breadcrumbs.
+   * By default, the breadcrumbs will have a normal appearance.
+   * In the "spacious" option, the breadcrumbs will have increased padding and a more relaxed layout.
+   */
+  variant?: 'normal' | 'spacious'
+  /**
+   * Allows passing of CSS custom properties to the breadcrumbs container.
+   */
+  style?: React.CSSProperties
+}>
 
 const BreadcrumbsList = ({children}: React.PropsWithChildren) => {
   return <ol className={classes.BreadcrumbsList}>{children}</ol>
@@ -146,7 +144,7 @@ const getValidChildren = (children: React.ReactNode) => {
   return React.Children.toArray(children).filter(child => React.isValidElement(child)) as React.ReactElement[]
 }
 
-function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap', variant = 'normal'}: BreadcrumbsProps) {
+function Breadcrumbs({className, children, style, overflow = 'wrap', variant = 'normal'}: BreadcrumbsProps) {
   const overflowMenuEnabled = useFeatureFlag('primer_react_breadcrumbs_overflow_menu')
   const wrappedChildren = React.Children.map(children, child => <li className={classes.ItemWrapper}>{child}</li>)
   const containerRef = useRef<HTMLElement>(null)
@@ -175,10 +173,6 @@ function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap', varian
 
   const MENU_BUTTON_FALLBACK_WIDTH = 32 // Design system small IconButton
   const [menuButtonWidth, setMenuButtonWidth] = useState(MENU_BUTTON_FALLBACK_WIDTH)
-
-  // if (typeof window !== 'undefined') {
-  //   effectiveOverflow = overflow
-  // }
 
   useEffect(() => {
     const listElement = containerRef.current?.querySelector('ol')
@@ -333,27 +327,25 @@ function Breadcrumbs({className, children, sx: sxProp, overflow = 'wrap', varian
   }, [overflowMenuEnabled, overflow, menuItems, effectiveHideRoot, measureMenuButton, visibleItems, rootItem, children])
 
   return overflowMenuEnabled ? (
-    <BoxWithFallback
-      as="nav"
+    <nav
       className={clsx(className, classes.BreadcrumbsBase)}
       aria-label="Breadcrumbs"
-      sx={sxProp}
+      style={style}
       ref={containerRef}
       data-overflow={overflow}
       data-variant={variant}
     >
       <BreadcrumbsList>{finalChildren}</BreadcrumbsList>
-    </BoxWithFallback>
+    </nav>
   ) : (
-    <BoxWithFallback
-      as="nav"
+    <nav
       className={clsx(className, classes.BreadcrumbsBase)}
       aria-label="Breadcrumbs"
-      sx={sxProp}
+      style={style}
       data-variant={variant}
     >
       <BreadcrumbsList>{wrappedChildren}</BreadcrumbsList>
-    </BoxWithFallback>
+    </nav>
   )
 }
 
@@ -367,31 +359,40 @@ const ItemSeparator = () => {
   )
 }
 
-type StyledBreadcrumbsItemProps = {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type DistributiveOmit<T, TOmitted extends PropertyKey> = T extends any ? Omit<T, TOmitted> : never
+
+type StyledBreadcrumbsItemProps<As extends React.ElementType> = {
+  as?: As
   to?: To
   selected?: boolean
   className?: string
-} & SxProp &
-  React.HTMLAttributes<HTMLAnchorElement> &
-  React.ComponentPropsWithRef<'a'>
+  style?: React.CSSProperties
+} & DistributiveOmit<React.ComponentPropsWithRef<React.ElementType extends As ? 'a' : As>, 'as'>
 
-const BreadcrumbsItem = React.forwardRef(({selected, className, ...rest}, ref) => {
+function BreadcrumbsItemComponent<As extends React.ElementType>(
+  props: StyledBreadcrumbsItemProps<As>,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ref: ForwardedRef<any>,
+) {
+  const {as: Component = 'a', selected, className, ...rest} = props
   return (
-    <BoxWithFallback
-      as="a"
+    <Component
       className={clsx(className, classes.Item, selected && 'selected')}
       aria-current={selected ? 'page' : undefined}
       ref={ref}
       {...rest}
     />
   )
-}) as PolymorphicForwardRefComponent<'a', StyledBreadcrumbsItemProps>
+}
+
+BreadcrumbsItemComponent.displayName = 'Breadcrumbs.Item'
+
+const BreadcrumbsItem = React.forwardRef(BreadcrumbsItemComponent)
 
 Breadcrumbs.displayName = 'Breadcrumbs'
 
-BreadcrumbsItem.displayName = 'Breadcrumbs.Item'
-
-export type BreadcrumbsItemProps = ComponentProps<typeof BreadcrumbsItem>
+export type BreadcrumbsItemProps<As extends React.ElementType = 'a'> = StyledBreadcrumbsItemProps<As>
 export default Object.assign(Breadcrumbs, {Item: BreadcrumbsItem})
 
 /**
@@ -407,4 +408,4 @@ export type BreadcrumbProps = BreadcrumbsProps
 /**
  * @deprecated Use the `BreadcrumbsItemProps` type instead
  */
-export type BreadcrumbItemProps = ComponentProps<typeof BreadcrumbsItem>
+export type BreadcrumbItemProps<As extends React.ElementType = 'a'> = BreadcrumbsItemProps<As>
