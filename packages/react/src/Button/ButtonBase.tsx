@@ -1,5 +1,8 @@
 import React, {forwardRef} from 'react'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
+import styled from 'styled-components'
+import sx from '../sx'
+import type {SxProp} from '../sx'
 import type {ButtonProps} from './types'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import {VisuallyHidden} from '../VisuallyHidden'
@@ -11,6 +14,12 @@ import {AriaStatus} from '../live-region'
 import {clsx} from 'clsx'
 import classes from './ButtonBase.module.css'
 import {isElement} from 'react-is'
+
+// TODO: remove this when we remove the `sx` prop from buttons
+// Styled span component for button content that can handle sx prop
+const BoxTemporaryWorkaround = styled.span<SxProp>`
+  ${sx};
+`
 
 const renderModuleVisual = (
   Visual: React.ElementType | React.ReactElement,
@@ -76,7 +85,6 @@ const ButtonBase = forwardRef(({children, as: Component = 'button', ...props}, f
       }
     }, [innerRef])
   }
-
   return (
     <ConditionalWrapper
       // If anything is passed to `loading`, we need the wrapper:

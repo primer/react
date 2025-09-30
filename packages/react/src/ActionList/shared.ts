@@ -1,8 +1,15 @@
 import React from 'react'
 import type {SxProp} from '../sx'
 import type {AriaRole} from '../utils/types'
+import type {PolymorphicProps} from '../utils/modern-polymorphic'
 
-export type ActionListItemProps = {
+// need to explicitly omit `onSelect` from native HTML <li> attributes to avoid collision
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type ExcludeSelectEventHandler<T> = T extends any ? Omit<T, 'onSelect'> : never
+
+export type ActionListItemProps<As extends React.ElementType = 'li'> = ExcludeSelectEventHandler<
+  PolymorphicProps<As, 'li'>
+> & {
   /**
    * Primary content for an Item
    */
@@ -57,6 +64,10 @@ export type ActionListItemProps = {
   groupId?: string
   renderItem?: (item: React.FC<React.PropsWithChildren<MenuItemProps>>) => React.ReactNode
   handleAddItem?: (item: React.FC<React.PropsWithChildren<MenuItemProps>>) => void
+  /**
+   * @deprecated `as` prop has no effect on `ActionList.Item`, only `ActionList.LinkItem`
+   */
+  as?: As
 } & SxProp
 
 type MenuItemProps = {
@@ -70,7 +81,7 @@ type MenuItemProps = {
   className?: string
 }
 
-export type ItemContext = Pick<ActionListItemProps, 'variant' | 'disabled' | 'size'> & {
+export type ItemContext = Pick<ActionListItemProps<React.ElementType>, 'variant' | 'disabled' | 'size'> & {
   inlineDescriptionId?: string
   blockDescriptionId?: string
   trailingVisualId?: string
@@ -80,8 +91,8 @@ export type ItemContext = Pick<ActionListItemProps, 'variant' | 'disabled' | 'si
 export const ItemContext = React.createContext<ItemContext>({})
 
 export const getVariantStyles = (
-  variant: ActionListItemProps['variant'],
-  disabled: ActionListItemProps['disabled'],
+  variant: ActionListItemProps<React.ElementType>['variant'],
+  disabled: ActionListItemProps<React.ElementType>['disabled'],
   inactive?: boolean,
 ) => {
   if (disabled) {
@@ -120,32 +131,39 @@ export const getVariantStyles = (
 
 export const TEXT_ROW_HEIGHT = '20px' // custom value off the scale
 
-export type ActionListProps = React.PropsWithChildren<{
-  /**
-   * `inset` children are offset (vertically and horizontally) from `List`’s edges, `full` children are flush (vertically and horizontally) with `List` edges
-   */
-  variant?: 'inset' | 'horizontal-inset' | 'full'
-  /**
-   * Whether multiple Items or a single Item can be selected.
-   */
-  selectionVariant?: 'single' | 'radio' | 'multiple'
-  /**
-   * Display a divider above each `Item` in this `List` when it does not follow a `Header` or `Divider`.
-   */
-  showDividers?: boolean
-  /**
-   * The ARIA role describing the function of `List` component. `listbox` or `menu` are a common values.
-   */
-  role?: AriaRole
-  /**
-   * Disables the focus zone for the list if applicable. Focus zone is enabled by default for `menu` and `listbox` roles, or components such as `ActionMenu` and `SelectPanel`.
-   */
-  disableFocusZone?: boolean
-  className?: string
-}> &
+export type ActionListProps<As extends React.ElementType = 'ul'> = PolymorphicProps<
+  As,
+  'ul',
+  React.PropsWithChildren<{
+    /**
+     * `inset` children are offset (vertically and horizontally) from `List`’s edges, `full` children are flush (vertically and horizontally) with `List` edges
+     */
+    variant?: 'inset' | 'horizontal-inset' | 'full'
+    /**
+     * Whether multiple Items or a single Item can be selected.
+     */
+    selectionVariant?: 'single' | 'radio' | 'multiple'
+    /**
+     * Display a divider above each `Item` in this `List` when it does not follow a `Header` or `Divider`.
+     */
+    showDividers?: boolean
+    /**
+     * The ARIA role describing the function of `List` component. `listbox` or `menu` are a common values.
+     */
+    role?: AriaRole
+    /**
+     * Disables the focus zone for the list if applicable. Focus zone is enabled by default for `menu` and `listbox` roles, or components such as `ActionMenu` and `SelectPanel`.
+     */
+    disableFocusZone?: boolean
+    className?: string
+  }>
+> &
   SxProp
 
-type ContextProps = Pick<ActionListProps, 'variant' | 'selectionVariant' | 'showDividers' | 'role'> & {
+type ContextProps = Pick<
+  ActionListProps<React.ElementType>,
+  'variant' | 'selectionVariant' | 'showDividers' | 'role'
+> & {
   headingId?: string
 }
 
