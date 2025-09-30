@@ -38,7 +38,7 @@ const Heading = fixedForwardRef(({as, size, children, visuallyHidden = false, cl
       <HeadingComponent
         as={as}
         variant={size}
-        // @ts-expect-error
+        // @ts-expect-error ts is mad but this is safe at runtime
         ref={innerRef}
         // use custom id if it is provided. Otherwise, use the id from the context
         id={props.id ?? headingId}

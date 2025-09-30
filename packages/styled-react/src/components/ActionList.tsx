@@ -8,8 +8,6 @@ import {
   type ActionListDescriptionProps as PrimerActionListDescriptionProps,
   type ActionListLeadingVisualProps as PrimerActionListLeadingVisualProps,
   type ActionListTrailingVisualProps as PrimerActionListTrailingVisualProps,
-  type ActionListHeadingProps as PrimerActionListHeadingProps,
-  type ActionListTrailingActionProps as PrimerActionListTrailingActionProps,
 } from '@primer/react'
 import {Box} from './Box'
 import {forwardRef} from 'react'
@@ -29,10 +27,10 @@ export type ActionListDividerProps = PrimerActionListDividerProps & SxProp
 export type ActionListDescriptionProps = PrimerActionListDescriptionProps & SxProp
 export type ActionListLeadingVisualProps = PrimerActionListLeadingVisualProps & SxProp
 export type ActionListTrailingVisualProps = PrimerActionListTrailingVisualProps & SxProp
-export type ActionListHeadingProps = PrimerActionListHeadingProps & SxProp
-export type ActionListTrailingActionProps = PrimerActionListTrailingActionProps & SxProp
 
-// Only wrap the root ActionList for sx support
+export type ActionListHeadingProps = ComponentPropsWithoutRef<typeof PrimerActionList.Heading> & SxProp
+export type ActionListTrailingActionProps = ComponentPropsWithoutRef<typeof PrimerActionList.TrailingAction> & SxProp
+
 const ActionListImpl = forwardRef<HTMLUListElement, ActionListProps>(function ActionList(props, ref) {
   return <Box as={PrimerActionList} ref={ref} {...props} />
 })
