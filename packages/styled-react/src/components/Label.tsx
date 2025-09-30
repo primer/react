@@ -5,8 +5,10 @@ import type {ForwardRefComponent} from '../polymorphic'
 
 type LabelProps = PrimerLabelProps & SxProp
 
-const Label = forwardRef(function Label(props, ref) {
+const StyledLabel = forwardRef(function Label(props, ref) {
   return <Box as={PrimerLabel} ref={ref} {...props} />
 }) as ForwardRefComponent<'span', LabelProps>
+
+const Label = ({as, ...props}: LabelProps) => <StyledLabel {...props} {...(as ? {forwardedAs: as} : {})} />
 
 export {Label, type LabelProps}
