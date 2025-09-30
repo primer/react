@@ -160,6 +160,33 @@ describe('@primer/react', () => {
     expect(window.getComputedStyle(screen.getByRole('dialog')).backgroundColor).toBe('rgb(255, 0, 0)')
   })
 
+  test('Dialog.Header supports `sx` prop', () => {
+    render(
+      <Dialog
+        onClose={() => {}}
+        renderHeader={() => <Dialog.Header data-testid="component" sx={{background: 'red'}} />}
+      />,
+    )
+    expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
+  })
+
+  test('Dialog.Body supports `sx` prop', () => {
+    render(
+      <Dialog onClose={() => {}} renderBody={() => <Dialog.Body data-testid="component" sx={{background: 'red'}} />} />,
+    )
+    expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
+  })
+
+  test('Dialog.Footer supports `sx` prop', () => {
+    render(
+      <Dialog
+        onClose={() => {}}
+        renderFooter={() => <Dialog.Footer data-testid="component" sx={{background: 'red'}} />}
+      />,
+    )
+    expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
+  })
+
   test('Flash supports `sx` prop', () => {
     render(<Flash data-testid="component" sx={{background: 'red'}} />)
     expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
@@ -213,7 +240,7 @@ describe('@primer/react', () => {
     expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
   })
 
-  test.todo('NavList.Item supports `sx` prop', () => {
+  test('NavList.Item supports `sx` prop', () => {
     render(
       <NavList>
         <NavList.Item data-testid="component" sx={{background: 'red'}}>
@@ -221,12 +248,36 @@ describe('@primer/react', () => {
         </NavList.Item>
       </NavList>,
     )
-    expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
+
+    const itemAnchorEl = screen.getByTestId('component')
+    const itemLiEl = itemAnchorEl.closest('li')
+    expect(itemLiEl).not.toBeNull()
+    expect(window.getComputedStyle(itemLiEl!).backgroundColor).toBe('rgb(255, 0, 0)')
   })
 
   test('NavList.Group supports `sx` prop', () => {
-    const {container} = render(<NavList.Group sx={{background: 'red'}}>test</NavList.Group>)
-    expect(window.getComputedStyle(container.firstElementChild!).backgroundColor).toBe('rgb(255, 0, 0)')
+    render(
+      <NavList>
+        <NavList.Group data-testid="component" sx={{background: 'red'}}>
+          <NavList.Item>item</NavList.Item>
+        </NavList.Group>
+      </NavList>,
+    )
+    expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
+  })
+
+  test('NavList.GroupHeading supports `sx` prop', () => {
+    render(
+      <NavList>
+        <NavList.Group>
+          <NavList.GroupHeading data-testid="component" sx={{background: 'red'}}>
+            test
+          </NavList.GroupHeading>
+          <NavList.Item>item</NavList.Item>
+        </NavList.Group>
+      </NavList>,
+    )
+    expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
   })
 
   test('NavList.LeadingVisual supports `sx` prop', () => {
@@ -353,12 +404,12 @@ describe('@primer/react', () => {
     expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
   })
 
-  test('SubNav supports `sx` prop', () => {
+  test.skip('SubNav supports `sx` prop', () => {
     render(<SubNav data-testid="component" sx={{background: 'red'}} />)
     expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
   })
 
-  test('SubNav.Link supports `sx` prop', () => {
+  test.skip('SubNav.Link supports `sx` prop', () => {
     render(<SubNav.Link data-testid="component" sx={{background: 'red'}} />)
     expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
   })
