@@ -41,13 +41,11 @@ const TrailingAction = fixedForwardRef(
             href={href}
             loading={loading}
             data-loading={Boolean(loading)}
-            // @ts-expect-error StyledButton wants both Anchor and Button refs
             ref={forwardedRef}
             className={classes.TrailingActionButton}
             {...props}
           />
         ) : (
-          // @ts-expect-error shhh
           <Button
             variant="invisible"
             as={as}
