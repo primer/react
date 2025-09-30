@@ -11,9 +11,8 @@ import {
 } from '@primer/react'
 import {Box} from './Box'
 import {forwardRef} from 'react'
-import type {ForwardRefExoticComponent, RefAttributes} from 'react'
+import type {ComponentPropsWithoutRef, ForwardRefExoticComponent, RefAttributes} from 'react'
 import type {SxProp} from '../sx'
-import type {ComponentPropsWithoutRef} from 'react'
 
 // Add SxProp to each exported type
 export type ActionListProps = PrimerActionListProps & SxProp
@@ -34,7 +33,9 @@ const ActionListImpl = forwardRef<HTMLUListElement, ActionListProps>(function Ac
   return <Box as={PrimerActionList} ref={ref} {...props} />
 })
 
-export type ActionListComponent = ForwardRefExoticComponent<ActionListProps & RefAttributes<HTMLUListElement>> & {
+export type ActionListComponent = ForwardRefExoticComponent<
+  Omit<ActionListProps, 'ref'> & RefAttributes<HTMLUListElement>
+> & {
   Group: typeof PrimerActionList.Group
   GroupHeading: typeof PrimerActionList.GroupHeading
   Item: typeof PrimerActionList.Item
