@@ -19,15 +19,15 @@
   width: 200px;
 }
 
-.WideButton:where([data-component="buttonContent"]) {
+.WideButton:where([data-component='buttonContent']) {
   justify-content: start;
 }
 
-.HiddenSelection:where([data-component="ActionList.Selection"]) {
+.HiddenSelection:where([data-component='ActionList.Selection']) {
   display: none;
 }
 
-.NormalFontWeight:where([data-component="text"]) {
+.NormalFontWeight:where([data-component='text']) {
   font-weight: var(--base-text-weight-normal);
 }
 
