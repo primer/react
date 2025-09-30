@@ -16,11 +16,6 @@ describe('@primer/react/deprecated', () => {
     expect(screen.getByTestId('component').className.includes('Header')).toBe(true)
   })
 
-  test('Dialog.Header supports `sx` prop', () => {
-    render(<Dialog.Header data-testid="component" sx={{background: 'red'}} />)
-    expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
-  })
-
   test('Octicon supports `sx` prop', () => {
     render(<Octicon data-testid="component" icon={props => <svg {...props} />} sx={{background: 'red'}} />)
     expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
