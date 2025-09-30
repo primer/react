@@ -61,7 +61,7 @@ export const PullRequestPage = () => (
         <StateLabel status="pullOpened">Open</StateLabel>
         <Hidden when={['narrow']}>
           <Text sx={{fontSize: 1, color: 'fg.muted'}}>
-            <Link href="#" muted sx={{fontWeight: 'bold'}}>
+            <Link href="#" muted style={{fontWeight: 'var(--base-text-weight-semibold)'}}>
               broccolinisoup
             </Link>{' '}
             wants to merge 3 commits into

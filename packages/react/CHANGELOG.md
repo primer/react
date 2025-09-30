@@ -1,5 +1,71 @@
 # @primer/react
 
+## 38.0.0-rc.4
+
+### Major Changes
+
+- [#6857](https://github.com/primer/react/pull/6857) [`b9b558e`](https://github.com/primer/react/commit/b9b558efe1033150b05adc88d28234db5dc82f95) Thanks [@pksjce](https://github.com/pksjce)! - Remove PointerBox from @primer-react
+
+- [#6708](https://github.com/primer/react/pull/6708) [`b7b8a36`](https://github.com/primer/react/commit/b7b8a36d14b3c5b6f9c289423691fe9285eae786) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - Remove sx prop support from the Spinner component.
+
+- [#6833](https://github.com/primer/react/pull/6833) [`5ad1e93`](https://github.com/primer/react/commit/5ad1e939c1ef494f7680b0753a4d7c6296e088d6) Thanks [@joshblack](https://github.com/joshblack)! - Remove sx support from Radio
+
+- [#6841](https://github.com/primer/react/pull/6841) [`3e02e2c`](https://github.com/primer/react/commit/3e02e2c235a3633b646b8f2a493f3a23e17187bf) Thanks [@joshblack](https://github.com/joshblack)! - Remove support for `sx` from `deprecated/Pagehead`
+
+- [#6692](https://github.com/primer/react/pull/6692) [`bb8d648`](https://github.com/primer/react/commit/bb8d648a42ec84e9baefae00fa87ede2be449e64) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - Remove sx Props and BoxWithFallBack from Timeline component.
+
+- [#6668](https://github.com/primer/react/pull/6668) [`acb6233`](https://github.com/primer/react/commit/acb6233fa0cf715d660ae222ebca9853115cb707) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - Update UnderlineNav component to no longer support sx and remove Box usage from it.
+
+- [#6835](https://github.com/primer/react/pull/6835) [`961c1c4`](https://github.com/primer/react/commit/961c1c48d942b9d8d81289a5d09d78f4d985f5da) Thanks [@joshblack](https://github.com/joshblack)! - Remove support for `sx` from `ButtonGroup`
+
+- [#6834](https://github.com/primer/react/pull/6834) [`fa70b5e`](https://github.com/primer/react/commit/fa70b5eaae4c68ccac2bbfa44546ee85594a054a) Thanks [@joshblack](https://github.com/joshblack)! - Remove the `sx` prop from `Flash`
+
+- [#6876](https://github.com/primer/react/pull/6876) [`2102252`](https://github.com/primer/react/commit/2102252ef34899bb37c52ca4df193ba5cca41a94) Thanks [@llastflowers](https://github.com/llastflowers)! - Update FilteredActionList and FilteredActionListLoaders components to no longer support sx
+
+- [#6840](https://github.com/primer/react/pull/6840) [`aba8050`](https://github.com/primer/react/commit/aba8050ee9d324fa53a7b81d30b4f8dc7186c70a) Thanks [@joshblack](https://github.com/joshblack)! - Remove support for `sx` prop from `deprecated/FilteredSearch`
+
+- [#6685](https://github.com/primer/react/pull/6685) [`00261c9`](https://github.com/primer/react/commit/00261c934fe88a74ef310c3134fe202226156b4b) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - Remove the sx prop from RadioGroup and Truncate.
+
+- [#6878](https://github.com/primer/react/pull/6878) [`7081dd3`](https://github.com/primer/react/commit/7081dd3b45f7dae08f7a39038be95dbf20dd8a27) Thanks [@llastflowers](https://github.com/llastflowers)! - Update BaseStyles component to no longer support sx
+
+- [#6679](https://github.com/primer/react/pull/6679) [`6158135`](https://github.com/primer/react/commit/6158135e42be9486bb7de35fbedf96e412b8a1d7) Thanks [@llastflowers](https://github.com/llastflowers)! - Update CounterLabel component to no longer support sx
+
+- [#6827](https://github.com/primer/react/pull/6827) [`6843040`](https://github.com/primer/react/commit/6843040ad9b9810cb14f6186e53b01e83bed60f8) Thanks [@joshblack](https://github.com/joshblack)! - Remove support for the sx prop from RelativeTime
+
+- [#6813](https://github.com/primer/react/pull/6813) [`a1a4ad0`](https://github.com/primer/react/commit/a1a4ad00b87b489f6341aa818a9b8b8662fe2a82) Thanks [@joshblack](https://github.com/joshblack)! - Remove support for `sx` prop for `InlineMessage`
+
+- [#6866](https://github.com/primer/react/pull/6866) [`3237a4e`](https://github.com/primer/react/commit/3237a4e549779a2b3144b1f48974e533d28cca2a) Thanks [@francinelucca](https://github.com/francinelucca)! - chore(LinkButton): remove sx from LinkButton
+
+- [#6655](https://github.com/primer/react/pull/6655) [`092185f`](https://github.com/primer/react/commit/092185f7b9d6c70296e629e03790676502b701e5) Thanks [@llastflowers](https://github.com/llastflowers)! - Update CheckboxGroup component to no longer support sx
+
+- [#6654](https://github.com/primer/react/pull/6654) [`513cc3f`](https://github.com/primer/react/commit/513cc3feed5723632e54f07cae9d4397e3783fdc) Thanks [@llastflowers](https://github.com/llastflowers)! - Update Checkbox component to no longer support sx
+
+- [#6837](https://github.com/primer/react/pull/6837) [`134f96e`](https://github.com/primer/react/commit/134f96e81476f829f2b0f0b44fa73cc1604983d5) Thanks [@TylerJDev](https://github.com/TylerJDev)! - Update ProgressBar to no longer support sx
+
+- [#6839](https://github.com/primer/react/pull/6839) [`32febac`](https://github.com/primer/react/commit/32febac10a887cce418abf6f4419cfb100a8f292) Thanks [@joshblack](https://github.com/joshblack)! - Remove support for `sx` from `Header`
+
+- [#6871](https://github.com/primer/react/pull/6871) [`44b3d73`](https://github.com/primer/react/commit/44b3d732157048059681f3fdcb86c5d77a59aec5) Thanks [@joshblack](https://github.com/joshblack)! - Remove support for `sx` from `PageHeader`
+
+- [#6863](https://github.com/primer/react/pull/6863) [`9614c0e`](https://github.com/primer/react/commit/9614c0eae7d77bdf879df474c44d613b673e6d4e) Thanks [@pksjce](https://github.com/pksjce)! - Remove Banner from experimental
+
+### Minor Changes
+
+- [#6456](https://github.com/primer/react/pull/6456) [`fbd3ac7`](https://github.com/primer/react/commit/fbd3ac75a67b89635dcd28879a1b4a93cef70289) Thanks [@TylerJDev](https://github.com/TylerJDev)! - TreeView: Add trailing actions prop `secondaryActions`
+
+- [#6855](https://github.com/primer/react/pull/6855) [`356a129`](https://github.com/primer/react/commit/356a129d2a1a0c02d9ca59280e7711e501c0d20d) Thanks [@cheshire137](https://github.com/cheshire137)! - Add buttonLabelOn and buttonLabelOff to ToggleSwitch
+
+### Patch Changes
+
+- [#6829](https://github.com/primer/react/pull/6829) [`b568765`](https://github.com/primer/react/commit/b568765159a22fefbb2e521947a6c99109cb6f19) Thanks [@francinelucca](https://github.com/francinelucca)! - chore: fix ActionBar gap issue
+
+- [#6879](https://github.com/primer/react/pull/6879) [`c8fc6b8`](https://github.com/primer/react/commit/c8fc6b81d61834ab143a578b379d7dcc49e17d62) Thanks [@francinelucca](https://github.com/francinelucca)! - chore(FilteredActionList): fix className override
+
+- [#6896](https://github.com/primer/react/pull/6896) [`5c29b01`](https://github.com/primer/react/commit/5c29b010db51e85c387963aee45ee97f12aae7ef) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - Fix typing issues in PageHeader exports.
+
+- [#6881](https://github.com/primer/react/pull/6881) [`8d52362`](https://github.com/primer/react/commit/8d523624366dda9cbb5c200560ffcf9b91f57655) Thanks [@langermank](https://github.com/langermank)! - Implement forced colors for progress bar
+
+- [#6854](https://github.com/primer/react/pull/6854) [`dd8eeed`](https://github.com/primer/react/commit/dd8eeeddb39a7afbdd38d3df8f0568f176e5d4de) Thanks [@pksjce](https://github.com/pksjce)! - Breadcrumbs: Fix esc button not being able to focus on the menubuttonRef
+
 ## 38.0.0-rc.3
 
 ### Major Changes
