@@ -80,11 +80,11 @@ function CustomHeader({
   return null
 }
 function CustomBody({children}: React.PropsWithChildren<DialogProps>) {
-  return <Dialog.Body sx={{bg: 'danger.subtle'}}>{children}</Dialog.Body>
+  return <Dialog.Body style={{backgroundColor: 'var(--bgColor-danger-muted)'}}>{children}</Dialog.Body>
 }
 function CustomFooter({footerButtons}: React.PropsWithChildren<DialogProps>) {
   return (
-    <Dialog.Footer sx={{bg: 'attention.subtle'}}>
+    <Dialog.Footer style={{backgroundColor: 'var(--bgColor-attention-muted)'}}>
       {footerButtons ? <Dialog.Buttons buttons={footerButtons} /> : null}
     </Dialog.Footer>
   )
