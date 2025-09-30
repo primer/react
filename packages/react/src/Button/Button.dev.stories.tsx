@@ -33,35 +33,6 @@ export const InvisibleVariants = () => {
   )
 }
 
-export const TestClassProp = () => {
-  const count = 4
-  return (
-    <div style={{display: 'flex', flexDirection: 'row', gap: '1rem'}}>
-      <Button size="medium" className={classes.MediumRed}>
-        Medium Red
-      </Button>
-      <Button size="small" className={classes.MediavsColor}>
-        Red
-      </Button>
-      <Button variant="invisible" className={classes.MediumRed}>
-        Invariant color overridden
-      </Button>
-      <Button leadingVisual={IssueClosedIcon} className={classes.DoneFg}>
-        <Text>Close issue</Text>
-      </Button>
-      <Button size="small" variant="invisible" className={classes.SmallInvisibleSquare}>
-        Custom size
-      </Button>
-      <Button size="small" block variant="invisible" className={classes.BlockWidthOverride}>
-        Overridden Block
-      </Button>
-      <Button className={classes.LargeFontWatch} count={count}>
-        Watch
-      </Button>
-    </div>
-  )
-}
-
 export const DisabledButtonVariants = () => {
   return (
     <Stack direction="horizontal">
