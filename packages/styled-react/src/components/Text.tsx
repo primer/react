@@ -15,6 +15,7 @@ const StyledText = styled(PrimerText).withConfig<TextProps>({
 
 const Text = forwardRef<'span', TextProps>(({as, ...props}, ref) => {
   return <StyledText {...props} {...(as ? {forwardedAs: as} : {})} ref={ref} />
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 }) as StyledComponent<'span', any, TextProps, never>
 
 export {Text, type TextProps}
