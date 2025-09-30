@@ -41,7 +41,7 @@ for (const componentDocFile of componentDocsFiles) {
 
   for (const subCompInfo of subComponents ?? []) {
     const subPassingProps: string[] = []
-    const brokenPassingProps: string[] = []
+    const subBrokenProps: string[] = []
 
     if (!subCompInfo) {
       continue
@@ -59,14 +59,14 @@ for (const componentDocFile of componentDocsFiles) {
       ) {
         subPassingProps.push(propName)
       } else {
-        brokenPassingProps.push(propName)
+        subBrokenProps.push(propName)
       }
     }
 
     componentSummary.push({
       name: subCompInfo.componentName,
-      passingProps,
-      brokenProps,
+      passingProps: subPassingProps,
+      brokenProps: subBrokenProps,
     })
   }
 }
