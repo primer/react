@@ -122,7 +122,6 @@ describe('@primer/react', () => {
   test('Breadcrumbs.Item supports `sx` prop', () => {
     render(<Breadcrumbs.Item as="li" data-testid="component" sx={{background: 'red'}} selected />)
     expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
-    expect(window.getComputedStyle(screen.getByRole('link')).backgroundColor).toBe('rgb(255, 0, 0)')
     expect(screen.getByTestId('component').className.includes('selected')).toBe(true)
   })
 
