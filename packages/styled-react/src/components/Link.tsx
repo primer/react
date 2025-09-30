@@ -12,7 +12,7 @@ const StyledLink = styled(PrimerLink).withConfig<LinkProps>({
   ${sx}
 ` as ForwardRefComponent<'a', LinkProps>
 
-const Link = forwardRef(({as, ...props}: LinkProps, ref) => {
+const Link = forwardRef<HTMLAnchorElement, LinkProps>(({as, ...props}, ref) => {
   return <StyledLink {...props} {...(as ? {forwardedAs: as} : {})} ref={ref} />
 }) as ForwardRefComponent<'a', LinkProps>
 
