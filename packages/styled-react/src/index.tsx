@@ -1,6 +1,5 @@
 export {ActionList} from '@primer/react'
 export {Avatar} from '@primer/react'
-export {Breadcrumbs} from '@primer/react'
 export {Box, type BoxProps} from './components/Box'
 export {Button} from '@primer/react'
 export {CheckboxGroup} from '@primer/react'
@@ -11,10 +10,8 @@ export {Select} from '@primer/react'
 export {Text} from '@primer/react'
 export {Textarea} from '@primer/react'
 export {TextInput} from '@primer/react'
-export {Token} from '@primer/react'
 export {Tooltip} from '@primer/react'
 export {type TextInputProps} from '@primer/react'
-export {type TokenProps} from '@primer/react'
 
 // theming depends on styled-components
 export {ThemeProvider} from '@primer/react'
@@ -26,6 +23,7 @@ export {useTheme} from '@primer/react'
 
 export {ActionMenu} from './components/ActionMenu'
 export {Autocomplete, type AutocompleteOverlayProps} from './components/Autocomplete'
+export {Breadcrumbs, Breadcrumb, type BreadcrumbsProps, type BreadcrumbsItemProps} from './components/Breadcrumbs'
 export {Checkbox, type CheckboxProps} from './components/Checkbox'
 export {CircleBadge} from './components/CircleBadge'
 export {CounterLabel, type CounterLabelProps} from './components/CounterLabel'
@@ -66,6 +64,7 @@ export {
   type TimelineBreakProps,
 } from './components/Timeline'
 export {ToggleSwitch, type ToggleSwitchProps} from './components/ToggleSwitch'
+export {Token, type TokenProps} from './components/Token'
 export {Truncate, type TruncateProps} from './components/Truncate'
 export {UnderlineNav, type UnderlineNavProps, type UnderlineNavItemProps} from './components/UnderlineNav'
 
