@@ -81,7 +81,7 @@
     "prettier": "3.4.2",
     "rimraf": "5.0.5",
     "size-limit": "11.2.0",
-    "storybook": "^9.1.5",
+    "storybook": "^9.1.8",
     "stylelint": "16.20.0",
     "turbo": "^2.5.5",
     "typescript": "^5.9.2",
