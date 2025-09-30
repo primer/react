@@ -9,7 +9,7 @@ import {clsx} from 'clsx'
 
 import styles from './TextInputInnerAction.module.css'
 
-type TextInputActionProps = Omit<
+export type TextInputActionProps = Omit<
   React.ButtonHTMLAttributes<HTMLButtonElement>,
   'aria-label' | 'size' | 'tooltipDirection'
 > & {

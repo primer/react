@@ -5,7 +5,6 @@ import type {FormValidationStatus} from '../../utils/types/FormValidationStatus'
 import {clsx} from 'clsx'
 
 import styles from './TextInputWrapper.module.css'
-import {BoxWithFallback} from './BoxWithFallback'
 
 export type TextInputSizes = 'small' | 'medium' | 'large'
 
@@ -59,8 +58,7 @@ export const TextInputBaseWrapper = React.forwardRef<HTMLElement, StyledTextInpu
     forwardRef,
   ) {
     return (
-      <BoxWithFallback
-        as="span"
+      <span
         ref={forwardRef}
         className={clsx(className, styles.TextInputBaseWrapper)}
         data-block={block || undefined}
@@ -72,11 +70,12 @@ export const TextInputBaseWrapper = React.forwardRef<HTMLElement, StyledTextInpu
         data-trailing-action={hasTrailingAction || undefined}
         data-validation={validationStatus || undefined}
         data-variant={variant || undefined}
-        style={
-          typeof width === 'string' || typeof minWidth === 'string' || typeof maxWidth === 'string'
-            ? {width, maxWidth, minWidth, ...style}
-            : style
-        }
+        style={{
+          ...(typeof width === 'string' || typeof width === 'number' ? {width} : {}),
+          ...(typeof minWidth === 'string' || typeof minWidth === 'number' ? {minWidth} : {}),
+          ...(typeof maxWidth === 'string' || typeof maxWidth === 'number' ? {maxWidth} : {}),
+          ...style,
+        }}
         {...restProps}
       />
     )
