@@ -1,7 +1,6 @@
 import type React from 'react'
-import {forwardRef} from 'react'
+import {fixedForwardRef} from '../utils/modern-polymorphic'
 import {Button, IconButton} from '../Button'
-import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {clsx} from 'clsx'
 import classes from './ActionList.module.css'
 
@@ -27,7 +26,8 @@ export type ActionListTrailingActionProps = ElementProps & {
   className?: string
 }
 
-export const TrailingAction = forwardRef(
+// Minimal change: just swap to fixedForwardRef
+const TrailingAction = fixedForwardRef(
   ({as = 'button', icon, label, href = null, className, loading, ...props}, forwardedRef) => {
     return (
       <span className={clsx(className, classes.TrailingAction)}>
@@ -64,4 +64,8 @@ export const TrailingAction = forwardRef(
       </span>
     )
   },
-) as PolymorphicForwardRefComponent<'button' | 'a', ActionListTrailingActionProps>
+) as React.ForwardRefExoticComponent<any>
+
+TrailingAction.displayName = 'ActionList.TrailingAction'
+
+export {TrailingAction}
