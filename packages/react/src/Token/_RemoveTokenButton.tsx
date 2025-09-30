@@ -1,14 +1,12 @@
 import type React from 'react'
 import {XIcon} from '@primer/octicons-react'
 import {clsx} from 'clsx'
-import {type SxProp} from '../sx'
 import type {TokenSizeKeys} from './TokenBase'
 import {tokenSizes, defaultTokenSize} from './TokenBase'
 
 import classes from './_RemoveTokenButton.module.css'
-import {BoxWithFallback} from '../internal/components/BoxWithFallback'
 
-interface TokenButtonProps extends SxProp {
+interface TokenButtonProps {
   borderOffset?: number
   size?: TokenSizeKeys
   isParentInteractive?: boolean
@@ -29,20 +27,37 @@ const RemoveTokenButton = ({
 }: React.PropsWithChildren<RemoveTokenButtonProps & {as?: React.ElementType}>) => {
   // eslint-disable-next-line react-compiler/react-compiler
   delete rest.children
+  if (isParentInteractive) {
+    return (
+      <span
+        {...rest}
+        tabIndex={-1}
+        aria-label={ariaLabel}
+        data-size={size}
+        className={clsx(classes.TokenButton, className)}
+        style={{
+          transform: `translate(${borderOffset}px, -${borderOffset}px)`,
+        }}
+      >
+        <XIcon size={getTokenButtonIconSize(size)} />
+      </span>
+    )
+  }
+
   return (
-    <BoxWithFallback
-      as={isParentInteractive ? 'span' : 'button'}
-      tabIndex={isParentInteractive ? -1 : undefined}
-      aria-label={!isParentInteractive ? 'Remove token' : ariaLabel}
+    <button
+      {...rest}
+      aria-label={'Remove token'}
       data-size={size}
       className={clsx(classes.TokenButton, className)}
       style={{
         transform: `translate(${borderOffset}px, -${borderOffset}px)`,
       }}
-      {...rest}
+      ref={rest.ref as React.Ref<HTMLButtonElement>}
+      type="button"
     >
       <XIcon size={getTokenButtonIconSize(size)} />
-    </BoxWithFallback>
+    </button>
   )
 }
 
