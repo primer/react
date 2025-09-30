@@ -17,7 +17,7 @@ const ActionMenuOverlay: React.ComponentType<ActionMenuOverlayProps> = styled(Pr
   ${sx}
 `
 
-export type ActionMenuButtonProps = PrimerActionMenuButtonProps & SxProp
+export type ActionMenuButtonProps = PrimerActionMenuButtonProps & SxProp & {as?: React.ElementType}
 
 const StyledActionMenuButton = forwardRef<HTMLButtonElement, ActionMenuButtonProps>((props, ref) => {
   return <Box as={PrimerActionMenu.Button} ref={ref} {...props} />
