@@ -7,11 +7,6 @@
   "importPath": "@primer/react",
   "props": [
     {
-      "name": "sx",
-      "type": "SystemStyleObject",
-      "deprecated": true
-    },
-    {
       "name": "as",
       "type": "React.ElementType",
       "defaultValue": "\"h2\""

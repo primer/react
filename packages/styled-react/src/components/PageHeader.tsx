@@ -10,16 +10,21 @@ import {sx, type SxProp} from '../sx'
 import type {ForwardRefComponent} from '../polymorphic'
 import {Box} from './Box'
 import type {PropsWithChildren} from 'react'
+import React from 'react'
 
 type PageHeaderProps = PrimerPageHeaderProps & SxProp
 
-const PageHeaderImpl: ForwardRefComponent<'div', PageHeaderProps> = styled(
+const StyledPageHeader: ForwardRefComponent<'div', PageHeaderProps> = styled(
   PrimerPageHeader,
 ).withConfig<PageHeaderProps>({
   shouldForwardProp: prop => prop !== 'sx',
 })`
   ${sx}
 `
+
+const PageHeaderImpl = React.forwardRef<HTMLDivElement, PageHeaderProps>(({as, ...props}, ref) => (
+  <StyledPageHeader {...props} {...(as ? {forwardedAs: as} : {})} ref={ref} />
+)) as ForwardRefComponent<'div', PageHeaderProps>
 
 type PageHeaderActionsProps = PrimerPageHeaderActionsProps & SxProp
 
@@ -43,7 +48,7 @@ type CSSCustomProperties = {
   [key: `--${string}`]: string | number
 }
 
-function PageHeaderTitle({sx, ...rest}: PageHeaderTitleProps) {
+function StyledPageHeaderTitle({sx, ...rest}: PageHeaderTitleProps) {
   const style: CSSCustomProperties = {}
   if (sx) {
     // @ts-ignore sx can have color attribute
@@ -65,6 +70,10 @@ function PageHeaderTitle({sx, ...rest}: PageHeaderTitleProps) {
   return <Box {...rest} as={PrimerPageHeader.Title} style={style} sx={sx} />
 }
 
+const PageHeaderTitle = ({as, ...props}: PageHeaderTitleProps) => (
+  <StyledPageHeaderTitle {...props} {...(as ? {forwardedAs: as} : {})} />
+)
+
 type PageHeaderTitleAreaProps = PropsWithChildren<PrimerPageHeaderTitleAreaProps> & SxProp
 
 const PageHeaderTitleArea: ForwardRefComponent<'div', PageHeaderTitleAreaProps> = styled(
@@ -75,18 +84,35 @@ const PageHeaderTitleArea: ForwardRefComponent<'div', PageHeaderTitleAreaProps> 
   ${sx}
 `
 
-const PageHeader = Object.assign(PageHeaderImpl, {
+type PageHeaderComponentType = ForwardRefComponent<'div', PageHeaderProps> & {
+  Actions: typeof PageHeaderActions
+  ContextArea: typeof PrimerPageHeader.ContextArea
+  ParentLink: typeof PrimerPageHeader.ParentLink
+  ContextBar: typeof PrimerPageHeader.ContextBar
+  TitleArea: typeof PageHeaderTitleArea
+  ContextAreaActions: typeof PrimerPageHeader.ContextAreaActions
+  LeadingAction: typeof PrimerPageHeader.LeadingAction
+  Breadcrumbs: typeof PrimerPageHeader.Breadcrumbs
+  LeadingVisual: typeof PrimerPageHeader.LeadingVisual
+  Title: typeof PageHeaderTitle
+  TrailingVisual: typeof PrimerPageHeader.TrailingVisual
+  Description: typeof PrimerPageHeader.Description
+  TrailingAction: typeof PrimerPageHeader.TrailingAction
+}
+
+const PageHeader: PageHeaderComponentType = Object.assign(PageHeaderImpl, {
   Actions: PageHeaderActions,
-  Title: PageHeaderTitle,
-  TitleArea: PageHeaderTitleArea,
   ContextArea: PrimerPageHeader.ContextArea,
-  ContextAreaActions: PrimerPageHeader.ContextAreaActions,
-  TrailingVisual: PrimerPageHeader.TrailingVisual,
-  Description: PrimerPageHeader.Description,
+  ParentLink: PrimerPageHeader.ParentLink,
   ContextBar: PrimerPageHeader.ContextBar,
+  TitleArea: PageHeaderTitleArea,
+  ContextAreaActions: PrimerPageHeader.ContextAreaActions,
   LeadingAction: PrimerPageHeader.LeadingAction,
   Breadcrumbs: PrimerPageHeader.Breadcrumbs,
   LeadingVisual: PrimerPageHeader.LeadingVisual,
+  Title: PageHeaderTitle,
+  TrailingVisual: PrimerPageHeader.TrailingVisual,
+  Description: PrimerPageHeader.Description,
   TrailingAction: PrimerPageHeader.TrailingAction,
 })
 
