@@ -9,10 +9,8 @@ export {Select} from '@primer/react'
 export {Text} from '@primer/react'
 export {Textarea} from '@primer/react'
 export {TextInput} from '@primer/react'
-export {Token} from '@primer/react'
 export {Tooltip} from '@primer/react'
 export {type TextInputProps} from '@primer/react'
-export {type TokenProps} from '@primer/react'
 
 // theming depends on styled-components
 export {ThemeProvider} from '@primer/react'
@@ -66,6 +64,7 @@ export {
   type TimelineBreakProps,
 } from './components/Timeline'
 export {ToggleSwitch, type ToggleSwitchProps} from './components/ToggleSwitch'
+export {Token, type TokenProps} from './components/Token'
 export {Truncate, type TruncateProps} from './components/Truncate'
 export {UnderlineNav, type UnderlineNavProps, type UnderlineNavItemProps} from './components/UnderlineNav'
 
