@@ -28,7 +28,7 @@ const ActionMenuButton = forwardRef(({as, ...props}: ActionMenuButtonProps, ref)
 )) as ForwardRefComponent<'button', ActionMenuButtonProps>
 
 export const ActionMenu: typeof PrimerActionMenu & {
-  Button: typeof PrimerActionMenu.Button
+  Button: typeof ActionMenuButton
   Anchor: typeof PrimerActionMenu.Anchor
   Overlay: typeof ActionMenuOverlay
   Divider: typeof PrimerActionMenu.Divider
