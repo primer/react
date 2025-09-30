@@ -5,7 +5,7 @@ import {Box} from './Box'
 import {forwardRef} from 'react'
 import type {ForwardRefComponent} from '../polymorphic'
 
-type ButtonComponentProps = PrimerButtonProps & SxProp
+type ButtonComponentProps = PrimerButtonProps & SxProp & {as?: React.ElementType}
 
 const StyledButtonComponent = forwardRef(({sx, ...rest}: ButtonComponentProps, ref) => {
   const {block, size = 'medium', leadingVisual, trailingVisual, trailingAction} = rest
@@ -26,7 +26,7 @@ const StyledButtonComponent = forwardRef(({sx, ...rest}: ButtonComponentProps, r
 })
 
 const ButtonComponent = forwardRef(({as, ...props}: ButtonComponentProps, ref) => (
-  <StyledButtonComponent forwardedAs={as} ref={ref} {...props} />
+  <StyledButtonComponent ref={ref} {...props} {...(as ? {forwardedAs: as} : {})} />
 )) as ForwardRefComponent<'button', ButtonComponentProps>
 
 // This function is used to generate a custom cssSelector for the sxProp

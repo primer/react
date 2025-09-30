@@ -1,7 +1,5 @@
-import {SearchIcon, TriangleDownIcon, EyeIcon, IssueClosedIcon, HeartFillIcon} from '@primer/octicons-react'
+import {SearchIcon, TriangleDownIcon, EyeIcon, HeartFillIcon} from '@primer/octicons-react'
 import {Button, IconButton} from '.'
-import classes from './Button.dev.stories.module.css'
-import {default as Text} from '../Text'
 import {Stack} from '../Stack'
 
 export default {

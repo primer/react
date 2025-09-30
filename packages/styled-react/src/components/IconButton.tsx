@@ -1,29 +1,24 @@
-import {
-  IconButton as PrimerIconButton,
-  type IconButtonProps as PrimerIconButtonProps,
-  sx,
-  type SxProp,
-} from '@primer/react'
+import {IconButton as PrimerIconButton, type IconButtonProps as PrimerIconButtonProps, type SxProp} from '@primer/react'
 import {type ForwardRefComponent} from '../polymorphic'
 import {Box} from './Box'
 import {generateCustomSxProp} from './Button'
 import {forwardRef} from 'react'
 
-type IconButtonProps = PrimerIconButtonProps & SxProp
+type IconButtonProps = PrimerIconButtonProps & SxProp & {as?: React.ElementType}
 
-const StyledIconButton = forwardRef(({sx, ...rest}: PrimerIconButtonProps, ref) => {
+const StyledIconButton = forwardRef(({sx, ...rest}: IconButtonProps, ref) => {
   let sxStyles = sx
   // grap the button props that have associated data attributes in the styles
   const {size = 'medium'} = rest
 
-  if (sx !== null && Object.keys(sx).length > 0) {
+  if (sx !== null && sx !== undefined && Object.keys(sx).length > 0) {
     sxStyles = generateCustomSxProp({size}, sx)
   }
   return <Box sx={sxStyles} as={PrimerIconButton} ref={ref} {...rest} />
 })
 
 const IconButton = (({as, ...props}: IconButtonProps) => (
-  <StyledIconButton forwardedAs={as} {...props} />
+  <StyledIconButton {...props} {...(as ? {forwardedAs: as} : {})} />
 )) as ForwardRefComponent<'a' | 'button', IconButtonProps>
 
 export {IconButton}
