@@ -8,7 +8,7 @@ import type {SxProp} from '../sx'
 import {forwardRef} from 'react'
 import type {ForwardRefComponent} from '../polymorphic'
 
-type DialogProps = PrimerDialogProps & SxProp & {as?: React.ElementType}
+type DialogProps = PrimerDialogProps & SxProp
 
 const StyledDialog = forwardRef<HTMLDivElement, DialogProps>(function Dialog(props, ref) {
   return <Box as={PrimerDialog} ref={ref} {...props} />
@@ -18,7 +18,7 @@ const DialogImpl = forwardRef(({as, ...props}: DialogProps, ref) => (
   <StyledDialog {...props} {...(as ? {forwardedAs: as} : {})} ref={ref} />
 )) as ForwardRefComponent<'div', DialogProps>
 
-type DialogHeaderProps = PrimerDialogHeaderProps & SxProp & {as?: React.ElementType}
+type DialogHeaderProps = PrimerDialogHeaderProps & SxProp
 
 const StyledDialogHeader = forwardRef<HTMLDivElement, DialogHeaderProps>(function DialogHeader(props, ref) {
   return <Box as={PrimerDialog.Header} ref={ref} {...props} />
