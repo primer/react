@@ -6,7 +6,7 @@ import type React from 'react'
 type TextProps = PrimerTextProps & SxProp
 
 const StyledText = styled(PrimerText).withConfig<TextProps>({
-  shouldForwardProp: prop => (prop as keyof TextProps) != 'sx',
+  shouldForwardProp: prop => (prop as keyof TextProps) !== 'sx',
 })<TextProps>`
   ${sx}
 `
