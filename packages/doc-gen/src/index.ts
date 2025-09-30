@@ -132,8 +132,8 @@ export function processDocsFile(docsFilePath: string): DocsFile {
       const {source, propSymbol, ...restTSInfo} = tsInfo
 
       return {
-        ...rest,
         ...restTSInfo,
+        ...rest,
       }
     }
 
