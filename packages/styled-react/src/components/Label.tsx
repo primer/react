@@ -9,6 +9,8 @@ const StyledLabel = forwardRef(function Label(props, ref) {
   return <Box as={PrimerLabel} ref={ref} {...props} />
 }) as ForwardRefComponent<'span', LabelProps>
 
-const Label = ({as, ...props}: LabelProps) => <StyledLabel {...props} {...(as ? {forwardedAs: as} : {})} />
+const Label = (({as, ...props}: LabelProps) => {
+  return <StyledLabel {...props} {...(as ? {forwardedAs: as} : {})} />
+}) as ForwardRefComponent<'span', LabelProps>
 
 export {Label, type LabelProps}
