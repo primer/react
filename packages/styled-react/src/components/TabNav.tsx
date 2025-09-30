@@ -13,8 +13,9 @@ const StyledTabNav = styled(PrimerTabNav).withConfig({
   ${sx}
 `
 
-// @ts-ignore forwardedAs is valid here but I don't know how to fix the typescript error
-const TabNavImpl = ({as, ...props}: TabNavProps) => <StyledTabNav forwardedAs={as} {...props} />
+const TabNavImpl = ({as, ...props}: TabNavProps) => {
+  return <StyledTabNav {...props} {...(as ? {forwardedAs: as as React.ElementType} : {})} />
+}
 
 const StyledTabNavLink: ForwardRefComponent<'a', TabNavLinkProps> = styled(PrimerTabNav.Link).withConfig({
   shouldForwardProp: prop => (prop as keyof TabNavLinkProps) !== 'sx',
@@ -22,8 +23,9 @@ const StyledTabNavLink: ForwardRefComponent<'a', TabNavLinkProps> = styled(Prime
   ${sx}
 `
 
-// @ts-ignore forwardedAs is valid here but I don't know how to fix the typescript error
-const TabNavLink = ({as, ...props}: TabNavLinkProps) => <StyledTabNavLink forwardedAs={as} {...props} />
+const TabNavLink = ({as, ...props}: TabNavLinkProps) => (
+  <StyledTabNavLink {...props} {...(as ? {forwardedAs: as} : {})} />
+)
 
 const TabNav = Object.assign(TabNavImpl, {
   Link: TabNavLink,
