@@ -18,8 +18,7 @@ const StyledButtonComponent = forwardRef(({sx, ...rest}: ButtonComponentProps, r
       sx as BetterSystemStyleObject,
     )
 
-    // @ts-ignore sx can have color attribute
-    const {color} = sx
+    const {color} = sx as {color?: string}
     if (color) style['--button-color'] = color
   }
 
