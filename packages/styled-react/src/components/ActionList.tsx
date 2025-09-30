@@ -2,7 +2,6 @@ import {
   ActionList as PrimerActionList,
   type ActionListProps as PrimerActionListProps,
   type ActionListGroupProps as PrimerActionListGroupProps,
-  type ActionListGroupHeadingProps as PrimerActionListGroupHeadingProps,
   type ActionListItemProps as PrimerActionListItemProps,
   type ActionListLinkItemProps as PrimerActionListLinkItemProps,
   type ActionListDividerProps as PrimerActionListDividerProps,
@@ -15,11 +14,15 @@ import {
 import {Box} from './Box'
 import {forwardRef} from 'react'
 import type {SxProp} from '../sx'
+import type {ComponentPropsWithoutRef} from 'react'
 
 // Add SxProp to each exported type
 export type ActionListProps = PrimerActionListProps & SxProp
 export type ActionListGroupProps = PrimerActionListGroupProps & SxProp
-export type ActionListGroupHeadingProps = PrimerActionListGroupHeadingProps & SxProp
+
+// GroupHeading props type is not exported from @primer/react, so use ComponentPropsWithoutRef
+export type ActionListGroupHeadingProps = ComponentPropsWithoutRef<typeof PrimerActionList.GroupHeading> & SxProp
+
 export type ActionListItemProps = PrimerActionListItemProps & SxProp
 export type ActionListLinkItemProps = PrimerActionListLinkItemProps & SxProp
 export type ActionListDividerProps = PrimerActionListDividerProps & SxProp
