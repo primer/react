@@ -3,7 +3,7 @@ import {type SxProp} from '../sx'
 import {forwardRef} from 'react'
 import type {ForwardRefComponent} from '../polymorphic'
 
-type LabelProps = PrimerLabelProps & SxProp
+type LabelProps = PrimerLabelProps & SxProp & {as?: React.ElementType}
 
 const StyledLabel = forwardRef(function Label(props, ref) {
   return <Box as={PrimerLabel} ref={ref} {...props} />

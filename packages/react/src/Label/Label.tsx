@@ -10,7 +10,7 @@ export type LabelProps = {
   variant?: LabelColorOptions
   /** How large the label is rendered */
   size?: LabelSizeKeys
-} & React.HTMLAttributes<HTMLElement>
+}
 
 export type LabelColorOptions =
   | 'default'
