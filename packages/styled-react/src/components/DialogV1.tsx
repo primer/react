@@ -6,18 +6,27 @@ import type {
 import {Box} from './Box'
 import type {SxProp} from '../sx'
 import {forwardRef} from 'react'
+import type {ForwardRefComponent} from '../polymorphic'
 
-type DialogProps = PrimerDialogProps & SxProp
+type DialogProps = PrimerDialogProps & SxProp & {as?: React.ElementType}
 
-const DialogImpl = forwardRef<HTMLDivElement, DialogProps>(function Dialog(props, ref) {
+const StyledDialog = forwardRef<HTMLDivElement, DialogProps>(function Dialog(props, ref) {
   return <Box as={PrimerDialog} ref={ref} {...props} />
 })
 
-type DialogHeaderProps = PrimerDialogHeaderProps & SxProp
+const DialogImpl = forwardRef(({as, ...props}: DialogProps, ref) => (
+  <StyledDialog {...props} {...(as ? {forwardedAs: as} : {})} ref={ref} />
+)) as ForwardRefComponent<'div', DialogProps>
 
-const DialogHeader = forwardRef<HTMLDivElement, DialogHeaderProps>(function DialogHeader(props, ref) {
+type DialogHeaderProps = PrimerDialogHeaderProps & SxProp & {as?: React.ElementType}
+
+const StyledDialogHeader = forwardRef<HTMLDivElement, DialogHeaderProps>(function DialogHeader(props, ref) {
   return <Box as={PrimerDialog.Header} ref={ref} {...props} />
 })
+
+const DialogHeader = forwardRef(({as, ...props}: DialogHeaderProps, ref) => (
+  <StyledDialogHeader {...props} {...(as ? {forwardedAs: as} : {})} ref={ref} />
+)) as ForwardRefComponent<'div', DialogHeaderProps>
 
 const Dialog = Object.assign(DialogImpl, {
   Header: DialogHeader,
