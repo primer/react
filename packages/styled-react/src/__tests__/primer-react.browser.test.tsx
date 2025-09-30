@@ -400,12 +400,12 @@ describe('@primer/react', () => {
     expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
   })
 
-  test.skip('SubNav supports `sx` prop', () => {
+  test('SubNav supports `sx` prop', () => {
     render(<SubNav data-testid="component" sx={{background: 'red'}} />)
     expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
   })
 
-  test.skip('SubNav.Link supports `sx` prop', () => {
+  test('SubNav.Link supports `sx` prop', () => {
     render(<SubNav.Link data-testid="component" sx={{background: 'red'}} />)
     expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
   })
