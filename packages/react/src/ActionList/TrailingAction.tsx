@@ -8,6 +8,10 @@ type ElementProps =
   | ({
       as?: 'button'
       href?: never
+      /**
+       * Specify whether the action is in a loading state.
+       * Only available for button elements.
+       */
       loading?: boolean
     } & React.ButtonHTMLAttributes<HTMLButtonElement>)
   | ({
