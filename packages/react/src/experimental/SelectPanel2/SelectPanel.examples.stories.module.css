@@ -15,6 +15,26 @@
   color: var(--fgColor-muted);
 }
 
+.WideButton {
+  width: 200px;
+}
+
+.WideButton:where([data-component="buttonContent"]) {
+  justify-content: start;
+}
+
+.HiddenSelection:where([data-component="ActionList.Selection"]) {
+  display: none;
+}
+
+.NormalFontWeight:where([data-component="text"]) {
+  font-weight: var(--base-text-weight-normal);
+}
+
+.MutedText {
+  color: var(--fgColor-muted);
+}
+
 .FilterButtons {
   display: flex;
   margin-top: var(--base-size-4);

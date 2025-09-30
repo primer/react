@@ -62,7 +62,7 @@ export const DropdownOverlay = ({anchorSide, open}: Args) => {
 
   return (
     <>
-      <Button ref={buttonRef} sx={{position: 'relative'}} onClick={() => setIsOpen(!isOpen)}>
+      <Button ref={buttonRef} style={{position: 'relative'}} onClick={() => setIsOpen(!isOpen)}>
         open overlay
       </Button>
       {isOpen || open ? (
@@ -263,7 +263,7 @@ export const MemexNestedOverlays = ({role, open}: Args) => {
               </Text>
               <TextInput defaultValue={2} aria-label="Duration" />
               <ActionMenu>
-                <ActionMenu.Button sx={{width: 200}} aria-label="Change duration unit">
+                <ActionMenu.Button style={{width: 200}} aria-label="Change duration unit">
                   {duration}
                 </ActionMenu.Button>
                 <ActionMenu.Overlay>
@@ -361,7 +361,13 @@ export const NestedOverlays = ({role, open}: Args) => {
               <Button
                 variant="invisible"
                 ref={secondaryButtonRef}
-                sx={{px: 2, mx: 2, display: 'flex'}}
+                style={{
+                  paddingLeft: '8px',
+                  paddingRight: '8px',
+                  marginLeft: '8px',
+                  marginRight: '8px',
+                  display: 'flex',
+                }}
                 leadingVisual={PlusIcon}
                 onClick={() => setCreateListOverlayOpen(!createListOverlayOpen)}
               >
@@ -482,13 +488,13 @@ export const MemexIssueOverlay = ({role, open}: Args) => {
                 ref={buttonRef}
                 onClick={() => setEditing(true)}
                 aria-label="Change issue title"
-                sx={{
+                style={{
                   width: '100%',
-                  fontSize: 3,
-                  color: 'fg.default',
-                  p: 2,
+                  fontSize: 'var(--text-title-size-medium)',
+                  color: 'var(--fgColor-default)',
+                  padding: '8px',
                   textAlign: 'left',
-                  borderRadius: '2',
+                  borderRadius: 'var(--borderRadius-medium)',
                 }}
               >
                 {title}
@@ -533,8 +539,8 @@ export const PositionedOverlays = ({right, role, open}: Args) => {
           setIsOpen(!isOpen)
           setDirection('right')
         }}
-        sx={{
-          mt: 2,
+        style={{
+          marginTop: '8px',
         }}
       >
         Open right overlay
