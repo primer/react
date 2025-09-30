@@ -16,7 +16,9 @@ const StyledHeader = forwardRef(function Header(props, ref) {
   return <Box as={PrimerHeader} ref={ref} {...props} />
 }) as ForwardRefComponent<'header', HeaderProps>
 
-const HeaderImpl = ({as, ...props}: HeaderProps) => <StyledHeader {...props} {...(as ? {forwardedAs: as} : {})} />
+const HeaderImpl = forwardRef(({as, ...props}: HeaderProps, ref) => (
+  <StyledHeader {...props} {...(as ? {forwardedAs: as} : {})} ref={ref} />
+)) as ForwardRefComponent<'header', HeaderProps>
 
 type HeaderItemProps = PrimerHeaderItemProps & SxProp
 
@@ -28,9 +30,9 @@ const StyledHeaderLink = forwardRef<HTMLAnchorElement, PrimerHeaderLinkProps>(fu
   return <Box as={PrimerHeader.Link} ref={ref} {...props} />
 })
 
-const HeaderLink = ({as, ...props}: HeaderLinkProps) => (
-  <StyledHeaderLink {...props} {...(as ? {forwardedAs: as} : {})} />
-)
+const HeaderLink = forwardRef<HTMLAnchorElement, HeaderLinkProps>(({as, ...props}, ref) => (
+  <StyledHeaderLink {...props} {...(as ? {forwardedAs: as} : {})} ref={ref} />
+))
 
 const Header = Object.assign(HeaderImpl, {
   Item: HeaderItem,

@@ -3,6 +3,7 @@ import type {TabNavProps as PrimerTabNavProps, TabNavLinkProps as PrimerTabNavLi
 import {sx, type SxProp} from '../sx'
 import styled from 'styled-components'
 import {type ForwardRefComponent} from '../polymorphic'
+import {forwardRef} from 'react'
 
 type TabNavProps = PrimerTabNavProps & SxProp
 type TabNavLinkProps = PrimerTabNavLinkProps & SxProp
@@ -17,15 +18,15 @@ const TabNavImpl = ({as, ...props}: TabNavProps) => {
   return <StyledTabNav {...props} {...(as ? {forwardedAs: as as React.ElementType} : {})} />
 }
 
-const StyledTabNavLink: ForwardRefComponent<'a', TabNavLinkProps> = styled(PrimerTabNav.Link).withConfig({
+const StyledTabNavLink = styled(PrimerTabNav.Link).withConfig({
   shouldForwardProp: prop => (prop as keyof TabNavLinkProps) !== 'sx',
 })<TabNavLinkProps>`
   ${sx}
 `
 
-const TabNavLink = ({as, ...props}: TabNavLinkProps) => (
-  <StyledTabNavLink {...props} {...(as ? {forwardedAs: as} : {})} />
-)
+const TabNavLink = forwardRef<HTMLAnchorElement, TabNavLinkProps>(({as, ...props}, ref) => (
+  <StyledTabNavLink {...props} {...(as ? {forwardedAs: as} : {})} ref={ref} />
+))
 
 const TabNav = Object.assign(TabNavImpl, {
   Link: TabNavLink,

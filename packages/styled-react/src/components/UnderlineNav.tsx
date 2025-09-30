@@ -15,9 +15,9 @@ const StyledUnderlineNav = forwardRef<HTMLElement, UnderlineNavProps>(function U
   return <Box as={PrimerUnderlineNav} ref={ref} {...props} />
 })
 
-export const UnderlineNavImpl = ({as, ...props}: UnderlineNavProps) => (
-  <StyledUnderlineNav {...props} {...(as ? {forwardedAs: as} : {})} />
-)
+export const UnderlineNavImpl = forwardRef(({as, ...props}: UnderlineNavProps, ref) => (
+  <StyledUnderlineNav {...props} {...(as ? {forwardedAs: as} : {})} ref={ref} />
+)) as ForwardRefComponent<'nav', UnderlineNavProps>
 
 export type UnderlineNavItemProps = PrimerUnderlineNavItemProps & SxProp & React.HTMLAttributes<HTMLElement>
 
@@ -28,9 +28,9 @@ const StyledUnderlineNavItem: ForwardRefComponent<'a', UnderlineNavItemProps> = 
 })`
   ${sx}
 `
-export const UnderlineNavItem = ({as, ...props}: UnderlineNavItemProps) => (
-  <StyledUnderlineNavItem {...props} {...(as ? {forwardedAs: as} : {})} />
-)
+export const UnderlineNavItem = forwardRef(({as, ...props}: UnderlineNavItemProps, ref) => (
+  <StyledUnderlineNavItem {...props} {...(as ? {forwardedAs: as} : {})} ref={ref} />
+)) as ForwardRefComponent<'a', UnderlineNavItemProps>
 
 export const UnderlineNav = Object.assign(UnderlineNavImpl, {
   Item: UnderlineNavItem,
