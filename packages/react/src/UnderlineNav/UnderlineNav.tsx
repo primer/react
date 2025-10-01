@@ -317,12 +317,12 @@ export const UnderlineNav = forwardRef(
         menuStyleObj &&
         typeof menuStyleObj === 'object' &&
         'left' in menuStyleObj &&
-        typeof (menuStyleObj as any).left !== 'undefined'
+        typeof (menuStyleObj as {left: string | number}).left !== 'undefined'
       ) {
         menuInlineStyles = {
           ...baseMenuInlineStyles,
           right: undefined,
-          left: (menuStyleObj as any).left,
+          left: (menuStyleObj as {left: string | number}).left,
         }
       }
     }
