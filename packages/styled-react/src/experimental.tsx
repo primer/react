@@ -1,3 +1,17 @@
+export {
+  DataTable,
+  type DataTableContainerProps,
+  type TableProps,
+  type TableHeadProps,
+  type TableBodyProps,
+  type TableRowProps,
+  type TableHeaderProps,
+  type TableCellProps,
+  type TableTitleProps,
+  type TableSubtitleProps,
+  type TableActionsProps,
+} from './components/DataTable'
+
 export {Dialog, type DialogProps} from './components/Dialog'
 
 export {
