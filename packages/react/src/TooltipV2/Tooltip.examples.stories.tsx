@@ -226,7 +226,7 @@ export const OcticonPicker = () => {
       }}
     >
       {octicons.map((octicon, index) => (
-        <Tooltip key={index} text={octicon.name} direction="n" delay="long" type="label">
+        <Tooltip key={index} text={octicon.name} direction="n" delay="long">
           <IconButton aria-label={octicon.name} icon={octicon.icon} />
         </Tooltip>
       ))}
