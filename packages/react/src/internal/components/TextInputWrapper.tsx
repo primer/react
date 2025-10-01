@@ -57,6 +57,15 @@ export const TextInputBaseWrapper = React.forwardRef<HTMLElement, StyledTextInpu
     },
     forwardRef,
   ) {
+    const memoizedStyle = React.useMemo(() => {
+      return {
+        ...(typeof width === 'string' || typeof width === 'number' ? {width} : {}),
+        ...(typeof minWidth === 'string' || typeof minWidth === 'number' ? {minWidth} : {}),
+        ...(typeof maxWidth === 'string' || typeof maxWidth === 'number' ? {maxWidth} : {}),
+        ...style,
+      }
+    }, [width, minWidth, maxWidth, style])
+
     return (
       <span
         ref={forwardRef}
@@ -70,12 +79,7 @@ export const TextInputBaseWrapper = React.forwardRef<HTMLElement, StyledTextInpu
         data-trailing-action={hasTrailingAction || undefined}
         data-validation={validationStatus || undefined}
         data-variant={variant || undefined}
-        style={{
-          ...(typeof width === 'string' || typeof width === 'number' ? {width} : {}),
-          ...(typeof minWidth === 'string' || typeof minWidth === 'number' ? {minWidth} : {}),
-          ...(typeof maxWidth === 'string' || typeof maxWidth === 'number' ? {maxWidth} : {}),
-          ...style,
-        }}
+        style={memoizedStyle}
         {...restProps}
       />
     )
