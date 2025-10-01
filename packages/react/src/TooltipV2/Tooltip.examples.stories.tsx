@@ -3,17 +3,7 @@ import {Button, IconButton, Breadcrumbs, ActionMenu, ActionList} from '..'
 import {PageHeader} from '../PageHeader'
 import {Tooltip} from './Tooltip'
 import {Dialog} from '../experimental'
-import {
-  GitBranchIcon,
-  KebabHorizontalIcon,
-  TriangleDownIcon,
-  CheckIcon,
-  XIcon,
-  HeartIcon,
-  BookIcon,
-  StarIcon,
-  SearchIcon,
-} from '@primer/octicons-react'
+import {GitBranchIcon, KebabHorizontalIcon, TriangleDownIcon, CheckIcon, XIcon} from '@primer/octicons-react'
 import {default as VisuallyHidden} from '../_VisuallyHidden'
 
 export default {
@@ -196,23 +186,28 @@ export const DialogTrigger = () => {
   )
 }
 
-export const OcticonPicker = () => {
-  const octicons = [
-    {icon: SearchIcon, name: 'Search'},
-    {icon: BookIcon, name: 'Book'},
-    {icon: CheckIcon, name: 'Check'},
-    {icon: StarIcon, name: 'Star'},
-    {icon: HeartIcon, name: 'Heart'},
-    {icon: SearchIcon, name: 'Search'},
-    {icon: BookIcon, name: 'Book'},
-    {icon: CheckIcon, name: 'Check'},
-    {icon: StarIcon, name: 'Star'},
-    {icon: HeartIcon, name: 'Heart'},
-    {icon: SearchIcon, name: 'Search'},
-    {icon: BookIcon, name: 'Book'},
-    {icon: CheckIcon, name: 'Check'},
-    {icon: StarIcon, name: 'Star'},
-    {icon: HeartIcon, name: 'Heart'},
+export const EmojiPicker = () => {
+  // This example demonstrates a grid of emojis/icons with tooltips that appear after a long delay.
+  // This pattern is used in places like emoji reactions on comments and the icon picker in the issues dashboard's saved views on GitHub.
+  // The delay improves UX by preventing distraction when users move their cursor across multiple emojis/icons,
+  // especially since these icons are generally familiar and don't require immediate explanation.
+
+  const emojis = [
+    {emoji: '😀', name: 'Grinning Face'},
+    {emoji: '😍', name: 'Heart Eyes'},
+    {emoji: '🎉', name: 'Party Popper'},
+    {emoji: '👍', name: 'Thumbs Up'},
+    {emoji: '❤️', name: 'Red Heart'},
+    {emoji: '🔥', name: 'Fire'},
+    {emoji: '💯', name: 'Hundred Points'},
+    {emoji: '🚀', name: 'Rocket'},
+    {emoji: '⭐', name: 'Star'},
+    {emoji: '🎯', name: 'Direct Hit'},
+    {emoji: '💡', name: 'Light Bulb'},
+    {emoji: '🌟', name: 'Glowing Star'},
+    {emoji: '🎊', name: 'Confetti Ball'},
+    {emoji: '✨', name: 'Sparkles'},
+    {emoji: '🌈', name: 'Rainbow'},
   ]
 
   return (
@@ -225,9 +220,24 @@ export const OcticonPicker = () => {
         padding: '16px',
       }}
     >
-      {octicons.map((octicon, index) => (
-        <Tooltip key={index} text={octicon.name} direction="n" delay="long">
-          <IconButton aria-label={octicon.name} icon={octicon.icon} />
+      {emojis.map((emojiItem, index) => (
+        <Tooltip key={index} text={emojiItem.name} direction="n" delay="long">
+          <Button
+            aria-label={emojiItem.name}
+            variant="invisible"
+            size="small"
+            style={{
+              fontSize: '18px',
+              padding: '8px',
+              minWidth: '32px',
+              minHeight: '32px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            {emojiItem.emoji}
+          </Button>
         </Tooltip>
       ))}
     </div>
