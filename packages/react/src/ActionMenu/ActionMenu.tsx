@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useMemo, useEffect, useState} from 'react'
+import React, {useCallback, useContext, useMemo, useEffect, useState, forwardRef} from 'react'
 import {TriangleDownIcon, ChevronRightIcon} from '@primer/octicons-react'
 import type {AnchoredOverlayProps} from '../AnchoredOverlay'
 import {AnchoredOverlay} from '../AnchoredOverlay'
@@ -99,7 +99,11 @@ const Menu: React.FC<React.PropsWithChildren<ActionMenuProps>> = ({
   )
 
   const menuButtonChild = React.Children.toArray(children).find(
-    child => React.isValidElement<ActionMenuButtonProps>(child) && (child.type === MenuButton || child.type === Anchor),
+    child =>
+      React.isValidElement<ActionMenuButtonProps>(child) &&
+      typeof child.type === 'function' &&
+      'displayName' in child.type &&
+      (child.type.displayName === 'ActionMenu.Button' || child.type.displayName === 'ActionMenu.Anchor'),
   )
   const menuButtonChildId = React.isValidElement(menuButtonChild) ? menuButtonChild.props.id : undefined
 
@@ -112,10 +116,14 @@ const Menu: React.FC<React.PropsWithChildren<ActionMenuProps>> = ({
   // 🚨 Accounting for Tooltip wrapping ActionMenu.Button or being a direct child of ActionMenu.Anchor.
   const contents = React.Children.map(children, child => {
     // Is ActionMenu.Button wrapped with Tooltip? If this is the case, our anchor is the tooltip's trigger (ActionMenu.Button's grandchild)
-    if (child.type === Tooltip) {
+    if (typeof child.type === 'function' && 'displayName' in child.type && child.type.displayName === 'Tooltip') {
       // tooltip trigger
       const anchorChildren = child.props.children
-      if (anchorChildren.type === MenuButton) {
+      if (
+        typeof anchorChildren.type === 'function' &&
+        'displayName' in anchorChildren.type &&
+        anchorChildren.type.displayName === 'ActionMenu.Button'
+      ) {
         // eslint-disable-next-line react-compiler/react-compiler
         renderAnchor = anchorProps => {
           // We need to attach the anchor props to the tooltip trigger (ActionMenu.Button's grandchild) not the tooltip itself.
@@ -127,9 +135,18 @@ const Menu: React.FC<React.PropsWithChildren<ActionMenuProps>> = ({
         }
       }
       return null
-    } else if (child.type === Anchor) {
+    } else if (
+      typeof child.type === 'function' &&
+      'displayName' in child.type &&
+      child.type.displayName === 'ActionMenu.Anchor'
+    ) {
       const anchorChildren = child.props.children
-      const isWrappedWithTooltip = anchorChildren !== undefined ? anchorChildren.type === Tooltip : false
+      const isWrappedWithTooltip =
+        anchorChildren !== undefined
+          ? typeof anchorChildren.type === 'function' &&
+            'displayName' in anchorChildren.type &&
+            anchorChildren.type.displayName === 'Tooltip'
+          : false
       if (isWrappedWithTooltip) {
         if (anchorChildren.props.children !== null) {
           renderAnchor = anchorProps => {
@@ -148,7 +165,11 @@ const Menu: React.FC<React.PropsWithChildren<ActionMenuProps>> = ({
         renderAnchor = anchorProps => React.cloneElement(child, anchorProps)
       }
       return null
-    } else if (child.type === MenuButton) {
+    } else if (
+      typeof child.type === 'function' &&
+      'displayName' in child.type &&
+      child.type.displayName === 'ActionMenu.Button'
+    ) {
       renderAnchor = anchorProps => React.cloneElement(child, mergeAnchorHandlers(anchorProps, child.props))
       return null
     } else {
@@ -323,4 +344,6 @@ const Overlay: React.FC<React.PropsWithChildren<MenuOverlayProps>> = ({
 }
 
 Menu.displayName = 'ActionMenu'
+MenuButton.displayName = 'ActionMenu.Button'
+Anchor.displayName = 'ActionMenu.Anchor'
 export const ActionMenu = Object.assign(Menu, {Button: MenuButton, Anchor, Overlay, Divider})

@@ -77,7 +77,7 @@ const isInteractive = (element: HTMLElement) => {
 }
 export const TooltipContext = React.createContext<{tooltipId?: string}>({})
 
-export const Tooltip = React.forwardRef(
+const Tooltip = React.forwardRef(
   (
     {direction = 's', text, type = 'description', children, id, className, keybindingHint, ...rest}: TooltipProps,
     forwardedRef,
@@ -333,3 +333,7 @@ export const Tooltip = React.forwardRef(
     )
   },
 )
+
+Tooltip.displayName = 'Tooltip'
+
+export {Tooltip}

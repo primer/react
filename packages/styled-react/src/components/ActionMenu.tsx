@@ -21,19 +21,23 @@ export type ActionMenuButtonProps = PrimerActionMenuButtonProps & SxProp & {as?:
 
 const StyledActionMenuButton = forwardRef<HTMLButtonElement, ActionMenuButtonProps>((props, ref) => {
   return <Box as={PrimerActionMenu.Button} ref={ref} {...props} />
-})
+}) as ForwardRefComponent<'button', ActionMenuButtonProps>
+
+StyledActionMenuButton.displayName = 'ActionMenu.Button'
 
 const ActionMenuButton = forwardRef(({as, ...props}: ActionMenuButtonProps, ref) => (
   <StyledActionMenuButton {...props} {...(as ? {forwardedAs: as} : {})} ref={ref} />
 )) as ForwardRefComponent<'button', ActionMenuButtonProps>
 
+ActionMenuButton.displayName = 'ActionMenu.Button'
+
 export const ActionMenu: typeof PrimerActionMenu & {
-  Button: typeof ActionMenuButton
+  Button: typeof StyledActionMenuButton
   Anchor: typeof PrimerActionMenu.Anchor
   Overlay: typeof ActionMenuOverlay
   Divider: typeof PrimerActionMenu.Divider
 } = Object.assign(PrimerActionMenu, {
-  Button: ActionMenuButton,
+  Button: StyledActionMenuButton,
   Anchor: PrimerActionMenu.Anchor,
   Overlay: ActionMenuOverlay,
   Divider: PrimerActionMenu.Divider,
