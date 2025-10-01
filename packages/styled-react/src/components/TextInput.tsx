@@ -6,6 +6,7 @@ import {
 import {forwardRef} from 'react'
 import {Box} from './Box'
 import type {SxProp} from '../sx'
+import type {ForwardRefExoticComponent, RefAttributes} from 'react'
 
 export type TextInputProps = PrimerTextInputProps & SxProp & {as?: React.ElementType}
 export type TextInputActionProps = PrimerTextInputActionProps & SxProp
@@ -21,8 +22,6 @@ const TextInputImpl = forwardRef<HTMLInputElement, TextInputProps>(({as, ...prop
 const TextInputAction = forwardRef<HTMLButtonElement, TextInputActionProps>((props, ref) => {
   return <Box as={PrimerTextInput.Action} ref={ref} {...props} />
 })
-
-import type {ForwardRefExoticComponent, RefAttributes} from 'react'
 
 type TextInputComposite = ForwardRefExoticComponent<TextInputProps & RefAttributes<HTMLInputElement>> & {
   Action: typeof TextInputAction
