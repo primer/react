@@ -33,13 +33,13 @@ test.describe('ActionBar', () => {
           const toolbarButtonSelector = `button[data-component="IconButton"]`
           await expect(page.locator(toolbarButtonSelector)).toHaveCount(10)
           await page.setViewportSize({width: viewports['primer.breakpoint.xs'], height: 768})
-          await page.getByLabel('Insert Link').waitFor({
+          await page.getByLabel('Task List').waitFor({
             state: 'hidden',
           })
-          await expect(page.locator(toolbarButtonSelector)).toHaveCount(2)
+          await expect(page.locator(toolbarButtonSelector)).toHaveCount(8)
           const moreButtonSelector = page.getByLabel('More Comment box toolbar items')
           await moreButtonSelector.click()
-          await expect(page.locator('ul[role="menu"] [role="menuitem"]')).toHaveCount(8)
+          await expect(page.locator('ul[role="menu"] [role="menuitem"]')).toHaveCount(3)
         })
       })
     }
