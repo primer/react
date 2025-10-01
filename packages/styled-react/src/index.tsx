@@ -4,8 +4,6 @@ export {Details} from '@primer/react'
 export {ProgressBar} from '@primer/react'
 export {Select} from '@primer/react'
 export {Textarea} from '@primer/react'
-export {TextInput} from '@primer/react'
-export {type TextInputProps} from '@primer/react'
 
 // theming depends on styled-components
 export {ThemeProvider} from '@primer/react'
@@ -54,6 +52,7 @@ export {Spinner, type SpinnerProps} from './components/Spinner'
 export {StateLabel, type StateLabelProps} from './components/StateLabel'
 export {SubNav, type SubNavProps, type SubNavLinkProps} from './components/SubNav'
 export {Text, type TextProps} from './components/Text'
+export {TextInput, type TextInputProps, type TextInputActionProps} from './components/TextInput'
 export {
   Timeline,
   type TimelineProps,
