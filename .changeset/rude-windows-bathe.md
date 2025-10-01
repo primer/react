@@ -3,4 +3,4 @@
 "@primer/styled-react": patch
 ---
 
-Remove sx from UnderlinePanels
+use UnderlinePanles.Tab, UnderlinePanels.Panel from @primer/react
