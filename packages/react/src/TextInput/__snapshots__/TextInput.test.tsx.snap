@@ -300,7 +300,6 @@ exports[`TextInput > renders trailingAction icon button 1`] = `
         data-no-visuals="true"
         data-size="small"
         data-variant="invisible"
-        sx="[object Object]"
         type="button"
       >
         <svg
@@ -358,7 +357,6 @@ exports[`TextInput > renders trailingAction text button 1`] = `
         data-no-visuals="true"
         data-size="medium"
         data-variant="invisible"
-        sx="[object Object]"
         type="button"
       >
         <span
@@ -403,7 +401,6 @@ exports[`TextInput > renders trailingAction text button with a tooltip 1`] = `
         data-no-visuals="true"
         data-size="medium"
         data-variant="invisible"
-        sx="[object Object]"
         type="button"
       >
         <span
