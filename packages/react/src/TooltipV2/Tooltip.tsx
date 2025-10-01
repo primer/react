@@ -1,5 +1,4 @@
 import React, {Children, useEffect, useRef, useState, useMemo} from 'react'
-import type {SxProp} from '../sx'
 import {useId, useProvidedRefOrCreate, useOnEscapePress, useIsMacOS} from '../hooks'
 import {invariant} from '../utils/invariant'
 import {warning} from '../utils/warning'
@@ -11,15 +10,13 @@ import classes from './Tooltip.module.css'
 import {getAccessibleKeybindingHintString, KeybindingHint, type KeybindingHintProps} from '../KeybindingHint'
 import VisuallyHidden from '../_VisuallyHidden'
 import useSafeTimeout from '../hooks/useSafeTimeout'
-import {BoxWithFallback} from '../internal/components/BoxWithFallback'
 
 export type TooltipDirection = 'nw' | 'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w'
-export type TooltipProps = React.PropsWithChildren<
-  {
-    direction?: TooltipDirection
-    text: string
-    type?: 'label' | 'description'
-    keybindingHint?: KeybindingHintProps['keys']
+export type TooltipProps = React.PropsWithChildren<{
+  direction?: TooltipDirection
+  text: string
+  type?: 'label' | 'description'
+  keybindingHint?: KeybindingHintProps['keys']
     /**
      * Delay in milliseconds before showing the tooltip
      * @default short (50ms)
@@ -27,8 +24,7 @@ export type TooltipProps = React.PropsWithChildren<
      * long (1200ms)
      */
     delay?: 'short' | 'medium' | 'long'
-  } & SxProp
-> &
+}> &
   React.HTMLAttributes<HTMLElement>
 
 type TriggerPropsType = Pick<
@@ -326,8 +322,7 @@ export const Tooltip = React.forwardRef(
                 child.props.onMouseLeave?.(event)
               },
             })}
-          <BoxWithFallback
-            as="span"
+          <span
             className={clsx(className, classes.Tooltip)}
             ref={tooltipElRef}
             data-direction={calculatedDirection}
@@ -360,7 +355,7 @@ export const Tooltip = React.forwardRef(
             ) : (
               text
             )}
-          </BoxWithFallback>
+          </span>
         </>
       </TooltipContext.Provider>
     )

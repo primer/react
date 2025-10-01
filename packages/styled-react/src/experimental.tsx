@@ -13,4 +13,7 @@ export {
   type UnderlinePanelsTabProps,
   type UnderlinePanelsPanelProps,
 } from './components/UnderlinePanels'
-export {Table, Tooltip} from '@primer/react/experimental'
+
+export {Tooltip, type TooltipProps} from './components/Tooltip'
+
+export {Table} from '@primer/react/experimental'
