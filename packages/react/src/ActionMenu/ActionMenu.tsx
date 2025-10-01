@@ -15,32 +15,6 @@ import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../uti
 import styles from './ActionMenu.module.css'
 import {useResponsiveValue, type ResponsiveValue} from '../hooks/useResponsiveValue'
 
-/**
- * Utility function to get the component display name from a React element
- * Falls back to component name if displayName is not available
- */
-const getComponentDisplayName = (element: React.ReactElement): string | undefined => {
-  if (
-    !React.isValidElement(element) ||
-    !element.type ||
-    (typeof element.type !== 'object' && typeof element.type !== 'function')
-  ) {
-    return undefined
-  }
-
-  // Check if the type has a displayName property
-  if ('displayName' in element.type && typeof element.type.displayName === 'string') {
-    return element.type.displayName
-  }
-
-  // Fall back to component name if displayName is not available
-  if ('name' in element.type && typeof element.type.name === 'string') {
-    return element.type.name
-  }
-
-  return undefined
-}
-
 export type MenuCloseHandler = (
   gesture: 'anchor-click' | 'click-outside' | 'escape' | 'tab' | 'item-select' | 'arrow-left' | 'close',
 ) => void
@@ -123,10 +97,13 @@ const Menu: React.FC<React.PropsWithChildren<ActionMenuProps>> = ({
     [setCombinedOpenState, parentMenuContext, open, isNarrow],
   )
 
-  const menuButtonChild = React.Children.toArray(children).find(child => {
-    const displayName = getComponentDisplayName(child as React.ReactElement)
-    return displayName === 'ActionMenu.Button' || displayName === 'ActionMenu.Anchor'
-  })
+  const menuButtonChild = React.Children.toArray(children).find(
+    child =>
+      React.isValidElement<ActionMenuButtonProps>(child) &&
+      typeof child.type === 'function' &&
+      'displayName' in child.type &&
+      (child.type.displayName === 'ActionMenu.Button' || child.type.displayName === 'ActionMenu.Anchor'),
+  )
   const menuButtonChildId = React.isValidElement(menuButtonChild) ? menuButtonChild.props.id : undefined
 
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
@@ -138,10 +115,14 @@ const Menu: React.FC<React.PropsWithChildren<ActionMenuProps>> = ({
   // 🚨 Accounting for Tooltip wrapping ActionMenu.Button or being a direct child of ActionMenu.Anchor.
   const contents = React.Children.map(children, child => {
     // Is ActionMenu.Button wrapped with Tooltip? If this is the case, our anchor is the tooltip's trigger (ActionMenu.Button's grandchild)
-    if (getComponentDisplayName(child) === 'Tooltip') {
+    if (typeof child.type === 'function' && 'displayName' in child.type && child.type.displayName === 'Tooltip') {
       // tooltip trigger
       const anchorChildren = child.props.children
-      if (getComponentDisplayName(anchorChildren) === 'ActionMenu.Button') {
+      if (
+        typeof anchorChildren.type === 'function' &&
+        'displayName' in anchorChildren.type &&
+        anchorChildren.type.displayName === 'ActionMenu.Button'
+      ) {
         // eslint-disable-next-line react-compiler/react-compiler
         renderAnchor = anchorProps => {
           // We need to attach the anchor props to the tooltip trigger (ActionMenu.Button's grandchild) not the tooltip itself.
@@ -153,10 +134,18 @@ const Menu: React.FC<React.PropsWithChildren<ActionMenuProps>> = ({
         }
       }
       return null
-    } else if (getComponentDisplayName(child) === 'ActionMenu.Anchor') {
+    } else if (
+      typeof child.type === 'function' &&
+      'displayName' in child.type &&
+      child.type.displayName === 'ActionMenu.Anchor'
+    ) {
       const anchorChildren = child.props.children
       const isWrappedWithTooltip =
-        anchorChildren !== undefined ? getComponentDisplayName(anchorChildren) === 'Tooltip' : false
+        anchorChildren !== undefined
+          ? typeof anchorChildren.type === 'function' &&
+            'displayName' in anchorChildren.type &&
+            anchorChildren.type.displayName === 'Tooltip'
+          : false
       if (isWrappedWithTooltip) {
         if (anchorChildren.props.children !== null) {
           renderAnchor = anchorProps => {
@@ -175,7 +164,11 @@ const Menu: React.FC<React.PropsWithChildren<ActionMenuProps>> = ({
         renderAnchor = anchorProps => React.cloneElement(child, anchorProps)
       }
       return null
-    } else if (getComponentDisplayName(child) === 'ActionMenu.Button') {
+    } else if (
+      typeof child.type === 'function' &&
+      'displayName' in child.type &&
+      child.type.displayName === 'ActionMenu.Button'
+    ) {
       renderAnchor = anchorProps => React.cloneElement(child, mergeAnchorHandlers(anchorProps, child.props))
       return null
     } else {

@@ -32,12 +32,12 @@ const ActionMenuButton = forwardRef(({as, ...props}: ActionMenuButtonProps, ref)
 ActionMenuButton.displayName = 'ActionMenu.Button'
 
 export const ActionMenu: typeof PrimerActionMenu & {
-  Button: typeof ActionMenuButton
+  Button: typeof StyledActionMenuButton
   Anchor: typeof PrimerActionMenu.Anchor
   Overlay: typeof ActionMenuOverlay
   Divider: typeof PrimerActionMenu.Divider
 } = Object.assign(PrimerActionMenu, {
-  Button: ActionMenuButton,
+  Button: StyledActionMenuButton,
   Anchor: PrimerActionMenu.Anchor,
   Overlay: ActionMenuOverlay,
   Divider: PrimerActionMenu.Divider,
