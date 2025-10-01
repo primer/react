@@ -31,7 +31,7 @@
   font-weight: var(--base-text-weight-normal);
 }
 
-.MutedText {
+.TextMuted {
   color: var(--fgColor-muted);
 }
 
