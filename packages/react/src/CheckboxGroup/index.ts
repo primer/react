@@ -1,1 +1,1 @@
-export {default, CheckboxGroupContext} from './CheckboxGroup'
+export {default, CheckboxGroupContext, type CheckboxGroupProps} from './CheckboxGroup'
