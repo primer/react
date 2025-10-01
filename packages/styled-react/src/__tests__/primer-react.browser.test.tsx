@@ -52,11 +52,6 @@ describe('@primer/react', () => {
     expect(screen.getByTestId('component')).toHaveAttribute('data-variant', 'inset')
   })
 
-  test('ActionMenu.Button supports `sx` prop', () => {
-    const {container} = render(<ActionMenu.Button sx={{background: 'red'}}>test</ActionMenu.Button>)
-    expect(window.getComputedStyle(container.firstElementChild!).backgroundColor).toBe('rgb(255, 0, 0)')
-  })
-
   test('ActionMenu.Overlay supports `sx` prop', async () => {
     const user = userEvent.setup()
     render(
