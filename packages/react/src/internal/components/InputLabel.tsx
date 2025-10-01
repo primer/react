@@ -1,26 +1,30 @@
 import {clsx} from 'clsx'
 import type React from 'react'
-import type {ElementType} from 'react'
 import classes from './InputLabel.module.css'
-import type {PolymorphicProps} from '../../utils/modern-polymorphic'
 
-type InputLabelProps<As extends ElementType = 'label'> = PolymorphicProps<
-  As,
-  'label',
-  {
-    disabled?: boolean
-    required?: boolean
-    requiredText?: string
-    requiredIndicator?: boolean
-    visuallyHidden?: boolean
-  }
-> &
-  React.PropsWithChildren
+type BaseProps = {
+  disabled?: boolean
+  required?: boolean
+  requiredText?: string
+  requiredIndicator?: boolean
+  visuallyHidden?: boolean
+  id?: string
+  className?: string
+}
 
-export type LabelProps = InputLabelProps<'label'>
-export type LegendOrSpanProps = InputLabelProps<'legend' | 'span'>
+export type LabelProps = BaseProps & {
+  htmlFor?: string
+  as?: 'label'
+}
 
-function InputLabel<As extends ElementType = 'label'>({
+export type LegendOrSpanProps = BaseProps & {
+  as: 'legend' | 'span'
+  htmlFor?: undefined
+}
+
+type Props = React.PropsWithChildren<LabelProps | LegendOrSpanProps>
+
+function InputLabel({
   children,
   disabled,
   htmlFor,
@@ -29,12 +33,14 @@ function InputLabel<As extends ElementType = 'label'>({
   requiredText,
   requiredIndicator,
   visuallyHidden,
-  as,
+  as = 'label',
   className,
   ...props
-}: InputLabelProps<As>) {
-  const Component = (as ?? 'label') as ElementType
+}: Props) {
+  const Component = as
+
   return (
+    // @ts-ignore weird typing issue with union for `as` prop
     <Component
       data-control-disabled={disabled ? '' : undefined}
       data-visually-hidden={visuallyHidden ? '' : undefined}
