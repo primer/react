@@ -15,7 +15,7 @@ type TokenProps = PropsWithChildren<PrimerTokenProps> & SxProp
 const Token: ForwardRefComponent<'a' | 'button' | 'span', TokenProps> = React.forwardRef<HTMLElement, TokenProps>(
   ({sx: sxProp, style, ...rest}, ref) => {
     const contextTheme = useTheme()
-    const theme = contextTheme?.theme || defaultTheme
+    const theme = contextTheme.theme || defaultTheme
 
     // If no sx prop is provided, just return PrimerToken directly
     if (!sxProp) {

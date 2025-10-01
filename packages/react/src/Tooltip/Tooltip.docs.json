@@ -31,11 +31,6 @@
       "name": "wrap",
       "type": "boolean",
       "description": "Use `true` to allow text within tooltip to wrap."
-    },
-    {
-      "name": "sx",
-      "type": "SystemStyleObject",
-      "deprecated": true
     }
   ],
   "subcomponents": []

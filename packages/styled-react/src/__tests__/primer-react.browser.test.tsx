@@ -143,6 +143,11 @@ describe('@primer/react', () => {
     )
   })
 
+  test('CheckboxGroup.Label supports `sx` prop', () => {
+    const {container} = render(<CheckboxGroup.Label data-testid="component" sx={{background: 'red'}} />)
+    expect(window.getComputedStyle(container.firstElementChild!).backgroundColor).toBe('rgb(255, 0, 0)')
+  })
+
   test('CircleBadge supports `sx` prop', () => {
     render(<CircleBadge data-testid="component" sx={{background: 'red'}} />)
     expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')

@@ -1,6 +1,7 @@
 :where(.Link) {
   color: var(--fgColor-accent);
   text-decoration: none;
+  text-underline-offset: 0.05rem;
 
   /* Reset for button tags */
   &:is(button) {
