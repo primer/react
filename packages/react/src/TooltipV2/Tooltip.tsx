@@ -17,13 +17,13 @@ export type TooltipProps = React.PropsWithChildren<{
   text: string
   type?: 'label' | 'description'
   keybindingHint?: KeybindingHintProps['keys']
-    /**
-     * Delay in milliseconds before showing the tooltip
-     * @default short (50ms)
-     * medium (400ms)
-     * long (1200ms)
-     */
-    delay?: 'short' | 'medium' | 'long'
+  /**
+   * Delay in milliseconds before showing the tooltip
+   * @default short (50ms)
+   * medium (400ms)
+   * long (1200ms)
+   */
+  delay?: 'short' | 'medium' | 'long'
 }> &
   React.HTMLAttributes<HTMLElement>
 
