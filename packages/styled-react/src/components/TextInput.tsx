@@ -1,7 +1,7 @@
 import {
   TextInput as PrimerTextInput,
-  TextInputProps as PrimerTextInputProps,
-  TextInputActionProps as PrimerTextInputActionProps,
+  type TextInputProps as PrimerTextInputProps,
+  type TextInputActionProps as PrimerTextInputActionProps,
 } from '@primer/react'
 import {forwardRef} from 'react'
 import {Box} from './Box'
