@@ -185,3 +185,61 @@ export const DialogTrigger = () => {
     </>
   )
 }
+
+export const EmojiPicker = () => {
+  // This example demonstrates a grid of emojis/icons with tooltips that appear after a long delay.
+  // This pattern is used in places like emoji reactions on comments and the icon picker in the issues dashboard's saved views on GitHub.
+  // The delay improves UX by preventing distraction when users move their cursor across multiple emojis/icons,
+  // especially since these icons are generally familiar and don't require immediate explanation.
+
+  const emojis = [
+    {emoji: '😀', name: 'Grinning Face'},
+    {emoji: '😍', name: 'Heart Eyes'},
+    {emoji: '🎉', name: 'Party Popper'},
+    {emoji: '👍', name: 'Thumbs Up'},
+    {emoji: '❤️', name: 'Red Heart'},
+    {emoji: '🔥', name: 'Fire'},
+    {emoji: '💯', name: 'Hundred Points'},
+    {emoji: '🚀', name: 'Rocket'},
+    {emoji: '⭐', name: 'Star'},
+    {emoji: '🎯', name: 'Direct Hit'},
+    {emoji: '💡', name: 'Light Bulb'},
+    {emoji: '🌟', name: 'Glowing Star'},
+    {emoji: '🎊', name: 'Confetti Ball'},
+    {emoji: '✨', name: 'Sparkles'},
+    {emoji: '🌈', name: 'Rainbow'},
+  ]
+
+  return (
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(5, 1fr)',
+        gap: '4px',
+        maxWidth: '200px',
+        padding: '16px',
+      }}
+    >
+      {emojis.map((emojiItem, index) => (
+        <Tooltip key={index} text={emojiItem.name} direction="n" delay="long">
+          <Button
+            aria-label={emojiItem.name}
+            variant="invisible"
+            size="small"
+            style={{
+              fontSize: '18px',
+              padding: '8px',
+              minWidth: '32px',
+              minHeight: '32px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            {emojiItem.emoji}
+          </Button>
+        </Tooltip>
+      ))}
+    </div>
+  )
+}
