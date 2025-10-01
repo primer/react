@@ -12,22 +12,339 @@ jobs:
 
           # Test query to get repository information
           QUERY='query {
-            repository(owner: "primer", name: "react") {
-              name
-              description
-              stargazerCount
-              forkCount
-              defaultBranchRef {
-                name
-              }
-              languages(first: 5) {
-                nodes {
-                  name
-                  color
-                }
-              }
+  a0: repository(owner: "primer", name: "react") {
+    a15824db141ef32b3e090bcf1880f03bd9684392a: object(expression: "15824db141ef32b3e090bcf1880f03bd9684392a") {
+      ... on Commit {
+        commitUrl
+        associatedPullRequests(first: 50) {
+          nodes {
+            number
+            url
+            mergedAt
+            author {
+              login
+              url
             }
-          }'
+          }
+        }
+        author {
+          user {
+            login
+            url
+          }
+        }
+      }
+    }
+    a19befd66b801532bb0ef85e60296c73d8c747fc5: object(expression: "19befd66b801532bb0ef85e60296c73d8c747fc5") {
+      ... on Commit {
+        commitUrl
+        associatedPullRequests(first: 50) {
+          nodes {
+            number
+            url
+            mergedAt
+            author {
+              login
+              url
+            }
+          }
+        }
+        author {
+          user {
+            login
+            url
+          }
+        }
+      }
+    }
+    a2053cb3f7ee15fe1e4c3cc9be3c09c82dd5aed93: object(expression: "2053cb3f7ee15fe1e4c3cc9be3c09c82dd5aed93") {
+      ... on Commit {
+        commitUrl
+        associatedPullRequests(first: 50) {
+          nodes {
+            number
+            url
+            mergedAt
+            author {
+              login
+              url
+            }
+          }
+        }
+        author {
+          user {
+            login
+            url
+          }
+        }
+      }
+    }
+    a4e797ef27ea9ae8baf9bc99503136efa8cdd1b57: object(expression: "4e797ef27ea9ae8baf9bc99503136efa8cdd1b57") {
+      ... on Commit {
+        commitUrl
+        associatedPullRequests(first: 50) {
+          nodes {
+            number
+            url
+            mergedAt
+            author {
+              login
+              url
+            }
+          }
+        }
+        author {
+          user {
+            login
+            url
+          }
+        }
+      }
+    }
+    a86b3e6063855615675c87df6eccad41d83db3762: object(expression: "86b3e6063855615675c87df6eccad41d83db3762") {
+      ... on Commit {
+        commitUrl
+        associatedPullRequests(first: 50) {
+          nodes {
+            number
+            url
+            mergedAt
+            author {
+              login
+              url
+            }
+          }
+        }
+        author {
+          user {
+            login
+            url
+          }
+        }
+      }
+    }
+    a158703b7263264124d659e0b18afa2317b1be5e9: object(expression: "158703b7263264124d659e0b18afa2317b1be5e9") {
+      ... on Commit {
+        commitUrl
+        associatedPullRequests(first: 50) {
+          nodes {
+            number
+            url
+            mergedAt
+            author {
+              login
+              url
+            }
+          }
+        }
+        author {
+          user {
+            login
+            url
+          }
+        }
+      }
+    }
+    aeaf7e5840e4fbe4042c80711f983a0df05e2b68d: object(expression: "eaf7e5840e4fbe4042c80711f983a0df05e2b68d") {
+      ... on Commit {
+        commitUrl
+        associatedPullRequests(first: 50) {
+          nodes {
+            number
+            url
+            mergedAt
+            author {
+              login
+              url
+            }
+          }
+        }
+        author {
+          user {
+            login
+            url
+          }
+        }
+      }
+    }
+    a4196e0eed6894d020a83b9f382f5cb6817f9a725: object(expression: "4196e0eed6894d020a83b9f382f5cb6817f9a725") {
+      ... on Commit {
+        commitUrl
+        associatedPullRequests(first: 50) {
+          nodes {
+            number
+            url
+            mergedAt
+            author {
+              login
+              url
+            }
+          }
+        }
+        author {
+          user {
+            login
+            url
+          }
+        }
+      }
+    }
+    ab0abd785713d9f95ca9d5e41394e00153176077d: object(expression: "b0abd785713d9f95ca9d5e41394e00153176077d") {
+      ... on Commit {
+        commitUrl
+        associatedPullRequests(first: 50) {
+          nodes {
+            number
+            url
+            mergedAt
+            author {
+              login
+              url
+            }
+          }
+        }
+        author {
+          user {
+            login
+            url
+          }
+        }
+      }
+    }
+    a445b48990c5e392c4cee983b892c80f870f3d94b: object(expression: "445b48990c5e392c4cee983b892c80f870f3d94b") {
+      ... on Commit {
+        commitUrl
+        associatedPullRequests(first: 50) {
+          nodes {
+            number
+            url
+            mergedAt
+            author {
+              login
+              url
+            }
+          }
+        }
+        author {
+          user {
+            login
+            url
+          }
+        }
+      }
+    }
+    aaf288e632c042c5e82aae6ee2bd5107e8be2b9ec: object(expression: "af288e632c042c5e82aae6ee2bd5107e8be2b9ec") {
+      ... on Commit {
+        commitUrl
+        associatedPullRequests(first: 50) {
+          nodes {
+            number
+            url
+            mergedAt
+            author {
+              login
+              url
+            }
+          }
+        }
+        author {
+          user {
+            login
+            url
+          }
+        }
+      }
+    }
+    a1cb348f079dffcf10bdf422b1e14e0a29fa4662d: object(expression: "1cb348f079dffcf10bdf422b1e14e0a29fa4662d") {
+      ... on Commit {
+        commitUrl
+        associatedPullRequests(first: 50) {
+          nodes {
+            number
+            url
+            mergedAt
+            author {
+              login
+              url
+            }
+          }
+        }
+        author {
+          user {
+            login
+            url
+          }
+        }
+      }
+    }
+    a0834e9ebe910c363f413723a254e0f2bd947a4b6: object(expression: "0834e9ebe910c363f413723a254e0f2bd947a4b6") {
+      ... on Commit {
+        commitUrl
+        associatedPullRequests(first: 50) {
+          nodes {
+            number
+            url
+            mergedAt
+            author {
+              login
+              url
+            }
+          }
+        }
+        author {
+          user {
+            login
+            url
+          }
+        }
+      }
+    }
+    a628e60172343fdf1c94734c39480991b0591e267: object(expression: "628e60172343fdf1c94734c39480991b0591e267") {
+      ... on Commit {
+        commitUrl
+        associatedPullRequests(first: 50) {
+          nodes {
+            number
+            url
+            mergedAt
+            author {
+              login
+              url
+            }
+          }
+        }
+        author {
+          user {
+            login
+            url
+          }
+        }
+      }
+    }
+    a0f075d1a679f0733ad984eeb2a677989ceca8ad0: object(expression: "0f075d1a679f0733ad984eeb2a677989ceca8ad0") {
+      ... on Commit {
+        commitUrl
+        associatedPullRequests(first: 50) {
+          nodes {
+            number
+            url
+            mergedAt
+            author {
+              login
+              url
+            }
+          }
+        }
+        author {
+          user {
+            login
+            url
+          }
+        }
+      }
+    }
+  }
+}'
 
           # Make the GraphQL API call with detailed error logging
           echo "Making GraphQL API call..."
