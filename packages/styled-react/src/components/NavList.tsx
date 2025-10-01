@@ -6,7 +6,7 @@ import type {
   NavListGroupHeadingProps as PrimerNavListGroupHeadingProps,
   NavListLeadingVisualProps as PrimerNavListLeadingVisualProps,
 } from '@primer/react'
-import {forwardRef, type ComponentProps, type PropsWithChildren} from 'react'
+import {forwardRef, type PropsWithChildren} from 'react'
 import {type SxProp} from '../sx'
 
 type RefComponent<E extends HTMLElement, P> = React.ForwardRefExoticComponent<P & React.RefAttributes<E>>
