@@ -57,11 +57,6 @@
       "name": "keybindingHint",
       "type": "string",
       "description": "Optional keybinding hint to indicate the availability of a keyboard shortcut. Supported syntax is described in the docs for the `KeybindingHint` component."
-    },
-    {
-      "name": "sx",
-      "type": "SystemStyleObject",
-      "deprecated": true
     }
   ],
   "subcomponents": []
