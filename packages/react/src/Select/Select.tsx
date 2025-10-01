@@ -87,6 +87,8 @@ const OptGroup: React.FC<React.PropsWithChildren<React.HTMLProps<HTMLOptGroupEle
   <optgroup {...props} />
 )
 
+Select.displayName = 'Select'
+
 export default Object.assign(Select, {
   Option,
   OptGroup,
