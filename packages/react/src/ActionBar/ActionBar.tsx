@@ -217,16 +217,10 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
                     if (menuItem.type === ActionList.Divider) {
                       return <ActionList.Divider key={index} />
                     } else {
-                      const {
-                        children: menuItemChildren,
-                        onClick,
-                        icon: Icon,
-                        'aria-label': ariaLabel,
-                        disabled,
-                      } = menuItem.props
+                      const {onClick, icon: Icon, 'aria-label': ariaLabel, disabled} = menuItem.props
                       return (
                         <ActionList.Item
-                          key={menuItemChildren}
+                          key={ariaLabel}
                           // eslint-disable-next-line primer-react/prefer-action-list-item-onselect
                           onClick={(event: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
                             closeOverlay()
