@@ -25,9 +25,9 @@ const StyledBreadcrumbsItem: ForwardRefComponent<'a', BreadcrumbsItemProps> = st
   ${sx}
 `
 
-const BreadcrumbsItem = ({as, ...props}: BreadcrumbsItemProps) => (
-  <StyledBreadcrumbsItem {...props} {...(as ? {forwardedAs: as} : {})} />
-)
+function BreadcrumbsItem<As extends React.ElementType = 'a'>({as, ...props}: BreadcrumbsItemProps<As>) {
+  return <StyledBreadcrumbsItem {...props} {...(as ? {forwardedAs: as} : {})} />
+}
 
 const Breadcrumbs: ForwardRefComponent<'nav', BreadcrumbsProps> & {Item: typeof BreadcrumbsItem} = Object.assign(
   BreadcrumbsImpl,
