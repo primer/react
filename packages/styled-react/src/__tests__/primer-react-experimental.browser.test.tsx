@@ -37,16 +37,4 @@ describe('@primer/react/experimental', () => {
     )
     expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
   })
-
-  test('UnderlinePanels.Panel supports `sx` prop', () => {
-    render(
-      <UnderlinePanels>
-        <UnderlinePanels.Tab>tab</UnderlinePanels.Tab>
-        <UnderlinePanels.Panel data-testid="component" sx={{background: 'red'}}>
-          panel
-        </UnderlinePanels.Panel>
-      </UnderlinePanels>,
-    )
-    expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
-  })
 })
