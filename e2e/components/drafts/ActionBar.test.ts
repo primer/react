@@ -31,15 +31,15 @@ test.describe('ActionBar', () => {
             },
           })
           const toolbarButtonSelector = `button[data-component="IconButton"]`
-          await expect(page.locator(toolbarButtonSelector)).toHaveCount(9)
+          await expect(page.locator(toolbarButtonSelector)).toHaveCount(10)
           await page.setViewportSize({width: viewports['primer.breakpoint.xs'], height: 768})
           await page.getByLabel('Insert Link').waitFor({
             state: 'hidden',
           })
-          await expect(page.locator(toolbarButtonSelector)).toHaveCount(5)
+          await expect(page.locator(toolbarButtonSelector)).toHaveCount(2)
           const moreButtonSelector = page.getByLabel('More Comment box toolbar items')
           await moreButtonSelector.click()
-          await expect(page.locator('ul[role="menu"] [role="menuitem"]')).toHaveCount(6)
+          await expect(page.locator('ul[role="menu"] [role="menuitem"]')).toHaveCount(8)
         })
       })
     }
