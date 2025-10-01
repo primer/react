@@ -3,4 +3,4 @@
 "@primer/styled-react": patch
 ---
 
-use UnderlinePanles.Tab, UnderlinePanels.Panel from @primer/react
+use UnderlinePanels.Tab, UnderlinePanels.Panel from @primer/react
