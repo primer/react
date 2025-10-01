@@ -1,5 +1,13 @@
 import {clsx} from 'clsx'
 import React, {useContext} from 'react'
+import Autocomplete from '../Autocomplete'
+import Checkbox from '../Checkbox'
+import Radio from '../Radio'
+import Select from '../Select/Select'
+import {SelectPanel} from '../SelectPanel'
+import TextInput from '../TextInput'
+import TextInputWithTokens from '../TextInputWithTokens'
+import Textarea from '../Textarea'
 import {CheckboxOrRadioGroupContext} from '../internal/components/CheckboxOrRadioGroup'
 import ValidationAnimationContainer from '../internal/components/ValidationAnimationContainer'
 import {useSlots} from '../hooks/useSlots'
@@ -11,23 +19,6 @@ import FormControlValidation from './_FormControlValidation'
 import {FormControlContextProvider} from './_FormControlContext'
 import {warning} from '../utils/warning'
 import classes from './FormControl.module.css'
-
-/**
- * Utility function to get the component name from a React element
- */
-function getComponentName(child: React.ReactElement): string | undefined {
-  if (!React.isValidElement(child)) return undefined
-  const componentType = child.type as React.ComponentType
-  return componentType.displayName || componentType.name
-}
-
-/**
- * Utility function to check if a component name matches any of the expected names
- */
-function isComponentNameInList(child: React.ReactElement, componentNames: string[]): boolean {
-  const componentName = getComponentName(child)
-  return componentName ? componentNames.includes(componentName) : false
-}
 
 export type FormControlProps = {
   children?: React.ReactNode
@@ -59,15 +50,15 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
       leadingVisual: FormControlLeadingVisual,
       validation: FormControlValidation,
     })
-    const expectedInputComponentNames = [
-      'Autocomplete',
-      'Checkbox',
-      'Radio',
-      'Select',
-      'TextInput',
-      'TextInputWithTokens',
-      'Textarea',
-      'SelectPanel',
+    const expectedInputComponents = [
+      Autocomplete,
+      Checkbox,
+      Radio,
+      Select,
+      TextInput,
+      TextInputWithTokens,
+      Textarea,
+      SelectPanel,
     ]
     const choiceGroupContext = useContext(CheckboxOrRadioGroupContext)
     const disabled = choiceGroupContext.disabled || disabledProp
@@ -75,13 +66,13 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
     const validationMessageId = slots.validation ? `${id}-validationMessage` : undefined
     const captionId = slots.caption ? `${id}-caption` : undefined
     const validationStatus = slots.validation?.props.variant
-    const InputComponent = childrenWithoutSlots.find(
-      child => React.isValidElement(child) && isComponentNameInList(child, expectedInputComponentNames),
+    const InputComponent = childrenWithoutSlots.find(child =>
+      expectedInputComponents.some(inputComponent => React.isValidElement(child) && child.type === inputComponent),
     )
     const inputProps = React.isValidElement(InputComponent) && InputComponent.props
     const isChoiceInput =
-      React.isValidElement(InputComponent) && isComponentNameInList(InputComponent, ['Checkbox', 'Radio'])
-    const isRadioInput = React.isValidElement(InputComponent) && getComponentName(InputComponent) === 'Radio'
+      React.isValidElement(InputComponent) && (InputComponent.type === Checkbox || InputComponent.type === Radio)
+    const isRadioInput = React.isValidElement(InputComponent) && InputComponent.type === Radio
 
     if (InputComponent) {
       warning(
@@ -144,7 +135,8 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
               )
             : null}
           {childrenWithoutSlots.filter(
-            child => React.isValidElement(child) && !isComponentNameInList(child, ['Checkbox', 'Radio']),
+            child =>
+              React.isValidElement(child) && ![Checkbox, Radio].some(inputComponent => child.type === inputComponent),
           )}
         </div>
         {slots.leadingVisual ? (
@@ -203,7 +195,9 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
                 ),
               )}
             {childrenWithoutSlots.filter(
-              child => React.isValidElement(child) && !isComponentNameInList(child, expectedInputComponentNames),
+              child =>
+                React.isValidElement(child) &&
+                !expectedInputComponents.some(inputComponent => child.type === inputComponent),
             )}
             {slots.validation ? (
               <ValidationAnimationContainer show>{slots.validation}</ValidationAnimationContainer>

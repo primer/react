@@ -93,8 +93,6 @@ const Autocomplete: React.FC<React.PropsWithChildren<{id?: string}>> = ({childre
   )
 }
 
-Autocomplete.displayName = 'Autocomplete'
-
 export type AutocompleteProps = ComponentProps<typeof Autocomplete>
 export type {AutocompleteInputProps} from './AutocompleteInput'
 export type {AutocompleteMenuProps} from './AutocompleteMenu'
