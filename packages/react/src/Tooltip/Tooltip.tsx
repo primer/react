@@ -223,4 +223,6 @@ Tooltip.alignments = ['left', 'right']
 
 Tooltip.directions = ['n', 'ne', 'e', 'se', 's', 'sw', 'w', 'nw']
 
+Tooltip.displayName = 'Tooltip'
+
 export default Tooltip
