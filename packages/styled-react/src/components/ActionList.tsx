@@ -2,40 +2,37 @@ import {
   ActionList as PrimerActionList,
   type ActionListProps as PrimerActionListProps,
   type ActionListGroupProps as PrimerActionListGroupProps,
+  type ActionListGroupHeadingProps as PrimerActionListGroupHeadingProps,
   type ActionListItemProps as PrimerActionListItemProps,
   type ActionListLinkItemProps as PrimerActionListLinkItemProps,
   type ActionListDividerProps as PrimerActionListDividerProps,
   type ActionListDescriptionProps as PrimerActionListDescriptionProps,
   type ActionListLeadingVisualProps as PrimerActionListLeadingVisualProps,
   type ActionListTrailingVisualProps as PrimerActionListTrailingVisualProps,
+  type ActionListHeadingProps as PrimerActionListHeadingProps,
+  type ActionListTrailingActionProps as PrimerActionListTrailingActionProps,
 } from '@primer/react'
 import {Box} from './Box'
-import {forwardRef} from 'react'
-import type {ComponentPropsWithoutRef, ForwardRefExoticComponent, RefAttributes} from 'react'
+import {forwardRef, type PropsWithChildren} from 'react'
 import type {SxProp} from '../sx'
 
-// Add SxProp to each exported type
-export type ActionListProps = PrimerActionListProps & SxProp
-export type ActionListGroupProps = PrimerActionListGroupProps & SxProp
-
-// GroupHeading props type is not exported from @primer/react, so use ComponentPropsWithoutRef
-export type ActionListGroupHeadingProps = ComponentPropsWithoutRef<typeof PrimerActionList.GroupHeading> & SxProp
-export type ActionListItemProps = PrimerActionListItemProps & SxProp
-export type ActionListLinkItemProps = PrimerActionListLinkItemProps & SxProp
-export type ActionListDividerProps = PrimerActionListDividerProps & SxProp
-export type ActionListDescriptionProps = PrimerActionListDescriptionProps & SxProp
-export type ActionListLeadingVisualProps = PrimerActionListLeadingVisualProps & SxProp
-export type ActionListTrailingVisualProps = PrimerActionListTrailingVisualProps & SxProp
-export type ActionListHeadingProps = ComponentPropsWithoutRef<typeof PrimerActionList.Heading> & SxProp
-export type ActionListTrailingActionProps = ComponentPropsWithoutRef<typeof PrimerActionList.TrailingAction> & SxProp
+export type ActionListProps = PropsWithChildren<PrimerActionListProps> & SxProp
+export type ActionListGroupProps = PropsWithChildren<PrimerActionListGroupProps> & SxProp
+export type ActionListGroupHeadingProps = PropsWithChildren<PrimerActionListGroupHeadingProps> & SxProp
+export type ActionListItemProps = PropsWithChildren<PrimerActionListItemProps> & SxProp
+export type ActionListLinkItemProps = PropsWithChildren<PrimerActionListLinkItemProps> & SxProp
+export type ActionListDividerProps = PropsWithChildren<PrimerActionListDividerProps> & SxProp
+export type ActionListDescriptionProps = PropsWithChildren<PrimerActionListDescriptionProps> & SxProp
+export type ActionListLeadingVisualProps = PropsWithChildren<PrimerActionListLeadingVisualProps> & SxProp
+export type ActionListTrailingVisualProps = PropsWithChildren<PrimerActionListTrailingVisualProps> & SxProp
+export type ActionListHeadingProps = PropsWithChildren<PrimerActionListHeadingProps> & SxProp
+export type ActionListTrailingActionProps = PropsWithChildren<PrimerActionListTrailingActionProps> & SxProp
 
 const ActionListImpl = forwardRef<HTMLUListElement, ActionListProps>(function ActionList(props, ref) {
   return <Box as={PrimerActionList} ref={ref} {...props} />
 })
 
-export type ActionListComponent = ForwardRefExoticComponent<
-  Omit<ActionListProps, 'ref'> & RefAttributes<HTMLUListElement>
-> & {
+type ActionListComponent = typeof ActionListImpl & {
   Group: typeof PrimerActionList.Group
   GroupHeading: typeof PrimerActionList.GroupHeading
   Item: typeof PrimerActionList.Item
@@ -48,7 +45,7 @@ export type ActionListComponent = ForwardRefExoticComponent<
   TrailingAction: typeof PrimerActionList.TrailingAction
 }
 
-export const ActionList: ActionListComponent = Object.assign(ActionListImpl, {
+const ActionList: ActionListComponent = Object.assign(ActionListImpl, {
   Group: PrimerActionList.Group,
   GroupHeading: PrimerActionList.GroupHeading,
   Item: PrimerActionList.Item,
@@ -60,3 +57,5 @@ export const ActionList: ActionListComponent = Object.assign(ActionListImpl, {
   Heading: PrimerActionList.Heading,
   TrailingAction: PrimerActionList.TrailingAction,
 })
+
+export {ActionList}
