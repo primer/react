@@ -1,17 +1,3 @@
-export {
-  DataTable,
-  type DataTableContainerProps,
-  type TableProps,
-  type TableHeadProps,
-  type TableBodyProps,
-  type TableRowProps,
-  type TableHeaderProps,
-  type TableCellProps,
-  type TableTitleProps,
-  type TableSubtitleProps,
-  type TableActionsProps,
-} from './components/DataTable'
-
 export {Dialog, type DialogProps} from './components/Dialog'
 export {
   PageHeader,
@@ -29,4 +15,16 @@ export {
   type UnderlinePanelsPanelProps,
 } from './components/UnderlinePanels'
 
-export {Table} from '@primer/react/experimental'
+export {
+  Table,
+  type DataTableContainerProps,
+  type TableProps,
+  type TableHeadProps,
+  type TableBodyProps,
+  type TableRowProps,
+  type TableHeaderProps,
+  type TableCellProps,
+  type TableTitleProps,
+  type TableSubtitleProps,
+  type TableActionsProps,
+} from './components/DataTable'

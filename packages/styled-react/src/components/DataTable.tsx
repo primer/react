@@ -13,7 +13,7 @@ const DataTableContainer: React.ComponentType<DataTableContainerProps> = styled(
   ${sx}
 `
 
-const DataTable: typeof PrimerDataTable & {
+const Table: typeof PrimerDataTable & {
   Container: typeof DataTableContainer
 } = Object.assign(PrimerDataTable, {
   Container: DataTableContainer,
@@ -32,4 +32,4 @@ export type {
   TableActionsProps,
 } from '@primer/react/experimental'
 
-export {DataTable, type DataTableContainerProps}
+export {Table, type DataTableContainerProps}
