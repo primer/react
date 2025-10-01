@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useMemo, useEffect, useState, forwardRef} from 'react'
+import React, {useCallback, useContext, useMemo, useEffect, useState} from 'react'
 import {TriangleDownIcon, ChevronRightIcon} from '@primer/octicons-react'
 import type {AnchoredOverlayProps} from '../AnchoredOverlay'
 import {AnchoredOverlay} from '../AnchoredOverlay'
@@ -12,7 +12,6 @@ import {Button} from '../Button'
 import {useId} from '../hooks/useId'
 import type {MandateProps} from '../utils/types'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
-import {Tooltip} from '../TooltipV2/Tooltip'
 import styles from './ActionMenu.module.css'
 import {useResponsiveValue, type ResponsiveValue} from '../hooks/useResponsiveValue'
 
