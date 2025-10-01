@@ -3,6 +3,8 @@ import {forwardRef} from 'react'
 import {Box} from './Box'
 import type {SxProp} from '../sx'
 
+export type {TextInputProps} from '@primer/react'
+
 export type TextInputActionProps = PrimerTextInputActionProps & SxProp
 
 const TextInputAction = forwardRef<HTMLButtonElement, TextInputActionProps>((props, ref) => {
