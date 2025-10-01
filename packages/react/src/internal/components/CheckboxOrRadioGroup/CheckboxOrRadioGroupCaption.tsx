@@ -7,10 +7,10 @@ import {clsx} from 'clsx'
 
 type CheckboxOrRadioGroupCaptionProps = React.PropsWithChildren<SxProp> & {className?: string}
 
-const CheckboxOrRadioGroupCaption: React.FC<CheckboxOrRadioGroupCaptionProps> = ({className, children, sx}) => {
+const CheckboxOrRadioGroupCaption: React.FC<CheckboxOrRadioGroupCaptionProps> = ({className, children}) => {
   const {captionId} = React.useContext(CheckboxOrRadioGroupContext)
   return (
-    <Text className={clsx(className, classes.CheckboxOrRadioGroupCaption)} id={captionId} sx={sx}>
+    <Text className={clsx(className, classes.CheckboxOrRadioGroupCaption)} id={captionId}>
       {children}
     </Text>
   )
