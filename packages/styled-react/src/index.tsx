@@ -1,5 +1,4 @@
 export {ActionList} from '@primer/react'
-export {Avatar} from '@primer/react'
 export {Box, type BoxProps} from './components/Box'
 export {Details} from '@primer/react'
 export {ProgressBar} from '@primer/react'
@@ -19,6 +18,7 @@ export {useTheme} from '@primer/react'
 
 export {ActionMenu} from './components/ActionMenu'
 export {Autocomplete, type AutocompleteOverlayProps} from './components/Autocomplete'
+export {Avatar, type AvatarProps} from './components/Avatar'
 export {Breadcrumbs, Breadcrumb, type BreadcrumbsProps, type BreadcrumbsItemProps} from './components/Breadcrumbs'
 export {ButtonComponent as Button, type ButtonComponentProps as ButtonProps} from './components/Button'
 export {Checkbox, type CheckboxProps} from './components/Checkbox'
