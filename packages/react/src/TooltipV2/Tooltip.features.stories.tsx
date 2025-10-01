@@ -1,7 +1,15 @@
 import {IconButton, Button, Link, ActionMenu, ActionList, VisuallyHidden} from '..'
 import Octicon from '../Octicon'
 import {Tooltip} from './Tooltip'
-import {SearchIcon, BookIcon, CheckIcon, TriangleDownIcon, GitBranchIcon, InfoIcon} from '@primer/octicons-react'
+import {
+  SearchIcon,
+  BookIcon,
+  CheckIcon,
+  TriangleDownIcon,
+  GitBranchIcon,
+  InfoIcon,
+  HeartIcon,
+} from '@primer/octicons-react'
 import classes from './Tooltip.features.stories.module.css'
 
 export default {
@@ -191,6 +199,22 @@ export const KeybindingHint = () => (
       <Link href="#">
         <InfoIcon />
       </Link>
+    </Tooltip>
+  </div>
+)
+
+export const WithMediumDelay = () => (
+  <div className={classes.PaddedContainer}>
+    <Tooltip text="Tooltip is delayed by 400ms" delay="medium">
+      <Button>With delay</Button>
+    </Tooltip>
+  </div>
+)
+
+export const WithLongDelay = () => (
+  <div className={classes.PaddedContainer}>
+    <Tooltip text="Tooltip is delayed by 1200ms" delay="long">
+      <IconButton icon={HeartIcon} variant="invisible" aria-label="Favorite" />
     </Tooltip>
   </div>
 )
