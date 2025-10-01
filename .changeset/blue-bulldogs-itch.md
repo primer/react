@@ -1,5 +1,5 @@
----
-@primer/react: patch
+
+"@primer/react": patch
 ---
 
 Introduce floating ui api to tooltip
