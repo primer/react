@@ -8,4 +8,11 @@ export {
 
 export {Tooltip, type TooltipProps} from './components/Tooltip'
 
-export {Table, UnderlinePanels} from '@primer/react/experimental'
+export {
+  UnderlinePanels,
+  type UnderlinePanelsProps,
+  type UnderlinePanelsTabProps,
+  type UnderlinePanelsPanelProps,
+} from './components/UnderlinePanels'
+
+export {Table} from '@primer/react/experimental'
