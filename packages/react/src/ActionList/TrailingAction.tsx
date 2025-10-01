@@ -1,11 +1,12 @@
 import type React from 'react'
-import {fixedForwardRef} from '../utils/modern-polymorphic'
+import {forwardRef} from 'react'
 import {Button, IconButton} from '../Button'
+import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {clsx} from 'clsx'
 import classes from './ActionList.module.css'
 
 type ElementProps =
-  | ({
+  | {
       as?: 'button'
       href?: never
       /**
@@ -13,21 +14,20 @@ type ElementProps =
        * Only available for button elements.
        */
       loading?: boolean
-    } & React.ButtonHTMLAttributes<HTMLButtonElement>)
-  | ({
+    }
+  | {
       as: 'a'
       href: string
       loading?: never
-    } & React.AnchorHTMLAttributes<HTMLAnchorElement>)
+    }
 
 export type ActionListTrailingActionProps = ElementProps & {
   icon?: React.ElementType
   label: string
   className?: string
-  children?: React.ReactNode
 }
 
-const TrailingAction = fixedForwardRef(
+export const TrailingAction = forwardRef(
   ({as = 'button', icon, label, href = null, className, loading, ...props}, forwardedRef) => {
     return (
       <span className={clsx(className, classes.TrailingAction)}>
@@ -64,8 +64,4 @@ const TrailingAction = fixedForwardRef(
       </span>
     )
   },
-) as React.ForwardRefExoticComponent<ActionListTrailingActionProps & React.RefAttributes<unknown>>
-
-TrailingAction.displayName = 'ActionList.TrailingAction'
-
-export {TrailingAction}
+) as PolymorphicForwardRefComponent<'button' | 'a', ActionListTrailingActionProps>
