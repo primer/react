@@ -33,7 +33,7 @@ function InputLabel<As extends ElementType = 'label'>({
   className,
   ...props
 }: InputLabelProps<As>) {
-  const Component = as || 'label'
+  const Component = (as ?? 'label') as ElementType
   return (
     <Component
       data-control-disabled={disabled ? '' : undefined}
