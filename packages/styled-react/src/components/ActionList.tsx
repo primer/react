@@ -32,8 +32,7 @@ export type ActionListHeadingProps = PrimerActionListHeadingProps & SxProp
 export type ActionListTrailingActionProps = PrimerActionListTrailingActionProps & SxProp
 
 const StyledActionList = styled(PrimerActionList).withConfig({
-  shouldForwardProp: (prop: string | number, defaultValidator: (p: string | number) => boolean) =>
-    prop !== 'sx' && defaultValidator(prop),
+  shouldForwardProp: (prop: string | number) => prop !== 'sx',
 })`
   ${sx}
 ` as typeof PrimerActionList & {
@@ -41,10 +40,10 @@ const StyledActionList = styled(PrimerActionList).withConfig({
 }
 
 const ActionListImpl = React.forwardRef(function ActionListImpl<As extends React.ElementType = 'ul'>(
-  props: ActionListProps<As>,
+  {as, ...rest}: ActionListProps<As>,
   ref: React.ComponentPropsWithRef<As>['ref'],
 ) {
-  return <StyledActionList ref={ref} {...props} />
+  return <StyledActionList ref={ref} {...rest} {...(as ? {forwardedAs: as} : {})} />
 })
 
 const ActionListLinkItem: ForwardRefComponent<'a', ActionListLinkItemProps> = styled(
