@@ -1,4 +1,4 @@
-import type {RefObject} from 'react'
+import type {MutableRefObject, RefObject} from 'react'
 import React, {useRef, forwardRef, useCallback, useState, useEffect} from 'react'
 import {UnderlineNavContext} from './UnderlineNavContext'
 import type {ResizeObserverEntry} from '../hooks/useResizeObserver'
@@ -144,7 +144,7 @@ export const UnderlineNav = forwardRef(
     forwardedRef,
   ) => {
     const backupRef = useRef<HTMLElement>(null)
-    const navRef = (forwardedRef ?? backupRef) as RefObject<HTMLElement>
+    const navRef = (forwardedRef ?? backupRef) as MutableRefObject<HTMLElement>
     const listRef = useRef<HTMLUListElement>(null)
     const moreMenuRef = useRef<HTMLLIElement>(null)
     const moreMenuBtnRef = useRef<HTMLButtonElement>(null)
@@ -205,7 +205,7 @@ export const UnderlineNav = forwardRef(
       const widthToFitIntoList = getItemsWidth(prospectiveListItem.props.children)
       // Check if there is any empty space on the right side of the list
       const availableSpace =
-        (navRef.current?.getBoundingClientRect().width ?? 0) - (listRef.current?.getBoundingClientRect().width ?? 0)
+        navRef.current.getBoundingClientRect().width - (listRef.current?.getBoundingClientRect().width ?? 0)
 
       // Calculate how many items need to be pulled in to the menu to make room for the selected menu item
       // I.e. if we need to pull 2 items in (index 0 and index 1), breakpoint (index) will return 1.
