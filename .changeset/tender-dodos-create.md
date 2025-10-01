@@ -2,4 +2,4 @@
 '@primer/react': patch
 ---
 
-Adjust text-decoration-offset for Link component
+Link: Adjust text-decoration-offset
