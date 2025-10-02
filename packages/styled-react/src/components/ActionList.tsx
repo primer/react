@@ -20,14 +20,14 @@ type PrimerActionListHeadingProps = React.ComponentProps<typeof PrimerActionList
 type PrimerActionListTrailingActionProps = React.ComponentProps<typeof PrimerActionList.TrailingAction>
 
 export type ActionListProps<As extends React.ElementType = 'ul'> = PrimerActionListProps<As> & SxProp
-export type ActionListItemProps = PrimerActionListItemProps & SxProp
+export type ActionListItemProps = React.PropsWithChildren<PrimerActionListItemProps & SxProp>
 export type ActionListLinkItemProps = PrimerActionListLinkItemProps & SxProp
-export type ActionListGroupProps = PrimerActionListGroupProps & SxProp
+export type ActionListGroupProps = React.PropsWithChildren<PrimerActionListGroupProps & SxProp>
 export type ActionListGroupHeadingProps = PrimerActionListGroupHeadingProps & SxProp
-export type ActionListDividerProps = PrimerActionListDividerProps & SxProp
-export type ActionListDescriptionProps = PrimerActionListDescriptionProps & SxProp
-export type ActionListLeadingVisualProps = PrimerActionListLeadingVisualProps & SxProp
-export type ActionListTrailingVisualProps = PrimerActionListTrailingVisualProps & SxProp
+export type ActionListDividerProps = React.PropsWithChildren<PrimerActionListDividerProps & SxProp>
+export type ActionListDescriptionProps = React.PropsWithChildren<PrimerActionListDescriptionProps & SxProp>
+export type ActionListLeadingVisualProps = React.PropsWithChildren<PrimerActionListLeadingVisualProps & SxProp>
+export type ActionListTrailingVisualProps = React.PropsWithChildren<PrimerActionListTrailingVisualProps & SxProp>
 export type ActionListHeadingProps = PrimerActionListHeadingProps & SxProp
 export type ActionListTrailingActionProps = PrimerActionListTrailingActionProps & SxProp
 
