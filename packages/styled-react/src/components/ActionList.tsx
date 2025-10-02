@@ -23,7 +23,9 @@ type PrimerActionListHeadingProps = React.ComponentProps<typeof PrimerActionList
 type PrimerActionListTrailingActionProps = React.ComponentProps<typeof PrimerActionList.TrailingAction>
 
 export type ActionListProps<As extends React.ElementType = 'ul'> = PrimerActionListProps<As> & SxProp
-export type ActionListItemProps = React.PropsWithChildren<PrimerActionListItemProps & SxProp>
+export type ActionListItemProps<As extends React.ElementType = 'li'> = React.PropsWithChildren<
+  PrimerActionListItemProps & SxProp
+>
 export type ActionListLinkItemProps = PrimerActionListLinkItemProps & SxProp
 export type ActionListGroupProps = React.PropsWithChildren<PrimerActionListGroupProps & SxProp>
 export type ActionListGroupHeadingProps = PrimerActionListGroupHeadingProps & SxProp
@@ -75,20 +77,15 @@ const ActionListTrailingAction: ForwardRefComponent<TrailingActionElements, Acti
   ${sx}
 `
 
-const ActionListItem = forwardRef<HTMLLIElement, ActionListItemProps>(function Item({sx, style, ...rest}, ref) {
-  const contextTheme = useTheme()
-  const theme = contextTheme.theme || defaultTheme
+const StyledActionListItem: ForwardRefComponent<'li', ActionListItemProps> = styled(PrimerActionList.Item).withConfig({
+  shouldForwardProp: prop => (prop as keyof ActionListItemProps) !== 'sx',
+})<ActionListItemProps>`
+  ${sx}
+`
 
-  // If no sx prop is provided, just return PrimerToken directly
-  if (!sx) {
-    return <PrimerActionList.Item {...rest} style={style} ref={ref} />
-  }
-
-  // Convert sx to CSS styles using the theme context
-  const sxStyles = css(sx)(theme)
-  const mergedStyle = {...sxStyles, ...style}
-  return <PrimerActionList.Item {...rest} style={mergedStyle} ref={ref} />
-})
+function ActionListItem<As extends React.ElementType = 'li'>({as, ...props}: ActionListItemProps<As>) {
+  return <StyledActionListItem {...props} {...(as ? {forwardedAs: as} : {})} />
+}
 
 function ActionListGroup(props: ActionListGroupProps) {
   return <Box as={PrimerActionList.Group} {...props} />
@@ -102,11 +99,9 @@ function ActionListDivider(props: ActionListDividerProps) {
   return <Box as={PrimerActionList.Divider} {...props} />
 }
 
-const ActionListDescription: React.ComponentType<ActionListDescriptionProps> = styled(
-  PrimerActionList.Description,
-).withConfig({
+const ActionListDescription = styled(PrimerActionList.Description).withConfig({
   shouldForwardProp: prop => (prop as keyof ActionListDescriptionProps) !== 'sx',
-})`
+})<ActionListDescriptionProps>`
   ${sx}
 `
 

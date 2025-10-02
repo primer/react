@@ -54,8 +54,11 @@ describe('@primer/react', () => {
 
   test('ActionList Item supports `sx` prop', () => {
     render(
-      <ActionList selectionVariant="single">
-        <ActionList.Item data-testid="component" sx={{background: 'red'}} />
+      <ActionList selectionVariant="single" showDividers>
+        <ActionList.Item data-testid="component" sx={{background: 'red'}} key={1} selected={true} onSelect={() => {}}>
+          item
+          <ActionList.Description variant="block"> description </ActionList.Description>
+        </ActionList.Item>
       </ActionList>,
     )
     expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
