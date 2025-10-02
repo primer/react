@@ -14,7 +14,9 @@ export type Props = {
   as?: 'label' | 'legend' | 'span'
 }
 
-type FormControlLabelProps = React.PropsWithChildren<{htmlFor?: string} & Props>
+type FormControlLabelProps = React.PropsWithChildren<
+  {htmlFor?: string} & React.ComponentProps<typeof InputLabel> & Props
+>
 
 const FormControlLabel: React.FC<FormControlLabelProps> = ({
   as,
