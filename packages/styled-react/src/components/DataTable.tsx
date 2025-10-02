@@ -17,10 +17,7 @@ const StyleDataTableContainer: React.ComponentType<DataTableContainerProps> = st
   <As extends React.ElementType = 'div'>(props: DataTableContainerProps<As>): React.ReactElement | null
 }
 
-const DataTableContainer = function DataTableContainer<As extends React.ElementType = 'div'>({
-  as,
-  ...rest
-}: DataTableContainerProps<As>) {
+function DataTableContainer<As extends React.ElementType = 'div'>({as, ...rest}: DataTableContainerProps<As>) {
   return <StyleDataTableContainer {...rest} {...(as ? {forwardedAs: as} : {})} />
 }
 
