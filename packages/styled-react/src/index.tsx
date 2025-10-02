@@ -16,7 +16,20 @@ export {themeGet} from '@primer/react'
 export {useColorSchemeVar} from '@primer/react'
 export {useTheme} from '@primer/react'
 
-export {ActionList, type ActionListProps} from './components/ActionList'
+export {
+  ActionList,
+  type ActionListProps,
+  type ActionListItemProps,
+  type ActionListLinkItemProps,
+  type ActionListGroupProps,
+  type ActionListGroupHeadingProps,
+  type ActionListDividerProps,
+  type ActionListDescriptionProps,
+  type ActionListLeadingVisualProps,
+  type ActionListTrailingVisualProps,
+  type ActionListHeadingProps,
+  type ActionListTrailingActionProps,
+} from './components/ActionList'
 export {ActionMenu} from './components/ActionMenu'
 export {Autocomplete, type AutocompleteOverlayProps} from './components/Autocomplete'
 export {Avatar, type AvatarProps} from './components/Avatar'
