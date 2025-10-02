@@ -1,4 +1,4 @@
-import {Table as PrimerDataTable, type TableContainerProps} from '@primer/react/experimental'
+import {Table as PrimerDataTable} from '@primer/react/experimental'
 import {sx, type SxProp} from '../sx'
 import styled from 'styled-components'
 import type React from 'react'
