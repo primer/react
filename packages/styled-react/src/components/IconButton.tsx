@@ -17,8 +17,8 @@ const StyledIconButton = forwardRef(({sx, ...rest}: IconButtonProps, ref) => {
   return <Box sx={sxStyles} as={PrimerIconButton} ref={ref} {...rest} />
 })
 
-const IconButton = (({as, ...props}: IconButtonProps) => (
-  <StyledIconButton {...props} {...(as ? {forwardedAs: as} : {})} />
+const IconButton = forwardRef(({as, ...props}: IconButtonProps, ref) => (
+  <StyledIconButton {...props} {...(as ? {forwardedAs: as} : {})} ref={ref} />
 )) as ForwardRefComponent<'a' | 'button', IconButtonProps>
 
 export {IconButton}
