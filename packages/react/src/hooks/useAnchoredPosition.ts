@@ -1,5 +1,5 @@
 import React from 'react'
-import {getAnchoredPosition} from '@primer/behaviors'
+import {computePosition, flip, shift, offset, type Placement} from '@floating-ui/dom'
 import type {AnchorPosition, PositionSettings} from '@primer/behaviors'
 import {useProvidedRefOrCreate} from './useProvidedRefOrCreate'
 import {useResizeObserver} from './useResizeObserver'
@@ -33,73 +33,94 @@ export function useAnchoredPosition(
   const anchorElementRef = useProvidedRefOrCreate(settings?.anchorElementRef)
   const savedOnPositionChange = React.useRef(settings?.onPositionChange)
   const [position, setPosition] = React.useState<AnchorPosition | undefined>(undefined)
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_, setPrevHeight] = React.useState<number | undefined>(undefined)
 
-  const topPositionChanged = (prevPosition: AnchorPosition | undefined, newPosition: AnchorPosition) => {
-    return (
-      prevPosition &&
-      ['outside-top', 'inside-top'].includes(prevPosition.anchorSide) &&
-      // either the anchor changed or the element is trying to shrink in height
-      (prevPosition.anchorSide !== newPosition.anchorSide || prevPosition.top < newPosition.top)
-    )
+  const settingsToPlacement = (s?: Partial<PositionSettings>): Placement => {
+    const side = s?.side ?? 'outside-bottom'
+    const align = s?.align ?? 'center'
+    const sideMap: Record<string, string> = {
+      'outside-top': 'top',
+      'outside-bottom': 'bottom',
+      'outside-left': 'left',
+      'outside-right': 'right',
+    }
+    const base = sideMap[side] || 'bottom'
+    if (align === 'center') return base as Placement
+    return `${base}-${align}` as Placement
   }
 
-  const updateElementHeight = () => {
-    let heightUpdated = false
-    setPrevHeight(prevHeight => {
-      // if the element is trying to shrink in height, restore to old height to prevent it from jumping
-      if (prevHeight && prevHeight > (floatingElementRef.current?.clientHeight ?? 0)) {
-        requestAnimationFrame(() => {
-          ;(floatingElementRef.current as HTMLElement).style.height = `${prevHeight}px`
+  const placementToAnchor = (
+    placement: Placement,
+  ): {anchorSide: AnchorPosition['anchorSide']; anchorAlign: AnchorPosition['anchorAlign']} => {
+    const [base, maybeAlign] = placement.split('-') as [string, string?]
+    const sideMap: Record<string, AnchorPosition['anchorSide']> = {
+      top: 'outside-top',
+      bottom: 'outside-bottom',
+      left: 'outside-left',
+      right: 'outside-right',
+    }
+    const anchorSide = sideMap[base as keyof typeof sideMap] ?? 'outside-bottom'
+    let anchorAlign: AnchorPosition['anchorAlign'] = 'center'
+    if (maybeAlign === 'start') anchorAlign = 'start'
+    else if (maybeAlign === 'end') anchorAlign = 'end'
+    return {anchorSide, anchorAlign}
+  }
+
+  const updatePosition = React.useCallback(() => {
+    if (!(floatingElementRef.current instanceof Element) || !(anchorElementRef.current instanceof Element)) {
+      setPosition(undefined)
+      savedOnPositionChange.current?.(undefined)
+      return
+    }
+    const placement = settingsToPlacement(settings)
+    ;(async () => {
+      try {
+        const {
+          x,
+          y,
+          placement: finalPlacement,
+        } = await computePosition(anchorElementRef.current as HTMLElement, floatingElementRef.current as HTMLElement, {
+          placement,
+          middleware: [offset(settings?.anchorOffset ?? 0), flip(), shift({padding: 4})],
         })
-        heightUpdated = true
-      }
-      return prevHeight
-    })
-    return heightUpdated
-  }
-
-  const updatePosition = React.useCallback(
-    () => {
-      if (floatingElementRef.current instanceof Element && anchorElementRef.current instanceof Element) {
-        const newPosition = getAnchoredPosition(floatingElementRef.current, anchorElementRef.current, settings)
+        const {anchorSide, anchorAlign} = placementToAnchor(finalPlacement as Placement)
+        const newPosition: AnchorPosition = {
+          top: y,
+          left: x,
+          anchorSide,
+          anchorAlign,
+        }
         setPosition(prev => {
-          if (settings?.pinPosition && topPositionChanged(prev, newPosition)) {
-            const anchorTop = anchorElementRef.current?.getBoundingClientRect().top ?? 0
-            const elementStillFitsOnTop = anchorTop > (floatingElementRef.current?.clientHeight ?? 0)
-
-            if (elementStillFitsOnTop && updateElementHeight()) {
-              return prev
-            }
-          }
-
-          if (prev && prev.anchorSide === newPosition.anchorSide) {
-            // if the position hasn't changed, don't update
+          if (
+            !prev ||
+            prev.top !== newPosition.top ||
+            prev.left !== newPosition.left ||
+            prev.anchorSide !== newPosition.anchorSide ||
+            prev.anchorAlign !== newPosition.anchorAlign
+          ) {
             savedOnPositionChange.current?.(newPosition)
+            return newPosition
           }
-
-          return newPosition
+          return prev
         })
-      } else {
-        setPosition(undefined)
-        savedOnPositionChange.current?.(undefined)
+      } catch {
+        /* swallow */
       }
-      setPrevHeight(floatingElementRef.current?.clientHeight)
-    },
+    })()
     // eslint-disable-next-line react-compiler/react-compiler
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [floatingElementRef, anchorElementRef, ...dependencies],
-  )
+  }, [floatingElementRef, anchorElementRef, settings, ...dependencies])
 
   useLayoutEffect(() => {
     savedOnPositionChange.current = settings?.onPositionChange
   }, [settings?.onPositionChange])
 
-  useLayoutEffect(updatePosition, [updatePosition])
+  useLayoutEffect(() => {
+    updatePosition()
+  }, [updatePosition])
 
-  useResizeObserver(updatePosition) // watches for changes in window size
-  useResizeObserver(updatePosition, floatingElementRef as React.RefObject<HTMLElement>) // watches for changes in floating element size
+  useResizeObserver(updatePosition)
+  useResizeObserver(updatePosition, floatingElementRef as React.RefObject<HTMLElement>)
+  useResizeObserver(updatePosition, anchorElementRef as React.RefObject<HTMLElement>)
 
   return {
     floatingElementRef,
