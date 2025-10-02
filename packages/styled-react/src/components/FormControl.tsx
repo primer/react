@@ -4,6 +4,7 @@ import {
   type FormControlProps as PrimerFormControlProps,
   type FormControlCaptionProps as PrimerFormControlCaptionProps,
   type FormControlValidationProps as PrimerFormControlValidationProps,
+  type FormControlLabelProps as PrimerFormControlLabelProps,
   type SxProp,
 } from '@primer/react'
 import {forwardRef, type PropsWithChildren} from 'react'
@@ -29,16 +30,22 @@ const FormControlLeadingVisual = (props: PropsWithChildren<SxProp>) => {
   return <Box as={PrimerFormControl.LeadingVisual} {...props} />
 }
 
+type FormControlLabelProps = PropsWithChildren<PrimerFormControlLabelProps> & SxProp
+
+const FormControlLabel = (props: FormControlLabelProps) => {
+  return <Box as={PrimerFormControl.Label} {...props} />
+}
+
 const FormControl = Object.assign(FormControlImpl, {
   Caption: FormControlCaption,
   LeadingVisual: FormControlLeadingVisual,
   Validation: FormControlValidation,
-  Label: PrimerFormControl.Label,
+  Label: FormControlLabel,
 }) as typeof FormControlImpl & {
   Caption: typeof FormControlCaption
   LeadingVisual: typeof FormControlLeadingVisual
   Validation: typeof FormControlValidation
-  Label: typeof PrimerFormControl.Label
+  Label: typeof FormControlLabel
 }
 
 export {FormControl, type FormControlProps}
