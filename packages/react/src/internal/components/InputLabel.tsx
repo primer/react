@@ -12,6 +12,7 @@ type BaseProps = SxProp & {
   visuallyHidden?: boolean
   id?: string
   className?: string
+  style?: React.CSSProperties
 }
 
 export type LabelProps = BaseProps & {
@@ -35,16 +36,16 @@ function InputLabel({
   requiredText,
   requiredIndicator,
   visuallyHidden,
-  sx,
   as = 'label',
   className,
+  style,
   ...props
 }: Props) {
   return (
     // @ts-ignore weird typing issue with union for `as` prop
     <BoxWithFallback
       as={as}
-      sx={sx}
+      style={style}
       data-control-disabled={disabled ? '' : undefined}
       data-visually-hidden={visuallyHidden ? '' : undefined}
       htmlFor={htmlFor}
