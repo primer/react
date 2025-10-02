@@ -102,9 +102,13 @@ function ActionListDivider(props: ActionListDividerProps) {
   return <Box as={PrimerActionList.Divider} {...props} />
 }
 
-function ActionListDescription(props: ActionListDescriptionProps) {
-  return <Box as={PrimerActionList.Description} {...props} />
-}
+const ActionListDescription: React.ComponentType<ActionListDescriptionProps> = styled(
+  PrimerActionList.Description,
+).withConfig({
+  shouldForwardProp: prop => (prop as keyof ActionListDescriptionProps) !== 'sx',
+})`
+  ${sx}
+`
 
 function ActionListLeadingVisual(props: ActionListLeadingVisualProps) {
   return <Box as={PrimerActionList.LeadingVisual} {...props} />
