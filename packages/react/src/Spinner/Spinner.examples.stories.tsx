@@ -42,7 +42,7 @@ export const FullLifecycle = () => {
 
   return (
     <>
-      <Button onClick={initiateLoading} sx={{mb: '1em'}}>
+      <Button onClick={initiateLoading} style={{marginBottom: '1em'}}>
         Load content
       </Button>
       {state === 'loading' && <Spinner />}

@@ -126,11 +126,6 @@
       "required": false,
       "description": "If `description` is provided, we will use a Tooltip to describe the button. Then `aria-label` is used to label the button.",
       "defaultValue": ""
-    },
-    {
-      "name": "sx",
-      "type": "SystemStyleObject",
-      "deprecated": true
     }
   ],
   "subcomponents": []

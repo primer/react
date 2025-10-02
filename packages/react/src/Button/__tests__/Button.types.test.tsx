@@ -21,9 +21,6 @@ export function ShouldAcceptKnownButtonPropsAndDomProps() {
         // current target is assignable to HTMLButtonElement
         buttonEl.current = e.currentTarget
       }}
-      sx={{
-        m: 1,
-      }}
     >
       Child
     </Button>
@@ -59,7 +56,6 @@ export function iconButtonOptionalProps() {
     <>
       <IconButton icon={StopIcon} aria-label="Stop icon" size="small" />
       <IconButton icon={StopIcon} aria-label="Stop icon" variant="danger" />
-      <IconButton icon={StopIcon} aria-label="Stop icon" sx={{m: 1}} />
     </>
   )
 }
