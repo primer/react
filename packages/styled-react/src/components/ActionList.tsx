@@ -10,7 +10,10 @@ import {
   type ActionListDescriptionProps as PrimerActionListDescriptionProps,
   type ActionListLeadingVisualProps as PrimerActionListLeadingVisualProps,
   type ActionListTrailingVisualProps as PrimerActionListTrailingVisualProps,
+  useTheme,
+  theme as defaultTheme,
 } from '@primer/react'
+import css from '@styled-system/css'
 import {sx, type SxProp} from '../sx'
 import type {ForwardRefComponent} from '../polymorphic'
 import {Box} from './Box'
@@ -72,8 +75,19 @@ const ActionListTrailingAction: ForwardRefComponent<TrailingActionElements, Acti
   ${sx}
 `
 
-const ActionListItem = forwardRef<HTMLLIElement, ActionListItemProps>(function Item(props, ref) {
-  return <Box ref={ref} as={PrimerActionList.Item} {...props} />
+const ActionListItem = forwardRef<HTMLLIElement, ActionListItemProps>(function Item({sx, style, ...rest}, ref) {
+  const contextTheme = useTheme()
+  const theme = contextTheme.theme || defaultTheme
+
+  // If no sx prop is provided, just return PrimerToken directly
+  if (!sx) {
+    return <PrimerActionList.Item {...rest} style={style} ref={ref} />
+  }
+
+  // Convert sx to CSS styles using the theme context
+  const sxStyles = css(sx)(theme)
+  const mergedStyle = {...sxStyles, ...style}
+  return <PrimerActionList.Item {...rest} style={mergedStyle} ref={ref} />
 })
 
 function ActionListGroup(props: ActionListGroupProps) {
