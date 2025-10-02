@@ -1,10 +1,9 @@
 import {clsx} from 'clsx'
 import type React from 'react'
-import {type SxProp} from '../../sx'
 import classes from './InputLabel.module.css'
 import {BoxWithFallback} from './BoxWithFallback'
 
-type BaseProps = SxProp & {
+type BaseProps = {
   disabled?: boolean
   required?: boolean
   requiredText?: string
