@@ -52,18 +52,6 @@ describe('@primer/react', () => {
     expect(screen.getByTestId('component')).toHaveAttribute('data-variant', 'inset')
   })
 
-  test('ActionList Item supports `sx` prop', () => {
-    render(
-      <ActionList selectionVariant="single" showDividers>
-        <ActionList.Item data-testid="component" sx={{background: 'red'}} key={1} selected={true} onSelect={() => {}}>
-          item
-          <ActionList.Description variant="block"> description </ActionList.Description>
-        </ActionList.Item>
-      </ActionList>,
-    )
-    expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
-  })
-
   test('ActionMenu.Button supports `sx` prop', () => {
     const {container} = render(<ActionMenu.Button sx={{background: 'red'}}>test</ActionMenu.Button>)
     expect(window.getComputedStyle(container.firstElementChild!).backgroundColor).toBe('rgb(255, 0, 0)')

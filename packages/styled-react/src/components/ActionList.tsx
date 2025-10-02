@@ -10,30 +10,21 @@ import {
   type ActionListDescriptionProps as PrimerActionListDescriptionProps,
   type ActionListLeadingVisualProps as PrimerActionListLeadingVisualProps,
   type ActionListTrailingVisualProps as PrimerActionListTrailingVisualProps,
-  useTheme,
-  theme as defaultTheme,
 } from '@primer/react'
-import css from '@styled-system/css'
 import {sx, type SxProp} from '../sx'
 import type {ForwardRefComponent} from '../polymorphic'
 import {Box} from './Box'
 
-type PrimerActionListGroupHeadingProps = React.ComponentProps<typeof PrimerActionList.GroupHeading>
-type PrimerActionListHeadingProps = React.ComponentProps<typeof PrimerActionList.Heading>
 type PrimerActionListTrailingActionProps = React.ComponentProps<typeof PrimerActionList.TrailingAction>
 
 export type ActionListProps<As extends React.ElementType = 'ul'> = PrimerActionListProps<As> & SxProp
-export type ActionListItemProps<As extends React.ElementType = 'li'> = React.PropsWithChildren<
-  PrimerActionListItemProps & SxProp
->
+export type ActionListItemProps = React.PropsWithChildren<PrimerActionListItemProps & SxProp>
 export type ActionListLinkItemProps = PrimerActionListLinkItemProps & SxProp
 export type ActionListGroupProps = React.PropsWithChildren<PrimerActionListGroupProps & SxProp>
-export type ActionListGroupHeadingProps = PrimerActionListGroupHeadingProps & SxProp
 export type ActionListDividerProps = React.PropsWithChildren<PrimerActionListDividerProps & SxProp>
 export type ActionListDescriptionProps = React.PropsWithChildren<PrimerActionListDescriptionProps & SxProp>
 export type ActionListLeadingVisualProps = React.PropsWithChildren<PrimerActionListLeadingVisualProps & SxProp>
 export type ActionListTrailingVisualProps = React.PropsWithChildren<PrimerActionListTrailingVisualProps & SxProp>
-export type ActionListHeadingProps = PrimerActionListHeadingProps & SxProp
 export type ActionListTrailingActionProps = PrimerActionListTrailingActionProps & SxProp
 
 const StyledActionList = styled(PrimerActionList).withConfig({
@@ -59,15 +50,6 @@ const ActionListLinkItem: ForwardRefComponent<'a', ActionListLinkItemProps> = st
   ${sx}
 `
 
-type HeadingLevels = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
-const ActionListHeading: ForwardRefComponent<HeadingLevels, ActionListHeadingProps> = styled(
-  PrimerActionList.Heading,
-).withConfig<ActionListHeadingProps>({
-  shouldForwardProp: prop => prop !== 'sx',
-})`
-  ${sx}
-`
-
 type TrailingActionElements = 'button' | 'a'
 const ActionListTrailingAction: ForwardRefComponent<TrailingActionElements, ActionListTrailingActionProps> = styled(
   PrimerActionList.TrailingAction,
@@ -77,33 +59,17 @@ const ActionListTrailingAction: ForwardRefComponent<TrailingActionElements, Acti
   ${sx}
 `
 
-const StyledActionListItem: ForwardRefComponent<'li', ActionListItemProps> = styled(PrimerActionList.Item).withConfig({
-  shouldForwardProp: prop => (prop as keyof ActionListItemProps) !== 'sx',
-})<ActionListItemProps>`
-  ${sx}
-`
-
-function ActionListItem<As extends React.ElementType = 'li'>({as, ...props}: ActionListItemProps<As>) {
-  return <StyledActionListItem {...props} {...(as ? {forwardedAs: as} : {})} />
-}
+const ActionListItem = forwardRef<HTMLLIElement, ActionListItemProps>(function Item(props, ref) {
+  return <Box ref={ref} as={PrimerActionList.Item} {...props} />
+})
 
 function ActionListGroup(props: ActionListGroupProps) {
   return <Box as={PrimerActionList.Group} {...props} />
 }
 
-function ActionListGroupHeading(props: ActionListGroupHeadingProps) {
-  return <Box as={PrimerActionList.GroupHeading} {...props} />
-}
-
 function ActionListDivider(props: ActionListDividerProps) {
   return <Box as={PrimerActionList.Divider} {...props} />
 }
-
-const ActionListDescription = styled(PrimerActionList.Description).withConfig({
-  shouldForwardProp: prop => (prop as keyof ActionListDescriptionProps) !== 'sx',
-})<ActionListDescriptionProps>`
-  ${sx}
-`
 
 function ActionListLeadingVisual(props: ActionListLeadingVisualProps) {
   return <Box as={PrimerActionList.LeadingVisual} {...props} />
@@ -113,15 +79,26 @@ function ActionListTrailingVisual(props: ActionListTrailingVisualProps) {
   return <Box as={PrimerActionList.TrailingVisual} {...props} />
 }
 
-export const ActionList = Object.assign(ActionListImpl, {
+export const ActionList: typeof ActionListImpl & {
+  Item: typeof ActionListItem
+  LinkItem: typeof ActionListLinkItem
+  Group: typeof ActionListGroup
+  GroupHeading: typeof PrimerActionList.GroupHeading
+  Divider: typeof ActionListDivider
+  Description: typeof PrimerActionList.Description
+  LeadingVisual: typeof ActionListLeadingVisual
+  TrailingVisual: typeof ActionListTrailingVisual
+  Heading: typeof PrimerActionList.Heading
+  TrailingAction: typeof ActionListTrailingAction
+} = Object.assign(ActionListImpl, {
   Item: ActionListItem,
   LinkItem: ActionListLinkItem,
   Group: ActionListGroup,
-  GroupHeading: ActionListGroupHeading,
+  GroupHeading: PrimerActionList.GroupHeading,
   Divider: ActionListDivider,
-  Description: ActionListDescription,
+  Description: PrimerActionList.Description,
   LeadingVisual: ActionListLeadingVisual,
   TrailingVisual: ActionListTrailingVisual,
-  Heading: ActionListHeading,
+  Heading: PrimerActionList.Heading,
   TrailingAction: ActionListTrailingAction,
 })
