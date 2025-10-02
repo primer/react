@@ -7,7 +7,6 @@ import {
   type ActionListLinkItemProps as PrimerActionListLinkItemProps,
   type ActionListGroupProps as PrimerActionListGroupProps,
   type ActionListDividerProps as PrimerActionListDividerProps,
-  type ActionListDescriptionProps as PrimerActionListDescriptionProps,
   type ActionListLeadingVisualProps as PrimerActionListLeadingVisualProps,
   type ActionListTrailingVisualProps as PrimerActionListTrailingVisualProps,
 } from '@primer/react'
@@ -22,7 +21,6 @@ export type ActionListItemProps = React.PropsWithChildren<PrimerActionListItemPr
 export type ActionListLinkItemProps = PrimerActionListLinkItemProps & SxProp
 export type ActionListGroupProps = React.PropsWithChildren<PrimerActionListGroupProps & SxProp>
 export type ActionListDividerProps = React.PropsWithChildren<PrimerActionListDividerProps & SxProp>
-export type ActionListDescriptionProps = React.PropsWithChildren<PrimerActionListDescriptionProps & SxProp>
 export type ActionListLeadingVisualProps = React.PropsWithChildren<PrimerActionListLeadingVisualProps & SxProp>
 export type ActionListTrailingVisualProps = React.PropsWithChildren<PrimerActionListTrailingVisualProps & SxProp>
 export type ActionListTrailingActionProps = PrimerActionListTrailingActionProps & SxProp

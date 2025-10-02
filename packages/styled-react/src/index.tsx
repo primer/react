@@ -22,12 +22,9 @@ export {
   type ActionListItemProps,
   type ActionListLinkItemProps,
   type ActionListGroupProps,
-  type ActionListGroupHeadingProps,
   type ActionListDividerProps,
-  type ActionListDescriptionProps,
   type ActionListLeadingVisualProps,
   type ActionListTrailingVisualProps,
-  type ActionListHeadingProps,
   type ActionListTrailingActionProps,
 } from './components/ActionList'
 export {ActionMenu} from './components/ActionMenu'
