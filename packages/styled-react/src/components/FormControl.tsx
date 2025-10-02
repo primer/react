@@ -14,30 +14,15 @@ const FormControlImpl = forwardRef<HTMLDivElement, FormControlProps>(function Fo
   return <Box ref={ref} as={PrimerFormControl} {...props} />
 })
 
-type FormControlCaptionProps = PropsWithChildren<PrimerFormControlCaptionProps> & SxProp
-const FormControlCaption = (props: FormControlCaptionProps) => {
-  return <Box as={PrimerFormControl.Caption} {...props} />
-}
-
-type FormControlValidationProps = PropsWithChildren<PrimerFormControlValidationProps> & SxProp
-
-const FormControlValidation = (props: FormControlValidationProps) => {
-  return <Box as={PrimerFormControl.Validation} {...props} />
-}
-
-const FormControlLeadingVisual = (props: PropsWithChildren<SxProp>) => {
-  return <Box as={PrimerFormControl.LeadingVisual} {...props} />
-}
-
 const FormControl = Object.assign(FormControlImpl, {
-  Caption: FormControlCaption,
-  LeadingVisual: FormControlLeadingVisual,
-  Validation: FormControlValidation,
+  Caption: PrimerFormControl.Caption,
+  LeadingVisual: PrimerFormControl.LeadingVisual,
+  Validation: PrimerFormControl.Validation,
   Label: PrimerFormControl.Label,
 }) as typeof FormControlImpl & {
-  Caption: typeof FormControlCaption
-  LeadingVisual: typeof FormControlLeadingVisual
-  Validation: typeof FormControlValidation
+  Caption: typeof PrimerFormControl.Caption
+  LeadingVisual: typeof PrimerFormControl.LeadingVisual
+  Validation: typeof PrimerFormControl.Validation
   Label: typeof PrimerFormControl.Label
 }
 
