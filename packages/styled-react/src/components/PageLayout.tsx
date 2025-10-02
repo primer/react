@@ -27,16 +27,10 @@ const PageLayoutContent = React.forwardRef<HTMLDivElement, PageLayoutContentProp
   return <Wrapper as={PrimerPageLayout.Content} ref={ref} {...props} />
 })
 
-type PageLayoutPaneProps = PropsWithChildren<PrimerPageLayoutPaneProps> & SxProp
-
-const PageLayoutPane = React.forwardRef<HTMLDivElement, PageLayoutPaneProps>((props, ref) => {
-  return <Wrapper as={PrimerPageLayout.Pane} ref={ref} {...props} />
-})
-
 const PageLayout = Object.assign(PageLayoutImpl, {
   Content: PageLayoutContent,
   Header: PrimerPageLayout.Header,
-  Pane: PageLayoutPane,
+  Pane: PrimerPageLayout.Pane,
   Footer: PrimerPageLayout.Footer,
 })
 
