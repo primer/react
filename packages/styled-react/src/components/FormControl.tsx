@@ -4,7 +4,6 @@ import {
   type FormControlProps as PrimerFormControlProps,
   type FormControlCaptionProps as PrimerFormControlCaptionProps,
   type FormControlValidationProps as PrimerFormControlValidationProps,
-  type FormControlLabelProps as PrimerFormControlLabelProps,
   type SxProp,
 } from '@primer/react'
 import {forwardRef, type PropsWithChildren} from 'react'
