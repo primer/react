@@ -11,17 +11,16 @@ export type UnderlineNavProps = {
 } & React.ComponentProps<'nav'>
 
 function UnderlineNav({actions, className, align, children, full, label, ...rest}: UnderlineNavProps) {
-  const navClasses = clsx(
-    className,
-    classes.UnderlineNav,
-    'PRC-UnderlineNav',
-    align && classes['UnderlineNav--right'],
-    full && classes['UnderlineNav--full'],
-  )
+  const navClasses = clsx(className, classes.UnderlineNav, 'PRC-UnderlineNav', {
+    [classes['UnderlineNav--right']]: align === 'right',
+    [classes['UnderlineNav--full']]: full,
+    'PRC-UnderlineNav--full': full,
+    'PRC-UnderlineNav--right': align,
+  })
   return (
     <nav className={navClasses} aria-label={label} {...rest}>
-      <div className={classes.UnderlineNavBody}>{children}</div>
-      {actions && <div className={classes.UnderlineNavActions}>{actions}</div>}
+      <div className={clsx(classes.UnderlineNavBody, 'PRC-UnderlineNav-body')}>{children}</div>
+      {actions && <div className={clsx(classes.UnderlineNavActions, 'PRC-UnderlineNav-actions')}>{actions}</div>}
     </nav>
   )
 }
