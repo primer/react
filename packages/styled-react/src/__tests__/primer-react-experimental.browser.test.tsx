@@ -37,4 +37,15 @@ describe('@primer/react/experimental', () => {
     )
     expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
   })
+
+  test('Table.Container supports `sx` prop', () => {
+    render(
+      <Table.Container data-testid="component" sx={{background: 'red'}}>
+        <Table.Row>
+          <Table.Cell>cell</Table.Cell>
+        </Table.Row>
+      </Table.Container>,
+    )
+    expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
+  })
 })

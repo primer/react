@@ -2,7 +2,6 @@ import {SortAscIcon, SortDescIcon} from '@primer/octicons-react'
 import {clsx} from 'clsx'
 import React from 'react'
 import Text from '../Text'
-import type {SxProp} from '../sx'
 import VisuallyHidden from '../_VisuallyHidden'
 import type {Column, CellAlignment} from './column'
 import type {UniqueRow} from './row'
@@ -12,7 +11,7 @@ import {SkeletonText} from '../SkeletonText'
 import {ScrollableRegion} from '../ScrollableRegion'
 import {Button} from '../internal/components/ButtonReset'
 import classes from './Table.module.css'
-import {BoxWithFallback} from '../internal/components/BoxWithFallback'
+import type {PolymorphicProps} from '../utils/modern-polymorphic'
 
 // ----------------------------------------------------------------------------
 // Table
@@ -233,13 +232,20 @@ function TableCellPlaceholder({children}: TableCellPlaceholderProps) {
 // ----------------------------------------------------------------------------
 // TableContainer
 // ----------------------------------------------------------------------------
-export type TableContainerProps = React.PropsWithChildren<SxProp & React.HTMLAttributes<HTMLDivElement>>
+export type TableContainerProps<As extends React.ElementType = 'div'> = PolymorphicProps<As, 'div'> &
+  React.PropsWithChildren
 
-function TableContainer({children, className, ...rest}: TableContainerProps) {
+function TableContainer<As extends React.ElementType = 'div'>({
+  children,
+  className,
+  as,
+  ...rest
+}: TableContainerProps<As>) {
+  const Component = as || 'div'
   return (
-    <BoxWithFallback {...rest} className={clsx(className, classes.TableContainer)}>
+    <Component {...rest} className={clsx(className, classes.TableContainer)}>
       {children}
-    </BoxWithFallback>
+    </Component>
   )
 }
 
