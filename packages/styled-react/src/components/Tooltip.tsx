@@ -19,7 +19,8 @@ export {Tooltip, type TooltipProps}
 
 type DeprecatedTooltipProps = PrimerDeprecatedTooltipProps & SxProp
 
-function DeprecatedTooltip(props: DeprecatedTooltipProps) {
-  return <Box as={PrimerDeprecatedTooltip} {...props} />
-}
+const DeprecatedTooltip: ForwardRefExoticComponent<DeprecatedTooltipProps & RefAttributes<HTMLSpanElement>> =
+  forwardRef<HTMLSpanElement, DeprecatedTooltipProps>(function DeprecatedTooltip(props, ref) {
+    return <Box as={PrimerDeprecatedTooltip as any} ref={ref} {...props} />
+  })
 export {DeprecatedTooltip, type DeprecatedTooltipProps}
