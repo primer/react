@@ -77,7 +77,7 @@
 
 .UnderlineNavLink:where([data-selected]) {
   color: var(--fgColor-default);
-  border-bottom-color: var(--borderColor-accent-emphasis);
+  border-bottom-color: var(--underlineNav-borderColor-active);
 }
 
 .UnderlineNavLink:where([data-selected]) .UnderlineNavOcticon {
