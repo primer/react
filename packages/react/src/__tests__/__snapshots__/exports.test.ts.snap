@@ -175,6 +175,7 @@ exports[`@primer/react > should not update exports without a semver change 1`] =
   "Textarea",
   "type TextareaProps",
   "TextInput",
+  "type TextInputActionProps",
   "type TextInputProps",
   "TextInputWithTokens",
   "type TextInputWithTokensProps",
