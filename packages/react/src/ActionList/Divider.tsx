@@ -8,7 +8,7 @@ export type ActionListDividerProps = {
 }
 
 /**
- * Visually separates `Items or `Groups in an `ActionList`.
+ * Visually separates `Items` or `Groups` in an `ActionList`.
  */
 export const Divider: React.FC<React.PropsWithChildren<ActionListDividerProps>> = ({className, style}) => {
   return (
