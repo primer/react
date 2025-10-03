@@ -2,8 +2,6 @@ import {
   Box,
   FormControl as PrimerFormControl,
   type FormControlProps as PrimerFormControlProps,
-  type FormControlCaptionProps as PrimerFormControlCaptionProps,
-  type FormControlValidationProps as PrimerFormControlValidationProps,
   type SxProp,
 } from '@primer/react'
 import {forwardRef, type PropsWithChildren} from 'react'
