@@ -12,7 +12,7 @@
   align-items: baseline;
   display: flex;
   min-width: 0;
-  /* stylelint-disable-next-line csstools/value-no-unknown-custom-properties */
+  /* stylelint-disable-next-line */
   flex-direction: var(--main-content-flex-direction);
   flex-grow: 1;
 }
@@ -208,9 +208,9 @@
   line-height: var(--text-body-lineHeight-small);
   min-width: 0;
   flex-grow: 1;
-  /* stylelint-disable-next-line primer/spacing, csstools/value-no-unknown-custom-properties */
+  /* stylelint-disable-next-line primer/spacing */
   margin-left: var(--description-container-margin-left);
-  /* stylelint-disable-next-line csstools/value-no-unknown-custom-properties */
+  /* stylelint-disable-next-line */
   flex-basis: var(--description-container-flex-basis);
 }
 
