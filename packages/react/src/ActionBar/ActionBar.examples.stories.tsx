@@ -95,6 +95,10 @@ export const CommentBox = (props: CommentBoxProps) => {
             ></ActionBar.IconButton>
           </ActionBar>
         </div>
+        <div className={classes.CommentBoxHeaderRight}>
+          <Button variant="invisible">Write</Button>
+          <Button variant="invisible">Preview</Button>
+        </div>
       </header>
       <Textarea value={value} onChange={e => setValue(e.target.value)} id="markdowninput" aria-label="Markdown value" />
       <Dialog aria-labelledby="header" returnFocusRef={buttonRef} isOpen={isOpen} onDismiss={() => setIsOpen(false)}>
