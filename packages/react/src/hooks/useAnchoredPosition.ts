@@ -1,5 +1,5 @@
 import React from 'react'
-import {computePosition, flip, shift, offset, type Placement} from '@floating-ui/dom'
+import {computePosition, flip, offset, type Placement} from '@floating-ui/dom'
 import type {AnchorPosition, PositionSettings} from '@primer/behaviors'
 import {useProvidedRefOrCreate} from './useProvidedRefOrCreate'
 import {useResizeObserver} from './useResizeObserver'

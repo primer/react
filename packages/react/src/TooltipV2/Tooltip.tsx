@@ -3,7 +3,7 @@ import {useId, useProvidedRefOrCreate, useOnEscapePress, useIsMacOS} from '../ho
 import {invariant} from '../utils/invariant'
 import {warning} from '../utils/warning'
 // Replaced legacy positioning helper with Floating UI
-import {computePosition, offset, flip, shift, type Placement} from '@floating-ui/dom'
+import {computePosition, offset, flip, type Placement} from '@floating-ui/dom'
 import {isSupported, apply} from '@oddbird/popover-polyfill/fn'
 import {clsx} from 'clsx'
 import classes from './Tooltip.module.css'
