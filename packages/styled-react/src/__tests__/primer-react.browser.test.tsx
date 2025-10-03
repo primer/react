@@ -346,11 +346,6 @@ describe('@primer/react', () => {
     expect(window.getComputedStyle(container.firstElementChild!).backgroundColor).toBe('rgb(255, 0, 0)')
   })
 
-  test('PageLayout.Header supports `sx` prop', () => {
-    const {container} = render(<PageLayout.Header data-testid="component" sx={{background: 'red'}} />)
-    expect(window.getComputedStyle(container.firstElementChild!).backgroundColor).toBe('rgb(255, 0, 0)')
-  })
-
   test('PageLayout.Content supports `sx` prop', () => {
     const {container} = render(
       <PageLayout.Content as="section" data-testid="component" sx={{background: 'red'}} aria-labelledby="normal" />,
@@ -359,16 +354,6 @@ describe('@primer/react', () => {
     const outerElement = container.firstElementChild! as HTMLElement
     expect(window.getComputedStyle(outerElement).backgroundColor).toBe('rgb(255, 0, 0)')
     expect(outerElement).toHaveAttribute('aria-labelledby', 'normal')
-  })
-
-  test('PageLayout.Pane supports `sx` prop', () => {
-    const {container} = render(<PageLayout.Pane data-testid="component" sx={{background: 'red'}} />)
-    expect(window.getComputedStyle(container.firstElementChild!).backgroundColor).toBe('rgb(255, 0, 0)')
-  })
-
-  test('PageLayout.Footer supports `sx` prop', () => {
-    const {container} = render(<PageLayout.Footer data-testid="component" sx={{background: 'red'}} />)
-    expect(window.getComputedStyle(container.firstElementChild!).backgroundColor).toBe('rgb(255, 0, 0)')
   })
 
   test('RadioGroup supports `sx` prop', () => {

@@ -1,10 +1,9 @@
 import {clsx} from 'clsx'
 import type React from 'react'
-import {type SxProp} from '../../sx'
 import classes from './InputLabel.module.css'
 import {BoxWithFallback} from './BoxWithFallback'
 
-type BaseProps = SxProp & {
+type BaseProps = {
   disabled?: boolean
   required?: boolean
   requiredText?: string
@@ -12,6 +11,7 @@ type BaseProps = SxProp & {
   visuallyHidden?: boolean
   id?: string
   className?: string
+  style?: React.CSSProperties
 }
 
 export type LabelProps = BaseProps & {
@@ -35,16 +35,16 @@ function InputLabel({
   requiredText,
   requiredIndicator,
   visuallyHidden,
-  sx,
   as = 'label',
   className,
+  style,
   ...props
 }: Props) {
   return (
     // @ts-ignore weird typing issue with union for `as` prop
     <BoxWithFallback
       as={as}
-      sx={sx}
+      style={style}
       data-control-disabled={disabled ? '' : undefined}
       data-visually-hidden={visuallyHidden ? '' : undefined}
       htmlFor={htmlFor}
