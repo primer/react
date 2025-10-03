@@ -33,7 +33,7 @@
 
 .UnderlineNavLink {
   padding: var(--base-size-16) var(--base-size-8);
-  margin-right: var(--base-size-16);
+  margin-left: var(--base-size-16);
   font-size: var(--text-body-size-medium);
   line-height: var(--text-title-lineHeight-large);
   color: var(--fgColor-default);
