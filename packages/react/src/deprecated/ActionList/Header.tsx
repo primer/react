@@ -1,12 +1,11 @@
 import type React from 'react'
 import {clsx} from 'clsx'
-import type {SxProp} from '../../sx'
 import classes from './Header.module.css'
 
 /**
  * Contract for props passed to the `Header` component.
  */
-export interface HeaderProps extends React.ComponentPropsWithoutRef<'div'>, SxProp {
+export interface HeaderProps extends React.ComponentPropsWithoutRef<'div'> {
   /**
    * Style variations. Usage is discretionary.
    *

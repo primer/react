@@ -2,7 +2,6 @@ import {CheckIcon} from '@primer/octicons-react'
 import React, {useCallback} from 'react'
 import {isValidElementType} from 'react-is'
 import {get} from '../../constants'
-import type {SxProp} from '../../sx'
 import Truncate from '../../Truncate'
 import type {ItemInput} from './List'
 import {useTheme} from '../../ThemeProvider'
@@ -15,7 +14,7 @@ import classes from './Item.module.css'
 /**
  * Contract for props passed to the `Item` component.
  */
-export interface ItemProps extends SxProp {
+export interface ItemProps {
   /**
    * Primary text which names an `Item`.
    */
