@@ -6,9 +6,9 @@ import {Group} from './Group'
 import type {ItemProps} from './Item'
 import {Item} from './Item'
 import {Divider} from './Divider'
-import {hasActiveDescendantAttribute} from '@primer/behaviors'
+import {clsx} from 'clsx'
 import type {Merge} from '../../utils/types/Merge'
-import {BoxWithFallback} from '../../internal/components/BoxWithFallback'
+import classes from './List.module.css'
 
 export type RenderItemFn = (props: ItemProps) => React.ReactElement
 
@@ -71,6 +71,8 @@ export interface ListPropsBase {
    * Whether to display a divider above each `Item` in this `List` when it does not follow a `Header` or `Divider`.
    */
   showItemDividers?: boolean
+
+  className?: string
 }
 
 /**
@@ -228,18 +230,13 @@ export const List = React.forwardRef<HTMLDivElement, ListProps>((props, forwarde
   }
 
   return (
-    <BoxWithFallback
+    <div
       {...restProps}
       ref={forwardedRef}
+      className={clsx(classes.List, props.className)}
       style={{
         ...listStyles,
         ...(style || {}),
-      }}
-      sx={{
-        [`&[${hasActiveDescendantAttribute}], &:focus-within`]: {
-          '--item-hover-bg-override': 'none',
-          '--item-hover-divider-border-color-override': 'var(--borderColor-muted)',
-        },
       }}
     >
       {groups.map(({header, ...groupProps}, index) => {
@@ -252,7 +249,7 @@ export const List = React.forwardRef<HTMLDivElement, ListProps>((props, forwarde
               style: {
                 ...(index === 0 && firstGroupStyle),
                 ...(index === groups.length - 1 && lastGroupStyle),
-                ...(index > 0 && !shouldShowDivider && {mt: 2}),
+                ...(index > 0 && !shouldShowDivider && {marginTop: 'var(--base-size-8, 8px)'}),
               },
               ...(header && {
                 header: {
@@ -265,7 +262,7 @@ export const List = React.forwardRef<HTMLDivElement, ListProps>((props, forwarde
           </React.Fragment>
         )
       })}
-    </BoxWithFallback>
+    </div>
   )
 })
 
