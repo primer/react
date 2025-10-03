@@ -1,7 +1,6 @@
 import {clsx} from 'clsx'
 import type {To} from 'history'
 import React from 'react'
-import type {ComponentProps} from '../../utils/types'
 import classes from './UnderlineNav.module.css'
 
 export type UnderlineNavProps = {
