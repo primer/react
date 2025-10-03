@@ -138,7 +138,7 @@ const baseMenuInlineStyles: React.CSSProperties = {
   top: '90%',
   boxShadow: '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)',
   borderRadius: 12,
-  background: '#fff',
+  background: 'var(--overlay-bgColor)',
   listStyle: 'none',
   minWidth: `${baseMenuMinWidth}px`,
   maxWidth: '640px',
