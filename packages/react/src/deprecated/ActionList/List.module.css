@@ -1,0 +1,48 @@
+/* ActionList List Component Styles */
+
+.List {
+  font-size: var(--text-body-size-medium);
+  /* 14px font-size * 1.428571429 = 20px line height
+   * TODO: When rem-based spacing on a 4px scale lands, replace hardcoded '20px'
+   */
+  line-height: var(--text-body-lineHeight-medium);
+}
+
+/* Focus and active descendant states */
+.List[data-is-active-descendant],
+.List:focus-within {
+  --item-hover-bg-override: none;
+  --item-hover-divider-border-color-override: var(--borderColor-muted);
+}
+
+/* Variant: full */
+.List.Full .GroupHeader {
+  padding-left: var(--base-size-8);
+  padding-right: var(--base-size-8);
+}
+
+.List.Full .GroupItem {
+  border-radius: 0;
+}
+
+/* Variant: inset (default) and horizontal-inset */
+.List.Inset .FirstGroup,
+.List.HorizontalInset .FirstGroup {
+  margin-top: var(--base-size-8);
+}
+
+.List.Inset .LastGroup,
+.List.HorizontalInset .LastGroup {
+  margin-bottom: var(--base-size-8);
+}
+
+.List.Inset .GroupItem,
+.List.HorizontalInset .GroupItem {
+  margin-left: var(--base-size-8);
+  margin-right: var(--base-size-8);
+}
+
+/* Group spacing when no divider is shown */
+.GroupWithMargin {
+  margin-top: var(--base-size-8);
+}

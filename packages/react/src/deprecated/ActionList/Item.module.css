@@ -1,43 +1,47 @@
 /* ActionList Item Component Styles */
 
 .StyledItem {
-    /* 6px vertical padding + 20px line height = 32px total height
+  /* 6px vertical padding + 20px line height = 32px total height
    *
    * TODO: When rem-based spacing on a 4px scale lands, replace
    * hardcoded '6px' with 'calc((${get('space.s32')} - ${get('space.20')}) / 2)'.
    */
-    padding: var(--base-size-6) var(--base-size-8);
-    display: flex;
-    border-radius: var(--borderRadius-medium);
-    color: var(--fgColor-default);
-    /* 2 frames on a 60hz monitor */
-    transition: background 33.333ms linear;
-    text-decoration: none;
+  padding: var(--base-size-6) var(--base-size-8);
+  display: flex;
+  border-radius: var(--borderRadius-medium);
+  color: var(--fgColor-default);
+  /* 2 frames on a 60hz monitor */
+  transition: background 33.333ms linear;
+  text-decoration: none;
 }
 
 @media (hover: hover) and (pointer: fine) {
-    .StyledItem:hover {
-        /* allow override in case another item in the list is active/focused */
-        background: var(--item-hover-bg-override,
-                var(--bgColor-muted));
-        color: var(--fgColor-default);
-        cursor: pointer;
-    }
+  .StyledItem:hover {
+    /* allow override in case another item in the list is active/focused */
+    background: var(--item-hover-bg-override, var(--bgColor-muted));
+    color: var(--fgColor-default);
+    cursor: pointer;
+  }
 }
 
 /* Item dividers */
-.StyledItem:not(:first-of-type):not([data-component='ActionList.Divider'] + *):not([data-component='ActionList.Header'] + *) {
-    margin-top: var(--base-size-2);
+.StyledItem:not(:first-of-type):not([data-component='ActionList.Divider'] + *):not(
+    [data-component='ActionList.Header'] + *
+  ) {
+  margin-top: var(--base-size-2);
 }
 
-.StyledItem:not(:first-of-type):not([data-component='ActionList.Divider'] + *):not([data-component='ActionList.Header'] + *) .DividedContent::before {
-    content: ' ';
-    display: block;
-    position: absolute;
-    width: 100%;
-    top: calc(-1 * var(--base-size-8));
-    border: 0 solid var(--borderColor-muted);
-    border-top-width: var(--borderWidth-thin);
+.StyledItem:not(:first-of-type):not([data-component='ActionList.Divider'] + *):not(
+    [data-component='ActionList.Header'] + *
+  )
+  .DividedContent::before {
+  content: ' ';
+  display: block;
+  position: absolute;
+  width: 100%;
+  top: calc(-1 * var(--base-size-8));
+  border: 0 solid var(--borderColor-muted);
+  border-top-width: var(--borderWidth-thin);
 }
 
 /* Item dividers should not be visible:
@@ -45,9 +49,9 @@
  * - below Hovered
  */
 .StyledItem:hover .DividedContent::before,
-:hover+.StyledItem .DividedContent::before {
-    /* allow override in case another item in the list is active/focused */
-    border-color: var(--item-hover-divider-border-color-override, transparent) !important;
+:hover + .StyledItem .DividedContent::before {
+  /* allow override in case another item in the list is active/focused */
+  border-color: var(--item-hover-divider-border-color-override, transparent) !important;
 }
 
 /* - above Focused
@@ -56,184 +60,189 @@
  * - below Active Descendent
  */
 .StyledItem:focus .DividedContent::before,
-:focus+.StyledItem .DividedContent::before,
+:focus + .StyledItem .DividedContent::before,
 .StyledItem[data-active-descendant-value] .DividedContent::before,
-[data-active-descendant-value]+.StyledItem .DividedContent::before {
-    /* !important because all the :not's above give higher specificity */
-    border-color: transparent !important;
+[data-active-descendant-value] + .StyledItem .DividedContent::before {
+  /* !important because all the :not's above give higher specificity */
+  border-color: transparent !important;
 }
 
 /* Active Descendant */
 .StyledItem[data-active-descendant-value='activated-directly'] {
-    background: var(--bgColor-accent-muted);
+  background: var(--bgColor-accent-muted);
 }
 
 .StyledItem[data-active-descendant-value='activated-indirectly'] {
-    background: var(--bgColor-muted);
+  background: var(--bgColor-muted);
 }
 
 .StyledItem:focus {
-    background: var(--bgColor-accent-muted);
-    outline: none;
+  background: var(--bgColor-accent-muted);
+  outline: none;
 }
 
 .StyledItem:active {
-    background: var(--bgColor-accent-muted);
+  background: var(--bgColor-accent-muted);
 }
 
 .DividedContent {
-    display: flex;
-    min-width: 0;
-    /* Required for dividers */
-    position: relative;
-    flex-grow: 1;
+  display: flex;
+  min-width: 0;
+  /* Required for dividers */
+  position: relative;
+  flex-grow: 1;
 }
 
 .MainContent {
-    align-items: baseline;
-    display: flex;
-    min-width: 0;
-    flex-direction: var(--main-content-flex-direction);
-    flex-grow: 1;
+  align-items: baseline;
+  display: flex;
+  min-width: 0;
+  flex-direction: var(--main-content-flex-direction);
+  flex-grow: 1;
 }
 
 .BaseVisualContainer {
-    /* Match visual height to adjacent text line height.
+  /* Match visual height to adjacent text line height.
    * TODO: When rem-based spacing on a 4px scale lands, replace
    * hardcoded '20px' with '${get('space.s20')}'.
    */
-    height: var(--base-size-20);
-    width: var(--base-size-12);
-    margin-right: var(--base-size-8);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-shrink: 0;
+  height: var(--base-size-20);
+  width: var(--base-size-12);
+  margin-right: var(--base-size-8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
 }
 
 .ColoredVisualContainer {
-    height: var(--base-size-20);
-    width: var(--base-size-12);
-    margin-right: var(--base-size-8);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-shrink: 0;
+  height: var(--base-size-20);
+  width: var(--base-size-12);
+  margin-right: var(--base-size-8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
 }
 
 .ColoredVisualContainer svg {
-    fill: var(--fgColor-muted);
-    font-size: var(--text-body-size-small);
+  fill: var(--fgColor-muted);
+  font-size: var(--text-body-size-small);
 }
 
 .LeadingVisualContainer {
-    height: var(--base-size-20);
-    width: var(--base-size-12);
-    margin-right: var(--base-size-8);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-shrink: 0;
-    flex-direction: column;
+  height: var(--base-size-20);
+  width: var(--base-size-12);
+  margin-right: var(--base-size-8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  flex-direction: column;
 }
 
 .TrailingContent {
-    height: var(--base-size-20);
-    width: auto;
-    margin-left: var(--base-size-8);
-    margin-right: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-shrink: 0;
-    color: var(--fgColor-muted);
+  height: var(--base-size-20);
+  width: auto;
+  margin-left: var(--base-size-8);
+  margin-right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  color: var(--fgColor-muted);
 }
 
 .TrailingContent div:nth-child(2) {
-    margin-left: var(--base-size-8);
+  margin-left: var(--base-size-8);
 }
 
 .DescriptionContainer {
-    color: var(--fgColor-muted);
-    font-size: var(--text-body-size-small);
-    /* TODO: When rem-based spacing on a 4px scale lands, replace
+  color: var(--fgColor-muted);
+  font-size: var(--text-body-size-small);
+  /* TODO: When rem-based spacing on a 4px scale lands, replace
    * hardcoded '16px' with '${get('lh-12')}'.
    */
-    line-height: var(--text-body-lineHeight-small);
-    margin-left: var(--description-container-margin-left);
-    min-width: 0;
-    flex-grow: 1;
-    flex-basis: var(--description-container-flex-basis);
+  line-height: var(--text-body-lineHeight-small);
+  margin-left: var(--description-container-margin-left);
+  min-width: 0;
+  flex-grow: 1;
+  flex-basis: var(--description-container-flex-basis);
 }
 
 .MultiSelectIcon rect {
-    fill: var(--multiselect-rect-fill);
-    stroke: var(--multiselect-rect-stroke);
-    /* this is a workaround to override global style in github/github, see primer/react#1666 */
-    shape-rendering: auto;
+  fill: var(--multiselect-rect-fill);
+  stroke: var(--multiselect-rect-stroke);
+  /* this is a workaround to override global style in github/github, see primer/react#1666 */
+  shape-rendering: auto;
 }
 
 .MultiSelectIcon path {
-    fill: var(--fgColor-onEmphasis);
-    box-shadow: var(--shadow-resting-small);
-    opacity: var(--multiselect-path-opacity);
+  fill: var(--fgColor-onEmphasis);
+  box-shadow: var(--shadow-resting-small);
+  opacity: var(--multiselect-path-opacity);
 }
 
 /* Disabled state */
 .StyledItem.Disabled {
-    color: var(--fgColor-disabled);
+  color: var(--fgColor-disabled);
 }
 
 .StyledItem.Disabled .ColoredVisualContainer svg {
-    fill: var(--fgColor-disabled);
+  fill: var(--fgColor-disabled);
 }
 
 .StyledItem.Disabled .TrailingContent {
-    color: var(--fgColor-disabled);
+  color: var(--fgColor-disabled);
 }
 
 .StyledItem.Disabled:hover {
-    cursor: default;
+  cursor: default;
 }
 
 /* Danger variant */
 .StyledItem.Danger {
-    color: var(--fgColor-danger);
+  color: var(--fgColor-danger);
 }
 
 .StyledItem.Danger .ColoredVisualContainer svg {
-    fill: var(--fgColor-danger);
+  fill: var(--fgColor-danger);
 }
 
 .StyledItem.Danger .TrailingContent {
-    color: var(--fgColor-muted);
+  color: var(--fgColor-muted);
 }
 
 @media (hover: hover) and (pointer: fine) {
-    .StyledItem.Danger:hover {
-        background: var(--bgColor-danger-muted);
-        color: var(--fgColor-danger);
-    }
+  .StyledItem.Danger:hover {
+    background: var(--bgColor-danger-muted);
+    color: var(--fgColor-danger);
+  }
 }
 
 .StyledItem.Danger:focus,
 .StyledItem.Danger:active {
-    background: var(--bgColor-danger-muted);
+  background: var(--bgColor-danger-muted);
 }
 
 /* Item dividers */
-.styledItem:not(:first-of-type):not([data-component='ActionList.Divider'] + *):not([data-component='ActionList.Header'] + *) {
-    margin-top: var(--divider-margin-top, 0);
+.styledItem:not(:first-of-type):not([data-component='ActionList.Divider'] + *):not(
+    [data-component='ActionList.Header'] + *
+  ) {
+  margin-top: var(--divider-margin-top, 0);
 }
 
-.styledItem:not(:first-of-type):not([data-component='ActionList.Divider'] + *):not([data-component='ActionList.Header'] + *) .dividedContent::before {
-    content: ' ';
-    display: block;
-    position: absolute;
-    width: 100%;
-    top: -7px;
-    border: 0 solid var(--borderColor-muted);
-    border-top-width: var(--divider-border-width, 0);
+.styledItem:not(:first-of-type):not([data-component='ActionList.Divider'] + *):not(
+    [data-component='ActionList.Header'] + *
+  )
+  .dividedContent::before {
+  content: ' ';
+  display: block;
+  position: absolute;
+  width: 100%;
+  top: -7px;
+  border: 0 solid var(--borderColor-muted);
+  border-top-width: var(--divider-border-width, 0);
 }
 
 /* Item dividers should not be visible:
@@ -241,9 +250,9 @@
  * - below Hovered
  */
 .styledItem:hover .dividedContent::before,
-:hover+.styledItem .dividedContent::before {
-    /* allow override in case another item in the list is active/focused */
-    border-color: var(--item-hover-divider-border-color-override, transparent) !important;
+:hover + .styledItem .dividedContent::before {
+  /* allow override in case another item in the list is active/focused */
+  border-color: var(--item-hover-divider-border-color-override, transparent) !important;
 }
 
 /* - above Focused
@@ -252,169 +261,169 @@
  * - below Active Descendent
  */
 .styledItem:focus .dividedContent::before,
-:focus+.styledItem .dividedContent::before,
+:focus + .styledItem .dividedContent::before,
 .styledItem[data-active-descendant-value] .dividedContent::before,
-[data-active-descendant-value]+.styledItem .dividedContent::before {
-    /* !important because all the :not's above give higher specificity */
-    border-color: transparent !important;
+[data-active-descendant-value] + .styledItem .dividedContent::before {
+  /* !important because all the :not's above give higher specificity */
+  border-color: transparent !important;
 }
 
 /* Active Descendant */
 .styledItem[data-active-descendant-value='activated-directly'] {
-    background: var(--item-focus-bg);
+  background: var(--item-focus-bg);
 }
 
 .styledItem[data-active-descendant-value='activated-indirectly'] {
-    background: var(--item-hover-bg);
+  background: var(--item-hover-bg);
 }
 
 .styledItem:focus {
-    background: var(--item-focus-bg);
-    outline: none;
+  background: var(--item-focus-bg);
+  outline: none;
 }
 
 .styledItem:active {
-    background: var(--item-focus-bg);
+  background: var(--item-focus-bg);
 }
 
 .dividedContent {
-    display: flex;
-    min-width: 0;
-    /* Required for dividers */
-    position: relative;
-    flex-grow: 1;
+  display: flex;
+  min-width: 0;
+  /* Required for dividers */
+  position: relative;
+  flex-grow: 1;
 }
 
 .mainContent {
-    align-items: baseline;
-    display: flex;
-    min-width: 0;
-    flex-direction: var(--main-content-flex-direction);
-    flex-grow: 1;
+  align-items: baseline;
+  display: flex;
+  min-width: 0;
+  flex-direction: var(--main-content-flex-direction);
+  flex-grow: 1;
 }
 
 .baseVisualContainer {
-    /* Match visual height to adjacent text line height.
+  /* Match visual height to adjacent text line height.
    * TODO: When rem-based spacing on a 4px scale lands, replace
    * hardcoded '20px' with '${get('space.s20')}'.
    */
-    height: 20px;
-    width: var(--base-size-12);
-    margin-right: var(--base-size-8);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-shrink: 0;
+  height: 20px;
+  width: var(--base-size-12);
+  margin-right: var(--base-size-8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
 }
 
 .coloredVisualContainer {
-    height: 20px;
-    width: var(--base-size-12);
-    margin-right: var(--base-size-8);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-shrink: 0;
+  height: 20px;
+  width: var(--base-size-12);
+  margin-right: var(--base-size-8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
 }
 
 .coloredVisualContainer svg {
-    fill: var(--item-icon-color);
-    font-size: var(--text-body-size-small);
+  fill: var(--item-icon-color);
+  font-size: var(--text-body-size-small);
 }
 
 .leadingVisualContainer {
-    height: 20px;
-    width: var(--base-size-12);
-    margin-right: var(--base-size-8);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-shrink: 0;
-    flex-direction: column;
+  height: 20px;
+  width: var(--base-size-12);
+  margin-right: var(--base-size-8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  flex-direction: column;
 }
 
 .trailingContent {
-    height: 20px;
-    width: var(--base-size-12);
-    margin-right: var(--base-size-8);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-shrink: 0;
-    color: var(--item-annotation-color);
-    margin-left: var(--base-size-8);
-    margin-right: 0;
-    width: auto;
+  height: 20px;
+  width: var(--base-size-12);
+  margin-right: var(--base-size-8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  color: var(--item-annotation-color);
+  margin-left: var(--base-size-8);
+  margin-right: 0;
+  width: auto;
 }
 
 .trailingContent div:nth-child(2) {
-    margin-left: var(--base-size-8);
+  margin-left: var(--base-size-8);
 }
 
 .descriptionContainer {
-    color: var(--fgColor-muted);
-    font-size: var(--text-body-size-small);
-    /* TODO: When rem-based spacing on a 4px scale lands, replace
+  color: var(--fgColor-muted);
+  font-size: var(--text-body-size-small);
+  /* TODO: When rem-based spacing on a 4px scale lands, replace
    * hardcoded '16px' with '${get('lh-12')}'.
    */
-    line-height: 16px;
-    margin-left: var(--description-container-margin-left);
-    min-width: 0;
-    flex-grow: 1;
-    flex-basis: var(--description-container-flex-basis);
+  line-height: 16px;
+  margin-left: var(--description-container-margin-left);
+  min-width: 0;
+  flex-grow: 1;
+  flex-basis: var(--description-container-flex-basis);
 }
 
 .multiSelectIcon rect {
-    fill: var(--multiselect-rect-fill);
-    stroke: var(--multiselect-rect-stroke);
-    /* this is a workaround to override global style in github/github, see primer/react#1666 */
-    shape-rendering: auto;
+  fill: var(--multiselect-rect-fill);
+  stroke: var(--multiselect-rect-stroke);
+  /* this is a workaround to override global style in github/github, see primer/react#1666 */
+  shape-rendering: auto;
 }
 
 .multiSelectIcon path {
-    fill: var(--fgColor-onEmphasis);
-    box-shadow: var(--shadow-small);
-    opacity: var(--multiselect-path-opacity);
+  fill: var(--fgColor-onEmphasis);
+  box-shadow: var(--shadow-small);
+  opacity: var(--multiselect-path-opacity);
 }
 
 /* Disabled state */
 .styledItem.disabled {
-    color: var(--fgColor-disabled);
+  color: var(--fgColor-disabled);
 }
 
 .styledItem.disabled .coloredVisualContainer svg {
-    fill: var(--fgColor-disabled);
+  fill: var(--fgColor-disabled);
 }
 
 .styledItem.disabled .trailingContent {
-    color: var(--fgColor-disabled);
+  color: var(--fgColor-disabled);
 }
 
 .styledItem.disabled:hover {
-    cursor: default;
+  cursor: default;
 }
 
 /* Danger variant */
 .styledItem.danger {
-    color: var(--fgColor-danger);
+  color: var(--fgColor-danger);
 }
 
 .styledItem.danger .coloredVisualContainer svg {
-    fill: var(--fgColor-danger);
+  fill: var(--fgColor-danger);
 }
 
 .styledItem.danger .trailingContent {
-    color: var(--fgColor-muted);
+  color: var(--fgColor-muted);
 }
 
 @media (hover: hover) and (pointer: fine) {
-    .styledItem.danger:hover {
-        background: var(--bgColor-danger-muted);
-        color: var(--fgColor-danger);
-    }
+  .styledItem.danger:hover {
+    background: var(--bgColor-danger-muted);
+    color: var(--fgColor-danger);
+  }
 }
 
 .styledItem.danger:focus,
 .styledItem.danger:active {
-    background: var(--bgColor-danger-muted);
+  background: var(--bgColor-danger-muted);
 }

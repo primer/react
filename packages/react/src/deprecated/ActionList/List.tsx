@@ -1,5 +1,7 @@
 import type {Key} from 'react'
 import React from 'react'
+import styled from 'styled-components'
+import clsx from 'clsx'
 import type {AriaRole} from '../../utils/types'
 import type {GroupProps} from './Group'
 import {Group} from './Group'
@@ -8,7 +10,15 @@ import {Item} from './Item'
 import {Divider} from './Divider'
 import {hasActiveDescendantAttribute} from '@primer/behaviors'
 import type {Merge} from '../../utils/types/Merge'
-import {BoxWithFallback} from '../../internal/components/BoxWithFallback'
+import type {SxProp} from '../../sx'
+import sx from '../../sx'
+import classes from './List.module.css'
+
+// TODO: remove this when we fully migrate away from styled-components
+// Temporary styled div wrapper for sx prop compatibility
+const StyledListWrapper = styled.div<SxProp>`
+  ${sx};
+`
 
 export type RenderItemFn = (props: ItemProps) => React.ReactElement
 
@@ -106,36 +116,25 @@ function isGroupedListProps(props: ListProps): props is GroupedListProps {
  */
 export type ListProps = ListPropsBase | GroupedListProps
 
-// Base styles for the List component
-const listStyles: React.CSSProperties = {
-  fontSize: 'var(--text-body-size-medium, 14px)',
-  // 14px font-size * 1.428571429 = 20px line height
-  // TODO: When rem-based spacing on a 4px scale lands, replace hardcoded '20px'
-  lineHeight: '20px',
-}
-
 /**
- * Returns style objects for `List` children matching the given `List` style variation.
+ * Returns CSS classes and styles for `List` children matching the given `List` style variation.
  * @param variant `List` style variation.
  */
 function useListVariant(variant: ListProps['variant'] = 'inset'): {
-  firstGroupStyle?: React.CSSProperties
-  lastGroupStyle?: React.CSSProperties
-  headerStyle?: React.CSSProperties
-  itemStyle?: React.CSSProperties
+  listClassName: string
+  firstGroupClassName?: string
+  lastGroupClassName?: string
+  headerClassName?: string
+  itemClassName?: string
 } {
-  switch (variant) {
-    case 'full':
-      return {
-        headerStyle: {paddingLeft: 'var(--base-size-8, 8px)', paddingRight: 'var(--base-size-8, 8px)'},
-        itemStyle: {borderRadius: 0},
-      }
-    default:
-      return {
-        firstGroupStyle: {marginTop: 'var(--base-size-8, 8px)'},
-        lastGroupStyle: {marginBottom: 'var(--base-size-8, 8px)'},
-        itemStyle: {marginLeft: 'var(--base-size-8, 8px)', marginRight: 'var(--base-size-8, 8px)'},
-      }
+  const variantClassName = variant === 'full' ? 'Full' : variant === 'horizontal-inset' ? 'HorizontalInset' : 'Inset'
+
+  return {
+    listClassName: `${classes.List} ${classes[variantClassName as keyof typeof classes] || ''}`,
+    firstGroupClassName: classes.FirstGroup,
+    lastGroupClassName: classes.LastGroup,
+    headerClassName: classes.GroupHeader,
+    itemClassName: classes.GroupItem,
   }
 }
 
@@ -143,10 +142,12 @@ function useListVariant(variant: ListProps['variant'] = 'inset'): {
  * Lists `Item`s, either grouped or ungrouped, with a `Divider` between each `Group`.
  */
 export const List = React.forwardRef<HTMLDivElement, ListProps>((props, forwardedRef): JSX.Element => {
-  // Extract style prop to avoid conflicts with BoxWithFallback
-  const {style, ...restProps} = props as ListProps & {style?: React.CSSProperties}
+  // Extract style and className props to avoid conflicts
+  const {style, className, ...restProps} = props as ListProps & {style?: React.CSSProperties; className?: string}
   // Get style objects for `List` children matching the given `List` style variation.
-  const {firstGroupStyle, lastGroupStyle, headerStyle, itemStyle} = useListVariant(restProps.variant)
+  const {listClassName, firstGroupClassName, lastGroupClassName, headerClassName, itemClassName} = useListVariant(
+    restProps.variant,
+  )
 
   /**
    * Render a `Group` using the first of the following renderers that is defined:
@@ -169,13 +170,18 @@ export const List = React.forwardRef<HTMLDivElement, ListProps>((props, forwarde
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     const ItemComponent = ('renderItem' in itemProps && itemProps.renderItem) || restProps.renderItem || Item
     const key = ('key' in itemProps ? itemProps.key : undefined) ?? itemProps.id?.toString() ?? itemIndex.toString()
+
+    // Add itemClassName to the sx prop or className if it exists
+    const itemPropsWithClassName =
+      'className' in itemProps ? {...itemProps, className: clsx(itemClassName, itemProps.className)} : itemProps
+
     return (
       <ItemComponent
         showDivider={restProps.showItemDividers}
         selectionVariant={restProps.selectionVariant}
-        {...itemProps}
+        {...itemPropsWithClassName}
         key={key}
-        sx={{...itemStyle, ...itemProps.sx}}
+        sx={itemProps.sx}
         item={item}
       />
     )
@@ -227,45 +233,51 @@ export const List = React.forwardRef<HTMLDivElement, ListProps>((props, forwarde
     groups = [...groupMap.values()]
   }
 
+  const sxProp = {
+    [`&[${hasActiveDescendantAttribute}], &:focus-within`]: {
+      '--item-hover-bg-override': 'none',
+      '--item-hover-divider-border-color-override': 'var(--borderColor-muted)',
+    },
+  }
+
   return (
-    <BoxWithFallback
-      {...restProps}
-      ref={forwardedRef}
-      style={{
-        ...listStyles,
-        ...(style || {}),
-      }}
-      sx={{
-        [`&[${hasActiveDescendantAttribute}], &:focus-within`]: {
-          '--item-hover-bg-override': 'none',
-          '--item-hover-divider-border-color-override': 'var(--borderColor-muted)',
-        },
-      }}
-    >
-      {groups.map(({header, ...groupProps}, index) => {
-        const hasFilledHeader = header?.variant === 'filled'
-        const shouldShowDivider = index > 0 && !hasFilledHeader
-        return (
-          <React.Fragment key={groupProps.groupId}>
-            {shouldShowDivider ? <Divider key={`${groupProps.groupId}-divider`} /> : null}
-            {renderGroup({
-              style: {
-                ...(index === 0 && firstGroupStyle),
-                ...(index === groups.length - 1 && lastGroupStyle),
-                ...(index > 0 && !shouldShowDivider && {mt: 2}),
-              },
-              ...(header && {
-                header: {
-                  ...header,
-                  style: {...headerStyle, ...header.style},
-                },
-              }),
-              ...groupProps,
-            })}
-          </React.Fragment>
-        )
-      })}
-    </BoxWithFallback>
+    <StyledListWrapper sx={sxProp}>
+      <div
+        {...restProps}
+        ref={forwardedRef}
+        className={clsx(listClassName, className)}
+        style={style}
+        {...{
+          [hasActiveDescendantAttribute]: restProps[hasActiveDescendantAttribute as keyof typeof restProps],
+        }}
+      >
+        {groups.map(({header, ...groupProps}, index) => {
+          const hasFilledHeader = header?.variant === 'filled'
+          const shouldShowDivider = index > 0 && !hasFilledHeader
+          return (
+            <React.Fragment key={groupProps.groupId}>
+              {shouldShowDivider ? <Divider key={`${groupProps.groupId}-divider`} /> : null}
+              {renderGroup({
+                className: clsx(
+                  index === 0 && firstGroupClassName,
+                  index === groups.length - 1 && lastGroupClassName,
+                  groupProps.className,
+                ),
+                ...(index > 0 && !shouldShowDivider && {style: {marginTop: 'var(--base-size-8, 8px)'}}),
+                ...(header && {
+                  header: {
+                    ...header,
+                    className: clsx(headerClassName, header.className),
+                    style: header.style,
+                  },
+                }),
+                ...groupProps,
+              })}
+            </React.Fragment>
+          )
+        })}
+      </div>
+    </StyledListWrapper>
   )
 })
 

@@ -292,144 +292,148 @@ export const Item = React.forwardRef<HTMLDivElement, ItemProps>((props, ref) => 
         data-id={id}
         onKeyPress={keyPressHandler}
         onClick={clickHandler}
-      {...{
-        [isActiveDescendantAttribute]: restProps[isActiveDescendantAttribute as keyof typeof restProps],
-      }}
-    >
-            {!!selected === selected && (
-        <div className={classes.BaseVisualContainer}>
-          {selectionVariant === 'multiple' ? (
-            <>
-              {/**
-               * we use a svg instead of an input because there should not
-               * be an interactive element inside an option
-               * svg copied from primer/css
-               */}
-              <svg
-                className={classes.MultiSelectIcon}
-                style={multiSelectStyles}
-                width="16"
-                height="16"
-                viewBox="0 0 16 16"
-                xmlns="http://www.w3.org/2000/svg"
-                aria-hidden="true"
+        {...{
+          [isActiveDescendantAttribute]: restProps[isActiveDescendantAttribute as keyof typeof restProps],
+        }}
+      >
+        {!!selected === selected && (
+          <div className={classes.BaseVisualContainer}>
+            {selectionVariant === 'multiple' ? (
+              <>
+                {/**
+                 * we use a svg instead of an input because there should not
+                 * be an interactive element inside an option
+                 * svg copied from primer/css
+                 */}
+                <svg
+                  className={classes.MultiSelectIcon}
+                  style={multiSelectStyles}
+                  width="16"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                >
+                  <rect x="2" y="2" width="12" height="12" rx="4"></rect>
+                  <path
+                    fillRule="evenodd"
+                    strokeWidth="0"
+                    d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
+                  />
+                </svg>
+              </>
+            ) : (
+              selected && <CheckIcon fill={theme?.colors.fg.default} />
+            )}
+          </div>
+        )}
+        {LeadingVisual && (
+          <div className={classes.LeadingVisualContainer}>
+            <LeadingVisual />
+          </div>
+        )}
+        <div className={classes.DividedContent}>
+          <div
+            className={classes.MainContent}
+            style={
+              {
+                '--main-content-flex-direction': descriptionVariant === 'inline' ? 'row' : 'column',
+              } as React.CSSProperties
+            }
+          >
+            {children}
+            {text ? <span id={labelId}>{text}</span> : null}
+            {description ? (
+              <span
+                className={classes.DescriptionContainer}
+                id={descriptionId}
+                style={
+                  {
+                    '--description-container-margin-left': descriptionVariant === 'inline' ? get('space.2')(theme) : 0,
+                    '--description-container-flex-basis': descriptionVariant === 'inline' ? 0 : 'auto',
+                  } as React.CSSProperties
+                }
               >
-                <rect x="2" y="2" width="12" height="12" rx="4"></rect>
-                <path
-                  fillRule="evenodd"
-                  strokeWidth="0"
-                  d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
-                />
-              </svg>
-            </>
-          ) : (
-            selected && <CheckIcon fill={theme?.colors.fg.default} />
-          )}
-        </div>
-      )}
-      {LeadingVisual && (
-        <div className={classes.LeadingVisualContainer}>
-          <LeadingVisual />
-        </div>
-      )}
-      <div className={classes.DividedContent}>
-        <div 
-          className={classes.MainContent}
-          style={{
-            '--main-content-flex-direction': descriptionVariant === 'inline' ? 'row' : 'column'
-          } as React.CSSProperties}
-        >
-          {children}
-          {text ? <span id={labelId}>{text}</span> : null}
-          {description ? (
-            <span
-              className={classes.DescriptionContainer}
-              id={descriptionId}
-              style={{
-                '--description-container-margin-left': descriptionVariant === 'inline' ? get('space.2')(theme) : 0,
-                '--description-container-flex-basis': descriptionVariant === 'inline' ? 0 : 'auto',
-              } as React.CSSProperties}
-            >
-              {descriptionVariant === 'block' ? (
-                description
+                {descriptionVariant === 'block' ? (
+                  description
+                ) : (
+                  <Truncate title={description} inline={true} maxWidth="100%">
+                    {description}
+                  </Truncate>
+                )}
+              </span>
+            ) : null}
+          </div>
+          {/* backward compatibility: prefer TrailingVisual but fallback to TrailingIcon */}
+          {TrailingVisual ? (
+            <div className={classes.TrailingContent}>
+              {typeof TrailingVisual !== 'string' && isValidElementType(TrailingVisual) ? (
+                <TrailingVisual />
               ) : (
-                <Truncate title={description} inline={true} maxWidth="100%">
-                  {description}
-                </Truncate>
+                TrailingVisual
               )}
-            </span>
+            </div>
+          ) : TrailingIcon || trailingText ? (
+            <div className={classes.TrailingContent}>
+              {trailingText}
+              {TrailingIcon && <TrailingIcon />}
+            </div>
           ) : null}
         </div>
-        {/* backward compatibility: prefer TrailingVisual but fallback to TrailingIcon */}
-        {TrailingVisual ? (
-          <div className={classes.TrailingContent}>
-            {typeof TrailingVisual !== 'string' && isValidElementType(TrailingVisual) ? (
-              <TrailingVisual />
-            ) : (
-              TrailingVisual
-            )}
+        {LeadingVisual && (
+          <div className={classes.leadingVisualContainer}>
+            <LeadingVisual />
           </div>
-        ) : TrailingIcon || trailingText ? (
-          <div className={classes.TrailingContent}>
-            {trailingText}
-            {TrailingIcon && <TrailingIcon />}
+        )}
+        <div className={classes.dividedContent}>
+          <div
+            className={classes.mainContent}
+            style={
+              {
+                '--main-content-flex-direction': descriptionVariant === 'inline' ? 'row' : 'column',
+              } as React.CSSProperties
+            }
+          >
+            {children}
+            {text ? <span id={labelId}>{text}</span> : null}
+            {description ? (
+              <span
+                className={classes.descriptionContainer}
+                id={descriptionId}
+                style={
+                  {
+                    '--description-container-margin-left': descriptionVariant === 'inline' ? get('space.2')(theme) : 0,
+                    '--description-container-flex-basis': descriptionVariant === 'inline' ? 0 : 'auto',
+                  } as React.CSSProperties
+                }
+              >
+                {descriptionVariant === 'block' ? (
+                  description
+                ) : (
+                  <Truncate title={description} inline={true} maxWidth="100%">
+                    {description}
+                  </Truncate>
+                )}
+              </span>
+            ) : null}
           </div>
-        ) : null}
-      </div>
-      {LeadingVisual && (
-        <div className={classes.leadingVisualContainer}>
-          <LeadingVisual />
-        </div>
-      )}
-      <div className={classes.dividedContent}>
-        <div
-          className={classes.mainContent}
-          style={
-            {
-              '--main-content-flex-direction': descriptionVariant === 'inline' ? 'row' : 'column',
-            } as React.CSSProperties
-          }
-        >
-          {children}
-          {text ? <span id={labelId}>{text}</span> : null}
-          {description ? (
-            <span
-              className={classes.descriptionContainer}
-              id={descriptionId}
-              style={
-                {
-                  '--description-container-margin-left': descriptionVariant === 'inline' ? get('space.2')(theme) : 0,
-                  '--description-container-flex-basis': descriptionVariant === 'inline' ? 0 : 'auto',
-                } as React.CSSProperties
-              }
-            >
-              {descriptionVariant === 'block' ? (
-                description
+          {/* backward compatibility: prefer TrailingVisual but fallback to TrailingIcon */}
+          {TrailingVisual ? (
+            <div className={classes.trailingContent}>
+              {typeof TrailingVisual !== 'string' && isValidElementType(TrailingVisual) ? (
+                <TrailingVisual />
               ) : (
-                <Truncate title={description} inline={true} maxWidth="100%">
-                  {description}
-                </Truncate>
+                TrailingVisual
               )}
-            </span>
+            </div>
+          ) : TrailingIcon || trailingText ? (
+            <div className={classes.trailingContent}>
+              {trailingText}
+              {TrailingIcon && <TrailingIcon />}
+            </div>
           ) : null}
         </div>
-        {/* backward compatibility: prefer TrailingVisual but fallback to TrailingIcon */}
-        {TrailingVisual ? (
-          <div className={classes.trailingContent}>
-            {typeof TrailingVisual !== 'string' && isValidElementType(TrailingVisual) ? (
-              <TrailingVisual />
-            ) : (
-              TrailingVisual
-            )}
-          </div>
-        ) : TrailingIcon || trailingText ? (
-          <div className={classes.trailingContent}>
-            {trailingText}
-            {TrailingIcon && <TrailingIcon />}
-          </div>
-        ) : null}
       </div>
-    </div>
     </StyledItemWrapper>
   )
 }) as PolymorphicForwardRefComponent<'div', ItemProps>
