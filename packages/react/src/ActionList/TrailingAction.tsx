@@ -25,12 +25,13 @@ export type ActionListTrailingActionProps = ElementProps & {
   icon?: React.ElementType
   label: string
   className?: string
+  style?: React.CSSProperties
 }
 
 export const TrailingAction = forwardRef(
-  ({as = 'button', icon, label, href = null, className, loading, ...props}, forwardedRef) => {
+  ({as = 'button', icon, label, href = null, className, style, loading, ...props}, forwardedRef) => {
     return (
-      <span className={clsx(className, classes.TrailingAction)}>
+      <span className={clsx(className, classes.TrailingAction)} style={style}>
         {icon ? (
           <IconButton
             as={as}

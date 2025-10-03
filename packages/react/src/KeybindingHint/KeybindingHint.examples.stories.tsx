@@ -1,6 +1,7 @@
 import type {Meta, StoryObj} from '@storybook/react-vite'
 import {KeybindingHint, type KeybindingHintProps} from '.'
 import {Button, ActionList, FormControl, TextInput} from '..'
+import classes from './KeybindingHint.examples.stories.module.css'
 
 export default {
   title: 'Experimental/Components/KeybindingHint/Examples',
@@ -33,7 +34,7 @@ export const DangerButton: StoryObj<KeybindingHintProps> = {
 
 export const ActionListExample: StoryObj<KeybindingHintProps> = {
   render: args => (
-    <ActionList sx={{maxWidth: '300px', border: '1px solid', borderColor: 'border.default', borderRadius: 2}}>
+    <ActionList className={classes.ActionListExample}>
       <ActionList.Item>Add comment</ActionList.Item>
       <ActionList.Item>
         Copy text{' '}

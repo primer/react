@@ -15,7 +15,6 @@ import {invariant} from '../utils/invariant'
 import VisuallyHidden from '../_VisuallyHidden'
 import classes from './ActionList.module.css'
 import {clsx} from 'clsx'
-import {BoxWithFallback} from '../internal/components/BoxWithFallback'
 import {fixedForwardRef} from '../utils/modern-polymorphic'
 
 type ActionListSubItemProps = {
@@ -57,7 +56,6 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
     selected = undefined,
     active = false,
     onSelect: onSelectUser,
-    sx: sxProp,
     id,
     role,
     loading,
@@ -246,10 +244,8 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
         trailingVisualId,
       }}
     >
-      <BoxWithFallback
+      <li
         {...containerProps}
-        as="li"
-        sx={sxProp}
         ref={listSemantics ? forwardedRef : null}
         data-variant={variant === 'danger' ? variant : undefined}
         data-active={active ? true : undefined}
@@ -313,7 +309,7 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
         </ItemWrapper>
         {!inactive && !loading && !menuContext && Boolean(slots.trailingAction) && slots.trailingAction}
         {slots.subItem}
-      </BoxWithFallback>
+      </li>
     </ItemContext.Provider>
   )
 }

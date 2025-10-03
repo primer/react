@@ -1,17 +1,15 @@
 import React from 'react'
 import {AlertIcon} from '@primer/octicons-react'
 import Spinner from '../Spinner'
-import type {SxProp} from '../sx'
 import {ItemContext} from './shared'
 import {Tooltip, type TooltipProps} from '../TooltipV2'
 import {clsx} from 'clsx'
 import classes from './ActionList.module.css'
-import {BoxWithFallback} from '../internal/components/BoxWithFallback'
 
-export type VisualProps = SxProp & React.HTMLAttributes<HTMLSpanElement>
+export type VisualProps = React.HTMLAttributes<HTMLSpanElement>
 
 export const VisualContainer: React.FC<React.PropsWithChildren<VisualProps>> = ({className, ...props}) => {
-  return <BoxWithFallback as="span" className={clsx(className, classes.VisualWrap)} {...props} />
+  return <span className={clsx(className, classes.VisualWrap)} {...props} />
 }
 
 export type ActionListLeadingVisualProps = VisualProps

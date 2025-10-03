@@ -1,6 +1,5 @@
 import React from 'react'
 import {useId} from '../hooks/useId'
-import type {SxProp} from '../sx'
 import {ListContext, type ActionListProps} from './shared'
 import type {ActionListHeadingProps} from './Heading'
 import {useSlots} from '../hooks/useSlots'
@@ -8,14 +7,13 @@ import {invariant} from '../utils/invariant'
 import {clsx} from 'clsx'
 import classes from './ActionList.module.css'
 import groupClasses from './Group.module.css'
-import {BoxWithFallback} from '../internal/components/BoxWithFallback'
 
 type HeadingProps = {
   as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
   className?: string
   children: React.ReactNode
   id?: string
-} & SxProp
+}
 
 const Heading: React.FC<HeadingProps & React.HTMLAttributes<HTMLHeadingElement>> = ({
   as: Component = 'h3',
@@ -25,10 +23,9 @@ const Heading: React.FC<HeadingProps & React.HTMLAttributes<HTMLHeadingElement>>
   ...rest
 }) => {
   return (
-    // Box is temporary to support lingering sx usage
-    <BoxWithFallback as={Component} className={className} id={id} {...rest}>
+    <Component className={className} id={id} {...rest}>
       {children}
-    </BoxWithFallback>
+    </Component>
   )
 }
 
@@ -58,12 +55,11 @@ export type ActionListGroupProps = React.HTMLAttributes<HTMLLIElement> & {
    * Secondary text which provides additional information about a `Group`.
    */
   auxiliaryText?: string
-} & SxProp & {
-    /**
-     * Whether multiple Items or a single Item can be selected in the Group. Overrides value on ActionList root.
-     */
-    selectionVariant?: ActionListProps['selectionVariant'] | false
-  }
+  /**
+   * Whether multiple Items or a single Item can be selected in the Group. Overrides value on ActionList root.
+   */
+  selectionVariant?: ActionListProps['selectionVariant'] | false
+}
 
 type ContextProps = Pick<ActionListGroupProps, 'selectionVariant'> & {groupHeadingId: string | undefined}
 export const GroupContext = React.createContext<ContextProps>({
@@ -101,12 +97,7 @@ export const Group: React.FC<React.PropsWithChildren<ActionListGroupProps>> = ({
   }
 
   return (
-    <BoxWithFallback
-      as="li"
-      className={clsx(className, groupClasses.Group)}
-      role={listRole ? 'none' : undefined}
-      {...props}
-    >
+    <li className={clsx(className, groupClasses.Group)} role={listRole ? 'none' : undefined} {...props}>
       <GroupContext.Provider value={{selectionVariant, groupHeadingId}}>
         {title && !slots.groupHeading ? (
           // Escape hatch: supports old API <ActionList.Group title="group title"> in a non breaking way
@@ -126,13 +117,12 @@ export const Group: React.FC<React.PropsWithChildren<ActionListGroupProps>> = ({
           {slots.groupHeading ? childrenWithoutSlots : props.children}
         </ul>
       </GroupContext.Provider>
-    </BoxWithFallback>
+    </li>
   )
 }
 
 export type ActionListGroupHeadingProps = Pick<ActionListGroupProps, 'variant' | 'auxiliaryText'> &
   Omit<ActionListHeadingProps, 'as'> &
-  SxProp &
   React.HTMLAttributes<HTMLElement> & {
     as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
     headingWrapElement?: 'div' | 'li'
@@ -156,7 +146,6 @@ export const GroupHeading: React.FC<React.PropsWithChildren<ActionListGroupHeadi
   auxiliaryText,
   children,
   className,
-  sx,
   headingWrapElement = 'div',
   ...props
 }) => {
@@ -208,7 +197,6 @@ export const GroupHeading: React.FC<React.PropsWithChildren<ActionListGroupHeadi
             className={clsx(className, groupClasses.GroupHeading)}
             as={as || 'h3'}
             id={groupHeadingId}
-            sx={sx}
             {...props}
           >
             {_internalBackwardCompatibleTitle ?? children}
