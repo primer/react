@@ -1,4 +1,3 @@
-export {ActionList} from '@primer/react'
 export {Box, type BoxProps} from './components/Box'
 export {Details} from '@primer/react'
 export {ProgressBar} from '@primer/react'
@@ -12,6 +11,17 @@ export {themeGet} from '@primer/react'
 export {useColorSchemeVar} from '@primer/react'
 export {useTheme} from '@primer/react'
 
+export {
+  ActionList,
+  type ActionListProps,
+  type ActionListItemProps,
+  type ActionListLinkItemProps,
+  type ActionListGroupProps,
+  type ActionListDividerProps,
+  type ActionListLeadingVisualProps,
+  type ActionListTrailingVisualProps,
+  type ActionListTrailingActionProps,
+} from './components/ActionList'
 export {ActionMenu} from './components/ActionMenu'
 export {Autocomplete, type AutocompleteOverlayProps} from './components/Autocomplete'
 export {Avatar, type AvatarProps} from './components/Avatar'

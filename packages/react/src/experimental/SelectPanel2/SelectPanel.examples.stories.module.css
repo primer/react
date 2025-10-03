@@ -1,3 +1,11 @@
+.OpenIcon {
+  color: var(--fgColor-open);
+}
+
+.MergedIcon {
+  color: var(--fgColor-done);
+}
+
 .StoryContainer {
   display: flex;
   flex-direction: column;
@@ -79,4 +87,12 @@
 
 .FormControl {
   margin-bottom: var(--base-size-8);
+}
+
+.ButtonContentStartJustify [data-component='buttonContent'] {
+  justify-content: start;
+}
+
+.HideActionListSelection [data-component='ActionList.Selection'] {
+  display: none;
 }
