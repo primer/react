@@ -3,19 +3,15 @@ import React, {useCallback} from 'react'
 import {isValidElementType} from 'react-is'
 import {get} from '../../constants'
 import type {SxProp} from '../../sx'
-import sx from '../../sx'
 import Truncate from '../../Truncate'
 import type {ItemInput} from './List'
 import styled from 'styled-components'
 import {useTheme} from '../../ThemeProvider'
-import {
-  activeDescendantActivatedDirectly,
-  activeDescendantActivatedIndirectly,
-  isActiveDescendantAttribute,
-} from '@primer/behaviors'
 import {useId} from '../../hooks/useId'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../../utils/polymorphic'
 import type {AriaRole} from '../../utils/types'
+
+import classes from './Item.module.css'
 
 /**
  * Contract for props passed to the `Item` component.
@@ -118,220 +114,15 @@ export interface ItemProps extends SxProp {
    * An item to pass back in the `onAction` callback, meant as
    */
   item?: ItemInput
+  as?: React.ElementType
 }
-
-const getItemVariant = (variant = 'default', disabled?: boolean) => {
-  if (disabled) {
-    return {
-      color: get('colors.primer.fg.disabled'),
-      iconColor: get('colors.primer.fg.disabled'),
-      annotationColor: get('colors.primer.fg.disabled'),
-      hoverCursor: 'default',
-    }
-  }
-
-  switch (variant) {
-    case 'danger':
-      return {
-        color: get('colors.danger.fg'),
-        iconColor: get('colors.danger.fg'),
-        annotationColor: get('colors.fg.muted'),
-        hoverCursor: 'pointer',
-        hoverBg: get('colors.actionListItem.danger.hoverBg'),
-        focusBg: get('colors.actionListItem.danger.activeBg'),
-        hoverText: get('colors.actionListItem.danger.hoverText'),
-      }
-    default:
-      return {
-        color: get('colors.fg.default'),
-        iconColor: get('colors.fg.muted'),
-        annotationColor: get('colors.fg.muted'),
-        hoverCursor: 'pointer',
-        hoverBg: get('colors.actionListItem.default.hoverBg'),
-        focusBg: get('colors.actionListItem.default.activeBg'),
-      }
-  }
-}
-
-const DividedContent = styled.div`
-  display: flex;
-  min-width: 0;
-
-  /* Required for dividers */
-  position: relative;
-  flex-grow: 1;
-`
-
-const MainContent = styled.div`
-  align-items: baseline;
-  display: flex;
-  min-width: 0;
-  flex-direction: var(--main-content-flex-direction);
-  flex-grow: 1;
-`
-
-const StyledItem = styled.div<
-  {
-    variant: ItemProps['variant']
-    showDivider: ItemProps['showDivider']
-    item?: ItemInput
-  } & SxProp
->`
-  /* 6px vertical padding + 20px line height = 32px total height
-   *
-   * TODO: When rem-based spacing on a 4px scale lands, replace
-   * hardcoded '6px' with 'calc((${get('space.s32')} - ${get('space.20')}) / 2)'.
-   */
-  padding: 6px ${get('space.2')};
-  display: flex;
-  border-radius: ${get('radii.2')};
-  color: ${({variant, item}) => getItemVariant(variant, item?.disabled).color};
-  // 2 frames on a 60hz monitor
-  transition: background 33.333ms linear;
-  text-decoration: none;
-
-  @media (hover: hover) and (pointer: fine) {
-    :hover {
-      // allow override in case another item in the list is active/focused
-      background: var(
-        --item-hover-bg-override,
-        ${({variant, item}) => getItemVariant(variant, item?.disabled).hoverBg}
-      );
-      color: ${({variant, item}) => getItemVariant(variant, item?.disabled).hoverText};
-      cursor: ${({variant, item}) => getItemVariant(variant, item?.disabled).hoverCursor};
-    }
-  }
-
-  // Item dividers
-  :not(:first-of-type):not([data-component='ActionList.Divider'] + &):not([data-component='ActionList.Header'] + &) {
-    margin-top: ${({showDivider}) => (showDivider ? `1px` : '0')};
-
-    ${DividedContent}::before {
-      content: ' ';
-      display: block;
-      position: absolute;
-      width: 100%;
-      top: -7px;
-      // NB: This 'get' won’t execute if it’s moved into the arrow function below.
-      border: 0 solid ${get('colors.border.muted')};
-      border-top-width: ${({showDivider}) => (showDivider ? `1px` : '0')};
-    }
-  }
-
-  // Item dividers should not be visible:
-  // - above Hovered
-  &:hover ${DividedContent}::before,
-  // - below Hovered
-  // '*' instead of '&' because '&' maps to separate class names depending on 'variant'
-  :hover + * ${DividedContent}::before {
-    // allow override in case another item in the list is active/focused
-    border-color: var(--item-hover-divider-border-color-override, transparent) !important;
-  }
-
-  // - above Focused
-  &:focus ${DividedContent}::before,
-  // - below Focused
-  // '*' instead of '&' because '&' maps to separate class names depending on 'variant'
-  :focus + * ${DividedContent}::before,
-  // - above Active Descendent
-  &[${isActiveDescendantAttribute}] ${DividedContent}::before,
-  // - below Active Descendent
-  [${isActiveDescendantAttribute}] + & ${DividedContent}::before {
-    // '!important' because all the ':not's above give higher specificity
-    border-color: transparent !important;
-  }
-
-  // Active Descendant
-  &[${isActiveDescendantAttribute}='${activeDescendantActivatedDirectly}'] {
-    background: ${({variant, item}) => getItemVariant(variant, item?.disabled).focusBg};
-  }
-  &[${isActiveDescendantAttribute}='${activeDescendantActivatedIndirectly}'] {
-    background: ${({variant, item}) => getItemVariant(variant, item?.disabled).hoverBg};
-  }
-
-  &:focus {
-    background: ${({variant, item}) => getItemVariant(variant, item?.disabled).focusBg};
-    outline: none;
-  }
-
-  &:active {
-    background: ${({variant, item}) => getItemVariant(variant, item?.disabled).focusBg};
-  }
-
-  ${sx}
-`
-
-export const TextContainer = styled.span<{
-  dangerouslySetInnerHtml?: React.DOMAttributes<HTMLDivElement>['dangerouslySetInnerHTML']
-}>``
-
-const BaseVisualContainer = styled.div<{variant?: ItemProps['variant']; disabled?: boolean}>`
-  // Match visual height to adjacent text line height.
-  // TODO: When rem-based spacing on a 4px scale lands, replace
-  // hardcoded '20px' with '${get('space.s20')}'.
-  height: 20px;
-  width: ${get('space.3')};
-  margin-right: ${get('space.2')};
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-shrink: 0;
-`
-
-const ColoredVisualContainer = styled(BaseVisualContainer)`
-  svg {
-    fill: ${({variant, disabled}) => getItemVariant(variant, disabled).iconColor};
-    font-size: ${get('fontSizes.0')};
-  }
-`
-
-const LeadingVisualContainer = styled(ColoredVisualContainer)`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-`
-
-const TrailingContent = styled(ColoredVisualContainer)`
-  color: ${({variant, disabled}) => getItemVariant(variant, disabled).annotationColor};
-  margin-left: ${get('space.2')};
-  margin-right: 0;
-  width: auto;
-  div:nth-child(2) {
-    margin-left: ${get('space.2')};
-  }
-`
-
-const DescriptionContainer = styled.span`
-  color: ${get('colors.fg.muted')};
-  font-size: ${get('fontSizes.0')};
-  // TODO: When rem-based spacing on a 4px scale lands, replace
-  // hardcoded '16px' with '${get('lh-12')}'.
-  line-height: 16px;
-  margin-left: var(--description-container-margin-left);
-  min-width: 0;
-  flex-grow: 1;
-  flex-basis: var(--description-container-flex-basis);
-`
-
-const MultiSelectIcon = styled.svg<{selected?: boolean}>`
-  rect {
-    fill: ${({selected}) => (selected ? get('colors.accent.fg') : get('colors.canvas.default'))};
-    stroke: ${({selected}) => (selected ? get('colors.accent.fg') : get('colors.border.default'))};
-    shape-rendering: auto; // this is a workaround to override global style in github/github, see primer/react#1666
-  }
-  path {
-    fill: ${get('colors.fg.onEmphasis')};
-    boxshadow: ${get('shadow.small')};
-    opacity: ${({selected}) => (selected ? 1 : 0)};
-  }
-`
 
 /**
  * An actionable or selectable `Item` with an optional icon and description.
  */
 export const Item = React.forwardRef((itemProps, ref) => {
   const {
-    as: Component,
+    as: Component = 'div',
     text,
     description,
     descriptionVariant = 'inline',
@@ -385,22 +176,21 @@ export const Item = React.forwardRef((itemProps, ref) => {
   const {theme} = useTheme()
 
   return (
-    <StyledItem
+    <Component
       ref={ref}
-      as={Component}
       tabIndex={disabled ? undefined : -1}
-      variant={variant}
-      showDivider={showDivider}
+      data-variant={variant}
       aria-selected={selected}
       aria-labelledby={text ? labelId : undefined}
       aria-describedby={description ? descriptionId : undefined}
+      data-divider={showDivider ? '' : undefined}
       {...props}
       data-id={id}
       onKeyPress={keyPressHandler}
       onClick={clickHandler}
     >
       {!!selected === selected && (
-        <BaseVisualContainer>
+        <div>
           {selectionVariant === 'multiple' ? (
             <>
               {/**
@@ -408,8 +198,9 @@ export const Item = React.forwardRef((itemProps, ref) => {
                * be an interactive element inside an option
                * svg copied from primer/css
                */}
-              <MultiSelectIcon
-                selected={selected}
+              <svg
+                className={classes.MultiSelectIcon}
+                data-selected={selected ? '' : undefined}
                 width="16"
                 height="16"
                 viewBox="0 0 16 16"
@@ -422,28 +213,33 @@ export const Item = React.forwardRef((itemProps, ref) => {
                   strokeWidth="0"
                   d="M4.03231 8.69862C3.84775 8.20646 4.49385 7.77554 4.95539 7.77554C5.41693 7.77554 6.80154 9.85246 6.80154 9.85246C6.80154 9.85246 10.2631 4.314 10.4938 4.08323C10.7246 3.85246 11.8785 4.08323 11.4169 5.00631C11.0081 5.82388 7.26308 11.4678 7.26308 11.4678C7.26308 11.4678 6.80154 12.1602 6.34 11.4678C5.87846 10.7755 4.21687 9.19077 4.03231 8.69862Z"
                 />
-              </MultiSelectIcon>
+              </svg>
             </>
           ) : (
             selected && <CheckIcon fill={theme?.colors.fg.default} />
           )}
-        </BaseVisualContainer>
+        </div>
       )}
       {LeadingVisual && (
-        <LeadingVisualContainer variant={variant} disabled={disabled}>
+        <div
+          className={classes.LeadingVisualContainer}
+          data-variant={variant}
+          data-disabled={disabled ? '' : undefined}
+        >
           <LeadingVisual />
-        </LeadingVisualContainer>
+        </div>
       )}
-      <DividedContent>
-        <MainContent
+      <div className={classes.DividedContent} data-component="ActionList.DividedContent">
+        <div
           style={
             {'--main-content-flex-direction': descriptionVariant === 'inline' ? 'row' : 'column'} as React.CSSProperties
           }
+          className={classes.MainContent}
         >
           {children}
-          {text ? <TextContainer id={labelId}>{text}</TextContainer> : null}
+          {text ? <span id={labelId}>{text}</span> : null}
           {description ? (
-            <DescriptionContainer
+            <span
               id={descriptionId}
               style={
                 {
@@ -451,6 +247,7 @@ export const Item = React.forwardRef((itemProps, ref) => {
                   '--description-container-flex-basis': descriptionVariant === 'inline' ? 0 : 'auto',
                 } as React.CSSProperties
               }
+              className={classes.DescriptionContainer}
             >
               {descriptionVariant === 'block' ? (
                 description
@@ -459,26 +256,26 @@ export const Item = React.forwardRef((itemProps, ref) => {
                   {description}
                 </Truncate>
               )}
-            </DescriptionContainer>
+            </span>
           ) : null}
-        </MainContent>
+        </div>
         {/* backward compatibility: prefer TrailingVisual but fallback to TrailingIcon */}
         {TrailingVisual ? (
-          <TrailingContent variant={variant} disabled={disabled}>
+          <div className={classes.TrailingContent} data-variant={variant} data-disabled={disabled ? '' : undefined}>
             {typeof TrailingVisual !== 'string' && isValidElementType(TrailingVisual) ? (
               <TrailingVisual />
             ) : (
               TrailingVisual
             )}
-          </TrailingContent>
+          </div>
         ) : TrailingIcon || trailingText ? (
-          <TrailingContent variant={variant} disabled={disabled}>
+          <div className={classes.TrailingContent} data-variant={variant} data-disabled={disabled ? '' : undefined}>
             {trailingText}
             {TrailingIcon && <TrailingIcon />}
-          </TrailingContent>
+          </div>
         ) : null}
-      </DividedContent>
-    </StyledItem>
+      </div>
+    </Component>
   )
 }) as PolymorphicForwardRefComponent<'div', ItemProps>
 
