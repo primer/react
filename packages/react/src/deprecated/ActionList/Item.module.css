@@ -57,9 +57,7 @@
 }
 
 /* Item dividers */
-.Item:not(:first-of-type):not([data-component='ActionList.Divider'] + *):not(
-    [data-component='ActionList.Header'] + *
-  ) {
+.Item:not(:first-of-type):not([data-component='ActionList.Divider'] + *):not([data-component='ActionList.Header'] + *) {
   margin-top: 0;
 
   :where([data-divider]) {
@@ -68,9 +66,7 @@
   }
 }
 
-.Item:not(:first-of-type):not([data-component='ActionList.Divider'] + *):not(
-    [data-component='ActionList.Header'] + *
-  )
+.Item:not(:first-of-type):not([data-component='ActionList.Divider'] + *):not([data-component='ActionList.Header'] + *)
   .DividedContent::before {
   content: ' ';
   display: block;
@@ -80,14 +76,14 @@
   top: -7px;
   border: 0 solid var(--borderColor-muted);
   border-top-width: 0;
- }
+}
 
- :where([data-divider]){
-    .DividedContent::before {
-        /* stylelint-disable-next-line primer/borders */
-        border-top-width: 1px;
-    }
- }
+:where([data-divider]) {
+  .DividedContent::before {
+    /* stylelint-disable-next-line primer/borders */
+    border-top-width: 1px;
+  }
+}
 
 /* Item dividers should not be visible above/below hovered items */
 .Item:hover .DividedContent::before,
@@ -160,7 +156,7 @@
   font-size: var(--text-body-size-small);
 }
 
-.LeadingVisualContainer:where([data-variant="danger"]) svg {
+.LeadingVisualContainer:where([data-variant='danger']) svg {
   fill: var(--fgColor-danger);
 }
 
@@ -181,7 +177,7 @@
   flex-shrink: 0;
 }
 
-.TrailingContent:where([data-variant="danger"]) {
+.TrailingContent:where([data-variant='danger']) {
   color: var(--fgColor-muted);
 }
 
@@ -198,7 +194,7 @@
   font-size: var(--text-body-size-small);
 }
 
-.TrailingContent:where([data-variant="danger"]) svg {
+.TrailingContent:where([data-variant='danger']) svg {
   fill: var(--fgColor-danger);
 }
 
