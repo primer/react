@@ -54,10 +54,18 @@ const StyledActionListTrailingAction = styled(PrimerActionList.TrailingAction).w
   ${sx}
 `
 
-const ActionListTrailingAction = React.forwardRef<any, ActionListTrailingActionProps>((props, ref) => {
-  const {as, ...rest} = props as any
-  return <StyledActionListTrailingAction {...rest} {...(as ? {forwardedAs: as} : {})} ref={ref} />
-}) as ForwardRefComponent<TrailingActionElements, ActionListTrailingActionProps>
+const ActionListTrailingAction = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, ActionListTrailingActionProps>(
+  (props, ref) => {
+    const {as, ...rest} = props as ActionListTrailingActionProps & {as?: React.ElementType}
+    return (
+      <StyledActionListTrailingAction
+        {...rest}
+        {...(as ? {forwardedAs: as} : {})}
+        ref={ref as React.Ref<HTMLElement>}
+      />
+    )
+  },
+) as ForwardRefComponent<TrailingActionElements, ActionListTrailingActionProps>
 
 const StyledActionListItem: ForwardRefComponent<'li', ActionListItemProps> = styled(
   PrimerActionList.Item,
