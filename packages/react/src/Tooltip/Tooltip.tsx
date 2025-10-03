@@ -1,6 +1,5 @@
 import {clsx} from 'clsx'
 import React, {useMemo} from 'react'
-import type {ComponentProps} from '../utils/types'
 import {useId} from '../hooks'
 import classes from './Tooltip.module.css'
 
