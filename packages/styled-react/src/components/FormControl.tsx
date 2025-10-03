@@ -30,22 +30,16 @@ const FormControlLeadingVisual = (props: PropsWithChildren<SxProp>) => {
   return <Box as={PrimerFormControl.LeadingVisual} {...props} />
 }
 
-type FormControlLabelProps = PropsWithChildren<PrimerFormControlLabelProps> & SxProp
-
-const FormControlLabel = (props: FormControlLabelProps) => {
-  return <Box as={PrimerFormControl.Label} {...props} />
-}
-
 const FormControl = Object.assign(FormControlImpl, {
   Caption: FormControlCaption,
   LeadingVisual: FormControlLeadingVisual,
   Validation: FormControlValidation,
-  Label: FormControlLabel,
+  Label: PrimerFormControl.Label,
 }) as typeof FormControlImpl & {
   Caption: typeof FormControlCaption
   LeadingVisual: typeof FormControlLeadingVisual
   Validation: typeof FormControlValidation
-  Label: typeof FormControlLabel
+  Label: typeof PrimerFormControl.Label
 }
 
 export {FormControl, type FormControlProps}
