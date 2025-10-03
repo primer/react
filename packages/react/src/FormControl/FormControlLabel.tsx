@@ -11,6 +11,7 @@ export type Props = {
   requiredIndicator?: boolean
   id?: string
   className?: string
+  style?: React.CSSProperties
 }
 
 const FormControlLabel: React.FC<
