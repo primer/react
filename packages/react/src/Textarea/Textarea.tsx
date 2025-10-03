@@ -58,7 +58,6 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
     {
       value,
       disabled,
-      sx: sxProp,
       required,
       validationStatus,
       rows = DEFAULT_TEXTAREA_ROWS,
@@ -76,7 +75,6 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
   ): ReactElement => {
     return (
       <TextInputBaseWrapper
-        sx={sxProp}
         validationStatus={validationStatus}
         disabled={disabled}
         block={block}

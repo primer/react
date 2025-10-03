@@ -83,7 +83,6 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
     className,
     block,
     disabled,
-    sx: sxProp,
     tokens,
     onTokenRemove,
     tokenComponent: TokenComponent = Token,
@@ -272,7 +271,6 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
       data-token-wrapping={Boolean(preventTokenWrapping || maxHeight) || undefined}
       className={clsx(className, styles.TextInputWrapper)}
       style={maxHeight ? {maxHeight, ...style} : style}
-      sx={sxProp}
     >
       {IconComponent && !LeadingVisual && <IconComponent className="TextInput-icon" />}
       <TextInputInnerVisualSlot
