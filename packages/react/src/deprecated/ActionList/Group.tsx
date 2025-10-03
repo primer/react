@@ -1,7 +1,5 @@
 import type React from 'react'
-import styled from 'styled-components'
 import type {SxProp} from '../../sx'
-import sx from '../../sx'
 import type {HeaderProps} from './Header'
 import {Header} from './Header'
 
@@ -30,18 +28,14 @@ export interface GroupProps extends React.ComponentPropsWithoutRef<'div'>, SxPro
   showItemDividers?: boolean
 }
 
-const StyledGroup = styled.div`
-  ${sx}
-`
-
 /**
  * Collects related `Items` in an `ActionList`.
  */
 export function Group({header, items, ...props}: GroupProps): JSX.Element {
   return (
-    <StyledGroup {...props}>
+    <div {...props}>
       {header && <Header {...header} />}
       {items}
-    </StyledGroup>
+    </div>
   )
 }
