@@ -2,6 +2,7 @@ import {clsx} from 'clsx'
 import React, {useMemo} from 'react'
 import {useId} from '../hooks'
 import classes from './Tooltip.module.css'
+import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 
 /* Tooltip v1 */
 
@@ -21,7 +22,10 @@ export const TooltipContext = React.createContext<{tooltipId?: string}>({})
 /**
  * @deprecated
  */
-function Tooltip({direction = 'n', children, className, text, noDelay, align, wrap, id, ...rest}: TooltipProps) {
+const Tooltip = React.forwardRef(function Tooltip(
+  {as: Component = 'span', direction = 'n', children, className, text, noDelay, align, wrap, id, ...rest},
+  ref,
+) {
   const tooltipId = useId(id)
   const tooltipClasses = clsx(className, classes.Tooltip, classes[`Tooltip--${direction}`], {
     [classes[`Tooltip--align${align === 'left' ? 'Left' : 'Right'}`]]: align,
@@ -38,11 +42,14 @@ function Tooltip({direction = 'n', children, className, text, noDelay, align, wr
   return (
     // This provider is used to check if an icon button is wrapped with tooltip or not.
     <TooltipContext.Provider value={value}>
-      <span role="tooltip" aria-label={text} id={tooltipId} {...rest} className={tooltipClasses}>
+      <Component role="tooltip" aria-label={text} id={tooltipId} {...rest} className={tooltipClasses} ref={ref}>
         {children}
-      </span>
+      </Component>
     </TooltipContext.Provider>
   )
+}) as PolymorphicForwardRefComponent<'span', TooltipProps> & {
+  alignments: string[]
+  directions: string[]
 }
 
 Tooltip.alignments = ['left', 'right']
