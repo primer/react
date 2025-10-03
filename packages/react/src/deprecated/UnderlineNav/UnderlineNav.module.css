@@ -4,36 +4,38 @@
   border-bottom: var(--borderWidth-thin) solid var(--borderColor-muted);
 }
 
-.UnderlineNav--right {
-  justify-content: flex-end;
-}
+.UnderlineNav {
+  &.UnderlineNav--right {
+    justify-content: flex-end;
+  }
 
-.UnderlineNav--right .UnderlineNavItem {
-  margin-right: 0;
-  margin-left: var(--base-size-16);
-}
+  &.UnderlineNav--right .UnderlineNavItem {
+    margin-right: 0;
+    margin-left: var(--base-size-16);
+  }
 
-.UnderlineNav--right .UnderlineNavActions {
-  flex: 1 1 auto;
-}
+  &.UnderlineNav--right .UnderlineNavActions {
+    flex: 1 1 auto;
+  }
 
-.UnderlineNav--full {
-  display: block;
-}
+  &.UnderlineNav--full {
+    display: block;
+  }
 
-.UnderlineNavBody {
-  display: flex;
-  /* stylelint-disable-next-line primer/spacing */
-  margin-bottom: -1px;
-}
+  .UnderlineNavBody {
+    display: flex;
+    /* stylelint-disable-next-line primer/spacing */
+    margin-bottom: -1px;
+  }
 
-.UnderlineNavActions {
-  align-self: center;
+  .UnderlineNavActions {
+    align-self: center;
+  }
 }
 
 .UnderlineNavLink {
   padding: var(--base-size-16) var(--base-size-8);
-  margin-left: var(--base-size-16);
+  margin-right: var(--base-size-16);
   font-size: var(--text-body-size-medium);
   line-height: var(--text-title-lineHeight-large);
   color: var(--fgColor-default);
