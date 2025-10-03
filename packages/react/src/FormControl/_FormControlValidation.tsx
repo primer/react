@@ -8,6 +8,7 @@ export type FormControlValidationProps = {
   variant: FormValidationStatus
   id?: string
   className?: string
+  style?: React.CSSProperties
 } & SxProp
 
 const FormControlValidation: React.FC<React.PropsWithChildren<FormControlValidationProps>> = ({
@@ -16,10 +17,17 @@ const FormControlValidation: React.FC<React.PropsWithChildren<FormControlValidat
   variant,
   sx,
   id,
+  style,
 }) => {
   const {validationMessageId} = useFormControlContext()
   return (
-    <InputValidation className={className} validationStatus={variant} id={id || validationMessageId || ''} sx={sx}>
+    <InputValidation
+      className={className}
+      validationStatus={variant}
+      id={id || validationMessageId || ''}
+      sx={sx}
+      style={style}
+    >
       {children}
     </InputValidation>
   )

@@ -42,10 +42,11 @@ export type FormControlProps = {
    */
   layout?: 'horizontal' | 'vertical'
   className?: string
+  style?: React.CSSProperties
 } & SxProp
 
 const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
-  ({children, disabled: disabledProp, layout = 'vertical', id: idProp, required, sx, className}, ref) => {
+  ({children, disabled: disabledProp, layout = 'vertical', id: idProp, required, sx, className, style}, ref) => {
     const [slots, childrenWithoutSlots] = useSlots(children, {
       caption: FormControlCaption,
       label: FormControlLabel,
@@ -173,6 +174,7 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
             data-has-leading-visual={slots.leadingVisual ? '' : undefined}
             sx={sx}
             className={clsx(className, classes.ControlHorizontalLayout)}
+            style={style}
           >
             {InputChildren}
           </BoxWithFallback>
@@ -182,6 +184,7 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
             data-has-label={!isLabelHidden ? '' : undefined}
             sx={sx}
             className={clsx(className, classes.ControlVerticalLayout)}
+            style={style}
           >
             {slots.label}
             {React.isValidElement(InputComponent) &&
