@@ -249,7 +249,7 @@ export const List = React.forwardRef<HTMLDivElement, ListProps>((props, forwarde
           <React.Fragment key={groupProps.groupId}>
             {shouldShowDivider ? <Divider key={`${groupProps.groupId}-divider`} /> : null}
             {renderGroup({
-              sx: {
+              style: {
                 ...(index === 0 && firstGroupStyle),
                 ...(index === groups.length - 1 && lastGroupStyle),
                 ...(index > 0 && !shouldShowDivider && {mt: 2}),
@@ -257,7 +257,7 @@ export const List = React.forwardRef<HTMLDivElement, ListProps>((props, forwarde
               ...(header && {
                 header: {
                   ...header,
-                  sx: {...headerStyle, ...header.sx},
+                  style: {...headerStyle, ...header.style},
                 },
               }),
               ...groupProps,

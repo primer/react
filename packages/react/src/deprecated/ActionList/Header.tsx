@@ -1,13 +1,10 @@
 import type React from 'react'
-import styled, {css} from 'styled-components'
-import {get} from '../../constants'
-import type {SxProp} from '../../sx'
-import sx from '../../sx'
-
+import {clsx} from 'clsx'
+import classes from './Header.module.css'
 /**
  * Contract for props passed to the `Header` component.
  */
-export interface HeaderProps extends React.ComponentPropsWithoutRef<'div'>, SxProp {
+export interface HeaderProps extends React.ComponentPropsWithoutRef<'div'> {
   /**
    * Style variations. Usage is discretionary.
    *
@@ -27,35 +24,6 @@ export interface HeaderProps extends React.ComponentPropsWithoutRef<'div'>, SxPr
   auxiliaryText?: string
 }
 
-export const StyledHeader = styled.div<{variant: HeaderProps['variant']} & SxProp>`
-   {
-    /* 6px vertical padding + 20px line height = 32px total height
-     *
-     * TODO: When rem-based spacing on a 4px scale lands, replace
-     * hardcoded '6px' with 'calc((${get('space.s32')} - ${get('space.20')}) / 2)'.
-     */
-  }
-  padding: 6px ${get('space.3')};
-  font-size: ${get('fontSizes.0')};
-  font-weight: ${get('fontWeights.bold')};
-  color: ${get('colors.fg.muted')};
-
-  ${({variant}) =>
-    variant === 'filled' &&
-    css`
-      background: ${get('colors.canvas.subtle')};
-      margin: ${get('space.2')} 0;
-      border-top: 1px solid ${get('colors.neutral.muted')};
-      border-bottom: 1px solid ${get('colors.neutral.muted')};
-
-      &:first-child {
-        margin-top: 0;
-      }
-    `}
-
-  ${sx}
-`
-
 /**
  * Displays the name and description of a `Group`.
  */
@@ -64,12 +32,19 @@ export function Header({
   title,
   auxiliaryText,
   children: _children,
+  className,
   ...props
 }: HeaderProps): JSX.Element {
   return (
-    <StyledHeader role="heading" variant={variant} {...props}>
+    <div
+      role="heading"
+      className={clsx(className, classes.Header)}
+      data-filled={variant === 'filled' ? '' : undefined}
+      data-component="ActionList.Header"
+      {...props}
+    >
       {title}
       {auxiliaryText && <span>{auxiliaryText}</span>}
-    </StyledHeader>
+    </div>
   )
 }
