@@ -12,7 +12,6 @@
   align-items: baseline;
   display: flex;
   min-width: 0;
-  /* stylelint-disable-next-line */
   flex-direction: var(--main-content-flex-direction);
   flex-grow: 1;
 }
@@ -210,7 +209,6 @@
   flex-grow: 1;
   /* stylelint-disable-next-line primer/spacing */
   margin-left: var(--description-container-margin-left);
-  /* stylelint-disable-next-line */
   flex-basis: var(--description-container-flex-basis);
 }
 
