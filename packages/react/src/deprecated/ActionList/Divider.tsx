@@ -4,7 +4,7 @@ import classes from './Divider.module.css'
  * Visually separates `Item`s or `Group`s in an `ActionList`.
  */
 export function Divider(): JSX.Element {
-  return <div className={classes.Divider} />
+  return <div data-component="ActionList.Divider" className={classes.Divider} />
 }
 
 /**
