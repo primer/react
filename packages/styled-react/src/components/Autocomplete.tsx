@@ -1,6 +1,7 @@
 import {
   Autocomplete as PrimerAutocomplete,
   type AutocompleteOverlayProps as PrimerAutocompleteOverlayProps,
+  type AutocompleteInputProps as PrimerAutocompleteInputProps,
 } from '@primer/react'
 import {sx, type SxProp} from '../sx'
 import styled from 'styled-components'
@@ -16,17 +17,25 @@ const AutocompleteOverlay: React.ComponentType<AutocompleteOverlayProps> = style
   ${sx}
 `
 
+export type AutocompleteInputProps = PrimerAutocompleteInputProps & SxProp
+
+const AutocompleteInput: React.ComponentType<AutocompleteInputProps> = styled(PrimerAutocomplete.Input).withConfig({
+  shouldForwardProp: prop => (prop as keyof AutocompleteInputProps) !== 'sx',
+})<AutocompleteInputProps>`
+  ${sx}
+`
+
 interface AutocompleteExport {
   (props: ComponentProps<typeof PrimerAutocomplete>): React.ReactNode
   Context: typeof PrimerAutocomplete.Context
-  Input: typeof PrimerAutocomplete.Input
+  Input: typeof AutocompleteInput
   Menu: typeof PrimerAutocomplete.Menu
   Overlay: typeof AutocompleteOverlay
 }
 
 const Autocomplete: AutocompleteExport = Object.assign(PrimerAutocomplete, {
   Context: PrimerAutocomplete.Context,
-  Input: PrimerAutocomplete.Input,
+  Input: AutocompleteInput,
   Menu: PrimerAutocomplete.Menu,
   Overlay: AutocompleteOverlay,
 })
