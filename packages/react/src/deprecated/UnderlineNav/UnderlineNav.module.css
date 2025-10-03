@@ -1,10 +1,4 @@
 .UnderlineNav {
-  display: flex;
-  justify-content: space-between;
-  border-bottom: var(--borderWidth-thin) solid var(--borderColor-muted);
-}
-
-.UnderlineNav {
   &.UnderlineNav--right {
     justify-content: flex-end;
   }
