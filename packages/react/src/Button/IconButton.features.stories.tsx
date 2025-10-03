@@ -91,6 +91,7 @@ export const KeybindingHintOnDescription = () => (
     aria-label="Notifications"
     description="You have unread notifications"
     keybindingHint="G+N"
+    tooltipDirection="sw"
   />
 )
 

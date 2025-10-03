@@ -70,6 +70,7 @@
     "npm": ">=7"
   },
   "dependencies": {
+    "@floating-ui/dom": "^1.7.4",
     "@github/mini-throttle": "^2.1.1",
     "@github/relative-time-element": "^4.4.5",
     "@github/tab-container-element": "^4.8.2",

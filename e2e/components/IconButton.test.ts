@@ -48,6 +48,8 @@ const stories = [
       await page.getByText('Bold').waitFor({
         state: 'visible',
       })
+      // eslint-disable-next-line playwright/no-wait-for-timeout -- allow UI to settle after focus for consistent VRT
+      await page.waitForTimeout(200)
     },
   },
   {
@@ -59,6 +61,8 @@ const stories = [
       await page.getByText('You have unread notifications').waitFor({
         state: 'visible',
       })
+      // eslint-disable-next-line playwright/no-wait-for-timeout -- allow UI to settle after focus for consistent VRT
+      await page.waitForTimeout(200)
     },
   },
   {

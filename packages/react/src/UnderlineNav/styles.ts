@@ -1,6 +1,6 @@
 import type {Theme} from '../ThemeProvider'
 import type {BetterSystemStyleObject} from '../sx'
-import {getAnchoredPosition} from '@primer/behaviors'
+import {computePosition, flip, shift, offset} from '@floating-ui/dom'
 
 export const getDividerStyle = (theme?: Theme) => ({
   display: 'inline-block',
@@ -57,11 +57,28 @@ export const baseMenuStyles: BetterSystemStyleObject = {
  */
 export const menuStyles = (containerRef: Element | null, listRef: Element | null): BetterSystemStyleObject => {
   if (containerRef && listRef) {
-    const {left} = getAnchoredPosition(containerRef, listRef, {align: 'start', side: 'outside-bottom'})
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const {right, ...rest} = baseMenuStyles
+    // synchronous left approximation using bounding rects so callers get immediate value
+    const anchorRect = (listRef as HTMLElement).getBoundingClientRect()
+    const offsetParentRect = (containerRef as HTMLElement).offsetParent
+      ? ((containerRef as HTMLElement).offsetParent as HTMLElement).getBoundingClientRect()
+      : {left: 0}
+    const left = anchorRect.left - offsetParentRect.left
+
+    ;(async () => {
+      try {
+        const {x} = await computePosition(listRef as HTMLElement, containerRef as HTMLElement, {
+          placement: 'bottom-start',
+          middleware: [offset(0), flip(), shift({padding: 4})],
+        })
+        if (containerRef instanceof HTMLElement) {
+          containerRef.style.left = `${x}px`
+        }
+      } catch {
+        /* swallow */
+      }
+    })()
+    const {...rest} = baseMenuStyles
     return {...rest, left}
   }
-
   return baseMenuStyles
 }
