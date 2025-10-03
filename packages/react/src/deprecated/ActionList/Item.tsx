@@ -113,7 +113,6 @@ export interface ItemProps extends SxProp {
    * An item to pass back in the `onAction` callback, meant as
    */
   item?: ItemInput
-  as?: React.ElementType
 }
 
 /**
