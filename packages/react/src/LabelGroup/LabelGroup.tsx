@@ -4,7 +4,6 @@ import {getFocusableChild} from '@primer/behaviors/utils'
 import VisuallyHidden from '../_VisuallyHidden'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import {Button, IconButton} from '../Button'
-import {useTheme} from '../ThemeProvider'
 import {clsx} from 'clsx'
 import classes from './LabelGroup.module.css'
 
@@ -130,8 +129,6 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
     bottom: 0,
     toJSON: () => undefined,
   })
-
-  const {theme} = useTheme()
 
   const overlayPaddingPx = 8 // equivalent to var(--base-size-8)
 
