@@ -14,6 +14,7 @@ export type ActionListDescriptionProps = {
   variant?: 'inline' | 'block'
 
   className?: string
+  style?: React.CSSProperties
   /**
    * Whether the inline description should truncate the text on overflow.
    */
@@ -24,6 +25,7 @@ export const Description: React.FC<React.PropsWithChildren<ActionListDescription
   variant = 'inline',
   className,
   truncate,
+  style,
   ...props
 }) => {
   const {blockDescriptionId, inlineDescriptionId} = React.useContext(ItemContext)
@@ -45,6 +47,7 @@ export const Description: React.FC<React.PropsWithChildren<ActionListDescription
       <span
         id={variant === 'block' ? blockDescriptionId : inlineDescriptionId}
         className={clsx(className, classes.Description)}
+        style={style}
         data-component="ActionList.Description"
       >
         {props.children}
@@ -56,6 +59,7 @@ export const Description: React.FC<React.PropsWithChildren<ActionListDescription
         ref={containerRef}
         id={inlineDescriptionId}
         className={clsx(className, classes.Description)}
+        style={style}
         title={effectiveTitle}
         inline={true}
         maxWidth="100%"

@@ -763,6 +763,7 @@ export const NestedSelection = () => {
         onClick={() => setPanelToShow('repos')}
         variant="invisible"
         trailingAction={GearIcon}
+        style={{width: '200px'}}
         className={classes.ButtonContentStartJustify}
       >
         Development
