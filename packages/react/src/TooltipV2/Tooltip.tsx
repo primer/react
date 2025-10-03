@@ -146,7 +146,7 @@ export const Tooltip = React.forwardRef(
             placement: finalPlacement,
           } = await computePosition(trigger, tooltip, {
             placement,
-            middleware: [offset(4), flip(), shift({padding: 4})],
+            middleware: [offset(4), flip() /*, shift({padding: 4})*/],
           })
           tooltip.style.left = `${x}px`
           tooltip.style.top = `${y}px`
