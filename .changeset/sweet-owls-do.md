@@ -2,4 +2,4 @@
 "@primer/react": patch
 ---
 
-chore: add styles to formcontrol subcomponents
+chore: add styles to formcontrol and subcomponents
