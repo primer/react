@@ -11,7 +11,7 @@
     flex-wrap: wrap;
   }
 
-  &:where([data-list]){
+  &:where([data-list]) {
     padding-inline-start: 0;
     margin-block-start: 0;
     margin-block-end: 0;

@@ -10,15 +10,14 @@
   font-weight: var(--text-title-weight-large);
   color: var(--fgColor-muted);
 
-    &:where([data-filled]){
-        background: var(--bgColor-muted);
-        margin: var(--base-size-8) 0;
-        border-top: var(--borderWidth-thin) solid var(--borderColor-default);
-        border-bottom: var(--borderWidth-thin) solid var(--borderColor-default);
+  &:where([data-filled]) {
+    background: var(--bgColor-muted);
+    margin: var(--base-size-8) 0;
+    border-top: var(--borderWidth-thin) solid var(--borderColor-default);
+    border-bottom: var(--borderWidth-thin) solid var(--borderColor-default);
 
-        &:first-child {
-            margin-top: 0;
-        }
+    &:first-child {
+      margin-top: 0;
     }
+  }
 }
-

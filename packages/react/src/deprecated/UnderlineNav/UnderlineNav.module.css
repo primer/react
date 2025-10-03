@@ -42,7 +42,7 @@
   border-bottom: 2px solid transparent;
   text-decoration: none;
 
-    /* fallback :focus state */
+  /* fallback :focus state */
   &:focus:not(:disabled) {
     box-shadow: none;
     outline: 2px solid var(--fgColor-accent);
@@ -60,7 +60,6 @@
     outline: 2px solid var(--fgColor-accent);
     outline-offset: -8px;
   }
-
 }
 
 .UnderlineNavLink:hover,
