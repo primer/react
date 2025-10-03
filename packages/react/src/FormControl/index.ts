@@ -1,6 +1,2 @@
 export {useFormControlForwardedProps} from './_FormControlContext'
 export {default} from './FormControl'
-export type {FormControlProps} from './FormControl'
-export type {FormControlCaptionProps} from './FormControlCaption'
-export type {Props as FormControlLabelProps} from './FormControlLabel'
-export type {FormControlValidationProps} from './_FormControlValidation'
