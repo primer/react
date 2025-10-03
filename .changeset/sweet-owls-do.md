@@ -1,5 +1,5 @@
 ---
-"@primer/react": patch
+"@primer/react": minor
 ---
 
 chore: add styles to formcontrol and subcomponents
