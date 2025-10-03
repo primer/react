@@ -1,0 +1,19 @@
+.Animation:where([data-show]) {
+  animation: 170ms fadeIn cubic-bezier(0.44, 0.74, 0.36, 1);
+  
+  @media (prefers-reduced-motion) {
+    animation: none;
+  }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-100%);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
