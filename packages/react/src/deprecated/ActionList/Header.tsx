@@ -42,6 +42,7 @@ export function Header({
       role="heading"
       className={clsx(className, classes.Header)}
       data-filled={variant === 'filled' ? '' : undefined}
+      data-component="ActionList.Header"
       {...props}
     >
       {title}

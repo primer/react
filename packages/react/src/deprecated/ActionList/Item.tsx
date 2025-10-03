@@ -7,8 +7,6 @@ import sx from '../../sx'
 import Truncate from '../../Truncate'
 import type {ItemInput} from './List'
 import styled from 'styled-components'
-import {StyledHeader} from './Header'
-import {StyledDivider} from './Divider'
 import {useTheme} from '../../ThemeProvider'
 import {
   activeDescendantActivatedDirectly,
@@ -205,7 +203,7 @@ const StyledItem = styled.div<
   }
 
   // Item dividers
-  :not(:first-of-type):not(${StyledDivider} + &):not(${StyledHeader} + &) {
+  :not(:first-of-type):not([data-component='ActionList.Divider'] + &):not([data-component='ActionList.Header'] + &) {
     margin-top: ${({showDivider}) => (showDivider ? `1px` : '0')};
 
     ${DividedContent}::before {
