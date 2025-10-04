@@ -60,3 +60,13 @@
   max-height: 0;
   overflow: hidden;
 }
+
+.PullRequestIcon {
+  /* stylelint-disable-next-line primer/colors */
+  color: var(--bgColor-open-emphasis);
+}
+
+.GitMergeIcon {
+  /* stylelint-disable-next-line primer/colors */
+  color: var(--bgColor-done-emphasis);
+}

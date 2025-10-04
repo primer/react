@@ -728,8 +728,8 @@ export const NestedSelection = () => {
 
   /* Second level: Pull request selection */
   const iconMap = {
-    open: <Octicon icon={GitPullRequestIcon} sx={{color: 'open.emphasis'}} />,
-    merged: <Octicon icon={GitMergeIcon} sx={{color: 'done.emphasis'}} />,
+    open: <Octicon icon={GitPullRequestIcon} className={classes.PullRequestIcon} />,
+    merged: <Octicon icon={GitMergeIcon} className={classes.GitMergeIcon} />,
     draft: <Octicon icon={GitPullRequestDraftIcon} />,
   }
 

@@ -122,7 +122,7 @@ export const FilesChanged: StoryFn = () => {
               </TreeView.LeadingVisual>
               Avatar.tsx
               <TreeView.TrailingVisual label="added">
-                <Octicon icon={DiffAddedIcon} color="success.fg" />
+                <Octicon icon={DiffAddedIcon} className={classes.SuccessIcon} />
               </TreeView.TrailingVisual>
             </TreeView.Item>
             <TreeView.Item id="src/Button" defaultExpanded>
@@ -137,7 +137,7 @@ export const FilesChanged: StoryFn = () => {
                   </TreeView.LeadingVisual>
                   Button.tsx
                   <TreeView.TrailingVisual label="modified">
-                    <Octicon icon={DiffModifiedIcon} color="attention.fg" />
+                    <Octicon icon={DiffModifiedIcon} className={classes.AttentionIcon} />
                   </TreeView.TrailingVisual>
                 </TreeView.Item>
                 <TreeView.Item id="src/Button/Button.test.tsx">
@@ -146,7 +146,7 @@ export const FilesChanged: StoryFn = () => {
                   </TreeView.LeadingVisual>
                   Button.test.tsx
                   <TreeView.TrailingVisual label="modified">
-                    <Octicon icon={DiffModifiedIcon} color="attention.fg" />
+                    <Octicon icon={DiffModifiedIcon} className={classes.AttentionIcon} />
                   </TreeView.TrailingVisual>
                 </TreeView.Item>
               </TreeView.SubTree>
@@ -157,7 +157,7 @@ export const FilesChanged: StoryFn = () => {
               </TreeView.LeadingVisual>
               ReallyLongFileNameThatShouldBeTruncated.tsx
               <TreeView.TrailingVisual label="modified">
-                <Octicon icon={DiffModifiedIcon} color="attention.fg" />
+                <Octicon icon={DiffModifiedIcon} className={classes.AttentionIcon} />
               </TreeView.TrailingVisual>
             </TreeView.Item>
           </TreeView.SubTree>
@@ -183,7 +183,7 @@ export const FilesChanged: StoryFn = () => {
               </TreeView.LeadingVisual>
               favicon.ico
               <TreeView.TrailingVisual label="removed">
-                <Octicon icon={DiffRemovedIcon} color="danger.fg" />
+                <Octicon icon={DiffRemovedIcon} className={classes.DangerIcon} />
               </TreeView.TrailingVisual>
             </TreeView.Item>
           </TreeView.SubTree>
@@ -967,7 +967,7 @@ export const WithoutIndentation: StoryFn = () => (
             </TreeView.LeadingVisual>
             Avatar.tsx
             <TreeView.TrailingVisual label="Added">
-              <Octicon icon={DiffAddedIcon} color="success.fg" />
+              <Octicon icon={DiffAddedIcon} className={classes.SuccessIcon} />
             </TreeView.TrailingVisual>
           </TreeView.Item>
           <TreeView.Item id="src/Button.tsx" current>
@@ -976,7 +976,7 @@ export const WithoutIndentation: StoryFn = () => (
             </TreeView.LeadingVisual>
             Button.tsx
             <TreeView.TrailingVisual label="Modified">
-              <Octicon icon={DiffModifiedIcon} color="attention.fg" />
+              <Octicon icon={DiffModifiedIcon} className={classes.AttentionIcon} />
             </TreeView.TrailingVisual>
           </TreeView.Item>
         </TreeView.SubTree>
@@ -987,7 +987,7 @@ export const WithoutIndentation: StoryFn = () => (
         </TreeView.LeadingVisual>
         package.json
         <TreeView.TrailingVisual label="Modified">
-          <Octicon icon={DiffModifiedIcon} color="attention.fg" />
+          <Octicon icon={DiffModifiedIcon} className={classes.AttentionIcon} />
         </TreeView.TrailingVisual>
       </TreeView.Item>
     </TreeView>
@@ -1010,7 +1010,7 @@ export const MultilineItems: StoryFn = () => (
             </TreeView.LeadingVisual>
             Avatar.tsx
             <TreeView.TrailingVisual label="Added">
-              <Octicon icon={DiffAddedIcon} color="success.fg" />
+              <Octicon icon={DiffAddedIcon} className={classes.SuccessIcon} />
             </TreeView.TrailingVisual>
           </TreeView.Item>
         </TreeView.SubTree>
@@ -1021,7 +1021,7 @@ export const MultilineItems: StoryFn = () => (
         </TreeView.LeadingVisual>
         this is a medium directory name that we wrap over 2 lines to demonstrate alignment
         <TreeView.TrailingVisual label="Added">
-          <Octicon icon={DiffAddedIcon} color="success.fg" />
+          <Octicon icon={DiffAddedIcon} className={classes.SuccessIcon} />
         </TreeView.TrailingVisual>
         <TreeView.SubTree>
           <TreeView.Item id="src/Avatar.tsx">
@@ -1030,7 +1030,7 @@ export const MultilineItems: StoryFn = () => (
             </TreeView.LeadingVisual>
             Avatar.tsx
             <TreeView.TrailingVisual label="Added">
-              <Octicon icon={DiffAddedIcon} color="success.fg" />
+              <Octicon icon={DiffAddedIcon} className={classes.SuccessIcon} />
             </TreeView.TrailingVisual>
           </TreeView.Item>
         </TreeView.SubTree>
@@ -1048,7 +1048,7 @@ export const MultilineItems: StoryFn = () => (
             </TreeView.LeadingVisual>
             Avatar.tsx
             <TreeView.TrailingVisual label="Added">
-              <Octicon icon={DiffAddedIcon} color="success.fg" />
+              <Octicon icon={DiffAddedIcon} className={classes.SuccessIcon} />
             </TreeView.TrailingVisual>
           </TreeView.Item>
         </TreeView.SubTree>
@@ -1065,7 +1065,7 @@ export const MultilineItems: StoryFn = () => (
             </TreeView.LeadingVisual>
             Avatar.tsx
             <TreeView.TrailingVisual label="Added">
-              <Octicon icon={DiffAddedIcon} color="success.fg" />
+              <Octicon icon={DiffAddedIcon} className={classes.SuccessIcon} />
             </TreeView.TrailingVisual>
           </TreeView.Item>
         </TreeView.SubTree>

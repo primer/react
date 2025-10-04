@@ -53,7 +53,6 @@ export type StateLabelProps = React.HTMLAttributes<HTMLSpanElement> & {
 
 const StateLabel = forwardRef<HTMLSpanElement, StateLabelProps>(
   ({children, status, variant: variantProp = 'normal', className, ...rest}, ref) => {
-    const octiconProps = variantProp === 'small' ? {width: '1em'} : {}
     // Open and closed statuses, we don't want to show an icon
     const noIconStatus = status === 'open' || status === 'closed'
 
@@ -66,7 +65,12 @@ const StateLabel = forwardRef<HTMLSpanElement, StateLabelProps>(
         data-status={status}
       >
         {!noIconStatus && (
-          <Octicon {...octiconProps} icon={octiconMap[status]} aria-label={labelMap[status]} className={classes.Icon} />
+          <Octicon
+            data-variant-small={variantProp === 'small' ? '' : undefined}
+            icon={octiconMap[status]}
+            aria-label={labelMap[status]}
+            className={classes.Icon}
+          />
         )}
         {children}
       </span>

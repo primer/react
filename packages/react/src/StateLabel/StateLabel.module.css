@@ -100,3 +100,7 @@
 .Icon {
   margin-right: var(--base-size-4);
 }
+
+.Icon:where([data-variant='small']) {
+  width: 1em;
+}

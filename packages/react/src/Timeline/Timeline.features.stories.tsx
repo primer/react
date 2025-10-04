@@ -55,7 +55,7 @@ export const TimelineBreak = () => (
   <Timeline>
     <Timeline.Item>
       <Timeline.Badge className={classes.BadgeWithDoneBackground}>
-        <Octicon icon={GitMergeIcon} color="fg.onEmphasis" aria-label="Merged" />
+        <Octicon icon={GitMergeIcon} className={classes.GitMergeIcon} aria-label="Merged" />
       </Timeline.Badge>
       <Timeline.Body>This is a message</Timeline.Body>
     </Timeline.Item>

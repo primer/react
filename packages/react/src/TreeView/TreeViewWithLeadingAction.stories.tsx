@@ -43,7 +43,7 @@ export const LeadingAction: StoryFn = () => {
             <IconButton icon={GrabberIcon} aria-label="Reorder item 1" variant="invisible" />
           </TreeView.LeadingAction>
           <TreeView.LeadingVisual label="Issue closed">
-            <Octicon icon={IssueClosedIcon} sx={{color: 'done.fg'}} />
+            <Octicon icon={IssueClosedIcon} className={classes.DoneIcon} />
           </TreeView.LeadingVisual>
           Item 1
         </TreeView.Item>
@@ -52,19 +52,19 @@ export const LeadingAction: StoryFn = () => {
             <IconButton icon={GrabberIcon} aria-label="Reorder item 2" variant="invisible" />
           </TreeView.LeadingAction>
           <TreeView.LeadingVisual label="Issue opened">
-            <Octicon icon={IssueOpenedIcon} sx={{color: 'open.fg'}} />
+            <Octicon icon={IssueOpenedIcon} className={classes.OpenIcon} />
           </TreeView.LeadingVisual>
           Item 2
           <TreeView.SubTree>
             <TreeView.Item id="item-2-sub-task-1">
               <TreeView.LeadingVisual label="Issue opened">
-                <Octicon icon={IssueOpenedIcon} sx={{color: 'open.fg'}} />
+                <Octicon icon={IssueOpenedIcon} className={classes.OpenIcon} />
               </TreeView.LeadingVisual>
               sub task 1
             </TreeView.Item>
             <TreeView.Item id="item-2-sub-task-2">
               <TreeView.LeadingVisual label="Issue opened">
-                <Octicon icon={IssueOpenedIcon} sx={{color: 'open.fg'}} />
+                <Octicon icon={IssueOpenedIcon} className={classes.OpenIcon} />
               </TreeView.LeadingVisual>
               sub task 2
             </TreeView.Item>
@@ -75,7 +75,7 @@ export const LeadingAction: StoryFn = () => {
             <IconButton icon={GrabberIcon} aria-label="Reorder item 3" variant="invisible" />
           </TreeView.LeadingAction>
           <TreeView.LeadingVisual label="Issue opened">
-            <Octicon icon={IssueOpenedIcon} sx={{color: 'open.fg'}} />
+            <Octicon icon={IssueOpenedIcon} className={classes.OpenIcon} />
           </TreeView.LeadingVisual>
           Item 3
         </TreeView.Item>

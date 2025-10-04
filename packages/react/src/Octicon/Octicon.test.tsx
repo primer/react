@@ -9,11 +9,6 @@ describe('Octicon', () => {
     expect(container.firstChild).toHaveClass('test-class')
   })
 
-  it('should support `sx`', () => {
-    const {container} = render(<Octicon icon={XIcon} sx={{color: 'red'}} />)
-    expect(container.firstChild).toHaveStyle('color: rgb(255, 0, 0)')
-  })
-
   it('should pass along props to the outermost element', () => {
     const {container} = render(<Octicon icon={XIcon} data-testid="test-id" />)
     expect(container.firstChild).toHaveAttribute('data-testid', 'test-id')

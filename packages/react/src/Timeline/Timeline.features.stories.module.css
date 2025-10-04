@@ -11,3 +11,7 @@
 .LinkWithBoldStyle:hover {
   color: var(--fgColor-accent);
 }
+
+.GitMergeIcon {
+  color: var(--fgColor-onEmphasis);
+}
