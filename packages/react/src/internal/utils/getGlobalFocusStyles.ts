@@ -1,10 +1,9 @@
 import type {CSSProperties} from 'react'
 import {css} from 'styled-components'
-import {get} from '../../constants'
 
 const globalFocusStyle = css`
   box-shadow: none;
-  outline: 2px solid ${get('colors.accent.fg')};
+  outline: 2px solid var(--fgColor-accent)};
 `
 
 const getGlobalFocusStyles = (outlineOffset?: CSSProperties['outlineOffset']) => css`

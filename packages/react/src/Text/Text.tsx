@@ -1,7 +1,6 @@
 import {clsx} from 'clsx'
 import {type StyledComponent} from 'styled-components'
 import React, {forwardRef} from 'react'
-import type {SystemCommonProps, SystemTypographyProps} from '../constants'
 import {useRefObjectAsForwardedRef} from '../hooks'
 import classes from './Text.module.css'
 
@@ -10,9 +9,7 @@ type StyledTextProps = {
   as?: React.ComponentType<any> | keyof JSX.IntrinsicElements
   size?: 'large' | 'medium' | 'small'
   weight?: 'light' | 'normal' | 'medium' | 'semibold'
-} & SystemTypographyProps &
-  SystemCommonProps &
-  React.HTMLAttributes<HTMLSpanElement>
+} & React.HTMLAttributes<HTMLSpanElement>
 
 const Text = forwardRef(({as: Component = 'span', className, size, weight, ...props}, forwardedRef) => {
   const innerRef = React.useRef<HTMLElement>(null)

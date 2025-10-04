@@ -3,10 +3,8 @@ import {scrollIntoView, FocusKeys} from '@primer/behaviors'
 import type {KeyboardEventHandler} from 'react'
 import type React from 'react'
 import {useCallback, useEffect, useRef, useState} from 'react'
-import styled from 'styled-components'
 import type {TextInputProps} from '../TextInput'
 import TextInput from '../TextInput'
-import {get} from '../constants'
 import {ActionList} from '../ActionList'
 import type {GroupedListProps, ListPropsBase, ItemInput, RenderItemFn} from './'
 import {useFocusZone} from '../hooks/useFocusZone'
@@ -48,11 +46,6 @@ export interface FilteredActionListProps extends Partial<Omit<GroupedListProps, 
   fullScreenOnNarrow?: boolean
   onSelectAllChange?: (checked: boolean) => void
 }
-
-const StyledHeader = styled.div`
-  box-shadow: 0 1px 0 ${get('colors.border.default')};
-  z-index: 1;
-`
 
 export function FilteredActionList({
   loading = false,
@@ -346,7 +339,7 @@ export function FilteredActionList({
 
   return (
     <div ref={inputAndListContainerRef} className={clsx(className, classes.Root)} data-testid="filtered-action-list">
-      <StyledHeader>
+      <div className={classes.Header}>
         <TextInput
           ref={inputRef}
           block
@@ -368,7 +361,7 @@ export function FilteredActionList({
           className={clsx(textInputClassName, {[classes.FullScreenTextInput]: fullScreenOnNarrow})}
           {...restTextInputProps}
         />
-      </StyledHeader>
+      </div>
       <VisuallyHidden id={inputDescriptionTextId}>Items will be filtered as you type</VisuallyHidden>
       {onSelectAllChange !== undefined && (
         <div className={classes.SelectAllContainer}>
