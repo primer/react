@@ -42,17 +42,7 @@ export type TextInputNonPassthroughProps = {
 } & Partial<
   Pick<
     StyledWrapperProps,
-    | 'block'
-    | 'contrast'
-    | 'disabled'
-    | 'monospace'
-    | 'sx'
-    | 'width'
-    | 'maxWidth'
-    | 'minWidth'
-    | 'variant'
-    | 'size'
-    | 'validationStatus'
+    'block' | 'contrast' | 'disabled' | 'monospace' | 'sx' | 'variant' | 'size' | 'validationStatus'
   >
 >
 
@@ -80,9 +70,6 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
       onFocus,
       onBlur,
       // start deprecated props
-      width: widthProp,
-      minWidth: minWidthProp,
-      maxWidth: maxWidthProp,
       variant: variantProp,
       // end deprecated props
       type = 'text',
@@ -139,9 +126,6 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
         monospace={monospace}
         sx={sxProp}
         size={sizeProp}
-        width={widthProp}
-        minWidth={minWidthProp}
-        maxWidth={maxWidthProp}
         variant={variantProp}
         hasLeadingVisual={Boolean(LeadingVisual || showLeadingLoadingIndicator)}
         hasTrailingVisual={Boolean(TrailingVisual || showTrailingLoadingIndicator)}
