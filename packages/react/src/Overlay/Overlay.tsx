@@ -1,7 +1,6 @@
 import type {ComponentPropsWithRef, ReactElement} from 'react'
 import React, {useEffect, useRef} from 'react'
 import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
-import {get} from '../constants'
 import type {AriaRole, Merge} from '../utils/types'
 import type {TouchOrMouseEvent} from '../hooks'
 import {useOverlay} from '../hooks'
@@ -193,8 +192,8 @@ const Overlay = React.forwardRef<HTMLDivElement, internalOverlayProps>(
     const overlayRef = useRef<HTMLDivElement>(null)
     useRefObjectAsForwardedRef(forwardedRef, overlayRef)
     const {theme} = useTheme()
-    const slideAnimationDistance = parseInt(get('space.2')(theme).replace('px', ''))
-    const slideAnimationEasing = get('animation.easeOutCubic')(theme)
+    const slideAnimationDistance = 8
+    const slideAnimationEasing = 'cubic-bezier(0.33, 1, 0.68, 1)'
 
     useOverlay({
       overlayRef,
