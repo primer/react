@@ -23,6 +23,12 @@ type StyledTextInputBaseWrapperProps = {
   style?: React.CSSProperties
   onClick?: React.MouseEventHandler
   children?: React.ReactNode
+  /** @deprecated Update `width` using CSS modules or style. */
+  width?: string | number
+  /** @deprecated Update `min-width` using CSS modules or style. */
+  minWidth?: string | number
+  /** @deprecated Update `max-width` using CSS modules or style. */
+  maxWidth?: string | number
 } & SxProp
 
 type StyledTextInputWrapperProps = {
@@ -44,6 +50,9 @@ export const TextInputBaseWrapper = React.forwardRef<HTMLElement, StyledTextInpu
       contrast,
       monospace,
       block,
+      width,
+      minWidth,
+      maxWidth,
       ...restProps
     },
     forwardRef,
@@ -62,7 +71,7 @@ export const TextInputBaseWrapper = React.forwardRef<HTMLElement, StyledTextInpu
         data-trailing-action={hasTrailingAction || undefined}
         data-validation={validationStatus || undefined}
         data-variant={variant || undefined}
-        style={style}
+        style={width || minWidth || maxWidth ? {width, maxWidth, minWidth, ...style} : style}
         {...restProps}
       />
     )
