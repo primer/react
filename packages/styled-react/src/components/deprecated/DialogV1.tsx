@@ -3,10 +3,10 @@ import type {
   DialogProps as PrimerDialogProps,
   DialogHeaderProps as PrimerDialogHeaderProps,
 } from '@primer/react/deprecated'
-import {Box} from './Box'
-import type {SxProp} from '../sx'
+import {Box} from '../Box'
+import type {SxProp} from '../../sx'
 import {forwardRef} from 'react'
-import type {ForwardRefComponent} from '../polymorphic'
+import type {ForwardRefComponent} from '../../polymorphic'
 
 type DialogProps = PrimerDialogProps & SxProp
 

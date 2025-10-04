@@ -176,9 +176,7 @@ export function ComplexListInsetVariantStory(): JSX.Element {
                   )}
                 />
               ),
-              renderGroup: ({sx: sxProps, ...props}) => (
-                <ActionList.Group {...props} sx={{...sxProps, backgroundColor: 'cornflowerblue', color: 'white'}} />
-              ),
+              renderGroup: props => <ActionList.Group {...props} className={classes.CustomGroupStyle} />,
             },
           ]}
           items={[
@@ -250,9 +248,7 @@ export function ComplexListFullVariantStory(): JSX.Element {
                   )}
                 />
               ),
-              renderGroup: ({sx: sxProps, ...props}) => (
-                <ActionList.Group {...props} sx={{...sxProps, backgroundColor: 'cornflowerblue', color: 'white'}} />
-              ),
+              renderGroup: props => <ActionList.Group {...props} className={classes.CustomGroupStyle} />,
             },
           ]}
           items={[

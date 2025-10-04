@@ -16,3 +16,10 @@
   /* stylelint-disable-next-line color-named */
   fill: white;
 }
+
+.CustomGroupStyle {
+  /* stylelint-disable-next-line color-named */
+  background-color: cornflowerblue;
+  /* stylelint-disable-next-line color-named */
+  color: white;
+}

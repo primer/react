@@ -1,6 +1,6 @@
 import {TabNav as PrimerTabNav} from '@primer/react/deprecated'
 import type {TabNavProps as PrimerTabNavProps, TabNavLinkProps as PrimerTabNavLinkProps} from '@primer/react/deprecated'
-import {sx, type SxProp} from '../sx'
+import {sx, type SxProp} from '../../sx'
 import styled from 'styled-components'
 import {forwardRef} from 'react'
 
