@@ -1,7 +1,6 @@
 import {CheckIcon} from '@primer/octicons-react'
 import React, {useCallback} from 'react'
 import {isValidElementType} from 'react-is'
-import {get} from '../../constants'
 import type {SxProp} from '../../sx'
 import Truncate from '../../Truncate'
 import type {ItemInput} from './List'
@@ -241,7 +240,7 @@ export const Item = React.forwardRef((itemProps, ref) => {
               id={descriptionId}
               style={
                 {
-                  '--description-container-margin-left': descriptionVariant === 'inline' ? get('space.2')(theme) : 0,
+                  '--description-container-margin-left': descriptionVariant === 'inline' ? 'var(--base-size-8)' : 0,
                   '--description-container-flex-basis': descriptionVariant === 'inline' ? 0 : 'auto',
                 } as React.CSSProperties
               }
