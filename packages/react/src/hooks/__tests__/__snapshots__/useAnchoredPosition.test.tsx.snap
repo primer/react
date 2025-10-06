@@ -1,0 +1,10 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`should should return a position 1`] = `
+{
+  "anchorAlign": "center",
+  "anchorSide": "outside-bottom",
+  "left": 8.550800000000002,
+  "top": 24.5,
+}
+`;
