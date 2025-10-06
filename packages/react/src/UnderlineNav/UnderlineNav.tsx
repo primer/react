@@ -6,7 +6,7 @@ import {useResizeObserver} from '../hooks/useResizeObserver'
 import {useTheme} from '../ThemeProvider'
 import type {ChildWidthArray, ResponsiveProps, ChildSize} from './types'
 import VisuallyHidden from '../_VisuallyHidden'
-import {getDividerStyle, menuStyles, menuItemStyles, baseMenuMinWidth} from './styles'
+import {getDividerStyle, menuItemStyles, baseMenuMinWidth} from './styles'
 import {UnderlineItemList, UnderlineWrapper, LoadingCounter, GAP} from '../internal/components/UnderlineTabbedInterface'
 import {Button} from '../Button'
 import {TriangleDownIcon} from '@primer/octicons-react'
@@ -17,6 +17,7 @@ import {ActionList} from '../ActionList'
 import CounterLabel from '../CounterLabel'
 import {invariant} from '../utils/invariant'
 import classes from './UnderlineNav.module.css'
+import {getAnchoredPosition} from '@primer/behaviors'
 
 export type UnderlineNavProps = {
   children: React.ReactNode
@@ -124,7 +125,7 @@ const calculatePossibleItems = (childWidthArray: ChildWidthArray, navWidth: numb
   return breakpoint
 }
 
-// Inline styles converted from baseMenuStyles and menuStyles for use as CSSProperties
+// Inline styles converted from baseMenuStyles for use as CSSProperties
 const baseMenuInlineStyles: React.CSSProperties = {
   position: 'absolute',
   zIndex: 1,
@@ -305,18 +306,15 @@ export const UnderlineNav = forwardRef(
     // Compute menuInlineStyles if needed
     let menuInlineStyles: React.CSSProperties = {...baseMenuInlineStyles}
     if (containerRef.current && listRef.current) {
-      const menuStyleObj = menuStyles(containerRef.current, listRef.current)
-      if (
-        menuStyleObj &&
-        typeof menuStyleObj === 'object' &&
-        'left' in menuStyleObj &&
-        typeof (menuStyleObj as {left: string | number}).left !== 'undefined'
-      ) {
-        menuInlineStyles = {
-          ...baseMenuInlineStyles,
-          right: undefined,
-          left: (menuStyleObj as {left: string | number}).left,
-        }
+      const {left} = getAnchoredPosition(containerRef.current, listRef.current, {
+        align: 'start',
+        side: 'outside-bottom',
+      })
+
+      menuInlineStyles = {
+        ...baseMenuInlineStyles,
+        right: undefined,
+        left: left,
       }
     }
 
