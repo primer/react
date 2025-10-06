@@ -195,14 +195,9 @@ export const Item = React.forwardRef((itemProps, ref) => {
       )}
     >
       {!!selected === selected && (
-        <div>
+        <div className={classes.BaseVisualContainer}>
           {selectionVariant === 'multiple' ? (
             <>
-              {/**
-               * we use a svg instead of an input because there should not
-               * be an interactive element inside an option
-               * svg copied from primer/css
-               */}
               <svg
                 className={classes.MultiSelectIcon}
                 data-selected={selected ? '' : undefined}
