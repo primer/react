@@ -102,9 +102,9 @@ export interface FilteredActionListItemProps {
    */
   item?: ItemInput
   /**
-   * inline styles to apply to the list item
+   * className to apply to the list item
    */
-  style?: React.CSSProperties
+  className?: string
 }
 
 /**
