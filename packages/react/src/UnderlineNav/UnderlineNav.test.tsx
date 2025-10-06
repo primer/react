@@ -14,7 +14,6 @@ import {
 } from '@primer/octicons-react'
 
 import {UnderlineNav} from '.'
-import {baseMenuMinWidth, menuStyles} from './styles'
 
 const ResponsiveUnderlineNav = ({
   selectedItemText = 'Code',
@@ -164,22 +163,6 @@ describe('UnderlineNav', () => {
     }).toThrow('Only one current element is allowed')
     expect(spy).toHaveBeenCalled()
     spy.mockRestore()
-  })
-
-  it(`menuStyles should set the menu position, if the container size is below ${baseMenuMinWidth} px`, () => {
-    // GIVEN
-    // Mock the refs.
-    const containerRef = document.createElement('div')
-    const listRef = document.createElement('div')
-    // Set the clientWidth on the mock element
-    Object.defineProperty(listRef, 'clientWidth', {value: baseMenuMinWidth - 1})
-
-    // WHEN
-    const results = menuStyles(containerRef, listRef)
-
-    // THEN
-    // We are expecting a left value back, that way we know the `getAnchoredPosition` ran.
-    expect(results).toEqual(expect.objectContaining({left: 0}))
   })
 
   it('should support icons passed in as an element', () => {

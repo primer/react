@@ -3,10 +3,9 @@ import React, {useRef, forwardRef, useCallback, useState, useEffect} from 'react
 import {UnderlineNavContext} from './UnderlineNavContext'
 import type {ResizeObserverEntry} from '../hooks/useResizeObserver'
 import {useResizeObserver} from '../hooks/useResizeObserver'
-import {useTheme} from '../ThemeProvider'
 import type {ChildWidthArray, ResponsiveProps, ChildSize} from './types'
 import VisuallyHidden from '../_VisuallyHidden'
-import {moreBtnStyles, getDividerStyle, menuStyles, menuItemStyles, baseMenuStyles, baseMenuMinWidth} from './styles'
+import {moreBtnStyles, dividerStyles, menuItemStyles, baseMenuMinWidth} from './styles'
 import {UnderlineItemList, UnderlineWrapper, LoadingCounter, GAP} from '../internal/components/UnderlineTabbedInterface'
 import {Button} from '../Button'
 import {TriangleDownIcon} from '@primer/octicons-react'
@@ -17,6 +16,7 @@ import {ActionList} from '../ActionList'
 import CounterLabel from '../CounterLabel'
 import {invariant} from '../utils/invariant'
 import classes from './UnderlineNav.module.css'
+import {getAnchoredPosition} from '@primer/behaviors'
 
 export type UnderlineNavProps = {
   children: React.ReactNode
@@ -124,6 +124,20 @@ const calculatePossibleItems = (childWidthArray: ChildWidthArray, navWidth: numb
   return breakpoint
 }
 
+// Inline styles converted from baseMenuStyles for use as CSSProperties
+const baseMenuInlineStyles: React.CSSProperties = {
+  position: 'absolute',
+  zIndex: 1,
+  top: '90%',
+  boxShadow: '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)',
+  borderRadius: 12,
+  background: 'var(--overlay-bgColor)',
+  listStyle: 'none',
+  minWidth: `${baseMenuMinWidth}px`,
+  maxWidth: '640px',
+  right: 0,
+}
+
 export const UnderlineNav = forwardRef(
   (
     {
@@ -144,7 +158,6 @@ export const UnderlineNav = forwardRef(
     const containerRef = React.useRef<HTMLUListElement>(null)
     const disclosureWidgetId = useId()
 
-    const {theme} = useTheme()
     const [isWidgetOpen, setIsWidgetOpen] = useState(false)
     const [iconsVisible, setIconsVisible] = useState<boolean>(true)
     const [childWidthArray, setChildWidthArray] = useState<ChildWidthArray>([])
@@ -288,10 +301,24 @@ export const UnderlineNav = forwardRef(
         )
     }, navRef as RefObject<HTMLElement>)
 
+    // Compute menuInlineStyles if needed
+    let menuInlineStyles: React.CSSProperties = {...baseMenuInlineStyles}
+    if (containerRef.current && listRef.current) {
+      const {left} = getAnchoredPosition(containerRef.current, listRef.current, {
+        align: 'start',
+        side: 'outside-bottom',
+      })
+
+      menuInlineStyles = {
+        ...baseMenuInlineStyles,
+        right: undefined,
+        left,
+      }
+    }
+
     return (
       <UnderlineNavContext.Provider
         value={{
-          theme,
           setChildrenWidth,
           setNoIconChildrenWidth,
           loadingCounters,
@@ -304,7 +331,7 @@ export const UnderlineNav = forwardRef(
             {listItems}
             {menuItems.length > 0 && (
               <li ref={moreMenuRef} style={{display: 'flex', alignItems: 'center', height: `${MORE_BTN_HEIGHT}px`}}>
-                {!onlyMenuVisible && <div style={getDividerStyle(theme)}></div>}
+                {!onlyMenuVisible && <div style={dividerStyles}></div>}
                 <Button
                   ref={moreMenuBtnRef}
                   sx={moreBtnStyles}
@@ -329,12 +356,12 @@ export const UnderlineNav = forwardRef(
                   selectionVariant="single"
                   ref={containerRef}
                   id={disclosureWidgetId}
-                  sx={
-                    listRef.current?.clientWidth && listRef.current.clientWidth >= baseMenuMinWidth
-                      ? baseMenuStyles
-                      : menuStyles(containerRef.current, listRef.current)
-                  }
-                  style={{display: isWidgetOpen ? 'block' : 'none'}}
+                  style={{
+                    ...(listRef.current?.clientWidth && listRef.current.clientWidth >= baseMenuMinWidth
+                      ? baseMenuInlineStyles
+                      : menuInlineStyles),
+                    display: isWidgetOpen ? 'block' : 'none',
+                  }}
                 >
                   {menuItems.map((menuItem, index) => {
                     const {
@@ -361,7 +388,7 @@ export const UnderlineNav = forwardRef(
                     return (
                       <ActionList.LinkItem
                         key={menuItemChildren}
-                        sx={menuItemStyles}
+                        style={menuItemStyles}
                         onClick={(
                           event: React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>,
                         ) => {
