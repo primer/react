@@ -3,9 +3,7 @@ import styled from 'styled-components'
 import type {
   PageLayoutProps as PrimerPageLayoutProps,
   PageLayoutContentProps as PrimerPageLayoutContentProps,
-  PageLayoutHeaderProps as PrimerPageLayoutHeaderProps,
   PageLayoutPaneProps as PrimerPageLayoutPaneProps,
-  PageLayoutFooterProps as PrimerPageLayoutFooterProps,
 } from '@primer/react'
 import {PageLayout as PrimerPageLayout} from '@primer/react'
 import {sx, type SxProp} from '../sx'
