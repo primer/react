@@ -2,4 +2,4 @@
 "@primer/react": major
 ---
 
-SelectPanel: `item.id` is now required
+SelectPanel: Make `id` required for `items` passed to SelectPanel
