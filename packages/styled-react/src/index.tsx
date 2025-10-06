@@ -1,6 +1,7 @@
 export {ActionList} from '@primer/react'
 export {Box, type BoxProps} from './components/Box'
 export {Details} from '@primer/react'
+export {FormControl} from '@primer/react'
 export {ProgressBar} from '@primer/react'
 export {PageLayout} from '@primer/react'
 export {Select} from '@primer/react'
