@@ -12,51 +12,43 @@ export type Props = {
   id?: string
   className?: string
   style?: React.CSSProperties
-  as?: 'label' | 'legend' | 'span'
 }
 
-type FormControlLabelProps = React.PropsWithChildren<React.ComponentProps<typeof InputLabel> & Props>
-
-const FormControlLabel: React.FC<FormControlLabelProps> = ({
-  as,
-  children,
-  htmlFor,
-  id,
-  visuallyHidden,
-  requiredIndicator = true,
-  requiredText,
-  className,
-  ...props
-}) => {
+const FormControlLabel: React.FC<
+  React.PropsWithChildren<{htmlFor?: string} & React.ComponentProps<typeof InputLabel> & Props>
+> = ({as, children, htmlFor, id, visuallyHidden, requiredIndicator = true, requiredText, className, ...props}) => {
   const {disabled, id: formControlId, required} = useFormControlContext()
 
-  // Base props that are common to all element types
-  const baseProps = {
-    id,
-    className,
-    visuallyHidden,
-    required,
-    requiredText,
-    requiredIndicator,
-    disabled,
-    ...props,
-  }
+  /**
+   * Ensure we can pass through props correctly, since legend/span accept no defined 'htmlFor'
+   */
+  const labelProps: React.ComponentProps<typeof InputLabel> =
+    as === 'legend' || as === 'span'
+      ? {
+          as,
+          id,
+          className,
+          visuallyHidden,
+          required,
+          requiredText,
+          requiredIndicator,
+          disabled,
+          ...props,
+        }
+      : {
+          as,
+          id,
+          className,
+          visuallyHidden,
+          htmlFor: htmlFor || formControlId,
+          required,
+          requiredText,
+          requiredIndicator,
+          disabled,
+          ...props,
+        }
 
-  // For legend and span elements, don't pass htmlFor
-  if (as === 'legend' || as === 'span') {
-    return (
-      <InputLabel as={as} {...baseProps}>
-        {children}
-      </InputLabel>
-    )
-  }
-
-  // For label elements (default), include htmlFor
-  return (
-    <InputLabel as={as} htmlFor={htmlFor || formControlId} {...baseProps}>
-      {children}
-    </InputLabel>
-  )
+  return <InputLabel {...labelProps}>{children}</InputLabel>
 }
 
 export default FormControlLabel
