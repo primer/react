@@ -9,6 +9,7 @@ import VisuallyHidden from '../../../_VisuallyHidden'
 import {useSlots} from '../../../hooks/useSlots'
 import classes from './CheckboxOrRadioGroup.module.css'
 import {clsx} from 'clsx'
+import {BoxWithFallback} from '../BoxWithFallback'
 
 export type CheckboxOrRadioGroupProps = {
   /** Class name for custom styling */
@@ -67,6 +68,8 @@ const CheckboxOrRadioGroup: React.FC<React.PropsWithChildren<CheckboxOrRadioGrou
 
   const isLegendVisible = React.isValidElement(labelChild) && !labelChild.props.visuallyHidden
 
+  const Component = labelChild ? 'fieldset' : 'div'
+
   return (
     <CheckboxOrRadioGroupContext.Provider
       value={{
@@ -77,12 +80,11 @@ const CheckboxOrRadioGroup: React.FC<React.PropsWithChildren<CheckboxOrRadioGrou
       }}
     >
       <div>
-        <div
+        <Component
           className={clsx(className, classes.GroupFieldset)}
           data-validation={validationChild ? '' : undefined}
           {...(labelChild
             ? {
-                as: 'fieldset',
                 disabled,
               }
             : {})}
@@ -122,7 +124,7 @@ const CheckboxOrRadioGroup: React.FC<React.PropsWithChildren<CheckboxOrRadioGrou
           >
             {React.Children.toArray(rest).filter(child => React.isValidElement(child))}
           </div>
-        </div>
+        </Component>
         {validationChild && (
           <ValidationAnimationContainer
             // If we have CheckboxOrRadioGroup.Label as a child, we render a screenreader-accessible validation message in the <legend>
