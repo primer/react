@@ -33,7 +33,7 @@ export const Default: StoryFn = () => (
             </TreeView.LeadingVisual>
             Avatar.tsx
             <TreeView.TrailingVisual label="Added">
-              <Octicon icon={DiffAddedIcon} color="success.fg" />
+              <Octicon icon={DiffAddedIcon} className={classes.SuccessIcon} />
             </TreeView.TrailingVisual>
           </TreeView.Item>
           <TreeView.Item id="src/Button.tsx" current>
@@ -42,7 +42,7 @@ export const Default: StoryFn = () => (
             </TreeView.LeadingVisual>
             Button.tsx
             <TreeView.TrailingVisual label="Modified">
-              <Octicon icon={DiffModifiedIcon} color="attention.fg" />
+              <Octicon icon={DiffModifiedIcon} className={classes.AttentionIcon} />
             </TreeView.TrailingVisual>
           </TreeView.Item>
         </TreeView.SubTree>
@@ -53,7 +53,7 @@ export const Default: StoryFn = () => (
         </TreeView.LeadingVisual>
         package.json
         <TreeView.TrailingVisual label="Modified">
-          <Octicon icon={DiffModifiedIcon} color="attention.fg" />
+          <Octicon icon={DiffModifiedIcon} className={classes.AttentionIcon} />
         </TreeView.TrailingVisual>
       </TreeView.Item>
     </TreeView>
