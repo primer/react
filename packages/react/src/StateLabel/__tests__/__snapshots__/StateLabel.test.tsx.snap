@@ -9,7 +9,7 @@ exports[`StateLabel > renders children 1`] = `
   >
     <svg
       aria-label="Issue"
-      class="octicon octicon-issue-opened sc-aXZVg fRzBGV prc-StateLabel-Icon-UdR1Y"
+      class="octicon octicon-issue-opened prc-StateLabel-Icon-UdR1Y"
       display="inline-block"
       fill="currentColor"
       focusable="false"
@@ -41,7 +41,7 @@ exports[`StateLabel > respects the status prop 1`] = `
   >
     <svg
       aria-label="Issue"
-      class="octicon octicon-issue-opened sc-aXZVg fRzBGV prc-StateLabel-Icon-UdR1Y"
+      class="octicon octicon-issue-opened prc-StateLabel-Icon-UdR1Y"
       display="inline-block"
       fill="currentColor"
       focusable="false"
@@ -72,7 +72,7 @@ exports[`StateLabel > respects the status prop 2`] = `
   >
     <svg
       aria-label="Issue"
-      class="octicon octicon-issue-closed sc-aXZVg fRzBGV prc-StateLabel-Icon-UdR1Y"
+      class="octicon octicon-issue-closed prc-StateLabel-Icon-UdR1Y"
       display="inline-block"
       fill="currentColor"
       focusable="false"
@@ -103,7 +103,7 @@ exports[`StateLabel > respects the status prop 3`] = `
   >
     <svg
       aria-label="Issue, not planned"
-      class="octicon octicon-skip sc-aXZVg fRzBGV prc-StateLabel-Icon-UdR1Y"
+      class="octicon octicon-skip prc-StateLabel-Icon-UdR1Y"
       display="inline-block"
       fill="currentColor"
       focusable="false"
@@ -131,7 +131,7 @@ exports[`StateLabel > respects the status prop 4`] = `
   >
     <svg
       aria-label="Pull request"
-      class="octicon octicon-git-merge sc-aXZVg fRzBGV prc-StateLabel-Icon-UdR1Y"
+      class="octicon octicon-git-merge prc-StateLabel-Icon-UdR1Y"
       display="inline-block"
       fill="currentColor"
       focusable="false"
@@ -159,7 +159,7 @@ exports[`StateLabel > respects the status prop 5`] = `
   >
     <svg
       aria-label="Pull request"
-      class="octicon octicon-git-merge-queue sc-aXZVg fRzBGV prc-StateLabel-Icon-UdR1Y"
+      class="octicon octicon-git-merge-queue prc-StateLabel-Icon-UdR1Y"
       display="inline-block"
       fill="currentColor"
       focusable="false"
@@ -187,7 +187,8 @@ exports[`StateLabel > respects the variant prop 1`] = `
   >
     <svg
       aria-label="Issue"
-      class="octicon octicon-issue-opened sc-aXZVg fRzBGV prc-StateLabel-Icon-UdR1Y"
+      class="octicon octicon-issue-opened prc-StateLabel-Icon-UdR1Y"
+      data-variant-small=""
       display="inline-block"
       fill="currentColor"
       focusable="false"
@@ -218,7 +219,7 @@ exports[`StateLabel > respects the variant prop 2`] = `
   >
     <svg
       aria-label="Issue"
-      class="octicon octicon-issue-opened sc-aXZVg fRzBGV prc-StateLabel-Icon-UdR1Y"
+      class="octicon octicon-issue-opened prc-StateLabel-Icon-UdR1Y"
       display="inline-block"
       fill="currentColor"
       focusable="false"
