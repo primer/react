@@ -16,6 +16,7 @@ export type ActionListHeadingProps = {
   size?: HeadingVariants
   visuallyHidden?: boolean
   className?: string
+  style?: React.CSSProperties
 }
 
 export const Heading = forwardRef(({as, size, children, visuallyHidden = false, className, ...props}, forwardedRef) => {
