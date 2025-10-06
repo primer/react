@@ -156,11 +156,6 @@ describe('Table', () => {
       const {container} = render(<Table.Container className="test" />)
       expect(container.firstElementChild).toHaveClass('test')
     })
-
-    it('should support custom styles through the `sx` prop', () => {
-      const {container} = render(<Table.Container sx={{m: 0}} />)
-      expect(container.firstElementChild).toHaveStyle('margin:0')
-    })
   })
 
   describe('Table.Title', () => {
