@@ -3,6 +3,8 @@ import Text from '../../Text'
 import type {KeybindingHintProps} from '../props'
 import {Key} from './Key'
 import {accessibleKeyName} from '../key-names'
+import {clsx} from 'clsx'
+import classes from './Chord.module.css'
 
 /**
  * Consistent sort order for modifier keys. There should never be more than one non-modifier
@@ -29,33 +31,14 @@ const splitChord = (chord: string) =>
     .map(k => k.toLowerCase())
     .sort(compareLowercaseKeys)
 
-const backgroundColors = {
-  normal: 'var(--bgColor-transparent)',
-  onEmphasis: 'var(--counter-bgColor-emphasis)',
-  onPrimary: 'var(--button-primary-bgColor-active)',
-}
-
 export const Chord = ({keys, format = 'condensed', variant = 'normal', size = 'normal'}: KeybindingHintProps) => (
   <Text
-    sx={{
-      display: 'inline-flex',
-      bg: backgroundColors[variant],
-      color: variant === 'normal' ? 'var(--fgColor-muted)' : 'var(--fgColor-onEmphasis)',
-      border: '1px solid',
-      borderColor: variant === 'normal' ? 'var(--borderColor-default)' : 'transparent',
-      borderRadius: size === 'small' ? 1 : 2,
-      fontWeight: 'normal',
-      fontFamily: 'normal',
-      fontSize: size === 'small' ? '11px' : 0,
-      p: size === 'small' ? '2px' : 1,
-      gap: '0.5ch',
-      boxShadow: 'none',
-      verticalAlign: 'baseline',
-      overflow: 'hidden',
-      lineHeight: size === 'small' ? '8px' : '10px',
-      minWidth: size === 'small' ? 'var(--base-size-16)' : 'var(--base-size-20)',
-      justifyContent: 'center',
-    }}
+    className={clsx(classes.Chord, {
+      [classes.ChordNormal]: variant === 'normal',
+      [classes.ChordOnEmphasis]: variant === 'onEmphasis',
+      [classes.ChordOnPrimary]: variant === 'onPrimary',
+      [classes.ChordSmall]: size === 'small',
+    })}
   >
     {splitChord(keys).map((k, i) => (
       <Fragment key={i}>

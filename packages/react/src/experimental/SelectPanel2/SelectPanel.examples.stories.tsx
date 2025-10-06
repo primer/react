@@ -643,7 +643,7 @@ export const ShortSelectPanel = () => {
       </p>
       <SelectPanel title="Select notification channels" onSubmit={onSubmit} onCancel={onCancel}>
         <SelectPanel.Button>
-          <Text sx={{color: 'fg.muted'}}>Notify me:</Text>{' '}
+          <Text className={classes.TextMuted}>Notify me:</Text>{' '}
           {Object.keys(channels)
             .filter(channel => channels[channel as keyof typeof channels])
             .join(', ') || 'Never'}
@@ -1069,11 +1069,11 @@ const CreateNewLabelDialog = ({
         Note this Dialog is not accessible. Do not copy this.
       </Flash>
       <form onSubmit={onSubmit}>
-        <FormControl className={classes.FormControl}>
+        <FormControl sx={{marginBottom: 2}}>
           <FormControl.Label>Name</FormControl.Label>
           <TextInput name="name" block defaultValue={initialValue} autoFocus />
         </FormControl>
-        <FormControl className={classes.FormControl}>
+        <FormControl sx={{marginBottom: 2}}>
           <FormControl.Label>Color</FormControl.Label>
           <TextInput name="color" block defaultValue="fae17d" leadingVisual="#" />
         </FormControl>
