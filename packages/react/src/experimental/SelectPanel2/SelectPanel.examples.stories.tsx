@@ -1068,11 +1068,11 @@ const CreateNewLabelDialog = ({
         Note this Dialog is not accessible. Do not copy this.
       </Flash>
       <form onSubmit={onSubmit}>
-        <FormControl className={classes.FormControl}>
+        <FormControl sx={{marginBottom: 2}}>
           <FormControl.Label>Name</FormControl.Label>
           <TextInput name="name" block defaultValue={initialValue} autoFocus />
         </FormControl>
-        <FormControl className={classes.FormControl}>
+        <FormControl sx={{marginBottom: 2}}>
           <FormControl.Label>Color</FormControl.Label>
           <TextInput name="color" block defaultValue="fae17d" leadingVisual="#" />
         </FormControl>
