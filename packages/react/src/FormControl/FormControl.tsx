@@ -11,6 +11,7 @@ import Textarea from '../Textarea'
 import {CheckboxOrRadioGroupContext} from '../internal/components/CheckboxOrRadioGroup'
 import ValidationAnimationContainer from '../internal/components/ValidationAnimationContainer'
 import {useSlots} from '../hooks/useSlots'
+import type {SxProp} from '../sx'
 import {useId} from '../hooks/useId'
 import {FormControlCaption} from './FormControlCaption'
 import FormControlLabel from './FormControlLabel'
@@ -19,6 +20,7 @@ import FormControlValidation from './_FormControlValidation'
 import {FormControlContextProvider} from './_FormControlContext'
 import {warning} from '../utils/warning'
 import classes from './FormControl.module.css'
+import {BoxWithFallback} from '../internal/components/BoxWithFallback'
 
 export type FormControlProps = {
   children?: React.ReactNode
@@ -40,10 +42,11 @@ export type FormControlProps = {
    */
   layout?: 'horizontal' | 'vertical'
   className?: string
-}
+  style?: React.CSSProperties
+} & SxProp
 
 const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
-  ({children, disabled: disabledProp, layout = 'vertical', id: idProp, required, className}, ref) => {
+  ({children, disabled: disabledProp, layout = 'vertical', id: idProp, required, sx, className, style}, ref) => {
     const [slots, childrenWithoutSlots] = useSlots(children, {
       caption: FormControlCaption,
       label: FormControlLabel,
@@ -166,18 +169,22 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
         }}
       >
         {isChoiceInput || layout === 'horizontal' ? (
-          <div
+          <BoxWithFallback
             ref={ref}
             data-has-leading-visual={slots.leadingVisual ? '' : undefined}
+            sx={sx}
             className={clsx(className, classes.ControlHorizontalLayout)}
+            style={style}
           >
             {InputChildren}
-          </div>
+          </BoxWithFallback>
         ) : (
-          <div
+          <BoxWithFallback
             ref={ref}
             data-has-label={!isLabelHidden ? '' : undefined}
+            sx={sx}
             className={clsx(className, classes.ControlVerticalLayout)}
+            style={style}
           >
             {slots.label}
             {React.isValidElement(InputComponent) &&
@@ -203,7 +210,7 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
               <ValidationAnimationContainer show>{slots.validation}</ValidationAnimationContainer>
             ) : null}
             {slots.caption}
-          </div>
+          </BoxWithFallback>
         )}
       </FormControlContextProvider>
     )

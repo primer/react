@@ -2,8 +2,10 @@ export {ActionList} from '@primer/react'
 export {Box, type BoxProps} from './components/Box'
 export {Button} from '@primer/react'
 export {Details} from '@primer/react'
+export {FormControl} from '@primer/react'
 export {IconButton} from '@primer/react'
 export {ProgressBar} from '@primer/react'
+export {PageLayout} from '@primer/react'
 
 // theming depends on styled-components
 export {ThemeProvider} from '@primer/react'
@@ -23,7 +25,6 @@ export {CircleBadge} from './components/CircleBadge'
 export {CounterLabel, type CounterLabelProps} from './components/CounterLabel'
 export {Dialog, type DialogProps} from './components/Dialog'
 export {Flash} from './components/Flash'
-export {FormControl, type FormControlProps} from './components/FormControl'
 export {Header, type HeaderProps} from './components/Header'
 export {Heading} from './components/Heading'
 export {Label, type LabelProps} from './components/Label'
@@ -31,7 +32,6 @@ export {Link, type LinkProps} from './components/Link'
 export {LinkButton, type LinkButtonProps} from './components/LinkButton'
 export {NavList, type NavListProps} from './components/NavList'
 export {Overlay} from './components/Overlay'
-export {PageLayout, type PageLayoutProps} from './components/PageLayout'
 export {
   PageHeader,
   type PageHeaderProps,
