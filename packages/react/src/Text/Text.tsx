@@ -1,8 +1,8 @@
 import {clsx} from 'clsx'
-import {type StyledComponent} from 'styled-components'
 import React, {forwardRef} from 'react'
 import {useRefObjectAsForwardedRef} from '../hooks'
 import classes from './Text.module.css'
+import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 
 type StyledTextProps = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -25,9 +25,7 @@ const Text = forwardRef(({as: Component = 'span', className, size, weight, ...pr
       ref={innerRef}
     />
   )
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-}) as StyledComponent<'span', any, StyledTextProps, never>
+}) as PolymorphicForwardRefComponent<'span', StyledTextProps>
 
 Text.displayName = 'Text'
 
