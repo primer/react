@@ -51,53 +51,53 @@ export const ListLinkItem = () => (
       </ActionList.LeadingVisual>
       not a link, just an Item for comparison
     </ActionList.Item>
-    <ActionList.LinkItem href="https://github.com/primer" aria-keyshortcuts="g">
+    <ActionList.Item href="https://github.com/primer" aria-keyshortcuts="g">
       <ActionList.LeadingVisual>
         <LinkIcon />
       </ActionList.LeadingVisual>
-      ActionList.LinkItem
-    </ActionList.LinkItem>
-    <ActionList.LinkItem href="https://github.com/primer" target="_blank" rel="noopener noreferrer">
+      ActionList.Item
+    </ActionList.Item>
+    <ActionList.Item href="https://github.com/primer" target="_blank" rel="noopener noreferrer">
       <ActionList.LeadingVisual>
         <LinkIcon />
       </ActionList.LeadingVisual>
-      ActionList.LinkItem with anchor attributes
-    </ActionList.LinkItem>
-    <ActionList.LinkItem as={ReactRouterLikeLink} to="?path=/story/components-actionlist--default">
+      ActionList.Item with anchor attributes
+    </ActionList.Item>
+    <ActionList.Item as={ReactRouterLikeLink} to="?path=/story/components-actionlist--default">
       <ActionList.LeadingVisual>
         <LinkIcon />
       </ActionList.LeadingVisual>
       as ReactRouterLink
-    </ActionList.LinkItem>
+    </ActionList.Item>
     <NextJSLikeLink href="?path=/story/components-actionlist--default">
-      <ActionList.LinkItem>
+      <ActionList.Item>
         <ActionList.LeadingVisual>
           <LinkIcon />
         </ActionList.LeadingVisual>
         NextJS style Link
-      </ActionList.LinkItem>
+      </ActionList.Item>
     </NextJSLikeLink>
-    <ActionList.LinkItem href="?path=/story/components-actionlist--default">
+    <ActionList.Item href="?path=/story/components-actionlist--default">
       <ActionList.LeadingVisual>
         <LinkIcon />
       </ActionList.LeadingVisual>
       With inline description
       <ActionList.Description variant="inline">inline description</ActionList.Description>
-    </ActionList.LinkItem>
-    <ActionList.LinkItem href="?path=/story/components-actionlist--default">
+    </ActionList.Item>
+    <ActionList.Item href="?path=/story/components-actionlist--default">
       <ActionList.LeadingVisual>
         <LinkIcon />
       </ActionList.LeadingVisual>
       With block description
       <ActionList.Description variant="block">Block description</ActionList.Description>
-    </ActionList.LinkItem>
-    <ActionList.LinkItem href="?path=/story/components-actionlist--default">
+    </ActionList.Item>
+    <ActionList.Item href="?path=/story/components-actionlist--default">
       <ActionList.LeadingVisual>
         <LinkIcon />
       </ActionList.LeadingVisual>
       Trailing visual
       <ActionList.TrailingVisual>⌘ + L</ActionList.TrailingVisual>
-    </ActionList.LinkItem>
+    </ActionList.Item>
   </ActionList>
 )
 ListLinkItem.storyName = 'Link Item'

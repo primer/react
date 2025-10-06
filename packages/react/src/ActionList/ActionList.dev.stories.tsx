@@ -2,7 +2,6 @@ import React from 'react'
 import type {Meta} from '@storybook/react-vite'
 import {ActionList} from '.'
 import {Item} from './Item'
-import {LinkItem} from './LinkItem'
 import {Group} from './Group'
 import {Divider} from './Divider'
 import {Description} from './Description'
@@ -14,7 +13,7 @@ import {AnchoredOverlay} from '../AnchoredOverlay'
 export default {
   title: 'Components/ActionList/Dev',
   component: ActionList,
-  subcomponents: {Item, LinkItem, Group, Divider, Description},
+  subcomponents: {Item, Group, Divider, Description},
 } as Meta<typeof ActionList>
 
 const users = [
@@ -257,19 +256,19 @@ export const ItemLabelStylesWithMixedDescriptions = () => (
           <ActionList.Heading as="h2" size="small">
             Some link items have block description
           </ActionList.Heading>
-          <ActionList.LinkItem>
+          <ActionList.Item>
             Item with inline description
             <ActionList.Description variant="block">Block description</ActionList.Description>
-          </ActionList.LinkItem>
-          <ActionList.LinkItem>
+          </ActionList.Item>
+          <ActionList.Item>
             Item with inline description
             <ActionList.Description variant="block">Block description</ActionList.Description>
-          </ActionList.LinkItem>
-          <ActionList.LinkItem>Item with no description</ActionList.LinkItem>
-          <ActionList.LinkItem>
+          </ActionList.Item>
+          <ActionList.Item>Item with no description</ActionList.Item>
+          <ActionList.Item>
             Item with inline description
             <ActionList.Description variant="block">Block description</ActionList.Description>
-          </ActionList.LinkItem>
+          </ActionList.Item>
         </ActionList>
       </Stack.Item>
     </Stack>

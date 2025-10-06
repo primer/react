@@ -250,7 +250,7 @@ export const ShortcutMenu = () => {
               Edit comment
               <ActionList.TrailingVisual>⌘E</ActionList.TrailingVisual>
             </ActionList.Item>
-            <ActionList.LinkItem href="#">View file</ActionList.LinkItem>
+            <ActionList.Item href="#">View file</ActionList.Item>
             <ActionList.Divider />
             <ActionList.Item variant="danger">
               Delete file
@@ -297,7 +297,7 @@ export const ContextMenu = () => {
                 Edit comment
                 <ActionList.TrailingVisual>⌘E</ActionList.TrailingVisual>
               </ActionList.Item>
-              <ActionList.LinkItem href="#">View file</ActionList.LinkItem>
+              <ActionList.Item href="#">View file</ActionList.Item>
               <ActionList.Divider />
               <ActionList.Item variant="danger">
                 Delete file
@@ -571,12 +571,12 @@ export const OnlyInactiveItems = () => (
             <ArchiveIcon />
           </ActionList.LeadingVisual>
         </ActionList.Item>
-        <ActionList.LinkItem href="/" inactiveText="Unavailable due to an outage">
+        <ActionList.Item href="/" inactiveText="Unavailable due to an outage">
           Settings
           <ActionList.LeadingVisual>
             <GearIcon />
           </ActionList.LeadingVisual>
-        </ActionList.LinkItem>
+        </ActionList.Item>
         <ActionList.Item onSelect={() => alert('Make a copy clicked')} inactiveText="Unavailable due to an outage">
           Make a copy
           <ActionList.LeadingVisual>
@@ -586,24 +586,24 @@ export const OnlyInactiveItems = () => (
         <ActionList.Divider />
         <ActionList.Group>
           <ActionList.GroupHeading>Github projects</ActionList.GroupHeading>
-          <ActionList.LinkItem href="/" inactiveText="Unavailable due to an outage">
+          <ActionList.Item href="/" inactiveText="Unavailable due to an outage">
             What&apos;s new
             <ActionList.LeadingVisual>
               <RocketIcon />
             </ActionList.LeadingVisual>
-          </ActionList.LinkItem>
-          <ActionList.LinkItem href="/" inactiveText="Unavailable due to an outage">
+          </ActionList.Item>
+          <ActionList.Item href="/" inactiveText="Unavailable due to an outage">
             Give feedback
             <ActionList.LeadingVisual>
               <CommentIcon />
             </ActionList.LeadingVisual>
-          </ActionList.LinkItem>
-          <ActionList.LinkItem href="/" inactiveText="Unavailable due to an outage">
+          </ActionList.Item>
+          <ActionList.Item href="/" inactiveText="Unavailable due to an outage">
             GitHub Docs
             <ActionList.LeadingVisual>
               <BookIcon />
             </ActionList.LeadingVisual>
-          </ActionList.LinkItem>
+          </ActionList.Item>
         </ActionList.Group>
       </ActionList>
     </ActionMenu.Overlay>

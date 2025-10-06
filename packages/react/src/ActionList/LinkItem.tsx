@@ -1,11 +1,11 @@
 import React from 'react'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import Link from '../Link'
-import {Item} from './Item'
+import {BaseItem} from './BaseItem'
 import type {ActionListItemProps} from './shared'
 
 // adopted from React.AnchorHTMLAttributes
-type LinkProps = {
+export type LinkProps = {
   download?: string
   href?: string
   hrefLang?: string
@@ -28,7 +28,7 @@ export type ActionListLinkItemProps = Pick<
 export const LinkItem = React.forwardRef(
   ({sx, active, inactiveText, variant, size, as: Component, className, ...props}, forwardedRef) => {
     return (
-      <Item
+      <BaseItem
         className={className}
         active={active}
         inactiveText={inactiveText}
@@ -51,7 +51,7 @@ export const LinkItem = React.forwardRef(
         }}
       >
         {props.children}
-      </Item>
+      </BaseItem>
     )
   },
 ) as PolymorphicForwardRefComponent<'a', ActionListLinkItemProps>

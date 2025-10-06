@@ -1,7 +1,7 @@
 import {List} from './List'
 import {Group, GroupHeading} from './Group'
-import {Item} from './Item'
 import {LinkItem} from './LinkItem'
+import {Item} from './Item'
 import {Divider} from './Divider'
 import {Description} from './Description'
 import {TrailingAction} from './TrailingAction'
@@ -12,6 +12,7 @@ export type {ActionListProps} from './shared'
 export type {ActionListGroupProps, ActionListGroupHeadingProps} from './Group'
 export type {ActionListItemProps} from './shared'
 export type {ActionListLinkItemProps} from './LinkItem'
+export type {ActionListCombinedItemProps} from './Item'
 export type {ActionListDividerProps} from './Divider'
 export type {ActionListDescriptionProps} from './Description'
 export type {ActionListLeadingVisualProps, ActionListTrailingVisualProps} from './Visuals'
@@ -25,10 +26,10 @@ export const ActionList = Object.assign(List, {
   /** Collects related `Items` in an `ActionList`. */
   Group,
 
-  /** An actionable or selectable `Item` */
+  /** An actionable or selectable `Item` that can also function as a link when href is provided */
   Item,
 
-  /** A `Item` that renders a full-size anchor inside ListItem */
+  /** @deprecated Use ActionList.Item with href prop instead. A `Item` that renders a full-size anchor inside ListItem */
   LinkItem,
 
   /** Visually separates `Item`s or `Group`s in an `ActionList`. */

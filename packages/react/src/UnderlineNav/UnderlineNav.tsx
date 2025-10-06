@@ -366,7 +366,7 @@ export const UnderlineNav = forwardRef(
                     }
 
                     return (
-                      <ActionList.LinkItem
+                      <ActionList.Item
                         key={menuItemChildren}
                         sx={menuItemStyles}
                         onClick={(
@@ -393,7 +393,7 @@ export const UnderlineNav = forwardRef(
                             )
                           )}
                         </span>
-                      </ActionList.LinkItem>
+                      </ActionList.Item>
                     )
                   })}
                 </ActionList>

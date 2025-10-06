@@ -2,7 +2,6 @@ import type {StoryFn, Meta} from '@storybook/react-vite'
 import type {ActionListProps, ActionListGroupProps} from '.'
 import {ActionList} from '.'
 import {Item} from './Item'
-import {LinkItem} from './LinkItem'
 import {Group} from './Group'
 import {Divider} from './Divider'
 import {Description} from './Description'
@@ -11,7 +10,7 @@ import {TypographyIcon, VersionsIcon, SearchIcon, ArrowRightIcon, ArrowLeftIcon}
 export default {
   title: 'Components/ActionList',
   component: ActionList,
-  subcomponents: {Item, LinkItem, Group, Divider, Description},
+  subcomponents: {Item, Group, Divider, Description},
 } as Meta<typeof ActionList>
 
 export const Default = () => (
@@ -214,11 +213,11 @@ export const LinkItemPlayground = args => {
 
   return (
     <ActionList>
-      <ActionList.LinkItem {...args}>
+      <ActionList.Item {...args}>
         {leadingVisual && <ActionList.LeadingVisual>{leadingVisual}</ActionList.LeadingVisual>}
         Action list item
         {trailingVisual && <ActionList.TrailingVisual>{trailingVisual}</ActionList.TrailingVisual>}
-      </ActionList.LinkItem>
+      </ActionList.Item>
     </ActionList>
   )
 }

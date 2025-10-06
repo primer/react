@@ -33,12 +33,12 @@ export const LinksAndActions = () => (
             <ArchiveIcon />
           </ActionList.LeadingVisual>
         </ActionList.Item>
-        <ActionList.LinkItem href="/">
+        <ActionList.Item href="/">
           Settings
           <ActionList.LeadingVisual>
             <GearIcon />
           </ActionList.LeadingVisual>
-        </ActionList.LinkItem>
+        </ActionList.Item>
         <ActionList.Item onSelect={() => alert('Make a copy clicked')}>
           Make a copy
           <ActionList.LeadingVisual>
@@ -48,24 +48,24 @@ export const LinksAndActions = () => (
         <ActionList.Divider />
         <ActionList.Group>
           <ActionList.GroupHeading>GitHub projects</ActionList.GroupHeading>
-          <ActionList.LinkItem href="/">
+          <ActionList.Item href="/">
             What&apos;s new
             <ActionList.LeadingVisual>
               <RocketIcon />
             </ActionList.LeadingVisual>
-          </ActionList.LinkItem>
-          <ActionList.LinkItem href="/">
+          </ActionList.Item>
+          <ActionList.Item href="/">
             Give feedback
             <ActionList.LeadingVisual>
               <CommentIcon />
             </ActionList.LeadingVisual>
-          </ActionList.LinkItem>
-          <ActionList.LinkItem href="/">
+          </ActionList.Item>
+          <ActionList.Item href="/">
             GitHub Docs
             <ActionList.LeadingVisual>
               <BookIcon />
             </ActionList.LeadingVisual>
-          </ActionList.LinkItem>
+          </ActionList.Item>
         </ActionList.Group>
       </ActionList>
     </ActionMenu.Overlay>
@@ -153,12 +153,12 @@ export const InactiveItems = () => (
             <ArchiveIcon />
           </ActionList.LeadingVisual>
         </ActionList.Item>
-        <ActionList.LinkItem href="/" inactiveText="Unavailable due to an outage">
+        <ActionList.Item href="/" inactiveText="Unavailable due to an outage">
           Settings
           <ActionList.LeadingVisual>
             <GearIcon />
           </ActionList.LeadingVisual>
-        </ActionList.LinkItem>
+        </ActionList.Item>
         <ActionList.Item onSelect={() => alert('Make a copy clicked')} inactiveText="Unavailable due to an outage">
           Make a copy
           <ActionList.LeadingVisual>
@@ -168,24 +168,24 @@ export const InactiveItems = () => (
         <ActionList.Divider />
         <ActionList.Group>
           <ActionList.GroupHeading>Github projects</ActionList.GroupHeading>
-          <ActionList.LinkItem href="/">
+          <ActionList.Item href="/">
             What&apos;s new
             <ActionList.LeadingVisual>
               <RocketIcon />
             </ActionList.LeadingVisual>
-          </ActionList.LinkItem>
-          <ActionList.LinkItem href="/">
+          </ActionList.Item>
+          <ActionList.Item href="/">
             Give feedback
             <ActionList.LeadingVisual>
               <CommentIcon />
             </ActionList.LeadingVisual>
-          </ActionList.LinkItem>
-          <ActionList.LinkItem href="/">
+          </ActionList.Item>
+          <ActionList.Item href="/">
             GitHub Docs
             <ActionList.LeadingVisual>
               <BookIcon />
             </ActionList.LeadingVisual>
-          </ActionList.LinkItem>
+          </ActionList.Item>
         </ActionList.Group>
       </ActionList>
     </ActionMenu.Overlay>
@@ -218,24 +218,24 @@ export const LoadingItems = () => (
         <ActionList.Divider />
         <ActionList.Group>
           <ActionList.GroupHeading>Github projects</ActionList.GroupHeading>
-          <ActionList.LinkItem href="/">
+          <ActionList.Item href="/">
             What&apos;s new
             <ActionList.LeadingVisual>
               <RocketIcon />
             </ActionList.LeadingVisual>
-          </ActionList.LinkItem>
-          <ActionList.LinkItem href="/">
+          </ActionList.Item>
+          <ActionList.Item href="/">
             Give feedback
             <ActionList.LeadingVisual>
               <CommentIcon />
             </ActionList.LeadingVisual>
-          </ActionList.LinkItem>
-          <ActionList.LinkItem href="/">
+          </ActionList.Item>
+          <ActionList.Item href="/">
             GitHub Docs
             <ActionList.LeadingVisual>
               <BookIcon />
             </ActionList.LeadingVisual>
-          </ActionList.LinkItem>
+          </ActionList.Item>
         </ActionList.Group>
       </ActionList>
     </ActionMenu.Overlay>
@@ -301,12 +301,12 @@ export const DisabledItems = () => (
             <ArchiveIcon />
           </ActionList.LeadingVisual>
         </ActionList.Item>
-        <ActionList.LinkItem href="/">
+        <ActionList.Item href="/">
           Settings
           <ActionList.LeadingVisual>
             <GearIcon />
           </ActionList.LeadingVisual>
-        </ActionList.LinkItem>
+        </ActionList.Item>
         <ActionList.Item disabled={true}>
           Make a copy
           <ActionList.LeadingVisual>
@@ -316,24 +316,24 @@ export const DisabledItems = () => (
         <ActionList.Divider />
         <ActionList.Group>
           <ActionList.GroupHeading>Github projects</ActionList.GroupHeading>
-          <ActionList.LinkItem href="/">
+          <ActionList.Item href="/">
             What&apos;s new
             <ActionList.LeadingVisual>
               <RocketIcon />
             </ActionList.LeadingVisual>
-          </ActionList.LinkItem>
-          <ActionList.LinkItem href="/">
+          </ActionList.Item>
+          <ActionList.Item href="/">
             Give feedback
             <ActionList.LeadingVisual>
               <CommentIcon />
             </ActionList.LeadingVisual>
-          </ActionList.LinkItem>
-          <ActionList.LinkItem href="/">
+          </ActionList.Item>
+          <ActionList.Item href="/">
             GitHub Docs
             <ActionList.LeadingVisual>
               <BookIcon />
             </ActionList.LeadingVisual>
-          </ActionList.LinkItem>
+          </ActionList.Item>
         </ActionList.Group>
       </ActionList>
     </ActionMenu.Overlay>

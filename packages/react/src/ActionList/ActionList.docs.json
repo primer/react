@@ -8,7 +8,7 @@
   "props": [
     {
       "name": "children",
-      "type": "ActionList.Item[] | ActionList.LinkItem[] | ActionList.Group[]",
+      "type": "ActionList.Item[] | ActionList.Group[]",
       "defaultValue": "",
       "required": true,
       "description": ""
@@ -70,7 +70,7 @@
           "name": "onSelect",
           "type": "(event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => void",
           "defaultValue": "",
-          "description": "Callback that is called when the item is selected using either the mouse or keyboard. `event.preventDefault()` will prevent a menu from closing when within an `<ActionMenu />`. This is not called for disabled or inactive items."
+          "description": "Callback that is called when the item is selected using either the mouse or keyboard. `event.preventDefault()` will prevent a menu from closing when within an `<ActionMenu />`. This is not called for disabled or inactive items. When link props are provided, this may not be called as the default link behavior takes precedence."
         },
         {
           "name": "selected",
@@ -118,8 +118,28 @@
           "name": "sx",
           "type": "SystemStyleObject",
           "deprecated": true
+        },
+        {
+          "name": "as",
+          "type": "React.ElementType",
+          "defaultValue": "\"button\"",
+          "description": "The component or element type to render as. When href, to, or other link props are provided, this defaults to \"a\"."
+        },
+        {
+          "name": "href",
+          "type": "string",
+          "description": "URL to navigate to when item is clicked. When provided, the item will render as a link using LinkItem internally."
+        },
+        {
+          "name": "to",
+          "type": "string",
+          "description": "React Router destination to navigate to when item is clicked. When provided, the item will render as a link using LinkItem internally."
         }
-      ]
+      ],
+      "passthrough": {
+        "element": "button | a",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#Attributes | https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#Attributes"
+      }
     },
     {
       "name": "ActionList.Heading",
@@ -151,49 +171,6 @@
           "deprecated": true
         }
       ]
-    },
-    {
-      "name": "ActionList.LinkItem",
-      "props": [
-        {
-          "name": "children",
-          "type": "React.ReactNode | ActionList.LeadingVisual | ActionList.Description | ActionList.TrailingVisual",
-          "defaultValue": "",
-          "required": true,
-          "description": ""
-        },
-        {
-          "name": "active",
-          "type": "boolean",
-          "defaultValue": "false",
-          "description": "Indicate whether the item is active. There should never be more than one active item."
-        },
-        {
-          "name": "ref",
-          "type": "React.RefObject<HTMLAnchorElement>"
-        },
-        {
-          "name": "as",
-          "type": "React.ElementType",
-          "defaultValue": "\"a\""
-        },
-        {
-          "name": "inactiveText",
-          "type": "string",
-          "required": false,
-          "description": "Text describing why the item is inactive. This may be used when an item's usual functionality\nis unavailable due to a system error such as a database outage.",
-          "defaultValue": ""
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject",
-          "deprecated": true
-        }
-      ],
-      "passthrough": {
-        "element": "a",
-        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#Attributes"
-      }
     },
     {
       "name": "ActionList.LeadingVisual",
@@ -350,7 +327,7 @@
       "props": [
         {
           "name": "children",
-          "type": "ActionList.Item[] | ActionList.LinkItem[]",
+          "type": "ActionList.Item[]",
           "defaultValue": "",
           "required": true,
           "description": ""
