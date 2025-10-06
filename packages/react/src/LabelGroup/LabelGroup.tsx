@@ -6,7 +6,7 @@ import {get} from '../constants'
 import VisuallyHidden from '../_VisuallyHidden'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import {Button, IconButton} from '../Button'
-import {useTheme} from '../ThemeProvider'
+import theme from '../theme'
 import classes from './LabelGroup.module.css'
 
 export type LabelGroupProps = {
@@ -171,9 +171,7 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
     toJSON: () => undefined,
   })
 
-  const {theme} = useTheme()
-
-  const overlayPaddingPx = parseInt(get('space.2')(theme), 10)
+  const overlayPaddingPx = parseInt(theme.space[2], 10)
 
   const hiddenItemIds = Object.keys(visibilityMap).filter(key => !visibilityMap[key])
 

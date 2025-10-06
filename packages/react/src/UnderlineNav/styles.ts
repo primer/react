@@ -1,15 +1,14 @@
-import type {Theme} from '../ThemeProvider'
 import type {BetterSystemStyleObject} from '../sx'
 import {getAnchoredPosition} from '@primer/behaviors'
 
-export const getDividerStyle = (theme?: Theme) => ({
+export const dividerStyles = {
   display: 'inline-block',
   borderLeft: '1px solid',
   width: '1px',
-  borderLeftColor: `${theme?.colors.border.muted}`,
-  marginRight: '4px',
+  borderLeftColor: 'var(--borderColor-muted)',
+  marginRight: 'var(--base-size-4)',
   height: '24px', // The height of the divider - reference from Figma
-})
+}
 
 export const moreBtnStyles = {
   //set margin 0 here because safari puts extra margin around the button, rest is to reset style to make it look like a list element
