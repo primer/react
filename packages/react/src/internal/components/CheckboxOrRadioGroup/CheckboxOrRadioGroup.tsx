@@ -9,7 +9,6 @@ import VisuallyHidden from '../../../_VisuallyHidden'
 import {useSlots} from '../../../hooks/useSlots'
 import classes from './CheckboxOrRadioGroup.module.css'
 import {clsx} from 'clsx'
-import {BoxWithFallback} from '../BoxWithFallback'
 
 export type CheckboxOrRadioGroupProps = {
   /** Class name for custom styling */
