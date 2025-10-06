@@ -10,6 +10,7 @@ import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../../
 import type {AriaRole} from '../../utils/types'
 
 import classes from './Item.module.css'
+import {clsx} from 'clsx'
 
 /**
  * Contract for props passed to the `Item` component.
@@ -137,6 +138,7 @@ export const Item = React.forwardRef((itemProps, ref) => {
     children,
     onClick,
     id,
+    className,
     ...props
   } = itemProps
 
@@ -185,6 +187,12 @@ export const Item = React.forwardRef((itemProps, ref) => {
       data-id={id}
       onKeyPress={keyPressHandler}
       onClick={clickHandler}
+      className={clsx(
+        classes.Item,
+        variant === 'danger' && classes['Item--danger'],
+        disabled && classes['Item--disabled'],
+        className,
+      )}
     >
       {!!selected === selected && (
         <div>

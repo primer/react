@@ -204,7 +204,7 @@
 .DescriptionContainer {
   color: var(--fgColor-muted);
   font-size: var(--text-body-size-small);
-  line-height: var(--text-body-lineHeight-small);
+  line-height: var(--text-caption-lineHeight);
   min-width: 0;
   flex-grow: 1;
   /* stylelint-disable-next-line primer/spacing */
@@ -235,4 +235,18 @@
 
 .MultiSelectIcon:where([data-selected]) path {
   opacity: 1;
+}
+
+.Item[data-divider]:not(:first-of-type):not([data-component='ActionList.Divider'] + .Item):not(
+    [data-component='ActionList.Header'] + .Item
+  )
+  .DividedContent::before {
+  border-top-width: var(--borderWidth-thin);
+}
+
+.Item[data-divider]:not(:first-of-type):not([data-component='ActionList.Divider'] + .Item):not(
+    [data-component='ActionList.Header'] + .Item
+  ) {
+  /* stylelint-disable-next-line primer/spacing */
+  margin-top: 1px;
 }
