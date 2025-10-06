@@ -4,7 +4,6 @@ export {Button} from '@primer/react'
 export {Details} from '@primer/react'
 export {IconButton} from '@primer/react'
 export {ProgressBar} from '@primer/react'
-export {Select} from '@primer/react'
 
 // theming depends on styled-components
 export {ThemeProvider} from '@primer/react'
@@ -47,6 +46,7 @@ export {
   type SegmentedControlButtonProps,
   type SegmentedControlIconButtonProps,
 } from './components/SegmentedControl'
+export {Select, type SelectProps} from './components/Select'
 export {Spinner, type SpinnerProps} from './components/Spinner'
 export {StateLabel, type StateLabelProps} from './components/StateLabel'
 export {SubNav, type SubNavProps, type SubNavLinkProps} from './components/SubNav'
