@@ -1,10 +1,12 @@
 import React from 'react'
+import styled from 'styled-components'
 import {XIcon} from '@primer/octicons-react'
 import {getFocusableChild} from '@primer/behaviors/utils'
+import {get} from '../constants'
 import VisuallyHidden from '../_VisuallyHidden'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import {Button, IconButton} from '../Button'
-import {clsx} from 'clsx'
+import {useTheme} from '../ThemeProvider'
 import classes from './LabelGroup.module.css'
 
 export type LabelGroupProps = {
@@ -16,6 +18,45 @@ export type LabelGroupProps = {
   visibleChildCount?: 'auto' | number
   className?: string
 }
+
+const StyledLabelGroupContainer = styled.div`
+  display: flex;
+  flex-wrap: nowrap;
+  gap: ${get('space.1')};
+  line-height: 1;
+  max-width: 100%;
+  overflow: hidden;
+
+  &[data-overflow='inline'] {
+    flex-wrap: wrap;
+  }
+
+  &[data-list] {
+    padding-inline-start: 0;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    list-style-type: none;
+  }
+`
+
+const ItemWrapper = styled.div`
+  display: flex;
+  align-items: center;
+
+  /* This min-height matches the height of the expand/collapse button.
+     Without it, the labels/tokens will do a slight layout shift when expanded.
+     This is because the height of the first row will match the token sizes,
+     but the height of the second row will be the height of the collapse button.
+  */
+  min-height: 28px;
+
+  &.ItemWrapper--hidden {
+    order: 9999;
+    pointer-events: none;
+    visibility: hidden;
+  }
+`
+
 // Calculates the width of the overlay to cover the labels/tokens and the expand button.
 const getOverlayWidth = (
   buttonClientRect: DOMRect,
@@ -110,7 +151,7 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
   children,
   visibleChildCount,
   overflowStyle = 'overlay',
-  as: Component = 'ul',
+  as = 'ul',
   className,
 }) => {
   const containerRef = React.useRef<HTMLElement>(null)
@@ -130,7 +171,9 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
     toJSON: () => undefined,
   })
 
-  const overlayPaddingPx = 8 // equivalent to var(--base-size-8)
+  const {theme} = useTheme()
+
+  const overlayPaddingPx = parseInt(get('space.2')(theme), 10)
 
   const hiddenItemIds = Object.keys(visibilityMap).filter(key => !visibilityMap[key])
 
@@ -279,30 +322,28 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
     }
   }, [overflowStyle, isOverflowShown])
 
-  const isList = Component === 'ul' || Component === 'ol'
+  const isList = as === 'ul' || as === 'ol'
   const ToggleWrapper = isList ? 'li' : React.Fragment
-
-  const ItemWrapperComponent = isList ? 'li' : 'span'
 
   // If truncation is enabled, we need to render based on truncation logic.
   return visibleChildCount ? (
-    <Component
+    <StyledLabelGroupContainer
       ref={containerRef}
       data-overflow={overflowStyle === 'inline' && isOverflowShown ? 'inline' : undefined}
       data-list={isList || undefined}
-      className={clsx(className, classes.Container)}
+      className={className}
+      as={as}
     >
       {React.Children.map(children, (child, index) => (
-        <ItemWrapperComponent
+        <ItemWrapper
           // data-index is used as an identifier we can use in the IntersectionObserver
           data-index={index}
-          className={clsx(classes.ItemWrapper, {
-            [classes['ItemWrapper--hidden']]: hiddenItemIds.includes(index.toString()),
-          })}
+          className={hiddenItemIds.includes(index.toString()) ? 'ItemWrapper--hidden' : undefined}
+          as={isList ? 'li' : 'span'}
           key={index}
         >
           {child}
-        </ItemWrapperComponent>
+        </ItemWrapper>
       ))}
       <ToggleWrapper>
         {overflowStyle === 'inline' ? (
@@ -330,15 +371,15 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
           </OverlayToggle>
         )}
       </ToggleWrapper>
-    </Component>
+    </StyledLabelGroupContainer>
   ) : (
-    <Component data-overflow="inline" data-list={isList || undefined} className={clsx(className, classes.Container)}>
+    <StyledLabelGroupContainer data-overflow="inline" data-list={isList || undefined} as={as} className={className}>
       {isList
         ? React.Children.map(children, (child, index) => {
             return <li key={index}>{child}</li>
           })
         : children}
-    </Component>
+    </StyledLabelGroupContainer>
   )
 }
 
