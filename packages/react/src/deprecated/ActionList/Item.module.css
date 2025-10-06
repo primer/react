@@ -204,7 +204,8 @@
 .DescriptionContainer {
   color: var(--fgColor-muted);
   font-size: var(--text-body-size-small);
-  line-height: var(--text-caption-lineHeight);
+  /* stylelint-disable-next-line primer/typography */
+  line-height: 16px;
   min-width: 0;
   flex-grow: 1;
   /* stylelint-disable-next-line primer/spacing */
