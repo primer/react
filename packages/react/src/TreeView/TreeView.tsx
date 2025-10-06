@@ -82,6 +82,7 @@ export type TreeViewSecondaryActions = {
   onClick: () => void
   icon: Icon
   count?: number | string
+  className?: string
 }
 
 /* Size of toggle icon in pixels. */
@@ -753,7 +754,7 @@ const TrailingAction = (props: TreeViewTrailingAction) => {
         }
         onKeyDown={event => event.stopPropagation()}
       >
-        {items.map(({label, onClick, icon, count}, index) => {
+        {items.map(({label, onClick, icon, count, className}, index) => {
           // If there is a count, we render a Button instead of an IconButton,
           // as IconButton doesn't support displaying a count.
           if (count) {
@@ -763,7 +764,7 @@ const TrailingAction = (props: TreeViewTrailingAction) => {
                   aria-label={label}
                   leadingVisual={icon}
                   variant="invisible"
-                  className={classes.TreeViewItemTrailingActionButton}
+                  className={clsx(className, classes.TreeViewItemTrailingActionButton)}
                   onClick={onClick}
                   tabIndex={-1}
                   aria-hidden={true}
@@ -778,7 +779,7 @@ const TrailingAction = (props: TreeViewTrailingAction) => {
               icon={icon}
               variant="invisible"
               aria-label={label}
-              className={classes.TreeViewItemTrailingActionButton}
+              className={clsx(className, classes.TreeViewItemTrailingActionButton)}
               onClick={onClick}
               tabIndex={-1}
               aria-hidden={true}
