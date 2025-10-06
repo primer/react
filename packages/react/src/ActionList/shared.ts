@@ -1,5 +1,4 @@
 import React from 'react'
-import type {SxProp} from '../sx'
 import type {AriaRole} from '../utils/types'
 import type {PolymorphicProps} from '../utils/modern-polymorphic'
 
@@ -68,7 +67,7 @@ export type ActionListItemProps<As extends React.ElementType = 'li'> = ExcludeSe
    * @deprecated `as` prop has no effect on `ActionList.Item`, only `ActionList.LinkItem`
    */
   as?: As
-} & SxProp
+}
 
 type MenuItemProps = {
   onClick?: (event: React.MouseEvent<HTMLElement>) => void
@@ -157,8 +156,7 @@ export type ActionListProps<As extends React.ElementType = 'ul'> = PolymorphicPr
     disableFocusZone?: boolean
     className?: string
   }>
-> &
-  SxProp
+>
 
 type ContextProps = Pick<
   ActionListProps<React.ElementType>,
