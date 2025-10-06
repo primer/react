@@ -1,51 +1,22 @@
 import type React from 'react'
-import {get} from '../constants'
-import type {SxProp} from '../sx'
 import {useFormControlContext} from './_FormControlContext'
-import styled from 'styled-components'
-import sx from '../sx'
+import classes from './FormControlLeadingVisual.module.css'
 
-const FormControlLeadingVisual: React.FC<React.PropsWithChildren<SxProp & {style?: React.CSSProperties}>> = ({
+const FormControlLeadingVisual: React.FC<React.PropsWithChildren<{style?: React.CSSProperties}>> = ({
   children,
-  sx,
   style,
 }) => {
   const {disabled, captionId} = useFormControlContext()
   return (
-    <StyledLeadingVisual
+    <div
+      className={classes.LeadingVisual}
       data-control-disabled={disabled ? '' : undefined}
       style={style}
       data-has-caption={captionId ? '' : undefined}
-      sx={sx}
     >
       {children}
-    </StyledLeadingVisual>
+    </div>
   )
 }
-
-const StyledLeadingVisual = styled.div`
-  --leadingVisual-size: ${get('fontSizes.2')};
-
-  color: var(--fgColor-default);
-
-  display: flex;
-  align-items: center; /* Vertical alignment */
-
-  &:where([data-control-disabled]) {
-    color: var(--control-fgColor-disabled);
-  }
-
-  & > * {
-    min-width: var(--leadingVisual-size);
-    min-height: var(--leadingVisual-size);
-    fill: currentColor;
-  }
-
-  &:where([data-has-caption]) {
-    --leadingVisual-size: ${get('fontSizes.4')};
-  }
-
-  ${sx}
-`
 
 export default FormControlLeadingVisual
