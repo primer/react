@@ -321,7 +321,7 @@ export const UnderlineNav = forwardRef(
       menuInlineStyles = {
         ...baseMenuInlineStyles,
         right: undefined,
-        left: left,
+        left,
       }
     }
 
