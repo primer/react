@@ -39,12 +39,6 @@ Playground.argTypes = {
       disable: true,
     },
   },
-  sx: {
-    control: false,
-    table: {
-      disable: true,
-    },
-  },
 }
 
 export const Default = () => <Label>Default</Label>

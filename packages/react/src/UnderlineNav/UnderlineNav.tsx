@@ -1,15 +1,11 @@
-import type {MutableRefObject, RefObject} from 'react'
+import type {RefObject} from 'react'
 import React, {useRef, forwardRef, useCallback, useState, useEffect} from 'react'
-import Box from '../Box'
-import type {SxProp} from '../sx'
-import sx from '../sx'
 import {UnderlineNavContext} from './UnderlineNavContext'
 import type {ResizeObserverEntry} from '../hooks/useResizeObserver'
 import {useResizeObserver} from '../hooks/useResizeObserver'
-import {useTheme} from '../ThemeProvider'
 import type {ChildWidthArray, ResponsiveProps, ChildSize} from './types'
 import VisuallyHidden from '../_VisuallyHidden'
-import {moreBtnStyles, getDividerStyle, menuStyles, menuItemStyles, baseMenuStyles, baseMenuMinWidth} from './styles'
+import {moreBtnStyles, dividerStyles, menuItemStyles, baseMenuMinWidth} from './styles'
 import {UnderlineItemList, UnderlineWrapper, LoadingCounter, GAP} from '../internal/components/UnderlineTabbedInterface'
 import styled from 'styled-components'
 import {Button} from '../Button'
@@ -18,16 +14,16 @@ import {useOnEscapePress} from '../hooks/useOnEscapePress'
 import {useOnOutsideClick} from '../hooks/useOnOutsideClick'
 import {useId} from '../hooks/useId'
 import {ActionList} from '../ActionList'
-import {defaultSxProp} from '../utils/defaultSxProp'
 import CounterLabel from '../CounterLabel'
 import {invariant} from '../utils/invariant'
+import classes from './UnderlineNav.module.css'
+import {getAnchoredPosition} from '@primer/behaviors'
 
 export type UnderlineNavProps = {
   children: React.ReactNode
   'aria-label'?: React.AriaAttributes['aria-label']
   as?: React.ElementType
   className?: string
-  sx?: SxProp['sx']
   /**
    * loading state for all counters. It displays loading animation for individual counters (UnderlineNav.Item) until all are resolved. It is needed to prevent multiple layout shift.
    */
@@ -44,11 +40,6 @@ export type UnderlineNavProps = {
 export const MORE_BTN_WIDTH = 86
 // The height is needed to make sure we don't have a layout shift when the more button is the only item in the nav.
 const MORE_BTN_HEIGHT = 45
-
-// Needed this because passing a ref using HTMLULListElement to `Box` causes a type error
-export const NavigationList = styled.ul`
-  ${sx};
-`
 
 export const MoreMenuListItem = styled.li`
   display: flex;
@@ -140,12 +131,25 @@ const calculatePossibleItems = (childWidthArray: ChildWidthArray, navWidth: numb
   return breakpoint
 }
 
+// Inline styles converted from baseMenuStyles for use as CSSProperties
+const baseMenuInlineStyles: React.CSSProperties = {
+  position: 'absolute',
+  zIndex: 1,
+  top: '90%',
+  boxShadow: '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)',
+  borderRadius: 12,
+  background: 'var(--overlay-bgColor)',
+  listStyle: 'none',
+  minWidth: `${baseMenuMinWidth}px`,
+  maxWidth: '640px',
+  right: 0,
+}
+
 export const UnderlineNav = forwardRef(
   (
     {
       as = 'nav',
       'aria-label': ariaLabel,
-      sx: sxProp = defaultSxProp,
       loadingCounters = false,
       variant = 'inset',
       className,
@@ -154,14 +158,13 @@ export const UnderlineNav = forwardRef(
     forwardedRef,
   ) => {
     const backupRef = useRef<HTMLElement>(null)
-    const navRef = (forwardedRef ?? backupRef) as MutableRefObject<HTMLElement>
+    const navRef = (forwardedRef ?? backupRef) as RefObject<HTMLElement>
     const listRef = useRef<HTMLUListElement>(null)
     const moreMenuRef = useRef<HTMLLIElement>(null)
     const moreMenuBtnRef = useRef<HTMLButtonElement>(null)
     const containerRef = React.useRef<HTMLUListElement>(null)
     const disclosureWidgetId = useId()
 
-    const {theme} = useTheme()
     const [isWidgetOpen, setIsWidgetOpen] = useState(false)
     const [iconsVisible, setIconsVisible] = useState<boolean>(true)
     const [childWidthArray, setChildWidthArray] = useState<ChildWidthArray>([])
@@ -215,7 +218,7 @@ export const UnderlineNav = forwardRef(
       const widthToFitIntoList = getItemsWidth(prospectiveListItem.props.children)
       // Check if there is any empty space on the right side of the list
       const availableSpace =
-        navRef.current.getBoundingClientRect().width - (listRef.current?.getBoundingClientRect().width ?? 0)
+        (navRef.current?.getBoundingClientRect().width ?? 0) - (listRef.current?.getBoundingClientRect().width ?? 0)
 
       // Calculate how many items need to be pulled in to the menu to make room for the selected menu item
       // I.e. if we need to pull 2 items in (index 0 and index 1), breakpoint (index) will return 1.
@@ -305,10 +308,24 @@ export const UnderlineNav = forwardRef(
         )
     }, navRef as RefObject<HTMLElement>)
 
+    // Compute menuInlineStyles if needed
+    let menuInlineStyles: React.CSSProperties = {...baseMenuInlineStyles}
+    if (containerRef.current && listRef.current) {
+      const {left} = getAnchoredPosition(containerRef.current, listRef.current, {
+        align: 'start',
+        side: 'outside-bottom',
+      })
+
+      menuInlineStyles = {
+        ...baseMenuInlineStyles,
+        right: undefined,
+        left,
+      }
+    }
+
     return (
       <UnderlineNavContext.Provider
         value={{
-          theme,
           setChildrenWidth,
           setNoIconChildrenWidth,
           loadingCounters,
@@ -316,19 +333,12 @@ export const UnderlineNav = forwardRef(
         }}
       >
         {ariaLabel && <VisuallyHidden as="h2">{`${ariaLabel} navigation`}</VisuallyHidden>}
-        <UnderlineWrapper
-          as={as}
-          aria-label={ariaLabel}
-          className={className}
-          ref={navRef}
-          sx={sxProp}
-          data-variant={variant}
-        >
+        <UnderlineWrapper as={as} aria-label={ariaLabel} className={className} ref={navRef} data-variant={variant}>
           <UnderlineItemList ref={listRef} role="list">
             {listItems}
             {menuItems.length > 0 && (
               <MoreMenuListItem ref={moreMenuRef}>
-                {!onlyMenuVisible && <Box sx={getDividerStyle(theme)}></Box>}
+                {!onlyMenuVisible && <div style={dividerStyles}></div>}
                 <Button
                   ref={moreMenuBtnRef}
                   sx={moreBtnStyles}
@@ -337,7 +347,7 @@ export const UnderlineNav = forwardRef(
                   onClick={onAnchorClick}
                   trailingAction={TriangleDownIcon}
                 >
-                  <Box as="span">
+                  <span>
                     {onlyMenuVisible ? (
                       <>
                         <VisuallyHidden as="span">{`${ariaLabel}`}&nbsp;</VisuallyHidden>Menu
@@ -347,18 +357,18 @@ export const UnderlineNav = forwardRef(
                         More<VisuallyHidden as="span">&nbsp;{`${ariaLabel} items`}</VisuallyHidden>
                       </>
                     )}
-                  </Box>
+                  </span>
                 </Button>
                 <ActionList
                   selectionVariant="single"
                   ref={containerRef}
                   id={disclosureWidgetId}
-                  sx={
-                    listRef.current?.clientWidth && listRef.current.clientWidth >= baseMenuMinWidth
-                      ? baseMenuStyles
-                      : menuStyles(containerRef.current, listRef.current)
-                  }
-                  style={{display: isWidgetOpen ? 'block' : 'none'}}
+                  style={{
+                    ...(listRef.current?.clientWidth && listRef.current.clientWidth >= baseMenuMinWidth
+                      ? baseMenuInlineStyles
+                      : menuInlineStyles),
+                    display: isWidgetOpen ? 'block' : 'none',
+                  }}
                 >
                   {menuItems.map((menuItem, index) => {
                     const {
@@ -385,7 +395,7 @@ export const UnderlineNav = forwardRef(
                     return (
                       <ActionList.LinkItem
                         key={menuItemChildren}
-                        sx={menuItemStyles}
+                        style={menuItemStyles}
                         onClick={(
                           event: React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>,
                         ) => {
@@ -398,18 +408,18 @@ export const UnderlineNav = forwardRef(
                         }}
                         {...menuItemProps}
                       >
-                        <Box as="span" sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
+                        <span className={classes.MenuItemContent}>
                           {menuItemChildren}
                           {loadingCounters ? (
                             <LoadingCounter />
                           ) : (
                             counter !== undefined && (
-                              <Box as="span" data-component="counter">
+                              <span data-component="counter">
                                 <CounterLabel>{counter}</CounterLabel>
-                              </Box>
+                              </span>
                             )
                           )}
-                        </Box>
+                        </span>
                       </ActionList.LinkItem>
                     )
                   })}

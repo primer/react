@@ -136,3 +136,29 @@
   right: var(--base-size-4);
   top: var(--base-size-4);
 }
+
+.MediumTextMuted {
+  font-size: var(--text-body-size-medium);
+  color: var(--fgColor-muted);
+}
+
+.MediumText {
+  font-size: var(--text-body-size-medium);
+}
+
+.MediumTextWithMargin {
+  font-size: var(--text-body-size-medium);
+  color: var(--fgColor-muted);
+  margin-bottom: var(--base-size-12);
+}
+
+.IssueLink {
+  display: block;
+  border: var(--borderWidth-thin) solid var(--borderColor-default);
+  padding: var(--base-size-8);
+  transition: background 0.2s;
+}
+
+.IssueLink:hover {
+  background-color: var(--bgColor-muted);
+}

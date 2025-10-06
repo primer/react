@@ -1,146 +1,83 @@
-import {
-  type BetterSystemStyleObject,
-  Box,
-  type BoxProps,
-  type SxProp,
-  StateLabel as PrimerStateLabel,
-  type StateLabelProps as PrimerStateLabelProps,
-  SubNav as PrimerSubNav,
-  type SubNavProps as PrimerSubNavProps,
-  type SubNavLinkProps as PrimerSubNavLinkProps,
-  ToggleSwitch as PrimerToggleSwitch,
-  type ToggleSwitchProps as PrimerToggleSwitchProps,
-  type SegmentedControlProps as PrimerSegmentedControlProps,
-  SegmentedControl as PrimerSegmentedControl,
-  type SegmentedControlButtonProps as PrimerSegmentedControlButtonProps,
-  type SegmentedControlIconButtonProps as PrimerSegmentedControlIconButtonProps,
-} from '@primer/react'
-import React, {forwardRef, type PropsWithChildren} from 'react'
-import type {
-  BackgroundProps,
-  BorderProps,
-  ColorProps,
-  FlexboxProps,
-  GridProps,
-  LayoutProps,
-  PositionProps,
-  ShadowProps,
-  SpaceProps,
-  TypographyProps,
-} from 'styled-system'
+export {Box, type BoxProps} from './components/Box'
+export {Button} from '@primer/react'
+export {Details} from '@primer/react'
+export {FormControl} from '@primer/react'
+export {IconButton} from '@primer/react'
+export {ProgressBar} from '@primer/react'
+export {PageLayout} from '@primer/react'
+export {Select} from '@primer/react'
+export {Textarea} from '@primer/react'
+export {TextInput} from '@primer/react'
+export {type TextInputProps} from '@primer/react'
 
-type StyledProps = SxProp &
-  SpaceProps &
-  ColorProps &
-  TypographyProps &
-  LayoutProps &
-  FlexboxProps &
-  GridProps &
-  BackgroundProps &
-  BorderProps &
-  PositionProps &
-  ShadowProps
-
-type SegmentedControlProps = PropsWithChildren<PrimerSegmentedControlProps> & SxProp
-type SegmentedControlButtonProps = PropsWithChildren<PrimerSegmentedControlButtonProps> & SxProp
-type SegmentedControlIconButtonProps = PropsWithChildren<PrimerSegmentedControlIconButtonProps> & SxProp
-
-const SegmentedControlButton = (props: SegmentedControlButtonProps) => {
-  return <Box as={PrimerSegmentedControl.Button} {...props} />
-}
-
-const SegmentedControlIconButton = (props: SegmentedControlIconButtonProps) => {
-  return <Box as={PrimerSegmentedControl.IconButton} {...props} />
-}
-
-const SegmentedControlImpl = (props: SegmentedControlProps) => {
-  return <Box as={PrimerSegmentedControl} {...props} />
-}
-
-const SegmentedControl = Object.assign(SegmentedControlImpl, {
-  Button: SegmentedControlButton,
-  IconButton: SegmentedControlIconButton,
-})
-
-type StateLabelProps = PrimerStateLabelProps & SxProp
-
-const StateLabel = forwardRef<HTMLSpanElement, StateLabelProps>(function StateLabel(props, ref) {
-  return <Box as={PrimerStateLabel} ref={ref} {...props} />
-})
-
-type SubNavProps = PrimerSubNavProps & SxProp
-
-const SubNavImpl = forwardRef<HTMLElement, SubNavProps>(function SubNav(props, ref) {
-  return <Box as={PrimerSubNav} ref={ref} {...props} />
-})
-
-type SubNavLinkProps = PrimerSubNavLinkProps & SxProp
-
-const SubNavLink = forwardRef<HTMLAnchorElement, SubNavLinkProps>(function SubNavLink(props, ref) {
-  return <Box as={PrimerSubNav.Link} ref={ref} {...props} />
-})
-
-const SubNav = Object.assign(SubNavImpl, {
-  Link: SubNavLink,
-})
-
-type ToggleSwitchProps = PrimerToggleSwitchProps & Omit<StyledProps, keyof PrimerToggleSwitchProps>
-
-const ToggleSwitch = forwardRef<HTMLButtonElement, ToggleSwitchProps>(function ToggleSwitch(props, ref) {
-  return <Box as={PrimerToggleSwitch} ref={ref} {...props} />
-})
-
-export {SegmentedControl, StateLabel, SubNav, ToggleSwitch}
+// theming depends on styled-components
+export {ThemeProvider} from '@primer/react'
+export {merge} from '@primer/react'
+export {theme} from '@primer/react'
+export {themeGet} from '@primer/react'
+export {useColorSchemeVar} from '@primer/react'
+export {useTheme} from '@primer/react'
 
 export {
   ActionList,
-  ActionMenu,
-  Autocomplete,
-  Avatar,
-  Breadcrumbs,
-  Button,
-  Checkbox,
-  CheckboxGroup,
-  CircleBadge,
-  CounterLabel,
-  Details,
-  Dialog,
-  Flash,
-  FormControl,
-  Header,
-  Heading,
-  IconButton,
-  Label,
-  Link,
-  LinkButton,
-  NavList,
-  Overlay,
+  type ActionListProps,
+  type ActionListItemProps,
+  type ActionListLinkItemProps,
+  type ActionListGroupProps,
+  type ActionListDividerProps,
+  type ActionListLeadingVisualProps,
+  type ActionListTrailingVisualProps,
+  type ActionListTrailingActionProps,
+} from './components/ActionList'
+export {ActionMenu} from './components/ActionMenu'
+export {Autocomplete, type AutocompleteOverlayProps} from './components/Autocomplete'
+export {Avatar, type AvatarProps} from './components/Avatar'
+export {Breadcrumbs, Breadcrumb, type BreadcrumbsProps, type BreadcrumbsItemProps} from './components/Breadcrumbs'
+export {Checkbox, type CheckboxProps} from './components/Checkbox'
+export {CheckboxGroup, type CheckboxGroupProps} from './components/CheckboxGroup'
+export {CircleBadge} from './components/CircleBadge'
+export {CounterLabel, type CounterLabelProps} from './components/CounterLabel'
+export {Dialog, type DialogProps} from './components/Dialog'
+export {Flash} from './components/Flash'
+export {Header, type HeaderProps} from './components/Header'
+export {Heading} from './components/Heading'
+export {Label, type LabelProps} from './components/Label'
+export {Link, type LinkProps} from './components/Link'
+export {LinkButton, type LinkButtonProps} from './components/LinkButton'
+export {NavList, type NavListProps} from './components/NavList'
+export {Overlay} from './components/Overlay'
+export {
   PageHeader,
-  PageLayout,
-  ProgressBar,
-  RadioGroup,
-  RelativeTime,
-  Select,
-  Spinner,
-  Text,
-  Textarea,
-  TextInput,
+  type PageHeaderProps,
+  type PageHeaderActionsProps,
+  type PageHeaderTitleProps,
+} from './components/PageHeader'
+export {RadioGroup, type RadioGroupProps} from './components/RadioGroup'
+export {RelativeTime, type RelativeTimeProps} from './components/RelativeTime'
+export {
+  SegmentedControl,
+  type SegmentedControlProps,
+  type SegmentedControlButtonProps,
+  type SegmentedControlIconButtonProps,
+} from './components/SegmentedControl'
+export {Spinner, type SpinnerProps} from './components/Spinner'
+export {StateLabel, type StateLabelProps} from './components/StateLabel'
+export {SubNav, type SubNavProps, type SubNavLinkProps} from './components/SubNav'
+export {Text, type TextProps} from './components/Text'
+export {
   Timeline,
-  Token,
-  Tooltip,
-  Truncate,
-  UnderlineNav,
+  type TimelineProps,
+  type TimelineItemProps,
+  type TimelineBadgeProps,
+  type TimelineBodyProps,
+  type TimelineBreakProps,
+} from './components/Timeline'
+export {ToggleSwitch, type ToggleSwitchProps} from './components/ToggleSwitch'
+export {Tooltip, type TooltipProps} from './components/Tooltip'
+export {Token, type TokenProps} from './components/Token'
+export {Truncate, type TruncateProps} from './components/Truncate'
+export {UnderlineNav, type UnderlineNavProps, type UnderlineNavItemProps} from './components/UnderlineNav'
 
-  // styled-components components or types
-  Box,
-  sx,
+export {sx, type SxProp} from './sx'
 
-  // theming depends on styled-components
-  ThemeProvider,
-  merge,
-  theme,
-  themeGet,
-  useColorSchemeVar,
-  useTheme,
-} from '@primer/react'
-export type {BoxProps, SxProp, BetterSystemStyleObject}
+export type {BetterSystemStyleObject} from './styled-props'

@@ -10,10 +10,11 @@ type FormControlCaptionProps = React.PropsWithChildren<
   {
     id?: string
     className?: string
+    style?: React.CSSProperties
   } & SxProp
 >
 
-function FormControlCaption({id, children, sx, className}: FormControlCaptionProps) {
+function FormControlCaption({id, children, sx, className, style}: FormControlCaptionProps) {
   const {captionId, disabled} = useFormControlContext()
 
   return (
@@ -23,6 +24,7 @@ function FormControlCaption({id, children, sx, className}: FormControlCaptionPro
       className={clsx(className, classes.Caption)}
       data-control-disabled={disabled ? '' : undefined}
       sx={sx}
+      style={style}
     >
       {children}
     </BoxWithFallback>

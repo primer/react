@@ -15,6 +15,8 @@ import {useFocusZone, FocusKeys} from '../hooks/useFocusZone'
 import styles from './ActionBar.module.css'
 import {clsx} from 'clsx'
 
+const ACTIONBAR_ITEM_GAP = 8
+
 type ChildSize = {
   text: string
   width: number
@@ -36,19 +38,42 @@ small (28px), medium (32px), large (40px)
 type Size = 'small' | 'medium' | 'large'
 
 type A11yProps =
-  | {'aria-label': React.AriaAttributes['aria-label']; 'aria-labelledby'?: undefined}
-  | {'aria-label'?: undefined; 'aria-labelledby': React.AriaAttributes['aria-labelledby']}
+  | {
+      /** When provided, a label is added to the action bar */
+      'aria-label': React.AriaAttributes['aria-label']
+      'aria-labelledby'?: undefined
+    }
+  | {
+      'aria-label'?: undefined
+      /**
+       * When provided, uses the element with that ID as the accessible name for the ActionBar
+       */
+      'aria-labelledby': React.AriaAttributes['aria-labelledby']
+    }
 
 export type ActionBarProps = {
+  /**
+   * Size of the action bar
+   * @default 'medium'
+   * */
   size?: Size
+
+  /** Buttons in the action bar */
   children: React.ReactNode
+
+  /**
+   * Allows ActionBar to be flush with the container
+   * @default false
+   * */
   flush?: boolean
+
+  /** Custom className */
   className?: string
 } & A11yProps
 
 export type ActionBarIconButtonProps = {disabled?: boolean} & IconButtonProps
 
-const MORE_BTN_WIDTH = 86
+const MORE_BTN_WIDTH = 32
 
 const getValidChildren = (children: React.ReactNode) => {
   return React.Children.toArray(children).filter(child => {
@@ -61,7 +86,7 @@ const calculatePossibleItems = (childWidthArray: ChildWidthArray, navWidth: numb
   let breakpoint = childWidthArray.length // assume all items will fit
   let sumsOfChildWidth = 0
   for (const [index, childWidth] of childWidthArray.entries()) {
-    sumsOfChildWidth = sumsOfChildWidth + childWidth.width // + GAP
+    sumsOfChildWidth += index > 0 ? childWidth.width + ACTIONBAR_ITEM_GAP : childWidth.width
     if (sumsOfChildWidth > widthToFit) {
       breakpoint = index
       break
@@ -202,7 +227,7 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
   return (
     <ActionBarContext.Provider value={{size, setChildrenWidth}}>
       <div ref={navRef} className={clsx(className, styles.Nav)} data-flush={flush}>
-        <div ref={listRef} role="toolbar" className={styles.List}>
+        <div ref={listRef} role="toolbar" className={styles.List} style={{gap: `${ACTIONBAR_ITEM_GAP}px`}}>
           {listItems}
           {menuItems.length > 0 && (
             <ActionMenu>
