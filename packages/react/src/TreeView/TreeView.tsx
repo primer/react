@@ -766,6 +766,13 @@ const TrailingAction = (props: TreeViewTrailingAction) => {
                   variant="invisible"
                   className={clsx(className, classes.TreeViewItemTrailingActionButton)}
                   onClick={onClick}
+                  onKeyDown={() => {
+                    // hack to send focus back to the tree item after the action is triggered via click
+                    // this is needed because the trailing action shouldn't be focused, as it does not interact well with
+                    // the focus management of TreeView
+                    const parentElement = document.getElementById(itemId)
+                    parentElement?.focus()
+                  }}
                   tabIndex={-1}
                   aria-hidden={true}
                   count={count}
@@ -785,9 +792,6 @@ const TrailingAction = (props: TreeViewTrailingAction) => {
               aria-hidden={true}
               key={index}
               onKeyDown={() => {
-                // hack to send focus back to the tree item after the action is triggered via click
-                // this is needed because the trailing action shouldn't be focused, as it does not interact well with
-                // the focus management of TreeView
                 const parentElement = document.getElementById(itemId)
                 parentElement?.focus()
               }}
