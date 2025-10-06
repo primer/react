@@ -50,7 +50,7 @@ jobs:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
 
   unlock:
-    if: ${{ github.event.inputs.action == 'unlock' || github.event.action == 'released' }}
+    if: ${{ github.event.inputs.action == 'unlock' || github.event.action == 'released' || github.event.action == 'prereleased' }}
     name: Unlock the release
     runs-on: ubuntu-latest
     steps:
