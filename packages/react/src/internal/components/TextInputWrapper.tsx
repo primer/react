@@ -1,5 +1,4 @@
 import React, {type ComponentProps} from 'react'
-import {type ResponsiveValue} from 'styled-system'
 import type {SxProp} from '../../sx'
 import type {FormValidationStatus} from '../../utils/types/FormValidationStatus'
 import {clsx} from 'clsx'
@@ -24,11 +23,11 @@ type StyledTextInputBaseWrapperProps = {
   onClick?: React.MouseEventHandler
   children?: React.ReactNode
   /** @deprecated Update `width` using CSS modules or style. */
-  width?: string | number | ResponsiveValue<string | number>
+  width?: string | number
   /** @deprecated Update `min-width` using CSS modules or style. */
-  minWidth?: string | number | ResponsiveValue<string | number>
+  minWidth?: string | number
   /** @deprecated Update `max-width` using CSS modules or style. */
-  maxWidth?: string | number | ResponsiveValue<string | number>
+  maxWidth?: string | number
 } & SxProp
 
 type StyledTextInputWrapperProps = {
