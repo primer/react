@@ -3,10 +3,9 @@ import React, {useRef, forwardRef, useCallback, useState, useEffect} from 'react
 import {UnderlineNavContext} from './UnderlineNavContext'
 import type {ResizeObserverEntry} from '../hooks/useResizeObserver'
 import {useResizeObserver} from '../hooks/useResizeObserver'
-import {useTheme} from '../ThemeProvider'
 import type {ChildWidthArray, ResponsiveProps, ChildSize} from './types'
 import VisuallyHidden from '../_VisuallyHidden'
-import {moreBtnStyles, getDividerStyle, menuItemStyles, baseMenuMinWidth} from './styles'
+import {moreBtnStyles, dividerStyles, menuItemStyles, baseMenuMinWidth} from './styles'
 import {UnderlineItemList, UnderlineWrapper, LoadingCounter, GAP} from '../internal/components/UnderlineTabbedInterface'
 import styled from 'styled-components'
 import {Button} from '../Button'
@@ -166,7 +165,6 @@ export const UnderlineNav = forwardRef(
     const containerRef = React.useRef<HTMLUListElement>(null)
     const disclosureWidgetId = useId()
 
-    const {theme} = useTheme()
     const [isWidgetOpen, setIsWidgetOpen] = useState(false)
     const [iconsVisible, setIconsVisible] = useState<boolean>(true)
     const [childWidthArray, setChildWidthArray] = useState<ChildWidthArray>([])
@@ -328,7 +326,6 @@ export const UnderlineNav = forwardRef(
     return (
       <UnderlineNavContext.Provider
         value={{
-          theme,
           setChildrenWidth,
           setNoIconChildrenWidth,
           loadingCounters,
@@ -341,7 +338,7 @@ export const UnderlineNav = forwardRef(
             {listItems}
             {menuItems.length > 0 && (
               <MoreMenuListItem ref={moreMenuRef}>
-                {!onlyMenuVisible && <div style={getDividerStyle(theme)}></div>}
+                {!onlyMenuVisible && <div style={dividerStyles}></div>}
                 <Button
                   ref={moreMenuBtnRef}
                   sx={moreBtnStyles}
