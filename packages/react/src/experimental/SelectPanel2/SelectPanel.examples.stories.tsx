@@ -87,9 +87,9 @@ export const WithGroups = () => {
   const initialAssigneeIds = data.issue.assigneeIds // mock initial state
   const [selectedAssigneeIds, setSelectedAssigneeIds] = React.useState<string[]>(initialAssigneeIds)
 
-  const onCollaboratorSelect = (colloratorId: string) => {
-    if (!selectedAssigneeIds.includes(colloratorId)) setSelectedAssigneeIds([...selectedAssigneeIds, colloratorId])
-    else setSelectedAssigneeIds(selectedAssigneeIds.filter(id => id !== colloratorId))
+  const onCollaboratorSelect = (collaboratorId: string) => {
+    if (!selectedAssigneeIds.includes(collaboratorId)) setSelectedAssigneeIds([...selectedAssigneeIds, collaboratorId])
+    else setSelectedAssigneeIds(selectedAssigneeIds.filter(id => id !== collaboratorId))
   }
 
   const onClearSelection = () => setSelectedAssigneeIds([])
@@ -145,7 +145,12 @@ export const WithGroups = () => {
         onCancel={onCancel}
         onClearSelection={onClearSelection}
       >
-        <SelectPanel.Button variant="invisible" trailingAction={GearIcon} className={classes.WideButton}>
+        <SelectPanel.Button
+          variant="invisible"
+          trailingAction={GearIcon}
+          style={{width: '200px'}}
+          className={classes.ButtonContentStartJustify}
+        >
           Reviewers
         </SelectPanel.Button>
         <SelectPanel.Header>
@@ -567,7 +572,8 @@ export const WithFilterButtons = () => {
             <Button
               variant="invisible"
               style={{
-                fontWeight: selectedFilter === 'branches' ? 'semibold' : 'normal',
+                fontWeight:
+                  selectedFilter === 'branches' ? 'var(--base-text-weight-medium)' : 'var(--base-text-weight-normal)',
                 color: 'var(--fgColor-default)',
               }}
               onClick={() => setSelectedFilter('branches')}
@@ -577,7 +583,11 @@ export const WithFilterButtons = () => {
             </Button>
             <Button
               variant="invisible"
-              style={{fontWeight: selectedFilter === 'tags' ? 'semibold' : 'normal', color: 'var(--fgColor-default)'}}
+              style={{
+                fontWeight:
+                  selectedFilter === 'tags' ? 'var(--base-text-weight-medium)' : 'var(--base-text-weight-normal)',
+                color: 'var(--fgColor-default)',
+              }}
               onClick={() => setSelectedFilter('tags')}
               count={8}
             >
@@ -727,8 +737,8 @@ export const NestedSelection = () => {
 
   /* Second level: Pull request selection */
   const iconMap = {
-    open: <Octicon icon={GitPullRequestIcon} sx={{color: 'open.emphasis'}} />,
-    merged: <Octicon icon={GitMergeIcon} sx={{color: 'done.emphasis'}} />,
+    open: <Octicon icon={GitPullRequestIcon} className={classes.OpenIcon} />,
+    merged: <Octicon icon={GitMergeIcon} className={classes.MergedIcon} />,
     draft: <Octicon icon={GitPullRequestDraftIcon} />,
   }
 
@@ -753,7 +763,8 @@ export const NestedSelection = () => {
         onClick={() => setPanelToShow('repos')}
         variant="invisible"
         trailingAction={GearIcon}
-        className={classes.WideButton}
+        style={{width: '200px'}}
+        className={classes.ButtonContentStartJustify}
       >
         Development
       </Button>
@@ -790,7 +801,7 @@ export const NestedSelection = () => {
               key={repo.name}
               selected={selectedRepo === `${repo.org}/${repo.name}`}
               onSelect={() => setSelectedRepo(`${repo.org}/${repo.name}`)}
-              className={classes.HiddenSelection}
+              className={classes.HideActionListSelection}
             >
               <ActionList.LeadingVisual>
                 <Avatar src={`https://github.com/${repo.org}.png`} />
@@ -862,7 +873,6 @@ export const WithinForm = () => {
         <FormControl.Label>SelectPanel within FormControl</FormControl.Label>
         <SelectPanel title="Choose a tag" selectionVariant="instant" onSubmit={onSubmit}>
           <SelectPanel.Button leadingVisual={TagIcon}>{selectedTag || 'Choose a tag'}</SelectPanel.Button>
-
           <ActionList>
             {itemsToShow.map(tag => (
               <ActionList.Item key={tag.id} onSelect={() => setSelectedTag(tag.id)} selected={selectedTag === tag.id}>
@@ -1001,7 +1011,7 @@ export const CreateNewRow = () => {
                   leadingVisual={PlusCircleIcon}
                   block
                   alignContent="start"
-                  className={classes.NormalFontWeight}
+                  style={{fontWeight: 'var(--base-text-weight-normal)'}}
                   onClick={openCreateLabelDialog}
                 >
                   Create new label &quot;{query}&quot;...

@@ -5,7 +5,7 @@ import type {ResizeObserverEntry} from '../hooks/useResizeObserver'
 import {useResizeObserver} from '../hooks/useResizeObserver'
 import type {ChildWidthArray, ResponsiveProps, ChildSize} from './types'
 import VisuallyHidden from '../_VisuallyHidden'
-import {dividerStyles, menuStyles, menuItemStyles, baseMenuStyles, baseMenuMinWidth} from './styles'
+import {dividerStyles, menuItemStyles, baseMenuMinWidth} from './styles'
 import {UnderlineItemList, UnderlineWrapper, LoadingCounter, GAP} from '../internal/components/UnderlineTabbedInterface'
 import styled from 'styled-components'
 import {Button} from '../Button'
@@ -17,6 +17,7 @@ import {ActionList} from '../ActionList'
 import CounterLabel from '../CounterLabel'
 import {invariant} from '../utils/invariant'
 import classes from './UnderlineNav.module.css'
+import {getAnchoredPosition} from '@primer/behaviors'
 
 export type UnderlineNavProps = {
   children: React.ReactNode
@@ -128,6 +129,20 @@ const calculatePossibleItems = (childWidthArray: ChildWidthArray, navWidth: numb
     }
   }
   return breakpoint
+}
+
+// Inline styles converted from baseMenuStyles for use as CSSProperties
+const baseMenuInlineStyles: React.CSSProperties = {
+  position: 'absolute',
+  zIndex: 1,
+  top: '90%',
+  boxShadow: '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)',
+  borderRadius: 12,
+  background: 'var(--overlay-bgColor)',
+  listStyle: 'none',
+  minWidth: `${baseMenuMinWidth}px`,
+  maxWidth: '640px',
+  right: 0,
 }
 
 export const UnderlineNav = forwardRef(
@@ -293,6 +308,21 @@ export const UnderlineNav = forwardRef(
         )
     }, navRef as RefObject<HTMLElement>)
 
+    // Compute menuInlineStyles if needed
+    let menuInlineStyles: React.CSSProperties = {...baseMenuInlineStyles}
+    if (containerRef.current && listRef.current) {
+      const {left} = getAnchoredPosition(containerRef.current, listRef.current, {
+        align: 'start',
+        side: 'outside-bottom',
+      })
+
+      menuInlineStyles = {
+        ...baseMenuInlineStyles,
+        right: undefined,
+        left,
+      }
+    }
+
     return (
       <UnderlineNavContext.Provider
         value={{
@@ -333,12 +363,12 @@ export const UnderlineNav = forwardRef(
                   selectionVariant="single"
                   ref={containerRef}
                   id={disclosureWidgetId}
-                  sx={
-                    listRef.current?.clientWidth && listRef.current.clientWidth >= baseMenuMinWidth
-                      ? baseMenuStyles
-                      : menuStyles(containerRef.current, listRef.current)
-                  }
-                  style={{display: isWidgetOpen ? 'block' : 'none'}}
+                  style={{
+                    ...(listRef.current?.clientWidth && listRef.current.clientWidth >= baseMenuMinWidth
+                      ? baseMenuInlineStyles
+                      : menuInlineStyles),
+                    display: isWidgetOpen ? 'block' : 'none',
+                  }}
                 >
                   {menuItems.map((menuItem, index) => {
                     const {
@@ -365,7 +395,7 @@ export const UnderlineNav = forwardRef(
                     return (
                       <ActionList.LinkItem
                         key={menuItemChildren}
-                        sx={menuItemStyles}
+                        style={menuItemStyles}
                         onClick={(
                           event: React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>,
                         ) => {
