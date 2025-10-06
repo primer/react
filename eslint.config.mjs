@@ -116,7 +116,7 @@ const config = defineConfig([
       'primer-react/a11y-remove-disable-tooltip': 'error',
       'primer-react/a11y-use-next-tooltip': 'error',
       'primer-react/no-unnecessary-components': 'error',
-      'primer-react/prefer-action-list-item-onselect': 'error',
+      'primer-react/prefer-action-list-item-onselect': 'off', // Temporarily disabled while combining Item and LinkItem
     },
   },
 

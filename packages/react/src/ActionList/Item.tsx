@@ -53,7 +53,7 @@ const UnwrappedItem = <As extends React.ElementType = 'li' | 'a'>(
       ...restProps, // This includes the 'as' prop for polymorphic components
     } as ActionListLinkItemProps
 
-    return <LinkItem ref={forwardedRef as any} {...linkProps} />
+    return <LinkItem ref={forwardedRef as React.RefObject<HTMLAnchorElement>} {...linkProps} />
   }
 
   const itemProps = {

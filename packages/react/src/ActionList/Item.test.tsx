@@ -63,7 +63,6 @@ describe('ActionList.Item', () => {
   it('should have aria-keyshortcuts applied to the correct element', async () => {
     const {container} = HTMLRender(<SimpleActionList />)
     const linkOptions = await waitFor(() => container.querySelectorAll('a'))
-    console.log(linkOptions[0])
     expect(linkOptions[0]).toHaveAttribute('aria-keyshortcuts', 'd')
     expect(linkOptions[0].parentElement).not.toHaveAttribute('aria-keyshortcuts', 'd')
   })
