@@ -1,3 +1,11 @@
+.OpenIcon {
+  color: var(--fgColor-open);
+}
+
+.MergedIcon {
+  color: var(--fgColor-done);
+}
+
 .StoryContainer {
   display: flex;
   flex-direction: column;
@@ -61,12 +69,14 @@
   overflow: hidden;
 }
 
-.PullRequestIcon {
-  /* stylelint-disable-next-line primer/colors */
-  color: var(--bgColor-open-emphasis);
+.FormControl {
+  margin-bottom: var(--base-size-8);
 }
 
-.GitMergeIcon {
-  /* stylelint-disable-next-line primer/colors */
-  color: var(--bgColor-done-emphasis);
+.ButtonContentStartJustify [data-component='buttonContent'] {
+  justify-content: start;
+}
+
+.HideActionListSelection [data-component='ActionList.Selection'] {
+  display: none;
 }
