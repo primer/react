@@ -1,7 +1,16 @@
-import {IconButton, Button, Box, Link, ActionMenu, ActionList, VisuallyHidden} from '..'
+import {IconButton, Button, Link, ActionMenu, ActionList, VisuallyHidden} from '..'
 import Octicon from '../Octicon'
 import {Tooltip} from './Tooltip'
-import {SearchIcon, BookIcon, CheckIcon, TriangleDownIcon, GitBranchIcon, InfoIcon} from '@primer/octicons-react'
+import {
+  SearchIcon,
+  BookIcon,
+  CheckIcon,
+  TriangleDownIcon,
+  GitBranchIcon,
+  InfoIcon,
+  HeartIcon,
+} from '@primer/octicons-react'
+import classes from './Tooltip.features.stories.module.css'
 
 export default {
   title: 'Components/TooltipV2/Features',
@@ -9,53 +18,53 @@ export default {
 }
 
 export const AnchorHasMargin = () => (
-  <Box sx={{p: 5}}>
+  <div className={classes.PaddedContainer}>
     <Tooltip text="Tooltip is still centered">
-      <Button sx={{marginLeft: 3}}>Button has 16px margin Left</Button>
+      <Button className={classes.MarginLeftButton}>Button has 16px margin Left</Button>
     </Tooltip>
-  </Box>
+  </div>
 )
 
 export const LabelType = () => (
-  <Box>
+  <div>
     <Tooltip text="Contribution Documentation for 'Primer React'" type="label">
-      <Link href="https://github.com/primer/react/contributor-docs/CONTRIBUTING.md" sx={{ml: 1, color: 'fg.muted'}}>
-        <Octicon icon={BookIcon} sx={{color: 'fg.muted'}} />
+      <Link href="https://github.com/primer/react/contributor-docs/CONTRIBUTING.md" className={classes.LabelLink}>
+        <Octicon icon={BookIcon} className={classes.LabelIcon} />
       </Link>
     </Tooltip>
-  </Box>
+  </div>
 )
 
 // As a supplementary description for a button
 export const DescriptionType = () => (
-  <Box sx={{p: 5}}>
+  <div className={classes.PaddedContainer}>
     <Tooltip text="Supplementary text" direction="n">
       <Button>Save</Button>
     </Tooltip>
-  </Box>
+  </div>
 )
 
 // As a supplementary description for a button
 export const DescriptionTypeWithExternalDescription = () => (
-  <Box sx={{p: 5}}>
+  <div className={classes.PaddedContainer}>
     <Tooltip text="Supplementary text" direction="n">
       <Button aria-describedby="external-description">Save</Button>
     </Tooltip>
     <VisuallyHidden id="external-description">External description</VisuallyHidden>
-  </Box>
+  </div>
 )
 
 // As a supplementary description for an IconButton
 export const IconButtonWithDescription = () => (
-  <Box sx={{p: 5}}>
+  <div className={classes.PaddedContainer}>
     <Tooltip text="Supplementary text for icon button" direction="e">
       <IconButton icon={SearchIcon} aria-label="Search" />
     </Tooltip>
-  </Box>
+  </div>
 )
 
 export const AllDirections = () => (
-  <Box sx={{padding: 5, display: 'flex', gap: '8px'}}>
+  <div className={classes.AllDirectionsRow}>
     <Tooltip direction="n" text="Supplementary text">
       <Button>North</Button>
     </Tooltip>
@@ -80,22 +89,22 @@ export const AllDirections = () => (
     <Tooltip direction="sw" text="Supplementary text">
       <Button>Southwest</Button>
     </Tooltip>
-  </Box>
+  </div>
 )
 
 export const MultilineText = () => (
-  <Box>
+  <div>
     <Tooltip
       direction="e"
       text="Random long text that needs to be wrapped and be multipline and have some paddings around"
     >
       <Button>Multiline East</Button>
     </Tooltip>
-  </Box>
+  </div>
 )
 
 export const CalculatedDirection = () => (
-  <Box sx={{padding: 5, display: 'flex', gap: '8px'}}>
+  <div className={classes.AllDirectionsRow}>
     <Tooltip direction="w" text="But appears in the east direction due to not having enough space in the west">
       <Button>West</Button>
     </Tooltip>
@@ -103,11 +112,11 @@ export const CalculatedDirection = () => (
     <Tooltip text="The direction here is north by default but there is not enough space in the north therefore the tooltip appears in the south">
       <Button>North</Button>
     </Tooltip>
-  </Box>
+  </div>
 )
 
 export const OnActionMenuAnchor = () => (
-  <Box sx={{display: 'flex', padding: 5, gap: 2}}>
+  <div className={classes.ActionMenuRow}>
     <ActionMenu>
       <ActionMenu.Anchor>
         <Tooltip text="Supplementary text to add here" direction="n">
@@ -181,15 +190,31 @@ export const OnActionMenuAnchor = () => (
         </ActionList>
       </ActionMenu.Overlay>
     </ActionMenu>
-  </Box>
+  </div>
 )
 
 export const KeybindingHint = () => (
-  <Box sx={{p: 6}}>
+  <div className={classes.KeybindingHintContainer}>
     <Tooltip text="Learn more" keybindingHint="Shift+?" type="label">
       <Link href="#">
         <InfoIcon />
       </Link>
     </Tooltip>
-  </Box>
+  </div>
+)
+
+export const WithMediumDelay = () => (
+  <div className={classes.PaddedContainer}>
+    <Tooltip text="Tooltip is delayed by 400ms" delay="medium">
+      <Button>With delay</Button>
+    </Tooltip>
+  </div>
+)
+
+export const WithLongDelay = () => (
+  <div className={classes.PaddedContainer}>
+    <Tooltip text="Tooltip is delayed by 1200ms" delay="long">
+      <IconButton icon={HeartIcon} variant="invisible" aria-label="Favorite" />
+    </Tooltip>
+  </div>
 )

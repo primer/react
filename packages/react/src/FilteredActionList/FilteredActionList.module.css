@@ -1,7 +1,17 @@
+.Root {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
 .Container {
   display: flex;
   height: 100%;
   overflow: auto;
+  flex-grow: 1;
+}
+
+.ActionList {
   flex-grow: 1;
 }
 

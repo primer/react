@@ -1,0 +1,26 @@
+.FullHeightContent {
+  height: 100vh;
+  max-width: calc(-1rem + 100vw);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.CloseButtonOverlay {
+  position: absolute;
+  left: var(--base-size-4);
+  top: var(--base-size-4);
+}
+
+.ResponsiveWidth {
+  /* stylelint-disable-next-line primer/responsive-widths */
+  width: 350px;
+}
+
+/* Responsive breakpoint for larger screens */
+@media (min-width: 768px) {
+  .ResponsiveWidth {
+    /* stylelint-disable-next-line primer/responsive-widths */
+    width: 500px;
+  }
+}

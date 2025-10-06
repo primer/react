@@ -1,0 +1,5 @@
+.CustomSelect {
+  border-radius: var(--borderRadius-large);
+  /* stylelint-disable-next-line primer/colors */
+  border: var(--borderWidth-default) dashed #000;
+}

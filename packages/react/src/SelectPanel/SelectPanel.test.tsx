@@ -1,8 +1,7 @@
 import {render, screen, waitFor} from '@testing-library/react'
 import {describe, expect, it, beforeEach, vi} from 'vitest'
 import React from 'react'
-import {SelectPanel, type SelectPanelProps} from '../SelectPanel'
-import type {ItemInput, GroupedListProps} from '../deprecated/ActionList/List'
+import {SelectPanel, type SelectPanelProps, type ItemInput, type GroupedListProps} from '../SelectPanel'
 import {userEvent} from '@testing-library/user-event'
 import ThemeProvider from '../ThemeProvider'
 import {FeatureFlags} from '../FeatureFlags'
@@ -10,7 +9,7 @@ import type {InitialLoadingType} from './SelectPanel'
 import type {LiveRegionElement} from '@primer/live-region-element'
 import {IconButton} from '../Button'
 import {ArrowLeftIcon} from '@primer/octicons-react'
-import Box from '../Box'
+import classes from './SelectPanel.test.module.css'
 
 // Instead of importing from live-region/__tests__/test-helpers.ts, we define our own getLiveRegion function
 export function getLiveRegion(): LiveRegionElement {
@@ -255,10 +254,10 @@ for (const usingRemoveActiveDescendant of [false, true]) {
             placeholder="Select items"
             placeholderText="Filter items"
             title={
-              <Box sx={{display: 'flex', alignItems: 'center', gap: 1}}>
+              <div className={classes.Title}>
                 <IconButton icon={ArrowLeftIcon} aria-label="Back" />
                 <span>Title</span>
-              </Box>
+              </div>
             }
           />
         </ThemeProvider>,
@@ -696,7 +695,7 @@ for (const usingRemoveActiveDescendant of [false, true]) {
         expect(screen.getByRole('combobox').hasAttribute('aria-describedby')).toBeTruthy()
       })
 
-      it.skip('should announce initially focused item', async () => {
+      it('should announce initially focused item', async () => {
         const user = userEvent.setup()
         renderWithFlag(<FilterableSelectPanel />, usingRemoveActiveDescendant)
 

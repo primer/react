@@ -42,6 +42,23 @@ export interface ConfirmationDialogProps {
   confirmButtonType?: 'normal' | 'primary' | 'danger'
 
   /**
+   * Whether the cancel button is in a loading state. Default: false.
+   */
+  cancelButtonLoading?: boolean
+
+  /**
+   * Whether the confirm button is in a loading state. Default: false.
+   */
+  confirmButtonLoading?: boolean
+
+  /**
+   * Overrides the button that should be initially focused when the dialog is opened. By default, the confirm button
+   * is focused initially unless it is a dangerous action, in which case the cancel button is focused. This should
+   * rarely be overridden, in order to ensure that the user does not accidentally confirm a dangerous action.
+   */
+  overrideButtonFocus?: 'cancel' | 'confirm'
+
+  /**
    * Additional class names to apply to the dialog
    */
   className?: string
@@ -109,10 +126,13 @@ export const ConfirmationDialog: React.FC<React.PropsWithChildren<ConfirmationDi
     cancelButtonContent = 'Cancel',
     confirmButtonContent = 'OK',
     confirmButtonType = 'normal',
+    cancelButtonLoading = false,
+    confirmButtonLoading = false,
     children,
     className,
     width = 'medium',
     height,
+    overrideButtonFocus,
   } = props
 
   const onCancelButtonClick = useCallback(() => {
@@ -122,16 +142,20 @@ export const ConfirmationDialog: React.FC<React.PropsWithChildren<ConfirmationDi
     onClose('confirm')
   }, [onClose])
   const isConfirmationDangerous = confirmButtonType === 'danger'
+  const buttonToFocus =
+    overrideButtonFocus !== undefined ? overrideButtonFocus : isConfirmationDangerous ? 'cancel' : 'confirm'
   const cancelButton: DialogButtonProps = {
     content: cancelButtonContent,
     onClick: onCancelButtonClick,
-    autoFocus: isConfirmationDangerous,
+    autoFocus: buttonToFocus === 'cancel',
+    loading: cancelButtonLoading,
   }
   const confirmButton: DialogButtonProps = {
     content: confirmButtonContent,
     buttonType: confirmButtonType,
     onClick: onConfirmButtonClick,
-    autoFocus: !isConfirmationDangerous,
+    autoFocus: buttonToFocus === 'confirm',
+    loading: confirmButtonLoading,
   }
   const footerButtons = [cancelButton, confirmButton]
   return (

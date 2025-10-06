@@ -1,7 +1,7 @@
 {
   "id": "circle_badge",
   "name": "CircleBadge",
-  "status": "alpha",
+  "status": "deprecated",
   "a11yReviewed": "2025-01-08",
   "stories": [],
   "importPath": "@primer/react",
@@ -32,11 +32,6 @@
       "name": "as",
       "type": "React.ElementType",
       "defaultValue": "\"div\""
-    },
-    {
-      "name": "sx",
-      "type": "SystemStyleObject",
-      "deprecated": true
     }
   ],
   "subcomponents": [
