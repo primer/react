@@ -250,7 +250,7 @@ export const ShortcutMenu = () => {
               Edit comment
               <ActionList.TrailingVisual>⌘E</ActionList.TrailingVisual>
             </ActionList.Item>
-            <ActionList.Item href="#">View file</ActionList.Item>
+            <ActionList.Item onSelect={() => window.open('#')}>View file</ActionList.Item>
             <ActionList.Divider />
             <ActionList.Item variant="danger">
               Delete file
@@ -297,7 +297,7 @@ export const ContextMenu = () => {
                 Edit comment
                 <ActionList.TrailingVisual>⌘E</ActionList.TrailingVisual>
               </ActionList.Item>
-              <ActionList.Item href="#">View file</ActionList.Item>
+              <ActionList.Item onSelect={() => window.open('#')}>View file</ActionList.Item>
               <ActionList.Divider />
               <ActionList.Item variant="danger">
                 Delete file
@@ -571,7 +571,7 @@ export const OnlyInactiveItems = () => (
             <ArchiveIcon />
           </ActionList.LeadingVisual>
         </ActionList.Item>
-        <ActionList.Item href="/" inactiveText="Unavailable due to an outage">
+        <ActionList.Item onSelect={() => window.open('/')} inactiveText="Unavailable due to an outage">
           Settings
           <ActionList.LeadingVisual>
             <GearIcon />
@@ -586,19 +586,19 @@ export const OnlyInactiveItems = () => (
         <ActionList.Divider />
         <ActionList.Group>
           <ActionList.GroupHeading>Github projects</ActionList.GroupHeading>
-          <ActionList.Item href="/" inactiveText="Unavailable due to an outage">
+          <ActionList.Item onSelect={() => window.open('/')} inactiveText="Unavailable due to an outage">
             What&apos;s new
             <ActionList.LeadingVisual>
               <RocketIcon />
             </ActionList.LeadingVisual>
           </ActionList.Item>
-          <ActionList.Item href="/" inactiveText="Unavailable due to an outage">
+          <ActionList.Item onSelect={() => window.open('/')} inactiveText="Unavailable due to an outage">
             Give feedback
             <ActionList.LeadingVisual>
               <CommentIcon />
             </ActionList.LeadingVisual>
           </ActionList.Item>
-          <ActionList.Item href="/" inactiveText="Unavailable due to an outage">
+          <ActionList.Item onSelect={() => window.open('/')} inactiveText="Unavailable due to an outage">
             GitHub Docs
             <ActionList.LeadingVisual>
               <BookIcon />
