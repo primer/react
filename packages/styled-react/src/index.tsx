@@ -3,7 +3,6 @@ export {Box, type BoxProps} from './components/Box'
 export {Details} from '@primer/react'
 export {FormControl} from '@primer/react'
 export {ProgressBar} from '@primer/react'
-export {PageLayout} from '@primer/react'
 export {Select} from '@primer/react'
 
 // theming depends on styled-components
@@ -33,6 +32,7 @@ export {Link, type LinkProps} from './components/Link'
 export {LinkButton, type LinkButtonProps} from './components/LinkButton'
 export {NavList, type NavListProps} from './components/NavList'
 export {Overlay} from './components/Overlay'
+export {PageLayout, type PageLayoutProps} from './components/PageLayout'
 export {
   PageHeader,
   type PageHeaderProps,
