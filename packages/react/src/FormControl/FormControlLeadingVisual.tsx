@@ -5,11 +5,16 @@ import {useFormControlContext} from './_FormControlContext'
 import styled from 'styled-components'
 import sx from '../sx'
 
-const FormControlLeadingVisual: React.FC<React.PropsWithChildren<SxProp>> = ({children, sx}) => {
+const FormControlLeadingVisual: React.FC<React.PropsWithChildren<SxProp & {style?: React.CSSProperties}>> = ({
+  children,
+  sx,
+  style,
+}) => {
   const {disabled, captionId} = useFormControlContext()
   return (
     <StyledLeadingVisual
       data-control-disabled={disabled ? '' : undefined}
+      style={style}
       data-has-caption={captionId ? '' : undefined}
       sx={sx}
     >

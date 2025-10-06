@@ -1,16 +1,16 @@
 import {clsx} from 'clsx'
 import React, {forwardRef, useEffect} from 'react'
 import {useRefObjectAsForwardedRef} from '../hooks'
-import type {SxProp} from '../sx'
 import type {ComponentProps} from '../utils/types'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import classes from './Heading.module.css'
-import Box from '../Box'
+
+type HeadingLevels = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
 
 type StyledHeadingProps = {
-  as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
+  as?: HeadingLevels
   variant?: 'large' | 'medium' | 'small'
-} & SxProp
+}
 
 const Heading = forwardRef(({as: Component = 'h2', className, variant, ...props}, forwardedRef) => {
   const innerRef = React.useRef<HTMLHeadingElement>(null)
@@ -33,20 +33,8 @@ const Heading = forwardRef(({as: Component = 'h2', className, variant, ...props}
     }, [innerRef])
   }
 
-  if (props.sx) {
-    return (
-      <Box
-        as={Component}
-        className={clsx(className, classes.Heading)}
-        data-variant={variant}
-        {...props}
-        // @ts-ignore temporary disable as we migrate to css modules, until we remove PolymorphicForwardRefComponent
-        ref={innerRef}
-      />
-    )
-  }
   return <Component className={clsx(className, classes.Heading)} data-variant={variant} {...props} ref={innerRef} />
-}) as PolymorphicForwardRefComponent<'h2', StyledHeadingProps>
+}) as PolymorphicForwardRefComponent<HeadingLevels, StyledHeadingProps>
 
 Heading.displayName = 'Heading'
 

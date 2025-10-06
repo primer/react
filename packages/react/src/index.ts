@@ -85,6 +85,7 @@ export {default as ButtonGroup} from './ButtonGroup'
 export type {ButtonGroupProps} from './ButtonGroup'
 export type {CircleBadgeProps, CircleBadgeIconProps} from './CircleBadge'
 export {default as CheckboxGroup} from './CheckboxGroup'
+export type {CheckboxGroupProps} from './CheckboxGroup'
 export {default as CircleBadge} from './CircleBadge'
 export {default as CounterLabel} from './CounterLabel'
 export type {CounterLabelProps} from './CounterLabel'
@@ -117,6 +118,7 @@ export type {
   NavListLeadingVisualProps,
   NavListTrailingVisualProps,
   NavListDividerProps,
+  NavListGroupHeadingProps,
 } from './NavList'
 export {default as Overlay} from './Overlay'
 export type {OverlayProps} from './Overlay'
