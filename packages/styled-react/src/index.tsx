@@ -11,7 +11,7 @@ export {TextInput} from '@primer/react'
 export {type TextInputProps} from '@primer/react'
 
 // theming depends on styled-components
-export {ThemeProvider} from '@primer/react'
+export {ThemeProvider} from './components/ThemeProvider'
 export {merge} from '@primer/react'
 export {theme} from '@primer/react'
 export {themeGet} from '@primer/react'
