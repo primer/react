@@ -15,6 +15,10 @@
   color: var(--fgColor-muted);
 }
 
+.TextMuted {
+  color: var(--fgColor-muted);
+}
+
 .FilterButtons {
   display: flex;
   margin-top: var(--base-size-4);
@@ -55,8 +59,4 @@
   opacity: 0;
   max-height: 0;
   overflow: hidden;
-}
-
-.FormControl {
-  margin-bottom: var(--base-size-8);
 }

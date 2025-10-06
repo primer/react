@@ -7,11 +7,17 @@ import React, {
   type FC,
   type PropsWithChildren,
   useEffect,
+  type ElementType,
 } from 'react'
 import {TabContainerElement} from '@github/tab-container-element'
 import type {IconProps} from '@primer/octicons-react'
 import {createComponent} from '../../utils/create-component'
-import {UnderlineItemList, UnderlineWrapper, UnderlineItem} from '../../internal/components/UnderlineTabbedInterface'
+import {
+  UnderlineItemList,
+  UnderlineWrapper,
+  UnderlineItem,
+  type UnderlineItemProps,
+} from '../../internal/components/UnderlineTabbedInterface'
 import {useId} from '../../hooks'
 import {invariant} from '../../utils/invariant'
 import {type SxProp} from '../../sx'
@@ -97,21 +103,11 @@ const UnderlinePanels: FC<UnderlinePanelsProps> = ({
     let panelIndex = 0
 
     const childrenWithProps = Children.map(children, child => {
-      if (
-        isValidElement(child) &&
-        (typeof child.type === 'function' || typeof child.type === 'object') &&
-        'displayName' in child.type &&
-        child.type.displayName === 'UnderlinePanels.Tab'
-      ) {
+      if (isValidElement<UnderlineItemProps<ElementType>>(child) && child.type === Tab) {
         return cloneElement(child, {id: `${parentId}-tab-${tabIndex++}`, loadingCounters, iconsVisible})
       }
 
-      if (
-        isValidElement(child) &&
-        (typeof child.type === 'function' || typeof child.type === 'object') &&
-        'displayName' in child.type &&
-        child.type.displayName === 'UnderlinePanels.Panel'
-      ) {
+      if (isValidElement<PanelProps>(child) && child.type === Panel) {
         const childPanel = child as React.ReactElement<PanelProps>
         return cloneElement(childPanel, {'aria-labelledby': `${parentId}-tab-${panelIndex++}`})
       }
@@ -119,22 +115,12 @@ const UnderlinePanels: FC<UnderlinePanelsProps> = ({
     })
 
     const newTabs = Children.toArray(childrenWithProps).filter(child => {
-      return (
-        isValidElement(child) &&
-        (typeof child.type === 'function' || typeof child.type === 'object') &&
-        'displayName' in child.type &&
-        child.type.displayName === 'UnderlinePanels.Tab'
-      )
+      return isValidElement(child) && child.type === Tab
     })
 
-    const newTabPanels = Children.toArray(childrenWithProps).filter(child => {
-      return (
-        isValidElement(child) &&
-        (typeof child.type === 'function' || typeof child.type === 'object') &&
-        'displayName' in child.type &&
-        child.type.displayName === 'UnderlinePanels.Panel'
-      )
-    })
+    const newTabPanels = Children.toArray(childrenWithProps).filter(
+      child => isValidElement(child) && child.type === Panel,
+    )
 
     setTabs(newTabs)
     setTabPanels(newTabPanels)
