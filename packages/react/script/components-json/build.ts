@@ -9,6 +9,7 @@ import Ajv from 'ajv'
 import {pascalCase, kebabCase} from 'change-case'
 import glob from 'fast-glob'
 import fs from 'fs'
+import {processDocsFile} from '@primer/doc-gen'
 import keyBy from 'lodash.keyby'
 import prettier from '@prettier/sync'
 import chalk from 'chalk'
@@ -39,7 +40,9 @@ type Component = {
   source?: string
 }
 
-const ajv = new Ajv()
+const ajv = new Ajv({
+  allowUnionTypes: true,
+})
 
 function formatMDError(lintError: LintError): string {
   let range = ''
@@ -112,7 +115,8 @@ function getStorybookData(): StorybookData {
 }
 
 const components = docsFiles.map(docsFilepath => {
-  const docs = JSON.parse(fs.readFileSync(docsFilepath, 'utf-8'))
+  // const docs = JSON.parse(fs.readFileSync(docsFilepath, 'utf-8'))
+  const docs = processDocsFile(docsFilepath)
 
   // Create a validator for the component schema
   const validate = ajv.compile<Component>(componentSchema)
