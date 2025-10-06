@@ -9,6 +9,7 @@ import {Dialog} from '../Dialog/Dialog'
 import {useFocusZone} from '../hooks/useFocusZone'
 import BaseStyles from '../BaseStyles'
 import classes from './ConfirmationDialog.module.css'
+import Heading from '../Heading'
 
 /**
  * Props to customize the ConfirmationDialog.
@@ -89,7 +90,9 @@ const ConfirmationHeader: React.FC<React.PropsWithChildren<DialogHeaderProps>> =
 
   return (
     <div className={classes.ConfirmationHeader}>
-      <h1 id={dialogLabelId}>{title}</h1>
+      <Heading id={dialogLabelId} as="h1" variant="small">
+        {title}
+      </Heading>
       <Dialog.CloseButton onClose={onCloseClick} />
     </div>
   )
