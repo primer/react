@@ -4,8 +4,9 @@ import {getFocusableChild} from '@primer/behaviors/utils'
 import VisuallyHidden from '../_VisuallyHidden'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import {Button, IconButton} from '../Button'
-import {clsx} from 'clsx'
+import theme from '../theme'
 import classes from './LabelGroup.module.css'
+import clsx from 'clsx'
 
 export type LabelGroupProps = {
   /** Customize the element type of the rendered container */
@@ -130,7 +131,7 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
     toJSON: () => undefined,
   })
 
-  const overlayPaddingPx = 8 // equivalent to var(--base-size-8)
+  const overlayPaddingPx = parseInt(theme.space[2], 10)
 
   const hiddenItemIds = Object.keys(visibilityMap).filter(key => !visibilityMap[key])
 

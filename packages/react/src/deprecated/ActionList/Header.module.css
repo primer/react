@@ -13,8 +13,10 @@
   &:where([data-filled]) {
     background: var(--bgColor-muted);
     margin: var(--base-size-8) 0;
-    border-top: var(--borderWidth-thin) solid var(--borderColor-default);
-    border-bottom: var(--borderWidth-thin) solid var(--borderColor-default);
+    /* stylelint-disable-next-line primer/colors */
+    border-top: var(--borderWidth-thin) solid var(--bgColor-neutral-muted);
+    /* stylelint-disable-next-line primer/colors */
+    border-bottom: var(--borderWidth-thin) solid var(--bgColor-neutral-muted);
 
     &:first-child {
       margin-top: 0;

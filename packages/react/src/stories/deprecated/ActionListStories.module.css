@@ -23,3 +23,19 @@
   /* stylelint-disable-next-line color-named */
   color: white;
 }
+
+.ActionListEmphasis {
+  /* stylelint-disable-next-line primer/typography */
+  font-weight: 700;
+}
+
+.ActionListAccent {
+  /* stylelint-disable-next-line color-named */
+  color: rebeccapurple;
+}
+
+.Item[data-is-active-descendant] .ActionListAccent,
+.Item:focus .ActionListAccent,
+.Item:active .ActionListAccent {
+  color: var(--fgColor-onEmphasis);
+}

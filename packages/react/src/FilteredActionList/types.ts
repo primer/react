@@ -101,6 +101,10 @@ export interface FilteredActionListItemProps {
    * An item to pass back in the `onAction` callback, meant as
    */
   item?: ItemInput
+  /**
+   * className to apply to the list item
+   */
+  className?: string
 }
 
 /**

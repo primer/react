@@ -1,6 +1,7 @@
 import {CheckIcon} from '@primer/octicons-react'
 import React, {useCallback} from 'react'
 import {isValidElementType} from 'react-is'
+import {get} from '../../constants'
 import Truncate from '../../Truncate'
 import type {ItemInput} from './List'
 import {useTheme} from '../../ThemeProvider'
@@ -9,6 +10,7 @@ import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../../
 import type {AriaRole} from '../../utils/types'
 
 import classes from './Item.module.css'
+import {clsx} from 'clsx'
 
 /**
  * Contract for props passed to the `Item` component.
@@ -136,6 +138,7 @@ export const Item = React.forwardRef((itemProps, ref) => {
     children,
     onClick,
     id,
+    className,
     ...props
   } = itemProps
 
@@ -184,16 +187,17 @@ export const Item = React.forwardRef((itemProps, ref) => {
       data-id={id}
       onKeyPress={keyPressHandler}
       onClick={clickHandler}
+      className={clsx(
+        classes.Item,
+        variant === 'danger' && classes['Item--danger'],
+        disabled && classes['Item--disabled'],
+        className,
+      )}
     >
       {!!selected === selected && (
-        <div>
+        <div className={classes.BaseVisualContainer}>
           {selectionVariant === 'multiple' ? (
             <>
-              {/**
-               * we use a svg instead of an input because there should not
-               * be an interactive element inside an option
-               * svg copied from primer/css
-               */}
               <svg
                 className={classes.MultiSelectIcon}
                 data-selected={selected ? '' : undefined}

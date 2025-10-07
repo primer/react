@@ -11,6 +11,7 @@ import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../uti
 import {useFeatureFlag} from '../FeatureFlags'
 import classes from './Overlay.module.css'
 import {clsx} from 'clsx'
+import theme from '../theme'
 
 type StyledOverlayProps = {
   width?: keyof typeof widthMap
@@ -190,8 +191,8 @@ const Overlay = React.forwardRef<HTMLDivElement, internalOverlayProps>(
   ): ReactElement => {
     const overlayRef = useRef<HTMLDivElement>(null)
     useRefObjectAsForwardedRef(forwardedRef, overlayRef)
-    const slideAnimationDistance = 8
-    const slideAnimationEasing = 'cubic-bezier(0.33, 1, 0.68, 1)'
+    const slideAnimationDistance = parseInt(theme.space[2], 10)
+    const slideAnimationEasing = theme.animation.easeOutCubic
 
     useOverlay({
       overlayRef,
