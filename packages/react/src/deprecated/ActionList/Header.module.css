@@ -1,0 +1,25 @@
+.Header {
+  /* 6px vertical padding + 20px line height = 32px total height
+   *
+   * TODO: When rem-based spacing on a 4px scale lands, replace
+   * hardcoded '6px' with 'calc((${get('space.s32')} - ${get('space.20')}) / 2)'.
+   */
+  /* stylelint-disable-next-line primer/spacing */
+  padding: 6px var(--base-size-16);
+  font-size: var(--text-body-size-small);
+  font-weight: var(--text-title-weight-large);
+  color: var(--fgColor-muted);
+
+  &:where([data-filled]) {
+    background: var(--bgColor-muted);
+    margin: var(--base-size-8) 0;
+    /* stylelint-disable-next-line primer/colors */
+    border-top: var(--borderWidth-thin) solid var(--bgColor-neutral-muted);
+    /* stylelint-disable-next-line primer/colors */
+    border-bottom: var(--borderWidth-thin) solid var(--bgColor-neutral-muted);
+
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+}
