@@ -109,7 +109,7 @@ export const getTextInputArgTypes = (category?: string) =>
       return obj
     }, {})
 
-export const textInputExcludedControlKeys = ['as', 'icon', 'leadingVisual', 'sx', 'trailingVisual', 'trailingAction']
+export const textInputExcludedControlKeys = ['as', 'icon', 'leadingVisual', 'trailingVisual', 'trailingAction']
 
 export const textInputWithTokensArgTypes: ArgTypes = {
   hideTokenRemoveButtons: {
