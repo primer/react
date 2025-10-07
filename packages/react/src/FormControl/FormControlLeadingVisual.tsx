@@ -23,7 +23,7 @@ const FormControlLeadingVisual: React.FC<React.PropsWithChildren<SxProp & {style
 }
 
 const StyledLeadingVisual = styled.div`
-  --leadingVisual-size: var(--text-title-size-small)};
+  --leadingVisual-size: var(--text-title-size-small);
 
   color: var(--fgColor-default);
 
