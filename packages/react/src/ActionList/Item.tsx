@@ -1,4 +1,4 @@
-import React from 'react'
+import type React from 'react'
 import {BaseItem} from './BaseItem'
 import {LinkItem} from './LinkItem'
 import type {LinkProps, ActionListLinkItemProps} from './LinkItem'
