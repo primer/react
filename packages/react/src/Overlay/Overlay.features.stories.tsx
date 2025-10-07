@@ -186,7 +186,7 @@ export const OverlayOnTopOfOverlay = ({anchorSide, role, open}: Args) => {
               onEscape={closeSecondaryOverlay}
               onClickOutside={closeSecondaryOverlay}
               width="small"
-              sx={{top: '40px'}}
+              style={{top: '40px'}}
               anchorSide={anchorSide}
               role={role}
               aria-modal={role === 'dialog' ? 'true' : undefined}
@@ -258,9 +258,7 @@ export const MemexNestedOverlays = ({role, open}: Args) => {
         >
           <form onSubmit={() => setOverlayOpen(false)} className={classes.FormContainer} aria-label="Set Duration Form">
             <div className={classes.FormRow}>
-              <Text color="fg.muted" sx={{fontSize: 1}}>
-                Duration:
-              </Text>
+              <Text className={classes.MediumTextMuted}>Duration:</Text>
               <TextInput defaultValue={2} aria-label="Duration" />
               <ActionMenu>
                 <ActionMenu.Button sx={{width: 200}} aria-label="Change duration unit">
@@ -384,7 +382,7 @@ export const NestedOverlays = ({role, open}: Args) => {
               ref={secondaryContainer}
             >
               <form className={classes.CreateFormContent} aria-label="Set Duration Form">
-                <Text color="fg.muted" sx={{fontSize: 1, mb: 3}}>
+                <Text className={classes.MediumTextWithMargin}>
                   Create a list to organize your starred repositories.
                 </Text>
                 <TextInput placeholder="Name this list" className={classes.TextInputWithMargin} />
@@ -429,15 +427,7 @@ export const MemexIssueOverlay = ({role, open}: Args) => {
           event.preventDefault()
           setOverlayOpen(true)
         }}
-        sx={{
-          display: 'block',
-          border: '1px solid',
-          borderColor: 'border.default',
-          p: 2,
-          ':hover': {
-            backgroundColor: 'canvas.subtle',
-          },
-        }}
+        className={classes.IssueLink}
       >
         <IssueDraftIcon /> {title}
       </Link>
@@ -460,8 +450,8 @@ export const MemexIssueOverlay = ({role, open}: Args) => {
               <Label size="large">
                 <IssueDraftIcon /> Draft
               </Label>
-              <Text sx={{fontSize: 1}}>opened 2 days ago,</Text>
-              <Text sx={{fontSize: 1}}>showing {editing ? 'input' : 'button'}</Text>
+              <Text className={classes.MediumText}>opened 2 days ago,</Text>
+              <Text className={classes.MediumText}>showing {editing ? 'input' : 'button'}</Text>
             </div>
             {editing ? (
               <TextInput

@@ -1,0 +1,14 @@
+.TextMutedWithMargin {
+  color: var(--fgColor-muted);
+  margin-left: var(--base-size-4);
+}
+
+.TextSmallMutedWithMargin {
+  font-size: var(--text-body-size-small);
+  color: var(--fgColor-muted);
+  margin-left: var(--base-size-4);
+}
+
+.Icon {
+  color: var(--fgColor-muted);
+}

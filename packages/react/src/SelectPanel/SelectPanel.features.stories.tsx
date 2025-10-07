@@ -650,7 +650,7 @@ export const CustomisedNoInitialItems = () => {
 
   return (
     <>
-      <Text id="toggle" fontWeight={'bold'} fontSize={2}>
+      <Text id="toggle" className={classes.TextLargeBold}>
         Enable Error State :{isError ? 'On' : 'Off'}
       </Text>
       <ToggleSwitch onClick={onClick} checked={isError} aria-labelledby="toggle" />

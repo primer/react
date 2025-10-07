@@ -9,7 +9,8 @@ describe('@primer/react/experimental', () => {
   })
 
   test('PageHeader supports `sx` prop', () => {
-    const {container} = render(<PageHeader data-testid="component" sx={{background: 'red'}} />)
+    const {container} = render(<PageHeader as="div" data-testid="component" sx={{background: 'red'}} role="article" />)
+    expect(container.firstElementChild!).toHaveAttribute('role', 'article')
     expect(window.getComputedStyle(container.firstElementChild!).backgroundColor).toBe('rgb(255, 0, 0)')
   })
 
@@ -37,14 +38,13 @@ describe('@primer/react/experimental', () => {
     expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
   })
 
-  test('UnderlinePanels.Panel supports `sx` prop', () => {
+  test('Table.Container supports `sx` prop', () => {
     render(
-      <UnderlinePanels>
-        <UnderlinePanels.Tab>tab</UnderlinePanels.Tab>
-        <UnderlinePanels.Panel data-testid="component" sx={{background: 'red'}}>
-          panel
-        </UnderlinePanels.Panel>
-      </UnderlinePanels>,
+      <Table.Container data-testid="component" sx={{background: 'red'}}>
+        <Table.Row>
+          <Table.Cell>cell</Table.Cell>
+        </Table.Row>
+      </Table.Container>,
     )
     expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
   })

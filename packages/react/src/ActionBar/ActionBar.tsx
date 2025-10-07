@@ -48,13 +48,36 @@ small (28px), medium (32px), large (40px)
 type Size = 'small' | 'medium' | 'large'
 
 type A11yProps =
-  | {'aria-label': React.AriaAttributes['aria-label']; 'aria-labelledby'?: undefined}
-  | {'aria-label'?: undefined; 'aria-labelledby': React.AriaAttributes['aria-labelledby']}
+  | {
+      /** When provided, a label is added to the action bar */
+      'aria-label': React.AriaAttributes['aria-label']
+      'aria-labelledby'?: undefined
+    }
+  | {
+      'aria-label'?: undefined
+      /**
+       * When provided, uses the element with that ID as the accessible name for the ActionBar
+       */
+      'aria-labelledby': React.AriaAttributes['aria-labelledby']
+    }
 
 export type ActionBarProps = {
+  /**
+   * Size of the action bar
+   * @default 'medium'
+   * */
   size?: Size
+
+  /** Buttons in the action bar */
   children: React.ReactNode
+
+  /**
+   * Allows ActionBar to be flush with the container
+   * @default false
+   * */
   flush?: boolean
+
+  /** Custom className */
   className?: string
 } & A11yProps
 

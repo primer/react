@@ -1,6 +1,7 @@
 import {ChevronDownIcon, PlusIcon, type Icon} from '@primer/octicons-react'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import React, {isValidElement} from 'react'
+import {clsx} from 'clsx'
 import type {
   ActionListTrailingActionProps,
   ActionListDividerProps,
@@ -11,27 +12,22 @@ import type {
 import {ActionList} from '../ActionList'
 import {SubItem} from '../ActionList/Item'
 import {ActionListContainerContext} from '../ActionList/ActionListContainerContext'
-import Box from '../Box'
-import type {SxProp} from '../sx'
-import {merge} from '../sx'
-import {defaultSxProp} from '../utils/defaultSxProp'
 import {useId} from '../hooks/useId'
 import useIsomorphicLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 import classes from '../ActionList/ActionList.module.css'
+import navListClasses from './NavList.module.css'
 import {flushSync} from 'react-dom'
-import {BoxWithFallback} from '../internal/components/BoxWithFallback'
 
 // ----------------------------------------------------------------------------
 // NavList
 
 export type NavListProps = {
   children: React.ReactNode
-} & SxProp &
-  React.ComponentProps<'nav'>
+} & React.ComponentProps<'nav'>
 
 const Root = React.forwardRef<HTMLElement, NavListProps>(({children, ...props}, ref) => {
   return (
-    <BoxWithFallback as="nav" {...props} ref={ref}>
+    <nav {...props} ref={ref}>
       <ActionListContainerContext.Provider
         value={{
           container: 'NavList',
@@ -39,7 +35,7 @@ const Root = React.forwardRef<HTMLElement, NavListProps>(({children, ...props}, 
       >
         <ActionList>{children}</ActionList>
       </ActionListContainerContext.Provider>
-    </BoxWithFallback>
+    </nav>
   )
 })
 
@@ -54,10 +50,10 @@ export type NavListItemProps = {
   href?: string
   'aria-current'?: 'page' | 'step' | 'location' | 'date' | 'time' | 'true' | 'false' | boolean
   inactiveText?: string
-} & SxProp
+}
 
 const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(
-  ({'aria-current': ariaCurrent, children, defaultOpen, sx: sxProp = defaultSxProp, ...props}, ref) => {
+  ({'aria-current': ariaCurrent, children, defaultOpen, ...props}, ref) => {
     const {depth} = React.useContext(SubNavContext)
 
     // Get SubNav from children
@@ -79,7 +75,6 @@ const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(
           subNav={subNav}
           depth={depth}
           defaultOpen={defaultOpen}
-          sx={sxProp}
           style={{'--subitem-depth': depth} as React.CSSProperties}
         >
           {childrenWithoutSubNavOrTrailingAction}
@@ -112,7 +107,7 @@ type ItemWithSubNavProps = {
   depth: number
   defaultOpen?: boolean
   style: React.CSSProperties
-} & SxProp
+}
 
 const ItemWithSubNavContext = React.createContext<{buttonId: string; subNavId: string; isOpen: boolean}>({
   buttonId: '',
@@ -120,14 +115,7 @@ const ItemWithSubNavContext = React.createContext<{buttonId: string; subNavId: s
   isOpen: false,
 })
 
-function ItemWithSubNav({
-  children,
-  subNav,
-  depth: _depth,
-  defaultOpen,
-  style,
-  sx: sxProp = defaultSxProp,
-}: ItemWithSubNavProps) {
+function ItemWithSubNav({children, subNav, depth: _depth, defaultOpen, style}: ItemWithSubNavProps) {
   const buttonId = useId()
   const subNavId = useId()
   const [isOpen, setIsOpen] = React.useState((defaultOpen || null) ?? false)
@@ -147,28 +135,6 @@ function ItemWithSubNav({
     }
   }, [subNav, buttonId])
 
-  if (sxProp !== defaultSxProp) {
-    return (
-      <ItemWithSubNavContext.Provider value={{buttonId, subNavId, isOpen}}>
-        <ActionList.Item
-          id={buttonId}
-          aria-expanded={isOpen}
-          aria-controls={subNavId}
-          active={!isOpen && containsCurrentItem}
-          onSelect={() => setIsOpen(open => !open)}
-          style={style}
-          sx={sxProp}
-        >
-          {children}
-          {/* What happens if the user provides a TrailingVisual? */}
-          <ActionList.TrailingVisual>
-            <ChevronDownIcon className={classes.ExpandIcon} />
-          </ActionList.TrailingVisual>
-          <SubItem>{React.cloneElement(subNav as React.ReactElement, {ref: subNavRef})}</SubItem>
-        </ActionList.Item>
-      </ItemWithSubNavContext.Provider>
-    )
-  }
   return (
     <ItemWithSubNavContext.Provider value={{buttonId, subNavId, isOpen}}>
       <ActionList.Item
@@ -195,12 +161,12 @@ function ItemWithSubNav({
 
 export type NavListSubNavProps = {
   children: React.ReactNode
-} & SxProp
+}
 
 const SubNavContext = React.createContext<{depth: number}>({depth: 0})
 
 // NOTE: SubNav must be a direct child of an Item
-const SubNav = React.forwardRef(({children, sx: sxProp = defaultSxProp}: NavListSubNavProps, forwardedRef) => {
+const SubNav = React.forwardRef<HTMLUListElement, NavListSubNavProps>(({children}, forwardedRef) => {
   const {buttonId, subNavId} = React.useContext(ItemWithSubNavContext)
   const {depth} = React.useContext(SubNavContext)
   if (!buttonId || !subNavId) {
@@ -215,22 +181,6 @@ const SubNav = React.forwardRef(({children, sx: sxProp = defaultSxProp}: NavList
     return null
   }
 
-  if (sxProp !== defaultSxProp) {
-    return (
-      <SubNavContext.Provider value={{depth: depth + 1}}>
-        <Box
-          as="ul"
-          id={subNavId}
-          aria-labelledby={buttonId}
-          className={classes.SubGroup}
-          ref={forwardedRef}
-          sx={sxProp}
-        >
-          {children}
-        </Box>
-      </SubNavContext.Provider>
-    )
-  }
   return (
     <SubNavContext.Provider value={{depth: depth + 1}}>
       <ul className={classes.SubGroup} id={subNavId} aria-labelledby={buttonId} ref={forwardedRef}>
@@ -283,18 +233,9 @@ TrailingAction.displayName = 'NavList.TrailingAction'
 export type NavListGroupProps = React.HTMLAttributes<HTMLLIElement> & {
   children: React.ReactNode
   title?: string
-} & SxProp
+}
 
-const defaultSx = {}
-const Group: React.FC<NavListGroupProps> = ({title, children, sx: sxProp = defaultSx, ...props}) => {
-  if (sxProp !== defaultSx) {
-    return (
-      <Box sx={sxProp} as="li" data-component="ActionList.Group">
-        {title ? <ActionList.GroupHeading>{title}</ActionList.GroupHeading> : null}
-        {children}
-      </Box>
-    )
-  }
+const Group: React.FC<NavListGroupProps> = ({title, children, ...props}) => {
   return (
     <>
       <ActionList.Divider />
@@ -419,20 +360,11 @@ export type NavListGroupHeadingProps = ActionListGroupHeadingProps
  * This is an alternative to the `title` prop on `NavList.Group`.
  * It was primarily added to allow links in group headings.
  */
-const GroupHeading: React.FC<NavListGroupHeadingProps> = ({as = 'h3', sx: sxProp = defaultSxProp, ...rest}) => {
+const GroupHeading: React.FC<NavListGroupHeadingProps> = ({as = 'h3', className, ...rest}) => {
   return (
     <ActionList.GroupHeading
       as={as}
-      sx={merge<SxProp['sx']>(
-        {
-          '> a {': {
-            color: 'var(--fgColor-default)',
-            textDecoration: 'inherit',
-            ':hover': {textDecoration: 'underline'},
-          },
-        },
-        sxProp,
-      )}
+      className={clsx(navListClasses.GroupHeading, className)}
       data-component="NavList.GroupHeading"
       headingWrapElement="li"
       {...rest}
