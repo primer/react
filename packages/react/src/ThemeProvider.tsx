@@ -105,8 +105,6 @@ export const ThemeProvider: React.FC<React.PropsWithChildren<ThemeProviderProps>
     [colorMode, systemColorMode, setColorMode],
   )
 
-  console.log({resolvedTheme})
-
   return (
     <ThemeContext.Provider
       value={{
@@ -219,7 +217,6 @@ function applyColorScheme(
   theme: Theme,
   colorScheme: string,
 ): {resolvedTheme: Theme; resolvedColorScheme: string | undefined} {
-  console.log({theme, colorScheme})
   if (!theme.colorSchemes) {
     return {
       resolvedTheme: theme,

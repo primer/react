@@ -1,5 +1,7 @@
 import type React from 'react'
 import {type CSSProperties, type PropsWithChildren} from 'react'
+import {clsx} from 'clsx'
+// eslint-disable-next-line import/no-namespace
 import * as styledSystem from 'styled-system'
 import {useTheme} from './ThemeProvider'
 
@@ -127,7 +129,7 @@ export function BaseStyles({
 
   return (
     <Component
-      className="BaseStyles"
+      className={clsx('BaseStyles', className)}
       data-portal-root
       /**
        * We need to map valid primer/react color modes onto valid color modes for primer/primitives
