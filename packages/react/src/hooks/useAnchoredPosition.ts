@@ -1,5 +1,5 @@
 import React from 'react'
-import {computePosition, flip, offset, shift, type Placement} from '@floating-ui/dom'
+import {computePosition, flip, offset, type Placement} from '@floating-ui/dom'
 import type {AnchorPosition, PositionSettings} from '@primer/behaviors'
 import {useProvidedRefOrCreate} from './useProvidedRefOrCreate'
 import {useResizeObserver} from './useResizeObserver'
@@ -80,7 +80,7 @@ export function useAnchoredPosition(
           placement: finalPlacement,
         } = await computePosition(anchorElementRef.current as HTMLElement, floatingElementRef.current as HTMLElement, {
           placement,
-          middleware: [offset(settings?.anchorOffset ?? 0), flip(), shift({padding: settings?.anchorOffset ?? 0})],
+          middleware: [offset(settings?.anchorOffset ?? 4), flip()],
         })
         const {anchorSide, anchorAlign} = placementToAnchor(finalPlacement as Placement)
         const newPosition: AnchorPosition = {
