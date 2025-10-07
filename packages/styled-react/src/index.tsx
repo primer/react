@@ -1,3 +1,5 @@
+'use client'
+
 export {Box, type BoxProps} from './components/Box'
 export {Button} from '@primer/react'
 export {Details} from '@primer/react'
@@ -8,7 +10,7 @@ export {PageLayout} from '@primer/react'
 export {Select} from '@primer/react'
 export {Textarea} from '@primer/react'
 export {TextInput} from '@primer/react'
-export {type TextInputProps} from '@primer/react'
+// export {type TextInputProps} from '@primer/react'
 
 // theming depends on styled-components
 export {ThemeProvider} from './components/ThemeProvider'

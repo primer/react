@@ -1,5 +1,6 @@
 import './global.css'
-import {BaseStyles, ThemeProvider} from '@primer/react'
+import {ThemeProvider} from '@primer/styled-react'
+import {BaseStyles} from '@primer/react'
 import {StyledComponentsRegistry} from './registry'
 
 export const metadata = {

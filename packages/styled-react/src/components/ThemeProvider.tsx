@@ -10,9 +10,11 @@ import {
 export const ThemeProvider = (props: PropsWithChildren<ThemeProviderProps>) => {
   const {children, ...rest} = props
   const {theme} = useTheme()
+
+  console.log({theme})
   return (
-    <PRCThemeProvider {...rest}>
-      <SCThemeProvider theme={theme || fallbackTheme}>{children}</SCThemeProvider>
-    </PRCThemeProvider>
+    <SCThemeProvider theme={theme || fallbackTheme}>
+      <PRCThemeProvider {...rest}>{children}</PRCThemeProvider>
+    </SCThemeProvider>
   )
 }
