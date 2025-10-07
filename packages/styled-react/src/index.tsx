@@ -1,3 +1,5 @@
+'use client'
+
 export {Box, type BoxProps} from './components/Box'
 export {Button} from '@primer/react'
 export {Details} from '@primer/react'
