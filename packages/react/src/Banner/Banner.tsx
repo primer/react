@@ -238,7 +238,7 @@ export function BannerActions({containerRef, primaryAction, secondaryAction}: Ba
   }, [])
 
   useResizeObserver(() => {
-    checkWrapping()
+    setTimeout(checkWrapping, 0)
   }, containerRef)
 
   return (
