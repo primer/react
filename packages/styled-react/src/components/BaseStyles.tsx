@@ -127,6 +127,7 @@ export function BaseStyles({
 
   return (
     <Component
+      className="BaseStyles"
       data-portal-root
       /**
        * We need to map valid primer/react color modes onto valid color modes for primer/primitives
