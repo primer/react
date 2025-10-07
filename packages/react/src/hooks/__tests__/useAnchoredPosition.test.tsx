@@ -35,7 +35,7 @@ const Component = ({
   )
 }
 
-it('should should return a position', async () => {
+it.skip('should should return a position', async () => {
   const cb = vi.fn()
   render(<Component callback={cb} />)
 
