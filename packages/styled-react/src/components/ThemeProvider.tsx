@@ -1,10 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import {ThemeProvider as SCThemeProvider} from 'styled-components'
-import defaultTheme from './theme'
+import {theme as defaultTheme, useId, useSyncedState} from '@primer/react'
 import deepmerge from 'deepmerge'
-import {useId} from './hooks'
-import {useSyncedState} from './hooks/useSyncedState'
 
 export const defaultColorMode = 'day'
 const defaultDayScheme = 'light'
@@ -104,8 +102,6 @@ export const ThemeProvider: React.FC<React.PropsWithChildren<ThemeProviderProps>
     },
     [colorMode, systemColorMode, setColorMode],
   )
-
-  console.log({resolvedTheme})
 
   return (
     <ThemeContext.Provider
@@ -219,7 +215,6 @@ function applyColorScheme(
   theme: Theme,
   colorScheme: string,
 ): {resolvedTheme: Theme; resolvedColorScheme: string | undefined} {
-  console.log({theme, colorScheme})
   if (!theme.colorSchemes) {
     return {
       resolvedTheme: theme,
