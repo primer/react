@@ -2,7 +2,7 @@ import type React from 'react'
 import {type CSSProperties, type PropsWithChildren} from 'react'
 import {clsx} from 'clsx'
 // eslint-disable-next-line import/no-namespace
-import * as styledSystem from 'styled-system'
+import type * as styledSystem from 'styled-system'
 import {useTheme} from './ThemeProvider'
 
 import 'focus-visible'
