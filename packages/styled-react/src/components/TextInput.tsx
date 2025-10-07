@@ -5,15 +5,19 @@ import {
 } from '@primer/react'
 import {forwardRef} from 'react'
 import {Box} from './Box'
-import type {SxProp} from '../sx'
+import {sx, type SxProp} from '../sx'
 import type {ForwardRefExoticComponent, RefAttributes} from 'react'
+import {type ForwardRefComponent} from '../polymorphic'
+import styled from 'styled-components'
 
 export type TextInputProps = PrimerTextInputProps & SxProp & {as?: React.ElementType}
 export type TextInputActionProps = PrimerTextInputActionProps & SxProp
 
-const StyledTextInput = forwardRef<HTMLInputElement, TextInputProps>((props, ref) => {
-  return <Box as={PrimerTextInput} ref={ref} {...props} />
-})
+const StyledTextInput: ForwardRefComponent<'input', TextInputProps> = styled(PrimerTextInput).withConfig({
+  shouldForwardProp: prop => (prop as keyof TextInputProps) !== 'sx',
+})<TextInputProps>`
+  ${sx}
+`
 
 const TextInputImpl = forwardRef<HTMLInputElement, TextInputProps>(({as, ...props}, ref) => {
   return <StyledTextInput ref={ref} {...props} {...(as ? {forwardedAs: as} : {})} />
