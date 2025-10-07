@@ -5,7 +5,7 @@ import type {CheckboxOrRadioGroupArgs} from '../utils/form-story-helpers'
 export default {
   title: 'Components/CheckboxGroup',
   component: CheckboxGroup,
-  parameters: {controls: {exclude: ['aria-labelledby', 'id', 'onChange', 'sx']}},
+  parameters: {controls: {exclude: ['aria-labelledby', 'id', 'onChange']}},
 } as Meta
 
 export const Playground = ({
