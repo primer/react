@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@primer/react": "38.0.0-rc.5",
+    "@primer/styled-react": "1.0.0-rc.5",
     "next": "^15.2.3",
     "react": "18.3.1",
     "react-dom": "18.3.1",
