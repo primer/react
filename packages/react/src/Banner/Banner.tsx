@@ -1,11 +1,12 @@
 import {clsx} from 'clsx'
-import React, {forwardRef, useEffect} from 'react'
+import React, {forwardRef, useCallback, useEffect, useRef, useState} from 'react'
 import {AlertIcon, InfoIcon, StopIcon, CheckCircleIcon, XIcon} from '@primer/octicons-react'
 import {Button, IconButton, type ButtonProps} from '../Button'
 import {VisuallyHidden} from '../VisuallyHidden'
 import {useMergedRefs} from '../internal/hooks/useMergedRefs'
 import classes from './Banner.module.css'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
+import {useResizeObserver} from '../hooks/useResizeObserver'
 
 export type BannerVariant = 'critical' | 'info' | 'success' | 'upsell' | 'warning'
 
@@ -108,6 +109,7 @@ export const Banner = React.forwardRef<HTMLElement, BannerProps>(function Banner
   const dismissible = !!onDismiss
   const hasActions = primaryAction || secondaryAction
   const bannerRef = React.useRef<HTMLElement>(null)
+  const containerRef = React.useRef<HTMLDivElement>(null)
   const ref = useMergedRefs(forwardRef, bannerRef)
   const supportsCustomIcon = variant === 'info' || variant === 'upsell'
 
@@ -148,7 +150,7 @@ export const Banner = React.forwardRef<HTMLElement, BannerProps>(function Banner
       data-layout={rest.layout || 'default'}
     >
       <div className={classes.BannerIcon}>{icon && supportsCustomIcon ? icon : iconForVariant[variant]}</div>
-      <div className={classes.BannerContainer}>
+      <div className={classes.BannerContainer} ref={containerRef}>
         <div className={classes.BannerContent}>
           {title ? (
             hideTitle ? (
@@ -162,7 +164,9 @@ export const Banner = React.forwardRef<HTMLElement, BannerProps>(function Banner
           {description ? <BannerDescription>{description}</BannerDescription> : null}
           {children}
         </div>
-        {hasActions ? <BannerActions primaryAction={primaryAction} secondaryAction={secondaryAction} /> : null}
+        {hasActions ? (
+          <BannerActions containerRef={containerRef} primaryAction={primaryAction} secondaryAction={secondaryAction} />
+        ) : null}
       </div>
       {dismissible ? (
         <IconButton
@@ -204,13 +208,41 @@ export function BannerDescription({children, className, ...rest}: BannerDescript
 }
 
 export type BannerActionsProps = {
+  containerRef: React.RefObject<HTMLDivElement>
   primaryAction?: React.ReactNode
   secondaryAction?: React.ReactNode
 }
 
-export function BannerActions({primaryAction, secondaryAction}: BannerActionsProps) {
+export function BannerActions({containerRef, primaryAction, secondaryAction}: BannerActionsProps) {
+  const actionsRef = useRef<HTMLDivElement>(null)
+  const [isWrapped, setIsWrapped] = useState(false)
+
+  const checkWrapping = useCallback(() => {
+    const actions = actionsRef.current
+    if (!actions) return
+
+    const container = actions.parentElement
+    if (!container) return
+
+    const children = Array.from(container.children)
+    const actionsIndex = children.indexOf(actions)
+
+    if (actionsIndex > 0) {
+      const prevSibling = children[actionsIndex - 1] as HTMLElement
+      const prevRect = prevSibling.getBoundingClientRect()
+      const actionsRect = actions.getBoundingClientRect()
+
+      const wrapped = actionsRect.top > prevRect.top + 10
+      setIsWrapped(wrapped)
+    }
+  }, [])
+
+  useResizeObserver(() => {
+    checkWrapping()
+  }, containerRef)
+
   return (
-    <div className={classes.BannerActions}>
+    <div className={classes.BannerActions} ref={actionsRef} data-wrapped={isWrapped ? 'true' : 'false'}>
       <div className={classes.BannerActionsContainer} data-primary-action="trailing">
         {secondaryAction ?? null}
         {primaryAction ?? null}

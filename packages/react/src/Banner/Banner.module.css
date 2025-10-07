@@ -9,10 +9,6 @@
   grid-template-columns: auto minmax(0, 1fr) auto;
   align-items: start;
 
-  @supports (container-type: inline-size) {
-    container: banner / inline-size;
-  }
-
   &[data-layout='compact'] {
     padding: var(--base-size-4);
   }
@@ -56,9 +52,6 @@
   line-height: var(--text-body-lineHeight-medium);
   row-gap: var(--base-size-4);
   column-gap: var(--base-size-4);
-}
-
-.Banner :where(.BannerContainer) {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -75,18 +68,14 @@
 .BannerContent {
   display: grid;
   row-gap: var(--base-size-4);
-  grid-column-start: 1;
   margin-block: var(--base-size-8);
+  flex: 1 1 auto;
+  min-width: 0;
+  max-width: max-content;
 }
 
 .Banner[data-title-hidden]:not(:has(.BannerActions)) .BannerContent {
   margin-block: var(--base-size-6);
-}
-
-@media screen and (min-width: 544px) {
-  .BannerContent {
-    flex: 1 1 0%;
-  }
 }
 
 .BannerTitle {
@@ -142,10 +131,23 @@
   column-gap: var(--base-size-12);
   align-items: center;
   margin-block: var(--base-size-2);
+  min-height: var(--base-size-32);
 }
 
-.BannerActions :where([data-primary-action='trailing']) {
+.BannerActions [data-primary-action='trailing'] {
+  display: flex;
+}
+
+.BannerActions [data-primary-action='leading'] {
   display: none;
+}
+
+.BannerActions[data-wrapped='true'] [data-primary-action='trailing'] {
+  display: none;
+}
+
+.BannerActions[data-wrapped='true'] [data-primary-action='leading'] {
+  display: flex;
 }
 
 @media screen and (--viewportRange-regular) {
@@ -170,50 +172,4 @@
 /* stylelint-disable-next-line selector-max-specificity */
 .Banner[data-dismissible]:not([data-title-hidden]) .BannerActionsContainer[data-primary-action='leading'] {
   display: flex;
-}
-
-/* Layout ------------------------------------------------------------------- */
-
-@container banner (max-width: 500px) {
-  .BannerContainer {
-    display: grid;
-  }
-
-  .BannerContainer:has(.BannerActionsContainer) {
-    grid-template-rows: auto auto;
-  }
-
-  .BannerActions {
-    margin-block-end: var(--base-size-6);
-  }
-
-  .BannerActions [data-primary-action='trailing'] {
-    display: none;
-  }
-
-  .BannerActions [data-primary-action='leading'] {
-    display: flex;
-  }
-}
-
-@container banner (min-width: 500px) {
-  .BannerContainer {
-    display: grid;
-    grid-template-columns: auto auto;
-  }
-
-  :where(.Banner):not([data-dismissible])
-    :where(.BannerActionsContainer[data-primary-action='trailing'])
-    :where([data-variant='link']:only-child) {
-    padding-inline: 0 var(--base-size-12);
-  }
-
-  .BannerActions [data-primary-action='trailing'] {
-    display: flex;
-    min-height: var(--base-size-32, 2rem);
-  }
-
-  .BannerActions [data-primary-action='leading'] {
-    display: none;
-  }
 }
