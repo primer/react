@@ -81,10 +81,10 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
       onBlur,
       // start deprecated props
       variant: variantProp,
-      // end deprecated props
       width: widthProp,
       minWidth: minWidthProp,
       maxWidth: maxWidthProp,
+      // end deprecated props
       type = 'text',
       required,
       ...inputProps
