@@ -7,7 +7,6 @@ import type {ChildWidthArray, ResponsiveProps, ChildSize} from './types'
 import VisuallyHidden from '../_VisuallyHidden'
 import {moreBtnStyles, dividerStyles, menuItemStyles, baseMenuMinWidth} from './styles'
 import {UnderlineItemList, UnderlineWrapper, LoadingCounter, GAP} from '../internal/components/UnderlineTabbedInterface'
-import styled from 'styled-components'
 import {Button} from '../Button'
 import {TriangleDownIcon} from '@primer/octicons-react'
 import {useOnEscapePress} from '../hooks/useOnEscapePress'
@@ -40,12 +39,6 @@ export type UnderlineNavProps = {
 export const MORE_BTN_WIDTH = 86
 // The height is needed to make sure we don't have a layout shift when the more button is the only item in the nav.
 const MORE_BTN_HEIGHT = 45
-
-export const MoreMenuListItem = styled.li`
-  display: flex;
-  align-items: center;
-  height: ${MORE_BTN_HEIGHT}px;
-`
 
 const overflowEffect = (
   navWidth: number,
@@ -337,7 +330,7 @@ export const UnderlineNav = forwardRef(
           <UnderlineItemList ref={listRef} role="list">
             {listItems}
             {menuItems.length > 0 && (
-              <MoreMenuListItem ref={moreMenuRef}>
+              <li ref={moreMenuRef} style={{display: 'flex', alignItems: 'center', height: `${MORE_BTN_HEIGHT}px`}}>
                 {!onlyMenuVisible && <div style={dividerStyles}></div>}
                 <Button
                   ref={moreMenuBtnRef}
@@ -424,7 +417,7 @@ export const UnderlineNav = forwardRef(
                     )
                   })}
                 </ActionList>
-              </MoreMenuListItem>
+              </li>
             )}
           </UnderlineItemList>
         </UnderlineWrapper>
