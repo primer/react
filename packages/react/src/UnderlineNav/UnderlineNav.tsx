@@ -17,7 +17,7 @@ import {ActionList} from '../ActionList'
 import CounterLabel from '../CounterLabel'
 import {invariant} from '../utils/invariant'
 import classes from './UnderlineNav.module.css'
-import {getAnchoredPosition} from '@primer/behaviors'
+import {computePosition, flip, offset} from '@floating-ui/dom'
 
 export type UnderlineNavProps = {
   children: React.ReactNode
@@ -308,20 +308,32 @@ export const UnderlineNav = forwardRef(
         )
     }, navRef as RefObject<HTMLElement>)
 
-    // Compute menuInlineStyles if needed
-    let menuInlineStyles: React.CSSProperties = {...baseMenuInlineStyles}
-    if (containerRef.current && listRef.current) {
-      const {left} = getAnchoredPosition(containerRef.current, listRef.current, {
-        align: 'start',
-        side: 'outside-bottom',
-      })
+    const [menuLeft, setMenuLeft] = useState<number | undefined>(undefined)
 
-      menuInlineStyles = {
-        ...baseMenuInlineStyles,
-        right: undefined,
-        left,
+    useEffect(() => {
+      if (containerRef.current && listRef.current) {
+        ;(async () => {
+          try {
+            const {x} = await computePosition(listRef.current as HTMLElement, containerRef.current as HTMLElement, {
+              placement: 'bottom-start',
+              middleware: [offset(0), flip()],
+            })
+            setMenuLeft(x)
+          } catch {
+            /* swallow */
+          }
+        })()
       }
-    }
+    }, [])
+
+    const menuInlineStyles: React.CSSProperties =
+      menuLeft === undefined
+        ? {...baseMenuInlineStyles}
+        : {
+            ...baseMenuInlineStyles,
+            right: undefined,
+            left: menuLeft,
+          }
 
     return (
       <UnderlineNavContext.Provider
