@@ -4,7 +4,6 @@ export {Details} from '@primer/react'
 export {FormControl} from '@primer/react'
 export {IconButton} from '@primer/react'
 export {ProgressBar} from '@primer/react'
-export {PageLayout} from '@primer/react'
 export {Select} from '@primer/react'
 export {Textarea} from '@primer/react'
 export {TextInput} from '@primer/react'
@@ -46,6 +45,7 @@ export {Link, type LinkProps} from './components/Link'
 export {LinkButton, type LinkButtonProps} from './components/LinkButton'
 export {NavList, type NavListProps} from './components/NavList'
 export {Overlay} from './components/Overlay'
+export {PageLayout, type PageLayoutProps} from './components/PageLayout'
 export {
   PageHeader,
   type PageHeaderProps,
