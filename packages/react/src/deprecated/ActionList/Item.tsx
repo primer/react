@@ -1,7 +1,6 @@
 import {CheckIcon} from '@primer/octicons-react'
 import React, {useCallback} from 'react'
 import {isValidElementType} from 'react-is'
-import {get} from '../../constants'
 import Truncate from '../../Truncate'
 import type {ItemInput} from './List'
 import {useTheme} from '../../ThemeProvider'
