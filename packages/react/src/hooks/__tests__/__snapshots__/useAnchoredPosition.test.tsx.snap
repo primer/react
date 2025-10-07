@@ -8,3 +8,12 @@ exports[`should should return a position 1`] = `
   "top": 24.5,
 }
 `;
+
+exports[`should should return a position 2`] = `
+{
+  "anchorAlign": "center",
+  "anchorSide": "outside-bottom",
+  "left": 8.554699999999997,
+  "top": 28,
+}
+`;

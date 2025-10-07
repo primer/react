@@ -27,7 +27,7 @@ export const AnchorHasMargin = () => (
 
 export const LabelType = () => (
   <div>
-    <Tooltip text="Contribution Documentation for 'Primer React'" type="label">
+    <Tooltip text="Contribution Documentation for 'Primer React'" type="label" direction="se">
       <Link href="https://github.com/primer/react/contributor-docs/CONTRIBUTING.md" className={classes.LabelLink}>
         <Octicon icon={BookIcon} className={classes.LabelIcon} />
       </Link>
