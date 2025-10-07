@@ -1,6 +1,6 @@
 import {Octicon as PrimerOcticon, type OcticonProps as PrimerOcticonProps} from '@primer/react/deprecated'
 import styled from 'styled-components'
-import {type SxProp, sx} from '../sx'
+import {type SxProp, sx} from '../../sx'
 import {forwardRef} from 'react'
 
 /**
