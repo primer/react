@@ -5,8 +5,7 @@ import classes from './Text.module.css'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 
 type StyledTextProps = {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  as?: React.ComponentType<any> | keyof JSX.IntrinsicElements
+  as?: React.ElementType
   size?: 'large' | 'medium' | 'small'
   weight?: 'light' | 'normal' | 'medium' | 'semibold'
 } & React.HTMLAttributes<HTMLSpanElement>
