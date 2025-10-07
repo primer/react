@@ -4,7 +4,6 @@ import {LinkItem} from './LinkItem'
 import type {LinkProps, ActionListLinkItemProps} from './LinkItem'
 import type {ActionListItemProps} from './shared'
 import {ActionListContainerContext} from './ActionListContainerContext'
-import {invariant} from '../utils/invariant'
 import {fixedForwardRef} from '../utils/modern-polymorphic'
 
 // Export SubItem from BaseItem for backward compatibility
@@ -25,19 +24,20 @@ const UnwrappedItem = <As extends React.ElementType = 'li' | 'a'>(
   const listboxContext = listRole === 'listbox' || listRole === 'menu'
   const invalidLinkContext = menuContext || listboxContext
 
-  // If href is provided but we're in an invalid context, show a warning and render as BaseItem
-  if (href) {
-    invariant(
-      !invalidLinkContext,
-      `ActionList.Item with href cannot be used within a list with role="${listRole}" or container="${container}". ` +
-        `Links are not permitted in menu contexts due to accessibility constraints. ` +
-        `Use ActionList.Item with an onSelect handler instead.`,
-    )
+  // If href is provided but we're in an invalid context, show a warning but allow it for backward compatibility
+  if (href && invalidLinkContext) {
+    if (__DEV__) {
+      // eslint-disable-next-line no-console
+      console.warn(
+        `ActionList.Item with href in menu context (role="${listRole}", container="${container}") may have accessibility issues. ` +
+          `Consider using onSelect with programmatic navigation instead. `,
+      )
+    }
   }
 
   // If href is provided OR we have a custom 'as' component (for Router-like components) and we're in a valid context, render as LinkItem
   // Also check for common Router props like 'to'
-  const shouldUseLinkItem = (href || restProps.to) && !invalidLinkContext
+  const shouldUseLinkItem = href || restProps.to
 
   if (shouldUseLinkItem) {
     const linkProps = {

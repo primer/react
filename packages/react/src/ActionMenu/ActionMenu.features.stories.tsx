@@ -33,7 +33,7 @@ export const LinksAndActions = () => (
             <ArchiveIcon />
           </ActionList.LeadingVisual>
         </ActionList.Item>
-        <ActionList.Item onSelect={() => window.open('/')}>
+        <ActionList.Item href="/">
           Settings
           <ActionList.LeadingVisual>
             <GearIcon />
@@ -48,19 +48,19 @@ export const LinksAndActions = () => (
         <ActionList.Divider />
         <ActionList.Group>
           <ActionList.GroupHeading>GitHub projects</ActionList.GroupHeading>
-          <ActionList.Item onSelect={() => window.open('/')}>
+          <ActionList.Item href="/">
             What&apos;s new
             <ActionList.LeadingVisual>
               <RocketIcon />
             </ActionList.LeadingVisual>
           </ActionList.Item>
-          <ActionList.Item onSelect={() => window.open('/')}>
+          <ActionList.Item href="/">
             Give feedback
             <ActionList.LeadingVisual>
               <CommentIcon />
             </ActionList.LeadingVisual>
           </ActionList.Item>
-          <ActionList.Item onSelect={() => window.open('/')}>
+          <ActionList.Item href="/">
             GitHub Docs
             <ActionList.LeadingVisual>
               <BookIcon />
@@ -153,7 +153,7 @@ export const InactiveItems = () => (
             <ArchiveIcon />
           </ActionList.LeadingVisual>
         </ActionList.Item>
-        <ActionList.Item onSelect={() => window.open('/')} inactiveText="Unavailable due to an outage">
+        <ActionList.Item href="/" inactiveText="Unavailable due to an outage">
           Settings
           <ActionList.LeadingVisual>
             <GearIcon />
@@ -168,19 +168,19 @@ export const InactiveItems = () => (
         <ActionList.Divider />
         <ActionList.Group>
           <ActionList.GroupHeading>Github projects</ActionList.GroupHeading>
-          <ActionList.Item onSelect={() => window.open('/')}>
+          <ActionList.Item href="/">
             What&apos;s new
             <ActionList.LeadingVisual>
               <RocketIcon />
             </ActionList.LeadingVisual>
           </ActionList.Item>
-          <ActionList.Item onSelect={() => window.open('/')}>
+          <ActionList.Item href="/">
             Give feedback
             <ActionList.LeadingVisual>
               <CommentIcon />
             </ActionList.LeadingVisual>
           </ActionList.Item>
-          <ActionList.Item onSelect={() => window.open('/')}>
+          <ActionList.Item href="/">
             GitHub Docs
             <ActionList.LeadingVisual>
               <BookIcon />
@@ -218,19 +218,19 @@ export const LoadingItems = () => (
         <ActionList.Divider />
         <ActionList.Group>
           <ActionList.GroupHeading>Github projects</ActionList.GroupHeading>
-          <ActionList.Item onSelect={() => window.open('/')}>
+          <ActionList.Item href="/">
             What&apos;s new
             <ActionList.LeadingVisual>
               <RocketIcon />
             </ActionList.LeadingVisual>
           </ActionList.Item>
-          <ActionList.Item onSelect={() => window.open('/')}>
+          <ActionList.Item href="/">
             Give feedback
             <ActionList.LeadingVisual>
               <CommentIcon />
             </ActionList.LeadingVisual>
           </ActionList.Item>
-          <ActionList.Item onSelect={() => window.open('/')}>
+          <ActionList.Item href="/">
             GitHub Docs
             <ActionList.LeadingVisual>
               <BookIcon />
@@ -301,7 +301,7 @@ export const DisabledItems = () => (
             <ArchiveIcon />
           </ActionList.LeadingVisual>
         </ActionList.Item>
-        <ActionList.Item onSelect={() => window.open('/')}>
+        <ActionList.Item href="/">
           Settings
           <ActionList.LeadingVisual>
             <GearIcon />
@@ -316,19 +316,19 @@ export const DisabledItems = () => (
         <ActionList.Divider />
         <ActionList.Group>
           <ActionList.GroupHeading>Github projects</ActionList.GroupHeading>
-          <ActionList.Item onSelect={() => window.open('/')}>
+          <ActionList.Item href="/">
             What&apos;s new
             <ActionList.LeadingVisual>
               <RocketIcon />
             </ActionList.LeadingVisual>
           </ActionList.Item>
-          <ActionList.Item onSelect={() => window.open('/')}>
+          <ActionList.Item href="/">
             Give feedback
             <ActionList.LeadingVisual>
               <CommentIcon />
             </ActionList.LeadingVisual>
           </ActionList.Item>
-          <ActionList.Item onSelect={() => window.open('/')}>
+          <ActionList.Item href="/">
             GitHub Docs
             <ActionList.LeadingVisual>
               <BookIcon />

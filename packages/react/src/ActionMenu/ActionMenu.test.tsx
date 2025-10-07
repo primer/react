@@ -25,9 +25,9 @@ function Example(): JSX.Element {
               <ActionList.Item variant="danger" onSelect={event => event.preventDefault()}>
                 Delete file
               </ActionList.Item>
-              <ActionList.Item onSelect={() => window.open('//github.com')} title="anchor" aria-keyshortcuts="s">
+              <ActionList.LinkItem href="//github.com" title="anchor" aria-keyshortcuts="s">
                 Github
-              </ActionList.Item>
+              </ActionList.LinkItem>
             </ActionList>
           </ActionMenu.Overlay>
         </ActionMenu>
@@ -422,9 +422,9 @@ describe('ActionMenu', () => {
                 <ActionList.Item variant="danger" onSelect={event => event.preventDefault()}>
                   Delete file
                 </ActionList.Item>
-                <ActionList.Item onSelect={() => window.open('//github.com')} title="anchor" aria-keyshortcuts="s">
+                <ActionList.LinkItem href="//github.com" title="anchor" aria-keyshortcuts="s">
                   Github
-                </ActionList.Item>
+                </ActionList.LinkItem>
               </ActionList>
             </ActionMenu.Overlay>
           </ActionMenu>
@@ -453,9 +453,9 @@ describe('ActionMenu', () => {
                 <ActionList.Item variant="danger" onSelect={event => event.preventDefault()}>
                   Delete file
                 </ActionList.Item>
-                <ActionList.Item onSelect={() => window.open('//github.com')} title="anchor" aria-keyshortcuts="s">
+                <ActionList.LinkItem href="//github.com" title="anchor" aria-keyshortcuts="s">
                   Github
-                </ActionList.Item>
+                </ActionList.LinkItem>
               </ActionList>
             </ActionMenu.Overlay>
           </ActionMenu>
@@ -631,9 +631,9 @@ describe('ActionMenu', () => {
                   <ActionList.Item variant="danger" onSelect={event => event.preventDefault()}>
                     Delete file
                   </ActionList.Item>
-                  <ActionList.Item onSelect={() => window.open('//github.com')} title="anchor" aria-keyshortcuts="s">
+                  <ActionList.LinkItem href="//github.com" title="anchor" aria-keyshortcuts="s">
                     Github
-                  </ActionList.Item>
+                  </ActionList.LinkItem>
                 </ActionList>
               </ActionMenu.Overlay>
             </ActionMenu>
@@ -659,9 +659,9 @@ describe('ActionMenu', () => {
                   <ActionList.Item variant="danger" onSelect={event => event.preventDefault()}>
                     Delete file
                   </ActionList.Item>
-                  <ActionList.Item onSelect={() => window.open('//github.com')} title="anchor" aria-keyshortcuts="s">
+                  <ActionList.LinkItem href="//github.com" title="anchor" aria-keyshortcuts="s">
                     Github
-                  </ActionList.Item>
+                  </ActionList.LinkItem>
                 </ActionList>
               </ActionMenu.Overlay>
             </ActionMenu>
