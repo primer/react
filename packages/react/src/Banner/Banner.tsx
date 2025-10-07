@@ -237,8 +237,17 @@ export function BannerActions({containerRef, primaryAction, secondaryAction}: Ba
     }
   }, [])
 
+  useEffect(() => {
+    const checkInitial = () => {
+      requestAnimationFrame(() => {
+        requestAnimationFrame(checkWrapping)
+      })
+    }
+    checkInitial()
+  }, [checkWrapping])
+
   useResizeObserver(() => {
-    setTimeout(checkWrapping, 0)
+    requestAnimationFrame(checkWrapping)
   }, containerRef)
 
   return (
