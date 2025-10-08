@@ -1,16 +1,19 @@
 import {
-  Box,
   FormControl as PrimerFormControl,
   type FormControlProps as PrimerFormControlProps,
   type SxProp,
 } from '@primer/react'
-import {forwardRef, type PropsWithChildren} from 'react'
+import {type PropsWithChildren} from 'react'
+import styled from 'styled-components'
+import {sx} from '../sx'
 
 type FormControlProps = PropsWithChildren<PrimerFormControlProps> & SxProp
 
-const FormControlImpl = forwardRef<HTMLDivElement, FormControlProps>(function FormControl(props, ref) {
-  return <Box ref={ref} as={PrimerFormControl} {...props} />
-})
+const FormControlImpl: React.ComponentType<FormControlProps> = styled(PrimerFormControl).withConfig({
+  shouldForwardProp: prop => (prop as keyof FormControlProps) !== 'sx',
+})<FormControlProps>`
+  ${sx}
+`
 
 const FormControl = Object.assign(FormControlImpl, {
   Caption: PrimerFormControl.Caption,
