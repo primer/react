@@ -1,4 +1,5 @@
 import type React from 'react'
+import {get} from '../constants'
 import type {SxProp} from '../sx'
 import {useFormControlContext} from './_FormControlContext'
 import styled from 'styled-components'
@@ -23,7 +24,7 @@ const FormControlLeadingVisual: React.FC<React.PropsWithChildren<SxProp & {style
 }
 
 const StyledLeadingVisual = styled.div`
-  --leadingVisual-size: var(--text-title-size-small);
+  --leadingVisual-size: ${get('fontSizes.2')};
 
   color: var(--fgColor-default);
 
@@ -41,7 +42,7 @@ const StyledLeadingVisual = styled.div`
   }
 
   &:where([data-has-caption]) {
-    --leadingVisual-size: var(--base-size-24);
+    --leadingVisual-size: ${get('fontSizes.4')};
   }
 
   ${sx}
