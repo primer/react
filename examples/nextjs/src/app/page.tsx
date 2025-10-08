@@ -11,9 +11,8 @@ const StyledDiv = styled.div(({theme}) => {
   }
 })
 
-const ThemeUser = props => {
+const ThemeUser = () => {
   const {theme} = useTheme()
-  console.log(theme)
   return (
     <div
       style={{
