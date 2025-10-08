@@ -6,13 +6,13 @@ import classes from './Text.module.css'
 export type TextProps = {
   size?: 'large' | 'medium' | 'small'
   weight?: 'light' | 'normal' | 'medium' | 'semibold'
+  className?: string
 }
 
 interface TextComponent {
   <T extends React.ElementType = 'span'>(
     props: {
       as?: T
-      className?: string
     } & TextProps &
       (T extends React.ComponentType<infer P>
         ? Omit<P, keyof TextProps>
