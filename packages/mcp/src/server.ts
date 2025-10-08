@@ -270,7 +270,7 @@ ${text}`,
 
 server.tool(
   'get_component_accessibility_guidelines',
-  'Retrieve accessibility guidelines and best practices for a specific component from the @primer/react package by its name. Use this tool to get official accessibility recommendations, usage tips, and requirements to ensure your UI components are inclusive and meet accessibility standards. ',
+  'Retrieve accessibility guidelines and best practices for a specific component from the @primer/react package by its name. Use this tool to get official accessibility recommendations, usage tips, and requirements to ensure your UI components are inclusive and meet accessibility standards.',
   {
     name: z.string().describe('The name of the component to retrieve'),
   },
