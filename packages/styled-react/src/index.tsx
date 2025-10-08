@@ -16,6 +16,7 @@ export {theme} from '@primer/react'
 export {themeGet} from '@primer/react'
 export {useColorSchemeVar} from '@primer/react'
 export {useTheme} from '@primer/react'
+export {BaseStyles} from '@primer/react'
 
 export {
   ActionList,
