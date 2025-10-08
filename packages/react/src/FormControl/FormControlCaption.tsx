@@ -1,25 +1,33 @@
 import {clsx} from 'clsx'
 import type React from 'react'
 import Text from '../Text'
+import type {SxProp} from '../sx'
 import classes from './FormControlCaption.module.css'
 import {useFormControlContext} from './_FormControlContext'
+import {BoxWithFallback} from '../internal/components/BoxWithFallback'
 
-export type FormControlCaptionProps = React.PropsWithChildren<{
-  id?: string
-  className?: string
-}>
+type FormControlCaptionProps = React.PropsWithChildren<
+  {
+    id?: string
+    className?: string
+    style?: React.CSSProperties
+  } & SxProp
+>
 
-function FormControlCaption({id, children, className}: FormControlCaptionProps) {
+function FormControlCaption({id, children, sx, className, style}: FormControlCaptionProps) {
   const {captionId, disabled} = useFormControlContext()
 
   return (
-    <Text
+    <BoxWithFallback
+      as={Text}
       id={id ?? captionId}
       className={clsx(className, classes.Caption)}
       data-control-disabled={disabled ? '' : undefined}
+      sx={sx}
+      style={style}
     >
       {children}
-    </Text>
+    </BoxWithFallback>
   )
 }
 

@@ -17,7 +17,7 @@ describe('@primer/react/deprecated', () => {
   })
 
   test('Octicon supports `sx` prop', () => {
-    render(<Octicon data-testid="component" icon={props => <svg {...props} />} sx={{background: 'red'}} />)
+    render(<Octicon data-testid="component" as="button" icon={props => <svg {...props} />} sx={{background: 'red'}} />)
     expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
   })
 

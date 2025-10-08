@@ -1,5 +1,4 @@
 import type {Key} from 'react'
-import type {SxProp} from '../sx'
 import type {Merge} from '../utils/polymorphic'
 import type {Group} from '../ActionList/Group'
 import type {ActionListGroupProps} from '../deprecated'
@@ -11,7 +10,7 @@ export type ItemInput =
   | Merge<React.ComponentPropsWithoutRef<'div'>, FilteredActionListItemProps>
   | ((Partial<FilteredActionListItemProps> & {renderItem: RenderItemFn}) & {key?: Key})
 
-export interface FilteredActionListItemProps extends SxProp {
+export interface FilteredActionListItemProps {
   /**
    * Primary text which names an `Item`.
    */
@@ -102,6 +101,10 @@ export interface FilteredActionListItemProps extends SxProp {
    * An item to pass back in the `onAction` callback, meant as
    */
   item?: ItemInput
+  /**
+   * className to apply to the list item
+   */
+  className?: string
 }
 
 /**

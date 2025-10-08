@@ -35,11 +35,6 @@
       "type": "string",
       "defaultValue": "text-bottom",
       "description": "Sets the `vertical-align` CSS property"
-    },
-    {
-      "name": "sx",
-      "type": "SystemStyleObject",
-      "deprecated": true
     }
   ],
   "subcomponents": []

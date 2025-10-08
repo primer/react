@@ -57,6 +57,7 @@ exports[`@primer/styled-react exports 1`] = `
 
 exports[`@primer/styled-react/deprecated exports 1`] = `
 [
+  "ActionList",
   "Dialog",
   "Octicon",
   "TabNav",

@@ -1,7 +1,7 @@
-export {ActionList} from '@primer/react'
 export {Box, type BoxProps} from './components/Box'
 export {Button} from '@primer/react'
 export {Details} from '@primer/react'
+export {FormControl} from '@primer/react'
 export {IconButton} from '@primer/react'
 export {ProgressBar} from '@primer/react'
 export {Select} from '@primer/react'
@@ -17,6 +17,17 @@ export {themeGet} from '@primer/react'
 export {useColorSchemeVar} from '@primer/react'
 export {useTheme} from '@primer/react'
 
+export {
+  ActionList,
+  type ActionListProps,
+  type ActionListItemProps,
+  type ActionListLinkItemProps,
+  type ActionListGroupProps,
+  type ActionListDividerProps,
+  type ActionListLeadingVisualProps,
+  type ActionListTrailingVisualProps,
+  type ActionListTrailingActionProps,
+} from './components/ActionList'
 export {ActionMenu} from './components/ActionMenu'
 export {Autocomplete, type AutocompleteOverlayProps} from './components/Autocomplete'
 export {Avatar, type AvatarProps} from './components/Avatar'
@@ -27,7 +38,6 @@ export {CircleBadge} from './components/CircleBadge'
 export {CounterLabel, type CounterLabelProps} from './components/CounterLabel'
 export {Dialog, type DialogProps} from './components/Dialog'
 export {Flash} from './components/Flash'
-export {FormControl, type FormControlProps} from './components/FormControl'
 export {Header, type HeaderProps} from './components/Header'
 export {Heading} from './components/Heading'
 export {Label, type LabelProps} from './components/Label'
