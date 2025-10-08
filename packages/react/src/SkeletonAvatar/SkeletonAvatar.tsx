@@ -1,10 +1,12 @@
 import type React from 'react'
+import {type CSSProperties} from 'react'
 import {isResponsiveValue} from '../hooks/useResponsiveValue'
 import type {AvatarProps} from '../Avatar'
 import {DEFAULT_AVATAR_SIZE} from '../Avatar/Avatar'
 import {SkeletonBox} from '../Skeleton'
 import classes from './SkeletonAvatar.module.css'
 import {clsx} from 'clsx'
+import {merge} from '../sx'
 
 interface SkeletonAvatarProps extends Omit<React.HTMLProps<HTMLElement>, 'size'> {
   /** Class name for custom styling */
@@ -32,7 +34,7 @@ function SkeletonAvatar({size = DEFAULT_AVATAR_SIZE, square, className, style, .
       data-component="SkeletonAvatar"
       data-responsive={responsive ? '' : undefined}
       data-square={square ? '' : undefined}
-      style={{...(style || {}), ...cssSizeVars}}
+      style={merge(style as CSSProperties, cssSizeVars)}
     />
   )
 }

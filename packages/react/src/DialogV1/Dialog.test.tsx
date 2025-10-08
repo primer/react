@@ -23,7 +23,7 @@ const Component = () => {
         <div data-testid="inner">
           <Dialog.Header id="header">Title</Dialog.Header>
           <div style={{padding: 'var(--stack-gap-normal)'}}>
-            <Text style={{fontFamily: 'sans-serif'}}>Some content</Text>
+            <Text fontFamily="sans-serif">Some content</Text>
           </div>
         </div>
       </Dialog>
@@ -37,7 +37,7 @@ const ClosedDialog = () => {
       <div data-testid="inner">
         <Dialog.Header id="header">Title</Dialog.Header>
         <div style={{padding: 'var(--stack-gap-normal)'}}>
-          <Text style={{fontFamily: 'sans-serif'}}>Some content</Text>
+          <Text fontFamily="sans-serif">Some content</Text>
         </div>
       </div>
     </Dialog>
@@ -51,7 +51,7 @@ const DialogWithCustomFocusRef = () => {
       <div data-testid="inner">
         <Dialog.Header id="header">Title</Dialog.Header>
         <div style={{padding: 'var(--stack-gap-normal)'}}>
-          <Text style={{fontFamily: 'sans-serif'}}>Some content</Text>
+          <Text fontFamily="sans-serif">Some content</Text>
           <button type="button" data-testid="inner-button" ref={buttonRef}>
             hi
           </button>
@@ -80,7 +80,7 @@ const DialogWithCustomFocusRefAndReturnFocusRef = () => {
         <div data-testid="inner">
           <Dialog.Header id="header">Title</Dialog.Header>
           <div style={{padding: 'var(--stack-gap-normal)'}}>
-            <Text style={{fontFamily: 'sans-serif'}}>Some content</Text>
+            <Text fontFamily="sans-serif">Some content</Text>
             <button type="button" data-testid="inner-button" ref={buttonRef}>
               hi
             </button>
