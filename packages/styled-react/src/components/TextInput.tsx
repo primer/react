@@ -4,7 +4,6 @@ import {
   type TextInputActionProps as PrimerTextInputActionProps,
 } from '@primer/react'
 import {forwardRef} from 'react'
-import {Box} from './Box'
 import {sx, type SxProp} from '../sx'
 import type {ForwardRefExoticComponent, RefAttributes} from 'react'
 import {type ForwardRefComponent} from '../polymorphic'
@@ -23,9 +22,11 @@ const TextInputImpl = forwardRef<HTMLInputElement, TextInputProps>(({as, ...prop
   return <StyledTextInput ref={ref} {...props} {...(as ? {forwardedAs: as} : {})} />
 })
 
-const TextInputAction = forwardRef<HTMLButtonElement, TextInputActionProps>((props, ref) => {
-  return <Box as={PrimerTextInput.Action} ref={ref} {...props} />
-})
+const TextInputAction: ForwardRefComponent<'button', TextInputActionProps> = styled(PrimerTextInput.Action).withConfig({
+  shouldForwardProp: prop => (prop as keyof TextInputActionProps) !== 'sx',
+})<TextInputActionProps>`
+  ${sx}
+`
 
 type TextInputComposite = ForwardRefExoticComponent<TextInputProps & RefAttributes<HTMLInputElement>> & {
   Action: typeof TextInputAction
