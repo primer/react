@@ -4,7 +4,7 @@ import {useRefObjectAsForwardedRef} from '../hooks'
 import classes from './Text.module.css'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 
-export type TextProps = {
+type StyledTextProps = {
   as?: React.ElementType
   size?: 'large' | 'medium' | 'small'
   weight?: 'light' | 'normal' | 'medium' | 'semibold'
@@ -24,8 +24,10 @@ const Text = forwardRef(({as: Component = 'span', className, size, weight, ...pr
       ref={innerRef}
     />
   )
-}) as PolymorphicForwardRefComponent<'span', TextProps>
+}) as PolymorphicForwardRefComponent<'span', StyledTextProps>
 
 Text.displayName = 'Text'
+
+export type TextProps = React.ComponentProps<typeof Text>
 
 export default Text
