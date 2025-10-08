@@ -134,6 +134,16 @@ export const Banner = React.forwardRef<HTMLElement, BannerProps>(function Banner
     }, [title])
   }
 
+  const getContentLength = (title?: string, description?: React.ReactNode): 'short' | 'long' => {
+    const titleLength = title?.length || 0
+    const descriptionLength = typeof description === 'string' ? description.length : description ? 80 : 0
+
+    const totalLength = titleLength + descriptionLength
+
+    if (totalLength > 50) return 'long'
+    return 'short'
+  }
+
   return (
     <section
       {...rest}
@@ -142,6 +152,7 @@ export const Banner = React.forwardRef<HTMLElement, BannerProps>(function Banner
       className={clsx(className, classes.Banner)}
       data-dismissible={onDismiss ? '' : undefined}
       data-title-hidden={hideTitle ? '' : undefined}
+      data-content-length={getContentLength(title, description)}
       data-variant={variant}
       tabIndex={-1}
       ref={ref}
