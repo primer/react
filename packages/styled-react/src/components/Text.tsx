@@ -2,8 +2,8 @@ import {Text as PrimerText, type TextProps as PrimerTextProps} from '@primer/rea
 import {sx, type SxProp} from '../sx'
 import styled from 'styled-components'
 import type React from 'react'
-import {type StyledComponent} from 'styled-components'
 import {forwardRef} from 'react'
+import type {ForwardRefComponent} from '../polymorphic'
 
 type TextProps = PrimerTextProps & SxProp
 
@@ -13,9 +13,8 @@ const StyledText = styled(PrimerText).withConfig<TextProps>({
   ${sx}
 `
 
-const Text = forwardRef<'span', TextProps>(({as, ...props}, ref) => {
+const Text = forwardRef<HTMLElement, TextProps>(({as, ...props}, ref) => {
   return <StyledText {...props} {...(as ? {forwardedAs: as} : {})} ref={ref} />
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-}) as StyledComponent<'span', any, TextProps, never>
+}) as ForwardRefComponent<'span', TextProps>
 
 export {Text, type TextProps}
