@@ -7,7 +7,6 @@ import {isResponsiveValue} from '../hooks/useResponsiveValue'
 import type {WidthOnlyViewportRangeKeys} from '../utils/types/ViewportRangeKeys'
 import classes from './AvatarStack.module.css'
 import {hasInteractiveNodes} from '../internal/utils/hasInteractiveNodes'
-import {BoxWithFallback} from '../internal/components/BoxWithFallback'
 
 const transformChildren = (children: React.ReactNode, shape: AvatarStackProps['shape']) => {
   return React.Children.map(children, child => {
@@ -158,8 +157,7 @@ const AvatarStack = ({
   }
 
   return (
-    <BoxWithFallback
-      as="span"
+    <span
       data-variant={variant}
       data-shape={shape}
       data-avatar-count={count > 3 ? '3+' : count}
@@ -187,7 +185,7 @@ const AvatarStack = ({
         {' '}
         {transformChildren(children, shape)}
       </AvatarStackBody>
-    </BoxWithFallback>
+    </span>
   )
 }
 

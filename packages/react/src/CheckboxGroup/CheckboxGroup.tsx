@@ -10,7 +10,7 @@ import FormControl from '../FormControl'
 import Checkbox from '../Checkbox/Checkbox'
 import {CheckboxGroupContext} from './CheckboxGroupContext'
 
-type CheckboxGroupProps = {
+export type CheckboxGroupProps = {
   /**
    * An onChange handler that gets called when any of the checkboxes change
    */

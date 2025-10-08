@@ -5,15 +5,18 @@ import type {ComponentProps} from '../utils/types'
 export default {
   title: 'Components/Link',
   component: Link,
-} as Meta<ComponentProps<typeof Link>>
+} as Meta<ComponentProps<typeof Link> & {text: string}>
 
-export const Playground: StoryFn<ComponentProps<typeof Link>> = args => <Link {...args}>Link</Link>
+export const Playground: StoryFn<ComponentProps<typeof Link> & {text: string}> = ({text, ...args}) => (
+  <Link {...args}>{text}</Link>
+)
 
 Playground.args = {
+  text: 'Link',
   href: '#',
   muted: false,
   underline: false,
   inline: false,
 }
 
-export const Default = () => <Link href="#">Link</Link>
+export const Default = () => <Link href="#">Links are great</Link>

@@ -6,7 +6,8 @@ import {get} from '../constants'
 import VisuallyHidden from '../_VisuallyHidden'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import {Button, IconButton} from '../Button'
-import {useTheme} from '../ThemeProvider'
+import theme from '../theme'
+import classes from './LabelGroup.module.css'
 
 export type LabelGroupProps = {
   /** Customize the element type of the rendered container */
@@ -132,14 +133,14 @@ const OverlayToggle: React.FC<
       )}
       focusZoneSettings={{disabled: true}}
     >
-      <div style={{alignItems: 'flex-start', display: 'flex', width: overlayWidth, padding: `${overlayPaddingPx}px`}}>
-        <div style={{display: 'flex', flexWrap: 'wrap', gap: '4px'}}>{children}</div>
+      <div className={classes.OverlayContainer} style={{width: overlayWidth, padding: `${overlayPaddingPx}px`}}>
+        <div className={classes.OverlayInner}>{children}</div>
         <IconButton
           onClick={closeOverflowOverlay}
           icon={XIcon}
           aria-label="Close"
           variant="invisible"
-          style={{flexShrink: 0}}
+          className={classes.CloseButton}
         />
       </div>
     </AnchoredOverlay>
@@ -170,9 +171,7 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
     toJSON: () => undefined,
   })
 
-  const {theme} = useTheme()
-
-  const overlayPaddingPx = parseInt(get('space.2')(theme), 10)
+  const overlayPaddingPx = parseInt(theme.space[2], 10)
 
   const hiddenItemIds = Object.keys(visibilityMap).filter(key => !visibilityMap[key])
 
