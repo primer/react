@@ -1,5 +1,11 @@
 # @primer/styled-react
 
+## 1.0.0-rc.6
+
+### Patch Changes
+
+- [`013c200`](https://github.com/primer/react/commit/013c200dd9969743c5e824f635964802ccfdcbfa) Thanks [@francinelucca](https://github.com/francinelucca)! - chore: use styled wrapper instead of Box for Label, Token and Spinner
+
 ## 1.0.0-rc.5
 
 ### Minor Changes
