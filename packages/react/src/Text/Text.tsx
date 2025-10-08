@@ -1,5 +1,5 @@
 import {clsx} from 'clsx'
-import React, {forwardRef} from 'react'
+import React, {forwardRef, type HTMLAttributes} from 'react'
 import {useRefObjectAsForwardedRef} from '../hooks'
 import classes from './Text.module.css'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
@@ -8,7 +8,10 @@ type StyledTextProps = {
   as?: React.ElementType
   size?: 'large' | 'medium' | 'small'
   weight?: 'light' | 'normal' | 'medium' | 'semibold'
-} & React.ComponentProps<'span'>
+  // Allow any custom data and aria attributes
+  [key: `data-${string}`]: number | string | boolean | undefined
+  [key: `aria-${string}`]: number | string | boolean | undefined
+} & HTMLAttributes<HTMLElement>
 
 const Text = forwardRef(({as: Component = 'span', className, size, weight, ...props}, forwardedRef) => {
   const innerRef = React.useRef<HTMLElement>(null)
