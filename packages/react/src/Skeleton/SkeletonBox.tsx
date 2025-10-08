@@ -2,6 +2,7 @@ import React from 'react'
 import {type CSSProperties, type HTMLProps} from 'react'
 import {clsx} from 'clsx'
 import classes from './SkeletonBox.module.css'
+import {merge} from '../sx'
 
 export type SkeletonBoxProps = {
   /** Height of the skeleton "box". Accepts any valid CSS `height` value. */
@@ -20,7 +21,13 @@ export const SkeletonBox = React.forwardRef<HTMLElement, SkeletonBoxProps>(funct
     <div
       ref={ref as React.RefObject<HTMLDivElement>}
       className={clsx(className, classes.SkeletonBox)}
-      style={{height, width, ...(style || {})}}
+      style={merge(
+        style as CSSProperties,
+        {
+          height,
+          width,
+        } as CSSProperties,
+      )}
       {...props}
     />
   )
