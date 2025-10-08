@@ -1,16 +1,23 @@
 import {Button as PrimerButton, type ButtonProps as PrimerButtonProps} from '@primer/react'
 import type {SxProp, CSSCustomProperties} from '../sx'
 import type {BetterSystemStyleObject} from '../styled-props'
-import {Box} from './Box'
 import {forwardRef} from 'react'
 import type {ForwardRefComponent} from '../polymorphic'
+import styled from 'styled-components'
+import {sx} from '../sx'
 
 type ButtonComponentProps = PrimerButtonProps & SxProp & {as?: React.ElementType}
 
-const StyledButtonComponent = forwardRef(({sx, ...rest}: ButtonComponentProps, ref) => {
-  const {block, size = 'medium', leadingVisual, trailingVisual, trailingAction} = rest
+const StyledButtonComponent: ForwardRefComponent<'button', ButtonComponentProps> = styled(PrimerButton).withConfig({
+  shouldForwardProp: prop => (prop as keyof ButtonComponentProps) !== 'sx',
+})<ButtonComponentProps>`
+  ${sx}
+`
+
+const ButtonComponent = forwardRef(({as, sx, style: propStyle, ...props}: ButtonComponentProps, ref) => {
+  const {block, size = 'medium', leadingVisual, trailingVisual, trailingAction} = props
   let sxStyles: {[key: string]: BetterSystemStyleObject} = {}
-  const style: CSSCustomProperties = {}
+  const style: CSSCustomProperties = {...(propStyle || {})}
 
   if (sx !== null && Object.keys(sx || {}).length > 0) {
     sxStyles = generateCustomSxProp(
@@ -22,12 +29,8 @@ const StyledButtonComponent = forwardRef(({sx, ...rest}: ButtonComponentProps, r
     if (color) style['--button-color'] = color
   }
 
-  return <Box as={PrimerButton} style={style} sx={sxStyles} ref={ref} {...rest} />
-})
-
-const ButtonComponent = forwardRef(({as, ...props}: ButtonComponentProps, ref) => (
-  <StyledButtonComponent ref={ref} {...props} {...(as ? {forwardedAs: as} : {})} />
-)) as ForwardRefComponent<'button', ButtonComponentProps>
+  return <StyledButtonComponent style={style} sx={sxStyles} ref={ref} {...props} {...(as ? {forwardedAs: as} : {})} />
+}) as ForwardRefComponent<'button', ButtonComponentProps>
 
 // This function is used to generate a custom cssSelector for the sxProp
 
