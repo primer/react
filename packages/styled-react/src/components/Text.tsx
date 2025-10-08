@@ -5,7 +5,7 @@ import type React from 'react'
 import {type StyledComponent} from 'styled-components'
 import {forwardRef} from 'react'
 
-type TextProps = PrimerTextProps & SxProp
+type TextProps = PrimerTextProps & SxProp & {as?: React.ElementType}
 
 const StyledText = styled(PrimerText).withConfig<TextProps>({
   shouldForwardProp: prop => (prop as keyof TextProps) !== 'sx',
