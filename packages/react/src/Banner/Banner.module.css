@@ -9,6 +9,10 @@
   grid-template-columns: auto minmax(0, 1fr) auto;
   align-items: start;
 
+  @supports (container-type: inline-size) {
+    container: banner / inline-size;
+  }
+
   &[data-layout='compact'] {
     padding: var(--base-size-4);
   }
@@ -52,6 +56,9 @@
   line-height: var(--text-body-lineHeight-medium);
   row-gap: var(--base-size-4);
   column-gap: var(--base-size-4);
+}
+
+.Banner :where(.BannerContainer) {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -63,19 +70,29 @@
   grid-template-rows: auto;
 }
 
+.Banner:not([data-dismissible]):not([data-title-hidden]):has(.BannerTitle) .BannerContainer {
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: auto;
+}
+
 /* BannerContent ---------------------------------------------------------- */
 
 .BannerContent {
   display: grid;
   row-gap: var(--base-size-4);
+  grid-column-start: 1;
   margin-block: var(--base-size-8);
-  flex: 1 1 auto;
-  min-width: 0;
-  max-width: max-content;
 }
 
 .Banner[data-title-hidden]:not(:has(.BannerActions)) .BannerContent {
   margin-block: var(--base-size-6);
+}
+
+@media screen and (min-width: 544px) {
+  .BannerContent {
+    flex: 1 1 0%;
+  }
 }
 
 .BannerTitle {
@@ -135,41 +152,64 @@
 }
 
 .BannerActions [data-primary-action='trailing'] {
-  display: flex;
+  display: none;
 }
 
 .BannerActions [data-primary-action='leading'] {
-  display: none;
-}
-
-.BannerActions[data-wrapped='true'] [data-primary-action='trailing'] {
-  display: none;
-}
-
-.BannerActions[data-wrapped='true'] [data-primary-action='leading'] {
   display: flex;
 }
 
-@media screen and (--viewportRange-regular) {
-  .BannerActions :where([data-primary-action='trailing']) {
-    display: flex;
-  }
-
-  .BannerActions :where([data-primary-action='leading']) {
-    display: none;
-  }
+.Banner:has(.BannerTitle):not([data-title-hidden]) .BannerContainer {
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: auto;
 }
 
-.Banner[data-dismissible]:not([data-title-hidden]) .BannerActions {
+.Banner:has(.BannerTitle):not([data-title-hidden]) .BannerActions {
   margin-block-end: var(--base-size-6);
 }
 
-/* stylelint-disable-next-line selector-max-specificity */
-.Banner[data-dismissible]:not([data-title-hidden]) .BannerActionsContainer[data-primary-action='trailing'] {
+.Banner:has(.BannerTitle):not([data-title-hidden]) [data-primary-action='trailing'] {
   display: none;
 }
 
-/* stylelint-disable-next-line selector-max-specificity */
-.Banner[data-dismissible]:not([data-title-hidden]) .BannerActionsContainer[data-primary-action='leading'] {
+.Banner:has(.BannerTitle):not([data-title-hidden]) [data-primary-action='leading'] {
   display: flex;
+}
+
+@container banner (min-width: 400px) {
+  .Banner:not(:has(.BannerTitle)):not([data-title-hidden]),
+  .Banner[data-title-hidden] {
+    .BannerContainer {
+      display: grid;
+      grid-template-columns: auto auto;
+    }
+
+    [data-primary-action='trailing'] {
+      display: flex;
+    }
+
+    [data-primary-action='leading'] {
+      display: none;
+    }
+  }
+}
+
+@container banner (max-width: 399px) {
+  .BannerContainer {
+    display: grid;
+    grid-template-rows: auto auto;
+  }
+
+  .BannerActions {
+    margin-block-end: var(--base-size-6);
+  }
+
+  [data-primary-action='trailing'] {
+    display: none;
+  }
+
+  [data-primary-action='leading'] {
+    display: flex;
+  }
 }
