@@ -1,8 +1,8 @@
 ---
-'@primer/react': minor
+'@primer/react': patch
 ---
 
-Banner: Improve button positioning with responsive wrapping behavior
+Banner: Improve button layout wrapping behavior with CSS container queries
 
-- Implements responsive wrapping rules based on title and content length
-- Uses ResizeObserver for precise wrapping detection
+- Banners with titles now always wrap action buttons for better readability
+- Banners without titles or dismiss buttons use container queries for responsive wrapping
