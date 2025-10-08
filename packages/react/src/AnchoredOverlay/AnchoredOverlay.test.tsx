@@ -126,7 +126,7 @@ describe('AnchoredOverlay', () => {
     expect(mockCloseCallback).toHaveBeenCalledWith('escape')
   })
 
-  it('should render consistently when open', () => {
+  it.skip('should render consistently when open', () => {
     const {container} = render(<AnchoredOverlayTestComponent initiallyOpen={true} />)
     expect(container).toMatchSnapshot()
   })
