@@ -1,5 +1,5 @@
-import type {RefObject, MutableRefObject} from 'react'
-import React, {useState, useCallback, useRef, forwardRef} from 'react'
+import type {RefObject, MouseEventHandler} from 'react'
+import React, {useState, useCallback, useRef, forwardRef, useId} from 'react'
 import {KebabHorizontalIcon} from '@primer/octicons-react'
 import {ActionList} from '../ActionList'
 import useIsomorphicLayoutEffect from '../utils/useIsomorphicLayoutEffect'
@@ -14,23 +14,33 @@ import {ActionMenu} from '../ActionMenu'
 import {useFocusZone, FocusKeys} from '../hooks/useFocusZone'
 import styles from './ActionBar.module.css'
 import {clsx} from 'clsx'
+import {useRefObjectAsForwardedRef} from '../hooks'
 
 const ACTIONBAR_ITEM_GAP = 8
 
-type ChildSize = {
-  text: string
-  width: number
-}
-type ChildWidthArray = Array<ChildSize>
-type ResponsiveProps = {
-  items: Array<React.ReactElement>
-  menuItems: Array<React.ReactElement>
-}
+type ChildProps =
+  | {
+      type: 'action'
+      label: string
+      disabled: boolean
+      icon: ActionBarIconButtonProps['icon']
+      onClick: MouseEventHandler
+      width: number
+    }
+  | {type: 'divider'; width: number}
+
+/**
+ * Registry of descendants to render in the list or menu. To preserve insertion order across updates, children are
+ * set to `null` when unregistered rather than fully dropped from the map.
+ */
+type ChildRegistry = ReadonlyMap<string, ChildProps | null>
 
 const ActionBarContext = React.createContext<{
   size: Size
-  setChildrenWidth: React.Dispatch<{text: string; width: number}>
-}>({size: 'medium', setChildrenWidth: () => null})
+  registerChild: (id: string, props: ChildProps) => void
+  unregisterChild: (id: string) => void
+  isVisibleChild: (id: string) => boolean
+}>({size: 'medium', registerChild: () => {}, unregisterChild: () => {}, isVisibleChild: () => true})
 
 /*
 small (28px), medium (32px), large (40px)
@@ -75,18 +85,12 @@ export type ActionBarIconButtonProps = {disabled?: boolean} & IconButtonProps
 
 const MORE_BTN_WIDTH = 32
 
-const getValidChildren = (children: React.ReactNode) => {
-  return React.Children.toArray(children).filter(child => {
-    return React.isValidElement(child)
-  }) as React.ReactElement[]
-}
-
-const calculatePossibleItems = (childWidthArray: ChildWidthArray, navWidth: number, moreMenuWidth = 0) => {
+const calculatePossibleItems = (registryEntries: Array<[string, ChildProps]>, navWidth: number, moreMenuWidth = 0) => {
   const widthToFit = navWidth - moreMenuWidth
-  let breakpoint = childWidthArray.length // assume all items will fit
+  let breakpoint = registryEntries.length // assume all items will fit
   let sumsOfChildWidth = 0
-  for (const [index, childWidth] of childWidthArray.entries()) {
-    sumsOfChildWidth += index > 0 ? childWidth.width + ACTIONBAR_ITEM_GAP : childWidth.width
+  for (const [index, [, child]] of registryEntries.entries()) {
+    sumsOfChildWidth += index > 0 ? child.width + ACTIONBAR_ITEM_GAP : child.width
     if (sumsOfChildWidth > widthToFit) {
       breakpoint = index
       break
@@ -97,68 +101,67 @@ const calculatePossibleItems = (childWidthArray: ChildWidthArray, navWidth: numb
   return breakpoint
 }
 
-const overflowEffect = (
+const getMenuItems = (
   navWidth: number,
   moreMenuWidth: number,
-  childArray: Array<React.ReactElement>,
-  childWidthArray: ChildWidthArray,
-  updateListAndMenu: (props: ResponsiveProps) => void,
+  childRegistry: ChildRegistry,
   hasActiveMenu: boolean,
-) => {
-  if (childWidthArray.length === 0) {
-    updateListAndMenu({items: childArray, menuItems: []})
-  }
-  const numberOfItemsPossible = calculatePossibleItems(childWidthArray, navWidth)
+): Set<string> | void => {
+  const registryEntries = Array.from(childRegistry).filter((entry): entry is [string, ChildProps] => entry[1] !== null)
+
+  if (registryEntries.length === 0) return new Set()
+  const numberOfItemsPossible = calculatePossibleItems(registryEntries, navWidth)
 
   const numberOfItemsPossibleWithMoreMenu = calculatePossibleItems(
-    childWidthArray,
+    registryEntries,
     navWidth,
     moreMenuWidth || MORE_BTN_WIDTH,
   )
-  const items: Array<React.ReactElement> = []
-  const menuItems: Array<React.ReactElement> = []
+  const menuItems = new Set<string>()
 
   // First, we check if we can fit all the items with their icons
-  if (childArray.length >= numberOfItemsPossible) {
+  if (registryEntries.length >= numberOfItemsPossible) {
     /* Below is an accessibility requirement. Never show only one item in the overflow menu.
      * If there is only one item left to display in the overflow menu according to the calculation,
      * we need to pull another item from the list into the overflow menu.
      */
-    const numberOfItemsInMenu = childArray.length - numberOfItemsPossibleWithMoreMenu
+    const numberOfItemsInMenu = registryEntries.length - numberOfItemsPossibleWithMoreMenu
     const numberOfListItems =
       numberOfItemsInMenu === 1 ? numberOfItemsPossibleWithMoreMenu - 1 : numberOfItemsPossibleWithMoreMenu
-    for (const [index, child] of childArray.entries()) {
+    for (const [index, [id, child]] of registryEntries.entries()) {
       if (index < numberOfListItems) {
-        items.push(child)
+        continue
         //if the last item is a divider
-      } else if (childWidthArray[index].text === 'divider') {
+      } else if (child.type === 'divider') {
         if (index === numberOfListItems - 1 || index === numberOfListItems) {
           continue
         } else {
-          const divider = React.createElement(ActionList.Divider, {key: index})
-          menuItems.push(divider)
+          menuItems.add(id)
         }
       } else {
-        menuItems.push(child)
+        menuItems.add(id)
       }
     }
 
-    updateListAndMenu({items, menuItems})
-  } else if (numberOfItemsPossible > childArray.length && hasActiveMenu) {
+    return menuItems
+  } else if (numberOfItemsPossible > registryEntries.length && hasActiveMenu) {
     /* If the items fit in the list and there are items in the overflow menu, we need to move them back to the list */
-    updateListAndMenu({items: childArray, menuItems: []})
+    return new Set()
   }
 }
 
 export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = props => {
   const {size = 'medium', children, 'aria-label': ariaLabel, flush = false, className} = props
-  const [childWidthArray, setChildWidthArray] = useState<ChildWidthArray>([])
-  const setChildrenWidth = useCallback((size: ChildSize) => {
-    setChildWidthArray(arr => {
-      const newArr = [...arr, size]
-      return newArr
-    })
-  }, [])
+
+  const [childRegistry, setChildRegistry] = useState<ChildRegistry>(() => new Map())
+
+  const registerChild = useCallback(
+    (id: string, childProps: ChildProps) => setChildRegistry(prev => new Map(prev).set(id, childProps)),
+    [],
+  )
+  const unregisterChild = useCallback((id: string) => setChildRegistry(prev => new Map(prev).set(id, null)), [])
+
+  const [menuItemIds, setMenuItemIds] = useState<Set<string>>(() => new Set())
 
   const navRef = useRef<HTMLDivElement>(null)
   const listRef = useRef<HTMLDivElement>(null)
@@ -166,34 +169,23 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
   const moreMenuBtnRef = useRef<HTMLButtonElement>(null)
   const containerRef = React.useRef<HTMLUListElement>(null)
 
-  const validChildren = getValidChildren(children)
-  // Responsive props object manages which items are in the list and which items are in the menu.
-  const [responsiveProps, setResponsiveProps] = useState<ResponsiveProps>({
-    items: validChildren,
-    menuItems: [],
-  })
-
-  // Make sure to have the fresh props data for list items when children are changed (keeping aria-current up-to-date)
-  const listItems = responsiveProps.items.map(item => {
-    return validChildren.find(child => child.key === item.key) ?? item
-  })
-
-  // Make sure to have the fresh props data for menu items when children are changed (keeping aria-current up-to-date)
-  const menuItems = responsiveProps.menuItems.map(menuItem => {
-    return validChildren.find(child => child.key === menuItem.key) ?? menuItem
-  })
-
-  const updateListAndMenu = useCallback((props: ResponsiveProps) => {
-    setResponsiveProps(props)
-  }, [])
-
   useResizeObserver((resizeObserverEntries: ResizeObserverEntry[]) => {
     const navWidth = resizeObserverEntries[0].contentRect.width
     const moreMenuWidth = moreMenuRef.current?.getBoundingClientRect().width ?? 0
-    const hasActiveMenu = menuItems.length > 0
-    navWidth !== 0 &&
-      overflowEffect(navWidth, moreMenuWidth, validChildren, childWidthArray, updateListAndMenu, hasActiveMenu)
+    const hasActiveMenu = menuItemIds.size > 0
+
+    if (navWidth > 0) {
+      const newMenuItemIds = getMenuItems(navWidth, moreMenuWidth, childRegistry, hasActiveMenu)
+      if (newMenuItemIds) setMenuItemIds(newMenuItemIds)
+    }
   }, navRef as RefObject<HTMLElement>)
+
+  const isVisibleChild = useCallback(
+    (id: string) => {
+      return !menuItemIds.has(id)
+    },
+    [menuItemIds],
+  )
 
   const [isWidgetOpen, setIsWidgetOpen] = useState(false)
 
@@ -225,25 +217,28 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
   })
 
   return (
-    <ActionBarContext.Provider value={{size, setChildrenWidth}}>
+    <ActionBarContext.Provider value={{size, registerChild, unregisterChild, isVisibleChild}}>
       <div ref={navRef} className={clsx(className, styles.Nav)} data-flush={flush}>
         <div ref={listRef} role="toolbar" className={styles.List} style={{gap: `${ACTIONBAR_ITEM_GAP}px`}}>
-          {listItems}
-          {menuItems.length > 0 && (
+          {children}
+          {menuItemIds.size > 0 && (
             <ActionMenu>
               <ActionMenu.Anchor>
                 <IconButton variant="invisible" aria-label={`More ${ariaLabel} items`} icon={KebabHorizontalIcon} />
               </ActionMenu.Anchor>
               <ActionMenu.Overlay>
                 <ActionList>
-                  {menuItems.map((menuItem, index) => {
-                    if (menuItem.type === ActionList.Divider) {
-                      return <ActionList.Divider key={index} />
+                  {Array.from(menuItemIds).map(id => {
+                    const menuItem = childRegistry.get(id)
+                    if (!menuItem) return null
+
+                    if (menuItem.type === 'divider') {
+                      return <ActionList.Divider key={id} />
                     } else {
-                      const {onClick, icon: Icon, 'aria-label': ariaLabel, disabled} = menuItem.props
+                      const {onClick, icon: Icon, label, disabled} = menuItem
                       return (
                         <ActionList.Item
-                          key={ariaLabel}
+                          key={label}
                           // eslint-disable-next-line primer-react/prefer-action-list-item-onselect
                           onClick={(event: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
                             closeOverlay()
@@ -252,12 +247,10 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
                           }}
                           disabled={disabled}
                         >
-                          {Icon ? (
-                            <ActionList.LeadingVisual>
-                              <Icon />
-                            </ActionList.LeadingVisual>
-                          ) : null}
-                          {ariaLabel}
+                          <ActionList.LeadingVisual>
+                            <Icon />
+                          </ActionList.LeadingVisual>
+                          {label}
                         </ActionList.Item>
                       )
                     }
@@ -274,14 +267,31 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
 
 export const ActionBarIconButton = forwardRef(
   ({disabled, onClick, ...props}: ActionBarIconButtonProps, forwardedRef) => {
-    const backupRef = useRef<HTMLElement>(null)
-    const ref = (forwardedRef ?? backupRef) as RefObject<HTMLAnchorElement>
-    const {size, setChildrenWidth} = React.useContext(ActionBarContext)
+    const ref = useRef<HTMLButtonElement>(null)
+    useRefObjectAsForwardedRef(forwardedRef, ref)
+    const id = useId()
+
+    const {size, registerChild, unregisterChild, isVisibleChild} = React.useContext(ActionBarContext)
+
+    // Storing the width in a ref ensures we don't forget about it when not visible
+    const widthRef = useRef<number>()
+
     useIsomorphicLayoutEffect(() => {
-      const text = props['aria-label'] ? props['aria-label'] : ''
-      const domRect = (ref as MutableRefObject<HTMLElement>).current.getBoundingClientRect()
-      setChildrenWidth({text, width: domRect.width})
-    }, [ref, setChildrenWidth])
+      const width = ref.current?.getBoundingClientRect().width
+      if (width) widthRef.current = width
+      if (!widthRef.current) return
+
+      registerChild(id, {
+        type: 'action',
+        label: props['aria-label'] ?? '',
+        icon: props.icon,
+        disabled: !!disabled,
+        onClick: onClick as MouseEventHandler,
+        width: widthRef.current,
+      })
+
+      return () => unregisterChild(id)
+    }, [registerChild, unregisterChild, props['aria-label'], props.icon, disabled, onClick])
 
     const clickHandler = useCallback(
       (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -290,6 +300,8 @@ export const ActionBarIconButton = forwardRef(
       },
       [disabled, onClick],
     )
+
+    if (!isVisibleChild(id)) return null
 
     return (
       <IconButton
@@ -306,11 +318,22 @@ export const ActionBarIconButton = forwardRef(
 
 export const VerticalDivider = () => {
   const ref = useRef<HTMLDivElement>(null)
-  const {setChildrenWidth} = React.useContext(ActionBarContext)
+  const id = useId()
+  const {registerChild, unregisterChild, isVisibleChild} = React.useContext(ActionBarContext)
+
+  // Storing the width in a ref ensures we don't forget about it when not visible
+  const widthRef = useRef<number>()
+
   useIsomorphicLayoutEffect(() => {
-    const text = 'divider'
-    const domRect = (ref as MutableRefObject<HTMLElement>).current.getBoundingClientRect()
-    setChildrenWidth({text, width: domRect.width})
-  }, [ref, setChildrenWidth])
+    const width = ref.current?.getBoundingClientRect().width
+    if (width) widthRef.current = width
+    if (!widthRef.current) return
+
+    registerChild(id, {type: 'divider', width: widthRef.current})
+
+    return () => unregisterChild(id)
+  }, [registerChild, unregisterChild])
+
+  if (!isVisibleChild(id)) return null
   return <div ref={ref} data-component="ActionBar.VerticalDivider" aria-hidden="true" className={styles.Divider} />
 }
