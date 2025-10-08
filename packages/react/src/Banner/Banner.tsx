@@ -218,36 +218,29 @@ export function BannerActions({containerRef, primaryAction, secondaryAction}: Ba
   const [isWrapped, setIsWrapped] = useState(false)
 
   const checkWrapping = useCallback(() => {
-    const actions = actionsRef.current
-    if (!actions) return
-
-    const container = actions.parentElement
+    const container = containerRef.current
     if (!container) return
 
     const children = Array.from(container.children)
-    const actionsIndex = children.indexOf(actions)
+    if (children.length < 2) return
 
-    if (actionsIndex > 0) {
-      const prevSibling = children[actionsIndex - 1] as HTMLElement
-      const prevRect = prevSibling.getBoundingClientRect()
-      const actionsRect = actions.getBoundingClientRect()
+    let hasWrapped = false
+    let previousOffsetTop = (children[0] as HTMLElement).offsetTop
 
-      const wrapped = actionsRect.top > prevRect.top + 10
-      setIsWrapped(wrapped)
+    for (let i = 1; i < children.length; i++) {
+      const child = children[i] as HTMLElement
+      if (child.offsetTop > previousOffsetTop) {
+        hasWrapped = true
+        break
+      }
+      previousOffsetTop = child.offsetTop
     }
-  }, [])
 
-  useEffect(() => {
-    const checkInitial = () => {
-      requestAnimationFrame(() => {
-        requestAnimationFrame(checkWrapping)
-      })
-    }
-    checkInitial()
-  }, [checkWrapping])
+    setIsWrapped(hasWrapped)
+  }, [containerRef])
 
   useResizeObserver(() => {
-    requestAnimationFrame(checkWrapping)
+    checkWrapping()
   }, containerRef)
 
   return (
