@@ -7,7 +7,7 @@ import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../uti
 type StyledTextProps = {
   size?: 'large' | 'medium' | 'small'
   weight?: 'light' | 'normal' | 'medium' | 'semibold'
-}
+} & React.HTMLAttributes<HTMLElement>
 
 const Text = forwardRef(({as: Component = 'span', className, size, weight, ...props}, forwardedRef) => {
   const innerRef = React.useRef<HTMLElement>(null)
