@@ -70,6 +70,7 @@
   grid-template-rows: auto;
 }
 
+/* stylelint-disable-next-line selector-max-specificity */
 .Banner:not([data-dismissible]):not([data-title-hidden]):has(.BannerTitle) .BannerContainer {
   display: grid;
   grid-template-columns: auto;
