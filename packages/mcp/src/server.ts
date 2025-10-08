@@ -86,7 +86,7 @@ You can use the \`get_component\` tool to get more information about a specific 
 
 server.tool(
   'get_component',
-  'Get a specific component by name',
+  'Retrieve documentation and usage details for a specific React component from the @primer/react package by its name. This tool provides the official Primer documentation for any listed component, making it easy to inspect, reuse, or integrate components in your project.',
   {
     name: z.string().describe('The name of the component to retrieve'),
   },
@@ -100,7 +100,7 @@ server.tool(
         content: [
           {
             type: 'text',
-            text: `There is no component named \`${name}\` in the @primer/react package. For a full list of components, use the \`get_components\` tool.`,
+            text: `There is no component named \`${name}\` in the @primer/react package. For a full list of components, use the \`list_components\` tool.`,
           },
         ],
       }
@@ -270,7 +270,7 @@ ${text}`,
 
 server.tool(
   'get_component_accessibility_guidelines',
-  'Get accessibility information for how to use a component from Primer React',
+  '"Retrieve accessibility guidelines and best practices for a specific component from the @primer/react package by its name. Use this tool to get official accessibility recommendations, usage tips, and requirements to ensure your UI components are inclusive and meet accessibility standards. ',
   {
     name: z.string().describe('The name of the component to retrieve'),
   },
@@ -284,7 +284,7 @@ server.tool(
         content: [
           {
             type: 'text',
-            text: `There is no component named \`${name}\` in the @primer/react package. For a full list of components, use the \`get_components\` tool.`,
+            text: `There is no component named \`${name}\` in the @primer/react package. For a full list of components, use the \`list_components\` tool.`,
           },
         ],
       }
