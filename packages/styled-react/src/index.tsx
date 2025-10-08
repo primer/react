@@ -12,13 +12,11 @@ export {TextInput} from '@primer/react'
 export {type TextInputProps} from '@primer/react'
 
 // theming depends on styled-components
-export {ThemeProvider} from './components/ThemeProvider'
+export {ThemeProvider, useTheme, useColorSchemeVar} from './components/ThemeProvider'
 export {BaseStyles} from './components/BaseStyles'
 export {merge} from '@primer/react'
 export {theme} from '@primer/react'
 export {themeGet} from '@primer/react'
-export {useColorSchemeVar} from '@primer/react'
-export {useTheme} from '@primer/react'
 
 export {
   ActionList,
