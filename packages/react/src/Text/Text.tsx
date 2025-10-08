@@ -12,9 +12,15 @@ interface TextComponent {
   <T extends React.ElementType = 'span'>(
     props: {
       as?: T
+      className?: string
     } & TextProps &
-      Omit<React.ComponentPropsWithoutRef<T>, keyof TextProps>,
+      (T extends React.ComponentType<infer P>
+        ? Omit<P, keyof TextProps>
+        : Omit<React.ComponentPropsWithoutRef<T>, keyof TextProps>),
   ): React.ReactElement | null
+
+  // Overload for when no as prop is provided (defaults to span)
+  (props: TextProps & React.HTMLAttributes<HTMLSpanElement>): React.ReactElement | null
 
   displayName?: string
 }
