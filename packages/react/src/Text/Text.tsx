@@ -8,7 +8,7 @@ type StyledTextProps = {
   as?: React.ElementType
   size?: 'large' | 'medium' | 'small'
   weight?: 'light' | 'normal' | 'medium' | 'semibold'
-} & React.HTMLAttributes<HTMLElement>
+} & React.ComponentProps<'span'>
 
 const Text = forwardRef(({as: Component = 'span', className, size, weight, ...props}, forwardedRef) => {
   const innerRef = React.useRef<HTMLElement>(null)
@@ -28,5 +28,5 @@ const Text = forwardRef(({as: Component = 'span', className, size, weight, ...pr
 
 Text.displayName = 'Text'
 
-export type TextProps = React.ComponentProps<typeof Text>
+export type TextProps = React.PropsWithChildren<typeof Text>
 export default Text
