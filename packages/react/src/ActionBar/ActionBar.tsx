@@ -238,7 +238,7 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
                       const {onClick, icon: Icon, label, disabled} = menuItem
                       return (
                         <ActionList.Item
-                          key={id}
+                          key={label}
                           // eslint-disable-next-line primer-react/prefer-action-list-item-onselect
                           onClick={(event: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
                             closeOverlay()
