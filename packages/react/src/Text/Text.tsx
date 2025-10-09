@@ -1,13 +1,15 @@
 import {clsx} from 'clsx'
-import React, {forwardRef} from 'react'
+import React, {forwardRef, type PropsWithChildren} from 'react'
 import {useRefObjectAsForwardedRef} from '../hooks'
 import classes from './Text.module.css'
 
-export type TextProps = {
+export type TextProps = PropsWithChildren<{
   size?: 'large' | 'medium' | 'small'
   weight?: 'light' | 'normal' | 'medium' | 'semibold'
   className?: string
-}
+  as?: React.ElementType
+}> &
+  React.HTMLAttributes<HTMLElement>
 
 interface TextComponent {
   <T extends React.ElementType = 'span'>(
