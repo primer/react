@@ -22,10 +22,11 @@ import {useTypeahead} from './useTypeahead'
 import {SkeletonAvatar} from '../SkeletonAvatar'
 import {SkeletonText} from '../SkeletonText'
 import {Dialog} from '../Dialog/Dialog'
-import {IconButton} from '../Button'
+import {Button, IconButton} from '../Button'
 import {ActionList} from '../ActionList'
 import {getAccessibleKeybindingHintString} from '../KeybindingHint'
 import {useIsMacOS} from '../hooks'
+import {Tooltip} from '../TooltipV2'
 
 // ----------------------------------------------------------------------------
 // Context
@@ -80,6 +81,8 @@ export type TreeViewSecondaryActions = {
   label: string
   onClick: () => void
   icon: Icon
+  count?: number | string
+  className?: string
 }
 
 /* Size of toggle icon in pixels. */
@@ -739,7 +742,7 @@ const TrailingAction = (props: TreeViewTrailingAction) => {
   return (
     <>
       <div id={trailingActionId} className={clsx('PRIVATE_VisuallyHidden', classes.TreeViewVisuallyHidden)}>
-        ; {shortcutText}
+        - {shortcutText}
       </div>
       <div
         className={classes.TreeViewItemTrailingAction}
@@ -751,25 +754,50 @@ const TrailingAction = (props: TreeViewTrailingAction) => {
         }
         onKeyDown={event => event.stopPropagation()}
       >
-        {items.map(({label, onClick, icon}, index) => (
-          <IconButton
-            icon={icon}
-            variant="invisible"
-            aria-label={label}
-            className={classes.TreeViewItemTrailingActionButton}
-            onClick={onClick}
-            tabIndex={-1}
-            aria-hidden={true}
-            key={index}
-            onKeyDown={() => {
-              // hack to send focus back to the tree item after the action is triggered via click
-              // this is needed because the trailing action shouldn't be focused, as it does not interact well with
-              // the focus management of TreeView
-              const parentElement = document.getElementById(itemId)
-              parentElement?.focus()
-            }}
-          />
-        ))}
+        {items.map(({label, onClick, icon, count, className}, index) => {
+          // If there is a count, we render a Button instead of an IconButton,
+          // as IconButton doesn't support displaying a count.
+          if (count) {
+            return (
+              <Tooltip key={index} text={label}>
+                <Button
+                  aria-label={label}
+                  leadingVisual={icon}
+                  variant="invisible"
+                  className={clsx(className, classes.TreeViewItemTrailingActionButton)}
+                  onClick={onClick}
+                  onKeyDown={() => {
+                    // hack to send focus back to the tree item after the action is triggered via click
+                    // this is needed because the trailing action shouldn't be focused, as it does not interact well with
+                    // the focus management of TreeView
+                    const parentElement = document.getElementById(itemId)
+                    parentElement?.focus()
+                  }}
+                  tabIndex={-1}
+                  aria-hidden={true}
+                  count={count}
+                />
+              </Tooltip>
+            )
+          }
+
+          return (
+            <IconButton
+              icon={icon}
+              variant="invisible"
+              aria-label={label}
+              className={clsx(className, classes.TreeViewItemTrailingActionButton)}
+              onClick={onClick}
+              tabIndex={-1}
+              aria-hidden={true}
+              key={index}
+              onKeyDown={() => {
+                const parentElement = document.getElementById(itemId)
+                parentElement?.focus()
+              }}
+            />
+          )
+        })}
       </div>
     </>
   )
@@ -816,12 +844,18 @@ const ActionDialog: React.FC<TreeViewActionDialogProps> = ({items, onClose}) => 
         }}
       >
         <ActionList>
-          {items.map(({label, onClick, icon: Icon}, index) => (
+          {items.map(({label, onClick, icon: Icon, count}, index) => (
             <ActionList.Item key={index} onSelect={onClick}>
               <ActionList.LeadingVisual>
                 <Icon />
               </ActionList.LeadingVisual>
               {label}
+              {count ? (
+                <ActionList.TrailingVisual>
+                  {count}
+                  <VisuallyHidden>items</VisuallyHidden>
+                </ActionList.TrailingVisual>
+              ) : null}
             </ActionList.Item>
           ))}
         </ActionList>
