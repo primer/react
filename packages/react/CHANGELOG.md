@@ -1,5 +1,11 @@
 # @primer/react
 
+## 38.0.0-rc.6
+
+### Patch Changes
+
+- [`4378ee8`](https://github.com/primer/react/commit/4378ee84442de8d75fbb34fcce48e28c09429c5c) Thanks [@langermank](https://github.com/langermank)! - Add missing CSS for `KeybindingHint`
+
 ## 38.0.0-rc.5
 
 ### Major Changes
