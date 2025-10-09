@@ -1,7 +1,8 @@
 import {clsx} from 'clsx'
-import React, {forwardRef, type PropsWithChildren} from 'react'
+import React, {forwardRef, useRef, type PropsWithChildren} from 'react'
 import {useRefObjectAsForwardedRef} from '../hooks'
 import classes from './Text.module.css'
+import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 
 export type TextProps = PropsWithChildren<{
   size?: 'large' | 'medium' | 'small'
@@ -10,22 +11,6 @@ export type TextProps = PropsWithChildren<{
   as?: React.ElementType
 }> &
   React.HTMLAttributes<HTMLElement>
-
-interface TextComponent {
-  <T extends React.ElementType = 'span'>(
-    props: {
-      as?: T
-    } & TextProps &
-      (T extends React.ComponentType<infer P>
-        ? Omit<P, keyof TextProps>
-        : Omit<React.ComponentPropsWithoutRef<T>, keyof TextProps>),
-  ): React.ReactElement | null
-
-  // Overload for when no as prop is provided (defaults to span)
-  (props: TextProps & React.HTMLAttributes<HTMLSpanElement>): React.ReactElement | null
-
-  displayName?: string
-}
 
 const Text = forwardRef<HTMLElement, {as?: React.ElementType} & TextProps & React.HTMLAttributes<HTMLElement>>(
   ({as: Component = 'span', className, size, weight, ...props}, forwardedRef) => {
@@ -42,7 +27,7 @@ const Text = forwardRef<HTMLElement, {as?: React.ElementType} & TextProps & Reac
       />
     )
   },
-) as TextComponent
+) as PolymorphicForwardRefComponent<'span', TextProps>
 
 Text.displayName = 'Text'
 
