@@ -87,6 +87,11 @@ const labels: Record<BannerVariant, string> = {
   warning: 'Warning',
 }
 
+const BANNER_CONTENT_LENGTH_THRESHOLD = {
+  LONG_CONTENT_THRESHOLD: 50,
+  NON_STRING_CONTENT_ESTIMATE: 80,
+} as const
+
 export const Banner = React.forwardRef<HTMLElement, BannerProps>(function Banner(
   {
     'aria-label': label,
@@ -136,11 +141,16 @@ export const Banner = React.forwardRef<HTMLElement, BannerProps>(function Banner
 
   const getContentLength = (title?: string, description?: React.ReactNode): 'short' | 'long' => {
     const titleLength = title?.length || 0
-    const descriptionLength = typeof description === 'string' ? description.length : description ? 80 : 0
+    const descriptionLength =
+      typeof description === 'string'
+        ? description.length
+        : description
+          ? BANNER_CONTENT_LENGTH_THRESHOLD.NON_STRING_CONTENT_ESTIMATE
+          : 0
 
     const totalLength = titleLength + descriptionLength
 
-    if (totalLength > 50) return 'long'
+    if (totalLength > BANNER_CONTENT_LENGTH_THRESHOLD.LONG_CONTENT_THRESHOLD) return 'long'
     return 'short'
   }
 
