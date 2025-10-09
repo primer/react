@@ -1,9 +1,10 @@
-import React, {type ForwardedRef} from 'react'
+import type React from 'react'
+import type {ForwardedRef} from 'react'
 import {clsx} from 'clsx'
 import classes from './BranchName.module.css'
 import {fixedForwardRef, type PolymorphicProps} from '../utils/modern-polymorphic'
 
-type BranchNameProps<As extends React.ElementType> = PolymorphicProps<
+export type BranchNameProps<As extends React.ElementType> = PolymorphicProps<
   As,
   'a',
   {
@@ -23,5 +24,4 @@ function BranchName<As extends React.ElementType>(props: BranchNameProps<As>, re
 
 BranchName.displayName = 'BranchName'
 
-export type {BranchNameProps}
 export default fixedForwardRef(BranchName)
