@@ -6,6 +6,7 @@ exports[`@primer/styled-react exports 1`] = `
   "ActionMenu",
   "Autocomplete",
   "Avatar",
+  "BaseStyles",
   "Box",
   "Breadcrumb",
   "Breadcrumbs",
