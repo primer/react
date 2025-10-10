@@ -1,5 +1,43 @@
 # @primer/styled-react
 
+## 1.0.0-rc.7
+
+### Patch Changes
+
+- Updated dependencies [[`4378ee8`](https://github.com/primer/react/commit/4378ee84442de8d75fbb34fcce48e28c09429c5c)]:
+  - @primer/react@38.0.0-rc.6
+
+## 1.0.0-rc.6
+
+### Patch Changes
+
+- [`013c200`](https://github.com/primer/react/commit/013c200dd9969743c5e824f635964802ccfdcbfa) Thanks [@francinelucca](https://github.com/francinelucca)! - chore: use styled wrapper instead of Box for Label, Token and Spinner
+
+## 1.0.0-rc.5
+
+### Minor Changes
+
+- [#6690](https://github.com/primer/react/pull/6690) [`c5c2053`](https://github.com/primer/react/commit/c5c2053caf38da76a4310098e805b2edb05e2552) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - Remove sx support from the Token component.
+
+- [#6611](https://github.com/primer/react/pull/6611) [`15c1eb7`](https://github.com/primer/react/commit/15c1eb734210938182323bb15200d69ae4a3a300) Thanks [@joshblack](https://github.com/joshblack)! - Update Avatar component to no longer support sx, add sx wrapper to @primer/styled-react
+
+### Patch Changes
+
+- [#6910](https://github.com/primer/react/pull/6910) [`03c0c59`](https://github.com/primer/react/commit/03c0c59b103d88e5c94b7c02617a769fcd7be8ec) Thanks [@francinelucca](https://github.com/francinelucca)! - chore: use forwardedAs prop in styled-react
+
+- [#6673](https://github.com/primer/react/pull/6673) [`19befd6`](https://github.com/primer/react/commit/19befd66b801532bb0ef85e60296c73d8c747fc5) Thanks [@llastflowers](https://github.com/llastflowers)! - Remove support for `sx` from `CircleBadge` component
+
+- [#6865](https://github.com/primer/react/pull/6865) [`eaf7e58`](https://github.com/primer/react/commit/eaf7e5840e4fbe4042c80711f983a0df05e2b68d) Thanks [@francinelucca](https://github.com/francinelucca)! - chore: remove sx from Overlay
+
+- [#6864](https://github.com/primer/react/pull/6864) [`b0abd78`](https://github.com/primer/react/commit/b0abd785713d9f95ca9d5e41394e00153176077d) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove support for `sx` from the `TabNav` component
+
+- [#6923](https://github.com/primer/react/pull/6923) [`e5753f0`](https://github.com/primer/react/commit/e5753f0560fc57d426e795c012ffcb0b7fb0d290) Thanks [@francinelucca](https://github.com/francinelucca)! - chore: remove sx from deprecated Dialog
+
+- [#6931](https://github.com/primer/react/pull/6931) [`d5c5ecf`](https://github.com/primer/react/commit/d5c5ecf17a40571976d7974d3b57158455afec38) Thanks [@francinelucca](https://github.com/francinelucca)! - use UnderlinePanels.Tab, UnderlinePanels.Panel from @primer/react
+
+- Updated dependencies [[`15824db`](https://github.com/primer/react/commit/15824db141ef32b3e090bcf1880f03bd9684392a), [`c5c2053`](https://github.com/primer/react/commit/c5c2053caf38da76a4310098e805b2edb05e2552), [`19befd6`](https://github.com/primer/react/commit/19befd66b801532bb0ef85e60296c73d8c747fc5), [`2053cb3`](https://github.com/primer/react/commit/2053cb3f7ee15fe1e4c3cc9be3c09c82dd5aed93), [`9201d93`](https://github.com/primer/react/commit/9201d939056333945375c454999d853e0bbabf8f), [`86b3e60`](https://github.com/primer/react/commit/86b3e6063855615675c87df6eccad41d83db3762), [`e3e601c`](https://github.com/primer/react/commit/e3e601c545967eb79fb7bc752c8895b93fda620e), [`19befd6`](https://github.com/primer/react/commit/19befd66b801532bb0ef85e60296c73d8c747fc5), [`eaf7e58`](https://github.com/primer/react/commit/eaf7e5840e4fbe4042c80711f983a0df05e2b68d), [`4196e0e`](https://github.com/primer/react/commit/4196e0eed6894d020a83b9f382f5cb6817f9a725), [`b0abd78`](https://github.com/primer/react/commit/b0abd785713d9f95ca9d5e41394e00153176077d), [`e5753f0`](https://github.com/primer/react/commit/e5753f0560fc57d426e795c012ffcb0b7fb0d290), [`7ae5db2`](https://github.com/primer/react/commit/7ae5db229837fdd75dd73ce1779c7faa18734f89), [`d122122`](https://github.com/primer/react/commit/d12212225884b17cf6236af9feb8b098caaeea35), [`af288e6`](https://github.com/primer/react/commit/af288e632c042c5e82aae6ee2bd5107e8be2b9ec), [`d5c5ecf`](https://github.com/primer/react/commit/d5c5ecf17a40571976d7974d3b57158455afec38), [`15c1eb7`](https://github.com/primer/react/commit/15c1eb734210938182323bb15200d69ae4a3a300), [`1f9f582`](https://github.com/primer/react/commit/1f9f582f29e623a33401061832d8b6ab778c47b3), [`1cb348f`](https://github.com/primer/react/commit/1cb348f079dffcf10bdf422b1e14e0a29fa4662d), [`09ee0ea`](https://github.com/primer/react/commit/09ee0ea580ba6901d6e80cb35f7cc846db17197e), [`0834e9e`](https://github.com/primer/react/commit/0834e9ebe910c363f413723a254e0f2bd947a4b6), [`913739d`](https://github.com/primer/react/commit/913739dfe4b7d8f4f5829157e200bd538e509e74), [`2eeff36`](https://github.com/primer/react/commit/2eeff368832b6fc122aef70302f681b1f14ad71f), [`628e601`](https://github.com/primer/react/commit/628e60172343fdf1c94734c39480991b0591e267), [`0f075d1`](https://github.com/primer/react/commit/0f075d1a679f0733ad984eeb2a677989ceca8ad0)]:
+  - @primer/react@38.0.0-rc.5
+
 ## 1.0.0-rc.4
 
 ### Minor Changes

@@ -11,6 +11,7 @@ type Props = {
   className?: string
   id: string
   validationStatus?: FormValidationStatus
+  style?: React.CSSProperties
 } & SxProp
 
 const validationIconMap: Record<
@@ -21,7 +22,13 @@ const validationIconMap: Record<
   error: AlertFillIcon,
 }
 
-const InputValidation: React.FC<React.PropsWithChildren<Props>> = ({children, className, id, validationStatus, sx}) => {
+const InputValidation: React.FC<React.PropsWithChildren<Props>> = ({
+  children,
+  className,
+  id,
+  validationStatus,
+  style,
+}) => {
   const IconComponent = validationStatus ? validationIconMap[validationStatus] : undefined
 
   // TODO: use `text-caption-lineHeight` token as a custom property when it's available
@@ -31,7 +38,7 @@ const InputValidation: React.FC<React.PropsWithChildren<Props>> = ({children, cl
   const iconBoxMinHeight = iconSize * captionLineHeight
 
   return (
-    <Text className={clsx(className, classes.InputValidation)} data-validation-status={validationStatus} sx={sx}>
+    <Text className={clsx(className, classes.InputValidation)} data-validation-status={validationStatus} style={style}>
       {IconComponent ? (
         <span
           aria-hidden="true"
