@@ -73,4 +73,7 @@ function Spinner({
 
 Spinner.displayName = 'Spinner'
 
+// @ts-ignore -- TS doesn't know about the __SLOT__ property
+Spinner.__SLOT__ = Symbol('Spinner')
+
 export default Spinner

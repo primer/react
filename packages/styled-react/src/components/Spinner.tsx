@@ -9,3 +9,6 @@ export const Spinner = styled(PrimerSpinner).withConfig({
 })<SpinnerProps>`
   ${sx}
 `
+
+// @ts-ignore -- TS doesn't know about the __SLOT__ property
+Spinner.__SLOT__ = PrimerSpinner.__SLOT__

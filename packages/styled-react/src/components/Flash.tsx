@@ -11,5 +11,8 @@ const Flash: ForwardRefComponent<'div', FlashProps> = styled(PrimerFlash).withCo
   ${sx}
 `
 
+// @ts-ignore -- TS doesn't know about the __SLOT__ property
+Flash.__SLOT__ = PrimerFlash.__SLOT__
+
 export {Flash}
 export type {FlashProps}

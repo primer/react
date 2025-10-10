@@ -61,4 +61,7 @@ if (__DEV__) {
   Avatar.displayName = 'Avatar'
 }
 
+// @ts-ignore -- TS doesn't know about the __SLOT__ property
+Avatar.__SLOT__ = Symbol('Avatar')
+
 export default Avatar
