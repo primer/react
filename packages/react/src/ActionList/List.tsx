@@ -83,6 +83,6 @@ const UnwrappedList = <As extends React.ElementType = 'ul'>(
 
 const List = fixedForwardRef(UnwrappedList)
 
-Object.assign(List, {displayName: 'ActionList', __SLOT__: Symbol('ActionList')})
+Object.assign(List, {displayName: 'ActionList'})
 
 export {List}
