@@ -1,7 +1,16 @@
-import type {WithSlotMarker} from './types'
+import type {SlotMarker, WithSlotMarker} from './types'
 
-export function isSlot(element: unknown, slot: WithSlotMarker<unknown>) {
-  // @ts-ignore - TypeScript doesn't know about the __SLOT__ prop
-  const elementSlot = element?.['__SLOT__'] ?? element?.type?.['__SLOT__']
+/**
+ * Determines whether a given element is a valid slot for the supplied slot component
+ */
+export function isSlot(element: unknown, slot: WithSlotMarker<unknown>): boolean {
+  const elementType = typeof element
+
+  if (elementType !== 'object' && elementType !== 'function' && element != null) {
+    return false
+  }
+  const reactElement = element as {type?: SlotMarker} & SlotMarker
+
+  const elementSlot = reactElement.__SLOT__ ?? reactElement.type?.__SLOT__
   return slot.__SLOT__ ? elementSlot === slot.__SLOT__ : false
 }

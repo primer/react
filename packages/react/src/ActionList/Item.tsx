@@ -314,9 +314,7 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
   )
 }
 
-const Item = fixedForwardRef(UnwrappedItem)
-
-Object.assign(Item, {
+const Item = Object.assign(fixedForwardRef(UnwrappedItem), {
   displayName: 'ActionList.Item',
   __SLOT__: Symbol('ActionList.Item'),
 })
