@@ -33,3 +33,7 @@
     background: var(--borderColor-muted);
   }
 }
+
+.Group {
+  display: flex;
+}

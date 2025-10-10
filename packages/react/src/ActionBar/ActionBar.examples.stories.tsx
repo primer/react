@@ -43,12 +43,11 @@ export const Groups = () => (
       <ActionBar.IconButton icon={FileAddedIcon} aria-label="File Added"></ActionBar.IconButton>
       <ActionBar.IconButton icon={SearchIcon} aria-label="Search"></ActionBar.IconButton>
     </ActionBar.Group>
-    <ActionBar.IconButton icon={TasklistIcon} aria-label="Task List"></ActionBar.IconButton>
     <ActionBar.Group label="Lists">
       <ActionBar.IconButton icon={ListUnorderedIcon} aria-label="Unordered List"></ActionBar.IconButton>
       <ActionBar.IconButton icon={ListOrderedIcon} aria-label="Ordered List"></ActionBar.IconButton>
-      <ActionBar.IconButton icon={TasklistIcon} aria-label="Task List"></ActionBar.IconButton>
     </ActionBar.Group>
+    <ActionBar.IconButton icon={TasklistIcon} aria-label="Task List"></ActionBar.IconButton>
     <ActionBar.IconButton icon={ReplyIcon} aria-label="Saved Replies"></ActionBar.IconButton>
   </ActionBar>
 )

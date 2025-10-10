@@ -413,7 +413,9 @@ export const ActionBarGroup = forwardRef(
 
     return (
       <ActionBarGroupContext.Provider value={{groupId: id, label}}>
-        <div ref={ref}>{children}</div>
+        <div className={styles.Group} ref={ref}>
+          {children}
+        </div>
       </ActionBarGroupContext.Provider>
     )
   },
