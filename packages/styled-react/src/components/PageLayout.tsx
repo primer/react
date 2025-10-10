@@ -4,6 +4,7 @@ import type {
   PageLayoutProps as PrimerPageLayoutProps,
   PageLayoutContentProps as PrimerPageLayoutContentProps,
   PageLayoutPaneProps as PrimerPageLayoutPaneProps,
+  SlotMarker,
 } from '@primer/react'
 import {PageLayout as PrimerPageLayout} from '@primer/react'
 import {sx, type SxProp} from '../sx'
@@ -31,11 +32,22 @@ const PageLayoutPane = React.forwardRef<HTMLDivElement, PageLayoutPaneProps>((pr
   return <Wrapper as={PrimerPageLayout.Pane} ref={ref} {...props} />
 })
 
-const PageLayout = Object.assign(PageLayoutImpl, {
+type PageLayoutType = typeof PageLayoutImpl & {
+  Content: typeof PageLayoutContent
+  Header: typeof PrimerPageLayout.Header
+  Pane: typeof PageLayoutPane
+  Footer: typeof PrimerPageLayout.Footer
+}
+
+const PageLayout: PageLayoutType = Object.assign(PageLayoutImpl, {
+  __SLOT__: PrimerPageLayout.__SLOT__,
   Content: PageLayoutContent,
   Header: PrimerPageLayout.Header,
   Pane: PageLayoutPane,
   Footer: PrimerPageLayout.Footer,
 })
+
+;(PageLayoutContent as typeof PageLayoutContent & SlotMarker).__SLOT__ = PrimerPageLayout.Content.__SLOT__
+;(PageLayoutPane as typeof PageLayoutPane & SlotMarker).__SLOT__ = PrimerPageLayout.Pane.__SLOT__
 
 export {PageLayout, type PageLayoutProps}

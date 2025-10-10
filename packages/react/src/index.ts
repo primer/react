@@ -51,6 +51,7 @@ export {useSyncedState} from './hooks/useSyncedState'
 
 // Utils
 export {createComponent} from './utils/create-component'
+export type {SlotMarker} from './utils/types'
 
 // Components
 export {default as Radio} from './Radio'

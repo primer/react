@@ -31,4 +31,6 @@ function FormControlCaption({id, children, sx, className, style}: FormControlCap
   )
 }
 
+FormControlCaption.__SLOT__ = Symbol('FormControl.Caption')
+
 export {FormControlCaption}

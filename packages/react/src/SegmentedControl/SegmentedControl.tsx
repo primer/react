@@ -11,6 +11,7 @@ import type {WidthOnlyViewportRangeKeys} from '../utils/types/ViewportRangeKeys'
 import {isElement} from 'react-is'
 import classes from './SegmentedControl.module.css'
 import {clsx} from 'clsx'
+import {isSlot} from '../utils/is-slot'
 
 export type SegmentedControlProps = {
   'aria-label'?: string
@@ -63,7 +64,7 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
   const getChildIcon = (childArg: React.ReactNode): React.ReactElement | null => {
     if (
       React.isValidElement<SegmentedControlButtonProps>(childArg) &&
-      childArg.type === Button &&
+      (childArg.type === Button || isSlot(childArg, Button)) &&
       childArg.props.leadingIcon
     ) {
       if (isElement(childArg.props.leadingIcon)) {
@@ -76,7 +77,7 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
 
     if (
       React.isValidElement<SegmentedControlIconButtonProps>(childArg) &&
-      childArg.type === SegmentedControlIconButton
+      (childArg.type === SegmentedControlIconButton || isSlot(childArg, SegmentedControlIconButton))
     ) {
       if (isElement(childArg.props.icon)) {
         childArg.props.icon
@@ -189,7 +190,7 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
         if (
           responsiveVariant === 'hideLabels' &&
           React.isValidElement<SegmentedControlButtonProps>(child) &&
-          child.type === Button
+          (child.type === Button || isSlot(child, Button))
         ) {
           const {
             'aria-label': childAriaLabel,
@@ -224,6 +225,7 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
 Root.displayName = 'SegmentedControl'
 
 export const SegmentedControl = Object.assign(Root, {
+  __SLOT__: Symbol('SegmentedControl'),
   Button,
   IconButton: SegmentedControlIconButton,
 })

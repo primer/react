@@ -194,5 +194,6 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
 TextInput.displayName = 'TextInput'
 
 export default Object.assign(TextInput, {
+  __SLOT__: Symbol('TextInput'),
   Action: TextInputAction,
 })
