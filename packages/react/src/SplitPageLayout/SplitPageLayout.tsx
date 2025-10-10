@@ -20,8 +20,8 @@ export const Root: React.FC<React.PropsWithChildren<SplitPageLayoutProps>> = pro
       columnGap="none"
       rowGap="none"
       _slotsConfig={{
-        header: {type: Header},
-        footer: {type: Footer},
+        header: Header,
+        footer: Footer,
       }}
       {...props}
     />
