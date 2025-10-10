@@ -31,7 +31,7 @@ const StyledActionList = styled(PrimerActionList).withConfig({
   ${sx}
 ` as typeof PrimerActionList & {
   <As extends React.ElementType = 'ul'>(props: ActionListProps<As>): React.ReactElement | null
-} & SlotMarker
+}
 
 const ActionListImpl = React.forwardRef(function ActionListImpl<As extends React.ElementType = 'ul'>(
   {as, ...rest}: ActionListProps<As>,
