@@ -13,4 +13,7 @@ const LinkButton = forwardRef(({children, as: Component = 'a', ...props}, forwar
   )
 }) as PolymorphicForwardRefComponent<'a', LinkButtonProps>
 
+// @ts-ignore -- TS doesn't know about the __SLOT__ property
+LinkButton.__SLOT__ = Symbol('LinkButton')
+
 export {LinkButton}

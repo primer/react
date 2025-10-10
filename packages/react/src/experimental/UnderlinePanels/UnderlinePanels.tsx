@@ -230,3 +230,10 @@ const Panel: FC<PanelProps> = ({children, ...rest}) => {
 Panel.displayName = 'UnderlinePanels.Panel'
 
 export default Object.assign(UnderlinePanels, {Panel, Tab})
+
+// @ts-ignore -- TS doesn't know about the __SLOT__ property
+UnderlinePanels.__SLOT__ = Symbol('UnderlinePanels')
+// @ts-ignore -- TS doesn't know about the __SLOT__ property
+Tab.__SLOT__ = Symbol('UnderlinePanels.Tab')
+// @ts-ignore -- TS doesn't know about the __SLOT__ property
+Panel.__SLOT__ = Symbol('UnderlinePanels.Panel')

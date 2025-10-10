@@ -327,4 +327,14 @@ const Overlay: React.FC<React.PropsWithChildren<MenuOverlayProps>> = ({
 }
 
 Menu.displayName = 'ActionMenu'
+
+// @ts-ignore -- TS doesn't know about the __SLOT__ property
+Menu.__SLOT__ = Symbol('ActionMenu')
+// @ts-ignore -- TS doesn't know about the __SLOT__ property
+MenuButton.__SLOT__ = Symbol('ActionMenu.Button')
+// @ts-ignore -- TS doesn't know about the __SLOT__ property
+Anchor.__SLOT__ = Symbol('ActionMenu.Anchor')
+// @ts-ignore -- TS doesn't know about the __SLOT__ property
+Overlay.__SLOT__ = Symbol('ActionMenu.Overlay')
+
 export const ActionMenu = Object.assign(Menu, {Button: MenuButton, Anchor, Overlay, Divider})

@@ -86,3 +86,14 @@ export default Object.assign(Timeline, {
   Body: TimelineBody,
   Break: TimelineBreak,
 })
+
+// @ts-ignore -- TS doesn't know about the __SLOT__ property
+Timeline.__SLOT__ = Symbol('Timeline')
+// @ts-ignore -- TS doesn't know about the __SLOT__ property
+TimelineItem.__SLOT__ = Symbol('Timeline.Item')
+// @ts-ignore -- TS doesn't know about the __SLOT__ property
+TimelineBadge.__SLOT__ = Symbol('Timeline.Badge')
+// @ts-ignore -- TS doesn't know about the __SLOT__ property
+TimelineBody.__SLOT__ = Symbol('Timeline.Body')
+// @ts-ignore -- TS doesn't know about the __SLOT__ property
+TimelineBreak.__SLOT__ = Symbol('Timeline.Break')

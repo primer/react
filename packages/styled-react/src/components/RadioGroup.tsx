@@ -43,3 +43,12 @@ export const RadioGroup = Object.assign(RadioGroupImpl, {
   Caption: CheckboxOrRadioGroupCaption,
   Validation: CheckboxOrRadioGroupValidation,
 })
+
+// @ts-ignore -- TS doesn't know about the __SLOT__ property
+RadioGroupImpl.__SLOT__ = PrimerRadioGroup.__SLOT__
+// @ts-ignore -- TS doesn't know about the __SLOT__ property
+CheckboxOrRadioGroupLabel.__SLOT__ = PrimerRadioGroup.Label.__SLOT__
+// @ts-ignore -- TS doesn't know about the __SLOT__ property
+CheckboxOrRadioGroupCaption.__SLOT__ = PrimerRadioGroup.Caption.__SLOT__
+// @ts-ignore -- TS doesn't know about the __SLOT__ property
+CheckboxOrRadioGroupValidation.__SLOT__ = PrimerRadioGroup.Validation.__SLOT__

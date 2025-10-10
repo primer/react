@@ -76,3 +76,12 @@ export default Object.assign(CheckboxGroup, {
   Label: CheckboxOrRadioGroupLabel,
   Validation: CheckboxOrRadioGroupValidation,
 })
+
+// @ts-ignore -- TS doesn't know about the __SLOT__ property
+CheckboxGroup.__SLOT__ = Symbol('CheckboxGroup')
+// @ts-ignore -- TS doesn't know about the __SLOT__ property
+CheckboxOrRadioGroupCaption.__SLOT__ = Symbol('CheckboxGroup.Caption')
+// @ts-ignore -- TS doesn't know about the __SLOT__ property
+CheckboxOrRadioGroupLabel.__SLOT__ = Symbol('CheckboxGroup.Label')
+// @ts-ignore -- TS doesn't know about the __SLOT__ property
+CheckboxOrRadioGroupValidation.__SLOT__ = Symbol('CheckboxGroup.Validation')

@@ -27,4 +27,7 @@ const UnderlinePanels = Object.assign(UnderlinePanelsImpl, {
   Panel: PrimerUnderlinePanels.Panel,
 })
 
+// @ts-ignore -- TS doesn't know about the __SLOT__ property
+UnderlinePanelsImpl.__SLOT__ = PrimerUnderlinePanels.__SLOT__
+
 export {UnderlinePanels, type UnderlinePanelsProps, type UnderlinePanelsTabProps, type UnderlinePanelsPanelProps}

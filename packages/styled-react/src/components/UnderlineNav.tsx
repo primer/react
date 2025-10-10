@@ -35,3 +35,8 @@ export const UnderlineNavItem = forwardRef(({as, ...props}: UnderlineNavItemProp
 export const UnderlineNav = Object.assign(UnderlineNavImpl, {
   Item: UnderlineNavItem,
 })
+
+// @ts-ignore -- TS doesn't know about the __SLOT__ property
+UnderlineNavImpl.__SLOT__ = PrimerUnderlineNav.__SLOT__
+// @ts-ignore -- TS doesn't know about the __SLOT__ property
+UnderlineNavItem.__SLOT__ = PrimerUnderlineNav.Item.__SLOT__
