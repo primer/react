@@ -28,6 +28,9 @@ const Table: typeof PrimerDataTable & {
   ...rest,
 })
 
+// @ts-ignore -- TS doesn't know about the __SLOT__ property
+Table.__SLOT__ = PrimerDataTable.__SLOT__
+
 export type {
   TableProps,
   TableHeadProps,
