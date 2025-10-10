@@ -188,3 +188,6 @@ AutocompleteInput.displayName = 'AutocompleteInput'
 
 export type AutocompleteInputProps = ComponentProps<typeof AutocompleteInput>
 export default AutocompleteInput
+
+// @ts-ignore - TypeScript doesn't know about the __SLOT__ property
+Autocomplete.__SLOT__ = Symbol('Autocomplete.Input')

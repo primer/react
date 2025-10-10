@@ -361,3 +361,6 @@ export const Tooltip = React.forwardRef(
     )
   },
 )
+
+// @ts-ignore - TS doesn't know about the __SLOT__ property
+Tooltip.__SLOT__ = Symbol('Tooltip')

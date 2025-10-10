@@ -9,5 +9,5 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Che
   return <Box as={PrimerCheckbox} ref={ref} {...props} />
 })
 
-// @ts-ignore - TypeScript doesn't know about the __SLOT__ prop
-Checkbox.__SLOT__ = Symbol('Checkbox')
+// @ts-ignore - TS doesn't know about the __SLOT__ property
+Checkbox.__SLOT__ = PrimerCheckbox.__SLOT__

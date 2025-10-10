@@ -30,11 +30,11 @@ const SegmentedControl = Object.assign(SegmentedControlImpl, {
 })
 
 // @ts-ignore - TypeScript doesn't know about the __SLOT__ prop
-SegmentedControl.__SLOT__ = Symbol('SegmentedControl')
+SegmentedControl.__SLOT__ = PrimerSegmentedControl.__SLOT__
 // @ts-ignore - TypeScript doesn't know about the __SLOT__ prop
-SegmentedControl.Button.__SLOT__ = Symbol('SegmentedControl.Button')
+SegmentedControl.Button.__SLOT__ = PrimerSegmentedControl.Button.__SLOT__
 // @ts-ignore - TypeScript doesn't know about the __SLOT__ prop
-SegmentedControl.IconButton.__SLOT__ = Symbol('SegmentedControl.IconButton')
+SegmentedControl.IconButton.__SLOT__ = PrimerSegmentedControl.IconButton.__SLOT__
 
 export {
   SegmentedControl,
