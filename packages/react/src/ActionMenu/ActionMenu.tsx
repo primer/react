@@ -303,7 +303,13 @@ const Overlay: React.FC<React.PropsWithChildren<MenuOverlayProps>> = ({
       onPositionChange={onPositionChange}
       variant={variant}
     >
-      <div ref={containerRef} className={styles.ActionMenuContainer} data-variant={responsiveVariant}>
+      <div
+        ref={containerRef}
+        className={styles.ActionMenuContainer}
+        data-variant={responsiveVariant}
+        {...(overlayProps.overflow ? {[`data-overflow-${overlayProps.overflow}`]: ''} : {})}
+        {...(overlayProps.maxHeight ? {[`data-max-height-${overlayProps.maxHeight}`]: ''} : {})}
+      >
         <ActionListContainerContext.Provider
           value={{
             container: 'ActionMenu',
