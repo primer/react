@@ -21,7 +21,7 @@ import {FormControlContextProvider} from './_FormControlContext'
 import {warning} from '../utils/warning'
 import classes from './FormControl.module.css'
 import {BoxWithFallback} from '../internal/components/BoxWithFallback'
-import {getSlot} from '../utils/get-slot'
+import {isSlot} from '../utils/is-slot'
 
 export type FormControlProps = {
   children?: React.ReactNode
@@ -64,37 +64,27 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
       Textarea,
       SelectPanel,
     ]
-    const expectedInputSlots = [
-      Autocomplete.__SLOT__,
-      Checkbox.__SLOT__,
-      Radio.__SLOT__,
-      Select.__SLOT__,
-      TextInput.__SLOT__,
-      TextInputWithTokens.__SLOT__,
-      Textarea.__SLOT__,
-      SelectPanel.__SLOT__,
-    ]
     const choiceGroupContext = useContext(CheckboxOrRadioGroupContext)
     const disabled = choiceGroupContext.disabled || disabledProp
     const id = useId(idProp)
     const validationMessageId = slots.validation ? `${id}-validationMessage` : undefined
     const captionId = slots.caption ? `${id}-caption` : undefined
     const validationStatus = slots.validation?.props.variant
-    const InputComponent = childrenWithoutSlots.find(
-      child =>
-        expectedInputComponents.some(inputComponent => React.isValidElement(child) && child.type === inputComponent) ||
-        (React.isValidElement(child) && expectedInputSlots.includes(getSlot(child))),
+    const InputComponent = childrenWithoutSlots.find(child =>
+      expectedInputComponents.some(
+        inputComponent =>
+          (React.isValidElement(child) && child.type === inputComponent) || isSlot(child, inputComponent),
+      ),
     )
     const inputProps = React.isValidElement(InputComponent) && InputComponent.props
     const isChoiceInput =
       React.isValidElement(InputComponent) &&
       (InputComponent.type === Checkbox ||
         InputComponent.type === Radio ||
-        getSlot(InputComponent) === Checkbox.__SLOT__ ||
-        getSlot(InputComponent) === Radio.__SLOT__)
+        isSlot(InputComponent, Checkbox) ||
+        isSlot(InputComponent, Radio))
     const isRadioInput =
-      React.isValidElement(InputComponent) &&
-      (InputComponent.type === Radio || getSlot(InputComponent) === Radio.__SLOT__)
+      React.isValidElement(InputComponent) && (InputComponent.type === Radio || isSlot(InputComponent, Radio))
 
     if (InputComponent) {
       warning(
@@ -159,8 +149,7 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
           {childrenWithoutSlots.filter(
             child =>
               React.isValidElement(child) &&
-              ![Checkbox, Radio].some(inputComponent => child.type === inputComponent) &&
-              ![Checkbox.__SLOT__, Radio.__SLOT__].includes(getSlot(child)),
+              ![Checkbox, Radio].some(inputComponent => child.type === inputComponent || isSlot(child, inputComponent)),
           )}
         </div>
         {slots.leadingVisual ? (
@@ -225,8 +214,9 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
             {childrenWithoutSlots.filter(
               child =>
                 React.isValidElement(child) &&
-                !expectedInputComponents.some(inputComponent => child.type === inputComponent) &&
-                !expectedInputSlots.includes(getSlot(child)),
+                !expectedInputComponents.some(
+                  inputComponent => child.type === inputComponent || isSlot(child, inputComponent),
+                ),
             )}
             {slots.validation ? (
               <ValidationAnimationContainer show>{slots.validation}</ValidationAnimationContainer>

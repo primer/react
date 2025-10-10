@@ -24,7 +24,7 @@ import {useResizeObserver, type ResizeObserverEntry} from '../../hooks/useResize
 import useIsomorphicLayoutEffect from '../../utils/useIsomorphicLayoutEffect'
 import classes from './UnderlinePanels.module.css'
 import {clsx} from 'clsx'
-import {getSlot} from '../../utils/get-slot'
+import {isSlot} from '../../utils/is-slot'
 import type {FCWithSlotMarker} from '../../utils/types'
 
 export type UnderlinePanelsProps = {
@@ -103,14 +103,11 @@ const UnderlinePanels: FCWithSlotMarker<UnderlinePanelsProps> = ({
     let panelIndex = 0
 
     const childrenWithProps = Children.map(children, child => {
-      if (
-        isValidElement<UnderlineItemProps<ElementType>>(child) &&
-        (child.type === Tab || getSlot(child) === Tab.__SLOT__)
-      ) {
+      if (isValidElement<UnderlineItemProps<ElementType>>(child) && (child.type === Tab || isSlot(child, Tab))) {
         return cloneElement(child, {id: `${parentId}-tab-${tabIndex++}`, loadingCounters, iconsVisible})
       }
 
-      if (isValidElement<PanelProps>(child) && (child.type === Panel || getSlot(child) === Panel.__SLOT__)) {
+      if (isValidElement<PanelProps>(child) && (child.type === Panel || isSlot(child, Panel))) {
         const childPanel = child as React.ReactElement<PanelProps>
         return cloneElement(childPanel, {'aria-labelledby': `${parentId}-tab-${panelIndex++}`})
       }
@@ -118,11 +115,11 @@ const UnderlinePanels: FCWithSlotMarker<UnderlinePanelsProps> = ({
     })
 
     const newTabs = Children.toArray(childrenWithProps).filter(child => {
-      return isValidElement(child) && (child.type === Tab || getSlot(child) === Tab.__SLOT__)
+      return isValidElement(child) && (child.type === Tab || isSlot(child, Tab))
     })
 
     const newTabPanels = Children.toArray(childrenWithProps).filter(
-      child => isValidElement(child) && (child.type === Panel || getSlot(child) === Panel.__SLOT__),
+      child => isValidElement(child) && (child.type === Panel || isSlot(child, Panel)),
     )
 
     setTabs(newTabs)
