@@ -284,7 +284,7 @@ export function FilteredActionList({
                     {group.header?.title ? group.header.title : `Group ${group.groupId}`}
                   </ActionList.GroupHeading>
                   {getItemListForEachGroup(group.groupId).map(({key: itemKey, ...item}, itemIndex) => {
-                    const key = itemKey ?? item.id?.toString() ?? itemIndex.toString()
+                    const key = itemKey || item.id.toString() || itemIndex.toString()
                     return (
                       <MappedActionListItem
                         key={key}
@@ -300,7 +300,7 @@ export function FilteredActionList({
               )
             })
           : items.map(({key: itemKey, ...item}, index) => {
-              const key = itemKey ?? item.id?.toString() ?? index.toString()
+              const key = itemKey || item.id.toString() || index.toString()
               return (
                 <MappedActionListItem
                   key={key}
