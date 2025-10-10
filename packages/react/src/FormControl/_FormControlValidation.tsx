@@ -33,4 +33,7 @@ const FormControlValidation: React.FC<React.PropsWithChildren<FormControlValidat
   )
 }
 
+// @ts-ignore - TypeScript doesn't know about the __SLOT__ prop
+FormControlValidation.__SLOT__ = Symbol('FormControl.Validation')
+
 export default FormControlValidation

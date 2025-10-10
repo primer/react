@@ -51,3 +51,6 @@ export const Heading = forwardRef(({as, size, children, visuallyHidden = false, 
 }) as PolymorphicForwardRefComponent<HeadingLevels, ActionListHeadingProps>
 
 Heading.displayName = 'ActionList.Heading'
+
+// @ts-ignore - TypeScript doesn't know about the __SLOT__ property
+Heading.__SLOT__ = Symbol('ActionList.Heading')

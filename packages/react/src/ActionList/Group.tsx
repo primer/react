@@ -81,7 +81,7 @@ export const Group: React.FC<React.PropsWithChildren<ActionListGroupProps>> = ({
   const {role: listRole} = React.useContext(ListContext)
 
   const [slots, childrenWithoutSlots] = useSlots(props.children, {
-    groupHeading: {type: GroupHeading, slot: 'ActionList.GroupHeading'},
+    groupHeading: GroupHeading,
   })
 
   let groupHeadingId = undefined
@@ -210,3 +210,8 @@ export const GroupHeading: React.FC<React.PropsWithChildren<ActionListGroupHeadi
 
 GroupHeading.displayName = 'ActionList.GroupHeading'
 Group.displayName = 'ActionList.Group'
+
+// @ts-ignore - TypeScript doesn't know about the __SLOT__ property
+Group.__SLOT__ = Symbol('ActionList.Group')
+// @ts-ignore - TypeScript doesn't know about the __SLOT__ property
+GroupHeading.__SLOT__ = Symbol('ActionList.GroupHeading')

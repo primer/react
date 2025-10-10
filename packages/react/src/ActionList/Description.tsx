@@ -70,3 +70,6 @@ export const Description: React.FC<React.PropsWithChildren<ActionListDescription
     )
   }
 }
+
+// @ts-ignore - TypeScript doesn't know about the __SLOT__ property
+Description.__SLOT__ = Symbol('ActionList.Description')

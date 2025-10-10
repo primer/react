@@ -70,15 +70,15 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
   forwardedRef: React.Ref<any>,
 ): JSX.Element => {
   const baseSlots = {
-    leadingVisual: {type: LeadingVisual, slot: 'ActionList.LeadingVisual'},
-    trailingVisual: {type: TrailingVisual, slot: 'ActionList.TrailingVisual'},
-    trailingAction: {type: TrailingAction, slot: 'ActionList.TrailingAction'},
-    subItem: {type: SubItem, slot: 'ActionList.SubItem'},
+    leadingVisual: LeadingVisual,
+    trailingVisual: TrailingVisual,
+    trailingAction: TrailingAction,
+    subItem: SubItem,
   }
 
   const [partialSlots, childrenWithoutSlots] = useSlots(props.children, {
     ...baseSlots,
-    description: {type: Description, slot: 'ActionList.Description'},
+    description: Description,
   })
 
   const slots = {description: undefined, ...partialSlots}
@@ -320,5 +320,8 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
 const Item = fixedForwardRef(UnwrappedItem)
 
 Object.assign(Item, {displayName: 'ActionList.Item'})
+
+// @ts-ignore - TypeScript doesn't know about the __SLOT__ property
+Item.__SLOT__ = Symbol('ActionList.Item')
 
 export {Item}

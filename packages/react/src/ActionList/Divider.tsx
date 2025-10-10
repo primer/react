@@ -20,3 +20,6 @@ export const Divider: React.FC<React.PropsWithChildren<ActionListDividerProps>> 
     />
   )
 }
+
+// @ts-ignore - TypeScript doesn't know about the __SLOT__ property
+Divider.__SLOT__ = Symbol('ActionList.Divider')

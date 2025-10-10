@@ -103,3 +103,6 @@ export default Object.assign(Autocomplete, {
   Menu: AutocompleteMenu,
   Overlay: AutocompleteOverlay,
 })
+
+// @ts-ignore - TypeScript doesn't know about the __SLOT__ property
+Autocomplete.__SLOT__ = Symbol('Autocomplete')

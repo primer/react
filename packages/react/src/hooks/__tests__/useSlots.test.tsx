@@ -13,12 +13,55 @@ function TestComponentB(props: React.PropsWithChildren<unknown>) {
   return <div {...props} />
 }
 
+// Test components with slot symbols
+function TestComponentWithSlot(props: React.PropsWithChildren<unknown>) {
+  return <div {...props} />
+}
+
+// @ts-ignore - TypeScript doesn't know about the __SLOT__ property
+TestComponentWithSlot.__SLOT__ = Symbol('TestComponentWithSlot')
+
+function TestComponentWithSlotVariant(props: TestComponentAProps) {
+  return <div {...props} />
+}
+
+// @ts-ignore - TypeScript doesn't know about the __SLOT__ property
+TestComponentWithSlotVariant.__SLOT__ = Symbol('TestComponentWithSlotVariant')
+
+// Wrapper components that use the slot symbol from the original component
+const WrappedTestComponentA = () => (
+  <div>
+    <TestComponentA>Wrapped A</TestComponentA>
+  </div>
+)
+
+// @ts-ignore - TypeScript doesn't know about the __SLOT__ property
+WrappedTestComponentA.__SLOT__ = TestComponentA.__SLOT__
+
+const WrappedTestComponentWithSlot = () => (
+  <div>
+    <TestComponentWithSlot>Wrapped with slot</TestComponentWithSlot>
+  </div>
+)
+
+// @ts-ignore - TypeScript doesn't know about the __SLOT__ property
+WrappedTestComponentWithSlot.__SLOT__ = TestComponentWithSlot.__SLOT__
+
+const WrappedTestComponentWithSlotVariant = (props: TestComponentAProps) => (
+  <div>
+    <TestComponentWithSlotVariant {...props}>Wrapped variant</TestComponentWithSlotVariant>
+  </div>
+)
+
+// @ts-ignore - TypeScript doesn't know about the __SLOT__ property
+WrappedTestComponentWithSlotVariant.__SLOT__ = TestComponentWithSlotVariant.__SLOT__
+
 test('extracts elements based on config object', () => {
   const calls: Array<ReturnType<typeof useSlots>> = []
   const children = [<TestComponentA key="a" />, <TestComponentB key="b" />, <div key="hello">Hello World</div>]
   const slotsConfig = {
-    a: {type: TestComponentA},
-    b: {type: TestComponentB},
+    a: TestComponentA,
+    b: TestComponentB,
   }
 
   function TestComponent(_props: {children: React.ReactNode}) {
@@ -77,8 +120,8 @@ test('handles empty children', () => {
   const calls: Array<ReturnType<typeof useSlots>> = []
   const children: React.ReactNode = []
   const slotsConfig = {
-    a: {type: TestComponentA},
-    b: {type: TestComponentB},
+    a: TestComponentA,
+    b: TestComponentB,
   }
 
   function TestComponent(_props: {children: React.ReactNode}) {
@@ -109,8 +152,8 @@ test('ignores nested slots', () => {
     </div>,
   ]
   const slotsConfig = {
-    a: {type: TestComponentA},
-    b: {type: TestComponentB},
+    a: TestComponentA,
+    b: TestComponentB,
   }
 
   function TestComponent(_props: {children: React.ReactNode}) {
@@ -142,7 +185,7 @@ test('warns about duplicate slots', () => {
   const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
   const children = [<TestComponentA key="a1">A1</TestComponentA>, <TestComponentA key="a2">A2</TestComponentA>]
   const slotsConfig = {
-    a: {type: TestComponentA},
+    a: TestComponentA,
   }
 
   function TestComponent(_props: {children: React.ReactNode}) {
@@ -178,8 +221,8 @@ test('extracts elements based on condition in config object', () => {
   function TestComponent(_props: {children: React.ReactNode}) {
     calls.push(
       useSlots(children, {
-        a: {type: TestComponentA, props: (props: TestComponentAProps) => props.variant === 'a'},
-        b: {type: TestComponentA, props: (props: TestComponentAProps) => props.variant === 'b'},
+        a: [TestComponentA, (props: TestComponentAProps) => props.variant === 'a'],
+        b: [TestComponentA, (props: TestComponentAProps) => props.variant === 'b'],
       }),
     )
     return null
@@ -208,28 +251,16 @@ test('extracts elements based on condition in config object', () => {
   `)
 })
 
-test('extracts elements with configuration that has only slot property', () => {
+test('extracts components using slot symbols', () => {
   const calls: Array<ReturnType<typeof useSlots>> = []
-
-  // Create components with __SLOT__ prop to match slot configuration
-  const SlottedComponentA = (props: React.PropsWithChildren<{__SLOT__?: string}>) => <div {...props} />
-  SlottedComponentA.__SLOT__ = Symbol('header')
-  const SlottedComponentB = (props: React.PropsWithChildren<{__SLOT__?: string}>) => <span {...props} />
-  SlottedComponentB.__SLOT__ = Symbol('footer')
-
   const children = [
-    <SlottedComponentA key="a" __SLOT__="header">
-      Header Content
-    </SlottedComponentA>,
-    <SlottedComponentB key="b" __SLOT__="footer">
-      Footer Content
-    </SlottedComponentB>,
-    <div key="content">Main Content</div>,
+    <TestComponentWithSlot key="slot">Slot content</TestComponentWithSlot>,
+    <TestComponentB key="b">Regular B</TestComponentB>,
+    <div key="hello">Hello World</div>,
   ]
-
   const slotsConfig = {
-    header: {slot: 'header'},
-    footer: {slot: 'footer'},
+    slotComponent: TestComponentWithSlot,
+    b: TestComponentB,
   }
 
   function TestComponent(_props: {children: React.ReactNode}) {
@@ -243,20 +274,16 @@ test('extracts elements with configuration that has only slot property', () => {
     [
       [
         {
-          "footer": <SlottedComponentB
-            __SLOT__="footer"
-          >
-            Footer Content
-          </SlottedComponentB>,
-          "header": <SlottedComponentA
-            __SLOT__="header"
-          >
-            Header Content
-          </SlottedComponentA>,
+          "b": <TestComponentB>
+            Regular B
+          </TestComponentB>,
+          "slotComponent": <TestComponentWithSlot>
+            Slot content
+          </TestComponentWithSlot>,
         },
         [
           <div>
-            Main Content
+            Hello World
           </div>,
         ],
       ],
@@ -264,29 +291,16 @@ test('extracts elements with configuration that has only slot property', () => {
   `)
 })
 
-test('extracts elements with configuration that has slot and type properties', () => {
+test('extracts wrapped components using slot symbols', () => {
   const calls: Array<ReturnType<typeof useSlots>> = []
-
-  // Create components with __SLOT__ prop and specific types
-  const HeaderComponent = (props: React.PropsWithChildren<{__SLOT__?: string}>) => <header {...props} />
-  HeaderComponent.__SLOT__ = Symbol('header')
-  const FooterComponent = (props: React.PropsWithChildren<{__SLOT__?: string}>) => <footer {...props} />
-  FooterComponent.__SLOT__ = Symbol('footer')
-
   const children = [
-    <HeaderComponent key="a" __SLOT__="header">
-      Header Content
-    </HeaderComponent>,
-    <FooterComponent key="b" __SLOT__="footer">
-      Footer Content
-    </FooterComponent>,
-    <TestComponentA key="c" />, // This won't match any slot
-    <div key="content">Main Content</div>,
+    <WrappedTestComponentWithSlot key="wrapped" />,
+    <TestComponentB key="b">Regular B</TestComponentB>,
+    <div key="hello">Hello World</div>,
   ]
-
   const slotsConfig = {
-    header: {slot: 'header', type: HeaderComponent},
-    footer: {slot: 'footer', type: FooterComponent},
+    slotComponent: TestComponentWithSlot,
+    b: TestComponentB,
   }
 
   function TestComponent(_props: {children: React.ReactNode}) {
@@ -300,21 +314,14 @@ test('extracts elements with configuration that has slot and type properties', (
     [
       [
         {
-          "footer": <FooterComponent
-            __SLOT__="footer"
-          >
-            Footer Content
-          </FooterComponent>,
-          "header": <HeaderComponent
-            __SLOT__="header"
-          >
-            Header Content
-          </HeaderComponent>,
+          "b": <TestComponentB>
+            Regular B
+          </TestComponentB>,
+          "slotComponent": <WrappedTestComponentWithSlot />,
         },
         [
-          <TestComponentA />,
           <div>
-            Main Content
+            Hello World
           </div>,
         ],
       ],
@@ -322,39 +329,56 @@ test('extracts elements with configuration that has slot and type properties', (
   `)
 })
 
-test('extracts elements with configuration that has slot and props properties', () => {
+test('extracts wrapped components with slot symbols and conditions', () => {
   const calls: Array<ReturnType<typeof useSlots>> = []
-
-  // Create components with __SLOT__ prop and additional props for filtering
-  const ContentComponent = (props: React.PropsWithChildren<{priority?: 'high' | 'low'}>) => <div {...props} />
-  ContentComponent.__SLOT__ = Symbol('content')
-
-  const SidebarComponent = (props: React.PropsWithChildren<{priority?: 'high' | 'low'}>) => <div {...props} />
-  SidebarComponent.__SLOT__ = Symbol('sidebar')
-
   const children = [
-    <ContentComponent key="a" priority="high">
-      High Priority Content
-    </ContentComponent>,
-    <ContentComponent key="b" priority="low">
-      Low Priority Content
-    </ContentComponent>,
-    <SidebarComponent key="c" priority="high">
-      High Priority Sidebar
-    </SidebarComponent>,
-    <div key="other">Other Content</div>,
+    <WrappedTestComponentWithSlotVariant key="variant-a" variant="a" />,
+    <WrappedTestComponentWithSlotVariant key="variant-b" variant="b" />,
+    <div key="hello">Hello World</div>,
   ]
 
+  function TestComponent(_props: {children: React.ReactNode}) {
+    calls.push(
+      useSlots(children, {
+        variantA: [TestComponentWithSlotVariant, (props: TestComponentAProps) => props.variant === 'a'],
+        variantB: [TestComponentWithSlotVariant, (props: TestComponentAProps) => props.variant === 'b'],
+      }),
+    )
+    return null
+  }
+
+  render(<TestComponent>{children}</TestComponent>)
+
+  expect(calls).toMatchInlineSnapshot(`
+    [
+      [
+        {
+          "variantA": <WrappedTestComponentWithSlotVariant
+            variant="a"
+          />,
+          "variantB": <WrappedTestComponentWithSlotVariant
+            variant="b"
+          />,
+        },
+        [
+          <div>
+            Hello World
+          </div>,
+        ],
+      ],
+    ]
+  `)
+})
+
+test('prefers direct component type match over slot symbol match', () => {
+  const calls: Array<ReturnType<typeof useSlots>> = []
+  const children = [
+    <TestComponentWithSlot key="direct">Direct component</TestComponentWithSlot>,
+    <WrappedTestComponentWithSlot key="wrapped" />,
+    <div key="hello">Hello World</div>,
+  ]
   const slotsConfig = {
-    highPriorityContent: {
-      slot: 'content',
-      props: (props: {priority?: 'high' | 'low'}) => props.priority === 'high',
-    },
-    lowPriorityContent: {
-      slot: 'content',
-      props: (props: {priority?: 'high' | 'low'}) => props.priority === 'low',
-    },
-    sidebar: {slot: 'sidebar'},
+    slotComponent: TestComponentWithSlot,
   }
 
   function TestComponent(_props: {children: React.ReactNode}) {
@@ -368,25 +392,143 @@ test('extracts elements with configuration that has slot and props properties', 
     [
       [
         {
-          "highPriorityContent": <ContentComponent
-            priority="high"
-          >
-            High Priority Content
-          </ContentComponent>,
-          "lowPriorityContent": <ContentComponent
-            priority="low"
-          >
-            Low Priority Content
-          </ContentComponent>,
-          "sidebar": <SidebarComponent
-            priority="high"
-          >
-            High Priority Sidebar
-          </SidebarComponent>,
+          "slotComponent": <TestComponentWithSlot>
+            Direct component
+          </TestComponentWithSlot>,
         },
         [
           <div>
-            Other Content
+            Hello World
+          </div>,
+        ],
+      ],
+    ]
+  `)
+})
+
+test('handles components without slot symbols in mixed scenarios', () => {
+  const calls: Array<ReturnType<typeof useSlots>> = []
+  const children = [
+    <TestComponentA key="a">Component A</TestComponentA>,
+    <WrappedTestComponentA key="wrapped" />,
+    <TestComponentWithSlot key="slot">Slot component</TestComponentWithSlot>,
+    <div key="hello">Hello World</div>,
+  ]
+  const slotsConfig = {
+    a: TestComponentA,
+    slotComponent: TestComponentWithSlot,
+  }
+
+  function TestComponent(_props: {children: React.ReactNode}) {
+    calls.push(useSlots(children, slotsConfig))
+    return null
+  }
+
+  render(<TestComponent>{children}</TestComponent>)
+
+  expect(calls).toMatchInlineSnapshot(`
+    [
+      [
+        {
+          "a": <TestComponentA>
+            Component A
+          </TestComponentA>,
+          "slotComponent": <TestComponentWithSlot>
+            Slot component
+          </TestComponentWithSlot>,
+        },
+        [
+          <WrappedTestComponentA />,
+          <div>
+            Hello World
+          </div>,
+        ],
+      ],
+    ]
+  `)
+})
+
+test('handles slot symbol matching with duplicate detection', () => {
+  const calls: Array<ReturnType<typeof useSlots>> = []
+  const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
+  const children = [
+    <TestComponentWithSlot key="first">First slot</TestComponentWithSlot>,
+    <WrappedTestComponentWithSlot key="wrapped" />,
+    <div key="hello">Hello World</div>,
+  ]
+  const slotsConfig = {
+    slotComponent: TestComponentWithSlot,
+  }
+
+  function TestComponent(_props: {children: React.ReactNode}) {
+    calls.push(useSlots(children, slotsConfig))
+    return null
+  }
+
+  render(<TestComponent>{children}</TestComponent>)
+
+  expect(calls).toMatchInlineSnapshot(`
+    [
+      [
+        {
+          "slotComponent": <TestComponentWithSlot>
+            First slot
+          </TestComponentWithSlot>,
+        },
+        [
+          <div>
+            Hello World
+          </div>,
+        ],
+      ],
+    ]
+  `)
+  expect(warnSpy).toHaveBeenCalledTimes(1)
+  expect(warnSpy).toHaveBeenCalledWith(
+    'Warning:',
+    'Found duplicate "slotComponent" slot. Only the first will be rendered.',
+  )
+})
+
+test('handles empty slot symbols gracefully', () => {
+  const calls: Array<ReturnType<typeof useSlots>> = []
+
+  // Component without __SLOT__ property
+  function ComponentWithoutSlot(props: React.PropsWithChildren<unknown>) {
+    return <div {...props} />
+  }
+
+  const children = [
+    <ComponentWithoutSlot key="no-slot">No slot</ComponentWithoutSlot>,
+    <TestComponentWithSlot key="with-slot">With slot</TestComponentWithSlot>,
+    <div key="hello">Hello World</div>,
+  ]
+  const slotsConfig = {
+    slotComponent: TestComponentWithSlot,
+    noSlot: ComponentWithoutSlot,
+  }
+
+  function TestComponent(_props: {children: React.ReactNode}) {
+    calls.push(useSlots(children, slotsConfig))
+    return null
+  }
+
+  render(<TestComponent>{children}</TestComponent>)
+
+  expect(calls).toMatchInlineSnapshot(`
+    [
+      [
+        {
+          "noSlot": <ComponentWithoutSlot>
+            No slot
+          </ComponentWithoutSlot>,
+          "slotComponent": <TestComponentWithSlot>
+            With slot
+          </TestComponentWithSlot>,
+        },
+        [
+          <div>
+            Hello World
           </div>,
         ],
       ],

@@ -22,7 +22,8 @@ const WrappedLabelComponent = () => (
   </div>
 )
 
-WrappedLabelComponent.__SLOT__ = Symbol('FormControl.Label')
+// @ts-ignore - WrappedLabelComponent.__SLOT__ is a symbol
+WrappedLabelComponent.__SLOT__ = FormControl.Label.__SLOT__
 
 const WrappedCaptionComponent = () => (
   <div>
@@ -31,7 +32,8 @@ const WrappedCaptionComponent = () => (
   </div>
 )
 
-WrappedCaptionComponent.__SLOT__ = Symbol('FormControl.Caption')
+// @ts-ignore - WrappedLabelComponent.__SLOT__ is a symbol
+WrappedCaptionComponent.__SLOT__ = FormControl.Caption.__SLOT__
 
 const WrappedLeadingVisualComponent = () => (
   <div>
@@ -42,7 +44,8 @@ const WrappedLeadingVisualComponent = () => (
   </div>
 )
 
-WrappedLeadingVisualComponent.__SLOT__ = Symbol('FormControl.LeadingVisual')
+// @ts-ignore - WrappedLabelComponent.__SLOT__ is a symbol
+WrappedLeadingVisualComponent.__SLOT__ = FormControl.LeadingVisual.__SLOT__
 
 const WrappedValidationComponent = () => (
   <div>
@@ -50,7 +53,8 @@ const WrappedValidationComponent = () => (
   </div>
 )
 
-WrappedValidationComponent.__SLOT__ = Symbol('FormControl.Validation')
+// @ts-ignore - WrappedLabelComponent.__SLOT__ is a symbol
+WrappedValidationComponent.__SLOT__ = FormControl.Validation.__SLOT__
 
 describe('FormControl', () => {
   describe('vertically stacked layout (default)', () => {

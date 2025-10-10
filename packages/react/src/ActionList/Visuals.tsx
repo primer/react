@@ -78,3 +78,8 @@ export const VisualOrIndicator: React.FC<
 
 LeadingVisual.displayName = 'ActionList.LeadingVisual'
 TrailingVisual.displayName = 'ActionList.TrailingVisual'
+
+// @ts-ignore - TypeScript doesn't know about the __SLOT__ property
+LeadingVisual.__SLOT__ = Symbol('ActionList.LeadingVisual')
+// @ts-ignore - TypeScript doesn't know about the __SLOT__ property
+TrailingVisual.__SLOT__ = Symbol('ActionList.TrailingVisual')

@@ -49,10 +49,10 @@ export type FormControlProps = {
 const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
   ({children, disabled: disabledProp, layout = 'vertical', id: idProp, required, sx, className, style}, ref) => {
     const [slots, childrenWithoutSlots] = useSlots(children, {
-      caption: {type: FormControlCaption, slot: 'FormControl.Caption'},
-      label: {type: FormControlLabel, slot: 'FormControl.Label'},
-      leadingVisual: {type: FormControlLeadingVisual, slot: 'FormControl.LeadingVisual'},
-      validation: {type: FormControlValidation, slot: 'FormControl.Validation'},
+      caption: FormControlCaption,
+      label: FormControlLabel,
+      leadingVisual: FormControlLeadingVisual,
+      validation: FormControlValidation,
     })
     const expectedInputComponents = [
       Autocomplete,
@@ -237,6 +237,9 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
     )
   },
 )
+
+// @ts-ignore - TypeScript doesn't know about the __SLOT__ prop
+FormControl.__SLOT__ = Symbol('FormControl')
 
 export default Object.assign(FormControl, {
   Caption: FormControlCaption,

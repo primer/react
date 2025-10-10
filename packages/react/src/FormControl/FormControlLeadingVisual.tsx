@@ -48,4 +48,7 @@ const StyledLeadingVisual = styled.div`
   ${sx}
 `
 
+// @ts-ignore - TypeScript doesn't know about the __SLOT__ prop
+FormControlLeadingVisual.__SLOT__ = Symbol('FormControl.LeadingVisual')
+
 export default FormControlLeadingVisual
