@@ -44,7 +44,7 @@ type UsePaginationPagesParameters = {
 
 type PageLabelProps = {
   children: React.ReactNode
-  direction?: string
+  direction?: PageProps['key']
 }
 
 const PageLabel = ({children, direction}: PageLabelProps) => (
