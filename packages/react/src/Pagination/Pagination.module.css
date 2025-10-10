@@ -1,5 +1,4 @@
 .Page {
-  /* display: inline-block; */
   min-width: 32px; /* primer.control.medium.size */
   height: 32px; /* primer.control.medium.size */
   padding: var(--base-size-8) calc((var(--base-size-32) - var(--base-size-20)) / 2); /* primer.control.medium.paddingInline.condensed primer.control.medium.paddingBlock */
