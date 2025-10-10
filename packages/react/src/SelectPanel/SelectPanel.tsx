@@ -962,7 +962,6 @@ const SecondaryLink: React.FC<LinkButtonProps & ButtonProps> = props => {
 }
 
 export const SelectPanel = Object.assign(Panel, {
-  __SLOT__: Symbol('SelectPanel'),
   SecondaryActionButton: SecondaryButton,
   SecondaryActionLink: SecondaryLink,
 })

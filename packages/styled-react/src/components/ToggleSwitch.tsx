@@ -9,7 +9,4 @@ const ToggleSwitch = forwardRef<HTMLButtonElement, ToggleSwitchProps>(function T
   return <Box as={PrimerToggleSwitch} ref={ref} {...props} />
 })
 
-// @ts-ignore -- TS doesn't know about the __SLOT__ property
-ToggleSwitch.__SLOT__ = PrimerToggleSwitch.__SLOT__
-
 export {ToggleSwitch, type ToggleSwitchProps}

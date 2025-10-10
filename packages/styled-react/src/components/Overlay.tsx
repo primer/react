@@ -10,8 +10,5 @@ const Overlay: ForwardRefComponent<'div', OverlayProps> = styled(PrimerOverlay).
   ${sx}
 `
 
-// @ts-ignore -- TS doesn't know about the __SLOT__ property
-Overlay.__SLOT__ = PrimerOverlay.__SLOT__
-
 export {Overlay}
 export type {OverlayProps}

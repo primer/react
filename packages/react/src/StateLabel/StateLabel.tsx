@@ -80,7 +80,4 @@ const StateLabel = forwardRef<HTMLSpanElement, StateLabelProps>(
 
 StateLabel.displayName = 'StateLabel'
 
-// @ts-ignore -- TS doesn't know about the __SLOT__ property
-StateLabel.__SLOT__ = Symbol('StateLabel')
-
 export default StateLabel

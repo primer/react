@@ -39,11 +39,4 @@ const Header = Object.assign(HeaderImpl, {
   Link: HeaderLink,
 })
 
-// @ts-ignore -- TS doesn't know about the __SLOT__ property
-HeaderImpl.__SLOT__ = PrimerHeader.__SLOT__
-// @ts-ignore -- TS doesn't know about the __SLOT__ property
-HeaderItem.__SLOT__ = PrimerHeader.Item.__SLOT__
-// @ts-ignore -- TS doesn't know about the __SLOT__ property
-HeaderLink.__SLOT__ = PrimerHeader.Link.__SLOT__
-
 export {Header, type HeaderProps}

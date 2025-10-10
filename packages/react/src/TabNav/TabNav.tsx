@@ -94,9 +94,4 @@ const TabNavLink = React.forwardRef(function TabNavLink(
 
 TabNavLink.displayName = 'TabNav.Link'
 
-// @ts-ignore -- TS doesn't know about the __SLOT__ property
-TabNav.__SLOT__ = Symbol('TabNav')
-// @ts-ignore -- TS doesn't know about the __SLOT__ property
-TabNavLink.__SLOT__ = Symbol('TabNav.Link')
-
 export default Object.assign(TabNav, {Link: TabNavLink})

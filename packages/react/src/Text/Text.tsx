@@ -34,6 +34,3 @@ function Text<As extends React.ElementType>(props: TextProps<As>, ref: Forwarded
 Text.displayName = 'Text'
 
 export default fixedForwardRef(Text)
-
-// @ts-ignore -- TS doesn't know about the __SLOT__ property
-Text.__SLOT__ = Symbol('Text')

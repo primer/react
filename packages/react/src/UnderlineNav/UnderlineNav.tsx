@@ -427,6 +427,3 @@ export const UnderlineNav = forwardRef(
 )
 
 UnderlineNav.displayName = 'UnderlineNav'
-
-// @ts-ignore -- TS doesn't know about the __SLOT__ property
-UnderlineNav.__SLOT__ = Symbol('UnderlineNav')

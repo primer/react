@@ -8,8 +8,5 @@ const Avatar = forwardRef<HTMLImageElement, AvatarProps>(function Avatar(props, 
   return <Box as={PrimerAvatar} ref={ref} {...props} />
 })
 
-// @ts-ignore -- TS doesn't know about the __SLOT__ property
-Avatar.__SLOT__ = PrimerAvatar.__SLOT__
-
 export {Avatar}
 export type {AvatarProps}

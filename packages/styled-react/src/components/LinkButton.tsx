@@ -15,8 +15,5 @@ const LinkButton: ForwardRefComponent<'a', LinkButtonProps> = styled(PrimerLinkB
   ${sx}
 `
 
-// @ts-ignore -- TS doesn't know about the __SLOT__ property
-LinkButton.__SLOT__ = PrimerLinkButton.__SLOT__
-
 export {LinkButton}
 export type {LinkButtonProps}

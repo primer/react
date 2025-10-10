@@ -34,11 +34,6 @@ const Breadcrumbs: ForwardRefComponent<'nav', BreadcrumbsProps> & {Item: typeof 
   {Item: BreadcrumbsItem},
 )
 
-// @ts-ignore -- TS doesn't know about the __SLOT__ property
-Breadcrumbs.__SLOT__ = PrimerBreadcrumbs.__SLOT__
-// @ts-ignore -- TS doesn't know about the __SLOT__ property
-BreadcrumbsItem.__SLOT__ = PrimerBreadcrumbs.Item.__SLOT__
-
 /**
  * @deprecated Use the `Breadcrumbs` component instead (i.e. `<Breadcrumb>` → `<Breadcrumbs>`)
  */

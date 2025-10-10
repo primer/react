@@ -120,6 +120,3 @@ export const UnderlineNavItem = forwardRef(
 ) as PolymorphicForwardRefComponent<'a', UnderlineNavItemProps>
 
 UnderlineNavItem.displayName = 'UnderlineNavItem'
-
-// @ts-ignore -- TS doesn't know about the __SLOT__ property
-UnderlineNavItem.__SLOT__ = Symbol('UnderlineNav.Item')

@@ -210,7 +210,4 @@ if (__DEV__) {
   ToggleSwitch.displayName = 'ToggleSwitch'
 }
 
-// @ts-ignore -- TS doesn't know about the __SLOT__ property
-ToggleSwitch.__SLOT__ = Symbol('ToggleSwitch')
-
 export default ToggleSwitch

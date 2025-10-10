@@ -28,7 +28,4 @@ const Text = forwardRef<HTMLElement, BaseTextProps>(({as, ...props}, ref) => {
   return <StyledText {...props} {...(as ? {forwardedAs: as} : {})} ref={ref} />
 }) as ForwardRefComponent<'span', BaseTextProps>
 
-// @ts-ignore -- TS doesn't know about the __SLOT__ property
-Text.__SLOT__ = PrimerText.__SLOT__
-
 export {Text, type TextProps}

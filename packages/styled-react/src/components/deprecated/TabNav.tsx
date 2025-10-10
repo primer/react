@@ -31,8 +31,4 @@ const TabNav = Object.assign(TabNavImpl, {
   Link: TabNavLink,
 })
 
-TabNavImpl.__SLOT__ = PrimerTabNav.__SLOT__
-// @ts-ignore -- TS doesn't know about the __SLOT__ property
-TabNavLink.__SLOT__ = PrimerTabNav.Link.__SLOT__
-
 export {TabNav, type TabNavProps, type TabNavLinkProps}

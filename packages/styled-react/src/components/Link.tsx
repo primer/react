@@ -16,7 +16,4 @@ const Link = forwardRef<HTMLAnchorElement, LinkProps>(({as, ...props}, ref) => {
   return <StyledLink {...props} {...(as ? {forwardedAs: as} : {})} ref={ref} />
 }) as ForwardRefComponent<'a', LinkProps>
 
-// @ts-ignore -- TS doesn't know about the __SLOT__ property
-Link.__SLOT__ = PrimerLink.__SLOT__
-
 export {Link, type LinkProps}

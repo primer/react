@@ -14,7 +14,4 @@ const Heading: ForwardRefComponent<HeadingLevels, HeadingProps> = styled(PrimerH
   ${sx}
 `
 
-// @ts-ignore -- TS doesn't know about the __SLOT__ property
-Heading.__SLOT__ = PrimerHeading.__SLOT__
-
 export {Heading, type HeadingProps}

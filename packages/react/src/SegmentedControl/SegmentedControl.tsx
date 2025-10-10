@@ -225,7 +225,3 @@ export const SegmentedControl = Object.assign(Root, {
 
 // @ts-ignore - TS doesn't know about the __SLOT__ property
 SegmentedControl.__SLOT__ = Symbol('SegmentedControl')
-// @ts-ignore - TS doesn't know about the __SLOT__ property
-SegmentedControl.Button.__SLOT__ = Symbol('SegmentedControl.Button')
-// @ts-ignore - TS doesn't know about the __SLOT__ property
-SegmentedControl.IconButton.__SLOT__ = Symbol('SegmentedControl.IconButton')

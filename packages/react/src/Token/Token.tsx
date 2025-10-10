@@ -95,7 +95,4 @@ const Token = forwardRef((props, forwardedRef) => {
 }) as PolymorphicForwardRefComponent<'a' | 'button' | 'span', TokenProps>
 Token.displayName = 'Token'
 
-// @ts-ignore -- TS doesn't know about the __SLOT__ property
-Token.__SLOT__ = Symbol('Token')
-
 export default Token

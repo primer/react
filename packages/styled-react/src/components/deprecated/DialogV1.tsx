@@ -32,10 +32,5 @@ const Dialog = Object.assign(DialogImpl, {
   Header: DialogHeader,
 })
 
-// @ts-ignore -- TS doesn't know about the __SLOT__ property
-DialogImpl.__SLOT__ = PrimerDialog.__SLOT__
-// @ts-ignore -- TS doesn't know about the __SLOT__ property
-DialogHeader.__SLOT__ = PrimerDialog.Header.__SLOT__
-
 export {Dialog}
 export type {DialogProps, DialogHeaderProps}

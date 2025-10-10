@@ -11,6 +11,3 @@ export const Truncate: ForwardRefComponent<'div', TruncateProps> = styled(Primer
 })`
   ${sx}
 `
-
-// @ts-ignore -- TS doesn't know about the __SLOT__ property
-Truncate.__SLOT__ = PrimerTruncate.__SLOT__
