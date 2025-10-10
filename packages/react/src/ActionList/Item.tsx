@@ -76,10 +76,7 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
     subItem: SubItem,
   }
 
-  const [partialSlots, childrenWithoutSlots] = useSlots(props.children, {
-    ...baseSlots,
-    description: Description,
-  })
+  const [partialSlots, childrenWithoutSlots] = useSlots(props.children, {...baseSlots, description: Description})
 
   const slots = {description: undefined, ...partialSlots}
 
