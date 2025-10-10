@@ -392,10 +392,6 @@ const BreadcrumbsItem = React.forwardRef(BreadcrumbsItemComponent)
 
 Breadcrumbs.displayName = 'Breadcrumbs'
 
-Breadcrumbs.__SLOT__ = Symbol('Breadcrumbs')
-// @ts-ignore -- TS doesn't know about the __SLOT__ property
-BreadcrumbsItem.__SLOT__ = Symbol('Breadcrumbs.Item')
-
 export type BreadcrumbsItemProps<As extends React.ElementType = 'a'> = StyledBreadcrumbsItemProps<As>
 export default Object.assign(Breadcrumbs, {Item: BreadcrumbsItem})
 

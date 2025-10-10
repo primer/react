@@ -83,9 +83,6 @@ const UnwrappedList = <As extends React.ElementType = 'ul'>(
 
 const List = fixedForwardRef(UnwrappedList)
 
-// @ts-ignore -- TS doesn't know about the __SLOT__ property
-List.__SLOT__ = Symbol('ActionList')
-
 Object.assign(List, {displayName: 'ActionList'})
 
 export {List}

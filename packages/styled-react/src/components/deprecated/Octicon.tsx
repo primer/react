@@ -23,8 +23,5 @@ const Octicon = forwardRef(({as, ...props}: OcticonProps, ref) => {
   return <StyledOcticon {...props} {...(as ? {forwardedAs: as} : {})} ref={ref} />
 })
 
-// @ts-ignore -- TS doesn't know about the __SLOT__ property
-Octicon.__SLOT__ = PrimerOcticon.__SLOT__
-
 export default Octicon
 export {Octicon}

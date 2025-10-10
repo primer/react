@@ -35,6 +35,4 @@ const Label = React.forwardRef(function Label(
   )
 }) as PolymorphicForwardRefComponent<'span', LabelProps>
 
-Label.__SLOT__ = Symbol('Label')
-
 export default Label

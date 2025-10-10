@@ -340,9 +340,6 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
 })
 _Dialog.displayName = 'Dialog'
 
-// @ts-ignore -- TS doesn't know about the __SLOT__ property
-_Dialog.__SLOT__ = Symbol('Dialog')
-
 type StyledHeaderProps = React.ComponentProps<'div'>
 
 const Header = React.forwardRef<HTMLDivElement, StyledHeaderProps>(function Header({className, ...rest}, forwardRef) {
@@ -350,18 +347,12 @@ const Header = React.forwardRef<HTMLDivElement, StyledHeaderProps>(function Head
 })
 Header.displayName = 'Dialog.Header'
 
-// @ts-ignore -- TS doesn't know about the __SLOT__ property
-Header.__SLOT__ = Symbol('Dialog.Header')
-
 type StyledTitleProps = React.ComponentProps<'h1'>
 
 const Title = React.forwardRef<HTMLHeadingElement, StyledTitleProps>(function Title({className, ...rest}, forwardRef) {
   return <h1 ref={forwardRef} className={clsx(className, classes.Title)} {...rest} />
 })
 Title.displayName = 'Dialog.Title'
-
-// @ts-ignore -- TS doesn't know about the __SLOT__ property
-Title.__SLOT__ = Symbol('Dialog.Title')
 
 type StyledSubtitleProps = React.ComponentProps<'h2'>
 
@@ -373,9 +364,6 @@ const Subtitle = React.forwardRef<HTMLHeadingElement, StyledSubtitleProps>(funct
 })
 Subtitle.displayName = 'Dialog.Subtitle'
 
-// @ts-ignore -- TS doesn't know about the __SLOT__ property
-Subtitle.__SLOT__ = Symbol('Dialog.Subtitle')
-
 type StyledBodyProps = React.ComponentProps<'div'>
 
 const Body = React.forwardRef<HTMLDivElement, StyledBodyProps>(function Body({className, ...rest}, forwardRef) {
@@ -384,18 +372,12 @@ const Body = React.forwardRef<HTMLDivElement, StyledBodyProps>(function Body({cl
 
 Body.displayName = 'Dialog.Body'
 
-// @ts-ignore -- TS doesn't know about the __SLOT__ property
-Body.__SLOT__ = Symbol('Dialog.Body')
-
 type StyledFooterProps = React.ComponentProps<'div'>
 
 const Footer = React.forwardRef<HTMLDivElement, StyledFooterProps>(function Footer({className, ...rest}, forwardRef) {
   return <div ref={forwardRef} className={clsx(className, classes.Footer)} {...rest} />
 })
 Footer.displayName = 'Dialog.Footer'
-
-// @ts-ignore -- TS doesn't know about the __SLOT__ property
-Footer.__SLOT__ = Symbol('Dialog.Footer')
 
 const Buttons: React.FC<React.PropsWithChildren<{buttons: DialogButtonProps[]}>> = ({buttons}) => {
   const autoFocusRef = useProvidedRefOrCreate<HTMLButtonElement>(buttons.find(button => button.autoFocus)?.ref)

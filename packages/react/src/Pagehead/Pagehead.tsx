@@ -6,9 +6,6 @@ const Pagehead = ({as: BaseComponent = 'div', className, ...rest}: PageheadProps
   return <BaseComponent className={clsx(classes.Pagehead, className)} {...rest} />
 }
 
-// @ts-ignore -- TS doesn't know about the __SLOT__ property
-Pagehead.__SLOT__ = Symbol('Pagehead')
-
 /**
  * @deprecated
  */

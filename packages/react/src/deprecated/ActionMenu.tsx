@@ -113,8 +113,3 @@ ActionMenuBase.displayName = 'ActionMenu'
  * @deprecated Use ActionMenu with composable API instead. See https://primer.style/react/ActionMenu for more details.
  */
 export const ActionMenu = Object.assign(ActionMenuBase, {Divider, Item: ActionMenuItem})
-
-ActionMenuBase.__SLOT__ = Symbol('DEPRECATED_ActionMenu')
-ActionMenuItem.__SLOT__ = Symbol('DEPRECATED_ActionMenu.Item')
-// @ts-ignore -- TS doesn't know about the __SLOT__ property
-Divider.__SLOT__ = Symbol('DEPRECATED_ActionMenu.Divider')

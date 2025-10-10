@@ -24,6 +24,8 @@ import {useResizeObserver, type ResizeObserverEntry} from '../../hooks/useResize
 import useIsomorphicLayoutEffect from '../../utils/useIsomorphicLayoutEffect'
 import classes from './UnderlinePanels.module.css'
 import {clsx} from 'clsx'
+import {getSlot} from '../../utils/get-slot'
+import type {FCWithSlotMarker} from '../../utils/types'
 
 export type UnderlinePanelsProps = {
   /**
@@ -101,11 +103,14 @@ const UnderlinePanels: FC<UnderlinePanelsProps> = ({
     let panelIndex = 0
 
     const childrenWithProps = Children.map(children, child => {
-      if (isValidElement<UnderlineItemProps<ElementType>>(child) && child.type === Tab) {
+      if (
+        isValidElement<UnderlineItemProps<ElementType>>(child) &&
+        (child.type === Tab || getSlot(child) === Tab.__SLOT__)
+      ) {
         return cloneElement(child, {id: `${parentId}-tab-${tabIndex++}`, loadingCounters, iconsVisible})
       }
 
-      if (isValidElement<PanelProps>(child) && child.type === Panel) {
+      if (isValidElement<PanelProps>(child) && (child.type === Panel || getSlot(child) === Panel.__SLOT__)) {
         const childPanel = child as React.ReactElement<PanelProps>
         return cloneElement(childPanel, {'aria-labelledby': `${parentId}-tab-${panelIndex++}`})
       }
@@ -113,11 +118,11 @@ const UnderlinePanels: FC<UnderlinePanelsProps> = ({
     })
 
     const newTabs = Children.toArray(childrenWithProps).filter(child => {
-      return isValidElement(child) && child.type === Tab
+      return isValidElement(child) && (child.type === Tab || getSlot(child) === Tab.__SLOT__)
     })
 
     const newTabPanels = Children.toArray(childrenWithProps).filter(
-      child => isValidElement(child) && child.type === Panel,
+      child => isValidElement(child) && (child.type === Panel || getSlot(child) === Panel.__SLOT__),
     )
 
     setTabs(newTabs)
@@ -185,7 +190,7 @@ const UnderlinePanels: FC<UnderlinePanelsProps> = ({
   )
 }
 
-const Tab: FC<TabProps> = ({'aria-selected': ariaSelected, onSelect, ...props}) => {
+const Tab: FCWithSlotMarker<TabProps> = ({'aria-selected': ariaSelected, onSelect, ...props}) => {
   const clickHandler = React.useCallback(
     (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
       if (!event.defaultPrevented && typeof onSelect === 'function') {
@@ -219,7 +224,7 @@ const Tab: FC<TabProps> = ({'aria-selected': ariaSelected, onSelect, ...props}) 
 
 Tab.displayName = 'UnderlinePanels.Tab'
 
-const Panel: FC<PanelProps> = ({children, ...rest}) => {
+const Panel: FCWithSlotMarker<PanelProps> = ({children, ...rest}) => {
   return (
     <div role="tabpanel" {...rest}>
       {children}

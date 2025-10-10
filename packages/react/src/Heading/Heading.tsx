@@ -38,7 +38,5 @@ const Heading = forwardRef(({as: Component = 'h2', className, variant, ...props}
 
 Heading.displayName = 'Heading'
 
-Heading.__SLOT__ = Symbol('Heading')
-
 export type HeadingProps = ComponentProps<typeof Heading>
 export default Heading

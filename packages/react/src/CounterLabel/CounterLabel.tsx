@@ -35,7 +35,4 @@ const CounterLabel = forwardRef<HTMLSpanElement, CounterLabelProps>(
 
 CounterLabel.displayName = 'CounterLabel'
 
-// @ts-ignore -- TS doesn't know about the __SLOT__ property
-CounterLabel.__SLOT__ = Symbol('CounterLabel')
-
 export default CounterLabel

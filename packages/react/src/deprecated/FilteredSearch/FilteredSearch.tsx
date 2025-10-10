@@ -15,7 +15,5 @@ function FilteredSearch({children, className, ...rest}: FilteredSearchProps) {
   )
 }
 
-FilteredSearch.__SLOT__ = Symbol('DEPRECATED_FilteredSearch')
-
 export type {FilteredSearchProps}
 export default FilteredSearch

@@ -6,7 +6,6 @@ import AutocompleteInput from './AutocompleteInput'
 import AutocompleteMenu from './AutocompleteMenu'
 import AutocompleteOverlay from './AutocompleteOverlay'
 import {useId} from '../hooks/useId'
-import type {FCWithSlotMarker} from '../utils/types/Slots'
 
 type Action =
   | {type: 'showMenu' | 'isMenuDirectlyActivated'; payload: boolean}
@@ -47,7 +46,7 @@ const reducer = (state: State, action: Action) => {
   }
 }
 
-const Autocomplete: FCWithSlotMarker<React.PropsWithChildren<{id?: string}>> = ({children, id: idProp}) => {
+const Autocomplete: React.FC<React.PropsWithChildren<{id?: string}>> = ({children, id: idProp}) => {
   const activeDescendantRef = useRef<HTMLElement>(null)
   const scrollContainerRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
@@ -104,5 +103,3 @@ export default Object.assign(Autocomplete, {
   Menu: AutocompleteMenu,
   Overlay: AutocompleteOverlay,
 })
-
-Autocomplete.__SLOT__ = Symbol('Autocomplete')

@@ -28,6 +28,4 @@ if (__DEV__) {
   Flash.displayName = 'Flash'
 }
 
-Flash.__SLOT__ = Symbol('Flash')
-
 export default Flash

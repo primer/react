@@ -170,10 +170,7 @@ const Panel: React.FC<SelectPanelProps> = ({
 
   /* Panel plumbing */
   const panelId = useId(id)
-  const [slots, childrenInBody] = useSlots(contents, {
-    header: SelectPanelHeader,
-    footer: SelectPanelFooter,
-  })
+  const [slots, childrenInBody] = useSlots(contents, {header: SelectPanelHeader, footer: SelectPanelFooter})
 
   // used in SelectPanel.SearchInput
   const moveFocusToList = () => {
@@ -412,6 +409,8 @@ const SelectPanelHeader: React.FC<React.ComponentPropsWithoutRef<'div'> & {onBac
   )
 }
 
+SelectPanelHeader.__SLOT__ = Symbol('SelectPanel.Header')
+
 const SelectPanelSearchInput: React.FC<TextInputProps> = ({
   onChange: propsOnChange,
   onKeyDown: propsOnKeyDown,
@@ -468,6 +467,8 @@ const SelectPanelSearchInput: React.FC<TextInputProps> = ({
   )
 }
 
+SelectPanelSearchInput.__SLOT__ = Symbol('SelectPanel.SearchInput')
+
 const FooterContext = React.createContext<boolean>(false)
 const SelectPanelFooter = ({...props}) => {
   const {onCancel, selectionVariant} = React.useContext(SelectPanelContext)
@@ -502,6 +503,8 @@ const SelectPanelFooter = ({...props}) => {
     </FooterContext.Provider>
   )
 }
+
+SelectPanelFooter.__SLOT__ = Symbol('SelectPanel.Footer')
 
 const SecondaryButton: React.FC<ButtonProps> = props => {
   const size = useResponsiveValue(responsiveButtonSizes, 'small')
