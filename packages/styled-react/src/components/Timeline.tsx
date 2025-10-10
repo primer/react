@@ -47,9 +47,8 @@ export const Timeline = Object.assign(TimelineImpl, {
 TimelineImpl.__SLOT__ = PrimerTimeline.__SLOT__
 // @ts-ignore -- TS doesn't know about the __SLOT__ property
 TimelineItem.__SLOT__ = PrimerTimeline.Item.__SLOT__
-// @ts-ignore -- TS doesn't know about the __SLOT__ property
 TimelineBadge.__SLOT__ = PrimerTimeline.Badge.__SLOT__
-// @ts-ignore -- TS doesn't know about the __SLOT__ property
+// @ts-ignore -- TS 't know about the __SLOT__ property
 TimelineBody.__SLOT__ = PrimerTimeline.Body.__SLOT__
 // @ts-ignore -- TS doesn't know about the __SLOT__ property
 TimelineBreak.__SLOT__ = PrimerTimeline.Break.__SLOT__

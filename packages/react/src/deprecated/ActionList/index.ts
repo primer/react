@@ -24,7 +24,6 @@ export const ActionList = Object.assign(List, {
 List.__SLOT__ = Symbol('DEPRECATED_ActionList')
 // @ts-ignore -- TS doesn't know about the __SLOT__ property
 Group.__SLOT__ = Symbol('DEPRECATED_ActionList.Group')
-// @ts-ignore -- TS doesn't know about the __SLOT__ property
 Item.__SLOT__ = Symbol('DEPRECATED_ActionList.Item')
 // @ts-ignore -- TS doesn't know about the __SLOT__ property
 Divider.__SLOT__ = Symbol('DEPRECATED_ActionList.Divider')

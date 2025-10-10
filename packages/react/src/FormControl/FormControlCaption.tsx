@@ -31,7 +31,6 @@ function FormControlCaption({id, children, sx, className, style}: FormControlCap
   )
 }
 
-// @ts-ignore - TypeScript doesn't know about the __SLOT__ prop
 FormControlCaption.__SLOT__ = Symbol('FormControl.Caption')
 
 export {FormControlCaption}

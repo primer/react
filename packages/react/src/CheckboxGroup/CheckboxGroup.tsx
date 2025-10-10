@@ -10,6 +10,7 @@ import FormControl from '../FormControl'
 import Checkbox from '../Checkbox/Checkbox'
 import {CheckboxGroupContext} from './CheckboxGroupContext'
 import {getSlotName} from '../utils/get-slot-name'
+import type {FCWithSlotMarker} from '../utils/types'
 
 export type CheckboxGroupProps = {
   /**
@@ -18,7 +19,12 @@ export type CheckboxGroupProps = {
   onChange?: (selected: string[], e?: ChangeEvent<HTMLInputElement>) => void
 } & CheckboxOrRadioGroupProps
 
-const CheckboxGroup: FC<React.PropsWithChildren<CheckboxGroupProps>> = ({children, disabled, onChange, ...rest}) => {
+const CheckboxGroup: FCWithSlotMarker<React.PropsWithChildren<CheckboxGroupProps>> = ({
+  children,
+  disabled,
+  onChange,
+  ...rest
+}) => {
   const formControlComponentChildren = React.Children.toArray(children)
     .filter(
       child => React.isValidElement(child) && (child.type === FormControl || getSlotName(child) === 'FormControl'),
@@ -77,11 +83,4 @@ export default Object.assign(CheckboxGroup, {
   Validation: CheckboxOrRadioGroupValidation,
 })
 
-// @ts-ignore -- TS doesn't know about the __SLOT__ property
 CheckboxGroup.__SLOT__ = Symbol('CheckboxGroup')
-// @ts-ignore -- TS doesn't know about the __SLOT__ property
-CheckboxOrRadioGroupCaption.__SLOT__ = Symbol('CheckboxGroup.Caption')
-// @ts-ignore -- TS doesn't know about the __SLOT__ property
-CheckboxOrRadioGroupLabel.__SLOT__ = Symbol('CheckboxGroup.Label')
-// @ts-ignore -- TS doesn't know about the __SLOT__ property
-CheckboxOrRadioGroupValidation.__SLOT__ = Symbol('CheckboxGroup.Validation')

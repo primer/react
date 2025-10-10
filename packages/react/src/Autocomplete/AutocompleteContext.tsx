@@ -17,6 +17,3 @@ export const AutocompleteContext = createContext<{
   setShowMenu: (value: boolean) => void
   showMenu: boolean
 } | null>(null)
-
-// @ts-ignore -- Ty
-AutocompleteContext.__SLOT__ = Symbol('Autocomplete.Context')

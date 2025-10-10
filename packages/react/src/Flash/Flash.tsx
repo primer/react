@@ -28,7 +28,6 @@ if (__DEV__) {
   Flash.displayName = 'Flash'
 }
 
-// @ts-ignore -- TS doesn't know about the __SLOT__ property
 Flash.__SLOT__ = Symbol('Flash')
 
 export default Flash

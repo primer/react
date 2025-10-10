@@ -114,9 +114,7 @@ ActionMenuBase.displayName = 'ActionMenu'
  */
 export const ActionMenu = Object.assign(ActionMenuBase, {Divider, Item: ActionMenuItem})
 
-// @ts-ignore -- TS doesn't know about the __SLOT__ property
 ActionMenuBase.__SLOT__ = Symbol('DEPRECATED_ActionMenu')
-// @ts-ignore -- TS doesn't know about the __SLOT__ property
 ActionMenuItem.__SLOT__ = Symbol('DEPRECATED_ActionMenu.Item')
 // @ts-ignore -- TS doesn't know about the __SLOT__ property
 Divider.__SLOT__ = Symbol('DEPRECATED_ActionMenu.Divider')

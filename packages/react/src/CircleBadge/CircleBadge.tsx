@@ -41,9 +41,7 @@ const CircleBadgeIcon = (props: OcticonProps) => <Octicon className={styles.Circ
 
 CircleBadgeIcon.displayName = 'CircleBadge.Icon'
 
-// @ts-ignore -- TS doesn't know about the __SLOT__ property
 CircleBadge.__SLOT__ = Symbol('CircleBadge')
-// @ts-ignore -- TS doesn't know about the __SLOT__ property
 CircleBadgeIcon.__SLOT__ = Symbol('CircleBadge.Icon')
 
 export type CircleBadgeIconProps = ComponentProps<typeof CircleBadgeIcon>

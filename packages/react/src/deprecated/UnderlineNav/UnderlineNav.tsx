@@ -48,7 +48,6 @@ export type {UnderlineNavLinkProps}
  */
 const DeprecatedUnderlineNav = Object.assign(UnderlineNav, {Link: UnderlineNavLink})
 
-// @ts-ignore -- TS doesn't know about the __SLOT__ property
 UnderlineNav.__SLOT__ = Symbol('DEPRECATED_UnderlineNav')
 // @ts-ignore -- TS doesn't know about the __SLOT__ property
 UnderlineNavLink.__SLOT__ = Symbol('DEPRECATED_UnderlineNav.Link')

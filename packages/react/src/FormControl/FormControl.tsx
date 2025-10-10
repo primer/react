@@ -238,10 +238,8 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
   },
 )
 
-// @ts-ignore - TypeScript doesn't know about the __SLOT__ prop
-FormControl.__SLOT__ = Symbol('FormControl')
-
 export default Object.assign(FormControl, {
+  __SLOT__: Symbol('FormControl'),
   Caption: FormControlCaption,
   Label: FormControlLabel,
   LeadingVisual: FormControlLeadingVisual,
