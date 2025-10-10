@@ -1,4 +1,5 @@
-import type React, {ForwardedRef} from 'react'
+import type React from 'react'
+import type {ForwardedRef} from 'react'
 import {clsx} from 'clsx'
 import classes from './BranchName.module.css'
 import {fixedForwardRef, type PolymorphicProps} from '../utils/modern-polymorphic'
