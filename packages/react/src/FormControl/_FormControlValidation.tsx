@@ -3,6 +3,7 @@ import InputValidation from '../internal/components/InputValidation'
 import type {SxProp} from '../sx'
 import type {FormValidationStatus} from '../utils/types/FormValidationStatus'
 import {useFormControlContext} from './_FormControlContext'
+import type {FCWithSlotMarker} from '../utils/types'
 
 export type FormControlValidationProps = {
   variant: FormValidationStatus
@@ -11,7 +12,7 @@ export type FormControlValidationProps = {
   style?: React.CSSProperties
 } & SxProp
 
-const FormControlValidation: React.FC<React.PropsWithChildren<FormControlValidationProps>> = ({
+const FormControlValidation: FCWithSlotMarker<React.PropsWithChildren<FormControlValidationProps>> = ({
   children,
   className,
   variant,
@@ -33,7 +34,6 @@ const FormControlValidation: React.FC<React.PropsWithChildren<FormControlValidat
   )
 }
 
-// @ts-ignore - TypeScript doesn't know about the __SLOT__ prop
 FormControlValidation.__SLOT__ = Symbol('FormControl.Validation')
 
 export default FormControlValidation

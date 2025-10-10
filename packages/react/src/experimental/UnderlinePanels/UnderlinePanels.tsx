@@ -77,7 +77,7 @@ export type PanelProps = React.HTMLAttributes<HTMLDivElement>
 
 const TabContainerComponent = createComponent(TabContainerElement, 'tab-container')
 
-const UnderlinePanels: FC<UnderlinePanelsProps> = ({
+const UnderlinePanels: FCWithSlotMarker<UnderlinePanelsProps> = ({
   'aria-label': ariaLabel,
   'aria-labelledby': ariaLabelledBy,
   children,
@@ -236,9 +236,6 @@ Panel.displayName = 'UnderlinePanels.Panel'
 
 export default Object.assign(UnderlinePanels, {Panel, Tab})
 
-// @ts-ignore -- TS doesn't know about the __SLOT__ property
 UnderlinePanels.__SLOT__ = Symbol('UnderlinePanels')
-// @ts-ignore -- TS doesn't know about the __SLOT__ property
 Tab.__SLOT__ = Symbol('UnderlinePanels.Tab')
-// @ts-ignore -- TS doesn't know about the __SLOT__ property
 Panel.__SLOT__ = Symbol('UnderlinePanels.Panel')

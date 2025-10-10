@@ -27,6 +27,7 @@ import {clsx} from 'clsx'
 
 import classes from './SelectPanel.module.css'
 import type {PositionSettings} from '@primer/behaviors'
+import type {FCWithSlotMarker} from '../../utils/types'
 
 const SelectPanelContext = React.createContext<{
   title: string
@@ -340,7 +341,7 @@ const SelectPanelButton = React.forwardRef<HTMLButtonElement, ButtonProps>((prop
   }
 })
 
-const SelectPanelHeader: React.FC<React.ComponentPropsWithoutRef<'div'> & {onBack?: () => void}> = ({
+const SelectPanelHeader: FCWithSlotMarker<React.ComponentPropsWithoutRef<'div'> & {onBack?: () => void}> = ({
   children,
   onBack,
   className,
@@ -411,7 +412,7 @@ const SelectPanelHeader: React.FC<React.ComponentPropsWithoutRef<'div'> & {onBac
 
 SelectPanelHeader.__SLOT__ = Symbol('SelectPanel.Header')
 
-const SelectPanelSearchInput: React.FC<TextInputProps> = ({
+const SelectPanelSearchInput: FCWithSlotMarker<TextInputProps> = ({
   onChange: propsOnChange,
   onKeyDown: propsOnKeyDown,
   className,

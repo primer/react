@@ -4,6 +4,7 @@ import {TextInputBaseWrapper} from '../internal/components/TextInputWrapper'
 import type {FormValidationStatus} from '../utils/types/FormValidationStatus'
 import type {SxProp} from '../sx'
 import classes from './TextArea.module.css'
+import type {WithSlotMarker} from '../utils/types'
 
 export const DEFAULT_TEXTAREA_ROWS = 7
 export const DEFAULT_TEXTAREA_COLS = 30
@@ -106,7 +107,6 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
 )
 
 Textarea.displayName = 'Textarea'
+;(Textarea as WithSlotMarker<typeof Textarea>).__SLOT__ = Symbol('Textarea')
 
-Textarea.__SLOT__ = Symbol('Textarea')
-
-export default Textarea
+export default Textarea as WithSlotMarker<typeof Textarea>

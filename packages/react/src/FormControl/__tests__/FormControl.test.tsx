@@ -10,29 +10,28 @@ import Textarea from '../../Textarea'
 import TextInput from '../../TextInput'
 import TextInputWithTokens from '../../TextInputWithTokens'
 import {MarkGithubIcon} from '@primer/octicons-react'
+import type {FCWithSlotMarker} from '../../utils/types'
 
 const LABEL_TEXT = 'Form control'
 const CAPTION_TEXT = 'Hint text'
 const ERROR_TEXT = 'This field is invalid'
 
-const WrappedLabelComponent = () => (
+const WrappedLabelComponent: FCWithSlotMarker<object> = () => (
   <div>
     {/* eslint-disable-next-line primer-react/direct-slot-children */}
     <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
   </div>
 )
 
-// @ts-ignore - WrappedLabelComponent.__SLOT__ is a symbol
 WrappedLabelComponent.__SLOT__ = FormControl.Label.__SLOT__
 
-const WrappedCaptionComponent = () => (
+const WrappedCaptionComponent: FCWithSlotMarker<object> = () => (
   <div>
     {/* eslint-disable-next-line primer-react/direct-slot-children */}
     <FormControl.Caption>{CAPTION_TEXT}</FormControl.Caption>
   </div>
 )
 
-// @ts-ignore - WrappedLabelComponent.__SLOT__ is a symbol
 WrappedCaptionComponent.__SLOT__ = FormControl.Caption.__SLOT__
 
 const WrappedLeadingVisualComponent = () => (
@@ -44,16 +43,14 @@ const WrappedLeadingVisualComponent = () => (
   </div>
 )
 
-// @ts-ignore - WrappedLabelComponent.__SLOT__ is a symbol
 WrappedLeadingVisualComponent.__SLOT__ = FormControl.LeadingVisual.__SLOT__
 
-const WrappedValidationComponent = () => (
+const WrappedValidationComponent: FCWithSlotMarker<object> = () => (
   <div>
     <FormControl.Validation variant="error">{ERROR_TEXT}</FormControl.Validation>
   </div>
 )
 
-// @ts-ignore - WrappedLabelComponent.__SLOT__ is a symbol
 WrappedValidationComponent.__SLOT__ = FormControl.Validation.__SLOT__
 
 describe('FormControl', () => {

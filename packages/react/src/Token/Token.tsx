@@ -94,5 +94,4 @@ const Token = forwardRef((props, forwardedRef) => {
   )
 }) as PolymorphicForwardRefComponent<'a' | 'button' | 'span', TokenProps>
 Token.displayName = 'Token'
-
 export default Token

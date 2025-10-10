@@ -3,8 +3,9 @@ import type {SxProp} from '../sx'
 import {useFormControlContext} from './_FormControlContext'
 import styled from 'styled-components'
 import sx from '../sx'
+import type {FCWithSlotMarker} from '../utils/types'
 
-const FormControlLeadingVisual: React.FC<React.PropsWithChildren<SxProp & {style?: React.CSSProperties}>> = ({
+const FormControlLeadingVisual: FCWithSlotMarker<React.PropsWithChildren<SxProp & {style?: React.CSSProperties}>> = ({
   children,
   sx,
   style,
@@ -47,7 +48,6 @@ const StyledLeadingVisual = styled.div`
   ${sx}
 `
 
-// @ts-ignore - TypeScript doesn't know about the __SLOT__ prop
 FormControlLeadingVisual.__SLOT__ = Symbol('FormControl.LeadingVisual')
 
 export default FormControlLeadingVisual

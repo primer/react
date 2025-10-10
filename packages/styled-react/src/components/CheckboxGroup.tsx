@@ -48,11 +48,7 @@ export const CheckboxGroup = Object.assign(CheckboxGroupImpl, {
   Validation: CheckboxOrRadioGroupValidation,
 })
 
-// @ts-ignore -- TS doesn't know about the __SLOT__ property
 CheckboxGroupImpl.__SLOT__ = PrimerCheckboxGroup.__SLOT__
-// @ts-ignore -- TS doesn't know about the __SLOT__ property
 CheckboxOrRadioGroupLabel.__SLOT__ = PrimerCheckboxGroup.Label.__SLOT__
-// @ts-ignore -- TS doesn't know about the __SLOT__ property
 CheckboxOrRadioGroupCaption.__SLOT__ = PrimerCheckboxGroup.Caption.__SLOT__
-// @ts-ignore -- TS doesn't know about the __SLOT__ property
 CheckboxOrRadioGroupValidation.__SLOT__ = PrimerCheckboxGroup.Validation.__SLOT__

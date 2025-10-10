@@ -219,9 +219,7 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
 Root.displayName = 'SegmentedControl'
 
 export const SegmentedControl = Object.assign(Root, {
+  __SLOT__: Symbol('SegmentedControl'),
   Button,
   IconButton: SegmentedControlIconButton,
 })
-
-// @ts-ignore - TS doesn't know about the __SLOT__ property
-SegmentedControl.__SLOT__ = Symbol('SegmentedControl')
