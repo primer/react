@@ -16,6 +16,7 @@ import {Tooltip} from '../TooltipV2/Tooltip'
 import styles from './ActionMenu.module.css'
 import {useResponsiveValue, type ResponsiveValue} from '../hooks/useResponsiveValue'
 import {getSlotName} from '../utils/get-slot-name'
+import type {FCWithSlotMarker, WithSlotMarker} from '../utils/types/Slots'
 
 export type MenuCloseHandler = (
   gesture: 'anchor-click' | 'click-outside' | 'escape' | 'tab' | 'item-select' | 'arrow-left' | 'close',
@@ -72,7 +73,7 @@ const mergeAnchorHandlers = (anchorProps: React.HTMLAttributes<HTMLElement>, but
   return mergedAnchorProps
 }
 
-const Menu: React.FC<React.PropsWithChildren<ActionMenuProps>> = ({
+const Menu: FCWithSlotMarker<React.PropsWithChildren<ActionMenuProps>> = ({
   anchorRef: externalAnchorRef,
   open,
   onOpenChange,
@@ -179,7 +180,15 @@ const Menu: React.FC<React.PropsWithChildren<ActionMenuProps>> = ({
 }
 
 export type ActionMenuAnchorProps = {children: React.ReactElement; id?: string} & React.HTMLAttributes<HTMLElement>
-const Anchor = React.forwardRef<HTMLElement, ActionMenuAnchorProps>(({children: child, ...anchorProps}, anchorRef) => {
+const Anchor: WithSlotMarker<
+  React.ForwardRefExoticComponent<
+    {
+      children: React.ReactElement
+      id?: string
+    } & React.HTMLAttributes<HTMLElement> &
+      React.RefAttributes<HTMLElement>
+  >
+> = React.forwardRef<HTMLElement, ActionMenuAnchorProps>(({children: child, ...anchorProps}, anchorRef) => {
   const {onOpen, isSubmenu} = React.useContext(MenuContext)
 
   const openSubmenuOnRightArrow: React.KeyboardEventHandler<HTMLElement> = useCallback(
@@ -251,7 +260,7 @@ type MenuOverlayProps = Partial<OverlayProps> &
     children: React.ReactNode
     onPositionChange?: ({position}: {position: AnchorPosition}) => void
   }
-const Overlay: React.FC<React.PropsWithChildren<MenuOverlayProps>> = ({
+const Overlay: FCWithSlotMarker<React.PropsWithChildren<MenuOverlayProps>> = ({
   children,
   align = 'start',
   side,
@@ -328,13 +337,9 @@ const Overlay: React.FC<React.PropsWithChildren<MenuOverlayProps>> = ({
 
 Menu.displayName = 'ActionMenu'
 
-// @ts-ignore -- TS doesn't know about the __SLOT__ property
 Menu.__SLOT__ = Symbol('ActionMenu')
-// @ts-ignore -- TS doesn't know about the __SLOT__ property
 MenuButton.__SLOT__ = Symbol('ActionMenu.Button')
-// @ts-ignore -- TS doesn't know about the __SLOT__ property
 Anchor.__SLOT__ = Symbol('ActionMenu.Anchor')
-// @ts-ignore -- TS doesn't know about the __SLOT__ property
 Overlay.__SLOT__ = Symbol('ActionMenu.Overlay')
 
 export const ActionMenu = Object.assign(Menu, {Button: MenuButton, Anchor, Overlay, Divider})

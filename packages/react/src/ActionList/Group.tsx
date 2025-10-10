@@ -7,6 +7,7 @@ import {invariant} from '../utils/invariant'
 import {clsx} from 'clsx'
 import classes from './ActionList.module.css'
 import groupClasses from './Group.module.css'
+import type {FCWithSlotMarker} from '../utils/types/Slots'
 
 type HeadingProps = {
   as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
@@ -67,7 +68,7 @@ export const GroupContext = React.createContext<ContextProps>({
   selectionVariant: undefined,
 })
 
-export const Group: React.FC<React.PropsWithChildren<ActionListGroupProps>> = ({
+export const Group: FCWithSlotMarker<React.PropsWithChildren<ActionListGroupProps>> = ({
   title,
   variant = 'subtle',
   auxiliaryText,
@@ -138,7 +139,7 @@ export type ActionListGroupHeadingProps = Pick<ActionListGroupProps, 'variant' |
  * hidden from the accessibility tree due to the limitation of listbox children. https://w3c.github.io/aria/#listbox
  * groups under menu or listbox are labelled by `aria-label`
  */
-export const GroupHeading: React.FC<React.PropsWithChildren<ActionListGroupHeadingProps>> = ({
+export const GroupHeading: FCWithSlotMarker<React.PropsWithChildren<ActionListGroupHeadingProps>> = ({
   as,
   variant = 'subtle',
   // We are not recommending this prop to be used, it should only be used internally for incremental rollout.
@@ -211,7 +212,5 @@ export const GroupHeading: React.FC<React.PropsWithChildren<ActionListGroupHeadi
 GroupHeading.displayName = 'ActionList.GroupHeading'
 Group.displayName = 'ActionList.Group'
 
-// @ts-ignore - TypeScript doesn't know about the __SLOT__ property
 Group.__SLOT__ = Symbol('ActionList.Group')
-// @ts-ignore - TypeScript doesn't know about the __SLOT__ property
 GroupHeading.__SLOT__ = Symbol('ActionList.GroupHeading')

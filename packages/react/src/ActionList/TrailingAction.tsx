@@ -67,5 +67,4 @@ export const TrailingAction = forwardRef(
   },
 ) as PolymorphicForwardRefComponent<'button' | 'a', ActionListTrailingActionProps>
 
-// @ts-ignore - TypeScript doesn't know about the __SLOT__ property
 TrailingAction.__SLOT__ = Symbol('ActionList.TrailingAction')
