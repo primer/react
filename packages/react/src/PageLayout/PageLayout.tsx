@@ -848,7 +848,7 @@ export const PageLayout = Object.assign(Root, {
   __SLOT__: Symbol('PageLayout'),
   Header,
   Content,
-  Pane,
+  Pane: Pane as WithSlotMarker<typeof Pane>,
   Footer,
 })
 

@@ -22,7 +22,6 @@ export type {ActionListTrailingActionProps} from './TrailingAction'
  * Collection of list-related components.
  */
 export const ActionList = Object.assign(List, {
-  __SLOT__: Symbol('ActionList'),
   /** Collects related `Items` in an `ActionList`. */
   Group,
 

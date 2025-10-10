@@ -9,6 +9,7 @@ import {
   type ActionListDividerProps as PrimerActionListDividerProps,
   type ActionListLeadingVisualProps as PrimerActionListLeadingVisualProps,
   type ActionListTrailingVisualProps as PrimerActionListTrailingVisualProps,
+  type SlotMarker,
 } from '@primer/react'
 import {sx, type SxProp} from '../sx'
 import type {ForwardRefComponent} from '../polymorphic'
@@ -30,7 +31,7 @@ const StyledActionList = styled(PrimerActionList).withConfig({
   ${sx}
 ` as typeof PrimerActionList & {
   <As extends React.ElementType = 'ul'>(props: ActionListProps<As>): React.ReactElement | null
-}
+} & SlotMarker
 
 const ActionListImpl = React.forwardRef(function ActionListImpl<As extends React.ElementType = 'ul'>(
   {as, ...rest}: ActionListProps<As>,
@@ -39,7 +40,7 @@ const ActionListImpl = React.forwardRef(function ActionListImpl<As extends React
   return <StyledActionList ref={ref} {...rest} {...(as ? {forwardedAs: as} : {})} />
 })
 
-const ActionListLinkItem: ForwardRefComponent<'a', ActionListLinkItemProps> = styled(
+const ActionListLinkItem: ForwardRefComponent<'a', ActionListLinkItemProps> & SlotMarker = styled(
   PrimerActionList.LinkItem,
 ).withConfig<ActionListLinkItemProps>({
   shouldForwardProp: prop => prop !== 'sx',
@@ -65,7 +66,7 @@ const ActionListTrailingAction = React.forwardRef<HTMLButtonElement | HTMLAnchor
       />
     )
   },
-) as ForwardRefComponent<TrailingActionElements, ActionListTrailingActionProps>
+) as ForwardRefComponent<TrailingActionElements, ActionListTrailingActionProps> & SlotMarker
 
 const StyledActionListItem: ForwardRefComponent<'li', ActionListItemProps> = styled(
   PrimerActionList.Item,
@@ -79,9 +80,9 @@ const ActionListItem = React.forwardRef<HTMLLIElement, ActionListItemProps>(({ch
   <StyledActionListItem ref={ref} {...props} {...(as ? {forwardedAs: as} : {})}>
     {children}
   </StyledActionListItem>
-)) as ForwardRefComponent<'li', ActionListItemProps>
+)) as ForwardRefComponent<'li', ActionListItemProps> & SlotMarker
 
-const ActionListGroup: React.ComponentType<ActionListGroupProps> = styled(
+const ActionListGroup: React.ComponentType<ActionListGroupProps> & SlotMarker = styled(
   PrimerActionList.Group,
 ).withConfig<ActionListGroupProps>({
   shouldForwardProp: prop => prop !== 'sx',
@@ -89,7 +90,7 @@ const ActionListGroup: React.ComponentType<ActionListGroupProps> = styled(
   ${sx}
 `
 
-const ActionListDivider: React.ComponentType<ActionListDividerProps> = styled(
+const ActionListDivider: React.ComponentType<ActionListDividerProps> & SlotMarker = styled(
   PrimerActionList.Divider,
 ).withConfig<ActionListDividerProps>({
   shouldForwardProp: prop => prop !== 'sx',
@@ -97,7 +98,7 @@ const ActionListDivider: React.ComponentType<ActionListDividerProps> = styled(
   ${sx}
 `
 
-const ActionListLeadingVisual: React.ComponentType<ActionListLeadingVisualProps> = styled(
+const ActionListLeadingVisual: React.ComponentType<ActionListLeadingVisualProps> & SlotMarker = styled(
   PrimerActionList.LeadingVisual,
 ).withConfig<ActionListLeadingVisualProps>({
   shouldForwardProp: prop => prop !== 'sx',
@@ -105,28 +106,13 @@ const ActionListLeadingVisual: React.ComponentType<ActionListLeadingVisualProps>
   ${sx}
 `
 
-const ActionListTrailingVisual: React.ComponentType<ActionListTrailingVisualProps> = styled(
+const ActionListTrailingVisual: React.ComponentType<ActionListTrailingVisualProps> & SlotMarker = styled(
   PrimerActionList.TrailingVisual,
 ).withConfig<ActionListTrailingVisualProps>({
   shouldForwardProp: prop => prop !== 'sx',
 })`
   ${sx}
 `
-
-// @ts-ignore - TS doesn't know about the __SLOT__ property
-ActionListItem.__SLOT__ = PrimerActionList.Item.__SLOT__
-// @ts-ignore - TS doesn't know about the __SLOT__ property
-ActionListLinkItem.__SLOT__ = PrimerActionList.LinkItem.__SLOT__
-// @ts-ignore - TS doesn't know about the __SLOT__ property
-ActionListGroup.__SLOT__ = PrimerActionList.Group.__SLOT__
-// @ts-ignore - TS doesn't know about the __SLOT__ property
-ActionListDivider.__SLOT__ = PrimerActionList.Divider.__SLOT__
-// @ts-ignore - TS doesn't know about the __SLOT__ property
-ActionListLeadingVisual.__SLOT__ = PrimerActionList.LeadingVisual.__SLOT__
-// @ts-ignore - TS doesn't know about the __SLOT__ property
-ActionListTrailingVisual.__SLOT__ = PrimerActionList.TrailingVisual.__SLOT__
-// @ts-ignore - TS doesn't know about the __SLOT__ property
-ActionListTrailingAction.__SLOT__ = PrimerActionList.TrailingAction.__SLOT__
 
 export const ActionList: typeof ActionListImpl & {
   Item: typeof ActionListItem
@@ -139,7 +125,7 @@ export const ActionList: typeof ActionListImpl & {
   TrailingVisual: typeof ActionListTrailingVisual
   Heading: typeof PrimerActionList.Heading
   TrailingAction: typeof ActionListTrailingAction
-} = Object.assign(ActionListImpl, {
+} & SlotMarker = Object.assign(ActionListImpl, {
   Item: ActionListItem,
   LinkItem: ActionListLinkItem,
   Group: ActionListGroup,
@@ -151,3 +137,15 @@ export const ActionList: typeof ActionListImpl & {
   Heading: PrimerActionList.Heading,
   TrailingAction: ActionListTrailingAction,
 })
+
+// Assign slot markers after component definitions
+// @ts-ignore can't seem to fix this one
+ActionList.__SLOT__ = PrimerActionList.__SLOT__
+// @ts-ignore can't seem to fix this one
+ActionListItem.__SLOT__ = PrimerActionList.Item.__SLOT__
+ActionListLinkItem.__SLOT__ = PrimerActionList.LinkItem.__SLOT__
+ActionListGroup.__SLOT__ = PrimerActionList.Group.__SLOT__
+ActionListDivider.__SLOT__ = PrimerActionList.Divider.__SLOT__
+ActionListLeadingVisual.__SLOT__ = PrimerActionList.LeadingVisual.__SLOT__
+ActionListTrailingVisual.__SLOT__ = PrimerActionList.TrailingVisual.__SLOT__
+ActionListTrailingAction.__SLOT__ = PrimerActionList.TrailingAction.__SLOT__
