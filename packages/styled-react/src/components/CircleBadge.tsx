@@ -17,5 +17,8 @@ const CircleBadge: ForwardRefComponent<React.ElementType, CircleBadgeProps<React
   ${sx}
 `
 
+// @ts-ignore -- TS doesn't know about the __SLOT__ property
+CircleBadge.__SLOT__ = PrimerCircleBadge.__SLOT__
+
 export {CircleBadge}
 export type {CircleBadgeProps}
