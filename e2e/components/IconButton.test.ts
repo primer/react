@@ -1,4 +1,4 @@
-import {test, expect, type Page} from '@playwright/test'
+import {test, expect} from '@playwright/test'
 import {visit} from '../test-helpers/storybook'
 import {themes} from '../test-helpers/themes'
 
@@ -57,10 +57,6 @@ test.describe('IconButton', () => {
                 colorScheme: theme,
               },
             })
-
-            if ('setup' in story) {
-              await story.setup(page)
-            }
 
             // Default state
             expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(

@@ -304,16 +304,4 @@ describe('Button', () => {
     const triggerEl = getByRole('button', {name: 'Heart'})
     expect(triggerEl).toHaveAccessibleDescription('Love is all around (command h)')
   })
-  it('should append the keybindingHint to the tooltip text that labels the icon button when keybindingHint prop is passed', () => {
-    const {getByRole} = render(<IconButton icon={HeartIcon} aria-label="Heart" keybindingHint="Mod+H" />)
-    const triggerEl = getByRole('button', {name: 'Heart (command h)'})
-    expect(triggerEl).toBeInTheDocument()
-  })
-  it('should append the keybindingHint to the tooltip text that describes the icon button when keybindingHint prop is passed (Description Type)', () => {
-    const {getByRole} = render(
-      <IconButton icon={HeartIcon} aria-label="Heart" description="Love is all around" keybindingHint="Mod+H" />,
-    )
-    const triggerEl = getByRole('button', {name: 'Heart'})
-    expect(triggerEl).toHaveAccessibleDescription('Love is all around (command h)')
-  })
 })
