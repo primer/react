@@ -139,9 +139,6 @@ export const ActionList: typeof ActionListImpl & {
 })
 
 // Assign slot markers after component definitions
-// @ts-ignore can't seem to fix this one
-ActionList.__SLOT__ = PrimerActionList.__SLOT__
-// @ts-ignore can't seem to fix this one
 ActionListItem.__SLOT__ = PrimerActionList.Item.__SLOT__
 ActionListLinkItem.__SLOT__ = PrimerActionList.LinkItem.__SLOT__
 ActionListGroup.__SLOT__ = PrimerActionList.Group.__SLOT__
