@@ -58,5 +58,9 @@ const SubNavLink = React.forwardRef<HTMLAnchorElement, SubNavLinkProps>(
 
 SubNavLink.displayName = 'SubNav.Link'
 
-export default Object.assign(SubNav, {Link: SubNavLink, Links: SubNavLinks, __SLOT__: Symbol('SubNav')})
+export default Object.assign(SubNav, {
+  Link: SubNavLink as WithSlotMarker<typeof SubNavLink>,
+  Links: SubNavLinks,
+  __SLOT__: Symbol('SubNav'),
+})
 ;(SubNavLink as WithSlotMarker<typeof SubNavLink>).__SLOT__ = Symbol('SubNav.Link')
