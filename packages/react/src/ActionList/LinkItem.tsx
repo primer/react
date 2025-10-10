@@ -57,5 +57,4 @@ export const LinkItem = React.forwardRef(
 
 LinkItem.displayName = 'ActionList.LinkItem'
 
-// @ts-ignore - TypeScript doesn't know about the __SLOT__ property
 LinkItem.__SLOT__ = Symbol('ActionList.LinkItem')

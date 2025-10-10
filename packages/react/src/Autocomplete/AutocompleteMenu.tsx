@@ -407,5 +407,4 @@ AutocompleteMenu.displayName = 'AutocompleteMenu'
 export type AutocompleteMenuProps = ComponentProps<typeof AutocompleteMenu>
 export default AutocompleteMenu
 
-// @ts-ignore - TypeScript doesn't know about the __SLOT__ property
 AutocompleteMenu.__SLOT__ = Symbol('Autocomplete.Menu')

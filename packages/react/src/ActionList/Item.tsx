@@ -319,9 +319,9 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
 
 const Item = fixedForwardRef(UnwrappedItem)
 
-Object.assign(Item, {displayName: 'ActionList.Item'})
-
-// @ts-ignore - TypeScript doesn't know about the __SLOT__ property
-Item.__SLOT__ = Symbol('ActionList.Item')
+Object.assign(Item, {
+  displayName: 'ActionList.Item',
+  __SLOT__: Symbol('ActionList.Item'),
+})
 
 export {Item}

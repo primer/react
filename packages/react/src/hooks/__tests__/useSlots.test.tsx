@@ -18,14 +18,12 @@ function TestComponentWithSlot(props: React.PropsWithChildren<unknown>) {
   return <div {...props} />
 }
 
-// @ts-ignore - TypeScript doesn't know about the __SLOT__ property
 TestComponentWithSlot.__SLOT__ = Symbol('TestComponentWithSlot')
 
 function TestComponentWithSlotVariant(props: TestComponentAProps) {
   return <div {...props} />
 }
 
-// @ts-ignore - TypeScript doesn't know about the __SLOT__ property
 TestComponentWithSlotVariant.__SLOT__ = Symbol('TestComponentWithSlotVariant')
 
 // Wrapper components that use the slot symbol from the original component
@@ -35,7 +33,6 @@ const WrappedTestComponentA = () => (
   </div>
 )
 
-// @ts-ignore - TypeScript doesn't know about the __SLOT__ property
 WrappedTestComponentA.__SLOT__ = TestComponentA.__SLOT__
 
 const WrappedTestComponentWithSlot = () => (
@@ -44,7 +41,6 @@ const WrappedTestComponentWithSlot = () => (
   </div>
 )
 
-// @ts-ignore - TypeScript doesn't know about the __SLOT__ property
 WrappedTestComponentWithSlot.__SLOT__ = TestComponentWithSlot.__SLOT__
 
 const WrappedTestComponentWithSlotVariant = (props: TestComponentAProps) => (
@@ -53,7 +49,6 @@ const WrappedTestComponentWithSlotVariant = (props: TestComponentAProps) => (
   </div>
 )
 
-// @ts-ignore - TypeScript doesn't know about the __SLOT__ property
 WrappedTestComponentWithSlotVariant.__SLOT__ = TestComponentWithSlotVariant.__SLOT__
 
 test('extracts elements based on config object', () => {
