@@ -70,6 +70,13 @@
   grid-template-rows: auto;
 }
 
+/* stylelint-disable-next-line selector-max-specificity */
+.Banner:not([data-dismissible]):not([data-title-hidden]):has(.BannerTitle) .BannerContainer {
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: auto;
+}
+
 /* BannerContent ---------------------------------------------------------- */
 
 .BannerContent {
@@ -81,12 +88,6 @@
 
 .Banner[data-title-hidden]:not(:has(.BannerActions)) .BannerContent {
   margin-block: var(--base-size-6);
-}
-
-@media screen and (min-width: 544px) {
-  .BannerContent {
-    flex: 1 1 0%;
-  }
 }
 
 .BannerTitle {
@@ -142,78 +143,73 @@
   column-gap: var(--base-size-12);
   align-items: center;
   margin-block: var(--base-size-2);
+  min-height: var(--base-size-32);
 }
 
-.BannerActions :where([data-primary-action='trailing']) {
+.BannerActions [data-primary-action='trailing'] {
   display: none;
 }
 
-@media screen and (--viewportRange-regular) {
-  .BannerActions :where([data-primary-action='trailing']) {
-    display: flex;
-  }
-
-  .BannerActions :where([data-primary-action='leading']) {
-    display: none;
-  }
-}
-
-.Banner[data-dismissible]:not([data-title-hidden]) .BannerActions {
-  margin-block-end: var(--base-size-6);
-}
-
-/* stylelint-disable-next-line selector-max-specificity */
-.Banner[data-dismissible]:not([data-title-hidden]) .BannerActionsContainer[data-primary-action='trailing'] {
-  display: none;
-}
-
-/* stylelint-disable-next-line selector-max-specificity */
-.Banner[data-dismissible]:not([data-title-hidden]) .BannerActionsContainer[data-primary-action='leading'] {
+.BannerActions [data-primary-action='leading'] {
   display: flex;
 }
 
-/* Layout ------------------------------------------------------------------- */
+.Banner:has(.BannerTitle):not([data-title-hidden]) .BannerContainer {
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: auto;
+}
 
-@container banner (max-width: 500px) {
-  .BannerContainer {
-    display: grid;
-  }
+.Banner:has(.BannerTitle):not([data-title-hidden]) .BannerActions {
+  margin-block-end: var(--base-size-6);
+}
 
-  .BannerContainer:has(.BannerActionsContainer) {
-    grid-template-rows: auto auto;
-  }
+.Banner:has(.BannerTitle):not([data-title-hidden]) [data-primary-action='trailing'] {
+  display: none;
+}
 
-  .BannerActions {
-    margin-block-end: var(--base-size-6);
-  }
+.Banner:has(.BannerTitle):not([data-title-hidden]) [data-primary-action='leading'] {
+  display: flex;
+}
 
-  .BannerActions [data-primary-action='trailing'] {
-    display: none;
-  }
+@container banner (min-width: 544px) {
+  .Banner[data-content-length='long']:not(:has(.BannerTitle)):not([data-title-hidden]),
+  .Banner[data-content-length='long'][data-title-hidden] {
+    /* stylelint-disable-next-line selector-max-specificity */
+    .BannerContainer {
+      display: grid;
+      grid-template-columns: auto auto;
+    }
 
-  .BannerActions [data-primary-action='leading'] {
-    display: flex;
+    /* stylelint-disable-next-line selector-max-specificity */
+    [data-primary-action='trailing'] {
+      display: flex;
+    }
+
+    /* stylelint-disable-next-line selector-max-specificity */
+    [data-primary-action='leading'] {
+      display: none;
+    }
   }
 }
 
-@container banner (min-width: 500px) {
-  .BannerContainer {
-    display: grid;
-    grid-template-columns: auto auto;
-  }
+@container banner (min-width: 400px) {
+  .Banner[data-content-length='short']:not(:has(.BannerTitle)):not([data-title-hidden]),
+  .Banner[data-content-length='short'][data-title-hidden] {
+    /* stylelint-disable-next-line selector-max-specificity */
+    .BannerContainer {
+      display: grid;
+      grid-template-columns: auto auto;
+    }
 
-  :where(.Banner):not([data-dismissible])
-    :where(.BannerActionsContainer[data-primary-action='trailing'])
-    :where([data-variant='link']:only-child) {
-    padding-inline: 0 var(--base-size-12);
-  }
+    /* stylelint-disable-next-line selector-max-specificity */
+    [data-primary-action='trailing'] {
+      display: flex;
+    }
 
-  .BannerActions [data-primary-action='trailing'] {
-    display: flex;
-    min-height: var(--base-size-32, 2rem);
-  }
-
-  .BannerActions [data-primary-action='leading'] {
-    display: none;
+    /* stylelint-disable-next-line selector-max-specificity */
+    [data-primary-action='leading'] {
+      display: none;
+    }
   }
 }
