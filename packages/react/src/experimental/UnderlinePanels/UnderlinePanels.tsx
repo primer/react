@@ -20,7 +20,6 @@ import {
 } from '../../internal/components/UnderlineTabbedInterface'
 import {useId} from '../../hooks'
 import {invariant} from '../../utils/invariant'
-import {type SxProp} from '../../sx'
 import {useResizeObserver, type ResizeObserverEntry} from '../../hooks/useResizeObserver'
 import useIsomorphicLayoutEffect from '../../utils/useIsomorphicLayoutEffect'
 import classes from './UnderlinePanels.module.css'
@@ -51,7 +50,7 @@ export type UnderlinePanelsProps = {
    * Class name for custom styling
    */
   className?: string
-} & SxProp
+}
 
 export type TabProps = PropsWithChildren<{
   /**
@@ -70,8 +69,7 @@ export type TabProps = PropsWithChildren<{
    *  Icon rendered before the tab text label
    */
   icon?: FC<IconProps>
-}> &
-  SxProp
+}>
 
 export type PanelProps = React.HTMLAttributes<HTMLDivElement>
 
