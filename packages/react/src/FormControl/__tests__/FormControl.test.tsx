@@ -22,7 +22,7 @@ const WrappedLabelComponent = () => (
   </div>
 )
 
-WrappedLabelComponent.__SLOT__ = 'FormControl.Label'
+WrappedLabelComponent.__SLOT__ = Symbol('FormControl.Label')
 
 const WrappedCaptionComponent = () => (
   <div>
@@ -31,7 +31,7 @@ const WrappedCaptionComponent = () => (
   </div>
 )
 
-WrappedCaptionComponent.__SLOT__ = 'FormControl.Caption'
+WrappedCaptionComponent.__SLOT__ = Symbol('FormControl.Caption')
 
 const WrappedLeadingVisualComponent = () => (
   <div>
@@ -42,7 +42,7 @@ const WrappedLeadingVisualComponent = () => (
   </div>
 )
 
-WrappedLeadingVisualComponent.__SLOT__ = 'FormControl.LeadingVisual'
+WrappedLeadingVisualComponent.__SLOT__ = Symbol('FormControl.LeadingVisual')
 
 const WrappedValidationComponent = () => (
   <div>
@@ -50,7 +50,7 @@ const WrappedValidationComponent = () => (
   </div>
 )
 
-WrappedValidationComponent.__SLOT__ = 'FormControl.Validation'
+WrappedValidationComponent.__SLOT__ = Symbol('FormControl.Validation')
 
 describe('FormControl', () => {
   describe('vertically stacked layout (default)', () => {

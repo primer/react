@@ -32,6 +32,6 @@ const Autocomplete: AutocompleteExport = Object.assign(PrimerAutocomplete, {
 })
 
 // @ts-ignore - TS doesn't know about the __SLOT__ property
-Autocomplete.__SLOT__ = 'Autocomplete'
+Autocomplete.__SLOT__ = Symbol('Autocomplete')
 
 export {Autocomplete}

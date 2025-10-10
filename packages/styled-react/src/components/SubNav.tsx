@@ -24,8 +24,8 @@ const SubNav = Object.assign(SubNavImpl, {
 })
 
 // @ts-ignore - TypeScript doesn't know about the __SLOT__ prop
-SubNav.__SLOT__ = 'SubNav'
+SubNav.__SLOT__ = Symbol('SubNav')
 // @ts-ignore - TypeScript doesn't know about the __SLOT__ prop
-SubNavLink.__SLOT__ = 'SubNavLink'
+SubNavLink.__SLOT__ = Symbol('SubNavLink')
 
 export {SubNav, type SubNavProps, type SubNavLinkProps}

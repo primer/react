@@ -213,9 +213,9 @@ test('extracts elements with configuration that has only slot property', () => {
 
   // Create components with __SLOT__ prop to match slot configuration
   const SlottedComponentA = (props: React.PropsWithChildren<{__SLOT__?: string}>) => <div {...props} />
-  SlottedComponentA.__SLOT__ = 'header'
+  SlottedComponentA.__SLOT__ = Symbol('header')
   const SlottedComponentB = (props: React.PropsWithChildren<{__SLOT__?: string}>) => <span {...props} />
-  SlottedComponentB.__SLOT__ = 'footer'
+  SlottedComponentB.__SLOT__ = Symbol('footer')
 
   const children = [
     <SlottedComponentA key="a" __SLOT__="header">
@@ -269,9 +269,9 @@ test('extracts elements with configuration that has slot and type properties', (
 
   // Create components with __SLOT__ prop and specific types
   const HeaderComponent = (props: React.PropsWithChildren<{__SLOT__?: string}>) => <header {...props} />
-  HeaderComponent.__SLOT__ = 'header'
+  HeaderComponent.__SLOT__ = Symbol('header')
   const FooterComponent = (props: React.PropsWithChildren<{__SLOT__?: string}>) => <footer {...props} />
-  FooterComponent.__SLOT__ = 'footer'
+  FooterComponent.__SLOT__ = Symbol('footer')
 
   const children = [
     <HeaderComponent key="a" __SLOT__="header">
@@ -327,10 +327,10 @@ test('extracts elements with configuration that has slot and props properties', 
 
   // Create components with __SLOT__ prop and additional props for filtering
   const ContentComponent = (props: React.PropsWithChildren<{priority?: 'high' | 'low'}>) => <div {...props} />
-  ContentComponent.__SLOT__ = 'content'
+  ContentComponent.__SLOT__ = Symbol('content')
 
   const SidebarComponent = (props: React.PropsWithChildren<{priority?: 'high' | 'low'}>) => <div {...props} />
-  SidebarComponent.__SLOT__ = 'sidebar'
+  SidebarComponent.__SLOT__ = Symbol('sidebar')
 
   const children = [
     <ContentComponent key="a" priority="high">

@@ -10,4 +10,4 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Che
 })
 
 // @ts-ignore - TypeScript doesn't know about the __SLOT__ prop
-Checkbox.__SLOT__ = 'Checkbox'
+Checkbox.__SLOT__ = Symbol('Checkbox')
