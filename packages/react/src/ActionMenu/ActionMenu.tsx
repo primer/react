@@ -15,7 +15,7 @@ import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../uti
 import {Tooltip} from '../TooltipV2/Tooltip'
 import styles from './ActionMenu.module.css'
 import {useResponsiveValue, type ResponsiveValue} from '../hooks/useResponsiveValue'
-import {getSlotName} from '../utils/get-slot-name'
+import {getSlot} from '../utils/get-slot'
 import type {FCWithSlotMarker, WithSlotMarker} from '../utils/types/Slots'
 
 export type MenuCloseHandler = (
@@ -114,7 +114,7 @@ const Menu: FCWithSlotMarker<React.PropsWithChildren<ActionMenuProps>> = ({
   // 🚨 Accounting for Tooltip wrapping ActionMenu.Button or being a direct child of ActionMenu.Anchor.
   const contents = React.Children.map(children, child => {
     // Is ActionMenu.Button wrapped with Tooltip? If this is the case, our anchor is the tooltip's trigger (ActionMenu.Button's grandchild)
-    if (child.type === Tooltip || getSlotName(child) === 'Tooltip') {
+    if (child.type === Tooltip || getSlot(child) === Tooltip.__SLOT__) {
       // tooltip trigger
       const anchorChildren = child.props.children
       if (anchorChildren.type === MenuButton) {
@@ -133,7 +133,7 @@ const Menu: FCWithSlotMarker<React.PropsWithChildren<ActionMenuProps>> = ({
       const anchorChildren = child.props.children
       const isWrappedWithTooltip =
         anchorChildren !== undefined
-          ? anchorChildren.type === Tooltip || getSlotName(anchorChildren) === 'Tooltip'
+          ? anchorChildren.type === Tooltip || getSlot(anchorChildren) === Tooltip.__SLOT__
           : false
       if (isWrappedWithTooltip) {
         if (anchorChildren.props.children !== null) {

@@ -1,6 +1,6 @@
 import React from 'react'
 import {warning} from '../utils/warning'
-import {getSlotName} from '../utils/get-slot-name'
+import {getSlot} from '../utils/get-slot'
 
 // slot config allows 2 options:
 // 1. Component to match, example: { leadingVisual: LeadingVisual }
@@ -56,13 +56,11 @@ export function useSlots<Config extends SlotConfig>(
     const index = values.findIndex(value => {
       if (Array.isArray(value)) {
         const [component, testFn] = value
-        const componentSlot = getSlotName(component)
-        return (
-          (child.type === component || (componentSlot && componentSlot === getSlotName(child))) && testFn(child.props)
-        )
+        const componentSlot = getSlot(component)
+        return (child.type === component || (componentSlot && componentSlot === getSlot(child))) && testFn(child.props)
       } else {
-        const componentSlot = getSlotName(value)
-        return child.type === value || (componentSlot && componentSlot === getSlotName(child))
+        const componentSlot = getSlot(value)
+        return child.type === value || (componentSlot && componentSlot === getSlot(child))
       }
     })
 

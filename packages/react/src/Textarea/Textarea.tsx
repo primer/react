@@ -107,4 +107,6 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
 
 Textarea.displayName = 'Textarea'
 
+Textarea.__SLOT__ = Symbol('Textarea')
+
 export default Textarea

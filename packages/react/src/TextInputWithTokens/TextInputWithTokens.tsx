@@ -337,6 +337,8 @@ const TextInputWithTokens = React.forwardRef(TextInputWithTokensInnerComponent)
 
 TextInputWithTokens.displayName = 'TextInputWithTokens'
 
+TextInputWithTokens.__SLOT__ = Symbol('TextInputWithTokens')
+
 /**
  * @deprecated
  */

@@ -90,4 +90,6 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
 
 Checkbox.displayName = 'Checkbox'
 
+Checkbox.__SLOT__ = Symbol('Checkbox')
+
 export default Checkbox

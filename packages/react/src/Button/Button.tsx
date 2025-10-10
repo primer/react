@@ -90,4 +90,6 @@ export function generateCustomSxProp(
 
 ButtonComponent.displayName = 'Button'
 
+ButtonComponent.__SLOT__ = Symbol('Button')
+
 export {ButtonComponent}

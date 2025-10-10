@@ -85,4 +85,6 @@ const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
 
 Radio.displayName = 'Radio'
 
+Radio.__SLOT__ = Symbol('Radio')
+
 export default Radio
