@@ -67,5 +67,8 @@ const LinkComponent = fixedForwardRef(UnwrappedLink)
 
 const Link = Object.assign(LinkComponent, {displayName: 'Link'})
 
+// @ts-ignore -- TS doesn't know about the __SLOT__ property
+Link.__SLOT__ = Symbol('Link')
+
 export type LinkProps = ComponentProps<typeof Link>
 export default Link

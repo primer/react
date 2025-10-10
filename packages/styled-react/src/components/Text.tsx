@@ -18,4 +18,7 @@ const Text = forwardRef<'span', TextProps>(({as, ...props}, ref) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
 }) as StyledComponent<'span', any, TextProps, never>
 
+// @ts-ignore -- TS doesn't know about the __SLOT__ property
+Text.__SLOT__ = PrimerText.__SLOT__
+
 export {Text, type TextProps}

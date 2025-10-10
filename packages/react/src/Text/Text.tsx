@@ -34,5 +34,8 @@ const Text = forwardRef(({as: Component = 'span', className, size, weight, ...pr
 
 Text.displayName = 'Text'
 
+// @ts-ignore -- TS doesn't know about the __SLOT__ property
+Text.__SLOT__ = Symbol('Text')
+
 export type TextProps = StyledTextProps
 export default Text

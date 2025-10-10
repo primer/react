@@ -16,4 +16,7 @@ const Label = forwardRef<HTMLElement, LabelProps>(({as, ...props}, ref) => {
   return <StyledLabel {...props} {...(as ? {forwardedAs: as} : {})} ref={ref} />
 }) as ForwardRefComponent<'span', LabelProps>
 
+// @ts-ignore -- TS doesn't know about the __SLOT__ property
+Label.__SLOT__ = PrimerLabel.__SLOT__
+
 export {Label, type LabelProps}
