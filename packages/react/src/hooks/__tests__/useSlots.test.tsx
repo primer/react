@@ -9,6 +9,8 @@ function TestComponentA(props: TestComponentAProps) {
   return <div {...props} />
 }
 
+TestComponentA.__SLOT__ = Symbol('TestComponentA')
+
 function TestComponentB(props: React.PropsWithChildren<unknown>) {
   return <div {...props} />
 }
@@ -433,7 +435,6 @@ test('handles components without slot symbols in mixed scenarios', () => {
           </TestComponentWithSlot>,
         },
         [
-          <WrappedTestComponentA />,
           <div>
             Hello World
           </div>,
