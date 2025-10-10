@@ -39,5 +39,8 @@ if (__DEV__) {
   Truncate.displayName = 'Truncate'
 }
 
+// @ts-ignore -- TS doesn't know about the __SLOT__ property
+Truncate.__SLOT__ = Symbol('Truncate')
+
 export type {TruncateProps}
 export default Truncate

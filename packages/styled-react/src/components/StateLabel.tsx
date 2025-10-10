@@ -9,4 +9,7 @@ const StateLabel = forwardRef<HTMLSpanElement, StateLabelProps>(function StateLa
   return <Box as={PrimerStateLabel} ref={ref} {...props} />
 })
 
+// @ts-ignore -- TS doesn't know about the __SLOT__ property
+StateLabel.__SLOT__ = PrimerStateLabel.__SLOT__
+
 export {StateLabel, type StateLabelProps}

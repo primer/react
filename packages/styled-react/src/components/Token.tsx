@@ -17,4 +17,7 @@ const Token = forwardRef<HTMLElement, TokenProps>(({as, ...props}, ref) => {
   return <StyledToken {...props} {...(as ? {forwardedAs: as} : {})} ref={ref} />
 }) as ForwardRefComponent<'a' | 'button' | 'span', TokenProps>
 
+// @ts-ignore -- TS doesn't know about the __SLOT__ property
+Token.__SLOT__ = PrimerToken.__SLOT__
+
 export {Token, type TokenProps}
