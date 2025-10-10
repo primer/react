@@ -47,7 +47,7 @@ const stories = [
       await page.keyboard.press('Tab') // focus on icon button
       await page.getByText('Bold').waitFor({state: 'visible'})
       // eslint-disable-next-line playwright/no-wait-for-timeout
-      await page.waitForTimeout(100) // wait until after "tooltip delay" for a stable screenshot
+      await page.waitForTimeout(1000) // wait until after "tooltip delay" for a stable screenshot
     },
   },
   {
