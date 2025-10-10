@@ -16,6 +16,10 @@ export type SegmentedControlButtonProps = {
   defaultSelected?: boolean
   /** The leading icon comes before item label */
   leadingIcon?: React.FunctionComponent<React.PropsWithChildren<IconProps>> | React.ReactElement
+  /** Applies `aria-disabled` to the button. This will disable certain functionality, such as `onClick` events. */
+  disabled?: boolean
+  /** Applies `aria-disabled` to the button. This will disable certain functionality, such as `onClick` events. */
+  'aria-disabled'?: boolean
   /** Optional counter to display on the right side of the button */
   count?: number | string
 } & ButtonHTMLAttributes<HTMLButtonElement | HTMLLIElement>
@@ -25,6 +29,8 @@ const SegmentedControlButton: React.FC<React.PropsWithChildren<SegmentedControlB
   leadingIcon: LeadingIcon,
   selected,
   className,
+  disabled,
+  'aria-disabled': ariaDisabled,
   // Note: this value is read in the `SegmentedControl` component to determine which button is selected but we do not need to apply it to an underlying element
   defaultSelected: _defaultSelected,
   count,
@@ -32,7 +38,13 @@ const SegmentedControlButton: React.FC<React.PropsWithChildren<SegmentedControlB
 }) => {
   return (
     <li className={clsx(classes.Item)} data-selected={selected ? '' : undefined}>
-      <button aria-current={selected} className={clsx(classes.Button, className)} type="button" {...rest}>
+      <button
+        aria-current={selected}
+        aria-disabled={disabled || ariaDisabled || undefined}
+        className={clsx(classes.Button, className)}
+        type="button"
+        {...rest}
+      >
         <span className={clsx(classes.Content, 'segmentedControl-content')}>
           {LeadingIcon && (
             <div className={classes.LeadingIcon}>{isElement(LeadingIcon) ? LeadingIcon : <LeadingIcon />}</div>
