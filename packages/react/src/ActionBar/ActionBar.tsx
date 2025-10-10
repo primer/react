@@ -170,17 +170,11 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
 
   const [childRegistry, setChildRegistry] = useState<ChildRegistry>(() => new Map())
 
-  const registerChild = useCallback((id: string, childProps: ChildProps) => {
-    setChildRegistry(prev => {
-      return new Map(prev).set(id, childProps)
-    })
-  }, [])
-
-  const unregisterChild = useCallback((id: string) => {
-    setChildRegistry(prev => {
-      return new Map(prev).set(id, null)
-    })
-  }, [])
+  const registerChild = useCallback(
+    (id: string, childProps: ChildProps) => setChildRegistry(prev => new Map(prev).set(id, childProps)),
+    [],
+  )
+  const unregisterChild = useCallback((id: string) => setChildRegistry(prev => new Map(prev).set(id, null)), [])
 
   const [menuItemIds, setMenuItemIds] = useState<Set<string>>(() => new Set())
 
