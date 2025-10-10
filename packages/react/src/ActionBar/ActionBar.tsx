@@ -270,13 +270,13 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
                       )
                     }
 
+                    // TODO: refine this so that we don't have to loop through the registry multiple times
                     const groupedItems = Array.from(childRegistry).filter(([, childProps]) => {
                       if (childProps?.type !== 'action') return false
                       if (childProps.groupId !== id) return false
                       return true
                     })
 
-                    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
                     if (menuItem.type === 'group') {
                       return (
                         <ActionMenu key={id}>
