@@ -25,7 +25,7 @@ const UnwrappedList = <As extends React.ElementType = 'ul'>(
     ...restProps
   } = props
   const [slots, childrenWithoutSlots] = useSlots(restProps.children, {
-    heading: Heading,
+    heading: {type: Heading, slot: 'ActionList.Heading'},
   })
 
   const headingId = useId()

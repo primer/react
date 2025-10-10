@@ -54,4 +54,7 @@ const FormControlLabel: React.FC<
   return <InputLabel {...labelProps}>{children}</InputLabel>
 }
 
+// @ts-ignore -- TypeScript doesn't know about the __SLOT__ property
+FormControlLabel.__SLOT__ = Symbol('FormControl.Label')
+
 export default FormControlLabel

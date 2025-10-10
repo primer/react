@@ -70,13 +70,16 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
   forwardedRef: React.Ref<any>,
 ): JSX.Element => {
   const baseSlots = {
-    leadingVisual: LeadingVisual,
-    trailingVisual: TrailingVisual,
-    trailingAction: TrailingAction,
-    subItem: SubItem,
+    leadingVisual: {type: LeadingVisual, slot: 'ActionList.LeadingVisual'},
+    trailingVisual: {type: TrailingVisual, slot: 'ActionList.TrailingVisual'},
+    trailingAction: {type: TrailingAction, slot: 'ActionList.TrailingAction'},
+    subItem: {type: SubItem, slot: 'ActionList.SubItem'},
   }
 
-  const [partialSlots, childrenWithoutSlots] = useSlots(props.children, {...baseSlots, description: Description})
+  const [partialSlots, childrenWithoutSlots] = useSlots(props.children, {
+    ...baseSlots,
+    description: {type: Description, slot: 'ActionList.Description'},
+  })
 
   const slots = {description: undefined, ...partialSlots}
 

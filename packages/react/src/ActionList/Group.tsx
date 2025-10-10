@@ -81,7 +81,7 @@ export const Group: React.FC<React.PropsWithChildren<ActionListGroupProps>> = ({
   const {role: listRole} = React.useContext(ListContext)
 
   const [slots, childrenWithoutSlots] = useSlots(props.children, {
-    groupHeading: GroupHeading,
+    groupHeading: {type: GroupHeading, slot: 'ActionList.GroupHeading'},
   })
 
   let groupHeadingId = undefined

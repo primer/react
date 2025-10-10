@@ -113,6 +113,21 @@ const ActionListTrailingVisual: React.ComponentType<ActionListTrailingVisualProp
   ${sx}
 `
 
+// @ts-ignore - TS doesn't know about the __SLOT__ property
+ActionListItem.__SLOT__ = 'ActionList.Item'
+// @ts-ignore - TS doesn't know about the __SLOT__ property
+ActionListLinkItem.__SLOT__ = 'ActionList.LinkItem'
+// @ts-ignore - TS doesn't know about the __SLOT__ property
+ActionListGroup.__SLOT__ = 'ActionList.Group'
+// @ts-ignore - TS doesn't know about the __SLOT__ property
+ActionListDivider.__SLOT__ = 'ActionList.Divider'
+// @ts-ignore - TS doesn't know about the __SLOT__ property
+ActionListLeadingVisual.__SLOT__ = 'ActionList.LeadingVisual'
+// @ts-ignore - TS doesn't know about the __SLOT__ property
+ActionListTrailingVisual.__SLOT__ = 'ActionList.TrailingVisual'
+// @ts-ignore - TS doesn't know about the __SLOT__ property
+ActionListTrailingAction.__SLOT__ = 'ActionList.TrailingAction'
+
 export const ActionList: typeof ActionListImpl & {
   Item: typeof ActionListItem
   LinkItem: typeof ActionListLinkItem

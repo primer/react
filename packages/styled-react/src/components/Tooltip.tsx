@@ -11,4 +11,7 @@ const Tooltip: ForwardRefExoticComponent<TooltipProps & RefAttributes<HTMLDivEle
   return <Box as={PrimerTooltip} ref={ref} {...props} />
 })
 
+// @ts-ignore - TypeScript doesn't know about the __SLOT__ property
+Tooltip.__SLOT__ = 'Tooltip'
+
 export {Tooltip, type TooltipProps}

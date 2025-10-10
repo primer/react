@@ -41,9 +41,9 @@ const CheckboxOrRadioGroup: React.FC<React.PropsWithChildren<CheckboxOrRadioGrou
   className,
 }) => {
   const [slots, rest] = useSlots(children, {
-    caption: CheckboxOrRadioGroupCaption,
-    label: CheckboxOrRadioGroupLabel,
-    validation: CheckboxOrRadioGroupValidation,
+    caption: {type: CheckboxOrRadioGroupCaption, slot: 'CheckboxOrRadioGroup.Caption'},
+    label: {type: CheckboxOrRadioGroupLabel, slot: 'CheckboxOrRadioGroup.Label'},
+    validation: {type: CheckboxOrRadioGroupValidation, slot: 'CheckboxOrRadioGroup.Validation'},
   })
   const labelChild = React.Children.toArray(children).find(
     child => React.isValidElement(child) && child.type === CheckboxOrRadioGroupLabel,

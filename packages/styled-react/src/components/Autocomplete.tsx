@@ -31,4 +31,7 @@ const Autocomplete: AutocompleteExport = Object.assign(PrimerAutocomplete, {
   Overlay: AutocompleteOverlay,
 })
 
+// @ts-ignore - TS doesn't know about the __SLOT__ property
+Autocomplete.__SLOT__ = 'Autocomplete'
+
 export {Autocomplete}

@@ -50,7 +50,7 @@ export type PageLayoutProps = {
   columnGap?: keyof typeof SPACING_MAP
 
   /** Private prop to allow SplitPageLayout to customize slot components */
-  _slotsConfig?: Record<'header' | 'footer', React.ElementType>
+  _slotsConfig?: Record<'header' | 'footer', {type: React.ElementType}>
   className?: string
   style?: React.CSSProperties
 }
@@ -76,7 +76,13 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
 }) => {
   const paneRef = useRef<HTMLDivElement>(null)
 
-  const [slots, rest] = useSlots(children, slotsConfig ?? {header: Header, footer: Footer})
+  const [slots, rest] = useSlots(
+    children,
+    slotsConfig ?? {
+      header: {type: Header, slot: 'PageLayout.Header'},
+      footer: {type: Footer, slot: 'PageLayout.Footer'},
+    },
+  )
 
   const memoizedContextValue = React.useMemo(() => {
     return {

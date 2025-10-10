@@ -21,6 +21,7 @@ import {FormControlContextProvider} from './_FormControlContext'
 import {warning} from '../utils/warning'
 import classes from './FormControl.module.css'
 import {BoxWithFallback} from '../internal/components/BoxWithFallback'
+import {getSlotName} from '../utils/get-slot-name'
 
 export type FormControlProps = {
   children?: React.ReactNode
@@ -48,10 +49,10 @@ export type FormControlProps = {
 const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
   ({children, disabled: disabledProp, layout = 'vertical', id: idProp, required, sx, className, style}, ref) => {
     const [slots, childrenWithoutSlots] = useSlots(children, {
-      caption: FormControlCaption,
-      label: FormControlLabel,
-      leadingVisual: FormControlLeadingVisual,
-      validation: FormControlValidation,
+      caption: {type: FormControlCaption, slot: 'FormControl.Caption'},
+      label: {type: FormControlLabel, slot: 'FormControl.Label'},
+      leadingVisual: {type: FormControlLeadingVisual, slot: 'FormControl.LeadingVisual'},
+      validation: {type: FormControlValidation, slot: 'FormControl.Validation'},
     })
     const expectedInputComponents = [
       Autocomplete,
@@ -63,19 +64,36 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
       Textarea,
       SelectPanel,
     ]
+    const expectedInputSlots = [
+      'Autocomplete',
+      'Checkbox',
+      'Radio',
+      'Select',
+      'TextInput',
+      'TextInputWithTokens',
+      'Textarea',
+      'SelectPanel',
+    ]
     const choiceGroupContext = useContext(CheckboxOrRadioGroupContext)
     const disabled = choiceGroupContext.disabled || disabledProp
     const id = useId(idProp)
     const validationMessageId = slots.validation ? `${id}-validationMessage` : undefined
     const captionId = slots.caption ? `${id}-caption` : undefined
     const validationStatus = slots.validation?.props.variant
-    const InputComponent = childrenWithoutSlots.find(child =>
-      expectedInputComponents.some(inputComponent => React.isValidElement(child) && child.type === inputComponent),
+    const InputComponent = childrenWithoutSlots.find(
+      child =>
+        expectedInputComponents.some(inputComponent => React.isValidElement(child) && child.type === inputComponent) ||
+        expectedInputSlots.includes(getSlotName(child)),
     )
     const inputProps = React.isValidElement(InputComponent) && InputComponent.props
     const isChoiceInput =
-      React.isValidElement(InputComponent) && (InputComponent.type === Checkbox || InputComponent.type === Radio)
-    const isRadioInput = React.isValidElement(InputComponent) && InputComponent.type === Radio
+      React.isValidElement(InputComponent) &&
+      (InputComponent.type === Checkbox ||
+        InputComponent.type === Radio ||
+        getSlotName(InputComponent) === 'Checkbox' ||
+        getSlotName(InputComponent) === 'Radio')
+    const isRadioInput =
+      React.isValidElement(InputComponent) && (InputComponent.type === Radio || getSlotName(InputComponent) === 'Radio')
 
     if (InputComponent) {
       warning(
@@ -139,7 +157,9 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
             : null}
           {childrenWithoutSlots.filter(
             child =>
-              React.isValidElement(child) && ![Checkbox, Radio].some(inputComponent => child.type === inputComponent),
+              React.isValidElement(child) &&
+              ![Checkbox, Radio].some(inputComponent => child.type === inputComponent) &&
+              !['Checkbox', 'Radio'].includes(getSlotName(child)),
           )}
         </div>
         {slots.leadingVisual ? (
@@ -204,7 +224,8 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
             {childrenWithoutSlots.filter(
               child =>
                 React.isValidElement(child) &&
-                !expectedInputComponents.some(inputComponent => child.type === inputComponent),
+                !expectedInputComponents.some(inputComponent => child.type === inputComponent) &&
+                !expectedInputSlots.includes(getSlotName(child)),
             )}
             {slots.validation ? (
               <ValidationAnimationContainer show>{slots.validation}</ValidationAnimationContainer>

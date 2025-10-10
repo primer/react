@@ -170,7 +170,10 @@ const Panel: React.FC<SelectPanelProps> = ({
 
   /* Panel plumbing */
   const panelId = useId(id)
-  const [slots, childrenInBody] = useSlots(contents, {header: SelectPanelHeader, footer: SelectPanelFooter})
+  const [slots, childrenInBody] = useSlots(contents, {
+    header: {type: SelectPanelHeader, slot: 'SelectPanel.Header'},
+    footer: {type: SelectPanelFooter, slot: 'SelectPanel.Footer'},
+  })
 
   // used in SelectPanel.SearchInput
   const moveFocusToList = () => {
@@ -347,7 +350,7 @@ const SelectPanelHeader: React.FC<React.ComponentPropsWithoutRef<'div'> & {onBac
   ...props
 }) => {
   const [slots, childrenWithoutSlots] = useSlots(children, {
-    searchInput: SelectPanelSearchInput,
+    searchInput: {type: SelectPanelSearchInput, slot: 'SelectPanel.SearchInput'},
   })
 
   const {title, description, panelId, onCancel, onClearSelection} = React.useContext(SelectPanelContext)

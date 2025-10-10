@@ -29,6 +29,13 @@ const SegmentedControl = Object.assign(SegmentedControlImpl, {
   IconButton: SegmentedControlIconButton,
 })
 
+// @ts-ignore - TypeScript doesn't know about the __SLOT__ prop
+SegmentedControl.__SLOT__ = 'SegmentedControl'
+// @ts-ignore - TypeScript doesn't know about the __SLOT__ prop
+SegmentedControl.Button.__SLOT__ = 'SegmentedControl.Button'
+// @ts-ignore - TypeScript doesn't know about the __SLOT__ prop
+SegmentedControl.IconButton.__SLOT__ = 'SegmentedControl.IconButton'
+
 export {
   SegmentedControl,
   type SegmentedControlProps,

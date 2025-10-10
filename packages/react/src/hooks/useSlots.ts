@@ -1,13 +1,11 @@
 import React from 'react'
 import {warning} from '../utils/warning'
+import {getSlotName} from '../utils/get-slot-name'
 
-// slot config allows 2 options:
-// 1. Component to match, example: { leadingVisual: LeadingVisual }
-type ComponentMatcher = React.ElementType<Props>
-// 2. Component to match + a test function, example: { blockDescription: [Description, props => props.variant === 'block'] }
-type ComponentAndPropsMatcher = [ComponentMatcher, (props: Props) => boolean]
-
-export type SlotConfig = Record<string, ComponentMatcher | ComponentAndPropsMatcher>
+export type SlotConfig = Record<
+  string,
+  {type?: React.ElementType<Props>; slot?: string; props?: (props: Props) => boolean}
+>
 
 // We don't know what the props are yet, we set them later based on slot config
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -17,15 +15,19 @@ type SlotElements<Config extends SlotConfig> = {
   [Property in keyof Config]: SlotValue<Config, Property>
 }
 
-type SlotValue<Config, Property extends keyof Config> = Config[Property] extends React.ElementType // config option 1
-  ? React.ReactElement<React.ComponentPropsWithoutRef<Config[Property]>, Config[Property]>
-  : Config[Property] extends readonly [
-        infer ElementType extends React.ElementType, // config option 2, infer array[0] as component
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        infer _testFn, // even though we don't use testFn, we need to infer it to support types for slots.*.props
-      ]
-    ? React.ReactElement<React.ComponentPropsWithoutRef<ElementType>, ElementType>
-    : never // useful for narrowing types, third option is not possible
+type SlotValue<Config, Property extends keyof Config> = Config[Property] extends {type: React.ElementType} // config option 1: has type property
+  ? React.ReactElement<React.ComponentPropsWithoutRef<Config[Property]['type']>, Config[Property]['type']>
+  : Config[Property] extends {slot: string} // config option 2: has slot property
+    ? React.ReactElement<Record<string, unknown>, React.ElementType>
+    : Config[Property] extends React.ElementType // config option 3: is a component type directly
+      ? React.ReactElement<React.ComponentPropsWithoutRef<Config[Property]>, Config[Property]>
+      : Config[Property] extends readonly [
+            infer ElementType extends React.ElementType, // config option 4: array format
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            infer _testFn, // even though we don't use testFn, we need to infer it to support types for slots.*.props
+          ]
+        ? React.ReactElement<React.ComponentPropsWithoutRef<ElementType>, ElementType>
+        : never // useful for narrowing types, other options are not possible
 
 /**
  * Extract components from `children` so we can render them in different places,
@@ -53,12 +55,16 @@ export function useSlots<Config extends SlotConfig>(
     }
 
     const index = values.findIndex(value => {
-      if (Array.isArray(value)) {
-        const [component, testFn] = value
-        return child.type === component && testFn(child.props)
-      } else {
-        return child.type === value
-      }
+      // Check if child matches by type
+      const typeMatch = value.type && value.type === child.type
+
+      // Check if child matches by slot property (__SLOT__)
+      const slotMatch = value.slot && getSlotName(child) === value.slot
+
+      // Check if props condition is met (if provided)
+      const propsMatch = !value.props || value.props(child.props)
+
+      return (typeMatch || slotMatch) && propsMatch
     })
 
     // If the child is not a slot, add it to the `rest` array
@@ -76,7 +82,6 @@ export function useSlots<Config extends SlotConfig>(
     }
 
     // If the child is a slot, add it to the `slots` object
-
     slots[slotKey] = child as SlotValue<Config, keyof Config>
   })
 

@@ -202,9 +202,9 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
     ref,
   ) => {
     const [slots, rest] = useSlots(children, {
-      leadingAction: LeadingAction,
-      leadingVisual: LeadingVisual,
-      trailingVisual: TrailingVisual,
+      leadingAction: {type: LeadingAction, slot: 'TreeView.LeadingAction'},
+      leadingVisual: {type: LeadingVisual, slot: 'TreeView.LeadingVisual'},
+      trailingVisual: {type: TrailingVisual, slot: 'TreeView.TrailingVisual'},
     })
     const {expandedStateCache} = React.useContext(RootContext)
     const labelId = useId()

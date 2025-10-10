@@ -9,6 +9,7 @@ import {useRenderForcingRef} from '../hooks'
 import FormControl from '../FormControl'
 import Checkbox from '../Checkbox/Checkbox'
 import {CheckboxGroupContext} from './CheckboxGroupContext'
+import {getSlotName} from '../utils/get-slot-name'
 
 export type CheckboxGroupProps = {
   /**
@@ -19,14 +20,16 @@ export type CheckboxGroupProps = {
 
 const CheckboxGroup: FC<React.PropsWithChildren<CheckboxGroupProps>> = ({children, disabled, onChange, ...rest}) => {
   const formControlComponentChildren = React.Children.toArray(children)
-    .filter(child => React.isValidElement(child) && child.type === FormControl)
+    .filter(
+      child => React.isValidElement(child) && (child.type === FormControl || getSlotName(child) === 'FormControl'),
+    )
     .map(formControlComponent =>
       React.isValidElement(formControlComponent) ? formControlComponent.props.children : [],
     )
     .flat()
 
   const checkedCheckboxes = React.Children.toArray(formControlComponentChildren)
-    .filter(child => React.isValidElement(child) && child.type === Checkbox)
+    .filter(child => React.isValidElement(child) && (child.type === Checkbox || getSlotName(child) === 'Checkbox'))
     .map(
       checkbox =>
         React.isValidElement(checkbox) &&
