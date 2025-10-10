@@ -28,7 +28,7 @@ export const ActionList = Object.assign(List, {
   /** An actionable or selectable `Item` */
   Item,
 
-  /** A `Item` that renders a full-size anchor inside ListItem */
+  /** @deprecated A `Item` that renders a full-size anchor inside ListItem */
   LinkItem,
 
   /** Visually separates `Item`s or `Group`s in an `ActionList`. */

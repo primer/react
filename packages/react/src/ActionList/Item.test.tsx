@@ -13,9 +13,9 @@ function SimpleActionList(): JSX.Element {
       <ActionList.Item>Copy link</ActionList.Item>
       <ActionList.Item>Edit file</ActionList.Item>
       <ActionList.Item variant="danger">Delete file</ActionList.Item>
-      <ActionList.LinkItem href="//github.com" title="anchor" aria-keyshortcuts="d">
+      <ActionList.Item href="//github.com" title="anchor" aria-keyshortcuts="d">
         Link Item
-      </ActionList.LinkItem>
+      </ActionList.Item>
       <ActionList.Item inactiveText="Unavailable due to an outage">Inactive item</ActionList.Item>
       <ActionList.Item inactiveText="Unavailable due to an outage" loading>
         Loading and inactive item
@@ -185,9 +185,9 @@ describe('ActionList.Item', () => {
     const onClick = vi.fn()
     const component = HTMLRender(
       <ActionList role="listbox">
-        <ActionList.LinkItem role="link" onClick={onClick}>
+        <ActionList.Item role="link" onClick={onClick}>
           Primer React
-        </ActionList.LinkItem>
+        </ActionList.Item>
       </ActionList>,
     )
     const link = await waitFor(() => component.getByRole('link'))

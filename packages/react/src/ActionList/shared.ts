@@ -63,13 +63,24 @@ export type ActionListItemProps<As extends React.ElementType = 'li'> = ExcludeSe
   groupId?: string
   renderItem?: (item: React.FC<React.PropsWithChildren<MenuItemProps>>) => React.ReactNode
   handleAddItem?: (item: React.FC<React.PropsWithChildren<MenuItemProps>>) => void
-  /**
-   * @deprecated `as` prop has no effect on `ActionList.Item`, only `ActionList.LinkItem`
-   */
+
   as?: As
+} & LinkProps
+
+type LinkProps = {
+  download?: string
+  href?: string
+  hrefLang?: string
+  media?: string
+  ping?: string
+  rel?: string
+  target?: string
+  type?: string
+  referrerPolicy?: React.AnchorHTMLAttributes<HTMLAnchorElement>['referrerPolicy']
+  className?: string
 }
 
-type MenuItemProps = {
+export type MenuItemProps = {
   onClick?: (event: React.MouseEvent<HTMLElement>) => void
   onKeyPress?: (event: React.KeyboardEvent<HTMLElement>) => void
   'aria-disabled'?: boolean

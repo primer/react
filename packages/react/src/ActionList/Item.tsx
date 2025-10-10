@@ -1,11 +1,11 @@
-import React from 'react'
+import React, {act} from 'react'
 
 import {useId} from '../hooks/useId'
 import {useSlots} from '../hooks/useSlots'
 import {ActionListContainerContext} from './ActionListContainerContext'
 import {Description} from './Description'
 import {GroupContext} from './Group'
-import type {ActionListItemProps, ActionListProps} from './shared'
+import type {ActionListItemProps, ActionListProps, MenuItemProps} from './shared'
 import {Selection} from './Selection'
 import {LeadingVisual, TrailingVisual, VisualOrIndicator} from './Visuals'
 import {ItemContext, ListContext} from './shared'
@@ -16,6 +16,7 @@ import VisuallyHidden from '../_VisuallyHidden'
 import classes from './ActionList.module.css'
 import {clsx} from 'clsx'
 import {fixedForwardRef} from '../utils/modern-polymorphic'
+import Link from '../Link'
 
 type ActionListSubItemProps = {
   children?: React.ReactNode
@@ -43,6 +44,53 @@ const DivItemContainerNoBox = React.forwardRef<HTMLDivElement, React.HTMLAttribu
       <div ref={forwardedRef as React.Ref<HTMLDivElement>} {...props}>
         {children}
       </div>
+    )
+  },
+)
+
+type LinkProps = {
+  download?: string
+  href?: string
+  hrefLang?: string
+  media?: string
+  ping?: string
+  rel?: string
+  target?: string
+  type?: string
+  referrerPolicy?: React.AnchorHTMLAttributes<HTMLAnchorElement>['referrerPolicy']
+  className?: string
+}
+
+// LinkItem does not support selected, loading, variants, etc.
+export type ActionListLinkItemProps = Pick<
+  ActionListItemProps,
+  'active' | 'children' | 'inactiveText' | 'variant' | 'size'
+> &
+  LinkProps
+
+type LinkItemContainerProps = React.HTMLAttributes<HTMLAnchorElement> &
+  LinkProps &
+  Pick<ActionListItemProps, 'active' | 'children' | 'inactiveText' | 'variant' | 'size'> & {
+    userOnClick?: (event: React.MouseEvent<HTMLAnchorElement>) => void
+    as?: React.ElementType
+    // onClick from Item expects HTMLElement
+    onClick?: (event: React.MouseEvent<HTMLElement>) => void
+  }
+
+const LinkItemContainerNoBox = React.forwardRef<HTMLAnchorElement, LinkItemContainerProps>(
+  ({children, onClick, userOnClick, inactiveText, as: Component = 'a', ...props}, forwardedRef) => {
+    const clickHandler = (event: React.MouseEvent<HTMLElement>) => {
+      onClick && onClick(event)
+      userOnClick && userOnClick(event as React.MouseEvent<HTMLAnchorElement>)
+    }
+    if (inactiveText) {
+      return <span {...(props as React.HTMLAttributes<HTMLSpanElement>)}>{children}</span>
+    }
+
+    return (
+      <Link as={Component} {...props} onClick={clickHandler} ref={forwardedRef}>
+        {children}
+      </Link>
     )
   },
 )
@@ -181,7 +229,18 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
 
   const DefaultItemWrapper = listSemantics ? DivItemContainerNoBox : ButtonItemContainerNoBox
 
-  const ItemWrapper = _PrivateItemWrapper || DefaultItemWrapper
+  // Detect if this should be a link item based on props
+  const isLinkItem = Boolean(
+    props.href || // Has href
+      props.download || // Download links
+      props.target || // Links with target
+      props.rel || // Links with rel attribute
+      props.hrefLang || // International links
+      props.to || // React Router style links (to prop)
+      (typeof props.as === 'string' && props.as.toLowerCase() === 'a'), // Explicitly set as anchor
+  )
+
+  const ItemWrapper = isLinkItem ? LinkItemContainerNoBox : DefaultItemWrapper
 
   // only apply aria-selected and aria-checked to selectable items
   const selectableRoles = ['menuitemradio', 'menuitemcheckbox', 'option']
@@ -219,13 +278,13 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
     id: itemId,
   }
 
-  const containerProps = _PrivateItemWrapper
-    ? {role: itemRole ? 'none' : undefined, ...props}
+  const containerProps = isLinkItem
+    ? {role: itemRole ? 'none' : undefined, className, active, inactiveText, variant, size}
     : // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
       (listSemantics && {...menuItemProps, ...props, ref: forwardedRef}) || {}
 
-  const wrapperProps = _PrivateItemWrapper
-    ? menuItemProps
+  const wrapperProps = isLinkItem
+    ? {...menuItemProps, ...props, userOnClick: props.onClick}
     : !listSemantics && {
         ...menuItemProps,
         ...props,
