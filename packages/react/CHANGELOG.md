@@ -1,5 +1,69 @@
 # @primer/react
 
+## 38.0.0-rc.6
+
+### Patch Changes
+
+- [`4378ee8`](https://github.com/primer/react/commit/4378ee84442de8d75fbb34fcce48e28c09429c5c) Thanks [@langermank](https://github.com/langermank)! - Add missing CSS for `KeybindingHint`
+
+## 38.0.0-rc.5
+
+### Major Changes
+
+- [#6874](https://github.com/primer/react/pull/6874) [`15824db`](https://github.com/primer/react/commit/15824db141ef32b3e090bcf1880f03bd9684392a) Thanks [@pksjce](https://github.com/pksjce)! - Remove sx from UnderlinePanels
+
+- [#6690](https://github.com/primer/react/pull/6690) [`c5c2053`](https://github.com/primer/react/commit/c5c2053caf38da76a4310098e805b2edb05e2552) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - Remove sx support from the Token component.
+
+- [#6673](https://github.com/primer/react/pull/6673) [`19befd6`](https://github.com/primer/react/commit/19befd66b801532bb0ef85e60296c73d8c747fc5) Thanks [@llastflowers](https://github.com/llastflowers)! - Update CircleBadge component to no longer support sx
+
+- [#6868](https://github.com/primer/react/pull/6868) [`2053cb3`](https://github.com/primer/react/commit/2053cb3f7ee15fe1e4c3cc9be3c09c82dd5aed93) Thanks [@mperrotti](https://github.com/mperrotti)! - Removes Box usage and sx prop from NavList and ActionList
+
+- [#6631](https://github.com/primer/react/pull/6631) [`86b3e60`](https://github.com/primer/react/commit/86b3e6063855615675c87df6eccad41d83db3762) Thanks [@joshblack](https://github.com/joshblack)! - Remove the sx prop from Label
+
+- [#6865](https://github.com/primer/react/pull/6865) [`eaf7e58`](https://github.com/primer/react/commit/eaf7e5840e4fbe4042c80711f983a0df05e2b68d) Thanks [@francinelucca](https://github.com/francinelucca)! - chore: remove sx from Overlay
+
+- [#6825](https://github.com/primer/react/pull/6825) [`4196e0e`](https://github.com/primer/react/commit/4196e0eed6894d020a83b9f382f5cb6817f9a725) Thanks [@mperrotti](https://github.com/mperrotti)! - Removes `Box` component usage and `sx` prop from the `Link` component, Storybook stories, and a .figma.tsx file
+
+- [#6864](https://github.com/primer/react/pull/6864) [`b0abd78`](https://github.com/primer/react/commit/b0abd785713d9f95ca9d5e41394e00153176077d) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove support for `sx` from the `TabNav` component
+
+- [#6923](https://github.com/primer/react/pull/6923) [`e5753f0`](https://github.com/primer/react/commit/e5753f0560fc57d426e795c012ffcb0b7fb0d290) Thanks [@francinelucca](https://github.com/francinelucca)! - chore: remove sx from deprecated Dialog
+
+- [#6729](https://github.com/primer/react/pull/6729) [`7ae5db2`](https://github.com/primer/react/commit/7ae5db229837fdd75dd73ce1779c7faa18734f89) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - Update Text component to no longer support sx.
+
+- [#6667](https://github.com/primer/react/pull/6667) [`d122122`](https://github.com/primer/react/commit/d12212225884b17cf6236af9feb8b098caaeea35) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - Update Tooltip component to no longer support sx.
+
+- [#6611](https://github.com/primer/react/pull/6611) [`15c1eb7`](https://github.com/primer/react/commit/15c1eb734210938182323bb15200d69ae4a3a300) Thanks [@joshblack](https://github.com/joshblack)! - Update Avatar component to no longer support sx, add sx wrapper to @primer/styled-react
+
+- [#6844](https://github.com/primer/react/pull/6844) [`1f9f582`](https://github.com/primer/react/commit/1f9f582f29e623a33401061832d8b6ab778c47b3) Thanks [@TylerJDev](https://github.com/TylerJDev)! - Update `Breadcrumbs` to no longer support sx
+
+- [#6812](https://github.com/primer/react/pull/6812) [`0834e9e`](https://github.com/primer/react/commit/0834e9ebe910c363f413723a254e0f2bd947a4b6) Thanks [@joshblack](https://github.com/joshblack)! - Remove support for `sx` from the Dialog component and sub-components
+
+- [#6928](https://github.com/primer/react/pull/6928) [`2eeff36`](https://github.com/primer/react/commit/2eeff368832b6fc122aef70302f681b1f14ad71f) Thanks [@mperrotti](https://github.com/mperrotti)! - Removes `sx` prop from VisuallyHidden component, and as a result also removes `sx` prop from CheckboxGroup.Label and RadioGroup.Label
+
+- [#6860](https://github.com/primer/react/pull/6860) [`628e601`](https://github.com/primer/react/commit/628e60172343fdf1c94734c39480991b0591e267) Thanks [@joshblack](https://github.com/joshblack)! - Remove support for `sx` from the `Heading` component
+
+- [#6805](https://github.com/primer/react/pull/6805) [`0f075d1`](https://github.com/primer/react/commit/0f075d1a679f0733ad984eeb2a677989ceca8ad0) Thanks [@mperrotti](https://github.com/mperrotti)! - Removes usage of Box component from other components.
+
+### Minor Changes
+
+- [#6889](https://github.com/primer/react/pull/6889) [`9201d93`](https://github.com/primer/react/commit/9201d939056333945375c454999d853e0bbabf8f) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - Tooltip: Add delay functionality to tooltips with the options of `instant` (default), `medium`, `long`
+
+- [#6937](https://github.com/primer/react/pull/6937) [`09ee0ea`](https://github.com/primer/react/commit/09ee0ea580ba6901d6e80cb35f7cc846db17197e) Thanks [@francinelucca](https://github.com/francinelucca)! - chore: add styles to formcontrol and subcomponents
+
+### Patch Changes
+
+- [#6900](https://github.com/primer/react/pull/6900) [`e3e601c`](https://github.com/primer/react/commit/e3e601c545967eb79fb7bc752c8895b93fda620e) Thanks [@francinelucca](https://github.com/francinelucca)! - fix(SelectPanel): do not bubble up keyboard events
+
+- [#6673](https://github.com/primer/react/pull/6673) [`19befd6`](https://github.com/primer/react/commit/19befd66b801532bb0ef85e60296c73d8c747fc5) Thanks [@llastflowers](https://github.com/llastflowers)! - Remove support for `sx` from `CircleBadge` component
+
+- [#6908](https://github.com/primer/react/pull/6908) [`af288e6`](https://github.com/primer/react/commit/af288e632c042c5e82aae6ee2bd5107e8be2b9ec) Thanks [@llastflowers](https://github.com/llastflowers)! - update FormControl ValidationIcon position
+
+- [#6931](https://github.com/primer/react/pull/6931) [`d5c5ecf`](https://github.com/primer/react/commit/d5c5ecf17a40571976d7974d3b57158455afec38) Thanks [@francinelucca](https://github.com/francinelucca)! - use UnderlinePanels.Tab, UnderlinePanels.Panel from @primer/react
+
+- [#6905](https://github.com/primer/react/pull/6905) [`1cb348f`](https://github.com/primer/react/commit/1cb348f079dffcf10bdf422b1e14e0a29fa4662d) Thanks [@lukasoppermann](https://github.com/lukasoppermann)! - Replace StateLabel color with new draft token
+
+- [#6927](https://github.com/primer/react/pull/6927) [`913739d`](https://github.com/primer/react/commit/913739dfe4b7d8f4f5829157e200bd538e509e74) Thanks [@lukasoppermann](https://github.com/lukasoppermann)! - Link: Adjust text-decoration-offset
+
 ## 38.0.0-rc.4
 
 ### Major Changes

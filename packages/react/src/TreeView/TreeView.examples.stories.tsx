@@ -85,6 +85,7 @@ export const TrailingActions: StoryFn = () => {
               label: 'Pull Requests',
               onClick: () => alert('Pull Requests clicked'),
               icon: GitPullRequestIcon,
+              count: 5,
             },
           ]}
         >

@@ -1,24 +1,33 @@
-export {ActionList} from '@primer/react'
+'use client'
+
 export {Box, type BoxProps} from './components/Box'
 export {Button} from '@primer/react'
 export {Details} from '@primer/react'
 export {FormControl} from '@primer/react'
 export {IconButton} from '@primer/react'
 export {ProgressBar} from '@primer/react'
-export {PageLayout} from '@primer/react'
 export {Select} from '@primer/react'
 export {Textarea} from '@primer/react'
 export {TextInput} from '@primer/react'
 export {type TextInputProps} from '@primer/react'
 
 // theming depends on styled-components
-export {ThemeProvider} from '@primer/react'
+export {ThemeProvider, useTheme, useColorSchemeVar, BaseStyles} from './components/FeatureFlaggedTheming'
 export {merge} from '@primer/react'
 export {theme} from '@primer/react'
 export {themeGet} from '@primer/react'
-export {useColorSchemeVar} from '@primer/react'
-export {useTheme} from '@primer/react'
 
+export {
+  ActionList,
+  type ActionListProps,
+  type ActionListItemProps,
+  type ActionListLinkItemProps,
+  type ActionListGroupProps,
+  type ActionListDividerProps,
+  type ActionListLeadingVisualProps,
+  type ActionListTrailingVisualProps,
+  type ActionListTrailingActionProps,
+} from './components/ActionList'
 export {ActionMenu} from './components/ActionMenu'
 export {Autocomplete, type AutocompleteOverlayProps} from './components/Autocomplete'
 export {Avatar, type AvatarProps} from './components/Avatar'
@@ -36,6 +45,7 @@ export {Link, type LinkProps} from './components/Link'
 export {LinkButton, type LinkButtonProps} from './components/LinkButton'
 export {NavList, type NavListProps} from './components/NavList'
 export {Overlay} from './components/Overlay'
+export {PageLayout, type PageLayoutProps} from './components/PageLayout'
 export {
   PageHeader,
   type PageHeaderProps,
