@@ -395,7 +395,8 @@ export const ActionBarGroup = forwardRef(
     const id = useId()
     const {registerChild, unregisterChild} = React.useContext(ActionBarContext)
 
-    // Storing the width in a ref ensures we don't forget about it when not visible
+    // Like IconButton, we store the width in a ref ensures we don't forget about it when not visible
+    // If a child has a groupId, it won't be visible if the group isn't visible, so we don't need to check isVisibleChild here
     const widthRef = useRef<number>()
 
     useIsomorphicLayoutEffect(() => {
