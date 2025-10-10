@@ -83,7 +83,7 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
     const InputComponent = childrenWithoutSlots.find(
       child =>
         expectedInputComponents.some(inputComponent => React.isValidElement(child) && child.type === inputComponent) ||
-        expectedInputSlots.includes(getSlot(child)),
+        (React.isValidElement(child) && expectedInputSlots.includes(getSlot(child))),
     )
     const inputProps = React.isValidElement(InputComponent) && InputComponent.props
     const isChoiceInput =
