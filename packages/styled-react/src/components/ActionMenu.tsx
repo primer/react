@@ -24,6 +24,4 @@ export const ActionMenu: typeof PrimerActionMenu & {
 })
 
 // @ts-ignore -- TS doesn't know about the __SLOT__ property
-PrimerActionMenu.__SLOT__ = PrimerActionMenu.__SLOT__
-// @ts-ignore -- TS doesn't know about the __SLOT__ property
 ActionMenuOverlay.__SLOT__ = PrimerActionMenu.Overlay.__SLOT__

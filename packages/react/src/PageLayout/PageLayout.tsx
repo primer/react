@@ -849,3 +849,14 @@ export const PageLayout = Object.assign(Root, {
   Pane,
   Footer,
 })
+
+// @ts-ignore -- TS doesn't know about the __SLOT__ property
+Root.__SLOT__ = Symbol('PageLayout')
+// @ts-ignore -- TS doesn't know about the __SLOT__ property
+Header.__SLOT__ = Symbol('PageLayout.Header')
+// @ts-ignore -- TS doesn't know about the __SLOT__ property
+Content.__SLOT__ = Symbol('PageLayout.Content')
+// @ts-ignore -- TS doesn't know about the __SLOT__ property
+Pane.__SLOT__ = Symbol('PageLayout.Pane')
+// @ts-ignore -- TS doesn't know about the __SLOT__ property
+Footer.__SLOT__ = Symbol('PageLayout.Footer')

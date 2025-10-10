@@ -38,4 +38,11 @@ const PageLayout = Object.assign(PageLayoutImpl, {
   Footer: PrimerPageLayout.Footer,
 })
 
+// @ts-ignore -- TS doesn't know about the __SLOT__ property
+PageLayoutImpl.__SLOT__ = PrimerPageLayout.__SLOT__
+// @ts-ignore -- TS doesn't know about the __SLOT__ property
+PageLayoutContent.__SLOT__ = PrimerPageLayout.Content.__SLOT__
+// @ts-ignore -- TS doesn't know about the __SLOT__ property
+PageLayoutPane.__SLOT__ = PrimerPageLayout.Pane.__SLOT__
+
 export {PageLayout, type PageLayoutProps}

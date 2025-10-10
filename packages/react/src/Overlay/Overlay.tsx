@@ -251,4 +251,7 @@ const Overlay = React.forwardRef<HTMLDivElement, internalOverlayProps>(
 
 export type OverlayProps = ComponentPropsWithRef<typeof Overlay>
 
+// @ts-ignore -- TS doesn't know about the __SLOT__ property
+Overlay.__SLOT__ = Symbol('Overlay')
+
 export default Overlay

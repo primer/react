@@ -48,3 +48,10 @@ const HeaderLink = React.forwardRef<HTMLAnchorElement, HeaderLinkProps>(function
 HeaderLink.displayName = 'Header.Link'
 
 export default Object.assign(Header, {Link: HeaderLink, Item: HeaderItem})
+
+// @ts-ignore -- TS doesn't know about the __SLOT__ property
+Header.__SLOT__ = Symbol('Header')
+// @ts-ignore -- TS doesn't know about the __SLOT__ property
+HeaderItem.__SLOT__ = Symbol('Header.Item')
+// @ts-ignore -- TS doesn't know about the __SLOT__ property
+HeaderLink.__SLOT__ = Symbol('Header.Link')

@@ -14,5 +14,8 @@ function RelativeTime({date, datetime, children, noTitle, ...props}: RelativeTim
   )
 }
 
+// @ts-ignore -- TS doesn't know about the __SLOT__ property
+RelativeTime.__SLOT__ = Symbol('RelativeTime')
+
 export type RelativeTimeProps = ComponentProps<typeof RelativeTimeComponent>
 export default RelativeTime
