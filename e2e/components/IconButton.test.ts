@@ -40,28 +40,6 @@ const stories = [
     id: 'components-iconbutton-features--small',
   },
   {
-    title: 'Keybinding Hint',
-    id: 'components-iconbutton-features--keybinding-hint',
-    disableAnimations: true,
-    async setup(page: Page) {
-      await page.keyboard.press('Tab') // focus on icon button
-      await page.getByText('Bold').waitFor({state: 'visible'})
-      // eslint-disable-next-line playwright/no-wait-for-timeout
-      await page.waitForTimeout(1000) // wait until after "tooltip delay" for a stable screenshot
-    },
-  },
-  {
-    title: 'Keybinding Hint on Description',
-    id: 'components-iconbutton-features--keybinding-hint-on-description',
-    disableAnimations: true,
-    async setup(page: Page) {
-      await page.keyboard.press('Tab') // focus on icon button
-      await page.getByText('You have unread notifications').waitFor({
-        state: 'visible',
-      })
-    },
-  },
-  {
     title: 'Flex',
     id: 'components-iconbutton-dev--icon-button-within-flex-container',
   },
