@@ -81,4 +81,4 @@ export type AutocompleteOverlayProps = ComponentProps<typeof AutocompleteOverlay
 export default AutocompleteOverlay
 
 // @ts-ignore - TypeScript doesn't know about the __SLOT__ property
-Autocomplete.__SLOT__ = Symbol('Autocomplete.Overlay')
+AutocompleteOverlay.__SLOT__ = Symbol('Autocomplete.Overlay')
