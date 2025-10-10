@@ -1,4 +1,4 @@
-import type {ChangeEvent, ChangeEventHandler, FC} from 'react'
+import type {ChangeEvent, ChangeEventHandler} from 'react'
 import React from 'react'
 import type {CheckboxOrRadioGroupProps} from '../internal/components/CheckboxOrRadioGroup'
 import CheckboxOrRadioGroup from '../internal/components/CheckboxOrRadioGroup'
