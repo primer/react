@@ -46,4 +46,11 @@ export type {UnderlineNavLinkProps}
 /**
  * @deprecated UnderlineNav is deprecated and will be replaced by the draft `UnderlineNav` in the next major release. See https://primer.style/react/drafts/UnderlineNav2 for more details.
  */
-export default Object.assign(UnderlineNav, {Link: UnderlineNavLink})
+const DeprecatedUnderlineNav = Object.assign(UnderlineNav, {Link: UnderlineNavLink})
+
+// @ts-ignore -- TS doesn't know about the __SLOT__ property
+UnderlineNav.__SLOT__ = Symbol('DEPRECATED_UnderlineNav')
+// @ts-ignore -- TS doesn't know about the __SLOT__ property
+UnderlineNavLink.__SLOT__ = Symbol('DEPRECATED_UnderlineNav.Link')
+
+export default DeprecatedUnderlineNav

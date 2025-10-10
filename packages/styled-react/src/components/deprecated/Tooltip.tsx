@@ -26,4 +26,7 @@ const Tooltip = TooltipImpl as typeof TooltipImpl & {
 Tooltip.alignments = PrimerTooltip.alignments
 Tooltip.directions = PrimerTooltip.directions
 
+// @ts-ignore -- TS doesn't know about the __SLOT__ property
+Tooltip.__SLOT__ = PrimerTooltip.__SLOT__
+
 export {Tooltip, type TooltipProps}

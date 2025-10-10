@@ -43,5 +43,14 @@ const ActionList = Object.assign(ActionListImpl, {
   Divider: ActionListDivider,
 })
 
+// @ts-ignore -- TS doesn't know about the __SLOT__ property
+ActionListImpl.__SLOT__ = PrimerActionList.__SLOT__
+// @ts-ignore -- TS doesn't know about the __SLOT__ property
+ActionListItem.__SLOT__ = PrimerActionList.Item.__SLOT__
+// @ts-ignore -- TS doesn't know about the __SLOT__ property
+ActionListGroup.__SLOT__ = PrimerActionList.Group.__SLOT__
+// @ts-ignore -- TS doesn't know about the __SLOT__ property
+ActionListDivider.__SLOT__ = PrimerActionList.Divider.__SLOT__
+
 export type {ActionListProps, ActionListItemProps, ActionListGroupProps}
 export {ActionList}

@@ -99,5 +99,10 @@ const Dialog = forwardRef<HTMLDivElement, InternalDialogProps>(
 DialogHeader.displayName = 'Dialog.Header'
 Dialog.displayName = 'Dialog'
 
+// @ts-ignore -- TS doesn't know about the __SLOT__ property
+Dialog.__SLOT__ = Symbol('DEPRECATED_Dialog')
+// @ts-ignore -- TS doesn't know about the __SLOT__ property
+DialogHeader.__SLOT__ = Symbol('DEPRECATED_Dialog.Header')
+
 export type DialogProps = ComponentProps<typeof Dialog>
 export default Object.assign(Dialog, {Header: DialogHeader})

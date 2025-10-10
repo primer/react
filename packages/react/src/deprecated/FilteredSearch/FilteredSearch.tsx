@@ -15,5 +15,8 @@ function FilteredSearch({children, className, ...rest}: FilteredSearchProps) {
   )
 }
 
+// @ts-ignore -- TS doesn't know about the __SLOT__ property
+FilteredSearch.__SLOT__ = Symbol('DEPRECATED_FilteredSearch')
+
 export type {FilteredSearchProps}
 export default FilteredSearch

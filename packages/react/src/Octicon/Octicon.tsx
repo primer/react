@@ -14,4 +14,7 @@ const Octicon = React.forwardRef((props: OcticonProps, ref: React.Ref<SVGSVGElem
   return <IconComponent {...rest} ref={ref} />
 })
 
+// @ts-ignore -- TS doesn't know about the __SLOT__ property
+Octicon.__SLOT__ = Symbol('DEPRECATED_Octicon')
+
 export default Octicon
