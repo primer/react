@@ -2,6 +2,7 @@ import {SearchIcon, TriangleDownIcon, EyeIcon, IssueClosedIcon, HeartFillIcon} f
 import {Button, IconButton} from '.'
 import {default as Text} from '../Text'
 import {Stack} from '../Stack'
+import classes from './Button.dev.stories.module.css'
 
 export default {
   title: 'Components/Button/Dev',
@@ -67,7 +68,7 @@ export const TestSxProp = () => {
         Invariant color overridden
       </Button>
       <Button leadingVisual={IssueClosedIcon} sx={{color: 'done.fg'}}>
-        <Text sx={{color: 'fg.default'}}>Close issue</Text>
+        <Text className={classes.DefaultText}>Close issue</Text>
       </Button>
       <Button
         size="small"

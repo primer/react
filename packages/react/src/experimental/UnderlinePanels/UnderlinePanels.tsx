@@ -7,6 +7,7 @@ import React, {
   type FC,
   type PropsWithChildren,
   useEffect,
+  type ElementType,
 } from 'react'
 import {TabContainerElement} from '@github/tab-container-element'
 import type {IconProps} from '@primer/octicons-react'
@@ -17,15 +18,12 @@ import {
   UnderlineItem,
   type UnderlineItemProps,
 } from '../../internal/components/UnderlineTabbedInterface'
-import {type BoxProps} from '../../Box'
 import {useId} from '../../hooks'
 import {invariant} from '../../utils/invariant'
-import {type SxProp} from '../../sx'
 import {useResizeObserver, type ResizeObserverEntry} from '../../hooks/useResizeObserver'
 import useIsomorphicLayoutEffect from '../../utils/useIsomorphicLayoutEffect'
 import classes from './UnderlinePanels.module.css'
 import {clsx} from 'clsx'
-import {BoxWithFallback} from '../../internal/components/BoxWithFallback'
 
 export type UnderlinePanelsProps = {
   /**
@@ -52,7 +50,7 @@ export type UnderlinePanelsProps = {
    * Class name for custom styling
    */
   className?: string
-} & SxProp
+}
 
 export type TabProps = PropsWithChildren<{
   /**
@@ -71,10 +69,9 @@ export type TabProps = PropsWithChildren<{
    *  Icon rendered before the tab text label
    */
   icon?: FC<IconProps>
-}> &
-  SxProp
+}>
 
-export type PanelProps = Omit<BoxProps, 'as'>
+export type PanelProps = React.HTMLAttributes<HTMLDivElement>
 
 const TabContainerComponent = createComponent(TabContainerElement, 'tab-container')
 
@@ -104,12 +101,13 @@ const UnderlinePanels: FC<UnderlinePanelsProps> = ({
     let panelIndex = 0
 
     const childrenWithProps = Children.map(children, child => {
-      if (isValidElement<UnderlineItemProps>(child) && child.type === Tab) {
+      if (isValidElement<UnderlineItemProps<ElementType>>(child) && child.type === Tab) {
         return cloneElement(child, {id: `${parentId}-tab-${tabIndex++}`, loadingCounters, iconsVisible})
       }
 
       if (isValidElement<PanelProps>(child) && child.type === Panel) {
-        return cloneElement(child, {'aria-labelledby': `${parentId}-tab-${panelIndex++}`})
+        const childPanel = child as React.ReactElement<PanelProps>
+        return cloneElement(childPanel, {'aria-labelledby': `${parentId}-tab-${panelIndex++}`})
       }
       return child
     })
@@ -221,8 +219,12 @@ const Tab: FC<TabProps> = ({'aria-selected': ariaSelected, onSelect, ...props}) 
 
 Tab.displayName = 'UnderlinePanels.Tab'
 
-const Panel: FC<PanelProps> = props => {
-  return <BoxWithFallback as="div" role="tabpanel" {...props} />
+const Panel: FC<PanelProps> = ({children, ...rest}) => {
+  return (
+    <div role="tabpanel" {...rest}>
+      {children}
+    </div>
+  )
 }
 
 Panel.displayName = 'UnderlinePanels.Panel'

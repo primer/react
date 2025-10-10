@@ -2,7 +2,9 @@ name: Toggle Release Lock
 
 on:
   release:
-    types: [released]
+    types:
+      - released
+      - prereleased
   workflow_dispatch:
     inputs:
       action:
@@ -48,7 +50,7 @@ jobs:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
 
   unlock:
-    if: ${{ github.event.inputs.action == 'unlock' || github.event.action == 'released' }}
+    if: ${{ github.event.inputs.action == 'unlock' || github.event.action == 'released' || github.event.action == 'prereleased' }}
     name: Unlock the release
     runs-on: ubuntu-latest
     steps:
@@ -78,7 +80,7 @@ jobs:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
       - name: Update all PRs that are toggled merge when ready
         run: |
-          PR_NUMBERS=$(gh pr list -L 100 -R primer/react --state open --json number,mergeable,baseRefName,autoMergeRequest -q '.[] | select(.autoMergeRequest != null) | select(.mergeable == "MERGEABLE") | select(.baseRefName == "main") | .number')
+          PR_NUMBERS=$(gh pr list -L 100 -R primer/react --state open --json number,baseRefName,autoMergeRequest,reviewDecision -q '.[] | select(.autoMergeRequest != null) | select(.baseRefName == "main") | select(.reviewDecision == "APPROVED") | .number')
           if [ -n "$PR_NUMBERS" ]; then
             echo "Updating $PR_NUMBERS"
             echo "$PR_NUMBERS" | xargs -I {} gh pr update-branch -R primer/react {}

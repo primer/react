@@ -84,11 +84,6 @@
           "type": "boolean",
           "defaultValue": "false",
           "description": "If true, the fieldset legend will be visually hidden"
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject",
-          "deprecated": true
         }
       ]
     },

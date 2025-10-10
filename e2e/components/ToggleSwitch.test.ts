@@ -39,6 +39,10 @@ const stories = [
     title: 'With Caption',
     id: 'components-toggleswitch-features--with-caption',
   },
+  {
+    title: 'With Custom Labels',
+    id: 'components-toggleswitch-features--with-custom-labels',
+  },
 ] as const
 
 test.describe('ToggleSwitch', () => {

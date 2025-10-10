@@ -42,7 +42,7 @@ const config = defineConfig([
     'contributor-docs/adrs/*',
     'examples/codesandbox/**/*',
     'packages/react/src/utils/polymorphic.ts',
-    'packages/styled-react/src/polymorphic.d.ts',
+    'packages/styled-react/src/polymorphic.ts',
     '**/storybook-static',
     '**/CHANGELOG.md',
     '**/node_modules/**/*',

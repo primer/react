@@ -6,18 +6,16 @@ import CheckboxOrRadioGroupCaption from '../internal/components/CheckboxOrRadioG
 import CheckboxOrRadioGroupLabel from '../internal/components/CheckboxOrRadioGroup/CheckboxOrRadioGroupLabel'
 import CheckboxOrRadioGroupValidation from '../internal/components/CheckboxOrRadioGroup/CheckboxOrRadioGroupValidation'
 import {useRenderForcingRef} from '../hooks'
-import type {SxProp} from '../sx'
 import FormControl from '../FormControl'
 import Checkbox from '../Checkbox/Checkbox'
 import {CheckboxGroupContext} from './CheckboxGroupContext'
 
-type CheckboxGroupProps = {
+export type CheckboxGroupProps = {
   /**
    * An onChange handler that gets called when any of the checkboxes change
    */
   onChange?: (selected: string[], e?: ChangeEvent<HTMLInputElement>) => void
-} & CheckboxOrRadioGroupProps &
-  SxProp
+} & CheckboxOrRadioGroupProps
 
 const CheckboxGroup: FC<React.PropsWithChildren<CheckboxGroupProps>> = ({children, disabled, onChange, ...rest}) => {
   const formControlComponentChildren = React.Children.toArray(children)
