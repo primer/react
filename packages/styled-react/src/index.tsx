@@ -1,3 +1,5 @@
+'use client'
+
 export {Box, type BoxProps} from './components/Box'
 export {Button} from '@primer/react'
 export {Details} from '@primer/react'
@@ -10,13 +12,10 @@ export {TextInput} from '@primer/react'
 export {type TextInputProps} from '@primer/react'
 
 // theming depends on styled-components
-export {ThemeProvider} from '@primer/react'
+export {ThemeProvider, useTheme, useColorSchemeVar, BaseStyles} from './components/FeatureFlaggedTheming'
 export {merge} from '@primer/react'
 export {theme} from '@primer/react'
 export {themeGet} from '@primer/react'
-export {useColorSchemeVar} from '@primer/react'
-export {useTheme} from '@primer/react'
-export {BaseStyles} from '@primer/react'
 
 export {
   ActionList,
