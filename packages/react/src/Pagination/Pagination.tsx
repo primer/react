@@ -1,4 +1,5 @@
 import React from 'react'
+import {ChevronLeftIcon, ChevronRightIcon} from '@primer/octicons-react'
 import {buildComponentData, buildPaginationModel, type PageDataProps} from './model'
 import type {ResponsiveValue} from '../hooks/useResponsiveValue'
 import {viewportRanges} from '../hooks/useResponsiveValue'
@@ -41,6 +42,19 @@ type UsePaginationPagesParameters = {
   renderPage?: (props: PageProps) => React.ReactNode
 }
 
+type PageLabelProps = {
+  children: React.ReactNode
+  direction?: string
+}
+
+const PageLabel = ({children, direction}: PageLabelProps) => (
+  <>
+    {direction === 'page-prev' ? <ChevronLeftIcon /> : null}
+    {children}
+    {direction === 'page-next' ? <ChevronRightIcon /> : null}
+  </>
+)
+
 function usePaginationPages({
   pageCount,
   currentPage,
@@ -61,14 +75,20 @@ function usePaginationPages({
     return model.map(page => {
       const {props, key, content} = buildComponentData(page, hrefBuilder, pageChange(page.num))
       if (renderPage && props.as !== 'span') {
-        return renderPage({key, children: content, number: page.num, className: classes.Page, ...props})
+        return renderPage({
+          key,
+          children: <PageLabel direction={key}>{content}</PageLabel>,
+          number: page.num,
+          className: classes.Page,
+          ...props,
+        })
       }
       const Component = props.as || 'a'
 
       return (
         // @ts-ignore giving me grief about children and "as" props
         <Component key={key} className={clsx(classes.Page)} {...props}>
-          {content}
+          <PageLabel direction={key}>{content}</PageLabel>
         </Component>
       )
     })

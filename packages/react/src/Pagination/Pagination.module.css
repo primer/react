@@ -1,5 +1,5 @@
 .Page {
-  display: inline-block;
+  /* display: inline-block; */
   min-width: 32px; /* primer.control.medium.size */
   height: 32px; /* primer.control.medium.size */
   padding: var(--base-size-8) calc((var(--base-size-32) - var(--base-size-20)) / 2); /* primer.control.medium.paddingInline.condensed primer.control.medium.paddingBlock */
@@ -17,50 +17,24 @@
   background-color: transparent;
   border-radius: var(--borderRadius-medium);
   transition: background-color 0.2s cubic-bezier(0.3, 0, 0.5, 1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
-@supports (clip-path: polygon(50% 0, 100% 50%, 50% 100%)) {
-  .Page[rel='prev']::before,
-  .Page[rel='next']::after {
-    display: inline-block;
-    width: 16px;
-    height: 16px;
-    vertical-align: text-bottom;
-    content: '';
-    background-color: currentColor;
-  }
+.Page[rel='prev'] > svg,
+.Page[rel='next'] > svg {
+  /* sizing with `em` so icons scale with inherited font-size */
+  height: 1em;
+  width: 1em;
+}
 
-  /* chevron-left */
-  .Page[rel='prev']::before {
-    margin-right: var(--base-size-4);
-    clip-path: polygon(
-      9.8px 12.8px,
-      8.7px 12.8px,
-      4.5px 8.5px,
-      4.5px 7.5px,
-      8.7px 3.2px,
-      9.8px 4.3px,
-      6.1px 8px,
-      9.8px 11.7px,
-      9.8px 12.8px
-    );
-  }
+.Page[rel='prev'] > svg {
+  margin-inline-end: var(--base-size-4);
+}
 
-  /* chevron-right */
-  .Page[rel='next']::after {
-    margin-left: var(--base-size-4);
-    clip-path: polygon(
-      6.2px 3.2px,
-      7.3px 3.2px,
-      11.5px 7.5px,
-      11.5px 8.5px,
-      7.3px 12.8px,
-      6.2px 11.7px,
-      9.9px 8px,
-      6.2px 4.3px,
-      6.2px 3.2px
-    );
-  }
+.Page[rel='next'] > svg {
+  margin-inline-start: var(--base-size-4);
 }
 
 .Page:last-child {
