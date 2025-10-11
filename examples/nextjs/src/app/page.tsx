@@ -31,7 +31,9 @@ export default function IndexPage() {
       <Button variant="primary" style={{padding: 'var(--base-size-32)'}}>
         Hello world
       </Button>
-      <div style={{padding: 'var(--base-size-32)', backgroundColor: 'var(--color-btn-primary-bg)'}}>Hello world</div>
+      <div style={{padding: 'var(--base-size-32)', backgroundColor: 'var(--button-primary-bgColor-rest)'}}>
+        Hello world
+      </div>
       <StyledDiv>Hello world</StyledDiv>
       <ThemeUser />
     </Stack>
