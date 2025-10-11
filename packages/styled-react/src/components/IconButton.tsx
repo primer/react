@@ -1,4 +1,9 @@
-import {IconButton as PrimerIconButton, type IconButtonProps as PrimerIconButtonProps, type SxProp} from '@primer/react'
+import {
+  IconButton as PrimerIconButton,
+  type IconButtonProps as PrimerIconButtonProps,
+  type SlotMarker,
+  type SxProp,
+} from '@primer/react'
 import {type ForwardRefComponent} from '../polymorphic'
 import {generateCustomSxProp} from './Button'
 import {forwardRef} from 'react'
@@ -23,7 +28,9 @@ const IconButton = forwardRef(({as, sx, ...props}: IconButtonProps, ref) => {
   }
 
   return <StyledIconButton sx={sxStyles} {...props} {...(as ? {forwardedAs: as} : {})} ref={ref} />
-}) as ForwardRefComponent<'a' | 'button', IconButtonProps>
+}) as ForwardRefComponent<'a' | 'button', IconButtonProps> & SlotMarker
+
+IconButton.__SLOT__ = PrimerIconButton.__SLOT__
 
 export {IconButton}
 export type {IconButtonProps}

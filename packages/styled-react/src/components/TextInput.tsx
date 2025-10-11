@@ -32,6 +32,7 @@ type TextInputComposite = ForwardRefExoticComponent<TextInputProps & RefAttribut
 }
 
 export const TextInput: TextInputComposite = Object.assign(TextInputImpl, {
+  __SLOT__: PrimerTextInput.__SLOT__,
   Action: TextInputAction,
 })
 

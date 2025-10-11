@@ -1,4 +1,4 @@
-import {Button as PrimerButton, type ButtonProps as PrimerButtonProps} from '@primer/react'
+import {Button as PrimerButton, type ButtonProps as PrimerButtonProps, type SlotMarker} from '@primer/react'
 import type {SxProp, CSSCustomProperties} from '../sx'
 import type {BetterSystemStyleObject} from '../styled-props'
 import {forwardRef} from 'react'
@@ -30,7 +30,7 @@ const ButtonComponent = forwardRef(({as, sx, style: propStyle, ...props}: Button
   }
 
   return <StyledButtonComponent style={style} sx={sxStyles} ref={ref} {...props} {...(as ? {forwardedAs: as} : {})} />
-}) as ForwardRefComponent<'button', ButtonComponentProps>
+}) as ForwardRefComponent<'button', ButtonComponentProps> & SlotMarker
 
 // This function is used to generate a custom cssSelector for the sxProp
 
@@ -96,5 +96,6 @@ export function generateCustomSxProp(
 }
 
 ButtonComponent.displayName = 'Button'
+ButtonComponent.__SLOT__ = PrimerButton.__SLOT__
 
 export {ButtonComponent, type ButtonComponentProps}
