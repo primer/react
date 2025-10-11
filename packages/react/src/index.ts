@@ -101,6 +101,12 @@ export {ConfirmationDialog} from './ConfirmationDialog/ConfirmationDialog'
 export {default as Flash} from './Flash'
 export type {FlashProps} from './Flash'
 export {default as FormControl} from './FormControl'
+export type {
+  FormControlProps,
+  FormControlCaptionProps,
+  FormControlLabelProps,
+  FormControlValidationProps,
+} from './FormControl'
 export {useFormControlForwardedProps} from './FormControl'
 export {default as Header} from './Header'
 export type {HeaderProps, HeaderItemProps, HeaderLinkProps} from './Header'
