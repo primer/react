@@ -2,6 +2,7 @@ import {
   Autocomplete as PrimerAutocomplete,
   type AutocompleteOverlayProps as PrimerAutocompleteOverlayProps,
   type AutocompleteInputProps as PrimerAutocompleteInputProps,
+  type SlotMarker,
 } from '@primer/react'
 import {sx, type SxProp} from '../sx'
 import styled from 'styled-components'
@@ -9,7 +10,7 @@ import type {ComponentProps} from 'react'
 
 export type AutocompleteOverlayProps = PrimerAutocompleteOverlayProps & SxProp
 
-const AutocompleteOverlay: React.ComponentType<AutocompleteOverlayProps> = styled(
+const AutocompleteOverlay: React.ComponentType<AutocompleteOverlayProps> & SlotMarker = styled(
   PrimerAutocomplete.Overlay,
 ).withConfig({
   shouldForwardProp: prop => (prop as keyof AutocompleteOverlayProps) !== 'sx',
@@ -39,5 +40,7 @@ const Autocomplete: AutocompleteExport = Object.assign(PrimerAutocomplete, {
   Menu: PrimerAutocomplete.Menu,
   Overlay: AutocompleteOverlay,
 })
+
+AutocompleteOverlay.__SLOT__ = PrimerAutocomplete.Overlay.__SLOT__
 
 export {Autocomplete}

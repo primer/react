@@ -78,10 +78,10 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
       onFocus,
       onBlur,
       // start deprecated props
+      variant: variantProp,
       width: widthProp,
       minWidth: minWidthProp,
       maxWidth: maxWidthProp,
-      variant: variantProp,
       // end deprecated props
       type = 'text',
       required,
@@ -191,5 +191,6 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
 TextInput.displayName = 'TextInput'
 
 export default Object.assign(TextInput, {
+  __SLOT__: Symbol('TextInput'),
   Action: TextInputAction,
 })

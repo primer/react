@@ -57,9 +57,9 @@ export const TextInputBaseWrapper = React.forwardRef<HTMLElement, StyledTextInpu
   ) {
     const memoizedStyle = React.useMemo(() => {
       return {
-        ...(typeof width === 'string' || typeof width === 'number' ? {width} : {}),
-        ...(typeof minWidth === 'string' || typeof minWidth === 'number' ? {minWidth} : {}),
-        ...(typeof maxWidth === 'string' || typeof maxWidth === 'number' ? {maxWidth} : {}),
+        ...(width ? {width} : {}),
+        ...(minWidth ? {minWidth} : {}),
+        ...(maxWidth ? {maxWidth} : {}),
         ...style,
       }
     }, [width, minWidth, maxWidth, style])

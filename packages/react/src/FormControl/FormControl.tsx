@@ -21,6 +21,7 @@ import {FormControlContextProvider} from './_FormControlContext'
 import {warning} from '../utils/warning'
 import classes from './FormControl.module.css'
 import {BoxWithFallback} from '../internal/components/BoxWithFallback'
+import {isSlot} from '../utils/is-slot'
 
 export type FormControlProps = {
   children?: React.ReactNode
@@ -70,12 +71,20 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
     const captionId = slots.caption ? `${id}-caption` : undefined
     const validationStatus = slots.validation?.props.variant
     const InputComponent = childrenWithoutSlots.find(child =>
-      expectedInputComponents.some(inputComponent => React.isValidElement(child) && child.type === inputComponent),
+      expectedInputComponents.some(
+        inputComponent =>
+          React.isValidElement(child) && (child.type === inputComponent || isSlot(child, inputComponent)),
+      ),
     )
     const inputProps = React.isValidElement(InputComponent) && InputComponent.props
     const isChoiceInput =
-      React.isValidElement(InputComponent) && (InputComponent.type === Checkbox || InputComponent.type === Radio)
-    const isRadioInput = React.isValidElement(InputComponent) && InputComponent.type === Radio
+      React.isValidElement(InputComponent) &&
+      (InputComponent.type === Checkbox ||
+        InputComponent.type === Radio ||
+        isSlot(InputComponent, Checkbox) ||
+        isSlot(InputComponent, Radio))
+    const isRadioInput =
+      React.isValidElement(InputComponent) && (InputComponent.type === Radio || isSlot(InputComponent, Radio))
 
     if (InputComponent) {
       warning(
@@ -139,7 +148,8 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
             : null}
           {childrenWithoutSlots.filter(
             child =>
-              React.isValidElement(child) && ![Checkbox, Radio].some(inputComponent => child.type === inputComponent),
+              React.isValidElement(child) &&
+              ![Checkbox, Radio].some(inputComponent => child.type === inputComponent || isSlot(child, inputComponent)),
           )}
         </div>
         {slots.leadingVisual ? (
@@ -204,7 +214,9 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
             {childrenWithoutSlots.filter(
               child =>
                 React.isValidElement(child) &&
-                !expectedInputComponents.some(inputComponent => child.type === inputComponent),
+                !expectedInputComponents.some(
+                  inputComponent => child.type === inputComponent || isSlot(child, inputComponent),
+                ),
             )}
             {slots.validation ? (
               <ValidationAnimationContainer show>{slots.validation}</ValidationAnimationContainer>
@@ -218,6 +230,7 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
 )
 
 export default Object.assign(FormControl, {
+  __SLOT__: Symbol('FormControl'),
   Caption: FormControlCaption,
   Label: FormControlLabel,
   LeadingVisual: FormControlLeadingVisual,

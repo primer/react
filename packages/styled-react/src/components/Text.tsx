@@ -2,20 +2,30 @@ import {Text as PrimerText, type TextProps as PrimerTextProps} from '@primer/rea
 import {sx, type SxProp} from '../sx'
 import styled from 'styled-components'
 import type React from 'react'
-import {type StyledComponent} from 'styled-components'
 import {forwardRef} from 'react'
+import type {ForwardRefComponent} from '../polymorphic'
 
-type TextProps = PrimerTextProps & SxProp
+// Create a base type without generics for styled-components
+type BaseTextProps = {
+  size?: 'large' | 'medium' | 'small'
+  weight?: 'light' | 'normal' | 'medium' | 'semibold'
+  className?: string
+  children?: React.ReactNode
+  as?: React.ElementType
+} & SxProp &
+  React.HTMLAttributes<HTMLElement>
 
-const StyledText = styled(PrimerText).withConfig<TextProps>({
-  shouldForwardProp: prop => (prop as keyof TextProps) !== 'sx',
-})<TextProps>`
+// Generic type that matches PrimerText exactly
+type TextProps<As extends React.ElementType = 'span'> = PrimerTextProps<As> & SxProp
+
+const StyledText = styled(PrimerText).withConfig({
+  shouldForwardProp: prop => (prop as keyof BaseTextProps) !== 'sx',
+})<BaseTextProps>`
   ${sx}
 `
 
-const Text = forwardRef<'span', TextProps>(({as, ...props}, ref) => {
+const Text = forwardRef<HTMLElement, BaseTextProps>(({as, ...props}, ref) => {
   return <StyledText {...props} {...(as ? {forwardedAs: as} : {})} ref={ref} />
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-}) as StyledComponent<'span', any, TextProps, never>
+}) as ForwardRefComponent<'span', BaseTextProps>
 
 export {Text, type TextProps}

@@ -17,6 +17,7 @@ import UnstyledTextInput from '../internal/components/UnstyledTextInput'
 import TextInputInnerVisualSlot from '../internal/components/TextInputInnerVisualSlot'
 import styles from './TextInputWithTokens.module.css'
 import {clsx} from 'clsx'
+import type {WithSlotMarker} from '../utils/types'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type AnyReactComponent = React.ComponentType<React.PropsWithChildren<any>>
@@ -334,8 +335,9 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
 const TextInputWithTokens = React.forwardRef(TextInputWithTokensInnerComponent)
 
 TextInputWithTokens.displayName = 'TextInputWithTokens'
+;(TextInputWithTokens as WithSlotMarker<typeof TextInputWithTokens>).__SLOT__ = Symbol('TextInputWithTokens')
 
 /**
  * @deprecated
  */
-export default TextInputWithTokens
+export default TextInputWithTokens as WithSlotMarker<typeof TextInputWithTokens>
