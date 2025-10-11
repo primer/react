@@ -14,3 +14,5 @@ const ButtonComponent = forwardRef(({children, ...props}, forwardedRef): JSX.Ele
 ButtonComponent.displayName = 'Button'
 
 export {ButtonComponent, type ButtonProps}
+
+ButtonComponent.__SLOT__ = Symbol('Button')

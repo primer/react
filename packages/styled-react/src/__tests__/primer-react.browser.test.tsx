@@ -384,9 +384,11 @@ describe('@primer/react', () => {
 
   test('SegmentedControl.Button supports `sx` prop', () => {
     render(
-      <SegmentedControl.Button data-testid="component" sx={{background: 'red'}}>
-        test
-      </SegmentedControl.Button>,
+      <SegmentedControl>
+        <SegmentedControl.Button data-testid="component" sx={{background: 'red'}}>
+          test
+        </SegmentedControl.Button>
+      </SegmentedControl>,
     )
     const buttonElement = screen.getByTestId('component')
     expect(window.getComputedStyle(buttonElement).backgroundColor).toBe('rgb(255, 0, 0)')

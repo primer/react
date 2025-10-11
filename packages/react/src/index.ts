@@ -46,9 +46,12 @@ export {useResizeObserver} from './hooks/useResizeObserver'
 export {useResponsiveValue, type ResponsiveValue} from './hooks/useResponsiveValue'
 export {default as useIsomorphicLayoutEffect} from './utils/useIsomorphicLayoutEffect'
 export {useProvidedRefOrCreate} from './hooks/useProvidedRefOrCreate'
+export {useId} from './hooks/useId'
+export {useSyncedState} from './hooks/useSyncedState'
 
 // Utils
 export {createComponent} from './utils/create-component'
+export type {SlotMarker} from './utils/types'
 
 // Components
 export {default as Radio} from './Radio'
