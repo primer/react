@@ -16,6 +16,7 @@ const FormControlImpl: React.ComponentType<FormControlProps> = styled(PrimerForm
 `
 
 const FormControl = Object.assign(FormControlImpl, {
+  __SLOT__: PrimerFormControl.__SLOT__,
   Caption: PrimerFormControl.Caption,
   LeadingVisual: PrimerFormControl.LeadingVisual,
   Validation: PrimerFormControl.Validation,

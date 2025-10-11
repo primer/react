@@ -3,9 +3,8 @@ import {
   type TextInputProps as PrimerTextInputProps,
   type TextInputActionProps as PrimerTextInputActionProps,
 } from '@primer/react'
-import {forwardRef} from 'react'
+import {forwardRef, type ForwardRefExoticComponent, type RefAttributes} from 'react'
 import {sx, type SxProp} from '../sx'
-import type {ForwardRefExoticComponent, RefAttributes} from 'react'
 import {type ForwardRefComponent} from '../polymorphic'
 import styled from 'styled-components'
 
@@ -33,6 +32,7 @@ type TextInputComposite = ForwardRefExoticComponent<TextInputProps & RefAttribut
 }
 
 export const TextInput: TextInputComposite = Object.assign(TextInputImpl, {
+  __SLOT__: PrimerTextInput.__SLOT__,
   Action: TextInputAction,
 })
 
