@@ -2,7 +2,6 @@ import type {TextareaHTMLAttributes, ReactElement} from 'react'
 import React from 'react'
 import {TextInputBaseWrapper} from '../internal/components/TextInputWrapper'
 import type {FormValidationStatus} from '../utils/types/FormValidationStatus'
-import type {SxProp} from '../sx'
 import classes from './TextArea.module.css'
 import type {WithSlotMarker} from '../utils/types'
 
@@ -47,8 +46,7 @@ export type TextareaProps = {
    * CSS styles to apply to the Textarea
    */
   style?: React.CSSProperties
-} & TextareaHTMLAttributes<HTMLTextAreaElement> &
-  SxProp
+} & TextareaHTMLAttributes<HTMLTextAreaElement>
 
 /**
  * An accessible, native textarea component that supports validation states.
@@ -59,7 +57,6 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
     {
       value,
       disabled,
-      sx: sxProp,
       required,
       validationStatus,
       rows = DEFAULT_TEXTAREA_ROWS,
@@ -77,7 +74,6 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
   ): ReactElement => {
     return (
       <TextInputBaseWrapper
-        sx={sxProp}
         validationStatus={validationStatus}
         disabled={disabled}
         block={block}

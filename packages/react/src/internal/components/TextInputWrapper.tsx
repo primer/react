@@ -1,10 +1,8 @@
 import React, {type ComponentProps} from 'react'
-import type {SxProp} from '../../sx'
 import type {FormValidationStatus} from '../../utils/types/FormValidationStatus'
 import {clsx} from 'clsx'
 
 import styles from './TextInputWrapper.module.css'
-import {BoxWithFallback} from './BoxWithFallback'
 
 export type TextInputSizes = 'small' | 'medium' | 'large'
 
@@ -29,7 +27,7 @@ type StyledTextInputBaseWrapperProps = {
   minWidth?: string | number
   /** @deprecated Update `max-width` using CSS modules or style. */
   maxWidth?: string | number
-} & SxProp
+}
 
 type StyledTextInputWrapperProps = {
   hasLeadingVisual?: boolean
@@ -57,9 +55,17 @@ export const TextInputBaseWrapper = React.forwardRef<HTMLElement, StyledTextInpu
     },
     forwardRef,
   ) {
+    const memoizedStyle = React.useMemo(() => {
+      return {
+        ...(width ? {width} : {}),
+        ...(minWidth ? {minWidth} : {}),
+        ...(maxWidth ? {maxWidth} : {}),
+        ...style,
+      }
+    }, [width, minWidth, maxWidth, style])
+
     return (
-      <BoxWithFallback
-        as="span"
+      <span
         ref={forwardRef}
         className={clsx(className, styles.TextInputBaseWrapper)}
         data-block={block || undefined}
@@ -71,7 +77,7 @@ export const TextInputBaseWrapper = React.forwardRef<HTMLElement, StyledTextInpu
         data-trailing-action={hasTrailingAction || undefined}
         data-validation={validationStatus || undefined}
         data-variant={variant || undefined}
-        style={width || minWidth || maxWidth ? {width, maxWidth, minWidth, ...style} : style}
+        style={memoizedStyle}
         {...restProps}
       />
     )
