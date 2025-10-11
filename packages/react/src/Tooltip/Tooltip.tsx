@@ -56,4 +56,6 @@ Tooltip.alignments = ['left', 'right']
 
 Tooltip.directions = ['n', 'ne', 'e', 'se', 's', 'sw', 'w', 'nw']
 
+Tooltip.__SLOT__ = Symbol('DEPRECATED_Tooltip')
+
 export default Tooltip

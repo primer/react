@@ -5,7 +5,7 @@ import type {ResizeObserverEntry} from '../hooks/useResizeObserver'
 import {useResizeObserver} from '../hooks/useResizeObserver'
 import type {ChildWidthArray, ResponsiveProps, ChildSize} from './types'
 import VisuallyHidden from '../_VisuallyHidden'
-import {moreBtnStyles, dividerStyles, menuItemStyles, baseMenuMinWidth} from './styles'
+import {dividerStyles, menuItemStyles, baseMenuMinWidth} from './styles'
 import {UnderlineItemList, UnderlineWrapper, LoadingCounter, GAP} from '../internal/components/UnderlineTabbedInterface'
 import {Button} from '../Button'
 import {TriangleDownIcon} from '@primer/octicons-react'
@@ -334,7 +334,7 @@ export const UnderlineNav = forwardRef(
                 {!onlyMenuVisible && <div style={dividerStyles}></div>}
                 <Button
                   ref={moreMenuBtnRef}
-                  sx={moreBtnStyles}
+                  className={classes.MoreButton}
                   aria-controls={disclosureWidgetId}
                   aria-expanded={isWidgetOpen}
                   onClick={onAnchorClick}

@@ -15,6 +15,8 @@ import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../uti
 import {Tooltip} from '../TooltipV2/Tooltip'
 import styles from './ActionMenu.module.css'
 import {useResponsiveValue, type ResponsiveValue} from '../hooks/useResponsiveValue'
+import {isSlot} from '../utils/is-slot'
+import type {FCWithSlotMarker, WithSlotMarker} from '../utils/types/Slots'
 
 export type MenuCloseHandler = (
   gesture: 'anchor-click' | 'click-outside' | 'escape' | 'tab' | 'item-select' | 'arrow-left' | 'close',
@@ -71,7 +73,7 @@ const mergeAnchorHandlers = (anchorProps: React.HTMLAttributes<HTMLElement>, but
   return mergedAnchorProps
 }
 
-const Menu: React.FC<React.PropsWithChildren<ActionMenuProps>> = ({
+const Menu: FCWithSlotMarker<React.PropsWithChildren<ActionMenuProps>> = ({
   anchorRef: externalAnchorRef,
   open,
   onOpenChange,
@@ -112,7 +114,7 @@ const Menu: React.FC<React.PropsWithChildren<ActionMenuProps>> = ({
   // 🚨 Accounting for Tooltip wrapping ActionMenu.Button or being a direct child of ActionMenu.Anchor.
   const contents = React.Children.map(children, child => {
     // Is ActionMenu.Button wrapped with Tooltip? If this is the case, our anchor is the tooltip's trigger (ActionMenu.Button's grandchild)
-    if (child.type === Tooltip) {
+    if (child.type === Tooltip || isSlot(child, Tooltip)) {
       // tooltip trigger
       const anchorChildren = child.props.children
       if (anchorChildren.type === MenuButton) {
@@ -129,7 +131,8 @@ const Menu: React.FC<React.PropsWithChildren<ActionMenuProps>> = ({
       return null
     } else if (child.type === Anchor) {
       const anchorChildren = child.props.children
-      const isWrappedWithTooltip = anchorChildren !== undefined ? anchorChildren.type === Tooltip : false
+      const isWrappedWithTooltip =
+        anchorChildren !== undefined ? anchorChildren.type === Tooltip || isSlot(anchorChildren, Tooltip) : false
       if (isWrappedWithTooltip) {
         if (anchorChildren.props.children !== null) {
           renderAnchor = anchorProps => {
@@ -175,7 +178,15 @@ const Menu: React.FC<React.PropsWithChildren<ActionMenuProps>> = ({
 }
 
 export type ActionMenuAnchorProps = {children: React.ReactElement; id?: string} & React.HTMLAttributes<HTMLElement>
-const Anchor = React.forwardRef<HTMLElement, ActionMenuAnchorProps>(({children: child, ...anchorProps}, anchorRef) => {
+const Anchor: WithSlotMarker<
+  React.ForwardRefExoticComponent<
+    {
+      children: React.ReactElement
+      id?: string
+    } & React.HTMLAttributes<HTMLElement> &
+      React.RefAttributes<HTMLElement>
+  >
+> = React.forwardRef<HTMLElement, ActionMenuAnchorProps>(({children: child, ...anchorProps}, anchorRef) => {
   const {onOpen, isSubmenu} = React.useContext(MenuContext)
 
   const openSubmenuOnRightArrow: React.KeyboardEventHandler<HTMLElement> = useCallback(
@@ -247,7 +258,7 @@ type MenuOverlayProps = Partial<OverlayProps> &
     children: React.ReactNode
     onPositionChange?: ({position}: {position: AnchorPosition}) => void
   }
-const Overlay: React.FC<React.PropsWithChildren<MenuOverlayProps>> = ({
+const Overlay: FCWithSlotMarker<React.PropsWithChildren<MenuOverlayProps>> = ({
   children,
   align = 'start',
   side,
@@ -329,4 +340,10 @@ const Overlay: React.FC<React.PropsWithChildren<MenuOverlayProps>> = ({
 }
 
 Menu.displayName = 'ActionMenu'
+
+Menu.__SLOT__ = Symbol('ActionMenu')
+MenuButton.__SLOT__ = Symbol('ActionMenu.Button')
+Anchor.__SLOT__ = Symbol('ActionMenu.Anchor')
+Overlay.__SLOT__ = Symbol('ActionMenu.Overlay')
+
 export const ActionMenu = Object.assign(Menu, {Button: MenuButton, Anchor, Overlay, Divider})
