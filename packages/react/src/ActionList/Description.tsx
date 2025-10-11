@@ -3,6 +3,7 @@ import Truncate from '../Truncate'
 import {ItemContext} from './shared'
 import classes from './ActionList.module.css'
 import {clsx} from 'clsx'
+import type {FCWithSlotMarker} from '../utils/types/Slots'
 
 export type ActionListDescriptionProps = {
   /**
@@ -21,7 +22,7 @@ export type ActionListDescriptionProps = {
   truncate?: boolean
 }
 
-export const Description: React.FC<React.PropsWithChildren<ActionListDescriptionProps>> = ({
+export const Description: FCWithSlotMarker<React.PropsWithChildren<ActionListDescriptionProps>> = ({
   variant = 'inline',
   className,
   truncate,
@@ -70,3 +71,5 @@ export const Description: React.FC<React.PropsWithChildren<ActionListDescription
     )
   }
 }
+
+Description.__SLOT__ = Symbol('ActionList.Description')

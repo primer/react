@@ -79,3 +79,5 @@ AutocompleteOverlay.displayName = 'AutocompleteOverlay'
 
 export type AutocompleteOverlayProps = ComponentProps<typeof AutocompleteOverlay>
 export default AutocompleteOverlay
+
+AutocompleteOverlay.__SLOT__ = Symbol('Autocomplete.Overlay')

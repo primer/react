@@ -1,8 +1,9 @@
 import type React from 'react'
 import {useFormControlContext} from './_FormControlContext'
 import classes from './FormControlLeadingVisual.module.css'
+import type {FCWithSlotMarker} from '../utils/types'
 
-const FormControlLeadingVisual: React.FC<React.PropsWithChildren<{style?: React.CSSProperties}>> = ({
+const FormControlLeadingVisual: FCWithSlotMarker<React.PropsWithChildren<{style?: React.CSSProperties}>> = ({
   children,
   style,
 }) => {
@@ -18,5 +19,7 @@ const FormControlLeadingVisual: React.FC<React.PropsWithChildren<{style?: React.
     </div>
   )
 }
+
+FormControlLeadingVisual.__SLOT__ = Symbol('FormControl.LeadingVisual')
 
 export default FormControlLeadingVisual
