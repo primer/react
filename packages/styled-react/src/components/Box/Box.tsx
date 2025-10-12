@@ -12,9 +12,8 @@ import type {
   TypographyProps,
 } from 'styled-system'
 import {background, border, color, flexbox, grid, layout, position, shadow, space, typography} from 'styled-system'
-import type {SxProp} from '../sx'
-import sx from '../sx'
-import type {ComponentProps} from '../utils/types'
+import {sx, type SxProp} from '../../sx'
+import type {ComponentProps} from '../../utils/ComponentProps'
 
 type StyledBoxProps = SxProp &
   SpaceProps &
@@ -53,4 +52,5 @@ const Box = styled.div<StyledBoxProps>(
  * @see https://github.com/primer/react/blob/main/contributor-docs/migration-from-box.md
  */
 export type BoxProps = ComponentProps<typeof Box>
+export {Box}
 export default Box
