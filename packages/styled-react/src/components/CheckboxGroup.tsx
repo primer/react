@@ -1,10 +1,7 @@
-import {
-  Box,
-  CheckboxGroup as PrimerCheckboxGroup,
-  type CheckboxGroupProps as PrimerCheckboxGroupProps,
-} from '@primer/react'
+import {CheckboxGroup as PrimerCheckboxGroup, type CheckboxGroupProps as PrimerCheckboxGroupProps} from '@primer/react'
 import React, {type PropsWithChildren} from 'react'
 import type {SxProp} from '../sx'
+import {Box} from '../components/Box'
 
 export type CheckboxGroupProps = PropsWithChildren<PrimerCheckboxGroupProps> & SxProp
 
