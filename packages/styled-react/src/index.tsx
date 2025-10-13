@@ -1,21 +1,14 @@
+'use client'
+
 export {Box, type BoxProps} from './components/Box'
-export {Button} from '@primer/react'
 export {Details} from '@primer/react'
-export {FormControl} from '@primer/react'
-export {IconButton} from '@primer/react'
 export {ProgressBar} from '@primer/react'
-export {Select} from '@primer/react'
-export {Textarea} from '@primer/react'
-export {TextInput} from '@primer/react'
-export {type TextInputProps} from '@primer/react'
 
 // theming depends on styled-components
-export {ThemeProvider} from '@primer/react'
+export {ThemeProvider, useTheme, useColorSchemeVar, BaseStyles} from './components/FeatureFlaggedTheming'
 export {merge} from '@primer/react'
 export {theme} from '@primer/react'
 export {themeGet} from '@primer/react'
-export {useColorSchemeVar} from '@primer/react'
-export {useTheme} from '@primer/react'
 
 export {
   ActionList,
@@ -32,14 +25,17 @@ export {ActionMenu} from './components/ActionMenu'
 export {Autocomplete, type AutocompleteOverlayProps} from './components/Autocomplete'
 export {Avatar, type AvatarProps} from './components/Avatar'
 export {Breadcrumbs, Breadcrumb, type BreadcrumbsProps, type BreadcrumbsItemProps} from './components/Breadcrumbs'
+export {ButtonComponent as Button, type ButtonComponentProps as ButtonProps} from './components/Button'
 export {Checkbox, type CheckboxProps} from './components/Checkbox'
 export {CheckboxGroup, type CheckboxGroupProps} from './components/CheckboxGroup'
 export {CircleBadge} from './components/CircleBadge'
 export {CounterLabel, type CounterLabelProps} from './components/CounterLabel'
 export {Dialog, type DialogProps} from './components/Dialog'
 export {Flash} from './components/Flash'
+export {FormControl, type FormControlProps} from './components/FormControl'
 export {Header, type HeaderProps} from './components/Header'
 export {Heading} from './components/Heading'
+export {IconButton, type IconButtonProps} from './components/IconButton'
 export {Label, type LabelProps} from './components/Label'
 export {Link, type LinkProps} from './components/Link'
 export {LinkButton, type LinkButtonProps} from './components/LinkButton'
@@ -60,10 +56,13 @@ export {
   type SegmentedControlButtonProps,
   type SegmentedControlIconButtonProps,
 } from './components/SegmentedControl'
+export {Select, type SelectProps} from './components/Select'
 export {Spinner, type SpinnerProps} from './components/Spinner'
 export {StateLabel, type StateLabelProps} from './components/StateLabel'
 export {SubNav, type SubNavProps, type SubNavLinkProps} from './components/SubNav'
 export {Text, type TextProps} from './components/Text'
+export {Textarea, type TextareaProps} from './components/Textarea'
+export {TextInput, type TextInputProps, type TextInputActionProps} from './components/TextInput'
 export {
   Timeline,
   type TimelineProps,

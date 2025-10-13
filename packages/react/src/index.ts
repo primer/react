@@ -46,9 +46,12 @@ export {useResizeObserver} from './hooks/useResizeObserver'
 export {useResponsiveValue, type ResponsiveValue} from './hooks/useResponsiveValue'
 export {default as useIsomorphicLayoutEffect} from './utils/useIsomorphicLayoutEffect'
 export {useProvidedRefOrCreate} from './hooks/useProvidedRefOrCreate'
+export {useId} from './hooks/useId'
+export {useSyncedState} from './hooks/useSyncedState'
 
 // Utils
 export {createComponent} from './utils/create-component'
+export type {SlotMarker} from './utils/types'
 
 // Components
 export {default as Radio} from './Radio'
@@ -98,6 +101,12 @@ export {ConfirmationDialog} from './ConfirmationDialog/ConfirmationDialog'
 export {default as Flash} from './Flash'
 export type {FlashProps} from './Flash'
 export {default as FormControl} from './FormControl'
+export type {
+  FormControlProps,
+  FormControlCaptionProps,
+  FormControlLabelProps,
+  FormControlValidationProps,
+} from './FormControl'
 export {useFormControlForwardedProps} from './FormControl'
 export {default as Header} from './Header'
 export type {HeaderProps, HeaderItemProps, HeaderLinkProps} from './Header'
@@ -161,7 +170,7 @@ export type {SubNavProps, SubNavLinkProps, SubNavLinksProps} from './SubNav'
 export {default as ToggleSwitch} from './ToggleSwitch'
 export type {ToggleSwitchProps} from './ToggleSwitch'
 export {default as TextInput} from './TextInput'
-export type {TextInputProps} from './TextInput'
+export type {TextInputProps, TextInputActionProps} from './TextInput'
 export {default as TextInputWithTokens} from './TextInputWithTokens'
 export type {TextInputWithTokensProps} from './TextInputWithTokens'
 export {default as Text} from './Text'

@@ -1,11 +1,13 @@
-import {ActionMenu as PrimerActionMenu, type SxProp} from '@primer/react'
+import {ActionMenu as PrimerActionMenu, type SxProp, type SlotMarker} from '@primer/react'
 import {sx} from '../sx'
 import styled from 'styled-components'
 import type {ComponentProps} from 'react'
 
 type ActionMenuOverlayProps = ComponentProps<typeof PrimerActionMenu.Overlay> & SxProp
 
-const ActionMenuOverlay: React.ComponentType<ActionMenuOverlayProps> = styled(PrimerActionMenu.Overlay).withConfig({
+const ActionMenuOverlay: React.ComponentType<ActionMenuOverlayProps> & SlotMarker = styled(
+  PrimerActionMenu.Overlay,
+).withConfig({
   shouldForwardProp: prop => (prop as keyof ActionMenuOverlayProps) !== 'sx',
 })`
   ${sx}
@@ -22,3 +24,5 @@ export const ActionMenu: typeof PrimerActionMenu & {
   Overlay: ActionMenuOverlay,
   Divider: PrimerActionMenu.Divider,
 })
+
+ActionMenuOverlay.__SLOT__ = PrimerActionMenu.Overlay.__SLOT__
