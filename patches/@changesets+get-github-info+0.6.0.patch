@@ -1,8 +1,16 @@
 diff --git a/node_modules/@changesets/get-github-info/dist/changesets-get-github-info.cjs.js b/node_modules/@changesets/get-github-info/dist/changesets-get-github-info.cjs.js
-index a74df59..c063d04 100644
+index a74df59..b9a9a8c 100644
 --- a/node_modules/@changesets/get-github-info/dist/changesets-get-github-info.cjs.js
 +++ b/node_modules/@changesets/get-github-info/dist/changesets-get-github-info.cjs.js
-@@ -175,7 +175,17 @@ const GHDataLoader = new DataLoader__default["default"](async requests => {
+@@ -167,6 +167,7 @@ const GHDataLoader = new DataLoader__default["default"](async requests => {
+ 
+     repos[repo].push(data);
+   });
++  console.log('query', makeQuery(repos));
+   const data = await fetch__default["default"]("https://api.github.com/graphql", {
+     method: "POST",
+     headers: {
+@@ -175,7 +176,17 @@ const GHDataLoader = new DataLoader__default["default"](async requests => {
      body: JSON.stringify({
        query: makeQuery(repos)
      })
