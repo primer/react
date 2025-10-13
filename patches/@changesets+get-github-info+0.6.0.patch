@@ -14,7 +14,6 @@ index a74df59..0003f5b 100644
 +    } catch (e) {
 +      console.log('This is the error!');
 +      console.log(e);
-+      throw e
 +    }
 +  });
  
