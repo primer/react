@@ -139,6 +139,7 @@ const ActionListLeadingVisual: React.ComponentType<ActionListLeadingVisualProps>
     {children}
   </StyledActionListLeadingVisual>
 )
+ActionListLeadingVisual.displayName = 'ActionListLeadingVisual'
 
 const StyledActionListTrailingVisual: React.ComponentType<ActionListTrailingVisualProps> & SlotMarker = styled(
   PrimerActionList.TrailingVisual,
