@@ -241,7 +241,7 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
       role === 'link', // Explicitly set role as link
   )
 
-  const ItemWrapper = _PrivateItemWrapper || isLinkItem ? LinkItemContainerNoBox : DefaultItemWrapper
+  const ItemWrapper = _PrivateItemWrapper || (isLinkItem ? LinkItemContainerNoBox : DefaultItemWrapper)
 
   // only apply aria-selected and aria-checked to selectable items
   const selectableRoles = ['menuitemradio', 'menuitemcheckbox', 'option']
@@ -288,11 +288,24 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
     ? // _PrivateItemWrapper handles rendering, container passes through all props
       {role: itemRole ? 'none' : undefined, ...props}
     : isLinkItem
-      ? // Link items: strip link-specific props from container
+      ? // Link items: strip link-specific props and interactive attributes from container
         (() => {
           // eslint-disable-next-line @typescript-eslint/no-unused-vars
-          const {href, download, hrefLang, media, ping, rel, target, type, referrerPolicy, to, as, ...nonLinkProps} =
-            props
+          const {
+            href,
+            download,
+            hrefLang,
+            media,
+            ping,
+            rel,
+            target,
+            type,
+            referrerPolicy,
+            to,
+            as,
+            'aria-keyshortcuts': ariaKeyshortcuts,
+            ...nonLinkProps
+          } = props
           return {role: itemRole ? 'none' : undefined, ...nonLinkProps}
         })()
       : // Regular items with list semantics
@@ -300,8 +313,13 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
         (listSemantics && {...menuItemProps, ...props, ref: forwardedRef}) || {}
 
   const wrapperProps = _PrivateItemWrapper
-    ? // _PrivateItemWrapper only needs menuItemProps, handles user props itself
-      menuItemProps
+    ? // _PrivateItemWrapper gets menuItemProps (without role) and original user props
+      // Remove role from menuItemProps to allow Link component to have proper link semantics
+      (() => {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const {role, ...menuItemPropsWithoutRole} = menuItemProps
+        return {...menuItemPropsWithoutRole, ...props}
+      })()
     : isLinkItem
       ? // Link wrapper needs all props plus userOnClick for event bridging
         {...menuItemProps, ...props, inactiveText, userOnClick: props.onClick}
