@@ -112,6 +112,7 @@ const ActionListGroup: React.ComponentType<ActionListGroupProps> & SlotMarker = 
     {children}
   </StyledActionListGroup>
 )
+ActionListGroup.displayName = 'ActionListGroup'
 
 const ActionListDivider: React.ComponentType<ActionListDividerProps> & SlotMarker = styled(
   PrimerActionList.Divider,
