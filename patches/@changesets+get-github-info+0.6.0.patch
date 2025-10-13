@@ -1,20 +1,21 @@
 diff --git a/node_modules/@changesets/get-github-info/dist/changesets-get-github-info.cjs.js b/node_modules/@changesets/get-github-info/dist/changesets-get-github-info.cjs.js
-index a74df59..0003f5b 100644
+index a74df59..c063d04 100644
 --- a/node_modules/@changesets/get-github-info/dist/changesets-get-github-info.cjs.js
 +++ b/node_modules/@changesets/get-github-info/dist/changesets-get-github-info.cjs.js
-@@ -175,7 +175,16 @@ const GHDataLoader = new DataLoader__default["default"](async requests => {
+@@ -175,7 +175,17 @@ const GHDataLoader = new DataLoader__default["default"](async requests => {
      body: JSON.stringify({
        query: makeQuery(repos)
      })
 -  }).then(x => x.json());
 +  }).then(x => {
++    console.log('going to try x.json()');
 +    try {
++      const json = x.json();
 +      console.log('Nevermind it worked, oh well! try again!');
-+      return x.json()
++      return json;
 +    } catch (e) {
 +      console.log('This is the error!');
 +      console.log(e);
-+      throw e
 +    }
 +  });
  
