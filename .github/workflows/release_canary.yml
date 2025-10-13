@@ -39,7 +39,7 @@ jobs:
           EOF
         env:
           NPM_TOKEN: ${{ secrets.NPM_AUTH_TOKEN_SHARED }}
-      - name: Publish canary release
+      - name: Publish canary release 1
         run: |
           if [[ -f '.changeset/pre.json' ]]; then
             npx changeset pre exit
@@ -47,6 +47,10 @@ jobs:
 
           echo -e "---\n$( jq .name packages/react/package.json ): patch\n---\n\nFake entry to force publishing" > .changeset/force-snapshot-release.md
           npx changeset version --snapshot
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Publish canary release 2
+        run: |
           npx changeset publish --tag canary
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
