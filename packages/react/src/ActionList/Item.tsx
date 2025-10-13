@@ -290,22 +290,21 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
     : isLinkItem
       ? // Link items: strip link-specific props and interactive attributes from container
         (() => {
-          // eslint-disable-next-line @typescript-eslint/no-unused-vars
-          const {
-            href,
-            download,
-            hrefLang,
-            media,
-            ping,
-            rel,
-            target,
-            type,
-            referrerPolicy,
-            to,
-            as,
-            'aria-keyshortcuts': ariaKeyshortcuts,
-            ...nonLinkProps
-          } = props
+          const linkPropsToStrip = new Set([
+            'href',
+            'download',
+            'hrefLang',
+            'media',
+            'ping',
+            'rel',
+            'target',
+            'type',
+            'referrerPolicy',
+            'to',
+            'as',
+            'aria-keyshortcuts',
+          ])
+          const nonLinkProps = Object.fromEntries(Object.entries(props).filter(([key]) => !linkPropsToStrip.has(key)))
           return {role: itemRole ? 'none' : undefined, ...nonLinkProps}
         })()
       : // Regular items with list semantics
