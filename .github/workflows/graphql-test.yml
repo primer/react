@@ -359,7 +359,7 @@ jobs:
 
           echo "HTTP Status Code: $HTTP_STATUS"
           echo "Full GraphQL Response:"
-          echo "$RESPONSE" | jq '.' || echo "Raw response (invalid JSON): $RESPONSE"
+          # echo "$RESPONSE" | jq '.' || echo "Raw response (invalid JSON): $RESPONSE"
 
           echo "Still going 1"
 
