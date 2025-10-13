@@ -63,6 +63,7 @@ const ActionListLinkItem = React.forwardRef<HTMLAnchorElement, ActionListLinkIte
     </StyledActionListLinkItem>
   ),
 ) as ForwardRefComponent<'a', ActionListLinkItemProps> & SlotMarker
+ActionListLinkItem.displayName = 'ActionListLinkItem'
 
 type TrailingActionElements = 'button' | 'a'
 const StyledActionListTrailingAction = styled(PrimerActionList.TrailingAction).withConfig({
