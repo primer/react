@@ -41,10 +41,6 @@ jobs:
           NPM_TOKEN: ${{ secrets.NPM_AUTH_TOKEN_SHARED }}
       - name: Publish canary release 1
         run: |
-          if [[ -f '.changeset/pre.json' ]]; then
-            npx changeset pre exit
-          fi
-
           echo -e "---\n$( jq .name packages/react/package.json ): patch\n---\n\nFake entry to force publishing" > .changeset/force-snapshot-release.md
           npx changeset version --snapshot
         env:
