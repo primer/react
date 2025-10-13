@@ -361,6 +361,8 @@ jobs:
           echo "Full GraphQL Response:"
           echo "$RESPONSE" | jq '.' || echo "Raw response (invalid JSON): $RESPONSE"
 
+          echo "Still going 1"
+
           # Check HTTP status first
           if [ "$HTTP_STATUS" != "200" ]; then
             echo "❌ HTTP request failed with status code: $HTTP_STATUS"
@@ -368,6 +370,8 @@ jobs:
             echo "$RESPONSE"
             exit 1
           fi
+
+          echo "Still going 2"
 
           # Check if the response contains GraphQL errors
           if echo "$RESPONSE" | jq -e '.errors' > /dev/null 2>&1; then
@@ -377,6 +381,8 @@ jobs:
             echo "$RESPONSE" | jq '.errors[] | {message: .message, type: .type, path: .path, locations: .locations}' || true
             exit 1
           fi
+
+          echo "Still going 3"
 
           # Check if the query was successful and has expected data
           if echo "$RESPONSE" | jq -e '.data.repository.name' > /dev/null 2>&1; then
@@ -390,6 +396,8 @@ jobs:
             echo "$RESPONSE" | jq '.data // "No data field found"'
             exit 1
           fi
+
+          echo "Still going 4"
 
           # Cleanup
           rm -f response.json
