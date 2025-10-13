@@ -1,6 +1,5 @@
 import {clsx} from 'clsx'
 import type React from 'react'
-import {useTheme} from '../../ThemeProvider'
 import {getColorsFromHex} from './getColorFromHex'
 import classes from './IssueLabel.module.css'
 
@@ -71,8 +70,8 @@ function IssueLabel<As extends React.ElementType>({
   variant = 'gray',
   ...props
 }: IssueLabelProps<As>): React.ReactNode {
-  const {resolvedColorScheme} = useTheme()
-  const mode = resolvedColorScheme?.startsWith('dark') ? 'dark' : 'light'
+  const resolvedColorScheme = 'light'
+  const mode = resolvedColorScheme.startsWith('dark') ? 'dark' : 'light'
   // TODO: get the bgColor, getting it from theme.colorScheme seems a bit sketchy
   const bgColors: Record<string, Hex> = {
     light: '#ffffff',

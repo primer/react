@@ -4,7 +4,6 @@ import type {TokenBaseProps} from './TokenBase'
 import TokenBase, {defaultTokenSize, isTokenInteractive} from './TokenBase'
 import RemoveTokenButton from './_RemoveTokenButton'
 import {parseToHsla, parseToRgba} from 'color2k'
-import {useTheme} from '../ThemeProvider'
 import TokenTextContainer from './_TokenTextContainer'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import classes from './IssueLabelToken.module.css'
@@ -38,7 +37,6 @@ const IssueLabelToken = forwardRef((props, forwardedRef) => {
     onClick,
   }
 
-  const {resolvedColorScheme} = useTheme()
   const hasMultipleActionTargets = isTokenInteractive(props) && Boolean(onRemove) && !hideRemoveButton
   const onRemoveClick: MouseEventHandler = e => {
     e.stopPropagation()
@@ -70,7 +68,7 @@ const IssueLabelToken = forwardRef((props, forwardedRef) => {
       style={customProperties}
       data-has-remove-button={!hideRemoveButton && !!onRemove}
       data-selected={isSelected}
-      data-in-color-mode={resolvedColorScheme || 'light'}
+      data-in-color-mode={'light'}
       {...(!hasMultipleActionTargets ? interactiveTokenProps : {})}
       {...rest}
       ref={forwardedRef}
