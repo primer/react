@@ -5,7 +5,13 @@ export {Details} from '@primer/react'
 export {ProgressBar} from '@primer/react'
 
 // theming depends on styled-components
-export {ThemeProvider, useTheme, useColorSchemeVar, BaseStyles} from './components/FeatureFlaggedTheming'
+export {
+  ThemeProvider,
+  useTheme,
+  useColorSchemeVar,
+  BaseStyles,
+  type ThemeProviderProps,
+} from './components/FeatureFlaggedTheming'
 export {merge} from '@primer/react'
 export {theme} from '@primer/react'
 export {themeGet} from '@primer/react'

@@ -1,6 +1,5 @@
 import {
   ThemeProvider as PrimerReactThemeProvider,
-  type ThemeProviderProps,
   BaseStyles as PrimerReactBaseStyles,
   type BaseStylesProps,
   useTheme as primerReactUseTheme,
@@ -10,6 +9,7 @@ import {
   ThemeProvider as StyledReactThemeProvider,
   useTheme as styledReactUseTheme,
   useColorSchemeVar as styledReactUseColorSchemeVar,
+  type ThemeProviderProps,
 } from './ThemeProvider'
 import {BaseStyles as StyledReactBaseStyles} from './BaseStyles'
 import {useFeatureFlag} from '@primer/react/experimental'
@@ -47,3 +47,5 @@ export const useColorSchemeVar: typeof primerReactUseColorSchemeVar = (values, f
 
   return enabled ? styledReactResults : primerReactResults
 }
+
+export type {ThemeProviderProps}
