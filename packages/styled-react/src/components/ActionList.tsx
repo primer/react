@@ -158,6 +158,7 @@ const ActionListTrailingVisual: React.ComponentType<ActionListTrailingVisualProp
     {children}
   </StyledActionListTrailingVisual>
 )
+ActionListTrailingVisual.displayName = 'ActionListTrailingVisual'
 
 export const ActionList: typeof ActionListImpl & {
   Item: typeof ActionListItem
