@@ -1,7 +1,6 @@
 import type React from 'react'
 import {useCallback, useState} from 'react'
 import type {Meta} from '@storybook/react-vite'
-import {BaseStyles, ThemeProvider} from '..'
 import Autocomplete from './Autocomplete'
 import FormControl from '../FormControl'
 import type {ComponentProps} from '../utils/types'
@@ -112,18 +111,14 @@ const autocompleteStoryMeta: Meta = {
       }, [])
 
       return (
-        <ThemeProvider>
-          <BaseStyles>
-            <div onKeyDownCapture={reportKey}>
-              <p className={classes.KeyPressLabel} id="key-press-label">
-                Last key pressed: {lastKey}
-              </p>
-              <div className={classes.StoryContent}>
-                <Story />
-              </div>
-            </div>
-          </BaseStyles>
-        </ThemeProvider>
+        <div onKeyDownCapture={reportKey}>
+          <p className={classes.KeyPressLabel} id="key-press-label">
+            Last key pressed: {lastKey}
+          </p>
+          <div className={classes.StoryContent}>
+            <Story />
+          </div>
+        </div>
       )
     },
   ],
