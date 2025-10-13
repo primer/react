@@ -1,11 +1,11 @@
-import React, {act} from 'react'
+import React from 'react'
 
 import {useId} from '../hooks/useId'
 import {useSlots} from '../hooks/useSlots'
 import {ActionListContainerContext} from './ActionListContainerContext'
 import {Description} from './Description'
 import {GroupContext} from './Group'
-import type {ActionListItemProps, ActionListProps, MenuItemProps} from './shared'
+import type {ActionListItemProps, ActionListProps} from './shared'
 import {Selection} from './Selection'
 import {LeadingVisual, TrailingVisual, VisualOrIndicator} from './Visuals'
 import {ItemContext, ListContext} from './shared'
@@ -237,10 +237,11 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
       props.rel || // Links with rel attribute
       props.hrefLang || // International links
       props.to || // React Router style links (to prop)
-      (typeof props.as === 'string' && props.as.toLowerCase() === 'a'), // Explicitly set as anchor
+      (typeof props.as === 'string' && props.as.toLowerCase() === 'a') || // Explicitly set as anchor
+      role === 'link', // Explicitly set role as link
   )
 
-  const ItemWrapper = isLinkItem ? LinkItemContainerNoBox : DefaultItemWrapper
+  const ItemWrapper = _PrivateItemWrapper || isLinkItem ? LinkItemContainerNoBox : DefaultItemWrapper
 
   // only apply aria-selected and aria-checked to selectable items
   const selectableRoles = ['menuitemradio', 'menuitemcheckbox', 'option']
@@ -278,18 +279,38 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
     id: itemId,
   }
 
-  const containerProps = isLinkItem
-    ? {role: itemRole ? 'none' : undefined, className, active, inactiveText, variant, size}
-    : // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-      (listSemantics && {...menuItemProps, ...props, ref: forwardedRef}) || {}
+  // Props distribution depends on which component pattern is being used:
+  // 1. _PrivateItemWrapper - legacy override used by LinkItem
+  // 2. isLinkItem - direct Item usage with link props
+  // 3. default - regular button/div behavior
 
-  const wrapperProps = isLinkItem
-    ? {...menuItemProps, ...props, userOnClick: props.onClick}
-    : !listSemantics && {
-        ...menuItemProps,
-        ...props,
-        ref: forwardedRef,
-      }
+  const containerProps = _PrivateItemWrapper
+    ? // _PrivateItemWrapper handles rendering, container passes through all props
+      {role: itemRole ? 'none' : undefined, ...props}
+    : isLinkItem
+      ? // Link items: strip link-specific props from container
+        (() => {
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+          const {href, download, hrefLang, media, ping, rel, target, type, referrerPolicy, to, as, ...nonLinkProps} =
+            props
+          return {role: itemRole ? 'none' : undefined, ...nonLinkProps}
+        })()
+      : // Regular items with list semantics
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+        (listSemantics && {...menuItemProps, ...props, ref: forwardedRef}) || {}
+
+  const wrapperProps = _PrivateItemWrapper
+    ? // _PrivateItemWrapper only needs menuItemProps, handles user props itself
+      menuItemProps
+    : isLinkItem
+      ? // Link wrapper needs all props plus userOnClick for event bridging
+        {...menuItemProps, ...props, inactiveText, userOnClick: props.onClick}
+      : // Regular items without list semantics become the interactive element
+        !listSemantics && {
+          ...menuItemProps,
+          ...props,
+          ref: forwardedRef,
+        }
 
   return (
     <ItemContext.Provider

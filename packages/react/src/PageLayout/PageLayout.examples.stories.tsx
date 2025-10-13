@@ -243,9 +243,9 @@ export const FilterBottomSheet: StoryFn = () => {
           {isOpen && (
             <Dialog title="Filter" onClose={onDialogClose} position={{narrow: 'bottom'}}>
               <ActionList>
-                <ActionList.LinkItem href="#red">Red</ActionList.LinkItem>
-                <ActionList.LinkItem href="#blue">Vegetables</ActionList.LinkItem>
-                <ActionList.LinkItem href="#green">Animals</ActionList.LinkItem>
+                <ActionList.Item href="#red">Red</ActionList.Item>
+                <ActionList.Item href="#blue">Vegetables</ActionList.Item>
+                <ActionList.Item href="#green">Animals</ActionList.Item>
               </ActionList>
             </Dialog>
           )}
@@ -326,9 +326,9 @@ export const FilterActionMenu: StoryFn = () => {
           {isOpen && (
             <Dialog title="Filter" onClose={onDialogClose} position={{narrow: 'bottom'}}>
               <ActionList>
-                <ActionList.LinkItem href="#red">Red</ActionList.LinkItem>
-                <ActionList.LinkItem href="#blue">Vegetables</ActionList.LinkItem>
-                <ActionList.LinkItem href="#green">Animals</ActionList.LinkItem>
+                <ActionList.Item href="#red">Red</ActionList.Item>
+                <ActionList.Item href="#blue">Vegetables</ActionList.Item>
+                <ActionList.Item href="#green">Animals</ActionList.Item>
               </ActionList>
             </Dialog>
           )}
@@ -543,9 +543,9 @@ export const FiltersBottomSheetTwoLevels: StoryFn = () => {
             <Dialog title="Filter" onClose={onDialogClose} position={{narrow: 'bottom'}}>
               <ActionList>
                 <ActionList.Group>
-                  <ActionList.GroupHeading>Categories</ActionList.GroupHeading>
+                  <ActionList.GroupHeading as="h4">Categories</ActionList.GroupHeading>
                   {categories.map(category => (
-                    <ActionList.LinkItem
+                    <ActionList.Item
                       key={category.hash}
                       href={category.hash}
                       active={
@@ -555,12 +555,12 @@ export const FiltersBottomSheetTwoLevels: StoryFn = () => {
                       }
                     >
                       {category.name}
-                    </ActionList.LinkItem>
+                    </ActionList.Item>
                   ))}
                 </ActionList.Group>
                 <ActionList.Divider />
                 <ActionList.Group selectionVariant="single">
-                  <ActionList.GroupHeading>Colors</ActionList.GroupHeading>
+                  <ActionList.GroupHeading as="h4">Colors</ActionList.GroupHeading>
                   <ActionList.Item
                     onSelect={() => {
                       handleFilterChange('red')

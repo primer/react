@@ -185,6 +185,7 @@ describe('ActionList.Item', () => {
     const onClick = vi.fn()
     const component = HTMLRender(
       <ActionList role="listbox">
+        {/* eslint-disable-next-line primer-react/prefer-action-list-item-onselect */}
         <ActionList.Item role="link" onClick={onClick}>
           Primer React
         </ActionList.Item>

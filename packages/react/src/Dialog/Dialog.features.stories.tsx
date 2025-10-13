@@ -339,10 +339,10 @@ export const NewIssues = () => {
           title="New issue"
           renderBody={() => (
             <ActionList>
-              <ActionList.LinkItem ref={initialFocusRef} href="https://github.com">
+              <ActionList.Item ref={initialFocusRef} href="https://github.com">
                 Item 1
-              </ActionList.LinkItem>
-              <ActionList.LinkItem href="https://github.com">Link</ActionList.LinkItem>
+              </ActionList.Item>
+              <ActionList.Item href="https://github.com">Link</ActionList.Item>
             </ActionList>
           )}
         ></Dialog>
