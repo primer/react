@@ -1,7 +1,6 @@
 import {
   ThemeProvider as PrimerReactThemeProvider,
   BaseStyles as PrimerReactBaseStyles,
-  type BaseStylesProps,
   useTheme as primerReactUseTheme,
   useColorSchemeVar as primerReactUseColorSchemeVar,
 } from '@primer/react'
