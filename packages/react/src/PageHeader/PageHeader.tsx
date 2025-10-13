@@ -10,10 +10,11 @@ import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../uti
 import {areAllValuesTheSame, haveRegularAndWideSameValue} from '../utils/getBreakpointDeclarations'
 import {warning} from '../utils/warning'
 import {useProvidedRefOrCreate} from '../hooks'
-import type {AriaRole} from '../utils/types'
+import type {AriaRole, FCWithSlotMarker} from '../utils/types'
 import {clsx} from 'clsx'
 
 import classes from './PageHeader.module.css'
+import {isSlot} from '../utils/is-slot'
 
 // Types that are shared between PageHeader children components
 export type ChildrenPropTypes = {
@@ -74,10 +75,10 @@ const Root = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeader
         if (!titleArea) return
 
         for (const child of React.Children.toArray(children)) {
-          if (React.isValidElement(child) && child.type === ContextArea) {
+          if (React.isValidElement(child) && (child.type === ContextArea || isSlot(child, ContextArea))) {
             hasContextArea = true
           }
-          if (React.isValidElement(child) && child.type === LeadingAction) {
+          if (React.isValidElement(child) && (child.type === LeadingAction || isSlot(child, LeadingAction))) {
             hasLeadingAction = true
           }
         }
@@ -119,7 +120,7 @@ const Root = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeader
 // to manage their custom visibility but consumers should be careful if they choose to hide this on narrow viewports.
 // PageHeader.ContextArea Sub Components: PageHeader.ParentLink, PageHeader.ContextBar, PageHeader.ContextAreaActions
 // ---------------------------------------------------------------------
-const ContextArea: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
+const ContextArea: FCWithSlotMarker<React.PropsWithChildren<ChildrenPropTypes>> = ({
   children,
   className,
   hidden = hiddenOnRegularAndWide,
@@ -130,6 +131,9 @@ const ContextArea: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
     </div>
   )
 }
+
+ContextArea.__SLOT__ = Symbol('PageHeader.ContextArea')
+
 type LinkProps = Pick<
   React.AnchorHTMLAttributes<HTMLAnchorElement> & BaseLinkProps,
   'download' | 'href' | 'hrefLang' | 'media' | 'ping' | 'rel' | 'target' | 'type' | 'referrerPolicy' | 'as'
@@ -219,7 +223,7 @@ TitleArea.displayName = 'TitleArea'
 
 // PageHeader.LeadingAction and PageHeader.TrailingAction should only be visible on regular viewports.
 // So they come as hidden on narrow viewports by default and their visibility can be managed by their `hidden` prop.
-const LeadingAction: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
+const LeadingAction: FCWithSlotMarker<React.PropsWithChildren<ChildrenPropTypes>> = ({
   children,
   className,
   hidden = hiddenOnNarrow,
@@ -234,6 +238,8 @@ const LeadingAction: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
     </div>
   )
 }
+
+LeadingAction.__SLOT__ = Symbol('PageHeader.LeadingAction')
 
 // This is reserved for only breadcrumbs.
 const Breadcrumbs: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({children, className, hidden = false}) => {
