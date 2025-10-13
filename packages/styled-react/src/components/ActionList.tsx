@@ -63,7 +63,7 @@ const ActionListLinkItem = React.forwardRef<HTMLAnchorElement, ActionListLinkIte
     </StyledActionListLinkItem>
   ),
 ) as ForwardRefComponent<'a', ActionListLinkItemProps> & SlotMarker
-ActionListLinkItem.displayName = 'ActionListLinkItem'
+ActionListLinkItem.displayName = 'ActionList.LinkItem'
 
 type TrailingActionElements = 'button' | 'a'
 const StyledActionListTrailingAction = styled(PrimerActionList.TrailingAction).withConfig({
@@ -112,7 +112,7 @@ const ActionListGroup: React.ComponentType<ActionListGroupProps> & SlotMarker = 
     {children}
   </StyledActionListGroup>
 )
-ActionListGroup.displayName = 'ActionListGroup'
+ActionListGroup.displayName = 'ActionList.Group'
 
 const ActionListDivider: React.ComponentType<ActionListDividerProps> & SlotMarker = styled(
   PrimerActionList.Divider,
@@ -139,7 +139,7 @@ const ActionListLeadingVisual: React.ComponentType<ActionListLeadingVisualProps>
     {children}
   </StyledActionListLeadingVisual>
 )
-ActionListLeadingVisual.displayName = 'ActionListLeadingVisual'
+ActionListLeadingVisual.displayName = 'ActionList.LeadingVisual'
 
 const StyledActionListTrailingVisual: React.ComponentType<ActionListTrailingVisualProps> & SlotMarker = styled(
   PrimerActionList.TrailingVisual,
@@ -158,7 +158,7 @@ const ActionListTrailingVisual: React.ComponentType<ActionListTrailingVisualProp
     {children}
   </StyledActionListTrailingVisual>
 )
-ActionListTrailingVisual.displayName = 'ActionListTrailingVisual'
+ActionListTrailingVisual.displayName = 'ActionList.TrailingVisual'
 
 export const ActionList: typeof ActionListImpl & {
   Item: typeof ActionListItem
