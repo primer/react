@@ -11,7 +11,7 @@ import {
   useColorSchemeVar as styledReactUseColorSchemeVar,
   type ThemeProviderProps,
 } from './ThemeProvider'
-import {BaseStyles as StyledReactBaseStyles} from './BaseStyles'
+import {BaseStyles as StyledReactBaseStyles, type BaseStylesProps} from './BaseStyles'
 import {useFeatureFlag} from '@primer/react/experimental'
 
 export const ThemeProvider: React.FC<React.PropsWithChildren<ThemeProviderProps>> = ({children, ...props}) => {
@@ -48,4 +48,4 @@ export const useColorSchemeVar: typeof primerReactUseColorSchemeVar = (values, f
   return enabled ? styledReactResults : primerReactResults
 }
 
-export type {ThemeProviderProps}
+export type {ThemeProviderProps, BaseStylesProps}
