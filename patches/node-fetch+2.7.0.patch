@@ -1,0 +1,13 @@
+diff --git a/node_modules/node-fetch/lib/index.js b/node_modules/node-fetch/lib/index.js
+index 567ff5d..cf100c5 100644
+--- a/node_modules/node-fetch/lib/index.js
++++ b/node_modules/node-fetch/lib/index.js
+@@ -268,6 +268,8 @@ Body.prototype = {
+ 
+ 		return consumeBody.call(this).then(function (buffer) {
+ 			try {
++				console.log('trying to decode this')
++				console.log(buffer.toString())
+ 				return JSON.parse(buffer.toString());
+ 			} catch (err) {
+ 				return Body.Promise.reject(new FetchError(`invalid json response body at ${_this2.url} reason: ${err.message}`, 'invalid-json'));
