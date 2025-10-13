@@ -230,7 +230,7 @@ export function ComplexListStory(): JSX.Element {
 ComplexListStory.storyName = 'Complex List'
 
 export function CustomTrigger(): JSX.Element {
-  const customAnchor = (props: ButtonProps) => <Button {...props} sx={{cursor: 'pointer'}} />
+  const customAnchor = (props: ButtonProps) => <Button {...props} style={{cursor: 'pointer'}} />
   const [option, setOption] = useState('Select an option')
   const onAction = useCallback((itemProps: ItemProps) => {
     setOption(itemProps.text || '')

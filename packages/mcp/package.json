@@ -2,7 +2,7 @@
   "name": "@primer/mcp",
   "private": true,
   "description": "An MCP server that connects AI tools to the Primer Design System",
-  "version": "0.1.0-rc.1",
+  "version": "0.0.5",
   "type": "module",
   "bin": {
     "mcp": "./bin/mcp.js"
