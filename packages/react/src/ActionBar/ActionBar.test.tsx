@@ -100,6 +100,32 @@ describe('ActionBar Registry System', () => {
     expect(buttons[2]).toHaveAccessibleName('Third')
   })
 
+  it('should preserve group order with deep nesting', () => {
+    render(
+      <ActionBar aria-label="Deep test">
+        <div>
+          <ActionBar.Group label="First Group">
+            <ActionBar.IconButton icon={BoldIcon} aria-label="First" />
+          </ActionBar.Group>
+        </div>
+        <ActionBar.Group label="Second Group">
+          <ActionBar.IconButton icon={ItalicIcon} aria-label="Second" />
+        </ActionBar.Group>
+        <div>
+          <ActionBar.Group label="Third Group">
+            <ActionBar.IconButton icon={CodeIcon} aria-label="Third" />
+          </ActionBar.Group>
+        </div>
+      </ActionBar>,
+    )
+
+    const buttons = screen.getAllByRole('button')
+    expect(buttons).toHaveLength(3)
+    expect(buttons[0]).toHaveAccessibleName('First')
+    expect(buttons[1]).toHaveAccessibleName('Second')
+    expect(buttons[2]).toHaveAccessibleName('Third')
+  })
+
   it('should handle conditional rendering without breaking order', async () => {
     const ConditionalTest = () => {
       const [show, setShow] = useState([true, true, true])
@@ -108,7 +134,9 @@ describe('ActionBar Registry System', () => {
         <div>
           <ActionBar aria-label="Conditional">
             {show[0] && <ActionBar.IconButton icon={BoldIcon} aria-label="First" />}
-            {show[1] && <ActionBar.IconButton icon={ItalicIcon} aria-label="Second" />}
+            <ActionBar.Group label="Second Group">
+              {show[1] && <ActionBar.IconButton icon={ItalicIcon} aria-label="Second" />}
+            </ActionBar.Group>
             {show[2] && <ActionBar.IconButton icon={CodeIcon} aria-label="Third" />}
           </ActionBar>
           <button type="button" onClick={() => setShow([false, true, true])}>

@@ -28,7 +28,7 @@ export default {
   title: 'Experimental/Components/ActionBar/Examples',
 } as Meta<typeof ActionBar>
 
-export const Groups = () => (
+export const WithGroups = () => (
   <ActionBar aria-label="Toolbar">
     <ActionBar.Group label="Text formatting">
       <>
