@@ -1,7 +1,7 @@
 'use client'
 
 import {SunIcon, MoonIcon} from '@primer/octicons-react'
-import {Button, useTheme} from '@primer/react'
+import {Button, useTheme} from '@primer/styled-react'
 import classes from './ThemePreference.module.css'
 
 export function ThemePreference() {
