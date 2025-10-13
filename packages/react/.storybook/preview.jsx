@@ -1,6 +1,5 @@
 import {PrimerBreakpoints} from '../src/utils/layout'
 import React, {useEffect} from 'react'
-import {ThemeProvider, BaseStyles} from '../src'
 import {FeatureFlags} from '../src/FeatureFlags'
 import {DefaultFeatureFlags} from '../src/FeatureFlags/DefaultFeatureFlags'
 import {clsx} from 'clsx'
@@ -285,38 +284,26 @@ export const decorators = [
       context.globals.showSurroundingElements ?? window.localStorage.getItem('showSurroundingElements') === 'true'
     return context.globals.colorScheme === 'all' ? (
       primerThemes.map(({value: theme}) => (
-        <ThemeProvider key={theme} dayScheme={theme} nightScheme={theme} colorMode="day">
-          <div
-            id="story"
-            className={clsx(context.globals.colorScheme === 'all' && 'story-wrap-grid', 'story-wrap')}
-            data-color-mode={theme.startsWith('dark') ? 'dark' : 'light'}
-            data-light-theme={theme.startsWith('light') ? theme : undefined}
-            data-dark-theme={theme.startsWith('dark') ? theme : undefined}
-          >
-            <BaseStyles>
-              <Story {...context} />
-              {context.globals.colorScheme === 'all' && <p className="theme-name">{theme}</p>}
-            </BaseStyles>
-          </div>
-        </ThemeProvider>
+        <div
+          id="story"
+          className={clsx(context.globals.colorScheme === 'all' && 'story-wrap-grid', 'story-wrap')}
+          data-color-mode={theme.startsWith('dark') ? 'dark' : 'light'}
+          data-light-theme={theme.startsWith('light') ? theme : undefined}
+          data-dark-theme={theme.startsWith('dark') ? theme : undefined}
+        >
+          <Story {...context} />
+          {context.globals.colorScheme === 'all' && <p className="theme-name">{theme}</p>}
+        </div>
       ))
     ) : (
       <Profiler id="storybook-preview">
-        <ThemeProvider
-          dayScheme={context.globals.colorScheme}
-          nightScheme={context.globals.colorScheme}
-          colorMode="day"
-        >
-          <div {...wrapperProps}>
-            <BaseStyles>
-              {showSurroundingElements ? <a href="https://github.com/primer/react">Primer documentation</a> : ''}
-              <FeatureFlags>
-                <Story {...context} />
-              </FeatureFlags>
-              {showSurroundingElements ? <a href="https://github.com/primer/react">Primer documentation</a> : ''}
-            </BaseStyles>
-          </div>
-        </ThemeProvider>
+        <div {...wrapperProps}>
+          {showSurroundingElements ? <a href="https://github.com/primer/react">Primer documentation</a> : ''}
+          <FeatureFlags>
+            <Story {...context} />
+          </FeatureFlags>
+          {showSurroundingElements ? <a href="https://github.com/primer/react">Primer documentation</a> : ''}
+        </div>
       </Profiler>
     )
   },
