@@ -90,7 +90,10 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
     return null
   }
   const getChildText = (childArg: React.ReactNode) => {
-    if (React.isValidElement<SegmentedControlButtonProps>(childArg) && childArg.type === Button) {
+    if (
+      React.isValidElement<SegmentedControlButtonProps>(childArg) &&
+      (childArg.type === Button || isSlot(childArg, Button))
+    ) {
       return childArg.props.children
     }
 
