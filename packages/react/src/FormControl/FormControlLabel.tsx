@@ -1,7 +1,7 @@
 import type React from 'react'
-import type {SxProp} from '../sx'
 import {useFormControlContext} from './_FormControlContext'
 import {InputLabel} from '../internal/components/InputLabel'
+import type {FCWithSlotMarker} from '../utils/types'
 
 export type Props = {
   /**
@@ -13,11 +13,11 @@ export type Props = {
   id?: string
   className?: string
   style?: React.CSSProperties
-} & SxProp
+}
 
-const FormControlLabel: React.FC<
+const FormControlLabel: FCWithSlotMarker<
   React.PropsWithChildren<{htmlFor?: string} & React.ComponentProps<typeof InputLabel> & Props>
-> = ({as, children, htmlFor, id, visuallyHidden, requiredIndicator = true, requiredText, sx, className, ...props}) => {
+> = ({as, children, htmlFor, id, visuallyHidden, requiredIndicator = true, requiredText, className, ...props}) => {
   const {disabled, id: formControlId, required} = useFormControlContext()
 
   /**
@@ -34,7 +34,6 @@ const FormControlLabel: React.FC<
           requiredText,
           requiredIndicator,
           disabled,
-          sx,
           ...props,
         }
       : {
@@ -47,11 +46,12 @@ const FormControlLabel: React.FC<
           requiredText,
           requiredIndicator,
           disabled,
-          sx,
           ...props,
         }
 
   return <InputLabel {...labelProps}>{children}</InputLabel>
 }
+
+FormControlLabel.__SLOT__ = Symbol('FormControl.Label')
 
 export default FormControlLabel

@@ -1,6 +1,6 @@
 'use client'
 
-import {Button, Stack, Box} from '@primer/react'
+import {Button, Stack} from '@primer/react'
 import {useTheme} from '@primer/styled-react'
 import styled from 'styled-components'
 
@@ -28,10 +28,12 @@ const ThemeUser = () => {
 export default function IndexPage() {
   return (
     <Stack direction="horizontal">
-      <Button variant="primary" sx={{padding: 5}}>
+      <Button variant="primary" style={{padding: 'var(--base-size-32)'}}>
         Hello world
       </Button>
-      <Box sx={{padding: 5, backgroundColor: 'btn.primary.bg'}}>Hello world</Box>
+      <div style={{padding: 'var(--base-size-32)', backgroundColor: 'var(--button-primary-bgColor-rest)'}}>
+        Hello world
+      </div>
       <StyledDiv>Hello world</StyledDiv>
       <ThemeUser />
     </Stack>
