@@ -46,7 +46,6 @@ export type TextInputNonPassthroughProps = {
     | 'contrast'
     | 'disabled'
     | 'monospace'
-    | 'sx'
     | 'width'
     | 'maxWidth'
     | 'minWidth'
@@ -75,7 +74,6 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
       loaderText = 'Loading',
       monospace,
       validationStatus,
-      sx: sxProp,
       size: sizeProp,
       onFocus,
       onBlur,
@@ -137,7 +135,6 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
         contrast={contrast}
         disabled={disabled}
         monospace={monospace}
-        sx={sxProp}
         size={sizeProp}
         width={widthProp}
         minWidth={minWidthProp}
@@ -194,5 +191,6 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
 TextInput.displayName = 'TextInput'
 
 export default Object.assign(TextInput, {
+  __SLOT__: Symbol('TextInput'),
   Action: TextInputAction,
 })
