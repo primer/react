@@ -151,7 +151,14 @@ const getMenuItems = (
 }
 
 export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = props => {
-  const {size = 'medium', children, 'aria-label': ariaLabel, flush = false, className} = props
+  const {
+    size = 'medium',
+    children,
+    'aria-label': ariaLabel,
+    'aria-labelledby': ariaLabelledBy,
+    flush = false,
+    className,
+  } = props
 
   const [childRegistry, setChildRegistry] = useState<ChildRegistry>(() => new Map())
 
@@ -225,6 +232,7 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
           className={styles.List}
           style={{gap: `${ACTIONBAR_ITEM_GAP}px`}}
           aria-label={ariaLabel}
+          aria-labelledby={ariaLabelledBy}
         >
           {children}
           {menuItemIds.size > 0 && (
