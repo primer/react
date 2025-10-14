@@ -3,7 +3,7 @@ import type {LinkButtonProps as BaseLinkButtonProps, ButtonProps} from './types'
 import {ButtonBase} from './ButtonBase'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 
-export type LinkButtonProps = Omit<BaseLinkButtonProps & ButtonProps, 'sx'>
+export type LinkButtonProps = BaseLinkButtonProps & ButtonProps
 
 const LinkButton = forwardRef(({children, as: Component = 'a', ...props}, forwardedRef): JSX.Element => {
   return (
