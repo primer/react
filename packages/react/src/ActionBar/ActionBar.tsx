@@ -164,7 +164,14 @@ const getMenuItems = (
 }
 
 export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = props => {
-  const {size = 'medium', children, 'aria-label': ariaLabel, flush = false, className, gap} = props
+  const {
+    size = 'medium',
+    children,
+    'aria-label': ariaLabel,
+    'aria-labelledby': ariaLabelledBy,
+    flush = false,
+    className,
+  } = props
 
   const itemGap = Math.min(Math.max(gap ?? ACTIONBAR_ITEM_GAP, 0), ACTIONBAR_ITEM_GAP)
 
@@ -234,7 +241,14 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
   return (
     <ActionBarContext.Provider value={{size, registerChild, unregisterChild, isVisibleChild}}>
       <div ref={navRef} className={clsx(className, styles.Nav)} data-flush={flush}>
-        <div ref={listRef} role="toolbar" className={styles.List} style={{gap: `${itemGap}px`}}>
+        <div
+          ref={listRef}
+          role="toolbar"
+          className={styles.List}
+          style={{gap: `${itemGap}px`}}
+          aria-label={ariaLabel}
+          aria-labelledby={ariaLabelledBy}
+        >
           {children}
           {menuItemIds.size > 0 && (
             <ActionMenu>
