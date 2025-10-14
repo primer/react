@@ -27,7 +27,8 @@ import {clsx} from 'clsx'
 
 import classes from './SelectPanel.module.css'
 import type {PositionSettings} from '@primer/behaviors'
-import type {FCWithSlotMarker} from '../../utils/types'
+import type {FCWithSlotMarker, WithSlotMarker} from '../../utils/types'
+import {isSlot} from '../../utils/is-slot'
 
 const SelectPanelContext = React.createContext<{
   title: string
@@ -124,7 +125,7 @@ const Panel: React.FC<SelectPanelProps> = ({
   }
 
   const contents = React.Children.map(props.children, child => {
-    if (React.isValidElement(child) && child.type === SelectPanelButton) {
+    if (React.isValidElement(child) && (child.type === SelectPanelButton || isSlot(child, SelectPanelButton))) {
       // eslint-disable-next-line react-compiler/react-compiler
       Anchor = React.cloneElement(child, {
         // @ts-ignore TODO
@@ -339,7 +340,9 @@ const SelectPanelButton = React.forwardRef<HTMLButtonElement, ButtonProps>((prop
   } else {
     return <Button ref={anchorRef} {...props} />
   }
-})
+}) as WithSlotMarker<React.ForwardRefExoticComponent<ButtonProps & React.RefAttributes<HTMLButtonElement>>>
+
+SelectPanelButton.__SLOT__ = Symbol('SelectPanel.Button')
 
 const SelectPanelHeader: FCWithSlotMarker<React.ComponentPropsWithoutRef<'div'> & {onBack?: () => void}> = ({
   children,
