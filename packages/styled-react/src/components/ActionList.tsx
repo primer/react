@@ -18,11 +18,19 @@ type PrimerActionListTrailingActionProps = React.ComponentProps<typeof PrimerAct
 
 export type ActionListProps<As extends React.ElementType = 'ul'> = PrimerActionListProps<As> & SxProp
 export type ActionListItemProps = React.PropsWithChildren<PrimerActionListItemProps & SxProp>
-export type ActionListLinkItemProps = React.PropsWithChildren<PrimerActionListLinkItemProps & SxProp>
-export type ActionListGroupProps = React.PropsWithChildren<PrimerActionListGroupProps & SxProp>
+export type ActionListLinkItemProps = React.PropsWithChildren<PrimerActionListLinkItemProps & SxProp> & {
+  as?: React.ElementType
+}
+export type ActionListGroupProps = React.PropsWithChildren<PrimerActionListGroupProps & SxProp> & {
+  as?: React.ElementType
+}
 export type ActionListDividerProps = React.PropsWithChildren<PrimerActionListDividerProps & SxProp>
-export type ActionListLeadingVisualProps = React.PropsWithChildren<PrimerActionListLeadingVisualProps & SxProp>
-export type ActionListTrailingVisualProps = React.PropsWithChildren<PrimerActionListTrailingVisualProps & SxProp>
+export type ActionListLeadingVisualProps = React.PropsWithChildren<PrimerActionListLeadingVisualProps & SxProp> & {
+  as?: React.ElementType
+}
+export type ActionListTrailingVisualProps = React.PropsWithChildren<PrimerActionListTrailingVisualProps & SxProp> & {
+  as?: React.ElementType
+}
 export type ActionListTrailingActionProps = React.PropsWithChildren<PrimerActionListTrailingActionProps & SxProp>
 
 const StyledActionList = styled(PrimerActionList).withConfig({
@@ -40,13 +48,22 @@ const ActionListImpl = React.forwardRef(function ActionListImpl<As extends React
   return <StyledActionList ref={ref} {...rest} {...(as ? {forwardedAs: as} : {})} />
 })
 
-const ActionListLinkItem: ForwardRefComponent<'a', ActionListLinkItemProps> & SlotMarker = styled(
+const StyledActionListLinkItem: ForwardRefComponent<'a', ActionListLinkItemProps> & SlotMarker = styled(
   PrimerActionList.LinkItem,
 ).withConfig<ActionListLinkItemProps>({
   shouldForwardProp: prop => prop !== 'sx',
 })`
   ${sx}
 `
+
+const ActionListLinkItem = React.forwardRef<HTMLAnchorElement, ActionListLinkItemProps>(
+  ({children, as, ...props}, ref) => (
+    <StyledActionListLinkItem ref={ref} {...props} {...(as ? {forwardedAs: as} : {})}>
+      {children}
+    </StyledActionListLinkItem>
+  ),
+) as ForwardRefComponent<'a', ActionListLinkItemProps> & SlotMarker
+ActionListLinkItem.displayName = 'ActionList.LinkItem'
 
 type TrailingActionElements = 'button' | 'a'
 const StyledActionListTrailingAction = styled(PrimerActionList.TrailingAction).withConfig({
@@ -82,13 +99,20 @@ const ActionListItem = React.forwardRef<HTMLLIElement, ActionListItemProps>(({ch
   </StyledActionListItem>
 )) as ForwardRefComponent<'li', ActionListItemProps> & SlotMarker
 
-const ActionListGroup: React.ComponentType<ActionListGroupProps> & SlotMarker = styled(
+const StyledActionListGroup: React.ComponentType<ActionListGroupProps> & SlotMarker = styled(
   PrimerActionList.Group,
 ).withConfig<ActionListGroupProps>({
   shouldForwardProp: prop => prop !== 'sx',
 })`
   ${sx}
 `
+
+const ActionListGroup: React.ComponentType<ActionListGroupProps> & SlotMarker = ({children, as, ...props}) => (
+  <StyledActionListGroup {...props} {...(as ? {forwardedAs: as} : {})}>
+    {children}
+  </StyledActionListGroup>
+)
+ActionListGroup.displayName = 'ActionList.Group'
 
 const ActionListDivider: React.ComponentType<ActionListDividerProps> & SlotMarker = styled(
   PrimerActionList.Divider,
@@ -98,7 +122,7 @@ const ActionListDivider: React.ComponentType<ActionListDividerProps> & SlotMarke
   ${sx}
 `
 
-const ActionListLeadingVisual: React.ComponentType<ActionListLeadingVisualProps> & SlotMarker = styled(
+const StyledActionListLeadingVisual: React.ComponentType<ActionListLeadingVisualProps> & SlotMarker = styled(
   PrimerActionList.LeadingVisual,
 ).withConfig<ActionListLeadingVisualProps>({
   shouldForwardProp: prop => prop !== 'sx',
@@ -106,13 +130,35 @@ const ActionListLeadingVisual: React.ComponentType<ActionListLeadingVisualProps>
   ${sx}
 `
 
-const ActionListTrailingVisual: React.ComponentType<ActionListTrailingVisualProps> & SlotMarker = styled(
+const ActionListLeadingVisual: React.ComponentType<ActionListLeadingVisualProps> & SlotMarker = ({
+  children,
+  as,
+  ...props
+}) => (
+  <StyledActionListLeadingVisual {...props} {...(as ? {forwardedAs: as} : {})}>
+    {children}
+  </StyledActionListLeadingVisual>
+)
+ActionListLeadingVisual.displayName = 'ActionList.LeadingVisual'
+
+const StyledActionListTrailingVisual: React.ComponentType<ActionListTrailingVisualProps> & SlotMarker = styled(
   PrimerActionList.TrailingVisual,
 ).withConfig<ActionListTrailingVisualProps>({
   shouldForwardProp: prop => prop !== 'sx',
 })`
   ${sx}
 `
+
+const ActionListTrailingVisual: React.ComponentType<ActionListTrailingVisualProps> & SlotMarker = ({
+  children,
+  as,
+  ...props
+}) => (
+  <StyledActionListTrailingVisual {...props} {...(as ? {forwardedAs: as} : {})}>
+    {children}
+  </StyledActionListTrailingVisual>
+)
+ActionListTrailingVisual.displayName = 'ActionList.TrailingVisual'
 
 export const ActionList: typeof ActionListImpl & {
   Item: typeof ActionListItem

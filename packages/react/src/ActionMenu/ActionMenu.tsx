@@ -101,7 +101,9 @@ const Menu: FCWithSlotMarker<React.PropsWithChildren<ActionMenuProps>> = ({
   )
 
   const menuButtonChild = React.Children.toArray(children).find(
-    child => React.isValidElement<ActionMenuButtonProps>(child) && (child.type === MenuButton || child.type === Anchor),
+    child =>
+      React.isValidElement<ActionMenuButtonProps>(child) &&
+      (child.type === MenuButton || child.type === Anchor || isSlot(child, Anchor) || isSlot(child, MenuButton)),
   )
   const menuButtonChildId = React.isValidElement(menuButtonChild) ? menuButtonChild.props.id : undefined
 
@@ -117,7 +119,7 @@ const Menu: FCWithSlotMarker<React.PropsWithChildren<ActionMenuProps>> = ({
     if (child.type === Tooltip || isSlot(child, Tooltip)) {
       // tooltip trigger
       const anchorChildren = child.props.children
-      if (anchorChildren.type === MenuButton) {
+      if (anchorChildren.type === MenuButton || isSlot(anchorChildren, MenuButton)) {
         // eslint-disable-next-line react-compiler/react-compiler
         renderAnchor = anchorProps => {
           // We need to attach the anchor props to the tooltip trigger (ActionMenu.Button's grandchild) not the tooltip itself.
@@ -129,7 +131,7 @@ const Menu: FCWithSlotMarker<React.PropsWithChildren<ActionMenuProps>> = ({
         }
       }
       return null
-    } else if (child.type === Anchor) {
+    } else if (child.type === Anchor || isSlot(child, Anchor)) {
       const anchorChildren = child.props.children
       const isWrappedWithTooltip =
         anchorChildren !== undefined ? anchorChildren.type === Tooltip || isSlot(anchorChildren, Tooltip) : false
@@ -151,7 +153,7 @@ const Menu: FCWithSlotMarker<React.PropsWithChildren<ActionMenuProps>> = ({
         renderAnchor = anchorProps => React.cloneElement(child, anchorProps)
       }
       return null
-    } else if (child.type === MenuButton) {
+    } else if (child.type === MenuButton || isSlot(child, MenuButton)) {
       renderAnchor = anchorProps => React.cloneElement(child, mergeAnchorHandlers(anchorProps, child.props))
       return null
     } else {
