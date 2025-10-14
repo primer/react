@@ -386,9 +386,10 @@ export const UnderlineNav = forwardRef(
                     }
 
                     return (
-                      <ActionList.LinkItem
+                      <ActionList.Item
                         key={menuItemChildren}
                         style={menuItemStyles}
+                        /* eslint-disable-next-line primer-react/prefer-action-list-item-onselect */
                         onClick={(
                           event: React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>,
                         ) => {
@@ -413,7 +414,7 @@ export const UnderlineNav = forwardRef(
                             )
                           )}
                         </span>
-                      </ActionList.LinkItem>
+                      </ActionList.Item>
                     )
                   })}
                 </ActionList>

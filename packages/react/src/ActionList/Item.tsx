@@ -288,9 +288,11 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
     ? // _PrivateItemWrapper handles rendering, container passes through all props
       {role: itemRole ? 'none' : undefined, ...props}
     : isLinkItem
-      ? // Link items: strip link-specific props and interactive attributes from container
+      ? // Link items: strip link-specific props and semantic attributes from container
+        // The link wrapper will receive these props, not the <li> container
         (() => {
-          const linkPropsToStrip = new Set([
+          const propsToStrip = new Set([
+            // Link-specific props
             'href',
             'download',
             'hrefLang',
@@ -302,23 +304,23 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
             'referrerPolicy',
             'to',
             'as',
+            // Semantic/interactive attributes that belong on the link, not the container
+            'aria-current',
             'aria-keyshortcuts',
+            'style', // Contains --subitem-depth which should be on the link
+            // Test/styling props that should only be on the interactive element
+            'data-testid',
+            'sx',
           ])
-          const nonLinkProps = Object.fromEntries(Object.entries(props).filter(([key]) => !linkPropsToStrip.has(key)))
-          return {role: itemRole ? 'none' : undefined, ...nonLinkProps}
+          const containerOnlyProps = Object.fromEntries(Object.entries(props).filter(([key]) => !propsToStrip.has(key)))
+          return {role: itemRole ? 'none' : undefined, ...containerOnlyProps}
         })()
       : // Regular items with list semantics
         // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
         (listSemantics && {...menuItemProps, ...props, ref: forwardedRef}) || {}
 
   const wrapperProps = _PrivateItemWrapper
-    ? // _PrivateItemWrapper gets menuItemProps (without role) and original user props
-      // Remove role from menuItemProps to allow Link component to have proper link semantics
-      (() => {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const {role, ...menuItemPropsWithoutRole} = menuItemProps
-        return {...menuItemPropsWithoutRole, ...props}
-      })()
+    ? menuItemProps
     : isLinkItem
       ? // Link wrapper needs all props plus userOnClick for event bridging
         {...menuItemProps, ...props, inactiveText, userOnClick: props.onClick}

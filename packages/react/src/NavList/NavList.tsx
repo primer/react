@@ -86,15 +86,16 @@ const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(
     }
 
     return (
-      <ActionList.LinkItem
+      <ActionList.Item
         ref={ref}
+        as="a"
         aria-current={ariaCurrent}
         active={Boolean(ariaCurrent) && ariaCurrent !== 'false'}
         style={{'--subitem-depth': depth} as React.CSSProperties}
         {...props}
       >
         {children}
-      </ActionList.LinkItem>
+      </ActionList.Item>
     )
   },
 ) as PolymorphicForwardRefComponent<'a', NavListItemProps>
