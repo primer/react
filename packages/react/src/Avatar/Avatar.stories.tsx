@@ -3,6 +3,8 @@ import type {AvatarProps} from './Avatar'
 import Avatar, {DEFAULT_AVATAR_SIZE} from './Avatar'
 import {parseSizeFromArgs} from './storyHelpers'
 import {makeLiveEditStory} from 'storybook-addon-code-editor'
+// @ts-expect-error Vite raw import for code preview in Storybook
+import * as PrimerReactLibrary from '../index';
 
 export default {
   title: 'Components/Avatar',
@@ -16,11 +18,13 @@ type Args = {
   sizeAtWide?: number
 } & Omit<AvatarProps, 'size'>
 
-export const Default = () => <Avatar src="https://avatars.githubusercontent.com/u/7143434?v=4" />
+export const Default = {}
 
 makeLiveEditStory(Default, {
-  // availableImports: {'my-library': MyLibrary},
-  code: `<Avatar src="https://avatars.githubusercontent.com/u/7143434?v=4" />`,
+  availableImports: {'@primer/react': PrimerReactLibrary},
+  code: `import { Avatar } from '@primer/react';
+
+    export default () => <Avatar src="https://avatars.githubusercontent.com/u/7143434?v=4" />`,
 })
 
 export const Playground: StoryFn<Args> = args => {
