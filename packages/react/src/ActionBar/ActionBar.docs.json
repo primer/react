@@ -34,7 +34,8 @@
     },
     {
       "name": "flush",
-      "derive": true
+      "derive": true,
+      "type": "boolean"
     },
     {
       "name": "className",
@@ -42,6 +43,13 @@
       "required": false,
       "description": "Custom className",
       "defaultValue": ""
+    },
+    {
+      "name": "gap",
+      "type": "number",
+      "required": false,
+      "defaultValue": "8",
+      "description": "Horizontal gap in pixels between items. Clamped between 0 and 8 (default 8)."
     }
   ],
   "subcomponents": [

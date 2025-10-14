@@ -234,3 +234,50 @@ describe('ActionBar Registry System', () => {
     expect(screen.queryByRole('button', {name: 'Will unmount'})).not.toBeInTheDocument()
   })
 })
+
+describe('ActionBar gap prop', () => {
+  it('uses default gap (8px) when gap prop not provided', () => {
+    render(
+      <ActionBar aria-label="Toolbar">
+        <ActionBar.IconButton icon={BoldIcon} aria-label="Bold" />
+        <ActionBar.IconButton icon={ItalicIcon} aria-label="Italic" />
+      </ActionBar>,
+    )
+    const toolbar = screen.getByRole('toolbar') as HTMLElement
+    expect(toolbar.style.gap).toBe('8px')
+  })
+
+  it('applies provided gap value', () => {
+    render(
+      <ActionBar aria-label="Toolbar" gap={4}>
+        <ActionBar.IconButton icon={BoldIcon} aria-label="Bold" />
+        <ActionBar.IconButton icon={ItalicIcon} aria-label="Italic" />
+        <ActionBar.IconButton icon={CodeIcon} aria-label="Code" />
+      </ActionBar>,
+    )
+    const toolbar = screen.getByRole('toolbar') as HTMLElement
+    expect(toolbar.style.gap).toBe('4px')
+  })
+
+  it('clamps gap > 8 down to 8', () => {
+    render(
+      <ActionBar aria-label="Toolbar" gap={99}>
+        <ActionBar.IconButton icon={BoldIcon} aria-label="Bold" />
+        <ActionBar.IconButton icon={ItalicIcon} aria-label="Italic" />
+      </ActionBar>,
+    )
+    const toolbar = screen.getByRole('toolbar') as HTMLElement
+    expect(toolbar.style.gap).toBe('8px')
+  })
+
+  it('clamps negative gap to 0', () => {
+    render(
+      <ActionBar aria-label="Toolbar" gap={-3}>
+        <ActionBar.IconButton icon={BoldIcon} aria-label="Bold" />
+        <ActionBar.IconButton icon={ItalicIcon} aria-label="Italic" />
+      </ActionBar>,
+    )
+    const toolbar = screen.getByRole('toolbar') as HTMLElement
+    expect(toolbar.style.gap).toBe('0px')
+  })
+})
