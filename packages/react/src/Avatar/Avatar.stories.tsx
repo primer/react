@@ -26,16 +26,7 @@ makeLiveEditStory(Default, {
     export default () => <Avatar src="https://avatars.githubusercontent.com/u/7143434?v=4" />`,
 })
 
-export const Playground: StoryFn<Args> = args => {
-  return (
-    <Avatar
-      size={parseSizeFromArgs(args)}
-      square={args.square}
-      src="https://avatars.githubusercontent.com/u/7143434?v=4"
-      alt="mona"
-    />
-  )
-}
+export const Playground = {}
 
 Playground.args = {
   size: DEFAULT_AVATAR_SIZE,
@@ -72,3 +63,17 @@ Playground.argTypes = {
     },
   },
 }
+
+makeLiveEditStory(Playground, {
+  availableImports: {'@primer/react': PrimerReactLibrary},
+  code: `import { Avatar } from '@primer/react';
+
+export default (args) => (
+  <Avatar
+    size={args.size || 24}
+    square={args.square}
+    src="https://avatars.githubusercontent.com/u/7143434?v=4"
+    alt="mona"
+  />
+);`,
+})
