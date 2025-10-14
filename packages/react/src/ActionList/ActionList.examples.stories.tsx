@@ -55,7 +55,7 @@ export const ListLinkItem = () => (
       <ActionList.LeadingVisual>
         <LinkIcon />
       </ActionList.LeadingVisual>
-      ActionList.Item
+      ActionList.Item with href
     </ActionList.Item>
     <ActionList.Item href="https://github.com/primer" target="_blank" rel="noopener noreferrer">
       <ActionList.LeadingVisual>

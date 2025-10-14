@@ -67,7 +67,7 @@ export type ActionListItemProps<As extends React.ElementType = 'li'> = ExcludeSe
   as?: As
 } & LinkProps
 
-type LinkProps = {
+export type LinkProps = {
   download?: string
   href?: string
   hrefLang?: string
@@ -77,7 +77,6 @@ type LinkProps = {
   target?: string
   type?: string
   referrerPolicy?: React.AnchorHTMLAttributes<HTMLAnchorElement>['referrerPolicy']
-  className?: string
 }
 
 export type MenuItemProps = {

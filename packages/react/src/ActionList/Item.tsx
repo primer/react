@@ -5,7 +5,7 @@ import {useSlots} from '../hooks/useSlots'
 import {ActionListContainerContext} from './ActionListContainerContext'
 import {Description} from './Description'
 import {GroupContext} from './Group'
-import type {ActionListItemProps, ActionListProps} from './shared'
+import type {ActionListItemProps, ActionListProps, LinkProps} from './shared'
 import {Selection} from './Selection'
 import {LeadingVisual, TrailingVisual, VisualOrIndicator} from './Visuals'
 import {ItemContext, ListContext} from './shared'
@@ -48,47 +48,27 @@ const DivItemContainerNoBox = React.forwardRef<HTMLDivElement, React.HTMLAttribu
   },
 )
 
-type LinkProps = {
-  download?: string
-  href?: string
-  hrefLang?: string
-  media?: string
-  ping?: string
-  rel?: string
-  target?: string
-  type?: string
-  referrerPolicy?: React.AnchorHTMLAttributes<HTMLAnchorElement>['referrerPolicy']
-  className?: string
-}
-
-// LinkItem does not support selected, loading, variants, etc.
-export type ActionListLinkItemProps = Pick<
-  ActionListItemProps,
-  'active' | 'children' | 'inactiveText' | 'variant' | 'size'
-> &
-  LinkProps
-
 type LinkItemContainerProps = React.HTMLAttributes<HTMLAnchorElement> &
   LinkProps &
   Pick<ActionListItemProps, 'active' | 'children' | 'inactiveText' | 'variant' | 'size'> & {
     userOnClick?: (event: React.MouseEvent<HTMLAnchorElement>) => void
     as?: React.ElementType
-    // onClick from Item expects HTMLElement
+    // onClick passed from Item to handle selection logic
     onClick?: (event: React.MouseEvent<HTMLElement>) => void
   }
 
 const LinkItemContainerNoBox = React.forwardRef<HTMLAnchorElement, LinkItemContainerProps>(
-  ({children, onClick, userOnClick, inactiveText, as: Component = 'a', ...props}, forwardedRef) => {
+  ({children, onClick, userOnClick, inactiveText, as: Component = 'a', ...rest}, forwardedRef) => {
     const clickHandler = (event: React.MouseEvent<HTMLElement>) => {
       onClick && onClick(event)
       userOnClick && userOnClick(event as React.MouseEvent<HTMLAnchorElement>)
     }
     if (inactiveText) {
-      return <span {...(props as React.HTMLAttributes<HTMLSpanElement>)}>{children}</span>
+      return <span {...(rest as React.HTMLAttributes<HTMLSpanElement>)}>{children}</span>
     }
 
     return (
-      <Link as={Component} {...props} onClick={clickHandler} ref={forwardedRef}>
+      <Link as={Component} {...rest} onClick={clickHandler} ref={forwardedRef}>
         {children}
       </Link>
     )
@@ -112,6 +92,7 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
     groupId: _groupId,
     renderItem: _renderItem,
     handleAddItem: _handleAddItem,
+
     ...props
   }: ActionListItemProps<As>,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -163,6 +144,18 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
     ? groupSelectionVariant
     : listSelectionVariant
 
+  /** Detect if this should be a link item based on props - needed early for role inference */
+  const isLinkItem = Boolean(
+    props.href ||
+      props.download ||
+      props.target ||
+      props.rel ||
+      props.hrefLang ||
+      props.to ||
+      (typeof props.as === 'string' && props.as.toLowerCase() === 'a') ||
+      role === 'link',
+  )
+
   /** Infer item role based on the container */
   let inferredItemRole: ActionListItemProps['role']
   if (container === 'ActionMenu') {
@@ -172,6 +165,9 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
   } else if (listRole === 'listbox') {
     if (selectionVariant !== undefined && !role) inferredItemRole = 'option'
   }
+  // Note: We don't auto-infer role='link' for link items because:
+  // 1. Links inside <nav><ul> should use native semantics (no explicit role needed)
+  // 2. Only ActionMenu and listbox contexts require explicit ARIA roles
 
   const itemRole = role || inferredItemRole
 
@@ -229,18 +225,6 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
 
   const DefaultItemWrapper = listSemantics ? DivItemContainerNoBox : ButtonItemContainerNoBox
 
-  // Detect if this should be a link item based on props
-  const isLinkItem = Boolean(
-    props.href || // Has href
-      props.download || // Download links
-      props.target || // Links with target
-      props.rel || // Links with rel attribute
-      props.hrefLang || // International links
-      props.to || // React Router style links (to prop)
-      (typeof props.as === 'string' && props.as.toLowerCase() === 'a') || // Explicitly set as anchor
-      role === 'link', // Explicitly set role as link
-  )
-
   const ItemWrapper = _PrivateItemWrapper || (isLinkItem ? LinkItemContainerNoBox : DefaultItemWrapper)
 
   // only apply aria-selected and aria-checked to selectable items
@@ -280,16 +264,14 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
   }
 
   // Props distribution depends on which component pattern is being used:
-  // 1. _PrivateItemWrapper - legacy override used by LinkItem
+  // 1. _PrivateItemWrapper - used by LinkItem
   // 2. isLinkItem - direct Item usage with link props
   // 3. default - regular button/div behavior
 
   const containerProps = _PrivateItemWrapper
-    ? // _PrivateItemWrapper handles rendering, container passes through all props
-      {role: itemRole ? 'none' : undefined, ...props}
+    ? {role: itemRole ? 'none' : undefined, ...props}
     : isLinkItem
-      ? // Link items: strip link-specific props and semantic attributes from container
-        // The link wrapper will receive these props, not the <li> container
+      ? // For link items, strip props that belong on the interactive element
         (() => {
           const propsToStrip = new Set([
             // Link-specific props
@@ -315,15 +297,19 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
           const containerOnlyProps = Object.fromEntries(Object.entries(props).filter(([key]) => !propsToStrip.has(key)))
           return {role: itemRole ? 'none' : undefined, ...containerOnlyProps}
         })()
-      : // Regular items with list semantics
-        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+      : // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
         (listSemantics && {...menuItemProps, ...props, ref: forwardedRef}) || {}
 
   const wrapperProps = _PrivateItemWrapper
     ? menuItemProps
     : isLinkItem
-      ? // Link wrapper needs all props plus userOnClick for event bridging
-        {...menuItemProps, ...props, inactiveText, userOnClick: props.onClick}
+      ? // Link wrapper needs all props plus link-specific props and aria-current
+        {
+          ...menuItemProps,
+          ...props,
+          inactiveText,
+          userOnClick: props.onClick,
+        }
       : // Regular items without list semantics become the interactive element
         !listSemantics && {
           ...menuItemProps,
