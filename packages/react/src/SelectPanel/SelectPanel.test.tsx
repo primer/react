@@ -1555,4 +1555,87 @@ for (const usingRemoveActiveDescendant of [false, true]) {
       })
     })
   })
+
+  describe('Event propagation', () => {
+    function EventSelectPanel() {
+      const [selected, setSelected] = React.useState<SelectPanelProps['items']>([])
+      const [filter, setFilter] = React.useState('')
+      const [open, setOpen] = React.useState(false)
+
+      const onSelectedChange = (selected: SelectPanelProps['items']) => {
+        setSelected(selected)
+      }
+
+      return (
+        <ThemeProvider>
+          <div
+            onKeyDown={(e: React.KeyboardEvent<HTMLDivElement>) => {
+              const isAlphabetKey = e.key.length === 1 && /[a-z\d]/i.test(e.key)
+              const container = e.currentTarget
+
+              if (!isAlphabetKey) return
+              container.setAttribute('data-keydown-called', 'true')
+            }}
+            data-keydown-called="false"
+          >
+            <button type="button" onClick={() => setOpen(!open)}>
+              Toggle SelectPanel
+            </button>
+            <SelectPanel
+              title="test title"
+              subtitle="test subtitle"
+              items={items}
+              placeholder="Select items"
+              placeholderText="Filter items"
+              selected={selected}
+              onSelectedChange={onSelectedChange}
+              filterValue={filter}
+              onFilterChange={value => {
+                setFilter(value)
+              }}
+              open={open}
+              onOpenChange={isOpen => {
+                setOpen(isOpen)
+              }}
+            />
+          </div>
+        </ThemeProvider>
+      )
+    }
+
+    it('should prevent event propagation when using keyboard while focusing on an item', async () => {
+      const user = userEvent.setup()
+
+      renderWithFlag(<EventSelectPanel />, true)
+
+      const toggleButton = screen.getByRole('button', {name: 'Toggle SelectPanel'})
+      const container = toggleButton.parentElement as HTMLDivElement
+
+      await user.click(toggleButton)
+
+      expect(screen.getByText('Select items')).toBeInTheDocument()
+
+      const listbox = screen.getByRole('listbox')
+      expect(listbox).toBeInTheDocument()
+      expect(listbox).toHaveAttribute('aria-multiselectable', 'true')
+
+      const options = screen.getAllByRole('option')
+      expect(options).toHaveLength(3)
+
+      const firstOption = options[0]
+      expect(firstOption).toHaveTextContent('item one')
+
+      await user.keyboard('{ArrowDown}')
+
+      expect(firstOption).toHaveFocus()
+
+      await user.keyboard('{ArrowDown}')
+
+      // Trigger random key
+      await user.keyboard('A')
+
+      expect(options[1]).toHaveFocus()
+      expect(container.getAttribute('data-keydown-called')).toBe('false')
+    })
+  })
 }
