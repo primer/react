@@ -3,7 +3,25 @@
   "name": "NavList",
   "status": "alpha",
   "a11yReviewed": "2025-01-08",
-  "stories": [],
+  "stories": [
+    {"id": "components-navlist--simple"},
+    {"id": "components-navlist--expand-with-custom-items"},
+    {"id": "components-navlist--expand-with-pages"},
+    {"id": "components-navlist--group-with-expand-and-custom-items"},
+    {"id": "components-navlist--with-expand"},
+    {"id": "components-navlist--with-expand-and-icons"},
+    {"id": "components-navlist--with-group"},
+    {"id": "components-navlist--with-group-expand"},
+    {"id": "components-navlist--with-group-heading-links"},
+    {"id": "components-navlist--with-inactive-items"},
+    {"id": "components-navlist--with-nested-sub-items"},
+    {"id": "components-navlist--with-next-js-link"},
+    {"id": "components-navlist--with-react-router-link"},
+    {"id": "components-navlist--with-reloads"},
+    {"id": "components-navlist--with-sub-items"},
+    {"id": "components-navlist--with-trailing-action"},
+    {"id": "components-navlist--with-trailing-action-in-sub-items"}
+  ],
   "importPath": "@primer/react",
   "props": [
     {
