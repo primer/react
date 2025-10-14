@@ -42,10 +42,15 @@ Playground.argTypes = {
       type: 'boolean',
     },
   },
+  gap: {
+    control: {type: 'number', min: 0, max: 8, step: 1},
+    description: 'Horizontal gap in pixels between items (0–8).',
+  },
 }
 Playground.args = {
   size: 'medium',
   flush: false,
+  gap: 8,
 }
 
 export const Default = () => (
@@ -92,4 +97,24 @@ export const DeepChildTree = () => (
     <ActionBar.Divider />
     <AdvancedFormattingButtons />
   </ActionBar>
+)
+
+export const GapExamples = () => (
+  <div style={{display: 'flex', flexDirection: 'column', gap: 16}}>
+    <ActionBar aria-label="Toolbar gap 0" gap={0}>
+      <ActionBar.IconButton icon={BoldIcon} aria-label="Bold" />
+      <ActionBar.IconButton icon={ItalicIcon} aria-label="Italic" />
+      <ActionBar.IconButton icon={CodeIcon} aria-label="Code" />
+    </ActionBar>
+    <ActionBar aria-label="Toolbar gap 4" gap={4}>
+      <ActionBar.IconButton icon={BoldIcon} aria-label="Bold" />
+      <ActionBar.IconButton icon={ItalicIcon} aria-label="Italic" />
+      <ActionBar.IconButton icon={CodeIcon} aria-label="Code" />
+    </ActionBar>
+    <ActionBar aria-label="Toolbar gap 8" gap={8}>
+      <ActionBar.IconButton icon={BoldIcon} aria-label="Bold" />
+      <ActionBar.IconButton icon={ItalicIcon} aria-label="Italic" />
+      <ActionBar.IconButton icon={CodeIcon} aria-label="Code" />
+    </ActionBar>
+  </div>
 )

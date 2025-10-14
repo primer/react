@@ -79,18 +79,29 @@ export type ActionBarProps = {
 
   /** Custom className */
   className?: string
+
+  /**
+   * Horizontal gap in pixels between items. Capped at 8 to align with design spacing.
+   * @default 8
+   */
+  gap?: number
 } & A11yProps
 
 export type ActionBarIconButtonProps = {disabled?: boolean} & IconButtonProps
 
 const MORE_BTN_WIDTH = 32
 
-const calculatePossibleItems = (registryEntries: Array<[string, ChildProps]>, navWidth: number, moreMenuWidth = 0) => {
+const calculatePossibleItems = (
+  registryEntries: Array<[string, ChildProps]>,
+  navWidth: number,
+  gap: number,
+  moreMenuWidth = 0,
+) => {
   const widthToFit = navWidth - moreMenuWidth
   let breakpoint = registryEntries.length // assume all items will fit
   let sumsOfChildWidth = 0
   for (const [index, [, child]] of registryEntries.entries()) {
-    sumsOfChildWidth += index > 0 ? child.width + ACTIONBAR_ITEM_GAP : child.width
+    sumsOfChildWidth += index > 0 ? child.width + gap : child.width
     if (sumsOfChildWidth > widthToFit) {
       breakpoint = index
       break
@@ -106,15 +117,17 @@ const getMenuItems = (
   moreMenuWidth: number,
   childRegistry: ChildRegistry,
   hasActiveMenu: boolean,
+  gap: number,
 ): Set<string> | void => {
   const registryEntries = Array.from(childRegistry).filter((entry): entry is [string, ChildProps] => entry[1] !== null)
 
   if (registryEntries.length === 0) return new Set()
-  const numberOfItemsPossible = calculatePossibleItems(registryEntries, navWidth)
+  const numberOfItemsPossible = calculatePossibleItems(registryEntries, navWidth, gap)
 
   const numberOfItemsPossibleWithMoreMenu = calculatePossibleItems(
     registryEntries,
     navWidth,
+    gap,
     moreMenuWidth || MORE_BTN_WIDTH,
   )
   const menuItems = new Set<string>()
@@ -151,7 +164,9 @@ const getMenuItems = (
 }
 
 export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = props => {
-  const {size = 'medium', children, 'aria-label': ariaLabel, flush = false, className} = props
+  const {size = 'medium', children, 'aria-label': ariaLabel, flush = false, className, gap} = props
+
+  const itemGap = Math.min(Math.max(gap ?? ACTIONBAR_ITEM_GAP, 0), ACTIONBAR_ITEM_GAP)
 
   const [childRegistry, setChildRegistry] = useState<ChildRegistry>(() => new Map())
 
@@ -175,7 +190,7 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
     const hasActiveMenu = menuItemIds.size > 0
 
     if (navWidth > 0) {
-      const newMenuItemIds = getMenuItems(navWidth, moreMenuWidth, childRegistry, hasActiveMenu)
+      const newMenuItemIds = getMenuItems(navWidth, moreMenuWidth, childRegistry, hasActiveMenu, itemGap)
       if (newMenuItemIds) setMenuItemIds(newMenuItemIds)
     }
   }, navRef as RefObject<HTMLElement>)
@@ -219,7 +234,7 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
   return (
     <ActionBarContext.Provider value={{size, registerChild, unregisterChild, isVisibleChild}}>
       <div ref={navRef} className={clsx(className, styles.Nav)} data-flush={flush}>
-        <div ref={listRef} role="toolbar" className={styles.List} style={{gap: `${ACTIONBAR_ITEM_GAP}px`}}>
+        <div ref={listRef} role="toolbar" className={styles.List} style={{gap: `${itemGap}px`}}>
           {children}
           {menuItemIds.size > 0 && (
             <ActionMenu>
