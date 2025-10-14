@@ -1,6 +1,5 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import {ThemeProvider as SCThemeProvider} from 'styled-components'
 import defaultTheme from './theme'
 import deepmerge from 'deepmerge'
 import {useId} from './hooks'
@@ -120,16 +119,14 @@ export const ThemeProvider: React.FC<React.PropsWithChildren<ThemeProviderProps>
         setNightScheme,
       }}
     >
-      <SCThemeProvider theme={resolvedTheme}>
-        {children}
-        {props.preventSSRMismatch ? (
-          <script
-            type="application/json"
-            id={`__PRIMER_DATA_${uniqueDataId}__`}
-            dangerouslySetInnerHTML={{__html: JSON.stringify({resolvedServerColorMode: resolvedColorMode})}}
-          />
-        ) : null}
-      </SCThemeProvider>
+      {children}
+      {props.preventSSRMismatch ? (
+        <script
+          type="application/json"
+          id={`__PRIMER_DATA_${uniqueDataId}__`}
+          dangerouslySetInnerHTML={{__html: JSON.stringify({resolvedServerColorMode: resolvedColorMode})}}
+        />
+      ) : null}
     </ThemeContext.Provider>
   )
 }
