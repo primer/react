@@ -20,7 +20,7 @@
     {"id": "components-navlist-features--with-reloads"},
     {"id": "components-navlist-features--with-sub-items"},
     {"id": "components-navlist-features--with-trailing-action"},
-    {"id": "components-navlist-features--with-trailing-action-in-sub-items"}
+    {"id": "components-navlist-features--with-trailing-action-in-sub-item"}
   ],
   "importPath": "@primer/react",
   "props": [

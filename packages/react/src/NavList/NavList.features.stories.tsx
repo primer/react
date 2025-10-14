@@ -128,7 +128,7 @@ const NextJSLikeLink = React.forwardRef<HTMLAnchorElement, NextJSLinkProps>(
   },
 )
 
-export const WithNextJSLink = () => (
+export const WithNextJsLink = () => (
   <PageLayout>
     <PageLayout.Pane position="start">
       <NavList>
@@ -146,6 +146,8 @@ export const WithNextJSLink = () => (
     <PageLayout.Content></PageLayout.Content>
   </PageLayout>
 )
+
+WithNextJsLink.storyName = 'With Next JS Link'
 
 export const WithReloads: StoryFn = () => {
   // eslint-disable-next-line ssr-friendly/no-dom-globals-in-react-fc
