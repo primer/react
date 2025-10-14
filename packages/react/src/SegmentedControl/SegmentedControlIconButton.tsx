@@ -2,10 +2,12 @@ import type {ButtonHTMLAttributes} from 'react'
 import type React from 'react'
 import type {IconProps} from '@primer/octicons-react'
 import {isElement} from 'react-is'
+import {useFeatureFlag} from '../FeatureFlags'
 import type {TooltipDirection} from '../TooltipV2'
 import classes from './SegmentedControl.module.css'
 import {clsx} from 'clsx'
 import {Tooltip} from '../TooltipV2'
+import type {FCWithSlotMarker} from '../utils/types'
 
 export type SegmentedControlIconButtonProps = {
   'aria-label': string
@@ -19,44 +21,59 @@ export type SegmentedControlIconButtonProps = {
   description?: string
   /** The direction for the tooltip.*/
   tooltipDirection?: TooltipDirection
-  /** Whether the button is disabled. */
-  disabled?: boolean
-  /** Whether the button is aria-disabled. */
-  'aria-disabled'?: boolean
 } & ButtonHTMLAttributes<HTMLButtonElement | HTMLLIElement>
 
-export const SegmentedControlIconButton: React.FC<React.PropsWithChildren<SegmentedControlIconButtonProps>> = ({
+export const SegmentedControlIconButton: FCWithSlotMarker<React.PropsWithChildren<SegmentedControlIconButtonProps>> = ({
   'aria-label': ariaLabel,
   icon: Icon,
   selected,
   className,
   description,
   tooltipDirection,
-  disabled,
-  'aria-disabled': ariaDisabled,
   ...rest
 }) => {
-  return (
-    <li className={clsx(classes.Item, className)} data-selected={selected || undefined}>
-      <Tooltip
-        type={description ? undefined : 'label'}
-        text={description ? description : ariaLabel}
-        direction={tooltipDirection}
-      >
+  const tooltipFlagEnabled = useFeatureFlag('primer_react_segmented_control_tooltip')
+  if (tooltipFlagEnabled) {
+    return (
+      <li className={clsx(classes.Item, className)} data-selected={selected || undefined}>
+        <Tooltip
+          type={description ? undefined : 'label'}
+          text={description ? description : ariaLabel}
+          direction={tooltipDirection}
+        >
+          <button
+            type="button"
+            aria-current={selected}
+            // If description is provided, we will use the tooltip to describe the button, so we need to keep the aria-label to label the button.
+            aria-label={description ? ariaLabel : undefined}
+            className={clsx(classes.Button, classes.IconButton)}
+            {...rest}
+          >
+            <span className={clsx(classes.Content, 'segmentedControl-content')}>
+              {isElement(Icon) ? Icon : <Icon />}
+            </span>
+          </button>
+        </Tooltip>
+      </li>
+    )
+  } else {
+    // This can be removed when primer_react_segmented_control_tooltip feature flag is GA-ed.
+    return (
+      <li className={clsx(classes.Item, className)} data-selected={selected || undefined}>
         <button
           type="button"
+          aria-label={ariaLabel}
           aria-current={selected}
-          // If description is provided, we will use the tooltip to describe the button, so we need to keep the aria-label to label the button.
-          aria-label={description ? ariaLabel : undefined}
-          aria-disabled={disabled || ariaDisabled || undefined}
           className={clsx(classes.Button, classes.IconButton)}
           {...rest}
         >
           <span className={clsx(classes.Content, 'segmentedControl-content')}>{isElement(Icon) ? Icon : <Icon />}</span>
         </button>
-      </Tooltip>
-    </li>
-  )
+      </li>
+    )
+  }
 }
+
+SegmentedControlIconButton.__SLOT__ = Symbol('SegmentedControl.IconButton')
 
 export default SegmentedControlIconButton

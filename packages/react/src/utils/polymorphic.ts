@@ -6,6 +6,7 @@
  */
 
 import * as React from 'react'
+import type {SlotMarker} from './types/Slots'
 
 /* -------------------------------------------------------------------------------------------------
  * Utility types
@@ -37,7 +38,8 @@ interface ForwardRefComponent<
    * Extends original type to ensure built in React types play nice
    * with polymorphic components still e.g. `React.ElementRef` etc.
    */
-> extends ForwardRefExoticComponent<IntrinsicElementString, OwnProps> {
+> extends ForwardRefExoticComponent<IntrinsicElementString, OwnProps>,
+    SlotMarker {
   /**
    * When `as` prop is passed, use this overload.
    * Merges original own props (without DOM props) and the inferred props

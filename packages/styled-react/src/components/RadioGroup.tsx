@@ -43,3 +43,8 @@ export const RadioGroup = Object.assign(RadioGroupImpl, {
   Caption: CheckboxOrRadioGroupCaption,
   Validation: CheckboxOrRadioGroupValidation,
 })
+
+RadioGroupImpl.__SLOT__ = PrimerRadioGroup.__SLOT__
+CheckboxOrRadioGroupLabel.__SLOT__ = PrimerRadioGroup.Label.__SLOT__
+CheckboxOrRadioGroupCaption.__SLOT__ = PrimerRadioGroup.Caption.__SLOT__
+CheckboxOrRadioGroupValidation.__SLOT__ = PrimerRadioGroup.Validation.__SLOT__
