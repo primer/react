@@ -2,4 +2,4 @@
 "@primer/react": patch
 ---
 
-Fix: ActionMenu with overflow doesn’t contain scrollbars within its rounded border
+Fix: ActionMenu with overflow contains scrollbars within its rounded border
