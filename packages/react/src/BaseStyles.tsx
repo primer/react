@@ -1,7 +1,6 @@
 import type React from 'react'
 import {type CSSProperties, type PropsWithChildren} from 'react'
 import {clsx} from 'clsx'
-import type {SystemCommonProps, SystemTypographyProps} from './constants'
 import {useTheme} from './ThemeProvider'
 
 import classes from './BaseStyles.module.css'
@@ -14,26 +13,13 @@ export type BaseStylesProps = PropsWithChildren & {
   className?: string
   style?: CSSProperties
   color?: string // Fixes `color` ts-error
-} & SystemTypographyProps &
-  SystemCommonProps
-
-function BaseStyles({
-  children,
-  color,
-  fontFamily,
-  lineHeight,
-  className,
-  as: Component = 'div',
-  style,
-  ...rest
-}: BaseStylesProps) {
+}
+function BaseStyles({children, color, className, as: Component = 'div', style, ...rest}: BaseStylesProps) {
   const {colorMode, colorScheme, dayScheme, nightScheme} = useTheme()
 
   const newClassName = clsx(classes.BaseStyles, className)
   const baseStyles = {
     ['--BaseStyles-fgColor']: color,
-    ['--BaseStyles-fontFamily']: fontFamily,
-    ['--BaseStyles-lineHeight']: lineHeight,
   }
 
   return (
