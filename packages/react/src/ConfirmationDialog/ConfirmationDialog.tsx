@@ -1,8 +1,6 @@
 import type React from 'react'
 import {useCallback} from 'react'
 import {createRoot} from 'react-dom/client'
-import type {ThemeProviderProps} from '../ThemeProvider'
-import {ThemeProvider, useTheme} from '../ThemeProvider'
 import {FocusKeys} from '@primer/behaviors'
 import type {DialogProps, DialogHeaderProps, DialogButtonProps, DialogWidth, DialogHeight} from '../Dialog/Dialog'
 import {Dialog} from '../Dialog/Dialog'
@@ -181,7 +179,7 @@ export const ConfirmationDialog: React.FC<React.PropsWithChildren<ConfirmationDi
 
 let hostElement: Element | null = null
 export type ConfirmOptions = Omit<ConfirmationDialogProps, 'onClose'> & {content: React.ReactNode}
-async function confirm(themeProps: ThemeProviderProps, options: ConfirmOptions): Promise<boolean> {
+async function confirm(options: ConfirmOptions): Promise<boolean> {
   const {content, ...confirmationDialogProps} = options
   return new Promise(resolve => {
     hostElement ||= document.createElement('div')
@@ -196,13 +194,11 @@ async function confirm(themeProps: ThemeProviderProps, options: ConfirmOptions):
       }
     }
     root.render(
-      <ThemeProvider {...themeProps}>
-        <BaseStyles>
-          <ConfirmationDialog {...confirmationDialogProps} onClose={onClose}>
-            {content}
-          </ConfirmationDialog>
-        </BaseStyles>
-      </ThemeProvider>,
+      <BaseStyles>
+        <ConfirmationDialog {...confirmationDialogProps} onClose={onClose}>
+          {content}
+        </ConfirmationDialog>
+      </BaseStyles>,
     )
   })
 }
@@ -213,13 +209,8 @@ async function confirm(themeProps: ThemeProviderProps, options: ConfirmOptions):
  * resolved with `true` or `false` depending on whether or not the confirm button was used.
  */
 export function useConfirm() {
-  const {theme, colorMode, dayScheme, nightScheme} = useTheme()
-  const result = useCallback(
-    (options: ConfirmOptions) => {
-      const themeProps: ThemeProviderProps = {theme, colorMode, dayScheme, nightScheme}
-      return confirm(themeProps, options)
-    },
-    [theme, colorMode, dayScheme, nightScheme],
-  )
+  const result = (options: ConfirmOptions) => {
+    return confirm(options)
+  }
   return result
 }

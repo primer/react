@@ -1,19 +1,8 @@
 import type {Meta} from '@storybook/react-vite'
-import {BaseStyles, FormControl, ThemeProvider, theme, useFormControlForwardedProps} from '..'
+import {BaseStyles, FormControl, useFormControlForwardedProps} from '..'
 
 export default {
   title: 'Hooks/useFormControlForwardedProps',
-  decorators: [
-    Story => {
-      return (
-        <ThemeProvider theme={theme}>
-          <BaseStyles>
-            <Story />
-          </BaseStyles>
-        </ThemeProvider>
-      )
-    },
-  ],
   argTypes: {
     disabled: {
       type: 'boolean',
