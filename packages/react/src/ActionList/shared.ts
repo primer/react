@@ -79,6 +79,39 @@ export type LinkProps = {
   to?: string
 }
 
+/**
+ * Props that should only appear on the interactive element (link/button), not the container (<li>).
+ * This includes:
+ * - Link-specific props from LinkProps
+ * - HTMLAnchorElement attributes (navigation and link behavior)
+ * - Semantic/interactive ARIA attributes
+ * - Styling props
+ * - Test identifiers
+ */
+export const INTERACTIVE_ELEMENT_PROPS = [
+  // Link-specific props from LinkProps
+  'download',
+  'href',
+  'hrefLang',
+  'media',
+  'ping',
+  'rel',
+  'target',
+  'referrerPolicy',
+  'to',
+  // Polymorphic component prop
+  'as',
+  // ARIA attributes that belong on interactive elements
+  'aria-current',
+  'aria-keyshortcuts',
+  // Styling props (should be on the interactive element)
+  'style',
+  'sx',
+  // Test identifiers
+  'data-testid',
+  'onClick',
+] as const
+
 export type MenuItemProps = {
   onClick?: (event: React.MouseEvent<HTMLElement>) => void
   onKeyPress?: (event: React.KeyboardEvent<HTMLElement>) => void

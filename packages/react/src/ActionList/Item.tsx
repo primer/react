@@ -8,7 +8,7 @@ import {GroupContext} from './Group'
 import type {ActionListItemProps, ActionListProps, LinkProps} from './shared'
 import {Selection} from './Selection'
 import {LeadingVisual, TrailingVisual, VisualOrIndicator} from './Visuals'
-import {ItemContext, ListContext} from './shared'
+import {ItemContext, ListContext, INTERACTIVE_ELEMENT_PROPS} from './shared'
 import {TrailingAction} from './TrailingAction'
 import {ConditionalWrapper} from '../internal/components/ConditionalWrapper'
 import {invariant} from '../utils/invariant'
@@ -268,49 +268,36 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
   // 2. isLinkItem - direct Item usage with link props
   // 3. default - regular button/div behavior
 
-  const containerProps = _PrivateItemWrapper
-    ? {role: itemRole ? 'none' : undefined, ...props}
-    : isLinkItem
-      ? // For link items, strip props that belong on the interactive element
-        (() => {
-          const propsToStrip = new Set([
-            // Link-specific props
-            'href',
-            'download',
-            'hrefLang',
-            'media',
-            'ping',
-            'rel',
-            'target',
-            'type',
-            'referrerPolicy',
-            'to',
-            'as',
-            // Semantic/interactive attributes that belong on the link, not the container
-            'aria-current',
-            'aria-keyshortcuts',
-            'style', // Contains --subitem-depth which should be on the link
-            // Test/styling props that should only be on the interactive element
-            'data-testid',
-            'sx',
-            'onClick',
-          ])
-          const containerOnlyProps = Object.fromEntries(Object.entries(props).filter(([key]) => !propsToStrip.has(key)))
-          return {role: itemRole ? 'none' : undefined, ...containerOnlyProps}
-        })()
+  // Create a Set for lookup of interactive-only props
+  const interactivePropsSet = new Set<string>(INTERACTIVE_ELEMENT_PROPS)
+
+  // Split props into container and interactive element props
+  const containerOnlyProps: Record<string, unknown> = {}
+  const interactiveProps: Record<string, unknown> = {}
+
+  for (const [key, value] of Object.entries(props)) {
+    if (interactivePropsSet.has(key)) {
+      interactiveProps[key] = value
+    } else {
+      containerOnlyProps[key] = value
+    }
+  }
+
+  const containerProps =
+    _PrivateItemWrapper || isLinkItem
+      ? {role: itemRole ? 'none' : undefined, ...containerOnlyProps}
       : // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
         (listSemantics && {...menuItemProps, ...props, ref: forwardedRef}) || {}
 
   const wrapperProps = _PrivateItemWrapper
     ? menuItemProps
     : isLinkItem
-      ? // Link wrapper needs all props plus link-specific props and aria-current
-        ({onClick, ...rest} = props) => ({
+      ? {
           ...menuItemProps,
-          ...rest,
+          ...props,
           inactiveText,
-          userOnClick: onClick,
-        })
+          userOnClick: interactiveProps.onClick as ((event: React.MouseEvent<HTMLAnchorElement>) => void) | undefined,
+        }
       : // Regular items without list semantics become the interactive element
         !listSemantics && {
           ...menuItemProps,

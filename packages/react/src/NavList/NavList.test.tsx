@@ -1,5 +1,5 @@
 import {describe, it, expect, vi} from 'vitest'
-import {render, fireEvent, act} from '@testing-library/react'
+import {render, fireEvent, act, screen} from '@testing-library/react'
 import React from 'react'
 import {NavList} from './NavList'
 import {FeatureFlags} from '../FeatureFlags'
@@ -29,6 +29,7 @@ describe('NavList', () => {
         <NavList.Item href="/contact">Contact</NavList.Item>
       </NavList>,
     )
+    screen.logTestingPlaygroundURL()
     expect(container).toMatchSnapshot()
   })
 
