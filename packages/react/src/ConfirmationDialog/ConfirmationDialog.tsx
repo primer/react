@@ -209,8 +209,8 @@ async function confirm(options: ConfirmOptions): Promise<boolean> {
  * resolved with `true` or `false` depending on whether or not the confirm button was used.
  */
 export function useConfirm() {
-  const result = (options: ConfirmOptions) => {
+  const result = useCallback((options: ConfirmOptions) => {
     return confirm(options)
-  }
+  }, [])
   return result
 }
