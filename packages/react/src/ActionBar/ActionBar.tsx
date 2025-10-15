@@ -166,7 +166,14 @@ const getMenuItems = (
 }
 
 export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = props => {
-  const {size = 'medium', children, 'aria-label': ariaLabel, flush = false, className} = props
+  const {
+    size = 'medium',
+    children,
+    'aria-label': ariaLabel,
+    'aria-labelledby': ariaLabelledBy,
+    flush = false,
+    className,
+  } = props
 
   const [childRegistry, setChildRegistry] = useState<ChildRegistry>(() => new Map())
 
@@ -234,7 +241,14 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
   return (
     <ActionBarContext.Provider value={{size, registerChild, unregisterChild, isVisibleChild}}>
       <div ref={navRef} className={clsx(className, styles.Nav)} data-flush={flush}>
-        <div ref={listRef} role="toolbar" className={styles.List} style={{gap: `${ACTIONBAR_ITEM_GAP}px`}}>
+        <div
+          ref={listRef}
+          role="toolbar"
+          className={styles.List}
+          style={{gap: `${ACTIONBAR_ITEM_GAP}px`}}
+          aria-label={ariaLabel}
+          aria-labelledby={ariaLabelledBy}
+        >
           {children}
           {menuItemIds.size > 0 && (
             <ActionMenu>

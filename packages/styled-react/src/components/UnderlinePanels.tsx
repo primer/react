@@ -22,9 +22,14 @@ const UnderlinePanelsImpl = ({as, ...props}: UnderlinePanelsProps) => (
 
 UnderlinePanelsImpl.displayName = 'UnderlinePanels'
 
-const UnderlinePanels = Object.assign(UnderlinePanelsImpl, {
+const UnderlinePanels: typeof UnderlinePanelsImpl & {
+  Tab: typeof PrimerUnderlinePanels.Tab
+  Panel: typeof PrimerUnderlinePanels.Panel
+} = Object.assign(UnderlinePanelsImpl, {
   Tab: PrimerUnderlinePanels.Tab,
   Panel: PrimerUnderlinePanels.Panel,
 })
+
+UnderlinePanelsImpl.__SLOT__ = PrimerUnderlinePanels.__SLOT__
 
 export {UnderlinePanels, type UnderlinePanelsProps, type UnderlinePanelsTabProps, type UnderlinePanelsPanelProps}

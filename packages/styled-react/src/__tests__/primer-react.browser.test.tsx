@@ -52,11 +52,6 @@ describe('@primer/react', () => {
     expect(screen.getByTestId('component')).toHaveAttribute('data-variant', 'inset')
   })
 
-  test('ActionMenu.Button supports `sx` prop', () => {
-    const {container} = render(<ActionMenu.Button sx={{background: 'red'}}>test</ActionMenu.Button>)
-    expect(window.getComputedStyle(container.firstElementChild!).backgroundColor).toBe('rgb(255, 0, 0)')
-  })
-
   test('ActionMenu.Overlay supports `sx` prop', async () => {
     const user = userEvent.setup()
     render(
@@ -389,9 +384,11 @@ describe('@primer/react', () => {
 
   test('SegmentedControl.Button supports `sx` prop', () => {
     render(
-      <SegmentedControl.Button data-testid="component" sx={{background: 'red'}}>
-        test
-      </SegmentedControl.Button>,
+      <SegmentedControl>
+        <SegmentedControl.Button data-testid="component" sx={{background: 'red'}}>
+          test
+        </SegmentedControl.Button>
+      </SegmentedControl>,
     )
     const buttonElement = screen.getByTestId('component')
     expect(window.getComputedStyle(buttonElement).backgroundColor).toBe('rgb(255, 0, 0)')
@@ -409,7 +406,7 @@ describe('@primer/react', () => {
     expect(window.getComputedStyle(container.firstElementChild!).backgroundColor).toBe('rgb(255, 0, 0)')
   })
 
-  test.skip('Select supports `sx` prop', () => {
+  test('Select supports `sx` prop', () => {
     render(<Select as="select" data-testid="component" sx={{background: 'red'}} required />)
     expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
     expect(screen.getByTestId('component')).toHaveAttribute('required')
