@@ -87,18 +87,6 @@
 }
 
 /* Interactive hover states */
-.IssueLabel:where(
-    [data-cursor-is-interactive='true']:hover[data-in-color-mode*='light'],
-    [data-cursor-is-interactive='true']:hover[data-in-color-mode='auto']
-  ) {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)),
-    linear-gradient(
-      rgb(var(--label-r), var(--label-g), var(--label-b)),
-      rgb(var(--label-r), var(--label-g), var(--label-b))
-    );
-  box-shadow: var(--shadow-resting-medium);
-}
-
 [data-color-mode*='light'] .IssueLabel:where([data-cursor-is-interactive='true']:hover),
 [data-color-mode='auto'] .IssueLabel:where([data-cursor-is-interactive='true']:hover) {
   background-image: linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)),
