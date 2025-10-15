@@ -2,7 +2,7 @@ import type {Meta} from '@storybook/react-vite'
 import ButtonGroup from './ButtonGroup'
 import {Button, IconButton, LinkButton} from '../Button'
 import {CopilotIcon} from '@primer/octicons-react'
-import {Tooltip} from '..'
+import {Tooltip, BaseStyles} from '..'
 
 const meta: Meta<typeof ButtonGroup> = {
   title: 'Components/ButtonGroup/Dev',
@@ -10,7 +10,11 @@ const meta: Meta<typeof ButtonGroup> = {
   decorators: [
     Story => {
       // Add some padding to the wrapper box to make sure tooltip v1 is always in the viewport
-      return <div style={{padding: 'var(--base-size-32)'}}>{Story()}</div>
+      return (
+        <BaseStyles>
+          <div style={{padding: 'var(--base-size-32)'}}>{Story()}</div>
+        </BaseStyles>
+      )
     },
   ],
 }
