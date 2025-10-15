@@ -65,30 +65,8 @@ export type ActionListItemProps<As extends React.ElementType = 'li'> = ExcludeSe
   handleAddItem?: (item: React.FC<React.PropsWithChildren<MenuItemProps>>) => void
 
   as?: As
+} & LinkProps
 
-  // Link-specific props - optional, only needed when using Item as a link
-  /** Download attribute for links */
-  download?: string
-  /** URL for links */
-  href?: string
-  /** Language of linked resource */
-  hrefLang?: string
-  /** Media query for link resource */
-  media?: string
-  /** Space-separated URLs to ping when link is followed */
-  ping?: string
-  /** Relationship of linked resource */
-  rel?: string
-  /** Where to open linked resource */
-  target?: string
-  /** MIME type of linked resource (for anchor elements only, won't conflict with user's 'type' prop) */
-  type?: string
-  /** Referrer policy for links */
-  referrerPolicy?: React.AnchorHTMLAttributes<HTMLAnchorElement>['referrerPolicy']
-  /** React Router style 'to' prop */
-  to?: string
-}
- 
 export type LinkProps = {
   download?: string
   href?: string
@@ -97,7 +75,6 @@ export type LinkProps = {
   ping?: string
   rel?: string
   target?: string
-  type?: string
   referrerPolicy?: React.AnchorHTMLAttributes<HTMLAnchorElement>['referrerPolicy']
   to?: string
 }
