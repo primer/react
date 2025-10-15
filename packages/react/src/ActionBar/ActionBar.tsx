@@ -61,6 +61,8 @@ type A11yProps =
       'aria-labelledby': React.AriaAttributes['aria-labelledby']
     }
 
+type GapScale = 'none' | 'condensed'
+
 export type ActionBarProps = {
   /**
    * Size of the action bar
@@ -81,10 +83,10 @@ export type ActionBarProps = {
   className?: string
 
   /**
-   * Horizontal gap in pixels between items. Capped at 8 to align with design spacing.
-   * @default 8
+   * Horizontal gap scale between items (mirrors Stack gap scale)
+   * @default 'condensed'
    */
-  gap?: number
+  gap?: GapScale
 } & A11yProps
 
 export type ActionBarIconButtonProps = {disabled?: boolean} & IconButtonProps
@@ -171,9 +173,12 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
     'aria-labelledby': ariaLabelledBy,
     flush = false,
     className,
+    gap = 'condensed',
   } = props
 
-  const itemGap = Math.min(Math.max(gap ?? ACTIONBAR_ITEM_GAP, 0), ACTIONBAR_ITEM_GAP)
+  // We derive the numeric gap from computed style so layout math stays in sync with CSS
+  const listRef = useRef<HTMLDivElement>(null)
+  const [computedGap, setComputedGap] = useState<number>(ACTIONBAR_ITEM_GAP)
 
   const [childRegistry, setChildRegistry] = useState<ChildRegistry>(() => new Map())
 
@@ -186,7 +191,13 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
   const [menuItemIds, setMenuItemIds] = useState<Set<string>>(() => new Set())
 
   const navRef = useRef<HTMLDivElement>(null)
-  const listRef = useRef<HTMLDivElement>(null)
+  // measure gap after first render & whenever gap scale changes
+  useIsomorphicLayoutEffect(() => {
+    if (!listRef.current) return
+    const g = window.getComputedStyle(listRef.current).gap
+    const parsed = parseFloat(g)
+    if (!Number.isNaN(parsed)) setComputedGap(parsed)
+  }, [gap])
   const moreMenuRef = useRef<HTMLLIElement>(null)
   const moreMenuBtnRef = useRef<HTMLButtonElement>(null)
   const containerRef = React.useRef<HTMLUListElement>(null)
@@ -197,7 +208,7 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
     const hasActiveMenu = menuItemIds.size > 0
 
     if (navWidth > 0) {
-      const newMenuItemIds = getMenuItems(navWidth, moreMenuWidth, childRegistry, hasActiveMenu, itemGap)
+      const newMenuItemIds = getMenuItems(navWidth, moreMenuWidth, childRegistry, hasActiveMenu, computedGap)
       if (newMenuItemIds) setMenuItemIds(newMenuItemIds)
     }
   }, navRef as RefObject<HTMLElement>)
@@ -245,9 +256,9 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
           ref={listRef}
           role="toolbar"
           className={styles.List}
-          style={{gap: `${itemGap}px`}}
           aria-label={ariaLabel}
           aria-labelledby={ariaLabelledBy}
+          data-gap={gap}
         >
           {children}
           {menuItemIds.size > 0 && (

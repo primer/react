@@ -236,48 +236,36 @@ describe('ActionBar Registry System', () => {
 })
 
 describe('ActionBar gap prop', () => {
-  it('uses default gap (8px) when gap prop not provided', () => {
+  it('defaults to condensed', () => {
     render(
       <ActionBar aria-label="Toolbar">
         <ActionBar.IconButton icon={BoldIcon} aria-label="Bold" />
         <ActionBar.IconButton icon={ItalicIcon} aria-label="Italic" />
       </ActionBar>,
     )
-    const toolbar = screen.getByRole('toolbar') as HTMLElement
-    expect(toolbar.style.gap).toBe('8px')
+    const toolbar = screen.getByRole('toolbar')
+    expect(toolbar).toHaveAttribute('data-gap', 'condensed')
   })
 
-  it('applies provided gap value', () => {
+  it('applies provided gap scale (none)', () => {
     render(
-      <ActionBar aria-label="Toolbar" gap={4}>
-        <ActionBar.IconButton icon={BoldIcon} aria-label="Bold" />
-        <ActionBar.IconButton icon={ItalicIcon} aria-label="Italic" />
-        <ActionBar.IconButton icon={CodeIcon} aria-label="Code" />
-      </ActionBar>,
-    )
-    const toolbar = screen.getByRole('toolbar') as HTMLElement
-    expect(toolbar.style.gap).toBe('4px')
-  })
-
-  it('clamps gap > 8 down to 8', () => {
-    render(
-      <ActionBar aria-label="Toolbar" gap={99}>
+      <ActionBar aria-label="Toolbar" gap="none">
         <ActionBar.IconButton icon={BoldIcon} aria-label="Bold" />
         <ActionBar.IconButton icon={ItalicIcon} aria-label="Italic" />
       </ActionBar>,
     )
-    const toolbar = screen.getByRole('toolbar') as HTMLElement
-    expect(toolbar.style.gap).toBe('8px')
+    const toolbar = screen.getByRole('toolbar')
+    expect(toolbar).toHaveAttribute('data-gap', 'none')
   })
 
-  it('clamps negative gap to 0', () => {
+  it('applies provided gap scale (condensed)', () => {
     render(
-      <ActionBar aria-label="Toolbar" gap={-3}>
+      <ActionBar aria-label="Toolbar" gap="condensed">
         <ActionBar.IconButton icon={BoldIcon} aria-label="Bold" />
         <ActionBar.IconButton icon={ItalicIcon} aria-label="Italic" />
       </ActionBar>,
     )
-    const toolbar = screen.getByRole('toolbar') as HTMLElement
-    expect(toolbar.style.gap).toBe('0px')
+    const toolbar = screen.getByRole('toolbar')
+    expect(toolbar).toHaveAttribute('data-gap', 'condensed')
   })
 })

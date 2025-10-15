@@ -46,10 +46,10 @@
     },
     {
       "name": "gap",
-      "type": "number",
+      "type": "'none' | 'condensed'",
       "required": false,
-      "defaultValue": "8",
-      "description": "Horizontal gap in pixels between items. Clamped between 0 and 8 (default 8)."
+      "defaultValue": "'condensed'",
+      "description": "Horizontal gap scale between items (restricted to none or condensed)."
     }
   ],
   "subcomponents": [
