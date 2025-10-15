@@ -214,7 +214,7 @@
     }
   }
 
-  [data-color-mode*='dark'] .IssueLabel {
+  [data-color-mode*='dark'] .IssueLabel:not([data-variant]) {
     --label-bgColor-rest: var(--label-bgColor-dark-rest);
     --label-bgColor-hover: var(--label-bgColor-dark-hover);
     --label-bgColor-active: var(--label-bgColor-dark-active);
@@ -223,7 +223,7 @@
     --label-fgColor-active: var(--label-fgColor-dark-active);
   }
 
-  [data-color-mode='light'] .IssueLabel {
+  [data-color-mode='light'] .IssueLabel:not([data-variant]) {
     --label-bgColor-rest: var(--label-bgColor-light-rest);
     --label-bgColor-hover: var(--label-bgColor-light-hover);
     --label-bgColor-active: var(--label-bgColor-light-active);
