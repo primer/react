@@ -42,24 +42,6 @@
       }
     }
 
-    [data-color-mode*='dark'] .IssueLabel {
-      --label-bgColor-rest: var(--label-bgColor-dark-rest);
-      --label-bgColor-hover: var(--label-bgColor-dark-hover);
-      --label-bgColor-active: var(--label-bgColor-dark-active);
-      --label-fgColor: var(--label-fgColor-dark);
-      --label-fgColor-hover: var(--label-fgColor-dark-hover);
-      --label-fgColor-active: var(--label-fgColor-dark-active);
-    }
-
-    [data-color-mode='light'] .IssueLabel {
-      --label-bgColor-rest: var(--label-bgColor-light-rest);
-      --label-bgColor-hover: var(--label-bgColor-light-hover);
-      --label-bgColor-active: var(--label-bgColor-light-active);
-      --label-fgColor: var(--label-fgColor-light);
-      --label-fgColor-hover: var(--label-fgColor-light-hover);
-      --label-fgColor-active: var(--label-fgColor-light-active);
-    }
-
     &[data-variant='pink'] {
       --label-bgColor-rest: var(--label-pink-bgColor-rest);
       --label-bgColor-hover: var(--label-pink-bgColor-hover);
@@ -230,5 +212,23 @@
       --label-fgColor-hover: var(--label-auburn-fgColor-hover);
       --label-fgColor-active: var(--label-auburn-fgColor-active);
     }
+  }
+
+  [data-color-mode*='dark'] .IssueLabel {
+    --label-bgColor-rest: var(--label-bgColor-dark-rest);
+    --label-bgColor-hover: var(--label-bgColor-dark-hover);
+    --label-bgColor-active: var(--label-bgColor-dark-active);
+    --label-fgColor: var(--label-fgColor-dark);
+    --label-fgColor-hover: var(--label-fgColor-dark-hover);
+    --label-fgColor-active: var(--label-fgColor-dark-active);
+  }
+
+  [data-color-mode='light'] .IssueLabel {
+    --label-bgColor-rest: var(--label-bgColor-light-rest);
+    --label-bgColor-hover: var(--label-bgColor-light-hover);
+    --label-bgColor-active: var(--label-bgColor-light-active);
+    --label-fgColor: var(--label-fgColor-light);
+    --label-fgColor-hover: var(--label-fgColor-light-hover);
+    --label-fgColor-active: var(--label-fgColor-light-active);
   }
 }
