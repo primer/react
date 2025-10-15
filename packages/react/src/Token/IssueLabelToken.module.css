@@ -51,7 +51,7 @@
     }
   }
 
-    [data-color-mode='auto'][data-light-theme*='dark'] .IssueLabel {
+  [data-color-mode='auto'][data-light-theme*='dark'] .IssueLabel {
     --lightness-threshold: 0.6;
     --background-alpha: 0.18;
     --border-alpha: 0.3;
@@ -113,7 +113,7 @@
     }
   }
 
-    [data-color-mode='auto'][data-dark-theme*='dark'] .IssueLabel {
+  [data-color-mode='auto'][data-dark-theme*='dark'] .IssueLabel {
     --lightness-threshold: 0.6;
     --background-alpha: 0.18;
     --border-alpha: 0.3;
