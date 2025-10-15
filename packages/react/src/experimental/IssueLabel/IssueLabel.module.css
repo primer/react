@@ -43,32 +43,20 @@
     }
 
     [data-color-mode*='dark'] .IssueLabel {
-      /* stylelint-disable-next-line csstools/value-no-unknown-custom-properties */
       --label-bgColor-rest: var(--label-bgColor-dark-rest);
-      /* stylelint-disable-next-line csstools/value-no-unknown-custom-properties */
       --label-bgColor-hover: var(--label-bgColor-dark-hover);
-      /* stylelint-disable-next-line csstools/value-no-unknown-custom-properties */
       --label-bgColor-active: var(--label-bgColor-dark-active);
-      /* stylelint-disable-next-line csstools/value-no-unknown-custom-properties */
       --label-fgColor: var(--label-fgColor-dark);
-      /* stylelint-disable-next-line csstools/value-no-unknown-custom-properties */
       --label-fgColor-hover: var(--label-fgColor-dark-hover);
-      /* stylelint-disable-next-line csstools/value-no-unknown-custom-properties */
       --label-fgColor-active: var(--label-fgColor-dark-active);
     }
 
     [data-color-mode='light'] .IssueLabel {
-      /* stylelint-disable-next-line csstools/value-no-unknown-custom-properties */
       --label-bgColor-rest: var(--label-bgColor-light-rest);
-      /* stylelint-disable-next-line csstools/value-no-unknown-custom-properties */
       --label-bgColor-hover: var(--label-bgColor-light-hover);
-      /* stylelint-disable-next-line csstools/value-no-unknown-custom-properties */
       --label-bgColor-active: var(--label-bgColor-light-active);
-      /* stylelint-disable-next-line csstools/value-no-unknown-custom-properties */
       --label-fgColor: var(--label-fgColor-light);
-      /* stylelint-disable-next-line csstools/value-no-unknown-custom-properties */
       --label-fgColor-hover: var(--label-fgColor-light-hover);
-      /* stylelint-disable-next-line csstools/value-no-unknown-custom-properties */
       --label-fgColor-active: var(--label-fgColor-light-active);
     }
 
