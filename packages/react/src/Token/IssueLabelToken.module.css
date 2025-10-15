@@ -17,7 +17,7 @@
 }
 
 /* Light mode styles */
-.IssueLabel:where([data-in-color-mode*='light'], [data-in-color-mode='auto']) {
+[data-color-mode*='light'] .IssueLabel, [data-color-mode='auto'] .IssueLabel {
   --lightness-threshold: 0.453;
   --border-threshold: 0.96;
   --border-alpha: max(0, min(calc((var(--perceived-lightness) - var(--border-threshold)) * 100), 1));
@@ -30,7 +30,7 @@
 }
 
 /* Dark mode styles */
-.IssueLabel:where([data-in-color-mode*='dark']) {
+[data-color-mode*='dark'] .IssueLabel {
   --lightness-threshold: 0.6;
   --background-alpha: 0.18;
   --border-alpha: 0.3;
@@ -51,10 +51,7 @@
 }
 
 /* Selected state */
-.IssueLabel:where(
-    [data-selected='true'][data-in-color-mode*='light'],
-    [data-selected='true'][data-in-color-mode='auto']
-  ) {
+[data-color-mode*='light'] .IssueLabel:where([data-selected='true']), [data-color-mode='auto'] .IssueLabel:where([data-selected='true']) {
   /* stylelint-disable-next-line primer/colors */
   background: hsl(var(--label-h), calc(var(--label-s) * 1%), calc((var(--label-l) - 5) * 1%));
 }
@@ -76,15 +73,12 @@
   border-radius: var(--borderRadius-full);
 }
 
-.IssueLabel:where(
-    [data-selected='true'][data-in-color-mode*='light'],
-    [data-selected='true'][data-in-color-mode='auto']
-  )::after {
+[data-color-mode*='light'] .IssueLabel:where([data-selected='true'])::after, [data-color-mode='auto'] .IssueLabel:where([data-selected='true'])::after {
   /* stylelint-disable-next-line primer/box-shadow */
   box-shadow: 0 0 0 2px rgb(var(--label-r), var(--label-g), var(--label-b));
 }
 
-.IssueLabel:where([data-selected='true'][data-in-color-mode='dark'])::after {
+[data-color-mode='dark'] .IssueLabel:where([data-selected='true'])::after {
   /* stylelint-disable-next-line primer/box-shadow */
   box-shadow: 0 0 0 2px hsl(var(--label-h), calc(var(--label-s) * 1%), calc((var(--label-l) + var(--lighten-by)) * 1%));
 }
@@ -102,7 +96,17 @@
   box-shadow: var(--shadow-resting-medium);
 }
 
-.IssueLabel:where([data-cursor-is-interactive='true']:hover[data-in-color-mode='dark']) {
+[data-color-mode*='light'] .IssueLabel:where([data-cursor-is-interactive='true']:hover), 
+[data-color-mode='auto'] .IssueLabel:where([data-cursor-is-interactive='true']:hover) {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)),
+    linear-gradient(
+      rgb(var(--label-r), var(--label-g), var(--label-b)),
+      rgb(var(--label-r), var(--label-g), var(--label-b))
+    );
+  box-shadow: var(--shadow-resting-medium);
+}
+
+[data-color-mode='dark'] .IssueLabel:where([data-cursor-is-interactive='true']:hover) {
   /* stylelint-disable-next-line primer/colors */
   background: hsla(var(--label-h), calc(var(--label-s) * 1%), calc(calc(var(--label-l) + 10) * 1%), 0.3);
   box-shadow: var(--shadow-resting-medium);
