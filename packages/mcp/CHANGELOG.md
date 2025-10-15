@@ -1,5 +1,14 @@
 # @primer/mcp
 
+## 0.0.6-rc.0
+
+### Patch Changes
+
+- [#6969](https://github.com/primer/react/pull/6969) [`553c1a0`](https://github.com/primer/react/commit/553c1a0f82450757100800b252c1cae831864aec) Thanks [@kendallgassner](https://github.com/kendallgassner)! - Update MCP tool descriptions to improve usage.
+
+- Updated dependencies [[`446956d`](https://github.com/primer/react/commit/446956d3466ca11b95adf720d7cf07a1bb6bad92), [`701a9d0`](https://github.com/primer/react/commit/701a9d02cc5958bdeb12d63bbc169c5d40bd26e6), [`f61238c`](https://github.com/primer/react/commit/f61238c295377f59a5d3c5b0c782e98c238fa639), [`c58f171`](https://github.com/primer/react/commit/c58f171be98dfec354eeb85c870368e84796fe6e), [`c395547`](https://github.com/primer/react/commit/c395547ae30bb51ea40388183f384848a397dc80), [`260c74c`](https://github.com/primer/react/commit/260c74c4e9f780a891157c9a2bc1450a12f8593a), [`3ced917`](https://github.com/primer/react/commit/3ced917f595667e1f68a6b9110bd034e0d88bf2a), [`2703bc9`](https://github.com/primer/react/commit/2703bc9cad2d3f16552b748f3799949a35464a1a), [`76f1ca3`](https://github.com/primer/react/commit/76f1ca32a9303b18a2084c4e11c4699963b88e4e), [`2ec5bf2`](https://github.com/primer/react/commit/2ec5bf2898a6966161a076f5896910bf1b1f4018), [`173f76d`](https://github.com/primer/react/commit/173f76d917a688515ae36f2240bf5461db5eda0c), [`7dd483f`](https://github.com/primer/react/commit/7dd483f74e2a75e5c0a44f46a860afc2bdf0da9a), [`c1448cc`](https://github.com/primer/react/commit/c1448cc6546b0e58b1ceb54fa2989a1fd7cbfe30), [`8641c7a`](https://github.com/primer/react/commit/8641c7a778f88c9f65fa1f3d2c40994468651ae7), [`ecc81b5`](https://github.com/primer/react/commit/ecc81b569b421a4181b0a2f4cdff9cfe60fe28fd), [`3032026`](https://github.com/primer/react/commit/30320263482baf9d2c634ec27122c9a42ece308a), [`1c84c0f`](https://github.com/primer/react/commit/1c84c0ff2b261a02d81c11fb16c7d3fb05294506), [`62df166`](https://github.com/primer/react/commit/62df166574d6248b3405c224a2f63f1e53a75ece), [`32e12c6`](https://github.com/primer/react/commit/32e12c690a53aef918e765d128f381c8f57bfd02)]:
+  - @primer/react@38.0.0-rc.7
+
 ## 0.0.5
 
 ### Patch Changes

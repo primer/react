@@ -13,10 +13,9 @@ import {
 } from '@primer/octicons-react'
 import type {Meta} from '@storybook/react-vite'
 import React, {forwardRef} from 'react'
-import {Label, ThemeProvider} from '../..'
+import {Label} from '../..'
 import {ActionList as _ActionList} from '../../deprecated/ActionList'
 import {Header} from '../../deprecated/ActionList/Header'
-import BaseStyles from '../../BaseStyles'
 import {ReactRouterLikeLink} from '../../Pagination/mocks/ReactRouterLink'
 import classes from './ActionListStories.module.css'
 
@@ -27,15 +26,6 @@ const ActionList = Object.assign(_ActionList, {
 const meta: Meta = {
   title: 'Deprecated/Components/ActionList',
   component: ActionList,
-  decorators: [
-    (Story: React.ComponentType<React.PropsWithChildren<unknown>>): JSX.Element => (
-      <ThemeProvider>
-        <BaseStyles>
-          <Story />
-        </BaseStyles>
-      </ThemeProvider>
-    ),
-  ],
   parameters: {
     controls: {
       disable: true,
