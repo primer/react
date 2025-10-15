@@ -1,3 +1,4 @@
+/* stylelint-disable primer/colors */
 .IssueLabel {
   /* Color variables - dynamically set via inline CSS custom properties */
   --label-r: 153;
@@ -16,17 +17,138 @@
   border-style: solid;
 }
 
+@media (prefers-color-scheme: light) {
+  [data-color-mode='auto'][data-light-theme*='light'] .IssueLabel {
+    --lightness-threshold: 0.453;
+    --border-threshold: 0.96;
+    --border-alpha: max(0, min(calc((var(--perceived-lightness) - var(--border-threshold)) * 100), 1));
+
+    background: rgb(var(--label-r), var(--label-g), var(--label-b));
+    color: hsl(0deg, 0%, calc(var(--lightness-switch) * 100%));
+    border-color: hsla(
+      var(--label-h),
+      calc(var(--label-s) * 1%),
+      calc((var(--label-l) - 25) * 1%),
+      var(--border-alpha)
+    );
+
+    &:where([data-selected='true']) {
+      background: hsl(var(--label-h), calc(var(--label-s) * 1%), calc((var(--label-l) - 5) * 1%));
+    }
+
+    &:where([data-selected='true'])::after {
+      /* stylelint-disable-next-line primer/box-shadow */
+      box-shadow: 0 0 0 2px rgb(var(--label-r), var(--label-g), var(--label-b));
+    }
+
+    &:where([data-cursor-is-interactive='true']:hover) {
+      background-image: linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)),
+        linear-gradient(
+          rgb(var(--label-r), var(--label-g), var(--label-b)),
+          rgb(var(--label-r), var(--label-g), var(--label-b))
+        );
+      box-shadow: var(--shadow-resting-medium);
+    }
+  }
+
+    [data-color-mode='auto'][data-light-theme*='dark'] .IssueLabel {
+    --lightness-threshold: 0.6;
+    --background-alpha: 0.18;
+    --border-alpha: 0.3;
+    --lighten-by: calc(((var(--lightness-threshold) - var(--perceived-lightness)) * 100) * var(--lightness-switch));
+
+    background: rgba(var(--label-r), var(--label-g), var(--label-b), var(--background-alpha));
+    color: hsl(var(--label-h), calc(var(--label-s) * 1%), calc((var(--label-l) + var(--lighten-by)) * 1%));
+    border-color: hsla(
+      var(--label-h),
+      calc(var(--label-s) * 1%),
+      calc((var(--label-l) + var(--lighten-by)) * 1%),
+      var(--border-alpha)
+    );
+
+    &:where([data-selected='true'])::after {
+      /* stylelint-disable-next-line primer/box-shadow */
+      box-shadow: 0 0 0 2px
+        hsl(var(--label-h), calc(var(--label-s) * 1%), calc((var(--label-l) + var(--lighten-by)) * 1%));
+    }
+
+    &:where([data-cursor-is-interactive='true']:hover) {
+      background: hsla(var(--label-h), calc(var(--label-s) * 1%), calc(calc(var(--label-l) + 10) * 1%), 0.3);
+      box-shadow: var(--shadow-resting-medium);
+    }
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  [data-color-mode='auto'][data-dark-theme*='light'] .IssueLabel {
+    --lightness-threshold: 0.453;
+    --border-threshold: 0.96;
+    --border-alpha: max(0, min(calc((var(--perceived-lightness) - var(--border-threshold)) * 100), 1));
+
+    background: rgb(var(--label-r), var(--label-g), var(--label-b));
+    color: hsl(0deg, 0%, calc(var(--lightness-switch) * 100%));
+    border-color: hsla(
+      var(--label-h),
+      calc(var(--label-s) * 1%),
+      calc((var(--label-l) - 25) * 1%),
+      var(--border-alpha)
+    );
+
+    &:where([data-selected='true']) {
+      background: hsl(var(--label-h), calc(var(--label-s) * 1%), calc((var(--label-l) - 5) * 1%));
+    }
+
+    &:where([data-selected='true'])::after {
+      /* stylelint-disable-next-line primer/box-shadow */
+      box-shadow: 0 0 0 2px rgb(var(--label-r), var(--label-g), var(--label-b));
+    }
+
+    &:where([data-cursor-is-interactive='true']:hover) {
+      background-image: linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)),
+        linear-gradient(
+          rgb(var(--label-r), var(--label-g), var(--label-b)),
+          rgb(var(--label-r), var(--label-g), var(--label-b))
+        );
+      box-shadow: var(--shadow-resting-medium);
+    }
+  }
+
+    [data-color-mode='auto'][data-dark-theme*='dark'] .IssueLabel {
+    --lightness-threshold: 0.6;
+    --background-alpha: 0.18;
+    --border-alpha: 0.3;
+    --lighten-by: calc(((var(--lightness-threshold) - var(--perceived-lightness)) * 100) * var(--lightness-switch));
+
+    background: rgba(var(--label-r), var(--label-g), var(--label-b), var(--background-alpha));
+    color: hsl(var(--label-h), calc(var(--label-s) * 1%), calc((var(--label-l) + var(--lighten-by)) * 1%));
+    border-color: hsla(
+      var(--label-h),
+      calc(var(--label-s) * 1%),
+      calc((var(--label-l) + var(--lighten-by)) * 1%),
+      var(--border-alpha)
+    );
+
+    &:where([data-selected='true'])::after {
+      /* stylelint-disable-next-line primer/box-shadow */
+      box-shadow: 0 0 0 2px
+        hsl(var(--label-h), calc(var(--label-s) * 1%), calc((var(--label-l) + var(--lighten-by)) * 1%));
+    }
+
+    &:where([data-cursor-is-interactive='true']:hover) {
+      background: hsla(var(--label-h), calc(var(--label-s) * 1%), calc(calc(var(--label-l) + 10) * 1%), 0.3);
+      box-shadow: var(--shadow-resting-medium);
+    }
+  }
+}
+
 /* Light mode styles */
-[data-color-mode*='light'] .IssueLabel,
-[data-color-mode='auto'] .IssueLabel {
+[data-color-mode*='light'] .IssueLabel {
   --lightness-threshold: 0.453;
   --border-threshold: 0.96;
   --border-alpha: max(0, min(calc((var(--perceived-lightness) - var(--border-threshold)) * 100), 1));
-  /* stylelint-disable-next-line primer/colors */
+
   background: rgb(var(--label-r), var(--label-g), var(--label-b));
-  /* stylelint-disable-next-line primer/colors */
   color: hsl(0deg, 0%, calc(var(--lightness-switch) * 100%));
-  /* stylelint-disable-next-line primer/colors */
   border-color: hsla(var(--label-h), calc(var(--label-s) * 1%), calc((var(--label-l) - 25) * 1%), var(--border-alpha));
 }
 
@@ -37,24 +159,18 @@
   --border-alpha: 0.3;
   --lighten-by: calc(((var(--lightness-threshold) - var(--perceived-lightness)) * 100) * var(--lightness-switch));
 
-  /* stylelint-disable-next-line primer/colors */
   background: rgba(var(--label-r), var(--label-g), var(--label-b), var(--background-alpha));
-  /* stylelint-disable-next-line primer/colors */
   color: hsl(var(--label-h), calc(var(--label-s) * 1%), calc((var(--label-l) + var(--lighten-by)) * 1%));
-  /* stylelint-disable primer/colors */
   border-color: hsla(
     var(--label-h),
     calc(var(--label-s) * 1%),
     calc((var(--label-l) + var(--lighten-by)) * 1%),
     var(--border-alpha)
   );
-  /* stylelint-enable primer/colors */
 }
 
 /* Selected state */
-[data-color-mode*='light'] .IssueLabel:where([data-selected='true']),
-[data-color-mode='auto'] .IssueLabel:where([data-selected='true']) {
-  /* stylelint-disable-next-line primer/colors */
+[data-color-mode*='light'] .IssueLabel:where([data-selected='true']) {
   background: hsl(var(--label-h), calc(var(--label-s) * 1%), calc((var(--label-l) - 5) * 1%));
 }
 
@@ -75,8 +191,7 @@
   border-radius: var(--borderRadius-full);
 }
 
-[data-color-mode*='light'] .IssueLabel:where([data-selected='true'])::after,
-[data-color-mode='auto'] .IssueLabel:where([data-selected='true'])::after {
+[data-color-mode*='light'] .IssueLabel:where([data-selected='true'])::after {
   /* stylelint-disable-next-line primer/box-shadow */
   box-shadow: 0 0 0 2px rgb(var(--label-r), var(--label-g), var(--label-b));
 }
@@ -87,8 +202,7 @@
 }
 
 /* Interactive hover states */
-[data-color-mode*='light'] .IssueLabel:where([data-cursor-is-interactive='true']:hover),
-[data-color-mode='auto'] .IssueLabel:where([data-cursor-is-interactive='true']:hover) {
+[data-color-mode*='light'] .IssueLabel:where([data-cursor-is-interactive='true']:hover) {
   background-image: linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)),
     linear-gradient(
       rgb(var(--label-r), var(--label-g), var(--label-b)),
@@ -98,7 +212,6 @@
 }
 
 [data-color-mode='dark'] .IssueLabel:where([data-cursor-is-interactive='true']:hover) {
-  /* stylelint-disable-next-line primer/colors */
   background: hsla(var(--label-h), calc(var(--label-s) * 1%), calc(calc(var(--label-l) + 10) * 1%), 0.3);
   box-shadow: var(--shadow-resting-medium);
 }
