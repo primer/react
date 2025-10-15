@@ -165,9 +165,6 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
   } else if (listRole === 'listbox') {
     if (selectionVariant !== undefined && !role) inferredItemRole = 'option'
   }
-  // Note: We don't auto-infer role='link' for link items because:
-  // 1. Links inside <nav><ul> should use native semantics (no explicit role needed)
-  // 2. Only ActionMenu and listbox contexts require explicit ARIA roles
 
   const itemRole = role || inferredItemRole
 
@@ -298,8 +295,7 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
           inactiveText,
           userOnClick: interactiveProps.onClick as ((event: React.MouseEvent<HTMLAnchorElement>) => void) | undefined,
         }
-      : // Regular items without list semantics become the interactive element
-        !listSemantics && {
+      : !listSemantics && {
           ...menuItemProps,
           ...props,
           ref: forwardedRef,

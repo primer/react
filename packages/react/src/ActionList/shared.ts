@@ -80,7 +80,7 @@ export type LinkProps = {
 }
 
 /**
- * Props that should only appear on the interactive element (link/button), not the container (<li>).
+ * Props that should only appear on the interactive element (link), not the container (<li>).
  * This includes:
  * - Link-specific props from LinkProps
  * - HTMLAnchorElement attributes (navigation and link behavior)

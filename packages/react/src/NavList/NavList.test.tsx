@@ -29,7 +29,6 @@ describe('NavList', () => {
         <NavList.Item href="/contact">Contact</NavList.Item>
       </NavList>,
     )
-    screen.logTestingPlaygroundURL()
     expect(container).toMatchSnapshot()
   })
 

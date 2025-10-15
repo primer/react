@@ -108,8 +108,33 @@
           "required": false,
           "description": "id to attach to the root element of the Item",
           "defaultValue": ""
+        },
+        {
+          "name": "href",
+          "type": "string",
+          "required": false,
+          "description": "URL to navigate to when the item is clicked. When provided, the item will render as a link.",
+          "defaultValue": ""
+        },
+        {
+          "name": "as",
+          "type": "React.ElementType",
+          "defaultValue": "\"a\"",
+          "required": false,
+          "description": "The underlying element to render."
+        },
+        {
+          "name": "to",
+          "type": "string",
+          "required": false,
+          "description": "Destination for React Router or other client-side routing libraries. When provided, the item will render as a link.",
+          "defaultValue": ""
         }
-      ]
+      ],
+      "passthrough": {
+        "element": "a",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#Attributes"
+      }
     },
     {
       "name": "ActionList.Heading",
