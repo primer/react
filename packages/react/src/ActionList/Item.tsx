@@ -293,8 +293,8 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
     ? menuItemProps
     : isLinkItem
       ? {
-          ...menuItemProps,
           ...props,
+          ...menuItemProps,
           inactiveText,
           userOnClick: interactiveProps.onClick as ((event: React.MouseEvent<HTMLAnchorElement>) => void) | undefined,
         }
