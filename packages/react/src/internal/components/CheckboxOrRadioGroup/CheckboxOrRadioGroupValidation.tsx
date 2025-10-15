@@ -22,4 +22,4 @@ const CheckboxOrRadioGroupValidation: FCWithSlotMarker<
 
 export default CheckboxOrRadioGroupValidation
 
-CheckboxOrRadioGroupValidation.__SLOT__ = Symbol('CheckboxGroup.Validation')
+CheckboxOrRadioGroupValidation.__SLOT__ = Symbol('CheckboxOrRadioGroupValidation')
