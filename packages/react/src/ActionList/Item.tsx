@@ -293,6 +293,7 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
             // Test/styling props that should only be on the interactive element
             'data-testid',
             'sx',
+            'onClick',
           ])
           const containerOnlyProps = Object.fromEntries(Object.entries(props).filter(([key]) => !propsToStrip.has(key)))
           return {role: itemRole ? 'none' : undefined, ...containerOnlyProps}
@@ -304,12 +305,12 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
     ? menuItemProps
     : isLinkItem
       ? // Link wrapper needs all props plus link-specific props and aria-current
-        {
+        ({onClick, ...rest} = props) => ({
           ...menuItemProps,
-          ...props,
+          ...rest,
           inactiveText,
-          userOnClick: props.onClick,
-        }
+          userOnClick: onClick,
+        })
       : // Regular items without list semantics become the interactive element
         !listSemantics && {
           ...menuItemProps,
