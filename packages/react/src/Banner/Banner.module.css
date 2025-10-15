@@ -73,9 +73,9 @@
 /* BannerContent ---------------------------------------------------------- */
 
 .BannerContent {
-  display: grid;
+  /* display: grid; */
   row-gap: var(--base-size-4);
-  grid-column-start: 1;
+  /* grid-column-start: 1; */
   margin-block: var(--base-size-8);
 }
 
@@ -85,7 +85,7 @@
 
 @media screen and (min-width: 544px) {
   .BannerContent {
-    flex: 1 1 0%;
+    /* flex: 1 1 0%; */
   }
 }
 
@@ -174,13 +174,14 @@
 
 /* Layout ------------------------------------------------------------------- */
 
-@container banner (max-width: 500px) {
+@container banner (max-width: 245px) {
   .BannerContainer {
-    display: grid;
+    /* display: grid; */
+    outline: solid 1px red;
   }
 
   .BannerContainer:has(.BannerActionsContainer) {
-    grid-template-rows: auto auto;
+    /* grid-template-rows: auto auto; */
   }
 
   .BannerActions {
@@ -196,10 +197,10 @@
   }
 }
 
-@container banner (min-width: 500px) {
+@container banner (min-width: 245px) {
   .BannerContainer {
-    display: grid;
-    grid-template-columns: auto auto;
+    /* display: grid;
+    grid-template-columns: auto auto; */
   }
 
   :where(.Banner):not([data-dismissible])

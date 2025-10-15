@@ -1,8 +1,10 @@
 import {CopilotIcon, GitPullRequestIcon} from '@primer/octicons-react'
 import {action} from 'storybook/actions'
 import type {Meta} from '@storybook/react-vite'
+import React from 'react'
 import {Banner} from '../Banner'
 import Link from '../Link'
+import {Dialog} from '../Dialog/Dialog'
 
 const meta = {
   title: 'Components/Banner/Features',
@@ -255,5 +257,34 @@ export const CustomIcon = () => {
       onDismiss={action('onDismiss')}
       variant="upsell"
     />
+  )
+}
+
+export const SingleLineWithAction = () => {
+  return (
+    <Banner
+      onDismiss={action('onDismiss')}
+      title="This is a single line"
+      hideTitle
+      description="This is a single line"
+      primaryAction={<Banner.PrimaryAction>Button</Banner.PrimaryAction>}
+      secondaryAction={<Banner.SecondaryAction>Button</Banner.SecondaryAction>}
+    />
+  )
+}
+
+export const InsideDialog = () => {
+  const onDialogClose = React.useCallback(() => {}, [])
+
+  return (
+    <Dialog title="Add issue fields" onClose={onDialogClose} width="small">
+      <Banner
+        title="Something went wrong adding fields."
+        hideTitle
+        description="Please try again."
+        variant="critical"
+        primaryAction={<Banner.PrimaryAction onClick={action('Try again')}>Try again</Banner.PrimaryAction>}
+      />
+    </Dialog>
   )
 }
