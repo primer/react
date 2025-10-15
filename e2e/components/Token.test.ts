@@ -39,6 +39,10 @@ const stories = [
     title: 'IssueLabelToken with onRemove fn',
     id: 'components-token-features--issue-label-token-with-on-remove-fn',
   },
+  {
+    title: 'IssueLabelToken Custom Colors',
+    id: 'components-token-features--issue-label-token-custom-colors',
+  },
 ]
 
 test.describe('Token', () => {
