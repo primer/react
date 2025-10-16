@@ -5,7 +5,6 @@ import type {Hex} from './IssueLabel'
 /**
  * transforms a hex color provided by the user into a color object with background and text colors
  * @param colorHex — the hex color provided by the user
- * @param colorScheme — the color scheme the user has currently set
  * @returns
  */
 export const getColorsFromHex = (colorHex: Hex): React.CSSProperties | undefined => {
