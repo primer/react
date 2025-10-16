@@ -39,7 +39,7 @@ const RemoveTokenButton = ({
           transform: `translate(${borderOffset}px, -${borderOffset}px)`,
         }}
       >
-        <XIcon size={size === 'small' || size === 'medium' ? 12 : 16} />
+        <XIcon size={size === 'small' || size === 'medium' || size === 'large' ? 12 : 16} />
       </span>
     )
   }
@@ -56,7 +56,7 @@ const RemoveTokenButton = ({
       ref={rest.ref as React.Ref<HTMLButtonElement>}
       type="button"
     >
-      <XIcon size={size === 'small' || size === 'medium' ? 12 : 16} />
+      <XIcon size={size === 'small' || size === 'medium' || size === 'large' ? 12 : 16} />
     </button>
   )
 }
