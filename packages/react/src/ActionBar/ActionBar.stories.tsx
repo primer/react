@@ -100,5 +100,3 @@ export const DeepChildTree = () => (
     <AdvancedFormattingButtons />
   </ActionBar>
 )
-
-// GapExamples story moved to examples (Next.js example page) to reduce Storybook surface area.
