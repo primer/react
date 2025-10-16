@@ -233,7 +233,7 @@
   }
 
   @media (prefers-color-scheme: light) {
-    [data-color-mode='auto'][data-light-theme*='light'] {
+    [data-color-mode='auto'][data-light-theme*='light'] .IssueLabel:not([data-variant]) {
       --label-bgColor-rest: var(--label-bgColor-light-rest);
       --label-bgColor-hover: var(--label-bgColor-light-hover);
       --label-bgColor-active: var(--label-bgColor-light-active);
@@ -242,7 +242,7 @@
       --label-fgColor-active: var(--label-fgColor-light-active);
     }
 
-    [data-color-mode='auto'][data-light-theme*='dark'] {
+    [data-color-mode='auto'][data-light-theme*='dark'] .IssueLabel:not([data-variant]) {
       --label-bgColor-rest: var(--label-bgColor-dark-rest);
       --label-bgColor-hover: var(--label-bgColor-dark-hover);
       --label-bgColor-active: var(--label-bgColor-dark-active);
@@ -253,7 +253,7 @@
   }
 
   @media (prefers-color-scheme: dark) {
-    [data-color-mode='auto'][data-dark-theme*='light'] {
+    [data-color-mode='auto'][data-dark-theme*='light'] .IssueLabel:not([data-variant]) {
       --label-bgColor-rest: var(--label-bgColor-light-rest);
       --label-bgColor-hover: var(--label-bgColor-light-hover);
       --label-bgColor-active: var(--label-bgColor-light-active);
@@ -262,7 +262,7 @@
       --label-fgColor-active: var(--label-fgColor-light-active);
     }
 
-    [data-color-mode='auto'][data-dark-theme*='dark'] {
+    [data-color-mode='auto'][data-dark-theme*='dark'] .IssueLabel:not([data-variant]) {
       --label-bgColor-rest: var(--label-bgColor-dark-rest);
       --label-bgColor-hover: var(--label-bgColor-dark-hover);
       --label-bgColor-active: var(--label-bgColor-dark-active);
