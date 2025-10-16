@@ -4,8 +4,6 @@ exports[`AnchoredOverlay > should render consistently when open 1`] = `
 <div>
   <div
     class="prc-src-BaseStyles-9LBd2"
-    data-color-mode="light"
-    data-dark-theme="dark"
     data-portal-root="true"
   >
     <button
