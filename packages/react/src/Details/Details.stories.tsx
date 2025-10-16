@@ -16,3 +16,13 @@ export const Default: StoryFn<typeof Details> = () => {
     </Details>
   )
 }
+
+export const WithCustomSummary: StoryFn<typeof Details> = () => {
+  const {getDetailsProps} = useDetails({closeOnOutsideClick: true})
+  return (
+    <Details {...getDetailsProps()}>
+      <summary>Custom see Details</summary>
+      This is some content
+    </Details>
+  )
+}
