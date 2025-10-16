@@ -214,7 +214,7 @@
     }
   }
 
-  [data-color-mode*='dark'] .IssueLabel:not([data-variant]) {
+  [data-color-mode='dark'] .IssueLabel:not([data-variant]) {
     --label-bgColor-rest: var(--label-bgColor-dark-rest);
     --label-bgColor-hover: var(--label-bgColor-dark-hover);
     --label-bgColor-active: var(--label-bgColor-dark-active);
@@ -230,5 +230,45 @@
     --label-fgColor: var(--label-fgColor-light);
     --label-fgColor-hover: var(--label-fgColor-light-hover);
     --label-fgColor-active: var(--label-fgColor-light-active);
+  }
+
+  @media (prefers-color-scheme: light) {
+    [data-color-mode='auto'][data-light-theme*='light'] {
+      --label-bgColor-rest: var(--label-bgColor-light-rest);
+      --label-bgColor-hover: var(--label-bgColor-light-hover);
+      --label-bgColor-active: var(--label-bgColor-light-active);
+      --label-fgColor: var(--label-fgColor-light);
+      --label-fgColor-hover: var(--label-fgColor-light-hover);
+      --label-fgColor-active: var(--label-fgColor-light-active);
+    }
+
+    [data-color-mode='auto'][data-light-theme*='dark'] {
+      --label-bgColor-rest: var(--label-bgColor-dark-rest);
+      --label-bgColor-hover: var(--label-bgColor-dark-hover);
+      --label-bgColor-active: var(--label-bgColor-dark-active);
+      --label-fgColor: var(--label-fgColor-dark);
+      --label-fgColor-hover: var(--label-fgColor-dark-hover);
+      --label-fgColor-active: var(--label-fgColor-dark-active);
+    }
+  }
+
+  @media (prefers-color-scheme: dark) {
+    [data-color-mode='auto'][data-dark-theme*='light'] {
+      --label-bgColor-rest: var(--label-bgColor-light-rest);
+      --label-bgColor-hover: var(--label-bgColor-light-hover);
+      --label-bgColor-active: var(--label-bgColor-light-active);
+      --label-fgColor: var(--label-fgColor-light);
+      --label-fgColor-hover: var(--label-fgColor-light-hover);
+      --label-fgColor-active: var(--label-fgColor-light-active);
+    }
+
+    [data-color-mode='auto'][data-dark-theme*='dark'] {
+      --label-bgColor-rest: var(--label-bgColor-dark-rest);
+      --label-bgColor-hover: var(--label-bgColor-dark-hover);
+      --label-bgColor-active: var(--label-bgColor-dark-active);
+      --label-fgColor: var(--label-fgColor-dark);
+      --label-fgColor-hover: var(--label-fgColor-dark-hover);
+      --label-fgColor-active: var(--label-fgColor-dark-active);
+    }
   }
 }
