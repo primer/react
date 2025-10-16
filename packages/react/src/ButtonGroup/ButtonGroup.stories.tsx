@@ -23,16 +23,20 @@ export const Default = () => (
   </ButtonGroup>
 )
 
-export const Playground: StoryFn<ButtonProps> = args => (
-  <ButtonGroup>
-    <Button {...args}>Button 1</Button>
-    <Button {...args}>Button 2</Button>
-    <Button {...args}>Button 3</Button>
-  </ButtonGroup>
-)
+export const Playground: StoryFn<ButtonProps & {buttonCount: number}> = args => {
+  const {buttonCount = 3, ...buttonProps} = args
+  const buttons = Array.from({length: buttonCount}, (_, i) => (
+    <Button key={i} {...buttonProps}>
+      Button {i + 1}
+    </Button>
+  ))
+
+  return <ButtonGroup>{buttons}</ButtonGroup>
+}
 Playground.args = {
   size: 'medium',
   disabled: false,
+  buttonCount: 3,
 }
 Playground.argTypes = {
   size: {
@@ -45,5 +49,14 @@ Playground.argTypes = {
     control: {
       type: 'boolean',
     },
+  },
+  buttonCount: {
+    control: {
+      type: 'number',
+      min: 2,
+      max: 6,
+      step: 1,
+    },
+    description: 'Number of buttons in the group (2-6)',
   },
 }
