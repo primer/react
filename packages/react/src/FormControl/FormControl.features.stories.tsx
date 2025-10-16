@@ -1,8 +1,9 @@
 import React, {useState} from 'react'
 import type {Meta} from '@storybook/react-vite'
+import {ThemeProvider} from '../ThemeProvider'
+import BaseStyles from '../BaseStyles'
 import {
   Autocomplete,
-  BaseStyles,
   Button,
   Checkbox,
   CheckboxGroup,
@@ -15,7 +16,6 @@ import {
   TextInput,
   TextInputWithTokens,
   Textarea,
-  ThemeProvider,
   theme,
 } from '..'
 import {MarkGithubIcon, TriangleDownIcon} from '@primer/octicons-react'
