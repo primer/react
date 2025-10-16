@@ -14,7 +14,7 @@ import {
 import type {Meta} from '@storybook/react-vite'
 import type React from 'react'
 import {useCallback, useState, useRef} from 'react'
-import {ThemeProvider} from '../..'
+import {ThemeProvider} from '../../ThemeProvider'
 import type {ActionMenuProps} from '../../deprecated'
 import {ActionMenu, ActionList} from '../../deprecated'
 import type {ItemProps} from '../../deprecated/ActionList'

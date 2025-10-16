@@ -1,6 +1,7 @@
 import React from 'react'
 import type {Meta} from '@storybook/react-vite'
-import {BaseStyles, ThemeProvider} from '..'
+import {ThemeProvider} from '../ThemeProvider'
+import BaseStyles from '../BaseStyles'
 import {useAnchoredPosition} from '../hooks'
 import type {AnchorSide} from '@primer/behaviors'
 import Portal, {registerPortalRoot} from '../Portal'

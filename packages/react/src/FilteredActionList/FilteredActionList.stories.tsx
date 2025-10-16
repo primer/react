@@ -1,6 +1,6 @@
 import type {Meta} from '@storybook/react-vite'
 import React from 'react'
-import {ThemeProvider} from '..'
+import {ThemeProvider} from '../ThemeProvider'
 import {FilteredActionList} from '../FilteredActionList'
 import BaseStyles from '../BaseStyles'
 import classes from './FilteredActionList.stories.module.css'
