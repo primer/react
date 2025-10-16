@@ -1,67 +1,61 @@
-
 /* stylelint-disable primer/colors */
 @define-mixin lightThemeIssueLabel {
-      --lightness-threshold: 0.453;
-    --border-threshold: 0.96;
-    --border-alpha: max(0, min(calc((var(--perceived-lightness) - var(--border-threshold)) * 100), 1));
+  --lightness-threshold: 0.453;
+  --border-threshold: 0.96;
+  --border-alpha: max(0, min(calc((var(--perceived-lightness) - var(--border-threshold)) * 100), 1));
 
-    background: rgb(var(--label-r), var(--label-g), var(--label-b));
-    color: hsl(0deg, 0%, calc(var(--lightness-switch) * 100%));
-    border-color: hsla(
-      var(--label-h),
-      calc(var(--label-s) * 1%),
-      calc((var(--label-l) - 25) * 1%),
-      var(--border-alpha)
-    );
+  background: rgb(var(--label-r), var(--label-g), var(--label-b));
+  color: hsl(0deg, 0%, calc(var(--lightness-switch) * 100%));
+  border-color: hsla(var(--label-h), calc(var(--label-s) * 1%), calc((var(--label-l) - 25) * 1%), var(--border-alpha));
 
-    /* Selected state */
-    &:where([data-selected='true']) {
-      background: hsl(var(--label-h), calc(var(--label-s) * 1%), calc((var(--label-l) - 5) * 1%));
-    }
+  /* Selected state */
+  &:where([data-selected='true']) {
+    background: hsl(var(--label-h), calc(var(--label-s) * 1%), calc((var(--label-l) - 5) * 1%));
+  }
 
-    &:where([data-selected='true'])::after {
-      /* stylelint-disable-next-line primer/box-shadow */
-      box-shadow: 0 0 0 2px rgb(var(--label-r), var(--label-g), var(--label-b));
-    }
+  &:where([data-selected='true'])::after {
+    /* stylelint-disable-next-line primer/box-shadow */
+    box-shadow: 0 0 0 2px rgb(var(--label-r), var(--label-g), var(--label-b));
+  }
 
-    /* Interactive hover states */
-    &:where([data-cursor-is-interactive='true']:hover) {
-      background-image: linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)),
-        linear-gradient(
-          rgb(var(--label-r), var(--label-g), var(--label-b)),
-          rgb(var(--label-r), var(--label-g), var(--label-b))
-        );
-      box-shadow: var(--shadow-resting-medium);
-    }
+  /* Interactive hover states */
+  &:where([data-cursor-is-interactive='true']:hover) {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)),
+      linear-gradient(
+        rgb(var(--label-r), var(--label-g), var(--label-b)),
+        rgb(var(--label-r), var(--label-g), var(--label-b))
+      );
+    box-shadow: var(--shadow-resting-medium);
+  }
 }
 
 @define-mixin darkThemeIssueLabel {
-      --lightness-threshold: 0.6;
-    --background-alpha: 0.18;
-    --border-alpha: 0.3;
-    --lighten-by: calc(((var(--lightness-threshold) - var(--perceived-lightness)) * 100) * var(--lightness-switch));
+  --lightness-threshold: 0.6;
+  --background-alpha: 0.18;
+  --border-alpha: 0.3;
+  --lighten-by: calc(((var(--lightness-threshold) - var(--perceived-lightness)) * 100) * var(--lightness-switch));
 
-    background: rgba(var(--label-r), var(--label-g), var(--label-b), var(--background-alpha));
-    color: hsl(var(--label-h), calc(var(--label-s) * 1%), calc((var(--label-l) + var(--lighten-by)) * 1%));
-    border-color: hsla(
-      var(--label-h),
-      calc(var(--label-s) * 1%),
-      calc((var(--label-l) + var(--lighten-by)) * 1%),
-      var(--border-alpha)
-    );
+  background: rgba(var(--label-r), var(--label-g), var(--label-b), var(--background-alpha));
+  color: hsl(var(--label-h), calc(var(--label-s) * 1%), calc((var(--label-l) + var(--lighten-by)) * 1%));
+  border-color: hsla(
+    var(--label-h),
+    calc(var(--label-s) * 1%),
+    calc((var(--label-l) + var(--lighten-by)) * 1%),
+    var(--border-alpha)
+  );
 
-    /* Selected state */
-    &:where([data-selected='true'])::after {
-      /* stylelint-disable-next-line primer/box-shadow */
-      box-shadow: 0 0 0 2px
-        hsl(var(--label-h), calc(var(--label-s) * 1%), calc((var(--label-l) + var(--lighten-by)) * 1%));
-    }
+  /* Selected state */
+  &:where([data-selected='true'])::after {
+    /* stylelint-disable-next-line primer/box-shadow */
+    box-shadow: 0 0 0 2px
+      hsl(var(--label-h), calc(var(--label-s) * 1%), calc((var(--label-l) + var(--lighten-by)) * 1%));
+  }
 
-    /* Interactive hover states */
-    &:where([data-cursor-is-interactive='true']:hover) {
-      background: hsla(var(--label-h), calc(var(--label-s) * 1%), calc(calc(var(--label-l) + 10) * 1%), 0.3);
-      box-shadow: var(--shadow-resting-medium);
-    }
+  /* Interactive hover states */
+  &:where([data-cursor-is-interactive='true']:hover) {
+    background: hsla(var(--label-h), calc(var(--label-s) * 1%), calc(calc(var(--label-l) + 10) * 1%), 0.3);
+    box-shadow: var(--shadow-resting-medium);
+  }
 }
 
 .IssueLabel {
@@ -94,7 +88,7 @@
 
 @media (prefers-color-scheme: dark) {
   [data-color-mode='auto'][data-dark-theme*='light'] .IssueLabel {
-   @mixin lightThemeIssueLabel;
+    @mixin lightThemeIssueLabel;
   }
 
   [data-color-mode='auto'][data-dark-theme*='dark'] .IssueLabel {
@@ -130,7 +124,6 @@
   pointer-events: none;
   border-radius: var(--borderRadius-full);
 }
-
 
 /* Remove button styling */
 .IssueLabel:where([data-has-remove-button='true']) {
