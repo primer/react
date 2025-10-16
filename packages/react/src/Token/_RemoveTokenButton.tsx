@@ -2,7 +2,7 @@ import type React from 'react'
 import {XIcon} from '@primer/octicons-react'
 import {clsx} from 'clsx'
 import type {TokenSizeKeys} from './TokenBase'
-import {tokenSizes, defaultTokenSize} from './TokenBase'
+import {defaultTokenSize} from './TokenBase'
 
 import classes from './_RemoveTokenButton.module.css'
 
@@ -11,8 +11,6 @@ interface TokenButtonProps {
   size?: TokenSizeKeys
   isParentInteractive?: boolean
 }
-
-const getTokenButtonIconSize = (size?: TokenSizeKeys) => parseInt(tokenSizes[size || defaultTokenSize], 10) * 0.75
 
 type RemoveTokenButtonProps = TokenButtonProps & Omit<React.HTMLProps<HTMLSpanElement | HTMLButtonElement>, 'size'>
 
@@ -39,7 +37,7 @@ const RemoveTokenButton = ({
           transform: `translate(${borderOffset}px, -${borderOffset}px)`,
         }}
       >
-        <XIcon size={getTokenButtonIconSize(size)} />
+        <XIcon size={size === 'small' || size === 'medium' || size === 'large' ? 12 : 16} />
       </span>
     )
   }
@@ -56,7 +54,7 @@ const RemoveTokenButton = ({
       ref={rest.ref as React.Ref<HTMLButtonElement>}
       type="button"
     >
-      <XIcon size={getTokenButtonIconSize(size)} />
+      <XIcon size={size === 'small' || size === 'medium' || size === 'large' ? 12 : 16} />
     </button>
   )
 }
