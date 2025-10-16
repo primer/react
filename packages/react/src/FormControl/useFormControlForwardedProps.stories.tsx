@@ -1,7 +1,5 @@
 import type {Meta} from '@storybook/react-vite'
-import {ThemeProvider} from '../ThemeProvider'
-import BaseStyles from '../BaseStyles'
-import {FormControl, theme, useFormControlForwardedProps} from '..'
+import {BaseStyles, FormControl, ThemeProvider, theme, useFormControlForwardedProps} from '..'
 
 export default {
   title: 'Hooks/useFormControlForwardedProps',
