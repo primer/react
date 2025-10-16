@@ -1,7 +1,5 @@
 import type {Meta} from '@storybook/react-vite'
-import {ThemeProvider} from '../ThemeProvider'
-import BaseStyles from '../BaseStyles'
-import {IconButton, Button} from '..'
+import {BaseStyles, ThemeProvider, IconButton, Button} from '..'
 import Tooltip from './Tooltip'
 import {SearchIcon} from '@primer/octicons-react'
 import classes from './Tooltip.features.stories.module.css'

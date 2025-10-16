@@ -1,9 +1,7 @@
 import React, {useCallback, useEffect} from 'react'
 import type {Meta} from '@storybook/react-vite'
 
-import {ThemeProvider} from '../ThemeProvider'
-import BaseStyles from '../BaseStyles'
-import {Button, Flash, Stack, Text} from '..'
+import {BaseStyles, Button, Flash, Stack, Text, ThemeProvider} from '..'
 import {useFocusTrap} from '../hooks/useFocusTrap'
 import classes from './FocusTrapStories.module.css'
 

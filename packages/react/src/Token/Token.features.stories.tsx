@@ -1,7 +1,6 @@
 import type {Meta} from '@storybook/react-vite'
 import {action} from 'storybook/actions'
-import {ThemeProvider} from '../ThemeProvider'
-import BaseStyles from '../BaseStyles'
+import {BaseStyles, ThemeProvider} from '..'
 import Token from './Token'
 import {GitBranchIcon} from '@primer/octicons-react'
 import IssueLabelToken from './IssueLabelToken'

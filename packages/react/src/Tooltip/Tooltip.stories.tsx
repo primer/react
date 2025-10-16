@@ -1,7 +1,5 @@
 import type {Meta} from '@storybook/react-vite'
-import {ThemeProvider} from '../ThemeProvider'
-import BaseStyles from '../BaseStyles'
-import {Button} from '..'
+import {BaseStyles, ThemeProvider, Button} from '..'
 import Link from '../Link'
 import {Banner} from '../Banner'
 import Tooltip from './Tooltip'
