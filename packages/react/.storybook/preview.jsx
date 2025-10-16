@@ -1,6 +1,7 @@
 import {PrimerBreakpoints} from '../src/utils/layout'
 import React, {useEffect} from 'react'
-import {ThemeProvider, BaseStyles} from '../src'
+import {ThemeProvider} from '../src/ThemeProvider'
+import BaseStyles from '../src/BaseStyles'
 import {FeatureFlags} from '../src/FeatureFlags'
 import {DefaultFeatureFlags} from '../src/FeatureFlags/DefaultFeatureFlags'
 import {clsx} from 'clsx'
