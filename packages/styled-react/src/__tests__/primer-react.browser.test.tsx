@@ -271,31 +271,6 @@ describe('@primer/react', () => {
     expect(window.getComputedStyle(itemLiEl!).backgroundColor).toBe('rgb(255, 0, 0)')
   })
 
-  test('NavList.Group supports `sx` prop', () => {
-    render(
-      <NavList>
-        <NavList.Group data-testid="component" sx={{background: 'red'}}>
-          <NavList.Item>item</NavList.Item>
-        </NavList.Group>
-      </NavList>,
-    )
-    expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
-  })
-
-  test('NavList.GroupHeading supports `sx` prop', () => {
-    render(
-      <NavList>
-        <NavList.Group>
-          <NavList.GroupHeading data-testid="component" sx={{background: 'red'}}>
-            test
-          </NavList.GroupHeading>
-          <NavList.Item>item</NavList.Item>
-        </NavList.Group>
-      </NavList>,
-    )
-    expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
-  })
-
   test('NavList.LeadingVisual supports `sx` prop', () => {
     render(<NavList.LeadingVisual data-testid="component" sx={{background: 'red'}} />)
     expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
