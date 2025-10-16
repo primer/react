@@ -61,6 +61,8 @@ type A11yProps =
       'aria-labelledby': React.AriaAttributes['aria-labelledby']
     }
 
+type GapScale = 'none' | 'condensed'
+
 export type ActionBarProps = {
   /**
    * Size of the action bar
@@ -79,18 +81,29 @@ export type ActionBarProps = {
 
   /** Custom className */
   className?: string
+
+  /**
+   * Horizontal gap scale between items (mirrors Stack gap scale)
+   * @default 'condensed'
+   */
+  gap?: GapScale
 } & A11yProps
 
 export type ActionBarIconButtonProps = {disabled?: boolean} & IconButtonProps
 
 const MORE_BTN_WIDTH = 32
 
-const calculatePossibleItems = (registryEntries: Array<[string, ChildProps]>, navWidth: number, moreMenuWidth = 0) => {
+const calculatePossibleItems = (
+  registryEntries: Array<[string, ChildProps]>,
+  navWidth: number,
+  gap: number,
+  moreMenuWidth = 0,
+) => {
   const widthToFit = navWidth - moreMenuWidth
   let breakpoint = registryEntries.length // assume all items will fit
   let sumsOfChildWidth = 0
   for (const [index, [, child]] of registryEntries.entries()) {
-    sumsOfChildWidth += index > 0 ? child.width + ACTIONBAR_ITEM_GAP : child.width
+    sumsOfChildWidth += index > 0 ? child.width + gap : child.width
     if (sumsOfChildWidth > widthToFit) {
       breakpoint = index
       break
@@ -106,15 +119,17 @@ const getMenuItems = (
   moreMenuWidth: number,
   childRegistry: ChildRegistry,
   hasActiveMenu: boolean,
+  gap: number,
 ): Set<string> | void => {
   const registryEntries = Array.from(childRegistry).filter((entry): entry is [string, ChildProps] => entry[1] !== null)
 
   if (registryEntries.length === 0) return new Set()
-  const numberOfItemsPossible = calculatePossibleItems(registryEntries, navWidth)
+  const numberOfItemsPossible = calculatePossibleItems(registryEntries, navWidth, gap)
 
   const numberOfItemsPossibleWithMoreMenu = calculatePossibleItems(
     registryEntries,
     navWidth,
+    gap,
     moreMenuWidth || MORE_BTN_WIDTH,
   )
   const menuItems = new Set<string>()
@@ -158,7 +173,12 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
     'aria-labelledby': ariaLabelledBy,
     flush = false,
     className,
+    gap = 'condensed',
   } = props
+
+  // We derive the numeric gap from computed style so layout math stays in sync with CSS
+  const listRef = useRef<HTMLDivElement>(null)
+  const [computedGap, setComputedGap] = useState<number>(ACTIONBAR_ITEM_GAP)
 
   const [childRegistry, setChildRegistry] = useState<ChildRegistry>(() => new Map())
 
@@ -171,7 +191,13 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
   const [menuItemIds, setMenuItemIds] = useState<Set<string>>(() => new Set())
 
   const navRef = useRef<HTMLDivElement>(null)
-  const listRef = useRef<HTMLDivElement>(null)
+  // measure gap after first render & whenever gap scale changes
+  useIsomorphicLayoutEffect(() => {
+    if (!listRef.current) return
+    const g = window.getComputedStyle(listRef.current).gap
+    const parsed = parseFloat(g)
+    if (!Number.isNaN(parsed)) setComputedGap(parsed)
+  }, [gap])
   const moreMenuRef = useRef<HTMLLIElement>(null)
   const moreMenuBtnRef = useRef<HTMLButtonElement>(null)
   const containerRef = React.useRef<HTMLUListElement>(null)
@@ -182,7 +208,7 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
     const hasActiveMenu = menuItemIds.size > 0
 
     if (navWidth > 0) {
-      const newMenuItemIds = getMenuItems(navWidth, moreMenuWidth, childRegistry, hasActiveMenu)
+      const newMenuItemIds = getMenuItems(navWidth, moreMenuWidth, childRegistry, hasActiveMenu, computedGap)
       if (newMenuItemIds) setMenuItemIds(newMenuItemIds)
     }
   }, navRef as RefObject<HTMLElement>)
@@ -230,9 +256,9 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
           ref={listRef}
           role="toolbar"
           className={styles.List}
-          style={{gap: `${ACTIONBAR_ITEM_GAP}px`}}
           aria-label={ariaLabel}
           aria-labelledby={ariaLabelledBy}
+          data-gap={gap}
         >
           {children}
           {menuItemIds.size > 0 && (
