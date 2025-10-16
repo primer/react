@@ -27,7 +27,7 @@ export const Playground: StoryFn<ButtonProps & {buttonCount: number}> = args => 
   const {buttonCount = 3, ...buttonProps} = args
   const buttons = Array.from({length: buttonCount}, (_, i) => (
     <Button key={i} {...buttonProps}>
-      Button {i + 1}
+      {`Button ${i + 1}`}
     </Button>
   ))
 
