@@ -19,6 +19,11 @@
 .TokenButton[data-size='small'] {
   width: var(--base-size-16);
   height: var(--base-size-16);
+
+  /* & svg {
+    width: var(--base-size-12);
+    height: var(--base-size-12);
+  } */
 }
 
 .TokenButton[data-size='medium'] {
