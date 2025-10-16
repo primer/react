@@ -20,7 +20,9 @@ interface AnchoredOverlayPropsWithAnchor {
    * A custom function component used to render the anchor element.
    * Will receive the selected text as `children` prop when an item is activated.
    */
-  renderAnchor: <T extends React.HTMLAttributes<HTMLElement>>(props: T) => JSX.Element
+  renderAnchor: <T extends Omit<React.HTMLAttributes<HTMLElement>, 'aria-label' | 'aria-labelledby'>>(
+    props: T,
+  ) => JSX.Element
 
   /**
    * An override to the internal ref that will be spread on to the renderAnchor
