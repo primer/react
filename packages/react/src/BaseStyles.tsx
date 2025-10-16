@@ -15,7 +15,7 @@ export type BaseStylesProps = PropsWithChildren & {
   color?: string // Fixes `color` ts-error
 }
 function BaseStyles({children, color, className, as: Component = 'div', style, ...rest}: BaseStylesProps) {
-  const {colorMode, colorScheme, dayScheme, nightScheme} = useTheme()
+  const {colorMode, colorScheme, nightScheme} = useTheme()
 
   const newClassName = clsx(classes.BaseStyles, className)
   const baseStyles = {
@@ -32,7 +32,6 @@ function BaseStyles({children, color, className, as: Component = 'div', style, .
        * valid color modes for primer/primer: auto | day | night | light | dark
        */
       data-color-mode={colorMode === 'auto' ? 'auto' : colorScheme?.includes('dark') ? 'dark' : 'light'}
-      data-light-theme={dayScheme}
       data-dark-theme={nightScheme}
       style={{
         ...baseStyles,
