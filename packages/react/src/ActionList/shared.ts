@@ -76,7 +76,6 @@ export type LinkProps = {
   rel?: string
   target?: string
   referrerPolicy?: React.AnchorHTMLAttributes<HTMLAnchorElement>['referrerPolicy']
-  to?: string
 }
 
 /**
