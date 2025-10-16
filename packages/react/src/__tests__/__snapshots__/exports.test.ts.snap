@@ -33,8 +33,6 @@ exports[`@primer/react > should not update exports without a semver change 1`] =
   "type BaseStylesProps",
   "type BetterCssProperties",
   "type BetterSystemStyleObject",
-  "Box",
-  "type BoxProps",
   "BranchName",
   "type BranchNameProps",
   "Breadcrumb",

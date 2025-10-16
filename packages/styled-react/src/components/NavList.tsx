@@ -1,4 +1,4 @@
-import {NavList as PrimerNavList, Box} from '@primer/react'
+import {NavList as PrimerNavList} from '@primer/react'
 import type {
   NavListProps as PrimerNavListProps,
   NavListItemProps as PrimerNavListItemProps,
@@ -8,6 +8,7 @@ import type {
 } from '@primer/react'
 import {forwardRef, type PropsWithChildren} from 'react'
 import {type SxProp} from '../sx'
+import Box from './Box'
 
 type RefComponent<E extends HTMLElement, P> = React.ForwardRefExoticComponent<P & React.RefAttributes<E>>
 
