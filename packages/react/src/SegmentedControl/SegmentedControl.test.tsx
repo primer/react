@@ -85,7 +85,7 @@ describe('SegmentedControl', () => {
     const {getByLabelText} = render(
       <SegmentedControl aria-label="File view" variant={{narrow: 'hideLabels'}}>
         {segmentData.map(({label, icon}, index) => (
-          <SegmentedControl.Button leadingIcon={icon} selected={index === 1} key={label}>
+          <SegmentedControl.Button leadingVisual={icon} selected={index === 1} key={label}>
             {label}
           </SegmentedControl.Button>
         ))}
@@ -116,7 +116,7 @@ describe('SegmentedControl', () => {
     const {getByLabelText} = render(
       <SegmentedControl aria-label="File view">
         {segmentData.map(({label, icon}, index) => (
-          <SegmentedControl.Button selected={index === 0} leadingIcon={icon} key={label}>
+          <SegmentedControl.Button selected={index === 0} leadingVisual={icon} key={label}>
             {label}
           </SegmentedControl.Button>
         ))}
@@ -319,7 +319,7 @@ describe('SegmentedControl', () => {
     expect(handleClick).toHaveBeenCalled()
   })
 
-  it('warns users if they try to use the hideLabels variant without a leadingIcon', () => {
+  it('warns users if they try to use the hideLabels variant without a leadingVisual', () => {
     const spy = vi.spyOn(globalThis.console, 'warn').mockImplementation(() => {})
 
     render(
