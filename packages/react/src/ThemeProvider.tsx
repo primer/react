@@ -119,14 +119,20 @@ export const ThemeProvider: React.FC<React.PropsWithChildren<ThemeProviderProps>
         setNightScheme,
       }}
     >
-      {children}
-      {props.preventSSRMismatch ? (
-        <script
-          type="application/json"
-          id={`__PRIMER_DATA_${uniqueDataId}__`}
-          dangerouslySetInnerHTML={{__html: JSON.stringify({resolvedServerColorMode: resolvedColorMode})}}
-        />
-      ) : null}
+      <div
+        data-color-mode={colorMode === 'auto' ? 'auto' : colorScheme.includes('dark') ? 'dark' : 'light'}
+        data-light-theme={dayScheme}
+        data-dark-theme={nightScheme}
+      >
+        {children}
+        {props.preventSSRMismatch ? (
+          <script
+            type="application/json"
+            id={`__PRIMER_DATA_${uniqueDataId}__`}
+            dangerouslySetInnerHTML={{__html: JSON.stringify({resolvedServerColorMode: resolvedColorMode})}}
+          />
+        ) : null}
+      </div>
     </ThemeContext.Provider>
   )
 }
