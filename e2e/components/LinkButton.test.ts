@@ -20,6 +20,10 @@ const stories = [
     id: 'components-linkbutton-features--invisible',
   },
   {
+    title: 'Link',
+    id: 'components-linkbutton-features--link',
+  },
+  {
     title: 'Large',
     id: 'components-linkbutton-features--large',
   },

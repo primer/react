@@ -64,7 +64,12 @@ const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(
 
     // Get children without SubNav or TrailingAction
     const childrenWithoutSubNavOrTrailingAction = React.Children.toArray(children).filter(child =>
-      isValidElement(child) ? child.type !== SubNav && child.type !== TrailingAction : true,
+      isValidElement(child)
+        ? child.type !== SubNav &&
+          child.type !== TrailingAction &&
+          !isSlot(child, SubNav) &&
+          !isSlot(child, TrailingAction)
+        : true,
     )
 
     if (!isValidElement(subNav) && defaultOpen)

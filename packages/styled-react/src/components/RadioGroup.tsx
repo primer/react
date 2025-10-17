@@ -1,6 +1,7 @@
-import {Box, RadioGroup as PrimerRadioGroup, type RadioGroupProps as PrimerRadioGroupProps} from '@primer/react'
+import {RadioGroup as PrimerRadioGroup, type RadioGroupProps as PrimerRadioGroupProps} from '@primer/react'
 import React, {type PropsWithChildren} from 'react'
 import type {SxProp} from '../sx'
+import Box from './Box'
 
 export type RadioGroupProps = PropsWithChildren<PrimerRadioGroupProps> & SxProp
 
