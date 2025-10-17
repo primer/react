@@ -1,5 +1,6 @@
 import './global.css'
 import {ThemeProvider, BaseStyles} from '@primer/styled-react'
+import {FeatureFlags} from '@primer/react/experimental'
 import {StyledComponentsRegistry} from './registry'
 
 export const metadata = {
@@ -13,11 +14,13 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
     // that cause hydration mismatch errors
     <html lang="en" suppressHydrationWarning>
       <body>
-        <StyledComponentsRegistry>
-          <ThemeProvider>
-            <BaseStyles>{children}</BaseStyles>
-          </ThemeProvider>
-        </StyledComponentsRegistry>
+        <FeatureFlags flags={{primer_react_use_styled_react_theming: true}}>
+          <StyledComponentsRegistry>
+            <ThemeProvider>
+              <BaseStyles>{children}</BaseStyles>
+            </ThemeProvider>
+          </StyledComponentsRegistry>
+        </FeatureFlags>
       </body>
     </html>
   )
