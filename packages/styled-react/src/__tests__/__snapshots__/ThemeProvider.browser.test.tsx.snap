@@ -1,0 +1,10 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`has default theme 1`] = `
+<div
+  class="sc-aXZVg eFkJGf"
+  color="fg.default"
+>
+  Hello
+</div>
+`;
