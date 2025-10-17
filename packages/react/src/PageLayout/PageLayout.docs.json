@@ -57,11 +57,6 @@
       "type": "| 'none' | 'condensed' | 'normal'",
       "defaultValue": "'normal'",
       "description": ""
-    },
-    {
-      "name": "sx",
-      "type": "SystemStyleObject",
-      "deprecated": true
     }
   ],
   "subcomponents": [
@@ -104,11 +99,6 @@
           "type": "| boolean | { narrow?: boolean regular?: boolean wide?: boolean }",
           "defaultValue": "false",
           "description": "Whether the header is hidden."
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject",
-          "deprecated": true
         }
       ]
     },
@@ -150,11 +140,6 @@
           "type": "| boolean | { narrow?: boolean regular?: boolean wide?: boolean }",
           "defaultValue": "false",
           "description": "Whether the content is hidden."
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject",
-          "deprecated": true
         }
       ]
     },
@@ -239,11 +224,6 @@
           "defaultValue": ""
         },
         {
-          "name": "sx",
-          "type": "SystemStyleObject",
-          "deprecated": true
-        },
-        {
           "name": "ref",
           "type": "React.RefObject<HTMLDivElement>"
         }
@@ -288,11 +268,6 @@
           "type": "| boolean | { narrow?: boolean regular?: boolean wide?: boolean }",
           "defaultValue": "false",
           "description": "Whether the footer is hidden."
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject",
-          "deprecated": true
         }
       ]
     }
