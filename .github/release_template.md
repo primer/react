@@ -13,7 +13,7 @@ Please ensure these items are checked before merging:
   - [ ] Verify all CI checks have passed on automated pull request
   - [ ] Manually test critical paths in preview
   - [ ] Manually test release-specific bugfixes and/or feature work as described in preview
-     
+
 ### ✅ Peer Review
 
 - [ ] Create release review issue for Issues team ([example](https://github.com/github/issues/issues/17817))
