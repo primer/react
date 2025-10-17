@@ -85,4 +85,4 @@ export {UnderlineNav, type UnderlineNavProps, type UnderlineNavItemProps} from '
 
 export {merge, sx, type SxProp} from './sx'
 
-export type {BetterSystemStyleObject} from './styled-props'
+export {type BetterSystemStyleObject} from './sx'
