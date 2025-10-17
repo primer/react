@@ -1,8 +1,6 @@
 import {describe, it, expect, vi} from 'vitest'
 import {render as HTMLRender} from '@testing-library/react'
-import {ThemeProvider} from '../ThemeProvider'
 import BaseStyles from '../BaseStyles'
-import theme from '../theme'
 import {ActionList} from '.'
 import {ActionMenu} from '..'
 
@@ -11,20 +9,18 @@ describe('ActionList.Group', () => {
     const spy = vi.spyOn(console, 'error').mockImplementation(() => vi.fn())
     expect(() =>
       HTMLRender(
-        <ThemeProvider theme={theme}>
-          <BaseStyles>
-            <ActionMenu open={true}>
-              <ActionMenu.Button>Trigger</ActionMenu.Button>
-              <ActionMenu.Overlay>
-                <ActionList>
-                  <ActionList.Group>
-                    <ActionList.GroupHeading as="h2">Group Heading</ActionList.GroupHeading>
-                  </ActionList.Group>
-                </ActionList>
-              </ActionMenu.Overlay>
-            </ActionMenu>
-          </BaseStyles>
-        </ThemeProvider>,
+        <BaseStyles>
+          <ActionMenu open={true}>
+            <ActionMenu.Button>Trigger</ActionMenu.Button>
+            <ActionMenu.Overlay>
+              <ActionList>
+                <ActionList.Group>
+                  <ActionList.GroupHeading as="h2">Group Heading</ActionList.GroupHeading>
+                </ActionList.Group>
+              </ActionList>
+            </ActionMenu.Overlay>
+          </ActionMenu>
+        </BaseStyles>,
       ),
     ).toThrow(
       "Looks like you are trying to set a heading level to a menu role. Group headings for menu type action lists are for representational purposes, and rendered as divs. Therefore they don't need a heading level.",
