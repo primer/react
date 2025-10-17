@@ -13,6 +13,20 @@ exports[`AnchoredOverlay > should render consistently when open 1`] = `
       data-dark-theme="dark"
       data-light-theme="light"
       data-portal-root="true"
+    data-portal-root="true"
+  >
+    <button
+      aria-describedby=":r8:-loading-announcement"
+      aria-expanded="true"
+      aria-haspopup="true"
+      class="prc-Button-ButtonBase-Eb8-K"
+      data-loading="false"
+      data-no-visuals="true"
+      data-size="medium"
+      data-variant="default"
+      id=":r8:"
+      tabindex="0"
+      type="button"
     >
       <button
         aria-describedby=":rd:-loading-announcement"
