@@ -1,8 +1,10 @@
 import {describe, it, expect, vi} from 'vitest'
 import {render as HTMLRender} from '@testing-library/react'
+import {ThemeProvider} from '../ThemeProvider'
+import BaseStyles from '../BaseStyles'
 import theme from '../theme'
 import {ActionList} from '.'
-import {BaseStyles, ThemeProvider, ActionMenu} from '..'
+import {ActionMenu} from '..'
 
 describe('ActionList.Heading', () => {
   it('should render the ActionList.Heading component as a heading with the given heading level', async () => {

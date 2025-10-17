@@ -1,7 +1,9 @@
 import type React from 'react'
 import {render, waitFor} from '@testing-library/react'
 import {describe, it, expect, vi} from 'vitest'
-import {LabelGroup, Label, ThemeProvider, BaseStyles} from '..'
+import {ThemeProvider} from '../ThemeProvider'
+import BaseStyles from '../BaseStyles'
+import {LabelGroup, Label} from '..'
 import theme from '../theme'
 import userEvent from '@testing-library/user-event'
 

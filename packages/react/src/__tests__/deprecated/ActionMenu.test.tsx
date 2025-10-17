@@ -1,8 +1,9 @@
 import {describe, expect, it, vi, afterEach} from 'vitest'
 import {render as HTMLRender, fireEvent} from '@testing-library/react'
 import theme from '../../theme'
+import {ThemeProvider} from '../../ThemeProvider'
+import BaseStyles from '../../BaseStyles'
 import {ActionMenu} from '../../deprecated'
-import {BaseStyles, ThemeProvider} from '../..'
 import type {ItemProps} from '../../deprecated/ActionList/Item'
 
 const items = [
