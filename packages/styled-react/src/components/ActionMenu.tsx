@@ -1,5 +1,5 @@
-import {ActionMenu as PrimerActionMenu, type SxProp, type SlotMarker} from '@primer/react'
-import {sx} from '../sx'
+import {ActionMenu as PrimerActionMenu, type SlotMarker} from '@primer/react'
+import {sx, type SxProp} from '../sx'
 import styled from 'styled-components'
 import type {ComponentProps} from 'react'
 
