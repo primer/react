@@ -19,7 +19,10 @@ const Root = React.forwardRef<HTMLDetailsElement, DetailsProps>(
         return
       }
       const summary = details.querySelector('summary:not([data-default-summary])')
-      warning(summary === null, 'Accessibility issue: <Details> component must have a <Summary> child component.')
+      warning(
+        summary === null,
+        'The <Details> component must have a <summary> child component. You can either use <Details.Summary> or a native <summary> element.',
+      )
     }, [])
 
     return (
