@@ -508,6 +508,7 @@
     background-color: var(--button-inactive-bgColor);
     /* stylelint-disable-next-line primer/colors */
     border-color: var(--button-inactive-bgColor);
+    box-shadow: none;
 
     & .Visual,
     & .CounterLabel {

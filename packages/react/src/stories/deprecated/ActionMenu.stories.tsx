@@ -14,26 +14,15 @@ import {
 import type {Meta} from '@storybook/react-vite'
 import type React from 'react'
 import {useCallback, useState, useRef} from 'react'
-import {ThemeProvider} from '../..'
 import type {ActionMenuProps} from '../../deprecated'
 import {ActionMenu, ActionList} from '../../deprecated'
 import type {ItemProps} from '../../deprecated/ActionList'
-import BaseStyles from '../../BaseStyles'
 import {Button, type ButtonProps} from '../../Button'
 import classes from './ActionMenuStories.module.css'
 
 const meta: Meta = {
   title: 'Deprecated/Components/ActionMenu',
   component: ActionMenu,
-  decorators: [
-    (Story: React.ComponentType<React.PropsWithChildren<unknown>>): JSX.Element => (
-      <ThemeProvider>
-        <BaseStyles>
-          <Story />
-        </BaseStyles>
-      </ThemeProvider>
-    ),
-  ],
   parameters: {
     controls: {
       disable: true,
