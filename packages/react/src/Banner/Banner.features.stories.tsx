@@ -287,7 +287,8 @@ export const ActionsLayoutStacked = () => {
           Mobile (320px)
         </Heading>
         <Banner
-          title="Actions Layout: Stacked mobile"
+          title="Actions Layout: Stacked"
+          aria-label="Actions Layout Stacked Mobile"
           description="Actions are displayed in a vertical stack on both mobile and desktop."
           variant="info"
           actionsLayout="stacked"
@@ -297,7 +298,8 @@ export const ActionsLayoutStacked = () => {
           }
         />
         <Banner
-          title="Actions Layout: Stacked desktop"
+          title="Actions Layout: Stacked"
+          aria-label="Actions Layout Stacked Mobile Dismissible"
           description="Actions are displayed in a vertical stack on both mobile and desktop."
           variant="info"
           actionsLayout="stacked"
@@ -314,7 +316,8 @@ export const ActionsLayoutStacked = () => {
           Desktop (768px)
         </Heading>
         <Banner
-          title="Actions Layout: Stacked mobile"
+          title="Actions Layout: Stacked"
+          aria-label="Actions Layout Stacked Desktop"
           description="Actions are displayed in a vertical stack on both mobile and desktop."
           variant="info"
           actionsLayout="stacked"
@@ -324,7 +327,8 @@ export const ActionsLayoutStacked = () => {
           }
         />
         <Banner
-          title="Actions Layout: Stacked desktop"
+          title="Actions Layout: Stacked"
+          aria-label="Actions Layout Stacked Desktop Dismissible"
           description="Actions are displayed in a vertical stack on both mobile and desktop."
           variant="info"
           actionsLayout="stacked"
