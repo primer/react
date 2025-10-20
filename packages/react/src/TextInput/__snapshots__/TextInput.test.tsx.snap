@@ -4,10 +4,10 @@ exports[`TextInput > renders 1`] = `
 <div>
   <span
     aria-busy="false"
-    class="TextInput-wrapper prc-components-TextInputWrapper-i1ofR prc-components-TextInputBaseWrapper-ueK9q"
+    class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
   >
     <input
-      class="prc-components-Input-Ic-y8"
+      class="prc-components-Input-sKHcw"
       data-component="input"
       name="zipcode"
       type="text"
@@ -20,11 +20,11 @@ exports[`TextInput > renders block 1`] = `
 <div>
   <span
     aria-busy="false"
-    class="TextInput-wrapper prc-components-TextInputWrapper-i1ofR prc-components-TextInputBaseWrapper-ueK9q"
+    class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
     data-block="true"
   >
     <input
-      class="prc-components-Input-Ic-y8"
+      class="prc-components-Input-sKHcw"
       data-component="input"
       name="zipcode"
       type="text"
@@ -37,11 +37,11 @@ exports[`TextInput > renders contrast 1`] = `
 <div>
   <span
     aria-busy="false"
-    class="TextInput-wrapper prc-components-TextInputWrapper-i1ofR prc-components-TextInputBaseWrapper-ueK9q"
+    class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
     data-contrast="true"
   >
     <input
-      class="prc-components-Input-Ic-y8"
+      class="prc-components-Input-sKHcw"
       data-component="input"
       name="zipcode"
       type="text"
@@ -54,12 +54,12 @@ exports[`TextInput > renders error 1`] = `
 <div>
   <span
     aria-busy="false"
-    class="TextInput-wrapper prc-components-TextInputWrapper-i1ofR prc-components-TextInputBaseWrapper-ueK9q"
+    class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
     data-validation="error"
   >
     <input
       aria-invalid="true"
-      class="prc-components-Input-Ic-y8"
+      class="prc-components-Input-sKHcw"
       data-component="input"
       name="zipcode"
       type="text"
@@ -72,11 +72,11 @@ exports[`TextInput > renders large 1`] = `
 <div>
   <span
     aria-busy="false"
-    class="TextInput-wrapper prc-components-TextInputWrapper-i1ofR prc-components-TextInputBaseWrapper-ueK9q"
+    class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
     data-size="large"
   >
     <input
-      class="prc-components-Input-Ic-y8"
+      class="prc-components-Input-sKHcw"
       data-component="input"
       name="zipcode"
       type="text"
@@ -89,7 +89,7 @@ exports[`TextInput > renders leadingVisual 1`] = `
 <div>
   <span
     aria-busy="false"
-    class="TextInput-wrapper prc-components-TextInputWrapper-i1ofR prc-components-TextInputBaseWrapper-ueK9q"
+    class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
     data-leading-visual="true"
   >
     <span
@@ -116,7 +116,7 @@ exports[`TextInput > renders leadingVisual 1`] = `
     </span>
     <input
       aria-describedby=":ru:"
-      class="prc-components-Input-Ic-y8"
+      class="prc-components-Input-sKHcw"
       data-component="input"
       name="search"
       placeholder="Search"
@@ -130,7 +130,7 @@ exports[`TextInput > renders leadingVisual 2`] = `
 <div>
   <span
     aria-busy="false"
-    class="TextInput-wrapper prc-components-TextInputWrapper-i1ofR prc-components-TextInputBaseWrapper-ueK9q"
+    class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
     data-leading-visual="true"
   >
     <span
@@ -157,7 +157,7 @@ exports[`TextInput > renders leadingVisual 2`] = `
     </span>
     <input
       aria-describedby=":r11:"
-      class="prc-components-Input-Ic-y8"
+      class="prc-components-Input-sKHcw"
       data-component="input"
       name="search"
       placeholder="Search"
@@ -171,7 +171,7 @@ exports[`TextInput > renders leadingVisual 3`] = `
 <div>
   <span
     aria-busy="false"
-    class="TextInput-wrapper prc-components-TextInputWrapper-i1ofR prc-components-TextInputBaseWrapper-ueK9q"
+    class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
     data-leading-visual="true"
   >
     <span
@@ -185,7 +185,7 @@ exports[`TextInput > renders leadingVisual 3`] = `
     </span>
     <input
       aria-describedby=":r14:"
-      class="prc-components-Input-Ic-y8"
+      class="prc-components-Input-sKHcw"
       data-component="input"
       name="search"
       placeholder="Search"
@@ -199,7 +199,7 @@ exports[`TextInput > renders leadingVisual 4`] = `
 <div>
   <span
     aria-busy="false"
-    class="TextInput-wrapper prc-components-TextInputWrapper-i1ofR prc-components-TextInputBaseWrapper-ueK9q"
+    class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
     data-leading-visual="true"
   >
     <span
@@ -213,7 +213,7 @@ exports[`TextInput > renders leadingVisual 4`] = `
     </span>
     <input
       aria-describedby=":r17:"
-      class="prc-components-Input-Ic-y8"
+      class="prc-components-Input-sKHcw"
       data-component="input"
       name="search"
       placeholder="Search"
@@ -227,11 +227,11 @@ exports[`TextInput > renders monospace 1`] = `
 <div>
   <span
     aria-busy="false"
-    class="TextInput-wrapper prc-components-TextInputWrapper-i1ofR prc-components-TextInputBaseWrapper-ueK9q"
+    class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
     data-monospace="true"
   >
     <input
-      class="prc-components-Input-Ic-y8"
+      class="prc-components-Input-sKHcw"
       data-component="input"
       name="zipcode"
       type="text"
@@ -244,10 +244,10 @@ exports[`TextInput > renders placeholder 1`] = `
 <div>
   <span
     aria-busy="false"
-    class="TextInput-wrapper prc-components-TextInputWrapper-i1ofR prc-components-TextInputBaseWrapper-ueK9q"
+    class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
   >
     <input
-      class="prc-components-Input-Ic-y8"
+      class="prc-components-Input-sKHcw"
       data-component="input"
       name="zipcode"
       placeholder="560076"
@@ -261,11 +261,11 @@ exports[`TextInput > renders small 1`] = `
 <div>
   <span
     aria-busy="false"
-    class="TextInput-wrapper prc-components-TextInputWrapper-i1ofR prc-components-TextInputBaseWrapper-ueK9q"
+    class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
     data-size="small"
   >
     <input
-      class="prc-components-Input-Ic-y8"
+      class="prc-components-Input-sKHcw"
       data-component="input"
       name="zipcode"
       type="text"
@@ -278,23 +278,23 @@ exports[`TextInput > renders trailingAction icon button 1`] = `
 <div>
   <span
     aria-busy="false"
-    class="TextInput-wrapper prc-components-TextInputWrapper-i1ofR prc-components-TextInputBaseWrapper-ueK9q"
+    class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
     data-trailing-action="true"
   >
     <input
-      class="prc-components-Input-Ic-y8"
+      class="prc-components-Input-sKHcw"
       data-component="input"
       name="search"
       placeholder="Search"
       type="text"
     />
     <span
-      class="TextInput-action prc-components-TextInputAction-YT3YI"
+      class="TextInput-action prc-components-TextInputAction-tmsle"
     >
       <button
         aria-describedby=":r23:-loading-announcement"
         aria-labelledby=":r22:"
-        class="prc-Button-ButtonBase-c50BI prc-components-Invisible-uIWry prc-Button-IconButton-szpyj"
+        class="prc-Button-ButtonBase-Eb8-K prc-components-Invisible-6q42n prc-Button-IconButton-GE6m6"
         data-component="IconButton"
         data-loading="false"
         data-no-visuals="true"
@@ -321,7 +321,7 @@ exports[`TextInput > renders trailingAction icon button 1`] = `
       </button>
       <span
         aria-hidden="true"
-        class="prc-TooltipV2-Tooltip-cYMVY"
+        class="prc-TooltipV2-Tooltip-jugyt"
         data-direction="s"
         id=":r22:"
         popover="auto"
@@ -337,22 +337,22 @@ exports[`TextInput > renders trailingAction text button 1`] = `
 <div>
   <span
     aria-busy="false"
-    class="TextInput-wrapper prc-components-TextInputWrapper-i1ofR prc-components-TextInputBaseWrapper-ueK9q"
+    class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
     data-trailing-action="true"
   >
     <input
-      class="prc-components-Input-Ic-y8"
+      class="prc-components-Input-sKHcw"
       data-component="input"
       name="search"
       placeholder="Search"
       type="text"
     />
     <span
-      class="TextInput-action prc-components-TextInputAction-YT3YI"
+      class="TextInput-action prc-components-TextInputAction-tmsle"
     >
       <button
         aria-describedby=":r1p:-loading-announcement"
-        class="prc-Button-ButtonBase-c50BI prc-components-Invisible-uIWry"
+        class="prc-Button-ButtonBase-Eb8-K prc-components-Invisible-6q42n"
         data-loading="false"
         data-no-visuals="true"
         data-size="medium"
@@ -360,12 +360,12 @@ exports[`TextInput > renders trailingAction text button 1`] = `
         type="button"
       >
         <span
-          class="prc-Button-ButtonContent-HKbr-"
+          class="prc-Button-ButtonContent-KZ5Bz"
           data-align="center"
           data-component="buttonContent"
         >
           <span
-            class="prc-Button-Label-pTQ3x"
+            class="prc-Button-Label-B1e2-"
             data-component="text"
           >
             Clear
@@ -381,22 +381,22 @@ exports[`TextInput > renders trailingAction text button with a tooltip 1`] = `
 <div>
   <span
     aria-busy="false"
-    class="TextInput-wrapper prc-components-TextInputWrapper-i1ofR prc-components-TextInputBaseWrapper-ueK9q"
+    class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
     data-trailing-action="true"
   >
     <input
-      class="prc-components-Input-Ic-y8"
+      class="prc-components-Input-sKHcw"
       data-component="input"
       name="search"
       placeholder="Search"
       type="text"
     />
     <span
-      class="TextInput-action prc-components-TextInputAction-YT3YI"
+      class="TextInput-action prc-components-TextInputAction-tmsle"
     >
       <button
         aria-describedby=":r1u:-loading-announcement :r1t:"
-        class="prc-Button-ButtonBase-c50BI prc-components-Invisible-uIWry"
+        class="prc-Button-ButtonBase-Eb8-K prc-components-Invisible-6q42n"
         data-loading="false"
         data-no-visuals="true"
         data-size="medium"
@@ -404,12 +404,12 @@ exports[`TextInput > renders trailingAction text button with a tooltip 1`] = `
         type="button"
       >
         <span
-          class="prc-Button-ButtonContent-HKbr-"
+          class="prc-Button-ButtonContent-KZ5Bz"
           data-align="center"
           data-component="buttonContent"
         >
           <span
-            class="prc-Button-Label-pTQ3x"
+            class="prc-Button-Label-B1e2-"
             data-component="text"
           >
             Clear
@@ -418,7 +418,7 @@ exports[`TextInput > renders trailingAction text button with a tooltip 1`] = `
       </button>
       <span
         aria-hidden="true"
-        class="prc-components-ConditionalTooltip-6cihH prc-TooltipV2-Tooltip-cYMVY"
+        class="prc-components-ConditionalTooltip-QBYW3 prc-TooltipV2-Tooltip-jugyt"
         data-direction="s"
         id=":r1t:"
         popover="auto"
@@ -442,12 +442,12 @@ exports[`TextInput > renders trailingVisual 1`] = `
     <div>
       <span
         aria-busy="false"
-        class="TextInput-wrapper prc-components-TextInputWrapper-i1ofR prc-components-TextInputBaseWrapper-ueK9q"
+        class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
         data-trailing-visual="true"
       >
         <input
           aria-describedby=":r1b:"
-          class="prc-components-Input-Ic-y8"
+          class="prc-components-Input-sKHcw"
           data-component="input"
           name="search"
           placeholder="Search"
@@ -481,12 +481,12 @@ exports[`TextInput > renders trailingVisual 1`] = `
   "container": <div>
     <span
       aria-busy="false"
-      class="TextInput-wrapper prc-components-TextInputWrapper-i1ofR prc-components-TextInputBaseWrapper-ueK9q"
+      class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
       data-trailing-visual="true"
     >
       <input
         aria-describedby=":r1b:"
-        class="prc-components-Input-Ic-y8"
+        class="prc-components-Input-sKHcw"
         data-component="input"
         name="search"
         placeholder="Search"
@@ -581,12 +581,12 @@ exports[`TextInput > renders trailingVisual 2`] = `
     <div>
       <span
         aria-busy="false"
-        class="TextInput-wrapper prc-components-TextInputWrapper-i1ofR prc-components-TextInputBaseWrapper-ueK9q"
+        class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
         data-trailing-visual="true"
       >
         <input
           aria-describedby=":r1b:"
-          class="prc-components-Input-Ic-y8"
+          class="prc-components-Input-sKHcw"
           data-component="input"
           name="search"
           placeholder="Search"
@@ -619,12 +619,12 @@ exports[`TextInput > renders trailingVisual 2`] = `
     <div>
       <span
         aria-busy="false"
-        class="TextInput-wrapper prc-components-TextInputWrapper-i1ofR prc-components-TextInputBaseWrapper-ueK9q"
+        class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
         data-trailing-visual="true"
       >
         <input
           aria-describedby=":r1e:"
-          class="prc-components-Input-Ic-y8"
+          class="prc-components-Input-sKHcw"
           data-component="input"
           name="search"
           placeholder="Search"
@@ -658,12 +658,12 @@ exports[`TextInput > renders trailingVisual 2`] = `
   "container": <div>
     <span
       aria-busy="false"
-      class="TextInput-wrapper prc-components-TextInputWrapper-i1ofR prc-components-TextInputBaseWrapper-ueK9q"
+      class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
       data-trailing-visual="true"
     >
       <input
         aria-describedby=":r1e:"
-        class="prc-components-Input-Ic-y8"
+        class="prc-components-Input-sKHcw"
         data-component="input"
         name="search"
         placeholder="Search"
@@ -751,12 +751,12 @@ exports[`TextInput > renders trailingVisual 3`] = `
 <div>
   <span
     aria-busy="false"
-    class="TextInput-wrapper prc-components-TextInputWrapper-i1ofR prc-components-TextInputBaseWrapper-ueK9q"
+    class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
     data-trailing-visual="true"
   >
     <input
       aria-describedby=":r1h:"
-      class="prc-components-Input-Ic-y8"
+      class="prc-components-Input-sKHcw"
       data-component="input"
       name="search"
       placeholder="Search"
@@ -779,12 +779,12 @@ exports[`TextInput > renders trailingVisual 4`] = `
 <div>
   <span
     aria-busy="false"
-    class="TextInput-wrapper prc-components-TextInputWrapper-i1ofR prc-components-TextInputBaseWrapper-ueK9q"
+    class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
     data-trailing-visual="true"
   >
     <input
       aria-describedby=":r1k:"
-      class="prc-components-Input-Ic-y8"
+      class="prc-components-Input-sKHcw"
       data-component="input"
       name="search"
       placeholder="Search"
@@ -807,17 +807,17 @@ exports[`TextInput > renders with a loading indicator 1`] = `
 <div>
   <span
     aria-busy="true"
-    class="TextInput-wrapper prc-components-TextInputWrapper-i1ofR prc-components-TextInputBaseWrapper-ueK9q"
+    class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
     data-trailing-visual="true"
   >
     <input
       aria-describedby=":r29:"
-      class="prc-components-Input-Ic-y8"
+      class="prc-components-Input-sKHcw"
       data-component="input"
       type="text"
     />
     <span
-      class="prc-src-InternalVisuallyHidden-nlR9R"
+      class="prc-src-InternalVisuallyHidden-4enpf"
       id=":r29:"
     >
       Loading
@@ -826,15 +826,15 @@ exports[`TextInput > renders with a loading indicator 1`] = `
       class="TextInput-icon"
     >
       <div
-        class="prc-components-Box-QK3tG"
+        class="prc-components-Box-kkr8W"
         id=":r28:"
       >
         <span
-          class="prc-Spinner-Box-qNUI9"
+          class="prc-Spinner-Box-yUhAo"
         >
           <svg
             aria-hidden="true"
-            class="prc-components-SpinnerVisible-w5g8l prc-Spinner-SpinnerAnimation-e7Gf-"
+            class="prc-components-SpinnerVisible-FH5pT prc-Spinner-SpinnerAnimation-KWCu3"
             fill="none"
             height="16px"
             viewBox="0 0 16 16"
@@ -863,22 +863,22 @@ exports[`TextInput > renders with a loading indicator 1`] = `
   </span>
   <span
     aria-busy="true"
-    class="TextInput-wrapper prc-components-TextInputWrapper-i1ofR prc-components-TextInputBaseWrapper-ueK9q"
+    class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
     data-leading-visual="true"
   >
     <span
       class="TextInput-icon"
     >
       <div
-        class="prc-components-Box-QK3tG"
+        class="prc-components-Box-kkr8W"
         id=":r2b:"
       >
         <span
-          class="prc-Spinner-Box-qNUI9"
+          class="prc-Spinner-Box-yUhAo"
         >
           <svg
             aria-hidden="true"
-            class="prc-components-SpinnerVisible-w5g8l prc-Spinner-SpinnerAnimation-e7Gf-"
+            class="prc-components-SpinnerVisible-FH5pT prc-Spinner-SpinnerAnimation-KWCu3"
             fill="none"
             height="16px"
             viewBox="0 0 16 16"
@@ -906,12 +906,12 @@ exports[`TextInput > renders with a loading indicator 1`] = `
     </span>
     <input
       aria-describedby=":r2d:"
-      class="prc-components-Input-Ic-y8"
+      class="prc-components-Input-sKHcw"
       data-component="input"
       type="text"
     />
     <span
-      class="prc-src-InternalVisuallyHidden-nlR9R"
+      class="prc-src-InternalVisuallyHidden-4enpf"
       id=":r2d:"
     >
       Loading
@@ -920,15 +920,15 @@ exports[`TextInput > renders with a loading indicator 1`] = `
       class="TextInput-icon"
     >
       <div
-        class="prc-components-Box-QK3tG"
+        class="prc-components-Box-kkr8W"
         id=":r2c:"
       >
         <span
-          class="prc-Spinner-Box-qNUI9"
+          class="prc-Spinner-Box-yUhAo"
         >
           <svg
             aria-hidden="true"
-            class="prc-components-SpinnerHidden-GG1PJ prc-Spinner-SpinnerAnimation-e7Gf-"
+            class="prc-components-SpinnerHidden-c-Wb6 prc-Spinner-SpinnerAnimation-KWCu3"
             fill="none"
             height="16px"
             viewBox="0 0 16 16"
@@ -957,17 +957,17 @@ exports[`TextInput > renders with a loading indicator 1`] = `
   </span>
   <span
     aria-busy="true"
-    class="TextInput-wrapper prc-components-TextInputWrapper-i1ofR prc-components-TextInputBaseWrapper-ueK9q"
+    class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
     data-trailing-visual="true"
   >
     <input
       aria-describedby=":r2i:"
-      class="prc-components-Input-Ic-y8"
+      class="prc-components-Input-sKHcw"
       data-component="input"
       type="text"
     />
     <span
-      class="prc-src-InternalVisuallyHidden-nlR9R"
+      class="prc-src-InternalVisuallyHidden-4enpf"
       id=":r2i:"
     >
       Loading
@@ -976,15 +976,15 @@ exports[`TextInput > renders with a loading indicator 1`] = `
       class="TextInput-icon"
     >
       <div
-        class="prc-components-Box-QK3tG"
+        class="prc-components-Box-kkr8W"
         id=":r2h:"
       >
         <span
-          class="prc-Spinner-Box-qNUI9"
+          class="prc-Spinner-Box-yUhAo"
         >
           <svg
             aria-hidden="true"
-            class="prc-components-SpinnerVisible-w5g8l prc-Spinner-SpinnerAnimation-e7Gf-"
+            class="prc-components-SpinnerVisible-FH5pT prc-Spinner-SpinnerAnimation-KWCu3"
             fill="none"
             height="16px"
             viewBox="0 0 16 16"
@@ -1013,18 +1013,18 @@ exports[`TextInput > renders with a loading indicator 1`] = `
   </span>
   <span
     aria-busy="true"
-    class="TextInput-wrapper prc-components-TextInputWrapper-i1ofR prc-components-TextInputBaseWrapper-ueK9q"
+    class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
     data-leading-visual="true"
   >
     <span
       class="TextInput-icon"
     >
       <div
-        class="prc-components-Box-QK3tG"
+        class="prc-components-Box-kkr8W"
         id=":r2k:"
       >
         <div
-          class="prc-components-SpinnerHidden-GG1PJ"
+          class="prc-components-SpinnerHidden-c-Wb6"
         >
           <svg
             aria-hidden="true"
@@ -1044,11 +1044,11 @@ exports[`TextInput > renders with a loading indicator 1`] = `
           </svg>
         </div>
         <span
-          class="prc-Spinner-Box-qNUI9"
+          class="prc-Spinner-Box-yUhAo"
         >
           <svg
             aria-hidden="true"
-            class="prc-components-SpinnerVisible-w5g8l prc-components-Spinner-Azb7p prc-components-SpinnerLeading-s-LyA prc-Spinner-SpinnerAnimation-e7Gf-"
+            class="prc-components-SpinnerVisible-FH5pT prc-components-Spinner-80CNt prc-components-SpinnerLeading-kUwx3 prc-Spinner-SpinnerAnimation-KWCu3"
             fill="none"
             height="32px"
             viewBox="0 0 16 16"
@@ -1076,12 +1076,12 @@ exports[`TextInput > renders with a loading indicator 1`] = `
     </span>
     <input
       aria-describedby=":r2k: :r2m:"
-      class="prc-components-Input-Ic-y8"
+      class="prc-components-Input-sKHcw"
       data-component="input"
       type="text"
     />
     <span
-      class="prc-src-InternalVisuallyHidden-nlR9R"
+      class="prc-src-InternalVisuallyHidden-4enpf"
       id=":r2m:"
     >
       Loading
@@ -1090,15 +1090,15 @@ exports[`TextInput > renders with a loading indicator 1`] = `
       class="TextInput-icon"
     >
       <div
-        class="prc-components-Box-QK3tG"
+        class="prc-components-Box-kkr8W"
         id=":r2l:"
       >
         <span
-          class="prc-Spinner-Box-qNUI9"
+          class="prc-Spinner-Box-yUhAo"
         >
           <svg
             aria-hidden="true"
-            class="prc-components-SpinnerHidden-GG1PJ prc-Spinner-SpinnerAnimation-e7Gf-"
+            class="prc-components-SpinnerHidden-c-Wb6 prc-Spinner-SpinnerAnimation-KWCu3"
             fill="none"
             height="16px"
             viewBox="0 0 16 16"
@@ -1127,18 +1127,18 @@ exports[`TextInput > renders with a loading indicator 1`] = `
   </span>
   <span
     aria-busy="true"
-    class="TextInput-wrapper prc-components-TextInputWrapper-i1ofR prc-components-TextInputBaseWrapper-ueK9q"
+    class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
     data-leading-visual="true"
   >
     <span
       class="TextInput-icon"
     >
       <div
-        class="prc-components-Box-QK3tG"
+        class="prc-components-Box-kkr8W"
         id=":r2p:"
       >
         <div
-          class="prc-components-SpinnerHidden-GG1PJ"
+          class="prc-components-SpinnerHidden-c-Wb6"
         >
           <svg
             aria-hidden="true"
@@ -1158,11 +1158,11 @@ exports[`TextInput > renders with a loading indicator 1`] = `
           </svg>
         </div>
         <span
-          class="prc-Spinner-Box-qNUI9"
+          class="prc-Spinner-Box-yUhAo"
         >
           <svg
             aria-hidden="true"
-            class="prc-components-SpinnerVisible-w5g8l prc-components-Spinner-Azb7p prc-components-SpinnerLeading-s-LyA prc-Spinner-SpinnerAnimation-e7Gf-"
+            class="prc-components-SpinnerVisible-FH5pT prc-components-Spinner-80CNt prc-components-SpinnerLeading-kUwx3 prc-Spinner-SpinnerAnimation-KWCu3"
             fill="none"
             height="32px"
             viewBox="0 0 16 16"
@@ -1190,12 +1190,12 @@ exports[`TextInput > renders with a loading indicator 1`] = `
     </span>
     <input
       aria-describedby=":r2p: :r2r:"
-      class="prc-components-Input-Ic-y8"
+      class="prc-components-Input-sKHcw"
       data-component="input"
       type="text"
     />
     <span
-      class="prc-src-InternalVisuallyHidden-nlR9R"
+      class="prc-src-InternalVisuallyHidden-4enpf"
       id=":r2r:"
     >
       Loading
@@ -1204,15 +1204,15 @@ exports[`TextInput > renders with a loading indicator 1`] = `
       class="TextInput-icon"
     >
       <div
-        class="prc-components-Box-QK3tG"
+        class="prc-components-Box-kkr8W"
         id=":r2q:"
       >
         <span
-          class="prc-Spinner-Box-qNUI9"
+          class="prc-Spinner-Box-yUhAo"
         >
           <svg
             aria-hidden="true"
-            class="prc-components-SpinnerHidden-GG1PJ prc-Spinner-SpinnerAnimation-e7Gf-"
+            class="prc-components-SpinnerHidden-c-Wb6 prc-Spinner-SpinnerAnimation-KWCu3"
             fill="none"
             height="16px"
             viewBox="0 0 16 16"
@@ -1241,7 +1241,7 @@ exports[`TextInput > renders with a loading indicator 1`] = `
   </span>
   <span
     aria-busy="true"
-    class="TextInput-wrapper prc-components-TextInputWrapper-i1ofR prc-components-TextInputBaseWrapper-ueK9q"
+    class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
     data-leading-visual="true"
     data-trailing-visual="true"
   >
@@ -1249,11 +1249,11 @@ exports[`TextInput > renders with a loading indicator 1`] = `
       class="TextInput-icon"
     >
       <div
-        class="prc-components-Box-QK3tG"
+        class="prc-components-Box-kkr8W"
         id=":r2u:"
       >
         <div
-          class="prc-components-SpinnerVisible-w5g8l"
+          class="prc-components-SpinnerVisible-FH5pT"
         >
           <svg
             aria-hidden="true"
@@ -1273,11 +1273,11 @@ exports[`TextInput > renders with a loading indicator 1`] = `
           </svg>
         </div>
         <span
-          class="prc-Spinner-Box-qNUI9"
+          class="prc-Spinner-Box-yUhAo"
         >
           <svg
             aria-hidden="true"
-            class="prc-components-SpinnerHidden-GG1PJ prc-components-Spinner-Azb7p prc-components-SpinnerLeading-s-LyA prc-Spinner-SpinnerAnimation-e7Gf-"
+            class="prc-components-SpinnerHidden-c-Wb6 prc-components-Spinner-80CNt prc-components-SpinnerLeading-kUwx3 prc-Spinner-SpinnerAnimation-KWCu3"
             fill="none"
             height="32px"
             viewBox="0 0 16 16"
@@ -1305,12 +1305,12 @@ exports[`TextInput > renders with a loading indicator 1`] = `
     </span>
     <input
       aria-describedby=":r2u: :r30:"
-      class="prc-components-Input-Ic-y8"
+      class="prc-components-Input-sKHcw"
       data-component="input"
       type="text"
     />
     <span
-      class="prc-src-InternalVisuallyHidden-nlR9R"
+      class="prc-src-InternalVisuallyHidden-4enpf"
       id=":r30:"
     >
       Loading
@@ -1319,15 +1319,15 @@ exports[`TextInput > renders with a loading indicator 1`] = `
       class="TextInput-icon"
     >
       <div
-        class="prc-components-Box-QK3tG"
+        class="prc-components-Box-kkr8W"
         id=":r2v:"
       >
         <span
-          class="prc-Spinner-Box-qNUI9"
+          class="prc-Spinner-Box-yUhAo"
         >
           <svg
             aria-hidden="true"
-            class="prc-components-SpinnerVisible-w5g8l prc-Spinner-SpinnerAnimation-e7Gf-"
+            class="prc-components-SpinnerVisible-FH5pT prc-Spinner-SpinnerAnimation-KWCu3"
             fill="none"
             height="16px"
             viewBox="0 0 16 16"
@@ -1356,17 +1356,17 @@ exports[`TextInput > renders with a loading indicator 1`] = `
   </span>
   <span
     aria-busy="true"
-    class="TextInput-wrapper prc-components-TextInputWrapper-i1ofR prc-components-TextInputBaseWrapper-ueK9q"
+    class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
     data-trailing-visual="true"
   >
     <input
       aria-describedby=":r34: :r35:"
-      class="prc-components-Input-Ic-y8"
+      class="prc-components-Input-sKHcw"
       data-component="input"
       type="text"
     />
     <span
-      class="prc-src-InternalVisuallyHidden-nlR9R"
+      class="prc-src-InternalVisuallyHidden-4enpf"
       id=":r35:"
     >
       Loading
@@ -1375,11 +1375,11 @@ exports[`TextInput > renders with a loading indicator 1`] = `
       class="TextInput-icon"
     >
       <div
-        class="prc-components-Box-QK3tG"
+        class="prc-components-Box-kkr8W"
         id=":r34:"
       >
         <div
-          class="prc-components-SpinnerHidden-GG1PJ"
+          class="prc-components-SpinnerHidden-c-Wb6"
         >
           <svg
             aria-hidden="true"
@@ -1399,11 +1399,11 @@ exports[`TextInput > renders with a loading indicator 1`] = `
           </svg>
         </div>
         <span
-          class="prc-Spinner-Box-qNUI9"
+          class="prc-Spinner-Box-yUhAo"
         >
           <svg
             aria-hidden="true"
-            class="prc-components-SpinnerVisible-w5g8l prc-components-Spinner-Azb7p prc-Spinner-SpinnerAnimation-e7Gf-"
+            class="prc-components-SpinnerVisible-FH5pT prc-components-Spinner-80CNt prc-Spinner-SpinnerAnimation-KWCu3"
             fill="none"
             height="32px"
             viewBox="0 0 16 16"
@@ -1432,7 +1432,7 @@ exports[`TextInput > renders with a loading indicator 1`] = `
   </span>
   <span
     aria-busy="true"
-    class="TextInput-wrapper prc-components-TextInputWrapper-i1ofR prc-components-TextInputBaseWrapper-ueK9q"
+    class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
     data-leading-visual="true"
     data-trailing-visual="true"
   >
@@ -1440,15 +1440,15 @@ exports[`TextInput > renders with a loading indicator 1`] = `
       class="TextInput-icon"
     >
       <div
-        class="prc-components-Box-QK3tG"
+        class="prc-components-Box-kkr8W"
         id=":r37:"
       >
         <span
-          class="prc-Spinner-Box-qNUI9"
+          class="prc-Spinner-Box-yUhAo"
         >
           <svg
             aria-hidden="true"
-            class="prc-components-SpinnerVisible-w5g8l prc-Spinner-SpinnerAnimation-e7Gf-"
+            class="prc-components-SpinnerVisible-FH5pT prc-Spinner-SpinnerAnimation-KWCu3"
             fill="none"
             height="16px"
             viewBox="0 0 16 16"
@@ -1476,12 +1476,12 @@ exports[`TextInput > renders with a loading indicator 1`] = `
     </span>
     <input
       aria-describedby=":r38: :r39:"
-      class="prc-components-Input-Ic-y8"
+      class="prc-components-Input-sKHcw"
       data-component="input"
       type="text"
     />
     <span
-      class="prc-src-InternalVisuallyHidden-nlR9R"
+      class="prc-src-InternalVisuallyHidden-4enpf"
       id=":r39:"
     >
       Loading
@@ -1490,11 +1490,11 @@ exports[`TextInput > renders with a loading indicator 1`] = `
       class="TextInput-icon"
     >
       <div
-        class="prc-components-Box-QK3tG"
+        class="prc-components-Box-kkr8W"
         id=":r38:"
       >
         <div
-          class="prc-components-SpinnerVisible-w5g8l"
+          class="prc-components-SpinnerVisible-FH5pT"
         >
           <svg
             aria-hidden="true"
@@ -1514,11 +1514,11 @@ exports[`TextInput > renders with a loading indicator 1`] = `
           </svg>
         </div>
         <span
-          class="prc-Spinner-Box-qNUI9"
+          class="prc-Spinner-Box-yUhAo"
         >
           <svg
             aria-hidden="true"
-            class="prc-components-SpinnerHidden-GG1PJ prc-components-Spinner-Azb7p prc-Spinner-SpinnerAnimation-e7Gf-"
+            class="prc-components-SpinnerHidden-c-Wb6 prc-components-Spinner-80CNt prc-Spinner-SpinnerAnimation-KWCu3"
             fill="none"
             height="32px"
             viewBox="0 0 16 16"
@@ -1547,17 +1547,17 @@ exports[`TextInput > renders with a loading indicator 1`] = `
   </span>
   <span
     aria-busy="true"
-    class="TextInput-wrapper prc-components-TextInputWrapper-i1ofR prc-components-TextInputBaseWrapper-ueK9q"
+    class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
     data-trailing-visual="true"
   >
     <input
       aria-describedby=":r3d: :r3e:"
-      class="prc-components-Input-Ic-y8"
+      class="prc-components-Input-sKHcw"
       data-component="input"
       type="text"
     />
     <span
-      class="prc-src-InternalVisuallyHidden-nlR9R"
+      class="prc-src-InternalVisuallyHidden-4enpf"
       id=":r3e:"
     >
       Loading
@@ -1566,11 +1566,11 @@ exports[`TextInput > renders with a loading indicator 1`] = `
       class="TextInput-icon"
     >
       <div
-        class="prc-components-Box-QK3tG"
+        class="prc-components-Box-kkr8W"
         id=":r3d:"
       >
         <div
-          class="prc-components-SpinnerHidden-GG1PJ"
+          class="prc-components-SpinnerHidden-c-Wb6"
         >
           <svg
             aria-hidden="true"
@@ -1590,11 +1590,11 @@ exports[`TextInput > renders with a loading indicator 1`] = `
           </svg>
         </div>
         <span
-          class="prc-Spinner-Box-qNUI9"
+          class="prc-Spinner-Box-yUhAo"
         >
           <svg
             aria-hidden="true"
-            class="prc-components-SpinnerVisible-w5g8l prc-components-Spinner-Azb7p prc-Spinner-SpinnerAnimation-e7Gf-"
+            class="prc-components-SpinnerVisible-FH5pT prc-components-Spinner-80CNt prc-Spinner-SpinnerAnimation-KWCu3"
             fill="none"
             height="32px"
             viewBox="0 0 16 16"
@@ -1623,7 +1623,7 @@ exports[`TextInput > renders with a loading indicator 1`] = `
   </span>
   <span
     aria-busy="true"
-    class="TextInput-wrapper prc-components-TextInputWrapper-i1ofR prc-components-TextInputBaseWrapper-ueK9q"
+    class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
     data-leading-visual="true"
     data-size="small"
     data-trailing-visual="true"
@@ -1632,11 +1632,11 @@ exports[`TextInput > renders with a loading indicator 1`] = `
       class="TextInput-icon"
     >
       <div
-        class="prc-components-Box-QK3tG"
+        class="prc-components-Box-kkr8W"
         id=":r3g:"
       >
         <div
-          class="prc-components-SpinnerHidden-GG1PJ"
+          class="prc-components-SpinnerHidden-c-Wb6"
         >
           <svg
             aria-hidden="true"
@@ -1656,11 +1656,11 @@ exports[`TextInput > renders with a loading indicator 1`] = `
           </svg>
         </div>
         <span
-          class="prc-Spinner-Box-qNUI9"
+          class="prc-Spinner-Box-yUhAo"
         >
           <svg
             aria-hidden="true"
-            class="prc-components-SpinnerVisible-w5g8l prc-components-Spinner-Azb7p prc-components-SpinnerLeading-s-LyA prc-Spinner-SpinnerAnimation-e7Gf-"
+            class="prc-components-SpinnerVisible-FH5pT prc-components-Spinner-80CNt prc-components-SpinnerLeading-kUwx3 prc-Spinner-SpinnerAnimation-KWCu3"
             fill="none"
             height="32px"
             viewBox="0 0 16 16"
@@ -1688,12 +1688,12 @@ exports[`TextInput > renders with a loading indicator 1`] = `
     </span>
     <input
       aria-describedby=":r3g: :r3h: :r3i:"
-      class="prc-components-Input-Ic-y8"
+      class="prc-components-Input-sKHcw"
       data-component="input"
       type="text"
     />
     <span
-      class="prc-src-InternalVisuallyHidden-nlR9R"
+      class="prc-src-InternalVisuallyHidden-4enpf"
       id=":r3i:"
     >
       Loading
@@ -1702,11 +1702,11 @@ exports[`TextInput > renders with a loading indicator 1`] = `
       class="TextInput-icon"
     >
       <div
-        class="prc-components-Box-QK3tG"
+        class="prc-components-Box-kkr8W"
         id=":r3h:"
       >
         <div
-          class="prc-components-SpinnerVisible-w5g8l"
+          class="prc-components-SpinnerVisible-FH5pT"
         >
           <svg
             aria-hidden="true"
@@ -1726,11 +1726,11 @@ exports[`TextInput > renders with a loading indicator 1`] = `
           </svg>
         </div>
         <span
-          class="prc-Spinner-Box-qNUI9"
+          class="prc-Spinner-Box-yUhAo"
         >
           <svg
             aria-hidden="true"
-            class="prc-components-SpinnerHidden-GG1PJ prc-components-Spinner-Azb7p prc-Spinner-SpinnerAnimation-e7Gf-"
+            class="prc-components-SpinnerHidden-c-Wb6 prc-components-Spinner-80CNt prc-Spinner-SpinnerAnimation-KWCu3"
             fill="none"
             height="32px"
             viewBox="0 0 16 16"
@@ -1759,7 +1759,7 @@ exports[`TextInput > renders with a loading indicator 1`] = `
   </span>
   <span
     aria-busy="true"
-    class="TextInput-wrapper prc-components-TextInputWrapper-i1ofR prc-components-TextInputBaseWrapper-ueK9q"
+    class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
     data-leading-visual="true"
     data-trailing-visual="true"
   >
@@ -1767,11 +1767,11 @@ exports[`TextInput > renders with a loading indicator 1`] = `
       class="TextInput-icon"
     >
       <div
-        class="prc-components-Box-QK3tG"
+        class="prc-components-Box-kkr8W"
         id=":r3l:"
       >
         <div
-          class="prc-components-SpinnerHidden-GG1PJ"
+          class="prc-components-SpinnerHidden-c-Wb6"
         >
           <svg
             aria-hidden="true"
@@ -1791,11 +1791,11 @@ exports[`TextInput > renders with a loading indicator 1`] = `
           </svg>
         </div>
         <span
-          class="prc-Spinner-Box-qNUI9"
+          class="prc-Spinner-Box-yUhAo"
         >
           <svg
             aria-hidden="true"
-            class="prc-components-SpinnerVisible-w5g8l prc-components-Spinner-Azb7p prc-components-SpinnerLeading-s-LyA prc-Spinner-SpinnerAnimation-e7Gf-"
+            class="prc-components-SpinnerVisible-FH5pT prc-components-Spinner-80CNt prc-components-SpinnerLeading-kUwx3 prc-Spinner-SpinnerAnimation-KWCu3"
             fill="none"
             height="32px"
             viewBox="0 0 16 16"
@@ -1823,12 +1823,12 @@ exports[`TextInput > renders with a loading indicator 1`] = `
     </span>
     <input
       aria-describedby=":r3l: :r3m: :r3n:"
-      class="prc-components-Input-Ic-y8"
+      class="prc-components-Input-sKHcw"
       data-component="input"
       type="text"
     />
     <span
-      class="prc-src-InternalVisuallyHidden-nlR9R"
+      class="prc-src-InternalVisuallyHidden-4enpf"
       id=":r3n:"
     >
       Loading
@@ -1837,11 +1837,11 @@ exports[`TextInput > renders with a loading indicator 1`] = `
       class="TextInput-icon"
     >
       <div
-        class="prc-components-Box-QK3tG"
+        class="prc-components-Box-kkr8W"
         id=":r3m:"
       >
         <div
-          class="prc-components-SpinnerVisible-w5g8l"
+          class="prc-components-SpinnerVisible-FH5pT"
         >
           <svg
             aria-hidden="true"
@@ -1861,11 +1861,11 @@ exports[`TextInput > renders with a loading indicator 1`] = `
           </svg>
         </div>
         <span
-          class="prc-Spinner-Box-qNUI9"
+          class="prc-Spinner-Box-yUhAo"
         >
           <svg
             aria-hidden="true"
-            class="prc-components-SpinnerHidden-GG1PJ prc-components-Spinner-Azb7p prc-Spinner-SpinnerAnimation-e7Gf-"
+            class="prc-components-SpinnerHidden-c-Wb6 prc-components-Spinner-80CNt prc-Spinner-SpinnerAnimation-KWCu3"
             fill="none"
             height="32px"
             viewBox="0 0 16 16"
@@ -1894,7 +1894,7 @@ exports[`TextInput > renders with a loading indicator 1`] = `
   </span>
   <span
     aria-busy="true"
-    class="TextInput-wrapper prc-components-TextInputWrapper-i1ofR prc-components-TextInputBaseWrapper-ueK9q"
+    class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
     data-leading-visual="true"
     data-size="large"
     data-trailing-visual="true"
@@ -1903,11 +1903,11 @@ exports[`TextInput > renders with a loading indicator 1`] = `
       class="TextInput-icon"
     >
       <div
-        class="prc-components-Box-QK3tG"
+        class="prc-components-Box-kkr8W"
         id=":r3q:"
       >
         <div
-          class="prc-components-SpinnerVisible-w5g8l"
+          class="prc-components-SpinnerVisible-FH5pT"
         >
           <svg
             aria-hidden="true"
@@ -1927,11 +1927,11 @@ exports[`TextInput > renders with a loading indicator 1`] = `
           </svg>
         </div>
         <span
-          class="prc-Spinner-Box-qNUI9"
+          class="prc-Spinner-Box-yUhAo"
         >
           <svg
             aria-hidden="true"
-            class="prc-components-SpinnerHidden-GG1PJ prc-components-Spinner-Azb7p prc-components-SpinnerLeading-s-LyA prc-Spinner-SpinnerAnimation-e7Gf-"
+            class="prc-components-SpinnerHidden-c-Wb6 prc-components-Spinner-80CNt prc-components-SpinnerLeading-kUwx3 prc-Spinner-SpinnerAnimation-KWCu3"
             fill="none"
             height="32px"
             viewBox="0 0 16 16"
@@ -1959,12 +1959,12 @@ exports[`TextInput > renders with a loading indicator 1`] = `
     </span>
     <input
       aria-describedby=":r3q: :r3r: :r3s:"
-      class="prc-components-Input-Ic-y8"
+      class="prc-components-Input-sKHcw"
       data-component="input"
       type="text"
     />
     <span
-      class="prc-src-InternalVisuallyHidden-nlR9R"
+      class="prc-src-InternalVisuallyHidden-4enpf"
       id=":r3s:"
     >
       Loading
@@ -1973,11 +1973,11 @@ exports[`TextInput > renders with a loading indicator 1`] = `
       class="TextInput-icon"
     >
       <div
-        class="prc-components-Box-QK3tG"
+        class="prc-components-Box-kkr8W"
         id=":r3r:"
       >
         <div
-          class="prc-components-SpinnerHidden-GG1PJ"
+          class="prc-components-SpinnerHidden-c-Wb6"
         >
           <svg
             aria-hidden="true"
@@ -1997,11 +1997,11 @@ exports[`TextInput > renders with a loading indicator 1`] = `
           </svg>
         </div>
         <span
-          class="prc-Spinner-Box-qNUI9"
+          class="prc-Spinner-Box-yUhAo"
         >
           <svg
             aria-hidden="true"
-            class="prc-components-SpinnerVisible-w5g8l prc-components-Spinner-Azb7p prc-Spinner-SpinnerAnimation-e7Gf-"
+            class="prc-components-SpinnerVisible-FH5pT prc-components-Spinner-80CNt prc-Spinner-SpinnerAnimation-KWCu3"
             fill="none"
             height="32px"
             viewBox="0 0 16 16"
@@ -2035,10 +2035,10 @@ exports[`TextInput > should render a password input 1`] = `
 <div>
   <span
     aria-busy="false"
-    class="TextInput-wrapper prc-components-TextInputWrapper-i1ofR prc-components-TextInputBaseWrapper-ueK9q"
+    class="TextInput-wrapper prc-components-TextInputWrapper--nxNz prc-components-TextInputBaseWrapper-fStx7"
   >
     <input
-      class="prc-components-Input-Ic-y8"
+      class="prc-components-Input-sKHcw"
       data-component="input"
       name="password"
       type="password"

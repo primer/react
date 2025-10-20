@@ -2,7 +2,7 @@
 
 exports[`AvatarStack > respects alignRight props 1`] = `
 <span
-  class="pc-AvatarStack--variant pc-AvatarStack--shape pc-AvatarStack--three-plus pc-AvatarStack--right prc-AvatarStack-AvatarStack-N-r3C"
+  class="pc-AvatarStack--variant pc-AvatarStack--shape pc-AvatarStack--three-plus pc-AvatarStack--right prc-AvatarStack-AvatarStack-LcJ4R"
   data-align-right=""
   data-avatar-count="3+"
   data-responsive=""
@@ -11,28 +11,28 @@ exports[`AvatarStack > respects alignRight props 1`] = `
   style="--stackSize-narrow: 20px; --stackSize-regular: 20px; --stackSize-wide: 20px;"
 >
   <div
-    class="pc-AvatarStackBody prc-AvatarStack-AvatarStackBody-mSyoJ"
+    class="pc-AvatarStackBody prc-AvatarStack-AvatarStackBody-LVwsN"
     tabindex="0"
   >
      
     <img
       alt=""
-      class="pc-AvatarItem prc-AvatarStack-AvatarItem-nS1mt"
+      class="pc-AvatarItem prc-AvatarStack-AvatarItem-ZlFbL"
       src="https://avatars.githubusercontent.com/primer"
     />
     <img
       alt=""
-      class="pc-AvatarItem prc-AvatarStack-AvatarItem-nS1mt"
+      class="pc-AvatarItem prc-AvatarStack-AvatarItem-ZlFbL"
       src="https://avatars.githubusercontent.com/github"
     />
     <img
       alt=""
-      class="pc-AvatarItem prc-AvatarStack-AvatarItem-nS1mt"
+      class="pc-AvatarItem prc-AvatarStack-AvatarItem-ZlFbL"
       src="https://avatars.githubusercontent.com/primer"
     />
     <img
       alt=""
-      class="pc-AvatarItem prc-AvatarStack-AvatarItem-nS1mt"
+      class="pc-AvatarItem prc-AvatarStack-AvatarItem-ZlFbL"
       src="https://avatars.githubusercontent.com/github"
     />
   </div>

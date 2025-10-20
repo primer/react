@@ -3,16 +3,8 @@
 exports[`AnchoredOverlay > should render consistently when open 1`] = `
 <div>
   <div
+    class="prc-src-BaseStyles-9LBd2"
     data-color-mode="light"
-    data-dark-theme="dark"
-    data-light-theme="light"
-  >
-    <div
-      class="prc-src-BaseStyles-dl-St"
-      data-color-mode="light"
-      data-dark-theme="dark"
-      data-light-theme="light"
-      data-portal-root="true"
     data-portal-root="true"
   >
     <button
@@ -28,68 +20,54 @@ exports[`AnchoredOverlay > should render consistently when open 1`] = `
       tabindex="0"
       type="button"
     >
-      <button
-        aria-describedby=":rd:-loading-announcement"
-        aria-expanded="true"
-        aria-haspopup="true"
-        class="prc-Button-ButtonBase-c50BI"
-        data-loading="false"
-        data-no-visuals="true"
-        data-size="medium"
-        data-variant="default"
-        id=":rd:"
-        tabindex="0"
-        type="button"
+      <span
+        class="prc-Button-ButtonContent-KZ5Bz"
+        data-align="center"
+        data-component="buttonContent"
       >
         <span
-          class="prc-Button-ButtonContent-HKbr-"
-          data-align="center"
-          data-component="buttonContent"
+          class="prc-Button-Label-B1e2-"
+          data-component="text"
         >
-          <span
-            class="prc-Button-Label-pTQ3x"
-            data-component="text"
-          >
-            Anchor Button
-          </span>
+          Anchor Button
         </span>
-      </button>
+      </span>
+    </button>
+    <div
+      id="__primerPortalRoot__"
+      style="position: absolute; top: 0px; left: 0px; width: 100%;"
+    >
       <div
-        id="__primerPortalRoot__"
-        style="position: absolute; top: 0px; left: 0px; width: 100%;"
+        style="position: relative; z-index: 1;"
       >
         <div
-          style="position: relative; z-index: 1;"
+          class="prc-Overlay-Overlay-ViJgm"
+          data-focus-trap="active"
+          data-height-auto=""
+          data-variant="anchored"
+          data-visibility-visible=""
+          data-width-auto=""
+          role="none"
+          style="left: 0px; top: 36px;"
         >
-          <div
-            class="prc-Overlay-Overlay-dVyJl"
-            data-focus-trap="active"
-            data-height-auto=""
-            data-variant="anchored"
-            data-visibility-visible=""
-            data-width-auto=""
-            role="none"
-            style="left: 0px; top: 36px;"
+          <span
+            aria-hidden="true"
+            class="sentinel"
+            tabindex="0"
+          />
+          <button
+            class="focus-visible"
+            data-focus-visible-added=""
+            tabindex="0"
+            type="button"
           >
-            <span
-              aria-hidden="true"
-              class="sentinel"
-              tabindex="0"
-            />
-            <button
-              class="focus-visible"
-              data-focus-visible-added=""
-              tabindex="0"
-              type="button"
-            >
-              Focusable Child
-            </button>
-            <span
-              aria-hidden="true"
-              class="sentinel"
-              tabindex="0"
-            />
-          </div>
+            Focusable Child
+          </button>
+          <span
+            aria-hidden="true"
+            class="sentinel"
+            tabindex="0"
+          />
         </div>
       </div>
     </div>
