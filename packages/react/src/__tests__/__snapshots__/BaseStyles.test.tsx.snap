@@ -4,7 +4,6 @@ exports[`BaseStyles > has default styles 1`] = `
 <div>
   <div
     class="prc-src-BaseStyles-9LBd2"
-    data-color-mode="light"
     data-portal-root="true"
   >
     Hello
