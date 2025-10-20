@@ -200,7 +200,7 @@ describe('Banner', () => {
 
   it('should render data-actions-layout attribute with default value when not specified', () => {
     const {container} = render(<Banner title="test" />)
-    expect(container.firstChild).toHaveAttribute('data-actions-layout', 'stacked')
+    expect(container.firstChild).toHaveAttribute('data-actions-layout', 'default')
   })
 
   describe('Banner.Title', () => {
