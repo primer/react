@@ -352,6 +352,7 @@ export const ActionsLayoutInline = () => {
         </Heading>
         <Banner
           title="A short title"
+          aria-label="Actions Layout Inline Mobile"
           description="A very short message."
           variant="warning"
           actionsLayout="inline"
@@ -359,6 +360,7 @@ export const ActionsLayoutInline = () => {
         />
         <Banner
           title="A short title"
+          aria-label="Actions Layout Inline Mobile Dismissible"
           description="A very short message."
           variant="warning"
           actionsLayout="inline"
@@ -373,6 +375,7 @@ export const ActionsLayoutInline = () => {
         </Heading>
         <Banner
           title="A short title"
+          aria-label="Actions Layout Inline Desktop"
           description="A very short message."
           variant="warning"
           actionsLayout="inline"
@@ -381,6 +384,7 @@ export const ActionsLayoutInline = () => {
         />
         <Banner
           title="A short title"
+          aria-label="Actions Layout Inline Desktop Dismissible"
           description="A very short message."
           variant="warning"
           actionsLayout="inline"
