@@ -42,10 +42,17 @@ Playground.argTypes = {
       type: 'boolean',
     },
   },
+  gap: {
+    control: {type: 'radio'},
+    options: ['none', 'condensed'],
+    description: 'Horizontal gap scale between items',
+    table: {defaultValue: {summary: 'condensed'}},
+  },
 }
 Playground.args = {
   size: 'medium',
   flush: false,
+  gap: 'condensed',
 }
 
 export const Default = () => (

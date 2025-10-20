@@ -1,6 +1,5 @@
 import {Button as PrimerButton, type ButtonProps as PrimerButtonProps, type SlotMarker} from '@primer/react'
-import type {SxProp, CSSCustomProperties} from '../sx'
-import type {BetterSystemStyleObject} from '../styled-props'
+import type {SxProp, CSSCustomProperties, BetterSystemStyleObject} from '../sx'
 import {forwardRef} from 'react'
 import type {ForwardRefComponent} from '../polymorphic'
 import styled from 'styled-components'

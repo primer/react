@@ -1,6 +1,6 @@
 'use client'
 
-export {default as theme} from './theme'
+export {default as theme, type ThemeColorPaths, type ThemeShadowPaths} from './theme'
 export {get as themeGet} from './constants'
 export {default as BaseStyles} from './BaseStyles'
 export type {BaseStylesProps} from './BaseStyles'
@@ -8,8 +8,6 @@ export {default as ThemeProvider, useTheme, useColorSchemeVar} from './ThemeProv
 export type {ThemeProviderProps} from './ThemeProvider'
 
 // Layout
-export {default as Box} from './Box'
-export type {BoxProps} from './Box'
 export * from './Button'
 export {PageLayout} from './PageLayout'
 export type {
@@ -226,9 +224,6 @@ export type {
   TitleAreaProps as PageHeaderTitleAreaProps,
   ChildrenPropTypes as PageHeaderChildrenPropTypes,
 } from './PageHeader'
-
-export {default as sx, merge} from './sx'
-export type {BetterCssProperties, BetterSystemStyleObject, SxProp} from './sx'
 
 export {SkeletonBox} from './Skeleton'
 export type {SkeletonBoxProps} from './Skeleton'
