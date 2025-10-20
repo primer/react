@@ -2,13 +2,12 @@ import {
   IconButton as PrimerIconButton,
   type IconButtonProps as PrimerIconButtonProps,
   type SlotMarker,
-  type SxProp,
 } from '@primer/react'
 import {type ForwardRefComponent} from '../polymorphic'
 import {generateCustomSxProp} from './Button'
 import {forwardRef} from 'react'
 import styled from 'styled-components'
-import {sx} from '../sx'
+import {sx, type SxProp} from '../sx'
 
 type IconButtonProps = PrimerIconButtonProps & SxProp & {as?: React.ElementType}
 
