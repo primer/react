@@ -4,9 +4,7 @@ import {render} from '@testing-library/react'
 import {userEvent} from '@vitest/browser/context'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import {Button} from '../Button'
-import theme from '../theme'
 import BaseStyles from '../BaseStyles'
-import {ThemeProvider} from '../ThemeProvider'
 import type {AnchorPosition} from '@primer/behaviors'
 type TestComponentSettings = {
   initiallyOpen?: boolean
@@ -37,19 +35,17 @@ const AnchoredOverlayTestComponent = ({
     [onCloseCallback],
   )
   return (
-    <ThemeProvider theme={theme}>
-      <BaseStyles>
-        <AnchoredOverlay
-          open={open}
-          onOpen={onOpen}
-          onClose={onClose}
-          renderAnchor={props => <Button {...props}>Anchor Button</Button>}
-          onPositionChange={onPositionChange}
-        >
-          <button type="button">Focusable Child</button>
-        </AnchoredOverlay>
-      </BaseStyles>
-    </ThemeProvider>
+    <BaseStyles>
+      <AnchoredOverlay
+        open={open}
+        onOpen={onOpen}
+        onClose={onClose}
+        renderAnchor={props => <Button {...props}>Anchor Button</Button>}
+        onPositionChange={onPositionChange}
+      >
+        <button type="button">Focusable Child</button>
+      </AnchoredOverlay>
+    </BaseStyles>
   )
 }
 

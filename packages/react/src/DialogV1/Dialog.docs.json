@@ -48,23 +48,12 @@
     {
       "name": "wide",
       "type": "boolean"
-    },
-    {
-      "name": "sx",
-      "type": "SystemStyleObject",
-      "deprecated": true
     }
   ],
   "subcomponents": [
     {
       "name": "Dialog.Header",
-      "props": [
-        {
-          "name": "sx",
-          "type": "SystemStyleObject",
-          "deprecated": true
-        }
-      ]
+      "props": []
     }
   ]
 }
