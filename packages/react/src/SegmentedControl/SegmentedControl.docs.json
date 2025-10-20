@@ -99,7 +99,7 @@
           "deprecated": true,
           "type": "Component",
           "defaultValue": "",
-          "description": "The leading icon comes before item label"
+          "description": "Deprecated: use `leadingVisual` instead. The leading icon comes before item label."
         },
         {
           "name": "selected",

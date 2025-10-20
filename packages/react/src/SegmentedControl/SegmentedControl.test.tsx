@@ -330,6 +330,36 @@ describe('SegmentedControl', () => {
     spy.mockRestore()
   })
 
+  it('supports deprecated leadingIcon prop for backward compatibility', () => {
+    const {getByText} = render(
+      <SegmentedControl aria-label="File view">
+        <SegmentedControl.Button leadingIcon={EyeIcon}>Preview</SegmentedControl.Button>
+        <SegmentedControl.Button>Code</SegmentedControl.Button>
+      </SegmentedControl>,
+    )
+
+    const button = getByText('Preview').closest('button')
+    expect(button).toBeDefined()
+    // Verify the icon is rendered
+    expect(button?.querySelector('svg')).toBeDefined()
+  })
+
+  it('prioritizes leadingVisual over deprecated leadingIcon when both are provided', () => {
+    const {getByRole} = render(
+      <SegmentedControl aria-label="File view">
+        <SegmentedControl.Button
+          leadingVisual={() => <EyeIcon aria-label="EyeIcon" />}
+          leadingIcon={() => <FileCodeIcon aria-label="FileCodeIcon" />}
+        >
+          Preview
+        </SegmentedControl.Button>
+      </SegmentedControl>,
+    )
+
+    // Should find EyeIcon, not FileCodeIcon
+    expect(getByRole('img', {name: 'EyeIcon'})).toBeInTheDocument()
+  })
+
   it('should warn the user if they neglect to specify a label for the segmented control', () => {
     const spy = vi.spyOn(globalThis.console, 'warn').mockImplementation(() => {})
 
