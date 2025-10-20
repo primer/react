@@ -8,7 +8,7 @@ import {ThemeProvider, useColorSchemeVar, useTheme} from '../ThemeProvider'
 const fgDefaultColors = {
   light: '#1f2328',
   // eslint-disable-next-line camelcase
-  light_high_contrast: '#0e1116',
+  light_high_contrast: '#010409',
   dark: '#f0f6fc',
   dark_dimmed: '#d1d7e0',
 }
@@ -121,8 +121,7 @@ it('updates when colorMode prop changes', async () => {
   )
 })
 
-// TODO: debug why the color is not matching
-it.skip('updates when dayScheme prop changes', async () => {
+it('updates when dayScheme prop changes', async () => {
   const user = userEvent.setup()
 
   function App() {
@@ -204,8 +203,7 @@ it('inherits colorMode from parent', async () => {
   await waitFor(() => expect(screen.getByText('night')).toHaveStyle(`color: ${fgDefaultColors.dark}`))
 })
 
-// TODO: debug why the color is not matching
-it.skip('inherits dayScheme from parent', async () => {
+it('inherits dayScheme from parent', async () => {
   const user = userEvent.setup()
 
   function App() {
