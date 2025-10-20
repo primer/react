@@ -79,6 +79,9 @@
     "@primer/live-region-element": "^0.7.1",
     "@primer/octicons-react": "^19.13.0",
     "@primer/primitives": "10.x || 11.x",
+    "@styled-system/css": "^5.1.5",
+    "@styled-system/props": "^5.1.5",
+    "@styled-system/theme-get": "^5.1.2",
     "@types/styled-system": "^5.1.23",
     "@types/styled-system__css": "^5.0.16",
     "@types/styled-system__theme-get": "^5.0.1",
@@ -91,7 +94,8 @@
     "lodash.isempty": "^4.4.0",
     "lodash.isobject": "^3.0.2",
     "react-compiler-runtime": "^19.1.0-rc.2",
-    "react-intersection-observer": "^9.16.0"
+    "react-intersection-observer": "^9.16.0",
+    "styled-system": "^5.1.5"
   },
   "devDependencies": {
     "@actions/core": "1.11.1",
