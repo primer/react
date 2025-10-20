@@ -13,7 +13,6 @@ export {
   type ThemeProviderProps,
   type BaseStylesProps,
 } from './components/FeatureFlaggedTheming'
-export {merge} from '@primer/react'
 export {theme} from '@primer/react'
 export {themeGet} from '@primer/react'
 
@@ -84,6 +83,6 @@ export {Token, type TokenProps} from './components/Token'
 export {Truncate, type TruncateProps} from './components/Truncate'
 export {UnderlineNav, type UnderlineNavProps, type UnderlineNavItemProps} from './components/UnderlineNav'
 
-export {sx, type SxProp} from './sx'
+export {merge, sx, type SxProp} from './sx'
 
-export type {BetterSystemStyleObject} from './styled-props'
+export {type BetterSystemStyleObject} from './sx'
