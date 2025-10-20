@@ -15,7 +15,6 @@ type ColorMode = 'day' | 'night' | 'light' | 'dark'
 export type ColorModeWithAuto = ColorMode | 'auto'
 
 export type ThemeProviderProps = {
-  theme?: Theme
   colorMode?: ColorModeWithAuto
   dayScheme?: string
   nightScheme?: string
@@ -60,7 +59,7 @@ export const ThemeProvider: React.FC<React.PropsWithChildren<ThemeProviderProps>
   } = useTheme()
 
   // Initialize state
-  const theme = props.theme ?? fallbackTheme ?? defaultTheme
+  const theme = fallbackTheme ?? defaultTheme
 
   const uniqueDataId = useId()
   const {resolvedServerColorMode} = getServerHandoff(uniqueDataId)
