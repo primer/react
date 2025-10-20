@@ -2,7 +2,6 @@ import type {SystemCssProperties, SystemStyleObject} from '@styled-system/css'
 import css from '@styled-system/css'
 import type {ThemeColorPaths, ThemeShadowPaths} from './theme'
 import type {ColorProps, BorderColorProps, ShadowProps} from 'styled-system'
-import merge from 'deepmerge'
 
 export type BetterCssProperties = {
   [K in keyof SystemCssProperties]: K extends keyof ColorProps
@@ -37,5 +36,3 @@ export interface SxProp {
 const sx = (props: SxProp) => css(props.sx)
 
 export default sx
-
-export {merge}
