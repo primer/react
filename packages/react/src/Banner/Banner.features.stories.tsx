@@ -5,6 +5,8 @@ import React from 'react'
 import {Banner} from '../Banner'
 import Link from '../Link'
 import {Dialog} from '../Dialog/Dialog'
+import {Stack} from '../Stack'
+import Heading from '../Heading'
 
 const meta = {
   title: 'Components/Banner/Features',
@@ -283,8 +285,119 @@ export const InsideDialog = () => {
         hideTitle
         description="Please try again."
         variant="critical"
+        actionsLayout="inline"
         primaryAction={<Banner.PrimaryAction onClick={action('Try again')}>Try again</Banner.PrimaryAction>}
       />
     </Dialog>
+  )
+}
+
+export const ActionsLayoutStacked = () => {
+  return (
+    <Stack gap="spacious">
+      <Stack style={{maxWidth: '320px'}}>
+        <Heading variant="small" as="h3">
+          Mobile (320px)
+        </Heading>
+        <Banner
+          title="Actions Layout: Stacked"
+          description="Actions are displayed in a vertical stack on both mobile and desktop."
+          variant="info"
+          actionsLayout="stacked"
+          primaryAction={<Banner.PrimaryAction onClick={action('Primary')}>Primary Action</Banner.PrimaryAction>}
+          secondaryAction={
+            <Banner.SecondaryAction onClick={action('Secondary')}>Secondary Action</Banner.SecondaryAction>
+          }
+        />
+        <Banner
+          title="Actions Layout: Stacked"
+          description="Actions are displayed in a vertical stack on both mobile and desktop."
+          variant="info"
+          actionsLayout="stacked"
+          onDismiss={action('onDismiss')}
+          primaryAction={<Banner.PrimaryAction onClick={action('Primary')}>Primary Action</Banner.PrimaryAction>}
+          secondaryAction={
+            <Banner.SecondaryAction onClick={action('Secondary')}>Secondary Action</Banner.SecondaryAction>
+          }
+        />
+      </Stack>
+
+      <Stack style={{maxWidth: '768px'}}>
+        <Heading variant="small" as="h3">
+          Desktop (768px)
+        </Heading>
+        <Banner
+          title="Actions Layout: Stacked"
+          description="Actions are displayed in a vertical stack on both mobile and desktop."
+          variant="info"
+          actionsLayout="stacked"
+          primaryAction={<Banner.PrimaryAction onClick={action('Primary')}>Primary Action</Banner.PrimaryAction>}
+          secondaryAction={
+            <Banner.SecondaryAction onClick={action('Secondary')}>Secondary Action</Banner.SecondaryAction>
+          }
+        />
+        <Banner
+          title="Actions Layout: Stacked"
+          description="Actions are displayed in a vertical stack on both mobile and desktop."
+          variant="info"
+          actionsLayout="stacked"
+          onDismiss={action('onDismiss')}
+          primaryAction={<Banner.PrimaryAction onClick={action('Primary')}>Primary Action</Banner.PrimaryAction>}
+          secondaryAction={
+            <Banner.SecondaryAction onClick={action('Secondary')}>Secondary Action</Banner.SecondaryAction>
+          }
+        />
+      </Stack>
+    </Stack>
+  )
+}
+
+export const ActionsLayoutInline = () => {
+  return (
+    <Stack gap="spacious">
+      <Stack style={{maxWidth: '320px'}}>
+        <Heading variant="small" as="h3">
+          Mobile (320px)
+        </Heading>
+        <Banner
+          title="A short title"
+          description="A very short message."
+          variant="warning"
+          actionsLayout="inline"
+          primaryAction={<Banner.PrimaryAction onClick={action('Primary')}>Primary</Banner.PrimaryAction>}
+        />
+        <Banner
+          title="A short title"
+          description="A very short message."
+          variant="warning"
+          actionsLayout="inline"
+          onDismiss={action('onDismiss')}
+          primaryAction={<Banner.PrimaryAction onClick={action('Primary')}>Primary</Banner.PrimaryAction>}
+        />
+      </Stack>
+
+      <Stack style={{maxWidth: '768px'}}>
+        <Heading variant="small" as="h3">
+          Desktop (768px)
+        </Heading>
+        <Banner
+          title="A short title"
+          description="A very short message."
+          variant="warning"
+          actionsLayout="inline"
+          primaryAction={<Banner.PrimaryAction onClick={action('Primary')}>Primary</Banner.PrimaryAction>}
+          secondaryAction={<Banner.SecondaryAction onClick={action('Secondary')}>Secondary</Banner.SecondaryAction>}
+        />
+        <Banner
+          title="A short title"
+          description="A very short message."
+          variant="warning"
+          actionsLayout="inline"
+          onDismiss={action('onDismiss')}
+          primaryAction={<Banner.PrimaryAction onClick={action('Primary')}>Primary</Banner.PrimaryAction>}
+          secondaryAction={<Banner.SecondaryAction onClick={action('Secondary')}>Secondary</Banner.SecondaryAction>}
+        />
+      </Stack>
+    </Stack>
   )
 }

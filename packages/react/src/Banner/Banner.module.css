@@ -98,7 +98,7 @@
   justify-content: space-between;
 }
 
-.Banner[data-dismissible]:not([data-title-hidden='']) .BannerContainer {
+.Banner[data-dismissible]:not([data-title-hidden], [data-actions-layout='inline']) .BannerContainer {
   display: grid;
   grid-template-columns: auto;
   grid-template-rows: auto;
@@ -182,17 +182,19 @@
   display: none;
 }
 
-.Banner[data-dismissible]:not([data-title-hidden]) .BannerActions {
+.Banner[data-dismissible]:not([data-title-hidden], [data-actions-layout='inline']) .BannerActions {
   margin-block-end: var(--base-size-6);
 }
 
 /* stylelint-disable-next-line selector-max-specificity */
-.Banner[data-dismissible]:not([data-title-hidden]) .BannerActionsContainer[data-primary-action='trailing'] {
+.Banner[data-dismissible]:not([data-title-hidden], [data-actions-layout='inline'])
+  .BannerActionsContainer[data-primary-action='trailing'] {
   display: none;
 }
 
 /* stylelint-disable-next-line selector-max-specificity */
-.Banner[data-dismissible]:not([data-title-hidden]) .BannerActionsContainer[data-primary-action='leading'] {
+.Banner[data-dismissible]:not([data-title-hidden], [data-actions-layout='inline'])
+  .BannerActionsContainer[data-primary-action='leading'] {
   display: flex;
 }
 
