@@ -9,8 +9,42 @@
   grid-template-columns: auto minmax(0, 1fr) auto;
   align-items: start;
 
-  @supports (container-type: inline-size) {
-    container: banner / inline-size;
+  &[data-actions-layout='default'] {
+    @supports (container-type: inline-size) {
+      container: banner / inline-size;
+    }
+  }
+
+  &[data-actions-layout='stacked'] {
+    & .BannerContainer {
+      flex-direction: column;
+    }
+
+    & .BannerActions :where([data-primary-action='trailing']) {
+      display: none;
+    }
+
+    & .BannerActions :where([data-primary-action='leading']) {
+      display: flex;
+    }
+  }
+
+  &[data-actions-layout='inline'] {
+    & .BannerContainer {
+      flex-wrap: nowrap;
+    }
+
+    & .BannerActions {
+      flex: 0 0 auto;
+    }
+
+    & .BannerActions :where([data-primary-action='trailing']) {
+      display: flex;
+    }
+
+    & .BannerActions :where([data-primary-action='leading']) {
+      display: none;
+    }
   }
 
   &[data-layout='compact'] {
@@ -73,9 +107,9 @@
 /* BannerContent ---------------------------------------------------------- */
 
 .BannerContent {
-  /* display: grid; */
+  display: grid;
   row-gap: var(--base-size-4);
-  /* grid-column-start: 1; */
+  grid-column-start: 1;
   margin-block: var(--base-size-8);
 }
 
@@ -85,7 +119,7 @@
 
 @media screen and (min-width: 544px) {
   .BannerContent {
-    /* flex: 1 1 0%; */
+    flex: 1 1 0%;
   }
 }
 
@@ -148,16 +182,6 @@
   display: none;
 }
 
-@media screen and (--viewportRange-regular) {
-  .BannerActions :where([data-primary-action='trailing']) {
-    display: flex;
-  }
-
-  .BannerActions :where([data-primary-action='leading']) {
-    display: none;
-  }
-}
-
 .Banner[data-dismissible]:not([data-title-hidden]) .BannerActions {
   margin-block-end: var(--base-size-6);
 }
@@ -174,14 +198,13 @@
 
 /* Layout ------------------------------------------------------------------- */
 
-@container banner (max-width: 245px) {
+@container banner (max-width: 500px) {
   .BannerContainer {
-    /* display: grid; */
-    outline: solid 1px red;
+    display: grid;
   }
 
   .BannerContainer:has(.BannerActionsContainer) {
-    /* grid-template-rows: auto auto; */
+    grid-template-rows: auto auto;
   }
 
   .BannerActions {
@@ -197,10 +220,10 @@
   }
 }
 
-@container banner (min-width: 245px) {
+@container banner (min-width: 500px) {
   .BannerContainer {
-    /* display: grid;
-    grid-template-columns: auto auto; */
+    display: grid;
+    grid-template-columns: auto auto;
   }
 
   :where(.Banner):not([data-dismissible])
