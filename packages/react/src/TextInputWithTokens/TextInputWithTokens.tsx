@@ -1,6 +1,5 @@
 import {FocusKeys} from '@primer/behaviors'
 import {isFocusable} from '@primer/behaviors/utils'
-import {omit} from '@styled-system/props'
 import type {FocusEventHandler, KeyboardEventHandler, MouseEventHandler, RefObject} from 'react'
 import React, {useRef, useState} from 'react'
 import {isValidElementType} from 'react-is'
@@ -102,7 +101,7 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
   }: TextInputWithTokensProps<TokenComponentType | typeof Token>,
   forwardedRef: React.ForwardedRef<HTMLInputElement>,
 ) {
-  const {onBlur, onFocus, onKeyDown, ...inputPropsRest} = omit(rest)
+  const {onBlur, onFocus, onKeyDown, ...inputPropsRest} = rest
   const ref = useRef<HTMLInputElement>(null)
   useRefObjectAsForwardedRef(forwardedRef, ref)
   const [selectedTokenIndex, setSelectedTokenIndex] = useState<number | undefined>()
@@ -185,13 +184,13 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
     }
   }
 
-  const handleInputFocus: FocusEventHandler = event => {
+  const handleInputFocus: FocusEventHandler<HTMLInputElement> = event => {
     onFocus && onFocus(event)
     setSelectedTokenIndex(undefined)
     visibleTokenCount && setTokensAreTruncated(false)
   }
 
-  const handleInputBlur: FocusEventHandler = event => {
+  const handleInputBlur: FocusEventHandler<HTMLInputElement> = event => {
     onBlur && onBlur(event)
 
     // HACK: wait a tick and check the focused element before hiding truncated tokens
@@ -204,9 +203,9 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
     }, 0)
   }
 
-  const handleInputKeyDown: KeyboardEventHandler = e => {
+  const handleInputKeyDown: KeyboardEventHandler<HTMLInputElement> = event => {
     if (onKeyDown) {
-      onKeyDown(e)
+      onKeyDown(event)
     }
 
     if (ref.current?.value) {
@@ -215,7 +214,7 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
 
     const lastToken = tokens[tokens.length - 1]
 
-    if (e.key === 'Backspace' && lastToken) {
+    if (event.key === 'Backspace' && lastToken) {
       handleTokenRemove(lastToken.id)
 
       if (ref.current) {
