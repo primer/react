@@ -204,7 +204,7 @@ export type BannerDescriptionProps = React.ComponentPropsWithoutRef<'div'>
 
 export function BannerDescription({children, className, ...rest}: BannerDescriptionProps) {
   return (
-    <div {...rest} className={clsx(classes.BannerDescription, className)}>
+    <div {...rest} className={className}>
       {children}
     </div>
   )

@@ -262,19 +262,6 @@ export const CustomIcon = () => {
   )
 }
 
-export const SingleLineWithAction = () => {
-  return (
-    <Banner
-      onDismiss={action('onDismiss')}
-      title="This is a single line"
-      hideTitle
-      description="This is a single line"
-      primaryAction={<Banner.PrimaryAction>Button</Banner.PrimaryAction>}
-      secondaryAction={<Banner.SecondaryAction>Button</Banner.SecondaryAction>}
-    />
-  )
-}
-
 export const InsideDialog = () => {
   const onDialogClose = React.useCallback(() => {}, [])
 
