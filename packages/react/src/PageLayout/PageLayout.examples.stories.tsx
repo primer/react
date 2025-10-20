@@ -543,7 +543,7 @@ export const FiltersBottomSheetTwoLevels: StoryFn = () => {
             <Dialog title="Filter" onClose={onDialogClose} position={{narrow: 'bottom'}}>
               <ActionList>
                 <ActionList.Group>
-                  <ActionList.GroupHeading as="h4">Categories</ActionList.GroupHeading>
+                  <ActionList.GroupHeading as="h2">Categories</ActionList.GroupHeading>
                   {categories.map(category => (
                     <ActionList.Item
                       key={category.hash}
@@ -560,7 +560,7 @@ export const FiltersBottomSheetTwoLevels: StoryFn = () => {
                 </ActionList.Group>
                 <ActionList.Divider />
                 <ActionList.Group selectionVariant="single">
-                  <ActionList.GroupHeading as="h4">Colors</ActionList.GroupHeading>
+                  <ActionList.GroupHeading as="h2">Colors</ActionList.GroupHeading>
                   <ActionList.Item
                     onSelect={() => {
                       handleFilterChange('red')

@@ -111,7 +111,7 @@ export const INTERACTIVE_ELEMENT_PROPS = [
   'onClick',
 ] as const
 
-export type MenuItemProps = {
+type MenuItemProps = {
   onClick?: (event: React.MouseEvent<HTMLElement>) => void
   onKeyPress?: (event: React.KeyboardEvent<HTMLElement>) => void
   'aria-disabled'?: boolean
