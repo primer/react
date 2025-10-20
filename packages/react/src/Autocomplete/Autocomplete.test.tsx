@@ -6,8 +6,6 @@ import type {AutocompleteInputProps} from '../Autocomplete'
 import Autocomplete from '../Autocomplete'
 import type {AutocompleteMenuInternalProps, AutocompleteMenuItem} from '../Autocomplete/AutocompleteMenu'
 import BaseStyles from '../BaseStyles'
-import theme from '../theme'
-import {ThemeProvider} from '../ThemeProvider'
 
 const mockItems = [
   {text: 'zero', id: '0'},
@@ -33,19 +31,17 @@ const LabelledAutocomplete = <T extends AutocompleteMenuItem>({
   const {['aria-labelledby']: ariaLabelledBy, ...menuPropsRest} = menuProps
   const {id = 'autocompleteInput', ...inputPropsRest} = inputProps
   return (
-    <ThemeProvider theme={theme}>
-      <BaseStyles>
-        <label htmlFor={id} id={ariaLabelledBy}>
-          Autocomplete field
-        </label>
-        <Autocomplete id="autocompleteId">
-          <Autocomplete.Input id={id} {...inputPropsRest} />
-          <Autocomplete.Overlay>
-            <Autocomplete.Menu aria-labelledby={ariaLabelledBy} {...menuPropsRest} />
-          </Autocomplete.Overlay>
-        </Autocomplete>
-      </BaseStyles>
-    </ThemeProvider>
+    <BaseStyles>
+      <label htmlFor={id} id={ariaLabelledBy}>
+        Autocomplete field
+      </label>
+      <Autocomplete id="autocompleteId">
+        <Autocomplete.Input id={id} {...inputPropsRest} />
+        <Autocomplete.Overlay>
+          <Autocomplete.Menu aria-labelledby={ariaLabelledBy} {...menuPropsRest} />
+        </Autocomplete.Overlay>
+      </Autocomplete>
+    </BaseStyles>
   )
 }
 
@@ -451,14 +447,12 @@ describe('Autocomplete', () => {
   describe('Autocomplete.Overlay', () => {
     it('should support `className` on the outermost element', async () => {
       const Element = ({className}: {className: string}) => (
-        <ThemeProvider>
-          <Autocomplete id="autocompleteId">
-            <Autocomplete.Input />
-            <Autocomplete.Overlay className={className} visibility="visible">
-              hi
-            </Autocomplete.Overlay>
-          </Autocomplete>
-        </ThemeProvider>
+        <Autocomplete id="autocompleteId">
+          <Autocomplete.Input />
+          <Autocomplete.Overlay className={className} visibility="visible">
+            hi
+          </Autocomplete.Overlay>
+        </Autocomplete>
       )
       const {container: elementContainer, getByRole} = render(<Element className="test-class-name" />)
       const inputNode = getByRole('combobox')
