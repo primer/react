@@ -1631,7 +1631,7 @@ for (const usingRemoveActiveDescendant of [false, true]) {
 
       await user.keyboard('{ArrowDown}')
 
-      // Trigger random key
+      // Trigger alphabet key that should not propagate
       await user.keyboard('A')
 
       expect(options[1]).toHaveFocus()
