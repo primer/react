@@ -2,6 +2,8 @@
 
 import {Avatar} from '@primer/react'
 
+export default () => <Avatar alt="mona" src="https://avatars.githubusercontent.com/u/7143434?v=4" />
+
 // const DEFAULT_AVATAR_SIZE = 20
 
 // export default {
@@ -15,8 +17,6 @@ import {Avatar} from '@primer/react'
 //   sizeAtRegular?: number
 //   sizeAtWide?: number
 // } & Omit<AvatarProps, 'size'>
-
-export default () => <Avatar alt="mona" src="https://avatars.githubusercontent.com/u/7143434?v=4" />
 
 // export const Playground: StoryFn<Args> = args => {
 //   return (
