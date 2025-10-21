@@ -17,6 +17,7 @@ import useIsomorphicLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 import classes from '../ActionList/ActionList.module.css'
 import navListClasses from './NavList.module.css'
 import {flushSync} from 'react-dom'
+import {isSlot} from '../utils/is-slot'
 
 // ----------------------------------------------------------------------------
 // NavList
@@ -57,11 +58,18 @@ const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(
     const {depth} = React.useContext(SubNavContext)
 
     // Get SubNav from children
-    const subNav = React.Children.toArray(children).find(child => isValidElement(child) && child.type === SubNav)
+    const subNav = React.Children.toArray(children).find(
+      child => isValidElement(child) && (child.type === SubNav || isSlot(child, SubNav)),
+    )
 
     // Get children without SubNav or TrailingAction
     const childrenWithoutSubNavOrTrailingAction = React.Children.toArray(children).filter(child =>
-      isValidElement(child) ? child.type !== SubNav && child.type !== TrailingAction : true,
+      isValidElement(child)
+        ? child.type !== SubNav &&
+          child.type !== TrailingAction &&
+          !isSlot(child, SubNav) &&
+          !isSlot(child, TrailingAction)
+        : true,
     )
 
     if (!isValidElement(subNav) && defaultOpen)

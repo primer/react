@@ -1,10 +1,7 @@
-import {
-  Box,
-  CheckboxGroup as PrimerCheckboxGroup,
-  type CheckboxGroupProps as PrimerCheckboxGroupProps,
-} from '@primer/react'
+import {CheckboxGroup as PrimerCheckboxGroup, type CheckboxGroupProps as PrimerCheckboxGroupProps} from '@primer/react'
 import React, {type PropsWithChildren} from 'react'
 import type {SxProp} from '../sx'
+import Box from './Box'
 
 export type CheckboxGroupProps = PropsWithChildren<PrimerCheckboxGroupProps> & SxProp
 
@@ -47,3 +44,8 @@ export const CheckboxGroup = Object.assign(CheckboxGroupImpl, {
   Caption: CheckboxOrRadioGroupCaption,
   Validation: CheckboxOrRadioGroupValidation,
 })
+
+CheckboxGroupImpl.__SLOT__ = PrimerCheckboxGroup.__SLOT__
+CheckboxOrRadioGroupLabel.__SLOT__ = PrimerCheckboxGroup.Label.__SLOT__
+CheckboxOrRadioGroupCaption.__SLOT__ = PrimerCheckboxGroup.Caption.__SLOT__
+CheckboxOrRadioGroupValidation.__SLOT__ = PrimerCheckboxGroup.Validation.__SLOT__

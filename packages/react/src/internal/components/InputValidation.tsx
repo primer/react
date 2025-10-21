@@ -2,7 +2,6 @@ import type {IconProps} from '@primer/octicons-react'
 import {AlertFillIcon, CheckCircleFillIcon} from '@primer/octicons-react'
 import type React from 'react'
 import Text from '../../Text'
-import type {SxProp} from '../../sx'
 import type {FormValidationStatus} from '../../utils/types/FormValidationStatus'
 import classes from './InputValidation.module.css'
 import {clsx} from 'clsx'
@@ -12,7 +11,7 @@ type Props = {
   id: string
   validationStatus?: FormValidationStatus
   style?: React.CSSProperties
-} & SxProp
+}
 
 const validationIconMap: Record<
   NonNullable<Props['validationStatus']>,

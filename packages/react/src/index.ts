@@ -1,6 +1,6 @@
 'use client'
 
-export {default as theme} from './theme'
+export {default as theme, type ThemeColorPaths, type ThemeShadowPaths} from './theme'
 export {get as themeGet} from './constants'
 export {default as BaseStyles} from './BaseStyles'
 export type {BaseStylesProps} from './BaseStyles'
@@ -8,8 +8,6 @@ export {default as ThemeProvider, useTheme, useColorSchemeVar} from './ThemeProv
 export type {ThemeProviderProps} from './ThemeProvider'
 
 // Layout
-export {default as Box} from './Box'
-export type {BoxProps} from './Box'
 export * from './Button'
 export {PageLayout} from './PageLayout'
 export type {
@@ -51,6 +49,7 @@ export {useSyncedState} from './hooks/useSyncedState'
 
 // Utils
 export {createComponent} from './utils/create-component'
+export type {SlotMarker} from './utils/types'
 
 // Components
 export {default as Radio} from './Radio'
@@ -100,6 +99,12 @@ export {ConfirmationDialog} from './ConfirmationDialog/ConfirmationDialog'
 export {default as Flash} from './Flash'
 export type {FlashProps} from './Flash'
 export {default as FormControl} from './FormControl'
+export type {
+  FormControlProps,
+  FormControlCaptionProps,
+  FormControlLabelProps,
+  FormControlValidationProps,
+} from './FormControl'
 export {useFormControlForwardedProps} from './FormControl'
 export {default as Header} from './Header'
 export type {HeaderProps, HeaderItemProps, HeaderLinkProps} from './Header'
@@ -163,7 +168,7 @@ export type {SubNavProps, SubNavLinkProps, SubNavLinksProps} from './SubNav'
 export {default as ToggleSwitch} from './ToggleSwitch'
 export type {ToggleSwitchProps} from './ToggleSwitch'
 export {default as TextInput} from './TextInput'
-export type {TextInputProps} from './TextInput'
+export type {TextInputProps, TextInputActionProps} from './TextInput'
 export {default as TextInputWithTokens} from './TextInputWithTokens'
 export type {TextInputWithTokensProps} from './TextInputWithTokens'
 export {default as Text} from './Text'
@@ -219,9 +224,6 @@ export type {
   TitleAreaProps as PageHeaderTitleAreaProps,
   ChildrenPropTypes as PageHeaderChildrenPropTypes,
 } from './PageHeader'
-
-export {default as sx, merge} from './sx'
-export type {BetterCssProperties, BetterSystemStyleObject, SxProp} from './sx'
 
 export {SkeletonBox} from './Skeleton'
 export type {SkeletonBoxProps} from './Skeleton'

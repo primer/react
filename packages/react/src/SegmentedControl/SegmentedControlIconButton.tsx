@@ -6,6 +6,7 @@ import type {TooltipDirection} from '../TooltipV2'
 import classes from './SegmentedControl.module.css'
 import {clsx} from 'clsx'
 import {Tooltip} from '../TooltipV2'
+import type {FCWithSlotMarker} from '../utils/types'
 
 export type SegmentedControlIconButtonProps = {
   'aria-label': string
@@ -25,7 +26,7 @@ export type SegmentedControlIconButtonProps = {
   'aria-disabled'?: boolean
 } & ButtonHTMLAttributes<HTMLButtonElement | HTMLLIElement>
 
-export const SegmentedControlIconButton: React.FC<React.PropsWithChildren<SegmentedControlIconButtonProps>> = ({
+export const SegmentedControlIconButton: FCWithSlotMarker<React.PropsWithChildren<SegmentedControlIconButtonProps>> = ({
   'aria-label': ariaLabel,
   icon: Icon,
   selected,
@@ -58,5 +59,7 @@ export const SegmentedControlIconButton: React.FC<React.PropsWithChildren<Segmen
     </li>
   )
 }
+
+SegmentedControlIconButton.__SLOT__ = Symbol('SegmentedControl.IconButton')
 
 export default SegmentedControlIconButton

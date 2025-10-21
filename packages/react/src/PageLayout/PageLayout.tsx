@@ -10,6 +10,7 @@ import {useOverflow} from '../hooks/useOverflow'
 import {warning} from '../utils/warning'
 
 import classes from './PageLayout.module.css'
+import type {FCWithSlotMarker, WithSlotMarker} from '../utils/types'
 
 const REGION_ORDER = {
   header: 0,
@@ -338,7 +339,7 @@ export type PageLayoutHeaderProps = {
   style?: React.CSSProperties
 }
 
-const Header: React.FC<React.PropsWithChildren<PageLayoutHeaderProps>> = ({
+const Header: FCWithSlotMarker<React.PropsWithChildren<PageLayoutHeaderProps>> = ({
   'aria-label': label,
   'aria-labelledby': labelledBy,
   padding = 'none',
@@ -432,7 +433,7 @@ const contentWidths = {
   xlarge: '1280px',
 }
 
-const Content: React.FC<React.PropsWithChildren<PageLayoutContentProps>> = ({
+const Content: FCWithSlotMarker<React.PropsWithChildren<PageLayoutContentProps>> = ({
   as = 'main',
   'aria-label': label,
   'aria-labelledby': labelledBy,
@@ -781,7 +782,7 @@ export type PageLayoutFooterProps = {
   style?: React.CSSProperties
 }
 
-const Footer: React.FC<React.PropsWithChildren<PageLayoutFooterProps>> = ({
+const Footer: FCWithSlotMarker<React.PropsWithChildren<PageLayoutFooterProps>> = ({
   'aria-label': label,
   'aria-labelledby': labelledBy,
   padding = 'none',
@@ -844,8 +845,14 @@ Footer.displayName = 'PageLayout.Footer'
 // Export
 
 export const PageLayout = Object.assign(Root, {
+  __SLOT__: Symbol('PageLayout'),
   Header,
   Content,
-  Pane,
+  Pane: Pane as WithSlotMarker<typeof Pane>,
   Footer,
 })
+
+Header.__SLOT__ = Symbol('PageLayout.Header')
+Content.__SLOT__ = Symbol('PageLayout.Content')
+;(Pane as WithSlotMarker<typeof Pane>).__SLOT__ = Symbol('PageLayout.Pane')
+Footer.__SLOT__ = Symbol('PageLayout.Footer')
