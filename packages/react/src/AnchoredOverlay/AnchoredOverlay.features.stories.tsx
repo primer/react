@@ -35,11 +35,11 @@ const hoverCard = (
       Former beach cat and champion swimmer. Now your friendly octopus with a normal face.
     </span>
     <Stack direction="horizontal" gap="none">
-      <Octicon color={'var(--fgColor-muted)'} icon={LocationIcon} />
+      <Octicon className={classes.Icon} icon={LocationIcon} />
       <span className={classes.MetaMuted}>Interwebs</span>
     </Stack>
     <Stack direction="horizontal" gap="none">
-      <Octicon color={'var(--fgColor-muted)'} icon={RepoIcon} />
+      <Octicon className={classes.Icon} icon={RepoIcon} />
       <span className={classes.MetaMuted}>Owns this repository</span>
     </Stack>
   </Stack>
@@ -343,6 +343,45 @@ export const OverlayPropsOverrides = () => {
         <li>maxHeight: `xsmall`</li>
       </pre>
       <div className={classes.FlexColFill}>{hoverCard}</div>
+    </AnchoredOverlay>
+  )
+}
+
+export const FullscreenVariant = () => {
+  const [open, setOpen] = useState(false)
+
+  return (
+    <AnchoredOverlay
+      open={open}
+      onOpen={() => setOpen(true)}
+      onClose={() => setOpen(false)}
+      renderAnchor={props => <Button {...props}>Open Fullscreen on Narrow</Button>}
+      variant={{narrow: 'fullscreen', regular: 'anchored'}}
+      overlayProps={{
+        role: 'dialog',
+        'aria-modal': true,
+        'aria-label': 'Fullscreen Overlay Demo',
+        className: classes.Overlay,
+        overflow: 'auto',
+      }}
+      focusZoneSettings={{disabled: true}}
+      preventOverflow={false}
+      width="large"
+    >
+      <div className={classes.FlexColFill}>
+        <Stack gap="normal" style={{padding: '16px'}}>
+          <Heading>Fullscreen Overlay Demo</Heading>
+          <div>
+            This overlay will appear fullscreen on narrow viewports (less than 768px) and as a regular anchored overlay
+            on wider screens.
+          </div>
+          <div>
+            Try resizing your browser window to see the responsive behavior in action. The overlay includes a close
+            button when in fullscreen mode.
+          </div>
+          {hoverCard}
+        </Stack>
+      </div>
     </AnchoredOverlay>
   )
 }

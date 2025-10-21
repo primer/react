@@ -48,6 +48,31 @@ export const SmallActionBar = () => (
   </ActionBar>
 )
 
+export const GapScale = () => (
+  <div style={{display: 'flex', flexDirection: 'column', gap: 16}}>
+    <div>
+      <Text as="p" style={{marginBottom: 4}}>
+        gap=&quot;none&quot;
+      </Text>
+      <ActionBar aria-label="Toolbar gap none" gap="none">
+        <ActionBar.IconButton icon={BoldIcon} aria-label="Bold" />
+        <ActionBar.IconButton icon={ItalicIcon} aria-label="Italic" />
+        <ActionBar.IconButton icon={CodeIcon} aria-label="Code" />
+      </ActionBar>
+    </div>
+    <div>
+      <Text as="p" style={{marginBottom: 4}}>
+        gap=&quot;condensed&quot; (default)
+      </Text>
+      <ActionBar aria-label="Toolbar gap condensed" gap="condensed">
+        <ActionBar.IconButton icon={BoldIcon} aria-label="Bold" />
+        <ActionBar.IconButton icon={ItalicIcon} aria-label="Italic" />
+        <ActionBar.IconButton icon={CodeIcon} aria-label="Code" />
+      </ActionBar>
+    </div>
+  </div>
+)
+
 export const WithDisabledItems = () => (
   <ActionBar aria-label="Toolbar">
     <ActionBar.IconButton icon={BoldIcon} aria-label="Bold"></ActionBar.IconButton>
@@ -94,6 +119,10 @@ export const CommentBox = (props: CommentBoxProps) => {
               aria-label="Saved Replies"
             ></ActionBar.IconButton>
           </ActionBar>
+        </div>
+        <div className={classes.CommentBoxHeaderRight}>
+          <Button variant="invisible">Write</Button>
+          <Button variant="invisible">Preview</Button>
         </div>
       </header>
       <Textarea value={value} onChange={e => setValue(e.target.value)} id="markdowninput" aria-label="Markdown value" />

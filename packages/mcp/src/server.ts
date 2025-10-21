@@ -86,7 +86,7 @@ You can use the \`get_component\` tool to get more information about a specific 
 
 server.tool(
   'get_component',
-  'Get a specific component by name',
+  'Retrieve documentation and usage details for a specific React component from the @primer/react package by its name. This tool provides the official Primer documentation for any listed component, making it easy to inspect, reuse, or integrate components in your project.',
   {
     name: z.string().describe('The name of the component to retrieve'),
   },
@@ -100,7 +100,7 @@ server.tool(
         content: [
           {
             type: 'text',
-            text: `There is no component named \`${name}\` in the @primer/react package. For a full list of components, use the \`get_components\` tool.`,
+            text: `There is no component named \`${name}\` in the @primer/react package. For a full list of components, use the \`list_components\` tool.`,
           },
         ],
       }
@@ -270,7 +270,7 @@ ${text}`,
 
 server.tool(
   'get_component_accessibility_guidelines',
-  'Get accessibility information for how to use a component from Primer React',
+  'Retrieve accessibility guidelines and best practices for a specific component from the @primer/react package by its name. Use this tool to get official accessibility recommendations, usage tips, and requirements to ensure your UI components are inclusive and meet accessibility standards.',
   {
     name: z.string().describe('The name of the component to retrieve'),
   },
@@ -284,7 +284,7 @@ server.tool(
         content: [
           {
             type: 'text',
-            text: `There is no component named \`${name}\` in the @primer/react package. For a full list of components, use the \`get_components\` tool.`,
+            text: `There is no component named \`${name}\` in the @primer/react package. For a full list of components, use the \`list_components\` tool.`,
           },
         ],
       }
@@ -625,6 +625,63 @@ The following list of coding guidelines must be followed:
 `,
         },
       ],
+    }
+  },
+)
+
+// -----------------------------------------------------------------------------
+// Accessibility
+// -----------------------------------------------------------------------------
+
+/**
+ * The `review_alt_text` tool is experimental and may be removed in future versions.
+ *
+ * The intent of this tool is to assist products like Copilot Code Review and Copilot Coding Agent
+ * in reviewing both user- and AI-generated alt text for images, ensuring compliance with accessibility guidelines.
+ * This tool is not intended to replace human-generated alt text; rather, it supports the review process
+ * by providing suggestions for improvement. It should be used alongside human review, not as a substitute.
+ *
+ *
+ **/
+server.tool(
+  'review_alt_text',
+  'Evaluates image alt text against accessibility best practices and context relevance.',
+  {
+    surroundingText: z.string().describe('Text surrounding the image, relevant to the image.'),
+    alt: z.string().describe('The alt text of the image being evaluated'),
+    image: z
+      .union([
+        z.instanceof(File).describe('The image src file being evaluated'),
+        z.string().url().describe('The URL of the image src being evaluated'),
+        z.string().describe('The file path of the image src being evaluated'),
+      ])
+      .describe('The image file, file path, or URL being evaluated'),
+  },
+  async ({surroundingText, alt, image}) => {
+    // Call the LLM through MCP sampling
+    const response = await server.server.createMessage({
+      messages: [
+        {
+          role: 'user',
+          content: {
+            type: 'text',
+            text: `Does this alt text: '${alt}' meet accessibility guidelines and describe the image: ${image} accurately in context of this surrounding text: '${surroundingText}'?\n\n`,
+          },
+        },
+      ],
+      sampling: {temperature: 0.4},
+      maxTokens: 500,
+    })
+
+    return {
+      content: [
+        {
+          type: 'text',
+          text: response.content.type === 'text' ? response.content.text : 'Unable to generate summary',
+        },
+      ],
+      altTextEvaluation: response.content.type === 'text' ? response.content.text : 'Unable to generate summary',
+      nextSteps: `If the evaluation indicates issues with the alt text, provide more meaningful alt text based on the feedback. DO NOT run this tool repeatedly on the same image - evaluations may vary slightly with each run.`,
     }
   },
 )

@@ -1,6 +1,6 @@
 import type React from 'react'
 import {useCallback, useReducer, useRef} from 'react'
-import type {ComponentProps} from '../utils/types'
+import type {ComponentProps, FCWithSlotMarker} from '../utils/types'
 import {AutocompleteContext} from './AutocompleteContext'
 import AutocompleteInput from './AutocompleteInput'
 import AutocompleteMenu from './AutocompleteMenu'
@@ -46,7 +46,7 @@ const reducer = (state: State, action: Action) => {
   }
 }
 
-const Autocomplete: React.FC<React.PropsWithChildren<{id?: string}>> = ({children, id: idProp}) => {
+const Autocomplete: FCWithSlotMarker<React.PropsWithChildren<{id?: string}>> = ({children, id: idProp}) => {
   const activeDescendantRef = useRef<HTMLElement>(null)
   const scrollContainerRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
@@ -98,6 +98,7 @@ export type {AutocompleteInputProps} from './AutocompleteInput'
 export type {AutocompleteMenuProps} from './AutocompleteMenu'
 export type {AutocompleteOverlayProps} from './AutocompleteOverlay'
 export default Object.assign(Autocomplete, {
+  __SLOT__: Symbol('Autocomplete'),
   Context: AutocompleteContext,
   Input: AutocompleteInput,
   Menu: AutocompleteMenu,

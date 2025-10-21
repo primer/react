@@ -32,50 +32,6 @@ export const WithCss = () => (
   </SegmentedControl>
 )
 
-export const WithSx = () => (
-  <SegmentedControl aria-label="File view" sx={{fontFamily: 'monospace'}}>
-    <SegmentedControl.Button defaultSelected aria-label={'Preview'} leadingIcon={EyeIcon} sx={{color: 'success.fg'}}>
-      Preview
-    </SegmentedControl.Button>
-    <SegmentedControl.Button aria-label={'Raw'} leadingIcon={FileCodeIcon} sx={{color: 'success.fg'}}>
-      Raw
-    </SegmentedControl.Button>
-    <SegmentedControl.Button aria-label={'Blame'} leadingIcon={PeopleIcon} sx={{color: 'success.fg'}}>
-      Blame
-    </SegmentedControl.Button>
-  </SegmentedControl>
-)
-
-export const WithSxAndCss = () => (
-  <SegmentedControl aria-label="File view" sx={{fontFamily: 'monospace'}} className="testCustomClassnameMono">
-    <SegmentedControl.Button
-      defaultSelected
-      aria-label={'Preview'}
-      leadingIcon={EyeIcon}
-      sx={{color: 'success.fg'}}
-      className="testCustomClassnameColor"
-    >
-      Preview
-    </SegmentedControl.Button>
-    <SegmentedControl.Button
-      aria-label={'Raw'}
-      leadingIcon={FileCodeIcon}
-      sx={{color: 'success.fg'}}
-      className="testCustomClassnameColor"
-    >
-      Raw
-    </SegmentedControl.Button>
-    <SegmentedControl.Button
-      aria-label={'Blame'}
-      leadingIcon={PeopleIcon}
-      sx={{color: 'success.fg'}}
-      className="testCustomClassnameColor"
-    >
-      Blame
-    </SegmentedControl.Button>
-  </SegmentedControl>
-)
-
 export const InNarrowContainer = () => (
   <div style={{width: '275px', border: '1px solid black', padding: '8px'}}>
     <SegmentedControl aria-label="File view" fullWidth>

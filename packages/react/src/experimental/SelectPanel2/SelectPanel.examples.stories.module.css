@@ -1,3 +1,11 @@
+.OpenIcon {
+  color: var(--fgColor-open);
+}
+
+.MergedIcon {
+  color: var(--fgColor-done);
+}
+
 .StoryContainer {
   display: flex;
   flex-direction: column;
@@ -12,6 +20,26 @@
 
 .StoryDescription {
   margin: 0;
+  color: var(--fgColor-muted);
+}
+
+.WideButton {
+  width: 200px;
+}
+
+.WideButton:where([data-component='buttonContent']) {
+  justify-content: start;
+}
+
+.HiddenSelection:where([data-component='ActionList.Selection']) {
+  display: none;
+}
+
+.NormalFontWeight:where([data-component='text']) {
+  font-weight: var(--base-text-weight-normal);
+}
+
+.TextMuted {
   color: var(--fgColor-muted);
 }
 
@@ -55,4 +83,16 @@
   opacity: 0;
   max-height: 0;
   overflow: hidden;
+}
+
+.FormControl {
+  margin-bottom: var(--base-size-8);
+}
+
+.ButtonContentStartJustify [data-component='buttonContent'] {
+  justify-content: start;
+}
+
+.HideActionListSelection [data-component='ActionList.Selection'] {
+  display: none;
 }

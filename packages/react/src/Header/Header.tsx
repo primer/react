@@ -1,23 +1,21 @@
 import type {Location, Pathname} from 'history'
-import type {SxProp} from '../sx'
 import React from 'react'
 import {clsx} from 'clsx'
 import classes from './Header.module.css'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
-import {BoxWithFallback} from '../internal/components/BoxWithFallback'
 
-export type HeaderProps = React.ComponentProps<'header'> & SxProp & {as?: React.ElementType}
-export type HeaderItemProps = React.ComponentProps<'div'> & SxProp & {full?: boolean}
-export type HeaderLinkProps = React.ComponentProps<'a'> & SxProp & {to?: Location | Pathname; as?: React.ElementType}
+export type HeaderProps = React.ComponentProps<'header'> & {as?: React.ElementType}
+export type HeaderItemProps = React.ComponentProps<'div'> & {full?: boolean}
+export type HeaderLinkProps = React.ComponentProps<'a'> & {to?: Location | Pathname; as?: React.ElementType}
 
 const Header = React.forwardRef<HTMLElement, HeaderProps>(function Header(
-  {children, className, as = 'header', ...rest},
+  {as: BaseComponent = 'header', children, className, ...rest},
   forwardRef,
 ) {
   return (
-    <BoxWithFallback as={as} ref={forwardRef} className={clsx(className, classes.Header)} {...rest}>
+    <BaseComponent ref={forwardRef} className={clsx(className, classes.Header)} {...rest}>
       {children}
-    </BoxWithFallback>
+    </BaseComponent>
   )
 }) as PolymorphicForwardRefComponent<'header', HeaderProps>
 
@@ -28,22 +26,22 @@ const HeaderItem = React.forwardRef<HTMLDivElement, HeaderItemProps>(function He
   forwardRef,
 ) {
   return (
-    <BoxWithFallback ref={forwardRef} className={clsx(className, classes.HeaderItem)} data-full={full} {...rest}>
+    <div ref={forwardRef} className={clsx(className, classes.HeaderItem)} data-full={full} {...rest}>
       {children}
-    </BoxWithFallback>
+    </div>
   )
 })
 
 HeaderItem.displayName = 'Header.Item'
 
 const HeaderLink = React.forwardRef<HTMLAnchorElement, HeaderLinkProps>(function HeaderLink(
-  {children, className, as = 'a', ...rest},
+  {children, className, as: BaseComponent = 'a', ...rest},
   forwardRef,
 ) {
   return (
-    <BoxWithFallback as={as} ref={forwardRef} className={clsx(className, classes.HeaderLink)} {...rest}>
+    <BaseComponent ref={forwardRef} className={clsx(className, classes.HeaderLink)} {...rest}>
       {children}
-    </BoxWithFallback>
+    </BaseComponent>
   )
 })
 

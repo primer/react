@@ -24,6 +24,20 @@ export const WithIcons = () => (
   </SegmentedControl>
 )
 
+export const WithCounterLabels = () => (
+  <SegmentedControl aria-label="Issues by label">
+    <SegmentedControl.Button defaultSelected aria-label="Feature" count={5}>
+      Feature
+    </SegmentedControl.Button>
+    <SegmentedControl.Button aria-label="Bug" count={3}>
+      Bug
+    </SegmentedControl.Button>
+    <SegmentedControl.Button aria-label="Good first issue" count={10}>
+      Good first issue
+    </SegmentedControl.Button>
+  </SegmentedControl>
+)
+
 export const Controlled = () => {
   const [selectedIndex, setSelectedIndex] = useState(0)
   const handleChange = (i: number) => {
@@ -125,10 +139,10 @@ IconOnly.storyName = 'Icon only'
 export const AssociatedWithALabelAndCaption = () => (
   <div className={classes.LabelAndCaptionContainer}>
     <div className={classes.LabelAndCaption}>
-      <Text fontSize={2} fontWeight="bold" id="scLabel-vert" display="block">
+      <Text className={classes.TextLargeBold} id="scLabel-vert" style={{display: 'block'}}>
         File view
       </Text>
-      <Text color="fg.subtle" fontSize={1} id="scCaption-vert" display="block">
+      <Text className={classes.TextMediumSubtle} id="scCaption-vert" style={{display: 'block'}}>
         Change the way the file is viewed
       </Text>
     </div>

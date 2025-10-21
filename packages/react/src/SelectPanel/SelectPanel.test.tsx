@@ -3,7 +3,6 @@ import {describe, expect, it, beforeEach, vi} from 'vitest'
 import React from 'react'
 import {SelectPanel, type SelectPanelProps, type ItemInput, type GroupedListProps} from '../SelectPanel'
 import {userEvent} from '@testing-library/user-event'
-import ThemeProvider from '../ThemeProvider'
 import {FeatureFlags} from '../FeatureFlags'
 import type {InitialLoadingType} from './SelectPanel'
 import type {LiveRegionElement} from '@primer/live-region-element'
@@ -54,26 +53,24 @@ function BasicSelectPanel(passthroughProps: Record<string, unknown>) {
   }
 
   return (
-    <ThemeProvider>
-      <SelectPanel
-        title="test title"
-        subtitle="test subtitle"
-        items={items}
-        placeholder="Select items"
-        placeholderText="Filter items"
-        selected={selected}
-        onSelectedChange={onSelectedChange}
-        filterValue={filter}
-        onFilterChange={value => {
-          setFilter(value)
-        }}
-        open={open}
-        onOpenChange={isOpen => {
-          setOpen(isOpen)
-        }}
-        {...passthroughProps}
-      />
-    </ThemeProvider>
+    <SelectPanel
+      title="test title"
+      subtitle="test subtitle"
+      items={items}
+      placeholder="Select items"
+      placeholderText="Filter items"
+      selected={selected}
+      onSelectedChange={onSelectedChange}
+      filterValue={filter}
+      onFilterChange={value => {
+        setFilter(value)
+      }}
+      open={open}
+      onOpenChange={isOpen => {
+        setOpen(isOpen)
+      }}
+      {...passthroughProps}
+    />
   )
 }
 
@@ -171,7 +168,7 @@ for (const usingRemoveActiveDescendant of [false, true]) {
         }
 
         return (
-          <ThemeProvider>
+          <>
             <button type="button">Outside of select panel</button>
             <SelectPanel
               title="test title"
@@ -191,7 +188,7 @@ for (const usingRemoveActiveDescendant of [false, true]) {
                 setOpen(args[0])
               }}
             />
-          </ThemeProvider>
+          </>
         )
       }
 
@@ -243,24 +240,22 @@ for (const usingRemoveActiveDescendant of [false, true]) {
       // This panel contains another focusable thing (the IconButton) that should not receive focus
       // when the panel opens.
       renderWithFlag(
-        <ThemeProvider>
-          <SelectPanel
-            onOpenChange={() => {}}
-            onFilterChange={() => {}}
-            onSelectedChange={() => {}}
-            open={true}
-            items={items}
-            selected={[]}
-            placeholder="Select items"
-            placeholderText="Filter items"
-            title={
-              <div className={classes.Title}>
-                <IconButton icon={ArrowLeftIcon} aria-label="Back" />
-                <span>Title</span>
-              </div>
-            }
-          />
-        </ThemeProvider>,
+        <SelectPanel
+          onOpenChange={() => {}}
+          onFilterChange={() => {}}
+          onSelectedChange={() => {}}
+          open={true}
+          items={items}
+          selected={[]}
+          placeholder="Select items"
+          placeholderText="Filter items"
+          title={
+            <div className={classes.Title}>
+              <IconButton icon={ArrowLeftIcon} aria-label="Back" />
+              <span>Title</span>
+            </div>
+          }
+        />,
         usingRemoveActiveDescendant,
       )
 
@@ -442,19 +437,17 @@ for (const usingRemoveActiveDescendant of [false, true]) {
           const [filter, setFilter] = React.useState('')
 
           return (
-            <ThemeProvider>
-              <SelectPanel
-                title="test title"
-                items={items}
-                placeholder="Select items"
-                selected={selected}
-                onSelectedChange={setSelected}
-                filterValue={filter}
-                onFilterChange={setFilter}
-                open={open}
-                onOpenChange={setOpen}
-              />
-            </ThemeProvider>
+            <SelectPanel
+              title="test title"
+              items={items}
+              placeholder="Select items"
+              selected={selected}
+              onSelectedChange={setSelected}
+              filterValue={filter}
+              onFilterChange={setFilter}
+              open={open}
+              onOpenChange={setOpen}
+            />
           )
         }
 
@@ -483,25 +476,23 @@ for (const usingRemoveActiveDescendant of [false, true]) {
       }
 
       return (
-        <ThemeProvider>
-          <SelectPanel
-            title="test title"
-            subtitle="test subtitle"
-            items={items.filter(item => item.text?.includes(filter))}
-            placeholder="Select items"
-            placeholderText="Filter items"
-            selected={selected}
-            onSelectedChange={onSelectedChange}
-            filterValue={filter}
-            onFilterChange={value => {
-              setFilter(value)
-            }}
-            open={open}
-            onOpenChange={isOpen => {
-              setOpen(isOpen)
-            }}
-          />
-        </ThemeProvider>
+        <SelectPanel
+          title="test title"
+          subtitle="test subtitle"
+          items={items.filter(item => item.text?.includes(filter))}
+          placeholder="Select items"
+          placeholderText="Filter items"
+          selected={selected}
+          onSelectedChange={onSelectedChange}
+          filterValue={filter}
+          onFilterChange={value => {
+            setFilter(value)
+          }}
+          open={open}
+          onOpenChange={isOpen => {
+            setOpen(isOpen)
+          }}
+        />
       )
     }
 
@@ -550,26 +541,24 @@ for (const usingRemoveActiveDescendant of [false, true]) {
       }
 
       return (
-        <ThemeProvider>
-          <SelectPanel
-            title="test title"
-            subtitle="test subtitle"
-            items={filteredItems}
-            placeholder="Select items"
-            placeholderText="Filter items"
-            selected={selected}
-            onSelectedChange={onSelectedChange}
-            filterValue={filter}
-            onFilterChange={value => {
-              setFilter(value)
-            }}
-            open={open}
-            onOpenChange={isOpen => {
-              setOpen(isOpen)
-            }}
-            message={getMessage()}
-          />
-        </ThemeProvider>
+        <SelectPanel
+          title="test title"
+          subtitle="test subtitle"
+          items={filteredItems}
+          placeholder="Select items"
+          placeholderText="Filter items"
+          selected={selected}
+          onSelectedChange={onSelectedChange}
+          filterValue={filter}
+          onFilterChange={value => {
+            setFilter(value)
+          }}
+          open={open}
+          onOpenChange={isOpen => {
+            setOpen(isOpen)
+          }}
+          message={getMessage()}
+        />
       )
     }
 
@@ -585,25 +574,23 @@ for (const usingRemoveActiveDescendant of [false, true]) {
       const items: SelectPanelProps['items'] = []
 
       return (
-        <ThemeProvider>
-          <SelectPanel
-            title="test title"
-            subtitle="test subtitle"
-            items={items.filter(item => item.text?.includes(filter))}
-            placeholder="Select items"
-            placeholderText="Filter items"
-            selected={selected}
-            onSelectedChange={onSelectedChange}
-            filterValue={filter}
-            onFilterChange={value => {
-              setFilter(value)
-            }}
-            open={open}
-            onOpenChange={isOpen => {
-              setOpen(isOpen)
-            }}
-          />
-        </ThemeProvider>
+        <SelectPanel
+          title="test title"
+          subtitle="test subtitle"
+          items={items.filter(item => item.text?.includes(filter))}
+          placeholder="Select items"
+          placeholderText="Filter items"
+          selected={selected}
+          onSelectedChange={onSelectedChange}
+          filterValue={filter}
+          onFilterChange={value => {
+            setFilter(value)
+          }}
+          open={open}
+          onOpenChange={isOpen => {
+            setOpen(isOpen)
+          }}
+        />
       )
     }
 
@@ -638,22 +625,20 @@ for (const usingRemoveActiveDescendant of [false, true]) {
         const [open, setOpen] = React.useState(false)
 
         return (
-          <ThemeProvider>
-            <SelectPanel
-              title="test title"
-              subtitle="test subtitle"
-              placeholder="Select items"
-              open={open}
-              items={items}
-              onFilterChange={() => {}}
-              selected={[]}
-              onSelectedChange={() => {}}
-              onOpenChange={isOpen => {
-                setOpen(isOpen)
-              }}
-              initialLoadingType={initialLoadingType}
-            />
-          </ThemeProvider>
+          <SelectPanel
+            title="test title"
+            subtitle="test subtitle"
+            placeholder="Select items"
+            open={open}
+            items={items}
+            onFilterChange={() => {}}
+            selected={[]}
+            onSelectedChange={() => {}}
+            onOpenChange={isOpen => {
+              setOpen(isOpen)
+            }}
+            initialLoadingType={initialLoadingType}
+          />
         )
       }
 
@@ -695,7 +680,7 @@ for (const usingRemoveActiveDescendant of [false, true]) {
         expect(screen.getByRole('combobox').hasAttribute('aria-describedby')).toBeTruthy()
       })
 
-      it.skip('should announce initially focused item', async () => {
+      it('should announce initially focused item', async () => {
         const user = userEvent.setup()
         renderWithFlag(<FilterableSelectPanel />, usingRemoveActiveDescendant)
 
@@ -730,29 +715,27 @@ for (const usingRemoveActiveDescendant of [false, true]) {
           }
 
           return (
-            <ThemeProvider>
-              <SelectPanel
-                title="test title"
-                subtitle="test subtitle"
-                items={items}
-                placeholder="Select items"
-                placeholderText="Filter items"
-                selected={selected}
-                onSelectedChange={onSelectedChange}
-                filterValue={filter}
-                onFilterChange={value => {
-                  setFilter(value)
-                }}
-                open={open}
-                onOpenChange={isOpen => {
-                  setOpen(isOpen)
-                }}
-                notice={{
-                  text: 'This is a notice',
-                  variant: 'warning',
-                }}
-              />
-            </ThemeProvider>
+            <SelectPanel
+              title="test title"
+              subtitle="test subtitle"
+              items={items}
+              placeholder="Select items"
+              placeholderText="Filter items"
+              selected={selected}
+              onSelectedChange={onSelectedChange}
+              filterValue={filter}
+              onFilterChange={value => {
+                setFilter(value)
+              }}
+              open={open}
+              onOpenChange={isOpen => {
+                setOpen(isOpen)
+              }}
+              notice={{
+                text: 'This is a notice',
+                variant: 'warning',
+              }}
+            />
           )
         }
 
@@ -846,30 +829,28 @@ for (const usingRemoveActiveDescendant of [false, true]) {
           const [open, setOpen] = React.useState(false)
 
           return (
-            <ThemeProvider>
-              <SelectPanel
-                title="test title"
-                subtitle="test subtitle"
-                placeholder="Select items"
-                placeholderText="Filter items"
-                open={open}
-                items={[]}
-                onFilterChange={value => {
-                  setFilter(value)
-                }}
-                filterValue={filter}
-                selected={[]}
-                onSelectedChange={() => {}}
-                onOpenChange={isOpen => {
-                  setOpen(isOpen)
-                }}
-                message={{
-                  title: 'Nothing found',
-                  body: `There's nothing here.`,
-                  variant: 'empty',
-                }}
-              />
-            </ThemeProvider>
+            <SelectPanel
+              title="test title"
+              subtitle="test subtitle"
+              placeholder="Select items"
+              placeholderText="Filter items"
+              open={open}
+              items={[]}
+              onFilterChange={value => {
+                setFilter(value)
+              }}
+              filterValue={filter}
+              selected={[]}
+              onSelectedChange={() => {}}
+              onOpenChange={isOpen => {
+                setOpen(isOpen)
+              }}
+              message={{
+                title: 'Nothing found',
+                body: `There's nothing here.`,
+                variant: 'empty',
+              }}
+            />
           )
         }
 
@@ -1006,26 +987,24 @@ for (const usingRemoveActiveDescendant of [false, true]) {
         }
 
         return (
-          <ThemeProvider>
-            <SelectPanel
-              title="test title"
-              subtitle="test subtitle"
-              footer={<div>test footer</div>}
-              items={items}
-              placeholder="Select items"
-              placeholderText="Filter items"
-              selected={selected}
-              onSelectedChange={onSelectedChange}
-              filterValue={filter}
-              onFilterChange={value => {
-                setFilter(value)
-              }}
-              open={open}
-              onOpenChange={isOpen => {
-                setOpen(isOpen)
-              }}
-            />
-          </ThemeProvider>
+          <SelectPanel
+            title="test title"
+            subtitle="test subtitle"
+            footer={<div>test footer</div>}
+            items={items}
+            placeholder="Select items"
+            placeholderText="Filter items"
+            selected={selected}
+            onSelectedChange={onSelectedChange}
+            filterValue={filter}
+            onFilterChange={value => {
+              setFilter(value)
+            }}
+            open={open}
+            onOpenChange={isOpen => {
+              setOpen(isOpen)
+            }}
+          />
         )
       }
 
@@ -1082,26 +1061,24 @@ for (const usingRemoveActiveDescendant of [false, true]) {
       }
 
       return (
-        <ThemeProvider>
-          <SelectPanel
-            title="test title"
-            subtitle="test subtitle"
-            groupMetadata={groupMetadata}
-            placeholderText="Filter items"
-            placeholder="Select items"
-            items={listOfItems}
-            selected={selectedItems}
-            onSelectedChange={onSelectedChange}
-            open={open}
-            onOpenChange={isOpen => {
-              setOpen(isOpen)
-            }}
-            filterValue={filter}
-            onFilterChange={value => {
-              setFilter(value)
-            }}
-          />
-        </ThemeProvider>
+        <SelectPanel
+          title="test title"
+          subtitle="test subtitle"
+          groupMetadata={groupMetadata}
+          placeholderText="Filter items"
+          placeholder="Select items"
+          items={listOfItems}
+          selected={selectedItems}
+          onSelectedChange={onSelectedChange}
+          open={open}
+          onOpenChange={isOpen => {
+            setOpen(isOpen)
+          }}
+          filterValue={filter}
+          onFilterChange={value => {
+            setFilter(value)
+          }}
+        />
       )
     }
 
@@ -1256,9 +1233,7 @@ for (const usingRemoveActiveDescendant of [false, true]) {
       const renderSelectPanelWithFlags = (flags: Record<string, boolean>, props: Record<string, unknown> = {}) => {
         return renderWithFlag(
           <FeatureFlags flags={flags}>
-            <ThemeProvider>
-              <SingleSelectPanel {...props} />
-            </ThemeProvider>
+            <SingleSelectPanel {...props} />
           </FeatureFlags>,
           usingRemoveActiveDescendant,
         )
@@ -1270,24 +1245,22 @@ for (const usingRemoveActiveDescendant of [false, true]) {
         const [open, setOpen] = React.useState(false)
 
         return (
-          <ThemeProvider>
-            <SelectPanel
-              title="test title"
-              subtitle="test subtitle"
-              items={items}
-              placeholder="Select an item"
-              placeholderText="Filter items"
-              selected={undefined}
-              onSelectedChange={() => {}}
-              filterValue={filter}
-              onFilterChange={value => {
-                setFilter(value)
-              }}
-              open={open}
-              onOpenChange={open => setOpen(open)}
-              {...passthroughProps}
-            />
-          </ThemeProvider>
+          <SelectPanel
+            title="test title"
+            subtitle="test subtitle"
+            items={items}
+            placeholder="Select an item"
+            placeholderText="Filter items"
+            selected={undefined}
+            onSelectedChange={() => {}}
+            filterValue={filter}
+            onFilterChange={value => {
+              setFilter(value)
+            }}
+            open={open}
+            onOpenChange={open => setOpen(open)}
+            {...passthroughProps}
+          />
         )
       }
 
@@ -1355,26 +1328,24 @@ for (const usingRemoveActiveDescendant of [false, true]) {
         }
 
         return (
-          <ThemeProvider>
-            <SelectPanel
-              title="test title"
-              subtitle="test subtitle"
-              items={items}
-              placeholder="Select items"
-              placeholderText="Filter items"
-              selected={selected}
-              onSelectedChange={onSelectedChange}
-              filterValue={filter}
-              onFilterChange={value => {
-                setFilter(value)
-              }}
-              open={open}
-              onOpenChange={isOpen => {
-                setOpen(isOpen)
-              }}
-              showSelectAll={showSelectAll}
-            />
-          </ThemeProvider>
+          <SelectPanel
+            title="test title"
+            subtitle="test subtitle"
+            items={items}
+            placeholder="Select items"
+            placeholderText="Filter items"
+            selected={selected}
+            onSelectedChange={onSelectedChange}
+            filterValue={filter}
+            onFilterChange={value => {
+              setFilter(value)
+            }}
+            open={open}
+            onOpenChange={isOpen => {
+              setOpen(isOpen)
+            }}
+            showSelectAll={showSelectAll}
+          />
         )
       }
 
@@ -1499,26 +1470,24 @@ for (const usingRemoveActiveDescendant of [false, true]) {
           }
 
           return (
-            <ThemeProvider>
-              <SelectPanel
-                title="test title"
-                subtitle="test subtitle"
-                items={items.filter(item => item.text?.includes(filter))}
-                placeholder="Select items"
-                placeholderText="Filter items"
-                selected={selected}
-                onSelectedChange={onSelectedChange}
-                filterValue={filter}
-                onFilterChange={value => {
-                  setFilter(value)
-                }}
-                open={open}
-                onOpenChange={isOpen => {
-                  setOpen(isOpen)
-                }}
-                showSelectAll={true}
-              />
-            </ThemeProvider>
+            <SelectPanel
+              title="test title"
+              subtitle="test subtitle"
+              items={items.filter(item => item.text?.includes(filter))}
+              placeholder="Select items"
+              placeholderText="Filter items"
+              selected={selected}
+              onSelectedChange={onSelectedChange}
+              filterValue={filter}
+              onFilterChange={value => {
+                setFilter(value)
+              }}
+              open={open}
+              onOpenChange={isOpen => {
+                setOpen(isOpen)
+              }}
+              showSelectAll={true}
+            />
           )
         }
 

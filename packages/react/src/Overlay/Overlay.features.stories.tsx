@@ -16,6 +16,7 @@ import {
   ActionList,
   ActionMenu,
   useFocusTrap,
+  Textarea,
 } from '..'
 import {Tooltip} from '../TooltipV2'
 import classes from './Overlay.features.stories.module.css'
@@ -61,7 +62,7 @@ export const DropdownOverlay = ({anchorSide, open}: Args) => {
 
   return (
     <>
-      <Button ref={buttonRef} sx={{position: 'relative'}} onClick={() => setIsOpen(!isOpen)}>
+      <Button ref={buttonRef} style={{position: 'relative'}} onClick={() => setIsOpen(!isOpen)}>
         open overlay
       </Button>
       {isOpen || open ? (
@@ -185,7 +186,7 @@ export const OverlayOnTopOfOverlay = ({anchorSide, role, open}: Args) => {
               onEscape={closeSecondaryOverlay}
               onClickOutside={closeSecondaryOverlay}
               width="small"
-              sx={{top: '40px'}}
+              style={{top: '40px'}}
               anchorSide={anchorSide}
               role={role}
               aria-modal={role === 'dialog' ? 'true' : undefined}
@@ -257,12 +258,10 @@ export const MemexNestedOverlays = ({role, open}: Args) => {
         >
           <form onSubmit={() => setOverlayOpen(false)} className={classes.FormContainer} aria-label="Set Duration Form">
             <div className={classes.FormRow}>
-              <Text color="fg.muted" sx={{fontSize: 1}}>
-                Duration:
-              </Text>
+              <Text className={classes.MediumTextMuted}>Duration:</Text>
               <TextInput defaultValue={2} aria-label="Duration" />
               <ActionMenu>
-                <ActionMenu.Button sx={{width: 200}} aria-label="Change duration unit">
+                <ActionMenu.Button style={{width: 200}} aria-label="Change duration unit">
                   {duration}
                 </ActionMenu.Button>
                 <ActionMenu.Overlay>
@@ -360,7 +359,13 @@ export const NestedOverlays = ({role, open}: Args) => {
               <Button
                 variant="invisible"
                 ref={secondaryButtonRef}
-                sx={{px: 2, mx: 2, display: 'flex'}}
+                style={{
+                  paddingLeft: '8px',
+                  paddingRight: '8px',
+                  marginLeft: '8px',
+                  marginRight: '8px',
+                  display: 'flex',
+                }}
                 leadingVisual={PlusIcon}
                 onClick={() => setCreateListOverlayOpen(!createListOverlayOpen)}
               >
@@ -383,11 +388,11 @@ export const NestedOverlays = ({role, open}: Args) => {
               ref={secondaryContainer}
             >
               <form className={classes.CreateFormContent} aria-label="Set Duration Form">
-                <Text color="fg.muted" sx={{fontSize: 1, mb: 3}}>
+                <Text className={classes.MediumTextWithMargin}>
                   Create a list to organize your starred repositories.
                 </Text>
-                <TextInput placeholder="Name this list" sx={{mb: 2}} />
-                <TextInput as="textarea" placeholder="Write a description" rows={3} sx={{mb: 2, textarea: {p: 2}}} />
+                <TextInput placeholder="Name this list" className={classes.TextInputWithMargin} />
+                <Textarea placeholder="Write a description" rows={3} className={classes.TextInputWithMargin} />
 
                 <Button variant="primary" onClick={() => setCreateListOverlayOpen(!createListOverlayOpen)}>
                   Create
@@ -428,15 +433,7 @@ export const MemexIssueOverlay = ({role, open}: Args) => {
           event.preventDefault()
           setOverlayOpen(true)
         }}
-        sx={{
-          display: 'block',
-          border: '1px solid',
-          borderColor: 'border.default',
-          p: 2,
-          ':hover': {
-            backgroundColor: 'canvas.subtle',
-          },
-        }}
+        className={classes.IssueLink}
       >
         <IssueDraftIcon /> {title}
       </Link>
@@ -459,8 +456,8 @@ export const MemexIssueOverlay = ({role, open}: Args) => {
               <Label size="large">
                 <IssueDraftIcon /> Draft
               </Label>
-              <Text sx={{fontSize: 1}}>opened 2 days ago,</Text>
-              <Text sx={{fontSize: 1}}>showing {editing ? 'input' : 'button'}</Text>
+              <Text className={classes.MediumText}>opened 2 days ago,</Text>
+              <Text className={classes.MediumText}>showing {editing ? 'input' : 'button'}</Text>
             </div>
             {editing ? (
               <TextInput
@@ -481,14 +478,7 @@ export const MemexIssueOverlay = ({role, open}: Args) => {
                   }
                 }}
                 ref={inputRef}
-                sx={{
-                  width: '100%',
-                  py: '2px',
-                  px: '7px',
-                  textAlign: 'left',
-                  color: 'fg.default',
-                  input: {fontWeight: 'bold', fontSize: 4, px: 0},
-                }}
+                className={classes.IssueTitleInput}
               />
             ) : (
               <Button
@@ -496,13 +486,13 @@ export const MemexIssueOverlay = ({role, open}: Args) => {
                 ref={buttonRef}
                 onClick={() => setEditing(true)}
                 aria-label="Change issue title"
-                sx={{
+                style={{
                   width: '100%',
-                  fontSize: 3,
-                  color: 'fg.default',
-                  p: 2,
+                  fontSize: 'var(--text-title-size-medium)',
+                  color: 'var(--fgColor-default)',
+                  padding: '8px',
                   textAlign: 'left',
-                  borderRadius: '2',
+                  borderRadius: 'var(--borderRadius-medium)',
                 }}
               >
                 {title}
@@ -547,8 +537,8 @@ export const PositionedOverlays = ({right, role, open}: Args) => {
           setIsOpen(!isOpen)
           setDirection('right')
         }}
-        sx={{
-          mt: 2,
+        style={{
+          marginTop: '8px',
         }}
       >
         Open right overlay

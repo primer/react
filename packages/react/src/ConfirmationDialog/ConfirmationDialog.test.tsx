@@ -7,33 +7,33 @@ import {ActionMenu} from '../deprecated/ActionMenu'
 import BaseStyles from '../BaseStyles'
 import {Button} from '../Button'
 import {ConfirmationDialog, useConfirm} from './ConfirmationDialog'
-import theme from '../theme'
-import {ThemeProvider} from '../ThemeProvider'
 import {Stack} from '../Stack'
 
-const Basic = ({confirmButtonType}: Pick<React.ComponentProps<typeof ConfirmationDialog>, 'confirmButtonType'>) => {
+const Basic = ({
+  confirmButtonType,
+  overrideButtonFocus,
+}: Pick<React.ComponentProps<typeof ConfirmationDialog>, 'confirmButtonType' | 'overrideButtonFocus'>) => {
   const [isOpen, setIsOpen] = useState(false)
   const buttonRef = useRef<HTMLButtonElement>(null)
   const onDialogClose = useCallback(() => setIsOpen(false), [])
   return (
-    <ThemeProvider theme={theme}>
-      <BaseStyles>
-        <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
-          Show dialog
-        </Button>
-        {isOpen && (
-          <ConfirmationDialog
-            title="Confirm"
-            onClose={onDialogClose}
-            cancelButtonContent="Secondary"
-            confirmButtonContent="Primary"
-            confirmButtonType={confirmButtonType}
-          >
-            Lorem ipsum dolor sit Pippin good dog.
-          </ConfirmationDialog>
-        )}
-      </BaseStyles>
-    </ThemeProvider>
+    <BaseStyles>
+      <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
+        Show dialog
+      </Button>
+      {isOpen && (
+        <ConfirmationDialog
+          title="Confirm"
+          onClose={onDialogClose}
+          cancelButtonContent="Secondary"
+          confirmButtonContent="Primary"
+          confirmButtonType={confirmButtonType}
+          overrideButtonFocus={overrideButtonFocus}
+        >
+          Lorem ipsum dolor sit Pippin good dog.
+        </ConfirmationDialog>
+      )}
+    </BaseStyles>
   )
 }
 
@@ -53,16 +53,14 @@ const ShorthandHookFromActionMenu = () => {
     }
   }, [confirm])
   return (
-    <ThemeProvider theme={theme}>
-      <BaseStyles>
-        <Stack gap="none">
-          <ActionMenu
-            renderAnchor={props => <Button {...props}>{text}</Button>}
-            items={[{text: 'Show dialog', onAction: onButtonClick}]}
-          />
-        </Stack>
-      </BaseStyles>
-    </ThemeProvider>
+    <BaseStyles>
+      <Stack gap="none">
+        <ActionMenu
+          renderAnchor={props => <Button {...props}>{text}</Button>}
+          items={[{text: 'Show dialog', onAction: onButtonClick}]}
+        />
+      </Stack>
+    </BaseStyles>
   )
 }
 
@@ -75,24 +73,16 @@ const CustomProps = ({
   const buttonRef = useRef<HTMLButtonElement>(null)
   const onDialogClose = useCallback(() => setIsOpen(false), [])
   return (
-    <ThemeProvider theme={theme}>
-      <BaseStyles>
-        <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
-          Show dialog
-        </Button>
-        {isOpen && (
-          <ConfirmationDialog
-            title="Confirm"
-            onClose={onDialogClose}
-            className={className}
-            width={width}
-            height={height}
-          >
-            Lorem ipsum dolor sit Pippin good dog.
-          </ConfirmationDialog>
-        )}
-      </BaseStyles>
-    </ThemeProvider>
+    <BaseStyles>
+      <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
+        Show dialog
+      </Button>
+      {isOpen && (
+        <ConfirmationDialog title="Confirm" onClose={onDialogClose} className={className} width={width} height={height}>
+          Lorem ipsum dolor sit Pippin good dog.
+        </ConfirmationDialog>
+      )}
+    </BaseStyles>
   )
 }
 
@@ -104,26 +94,24 @@ const LoadingStates = ({
   const buttonRef = useRef<HTMLButtonElement>(null)
   const onDialogClose = useCallback(() => setIsOpen(false), [])
   return (
-    <ThemeProvider theme={theme}>
-      <BaseStyles>
-        <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
-          Show dialog
-        </Button>
-        {isOpen && (
-          <ConfirmationDialog
-            title="Confirm"
-            onClose={onDialogClose}
-            cancelButtonContent="Cancel"
-            confirmButtonContent="Delete"
-            confirmButtonType="danger"
-            confirmButtonLoading={confirmButtonLoading}
-            cancelButtonLoading={cancelButtonLoading}
-          >
-            Are you sure you want to delete this?
-          </ConfirmationDialog>
-        )}
-      </BaseStyles>
-    </ThemeProvider>
+    <BaseStyles>
+      <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
+        Show dialog
+      </Button>
+      {isOpen && (
+        <ConfirmationDialog
+          title="Confirm"
+          onClose={onDialogClose}
+          cancelButtonContent="Cancel"
+          confirmButtonContent="Delete"
+          confirmButtonType="danger"
+          confirmButtonLoading={confirmButtonLoading}
+          cancelButtonLoading={cancelButtonLoading}
+        >
+          Are you sure you want to delete this?
+        </ConfirmationDialog>
+      )}
+    </BaseStyles>
   )
 }
 
@@ -187,6 +175,15 @@ describe('ConfirmationDialog', () => {
     expect(dialog.getAttribute('data-height')).toBe('small')
   })
 
+  it('focuses the confirm button even when dangerous if initialButtonFocus is confirm', async () => {
+    const {getByText, getByRole} = render(<Basic confirmButtonType="danger" overrideButtonFocus="confirm" />)
+
+    fireEvent.click(getByText('Show dialog'))
+
+    expect(getByRole('button', {name: 'Primary'})).toEqual(document.activeElement)
+    expect(getByRole('button', {name: 'Secondary'})).not.toEqual(document.activeElement)
+  })
+
   describe('loading states', () => {
     it('applies loading state to confirm button when confirmButtonLoading is true', async () => {
       const {getByText, getByRole} = render(<LoadingStates confirmButtonLoading={true} />)
@@ -227,19 +224,17 @@ describe('ConfirmationDialog', () => {
     it('disables button clicks when button is loading', async () => {
       const mockOnClose = vi.fn()
       const {getByRole} = render(
-        <ThemeProvider theme={theme}>
-          <BaseStyles>
-            <ConfirmationDialog
-              title="Confirm"
-              onClose={mockOnClose}
-              confirmButtonLoading={true}
-              confirmButtonContent="Delete"
-              cancelButtonContent="Cancel"
-            >
-              Test content
-            </ConfirmationDialog>
-          </BaseStyles>
-        </ThemeProvider>,
+        <BaseStyles>
+          <ConfirmationDialog
+            title="Confirm"
+            onClose={mockOnClose}
+            confirmButtonLoading={true}
+            confirmButtonContent="Delete"
+            cancelButtonContent="Cancel"
+          >
+            Test content
+          </ConfirmationDialog>
+        </BaseStyles>,
       )
 
       const confirmButton = getByRole('button', {name: 'Delete'})

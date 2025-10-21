@@ -1,11 +1,10 @@
 import type {ChangeEventHandler, InputHTMLAttributes, ReactElement} from 'react'
 import React, {useContext} from 'react'
-import type {SxProp} from '../sx'
 import {RadioGroupContext} from '../RadioGroup/RadioGroup'
 import {clsx} from 'clsx'
 import sharedClasses from '../Checkbox/shared.module.css'
 import classes from './Radio.module.css'
-import {BoxWithFallback} from '../internal/components/BoxWithFallback'
+import type {WithSlotMarker} from '../utils/types'
 
 export type RadioProps = {
   /**
@@ -33,8 +32,7 @@ export type RadioProps = {
    * Indicates whether the radio button must be checked before the form can be submitted
    */
   required?: boolean
-} & InputHTMLAttributes<HTMLInputElement> &
-  SxProp
+} & InputHTMLAttributes<HTMLInputElement>
 
 /**
  * An accessible, native radio component for selecting one option from a list.
@@ -69,8 +67,7 @@ const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
     }
 
     return (
-      <BoxWithFallback
-        as="input"
+      <input
         type="radio"
         value={value}
         name={name}
@@ -88,5 +85,6 @@ const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
 )
 
 Radio.displayName = 'Radio'
+;(Radio as WithSlotMarker<typeof Radio>).__SLOT__ = Symbol('Radio')
 
-export default Radio
+export default Radio as WithSlotMarker<typeof Radio>

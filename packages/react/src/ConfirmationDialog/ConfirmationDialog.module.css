@@ -5,11 +5,6 @@
 
   > h1 {
     padding: var(--base-size-6) var(--base-size-8);
-
-    /* override default margin */
-    margin: 0;
-    font-size: var(--text-title-size-medium);
-    font-weight: var(--text-title-weight-medium);
     flex-grow: 1;
   }
 }
