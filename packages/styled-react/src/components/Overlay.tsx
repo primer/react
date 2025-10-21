@@ -1,6 +1,7 @@
-import {Overlay as PrimerOverlay, type OverlayProps as PrimerOverlayProps, sx, type SxProp} from '@primer/react'
+import {Overlay as PrimerOverlay, type OverlayProps as PrimerOverlayProps} from '@primer/react'
 import styled from 'styled-components'
 import {type ForwardRefComponent} from '../polymorphic'
+import {sx, type SxProp} from '../sx'
 
 type OverlayProps = PrimerOverlayProps & SxProp
 

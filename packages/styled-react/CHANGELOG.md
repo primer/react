@@ -1,5 +1,83 @@
 # @primer/styled-react
 
+## 1.0.0-rc.9
+
+### Patch Changes
+
+- [#7009](https://github.com/primer/react/pull/7009) [`c83d6a4`](https://github.com/primer/react/commit/c83d6a465ff48d8594f7077c87f6ddd8fe93cb76) Thanks [@siddharthkp](https://github.com/siddharthkp)! - Export ThemeProviderProps and BaseStylesProps
+
+- [#7015](https://github.com/primer/react/pull/7015) [`0889246`](https://github.com/primer/react/commit/0889246fda736fe7dd967a295fe8467109d06bc9) Thanks [@francinelucca](https://github.com/francinelucca)! - @primer/react: chore: remove Box, BoxProps export
+  @primer/styled-react: add Box component
+
+- [#7019](https://github.com/primer/react/pull/7019) [`4308179`](https://github.com/primer/react/commit/43081799465d5e4d66a0d761406a2ab64fb27d91) Thanks [@francinelucca](https://github.com/francinelucca)! - @primer/styled-react: chore(navlist): remove unneeded exports
+  @primer/react: add missing isSlot checks
+- Updated dependencies [[`a3765c2`](https://github.com/primer/react/commit/a3765c2e6c7d23972cdeeb8e206d802678f0d832), [`a108ab9`](https://github.com/primer/react/commit/a108ab92fa71af83f7da1ee9a311bc272568cfb3), [`3099210`](https://github.com/primer/react/commit/30992106820dee75cb2f6f0594e66acfd8b56f3c), [`860ac93`](https://github.com/primer/react/commit/860ac93dcdff0ba6f05cac1b5137721a9b34dfcb), [`2fd6c82`](https://github.com/primer/react/commit/2fd6c82e327db24b63cf604465b4192b0d29d8a9), [`34e7fa8`](https://github.com/primer/react/commit/34e7fa8cd88684c16d17e997aa7ef69d40b50340), [`a3f7ea9`](https://github.com/primer/react/commit/a3f7ea96514d4ba0a2d28aeb26e49eaafb8bf474), [`0889246`](https://github.com/primer/react/commit/0889246fda736fe7dd967a295fe8467109d06bc9), [`96968a2`](https://github.com/primer/react/commit/96968a28c1ddb2c31cb3e2f0e2e6297c1ee8df97), [`4308179`](https://github.com/primer/react/commit/43081799465d5e4d66a0d761406a2ab64fb27d91), [`3c32e7e`](https://github.com/primer/react/commit/3c32e7e162ae9a5f66c068639934cc55c01cca72), [`4b84948`](https://github.com/primer/react/commit/4b849489b123636209d6dd71b0fe66fbe7963bdb)]:
+  - @primer/react@38.0.0-rc.8
+
+## 1.0.0-rc.8
+
+### Minor Changes
+
+- [#6944](https://github.com/primer/react/pull/6944) [`446956d`](https://github.com/primer/react/commit/446956d3466ca11b95adf720d7cf07a1bb6bad92) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - Remove sx from deprecated ActionList component.
+
+- [#6958](https://github.com/primer/react/pull/6958) [`3032026`](https://github.com/primer/react/commit/30320263482baf9d2c634ec27122c9a42ece308a) Thanks [@siddharthkp](https://github.com/siddharthkp)! - @primer/react: Export `useId` and `useSyncedState`
+  @primer/styled-react: Add `ThemeProvider` and `BaseStyles`
+
+### Patch Changes
+
+- [#6976](https://github.com/primer/react/pull/6976) [`2ec5bf2`](https://github.com/primer/react/commit/2ec5bf2898a6966161a076f5896910bf1b1f4018) Thanks [@francinelucca](https://github.com/francinelucca)! - feat: support custom slots
+
+- [#6995](https://github.com/primer/react/pull/6995) [`2d37fab`](https://github.com/primer/react/commit/2d37fab9a02bac5426b4ee9154a1d299343f9f43) Thanks [@francinelucca](https://github.com/francinelucca)! - chore: ActionList use forwardedAs in subcomponents
+
+- [#6925](https://github.com/primer/react/pull/6925) [`ecc81b5`](https://github.com/primer/react/commit/ecc81b569b421a4181b0a2f4cdff9cfe60fe28fd) Thanks [@francinelucca](https://github.com/francinelucca)! - chore(TextInput): remove sx
+
+- [#6945](https://github.com/primer/react/pull/6945) [`1c84c0f`](https://github.com/primer/react/commit/1c84c0ff2b261a02d81c11fb16c7d3fb05294506) Thanks [@francinelucca](https://github.com/francinelucca)! - chore(Octicon): remove sx
+
+- [#6904](https://github.com/primer/react/pull/6904) [`62df166`](https://github.com/primer/react/commit/62df166574d6248b3405c224a2f63f1e53a75ece) Thanks [@pksjce](https://github.com/pksjce)! - Remove sx property from Button
+
+- [#6968](https://github.com/primer/react/pull/6968) [`9fcaedf`](https://github.com/primer/react/commit/9fcaedfad29ed5bf7cb3ed512a8051eeb45b7944) Thanks [@siddharthkp](https://github.com/siddharthkp)! - Export BaseStyles
+
+- Updated dependencies [[`446956d`](https://github.com/primer/react/commit/446956d3466ca11b95adf720d7cf07a1bb6bad92), [`701a9d0`](https://github.com/primer/react/commit/701a9d02cc5958bdeb12d63bbc169c5d40bd26e6), [`f61238c`](https://github.com/primer/react/commit/f61238c295377f59a5d3c5b0c782e98c238fa639), [`c58f171`](https://github.com/primer/react/commit/c58f171be98dfec354eeb85c870368e84796fe6e), [`c395547`](https://github.com/primer/react/commit/c395547ae30bb51ea40388183f384848a397dc80), [`260c74c`](https://github.com/primer/react/commit/260c74c4e9f780a891157c9a2bc1450a12f8593a), [`3ced917`](https://github.com/primer/react/commit/3ced917f595667e1f68a6b9110bd034e0d88bf2a), [`2703bc9`](https://github.com/primer/react/commit/2703bc9cad2d3f16552b748f3799949a35464a1a), [`76f1ca3`](https://github.com/primer/react/commit/76f1ca32a9303b18a2084c4e11c4699963b88e4e), [`2ec5bf2`](https://github.com/primer/react/commit/2ec5bf2898a6966161a076f5896910bf1b1f4018), [`173f76d`](https://github.com/primer/react/commit/173f76d917a688515ae36f2240bf5461db5eda0c), [`7dd483f`](https://github.com/primer/react/commit/7dd483f74e2a75e5c0a44f46a860afc2bdf0da9a), [`c1448cc`](https://github.com/primer/react/commit/c1448cc6546b0e58b1ceb54fa2989a1fd7cbfe30), [`8641c7a`](https://github.com/primer/react/commit/8641c7a778f88c9f65fa1f3d2c40994468651ae7), [`ecc81b5`](https://github.com/primer/react/commit/ecc81b569b421a4181b0a2f4cdff9cfe60fe28fd), [`3032026`](https://github.com/primer/react/commit/30320263482baf9d2c634ec27122c9a42ece308a), [`1c84c0f`](https://github.com/primer/react/commit/1c84c0ff2b261a02d81c11fb16c7d3fb05294506), [`62df166`](https://github.com/primer/react/commit/62df166574d6248b3405c224a2f63f1e53a75ece), [`32e12c6`](https://github.com/primer/react/commit/32e12c690a53aef918e765d128f381c8f57bfd02)]:
+  - @primer/react@38.0.0-rc.7
+
+## 1.0.0-rc.7
+
+### Patch Changes
+
+- Updated dependencies [[`4378ee8`](https://github.com/primer/react/commit/4378ee84442de8d75fbb34fcce48e28c09429c5c)]:
+  - @primer/react@38.0.0-rc.6
+
+## 1.0.0-rc.6
+
+### Patch Changes
+
+- [`013c200`](https://github.com/primer/react/commit/013c200dd9969743c5e824f635964802ccfdcbfa) Thanks [@francinelucca](https://github.com/francinelucca)! - chore: use styled wrapper instead of Box for Label, Token and Spinner
+
+## 1.0.0-rc.5
+
+### Minor Changes
+
+- [#6690](https://github.com/primer/react/pull/6690) [`c5c2053`](https://github.com/primer/react/commit/c5c2053caf38da76a4310098e805b2edb05e2552) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - Remove sx support from the Token component.
+
+- [#6611](https://github.com/primer/react/pull/6611) [`15c1eb7`](https://github.com/primer/react/commit/15c1eb734210938182323bb15200d69ae4a3a300) Thanks [@joshblack](https://github.com/joshblack)! - Update Avatar component to no longer support sx, add sx wrapper to @primer/styled-react
+
+### Patch Changes
+
+- [#6910](https://github.com/primer/react/pull/6910) [`03c0c59`](https://github.com/primer/react/commit/03c0c59b103d88e5c94b7c02617a769fcd7be8ec) Thanks [@francinelucca](https://github.com/francinelucca)! - chore: use forwardedAs prop in styled-react
+
+- [#6673](https://github.com/primer/react/pull/6673) [`19befd6`](https://github.com/primer/react/commit/19befd66b801532bb0ef85e60296c73d8c747fc5) Thanks [@llastflowers](https://github.com/llastflowers)! - Remove support for `sx` from `CircleBadge` component
+
+- [#6865](https://github.com/primer/react/pull/6865) [`eaf7e58`](https://github.com/primer/react/commit/eaf7e5840e4fbe4042c80711f983a0df05e2b68d) Thanks [@francinelucca](https://github.com/francinelucca)! - chore: remove sx from Overlay
+
+- [#6864](https://github.com/primer/react/pull/6864) [`b0abd78`](https://github.com/primer/react/commit/b0abd785713d9f95ca9d5e41394e00153176077d) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove support for `sx` from the `TabNav` component
+
+- [#6923](https://github.com/primer/react/pull/6923) [`e5753f0`](https://github.com/primer/react/commit/e5753f0560fc57d426e795c012ffcb0b7fb0d290) Thanks [@francinelucca](https://github.com/francinelucca)! - chore: remove sx from deprecated Dialog
+
+- [#6931](https://github.com/primer/react/pull/6931) [`d5c5ecf`](https://github.com/primer/react/commit/d5c5ecf17a40571976d7974d3b57158455afec38) Thanks [@francinelucca](https://github.com/francinelucca)! - use UnderlinePanels.Tab, UnderlinePanels.Panel from @primer/react
+
+- Updated dependencies [[`15824db`](https://github.com/primer/react/commit/15824db141ef32b3e090bcf1880f03bd9684392a), [`c5c2053`](https://github.com/primer/react/commit/c5c2053caf38da76a4310098e805b2edb05e2552), [`19befd6`](https://github.com/primer/react/commit/19befd66b801532bb0ef85e60296c73d8c747fc5), [`2053cb3`](https://github.com/primer/react/commit/2053cb3f7ee15fe1e4c3cc9be3c09c82dd5aed93), [`9201d93`](https://github.com/primer/react/commit/9201d939056333945375c454999d853e0bbabf8f), [`86b3e60`](https://github.com/primer/react/commit/86b3e6063855615675c87df6eccad41d83db3762), [`e3e601c`](https://github.com/primer/react/commit/e3e601c545967eb79fb7bc752c8895b93fda620e), [`19befd6`](https://github.com/primer/react/commit/19befd66b801532bb0ef85e60296c73d8c747fc5), [`eaf7e58`](https://github.com/primer/react/commit/eaf7e5840e4fbe4042c80711f983a0df05e2b68d), [`4196e0e`](https://github.com/primer/react/commit/4196e0eed6894d020a83b9f382f5cb6817f9a725), [`b0abd78`](https://github.com/primer/react/commit/b0abd785713d9f95ca9d5e41394e00153176077d), [`e5753f0`](https://github.com/primer/react/commit/e5753f0560fc57d426e795c012ffcb0b7fb0d290), [`7ae5db2`](https://github.com/primer/react/commit/7ae5db229837fdd75dd73ce1779c7faa18734f89), [`d122122`](https://github.com/primer/react/commit/d12212225884b17cf6236af9feb8b098caaeea35), [`af288e6`](https://github.com/primer/react/commit/af288e632c042c5e82aae6ee2bd5107e8be2b9ec), [`d5c5ecf`](https://github.com/primer/react/commit/d5c5ecf17a40571976d7974d3b57158455afec38), [`15c1eb7`](https://github.com/primer/react/commit/15c1eb734210938182323bb15200d69ae4a3a300), [`1f9f582`](https://github.com/primer/react/commit/1f9f582f29e623a33401061832d8b6ab778c47b3), [`1cb348f`](https://github.com/primer/react/commit/1cb348f079dffcf10bdf422b1e14e0a29fa4662d), [`09ee0ea`](https://github.com/primer/react/commit/09ee0ea580ba6901d6e80cb35f7cc846db17197e), [`0834e9e`](https://github.com/primer/react/commit/0834e9ebe910c363f413723a254e0f2bd947a4b6), [`913739d`](https://github.com/primer/react/commit/913739dfe4b7d8f4f5829157e200bd538e509e74), [`2eeff36`](https://github.com/primer/react/commit/2eeff368832b6fc122aef70302f681b1f14ad71f), [`628e601`](https://github.com/primer/react/commit/628e60172343fdf1c94734c39480991b0591e267), [`0f075d1`](https://github.com/primer/react/commit/0f075d1a679f0733ad984eeb2a677989ceca8ad0)]:
+  - @primer/react@38.0.0-rc.5
+
 ## 1.0.0-rc.4
 
 ### Minor Changes

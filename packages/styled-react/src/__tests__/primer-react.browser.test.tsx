@@ -52,11 +52,6 @@ describe('@primer/react', () => {
     expect(screen.getByTestId('component')).toHaveAttribute('data-variant', 'inset')
   })
 
-  test('ActionMenu.Button supports `sx` prop', () => {
-    const {container} = render(<ActionMenu.Button sx={{background: 'red'}}>test</ActionMenu.Button>)
-    expect(window.getComputedStyle(container.firstElementChild!).backgroundColor).toBe('rgb(255, 0, 0)')
-  })
-
   test('ActionMenu.Overlay supports `sx` prop', async () => {
     const user = userEvent.setup()
     render(
@@ -276,31 +271,6 @@ describe('@primer/react', () => {
     expect(window.getComputedStyle(itemLiEl!).backgroundColor).toBe('rgb(255, 0, 0)')
   })
 
-  test('NavList.Group supports `sx` prop', () => {
-    render(
-      <NavList>
-        <NavList.Group data-testid="component" sx={{background: 'red'}}>
-          <NavList.Item>item</NavList.Item>
-        </NavList.Group>
-      </NavList>,
-    )
-    expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
-  })
-
-  test('NavList.GroupHeading supports `sx` prop', () => {
-    render(
-      <NavList>
-        <NavList.Group>
-          <NavList.GroupHeading data-testid="component" sx={{background: 'red'}}>
-            test
-          </NavList.GroupHeading>
-          <NavList.Item>item</NavList.Item>
-        </NavList.Group>
-      </NavList>,
-    )
-    expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
-  })
-
   test('NavList.LeadingVisual supports `sx` prop', () => {
     render(<NavList.LeadingVisual data-testid="component" sx={{background: 'red'}} />)
     expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
@@ -346,11 +316,6 @@ describe('@primer/react', () => {
     expect(window.getComputedStyle(container.firstElementChild!).backgroundColor).toBe('rgb(255, 0, 0)')
   })
 
-  test('PageLayout.Header supports `sx` prop', () => {
-    const {container} = render(<PageLayout.Header data-testid="component" sx={{background: 'red'}} />)
-    expect(window.getComputedStyle(container.firstElementChild!).backgroundColor).toBe('rgb(255, 0, 0)')
-  })
-
   test('PageLayout.Content supports `sx` prop', () => {
     const {container} = render(
       <PageLayout.Content as="section" data-testid="component" sx={{background: 'red'}} aria-labelledby="normal" />,
@@ -363,11 +328,6 @@ describe('@primer/react', () => {
 
   test('PageLayout.Pane supports `sx` prop', () => {
     const {container} = render(<PageLayout.Pane data-testid="component" sx={{background: 'red'}} />)
-    expect(window.getComputedStyle(container.firstElementChild!).backgroundColor).toBe('rgb(255, 0, 0)')
-  })
-
-  test('PageLayout.Footer supports `sx` prop', () => {
-    const {container} = render(<PageLayout.Footer data-testid="component" sx={{background: 'red'}} />)
     expect(window.getComputedStyle(container.firstElementChild!).backgroundColor).toBe('rgb(255, 0, 0)')
   })
 
@@ -399,9 +359,11 @@ describe('@primer/react', () => {
 
   test('SegmentedControl.Button supports `sx` prop', () => {
     render(
-      <SegmentedControl.Button data-testid="component" sx={{background: 'red'}}>
-        test
-      </SegmentedControl.Button>,
+      <SegmentedControl>
+        <SegmentedControl.Button data-testid="component" sx={{background: 'red'}}>
+          test
+        </SegmentedControl.Button>
+      </SegmentedControl>,
     )
     const buttonElement = screen.getByTestId('component')
     expect(window.getComputedStyle(buttonElement).backgroundColor).toBe('rgb(255, 0, 0)')
@@ -419,7 +381,7 @@ describe('@primer/react', () => {
     expect(window.getComputedStyle(container.firstElementChild!).backgroundColor).toBe('rgb(255, 0, 0)')
   })
 
-  test.skip('Select supports `sx` prop', () => {
+  test('Select supports `sx` prop', () => {
     render(<Select as="select" data-testid="component" sx={{background: 'red'}} required />)
     expect(window.getComputedStyle(screen.getByTestId('component')).backgroundColor).toBe('rgb(255, 0, 0)')
     expect(screen.getByTestId('component')).toHaveAttribute('required')

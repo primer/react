@@ -1,38 +1,36 @@
 import {clsx} from 'clsx'
-import {type StyledComponent} from 'styled-components'
-import React, {forwardRef} from 'react'
-import type {SystemCommonProps, SystemTypographyProps} from '../constants'
+import React, {type ForwardedRef} from 'react'
 import {useRefObjectAsForwardedRef} from '../hooks'
 import classes from './Text.module.css'
+import {fixedForwardRef, type PolymorphicProps} from '../utils/modern-polymorphic'
 
-type StyledTextProps = {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  as?: React.ComponentType<any> | keyof JSX.IntrinsicElements
-  size?: 'large' | 'medium' | 'small'
-  weight?: 'light' | 'normal' | 'medium' | 'semibold'
-} & SystemTypographyProps &
-  SystemCommonProps &
-  React.HTMLAttributes<HTMLSpanElement>
+export type TextProps<As extends React.ElementType = 'span'> = PolymorphicProps<
+  As,
+  'span',
+  {
+    size?: 'large' | 'medium' | 'small'
+    weight?: 'light' | 'normal' | 'medium' | 'semibold'
+    className?: string
+  }
+>
 
-const Text = forwardRef(({as: Component = 'span', className, size, weight, ...props}, forwardedRef) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function Text<As extends React.ElementType>(props: TextProps<As>, ref: ForwardedRef<any>) {
+  const {as: Component = 'span', className, size, weight, ...rest} = props
   const innerRef = React.useRef<HTMLElement>(null)
-  useRefObjectAsForwardedRef(forwardedRef, innerRef)
+  useRefObjectAsForwardedRef(ref, innerRef)
 
   return (
     <Component
       className={clsx(className, classes.Text)}
       data-size={size}
       data-weight={weight}
-      {...props}
-      // @ts-ignore shh
+      {...rest}
       ref={innerRef}
     />
   )
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-}) as StyledComponent<'span', any, StyledTextProps, never>
+}
 
 Text.displayName = 'Text'
 
-export type TextProps = StyledTextProps
-export default Text
+export default fixedForwardRef(Text)

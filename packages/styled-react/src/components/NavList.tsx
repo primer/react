@@ -1,56 +1,82 @@
-import {NavList as PrimerNavList, Box} from '@primer/react'
+import {NavList as PrimerNavList} from '@primer/react'
 import type {
   NavListProps as PrimerNavListProps,
   NavListItemProps as PrimerNavListItemProps,
-  NavListGroupProps as PrimerNavListGroupProps,
+  NavListLeadingVisualProps as PrimerNavListLeadingVisualProps,
+  SlotMarker,
 } from '@primer/react'
-import {forwardRef, type ComponentProps, type PropsWithChildren} from 'react'
+import {forwardRef, type PropsWithChildren} from 'react'
 import {type SxProp} from '../sx'
+import styled from 'styled-components'
+import {sx} from '../sx'
+import type {ForwardRefComponent} from '../polymorphic'
 
-type NavListProps = PropsWithChildren<PrimerNavListProps> & SxProp
+type NavListProps = PropsWithChildren<PrimerNavListProps> & SxProp & {as?: React.ElementType}
 
-const NavListImpl = forwardRef<HTMLElement, NavListProps>(function NavList(props, ref) {
-  return <Box as={PrimerNavList} ref={ref} {...props} />
+const StyledNavListImpl = styled(PrimerNavList).withConfig({
+  shouldForwardProp: prop => (prop as keyof NavListProps) !== 'sx',
+})<NavListProps>`
+  ${sx}
+`
+
+const NavListImpl = forwardRef<HTMLElement, NavListProps>(function NavList({as, ...props}, ref) {
+  return <StyledNavListImpl ref={ref} {...(as ? {forwardedAs: as} : {})} {...props} />
 })
 
-type NavListItemProps = PropsWithChildren<PrimerNavListItemProps> & SxProp
+type NavListItemProps = PropsWithChildren<PrimerNavListItemProps> &
+  SxProp & {
+    as?: React.ElementType
+  }
 
-const NavListItem = forwardRef<HTMLAnchorElement, NavListItemProps>(function NavListItem(props, ref) {
-  // @ts-expect-error - PrimerNavList.Item is not recognized as a valid component type
-  return <Box as={PrimerNavList.Item} ref={ref} {...props} />
-})
+const StyledNavListItem: ForwardRefComponent<'a', NavListItemProps> = styled(PrimerNavList.Item).withConfig({
+  shouldForwardProp: prop => (prop as keyof NavListItemProps) !== 'sx',
+})<NavListItemProps>`
+  ${sx}
+`
 
-type NavListGroupProps = PropsWithChildren<PrimerNavListGroupProps> & SxProp
+const NavListItem = forwardRef<HTMLAnchorElement, NavListItemProps>(({as, ...props}, ref) => {
+  return <StyledNavListItem {...props} {...(as ? {forwardedAs: as} : {})} ref={ref} />
+}) as ForwardRefComponent<'a', NavListItemProps>
 
-const NavListGroup = forwardRef<HTMLLIElement, NavListGroupProps>(function NavListGroup(props, ref) {
-  // @ts-expect-error - PrimerNavList.Group is not recognized as a valid component type
-  return <Box as={PrimerNavList.Group} ref={ref} {...props} />
-})
+type NavListLeadingVisualProps = PropsWithChildren<PrimerNavListLeadingVisualProps> &
+  SxProp & {
+    as?: React.ElementType
+  }
 
-const NavList = Object.assign(NavListImpl, {
-  // Wrapped components that need sx support added back in
+const StyledNavListLeadingVisual = styled(PrimerNavList.LeadingVisual).withConfig({
+  shouldForwardProp: prop => (prop as keyof NavListLeadingVisualProps) !== 'sx',
+})<NavListLeadingVisualProps>`
+  ${sx}
+`
+
+const NavListLeadingVisual = forwardRef<HTMLSpanElement, NavListLeadingVisualProps>(({as, ...props}, ref) => {
+  return <StyledNavListLeadingVisual {...props} {...(as ? {forwardedAs: as} : {})} ref={ref} />
+}) as ForwardRefComponent<'span', NavListLeadingVisualProps>
+
+;(NavListLeadingVisual as typeof NavListLeadingVisual & SlotMarker).__SLOT__ = PrimerNavList.LeadingVisual.__SLOT__
+
+type NavListCompound = React.ForwardRefExoticComponent<NavListProps & React.RefAttributes<HTMLElement>> & {
+  Item: typeof NavListItem
+  Group: typeof PrimerNavList.Group
+  GroupHeading: typeof PrimerNavList.GroupHeading
+  LeadingVisual: typeof NavListLeadingVisual
+  SubNav: typeof PrimerNavList.SubNav
+  Divider: typeof PrimerNavList.Divider
+  TrailingVisual: typeof PrimerNavList.TrailingVisual
+  TrailingAction: typeof PrimerNavList.TrailingAction
+  GroupExpand: typeof PrimerNavList.GroupExpand
+}
+
+const NavList: NavListCompound = Object.assign(NavListImpl, {
   Item: NavListItem,
-  Group: NavListGroup,
-
-  // Re-exporting others directly
-  // TODO: try to remove typecasts to work around "non-portable types" TS error
-  SubNav: PrimerNavList.SubNav as React.FC<React.PropsWithChildren<ComponentProps<typeof PrimerNavList.SubNav>>>,
-  Divider: PrimerNavList.Divider as React.FC<React.PropsWithChildren<ComponentProps<typeof PrimerNavList.Divider>>>,
-  LeadingVisual: PrimerNavList.LeadingVisual as React.FC<
-    React.PropsWithChildren<ComponentProps<typeof PrimerNavList.LeadingVisual>>
-  >,
-  TrailingVisual: PrimerNavList.TrailingVisual as React.FC<
-    React.PropsWithChildren<ComponentProps<typeof PrimerNavList.TrailingVisual>>
-  >,
-  TrailingAction: PrimerNavList.TrailingAction as React.FC<
-    React.PropsWithChildren<ComponentProps<typeof PrimerNavList.TrailingAction>>
-  >,
-  GroupHeading: PrimerNavList.GroupHeading as React.FC<
-    React.PropsWithChildren<ComponentProps<typeof PrimerNavList.GroupHeading>>
-  >,
-  GroupExpand: PrimerNavList.GroupExpand as React.FC<
-    React.PropsWithChildren<ComponentProps<typeof PrimerNavList.GroupExpand>>
-  >,
+  Group: PrimerNavList.Group,
+  GroupHeading: PrimerNavList.GroupHeading,
+  LeadingVisual: NavListLeadingVisual,
+  SubNav: PrimerNavList.SubNav,
+  Divider: PrimerNavList.Divider,
+  TrailingVisual: PrimerNavList.TrailingVisual,
+  TrailingAction: PrimerNavList.TrailingAction,
+  GroupExpand: PrimerNavList.GroupExpand,
 })
 
 export {NavList, type NavListProps}
