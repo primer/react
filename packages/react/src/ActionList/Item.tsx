@@ -149,14 +149,6 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
     props.href || props.to || (typeof props.as === 'string' && props.as.toLowerCase() === 'a') || role === 'link',
   )
 
-  // Validate that anchor elements have href or to (unless inactive, which renders as span)
-  if (typeof props.as === 'string' && props.as.toLowerCase() === 'a' && !inactiveText) {
-    invariant(
-      props.href || props.to,
-      'ActionList.Item with as="a" must have an href or to prop for proper link semantics and accessibility.',
-    )
-  }
-
   /** Infer item role based on the container */
   let inferredItemRole: ActionListItemProps['role']
   if (container === 'ActionMenu') {
