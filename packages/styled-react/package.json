@@ -34,6 +34,10 @@
     "@rollup/plugin-babel": "^6.0.4",
     "@types/react": "18.3.11",
     "@types/react-dom": "18.3.1",
+    "@types/styled-components": "^5.1.34",
+    "@types/styled-system": "^5.1.24",
+    "@types/styled-system__css": "^5.0.21",
+    "@types/styled-system__theme-get": "^5.0.4",
     "@vitejs/plugin-react": "^4.3.3",
     "babel-plugin-styled-components": "2.1.4",
     "publint": "^0.3.12",
@@ -69,5 +73,10 @@
     "@types/styled-components": {
       "optional": true
     }
+  },
+  "dependencies": {
+    "@styled-system/css": "^5.1.5",
+    "@styled-system/theme-get": "^5.1.2",
+    "styled-system": "^5.1.5"
   }
 }
