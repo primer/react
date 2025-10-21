@@ -87,12 +87,6 @@
       "name": "ActionBar.Group",
       "props": [
         {
-          "name": "label",
-          "type": "string",
-          "required": true,
-          "description": "Label for the group. This is utilized within the overflow menu to provide context for the group of actions."
-        },
-        {
           "name": "children",
           "type": "React.ReactNode",
           "defaultValue": ""

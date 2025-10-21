@@ -30,7 +30,7 @@ type ChildProps =
       groupLabel?: string
     }
   | {type: 'divider'; width: number}
-  | {type: 'group'; width: number; label: string}
+  | {type: 'group'; width: number}
 
 /**
  * Registry of descendants to render in the list or menu. To preserve insertion order across updates, children are
@@ -399,45 +399,38 @@ export const ActionBarIconButton = forwardRef(
 
 const ActionBarGroupContext = React.createContext<{
   groupId: string | null
-  label: string | undefined
-}>({groupId: null, label: undefined})
+}>({groupId: null})
 
-type ActionBarGroupProps = {
-  label: string
-}
+export const ActionBarGroup = forwardRef(({children}: React.PropsWithChildren, forwardedRef) => {
+  const backupRef = useRef<HTMLDivElement>(null)
+  const ref = (forwardedRef ?? backupRef) as RefObject<HTMLDivElement>
+  const id = useId()
+  const {registerChild, unregisterChild} = React.useContext(ActionBarContext)
 
-export const ActionBarGroup = forwardRef(
-  ({label, children}: React.PropsWithChildren<ActionBarGroupProps>, forwardedRef) => {
-    const backupRef = useRef<HTMLDivElement>(null)
-    const ref = (forwardedRef ?? backupRef) as RefObject<HTMLDivElement>
-    const id = useId()
-    const {registerChild, unregisterChild} = React.useContext(ActionBarContext)
+  // Like IconButton, we store the width in a ref ensures we don't forget about it when not visible
+  // If a child has a groupId, it won't be visible if the group isn't visible, so we don't need to check isVisibleChild here
+  const widthRef = useRef<number>()
 
-    // Like IconButton, we store the width in a ref ensures we don't forget about it when not visible
-    // If a child has a groupId, it won't be visible if the group isn't visible, so we don't need to check isVisibleChild here
-    const widthRef = useRef<number>()
+  useIsomorphicLayoutEffect(() => {
+    const width = ref.current?.getBoundingClientRect().width
+    if (width) widthRef.current = width
+    if (!widthRef.current) return
 
-    useIsomorphicLayoutEffect(() => {
-      const width = ref.current?.getBoundingClientRect().width
-      if (width) widthRef.current = width
-      if (!widthRef.current) return
+    registerChild(id, {type: 'group', width: widthRef.current})
 
-      registerChild(id, {type: 'group', width: widthRef.current, label})
+    return () => {
+      unregisterChild(id)
+    }
+  }, [registerChild, unregisterChild])
 
-      return () => {
-        unregisterChild(id)
-      }
-    }, [registerChild, unregisterChild])
-
-    return (
-      <ActionBarGroupContext.Provider value={{groupId: id, label}}>
-        <div className={styles.Group} ref={ref}>
-          {children}
-        </div>
-      </ActionBarGroupContext.Provider>
-    )
-  },
-)
+  return (
+    <ActionBarGroupContext.Provider value={{groupId: id}}>
+      <div className={styles.Group} ref={ref}>
+        {children}
+      </div>
+    </ActionBarGroupContext.Provider>
+  )
+})
 
 export const VerticalDivider = () => {
   const ref = useRef<HTMLDivElement>(null)
