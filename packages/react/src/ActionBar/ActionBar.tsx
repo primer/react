@@ -365,7 +365,7 @@ export const ActionBarIconButton = forwardRef(
         disabled: !!disabled,
         onClick: onClick as MouseEventHandler,
         width: widthRef.current,
-        groupId: groupId ?? undefined, // todo: remove conditional
+        groupId: groupId ?? undefined,
       })
 
       return () => {
