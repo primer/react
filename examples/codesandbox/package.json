@@ -21,6 +21,6 @@
     "@primer/styled-react": "1.0.0-rc.9",
     "styled-components": "5.x",
     "typescript": "^5.9.2",
-    "vite": "^7.1.5"
+    "vite": "^7.1.11"
   }
 }

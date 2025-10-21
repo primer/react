@@ -188,6 +188,21 @@ describe('Banner', () => {
     expect(screen.queryByTestId('icon')).toBe(null)
   })
 
+  it('should render data-actions-layout attribute with inline value', () => {
+    const {container} = render(<Banner title="test" actionsLayout="inline" />)
+    expect(container.firstChild).toHaveAttribute('data-actions-layout', 'inline')
+  })
+
+  it('should render data-actions-layout attribute with stacked value', () => {
+    const {container} = render(<Banner title="test" actionsLayout="stacked" />)
+    expect(container.firstChild).toHaveAttribute('data-actions-layout', 'stacked')
+  })
+
+  it('should render data-actions-layout attribute with default value when not specified', () => {
+    const {container} = render(<Banner title="test" />)
+    expect(container.firstChild).toHaveAttribute('data-actions-layout', 'default')
+  })
+
   describe('Banner.Title', () => {
     it('should render as a h2 element by default', () => {
       render(
