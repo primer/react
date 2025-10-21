@@ -3,7 +3,6 @@ import {EyeIcon, FileCodeIcon, PeopleIcon} from '@primer/octicons-react'
 import userEvent from '@testing-library/user-event'
 import {describe, expect, it, vi} from 'vitest'
 import BaseStyles from '../BaseStyles'
-import {FeatureFlags} from '../FeatureFlags'
 import {SegmentedControl} from '../SegmentedControl'
 
 const segmentData = [
