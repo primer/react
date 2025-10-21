@@ -256,10 +256,10 @@ export const ItemLabelStylesWithMixedDescriptions = () => (
           <ActionList.Heading as="h2" size="small">
             Some link items have block description
           </ActionList.Heading>
-          <ActionList.Item>
+          <ActionList.LinkItem>
             Item with inline description
             <ActionList.Description variant="block">Block description</ActionList.Description>
-          </ActionList.Item>
+          </ActionList.LinkItem>
           <ActionList.Item>
             Item with inline description
             <ActionList.Description variant="block">Block description</ActionList.Description>

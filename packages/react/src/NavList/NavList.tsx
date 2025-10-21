@@ -93,7 +93,7 @@ const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(
     return (
       <ActionList.Item
         ref={ref}
-        as="a"
+        as={props.href ? 'a' : undefined}
         aria-current={ariaCurrent}
         active={Boolean(ariaCurrent) && ariaCurrent !== 'false'}
         style={{'--subitem-depth': depth} as React.CSSProperties}

@@ -8,7 +8,7 @@ import {GroupContext} from './Group'
 import type {ActionListItemProps, ActionListProps, LinkProps} from './shared'
 import {Selection} from './Selection'
 import {LeadingVisual, TrailingVisual, VisualOrIndicator} from './Visuals'
-import {ItemContext, ListContext, INTERACTIVE_ELEMENT_PROPS} from './shared'
+import {ItemContext, ListContext} from './shared'
 import {TrailingAction} from './TrailingAction'
 import {ConditionalWrapper} from '../internal/components/ConditionalWrapper'
 import {invariant} from '../utils/invariant'
@@ -146,15 +146,16 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
 
   /** Detect if this should be a link item based on props - needed early for role inference */
   const isLinkItem = Boolean(
-    props.href ||
-      props.download ||
-      props.target ||
-      props.rel ||
-      props.hrefLang ||
-      props.to ||
-      (typeof props.as === 'string' && props.as.toLowerCase() === 'a') ||
-      role === 'link',
+    props.href || props.to || (typeof props.as === 'string' && props.as.toLowerCase() === 'a') || role === 'link',
   )
+
+  // Validate that anchor elements have href or to (unless inactive, which renders as span)
+  if (typeof props.as === 'string' && props.as.toLowerCase() === 'a' && !inactiveText) {
+    invariant(
+      props.href || props.to,
+      'ActionList.Item with as="a" must have an href or to prop for proper link semantics and accessibility.',
+    )
+  }
 
   /** Infer item role based on the container */
   let inferredItemRole: ActionListItemProps['role']
@@ -261,28 +262,13 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
   }
 
   // Props distribution depends on which component pattern is being used:
-  // 1. _PrivateItemWrapper - used by LinkItem
-  // 2. isLinkItem - direct Item usage with link props
-  // 3. default - regular button/div behavior
-
-  // Create a Set for lookup of interactive-only props
-  const interactivePropsSet = new Set<string>(INTERACTIVE_ELEMENT_PROPS)
-
-  // Split props into container and interactive element props
-  const containerOnlyProps: Record<string, unknown> = {}
-  const interactiveProps: Record<string, unknown> = {}
-
-  for (const [key, value] of Object.entries(props)) {
-    if (interactivePropsSet.has(key)) {
-      interactiveProps[key] = value
-    } else {
-      containerOnlyProps[key] = value
-    }
-  }
+  // 1. _PrivateItemWrapper - used by LinkItem, which handles prop splitting internally
+  // 2. isLinkItem - direct Item usage with link props (href, to, etc.)
+  // 3. default - regular button/div behavior with ActionListBaseItemProps
 
   const containerProps =
     _PrivateItemWrapper || isLinkItem
-      ? {role: itemRole ? 'none' : undefined, ...containerOnlyProps}
+      ? {role: itemRole ? 'none' : undefined}
       : // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
         (listSemantics && {...menuItemProps, ...props, ref: forwardedRef}) || {}
 
@@ -293,7 +279,7 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
           ...props,
           ...menuItemProps,
           inactiveText,
-          userOnClick: interactiveProps.onClick as ((event: React.MouseEvent<HTMLAnchorElement>) => void) | undefined,
+          userOnClick: props.onClick as ((event: React.MouseEvent<HTMLAnchorElement>) => void) | undefined,
         }
       : !listSemantics && {
           ...menuItemProps,

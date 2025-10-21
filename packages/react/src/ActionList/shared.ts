@@ -6,7 +6,10 @@ import type {PolymorphicProps} from '../utils/modern-polymorphic'
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type ExcludeSelectEventHandler<T> = T extends any ? Omit<T, 'onSelect'> : never
 
-export type ActionListItemProps<As extends React.ElementType = 'li'> = ExcludeSelectEventHandler<
+/**
+ * Base props for ActionList.Item without link-specific props
+ */
+export type ActionListBaseItemProps<As extends React.ElementType = 'li'> = ExcludeSelectEventHandler<
   PolymorphicProps<As, 'li'>
 > & {
   /**
@@ -65,7 +68,12 @@ export type ActionListItemProps<As extends React.ElementType = 'li'> = ExcludeSe
   handleAddItem?: (item: React.FC<React.PropsWithChildren<MenuItemProps>>) => void
 
   as?: As
-} & LinkProps
+}
+
+/**
+ * ActionList.Item props including link-specific props (href, to, etc.)
+ */
+export type ActionListItemProps<As extends React.ElementType = 'li'> = ActionListBaseItemProps<As> & LinkProps
 
 export type LinkProps = {
   download?: string
@@ -77,39 +85,6 @@ export type LinkProps = {
   target?: string
   referrerPolicy?: React.AnchorHTMLAttributes<HTMLAnchorElement>['referrerPolicy']
 }
-
-/**
- * Props that should only appear on the interactive element (link), not the container (<li>).
- * This includes:
- * - Link-specific props from LinkProps
- * - HTMLAnchorElement attributes (navigation and link behavior)
- * - Semantic/interactive ARIA attributes
- * - Styling props
- * - Test identifiers
- */
-export const INTERACTIVE_ELEMENT_PROPS = [
-  // Link-specific props from LinkProps
-  'download',
-  'href',
-  'hrefLang',
-  'media',
-  'ping',
-  'rel',
-  'target',
-  'referrerPolicy',
-  'to',
-  // Polymorphic component prop
-  'as',
-  // ARIA attributes that belong on interactive elements
-  'aria-current',
-  'aria-keyshortcuts',
-  // Styling props (should be on the interactive element)
-  'style',
-  'sx',
-  // Test identifiers
-  'data-testid',
-  'onClick',
-] as const
 
 type MenuItemProps = {
   onClick?: (event: React.MouseEvent<HTMLElement>) => void
