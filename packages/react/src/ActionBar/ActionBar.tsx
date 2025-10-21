@@ -238,6 +238,19 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
     focusOutBehavior: 'wrap',
   })
 
+  const groupedItems = React.useMemo(() => {
+    const groupedItemsMap = new Map<string, Array<[string, ChildProps]>>()
+
+    for (const [key, childProps] of childRegistry) {
+      if (childProps?.type === 'action' && childProps.groupId) {
+        const existingGroup = groupedItemsMap.get(childProps.groupId) || []
+        existingGroup.push([key, childProps])
+        groupedItemsMap.set(childProps.groupId, existingGroup)
+      }
+    }
+    return groupedItemsMap
+  }, [childRegistry])
+
   return (
     <ActionBarContext.Provider value={{size, registerChild, unregisterChild, isVisibleChild}}>
       <div ref={navRef} className={clsx(className, styles.Nav)} data-flush={flush}>
@@ -263,7 +276,7 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
 
                     if (menuItem.type === 'divider') {
                       return <ActionList.Divider key={id} />
-                    } else if (menuItem.type === 'action' && !menuItem.groupLabel) {
+                    } else if (menuItem.type === 'action') {
                       const {onClick, icon: Icon, label, disabled} = menuItem
                       return (
                         <ActionList.Item
@@ -284,46 +297,37 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
                       )
                     }
 
-                    // TODO: refine this so that we don't have to loop through the registry multiple times
-                    const groupedItems = Array.from(childRegistry).filter(([, childProps]) => {
-                      if (childProps?.type !== 'action') return false
-                      if (childProps.groupId !== id) return false
-                      return true
-                    })
+                    // Use the memoized map instead of filtering each time
+                    const groupedMenuItems = groupedItems.get(id) || []
 
+                    // If we ever add additional types, this condition will be necessary
+                    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
                     if (menuItem.type === 'group') {
                       return (
-                        <ActionMenu key={id}>
-                          <ActionMenu.Anchor>
-                            <ActionList.Item>{menuItem.label}</ActionList.Item>
-                          </ActionMenu.Anchor>
-                          <ActionMenu.Overlay>
-                            <ActionList>
-                              {groupedItems.map(([key, childProps]) => {
-                                if (childProps && childProps.type === 'action') {
-                                  const {onClick, icon: Icon, label, disabled} = childProps
-                                  return (
-                                    <ActionList.Item
-                                      key={key}
-                                      onSelect={event => {
-                                        closeOverlay()
-                                        focusOnMoreMenuBtn()
-                                        typeof onClick === 'function' && onClick(event as React.MouseEvent<HTMLElement>)
-                                      }}
-                                      disabled={disabled}
-                                    >
-                                      <ActionList.LeadingVisual>
-                                        <Icon />
-                                      </ActionList.LeadingVisual>
-                                      {label}
-                                    </ActionList.Item>
-                                  )
-                                }
-                                return null
-                              })}
-                            </ActionList>
-                          </ActionMenu.Overlay>
-                        </ActionMenu>
+                        <React.Fragment key={id}>
+                          {groupedMenuItems.map(([key, childProps]) => {
+                            if (childProps.type === 'action') {
+                              const {onClick, icon: Icon, label, disabled} = childProps
+                              return (
+                                <ActionList.Item
+                                  key={key}
+                                  onSelect={event => {
+                                    closeOverlay()
+                                    focusOnMoreMenuBtn()
+                                    typeof onClick === 'function' && onClick(event as React.MouseEvent<HTMLElement>)
+                                  }}
+                                  disabled={disabled}
+                                >
+                                  <ActionList.LeadingVisual>
+                                    <Icon />
+                                  </ActionList.LeadingVisual>
+                                  {label}
+                                </ActionList.Item>
+                              )
+                            }
+                            return null
+                          })}
+                        </React.Fragment>
                       )
                     }
                   })}
