@@ -65,11 +65,6 @@
       "type": "string",
       "defaultValue": "'bg.successInverse'",
       "description": "Set the progress bar color"
-    },
-    {
-      "name": "sx",
-      "type": "SystemStyleObject",
-      "deprecated": true
     }
   ],
   "subcomponents": [
@@ -93,11 +88,6 @@
           "type": "string | number",
           "description": "Used to set the size of the green bar",
           "defaultValue": "0"
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject",
-          "deprecated": true
         }
       ]
     }

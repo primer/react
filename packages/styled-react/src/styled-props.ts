@@ -23,5 +23,3 @@ export type StyledProps = SxProp &
   BorderProps &
   PositionProps &
   ShadowProps
-
-export type {BetterSystemStyleObject} from '@primer/react'

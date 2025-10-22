@@ -58,6 +58,7 @@ const RadioGroup: FC<React.PropsWithChildren<RadioGroupProps>> = ({children, dis
 }
 
 export default Object.assign(RadioGroup, {
+  __SLOT__: Symbol('RadioGroup'),
   Caption: CheckboxOrRadioGroupCaption,
   Label: CheckboxOrRadioGroupLabel,
   Validation: CheckboxOrRadioGroupValidation,

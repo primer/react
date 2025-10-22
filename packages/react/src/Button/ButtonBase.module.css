@@ -126,8 +126,7 @@
   }
 
   & :where(.Label) {
-    /* stylelint-disable-next-line primer/typography */
-    line-height: 1.4285714; /* temporary until we use Text component with --text-body-lineHeight-medium */
+    line-height: var(--text-body-lineHeight-medium);
     white-space: nowrap;
     grid-area: text;
   }
@@ -155,8 +154,7 @@
     }
 
     & .Label {
-      /* stylelint-disable-next-line primer/typography */
-      line-height: 1.6666667; /* temporary until we use Text component with --text-body-lineHeight-small */
+      line-height: var(--text-body-lineHeight-small);
     }
   }
 
@@ -510,6 +508,7 @@
     background-color: var(--button-inactive-bgColor);
     /* stylelint-disable-next-line primer/colors */
     border-color: var(--button-inactive-bgColor);
+    box-shadow: none;
 
     & .Visual,
     & .CounterLabel {

@@ -2,19 +2,11 @@ import Breadcrumbs from '..'
 import {render as HTMLRender, screen, waitFor, within} from '@testing-library/react'
 import {describe, expect, it, vi} from 'vitest'
 import userEvent from '@testing-library/user-event'
-import {ThemeProvider} from '../../ThemeProvider'
 import {FeatureFlags} from '../../FeatureFlags'
-import theme from '../../theme'
 
 // Helper function to render with theme and feature flags
 const renderWithTheme = (component: React.ReactElement, flags?: Record<string, boolean>) => {
-  const wrappedComponent = flags ? (
-    <FeatureFlags flags={flags}>
-      <ThemeProvider theme={theme}>{component}</ThemeProvider>
-    </FeatureFlags>
-  ) : (
-    <ThemeProvider theme={theme}>{component}</ThemeProvider>
-  )
+  const wrappedComponent = flags ? <FeatureFlags flags={flags}>{component}</FeatureFlags> : <>{component}</>
   return HTMLRender(wrappedComponent)
 }
 

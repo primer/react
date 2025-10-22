@@ -1,63 +1,27 @@
 import {clsx} from 'clsx'
 import type {To} from 'history'
-import type React from 'react'
-import styled from 'styled-components'
-import {get} from '../../constants'
-import type {ComponentProps} from '../../utils/types'
-import getGlobalFocusStyles from '../../internal/utils/getGlobalFocusStyles'
-
-const ITEM_CLASS = 'PRC-UnderlineNav-item'
-const SELECTED_CLASS = 'PRC-selected'
-
-const UnderlineNavBase = styled.nav`
-  display: flex;
-  justify-content: space-between;
-  border-bottom: 1px solid ${get('colors.border.muted')};
-  &.PRC-UnderlineNav--right {
-    justify-content: flex-end;
-
-    .PRC-UnderlineNav-item {
-      margin-right: 0;
-      margin-left: ${get('space.3')};
-    }
-
-    .PRC-UnderlineNav-actions {
-      flex: 1 1 auto;
-    }
-  }
-  &.PRC-UnderlineNav--full {
-    display: block;
-  }
-
-  .PRC-UnderlineNav-body {
-    display: flex;
-    margin-bottom: -1px;
-  }
-
-  .PRC-UnderlineNav-actions {
-    align-self: center;
-  }
-`
+import React from 'react'
+import classes from './UnderlineNav.module.css'
 
 export type UnderlineNavProps = {
   actions?: React.ReactNode
   align?: 'right'
   full?: boolean
   label?: string
-} & ComponentProps<typeof UnderlineNavBase>
+} & React.ComponentProps<'nav'>
 
-function UnderlineNav({actions, className, align, children, full, label, theme, ...rest}: UnderlineNavProps) {
-  const classes = clsx(
-    className,
-    'PRC-UnderlineNav',
-    align && `PRC-UnderlineNav--${align}`,
-    full && 'PRC-UnderlineNav--full',
-  )
+function UnderlineNav({actions, className, align, children, full, label, ...rest}: UnderlineNavProps) {
+  const navClasses = clsx(className, classes.UnderlineNav, 'PRC-UnderlineNav', {
+    [classes['UnderlineNav--right']]: align === 'right',
+    [classes['UnderlineNav--full']]: full,
+    'PRC-UnderlineNav--full': full,
+    'PRC-UnderlineNav--right': align,
+  })
   return (
-    <UnderlineNavBase className={classes} aria-label={label} theme={theme} {...rest}>
-      <div className="PRC-UnderlineNav-body">{children}</div>
-      {actions && <div className="PRC-UnderlineNav-actions">{actions}</div>}
-    </UnderlineNavBase>
+    <nav className={navClasses} aria-label={label} {...rest}>
+      <div className={clsx(classes.UnderlineNavBody, 'PRC-UnderlineNav-body')}>{children}</div>
+      {actions && <div className={clsx(classes.UnderlineNavActions, 'PRC-UnderlineNav-actions')}>{actions}</div>}
+    </nav>
   )
 }
 
@@ -66,45 +30,19 @@ type StyledUnderlineNavLinkProps = {
   selected?: boolean
 }
 
-const UnderlineNavLink = styled.a.attrs<StyledUnderlineNavLinkProps>(props => ({
-  className: clsx(ITEM_CLASS, props.selected && SELECTED_CLASS, props.className),
-}))<StyledUnderlineNavLinkProps>`
-  padding: ${get('space.3')} ${get('space.2')};
-  margin-right: ${get('space.3')};
-  font-size: ${get('fontSizes.1')};
-  line-height: ${get('lineHeights.default')};
-  color: ${get('colors.fg.default')};
-  text-align: center;
-  border-bottom: 2px solid transparent;
-  text-decoration: none;
+type UnderlineNavLinkProps = React.ComponentProps<'a'> & StyledUnderlineNavLinkProps
 
-  &:hover,
-  &:focus {
-    color: ${get('colors.fg.default')};
-    text-decoration: none;
-    border-bottom-color: ${get('colors.neutral.muted')};
-    transition: border-bottom-color 0.2s ease;
-
-    .PRC-UnderlineNav-octicon {
-      color: ${get('colors.fg.muted')};
-    }
-  }
-
-  &.PRC-selected {
-    color: ${get('colors.fg.default')};
-    border-bottom-color: ${get('colors.primer.border.active')};
-
-    .PRC-UnderlineNav-octicon {
-      color: ${get('colors.fg.default')};
-    }
-  }
-
-  ${getGlobalFocusStyles('-8px')};
-`
+const UnderlineNavLink = React.forwardRef<HTMLAnchorElement, UnderlineNavLinkProps>(function UnderlineNavLink(
+  {className, selected, ...props},
+  forwardRef,
+) {
+  const linkClasses = clsx(classes.UnderlineNavItem, className, classes.UnderlineNavLink)
+  return <a ref={forwardRef} data-selected={selected ? '' : undefined} className={linkClasses} {...props} />
+})
 
 UnderlineNavLink.displayName = 'UnderlineNav.Link'
 
-export type UnderlineNavLinkProps = ComponentProps<typeof UnderlineNavLink>
+export type {UnderlineNavLinkProps}
 /**
  * @deprecated UnderlineNav is deprecated and will be replaced by the draft `UnderlineNav` in the next major release. See https://primer.style/react/drafts/UnderlineNav2 for more details.
  */

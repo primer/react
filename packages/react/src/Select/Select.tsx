@@ -88,6 +88,7 @@ const OptGroup: React.FC<React.PropsWithChildren<React.HTMLProps<HTMLOptGroupEle
 )
 
 export default Object.assign(Select, {
+  __SLOT__: Symbol('Select'),
   Option,
   OptGroup,
 })

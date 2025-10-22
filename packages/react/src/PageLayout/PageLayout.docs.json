@@ -57,11 +57,6 @@
       "type": "| 'none' | 'condensed' | 'normal'",
       "defaultValue": "'normal'",
       "description": ""
-    },
-    {
-      "name": "sx",
-      "type": "SystemStyleObject",
-      "deprecated": true
     }
   ],
   "subcomponents": [
@@ -104,11 +99,6 @@
           "type": "| boolean | { narrow?: boolean regular?: boolean wide?: boolean }",
           "defaultValue": "false",
           "description": "Whether the header is hidden."
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject",
-          "deprecated": true
         }
       ]
     },
@@ -128,6 +118,12 @@
           "defaultValue": ""
         },
         {
+          "name": "as",
+          "type": "React.ElementType",
+          "defaultValue": "'main'",
+          "description": "Change the root node to another HTML element or custom component."
+        },
+        {
           "name": "width",
           "type": "| 'full' | 'medium' | 'large' | 'xlarge'",
           "defaultValue": "'full'",
@@ -144,11 +140,6 @@
           "type": "| boolean | { narrow?: boolean regular?: boolean wide?: boolean }",
           "defaultValue": "false",
           "description": "Whether the content is hidden."
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject",
-          "deprecated": true
         }
       ]
     },
@@ -233,11 +224,6 @@
           "defaultValue": ""
         },
         {
-          "name": "sx",
-          "type": "SystemStyleObject",
-          "deprecated": true
-        },
-        {
           "name": "ref",
           "type": "React.RefObject<HTMLDivElement>"
         }
@@ -282,11 +268,6 @@
           "type": "| boolean | { narrow?: boolean regular?: boolean wide?: boolean }",
           "defaultValue": "false",
           "description": "Whether the footer is hidden."
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject",
-          "deprecated": true
         }
       ]
     }

@@ -2,7 +2,7 @@ import type {ChangeEventHandler, RefObject} from 'react'
 import React, {useCallback, useEffect, useRef, useState} from 'react'
 import type {Meta} from '@storybook/react-vite'
 
-import {BaseStyles, Stack, ThemeProvider, registerPortalRoot} from '..'
+import {BaseStyles, Stack, registerPortalRoot} from '..'
 import {Dialog} from '../DialogV1'
 import TextInputTokens from '../TextInputWithTokens'
 import Autocomplete from './Autocomplete'
@@ -112,18 +112,16 @@ const autocompleteStoryMeta: Meta = {
       }, [])
 
       return (
-        <ThemeProvider>
-          <BaseStyles>
-            <div onKeyDownCapture={reportKey}>
-              <p className={classes.LastKeyPressed} id="key-press-label">
-                Last key pressed: {lastKey}
-              </p>
-              <div className={classes.StoryPadding}>
-                <Story />
-              </div>
+        <BaseStyles>
+          <div onKeyDownCapture={reportKey}>
+            <p className={classes.LastKeyPressed} id="key-press-label">
+              Last key pressed: {lastKey}
+            </p>
+            <div className={classes.StoryPadding}>
+              <Story />
             </div>
-          </BaseStyles>
-        </ThemeProvider>
+          </div>
+        </BaseStyles>
       )
     },
   ],

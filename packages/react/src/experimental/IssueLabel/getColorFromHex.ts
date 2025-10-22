@@ -5,25 +5,17 @@ import type {Hex} from './IssueLabel'
 /**
  * transforms a hex color provided by the user into a color object with background and text colors
  * @param colorHex — the hex color provided by the user
- * @param colorScheme — the color scheme the user has currently set
- * @param bgColor — the background color from the selected theme, needed to calc the contrast for the colors
  * @returns
  */
-export const getColorsFromHex = (
-  colorHex: Hex,
-  colorScheme = 'light',
-  bgColor: Hex,
-): React.CSSProperties | undefined => {
+export const getColorsFromHex = (colorHex: Hex): React.CSSProperties | undefined => {
   // start values for light mode
-  let bgLightness = 96
-  let lightnessIncrement: 1 | -1 = -1
-  let ratio = 4.5
-  // start values for dark mode
-  if (colorScheme.startsWith('dark')) {
-    bgLightness = 16
-    lightnessIncrement = 1
-    ratio = 5.5
-  }
+  const lightBgLightness = 96
+  const lightLightnessIncrement: 1 | -1 = -1
+  const lightRatio = 4.5
+
+  const darkBgLightness = 16
+  const darkLightnessIncrement: 1 | -1 = 1
+  const darkRatio = 5.5
 
   // get hue and saturation value from hex color
   // eslint-disable-next-line prefer-const
@@ -42,11 +34,21 @@ export const getColorsFromHex = (
   /**
    * creating a background color from the provided hex color
    */
-  const {colorHex: backgroundColor, lightness: currentBgLightness} = getColorWithContrast(
-    hsluvToHex({h, s, l: bgLightness}) as Hex,
-    bgColor,
+  const {colorHex: darkBackgroundColor, lightness: darkCurrentBgLightness} = getColorWithContrast(
+    hsluvToHex({h, s, l: darkBgLightness}) as Hex,
+    '#0d1117', // dark mode background color
     1.2,
-    lightnessIncrement,
+    darkLightnessIncrement,
+  )
+
+  /**
+   * creating a background color from the provided hex color
+   */
+  const {colorHex: lightBackgroundColor, lightness: lightCurrentBgLightness} = getColorWithContrast(
+    hsluvToHex({h, s, l: lightBgLightness}) as Hex,
+    '#ffffff', // light mode background color
+    1.2,
+    lightLightnessIncrement,
   )
 
   // avoid intense bright colors
@@ -56,20 +58,33 @@ export const getColorsFromHex = (
   /**
    * creating a text color from with a contrast ratio of at least 4.5 to the generated background color
    */
-  const {colorHex: textColor} = getColorWithContrast(
+  const {colorHex: darkTextColor} = getColorWithContrast(
     hsluvToHex({h, s, l: 50}) as Hex,
-    backgroundColor,
-    ratio,
-    lightnessIncrement as 1 | -1,
+    darkBackgroundColor,
+    darkRatio,
+    darkLightnessIncrement as 1 | -1,
+  )
+
+  const {colorHex: lightTextColor} = getColorWithContrast(
+    hsluvToHex({h, s, l: 50}) as Hex,
+    lightBackgroundColor,
+    lightRatio,
+    lightLightnessIncrement as 1 | -1,
   )
 
   return {
-    '--label-bgColor-rest': backgroundColor,
-    '--label-bgColor-hover': hsluvToHex({h, s, l: currentBgLightness + 4 * lightnessIncrement}),
-    '--label-bgColor-active': hsluvToHex({h, s, l: currentBgLightness + 8 * lightnessIncrement}),
-    '--label-fgColor': textColor,
-    '--label-fgColor-hover': textColor,
-    '--label-fgColor-active': textColor,
+    '--label-bgColor-light-rest': lightBackgroundColor,
+    '--label-bgColor-light-hover': hsluvToHex({h, s, l: lightCurrentBgLightness + 4 * lightLightnessIncrement}),
+    '--label-bgColor-light-active': hsluvToHex({h, s, l: lightCurrentBgLightness + 8 * lightLightnessIncrement}),
+    '--label-fgColor-light': lightTextColor,
+    '--label-fgColor-light-hover': lightTextColor,
+    '--label-fgColor-light-active': lightTextColor,
+    '--label-bgColor-dark-rest': darkBackgroundColor,
+    '--label-bgColor-dark-hover': hsluvToHex({h, s, l: darkCurrentBgLightness + 4 * darkLightnessIncrement}),
+    '--label-bgColor-dark-active': hsluvToHex({h, s, l: darkCurrentBgLightness + 8 * darkLightnessIncrement}),
+    '--label-fgColor-dark': darkTextColor,
+    '--label-fgColor-dark-hover': darkTextColor,
+    '--label-fgColor-dark-active': darkTextColor,
   } as React.CSSProperties
 }
 /**

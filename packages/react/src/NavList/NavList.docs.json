@@ -3,7 +3,25 @@
   "name": "NavList",
   "status": "alpha",
   "a11yReviewed": "2025-01-08",
-  "stories": [],
+  "stories": [
+    {"id": "components-navlist--default"},
+    {"id": "components-navlist-features--expand-with-custom-items"},
+    {"id": "components-navlist-features--expand-with-pages"},
+    {"id": "components-navlist-features--group-with-expand-and-custom-items"},
+    {"id": "components-navlist-features--with-expand"},
+    {"id": "components-navlist-features--with-expand-and-icons"},
+    {"id": "components-navlist-features--with-group"},
+    {"id": "components-navlist-features--with-group-expand"},
+    {"id": "components-navlist-features--with-group-heading-links"},
+    {"id": "components-navlist-features--with-inactive-items"},
+    {"id": "components-navlist-features--with-nested-sub-items"},
+    {"id": "components-navlist-features--with-next-js-link"},
+    {"id": "components-navlist-features--with-react-router-link"},
+    {"id": "components-navlist-features--with-reloads"},
+    {"id": "components-navlist-features--with-sub-items"},
+    {"id": "components-navlist-features--with-trailing-action"},
+    {"id": "components-navlist-features--with-trailing-action-in-sub-item"}
+  ],
   "importPath": "@primer/react",
   "props": [
     {

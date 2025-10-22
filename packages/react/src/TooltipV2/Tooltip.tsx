@@ -1,4 +1,4 @@
-import React, {Children, useEffect, useRef, useState, useMemo} from 'react'
+import React, {Children, useEffect, useRef, useState, useMemo, type ForwardRefExoticComponent} from 'react'
 import {useId, useProvidedRefOrCreate, useOnEscapePress, useIsMacOS} from '../hooks'
 import {invariant} from '../utils/invariant'
 import {warning} from '../utils/warning'
@@ -10,6 +10,7 @@ import classes from './Tooltip.module.css'
 import {getAccessibleKeybindingHintString, KeybindingHint, type KeybindingHintProps} from '../KeybindingHint'
 import VisuallyHidden from '../_VisuallyHidden'
 import useSafeTimeout from '../hooks/useSafeTimeout'
+import type {SlotMarker} from '../utils/types'
 
 export type TooltipDirection = 'nw' | 'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w'
 export type TooltipProps = React.PropsWithChildren<{
@@ -92,7 +93,10 @@ const isInteractive = (element: HTMLElement) => {
 }
 export const TooltipContext = React.createContext<{tooltipId?: string}>({})
 
-export const Tooltip = React.forwardRef(
+export const Tooltip: ForwardRefExoticComponent<
+  React.PropsWithoutRef<TooltipProps> & React.RefAttributes<HTMLElement>
+> &
+  SlotMarker = React.forwardRef<HTMLElement, TooltipProps>(
   (
     {
       direction = 's',
@@ -361,3 +365,5 @@ export const Tooltip = React.forwardRef(
     )
   },
 )
+
+Tooltip.__SLOT__ = Symbol('Tooltip')

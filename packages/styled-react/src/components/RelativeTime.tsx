@@ -1,6 +1,7 @@
-import {Box, RelativeTime as PrimerRelativeTime, type RelativeTimeProps as PrimerRelativeTimeProps} from '@primer/react'
+import {RelativeTime as PrimerRelativeTime, type RelativeTimeProps as PrimerRelativeTimeProps} from '@primer/react'
 import React from 'react'
 import type {SxProp} from '../sx'
+import Box from './Box'
 
 export type RelativeTimeProps = PrimerRelativeTimeProps & SxProp
 

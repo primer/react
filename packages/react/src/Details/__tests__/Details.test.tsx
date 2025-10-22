@@ -82,39 +82,6 @@ describe('Details', () => {
     expect(getByTestId('summary')).toHaveTextContent('Open')
   })
 
-  it('Adds default summary if no summary supplied', async () => {
-    const {getByText} = render(<Details data-testid="details">content</Details>)
-
-    expect(getByText('See Details')).toBeInTheDocument()
-    expect(getByText('See Details').tagName).toBe('SUMMARY')
-  })
-
-  it('Does not add default summary if summary supplied', async () => {
-    const {findByTestId, findByText} = render(
-      <Details data-testid="details">
-        <Details.Summary data-testid="summary">summary</Details.Summary>
-        content
-      </Details>,
-    )
-
-    await expect(findByText('See Details')).rejects.toThrow()
-    expect(await findByTestId('summary')).toBeInTheDocument()
-    expect((await findByTestId('summary')).tagName).toBe('SUMMARY')
-  })
-
-  it('Does not add default summary if supplied as different element', async () => {
-    const {findByTestId, findByText} = render(
-      <Details data-testid="details">
-        <summary data-testid="summary">custom summary</summary>
-        content
-      </Details>,
-    )
-
-    await expect(findByText('See Details')).rejects.toThrow()
-    expect(await findByTestId('summary')).toBeInTheDocument()
-    expect((await findByTestId('summary')).tagName).toBe('SUMMARY')
-  })
-
   describe('Details.Summary', () => {
     it('should support a custom `className` on the container element', () => {
       render(<Details.Summary className="custom-class">test summary</Details.Summary>)

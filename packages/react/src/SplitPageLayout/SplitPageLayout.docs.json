@@ -70,6 +70,12 @@
           "defaultValue": ""
         },
         {
+          "name": "as",
+          "type": "React.ElementType",
+          "defaultValue": "'main'",
+          "description": "Change the root node to another HTML element or custom component."
+        },
+        {
           "name": "width",
           "type": "| 'full' | 'medium' | 'large' | 'xlarge'",
           "defaultValue": "'large'",

@@ -1,5 +1,7 @@
 import React from 'react'
 import {warning} from '../utils/warning'
+import {isSlot} from '../utils/is-slot'
+import type {SlotMarker} from '../utils/types'
 
 // slot config allows 2 options:
 // 1. Component to match, example: { leadingVisual: LeadingVisual }
@@ -55,9 +57,9 @@ export function useSlots<Config extends SlotConfig>(
     const index = values.findIndex(value => {
       if (Array.isArray(value)) {
         const [component, testFn] = value
-        return child.type === component && testFn(child.props)
+        return (child.type === component || isSlot(child, component as SlotMarker)) && testFn(child.props)
       } else {
-        return child.type === value
+        return child.type === value || isSlot(child, value as SlotMarker)
       }
     })
 

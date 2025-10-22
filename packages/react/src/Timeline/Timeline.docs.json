@@ -26,11 +26,6 @@
       "name": "clipSidebar",
       "type": "boolean",
       "description": "Hides the sidebar above the first Timeline.Item and below the last Timeline.Item."
-    },
-    {
-      "name": "sx",
-      "type": "SystemStyleObject",
-      "deprecated": true
     }
   ],
   "subcomponents": [
@@ -41,43 +36,20 @@
           "name": "condensed",
           "type": "boolean",
           "description": "Reduces vertical padding and removes background from an item's badge."
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject",
-          "deprecated": true
         }
       ]
     },
     {
       "name": "Timeline.Badge",
-      "props": [
-        {
-          "name": "sx",
-          "type": "SystemStyleObject",
-          "deprecated": true
-        }
-      ]
+      "props": []
     },
     {
       "name": "Timeline.Body",
-      "props": [
-        {
-          "name": "sx",
-          "type": "SystemStyleObject",
-          "deprecated": true
-        }
-      ]
+      "props": []
     },
     {
       "name": "Timeline.Break",
-      "props": [
-        {
-          "name": "sx",
-          "type": "SystemStyleObject",
-          "deprecated": true
-        }
-      ]
+      "props": []
     }
   ]
 }

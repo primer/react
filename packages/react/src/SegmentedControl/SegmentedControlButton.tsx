@@ -6,6 +6,7 @@ import {isElement} from 'react-is'
 import classes from './SegmentedControl.module.css'
 import {clsx} from 'clsx'
 import CounterLabel from '../CounterLabel'
+import type {FCWithSlotMarker} from '../utils/types'
 
 export type SegmentedControlButtonProps = {
   /** The visible label rendered in the button */
@@ -20,7 +21,7 @@ export type SegmentedControlButtonProps = {
   count?: number | string
 } & ButtonHTMLAttributes<HTMLButtonElement | HTMLLIElement>
 
-const SegmentedControlButton: React.FC<React.PropsWithChildren<SegmentedControlButtonProps>> = ({
+const SegmentedControlButton: FCWithSlotMarker<React.PropsWithChildren<SegmentedControlButtonProps>> = ({
   children,
   leadingIcon: LeadingIcon,
   selected,
@@ -52,3 +53,5 @@ const SegmentedControlButton: React.FC<React.PropsWithChildren<SegmentedControlB
 }
 
 export default SegmentedControlButton
+
+SegmentedControlButton.__SLOT__ = Symbol('SegmentedControl.Button')

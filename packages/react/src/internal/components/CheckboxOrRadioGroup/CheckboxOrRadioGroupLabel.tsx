@@ -4,6 +4,7 @@ import CheckboxOrRadioGroupContext from './CheckboxOrRadioGroupContext'
 import classes from './CheckboxOrRadioGroup.module.css'
 import {Stack} from '../../../Stack'
 import {clsx} from 'clsx'
+import type {FCWithSlotMarker} from '../../../utils/types'
 
 export type CheckboxOrRadioGroupLabelProps = {
   /** Class name for custom styling */
@@ -14,7 +15,7 @@ export type CheckboxOrRadioGroupLabelProps = {
   visuallyHidden?: boolean
 }
 
-const CheckboxOrRadioGroupLabel: React.FC<React.PropsWithChildren<CheckboxOrRadioGroupLabelProps>> = ({
+const CheckboxOrRadioGroupLabel: FCWithSlotMarker<React.PropsWithChildren<CheckboxOrRadioGroupLabelProps>> = ({
   children,
   className,
   visuallyHidden = false,
@@ -41,3 +42,5 @@ const CheckboxOrRadioGroupLabel: React.FC<React.PropsWithChildren<CheckboxOrRadi
 }
 
 export default CheckboxOrRadioGroupLabel
+
+CheckboxOrRadioGroupLabel.__SLOT__ = Symbol('CheckboxOrRadioGroupLabel')

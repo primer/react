@@ -3,8 +3,6 @@ import {EyeIcon, FileCodeIcon, PeopleIcon} from '@primer/octicons-react'
 import userEvent from '@testing-library/user-event'
 import {describe, expect, it, vi} from 'vitest'
 import BaseStyles from '../BaseStyles'
-import theme from '../theme'
-import ThemeProvider from '../ThemeProvider'
 import {FeatureFlags} from '../FeatureFlags'
 import {SegmentedControl} from '../SegmentedControl'
 
@@ -272,17 +270,15 @@ describe('SegmentedControl', () => {
   it('calls onChange with index of clicked segment button when using the dropdown variant', async () => {
     const handleChange = vi.fn()
     const component = render(
-      <ThemeProvider theme={theme}>
-        <BaseStyles>
-          <SegmentedControl aria-label="File view" onChange={handleChange} variant={{narrow: 'dropdown'}}>
-            {segmentData.map(({label}, index) => (
-              <SegmentedControl.Button selected={index === 0} key={label}>
-                {label}
-              </SegmentedControl.Button>
-            ))}
-          </SegmentedControl>
-        </BaseStyles>
-      </ThemeProvider>,
+      <BaseStyles>
+        <SegmentedControl aria-label="File view" onChange={handleChange} variant={{narrow: 'dropdown'}}>
+          {segmentData.map(({label}, index) => (
+            <SegmentedControl.Button selected={index === 0} key={label}>
+              {label}
+            </SegmentedControl.Button>
+          ))}
+        </SegmentedControl>
+      </BaseStyles>,
     )
     const button = component.getByText(segmentData[0].label)
 
@@ -297,17 +293,15 @@ describe('SegmentedControl', () => {
   it('calls segment button onClick if it is passed when using the dropdown variant', async () => {
     const handleClick = vi.fn()
     const component = render(
-      <ThemeProvider theme={theme}>
-        <BaseStyles>
-          <SegmentedControl aria-label="File view" variant={{narrow: 'dropdown'}}>
-            {segmentData.map(({label}, index) => (
-              <SegmentedControl.Button selected={index === 0} key={label} onClick={handleClick}>
-                {label}
-              </SegmentedControl.Button>
-            ))}
-          </SegmentedControl>
-        </BaseStyles>
-      </ThemeProvider>,
+      <BaseStyles>
+        <SegmentedControl aria-label="File view" variant={{narrow: 'dropdown'}}>
+          {segmentData.map(({label}, index) => (
+            <SegmentedControl.Button selected={index === 0} key={label} onClick={handleClick}>
+              {label}
+            </SegmentedControl.Button>
+          ))}
+        </SegmentedControl>
+      </BaseStyles>,
     )
     const button = component.getByText(segmentData[0].label)
 

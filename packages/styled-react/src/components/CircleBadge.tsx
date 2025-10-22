@@ -1,11 +1,7 @@
-import {
-  CircleBadge as PrimerCircleBadge,
-  type CircleBadgeProps as PrimerCircleBadgeProps,
-  sx,
-  type SxProp,
-} from '@primer/react'
+import {CircleBadge as PrimerCircleBadge, type CircleBadgeProps as PrimerCircleBadgeProps} from '@primer/react'
 import styled from 'styled-components'
 import {type ForwardRefComponent} from '../polymorphic'
+import sx, {type SxProp} from '../sx'
 
 type CircleBadgeProps<As extends React.ElementType> = PrimerCircleBadgeProps<As> & SxProp
 

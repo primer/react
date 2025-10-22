@@ -140,8 +140,8 @@ export const HeightInitialWithUnderflowingItemsAfterFetch = () => {
     <FormControl>
       <FormControl.Label>Labels</FormControl.Label>
       <SelectPanel
-        renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
-          <Button trailingAction={TriangleDownIcon} aria-labelledby={` ${ariaLabelledBy}`} {...anchorProps}>
+        renderAnchor={({children, ...anchorProps}) => (
+          <Button trailingAction={TriangleDownIcon} {...anchorProps}>
             {children}
           </Button>
         )}
@@ -172,8 +172,8 @@ export const AboveTallBody = () => {
     <FormControl>
       <FormControl.Label>Labels</FormControl.Label>
       <SelectPanel
-        renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
-          <Button trailingAction={TriangleDownIcon} aria-labelledby={` ${ariaLabelledBy}`} {...anchorProps}>
+        renderAnchor={({children, ...anchorProps}) => (
+          <Button trailingAction={TriangleDownIcon} {...anchorProps}>
             {children}
           </Button>
         )}

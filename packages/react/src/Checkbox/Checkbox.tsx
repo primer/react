@@ -6,6 +6,7 @@ import type {FormValidationStatus} from '../utils/types/FormValidationStatus'
 import {CheckboxGroupContext} from '../CheckboxGroup/CheckboxGroupContext'
 import classes from './Checkbox.module.css'
 import sharedClasses from './shared.module.css'
+import type {WithSlotMarker} from '../utils/types'
 
 export type CheckboxProps = {
   /**
@@ -89,5 +90,6 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
 )
 
 Checkbox.displayName = 'Checkbox'
+;(Checkbox as WithSlotMarker<typeof Checkbox>).__SLOT__ = Symbol('Checkbox')
 
-export default Checkbox
+export default Checkbox as WithSlotMarker<typeof Checkbox>

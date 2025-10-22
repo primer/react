@@ -1,15 +1,10 @@
 import type React from 'react'
 import {render, waitFor} from '@testing-library/react'
 import {describe, it, expect, vi} from 'vitest'
-import {LabelGroup, Label, ThemeProvider, BaseStyles} from '..'
-import theme from '../theme'
+import {LabelGroup, Label, BaseStyles} from '..'
 import userEvent from '@testing-library/user-event'
 
-const ThemeAndStyleContainer: React.FC<React.PropsWithChildren> = ({children}) => (
-  <ThemeProvider theme={theme}>
-    <BaseStyles>{children}</BaseStyles>
-  </ThemeProvider>
-)
+const ThemeAndStyleContainer: React.FC<React.PropsWithChildren> = ({children}) => <BaseStyles>{children}</BaseStyles>
 
 const AutoTruncateContainer: React.FC<React.PropsWithChildren & {width?: number}> = ({children, width}) => (
   <div style={{width}}>{children}</div>

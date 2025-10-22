@@ -20,7 +20,15 @@
 }
 
 .CommentBoxHeaderLeft {
-  width: 50%;
+  width: 100%;
+  min-width: 0;
+}
+
+.CommentBoxHeaderRight {
+  display: flex;
+  gap: var(--base-size-8);
+  justify-content: flex-end;
+  align-items: center;
 }
 
 .DialogContent {

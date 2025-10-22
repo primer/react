@@ -34,7 +34,8 @@
     },
     {
       "name": "flush",
-      "derive": true
+      "derive": true,
+      "type": "boolean"
     },
     {
       "name": "className",
@@ -42,6 +43,13 @@
       "required": false,
       "description": "Custom className",
       "defaultValue": ""
+    },
+    {
+      "name": "gap",
+      "type": "'none' | 'condensed'",
+      "required": false,
+      "defaultValue": "'condensed'",
+      "description": "Horizontal gap scale between items (restricted to none or condensed)."
     }
   ],
   "subcomponents": [

@@ -406,3 +406,5 @@ AutocompleteMenu.displayName = 'AutocompleteMenu'
 
 export type AutocompleteMenuProps = ComponentProps<typeof AutocompleteMenu>
 export default AutocompleteMenu
+
+AutocompleteMenu.__SLOT__ = Symbol('Autocomplete.Menu')

@@ -56,3 +56,5 @@ export const LinkItem = React.forwardRef(
 ) as PolymorphicForwardRefComponent<'a', ActionListLinkItemProps>
 
 LinkItem.displayName = 'ActionList.LinkItem'
+
+LinkItem.__SLOT__ = Symbol('ActionList.LinkItem')

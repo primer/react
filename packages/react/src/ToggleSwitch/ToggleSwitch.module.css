@@ -257,6 +257,7 @@
 }
 
 .ToggleKnob:where([data-disabled='true']) {
+  background-color: var(--controlKnob-bgColor-disabled);
   /* stylelint-disable-next-line primer/colors */
   border-color: var(--controlTrack-bgColor-disabled, var(--color-switch-track-disabled-bg, #8c959f));
 

@@ -14,11 +14,6 @@
       "name": "as",
       "type": "React.ElementType",
       "defaultValue": "\"div\""
-    },
-    {
-      "name": "sx",
-      "type": "SystemStyleObject",
-      "deprecated": true
     }
   ],
   "subcomponents": []

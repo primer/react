@@ -46,6 +46,8 @@ jobs:
           cache: 'npm'
       - name: Install dependencies
         run: npm ci
+      - name: Build doc-gen
+        run: npm run build -w @primer/doc-gen
       - name: Run migration script
         run: |
           node --experimental-strip-types script/ts-docs-status.mts >> $GITHUB_STEP_SUMMARY

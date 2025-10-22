@@ -2,4 +2,46 @@
   &:where([data-variant='fullscreen']) {
     padding-top: var(--base-size-36);
   }
+
+  /* Overflow variants */
+  &:where([data-overflow-auto]) {
+    overflow: auto;
+  }
+
+  &:where([data-overflow-hidden]) {
+    overflow: hidden;
+  }
+
+  &:where([data-overflow-scroll]) {
+    overflow: scroll;
+  }
+
+  &:where([data-overflow-visible]) {
+    overflow: visible;
+  }
+
+  /* Max-height size tokens (mirror Overlay sizes) */
+  &:where([data-max-height-xsmall]) {
+    max-height: 192px;
+  }
+
+  &:where([data-max-height-small]) {
+    max-height: 256px;
+  }
+
+  &:where([data-max-height-medium]) {
+    max-height: 320px;
+  }
+
+  &:where([data-max-height-large]) {
+    max-height: 432px;
+  }
+
+  &:where([data-max-height-xlarge]) {
+    max-height: 600px;
+  }
+
+  &:where([data-max-height-fit-content]) {
+    max-height: fit-content;
+  }
 }

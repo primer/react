@@ -1,4 +1,4 @@
-import type {ChangeEvent, ChangeEventHandler, FC} from 'react'
+import type {ChangeEvent, ChangeEventHandler} from 'react'
 import React from 'react'
 import type {CheckboxOrRadioGroupProps} from '../internal/components/CheckboxOrRadioGroup'
 import CheckboxOrRadioGroup from '../internal/components/CheckboxOrRadioGroup'
@@ -9,6 +9,8 @@ import {useRenderForcingRef} from '../hooks'
 import FormControl from '../FormControl'
 import Checkbox from '../Checkbox/Checkbox'
 import {CheckboxGroupContext} from './CheckboxGroupContext'
+import {isSlot} from '../utils/is-slot'
+import type {FCWithSlotMarker} from '../utils/types'
 
 export type CheckboxGroupProps = {
   /**
@@ -17,16 +19,21 @@ export type CheckboxGroupProps = {
   onChange?: (selected: string[], e?: ChangeEvent<HTMLInputElement>) => void
 } & CheckboxOrRadioGroupProps
 
-const CheckboxGroup: FC<React.PropsWithChildren<CheckboxGroupProps>> = ({children, disabled, onChange, ...rest}) => {
+const CheckboxGroup: FCWithSlotMarker<React.PropsWithChildren<CheckboxGroupProps>> = ({
+  children,
+  disabled,
+  onChange,
+  ...rest
+}) => {
   const formControlComponentChildren = React.Children.toArray(children)
-    .filter(child => React.isValidElement(child) && child.type === FormControl)
+    .filter(child => React.isValidElement(child) && (child.type === FormControl || isSlot(child, FormControl)))
     .map(formControlComponent =>
       React.isValidElement(formControlComponent) ? formControlComponent.props.children : [],
     )
     .flat()
 
   const checkedCheckboxes = React.Children.toArray(formControlComponentChildren)
-    .filter(child => React.isValidElement(child) && child.type === Checkbox)
+    .filter(child => React.isValidElement(child) && (child.type === Checkbox || isSlot(child, Checkbox)))
     .map(
       checkbox =>
         React.isValidElement(checkbox) &&
@@ -73,3 +80,5 @@ export default Object.assign(CheckboxGroup, {
   Label: CheckboxOrRadioGroupLabel,
   Validation: CheckboxOrRadioGroupValidation,
 })
+
+CheckboxGroup.__SLOT__ = Symbol('CheckboxGroup')

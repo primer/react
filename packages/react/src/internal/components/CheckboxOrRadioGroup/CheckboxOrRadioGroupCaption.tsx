@@ -3,10 +3,11 @@ import Text from '../../../Text'
 import CheckboxOrRadioGroupContext from './CheckboxOrRadioGroupContext'
 import classes from './CheckboxOrRadioGroup.module.css'
 import {clsx} from 'clsx'
+import type {FCWithSlotMarker} from '../../../utils/types'
 
 type CheckboxOrRadioGroupCaptionProps = React.PropsWithChildren<{className?: string}>
 
-const CheckboxOrRadioGroupCaption: React.FC<CheckboxOrRadioGroupCaptionProps> = ({className, children}) => {
+const CheckboxOrRadioGroupCaption: FCWithSlotMarker<CheckboxOrRadioGroupCaptionProps> = ({className, children}) => {
   const {captionId} = React.useContext(CheckboxOrRadioGroupContext)
   return (
     <Text className={clsx(className, classes.CheckboxOrRadioGroupCaption)} id={captionId}>
@@ -16,3 +17,5 @@ const CheckboxOrRadioGroupCaption: React.FC<CheckboxOrRadioGroupCaptionProps> = 
 }
 
 export default CheckboxOrRadioGroupCaption
+
+CheckboxOrRadioGroupCaption.__SLOT__ = Symbol('CheckboxOrRadioGroupCaption')

@@ -1,6 +1,7 @@
 import type React from 'react'
 import {clsx} from 'clsx'
 import classes from './ActionList.module.css'
+import type {FCWithSlotMarker} from '../utils/types/Slots'
 
 export type ActionListDividerProps = {
   className?: string
@@ -10,7 +11,7 @@ export type ActionListDividerProps = {
 /**
  * Visually separates `Items` or `Groups` in an `ActionList`.
  */
-export const Divider: React.FC<React.PropsWithChildren<ActionListDividerProps>> = ({className, style}) => {
+export const Divider: FCWithSlotMarker<React.PropsWithChildren<ActionListDividerProps>> = ({className, style}) => {
   return (
     <li
       className={clsx(className, classes.Divider)}
@@ -20,3 +21,5 @@ export const Divider: React.FC<React.PropsWithChildren<ActionListDividerProps>> 
     />
   )
 }
+
+Divider.__SLOT__ = Symbol('ActionList.Divider')

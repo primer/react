@@ -1,0 +1,85 @@
+.UnderlineNav {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: var(--borderWidth-thin) solid var(--borderColor-muted);
+
+  &.UnderlineNav--right {
+    justify-content: flex-end;
+  }
+
+  &.UnderlineNav--right .UnderlineNavItem {
+    margin-right: 0;
+    margin-left: var(--base-size-16);
+  }
+
+  &.UnderlineNav--right .UnderlineNavActions {
+    flex: 1 1 auto;
+  }
+
+  &.UnderlineNav--full {
+    display: block;
+  }
+
+  .UnderlineNavBody {
+    display: flex;
+    /* stylelint-disable-next-line primer/spacing */
+    margin-bottom: -1px;
+  }
+
+  .UnderlineNavActions {
+    align-self: center;
+  }
+}
+
+.UnderlineNavLink {
+  padding: var(--base-size-16) var(--base-size-8);
+  margin-right: var(--base-size-16);
+  font-size: var(--text-body-size-medium);
+  line-height: var(--text-title-lineHeight-large);
+  color: var(--fgColor-default);
+  text-align: center;
+  /* stylelint-disable-next-line primer/borders */
+  border-bottom: 2px solid transparent;
+  text-decoration: none;
+
+  /* fallback :focus state */
+  &:focus:not(:disabled) {
+    box-shadow: none;
+    outline: 2px solid var(--fgColor-accent);
+    outline-offset: -8px;
+
+    /* remove fallback :focus if :focus-visible is supported */
+    &:not(:focus-visible) {
+      outline: solid 1px transparent;
+    }
+  }
+
+  /* default focus state */
+  &:focus-visible:not(:disabled) {
+    box-shadow: none;
+    outline: 2px solid var(--fgColor-accent);
+    outline-offset: -8px;
+  }
+}
+
+.UnderlineNavLink:hover,
+.UnderlineNavLink:focus {
+  color: var(--fgColor-default);
+  text-decoration: none;
+  border-bottom-color: var(--borderColor-muted);
+  transition: border-bottom-color 0.2s ease;
+}
+
+.UnderlineNavLink:hover .UnderlineNavOcticon,
+.UnderlineNavLink:focus .UnderlineNavOcticon {
+  color: var(--fgColor-muted);
+}
+
+.UnderlineNavLink:where([data-selected]) {
+  color: var(--fgColor-default);
+  border-bottom-color: var(--underlineNav-borderColor-active);
+}
+
+.UnderlineNavLink:where([data-selected]) .UnderlineNavOcticon {
+  color: var(--fgColor-default);
+}

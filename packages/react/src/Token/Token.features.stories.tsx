@@ -1,6 +1,5 @@
 import type {Meta} from '@storybook/react-vite'
 import {action} from 'storybook/actions'
-import {BaseStyles, ThemeProvider} from '..'
 import Token from './Token'
 import {GitBranchIcon} from '@primer/octicons-react'
 import IssueLabelToken from './IssueLabelToken'
@@ -9,17 +8,6 @@ import classes from './Token.features.stories.module.css'
 export default {
   title: 'Components/Token/Features',
   component: Token,
-  decorators: [
-    Story => {
-      return (
-        <ThemeProvider>
-          <BaseStyles>
-            <Story />
-          </BaseStyles>
-        </ThemeProvider>
-      )
-    },
-  ],
 } as Meta
 
 export const InteractiveToken = () => {
