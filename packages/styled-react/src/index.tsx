@@ -7,7 +7,7 @@ export {ProgressBar} from '@primer/react'
 // theming depends on styled-components
 export {ThemeProvider, useTheme, useColorSchemeVar, type ThemeProviderProps} from './components/ThemeProvider'
 export {BaseStyles, type BaseStylesProps} from './components/BaseStyles'
-export {theme} from '@primer/react'
+export {default as theme, type ThemeColorPaths, type ThemeShadowPaths} from './theme'
 export {get as themeGet} from './theme-get'
 
 export {

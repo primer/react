@@ -1,8 +1,8 @@
 import type {SystemCssProperties, SystemStyleObject} from '@styled-system/css'
 import css from '@styled-system/css'
-import type {ThemeColorPaths, ThemeShadowPaths} from '@primer/react'
 import type {ColorProps, BorderColorProps, ShadowProps} from 'styled-system'
 import merge from 'deepmerge'
+import type {ThemeColorPaths, ThemeShadowPaths} from './theme'
 
 export type BetterCssProperties = {
   [K in keyof SystemCssProperties]: K extends keyof ColorProps

@@ -23,6 +23,7 @@
   ],
   "scripts": {
     "build": "script/build",
+    "build:precompile-color-schemes": "tsx script/precompile-color-schemes.ts",
     "clean": "rimraf dist",
     "lint:npm": "publint --types",
     "type-check": "tsc --noEmit"
@@ -40,6 +41,7 @@
     "@types/styled-system__theme-get": "^5.0.4",
     "@vitejs/plugin-react": "^4.3.3",
     "babel-plugin-styled-components": "2.1.4",
+    "deepmerge": "^4.3.1",
     "publint": "^0.3.12",
     "react": "18.3.1",
     "react-dom": "18.3.1",
@@ -47,6 +49,7 @@
     "rollup": "4.50.1",
     "rollup-plugin-typescript2": "^0.36.0",
     "styled-components": "5.3.11",
+    "tsx": "^4.20.6",
     "typescript": "^5.9.2"
   },
   "peerDependencies": {
@@ -77,6 +80,10 @@
   "dependencies": {
     "@styled-system/css": "^5.1.5",
     "@styled-system/theme-get": "^5.1.2",
+    "clsx": "^2.1.1",
+    "focus-visible": "^5.2.1",
+    "lodash.isempty": "^4.4.0",
+    "lodash.isobject": "^3.0.2",
     "styled-system": "^5.1.5"
   }
 }

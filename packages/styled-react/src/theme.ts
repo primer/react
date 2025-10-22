@@ -1,5 +1,4 @@
-import type {KeyPaths} from './utils/types/KeyPaths'
-import {fontStack} from './utils/theme'
+import {fontStack, type KeyPaths} from './theme-utils'
 import {colorSchemes} from './legacy-theme/ts/color-schemes'
 
 const animation = {

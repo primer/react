@@ -45,7 +45,6 @@
     "build:docs:preview": "NODE_OPTIONS=--openssl-legacy-provider script/build-docs preview",
     "build:components.json": "tsx script/components-json/build.ts",
     "build:hooks.json": "tsx script/hooks-json/build.ts",
-    "build:precompile-color-schemes": "tsx script/precompile-color-schemes.ts",
     "lint:npm": "publint --types",
     "storybook": "storybook",
     "type-check": "tsc --noEmit",
@@ -85,8 +84,6 @@
     "focus-visible": "^5.2.1",
     "history": "^5.0.0",
     "hsluv": "1.0.1",
-    "lodash.isempty": "^4.4.0",
-    "lodash.isobject": "^3.0.2",
     "react-compiler-runtime": "^19.1.0-rc.2",
     "react-intersection-observer": "^9.16.0"
   },
