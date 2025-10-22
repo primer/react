@@ -1,5 +1,5 @@
 import {describe, expect, it} from 'vitest'
-import {themeGet} from '..'
+import {get as themeGet} from '../constants'
 
 describe('themeGet', () => {
   it('accepts theme prop', () => {
