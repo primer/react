@@ -2,4 +2,4 @@
 "@primer/react": patch
 ---
 
-Remove breadcrumbs overflow menu feature flag
+Breadcrumbs: Remove feature flag for overflow_menu, this behavior is now the default
