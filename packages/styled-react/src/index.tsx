@@ -8,7 +8,8 @@ export {ProgressBar} from '@primer/react'
 export {ThemeProvider, useTheme, useColorSchemeVar, type ThemeProviderProps} from './components/ThemeProvider'
 export {BaseStyles, type BaseStylesProps} from './components/BaseStyles'
 export {theme} from '@primer/react'
-export {themeGet} from '@primer/react'
+
+export {get as themeGet} from './theme-get'
 
 export {
   ActionList,
