@@ -1,4 +1,11 @@
 {
   "extends": "../../tsconfig.base.json",
-  "include": ["src", "vitest.config.ts", "vitest.config.browser.ts", "config/vitest", "src/legacy-theme"]
+  "include": [
+    "src",
+    "vitest.config.ts",
+    "vitest.config.browser.ts",
+    "config/vitest",
+    "src/legacy-theme",
+    "script/precompile-color-schemes.ts"
+  ]
 }
