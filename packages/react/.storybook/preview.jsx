@@ -1,4 +1,3 @@
-import {PrimerBreakpoints} from '../src/utils/layout'
 import React, {useEffect} from 'react'
 import {ThemeProvider} from '../src/ThemeProvider'
 import BaseStyles from '../src/BaseStyles'
@@ -9,6 +8,17 @@ import {clsx} from 'clsx'
 import './storybook.css'
 import './primitives-v8.css'
 import {Profiler} from 'react'
+
+// TODO: Update the hard-coded values when the primitives are ready
+const breakpoints = ['544px', '768px', '1012px', '1280px']
+export const PrimerBreakpoints = {
+  xsmall: {width: '320px'},
+  small: {width: breakpoints[0]},
+  medium: {width: breakpoints[1]},
+  large: {width: breakpoints[2]},
+  xlarge: {width: breakpoints[3]},
+  xxlarge: {width: '1400px'},
+}
 
 let storybookViewports = {}
 Object.entries(PrimerBreakpoints).forEach(([viewport, value]) => {
