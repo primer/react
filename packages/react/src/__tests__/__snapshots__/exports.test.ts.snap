@@ -180,6 +180,7 @@ exports[`@primer/react > should not update exports without a semver change 1`] =
   "type TextProps",
   "theme",
   "ThemeColorPaths",
+  "themeGet",
   "ThemeProvider",
   "type ThemeProviderProps",
   "ThemeShadowPaths",
