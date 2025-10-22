@@ -1,5 +1,5 @@
 import {describe, expect, it} from 'vitest'
-import {isShadowValue} from '../utils/theme'
+import {isShadowValue} from '../theme-utils'
 
 describe('isShadowValue', () => {
   it('accepts transparent', () => {

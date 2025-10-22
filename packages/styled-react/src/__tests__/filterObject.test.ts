@@ -1,5 +1,5 @@
 import {describe, expect, it} from 'vitest'
-import {isColorValue, isShadowValue, filterObject} from '../utils/theme'
+import {isColorValue, isShadowValue, filterObject} from '../theme-utils'
 
 describe('filterObject', () => {
   const colors = {
