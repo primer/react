@@ -55,37 +55,3 @@ export function Default(): JSX.Element {
     </>
   )
 }
-
-export function WithLongItems() {
-  const [filter, setFilter] = React.useState('')
-
-  return (
-    <>
-      <h1>Filtered Action List with Long Items</h1>
-      <div>Please select labels that describe your issue:</div>
-      <FilteredActionList
-        placeholderText="Filter Labels"
-        onFilterChange={setFilter}
-        items={[
-          {leadingVisual: getColorCircle('#a2eeef'), text: 'enhancement with a very long label that might wrap', id: 1},
-          {
-            leadingVisual: getColorCircle('#d73a4a'),
-            text: 'bug with an excessively verbose description that goes on and on',
-            id: 2,
-          },
-          {
-            leadingVisual: getColorCircle('#0cf478'),
-            text: 'good first issue that is intended to be approachable for newcomers',
-            id: 3,
-          },
-          {
-            leadingVisual: getColorCircle('#ffd78e'),
-            text: 'design related task that involves multiple stakeholders and considerations',
-            id: 4,
-          },
-        ]}
-        className={classes.FilteredActionListContainer}
-      />
-    </>
-  )
-}
