@@ -299,7 +299,7 @@ export const CustomItemRenderer = () => {
         onFilterChange={setFilter}
         overlayProps={{width: 'medium'}}
         renderItem={item => (
-          <ActionList.Item id={item.id?.toString()} className={styles.CustomActionListItem}>
+          <ActionList.Item id={item.id.toString()} className={styles.CustomActionListItem}>
             <ActionList.Description truncate>{item.text}</ActionList.Description>
           </ActionList.Item>
         )}
