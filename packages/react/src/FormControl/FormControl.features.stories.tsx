@@ -2,7 +2,6 @@ import React, {useState} from 'react'
 import type {Meta} from '@storybook/react-vite'
 import {
   Autocomplete,
-  BaseStyles,
   Button,
   Checkbox,
   CheckboxGroup,
@@ -15,8 +14,6 @@ import {
   TextInput,
   TextInputWithTokens,
   Textarea,
-  ThemeProvider,
-  theme,
 } from '..'
 import {MarkGithubIcon, TriangleDownIcon} from '@primer/octicons-react'
 import type {ItemInput} from '../SelectPanel'
@@ -25,17 +22,6 @@ import classes from './FormControl.features.stories.module.css'
 
 export default {
   title: 'Components/FormControl/Features',
-  decorators: [
-    Story => {
-      return (
-        <ThemeProvider theme={theme}>
-          <BaseStyles>
-            <Story />
-          </BaseStyles>
-        </ThemeProvider>
-      )
-    },
-  ],
   argTypes: {
     disabled: {
       type: 'boolean',

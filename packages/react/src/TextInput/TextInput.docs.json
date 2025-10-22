@@ -142,24 +142,24 @@
     },
     {
       "name": "width",
-      "type": "string | number | Array<string | number>",
+      "type": "string | number",
       "defaultValue": "",
       "deprecated": true,
-      "description": "(Use sx prop) Set the width of the input"
+      "description": "(Use css modules) Set the width of the input"
     },
     {
       "name": "maxWidth",
-      "type": "string | number | Array<string | number>",
+      "type": "string | number",
       "defaultValue": "",
       "deprecated": true,
-      "description": "(Use sx prop) Set the maximum width of the input"
+      "description": "(Use css modules) Set the maximum width of the input"
     },
     {
       "name": "minWidth",
-      "type": "string | number | Array<string | number>",
+      "type": "string | number",
       "defaultValue": "",
       "deprecated": true,
-      "description": "(Use sx prop) Set the minimum width of the input"
+      "description": "(Use css modules) Set the minimum width of the input"
     },
     {
       "name": "icon",
@@ -167,11 +167,6 @@
       "defaultValue": "",
       "deprecated": true,
       "description": "(Use leadingVisual or trailingVisual) An Octicon React component. To be used inside of input. Positioned on the left edge."
-    },
-    {
-      "name": "sx",
-      "type": "SystemStyleObject",
-      "deprecated": true
     },
     {
       "name": "ref",
@@ -215,11 +210,6 @@
           "name": "as",
           "type": "React.ElementType",
           "defaultValue": "\"button\""
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject",
-          "deprecated": true
         }
       ],
       "passthrough": {

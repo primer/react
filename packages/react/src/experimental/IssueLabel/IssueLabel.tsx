@@ -1,6 +1,5 @@
 import {clsx} from 'clsx'
 import type React from 'react'
-import {useTheme} from '../../ThemeProvider'
 import {getColorsFromHex} from './getColorFromHex'
 import classes from './IssueLabel.module.css'
 
@@ -71,17 +70,10 @@ function IssueLabel<As extends React.ElementType>({
   variant = 'gray',
   ...props
 }: IssueLabelProps<As>): React.ReactNode {
-  const {resolvedColorScheme} = useTheme()
-  const mode = resolvedColorScheme?.startsWith('dark') ? 'dark' : 'light'
-  // TODO: get the bgColor, getting it from theme.colorScheme seems a bit sketchy
-  const bgColors: Record<string, Hex> = {
-    light: '#ffffff',
-    dark: '#0d1117',
-  }
   const sharedProps = {
     className: clsx(className, classes.IssueLabel),
     'data-variant': fillColor ? undefined : variant,
-    style: fillColor ? {...style, ...getColorsFromHex(fillColor, resolvedColorScheme, bgColors[mode])} : style,
+    style: fillColor ? {...style, ...getColorsFromHex(fillColor)} : style,
   }
 
   if ('as' in props && props.as) {
