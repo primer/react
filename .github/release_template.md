@@ -34,5 +34,5 @@ Please ensure these items are checked after merging:
 
 - [ ] Upgrade `@primer/react` version at github/github-ui
 - [ ] Close Integration test PR and delete branch
-- [ ] Leave a comment on [quarterly release conductor tracking issue](https://github.com/github/primer/issues/5977)
+- [ ] Leave a `/short-report` comment on [quarterly release conductor tracking issue](https://github.com/github/primer/issues/5977) summarizing time spent on release activities and any challenges encountered
 - [ ] Leave any testing notes on the automated [per-shift release tracking issue](https://github.com/primer/react/issues?q=is%3Aissue+is%3Aopen+%22Release+Tracking%22). In particular, describe any issues encountered during your testing. This is helpful in providing historical context to the next release conductor as well as other maintainers.
