@@ -69,6 +69,11 @@ export type BannerProps = React.ComponentPropsWithoutRef<'section'> & {
    * Specify the layout of the Banner. Compact layout will reduce the padding.
    */
   layout?: 'default' | 'compact'
+
+  /**
+   * Override the default actions layout behavior
+   */
+  actionsLayout?: 'inline' | 'stacked' | 'default'
 }
 
 const iconForVariant: Record<BannerVariant, React.ReactNode> = {
@@ -101,6 +106,7 @@ export const Banner = React.forwardRef<HTMLElement, BannerProps>(function Banner
     secondaryAction,
     title,
     variant = 'info',
+    actionsLayout = 'default',
     ...rest
   },
   forwardRef,
@@ -143,6 +149,7 @@ export const Banner = React.forwardRef<HTMLElement, BannerProps>(function Banner
       data-dismissible={onDismiss ? '' : undefined}
       data-title-hidden={hideTitle ? '' : undefined}
       data-variant={variant}
+      data-actions-layout={actionsLayout}
       tabIndex={-1}
       ref={ref}
       data-layout={rest.layout || 'default'}
