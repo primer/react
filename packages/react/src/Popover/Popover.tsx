@@ -73,7 +73,7 @@ const PopoverContent: React.FC<React.PropsWithChildren<PopoverContentProps>> = (
   const divRef = useRef(null)
 
   useOnOutsideClick({
-    onClickOutside: onClickOutside ?? (() => null),
+    onClickOutside,
     containerRef: divRef,
     ignoreClickRefs: ignoreClickRefs ?? [],
   })
