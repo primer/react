@@ -13,15 +13,18 @@ const AutoTruncateContainer: React.FC<React.PropsWithChildren & {width?: number}
 const observe = vi.fn()
 
 describe('LabelGroup', () => {
-  window.IntersectionObserver = vi.fn(() => ({
-    observe,
-    unobserve: vi.fn(),
-    takeRecords: vi.fn(),
-    disconnect: vi.fn(),
-    root: null,
-    rootMargin: '',
-    thresholds: [],
-  })) as unknown as typeof IntersectionObserver
+  window.IntersectionObserver = class IntersectionObserver {
+    constructor(callback: IntersectionObserverCallback) {
+      // Store callback if needed
+    }
+    observe = observe
+    unobserve = vi.fn()
+    takeRecords = vi.fn()
+    disconnect = vi.fn()
+    root = null
+    rootMargin = ''
+    thresholds = []
+  } as any
 
   it('observers intersections on each child', async () => {
     render(
