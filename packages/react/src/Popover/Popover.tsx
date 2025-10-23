@@ -1,7 +1,8 @@
 import {clsx} from 'clsx'
 import classes from './Popover.module.css'
 import type {HTMLProps} from 'react'
-import React from 'react'
+import React, {useRef} from 'react'
+import {useOnOutsideClick} from '../hooks'
 
 type CaretPosition =
   | 'top'
@@ -51,15 +52,41 @@ export type PopoverContentProps = {
   width?: 'xsmall' | 'small' | 'large' | 'medium' | 'auto' | 'xlarge'
   height?: 'small' | 'large' | 'medium' | 'auto' | 'xlarge' | 'fit-content'
   overflow?: 'auto' | 'hidden' | 'scroll' | 'visible'
+  /*
+   * Callback fired when a click is detected outside the popover content
+   */
+  onClickOutside?: (event: MouseEvent | TouchEvent) => void
+  /*
+   * Refs to elements that should be ignored when detecting outside clicks
+   */
+  ignoreClickRefs?: React.RefObject<HTMLElement>[]
 } & HTMLProps<HTMLDivElement>
 
 const PopoverContent: React.FC<React.PropsWithChildren<PopoverContentProps>> = ({
   className,
   width = 'small',
   height = 'fit-content',
+  onClickOutside,
+  ignoreClickRefs,
   ...props
 }) => {
-  return <div data-width={width} data-height={height} className={clsx(className, classes.PopoverContent)} {...props} />
+  const divRef = useRef(null)
+
+  useOnOutsideClick({
+    onClickOutside: onClickOutside ?? (() => null),
+    containerRef: divRef,
+    ignoreClickRefs: ignoreClickRefs ?? [],
+  })
+
+  return (
+    <div
+      ref={divRef}
+      data-width={width}
+      data-height={height}
+      className={clsx(className, classes.PopoverContent)}
+      {...props}
+    />
+  )
 }
 
 PopoverContent.displayName = 'Popover.Content'
