@@ -31,7 +31,7 @@ function Spinner({
   'aria-label': ariaLabel,
   className,
   style,
-  delay = 1000,
+  delay = 0,
   ...props
 }: SpinnerProps) {
   const size = sizeMap[sizeKey]
