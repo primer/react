@@ -15,16 +15,19 @@ const mockObserve = vi.fn()
 const mockUnobserve = vi.fn()
 const mockDisconnect = vi.fn()
 
-globalThis.ResizeObserver = class ResizeObserver {
+class MockResizeObserver implements ResizeObserver {
   callback: ResizeObserverCallback
+
   constructor(callback: ResizeObserverCallback) {
     this.callback = callback
   }
+
   observe = mockObserve
   unobserve = mockUnobserve
   disconnect = mockDisconnect
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-} as any
+}
+
+globalThis.ResizeObserver = MockResizeObserver as typeof ResizeObserver
 
 describe('Breadcrumbs', () => {
   it('renders a <nav>', () => {
@@ -210,15 +213,16 @@ describe('Breadcrumbs', () => {
   it('shows overflow menu during resize when items exceed container width', () => {
     let resizeCallback: ResizeObserverCallback | undefined
 
-    globalThis.ResizeObserver = class ResizeObserver {
+    class TestResizeObserver implements ResizeObserver {
       constructor(callback: ResizeObserverCallback) {
         resizeCallback = callback
       }
       observe = mockObserve
       unobserve = mockUnobserve
       disconnect = mockDisconnect
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } as any
+    }
+
+    globalThis.ResizeObserver = TestResizeObserver as typeof ResizeObserver
 
     renderWithTheme(
       <Breadcrumbs overflow="menu">
@@ -274,15 +278,16 @@ describe('Breadcrumbs', () => {
   it('correctly populates overflow menu during resize events', async () => {
     let resizeCallback: ResizeObserverCallback | undefined
 
-    globalThis.ResizeObserver = class ResizeObserver {
+    class TestResizeObserver implements ResizeObserver {
       constructor(callback: ResizeObserverCallback) {
         resizeCallback = callback
       }
       observe = mockObserve
       unobserve = mockUnobserve
       disconnect = mockDisconnect
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } as any
+    }
+
+    globalThis.ResizeObserver = TestResizeObserver as typeof ResizeObserver
 
     const user = userEvent.setup()
 
