@@ -18,15 +18,15 @@ export const WithCss = () => (
     <SegmentedControl.Button
       defaultSelected
       aria-label={'Preview'}
-      leadingIcon={EyeIcon}
+      leadingVisual={EyeIcon}
       className="testCustomClassnameColor"
     >
       Preview
     </SegmentedControl.Button>
-    <SegmentedControl.Button aria-label={'Raw'} leadingIcon={FileCodeIcon} className="testCustomClassnameColor">
+    <SegmentedControl.Button aria-label={'Raw'} leadingVisual={FileCodeIcon} className="testCustomClassnameColor">
       Raw
     </SegmentedControl.Button>
-    <SegmentedControl.Button aria-label={'Blame'} leadingIcon={PeopleIcon} className="testCustomClassnameColor">
+    <SegmentedControl.Button aria-label={'Blame'} leadingVisual={PeopleIcon} className="testCustomClassnameColor">
       Blame
     </SegmentedControl.Button>
   </SegmentedControl>
