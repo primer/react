@@ -203,9 +203,9 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
     }, 0)
   }
 
-  const handleInputKeyDown: KeyboardEventHandler<HTMLInputElement> = event => {
+  const handleInputKeyDown: KeyboardEventHandler<HTMLInputElement> = e => {
     if (onKeyDown) {
-      onKeyDown(event)
+      onKeyDown(e)
     }
 
     if (ref.current?.value) {
@@ -214,7 +214,7 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
 
     const lastToken = tokens[tokens.length - 1]
 
-    if (event.key === 'Backspace' && lastToken) {
+    if (e.key === 'Backspace' && lastToken) {
       handleTokenRemove(lastToken.id)
 
       if (ref.current) {
