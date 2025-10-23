@@ -1,6 +1,5 @@
 'use client'
 
-export {default as theme, type ThemeColorPaths, type ThemeShadowPaths} from './theme'
 export {default as BaseStyles} from './BaseStyles'
 export type {BaseStylesProps} from './BaseStyles'
 export {default as ThemeProvider, useTheme, useColorSchemeVar} from './ThemeProvider'

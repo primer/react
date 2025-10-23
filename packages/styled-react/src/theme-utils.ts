@@ -1,3 +1,5 @@
+// Copied over from primer/react/utils/theme
+
 // Temporarily disabling since this is originally a JavaScript that needed to be
 // migrated to TypeScript for exports to work as correctly in Vite.
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -74,3 +76,8 @@ const themeUtils = {
 export {fontStack, isShadowValue, isColorValue, filterObject, partitionColors, omitScale}
 
 export default themeUtils
+
+// Produces a union of dot-delimited keypaths to the string values in a nested object:
+export type KeyPaths<O> = {
+  [K in keyof O]: K extends string ? (O[K] extends Record<string, unknown> ? `${K}.${KeyPaths<O[K]>}` : `${K}`) : never
+}[keyof O]

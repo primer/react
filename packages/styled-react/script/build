@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Generate color schemes
+npm run build:precompile-color-schemes
+
 # Build the package
 npx rollup -c
 

@@ -1,8 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import {ThemeProvider as SCThemeProvider} from 'styled-components'
-import {theme as defaultTheme, useId, useSyncedState} from '@primer/react'
+import {useId, useSyncedState} from '@primer/react'
 import deepmerge from 'deepmerge'
+import defaultTheme from '../theme'
 
 export const defaultColorMode = 'day'
 const defaultDayScheme = 'light'
