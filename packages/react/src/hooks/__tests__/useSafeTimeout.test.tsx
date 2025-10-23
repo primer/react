@@ -3,7 +3,7 @@ import {afterEach, beforeEach, expect, test, vi} from 'vitest'
 import useSafeTimeout from '../useSafeTimeout'
 
 beforeEach(() => {
-  vi.useFakeTimers()
+  vi.useFakeTimers({toFake: ['setTimeout', 'clearTimeout', 'setInterval', 'clearInterval']})
 })
 
 afterEach(() => {

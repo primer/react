@@ -205,6 +205,7 @@ test('warns about duplicate slots', () => {
     ]
   `)
   expect(warnSpy).toHaveBeenCalledTimes(1)
+  warnSpy.mockRestore()
 })
 
 test('extracts elements based on condition in config object', () => {
@@ -484,6 +485,7 @@ test('handles slot symbol matching with duplicate detection', () => {
     'Warning:',
     'Found duplicate "slotComponent" slot. Only the first will be rendered.',
   )
+  warnSpy.mockRestore()
 })
 
 test('handles empty slot symbols gracefully', () => {

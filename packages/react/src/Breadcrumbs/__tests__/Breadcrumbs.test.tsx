@@ -15,11 +15,11 @@ const mockObserve = vi.fn()
 const mockUnobserve = vi.fn()
 const mockDisconnect = vi.fn()
 
-globalThis.ResizeObserver = vi.fn().mockImplementation(() => ({
+globalThis.ResizeObserver = vi.fn((callback) => ({
   observe: mockObserve,
   unobserve: mockUnobserve,
   disconnect: mockDisconnect,
-}))
+})) as any
 
 describe('Breadcrumbs', () => {
   it('renders a <nav>', () => {

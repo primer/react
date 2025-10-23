@@ -2,7 +2,7 @@ import {describe, expect, it, vi} from 'vitest'
 import {render} from '@testing-library/react'
 import {SelectPanel} from '../'
 
-vi.useFakeTimers()
+vi.useFakeTimers({toFake: ['setTimeout', 'clearTimeout', 'setInterval', 'clearInterval']})
 
 describe('SelectPanel.Loading', () => {
   it('should announce children as a polite message', () => {
