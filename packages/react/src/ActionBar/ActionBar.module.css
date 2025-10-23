@@ -36,5 +36,5 @@
 
 .Group {
   display: flex;
-  gap: inherit
+  gap: inherit;
 }
