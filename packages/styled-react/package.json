@@ -36,7 +36,7 @@
     "@types/react-dom": "18.3.1",
     "@vitejs/plugin-react": "^4.3.3",
     "babel-plugin-styled-components": "2.1.4",
-    "publint": "^0.3.12",
+    "publint": "^0.3.14",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "rimraf": "^6.0.1",
