@@ -15,11 +15,15 @@ const mockObserve = vi.fn()
 const mockUnobserve = vi.fn()
 const mockDisconnect = vi.fn()
 
-globalThis.ResizeObserver = vi.fn((callback) => ({
-  observe: mockObserve,
-  unobserve: mockUnobserve,
-  disconnect: mockDisconnect,
-})) as any
+globalThis.ResizeObserver = class ResizeObserver {
+  callback: ResizeObserverCallback
+  constructor(callback: ResizeObserverCallback) {
+    this.callback = callback
+  }
+  observe = mockObserve
+  unobserve = mockUnobserve
+  disconnect = mockDisconnect
+} as any
 
 describe('Breadcrumbs', () => {
   it('renders a <nav>', () => {
@@ -205,15 +209,14 @@ describe('Breadcrumbs', () => {
   it('shows overflow menu during resize when items exceed container width', () => {
     let resizeCallback: ((entries: ResizeObserverEntry[]) => void) | undefined
 
-    const mockResizeObserver = vi.fn().mockImplementation(callback => {
-      resizeCallback = callback
-      return {
-        observe: mockObserve,
-        unobserve: mockUnobserve,
-        disconnect: mockDisconnect,
+    globalThis.ResizeObserver = class ResizeObserver {
+      constructor(callback: ResizeObserverCallback) {
+        resizeCallback = callback
       }
-    })
-    globalThis.ResizeObserver = mockResizeObserver
+      observe = mockObserve
+      unobserve = mockUnobserve
+      disconnect = mockDisconnect
+    } as any
 
     renderWithTheme(
       <Breadcrumbs overflow="menu">
@@ -263,15 +266,14 @@ describe('Breadcrumbs', () => {
   it('correctly populates overflow menu during resize events', async () => {
     let resizeCallback: ((entries: ResizeObserverEntry[]) => void) | undefined
 
-    const mockResizeObserver = vi.fn().mockImplementation(callback => {
-      resizeCallback = callback
-      return {
-        observe: mockObserve,
-        unobserve: mockUnobserve,
-        disconnect: mockDisconnect,
+    globalThis.ResizeObserver = class ResizeObserver {
+      constructor(callback: ResizeObserverCallback) {
+        resizeCallback = callback
       }
-    })
-    globalThis.ResizeObserver = mockResizeObserver
+      observe = mockObserve
+      unobserve = mockUnobserve
+      disconnect = mockDisconnect
+    } as any
 
     const user = userEvent.setup()
 

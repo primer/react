@@ -1,8 +1,14 @@
-import {describe, expect, it, vi} from 'vitest'
+import {describe, expect, it, vi, beforeEach, afterEach} from 'vitest'
 import {render} from '@testing-library/react'
 import {SelectPanel} from '../'
 
-vi.useFakeTimers({toFake: ['setTimeout', 'clearTimeout', 'setInterval', 'clearInterval']})
+beforeEach(() => {
+  vi.useFakeTimers({toFake: ['setTimeout', 'clearTimeout', 'setInterval', 'clearInterval']})
+})
+
+afterEach(() => {
+  vi.useRealTimers()
+})
 
 describe('SelectPanel.Loading', () => {
   it('should announce children as a polite message', () => {
