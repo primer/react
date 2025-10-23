@@ -23,6 +23,7 @@ globalThis.ResizeObserver = class ResizeObserver {
   observe = mockObserve
   unobserve = mockUnobserve
   disconnect = mockDisconnect
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
 } as any
 
 describe('Breadcrumbs', () => {
@@ -207,7 +208,7 @@ describe('Breadcrumbs', () => {
   })
 
   it('shows overflow menu during resize when items exceed container width', () => {
-    let resizeCallback: ((entries: ResizeObserverEntry[]) => void) | undefined
+    let resizeCallback: ResizeObserverCallback | undefined
 
     globalThis.ResizeObserver = class ResizeObserver {
       constructor(callback: ResizeObserverCallback) {
@@ -216,6 +217,7 @@ describe('Breadcrumbs', () => {
       observe = mockObserve
       unobserve = mockUnobserve
       disconnect = mockDisconnect
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } as any
 
     renderWithTheme(
@@ -237,11 +239,14 @@ describe('Breadcrumbs', () => {
 
     // Simulate a wide container resize
     if (resizeCallback) {
-      resizeCallback([
-        {
-          contentRect: {width: 800, height: 40},
-        } as ResizeObserverEntry,
-      ])
+      resizeCallback(
+        [
+          {
+            contentRect: {width: 800, height: 40},
+          } as ResizeObserverEntry,
+        ],
+        {} as ResizeObserver,
+      )
     }
 
     // Should still have overflow menu for 6 items (>5 rule)
@@ -249,11 +254,14 @@ describe('Breadcrumbs', () => {
 
     // Simulate a narrow container resize
     if (resizeCallback) {
-      resizeCallback([
-        {
-          contentRect: {width: 250, height: 40},
-        } as ResizeObserverEntry,
-      ])
+      resizeCallback(
+        [
+          {
+            contentRect: {width: 250, height: 40},
+          } as ResizeObserverEntry,
+        ],
+        {} as ResizeObserver,
+      )
     }
 
     // Should maintain overflow menu for narrow container
@@ -264,7 +272,7 @@ describe('Breadcrumbs', () => {
   })
 
   it('correctly populates overflow menu during resize events', async () => {
-    let resizeCallback: ((entries: ResizeObserverEntry[]) => void) | undefined
+    let resizeCallback: ResizeObserverCallback | undefined
 
     globalThis.ResizeObserver = class ResizeObserver {
       constructor(callback: ResizeObserverCallback) {
@@ -273,6 +281,7 @@ describe('Breadcrumbs', () => {
       observe = mockObserve
       unobserve = mockUnobserve
       disconnect = mockDisconnect
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } as any
 
     const user = userEvent.setup()
@@ -320,11 +329,14 @@ describe('Breadcrumbs', () => {
 
     // Simulate a very narrow container resize that would affect overflow calculation
     if (resizeCallback) {
-      resizeCallback([
-        {
-          contentRect: {width: 200, height: 40},
-        } as ResizeObserverEntry,
-      ])
+      resizeCallback(
+        [
+          {
+            contentRect: {width: 200, height: 40},
+          } as ResizeObserverEntry,
+        ],
+        {} as ResizeObserver,
+      )
     }
 
     // Menu button should still be present
@@ -332,11 +344,14 @@ describe('Breadcrumbs', () => {
 
     // Simulate a very wide container resize
     if (resizeCallback) {
-      resizeCallback([
-        {
-          contentRect: {width: 1200, height: 40},
-        } as ResizeObserverEntry,
-      ])
+      resizeCallback(
+        [
+          {
+            contentRect: {width: 1200, height: 40},
+          } as ResizeObserverEntry,
+        ],
+        {} as ResizeObserver,
+      )
     }
 
     // Menu button should still be present (7 items > 5)

@@ -14,7 +14,7 @@ const observe = vi.fn()
 
 describe('LabelGroup', () => {
   window.IntersectionObserver = class IntersectionObserver {
-    constructor(callback: IntersectionObserverCallback) {
+    constructor(_callback: IntersectionObserverCallback) {
       // Store callback if needed
     }
     observe = observe
@@ -24,6 +24,7 @@ describe('LabelGroup', () => {
     root = null
     rootMargin = ''
     thresholds = []
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } as any
 
   it('observers intersections on each child', async () => {
