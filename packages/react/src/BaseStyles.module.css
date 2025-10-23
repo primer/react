@@ -3,35 +3,3 @@
  *--------------------------------- */
 
 /* -------------------------------------------------------------------------- */
-
-.BaseStyles {
-  font-family: var(--BaseStyles-fontFamily, var(--fontStack-system));
-  /* stylelint-disable-next-line primer/typography */
-  line-height: var(--BaseStyles-lineHeight, 1.5);
-  /* stylelint-disable-next-line primer/colors */
-  color: var(--BaseStyles-fgColor, var(--fgColor-default));
-
-  /* Global styles for light mode */
-  &:has([data-color-mode='light']) {
-    input & {
-      color-scheme: light;
-    }
-  }
-
-  /* Global styles for dark mode */
-  &:has([data-color-mode='dark']) {
-    input & {
-      color-scheme: dark;
-    }
-  }
-
-  /* Low-specificity default link styling */
-  :where(a:not([class*='prc-']):not([class*='PRC-']):not([class*='Primer_Brand__'])) {
-    color: var(--fgColor-accent, var(--color-accent-fg));
-    text-decoration: none;
-
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-}
