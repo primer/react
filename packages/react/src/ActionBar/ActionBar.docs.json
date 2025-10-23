@@ -90,6 +90,16 @@
     {
       "name": "ActionBar.Divider",
       "props": []
+    },
+    {
+      "name": "ActionBar.Group",
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "defaultValue": ""
+        }
+      ]
     }
   ]
 }

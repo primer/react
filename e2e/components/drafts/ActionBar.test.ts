@@ -20,6 +20,22 @@ test.describe('ActionBar', () => {
     }
   })
 
+  test.describe('Groups', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'experimental-components-actionbar-examples--with-groups',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+          expect(await page.screenshot()).toMatchSnapshot(`drafts.ActionBar.WithGroups.${theme}.png`)
+        })
+      })
+    }
+  })
+
   test.describe('ActionBar Interactions', () => {
     for (const theme of themes) {
       test.describe(theme, () => {
