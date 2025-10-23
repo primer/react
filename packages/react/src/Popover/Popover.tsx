@@ -66,7 +66,7 @@ const PopoverContent: React.FC<React.PropsWithChildren<PopoverContentProps>> = (
   className,
   width = 'small',
   height = 'fit-content',
-  onClickOutside,
+  onClickOutside = () => null,
   ignoreClickRefs,
   ...props
 }) => {
