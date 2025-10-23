@@ -17,6 +17,7 @@ import {
   TasklistIcon,
   ReplyIcon,
   ThreeBarsIcon,
+  TrashIcon,
 } from '@primer/octicons-react'
 import {Button, Avatar, ActionMenu, IconButton, ActionList, Textarea} from '..'
 import {Dialog} from '../DialogV1'
@@ -49,6 +50,31 @@ export const WithGroups = () => (
     </ActionBar.Group>
     <ActionBar.IconButton icon={TasklistIcon} aria-label="Task List"></ActionBar.IconButton>
     <ActionBar.IconButton icon={ReplyIcon} aria-label="Saved Replies"></ActionBar.IconButton>
+  </ActionBar>
+)
+
+export const WithMenus = () => (
+  <ActionBar aria-label="Toolbar">
+    <ActionBar.IconButton icon={ItalicIcon} aria-label="Italic"></ActionBar.IconButton>
+    <ActionBar.IconButton icon={CodeIcon} aria-label="Code"></ActionBar.IconButton>
+    <ActionBar.IconButton icon={LinkIcon} aria-label="Link"></ActionBar.IconButton>
+    <ActionBar.Divider />
+    <ActionBar.IconButton icon={FileAddedIcon} aria-label="File Added"></ActionBar.IconButton>
+    <ActionBar.IconButton icon={SearchIcon} aria-label="Search"></ActionBar.IconButton>
+    <ActionBar.Menu aria-label="More Actions" icon={ThreeBarsIcon}>
+      <ActionList.Item>
+        <ActionList.LeadingVisual>
+          <PencilIcon />
+        </ActionList.LeadingVisual>
+        Edit
+      </ActionList.Item>
+      <ActionList.Item>
+        <ActionList.LeadingVisual>
+          <TrashIcon />
+        </ActionList.LeadingVisual>
+        Delete
+      </ActionList.Item>
+    </ActionBar.Menu>
   </ActionBar>
 )
 

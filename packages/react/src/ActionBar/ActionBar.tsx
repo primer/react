@@ -28,8 +28,7 @@ type ChildProps =
       width: number
       groupId?: string
     }
-  | {type: 'divider'; width: number}
-  | {type: 'group'; width: number}
+  | {type: 'divider' | 'group' | 'menu'; width: number} // TODO: Can we combine this?
 
 /**
  * Registry of descendants to render in the list or menu. To preserve insertion order across updates, children are
@@ -297,6 +296,10 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
                     // Use the memoized map instead of filtering each time
                     const groupedMenuItems = groupedItems.get(id) || []
 
+                    if (menuItem.type === 'menu') {
+                      return null
+                    }
+
                     // If we ever add additional types, this condition will be necessary
                     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
                     if (menuItem.type === 'group') {
@@ -404,7 +407,7 @@ export const ActionBarGroup = forwardRef(({children}: React.PropsWithChildren, f
   const id = useId()
   const {registerChild, unregisterChild} = React.useContext(ActionBarContext)
 
-  // Like IconButton, we store the width in a ref ensures we don't forget about it when not visible
+  // Like IconButton, we store the width in a ref to ensure that we don't forget about it when not visible
   // If a child has a groupId, it won't be visible if the group isn't visible, so we don't need to check isVisibleChild here
   const widthRef = useRef<number>()
 
@@ -428,6 +431,52 @@ export const ActionBarGroup = forwardRef(({children}: React.PropsWithChildren, f
     </ActionBarGroupContext.Provider>
   )
 })
+
+type ActionBarMenuProps = {
+  /** Accessible label for the menu button */
+  'aria-label': string
+  /** Icon for the menu button */
+  icon: ActionBarIconButtonProps['icon']
+}
+
+export const ActionBarMenu = forwardRef(
+  ({'aria-label': ariaLabel, icon, children}: React.PropsWithChildren<ActionBarMenuProps>, forwardedRef) => {
+    const backupRef = useRef<HTMLButtonElement>(null)
+    const ref = (forwardedRef ?? backupRef) as RefObject<HTMLButtonElement>
+    const id = useId()
+    const {registerChild, unregisterChild, isVisibleChild} = React.useContext(ActionBarContext)
+
+    // Like IconButton, we store the width in a ref to ensure that we don't forget about it when not visible
+    // If a child has a groupId, it won't be visible if the group isn't visible, so we don't need to check isVisibleChild here
+    const widthRef = useRef<number>()
+
+    useIsomorphicLayoutEffect(() => {
+      const width = ref.current?.getBoundingClientRect().width
+      if (width) widthRef.current = width
+
+      if (!widthRef.current) return
+
+      registerChild(id, {type: 'menu', width: widthRef.current})
+
+      return () => {
+        unregisterChild(id)
+      }
+    }, [registerChild, unregisterChild])
+
+    if (!isVisibleChild(id)) return null
+
+    return (
+      <ActionMenu anchorRef={ref}>
+        <ActionMenu.Anchor>
+          <IconButton variant="invisible" aria-label={ariaLabel} icon={icon} />
+        </ActionMenu.Anchor>
+        <ActionMenu.Overlay>
+          <ActionList>{children}</ActionList>
+        </ActionMenu.Overlay>
+      </ActionMenu>
+    )
+  },
+)
 
 export const VerticalDivider = () => {
   const ref = useRef<HTMLDivElement>(null)
