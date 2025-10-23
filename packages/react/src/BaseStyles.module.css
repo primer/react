@@ -1,55 +1,6 @@
-/* stylelint-disable selector-max-specificity */
-/* stylelint-disable selector-type-no-unknown */
-
 /* -------------------------------- 
  *           Global Styles         
  *--------------------------------- */
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-}
-
-table {
-  /* stylelint-disable-next-line primer/borders */
-  border-collapse: collapse;
-}
-
-[data-color-mode='light'] input {
-  color-scheme: light;
-}
-
-[data-color-mode='dark'] input {
-  color-scheme: dark;
-}
-
-@media (prefers-color-scheme: light) {
-  [data-color-mode='auto'][data-light-theme*='light'] {
-    color-scheme: light;
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  [data-color-mode='auto'][data-dark-theme*='dark'] {
-    color-scheme: dark;
-  }
-}
-
-[role='button']:focus:not(:focus-visible):not(:global(.focus-visible)),
-[role='tabpanel'][tabindex='0']:focus:not(:focus-visible):not(:global(.focus-visible)),
-button:focus:not(:focus-visible):not(:global(.focus-visible)),
-summary:focus:not(:focus-visible):not(:global(.focus-visible)),
-a:focus:not(:focus-visible):not(:global(.focus-visible)) {
-  outline: none;
-  box-shadow: none;
-}
-
-[tabindex='0']:focus:not(:focus-visible):not(:global(.focus-visible)),
-details-dialog:focus:not(:focus-visible):not(:global(.focus-visible)) {
-  outline: none;
-}
 
 /* -------------------------------------------------------------------------- */
 
