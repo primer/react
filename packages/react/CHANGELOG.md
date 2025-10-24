@@ -1,5 +1,28 @@
 # @primer/react
 
+## 38.0.0-rc.9
+
+### Major Changes
+
+- [#7032](https://github.com/primer/react/pull/7032) [`9fce541`](https://github.com/primer/react/commit/9fce5419ce76c94837f2bd4b013f007837a97182) Thanks [@francinelucca](https://github.com/francinelucca)! - - remove sx, SxProp, exports
+  - add type ThemeColorPaths, type ThemeShadowPaths
+
+### Minor Changes
+
+- [#7045](https://github.com/primer/react/pull/7045) [`7595b8d`](https://github.com/primer/react/commit/7595b8d0d534043aeca69f0862a8ffd5c911c50c) Thanks [@langermank](https://github.com/langermank)! - Add new `Banner` `actionsLayout` prop to handle actions layout edge cases
+
+### Patch Changes
+
+- [#7020](https://github.com/primer/react/pull/7020) [`aaa2e1f`](https://github.com/primer/react/commit/aaa2e1f5589a862557b6f7d5194e0579bc952c84) Thanks [@hectahertz](https://github.com/hectahertz)! - Fixes `Details` flickering, prevents re-renders
+
+- [#7008](https://github.com/primer/react/pull/7008) [`ca6d60d`](https://github.com/primer/react/commit/ca6d60d37dcdaec354bbdd097fd8c656971e752b) Thanks [@langermank](https://github.com/langermank)! - Use primitives for Button line-height
+
+- [#7046](https://github.com/primer/react/pull/7046) [`4ffe66d`](https://github.com/primer/react/commit/4ffe66d0d87c5ab8a3c0d9ef4e9ba571e6d57393) Thanks [@pksjce](https://github.com/pksjce)! - Fix: ActionMenu with overflow contains scrollbars within its rounded border
+
+- [#7030](https://github.com/primer/react/pull/7030) [`52d6cf7`](https://github.com/primer/react/commit/52d6cf7e7cc2a0f4ea3186ee61412a2a2549b530) Thanks [@francinelucca](https://github.com/francinelucca)! - fix(SelectPanel): remove hidden attribute from selection Radio
+
+- [#7048](https://github.com/primer/react/pull/7048) [`f4a92f6`](https://github.com/primer/react/commit/f4a92f6d5fab8aee0bebb0b3bd8a400d55dc6cc7) Thanks [@langermank](https://github.com/langermank)! - Adjust Breadcrumb item focus outline
+
 ## 38.0.0-rc.8
 
 ### Major Changes
