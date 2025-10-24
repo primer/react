@@ -26,8 +26,10 @@ type ChildProps =
       icon: ActionBarIconButtonProps['icon']
       onClick: MouseEventHandler
       width: number
+      groupId?: string
     }
   | {type: 'divider'; width: number}
+  | {type: 'group'; width: number}
 
 /**
  * Registry of descendants to render in the list or menu. To preserve insertion order across updates, children are
@@ -38,9 +40,16 @@ type ChildRegistry = ReadonlyMap<string, ChildProps | null>
 const ActionBarContext = React.createContext<{
   size: Size
   registerChild: (id: string, props: ChildProps) => void
-  unregisterChild: (id: string) => void
+  unregisterChild: (id: string, groupId?: string) => void
   isVisibleChild: (id: string) => boolean
-}>({size: 'medium', registerChild: () => {}, unregisterChild: () => {}, isVisibleChild: () => true})
+  groupId?: string
+}>({
+  size: 'medium',
+  registerChild: () => {},
+  unregisterChild: () => {},
+  isVisibleChild: () => true,
+  groupId: undefined,
+})
 
 /*
 small (28px), medium (32px), large (40px)
@@ -121,7 +130,10 @@ const getMenuItems = (
   hasActiveMenu: boolean,
   gap: number,
 ): Set<string> | void => {
-  const registryEntries = Array.from(childRegistry).filter((entry): entry is [string, ChildProps] => entry[1] !== null)
+  const registryEntries = Array.from(childRegistry).filter(
+    (entry): entry is [string, ChildProps] =>
+      entry[1] !== null && (entry[1].type !== 'action' || entry[1].groupId === undefined),
+  )
 
   if (registryEntries.length === 0) return new Set()
   const numberOfItemsPossible = calculatePossibleItems(registryEntries, navWidth, gap)
@@ -249,6 +261,19 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
     focusOutBehavior: 'wrap',
   })
 
+  const groupedItems = React.useMemo(() => {
+    const groupedItemsMap = new Map<string, Array<[string, ChildProps]>>()
+
+    for (const [key, childProps] of childRegistry) {
+      if (childProps?.type === 'action' && childProps.groupId) {
+        const existingGroup = groupedItemsMap.get(childProps.groupId) || []
+        existingGroup.push([key, childProps])
+        groupedItemsMap.set(childProps.groupId, existingGroup)
+      }
+    }
+    return groupedItemsMap
+  }, [childRegistry])
+
   return (
     <ActionBarContext.Provider value={{size, registerChild, unregisterChild, isVisibleChild}}>
       <div ref={navRef} className={clsx(className, styles.Nav)} data-flush={flush}>
@@ -274,7 +299,7 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
 
                     if (menuItem.type === 'divider') {
                       return <ActionList.Divider key={id} />
-                    } else {
+                    } else if (menuItem.type === 'action') {
                       const {onClick, icon: Icon, label, disabled} = menuItem
                       return (
                         <ActionList.Item
@@ -292,6 +317,40 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
                           </ActionList.LeadingVisual>
                           {label}
                         </ActionList.Item>
+                      )
+                    }
+
+                    // Use the memoized map instead of filtering each time
+                    const groupedMenuItems = groupedItems.get(id) || []
+
+                    // If we ever add additional types, this condition will be necessary
+                    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+                    if (menuItem.type === 'group') {
+                      return (
+                        <React.Fragment key={id}>
+                          {groupedMenuItems.map(([key, childProps]) => {
+                            if (childProps.type === 'action') {
+                              const {onClick, icon: Icon, label, disabled} = childProps
+                              return (
+                                <ActionList.Item
+                                  key={key}
+                                  onSelect={event => {
+                                    closeOverlay()
+                                    focusOnMoreMenuBtn()
+                                    typeof onClick === 'function' && onClick(event as React.MouseEvent<HTMLElement>)
+                                  }}
+                                  disabled={disabled}
+                                >
+                                  <ActionList.LeadingVisual>
+                                    <Icon />
+                                  </ActionList.LeadingVisual>
+                                  {label}
+                                </ActionList.Item>
+                              )
+                            }
+                            return null
+                          })}
+                        </React.Fragment>
                       )
                     }
                   })}
@@ -312,6 +371,7 @@ export const ActionBarIconButton = forwardRef(
     const id = useId()
 
     const {size, registerChild, unregisterChild, isVisibleChild} = React.useContext(ActionBarContext)
+    const {groupId} = React.useContext(ActionBarGroupContext)
 
     // Storing the width in a ref ensures we don't forget about it when not visible
     const widthRef = useRef<number>()
@@ -328,9 +388,12 @@ export const ActionBarIconButton = forwardRef(
         disabled: !!disabled,
         onClick: onClick as MouseEventHandler,
         width: widthRef.current,
+        groupId: groupId ?? undefined,
       })
 
-      return () => unregisterChild(id)
+      return () => {
+        unregisterChild(id)
+      }
     }, [registerChild, unregisterChild, props['aria-label'], props.icon, disabled, onClick])
 
     const clickHandler = useCallback(
@@ -341,7 +404,7 @@ export const ActionBarIconButton = forwardRef(
       [disabled, onClick],
     )
 
-    if (!isVisibleChild(id)) return null
+    if (!isVisibleChild(id) || (groupId && !isVisibleChild(groupId))) return null
 
     return (
       <IconButton
@@ -351,10 +414,46 @@ export const ActionBarIconButton = forwardRef(
         onClick={clickHandler}
         {...props}
         variant="invisible"
+        data-testid={id}
       />
     )
   },
 )
+
+const ActionBarGroupContext = React.createContext<{
+  groupId: string | null
+}>({groupId: null})
+
+export const ActionBarGroup = forwardRef(({children}: React.PropsWithChildren, forwardedRef) => {
+  const backupRef = useRef<HTMLDivElement>(null)
+  const ref = (forwardedRef ?? backupRef) as RefObject<HTMLDivElement>
+  const id = useId()
+  const {registerChild, unregisterChild} = React.useContext(ActionBarContext)
+
+  // Like IconButton, we store the width in a ref ensures we don't forget about it when not visible
+  // If a child has a groupId, it won't be visible if the group isn't visible, so we don't need to check isVisibleChild here
+  const widthRef = useRef<number>()
+
+  useIsomorphicLayoutEffect(() => {
+    const width = ref.current?.getBoundingClientRect().width
+    if (width) widthRef.current = width
+    if (!widthRef.current) return
+
+    registerChild(id, {type: 'group', width: widthRef.current})
+
+    return () => {
+      unregisterChild(id)
+    }
+  }, [registerChild, unregisterChild])
+
+  return (
+    <ActionBarGroupContext.Provider value={{groupId: id}}>
+      <div className={styles.Group} ref={ref}>
+        {children}
+      </div>
+    </ActionBarGroupContext.Provider>
+  )
+})
 
 export const VerticalDivider = () => {
   const ref = useRef<HTMLDivElement>(null)
