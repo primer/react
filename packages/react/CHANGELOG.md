@@ -1,5 +1,15 @@
 # @primer/react
 
+## 38.0.0-rc.10
+
+### Minor Changes
+
+- [#6979](https://github.com/primer/react/pull/6979) [`8b2632b`](https://github.com/primer/react/commit/8b2632ba63ef0fbd67d43e50df4a7ec6ea640e8e) Thanks [@TylerJDev](https://github.com/TylerJDev)! - ActionBar: Adds `ActionBar.Group` sub component
+
+- [#7066](https://github.com/primer/react/pull/7066) [`c32f726`](https://github.com/primer/react/commit/c32f7260838e850df5efd839c23cf74bc519e3b7) Thanks [@adierkens](https://github.com/adierkens)! - Exports useAnchoredPosition utility
+
+- [#7033](https://github.com/primer/react/pull/7033) [`4c4c4cd`](https://github.com/primer/react/commit/4c4c4cd4bfd7d75066df199f47a23deb86a588f2) Thanks [@liuliu-dev](https://github.com/liuliu-dev)! - Deprecate `leadingIcon` in favor of `leadingVisual` for `SegmentedControl.Button`.
+
 ## 38.0.0-rc.9
 
 ### Major Changes
