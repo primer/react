@@ -3,10 +3,10 @@ import {canUseDOM} from '../utils/environment'
 import {warning} from '../utils/warning'
 
 /**
- * `useMedia` will use the given `mediaQueryString` with `matchMedia` to
+ * `useMediaUnsafeSSR` will use the given `mediaQueryString` with `matchMedia` to
  * determine if the document matches the media query string.
  *
- * If `MatchMedia` is used as an ancestor, `useMedia` will instead use the
+ * If `MatchMedia` is used as an ancestor, `useMediaUnsafeSSR` will instead use the
  * value of the media query string, if available
  *
  * Warning: If rendering on the server, and no `defaultState` is provided,
@@ -14,11 +14,11 @@ import {warning} from '../utils/warning'
  *
  * @example
  * function Example() {
- *   const coarsePointer = useMedia('(pointer: coarse)');
+ *   const coarsePointer = useMediaUnsafeSSR('(pointer: coarse)');
  *   // ...
  * }
  */
-export function useMedia(mediaQueryString: string, defaultState?: boolean) {
+export function useMediaUnsafeSSR(mediaQueryString: string, defaultState?: boolean) {
   const features = useContext(MatchMediaContext)
   const [matches, setMatches] = React.useState(() => {
     if (features[mediaQueryString] !== undefined) {
@@ -37,7 +37,7 @@ export function useMedia(mediaQueryString: string, defaultState?: boolean) {
     // A default value has not been provided, and you are rendering on the server, warn of a possible hydration mismatch when defaulting to false.
     warning(
       true,
-      '`useMedia` When server side rendering, defaultState should be defined to prevent a hydration mismatch.',
+      '`useMediaUnsafeSSR` When server side rendering, defaultState should be defined to prevent a hydration mismatch.',
     )
 
     return false
@@ -106,7 +106,7 @@ const defaultFeatures = {}
 
 /**
  * Use `MatchMedia` to emulate media conditions by passing in feature
- * queries to the `features` prop. If a component uses `useMedia` with the
+ * queries to the `features` prop. If a component uses `useMediaUnsafeSSR` with the
  * feature passed in to `MatchMedia` it will force its value to match what is
  * provided to `MatchMedia`
  *
