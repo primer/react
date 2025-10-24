@@ -42,8 +42,3 @@
     background: var(--borderColor-muted);
   }
 }
-
-.Group {
-  display: flex;
-  gap: inherit;
-}
