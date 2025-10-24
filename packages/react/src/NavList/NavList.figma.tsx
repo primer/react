@@ -37,7 +37,7 @@ figma.connect(
     example: ({actionList}) => <NavList.Item href="#">{actionList.text}</NavList.Item>,
   },
 )
-/** Collapsable item **/
+/** Collapsible item **/
 figma.connect(
   NavList.Item,
   'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?node-id=16716-62586&m=dev',
