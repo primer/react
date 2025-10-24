@@ -1,8 +1,8 @@
 import {useState, useRef} from 'react'
 import type {Meta} from '@storybook/react-vite'
-import {Button} from '../Button'
-import {Text} from '..'
-import {Banner} from '../Banner'
+import {Button} from '../../Button'
+import Text from '../../Text'
+import {Banner} from '../../Banner'
 import {default as Dialog} from './Dialog'
 
 /* Dialog Version 1*/
