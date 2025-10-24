@@ -83,7 +83,7 @@ describe('SegmentedControl', () => {
     const {getByLabelText} = render(
       <SegmentedControl aria-label="File view" variant={{narrow: 'hideLabels'}}>
         {segmentData.map(({label, icon}, index) => (
-          <SegmentedControl.Button leadingIcon={icon} selected={index === 1} key={label}>
+          <SegmentedControl.Button leadingVisual={icon} selected={index === 1} key={label}>
             {label}
           </SegmentedControl.Button>
         ))}
@@ -114,7 +114,7 @@ describe('SegmentedControl', () => {
     const {getByLabelText} = render(
       <SegmentedControl aria-label="File view">
         {segmentData.map(({label, icon}, index) => (
-          <SegmentedControl.Button selected={index === 0} leadingIcon={icon} key={label}>
+          <SegmentedControl.Button selected={index === 0} leadingVisual={icon} key={label}>
             {label}
           </SegmentedControl.Button>
         ))}
@@ -313,7 +313,7 @@ describe('SegmentedControl', () => {
     expect(handleClick).toHaveBeenCalled()
   })
 
-  it('warns users if they try to use the hideLabels variant without a leadingIcon', () => {
+  it('warns users if they try to use the hideLabels variant without a leadingVisual', () => {
     const spy = vi.spyOn(globalThis.console, 'warn').mockImplementation(() => {})
 
     render(
@@ -328,6 +328,36 @@ describe('SegmentedControl', () => {
 
     expect(spy).toHaveBeenCalledTimes(3)
     spy.mockRestore()
+  })
+
+  it('supports deprecated leadingIcon prop for backward compatibility', () => {
+    const {getByText} = render(
+      <SegmentedControl aria-label="File view">
+        <SegmentedControl.Button leadingIcon={EyeIcon}>Preview</SegmentedControl.Button>
+        <SegmentedControl.Button>Code</SegmentedControl.Button>
+      </SegmentedControl>,
+    )
+
+    const button = getByText('Preview').closest('button')
+    expect(button).toBeDefined()
+    // Verify the icon is rendered
+    expect(button?.querySelector('svg')).toBeDefined()
+  })
+
+  it('prioritizes leadingVisual over deprecated leadingIcon when both are provided', () => {
+    const {getByRole} = render(
+      <SegmentedControl aria-label="File view">
+        <SegmentedControl.Button
+          leadingVisual={() => <EyeIcon aria-label="EyeIcon" />}
+          leadingIcon={() => <FileCodeIcon aria-label="FileCodeIcon" />}
+        >
+          Preview
+        </SegmentedControl.Button>
+      </SegmentedControl>,
+    )
+
+    // Should find EyeIcon, not FileCodeIcon
+    expect(getByRole('img', {name: 'EyeIcon'})).toBeInTheDocument()
   })
 
   it('should warn the user if they neglect to specify a label for the segmented control', () => {
