@@ -135,13 +135,19 @@ export const Playground = (
   )
 }
 Playground.args = {
-  width: 'xlarge',
+  size: 'large',
   height: 'auto',
   subtitle: 'Subtitle',
   title: 'Dialog heading',
   position: 'center',
 }
 Playground.argTypes = {
+  size: {
+    control: {
+      type: 'radio',
+    },
+    options: ['small', 'medium', 'large', 'xlarge'],
+  },
   width: {
     control: {
       type: 'radio',
