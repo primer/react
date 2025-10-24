@@ -446,7 +446,10 @@ test('handles components without slot symbols in mixed scenarios', () => {
 
 test('handles slot symbol matching with duplicate detection', () => {
   const calls: Array<ReturnType<typeof useSlots>> = []
-  const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
+  const warnSpy = vi
+    .spyOn(console, 'warn')
+    .mockClear()
+    .mockImplementation(() => {})
   const children = [
     <TestComponentWithSlot key="first">First slot</TestComponentWithSlot>,
     <WrappedTestComponentWithSlot key="wrapped" />,
