@@ -6,7 +6,7 @@ import type {SxProp} from '../sx'
 type StateLabelProps = PrimerStateLabelProps & SxProp
 
 const StateLabel = forwardRef<HTMLSpanElement, StateLabelProps>(function StateLabel(props, ref) {
-  return <Box as={PrimerStateLabel} ref={ref} {...props} />
+  return <Box {...props} as={PrimerStateLabel} ref={ref} />
 })
 
 export {StateLabel, type StateLabelProps}

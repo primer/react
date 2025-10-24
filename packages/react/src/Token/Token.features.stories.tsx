@@ -26,15 +26,15 @@ export const TokenWithLeadingVisual = () => {
 export const TokenWithOnRemoveFn = ({...args}) => {
   return (
     <div className={classes.TokenRow}>
-      <Token text="token" onRemove={action('remove me')} {...args} />
+      <Token {...args} text="token" onRemove={action('remove me')} />
       <Token
+        {...args}
         as="a"
         href="/?path=/story/components-token-features--issue-label-token-custom-colors"
         onRemove={action('remove me')}
         text="Link"
-        {...args}
       />
-      <Token as="button" onClick={action('clicked')} onRemove={action('remove me')} text="Button" {...args} />
+      <Token {...args} as="button" onClick={action('clicked')} onRemove={action('remove me')} text="Button" />
     </div>
   )
 }

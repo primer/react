@@ -37,7 +37,7 @@ export const Playground: StoryFn = args => {
   const {text, type, ...rest} = args
   return (
     <div className={classes.TooltipContainer}>
-      <Tooltip text={text} type="description" {...rest}>
+      <Tooltip {...rest} text={text} type="description">
         <Button>Delete</Button>
       </Tooltip>
     </div>

@@ -414,16 +414,16 @@ export const AsyncLoadingOfItems = (args: FormControlArgs<AutocompleteArgs>) => 
   return (
     <form className={classes.FormPadding}>
       <FormControl {...parentArgs}>
-        <FormControl.Label id="autocompleteLabel" {...labelArgs} />
+        <FormControl.Label {...labelArgs} id="autocompleteLabel" />
         <Autocomplete>
           <Autocomplete.Input {...textInputArgs} size={textInputArgs.inputSize} />
           <Autocomplete.Overlay {...overlayArgs}>
             <Autocomplete.Menu
+              {...menuArgs}
               items={loadedItems}
               selectedItemIds={[]}
               onOpenChange={onOpenChange}
               aria-labelledby="autocompleteLabel"
-              {...menuArgs}
               loading={loadedItems.length === 0}
             />
           </Autocomplete.Overlay>

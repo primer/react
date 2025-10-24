@@ -28,7 +28,7 @@ const LabelledTextInputWithTokens: React.FC<React.PropsWithChildren<TextInputWit
     <label htmlFor="tokenInput" id="tokenLabel">
       Tokens
     </label>
-    <TextInputWithTokens tokens={tokens} onTokenRemove={onTokenRemove} id="tokenInput" {...rest} />
+    <TextInputWithTokens {...rest} tokens={tokens} onTokenRemove={onTokenRemove} id="tokenInput" />
   </>
 )
 

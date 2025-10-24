@@ -101,6 +101,7 @@ const BreadcrumbsMenuItem = React.forwardRef<HTMLDetailsElement, BreadcrumbsMenu
     return (
       <Details ref={detailsRefCallback} className={classes.MenuDetails}>
         <IconButton
+          {...rest}
           as="summary"
           role="button"
           ref={menuButtonRef}
@@ -111,7 +112,6 @@ const BreadcrumbsMenuItem = React.forwardRef<HTMLDetailsElement, BreadcrumbsMenu
           size="small"
           icon={KebabHorizontalIcon}
           tooltipDirection="e"
-          {...rest}
         />
         <div ref={menuContainerRef} className={classes.MenuOverlay}>
           <ActionList>
@@ -354,10 +354,10 @@ function BreadcrumbsItemComponent<As extends React.ElementType>(
   const {as: Component = 'a', selected, className, ...rest} = props
   return (
     <Component
+      {...rest}
       className={clsx(className, classes.Item, selected && 'selected')}
       aria-current={selected ? 'page' : undefined}
       ref={ref}
-      {...rest}
     />
   )
 }

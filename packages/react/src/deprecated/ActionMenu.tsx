@@ -42,7 +42,7 @@ interface ActionMenuBaseProps extends Partial<Omit<GroupedListProps, keyof ListP
 
 export type ActionMenuProps = ActionMenuBaseProps & AnchoredOverlayWrapperAnchorProps
 
-const ActionMenuItem = (props: ItemProps) => <Item role="menuitem" {...props} />
+const ActionMenuItem = (props: ItemProps) => <Item {...props} role="menuitem" />
 
 ActionMenuItem.displayName = 'ActionMenu.Item'
 

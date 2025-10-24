@@ -20,7 +20,7 @@ const StyledNavListImpl = styled(PrimerNavList).withConfig({
 `
 
 const NavListImpl = forwardRef<HTMLElement, NavListProps>(function NavList({as, ...props}, ref) {
-  return <StyledNavListImpl ref={ref} {...(as ? {forwardedAs: as} : {})} {...props} />
+  return <StyledNavListImpl {...(as ? {forwardedAs: as} : {})} {...props} ref={ref} />
 })
 
 type NavListItemProps = PropsWithChildren<PrimerNavListItemProps> &

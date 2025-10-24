@@ -52,7 +52,7 @@ function LoadingSpinner({...props}): JSX.Element {
 function LoadingSkeleton({rows = 10, ...props}: {rows: number}): JSX.Element {
   return (
     <div className={classes.LoadingSkeletonContainer}>
-      <Stack direction="vertical" justify="center" gap="condensed" {...props}>
+      <Stack {...props} direction="vertical" justify="center" gap="condensed">
         {Array.from({length: rows}, (_, i) => (
           <Stack key={i} direction="horizontal" gap="condensed" align="center">
             <SkeletonBox width="16px" height="16px" />

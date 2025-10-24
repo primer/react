@@ -19,7 +19,7 @@ export const Playground = ({value: _value, checked, ...args}: FormControlArgs<Ch
   return (
     <form>
       <FormControl {...parentArgs}>
-        <Checkbox value="default" checked={checked} {...args} />
+        <Checkbox {...args} value="default" checked={checked} />
         <FormControl.Label {...labelArgs} />
         {captionArgs.children && <FormControl.Caption {...captionArgs} />}
       </FormControl>

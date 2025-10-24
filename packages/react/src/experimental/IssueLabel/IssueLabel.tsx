@@ -95,7 +95,7 @@ function IssueLabel<As extends React.ElementType>({
 
   if ('onClick' in props) {
     return (
-      <button type="button" {...props} {...sharedProps}>
+      <button {...props} {...sharedProps} type="button">
         {children}
       </button>
     )

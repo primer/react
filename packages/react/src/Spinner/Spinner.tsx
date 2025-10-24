@@ -38,6 +38,7 @@ function Spinner({
     /* inline-flex removes the extra line height */
     <span className={classes.Box}>
       <svg
+        {...props}
         height={size}
         width={size}
         viewBox="0 0 16 16"
@@ -47,7 +48,6 @@ function Spinner({
         aria-labelledby={hasHiddenLabel ? labelId : undefined}
         className={clsx(className, classes.SpinnerAnimation)}
         style={style}
-        {...props}
       >
         <circle
           cx="8"

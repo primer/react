@@ -16,7 +16,7 @@ export const Sequence = ({keys, ...chordProps}: KeybindingHintProps) =>
           </>
         )
       }
-      <Chord keys={c} {...chordProps} />
+      <Chord {...chordProps} keys={c} />
     </Fragment>
   ))
 

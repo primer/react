@@ -45,9 +45,9 @@ export const Default = () => {
 export const Playground: StoryFn<ComponentProps<typeof Pagination>> = ({showPages, ...args}) => {
   return (
     <Pagination
+      {...args}
       onPageChange={e => e.preventDefault()}
       showPages={parseShowPagesArg(showPages as boolean | string)}
-      {...args}
     />
   )
 }

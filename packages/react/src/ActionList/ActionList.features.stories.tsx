@@ -711,7 +711,7 @@ export const InsideOverlay = () => {
       onOpen={toggle}
       onClose={toggle}
       renderAnchor={props => (
-        <button type="button" {...props}>
+        <button {...props} type="button">
           toggle overlay
         </button>
       )}

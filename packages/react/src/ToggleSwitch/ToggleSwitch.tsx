@@ -137,7 +137,7 @@ const ToggleSwitch = React.forwardRef<HTMLButtonElement, ToggleSwitchProps>(func
   if (ariaDescribedby) switchButtonDescribedBy = `${switchButtonDescribedBy} ${ariaDescribedby}`
 
   return (
-    <div className={clsx(classes.ToggleSwitch, className)} data-status-label-position={statusLabelPosition} {...rest}>
+    <div {...rest} className={clsx(classes.ToggleSwitch, className)} data-status-label-position={statusLabelPosition}>
       <VisuallyHidden>
         <AriaStatus announceOnShow id={loadingLabelId}>
           {isLoadingLabelVisible && loadingLabel}

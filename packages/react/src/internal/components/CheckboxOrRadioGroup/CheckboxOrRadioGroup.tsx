@@ -89,13 +89,13 @@ const CheckboxOrRadioGroup: React.FC<React.PropsWithChildren<CheckboxOrRadioGrou
     >
       <div>
         <Component
-          className={clsx(className, classes.GroupFieldset)}
-          data-validation={validationChild ? '' : undefined}
           {...(labelChild
             ? {
                 disabled,
               }
             : {})}
+          className={clsx(className, classes.GroupFieldset)}
+          data-validation={validationChild ? '' : undefined}
         >
           {labelChild ? (
             /*
@@ -120,7 +120,6 @@ const CheckboxOrRadioGroup: React.FC<React.PropsWithChildren<CheckboxOrRadioGrou
           )}
 
           <div
-            className={classes.Body}
             {...(!labelChild
               ? {
                   ['aria-labelledby']: ariaLabelledby,
@@ -129,6 +128,7 @@ const CheckboxOrRadioGroup: React.FC<React.PropsWithChildren<CheckboxOrRadioGrou
                   role: 'group',
                 }
               : {})}
+            className={classes.Body}
           >
             {React.Children.toArray(rest).filter(child => React.isValidElement(child))}
           </div>

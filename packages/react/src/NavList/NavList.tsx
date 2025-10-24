@@ -92,11 +92,11 @@ const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(
 
     return (
       <ActionList.LinkItem
+        {...props}
         ref={ref}
         aria-current={ariaCurrent}
         active={Boolean(ariaCurrent) && ariaCurrent !== 'false'}
         style={{'--subitem-depth': depth} as React.CSSProperties}
-        {...props}
       >
         {children}
       </ActionList.LinkItem>
@@ -331,6 +331,7 @@ export const GroupExpand = React.forwardRef<HTMLButtonElement, NavListGroupExpan
 
         {currentPage < pages || currentPage === 0 ? (
           <ActionList.Item
+            {...props}
             as="button"
             aria-expanded="false"
             ref={forwardedRef}
@@ -346,7 +347,6 @@ export const GroupExpand = React.forwardRef<HTMLButtonElement, NavListGroupExpan
                 focusTarget[focusTarget.length - 1].focus()
               }
             }}
-            {...props}
           >
             {label}
             <TrailingVisual>
@@ -371,11 +371,11 @@ export type NavListGroupHeadingProps = ActionListGroupHeadingProps
 const GroupHeading: React.FC<NavListGroupHeadingProps> = ({as = 'h3', className, ...rest}) => {
   return (
     <ActionList.GroupHeading
+      {...rest}
       as={as}
       className={clsx(navListClasses.GroupHeading, className)}
       data-component="NavList.GroupHeading"
       headingWrapElement="li"
-      {...rest}
     />
   )
 }

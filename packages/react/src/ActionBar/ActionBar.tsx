@@ -408,11 +408,11 @@ export const ActionBarIconButton = forwardRef(
 
     return (
       <IconButton
+        {...props}
         aria-disabled={disabled}
         ref={ref}
         size={size}
         onClick={clickHandler}
-        {...props}
         variant="invisible"
         data-testid={id}
       />

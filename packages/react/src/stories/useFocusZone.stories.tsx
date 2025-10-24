@@ -13,7 +13,7 @@ export default {
 } as Meta
 
 const MarginButton = ({children, ...props}: React.ComponentProps<typeof Button>) => (
-  <Button className={classes.MarginButton} {...props}>
+  <Button {...props} className={classes.MarginButton}>
     {children}
   </Button>
 )

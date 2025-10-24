@@ -31,7 +31,7 @@ const Label = React.forwardRef(function Label(
   ref,
 ) {
   return (
-    <Component className={clsx(className, classes.Label)} data-size={size} data-variant={variant} ref={ref} {...rest} />
+    <Component {...rest} className={clsx(className, classes.Label)} data-size={size} data-variant={variant} ref={ref} />
   )
 }) as PolymorphicForwardRefComponent<'span', LabelProps>
 

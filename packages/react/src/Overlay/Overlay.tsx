@@ -111,6 +111,14 @@ export const BaseOverlay = React.forwardRef(
     return (
       <Component
         {...rest}
+        {...{
+          [`data-width-${width}`]: '',
+          [`data-max-width-${maxWidth}`]: maxWidth ? '' : undefined,
+          [`data-height-${height}`]: '',
+          [`data-max-height-${maxHeight}`]: maxHeight ? '' : undefined,
+          [`data-visibility-${visibility}`]: '',
+          [`data-overflow-${rest.overflow}`]: rest.overflow ? '' : undefined,
+        }}
         ref={forwardedRef}
         style={
           {
@@ -122,14 +130,6 @@ export const BaseOverlay = React.forwardRef(
             ...styleFromProps,
           } as React.CSSProperties
         }
-        {...{
-          [`data-width-${width}`]: '',
-          [`data-max-width-${maxWidth}`]: maxWidth ? '' : undefined,
-          [`data-height-${height}`]: '',
-          [`data-max-height-${maxHeight}`]: maxHeight ? '' : undefined,
-          [`data-visibility-${visibility}`]: '',
-          [`data-overflow-${rest.overflow}`]: rest.overflow ? '' : undefined,
-        }}
         className={clsx(className, classes.Overlay)}
       />
     )
@@ -233,6 +233,7 @@ const Overlay = React.forwardRef<HTMLDivElement, internalOverlayProps>(
     return (
       <Portal containerName={portalContainerName}>
         <BaseOverlay
+          {...props}
           role={role}
           width={width}
           data-reflow-container={overflowEnabled || !preventOverflow ? true : undefined}
@@ -242,7 +243,6 @@ const Overlay = React.forwardRef<HTMLDivElement, internalOverlayProps>(
           height={height}
           visibility={visibility}
           data-responsive={responsiveVariant}
-          {...props}
         />
       </Portal>
     )

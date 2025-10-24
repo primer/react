@@ -87,7 +87,7 @@ function usePaginationPages({
 
       return (
         // @ts-ignore giving me grief about children and "as" props
-        <Component key={key} className={clsx(classes.Page)} {...props}>
+        <Component {...props} key={key} className={clsx(classes.Page)}>
           <PageLabel direction={key}>{content}</PageLabel>
         </Component>
       )
@@ -133,7 +133,7 @@ function Pagination({
   })
 
   return (
-    <nav className={clsx(classes.PaginationContainer, className)} aria-label="Pagination" {...rest}>
+    <nav {...rest} className={clsx(classes.PaginationContainer, className)} aria-label="Pagination">
       <div
         className={classes.TablePaginationSteps}
         data-hidden-viewport-ranges={getViewportRangesToHidePages(showPages).join(' ')}

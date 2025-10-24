@@ -148,7 +148,7 @@ const doesItemsIncludeItem = (items: ItemInput[], item: ItemInput) => {
 const defaultRenderAnchor: NonNullable<SelectPanelProps['renderAnchor']> = props => {
   const {children, ...rest} = props
   return (
-    <Button trailingAction={TriangleDownIcon} {...rest}>
+    <Button {...rest} trailingAction={TriangleDownIcon}>
       {children}
     </Button>
   )
@@ -848,12 +848,12 @@ function Panel({
             </div>
           )}
           <FilteredActionList
+            {...listProps}
             filterValue={filterValue}
             onFilterChange={onFilterChange}
             onListContainerRefChanged={onListContainerRefChanged}
             onInputRefChanged={onInputRefChanged}
             placeholderText={placeholderText}
-            {...listProps}
             variant={listProps.groupMetadata?.length ? 'horizontal-inset' : 'inset'}
             role="listbox"
             // browsers give aria-labelledby precedence over aria-label so we need to make sure
@@ -947,7 +947,7 @@ function Panel({
 
 const SecondaryButton: React.FC<ButtonProps> = props => {
   return (
-    <Button block {...props}>
+    <Button {...props} block>
       {props.children}
     </Button>
   )

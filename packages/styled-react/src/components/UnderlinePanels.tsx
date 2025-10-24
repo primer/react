@@ -17,7 +17,7 @@ const StyledUnderlinePanels = styled(PrimerUnderlinePanels).withConfig<Underline
 
 // @ts-ignore forwardedAs is valid here but I don't know how to fix the typescript error
 const UnderlinePanelsImpl = ({as, ...props}: UnderlinePanelsProps) => (
-  <StyledUnderlinePanels forwardedAs={as} {...props} />
+  <StyledUnderlinePanels {...props} forwardedAs={as} />
 )
 
 UnderlinePanelsImpl.displayName = 'UnderlinePanels'

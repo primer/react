@@ -395,7 +395,7 @@ export const ExpandWithCustomItems: StoryFn = () => {
 
   const Item = ({leadingVisual, text, trailingVisual, ...rest}: CustomItemProps) => {
     return (
-      <NavList.Item key={text} onClick={() => {}} href="#" {...rest}>
+      <NavList.Item {...rest} key={text} onClick={() => {}} href="#">
         {leadingVisual ? (
           <NavList.LeadingVisual>
             <Octicon icon={leadingVisual} />
@@ -498,7 +498,7 @@ export const WithGroupExpand = () => {
 export const GroupWithExpandAndCustomItems = () => {
   const Item = ({leadingVisual: LeadingVisual, text, trailingVisual: TrailingVisual, ...rest}: CustomItemProps) => {
     return (
-      <NavList.Item onClick={() => {}} href="#" {...rest} key={text}>
+      <NavList.Item {...rest} onClick={() => {}} href="#" key={text}>
         {LeadingVisual ? (
           <NavList.LeadingVisual>
             <LeadingVisual />

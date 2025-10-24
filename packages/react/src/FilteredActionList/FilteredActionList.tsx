@@ -265,10 +265,10 @@ export function FilteredActionList({
     let firstGroupIndex = 0
     const actionListContent = (
       <ActionList
+        {...listProps}
         ref={usingRemoveActiveDescendant ? listRef : listContainerRefCallback}
         showDividers={showItemDividers}
         selectionVariant={selectionVariant}
-        {...listProps}
         role="listbox"
         id={listId}
         className={classes.ActionList}
@@ -287,11 +287,11 @@ export function FilteredActionList({
                     const key = itemKey ?? item.id?.toString() ?? itemIndex.toString()
                     return (
                       <MappedActionListItem
+                        {...item}
                         key={key}
                         className={clsx(classes.ActionListItem, 'className' in item ? item.className : undefined)}
                         data-input-focused={isInputFocused ? '' : undefined}
                         data-first-child={index === firstGroupIndex && itemIndex === 0 ? '' : undefined}
-                        {...item}
                         renderItem={listProps.renderItem}
                       />
                     )
@@ -303,11 +303,11 @@ export function FilteredActionList({
               const key = itemKey ?? item.id?.toString() ?? index.toString()
               return (
                 <MappedActionListItem
+                  {...item}
                   key={key}
                   className={clsx(classes.ActionListItem, 'className' in item ? item.className : undefined)}
                   data-input-focused={isInputFocused ? '' : undefined}
                   data-first-child={index === 0 ? '' : undefined}
-                  {...item}
                   renderItem={listProps.renderItem}
                 />
               )
@@ -341,6 +341,7 @@ export function FilteredActionList({
     <div ref={inputAndListContainerRef} className={clsx(className, classes.Root)} data-testid="filtered-action-list">
       <div className={classes.Header}>
         <TextInput
+          {...restTextInputProps}
           ref={inputRef}
           block
           width="auto"
@@ -359,7 +360,6 @@ export function FilteredActionList({
           loaderPosition={'leading'}
           loading={loading && !loadingType.appearsInBody}
           className={clsx(textInputClassName, {[classes.FullScreenTextInput]: fullScreenOnNarrow})}
-          {...restTextInputProps}
         />
       </div>
       <VisuallyHidden id={inputDescriptionTextId}>Items will be filtered as you type</VisuallyHidden>
@@ -404,15 +404,16 @@ function MappedActionListItem(item: ItemInput & {renderItem?: RenderItemFn}) {
   } = item
 
   return (
+    // @ts-expect-error - ItemInput props may not perfectly match ActionList.Item element type
     <ActionList.Item
-      role="option"
+      {...rest}
       // @ts-ignore - for now
+      role="option"
       onSelect={(e: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => {
         if (typeof onAction === 'function')
           onAction(item, e as React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>)
       }}
       data-id={id}
-      {...rest}
     >
       {LeadingVisual ? (
         <ActionList.LeadingVisual>

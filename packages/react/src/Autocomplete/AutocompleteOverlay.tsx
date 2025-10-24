@@ -56,6 +56,7 @@ function AutocompleteOverlay({
 
   return showMenu ? (
     <Overlay
+      {...overlayProps}
       returnFocusRef={inputRef}
       preventFocusOnOpen={true}
       onClickOutside={closeOptionList}
@@ -64,7 +65,6 @@ function AutocompleteOverlay({
       top={position?.top}
       left={position?.left}
       className={classes.Overlay}
-      {...overlayProps}
     >
       {children}
     </Overlay>

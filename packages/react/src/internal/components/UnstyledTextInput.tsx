@@ -9,7 +9,7 @@ const UnstyledTextInput = React.forwardRef<HTMLInputElement, ToggledUnstyledText
   {className, ...rest},
   forwardRef,
 ) {
-  return <input ref={forwardRef} {...rest} className={clsx(className, styles.Input)} />
+  return <input {...rest} ref={forwardRef} className={clsx(className, styles.Input)} />
 })
 UnstyledTextInput.displayName = 'UnstyledTextInput'
 

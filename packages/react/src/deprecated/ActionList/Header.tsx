@@ -38,11 +38,11 @@ export function Header({
 }: HeaderProps): JSX.Element {
   return (
     <div
+      {...props}
       role="heading"
       className={clsx(className, classes.Header)}
       data-filled={variant === 'filled' ? '' : undefined}
       data-component="ActionList.Header"
-      {...props}
     >
       {title}
       {auxiliaryText && <span>{auxiliaryText}</span>}

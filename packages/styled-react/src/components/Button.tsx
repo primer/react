@@ -28,7 +28,7 @@ const ButtonComponent = forwardRef(({as, sx, style: propStyle, ...props}: Button
     if (color) style['--button-color'] = color
   }
 
-  return <StyledButtonComponent style={style} sx={sxStyles} ref={ref} {...props} {...(as ? {forwardedAs: as} : {})} />
+  return <StyledButtonComponent {...props} {...(as ? {forwardedAs: as} : {})} style={style} sx={sxStyles} ref={ref} />
 }) as ForwardRefComponent<'button', ButtonComponentProps> & SlotMarker
 
 // This function is used to generate a custom cssSelector for the sxProp

@@ -39,7 +39,7 @@ const SegmentedControlButton: FCWithSlotMarker<React.PropsWithChildren<Segmented
 
   return (
     <li className={clsx(classes.Item)} data-selected={selected ? '' : undefined}>
-      <button aria-current={selected} className={clsx(classes.Button, className)} type="button" {...rest}>
+      <button {...rest} aria-current={selected} className={clsx(classes.Button, className)} type="button">
         <span className={clsx(classes.Content, 'segmentedControl-content')}>
           {LeadingVisual && (
             <div className={classes.LeadingIcon}>{isElement(LeadingVisual) ? LeadingVisual : <LeadingVisual />}</div>

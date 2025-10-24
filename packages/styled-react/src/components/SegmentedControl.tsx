@@ -13,15 +13,15 @@ type SegmentedControlButtonProps = PropsWithChildren<PrimerSegmentedControlButto
 type SegmentedControlIconButtonProps = PropsWithChildren<PrimerSegmentedControlIconButtonProps> & SxProp
 
 const SegmentedControlButton = (props: SegmentedControlButtonProps) => {
-  return <Box as={PrimerSegmentedControl.Button} {...props} />
+  return <Box {...props} as={PrimerSegmentedControl.Button} />
 }
 
 const SegmentedControlIconButton = (props: SegmentedControlIconButtonProps) => {
-  return <Box as={PrimerSegmentedControl.IconButton} {...props} />
+  return <Box {...props} as={PrimerSegmentedControl.IconButton} />
 }
 
 const SegmentedControlImpl = (props: SegmentedControlProps) => {
-  return <Box as={PrimerSegmentedControl} {...props} />
+  return <Box {...props} as={PrimerSegmentedControl} />
 }
 
 const SegmentedControl = Object.assign(SegmentedControlImpl, {

@@ -24,9 +24,9 @@ export const UnderlineWrapper = forwardRef((props, ref) => {
   const {children, className, as: Component = 'nav', ...rest} = props
   return (
     <Component
+      {...rest}
       className={clsx(classes.UnderlineWrapper, className)}
       ref={ref as ForwardedRef<HTMLDivElement>}
-      {...rest}
     >
       {children}
     </Component>
@@ -35,7 +35,7 @@ export const UnderlineWrapper = forwardRef((props, ref) => {
 
 export const UnderlineItemList = forwardRef(({children, ...rest}: PropsWithChildren, forwardedRef) => {
   return (
-    <ul className={classes.UnderlineItemList} ref={forwardedRef} {...rest}>
+    <ul {...rest} className={classes.UnderlineItemList} ref={forwardedRef}>
       {children}
     </ul>
   )

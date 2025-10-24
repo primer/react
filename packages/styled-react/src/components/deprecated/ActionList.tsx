@@ -16,7 +16,7 @@ type ActionListItemProps = PropsWithChildren<PrimerActionListItemProps & SxProp 
 type ActionListGroupProps = PropsWithChildren<PrimerActionListGroupProps & SxProp>
 
 const ActionListImpl = forwardRef<HTMLDivElement, ActionListProps>(function ActionList(props, ref) {
-  return <Box as={PrimerActionList} ref={ref} {...props} />
+  return <Box {...props} as={PrimerActionList} ref={ref} />
 })
 
 const StyledActionListItem = styled(PrimerActionList.Item).withConfig({
@@ -30,11 +30,11 @@ const ActionListItem = forwardRef<HTMLLIElement, ActionListItemProps>(({as, ...p
 ))
 
 function ActionListGroup(props: ActionListGroupProps) {
-  return <Box as={PrimerActionList.Group} {...props} />
+  return <Box {...props} as={PrimerActionList.Group} />
 }
 
 function ActionListDivider(props: ActionListDividerProps) {
-  return <Box as={PrimerActionList.Divider} {...props} />
+  return <Box {...props} as={PrimerActionList.Divider} />
 }
 
 const ActionList = Object.assign(ActionListImpl, {

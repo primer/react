@@ -154,13 +154,13 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
   ) : (
     // Render a segmented control
     <ul
+      {...rest}
       aria-label={ariaLabel}
       aria-labelledby={ariaLabelledby}
       ref={segmentedControlContainerRef}
       className={clsx(classes.SegmentedControl, className)}
       data-full-width={isFullWidth || undefined}
       data-size={size}
-      {...rest}
     >
       {React.Children.map(children, (child, index) => {
         // Not a valid child element - skip rendering child
@@ -207,12 +207,12 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
           } else {
             return (
               <SegmentedControlIconButton
-                aria-label={childAriaLabel || childPropsChildren}
-                icon={visual}
-                // Width is now handled by CSS: 32px default, 100% when data-full-width is set on parent
-                className={classes.IconButton}
                 {...sharedChildProps}
                 {...restChildProps}
+                // Width is now handled by CSS: 32px default, 100% when data-full-width is set on parent
+                aria-label={childAriaLabel || childPropsChildren}
+                icon={visual}
+                className={classes.IconButton}
               />
             )
           }
