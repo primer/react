@@ -6,7 +6,7 @@ import {clsx} from 'clsx'
  */
 export const Button = ({children, className, ...rest}: React.ComponentPropsWithoutRef<'button'>) => {
   return (
-    <button className={clsx(className, classes.ButtonReset)} type="button" {...rest}>
+    <button {...rest} className={clsx(className, classes.ButtonReset)} type="button">
       {children}
     </button>
   )

@@ -49,11 +49,11 @@ export const Playground = ({open, ...args}: PlaygroundProps) => {
       </Button>
       {(isOpen || open) && (
         <ConfirmationDialog
+          {...args}
           title="Delete universe?"
           onClose={onDialogClose}
           confirmButtonContent="Delete it!"
           confirmButtonType="danger"
-          {...args}
         >
           Deleting the universe could have disastrous effects, including but not limited to destroying all life on
           Earth.

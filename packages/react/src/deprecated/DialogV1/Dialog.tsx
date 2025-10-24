@@ -72,12 +72,12 @@ const Dialog = forwardRef<HTMLDivElement, InternalDialogProps>(
       <>
         <span className={classes.Overlay} ref={overlayRef} />
         <Component
+          {...props}
+          {...getDialogProps()}
           tabIndex={-1}
           ref={modalRef}
           role="dialog"
           aria-modal="true"
-          {...props}
-          {...getDialogProps()}
           className={clsx(classes.Dialog, className)}
           data-width={props.wide ? 'wide' : props.narrow ? 'narrow' : 'default'}
         >

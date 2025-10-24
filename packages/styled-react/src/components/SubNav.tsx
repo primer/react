@@ -11,13 +11,13 @@ import type {SxProp} from '../sx'
 type SubNavProps = PrimerSubNavProps & SxProp
 
 const SubNavImpl = forwardRef<HTMLElement, SubNavProps>(function SubNav(props, ref) {
-  return <Box as={PrimerSubNav} ref={ref} {...props} />
+  return <Box {...props} as={PrimerSubNav} ref={ref} />
 })
 
 type SubNavLinkProps = PrimerSubNavLinkProps & SxProp
 
 const SubNavLink = forwardRef<HTMLAnchorElement, SubNavLinkProps>(function SubNavLink(props, ref) {
-  return <Box as={PrimerSubNav.Link} ref={ref} {...props} />
+  return <Box {...props} as={PrimerSubNav.Link} ref={ref} />
 })
 
 const SubNav = Object.assign(SubNavImpl, {

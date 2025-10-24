@@ -126,7 +126,7 @@ const ContextArea: FCWithSlotMarker<React.PropsWithChildren<ChildrenPropTypes>> 
   hidden = hiddenOnRegularAndWide,
 }) => {
   return (
-    <div className={clsx(classes.ContextArea, className)} {...getHiddenDataAttributes(hidden)}>
+    <div {...getHiddenDataAttributes(hidden)} className={clsx(classes.ContextArea, className)}>
       {children}
     </div>
   )
@@ -148,12 +148,12 @@ const ParentLink = React.forwardRef<HTMLAnchorElement, ParentLinkProps>(
     return (
       <>
         <Link
+          {...getHiddenDataAttributes(hidden)}
           ref={ref}
           as={as}
           aria-label={ariaLabel}
           muted
           className={clsx(classes.ParentLink, className)}
-          {...getHiddenDataAttributes(hidden)}
           href={href}
         >
           <ArrowLeftIcon />
@@ -175,7 +175,7 @@ const ContextBar: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
   hidden = hiddenOnRegularAndWide,
 }) => {
   return (
-    <div className={clsx(classes.ContextBar, className)} {...getHiddenDataAttributes(hidden)}>
+    <div {...getHiddenDataAttributes(hidden)} className={clsx(classes.ContextBar, className)}>
       {children}
     </div>
   )
@@ -189,7 +189,7 @@ const ContextAreaActions: React.FC<React.PropsWithChildren<ChildrenPropTypes>> =
   hidden = hiddenOnRegularAndWide,
 }) => {
   return (
-    <div className={clsx(classes.ContextAreaActions, className)} {...getHiddenDataAttributes(hidden)}>
+    <div {...getHiddenDataAttributes(hidden)} className={clsx(classes.ContextAreaActions, className)}>
       {children}
     </div>
   )
@@ -208,11 +208,11 @@ const TitleArea = React.forwardRef<HTMLDivElement, React.PropsWithChildren<Title
     const currentVariant = useResponsiveValue(variant, 'medium')
     return (
       <div
+        {...getHiddenDataAttributes(hidden)}
         className={clsx(classes.TitleArea, className)}
         ref={titleAreaRef}
         data-component="TitleArea"
         data-size-variant={currentVariant}
-        {...getHiddenDataAttributes(hidden)}
       >
         {children}
       </div>
@@ -230,9 +230,9 @@ const LeadingAction: FCWithSlotMarker<React.PropsWithChildren<ChildrenPropTypes>
 }) => {
   return (
     <div
+      {...getHiddenDataAttributes(hidden)}
       className={clsx(classes.LeadingAction, className)}
       data-component="PH_LeadingAction"
-      {...getHiddenDataAttributes(hidden)}
     >
       {children}
     </div>
@@ -245,9 +245,9 @@ LeadingAction.__SLOT__ = Symbol('PageHeader.LeadingAction')
 const Breadcrumbs: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({children, className, hidden = false}) => {
   return (
     <div
+      {...getHiddenDataAttributes(hidden)}
       className={clsx(classes.Breadcrumbs, className)}
       data-component="PH_Breadcrumbs"
-      {...getHiddenDataAttributes(hidden)}
     >
       {children}
     </div>
@@ -258,9 +258,9 @@ const Breadcrumbs: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({chil
 const LeadingVisual: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({children, className, hidden = false}) => {
   return (
     <div
+      {...getHiddenDataAttributes(hidden)}
       className={clsx(classes.LeadingVisual, className)}
       data-component="PH_LeadingVisual"
-      {...getHiddenDataAttributes(hidden)}
     >
       {children}
     </div>
@@ -274,11 +274,11 @@ export type TitleProps = {
 const Title: React.FC<React.PropsWithChildren<TitleProps>> = ({children, className, hidden = false, as = 'h2'}) => {
   return (
     <Heading
+      {...getHiddenDataAttributes(hidden)}
       className={clsx(classes.Title, className)}
       data-component="PH_Title"
       data-hidden={hidden}
       as={as}
-      {...getHiddenDataAttributes(hidden)}
     >
       {children}
     </Heading>
@@ -293,9 +293,9 @@ const TrailingVisual: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
 }) => {
   return (
     <div
+      {...getHiddenDataAttributes(hidden)}
       className={clsx(classes.TrailingVisual, className)}
       data-component="PH_TrailingVisual"
-      {...getHiddenDataAttributes(hidden)}
     >
       {children}
     </div>
@@ -309,9 +309,9 @@ const TrailingAction: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
 }) => {
   return (
     <div
+      {...getHiddenDataAttributes(hidden)}
       className={clsx(classes.TrailingAction, className)}
       data-component="PH_TrailingAction"
-      {...getHiddenDataAttributes(hidden)}
     >
       {children}
     </div>
@@ -322,7 +322,7 @@ export type ActionsProps = React.PropsWithChildren<ChildrenPropTypes>
 
 const Actions = ({children, className, hidden = false}: ActionsProps) => {
   return (
-    <div className={clsx(classes.Actions, className)} data-component="PH_Actions" {...getHiddenDataAttributes(hidden)}>
+    <div {...getHiddenDataAttributes(hidden)} className={clsx(classes.Actions, className)} data-component="PH_Actions">
       {children}
     </div>
   )
@@ -331,7 +331,7 @@ const Actions = ({children, className, hidden = false}: ActionsProps) => {
 // PageHeader.Description: The description area of the header. Visible on all viewports
 const Description: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({children, className, hidden = false}) => {
   return (
-    <div className={clsx(classes.Description, className)} {...getHiddenDataAttributes(hidden)}>
+    <div {...getHiddenDataAttributes(hidden)} className={clsx(classes.Description, className)}>
       {children}
     </div>
   )
@@ -360,11 +360,11 @@ const Navigation: React.FC<React.PropsWithChildren<NavigationProps>> = ({
   return (
     <BaseComponent
       // Render `aria-label` and `aria-labelledby` only on `nav` elements
+      {...getHiddenDataAttributes(hidden)}
       aria-label={BaseComponent === 'nav' ? ariaLabel : undefined}
       aria-labelledby={BaseComponent === 'nav' ? ariaLabelledBy : undefined}
       className={clsx(classes.Navigation, className)}
       data-component="PH_Navigation"
-      {...getHiddenDataAttributes(hidden)}
     >
       {children}
     </BaseComponent>

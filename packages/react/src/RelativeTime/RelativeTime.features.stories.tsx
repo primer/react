@@ -131,20 +131,20 @@ const meta: Meta = {
 
 export const MicroFormat: StoryFn = args => {
   const {date, ...rest} = args
-  return <RelativeTime noTitle={true} {...rest} date={new Date(date)} format="micro" />
+  return <RelativeTime {...rest} noTitle={true} date={new Date(date)} format="micro" />
 }
 MicroFormat.args = {tense: 'past'}
 MicroFormat.argTypes = {format: {control: false}}
 
 export const RecentTime: StoryFn = args => {
   const {...rest} = args
-  return <RelativeTime noTitle={true} {...rest} date={new Date()} />
+  return <RelativeTime {...rest} noTitle={true} date={new Date()} />
 }
 RecentTime.argTypes = {date: {control: false}}
 
 export const CountDownTimer: StoryFn = args => {
   const {...rest} = args
-  return <RelativeTime noTitle={true} {...rest} />
+  return <RelativeTime {...rest} noTitle={true} />
 }
 CountDownTimer.args = {date: new Date('2038-01-19T03:14:08Z'), format: 'elapsed', day: '', month: ''}
 CountDownTimer.argTypes = {date: {control: false}, format: {control: false}}

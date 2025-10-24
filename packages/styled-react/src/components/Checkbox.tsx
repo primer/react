@@ -6,6 +6,6 @@ import {type SxProp} from '../sx'
 export type CheckboxProps = PrimerCheckboxProps & SxProp
 
 export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Checkbox(props, ref) {
-  return <Box as={PrimerCheckbox} ref={ref} {...props} />
+  return <Box {...props} as={PrimerCheckbox} ref={ref} />
 })
 ;(Checkbox as typeof Checkbox & SlotMarker).__SLOT__ = PrimerCheckbox.__SLOT__

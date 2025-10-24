@@ -9,7 +9,7 @@ describe('Details', () => {
     const Component = () => {
       const {getDetailsProps} = useDetails({closeOnOutsideClick: true})
       return (
-        <Details data-testid="details" {...getDetailsProps()}>
+        <Details {...getDetailsProps()} data-testid="details">
           <Details.Summary>hi</Details.Summary>
         </Details>
       )

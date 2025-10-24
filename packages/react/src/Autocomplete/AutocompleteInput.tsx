@@ -163,6 +163,7 @@ const AutocompleteInput = React.forwardRef(
 
     return (
       <Component
+        {...props}
         onFocus={handleInputFocus}
         onBlur={handleInputBlur}
         onChange={handleInputChange}
@@ -178,7 +179,6 @@ const AutocompleteInput = React.forwardRef(
         aria-owns={`${id}-listbox`}
         autoComplete="off"
         id={id}
-        {...props}
       />
     )
   },

@@ -111,12 +111,12 @@ const CustomTextInput = (
   props: React.JSX.IntrinsicAttributes &
     React.ClassAttributes<HTMLInputElement> &
     React.InputHTMLAttributes<HTMLInputElement>,
-) => <input type="text" {...props} />
+) => <input {...props} type="text" />
 const CustomCheckboxInput = (
   props: React.JSX.IntrinsicAttributes &
     React.ClassAttributes<HTMLInputElement> &
     React.InputHTMLAttributes<HTMLInputElement>,
-) => <input type="checkbox" {...props} />
+) => <input {...props} type="checkbox" />
 
 export const FormControlWithCustomInput = () => {
   const [value, setValue] = React.useState('mona lisa')
@@ -301,10 +301,10 @@ export const WithSelectPanel = () => {
         subtitle="Use labels to organize issues and pull requests"
         renderAnchor={({children, id, ...anchorProps}) => (
           <Button
+            {...anchorProps}
             trailingAction={TriangleDownIcon}
             aria-labelledby={`select_panel_label selectpanel_wrapper`}
             id={id}
-            {...anchorProps}
             aria-haspopup="dialog"
           >
             <span id="selectpanel_wrapper">{children ?? 'Select Labels'}</span>

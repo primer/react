@@ -10,13 +10,13 @@ import type {FCWithSlotMarker} from '../utils/types/Slots'
 export type VisualProps = React.HTMLAttributes<HTMLSpanElement>
 
 export const VisualContainer: React.FC<React.PropsWithChildren<VisualProps>> = ({className, ...props}) => {
-  return <span className={clsx(className, classes.VisualWrap)} {...props} />
+  return <span {...props} className={clsx(className, classes.VisualWrap)} />
 }
 
 export type ActionListLeadingVisualProps = VisualProps
 export const LeadingVisual: FCWithSlotMarker<React.PropsWithChildren<VisualProps>> = ({className, ...props}) => {
   return (
-    <VisualContainer className={clsx(className, classes.LeadingVisual)} {...props}>
+    <VisualContainer {...props} className={clsx(className, classes.LeadingVisual)}>
       {props.children}
     </VisualContainer>
   )
@@ -26,7 +26,7 @@ export type ActionListTrailingVisualProps = VisualProps
 export const TrailingVisual: FCWithSlotMarker<React.PropsWithChildren<VisualProps>> = ({className, ...props}) => {
   const {trailingVisualId} = React.useContext(ItemContext)
   return (
-    <VisualContainer className={clsx(className, classes.TrailingVisual)} id={trailingVisualId} {...props}>
+    <VisualContainer {...props} className={clsx(className, classes.TrailingVisual)} id={trailingVisualId}>
       {props.children}
     </VisualContainer>
   )

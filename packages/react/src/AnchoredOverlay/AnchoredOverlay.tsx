@@ -245,6 +245,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
         })}
       {open ? (
         <Overlay
+          {...overlayProps}
           returnFocusRef={anchorRef}
           onClickOutside={onClickOutside}
           ignoreClickRefs={[anchorRef]}
@@ -261,18 +262,17 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
           anchorSide={position?.anchorSide}
           className={className}
           preventOverflow={preventOverflow}
-          {...overlayProps}
         >
           {showXIcon ? (
             <div className={classes.ResponsiveCloseButtonContainer}>
               <IconButton
                 {...(closeButtonProps as IconButtonProps)}
-                type="button"
-                variant="invisible"
-                icon={XIcon}
                 {...(XButtonAriaLabelledBy
                   ? {'aria-labelledby': XButtonAriaLabelledBy, 'aria-label': undefined}
                   : {'aria-label': XButtonAriaLabel ?? 'Close', 'aria-labelledby': undefined})}
+                type="button"
+                variant="invisible"
+                icon={XIcon}
                 className={clsx(classes.ResponsiveCloseButton, closeButtonProps.className)}
                 onClick={() => {
                   onClose('close')

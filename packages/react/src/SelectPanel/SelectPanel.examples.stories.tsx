@@ -64,7 +64,7 @@ export const HeightInitialWithOverflowingItemsStory = () => {
       <FormControl.Label>Labels</FormControl.Label>
       <SelectPanel
         renderAnchor={({children, ...anchorProps}) => (
-          <Button trailingAction={TriangleDownIcon} {...anchorProps}>
+          <Button {...anchorProps} trailingAction={TriangleDownIcon}>
             {children}
           </Button>
         )}
@@ -96,7 +96,7 @@ export const HeightInitialWithUnderflowingItemsStory = () => {
       <FormControl.Label>Labels</FormControl.Label>
       <SelectPanel
         renderAnchor={({children, ...anchorProps}) => (
-          <Button trailingAction={TriangleDownIcon} {...anchorProps}>
+          <Button {...anchorProps} trailingAction={TriangleDownIcon}>
             {children}
           </Button>
         )}
@@ -141,7 +141,7 @@ export const HeightInitialWithUnderflowingItemsAfterFetch = () => {
       <FormControl.Label>Labels</FormControl.Label>
       <SelectPanel
         renderAnchor={({children, ...anchorProps}) => (
-          <Button trailingAction={TriangleDownIcon} {...anchorProps}>
+          <Button {...anchorProps} trailingAction={TriangleDownIcon}>
             {children}
           </Button>
         )}
@@ -173,7 +173,7 @@ export const AboveTallBody = () => {
       <FormControl.Label>Labels</FormControl.Label>
       <SelectPanel
         renderAnchor={({children, ...anchorProps}) => (
-          <Button trailingAction={TriangleDownIcon} {...anchorProps}>
+          <Button {...anchorProps} trailingAction={TriangleDownIcon}>
             {children}
           </Button>
         )}
@@ -224,7 +224,7 @@ export const HeightVariationsAndScroll = () => {
         <FormControl.Label>With height:medium</FormControl.Label>
         <SelectPanel
           renderAnchor={({children, ...anchorProps}) => (
-            <Button trailingAction={TriangleDownIcon} {...anchorProps}>
+            <Button {...anchorProps} trailingAction={TriangleDownIcon}>
               {children ?? 'Select Labels'}
             </Button>
           )}
@@ -245,7 +245,7 @@ export const HeightVariationsAndScroll = () => {
         <FormControl.Label>With height:auto, maxheight:medium</FormControl.Label>
         <SelectPanel
           renderAnchor={({children, ...anchorProps}) => (
-            <Button trailingAction={TriangleDownIcon} {...anchorProps}>
+            <Button {...anchorProps} trailingAction={TriangleDownIcon}>
               {children ?? 'Select Labels'}
             </Button>
           )}
@@ -287,7 +287,7 @@ export const CustomItemRenderer = () => {
       <SelectPanel
         title="Select files"
         renderAnchor={anchorProps => (
-          <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
+          <Button {...anchorProps} trailingAction={TriangleDownIcon} aria-haspopup="dialog">
             Select files
           </Button>
         )}
@@ -460,7 +460,7 @@ export const WithDefaultMessage = () => {
         placeholder="Select labels" // button text when no items are selected
         subtitle="Use labels to organize issues and pull requests"
         renderAnchor={({children, ...anchorProps}) => (
-          <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
+          <Button {...anchorProps} trailingAction={TriangleDownIcon} aria-haspopup="dialog">
             {children}
           </Button>
         )}
@@ -566,7 +566,7 @@ export const RenderMoreOnScroll = () => {
           placeholder="Select labels"
           subtitle="Use labels to organize issues and pull requests"
           renderAnchor={({children, ...anchorProps}) => (
-            <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
+            <Button {...anchorProps} trailingAction={TriangleDownIcon} aria-haspopup="dialog">
               {children}
             </Button>
           )}

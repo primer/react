@@ -68,6 +68,7 @@ const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
 
     return (
       <input
+        {...rest}
         type="radio"
         value={value}
         name={name}
@@ -78,7 +79,6 @@ const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
         required={required}
         onChange={handleOnChange}
         className={clsx(className, sharedClasses.Input, classes.Radio)}
-        {...rest}
       />
     )
   },

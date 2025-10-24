@@ -66,6 +66,7 @@ export const TextInputBaseWrapper = React.forwardRef<HTMLElement, StyledTextInpu
 
     return (
       <span
+        {...restProps}
         ref={forwardRef}
         className={clsx(className, styles.TextInputBaseWrapper)}
         data-block={block || undefined}
@@ -78,7 +79,6 @@ export const TextInputBaseWrapper = React.forwardRef<HTMLElement, StyledTextInpu
         data-validation={validationStatus || undefined}
         data-variant={variant || undefined}
         style={memoizedStyle}
-        {...restProps}
       />
     )
   },
@@ -91,11 +91,11 @@ export const TextInputWrapper = React.forwardRef<HTMLElement, StyledBaseWrapperP
 ) {
   return (
     <TextInputBaseWrapper
+      {...restProps}
       ref={forwardRef}
       className={clsx(className, styles.TextInputWrapper)}
       data-leading-visual={hasLeadingVisual || undefined}
       data-trailing-visual={hasTrailingVisual || undefined}
-      {...restProps}
     />
   )
 })

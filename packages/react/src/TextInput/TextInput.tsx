@@ -157,6 +157,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
           {typeof LeadingVisual !== 'string' && isValidElementType(LeadingVisual) ? <LeadingVisual /> : LeadingVisual}
         </TextInputInnerVisualSlot>
         <UnstyledTextInput
+          {...inputProps}
           ref={inputRef}
           disabled={disabled}
           onFocus={handleInputFocus}
@@ -164,7 +165,6 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
           type={type}
           aria-required={required}
           aria-invalid={validationStatus === 'error' ? 'true' : undefined}
-          {...inputProps}
           aria-describedby={inputDescribedBy}
           data-component="input"
         />

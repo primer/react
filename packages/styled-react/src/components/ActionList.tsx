@@ -45,7 +45,7 @@ const ActionListImpl = React.forwardRef(function ActionListImpl<As extends React
   {as, ...rest}: ActionListProps<As>,
   ref: React.ComponentPropsWithRef<As>['ref'],
 ) {
-  return <StyledActionList ref={ref} {...rest} {...(as ? {forwardedAs: as} : {})} />
+  return <StyledActionList {...rest} {...(as ? {forwardedAs: as} : {})} ref={ref} />
 })
 
 const StyledActionListLinkItem: ForwardRefComponent<'a', ActionListLinkItemProps> & SlotMarker = styled(
@@ -58,7 +58,7 @@ const StyledActionListLinkItem: ForwardRefComponent<'a', ActionListLinkItemProps
 
 const ActionListLinkItem = React.forwardRef<HTMLAnchorElement, ActionListLinkItemProps>(
   ({children, as, ...props}, ref) => (
-    <StyledActionListLinkItem ref={ref} {...props} {...(as ? {forwardedAs: as} : {})}>
+    <StyledActionListLinkItem {...props} {...(as ? {forwardedAs: as} : {})} ref={ref}>
       {children}
     </StyledActionListLinkItem>
   ),
@@ -94,7 +94,7 @@ const StyledActionListItem: ForwardRefComponent<'li', ActionListItemProps> = sty
 `
 
 const ActionListItem = React.forwardRef<HTMLLIElement, ActionListItemProps>(({children, as, ...props}, ref) => (
-  <StyledActionListItem ref={ref} {...props} {...(as ? {forwardedAs: as} : {})}>
+  <StyledActionListItem {...props} {...(as ? {forwardedAs: as} : {})} ref={ref}>
     {children}
   </StyledActionListItem>
 )) as ForwardRefComponent<'li', ActionListItemProps> & SlotMarker

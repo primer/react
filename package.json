@@ -68,7 +68,7 @@
     "eslint-plugin-mdx": "3.6.2",
     "eslint-plugin-playwright": "^2.2.2",
     "eslint-plugin-prettier": "^5.5.4",
-    "eslint-plugin-primer-react": "^8.2.0",
+    "eslint-plugin-primer-react": "^8.4.0",
     "eslint-plugin-react": "^7.35.5",
     "eslint-plugin-react-compiler": "^19.1.0-rc.2",
     "eslint-plugin-react-hooks": "^5.2.0",

@@ -87,8 +87,8 @@ const ButtonBase = forwardRef(({children, as: Component = 'button', ...props}, f
       data-loading-wrapper
     >
       <Component
-        aria-disabled={loading ? true : undefined}
         {...rest}
+        aria-disabled={loading ? true : undefined}
         // @ts-ignore temporary disable as we migrate to css modules, until we remove PolymorphicForwardRefComponent
         ref={innerRef}
         className={clsx(classes.ButtonBase, className)}

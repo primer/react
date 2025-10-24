@@ -117,6 +117,7 @@ const config = defineConfig([
       'primer-react/a11y-use-next-tooltip': 'error',
       'primer-react/no-unnecessary-components': 'error',
       'primer-react/prefer-action-list-item-onselect': 'error',
+      'primer-react/spread-props-first': 'error',
     },
   },
 

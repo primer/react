@@ -6,7 +6,7 @@ import type {StyledProps} from '../styled-props'
 type ToggleSwitchProps = PrimerToggleSwitchProps & Omit<StyledProps, keyof PrimerToggleSwitchProps>
 
 const ToggleSwitch = forwardRef<HTMLButtonElement, ToggleSwitchProps>(function ToggleSwitch(props, ref) {
-  return <Box as={PrimerToggleSwitch} ref={ref} {...props} />
+  return <Box {...props} as={PrimerToggleSwitch} ref={ref} />
 })
 
 export {ToggleSwitch, type ToggleSwitchProps}

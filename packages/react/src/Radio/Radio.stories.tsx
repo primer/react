@@ -22,7 +22,7 @@ export const Playground = ({value: _value, ...args}: FormControlArgs<RadioProps>
   return (
     <form>
       <FormControl {...parentArgs}>
-        <Radio name="default-radio-name" value="default" {...args} />
+        <Radio {...args} name="default-radio-name" value="default" />
         <FormControl.Label {...labelArgs} />
         {captionArgs.children && <FormControl.Caption {...captionArgs} />}
       </FormControl>

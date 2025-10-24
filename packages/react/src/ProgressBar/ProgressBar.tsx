@@ -54,13 +54,13 @@ export const Item = forwardRef<HTMLSpanElement, ProgressBarItemProps>(
 
     return (
       <span
-        className={clsx(className, classes.ProgressBarItem)}
         {...rest}
+        {...ariaAttributes}
+        className={clsx(className, classes.ProgressBarItem)}
         role="progressbar"
         aria-label={ariaLabel}
         ref={forwardRef}
         style={{...styles, ...style}}
-        {...ariaAttributes}
       />
     )
   },
@@ -101,11 +101,11 @@ export const ProgressBar = forwardRef<HTMLSpanElement, ProgressBarProps>(
 
     return (
       <span
+        {...rest}
         ref={forwardRef}
         className={clsx(className, classes.ProgressBarContainer)}
         data-progress-display={inline ? 'inline' : 'block'}
         data-progress-bar-size={barSize}
-        {...rest}
       >
         {validChildren ? (
           children

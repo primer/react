@@ -173,9 +173,9 @@ export const List = React.forwardRef<HTMLDivElement, ListProps>((props, forwarde
     const key = ('key' in itemProps ? itemProps.key : undefined) ?? itemProps.id?.toString() ?? itemIndex.toString()
     return (
       <ItemComponent
+        {...itemProps}
         showDivider={restProps.showItemDividers}
         selectionVariant={restProps.selectionVariant}
-        {...itemProps}
         key={key}
         style={itemStyle}
         item={item}

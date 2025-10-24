@@ -72,7 +72,7 @@ export const Default = () => {
         placeholder="Select labels" // button text when no items are selected
         subtitle="Use labels to organize issues and pull requests"
         renderAnchor={({children, ...anchorProps}) => (
-          <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
+          <Button {...anchorProps} trailingAction={TriangleDownIcon} aria-haspopup="dialog">
             {children}
           </Button>
         )}

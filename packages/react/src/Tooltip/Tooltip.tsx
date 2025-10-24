@@ -42,7 +42,7 @@ const Tooltip = React.forwardRef(function Tooltip(
   return (
     // This provider is used to check if an icon button is wrapped with tooltip or not.
     <TooltipContext.Provider value={value}>
-      <Component role="tooltip" aria-label={text} id={tooltipId} {...rest} className={tooltipClasses} ref={ref}>
+      <Component {...rest} role="tooltip" aria-label={text} id={tooltipId} className={tooltipClasses} ref={ref}>
         {children}
       </Component>
     </TooltipContext.Provider>

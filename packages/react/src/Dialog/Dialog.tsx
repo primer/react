@@ -308,21 +308,21 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
     <>
       <Portal>
         <div
+          {...positionDataAttributes}
           ref={backdropRef}
           className={classes.Backdrop}
-          {...positionDataAttributes}
           onClick={onBackdropClick}
           onMouseDown={(e: React.MouseEvent<HTMLDivElement>) => {
             setLastMouseDownIsBackdrop(e.target === e.currentTarget)
           }}
         >
           <div
+            {...positionDataAttributes}
             ref={dialogRef}
             role={role}
             aria-labelledby={dialogLabelId}
             aria-describedby={dialogDescriptionId}
             aria-modal
-            {...positionDataAttributes}
             data-width={width}
             data-height={height}
             className={clsx(className, classes.Dialog)}
@@ -343,14 +343,14 @@ _Dialog.displayName = 'Dialog'
 type StyledHeaderProps = React.ComponentProps<'div'>
 
 const Header = React.forwardRef<HTMLDivElement, StyledHeaderProps>(function Header({className, ...rest}, forwardRef) {
-  return <div ref={forwardRef} className={clsx(className, classes.Header)} {...rest} />
+  return <div {...rest} ref={forwardRef} className={clsx(className, classes.Header)} />
 })
 Header.displayName = 'Dialog.Header'
 
 type StyledTitleProps = React.ComponentProps<'h1'>
 
 const Title = React.forwardRef<HTMLHeadingElement, StyledTitleProps>(function Title({className, ...rest}, forwardRef) {
-  return <h1 ref={forwardRef} className={clsx(className, classes.Title)} {...rest} />
+  return <h1 {...rest} ref={forwardRef} className={clsx(className, classes.Title)} />
 })
 Title.displayName = 'Dialog.Title'
 
@@ -360,14 +360,14 @@ const Subtitle = React.forwardRef<HTMLHeadingElement, StyledSubtitleProps>(funct
   {className, ...rest},
   forwardRef,
 ) {
-  return <h2 ref={forwardRef} className={clsx(className, classes.Subtitle)} {...rest} />
+  return <h2 {...rest} ref={forwardRef} className={clsx(className, classes.Subtitle)} />
 })
 Subtitle.displayName = 'Dialog.Subtitle'
 
 type StyledBodyProps = React.ComponentProps<'div'>
 
 const Body = React.forwardRef<HTMLDivElement, StyledBodyProps>(function Body({className, ...rest}, forwardRef) {
-  return <div ref={forwardRef} className={clsx(className, classes.Body)} {...rest} />
+  return <div {...rest} ref={forwardRef} className={clsx(className, classes.Body)} />
 }) as PolymorphicForwardRefComponent<'div', StyledBodyProps>
 
 Body.displayName = 'Dialog.Body'
@@ -375,7 +375,7 @@ Body.displayName = 'Dialog.Body'
 type StyledFooterProps = React.ComponentProps<'div'>
 
 const Footer = React.forwardRef<HTMLDivElement, StyledFooterProps>(function Footer({className, ...rest}, forwardRef) {
-  return <div ref={forwardRef} className={clsx(className, classes.Footer)} {...rest} />
+  return <div {...rest} ref={forwardRef} className={clsx(className, classes.Footer)} />
 })
 Footer.displayName = 'Dialog.Footer'
 
@@ -398,8 +398,8 @@ const Buttons: React.FC<React.PropsWithChildren<{buttons: DialogButtonProps[]}>>
         const {content, buttonType = 'default', autoFocus = false, ...buttonProps} = dialogButtonProps
         return (
           <Button
-            key={index}
             {...buttonProps}
+            key={index}
             // 'normal' value is equivalent to 'default', this is used for backwards compatibility
             variant={buttonType === 'normal' ? 'default' : buttonType}
             ref={autoFocus && autoFocusCount === 0 ? (autoFocusCount++, autoFocusRef) : null}

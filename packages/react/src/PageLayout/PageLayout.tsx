@@ -687,10 +687,10 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
           position={position}
         />
         <div
-          ref={paneRef}
           {...(hasOverflow ? overflowProps : {})}
           {...labelProp}
           {...(id && {id: paneId})}
+          ref={paneRef}
           className={classes.Pane}
           data-resizable={resizable || undefined}
           style={

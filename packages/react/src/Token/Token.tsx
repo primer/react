@@ -59,6 +59,8 @@ const Token = forwardRef((props, forwardedRef) => {
   }
   return (
     <TokenBase
+      {...(!hasMultipleActionTargets ? interactiveTokenProps : {})}
+      {...rest}
       onRemove={onRemove}
       id={id?.toString()}
       className={clsx(className, classes.Token)}
@@ -66,8 +68,6 @@ const Token = forwardRef((props, forwardedRef) => {
       size={size}
       data-is-selected={props.isSelected}
       data-is-remove-btn={!(hideRemoveButton || !onRemove)}
-      {...(!hasMultipleActionTargets ? interactiveTokenProps : {})}
-      {...rest}
       ref={forwardedRef}
       style={{borderWidth: `${tokenBorderWidthPx}px`, ...style}}
     >

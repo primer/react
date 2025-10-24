@@ -175,6 +175,7 @@ export const Item = React.forwardRef((itemProps, ref) => {
 
   return (
     <Component
+      {...props}
       ref={ref}
       tabIndex={disabled ? undefined : -1}
       data-variant={variant}
@@ -182,7 +183,6 @@ export const Item = React.forwardRef((itemProps, ref) => {
       aria-labelledby={text ? labelId : undefined}
       aria-describedby={description ? descriptionId : undefined}
       data-divider={showDivider ? '' : undefined}
-      {...props}
       data-id={id}
       onKeyPress={keyPressHandler}
       onClick={clickHandler}

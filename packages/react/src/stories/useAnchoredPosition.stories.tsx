@@ -69,6 +69,7 @@ interface AnchorProps extends React.ComponentPropsWithRef<'div'> {
 
 const Float = ({children, top, left, width, height, sx, style, ...props}: FloatProps) => (
   <div
+    {...props}
     className={classes.Float}
     style={
       {
@@ -84,7 +85,6 @@ const Float = ({children, top, left, width, height, sx, style, ...props}: FloatP
         visibility: sx?.visibility,
       } as React.CSSProperties
     }
-    {...props}
   >
     {children}
   </div>
@@ -92,6 +92,7 @@ const Float = ({children, top, left, width, height, sx, style, ...props}: FloatP
 
 const Anchor = ({children, top, left, width, height, style, ...props}: AnchorProps) => (
   <div
+    {...props}
     className={classes.Anchor}
     style={{
       ...style,
@@ -100,7 +101,6 @@ const Anchor = ({children, top, left, width, height, style, ...props}: AnchorPro
       width: width !== undefined ? `${width}px` : undefined,
       height: height !== undefined ? `${height}px` : undefined,
     }}
-    {...props}
   >
     {children}
   </div>
@@ -225,13 +225,13 @@ export const ComplexAncestry = () => {
 }
 
 const Nav = ({children, ...props}: React.ComponentPropsWithoutRef<'nav'>) => (
-  <nav className={classes.Nav} {...props}>
+  <nav {...props} className={classes.Nav}>
     {children}
   </nav>
 )
 
 const Main = ({children, ...props}: React.ComponentPropsWithRef<'main'>) => (
-  <main className={classes.Main} {...props}>
+  <main {...props} className={classes.Main}>
     {children}
   </main>
 )

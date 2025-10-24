@@ -36,6 +36,7 @@ const Avatar = React.forwardRef<HTMLImageElement, AvatarProps>(function Avatar(
 
   return (
     <img
+      {...rest}
       data-component="Avatar"
       className={clsx(className, classes.Avatar)}
       ref={ref}
@@ -52,7 +53,6 @@ const Avatar = React.forwardRef<HTMLImageElement, AvatarProps>(function Avatar(
             }
           : (cssSizeVars as React.CSSProperties)
       }
-      {...rest}
     />
   )
 })
