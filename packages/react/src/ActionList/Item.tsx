@@ -5,7 +5,7 @@ import {useSlots} from '../hooks/useSlots'
 import {ActionListContainerContext} from './ActionListContainerContext'
 import {Description} from './Description'
 import {GroupContext} from './Group'
-import type {ActionListItemProps, ActionListProps} from './shared'
+import type {ActionListItemProps, ActionListProps, LinkProps} from './shared'
 import {Selection} from './Selection'
 import {LeadingVisual, TrailingVisual, VisualOrIndicator} from './Visuals'
 import {ItemContext, ListContext} from './shared'
@@ -16,6 +16,7 @@ import VisuallyHidden from '../_VisuallyHidden'
 import classes from './ActionList.module.css'
 import {clsx} from 'clsx'
 import {fixedForwardRef} from '../utils/modern-polymorphic'
+import Link from '../Link'
 
 type ActionListSubItemProps = {
   children?: React.ReactNode
@@ -47,6 +48,33 @@ const DivItemContainerNoBox = React.forwardRef<HTMLDivElement, React.HTMLAttribu
   },
 )
 
+type LinkItemContainerProps = React.HTMLAttributes<HTMLAnchorElement> &
+  LinkProps &
+  Pick<ActionListItemProps, 'active' | 'children' | 'inactiveText' | 'variant' | 'size'> & {
+    userOnClick?: (event: React.MouseEvent<HTMLAnchorElement>) => void
+    as?: React.ElementType
+    // onClick passed from Item to handle selection logic
+    onClick?: (event: React.MouseEvent<HTMLElement>) => void
+  }
+
+const LinkItemContainerNoBox = React.forwardRef<HTMLAnchorElement, LinkItemContainerProps>(
+  ({children, onClick, userOnClick, inactiveText, as: Component = 'a', ...rest}, forwardedRef) => {
+    const clickHandler = (event: React.MouseEvent<HTMLElement>) => {
+      onClick && onClick(event)
+      userOnClick && userOnClick(event as React.MouseEvent<HTMLAnchorElement>)
+    }
+    if (inactiveText) {
+      return <span {...(rest as React.HTMLAttributes<HTMLSpanElement>)}>{children}</span>
+    }
+
+    return (
+      <Link as={Component} {...rest} onClick={clickHandler} ref={forwardedRef}>
+        {children}
+      </Link>
+    )
+  },
+)
+
 const UnwrappedItem = <As extends React.ElementType = 'li'>(
   {
     variant = 'default',
@@ -64,6 +92,7 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
     groupId: _groupId,
     renderItem: _renderItem,
     handleAddItem: _handleAddItem,
+
     ...props
   }: ActionListItemProps<As>,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -114,6 +143,11 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
   const selectionVariant: ActionListProps['selectionVariant'] = groupSelectionVariant
     ? groupSelectionVariant
     : listSelectionVariant
+
+  /** Detect if this should be a link item based on props - needed early for role inference */
+  const isLinkItem = Boolean(
+    props.href || props.to || (typeof props.as === 'string' && props.as.toLowerCase() === 'a') || role === 'link',
+  )
 
   /** Infer item role based on the container */
   let inferredItemRole: ActionListItemProps['role']
@@ -181,7 +215,7 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
 
   const DefaultItemWrapper = listSemantics ? DivItemContainerNoBox : ButtonItemContainerNoBox
 
-  const ItemWrapper = _PrivateItemWrapper || DefaultItemWrapper
+  const ItemWrapper = _PrivateItemWrapper || (isLinkItem ? LinkItemContainerNoBox : DefaultItemWrapper)
 
   // only apply aria-selected and aria-checked to selectable items
   const selectableRoles = ['menuitemradio', 'menuitemcheckbox', 'option']
@@ -219,18 +253,31 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
     id: itemId,
   }
 
-  const containerProps = _PrivateItemWrapper
-    ? {role: itemRole ? 'none' : undefined, ...props}
-    : // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-      (listSemantics && {...menuItemProps, ...props, ref: forwardedRef}) || {}
+  // Props distribution depends on which component pattern is being used:
+  // 1. _PrivateItemWrapper - used by LinkItem, which handles prop splitting internally
+  // 2. isLinkItem - direct Item usage with link props (href, to, etc.)
+  // 3. default - regular button/div behavior with ActionListBaseItemProps
+
+  const containerProps =
+    _PrivateItemWrapper || isLinkItem
+      ? {role: itemRole ? 'none' : undefined}
+      : // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+        (listSemantics && {...menuItemProps, ...props, ref: forwardedRef}) || {}
 
   const wrapperProps = _PrivateItemWrapper
     ? menuItemProps
-    : !listSemantics && {
-        ...menuItemProps,
-        ...props,
-        ref: forwardedRef,
-      }
+    : isLinkItem
+      ? {
+          ...props,
+          ...menuItemProps,
+          inactiveText,
+          userOnClick: props.onClick as ((event: React.MouseEvent<HTMLAnchorElement>) => void) | undefined,
+        }
+      : !listSemantics && {
+          ...menuItemProps,
+          ...props,
+          ref: forwardedRef,
+        }
 
   return (
     <ItemContext.Provider

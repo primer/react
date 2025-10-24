@@ -95,9 +95,9 @@ describe('ActionList', () => {
           </ActionList.TrailingAction>
         </ActionList.Item>
         <ActionList.Divider className="divider" />
-        <ActionList.LinkItem className="link" href="//github.com" title="anchor" aria-keyshortcuts="d">
+        <ActionList.Item className="link" href="//github.com" title="anchor" aria-keyshortcuts="d">
           Link Item
-        </ActionList.LinkItem>
+        </ActionList.Item>
         <ActionList.Group className="group">
           <ActionList.GroupHeading as="h2" className="group_heading">
             Group Heading
@@ -177,16 +177,16 @@ describe('ActionList', () => {
     expect(descriptions[2]).not.toHaveAttribute('title')
   })
 
-  it('should support size prop on LinkItem', () => {
+  it('should support size prop on Item', () => {
     const {container} = HTMLRender(
       <ActionList>
-        <ActionList.LinkItem href="//github.com" size="large">
+        <ActionList.Item href="//github.com" size="large">
           Large Link Item
-        </ActionList.LinkItem>
-        <ActionList.LinkItem href="//github.com" size="medium">
+        </ActionList.Item>
+        <ActionList.Item href="//github.com" size="medium">
           Medium Link Item
-        </ActionList.LinkItem>
-        <ActionList.LinkItem href="//github.com">Default Link Item</ActionList.LinkItem>
+        </ActionList.Item>
+        <ActionList.Item href="//github.com">Default Link Item</ActionList.Item>
       </ActionList>,
     )
 
