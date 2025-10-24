@@ -33,7 +33,7 @@ const LabelledTextInputWithTokens: React.FC<React.PropsWithChildren<TextInputWit
 )
 
 beforeEach(() => {
-  vi.useFakeTimers()
+  vi.useFakeTimers({toFake: ['setTimeout', 'clearTimeout', 'setInterval', 'clearInterval']})
 })
 
 afterEach(() => {

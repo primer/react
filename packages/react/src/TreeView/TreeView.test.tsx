@@ -18,7 +18,7 @@ function renderWithTheme(
 Element.prototype.scrollIntoView = vi.fn()
 
 beforeEach(() => {
-  vi.useFakeTimers()
+  vi.useFakeTimers({toFake: ['setTimeout', 'clearTimeout', 'setInterval', 'clearInterval']})
 })
 
 afterEach(() => {
@@ -1502,7 +1502,7 @@ describe('Asynchronous loading', () => {
   })
 
   it('moves focus to parent item after closing error dialog', async () => {
-    vi.useFakeTimers()
+    vi.useFakeTimers({toFake: ['setTimeout', 'clearTimeout', 'setInterval', 'clearInterval']})
 
     function TestTree() {
       const [error, setError] = React.useState('Test error')

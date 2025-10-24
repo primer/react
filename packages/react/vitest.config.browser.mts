@@ -1,6 +1,7 @@
 import react from '@vitejs/plugin-react'
 import {defineConfig} from 'vitest/config'
 import postcssPresetPrimer from 'postcss-preset-primer'
+import {playwright} from '@vitest/browser-playwright'
 
 export default defineConfig({
   css: {
@@ -36,7 +37,7 @@ export default defineConfig({
       include: [/.+/],
     },
     browser: {
-      provider: 'playwright',
+      provider: playwright(),
       enabled: true,
       headless: process.env.DEBUG_BROWSER_TESTS === 'true' ? false : true,
       instances: [

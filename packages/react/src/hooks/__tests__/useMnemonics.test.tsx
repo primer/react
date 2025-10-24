@@ -134,7 +134,7 @@ describe('useTypeaheadFocus', () => {
   })
 
   it('Enter: when user is presses Enter, it should select the option', () => {
-    vi.useFakeTimers()
+    vi.useFakeTimers({toFake: ['setTimeout', 'clearTimeout', 'setInterval', 'clearInterval']})
     const mockFunction = vi.fn()
     const {getByTestId, getByText} = render(<Fixture onSelect={mockFunction} />)
 

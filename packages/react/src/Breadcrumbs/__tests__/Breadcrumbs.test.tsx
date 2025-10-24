@@ -15,11 +15,19 @@ const mockObserve = vi.fn()
 const mockUnobserve = vi.fn()
 const mockDisconnect = vi.fn()
 
-globalThis.ResizeObserver = vi.fn().mockImplementation(() => ({
-  observe: mockObserve,
-  unobserve: mockUnobserve,
-  disconnect: mockDisconnect,
-}))
+class MockResizeObserver implements ResizeObserver {
+  callback: ResizeObserverCallback
+
+  constructor(callback: ResizeObserverCallback) {
+    this.callback = callback
+  }
+
+  observe = mockObserve
+  unobserve = mockUnobserve
+  disconnect = mockDisconnect
+}
+
+globalThis.ResizeObserver = MockResizeObserver as typeof ResizeObserver
 
 describe('Breadcrumbs', () => {
   it('renders a <nav>', () => {
@@ -203,17 +211,18 @@ describe('Breadcrumbs', () => {
   })
 
   it('shows overflow menu during resize when items exceed container width', () => {
-    let resizeCallback: ((entries: ResizeObserverEntry[]) => void) | undefined
+    let resizeCallback: ResizeObserverCallback | undefined
 
-    const mockResizeObserver = vi.fn().mockImplementation(callback => {
-      resizeCallback = callback
-      return {
-        observe: mockObserve,
-        unobserve: mockUnobserve,
-        disconnect: mockDisconnect,
+    class TestResizeObserver implements ResizeObserver {
+      constructor(callback: ResizeObserverCallback) {
+        resizeCallback = callback
       }
-    })
-    globalThis.ResizeObserver = mockResizeObserver
+      observe = mockObserve
+      unobserve = mockUnobserve
+      disconnect = mockDisconnect
+    }
+
+    globalThis.ResizeObserver = TestResizeObserver as typeof ResizeObserver
 
     renderWithTheme(
       <Breadcrumbs overflow="menu">
@@ -234,11 +243,14 @@ describe('Breadcrumbs', () => {
 
     // Simulate a wide container resize
     if (resizeCallback) {
-      resizeCallback([
-        {
-          contentRect: {width: 800, height: 40},
-        } as ResizeObserverEntry,
-      ])
+      resizeCallback(
+        [
+          {
+            contentRect: {width: 800, height: 40},
+          } as ResizeObserverEntry,
+        ],
+        {} as ResizeObserver,
+      )
     }
 
     // Should still have overflow menu for 6 items (>5 rule)
@@ -246,11 +258,14 @@ describe('Breadcrumbs', () => {
 
     // Simulate a narrow container resize
     if (resizeCallback) {
-      resizeCallback([
-        {
-          contentRect: {width: 250, height: 40},
-        } as ResizeObserverEntry,
-      ])
+      resizeCallback(
+        [
+          {
+            contentRect: {width: 250, height: 40},
+          } as ResizeObserverEntry,
+        ],
+        {} as ResizeObserver,
+      )
     }
 
     // Should maintain overflow menu for narrow container
@@ -261,17 +276,18 @@ describe('Breadcrumbs', () => {
   })
 
   it('correctly populates overflow menu during resize events', async () => {
-    let resizeCallback: ((entries: ResizeObserverEntry[]) => void) | undefined
+    let resizeCallback: ResizeObserverCallback | undefined
 
-    const mockResizeObserver = vi.fn().mockImplementation(callback => {
-      resizeCallback = callback
-      return {
-        observe: mockObserve,
-        unobserve: mockUnobserve,
-        disconnect: mockDisconnect,
+    class TestResizeObserver implements ResizeObserver {
+      constructor(callback: ResizeObserverCallback) {
+        resizeCallback = callback
       }
-    })
-    globalThis.ResizeObserver = mockResizeObserver
+      observe = mockObserve
+      unobserve = mockUnobserve
+      disconnect = mockDisconnect
+    }
+
+    globalThis.ResizeObserver = TestResizeObserver as typeof ResizeObserver
 
     const user = userEvent.setup()
 
@@ -318,11 +334,14 @@ describe('Breadcrumbs', () => {
 
     // Simulate a very narrow container resize that would affect overflow calculation
     if (resizeCallback) {
-      resizeCallback([
-        {
-          contentRect: {width: 200, height: 40},
-        } as ResizeObserverEntry,
-      ])
+      resizeCallback(
+        [
+          {
+            contentRect: {width: 200, height: 40},
+          } as ResizeObserverEntry,
+        ],
+        {} as ResizeObserver,
+      )
     }
 
     // Menu button should still be present
@@ -330,11 +349,14 @@ describe('Breadcrumbs', () => {
 
     // Simulate a very wide container resize
     if (resizeCallback) {
-      resizeCallback([
-        {
-          contentRect: {width: 1200, height: 40},
-        } as ResizeObserverEntry,
-      ])
+      resizeCallback(
+        [
+          {
+            contentRect: {width: 1200, height: 40},
+          } as ResizeObserverEntry,
+        ],
+        {} as ResizeObserver,
+      )
     }
 
     // Menu button should still be present (7 items > 5)
