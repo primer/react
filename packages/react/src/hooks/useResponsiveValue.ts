@@ -41,14 +41,16 @@ export function isResponsiveValue(value: any): value is ResponsiveValue<any> {
  * Resolves responsive values based on the current viewport width.
  * For example, if the current viewport width is narrow (less than 768px), the value of `{regular: 'foo', narrow: 'bar'}` will resolve to `'bar'`.
  *
+ * Warning: This hook is not fully SSR compatible as it relies on `useMedia` without a `defaultState`. Using `getResponsiveAttributes` is preferred to avoid hydration mismatches.
+ *
  * @example
  * const value = useResponsiveValue({regular: 'foo', narrow: 'bar'})
  * console.log(value) // 'bar'
  */
-// TODO: Improve SSR support
 export function useResponsiveValue<T, F>(value: T, fallback: F): FlattenResponsiveValue<T> | F {
-  // Check viewport size
+  // TODO: Improve SSR support
   // TODO: What is the performance cost of creating media query listeners in this hook?
+  // Check viewport size
   const isNarrowViewport = useMedia(viewportRanges.narrow, false)
   const isRegularViewport = useMedia(viewportRanges.regular, false)
   const isWideViewport = useMedia(viewportRanges.wide, false)

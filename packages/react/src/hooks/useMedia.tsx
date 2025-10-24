@@ -9,6 +9,9 @@ import {warning} from '../utils/warning'
  * If `MatchMedia` is used as an ancestor, `useMedia` will instead use the
  * value of the media query string, if available
  *
+ * Warning: If rendering on the server, and no `defaultState` is provided,
+ * this could cause a hydration mismatch between server and client.
+ *
  * @example
  * function Example() {
  *   const coarsePointer = useMedia('(pointer: coarse)');
@@ -34,7 +37,7 @@ export function useMedia(mediaQueryString: string, defaultState?: boolean) {
     // A default value has not been provided, and you are rendering on the server, warn of a possible hydration mismatch when defaulting to false.
     warning(
       true,
-      '`useMedia` When server side rendering, defaultState should be defined to prevent a hydration mismatches.',
+      '`useMedia` When server side rendering, defaultState should be defined to prevent a hydration mismatch.',
     )
 
     return false
