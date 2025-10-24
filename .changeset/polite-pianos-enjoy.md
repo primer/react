@@ -2,4 +2,4 @@
 "@primer/react": patch
 ---
 
-chore(PageLayout): update wrapper dimensions
+PageLayout: update wrapper dimensions to match PageLayout's root element
