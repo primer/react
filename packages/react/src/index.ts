@@ -45,6 +45,7 @@ export {default as useIsomorphicLayoutEffect} from './utils/useIsomorphicLayoutE
 export {useProvidedRefOrCreate} from './hooks/useProvidedRefOrCreate'
 export {useId} from './hooks/useId'
 export {useSyncedState} from './hooks/useSyncedState'
+export {useAnchoredPosition, type AnchoredPositionHookSettings} from './hooks/useAnchoredPosition'
 
 // Utils
 export {createComponent} from './utils/create-component'

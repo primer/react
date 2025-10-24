@@ -19,7 +19,7 @@ import {
   ThreeBarsIcon,
 } from '@primer/octicons-react'
 import {Button, Avatar, ActionMenu, IconButton, ActionList, Textarea} from '..'
-import {Dialog} from '../DialogV1'
+import {Dialog} from '../deprecated/DialogV1'
 import {Divider} from '../deprecated/ActionList/Divider'
 import mockData from '../experimental/SelectPanel2/mock-story-data'
 import classes from './ActionBar.examples.stories.module.css'
@@ -27,6 +27,30 @@ import classes from './ActionBar.examples.stories.module.css'
 export default {
   title: 'Experimental/Components/ActionBar/Examples',
 } as Meta<typeof ActionBar>
+
+export const WithGroups = () => (
+  <ActionBar aria-label="Toolbar">
+    <ActionBar.Group>
+      <>
+        <ActionBar.IconButton icon={BoldIcon} aria-label="Bold"></ActionBar.IconButton>
+        <ActionBar.IconButton icon={ItalicIcon} aria-label="Italic"></ActionBar.IconButton>
+        <ActionBar.IconButton icon={CodeIcon} aria-label="Code"></ActionBar.IconButton>
+        <ActionBar.IconButton icon={LinkIcon} aria-label="Link"></ActionBar.IconButton>
+      </>
+    </ActionBar.Group>
+    <ActionBar.Divider />
+    <ActionBar.Group>
+      <ActionBar.IconButton icon={FileAddedIcon} aria-label="File Added"></ActionBar.IconButton>
+      <ActionBar.IconButton icon={SearchIcon} aria-label="Search"></ActionBar.IconButton>
+    </ActionBar.Group>
+    <ActionBar.Group>
+      <ActionBar.IconButton icon={ListUnorderedIcon} aria-label="Unordered List"></ActionBar.IconButton>
+      <ActionBar.IconButton icon={ListOrderedIcon} aria-label="Ordered List"></ActionBar.IconButton>
+    </ActionBar.Group>
+    <ActionBar.IconButton icon={TasklistIcon} aria-label="Task List"></ActionBar.IconButton>
+    <ActionBar.IconButton icon={ReplyIcon} aria-label="Saved Replies"></ActionBar.IconButton>
+  </ActionBar>
+)
 
 export const TextLabels = () => (
   <ActionBar aria-label="Toolbar">
