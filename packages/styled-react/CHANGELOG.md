@@ -1,5 +1,12 @@
 # @primer/styled-react
 
+## 1.0.0-rc.11
+
+### Patch Changes
+
+- Updated dependencies [[`8b2632b`](https://github.com/primer/react/commit/8b2632ba63ef0fbd67d43e50df4a7ec6ea640e8e), [`c32f726`](https://github.com/primer/react/commit/c32f7260838e850df5efd839c23cf74bc519e3b7), [`4c4c4cd`](https://github.com/primer/react/commit/4c4c4cd4bfd7d75066df199f47a23deb86a588f2)]:
+  - @primer/react@38.0.0-rc.10
+
 ## 1.0.0-rc.10
 
 ### Patch Changes
