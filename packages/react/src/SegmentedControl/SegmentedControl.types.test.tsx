@@ -4,7 +4,7 @@ import {SegmentedControl} from './SegmentedControl'
 export function buttonWithLeadingIconElement() {
   return (
     <SegmentedControl>
-      <SegmentedControl.Button leadingIcon={<LogoGithubIcon />}>Button</SegmentedControl.Button>
+      <SegmentedControl.Button leadingVisual={<LogoGithubIcon />}>Button</SegmentedControl.Button>
     </SegmentedControl>
   )
 }
