@@ -3,7 +3,6 @@ import React, {useCallback} from 'react'
 import {isValidElementType} from 'react-is'
 import Truncate from '../../Truncate'
 import type {ItemInput} from './List'
-import {useTheme} from '../../ThemeProvider'
 import {useId} from '../../hooks/useId'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../../utils/polymorphic'
 import type {AriaRole} from '../../utils/types'
@@ -171,8 +170,6 @@ export const Item = React.forwardRef((itemProps, ref) => {
     [onAction, disabled, itemProps, onClick],
   )
 
-  const {theme} = useTheme()
-
   return (
     <Component
       ref={ref}
@@ -215,7 +212,7 @@ export const Item = React.forwardRef((itemProps, ref) => {
               </svg>
             </>
           ) : (
-            selected && <CheckIcon fill={theme?.colors.fg.default} />
+            selected && <CheckIcon fill="var(--fgColor-default)" />
           )}
         </div>
       )}
