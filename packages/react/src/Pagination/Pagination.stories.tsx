@@ -1,4 +1,3 @@
-/* eslint-disable primer-react/spread-props-first */
 import {useState} from 'react'
 import type {Meta, StoryFn} from '@storybook/react-vite'
 import type {ComponentProps} from '../utils/types'

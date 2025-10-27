@@ -1,4 +1,3 @@
-/* eslint-disable primer-react/spread-props-first */
 import {type AvatarProps as PrimerAvatarProps, Avatar as PrimerAvatar} from '@primer/react'
 import {forwardRef} from 'react'
 import type {StyledProps} from '../styled-props'

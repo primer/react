@@ -1,4 +1,3 @@
-/* eslint-disable primer-react/spread-props-first */
 import type {MouseEventHandler} from 'react'
 import {forwardRef, useMemo} from 'react'
 import type {TokenBaseProps} from './TokenBase'

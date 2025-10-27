@@ -1,4 +1,3 @@
-/* eslint-disable primer-react/spread-props-first */
 import type {MouseEventHandler} from 'react'
 import type React from 'react'
 import {forwardRef} from 'react'

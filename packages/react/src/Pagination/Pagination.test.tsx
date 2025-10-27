@@ -1,4 +1,3 @@
-/* eslint-disable primer-react/spread-props-first */
 import {render as HTMLRender} from '@testing-library/react'
 import {describe, expect, it} from 'vitest'
 import Pagination from '../Pagination'

@@ -1,4 +1,3 @@
-/* eslint-disable primer-react/spread-props-first */
 import {RadioGroup as PrimerRadioGroup, type RadioGroupProps as PrimerRadioGroupProps} from '@primer/react'
 import React, {type PropsWithChildren} from 'react'
 import type {SxProp} from '../sx'

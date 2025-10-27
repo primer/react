@@ -1,4 +1,3 @@
-/* eslint-disable primer-react/spread-props-first */
 import {render, screen, waitFor} from '@testing-library/react'
 import {describe, expect, it, beforeEach, vi} from 'vitest'
 import React from 'react'

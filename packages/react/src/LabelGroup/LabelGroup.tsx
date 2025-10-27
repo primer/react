@@ -1,4 +1,3 @@
-/* eslint-disable primer-react/spread-props-first */
 import React from 'react'
 import {XIcon} from '@primer/octicons-react'
 import {getFocusableChild} from '@primer/behaviors/utils'

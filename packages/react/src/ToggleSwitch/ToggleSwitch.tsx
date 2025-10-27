@@ -1,4 +1,3 @@
-/* eslint-disable primer-react/spread-props-first */
 import type {MouseEventHandler} from 'react'
 import React, {useCallback, useEffect} from 'react'
 import {clsx} from 'clsx'

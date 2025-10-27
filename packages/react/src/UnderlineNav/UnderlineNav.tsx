@@ -1,4 +1,3 @@
-/* eslint-disable primer-react/spread-props-first */
 import type {RefObject} from 'react'
 import React, {useRef, forwardRef, useCallback, useState, useEffect} from 'react'
 import {UnderlineNavContext} from './UnderlineNavContext'

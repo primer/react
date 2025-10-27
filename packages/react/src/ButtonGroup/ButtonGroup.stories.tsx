@@ -1,4 +1,3 @@
-/* eslint-disable primer-react/spread-props-first */
 import type {StoryFn, Meta} from '@storybook/react-vite'
 import ButtonGroup from './ButtonGroup'
 import type {ButtonProps} from '../Button'

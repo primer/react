@@ -1,4 +1,3 @@
-/* eslint-disable primer-react/spread-props-first */
 import type {To} from 'history'
 import type {ComponentProps} from './utils/types'
 import Link, {type LinkProps} from './Link'

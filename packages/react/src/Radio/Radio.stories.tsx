@@ -1,4 +1,3 @@
-/* eslint-disable primer-react/spread-props-first */
 import type {Meta} from '@storybook/react-vite'
 import type {RadioProps} from '..'
 import {FormControl, Radio} from '..'

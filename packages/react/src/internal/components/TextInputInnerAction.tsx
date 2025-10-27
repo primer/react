@@ -1,4 +1,3 @@
-/* eslint-disable primer-react/spread-props-first */
 import type React from 'react'
 import {forwardRef} from 'react'
 import type {IconProps} from '@primer/octicons-react'

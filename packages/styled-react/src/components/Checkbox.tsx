@@ -1,4 +1,3 @@
-/* eslint-disable primer-react/spread-props-first */
 import {Checkbox as PrimerCheckbox, type CheckboxProps as PrimerCheckboxProps, type SlotMarker} from '@primer/react'
 import {Box} from './Box'
 import {forwardRef} from 'react'

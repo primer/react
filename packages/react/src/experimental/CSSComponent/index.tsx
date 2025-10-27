@@ -1,4 +1,3 @@
-/* eslint-disable primer-react/spread-props-first */
 import type React from 'react'
 import {clsx} from 'clsx'
 import classNames from './component.module.css'

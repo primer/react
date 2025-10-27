@@ -1,6 +1,5 @@
 // TODO: merge https://github.com/primer/react/pull/6631 which removes `Box` usage
 
-/* eslint-disable primer-react/spread-props-first */
 import {clsx} from 'clsx'
 import classes from './Label.module.css'
 import React from 'react'

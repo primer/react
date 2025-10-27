@@ -1,4 +1,3 @@
-/* eslint-disable primer-react/spread-props-first */
 import type {ComponentProps, KeyboardEvent} from 'react'
 import React from 'react'
 import {clsx} from 'clsx'

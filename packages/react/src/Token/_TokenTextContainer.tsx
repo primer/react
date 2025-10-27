@@ -1,4 +1,3 @@
-/* eslint-disable primer-react/spread-props-first */
 import type {TokenBaseProps} from './TokenBase'
 import type React from 'react'
 import classes from './_TokenTextContainer.module.css'

@@ -1,4 +1,3 @@
-/* eslint-disable primer-react/spread-props-first */
 import React from 'react'
 import {ChevronLeftIcon, ChevronRightIcon} from '@primer/octicons-react'
 import {buildComponentData, buildPaginationModel, type PageDataProps} from './model'

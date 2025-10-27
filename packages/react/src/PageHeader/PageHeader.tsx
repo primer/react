@@ -1,4 +1,3 @@
-/* eslint-disable primer-react/spread-props-first */
 import React, {useEffect} from 'react'
 import type {ResponsiveValue} from '../hooks/useResponsiveValue'
 import {isResponsiveValue, useResponsiveValue} from '../hooks/useResponsiveValue'

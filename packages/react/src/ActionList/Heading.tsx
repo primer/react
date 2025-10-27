@@ -1,4 +1,3 @@
-/* eslint-disable primer-react/spread-props-first */
 import React, {forwardRef} from 'react'
 import {useRefObjectAsForwardedRef} from '../hooks'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'

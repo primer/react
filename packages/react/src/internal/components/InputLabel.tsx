@@ -1,4 +1,3 @@
-/* eslint-disable primer-react/spread-props-first */
 import {clsx} from 'clsx'
 import type React from 'react'
 import classes from './InputLabel.module.css'

@@ -1,4 +1,3 @@
-/* eslint-disable primer-react/spread-props-first */
 import {SearchIcon, HeartIcon} from '@primer/octicons-react'
 import {render, screen, fireEvent} from '@testing-library/react'
 import {describe, it, expect, vi} from 'vitest'

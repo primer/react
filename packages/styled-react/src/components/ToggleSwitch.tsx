@@ -1,4 +1,3 @@
-/* eslint-disable primer-react/spread-props-first */
 import {ToggleSwitch as PrimerToggleSwitch, type ToggleSwitchProps as PrimerToggleSwitchProps} from '@primer/react'
 import {forwardRef} from 'react'
 import {Box} from './Box'

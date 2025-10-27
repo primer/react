@@ -1,4 +1,3 @@
-/* eslint-disable primer-react/spread-props-first */
 import {Dialog as PrimerDialog} from '@primer/react'
 import type {DialogProps as PrimerDialogProps} from '@primer/react'
 import {Box} from './Box'

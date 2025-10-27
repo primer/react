@@ -1,4 +1,3 @@
-/* eslint-disable primer-react/spread-props-first */
 import {
   SubNav as PrimerSubNav,
   type SubNavProps as PrimerSubNavProps,

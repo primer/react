@@ -1,4 +1,3 @@
-/* eslint-disable primer-react/spread-props-first */
 import type {Location, Pathname} from 'history'
 import React from 'react'
 import {clsx} from 'clsx'

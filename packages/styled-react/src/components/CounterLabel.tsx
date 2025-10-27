@@ -1,4 +1,3 @@
-/* eslint-disable primer-react/spread-props-first */
 import {CounterLabel as PrimerCounterLabel, type CounterLabelProps as PrimerCounterLabelProps} from '@primer/react'
 import {Box} from './Box'
 import {forwardRef} from 'react'

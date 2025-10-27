@@ -1,4 +1,3 @@
-/* eslint-disable primer-react/spread-props-first */
 import type {Meta, StoryFn} from '@storybook/react-vite'
 import {UnderlineNav} from './index'
 import {UnderlineNavItem} from './UnderlineNavItem'

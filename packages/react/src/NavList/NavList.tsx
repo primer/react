@@ -1,4 +1,3 @@
-/* eslint-disable primer-react/spread-props-first */
 import {ChevronDownIcon, PlusIcon, type Icon} from '@primer/octicons-react'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import React, {isValidElement} from 'react'

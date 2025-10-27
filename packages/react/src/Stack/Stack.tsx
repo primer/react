@@ -1,4 +1,3 @@
-/* eslint-disable primer-react/spread-props-first */
 import type React from 'react'
 import {forwardRef, type ElementType} from 'react'
 import type {ResponsiveValue} from '../hooks/useResponsiveValue'

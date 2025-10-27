@@ -1,4 +1,3 @@
-/* eslint-disable primer-react/spread-props-first */
 import type {ChangeEvent, ChangeEventHandler, FC} from 'react'
 import type React from 'react'
 import {createContext} from 'react'
