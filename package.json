@@ -22,7 +22,7 @@
     "build:docs:preview": "NODE_OPTIONS=--openssl-legacy-provider script/build-docs preview",
     "build:components.json": "npm run build:components.json -w @primer/react",
     "build:hooks.json": "npm run build:hooks.json -w @primer/react",
-    "lint": "eslint '**/*.{js,ts,tsx,md,mdx}' --cache",
+    "lint": "eslint '**/*.{js,ts,tsx,md,mdx}' --max-warnings=0 --cache",
     "lint:css": "stylelint --rd -q --cache '**/*.css'",
     "lint:css:fix": "npm run lint:css -- --fix",
     "lint:fix": "npm run lint -- --fix",
