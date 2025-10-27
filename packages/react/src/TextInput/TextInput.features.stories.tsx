@@ -1,4 +1,3 @@
-/* eslint-disable primer-react/spread-props-first */
 import type React from 'react'
 import {useState} from 'react'
 import {FormControl, Heading, Stack} from '..'

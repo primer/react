@@ -1,4 +1,3 @@
-/* eslint-disable primer-react/spread-props-first */
 import type {TextareaHTMLAttributes, ReactElement} from 'react'
 import React from 'react'
 import {TextInputBaseWrapper} from '../internal/components/TextInputWrapper'

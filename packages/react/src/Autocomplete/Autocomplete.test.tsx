@@ -1,4 +1,3 @@
-/* eslint-disable primer-react/spread-props-first */
 import {render, fireEvent, screen, waitFor} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React from 'react'

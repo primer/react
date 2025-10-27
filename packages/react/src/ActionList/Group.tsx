@@ -1,4 +1,3 @@
-/* eslint-disable primer-react/spread-props-first */
 import React from 'react'
 import {useId} from '../hooks/useId'
 import {ListContext, type ActionListProps} from './shared'

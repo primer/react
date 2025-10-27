@@ -1,4 +1,3 @@
-/* eslint-disable primer-react/spread-props-first */
 import {
   type HeaderProps as PrimerHeaderProps,
   type HeaderItemProps as PrimerHeaderItemProps,

@@ -1,4 +1,3 @@
-/* eslint-disable primer-react/spread-props-first */
 import {CheckboxGroup as PrimerCheckboxGroup, type CheckboxGroupProps as PrimerCheckboxGroupProps} from '@primer/react'
 import React, {type PropsWithChildren} from 'react'
 import type {SxProp} from '../sx'

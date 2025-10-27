@@ -1,4 +1,3 @@
-/* eslint-disable primer-react/spread-props-first */
 import React, {forwardRef, useRef, type HTMLAttributes} from 'react'
 import {IconButton} from '../../Button'
 import useDialog from '../../hooks/useDialog'

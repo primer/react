@@ -1,4 +1,3 @@
-/* eslint-disable primer-react/spread-props-first */
 import type React from 'react'
 import {isResponsiveValue} from '../hooks/useResponsiveValue'
 import type {AvatarProps} from '../Avatar'

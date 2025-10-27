@@ -1,4 +1,3 @@
-/* eslint-disable primer-react/spread-props-first */
 import {TriangleDownIcon} from '@primer/octicons-react'
 import type {Meta} from '@storybook/react-vite'
 import type React from 'react'

@@ -1,4 +1,3 @@
-/* eslint-disable primer-react/spread-props-first */
 import React from 'react'
 import {fixedForwardRef} from '../utils/modern-polymorphic'
 import {ActionListContainerContext} from './ActionListContainerContext'

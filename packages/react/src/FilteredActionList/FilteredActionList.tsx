@@ -1,4 +1,3 @@
-/* eslint-disable primer-react/spread-props-first */
 import type {ScrollIntoViewOptions} from '@primer/behaviors'
 import {scrollIntoView, FocusKeys} from '@primer/behaviors'
 import type {KeyboardEventHandler} from 'react'

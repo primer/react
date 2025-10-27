@@ -1,4 +1,3 @@
-/* eslint-disable primer-react/spread-props-first */
 import {
   UnderlinePanels as PrimerUnderlinePanels,
   type UnderlinePanelsProps as PrimerUnderlinePanelsProps,

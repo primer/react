@@ -1,4 +1,3 @@
-/* eslint-disable primer-react/spread-props-first */
 import {clsx} from 'clsx'
 import React, {useMemo} from 'react'
 import {useId} from '../hooks'

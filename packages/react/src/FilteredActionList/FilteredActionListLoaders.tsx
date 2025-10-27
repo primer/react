@@ -1,4 +1,3 @@
-/* eslint-disable primer-react/spread-props-first */
 import Spinner from '../Spinner'
 import {Stack} from '../Stack/Stack'
 import {SkeletonBox} from '../Skeleton/SkeletonBox'

@@ -1,4 +1,3 @@
-/* eslint-disable primer-react/spread-props-first */
 import React, {type ComponentProps} from 'react'
 import type {FormValidationStatus} from '../../utils/types/FormValidationStatus'
 import {clsx} from 'clsx'

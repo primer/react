@@ -1,4 +1,3 @@
-/* eslint-disable primer-react/spread-props-first */
 import {clsx} from 'clsx'
 import classes from './Popover.module.css'
 import type {HTMLProps} from 'react'

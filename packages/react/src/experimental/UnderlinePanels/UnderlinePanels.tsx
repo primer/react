@@ -1,4 +1,3 @@
-/* eslint-disable primer-react/spread-props-first */
 import React, {
   Children,
   isValidElement,

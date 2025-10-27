@@ -1,4 +1,3 @@
-/* eslint-disable primer-react/spread-props-first */
 import {SearchIcon, TriangleDownIcon, XIcon, type IconProps} from '@primer/octicons-react'
 import React, {useCallback, useEffect, useMemo, useRef, useState, type KeyboardEventHandler} from 'react'
 import type {AnchoredOverlayProps} from '../AnchoredOverlay'

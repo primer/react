@@ -1,4 +1,3 @@
-/* eslint-disable primer-react/spread-props-first */
 import type {Key} from 'react'
 import React from 'react'
 import type {AriaRole} from '../../utils/types'

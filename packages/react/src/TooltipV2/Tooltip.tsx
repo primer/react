@@ -1,4 +1,3 @@
-/* eslint-disable primer-react/spread-props-first */
 import React, {Children, useEffect, useRef, useState, useMemo, type ForwardRefExoticComponent} from 'react'
 import {useId, useProvidedRefOrCreate, useOnEscapePress, useIsMacOS} from '../hooks'
 import {invariant} from '../utils/invariant'

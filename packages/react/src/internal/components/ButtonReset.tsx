@@ -1,4 +1,3 @@
-/* eslint-disable primer-react/spread-props-first */
 import classes from './ButtonReset.module.css'
 import {clsx} from 'clsx'
 

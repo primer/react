@@ -1,4 +1,3 @@
-/* eslint-disable primer-react/spread-props-first */
 import classes from './_VisuallyHidden.module.css'
 import {clsx} from 'clsx'
 import type {PolymorphicProps} from './utils/modern-polymorphic'

@@ -1,4 +1,3 @@
-/* eslint-disable primer-react/spread-props-first */
 import type React from 'react'
 import {type HTMLProps} from 'react'
 import classes from './SkeletonText.module.css'

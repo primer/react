@@ -1,4 +1,3 @@
-/* eslint-disable primer-react/spread-props-first */
 import {
   IconButton as PrimerIconButton,
   type IconButtonProps as PrimerIconButtonProps,

@@ -1,4 +1,3 @@
-/* eslint-disable primer-react/spread-props-first */
 import type {ChangeEvent, ChangeEventHandler} from 'react'
 import React from 'react'
 import type {CheckboxOrRadioGroupProps} from '../internal/components/CheckboxOrRadioGroup'

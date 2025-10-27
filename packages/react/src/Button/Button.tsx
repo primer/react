@@ -1,4 +1,3 @@
-/* eslint-disable primer-react/spread-props-first */
 import {forwardRef} from 'react'
 import type {ButtonProps} from './types'
 import {ButtonBase} from './ButtonBase'

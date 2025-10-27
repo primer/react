@@ -1,4 +1,3 @@
-/* eslint-disable primer-react/spread-props-first */
 import {useRef, useState} from 'react'
 import type {Args, Meta} from '@storybook/react-vite'
 import Text from '../Text'

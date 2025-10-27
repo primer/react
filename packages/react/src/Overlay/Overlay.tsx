@@ -1,4 +1,3 @@
-/* eslint-disable primer-react/spread-props-first */
 import type {ComponentPropsWithRef, ReactElement} from 'react'
 import React, {useEffect, useRef} from 'react'
 import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'

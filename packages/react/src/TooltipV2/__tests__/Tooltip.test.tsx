@@ -1,4 +1,3 @@
-/* eslint-disable primer-react/spread-props-first */
 import type React from 'react'
 import {describe, expect, it, vi} from 'vitest'
 import type {TooltipProps} from '../Tooltip'
