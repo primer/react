@@ -1,7 +1,7 @@
 import type React from 'react'
 import {useCallback, useState} from 'react'
 import type {Meta} from '@storybook/react-vite'
-import {BaseStyles} from '..'
+import BaseStyles from '../BaseStyles'
 import Autocomplete from './Autocomplete'
 import FormControl from '../FormControl'
 import type {ComponentProps} from '../utils/types'

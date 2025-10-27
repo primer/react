@@ -5,7 +5,6 @@ import VisuallyHidden from '../_VisuallyHidden'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import {Button, IconButton} from '../Button'
 import {clsx} from 'clsx'
-import theme from '../theme'
 import classes from './LabelGroup.module.css'
 
 export type LabelGroupProps = {
@@ -131,8 +130,7 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
     toJSON: () => undefined,
   })
 
-  const overlayPaddingPx = parseInt(theme.space[2], 10)
-
+  const overlayPaddingPx = 8 // var(--base-size-8), hardcoded to do some math
   const hiddenItemIds = Object.keys(visibilityMap).filter(key => !visibilityMap[key])
 
   // `overlayWidth` is only needed when we render an overlay

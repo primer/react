@@ -1,7 +1,8 @@
 import {render, screen} from '@testing-library/react'
 import {describe, expect, it} from 'vitest'
-import Box from '../Box'
-import theme from '../theme'
+import React from 'react'
+import Box from '../components/Box'
+import {theme} from '@primer/react'
 
 const breakpoints = [
   null,
