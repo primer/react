@@ -1,5 +1,28 @@
 # @primer/styled-react
 
+## 1.0.0-rc.10
+
+### Patch Changes
+
+- [#7032](https://github.com/primer/react/pull/7032) [`9fce541`](https://github.com/primer/react/commit/9fce5419ce76c94837f2bd4b013f007837a97182) Thanks [@francinelucca](https://github.com/francinelucca)! - - remove sx, SxProp, exports
+  - add type ThemeColorPaths, type ThemeShadowPaths
+- Updated dependencies [[`aaa2e1f`](https://github.com/primer/react/commit/aaa2e1f5589a862557b6f7d5194e0579bc952c84), [`ca6d60d`](https://github.com/primer/react/commit/ca6d60d37dcdaec354bbdd097fd8c656971e752b), [`7595b8d`](https://github.com/primer/react/commit/7595b8d0d534043aeca69f0862a8ffd5c911c50c), [`9fce541`](https://github.com/primer/react/commit/9fce5419ce76c94837f2bd4b013f007837a97182), [`4ffe66d`](https://github.com/primer/react/commit/4ffe66d0d87c5ab8a3c0d9ef4e9ba571e6d57393), [`52d6cf7`](https://github.com/primer/react/commit/52d6cf7e7cc2a0f4ea3186ee61412a2a2549b530), [`f4a92f6`](https://github.com/primer/react/commit/f4a92f6d5fab8aee0bebb0b3bd8a400d55dc6cc7)]:
+  - @primer/react@38.0.0-rc.9
+
+## 1.0.0-rc.9
+
+### Patch Changes
+
+- [#7009](https://github.com/primer/react/pull/7009) [`c83d6a4`](https://github.com/primer/react/commit/c83d6a465ff48d8594f7077c87f6ddd8fe93cb76) Thanks [@siddharthkp](https://github.com/siddharthkp)! - Export ThemeProviderProps and BaseStylesProps
+
+- [#7015](https://github.com/primer/react/pull/7015) [`0889246`](https://github.com/primer/react/commit/0889246fda736fe7dd967a295fe8467109d06bc9) Thanks [@francinelucca](https://github.com/francinelucca)! - @primer/react: chore: remove Box, BoxProps export
+  @primer/styled-react: add Box component
+
+- [#7019](https://github.com/primer/react/pull/7019) [`4308179`](https://github.com/primer/react/commit/43081799465d5e4d66a0d761406a2ab64fb27d91) Thanks [@francinelucca](https://github.com/francinelucca)! - @primer/styled-react: chore(navlist): remove unneeded exports
+  @primer/react: add missing isSlot checks
+- Updated dependencies [[`a3765c2`](https://github.com/primer/react/commit/a3765c2e6c7d23972cdeeb8e206d802678f0d832), [`a108ab9`](https://github.com/primer/react/commit/a108ab92fa71af83f7da1ee9a311bc272568cfb3), [`3099210`](https://github.com/primer/react/commit/30992106820dee75cb2f6f0594e66acfd8b56f3c), [`860ac93`](https://github.com/primer/react/commit/860ac93dcdff0ba6f05cac1b5137721a9b34dfcb), [`2fd6c82`](https://github.com/primer/react/commit/2fd6c82e327db24b63cf604465b4192b0d29d8a9), [`34e7fa8`](https://github.com/primer/react/commit/34e7fa8cd88684c16d17e997aa7ef69d40b50340), [`a3f7ea9`](https://github.com/primer/react/commit/a3f7ea96514d4ba0a2d28aeb26e49eaafb8bf474), [`0889246`](https://github.com/primer/react/commit/0889246fda736fe7dd967a295fe8467109d06bc9), [`96968a2`](https://github.com/primer/react/commit/96968a28c1ddb2c31cb3e2f0e2e6297c1ee8df97), [`4308179`](https://github.com/primer/react/commit/43081799465d5e4d66a0d761406a2ab64fb27d91), [`3c32e7e`](https://github.com/primer/react/commit/3c32e7e162ae9a5f66c068639934cc55c01cca72), [`4b84948`](https://github.com/primer/react/commit/4b849489b123636209d6dd71b0fe66fbe7963bdb)]:
+  - @primer/react@38.0.0-rc.8
+
 ## 1.0.0-rc.8
 
 ### Minor Changes

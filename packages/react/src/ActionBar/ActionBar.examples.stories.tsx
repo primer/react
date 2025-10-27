@@ -21,7 +21,7 @@ import {
   KebabHorizontalIcon,
 } from '@primer/octicons-react'
 import {Button, Avatar, ActionMenu, IconButton, ActionList, Textarea} from '..'
-import {Dialog} from '../DialogV1'
+import {Dialog} from '../deprecated/DialogV1'
 import {Divider} from '../deprecated/ActionList/Divider'
 import mockData from '../experimental/SelectPanel2/mock-story-data'
 import classes from './ActionBar.examples.stories.module.css'
@@ -72,6 +72,31 @@ export const SmallActionBar = () => (
     <ActionBar.IconButton icon={FileAddedIcon} aria-label="File Added"></ActionBar.IconButton>
     <ActionBar.IconButton icon={SearchIcon} aria-label="Search"></ActionBar.IconButton>
   </ActionBar>
+)
+
+export const GapScale = () => (
+  <div style={{display: 'flex', flexDirection: 'column', gap: 16}}>
+    <div>
+      <Text as="p" style={{marginBottom: 4}}>
+        gap=&quot;none&quot;
+      </Text>
+      <ActionBar aria-label="Toolbar gap none" gap="none">
+        <ActionBar.IconButton icon={BoldIcon} aria-label="Bold" />
+        <ActionBar.IconButton icon={ItalicIcon} aria-label="Italic" />
+        <ActionBar.IconButton icon={CodeIcon} aria-label="Code" />
+      </ActionBar>
+    </div>
+    <div>
+      <Text as="p" style={{marginBottom: 4}}>
+        gap=&quot;condensed&quot; (default)
+      </Text>
+      <ActionBar aria-label="Toolbar gap condensed" gap="condensed">
+        <ActionBar.IconButton icon={BoldIcon} aria-label="Bold" />
+        <ActionBar.IconButton icon={ItalicIcon} aria-label="Italic" />
+        <ActionBar.IconButton icon={CodeIcon} aria-label="Code" />
+      </ActionBar>
+    </div>
+  </div>
 )
 
 export const WithDisabledItems = () => (

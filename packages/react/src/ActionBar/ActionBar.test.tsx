@@ -262,3 +262,38 @@ describe('ActionBar Registry System', () => {
     expect(screen.queryByRole('button', {name: 'Will unmount'})).not.toBeInTheDocument()
   })
 })
+
+describe('ActionBar gap prop', () => {
+  it('defaults to condensed', () => {
+    render(
+      <ActionBar aria-label="Toolbar">
+        <ActionBar.IconButton icon={BoldIcon} aria-label="Bold" />
+        <ActionBar.IconButton icon={ItalicIcon} aria-label="Italic" />
+      </ActionBar>,
+    )
+    const toolbar = screen.getByRole('toolbar')
+    expect(toolbar).toHaveAttribute('data-gap', 'condensed')
+  })
+
+  it('applies provided gap scale (none)', () => {
+    render(
+      <ActionBar aria-label="Toolbar" gap="none">
+        <ActionBar.IconButton icon={BoldIcon} aria-label="Bold" />
+        <ActionBar.IconButton icon={ItalicIcon} aria-label="Italic" />
+      </ActionBar>,
+    )
+    const toolbar = screen.getByRole('toolbar')
+    expect(toolbar).toHaveAttribute('data-gap', 'none')
+  })
+
+  it('applies provided gap scale (condensed)', () => {
+    render(
+      <ActionBar aria-label="Toolbar" gap="condensed">
+        <ActionBar.IconButton icon={BoldIcon} aria-label="Bold" />
+        <ActionBar.IconButton icon={ItalicIcon} aria-label="Italic" />
+      </ActionBar>,
+    )
+    const toolbar = screen.getByRole('toolbar')
+    expect(toolbar).toHaveAttribute('data-gap', 'condensed')
+  })
+})

@@ -24,6 +24,12 @@ export const Invisible = () => (
   </LinkButton>
 )
 
+export const Link = () => (
+  <LinkButton href="#" variant="link">
+    Button that looks like a link
+  </LinkButton>
+)
+
 export const LeadingVisual = () => (
   <LinkButton href="#" leadingVisual={HeartIcon}>
     Leading visual
