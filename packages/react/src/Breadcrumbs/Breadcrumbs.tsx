@@ -288,19 +288,19 @@ function Breadcrumbs({className, children, style, overflow = 'wrap', variant = '
       </li>
     )
 
-      const visibleElements = visibleItems.map((child, index) => (
-        <li className={classes.BreadcrumbsItem} key={`visible + ${index}`}>
-          {child}
-          <ItemSeparator />
-        </li>
-      ))
+    const visibleElements = visibleItems.map((child, index) => (
+      <li className={classes.BreadcrumbsItem} key={`visible + ${index}`}>
+        {child}
+        <ItemSeparator />
+      </li>
+    ))
 
-      const rootElement = (
-        <li className={classes.BreadcrumbsItem} key={`rootElement`}>
-          {rootItem}
-          <ItemSeparator />
-        </li>
-      )
+    const rootElement = (
+      <li className={classes.BreadcrumbsItem} key={`rootElement`}>
+        {rootItem}
+        <ItemSeparator />
+      </li>
+    )
 
     if (effectiveHideRoot) {
       // Show: [overflow menu, leaf breadcrumb]
