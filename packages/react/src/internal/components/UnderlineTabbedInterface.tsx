@@ -1,5 +1,6 @@
 // Used for UnderlineNav and UnderlinePanels components
 
+/* eslint-disable primer-react/spread-props-first */
 import React from 'react'
 import {type ForwardedRef, forwardRef, type FC, type PropsWithChildren, type ElementType} from 'react'
 import {isElement} from 'react-is'

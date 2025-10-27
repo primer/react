@@ -1,3 +1,4 @@
+/* eslint-disable primer-react/spread-props-first */
 import {Dialog as PrimerDialog} from '@primer/react/deprecated'
 import type {
   DialogProps as PrimerDialogProps,

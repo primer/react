@@ -1,3 +1,4 @@
+/* eslint-disable primer-react/spread-props-first */
 import RelativeTime from './RelativeTime'
 import type {Meta, StoryFn} from '@storybook/react-vite'
 

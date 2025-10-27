@@ -1,3 +1,4 @@
+/* eslint-disable primer-react/spread-props-first */
 import {Button as PrimerButton, type ButtonProps as PrimerButtonProps, type SlotMarker} from '@primer/react'
 import type {SxProp, CSSCustomProperties, BetterSystemStyleObject} from '../sx'
 import {forwardRef} from 'react'

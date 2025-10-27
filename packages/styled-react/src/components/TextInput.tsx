@@ -1,3 +1,4 @@
+/* eslint-disable primer-react/spread-props-first */
 import {
   TextInput as PrimerTextInput,
   type TextInputProps as PrimerTextInputProps,

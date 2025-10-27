@@ -1,3 +1,4 @@
+/* eslint-disable primer-react/spread-props-first */
 import type {Meta, StoryFn} from '@storybook/react-vite'
 import Octicon from './Octicon'
 import {HeartFillIcon} from '@primer/octicons-react'

@@ -1,3 +1,4 @@
+/* eslint-disable primer-react/spread-props-first */
 import {
   UnderlineNav as PrimerUnderlineNav,
   type UnderlineNavProps as PrimerUnderlineNavProps,

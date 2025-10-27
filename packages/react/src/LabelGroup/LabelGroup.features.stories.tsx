@@ -1,3 +1,4 @@
+/* eslint-disable primer-react/spread-props-first */
 import type React from 'react'
 import LabelGroup from './LabelGroup'
 import type {Meta, StoryFn} from '@storybook/react-vite'

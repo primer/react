@@ -1,3 +1,4 @@
+/* eslint-disable primer-react/spread-props-first */
 import type {Meta} from '@storybook/react-vite'
 import {action} from 'storybook/actions'
 import Token from './Token'

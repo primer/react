@@ -1,3 +1,4 @@
+/* eslint-disable primer-react/spread-props-first */
 import React, {type PropsWithChildren} from 'react'
 import classes from './ButtonGroup.module.css'
 import {clsx} from 'clsx'

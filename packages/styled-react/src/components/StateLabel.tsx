@@ -1,3 +1,4 @@
+/* eslint-disable primer-react/spread-props-first */
 import {StateLabel as PrimerStateLabel, type StateLabelProps as PrimerStateLabelProps} from '@primer/react'
 import {forwardRef} from 'react'
 import {Box} from './Box'

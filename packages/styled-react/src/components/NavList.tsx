@@ -1,3 +1,4 @@
+/* eslint-disable primer-react/spread-props-first */
 import {NavList as PrimerNavList} from '@primer/react'
 import type {
   NavListProps as PrimerNavListProps,

@@ -1,3 +1,4 @@
+/* eslint-disable primer-react/spread-props-first */
 import {Fragment} from 'react'
 import type {KeybindingHintProps} from '../props'
 import VisuallyHidden from '../../_VisuallyHidden'

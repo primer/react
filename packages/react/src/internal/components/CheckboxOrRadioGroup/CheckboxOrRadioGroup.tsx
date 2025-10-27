@@ -1,3 +1,4 @@
+/* eslint-disable primer-react/spread-props-first */
 import React from 'react'
 import ValidationAnimationContainer from '../ValidationAnimationContainer'
 import {useId} from '../../../hooks/useId'

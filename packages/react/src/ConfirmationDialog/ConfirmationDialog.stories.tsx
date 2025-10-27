@@ -1,3 +1,4 @@
+/* eslint-disable primer-react/spread-props-first */
 import {useCallback, useRef, useState} from 'react'
 import type {Meta} from '@storybook/react-vite'
 import {Button} from '..'

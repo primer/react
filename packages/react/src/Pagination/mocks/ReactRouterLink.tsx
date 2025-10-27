@@ -1,3 +1,4 @@
+/* eslint-disable primer-react/spread-props-first */
 import React from 'react'
 
 export type ReactRouterLikeLinkProps = {to: string; children: React.ReactNode; className?: string}

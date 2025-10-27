@@ -1,3 +1,4 @@
+/* eslint-disable primer-react/spread-props-first */
 import type {RefObject, MouseEventHandler} from 'react'
 import React, {useState, useCallback, useRef, forwardRef, useId} from 'react'
 import {KebabHorizontalIcon} from '@primer/octicons-react'

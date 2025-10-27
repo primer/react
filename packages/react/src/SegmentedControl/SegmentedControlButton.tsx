@@ -1,3 +1,4 @@
+/* eslint-disable primer-react/spread-props-first */
 import type {ButtonHTMLAttributes} from 'react'
 import type React from 'react'
 import type {IconProps} from '@primer/octicons-react'

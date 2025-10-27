@@ -1,3 +1,4 @@
+/* eslint-disable primer-react/spread-props-first */
 import React from 'react'
 import {AlertIcon} from '@primer/octicons-react'
 import Spinner from '../Spinner'

@@ -1,3 +1,4 @@
+/* eslint-disable primer-react/spread-props-first */
 import {FocusKeys} from '@primer/behaviors'
 import {isFocusable} from '@primer/behaviors/utils'
 import {omit} from '@styled-system/props'

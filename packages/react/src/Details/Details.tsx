@@ -1,3 +1,4 @@
+/* eslint-disable primer-react/spread-props-first */
 import React, {useEffect, type ComponentPropsWithoutRef, type ReactElement} from 'react'
 import {warning} from '../utils/warning'
 import {clsx} from 'clsx'

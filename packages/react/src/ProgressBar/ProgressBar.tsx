@@ -1,3 +1,4 @@
+/* eslint-disable primer-react/spread-props-first */
 import React, {forwardRef} from 'react'
 import {clsx} from 'clsx'
 import classes from './ProgressBar.module.css'

@@ -1,3 +1,4 @@
+/* eslint-disable primer-react/spread-props-first */
 import type {GroupedListProps, ListPropsBase} from './ActionList/List'
 import {List} from './ActionList/List'
 import type {ItemProps} from './ActionList/Item'

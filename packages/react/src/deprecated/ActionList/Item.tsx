@@ -1,3 +1,4 @@
+/* eslint-disable primer-react/spread-props-first */
 import {CheckIcon} from '@primer/octicons-react'
 import React, {useCallback} from 'react'
 import {isValidElementType} from 'react-is'

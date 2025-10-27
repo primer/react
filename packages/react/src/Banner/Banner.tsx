@@ -1,3 +1,4 @@
+/* eslint-disable primer-react/spread-props-first */
 import {clsx} from 'clsx'
 import React, {forwardRef, useEffect} from 'react'
 import {AlertIcon, InfoIcon, StopIcon, CheckCircleIcon, XIcon} from '@primer/octicons-react'

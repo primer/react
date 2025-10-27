@@ -1,3 +1,4 @@
+/* eslint-disable primer-react/spread-props-first */
 import {Button} from '..'
 import {Tooltip} from './Tooltip'
 import type {Meta, StoryFn} from '@storybook/react-vite'
