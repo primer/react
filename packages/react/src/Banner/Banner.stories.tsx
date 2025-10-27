@@ -1,3 +1,4 @@
+/* eslint-disable primer-react/spread-props-first */
 import type {Meta, StoryObj} from '@storybook/react-vite'
 import Link from '../Link'
 import {Banner} from '../Banner'

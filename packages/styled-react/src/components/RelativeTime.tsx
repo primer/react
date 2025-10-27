@@ -1,3 +1,4 @@
+/* eslint-disable primer-react/spread-props-first */
 import {RelativeTime as PrimerRelativeTime, type RelativeTimeProps as PrimerRelativeTimeProps} from '@primer/react'
 import React from 'react'
 import type {SxProp} from '../sx'

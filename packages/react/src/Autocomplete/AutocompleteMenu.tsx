@@ -1,3 +1,4 @@
+/* eslint-disable primer-react/spread-props-first */
 import React, {useContext, useEffect, useMemo, useRef, useState} from 'react'
 import {debounce} from '@github/mini-throttle'
 import {announce} from '@primer/live-region-element'

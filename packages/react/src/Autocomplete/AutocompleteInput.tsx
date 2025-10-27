@@ -1,3 +1,4 @@
+/* eslint-disable primer-react/spread-props-first */
 import type {ChangeEventHandler, FocusEventHandler, KeyboardEventHandler} from 'react'
 import React, {useCallback, useContext, useEffect, useState} from 'react'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'

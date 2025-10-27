@@ -1,3 +1,4 @@
+/* eslint-disable primer-react/spread-props-first */
 import type {MutableRefObject, RefObject} from 'react'
 import React, {forwardRef, useRef, useContext} from 'react'
 import type {IconProps} from '@primer/octicons-react'

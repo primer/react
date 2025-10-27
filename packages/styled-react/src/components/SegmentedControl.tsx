@@ -1,3 +1,4 @@
+/* eslint-disable primer-react/spread-props-first */
 import {
   type SegmentedControlProps as PrimerSegmentedControlProps,
   SegmentedControl as PrimerSegmentedControl,

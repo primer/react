@@ -1,3 +1,4 @@
+/* eslint-disable primer-react/spread-props-first */
 import {clsx} from 'clsx'
 import React, {useEffect, type ForwardedRef, type ElementRef} from 'react'
 import {useRefObjectAsForwardedRef} from '../hooks'

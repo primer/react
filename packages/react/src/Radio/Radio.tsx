@@ -1,3 +1,4 @@
+/* eslint-disable primer-react/spread-props-first */
 import type {ChangeEventHandler, InputHTMLAttributes, ReactElement} from 'react'
 import React, {useContext} from 'react'
 import {RadioGroupContext} from '../RadioGroup/RadioGroup'

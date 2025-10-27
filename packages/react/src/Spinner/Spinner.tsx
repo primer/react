@@ -1,3 +1,4 @@
+/* eslint-disable primer-react/spread-props-first */
 import type React from 'react'
 import {VisuallyHidden} from '../VisuallyHidden'
 import type {HTMLDataAttributes} from '../internal/internal-types'

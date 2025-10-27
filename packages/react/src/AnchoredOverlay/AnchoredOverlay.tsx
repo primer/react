@@ -1,3 +1,4 @@
+/* eslint-disable primer-react/spread-props-first */
 import type React from 'react'
 import {useCallback, useEffect} from 'react'
 import type {OverlayProps} from '../Overlay'

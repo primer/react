@@ -1,3 +1,4 @@
+/* eslint-disable primer-react/spread-props-first */
 import React, {useRef, useState} from 'react'
 import type {SegmentedControlButtonProps} from './SegmentedControlButton'
 import Button from './SegmentedControlButton'

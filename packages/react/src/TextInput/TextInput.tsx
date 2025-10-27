@@ -1,3 +1,4 @@
+/* eslint-disable primer-react/spread-props-first */
 import type {MouseEventHandler} from 'react'
 import React, {useCallback, useState, useId} from 'react'
 import {isValidElementType} from 'react-is'

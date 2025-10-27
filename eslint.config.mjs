@@ -149,6 +149,7 @@ const config = defineConfig([
       'react/display-name': 'off',
       'react/jsx-uses-react': 'error',
       'react-hooks/exhaustive-deps': 'error',
+      'eslint-comments/no-use': 'off',
       camelcase: [
         'error',
         {

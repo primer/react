@@ -1,3 +1,4 @@
+/* eslint-disable primer-react/spread-props-first */
 import {clsx} from 'clsx'
 import React from 'react'
 import type {ResponsiveValue} from '../hooks/useResponsiveValue'

@@ -1,3 +1,4 @@
+/* eslint-disable primer-react/spread-props-first */
 import {type PropsWithChildren, forwardRef} from 'react'
 import {
   ActionList as PrimerActionList,

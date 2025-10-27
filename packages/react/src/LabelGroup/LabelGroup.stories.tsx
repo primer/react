@@ -1,3 +1,4 @@
+/* eslint-disable primer-react/spread-props-first */
 import type React from 'react'
 import type {LabelGroupProps} from './LabelGroup'
 import LabelGroup from './LabelGroup'

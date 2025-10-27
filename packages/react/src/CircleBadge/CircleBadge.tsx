@@ -1,3 +1,4 @@
+/* eslint-disable primer-react/spread-props-first */
 import Octicon from '../Octicon'
 import isNumeric from '../utils/isNumeric'
 import type {ComponentProps} from '../utils/types'

@@ -1,3 +1,4 @@
+/* eslint-disable primer-react/spread-props-first */
 import React, {forwardRef} from 'react'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import type {ButtonProps} from './types'

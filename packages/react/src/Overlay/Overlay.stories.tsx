@@ -1,3 +1,4 @@
+/* eslint-disable primer-react/spread-props-first */
 import {useState, useRef, type ComponentProps} from 'react'
 import type {Args, Meta} from '@storybook/react-vite'
 import {XIcon} from '@primer/octicons-react'

@@ -1,3 +1,4 @@
+/* eslint-disable primer-react/spread-props-first */
 import type React from 'react'
 import {type CSSProperties, type PropsWithChildren} from 'react'
 import {clsx} from 'clsx'

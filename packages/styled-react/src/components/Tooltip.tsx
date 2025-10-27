@@ -1,3 +1,4 @@
+/* eslint-disable primer-react/spread-props-first */
 import {Tooltip as PrimerTooltip, type TooltipProps as PrimerTooltipProps, type SlotMarker} from '@primer/react'
 import {Box} from './Box'
 import {forwardRef, type ForwardRefExoticComponent, type RefAttributes} from 'react'

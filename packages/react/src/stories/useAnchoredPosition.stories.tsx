@@ -1,3 +1,4 @@
+/* eslint-disable primer-react/spread-props-first */
 import React from 'react'
 import type {Meta} from '@storybook/react-vite'
 import {useAnchoredPosition} from '../hooks'

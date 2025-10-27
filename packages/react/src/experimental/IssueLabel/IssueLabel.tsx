@@ -1,3 +1,4 @@
+/* eslint-disable primer-react/spread-props-first */
 import {clsx} from 'clsx'
 import type React from 'react'
 import {getColorsFromHex} from './getColorFromHex'
