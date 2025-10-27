@@ -2,13 +2,8 @@ import Breadcrumbs from '..'
 import {render as HTMLRender, screen, waitFor, within} from '@testing-library/react'
 import {describe, expect, it, vi} from 'vitest'
 import userEvent from '@testing-library/user-event'
-import {FeatureFlags} from '../../FeatureFlags'
-
-// Helper function to render with theme and feature flags
-const renderWithTheme = (component: React.ReactElement, flags?: Record<string, boolean>) => {
-  const wrappedComponent = flags ? <FeatureFlags flags={flags}>{component}</FeatureFlags> : <>{component}</>
-  return HTMLRender(wrappedComponent)
-}
+// Helper function kept for symmetry (flags removed); directly renders component
+const renderWithTheme = (component: React.ReactElement) => HTMLRender(component)
 
 // Mock ResizeObserver for tests
 const mockObserve = vi.fn()
@@ -57,12 +52,11 @@ describe('Breadcrumbs', () => {
     expect(selectedItem).toHaveAttribute('aria-current', 'page')
   })
 
-  it('sets data-overflow attribute when overflow is menu with feature flag', () => {
+  it('sets data-overflow attribute when overflow is menu', () => {
     const {container} = renderWithTheme(
       <Breadcrumbs overflow="menu">
         <Breadcrumbs.Item href="/home">Home</Breadcrumbs.Item>
       </Breadcrumbs>,
-      {primer_react_breadcrumbs_overflow_menu: true},
     )
 
     expect(container.firstChild).toHaveAttribute('data-overflow', 'menu')
@@ -73,7 +67,6 @@ describe('Breadcrumbs', () => {
       <Breadcrumbs overflow="wrap">
         <Breadcrumbs.Item href="/home">Home</Breadcrumbs.Item>
       </Breadcrumbs>,
-      {primer_react_breadcrumbs_overflow_menu: true},
     )
 
     expect(container.firstChild).toHaveAttribute('data-overflow', 'wrap')
@@ -89,7 +82,6 @@ describe('Breadcrumbs', () => {
         <Breadcrumbs.Item href="/5">Item 5</Breadcrumbs.Item>
         <Breadcrumbs.Item href="/6">Item 6</Breadcrumbs.Item>
       </Breadcrumbs>,
-      {primer_react_breadcrumbs_overflow_menu: true},
     )
 
     // All items should be visible in wrap mode
@@ -111,7 +103,6 @@ describe('Breadcrumbs', () => {
         <Breadcrumbs.Item href="/5">Item 5</Breadcrumbs.Item>
         <Breadcrumbs.Item href="/6">Item 6</Breadcrumbs.Item>
       </Breadcrumbs>,
-      {primer_react_breadcrumbs_overflow_menu: true},
     )
 
     // Should have overflow menu button
@@ -131,7 +122,6 @@ describe('Breadcrumbs', () => {
           <Breadcrumbs.Item href="/home">Home</Breadcrumbs.Item>
           <Breadcrumbs.Item href="/docs">Docs</Breadcrumbs.Item>
         </Breadcrumbs>,
-        {primer_react_breadcrumbs_overflow_menu: true},
       )
     }).not.toThrow()
   })
@@ -151,7 +141,6 @@ describe('Breadcrumbs', () => {
           Reviews
         </Breadcrumbs.Item>
       </Breadcrumbs>,
-      {primer_react_breadcrumbs_overflow_menu: true},
     )
 
     // Should have overflow menu button
@@ -195,7 +184,6 @@ describe('Breadcrumbs', () => {
         <Breadcrumbs.Item href="/5">Item 5</Breadcrumbs.Item>
         <Breadcrumbs.Item href="/6">Item 6</Breadcrumbs.Item>
       </Breadcrumbs>,
-      {primer_react_breadcrumbs_overflow_menu: true},
     )
 
     const menuButton = screen.getByRole('button', {name: /more breadcrumb items/i})
@@ -224,7 +212,6 @@ describe('Breadcrumbs', () => {
         <Breadcrumbs.Item href="/5">Item 5</Breadcrumbs.Item>
         <Breadcrumbs.Item href="/6">Item 6</Breadcrumbs.Item>
       </Breadcrumbs>,
-      {primer_react_breadcrumbs_overflow_menu: true},
     )
 
     expect(resizeCallback).toBeDefined()
@@ -285,7 +272,6 @@ describe('Breadcrumbs', () => {
         <Breadcrumbs.Item href="/specifications">Specifications</Breadcrumbs.Item>
         <Breadcrumbs.Item href="/reviews">Reviews</Breadcrumbs.Item>
       </Breadcrumbs>,
-      {primer_react_breadcrumbs_overflow_menu: true},
     )
 
     expect(resizeCallback).toBeDefined()
@@ -372,7 +358,6 @@ describe('Breadcrumbs', () => {
             Advanced
           </Breadcrumbs.Item>
         </Breadcrumbs>,
-        {primer_react_breadcrumbs_overflow_menu: true},
       )
 
       // Open the overflow menu
@@ -414,7 +399,6 @@ describe('Breadcrumbs', () => {
             </Breadcrumbs.Item>
           </Breadcrumbs>
         </div>,
-        {primer_react_breadcrumbs_overflow_menu: true},
       )
 
       // Open the overflow menu
@@ -450,7 +434,6 @@ describe('Breadcrumbs', () => {
             Advanced
           </Breadcrumbs.Item>
         </Breadcrumbs>,
-        {primer_react_breadcrumbs_overflow_menu: true},
       )
 
       // Open the overflow menu
@@ -490,7 +473,6 @@ describe('Breadcrumbs', () => {
             Advanced
           </Breadcrumbs.Item>
         </Breadcrumbs>,
-        {primer_react_breadcrumbs_overflow_menu: true},
       )
 
       const menuButton = screen.getByRole('button', {name: /more breadcrumb items/i})
@@ -524,7 +506,6 @@ describe('Breadcrumbs', () => {
             Docs
           </Breadcrumbs.Item>
         </Breadcrumbs>,
-        {primer_react_breadcrumbs_overflow_menu: true},
       )
       expect(container.firstChild).toHaveAttribute('data-variant', 'normal')
     })
@@ -537,7 +518,6 @@ describe('Breadcrumbs', () => {
             Docs
           </Breadcrumbs.Item>
         </Breadcrumbs>,
-        {primer_react_breadcrumbs_overflow_menu: true},
       )
       expect(container.firstChild).toHaveAttribute('data-variant', 'spacious')
     })
