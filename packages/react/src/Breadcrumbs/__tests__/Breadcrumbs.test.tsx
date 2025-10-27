@@ -2,8 +2,6 @@ import Breadcrumbs from '..'
 import {render as HTMLRender, screen, waitFor, within} from '@testing-library/react'
 import {describe, expect, it, vi} from 'vitest'
 import userEvent from '@testing-library/user-event'
-// Helper function kept for symmetry (flags removed); directly renders component
-const renderWithTheme = (component: React.ReactElement) => HTMLRender(component)
 
 // Mock ResizeObserver for tests
 const mockObserve = vi.fn()
@@ -53,7 +51,7 @@ describe('Breadcrumbs', () => {
   })
 
   it('sets data-overflow attribute when overflow is menu', () => {
-    const {container} = renderWithTheme(
+    const {container} = HTMLRender(
       <Breadcrumbs overflow="menu">
         <Breadcrumbs.Item href="/home">Home</Breadcrumbs.Item>
       </Breadcrumbs>,
@@ -63,7 +61,7 @@ describe('Breadcrumbs', () => {
   })
 
   it('sets data-overflow attribute when overflow is wrap', () => {
-    const {container} = renderWithTheme(
+    const {container} = HTMLRender(
       <Breadcrumbs overflow="wrap">
         <Breadcrumbs.Item href="/home">Home</Breadcrumbs.Item>
       </Breadcrumbs>,
@@ -73,7 +71,7 @@ describe('Breadcrumbs', () => {
   })
 
   it('renders all items when overflow is wrap', () => {
-    renderWithTheme(
+    HTMLRender(
       <Breadcrumbs overflow="wrap">
         <Breadcrumbs.Item href="/1">Item 1</Breadcrumbs.Item>
         <Breadcrumbs.Item href="/2">Item 2</Breadcrumbs.Item>
@@ -94,7 +92,7 @@ describe('Breadcrumbs', () => {
   })
 
   it('shows overflow menu when more than 5 items in menu mode', () => {
-    renderWithTheme(
+    HTMLRender(
       <Breadcrumbs overflow="menu">
         <Breadcrumbs.Item href="/1">Item 1</Breadcrumbs.Item>
         <Breadcrumbs.Item href="/2">Item 2</Breadcrumbs.Item>
@@ -117,7 +115,7 @@ describe('Breadcrumbs', () => {
 
   it('show root in menu', () => {
     expect(() => {
-      renderWithTheme(
+      HTMLRender(
         <Breadcrumbs overflow="menu-with-root">
           <Breadcrumbs.Item href="/home">Home</Breadcrumbs.Item>
           <Breadcrumbs.Item href="/docs">Docs</Breadcrumbs.Item>
@@ -129,7 +127,7 @@ describe('Breadcrumbs', () => {
   it('includes root item in overflow menu when overflow is menu-with-root', async () => {
     const user = userEvent.setup()
 
-    renderWithTheme(
+    HTMLRender(
       <Breadcrumbs overflow="menu-with-root">
         <Breadcrumbs.Item href="/home">Home</Breadcrumbs.Item>
         <Breadcrumbs.Item href="/category">Category</Breadcrumbs.Item>
@@ -175,7 +173,7 @@ describe('Breadcrumbs', () => {
   })
 
   it('renders accessible overflow menu', () => {
-    renderWithTheme(
+    HTMLRender(
       <Breadcrumbs overflow="menu">
         <Breadcrumbs.Item href="/1">Item 1</Breadcrumbs.Item>
         <Breadcrumbs.Item href="/2">Item 2</Breadcrumbs.Item>
@@ -203,7 +201,7 @@ describe('Breadcrumbs', () => {
     })
     globalThis.ResizeObserver = mockResizeObserver
 
-    renderWithTheme(
+    HTMLRender(
       <Breadcrumbs overflow="menu">
         <Breadcrumbs.Item href="/1">Item 1</Breadcrumbs.Item>
         <Breadcrumbs.Item href="/2">Item 2</Breadcrumbs.Item>
@@ -262,7 +260,7 @@ describe('Breadcrumbs', () => {
 
     const user = userEvent.setup()
 
-    renderWithTheme(
+    HTMLRender(
       <Breadcrumbs overflow="menu">
         <Breadcrumbs.Item href="/home">Home</Breadcrumbs.Item>
         <Breadcrumbs.Item href="/category">Category</Breadcrumbs.Item>
@@ -347,7 +345,7 @@ describe('Breadcrumbs', () => {
     it('closes menu on Escape key press', async () => {
       const user = userEvent.setup()
 
-      renderWithTheme(
+      HTMLRender(
         <Breadcrumbs overflow="menu">
           <Breadcrumbs.Item href="/home">Home</Breadcrumbs.Item>
           <Breadcrumbs.Item href="/docs">Docs</Breadcrumbs.Item>
@@ -383,7 +381,7 @@ describe('Breadcrumbs', () => {
     it('closes menu when clicking outside', async () => {
       const user = userEvent.setup()
 
-      renderWithTheme(
+      HTMLRender(
         <div>
           <button type="button" data-testid="outside-button">
             Outside Button
@@ -423,7 +421,7 @@ describe('Breadcrumbs', () => {
     it('allows tab navigation through menu items', async () => {
       const user = userEvent.setup()
 
-      renderWithTheme(
+      HTMLRender(
         <Breadcrumbs overflow="menu">
           <Breadcrumbs.Item href="/home">Home</Breadcrumbs.Item>
           <Breadcrumbs.Item href="/docs">Docs</Breadcrumbs.Item>
@@ -462,7 +460,7 @@ describe('Breadcrumbs', () => {
     it('maintains focus on menu button when menu is closed', async () => {
       const user = userEvent.setup()
 
-      renderWithTheme(
+      HTMLRender(
         <Breadcrumbs overflow="menu">
           <Breadcrumbs.Item href="/home">Home</Breadcrumbs.Item>
           <Breadcrumbs.Item href="/docs">Docs</Breadcrumbs.Item>
@@ -499,7 +497,7 @@ describe('Breadcrumbs', () => {
 
   describe('variant prop (feature flag on)', () => {
     it('sets data-variant="normal" by default', () => {
-      const {container} = renderWithTheme(
+      const {container} = HTMLRender(
         <Breadcrumbs overflow="menu">
           <Breadcrumbs.Item href="/home">Home</Breadcrumbs.Item>
           <Breadcrumbs.Item href="/docs" selected>
@@ -511,7 +509,7 @@ describe('Breadcrumbs', () => {
     })
 
     it('sets data-variant="spacious" when variant prop provided', () => {
-      const {container} = renderWithTheme(
+      const {container} = HTMLRender(
         <Breadcrumbs overflow="menu" variant="spacious">
           <Breadcrumbs.Item href="/home">Home</Breadcrumbs.Item>
           <Breadcrumbs.Item href="/docs" selected>
