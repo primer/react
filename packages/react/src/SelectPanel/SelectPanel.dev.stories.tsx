@@ -91,7 +91,7 @@ export const WithCss = () => {
         placeholder="Select labels" // button text when no items are selected
         subtitle="Use labels to organize issues and pull requests"
         renderAnchor={({children, ...anchorProps}) => (
-          <Button {...anchorProps} trailingAction={TriangleDownIcon} aria-haspopup="dialog">
+          <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
             {children}
           </Button>
         )}
@@ -133,7 +133,7 @@ const SingleSelectParams = ({variant, onCancel, secondaryAction}: ParamProps) =>
   return variant === 'anchored' ? (
     <SelectPanel
       renderAnchor={({children, ...anchorProps}) => (
-        <Button {...anchorProps} trailingAction={TriangleDownIcon}>
+        <Button trailingAction={TriangleDownIcon} {...anchorProps}>
           {children ?? 'Select Labels'}
         </Button>
       )}
@@ -152,7 +152,7 @@ const SingleSelectParams = ({variant, onCancel, secondaryAction}: ParamProps) =>
   ) : (
     <SelectPanel
       renderAnchor={({children, ...anchorProps}) => (
-        <Button {...anchorProps} trailingAction={TriangleDownIcon}>
+        <Button trailingAction={TriangleDownIcon} {...anchorProps}>
           {children ?? 'Select Labels'}
         </Button>
       )}
@@ -185,7 +185,7 @@ const MultiSelectParams = ({variant, onCancel, secondaryAction}: ParamProps) => 
       placeholder="Select labels"
       subtitle="Use labels to organize issues and pull requests"
       renderAnchor={({children, ...anchorProps}) => (
-        <Button {...anchorProps} trailingAction={TriangleDownIcon} aria-haspopup="dialog">
+        <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
           {children}
         </Button>
       )}
@@ -206,7 +206,7 @@ const MultiSelectParams = ({variant, onCancel, secondaryAction}: ParamProps) => 
       placeholder="Select labels"
       subtitle="Use labels to organize issues and pull requests"
       renderAnchor={({children, ...anchorProps}) => (
-        <Button {...anchorProps} trailingAction={TriangleDownIcon} aria-haspopup="dialog">
+        <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
           {children}
         </Button>
       )}
@@ -363,7 +363,7 @@ export const LotsOfItems = () => {
           placeholder="Select labels"
           subtitle="Use labels to organize issues and pull requests"
           renderAnchor={({children, ...anchorProps}) => (
-            <Button {...anchorProps} trailingAction={TriangleDownIcon} aria-haspopup="dialog">
+            <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
               {children}
             </Button>
           )}

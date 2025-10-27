@@ -36,9 +36,9 @@ const LabelledAutocomplete = <T extends AutocompleteMenuItem>({
         Autocomplete field
       </label>
       <Autocomplete id="autocompleteId">
-        <Autocomplete.Input {...inputPropsRest} id={id} />
+        <Autocomplete.Input id={id} {...inputPropsRest} />
         <Autocomplete.Overlay>
-          <Autocomplete.Menu {...menuPropsRest} aria-labelledby={ariaLabelledBy} />
+          <Autocomplete.Menu aria-labelledby={ariaLabelledBy} {...menuPropsRest} />
         </Autocomplete.Overlay>
       </Autocomplete>
     </BaseStyles>

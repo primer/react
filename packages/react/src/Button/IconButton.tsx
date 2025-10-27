@@ -35,13 +35,13 @@ const IconButton = forwardRef(
     if (withoutTooltip) {
       return (
         <ButtonBase
-          {...props}
           icon={Icon}
           className={clsx(className, classes.IconButton)}
           data-component="IconButton"
           type="button"
           aria-label={ariaLabel}
           disabled={disabled}
+          {...props}
           // @ts-expect-error StyledButton wants both Anchor and Button refs
           ref={forwardedRef}
         />
@@ -57,14 +57,14 @@ const IconButton = forwardRef(
           keybindingHint={keybindingHint ?? keyshortcuts}
         >
           <ButtonBase
-            {...props}
             icon={Icon}
             className={clsx(className, classes.IconButton)}
             data-component="IconButton"
             type="button"
-            // If description is provided, we will use the tooltip to describe the button, so we need to keep the aria-label to label the button.
             aria-keyshortcuts={keyshortcuts ?? undefined}
+            // If description is provided, we will use the tooltip to describe the button, so we need to keep the aria-label to label the button.
             aria-label={description ? ariaLabel : undefined}
+            {...props}
           />
         </Tooltip>
       )

@@ -85,15 +85,15 @@ const Stack = forwardRef(
   ) => {
     return (
       <Component
+        ref={forwardedRef}
         {...rest}
+        className={clsx(className, classes.Stack)}
         {...getResponsiveAttributes('gap', gap)}
         {...getResponsiveAttributes('direction', direction)}
         {...getResponsiveAttributes('align', align)}
         {...getResponsiveAttributes('wrap', wrap)}
         {...getResponsiveAttributes('justify', justify)}
         {...getResponsiveAttributes('padding', padding)}
-        ref={forwardedRef}
-        className={clsx(className, classes.Stack)}
       >
         {children}
       </Component>
@@ -125,11 +125,11 @@ type StackItemProps<As> = React.PropsWithChildren<{
 const StackItem = forwardRef(({as: Component = 'div', children, grow, shrink, className, ...rest}, forwardedRef) => {
   return (
     <Component
+      ref={forwardedRef}
       {...rest}
+      className={clsx(className, classes.StackItem)}
       {...getResponsiveAttributes('grow', grow)}
       {...getResponsiveAttributes('shrink', shrink)}
-      ref={forwardedRef}
-      className={clsx(className, classes.StackItem)}
     >
       {children}
     </Component>

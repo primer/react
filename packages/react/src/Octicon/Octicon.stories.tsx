@@ -11,7 +11,7 @@ export default meta
 export const Default = () => <Octicon icon={HeartFillIcon} aria-label="Like" size={32} />
 
 export const Playground: StoryFn<typeof Octicon> = ({'aria-label': ariaLabel, icon: _icon, ...args}) => {
-  return <Octicon {...args} icon={HeartFillIcon} aria-label={ariaLabel ? ariaLabel : undefined} />
+  return <Octicon icon={HeartFillIcon} aria-label={ariaLabel ? ariaLabel : undefined} {...args} />
 }
 
 Playground.args = {

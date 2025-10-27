@@ -387,7 +387,6 @@ export const UnderlineNav = forwardRef(
 
                     return (
                       <ActionList.LinkItem
-                        {...menuItemProps}
                         key={menuItemChildren}
                         style={menuItemStyles}
                         onClick={(
@@ -400,6 +399,7 @@ export const UnderlineNav = forwardRef(
                           // fire onSelect event that comes from the UnderlineNav.Item (if it is defined)
                           typeof onSelect === 'function' && onSelect(event)
                         }}
+                        {...menuItemProps}
                       >
                         <span className={classes.MenuItemContent}>
                           {menuItemChildren}

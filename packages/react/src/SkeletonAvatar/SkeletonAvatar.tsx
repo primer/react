@@ -27,8 +27,8 @@ function SkeletonAvatar({size = DEFAULT_AVATAR_SIZE, square, className, style, .
 
   return (
     <SkeletonBox
-      {...rest}
       className={clsx(className, classes.SkeletonAvatar)}
+      {...rest}
       data-component="SkeletonAvatar"
       data-responsive={responsive ? '' : undefined}
       data-square={square ? '' : undefined}

@@ -15,7 +15,6 @@ export type SplitPageLayoutProps = {className?: string}
 export const Root: React.FC<React.PropsWithChildren<SplitPageLayoutProps>> = props => {
   return (
     <PageLayout
-      {...props}
       containerWidth="full"
       padding="none"
       columnGap="none"
@@ -24,6 +23,7 @@ export const Root: React.FC<React.PropsWithChildren<SplitPageLayoutProps>> = pro
         header: Header,
         footer: Footer,
       }}
+      {...props}
     />
   )
 }
@@ -41,7 +41,7 @@ export const Header: React.FC<React.PropsWithChildren<SplitPageLayoutHeaderProps
   ...props
 }) => {
   // eslint-disable-next-line primer-react/direct-slot-children
-  return <PageLayout.Header {...props} padding={padding} divider={divider} />
+  return <PageLayout.Header padding={padding} divider={divider} {...props} />
 }
 
 Header.displayName = 'SplitPageLayout.Header'
@@ -56,7 +56,7 @@ export const Content: React.FC<React.PropsWithChildren<SplitPageLayoutContentPro
   padding = 'normal',
   ...props
 }) => {
-  return <PageLayout.Content {...props} width={width} padding={padding} />
+  return <PageLayout.Content width={width} padding={padding} {...props} />
 }
 
 Content.displayName = 'SplitPageLayout.Content'
@@ -75,11 +75,11 @@ export const Pane: React.FC<React.PropsWithChildren<SplitPageLayoutPaneProps>> =
 }) => {
   return (
     <PageLayout.Pane
-      {...props}
       position={position}
       sticky={sticky}
       padding={padding}
       divider={divider}
+      {...props}
     ></PageLayout.Pane>
   )
 }
@@ -96,7 +96,7 @@ export const Footer: React.FC<React.PropsWithChildren<SplitPageLayoutFooterProps
   ...props
 }) => {
   // eslint-disable-next-line primer-react/direct-slot-children
-  return <PageLayout.Footer {...props} padding={padding} divider={divider} />
+  return <PageLayout.Footer padding={padding} divider={divider} {...props} />
 }
 
 Footer.displayName = 'SplitPageLayout.Footer'

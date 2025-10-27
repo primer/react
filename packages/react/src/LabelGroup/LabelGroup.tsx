@@ -86,7 +86,7 @@ const OverlayToggle: React.FC<
       anchorOffset={overlayPaddingPx * -1}
       alignmentOffset={overlayPaddingPx * -1}
       renderAnchor={props => (
-        <Button {...props} variant="invisible" size="small" ref={expandButtonRef}>
+        <Button variant="invisible" size="small" {...props} ref={expandButtonRef}>
           <VisuallyHidden>Show +{hiddenItemIds.length} more</VisuallyHidden>
           <span aria-hidden="true">+{hiddenItemIds.length}</span>
         </Button>

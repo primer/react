@@ -9,7 +9,7 @@ describe('Pagination', () => {
       <Pagination
         pageCount={10}
         currentPage={1}
-        renderPage={({key, number, ...props}) => <ReactRouterLikeLink {...props} key={key} to={`#${number}`} />}
+        renderPage={({key, number, ...props}) => <ReactRouterLikeLink key={key} to={`#${number}`} {...props} />}
       />,
     )
 

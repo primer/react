@@ -41,12 +41,12 @@ function InputLabel({
 
   return (
     <Component
-      {...props}
       data-control-disabled={disabled ? '' : undefined}
       data-visually-hidden={visuallyHidden ? '' : undefined}
       htmlFor={htmlFor}
       id={id}
       className={clsx(className, classes.Label)}
+      {...props}
     >
       {required || requiredText ? (
         <span className={classes.RequiredText}>

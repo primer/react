@@ -13,7 +13,7 @@ const Header = React.forwardRef<HTMLElement, HeaderProps>(function Header(
   forwardRef,
 ) {
   return (
-    <BaseComponent {...rest} ref={forwardRef} className={clsx(className, classes.Header)}>
+    <BaseComponent ref={forwardRef} className={clsx(className, classes.Header)} {...rest}>
       {children}
     </BaseComponent>
   )
@@ -26,7 +26,7 @@ const HeaderItem = React.forwardRef<HTMLDivElement, HeaderItemProps>(function He
   forwardRef,
 ) {
   return (
-    <div {...rest} ref={forwardRef} className={clsx(className, classes.HeaderItem)} data-full={full}>
+    <div ref={forwardRef} className={clsx(className, classes.HeaderItem)} data-full={full} {...rest}>
       {children}
     </div>
   )
@@ -39,7 +39,7 @@ const HeaderLink = React.forwardRef<HTMLAnchorElement, HeaderLinkProps>(function
   forwardRef,
 ) {
   return (
-    <BaseComponent {...rest} ref={forwardRef} className={clsx(className, classes.HeaderLink)}>
+    <BaseComponent ref={forwardRef} className={clsx(className, classes.HeaderLink)} {...rest}>
       {children}
     </BaseComponent>
   )

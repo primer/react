@@ -40,7 +40,6 @@ export const PreventFocusOnOpen = (args: Args) => {
       </Button>
       {isOpen || args.open ? (
         <Overlay
-          {...args}
           initialFocusRef={confirmButtonRef}
           returnFocusRef={openButtonRef}
           ignoreClickRefs={[openButtonRef]}
@@ -52,6 +51,7 @@ export const PreventFocusOnOpen = (args: Args) => {
           aria-label={args.role === 'dialog' ? 'Sample overlay' : undefined}
           preventFocusOnOpen={args.preventFocusOnOpen}
           ref={containerRef}
+          {...args}
         >
           <div className={classes.ResponsiveWidth}>
             <div className={classes.OverlayContent}>

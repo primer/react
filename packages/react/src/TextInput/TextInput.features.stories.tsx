@@ -201,19 +201,19 @@ export const WithLoadingIndicator = (args: FormControlArgs<TextInputProps>) => {
       <div className={classes.MarginBottom}>
         <FormControl>
           <FormControl.Label>Default label</FormControl.Label>
-          <TextInput {...args} value="auto" />
+          <TextInput value="auto" {...args} />
         </FormControl>
       </div>
       <div className={classes.MarginBottom}>
         <FormControl>
           <FormControl.Label>Default label</FormControl.Label>
-          <TextInput {...args} value="leading" loaderPosition="leading" />
+          <TextInput value="leading" {...args} loaderPosition="leading" />
         </FormControl>
       </div>
       <div className={classes.MarginBottomLarge}>
         <FormControl>
           <FormControl.Label>Default label</FormControl.Label>
-          <TextInput {...args} value="trailing" loaderPosition="trailing" />
+          <TextInput value="trailing" {...args} loaderPosition="trailing" />
         </FormControl>
       </div>
 
@@ -222,19 +222,19 @@ export const WithLoadingIndicator = (args: FormControlArgs<TextInputProps>) => {
       <div className={classes.MarginBottom}>
         <FormControl>
           <FormControl.Label>Default label</FormControl.Label>
-          <TextInput {...args} leadingVisual={Calendar} value="auto" />
+          <TextInput leadingVisual={Calendar} {...args} value="auto" />
         </FormControl>
       </div>
       <div className={classes.MarginBottom}>
         <FormControl>
           <FormControl.Label>Default label</FormControl.Label>
-          <TextInput {...args} leadingVisual={Calendar} loaderPosition="leading" value="leading" />
+          <TextInput leadingVisual={Calendar} {...args} loaderPosition="leading" value="leading" />
         </FormControl>
       </div>
       <div className={classes.MarginBottomLarge}>
         <FormControl>
           <FormControl.Label>Default label</FormControl.Label>
-          <TextInput {...args} leadingVisual={Calendar} loaderPosition="trailing" value="trailing" />
+          <TextInput leadingVisual={Calendar} {...args} loaderPosition="trailing" value="trailing" />
         </FormControl>
       </div>
 
@@ -243,19 +243,19 @@ export const WithLoadingIndicator = (args: FormControlArgs<TextInputProps>) => {
         <div className={classes.MarginBottom}>
           <FormControl>
             <FormControl.Label>Default label</FormControl.Label>
-            <TextInput {...args} trailingVisual={Calendar} value="auto" />
+            <TextInput trailingVisual={Calendar} {...args} value="auto" />
           </FormControl>
         </div>
         <div className={classes.MarginBottom}>
           <FormControl>
             <FormControl.Label>Default label</FormControl.Label>
-            <TextInput {...args} trailingVisual={Calendar} loaderPosition="leading" value="leading" />
+            <TextInput trailingVisual={Calendar} {...args} loaderPosition="leading" value="leading" />
           </FormControl>
         </div>
         <div className={classes.MarginBottomLarge}>
           <FormControl>
             <FormControl.Label>Default label</FormControl.Label>
-            <TextInput {...args} trailingVisual={Calendar} loaderPosition="trailing" value="trailing" />
+            <TextInput trailingVisual={Calendar} {...args} loaderPosition="trailing" value="trailing" />
           </FormControl>
         </div>
       </FormControl>
@@ -265,16 +265,16 @@ export const WithLoadingIndicator = (args: FormControlArgs<TextInputProps>) => {
       <div className={classes.MarginBottom}>
         <FormControl>
           <FormControl.Label>Default label</FormControl.Label>
-          <TextInput {...args} size="small" leadingVisual={Calendar} trailingVisual={Calendar} value="auto" />
+          <TextInput size="small" leadingVisual={Calendar} trailingVisual={Calendar} {...args} value="auto" />
         </FormControl>
       </div>
       <div className={classes.MarginBottom}>
         <FormControl>
           <FormControl.Label>Default label</FormControl.Label>
           <TextInput
-            {...args}
             leadingVisual={Calendar}
             trailingVisual={Calendar}
+            {...args}
             loaderPosition="leading"
             value="leading"
           />
@@ -284,10 +284,10 @@ export const WithLoadingIndicator = (args: FormControlArgs<TextInputProps>) => {
         <FormControl>
           <FormControl.Label>Default label</FormControl.Label>
           <TextInput
-            {...args}
             size="large"
             leadingVisual={Calendar}
             trailingVisual={Calendar}
+            {...args}
             loaderPosition="trailing"
             value="trailing"
           />

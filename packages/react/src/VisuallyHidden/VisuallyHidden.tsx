@@ -15,7 +15,7 @@ import classes from './VisuallyHidden.module.css'
  */
 export const VisuallyHidden = ({className, children, ...rest}: VisuallyHiddenProps) => {
   return (
-    <span {...rest} className={clsx(className, classes.VisuallyHidden)}>
+    <span className={clsx(className, classes.VisuallyHidden)} {...rest}>
       {children}
     </span>
   )

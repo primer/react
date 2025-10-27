@@ -9,7 +9,7 @@ const Tooltip: ForwardRefExoticComponent<TooltipProps & RefAttributes<HTMLDivEle
   HTMLDivElement,
   TooltipProps
 >(function Tooltip(props, ref) {
-  return <Box {...props} as={PrimerTooltip} ref={ref} />
+  return <Box as={PrimerTooltip} ref={ref} {...props} />
 })
 
 Tooltip.__SLOT__ = PrimerTooltip.__SLOT__

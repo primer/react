@@ -288,7 +288,6 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
       >
         <div className={styles.InputWrapper}>
           <UnstyledTextInput
-            {...inputPropsRest}
             ref={ref}
             disabled={disabled}
             onFocus={handleInputFocus}
@@ -297,11 +296,11 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
             type="text"
             className={styles.UnstyledTextInput}
             aria-invalid={validationStatus === 'error' ? 'true' : 'false'}
+            {...inputPropsRest}
           />
         </div>
         {visibleTokens.map(({id, ...tokenRest}, i) => (
           <TokenComponent
-            {...tokenRest}
             disabled={disabled}
             key={id}
             onFocus={handleTokenFocus(i)}
@@ -315,6 +314,7 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
             hideRemoveButton={disabled || hideTokenRemoveButtons}
             size={size}
             tabIndex={0}
+            {...tokenRest}
           />
         ))}
         {tokensAreTruncated && tokens.length - visibleTokens.length ? (

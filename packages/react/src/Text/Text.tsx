@@ -22,10 +22,10 @@ function Text<As extends React.ElementType>(props: TextProps<As>, ref: Forwarded
 
   return (
     <Component
-      {...rest}
       className={clsx(className, classes.Text)}
       data-size={size}
       data-weight={weight}
+      {...rest}
       ref={innerRef}
     />
   )

@@ -5,7 +5,7 @@ import {Box} from './Box'
 
 type AvatarProps = PrimerAvatarProps & StyledProps
 const Avatar = forwardRef<HTMLImageElement, AvatarProps>(function Avatar(props, ref) {
-  return <Box {...props} as={PrimerAvatar} ref={ref} />
+  return <Box as={PrimerAvatar} ref={ref} {...props} />
 })
 
 export {Avatar}

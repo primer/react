@@ -24,13 +24,13 @@ const Heading: React.FC<HeadingProps & React.HTMLAttributes<HTMLHeadingElement>>
   ...rest
 }) => {
   return (
-    <Component {...rest} className={className} id={id}>
+    <Component className={className} id={id} {...rest}>
       {children}
     </Component>
   )
 }
 
-type HeadingWrapProps = React.HTMLAttributes<HTMLElement> & {
+type HeadingWrapProps = {
   as?: 'div' | 'li'
   className?: string
   children: React.ReactNode
@@ -98,7 +98,7 @@ export const Group: FCWithSlotMarker<React.PropsWithChildren<ActionListGroupProp
   }
 
   return (
-    <li {...props} className={clsx(className, groupClasses.Group)} role={listRole ? 'none' : undefined}>
+    <li className={clsx(className, groupClasses.Group)} role={listRole ? 'none' : undefined} {...props}>
       <GroupContext.Provider value={{selectionVariant, groupHeadingId}}>
         {title && !slots.groupHeading ? (
           // Escape hatch: supports old API <ActionList.Group title="group title"> in a non breaking way
@@ -173,13 +173,13 @@ export const GroupHeading: FCWithSlotMarker<React.PropsWithChildren<ActionListGr
       {/* for listbox (SelectPanel) and menu (ActionMenu) roles, group titles are presentational. */}
       {listRole && listRole !== 'list' ? (
         <HeadingWrap
-          {...props}
           role="presentation"
           className={groupClasses.GroupHeadingWrap}
           aria-hidden="true"
           data-variant={variant}
           data-component="GroupHeadingWrap"
           as={headingWrapElement}
+          {...props}
         >
           <span className={clsx(className, groupClasses.GroupHeading)} id={groupHeadingId}>
             {_internalBackwardCompatibleTitle ?? children}
@@ -195,10 +195,10 @@ export const GroupHeading: FCWithSlotMarker<React.PropsWithChildren<ActionListGr
           data-component="GroupHeadingWrap"
         >
           <Heading
-            {...props}
             className={clsx(className, groupClasses.GroupHeading)}
             as={as || 'h3'}
             id={groupHeadingId}
+            {...props}
           >
             {_internalBackwardCompatibleTitle ?? children}
           </Heading>

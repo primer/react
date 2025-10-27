@@ -18,7 +18,7 @@ const StyledTextInput: ForwardRefComponent<'input', TextInputProps> = styled(Pri
 `
 
 const TextInputImpl = forwardRef<HTMLInputElement, TextInputProps>(({as, ...props}, ref) => {
-  return <StyledTextInput {...props} {...(as ? {forwardedAs: as} : {})} ref={ref} />
+  return <StyledTextInput ref={ref} {...props} {...(as ? {forwardedAs: as} : {})} />
 })
 
 const TextInputAction: ForwardRefComponent<'button', TextInputActionProps> = styled(PrimerTextInput.Action).withConfig({

@@ -260,27 +260,27 @@ export const Playground = (args: FormControlArgs<AutocompleteArgs>) => {
   return (
     <form className={classes.DefaultForm} onSubmit={event => event.preventDefault()}>
       <FormControl {...parentArgs}>
-        <FormControl.Label {...labelArgs} id="autocompleteLabel" />
+        <FormControl.Label id="autocompleteLabel" {...labelArgs} />
         <Autocomplete>
           <Autocomplete.Input
-            {...autocompleteInput}
             aria-describedby={formValidationId}
+            {...autocompleteInput}
             size={textInputArgs.inputSize}
             data-testid="autocompleteInput"
           />
           <Autocomplete.Overlay {...overlayArgs}>
             <Autocomplete.Menu
-              {...menuArgs}
               items={items}
               selectedItemIds={isMultiselect ? selectedItemIds : []}
               onSelectedChange={isMultiselect ? onSelectedChange : undefined}
               aria-labelledby="autocompleteLabel"
+              {...menuArgs}
             />
           </Autocomplete.Overlay>
         </Autocomplete>
         {captionArgs.children && <FormControl.Caption {...captionArgs} />}
         {validationArgs.children && validationArgs.variant && (
-          <FormControl.Validation {...validationArgs} id={formValidationId} variant={validationArgs.variant} />
+          <FormControl.Validation id={formValidationId} {...validationArgs} variant={validationArgs.variant} />
         )}
       </FormControl>
     </form>

@@ -297,7 +297,6 @@ export const Playground = (args: Args) => {
       </Button>
       {isOpen || args.open ? (
         <Overlay
-          {...args}
           initialFocusRef={confirmButtonRef}
           returnFocusRef={buttonRef}
           ignoreClickRefs={[buttonRef]}
@@ -308,6 +307,7 @@ export const Playground = (args: Args) => {
           aria-modal={args.role === 'dialog'}
           aria-label={args.role === 'dialog' ? 'Sample overlay' : undefined}
           ref={containerRef}
+          {...args}
         >
           <div className={classes.ResponsiveWidth}>
             <div className={classes.FullHeightContent}>

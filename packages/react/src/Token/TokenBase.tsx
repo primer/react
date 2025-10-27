@@ -77,11 +77,6 @@ const TokenBase = React.forwardRef<HTMLButtonElement | HTMLAnchorElement | HTMLS
   ) => {
     return (
       <Component
-        {...(Component === 'button'
-          ? (rest as React.ButtonHTMLAttributes<HTMLButtonElement>)
-          : Component === 'a'
-            ? (rest as React.AnchorHTMLAttributes<HTMLAnchorElement>)
-            : (rest as React.HTMLAttributes<HTMLSpanElement>))}
         onKeyDown={(event: KeyboardEvent<HTMLSpanElement & HTMLAnchorElement & HTMLButtonElement>) => {
           onKeyDown && onKeyDown(event)
 
@@ -99,6 +94,11 @@ const TokenBase = React.forwardRef<HTMLButtonElement | HTMLAnchorElement | HTMLS
         })}
         data-size={size}
         id={id?.toString()}
+        {...(Component === 'button'
+          ? (rest as React.ButtonHTMLAttributes<HTMLButtonElement>)
+          : Component === 'a'
+            ? (rest as React.AnchorHTMLAttributes<HTMLAnchorElement>)
+            : (rest as React.HTMLAttributes<HTMLSpanElement>))}
         // TypeScript cannot resolve polymorphic ref types at compile time
         // This assertion is safe because the ref will match the actual rendered element
         // eslint-disable-next-line @typescript-eslint/no-explicit-any

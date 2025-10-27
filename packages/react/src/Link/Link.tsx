@@ -51,12 +51,12 @@ export const UnwrappedLink = <As extends React.ElementType = 'a'>(
 
   return (
     <Component
-      {...restProps}
       className={clsx(className, classes.Link)}
       data-muted={restProps.muted}
       data-inline={inline}
       data-underline={underline}
       data-hover-color={hoverColor}
+      {...restProps}
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       ref={innerRef as any}
     />

@@ -59,8 +59,6 @@ const IssueLabelToken = forwardRef((props, forwardedRef) => {
 
   return (
     <TokenBase
-      {...(!hasMultipleActionTargets ? interactiveTokenProps : {})}
-      {...rest}
       onRemove={onRemove}
       id={id?.toString()}
       isSelected={isSelected}
@@ -70,6 +68,8 @@ const IssueLabelToken = forwardRef((props, forwardedRef) => {
       style={customProperties}
       data-has-remove-button={!hideRemoveButton && !!onRemove}
       data-selected={isSelected}
+      {...(!hasMultipleActionTargets ? interactiveTokenProps : {})}
+      {...rest}
       ref={forwardedRef}
     >
       <TokenTextContainer {...(hasMultipleActionTargets ? interactiveTokenProps : {})}>{text}</TokenTextContainer>

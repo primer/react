@@ -17,23 +17,23 @@ export type TimelineBodyProps = PrimerTimelineBodyProps & SxProp
 export type TimelineBreakProps = PrimerTimelineBreakProps & SxProp
 
 const TimelineImpl = forwardRef<HTMLDivElement, TimelineProps>(function Timeline(props, ref) {
-  return <Box {...props} as={PrimerTimeline} ref={ref} />
+  return <Box as={PrimerTimeline} ref={ref} {...props} />
 })
 
 const TimelineItem = forwardRef<HTMLDivElement, TimelineItemProps>(function TimelineItem(props, ref) {
-  return <Box {...props} as={PrimerTimeline.Item} ref={ref} />
+  return <Box as={PrimerTimeline.Item} ref={ref} {...props} />
 })
 
 function TimelineBadge(props: TimelineBadgeProps) {
-  return <Box {...props} as={PrimerTimeline.Badge} />
+  return <Box as={PrimerTimeline.Badge} {...props} />
 }
 
 const TimelineBody = forwardRef<HTMLDivElement, TimelineBodyProps>(function TimelineBody(props, ref) {
-  return <Box {...props} as={PrimerTimeline.Body} ref={ref} />
+  return <Box as={PrimerTimeline.Body} ref={ref} {...props} />
 })
 
 const TimelineBreak = forwardRef<HTMLDivElement, TimelineBreakProps>(function TimelineBreak(props, ref) {
-  return <Box {...props} as={PrimerTimeline.Break} ref={ref} />
+  return <Box as={PrimerTimeline.Break} ref={ref} {...props} />
 })
 
 export const Timeline = Object.assign(TimelineImpl, {

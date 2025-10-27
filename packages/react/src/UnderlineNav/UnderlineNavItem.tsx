@@ -100,7 +100,6 @@ export const UnderlineNavItem = forwardRef(
     return (
       <li className={classes.UnderlineNavItem}>
         <UnderlineItem
-          {...props}
           ref={ref}
           as={Component}
           href={href}
@@ -111,6 +110,7 @@ export const UnderlineNavItem = forwardRef(
           icon={Icon}
           loadingCounters={loadingCounters}
           iconsVisible={iconsVisible}
+          {...props}
         >
           {children}
         </UnderlineItem>

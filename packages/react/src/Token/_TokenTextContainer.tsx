@@ -11,13 +11,13 @@ const TokenTextContainer = ({
 }: React.PropsWithChildren<Partial<TokenBaseProps>>) => {
   return (
     <Component
+      className={clsx(classes.TokenTextContainer)}
+      id={id?.toString()}
       {...(Component === 'button'
         ? (props as React.ButtonHTMLAttributes<HTMLButtonElement>)
         : Component === 'a'
           ? (props as React.AnchorHTMLAttributes<HTMLAnchorElement>)
           : (props as React.HTMLAttributes<HTMLSpanElement>))}
-      className={clsx(classes.TokenTextContainer)}
-      id={id?.toString()}
     >
       {children}
     </Component>

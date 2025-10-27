@@ -17,7 +17,7 @@ const StatefulLoadingButton = (props: StatefulLoadingButtonProps) => {
     setIsLoading(true)
   }
 
-  return <Button {...props} loading={isLoading} onClick={handleClick} />
+  return <Button loading={isLoading} onClick={handleClick} {...props} />
 }
 
 describe('IconButton', () => {

@@ -34,7 +34,6 @@ export const TrailingAction = forwardRef(
       <span className={clsx(className, classes.TrailingAction)} style={style}>
         {icon ? (
           <IconButton
-            {...props}
             as={as}
             aria-label={label}
             icon={icon}
@@ -46,11 +45,11 @@ export const TrailingAction = forwardRef(
             // @ts-expect-error StyledButton wants both Anchor and Button refs
             ref={forwardedRef}
             className={classes.TrailingActionButton}
+            {...props}
           />
         ) : (
           // @ts-expect-error shhh
           <Button
-            {...props}
             variant="invisible"
             as={as}
             href={href}
@@ -58,6 +57,7 @@ export const TrailingAction = forwardRef(
             data-loading={Boolean(loading)}
             ref={forwardedRef}
             className={classes.TrailingActionButton}
+            {...props}
           >
             {label}
           </Button>

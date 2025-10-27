@@ -81,7 +81,6 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
         className={className}
       >
         <textarea
-          {...rest}
           value={value}
           data-resize={resize}
           aria-required={required}
@@ -96,6 +95,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
             maxHeight,
             ...style,
           }}
+          {...rest}
         />
       </TextInputBaseWrapper>
     )

@@ -67,13 +67,13 @@ const UnwrappedList = <As extends React.ElementType = 'ul'>(
     >
       {slots.heading}
       <Component
-        {...restProps}
         className={clsx(classes.ActionList, className)}
         role={listRole}
         aria-labelledby={ariaLabelledBy}
         ref={listRef}
         data-dividers={showDividers}
         data-variant={variant}
+        {...restProps}
       >
         {childrenWithoutSlots}
       </Component>

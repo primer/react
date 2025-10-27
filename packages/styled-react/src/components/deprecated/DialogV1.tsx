@@ -11,7 +11,6 @@ import type {ForwardRefComponent} from '../../polymorphic'
 type DialogProps = PrimerDialogProps & SxProp
 
 const StyledDialog = forwardRef<HTMLDivElement, DialogProps>(function Dialog(props, ref) {
-  // eslint-disable-next-line primer-react/spread-props-first -- `as` must come before spread for styled-components type inference
   return <Box as={PrimerDialog} ref={ref} {...props} />
 })
 
@@ -22,7 +21,6 @@ const DialogImpl = forwardRef(({as, ...props}: DialogProps, ref) => (
 type DialogHeaderProps = PrimerDialogHeaderProps & SxProp
 
 const StyledDialogHeader = forwardRef<HTMLDivElement, DialogHeaderProps>(function DialogHeader(props, ref) {
-  // eslint-disable-next-line primer-react/spread-props-first -- `as` must come before spread for styled-components type inference
   return <Box as={PrimerDialog.Header} ref={ref} {...props} />
 })
 

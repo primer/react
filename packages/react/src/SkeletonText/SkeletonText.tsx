@@ -19,7 +19,6 @@ function SkeletonText({lines = 1, maxWidth, size = 'bodyMedium', className, styl
   if (lines < 2) {
     return (
       <SkeletonBox
-        {...rest}
         data-component="SkeletonText"
         data-text-skeleton-size={size}
         width="100%"
@@ -28,6 +27,7 @@ function SkeletonText({lines = 1, maxWidth, size = 'bodyMedium', className, styl
           ...style,
           maxWidth,
         }}
+        {...rest}
       />
     )
   }
@@ -43,12 +43,12 @@ function SkeletonText({lines = 1, maxWidth, size = 'bodyMedium', className, styl
     >
       {Array.from({length: lines}, (_, index) => (
         <SkeletonBox
-          {...rest}
           key={index}
           data-component="SkeletonText"
           data-in-multiline="true"
           data-text-skeleton-size={size}
           className={clsx(className, classes.SkeletonText)}
+          {...rest}
         />
       ))}
     </div>

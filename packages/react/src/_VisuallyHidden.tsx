@@ -20,7 +20,7 @@ function VisuallyHidden<As extends ElementType = 'span'>({
 }: VisuallyHiddenProps<As>) {
   const Component = as || 'span'
   return (
-    <Component {...rest} className={clsx(className, {[classes.InternalVisuallyHidden]: !isVisible})}>
+    <Component className={clsx(className, {[classes.InternalVisuallyHidden]: !isVisible})} {...rest}>
       {children}
     </Component>
   )

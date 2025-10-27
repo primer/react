@@ -18,7 +18,7 @@ function UnderlineNav({actions, className, align, children, full, label, ...rest
     'PRC-UnderlineNav--right': align,
   })
   return (
-    <nav {...rest} className={navClasses} aria-label={label}>
+    <nav className={navClasses} aria-label={label} {...rest}>
       <div className={clsx(classes.UnderlineNavBody, 'PRC-UnderlineNav-body')}>{children}</div>
       {actions && <div className={clsx(classes.UnderlineNavActions, 'PRC-UnderlineNav-actions')}>{actions}</div>}
     </nav>
@@ -37,7 +37,7 @@ const UnderlineNavLink = React.forwardRef<HTMLAnchorElement, UnderlineNavLinkPro
   forwardRef,
 ) {
   const linkClasses = clsx(classes.UnderlineNavItem, className, classes.UnderlineNavLink)
-  return <a {...props} ref={forwardRef} data-selected={selected ? '' : undefined} className={linkClasses} />
+  return <a ref={forwardRef} data-selected={selected ? '' : undefined} className={linkClasses} {...props} />
 })
 
 UnderlineNavLink.displayName = 'UnderlineNav.Link'

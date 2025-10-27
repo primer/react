@@ -7,7 +7,7 @@ import {Button, IconButton, ActionMenu, ActionList, BaseStyles, ButtonGroup} fro
 import {XIcon} from '@primer/octicons-react'
 
 const TooltipComponent = (props: Omit<TooltipProps, 'text'> & {text?: string}) => (
-  <Tooltip {...props} text="Tooltip text">
+  <Tooltip text="Tooltip text" {...props}>
     <Button>Button Text</Button>
   </Tooltip>
 )
@@ -15,7 +15,7 @@ const TooltipComponent = (props: Omit<TooltipProps, 'text'> & {text?: string}) =
 const TooltipComponentWithExistingDescription = (props: Omit<TooltipProps, 'text'> & {text?: string}) => (
   <>
     <span id="external-description">External description</span>
-    <Tooltip {...props} text="Tooltip text">
+    <Tooltip text="Tooltip text" {...props}>
       <Button aria-describedby="external-description">Button Text</Button>
     </Tooltip>
   </>

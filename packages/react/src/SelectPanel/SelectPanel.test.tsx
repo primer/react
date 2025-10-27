@@ -54,7 +54,6 @@ function BasicSelectPanel(passthroughProps: Record<string, unknown>) {
 
   return (
     <SelectPanel
-      {...passthroughProps}
       title="test title"
       subtitle="test subtitle"
       items={items}
@@ -70,6 +69,7 @@ function BasicSelectPanel(passthroughProps: Record<string, unknown>) {
       onOpenChange={isOpen => {
         setOpen(isOpen)
       }}
+      {...passthroughProps}
     />
   )
 }
@@ -1246,7 +1246,6 @@ for (const usingRemoveActiveDescendant of [false, true]) {
 
         return (
           <SelectPanel
-            {...passthroughProps}
             title="test title"
             subtitle="test subtitle"
             items={items}
@@ -1260,6 +1259,7 @@ for (const usingRemoveActiveDescendant of [false, true]) {
             }}
             open={open}
             onOpenChange={open => setOpen(open)}
+            {...passthroughProps}
           />
         )
       }

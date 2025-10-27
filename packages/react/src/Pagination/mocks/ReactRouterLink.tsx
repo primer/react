@@ -5,7 +5,7 @@ export type ReactRouterLikeLinkProps = {to: string; children: React.ReactNode; c
 export const ReactRouterLikeLink = React.forwardRef<HTMLAnchorElement, ReactRouterLikeLinkProps>(
   ({to, children, ...props}, ref) => {
     return (
-      <a {...props} ref={ref} href={to}>
+      <a ref={ref} href={to} {...props}>
         {children}
       </a>
     )

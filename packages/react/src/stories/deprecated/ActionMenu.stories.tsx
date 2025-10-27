@@ -32,7 +32,7 @@ const meta: Meta = {
 export default meta
 
 const ErsatzOverlay = ({children, ...props}: {children: React.ReactNode}) => (
-  <div {...props} className={classes.ErsatzOverlay}>
+  <div className={classes.ErsatzOverlay} {...props}>
     {children}
   </div>
 )
@@ -163,7 +163,7 @@ export function ComplexListStory(): JSX.Element {
             {groupId: '0'},
             {groupId: '1', header: {title: 'Live query', variant: 'subtle'}},
             {groupId: '2', header: {title: 'Layout', variant: 'subtle'}},
-            {groupId: '3', renderItem: props => <ActionList.Item {...props} style={{fontWeight: 'bold'}} />},
+            {groupId: '3', renderItem: props => <ActionList.Item style={{fontWeight: 'bold'}} {...props} />},
             {groupId: '4'},
           ]}
           items={[
@@ -173,7 +173,7 @@ export function ComplexListStory(): JSX.Element {
               leadingVisual: SearchIcon,
               text: 'repo:github/github',
               groupId: '1',
-              renderItem: props => <ActionList.Item {...props} style={{color: 'rebeccapurple'}} />,
+              renderItem: props => <ActionList.Item style={{color: 'rebeccapurple'}} {...props} />,
               trailingVisual: (
                 <>
                   ⌘S
@@ -185,7 +185,7 @@ export function ComplexListStory(): JSX.Element {
               leadingVisual: SearchIcon,
               text: 'repo:github/github',
               groupId: '1',
-              renderItem: props => <ActionList.Item {...props} style={{color: 'rebeccapurple'}} />,
+              renderItem: props => <ActionList.Item style={{color: 'rebeccapurple'}} {...props} />,
               trailingText: '⌘S', // backward compatible
               trailingVisual: ArrowRightIcon, // backward compatible
             },
@@ -286,7 +286,7 @@ const DoubleClickableAnchor: Exclude<ActionMenuProps['renderAnchor'], null | und
     [callback],
   )
   return (
-    <Button {...rest} trailingAction={TriangleDownIcon} onClick={onClick}>
+    <Button trailingAction={TriangleDownIcon} onClick={onClick} {...rest}>
       {children}
     </Button>
   )

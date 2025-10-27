@@ -18,7 +18,7 @@ export const Default: StoryFn = () => <RelativeTime date={new Date('2020-01-01T0
 
 export const Playground: StoryFn = args => {
   const {date, ...rest} = args
-  return <RelativeTime {...rest} noTitle={true} date={new Date(date)} />
+  return <RelativeTime noTitle={true} {...rest} date={new Date(date)} />
 }
 
 Playground.args = {

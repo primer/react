@@ -26,7 +26,7 @@ const IconButton = forwardRef(({as, sx, ...props}: IconButtonProps, ref) => {
     sxStyles = generateCustomSxProp({size}, sx)
   }
 
-  return <StyledIconButton {...props} {...(as ? {forwardedAs: as} : {})} sx={sxStyles} ref={ref} />
+  return <StyledIconButton sx={sxStyles} {...props} {...(as ? {forwardedAs: as} : {})} ref={ref} />
 }) as ForwardRefComponent<'a' | 'button', IconButtonProps> & SlotMarker
 
 IconButton.__SLOT__ = PrimerIconButton.__SLOT__

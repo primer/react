@@ -59,7 +59,7 @@ const PopoverContent: React.FC<React.PropsWithChildren<PopoverContentProps>> = (
   height = 'fit-content',
   ...props
 }) => {
-  return <div {...props} data-width={width} data-height={height} className={clsx(className, classes.PopoverContent)} />
+  return <div data-width={width} data-height={height} className={clsx(className, classes.PopoverContent)} {...props} />
 }
 
 PopoverContent.displayName = 'Popover.Content'

@@ -6,7 +6,7 @@ import Box from './Box'
 export type RadioGroupProps = PropsWithChildren<PrimerRadioGroupProps> & SxProp
 
 const RadioGroupImpl = (props: RadioGroupProps) => {
-  return <Box {...props} as={PrimerRadioGroup} />
+  return <Box as={PrimerRadioGroup} {...props} />
 }
 
 // Define local types based on the internal component props
@@ -17,7 +17,7 @@ type CheckboxOrRadioGroupLabelProps = PropsWithChildren<
   } & SxProp
 >
 const CheckboxOrRadioGroupLabel = (props: CheckboxOrRadioGroupLabelProps) => {
-  return <Box {...props} as={PrimerRadioGroup.Label} />
+  return <Box as={PrimerRadioGroup.Label} {...props} />
 }
 
 type CheckboxOrRadioGroupCaptionProps = PropsWithChildren<
@@ -26,7 +26,7 @@ type CheckboxOrRadioGroupCaptionProps = PropsWithChildren<
   } & SxProp
 >
 const CheckboxOrRadioGroupCaption = (props: CheckboxOrRadioGroupCaptionProps) => {
-  return <Box {...props} as={PrimerRadioGroup.Caption} />
+  return <Box as={PrimerRadioGroup.Caption} {...props} />
 }
 
 type CheckboxOrRadioGroupValidationProps = PropsWithChildren<
@@ -36,7 +36,7 @@ type CheckboxOrRadioGroupValidationProps = PropsWithChildren<
   } & SxProp
 >
 const CheckboxOrRadioGroupValidation = (props: CheckboxOrRadioGroupValidationProps) => {
-  return <Box {...props} as={PrimerRadioGroup.Validation} />
+  return <Box as={PrimerRadioGroup.Validation} {...props} />
 }
 
 export const RadioGroup = Object.assign(RadioGroupImpl, {

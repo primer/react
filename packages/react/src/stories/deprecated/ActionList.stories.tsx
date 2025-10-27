@@ -36,10 +36,10 @@ export default meta
 
 const ErsatzOverlay = ({maxWidth, children, ...props}: {maxWidth?: string; children: React.ReactNode}) => (
   <div
-    {...props}
     className={classes.ErsatzOverlay}
     style={maxWidth ? ({'--ersatz-overlay-max-width': maxWidth} as React.CSSProperties) : undefined}
     data-max-width={maxWidth ? '' : undefined}
+    {...props}
   >
     {children}
   </div>
@@ -367,21 +367,21 @@ export function LinkItemStory(): JSX.Element {
           items={[
             {
               text: 'A. Vanilla action',
-              renderItem: props => <ActionList.Item {...props} onAction={() => alert('hi?')} />,
+              renderItem: props => <ActionList.Item onAction={() => alert('hi?')} {...props} />,
             },
             {
               text: 'B. Vanilla link',
-              renderItem: props => <ActionList.Item {...props} as="a" href="/about" />,
+              renderItem: props => <ActionList.Item as="a" href="/about" {...props} />,
             },
             {
               text: 'C. React Router link',
-              renderItem: props => <ActionList.Item {...props} as={ReactRouterLikeLink} to="/about" />,
+              renderItem: props => <ActionList.Item as={ReactRouterLikeLink} to="/about" {...props} />,
             },
             {
               text: 'D. NextJS style',
               renderItem: props => (
                 <NextJSLikeLink href="/about">
-                  <ActionList.Item {...props} as="a" />
+                  <ActionList.Item as="a" {...props} />
                 </NextJSLikeLink>
               ),
             },

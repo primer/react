@@ -27,7 +27,7 @@ const HelperGlobalStyling = () => (
 )
 
 const MarginButton = ({children, ...props}: React.ComponentProps<typeof Button>) => (
-  <Button {...props} className={classes.MarginButton}>
+  <Button className={classes.MarginButton} {...props}>
     {children}
   </Button>
 )

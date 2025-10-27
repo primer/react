@@ -27,7 +27,7 @@ const ButtonGroup = React.forwardRef(function ButtonGroup(
   })
 
   return (
-    <BaseComponent {...rest} ref={buttonRef} className={clsx(className, classes.ButtonGroup)} role={role}>
+    <BaseComponent ref={buttonRef} className={clsx(className, classes.ButtonGroup)} role={role} {...rest}>
       {buttons}
     </BaseComponent>
   )

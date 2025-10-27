@@ -3,7 +3,7 @@ import {clsx} from 'clsx'
 import classes from './Pagehead.module.css'
 
 const Pagehead = ({as: BaseComponent = 'div', className, ...rest}: PageheadProps) => {
-  return <BaseComponent {...rest} className={clsx(classes.Pagehead, className)} />
+  return <BaseComponent className={clsx(classes.Pagehead, className)} {...rest} />
 }
 
 /**

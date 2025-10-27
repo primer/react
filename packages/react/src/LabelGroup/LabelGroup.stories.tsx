@@ -11,7 +11,7 @@ const meta: Meta = {
 }
 
 const ResizableContainer = ({children, ...props}: {children: React.ReactNode}) => (
-  <div {...props} className={classes.ResizableContainer}>
+  <div className={classes.ResizableContainer} {...props}>
     {children}
   </div>
 )

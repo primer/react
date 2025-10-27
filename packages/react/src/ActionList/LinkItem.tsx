@@ -43,7 +43,7 @@ export const LinkItem = React.forwardRef(
           return inactiveText ? (
             <span {...rest}>{children}</span>
           ) : (
-            <Link {...rest} {...props} as={Component} onClick={clickHandler} ref={forwardedRef}>
+            <Link as={Component} {...rest} {...props} onClick={clickHandler} ref={forwardedRef}>
               {children}
             </Link>
           )

@@ -13,7 +13,6 @@ import type {SxProp} from '../sx'
 type HeaderProps = PrimerHeaderProps & SxProp
 
 const StyledHeader = forwardRef(function Header(props, ref) {
-  // eslint-disable-next-line primer-react/spread-props-first -- `as` must come before spread for styled-components type inference
   return <Box as={PrimerHeader} ref={ref} {...props} />
 }) as ForwardRefComponent<'header', HeaderProps>
 
@@ -24,12 +23,10 @@ const HeaderImpl = forwardRef(({as, ...props}: HeaderProps, ref) => (
 type HeaderItemProps = PrimerHeaderItemProps & SxProp
 
 const HeaderItem = forwardRef<HTMLDivElement, HeaderItemProps>(function HeaderItem(props, ref) {
-  // eslint-disable-next-line primer-react/spread-props-first -- `as` must come before spread for styled-components type inference
   return <Box as={PrimerHeader.Item} ref={ref} {...props} />
 })
 
 const StyledHeaderLink = forwardRef<HTMLAnchorElement, PrimerHeaderLinkProps>(function HeaderLink(props, ref) {
-  // eslint-disable-next-line primer-react/spread-props-first -- `as` must come before spread for styled-components type inference
   return <Box as={PrimerHeader.Link} ref={ref} {...props} />
 })
 

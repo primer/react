@@ -172,11 +172,11 @@ const UnderlinePanels: FCWithSlotMarker<UnderlinePanelsProps> = ({
   return (
     <TabContainerComponent>
       <UnderlineWrapper
-        {...props}
         ref={wrapperRef}
         slot="tablist-wrapper"
         data-icons-visible={iconsVisible}
         className={clsx(className, classes.StyledUnderlineWrapper)}
+        {...props}
       >
         <UnderlineItemList ref={listRef} aria-label={ariaLabel} aria-labelledby={ariaLabelledBy} role="tablist">
           {tabs}
@@ -207,7 +207,6 @@ const Tab: FCWithSlotMarker<TabProps> = ({'aria-selected': ariaSelected, onSelec
 
   return (
     <UnderlineItem
-      {...props}
       as="button"
       role="tab"
       tabIndex={ariaSelected ? 0 : -1}
@@ -215,6 +214,7 @@ const Tab: FCWithSlotMarker<TabProps> = ({'aria-selected': ariaSelected, onSelec
       type="button"
       onClick={clickHandler}
       onKeyDown={keyDownHandler}
+      {...props}
     />
   )
 }
@@ -223,7 +223,7 @@ Tab.displayName = 'UnderlinePanels.Tab'
 
 const Panel: FCWithSlotMarker<PanelProps> = ({children, ...rest}) => {
   return (
-    <div {...rest} role="tabpanel">
+    <div role="tabpanel" {...rest}>
       {children}
     </div>
   )

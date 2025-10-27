@@ -42,12 +42,12 @@ export const SegmentedControlIconButton: FCWithSlotMarker<React.PropsWithChildre
           direction={tooltipDirection}
         >
           <button
-            {...rest}
             type="button"
-            // If description is provided, we will use the tooltip to describe the button, so we need to keep the aria-label to label the button.
             aria-current={selected}
+            // If description is provided, we will use the tooltip to describe the button, so we need to keep the aria-label to label the button.
             aria-label={description ? ariaLabel : undefined}
             className={clsx(classes.Button, classes.IconButton)}
+            {...rest}
           >
             <span className={clsx(classes.Content, 'segmentedControl-content')}>
               {isElement(Icon) ? Icon : <Icon />}
@@ -61,11 +61,11 @@ export const SegmentedControlIconButton: FCWithSlotMarker<React.PropsWithChildre
     return (
       <li className={clsx(classes.Item, className)} data-selected={selected || undefined}>
         <button
-          {...rest}
           type="button"
           aria-label={ariaLabel}
           aria-current={selected}
           className={clsx(classes.Button, classes.IconButton)}
+          {...rest}
         >
           <span className={clsx(classes.Content, 'segmentedControl-content')}>{isElement(Icon) ? Icon : <Icon />}</span>
         </button>

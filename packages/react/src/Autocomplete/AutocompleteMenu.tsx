@@ -371,9 +371,9 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
                 } = item
                 return (
                   <ActionList.Item
-                    {...itemProps}
                     key={(key ?? id) as string | number}
                     onSelect={() => onAction(item)}
+                    {...itemProps}
                     id={id}
                     data-id={id}
                     role={role as AriaRole}

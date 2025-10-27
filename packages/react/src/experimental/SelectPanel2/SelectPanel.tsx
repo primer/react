@@ -253,7 +253,6 @@ const Panel: React.FC<SelectPanelProps> = ({
       {Anchor}
 
       <BaseOverlay
-        {...props}
         as="dialog"
         ref={dialogRef}
         aria-labelledby={`${panelId}--title`}
@@ -272,6 +271,7 @@ const Panel: React.FC<SelectPanelProps> = ({
           } as React.CSSProperties
         }
         className={clsx(classes.Overlay, className)}
+        {...props}
         onClick={(event: React.MouseEvent<HTMLElement>) => {
           if (event.target === event.currentTarget) onClickOutside()
         }}
@@ -332,13 +332,13 @@ const SelectPanelButton = React.forwardRef<HTMLButtonElement, ButtonProps>((prop
   if (labelText) {
     return (
       <Button
-        {...inputProps}
         ref={anchorRef}
         aria-label={`${(anchorRef as MutableRefObject<HTMLButtonElement>).current.textContent}, ${labelText}`}
+        {...inputProps}
       />
     )
   } else {
-    return <Button {...props} ref={anchorRef} />
+    return <Button ref={anchorRef} {...props} />
   }
 }) as WithSlotMarker<React.ForwardRefExoticComponent<ButtonProps & React.RefAttributes<HTMLButtonElement>>>
 
@@ -357,7 +357,7 @@ const SelectPanelHeader: FCWithSlotMarker<React.ComponentPropsWithoutRef<'div'> 
   const {title, description, panelId, onCancel, onClearSelection} = React.useContext(SelectPanelContext)
 
   return (
-    <div {...props} className={clsx(classes.Header, className)}>
+    <div className={clsx(classes.Header, className)} {...props}>
       <div
         className={classes.HeaderContent}
         data-description={description ? true : undefined}
@@ -444,7 +444,6 @@ const SelectPanelSearchInput: FCWithSlotMarker<TextInputProps> = ({
 
   return (
     <TextInput
-      {...props}
       ref={inputRef}
       block
       leadingVisual={SearchIcon}
@@ -467,6 +466,7 @@ const SelectPanelSearchInput: FCWithSlotMarker<TextInputProps> = ({
       className={clsx(classes.TextInput, className)}
       onChange={internalOnChange}
       onKeyDown={internalKeyDown}
+      {...props}
     />
   )
 }
@@ -512,7 +512,7 @@ SelectPanelFooter.__SLOT__ = Symbol('SelectPanel.Footer')
 
 const SecondaryButton: React.FC<ButtonProps> = props => {
   const size = useResponsiveValue(responsiveButtonSizes, 'small')
-  return <Button {...props} type="button" size={size} block />
+  return <Button type="button" size={size} block {...props} />
 }
 
 const SecondaryLink: React.FC<LinkProps> = ({className, ...props}) => {
@@ -520,7 +520,7 @@ const SecondaryLink: React.FC<LinkProps> = ({className, ...props}) => {
 
   return (
     // @ts-ignore TODO: is as prop is not recognised by button?
-    <Button {...props} as={Link} size={size} variant="invisible" block className={clsx(classes.SmallText, className)}>
+    <Button as={Link} size={size} variant="invisible" block {...props} className={clsx(classes.SmallText, className)}>
       {props.children}
     </Button>
   )
@@ -538,7 +538,7 @@ const SecondaryCheckbox: React.FC<CheckboxProps> = ({id, children, className, ..
 
   return (
     <div className={classes.SecondaryCheckbox}>
-      <Checkbox {...props} id={checkboxId} className={clsx(classes.Checkbox, className)} />
+      <Checkbox id={checkboxId} className={clsx(classes.Checkbox, className)} {...props} />
       <InputLabel htmlFor={checkboxId} className={classes.SmallText}>
         {children}
       </InputLabel>

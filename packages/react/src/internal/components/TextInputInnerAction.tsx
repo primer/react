@@ -79,18 +79,18 @@ const TextInputAction = forwardRef<HTMLButtonElement, TextInputActionProps>(
         {icon && !children && ariaLabel ? (
           <IconButton
             {...accessibleLabel}
-            {...styleProps}
-            {...rest}
             tooltipDirection={tooltipDirection ?? 's'}
             variant={variant}
             type="button"
             icon={icon}
             size="small"
+            {...styleProps}
+            {...rest}
             ref={forwardedRef}
           />
         ) : (
           <ConditionalTooltip aria-label={ariaLabel}>
-            <Button {...styleProps} {...rest} variant={variant} type="button" ref={forwardedRef}>
+            <Button variant={variant} type="button" {...styleProps} {...rest} ref={forwardedRef}>
               {children}
             </Button>
           </ConditionalTooltip>

@@ -334,7 +334,7 @@ export const OverlayWrapping = () => {
         <AnchoredOverlay
           open
           renderAnchor={props => (
-            <button {...props} type="button">
+            <button type="button" {...props}>
               Overlay
             </button>
           )}
@@ -350,7 +350,7 @@ export const OverlayWrapping = () => {
           open
           width="small"
           renderAnchor={props => (
-            <button {...props} type="button">
+            <button type="button" {...props}>
               Overlay
             </button>
           )}
