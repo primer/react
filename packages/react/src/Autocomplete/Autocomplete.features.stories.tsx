@@ -3,7 +3,7 @@ import React, {useCallback, useEffect, useRef, useState} from 'react'
 import type {Meta} from '@storybook/react-vite'
 
 import {BaseStyles, Stack, registerPortalRoot} from '..'
-import {Dialog} from '../DialogV1'
+import {Dialog} from '../deprecated/DialogV1'
 import TextInputTokens from '../TextInputWithTokens'
 import Autocomplete from './Autocomplete'
 import {AnchoredOverlay} from '../AnchoredOverlay'
