@@ -47,6 +47,10 @@ export type ButtonBaseProps = {
    * Whether the button label should wrap to multiple lines if it is longer than the button width
    */
   labelWrap?: boolean
+  /**
+   * When true, reduces the horizontal padding of the button for a more compact appearance.
+   */
+  condensed?: boolean
 } & React.ButtonHTMLAttributes<HTMLButtonElement>
 
 export type ButtonProps = {

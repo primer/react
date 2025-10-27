@@ -226,3 +226,27 @@ export const ExpandedButton = () => (
     </Button>
   </Stack>
 )
+
+export const Condensed = () => (
+  <Stack direction="horizontal" gap="normal" wrap="wrap">
+    <Button>Default</Button>
+    <Button condensed>Default (condensed)</Button>
+    <Button size="small">Small</Button>
+    <Button size="small" condensed>
+      Small (condensed)
+    </Button>
+    <Button size="large">Large</Button>
+    <Button size="large" condensed>
+      Large (condensed)
+    </Button>
+    <Button variant="primary" condensed>
+      Primary (condensed)
+    </Button>
+    <Button variant="danger" condensed>
+      Danger (condensed)
+    </Button>
+    <Button variant="invisible" condensed>
+      Invisible (condensed)
+    </Button>
+  </Stack>
+)

@@ -170,6 +170,17 @@
     }
   }
 
+  /* Condensed (reduces horizontal padding) */
+  &:where([data-condensed='true']) {
+    /* stylelint-disable-next-line primer/spacing */
+    padding-inline: var(--control-medium-paddingInline-condensed);
+
+    &:where([data-size='large']) {
+      /* stylelint-disable-next-line primer/spacing */
+      padding-inline: var(--control-large-paddingInline-normal);
+    }
+  }
+
   /* Full width */
 
   &:where([data-block='block']) {

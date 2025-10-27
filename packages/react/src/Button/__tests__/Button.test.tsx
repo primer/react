@@ -264,6 +264,11 @@ describe('Button', () => {
     const tooltipEl = getByText('Heart')
     expect(triggerEL).toHaveAttribute('aria-labelledby', tooltipEl.id)
   })
+  it('applies condensed data attribute', () => {
+    const {getByRole} = render(<Button condensed>Condensed</Button>)
+    const btn = getByRole('button')
+    expect(btn).toHaveAttribute('data-condensed', 'true')
+  })
   it('should render description type tooltip on an icon button when unsafeDisableTooltip prop is passed as false', () => {
     const {getByRole, getByText} = render(
       <IconButton icon={HeartIcon} aria-label="Heart" description="Love is all around" />,

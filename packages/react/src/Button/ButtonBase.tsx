@@ -46,6 +46,7 @@ const ButtonBase = forwardRef(({children, as: Component = 'button', ...props}, f
     onClick,
     labelWrap,
     className,
+    condensed,
     ...rest
   } = props
 
@@ -100,6 +101,7 @@ const ButtonBase = forwardRef(({children, as: Component = 'button', ...props}, f
         data-variant={variant}
         data-label-wrap={labelWrap}
         data-has-count={count !== undefined ? true : undefined}
+        data-condensed={condensed ? 'true' : undefined}
         aria-describedby={[loadingAnnouncementID, ariaDescribedBy]
           .filter(descriptionID => Boolean(descriptionID))
           .join(' ')}
