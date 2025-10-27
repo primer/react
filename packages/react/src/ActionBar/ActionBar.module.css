@@ -34,6 +34,19 @@
   }
 }
 
+.Menu {
+  .Divider {
+    &::before {
+      border: 0;
+      height: var(--borderWidth-thin, .0625rem);
+      margin-block-end: var(--base-size-8, .5rem);
+      margin-block-start: calc(var(--base-size-8, .5rem) - var(--borderWidth-thin, .0625rem));
+      padding: 0;
+      width: unset;
+    }
+  }
+}
+
 .Group {
   display: flex;
   gap: inherit;

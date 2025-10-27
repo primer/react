@@ -18,6 +18,7 @@ import {
   ReplyIcon,
   ThreeBarsIcon,
   TrashIcon,
+  KebabHorizontalIcon,
 } from '@primer/octicons-react'
 import {Button, Avatar, ActionMenu, IconButton, ActionList, Textarea} from '..'
 import {Dialog} from '../DialogV1'
@@ -50,31 +51,6 @@ export const WithGroups = () => (
     </ActionBar.Group>
     <ActionBar.IconButton icon={TasklistIcon} aria-label="Task List"></ActionBar.IconButton>
     <ActionBar.IconButton icon={ReplyIcon} aria-label="Saved Replies"></ActionBar.IconButton>
-  </ActionBar>
-)
-
-export const WithMenus = () => (
-  <ActionBar aria-label="Toolbar">
-    <ActionBar.IconButton icon={ItalicIcon} aria-label="Italic"></ActionBar.IconButton>
-    <ActionBar.IconButton icon={CodeIcon} aria-label="Code"></ActionBar.IconButton>
-    <ActionBar.IconButton icon={LinkIcon} aria-label="Link"></ActionBar.IconButton>
-    <ActionBar.Divider />
-    <ActionBar.IconButton icon={FileAddedIcon} aria-label="File Added"></ActionBar.IconButton>
-    <ActionBar.IconButton icon={SearchIcon} aria-label="Search"></ActionBar.IconButton>
-    <ActionBar.Menu aria-label="More Actions" icon={ThreeBarsIcon}>
-      <ActionList.Item>
-        <ActionList.LeadingVisual>
-          <PencilIcon />
-        </ActionList.LeadingVisual>
-        Edit
-      </ActionList.Item>
-      <ActionList.Item>
-        <ActionList.LeadingVisual>
-          <TrashIcon />
-        </ActionList.LeadingVisual>
-        Delete
-      </ActionList.Item>
-    </ActionBar.Menu>
   </ActionBar>
 )
 
@@ -313,3 +289,41 @@ export const MultipleActionBars = () => {
     </div>
   )
 }
+
+const ActionMenuExample = () => {
+  return (
+    <ActionBar.Menu aria-label="Open menu" icon={KebabHorizontalIcon}>
+      <ActionBar.MenuItem onClick={() => alert('Workflows clicked')} label="Download" />
+      <ActionBar.Divider />
+      <ActionBar.MenuItem onClick={() => alert('Workflows clicked')} label="Jump to line" />
+      <ActionBar.MenuItem onClick={() => alert('Workflows clicked')} label="Find in file" />
+      <ActionBar.Divider />
+      <ActionBar.MenuItem onClick={() => alert('Workflows clicked')} label="Copy path" />
+      <ActionBar.MenuItem onClick={() => alert('Workflows clicked')} label="Copy permalink" />
+      <ActionBar.Divider />
+      <ActionBar.MenuItem onClick={() => alert('Delete file')} variant="danger" label="Delete file" icon={TrashIcon} />
+    </ActionBar.Menu>
+  )
+}
+
+export const WithMenus = () => (
+  <ActionBar aria-label="Toolbar">
+    <ActionBar.IconButton icon={ItalicIcon} aria-label="Italic"></ActionBar.IconButton>
+    <ActionBar.IconButton icon={CodeIcon} aria-label="Code"></ActionBar.IconButton>
+    <ActionBar.IconButton icon={LinkIcon} aria-label="Link"></ActionBar.IconButton>
+    <ActionBar.Divider />
+    <ActionBar.IconButton icon={FileAddedIcon} aria-label="File Added"></ActionBar.IconButton>
+    <ActionBar.IconButton icon={SearchIcon} aria-label="Search"></ActionBar.IconButton>
+    <ActionBar.Menu aria-label="More Actions" icon={ThreeBarsIcon}>
+      <ActionBar.MenuItem label="Edit" icon={PencilIcon} />
+      <ActionBar.MenuItem label="Delete" icon={TrashIcon} variant="danger" />
+    </ActionBar.Menu>
+    <ActionBar.IconButton disabled icon={FileAddedIcon} aria-label="File Added"></ActionBar.IconButton>
+    <ActionBar.IconButton disabled icon={SearchIcon} aria-label="Search"></ActionBar.IconButton>
+    <ActionBar.IconButton disabled icon={QuoteIcon} aria-label="Insert Quote"></ActionBar.IconButton>
+    <ActionBar.IconButton icon={ListUnorderedIcon} aria-label="Unordered List"></ActionBar.IconButton>
+    <ActionBar.IconButton icon={ListOrderedIcon} aria-label="Ordered List"></ActionBar.IconButton>
+    <ActionMenuExample />
+    <ActionBar.IconButton icon={TasklistIcon} aria-label="Task List"></ActionBar.IconButton>
+  </ActionBar>
+)
