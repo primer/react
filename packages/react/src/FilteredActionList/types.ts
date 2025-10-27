@@ -8,7 +8,13 @@ export type RenderItemFn = (props: FilteredActionListItemProps) => React.ReactEl
 
 export type ItemInput =
   | Merge<React.ComponentPropsWithoutRef<'div'>, FilteredActionListItemProps>
-  | ((Partial<FilteredActionListItemProps> & {renderItem: RenderItemFn}) & {key?: Key})
+  | ((Partial<FilteredActionListItemProps> & {
+      // un-partial these fields because they are required
+      id: FilteredActionListItemProps['id']
+      renderItem: RenderItemFn
+    }) & {
+      key?: Key
+    })
 
 export interface FilteredActionListItemProps {
   /**
@@ -85,7 +91,7 @@ export interface FilteredActionListItemProps {
   /**
    * An id associated with this item.  Should be unique between items
    */
-  id?: number | string
+  id: number | string
 
   /**
    * Node to be included inside the item before the text.
@@ -124,7 +130,14 @@ export interface GroupedListProps extends ListPropsBase {
    * A collection of `Item` props, plus associated group identifiers
    * and `Item`-level custom `Item` renderers.
    */
-  items: ((FilteredActionListItemProps | (Partial<FilteredActionListItemProps> & {renderItem: RenderItemFn})) & {
+  items: ((
+    | FilteredActionListItemProps
+    | (Partial<FilteredActionListItemProps> & {
+        // un-partial these fields because they are required
+        id: FilteredActionListItemProps['id']
+        renderItem: RenderItemFn
+      })
+  ) & {
     groupId: string
   })[]
 }
