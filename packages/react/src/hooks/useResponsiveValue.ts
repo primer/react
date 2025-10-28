@@ -1,4 +1,6 @@
 import {useMediaUnsafeSSR} from './useMediaUnsafeSSR'
+import {canUseDOM} from '../utils/environment'
+import {warning} from '../utils/warning'
 
 // This file contains utilities for working with responsive values.
 
@@ -54,6 +56,11 @@ export function useResponsiveValue<T, F>(value: T, fallback: F): FlattenResponsi
   const isNarrowViewport = useMediaUnsafeSSR(viewportRanges.narrow, false)
   const isRegularViewport = useMediaUnsafeSSR(viewportRanges.regular, false)
   const isWideViewport = useMediaUnsafeSSR(viewportRanges.wide, false)
+
+  warning(
+    !canUseDOM,
+    '`useResponsiveValue` is not fully SSR compatible as it relies on `useMediaUnsafeSSR` without a `defaultState`. Using `getResponsiveAttributes` is preferred to avoid hydration mismatches.',
+  )
 
   if (isResponsiveValue(value)) {
     // If we've reached this line, we know that value is a responsive value
