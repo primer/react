@@ -26,15 +26,9 @@
 
 - [#7015](https://github.com/primer/react/pull/7015) [`0889246`](https://github.com/primer/react/commit/0889246fda736fe7dd967a295fe8467109d06bc9) Thanks [@francinelucca](https://github.com/francinelucca)! - @primer/react: chore: remove Box, BoxProps export
 
-- [#7027](https://github.com/primer/react/pull/7027) [`415fafc`](https://github.com/primer/react/commit/415fafc23bb2060cc856cda8de432a4447a47bfd) Thanks [@francinelucca](https://github.com/francinelucca)! - chore: remove theme get from @primer/react
-
 - [#6945](https://github.com/primer/react/pull/6945) [`1c84c0f`](https://github.com/primer/react/commit/1c84c0ff2b261a02d81c11fb16c7d3fb05294506) Thanks [@francinelucca](https://github.com/francinelucca)! - chore(Octicon): remove sx
 
-- [#7027](https://github.com/primer/react/pull/7027) [`415fafc`](https://github.com/primer/react/commit/415fafc23bb2060cc856cda8de432a4447a47bfd) Thanks [@francinelucca](https://github.com/francinelucca)! - Remove styled-components from dependencies
-
 - [#6904](https://github.com/primer/react/pull/6904) [`62df166`](https://github.com/primer/react/commit/62df166574d6248b3405c224a2f63f1e53a75ece) Thanks [@pksjce](https://github.com/pksjce)! - Remove sx property from Button
-
-- [#7027](https://github.com/primer/react/pull/7027) [`415fafc`](https://github.com/primer/react/commit/415fafc23bb2060cc856cda8de432a4447a47bfd) Thanks [@francinelucca](https://github.com/francinelucca)! - ThemeProvider: Remove styled-components ThemeProvider
 
 -   [#6874](https://github.com/primer/react/pull/6874) [`15824db`](https://github.com/primer/react/commit/15824db141ef32b3e090bcf1880f03bd9684392a) Thanks [@pksjce](https://github.com/pksjce)! - Remove sx from UnderlinePanels
 
