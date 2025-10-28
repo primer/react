@@ -1,7 +1,8 @@
 import type React from 'react'
 import {render, waitFor} from '@testing-library/react'
 import {describe, it, expect, vi} from 'vitest'
-import {LabelGroup, Label, BaseStyles} from '..'
+import BaseStyles from '../BaseStyles'
+import {LabelGroup, Label} from '..'
 import userEvent from '@testing-library/user-event'
 
 const ThemeAndStyleContainer: React.FC<React.PropsWithChildren> = ({children}) => <BaseStyles>{children}</BaseStyles>

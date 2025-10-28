@@ -1,6 +1,6 @@
 {
   "name": "@primer/styled-react",
-  "version": "1.0.0-rc.10",
+  "version": "0.2.0",
   "type": "module",
   "exports": {
     ".": {
@@ -27,13 +27,23 @@
     "lint:npm": "publint --types",
     "type-check": "tsc --noEmit"
   },
+  "dependencies": {
+    "@styled-system/css": "^5.1.5",
+    "@styled-system/props": "^5.1.5",
+    "@styled-system/theme-get": "^5.1.2",
+    "@types/styled-system": "^5.1.23",
+    "@types/styled-system__css": "^5.0.16",
+    "@types/styled-system__theme-get": "^5.0.1",
+    "styled-system": "^5.1.5"
+  },
   "devDependencies": {
     "@babel/preset-react": "^7.27.1",
     "@babel/preset-typescript": "^7.27.1",
-    "@primer/react": "^38.0.0-rc.9",
+    "@primer/react": "^38.0.0",
     "@rollup/plugin-babel": "^6.0.4",
     "@types/react": "18.3.11",
     "@types/react-dom": "18.3.1",
+    "@types/styled-components": "^5.1.26",
     "@vitejs/plugin-react": "^4.3.3",
     "babel-plugin-styled-components": "2.1.4",
     "publint": "^0.3.12",
@@ -46,7 +56,7 @@
     "typescript": "^5.9.2"
   },
   "peerDependencies": {
-    "@primer/react": "38.0.0-rc.9",
+    "@primer/react": "38.0.0",
     "@types/react": "18.x || 19.x",
     "@types/react-dom": "18.x || 19.x",
     "@types/react-is": "18.x || 19.x",
