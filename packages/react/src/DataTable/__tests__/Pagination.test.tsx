@@ -1,4 +1,4 @@
-import {page} from '@vitest/browser/context'
+import {page} from 'vitest/browser'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 import {Pagination} from '../Pagination'
 import {render, screen} from '@testing-library/react'
