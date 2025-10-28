@@ -23,7 +23,7 @@ jobs:
         id: pagerduty
         with:
           schedule-id: 'P3IIVC4'
-          token: ${{ secrets.PAGERDUTY_API_KEY_SID }}
+          token: ${{ secrets.PAGERDUTY_TOKEN_SHARED }}
       - run: echo ${{ steps.pagerduty.outputs.user }} is release conductor
       - name: Add user as assignee and reviewer
         uses: actions/github-script@5c56fde4671bc2d3592fb0f2c5b5bab9ddae03b1
