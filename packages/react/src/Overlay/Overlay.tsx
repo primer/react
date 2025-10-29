@@ -113,10 +113,10 @@ export const BaseOverlay = React.forwardRef(
         ref={forwardedRef}
         style={
           {
-            left,
-            right,
-            top,
-            bottom,
+            '--top': top,
+            '--left': left,
+            '--right': right,
+            '--bottom': bottom,
             position,
             ...styleFromProps,
           } as React.CSSProperties

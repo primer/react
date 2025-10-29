@@ -43,11 +43,10 @@ exports[`AnchoredOverlay > should render consistently when open 1`] = `
           class="prc-Overlay-Overlay-ViJgm"
           data-focus-trap="active"
           data-height-auto=""
-          data-variant="anchored"
           data-visibility-visible=""
           data-width-auto=""
           role="none"
-          style="left: 0px; top: 36px;"
+          style="--top: 36; --left: 0;"
         >
           <span
             aria-hidden="true"
