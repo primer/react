@@ -19,13 +19,13 @@
   background-color: var(--overlay-bgColor);
   border-radius: var(--borderRadius-large);
   box-shadow: var(--shadow-floating-small);
-  /* stylelint-disable-next-line primer/spacing, csstools/value-no-unknown-custom-properties */
+  /* stylelint-disable-next-line primer/spacing */
   top: var(--top);
-  /* stylelint-disable-next-line primer/spacing, csstools/value-no-unknown-custom-properties */
+  /* stylelint-disable-next-line primer/spacing */
   left: var(--left);
-  /* stylelint-disable-next-line primer/spacing, csstools/value-no-unknown-custom-properties */
+  /* stylelint-disable-next-line primer/spacing */
   right: var(--right);
-  /* stylelint-disable-next-line primer/spacing, csstools/value-no-unknown-custom-properties */
+  /* stylelint-disable-next-line primer/spacing */
   bottom: var(--bottom);
 
   &:focus {
