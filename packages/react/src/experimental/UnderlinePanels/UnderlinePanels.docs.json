@@ -58,11 +58,6 @@
       "type": "boolean",
       "defaultValue": "false",
       "description": "Loading state for all counters. It displays loading animation for individual counters until all are resolved. It is needed to prevent multiple layout shift."
-    },
-    {
-      "name": "sx",
-      "type": "SystemStyleObject",
-      "deprecated": true
     }
   ],
   "subcomponents": [
@@ -92,23 +87,12 @@
           "type": "Component",
           "defaultValue": "",
           "description": "Icon rendered before the tab text label"
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject",
-          "deprecated": true
         }
       ]
     },
     {
       "name": "UnderlinePanels.Panel",
-      "props": [
-        {
-          "name": "sx",
-          "type": "SystemStyleObject",
-          "deprecated": true
-        }
-      ],
+      "props": [],
       "passthrough": {
         "element": "div",
         "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#Attributes"
