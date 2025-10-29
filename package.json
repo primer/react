@@ -90,7 +90,7 @@
     "vitest": "^4.0.3"
   },
   "optionalDependencies": {
-    "@rollup/rollup-linux-x64-gnu": "^4.50.1"
+    "@rollup/rollup-linux-x64-gnu": "^4.52.5"
   },
   "overrides": {
     "nwsapi": "2.2.2"
