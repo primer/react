@@ -46,7 +46,7 @@ exports[`AnchoredOverlay > should render consistently when open 1`] = `
           data-visibility-visible=""
           data-width-auto=""
           role="none"
-          style="--top: 36; --left: 0;"
+          style="--top: 36px; --left: 0px;"
         >
           <span
             aria-hidden="true"
