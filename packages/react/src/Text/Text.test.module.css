@@ -1,0 +1,66 @@
+/* CSS classes for Text component tests */
+
+.BoldText {
+  font-weight: var(--base-text-weight-semibold);
+}
+
+.NormalWeight {
+  font-weight: var(--base-text-weight-normal);
+}
+
+.ItalicText {
+  font-style: italic;
+}
+
+.NormalStyle {
+  font-style: normal;
+}
+
+.MonoFont {
+  font-family: var(--fontStack-monospace);
+}
+
+.LargeText {
+  font-size: var(--text-title-size-large);
+}
+
+.ExtraLargeText {
+  /* stylelint-disable-next-line primer/typography */
+  font-size: var(--base-size-96);
+}
+
+.SmallFont {
+  font-size: var(--text-body-size-small);
+}
+
+.MediumFont {
+  font-size: var(--text-body-size-large);
+}
+
+.CondensedLine {
+  line-height: var(--text-body-lineHeight-medium);
+}
+
+.DefaultLine {
+  line-height: var(--text-body-lineHeight-large);
+}
+
+.ResponsiveFont {
+  font-size: var(--text-body-size-medium);
+}
+
+@media (min-width: 768px) {
+  .ResponsiveFont {
+    font-size: var(--text-body-size-large);
+  }
+}
+
+.ResponsiveLine {
+  line-height: var(--text-body-lineHeight-medium);
+}
+
+@media (min-width: 768px) {
+  .ResponsiveLine {
+    line-height: var(--text-body-lineHeight-large);
+  }
+}

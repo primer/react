@@ -3,6 +3,6 @@
 exports[`Breadcrumbs.Item > respects the "selected" prop 1`] = `
 <a
   aria-current="page"
-  class="prc-Breadcrumbs-Item-V05wG selected prc-Breadcrumbs-ItemSelected-gKthY"
+  class="prc-Breadcrumbs-Item-V05wG selected"
 />
 `;

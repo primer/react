@@ -582,13 +582,8 @@ export const AsyncFetch: StoryObj<SelectPanelProps> = {
       <SelectPanel
         title="Select labels"
         subtitle="Use labels to organize issues and pull requests"
-        renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
-          <Button
-            trailingAction={TriangleDownIcon}
-            aria-labelledby={` ${ariaLabelledBy}`}
-            {...anchorProps}
-            aria-haspopup="dialog"
-          >
+        renderAnchor={({children, ...anchorProps}) => (
+          <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
             {children ?? 'Select Labels'}
           </Button>
         )}
@@ -650,14 +645,14 @@ export const CustomisedNoInitialItems = () => {
 
   return (
     <>
-      <Text id="toggle" fontWeight={'bold'} fontSize={2}>
+      <Text id="toggle" className={classes.TextLargeBold}>
         Enable Error State :{isError ? 'On' : 'Off'}
       </Text>
       <ToggleSwitch onClick={onClick} checked={isError} aria-labelledby="toggle" />
       <SelectPanel
         title="Set projects"
-        renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
-          <Button trailingAction={TriangleDownIcon} aria-labelledby={` ${ariaLabelledBy}`} {...anchorProps}>
+        renderAnchor={({children, ...anchorProps}) => (
+          <Button trailingAction={TriangleDownIcon} {...anchorProps}>
             {children ?? 'Select Labels'}
           </Button>
         )}
@@ -709,13 +704,8 @@ export const CustomisedNoResults: StoryObj<typeof SelectPanel> = {
       <SelectPanel
         title="Select labels"
         subtitle="Use labels to organize issues and pull requests"
-        renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
-          <Button
-            trailingAction={TriangleDownIcon}
-            aria-labelledby={` ${ariaLabelledBy}`}
-            {...anchorProps}
-            aria-haspopup="dialog"
-          >
+        renderAnchor={({children, ...anchorProps}) => (
+          <Button trailingAction={TriangleDownIcon} {...anchorProps} aria-haspopup="dialog">
             {children ?? 'Select Labels'}
           </Button>
         )}

@@ -20,7 +20,6 @@
   background-color: var(--overlay-bgColor);
   border: var(--borderWidth-thin) solid var(--borderColor-default);
   border-radius: var(--borderRadius-medium);
-  overflow: hidden;
 
   /* Carets */
   &::before,
@@ -252,21 +251,5 @@
 
   &:where([data-height='auto']) {
     height: auto;
-  }
-
-  &:where([data-overflow='auto']) {
-    overflow: auto;
-  }
-
-  &:where([data-overflow='hidden']) {
-    overflow: hidden;
-  }
-
-  &:where([data-overflow='scroll']) {
-    overflow: scroll;
-  }
-
-  &:where([data-overflow='visible']) {
-    overflow: visible;
   }
 }

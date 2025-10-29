@@ -1,7 +1,7 @@
 import {describe, expect, it} from 'vitest'
 import {render, screen} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import {Details, useDetails, Box, Button} from '../..'
+import {Details, useDetails, Button} from '../..'
 import type {ButtonProps} from '../../Button'
 
 describe('Details', () => {
@@ -68,9 +68,9 @@ describe('Details', () => {
       return (
         <Details {...getDetailsProps()}>
           <summary data-testid="summary">{open ? 'Open' : 'Closed'}</summary>
-          <Box>
+          <div>
             <Button variant="primary">test</Button>
-          </Box>
+          </div>
         </Details>
       )
     }
@@ -80,41 +80,6 @@ describe('Details', () => {
     await user.click(getByRole('button', {name: 'test'}))
 
     expect(getByTestId('summary')).toHaveTextContent('Open')
-  })
-
-  it('Adds default summary if no summary supplied', async () => {
-    const {getByText} = render(<Details data-testid="details">content</Details>)
-
-    expect(getByText('See Details')).toBeInTheDocument()
-    expect(getByText('See Details').tagName).toBe('SUMMARY')
-  })
-
-  it('Does not add default summary if summary supplied', async () => {
-    const {findByTestId, findByText} = render(
-      <Details data-testid="details">
-        <Details.Summary data-testid="summary">summary</Details.Summary>
-        content
-      </Details>,
-    )
-
-    await expect(findByText('See Details')).rejects.toThrow()
-    expect(await findByTestId('summary')).toBeInTheDocument()
-    expect((await findByTestId('summary')).tagName).toBe('SUMMARY')
-  })
-
-  it('Does not add default summary if supplied as different element', async () => {
-    const {findByTestId, findByText} = render(
-      <Details data-testid="details">
-        <Box as="summary" data-testid="summary">
-          custom summary
-        </Box>
-        content
-      </Details>,
-    )
-
-    await expect(findByText('See Details')).rejects.toThrow()
-    expect(await findByTestId('summary')).toBeInTheDocument()
-    expect((await findByTestId('summary')).tagName).toBe('SUMMARY')
   })
 
   describe('Details.Summary', () => {

@@ -13,10 +13,9 @@ import {
 } from '@primer/octicons-react'
 import type {Meta} from '@storybook/react-vite'
 import React, {forwardRef} from 'react'
-import {Label, ThemeProvider} from '../..'
+import {Label} from '../..'
 import {ActionList as _ActionList} from '../../deprecated/ActionList'
 import {Header} from '../../deprecated/ActionList/Header'
-import BaseStyles from '../../BaseStyles'
 import {ReactRouterLikeLink} from '../../Pagination/mocks/ReactRouterLink'
 import classes from './ActionListStories.module.css'
 
@@ -27,15 +26,6 @@ const ActionList = Object.assign(_ActionList, {
 const meta: Meta = {
   title: 'Deprecated/Components/ActionList',
   component: ActionList,
-  decorators: [
-    (Story: React.ComponentType<React.PropsWithChildren<unknown>>): JSX.Element => (
-      <ThemeProvider>
-        <BaseStyles>
-          <Story />
-        </BaseStyles>
-      </ThemeProvider>
-    ),
-  ],
   parameters: {
     controls: {
       disable: true,
@@ -163,7 +153,7 @@ export function ComplexListInsetVariantStory(): JSX.Element {
             {groupId: '0'},
             {groupId: '1', header: {title: 'Live query', variant: 'filled', 'aria-level': 3}},
             {groupId: '2', header: {title: 'Layout', variant: 'subtle', 'aria-level': 3}, showItemDividers: true},
-            {groupId: '3', renderItem: props => <ActionList.Item style={{fontWeight: 'bold'}} {...props} />},
+            {groupId: '3', renderItem: props => <ActionList.Item {...props} className={classes.ActionListEmphasis} />},
             {
               groupId: '4',
               renderItem: ({leadingVisual: LeadingVisual, ...props}) => (
@@ -176,9 +166,7 @@ export function ComplexListInsetVariantStory(): JSX.Element {
                   )}
                 />
               ),
-              renderGroup: ({sx: sxProps, ...props}) => (
-                <ActionList.Group {...props} sx={{...sxProps, backgroundColor: 'cornflowerblue', color: 'white'}} />
-              ),
+              renderGroup: props => <ActionList.Group {...props} className={classes.CustomGroupStyle} />,
             },
           ]}
           items={[
@@ -194,7 +182,7 @@ export function ComplexListInsetVariantStory(): JSX.Element {
               leadingVisual: SearchIcon,
               text: 'repo:github/memex,github/github',
               groupId: '1',
-              renderItem: props => <ActionList.Item style={{color: 'rebeccapurple'}} {...props} />,
+              renderItem: props => <ActionList.Item {...props} className={classes.ActionListAccent} />,
             },
             {
               leadingVisual: NoteIcon,
@@ -237,7 +225,7 @@ export function ComplexListFullVariantStory(): JSX.Element {
             {groupId: '0'},
             {groupId: '1', header: {title: 'Live query', variant: 'filled', 'aria-level': 3}},
             {groupId: '2', header: {title: 'Layout', variant: 'subtle', 'aria-level': 3}},
-            {groupId: '3', renderItem: props => <ActionList.Item style={{fontWeight: 'bold'}} {...props} />},
+            {groupId: '3', renderItem: props => <ActionList.Item {...props} className={classes.ActionListEmphasis} />},
             {
               groupId: '4',
               renderItem: ({leadingVisual: LeadingVisual, ...props}) => (
@@ -250,9 +238,7 @@ export function ComplexListFullVariantStory(): JSX.Element {
                   )}
                 />
               ),
-              renderGroup: ({sx: sxProps, ...props}) => (
-                <ActionList.Group {...props} sx={{...sxProps, backgroundColor: 'cornflowerblue', color: 'white'}} />
-              ),
+              renderGroup: props => <ActionList.Group {...props} className={classes.CustomGroupStyle} />,
             },
           ]}
           items={[
@@ -262,7 +248,7 @@ export function ComplexListFullVariantStory(): JSX.Element {
               leadingVisual: SearchIcon,
               text: 'repo:github/memex,github/github',
               groupId: '1',
-              renderItem: props => <ActionList.Item style={{color: 'rebeccapurple'}} {...props} />,
+              renderItem: props => <ActionList.Item {...props} className={classes.ActionListAccent} />,
             },
             {
               leadingVisual: NoteIcon,

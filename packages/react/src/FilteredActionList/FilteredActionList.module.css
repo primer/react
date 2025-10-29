@@ -4,10 +4,20 @@
   overflow: hidden;
 }
 
+.Header {
+  /* stylelint-disable-next-line primer/box-shadow */
+  box-shadow: 0 1px 0 var(--borderColor-default);
+  z-index: 1;
+}
+
 .Container {
   display: flex;
   height: 100%;
   overflow: auto;
+  flex-grow: 1;
+}
+
+.ActionList {
   flex-grow: 1;
 }
 

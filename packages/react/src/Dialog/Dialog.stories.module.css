@@ -1,0 +1,4 @@
+.SmallParagraphText {
+  font-size: var(--text-body-size-medium, 0.75rem);
+  margin-block-start: 0;
+}

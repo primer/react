@@ -12,3 +12,8 @@
   color: var(--fgColor-muted);
   display: inline-block;
 }
+
+.TextLargeBold {
+  font-size: var(--text-body-size-large);
+  font-weight: var(--base-text-weight-semibold);
+}

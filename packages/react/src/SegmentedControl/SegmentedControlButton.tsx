@@ -1,12 +1,12 @@
 import type {ButtonHTMLAttributes} from 'react'
 import type React from 'react'
 import type {IconProps} from '@primer/octicons-react'
-import type {SxProp} from '../sx'
 import {isElement} from 'react-is'
 
 import classes from './SegmentedControl.module.css'
 import {clsx} from 'clsx'
-import {BoxWithFallback} from '../internal/components/BoxWithFallback'
+import CounterLabel from '../CounterLabel'
+import type {FCWithSlotMarker} from '../utils/types'
 
 export type SegmentedControlButtonProps = {
   /** The visible label rendered in the button */
@@ -15,41 +15,49 @@ export type SegmentedControlButtonProps = {
   selected?: boolean
   /** Whether the segment is selected. This is used for uncontrolled `SegmentedControls` to pick one `SegmentedControlButton` that is selected on the initial render. */
   defaultSelected?: boolean
-  /** The leading icon comes before item label */
+  /** The leading visual comes before item label */
+  leadingVisual?: React.FunctionComponent<React.PropsWithChildren<IconProps>> | React.ReactElement
+  /** @deprecated Use `leadingVisual` instead. The leading icon comes before item label */
   leadingIcon?: React.FunctionComponent<React.PropsWithChildren<IconProps>> | React.ReactElement
-} & SxProp &
-  ButtonHTMLAttributes<HTMLButtonElement | HTMLLIElement>
+  /** Optional counter to display on the right side of the button */
+  count?: number | string
+} & ButtonHTMLAttributes<HTMLButtonElement | HTMLLIElement>
 
-const SegmentedControlButton: React.FC<React.PropsWithChildren<SegmentedControlButtonProps>> = ({
+const SegmentedControlButton: FCWithSlotMarker<React.PropsWithChildren<SegmentedControlButtonProps>> = ({
   children,
-  leadingIcon: LeadingIcon,
+  leadingVisual,
+  leadingIcon,
   selected,
-  sx: sxProp,
   className,
   // Note: this value is read in the `SegmentedControl` component to determine which button is selected but we do not need to apply it to an underlying element
   defaultSelected: _defaultSelected,
+  count,
   ...rest
 }) => {
+  // Use leadingVisual if provided, otherwise fall back to leadingIcon for backwards compatibility
+  const LeadingVisual = leadingVisual ?? leadingIcon
+
   return (
-    <BoxWithFallback as="li" sx={sxProp} className={clsx(classes.Item)} data-selected={selected ? '' : undefined}>
-      <BoxWithFallback
-        as="button"
-        aria-current={selected}
-        className={clsx(classes.Button, className)}
-        type="button"
-        {...rest}
-      >
+    <li className={clsx(classes.Item)} data-selected={selected ? '' : undefined}>
+      <button aria-current={selected} className={clsx(classes.Button, className)} type="button" {...rest}>
         <span className={clsx(classes.Content, 'segmentedControl-content')}>
-          {LeadingIcon && (
-            <div className={classes.LeadingIcon}>{isElement(LeadingIcon) ? LeadingIcon : <LeadingIcon />}</div>
+          {LeadingVisual && (
+            <div className={classes.LeadingIcon}>{isElement(LeadingVisual) ? LeadingVisual : <LeadingVisual />}</div>
           )}
           <div className={clsx(classes.Text, 'segmentedControl-text')} data-text={children}>
             {children}
           </div>
+          {count !== undefined && (
+            <span className={classes.Counter}>
+              <CounterLabel>{count}</CounterLabel>
+            </span>
+          )}
         </span>
-      </BoxWithFallback>
-    </BoxWithFallback>
+      </button>
+    </li>
   )
 }
 
 export default SegmentedControlButton
+
+SegmentedControlButton.__SLOT__ = Symbol('SegmentedControl.Button')

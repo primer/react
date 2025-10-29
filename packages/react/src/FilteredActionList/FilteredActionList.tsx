@@ -3,10 +3,8 @@ import {scrollIntoView, FocusKeys} from '@primer/behaviors'
 import type {KeyboardEventHandler} from 'react'
 import type React from 'react'
 import {useCallback, useEffect, useRef, useState} from 'react'
-import styled from 'styled-components'
 import type {TextInputProps} from '../TextInput'
 import TextInput from '../TextInput'
-import {get} from '../constants'
 import {ActionList} from '../ActionList'
 import type {GroupedListProps, ListPropsBase, ItemInput, RenderItemFn} from './'
 import {useFocusZone} from '../hooks/useFocusZone'
@@ -15,7 +13,6 @@ import {useProvidedRefOrCreate} from '../hooks/useProvidedRefOrCreate'
 import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
 import useScrollFlash from '../hooks/useScrollFlash'
 import {VisuallyHidden} from '../VisuallyHidden'
-import type {SxProp} from '../sx'
 import type {FilteredActionListLoadingType} from './FilteredActionListLoaders'
 import {FilteredActionListLoadingTypes, FilteredActionListBodyLoader} from './FilteredActionListLoaders'
 import classes from './FilteredActionList.module.css'
@@ -26,14 +23,10 @@ import {isValidElementType} from 'react-is'
 import {useAnnouncements} from './useAnnouncements'
 import {clsx} from 'clsx'
 import {useFeatureFlag} from '../FeatureFlags'
-import {BoxWithFallback} from '../internal/components/BoxWithFallback'
 
 const menuScrollMargins: ScrollIntoViewOptions = {startMargin: 0, endMargin: 8}
 
-export interface FilteredActionListProps
-  extends Partial<Omit<GroupedListProps, keyof ListPropsBase>>,
-    ListPropsBase,
-    SxProp {
+export interface FilteredActionListProps extends Partial<Omit<GroupedListProps, keyof ListPropsBase>>, ListPropsBase {
   loading?: boolean
   loadingType?: FilteredActionListLoadingType
   placeholderText?: string
@@ -54,11 +47,6 @@ export interface FilteredActionListProps
   onSelectAllChange?: (checked: boolean) => void
 }
 
-const StyledHeader = styled.div`
-  box-shadow: 0 1px 0 ${get('colors.border.default')};
-  z-index: 1;
-`
-
 export function FilteredActionList({
   loading = false,
   placeholderText,
@@ -70,7 +58,6 @@ export function FilteredActionList({
   items,
   textInputProps,
   inputRef: providedInputRef,
-  sx,
   groupMetadata,
   showItemDividers,
   message,
@@ -284,7 +271,7 @@ export function FilteredActionList({
         {...listProps}
         role="listbox"
         id={listId}
-        sx={{flexGrow: 1}}
+        className={classes.ActionList}
       >
         {groupMetadata?.length
           ? groupMetadata.map((group, index) => {
@@ -348,14 +335,11 @@ export function FilteredActionList({
     }
   }
 
+  const {className: textInputClassName, ...restTextInputProps} = textInputProps || {}
+
   return (
-    <BoxWithFallback
-      ref={inputAndListContainerRef}
-      sx={sx}
-      className={clsx(className, classes.Root)}
-      data-testid="filtered-action-list"
-    >
-      <StyledHeader>
+    <div ref={inputAndListContainerRef} className={clsx(className, classes.Root)} data-testid="filtered-action-list">
+      <div className={classes.Header}>
         <TextInput
           ref={inputRef}
           block
@@ -374,10 +358,10 @@ export function FilteredActionList({
           aria-describedby={inputDescriptionTextId}
           loaderPosition={'leading'}
           loading={loading && !loadingType.appearsInBody}
-          className={clsx(textInputProps?.className, fullScreenOnNarrow && classes.FullScreenTextInput)}
-          {...textInputProps}
+          className={clsx(textInputClassName, {[classes.FullScreenTextInput]: fullScreenOnNarrow})}
+          {...restTextInputProps}
         />
-      </StyledHeader>
+      </div>
       <VisuallyHidden id={inputDescriptionTextId}>Items will be filtered as you type</VisuallyHidden>
       {onSelectAllChange !== undefined && (
         <div className={classes.SelectAllContainer}>
@@ -396,7 +380,7 @@ export function FilteredActionList({
       <div ref={scrollContainerRef} className={classes.Container}>
         {getBodyContent()}
       </div>
-    </BoxWithFallback>
+    </div>
   )
 }
 

@@ -1,0 +1,65 @@
+.Visual {
+  display: grid;
+  padding-block: var(--base-size-8);
+  align-self: start;
+  grid-area: visual;
+}
+
+.Message {
+  font-size: var(--text-body-size-medium);
+  line-height: var(--text-body-lineHeight-large);
+  padding: var(--base-size-6) var(--base-size-8);
+  align-self: center;
+  grid-area: message;
+}
+
+.Actions {
+  grid-area: actions;
+}
+
+.ActionsResponsive {
+  grid-area: actions;
+}
+
+@media screen and (max-width: 543.98px) {
+  .ActionsResponsive {
+    align-self: start;
+    margin: var(--base-size-8) 0 0 var(--base-size-8);
+  }
+}
+
+.Close {
+  grid-area: close;
+  margin-left: var(--base-size-8);
+
+  & svg {
+    margin: 0;
+    color: var(--fgColor-muted);
+  }
+}
+
+.WithIconAndAction {
+  display: grid;
+  grid-template-columns: min-content 1fr minmax(0, auto);
+  grid-template-rows: min-content;
+  grid-template-areas: 'visual message actions';
+
+  @media screen and (max-width: 543.98px) {
+    grid-template-columns: min-content 1fr;
+    grid-template-rows: min-content min-content;
+    grid-template-areas: 'visual message' '. actions';
+  }
+}
+
+.WithIconActionDismiss {
+  display: grid;
+  grid-template-columns: min-content 1fr minmax(0, auto);
+  grid-template-rows: min-content;
+  grid-template-areas: 'visual message actions close';
+
+  @media screen and (max-width: 543.98px) {
+    grid-template-columns: min-content 1fr;
+    grid-template-rows: min-content min-content;
+    grid-template-areas: 'visual message close' '. actions actions';
+  }
+}

@@ -1,6 +1,6 @@
 import './global.css'
 import {cookies} from 'next/headers'
-import {BaseStyles, ThemeProvider} from '@primer/react'
+import {BaseStyles, ThemeProvider} from '@primer/styled-react'
 import {StyledComponentsRegistry} from './registry'
 
 export const metadata = {

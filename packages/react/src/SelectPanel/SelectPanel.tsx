@@ -1,13 +1,5 @@
-import {
-  AlertIcon,
-  InfoIcon,
-  SearchIcon,
-  StopIcon,
-  TriangleDownIcon,
-  XIcon,
-  type IconProps,
-} from '@primer/octicons-react'
-import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react'
+import {SearchIcon, TriangleDownIcon, XIcon, type IconProps} from '@primer/octicons-react'
+import React, {useCallback, useEffect, useMemo, useRef, useState, type KeyboardEventHandler} from 'react'
 import type {AnchoredOverlayProps} from '../AnchoredOverlay'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import type {AnchoredOverlayWrapperAnchorProps} from '../AnchoredOverlay/AnchoredOverlay'
@@ -34,6 +26,8 @@ import {clsx} from 'clsx'
 import {debounce} from '@github/mini-throttle'
 import {useResponsiveValue} from '../hooks/useResponsiveValue'
 import type {ButtonProps, LinkButtonProps} from '../Button/types'
+import {Banner} from '../Banner'
+import {isAlphabetKey} from '../hooks/useMnemonics'
 
 // we add a delay so that it does not interrupt default screen reader announcement and queues after it
 const SHORT_DELAY_MS = 500
@@ -178,7 +172,6 @@ function Panel({
   footer,
   textInputProps,
   overlayProps,
-  sx,
   loading,
   initialLoadingType = 'spinner',
   className,
@@ -223,6 +216,7 @@ function Panel({
   const usingFullScreenOnNarrow = disableFullscreenOnNarrow ? false : featureFlagFullScreenOnNarrow
   const shouldOrderSelectedFirst =
     useFeatureFlag('primer_react_select_panel_order_selected_at_top') && showSelectedOptionsFirst
+  const usingRemoveActiveDescendant = useFeatureFlag('primer_react_select_panel_remove_active_descendant')
 
   // Single select modals work differently, they have an intermediate state where the user has selected an item but
   // has not yet confirmed the selection. This is the only time the user can cancel the selection.
@@ -656,7 +650,7 @@ function Panel({
 
   const extendedTextInputProps: Partial<TextInputProps> = useMemo(() => {
     return {
-      sx: {m: 2},
+      className: classes.TextInput,
       contrast: true,
       leadingVisual: SearchIcon,
       'aria-label': inputLabel,
@@ -674,12 +668,6 @@ function Panel({
         return FilteredActionListLoadingTypes.bodySkeleton
       }
     }
-  }
-
-  const iconForNoticeVariant = {
-    info: <InfoIcon size={16} />,
-    warning: <AlertIcon size={16} />,
-    error: <StopIcon size={16} />,
   }
 
   function getMessage() {
@@ -755,6 +743,26 @@ function Panel({
     'anchored',
   )
 
+  const preventBubbling =
+    (customOnKeyDown: KeyboardEventHandler<HTMLDivElement> | undefined) =>
+    (event: React.KeyboardEvent<HTMLDivElement>) => {
+      // skip if a TextInput has focus
+      customOnKeyDown?.(event)
+
+      const activeElement = document.activeElement as HTMLElement
+      if (activeElement.tagName === 'INPUT' || activeElement.tagName === 'TEXTAREA') return
+
+      // skip if used with modifier to preserve shortcuts like ⌘ + F
+      const hasModifier = event.ctrlKey || event.altKey || event.metaKey
+      if (hasModifier) return
+
+      // skip if it's not a alphabet key
+      if (!isAlphabetKey(event.nativeEvent as KeyboardEvent)) return
+
+      // if this is a typeahead event, don't propagate outside of menu
+      event.stopPropagation()
+    }
+
   return (
     <>
       <AnchoredOverlay
@@ -787,6 +795,7 @@ function Panel({
                 }
               : {}),
           } as React.CSSProperties,
+          onKeyDown: usingRemoveActiveDescendant ? preventBubbling(overlayProps?.onKeyDown) : overlayProps?.onKeyDown,
         }}
         focusTrapSettings={focusTrapSettings}
         focusZoneSettings={focusZoneSettings}
@@ -827,9 +836,15 @@ function Panel({
             ) : null}
           </div>
           {notice && (
-            <div ref={noticeRef} data-variant={notice.variant} className={classes.Notice}>
-              {iconForNoticeVariant[notice.variant]}
-              <div>{notice.text}</div>
+            <div ref={noticeRef}>
+              <Banner
+                variant={notice.variant === 'error' ? 'critical' : notice.variant}
+                description={notice.text}
+                title="Notice"
+                hideTitle
+                className={classes.Notice}
+                layout="compact"
+              />
             </div>
           )}
           <FilteredActionList
@@ -861,9 +876,6 @@ function Panel({
                   : EMPTY_MESSAGE.description || EMPTY_MESSAGE.description,
             }}
             fullScreenOnNarrow={usingFullScreenOnNarrow}
-            // inheriting height and maxHeight ensures that the FilteredActionList is never taller
-            // than the Overlay (which would break scrolling the items)
-            sx={sx}
             className={clsx(className, classes.FilteredActionList)}
           />
           {footer ? (
@@ -950,6 +962,7 @@ const SecondaryLink: React.FC<LinkButtonProps & ButtonProps> = props => {
 }
 
 export const SelectPanel = Object.assign(Panel, {
+  __SLOT__: Symbol('SelectPanel'),
   SecondaryActionButton: SecondaryButton,
   SecondaryActionLink: SecondaryLink,
 })

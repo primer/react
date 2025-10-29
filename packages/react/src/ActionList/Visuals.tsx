@@ -1,21 +1,20 @@
 import React from 'react'
 import {AlertIcon} from '@primer/octicons-react'
 import Spinner from '../Spinner'
-import type {SxProp} from '../sx'
 import {ItemContext} from './shared'
 import {Tooltip, type TooltipProps} from '../TooltipV2'
 import {clsx} from 'clsx'
 import classes from './ActionList.module.css'
-import {BoxWithFallback} from '../internal/components/BoxWithFallback'
+import type {FCWithSlotMarker} from '../utils/types/Slots'
 
-export type VisualProps = SxProp & React.HTMLAttributes<HTMLSpanElement>
+export type VisualProps = React.HTMLAttributes<HTMLSpanElement>
 
 export const VisualContainer: React.FC<React.PropsWithChildren<VisualProps>> = ({className, ...props}) => {
-  return <BoxWithFallback as="span" className={clsx(className, classes.VisualWrap)} {...props} />
+  return <span className={clsx(className, classes.VisualWrap)} {...props} />
 }
 
 export type ActionListLeadingVisualProps = VisualProps
-export const LeadingVisual: React.FC<React.PropsWithChildren<VisualProps>> = ({className, ...props}) => {
+export const LeadingVisual: FCWithSlotMarker<React.PropsWithChildren<VisualProps>> = ({className, ...props}) => {
   return (
     <VisualContainer className={clsx(className, classes.LeadingVisual)} {...props}>
       {props.children}
@@ -24,7 +23,7 @@ export const LeadingVisual: React.FC<React.PropsWithChildren<VisualProps>> = ({c
 }
 
 export type ActionListTrailingVisualProps = VisualProps
-export const TrailingVisual: React.FC<React.PropsWithChildren<VisualProps>> = ({className, ...props}) => {
+export const TrailingVisual: FCWithSlotMarker<React.PropsWithChildren<VisualProps>> = ({className, ...props}) => {
   const {trailingVisualId} = React.useContext(ItemContext)
   return (
     <VisualContainer className={clsx(className, classes.TrailingVisual)} id={trailingVisualId} {...props}>
@@ -80,3 +79,6 @@ export const VisualOrIndicator: React.FC<
 
 LeadingVisual.displayName = 'ActionList.LeadingVisual'
 TrailingVisual.displayName = 'ActionList.TrailingVisual'
+
+LeadingVisual.__SLOT__ = Symbol('ActionList.LeadingVisual')
+TrailingVisual.__SLOT__ = Symbol('ActionList.TrailingVisual')

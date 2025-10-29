@@ -80,11 +80,6 @@
       "defaultValue": ""
     },
     {
-      "name": "sx",
-      "type": "SystemStyleObject",
-      "deprecated": true
-    },
-    {
       "name": "ref",
       "type": "React.RefObject<HTMLDivElement>"
     }
@@ -94,10 +89,17 @@
       "name": "SegmentedControl.Button",
       "props": [
         {
-          "name": "leadingIcon",
+          "name": "leadingVisual",
           "type": "Component",
           "defaultValue": "",
-          "description": "The leading icon comes before item label"
+          "description": "The leading visual comes before item label"
+        },
+        {
+          "name": "leadingIcon",
+          "deprecated": true,
+          "type": "Component",
+          "defaultValue": "",
+          "description": "Deprecated: use `leadingVisual` instead. The leading icon comes before item label."
         },
         {
           "name": "selected",
@@ -112,9 +114,10 @@
           "description": "Whether the segment is selected. This is used for uncontrolled SegmentedControls to pick one SegmentedControlButton that is selected on the initial render."
         },
         {
-          "name": "sx",
-          "type": "SystemStyleObject",
-          "deprecated": true
+          "name": "count",
+          "type": "number | string",
+          "defaultValue": "",
+          "description": "The number to display in the counter label."
         },
         {
           "name": "ref",
@@ -156,11 +159,6 @@
           "type": "boolean",
           "defaultValue": "",
           "description": "Whether the segment is selected. This is used for uncontrolled SegmentedControls to pick one SegmentedControlButton that is selected on the initial render."
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject",
-          "deprecated": true
         },
         {
           "name": "ref",

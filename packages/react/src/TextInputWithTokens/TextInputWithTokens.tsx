@@ -1,6 +1,5 @@
 import {FocusKeys} from '@primer/behaviors'
 import {isFocusable} from '@primer/behaviors/utils'
-import {omit} from '@styled-system/props'
 import type {FocusEventHandler, KeyboardEventHandler, MouseEventHandler, RefObject} from 'react'
 import React, {useRef, useState} from 'react'
 import {isValidElementType} from 'react-is'
@@ -17,6 +16,7 @@ import UnstyledTextInput from '../internal/components/UnstyledTextInput'
 import TextInputInnerVisualSlot from '../internal/components/TextInputInnerVisualSlot'
 import styles from './TextInputWithTokens.module.css'
 import {clsx} from 'clsx'
+import type {WithSlotMarker} from '../utils/types'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type AnyReactComponent = React.ComponentType<React.PropsWithChildren<any>>
@@ -64,11 +64,11 @@ export type TextInputWithTokensProps<TokenComponentType extends AnyReactComponen
   visibleTokenCount?: number
 } & Omit<TextInputProps, 'size'>
 
-const overflowCountFontSizeMap: Record<TokenSizeKeys, number> = {
-  small: 0,
-  medium: 1,
-  large: 1,
-  xlarge: 2,
+const overflowCountClassMap: Record<TokenSizeKeys, string> = {
+  small: styles.OverflowCountSmall,
+  medium: styles.OverflowCountMedium,
+  large: styles.OverflowCountLarge,
+  xlarge: styles.OverflowCountXLarge,
 }
 
 // using forwardRef is important so that other components (ex. Autocomplete) can use the ref
@@ -83,7 +83,6 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
     className,
     block,
     disabled,
-    sx: sxProp,
     tokens,
     onTokenRemove,
     tokenComponent: TokenComponent = Token,
@@ -102,7 +101,7 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
   }: TextInputWithTokensProps<TokenComponentType | typeof Token>,
   forwardedRef: React.ForwardedRef<HTMLInputElement>,
 ) {
-  const {onBlur, onFocus, onKeyDown, ...inputPropsRest} = omit(rest)
+  const {onBlur, onFocus, onKeyDown, ...inputPropsRest} = rest
   const ref = useRef<HTMLInputElement>(null)
   useRefObjectAsForwardedRef(forwardedRef, ref)
   const [selectedTokenIndex, setSelectedTokenIndex] = useState<number | undefined>()
@@ -185,13 +184,13 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
     }
   }
 
-  const handleInputFocus: FocusEventHandler = event => {
+  const handleInputFocus: FocusEventHandler<HTMLInputElement> = event => {
     onFocus && onFocus(event)
     setSelectedTokenIndex(undefined)
     visibleTokenCount && setTokensAreTruncated(false)
   }
 
-  const handleInputBlur: FocusEventHandler = event => {
+  const handleInputBlur: FocusEventHandler<HTMLInputElement> = event => {
     onBlur && onBlur(event)
 
     // HACK: wait a tick and check the focused element before hiding truncated tokens
@@ -204,7 +203,7 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
     }, 0)
   }
 
-  const handleInputKeyDown: KeyboardEventHandler = e => {
+  const handleInputKeyDown: KeyboardEventHandler<HTMLInputElement> = e => {
     if (onKeyDown) {
       onKeyDown(e)
     }
@@ -272,7 +271,6 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
       data-token-wrapping={Boolean(preventTokenWrapping || maxHeight) || undefined}
       className={clsx(className, styles.TextInputWrapper)}
       style={maxHeight ? {maxHeight, ...style} : style}
-      sx={sxProp}
     >
       {IconComponent && !LeadingVisual && <IconComponent className="TextInput-icon" />}
       <TextInputInnerVisualSlot
@@ -319,9 +317,7 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
           />
         ))}
         {tokensAreTruncated && tokens.length - visibleTokens.length ? (
-          <Text color="fg.muted" fontSize={overflowCountFontSizeMap[size]}>
-            +{tokens.length - visibleTokens.length}
-          </Text>
+          <Text className={overflowCountClassMap[size]}>+{tokens.length - visibleTokens.length}</Text>
         ) : null}
       </div>
       <TextInputInnerVisualSlot
@@ -338,8 +334,9 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
 const TextInputWithTokens = React.forwardRef(TextInputWithTokensInnerComponent)
 
 TextInputWithTokens.displayName = 'TextInputWithTokens'
+;(TextInputWithTokens as WithSlotMarker<typeof TextInputWithTokens>).__SLOT__ = Symbol('TextInputWithTokens')
 
 /**
  * @deprecated
  */
-export default TextInputWithTokens
+export default TextInputWithTokens as WithSlotMarker<typeof TextInputWithTokens>

@@ -3,9 +3,8 @@ import type {Args, Meta} from '@storybook/react-vite'
 import Text from '../Text'
 import {Button, IconButton} from '../Button'
 import Overlay from './Overlay'
-import {useFocusTrap} from '../hooks/useFocusTrap'
-import Box from '../Box'
 import {XIcon} from '@primer/octicons-react'
+import classes from './Overlay.dev.stories.module.css'
 
 export default {
   title: 'Private/Components/Overlay/Dev',
@@ -21,75 +20,6 @@ export default {
   },
 } as Meta<typeof Overlay>
 
-export const SxProps = (args: Args) => {
-  const [isOpen, setIsOpen] = useState(false)
-  const buttonRef = useRef<HTMLButtonElement>(null)
-  const confirmButtonRef = useRef<HTMLButtonElement>(null)
-  const anchorRef = useRef<HTMLDivElement>(null)
-  const closeOverlay = () => setIsOpen(false)
-  const containerRef = useRef<HTMLDivElement>(null)
-  useFocusTrap({
-    containerRef,
-    disabled: !isOpen,
-  })
-  return (
-    <Box ref={anchorRef}>
-      <Button
-        ref={buttonRef}
-        onClick={() => {
-          setIsOpen(!isOpen)
-        }}
-      >
-        Open overlay
-      </Button>
-      {isOpen || args.open ? (
-        <Overlay
-          initialFocusRef={confirmButtonRef}
-          returnFocusRef={buttonRef}
-          ignoreClickRefs={[buttonRef]}
-          onEscape={closeOverlay}
-          onClickOutside={closeOverlay}
-          width="large"
-          anchorSide="inside-right"
-          role="dialog"
-          aria-modal="true"
-          aria-label="Sample overlay"
-          ref={containerRef}
-          sx={{
-            left: '50%',
-            mt: 2,
-            color: 'var(--bgColor-danger-muted)',
-          }}
-          style={{padding: '16px'}}
-        >
-          <Box
-            sx={{
-              height: '100vh',
-              maxWidth: 'calc(-1rem + 100vw)',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          >
-            <IconButton
-              aria-label="Close"
-              onClick={closeOverlay}
-              icon={XIcon}
-              variant="invisible"
-              sx={{
-                position: 'absolute',
-                left: '5px',
-                top: '5px',
-              }}
-            />
-            <Text>Look! an overlay</Text>
-          </Box>
-        </Overlay>
-      ) : null}
-    </Box>
-  )
-}
-
 export const PreventFocusOnOpen = (args: Args) => {
   const [isOpen, setIsOpen] = useState(false)
   const openButtonRef = useRef<HTMLButtonElement>(null)
@@ -99,7 +29,7 @@ export const PreventFocusOnOpen = (args: Args) => {
   const containerRef = useRef<HTMLDivElement>(null)
 
   return (
-    <Box ref={anchorRef}>
+    <div ref={anchorRef}>
       <Button
         ref={openButtonRef}
         onClick={() => {
@@ -123,47 +53,31 @@ export const PreventFocusOnOpen = (args: Args) => {
           ref={containerRef}
           {...args}
         >
-          <Box
-            sx={{
-              width: ['350px', '500px'],
-            }}
-          >
-            <Box
-              sx={{
-                height: '100vh',
-                maxWidth: 'calc(-1rem + 100vw)',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
-            >
+          <div className={classes.ResponsiveWidth}>
+            <div className={classes.OverlayContent}>
               <IconButton
                 aria-label="Close"
                 onClick={closeOverlay}
                 icon={XIcon}
                 variant="invisible"
-                sx={{
-                  position: 'absolute',
-                  left: '5px',
-                  top: '5px',
-                }}
+                className={classes.CloseButton}
               />
-              <Box display="flex" flexDirection="column" alignItems="center">
+              <div className={classes.DialogContent}>
                 <Text>Are you sure?</Text>
-                <Box display="flex" mt={2}>
-                  <Button variant="danger" onClick={closeOverlay} sx={{marginRight: 1}}>
+                <div className={classes.ButtonContainer}>
+                  <Button variant="danger" onClick={closeOverlay} className={classes.CancelButton}>
                     Cancel
                   </Button>
-                  <Button onClick={closeOverlay} ref={confirmButtonRef} sx={{marginLeft: 1}}>
+                  <Button onClick={closeOverlay} ref={confirmButtonRef} className={classes.ConfirmButton}>
                     Confirm
                   </Button>
-                </Box>
-              </Box>
-            </Box>
-          </Box>
+                </div>
+              </div>
+            </div>
+          </div>
         </Overlay>
       ) : null}
-    </Box>
+    </div>
   )
 }
 PreventFocusOnOpen.args = {

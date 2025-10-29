@@ -6,7 +6,9 @@ exports[`@primer/styled-react exports 1`] = `
   "ActionMenu",
   "Autocomplete",
   "Avatar",
+  "BaseStyles",
   "Box",
+  "Breadcrumb",
   "Breadcrumbs",
   "Button",
   "Checkbox",
@@ -28,7 +30,6 @@ exports[`@primer/styled-react exports 1`] = `
   "Overlay",
   "PageHeader",
   "PageLayout",
-  "Popover",
   "ProgressBar",
   "RadioGroup",
   "RelativeTime",
@@ -57,6 +58,7 @@ exports[`@primer/styled-react exports 1`] = `
 
 exports[`@primer/styled-react/deprecated exports 1`] = `
 [
+  "ActionList",
   "Dialog",
   "Octicon",
   "TabNav",

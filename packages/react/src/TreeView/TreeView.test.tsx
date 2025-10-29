@@ -1,9 +1,10 @@
-import {fireEvent, render, act} from '@testing-library/react'
-import {userEvent} from '@vitest/browser/context'
+import {fireEvent, render, act, screen} from '@testing-library/react'
+import {userEvent} from 'vitest/browser'
 import {beforeEach, afterEach, describe, it, expect, vi} from 'vitest'
 import React from 'react'
 import type {SubTreeState} from './TreeView'
 import {TreeView} from './TreeView'
+import {GearIcon} from '@primer/octicons-react'
 
 // TODO: Move this function into a shared location
 function renderWithTheme(
@@ -1676,6 +1677,127 @@ describe('Asynchronous loading', () => {
     // Empty child should have `aria-expanded` when opened
     expect(getByRole('treeitem', {name: 'empty child'})).toHaveAttribute('aria-expanded')
   })
+})
+
+it('should render `TrailingAction`', async () => {
+  render(
+    <TreeView aria-label="Files changed">
+      <TreeView.Item
+        id="src"
+        defaultExpanded
+        secondaryActions={[{icon: GearIcon, label: 'Item settings', onClick: () => {}}]}
+      >
+        <TreeView.LeadingVisual>
+          <TreeView.DirectoryIcon />
+        </TreeView.LeadingVisual>
+        Parent
+        <TreeView.SubTree>
+          <TreeView.Item id="src/Avatar.tsx">child</TreeView.Item>
+          <TreeView.Item id="src/Button.tsx" current>
+            child current
+          </TreeView.Item>
+          <TreeView.Item id="src/Box.tsx">
+            empty child
+            <TreeView.SubTree />
+          </TreeView.Item>
+        </TreeView.SubTree>
+      </TreeView.Item>
+    </TreeView>,
+  )
+
+  expect(screen.getByRole('button', {hidden: true})).toHaveAttribute('aria-labelledby')
+})
+
+it('should have keyboard shortcut command as part of accessible name when using `TrailingAction`', () => {
+  render(
+    <TreeView aria-label="Files changed">
+      <TreeView.Item
+        id="src"
+        defaultExpanded
+        secondaryActions={[{icon: GearIcon, label: 'Item settings', onClick: () => {}}]}
+      >
+        <TreeView.LeadingVisual>
+          <TreeView.DirectoryIcon />
+        </TreeView.LeadingVisual>
+        Parent
+        <TreeView.SubTree>
+          <TreeView.Item id="src/Avatar.tsx">child</TreeView.Item>
+          <TreeView.Item id="src/Button.tsx" current>
+            child current
+          </TreeView.Item>
+          <TreeView.Item id="src/Box.tsx">
+            empty child
+            <TreeView.SubTree />
+          </TreeView.Item>
+        </TreeView.SubTree>
+      </TreeView.Item>
+    </TreeView>,
+  )
+
+  expect(screen.getByRole('treeitem', {name: /for more actions\.$/})).toBeInTheDocument()
+})
+
+it('should have keyboard shortcut command as part of accessible name when using `TrailingAction` and `aria-label`', () => {
+  render(
+    <TreeView aria-label="Files changed">
+      <TreeView.Item
+        id="src"
+        aria-label="Parent"
+        defaultExpanded
+        secondaryActions={[{icon: GearIcon, label: 'Item settings', onClick: () => {}}]}
+      >
+        <TreeView.LeadingVisual>
+          <TreeView.DirectoryIcon />
+        </TreeView.LeadingVisual>
+        Parent
+      </TreeView.Item>
+    </TreeView>,
+  )
+
+  expect(screen.getByRole('treeitem', {name: /for more actions\.$/})).toBeInTheDocument()
+})
+
+it('should activate the dialog for trailing action when keyboard shortcut is used', async () => {
+  userEvent.setup()
+  render(
+    <TreeView aria-label="Files changed">
+      <TreeView.Item
+        id="src"
+        defaultExpanded
+        secondaryActions={[
+          {icon: GearIcon, label: 'Item settings', onClick: () => {}},
+          {icon: GearIcon, label: 'Item settings', onClick: () => {}},
+        ]}
+      >
+        <TreeView.LeadingVisual>
+          <TreeView.DirectoryIcon />
+        </TreeView.LeadingVisual>
+        Parent
+        <TreeView.SubTree>
+          <TreeView.Item id="src/Avatar.tsx">child</TreeView.Item>
+          <TreeView.Item id="src/Button.tsx" current>
+            child current
+          </TreeView.Item>
+          <TreeView.Item id="src/Box.tsx">
+            empty child
+            <TreeView.SubTree />
+          </TreeView.Item>
+        </TreeView.SubTree>
+      </TreeView.Item>
+    </TreeView>,
+  )
+
+  const treeItem = screen.getByRole('treeitem', {
+    name: /for more actions\.$/,
+  })
+  treeItem.focus()
+  expect(treeItem).toHaveFocus()
+
+  expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
+
+  fireEvent.keyDown(treeItem, {key: 'u', metaKey: true, shiftKey: true})
+
+  expect(screen.getByRole('dialog')).toBeInTheDocument()
 })
 
 describe('CSS Module Migration', () => {

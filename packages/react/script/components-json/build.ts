@@ -1,6 +1,7 @@
-import generate from '@babel/generator'
+// @ts-expect-error there seems to be a mismatch in the types for this package
+import {generate} from '@babel/generator'
 import {parse} from '@babel/parser'
-import traverse from '@babel/traverse'
+import {traverse} from '@babel/core'
 import type {ArrowFunctionExpression, Identifier, FunctionDeclaration} from '@babel/types'
 import path from 'node:path'
 import {parseArgs} from 'node:util'
@@ -8,6 +9,7 @@ import Ajv from 'ajv'
 import {pascalCase, kebabCase} from 'change-case'
 import glob from 'fast-glob'
 import fs from 'fs'
+import {processDocsFile} from '@primer/doc-gen'
 import keyBy from 'lodash.keyby'
 import prettier from '@prettier/sync'
 import chalk from 'chalk'
@@ -38,7 +40,9 @@ type Component = {
   source?: string
 }
 
-const ajv = new Ajv()
+const ajv = new Ajv({
+  allowUnionTypes: true,
+})
 
 function formatMDError(lintError: LintError): string {
   let range = ''
@@ -111,7 +115,8 @@ function getStorybookData(): StorybookData {
 }
 
 const components = docsFiles.map(docsFilepath => {
-  const docs = JSON.parse(fs.readFileSync(docsFilepath, 'utf-8'))
+  // const docs = JSON.parse(fs.readFileSync(docsFilepath, 'utf-8'))
+  const docs = processDocsFile(docsFilepath)
 
   // Create a validator for the component schema
   const validate = ajv.compile<Component>(componentSchema)

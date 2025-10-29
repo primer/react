@@ -12,12 +12,8 @@ const stories = [
     id: 'components-popover--playground',
   },
   {
-    title: 'SX Props',
-    id: 'components-popover-dev--sx-props',
-  },
-  {
-    title: 'Popover Overflow',
-    id: 'components-popover-dev--popover-overflow',
+    title: 'Close On Click Outside',
+    id: 'components-popover-features--close-on-click-outside',
   },
 ] as const
 

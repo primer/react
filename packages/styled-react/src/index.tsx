@@ -1,123 +1,83 @@
-import {
-  type BetterSystemStyleObject,
-  Box,
-  type BoxProps,
-  type SxProp,
-  StateLabel as PrimerStateLabel,
-  type StateLabelProps as PrimerStateLabelProps,
-  SubNav as PrimerSubNav,
-  type SubNavProps as PrimerSubNavProps,
-  type SubNavLinkProps as PrimerSubNavLinkProps,
-  ToggleSwitch as PrimerToggleSwitch,
-  type ToggleSwitchProps as PrimerToggleSwitchProps,
-} from '@primer/react'
-import {forwardRef} from 'react'
-import type {
-  BackgroundProps,
-  BorderProps,
-  ColorProps,
-  FlexboxProps,
-  GridProps,
-  LayoutProps,
-  PositionProps,
-  ShadowProps,
-  SpaceProps,
-  TypographyProps,
-} from 'styled-system'
+'use client'
 
-type StyledProps = SxProp &
-  SpaceProps &
-  ColorProps &
-  TypographyProps &
-  LayoutProps &
-  FlexboxProps &
-  GridProps &
-  BackgroundProps &
-  BorderProps &
-  PositionProps &
-  ShadowProps
+export {Box, type BoxProps} from './components/Box'
+export {Details} from '@primer/react'
+export {ProgressBar} from '@primer/react'
 
-type StateLabelProps = PrimerStateLabelProps & SxProp
+// theming depends on styled-components
+export {ThemeProvider, useTheme, useColorSchemeVar, type ThemeProviderProps} from './components/ThemeProvider'
+export {BaseStyles, type BaseStylesProps} from './components/BaseStyles'
+export {theme} from '@primer/react'
 
-const StateLabel = forwardRef<HTMLSpanElement, StateLabelProps>(function StateLabel(props, ref) {
-  return <Box as={PrimerStateLabel} ref={ref} {...props} />
-})
-
-type SubNavProps = PrimerSubNavProps & SxProp
-
-const SubNavImpl = forwardRef<HTMLElement, SubNavProps>(function SubNav(props, ref) {
-  return <Box as={PrimerSubNav} ref={ref} {...props} />
-})
-
-type SubNavLinkProps = PrimerSubNavLinkProps & SxProp
-
-const SubNavLink = forwardRef<HTMLAnchorElement, SubNavLinkProps>(function SubNavLink(props, ref) {
-  return <Box as={PrimerSubNav.Link} ref={ref} {...props} />
-})
-
-const SubNav = Object.assign(SubNavImpl, {
-  Link: SubNavLink,
-})
-
-type ToggleSwitchProps = PrimerToggleSwitchProps & Omit<StyledProps, keyof PrimerToggleSwitchProps>
-
-const ToggleSwitch = forwardRef<HTMLButtonElement, ToggleSwitchProps>(function ToggleSwitch(props, ref) {
-  return <Box as={PrimerToggleSwitch} ref={ref} {...props} />
-})
-
-export {StateLabel, SubNav, ToggleSwitch}
+export {get as themeGet} from './theme-get'
 
 export {
   ActionList,
-  ActionMenu,
-  Autocomplete,
-  Avatar,
-  Breadcrumbs,
-  Button,
-  Checkbox,
-  CheckboxGroup,
-  CircleBadge,
-  CounterLabel,
-  Details,
-  Dialog,
-  Flash,
-  FormControl,
-  Header,
-  Heading,
-  IconButton,
-  Label,
-  Link,
-  LinkButton,
-  NavList,
-  Overlay,
+  type ActionListProps,
+  type ActionListItemProps,
+  type ActionListLinkItemProps,
+  type ActionListGroupProps,
+  type ActionListDividerProps,
+  type ActionListLeadingVisualProps,
+  type ActionListTrailingVisualProps,
+  type ActionListTrailingActionProps,
+} from './components/ActionList'
+export {ActionMenu} from './components/ActionMenu'
+export {Autocomplete, type AutocompleteOverlayProps} from './components/Autocomplete'
+export {Avatar, type AvatarProps} from './components/Avatar'
+export {Breadcrumbs, Breadcrumb, type BreadcrumbsProps, type BreadcrumbsItemProps} from './components/Breadcrumbs'
+export {ButtonComponent as Button, type ButtonComponentProps as ButtonProps} from './components/Button'
+export {Checkbox, type CheckboxProps} from './components/Checkbox'
+export {CheckboxGroup, type CheckboxGroupProps} from './components/CheckboxGroup'
+export {CircleBadge} from './components/CircleBadge'
+export {CounterLabel, type CounterLabelProps} from './components/CounterLabel'
+export {Dialog, type DialogProps} from './components/Dialog'
+export {Flash} from './components/Flash'
+export {FormControl, type FormControlProps} from './components/FormControl'
+export {Header, type HeaderProps} from './components/Header'
+export {Heading} from './components/Heading'
+export {IconButton, type IconButtonProps} from './components/IconButton'
+export {Label, type LabelProps} from './components/Label'
+export {Link, type LinkProps} from './components/Link'
+export {LinkButton, type LinkButtonProps} from './components/LinkButton'
+export {NavList, type NavListProps} from './components/NavList'
+export {Overlay} from './components/Overlay'
+export {PageLayout, type PageLayoutProps} from './components/PageLayout'
+export {
   PageHeader,
-  PageLayout,
-  Popover,
-  ProgressBar,
-  RadioGroup,
-  RelativeTime,
+  type PageHeaderProps,
+  type PageHeaderActionsProps,
+  type PageHeaderTitleProps,
+} from './components/PageHeader'
+export {RadioGroup, type RadioGroupProps} from './components/RadioGroup'
+export {RelativeTime, type RelativeTimeProps} from './components/RelativeTime'
+export {
   SegmentedControl,
-  Select,
-  Spinner,
-  Text,
-  Textarea,
-  TextInput,
+  type SegmentedControlProps,
+  type SegmentedControlButtonProps,
+  type SegmentedControlIconButtonProps,
+} from './components/SegmentedControl'
+export {Select, type SelectProps} from './components/Select'
+export {Spinner, type SpinnerProps} from './components/Spinner'
+export {StateLabel, type StateLabelProps} from './components/StateLabel'
+export {SubNav, type SubNavProps, type SubNavLinkProps} from './components/SubNav'
+export {Text, type TextProps} from './components/Text'
+export {Textarea, type TextareaProps} from './components/Textarea'
+export {TextInput, type TextInputProps, type TextInputActionProps} from './components/TextInput'
+export {
   Timeline,
-  Token,
-  Tooltip,
-  Truncate,
-  UnderlineNav,
+  type TimelineProps,
+  type TimelineItemProps,
+  type TimelineBadgeProps,
+  type TimelineBodyProps,
+  type TimelineBreakProps,
+} from './components/Timeline'
+export {ToggleSwitch, type ToggleSwitchProps} from './components/ToggleSwitch'
+export {Tooltip, type TooltipProps} from './components/Tooltip'
+export {Token, type TokenProps} from './components/Token'
+export {Truncate, type TruncateProps} from './components/Truncate'
+export {UnderlineNav, type UnderlineNavProps, type UnderlineNavItemProps} from './components/UnderlineNav'
 
-  // styled-components components or types
-  Box,
-  sx,
+export {merge, sx, type SxProp} from './sx'
 
-  // theming depends on styled-components
-  ThemeProvider,
-  merge,
-  theme,
-  themeGet,
-  useColorSchemeVar,
-  useTheme,
-} from '@primer/react'
-export type {BoxProps, SxProp, BetterSystemStyleObject}
+export {type BetterSystemStyleObject} from './sx'

@@ -21,12 +21,12 @@ type LinkProps = {
 // LinkItem does not support selected, loading, variants, etc.
 export type ActionListLinkItemProps = Pick<
   ActionListItemProps,
-  'active' | 'children' | 'sx' | 'inactiveText' | 'variant' | 'size'
+  'active' | 'children' | 'inactiveText' | 'variant' | 'size'
 > &
   LinkProps
 
 export const LinkItem = React.forwardRef(
-  ({sx, active, inactiveText, variant, size, as: Component, className, ...props}, forwardedRef) => {
+  ({active, inactiveText, variant, size, as: Component, className, ...props}, forwardedRef) => {
     return (
       <Item
         className={className}
@@ -35,7 +35,6 @@ export const LinkItem = React.forwardRef(
         data-inactive={inactiveText ? true : undefined}
         variant={variant}
         size={size}
-        sx={sx}
         _PrivateItemWrapper={({children, onClick, ...rest}) => {
           const clickHandler = (event: React.MouseEvent<HTMLElement>) => {
             onClick && onClick(event)
@@ -57,3 +56,5 @@ export const LinkItem = React.forwardRef(
 ) as PolymorphicForwardRefComponent<'a', ActionListLinkItemProps>
 
 LinkItem.displayName = 'ActionList.LinkItem'
+
+LinkItem.__SLOT__ = Symbol('ActionList.LinkItem')

@@ -8,15 +8,6 @@ import classes from './LabelGroupStories.module.css'
 const meta: Meta = {
   title: 'Components/LabelGroup/Features',
   component: LabelGroup,
-  decorators: [
-    Story => {
-      return (
-        <>
-          <Story />
-        </>
-      )
-    },
-  ],
 }
 
 const ResizableContainer = ({children, ...props}: {children: React.ReactNode}) => (

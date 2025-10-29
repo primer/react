@@ -72,6 +72,9 @@ body[data-page-layout-dragging='true'] * {
   margin-right: auto;
   margin-left: auto;
   flex-wrap: wrap;
+  /* the wrapper should match the Root's dimensions by default */
+  width: 100%;
+  height: 100%;
 
   &:where([data-width='medium']) {
     max-width: 768px;
@@ -326,4 +329,24 @@ body[data-page-layout-dragging='true'] * {
 .FooterContent {
   /* stylelint-disable-next-line primer/spacing */
   padding: var(--spacing);
+}
+
+.DraggableHandle {
+  position: absolute;
+  inset: 0 -2px;
+  cursor: col-resize;
+  background-color: transparent;
+  transition-delay: 0.1s;
+}
+
+.DraggableHandle:hover {
+  background-color: var(--bgColor-neutral-muted);
+}
+
+.DraggableHandle[data-dragging='true'] {
+  background-color: var(--bgColor-accent-emphasis);
+}
+
+.DraggableHandle[data-dragging='true']:hover {
+  background-color: var(--bgColor-accent-emphasis);
 }

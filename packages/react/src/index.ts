@@ -1,15 +1,12 @@
 'use client'
 
-export {default as theme} from './theme'
-export {get as themeGet} from './constants'
+export {default as theme, type ThemeColorPaths, type ThemeShadowPaths} from './theme'
 export {default as BaseStyles} from './BaseStyles'
 export type {BaseStylesProps} from './BaseStyles'
 export {default as ThemeProvider, useTheme, useColorSchemeVar} from './ThemeProvider'
 export type {ThemeProviderProps} from './ThemeProvider'
 
 // Layout
-export {default as Box} from './Box'
-export type {BoxProps} from './Box'
 export * from './Button'
 export {PageLayout} from './PageLayout'
 export type {
@@ -46,9 +43,13 @@ export {useResizeObserver} from './hooks/useResizeObserver'
 export {useResponsiveValue, type ResponsiveValue} from './hooks/useResponsiveValue'
 export {default as useIsomorphicLayoutEffect} from './utils/useIsomorphicLayoutEffect'
 export {useProvidedRefOrCreate} from './hooks/useProvidedRefOrCreate'
+export {useId} from './hooks/useId'
+export {useSyncedState} from './hooks/useSyncedState'
+export {useAnchoredPosition, type AnchoredPositionHookSettings} from './hooks/useAnchoredPosition'
 
 // Utils
 export {createComponent} from './utils/create-component'
+export type {SlotMarker} from './utils/types'
 
 // Components
 export {default as Radio} from './Radio'
@@ -74,6 +75,8 @@ export {default as Avatar} from './Avatar'
 export type {AvatarProps} from './Avatar'
 export {default as AvatarStack} from './AvatarStack'
 export type {AvatarStackProps} from './AvatarStack'
+export {Banner} from './Banner'
+export type {BannerProps} from './Banner'
 
 export {default as BranchName} from './BranchName'
 export type {BranchNameProps} from './BranchName'
@@ -83,6 +86,7 @@ export {default as ButtonGroup} from './ButtonGroup'
 export type {ButtonGroupProps} from './ButtonGroup'
 export type {CircleBadgeProps, CircleBadgeIconProps} from './CircleBadge'
 export {default as CheckboxGroup} from './CheckboxGroup'
+export type {CheckboxGroupProps} from './CheckboxGroup'
 export {default as CircleBadge} from './CircleBadge'
 export {default as CounterLabel} from './CounterLabel'
 export type {CounterLabelProps} from './CounterLabel'
@@ -95,6 +99,12 @@ export {ConfirmationDialog} from './ConfirmationDialog/ConfirmationDialog'
 export {default as Flash} from './Flash'
 export type {FlashProps} from './Flash'
 export {default as FormControl} from './FormControl'
+export type {
+  FormControlProps,
+  FormControlCaptionProps,
+  FormControlLabelProps,
+  FormControlValidationProps,
+} from './FormControl'
 export {useFormControlForwardedProps} from './FormControl'
 export {default as Header} from './Header'
 export type {HeaderProps, HeaderItemProps, HeaderLinkProps} from './Header'
@@ -115,23 +125,28 @@ export type {
   NavListLeadingVisualProps,
   NavListTrailingVisualProps,
   NavListDividerProps,
+  NavListGroupHeadingProps,
 } from './NavList'
 export {default as Overlay} from './Overlay'
 export type {OverlayProps} from './Overlay'
 export {default as Pagination} from './Pagination'
 export type {PaginationProps} from './Pagination'
-export {default as PointerBox} from './PointerBox'
-export type {PointerBoxProps} from './PointerBox'
 export {default as Popover} from './Popover'
 export type {PopoverProps, PopoverContentProps} from './Popover'
-export {default as Portal, registerPortalRoot} from './Portal'
+export {default as Portal, registerPortalRoot, PortalContext} from './Portal'
 export type {PortalProps} from './Portal'
 export {ProgressBar} from './ProgressBar'
 export type {ProgressBarProps, ProgressBarItemProps} from './ProgressBar'
 export {default as RadioGroup} from './RadioGroup'
+export type {RadioGroupProps} from './RadioGroup'
 export type {RelativeTimeProps} from './RelativeTime'
 export {default as RelativeTime} from './RelativeTime'
 export {SegmentedControl} from './SegmentedControl'
+export type {
+  SegmentedControlProps,
+  SegmentedControlButtonProps,
+  SegmentedControlIconButtonProps,
+} from './SegmentedControl'
 // Curently there is a duplicate Select component at the root of the dir, so need to be explicit about exporting from the src/Select dir
 export {default as Select} from './Select'
 export type {SelectProps} from './Select'
@@ -153,7 +168,7 @@ export type {SubNavProps, SubNavLinkProps, SubNavLinksProps} from './SubNav'
 export {default as ToggleSwitch} from './ToggleSwitch'
 export type {ToggleSwitchProps} from './ToggleSwitch'
 export {default as TextInput} from './TextInput'
-export type {TextInputProps} from './TextInput'
+export type {TextInputProps, TextInputActionProps} from './TextInput'
 export {default as TextInputWithTokens} from './TextInputWithTokens'
 export type {TextInputWithTokensProps} from './TextInputWithTokens'
 export {default as Text} from './Text'
@@ -165,6 +180,7 @@ export type {
   TimelineBodyProps,
   TimelineBreakProps,
   TimelineItemsProps,
+  TimelineItemProps,
 } from './Timeline'
 export {default as Token, IssueLabelToken} from './Token'
 export type {TokenProps, IssueLabelTokenProps} from './Token'
@@ -201,10 +217,13 @@ export {Stack} from './Stack'
 export type {StackProps, StackItemProps} from './Stack'
 
 export {PageHeader} from './PageHeader'
-export type {PageHeaderProps} from './PageHeader'
-
-export {default as sx, merge} from './sx'
-export type {BetterCssProperties, BetterSystemStyleObject, SxProp} from './sx'
+export type {
+  PageHeaderProps,
+  TitleProps as PageHeaderTitleProps,
+  ActionsProps as PageHeaderActionsProps,
+  TitleAreaProps as PageHeaderTitleAreaProps,
+  ChildrenPropTypes as PageHeaderChildrenPropTypes,
+} from './PageHeader'
 
 export {SkeletonBox} from './Skeleton'
 export type {SkeletonBoxProps} from './Skeleton'
