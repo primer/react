@@ -15,11 +15,13 @@ const mockObserve = vi.fn()
 const mockUnobserve = vi.fn()
 const mockDisconnect = vi.fn()
 
-globalThis.ResizeObserver = vi.fn().mockImplementation(() => ({
-  observe: mockObserve,
-  unobserve: mockUnobserve,
-  disconnect: mockDisconnect,
-}))
+globalThis.ResizeObserver = vi.fn().mockImplementation(function () {
+  return {
+    observe: mockObserve,
+    unobserve: mockUnobserve,
+    disconnect: mockDisconnect,
+  }
+})
 
 describe('Breadcrumbs', () => {
   it('renders a <nav>', () => {
@@ -205,7 +207,7 @@ describe('Breadcrumbs', () => {
   it('shows overflow menu during resize when items exceed container width', () => {
     let resizeCallback: ((entries: ResizeObserverEntry[]) => void) | undefined
 
-    const mockResizeObserver = vi.fn().mockImplementation(callback => {
+    const mockResizeObserver = vi.fn().mockImplementation(function (callback) {
       resizeCallback = callback
       return {
         observe: mockObserve,
@@ -263,7 +265,7 @@ describe('Breadcrumbs', () => {
   it('correctly populates overflow menu during resize events', async () => {
     let resizeCallback: ((entries: ResizeObserverEntry[]) => void) | undefined
 
-    const mockResizeObserver = vi.fn().mockImplementation(callback => {
+    const mockResizeObserver = vi.fn().mockImplementation(function (callback) {
       resizeCallback = callback
       return {
         observe: mockObserve,

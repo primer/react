@@ -16,7 +16,6 @@ const sharedPlugins = [
   'macros',
   'dev-expression',
   'add-react-displayname',
-  'babel-plugin-styled-components',
   '@babel/plugin-proposal-nullish-coalescing-operator',
   '@babel/plugin-proposal-optional-chaining',
 ]
