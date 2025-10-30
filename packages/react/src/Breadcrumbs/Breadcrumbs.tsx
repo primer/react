@@ -41,7 +41,7 @@ const BreadcrumbsList = ({children}: React.PropsWithChildren) => {
 }
 
 type BreadcrumbsMenuItemProps = {
-  items: React.ReactElement<any>[]
+  items: React.ReactElement[]
   'aria-label'?: string
 }
 
@@ -141,7 +141,7 @@ const BreadcrumbsMenuItem = React.forwardRef<HTMLDetailsElement, BreadcrumbsMenu
 BreadcrumbsMenuItem.displayName = 'Breadcrumbs.MenuItem'
 
 const getValidChildren = (children: React.ReactNode) => {
-  return React.Children.toArray(children).filter(child => React.isValidElement(child)) as React.ReactElement<any>[]
+  return React.Children.toArray(children).filter(child => React.isValidElement(child)) as React.ReactElement[]
 }
 
 function Breadcrumbs({className, children, style, overflow = 'wrap', variant = 'normal'}: BreadcrumbsProps) {
@@ -165,10 +165,10 @@ function Breadcrumbs({className, children, style, overflow = 'wrap', variant = '
 
   const rootItem = childArray[0]
 
-  const [visibleItems, setVisibleItems] = useState<React.ReactElement<any>[]>(() => childArray)
+  const [visibleItems, setVisibleItems] = useState<React.ReactElement[]>(() => childArray)
   const [childArrayWidths, setChildArrayWidths] = useState<number[]>(() => [])
 
-  const [menuItems, setMenuItems] = useState<React.ReactElement<any>[]>([])
+  const [menuItems, setMenuItems] = useState<React.ReactElement[]>([])
   const [rootItemWidth, setRootItemWidth] = useState<number>(0)
 
   const MENU_BUTTON_FALLBACK_WIDTH = 32 // Design system small IconButton
@@ -202,7 +202,7 @@ function Breadcrumbs({className, children, style, overflow = 'wrap', variant = '
 
       let currentVisibleItems = [...childArray]
       let currentVisibleItemWidths = [...childArrayWidths]
-      let currentMenuItems: React.ReactElement<any>[] = []
+      let currentMenuItems: React.ReactElement[] = []
       let currentMenuItemsWidths: number[] = []
 
       if (availableWidth > 0 && currentVisibleItemWidths.length > 0) {

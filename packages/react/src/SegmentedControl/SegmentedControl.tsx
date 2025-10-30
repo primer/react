@@ -61,7 +61,7 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
   )
     ? React.Children.toArray(children)[selectedIndex]
     : undefined
-  const getChildIcon = (childArg: React.ReactNode): React.ReactElement<any> | null => {
+  const getChildIcon = (childArg: React.ReactNode): React.ReactElement | null => {
     if (
       React.isValidElement<SegmentedControlButtonProps>(childArg) &&
       (childArg.type === Button || isSlot(childArg, Button))

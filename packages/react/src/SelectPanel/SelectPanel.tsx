@@ -75,8 +75,8 @@ export type SelectPanelSecondaryAction =
 
 interface SelectPanelBaseProps {
   // TODO: Make `title` required in the next major version
-  title?: string | React.ReactElement<any>
-  subtitle?: string | React.ReactElement<any>
+  title?: string | React.ReactElement
+  subtitle?: string | React.ReactElement
   onOpenChange: (
     open: boolean,
     gesture: 'anchor-click' | 'anchor-key-press' | 'click-outside' | 'escape' | 'selection' | 'cancel',
@@ -89,20 +89,20 @@ interface SelectPanelBaseProps {
   initialLoadingType?: InitialLoadingType
   className?: string
   notice?: {
-    text: string | React.ReactElement<any>
+    text: string | React.ReactElement
     variant: 'info' | 'warning' | 'error'
   }
   message?: {
     title: string
-    body: string | React.ReactElement<any>
+    body: string | React.ReactElement
     variant: 'empty' | 'error' | 'warning'
     icon?: React.ComponentType<IconProps>
-    action?: React.ReactElement<any>
+    action?: React.ReactElement
   }
   /**
    * @deprecated Use `secondaryAction` instead.
    */
-  footer?: string | React.ReactElement<any>
+  footer?: string | React.ReactElement
   showSelectedOptionsFirst?: boolean
   /**
    * Whether to disable fullscreen behavior on narrow viewports.

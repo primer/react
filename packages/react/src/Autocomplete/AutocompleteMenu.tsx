@@ -19,9 +19,9 @@ import classes from './AutocompleteMenu.module.css'
 
 type OnSelectedChange<T> = (item: T | T[]) => void
 export type AutocompleteMenuItem = MandateProps<ActionListItemProps, 'id'> & {
-  leadingVisual?: React.FunctionComponent<React.PropsWithChildren<IconProps>> | React.ReactElement<any>
+  leadingVisual?: React.FunctionComponent<React.PropsWithChildren<IconProps>> | React.ReactElement
   text?: string
-  trailingVisual?: React.FunctionComponent<React.PropsWithChildren<IconProps>> | React.ReactElement<any>
+  trailingVisual?: React.FunctionComponent<React.PropsWithChildren<IconProps>> | React.ReactElement
 }
 
 const getDefaultSortFn = (isItemSelectedFn: (itemId: string) => boolean) => (itemIdA: string, itemIdB: string) =>

@@ -116,7 +116,7 @@ const Panel: React.FC<SelectPanelProps> = ({
   // 🚨 Hack for good API!
   // we strip out Anchor from children and wire it up to Dialog
   // with additional props for accessibility
-  let Anchor: React.ReactElement<any> | undefined
+  let Anchor: React.ReactElement | undefined
   const anchorRef = useProvidedRefOrCreate(providedAnchorRef)
 
   const onAnchorClick = () => {

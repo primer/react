@@ -21,7 +21,7 @@ export type SelectPanelMessageProps = {
    * Ensure the action element is accessible by providing appropriate ARIA attributes
    * and making it keyboard-navigable.
    */
-  action?: React.ReactElement<any>
+  action?: React.ReactElement
 }
 
 export const SelectPanelMessage: React.FC<SelectPanelMessageProps> = ({

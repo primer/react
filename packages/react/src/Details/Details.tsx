@@ -5,7 +5,7 @@ import classes from './Details.module.css'
 import {useMergedRefs} from '../internal/hooks/useMergedRefs'
 
 const Root = React.forwardRef<HTMLDetailsElement, DetailsProps>(
-  ({className, children, ...rest}, forwardRef): ReactElement<any> => {
+  ({className, children, ...rest}, forwardRef): ReactElement => {
     const detailsRef = React.useRef<HTMLDetailsElement>(null)
     const ref = useMergedRefs(forwardRef, detailsRef)
 

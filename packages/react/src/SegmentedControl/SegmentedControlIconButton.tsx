@@ -12,7 +12,7 @@ import type {FCWithSlotMarker} from '../utils/types'
 export type SegmentedControlIconButtonProps = {
   'aria-label': string
   /** The icon that represents the segmented control item */
-  icon: React.FunctionComponent<React.PropsWithChildren<IconProps>> | React.ReactElement<any>
+  icon: React.FunctionComponent<React.PropsWithChildren<IconProps>> | React.ReactElement
   /** Whether the segment is selected. This is used for controlled SegmentedControls, and needs to be updated using the onChange handler on SegmentedControl. */
   selected?: boolean
   /** Whether the segment is selected. This is used for uncontrolled SegmentedControls to pick one SegmentedControlButton that is selected on the initial render. */

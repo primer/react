@@ -44,7 +44,7 @@ figma.connect(
   {
     props: {
       selected: figma.enum('state', {selected: true}),
-      icon: figma.instance('icon').getProps<{name: string; fn: React.ReactElement<any>}>(),
+      icon: figma.instance('icon').getProps<{name: string; fn: React.ReactElement}>(),
     },
     example: ({selected, icon}) => (
       <SegmentedControl.IconButton aria-label="Describe action" selected={selected} icon={icon.fn} />

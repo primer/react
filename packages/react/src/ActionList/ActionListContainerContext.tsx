@@ -14,7 +14,7 @@ type ContextProps = {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
   afterSelect?: Function
   enableFocusZone?: boolean
-  defaultTrailingVisual?: React.ReactElement<any>
+  defaultTrailingVisual?: React.ReactElement
 }
 
 export const ActionListContainerContext = React.createContext<ContextProps>({})

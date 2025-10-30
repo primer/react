@@ -51,7 +51,7 @@ export type UnderlineItemProps<As extends React.ElementType> = {
   iconsVisible?: boolean
   loadingCounters?: boolean
   counter?: number | string
-  icon?: FC<IconProps> | React.ReactElement<any>
+  icon?: FC<IconProps> | React.ReactElement
   id?: string
   ref?: React.Ref<unknown>
 } & React.ComponentPropsWithoutRef<As extends 'a' ? 'a' : As extends 'button' ? 'button' : As>

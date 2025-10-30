@@ -16,9 +16,9 @@ export type SegmentedControlButtonProps = {
   /** Whether the segment is selected. This is used for uncontrolled `SegmentedControls` to pick one `SegmentedControlButton` that is selected on the initial render. */
   defaultSelected?: boolean
   /** The leading visual comes before item label */
-  leadingVisual?: React.FunctionComponent<React.PropsWithChildren<IconProps>> | React.ReactElement<any>
+  leadingVisual?: React.FunctionComponent<React.PropsWithChildren<IconProps>> | React.ReactElement
   /** @deprecated Use `leadingVisual` instead. The leading icon comes before item label */
-  leadingIcon?: React.FunctionComponent<React.PropsWithChildren<IconProps>> | React.ReactElement<any>
+  leadingIcon?: React.FunctionComponent<React.PropsWithChildren<IconProps>> | React.ReactElement
   /** Optional counter to display on the right side of the button */
   count?: number | string
 } & ButtonHTMLAttributes<HTMLButtonElement | HTMLLIElement>

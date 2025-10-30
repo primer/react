@@ -71,7 +71,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
       ...rest
     }: TextareaProps,
     ref,
-  ): ReactElement<any> => {
+  ): ReactElement => {
     return (
       <TextInputBaseWrapper
         validationStatus={validationStatus}
