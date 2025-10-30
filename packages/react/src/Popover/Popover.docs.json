@@ -33,11 +33,6 @@
       "type": "boolean",
       "defaultValue": "false",
       "description": "Set to true to render the popover using relative positioning."
-    },
-    {
-      "name": "sx",
-      "type": "SystemStyleObject",
-      "deprecated": true
     }
   ],
   "subcomponents": [
@@ -49,11 +44,6 @@
           "type": "string",
           "defaultValue": "div",
           "description": "Sets the underlying HTML tag for the component"
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject",
-          "deprecated": true
         },
         {
           "name": "width",
@@ -72,6 +62,16 @@
           "type": "| 'auto' | 'hidden' | 'scroll' | 'visible'",
           "defaultValue": "'auto'",
           "description": "Sets the overflow behavior of the popover content."
+        },
+        {
+          "name": "onClickOutside",
+          "type": "(event: MouseEvent | TouchEvent) => void",
+          "description": "Callback fired when a click is detected outside the popover content"
+        },
+        {
+          "name": "ignoreClickRefs",
+          "type": "React.RefObject<HTMLElement>[]",
+          "description": "Refs to elements that should be ignored when detecting outside clicks"
         }
       ]
     }

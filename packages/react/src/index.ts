@@ -1,7 +1,6 @@
 'use client'
 
-export {default as theme} from './theme'
-export {get as themeGet} from './constants'
+export {default as theme, type ThemeColorPaths, type ThemeShadowPaths} from './theme'
 export {default as BaseStyles} from './BaseStyles'
 export type {BaseStylesProps} from './BaseStyles'
 export {default as ThemeProvider, useTheme, useColorSchemeVar} from './ThemeProvider'
@@ -46,6 +45,7 @@ export {default as useIsomorphicLayoutEffect} from './utils/useIsomorphicLayoutE
 export {useProvidedRefOrCreate} from './hooks/useProvidedRefOrCreate'
 export {useId} from './hooks/useId'
 export {useSyncedState} from './hooks/useSyncedState'
+export {useAnchoredPosition, type AnchoredPositionHookSettings} from './hooks/useAnchoredPosition'
 
 // Utils
 export {createComponent} from './utils/create-component'
@@ -224,9 +224,6 @@ export type {
   TitleAreaProps as PageHeaderTitleAreaProps,
   ChildrenPropTypes as PageHeaderChildrenPropTypes,
 } from './PageHeader'
-
-export {default as sx, merge} from './sx'
-export type {BetterCssProperties, BetterSystemStyleObject, SxProp} from './sx'
 
 export {SkeletonBox} from './Skeleton'
 export type {SkeletonBoxProps} from './Skeleton'

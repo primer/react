@@ -1,11 +1,7 @@
-import {
-  FormControl as PrimerFormControl,
-  type FormControlProps as PrimerFormControlProps,
-  type SxProp,
-} from '@primer/react'
+import {FormControl as PrimerFormControl, type FormControlProps as PrimerFormControlProps} from '@primer/react'
 import {type PropsWithChildren} from 'react'
 import styled from 'styled-components'
-import {sx} from '../sx'
+import {sx, type SxProp} from '../sx'
 
 type FormControlProps = PropsWithChildren<PrimerFormControlProps> & SxProp
 

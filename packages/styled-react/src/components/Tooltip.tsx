@@ -1,11 +1,7 @@
-import {
-  Tooltip as PrimerTooltip,
-  type TooltipProps as PrimerTooltipProps,
-  type SxProp,
-  type SlotMarker,
-} from '@primer/react'
+import {Tooltip as PrimerTooltip, type TooltipProps as PrimerTooltipProps, type SlotMarker} from '@primer/react'
 import {Box} from './Box'
 import {forwardRef, type ForwardRefExoticComponent, type RefAttributes} from 'react'
+import type {SxProp} from '../sx'
 
 type TooltipProps = PrimerTooltipProps & SxProp
 

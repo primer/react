@@ -3,7 +3,8 @@ import {describe, expect, it, vi} from 'vitest'
 import type {TooltipProps} from '../Tooltip'
 import {Tooltip} from '../Tooltip'
 import {render as HTMLRender} from '@testing-library/react'
-import {Button, IconButton, ActionMenu, ActionList, BaseStyles, ButtonGroup} from '../..'
+import BaseStyles from '../../BaseStyles'
+import {Button, IconButton, ActionMenu, ActionList, ButtonGroup} from '../..'
 import {XIcon} from '@primer/octicons-react'
 
 const TooltipComponent = (props: Omit<TooltipProps, 'text'> & {text?: string}) => (
