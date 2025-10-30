@@ -68,7 +68,7 @@ jobs:
           node-version-file: '.nvmrc'
           cache: 'npm'
       - name: Set up turbo cache
-        uses: actions/cache@5a3ec84eff668545956fdreact-18022155c47e93e2684
+        uses: actions/cache@5a3ec84eff668545956fd18022155c47e93e2684
         with:
           path: .turbo
           key: ${{ runner.os }}-turbo-${{ github.sha }}
@@ -100,7 +100,7 @@ jobs:
           node-version-file: '.nvmrc'
           cache: 'npm'
       - name: Set up turbo cache
-        uses: actions/cache@5a3ec84eff668545956fdreact-18022155c47e93e2684
+        uses: actions/cache@5a3ec84eff668545956fd18022155c47e93e2684
         with:
           path: .turbo
           key: ${{ runner.os }}-turbo-${{ github.sha }}
@@ -130,7 +130,7 @@ jobs:
           node-version-file: '.nvmrc'
           cache: 'npm'
       - name: Set up turbo cache
-        uses: actions/cache@5a3ec84eff668545956fdreact-18022155c47e93e2684
+        uses: actions/cache@5a3ec84eff668545956fd18022155c47e93e2684
         with:
           path: .turbo
           key: ${{ runner.os }}-turbo-${{ github.sha }}
@@ -154,7 +154,7 @@ jobs:
           node-version-file: '.nvmrc'
           cache: 'npm'
       - name: Set up turbo cache
-        uses: actions/cache@5a3ec84eff668545956fdreact-18022155c47e93e2684
+        uses: actions/cache@5a3ec84eff668545956fd18022155c47e93e2684
         with:
           path: .turbo
           key: ${{ runner.os }}-turbo-${{ github.sha }}
@@ -185,7 +185,7 @@ jobs:
           node-version-file: '.nvmrc'
           cache: 'npm'
       - name: Set up turbo cache
-        uses: actions/cache@5a3ec84eff668545956fdreact-18022155c47e93e2684
+        uses: actions/cache@5a3ec84eff668545956fd18022155c47e93e2684
         with:
           path: .turbo
           key: ${{ runner.os }}-turbo-${{ github.sha }}
