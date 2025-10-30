@@ -286,12 +286,14 @@ export const decorators = [
 
     // Set data-a11y-link-underlines=true to enable underlines in all stories except the Link dev Inline Story.
     let wrapperProps =
-      context.id !== 'components-link-dev--inline'
+      context.id !== 'components-link-dev--inline' ||
+      context.id !== 'components-button-dev--link-variant-with-underline-preference'
         ? {
-            'data-a11y-link-underlines': context.id !== 'components-link-dev--inline',
+            'data-a11y-link-underlines': true,
             className: clsx('story-wrap'),
           }
         : {className: clsx('story-wrap')}
+    console.log('context.id', context.id)
     const showSurroundingElements =
       context.globals.showSurroundingElements ?? window.localStorage.getItem('showSurroundingElements') === 'true'
     return context.globals.colorScheme === 'all' ? (
