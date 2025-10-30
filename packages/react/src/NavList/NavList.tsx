@@ -144,7 +144,7 @@ function ItemWithSubNav({children, subNav, depth: _depth, defaultOpen, style}: I
   }, [subNav, buttonId])
 
   return (
-    (<ItemWithSubNavContext.Provider value={{buttonId, subNavId, isOpen}}>
+    <ItemWithSubNavContext.Provider value={{buttonId, subNavId, isOpen}}>
       <ActionList.Item
         id={buttonId}
         aria-expanded={isOpen}
@@ -160,8 +160,8 @@ function ItemWithSubNav({children, subNav, depth: _depth, defaultOpen, style}: I
         </ActionList.TrailingVisual>
         <SubItem>{React.cloneElement(subNav as React.ReactElement<any>, {ref: subNavRef})}</SubItem>
       </ActionList.Item>
-    </ItemWithSubNavContext.Provider>)
-  );
+    </ItemWithSubNavContext.Provider>
+  )
 }
 
 // ----------------------------------------------------------------------------

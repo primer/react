@@ -10,7 +10,7 @@ import {SingleSelect} from '../ActionMenu/ActionMenu.features.stories'
 import {MixedSelection} from '../ActionMenu/ActionMenu.examples.stories'
 import {SearchIcon, KebabHorizontalIcon} from '@primer/octicons-react'
 
-import type { JSX } from "react";
+import type {JSX} from 'react'
 
 function Example(): JSX.Element {
   return (

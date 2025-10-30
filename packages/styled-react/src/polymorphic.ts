@@ -7,7 +7,7 @@
 
 import * as React from 'react'
 
-import type { JSX } from "react";
+import type {JSX} from 'react'
 
 /* -------------------------------------------------------------------------------------------------
  * Utility types

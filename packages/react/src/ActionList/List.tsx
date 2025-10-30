@@ -1,4 +1,4 @@
-import React, { type JSX } from 'react';
+import React, {type JSX} from 'react'
 import {fixedForwardRef} from '../utils/modern-polymorphic'
 import {ActionListContainerContext} from './ActionListContainerContext'
 import {useSlots} from '../hooks/useSlots'

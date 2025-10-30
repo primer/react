@@ -13,7 +13,7 @@ import {
 } from '@primer/octicons-react'
 import type {Meta} from '@storybook/react-vite'
 import type React from 'react'
-import { useCallback, useState, useRef, type JSX } from 'react';
+import {useCallback, useState, useRef, type JSX} from 'react'
 import type {ActionMenuProps} from '../../deprecated'
 import {ActionMenu, ActionList} from '../../deprecated'
 import type {ItemProps} from '../../deprecated/ActionList'

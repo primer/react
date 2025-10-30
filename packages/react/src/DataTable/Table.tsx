@@ -1,6 +1,6 @@
 import {SortAscIcon, SortDescIcon} from '@primer/octicons-react'
 import {clsx} from 'clsx'
-import React, { type JSX } from 'react';
+import React, {type JSX} from 'react'
 import Text from '../Text'
 import VisuallyHidden from '../_VisuallyHidden'
 import type {Column, CellAlignment} from './column'
@@ -47,7 +47,7 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>(function Table(
   return (
     // TODO update type to be non-optional in next major release
     // @ts-expect-error this type should be required in the next major version
-    (<ScrollableRegion
+    <ScrollableRegion
       aria-labelledby={labelledby}
       className={clsx('TableOverflowWrapper', classes.TableOverflowWrapper)}
     >
@@ -60,8 +60,8 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>(function Table(
         ref={ref}
         style={{'--grid-template-columns': gridTemplateColumns} as React.CSSProperties}
       />
-    </ScrollableRegion>)
-  );
+    </ScrollableRegion>
+  )
 })
 
 // ----------------------------------------------------------------------------
@@ -74,10 +74,10 @@ function TableHead({children}: TableHeadProps) {
   return (
     // We need to explicitly pass this role because some ATs and browsers drop table semantics
     // when we use `display: contents` or `display: grid` in the table
-    (<thead className={clsx('TableHead', classes.TableHead)} role="rowgroup">
+    <thead className={clsx('TableHead', classes.TableHead)} role="rowgroup">
       {children}
-    </thead>)
-  );
+    </thead>
+  )
 }
 
 // ----------------------------------------------------------------------------
@@ -90,10 +90,10 @@ function TableBody({children}: TableBodyProps) {
   return (
     // We need to explicitly pass this role because some ATs and browsers drop table semantics
     // when we use `display: contents` or `display: grid` in the table
-    (<tbody className={clsx('TableBody', classes.TableBody)} role="rowgroup">
+    <tbody className={clsx('TableBody', classes.TableBody)} role="rowgroup">
       {children}
-    </tbody>)
-  );
+    </tbody>
+  )
 }
 
 // ----------------------------------------------------------------------------

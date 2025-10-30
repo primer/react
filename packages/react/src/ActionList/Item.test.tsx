@@ -1,7 +1,7 @@
 import {describe, it, expect, vi} from 'vitest'
 import {render as HTMLRender, waitFor, fireEvent} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import React, { type JSX } from 'react';
+import React, {type JSX} from 'react'
 import {ActionList} from '.'
 import {BookIcon} from '@primer/octicons-react'
 

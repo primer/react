@@ -7,7 +7,7 @@ import BaseStyles from '../../BaseStyles'
 import {Button, IconButton, ActionMenu, ActionList, ButtonGroup} from '../..'
 import {XIcon} from '@primer/octicons-react'
 
-import type { JSX } from "react";
+import type {JSX} from 'react'
 
 const TooltipComponent = (props: Omit<TooltipProps, 'text'> & {text?: string}) => (
   <Tooltip text="Tooltip text" {...props}>

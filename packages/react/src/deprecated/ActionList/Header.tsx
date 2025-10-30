@@ -2,7 +2,7 @@ import type React from 'react'
 import {clsx} from 'clsx'
 import classes from './Header.module.css'
 
-import type { JSX } from "react";
+import type {JSX} from 'react'
 
 /**
  * Contract for props passed to the `Header` component.

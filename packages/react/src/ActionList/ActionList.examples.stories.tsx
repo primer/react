@@ -1,5 +1,5 @@
 import type {Meta} from '@storybook/react-vite'
-import React, { forwardRef, type JSX } from 'react';
+import React, {forwardRef, type JSX} from 'react'
 import {
   TypographyIcon,
   StarIcon,
