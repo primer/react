@@ -7,17 +7,14 @@ runs:
       uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
       with:
         node-version: 22
-    - name: Install glob package
-      shell: bash
-      run: npm install glob --no-package-lock
     - name: Write workspace versions as JSON file
       uses: actions/github-script@a3e7071a34d7e1f219a8a4de9a5e0a34d1ee1293
       with:
         script: |
           const fs = require('node:fs');
-          const {globSync} = require('glob')
 
-          const packageJsonPaths = globSync('packages/**/package.json', { ignore: ['**/node_modules/**'] })
+          const globber = glob.create(['packages/**/package.json', '!**/node_modules/**'].join('\n'))
+          const packageJsonPaths = await globber.glob()
           const output = {
             packages: [],
           };
