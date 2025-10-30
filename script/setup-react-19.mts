@@ -1,3 +1,4 @@
+import {execSync} from 'node:child_process'
 import fs from 'node:fs'
 import glob from 'fast-glob'
 import semver from 'semver'
@@ -41,3 +42,5 @@ for (const packageJsonPath of packageJsonPaths) {
 
   fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2) + '\n', 'utf8')
 }
+
+execSync('npm install', {stdio: 'inherit'})
