@@ -2,14 +2,18 @@ name: Canary Release
 on:
   push:
     branches-ignore:
-      - 'main'
-      - 'next-major'
-      - 'changeset-release/**'
+      - "main"
+      - "next-major"
+      - "changeset-release/**"
   workflow_dispatch:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
+
+permissions:
+  id-token: write # Required for OIDC
+  contents: read
 
 jobs:
   release:
@@ -26,19 +30,19 @@ jobs:
       - name: Set up Node
         uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444
         with:
-          node-version-file: '.nvmrc'
-          cache: 'npm'
+          node-version-file: ".nvmrc"
+          cache: "npm"
       - name: Install dependencies
         run: npm ci
       - name: Build
         run: npm run build --if-present
-      - name: Create .npmrc
-        run: |
-          cat << EOF > "$HOME/.npmrc"
-            //registry.npmjs.org/:_authToken=$NPM_TOKEN
-          EOF
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_AUTH_TOKEN_SHARED }}
+      # - name: Create .npmrc
+      #   run: |
+      #     cat << EOF > "$HOME/.npmrc"
+      #       //registry.npmjs.org/:_authToken=$NPM_TOKEN
+      #     EOF
+      #   env:
+      #     NPM_TOKEN: ${{ secrets.NPM_AUTH_TOKEN_SHARED }}
       - name: Publish canary release
         run: |
           if [[ -f '.changeset/pre.json' ]]; then
