@@ -64,14 +64,17 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
   const getChildIcon = (childArg: React.ReactNode): React.ReactElement | null => {
     if (
       React.isValidElement<SegmentedControlButtonProps>(childArg) &&
-      (childArg.type === Button || isSlot(childArg, Button)) &&
-      childArg.props.leadingIcon
+      (childArg.type === Button || isSlot(childArg, Button))
     ) {
-      if (isElement(childArg.props.leadingIcon)) {
-        return childArg.props.leadingIcon
-      } else {
-        const LeadingIcon = childArg.props.leadingIcon
-        return <LeadingIcon />
+      // Use leadingVisual if provided, otherwise fall back to leadingIcon for backwards compatibility
+      const leadingVisual = childArg.props.leadingVisual ?? childArg.props.leadingIcon
+      if (leadingVisual) {
+        if (isElement(leadingVisual)) {
+          return leadingVisual
+        } else {
+          const LeadingVisual = leadingVisual
+          return <LeadingVisual />
+        }
       }
     }
 
@@ -191,18 +194,21 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
         ) {
           const {
             'aria-label': childAriaLabel,
+            leadingVisual,
             leadingIcon,
             children: childPropsChildren,
             ...restChildProps
           } = child.props
-          if (!leadingIcon) {
+          // Use leadingVisual if provided, otherwise fall back to leadingIcon
+          const visual = leadingVisual ?? leadingIcon
+          if (!visual) {
             // eslint-disable-next-line no-console
-            console.warn('A `leadingIcon` prop is required when hiding visible labels')
+            console.warn('A `leadingVisual` or `leadingIcon` prop is required when hiding visible labels')
           } else {
             return (
               <SegmentedControlIconButton
                 aria-label={childAriaLabel || childPropsChildren}
-                icon={leadingIcon}
+                icon={visual}
                 // Width is now handled by CSS: 32px default, 100% when data-full-width is set on parent
                 className={classes.IconButton}
                 {...sharedChildProps}
