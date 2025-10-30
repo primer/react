@@ -75,7 +75,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-turbo-
       - if: ${{ matrix.react-version == 'react-19' }}
-        run: node script/setup-react-react-19.mts
+        run: node script/setup-react-19.mts
       - name: Install dependencies
         run: npm ci
       - name: Build
@@ -107,7 +107,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-turbo-
       - if: ${{ matrix.react-version == 'react-19' }}
-        run: node script/setup-react-react-19.mts
+        run: node script/setup-react-19.mts
       - name: Install dependencies
         run: npm ci
       - name: Build project
@@ -137,7 +137,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-turbo-
       - if: ${{ matrix.react-version == 'react-19' }}
-        run: node script/setup-react-react-19.mts
+        run: node script/setup-react-19.mts
       - name: Install dependencies
         run: npm ci
       - name: Build
