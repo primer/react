@@ -6,7 +6,7 @@ import {Divider} from './ActionList/Divider'
 import type {ButtonProps} from '../Button'
 import {Button} from '../Button'
 import type React from 'react'
-import {useCallback, useMemo} from 'react'
+import { useCallback, useMemo, type JSX } from 'react';
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
 import type {OverlayProps} from '../Overlay'

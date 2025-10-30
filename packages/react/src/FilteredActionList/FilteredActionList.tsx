@@ -1,6 +1,6 @@
 import type {ScrollIntoViewOptions} from '@primer/behaviors'
 import {scrollIntoView, FocusKeys} from '@primer/behaviors'
-import type {KeyboardEventHandler} from 'react'
+import type { KeyboardEventHandler, JSX } from 'react';
 import type React from 'react'
 import {useCallback, useEffect, useRef, useState} from 'react'
 import type {TextInputProps} from '../TextInput'

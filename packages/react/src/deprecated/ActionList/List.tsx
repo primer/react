@@ -1,4 +1,4 @@
-import type {Key} from 'react'
+import type { Key, JSX } from 'react';
 import React from 'react'
 import type {AriaRole} from '../../utils/types'
 import type {GroupProps} from './Group'

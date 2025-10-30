@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { type JSX } from 'react';
 import {describe, expect, it, vi} from 'vitest'
 import {ActionList, FormControl} from '../../'
 import type {RenderResult} from '@testing-library/react'

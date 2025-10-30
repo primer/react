@@ -4,6 +4,8 @@ import BaseStyles from '../../BaseStyles'
 import {ActionMenu} from '../../deprecated'
 import type {ItemProps} from '../../deprecated/ActionList/Item'
 
+import type { JSX } from "react";
+
 const items = [
   {text: 'New file'},
   {text: 'Copy link'},

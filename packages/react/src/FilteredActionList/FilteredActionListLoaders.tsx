@@ -3,6 +3,8 @@ import {Stack} from '../Stack/Stack'
 import {SkeletonBox} from '../Skeleton/SkeletonBox'
 import classes from './FilteredActionListLoaders.module.css'
 
+import type { JSX } from "react";
+
 export class FilteredActionListLoadingType {
   public name: string
   public appearsInBody: boolean
