@@ -292,13 +292,13 @@ BackwardCompatibilityTest.parameters = {
 export const SSRSafeResponsive: StoryFn = () => (
   <PageLayout>
     <PageLayout.Header divider={{narrow: 'filled', regular: 'line'}}>
-      <Placeholder height={64} label="SSR-safe: No layout shift - responsive behavior handled by CSS media queries" />
+      <Placeholder height={64} label="Header divider: filled (narrow) → line (regular + wide)" />
     </PageLayout.Header>
     <PageLayout.Content>
       <Placeholder height={400} label="Content" />
     </PageLayout.Content>
     <PageLayout.Pane position={{narrow: 'end', regular: 'start'}} divider={{narrow: 'filled', regular: 'line'}}>
-      <Placeholder height={200} label="Pane with SSR-safe responsive properties" />
+      <Placeholder height={200} label="Pane: end + filled divider (narrow) → start + line divider (regular + wide)" />
     </PageLayout.Pane>
   </PageLayout>
 )
@@ -307,7 +307,7 @@ SSRSafeResponsive.parameters = {
   docs: {
     description: {
       story:
-        'Demonstrates SSR-safe responsive behavior. All responsive values are now handled through CSS data attributes and media queries, preventing layout shift during hydration. This follows ADR-018 for responsive values.',
+        'Demonstrates SSR-safe responsive behavior. The header divider is **filled** on narrow viewports and **line** on regular and wide viewports. The pane is positioned at **end** with a **filled** divider on narrow viewports, and at **start** with a **line** divider on regular and wide viewports. All responsive values are handled through CSS data attributes and media queries, preventing layout shift during hydration. This follows ADR-018 for responsive values.',
     },
   },
 }
