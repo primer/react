@@ -8,8 +8,10 @@ import {Divider} from './Divider'
 import {Description} from './Description'
 import Avatar from '../Avatar'
 import {FileDirectoryIcon, HeartFillIcon} from '@primer/octicons-react'
+import {TabContainerElement} from '@github/tab-container-element'
 import {Stack} from '../Stack'
 import {AnchoredOverlay} from '../AnchoredOverlay'
+import createComponent from '../utils/create-component'
 
 export default {
   title: 'Components/ActionList/Dev',
@@ -375,3 +377,45 @@ export const OverlayWrapping = () => {
     </div>
   )
 }
+
+const TabContainerComponent = createComponent(TabContainerElement, 'tab-container')
+
+export const TabListRoles = () => (
+  <TabContainerComponent>
+    <ActionList role="tablist" aria-label="Tabs example">
+      <ActionList.Item role="tab">Tab 1</ActionList.Item>
+      <ActionList.Item role="tab">Tab 2</ActionList.Item>
+      <ActionList.Item role="tab" aria-selected>
+        Tab 3
+      </ActionList.Item>
+    </ActionList>
+    <div role="tabpanel" data-tab-container-no-tabstop>
+      Panel 1
+    </div>
+    <div role="tabpanel" data-tab-container-no-tabstop hidden>
+      Panel 2
+    </div>
+    <div role="tabpanel" data-tab-container-no-tabstop hidden>
+      Panel 3
+    </div>
+  </TabContainerComponent>
+)
+
+export const TabListInfersItemRole = () => (
+  <TabContainerComponent>
+    <ActionList role="tablist" aria-label="Tabs example">
+      <ActionList.Item>Tab 1</ActionList.Item>
+      <ActionList.Item>Tab 2</ActionList.Item>
+      <ActionList.Item>Tab 3</ActionList.Item>
+    </ActionList>
+    <div role="tabpanel" data-tab-container-no-tabstop>
+      Panel 1
+    </div>
+    <div role="tabpanel" data-tab-container-no-tabstop hidden>
+      Panel 2
+    </div>
+    <div role="tabpanel" data-tab-container-no-tabstop hidden>
+      Panel 3
+    </div>
+  </TabContainerComponent>
+)
