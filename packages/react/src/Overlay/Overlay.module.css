@@ -20,13 +20,13 @@
   border-radius: var(--borderRadius-large);
   box-shadow: var(--shadow-floating-small);
   /* stylelint-disable-next-line primer/spacing */
-  top: var(--top);
+  top: var(--top, auto);
   /* stylelint-disable-next-line primer/spacing */
-  left: var(--left);
+  left: var(--left, auto);
   /* stylelint-disable-next-line primer/spacing */
-  right: var(--right);
+  right: var(--right, auto);
   /* stylelint-disable-next-line primer/spacing */
-  bottom: var(--bottom);
+  bottom: var(--bottom, auto);
 
   &:focus {
     outline: none;
