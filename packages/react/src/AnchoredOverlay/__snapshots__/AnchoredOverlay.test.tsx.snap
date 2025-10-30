@@ -41,6 +41,7 @@ exports[`AnchoredOverlay > should render consistently when open 1`] = `
       >
         <div
           class="prc-Overlay-Overlay-ViJgm"
+          data-component="AnchoredOverlay"
           data-focus-trap="active"
           data-height-auto=""
           data-visibility-visible=""
