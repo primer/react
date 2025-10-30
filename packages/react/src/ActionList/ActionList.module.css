@@ -187,7 +187,7 @@
 
     /* active state [aria-current] */
     &:where([data-active]),
-    &:where([aria-selected='true']) {
+    &:where([aria-selected='true']):not([data-selectable]) {
       background: var(--control-transparent-bgColor-selected);
 
       /* provides a visual indication of the current item for Windows high-contrast mode */
