@@ -3,6 +3,7 @@ import {render as HTMLRender, screen, waitFor, within} from '@testing-library/re
 import {describe, expect, it, vi} from 'vitest'
 import userEvent from '@testing-library/user-event'
 import {FeatureFlags} from '../../FeatureFlags'
+import {act} from 'react'
 
 // Helper function to render with theme and feature flags
 const renderWithTheme = (component: React.ReactElement, flags?: Record<string, boolean>) => {
@@ -234,26 +235,30 @@ describe('Breadcrumbs', () => {
     // Initially should show overflow menu for >5 items
     expect(screen.getByRole('button', {name: /more breadcrumb items/i})).toBeInTheDocument()
 
-    // Simulate a wide container resize
-    if (resizeCallback) {
-      resizeCallback([
-        {
-          contentRect: {width: 800, height: 40},
-        } as ResizeObserverEntry,
-      ])
-    }
+    act(() => {
+      // Simulate a wide container resize
+      if (resizeCallback) {
+        resizeCallback([
+          {
+            contentRect: {width: 800, height: 40},
+          } as ResizeObserverEntry,
+        ])
+      }
+    })
 
     // Should still have overflow menu for 6 items (>5 rule)
     expect(screen.getByRole('button', {name: /more breadcrumb items/i})).toBeInTheDocument()
 
-    // Simulate a narrow container resize
-    if (resizeCallback) {
-      resizeCallback([
-        {
-          contentRect: {width: 250, height: 40},
-        } as ResizeObserverEntry,
-      ])
-    }
+    act(() => {
+      // Simulate a narrow container resize
+      if (resizeCallback) {
+        resizeCallback([
+          {
+            contentRect: {width: 250, height: 40},
+          } as ResizeObserverEntry,
+        ])
+      }
+    })
 
     // Should maintain overflow menu for narrow container
     expect(screen.getByRole('button', {name: /more breadcrumb items/i})).toBeInTheDocument()
@@ -318,26 +323,30 @@ describe('Breadcrumbs', () => {
       expect
     })
 
-    // Simulate a very narrow container resize that would affect overflow calculation
-    if (resizeCallback) {
-      resizeCallback([
-        {
-          contentRect: {width: 200, height: 40},
-        } as ResizeObserverEntry,
-      ])
-    }
+    act(() => {
+      // Simulate a very narrow container resize that would affect overflow calculation
+      if (resizeCallback) {
+        resizeCallback([
+          {
+            contentRect: {width: 200, height: 40},
+          } as ResizeObserverEntry,
+        ])
+      }
+    })
 
     // Menu button should still be present
     expect(screen.getByRole('button', {name: /more breadcrumb items/i})).toBeInTheDocument()
 
-    // Simulate a very wide container resize
-    if (resizeCallback) {
-      resizeCallback([
-        {
-          contentRect: {width: 1200, height: 40},
-        } as ResizeObserverEntry,
-      ])
-    }
+    act(() => {
+      // Simulate a very wide container resize
+      if (resizeCallback) {
+        resizeCallback([
+          {
+            contentRect: {width: 1200, height: 40},
+          } as ResizeObserverEntry,
+        ])
+      }
+    })
 
     // Menu button should still be present (7 items > 5)
     expect(screen.getByRole('button', {name: /more breadcrumb items/i})).toBeInTheDocument()
@@ -498,7 +507,9 @@ describe('Breadcrumbs', () => {
       const menuButton = screen.getByRole('button', {name: /more breadcrumb items/i})
 
       // Focus the menu button
-      menuButton.focus()
+      act(() => {
+        menuButton.focus()
+      })
       expect(menuButton).toHaveFocus()
 
       // Open menu with Enter key

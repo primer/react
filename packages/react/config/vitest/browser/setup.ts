@@ -22,6 +22,7 @@ import './global.css'
 import {beforeEach} from 'vitest'
 import {cleanup} from '@testing-library/react'
 import '@testing-library/jest-dom/vitest'
+import failOnConsole from 'vitest-fail-on-console'
 
 beforeEach(() => {
   cleanup()
@@ -37,3 +38,5 @@ document.documentElement.setAttribute('data-color-mode', 'auto')
 document.documentElement.setAttribute('data-light-theme', 'light')
 // eslint-disable-next-line ssr-friendly/no-dom-globals-in-module-scope
 document.documentElement.setAttribute('data-dark-theme', 'dark')
+
+failOnConsole()

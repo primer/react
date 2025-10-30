@@ -28,11 +28,11 @@ const sizeStyles = ({size, variant = 'medium'}: CircleBadgeProps<React.ElementTy
   }
 }
 
-const CircleBadge = <As extends React.ElementType>({as: Component = 'div', ...props}: CircleBadgeProps<As>) => (
+const CircleBadge = <As extends React.ElementType>({as: Component = 'div', inline, ...props}: CircleBadgeProps<As>) => (
   <Component
     {...props}
     className={clsx(styles.CircleBadge, props.className)}
-    data-inline={props.inline ? '' : undefined}
+    data-inline={inline ? '' : undefined}
     style={sizeStyles(props)}
   />
 )

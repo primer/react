@@ -1757,8 +1757,7 @@ it('should have keyboard shortcut command as part of accessible name when using 
   expect(screen.getByRole('treeitem', {name: /for more actions\.$/})).toBeInTheDocument()
 })
 
-it('should activate the dialog for trailing action when keyboard shortcut is used', async () => {
-  userEvent.setup()
+it('should activate the dialog for trailing action when keyboard shortcut is used', () => {
   render(
     <TreeView aria-label="Files changed">
       <TreeView.Item
@@ -1790,12 +1789,17 @@ it('should activate the dialog for trailing action when keyboard shortcut is use
   const treeItem = screen.getByRole('treeitem', {
     name: /for more actions\.$/,
   })
-  treeItem.focus()
+
+  act(() => {
+    treeItem.focus()
+  })
   expect(treeItem).toHaveFocus()
 
   expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
 
-  fireEvent.keyDown(treeItem, {key: 'u', metaKey: true, shiftKey: true})
+  act(() => {
+    fireEvent.keyDown(treeItem, {key: 'u', metaKey: true, shiftKey: true})
+  })
 
   expect(screen.getByRole('dialog')).toBeInTheDocument()
 })
