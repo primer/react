@@ -354,4 +354,35 @@ describe('ActionList.Item', () => {
     expect(item).toHaveTextContent('Item, Description')
     expect(item).toHaveAccessibleDescription('Description')
   })
+
+  it('should add role="tab" when ActionList has role="tablist"', () => {
+    const {getAllByRole} = HTMLRender(
+      <ActionList role="tablist">
+        <ActionList.Item>Tab 1</ActionList.Item>
+        <ActionList.Item>Tab 2</ActionList.Item>
+        <ActionList.Item>Tab 3</ActionList.Item>
+      </ActionList>,
+    )
+    const tabs = getAllByRole('tab')
+    expect(tabs[0]).toBeInTheDocument()
+    expect(tabs).toHaveLength(3)
+  })
+
+  it('should update stylings when aria-selected is added outside of React', () => {
+    const {getByRole} = HTMLRender(
+      <ActionList role="tablist">
+        <ActionList.Item>Tab 1</ActionList.Item>
+      </ActionList>,
+    )
+
+    const tab = getByRole('tab')
+    expect(tab).toBeInTheDocument()
+
+    const backgroundColorBefore = window.getComputedStyle(tab).backgroundColor
+    // Simulate outside of React setting aria-selected
+    tab.setAttribute('aria-selected', 'true')
+    const backgroundColorAfter = window.getComputedStyle(tab).backgroundColor
+    expect(backgroundColorBefore).not.toBe(backgroundColorAfter)
+    expect(tab).toHaveAttribute('aria-selected', 'true')
+  })
 })
