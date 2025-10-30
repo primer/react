@@ -264,7 +264,11 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
     },
     [onClose, lastMouseDownIsBackdrop],
   )
-  const [slots] = useSlots(props.children, {body: Dialog.Body, header: Dialog.Header, footer: Dialog.Footer})
+  const [slots, childrenWithoutSlots] = useSlots(props.children, {
+    body: Dialog.Body,
+    header: Dialog.Header,
+    footer: Dialog.Footer,
+  })
 
   const dialogRef = useRef<HTMLDivElement>(null)
   useRefObjectAsForwardedRef(forwardedRef, dialogRef)
@@ -295,7 +299,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
   }, [])
 
   const header = slots.header ?? (renderHeader ?? DefaultHeader)(defaultedProps)
-  const body = slots.body ?? (renderBody ?? DefaultBody)(defaultedProps)
+  const body = slots.body ?? (renderBody ?? DefaultBody)({...defaultedProps, children: childrenWithoutSlots})
   const footer = slots.footer ?? (renderFooter ?? DefaultFooter)(defaultedProps)
   const positionDataAttributes =
     typeof position === 'string'
