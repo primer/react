@@ -1,32 +1,4 @@
 {
-  "name": "@primer/styled-react",
-  "version": "0.2.0",
-  "type": "module",
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "default": "./dist/index.js"
-    },
-    "./deprecated": {
-      "types": "./dist/deprecated.d.ts",
-      "default": "./dist/deprecated.js"
-    },
-    "./experimental": {
-      "types": "./dist/experimental.d.ts",
-      "default": "./dist/experimental.js"
-    },
-    "./components.json": "./dist/components.json"
-  },
-  "files": [
-    "README.md",
-    "dist"
-  ],
-  "scripts": {
-    "build": "script/build",
-    "clean": "rimraf dist",
-    "lint:npm": "publint --types",
-    "type-check": "tsc --noEmit"
-  },
   "dependencies": {
     "@styled-system/css": "^5.1.5",
     "@styled-system/props": "^5.1.5",
@@ -55,6 +27,26 @@
     "styled-components": "5.3.11",
     "typescript": "^5.9.2"
   },
+  "exports": {
+    ".": {
+      "default": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./components.json": "./dist/components.json",
+    "./deprecated": {
+      "default": "./dist/deprecated.js",
+      "types": "./dist/deprecated.d.ts"
+    },
+    "./experimental": {
+      "default": "./dist/experimental.js",
+      "types": "./dist/experimental.d.ts"
+    }
+  },
+  "files": [
+    "README.md",
+    "dist"
+  ],
+  "name": "@primer/styled-react",
   "peerDependencies": {
     "@primer/react": "38.0.0",
     "@types/react": "18.x || 19.x",
@@ -79,5 +71,14 @@
     "@types/styled-components": {
       "optional": true
     }
-  }
+  },
+  "repository": "primer/react",
+  "scripts": {
+    "build": "script/build",
+    "clean": "rimraf dist",
+    "lint:npm": "publint --types",
+    "type-check": "tsc --noEmit"
+  },
+  "type": "module",
+  "version": "0.2.0"
 }
