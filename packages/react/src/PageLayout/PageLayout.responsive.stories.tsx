@@ -152,8 +152,8 @@ export const PanePositionResponsive: StoryFn = () => (
     <PageLayout.Content>
       <Placeholder height={400} label="Content" />
     </PageLayout.Content>
-    <PageLayout.Pane position={{narrow: 'end', regular: 'start', wide: 'end'}}>
-      <Placeholder height={200} label="Pane position: end (narrow) → start (regular) → end (wide)" />
+    <PageLayout.Pane position={{narrow: 'end', regular: 'start', wide: 'start'}}>
+      <Placeholder height={200} label="Pane position: end (narrow) → start (regular + wide)" />
     </PageLayout.Pane>
   </PageLayout>
 )
@@ -162,7 +162,7 @@ PanePositionResponsive.parameters = {
   docs: {
     description: {
       story:
-        'The pane position changes based on viewport width: **end** on narrow viewports (< 768px), **start** on regular viewports (768px - 1399px), and **end** on wide viewports (>= 1400px).',
+        'The pane position changes based on viewport width: **end** (below content) on narrow viewports (< 768px), **start** (left sidebar) on regular and wide viewports (>= 768px).',
     },
   },
 }
