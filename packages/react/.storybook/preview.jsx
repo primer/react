@@ -293,7 +293,6 @@ export const decorators = [
             className: clsx('story-wrap'),
           }
         : {className: clsx('story-wrap')}
-    console.log('context.id', context.id)
     const showSurroundingElements =
       context.globals.showSurroundingElements ?? window.localStorage.getItem('showSurroundingElements') === 'true'
     return context.globals.colorScheme === 'all' ? (
