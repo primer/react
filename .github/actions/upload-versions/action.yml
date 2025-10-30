@@ -13,7 +13,7 @@ runs:
         script: |
           const fs = require('node:fs');
 
-          const globber = glob.create(['packages/**/package.json', '!**/node_modules/**'].join('\n'))
+          const globber = await glob.create(['packages/**/package.json', '!**/node_modules/**'].join('\n'))
           const packageJsonPaths = await globber.glob()
           const output = {
             packages: [],
