@@ -125,8 +125,8 @@ body[data-page-layout-dragging='true'] * {
       inset 0 1px 0 0 var(--borderColor-default);
   }
 
-  /* Narrow viewport: < 768px */
-  @media (max-width: 767.98px) {
+  /* Narrow viewport */
+  @media (--viewportRange-narrow) {
     &:where([data-variant-narrow='none']) {
       display: none;
     }
@@ -149,8 +149,8 @@ body[data-page-layout-dragging='true'] * {
     }
   }
 
-  /* Regular viewport: 768px - 1399px */
-  @media screen and (min-width: 768px) {
+  /* Regular viewport */
+  @media (--viewportRange-regular) {
     &:where([data-variant-regular='none']) {
       display: none;
     }
@@ -173,8 +173,8 @@ body[data-page-layout-dragging='true'] * {
     }
   }
 
-  /* Wide viewport: >= 1400px */
-  @media screen and (min-width: 1400px) {
+  /* Wide viewport */
+  @media (--viewportRange-wide) {
     &:where([data-variant-wide='none']) {
       display: none;
     }
@@ -228,8 +228,8 @@ body[data-page-layout-dragging='true'] * {
       inset 1px 0 0 0 var(--borderColor-default);
   }
 
-  /* Narrow viewport: < 768px */
-  @media (max-width: 767.98px) {
+  /* Narrow viewport */
+  @media (--viewportRange-narrow) {
     &:where([data-variant-narrow='none']) {
       display: none;
     }
@@ -252,8 +252,8 @@ body[data-page-layout-dragging='true'] * {
     }
   }
 
-  /* Regular viewport: 768px - 1399px */
-  @media screen and (min-width: 768px) {
+  /* Regular viewport */
+  @media (--viewportRange-regular) {
     &:where([data-variant-regular='none']) {
       display: none;
     }
@@ -276,8 +276,8 @@ body[data-page-layout-dragging='true'] * {
     }
   }
 
-  /* Wide viewport: >= 1400px */
-  @media screen and (min-width: 1400px) {
+  /* Wide viewport */
+  @media (--viewportRange-wide) {
     &:where([data-variant-wide='none']) {
       display: none;
     }
@@ -310,22 +310,22 @@ body[data-page-layout-dragging='true'] * {
     display: none;
   }
 
-  /* Narrow viewport: < 768px */
-  @media (max-width: 767.98px) {
+  /* Narrow viewport */
+  @media (--viewportRange-narrow) {
     &:where([data-hidden-narrow='true']) {
       display: none;
     }
   }
 
-  /* Regular viewport: 768px - 1399px */
-  @media screen and (min-width: 768px) {
+  /* Regular viewport */
+  @media (--viewportRange-regular) {
     &:where([data-hidden-regular='true']) {
       display: none;
     }
   }
 
-  /* Wide viewport: >= 1400px */
-  @media screen and (min-width: 1400px) {
+  /* Wide viewport */
+  @media (--viewportRange-wide) {
     &:where([data-hidden-wide='true']) {
       display: none;
     }
@@ -361,22 +361,22 @@ body[data-page-layout-dragging='true'] * {
     display: none;
   }
 
-  /* Narrow viewport: < 768px */
-  @media (max-width: 767.98px) {
+  /* Narrow viewport */
+  @media (--viewportRange-narrow) {
     &:where([data-is-hidden-narrow='true']) {
       display: none;
     }
   }
 
-  /* Regular viewport: 768px - 1399px */
-  @media screen and (min-width: 768px) {
+  /* Regular viewport */
+  @media (--viewportRange-regular) {
     &:where([data-is-hidden-regular='true']) {
       display: none;
     }
   }
 
-  /* Wide viewport: >= 1400px */
-  @media screen and (min-width: 1400px) {
+  /* Wide viewport */
+  @media (--viewportRange-wide) {
     &:where([data-is-hidden-wide='true']) {
       display: none;
     }
@@ -419,8 +419,8 @@ body[data-page-layout-dragging='true'] * {
     display: none;
   }
 
-  /* Narrow viewport: < 768px */
-  @media (max-width: 767.98px) {
+  /* Narrow viewport */
+  @media (--viewportRange-narrow) {
     &:where([data-is-hidden-narrow='true']) {
       display: none;
     }
@@ -483,7 +483,7 @@ body[data-page-layout-dragging='true'] * {
     }
   }
 
-  @media screen and (min-width: 1400px) {
+  @media (--viewportRange-wide) {
     &:where([data-is-hidden-wide='true']) {
       display: none;
     }
@@ -555,22 +555,22 @@ body[data-page-layout-dragging='true'] * {
     display: none;
   }
 
-  /* Narrow viewport: < 768px */
-  @media (max-width: 767.98px) {
+  /* Narrow viewport */
+  @media (--viewportRange-narrow) {
     &:where([data-hidden-narrow='true']) {
       display: none;
     }
   }
 
-  /* Regular viewport: 768px - 1399px */
-  @media screen and (min-width: 768px) {
+  /* Regular viewport */
+  @media (--viewportRange-regular) {
     &:where([data-hidden-regular='true']) {
       display: none;
     }
   }
 
-  /* Wide viewport: >= 1400px */
-  @media screen and (min-width: 1400px) {
+  /* Wide viewport */
+  @media (--viewportRange-wide) {
     &:where([data-hidden-wide='true']) {
       display: none;
     }
