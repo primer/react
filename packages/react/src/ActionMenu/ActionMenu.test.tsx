@@ -51,7 +51,7 @@ function ExampleWithTooltip(): JSX.Element {
   )
 }
 
-function ExampleWithTooltipV2(actionMenuTrigger: React.ReactElement): JSX.Element {
+function ExampleWithTooltipV2(actionMenuTrigger: React.ReactElement<any>): JSX.Element {
   return (
     <BaseStyles>
       <ActionMenu>

@@ -4,6 +4,6 @@ export type ChildSize = {
 }
 export type ChildWidthArray = Array<ChildSize>
 export type ResponsiveProps = {
-  items: Array<React.ReactElement>
-  menuItems: Array<React.ReactElement>
+  items: Array<React.ReactElement<any>>
+  menuItems: Array<React.ReactElement<any>>
 }

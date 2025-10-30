@@ -14,7 +14,7 @@ const StyleDataTableContainer: React.ComponentType<DataTableContainerProps> = st
 })<DataTableContainerProps>`
   ${sx}
 ` as typeof PrimerDataTable.Container & {
-  <As extends React.ElementType = 'div'>(props: DataTableContainerProps<As>): React.ReactElement | null
+  <As extends React.ElementType = 'div'>(props: DataTableContainerProps<As>): React.ReactElement<any> | null
 }
 
 function DataTableContainer<As extends React.ElementType = 'div'>({as, ...rest}: DataTableContainerProps<As>) {

@@ -51,7 +51,7 @@ const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
       ...rest
     }: RadioProps,
     ref,
-  ): ReactElement => {
+  ): ReactElement<any> => {
     const radioGroupContext = useContext(RadioGroupContext)
     const handleOnChange: ChangeEventHandler<HTMLInputElement> = e => {
       radioGroupContext?.onChange && radioGroupContext.onChange(e)

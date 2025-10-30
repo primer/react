@@ -54,7 +54,7 @@ interface ForwardRefComponent<
         : As extends keyof JSX.IntrinsicElements
           ? Merge<JSX.IntrinsicElements[As], OwnProps & {as: As}>
           : never,
-  ): React.ReactElement | null
+  ): React.ReactElement<any> | null
 }
 
 export type {ForwardRefComponent, OwnProps, IntrinsicElement, Merge}

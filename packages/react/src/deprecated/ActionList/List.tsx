@@ -10,7 +10,7 @@ import {clsx} from 'clsx'
 import type {Merge} from '../../utils/types/Merge'
 import classes from './List.module.css'
 
-export type RenderItemFn = (props: ItemProps) => React.ReactElement
+export type RenderItemFn = (props: ItemProps) => React.ReactElement<any>
 
 export type ItemInput =
   | Merge<React.ComponentPropsWithoutRef<'div'>, ItemProps>
