@@ -11,6 +11,10 @@ const stories = [
     title: 'Playground',
     id: 'components-popover--playground',
   },
+  {
+    title: 'Close On Click Outside',
+    id: 'components-popover-features--close-on-click-outside',
+  },
 ] as const
 
 test.describe('Popover', () => {

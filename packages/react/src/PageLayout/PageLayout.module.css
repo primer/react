@@ -70,6 +70,9 @@ body[data-page-layout-dragging='true'] * {
   margin-right: auto;
   margin-left: auto;
   flex-wrap: wrap;
+  /* the wrapper should match the Root's dimensions by default */
+  width: 100%;
+  height: 100%;
 
   &:where([data-width='medium']) {
     max-width: 768px;
