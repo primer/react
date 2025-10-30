@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - 'changeset-release/main'
-      - 'changeset-release/next-major'
 
 jobs:
   release-candidate:

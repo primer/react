@@ -915,9 +915,7 @@ const data = {
   ],
   branches: [
     {id: 'main', name: 'main', trailingInfo: 'Default'},
-    {id: 'next-major', name: 'next-major'},
     {id: 'changeset-release/main', name: 'changeset-release/main'},
-    {id: 'changeset-release/next-major', name: 'changeset-release/next-major'},
     {id: 'selectpanel-2', name: 'selectpanel-2'},
     {id: 'bs/actionlist-heading', name: 'bs/actionlist-heading'},
     {id: 'refactor/support-alt-names', name: 'refactor/support-alt-names'},

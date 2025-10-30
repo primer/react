@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - next-major
 
 jobs:
   release-main:
@@ -48,17 +47,3 @@ jobs:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
           NPM_TOKEN: ${{ secrets.NPM_AUTH_TOKEN_SHARED }}
       - uses: ./.github/actions/upload-versions
-
-  release-next-major:
-    if: github.ref_name == 'next-major'
-    name: Next major
-    uses: primer/.github/.github/workflows/release_with_app.yml@v2.0.0
-    with:
-      title: Release tracking (next major)
-    secrets:
-      npm_token: ${{ secrets.NPM_AUTH_TOKEN_SHARED }}
-      app-id: ${{ vars.PRIMER_APP_ID_SHARED }}
-      private-key: ${{ secrets.PRIMER_APP_PRIVATE_KEY_SHARED }}
-      client-id: ${{ vars.PRIMER_APP_CLIENT_ID_SHARED }}
-      client-secret: ${{ secrets.PRIMER_APP_CLIENT_SECRET_SHARED }}
-      installation-id: ${{ vars.PRIMER_APP_INSTALLATION_ID_SHARED }}
