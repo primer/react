@@ -27,6 +27,10 @@ const stories = [
     title: 'Position sidesheet',
     id: 'components-dialog-features--side-sheet',
   },
+  {
+    title: 'With Direct Subcomponents',
+    id: 'components-dialog-features--with-direct-subcomponents',
+  },
 ] as const
 
 test.describe('Dialog', () => {
