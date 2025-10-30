@@ -1,35 +1,56 @@
 import {Dialog as PrimerDialog} from '@primer/react'
 import type {DialogProps as PrimerDialogProps, SlotMarker} from '@primer/react'
-import {Box} from './Box'
 import type {SxProp} from '../sx'
+import {sx} from '../sx'
+import styled from 'styled-components'
 import {forwardRef, type ComponentPropsWithoutRef, type PropsWithChildren} from 'react'
 
-type DialogProps = PropsWithChildren<PrimerDialogProps> & SxProp
+type DialogProps = PropsWithChildren<PrimerDialogProps> & SxProp & {as?: React.ElementType}
 
-const DialogImpl = forwardRef<HTMLDivElement, DialogProps>(function Dialog(props, ref) {
-  // @ts-expect-error - PrimerDialog is not recognized as a valid component type
-  return <Box as={PrimerDialog} ref={ref} {...props} />
+const StyledDialog = styled(PrimerDialog).withConfig({
+  shouldForwardProp: prop => (prop as keyof DialogProps) !== 'sx',
+})<DialogProps>`
+  ${sx}
+`
+
+const DialogImpl = forwardRef<HTMLDivElement, DialogProps>(function Dialog({as, ...props}, ref) {
+  return <StyledDialog ref={ref} {...(as ? {forwardedAs: as} : {})} {...props} />
 })
 
-type DialogHeaderProps = ComponentPropsWithoutRef<'div'> & SxProp
+type DialogHeaderProps = ComponentPropsWithoutRef<'div'> & SxProp & {as?: React.ElementType}
 
-const DialogHeader = forwardRef<HTMLDivElement, DialogHeaderProps>(function DialogHeader(props, ref) {
-  // @ts-expect-error - PrimerDialog.Header is not recognized as a valid component type
-  return <Box as={PrimerDialog.Header} ref={ref} {...props} />
+const StyledDialogHeader = styled(PrimerDialog.Header).withConfig({
+  shouldForwardProp: prop => (prop as keyof DialogHeaderProps) !== 'sx',
+})<DialogHeaderProps>`
+  ${sx}
+`
+
+const DialogHeader = forwardRef<HTMLDivElement, DialogHeaderProps>(function DialogHeader({as, ...props}, ref) {
+  return <StyledDialogHeader ref={ref} {...(as ? {forwardedAs: as} : {})} {...props} />
 })
 
-type StyledBodyProps = React.ComponentProps<'div'> & SxProp
+type StyledBodyProps = React.ComponentProps<'div'> & SxProp & {as?: React.ElementType}
 
-const DialogBody = forwardRef<HTMLDivElement, StyledBodyProps>(function DialogBody(props, ref) {
-  // @ts-expect-error - PrimerDialog.Body is not recognized as a valid component type
-  return <Box as={PrimerDialog.Body} ref={ref} {...props} />
+const StyledDialogBody = styled(PrimerDialog.Body).withConfig({
+  shouldForwardProp: prop => (prop as keyof StyledBodyProps) !== 'sx',
+})<StyledBodyProps>`
+  ${sx}
+`
+
+const DialogBody = forwardRef<HTMLDivElement, StyledBodyProps>(function DialogBody({as, ...props}, ref) {
+  return <StyledDialogBody ref={ref} {...(as ? {forwardedAs: as} : {})} {...props} />
 })
 
-type StyledFooterProps = React.ComponentProps<'div'> & SxProp
+type StyledFooterProps = React.ComponentProps<'div'> & SxProp & {as?: React.ElementType}
 
-const DialogFooter = forwardRef<HTMLDivElement, StyledFooterProps>(function DialogFooter(props, ref) {
-  // @ts-expect-error - PrimerDialog.Footer is not recognized as a valid component type
-  return <Box as={PrimerDialog.Footer} ref={ref} {...props} />
+const StyledDialogFooter = styled(PrimerDialog.Footer).withConfig({
+  shouldForwardProp: prop => (prop as keyof StyledFooterProps) !== 'sx',
+})<StyledFooterProps>`
+  ${sx}
+`
+
+const DialogFooter = forwardRef<HTMLDivElement, StyledFooterProps>(function DialogFooter({as, ...props}, ref) {
+  return <StyledDialogFooter ref={ref} {...(as ? {forwardedAs: as} : {})} {...props} />
 })
 
 ;(DialogHeader as typeof DialogHeader & SlotMarker).__SLOT__ = PrimerDialog.Header.__SLOT__
