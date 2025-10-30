@@ -19,7 +19,7 @@ export default meta
 export const HeaderDividerResponsive: StoryFn = () => (
   <PageLayout>
     <PageLayout.Header divider={{narrow: 'filled', regular: 'line', wide: 'none'}}>
-      <Placeholder height={64} label="Header with responsive divider: filled (narrow) → line (regular) → none (wide)" />
+      <Placeholder height={64} label="Header divider: filled (narrow) → line (regular) → none (wide)" />
     </PageLayout.Header>
     <PageLayout.Content>
       <Placeholder height={400} label="Content" />
@@ -42,12 +42,15 @@ HeaderDividerResponsive.parameters = {
  */
 export const HeaderHiddenResponsive: StoryFn = () => (
   <PageLayout>
-    <PageLayout.Header hidden={{narrow: true, regular: false, wide: false}}>
-      <Placeholder height={64} label="Header (hidden on narrow viewports)" />
+    <PageLayout.Header hidden={{narrow: false, regular: false, wide: true}}>
+      <Placeholder height={64} label="Header: visible (narrow + regular) → hidden (wide)" />
     </PageLayout.Header>
     <PageLayout.Content>
       <Placeholder height={400} label="Content" />
     </PageLayout.Content>
+    <PageLayout.Pane>
+      <Placeholder height={200} label="Pane" />
+    </PageLayout.Pane>
   </PageLayout>
 )
 
@@ -69,8 +72,8 @@ export const FooterDividerResponsive: StoryFn = () => (
     <PageLayout.Content>
       <Placeholder height={400} label="Content" />
     </PageLayout.Content>
-    <PageLayout.Footer divider={{narrow: 'filled', regular: 'line', wide: 'none'}}>
-      <Placeholder height={64} label="Footer with responsive divider: filled (narrow) → line (regular) → none (wide)" />
+    <PageLayout.Footer divider={{narrow: 'none', regular: 'line', wide: 'line'}}>
+      <Placeholder height={64} label="Footer divider: none (narrow) → line (regular + wide)" />
     </PageLayout.Footer>
   </PageLayout>
 )
@@ -93,8 +96,11 @@ export const FooterHiddenResponsive: StoryFn = () => (
     <PageLayout.Content>
       <Placeholder height={400} label="Content" />
     </PageLayout.Content>
+    <PageLayout.Pane>
+      <Placeholder height={200} label="Pane" />
+    </PageLayout.Pane>
     <PageLayout.Footer hidden={{narrow: false, regular: false, wide: true}}>
-      <Placeholder height={64} label="Footer (hidden on wide viewports)" />
+      <Placeholder height={64} label="Footer: visible (narrow + regular) → hidden (wide)" />
     </PageLayout.Footer>
   </PageLayout>
 )
@@ -117,7 +123,7 @@ export const ContentHiddenResponsive: StoryFn = () => (
       <Placeholder height={64} label="Header" />
     </PageLayout.Header>
     <PageLayout.Content hidden={{narrow: true, regular: false, wide: false}}>
-      <Placeholder height={400} label="Content (hidden on narrow viewports)" />
+      <Placeholder height={400} label="Content: hidden (narrow) → visible (regular + wide)" />
     </PageLayout.Content>
     <PageLayout.Pane>
       <Placeholder height={200} label="Pane" />
@@ -147,7 +153,7 @@ export const PanePositionResponsive: StoryFn = () => (
       <Placeholder height={400} label="Content" />
     </PageLayout.Content>
     <PageLayout.Pane position={{narrow: 'end', regular: 'start', wide: 'end'}}>
-      <Placeholder height={200} label="Pane with responsive position: end (narrow) → start (regular) → end (wide)" />
+      <Placeholder height={200} label="Pane position: end (narrow) → start (regular) → end (wide)" />
     </PageLayout.Pane>
   </PageLayout>
 )
@@ -171,7 +177,7 @@ export const PaneDividerResponsive: StoryFn = () => (
       <Placeholder height={400} label="Content" />
     </PageLayout.Content>
     <PageLayout.Pane divider={{narrow: 'filled', regular: 'line', wide: 'none'}}>
-      <Placeholder height={200} label="Pane with responsive divider: filled (narrow) → line (regular) → none (wide)" />
+      <Placeholder height={200} label="Pane divider: filled (narrow) → line (regular) → none (wide)" />
     </PageLayout.Pane>
   </PageLayout>
 )
@@ -189,13 +195,20 @@ PaneDividerResponsive.parameters = {
  * Test responsive hidden state on Pane.
  * Resize the viewport to see the pane hide/show at different breakpoints.
  */
+/**
+ * Test responsive hidden state on Pane.
+ * Resize the viewport to see the pane hide/show at different breakpoints.
+ */
 export const PaneHiddenResponsive: StoryFn = () => (
   <PageLayout>
+    <PageLayout.Header>
+      <Placeholder height={64} label="Header" />
+    </PageLayout.Header>
     <PageLayout.Content>
       <Placeholder height={400} label="Content" />
     </PageLayout.Content>
-    <PageLayout.Pane hidden={{narrow: false, regular: true, wide: false}}>
-      <Placeholder height={200} label="Pane (hidden on regular viewports)" />
+    <PageLayout.Pane hidden={{narrow: true, regular: false, wide: false}}>
+      <Placeholder height={200} label="Pane: hidden (narrow) → visible (regular + wide)" />
     </PageLayout.Pane>
   </PageLayout>
 )
@@ -219,20 +232,20 @@ export const ComplexResponsiveLayout: StoryFn = () => (
       divider={{narrow: 'filled', regular: 'line', wide: 'none'}}
       hidden={{narrow: false, regular: false, wide: false}}
     >
-      <Placeholder height={64} label="Header with responsive divider" />
+      <Placeholder height={64} label="Header divider: filled (narrow) → line (regular) → none (wide)" />
     </PageLayout.Header>
     <PageLayout.Content hidden={{narrow: false, regular: false, wide: false}}>
-      <Placeholder height={400} label="Content" />
+      <Placeholder height={400} label="Content (always visible)" />
     </PageLayout.Content>
     <PageLayout.Pane
       position={{narrow: 'end', regular: 'start', wide: 'start'}}
       divider={{narrow: 'filled', regular: 'line', wide: 'line'}}
       hidden={{narrow: false, regular: false, wide: false}}
     >
-      <Placeholder height={200} label="Pane with responsive position and divider" />
+      <Placeholder height={200} label="Pane: end + filled divider (narrow) → start + line divider (regular + wide)" />
     </PageLayout.Pane>
     <PageLayout.Footer divider={{narrow: 'filled', regular: 'line', wide: 'none'}}>
-      <Placeholder height={64} label="Footer with responsive divider" />
+      <Placeholder height={64} label="Footer divider: filled (narrow) → line (regular) → none (wide)" />
     </PageLayout.Footer>
   </PageLayout>
 )
