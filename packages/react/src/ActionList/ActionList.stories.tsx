@@ -214,11 +214,11 @@ export const LinkItemPlayground = args => {
 
   return (
     <ActionList>
-      <ActionList.LinkItem {...args}>
+      <ActionList.Item {...args}>
         {leadingVisual && <ActionList.LeadingVisual>{leadingVisual}</ActionList.LeadingVisual>}
         Action list item
         {trailingVisual && <ActionList.TrailingVisual>{trailingVisual}</ActionList.TrailingVisual>}
-      </ActionList.LinkItem>
+      </ActionList.Item>
     </ActionList>
   )
 }

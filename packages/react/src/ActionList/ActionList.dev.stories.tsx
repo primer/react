@@ -257,19 +257,19 @@ export const ItemLabelStylesWithMixedDescriptions = () => (
           <ActionList.Heading as="h2" size="small">
             Some link items have block description
           </ActionList.Heading>
-          <ActionList.LinkItem>
+          <ActionList.Item>
             Item with inline description
             <ActionList.Description variant="block">Block description</ActionList.Description>
-          </ActionList.LinkItem>
-          <ActionList.LinkItem>
+          </ActionList.Item>
+          <ActionList.Item>
             Item with inline description
             <ActionList.Description variant="block">Block description</ActionList.Description>
-          </ActionList.LinkItem>
-          <ActionList.LinkItem>Item with no description</ActionList.LinkItem>
-          <ActionList.LinkItem>
+          </ActionList.Item>
+          <ActionList.Item>Item with no description</ActionList.Item>
+          <ActionList.Item>
             Item with inline description
             <ActionList.Description variant="block">Block description</ActionList.Description>
-          </ActionList.LinkItem>
+          </ActionList.Item>
         </ActionList>
       </Stack.Item>
     </Stack>

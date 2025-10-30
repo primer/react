@@ -121,14 +121,14 @@ const BreadcrumbsMenuItem = React.forwardRef<HTMLDetailsElement, BreadcrumbsMenu
               const children = item.props.children
               const selected = item.props.selected
               return (
-                <ActionList.LinkItem
+                <ActionList.Item
                   key={index}
                   href={href}
                   aria-current={selected ? 'page' : undefined}
                   className={classes.MenuItem}
                 >
                   {children}
-                </ActionList.LinkItem>
+                </ActionList.Item>
               )
             })}
           </ActionList>

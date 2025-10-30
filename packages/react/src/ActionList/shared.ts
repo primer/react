@@ -6,7 +6,10 @@ import type {PolymorphicProps} from '../utils/modern-polymorphic'
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type ExcludeSelectEventHandler<T> = T extends any ? Omit<T, 'onSelect'> : never
 
-export type ActionListItemProps<As extends React.ElementType = 'li'> = ExcludeSelectEventHandler<
+/**
+ * Base props for ActionList.Item without link-specific props
+ */
+export type ActionListBaseItemProps<As extends React.ElementType = 'li'> = ExcludeSelectEventHandler<
   PolymorphicProps<As, 'li'>
 > & {
   /**
@@ -67,6 +70,22 @@ export type ActionListItemProps<As extends React.ElementType = 'li'> = ExcludeSe
    * @deprecated `as` prop has no effect on `ActionList.Item`, only `ActionList.LinkItem`
    */
   as?: As
+}
+
+/**
+ * ActionList.Item props including link-specific props (href, to, etc.)
+ */
+export type ActionListItemProps<As extends React.ElementType = 'li'> = ActionListBaseItemProps<As> & LinkProps
+
+export type LinkProps = {
+  download?: string
+  href?: string
+  hrefLang?: string
+  media?: string
+  ping?: string
+  rel?: string
+  target?: string
+  referrerPolicy?: React.AnchorHTMLAttributes<HTMLAnchorElement>['referrerPolicy']
 }
 
 type MenuItemProps = {

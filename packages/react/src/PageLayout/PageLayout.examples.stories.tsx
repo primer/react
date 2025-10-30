@@ -243,9 +243,9 @@ export const FilterBottomSheet: StoryFn = () => {
           {isOpen && (
             <Dialog title="Filter" onClose={onDialogClose} position={{narrow: 'bottom'}}>
               <ActionList>
-                <ActionList.LinkItem href="#red">Red</ActionList.LinkItem>
-                <ActionList.LinkItem href="#blue">Vegetables</ActionList.LinkItem>
-                <ActionList.LinkItem href="#green">Animals</ActionList.LinkItem>
+                <ActionList.Item href="#red">Red</ActionList.Item>
+                <ActionList.Item href="#blue">Vegetables</ActionList.Item>
+                <ActionList.Item href="#green">Animals</ActionList.Item>
               </ActionList>
             </Dialog>
           )}
@@ -326,9 +326,9 @@ export const FilterActionMenu: StoryFn = () => {
           {isOpen && (
             <Dialog title="Filter" onClose={onDialogClose} position={{narrow: 'bottom'}}>
               <ActionList>
-                <ActionList.LinkItem href="#red">Red</ActionList.LinkItem>
-                <ActionList.LinkItem href="#blue">Vegetables</ActionList.LinkItem>
-                <ActionList.LinkItem href="#green">Animals</ActionList.LinkItem>
+                <ActionList.Item href="#red">Red</ActionList.Item>
+                <ActionList.Item href="#blue">Vegetables</ActionList.Item>
+                <ActionList.Item href="#green">Animals</ActionList.Item>
               </ActionList>
             </Dialog>
           )}
@@ -545,7 +545,7 @@ export const FiltersBottomSheetTwoLevels: StoryFn = () => {
                 <ActionList.Group>
                   <ActionList.GroupHeading>Categories</ActionList.GroupHeading>
                   {categories.map(category => (
-                    <ActionList.LinkItem
+                    <ActionList.Item
                       key={category.hash}
                       href={category.hash}
                       active={
@@ -555,7 +555,7 @@ export const FiltersBottomSheetTwoLevels: StoryFn = () => {
                       }
                     >
                       {category.name}
-                    </ActionList.LinkItem>
+                    </ActionList.Item>
                   ))}
                 </ActionList.Group>
                 <ActionList.Divider />

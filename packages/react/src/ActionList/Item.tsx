@@ -16,6 +16,7 @@ import VisuallyHidden from '../_VisuallyHidden'
 import classes from './ActionList.module.css'
 import {clsx} from 'clsx'
 import {fixedForwardRef} from '../utils/modern-polymorphic'
+import {LinkItem} from './LinkItem'
 
 type ActionListSubItemProps = {
   children?: React.ReactNode
@@ -191,6 +192,26 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
 
   if (showInactiveIndicator) {
     focusable = true
+  }
+
+  const isLinkItem = Boolean(
+    props.href || props.to || (typeof props.as === 'string' && props.as.toLowerCase() === 'a') || role === 'link',
+  )
+
+  if (isLinkItem) {
+    return (
+      <LinkItem
+        {...{
+          variant,
+          size,
+          inactiveText,
+          active,
+          className,
+          ...props,
+        }}
+        ref={forwardedRef}
+      />
+    )
   }
 
   // Extract the variant prop value from the description slot component

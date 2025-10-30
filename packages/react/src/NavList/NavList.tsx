@@ -91,7 +91,7 @@ const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(
     }
 
     return (
-      <ActionList.LinkItem
+      <ActionList.Item
         ref={ref}
         aria-current={ariaCurrent}
         active={Boolean(ariaCurrent) && ariaCurrent !== 'false'}
@@ -99,7 +99,7 @@ const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(
         {...props}
       >
         {children}
-      </ActionList.LinkItem>
+      </ActionList.Item>
     )
   },
 ) as PolymorphicForwardRefComponent<'a', NavListItemProps>

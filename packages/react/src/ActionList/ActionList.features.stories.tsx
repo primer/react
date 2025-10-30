@@ -111,36 +111,36 @@ export const WithCustomHeading = () => (
       Details
     </Heading>
     <ActionList aria-labelledby="list-heading">
-      <ActionList.LinkItem href="https://github.com/primer/react#readme">
+      <ActionList.Item href="https://github.com/primer/react#readme">
         <ActionList.LeadingVisual>
           <BookIcon />
         </ActionList.LeadingVisual>
         Readme
-      </ActionList.LinkItem>
-      <ActionList.LinkItem href="https://github.com/primer/react/blob/main/LICENSE">
+      </ActionList.Item>
+      <ActionList.Item href="https://github.com/primer/react/blob/main/LICENSE">
         <ActionList.LeadingVisual>
           <LawIcon />
         </ActionList.LeadingVisual>
         MIT License
-      </ActionList.LinkItem>
-      <ActionList.LinkItem href="https://github.com/primer/react/stargazers">
+      </ActionList.Item>
+      <ActionList.Item href="https://github.com/primer/react/stargazers">
         <ActionList.LeadingVisual>
           <StarIcon />
         </ActionList.LeadingVisual>
         <strong>1.5k</strong> stars
-      </ActionList.LinkItem>
-      <ActionList.LinkItem href="https://github.com/primer/react/watchers">
+      </ActionList.Item>
+      <ActionList.Item href="https://github.com/primer/react/watchers">
         <ActionList.LeadingVisual>
           <EyeIcon />
         </ActionList.LeadingVisual>
         <strong>21</strong> watching
-      </ActionList.LinkItem>
-      <ActionList.LinkItem href="https://github.com/primer/react/network/members">
+      </ActionList.Item>
+      <ActionList.Item href="https://github.com/primer/react/network/members">
         <ActionList.LeadingVisual>
           <RepoForkedIcon />
         </ActionList.LeadingVisual>
         <strong>225</strong> forks
-      </ActionList.LinkItem>
+      </ActionList.Item>
     </ActionList>
   </>
 )
@@ -513,36 +513,36 @@ export const Links = () => (
     <ActionList.Heading as="h1" className={classes.HeadingSmall}>
       Details
     </ActionList.Heading>
-    <ActionList.LinkItem href="https://github.com/primer/react#readme">
+    <ActionList.Item href="https://github.com/primer/react#readme">
       <ActionList.LeadingVisual>
         <BookIcon />
       </ActionList.LeadingVisual>
       Readme
-    </ActionList.LinkItem>
-    <ActionList.LinkItem href="https://github.com/primer/react/blob/main/LICENSE">
+    </ActionList.Item>
+    <ActionList.Item href="https://github.com/primer/react/blob/main/LICENSE">
       <ActionList.LeadingVisual>
         <LawIcon />
       </ActionList.LeadingVisual>
       MIT License
-    </ActionList.LinkItem>
-    <ActionList.LinkItem href="https://github.com/primer/react/stargazers">
+    </ActionList.Item>
+    <ActionList.Item href="https://github.com/primer/react/stargazers">
       <ActionList.LeadingVisual>
         <StarIcon />
       </ActionList.LeadingVisual>
       <strong>1.5k</strong> stars
-    </ActionList.LinkItem>
-    <ActionList.LinkItem href="https://github.com/primer/react/watchers">
+    </ActionList.Item>
+    <ActionList.Item href="https://github.com/primer/react/watchers">
       <ActionList.LeadingVisual>
         <EyeIcon />
       </ActionList.LeadingVisual>
       <strong>21</strong> watching
-    </ActionList.LinkItem>
-    <ActionList.LinkItem href="https://github.com/primer/react/network/members">
+    </ActionList.Item>
+    <ActionList.Item href="https://github.com/primer/react/network/members">
       <ActionList.LeadingVisual>
         <RepoForkedIcon />
       </ActionList.LeadingVisual>
       <strong>225</strong> forks
-    </ActionList.LinkItem>
+    </ActionList.Item>
   </ActionList>
 )
 
@@ -909,15 +909,15 @@ export const WithTrailingAction = () => {
           </ActionList.Description>
           <ActionList.TrailingAction label="Apply settings" loading={loadingState} />
         </ActionList.Item>
-        <ActionList.LinkItem href="#">
+        <ActionList.Item href="#">
           LinkItem 1
           <ActionList.Description>
             with TrailingAction this is a long description and should not cause horizontal scroll on smaller screen
             sizes
           </ActionList.Description>
           <ActionList.TrailingAction label="Another action" />
-        </ActionList.LinkItem>
-        <ActionList.LinkItem href="#">
+        </ActionList.Item>
+        <ActionList.Item href="#">
           LinkItem 2
           <ActionList.Description>
             with TrailingVisual this is a long description and should not cause horizontal scroll on smaller screen
@@ -926,7 +926,7 @@ export const WithTrailingAction = () => {
           <ActionList.TrailingVisual>
             <TableIcon />
           </ActionList.TrailingVisual>
-        </ActionList.LinkItem>
+        </ActionList.Item>
         <ActionList.Item inactiveText="Unavailable due to an outage">
           Inactive Item<ActionList.Description>With TrailingAction</ActionList.Description>
           <ActionList.TrailingAction as="a" href="#" label="Some action 8" icon={ArrowRightIcon} />
