@@ -15,6 +15,7 @@ import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../uti
 
 import classes from './Dialog.module.css'
 import {clsx} from 'clsx'
+import {useSlots} from '../hooks/useSlots'
 
 /* Dialog Version 2 */
 
@@ -263,6 +264,11 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
     },
     [onClose, lastMouseDownIsBackdrop],
   )
+  const [slots, childrenWithoutSlots] = useSlots(props.children, {
+    body: Dialog.Body,
+    header: Dialog.Header,
+    footer: Dialog.Footer,
+  })
 
   const dialogRef = useRef<HTMLDivElement>(null)
   useRefObjectAsForwardedRef(forwardedRef, dialogRef)
@@ -292,9 +298,9 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
     document.body.style.setProperty('--prc-dialog-scrollgutter', `${scrollbarWidth}px`)
   }, [])
 
-  const header = (renderHeader ?? DefaultHeader)(defaultedProps)
-  const body = (renderBody ?? DefaultBody)(defaultedProps)
-  const footer = (renderFooter ?? DefaultFooter)(defaultedProps)
+  const header = slots.header ?? (renderHeader ?? DefaultHeader)(defaultedProps)
+  const body = slots.body ?? (renderBody ?? DefaultBody)({...defaultedProps, children: childrenWithoutSlots})
+  const footer = slots.footer ?? (renderFooter ?? DefaultFooter)(defaultedProps)
   const positionDataAttributes =
     typeof position === 'string'
       ? {'data-position-regular': position}
@@ -344,7 +350,7 @@ type StyledHeaderProps = React.ComponentProps<'div'>
 
 const Header = React.forwardRef<HTMLDivElement, StyledHeaderProps>(function Header({className, ...rest}, forwardRef) {
   return <div ref={forwardRef} className={clsx(className, classes.Header)} {...rest} />
-})
+}) as PolymorphicForwardRefComponent<'div', StyledHeaderProps>
 Header.displayName = 'Dialog.Header'
 
 type StyledTitleProps = React.ComponentProps<'h1'>
@@ -376,7 +382,7 @@ type StyledFooterProps = React.ComponentProps<'div'>
 
 const Footer = React.forwardRef<HTMLDivElement, StyledFooterProps>(function Footer({className, ...rest}, forwardRef) {
   return <div ref={forwardRef} className={clsx(className, classes.Footer)} {...rest} />
-})
+}) as PolymorphicForwardRefComponent<'div', StyledFooterProps>
 Footer.displayName = 'Dialog.Footer'
 
 const Buttons: React.FC<React.PropsWithChildren<{buttons: DialogButtonProps[]}>> = ({buttons}) => {
@@ -437,7 +443,13 @@ const CloseButton: React.FC<React.PropsWithChildren<{onClose: () => void}>> = ({
  * The sub components provided (e.g. Header, Title, etc.) are available for custom
  * renderers only. They are not intended to be used otherwise.
  */
+
+Header.__SLOT__ = Symbol('Dialog.Header')
+Footer.__SLOT__ = Symbol('Dialog.Footer')
+Body.__SLOT__ = Symbol('Dialog.Body')
+
 export const Dialog = Object.assign(_Dialog, {
+  __SLOT__: Symbol('Dialog'),
   Header,
   Title,
   Subtitle,
