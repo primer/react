@@ -31,7 +31,7 @@ HeaderDividerResponsive.parameters = {
   docs: {
     description: {
       story:
-        'The header divider changes based on viewport width: **filled** on narrow viewports (< 768px), **line** on regular viewports (>= 768px), and **none** on wide viewports (>= 1400px).',
+        'The header divider changes based on viewport width: **filled** on narrow viewports, **line** on regular viewports, and **none** on wide viewports.',
     },
   },
 }
@@ -57,8 +57,7 @@ export const HeaderHiddenResponsive: StoryFn = () => (
 HeaderHiddenResponsive.parameters = {
   docs: {
     description: {
-      story:
-        'The header is **hidden** on narrow viewports (< 768px) and **visible** on regular and wide viewports (>= 768px).',
+      story: 'The header is **visible** on narrow and regular viewports, and **hidden** on wide viewports.',
     },
   },
 }
@@ -81,8 +80,7 @@ export const FooterDividerResponsive: StoryFn = () => (
 FooterDividerResponsive.parameters = {
   docs: {
     description: {
-      story:
-        'The footer divider changes based on viewport width: **filled** on narrow viewports (< 768px), **line** on regular viewports (>= 768px), and **none** on wide viewports (>= 1400px).',
+      story: 'The footer divider is **none** on narrow viewports, and **line** on regular and wide viewports.',
     },
   },
 }
@@ -108,7 +106,7 @@ export const FooterHiddenResponsive: StoryFn = () => (
 FooterHiddenResponsive.parameters = {
   docs: {
     description: {
-      story: 'The footer is **visible** on narrow and regular viewports and **hidden** on wide viewports (>= 1400px).',
+      story: 'The footer is **visible** on narrow and regular viewports, and **hidden** on wide viewports.',
     },
   },
 }
@@ -134,8 +132,7 @@ export const ContentHiddenResponsive: StoryFn = () => (
 ContentHiddenResponsive.parameters = {
   docs: {
     description: {
-      story:
-        'The content is **hidden** on narrow viewports (< 768px) and **visible** on regular and wide viewports (>= 768px).',
+      story: 'The content is **hidden** on narrow viewports, and **visible** on regular and wide viewports.',
     },
   },
 }
@@ -162,7 +159,7 @@ PanePositionResponsive.parameters = {
   docs: {
     description: {
       story:
-        'The pane position changes based on viewport width: **end** (below content) on narrow viewports (< 768px), **start** (left sidebar) on regular and wide viewports (>= 768px).',
+        'The pane position changes based on viewport width: **end** (below content) on narrow viewports, **start** (left sidebar) on regular and wide viewports.',
     },
   },
 }
@@ -186,7 +183,7 @@ PaneDividerResponsive.parameters = {
   docs: {
     description: {
       story:
-        'The pane divider changes based on viewport width: **filled** on narrow viewports (< 768px), **line** on regular viewports (>= 768px), and **none** on wide viewports (>= 1400px).',
+        'The pane divider changes based on viewport width: **filled** on narrow viewports, **line** on regular viewports, and **none** on wide viewports.',
     },
   },
 }
@@ -216,8 +213,7 @@ export const PaneHiddenResponsive: StoryFn = () => (
 PaneHiddenResponsive.parameters = {
   docs: {
     description: {
-      story:
-        'The pane is **visible** on narrow and wide viewports and **hidden** on regular viewports (768px - 1399px).',
+      story: 'The pane is **hidden** on narrow viewports, and **visible** on regular and wide viewports.',
     },
   },
 }
