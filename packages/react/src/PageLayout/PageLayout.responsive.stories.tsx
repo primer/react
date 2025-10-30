@@ -192,10 +192,6 @@ PaneDividerResponsive.parameters = {
  * Test responsive hidden state on Pane.
  * Resize the viewport to see the pane hide/show at different breakpoints.
  */
-/**
- * Test responsive hidden state on Pane.
- * Resize the viewport to see the pane hide/show at different breakpoints.
- */
 export const PaneHiddenResponsive: StoryFn = () => (
   <PageLayout>
     <PageLayout.Header>
