@@ -551,7 +551,7 @@ body[data-page-layout-dragging='true'] * {
     }
   }
 
-  @media screen and (min-width: 768px) {
+  @media (--viewportRange-regular) {
     &:where([data-position-regular='start']) {
       /* stylelint-disable-next-line primer/spacing */
       margin-left: var(--spacing);
@@ -624,7 +624,7 @@ body[data-page-layout-dragging='true'] * {
     }
   }
 
-  @media screen and (min-width: 768px) {
+  @media (--viewportRange-regular) {
     &:where([data-position-regular='start']) {
       /* stylelint-disable-next-line primer/spacing */
       margin-top: var(--spacing);
