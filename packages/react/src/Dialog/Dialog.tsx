@@ -127,6 +127,8 @@ export interface DialogProps {
    */
   height?: DialogHeight
 
+  size?: 'small' | 'medium' | 'large' | 'xlarge'
+
   /**
    * The position of the dialog
    */
@@ -237,8 +239,9 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
     renderFooter,
     onClose,
     role = 'dialog',
-    width = 'xlarge',
+    width,
     height = 'auto',
+    size = 'large',
     footerButtons = defaultFooterButtons,
     position = defaultPosition,
     returnFocusRef,
@@ -331,6 +334,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
             {...positionDataAttributes}
             data-width={width}
             data-height={height}
+            data-size={size}
             className={clsx(className, classes.Dialog)}
           >
             {header}

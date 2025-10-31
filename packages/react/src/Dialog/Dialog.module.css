@@ -101,16 +101,13 @@
 
 .Dialog {
   display: flex;
-  /* stylelint-disable-next-line primer/responsive-widths */
-  width: 640px;
-  min-width: 296px;
+  width: min(var(--overlay-width), 100vw - 2rem);
+  min-width: var(--overlay-width-xsmall);
   max-width: calc(100dvw - 64px);
-  height: auto;
-  max-height: calc(100dvh - 64px);
+  max-height: min(calc(100dvh - 2rem), var(--overlay-height));
   flex-direction: column;
   background-color: var(--overlay-bgColor);
   border-radius: var(--borderRadius-large);
-  border-radius: var(--borderRadius-large, var(--borderRadius-large));
   box-shadow: var(--shadow-floating-small);
   opacity: 1;
 
@@ -133,6 +130,30 @@
 
   &:where([data-height='large']) {
     height: 640px;
+  }
+
+  &:where([data-height='auto']) {
+    height: auto;
+  }
+
+  &:where([data-size='small']) {
+    --overlay-height: var(--overlay-height-small);
+    --overlay-width: var(--overlay-width-small);
+  }
+
+  &:where([data-size='medium']) {
+    --overlay-height: var(--overlay-height-medium);
+    --overlay-width: var(--overlay-width-medium);
+  }
+
+  &:where([data-size='large']) {
+    --overlay-height: var(--overlay-height-large);
+    --overlay-width: var(--overlay-width-large);
+  }
+
+  &:where([data-size='xlarge']) {
+    --overlay-height: var(--overlay-height-xlarge);
+    --overlay-width: var(--overlay-width-xlarge);
   }
 
   @media screen and (prefers-reduced-motion: no-preference) {
