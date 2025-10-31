@@ -230,17 +230,49 @@ export const ExpandedButton = () => (
 export const KeybindingHint = () => <Button keybindingHint="Mod+S">Save</Button>
 
 export const KeybindingHintAllVariants = () => (
-  <Stack gap="normal" wrap="wrap" direction="horizontal">
-    <Button keybindingHint="Mod+S">Save</Button>
-    <Button variant="primary" keybindingHint="Mod+Enter">
-      Submit
-    </Button>
-    <Button variant="danger" keybindingHint="Shift+Delete">
-      Delete
-    </Button>
-    <Button variant="invisible" keybindingHint="Escape">
-      Cancel
-    </Button>
+  <Stack>
+    <Stack gap="normal" wrap="wrap" direction="horizontal">
+      <Button keybindingHint="Mod+S">Default</Button>
+      <Button disabled keybindingHint="Mod+S">
+        Default disabled
+      </Button>
+      <Button inactive keybindingHint="Mod+S">
+        Default inactive
+      </Button>
+    </Stack>
+    <Stack gap="normal" wrap="wrap" direction="horizontal">
+      <Button variant="primary" keybindingHint="Mod+S">
+        Primary
+      </Button>
+      <Button variant="primary" disabled keybindingHint="Mod+S">
+        Primary disabled
+      </Button>
+      <Button variant="primary" inactive keybindingHint="Mod+S">
+        Primary inactive
+      </Button>
+    </Stack>
+    <Stack gap="normal" wrap="wrap" direction="horizontal">
+      <Button variant="danger" keybindingHint="Mod+S">
+        Danger
+      </Button>
+      <Button variant="danger" disabled keybindingHint="Mod+S">
+        Danger disabled
+      </Button>
+      <Button variant="danger" inactive keybindingHint="Mod+S">
+        Danger inactive
+      </Button>
+    </Stack>
+    <Stack gap="normal" wrap="wrap" direction="horizontal">
+      <Button variant="invisible" keybindingHint="Mod+S">
+        Invisible
+      </Button>
+      <Button variant="invisible" disabled keybindingHint="Mod+S">
+        Invisible disabled
+      </Button>
+      <Button variant="invisible" inactive keybindingHint="Mod+S">
+        Invisible inactive
+      </Button>
+    </Stack>
   </Stack>
 )
 
@@ -308,7 +340,7 @@ export const KeybindingHintWithLoading = () => {
     setIsLoading(true)
     setTimeout(() => {
       setIsLoading(false)
-    }, 3000)
+    }, 1000000)
   }
 
   return (

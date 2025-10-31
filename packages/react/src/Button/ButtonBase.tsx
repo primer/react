@@ -18,12 +18,29 @@ const renderModuleVisual = (
   loading: boolean,
   visualName: string,
   counterLabel: boolean,
+  keepVisualWhileLoading?: boolean,
 ) => (
   <span
     data-component={visualName}
-    className={clsx(!counterLabel && classes.Visual, loading ? classes.LoadingSpinner : classes.VisualWrap)}
+    className={clsx(
+      !counterLabel && classes.Visual,
+      loading && !keepVisualWhileLoading ? classes.LoadingSpinner : classes.VisualWrap,
+    )}
   >
-    {loading ? <Spinner size="small" /> : isElement(Visual) ? Visual : <Visual />}
+    {loading ? (
+      keepVisualWhileLoading ? (
+        <>
+          <Spinner size="small" />
+          {isElement(Visual) ? Visual : <Visual />}
+        </>
+      ) : (
+        <Spinner size="small" />
+      )
+    ) : isElement(Visual) ? (
+      Visual
+    ) : (
+      <Visual />
+    )}
   </span>
 )
 
@@ -156,6 +173,10 @@ const ButtonBase = forwardRef(({children, as: Component = 'button', ...props}, f
 
                      If there is a keybindingHint, render it unless there is an explicit trailing visual or count.
                      The priority order is: trailingVisual > count > keybindingHint
+
+                     During loading state:
+                     - count and trailingVisual are replaced with spinner (existing behavior)
+                     - keybindingHint stays in DOM but gets hidden with CSS via KeybindingHintLoading class
                   */
                 count !== undefined && !TrailingVisual
                   ? renderModuleVisual(
@@ -177,12 +198,16 @@ const ButtonBase = forwardRef(({children, as: Component = 'button', ...props}, f
                               keys={keybindingHint}
                               variant="normal"
                               size={size === 'small' ? 'small' : 'normal'}
-                              className={classes.KeybindingHint}
+                              className={clsx(
+                                classes.KeybindingHint,
+                                Boolean(loading) && !LeadingVisual && classes.KeybindingHintLoading,
+                              )}
                             />
                           ),
                           Boolean(loading) && !LeadingVisual,
                           'trailingVisual',
                           false,
+                          true, // keepVisualWhileLoading
                         )
                       : null
               }
