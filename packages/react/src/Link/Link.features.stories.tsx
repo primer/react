@@ -13,12 +13,6 @@ export const Muted = () => (
   </Link>
 )
 
-export const Underline = () => (
-  <Link href="#" underline>
-    Link
-  </Link>
-)
-
 export const Inline = () => (
   <div data-a11y-link-underlines="true">
     <Link inline={true} href="#">
