@@ -23,6 +23,7 @@ const unsupported = new Set(
     'src/SelectPanel/**/*.tsx',
     'src/SideNav.tsx',
     'src/internal/components/CheckboxOrRadioGroup/**/*.tsx',
+    'src/TooltipV2/**/*.tsx',
   ].flatMap(pattern => {
     if (glob.isDynamicPattern(pattern)) {
       const matches = glob.sync(pattern, {cwd: PACKAGE_DIR})

@@ -56,6 +56,7 @@ function LoadingSkeleton({rows = 10, ...props}: {rows: number}): JSX.Element {
         {Array.from({length: rows}, (_, i) => (
           <Stack key={i} direction="horizontal" gap="condensed" align="center">
             <SkeletonBox width="16px" height="16px" />
+            {/* eslint-disable-next-line react-hooks/purity */}
             <SkeletonBox height="10px" width={`${Math.random() * 60 + 20}%`} className={classes.LoadingSkeleton} />
           </Stack>
         ))}

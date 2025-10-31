@@ -31,7 +31,6 @@ export const UnwrappedLink = <As extends React.ElementType = 'a'>(
      * this is safe, and ensures the entire effect is kept out of prod builds
      * shaving precious bytes from the output, and avoiding mounting a noop effect
      */
-    // eslint-disable-next-line react-compiler/react-compiler
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useEffect(() => {
       if (

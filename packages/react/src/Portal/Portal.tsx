@@ -107,7 +107,6 @@ export const Portal: React.FC<React.PropsWithChildren<PortalProps>> = ({
     return () => {
       parentElement.removeChild(element)
     }
-    // eslint-disable-next-line react-compiler/react-compiler
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [element, _containerName, portalContainerName])
 

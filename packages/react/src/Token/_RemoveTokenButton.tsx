@@ -21,10 +21,9 @@ const RemoveTokenButton = ({
   className,
   borderOffset = 0,
   as: _as,
+  children: _children,
   ...rest
 }: React.PropsWithChildren<RemoveTokenButtonProps & {as?: React.ElementType}>) => {
-  // eslint-disable-next-line react-compiler/react-compiler
-  delete rest.children
   if (isParentInteractive) {
     return (
       <span
@@ -44,6 +43,7 @@ const RemoveTokenButton = ({
 
   return (
     <button
+      // eslint-disable-next-line react-hooks/refs
       {...rest}
       aria-label={'Remove token'}
       data-size={size}
@@ -51,6 +51,7 @@ const RemoveTokenButton = ({
       style={{
         transform: `translate(${borderOffset}px, -${borderOffset}px)`,
       }}
+      // eslint-disable-next-line react-hooks/refs
       ref={rest.ref as React.Ref<HTMLButtonElement>}
       type="button"
     >

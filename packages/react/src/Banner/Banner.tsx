@@ -119,7 +119,6 @@ export const Banner = React.forwardRef<HTMLElement, BannerProps>(function Banner
 
   if (__DEV__) {
     // This hook is called consistently depending on the environment
-    // eslint-disable-next-line react-compiler/react-compiler
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useEffect(() => {
       if (title) {

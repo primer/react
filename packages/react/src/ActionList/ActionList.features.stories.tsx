@@ -674,10 +674,8 @@ export const ChildWithSideEffects = () => {
   const [selected, setSelected] = React.useState(true)
 
   const SideEffectDescription = () => {
-    // eslint-disable-next-line react-compiler/react-compiler
     const [seconds, setSeconds] = React.useState(0)
 
-    // eslint-disable-next-line react-compiler/react-compiler
     React.useEffect(() => {
       const fn = () => setSeconds(s => s + 1)
       const interval = window.setInterval(fn, 1000)

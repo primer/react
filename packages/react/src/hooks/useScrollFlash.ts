@@ -16,7 +16,6 @@ export default function useScrollFlash(scrollContainerRef: React.RefObject<HTMLE
 
     const altScroll = currentScroll < Math.min(1, maxScroll) ? currentScroll + 1 : currentScroll - 1
 
-    // eslint-disable-next-line react-compiler/react-compiler
     scrollContainer.scrollTop = altScroll
     scrollContainer.scrollTop = currentScroll
   }, [scrollContainerRef])

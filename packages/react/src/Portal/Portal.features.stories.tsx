@@ -90,6 +90,7 @@ export const WithPortalContext = () => {
     if (customContainerRef.current instanceof HTMLElement && overrideContainerRef.current instanceof HTMLElement) {
       registerPortalRoot(customContainerRef.current, 'custom-portal')
       registerPortalRoot(overrideContainerRef.current, 'override-portal')
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setMounted(true)
     }
   }, [])

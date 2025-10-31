@@ -154,6 +154,7 @@ function Breadcrumbs({className, children, style, overflow = 'wrap', variant = '
       const iconButtonElement = element.querySelector('button[data-component="IconButton"]')
       if (iconButtonElement) {
         const measuredWidth = (iconButtonElement as HTMLElement).offsetWidth
+        // eslint-disable-next-line react-hooks/immutability
         setMenuButtonWidth(measuredWidth)
       }
     }

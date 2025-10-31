@@ -233,6 +233,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
 
     // Set the expanded state and cache it
     const setIsExpandedWithCache = React.useCallback(
+      // eslint-disable-next-line react-hooks/preserve-manual-memoization
       (newIsExpanded: boolean) => {
         setIsExpanded(newIsExpanded)
         expandedStateCache.current?.set(itemId, newIsExpanded)
@@ -584,6 +585,7 @@ function usePreviousValue<T>(value: T): T {
     ref.current = value
   }, [value])
 
+  // eslint-disable-next-line react-hooks/refs
   return ref.current
 }
 

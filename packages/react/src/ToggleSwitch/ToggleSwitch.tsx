@@ -125,6 +125,7 @@ const ToggleSwitch = React.forwardRef<HTMLButtonElement, ToggleSwitchProps>(func
 
   useEffect(() => {
     if (!loading && isLoadingLabelVisible) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setIsLoadingLabelVisible(false)
     } else if (loading && !isLoadingLabelVisible) {
       safeSetTimeout(() => {

@@ -185,7 +185,6 @@ export const UnderlineNav = forwardRef(
 
     if (__DEV__) {
       // Practically, this is not a conditional hook, it is just making sure this hook runs only on DEV not PROD.
-      // eslint-disable-next-line react-compiler/react-compiler
       // eslint-disable-next-line react-hooks/rules-of-hooks
       useEffect(() => {
         // Address illegal state where there are multiple items that have `aria-current='page'` attribute

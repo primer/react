@@ -939,6 +939,7 @@ export const WithMessage = () => {
   const filteredItems = itemsToShow.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setFilter('')
   }, [messageVariant])
 

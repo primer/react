@@ -100,6 +100,7 @@ export function useControllableState<T>({
     }
   }, [name, value])
 
+  // eslint-disable-next-line react-hooks/refs
   if (controlled.current === true) {
     return [value as T, setState]
   }
