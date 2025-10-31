@@ -3,11 +3,9 @@ on:
   push:
     branches:
       - main
-      - next-major
   merge_group:
     branches:
       - main
-      - next-major
     types:
       - checks_requested
 
