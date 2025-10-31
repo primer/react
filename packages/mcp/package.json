@@ -23,10 +23,6 @@
     "src",
     "README.md"
   ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/primer/react.git"
-  },
   "scripts": {
     "clean": "rimraf dist",
     "build": "rollup -c",
