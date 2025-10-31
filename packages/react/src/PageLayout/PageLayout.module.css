@@ -525,6 +525,7 @@ body[data-page-layout-dragging='true'] * {
 }
 
 .PaneVerticalDivider {
+  /* Base position (non-responsive) */
   &:where([data-position='start']) {
     /* stylelint-disable-next-line primer/spacing */
     margin-left: var(--spacing);
@@ -533,6 +534,49 @@ body[data-page-layout-dragging='true'] * {
   &:where([data-position='end']) {
     /* stylelint-disable-next-line primer/spacing */
     margin-right: var(--spacing);
+  }
+
+  /* Responsive position */
+  @media (--viewportRange-narrow) {
+    &:where([data-position-narrow='start']) {
+      /* stylelint-disable-next-line primer/spacing */
+      margin-left: var(--spacing);
+      margin-right: 0;
+    }
+
+    &:where([data-position-narrow='end']) {
+      /* stylelint-disable-next-line primer/spacing */
+      margin-right: var(--spacing);
+      margin-left: 0;
+    }
+  }
+
+  @media screen and (min-width: 768px) {
+    &:where([data-position-regular='start']) {
+      /* stylelint-disable-next-line primer/spacing */
+      margin-left: var(--spacing);
+      margin-right: 0;
+    }
+
+    &:where([data-position-regular='end']) {
+      /* stylelint-disable-next-line primer/spacing */
+      margin-right: var(--spacing);
+      margin-left: 0;
+    }
+  }
+
+  @media (--viewportRange-wide) {
+    &:where([data-position-wide='start']) {
+      /* stylelint-disable-next-line primer/spacing */
+      margin-left: var(--spacing);
+      margin-right: 0;
+    }
+
+    &:where([data-position-wide='end']) {
+      /* stylelint-disable-next-line primer/spacing */
+      margin-right: var(--spacing);
+      margin-left: 0;
+    }
   }
 }
 
@@ -563,6 +607,49 @@ body[data-page-layout-dragging='true'] * {
   &:where([data-position='end']) {
     /* stylelint-disable-next-line primer/spacing */
     margin-bottom: var(--spacing);
+  }
+
+  /* Responsive position */
+  @media (--viewportRange-narrow) {
+    &:where([data-position-narrow='start']) {
+      /* stylelint-disable-next-line primer/spacing */
+      margin-top: var(--spacing);
+      margin-bottom: 0;
+    }
+
+    &:where([data-position-narrow='end']) {
+      /* stylelint-disable-next-line primer/spacing */
+      margin-bottom: var(--spacing);
+      margin-top: 0;
+    }
+  }
+
+  @media screen and (min-width: 768px) {
+    &:where([data-position-regular='start']) {
+      /* stylelint-disable-next-line primer/spacing */
+      margin-top: var(--spacing);
+      margin-bottom: 0;
+    }
+
+    &:where([data-position-regular='end']) {
+      /* stylelint-disable-next-line primer/spacing */
+      margin-bottom: var(--spacing);
+      margin-top: 0;
+    }
+  }
+
+  @media (--viewportRange-wide) {
+    &:where([data-position-wide='start']) {
+      /* stylelint-disable-next-line primer/spacing */
+      margin-top: var(--spacing);
+      margin-bottom: 0;
+    }
+
+    &:where([data-position-wide='end']) {
+      /* stylelint-disable-next-line primer/spacing */
+      margin-bottom: var(--spacing);
+      margin-top: 0;
+    }
   }
 }
 

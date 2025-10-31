@@ -119,7 +119,7 @@ type DividerProps = {
   variant?: 'none' | 'line' | 'filled' | ResponsiveValue<'none' | 'line' | 'filled'>
   className?: string
   style?: React.CSSProperties
-  position?: keyof typeof panePositions
+  position?: keyof typeof panePositions | ResponsiveValue<keyof typeof panePositions>
 }
 
 const HorizontalDivider: React.FC<React.PropsWithChildren<DividerProps>> = ({
@@ -134,7 +134,7 @@ const HorizontalDivider: React.FC<React.PropsWithChildren<DividerProps>> = ({
     <div
       className={clsx(classes.HorizontalDivider, className)}
       {...getResponsiveAttributes('variant', variant)}
-      data-position={position}
+      {...getResponsiveAttributes('position', position)}
       style={
         {
           '--spacing-divider': `var(--spacing-${padding})`,
@@ -263,7 +263,7 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
     <div
       className={clsx(classes.VerticalDivider, className)}
       {...getResponsiveAttributes('variant', variant)}
-      data-position={position}
+      {...getResponsiveAttributes('position', position)}
       style={style}
     >
       {draggable ? (
@@ -679,7 +679,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
               '--spacing': `var(--spacing-${rowGap})`,
             } as React.CSSProperties
           }
-          position={position}
+          position={positionProp}
         />
         <div
           ref={paneRef}
@@ -733,7 +733,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
             if (!paneRect) return
             updatePaneWidth(paneRect.width)
           }}
-          position={position}
+          position={positionProp}
           // Reset pane width on double click
           onDoubleClick={() => updatePaneWidth(getDefaultPaneWidth(width))}
           className={classes.PaneVerticalDivider}
