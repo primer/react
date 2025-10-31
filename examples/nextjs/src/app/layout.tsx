@@ -1,6 +1,5 @@
 import './global.css'
-import {ThemeProvider, BaseStyles} from '@primer/styled-react'
-import {StyledComponentsRegistry} from './registry'
+import {ThemeProvider, BaseStyles} from '@primer/react'
 import {Metadata} from 'next'
 
 export const metadata: Metadata = {
@@ -14,11 +13,9 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
     // that cause hydration mismatch errors
     <html lang="en" data-light-theme="light" data-dark-theme="dark" data-color-mode="auto" suppressHydrationWarning>
       <body>
-        <StyledComponentsRegistry>
-          <ThemeProvider>
-            <BaseStyles>{children}</BaseStyles>
-          </ThemeProvider>
-        </StyledComponentsRegistry>
+        <ThemeProvider colorMode="auto">
+          <BaseStyles style={{backgroundColor: 'var(--bgColor-default)', height: '100vh'}}>{children}</BaseStyles>
+        </ThemeProvider>
       </body>
     </html>
   )

@@ -15,7 +15,6 @@
     "next": "^16.0.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "styled-components": "5.x",
     "typescript": "^5.9.2"
   },
   "devDependencies": {
