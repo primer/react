@@ -5,7 +5,7 @@
 
   width: var(--placeholder-width, 100%);
   height: var(--placeholder-height);
-  padding: var(--base-size-24);
+  padding: var(--base-size-4) var(--base-size-24);
   display: grid;
   place-items: center;
   background-color: var(--bgColor-inset);
