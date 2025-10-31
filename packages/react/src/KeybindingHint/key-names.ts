@@ -75,7 +75,7 @@ export const accessibleKeyName = (key: string, isMacOS: boolean) =>
     printscreen: 'print screen',
     // We don't need to represent _every_ symbol - only those found on standard keyboards.
     // Other symbols should be avoided as keyboard shortcuts anyway.
-    // These should match the colloqiual names of the keys, not the names of the symbols. Ie,
+    // These should match the colloquial names of the keys, not the names of the symbols. Ie,
     // "Equals" not "Equal Sign", "Dash" not "Minus", "Period" not "Dot", etc.
     '`': 'backtick',
     '~': 'tilde',
