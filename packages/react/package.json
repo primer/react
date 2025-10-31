@@ -51,7 +51,10 @@
     "type-check": "tsc --noEmit",
     "type-css-modules": "tcm -p src/**/*.module.css"
   },
-  "repository": "primer/react",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/primer/react.git"
+  },
   "keywords": [
     "react",
     "components",
