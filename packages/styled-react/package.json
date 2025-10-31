@@ -21,6 +21,10 @@
     "README.md",
     "dist"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/primer/react.git"
+  },
   "scripts": {
     "build": "script/build",
     "clean": "rimraf dist",
