@@ -2,7 +2,7 @@ import {render} from '@testing-library/react'
 import {afterEach, describe, expect, it, vi} from 'vitest'
 import {act} from 'react'
 import ReactDOM from 'react-dom/server'
-import {useMedia, MatchMedia} from '../useMedia'
+import {useMediaUnsafeSSR, MatchMedia} from '../useMediaUnsafeSSR'
 
 type MediaQueryEventListener = (event: {matches: boolean}) => void
 
@@ -38,7 +38,7 @@ function mockMatchMedia({defaultMatch = false} = {}) {
   }
 }
 
-describe('useMedia', () => {
+describe('useMediaUnsafeSSR', () => {
   afterEach(() => {
     mockMatchMedia()
   })
@@ -49,7 +49,7 @@ describe('useMedia', () => {
     const match: boolean[] = []
 
     function TestComponent() {
-      const value = useMedia('(pointer: coarse)')
+      const value = useMediaUnsafeSSR('(pointer: coarse)')
       match.push(value)
       return null
     }
@@ -67,7 +67,7 @@ describe('useMedia', () => {
     const match: boolean[] = []
 
     function TestComponent() {
-      const value = useMedia('(pointer: coarse)')
+      const value = useMediaUnsafeSSR('(pointer: coarse)')
       match.push(value)
       return null
     }
@@ -82,7 +82,7 @@ describe('useMedia', () => {
     const match: boolean[] = []
 
     function TestComponent() {
-      const value = useMedia('(pointer: coarse)')
+      const value = useMediaUnsafeSSR('(pointer: coarse)')
       match.push(value)
       return null
     }
@@ -104,7 +104,7 @@ describe('useMedia', () => {
     const match: boolean[] = []
 
     function TestComponent() {
-      const value = useMedia(feature)
+      const value = useMediaUnsafeSSR(feature)
       match.push(value)
       return null
     }
