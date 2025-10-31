@@ -329,6 +329,12 @@
       background-color: var(--buttonCounter-primary-bgColor-rest) !important; /* temporarily override our own sx prop */
     }
 
+    & .KeybindingHint {
+      background: var(--buttonKeybindingHint-primary-bgColor-rest);
+      color: var(--buttonKeybindingHint-primary-fgColor-rest);
+      border-color: var(--buttonKeybindingHint-primary-borderColor-rest);
+    }
+
     /* temporarily using the fgColor to match legacy and reduce visual changes- will eventually be iconColor */
     & .Visual {
       color: var(--button-primary-fgColor-rest);
@@ -364,6 +370,12 @@
         background-color: var(--buttonCounter-danger-bgColor-hover) !important;
       }
 
+      & .KeybindingHint {
+        background: var(--buttonKeybindingHint-danger-bgColor-hover);
+        color: var(--buttonKeybindingHint-danger-fgColor-hover);
+        border-color: var(--buttonKeybindingHint-danger-borderColor-hover);
+      }
+
       & .Visual {
         color: var(--button-danger-iconColor-hover);
       }
@@ -378,6 +390,12 @@
       & .CounterLabel {
         color: var(--buttonCounter-danger-fgColor-hover) !important; /* temporarily override our own sx prop */
         background-color: var(--buttonCounter-danger-bgColor-hover) !important;
+      }
+
+      & .KeybindingHint {
+        background: var(--buttonKeybindingHint-danger-bgColor-active);
+        color: var(--buttonKeybindingHint-danger-fgColor-active);
+        border-color: var(--buttonKeybindingHint-danger-borderColor-active);
       }
 
       & .Visual {
@@ -401,6 +419,12 @@
     & .CounterLabel {
       color: var(--buttonCounter-danger-fgColor-rest) !important; /* temporarily override our own sx prop */
       background-color: var(--buttonCounter-danger-bgColor-rest) !important;
+    }
+
+    & .KeybindingHint {
+      background: var(--buttonKeybindingHint-danger-bgColor-rest);
+      color: var(--buttonKeybindingHint-danger-fgColor-rest);
+      border-color: var(--buttonKeybindingHint-danger-borderColor-rest);
     }
 
     & .Visual {
@@ -449,6 +473,12 @@
 
     & .CounterLabel {
       background-color: var(--buttonCounter-invisible-bgColor-rest) !important;
+    }
+
+    .KeybindingHint {
+      background: var(--buttonKeybindingHint-invisible-bgColor-rest);
+      color: var(--buttonKeybindingHint-invisible-fgColor-rest);
+      border-color: var(--buttonKeybindingHint-invisible-borderColor-rest);
     }
 
     &:where(.IconButton) {
@@ -536,4 +566,11 @@
 
 .ConditionalWrapper {
   display: block;
+}
+
+/* KeybindingHint variant styles for Button */
+.KeybindingHintDefault {
+  background: var(--buttonKeybindingHint-default-bgColor-rest);
+  color: var(--buttonKeybindingHint-default-fgColor-rest);
+  border-color: var(--buttonKeybindingHint-default-borderColor-rest);
 }

@@ -18,8 +18,8 @@ const Kbd = ({children, className}: {children: ReactNode; className?: string}) =
 
 /** Indicates the presence of an available keybinding. */
 // KeybindingHint is a good candidate for memoizing since props will rarely change
-export const KeybindingHint = memo(({className, ...props}: KeybindingHintProps) => (
-  <Kbd className={className}>
+export const KeybindingHint = memo((props: KeybindingHintProps) => (
+  <Kbd>
     <Sequence {...props} />
   </Kbd>
 ))

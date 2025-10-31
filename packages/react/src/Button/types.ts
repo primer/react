@@ -1,6 +1,7 @@
 import type React from 'react'
 import type {TooltipDirection} from '../TooltipV2'
 import type {IconProps} from '@primer/octicons-react'
+import type {KeybindingHintProps} from '../KeybindingHint'
 
 export type VariantType = 'default' | 'primary' | 'invisible' | 'danger' | 'link'
 
@@ -79,6 +80,12 @@ export type ButtonProps = {
   children?: React.ReactNode
 
   count?: number | string
+
+  /**
+   * A keyboard shortcut hint displayed in the button's trailing visual slot.
+   * Uses the same format as KeybindingHint component (e.g., "Mod+S", "Control+K").
+   */
+  keybindingHint?: KeybindingHintProps['keys']
 } & ButtonBaseProps
 
 export type IconButtonProps = ButtonA11yProps & {

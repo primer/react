@@ -1,10 +1,11 @@
 import React, {forwardRef} from 'react'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
-import type {ButtonProps} from './types'
+import type {ButtonProps, VariantType} from './types'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import {VisuallyHidden} from '../VisuallyHidden'
 import Spinner from '../Spinner'
 import CounterLabel from '../CounterLabel'
+import {KeybindingHint} from '../KeybindingHint'
 import {useId} from '../hooks'
 import {ConditionalWrapper} from '../internal/components/ConditionalWrapper'
 import {AriaStatus} from '../live-region'
@@ -46,6 +47,7 @@ const ButtonBase = forwardRef(({children, as: Component = 'button', ...props}, f
     onClick,
     labelWrap,
     className,
+    keybindingHint,
     ...rest
   } = props
 
@@ -95,7 +97,7 @@ const ButtonBase = forwardRef(({children, as: Component = 'button', ...props}, f
         data-block={block ? 'block' : null}
         data-inactive={inactive ? true : undefined}
         data-loading={Boolean(loading)}
-        data-no-visuals={!LeadingVisual && !TrailingVisual && !TrailingAction ? true : undefined}
+        data-no-visuals={!LeadingVisual && !TrailingVisual && !TrailingAction && !keybindingHint ? true : undefined}
         data-size={size}
         data-variant={variant}
         data-label-wrap={labelWrap}
@@ -125,13 +127,14 @@ const ButtonBase = forwardRef(({children, as: Component = 'button', ...props}, f
           <>
             <span data-component="buttonContent" data-align={alignContent} className={classes.ButtonContent}>
               {
-                /* If there are no leading/trailing visuals/actions to replace with a loading spinner,
+                /* If there are no leading/trailing visuals/actions/keybindingHint to replace with a loading spinner,
                      render a loading spiner in place of the button content. */
                 loading &&
                   !LeadingVisual &&
                   !TrailingVisual &&
                   !TrailingAction &&
                   count === undefined &&
+                  !keybindingHint &&
                   renderModuleVisual(Spinner, loading, 'loadingSpinner', false)
               }
               {
@@ -150,6 +153,9 @@ const ButtonBase = forwardRef(({children, as: Component = 'button', ...props}, f
                      Replace the counter label or the trailing visual with a loading spinner if:
                      - the button is in a loading state
                      - there is no leading visual to replace with a loading spinner
+
+                     If there is a keybindingHint, render it unless there is an explicit trailing visual or count.
+                     The priority order is: trailingVisual > count > keybindingHint
                   */
                 count !== undefined && !TrailingVisual
                   ? renderModuleVisual(
@@ -164,7 +170,21 @@ const ButtonBase = forwardRef(({children, as: Component = 'button', ...props}, f
                     )
                   : TrailingVisual
                     ? renderModuleVisual(TrailingVisual, Boolean(loading) && !LeadingVisual, 'trailingVisual', false)
-                    : null
+                    : keybindingHint
+                      ? renderModuleVisual(
+                          () => (
+                            <KeybindingHint
+                              keys={keybindingHint}
+                              variant="normal"
+                              size={size === 'small' ? 'small' : 'normal'}
+                              className={classes.KeybindingHint}
+                            />
+                          ),
+                          Boolean(loading) && !LeadingVisual,
+                          'trailingVisual',
+                          false,
+                        )
+                      : null
               }
             </span>
             {

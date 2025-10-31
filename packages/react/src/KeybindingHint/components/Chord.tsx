@@ -31,14 +31,24 @@ const splitChord = (chord: string) =>
     .map(k => k.toLowerCase())
     .sort(compareLowercaseKeys)
 
-export const Chord = ({keys, format = 'condensed', variant = 'normal', size = 'normal'}: KeybindingHintProps) => (
+export const Chord = ({
+  keys,
+  format = 'condensed',
+  variant = 'normal',
+  size = 'normal',
+  className,
+}: KeybindingHintProps) => (
   <Text
-    className={clsx(classes.Chord, {
-      [classes.ChordNormal]: variant === 'normal',
-      [classes.ChordOnEmphasis]: variant === 'onEmphasis',
-      [classes.ChordOnPrimary]: variant === 'onPrimary',
-      [classes.ChordSmall]: size === 'small',
-    })}
+    className={clsx(
+      classes.Chord,
+      {
+        [classes.ChordNormal]: variant === 'normal',
+        [classes.ChordOnEmphasis]: variant === 'onEmphasis',
+        [classes.ChordOnPrimary]: variant === 'onPrimary',
+        [classes.ChordSmall]: size === 'small',
+      },
+      className,
+    )}
   >
     {splitChord(keys).map((k, i) => (
       <Fragment key={i}>
