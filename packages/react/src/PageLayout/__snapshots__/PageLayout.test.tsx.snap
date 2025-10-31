@@ -235,7 +235,8 @@ exports[`PageLayout > renders pane in different position when narrow 1`] = `
         >
           <div
             class="prc-PageLayout-HorizontalDivider-8Nn4S prc-PageLayout-PaneHorizontalDivider-wnCG-"
-            data-position="end"
+            data-position-narrow="start"
+            data-position-regular="end"
             data-variant-narrow="none"
             data-variant-regular="none"
             style="--spacing-divider: var(--spacing-normal); --spacing: var(--spacing-normal);"
@@ -248,7 +249,8 @@ exports[`PageLayout > renders pane in different position when narrow 1`] = `
           </div>
           <div
             class="prc-PageLayout-VerticalDivider-f4Vw0 prc-PageLayout-PaneVerticalDivider-o0OsY"
-            data-position="end"
+            data-position-narrow="start"
+            data-position-regular="end"
             data-variant-narrow="none"
             data-variant-regular="none"
             style="--spacing: var(--spacing-normal);"
