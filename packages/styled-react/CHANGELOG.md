@@ -2,6 +2,17 @@
 
 ## 1.0.0
 
+### Minor Changes
+
+- [#7060](https://github.com/primer/react/pull/7060) [`3468793`](https://github.com/primer/react/commit/3468793e15269d6d9f226ee7844921e44bfc4622) Thanks [@francinelucca](https://github.com/francinelucca)! - chore(Dialog): add slots
+
+### Patch Changes
+
+- Updated dependencies [[`6ff2797`](https://github.com/primer/react/commit/6ff2797662bf7ab8cf8575d13ad061923bf0d9c1), [`247c66a`](https://github.com/primer/react/commit/247c66a3c297afba73c6e9e3842cc15ff8a845c1), [`3468793`](https://github.com/primer/react/commit/3468793e15269d6d9f226ee7844921e44bfc4622), [`e58e102`](https://github.com/primer/react/commit/e58e1027d7f3cdae5223c08d83f7b86918db370b), [`12fad7a`](https://github.com/primer/react/commit/12fad7af4d9d31898dfff5d3419987100b398d9e), [`f7dfa7d`](https://github.com/primer/react/commit/f7dfa7d5954961834d0ec360d6b218237e75bf96)]:
+  - @primer/react@38.1.0
+
+## 1.0.0
+
 ### Major Changes
 
 - [#7027](https://github.com/primer/react/pull/7027) [`415fafc`](https://github.com/primer/react/commit/415fafc23bb2060cc856cda8de432a4447a47bfd) Thanks [@francinelucca](https://github.com/francinelucca)! - Remove feature flag to fall back to theming from primer/react
