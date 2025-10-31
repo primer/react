@@ -1,6 +1,5 @@
-import classes from './Divider.module.css'
-
 import type {JSX} from 'react'
+import classes from './Divider.module.css'
 
 /**
  * Visually separates `Items or `Groups in an `ActionList`.
