@@ -1,6 +1,6 @@
 import './global.css'
 import {ThemeProvider, BaseStyles} from '@primer/react'
-import {Metadata} from 'next'
+import type {Metadata} from 'next'
 
 export const metadata: Metadata = {
   title: 'Next.js',
