@@ -123,6 +123,8 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
     else inferredItemRole = 'menuitem'
   } else if (listRole === 'listbox') {
     if (selectionVariant !== undefined && !role) inferredItemRole = 'option'
+  } else if (listRole === 'tablist') {
+    inferredItemRole = 'tab'
   }
 
   const itemRole = role || inferredItemRole
@@ -142,7 +144,11 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
   const itemSelectionAttribute = selectionAttribute || inferredSelectionAttribute
   // Ensures ActionList.Item retains list item semantics if a valid ARIA role is applied, or if item is inactive
   const listItemSemantics =
-    role === 'option' || role === 'menuitem' || role === 'menuitemradio' || role === 'menuitemcheckbox'
+    itemRole === 'option' ||
+    itemRole === 'menuitem' ||
+    itemRole === 'menuitemradio' ||
+    itemRole === 'menuitemcheckbox' ||
+    itemRole === 'tab'
 
   const listRoleTypes = ['listbox', 'menu', 'list']
   const listSemantics = (listRole && listRoleTypes.includes(listRole)) || inactive || listItemSemantics
@@ -249,6 +255,7 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
         ref={listSemantics ? forwardedRef : null}
         data-variant={variant === 'danger' ? variant : undefined}
         data-active={active ? true : undefined}
+        data-selectable={includeSelectionAttribute ? true : undefined}
         data-inactive={inactiveText ? true : undefined}
         data-has-subitem={slots.subItem ? true : undefined}
         data-has-description={slots.description ? true : false}
