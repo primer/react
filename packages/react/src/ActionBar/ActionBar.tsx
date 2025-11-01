@@ -1,7 +1,7 @@
 import type {RefObject, MouseEventHandler} from 'react'
 import React, {useState, useCallback, useRef, forwardRef, useId} from 'react'
 import {KebabHorizontalIcon} from '@primer/octicons-react'
-import {ActionList} from '../ActionList'
+import {ActionList, type ActionListItemProps} from '../ActionList'
 import useIsomorphicLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 import {useOnEscapePress} from '../hooks/useOnEscapePress'
 import type {ResizeObserverEntry} from '../hooks/useResizeObserver'
@@ -28,8 +28,16 @@ type ChildProps =
       width: number
       groupId?: string
     }
-  | {type: 'divider'; width: number}
-  | {type: 'group'; width: number}
+  | {
+      type: 'menuItem'
+      label: string
+      disabled: boolean
+      icon?: ActionBarIconButtonProps['icon']
+      onClick: MouseEventHandler
+      menuId?: string
+    }
+  | {type: 'divider' | 'group'; width: number}
+  | {type: 'menu'; width: number; label: string; icon: ActionBarIconButtonProps['icon']}
 
 /**
  * Registry of descendants to render in the list or menu. To preserve insertion order across updates, children are
@@ -263,15 +271,18 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
 
   const groupedItems = React.useMemo(() => {
     const groupedItemsMap = new Map<string, Array<[string, ChildProps]>>()
+    const menuItems = new Map<string, ChildProps>()
 
     for (const [key, childProps] of childRegistry) {
       if (childProps?.type === 'action' && childProps.groupId) {
         const existingGroup = groupedItemsMap.get(childProps.groupId) || []
         existingGroup.push([key, childProps])
         groupedItemsMap.set(childProps.groupId, existingGroup)
+      } else if (childProps?.type === 'menuItem') {
+        menuItems.set(key, childProps)
       }
     }
-    return groupedItemsMap
+    return {groupedItems: groupedItemsMap, menuItems}
   }, [childRegistry])
 
   return (
@@ -321,7 +332,32 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
                     }
 
                     // Use the memoized map instead of filtering each time
-                    const groupedMenuItems = groupedItems.get(id) || []
+                    const groupedMenuItems = groupedItems.groupedItems.get(id) || []
+
+                    if (menuItem.type === 'menu') {
+                      const menuItems = Array.from(groupedItems.menuItems)
+                      const {icon: Icon, label} = menuItem
+
+                      return (
+                        <ActionMenu key={id}>
+                          <ActionMenu.Anchor>
+                            <ActionList.Item>
+                              <ActionList.LeadingVisual>
+                                <Icon />
+                              </ActionList.LeadingVisual>
+                              {label}
+                            </ActionList.Item>
+                          </ActionMenu.Anchor>
+                          <ActionMenu.Overlay>
+                            <ActionList>
+                              {menuItems.map(([key, childProps]) => (
+                                <ActionList.Item key={key}>{childProps.label}</ActionList.Item>
+                              ))}
+                            </ActionList>
+                          </ActionMenu.Overlay>
+                        </ActionMenu>
+                      )
+                    }
 
                     // If we ever add additional types, this condition will be necessary
                     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
@@ -372,6 +408,7 @@ export const ActionBarIconButton = forwardRef(
 
     const {size, registerChild, unregisterChild, isVisibleChild} = React.useContext(ActionBarContext)
     const {groupId} = React.useContext(ActionBarGroupContext)
+    const {menuId} = React.useContext(ActionBarMenuContext)
 
     // Storing the width in a ref ensures we don't forget about it when not visible
     const widthRef = useRef<number>()
@@ -382,7 +419,7 @@ export const ActionBarIconButton = forwardRef(
       if (!widthRef.current) return
 
       registerChild(id, {
-        type: 'action',
+        type: menuId ? 'menuItem' : 'action',
         label: props['aria-label'] ?? '',
         icon: props.icon,
         disabled: !!disabled,
@@ -430,7 +467,7 @@ export const ActionBarGroup = forwardRef(({children}: React.PropsWithChildren, f
   const id = useId()
   const {registerChild, unregisterChild} = React.useContext(ActionBarContext)
 
-  // Like IconButton, we store the width in a ref ensures we don't forget about it when not visible
+  // Like IconButton, we store the width in a ref to ensure that we don't forget about it when not visible
   // If a child has a groupId, it won't be visible if the group isn't visible, so we don't need to check isVisibleChild here
   const widthRef = useRef<number>()
 
@@ -454,6 +491,121 @@ export const ActionBarGroup = forwardRef(({children}: React.PropsWithChildren, f
     </ActionBarGroupContext.Provider>
   )
 })
+
+type ActionBarMenuProps = {
+  /** Accessible label for the menu button */
+  'aria-label': string
+  /** Icon for the menu button */
+  icon: ActionBarIconButtonProps['icon']
+}
+
+const ActionBarMenuContext = React.createContext<{
+  menuId: string
+  menuVisible: boolean
+  label: string
+}>({menuId: '', menuVisible: false, label: ''})
+
+export const ActionBarMenu = forwardRef(
+  ({'aria-label': ariaLabel, icon, children}: React.PropsWithChildren<ActionBarMenuProps>, forwardedRef) => {
+    const backupRef = useRef<HTMLButtonElement>(null)
+    const ref = (forwardedRef ?? backupRef) as RefObject<HTMLButtonElement>
+    const id = useId()
+    const {registerChild, unregisterChild, isVisibleChild} = React.useContext(ActionBarContext)
+
+    const [menuOpen, setMenuOpen] = useState(false)
+
+    // Like IconButton, we store the width in a ref to ensure that we don't forget about it when not visible
+    // If a child has a groupId, it won't be visible if the group isn't visible, so we don't need to check isVisibleChild here
+    const widthRef = useRef<number>()
+
+    useIsomorphicLayoutEffect(() => {
+      const width = ref.current?.getBoundingClientRect().width
+      if (width) widthRef.current = width
+
+      if (!widthRef.current) return
+
+      registerChild(id, {type: 'menu', width: widthRef.current, label: ariaLabel, icon})
+
+      return () => {
+        unregisterChild(id)
+      }
+    }, [registerChild, unregisterChild])
+
+    if (!isVisibleChild(id))
+      return (
+        <ActionBarMenuContext.Provider value={{menuId: id, menuVisible: isVisibleChild(id), label: ariaLabel}}>
+          {children}
+        </ActionBarMenuContext.Provider>
+      )
+
+    return (
+      <ActionBarMenuContext.Provider value={{menuId: id, menuVisible: isVisibleChild(id), label: ariaLabel}}>
+        <ActionMenu anchorRef={ref} open={menuOpen} onOpenChange={setMenuOpen}>
+          <ActionMenu.Anchor>
+            <IconButton variant="invisible" aria-label={ariaLabel} icon={icon} />
+          </ActionMenu.Anchor>
+          <ActionMenu.Overlay>
+            <ActionList className={styles.Menu}>{children}</ActionList>
+          </ActionMenu.Overlay>
+        </ActionMenu>
+      </ActionBarMenuContext.Provider>
+    )
+  },
+)
+
+type ActionBarMenuItemProps = {
+  disabled?: boolean
+  icon?: ActionBarIconButtonProps['icon']
+  label: string
+} & ActionListItemProps
+
+export const ActionBarMenuItem = forwardRef(
+  (
+    {disabled, children, icon: Icon, label, ...props}: React.PropsWithChildren<ActionBarMenuItemProps>,
+    forwardedRef,
+  ) => {
+    const backupRef = useRef<HTMLLIElement>(null)
+    const ref = (forwardedRef ?? backupRef) as RefObject<HTMLLIElement>
+    useRefObjectAsForwardedRef(forwardedRef, ref)
+    const id = useId()
+
+    const {menuVisible} = React.useContext(ActionBarMenuContext)
+    const {registerChild, unregisterChild} = React.useContext(ActionBarContext)
+
+    // TODO: We need to support an assortment of ActionList.Item props like variant, etc.
+    // We do not want to reinvent the wheel, so it should be simplistic to pass those props through
+
+    useIsomorphicLayoutEffect(() => {
+      if (menuVisible) return
+
+      registerChild(id, {
+        type: 'menuItem',
+        label,
+        icon: Icon,
+        disabled: !!disabled,
+        onClick: props.onClick as MouseEventHandler,
+      })
+
+      return () => {
+        unregisterChild(id)
+      }
+    }, [registerChild, unregisterChild])
+
+    if (!menuVisible) {
+      // We return null here as there is no need to render anything when the menu is not visible
+      // We instead register the item in the ActionBar context for the ActionBar to render it appropriately in the overflow menu
+      return null
+    }
+
+    return (
+      <ActionList.Item aria-disabled={disabled} ref={ref} data-testid={id}>
+        <ActionList.LeadingVisual>{Icon ? <Icon /> : null}</ActionList.LeadingVisual>
+        {label}
+        {children}
+      </ActionList.Item>
+    )
+  },
+)
 
 export const VerticalDivider = () => {
   const ref = useRef<HTMLDivElement>(null)
