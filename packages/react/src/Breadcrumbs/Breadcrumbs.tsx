@@ -10,7 +10,6 @@ import {useResizeObserver} from '../hooks/useResizeObserver'
 import type {ResizeObserverEntry} from '../hooks/useResizeObserver'
 import {useOnEscapePress} from '../hooks/useOnEscapePress'
 import {useOnOutsideClick} from '../hooks/useOnOutsideClick'
-import {useFeatureFlag} from '../FeatureFlags'
 
 export type BreadcrumbsProps = React.PropsWithChildren<{
   /**
@@ -145,8 +144,6 @@ const getValidChildren = (children: React.ReactNode) => {
 }
 
 function Breadcrumbs({className, children, style, overflow = 'wrap', variant = 'normal'}: BreadcrumbsProps) {
-  const overflowMenuEnabled = useFeatureFlag('primer_react_breadcrumbs_overflow_menu')
-  const wrappedChildren = React.Children.map(children, child => <li className={classes.ItemWrapper}>{child}</li>)
   const containerRef = useRef<HTMLElement>(null)
 
   const measureMenuButton = useCallback((element: HTMLDetailsElement | null) => {
@@ -176,18 +173,13 @@ function Breadcrumbs({className, children, style, overflow = 'wrap', variant = '
 
   useEffect(() => {
     const listElement = containerRef.current?.querySelector('ol')
-    if (
-      overflowMenuEnabled &&
-      listElement &&
-      listElement.children.length > 0 &&
-      listElement.children.length === childArray.length
-    ) {
+    if (listElement && listElement.children.length > 0 && listElement.children.length === childArray.length) {
       const listElementArray = Array.from(listElement.children) as HTMLElement[]
       const widths = listElementArray.map(child => child.offsetWidth)
       setChildArrayWidths(widths)
       setRootItemWidth(listElementArray[0].offsetWidth)
     }
-  }, [childArray, overflowMenuEnabled])
+  }, [childArray])
 
   const calculateOverflow = useCallback(
     (availableWidth: number) => {
@@ -247,7 +239,7 @@ function Breadcrumbs({className, children, style, overflow = 'wrap', variant = '
 
   const handleResize = useCallback(
     (entries: ResizeObserverEntry[]) => {
-      if (overflowMenuEnabled && entries[0]) {
+      if (entries[0]) {
         const containerWidth = entries[0].contentRect.width
         const result = calculateOverflow(containerWidth)
         if (
@@ -260,73 +252,66 @@ function Breadcrumbs({className, children, style, overflow = 'wrap', variant = '
         }
       }
     },
-    [calculateOverflow, effectiveHideRoot, menuItems.length, overflowMenuEnabled, visibleItems.length],
+    [calculateOverflow, effectiveHideRoot, menuItems.length, visibleItems.length],
   )
 
   useResizeObserver(handleResize, containerRef)
 
   useEffect(() => {
-    if (
-      overflowMenuEnabled &&
-      (overflow === 'menu' || overflow === 'menu-with-root') &&
-      childArray.length > 5 &&
-      menuItems.length === 0
-    ) {
+    if ((overflow === 'menu' || overflow === 'menu-with-root') && childArray.length > 5 && menuItems.length === 0) {
       const containerWidth = containerRef.current?.offsetWidth || 800
       const result = calculateOverflow(containerWidth)
       setVisibleItems(result.visibleItems)
       setMenuItems(result.menuItems)
       setEffectiveHideRoot(result.effectiveHideRoot)
     }
-  }, [overflow, childArray, calculateOverflow, menuItems.length, overflowMenuEnabled])
+  }, [overflow, childArray, calculateOverflow, menuItems.length])
 
   const finalChildren = React.useMemo(() => {
-    if (overflowMenuEnabled) {
-      if (overflow === 'wrap' || menuItems.length === 0) {
-        return React.Children.map(children, child => <li className={classes.ItemWrapper}>{child}</li>)
-      }
-
-      let effectiveMenuItems = [...menuItems]
-      // In 'menu-with-root' mode, include the root item inside the menu even if it's visible in the breadcrumbs
-      if (!effectiveHideRoot) {
-        effectiveMenuItems = [...menuItems.slice(1)]
-      }
-      const menuElement = (
-        <li className={classes.BreadcrumbsItem} key="breadcrumbs-menu">
-          <BreadcrumbsMenuItem
-            ref={measureMenuButton}
-            items={effectiveMenuItems}
-            aria-label={`${effectiveMenuItems.length} more breadcrumb items`}
-          />
-          <ItemSeparator />
-        </li>
-      )
-
-      const visibleElements = visibleItems.map((child, index) => (
-        <li className={classes.BreadcrumbsItem} key={`visible + ${index}`}>
-          {child}
-          <ItemSeparator />
-        </li>
-      ))
-
-      const rootElement = (
-        <li className={classes.BreadcrumbsItem} key={`rootElement`}>
-          {rootItem}
-          <ItemSeparator />
-        </li>
-      )
-
-      if (effectiveHideRoot) {
-        // Show: [overflow menu, leaf breadcrumb]
-        return [menuElement, ...visibleElements]
-      } else {
-        // Show: [root breadcrumb, overflow menu, leaf breadcrumb]
-        return [rootElement, menuElement, ...visibleElements]
-      }
+    if (overflow === 'wrap' || menuItems.length === 0) {
+      return React.Children.map(children, child => <li className={classes.ItemWrapper}>{child}</li>)
     }
-  }, [overflowMenuEnabled, overflow, menuItems, effectiveHideRoot, measureMenuButton, visibleItems, rootItem, children])
 
-  return overflowMenuEnabled ? (
+    let effectiveMenuItems = [...menuItems]
+    // In 'menu-with-root' mode, include the root item inside the menu even if it's visible in the breadcrumbs
+    if (!effectiveHideRoot) {
+      effectiveMenuItems = [...menuItems.slice(1)]
+    }
+    const menuElement = (
+      <li className={classes.BreadcrumbsItem} key="breadcrumbs-menu">
+        <BreadcrumbsMenuItem
+          ref={measureMenuButton}
+          items={effectiveMenuItems}
+          aria-label={`${effectiveMenuItems.length} more breadcrumb items`}
+        />
+        <ItemSeparator />
+      </li>
+    )
+
+    const visibleElements = visibleItems.map((child, index) => (
+      <li className={classes.BreadcrumbsItem} key={`visible + ${index}`}>
+        {child}
+        <ItemSeparator />
+      </li>
+    ))
+
+    const rootElement = (
+      <li className={classes.BreadcrumbsItem} key={`rootElement`}>
+        {rootItem}
+        <ItemSeparator />
+      </li>
+    )
+
+    if (effectiveHideRoot) {
+      // Show: [overflow menu, leaf breadcrumb]
+      return [menuElement, ...visibleElements]
+    } else {
+      // Show: [root breadcrumb, overflow menu, leaf breadcrumb]
+      return [rootElement, menuElement, ...visibleElements]
+    }
+  }, [overflow, menuItems, effectiveHideRoot, measureMenuButton, visibleItems, rootItem, children])
+
+  return (
     <nav
       className={clsx(className, classes.BreadcrumbsBase)}
       aria-label="Breadcrumbs"
@@ -336,15 +321,6 @@ function Breadcrumbs({className, children, style, overflow = 'wrap', variant = '
       data-variant={variant}
     >
       <BreadcrumbsList>{finalChildren}</BreadcrumbsList>
-    </nav>
-  ) : (
-    <nav
-      className={clsx(className, classes.BreadcrumbsBase)}
-      aria-label="Breadcrumbs"
-      style={style}
-      data-variant={variant}
-    >
-      <BreadcrumbsList>{wrappedChildren}</BreadcrumbsList>
     </nav>
   )
 }
