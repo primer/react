@@ -1,5 +1,5 @@
 import type React from 'react'
-import {type CSSProperties, type PropsWithChildren} from 'react'
+import {type CSSProperties, type PropsWithChildren, type JSX} from 'react'
 import {clsx} from 'clsx'
 
 import classes from './BaseStyles.module.css'

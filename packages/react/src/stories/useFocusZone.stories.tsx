@@ -1,4 +1,4 @@
-import React, {useCallback, useRef, useState} from 'react'
+import React, {useCallback, useRef, useState, type JSX} from 'react'
 import type {Meta} from '@storybook/react-vite'
 import {Flash} from '..'
 import {Button} from '../Button'

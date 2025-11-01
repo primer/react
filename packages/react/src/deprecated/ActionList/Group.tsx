@@ -2,6 +2,8 @@ import type React from 'react'
 import type {HeaderProps} from './Header'
 import {Header} from './Header'
 
+import type {JSX} from 'react'
+
 /**
  * Contract for props passed to the `Group` component.
  */
