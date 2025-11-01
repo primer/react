@@ -9,9 +9,8 @@ import React, {
   useEffect,
   type ElementType,
 } from 'react'
-import {TabContainerElement} from '@github/tab-container-element'
 import type {IconProps} from '@primer/octicons-react'
-import {createComponent} from '../../utils/create-component'
+import {TabContainer} from '../../internal/components/TabContainer'
 import {
   UnderlineItemList,
   UnderlineWrapper,
@@ -78,8 +77,6 @@ export type TabProps = PropsWithChildren<{
 }>
 
 export type PanelProps = React.HTMLAttributes<HTMLDivElement>
-
-const TabContainerComponent = createComponent(TabContainerElement, 'tab-container')
 
 const UnderlinePanels: FCWithSlotMarker<UnderlinePanelsProps> = ({
   'aria-label': ariaLabel,
@@ -174,7 +171,7 @@ const UnderlinePanels: FCWithSlotMarker<UnderlinePanelsProps> = ({
   }
 
   return (
-    <TabContainerComponent>
+    <TabContainer>
       <UnderlineWrapper
         ref={wrapperRef}
         slot="tablist-wrapper"
@@ -187,7 +184,7 @@ const UnderlinePanels: FCWithSlotMarker<UnderlinePanelsProps> = ({
         </UnderlineItemList>
       </UnderlineWrapper>
       {tabPanels}
-    </TabContainerComponent>
+    </TabContainer>
   )
 }
 

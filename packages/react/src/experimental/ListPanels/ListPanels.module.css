@@ -1,0 +1,18 @@
+.tabContainer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+.tabs {
+  height: 100%;
+  border-right: var(--border-default);
+  min-width: var(--overlay-width-xsmall);
+}
+
+.tabpanel {
+  display: flex;
+  padding: 12px 0 0 12px 12px;
+  width: 100%;
+  padding-left: var(--base-size-16);
+}
