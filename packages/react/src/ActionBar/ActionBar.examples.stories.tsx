@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {type RefObject} from 'react'
 import type {Meta} from '@storybook/react-vite'
 import ActionBar from '.'
 import Text from '../Text'
@@ -19,6 +19,8 @@ import {
   ThreeBarsIcon,
   TrashIcon,
   KebabHorizontalIcon,
+  PeopleIcon,
+  GearIcon,
 } from '@primer/octicons-react'
 import {Button, Avatar, ActionMenu, IconButton, ActionList, Textarea} from '..'
 import {Dialog} from '../deprecated/DialogV1'
@@ -315,19 +317,56 @@ export const MultipleActionBars = () => {
   )
 }
 
+const MultiSelect = React.forwardRef((props, ref) => {
+  type Option = {name: string; selected: boolean}
+
+  const [options, setOptions] = React.useState<Option[]>([
+    {name: 'Show code folding buttons', selected: true},
+    {name: 'Wrap lines', selected: false},
+    {name: 'Center content', selected: false},
+  ])
+
+  const toggle = (name: string) => {
+    setOptions(
+      options.map(option => {
+        if (option.name === name) option.selected = !option.selected
+        return option
+      }),
+    )
+  }
+
+  return (
+    <ActionMenu anchorRef={ref as RefObject<HTMLButtonElement>}>
+      <ActionMenu.Anchor>
+        <IconButton variant="invisible" aria-label="Formatting" icon={GearIcon} />
+      </ActionMenu.Anchor>
+      <ActionMenu.Overlay width="auto">
+        <ActionList selectionVariant="multiple">
+          {options.map(options => (
+            <ActionList.Item key={options.name} selected={options.selected} onSelect={() => toggle(options.name)}>
+              {options.name}
+            </ActionList.Item>
+          ))}
+        </ActionList>
+      </ActionMenu.Overlay>
+    </ActionMenu>
+  )
+})
+
 const ActionMenuExample = () => {
   return (
-    <ActionBar.Menu aria-label="Open menu" icon={KebabHorizontalIcon}>
-      <ActionBar.MenuItem onClick={() => alert('Workflows clicked')} label="Download" />
-      <ActionBar.Divider />
-      <ActionBar.MenuItem onClick={() => alert('Workflows clicked')} label="Jump to line" />
-      <ActionBar.MenuItem onClick={() => alert('Workflows clicked')} label="Find in file" />
-      <ActionBar.Divider />
-      <ActionBar.MenuItem onClick={() => alert('Workflows clicked')} label="Copy path" />
-      <ActionBar.MenuItem onClick={() => alert('Workflows clicked')} label="Copy permalink" />
-      <ActionBar.Divider />
-      <ActionBar.MenuItem onClick={() => alert('Delete file')} variant="danger" label="Delete file" icon={TrashIcon} />
-    </ActionBar.Menu>
+    <ActionBar.Menu
+      aria-label="Open menu"
+      icon={KebabHorizontalIcon}
+      items={[
+        {label: 'Download', onClick: () => alert('Download clicked')},
+        {label: 'Jump to line', onClick: () => alert('Jump to line clicked')},
+        {label: 'Find in file', onClick: () => alert('Find in file clicked')},
+        {label: 'Copy path', onClick: () => alert('Copy path clicked')},
+        {label: 'Copy permalink', onClick: () => alert('Copy permalink clicked')},
+        {label: 'Delete file', onClick: () => alert('Delete file clicked'), icon: TrashIcon, variant: 'danger'},
+      ]}
+    />
   )
 }
 
@@ -339,12 +378,17 @@ export const WithMenus = () => (
     <ActionBar.Divider />
     <ActionBar.IconButton icon={FileAddedIcon} aria-label="File Added"></ActionBar.IconButton>
     <ActionBar.IconButton icon={SearchIcon} aria-label="Search"></ActionBar.IconButton>
-    <ActionBar.Menu aria-label="More Actions" icon={ThreeBarsIcon}>
-      <ActionBar.MenuItem label="Edit" icon={PencilIcon} />
-      <ActionBar.MenuItem label="Delete" icon={TrashIcon} variant="danger" />
-    </ActionBar.Menu>
+    <ActionBar.Menu
+      aria-label="More Actions"
+      icon={ThreeBarsIcon}
+      items={[
+        {label: 'Bold', onClick: () => alert('Bold clicked')},
+        {label: 'Underline', onClick: () => alert('Underline clicked')},
+      ]}
+    />
     <ActionBar.IconButton disabled icon={FileAddedIcon} aria-label="File Added"></ActionBar.IconButton>
     <ActionBar.IconButton disabled icon={SearchIcon} aria-label="Search"></ActionBar.IconButton>
+    <ActionBar.Menu aria-label="Test Menu" icon={PeopleIcon} renderMenu={MultiSelect} />
     <ActionBar.IconButton disabled icon={QuoteIcon} aria-label="Insert Quote"></ActionBar.IconButton>
     <ActionBar.IconButton icon={ListUnorderedIcon} aria-label="Unordered List"></ActionBar.IconButton>
     <ActionBar.IconButton icon={ListOrderedIcon} aria-label="Ordered List"></ActionBar.IconButton>
