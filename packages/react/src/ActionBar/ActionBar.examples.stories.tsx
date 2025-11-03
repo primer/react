@@ -1,4 +1,4 @@
-import React, {type RefObject} from 'react'
+import React from 'react'
 import type {Meta} from '@storybook/react-vite'
 import ActionBar from '.'
 import Text from '../Text'
@@ -19,8 +19,6 @@ import {
   ThreeBarsIcon,
   TrashIcon,
   KebabHorizontalIcon,
-  PeopleIcon,
-  GearIcon,
 } from '@primer/octicons-react'
 import {Button, Avatar, ActionMenu, IconButton, ActionList, Textarea} from '..'
 import {Dialog} from '../deprecated/DialogV1'
@@ -317,42 +315,6 @@ export const MultipleActionBars = () => {
   )
 }
 
-const MultiSelect = React.forwardRef((props, ref) => {
-  type Option = {name: string; selected: boolean}
-
-  const [options, setOptions] = React.useState<Option[]>([
-    {name: 'Show code folding buttons', selected: true},
-    {name: 'Wrap lines', selected: false},
-    {name: 'Center content', selected: false},
-  ])
-
-  const toggle = (name: string) => {
-    setOptions(
-      options.map(option => {
-        if (option.name === name) option.selected = !option.selected
-        return option
-      }),
-    )
-  }
-
-  return (
-    <ActionMenu anchorRef={ref as RefObject<HTMLButtonElement>}>
-      <ActionMenu.Anchor>
-        <IconButton variant="invisible" aria-label="Formatting" icon={GearIcon} />
-      </ActionMenu.Anchor>
-      <ActionMenu.Overlay width="auto">
-        <ActionList selectionVariant="multiple">
-          {options.map(options => (
-            <ActionList.Item key={options.name} selected={options.selected} onSelect={() => toggle(options.name)}>
-              {options.name}
-            </ActionList.Item>
-          ))}
-        </ActionList>
-      </ActionMenu.Overlay>
-    </ActionMenu>
-  )
-})
-
 const ActionMenuExample = () => {
   return (
     <ActionBar.Menu
@@ -388,7 +350,6 @@ export const WithMenus = () => (
     />
     <ActionBar.IconButton disabled icon={FileAddedIcon} aria-label="File Added"></ActionBar.IconButton>
     <ActionBar.IconButton disabled icon={SearchIcon} aria-label="Search"></ActionBar.IconButton>
-    <ActionBar.Menu aria-label="Test Menu" icon={PeopleIcon} renderMenu={MultiSelect} />
     <ActionBar.IconButton disabled icon={QuoteIcon} aria-label="Insert Quote"></ActionBar.IconButton>
     <ActionBar.IconButton icon={ListUnorderedIcon} aria-label="Unordered List"></ActionBar.IconButton>
     <ActionBar.IconButton icon={ListOrderedIcon} aria-label="Ordered List"></ActionBar.IconButton>

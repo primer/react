@@ -106,6 +106,21 @@ export type ActionBarProps = {
 
 export type ActionBarIconButtonProps = {disabled?: boolean} & IconButtonProps
 
+export type ActionBarMenuItem = {
+  disabled?: boolean
+  icon?: ActionBarIconButtonProps['icon']
+  label: string
+  onClick?: ActionListItemProps['onSelect']
+} & Pick<ActionListItemProps, 'variant'>
+
+export type ActionBarMenuProps = {
+  /** Accessible label for the menu button */
+  'aria-label': string
+  /** Icon for the menu button */
+  icon: ActionBarIconButtonProps['icon']
+  items?: ActionBarMenuItem[]
+} & IconButtonProps
+
 const MORE_BTN_WIDTH = 32
 
 const calculatePossibleItems = (
@@ -488,59 +503,38 @@ export const ActionBarGroup = forwardRef(({children}: React.PropsWithChildren, f
   )
 })
 
-type ActionBarMenuItem = {
-  disabled?: boolean
-  icon?: ActionBarIconButtonProps['icon']
-  label: string
-  onClick?: ActionListItemProps['onSelect']
-} & Pick<ActionListItemProps, 'variant'>
+export const ActionBarMenu = forwardRef(
+  ({'aria-label': ariaLabel, icon, items, ...props}: ActionBarMenuProps, forwardedRef) => {
+    const backupRef = useRef<HTMLButtonElement>(null)
+    const ref = (forwardedRef ?? backupRef) as RefObject<HTMLButtonElement>
+    const id = useId()
+    const {registerChild, unregisterChild, isVisibleChild} = React.useContext(ActionBarContext)
 
-type ActionBarMenuProps = {
-  /** Accessible label for the menu button */
-  'aria-label': string // TODO: Change to label
-  /** Icon for the menu button */
-  icon: ActionBarIconButtonProps['icon']
-  items?: ActionBarMenuItem[]
-}
+    const [menuOpen, setMenuOpen] = useState(false)
 
-const ActionBarMenuContext = React.createContext<{
-  menuId: string
-  menuVisible: boolean
-  label: string
-}>({menuId: '', menuVisible: false, label: ''})
+    // Like IconButton, we store the width in a ref to ensure that we don't forget about it when not visible
+    // If a child has a groupId, it won't be visible if the group isn't visible, so we don't need to check isVisibleChild here
+    const widthRef = useRef<number>()
 
-export const ActionBarMenu = forwardRef(({'aria-label': ariaLabel, icon, items}: ActionBarMenuProps, forwardedRef) => {
-  const backupRef = useRef<HTMLButtonElement>(null)
-  const ref = (forwardedRef ?? backupRef) as RefObject<HTMLButtonElement>
-  const id = useId()
-  const {registerChild, unregisterChild, isVisibleChild} = React.useContext(ActionBarContext)
+    useIsomorphicLayoutEffect(() => {
+      const width = ref.current?.getBoundingClientRect().width
+      if (width) widthRef.current = width
 
-  const [menuOpen, setMenuOpen] = useState(false)
+      if (!widthRef.current) return
 
-  // Like IconButton, we store the width in a ref to ensure that we don't forget about it when not visible
-  // If a child has a groupId, it won't be visible if the group isn't visible, so we don't need to check isVisibleChild here
-  const widthRef = useRef<number>()
+      registerChild(id, {type: 'menu', width: widthRef.current, label: ariaLabel, icon, items})
 
-  useIsomorphicLayoutEffect(() => {
-    const width = ref.current?.getBoundingClientRect().width
-    if (width) widthRef.current = width
+      return () => {
+        unregisterChild(id)
+      }
+    }, [registerChild, unregisterChild])
 
-    if (!widthRef.current) return
+    if (!isVisibleChild(id)) return null
 
-    registerChild(id, {type: 'menu', width: widthRef.current, label: ariaLabel, icon, items})
-
-    return () => {
-      unregisterChild(id)
-    }
-  }, [registerChild, unregisterChild])
-
-  if (!isVisibleChild(id)) return null
-
-  return (
-    <ActionBarMenuContext.Provider value={{menuId: id, menuVisible: isVisibleChild(id), label: ariaLabel}}>
+    return (
       <ActionMenu anchorRef={ref} open={menuOpen} onOpenChange={setMenuOpen}>
         <ActionMenu.Anchor>
-          <IconButton variant="invisible" aria-label={ariaLabel} icon={icon} />
+          <IconButton variant="invisible" aria-label={ariaLabel} icon={icon} {...props} />
         </ActionMenu.Anchor>
         <ActionMenu.Overlay>
           <ActionList className={styles.Menu}>
@@ -553,9 +547,9 @@ export const ActionBarMenu = forwardRef(({'aria-label': ariaLabel, icon, items}:
           </ActionList>
         </ActionMenu.Overlay>
       </ActionMenu>
-    </ActionBarMenuContext.Provider>
-  )
-})
+    )
+  },
+)
 
 export const VerticalDivider = () => {
   const ref = useRef<HTMLDivElement>(null)
