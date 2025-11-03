@@ -1,10 +1,13 @@
+import type {Meta} from '@storybook/react-vite'
 import React from 'react'
-import {Tabs, TabList, Tab, TabPanel} from '../Tabs'
+import {Tabs, TabList, Tab, TabPanel} from '.'
 
-export default {
+const meta = {
   title: 'Private/Components/Tabs',
   component: Tabs,
-}
+} satisfies Meta<typeof Tabs>
+
+export default meta
 
 export const Default = () => {
   return (

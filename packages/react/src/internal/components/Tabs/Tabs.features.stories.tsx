@@ -1,6 +1,7 @@
-import type {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react-vite'
+import {action} from 'storybook/actions'
 import React from 'react'
-import {Tabs, TabList, Tab, TabPanel} from '../Tabs'
+import {Tabs, TabList, Tab, TabPanel} from '.'
 
 const meta = {
   title: 'Private/Components/Tabs/Features',
@@ -17,6 +18,7 @@ export const Controlled = () => {
         defaultValue="one"
         value={value}
         onValueChange={({value}) => {
+          action('onValueChange')({value})
           setValue(value)
         }}
       >

@@ -1,8 +1,8 @@
 import {render, screen} from '@testing-library/react'
-import {userEvent} from '@vitest/browser/context'
+import {userEvent} from 'vitest/browser'
 import React from 'react'
 import {describe, test, expect, vi} from 'vitest'
-import {Tabs, TabList, Tab, TabPanel} from '../Tabs'
+import {Tabs, TabList, Tab, TabPanel} from '.'
 
 describe('Tabs', () => {
   test('`defaultValue` sets the default selected tab', () => {
@@ -33,7 +33,7 @@ describe('Tabs', () => {
       const [value, setValue] = React.useState('a')
       return (
         <Tabs defaultValue="a" value={value} onValueChange={({value}) => setValue(value)}>
-          <TabList aria-label="tablist">
+          <TabList aria-label="Tablist">
             <Tab value="a">Tab A</Tab>
             <Tab value="b">Tab B</Tab>
             <Tab value="c">Tab C</Tab>
@@ -46,6 +46,9 @@ describe('Tabs', () => {
     }
 
     render(<Wrapper />)
+
+    const tabA = screen.getByRole('tab', {name: 'Tab A'})
+    expect(tabA).toHaveAttribute('aria-selected', 'true')
   })
 
   test('onValueChange is called when tab changes', async () => {
@@ -90,7 +93,7 @@ describe('Tabs', () => {
       render(
         <div>
           <Tabs defaultValue="a">
-            <TabList aria-label="test">
+            <TabList aria-label="Test Tabs">
               <Tab value="a">Tab A</Tab>
             </TabList>
             <TabPanel value="a">Panel A</TabPanel>
