@@ -255,7 +255,6 @@ const UnwrappedItem = <As extends React.ElementType = 'li'>(
         ref={listSemantics ? forwardedRef : null}
         data-variant={variant === 'danger' ? variant : undefined}
         data-active={active ? true : undefined}
-        data-selectable={includeSelectionAttribute ? true : undefined}
         data-inactive={inactiveText ? true : undefined}
         data-has-subitem={slots.subItem ? true : undefined}
         data-has-description={slots.description ? true : false}
