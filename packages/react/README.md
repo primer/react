@@ -58,7 +58,7 @@ function App() {
 ```
 
 At the root of your application, you'll also want to include our
-`ThemeProvider` and `BaseStyles` components along with styles from the
+`BaseStyles` component along with styles from the
 `@primer/primitives` package. For example:
 
 ```tsx
@@ -74,6 +74,18 @@ function RootLayout() {
     </BaseStyles>
   )
 }
+```
+
+In addition, you will need to add the following attributes to your `html` element:
+
+```html
+<html
+  data-light-theme="light"
+  data-dark-theme="dark"
+  data-color-mode="auto"
+>
+<!-- ...-->
+</html>
 ```
 
 ## 📖 Documentation
