@@ -1,7 +1,8 @@
 import type React from 'react'
 import {render, waitFor} from '@testing-library/react'
 import {describe, it, expect, vi} from 'vitest'
-import {LabelGroup, Label, BaseStyles} from '..'
+import BaseStyles from '../BaseStyles'
+import {LabelGroup, Label} from '..'
 import userEvent from '@testing-library/user-event'
 
 const ThemeAndStyleContainer: React.FC<React.PropsWithChildren> = ({children}) => <BaseStyles>{children}</BaseStyles>
@@ -13,15 +14,17 @@ const AutoTruncateContainer: React.FC<React.PropsWithChildren & {width?: number}
 const observe = vi.fn()
 
 describe('LabelGroup', () => {
-  window.IntersectionObserver = vi.fn(() => ({
-    observe,
-    unobserve: vi.fn(),
-    takeRecords: vi.fn(),
-    disconnect: vi.fn(),
-    root: null,
-    rootMargin: '',
-    thresholds: [],
-  })) as unknown as typeof IntersectionObserver
+  window.IntersectionObserver = vi.fn(function () {
+    return {
+      observe,
+      unobserve: vi.fn(),
+      takeRecords: vi.fn(),
+      disconnect: vi.fn(),
+      root: null,
+      rootMargin: '',
+      thresholds: [],
+    }
+  }) as unknown as typeof IntersectionObserver
 
   it('observers intersections on each child', async () => {
     render(

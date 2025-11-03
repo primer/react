@@ -1,7 +1,8 @@
 import {describe, it, expect, vi} from 'vitest'
 import {render as HTMLRender} from '@testing-library/react'
+import BaseStyles from '../BaseStyles'
 import {ActionList} from '.'
-import {BaseStyles, ActionMenu} from '..'
+import {ActionMenu} from '..'
 
 describe('ActionList.Group', () => {
   it('should throw an error when ActionList.GroupHeading has an `as` prop when it is used within ActionMenu context', async () => {

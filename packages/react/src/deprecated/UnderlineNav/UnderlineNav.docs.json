@@ -43,11 +43,6 @@
         {
           "name": "selected",
           "type": "boolean"
-        },
-        {
-          "name": "sx",
-          "type": "SystemStyleObject",
-          "deprecated": true
         }
       ]
     }

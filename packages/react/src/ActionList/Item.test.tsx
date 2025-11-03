@@ -354,4 +354,31 @@ describe('ActionList.Item', () => {
     expect(item).toHaveTextContent('Item, Description')
     expect(item).toHaveAccessibleDescription('Description')
   })
+
+  it('should add role="tab" when ActionList has role="tablist"', () => {
+    const {getAllByRole} = HTMLRender(
+      <ActionList role="tablist">
+        <ActionList.Item>Tab 1</ActionList.Item>
+        <ActionList.Item>Tab 2</ActionList.Item>
+        <ActionList.Item>Tab 3</ActionList.Item>
+      </ActionList>,
+    )
+    const tabs = getAllByRole('tab')
+    expect(tabs[0]).toBeInTheDocument()
+    expect(tabs).toHaveLength(3)
+  })
+
+  it('should allow role="tab" on the li element', () => {
+    const {getAllByRole} = HTMLRender(
+      <ActionList role="tablist">
+        <ActionList.Item role="tab">Tab 1</ActionList.Item>
+        <ActionList.Item role="tab">Tab 2</ActionList.Item>
+        <ActionList.Item role="tab">Tab 3</ActionList.Item>
+      </ActionList>,
+    )
+    const tabs = getAllByRole('tab')
+    expect(tabs[0]).toBeInTheDocument()
+    expect(tabs[0].nodeType).toBe(Node.ELEMENT_NODE)
+    expect(tabs).toHaveLength(3)
+  })
 })
