@@ -31,7 +31,7 @@ const PageLayoutContext = React.createContext<{
   padding: keyof typeof SPACING_MAP
   rowGap: keyof typeof SPACING_MAP
   columnGap: keyof typeof SPACING_MAP
-  paneRef: React.RefObject<HTMLDivElement>
+  paneRef: React.RefObject<HTMLDivElement | null>
 }>({
   padding: 'normal',
   rowGap: 'normal',
@@ -261,7 +261,7 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
   }, [isDragging, isKeyboardDrag, currentWidth, minWidth, maxWidth])
 
   return (
-    <div
+    (<div
       className={clsx(classes.VerticalDivider, className)}
       data-variant={responsiveVariant}
       data-position={position}
@@ -269,7 +269,7 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
     >
       {draggable ? (
         // Drag handle
-        <div
+        (<div
           className={classes.DraggableHandle}
           data-dragging={isDragging || isKeyboardDrag}
           role="slider"
@@ -297,10 +297,10 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
             }
           }}
           onDoubleClick={onDoubleClick}
-        />
+        />)
       ) : null}
-    </div>
-  )
+    </div>)
+  );
 }
 
 // ----------------------------------------------------------------------------

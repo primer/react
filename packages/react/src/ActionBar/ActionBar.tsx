@@ -223,7 +223,7 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
       const newMenuItemIds = getMenuItems(navWidth, moreMenuWidth, childRegistry, hasActiveMenu, computedGap)
       if (newMenuItemIds) setMenuItemIds(newMenuItemIds)
     }
-  }, navRef as RefObject<HTMLElement>)
+  }, navRef as RefObject<HTMLElement | null>)
 
   const isVisibleChild = useCallback(
     (id: string) => {
@@ -426,7 +426,7 @@ const ActionBarGroupContext = React.createContext<{
 
 export const ActionBarGroup = forwardRef(({children}: React.PropsWithChildren, forwardedRef) => {
   const backupRef = useRef<HTMLDivElement>(null)
-  const ref = (forwardedRef ?? backupRef) as RefObject<HTMLDivElement>
+  const ref = (forwardedRef ?? backupRef) as RefObject<HTMLDivElement | null>
   const id = useId()
   const {registerChild, unregisterChild} = React.useContext(ActionBarContext)
 

@@ -5,7 +5,7 @@ import React, {useRef} from 'react'
 import {useOnOutsideClick} from '../hooks'
 
 // Stable empty array reference to avoid unnecessary re-renders
-const EMPTY_IGNORE_CLICK_REFS: React.RefObject<HTMLElement>[] = []
+const EMPTY_IGNORE_CLICK_REFS: React.RefObject<HTMLElement | null>[] = []
 
 type CaretPosition =
   | 'top'
@@ -62,7 +62,7 @@ export type PopoverContentProps = {
   /*
    * Refs to elements that should be ignored when detecting outside clicks
    */
-  ignoreClickRefs?: React.RefObject<HTMLElement>[]
+  ignoreClickRefs?: React.RefObject<HTMLElement | null>[]
 } & HTMLProps<HTMLDivElement>
 
 const PopoverContent: React.FC<React.PropsWithChildren<PopoverContentProps>> = ({

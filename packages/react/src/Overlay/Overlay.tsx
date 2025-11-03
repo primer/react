@@ -137,14 +137,14 @@ export const BaseOverlay = React.forwardRef(
 
 type ContainerProps = {
   anchorSide?: AnchorSide
-  ignoreClickRefs?: React.RefObject<HTMLElement>[]
-  initialFocusRef?: React.RefObject<HTMLElement>
+  ignoreClickRefs?: React.RefObject<HTMLElement | null>[]
+  initialFocusRef?: React.RefObject<HTMLElement | null>
   onClickOutside: (e: TouchOrMouseEvent) => void
   onEscape: (e: KeyboardEvent) => void
   portalContainerName?: string
   preventOverflow?: boolean
   preventFocusOnOpen?: boolean
-  returnFocusRef: React.RefObject<HTMLElement>
+  returnFocusRef: React.RefObject<HTMLElement | null>
 }
 
 type internalOverlayProps = Merge<OwnOverlayProps, ContainerProps>

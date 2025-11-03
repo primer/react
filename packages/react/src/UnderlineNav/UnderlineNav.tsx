@@ -151,7 +151,7 @@ export const UnderlineNav = forwardRef(
     forwardedRef,
   ) => {
     const backupRef = useRef<HTMLElement>(null)
-    const navRef = (forwardedRef ?? backupRef) as RefObject<HTMLElement>
+    const navRef = (forwardedRef ?? backupRef) as RefObject<HTMLElement | null>
     const listRef = useRef<HTMLUListElement>(null)
     const moreMenuRef = useRef<HTMLLIElement>(null)
     const moreMenuBtnRef = useRef<HTMLButtonElement>(null)
@@ -299,7 +299,7 @@ export const UnderlineNav = forwardRef(
           noIconChildWidthArray,
           updateListAndMenu,
         )
-    }, navRef as RefObject<HTMLElement>)
+    }, navRef as RefObject<HTMLElement | null>)
 
     // Compute menuInlineStyles if needed
     let menuInlineStyles: React.CSSProperties = {...baseMenuInlineStyles}

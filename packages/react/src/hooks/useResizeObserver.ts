@@ -11,7 +11,7 @@ export interface ResizeObserverEntry {
 
 export function useResizeObserver<T extends HTMLElement>(
   callback: ResizeObserverCallback,
-  target?: RefObject<T>,
+  target?: RefObject<T | null>,
   depsArray: unknown[] = [],
 ) {
   const [targetClientRect, setTargetClientRect] = useState<DOMRect | null>(null)

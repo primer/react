@@ -41,7 +41,7 @@ const UnwrappedList = <As extends React.ElementType = 'ul'>(
 
   const ariaLabelledBy = slots.heading ? (slots.heading.props.id ?? headingId) : listLabelledBy
   const listRole = role || listRoleFromContainer
-  const listRef = useProvidedRefOrCreate(forwardedRef as React.RefObject<HTMLUListElement>)
+  const listRef = useProvidedRefOrCreate(forwardedRef as React.RefObject<HTMLUListElement | null>)
 
   let enableFocusZone = false
   if (enableFocusZoneFromContainer !== undefined) enableFocusZone = enableFocusZoneFromContainer

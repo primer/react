@@ -20,7 +20,7 @@ const useFirstRender = () => {
 
 //TODO remove this when we remove usingRemoveActiveDescendant
 const getItemWithActiveDescendant = (
-  listRef: React.RefObject<HTMLUListElement>,
+  listRef: React.RefObject<HTMLUListElement | null>,
   items: FilteredActionListProps['items'],
 ) => {
   const listElement = listRef.current
@@ -42,8 +42,8 @@ const getItemWithActiveDescendant = (
 
 export const useAnnouncements = (
   items: FilteredActionListProps['items'],
-  listContainerRef: React.RefObject<HTMLUListElement>,
-  inputRef: React.RefObject<HTMLInputElement>,
+  listContainerRef: React.RefObject<HTMLUListElement | null>,
+  inputRef: React.RefObject<HTMLInputElement | null>,
   enabled: boolean = true,
   loading: boolean = false,
   message?: {title: string; description: string},

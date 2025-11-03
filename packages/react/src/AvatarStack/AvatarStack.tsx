@@ -38,7 +38,7 @@ const AvatarStackBody = ({
 }: {
   disableExpand: boolean | undefined
   hasInteractiveChildren: boolean | undefined
-  stackContainer: React.RefObject<HTMLDivElement>
+  stackContainer: React.RefObject<HTMLDivElement | null>
 } & React.ComponentPropsWithoutRef<'div'>) => {
   return (
     <div

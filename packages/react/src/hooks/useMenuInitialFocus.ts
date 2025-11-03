@@ -3,8 +3,8 @@ import {iterateFocusableElements} from '@primer/behaviors/utils'
 
 export const useMenuInitialFocus = (
   open: boolean,
-  containerRef?: React.RefObject<HTMLElement>,
-  anchorRef?: React.RefObject<HTMLElement>,
+  containerRef?: React.RefObject<HTMLElement | null>,
+  anchorRef?: React.RefObject<HTMLElement | null>,
 ) => {
   /**
    * We need to pick the first element to focus based on how the menu was opened,

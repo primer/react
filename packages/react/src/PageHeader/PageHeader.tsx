@@ -48,7 +48,7 @@ export type PageHeaderProps = {
 
 const Root = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeaderProps>>(
   ({children, className, as: BaseComponent = 'div', 'aria-label': ariaLabel, role, hasBorder}, forwardedRef) => {
-    const rootRef = useProvidedRefOrCreate<HTMLDivElement>(forwardedRef as React.RefObject<HTMLDivElement>)
+    const rootRef = useProvidedRefOrCreate<HTMLDivElement>(forwardedRef as React.RefObject<HTMLDivElement | null>)
 
     const isInteractive = (element: HTMLElement) => {
       return (
@@ -204,7 +204,7 @@ export type TitleAreaProps = {
 
 const TitleArea = React.forwardRef<HTMLDivElement, React.PropsWithChildren<TitleAreaProps>>(
   ({children, className, hidden = false, variant = 'medium'}, forwardedRef) => {
-    const titleAreaRef = useProvidedRefOrCreate<HTMLDivElement>(forwardedRef as React.RefObject<HTMLDivElement>)
+    const titleAreaRef = useProvidedRefOrCreate<HTMLDivElement>(forwardedRef as React.RefObject<HTMLDivElement | null>)
     const currentVariant = useResponsiveValue(variant, 'medium')
     return (
       <div

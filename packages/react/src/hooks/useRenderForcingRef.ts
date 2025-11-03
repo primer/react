@@ -19,5 +19,5 @@ export function useRenderForcingRef<TRef>(value?: TRef) {
     },
     [ref],
   )
-  return [ref as RefObject<TRef>, setRef] as const
+  return [ref as RefObject<TRef | null>, setRef] as const;
 }

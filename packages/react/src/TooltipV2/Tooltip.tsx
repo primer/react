@@ -40,7 +40,7 @@ type TriggerPropsType = Pick<
   | 'onTouchCancel'
   | 'onTouchEnd'
 > & {
-  ref?: React.RefObject<HTMLElement>
+  ref?: React.RefObject<HTMLElement | null>
 }
 
 // map tooltip direction to anchoredPosition props
@@ -113,7 +113,7 @@ export const Tooltip: ForwardRefExoticComponent<
   ) => {
     const tooltipId = useId(id)
     const child = Children.only(children)
-    const triggerRef = useProvidedRefOrCreate(forwardedRef as React.RefObject<HTMLElement>)
+    const triggerRef = useProvidedRefOrCreate(forwardedRef as React.RefObject<HTMLElement | null>)
     const tooltipElRef = useRef<HTMLDivElement>(null)
 
     const [calculatedDirection, setCalculatedDirection] = useState<TooltipDirection>(direction)

@@ -6,8 +6,8 @@ export function useRovingTabIndex({
   containerRef,
   mouseDownRef,
 }: {
-  containerRef: React.RefObject<HTMLElement>
-  mouseDownRef: React.RefObject<boolean>
+  containerRef: React.RefObject<HTMLElement | null>
+  mouseDownRef: React.RefObject<boolean | null>
 }) {
   // TODO: Initialize focus to the aria-current item if it exists
   useFocusZone({
