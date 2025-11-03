@@ -28,20 +28,19 @@ To install `@primer/react` in your project, you will need to run the following
 command using [npm](https://www.npmjs.com/):
 
 ```bash
-npm install -S @primer/react @primer/primitives styled-components@5.x
+npm install -S @primer/react @primer/primitives
 ```
 
 If you prefer [Yarn](https://yarnpkg.com/), use the following command instead:
 
 ```bash
-yarn add @primer/react @primer/primitives styled-components@5.x
+yarn add @primer/react @primer/primitives
 ```
 
 This command will install three packages in your project:
 
 - `@primer/react`: used to import and use all the components from Primer
 - `@primer/primitives`: used to include the design tokens from Primer
-- `styled-components`: used to style components
 
 To learn more about how to use `@primer/react`, visit our documentation site at:
 [primer.style](https://primer.style).
@@ -66,15 +65,13 @@ At the root of your application, you'll also want to include our
 // Import each of the themes you would like to use, by default we are including
 // the light theme below
 import '@primer/primitives/dist/css/functional/themes/light.css'
-import {BaseStyles, ThemeProvider} from '@primer/react'
+import {BaseStyles} from '@primer/react'
 
 function RootLayout() {
   return (
-    <ThemeProvider>
-      <BaseStyles>
-        <App />
-      </BaseStyles>
-    </ThemeProvider>
+    <BaseStyles>
+      <App />
+    </BaseStyles>
   )
 }
 ```
