@@ -37,7 +37,7 @@ If you prefer [Yarn](https://yarnpkg.com/), use the following command instead:
 yarn add @primer/react @primer/primitives
 ```
 
-This command will install three packages in your project:
+This command will install two packages in your project:
 
 - `@primer/react`: used to import and use all the components from Primer
 - `@primer/primitives`: used to include the design tokens from Primer
