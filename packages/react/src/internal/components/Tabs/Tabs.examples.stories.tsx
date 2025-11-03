@@ -21,8 +21,8 @@ const CustomTabList = (props: React.PropsWithChildren) => {
   )
 }
 
-const CustomTab = (props: React.PropsWithChildren<{value: string}>) => {
-  const tabProps = useTab({value: props.value})
+const CustomTab = (props: React.PropsWithChildren<{value: string; disabled?: boolean}>) => {
+  const tabProps = useTab({value: props.value, disabled: props.disabled})
 
   return (
     <ActionList.Item {...tabProps} active={String(tabProps['aria-selected']) === 'true'}>
@@ -61,10 +61,14 @@ export const WithCustomComponents = () => {
             <CustomTab value="one">One</CustomTab>
             <CustomTab value="two">Two</CustomTab>
             <CustomTab value="three">Three</CustomTab>
+            <CustomTab disabled value="four">
+              Four
+            </CustomTab>
           </CustomTabList>
           <TabPanel value="one">Panel one</TabPanel>
           <TabPanel value="two">Panel two</TabPanel>
           <TabPanel value="three">Panel three</TabPanel>
+          <TabPanel value="four">Panel four</TabPanel>
         </Tabs>
       </div>
       <button
