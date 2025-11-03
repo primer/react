@@ -687,6 +687,10 @@ span wrapping svg or text */
 /* trailing action icon button */
 
 .TrailingActionButton {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  height: 100%;
+
   /* Preserve width consistency when loading state is active for text buttons only */
   &[data-loading='true']:has([data-component='buttonContent']) {
     /* Double the left padding to compensate for missing right padding */
