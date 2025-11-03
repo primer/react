@@ -55,6 +55,10 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        react-version: ['react-18', 'react-19']
     steps:
       - name: Checkout repository
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8
@@ -72,6 +76,8 @@ jobs:
             ${{ runner.os }}-turbo-
       - name: Install dependencies
         run: npm ci
+      - if: ${{ matrix.react-version == 'react-19' }}
+        run: node script/setup-react-19.mts
       - name: Build
         run: npm run build
       - name: Run tests defined in vitest
@@ -81,6 +87,10 @@ jobs:
 
   type-check:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        react-version: ['react-18', 'react-19']
     steps:
       - name: Checkout repository
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8
@@ -98,6 +108,8 @@ jobs:
             ${{ runner.os }}-turbo-
       - name: Install dependencies
         run: npm ci
+      - if: ${{ matrix.react-version == 'react-19' }}
+        run: node script/setup-react-19.mts
       - name: Build project
         run: npm run build
       - name: Type check
@@ -105,6 +117,10 @@ jobs:
 
   examples:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        react-version: ['react-18', 'react-19']
     steps:
       - name: Checkout repository
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8
@@ -122,6 +138,8 @@ jobs:
             ${{ runner.os }}-turbo-
       - name: Install dependencies
         run: npm ci
+      - if: ${{ matrix.react-version == 'react-19' }}
+        run: node script/setup-react-19.mts
       - name: Build
         run: npx turbo build
 
