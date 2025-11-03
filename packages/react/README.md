@@ -84,7 +84,7 @@ In addition, you will need to add the following attributes to your `html` elemen
   data-dark-theme="dark"
   data-color-mode="auto"
 >
-<!-- ...-->
+<!-- ... -->
 </html>
 ```
 
